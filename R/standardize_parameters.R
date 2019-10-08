@@ -93,20 +93,8 @@ standardize_parameters <- function(model, robust = FALSE, method = "refit", verb
 #' @keywords internal
 .standardize_parameters_refit <- function(model, robust = FALSE, method = "refit", verbose = TRUE, ...) {
   std_model <- standardize(model, robust = robust, method = method, verbose = verbose, ...)
-
-  # Bayesian models
-  if (insight::model_info(model)$is_bayesian) {
-    std_params <- bayestestR::describe_posterior(std_model, dispersion = FALSE, ci = NULL, test = NULL, diagnostic = NULL, priors = FALSE, ...)
-    std_params <- std_params[names(std_params) %in% c("Parameter", "Coefficient", "Median", "Mean", "MAP")]
-
-    # Frequentist models
-  } else {
-    std_params <- insight::get_parameters(std_model, ...)
-    names(std_params) <- c("Parameter", "Coefficient")
-  }
-  std_params
+  .extract_parameters(std_model)
 }
-
 
 
 
@@ -129,7 +117,7 @@ standardize_parameters <- function(model, robust = FALSE, method = "refit", verb
 
   # Get parameters
   if (is.null(param_names) | is.null(param_values) | length(param_names) != length(param_values)) {
-    params <- insight::get_parameters(model, ...)
+    params <- .extract_parameters(model)
     param_values <- params[names(params) %in% c("Coefficient", "Median", "Mean", "MAP")]
     param_names <- params$Parameter
 
@@ -175,3 +163,17 @@ standardize_parameters <- function(model, robust = FALSE, method = "refit", verb
 }
 
 
+
+
+
+#' @keywords internal
+.extract_parameters <- function(model, ...){
+  if (insight::model_info(model)$is_bayesian) {
+    params <- bayestestR::describe_posterior(model, dispersion = FALSE, ci = NULL, test = NULL, diagnostic = NULL, priors = FALSE)
+    params <- params[names(params) %in% c("Parameter", "Coefficient", "Median", "Mean", "MAP")]
+  } else{
+    params <- insight::get_parameters(model, ...)
+    names(params) <- c("Parameter", "Coefficient")
+  }
+  params
+}

@@ -229,7 +229,19 @@ used to calculate confidence intervals for the standardized coefficients. See 'E
 #&gt; 3              Speciesvirginica      0.06698865
 #&gt; 4                   Petal.Width      0.93017273
 #&gt; 5 Speciesversicolor:Petal.Width      0.49619195
-#&gt; 6  Speciesvirginica:Petal.Width     -0.27934215</div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>)</div><div class='output co'>#&gt; data frame with 0 columns and 0 rows</div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; data frame with 0 columns and 0 rows</div><div class='input'>
+#&gt; 6  Speciesvirginica:Petal.Width     -0.27934215</div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>)</div><div class='output co'>#&gt;                       Parameter Std_Coefficient
+#&gt; 1                   (Intercept)       0.0000000
+#&gt; 2             Speciesversicolor      -0.8846360
+#&gt; 3              Speciesvirginica       0.5944450
+#&gt; 4                   Petal.Width       0.8562271
+#&gt; 5 Speciesversicolor:Petal.Width       0.4567464
+#&gt; 6  Speciesvirginica:Petal.Width      -0.2571354</div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                       Parameter Std_Coefficient
+#&gt; 1                   (Intercept)       0.0000000
+#&gt; 2             Speciesversicolor      -0.7058421
+#&gt; 3              Speciesvirginica       0.4743016
+#&gt; 4                   Petal.Width       0.9301727
+#&gt; 5 Speciesversicolor:Petal.Width       0.4961919
+#&gt; 6  Speciesvirginica:Petal.Width      -0.2793421</div><div class='input'>
 <span class='co'># show CI</span>
 <span class='no'>ps</span> <span class='kw'>&lt;-</span> <span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='co'># ci(ps)</span>
@@ -248,12 +260,36 @@ used to calculate confidence intervals for the standardized coefficients. See 'E
 #&gt; 3               Speciesvirginica       -7.961370
 #&gt; 4                   Sepal.Length        5.312411
 #&gt; 5 Speciesversicolor:Sepal.Length       -1.903594
-#&gt; 6  Speciesvirginica:Sepal.Length       -4.405008</div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>)</div><div class='output co'>#&gt; data frame with 0 columns and 0 rows</div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; data frame with 0 columns and 0 rows</div><div class='input'><span class='co'># \donttest{</span>
+#&gt; 6  Speciesvirginica:Sepal.Length       -4.405008</div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>)</div><div class='output co'>#&gt;                        Parameter Std_Coefficient
+#&gt; 1                    (Intercept)        0.000000
+#&gt; 2              Speciesversicolor        1.173802
+#&gt; 3               Speciesvirginica       16.656626
+#&gt; 4                   Sepal.Length        4.238719
+#&gt; 5 Speciesversicolor:Sepal.Length       -1.518858
+#&gt; 6  Speciesvirginica:Sepal.Length       -3.514712</div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                        Parameter Std_Coefficient
+#&gt; 1                    (Intercept)        0.000000
+#&gt; 2              Speciesversicolor        1.173802
+#&gt; 3               Speciesvirginica       16.656626
+#&gt; 4                   Sepal.Length        5.312411
+#&gt; 5 Speciesversicolor:Sepal.Length       -1.903594
+#&gt; 6  Speciesvirginica:Sepal.Length       -4.405008</div><div class='input'><span class='co'># \donttest{</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>rstanarm</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: package 'rstanarm' was built under R version 3.6.1</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: Rcpp</span></div><div class='output co'>#&gt; <span class='warning'>Warning: package 'Rcpp' was built under R version 3.6.1</span></div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'xts':</span>
 #&gt; <span class='message'>  method     from</span>
 #&gt; <span class='message'>  as.zoo.xts zoo </span></div><div class='output co'>#&gt; <span class='message'>rstanarm (Version 2.18.2, packaged: 2018-11-08 22:19:38 UTC)</span></div><div class='output co'>#&gt; <span class='message'>- Do not expect the default priors to remain the same in future rstanarm versions.</span></div><div class='output co'>#&gt; <span class='message'>Thus, R scripts should specify priors explicitly, even if they are just the defaults.</span></div><div class='output co'>#&gt; <span class='message'>- For execution on a local, multicore CPU with excess RAM we recommend calling</span></div><div class='output co'>#&gt; <span class='message'>options(mc.cores = parallel::detectCores())</span></div><div class='output co'>#&gt; <span class='message'>- Plotting theme set to bayesplot::theme_default().</span></div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://mc-stan.org/rstanarm/reference/stan_glm.html'>stan_glm</a></span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Species</span> * <span class='no'>Petal.Width</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>, <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>refresh</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
-#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>, <span class='kw'>centrality</span> <span class='kw'>=</span> <span class='st'>"all"</span>)</div><div class='output co'>#&gt; data frame with 0 columns and 0 rows</div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>centrality</span> <span class='kw'>=</span> <span class='st'>"all"</span>)</div><div class='output co'>#&gt; data frame with 0 columns and 0 rows</div><div class='input'># }
+#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>, <span class='kw'>centrality</span> <span class='kw'>=</span> <span class='st'>"all"</span>)</div><div class='output co'>#&gt;                       Parameter Std_Median
+#&gt; 1                   (Intercept)  0.0000000
+#&gt; 2             Speciesversicolor -0.8307079
+#&gt; 3              Speciesvirginica  0.5169425
+#&gt; 4                   Petal.Width  0.8166340
+#&gt; 5 Speciesversicolor:Petal.Width  0.4788001
+#&gt; 6  Speciesvirginica:Petal.Width -0.1994149</div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>centrality</span> <span class='kw'>=</span> <span class='st'>"all"</span>)</div><div class='output co'>#&gt;                       Parameter Std_Median
+#&gt; 1                   (Intercept)  0.0000000
+#&gt; 2             Speciesversicolor -0.6628135
+#&gt; 3              Speciesvirginica  0.4124632
+#&gt; 4                   Petal.Width  0.8871603
+#&gt; 5 Speciesversicolor:Petal.Width  0.5201503
+#&gt; 6  Speciesvirginica:Petal.Width -0.2166368</div><div class='input'># }
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

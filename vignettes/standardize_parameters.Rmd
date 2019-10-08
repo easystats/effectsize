@@ -38,93 +38,96 @@ Critically, **parameters standardization is not a trivial process**. Different t
 
 **`parameters` include different techniques of parameters standardization**, described below [@bring1994standardize;@menard2004six;@gelman2008scaling;@schielzeth2010simple;@menard2011standards].
 
+# How to interpret standardized coefficients?
+
+Cohen's d? Correlations r?
+
+
 
 # Standardization methods
 
-## `refit`: Re-fitting the model with standardized data
+### **"refit"**: Re-fitting the model with standardized data
 
 **This method is based on a complete model re-fit with a standardized version of data**. Hence, this method is equal to standardizing the variables before fitting the model. It is the "purest" and the most accurate [@neter1989applied], but it is also the most computationally costly and long (especially for Bayesian models). This method is particularly recommended for complex models that include interactions or transformations (*e.g.*, polynomial or spline terms).
 
 
-```{r message=FALSE, warning=FALSE, results='hide', eval = FALSE}
+```{r message=FALSE, warning=FALSE, results='hide'}
 library(effectsize)
 
 data <- iris
 model <- lm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data)
 
-parameters_standardize(model, method="refit")
+standardize_parameters(model, method="refit")
 ```
-```{r message=FALSE, warning=FALSE, echo=FALSE, eval = FALSE}
-knitr::kable(parameters_standardize(model, method="refit"), digits=2)
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(standardize_parameters(model, method="refit"), digits=2)
 ```
 
 The `robust` (default to `FALSE`) argument enables a **robust standardization of data**, *i.e.*, based on the **median** and **MAD** instead of the **mean** and **SD**.
 
-```{r warning=FALSE, message=FALSE, results='hide', eval = FALSE}
-parameters_standardize(model, method="refit", robust=TRUE)
+```{r warning=FALSE, message=FALSE, results='hide'}
+standardize_parameters(model, method="refit", robust=TRUE)
 ```
-```{r message=FALSE, warning=FALSE, echo=FALSE, eval = FALSE}
-knitr::kable(parameters_standardize(model, method="refit", robust=TRUE), digits=2)
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(standardize_parameters(model, method="refit", robust=TRUE), digits=2)
 ```
 
 
 This method is very flexible as it can be applied to all types of models (linear, logistic...).
 
-```{r warning=FALSE, message=FALSE, results='hide', eval = FALSE}
-library(parameters)
-
+```{r warning=FALSE, message=FALSE, results='hide'}
 data$binary <- ifelse(data$Sepal.Width > 3, 1, 0)
 model <- glm(binary ~ Species + Sepal.Length, data = data, family="binomial")
-parameters_standardize(model, method="refit")
+standardize_parameters(model, method="refit")
 ```
-```{r message=FALSE, warning=FALSE, echo=FALSE, eval = FALSE}
-knitr::kable(parameters_standardize(model, method="refit"), digits=2)
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(standardize_parameters(model, method="refit"), digits=2)
 ```
 
-## `2sd`: Scaling by two 2 SDs
+### **"2SD"**: Scaling by two 2 SDs
 
 Same as `method = "refit"`, however, standardization is done by dividing by two times the `SD` or `MAD` (depending on `robust`). This method is useful to obtain coefficients of continuous parameters comparable to coefficients related to binary predictors [@gelman2008scaling].
 
 
 
-## `smart`: Scaling by the variances of the response and the predictor
+### **"smart"**: Scaling by the variances of the response and the predictor
 
 Post-hoc standardization of the model paramaters. The coefficients are divided by the standard deviation (or MAD if `robust`) of the outcome (which becomes their expression 'unit'). Then, the coefficients related to numeric variables are additionaly multiplied by the standard deviation (or MAD if `robust`) of the related term, so that they correspond to changes of 1 SD of the predictor (e.g., "A change in 1 SD of `x` is related to a change of 0.24 of the SD of `y`). This does not apply to binary variables or factors, so the coefficients are still related to changes in levels.
 
 
-```{r warning=FALSE, message=FALSE, results='hide', eval = FALSE}
+```{r warning=FALSE, message=FALSE, results='hide'}
 model <- lm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data)
-parameters_standardize(model, method="smart")
+standardize_parameters(model, method="smart")
 ```
-```{r message=FALSE, warning=FALSE, echo=FALSE, eval = FALSE}
-knitr::kable(parameters_standardize(model, method="smart"), digits=2)
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(standardize_parameters(model, method="smart"), digits=2)
 ```
 
-## `classic`: Basic scaling of all parameters
+### **"classic"**: Basic scaling of all parameters
 
 This method is similar to `method = "smart"`, but treats all variables as continuous: it also scales the coefficient by the standard deviation of factors (transformed to integers) or binary predictors. Altough being inapropriate for these cases, this method is the one implemented by default in other softwares, such as `lm.beta::lm.beta()`.
 
-# Methods Comparison
+## Methods Comparison
 
 We will use the "refit" method as the baseline. We will then compute the differences between these standardized parameters and the ones provided by the other functions. The **bigger the (absolute) number, the worse it is**. 
 
-> **SPOILER ALERT: the standardization implemented in `parameters` is the most accurate and the most flexible.**
+> **SPOILER ALERT: the standardization implemented in `effectsize` is the most accurate and the most flexible.**
 
-```{r message=FALSE, warning=FALSE, eval = FALSE}
-library(parameters)
+```{r message=FALSE, warning=FALSE}
+library(effectsize)
 library(lm.beta)
 library(MuMIn)
 
 comparison <- function(model, robust=FALSE){
-  out <- parameters_standardize(model, method="refit", robust=robust)[1:2]
+  out <- standardize_parameters(model, method="refit", robust=robust)[1:2]
   
   out$smart <- tryCatch({
-    out[, 2] - parameters_standardize(model, method="smart", robust=robust)[, 2]
+    out[, 2] - standardize_parameters(model, method="smart", robust=robust)[, 2]
 }, error = function(error_condition) {
     "Error"
 })
   out$classic <- tryCatch({
-    out[, 2] - parameters_standardize(model, method="classic", robust=robust)[, 2]
+    out[, 2] - standardize_parameters(model, method="classic", robust=robust)[, 2]
 }, error = function(error_condition) {
     "Error"
 })
@@ -149,13 +152,13 @@ comparison <- function(model, robust=FALSE){
 ```
 
 
-## Models with only numeric predictors
+### Models with only numeric predictors
 
 
-### Linear Model
+#### Linear Model
 
 
-```{r message=FALSE, warning=FALSE, results='hide', eval = FALSE}
+```{r message=FALSE, warning=FALSE, results='hide'}
 data <- iris
 data$Group_Sepal.Width <- as.factor(ifelse(data$Sepal.Width > 3, "High", "Low"))
 data$Binary_Sepal.Width <- as.factor(ifelse(data$Sepal.Width > 3, 1, 0))
@@ -163,168 +166,184 @@ data$Binary_Sepal.Width <- as.factor(ifelse(data$Sepal.Width > 3, 1, 0))
 model <- lm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data) 
 comparison(model)
 ```
-```{r message=FALSE, warning=FALSE, echo=FALSE, eval = FALSE}
-knitr::kable(comparison(model), digits=2)
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(comparison(model), digits=2, row.names = FALSE)
 ```
 
 For this simple model, **all methods return results equal to the "refit" method**.
 
-### Logistic Model
+#### Logistic Model
 
 
-```{r message=FALSE, warning=FALSE, results='hide', eval = FALSE}
+```{r message=FALSE, warning=FALSE, results='hide'}
 model <- glm(Binary_Sepal.Width ~ Petal.Width + Sepal.Length, data=data, family="binomial")
 comparison(model)
 ```
-```{r message=FALSE, warning=FALSE, echo=FALSE, eval = FALSE}
-knitr::kable(comparison(model), digits=2)
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(comparison(model), digits=2, row.names = FALSE)
 ```
 
 
-### Linear Mixed Model
+#### Linear Mixed Model
 
 
-```{r message=FALSE, warning=FALSE, results='hide', eval = FALSE}
+```{r message=FALSE, warning=FALSE, results='hide'}
 library(lme4)
 
 model <- lme4::lmer(Sepal.Length ~ Petal.Width + Sepal.Width + (1|Species), data=data)
 comparison(model)
 ```
-```{r message=FALSE, warning=FALSE, echo=FALSE, eval = FALSE}
-knitr::kable(comparison(model), digits=2)
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(comparison(model), digits=2, row.names = FALSE)
 ```
 
 For this simple mixed model, **all methods return results equal to the "refit" method**.
 
-### Interactions
-
-```{r message=FALSE, warning=FALSE, results='hide', eval = FALSE}
-model <- lm(Sepal.Length ~ Petal.Width * Sepal.Width, data=data)
-comparison(model)
-```
-```{r message=FALSE, warning=FALSE, echo=FALSE, eval = FALSE}
-knitr::kable(comparison(model), digits=2)
-```
 
 
 When interactions are involved, post-hoc methods return different results. However, methods implemented in other softwares perform arguably worse.
 
 
-### Transformation
+#### Transformation
 
-```{r message=FALSE, warning=FALSE, results='hide', eval = FALSE}
+```{r message=FALSE, warning=FALSE, results='hide'}
 model <- lm(Sepal.Length ~ poly(Petal.Width, 2) + poly(Sepal.Width, 2), data=data)
 comparison(model)
 ```
-```{r message=FALSE, warning=FALSE, echo=FALSE, eval = FALSE}
-knitr::kable(comparison(model), digits=2)
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(comparison(model), digits=2, row.names = FALSE)
 ```
 
 For polynomial transformations, other software become very unreliable.
 
-### Bayesian Models
+#### Bayesian Models
 
-```{r message=FALSE, warning=FALSE, eval=FALSE, eval = FALSE}
+```{r message=FALSE, warning=FALSE, eval=FALSE}
 library(rstanarm)
 
 model <- stan_glm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data)
 comparison(model)
 ```
-```{r message=FALSE, warning=FALSE, echo=FALSE, eval = FALSE}
+```{r message=FALSE, warning=FALSE, echo=FALSE}
 library(rstanarm)
 model <- stan_glm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data, refresh = 0)
-knitr::kable(comparison(model), digits=2)
+knitr::kable(comparison(model), digits=2, row.names = FALSE)
 ```
 
 
 
-## Models with factors
+### Models with factors
 
-### Linear Model
+#### Linear Model
 
 
-```{r message=FALSE, warning=FALSE, results='hide', eval = FALSE}
+```{r message=FALSE, warning=FALSE, results='hide'}
 model <- lm(Sepal.Length ~ Petal.Width + Group_Sepal.Width, data=data) 
 comparison(model)
 ```
-```{r message=FALSE, warning=FALSE, echo=FALSE, eval = FALSE}
-knitr::kable(comparison(model), digits=2)
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(comparison(model), digits=2, row.names = FALSE)
 ```
 
 When factors are involved, methods that standardize the numeric transformation of factors give different results.
 
 
-### Logistic Model
+#### Logistic Model
 
 
-```{r message=FALSE, warning=FALSE, results='hide', eval = FALSE}
+```{r message=FALSE, warning=FALSE, results='hide'}
 model <- glm(Binary_Sepal.Width ~ Petal.Width + Species, data=data, family="binomial")
 comparison(model)
 ```
-```{r message=FALSE, warning=FALSE, echo=FALSE, eval = FALSE}
-knitr::kable(comparison(model), digits=2)
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(comparison(model), digits=2, row.names = FALSE)
 ```
 
 
-### Linear Mixed Model
+#### Linear Mixed Model
 
 
-```{r message=FALSE, warning=FALSE, results='hide', eval = FALSE}
+```{r message=FALSE, warning=FALSE, results='hide'}
 library(lme4)
 
 model <- lme4::lmer(Sepal.Length ~ Petal.Length + Group_Sepal.Width + (1|Species), data=data)
 comparison(model)
 ```
-```{r message=FALSE, warning=FALSE, echo=FALSE, eval = FALSE}
-knitr::kable(comparison(model), digits=2)
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(comparison(model), digits=2, row.names = FALSE)
 ```
 
-### Interactions
 
-```{r message=FALSE, warning=FALSE, results='hide', eval = FALSE}
-model <- lm(Sepal.Length ~ Petal.Width * Group_Sepal.Width, data=data)
-comparison(model)
-```
-```{r message=FALSE, warning=FALSE, echo=FALSE, eval = FALSE}
-knitr::kable(comparison(model), digits=2)
-```
+#### Bayesian Models
 
-```{r message=FALSE, warning=FALSE, results='hide', eval = FALSE}
-model <- lm(Sepal.Length ~ Group_Sepal.Width * Petal.Width, data=data)
-comparison(model)
-```
-```{r message=FALSE, warning=FALSE, echo=FALSE, eval = FALSE}
-knitr::kable(comparison(model), digits=2)
-```
-
-### Bayesian Models
-
-```{r message=FALSE, warning=FALSE, eval=FALSE, eval = FALSE}
+```{r message=FALSE, warning=FALSE}
 library(rstanarm)
 
 model <- stan_glm(Sepal.Length ~ Petal.Width + Group_Sepal.Width, data=data)
 comparison(model)
 ```
-```{r message=FALSE, warning=FALSE, echo=FALSE, eval = FALSE}
+```{r message=FALSE, warning=FALSE, echo=FALSE}
 library(rstanarm)
-model <- stan_glm(Sepal.Length ~ Petal.Width + Group_Sepal.Width, data=data, refresh = 0)
-knitr::kable(comparison(model), digits=2)
+
+model <- stan_glm(Sepal.Length ~ Petal.Width + Group_Sepal.Width, data=data, refresh = 0, iter = 500)
+knitr::kable(comparison(model), digits=2, row.names = FALSE)
 ```
 
-```{r message=FALSE, warning=FALSE, eval=FALSE, eval = FALSE}
+```{r message=FALSE, warning=FALSE}
 library(rstanarm)
 
 model <- stan_lmer(Sepal.Length ~ Petal.Width + Group_Sepal.Width + (1|Species), data=data)
 comparison(model)
 ```
-```{r message=FALSE, warning=FALSE, echo=FALSE, eval = FALSE}
+```{r message=FALSE, warning=FALSE, echo=FALSE}
 library(rstanarm)
 model <- stan_lmer(Sepal.Length ~ Petal.Width + Group_Sepal.Width + (1|Species), data=data, refresh = 0, iter = 500)
-knitr::kable(comparison(model), digits=2)
+knitr::kable(comparison(model), digits=2, row.names = FALSE)
+```
+
+### Models with interactions
+
+#### Between continuous
+
+```{r message=FALSE, warning=FALSE, results='hide'}
+model <- lm(Sepal.Length ~ Petal.Width * Sepal.Width, data=data)
+comparison(model)
+```
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(comparison(model), digits=2, row.names = FALSE)
+```
+
+#### Between factors
+
+```{r message=FALSE, warning=FALSE, results='hide'}
+model <- lm(Sepal.Length ~ Species * Group_Sepal.Width, data=data)
+comparison(model)
+```
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(comparison(model), digits=2, row.names = FALSE)
 ```
 
 
-# Conclusion
+#### Between factors and continuous
+
+```{r message=FALSE, warning=FALSE, results='hide'}
+model <- lm(Sepal.Length ~ Petal.Width * Group_Sepal.Width, data=data)
+comparison(model)
+```
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(comparison(model), digits=2, row.names = FALSE)
+```
+
+```{r message=FALSE, warning=FALSE, results='hide'}
+model <- lm(Sepal.Length ~ Group_Sepal.Width * Petal.Width, data=data)
+comparison(model)
+```
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(comparison(model), digits=2, row.names = FALSE)
+```
+
+
+## Conclusion
 
 Use `refit` if possible, otherwise `smart`.
 

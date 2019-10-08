@@ -62,7 +62,10 @@ library("effectsize")
 
 Click on the buttons above to access the package [**documentation**](https://easystats.github.io/effectsize/) and the [**easystats blog**](https://easystats.github.io/blog/posts/), and check-out these vignettes:
 
+- [**Data Standardization**](https://easystats.github.io/effectsize/articles/standardize_data.html)
+- [**Parameters Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
 - [**Automated Interpretation of Indices of Effect Size**](https://easystats.github.io/effectsize/articles/interpret.html)
+
 
 
 # Features
@@ -85,6 +88,10 @@ iris %>%
 ## Computation
 
 ## Interpretation
+
+```{r, warning=FALSE, message=FALSE}
+interpret_d(0.5)
+```
 
 ## Conversion
 
