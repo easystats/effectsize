@@ -1,0 +1,11 @@
+authors:
+  Dominique Makowski:
+    href: https://dominiquemakowski.github.io/
+  Daniel Lüdecke:
+    href: https://github.com/strengejacke
+
+template:
+  params:
+    bootswatch: cosmo
+
+
