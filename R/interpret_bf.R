@@ -38,6 +38,6 @@ interpret_bf <- function(bf, rules = "jeffreys1961", include_value = FALSE) {
   if (include_value == FALSE) {
     return(paste0(interpretation, " evidence ", dir))
   } else {
-    return(paste0(interpretation, " evidence (", parameters::format_bf(ori_bf), ") ", dir))
+    return(paste0(interpretation, " evidence (BF = ", insight::format_value(ori_bf), ") ", dir))
   }
 }

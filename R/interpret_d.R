@@ -25,7 +25,7 @@ interpret_d <- function(d, rules = "funder2019") {
     return(interpret(abs(d), rules))
   } else {
     if (rules == "funder2019") {
-      return(interpret(parameters::d_to_r(abs(d)), rules(c(0.05, 0.1, 0.2, 0.3, 0.4), c("tiny", "very small", "small", "medium", "large", "very large"))))
+      return(interpret(d_to_r(abs(d)), rules(c(0.05, 0.1, 0.2, 0.3, 0.4), c("tiny", "very small", "small", "medium", "large", "very large"))))
     } else if (rules == "gignac2016") {
       return(interpret(abs(d), rules(c(0.2, 0.4, 0.6), c("very small", "small", "medium", "large"))))
     } else if (rules == "cohen1988") {

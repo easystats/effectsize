@@ -1,0 +1,71 @@
+---
+title: "Data Standardization"
+output: 
+  github_document:
+    toc: true
+    fig_width: 10.08
+    fig_height: 6
+  rmarkdown::html_vignette:
+    toc: true
+    fig_width: 10.08
+    fig_height: 6
+tags: [r, effect size, rules of thumb, guidelines, interpretation]
+vignette: >
+  \usepackage[utf8]{inputenc}
+  %\VignetteIndexEntry{Data standardization}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+bibliography: bibliography.bib
+---
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(knitr)
+options(knitr.kable.NA = '')
+knitr::opts_chunk$set(comment=">")
+options(digits=2)
+```
+
+# Introduction
+
+To make sense of their data and effects, scientists might want to standardize (Z-score) their variables. They become unitless, expressed only in terms of deviation from an index of centrality (e.g., the mean or the median).
+
+ADD MORE.
+
+
+
+
+## Normal *vs.* Robust
+
+ADD MORE.
+
+## Variable-wise *vs.* Participant-wise 
+
+Standardization is an important step and extra caution is required in **repeated-measures designs**, in which there are three ways of standardizing data:
+
+-   **Variable-wise**: The most common method. A simple scaling of each column.
+-   **Participant-wise**: Variables are standardized "within" each participant, *i.e.*, for each participant, by the participant's mean and SD.
+-   **Full**: Participant-wise first and then re-standardizing variable-wise.
+
+Unfortunately, the method used is often not explicitly stated. This is an issue as these methods can generate important discrepancies (that can in turn contribute to the reproducibility crisis). Let's investigate these 3 methods.
+
+
+[Use this](https://github.com/neuropsychology/psycho.R/blob/master/docs/_posts/preparation/published/standardize_grouped_df.Rmd)
+
+<!-- **While the three standardization methods roughly present the same characteristics at a general level (mean 0 and SD 1) and a similar distribution, their values are very different and completely uncorrelated!** -->
+
+
+
+<!-- As we can see, in our case, using **participant-wise standardization resulted in a significant (at *p* = .1) effect**! But keep in mind that *this is not always the case*. In can be the contrary, or generate very similar results. **No method is better or more justified, and its choice depends on the specific case, context, data and goal**. -->
+
+<!-- ### Conclusion  -->
+
+<!-- 1.  **Standardization can be useful in *some* cases and should be justified** -->
+<!-- 2.  **Variable and Participant-wise standardization methods produce "in appearance" similar data** -->
+<!-- 3.  **Variable and Participant-wise standardization can lead to different and uncorrelated results** -->
+<!-- 4.  **The choice of the method can strongly influence the results and thus, should be explicitly stated** -->
+
+<!-- We showed here yet another way of **sneakily tweaking the data** that can change the results. **To prevent its use for *p*-hacking, we can only support the generalization of open-data, open-analysis and preregistration**. -->
+
+# References

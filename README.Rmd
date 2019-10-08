@@ -67,7 +67,30 @@ Click on the buttons above to access the package [**documentation**](https://eas
 
 # Features
 
-None.
+## Standardization
+
+```{r, warning=FALSE, message=FALSE}
+iris %>% 
+  standardize(robust = TRUE) %>% 
+  summary()
+```
+
+
+```{r, warning=FALSE, message=FALSE}
+iris %>% 
+  normalize() %>% 
+  summary()
+```
+
+## Computation
+
+## Interpretation
+
+## Conversion
+
+```{r, warning=FALSE, message=FALSE}
+convert_d_to_r(1)
+```
 
 
 # References

@@ -22,4 +22,9 @@ navbar:
     href: reference/index.html
   - text: Interpretation Guidelines
     href: articles/interpret.html
-
+  - text: Standardization
+    menu:
+      - text: 'Data standardization'
+        href: articles/standardize_data.html
+      - text: 'Parameters standardization'
+        href: articles/standardize_parameters.html
