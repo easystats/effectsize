@@ -3,4 +3,6 @@ pkgdown: 1.4.0
 pkgdown_sha: ~
 articles:
   interpret: interpret.html
+  standardize_data: standardize_data.html
+  standardize_parameters: standardize_parameters.html
 

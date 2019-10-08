@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Interpretation Grid — rules • effectsize</title>
+<title>Get Standardization Information — standardize_info • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -39,9 +39,9 @@
 
 
 
-<meta property="og:title" content="Interpretation Grid — rules" />
+<meta property="og:title" content="Get Standardization Information — standardize_info" />
 
-<meta property="og:description" content="Create a container for interpretation rules of thumb. See interpret." />
+<meta property="og:description" content="This function extracts information, such as the deviations (SD or MAD) from parent variables, that are necessary for post-hoc standardization of parameters." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -133,49 +133,54 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Interpretation Grid</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/interpret.R'><code>R/interpret.R</code></a></small>
-    <div class="hidden name"><code>rules.Rd</code></div>
+    <h1>Get Standardization Information</h1>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/standardize_info.R'><code>R/standardize_info.R</code></a></small>
+    <div class="hidden name"><code>standardize_info.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Create a container for interpretation rules of thumb. See <a href='interpret.html'>interpret</a>.</p>
+    <p>This function extracts information, such as the deviations (SD or MAD) from parent variables, that are necessary for post-hoc standardization of parameters.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>rules</span>(<span class='no'>breakpoints</span>, <span class='no'>labels</span>, <span class='kw'>if_lower</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>standardize_info</span>(<span class='no'>model</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>breakpoints</th>
-      <td><p>Vector of value break points (edges defining categories).</p></td>
+      <th>model</th>
+      <td><p>A statistical model.</p></td>
     </tr>
     <tr>
-      <th>labels</th>
-      <td><p>Labels associated with each category. Must contain one label more than breakpoints.</p></td>
+      <th>robust</th>
+      <td><p>Logical, if <code>TRUE</code>, centering is done by substracting the
+median from the variables and divide it by the median absolute deviation
+(MAD). If <code>FALSE</code>, variables are standardized by substracting the
+mean and divide it by the standard deviation (SD).</p></td>
     </tr>
     <tr>
-      <th>if_lower</th>
-      <td><p>If true, each label will be given if the value is strictly lower than its breakpoint. The contrary if false.</p></td>
+      <th>...</th>
+      <td><p>Arguments passed to or from other methods.</p></td>
     </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>rules</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.05</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"significant"</span>, <span class='st'>"not significant"</span>), <span class='kw'>if_lower</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; $breakpoints
-#&gt; [1] 0.05
-#&gt; 
-#&gt; $labels
-#&gt; [1] "significant"     "not significant"
-#&gt; 
-#&gt; $if_lower
-#&gt; [1] TRUE
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "rules" "list" </div></pre>
+    <pre class="examples"><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>Sepal.Width</span> ~ <span class='no'>Sepal.Length</span> + <span class='no'>Species</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)
+<span class='fu'>standardize_info</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;           Parameter      Type Factor Deviation_Response Mean_Response
+#&gt; 1       (Intercept) intercept   &lt;NA&gt;          0.4358663      3.057333
+#&gt; 2      Sepal.Length   numeric  FALSE          0.4358663      3.057333
+#&gt; 3 Speciesversicolor    factor   TRUE          0.4358663      3.057333
+#&gt; 4  Speciesvirginica    factor   TRUE          0.4358663      3.057333
+#&gt;   Deviation_Classic Mean_Classic Deviation_Smart Mean_Smart
+#&gt; 1         0.0000000    0.0000000       0.0000000   0.000000
+#&gt; 2         0.8280661    5.8433333       0.8280661   5.843333
+#&gt; 3         0.4729838    0.3333333       1.0000000   0.000000
+#&gt; 4         0.4729838    0.3333333       1.0000000   0.000000</div><div class='input'>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
