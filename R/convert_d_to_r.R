@@ -58,4 +58,3 @@ convert_d_to_r <- d_to_r
 #' @rdname d_to_r
 #' @export
 convert_r_to_d <- r_to_d
-

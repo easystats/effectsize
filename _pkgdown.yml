@@ -9,3 +9,17 @@ template:
     bootswatch: cosmo
 
 
+
+
+navbar:
+  type: default
+  left:
+  - icon: fa-home fa-lg
+    href: index.html
+  - text: News
+    href: news/index.html
+  - text: Features
+    href: reference/index.html
+  - text: Interpretation Guidelines
+    href: articles/interpret.html
+
