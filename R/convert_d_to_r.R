@@ -22,7 +22,6 @@
 #' d_to_r(d = 1)
 #' r_to_odds(0.4472136, log = TRUE)
 #' odds_to_d(1.813799, log = TRUE)
-#'
 #' @return Converted index.
 #'
 #' @details \itemize{

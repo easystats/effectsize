@@ -73,7 +73,6 @@ interpret_srmr(c(.5, .99))
 interpret_rfi(c(.5, .99))
 interpret_ifi(c(.5, .99))
 interpret_pnfi(c(.5, .99))
-
 }
 \references{
 \itemize{

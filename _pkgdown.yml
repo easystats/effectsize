@@ -26,5 +26,7 @@ navbar:
         href: articles/standardize_data.html
       - text: 'Parameters standardization'
         href: articles/standardize_parameters.html
+  - text: Effect size conversion
+    href: articles/convert.html
   - text: Interpretation Guidelines
     href: articles/interpret.html

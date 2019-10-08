@@ -1,0 +1,42 @@
+---
+title: "Converting between Indices of Effect Size"
+output: 
+  github_document:
+    toc: true
+    fig_width: 10.08
+    fig_height: 6
+  rmarkdown::html_vignette:
+    toc: true
+    fig_width: 10.08
+    fig_height: 6
+tags: [r, effect size, rules of thumb, guidelines, conversion]
+vignette: >
+  \usepackage[utf8]{inputenc}
+  %\VignetteIndexEntry{Converting between indices of effect size}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+bibliography: bibliography.bib
+---
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(knitr)
+options(knitr.kable.NA = '')
+knitr::opts_chunk$set(comment=">")
+options(digits=2)
+```
+
+
+
+The `effectsize` package contains function to convert among indices of effect size.
+
+```{r, warning=FALSE, message=FALSE}
+library(effectsize)
+
+convert_d_to_r(d = 1)
+```
+
+
+
+## References

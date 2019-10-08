@@ -45,22 +45,26 @@ check-out these vignettes:
     Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
   - [**Automated Interpretation of Indices of Effect
     Size**](https://easystats.github.io/effectsize/articles/interpret.html)
+  - [**Effect size
+    conversion**](https://easystats.github.io/effectsize/articles/convert.html)
 
 # Features
 
 ## Standardization
 
 ``` r
+library(dplyr)
+
 iris %>% 
   standardize(robust = TRUE) %>% 
-  summary()
-##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
-##  Min.   :-1.45   Min.   :-2.25   Min.   :-1.81   Min.   :-1.16  
-##  1st Qu.:-0.67   1st Qu.:-0.45   1st Qu.:-1.48   1st Qu.:-0.96  
-##  Median : 0.00   Median : 0.00   Median : 0.00   Median : 0.00  
-##  Mean   : 0.04   Mean   : 0.13   Mean   :-0.32   Mean   :-0.10  
-##  3rd Qu.: 0.58   3rd Qu.: 0.67   3rd Qu.: 0.40   3rd Qu.: 0.48  
-##  Max.   : 2.02   Max.   : 3.15   Max.   : 1.38   Max.   : 1.16  
+  summary(digits = 1)
+##   Sepal.Length    Sepal.Width    Petal.Length   Petal.Width  
+##  Min.   :-1.45   Min.   :-2.2   Min.   :-1.8   Min.   :-1.2  
+##  1st Qu.:-0.67   1st Qu.:-0.4   1st Qu.:-1.5   1st Qu.:-1.0  
+##  Median : 0.00   Median : 0.0   Median : 0.0   Median : 0.0  
+##  Mean   : 0.04   Mean   : 0.1   Mean   :-0.3   Mean   :-0.1  
+##  3rd Qu.: 0.58   3rd Qu.: 0.7   3rd Qu.: 0.4   3rd Qu.: 0.5  
+##  Max.   : 2.02   Max.   : 3.1   Max.   : 1.4   Max.   : 1.2  
 ##        Species  
 ##  setosa    :50  
 ##  versicolor:50  
@@ -73,21 +77,14 @@ iris %>%
 ``` r
 iris %>% 
   normalize() %>% 
-  summary()
-##   Sepal.Length   Sepal.Width    Petal.Length   Petal.Width  
-##  Min.   :0.00   Min.   :0.00   Min.   :0.00   Min.   :0.00  
-##  1st Qu.:0.22   1st Qu.:0.33   1st Qu.:0.10   1st Qu.:0.08  
-##  Median :0.42   Median :0.42   Median :0.57   Median :0.50  
-##  Mean   :0.43   Mean   :0.44   Mean   :0.47   Mean   :0.46  
-##  3rd Qu.:0.58   3rd Qu.:0.54   3rd Qu.:0.69   3rd Qu.:0.71  
-##  Max.   :1.00   Max.   :1.00   Max.   :1.00   Max.   :1.00  
-##        Species  
-##  setosa    :50  
-##  versicolor:50  
-##  virginica :50  
-##                 
-##                 
-## 
+  summary(digits = 1)
+##   Sepal.Length  Sepal.Width   Petal.Length  Petal.Width         Species  
+##  Min.   :0.0   Min.   :0.0   Min.   :0.0   Min.   :0.00   setosa    :50  
+##  1st Qu.:0.2   1st Qu.:0.3   1st Qu.:0.1   1st Qu.:0.08   versicolor:50  
+##  Median :0.4   Median :0.4   Median :0.6   Median :0.50   virginica :50  
+##  Mean   :0.4   Mean   :0.4   Mean   :0.5   Mean   :0.46                  
+##  3rd Qu.:0.6   3rd Qu.:0.5   3rd Qu.:0.7   3rd Qu.:0.71                  
+##  Max.   :1.0   Max.   :1.0   Max.   :1.0   Max.   :1.00
 ```
 
 ## Computation
@@ -103,15 +100,13 @@ standardize_parameters(lm(Sepal.Length ~ Species, data = iris))
 ## Interpretation
 
 ``` r
-interpret_d(0.5)
+interpret_d(d = 0.5)
 ## [1] "medium"
 ```
 
 ## Conversion
 
 ``` r
-convert_d_to_r(1)
+convert_d_to_r(d = 1)
 ## [1] 0.45
 ```
-
-# References

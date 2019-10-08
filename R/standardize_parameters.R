@@ -167,11 +167,11 @@ standardize_parameters <- function(model, robust = FALSE, method = "refit", verb
 
 
 #' @keywords internal
-.extract_parameters <- function(model, ...){
+.extract_parameters <- function(model, ...) {
   if (insight::model_info(model)$is_bayesian) {
     params <- bayestestR::describe_posterior(model, dispersion = FALSE, ci = NULL, test = NULL, diagnostic = NULL, priors = FALSE)
     params <- params[names(params) %in% c("Parameter", "Coefficient", "Median", "Mean", "MAP")]
-  } else{
+  } else {
     params <- insight::get_parameters(model, ...)
     names(params) <- c("Parameter", "Coefficient")
   }

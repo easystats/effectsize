@@ -12,7 +12,7 @@ output:
 tags: [r, effect size, rules of thumb, guidelines, interpretation]
 vignette: >
   \usepackage[utf8]{inputenc}
-  %\VignetteIndexEntry{Automated interpretation of indices of fffect size}
+  %\VignetteIndexEntry{Automated interpretation of indices of effect size}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   chunk_output_type: console

@@ -41,7 +41,6 @@
 #' interpret_rfi(c(.5, .99))
 #' interpret_ifi(c(.5, .99))
 #' interpret_pnfi(c(.5, .99))
-#'
 #' @references \itemize{
 #'   \item Byrne, B. M. (1994). Structural equation modeling with EQS and EQS/Windows. Thousand Oaks, CA: Sage Publications.
 #'   \item Tucker, L. R., \& Lewis, C. (1973). The reliability coefficient for maximum likelihood factor analysis. Psychometrika, 38, 1-10.

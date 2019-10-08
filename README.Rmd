@@ -65,7 +65,7 @@ Click on the buttons above to access the package [**documentation**](https://eas
 - [**Data Standardization**](https://easystats.github.io/effectsize/articles/standardize_data.html)
 - [**Parameters Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
 - [**Automated Interpretation of Indices of Effect Size**](https://easystats.github.io/effectsize/articles/interpret.html)
-
+- [**Effect size conversion**](https://easystats.github.io/effectsize/articles/convert.html)
 
 
 # Features
@@ -73,16 +73,18 @@ Click on the buttons above to access the package [**documentation**](https://eas
 ## Standardization
 
 ```{r, warning=FALSE, message=FALSE}
+library(dplyr)
+
 iris %>% 
   standardize(robust = TRUE) %>% 
-  summary()
+  summary(digits = 1)
 ```
 
 
 ```{r, warning=FALSE, message=FALSE}
 iris %>% 
   normalize() %>% 
-  summary()
+  summary(digits = 1)
 ```
 
 ## Computation
@@ -94,14 +96,13 @@ standardize_parameters(lm(Sepal.Length ~ Species, data = iris))
 ## Interpretation
 
 ```{r, warning=FALSE, message=FALSE}
-interpret_d(0.5)
+interpret_d(d = 0.5)
 ```
 
 ## Conversion
 
 ```{r, warning=FALSE, message=FALSE}
-convert_d_to_r(1)
+convert_d_to_r(d = 1)
 ```
 
 
-# References

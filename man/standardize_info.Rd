@@ -20,8 +20,6 @@ mean and divide it by the standard deviation (SD).}
 This function extracts information, such as the deviations (SD or MAD) from parent variables, that are necessary for post-hoc standardization of parameters.
 }
 \examples{
-model <- lm(Sepal.Width ~ Sepal.Length + Species, data = iris)
+model <- lm(Sepal.Width ~ Sepal.Length * Species, data = iris)
 standardize_info(model)
-
-
 }
