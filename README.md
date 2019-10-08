@@ -6,7 +6,7 @@
 [![CRAN](http://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize)
 [![downloads](http://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize)
 [![Build
-Status](https://travis-ci.org/easystats/effectsize?branch=master)](https://travis-ci.org/easystats/effectsize)
+Status](https://travis-ci.org/easystats/effectsize.svg?branch=master)](https://travis-ci.org/easystats/effectsize)
 [![codecov](https://codecov.io/gh/easystats/effectsize/branch/master/graph/badge.svg)](https://codecov.io/gh/easystats/effectsize)
 
 ***Size does matter***
@@ -38,6 +38,9 @@ Click on the buttons above to access the package
 [**documentation**](https://easystats.github.io/effectsize/) and the
 [**easystats blog**](https://easystats.github.io/blog/posts/), and
 check-out these vignettes:
+
+  - [**Automated Interpretation of Indices of Effect
+    Size**](https://easystats.github.io/effectsize/articles/interpret.html)
 
 # Features
 
