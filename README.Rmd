@@ -87,6 +87,10 @@ iris %>%
 
 ## Computation
 
+```{r, warning=FALSE, message=FALSE}
+standardize_parameters(lm(Sepal.Length ~ Species, data = iris))
+```
+
 ## Interpretation
 
 ```{r, warning=FALSE, message=FALSE}

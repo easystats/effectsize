@@ -39,11 +39,79 @@ Click on the buttons above to access the package
 [**easystats blog**](https://easystats.github.io/blog/posts/), and
 check-out these vignettes:
 
+  - [**Data
+    Standardization**](https://easystats.github.io/effectsize/articles/standardize_data.html)
+  - [**Parameters
+    Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
   - [**Automated Interpretation of Indices of Effect
     Size**](https://easystats.github.io/effectsize/articles/interpret.html)
 
 # Features
 
-None.
+## Standardization
+
+``` r
+iris %>% 
+  standardize(robust = TRUE) %>% 
+  summary()
+##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+##  Min.   :-1.45   Min.   :-2.25   Min.   :-1.81   Min.   :-1.16  
+##  1st Qu.:-0.67   1st Qu.:-0.45   1st Qu.:-1.48   1st Qu.:-0.96  
+##  Median : 0.00   Median : 0.00   Median : 0.00   Median : 0.00  
+##  Mean   : 0.04   Mean   : 0.13   Mean   :-0.32   Mean   :-0.10  
+##  3rd Qu.: 0.58   3rd Qu.: 0.67   3rd Qu.: 0.40   3rd Qu.: 0.48  
+##  Max.   : 2.02   Max.   : 3.15   Max.   : 1.38   Max.   : 1.16  
+##        Species  
+##  setosa    :50  
+##  versicolor:50  
+##  virginica :50  
+##                 
+##                 
+## 
+```
+
+``` r
+iris %>% 
+  normalize() %>% 
+  summary()
+##   Sepal.Length   Sepal.Width    Petal.Length   Petal.Width  
+##  Min.   :0.00   Min.   :0.00   Min.   :0.00   Min.   :0.00  
+##  1st Qu.:0.22   1st Qu.:0.33   1st Qu.:0.10   1st Qu.:0.08  
+##  Median :0.42   Median :0.42   Median :0.57   Median :0.50  
+##  Mean   :0.43   Mean   :0.44   Mean   :0.47   Mean   :0.46  
+##  3rd Qu.:0.58   3rd Qu.:0.54   3rd Qu.:0.69   3rd Qu.:0.71  
+##  Max.   :1.00   Max.   :1.00   Max.   :1.00   Max.   :1.00  
+##        Species  
+##  setosa    :50  
+##  versicolor:50  
+##  virginica :50  
+##                 
+##                 
+## 
+```
+
+## Computation
+
+``` r
+standardize_parameters(lm(Sepal.Length ~ Species, data = iris))
+##           Parameter Std_Coefficient
+## 1       (Intercept)            -1.0
+## 2 Speciesversicolor             1.1
+## 3  Speciesvirginica             1.9
+```
+
+## Interpretation
+
+``` r
+interpret_d(0.5)
+## [1] "medium"
+```
+
+## Conversion
+
+``` r
+convert_d_to_r(1)
+## [1] 0.45
+```
 
 # References
