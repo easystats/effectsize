@@ -81,7 +81,7 @@ library(parameters)
 df <- standardize(iris)
 describe_distribution(df$Sepal.Length)
 ```
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo = FALSE}
 library(parameters)
 df <- standardize(iris)
 knitr::kable(describe_distribution(df$Sepal.Length), digits = 1)
@@ -90,12 +90,17 @@ knitr::kable(describe_distribution(df$Sepal.Length), digits = 1)
 df <- normalize(iris)
 describe_distribution(df$Sepal.Length)
 ```
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo = FALSE}
 df <- normalize(iris)
 knitr::kable(describe_distribution(df$Sepal.Length), digits = 1)
 ```
 
 ### Model Standardization
+
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+std_model <- standardize(lm(Sepal.Length ~ Species, data = iris))
+coef(std_model)
+```
 
 
 ## Computation

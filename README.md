@@ -52,39 +52,33 @@ check-out these vignettes:
 
 ## Standardization
 
-``` r
-library(dplyr)
+### Data Standardization and Normalization
 
-iris %>% 
-  standardize(robust = TRUE) %>% 
-  summary(digits = 1)
-##   Sepal.Length    Sepal.Width    Petal.Length   Petal.Width  
-##  Min.   :-1.45   Min.   :-2.2   Min.   :-1.8   Min.   :-1.2  
-##  1st Qu.:-0.67   1st Qu.:-0.4   1st Qu.:-1.5   1st Qu.:-1.0  
-##  Median : 0.00   Median : 0.0   Median : 0.0   Median : 0.0  
-##  Mean   : 0.04   Mean   : 0.1   Mean   :-0.3   Mean   :-0.1  
-##  3rd Qu.: 0.58   3rd Qu.: 0.7   3rd Qu.: 0.4   3rd Qu.: 0.5  
-##  Max.   : 2.02   Max.   : 3.1   Max.   : 1.4   Max.   : 1.2  
-##        Species  
-##  setosa    :50  
-##  versicolor:50  
-##  virginica :50  
-##                 
-##                 
-## 
+``` r
+library(parameters)
+
+df <- standardize(iris)
+describe_distribution(df$Sepal.Length)
 ```
 
+| Mean | SD |   Min | Max | Skewness | Kurtosis |   n | n\_Missing |
+| ---: | -: | ----: | --: | -------: | -------: | --: | ---------: |
+|    0 |  1 | \-1.9 | 2.5 |      0.3 |    \-0.6 | 150 |          0 |
+
 ``` r
-iris %>% 
-  normalize() %>% 
-  summary(digits = 1)
-##   Sepal.Length  Sepal.Width   Petal.Length  Petal.Width         Species  
-##  Min.   :0.0   Min.   :0.0   Min.   :0.0   Min.   :0.00   setosa    :50  
-##  1st Qu.:0.2   1st Qu.:0.3   1st Qu.:0.1   1st Qu.:0.08   versicolor:50  
-##  Median :0.4   Median :0.4   Median :0.6   Median :0.50   virginica :50  
-##  Mean   :0.4   Mean   :0.4   Mean   :0.5   Mean   :0.46                  
-##  3rd Qu.:0.6   3rd Qu.:0.5   3rd Qu.:0.7   3rd Qu.:0.71                  
-##  Max.   :1.0   Max.   :1.0   Max.   :1.0   Max.   :1.00
+df <- normalize(iris)
+describe_distribution(df$Sepal.Length)
+```
+
+| Mean |  SD | Min | Max | Skewness | Kurtosis |   n | n\_Missing |
+| ---: | --: | --: | --: | -------: | -------: | --: | ---------: |
+|  0.4 | 0.2 |   0 |   1 |      0.3 |    \-0.6 | 150 |          0 |
+
+### Model Standardization
+
+``` r
+std_model <- standardize(lm(Sepal.Length ~ Species, data = iris))
+coef(std_model)
 ```
 
 ## Computation
