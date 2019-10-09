@@ -70,22 +70,92 @@ Click on the buttons above to access the package [**documentation**](https://eas
 
 # Features
 
+This package is focused on indices of effect size. But **there are hundreds of them! Thus, *everybody* is welcome to contribute** by adding support for the interpretation of new indices. If you're not sure how to code it it's okay, just open an issue to discuss it and we'll help :)
+
+
+## Effect Size Computation
+
+### Measure of association (correlation *r*)
+
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+library(dplyr)
+
+lm(Sepal.Length ~ Petal.Length, data = iris) %>% 
+  standardize_parameters()
+```
+```{r, warning=FALSE, message=FALSE, echo = FALSE}
+library(dplyr)
+
+lm(Sepal.Length ~ Petal.Length, data = iris) %>% 
+  standardize_parameters() %>% 
+  knitr::kable(digits = 2)
+```
+
+Standardizing the coeffcient of this simple linear regression gives a value of .87, but did you know that this is actually the same as a correlation? And can be thus interpreted using *(in)*famous guidelines (e.g., Cohen's rules of thumb).
+
+```{r, warning=FALSE, message=FALSE}
+library(parameters)
+
+cor.test(iris$Sepal.Length, iris$Petal.Length) %>% 
+  model_parameters()
+```
+
+
+### Standardized difference (Cohen's *d*)
+
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+df <- iris[iris$Species %in% c("setosa", "versicolor"), ] 
+
+lm(Sepal.Length ~ Species, data = df) %>% 
+  standardize_parameters()
+```
+```{r, warning=FALSE, message=FALSE, echo = FALSE}
+df <- iris[iris$Species %in% c("setosa", "versicolor"), ] 
+
+lm(Sepal.Length ~ Species, data = iris) %>% 
+  standardize_parameters() %>% 
+  knitr::kable(digits = 2)
+```
+
+```{r, warning=FALSE, message=FALSE}
+cohens_d(x = "Sepal.Length", y = "Species", data = df) 
+```
+
+*(Note to myself, soemthing's wrong here it should be close)*
+
+## Effect Size Interpretation
+
+
+```{r, warning=FALSE, message=FALSE}
+interpret_d(d = 0.5)
+```
+
+## Effect Size Conversion
+
+```{r, warning=FALSE, message=FALSE}
+convert_d_to_r(d = 1)
+```
+
+
 ## Standardization
+
+Many indices of effect size stem out, or are related, to [*standardization*](https://easystats.github.io/effectsize/articles/standardize_parameters.html). Thus, it is expected that `effectsize` provides functions to standardize data and models.
 
 ### Data Standardization and Normalization
 
+Set the mean and SD to 0 and 1:
 
 ```{r, warning=FALSE, message=FALSE, eval=FALSE}
-library(parameters)
-
 df <- standardize(iris)
 describe_distribution(df$Sepal.Length)
 ```
 ```{r, warning=FALSE, message=FALSE, echo = FALSE}
-library(parameters)
 df <- standardize(iris)
 knitr::kable(describe_distribution(df$Sepal.Length), digits = 1)
 ```
+
+Alternatively, normalization is similar to standardization in that it is a linear translation of the parameter space (i.e., it does not change the shape of the data distribution). However, it puts the values within a 0 - 1 range, which can be useful in cases where you want to compare or visualise data on the same scale. 
+
 ```{r, warning=FALSE, message=FALSE, eval=FALSE}
 df <- normalize(iris)
 describe_distribution(df$Sepal.Length)
@@ -97,28 +167,10 @@ knitr::kable(describe_distribution(df$Sepal.Length), digits = 1)
 
 ### Model Standardization
 
-```{r, warning=FALSE, message=FALSE, eval=FALSE}
+```{r, warning=FALSE, message=FALSE}
 std_model <- standardize(lm(Sepal.Length ~ Species, data = iris))
 coef(std_model)
 ```
 
-
-## Computation
-
-```{r, warning=FALSE, message=FALSE}
-standardize_parameters(lm(Sepal.Length ~ Species, data = iris))
-```
-
-## Interpretation
-
-```{r, warning=FALSE, message=FALSE}
-interpret_d(d = 0.5)
-```
-
-## Conversion
-
-```{r, warning=FALSE, message=FALSE}
-convert_d_to_r(d = 1)
-```
 
 

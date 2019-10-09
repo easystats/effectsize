@@ -50,13 +50,91 @@ check-out these vignettes:
 
 # Features
 
-## Standardization
+This package is focused on indices of effect size. But **there are
+hundreds of them\! Thus, *everybody* is welcome to contribute** by
+adding support for the interpretation of new indices. If you’re not sure
+how to code it it’s okay, just open an issue to discuss it and we’ll
+help :)
 
-### Data Standardization and Normalization
+## Effect Size Computation
+
+### Measure of association (correlation *r*)
+
+``` r
+library(dplyr)
+
+lm(Sepal.Length ~ Petal.Length, data = iris) %>% 
+  standardize_parameters()
+```
+
+| Parameter    | Std\_Coefficient |
+| :----------- | ---------------: |
+| (Intercept)  |             0.00 |
+| Petal.Length |             0.87 |
+
+Standardizing the coeffcient of this simple linear regression gives a
+value of .87, but did you know that this is actually the same as a
+correlation? And can be thus interpreted using *(in)*famous guidelines
+(e.g., Cohen’s rules of thumb).
 
 ``` r
 library(parameters)
 
+cor.test(iris$Sepal.Length, iris$Petal.Length) %>% 
+  model_parameters()
+## Parameter1        |        Parameter2 |    r |     t |  df |      p |       95% CI |  Method
+## --------------------------------------------------------------------------------------------
+## iris$Sepal.Length | iris$Petal.Length | 0.87 | 21.65 | 148 | < .001 | [0.83, 0.91] | Pearson
+```
+
+### Standardized difference (Cohen’s *d*)
+
+``` r
+df <- iris[iris$Species %in% c("setosa", "versicolor"), ] 
+
+lm(Sepal.Length ~ Species, data = df) %>% 
+  standardize_parameters()
+```
+
+| Parameter         | Std\_Coefficient |
+| :---------------- | ---------------: |
+| (Intercept)       |            \-1.0 |
+| Speciesversicolor |              1.1 |
+| Speciesvirginica  |              1.9 |
+
+``` r
+cohens_d(x = "Sepal.Length", y = "Species", data = df) 
+## [1] 2.1
+```
+
+*(Note to myself, soemthing’s wrong here it should be close)*
+
+## Effect Size Interpretation
+
+``` r
+interpret_d(d = 0.5)
+## [1] "medium"
+```
+
+## Effect Size Conversion
+
+``` r
+convert_d_to_r(d = 1)
+## [1] 0.45
+```
+
+## Standardization
+
+Many indices of effect size stem out, or are related, to
+[*standardization*](https://easystats.github.io/effectsize/articles/standardize_parameters.html).
+Thus, it is expected that `effectsize` provides functions to standardize
+data and models.
+
+### Data Standardization and Normalization
+
+Set the mean and SD to 0 and 1:
+
+``` r
 df <- standardize(iris)
 describe_distribution(df$Sepal.Length)
 ```
@@ -64,6 +142,12 @@ describe_distribution(df$Sepal.Length)
 | Mean | SD |   Min | Max | Skewness | Kurtosis |   n | n\_Missing |
 | ---: | -: | ----: | --: | -------: | -------: | --: | ---------: |
 |    0 |  1 | \-1.9 | 2.5 |      0.3 |    \-0.6 | 150 |          0 |
+
+Alternatively, normalization is similar to standardization in that it is
+a linear translation of the parameter space (i.e., it does not change
+the shape of the data distribution). However, it puts the values within
+a 0 - 1 range, which can be useful in cases where you want to compare or
+visualise data on the same scale.
 
 ``` r
 df <- normalize(iris)
@@ -79,28 +163,6 @@ describe_distribution(df$Sepal.Length)
 ``` r
 std_model <- standardize(lm(Sepal.Length ~ Species, data = iris))
 coef(std_model)
-```
-
-## Computation
-
-``` r
-standardize_parameters(lm(Sepal.Length ~ Species, data = iris))
-##           Parameter Std_Coefficient
-## 1       (Intercept)            -1.0
-## 2 Speciesversicolor             1.1
-## 3  Speciesvirginica             1.9
-```
-
-## Interpretation
-
-``` r
-interpret_d(d = 0.5)
-## [1] "medium"
-```
-
-## Conversion
-
-``` r
-convert_d_to_r(d = 1)
-## [1] 0.45
+##       (Intercept) Speciesversicolor  Speciesvirginica 
+##              -1.0               1.1               1.9
 ```
