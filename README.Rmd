@@ -72,20 +72,31 @@ Click on the buttons above to access the package [**documentation**](https://eas
 
 ## Standardization
 
-```{r, warning=FALSE, message=FALSE}
-library(dplyr)
+### Data Standardization and Normalization
 
-iris %>% 
-  standardize(robust = TRUE) %>% 
-  summary(digits = 1)
+
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+library(parameters)
+
+df <- standardize(iris)
+describe_distribution(df$Sepal.Length)
+```
+```{r, warning=FALSE, message=FALSE}
+library(parameters)
+df <- standardize(iris)
+knitr::kable(describe_distribution(df$Sepal.Length), digits = 1)
+```
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+df <- normalize(iris)
+describe_distribution(df$Sepal.Length)
+```
+```{r, warning=FALSE, message=FALSE}
+df <- normalize(iris)
+knitr::kable(describe_distribution(df$Sepal.Length), digits = 1)
 ```
 
+### Model Standardization
 
-```{r, warning=FALSE, message=FALSE}
-iris %>% 
-  normalize() %>% 
-  summary(digits = 1)
-```
 
 ## Computation
 

@@ -5,6 +5,7 @@
 #' @param model A statistical model.
 #' @param method The method used for standardizing the parameters. Can be \code{"refit"} (default), \code{"2sd"}, \code{"smart"} or \code{"classic"}.
 #' @inheritParams standardize
+#' @param centrality For Bayesian models, which point-estimates (centrality indices) to compute. Character (vector) or list with one or more of these options: "median", "mean", "MAP" or "all".
 #'
 #' @details \strong{Methods:}
 #' \itemize{
@@ -30,8 +31,9 @@
 #' standardize_parameters(model, method = "smart", robust = TRUE)
 #'
 #' # show CI
-#' ps <- standardize_parameters(model, method = "smart", robust = TRUE)
-#' # ci(ps)
+#' library(parameters)
+#' params <- standardize_parameters(model, method = "smart", robust = TRUE)
+#' ci(params)
 #'
 #' iris$binary <- ifelse(iris$Sepal.Width > 3, 1, 0)
 #' model <- glm(binary ~ Species * Sepal.Length, data = iris, family = "binomial")
@@ -42,8 +44,12 @@
 #' \donttest{
 #' library(rstanarm)
 #' model <- stan_glm(Sepal.Length ~ Species * Petal.Width, data = iris, iter = 500, refresh = 0)
-#' standardize_parameters(model, method = "smart", centrality = "all")
-#' standardize_parameters(model, method = "smart", robust = TRUE, centrality = "all")
+#' standardize_posteriors(model, method = "refit")
+#' standardize_posteriors(model, method = "smart")
+#'
+#' standardize_parameters(model, method = "refit")
+#' standardize_parameters(model, method = "smart")
+#' standardize_parameters(model, method = "smart", robust = TRUE)
 #' }
 #' @importFrom stats mad sd predict cor model.matrix
 #' @importFrom insight get_parameters model_info get_data get_response
@@ -57,7 +63,32 @@
 #'   \item Gelman, A. (2008). Scaling regression inputs by dividing by two standard deviations. Statistics in medicine, 27(15), 2865-2873.
 #' }
 #' @export
-standardize_parameters <- function(model, robust = FALSE, method = "refit", verbose = TRUE, ...) {
+standardize_parameters <- function(model, robust = FALSE, method = "refit", verbose = TRUE, centrality = "median", ...) {
+  std_params <- .standardize_parameters(model = model, robust = robust, method = method, verbose = verbose, ...)
+
+  # Summarise for Bayesian models
+  if (insight::model_info(model)$is_bayesian) {
+    std_params <- bayestestR::describe_posterior(std_params, centrality = centrality, dispersion = FALSE, ci = NULL, test = NULL, diagnostic = NULL, priors = FALSE)
+    std_params <- std_params[names(std_params) %in% c("Parameter", "Coefficient", "Median", "Mean", "MAP")]
+    names(std_params)[-1] <- paste0("Std_", names(std_params)[-1])
+  }
+
+  std_params
+}
+
+
+#' @rdname standardize_parameters
+#' @export
+standardize_posteriors <- function(model, robust = FALSE, method = "refit", verbose = TRUE, ...) {
+  .standardize_parameters(model = model, robust = robust, method = method, verbose = verbose, ...)
+}
+
+
+
+# Internal Wrapper -------------------------------------------------------------------
+
+#' @keywords internal
+.standardize_parameters <- function(model, robust = FALSE, method = "refit", verbose = TRUE, ...) {
   method <- match.arg(method, choices = c("default", "refit", "2sd", "smart", "partial", "classic"))
 
   # Refit
@@ -70,21 +101,11 @@ standardize_parameters <- function(model, robust = FALSE, method = "refit", verb
 
     # Partial
   } else if (method == "partial") {
-    stop("method='partial' not implemented yet :(")
+    stop("`method = 'partial'` not implemented yet :(")
   }
 
-  names(std_params)[-1] <- paste0("Std_", names(std_params)[-1])
   std_params
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -106,27 +127,36 @@ standardize_parameters <- function(model, robust = FALSE, method = "refit", verb
 
 
 
-
-
-
-
 # POST-HOC -------------------------------------------------------------------
 #' @importFrom insight model_info get_data
 #' @keywords internal
-.standardize_parameters_posthoc <- function(model, param_names = NULL, param_values = NULL, robust = FALSE, method = "smart", verbose = TRUE, ...) {
+.standardize_parameters_posthoc <- function(model, parameters = NULL, robust = FALSE, method = "smart", verbose = TRUE, ...) {
+
+  # Sanity Checks
+  if (verbose && insight::model_info(model)$is_zero_inflated) {
+    warning("Post-hoc parameter standardization is ignoring the zero-inflation component.", call. = FALSE)
+  }
 
   # Get parameters
-  if (is.null(param_names) | is.null(param_values) | length(param_names) != length(param_values)) {
-    params <- .extract_parameters(model)
-    param_values <- params[names(params) %in% c("Coefficient", "Median", "Mean", "MAP")]
-    param_names <- params$Parameter
-
-    if (verbose && insight::model_info(model)$is_zero_inflated) {
-      warning("Post-hoc parameter standardization is ignoring the zero-inflation component.", call. = FALSE)
+  if (is.null(parameters)){
+    parameters <- .extract_parameters(model)
+    if (insight::model_info(model)$is_bayesian) {
+      parameters <- as.data.frame(t(parameters))
     }
   }
 
-  out <- data.frame(Parameter = param_names)
+  # Get names of parameters
+  if("Parameter" %in% names(parameters)){
+    param_names <- parameters$Parameter
+    parameters$Parameter <- NULL
+  } else{
+    param_names <- row.names(parameters)
+  }
+
+  # Remove non-numeric things
+  parameters <- parameters[sapply(parameters, is.numeric)]
+
+
 
   # Get info
   deviations <- standardize_info(model, robust = robust)
@@ -136,9 +166,17 @@ standardize_parameters <- function(model, robust = FALSE, method = "refit", verb
     relevant_col <- "Deviation_Smart"
   }
 
-  # Loop over all parameters
-  for (param_name in names(param_values)) {
-    out[[param_name]] <- param_values[[param_name]] * deviations[[relevant_col]] / deviations$Deviation_Response
+  # Sapply standardization
+  std_params <- sapply(parameters, function(x) x * deviations[[relevant_col]] / deviations$Deviation_Response)
+
+  # Clean
+  if (insight::model_info(model)$is_bayesian) {
+    std_params <- as.data.frame(t(std_params))
+    row.names(std_params) <- NULL
+    names(std_params) <- param_names
+  } else{
+    std_params <- cbind(data.frame(Parameter = param_names),
+                        as.data.frame(std_params))
   }
 
 
@@ -154,12 +192,10 @@ standardize_parameters <- function(model, robust = FALSE, method = "refit", verb
   # add standardized standard errors as attribute
   if (!is.null(std_error)) {
     std_error <- std_error * deviations[[relevant_col]] / deviations$Deviation_Response
-    attr(out, "standard_error") <- std_error
+    attr(std_params, "standard_error") <- std_error
   }
 
-  class(out) <- c("parameters_std_classic", class(out))
-
-  out
+  std_params
 }
 
 
@@ -169,11 +205,10 @@ standardize_parameters <- function(model, robust = FALSE, method = "refit", verb
 #' @keywords internal
 .extract_parameters <- function(model, ...) {
   if (insight::model_info(model)$is_bayesian) {
-    params <- bayestestR::describe_posterior(model, dispersion = FALSE, ci = NULL, test = NULL, diagnostic = NULL, priors = FALSE)
-    params <- params[names(params) %in% c("Parameter", "Coefficient", "Median", "Mean", "MAP")]
+    params <- insight::get_parameters(model, ...)
   } else {
     params <- insight::get_parameters(model, ...)
-    names(params) <- c("Parameter", "Coefficient")
+    names(params) <- c("Parameter", "Std_Coefficient")
   }
   params
 }

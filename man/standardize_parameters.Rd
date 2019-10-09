@@ -2,9 +2,13 @@
 % Please edit documentation in R/standardize_parameters.R
 \name{standardize_parameters}
 \alias{standardize_parameters}
+\alias{standardize_posteriors}
 \title{Parameters standardization}
 \usage{
 standardize_parameters(model, robust = FALSE, method = "refit",
+  verbose = TRUE, centrality = "median", ...)
+
+standardize_posteriors(model, robust = FALSE, method = "refit",
   verbose = TRUE, ...)
 }
 \arguments{
@@ -18,6 +22,8 @@ mean and divide it by the standard deviation (SD).}
 \item{method}{The method used for standardizing the parameters. Can be \code{"refit"} (default), \code{"2sd"}, \code{"smart"} or \code{"classic"}.}
 
 \item{verbose}{Toggle warnings on or off.}
+
+\item{centrality}{For Bayesian models, which point-estimates (centrality indices) to compute. Character (vector) or list with one or more of these options: "median", "mean", "MAP" or "all".}
 
 \item{...}{Arguments passed to or from other methods.}
 }
@@ -52,8 +58,9 @@ standardize_parameters(model, method = "smart")
 standardize_parameters(model, method = "smart", robust = TRUE)
 
 # show CI
-ps <- standardize_parameters(model, method = "smart", robust = TRUE)
-# ci(ps)
+library(parameters)
+params <- standardize_parameters(model, method = "smart", robust = TRUE)
+ci(params)
 
 iris$binary <- ifelse(iris$Sepal.Width > 3, 1, 0)
 model <- glm(binary ~ Species * Sepal.Length, data = iris, family = "binomial")
@@ -64,8 +71,12 @@ standardize_parameters(model, method = "smart", robust = TRUE)
 \donttest{
 library(rstanarm)
 model <- stan_glm(Sepal.Length ~ Species * Petal.Width, data = iris, iter = 500, refresh = 0)
-standardize_parameters(model, method = "smart", centrality = "all")
-standardize_parameters(model, method = "smart", robust = TRUE, centrality = "all")
+standardize_posteriors(model, method = "refit")
+standardize_posteriors(model, method = "smart")
+
+standardize_parameters(model, method = "refit")
+standardize_parameters(model, method = "smart")
+standardize_parameters(model, method = "smart", robust = TRUE)
 }
 }
 \references{
