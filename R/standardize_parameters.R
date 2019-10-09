@@ -143,20 +143,20 @@ standardize_parameters <- function(model, robust = FALSE, method = "refit", verb
 
 
   # Standardize SE if possible
-  # std_error <- tryCatch({
-  #   se <- standard_error(model, component = "conditional")
-  #   se$SE[unique(match(se$Parameter, param_names))]
-  # },
-  # error = function(e) {
-  #   NULL
-  # })
-
-  # if (!is.null(std_error)) {
-  #   std_error <- std_error * deviations[[relevant_col]] / deviations$Deviation_Response
-  # }
+  std_error <- tryCatch({
+    se <- parameters::standard_error(model, component = "conditional")
+    se$SE[unique(match(se$Parameter, param_names))]
+  },
+  error = function(e) {
+    NULL
+  })
 
   # add standardized standard errors as attribute
-  # attr(out, "standard_error") <- std_error
+  if (!is.null(std_error)) {
+    std_error <- std_error * deviations[[relevant_col]] / deviations$Deviation_Response
+    attr(out, "standard_error") <- std_error
+  }
+
   class(out) <- c("parameters_std_classic", class(out))
 
   out
