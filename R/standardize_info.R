@@ -11,7 +11,7 @@
 #' @export
 standardize_info <- function(model, robust = FALSE, ...) {
   params <- insight::find_parameters(model, effects = "fixed", flatten = TRUE, ...)
-  types <- parameters_type(model)
+  types <- parameters::parameters_type(model)
   model_matrix <- as.data.frame(stats::model.matrix(model))
   data <- insight::get_data(model)
 
