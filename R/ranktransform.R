@@ -10,15 +10,15 @@
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @examples
-#' rankalize(c(0, 1, 5, -5, -2))
-#' rankalize(c(0, 1, 5, -5, -2), sign = TRUE)
+#' ranktransform(c(0, 1, 5, -5, -2))
+#' ranktransform(c(0, 1, 5, -5, -2), sign = TRUE)
 #'
-#' head(rankalize(iris))
+#' head(ranktransform(iris))
 #'
 #' @return A rank-transformed object.
 #' @export
-rankalize <- function(x, ...) {
-  UseMethod("rankalize")
+ranktransform <- function(x, ...) {
+  UseMethod("ranktransform")
 }
 
 
@@ -26,9 +26,9 @@ rankalize <- function(x, ...) {
 
 
 
-#' @rdname rankalize
+#' @rdname ranktransform
 #' @export
-rankalize.numeric <- function(x, sign = FALSE, method = "average", verbose = TRUE, ...) {
+ranktransform.numeric <- function(x, sign = FALSE, method = "average", verbose = TRUE, ...) {
 
   # Warning if all NaNs
   if (all(is.na(x))) {
@@ -80,16 +80,16 @@ rankalize.numeric <- function(x, sign = FALSE, method = "average", verbose = TRU
 
 
 #' @export
-rankalize.factor <- function(x, ...) {
+ranktransform.factor <- function(x, ...) {
   x
 }
 
 
 
 
-#' @rdname rankalize
+#' @rdname ranktransform
 #' @export
-rankalize.grouped_df <- function(x, select = NULL, exclude = NULL, sign = FALSE, method = "average", ...) {
+ranktransform.grouped_df <- function(x, select = NULL, exclude = NULL, sign = FALSE, method = "average", ...) {
   info <- attributes(x)
   # dplyr >= 0.8.0 returns attribute "indices"
   grps <- attr(x, "groups", exact = TRUE)
@@ -104,7 +104,7 @@ rankalize.grouped_df <- function(x, select = NULL, exclude = NULL, sign = FALSE,
 
   x <- as.data.frame(x)
   for (rows in grps) {
-    x[rows, ] <- rankalize(
+    x[rows, ] <- ranktransform(
       x[rows, ],
       select = select,
       exclude = exclude,
@@ -119,9 +119,9 @@ rankalize.grouped_df <- function(x, select = NULL, exclude = NULL, sign = FALSE,
 }
 
 
-#' @rdname rankalize
+#' @rdname ranktransform
 #' @export
-rankalize.data.frame <- function(x, select = NULL, exclude = NULL, sign = FALSE, method = "average", ...) {
+ranktransform.data.frame <- function(x, select = NULL, exclude = NULL, sign = FALSE, method = "average", ...) {
   if (is.null(select)) {
     select <- names(x)
   }
@@ -130,6 +130,6 @@ rankalize.data.frame <- function(x, select = NULL, exclude = NULL, sign = FALSE,
     select <- setdiff(select, exclude)
   }
 
-  x[select] <- lapply(x[select], rankalize, sign = sign, method = method)
+  x[select] <- lapply(x[select], ranktransform, sign = sign, method = method)
   x
 }
