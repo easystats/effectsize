@@ -112,7 +112,7 @@ lm(Sepal.Length ~ Species, data = df) %>%
 ```{r, warning=FALSE, message=FALSE, echo = FALSE}
 df <- iris[iris$Species %in% c("setosa", "versicolor"), ] 
 
-lm(Sepal.Length ~ Species, data = iris) %>% 
+lm(Sepal.Length ~ Species, data = df) %>% 
   standardize_parameters() %>% 
   knitr::kable(digits = 2)
 ```
@@ -120,8 +120,6 @@ lm(Sepal.Length ~ Species, data = iris) %>%
 ```{r, warning=FALSE, message=FALSE}
 cohens_d(x = "Sepal.Length", y = "Species", data = df) 
 ```
-
-*(Note to myself, soemthing's wrong here it should be close)*
 
 ## Effect Size Interpretation
 

@@ -4,19 +4,30 @@
 \alias{cohens_d}
 \title{Indices of effect size (Cohen's d, Hedges' g, ...)}
 \usage{
-cohens_d(x, y = NULL, data = NULL)
+cohens_d(x, y = NULL, data = NULL, paired = FALSE, correct = FALSE)
 }
 \arguments{
 \item{x}{A continuous variable or a formula.}
 
 \item{y}{A continuous variable, a factor with two groups or a formula.}
 
-\item{data}{An optional data frame (or similar: see model.frame) containing the variables.}
+\item{data}{An optional data frame containing the variables.}
+
+\item{paired}{Should the values be considered as paired.}
+
+\item{correct}{For Cohen's d, a correction to the formula to make it less biased for small samples (McGrath & Meyer, 2006).}
 }
 \description{
 Compute different indices of effect size.
 }
 \examples{
 cohens_d(iris$Sepal.Length, iris$Sepal.Width)
+cohens_d(Sepal.Length ~ Species, data = iris[iris$Species \%in\% c("versicolor", "setosa"), ])
 
+}
+\references{
+\itemize{
+ \item Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.
+ \item McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
+}
 }
