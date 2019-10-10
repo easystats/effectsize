@@ -74,8 +74,8 @@ lm(Sepal.Length ~ Petal.Length, data = iris) %>%
 
 Standardizing the coefficient of this simple linear regression gives a
 value of `0.87`, but did you know that this is actually the **same as a
-correlation**? And can be thus interpreted using (*in*)famous guidelines
-(e.g., Cohen’s rules of thumb).
+correlation**? Thus, you can eventually apply some (*in*)famous
+interpretation guidelines (e.g., Cohen’s rules of thumb).
 
 ``` r
 library(parameters)
@@ -87,32 +87,84 @@ cor.test(iris$Sepal.Length, iris$Petal.Length) %>%
 ## iris$Sepal.Length | iris$Petal.Length | 0.87 | 21.65 | 148 | < .001 | [0.83, 0.91] | Pearson
 ```
 
-### Standardized difference (Cohen’s *d*)
+### Standardized differences
+
+How does it work in the case of differences, when **factors** are
+entered and differences between a given level and a reference level (the
+intercept)? You might have heard that it is similar to a **Cohen’s
+*d***. Well, let’s see.
 
 ``` r
-df <- iris[iris$Species %in% c("setosa", "versicolor"), ] 
-
-lm(Sepal.Length ~ Species, data = df) %>% 
+lm(Sepal.Length ~ Species, data = iris) %>% 
   standardize_parameters()
 ```
 
 | Parameter         | Std\_Coefficient |
 | :---------------- | ---------------: |
-| (Intercept)       |            \-1.0 |
-| Speciesversicolor |              1.1 |
-| Speciesvirginica  |              1.9 |
+| (Intercept)       |           \-1.01 |
+| Speciesversicolor |             1.12 |
+| Speciesvirginica  |             1.91 |
+
+This linear model suggests that the *standardized* difference between
+the *versicolor* level of Species and the *setosa* level (the reference
+level - the intercept) is of 1.12 standard deviation of `Sepal.Length`
+(because the response variable was standardized, right?). Let’s compute
+the **Cohen’s *d*** between these two levels:
 
 ``` r
-cohens_d(x = "Sepal.Length", y = "Species", data = df) 
+# Select portion of data containing the two levels of interest
+data <- iris[iris$Species %in% c("setosa", "versicolor"), ]
+
+cohens_d(Sepal.Length ~ Species, data = data) 
 ## [1] 2.1
 ```
 
-*(Note to myself, soemthing’s wrong here it should be close)*
+***It is very different\!*** Why? How? Both differences should be
+expressed in terms of SD of the response variable. *And there’s the
+trick*. First of all, in the linear model above, the SD by which the
+difference is scaled is the one of the whole response, which include
+**all the three levels**, whereas below, we filtered the data to only
+include the levels of interest. If we recompute the model on this
+filtered data, it should be better:
+
+``` r
+lm(Sepal.Length ~ Species, data = data) %>% 
+  standardize_parameters()
+```
+
+| Parameter         | Std\_Coefficient |
+| :---------------- | ---------------: |
+| (Intercept)       |           \-0.72 |
+| Speciesversicolor |             1.45 |
+
+Not really. Why? Because the actual formula to compute a **Cohen’s *d***
+doesn’t use the simple SD to scale the effect (as it is done when
+standardizing the parameters), but computes something called the
+[**pooled
+SD**](https://easystats.github.io/effectsize/reference/pooled_sd.html).
+However, this can be turned off by setting `correct = "raw"`.
+
+``` r
+cohens_d(Sepal.Length ~ Species, data = data, correct = "raw") 
+## [1] 1.45
+```
+
+***And here we are :)***
+
+### What about standardized interaction effects?
+
+Well, this one’s a mess (at least for me). Help is required to make
+sense out of it. Otherwise, *NEXT*.
 
 ## Effect Size Interpretation
 
+The [**guidelines are detailed
+here**](https://easystats.github.io/effectsize/articles/interpret.html).
+
 ``` r
-interpret_d(d = 0.5)
+interpret_d(d = 0.45, rules = "cohen1988")
+## [1] "small"
+interpret_d(d = 0.45, rules = "funder2019")
 ## [1] "medium"
 ```
 
@@ -120,7 +172,7 @@ interpret_d(d = 0.5)
 
 ``` r
 convert_d_to_r(d = 1)
-## [1] 0.45
+## [1] 0.447
 ```
 
 ## Standardization
@@ -160,10 +212,10 @@ describe_distribution(df$Sepal.Length)
 
 For some robust statistics, one might also want to transfom the numeric
 values into *ranks* (or signed-ranks), which can be performed using the
-`rankalize()` function.
+`ranktransform()` function.
 
 ``` r
-rankalize(c(1, 3, -2, 6, 6, 0))
+ranktransform(c(1, 3, -2, 6, 6, 0))
 ```
 
 ### Model Standardization
@@ -172,5 +224,5 @@ rankalize(c(1, 3, -2, 6, 6, 0))
 std_model <- standardize(lm(Sepal.Length ~ Species, data = iris))
 coef(std_model)
 ##       (Intercept) Speciesversicolor  Speciesvirginica 
-##              -1.0               1.1               1.9
+##             -1.01              1.12              1.91
 ```

@@ -21,7 +21,7 @@ library(ggplot2)
 library(dplyr)
 library(effectsize)
 
-options(digits=2)
+options(digits=3)
 
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -91,7 +91,7 @@ lm(Sepal.Length ~ Petal.Length, data = iris) %>%
   knitr::kable(digits = 2)
 ```
 
-Standardizing the coefficient of this simple linear regression gives a value of `0.87`, but did you know that this is actually the **same as a correlation**? And can be thus interpreted using (*in*)famous guidelines (e.g., Cohen's rules of thumb).
+Standardizing the coefficient of this simple linear regression gives a value of `0.87`, but did you know that this is actually the **same as a correlation**? Thus, you can eventually apply some (*in*)famous interpretation guidelines (e.g., Cohen's rules of thumb).
 
 ```{r, warning=FALSE, message=FALSE}
 library(parameters)
@@ -101,32 +101,66 @@ cor.test(iris$Sepal.Length, iris$Petal.Length) %>%
 ```
 
 
-### Standardized difference (Cohen's *d*)
+### Standardized differences
+
+How does it work in the case of differences, when **factors** are entered and differences between a given level and a reference level (the intercept)? You might have heard that it is similar to a **Cohen's *d***. Well, let's see.
 
 ```{r, warning=FALSE, message=FALSE, eval=FALSE}
-df <- iris[iris$Species %in% c("setosa", "versicolor"), ] 
-
-lm(Sepal.Length ~ Species, data = df) %>% 
+lm(Sepal.Length ~ Species, data = iris) %>% 
   standardize_parameters()
 ```
 ```{r, warning=FALSE, message=FALSE, echo = FALSE}
-df <- iris[iris$Species %in% c("setosa", "versicolor"), ] 
-
-lm(Sepal.Length ~ Species, data = df) %>% 
+lm(Sepal.Length ~ Species, data = iris) %>% 
   standardize_parameters() %>% 
   knitr::kable(digits = 2)
 ```
 
+This linear model suggests that the *standardized* difference between the *versicolor* level of Species and the *setosa* level (the reference level - the intercept) is of 1.12 standard deviation of `Sepal.Length` (because the response variable was standardized, right?). Let's compute the **Cohen's *d*** between these two levels:
+
 ```{r, warning=FALSE, message=FALSE}
-cohens_d(x = "Sepal.Length", y = "Species", data = df) 
+# Select portion of data containing the two levels of interest
+data <- iris[iris$Species %in% c("setosa", "versicolor"), ]
+
+cohens_d(Sepal.Length ~ Species, data = data) 
 ```
+
+***It is very different!*** Why? How? Both differences should be expressed in terms of SD of the response variable. *And there's the trick*. First of all, in the linear model above, the SD by which the difference is scaled is the one of the whole response, which include **all the three levels**, whereas below, we filtered the data to only include the levels of interest. If we recompute the model on this filtered data, it should be better:
+
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+lm(Sepal.Length ~ Species, data = data) %>% 
+  standardize_parameters()
+```
+```{r, warning=FALSE, message=FALSE, echo = FALSE}
+lm(Sepal.Length ~ Species, data = data) %>% 
+  standardize_parameters() %>% 
+  knitr::kable(digits = 2)
+```
+
+Not really. Why? Because the actual formula to compute a **Cohen's *d*** doesn't use the simple SD to scale the effect (as it is done when standardizing the parameters), but computes something called the [**pooled SD**](https://easystats.github.io/effectsize/reference/pooled_sd.html). However, this can be turned off by setting `correct = "raw"`.
+
+```{r, warning=FALSE, message=FALSE}
+cohens_d(Sepal.Length ~ Species, data = data, correct = "raw") 
+```
+
+***And here we are :)***
+
+
+### What about standardized interaction effects?
+
+Well, this one's a mess (at least for me). Help is required to make sense out of it. Otherwise, *NEXT*.
+
+
 
 ## Effect Size Interpretation
 
+The [**guidelines are detailed here**](https://easystats.github.io/effectsize/articles/interpret.html).
+
 
 ```{r, warning=FALSE, message=FALSE}
-interpret_d(d = 0.5)
+interpret_d(d = 0.45, rules = "cohen1988")
+interpret_d(d = 0.45, rules = "funder2019")
 ```
+
 
 ## Effect Size Conversion
 

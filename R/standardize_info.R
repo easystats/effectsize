@@ -31,10 +31,16 @@ standardize_info <- function(model, robust = FALSE, ...) {
 
 
 
-  # Response
+  # Response - Classic
   response <- .std_info_response(model, robust = robust)
   out$Deviation_Response <- response$sd
   out$Mean_Response <- response$mean
+
+  # Response - Smart
+  out <- merge(
+    out,
+    .std_info_response_smart(model, data, model_matrix, types, robust = robust)
+  )
 
   # Classic
   out <- merge(
@@ -93,7 +99,7 @@ standardize_info <- function(model, robust = FALSE, ...) {
   if (type == "intercept") {
     info <- list(sd = 0, mean = 0)
   } else if (type == "numeric") {
-    info <- .compute_std_info(data, variable, robust)
+    info <- .compute_std_info(data = data, variable = variable, robust = robust)
   } else if (type == "factor") {
     info <- list(sd = 1, mean = 0)
 
@@ -109,7 +115,7 @@ standardize_info <- function(model, robust = FALSE, ...) {
     # }
   } else if (type %in% c("interaction", "nested")) {
     if (is.numeric(data[, variable])) {
-      info <- .compute_std_info(data, variable, robust)
+      info <- .compute_std_info(data = data, variable = variable, robust = robust)
     } else if (is.factor(data[, variable])) {
       info <- list(sd = 1, mean = 0)
     } else {
@@ -137,7 +143,7 @@ standardize_info <- function(model, robust = FALSE, ...) {
       deviations <- c(deviations, 0)
       means <- c(means, 0)
     } else {
-      std_info <- .compute_std_info(model_matrix, var, robust)
+      std_info <- .compute_std_info(data = model_matrix, variable = var, robust = robust)
       deviations <- c(deviations, std_info$sd)
       means <- c(means, std_info$mean)
     }
@@ -153,22 +159,46 @@ standardize_info <- function(model, robust = FALSE, ...) {
 
 
 
-#' @keywords internal
-.compute_std_info <- function(data, variable, robust = FALSE) {
-  if (robust == FALSE) {
-    sd_x <- stats::sd(as.numeric(data[, variable]))
-    mean_x <- mean(as.numeric(data[, variable]))
-  } else {
-    sd_x <- stats::mad(as.numeric(data[, variable]))
-    mean_x <- stats::median(as.numeric(data[, variable]))
-  }
-
-  list(sd = sd_x, mean = mean_x)
-}
-
 
 
 # Response ------------------------------------------------------------
+
+#' @keywords internal
+.std_info_response_smart <- function(model, data, model_matrix, types, robust = FALSE, ...) {
+
+  info <- insight::model_info(model)
+
+  if (info$is_linear) {
+    response <- insight::get_response(model)
+    deviations <- c()
+    means <- c()
+    for(var in names(model_matrix)){
+      if(types$Link[types$Parameter == var] == "Difference"){
+        parent_var <- types$Variable[types$Parameter == var]
+        intercept <- unique(data[[parent_var]])[1]
+        response_at_intercept <- response[data[[parent_var]] == intercept]
+        std_info <- .compute_std_info(response = response_at_intercept, robust = robust)
+        deviations <- c(deviations, std_info$sd)
+        means <- c(means, std_info$mean)
+      } else {
+        std_info <- .compute_std_info(response = response, robust = robust)
+        deviations <- c(deviations, std_info$sd)
+        means <- c(means, std_info$mean)
+      }
+    }
+  } else {
+    deviations <- 1
+    means <- 0
+  }
+
+  # Out
+  data.frame(
+    Parameter = names(model_matrix),
+    Deviation_Response_Smart = deviations,
+    Mean_Response_Smart = means
+  )
+}
+
 
 
 #' @keywords internal
@@ -191,3 +221,29 @@ standardize_info <- function(model, robust = FALSE, ...) {
 
   list(sd = sd_y, mean = mean_y)
 }
+
+
+
+
+
+# Utils -------------------------------------------------------------------
+
+
+#' @keywords internal
+.compute_std_info <- function(data = NULL, variable = NULL, response = NULL, robust = FALSE) {
+
+  if(is.null(response)){
+    response <- as.numeric(data[, variable])
+  }
+
+  if (robust == FALSE) {
+    sd_x <- stats::sd(response, na.rm = TRUE)
+    mean_x <- mean(response, na.rm = TRUE)
+  } else {
+    sd_x <- stats::mad(response, na.rm = TRUE)
+    mean_x <- stats::median(response, na.rm = TRUE)
+  }
+
+  list(sd = sd_x, mean = mean_x)
+}
+

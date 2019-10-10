@@ -15,7 +15,7 @@ cohens_d(x, y = NULL, data = NULL, paired = FALSE, correct = FALSE)
 
 \item{paired}{Should the values be considered as paired.}
 
-\item{correct}{For Cohen's d, a correction to the formula to make it less biased for small samples (McGrath & Meyer, 2006).}
+\item{correct}{For Cohen's d, a correction to the formula to make it less biased for small samples (McGrath & Meyer, 2006). Can also be "raw", in which case the SD from both combined groups is computed instead of the \code{\link{sd_pooled}}.}
 }
 \description{
 Compute different indices of effect size.
