@@ -45,6 +45,13 @@ A normalized object.
 \description{
 Performs a normalization of data. This scales all numeric variables in the range 0 - 1.
 }
+\examples{
+normalize(c(0, 1, 5, -5, -2))
+normalize(c(0, 1, 5, -5, -2), include_bounds = FALSE)
+
+head(normalize(iris))
+
+}
 \references{
 Smithson M, Verkuilen J (2006). A Better Lemon Squeezer? Maximum-Likelihood Regression with Beta-Distributed Dependent Variables. Psychological Methods, 11(1), 54–71.
 }

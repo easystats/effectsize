@@ -91,7 +91,7 @@ lm(Sepal.Length ~ Petal.Length, data = iris) %>%
   knitr::kable(digits = 2)
 ```
 
-Standardizing the coeffcient of this simple linear regression gives a value of .87, but did you know that this is actually the same as a correlation? And can be thus interpreted using *(in)*famous guidelines (e.g., Cohen's rules of thumb).
+Standardizing the coefficient of this simple linear regression gives a value of `0.87`, but did you know that this is actually the **same as a correlation**? And can be thus interpreted using (*in*)famous guidelines (e.g., Cohen's rules of thumb).
 
 ```{r, warning=FALSE, message=FALSE}
 library(parameters)
@@ -141,9 +141,10 @@ convert_d_to_r(d = 1)
 
 Many indices of effect size stem out, or are related, to [*standardization*](https://easystats.github.io/effectsize/articles/standardize_parameters.html). Thus, it is expected that `effectsize` provides functions to standardize data and models.
 
-### Data Standardization and Normalization
+### Data standardization, normalization and rank-transformation
 
-Set the mean and SD to 0 and 1:
+
+A standardization sets the mean and SD to 0 and 1:
 
 ```{r, warning=FALSE, message=FALSE, eval=FALSE}
 df <- standardize(iris)
@@ -163,6 +164,12 @@ describe_distribution(df$Sepal.Length)
 ```{r, warning=FALSE, message=FALSE, echo = FALSE}
 df <- normalize(iris)
 knitr::kable(describe_distribution(df$Sepal.Length), digits = 1)
+```
+
+For some robust statistics, one might also want to transfom the numeric values into *ranks* (or signed-ranks), which can be performed using the `rankalize()` function.
+
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+rankalize(c(1, 3, -2, 6, 6, 0))
 ```
 
 ### Model Standardization

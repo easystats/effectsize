@@ -72,9 +72,9 @@ lm(Sepal.Length ~ Petal.Length, data = iris) %>%
 | (Intercept)  |             0.00 |
 | Petal.Length |             0.87 |
 
-Standardizing the coeffcient of this simple linear regression gives a
-value of .87, but did you know that this is actually the same as a
-correlation? And can be thus interpreted using *(in)*famous guidelines
+Standardizing the coefficient of this simple linear regression gives a
+value of `0.87`, but did you know that this is actually the **same as a
+correlation**? And can be thus interpreted using (*in*)famous guidelines
 (e.g., Cohen’s rules of thumb).
 
 ``` r
@@ -130,9 +130,9 @@ Many indices of effect size stem out, or are related, to
 Thus, it is expected that `effectsize` provides functions to standardize
 data and models.
 
-### Data Standardization and Normalization
+### Data standardization, normalization and rank-transformation
 
-Set the mean and SD to 0 and 1:
+A standardization sets the mean and SD to 0 and 1:
 
 ``` r
 df <- standardize(iris)
@@ -157,6 +157,14 @@ describe_distribution(df$Sepal.Length)
 | Mean |  SD | Min | Max | Skewness | Kurtosis |   n | n\_Missing |
 | ---: | --: | --: | --: | -------: | -------: | --: | ---------: |
 |  0.4 | 0.2 |   0 |   1 |      0.3 |    \-0.6 | 150 |          0 |
+
+For some robust statistics, one might also want to transfom the numeric
+values into *ranks* (or signed-ranks), which can be performed using the
+`rankalize()` function.
+
+``` r
+rankalize(c(1, 3, -2, 6, 6, 0))
+```
 
 ### Model Standardization
 
