@@ -1,7 +1,5 @@
 
-<!-- # bayestestR <img src='man/figures/logo.png' align="right" height="139" /> -->
-
-# effectsize
+# effectsize <img src='man/figures/logo.png' align="right" height="139" />
 
 [![CRAN](http://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize)
 [![downloads](http://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize)
