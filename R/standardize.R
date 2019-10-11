@@ -7,7 +7,7 @@
 #'   median from the variables and divide it by the median absolute deviation
 #'   (MAD). If \code{FALSE}, variables are standardized by substracting the
 #'   mean and divide it by the standard deviation (SD).
-#' @param method The method of standardization. For data.frames, can be \code{"default"} (variables are centred by mean or median, and divided by SD or MAD, depending on \code{robust}) or \code{"2sd"}, in which case they are divided by two times the deviation (SD or MAD, again depending on \code{robust}).
+#' @param two_sd If \code{TRUE}, the variables are scaled by two times the deviation (SD or MAD depending on \code{robust}). This method can be useful to obtain model coefficients of continuous parameters comparable to coefficients related to binary predictors (Gelman, 2008).
 #' @param verbose Toggle warnings on or off.
 #' @param force Logical, if \code{TRUE}, forces standardization of factors as
 #'   well. Factors are converted to numerical values, with the lowest level

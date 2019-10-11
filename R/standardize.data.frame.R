@@ -1,8 +1,7 @@
 #' @rdname standardize
 #' @importFrom stats median mad na.omit
 #' @export
-standardize.numeric <- function(x, robust = FALSE, method = "default", verbose = TRUE, ...) {
-  method <- match.arg(method, choices = c("default", "refit", "2sd", "smart", "partial", "classic"))
+standardize.numeric <- function(x, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
 
   # Warning if all NaNs
   if (all(is.na(x))) {
@@ -29,10 +28,10 @@ standardize.numeric <- function(x, robust = FALSE, method = "default", verbose =
     scale <- stats::sd(x)
   }
 
-  if (method %in% c("default", "classic", "refit", "smart")) {
-    x <- as.vector((x - center) / scale)
-  } else {
+  if (two_sd) {
     x <- as.vector((x - center) / 2 * scale)
+  } else {
+    x <- as.vector((x - center) / scale)
   }
 
   attr(x, "center") <- center
@@ -107,7 +106,7 @@ standardize.AsIs <- standardize.numeric
 
 #' @inheritParams standardize
 #' @export
-standardize.grouped_df <- function(x, robust = FALSE, method = "default", select = NULL, exclude = NULL, verbose = TRUE, force = FALSE, ...) {
+standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, select = NULL, exclude = NULL, verbose = TRUE, force = FALSE, ...) {
   info <- attributes(x)
   # dplyr >= 0.8.0 returns attribute "indices"
   grps <- attr(x, "groups", exact = TRUE)
@@ -127,7 +126,7 @@ standardize.grouped_df <- function(x, robust = FALSE, method = "default", select
       select = select,
       exclude = exclude,
       robust = robust,
-      method = method,
+      two_sd = two_sd,
       verbose = verbose,
       force = force,
       ...
@@ -142,7 +141,7 @@ standardize.grouped_df <- function(x, robust = FALSE, method = "default", select
 
 #' @rdname standardize
 #' @export
-standardize.data.frame <- function(x, robust = FALSE, method = "default", select = NULL, exclude = NULL, verbose = TRUE, force = FALSE, ...) {
+standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, select = NULL, exclude = NULL, verbose = TRUE, force = FALSE, ...) {
   if (is.null(select)) {
     select <- names(x)
   }
@@ -155,7 +154,7 @@ standardize.data.frame <- function(x, robust = FALSE, method = "default", select
     .check_standardize_numeric(x[[select[i]]], name = select[i], verbose = verbose)
   }
 
-  x[select] <- lapply(x[select], standardize, robust = robust, method = method, verbose = FALSE, force = force)
+  x[select] <- lapply(x[select], standardize, robust = robust, two_sd = two_sd, verbose = FALSE, force = force)
 
   attr(x, "center") <- sapply(x[select], function(z) attributes(z)$center)
   attr(x, "scale") <- sapply(x[select], function(z) attributes(z)$scale)

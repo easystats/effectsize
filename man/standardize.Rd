@@ -11,16 +11,16 @@
 \usage{
 standardize(x, ...)
 
-\method{standardize}{numeric}(x, robust = FALSE, method = "default",
+\method{standardize}{numeric}(x, robust = FALSE, two_sd = FALSE,
   verbose = TRUE, ...)
 
 \method{standardize}{factor}(x, force = FALSE, ...)
 
-\method{standardize}{data.frame}(x, robust = FALSE, method = "default",
+\method{standardize}{data.frame}(x, robust = FALSE, two_sd = FALSE,
   select = NULL, exclude = NULL, verbose = TRUE, force = FALSE,
   ...)
 
-\method{standardize}{lm}(x, robust = FALSE, method = "default",
+\method{standardize}{lm}(x, robust = FALSE, two_sd = FALSE,
   include_response = TRUE, verbose = TRUE, ...)
 }
 \arguments{
@@ -33,7 +33,7 @@ median from the variables and divide it by the median absolute deviation
 (MAD). If \code{FALSE}, variables are standardized by substracting the
 mean and divide it by the standard deviation (SD).}
 
-\item{method}{The method of standardization. For data.frames, can be \code{"default"} (variables are centred by mean or median, and divided by SD or MAD, depending on \code{robust}) or \code{"2sd"}, in which case they are divided by two times the deviation (SD or MAD, again depending on \code{robust}).}
+\item{two_sd}{If \code{TRUE}, the variables are scaled by two times the deviation (SD or MAD depending on \code{robust}). This method can be useful to obtain model coefficients of continuous parameters comparable to coefficients related to binary predictors (Gelman, 2008).}
 
 \item{verbose}{Toggle warnings on or off.}
 

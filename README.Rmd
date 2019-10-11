@@ -37,7 +37,7 @@ knitr::opts_chunk$set(
 
 ***Size does matter***
 
-The goal of this package is to provide utilities to work with indices of effect size and standardized parameters, allowing computation and conversion of indices such as Cohen's *d*, *r*, odds, etc.
+The goal of this package is to provide utilities to work with indices of effect size and standardized parameters, allowing computation and conversion of indices such as Cohen's *d*, *r*, odds-ratios, etc.
 
 
 ## Installation

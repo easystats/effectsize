@@ -1,9 +1,8 @@
 #' Get Standardization Information
 #'
-#' This function extracts information, such as the deviations (SD or MAD) from parent variables, that are necessary for post-hoc standardization of parameters.
+#' This function extracts information, such as the deviations (SD or MAD) from parent variables, that are necessary for post-hoc standardization of parameters. This function gives a window on how standardized are obtained, i.e., by what they are devided. The "basic" method of standardization uses
 #'
 #' @inheritParams standardize_parameters
-#'
 #'
 #' @examples
 #' model <- lm(Sepal.Width ~ Sepal.Length * Species, data = iris)
@@ -31,10 +30,11 @@ standardize_info <- function(model, robust = FALSE, ...) {
 
 
 
-  # Response - Classic
-  response <- .std_info_response(model, robust = robust)
-  out$Deviation_Response <- response$sd
-  out$Mean_Response <- response$mean
+  # Response - Basic
+  out <- merge(
+    out,
+    .std_info_response_basic(model, params, robust = robust)
+  )
 
   # Response - Smart
   out <- merge(
@@ -42,10 +42,10 @@ standardize_info <- function(model, robust = FALSE, ...) {
     .std_info_response_smart(model, data, model_matrix, types, robust = robust)
   )
 
-  # Classic
+  # Basic
   out <- merge(
     out,
-    .std_info_predictors_classic(model_matrix, types, robust = robust)
+    .std_info_predictors_basic(model_matrix, types, robust = robust)
   )
 
   # Smart
@@ -57,6 +57,18 @@ standardize_info <- function(model, robust = FALSE, ...) {
   # Reorder
   out <- out[match(params, out$Parameter), ]
   row.names(out) <- NULL
+
+  # Remove all means for now (because it's not used)
+  out <- out[!grepl("Mean_", names(out))]
+
+  # Select only desired columns
+  # if(method == "all") method <- c("smart", "basic")
+  # if(!any(method == "smart")){
+  #   out <- out[!grepl("_Smart", names(out))]
+  # }
+  # if(!any(method == "basic")){
+  #   out <- out[!grepl("_Basic", names(out))]
+  # }
 
   out
 }
@@ -129,11 +141,11 @@ standardize_info <- function(model, robust = FALSE, ...) {
 }
 
 
-# Predictors - Classic ------------------------------------------------------------
+# Predictors - Basic ------------------------------------------------------------
 
 
 #' @keywords internal
-.std_info_predictors_classic <- function(model_matrix, types, robust = FALSE, ...) {
+.std_info_predictors_basic <- function(model_matrix, types, robust = FALSE, ...) {
 
   # Get deviations for all parameters
   deviations <- c()
@@ -152,8 +164,8 @@ standardize_info <- function(model, robust = FALSE, ...) {
   # Out
   data.frame(
     Parameter = names(model_matrix),
-    Deviation_Classic = deviations,
-    Mean_Classic = means
+    Deviation_Basic = deviations,
+    Mean_Basic = means
   )
 }
 
@@ -202,7 +214,7 @@ standardize_info <- function(model, robust = FALSE, ...) {
 
 
 #' @keywords internal
-.std_info_response <- function(model, robust = FALSE, ...) {
+.std_info_response_basic <- function(model, params, robust = FALSE, ...) {
   info <- insight::model_info(model)
   response <- insight::get_response(model)
 
@@ -219,7 +231,12 @@ standardize_info <- function(model, robust = FALSE, ...) {
     mean_y <- 0
   }
 
-  list(sd = sd_y, mean = mean_y)
+  # Out
+  data.frame(
+    Parameter = params,
+    Deviation_Response_Basic = sd_y,
+    Mean_Response_Basic = mean_y
+  )
 }
 
 

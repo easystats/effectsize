@@ -17,7 +17,7 @@ mean and divide it by the standard deviation (SD).}
 \item{...}{Arguments passed to or from other methods.}
 }
 \description{
-This function extracts information, such as the deviations (SD or MAD) from parent variables, that are necessary for post-hoc standardization of parameters.
+This function extracts information, such as the deviations (SD or MAD) from parent variables, that are necessary for post-hoc standardization of parameters. This function gives a window on how standardized are obtained, i.e., by what they are devided. The "basic" method of standardization uses
 }
 \examples{
 model <- lm(Sepal.Width ~ Sepal.Length * Species, data = iris)

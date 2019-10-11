@@ -2,9 +2,12 @@
 % Please edit documentation in R/cohens_d.R
 \name{cohens_d}
 \alias{cohens_d}
+\alias{glass_delta}
 \title{Indices of effect size (Cohen's d, Hedges' g, ...)}
 \usage{
 cohens_d(x, y = NULL, data = NULL, paired = FALSE, correct = FALSE)
+
+glass_delta(x, y = NULL, data = NULL, correct = FALSE)
 }
 \arguments{
 \item{x}{A continuous variable or a formula.}
