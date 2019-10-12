@@ -1,6 +1,7 @@
 #' @rdname d_to_r
 #' @export
 convert_t_to_r <- function(t, df_error){
+  # https://www.soph.uab.edu/sites/edu.ssg/files/People/MBeasley/Courses/EffectSizeConversion.pdf
   sqrt(t^2 / (t^2 + df_error))
 }
 

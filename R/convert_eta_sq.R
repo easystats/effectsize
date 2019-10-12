@@ -2,7 +2,7 @@
 #'
 #' These functions are convenience functions to convert F and t test statistics to partial Eta squared, (\eqn{\eta{_p}^2}), Omega squared (\eqn{\omega{_p}^2}) and Epsilon squared (\eqn{\epsilon{_p}^2}; an alias for the adjusted Eta squared). These are useful in cases where the various Sum of Squares and Mean Squares are not easily available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.). For test statistics derived from \code{lm} and \code{aov} models, these functions give exact results. For all other cases, they return close approximations.
 #'
-#' @param F_stat,t_stat The \eqn{F} or \eqn{t} statistics.
+#' @param f,t The \eqn{F} or \eqn{t} statistics.
 #' @param df Numerator degrees of freedom for the \eqn{F} statistic.
 #' @param df_error Denominator degrees of freedom for the \eqn{F} and \eqn{t} statistics.
 #'
@@ -57,28 +57,28 @@
 #' }
 #'
 #' @export
-F_to_partial_eta_squared <- function(F_stat, df, df_error) {
-  (F_stat * df) / (F_stat * df + df_error)
+F_to_partial_eta_squared <- function(f, df, df_error) {
+  (f * df) / (f * df + df_error)
 }
 
 
 
 #' @rdname F_to_partial_eta_squared
 #' @export
-t_to_partial_eta_squared <- function(t_stat, df_error) {
-  F_to_partial_eta_squared(t_stat^2, 1, df_error)
+t_to_partial_eta_squared <- function(t, df_error) {
+  F_to_partial_eta_squared(t^2, 1, df_error)
 }
 
 #' @rdname F_to_partial_eta_squared
 #' @export
-F_to_partial_epsilon_squared <- function(F_stat, df, df_error) {
-  ((F_stat - 1) * df) / (F_stat * df + df_error)
+F_to_partial_epsilon_squared <- function(f, df, df_error) {
+  ((f - 1) * df) / (f * df + df_error)
 }
 
 #' @rdname F_to_partial_eta_squared
 #' @export
-t_to_partial_epsilon_squared <- function(t_stat, df_error) {
-  F_to_partial_epsilon_squared(t_stat^2, 1, df_error)
+t_to_partial_epsilon_squared <- function(t, df_error) {
+  F_to_partial_epsilon_squared(t^2, 1, df_error)
 }
 
 #' @rdname F_to_partial_eta_squared
@@ -91,14 +91,14 @@ t_to_adj_partial_eta_squared <- t_to_partial_epsilon_squared
 
 #' @rdname F_to_partial_eta_squared
 #' @export
-F_to_partial_omega_squared <- function(F_stat, df, df_error) {
-  ((F_stat - 1) * df) / (F_stat * df + df_error + 1)
+F_to_partial_omega_squared <- function(f, df, df_error) {
+  ((f - 1) * df) / (f * df + df_error + 1)
 }
 
 #' @rdname F_to_partial_eta_squared
 #' @export
-t_to_partial_omega_squared <- function(t_stat, df_error) {
-  F_to_partial_omega_squared(t_stat^2, 1, df_error)
+t_to_partial_omega_squared <- function(t, df_error) {
+  F_to_partial_omega_squared(t^2, 1, df_error)
 }
 
 

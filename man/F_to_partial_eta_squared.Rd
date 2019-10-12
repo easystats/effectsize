@@ -11,24 +11,24 @@
 \alias{t_to_partial_omega_squared}
 \title{Convert test statistics (F, t) to indices of variance explained (partial Eta / Omega / Epsilon squared)}
 \usage{
-F_to_partial_eta_squared(F_stat, df, df_error)
+F_to_partial_eta_squared(f, df, df_error)
 
-t_to_partial_eta_squared(t_stat, df_error)
+t_to_partial_eta_squared(t, df_error)
 
-F_to_partial_epsilon_squared(F_stat, df, df_error)
+F_to_partial_epsilon_squared(f, df, df_error)
 
-t_to_partial_epsilon_squared(t_stat, df_error)
+t_to_partial_epsilon_squared(t, df_error)
 
-F_to_adj_partial_eta_squared(F_stat, df, df_error)
+F_to_adj_partial_eta_squared(f, df, df_error)
 
-t_to_adj_partial_eta_squared(t_stat, df_error)
+t_to_adj_partial_eta_squared(t, df_error)
 
-F_to_partial_omega_squared(F_stat, df, df_error)
+F_to_partial_omega_squared(f, df, df_error)
 
-t_to_partial_omega_squared(t_stat, df_error)
+t_to_partial_omega_squared(t, df_error)
 }
 \arguments{
-\item{F_stat, t_stat}{The \eqn{F} or \eqn{t} statistics.}
+\item{f, t}{The \eqn{F} or \eqn{t} statistics.}
 
 \item{df}{Numerator degrees of freedom for the \eqn{F} statistic.}
 
