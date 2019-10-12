@@ -4,6 +4,8 @@
 #'
 #' @param d Standardized difference value (Cohen's d).
 #' @param r Correlation coefficient r.
+#' @param t,f,z The t, the F or the z statistics.
+#' @param df_error Degrees of freedom of the error estimate (i.e., the residuals).
 #' @param percentage Percentage value (e.g., \code{0.01} for one percent).
 #' @param odds Odds values in vector or dataframe.
 #' @param probs Probability values.

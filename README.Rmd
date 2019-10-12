@@ -170,7 +170,7 @@ knitr::kable(describe_distribution(df$Sepal.Length), digits = 1)
 
 For some robust statistics, one might also want to transfom the numeric values into *ranks* (or signed-ranks), which can be performed using the `ranktransform()` function.
 
-```{r, warning=FALSE, message=FALSE, eval=FALSE}
+```{r, warning=FALSE, message=FALSE}
 ranktransform(c(1, 3, -2, 6, 6, 0))
 ```
 
