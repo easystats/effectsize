@@ -40,12 +40,12 @@ interpret_d <- function(d, rules = "funder2019") {
 
 #' @rdname interpret_d
 #' @export
-interpret_g <- function(g, rules = "funder2019"){
+interpret_g <- function(g, rules = "funder2019") {
   interpret_d(g, rules)
 }
 
 #' @rdname interpret_d
 #' @export
-interpret_delta <- function(delta, rules = "funder2019"){
+interpret_delta <- function(delta, rules = "funder2019") {
   interpret_d(delta, rules)
 }

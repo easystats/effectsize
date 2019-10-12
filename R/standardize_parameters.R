@@ -70,6 +70,7 @@
 #'   \item Neter, J., Wasserman, W., & Kutner, M. H. (1989). Applied linear regression models.
 #'   \item Gelman, A. (2008). Scaling regression inputs by dividing by two standard deviations. Statistics in medicine, 27(15), 2865-2873.
 #' }
+#' @importFrom bayestestR describe_posterior
 #' @export
 standardize_parameters <- function(model, parameters = NULL, method = "refit", robust = FALSE, two_sd = FALSE, verbose = TRUE, centrality = "median", ...) {
   std_params <- .standardize_parameters(model = model, parameters = parameters, method = method, robust = robust, two_sd = two_sd, verbose = verbose, ...)
@@ -136,6 +137,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 
 
 # POST-HOC -------------------------------------------------------------------
+#' @importFrom parameters standard_error
 #' @importFrom insight model_info get_data
 #' @keywords internal
 .standardize_parameters_posthoc <- function(model, parameters = NULL, method = "smart", robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {

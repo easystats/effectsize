@@ -7,6 +7,7 @@
 #' @examples
 #' model <- lm(Sepal.Width ~ Sepal.Length * Species, data = iris)
 #' standardize_info(model)
+#' @importFrom parameters parameters_type
 #' @export
 standardize_info <- function(model, robust = FALSE, ...) {
   params <- insight::find_parameters(model, effects = "fixed", flatten = TRUE, ...)

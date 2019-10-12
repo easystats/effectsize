@@ -37,9 +37,6 @@ glass_delta(iris$Sepal.Length, iris$Sepal.Width)
 
 cohens_d(iris$Sepal.Length, iris$Sepal.Width, correct = TRUE, pooled_sd = FALSE)
 cohens_d(Sepal.Length ~ Species, data = iris[iris$Species \%in\% c("versicolor", "setosa"), ])
-
-
-
 }
 \references{
 \itemize{

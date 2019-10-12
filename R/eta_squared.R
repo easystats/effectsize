@@ -62,6 +62,7 @@
 #'
 #' The computation of CIs is based on the implementation done by Stanley (2018) in the \code{ApaTables} package and Kelley (2007) in the \code{MBESS} package. All credits go to them.
 #'
+#' @importFrom parameters model_parameters
 #' @export
 eta_squared <- function(model, partial = TRUE, ci = NULL, ...) {
   UseMethod("eta_squared")

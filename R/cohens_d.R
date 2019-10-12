@@ -17,9 +17,6 @@
 #'
 #' cohens_d(iris$Sepal.Length, iris$Sepal.Width, correct = TRUE, pooled_sd = FALSE)
 #' cohens_d(Sepal.Length ~ Species, data = iris[iris$Species %in% c("versicolor", "setosa"), ])
-#'
-#'
-#'
 #' @references \itemize{
 #'  \item Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.
 #'  \item McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
