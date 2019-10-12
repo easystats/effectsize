@@ -1,4 +1,4 @@
-#' Compute Partial Variance Explained Effect Sizes From Test Statistics
+#' Convert between ANOVA indices (F, t, Eta squared, ...)
 #'
 #' These functions are convenience functions to convert \eqn{F} and \eqn{t}
 #' test statistics to \eqn{\eta_p^2}, \eqn{\omega_p^2}, \eqn{\epsilon_p^2}, or
