@@ -80,8 +80,7 @@ t_to_partial_eta_squared <- function(t_stat, df_residual) {
 #' @rdname F_to_partial_eta_squared
 #' @export
 F_to_partial_epsilon_squared <- function(F_stat, df, df_residual) {
-  ((F_stat - 1) * df) /
-    (F_stat * df + df_residual)
+  ((F_stat - 1) * df) / (F_stat * df + df_residual)
 }
 
 #' @rdname F_to_partial_eta_squared
@@ -111,43 +110,3 @@ t_to_partial_omega_squared <- function(t_stat, df_residual) {
 }
 
 
-#' Compute Effect sizes for Contingency Tables (\eqn{chi^2})
-#'
-#' These convert \eqn{chi^2} test statistics to \eqn{\phi} and \eqn{\Cramer's V}.
-#'
-#' @param chisq The \eqn{chi^2} statistic.
-#' @param N The sample size
-#' @param a The number of rows in the contingency table.
-#' @param b The number of columns in the contingency tables.
-#'
-#' @return A numeric integer between 0-1.
-#'
-#' @examples
-#' \dontrun{
-#' ctab <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
-#' N <- sum(ctab)
-#' a <- nrow(ctab)
-#' b <- ncol(ctab)
-#'
-#' (Xsq <- chisq.test(ctab))
-#' #
-#' #         Pearson's Chi-squared test
-#' #
-#' # data:  ctab
-#' # X-squared = 41.234, df = 4, p-value = 2.405e-08
-#'
-#' chisq_to_phi(30.07, N)
-#' chisq_to_cramers_V(30.07, N, a, b)
-#' }
-#'
-#' @export
-chisq_to_phi <- function(chisq, N) {
-  sqrt(chisq / N)
-}
-
-#' @rdname chisq_to_phi
-#' @export
-chisq_to_cramers_V <- function(chisq, N, a, b) {
-  chisq_to_phi(chisq, N) /
-    sqrt((min(a, b) - 1))
-}
