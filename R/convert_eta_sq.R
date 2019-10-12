@@ -1,16 +1,8 @@
 #' Convert test statistics (F, t) to indices of variance explained (partial Eta / Omega / Epsilon squared)
 #'
-#' These functions are convenience functions to convert \eqn{F} and \eqn{t}
-#' test statistics to \eqn{\eta_p^2}, \eqn{\omega_p^2}, \eqn{\epsilon_p^2}, or
-#' \eqn{Adj. \eta_p^2}. These are useful in cases where the various \eqn{SS}s and
-#' \eqn{MS}s are not easily available or their computation is not straightforward
-#' (e.g., in liner mixed models, contrasts, etc.).
-#' \cr\cr
-#' For test statistics derived from \code{lm} and \code{aov} models, these functions
-#' give exact results. For all other cases, these give practically exact results.
+#' These functions are convenience functions to convert F and t test statistics to partial Eta squared, (\eqn{\eta{_p}^2}), Omega squared (\eqn{\omega{_p}^2}) and Epsilon squared (\eqn{\epsilon{_p}^2}; an alias for the adjusted Eta squared). These are useful in cases where the various Sum of Squares and Mean Squares are not easily available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.). For test statistics derived from \code{lm} and \code{aov} models, these functions give exact results. For all other cases, they return close approximations.
 #'
-#' @param F_stat The \eqn{F} statistic.
-#' @param t_stat The \eqn{t} statistic.
+#' @param F_stat,t_stat The \eqn{F} or \eqn{t} statistics.
 #' @param df Numerator degrees of freedom for the \eqn{F} statistic.
 #' @param df_error Denominator degrees of freedom for the \eqn{F} and \eqn{t} statistics.
 #'

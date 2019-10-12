@@ -128,6 +128,10 @@ eta_squared.merMod <- function(model, partial = TRUE, ci = NULL, ...) {
   .eta_square_from_F(par_table, ci = ci)
 }
 
+
+
+
+
 #' @keywords internal
 .eta_squared <- function(model, partial, ci, iterations) {
   params <- as.data.frame(parameters::model_parameters(model))

@@ -28,13 +28,11 @@ F_to_partial_omega_squared(F_stat, df, df_error)
 t_to_partial_omega_squared(t_stat, df_error)
 }
 \arguments{
-\item{F_stat}{The \eqn{F} statistic.}
+\item{F_stat, t_stat}{The \eqn{F} or \eqn{t} statistics.}
 
 \item{df}{Numerator degrees of freedom for the \eqn{F} statistic.}
 
 \item{df_error}{Denominator degrees of freedom for the \eqn{F} and \eqn{t} statistics.}
-
-\item{t_stat}{The \eqn{t} statistic.}
 }
 \value{
 A numeric integer between 0-1 (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2}
@@ -42,14 +40,7 @@ it is possible to compute a negative number; even though this doesn't make any p
 it is recommended to report the negative number and not a 0).
 }
 \description{
-These functions are convenience functions to convert \eqn{F} and \eqn{t}
-test statistics to \eqn{\eta_p^2}, \eqn{\omega_p^2}, \eqn{\epsilon_p^2}, or
-\eqn{Adj. \eta_p^2}. These are useful in cases where the various \eqn{SS}s and
-\eqn{MS}s are not easily available or their computation is not straightforward
-(e.g., in liner mixed models, contrasts, etc.).
-\cr\cr
-For test statistics derived from \code{lm} and \code{aov} models, these functions
-give exact results. For all other cases, these give practically exact results.
+These functions are convenience functions to convert F and t test statistics to partial Eta squared, (\eqn{\eta{_p}^2}), Omega squared (\eqn{\omega{_p}^2}) and Epsilon squared (\eqn{\epsilon{_p}^2}; an alias for the adjusted Eta squared). These are useful in cases where the various Sum of Squares and Mean Squares are not easily available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.). For test statistics derived from \code{lm} and \code{aov} models, these functions give exact results. For all other cases, they return close approximations.
 }
 \details{
 These functions use the following formulae:
