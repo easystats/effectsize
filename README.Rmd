@@ -84,7 +84,7 @@ hedges_g(iris$Sepal.Length, iris$Sepal.Width)
 glass_delta(iris$Sepal.Length, iris$Sepal.Width)
 ```
 
-### ANOVAs (Eta$^2$, Omega$^2$, ...)
+### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, ...)
 
 Currently implemented in the `parameters` package, will be transfered here in the next update.
 
@@ -138,10 +138,13 @@ Many indices of effect size stem out, or are related, to [*standardization*](htt
 A standardization sets the mean and SD to 0 and 1:
 
 ```{r, warning=FALSE, message=FALSE, eval=FALSE}
+library(parameters)
+
 df <- standardize(iris)
 describe_distribution(df$Sepal.Length)
 ```
 ```{r, warning=FALSE, message=FALSE, echo = FALSE}
+library(parameters)
 df <- standardize(iris)
 knitr::kable(describe_distribution(df$Sepal.Length), digits = 1)
 ```

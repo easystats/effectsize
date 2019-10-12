@@ -29,7 +29,7 @@ options(digits=2)
 
 
 
-The `effectsize` package contains function to convert among indices of effect size.
+The `effectsize` package contains function to convert among indices of effect size. **This vignette needs to be improved! Please contribute by editing the text** [**here**](https://github.com/easystats/effectsize/blob/master/vignettes/convert.Rmd) **to make it better :)**
 
 ```{r, warning=FALSE, message=FALSE}
 library(effectsize)

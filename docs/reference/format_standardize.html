@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>p-values Interpretation — interpret_p • effectsize</title>
+<title>Transform a standardized vector into character — format_standardize • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -39,9 +39,9 @@
 
 
 
-<meta property="og:title" content="p-values Interpretation — interpret_p" />
+<meta property="og:title" content="Transform a standardized vector into character — format_standardize" />
 
-<meta property="og:description" content="p-values Interpretation" />
+<meta property="og:description" content="Transform a standardized vector into character, e.g., c(&quot;-1 SD&quot;, &quot;Mean&quot;, &quot;+1 SD&quot;)." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -136,35 +136,54 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>p-values Interpretation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/interpret_p.R'><code>R/interpret_p.R</code></a></small>
-    <div class="hidden name"><code>interpret_p.Rd</code></div>
+    <h1>Transform a standardized vector into character</h1>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/format_standardize.R'><code>R/format_standardize.R</code></a></small>
+    <div class="hidden name"><code>format_standardize.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>p-values Interpretation</p>
+    <p>Transform a standardized vector into character, e.g., <code><a href='https://rdrr.io/r/base/c.html'>c("-1 SD", "Mean", "+1 SD")</a></code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>interpret_p</span>(<span class='no'>p</span>, <span class='kw'>rules</span> <span class='kw'>=</span> <span class='st'>"default"</span>)</pre>
+    <pre class="usage"><span class='fu'>format_standardize</span>(<span class='no'>x</span>, <span class='kw'>reference</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>p</th>
-      <td><p>Value or vector of p-values.</p></td>
+      <th>x</th>
+      <td><p>A standardized numeric vector.</p></td>
     </tr>
     <tr>
-      <th>rules</th>
-      <td><p>Can be "default" or custom set of rules.</p></td>
+      <th>reference</th>
+      <td><p>The reference vector from which to compute the mean and SD.</p></td>
+    </tr>
+    <tr>
+      <th>robust</th>
+      <td><p>Logical, if <code>TRUE</code>, centering is done by substracting the
+median from the variables and divide it by the median absolute deviation
+(MAD). If <code>FALSE</code>, variables are standardized by substracting the
+mean and divide it by the standard deviation (SD).</p></td>
+    </tr>
+    <tr>
+      <th>digits</th>
+      <td><p>Number of significant digits.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments passed to or from other methods.</p></td>
     </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>interpret_p</span>(<span class='fl'>.02</span>)</div><div class='output co'>#&gt; [1] "significant"</div><div class='input'><span class='fu'>interpret_p</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.02</span>))</div><div class='output co'>#&gt; [1] "not significant" "significant"    </div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>format_standardize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] -1 SD Mean  +1 SD
+#&gt; Levels: +1 SD Mean -1 SD</div><div class='input'><span class='fu'>format_standardize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), <span class='kw'>reference</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>))</div><div class='output co'>#&gt; [1] -1 SD Mean  +1 SD +2 SD
+#&gt; Levels: +2 SD +1 SD Mean -1 SD</div><div class='input'><span class='fu'>format_standardize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), <span class='kw'>reference</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>), <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] -1 MAD Median +1 MAD +2 MAD
+#&gt; Levels: +2 MAD +1 MAD Median -1 MAD</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

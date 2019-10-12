@@ -11,7 +11,7 @@ Status](https://travis-ci.org/easystats/effectsize.svg?branch=master)](https://t
 
 The goal of this package is to provide utilities to work with indices of
 effect size and standardized parameters, allowing computation and
-conversion of indices such as Cohen’s *d*, *r*, odds, etc.
+conversion of indices such as Cohen’s *d*, *r*, odds-ratios, etc.
 
 ## Installation
 
@@ -56,44 +56,29 @@ help :)
 
 ## Effect Size Computation
 
-### Measure of association (correlation *r*)
+### Basic Indices (Cohen’s *d*, Hedges’ *g*, Glass’ *delta*)
+
+The package provides functions to compute indices of effect size.
 
 ``` r
-library(dplyr)
-
-lm(Sepal.Length ~ Petal.Length, data = iris) %>% 
-  standardize_parameters()
+cohens_d(iris$Sepal.Length, iris$Sepal.Width)
+hedges_g(iris$Sepal.Length, iris$Sepal.Width)
+glass_delta(iris$Sepal.Length, iris$Sepal.Width)
 ```
 
-| Parameter    | Std\_Coefficient |
-| :----------- | ---------------: |
-| (Intercept)  |             0.00 |
-| Petal.Length |             0.87 |
+### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)
 
-Standardizing the coefficient of this simple linear regression gives a
-value of `0.87`, but did you know that this is actually the **same as a
-correlation**? Thus, you can eventually apply some (*in*)famous
-interpretation guidelines (e.g., Cohen’s rules of thumb).
+Currently implemented in the `parameters` package, will be transfered
+here in the next update.
 
-``` r
-library(parameters)
+### Regression Models
 
-cor.test(iris$Sepal.Length, iris$Petal.Length) %>% 
-  model_parameters()
-## Parameter1        |        Parameter2 |    r |     t |  df |      p |       95% CI |  Method
-## --------------------------------------------------------------------------------------------
-## iris$Sepal.Length | iris$Petal.Length | 0.87 | 21.65 | 148 | < .001 | [0.83, 0.91] | Pearson
-```
-
-### Standardized differences
-
-How does it work in the case of differences, when **factors** are
-entered and differences between a given level and a reference level (the
-intercept)? You might have heard that it is similar to a **Cohen’s
-*d***. Well, let’s see.
+Importantly, `effectsize` also provides [advanced
+methods](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
+to compute standardized parameters for regression models.
 
 ``` r
-lm(Sepal.Length ~ Species, data = iris) %>% 
+lm(Sepal.Length ~ Species + Sepal.Length, data = iris) %>% 
   standardize_parameters()
 ```
 
@@ -103,61 +88,19 @@ lm(Sepal.Length ~ Species, data = iris) %>%
 | Speciesversicolor |             1.12 |
 | Speciesvirginica  |             1.91 |
 
-This linear model suggests that the *standardized* difference between
-the *versicolor* level of Species and the *setosa* level (the reference
-level - the intercept) is of 1.12 standard deviation of `Sepal.Length`
-(because the response variable was standardized, right?). Let’s compute
-the **Cohen’s *d*** between these two levels:
-
-``` r
-# Select portion of data containing the two levels of interest
-data <- iris[iris$Species %in% c("setosa", "versicolor"), ]
-
-cohens_d(Sepal.Length ~ Species, data = data) 
-## [1] 2.1
-```
-
-***It is very different\!*** Why? How? Both differences should be
-expressed in terms of SD of the response variable. *And there’s the
-trick*. First of all, in the linear model above, the SD by which the
-difference is scaled is the one of the whole response, which include
-**all the three levels**, whereas below, we filtered the data to only
-include the levels of interest. If we recompute the model on this
-filtered data, it should be better:
-
-``` r
-lm(Sepal.Length ~ Species, data = data) %>% 
-  standardize_parameters()
-```
-
-| Parameter         | Std\_Coefficient |
-| :---------------- | ---------------: |
-| (Intercept)       |           \-0.72 |
-| Speciesversicolor |             1.45 |
-
-Not really. Why? Because the actual formula to compute a **Cohen’s *d***
-doesn’t use the simple SD to scale the effect (as it is done when
-standardizing the parameters), but computes something called the
-[**pooled
-SD**](https://easystats.github.io/effectsize/reference/pooled_sd.html).
-However, this can be turned off by setting `correct = "raw"`.
-
-``` r
-cohens_d(Sepal.Length ~ Species, data = data, correct = "raw") 
-## [1] 1.45
-```
-
-***And here we are :)***
-
-### What about standardized interaction effects?
-
-Well, this one’s a mess (at least for me). Help is required to make
-sense out of it. Otherwise, *NEXT*.
-
 ## Effect Size Interpretation
 
-The [**guidelines are detailed
-here**](https://easystats.github.io/effectsize/articles/interpret.html).
+The package allows for an automated interpretation of different indices.
+
+``` r
+interpret_r(r = 0.3)
+## [1] "large"
+```
+
+Different sets of “rules of thumb” are implemented ([**guidelines are
+detailed
+here**](https://easystats.github.io/effectsize/articles/interpret.html))
+and can be easily changed.
 
 ``` r
 interpret_d(d = 0.45, rules = "cohen1988")
@@ -167,6 +110,9 @@ interpret_d(d = 0.45, rules = "funder2019")
 ```
 
 ## Effect Size Conversion
+
+The package also provides ways of converting between different effect
+sizes.
 
 ``` r
 convert_d_to_r(d = 1)
@@ -185,6 +131,8 @@ data and models.
 A standardization sets the mean and SD to 0 and 1:
 
 ``` r
+library(parameters)
+
 df <- standardize(iris)
 describe_distribution(df$Sepal.Length)
 ```

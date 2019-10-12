@@ -372,7 +372,7 @@ knitr::kable(comparison(model), digits=2, row.names = FALSE)
 
 #### Bayesian Models
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, eval=FALSE}
 library(rstanarm)
 
 model <- stan_lmer(Sepal.Length ~ Petal.Width + Group_Sepal.Width + (1|Species), data=data)

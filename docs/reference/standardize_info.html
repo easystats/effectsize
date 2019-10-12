@@ -41,7 +41,7 @@
 
 <meta property="og:title" content="Get Standardization Information — standardize_info" />
 
-<meta property="og:description" content="This function extracts information, such as the deviations (SD or MAD) from parent variables, that are necessary for post-hoc standardization of parameters." />
+<meta property="og:description" content="This function extracts information, such as the deviations (SD or MAD) from parent variables, that are necessary for post-hoc standardization of parameters. This function gives a window on how standardized are obtained, i.e., by what they are devided. The &quot;basic&quot; method of standardization uses" />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -143,7 +143,7 @@
 
     <div class="ref-description">
     
-    <p>This function extracts information, such as the deviations (SD or MAD) from parent variables, that are necessary for post-hoc standardization of parameters.</p>
+    <p>This function extracts information, such as the deviations (SD or MAD) from parent variables, that are necessary for post-hoc standardization of parameters. This function gives a window on how standardized are obtained, i.e., by what they are devided. The "basic" method of standardization uses</p>
     
     </div>
 
@@ -179,20 +179,20 @@ mean and divide it by the standard deviation (SD).</p></td>
 #&gt; 4               Speciesvirginica      factor  Difference                &lt;NA&gt;
 #&gt; 5 Sepal.Length:Speciesversicolor interaction  Difference        Sepal.Length
 #&gt; 6  Sepal.Length:Speciesvirginica interaction  Difference        Sepal.Length
-#&gt;   EffectSize_Type Deviation_Response Mean_Response Deviation_Classic
-#&gt; 1            &lt;NA&gt;          0.4358663      3.057333         0.0000000
-#&gt; 2               r          0.4358663      3.057333         0.8280661
-#&gt; 3               d          0.4358663      3.057333         0.4729838
-#&gt; 4               d          0.4358663      3.057333         0.4729838
-#&gt; 5     interaction          0.4358663      3.057333         2.8231922
-#&gt; 6     interaction          0.4358663      3.057333         3.1372813
-#&gt;   Mean_Classic Deviation_Smart Mean_Smart
-#&gt; 1    0.0000000       0.0000000   0.000000
-#&gt; 2    5.8433333       0.8280661   5.843333
-#&gt; 3    0.3333333       1.0000000   0.000000
-#&gt; 4    0.3333333       1.0000000   0.000000
-#&gt; 5    1.9786667       1.0000000   0.000000
-#&gt; 6    2.1960000       1.0000000   0.000000</div></pre>
+#&gt;   EffectSize_Type Deviation_Response_Basic Deviation_Response_Smart
+#&gt; 1            &lt;NA&gt;                0.4358663                0.4358663
+#&gt; 2               r                0.4358663                0.4358663
+#&gt; 3               d                0.4358663                0.3790644
+#&gt; 4               d                0.4358663                0.3790644
+#&gt; 5     interaction                0.4358663                0.3790644
+#&gt; 6     interaction                0.4358663                0.3790644
+#&gt;   Deviation_Basic Deviation_Smart
+#&gt; 1       0.0000000       0.0000000
+#&gt; 2       0.8280661       0.8280661
+#&gt; 3       0.4729838       1.0000000
+#&gt; 4       0.4729838       1.0000000
+#&gt; 5       2.8231922       1.0000000
+#&gt; 6       3.1372813       1.0000000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -208,7 +208,7 @@ mean and divide it by the standard deviation (SD).</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://dominiquemakowski.github.io/'>Dominique Makowski</a>, <a href='https://github.com/strengejacke'>Daniel Lüdecke</a>, Mattan S. Ben-Shachar.</p>
+  <p>Developed by <a href='https://dominiquemakowski.github.io/'>Dominique Makowski</a>, <a href='https://github.com/strengejacke'>Daniel Lüdecke</a>.</p>
 </div>
 
 <div class="pkgdown">

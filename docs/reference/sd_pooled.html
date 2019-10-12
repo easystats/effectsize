@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>p-values Interpretation — interpret_p • effectsize</title>
+<title>Pooled Standard Deviation — sd_pooled • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -39,9 +39,9 @@
 
 
 
-<meta property="og:title" content="p-values Interpretation — interpret_p" />
+<meta property="og:title" content="Pooled Standard Deviation — sd_pooled" />
 
-<meta property="og:description" content="p-values Interpretation" />
+<meta property="og:description" content="The Pooled Standard Deviation is a weighted average of standard deviations for two or more groups, with more &quot;weight&quot; given to larger sample sizes." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -136,43 +136,45 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>p-values Interpretation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/interpret_p.R'><code>R/interpret_p.R</code></a></small>
-    <div class="hidden name"><code>interpret_p.Rd</code></div>
+    <h1>Pooled Standard Deviation</h1>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/sd_pooled.R'><code>R/sd_pooled.R</code></a></small>
+    <div class="hidden name"><code>sd_pooled.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>p-values Interpretation</p>
+    <p>The Pooled Standard Deviation is a weighted average of standard deviations for two or more groups, with more "weight" given to larger sample sizes.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>interpret_p</span>(<span class='no'>p</span>, <span class='kw'>rules</span> <span class='kw'>=</span> <span class='st'>"default"</span>)</pre>
+    <pre class="usage"><span class='fu'>sd_pooled</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>mad_pooled</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>p</th>
-      <td><p>Value or vector of p-values.</p></td>
+      <th>x</th>
+      <td><p>A continuous variable or a formula.</p></td>
     </tr>
     <tr>
-      <th>rules</th>
-      <td><p>Can be "default" or custom set of rules.</p></td>
+      <th>y</th>
+      <td><p>A continuous variable, a factor with two groups or a formula.</p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>An optional data frame containing the variables.</p></td>
     </tr>
     </table>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>interpret_p</span>(<span class='fl'>.02</span>)</div><div class='output co'>#&gt; [1] "significant"</div><div class='input'><span class='fu'>interpret_p</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.02</span>))</div><div class='output co'>#&gt; [1] "not significant" "significant"    </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>

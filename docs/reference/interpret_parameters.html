@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>p-values Interpretation — interpret_p • effectsize</title>
+<title>Automated Interpretation of Effect Sizes — interpret_parameters • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -39,9 +39,9 @@
 
 
 
-<meta property="og:title" content="p-values Interpretation — interpret_p" />
+<meta property="og:title" content="Automated Interpretation of Effect Sizes — interpret_parameters" />
 
-<meta property="og:description" content="p-values Interpretation" />
+<meta property="og:description" content="Automated interpretation of effect sizes." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -136,35 +136,63 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>p-values Interpretation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/interpret_p.R'><code>R/interpret_p.R</code></a></small>
-    <div class="hidden name"><code>interpret_p.Rd</code></div>
+    <h1>Automated Interpretation of Effect Sizes</h1>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/interpret_parameters.R'><code>R/interpret_parameters.R</code></a></small>
+    <div class="hidden name"><code>interpret_parameters.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>p-values Interpretation</p>
+    <p>Automated interpretation of effect sizes.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>interpret_p</span>(<span class='no'>p</span>, <span class='kw'>rules</span> <span class='kw'>=</span> <span class='st'>"default"</span>)</pre>
+    <pre class="usage"><span class='fu'>interpret_parameters</span>(<span class='no'>model</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for lm</span>
+<span class='fu'>interpret_parameters</span>(<span class='no'>model</span>, <span class='kw'>interpretation</span> <span class='kw'>=</span> <span class='st'>"funder2019"</span>,
+  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>standardize_method</span> <span class='kw'>=</span> <span class='st'>"refit"</span>,
+  <span class='kw'>standardize_robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>p</th>
-      <td><p>Value or vector of p-values.</p></td>
+      <th>model</th>
+      <td><p>A statistical model.</p></td>
     </tr>
     <tr>
-      <th>rules</th>
-      <td><p>Can be "default" or custom set of rules.</p></td>
+      <th>...</th>
+      <td><p>Arguments passed to or from other methods.</p></td>
+    </tr>
+    <tr>
+      <th>interpretation</th>
+      <td><p>Interpretation grid (i.e., the set of rules of thumb) used to interpret the effects.</p></td>
+    </tr>
+    <tr>
+      <th>parameters</th>
+      <td><p>A custom parameters table. If <code>NULL</code>, will use <code><a href='standardize_parameters.html'>standardize_parameters</a></code> to get it.</p></td>
+    </tr>
+    <tr>
+      <th>standardize_method</th>
+      <td><p>See <code><a href='standardize_parameters.html'>standardize_parameters</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>standardize_robust</th>
+      <td><p>See <code><a href='standardize_parameters.html'>standardize_parameters</a></code>.</p></td>
     </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>interpret_p</span>(<span class='fl'>.02</span>)</div><div class='output co'>#&gt; [1] "significant"</div><div class='input'><span class='fu'>interpret_p</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.02</span>))</div><div class='output co'>#&gt; [1] "not significant" "significant"    </div></pre>
+    <pre class="examples"><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Species</span> * <span class='no'>Petal.Width</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)
+<span class='fu'>interpret_parameters</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;                       Parameter Effect_Size Interpretation
+#&gt; 1                   (Intercept)          NA     very large
+#&gt; 2             Speciesversicolor -0.08270276     very small
+#&gt; 3              Speciesvirginica  0.09450438     very small
+#&gt; 4                   Petal.Width  0.85622714     very large
+#&gt; 5 Speciesversicolor:Petal.Width  0.22264112         medium
+#&gt; 6  Speciesvirginica:Petal.Width -0.12751810          small</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
