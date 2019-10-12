@@ -11,28 +11,28 @@
 \alias{t_to_partial_omega_squared}
 \title{Convert between ANOVA indices (F, t, Eta squared, ...)}
 \usage{
-F_to_partial_eta_squared(F_stat, df, df_residual)
+F_to_partial_eta_squared(F_stat, df, df_error)
 
-t_to_partial_eta_squared(t_stat, df_residual)
+t_to_partial_eta_squared(t_stat, df_error)
 
-F_to_partial_epsilon_squared(F_stat, df, df_residual)
+F_to_partial_epsilon_squared(F_stat, df, df_error)
 
-t_to_partial_epsilon_squared(t_stat, df_residual)
+t_to_partial_epsilon_squared(t_stat, df_error)
 
-F_to_adj_partial_eta_squared(F_stat, df, df_residual)
+F_to_adj_partial_eta_squared(F_stat, df, df_error)
 
-t_to_adj_partial_eta_squared(t_stat, df_residual)
+t_to_adj_partial_eta_squared(t_stat, df_error)
 
-F_to_partial_omega_squared(F_stat, df, df_residual)
+F_to_partial_omega_squared(F_stat, df, df_error)
 
-t_to_partial_omega_squared(t_stat, df_residual)
+t_to_partial_omega_squared(t_stat, df_error)
 }
 \arguments{
 \item{F_stat}{The \eqn{F} statistic.}
 
 \item{df}{Numerator degrees of freedom for the \eqn{F} statistic.}
 
-\item{df_residual}{Denominator degrees of freedom for the \eqn{F} and \eqn{t} statistics.}
+\item{df_error}{Denominator degrees of freedom for the \eqn{F} and \eqn{t} statistics.}
 
 \item{t_stat}{The \eqn{t} statistic.}
 }
@@ -79,7 +79,7 @@ F_to_partial_eta_squared(33.77, 1, 9)
 F_to_partial_eta_squared(45.31, 2, 18)
 
 
-library(lmerTest) # for the df_residual
+library(lmerTest) # for the df_error
 fit <- lmer(extra ~ group + (1 | ID), sleep)
 anova(fit)
 # Type III Analysis of Variance Table with Satterthwaite's method

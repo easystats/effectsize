@@ -12,7 +12,7 @@
 #' @param F_stat The \eqn{F} statistic.
 #' @param t_stat The \eqn{t} statistic.
 #' @param df Numerator degrees of freedom for the \eqn{F} statistic.
-#' @param df_residual Denominator degrees of freedom for the \eqn{F} and \eqn{t} statistics.
+#' @param df_error Denominator degrees of freedom for the \eqn{F} and \eqn{t} statistics.
 #'
 #' @return A numeric integer between 0-1 (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2}
 #' it is possible to compute a negative number; even though this doesn't make any practical sense,
@@ -44,7 +44,7 @@
 #' F_to_partial_eta_squared(45.31, 2, 18)
 #'
 #'
-#' library(lmerTest) # for the df_residual
+#' library(lmerTest) # for the df_error
 #' fit <- lmer(extra ~ group + (1 | ID), sleep)
 #' anova(fit)
 #' # Type III Analysis of Variance Table with Satterthwaite's method
@@ -65,28 +65,28 @@
 #' }
 #'
 #' @export
-F_to_partial_eta_squared <- function(F_stat, df, df_residual) {
-  (F_stat * df) / (F_stat * df + df_residual)
+F_to_partial_eta_squared <- function(F_stat, df, df_error) {
+  (F_stat * df) / (F_stat * df + df_error)
 }
 
 
 
 #' @rdname F_to_partial_eta_squared
 #' @export
-t_to_partial_eta_squared <- function(t_stat, df_residual) {
-  F_to_partial_eta_squared(t_stat^2, 1, df_residual)
+t_to_partial_eta_squared <- function(t_stat, df_error) {
+  F_to_partial_eta_squared(t_stat^2, 1, df_error)
 }
 
 #' @rdname F_to_partial_eta_squared
 #' @export
-F_to_partial_epsilon_squared <- function(F_stat, df, df_residual) {
-  ((F_stat - 1) * df) / (F_stat * df + df_residual)
+F_to_partial_epsilon_squared <- function(F_stat, df, df_error) {
+  ((F_stat - 1) * df) / (F_stat * df + df_error)
 }
 
 #' @rdname F_to_partial_eta_squared
 #' @export
-t_to_partial_epsilon_squared <- function(t_stat, df_residual) {
-  F_to_partial_epsilon_squared(t_stat^2, 1, df_residual)
+t_to_partial_epsilon_squared <- function(t_stat, df_error) {
+  F_to_partial_epsilon_squared(t_stat^2, 1, df_error)
 }
 
 #' @rdname F_to_partial_eta_squared
@@ -99,14 +99,14 @@ t_to_adj_partial_eta_squared <- t_to_partial_epsilon_squared
 
 #' @rdname F_to_partial_eta_squared
 #' @export
-F_to_partial_omega_squared <- function(F_stat, df, df_residual) {
-  ((F_stat - 1) * df) / (F_stat * df + df_residual + 1)
+F_to_partial_omega_squared <- function(F_stat, df, df_error) {
+  ((F_stat - 1) * df) / (F_stat * df + df_error + 1)
 }
 
 #' @rdname F_to_partial_eta_squared
 #' @export
-t_to_partial_omega_squared <- function(t_stat, df_residual) {
-  F_to_partial_omega_squared(t_stat^2, 1, df_residual)
+t_to_partial_omega_squared <- function(t_stat, df_error) {
+  F_to_partial_omega_squared(t_stat^2, 1, df_error)
 }
 
 
