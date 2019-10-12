@@ -6,20 +6,26 @@
 \alias{F_to_partial_epsilon_squared}
 \alias{t_to_partial_epsilon_squared}
 \alias{F_to_adj_partial_eta_squared}
+\alias{t_to_adj_partial_eta_squared}
+\alias{F_to_partial_omega_squared}
 \alias{t_to_partial_omega_squared}
 \title{Compute Partial Variance Explained Effect Sizes From Test Statistics}
 \usage{
 F_to_partial_eta_squared(F.ratio, df_num, df_den)
 
-t_to_partial_eta_squared(t.ratio, df)
+t_to_partial_eta_squared(t.ratio, df_den)
 
 F_to_partial_epsilon_squared(F.ratio, df_num, df_den)
 
-t_to_partial_epsilon_squared(t.ratio, df)
+t_to_partial_epsilon_squared(t.ratio, df_den)
 
 F_to_adj_partial_eta_squared(F.ratio, df_num, df_den)
 
-t_to_partial_omega_squared(t.ratio, df)
+t_to_adj_partial_eta_squared(t.ratio, df_den)
+
+F_to_partial_omega_squared(F.tatio, df_num, df_den)
+
+t_to_partial_omega_squared(t.ratio, df_den)
 }
 \arguments{
 \item{F.ratio}{The \eqn{F} statistic.}
@@ -36,17 +42,17 @@ it is possible to compute a negative number; even though this doesn't make any p
 it is recommended to report the negative number and not a 0).
 }
 \description{
-These functions are conviniance functions to convert \eqn{F} and \eqn{t}
+These functions are convenience functions to convert \eqn{F} and \eqn{t}
 test statistics to \eqn{\eta_p^2}, \eqn{\omega_p^2}, \eqn{\epsilon_p^2}, or
-\eqn{Adj. \eta_p^2}. These are useful in cases where the \eqn{SS}s and
-\eqn{MS}s are not easily availbe or their computation is not streight
-forward (e.g., in liner mixed models, contrasts, etc.).
+\eqn{Adj. \eta_p^2}. These are useful in cases where the various \eqn{SS}s and
+\eqn{MS}s are not easily available or their computation is not straightforward
+(e.g., in liner mixed models, contrasts, etc.).
 \cr\cr
 For test statistics derived from \code{lm} and \code{aov} models, these functions
 give exact results. For all other cases, these give practically exact results.
 }
 \details{
-These functions use the following formulea:
+These functions use the following formulae:
 \cr\cr
 \deqn{\eta_p^2 = \frac{F \times df_{num}}{F \times df_{num} + df_{den}}}
 \cr\cr
@@ -54,7 +60,10 @@ These functions use the following formulea:
 \cr\cr
 \deqn{\omega_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den} + 1}}
 \cr\cr\cr
-For \eqn{t}, the conversion is based on the equality of \eqn{t^2 = F} when {df_{num}=1}.
+For \eqn{t}, the conversion is based on the equality of \eqn{t^2 = F} when \eqn{df_{num}=1}.
+}
+\note{
+\eqn{Adj. \eta_p^2} is an alias for \eqn{\epsilon_p^2}.
 }
 \examples{
 \dontrun{
@@ -81,11 +90,11 @@ F_to_partial_omega_squared(16.501, 1, 9)
 F_to_partial_epsilon_squared(16.501, 1, 9)
 }
 
-#' @references
-\\itemize{
-  \\item Friedman, H. (1982). Simplified determinations of statistical power, magnitude of effect and research sample sizes. Educational and Psychological Measurement, 42(2), 521-526. \\doi{10.1177/001316448204200214}
-  \\item Mordkoff, J. T. (2019). A Simple Method for Removing Bias From a Popular Measure of Standardized Effect Size: Adjusted Partial Eta Squared. Advances in Methods and Practices in Psychological Science, 2(3), 228-232. \\doi{10.1177/2515245919855053}
-  \\item Albers, C., & Lakens, D. (2018). When power analyses based on pilot data are biased: Inaccurate effect size estimators and follow-up bias. Journal of experimental social psychology, 74, 187-195. \\doi{10.31234/osf.io/b7z4q}
 }
-
+\references{
+\itemize{
+  \item Friedman, H. (1982). Simplified determinations of statistical power, magnitude of effect and research sample sizes. Educational and Psychological Measurement, 42(2), 521-526. \doi{10.1177/001316448204200214}
+  \item Mordkoff, J. T. (2019). A Simple Method for Removing Bias From a Popular Measure of Standardized Effect Size: Adjusted Partial Eta Squared. Advances in Methods and Practices in Psychological Science, 2(3), 228-232. \doi{10.1177/2515245919855053}
+  \item Albers, C., & Lakens, D. (2018). When power analyses based on pilot data are biased: Inaccurate effect size estimators and follow-up bias. Journal of experimental social psychology, 74, 187-195. \doi{10.31234/osf.io/b7z4q}
+}
 }

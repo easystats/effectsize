@@ -16,7 +16,7 @@ chisq_to_cramers_V(chisq, N, a, b)
 
 \item{a}{The number of rows in the contingency table.}
 
-\item{b}{The number of colums in the contingency tables.}
+\item{b}{The number of columns in the contingency tables.}
 }
 \value{
 A numeric integer between 0-1.
