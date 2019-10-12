@@ -37,11 +37,13 @@ Imports:
 	utils
 Suggests:
 	brms,
+	boot,
 	covr,
 	dplyr,
 	emmeans,
 	ggplot2,
 	knitr,
+	lmerTest,
 	lm.beta,
 	lme4,
 	MuMIn,

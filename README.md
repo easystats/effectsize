@@ -68,8 +68,26 @@ glass_delta(iris$Sepal.Length, iris$Sepal.Width)
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)
 
-Currently implemented in the `parameters` package, will be transfered
-here in the next update.
+``` r
+model <- aov(Sepal.Length ~ Species, data = iris)
+
+omega_squared(model, partial = TRUE)
+##   Parameter Omega_Sq_partial
+## 1   Species            0.612
+## 2 Residuals               NA
+eta_squared(model, partial = TRUE)
+##   Parameter Eta_Sq_partial
+## 1   Species          0.619
+## 2 Residuals             NA
+epsilon_squared(model)
+##   Parameter Epsilon_sq
+## 1   Species      0.614
+## 2 Residuals         NA
+cohens_f(model)
+##   Parameter Cohens_f
+## 1   Species     1.27
+## 2 Residuals       NA
+```
 
 ### Regression Models
 
