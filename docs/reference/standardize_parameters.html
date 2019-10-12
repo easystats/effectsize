@@ -268,8 +268,10 @@ used to calculate confidence intervals for the standardized coefficients. See 'E
 #&gt; 5 Speciesversicolor:Petal.Width      0.45674637
 #&gt; 6  Speciesvirginica:Petal.Width     -0.25713539</div><div class='input'>
 <span class='co'># show CI (doens't work)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>parameters</span>)
-<span class='no'>params</span> <span class='kw'>&lt;-</span> <span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>parameters</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: 'parameters'</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from 'package:effectsize':</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    cohens_f, epsilon_squared, eta_squared, omega_squared</span></div><div class='input'><span class='no'>params</span> <span class='kw'>&lt;-</span> <span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='fu'><a href='https://rdrr.io/pkg/parameters/man/reexports.html'>ci</a></span>(<span class='no'>params</span>)</div><div class='output co'>#&gt; <span style='color: #0000BB;'># Equal-Tailed Interval
 #&gt; 
 #&gt; </span><span>       Parameter       89% ETI

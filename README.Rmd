@@ -78,7 +78,7 @@ This package is focused on indices of effect size. But **there are hundreds of t
 
 The package provides functions to compute indices of effect size.
 
-```{r, warning=FALSE, message=FALSE, eval=FALSE}
+```{r, warning=FALSE, message=FALSE}
 cohens_d(iris$Sepal.Length, iris$Sepal.Width)
 hedges_g(iris$Sepal.Length, iris$Sepal.Width)
 glass_delta(iris$Sepal.Length, iris$Sepal.Width)

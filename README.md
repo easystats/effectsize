@@ -62,8 +62,11 @@ The package provides functions to compute indices of effect size.
 
 ``` r
 cohens_d(iris$Sepal.Length, iris$Sepal.Width)
+## [1] -4.21
 hedges_g(iris$Sepal.Length, iris$Sepal.Width)
+## [1] -4.2
 glass_delta(iris$Sepal.Length, iris$Sepal.Width)
+## [1] -3.36
 ```
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)
