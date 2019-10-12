@@ -24,8 +24,10 @@ standardize_info <- function(model, robust = FALSE, ...) {
 
   # Type of effect size
   out$EffectSize_Type <- ifelse(types$Type == "interaction", "interaction",
-                                 ifelse(types$Link == "Association", "r",
-                                        ifelse(types$Link == "Difference", "d", NA)))
+    ifelse(types$Link == "Association", "r",
+      ifelse(types$Link == "Difference", "d", NA)
+    )
+  )
 
 
 
@@ -177,15 +179,14 @@ standardize_info <- function(model, robust = FALSE, ...) {
 
 #' @keywords internal
 .std_info_response_smart <- function(model, data, model_matrix, types, robust = FALSE, ...) {
-
   info <- insight::model_info(model)
 
   if (info$is_linear) {
     response <- insight::get_response(model)
     deviations <- c()
     means <- c()
-    for(var in names(model_matrix)){
-      if(types$Link[types$Parameter == var] == "Difference"){
+    for (var in names(model_matrix)) {
+      if (types$Link[types$Parameter == var] == "Difference") {
         parent_var <- types$Variable[types$Parameter == var]
         intercept <- unique(data[[parent_var]])[1]
         response_at_intercept <- response[data[[parent_var]] == intercept]
@@ -248,8 +249,7 @@ standardize_info <- function(model, robust = FALSE, ...) {
 
 #' @keywords internal
 .compute_std_info <- function(data = NULL, variable = NULL, response = NULL, robust = FALSE) {
-
-  if(is.null(response)){
+  if (is.null(response)) {
     response <- as.numeric(data[, variable])
   }
 
@@ -263,4 +263,3 @@ standardize_info <- function(model, robust = FALSE, ...) {
 
   list(sd = sd_x, mean = mean_x)
 }
-

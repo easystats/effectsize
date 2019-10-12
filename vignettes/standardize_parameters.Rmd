@@ -40,7 +40,97 @@ Critically, **parameters standardization is not a trivial process**. Different t
 
 # How to interpret standardized coefficients?
 
-Cohen's d? Correlations r?
+
+## Measure of association (correlation *r*)
+
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+library(effectsize)
+library(dplyr)
+
+lm(Sepal.Length ~ Petal.Length, data = iris) %>% 
+  standardize_parameters()
+```
+```{r, warning=FALSE, message=FALSE, echo = FALSE}
+library(effectsize)
+library(dplyr)
+
+lm(Sepal.Length ~ Petal.Length, data = iris) %>% 
+  standardize_parameters() %>% 
+  knitr::kable(digits = 2)
+```
+
+Standardizing the coefficient of this simple linear regression gives a value of `0.87`, but did you know that this is actually the **same as a correlation**? Thus, you can eventually apply some (*in*)famous interpretation guidelines (e.g., Cohen's rules of thumb).
+
+```{r, warning=FALSE, message=FALSE}
+library(parameters)
+
+cor.test(iris$Sepal.Length, iris$Petal.Length) %>% 
+  model_parameters()
+```
+
+
+## Standardized differences
+
+How does it work in the case of differences, when **factors** are entered and differences between a given level and a reference level (the intercept)? You might have heard that it is similar to a **Cohen's *d***. Well, let's see.
+
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+lm(Sepal.Length ~ Species, data = iris) %>% 
+  standardize_parameters()
+```
+```{r, warning=FALSE, message=FALSE, echo = FALSE}
+lm(Sepal.Length ~ Species, data = iris) %>% 
+  standardize_parameters() %>% 
+  knitr::kable(digits = 2)
+```
+
+This linear model suggests that the *standardized* difference between the *versicolor* level of Species and the *setosa* level (the reference level - the intercept) is of 1.12 standard deviation of `Sepal.Length` (because the response variable was standardized, right?). Let's compute the **Cohen's *d*** between these two levels:
+
+```{r, warning=FALSE, message=FALSE}
+# Select portion of data containing the two levels of interest
+data <- iris[iris$Species %in% c("setosa", "versicolor"), ]
+
+cohens_d(Sepal.Length ~ Species, data = data) 
+```
+
+***It is very different!*** Why? How? Both differences should be expressed in terms of SD of the response variable. *And there's the trick*. First of all, in the linear model above, the SD by which the difference is scaled is the one of the whole response, which include **all the three levels**, whereas below, we filtered the data to only include the levels of interest. If we recompute the model on this filtered data, it should be better:
+
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+lm(Sepal.Length ~ Species, data = data) %>% 
+  standardize_parameters()
+```
+```{r, warning=FALSE, message=FALSE, echo = FALSE}
+lm(Sepal.Length ~ Species, data = data) %>% 
+  standardize_parameters() %>% 
+  knitr::kable(digits = 2)
+```
+
+Not really. Why? Because the actual formula to compute a **Cohen's *d*** doesn't use the simple SD to scale the effect (as it is done when standardizing the parameters), but computes something called the [**pooled SD**](https://easystats.github.io/effectsize/reference/pooled_sd.html). However, this can be turned off by setting `correct = "raw"`.
+
+```{r, warning=FALSE, message=FALSE}
+cohens_d(Sepal.Length ~ Species, data = data, pooled_sd = FALSE) 
+```
+
+***And here we are :)***
+
+However, it is interesting to note that using the *smart* method when standardizing parameters will give you indices equivalent to **Glass' delta**, which difference is expressed in terms of SD of the intercept (the "reference" factor levels).
+
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+lm(Sepal.Length ~ Species, data = data) %>% 
+  standardize_parameters(method = "smart")
+```
+```{r, warning=FALSE, message=FALSE, echo = FALSE}
+lm(Sepal.Length ~ Species, data = data) %>% 
+  standardize_parameters(method = "smart") %>% 
+  knitr::kable(digits = 2)
+```
+```{r, warning=FALSE, message=FALSE}
+glass_delta(Sepal.Length ~ Species, data = data)
+```
+
+
+## What about standardized interaction effects?
+
+Well, this one's a mess (at least for me). Help is required to make sense out of it. Otherwise, *NEXT*.
 
 
 
@@ -48,7 +138,7 @@ Cohen's d? Correlations r?
 
 ### **"refit"**: Re-fitting the model with standardized data
 
-**This method is based on a complete model re-fit with a standardized version of data**. Hence, this method is equal to standardizing the variables before fitting the model. It is the "purest" and the most accurate [@neter1989applied], but it is also the most computationally costly and long (especially for Bayesian models). This method is particularly recommended for complex models that include interactions or transformations (*e.g.*, polynomial or spline terms).
+**This method is based on a complete model re-fit with a standardized version of data**. Hence, this method is equal to standardizing the variables before fitting the model. It is the "purest" and the most accurate (Neter et al., 1989), but it is also the most computationally costly and long (especially for heavy models such as, for instance, for Bayesian models). This method is particularly recommended for complex models that include interactions or transformations (e.g., polynomial or spline terms).
 
 
 ```{r message=FALSE, warning=FALSE, results='hide'}
@@ -84,15 +174,21 @@ standardize_parameters(model, method="refit")
 knitr::kable(standardize_parameters(model, method="refit"), digits=2)
 ```
 
-### **"2SD"**: Scaling by two 2 SDs
+### **"posthoc"**: Refit without refitting
 
-Same as `method = "refit"`, however, standardization is done by dividing by two times the `SD` or `MAD` (depending on `robust`). This method is useful to obtain coefficients of continuous parameters comparable to coefficients related to binary predictors [@gelman2008scaling].
+Post-hoc standardization of the parameters, aiming at emulating the results obtained by "refit" without refitting the model. The coefficients are divided by the standard deviation (or MAD if `robust`) of the outcome (which becomes their expression 'unit'). Then, the coefficients related to numeric variables are additionally multiplied by the standard deviation (or MAD if `robust`) of the related terms, so that they correspond to changes of 1 SD of the predictor (e.g., "A change in 1 SD of *x* is related to a change of 0.24 of the SD of *y*). This does not apply to binary variables or factors, so the coefficients are still related to changes in levels. This method is not accurate and tend to give aberrant results when interactions are specified.
 
+```{r warning=FALSE, message=FALSE, results='hide'}
+model <- lm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data)
+standardize_parameters(model, method="posthoc")
+```
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(standardize_parameters(model, method="posthoc"), digits=2)
+```
 
+### **"smart"**: Standardization of Model's parameters with Adjustment, Reconnaissance and Transformation
 
-### **"smart"**: Scaling by the variances of the response and the predictor
-
-Post-hoc standardization of the model paramaters. The coefficients are divided by the standard deviation (or MAD if `robust`) of the outcome (which becomes their expression 'unit'). Then, the coefficients related to numeric variables are additionaly multiplied by the standard deviation (or MAD if `robust`) of the related term, so that they correspond to changes of 1 SD of the predictor (e.g., "A change in 1 SD of `x` is related to a change of 0.24 of the SD of `y`). This does not apply to binary variables or factors, so the coefficients are still related to changes in levels.
+Similar to `method = "posthoc"` in that it does not involve model refitting. The difference is that the SD of the response is computed on the relevant section of the data. For instance, if a factor with 3 levels A (the intercept), B and C is entered as a predictor, the effect corresponding to B vs. A will be scaled by the variance of the response at the intercept only. As a results, the coefficients for effects of factors are similar to a Glass' *delta*.
 
 
 ```{r warning=FALSE, message=FALSE, results='hide'}
@@ -103,15 +199,17 @@ standardize_parameters(model, method="smart")
 knitr::kable(standardize_parameters(model, method="smart"), digits=2)
 ```
 
-### **"classic"**: Basic scaling of all parameters
+### **"basic"**: Raw scaling of the model frame
 
-This method is similar to `method = "smart"`, but treats all variables as continuous: it also scales the coefficient by the standard deviation of factors (transformed to integers) or binary predictors. Altough being inapropriate for these cases, this method is the one implemented by default in other softwares, such as `lm.beta::lm.beta()`.
+This method is similar to `method = "posthoc"`, but treats all variables as continuous: it also scales the coefficient by the standard deviation of model's matrix' parameter of factors levels (transformed to integers) or binary predictors. Although being inappropriate for these cases, this method is the one implemented by default in other software packages, such as `lm.beta::lm.beta()`.
 
 ## Methods Comparison
 
 We will use the "refit" method as the baseline. We will then compute the differences between these standardized parameters and the ones provided by the other functions. The **bigger the (absolute) number, the worse it is**. 
 
 > **SPOILER ALERT: the standardization implemented in `effectsize` is the most accurate and the most flexible.**
+
+### Convenience function
 
 ```{r message=FALSE, warning=FALSE}
 library(effectsize)
@@ -121,13 +219,13 @@ library(MuMIn)
 comparison <- function(model, robust=FALSE){
   out <- standardize_parameters(model, method="refit", robust=robust)[1:2]
   
-  out$smart <- tryCatch({
-    out[, 2] - standardize_parameters(model, method="smart", robust=robust)[, 2]
+  out$posthoc <- tryCatch({
+    out[, 2] - standardize_parameters(model, method="posthoc", robust=robust)[, 2]
 }, error = function(error_condition) {
     "Error"
 })
-  out$classic <- tryCatch({
-    out[, 2] - standardize_parameters(model, method="classic", robust=robust)[, 2]
+  out$basic <- tryCatch({
+    out[, 2] - standardize_parameters(model, method="basic", robust=robust)[, 2]
 }, error = function(error_condition) {
     "Error"
 })
@@ -151,18 +249,22 @@ comparison <- function(model, robust=FALSE){
 }
 ```
 
+### Data
+
+```{r message=FALSE, warning=FALSE}
+data <- iris
+data$Group_Sepal.Width <- as.factor(ifelse(data$Sepal.Width > 3, "High", "Low"))
+data$Binary_Sepal.Width <- as.factor(ifelse(data$Sepal.Width > 3, 1, 0))
+
+summary(data)
+```
 
 ### Models with only numeric predictors
 
 
 #### Linear Model
 
-
 ```{r message=FALSE, warning=FALSE, results='hide'}
-data <- iris
-data$Group_Sepal.Width <- as.factor(ifelse(data$Sepal.Width > 3, "High", "Low"))
-data$Binary_Sepal.Width <- as.factor(ifelse(data$Sepal.Width > 3, 1, 0))
-
 model <- lm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data) 
 comparison(model)
 ```
@@ -170,7 +272,6 @@ comparison(model)
 knitr::kable(comparison(model), digits=2, row.names = FALSE)
 ```
 
-For this simple model, **all methods return results equal to the "refit" method**.
 
 #### Logistic Model
 
@@ -182,7 +283,6 @@ comparison(model)
 ```{r message=FALSE, warning=FALSE, echo=FALSE}
 knitr::kable(comparison(model), digits=2, row.names = FALSE)
 ```
-
 
 #### Linear Mixed Model
 
@@ -196,25 +296,6 @@ comparison(model)
 ```{r message=FALSE, warning=FALSE, echo=FALSE}
 knitr::kable(comparison(model), digits=2, row.names = FALSE)
 ```
-
-For this simple mixed model, **all methods return results equal to the "refit" method**.
-
-
-
-When interactions are involved, post-hoc methods return different results. However, methods implemented in other softwares perform arguably worse.
-
-
-#### Transformation
-
-```{r message=FALSE, warning=FALSE, results='hide'}
-model <- lm(Sepal.Length ~ poly(Petal.Width, 2) + poly(Sepal.Width, 2), data=data)
-comparison(model)
-```
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-knitr::kable(comparison(model), digits=2, row.names = FALSE)
-```
-
-For polynomial transformations, other software become very unreliable.
 
 #### Bayesian Models
 
@@ -231,6 +312,22 @@ knitr::kable(comparison(model), digits=2, row.names = FALSE)
 ```
 
 
+For these simple models, **all methods return results equal to the "refit" method** (although the other packages fail).
+
+
+#### Transformation
+
+```{r message=FALSE, warning=FALSE, results='hide'}
+model <- lm(Sepal.Length ~ poly(Petal.Width, 2) + poly(Sepal.Width, 2), data=data)
+comparison(model)
+```
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(comparison(model), digits=2, row.names = FALSE)
+```
+
+When transformation are involved (e.g., polynomial transformations), **the basic method becomes very unreliable**.
+
+
 
 ### Models with factors
 
@@ -245,7 +342,6 @@ comparison(model)
 knitr::kable(comparison(model), digits=2, row.names = FALSE)
 ```
 
-When factors are involved, methods that standardize the numeric transformation of factors give different results.
 
 
 #### Logistic Model
@@ -279,19 +375,6 @@ knitr::kable(comparison(model), digits=2, row.names = FALSE)
 ```{r message=FALSE, warning=FALSE}
 library(rstanarm)
 
-model <- stan_glm(Sepal.Length ~ Petal.Width + Group_Sepal.Width, data=data)
-comparison(model)
-```
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-library(rstanarm)
-
-model <- stan_glm(Sepal.Length ~ Petal.Width + Group_Sepal.Width, data=data, refresh = 0, iter = 500)
-knitr::kable(comparison(model), digits=2, row.names = FALSE)
-```
-
-```{r message=FALSE, warning=FALSE}
-library(rstanarm)
-
 model <- stan_lmer(Sepal.Length ~ Petal.Width + Group_Sepal.Width + (1|Species), data=data)
 comparison(model)
 ```
@@ -301,7 +384,14 @@ model <- stan_lmer(Sepal.Length ~ Petal.Width + Group_Sepal.Width + (1|Species),
 knitr::kable(comparison(model), digits=2, row.names = FALSE)
 ```
 
+When factors are involved, the basic method (that standardizes the numeric transformation of factors) give again different results.
+
+
+
 ### Models with interactions
+
+Long story short, coeffcient obtained via **posthoc** standardization (without refitting the model) go berserk when interactions are involved. However, **this is "normal"**: a regression model estimates coefficient between two variables when the other predictors are at 0 (are *fixed* at 0, that people interpret as *"adjusted for"*). When a standardized data is passed (in the *refit* method), the effects and interactions are estimated at the **means** of the other predictors (because 0 is the mean for a standardized variable). Whereas in posthoc standardization, this coefficient correspond to something different (because the 0 corresponds to something different in standardzed and non-standardized data). In other words, when it comes to interaction, passing standardized data results in a different model, which coefficient have an intrinsically different meaning from unstandardized data. And as [for now](https://github.com/easystats/effectsize/issues/6), we are unable to retrieve one from another.
+
 
 #### Between continuous
 
@@ -345,7 +435,7 @@ knitr::kable(comparison(model), digits=2, row.names = FALSE)
 
 ## Conclusion
 
-Use `refit` if possible, otherwise `smart`.
+Use `refit` if possible, but if no interactions, can use `posthoc` or `smart`.
 
 
 # References

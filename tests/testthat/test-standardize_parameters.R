@@ -10,4 +10,3 @@ test_that("standardize_parameters (simple)", {
   es <- standardize_parameters(model)[2, 2]
   testthat::expect_equal(es, r, tol = 0.01)
 })
-

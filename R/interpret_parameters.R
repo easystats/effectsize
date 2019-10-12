@@ -11,9 +11,8 @@
 #' @examples
 #' model <- lm(Sepal.Length ~ Species * Petal.Width, data = iris)
 #' interpret_parameters(model)
-#'
 #' @export
-interpret_parameters <- function(model, ...){
+interpret_parameters <- function(model, ...) {
   UseMethod("interpret_parameters")
 }
 
@@ -22,7 +21,7 @@ interpret_parameters <- function(model, ...){
 
 #' @rdname interpret_parameters
 #' @export
-interpret_parameters.lm <- function(model, interpretation = "funder2019", parameters = NULL, standardize_method = "refit", standardize_robust = FALSE, ...){
+interpret_parameters.lm <- function(model, interpretation = "funder2019", parameters = NULL, standardize_method = "refit", standardize_robust = FALSE, ...) {
   .interpret_parameters_regressions(model, interpretation = interpretation, parameters = parameters, standardize_method = standardize_method, standardize_robust = standardize_robust)
 }
 
@@ -33,14 +32,15 @@ interpret_parameters.lm <- function(model, interpretation = "funder2019", parame
 
 
 #' @keywords internal
-.interpret_parameters_regressions <- function(model, interpretation = "funder2019", parameters = NULL, standardize_method = "refit", standardize_robust = FALSE, ...){
-
+.interpret_parameters_regressions <- function(model, interpretation = "funder2019", parameters = NULL, standardize_method = "refit", standardize_robust = FALSE, ...) {
   type <- parameters::parameters_type(model)
   std_es <- .standardize_standardized(model, standardize_method = standardize_method, standardize_robust = standardize_robust, type = type, centrality = "Median")
 
-  data.frame(Parameter = type$Parameter,
-             Effect_Size = std_es,
-             Interpretation = interpret_r(std_es, rules = interpretation))
+  data.frame(
+    Parameter = type$Parameter,
+    Effect_Size = std_es,
+    Interpretation = interpret_r(std_es, rules = interpretation)
+  )
 }
 
 
@@ -51,14 +51,14 @@ interpret_parameters.lm <- function(model, interpretation = "funder2019", parame
 
 
 #' @keywords internal
-.standardize_standardized <- function(model, parameters = NULL, standardize_method = "refit", standardize_robust = FALSE, type = NULL, centrality = "Median", ...){
+.standardize_standardized <- function(model, parameters = NULL, standardize_method = "refit", standardize_robust = FALSE, type = NULL, centrality = "Median", ...) {
 
   # Get type of parameters
   info <- standardize_info(model, robust = standardize_robust)
 
   # Compute std parameters
-  if(is.null(parameters)){
-    parameters <- standardize_parameters(model, method = standardize_method, robust = standardize_robust, centrality = centrality,  ...)
+  if (is.null(parameters)) {
+    parameters <- standardize_parameters(model, method = standardize_method, robust = standardize_robust, centrality = centrality, ...)
   }
 
   # Standardize standardized parameters (Correlation r)
@@ -82,25 +82,25 @@ interpret_parameters.lm <- function(model, interpretation = "funder2019", parame
 
 
 #' @keywords internal
-.standardize_standardized_interactions <- function(model, info, type, std_es, centrality = "Median", method = "absolute", ...){
+.standardize_standardized_interactions <- function(model, info, type, std_es, centrality = "Median", method = "absolute", ...) {
   # Get parameters
   parameters <- insight::get_parameters(model)
   if (insight::model_info(model)$is_bayesian) {
     parameters <- bayestestR::describe_posterior(parameters, centrality = centrality, dispersion = FALSE, ci = NULL, test = NULL, diagnostic = NULL, priors = FALSE, ...)
     parameters <- parameters[names(parameters) %in% c("Parameter", "Coefficient", "Median", "Mean", "MAP")]
-  } else{
+  } else {
     names(parameters) <- c("Parameter", "Coefficient")
   }
   params <- parameters[names(parameters) %in% c("estimate", "Coefficient", "Median", "Mean", "MAP")][[1]]
 
   interactions <- info$Parameter[info$Type == "interaction"]
-  if(length(interactions) > 0){
+  if (length(interactions) > 0) {
     parent_effect <- type[type$Parameter == interactions, "Secondary_Term"]
 
-    if(method == "absolute"){
+    if (method == "absolute") {
       # Absolute method
       info[info$Parameter %in% interactions, "EffectSize_Type"] <- info[info$Parameter %in% parent_effect, "EffectSize_Type"]
-    } else{
+    } else {
       # Relative method (compute percentage of change based on parent effect)
       parent_effect <- params[parameters$Parameter %in% parent_effect]
       interactions <- params[!is.na(info$EffectSize_Type) & info$EffectSize_Type == "interaction"]

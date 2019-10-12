@@ -4,7 +4,7 @@
 #' \href{https://easystats.github.io/report/articles/interpret_metrics.html#standardized-difference-d-cohens-d}{Click here} for details.
 #'
 #'
-#' @param d Value or vector of d values.
+#' @param d,g,delta Value or vector of effect size values.
 #' @param rules Can be "funder2019" (default), "gignac2016", "cohen1988", "sawilowsky2009" or custom set of \code{\link{rules}}.
 #'
 #'
@@ -36,4 +36,16 @@ interpret_d <- function(d, rules = "funder2019") {
       stop("rules must be 'cohen1988', 'sawilowsky2009' or an object of type rules.")
     }
   }
+}
+
+#' @rdname interpret_d
+#' @export
+interpret_g <- function(g, rules = "funder2019"){
+  interpret_d(g, rules)
+}
+
+#' @rdname interpret_d
+#' @export
+interpret_delta <- function(delta, rules = "funder2019"){
+  interpret_d(delta, rules)
 }

@@ -2,12 +2,17 @@
 % Please edit documentation in R/cohens_d.R
 \name{cohens_d}
 \alias{cohens_d}
+\alias{hedges_g}
 \alias{glass_delta}
-\title{Indices of effect size (Cohen's d, Hedges' g, ...)}
+\title{Effect sizes for difference between means (Cohen's d, Hedges' g, Glass' delta, ...)}
 \usage{
-cohens_d(x, y = NULL, data = NULL, paired = FALSE, correct = FALSE)
+cohens_d(x, y = NULL, data = NULL, correction = FALSE,
+  pooled_sd = TRUE, paired = FALSE)
 
-glass_delta(x, y = NULL, data = NULL, correct = FALSE)
+hedges_g(x, y = NULL, data = NULL, correction = FALSE,
+  pooled_sd = TRUE, paired = FALSE)
+
+glass_delta(x, y = NULL, data = NULL, correction = FALSE)
 }
 \arguments{
 \item{x}{A continuous variable or a formula.}
@@ -16,21 +21,30 @@ glass_delta(x, y = NULL, data = NULL, correct = FALSE)
 
 \item{data}{An optional data frame containing the variables.}
 
-\item{paired}{Should the values be considered as paired.}
+\item{correction}{If \code{TRUE}, applies a correction to the formula to make it less biased for small samples (McGrath & Meyer, 2006).}
 
-\item{correct}{For Cohen's d, a correction to the formula to make it less biased for small samples (McGrath & Meyer, 2006). Can also be "raw", in which case the SD from both combined groups is computed instead of the \code{\link{sd_pooled}}.}
+\item{pooled_sd}{If \code{FALSE}, the regular SD from both combined groups is used instead of the \code{\link{sd_pooled}}.}
+
+\item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.}
 }
 \description{
-Compute different indices of effect size.
+Compute different indices of effect size. For very small sample sizes (n < 20) Hedges' g is considered as less biased than Cohen's d. For sample sizes > 20, the results for both statistics are roughly equivalent. The Glass’s delta is appropriate if standard deviations are significantly different between groups, as it uses only the control group's (\code{x}) standard deviation.
 }
 \examples{
 cohens_d(iris$Sepal.Length, iris$Sepal.Width)
+hedges_g(iris$Sepal.Length, iris$Sepal.Width)
+glass_delta(iris$Sepal.Length, iris$Sepal.Width)
+
+cohens_d(iris$Sepal.Length, iris$Sepal.Width, correct = TRUE, pooled_sd = FALSE)
 cohens_d(Sepal.Length ~ Species, data = iris[iris$Species \%in\% c("versicolor", "setosa"), ])
+
+
 
 }
 \references{
 \itemize{
  \item Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.
  \item McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
+ \item Hedges, L. V. & Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.
 }
 }

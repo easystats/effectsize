@@ -14,7 +14,6 @@
 #' ranktransform(c(0, 1, 5, -5, -2), sign = TRUE)
 #'
 #' head(ranktransform(iris))
-#'
 #' @return A rank-transformed object.
 #' @export
 ranktransform <- function(x, ...) {
@@ -63,9 +62,9 @@ ranktransform.numeric <- function(x, sign = FALSE, method = "average", verbose =
   }
 
 
-  if(sign){
+  if (sign) {
     out <- sign(x) * rank(x, ties.method = method, na.last = "keep")
-  } else{
+  } else {
     out <- rank(x, ties.method = method, na.last = "keep")
   }
 

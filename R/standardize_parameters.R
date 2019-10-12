@@ -146,7 +146,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   }
 
   # Get parameters
-  if (is.null(parameters)){
+  if (is.null(parameters)) {
     parameters <- .extract_parameters(model)
     if (insight::model_info(model)$is_bayesian) {
       parameters <- as.data.frame(t(parameters))
@@ -154,10 +154,10 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   }
 
   # Get names of parameters
-  if("Parameter" %in% names(parameters)){
+  if ("Parameter" %in% names(parameters)) {
     param_names <- parameters$Parameter
     parameters$Parameter <- NULL
-  } else{
+  } else {
     param_names <- row.names(parameters)
   }
 
@@ -177,14 +177,14 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   } else if (method == "smart") {
     col_dev_resp <- "Deviation_Response_Smart"
     col_dev_pred <- "Deviation_Smart"
-  } else{
+  } else {
     stop("'method' must be one of 'basic', 'posthoc' or 'smart'.")
   }
 
   # Sapply standardization
-  if(two_sd){
+  if (two_sd) {
     std_params <- sapply(parameters, function(x) x * (2 * deviations[[col_dev_pred]]) / deviations[[col_dev_resp]])
-  } else{
+  } else {
     std_params <- sapply(parameters, function(x) x * deviations[[col_dev_pred]] / deviations[[col_dev_resp]])
   }
 
@@ -194,9 +194,11 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
     std_params <- as.data.frame(t(std_params))
     row.names(std_params) <- NULL
     names(std_params) <- param_names
-  } else{
-    std_params <- cbind(data.frame(Parameter = param_names),
-                        as.data.frame(std_params))
+  } else {
+    std_params <- cbind(
+      data.frame(Parameter = param_names),
+      as.data.frame(std_params)
+    )
   }
 
 
@@ -207,7 +209,8 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   },
   error = function(e) {
     NULL
-  })
+  }
+  )
 
   # add standardized standard errors as attribute
   if (!is.null(std_error)) {

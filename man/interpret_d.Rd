@@ -2,12 +2,18 @@
 % Please edit documentation in R/interpret_d.R
 \name{interpret_d}
 \alias{interpret_d}
+\alias{interpret_g}
+\alias{interpret_delta}
 \title{Standardized Difference (Cohen's d) Interpretation}
 \usage{
 interpret_d(d, rules = "funder2019")
+
+interpret_g(g, rules = "funder2019")
+
+interpret_delta(delta, rules = "funder2019")
 }
 \arguments{
-\item{d}{Value or vector of d values.}
+\item{d, g, delta}{Value or vector of effect size values.}
 
 \item{rules}{Can be "funder2019" (default), "gignac2016", "cohen1988", "sawilowsky2009" or custom set of \code{\link{rules}}.}
 }
