@@ -18,7 +18,7 @@ t_to_r <- convert_t_to_r
 #' @rdname d_to_r
 #' @export
 convert_t_to_d <- function(t, df_error) {
-  sign(t) * 2 * t / sqrt(df_error)
+  2 * t / sqrt(df_error)
 }
 
 #' @rdname d_to_r
@@ -47,7 +47,7 @@ z_to_r <- convert_z_to_r
 #' @rdname d_to_r
 #' @export
 convert_z_to_d <- function(z, n) {
-  sign(z) * 2 * z / sqrt(n)
+  2 * z / sqrt(n)
 }
 
 #' @rdname d_to_r

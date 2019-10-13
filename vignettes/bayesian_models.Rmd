@@ -94,6 +94,13 @@ parameters$r <- convert_z_to_r(parameters$z, n = insight::n_obs(model))
 parameters
 ```
 
+However, as logistic models return log-odds, these can be directly converted to *r*:
+
+```{r, warning=FALSE, message=FALSE}
+parameters$r_from_odds <- convert_odds_to_r(parameters$Coefficient, log = TRUE)
+parameters
+```
+
 And now the Bayesian:
 
 ```{r, warning=FALSE, message=FALSE, eval = FALSE}
@@ -110,6 +117,14 @@ parameters$r <- bayestestR::describe_posterior(r)$Median
 parameters
 ```
 
+
+```{r, warning=FALSE, message=FALSE}
+parameters <- model_parameters(model)
+r <- convert_posteriors_to_r(model)
+parameters$r <- bayestestR::describe_posterior(r)$Median
+parameters$r_from_odds <- convert_odds_to_r(parameters$Median, log = TRUE)
+parameters
+```
 
 
 ## References
