@@ -1,6 +1,6 @@
 #' Normalization
 #'
-#' Performs a normalization of data. This scales all numeric variables in the range 0 - 1.
+#' Performs a normalization of data, i.e., it scales all numeric variables in the range 0 - 1. This is a special case of \code{\link{change_scale}}.
 #'
 #' @inheritParams standardize.data.frame
 #'
@@ -20,6 +20,7 @@
 #' head(normalize(iris))
 #' @references Smithson M, Verkuilen J (2006). A Better Lemon Squeezer? Maximum-Likelihood Regression with Beta-Distributed Dependent Variables. Psychological Methods, 11(1), 54–71.
 #'
+#' @seealso \code{\link{ranktransform}} \code{\link{standardize}} \code{\link{change_scale}}
 #' @return A normalized object.
 #' @export
 normalize <- function(x, ...) {
@@ -32,7 +33,6 @@ normalize <- function(x, ...) {
 
 
 #' @rdname normalize
-#' @importFrom stats median mad
 #' @export
 normalize.numeric <- function(x, include_bounds = TRUE, verbose = TRUE, ...) {
 

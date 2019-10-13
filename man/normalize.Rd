@@ -43,7 +43,7 @@ be excluded from standardization.}
 A normalized object.
 }
 \description{
-Performs a normalization of data. This scales all numeric variables in the range 0 - 1.
+Performs a normalization of data, i.e., it scales all numeric variables in the range 0 - 1. This is a special case of \code{\link{change_scale}}.
 }
 \examples{
 normalize(c(0, 1, 5, -5, -2))
@@ -53,4 +53,7 @@ head(normalize(iris))
 }
 \references{
 Smithson M, Verkuilen J (2006). A Better Lemon Squeezer? Maximum-Likelihood Regression with Beta-Distributed Dependent Variables. Psychological Methods, 11(1), 54–71.
+}
+\seealso{
+\code{\link{ranktransform}} \code{\link{standardize}} \code{\link{change_scale}}
 }
