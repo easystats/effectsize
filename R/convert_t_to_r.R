@@ -7,9 +7,21 @@ convert_t_to_r <- function(t, df_error){
 
 #' @rdname d_to_r
 #' @export
+t_to_r <- convert_t_to_r
+
+
+#' @rdname d_to_r
+#' @export
 convert_t_to_d <- function(t, df_error){
   sign(t) * 2 * t / sqrt(df_error)
 }
+
+#' @rdname d_to_r
+#' @export
+t_to_d <- convert_t_to_d
+
+
+
 
 
 #' @rdname d_to_r

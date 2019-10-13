@@ -9,10 +9,10 @@ output:
     toc: true
     fig_width: 10.08
     fig_height: 6
-tags: [r, effect size, rules of thumb, guidelines, conversion]
+tags: [r, effect size, rules of thumb, bayesian, effect size]
 vignette: >
   \usepackage[utf8]{inputenc}
-  %\VignetteIndexEntry{Converting between indices of effect size}
+  %\VignetteIndexEntry{Effect sizes for Bayesian models}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   chunk_output_type: console
@@ -42,6 +42,9 @@ The goal is to retrieve coefficients similar to the above **(partial) correlatio
 
 
 ```{r, warning=FALSE, message=FALSE}
+library(effectsize)
+library(parameters)
+
 model <- lm(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = df) 
 
 parameters <- model_parameters(model)[2:4,]
@@ -56,24 +59,19 @@ library(rstanarm)
 
 model <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = df) 
 ```
-
 ```{r, warning=FALSE, message=FALSE, echo = FALSE}
 library(rstanarm)
 model <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = df, refresh = 0, chains = 2) 
 ```
 
 
-- **Step 1: Get degrees of freedom (*df*):**
-
-The first step is to retrieve the degrees of freedom. For that, the most straightfoward way is to take the ones of the corresponding frequentist model.
-
-
-
-
-
+The `effectsize` package provides the `posteriors_to_r()` function, which attempts to estimate the posterior of the (partial) correlation coefficient by approximating the *t* statistic (deviding the coefficient by the SD of the posterior) and using frequentist degrees of freedom. It is an hybrid method that needs to be validated. However, the results appear as very close:
 
 ```{r, warning=FALSE, message=FALSE}
+library(bayestestR)
 
+r <- convert_posteriors_to_r(model)
+bayestestR::describe_posterior(r)$Median[2:4]
 ```
 
 

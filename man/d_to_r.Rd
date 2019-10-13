@@ -24,7 +24,9 @@
 \alias{convert_odds_to_probs}
 \alias{convert_probs_to_odds}
 \alias{convert_t_to_r}
+\alias{t_to_r}
 \alias{convert_t_to_d}
+\alias{t_to_d}
 \alias{convert_z_to_r}
 \alias{convert_F_to_r}
 \title{Effect Size Conversion}
@@ -74,7 +76,11 @@ convert_probs_to_odds(probs = 0.5, log = FALSE, ...)
 
 convert_t_to_r(t, df_error)
 
+t_to_r(t, df_error)
+
 convert_t_to_d(t, df_error)
+
+t_to_d(t, df_error)
 
 convert_z_to_r(z, df_error)
 
