@@ -2,6 +2,7 @@ pandoc: 2.7.1
 pkgdown: 1.4.0
 pkgdown_sha: ~
 articles:
+  bayesian_models: bayesian_models.html
   convert: convert.html
   interpret: interpret.html
   standardize_data: standardize_data.html

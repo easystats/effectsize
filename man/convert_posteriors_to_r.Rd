@@ -29,5 +29,4 @@ model <- stan_glm(mpg ~ cyl, data = mtcars, refresh = 0, chains = 2)
 
 convert_posteriors_to_t(model)
 convert_posteriors_to_r(model)
-
 }

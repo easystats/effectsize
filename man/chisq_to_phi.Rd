@@ -50,8 +50,8 @@ chisq.test(contingency_table)
 
 chisq_to_phi(30.07, n = sum(contingency_table))
 chisq_to_cramers_v(30.07,
-                   n = sum(contingency_table),
-                   nrow = nrow(contingency_table),
-                   ncol = ncol(contingency_table))
-
+  n = sum(contingency_table),
+  nrow = nrow(contingency_table),
+  ncol = ncol(contingency_table)
+)
 }

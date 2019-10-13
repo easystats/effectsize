@@ -100,5 +100,3 @@ F_to_partial_omega_squared <- function(f, df, df_error) {
 t_to_partial_omega_squared <- function(t, df_error) {
   F_to_partial_omega_squared(t^2, 1, df_error)
 }
-
-

@@ -28,8 +28,12 @@ options(digits=2)
 ```
 
 
-Obtaining indices of effect size for Bayesian model is currently an issue, as no test statistics are present to help us re-compute such indices. The two alternatives (both available in `effectsize`) is 1) to compute [**standardized parameters**](https://easystats.github.io/effectsize/articles/standardize_parameters.html) or 2) obtain effect sizes by test-statistic approximation. This second method is described here.
+**Obtaining indices of effect size for Bayesian model is currently an issue**, as no test statistics are present to help us compute such indices. The two alternatives (both available in `effectsize`) is 1) to compute [**standardized parameters**](https://easystats.github.io/effectsize/articles/standardize_parameters.html) or 2) obtain effect sizes by **test-statistic approximation**. This second method is described here.
 
+
+## Bayesian Regression Coefficients to Correlation via Test-Statistic Approximation
+
+### Overview
 ```{r, warning=FALSE, message=FALSE}
 library(ppcor)
 
@@ -73,6 +77,10 @@ library(bayestestR)
 r <- convert_posteriors_to_r(model)
 bayestestR::describe_posterior(r)$Median[2:4]
 ```
+
+### Applicability
+
+Does it work in all cases?
 
 
 

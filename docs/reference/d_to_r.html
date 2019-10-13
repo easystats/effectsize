@@ -108,6 +108,18 @@
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Effect sizes
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/bayesian_models.html">Bayesian models</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../articles/convert.html">Effect size conversion</a>
 </li>
@@ -137,7 +149,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Effect Size Conversion</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/convert_d_to_percentage.R'><code>R/convert_d_to_percentage.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/convert_d_to_r.R'><code>R/convert_d_to_r.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/convert_odds_to_d.R'><code>R/convert_odds_to_d.R</code></a>, and 2 more</small>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/convert_d_to_percentage.R'><code>R/convert_d_to_percentage.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/convert_d_to_r.R'><code>R/convert_d_to_r.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/convert_odds_to_d.R'><code>R/convert_odds_to_d.R</code></a>, and 3 more</small>
     <div class="hidden name"><code>d_to_r.Rd</code></div>
     </div>
 
@@ -189,7 +201,19 @@
 
 <span class='fu'>convert_odds_to_probs</span>(<span class='kw'>odds</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'>convert_probs_to_odds</span>(<span class='kw'>probs</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>convert_probs_to_odds</span>(<span class='kw'>probs</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+
+<span class='fu'>convert_t_to_r</span>(<span class='no'>t</span>, <span class='no'>df_error</span>)
+
+<span class='fu'>t_to_r</span>(<span class='no'>t</span>, <span class='no'>df_error</span>)
+
+<span class='fu'>convert_t_to_d</span>(<span class='no'>t</span>, <span class='no'>df_error</span>)
+
+<span class='fu'>t_to_d</span>(<span class='no'>t</span>, <span class='no'>df_error</span>)
+
+<span class='fu'>convert_z_to_r</span>(<span class='no'>z</span>, <span class='no'>df_error</span>)
+
+<span class='fu'>convert_F_to_r</span>(<span class='no'>f</span>, <span class='no'>df_error</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -231,6 +255,14 @@ from transformation.</p></td>
     <tr>
       <th>probs</th>
       <td><p>Probability values.</p></td>
+    </tr>
+    <tr>
+      <th>t, f, z</th>
+      <td><p>The t, the F or the z statistics.</p></td>
+    </tr>
+    <tr>
+      <th>df_error</th>
+      <td><p>Degrees of freedom of the error estimate (i.e., the residuals).</p></td>
     </tr>
     </table>
     
@@ -283,7 +315,7 @@ from transformation.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://dominiquemakowski.github.io/'>Dominique Makowski</a>, <a href='https://github.com/strengejacke'>Daniel Lüdecke</a>.</p>
+  <p>Developed by <a href='https://dominiquemakowski.github.io/'>Dominique Makowski</a>, <a href='https://github.com/strengejacke'>Daniel Lüdecke</a>, Mattan S. Ben-Shachar.</p>
 </div>
 
 <div class="pkgdown">
