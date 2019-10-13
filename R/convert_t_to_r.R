@@ -1,3 +1,8 @@
+
+# t -----------------------------------------------------------------------
+
+
+
 #' @rdname d_to_r
 #' @export
 convert_t_to_r <- function(t, df_error) {
@@ -23,15 +28,40 @@ t_to_d <- convert_t_to_d
 
 
 
+# z -----------------------------------------------------------------------
+
+
 
 #' @rdname d_to_r
 #' @export
-convert_z_to_r <- function(z, df_error) {
-  print("TODO")
+convert_z_to_r <- function(z, n) {
+  sign(z) * sqrt(z^2 / (z^2 + n))
+}
+
+
+#' @rdname d_to_r
+#' @export
+z_to_r <- convert_z_to_r
+
+
+#' @rdname d_to_r
+#' @export
+convert_z_to_d <- function(z, n) {
+  sign(z) * 2 * z / sqrt(n)
 }
 
 #' @rdname d_to_r
 #' @export
-convert_F_to_r <- function(f, df_error) {
+z_to_d <- convert_z_to_d
+
+
+
+# F -----------------------------------------------------------------------
+
+
+
+#' @rdname d_to_r
+#' @export
+convert_F_to_r <- function(f, df, df_error) {
   print("TODO")
 }

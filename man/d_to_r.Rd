@@ -28,6 +28,9 @@
 \alias{convert_t_to_d}
 \alias{t_to_d}
 \alias{convert_z_to_r}
+\alias{z_to_r}
+\alias{convert_z_to_d}
+\alias{z_to_d}
 \alias{convert_F_to_r}
 \title{Effect Size Conversion}
 \usage{
@@ -82,9 +85,15 @@ convert_t_to_d(t, df_error)
 
 t_to_d(t, df_error)
 
-convert_z_to_r(z, df_error)
+convert_z_to_r(z, n)
 
-convert_F_to_r(f, df_error)
+z_to_r(z, n)
+
+convert_z_to_d(z, n)
+
+z_to_d(z, n)
+
+convert_F_to_r(f, df, df_error)
 }
 \arguments{
 \item{percentage}{Percentage value (e.g., \code{0.01} for one percent).}
@@ -109,7 +118,9 @@ from transformation.}
 
 \item{t, f, z}{The t, the F or the z statistics.}
 
-\item{df_error}{Degrees of freedom of the error estimate (i.e., the residuals).}
+\item{n}{The number of observations (population size).}
+
+\item{df, df_error}{Degrees of freedom of numerator or of the error estimate (i.e., the residuals).}
 }
 \value{
 Converted index.

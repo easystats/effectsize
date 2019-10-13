@@ -82,6 +82,34 @@ bayestestR::describe_posterior(r)$Median[2:4]
 
 Does it work in all cases?
 
+#### Logistic Models
+
+Let's start with the frequentist model:
+
+```{r, warning=FALSE, message=FALSE}
+model <- glm(vs ~ cyl + disp + drat, data = mtcars, family = "binomial") 
+
+parameters <- model_parameters(model)
+parameters$r <- convert_z_to_r(parameters$z, n = insight::n_obs(model))
+parameters
+```
+
+And now the Bayesian:
+
+```{r, warning=FALSE, message=FALSE, eval = FALSE}
+model <- stan_glm(vs ~ cyl + disp + drat,, data = mtcars, family = "binomial") 
+```
+```{r, warning=FALSE, message=FALSE, echo = FALSE}
+model <- stan_glm(vs ~ cyl + disp + drat,, data = mtcars, family = "binomial", refresh = 0) 
+```
+
+```{r, warning=FALSE, message=FALSE}
+parameters <- model_parameters(model)
+r <- convert_posteriors_to_r(model)
+parameters$r <- bayestestR::describe_posterior(r)$Median
+parameters
+```
+
 
 
 ## References

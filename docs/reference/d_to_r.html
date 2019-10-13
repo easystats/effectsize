@@ -211,9 +211,15 @@
 
 <span class='fu'>t_to_d</span>(<span class='no'>t</span>, <span class='no'>df_error</span>)
 
-<span class='fu'>convert_z_to_r</span>(<span class='no'>z</span>, <span class='no'>df_error</span>)
+<span class='fu'>convert_z_to_r</span>(<span class='no'>z</span>, <span class='no'>n</span>)
 
-<span class='fu'>convert_F_to_r</span>(<span class='no'>f</span>, <span class='no'>df_error</span>)</pre>
+<span class='fu'>z_to_r</span>(<span class='no'>z</span>, <span class='no'>n</span>)
+
+<span class='fu'>convert_z_to_d</span>(<span class='no'>z</span>, <span class='no'>n</span>)
+
+<span class='fu'>z_to_d</span>(<span class='no'>z</span>, <span class='no'>n</span>)
+
+<span class='fu'>convert_F_to_r</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -261,8 +267,12 @@ from transformation.</p></td>
       <td><p>The t, the F or the z statistics.</p></td>
     </tr>
     <tr>
-      <th>df_error</th>
-      <td><p>Degrees of freedom of the error estimate (i.e., the residuals).</p></td>
+      <th>n</th>
+      <td><p>The number of observations (population size).</p></td>
+    </tr>
+    <tr>
+      <th>df, df_error</th>
+      <td><p>Degrees of freedom of numerator or of the error estimate (i.e., the residuals).</p></td>
     </tr>
     </table>
     
