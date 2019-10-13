@@ -48,6 +48,7 @@ Suggests:
 	lme4,
 	MuMIn,
 	performance,
+	ppcor,
 	rmarkdown,
 	rstan,
 	rstanarm,

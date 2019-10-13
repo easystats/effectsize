@@ -69,6 +69,44 @@ cor.test(iris$Sepal.Length, iris$Petal.Length) %>%
 ```
 
 
+What happens in the case of **multiple continuous variables**? As in each effect in a regression model is "adjusted" for the other ones, we might expect coefficients to be somewhat alike to **partial correlations**. Let's first start by computing the partial correlation between **Sepal.Length** and 3 other remaining variables.
+
+
+
+```{r, warning=FALSE, message=FALSE}
+library(ppcor)
+
+df <- iris[, 1:4]  # Remove the Species factor
+
+ppcor::pcor(df)$estimate[2:4, 1]  # Select the rows of interest
+```
+
+
+Now, let's apply another method to obtain effect sizes for frequentist regressions, based on the statistic values. We will convert the *t*-value (and its degrees of freedom, *df*) into a correlation coefficient *r*.
+
+
+```{r, warning=FALSE, message=FALSE}
+model <- lm(Sepal.Length ~ ., data = df) 
+
+parameters <- model_parameters(model)[2:4,]
+convert_t_to_r(parameters$t, parameters$df_residual)
+```
+
+Wow, the retrieved correlations coefficients from the regression model are **exactly** the same as the partial correlations. Can we arrive to the same conclusions by standardizing the parameters?
+
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+model %>% 
+  standardize_parameters() 
+```
+```{r, warning=FALSE, message=FALSE, echo = FALSE}
+model %>% 
+  standardize_parameters()  %>% 
+  knitr::kable(digits = 2)
+```
+
+
+**Unfortunately, not yet :(**
+
 ## Standardized differences
 
 How does it work in the case of differences, when **factors** are entered and differences between a given level and a reference level (the intercept)? You might have heard that it is similar to a **Cohen's *d***. Well, let's see.

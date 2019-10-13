@@ -26,6 +26,10 @@ navbar:
         href: articles/standardize_data.html
       - text: 'Parameters standardization'
         href: articles/standardize_parameters.html
+  - text: Effect sizes
+    menu:
+      - text: 'Bayesian models'
+        href: articles/bayesian_models.html
   - text: Effect size conversion
     href: articles/convert.html
   - text: Interpretation Guidelines

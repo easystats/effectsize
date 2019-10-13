@@ -1,0 +1,81 @@
+---
+title: "Effect sizes for Bayesian models"
+output: 
+  github_document:
+    toc: true
+    fig_width: 10.08
+    fig_height: 6
+  rmarkdown::html_vignette:
+    toc: true
+    fig_width: 10.08
+    fig_height: 6
+tags: [r, effect size, rules of thumb, guidelines, conversion]
+vignette: >
+  \usepackage[utf8]{inputenc}
+  %\VignetteIndexEntry{Converting between indices of effect size}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+bibliography: bibliography.bib
+---
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(knitr)
+options(knitr.kable.NA = '')
+knitr::opts_chunk$set(comment=">")
+options(digits=2)
+```
+
+
+Obtaining indices of effect size for Bayesian model is currently an issue, as no test statistics are present to help us re-compute such indices. The two alternatives (both available in `effectsize`) is 1) to compute [**standardized parameters**](https://easystats.github.io/effectsize/articles/standardize_parameters.html) or 2) obtain effect sizes by test-statistic approximation. This second method is described here.
+
+```{r, warning=FALSE, message=FALSE}
+library(ppcor)
+
+df <- iris[, 1:4]  # Remove the Species factor
+
+ppcor::pcor(df)$estimate[2:4, 1]  # Select the rows of interest
+```
+
+The goal is to retrieve coefficients similar to the above **(partial) correlations** for this multiple regression model: `Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width`. This can easily be achieved for frequentist models by converting the *t* statistic into a correlation:
+
+
+```{r, warning=FALSE, message=FALSE}
+model <- lm(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = df) 
+
+parameters <- model_parameters(model)[2:4,]
+convert_t_to_r(parameters$t, parameters$df_residual)
+```
+
+
+Let's start by fitting the Bayesian regression:
+
+```{r, warning=FALSE, message=FALSE, eval = FALSE}
+library(rstanarm)
+
+model <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = df) 
+```
+
+```{r, warning=FALSE, message=FALSE, echo = FALSE}
+library(rstanarm)
+model <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = df, refresh = 0, chains = 2) 
+```
+
+
+- **Step 1: Get degrees of freedom (*df*):**
+
+The first step is to retrieve the degrees of freedom. For that, the most straightfoward way is to take the ones of the corresponding frequentist model.
+
+
+
+
+
+
+```{r, warning=FALSE, message=FALSE}
+
+```
+
+
+
+## References

@@ -2,13 +2,13 @@
 #' @export
 convert_t_to_r <- function(t, df_error){
   # https://www.soph.uab.edu/sites/edu.ssg/files/People/MBeasley/Courses/EffectSizeConversion.pdf
-  sqrt(t^2 / (t^2 + df_error))
+  sign(t) * sqrt(t^2 / (t^2 + df_error))
 }
 
 #' @rdname d_to_r
 #' @export
 convert_t_to_d <- function(t, df_error){
-  2 * t / sqrt(df_error)
+  sign(t) * 2 * t / sqrt(df_error)
 }
 
 
