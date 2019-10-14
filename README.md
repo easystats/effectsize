@@ -162,6 +162,15 @@ describe_distribution(df$Sepal.Length)
 | ---: | -: | ----: | --: | -------: | -------: | --: | ---------: |
 |    0 |  1 | \-1.9 | 2.5 |      0.3 |    \-0.6 | 150 |          0 |
 
+This can be also applied to statistical models:
+
+``` r
+std_model <- standardize(lm(Sepal.Length ~ Species, data = iris))
+coef(std_model)
+##       (Intercept) Speciesversicolor  Speciesvirginica 
+##             -1.01              1.12              1.91
+```
+
 Alternatively, normalization is similar to standardization in that it is
 a linear translation of the parameter space (i.e., it does not change
 the shape of the data distribution). However, it puts the values within
@@ -177,19 +186,24 @@ describe_distribution(df$Sepal.Length)
 | ---: | --: | --: | --: | -------: | -------: | --: | ---------: |
 |  0.4 | 0.2 |   0 |   1 |      0.3 |    \-0.6 | 150 |          0 |
 
+This is a special case of a rescaling function, which can be used to
+rescale the data to an arbitrary new scale. Let’s change all numeric
+variables to “percentages”:
+
+``` r
+df <- change_scale(iris, to = c(0, 100)) 
+describe_distribution(df$Sepal.Length)
+```
+
+| Mean | SD | Min | Max | Skewness | Kurtosis |   n | n\_Missing |
+| ---: | -: | --: | --: | -------: | -------: | --: | ---------: |
+| 42.9 | 23 |   0 | 100 |      0.3 |    \-0.6 | 150 |          0 |
+
 For some robust statistics, one might also want to transfom the numeric
 values into *ranks* (or signed-ranks), which can be performed using the
 `ranktransform()` function.
 
 ``` r
 ranktransform(c(1, 3, -2, 6, 6, 0))
-```
-
-### Model Standardization
-
-``` r
-std_model <- standardize(lm(Sepal.Length ~ Species, data = iris))
-coef(std_model)
-##       (Intercept) Speciesversicolor  Speciesvirginica 
-##             -1.01              1.12              1.91
+## [1] 3.0 4.0 1.0 5.5 5.5 2.0
 ```
