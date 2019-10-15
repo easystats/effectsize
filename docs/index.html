@@ -259,9 +259,14 @@
 <td align="right">0</td>
 </tr></tbody>
 </table>
+<p>This can be also applied to statistical models:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">std_model &lt;-<span class="st"> </span><span class="kw"><a href="reference/standardize.html">standardize</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> iris))</a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="kw"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span>(std_model)</a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="co">##       (Intercept) Speciesversicolor  Speciesvirginica </span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="co">##             -1.01              1.12              1.91</span></a></code></pre></div>
 <p>Alternatively, normalization is similar to standardization in that it is a linear translation of the parameter space (i.e., it does not change the shape of the data distribution). However, it puts the values within a 0 - 1 range, which can be useful in cases where you want to compare or visualise data on the same scale.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">df &lt;-<span class="st"> </span><span class="kw"><a href="reference/normalize.html">normalize</a></span>(iris)</a>
-<a class="sourceLine" id="cb10-2" title="2"><span class="kw">describe_distribution</span>(df<span class="op">$</span>Sepal.Length)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">df &lt;-<span class="st"> </span><span class="kw"><a href="reference/normalize.html">normalize</a></span>(iris)</a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw">describe_distribution</span>(df<span class="op">$</span>Sepal.Length)</a></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="right">Mean</th>
@@ -284,16 +289,34 @@
 <td align="right">0</td>
 </tr></tbody>
 </table>
+<p>This is a special case of a rescaling function, which can be used to rescale the data to an arbitrary new scale. Let’s change all numeric variables to “percentages”:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">df &lt;-<span class="st"> </span><span class="kw"><a href="reference/change_scale.html">change_scale</a></span>(iris, <span class="dt">to =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">100</span>)) </a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="kw">describe_distribution</span>(df<span class="op">$</span>Sepal.Length)</a></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="right">Mean</th>
+<th align="right">SD</th>
+<th align="right">Min</th>
+<th align="right">Max</th>
+<th align="right">Skewness</th>
+<th align="right">Kurtosis</th>
+<th align="right">n</th>
+<th align="right">n_Missing</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="right">42.9</td>
+<td align="right">23</td>
+<td align="right">0</td>
+<td align="right">100</td>
+<td align="right">0.3</td>
+<td align="right">-0.6</td>
+<td align="right">150</td>
+<td align="right">0</td>
+</tr></tbody>
+</table>
 <p>For some robust statistics, one might also want to transfom the numeric values into <em>ranks</em> (or signed-ranks), which can be performed using the <code><a href="reference/ranktransform.html">ranktransform()</a></code> function.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="reference/ranktransform.html">ranktransform</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">-2</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">0</span>))</a></code></pre></div>
-</div>
-<div id="model-standardization" class="section level3">
-<h3 class="hasAnchor">
-<a href="#model-standardization" class="anchor"></a>Model Standardization</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">std_model &lt;-<span class="st"> </span><span class="kw"><a href="reference/standardize.html">standardize</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> iris))</a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="kw"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span>(std_model)</a>
-<a class="sourceLine" id="cb12-3" title="3"><span class="co">##       (Intercept) Speciesversicolor  Speciesvirginica </span></a>
-<a class="sourceLine" id="cb12-4" title="4"><span class="co">##             -1.01              1.12              1.91</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="reference/ranktransform.html">ranktransform</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">-2</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="co">## [1] 3.0 4.0 1.0 5.5 5.5 2.0</span></a></code></pre></div>
 </div>
 </div>
 </div>

@@ -341,7 +341,7 @@
 <div id="odds-ratio" class="section level3">
 <h3 class="hasAnchor">
 <a href="#odds-ratio" class="anchor"></a>Odds ratio</h3>
-<p>Odds ratio, and <em>log</em> odds ratio, are often found in epidemiological studies. However, they are also the parameters of <strong><em>logistic</em></strong> regressions, where they can be used as indices of effect size.</p>
+<p>Odds ratio, and <em>log</em> odds ratio, are often found in epidemiological studies. However, they are also the parameters of <strong><em>logistic</em></strong> regressions, where they can be used as indices of effect size. Note that the (log) odds ratio from logistic regression coefficients are <em>unstandardized</em>, as they depend on the scale of the predictor. In order to apply the following guidelines, make sure you <a href="https://easystats.github.io/effectsize/articles/standardize_parameters.html"><em>standardize</em></a> your predictors!</p>
 <div id="chen2010big" class="section level4">
 <h4 class="hasAnchor">
 <a href="#chen2010big" class="anchor"></a><span class="citation">Chen, Cohen, and Chen (2010)</span>
@@ -349,13 +349,13 @@
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="../reference/interpret_odds.html">interpret_odds</a></span>(x, <span class="dt">rules =</span> <span class="st">"chen2010"</span>)</a></code></pre></div>
 <ul>
 <li>
-<strong>d = 0 - 1.68</strong>: Very small</li>
+<strong>odds = 0 - 1.68</strong>: Very small</li>
 <li>
-<strong>d = 1.68 - 3.47</strong>: Small</li>
+<strong>odds = 1.68 - 3.47</strong>: Small</li>
 <li>
-<strong>d = 3.47 - 6.71</strong>: Medium</li>
+<strong>odds = 3.47 - 6.71</strong>: Medium</li>
 <li>
-<strong>d &gt; 6.71</strong>: Large</li>
+<strong>odds &gt; 6.71</strong>: Large</li>
 </ul>
 </div>
 <div id="cohen1988statistical-3" class="section level4">
