@@ -46,7 +46,7 @@ Rescale a numeric variable. This scales all numeric variables in the range 0 - 1
 change_scale(c(0, 1, 5, -5, -2))
 change_scale(c(0, 1, 5, -5, -2), to = c(-5, 5))
 
-head(normalize(iris))
+head(change_scale(iris))
 
 }
 \seealso{

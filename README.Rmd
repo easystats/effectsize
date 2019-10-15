@@ -69,7 +69,7 @@ Click on the buttons above to access the package [**documentation**](https://eas
 
 # Features
 
-This package is focused on indices of effect size. But **there are hundreds of them! Thus, *everybody* is welcome to contribute** by adding support for the interpretation of new indices. If you're not sure how to code it it's okay, just open an issue to discuss it and we'll help :)
+This package is focused on indices of effect size. But **there are hundreds of them! Thus, *everybody* is welcome to contribute** by adding support for the interpretation of new indices. If you're not sure how to code it's okay, just open an issue to discuss it and we'll help :)
 
 
 ## Effect Size Computation
