@@ -15,32 +15,34 @@
 \alias{convert_F_to_d}
 \title{Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (partial r).}
 \usage{
-t_to_r(t, df_error)
+t_to_r(t, df_error, ...)
 
-convert_t_to_r(t, df_error)
+convert_t_to_r(t, df_error, ...)
 
-t_to_d(t, df_error, pooled = FALSE)
+t_to_d(t, df_error, pooled = FALSE, ...)
 
-convert_t_to_d(t, df_error, pooled = FALSE)
+convert_t_to_d(t, df_error, pooled = FALSE, ...)
 
-z_to_r(z, n)
+z_to_r(z, n, ...)
 
-convert_z_to_r(z, n)
+convert_z_to_r(z, n, ...)
 
-z_to_d(z, n)
+z_to_d(z, n, ...)
 
-convert_z_to_d(z, n)
+convert_z_to_d(z, n, ...)
 
-F_to_r(f, df, df_error)
+F_to_r(f, df, df_error, ...)
 
-convert_F_to_r(f, df, df_error)
+convert_F_to_r(f, df, df_error, ...)
 
-F_to_d(f, df, df_error, pooled = FALSE)
+F_to_d(f, df, df_error, pooled = FALSE, ...)
 
-convert_F_to_d(f, df, df_error, pooled = FALSE)
+convert_F_to_d(f, df, df_error, pooled = FALSE, ...)
 }
 \arguments{
 \item{t, f, z}{The t, the F or the z statistics.}
+
+\item{...}{Arguments passed to or from other methods.}
 
 \item{pooled}{Should the estimate accout for the t-value being based on a repeated-measures design, or not (default).}
 
@@ -71,6 +73,7 @@ These functions use the following formulae:
 }
 \examples{
 \dontrun{
+## t Tests
 res <- t.test(1:10, y = c(7:20), var.equal = TRUE)
 t_to_d(res$statistic, res$parameter)
 t_to_r(res$statistic, res$parameter)
@@ -78,6 +81,25 @@ t_to_r(res$statistic, res$parameter)
 res <- with(sleep, t.test(extra[group == 1], extra[group == 2], paired = TRUE))
 t_to_d(res$statistic, res$parameter, pooled = TRUE)
 t_to_r(res$statistic, res$parameter)
+
+## Linear Regression
+fit <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
+library(parameters)
+(param_tab <- parameters(fit))
+#> Parameter    | Coefficient |   SE |       95\% CI |     t |  df |      p
+#> -----------------------------------------------------------------------
+#> (Intercept)  |        2.25 | 0.25 | [1.76, 2.74] |  9.07 | 147 | < .001
+#> Sepal.Width  |        0.60 | 0.07 | [0.46, 0.73] |  8.59 | 147 | < .001
+#> Petal.Length |        0.47 | 0.02 | [0.44, 0.51] | 27.57 | 147 | < .001
+
+t_to_r(param_tab$t[2:3], param_tab$df_residual[2:3])
+#> [1] 0.5781005 0.9153894
+
+# How does this compare to actual partial correlations?
+library(ppcor)
+pcor(iris[1:3])$estimate[1, -1]
+#>  Sepal.Width Petal.Length
+#>    0.5781005    0.9153894
 }
 
 }

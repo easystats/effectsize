@@ -11,24 +11,26 @@
 \alias{t_to_partial_omega_squared}
 \title{Convert test statistics (F, t) to indices of variance explained (partial Eta / Omega / Epsilon squared)}
 \usage{
-F_to_partial_eta_squared(f, df, df_error)
+F_to_partial_eta_squared(f, df, df_error, ...)
 
-t_to_partial_eta_squared(t, df_error)
+t_to_partial_eta_squared(t, df_error, ...)
 
-F_to_partial_epsilon_squared(f, df, df_error)
+F_to_partial_epsilon_squared(f, df, df_error, ...)
 
-t_to_partial_epsilon_squared(t, df_error)
+t_to_partial_epsilon_squared(t, df_error, ...)
 
-F_to_adj_partial_eta_squared(f, df, df_error)
+F_to_adj_partial_eta_squared(f, df, df_error, ...)
 
-t_to_adj_partial_eta_squared(t, df_error)
+t_to_adj_partial_eta_squared(t, df_error, ...)
 
-F_to_partial_omega_squared(f, df, df_error)
+F_to_partial_omega_squared(f, df, df_error, ...)
 
-t_to_partial_omega_squared(t, df_error)
+t_to_partial_omega_squared(t, df_error, ...)
 }
 \arguments{
 \item{df, df_error}{Degrees of freedom of numerator or of the error estimate (i.e., the residuals).}
+
+\item{...}{Arguments passed to or from other methods.}
 
 \item{t, f, z}{The t, the F or the z statistics.}
 }

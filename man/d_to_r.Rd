@@ -25,48 +25,48 @@
 \alias{convert_probs_to_odds}
 \title{Effect Size Conversion}
 \usage{
-percentage_to_d(percentage = 0.01, ...)
+percentage_to_d(percentage, ...)
 
-d_to_percentage(d = 1, ...)
+d_to_percentage(d, ...)
 
-convert_percentage_to_d(percentage = 0.01, ...)
+convert_percentage_to_d(percentage, ...)
 
-convert_d_to_percentage(d = 1, ...)
+convert_d_to_percentage(d, ...)
 
-d_to_r(d = 1, ...)
+d_to_r(d, ...)
 
-r_to_d(r = 0.5, ...)
+r_to_d(r, ...)
 
-convert_d_to_r(d = 1, ...)
+convert_d_to_r(d, ...)
 
-convert_r_to_d(r = 0.5, ...)
+convert_r_to_d(r, ...)
 
-odds_to_d(odds = 1, log = FALSE)
+odds_to_d(odds, log = FALSE, ...)
 
-convert_odds_to_d(odds = 1, log = FALSE)
+convert_odds_to_d(odds, log = FALSE, ...)
 
-d_to_odds(d = 1, log = FALSE)
+d_to_odds(d, log = FALSE, ...)
 
-convert_d_to_odds(d = 1, log = FALSE)
+convert_d_to_odds(d, log = FALSE, ...)
 
-r_to_odds(r = 0.5, log = FALSE)
+r_to_odds(r, log = FALSE, ...)
 
-convert_r_to_odds(r = 0.5, log = FALSE)
+convert_r_to_odds(r, log = FALSE, ...)
 
-odds_to_r(odds, log = FALSE)
+odds_to_r(odds, log = FALSE, ...)
 
-convert_odds_to_r(odds, log = FALSE)
+convert_odds_to_r(odds, log = FALSE, ...)
 
-odds_to_probs(odds = 1, log = FALSE, ...)
+odds_to_probs(odds, log = FALSE, ...)
 
 \method{odds_to_probs}{data.frame}(odds, log = FALSE, select = NULL,
   exclude = NULL, ...)
 
-probs_to_odds(probs = 0.5, log = FALSE, ...)
+probs_to_odds(probs, log = FALSE, ...)
 
-convert_odds_to_probs(odds = 1, log = FALSE, ...)
+convert_odds_to_probs(odds, log = FALSE, ...)
 
-convert_probs_to_odds(probs = 0.5, log = FALSE, ...)
+convert_probs_to_odds(probs, log = FALSE, ...)
 }
 \arguments{
 \item{percentage}{Percentage value (e.g., \code{0.01} for one percent).}
