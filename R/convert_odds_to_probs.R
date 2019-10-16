@@ -1,11 +1,11 @@
 #' @rdname d_to_r
 #' @export
-odds_to_probs <- function(odds = 1, log = FALSE, ...) {
+odds_to_probs <- function(odds, log = FALSE, ...) {
   UseMethod("odds_to_probs")
 }
 
 #' @export
-odds_to_probs.numeric <- function(odds = 1, log = FALSE, ...) {
+odds_to_probs.numeric <- function(odds, log = FALSE, ...) {
   .odds_to_probs(odds, log = log)
 }
 
@@ -24,12 +24,12 @@ odds_to_probs.data.frame <- function(odds, log = FALSE, select = NULL, exclude =
 
 #' @rdname d_to_r
 #' @export
-probs_to_odds <- function(probs = 0.5, log = FALSE, ...) {
+probs_to_odds <- function(probs, log = FALSE, ...) {
   UseMethod("probs_to_odds")
 }
 
 #' @export
-probs_to_odds.numeric <- function(probs = 0.5, log = FALSE, ...) {
+probs_to_odds.numeric <- function(probs, log = FALSE, ...) {
   .probs_to_odds(probs, log = log)
 }
 

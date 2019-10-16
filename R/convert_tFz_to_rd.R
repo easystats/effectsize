@@ -11,6 +11,7 @@
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
 #' @param n The number of observations (samples size).
 #' @param pooled Should the estimate accout for the t-value being based on a repeated-measures design, or not (default).
+#' @param ... Arguments passed to or from other methods.
 #'
 #' @return A numeric integer between of the requested effect size.
 #'
@@ -45,7 +46,7 @@
 #' }
 #'
 #' @export
-t_to_r <- function(t, df_error) {
+t_to_r <- function(t, df_error, ...) {
   t / sqrt(t ^ 2 + df_error)
 }
 
@@ -56,7 +57,7 @@ convert_t_to_r <- t_to_r
 
 #' @rdname t_to_r
 #' @export
-t_to_d <- function(t, df_error, pooled = FALSE) {
+t_to_d <- function(t, df_error, pooled = FALSE, ...) {
   if (isTRUE(pooled)) {
     t / sqrt(df_error)
   } else {
@@ -77,7 +78,7 @@ convert_t_to_d <- t_to_d
 
 #' @rdname t_to_r
 #' @export
-z_to_r <- function(z, n) {
+z_to_r <- function(z, n, ...) {
   z / sqrt(z ^ 2 + n)
 }
 
@@ -89,7 +90,7 @@ convert_z_to_r <- z_to_r
 
 #' @rdname t_to_r
 #' @export
-z_to_d <- function(z, n) {
+z_to_d <- function(z, n, ...) {
   2 * z / sqrt(n)
 }
 
@@ -105,7 +106,7 @@ convert_z_to_d <- z_to_d
 
 #' @rdname t_to_r
 #' @export
-F_to_r <- function(f, df, df_error) {
+F_to_r <- function(f, df, df_error, ...) {
   if (df > 1) {
     stop("Cannot convert F with more than 1 df to (partial) r.")
   }
@@ -120,7 +121,7 @@ convert_F_to_r <- F_to_r
 
 #' @rdname t_to_r
 #' @export
-F_to_d <- function(f, df, df_error, pooled = FALSE) {
+F_to_d <- function(f, df, df_error, pooled = FALSE, ...) {
   if (df > 1) {
     stop("Cannot convert F with more than 1 df to (partial) r.")
   }

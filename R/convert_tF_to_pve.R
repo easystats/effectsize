@@ -4,6 +4,7 @@
 #'
 #' @param t,f,z The t, the F or the z statistics.
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
+#' @param ... Arguments passed to or from other methods.
 #'
 #' @return A numeric integer between 0-1 (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2}
 #' it is possible to compute a negative number; even though this doesn't make any practical sense,
@@ -56,7 +57,7 @@
 #' }
 #'
 #' @export
-F_to_partial_eta_squared <- function(f, df, df_error) {
+F_to_partial_eta_squared <- function(f, df, df_error, ...) {
   (f * df) / (f * df + df_error)
 }
 
@@ -64,19 +65,19 @@ F_to_partial_eta_squared <- function(f, df, df_error) {
 
 #' @rdname F_to_partial_eta_squared
 #' @export
-t_to_partial_eta_squared <- function(t, df_error) {
+t_to_partial_eta_squared <- function(t, df_error, ...) {
   F_to_partial_eta_squared(t^2, 1, df_error)
 }
 
 #' @rdname F_to_partial_eta_squared
 #' @export
-F_to_partial_epsilon_squared <- function(f, df, df_error) {
+F_to_partial_epsilon_squared <- function(f, df, df_error, ...) {
   ((f - 1) * df) / (f * df + df_error)
 }
 
 #' @rdname F_to_partial_eta_squared
 #' @export
-t_to_partial_epsilon_squared <- function(t, df_error) {
+t_to_partial_epsilon_squared <- function(t, df_error, ...) {
   F_to_partial_epsilon_squared(t^2, 1, df_error)
 }
 
@@ -90,12 +91,12 @@ t_to_adj_partial_eta_squared <- t_to_partial_epsilon_squared
 
 #' @rdname F_to_partial_eta_squared
 #' @export
-F_to_partial_omega_squared <- function(f, df, df_error) {
+F_to_partial_omega_squared <- function(f, df, df_error, ...) {
   ((f - 1) * df) / (f * df + df_error + 1)
 }
 
 #' @rdname F_to_partial_eta_squared
 #' @export
-t_to_partial_omega_squared <- function(t, df_error) {
+t_to_partial_omega_squared <- function(t, df_error, ...) {
   F_to_partial_omega_squared(t^2, 1, df_error)
 }

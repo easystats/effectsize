@@ -7,6 +7,7 @@
 #' @param n Sample size.
 #' @param nrow The number of rows in the contingency table.
 #' @param ncol The number of columns in the contingency tables.
+#' @param ... Arguments passed to or from other methods.
 #'
 #' @return A numeric integer between 0-1.
 #'
@@ -27,7 +28,7 @@
 #'   ncol = ncol(contingency_table)
 #' )
 #' @export
-chisq_to_phi <- function(chisq, n) {
+chisq_to_phi <- function(chisq, n, ...) {
   sqrt(chisq / n)
 }
 
@@ -37,7 +38,7 @@ convert_chisq_to_phi <- chisq_to_phi
 
 #' @rdname chisq_to_phi
 #' @export
-phi_to_chisq <- function(phi, n) {
+phi_to_chisq <- function(phi, n, ...) {
   (phi * n)^2
 }
 
@@ -51,7 +52,7 @@ convert_phi_to_chisq <- phi_to_chisq
 
 #' @rdname chisq_to_phi
 #' @export
-chisq_to_cramers_v <- function(chisq, n, nrow, ncol) {
+chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ...) {
   chisq_to_phi(chisq, n) / sqrt((min(nrow, ncol) - 1))
 }
 

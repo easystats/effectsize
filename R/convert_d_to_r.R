@@ -37,15 +37,15 @@
 #'   \item Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R. (2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
 #' }
 #' @export
-d_to_r <- function(d = 1, ...) {
-  d / (sqrt(d^2 + 4))
+d_to_r <- function(d, ...) {
+  d / (sqrt(d ^ 2 + 4))
 }
 
 
 #' @rdname d_to_r
 #' @export
-r_to_d <- function(r = 0.5, ...) {
-  2 * r / sqrt(1 - r^2)
+r_to_d <- function(r, ...) {
+  2 * r / sqrt(1 - r ^ 2)
 }
 
 
