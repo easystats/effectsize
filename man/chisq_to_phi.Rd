@@ -6,7 +6,7 @@
 \alias{phi_to_chisq}
 \alias{convert_phi_to_chisq}
 \alias{chisq_to_cramers_v}
-\alias{convert_cchisq_to_cramers_v}
+\alias{convert_chisq_to_cramers_v}
 \title{Conversion between Effect sizes for Contingency Tables (Chi2, Phi, Cramer's V...)}
 \usage{
 chisq_to_phi(chisq, n)
@@ -19,7 +19,7 @@ convert_phi_to_chisq(phi, n)
 
 chisq_to_cramers_v(chisq, n, nrow, ncol)
 
-convert_cchisq_to_cramers_v(chisq, n, nrow, ncol)
+convert_chisq_to_cramers_v(chisq, n, nrow, ncol)
 }
 \arguments{
 \item{chisq}{The Chi2 statistic.}

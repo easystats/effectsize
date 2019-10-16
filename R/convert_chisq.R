@@ -57,6 +57,6 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol) {
 
 #' @rdname chisq_to_phi
 #' @export
-convert_cchisq_to_cramers_v <- chisq_to_cramers_v
+convert_chisq_to_cramers_v <- chisq_to_cramers_v
 
 # We lack the reverse
