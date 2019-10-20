@@ -55,6 +55,12 @@ parameters <- model_parameters(model)[2:4,]
 convert_t_to_r(parameters$t, parameters$df_residual)
 ```
 
+Note that these are *not* equivalent to *standardized parameters* from multiple regressions (from which coefficients can be higher than 1).
+
+
+```{r, warning=FALSE, message=FALSE}
+standardize_parameters(model)$Std_Coefficient[2:4]
+```
 
 Let's start by fitting the Bayesian regression:
 
@@ -87,10 +93,17 @@ Does it work in all cases?
 Let's start with the frequentist model:
 
 ```{r, warning=FALSE, message=FALSE}
-model <- glm(vs ~ cyl + disp + drat, data = mtcars, family = "binomial") 
+model <- glm(vs ~ cyl + disp + drat, data = mtcars, family = "binomial")
 
 parameters <- model_parameters(model)
 parameters$r <- convert_z_to_r(parameters$z, n = insight::n_obs(model))
+parameters
+```
+
+However, as logistic models return log-odds, these can be directly converted to *r*:
+
+```{r, warning=FALSE, message=FALSE}
+parameters$r_from_odds <- convert_odds_to_r(parameters$Coefficient, log = TRUE)
 parameters
 ```
 
@@ -110,6 +123,14 @@ parameters$r <- bayestestR::describe_posterior(r)$Median
 parameters
 ```
 
+
+```{r, warning=FALSE, message=FALSE}
+parameters <- model_parameters(model)
+r <- convert_posteriors_to_r(model)
+parameters$r <- bayestestR::describe_posterior(r)$Median
+parameters$r_from_odds <- convert_odds_to_r(parameters$Median, log = TRUE)
+parameters
+```
 
 
 ## References

@@ -48,3 +48,6 @@ ranktransform(c(0, 1, 5, -5, -2), sign = TRUE)
 
 head(ranktransform(iris))
 }
+\seealso{
+\code{\link{normalize}} \code{\link{standardize}} \code{\link{change_scale}}
+}

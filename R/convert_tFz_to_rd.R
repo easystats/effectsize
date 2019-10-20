@@ -1,0 +1,153 @@
+
+# t -----------------------------------------------------------------------
+
+#' Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (partial r).
+#'
+#' These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
+#' (partial) r. These are useful in cases where the data required to compute these are not easily
+#' available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.).
+#'
+#' @param t,f,z The t, the F or the z statistics.
+#' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
+#' @param n The number of observations (samples size).
+#' @param pooled Should the estimate accout for the t-value being based on a repeated-measures design, or not (default).
+#' @param ... Arguments passed to or from other methods.
+#'
+#' @return A numeric integer between of the requested effect size.
+#'
+#' @details These functions use the following formulae:
+#' \cr\cr
+#' \deqn{r_{partial} = t / \sqrt{t^2 + df_{error}}}
+#' \cr\cr
+#' \deqn{r_{partial} = z / \sqrt{z^2 + N}}
+#' \cr\cr
+#' \deqn{Cohen's d = 2 * t / \sqrt{df_{error}}}
+#' \cr\cr
+#' \deqn{Cohen's d_z = t / \sqrt{df_{error}}}
+#' \cr\cr
+#' \deqn{Cohen's d = 2 * z / \sqrt{N}}
+#'
+#' @examples
+#' \dontrun{
+#' ## t Tests
+#' res <- t.test(1:10, y = c(7:20), var.equal = TRUE)
+#' t_to_d(res$statistic, res$parameter)
+#' t_to_r(res$statistic, res$parameter)
+#'
+#' res <- with(sleep, t.test(extra[group == 1], extra[group == 2], paired = TRUE))
+#' t_to_d(res$statistic, res$parameter, pooled = TRUE)
+#' t_to_r(res$statistic, res$parameter)
+#'
+#' ## Linear Regression
+#' fit <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
+#' library(parameters)
+#' (param_tab <- parameters(fit))
+#' #> Parameter    | Coefficient |   SE |       95% CI |     t |  df |      p
+#' #> -----------------------------------------------------------------------
+#' #> (Intercept)  |        2.25 | 0.25 | [1.76, 2.74] |  9.07 | 147 | < .001
+#' #> Sepal.Width  |        0.60 | 0.07 | [0.46, 0.73] |  8.59 | 147 | < .001
+#' #> Petal.Length |        0.47 | 0.02 | [0.44, 0.51] | 27.57 | 147 | < .001
+#'
+#' t_to_r(param_tab$t[2:3], param_tab$df_residual[2:3])
+#' #> [1] 0.5781005 0.9153894
+#'
+#' # How does this compare to actual partial correlations?
+#' library(ppcor)
+#' pcor(iris[1:3])$estimate[1, -1]
+#' #>  Sepal.Width Petal.Length
+#' #>    0.5781005    0.9153894
+#' }
+#'
+#' @references
+#' \itemize{
+#'   \item Friedman, H. (1982). Simplified determinations of statistical power, magnitude of effect and research sample sizes. Educational and Psychological Measurement, 42(2), 521-526. \doi{10.1177/001316448204200214}
+#'   \item Wolf, F. M. (1986). Meta-analysis: Quantitative methods for research synthesis (Vol. 59). Sage.
+#'   \item Rosenthal, R. (1991). Meta-analytic procedures for social research. Newbury Park, CA: SAGE Publications, Incorporated.
+#' }
+#'
+#' @export
+t_to_r <- function(t, df_error, ...) {
+  t / sqrt(t ^ 2 + df_error)
+}
+
+#' @rdname t_to_r
+#' @export
+convert_t_to_r <- t_to_r
+
+
+#' @rdname t_to_r
+#' @export
+t_to_d <- function(t, df_error, pooled = FALSE, ...) {
+  if (isTRUE(pooled)) {
+    t / sqrt(df_error)
+  } else {
+    2 * t / sqrt(df_error)
+  }
+}
+
+#' @rdname t_to_r
+#' @export
+convert_t_to_d <- t_to_d
+
+
+
+
+# z -----------------------------------------------------------------------
+
+
+
+#' @rdname t_to_r
+#' @export
+z_to_r <- function(z, n, ...) {
+  z / sqrt(z ^ 2 + n)
+}
+
+
+#' @rdname t_to_r
+#' @export
+convert_z_to_r <- z_to_r
+
+
+#' @rdname t_to_r
+#' @export
+z_to_d <- function(z, n, ...) {
+  2 * z / sqrt(n)
+}
+
+#' @rdname t_to_r
+#' @export
+convert_z_to_d <- z_to_d
+
+
+
+# F -----------------------------------------------------------------------
+
+
+
+#' @rdname t_to_r
+#' @export
+F_to_r <- function(f, df, df_error, ...) {
+  if (df > 1) {
+    stop("Cannot convert F with more than 1 df to (partial) r.")
+  }
+  t_to_r(sqrt(f), df_error)
+}
+
+#' @rdname t_to_r
+#' @export
+convert_F_to_r <- F_to_r
+
+
+
+#' @rdname t_to_r
+#' @export
+F_to_d <- function(f, df, df_error, pooled = FALSE, ...) {
+  if (df > 1) {
+    stop("Cannot convert F with more than 1 df to (partial) r.")
+  }
+  t_to_d(sqrt(f), df_error, pooled)
+}
+
+#' @rdname t_to_r
+#' @export
+convert_F_to_d <- F_to_d

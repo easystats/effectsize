@@ -206,7 +206,7 @@ interpret_d(x, rules = "sawilowsky2009")
 
 ### Odds ratio
 
-Odds ratio, and *log* odds ratio, are often found in epidemiological studies. However, they are also the parameters of ***logistic*** regressions, where they can be used as indices of effect size.
+Odds ratio, and *log* odds ratio, are often found in epidemiological studies. However, they are also the parameters of ***logistic*** regressions, where they can be used as indices of effect size. Note that the (log) odds ratio from logistic regression coefficients are *unstandardized*, as they depend on the scale of the predictor. In order to apply the following guidelines, make sure you [*standardize*](https://easystats.github.io/effectsize/articles/standardize_parameters.html) your predictors!
 
 #### @chen2010big
 
@@ -214,10 +214,10 @@ Odds ratio, and *log* odds ratio, are often found in epidemiological studies. Ho
 interpret_odds(x, rules = "chen2010")
 ```
 
-- **d = 0 - 1.68**: Very small
-- **d = 1.68 - 3.47**: Small
-- **d = 3.47 - 6.71**: Medium
-- **d > 6.71**: Large
+- **odds = 0 - 1.68**: Very small
+- **odds = 1.68 - 3.47**: Small
+- **odds = 3.47 - 6.71**: Medium
+- **odds > 6.71**: Large
 
 #### @cohen1988statistical
 
