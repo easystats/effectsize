@@ -122,7 +122,7 @@ eta_squared.merMod <- function(model, partial = TRUE, ci = NULL, ...) {
 
 
   model <- lmerTest::as_lmerModLmerTest(model)
-  par_table <- anova(model)
+  par_table <- stats::anova(model)
   par_table <- cbind(Parameter = rownames(par_table), par_table)
   colnames(par_table)[4:6] <- c("df", "df2", "F")
   .eta_square_from_F(par_table, ci = ci)

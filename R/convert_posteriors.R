@@ -51,9 +51,9 @@ posteriors_to_t <- convert_posteriors_to_t
 
 
 
-
+#' @importFrom stats sd
 #' @keywords internal
 .compute_t <- function(posterior) {
-  denominator <- sd(posterior, na.rm = TRUE)
+  denominator <- stats::sd(posterior, na.rm = TRUE)
   posterior / denominator
 }

@@ -24,7 +24,7 @@ mad_pooled <- function(x, y = NULL, data = NULL) {
 
 
 
-#' @importFrom stats mad
+#' @importFrom stats mad sd
 #' @export
 .sd_pooled <- function(x, y = NULL, data = NULL, robust = FALSE) {
   out <- .deal_with_cohens_d_arguments(x, y, data)
@@ -32,11 +32,11 @@ mad_pooled <- function(x, y = NULL, data = NULL) {
   y <- out$y
 
   if (robust) {
-    sd1 <- mad(x, na.rm = TRUE)
-    sd2 <- mad(y, na.rm = TRUE)
+    sd1 <- stats::mad(x, na.rm = TRUE)
+    sd2 <- stats::mad(y, na.rm = TRUE)
   } else {
-    sd1 <- sd(x, na.rm = TRUE)
-    sd2 <- sd(y, na.rm = TRUE)
+    sd1 <- stats::sd(x, na.rm = TRUE)
+    sd2 <- stats::sd(y, na.rm = TRUE)
   }
 
 

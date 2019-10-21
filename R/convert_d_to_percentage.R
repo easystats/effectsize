@@ -9,7 +9,7 @@ percentage_to_d <- function(percentage, ...) {
 #' @rdname d_to_r
 #' @export
 d_to_percentage <- function(d, ...) {
-  range_distribution <- (qnorm(0.999) - qnorm(0.001))
+  range_distribution <- (stats::qnorm(0.999) - stats::qnorm(0.001))
   d / range_distribution
 }
 

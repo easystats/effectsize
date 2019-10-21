@@ -49,6 +49,7 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE) {
 
 
 
+#' @importFrom stats sd
 #' @keywords internal
 .effect_size_difference <- function(x, y = NULL, data = NULL, type = "d", correction = FALSE, pooled_sd = TRUE, paired = FALSE) {
   out <- .deal_with_cohens_d_arguments(x, y, data)
@@ -60,12 +61,12 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE) {
 
   if (type == "d" | type == "g") {
     if (paired) {
-      denominator <- sd(x - y, na.rm = TRUE)
+      denominator <- stats::sd(x - y, na.rm = TRUE)
     } else {
       if (pooled_sd) {
         denominator <- sd_pooled(x, y)
       } else {
-        denominator <- sd(c(x, y), na.rm = TRUE)
+        denominator <- stats::sd(c(x, y), na.rm = TRUE)
       }
     }
     if (type == "g") {
@@ -77,7 +78,7 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE) {
       diff_of_means <- diff_of_means * J
     }
   } else if (type == "delta") {
-    denominator <- sd(x, na.rm = TRUE)
+    denominator <- stats::sd(x, na.rm = TRUE)
   }
 
 
