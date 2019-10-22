@@ -295,7 +295,7 @@ Experts have suggested thresholds value to help interpreting and convergence and
 ### Other Bayesian Indices (\% in ROPE, *pd*)
 
 
-The interpretation of Bayesian indices is detailed in [this article](https://easystats.github.io/bayestestR/articles/4_Guidelines.html).
+The interpretation of Bayesian indices is detailed in [this article](https://easystats.github.io/bayestestR/articles/guidelines.html).
 
 
 

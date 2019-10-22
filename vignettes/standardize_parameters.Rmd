@@ -30,7 +30,7 @@ set.seed(333)
 
 # Introduction
 
-Standardising parameters (*i.e.*, coefficients) can allow for their comparison within and between models, variables and studies. Moreover, as it returns coefficients expressed in terms of **change of variance** (for instance, coefficients expresed in terms of SD of the response variable), it can allow for the usage of [effect size interpretation guidelines](https://easystats.github.io/easystats/articles/interpret.html), such as the famous Cohen's (1988) rules of thumb.
+Standardising parameters (*i.e.*, coefficients) can allow for their comparison within and between models, variables and studies. Moreover, as it returns coefficients expressed in terms of **change of variance** (for instance, coefficients expresed in terms of SD of the response variable), it can allow for the usage of [effect size interpretation guidelines](https://easystats.github.io/effectsize/articles/interpret.html), such as the famous Cohen's (1988) rules of thumb.
 
 However, standardizing the model's parameters should *not* be automatically and mindlessly done: for some research fields, particular variables or types of studies (*e.g.*, replications), it sometimes makes more sense to keep, use and interpret the original parameters, especially if they are well known or easily understood.
 
@@ -142,7 +142,7 @@ lm(Sepal.Length ~ Species, data = data) %>%
   knitr::kable(digits = 2)
 ```
 
-Not really. Why? Because the actual formula to compute a **Cohen's *d*** doesn't use the simple SD to scale the effect (as it is done when standardizing the parameters), but computes something called the [**pooled SD**](https://easystats.github.io/effectsize/reference/pooled_sd.html). However, this can be turned off by setting `correct = "raw"`.
+Not really. Why? Because the actual formula to compute a **Cohen's *d*** doesn't use the simple SD to scale the effect (as it is done when standardizing the parameters), but computes something called the [**pooled SD**](https://easystats.github.io/effectsize/reference/sd_pooled.html). However, this can be turned off by setting `correct = "raw"`.
 
 ```{r, warning=FALSE, message=FALSE}
 cohens_d(Sepal.Length ~ Species, data = data, pooled_sd = FALSE) 

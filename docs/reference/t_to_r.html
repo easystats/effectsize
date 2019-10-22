@@ -15,10 +15,12 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -39,14 +41,14 @@
 
 
 
-<meta property="og:title" content="Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (partial r). — t_to_r" />
 
+<meta property="og:title" content="Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (partial r). — t_to_r" />
 <meta property="og:description" content="These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
 (partial) r. These are useful in cases where the data required to compute these are not easily
 available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.)." />
-
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -129,7 +131,6 @@ available or their computation is not straightforward (e.g., in liner mixed mode
   <a href="../articles/interpret.html">Interpretation Guidelines</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/easystats/effectsize">
@@ -156,11 +157,9 @@ available or their computation is not straightforward (e.g., in liner mixed mode
     </div>
 
     <div class="ref-description">
-    
     <p>These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
 (partial) r. These are useful in cases where the data required to compute these are not easily
 available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.).</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>t_to_r</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
@@ -186,7 +185,7 @@ available or their computation is not straightforward (e.g., in liner mixed mode
 <span class='fu'>F_to_d</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='kw'>pooled</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='fu'>convert_F_to_d</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='kw'>pooled</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -211,11 +210,10 @@ available or their computation is not straightforward (e.g., in liner mixed mode
       <td><p>Degrees of freedom of numerator or of the error estimate (i.e., the residuals).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A numeric integer between of the requested effect size.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>These functions use the following formulae:
@@ -229,7 +227,6 @@ $$Cohen's d = 2 * t / \sqrt{df_{error}}$$
 $$Cohen's d_z = t / \sqrt{df_{error}}$$
 <br /><br />
 $$Cohen's d = 2 * z / \sqrt{N}$$</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -239,7 +236,6 @@ $$Cohen's d = 2 * z / \sqrt{N}$$</p>
 <li><p>Rosenthal, R. (1991). Meta-analytic procedures for social research. Newbury Park, CA: SAGE Publications, Incorporated.</p></li>
 </ul>
 
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
@@ -276,13 +272,9 @@ $$Cohen's d = 2 * z / \sqrt{N}$$</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#references">References</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -296,7 +288,7 @@ $$Cohen's d = 2 * z / \sqrt{N}$$</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

@@ -15,10 +15,12 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -39,12 +41,12 @@
 
 
 
+
 <meta property="og:title" content="Interpretation of indices of fit — interpret_gfi" />
-
 <meta property="og:description" content="Interpretation of indices of fit found in confirmatory analysis or structural equation modelling, such as RMSEA, CFI, NFI, IFI, etc." />
-
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -127,7 +129,6 @@
   <a href="../articles/interpret.html">Interpretation Guidelines</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/easystats/effectsize">
@@ -154,9 +155,7 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Interpretation of indices of fit found in confirmatory analysis or structural equation modelling, such as RMSEA, CFI, NFI, IFI, etc.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>interpret_gfi</span>(<span class='no'>x</span>, <span class='kw'>rules</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
@@ -178,7 +177,7 @@
 <span class='fu'>interpret_ifi</span>(<span class='no'>x</span>, <span class='kw'>rules</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
 <span class='fu'>interpret_pnfi</span>(<span class='no'>x</span>, <span class='kw'>rules</span> <span class='kw'>=</span> <span class='st'>"default"</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -191,7 +190,7 @@
       <td><p>Can be "default" or custom set of rules.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     
@@ -213,7 +212,6 @@
 <h3>What to report</h3>
 <p>For structural equation models (SEM), Kline (2015) suggests that at a minimum the following indices should be reported: The model <strong>chi-square</strong>, the <strong>RMSEA</strong>, the <strong>CFI</strong> and the <strong>SRMR</strong>.</p>
 
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -225,7 +223,6 @@
 <li><p>Kline, R. B. (2015). Principles and practice of structural equation modeling. Guilford publications.</p></li>
 </ul>
 
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>interpret_gfi</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.99</span>))</div><div class='output co'>#&gt; [1] "poor"         "satisfactory"</div><div class='input'><span class='fu'>interpret_agfi</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.99</span>))</div><div class='output co'>#&gt; [1] "poor"         "satisfactory"</div><div class='input'><span class='fu'>interpret_nfi</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.99</span>))</div><div class='output co'>#&gt; [1] "poor"         "satisfactory"</div><div class='input'><span class='fu'>interpret_nnfi</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.99</span>))</div><div class='output co'>#&gt; [1] "poor"         "satisfactory"</div><div class='input'><span class='fu'>interpret_cfi</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.99</span>))</div><div class='output co'>#&gt; [1] "poor"         "satisfactory"</div><div class='input'><span class='fu'>interpret_rmsea</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.99</span>))</div><div class='output co'>#&gt; [1] "poor" "poor"</div><div class='input'><span class='fu'>interpret_srmr</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.99</span>))</div><div class='output co'>#&gt; [1] "poor" "poor"</div><div class='input'><span class='fu'>interpret_rfi</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.99</span>))</div><div class='output co'>#&gt; [1] "poor"         "satisfactory"</div><div class='input'><span class='fu'>interpret_ifi</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.99</span>))</div><div class='output co'>#&gt; [1] "poor"         "satisfactory"</div><div class='input'><span class='fu'>interpret_pnfi</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.99</span>))</div><div class='output co'>#&gt; [1] "satisfactory" "satisfactory"</div></pre>
@@ -234,11 +231,8 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#references">References</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -252,7 +246,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

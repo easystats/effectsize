@@ -15,10 +15,12 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -39,12 +41,12 @@
 
 
 
+
 <meta property="og:title" content="Convert test statistics (F, t) to indices of variance explained (partial Eta / Omega / Epsilon squared) — F_to_partial_eta_squared" />
-
 <meta property="og:description" content="These functions are convenience functions to convert F and t test statistics to partial Eta squared, (\(\eta{_p}^2\)), Omega squared (\(\omega{_p}^2\)) and Epsilon squared (\(\epsilon{_p}^2\); an alias for the adjusted Eta squared). These are useful in cases where the various Sum of Squares and Mean Squares are not easily available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.). For test statistics derived from lm and aov models, these functions give exact results. For all other cases, they return close approximations." />
-
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -127,7 +129,6 @@
   <a href="../articles/interpret.html">Interpretation Guidelines</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/easystats/effectsize">
@@ -154,9 +155,7 @@
     </div>
 
     <div class="ref-description">
-    
     <p>These functions are convenience functions to convert F and t test statistics to partial Eta squared, (\(\eta{_p}^2\)), Omega squared (\(\omega{_p}^2\)) and Epsilon squared (\(\epsilon{_p}^2\); an alias for the adjusted Eta squared). These are useful in cases where the various Sum of Squares and Mean Squares are not easily available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.). For test statistics derived from <code>lm</code> and <code>aov</code> models, these functions give exact results. For all other cases, they return close approximations.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>F_to_partial_eta_squared</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
@@ -174,7 +173,7 @@
 <span class='fu'>F_to_partial_omega_squared</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
 
 <span class='fu'>t_to_partial_omega_squared</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -191,13 +190,12 @@
       <td><p>The t, the F or the z statistics.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A numeric integer between 0-1 (Note that for \(\omega_p^2\) and \(\epsilon_p^2\)
 it is possible to compute a negative number; even though this doesn't make any practical sense,
 it is recommended to report the negative number and not a 0).</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>These functions use the following formulae:
@@ -209,11 +207,9 @@ $$\epsilon_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den}}$$
 $$\omega_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den} + 1}$$
 <br /><br /><br />
 For \(t\), the conversion is based on the equality of \(t^2 = F\) when \(df_{num}=1\).</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>\(Adj. \eta_p^2\) is an alias for \(\epsilon_p^2\).</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -223,7 +219,6 @@ For \(t\), the conversion is based on the equality of \(t^2 = F\) when \(df_{num
 <li><p>Albers, C., &amp; Lakens, D. (2018). When power analyses based on pilot data are biased: Inaccurate effect size estimators and follow-up bias. Journal of experimental social psychology, 74, 187-195. doi: <a href='https://doi.org/10.31234/osf.io/b7z4q'>10.31234/osf.io/b7z4q</a></p></li>
 </ul>
 
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
@@ -256,15 +251,10 @@ For \(t\), the conversion is based on the equality of \(t^2 = F\) when \(df_{num
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#note">Note</a></li>
-
       <li><a href="#references">References</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -278,7 +268,7 @@ For \(t\), the conversion is based on the equality of \(t^2 = F\) when \(df_{num
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>
