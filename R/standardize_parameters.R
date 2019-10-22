@@ -218,6 +218,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   if (!is.null(std_error)) {
     std_error <- std_error * deviations[[col_dev_pred]] / deviations[[col_dev_resp]]
     attr(std_params, "standard_error") <- std_error
+    class(std_params) <- c("effectsize_std_params", class(std_params))
   }
 
   std_params
