@@ -149,7 +149,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Convert test statistics (F, t) to indices of variance explained (partial Eta / Omega / Epsilon squared)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/convert_eta_sq.R'><code>R/convert_eta_sq.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/convert_tF_to_pve.R'><code>R/convert_tF_to_pve.R</code></a></small>
     <div class="hidden name"><code>F_to_partial_eta_squared.Rd</code></div>
     </div>
 
@@ -159,36 +159,36 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>F_to_partial_eta_squared</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>)
+    <pre class="usage"><span class='fu'>F_to_partial_eta_squared</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
 
-<span class='fu'>t_to_partial_eta_squared</span>(<span class='no'>t</span>, <span class='no'>df_error</span>)
+<span class='fu'>t_to_partial_eta_squared</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
 
-<span class='fu'>F_to_partial_epsilon_squared</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>)
+<span class='fu'>F_to_partial_epsilon_squared</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
 
-<span class='fu'>t_to_partial_epsilon_squared</span>(<span class='no'>t</span>, <span class='no'>df_error</span>)
+<span class='fu'>t_to_partial_epsilon_squared</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
 
-<span class='fu'>F_to_adj_partial_eta_squared</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>)
+<span class='fu'>F_to_adj_partial_eta_squared</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
 
-<span class='fu'>t_to_adj_partial_eta_squared</span>(<span class='no'>t</span>, <span class='no'>df_error</span>)
+<span class='fu'>t_to_adj_partial_eta_squared</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
 
-<span class='fu'>F_to_partial_omega_squared</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>)
+<span class='fu'>F_to_partial_omega_squared</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
 
-<span class='fu'>t_to_partial_omega_squared</span>(<span class='no'>t</span>, <span class='no'>df_error</span>)</pre>
+<span class='fu'>t_to_partial_omega_squared</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>f, t</th>
-      <td><p>The \(F\) or \(t\) statistics.</p></td>
+      <th>df, df_error</th>
+      <td><p>Degrees of freedom of numerator or of the error estimate (i.e., the residuals).</p></td>
     </tr>
     <tr>
-      <th>df</th>
-      <td><p>Numerator degrees of freedom for the \(F\) statistic.</p></td>
+      <th>...</th>
+      <td><p>Arguments passed to or from other methods.</p></td>
     </tr>
     <tr>
-      <th>df_error</th>
-      <td><p>Denominator degrees of freedom for the \(F\) and \(t\) statistics.</p></td>
+      <th>t, f, z</th>
+      <td><p>The t, the F or the z statistics.</p></td>
     </tr>
     </table>
     

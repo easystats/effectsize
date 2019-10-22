@@ -149,7 +149,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Effect Size Conversion</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/convert_d_to_percentage.R'><code>R/convert_d_to_percentage.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/convert_d_to_r.R'><code>R/convert_d_to_r.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/convert_odds_to_d.R'><code>R/convert_odds_to_d.R</code></a>, and 3 more</small>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/convert_d_to_percentage.R'><code>R/convert_d_to_percentage.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/convert_d_to_r.R'><code>R/convert_d_to_r.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/convert_odds_to_d.R'><code>R/convert_odds_to_d.R</code></a>, and 2 more</small>
     <div class="hidden name"><code>d_to_r.Rd</code></div>
     </div>
 
@@ -159,67 +159,49 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>percentage_to_d</span>(<span class='kw'>percentage</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>percentage_to_d</span>(<span class='no'>percentage</span>, <span class='no'>...</span>)
 
-<span class='fu'>d_to_percentage</span>(<span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
+<span class='fu'>d_to_percentage</span>(<span class='no'>d</span>, <span class='no'>...</span>)
 
-<span class='fu'>convert_percentage_to_d</span>(<span class='kw'>percentage</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='no'>...</span>)
+<span class='fu'>convert_percentage_to_d</span>(<span class='no'>percentage</span>, <span class='no'>...</span>)
 
-<span class='fu'>convert_d_to_percentage</span>(<span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
+<span class='fu'>convert_d_to_percentage</span>(<span class='no'>d</span>, <span class='no'>...</span>)
 
-<span class='fu'>d_to_r</span>(<span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
+<span class='fu'>d_to_r</span>(<span class='no'>d</span>, <span class='no'>...</span>)
 
-<span class='fu'>r_to_d</span>(<span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='no'>...</span>)
+<span class='fu'>r_to_d</span>(<span class='no'>r</span>, <span class='no'>...</span>)
 
-<span class='fu'>convert_d_to_r</span>(<span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
+<span class='fu'>convert_d_to_r</span>(<span class='no'>d</span>, <span class='no'>...</span>)
 
-<span class='fu'>convert_r_to_d</span>(<span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='no'>...</span>)
+<span class='fu'>convert_r_to_d</span>(<span class='no'>r</span>, <span class='no'>...</span>)
 
-<span class='fu'>odds_to_d</span>(<span class='kw'>odds</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>odds_to_d</span>(<span class='no'>odds</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'>convert_odds_to_d</span>(<span class='kw'>odds</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>convert_odds_to_d</span>(<span class='no'>odds</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'>d_to_odds</span>(<span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>d_to_odds</span>(<span class='no'>d</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'>convert_d_to_odds</span>(<span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>convert_d_to_odds</span>(<span class='no'>d</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'>r_to_odds</span>(<span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>r_to_odds</span>(<span class='no'>r</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'>convert_r_to_odds</span>(<span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>convert_r_to_odds</span>(<span class='no'>r</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'>odds_to_r</span>(<span class='no'>odds</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>odds_to_r</span>(<span class='no'>odds</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'>convert_odds_to_r</span>(<span class='no'>odds</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>convert_odds_to_r</span>(<span class='no'>odds</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'>odds_to_probs</span>(<span class='kw'>odds</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>odds_to_probs</span>(<span class='no'>odds</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for data.frame</span>
 <span class='fu'>odds_to_probs</span>(<span class='no'>odds</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>select</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>exclude</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
-<span class='fu'>probs_to_odds</span>(<span class='kw'>probs</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>probs_to_odds</span>(<span class='no'>probs</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'>convert_odds_to_probs</span>(<span class='kw'>odds</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>convert_odds_to_probs</span>(<span class='no'>odds</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'>convert_probs_to_odds</span>(<span class='kw'>probs</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
-
-<span class='fu'>convert_t_to_r</span>(<span class='no'>t</span>, <span class='no'>df_error</span>)
-
-<span class='fu'>t_to_r</span>(<span class='no'>t</span>, <span class='no'>df_error</span>)
-
-<span class='fu'>convert_t_to_d</span>(<span class='no'>t</span>, <span class='no'>df_error</span>)
-
-<span class='fu'>t_to_d</span>(<span class='no'>t</span>, <span class='no'>df_error</span>)
-
-<span class='fu'>convert_z_to_r</span>(<span class='no'>z</span>, <span class='no'>n</span>)
-
-<span class='fu'>z_to_r</span>(<span class='no'>z</span>, <span class='no'>n</span>)
-
-<span class='fu'>convert_z_to_d</span>(<span class='no'>z</span>, <span class='no'>n</span>)
-
-<span class='fu'>z_to_d</span>(<span class='no'>z</span>, <span class='no'>n</span>)
-
-<span class='fu'>convert_F_to_r</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>)</pre>
+<span class='fu'>convert_probs_to_odds</span>(<span class='no'>probs</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -261,18 +243,6 @@ from transformation.</p></td>
     <tr>
       <th>probs</th>
       <td><p>Probability values.</p></td>
-    </tr>
-    <tr>
-      <th>t, f, z</th>
-      <td><p>The t, the F or the z statistics.</p></td>
-    </tr>
-    <tr>
-      <th>n</th>
-      <td><p>The number of observations (population size).</p></td>
-    </tr>
-    <tr>
-      <th>df, df_error</th>
-      <td><p>Degrees of freedom of numerator or of the error estimate (i.e., the residuals).</p></td>
     </tr>
     </table>
     
