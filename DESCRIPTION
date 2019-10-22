@@ -1,7 +1,7 @@
 Package: effectsize
 Type: Package
 Title: Compute and work with indices of effect size and standardized parameters
-Version: 0.1.0
+Version: 0.0.1
 Authors@R: c(
     person("Dominique", 
 		"Makowski", 

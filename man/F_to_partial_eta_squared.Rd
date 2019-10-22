@@ -32,7 +32,7 @@ t_to_partial_omega_squared(t, df_error, ...)
 
 \item{...}{Arguments passed to or from other methods.}
 
-\item{t, f, z}{The t, the F or the z statistics.}
+\item{t, f}{The t, the F or the z statistics.}
 }
 \value{
 A numeric integer between 0-1 (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2}
