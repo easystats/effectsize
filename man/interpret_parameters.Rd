@@ -29,5 +29,5 @@ Automated interpretation of effect sizes.
 }
 \examples{
 model <- lm(Sepal.Length ~ Species * Petal.Width, data = iris)
-interpret_parameters(model)
+
 }

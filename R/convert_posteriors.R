@@ -11,13 +11,14 @@
 #' @export
 convert_posteriors_to_r <- function(model, ...) {
 
-  dof <- parameters::dof(model)
-  t <- convert_posteriors_to_t(model)
-  r <- t
-  for (i in 1:ncol(t)) {
-    r[, i] <- convert_t_to_r(t = t[, i], df_error = dof[i])
-  }
-  r
+  stop("This function is not yet available.")
+  # dof <- parameters::dof(model)
+  # t <- convert_posteriors_to_t(model)
+  # r <- t
+  # for (i in 1:ncol(t)) {
+  #   r[, i] <- convert_t_to_r(t = t[, i], df_error = dof[i])
+  # }
+  # r
 }
 
 #' @rdname convert_posteriors_to_r
