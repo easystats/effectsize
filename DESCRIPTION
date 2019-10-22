@@ -55,10 +55,6 @@ Suggests:
 	see,
 	testthat,
 	tidyr
-Remotes:
-	easystats/insight,
-	easystats/bayestestR@dev,
-	easystats/parameters@dev
 RoxygenNote: 6.1.1
 Language: en-GB
 VignetteBuilder: knitr
