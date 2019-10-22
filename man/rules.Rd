@@ -2,9 +2,12 @@
 % Please edit documentation in R/interpret.R
 \name{rules}
 \alias{rules}
+\alias{is.rules}
 \title{Interpretation Grid}
 \usage{
 rules(breakpoints, labels, if_lower = TRUE)
+
+is.rules(x)
 }
 \arguments{
 \item{breakpoints}{Vector of value break points (edges defining categories).}
@@ -12,6 +15,8 @@ rules(breakpoints, labels, if_lower = TRUE)
 \item{labels}{Labels associated with each category. Must contain one label more than breakpoints.}
 
 \item{if_lower}{If true, each label will be given if the value is strictly lower than its breakpoint. The contrary if false.}
+
+\item{x}{An arbitrary R object.}
 }
 \description{
 Create a container for interpretation rules of thumb. See \link{interpret}.

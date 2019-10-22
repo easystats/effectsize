@@ -31,10 +31,8 @@ rules <- function(breakpoints, labels, if_lower = TRUE) {
 
 
 
-#' Test for objects of class \link{rules}
-#'
+#' @rdname rules
 #' @param x An arbitrary R object.
-#'
 #' @export
 is.rules <- function(x) inherits(x, "rules")
 

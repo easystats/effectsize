@@ -8,7 +8,45 @@ template:
   params:
     bootswatch: cosmo
 
-
+reference:
+- title: "Effect Sizes"
+  contents:
+  - cohens_f
+  - cohens_d
+  - sd_pooled
+  - standardize
+  - standardize_info
+  - standardize_parameters
+- title: "Interpretation"
+  contents:
+  - interpret
+  - interpret_bf
+  - interpret_d
+  - interpret_direction
+  - interpret_effective_sample
+  - interpret_gfi
+  - interpret_odds
+  - interpret_omega_squared
+  - interpret_p
+  - interpret_parameters
+  - interpret_r
+  - interpret_r2
+  - interpret_rhat
+  - interpret_rope
+  - rules
+- title: "Conversion"
+  contents:
+  - chisq_to_phi
+  - convert_posteriors_to_r
+  - t_to_r
+  - percentage_to_d
+  - F_to_partial_eta_squared
+- title: "Miscellaneous"
+  contents:
+  - change_scale
+  - normalize
+  - ranktransform
+  - format_standardize
 
 
 navbar:
