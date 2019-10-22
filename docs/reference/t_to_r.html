@@ -77,7 +77,7 @@ available or their computation is not straightforward (e.g., in liner mixed mode
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
       </span>
     </div>
 
@@ -163,25 +163,25 @@ available or their computation is not straightforward (e.g., in liner mixed mode
     
     </div>
 
-    <pre class="usage"><span class='fu'><a href='d_to_r.html'>t_to_r</a></span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>t_to_r</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
 
-<span class='fu'><a href='d_to_r.html'>convert_t_to_r</a></span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
+<span class='fu'>convert_t_to_r</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
 
-<span class='fu'><a href='d_to_r.html'>t_to_d</a></span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='kw'>pooled</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>t_to_d</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='kw'>pooled</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'><a href='d_to_r.html'>convert_t_to_d</a></span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='kw'>pooled</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>convert_t_to_d</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='kw'>pooled</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'><a href='d_to_r.html'>z_to_r</a></span>(<span class='no'>z</span>, <span class='no'>n</span>, <span class='no'>...</span>)
+<span class='fu'>z_to_r</span>(<span class='no'>z</span>, <span class='no'>n</span>, <span class='no'>...</span>)
 
-<span class='fu'><a href='d_to_r.html'>convert_z_to_r</a></span>(<span class='no'>z</span>, <span class='no'>n</span>, <span class='no'>...</span>)
+<span class='fu'>convert_z_to_r</span>(<span class='no'>z</span>, <span class='no'>n</span>, <span class='no'>...</span>)
 
-<span class='fu'><a href='d_to_r.html'>z_to_d</a></span>(<span class='no'>z</span>, <span class='no'>n</span>, <span class='no'>...</span>)
+<span class='fu'>z_to_d</span>(<span class='no'>z</span>, <span class='no'>n</span>, <span class='no'>...</span>)
 
-<span class='fu'><a href='d_to_r.html'>convert_z_to_d</a></span>(<span class='no'>z</span>, <span class='no'>n</span>, <span class='no'>...</span>)
+<span class='fu'>convert_z_to_d</span>(<span class='no'>z</span>, <span class='no'>n</span>, <span class='no'>...</span>)
 
 <span class='fu'>F_to_r</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
 
-<span class='fu'><a href='d_to_r.html'>convert_F_to_r</a></span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
+<span class='fu'>convert_F_to_r</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
 
 <span class='fu'>F_to_d</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='kw'>pooled</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
@@ -245,31 +245,31 @@ $$Cohen's d = 2 * z / \sqrt{N}$$</p>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'>## t Tests</span>
 <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7</span>:<span class='fl'>20</span>), <span class='kw'>var.equal</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'><a href='d_to_r.html'>t_to_d</a></span>(<span class='no'>res</span>$<span class='no'>statistic</span>, <span class='no'>res</span>$<span class='no'>parameter</span>)
-<span class='fu'><a href='d_to_r.html'>t_to_r</a></span>(<span class='no'>res</span>$<span class='no'>statistic</span>, <span class='no'>res</span>$<span class='no'>parameter</span>)
+<span class='fu'>t_to_d</span>(<span class='no'>res</span>$<span class='no'>statistic</span>, <span class='no'>res</span>$<span class='no'>parameter</span>)
+<span class='fu'>t_to_r</span>(<span class='no'>res</span>$<span class='no'>statistic</span>, <span class='no'>res</span>$<span class='no'>parameter</span>)
 
 <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>sleep</span>, <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span>(<span class='no'>extra</span>[<span class='no'>group</span> <span class='kw'>==</span> <span class='fl'>1</span>], <span class='no'>extra</span>[<span class='no'>group</span> <span class='kw'>==</span> <span class='fl'>2</span>], <span class='kw'>paired</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
-<span class='fu'><a href='d_to_r.html'>t_to_d</a></span>(<span class='no'>res</span>$<span class='no'>statistic</span>, <span class='no'>res</span>$<span class='no'>parameter</span>, <span class='kw'>pooled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'><a href='d_to_r.html'>t_to_r</a></span>(<span class='no'>res</span>$<span class='no'>statistic</span>, <span class='no'>res</span>$<span class='no'>parameter</span>)
+<span class='fu'>t_to_d</span>(<span class='no'>res</span>$<span class='no'>statistic</span>, <span class='no'>res</span>$<span class='no'>parameter</span>, <span class='kw'>pooled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>t_to_r</span>(<span class='no'>res</span>$<span class='no'>statistic</span>, <span class='no'>res</span>$<span class='no'>parameter</span>)
 
 <span class='co'>## Linear Regression</span>
 <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Width</span> + <span class='no'>Petal.Length</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>parameters</span>)
 (<span class='no'>param_tab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/parameters/man/model_parameters.html'>parameters</a></span>(<span class='no'>fit</span>))
-<span class='co'>#&gt; Parameter    | Coefficient |   SE |       95% CI |     t |  df |      p</span>
-<span class='co'>#&gt; -----------------------------------------------------------------------</span>
-<span class='co'>#&gt; (Intercept)  |        2.25 | 0.25 | [1.76, 2.74] |  9.07 | 147 | &lt; .001</span>
-<span class='co'>#&gt; Sepal.Width  |        0.60 | 0.07 | [0.46, 0.73] |  8.59 | 147 | &lt; .001</span>
-<span class='co'>#&gt; Petal.Length |        0.47 | 0.02 | [0.44, 0.51] | 27.57 | 147 | &lt; .001</span>
+<span class='co'># &gt; Parameter    | Coefficient |   SE |       95% CI |     t |  df |      p</span>
+<span class='co'># &gt; -----------------------------------------------------------------------</span>
+<span class='co'># &gt; (Intercept)  |        2.25 | 0.25 | [1.76, 2.74] |  9.07 | 147 | &lt; .001</span>
+<span class='co'># &gt; Sepal.Width  |        0.60 | 0.07 | [0.46, 0.73] |  8.59 | 147 | &lt; .001</span>
+<span class='co'># &gt; Petal.Length |        0.47 | 0.02 | [0.44, 0.51] | 27.57 | 147 | &lt; .001</span>
 
-<span class='fu'><a href='d_to_r.html'>t_to_r</a></span>(<span class='no'>param_tab</span>$<span class='no'>t</span>[<span class='fl'>2</span>:<span class='fl'>3</span>], <span class='no'>param_tab</span>$<span class='no'>df_residual</span>[<span class='fl'>2</span>:<span class='fl'>3</span>])
-<span class='co'>#&gt; [1] 0.5781005 0.9153894</span>
+<span class='fu'>t_to_r</span>(<span class='no'>param_tab</span>$<span class='no'>t</span>[<span class='fl'>2</span>:<span class='fl'>3</span>], <span class='no'>param_tab</span>$<span class='no'>df_residual</span>[<span class='fl'>2</span>:<span class='fl'>3</span>])
+<span class='co'># &gt; [1] 0.5781005 0.9153894</span>
 
 <span class='co'># How does this compare to actual partial correlations?</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ppcor</span>)
 <span class='fu'><a href='https://rdrr.io/pkg/ppcor/man/pcor.html'>pcor</a></span>(<span class='no'>iris</span>[<span class='fl'>1</span>:<span class='fl'>3</span>])$<span class='no'>estimate</span>[<span class='fl'>1</span>, -<span class='fl'>1</span>]
-<span class='co'>#&gt;  Sepal.Width Petal.Length</span>
-<span class='co'>#&gt;    0.5781005    0.9153894</span>
+<span class='co'># &gt;  Sepal.Width Petal.Length</span>
+<span class='co'># &gt;    0.5781005    0.9153894</span>
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

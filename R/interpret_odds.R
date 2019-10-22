@@ -1,4 +1,4 @@
-#' Odds ratio Interpretation
+#' (Log) Odds ratio interpretation
 #'
 #' @param odds Value or vector of (log) odds ratio values.
 #' @param rules Can be "chen2010" (default), "cohen1988" (through transformation to standardized difference, see \code{\link{odds_to_d}}) or custom set of rules.

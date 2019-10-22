@@ -86,20 +86,20 @@ t_to_r(res$statistic, res$parameter)
 fit <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
 library(parameters)
 (param_tab <- parameters(fit))
-#> Parameter    | Coefficient |   SE |       95\% CI |     t |  df |      p
-#> -----------------------------------------------------------------------
-#> (Intercept)  |        2.25 | 0.25 | [1.76, 2.74] |  9.07 | 147 | < .001
-#> Sepal.Width  |        0.60 | 0.07 | [0.46, 0.73] |  8.59 | 147 | < .001
-#> Petal.Length |        0.47 | 0.02 | [0.44, 0.51] | 27.57 | 147 | < .001
+# > Parameter    | Coefficient |   SE |       95\% CI |     t |  df |      p
+# > -----------------------------------------------------------------------
+# > (Intercept)  |        2.25 | 0.25 | [1.76, 2.74] |  9.07 | 147 | < .001
+# > Sepal.Width  |        0.60 | 0.07 | [0.46, 0.73] |  8.59 | 147 | < .001
+# > Petal.Length |        0.47 | 0.02 | [0.44, 0.51] | 27.57 | 147 | < .001
 
 t_to_r(param_tab$t[2:3], param_tab$df_residual[2:3])
-#> [1] 0.5781005 0.9153894
+# > [1] 0.5781005 0.9153894
 
 # How does this compare to actual partial correlations?
 library(ppcor)
 pcor(iris[1:3])$estimate[1, -1]
-#>  Sepal.Width Petal.Length
-#>    0.5781005    0.9153894
+# >  Sepal.Width Petal.Length
+# >    0.5781005    0.9153894
 }
 
 }

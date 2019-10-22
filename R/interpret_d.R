@@ -1,4 +1,4 @@
-#' Standardized Difference (Cohen's d) Interpretation
+#' Standardized difference interpretation
 #'
 #' Interpretation of indices using different sets of rules of thumb.
 #' \href{https://easystats.github.io/report/articles/interpret_metrics.html#standardized-difference-d-cohens-d}{Click here} for details.

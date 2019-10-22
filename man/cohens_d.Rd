@@ -4,7 +4,7 @@
 \alias{cohens_d}
 \alias{hedges_g}
 \alias{glass_delta}
-\title{Effect sizes for difference between means (Cohen's d, Hedges' g, Glass' delta, ...)}
+\title{Effect size for differences}
 \usage{
 cohens_d(x, y = NULL, data = NULL, correction = FALSE,
   pooled_sd = TRUE, paired = FALSE)

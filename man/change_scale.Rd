@@ -47,7 +47,6 @@ change_scale(c(0, 1, 5, -5, -2))
 change_scale(c(0, 1, 5, -5, -2), to = c(-5, 5))
 
 head(change_scale(iris))
-
 }
 \seealso{
 \code{\link{normalize}} \code{\link{standardize}} \code{\link{ranktransform}}

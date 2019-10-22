@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
       </span>
     </div>
 
@@ -141,7 +141,7 @@
 <a class="sourceLine" id="cb3-4" title="4">model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Sepal.Width <span class="op">+</span><span class="st"> </span>Petal.Length <span class="op">+</span><span class="st"> </span>Petal.Width, <span class="dt">data =</span> df) </a>
 <a class="sourceLine" id="cb3-5" title="5"></a>
 <a class="sourceLine" id="cb3-6" title="6">parameters &lt;-<span class="st"> </span><span class="kw">model_parameters</span>(model)[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>,]</a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="kw"><a href="../reference/d_to_r.html">convert_t_to_r</a></span>(parameters<span class="op">$</span>t, parameters<span class="op">$</span>df_residual)</a></code></pre></div>
+<a class="sourceLine" id="cb3-7" title="7"><span class="kw"><a href="../reference/t_to_r.html">convert_t_to_r</a></span>(parameters<span class="op">$</span>t, parameters<span class="op">$</span>df_residual)</a></code></pre></div>
 <pre><code>&gt; [1]  0.63  0.72 -0.34</code></pre>
 <p>Note that these are <em>not</em> equivalent to <em>standardized parameters</em> from multiple regressions (from which coefficients can be higher than 1).</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>(model)<span class="op">$</span>Std_Coefficient[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>]</a></code></pre></div>
@@ -155,7 +155,7 @@
 <a class="sourceLine" id="cb8-2" title="2"></a>
 <a class="sourceLine" id="cb8-3" title="3">r &lt;-<span class="st"> </span><span class="kw"><a href="../reference/convert_posteriors_to_r.html">convert_posteriors_to_r</a></span>(model)</a>
 <a class="sourceLine" id="cb8-4" title="4">bayestestR<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bayestestR/man/describe_posterior.html">describe_posterior</a></span>(r)<span class="op">$</span>Median[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>]</a></code></pre></div>
-<pre><code>&gt; [1]  0.63  0.73 -0.35</code></pre>
+<pre><code>&gt; [1]  0.63  0.71 -0.33</code></pre>
 </div>
 <div id="applicability" class="section level3">
 <h3 class="hasAnchor">
@@ -168,7 +168,7 @@
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(vs <span class="op">~</span><span class="st"> </span>cyl <span class="op">+</span><span class="st"> </span>disp <span class="op">+</span><span class="st"> </span>drat, <span class="dt">data =</span> mtcars, <span class="dt">family =</span> <span class="st">"binomial"</span>)</a>
 <a class="sourceLine" id="cb10-2" title="2"></a>
 <a class="sourceLine" id="cb10-3" title="3">parameters &lt;-<span class="st"> </span><span class="kw">model_parameters</span>(model)</a>
-<a class="sourceLine" id="cb10-4" title="4">parameters<span class="op">$</span>r &lt;-<span class="st"> </span><span class="kw"><a href="../reference/d_to_r.html">convert_z_to_r</a></span>(parameters<span class="op">$</span>z, <span class="dt">n =</span> insight<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/insight/man/n_obs.html">n_obs</a></span>(model))</a>
+<a class="sourceLine" id="cb10-4" title="4">parameters<span class="op">$</span>r &lt;-<span class="st"> </span><span class="kw"><a href="../reference/t_to_r.html">convert_z_to_r</a></span>(parameters<span class="op">$</span>z, <span class="dt">n =</span> insight<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/insight/man/n_obs.html">n_obs</a></span>(model))</a>
 <a class="sourceLine" id="cb10-5" title="5">parameters</a></code></pre></div>
 <pre><code>&gt; Parameter   | Coefficient |    SE |         95% CI |     z | df |     p |     r
 &gt; -------------------------------------------------------------------------------
@@ -193,10 +193,10 @@
 <a class="sourceLine" id="cb15-4" title="4">parameters</a></code></pre></div>
 <pre><code>&gt; Parameter   | Median |         89% CI |     pd | % in ROPE |  Rhat |  ESS |               Prior |     r
 &gt; -------------------------------------------------------------------------------------------------------
-&gt; (Intercept) |  21.17 | [ 6.56, 34.59] | 99.50% |     0.10% | 1.000 | 2351 | Normal (0 +- 10.00) |  0.40
-&gt; cyl         |  -1.70 | [-2.92, -0.56] | 99.45% |     0.95% | 0.999 | 2436 |  Normal (0 +- 1.40) | -0.40
-&gt; disp        |  -0.01 | [-0.03,  0.01] | 83.23% |      100% | 1.000 | 1904 |  Normal (0 +- 0.02) | -0.17
-&gt; drat        |  -2.47 | [-5.35, -0.01] | 94.20% |     2.55% | 1.000 | 2308 |  Normal (0 +- 4.68) | -0.26</code></pre>
+&gt; (Intercept) |  21.48 | [ 7.38, 35.03] | 99.80% |     0.02% | 1.001 | 2247 | Normal (0 +- 10.00) |  0.42
+&gt; cyl         |  -1.69 | [-2.84, -0.56] | 99.65% |     1.00% | 1.001 | 2259 |  Normal (0 +- 1.40) | -0.40
+&gt; disp        |  -0.01 | [-0.03,  0.01] | 84.52% |      100% | 1.003 | 2056 |  Normal (0 +- 0.02) | -0.18
+&gt; drat        |  -2.57 | [-5.25,  0.01] | 94.65% |     2.35% | 1.001 | 2286 |  Normal (0 +- 4.68) | -0.28</code></pre>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">parameters &lt;-<span class="st"> </span><span class="kw">model_parameters</span>(model)</a>
 <a class="sourceLine" id="cb17-2" title="2">r &lt;-<span class="st"> </span><span class="kw"><a href="../reference/convert_posteriors_to_r.html">convert_posteriors_to_r</a></span>(model)</a>
 <a class="sourceLine" id="cb17-3" title="3">parameters<span class="op">$</span>r &lt;-<span class="st"> </span>bayestestR<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bayestestR/man/describe_posterior.html">describe_posterior</a></span>(r)<span class="op">$</span>Median</a>
@@ -204,10 +204,10 @@
 <a class="sourceLine" id="cb17-5" title="5">parameters</a></code></pre></div>
 <pre><code>&gt; Parameter   | Median |         89% CI |     pd | % in ROPE |  Rhat |  ESS |               Prior |     r | r_from_odds
 &gt; ---------------------------------------------------------------------------------------------------------------------
-&gt; (Intercept) |  21.17 | [ 6.56, 34.59] | 99.50% |     0.10% | 1.000 | 2351 | Normal (0 +- 10.00) |  0.40 |        0.99
-&gt; cyl         |  -1.70 | [-2.92, -0.56] | 99.45% |     0.95% | 0.999 | 2436 |  Normal (0 +- 1.40) | -0.40 |       -0.42
-&gt; disp        |  -0.01 | [-0.03,  0.01] | 83.23% |      100% | 1.000 | 1904 |  Normal (0 +- 0.02) | -0.17 |        0.00
-&gt; drat        |  -2.47 | [-5.35, -0.01] | 94.20% |     2.55% | 1.000 | 2308 |  Normal (0 +- 4.68) | -0.26 |       -0.56</code></pre>
+&gt; (Intercept) |  21.48 | [ 7.38, 35.03] | 99.80% |     0.02% | 1.001 | 2247 | Normal (0 +- 10.00) |  0.42 |        0.99
+&gt; cyl         |  -1.69 | [-2.84, -0.56] | 99.65% |     1.00% | 1.001 | 2259 |  Normal (0 +- 1.40) | -0.40 |       -0.42
+&gt; disp        |  -0.01 | [-0.03,  0.01] | 84.52% |      100% | 1.003 | 2056 |  Normal (0 +- 0.02) | -0.18 |        0.00
+&gt; drat        |  -2.57 | [-5.25,  0.01] | 94.65% |     2.35% | 1.001 | 2286 |  Normal (0 +- 4.68) | -0.28 |       -0.58</code></pre>
 </div>
 </div>
 </div>

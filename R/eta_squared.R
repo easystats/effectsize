@@ -1,6 +1,6 @@
-#' ANOVA Effect Size (Omega Squared, Eta Squared, Epsilon Squared)
+#' Effect size for ANOVA
 #'
-#' Set of functions to compute (partial) indices for ANOVAs, such as omega squared, the eta squared or the epsilon squared (Kelly, 1935). They are measures of effect size, or the degree of association for a population. They are an estimate of how much variance in the response variables are accounted for by the explanatory variables.
+#' Set of functions to compute effect size measures for ANOVAs, such as omega squared, the eta squared or the epsilon squared (Kelly, 1935). They are an estimate of how much variance in the response variables are accounted for by the explanatory variables.
 #'
 #' @param model An ANOVA object.
 #' @param partial If \code{TRUE}, return partial indices (adjusted for sample size).

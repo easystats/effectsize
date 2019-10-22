@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
       </span>
     </div>
 
@@ -160,7 +160,7 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-effect-sizes" class="hasAnchor"><a href="#section-effect-sizes" class="anchor"></a>Effect Sizes</h2>
+          <h2 id="section-indices-of-effect-size" class="hasAnchor"><a href="#section-indices-of-effect-size" class="anchor"></a>Indices of Effect Size</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -169,20 +169,22 @@
         <td>
           <p><code><a href="eta_squared.html">cohens_f()</a></code> <code><a href="eta_squared.html">epsilon_squared()</a></code> <code><a href="eta_squared.html">eta_squared()</a></code> <code><a href="eta_squared.html">omega_squared()</a></code> </p>
         </td>
-        <td><p>ANOVA Effect Size (Omega Squared, Eta Squared, Epsilon Squared)</p></td>
+        <td><p>Effect size for ANOVA</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="cohens_d.html">cohens_d()</a></code> <code><a href="cohens_d.html">hedges_g()</a></code> <code><a href="cohens_d.html">glass_delta()</a></code> </p>
         </td>
-        <td><p>Effect sizes for difference between means (Cohen's d, Hedges' g, Glass' delta, ...)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sd_pooled.html">sd_pooled()</a></code> <code><a href="sd_pooled.html">mad_pooled()</a></code> </p>
-        </td>
-        <td><p>Pooled Standard Deviation</p></td>
-      </tr><tr>
+        <td><p>Effect size for differences</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-standardization" class="hasAnchor"><a href="#section-standardization" class="anchor"></a>Standardization</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
         
         <td>
           <p><code><a href="standardize.html">standardize()</a></code> </p>
@@ -191,15 +193,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="standardize_info.html">standardize_info()</a></code> </p>
-        </td>
-        <td><p>Get Standardization Information</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="standardize_parameters.html">standardize_parameters()</a></code> <code><a href="standardize_parameters.html">standardize_posteriors()</a></code> </p>
         </td>
         <td><p>Parameters standardization</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="standardize_info.html">standardize_info()</a></code> </p>
+        </td>
+        <td><p>Get Standardization Information</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -213,7 +215,13 @@
         <td>
           <p><code><a href="interpret.html">interpret()</a></code> </p>
         </td>
-        <td><p>Interpret Values</p></td>
+        <td><p>Generic function for interpretation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="interpret_d.html">interpret_d()</a></code> <code><a href="interpret_d.html">interpret_g()</a></code> <code><a href="interpret_d.html">interpret_delta()</a></code> </p>
+        </td>
+        <td><p>Standardized difference interpretation</p></td>
       </tr><tr>
         
         <td>
@@ -223,21 +231,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="interpret_d.html">interpret_d()</a></code> <code><a href="interpret_d.html">interpret_g()</a></code> <code><a href="interpret_d.html">interpret_delta()</a></code> </p>
-        </td>
-        <td><p>Standardized Difference (Cohen's d) Interpretation</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="interpret_direction.html">interpret_direction()</a></code> </p>
         </td>
         <td><p>Direction interpretation</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="interpret_effective_sample.html">interpret_effective_sample()</a></code> </p>
+          <p><code><a href="interpret_ess.html">interpret_ess()</a></code> <code><a href="interpret_ess.html">interpret_rhat()</a></code> <code><a href="interpret_ess.html">interpret_rope()</a></code> </p>
         </td>
-        <td><p>Effective Sample Size (ESS) Interpretation</p></td>
+        <td><p>Bayesian indices interpretation</p></td>
       </tr><tr>
         
         <td>
@@ -249,49 +251,37 @@
         <td>
           <p><code><a href="interpret_odds.html">interpret_odds()</a></code> </p>
         </td>
-        <td><p>Odds ratio Interpretation</p></td>
+        <td><p>(Log) Odds ratio interpretation</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="interpret_omega_squared.html">interpret_omega_squared()</a></code> </p>
         </td>
-        <td><p>Omega Squared Interpretation</p></td>
+        <td><p>ANOVA effect size interpretation</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="interpret_p.html">interpret_p()</a></code> </p>
         </td>
-        <td><p>p-values Interpretation</p></td>
+        <td><p>p-values interpretation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="interpret_r.html">interpret_r()</a></code> </p>
+        </td>
+        <td><p>Correlation interpretation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="interpret_r2.html">interpret_r2()</a></code> </p>
+        </td>
+        <td><p>Coefficient of determination  (R2) interpretation</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="interpret_parameters.html">interpret_parameters()</a></code> </p>
         </td>
         <td><p>Automated Interpretation of Effect Sizes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="interpret_r.html">interpret_r()</a></code> </p>
-        </td>
-        <td><p>Correlation Coefficient Interpretation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="interpret_r2.html">interpret_r2()</a></code> </p>
-        </td>
-        <td><p>Coefficient of determination  (R2) Interpretation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="interpret_rhat.html">interpret_rhat()</a></code> </p>
-        </td>
-        <td><p>Rhat Interpretation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="interpret_rope.html">interpret_rope()</a></code> </p>
-        </td>
-        <td><p>ROPE percentage Interpretation</p></td>
       </tr><tr>
         
         <td>
@@ -329,7 +319,7 @@
         <td>
           <p><code><a href="d_to_r.html">percentage_to_d()</a></code> <code><a href="d_to_r.html">d_to_percentage()</a></code> <code><a href="d_to_r.html">convert_percentage_to_d()</a></code> <code><a href="d_to_r.html">convert_d_to_percentage()</a></code> <code><a href="d_to_r.html">d_to_r()</a></code> <code><a href="d_to_r.html">r_to_d()</a></code> <code><a href="d_to_r.html">convert_d_to_r()</a></code> <code><a href="d_to_r.html">convert_r_to_d()</a></code> <code><a href="d_to_r.html">odds_to_d()</a></code> <code><a href="d_to_r.html">convert_odds_to_d()</a></code> <code><a href="d_to_r.html">d_to_odds()</a></code> <code><a href="d_to_r.html">convert_d_to_odds()</a></code> <code><a href="d_to_r.html">r_to_odds()</a></code> <code><a href="d_to_r.html">convert_r_to_odds()</a></code> <code><a href="d_to_r.html">odds_to_r()</a></code> <code><a href="d_to_r.html">convert_odds_to_r()</a></code> <code><a href="d_to_r.html">odds_to_probs()</a></code> <code><a href="d_to_r.html">probs_to_odds()</a></code> <code><a href="d_to_r.html">convert_odds_to_probs()</a></code> <code><a href="d_to_r.html">convert_probs_to_odds()</a></code> </p>
         </td>
-        <td><p>Effect Size Conversion</p></td>
+        <td><p>General effect size conversion</p></td>
       </tr><tr>
         
         <td>
@@ -368,6 +358,12 @@
           <p><code><a href="format_standardize.html">format_standardize()</a></code> </p>
         </td>
         <td><p>Transform a standardized vector into character</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sd_pooled.html">sd_pooled()</a></code> <code><a href="sd_pooled.html">mad_pooled()</a></code> </p>
+        </td>
+        <td><p>Pooled Standard Deviation</p></td>
       </tr>
     </tbody>
     </table>
@@ -376,7 +372,8 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-effect-sizes">Effect Sizes</a></li>
+      <li><a href="#section-indices-of-effect-size">Indices of Effect Size</a></li>
+      <li><a href="#section-standardization">Standardization</a></li>
       <li><a href="#section-interpretation">Interpretation</a></li>
       <li><a href="#section-conversion">Conversion</a></li>
       <li><a href="#section-miscellaneous">Miscellaneous</a></li>

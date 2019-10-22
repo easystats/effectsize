@@ -23,7 +23,7 @@
 \alias{probs_to_odds}
 \alias{convert_odds_to_probs}
 \alias{convert_probs_to_odds}
-\title{Effect Size Conversion}
+\title{General effect size conversion}
 \usage{
 percentage_to_d(percentage, ...)
 

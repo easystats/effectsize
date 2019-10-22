@@ -7,7 +7,7 @@
 \alias{eta_squared}
 \alias{eta_squared.aov}
 \alias{omega_squared}
-\title{ANOVA Effect Size (Omega Squared, Eta Squared, Epsilon Squared)}
+\title{Effect size for ANOVA}
 \usage{
 cohens_f(model)
 
@@ -35,7 +35,7 @@ omega_squared(model, partial = TRUE, ci = NULL, iterations = 1000)
 Data.frame containing the effect size values.
 }
 \description{
-Set of functions to compute (partial) indices for ANOVAs, such as omega squared, the eta squared or the epsilon squared (Kelly, 1935). They are measures of effect size, or the degree of association for a population. They are an estimate of how much variance in the response variables are accounted for by the explanatory variables.
+Set of functions to compute effect size measures for ANOVAs, such as omega squared, the eta squared or the epsilon squared (Kelly, 1935). They are an estimate of how much variance in the response variables are accounted for by the explanatory variables.
 }
 \details{
 \subsection{Omega Squared}{

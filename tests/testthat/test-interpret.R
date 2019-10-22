@@ -111,10 +111,10 @@ test_that("interpret_rhat", {
 })
 
 
-context("interpret_effective_sample")
-test_that("interpret_effective_sample", {
-  testthat::expect_equal(interpret_effective_sample(1000), "sufficient")
-  testthat::expect_equal(interpret_effective_sample(c(1000, 800)), c("sufficient", "unsufficient"))
-  testthat::expect_equal(interpret_effective_sample(0.6, rules = rules(c(0.5), c("A", "B"))), "B")
-  testthat::expect_error(interpret_effective_sample(0.6, rules = "DUPA"))
+context("interpret_ess")
+test_that("interpret_ess", {
+  testthat::expect_equal(interpret_ess(1000), "sufficient")
+  testthat::expect_equal(interpret_ess(c(1000, 800)), c("sufficient", "unsufficient"))
+  testthat::expect_equal(interpret_ess(0.6, rules = rules(c(0.5), c("A", "B"))), "B")
+  testthat::expect_error(interpret_ess(0.6, rules = "DUPA"))
 })

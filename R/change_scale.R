@@ -14,7 +14,6 @@
 #' change_scale(c(0, 1, 5, -5, -2), to = c(-5, 5))
 #'
 #' head(change_scale(iris))
-#'
 #' @seealso \code{\link{normalize}} \code{\link{standardize}} \code{\link{ranktransform}}
 #' @return A rescaled object.
 #' @export
@@ -63,8 +62,8 @@ change_scale.numeric <- function(x, to = c(0, 100), range = NULL, verbose = TRUE
     }
   }
 
-  if(is.null(range)){
-    range = c(min(x, na.rm = TRUE), max(x, na.rm = TRUE))
+  if (is.null(range)) {
+    range <- c(min(x, na.rm = TRUE), max(x, na.rm = TRUE))
   }
 
   min <- ifelse(is.na(range[1]), min(x, na.rm = TRUE), range[1])
