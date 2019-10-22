@@ -21,5 +21,4 @@ This function extracts information, such as the deviations (SD or MAD) from pare
 }
 \examples{
 model <- lm(Sepal.Width ~ Sepal.Length * Species, data = iris)
-standardize_info(model)
 }
