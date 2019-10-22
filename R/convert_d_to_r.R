@@ -1,4 +1,4 @@
-#' Effect Size Conversion
+#' General effect size conversion
 #'
 #' Enables a conversion between different indices of effect size, such as standardized difference (Cohen's d), correlation r or (log) odds ratios.
 #'
@@ -38,14 +38,14 @@
 #' }
 #' @export
 d_to_r <- function(d, ...) {
-  d / (sqrt(d ^ 2 + 4))
+  d / (sqrt(d^2 + 4))
 }
 
 
 #' @rdname d_to_r
 #' @export
 r_to_d <- function(r, ...) {
-  2 * r / sqrt(1 - r ^ 2)
+  2 * r / sqrt(1 - r^2)
 }
 
 

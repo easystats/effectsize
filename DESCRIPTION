@@ -1,7 +1,7 @@
 Package: effectsize
 Type: Package
 Title: Compute and work with indices of effect size and standardized parameters
-Version: 0.1.0
+Version: 0.0.1
 Authors@R: c(
     person("Dominique", 
 		"Makowski", 
@@ -55,10 +55,6 @@ Suggests:
 	see,
 	testthat,
 	tidyr
-Remotes:
-	easystats/insight,
-	easystats/bayestestR@dev,
-	easystats/parameters@dev
 RoxygenNote: 6.1.1
 Language: en-GB
 VignetteBuilder: knitr

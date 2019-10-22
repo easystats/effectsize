@@ -1,4 +1,4 @@
-#' Effect sizes for difference between means (Cohen's d, Hedges' g, Glass' delta, ...)
+#' Effect size for differences
 #'
 #' Compute different indices of effect size. For very small sample sizes (n < 20) Hedges' g is considered as less biased than Cohen's d. For sample sizes > 20, the results for both statistics are roughly equivalent. The Glass’s delta is appropriate if standard deviations are significantly different between groups, as it uses only the control group's (\code{x}) standard deviation.
 #'

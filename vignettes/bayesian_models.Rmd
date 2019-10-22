@@ -77,7 +77,7 @@ model <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data 
 
 The `effectsize` package provides the `posteriors_to_r()` function, which attempts to estimate the posterior of the (partial) correlation coefficient by approximating the *t* statistic (deviding the coefficient by the SD of the posterior) and using frequentist degrees of freedom. It is an hybrid method that needs to be validated. However, the results appear as very close:
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
 library(bayestestR)
 
 r <- convert_posteriors_to_r(model)
@@ -92,7 +92,7 @@ Does it work in all cases?
 
 Let's start with the frequentist model:
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
 model <- glm(vs ~ cyl + disp + drat, data = mtcars, family = "binomial")
 
 parameters <- model_parameters(model)
@@ -102,7 +102,7 @@ parameters
 
 However, as logistic models return log-odds, these can be directly converted to *r*:
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
 parameters$r_from_odds <- convert_odds_to_r(parameters$Coefficient, log = TRUE)
 parameters
 ```
@@ -112,11 +112,11 @@ And now the Bayesian:
 ```{r, warning=FALSE, message=FALSE, eval = FALSE}
 model <- stan_glm(vs ~ cyl + disp + drat,, data = mtcars, family = "binomial") 
 ```
-```{r, warning=FALSE, message=FALSE, echo = FALSE}
+```{r, warning=FALSE, message=FALSE, echo = FALSE, eval=FALSE}
 model <- stan_glm(vs ~ cyl + disp + drat,, data = mtcars, family = "binomial", refresh = 0) 
 ```
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
 parameters <- model_parameters(model)
 r <- convert_posteriors_to_r(model)
 parameters$r <- bayestestR::describe_posterior(r)$Median
@@ -124,7 +124,7 @@ parameters
 ```
 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
 parameters <- model_parameters(model)
 r <- convert_posteriors_to_r(model)
 parameters$r <- bayestestR::describe_posterior(r)$Median

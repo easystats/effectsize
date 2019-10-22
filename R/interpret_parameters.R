@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' model <- lm(Sepal.Length ~ Species * Petal.Width, data = iris)
-#' interpret_parameters(model)
+#'
 #' @export
 interpret_parameters <- function(model, ...) {
   UseMethod("interpret_parameters")

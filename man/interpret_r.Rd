@@ -2,7 +2,7 @@
 % Please edit documentation in R/interpret_r.R
 \name{interpret_r}
 \alias{interpret_r}
-\title{Correlation Coefficient Interpretation}
+\title{Correlation interpretation}
 \usage{
 interpret_r(r, rules = "funder2019")
 }
@@ -12,7 +12,7 @@ interpret_r(r, rules = "funder2019")
 \item{rules}{Can be "funder2019" (default), "gignac2016", cohen1988", "evans1996" or custom set of rules.}
 }
 \description{
-Correlation Coefficient Interpretation
+Correlation interpretation
 }
 \examples{
 interpret_r(r = .015)

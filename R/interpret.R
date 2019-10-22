@@ -37,7 +37,7 @@ rules <- function(breakpoints, labels, if_lower = TRUE) {
 is.rules <- function(x) inherits(x, "rules")
 
 
-#' Interpret Values
+#' Generic function for interpretation
 #'
 #' Interpret a value based on a set of rules. See \link{rules}.
 #'

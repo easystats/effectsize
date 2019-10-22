@@ -2,7 +2,7 @@
 % Please edit documentation in R/interpret.R
 \name{interpret}
 \alias{interpret}
-\title{Interpret Values}
+\title{Generic function for interpretation}
 \usage{
 interpret(x, rules)
 }

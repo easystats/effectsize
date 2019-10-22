@@ -9,30 +9,31 @@ template:
     bootswatch: cosmo
 
 reference:
-- title: "Effect Sizes"
+- title: "Indices of Effect Size"
   contents:
   - cohens_f
   - cohens_d
-  - sd_pooled
+- title: "Standardization"
+  contents:
   - standardize
-  - standardize_info
   - standardize_parameters
+  - standardize_info
 - title: "Interpretation"
   contents:
   - interpret
-  - interpret_bf
   - interpret_d
+  - interpret_bf
   - interpret_direction
-  - interpret_effective_sample
+  - interpret_ess
   - interpret_gfi
   - interpret_odds
   - interpret_omega_squared
   - interpret_p
-  - interpret_parameters
   - interpret_r
   - interpret_r2
   - interpret_rhat
   - interpret_rope
+  - interpret_parameters
   - rules
 - title: "Conversion"
   contents:
@@ -47,6 +48,7 @@ reference:
   - normalize
   - ranktransform
   - format_standardize
+  - sd_pooled
 
 
 navbar:

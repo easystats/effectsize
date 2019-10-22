@@ -4,7 +4,7 @@
 \alias{interpret_d}
 \alias{interpret_g}
 \alias{interpret_delta}
-\title{Standardized Difference (Cohen's d) Interpretation}
+\title{Standardized difference interpretation}
 \usage{
 interpret_d(d, rules = "funder2019")
 
