@@ -26,6 +26,8 @@
 #'
 #' model <- lm(Sepal.Length ~ Species * Petal.Width, data = iris)
 #' standardize_parameters(model, method = "refit")
+#'
+#' \donttest{
 #' standardize_parameters(model, method = "posthoc")
 #' standardize_parameters(model, method = "smart")
 #' standardize_parameters(model, method = "basic")
@@ -34,7 +36,7 @@
 #' standardize_parameters(model, robust = TRUE)
 #' standardize_parameters(model, two_sd = TRUE)
 #'
-#' # show CI (doens't work)
+#' # show CI
 #' library(parameters)
 #' params <- standardize_parameters(model, method = "smart", robust = TRUE)
 #' ci(params)
@@ -45,6 +47,8 @@
 #' standardize_parameters(model, method = "posthoc")
 #' standardize_parameters(model, method = "smart")
 #' standardize_parameters(model, method = "basic")
+#' }
+#'
 #' \donttest{
 #' library(rstanarm)
 #' model <- stan_glm(Sepal.Length ~ Species * Petal.Width, data = iris, iter = 500, refresh = 0)
