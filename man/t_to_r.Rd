@@ -51,7 +51,7 @@ convert_F_to_d(f, df, df_error, pooled = FALSE, ...)
 \item{df, df_error}{Degrees of freedom of numerator or of the error estimate (i.e., the residuals).}
 }
 \value{
-A numeric integer between of the requested effect size.
+A numeric value of the requested effect size.
 }
 \description{
 These functions are convenience functions to convert t, z and F test statistics to Cohen's d and

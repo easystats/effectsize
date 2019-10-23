@@ -35,7 +35,7 @@ t_to_partial_omega_squared(t, df_error, ...)
 \item{t, f}{The t, the F or the z statistics.}
 }
 \value{
-A numeric integer between 0-1 (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2}
+A numeric value between 0-1 (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2}
 it is possible to compute a negative number; even though this doesn't make any practical sense,
 it is recommended to report the negative number and not a 0).
 }

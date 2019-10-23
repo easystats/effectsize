@@ -6,7 +6,7 @@
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
 #' @param ... Arguments passed to or from other methods.
 #'
-#' @return A numeric integer between 0-1 (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2}
+#' @return A numeric value between 0-1 (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2}
 #' it is possible to compute a negative number; even though this doesn't make any practical sense,
 #' it is recommended to report the negative number and not a 0).
 #'

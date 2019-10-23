@@ -13,7 +13,7 @@
 #' @param pooled Should the estimate accout for the t-value being based on a repeated-measures design, or not (default).
 #' @param ... Arguments passed to or from other methods.
 #'
-#' @return A numeric integer between of the requested effect size.
+#' @return A numeric value of the requested effect size.
 #'
 #' @details These functions use the following formulae:
 #' \cr\cr
