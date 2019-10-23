@@ -27,8 +27,8 @@
 #' # data:  ctab
 #' # X-squared = 41.234, df = 4, p-value = 2.405e-08
 #'
-#' chisq_to_phi(30.07, n = sum(contingency_table))
-#' chisq_to_cramers_v(30.07,
+#' chisq_to_phi(41.234, n = sum(contingency_table))
+#' chisq_to_cramers_v(41.234,
 #'   n = sum(contingency_table),
 #'   nrow = nrow(contingency_table),
 #'   ncol = ncol(contingency_table)
