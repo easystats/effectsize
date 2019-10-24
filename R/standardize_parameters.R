@@ -124,10 +124,16 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 
 
 # REFIT -------------------------------------------------------------------
+#' @importFrom parameters standard_error ci
 #' @keywords internal
 .standardize_parameters_refit <- function(model, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
   std_model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose, ...)
-  .extract_parameters(std_model)
+  std_params <- .extract_parameters(std_model)
+
+  attr(std_params, "standard_error") <- parameters::standard_error(std_model)
+  attr(std_params, "ci") <- parameters::ci(std_model)
+
+  std_params
 }
 
 
