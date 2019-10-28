@@ -17,7 +17,7 @@ Authors@R: c(
 		"Ben-Shachar", 
 		role = c("aut"), 
 		email = "matanshm@post.bgu.ac.il", 
-		comment = c(ORCID = "0000-0002-4287-4801"))
+		comment = c(ORCID = "0000-0002-4287-4801")),
 	person("Ken", 
 		"Kelley", 
 		role = c("ctb")),
