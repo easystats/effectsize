@@ -72,7 +72,6 @@ These functions use the following formulae:
 \deqn{Cohen's d = 2 * z / \sqrt{N}}
 }
 \examples{
-\dontrun{
 ## t Tests
 res <- t.test(1:10, y = c(7:20), var.equal = TRUE)
 t_to_d(res$statistic, res$parameter)
@@ -82,6 +81,7 @@ res <- with(sleep, t.test(extra[group == 1], extra[group == 2], paired = TRUE))
 t_to_d(res$statistic, res$parameter, pooled = TRUE)
 t_to_r(res$statistic, res$parameter)
 
+\dontrun{
 ## Linear Regression
 fit <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
 library(parameters)
@@ -94,13 +94,11 @@ library(parameters)
 
 t_to_r(param_tab$t[2:3], param_tab$df_residual[2:3])
 # > [1] 0.5781005 0.9153894
+}
 
 # How does this compare to actual partial correlations?
 library(ppcor)
 pcor(iris[1:3])$estimate[1, -1]
-# >  Sepal.Width Petal.Length
-# >    0.5781005    0.9153894
-}
 
 }
 \references{
