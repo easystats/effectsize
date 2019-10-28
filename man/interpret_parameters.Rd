@@ -7,8 +7,8 @@
 \usage{
 interpret_parameters(model, ...)
 
-\method{interpret_parameters}{lm}(model, interpretation = "funder2019",
-  parameters = NULL, standardize_method = "refit",
+\method{interpret_parameters}{lm}(model, parameters = NULL,
+  interpretation = "funder2019", standardize_method = "refit",
   standardize_robust = FALSE, ...)
 }
 \arguments{
@@ -16,9 +16,9 @@ interpret_parameters(model, ...)
 
 \item{...}{Arguments passed to or from other methods.}
 
-\item{interpretation}{Interpretation grid (i.e., the set of rules of thumb) used to interpret the effects.}
-
 \item{parameters}{A custom parameters table. If \code{NULL}, will use \code{\link{standardize_parameters}} to get it.}
+
+\item{interpretation}{Interpretation grid (i.e., the set of rules of thumb) used to interpret the effects.}
 
 \item{standardize_method}{See \code{\link{standardize_parameters}}.}
 
