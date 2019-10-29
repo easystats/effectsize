@@ -4,8 +4,7 @@
 #'
 #' @param data A dataframe.
 #' @param effect Character vector of column names to be adjusted for (regressed out). If \code{NULL} (the default), all variables will be selected.
-#' @param select Character vector of column names. If \code{NULL} (the default), all variables will be selected.
-#' @param exclude Character vector of column names to be excluded from selection.
+#' @inheritParams standardize
 #' @param multilevel If \code{TRUE}, the factors are included as random factors. Else, if \code{FALSE} (default), they are included as fixed effects in the simple regression model.
 #' @param bayesian If \code{TRUE}, the models are fitted under the Bayesian framework using \code{rstanarm}.
 #'
