@@ -27,6 +27,7 @@ This function can be used to adjust the data for the effect of other variables p
 }
 \examples{
 adjust(iris, effect = "Species", select = "Sepal.Length")
+\donttest{
 adjust(iris, effect = "Species", select = "Sepal.Length", multilevel = TRUE)
 adjust(iris, effect = "Species", select = "Sepal.Length", bayesian = TRUE)
 adjust(iris, effect = "Petal.Width", select = "Sepal.Length", additive = TRUE)
@@ -35,5 +36,6 @@ adjust(iris, effect = "Petal.Width", select = "Sepal.Length",
 adjust(iris, effect = c("Petal.Width", "Species"), select = "Sepal.Length",
        multilevel = TRUE, additive = TRUE)
 adjust(iris)
+}
 
 }
