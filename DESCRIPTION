@@ -1,6 +1,6 @@
 Package: effectsize
 Type: Package
-Title: Indices of effect size and standardized parameters
+Title: Indices of Effect Size and Standardized Parameters
 Version: 0.0.1
 Authors@R: c(
     person("Dominique", 
@@ -42,6 +42,7 @@ Imports:
 	stats,
 	utils
 Suggests:
+	afex,
 	brms,
 	boot,
 	covr,

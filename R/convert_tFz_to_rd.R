@@ -1,7 +1,6 @@
-
 # t -----------------------------------------------------------------------
 
-#' Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (partial r).
+#' Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (partial r)
 #'
 #' These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
 #' (partial) r. These are useful in cases where the data required to compute these are not easily
@@ -37,11 +36,11 @@
 #' t_to_d(res$statistic, res$parameter, pooled = TRUE)
 #' t_to_r(res$statistic, res$parameter)
 #'
-#' \dontrun{
+#' \donttest{
 #' ## Linear Regression
-#' fit <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
+#' model <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
 #' library(parameters)
-#' (param_tab <- parameters(fit))
+#' (param_tab <- parameters(model))
 #' # > Parameter    | Coefficient |   SE |       95% CI |     t |  df |      p
 #' # > -----------------------------------------------------------------------
 #' # > (Intercept)  |        2.25 | 0.25 | [1.76, 2.74] |  9.07 | 147 | < .001

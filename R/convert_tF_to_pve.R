@@ -23,7 +23,7 @@
 #' @note \eqn{Adj. \eta_p^2} is an alias for \eqn{\epsilon_p^2}.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' library(afex)
 #' data(md_12.1)
 #' aov_ez("id", "rt", md_12.1,
