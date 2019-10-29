@@ -5,8 +5,8 @@
 \alias{t_to_eta2}
 \alias{F_to_epsilon2}
 \alias{t_to_epsilon2}
-\alias{F_to_adj_eta2}
-\alias{t_to_adj_eta2}
+\alias{F_to_eta2_adj}
+\alias{t_to_eta2_adj}
 \alias{F_to_omega2}
 \alias{t_to_omega2}
 \title{Convert test statistics (F, t) to indices of \strong{partial} variance explained (partial Eta / Omega / Epsilon squared)}
@@ -19,9 +19,9 @@ F_to_epsilon2(f, df, df_error, ...)
 
 t_to_epsilon2(t, df_error, ...)
 
-F_to_adj_eta2(f, df, df_error, ...)
+F_to_eta2_adj(f, df, df_error, ...)
 
-t_to_adj_eta2(t, df_error, ...)
+t_to_eta2_adj(t, df_error, ...)
 
 F_to_omega2(f, df, df_error, ...)
 

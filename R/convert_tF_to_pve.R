@@ -83,11 +83,11 @@ t_to_epsilon2 <- function(t, df_error, ...) {
 
 #' @rdname F_to_eta2
 #' @export
-F_to_adj_eta2 <- F_to_epsilon2
+F_to_eta2_adj <- F_to_epsilon2
 
 #' @rdname F_to_eta2
 #' @export
-t_to_adj_eta2 <- t_to_epsilon2
+t_to_eta2_adj <- t_to_epsilon2
 
 #' @rdname F_to_eta2
 #' @export

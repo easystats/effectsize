@@ -23,7 +23,7 @@ adjust(data, effect = NULL, select = NULL, exclude = NULL,
 \item{bayesian}{If \code{TRUE}, the models are fitted under the Bayesian framework using \code{rstanarm}.}
 }
 \description{
-This function can be used to adjust the data for the effect of other variables present in the dataset. It is based on an underlying fitting of regressions models, allowing for quite some flexibility, such as including factors as random effects in mixed models and/or fitting the models under a Bayesian framework. The values returned by this function are the residuals of the regression models. Note that a regular correlation between two "adjusted" variables is equivalent to the partial correlation between them.
+This function can be used to adjust the data for the effect of other variables present in the dataset. It is based on an underlying fitting of regressions models, allowing for quite some flexibility, such as including factors as random effects in mixed models (multilevel partialization), continuous variables as smooth terms in general additive models (non-linear partialization) and/or fitting these models under a Bayesian framework. The values returned by this function are the residuals of the regression models. Note that a regular correlation between two "adjusted" variables is equivalent to the partial correlation between them.
 }
 \examples{
 adjust(iris, effect = "Species", select = "Sepal.Length")
