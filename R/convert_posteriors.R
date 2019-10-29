@@ -7,7 +7,10 @@
 #'
 #' @examples
 #' library(rstanarm)
+#' \donttest{
 #' model <- stan_glm(mpg ~ cyl, data = mtcars, refresh = 0, chains = 2)
+#' # This function is not available yet.
+#' }
 #' @export
 convert_posteriors_to_r <- function(model, ...) {
 
