@@ -35,10 +35,17 @@ convert_chisq_to_cramers_v(chisq, n, nrow, ncol, ...)
 \item{ncol}{The number of columns in the contingency tables.}
 }
 \value{
-A numeric integer between 0-1.
+A numeric value between 0-1.
 }
 \description{
 Convert between Chi square, (\eqn{chi^2}), phi (\eqn{\phi}) and Cramer's V.
+}
+\details{
+These functions use the following formulae:
+\cr\cr
+\deqn{Cramer's V = \sqrt{\chi^2 / (n * (min(nrow,ncol)-1))}}
+\cr\cr
+\deqn{\phi = \sqrt{\chi^2 / n}}
 }
 \examples{
 contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
@@ -50,8 +57,8 @@ chisq.test(contingency_table)
 # data:  ctab
 # X-squared = 41.234, df = 4, p-value = 2.405e-08
 
-chisq_to_phi(30.07, n = sum(contingency_table))
-chisq_to_cramers_v(30.07,
+chisq_to_phi(41.234, n = sum(contingency_table))
+chisq_to_cramers_v(41.234,
   n = sum(contingency_table),
   nrow = nrow(contingency_table),
   ncol = ncol(contingency_table)

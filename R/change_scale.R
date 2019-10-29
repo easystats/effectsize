@@ -35,31 +35,12 @@ change_scale.numeric <- function(x, to = c(0, 100), range = NULL, verbose = TRUE
     return(x)
   }
 
-
   # Warning if only one value
-  if (length(unique(x)) == 1) {
-    if (is.null(names(x))) {
-      name <- deparse(substitute(x))
-    } else {
-      name <- names(x)
-    }
+  if (length(unique(x)) == 1 && is.null(range)) {
     if (verbose) {
-      warning(paste0("Variable `", name, "` contains only one unique value and will not be normalized."))
+      warning(paste0("A `range` must be provided for data with only one observation."))
     }
     return(x)
-  }
-
-
-  # Warning if logical vector
-  if (length(unique(x)) == 2) {
-    if (is.null(names(x))) {
-      name <- deparse(substitute(x))
-    } else {
-      name <- names(x)
-    }
-    if (verbose) {
-      warning(paste0("Variable `", name, "` contains only two different values. Consider converting it to a factor."))
-    }
   }
 
   if (is.null(range)) {

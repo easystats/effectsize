@@ -1,12 +1,12 @@
-#' Convert test statistics (F, t) to indices of variance explained (partial Eta / Omega / Epsilon squared)
+#' Convert test statistics (F, t) to indices of \strong{partial} variance explained (partial Eta / Omega / Epsilon squared)
 #'
 #' These functions are convenience functions to convert F and t test statistics to partial Eta squared, (\eqn{\eta{_p}^2}), Omega squared (\eqn{\omega{_p}^2}) and Epsilon squared (\eqn{\epsilon{_p}^2}; an alias for the adjusted Eta squared). These are useful in cases where the various Sum of Squares and Mean Squares are not easily available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.). For test statistics derived from \code{lm} and \code{aov} models, these functions give exact results. For all other cases, they return close approximations.
 #'
-#' @param t,f The t, the F or the z statistics.
+#' @param t,f The t or the F statistics.
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
 #' @param ... Arguments passed to or from other methods.
 #'
-#' @return A numeric integer between 0-1 (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2}
+#' @return A numeric value between 0-1 (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2}
 #' it is possible to compute a negative number; even though this doesn't make any practical sense,
 #' it is recommended to report the negative number and not a 0).
 #'
@@ -23,7 +23,7 @@
 #' @note \eqn{Adj. \eta_p^2} is an alias for \eqn{\epsilon_p^2}.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' library(afex)
 #' data(md_12.1)
 #' aov_ez("id", "rt", md_12.1,
@@ -31,9 +31,9 @@
 #'   anova_table = list(correction = "none", es = "pes")
 #' )
 #' # compare to:
-#' F_to_partial_eta_squared(40.72, 2, 18)
-#' F_to_partial_eta_squared(33.77, 1, 9)
-#' F_to_partial_eta_squared(45.31, 2, 18)
+#' F_to_eta2(40.72, 2, 18)
+#' F_to_eta2(33.77, 1, 9)
+#' F_to_eta2(45.31, 2, 18)
 #'
 #'
 #' library(lmerTest) # for the df_error
@@ -44,9 +44,9 @@
 #' # group 12.482  12.482     1     9  16.501 0.002833 **
 #' # ---
 #' # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#' F_to_partial_eta_squared(16.501, 1, 9)
-#' F_to_partial_omega_squared(16.501, 1, 9)
-#' F_to_partial_epsilon_squared(16.501, 1, 9)
+#' F_to_eta2(16.501, 1, 9)
+#' F_to_omega2(16.501, 1, 9)
+#' F_to_epsilon2(16.501, 1, 9)
 #' }
 #'
 #' @references
@@ -57,46 +57,46 @@
 #' }
 #'
 #' @export
-F_to_partial_eta_squared <- function(f, df, df_error, ...) {
+F_to_eta2 <- function(f, df, df_error, ...) {
   (f * df) / (f * df + df_error)
 }
 
 
 
-#' @rdname F_to_partial_eta_squared
+#' @rdname F_to_eta2
 #' @export
-t_to_partial_eta_squared <- function(t, df_error, ...) {
-  F_to_partial_eta_squared(t^2, 1, df_error)
+t_to_eta2 <- function(t, df_error, ...) {
+  F_to_eta2(t^2, 1, df_error)
 }
 
-#' @rdname F_to_partial_eta_squared
+#' @rdname F_to_eta2
 #' @export
-F_to_partial_epsilon_squared <- function(f, df, df_error, ...) {
+F_to_epsilon2 <- function(f, df, df_error, ...) {
   ((f - 1) * df) / (f * df + df_error)
 }
 
-#' @rdname F_to_partial_eta_squared
+#' @rdname F_to_eta2
 #' @export
-t_to_partial_epsilon_squared <- function(t, df_error, ...) {
-  F_to_partial_epsilon_squared(t^2, 1, df_error)
+t_to_epsilon2 <- function(t, df_error, ...) {
+  F_to_epsilon2(t^2, 1, df_error)
 }
 
-#' @rdname F_to_partial_eta_squared
+#' @rdname F_to_eta2
 #' @export
-F_to_adj_partial_eta_squared <- F_to_partial_epsilon_squared
+F_to_eta2_adj <- F_to_epsilon2
 
-#' @rdname F_to_partial_eta_squared
+#' @rdname F_to_eta2
 #' @export
-t_to_adj_partial_eta_squared <- t_to_partial_epsilon_squared
+t_to_eta2_adj <- t_to_epsilon2
 
-#' @rdname F_to_partial_eta_squared
+#' @rdname F_to_eta2
 #' @export
-F_to_partial_omega_squared <- function(f, df, df_error, ...) {
+F_to_omega2 <- function(f, df, df_error, ...) {
   ((f - 1) * df) / (f * df + df_error + 1)
 }
 
-#' @rdname F_to_partial_eta_squared
+#' @rdname F_to_eta2
 #' @export
-t_to_partial_omega_squared <- function(t, df_error, ...) {
-  F_to_partial_omega_squared(t^2, 1, df_error)
+t_to_omega2 <- function(t, df_error, ...) {
+  F_to_omega2(t^2, 1, df_error)
 }

@@ -21,7 +21,7 @@ interpret_parameters <- function(model, ...) {
 
 #' @rdname interpret_parameters
 #' @export
-interpret_parameters.lm <- function(model, interpretation = "funder2019", parameters = NULL, standardize_method = "refit", standardize_robust = FALSE, ...) {
+interpret_parameters.lm <- function(model, parameters = NULL, interpretation = "funder2019", standardize_method = "refit", standardize_robust = FALSE, ...) {
   .interpret_parameters_regressions(model, interpretation = interpretation, parameters = parameters, standardize_method = standardize_method, standardize_robust = standardize_robust)
 }
 
@@ -32,7 +32,7 @@ interpret_parameters.lm <- function(model, interpretation = "funder2019", parame
 
 
 #' @keywords internal
-.interpret_parameters_regressions <- function(model, interpretation = "funder2019", parameters = NULL, standardize_method = "refit", standardize_robust = FALSE, ...) {
+.interpret_parameters_regressions <- function(model, parameters = NULL, interpretation = "funder2019", standardize_method = "refit", standardize_robust = FALSE, ...) {
   type <- parameters::parameters_type(model)
   std_es <- .standardize_standardized(model, standardize_method = standardize_method, standardize_robust = standardize_robust, type = type, centrality = "Median")
 

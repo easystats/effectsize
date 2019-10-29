@@ -13,11 +13,8 @@
 #'   well. Factors are converted to numerical values, with the lowest level
 #'   being the value \code{1} (unless the factor has numeric levels, which are
 #'   converted to the corresponding numeric value).
-#' @param select For a data frame, character vector of column names to be
-#'   standardized. If \code{NULL} (the default), all variables will be
-#'   standardized.
-#' @param exclude For a data frame, character vector of column names to
-#'   be excluded from standardization.
+#' @param select Character vector of column names. If \code{NULL} (the default), all variables will be selected.
+#' @param exclude Character vector of column names to be excluded from selection.
 #' @param include_response For a model, if \code{TRUE} (default), the response value
 #'   will also be standardized. If \code{FALSE}, only the predictors will be standardized.
 #'   Note that for certain models (logistic regression, count models, ...), the

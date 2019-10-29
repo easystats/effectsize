@@ -29,12 +29,9 @@ change_scale(x, ...)
 
 \item{verbose}{Toggle warnings on or off.}
 
-\item{select}{For a data frame, character vector of column names to be
-standardized. If \code{NULL} (the default), all variables will be
-standardized.}
+\item{select}{Character vector of column names. If \code{NULL} (the default), all variables will be selected.}
 
-\item{exclude}{For a data frame, character vector of column names to
-be excluded from standardization.}
+\item{exclude}{Character vector of column names to be excluded from selection.}
 }
 \value{
 A rescaled object.

@@ -13,7 +13,7 @@
 \alias{convert_F_to_r}
 \alias{F_to_d}
 \alias{convert_F_to_d}
-\title{Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (partial r).}
+\title{Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (\strong{partial} r)}
 \usage{
 t_to_r(t, df_error, ...)
 
@@ -51,7 +51,7 @@ convert_F_to_d(f, df, df_error, pooled = FALSE, ...)
 \item{df, df_error}{Degrees of freedom of numerator or of the error estimate (i.e., the residuals).}
 }
 \value{
-A numeric integer between of the requested effect size.
+A numeric value of the requested effect size.
 }
 \description{
 These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
@@ -81,11 +81,11 @@ res <- with(sleep, t.test(extra[group == 1], extra[group == 2], paired = TRUE))
 t_to_d(res$statistic, res$parameter, pooled = TRUE)
 t_to_r(res$statistic, res$parameter)
 
-\dontrun{
+\donttest{
 ## Linear Regression
-fit <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
+model <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
 library(parameters)
-(param_tab <- parameters(fit))
+(param_tab <- parameters(model))
 # > Parameter    | Coefficient |   SE |       95\% CI |     t |  df |      p
 # > -----------------------------------------------------------------------
 # > (Intercept)  |        2.25 | 0.25 | [1.76, 2.74] |  9.07 | 147 | < .001
