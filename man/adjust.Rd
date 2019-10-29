@@ -5,7 +5,7 @@
 \title{Adjust data for the effect of other variable(s)}
 \usage{
 adjust(data, effect = NULL, select = NULL, exclude = NULL,
-  multilevel = FALSE, bayesian = FALSE)
+  multilevel = FALSE, additive = FALSE, bayesian = FALSE)
 }
 \arguments{
 \item{data}{A dataframe.}
@@ -18,6 +18,8 @@ adjust(data, effect = NULL, select = NULL, exclude = NULL,
 
 \item{multilevel}{If \code{TRUE}, the factors are included as random factors. Else, if \code{FALSE} (default), they are included as fixed effects in the simple regression model.}
 
+\item{additive}{If \code{TRUE}, continuous variables as included as smooth terms in additive models. The goal is to regress-out potential non-linear effects.}
+
 \item{bayesian}{If \code{TRUE}, the models are fitted under the Bayesian framework using \code{rstanarm}.}
 }
 \description{
@@ -27,7 +29,11 @@ This function can be used to adjust the data for the effect of other variables p
 adjust(iris, effect = "Species", select = "Sepal.Length")
 adjust(iris, effect = "Species", select = "Sepal.Length", multilevel = TRUE)
 adjust(iris, effect = "Species", select = "Sepal.Length", bayesian = TRUE)
-
+adjust(iris, effect = "Petal.Width", select = "Sepal.Length", additive = TRUE)
+adjust(iris, effect = "Petal.Width", select = "Sepal.Length",
+       additive = TRUE, bayesian = TRUE)
+adjust(iris, effect = c("Petal.Width", "Species"), select = "Sepal.Length",
+       multilevel = TRUE, additive = TRUE)
 adjust(iris)
 
 }

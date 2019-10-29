@@ -6,17 +6,22 @@
 #' @param effect Character vector of column names to be adjusted for (regressed out). If \code{NULL} (the default), all variables will be selected.
 #' @inheritParams standardize
 #' @param multilevel If \code{TRUE}, the factors are included as random factors. Else, if \code{FALSE} (default), they are included as fixed effects in the simple regression model.
+#' @param additive If \code{TRUE}, continuous variables as included as smooth terms in additive models. The goal is to regress-out potential non-linear effects.
 #' @param bayesian If \code{TRUE}, the models are fitted under the Bayesian framework using \code{rstanarm}.
 #'
 #' @examples
 #' adjust(iris, effect = "Species", select = "Sepal.Length")
 #' adjust(iris, effect = "Species", select = "Sepal.Length", multilevel = TRUE)
 #' adjust(iris, effect = "Species", select = "Sepal.Length", bayesian = TRUE)
-#'
+#' adjust(iris, effect = "Petal.Width", select = "Sepal.Length", additive = TRUE)
+#' adjust(iris, effect = "Petal.Width", select = "Sepal.Length",
+#'        additive = TRUE, bayesian = TRUE)
+#' adjust(iris, effect = c("Petal.Width", "Species"), select = "Sepal.Length",
+#'        multilevel = TRUE, additive = TRUE)
 #' adjust(iris)
 #'
 #' @export
-adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multilevel = FALSE, bayesian = FALSE){
+adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multilevel = FALSE, additive = FALSE, bayesian = FALSE){
 
   # Find predictors
   if(is.null(effect)){
@@ -24,11 +29,15 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
   }
 
   # Factors
-  formula_random <- ""
+  formula_random <- NULL
   facs <- names(data[effect][!sapply(data[effect], is.numeric)])
   if (length(facs) >= 1){
     if(multilevel){
-      formula_random <- paste("+", paste(paste0("(1|", facs, ")"), collapse = " + "))
+      if(additive){
+        formula_random <- as.formula(paste("~", paste(paste0("(1|", facs, ")"), collapse = " + ")))
+      } else{
+        formula_random <- paste("+", paste(paste0("(1|", facs, ")"), collapse = " + "))
+      }
       effect <- effect[!effect %in% facs]
     }
   }
@@ -45,10 +54,15 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
   # Fit models
   out <- data.frame(.ID = 1:nrow(data))
   for(var in select){
-    formula_predictors <- paste(c("1", effect[effect != var]), collapse = " + ")
-    formula <- paste(var, "~", formula_predictors, formula_random)
+    predictors <- effect[effect != var]
+    if(additive){
+      predictors_num <- names(data[predictors][sapply(data[predictors], is.numeric)])
+      predictors[predictors == predictors_num] <- paste0("s(", predictors_num, ")")
+    }
+    formula_predictors <- paste(c("1", predictors), collapse = " + ")
+    formula <- paste(var, "~", formula_predictors)
 
-    x <- .model_adjust_for(data, formula, multilevel = multilevel, bayesian = bayesian)
+    x <- .model_adjust_for(data, formula, multilevel = multilevel, additive = additive, bayesian = bayesian, formula_random = formula_random)
     out[var] <- x
   }
   out[names(data)[!names(data) %in% names(out)]] <- data[names(data)[!names(data) %in% names(out)]]
@@ -58,30 +72,50 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
 
 
 
-#' @importFrom stats lm residuals
+#' @importFrom stats lm residuals as.formula
 #' @keywords internal
-.model_adjust_for <- function(data, formula, multilevel = FALSE, bayesian = FALSE) {
-  if (multilevel == FALSE) {
-    if (bayesian == FALSE) {
-      out <- lm(formula, data = data)$residuals
-    } else {
+.model_adjust_for <- function(data, formula, multilevel = FALSE, additive = FALSE, bayesian = FALSE, formula_random = NULL) {
+
+  # Additive -----------------------
+  if(additive){
+    # Bayesian
+    if(bayesian){
       if (!requireNamespace("rstanarm")) {
         stop("This function needs `rstanarm` to be installed. Please install by running `install.packages('rstanarm')`.")
       }
-      out <- rstanarm::stan_glm(formula, data = data, refresh = 0)$residuals
+      out <- rstanarm::stan_gamm4(as.formula(formula), random = formula_random, data = data, refresh = 0)$residuals
+      # Frequentist
+    } else{
+      if (!requireNamespace("gamm4")) {
+        stop("This function needs `gamm4` to be installed. Please install by running `install.packages('gamm4')`.")
+      }
+      out <- gamm4::gamm4(as.formula(formula), random = formula_random, data = data)$gam$residuals
     }
-  } else {
-    if (bayesian == FALSE) {
-      if (!requireNamespace("lme4")) {
-        stop("This function needs `lme4` to be installed. Please install by running `install.packages('lme4')`.")
-      }
-      out <- residuals(lme4::lmer(formula, data = data))
-    } else {
+
+  # Linear -------------------------
+  } else{
+    # Bayesian
+    if(bayesian){
       if (!requireNamespace("rstanarm")) {
         stop("This function needs `rstanarm` to be installed. Please install by running `install.packages('rstanarm')`.")
       }
-      out <- rstanarm::stan_lmer(formula, data = data, refresh = 0)$residuals
+      if (multilevel) {
+        out <- rstanarm::stan_lmer(paste(formula, formula_random), data = data, refresh = 0)$residuals
+      } else{
+        out <- rstanarm::stan_glm(formula, data = data, refresh = 0)$residuals
+      }
+    # Frequentist
+    } else{
+      if (multilevel) {
+        if (!requireNamespace("lme4")) {
+          stop("This function needs `lme4` to be installed. Please install by running `install.packages('lme4')`.")
+        }
+        out <- residuals(lme4::lmer(paste(formula, formula_random), data = data))
+      } else{
+        out <- lm(formula, data = data)$residuals
+      }
     }
   }
+
   as.vector(out)
 }

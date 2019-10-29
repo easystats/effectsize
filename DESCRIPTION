@@ -48,6 +48,7 @@ Suggests:
 	covr,
 	dplyr,
 	emmeans,
+	gamm4,
 	ggplot2,
 	knitr,
 	lmerTest,
