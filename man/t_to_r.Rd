@@ -13,7 +13,7 @@
 \alias{convert_F_to_r}
 \alias{F_to_d}
 \alias{convert_F_to_d}
-\title{Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (partial r)}
+\title{Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (\strong{partial} r)}
 \usage{
 t_to_r(t, df_error, ...)
 
