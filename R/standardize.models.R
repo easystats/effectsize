@@ -205,6 +205,8 @@ standardize.wbm <- function(x, ...) {
 #' @export
 standardize.clm2 <- standardize.wbm
 
+#' @export
+standardize.wbgee <- standardize.wbm
 
 
 
