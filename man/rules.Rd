@@ -5,22 +5,25 @@
 \alias{is.rules}
 \title{Interpretation Grid}
 \usage{
-rules(breakpoints, labels, if_lower = TRUE)
+rules(values, labels = NULL)
 
 is.rules(x)
 }
 \arguments{
-\item{breakpoints}{Vector of value break points (edges defining categories).}
+\item{values}{Vector of reference values (edges defining categories or critical values).}
 
-\item{labels}{Labels associated with each category. Must contain one label more than breakpoints.}
-
-\item{if_lower}{If true, each label will be given if the value is strictly lower than its breakpoint. The contrary if false.}
+\item{labels}{Labels associated with each category. If \code{NULL}, will try to infer it from \code{values} (if it is a named vector or a list), otherwise, will return the breakpoints.}
 
 \item{x}{An arbitrary R object.}
 }
 \description{
-Create a container for interpretation rules of thumb. See \link{interpret}.
+Create a container for interpretation rules of thumb. Usually used in conjunction with \link{interpret}.
 }
 \examples{
-rules(c(0.05), c("significant", "not significant"), if_lower = TRUE)
+rules(c(0.05), c("significant", "not significant"))
+rules(c(0.2, 0.5, 0.8), c("small", "medium", "large"))
+rules(c("small" = 0.2, "medium" = 0.5))
+}
+\seealso{
+interpret
 }
