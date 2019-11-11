@@ -42,6 +42,7 @@
 #' interpret_ifi(c(.5, .99))
 #' interpret_pnfi(c(.5, .99))
 #' @references \itemize{
+#'   \item Awang, Z. (2012). A handbook on SEM. Structural equation modeling.
 #'   \item Byrne, B. M. (1994). Structural equation modeling with EQS and EQS/Windows. Thousand Oaks, CA: Sage Publications.
 #'   \item Tucker, L. R., \& Lewis, C. (1973). The reliability coefficient for maximum likelihood factor analysis. Psychometrika, 38, 1-10.
 #'   \item Schumacker, R. E., \& Lomax, R. G. (2004). A beginner's guide to structural equation modeling, Second edition. Mahwah, NJ: Lawrence Erlbaum Associates.
@@ -123,6 +124,8 @@ interpret_rmsea <- function(x, rules = "default") {
   } else {
     if (rules == "default") {
       return(interpret(x, rules(c(0.05), c("satisfactory", "poor"))))
+    } else if (rules == "awang2012") {
+      return(interpret(x, rules(c(0.05, 0.08), c("good", "satisfactory", "poor"))))
     } else {
       stop("rules must be 'default' or an object of type rules.")
     }
