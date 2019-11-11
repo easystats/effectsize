@@ -11,6 +11,7 @@
 #'
 #' @examples
 #' adjust(iris, effect = "Species", select = "Sepal.Length")
+#' \donttest{
 #' adjust(iris, effect = "Species", select = "Sepal.Length", multilevel = TRUE)
 #' adjust(iris, effect = "Species", select = "Sepal.Length", bayesian = TRUE)
 #' adjust(iris, effect = "Petal.Width", select = "Sepal.Length", additive = TRUE)
@@ -19,6 +20,7 @@
 #' adjust(iris, effect = c("Petal.Width", "Species"), select = "Sepal.Length",
 #'        multilevel = TRUE, additive = TRUE)
 #' adjust(iris)
+#' }
 #'
 #' @export
 adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multilevel = FALSE, additive = FALSE, bayesian = FALSE){

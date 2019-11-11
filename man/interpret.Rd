@@ -20,4 +20,10 @@ interpret(0.001, rules_grid)
 interpret(0.021, rules_grid)
 interpret(0.08, rules_grid)
 interpret(c(0.01, 0.005, 0.08), rules_grid)
+
+interpret(c(0.35, 0.15), c("small" = 0.2, "large" = 0.4))
+interpret(c(0.35, 0.15), rules(c(0.2, 0.4), c("small", "medium", "large")))
+}
+\seealso{
+rules
 }
