@@ -5,7 +5,7 @@
 #'
 #' @param model An model or ANOVA object.
 #' @param partial If \code{TRUE}, return partial indices.
-#' @param ci Confidence Interval (CI) level computed via bootstrap for non-partialled indices.
+#' @param ci Confidence Interval (CI) level when computed via bootstrap.
 #' @param iterations Number of bootstrap iterations.
 #' @param ... Arguments passed to or from other methods.
 #'

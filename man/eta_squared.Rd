@@ -21,7 +21,7 @@ omega_squared(model, partial = TRUE, ci = NULL, iterations = 1000)
 
 \item{partial}{If \code{TRUE}, return partial indices.}
 
-\item{ci}{Confidence Interval (CI) level computed via bootstrap for non-partialled indices.}
+\item{ci}{Confidence Interval (CI) level when computed via bootstrap.}
 
 \item{iterations}{Number of bootstrap iterations.}
 
