@@ -1,10 +1,11 @@
 #' Effect size for ANOVA
 #'
-#' Set of functions to compute effect size measures for ANOVAs, such as omega squared, the eta squared or the epsilon squared (Kelly, 1935). They are an estimate of how much variance in the response variables are accounted for by the explanatory variables.
+#' Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared (or their partialled versions),
+#' representing an estimate of how much variance in the response variables are accounted for by the explanatory variables.
 #'
 #' @param model An ANOVA object.
-#' @param partial If \code{TRUE}, return partial indices (adjusted for sample size).
-#' @param ci Confidence Interval (CI) level computed via bootstrap.
+#' @param partial If \code{TRUE}, return partial indices.
+#' @param ci Confidence Interval (CI) level computed via bootstrap for non-partialled indices.
 #' @param iterations Number of bootstrap iterations.
 #' @param ... Arguments passed to or from other methods.
 #'
