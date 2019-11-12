@@ -3,7 +3,7 @@
 #' Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared (or their partialled versions),
 #' representing an estimate of how much variance in the response variables are accounted for by the explanatory variables.
 #'
-#' @param model An ANOVA object.
+#' @param model An model or ANOVA object.
 #' @param partial If \code{TRUE}, return partial indices.
 #' @param ci Confidence Interval (CI) level computed via bootstrap for non-partialled indices.
 #' @param iterations Number of bootstrap iterations.
@@ -65,13 +65,12 @@
 #'
 #' @importFrom parameters model_parameters
 #' @export
-eta_squared <- function(model, partial = TRUE, ci = NULL, ...) {
+eta_squared <- function(model, partial = TRUE, ci = NULL, iterations = 1000, ...) {
   UseMethod("eta_squared")
 }
 
 
 #' @importFrom stats anova
-#' @rdname eta_squared
 #' @export
 eta_squared.aov <- function(model, partial = TRUE, ci = NULL, iterations = 1000, ...) {
   if (!inherits(model, c("Gam", "aov", "anova", "anova.rms"))) model <- stats::anova(model)
@@ -79,7 +78,6 @@ eta_squared.aov <- function(model, partial = TRUE, ci = NULL, iterations = 1000,
   class(out) <- c(ifelse(isTRUE(partial), "partial_eta_squared", "eta_squared"), class(out))
   out
 }
-
 
 #' @export
 eta_squared.lm <- eta_squared.aov
@@ -105,7 +103,6 @@ eta_squared.anova <- function(model, partial = TRUE, ci = NULL, iterations = 100
   }
 }
 
-
 #' @export
 eta_squared.aovlist <- function(model, partial = TRUE, ci = NULL, ...) {
   if (isFALSE(partial)) {
@@ -122,8 +119,6 @@ eta_squared.aovlist <- function(model, partial = TRUE, ci = NULL, ...) {
   par_table <- do.call(rbind, par_table)
   .eta_square_from_F(par_table, ci = ci)
 }
-
-
 
 
 #' @export
