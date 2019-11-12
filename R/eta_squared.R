@@ -162,8 +162,8 @@ eta_squared.merMod <- function(model, partial = TRUE, ci = NULL, ...) {
 #' @keywords internal
 .extract_eta_squared <- function(params, values, partial) {
   if (partial == FALSE) {
-    params[params$Parameter == "Residuals", "Eta_Sq"] <- NA
     params$Eta_Sq <- params$Sum_Squares / values$Sum_Squares_total
+    params[params$Parameter == "Residuals", "Eta_Sq"] <- NA
   } else {
     params$Eta_Sq_partial <- params$Sum_Squares / (params$Sum_Squares + values$Sum_Squares_residuals)
     params[params$Parameter == "Residuals", "Eta_Sq_partial"] <- NA
