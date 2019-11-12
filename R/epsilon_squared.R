@@ -4,6 +4,9 @@ epsilon_squared <- function(model, partial = TRUE) {
   UseMethod("epsilon_squared")
 }
 
+#' @rdname eta_squared
+#' @export
+eta_squared_adj <- epsilon_squared
 
 #' @export
 epsilon_squared.aov <- function(model, partial = TRUE) {

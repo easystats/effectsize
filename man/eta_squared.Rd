@@ -4,6 +4,7 @@
 \name{cohens_f}
 \alias{cohens_f}
 \alias{epsilon_squared}
+\alias{eta_squared_adj}
 \alias{eta_squared}
 \alias{omega_squared}
 \title{Effect size for ANOVA}
@@ -11,6 +12,8 @@
 cohens_f(model)
 
 epsilon_squared(model, partial = TRUE)
+
+eta_squared_adj(model, partial = TRUE)
 
 eta_squared(model, partial = TRUE, ci = NULL, iterations = 1000, ...)
 
