@@ -201,7 +201,14 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A numeric integer between 0-1.</p>
+    <p>A numeric value between 0-1.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>These functions use the following formulae:
+<br /><br />
+$$Cramer's V = \sqrt{\chi^2 / (n * (min(nrow,ncol)-1))}$$
+<br /><br />
+$$\phi = \sqrt{\chi^2 / n}$$</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>contingency_table</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>762</span>, <span class='fl'>327</span>, <span class='fl'>468</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>)))
@@ -217,17 +224,18 @@
 <span class='co'># data:  ctab</span>
 <span class='co'># X-squared = 41.234, df = 4, p-value = 2.405e-08</span>
 
-<span class='fu'>chisq_to_phi</span>(<span class='fl'>30.07</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>contingency_table</span>))</div><div class='output co'>#&gt; [1] 0.08717334</div><div class='input'><span class='fu'>chisq_to_cramers_v</span>(<span class='fl'>30.07</span>,
+<span class='fu'>chisq_to_phi</span>(<span class='fl'>41.234</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>contingency_table</span>))</div><div class='output co'>#&gt; [1] 0.102081</div><div class='input'><span class='fu'>chisq_to_cramers_v</span>(<span class='fl'>41.234</span>,
   <span class='kw'>n</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>contingency_table</span>),
   <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>contingency_table</span>),
   <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>contingency_table</span>)
-)</div><div class='output co'>#&gt; [1] 0.06164086</div></pre>
+)</div><div class='output co'>#&gt; [1] 0.07218213</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

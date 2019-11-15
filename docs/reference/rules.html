@@ -43,7 +43,7 @@
 
 
 <meta property="og:title" content="Interpretation Grid — rules" />
-<meta property="og:description" content="Create a container for interpretation rules of thumb. See interpret." />
+<meta property="og:description" content="Create a container for interpretation rules of thumb. Usually used in conjunction with interpret." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -155,10 +155,10 @@
     </div>
 
     <div class="ref-description">
-    <p>Create a container for interpretation rules of thumb. See <a href='interpret.html'>interpret</a>.</p>
+    <p>Create a container for interpretation rules of thumb. Usually used in conjunction with <a href='interpret.html'>interpret</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rules</span>(<span class='no'>breakpoints</span>, <span class='no'>labels</span>, <span class='kw'>if_lower</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>rules</span>(<span class='no'>values</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>is.rules</span>(<span class='no'>x</span>)</pre>
 
@@ -166,16 +166,12 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>breakpoints</th>
-      <td><p>Vector of value break points (edges defining categories).</p></td>
+      <th>values</th>
+      <td><p>Vector of reference values (edges defining categories or critical values).</p></td>
     </tr>
     <tr>
       <th>labels</th>
-      <td><p>Labels associated with each category. Must contain one label more than breakpoints.</p></td>
-    </tr>
-    <tr>
-      <th>if_lower</th>
-      <td><p>If true, each label will be given if the value is strictly lower than its breakpoint. The contrary if false.</p></td>
+      <td><p>Labels associated with each category. If <code>NULL</code>, will try to infer it from <code>values</code> (if it is a named vector or a list), otherwise, will return the breakpoints.</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -183,24 +179,28 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>interpret</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>rules</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.05</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"significant"</span>, <span class='st'>"not significant"</span>), <span class='kw'>if_lower</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; $breakpoints
-#&gt; [1] 0.05
+    <pre class="examples"><div class='input'><span class='fu'>rules</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.05</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"significant"</span>, <span class='st'>"not significant"</span>))</div><div class='output co'>#&gt; <span style='color: #0000BB;'># Reference thresholds
 #&gt; 
-#&gt; $labels
-#&gt; [1] "significant"     "not significant"
+#&gt; </span><span>significant &lt; 0.05 &lt; not significant</div><div class='input'><span class='fu'>rules</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.2</span>, <span class='fl'>0.5</span>, <span class='fl'>0.8</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"small"</span>, <span class='st'>"medium"</span>, <span class='st'>"large"</span>))</div><div class='output co'>#&gt; </span><span style='color: #0000BB;'># Reference values
 #&gt; 
-#&gt; $if_lower
-#&gt; [1] TRUE
+#&gt; </span><span>small | medium | large
+#&gt; ----------------------
+#&gt;  0.20 |   0.50 |  0.80</div><div class='input'><span class='fu'>rules</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"small"</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='st'>"medium"</span> <span class='kw'>=</span> <span class='fl'>0.5</span>))</div><div class='output co'>#&gt; </span><span style='color: #0000BB;'># Reference values
 #&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "rules" "list" </div></pre>
+#&gt; </span><span>small | medium
+#&gt; --------------
+#&gt;  0.20 |   0.50</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

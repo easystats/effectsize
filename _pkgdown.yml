@@ -39,11 +39,13 @@ reference:
   contents:
   - chisq_to_phi
   - convert_posteriors_to_r
+  - convert_z_to_percentile
   - t_to_r
   - percentage_to_d
-  - F_to_partial_eta_squared
+  - F_to_eta2
 - title: "Miscellaneous"
   contents:
+  - adjust
   - change_scale
   - normalize
   - ranktransform

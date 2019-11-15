@@ -161,8 +161,8 @@
     <pre class="usage"><span class='fu'>interpret_parameters</span>(<span class='no'>model</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for lm</span>
-<span class='fu'>interpret_parameters</span>(<span class='no'>model</span>, <span class='kw'>interpretation</span> <span class='kw'>=</span> <span class='st'>"funder2019"</span>,
-  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>standardize_method</span> <span class='kw'>=</span> <span class='st'>"refit"</span>,
+<span class='fu'>interpret_parameters</span>(<span class='no'>model</span>, <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>interpretation</span> <span class='kw'>=</span> <span class='st'>"funder2019"</span>, <span class='kw'>standardize_method</span> <span class='kw'>=</span> <span class='st'>"refit"</span>,
   <span class='kw'>standardize_robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -177,12 +177,12 @@
       <td><p>Arguments passed to or from other methods.</p></td>
     </tr>
     <tr>
-      <th>interpretation</th>
-      <td><p>Interpretation grid (i.e., the set of rules of thumb) used to interpret the effects.</p></td>
-    </tr>
-    <tr>
       <th>parameters</th>
       <td><p>A custom parameters table. If <code>NULL</code>, will use <code><a href='standardize_parameters.html'>standardize_parameters</a></code> to get it.</p></td>
+    </tr>
+    <tr>
+      <th>interpretation</th>
+      <td><p>Interpretation grid (i.e., the set of rules of thumb) used to interpret the effects.</p></td>
     </tr>
     <tr>
       <th>standardize_method</th>
