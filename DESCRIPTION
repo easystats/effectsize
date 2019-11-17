@@ -38,7 +38,6 @@ Imports:
 	insight (>= 0.6.0),
 	bayestestR (>= 0.4.0),
 	parameters (>= 0.2.0),
-	methods,
 	stats,
 	utils
 Suggests:
