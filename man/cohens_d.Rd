@@ -6,11 +6,23 @@
 \alias{glass_delta}
 \title{Effect size for differences}
 \usage{
-cohens_d(x, y = NULL, data = NULL, correction = FALSE,
-  pooled_sd = TRUE, paired = FALSE)
+cohens_d(
+  x,
+  y = NULL,
+  data = NULL,
+  correction = FALSE,
+  pooled_sd = TRUE,
+  paired = FALSE
+)
 
-hedges_g(x, y = NULL, data = NULL, correction = FALSE,
-  pooled_sd = TRUE, paired = FALSE)
+hedges_g(
+  x,
+  y = NULL,
+  data = NULL,
+  correction = FALSE,
+  pooled_sd = TRUE,
+  paired = FALSE
+)
 
 glass_delta(x, y = NULL, data = NULL, correction = FALSE)
 }

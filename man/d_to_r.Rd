@@ -59,8 +59,7 @@ convert_odds_to_r(odds, log = FALSE, ...)
 
 odds_to_probs(odds, log = FALSE, ...)
 
-\method{odds_to_probs}{data.frame}(odds, log = FALSE, select = NULL,
-  exclude = NULL, ...)
+\method{odds_to_probs}{data.frame}(odds, log = FALSE, select = NULL, exclude = NULL, ...)
 
 probs_to_odds(probs, log = FALSE, ...)
 

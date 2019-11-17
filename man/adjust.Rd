@@ -4,8 +4,15 @@
 \alias{adjust}
 \title{Adjust data for the effect of other variable(s)}
 \usage{
-adjust(data, effect = NULL, select = NULL, exclude = NULL,
-  multilevel = FALSE, additive = FALSE, bayesian = FALSE)
+adjust(
+  data,
+  effect = NULL,
+  select = NULL,
+  exclude = NULL,
+  multilevel = FALSE,
+  additive = FALSE,
+  bayesian = FALSE
+)
 }
 \arguments{
 \item{data}{A dataframe.}

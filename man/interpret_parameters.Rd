@@ -7,9 +7,14 @@
 \usage{
 interpret_parameters(model, ...)
 
-\method{interpret_parameters}{lm}(model, parameters = NULL,
-  interpretation = "funder2019", standardize_method = "refit",
-  standardize_robust = FALSE, ...)
+\method{interpret_parameters}{lm}(
+  model,
+  parameters = NULL,
+  interpretation = "funder2019",
+  standardize_method = "refit",
+  standardize_robust = FALSE,
+  ...
+)
 }
 \arguments{
 \item{model}{A statistical model.}

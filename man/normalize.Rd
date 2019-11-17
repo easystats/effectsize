@@ -9,14 +9,11 @@
 \usage{
 normalize(x, ...)
 
-\method{normalize}{numeric}(x, include_bounds = TRUE, verbose = TRUE,
-  ...)
+\method{normalize}{numeric}(x, include_bounds = TRUE, verbose = TRUE, ...)
 
-\method{normalize}{grouped_df}(x, select = NULL, exclude = NULL,
-  include_bounds = TRUE, ...)
+\method{normalize}{grouped_df}(x, select = NULL, exclude = NULL, include_bounds = TRUE, ...)
 
-\method{normalize}{data.frame}(x, select = NULL, exclude = NULL,
-  include_bounds = TRUE, ...)
+\method{normalize}{data.frame}(x, select = NULL, exclude = NULL, include_bounds = TRUE, ...)
 }
 \arguments{
 \item{x}{Object.}

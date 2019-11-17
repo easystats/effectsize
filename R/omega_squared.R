@@ -55,8 +55,9 @@ omega_squared.aovlist <- function(model, partial = TRUE, ci = NULL, iterations =
   .omega_square_from_F(par_table, ci = ci)
 }
 
+
 #' @export
-omega_squared.merMod <- function(model, partial = TRUE, ci = NULL) {
+omega_squared.merMod <- function(model, partial = TRUE, ci = NULL, iterations = 1000) {
   if (!requireNamespace("lmerTest", quietly = TRUE)) {
     stop("Package 'lmerTest' required for this function to work. Please install it by running `install.packages('lmerTest')`.")
   }
@@ -64,7 +65,7 @@ omega_squared.merMod <- function(model, partial = TRUE, ci = NULL) {
 
   model <- lmerTest::as_lmerModLmerTest(model)
   model <- stats::anova(model)
-  omega_squared.anova(model, partial = partial, ci = ci)
+  omega_squared.anova(model, partial = partial, ci = ci, iterations = iterations)
 }
 
 
@@ -175,6 +176,7 @@ omega_squared.merMod <- function(model, partial = TRUE, ci = NULL) {
   }
 }
 
+#' @keywords internal
 .omega_square_from_F <- function(.data, ci = NULL) {
   .data$Omega_Sq_partial <- F_to_omega2(.data$`F`, .data$df, .data$df2)
 
