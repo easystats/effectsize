@@ -30,15 +30,15 @@
 #' @examples
 #' ## t Tests
 #' res <- t.test(1:10, y = c(7:20), var.equal = TRUE)
-#' t_to_d(res$statistic, res$parameter)
-#' t_to_r(res$statistic, res$parameter)
+#' t_to_d(t = res$statistic, res$parameter)
+#' t_to_r(t = res$statistic, res$parameter)
 #'
 #' res <- with(sleep, t.test(extra[group == 1], extra[group == 2], paired = TRUE))
-#' t_to_d(res$statistic, res$parameter, pooled = TRUE)
-#' t_to_r(res$statistic, res$parameter)
+#' t_to_d(t = res$statistic, res$parameter, pooled = TRUE)
+#' t_to_r(t = res$statistic, res$parameter)
 #'
 #' res <- cor.test(iris$Sepal.Width, iris$Petal.Width)
-#' t_to_r(res$statistic, n = 150)
+#' t_to_r(t = res$statistic, n = 150)
 #'
 #' \donttest{
 #' ## Linear Regression
@@ -91,12 +91,35 @@ r_to_t <- function(r, n = NULL, df_error = NULL, ...){
 
 #' @rdname t_to_r
 #' @export
-z_to_r <- function(z, n, ...) {
-  z / sqrt(z^2 + n)
+z_to_r <- function(z, n = NULL, df_error = NULL, ...) {
+  if(is.null(n) & !is.null(df_error)){
+    n <- df_error + 2
+  }
+  if(is.null(n)){
+    # Zar, J.H., (2014). Spearman Rank Correlation: Overview. Wiley StatsRef: Statistics Reference Online. doi:10.1002/9781118445112.stat05964
+    # TODO: add variants for Spearman and Kendall (Zar, 2014)
+    tanh(z)
+  } else{
+    z / sqrt(z^2 + n)
+  }
 }
 
 
 
+#' @rdname t_to_r
+#' @export
+r_to_z <- function(r, n = NULL, df_error = NULL, ...) {
+  if(is.null(n) & !is.null(df_error)){
+    n <- df_error + 2
+  }
+  if(is.null(n)){
+    # Zar, J.H., (2014). Spearman Rank Correlation: Overview. Wiley StatsRef: Statistics Reference Online. doi:10.1002/9781118445112.stat05964
+    # TODO: add variants for Spearman and Kendall (Zar, 2014)
+    atanh(r)  # Fisher z-transformation
+  } else{
+    sign(r) * sqrt(-(r^2 * n) / (r^2 - 1))
+  }
+}
 
 # F -----------------------------------------------------------------------
 
@@ -128,6 +151,11 @@ convert_r_to_t <- r_to_t
 #' @rdname t_to_r
 #' @export
 convert_z_to_r <- z_to_r
+
+#' @rdname t_to_r
+#' @export
+convert_r_to_z <- r_to_z
+
 
 
 

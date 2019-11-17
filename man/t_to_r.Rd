@@ -10,10 +10,12 @@
 \alias{t_to_r}
 \alias{r_to_t}
 \alias{z_to_r}
+\alias{r_to_z}
 \alias{F_to_r}
 \alias{convert_t_to_r}
 \alias{convert_r_to_t}
 \alias{convert_z_to_r}
+\alias{convert_r_to_z}
 \alias{convert_F_to_r}
 \title{Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (\strong{partial} r)}
 \usage{
@@ -33,7 +35,9 @@ t_to_r(t, n = NULL, df_error = NULL, ...)
 
 r_to_t(r, n = NULL, df_error = NULL, ...)
 
-z_to_r(z, n, ...)
+z_to_r(z, n = NULL, df_error = NULL, ...)
+
+r_to_z(r, n = NULL, df_error = NULL, ...)
 
 F_to_r(f, df, df_error = NULL, n = NULL, ...)
 
@@ -41,7 +45,9 @@ convert_t_to_r(t, n = NULL, df_error = NULL, ...)
 
 convert_r_to_t(r, n = NULL, df_error = NULL, ...)
 
-convert_z_to_r(z, n, ...)
+convert_z_to_r(z, n = NULL, df_error = NULL, ...)
+
+convert_r_to_z(r, n = NULL, df_error = NULL, ...)
 
 convert_F_to_r(f, df, df_error = NULL, n = NULL, ...)
 }
@@ -82,15 +88,15 @@ These functions use the following formulae:
 \examples{
 ## t Tests
 res <- t.test(1:10, y = c(7:20), var.equal = TRUE)
-t_to_d(res$statistic, res$parameter)
-t_to_r(res$statistic, res$parameter)
+t_to_d(t = res$statistic, res$parameter)
+t_to_r(t = res$statistic, res$parameter)
 
 res <- with(sleep, t.test(extra[group == 1], extra[group == 2], paired = TRUE))
-t_to_d(res$statistic, res$parameter, pooled = TRUE)
-t_to_r(res$statistic, res$parameter)
+t_to_d(t = res$statistic, res$parameter, pooled = TRUE)
+t_to_r(t = res$statistic, res$parameter)
 
 res <- cor.test(iris$Sepal.Width, iris$Petal.Width)
-t_to_r(res$statistic, n = 150)
+t_to_r(t = res$statistic, n = 150)
 
 \donttest{
 ## Linear Regression
