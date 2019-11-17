@@ -6,9 +6,10 @@
 #' (partial) r. These are useful in cases where the data required to compute these are not easily
 #' available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.).
 #'
+#' @param r The correlation coefficient r.
 #' @param t,f,z The t, the F or the z statistics.
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
-#' @param n The number of observations (samples size).
+#' @param n The number of observations (the sample size).
 #' @param pooled Should the estimate accout for the t-value being based on a repeated-measures design, or not (default).
 #' @param ... Arguments passed to or from other methods.
 #'
@@ -35,6 +36,9 @@
 #' res <- with(sleep, t.test(extra[group == 1], extra[group == 2], paired = TRUE))
 #' t_to_d(res$statistic, res$parameter, pooled = TRUE)
 #' t_to_r(res$statistic, res$parameter)
+#'
+#' res <- cor.test(iris$Sepal.Width, iris$Petal.Width)
+#' t_to_r(res$statistic, n = 150)
 #'
 #' \donttest{
 #' ## Linear Regression
@@ -63,17 +67,22 @@
 #' }
 #'
 #' @export
-t_to_r <- function(t, df_error, ...) {
+t_to_r <- function(t, n = NULL, df_error = NULL, ...) {
+  if(is.null(df_error) & !is.null(n)){
+    df_error <- n - 2
+  }
   t / sqrt(t^2 + df_error)
 }
 
+
 #' @rdname t_to_r
 #' @export
-convert_t_to_r <- t_to_r
-
-
-
-
+r_to_t <- function(r, n = NULL, df_error = NULL, ...){
+  if(is.null(df_error) & !is.null(n)){
+    df_error <- n - 2
+  }
+  sign(r) * sqrt(-(r^2 * df_error) / (r^2 - 1))
+}
 
 
 # z -----------------------------------------------------------------------
@@ -87,11 +96,6 @@ z_to_r <- function(z, n, ...) {
 }
 
 
-#' @rdname t_to_r
-#' @export
-convert_z_to_r <- z_to_r
-
-
 
 
 # F -----------------------------------------------------------------------
@@ -100,12 +104,32 @@ convert_z_to_r <- z_to_r
 
 #' @rdname t_to_r
 #' @export
-F_to_r <- function(f, df, df_error, ...) {
+F_to_r <- function(f, df, df_error = NULL, n = NULL, ...) {
   if (df > 1) {
-    stop("Cannot convert F with more than 1 df to (partial) r.")
+    stop("Cannot convert F with more than 1 df to r.")
   }
-  t_to_r(sqrt(f), df_error)
+  t_to_r(sqrt(f), n = n, df_error = df_error)
 }
+
+
+
+# Aliases -----------------------------------------------------------------
+
+#' @rdname t_to_r
+#' @export
+convert_t_to_r <- t_to_r
+
+#' @rdname t_to_r
+#' @export
+convert_r_to_t <- r_to_t
+
+
+
+#' @rdname t_to_r
+#' @export
+convert_z_to_r <- z_to_r
+
+
 
 #' @rdname t_to_r
 #' @export

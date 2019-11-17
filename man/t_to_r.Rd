@@ -8,10 +8,12 @@
 \alias{F_to_d}
 \alias{convert_F_to_d}
 \alias{t_to_r}
-\alias{convert_t_to_r}
+\alias{r_to_t}
 \alias{z_to_r}
-\alias{convert_z_to_r}
 \alias{F_to_r}
+\alias{convert_t_to_r}
+\alias{convert_r_to_t}
+\alias{convert_z_to_r}
 \alias{convert_F_to_r}
 \title{Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (\strong{partial} r)}
 \usage{
@@ -27,17 +29,21 @@ F_to_d(f, df, df_error, pooled = FALSE, ...)
 
 convert_F_to_d(f, df, df_error, pooled = FALSE, ...)
 
-t_to_r(t, df_error, ...)
+t_to_r(t, n = NULL, df_error = NULL, ...)
 
-convert_t_to_r(t, df_error, ...)
+r_to_t(r, n = NULL, df_error = NULL, ...)
 
 z_to_r(z, n, ...)
 
+F_to_r(f, df, df_error = NULL, n = NULL, ...)
+
+convert_t_to_r(t, n = NULL, df_error = NULL, ...)
+
+convert_r_to_t(r, n = NULL, df_error = NULL, ...)
+
 convert_z_to_r(z, n, ...)
 
-F_to_r(f, df, df_error, ...)
-
-convert_F_to_r(f, df, df_error, ...)
+convert_F_to_r(f, df, df_error = NULL, n = NULL, ...)
 }
 \arguments{
 \item{t, f, z}{The t, the F or the z statistics.}
@@ -46,9 +52,11 @@ convert_F_to_r(f, df, df_error, ...)
 
 \item{...}{Arguments passed to or from other methods.}
 
-\item{n}{The number of observations (samples size).}
+\item{n}{The number of observations (the sample size).}
 
 \item{df, df_error}{Degrees of freedom of numerator or of the error estimate (i.e., the residuals).}
+
+\item{r}{The correlation coefficient r.}
 }
 \value{
 A numeric value of the requested effect size.
@@ -80,6 +88,9 @@ t_to_r(res$statistic, res$parameter)
 res <- with(sleep, t.test(extra[group == 1], extra[group == 2], paired = TRUE))
 t_to_d(res$statistic, res$parameter, pooled = TRUE)
 t_to_r(res$statistic, res$parameter)
+
+res <- cor.test(iris$Sepal.Width, iris$Petal.Width)
+t_to_r(res$statistic, n = 150)
 
 \donttest{
 ## Linear Regression
