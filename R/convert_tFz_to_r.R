@@ -95,13 +95,7 @@ z_to_r <- function(z, n = NULL, df_error = NULL, ...) {
   if(is.null(n) & !is.null(df_error)){
     n <- df_error + 2
   }
-  if(is.null(n)){
-    # Zar, J.H., (2014). Spearman Rank Correlation: Overview. Wiley StatsRef: Statistics Reference Online. doi:10.1002/9781118445112.stat05964
-    # TODO: add variants for Spearman and Kendall (Zar, 2014)
-    tanh(z)
-  } else{
-    z / sqrt(z^2 + n)
-  }
+  z / sqrt(z^2 + n)
 }
 
 
@@ -112,13 +106,7 @@ r_to_z <- function(r, n = NULL, df_error = NULL, ...) {
   if(is.null(n) & !is.null(df_error)){
     n <- df_error + 2
   }
-  if(is.null(n)){
-    # Zar, J.H., (2014). Spearman Rank Correlation: Overview. Wiley StatsRef: Statistics Reference Online. doi:10.1002/9781118445112.stat05964
-    # TODO: add variants for Spearman and Kendall (Zar, 2014)
-    atanh(r)  # Fisher z-transformation
-  } else{
-    sign(r) * sqrt(-(r^2 * n) / (r^2 - 1))
-  }
+  sign(r) * sqrt(-(r^2 * n) / (r^2 - 1))
 }
 
 # F -----------------------------------------------------------------------
