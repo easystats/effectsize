@@ -32,8 +32,8 @@ Compute different indices of effect size. For very small sample sizes (n < 20) H
 }
 \examples{
 cohens_d(iris$Sepal.Length, iris$Sepal.Width)
-hedges_g(iris$Sepal.Length, iris$Sepal.Width)
-glass_delta(iris$Sepal.Length, iris$Sepal.Width)
+hedges_g("Sepal.Length", "Sepal.Width", data = iris)
+glass_delta(Sepal.Length ~ Sepal.Width, data = iris)
 
 cohens_d(iris$Sepal.Length, iris$Sepal.Width, correct = TRUE, pooled_sd = FALSE)
 cohens_d(Sepal.Length ~ Species, data = iris[iris$Species \%in\% c("versicolor", "setosa"), ])
