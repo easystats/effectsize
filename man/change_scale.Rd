@@ -9,14 +9,25 @@
 \usage{
 change_scale(x, ...)
 
-\method{change_scale}{numeric}(x, to = c(0, 100), range = NULL,
-  verbose = TRUE, ...)
+\method{change_scale}{numeric}(x, to = c(0, 100), range = NULL, verbose = TRUE, ...)
 
-\method{change_scale}{grouped_df}(x, select = NULL, exclude = NULL,
-  to = c(0, 100), range = NULL, ...)
+\method{change_scale}{grouped_df}(
+  x,
+  select = NULL,
+  exclude = NULL,
+  to = c(0, 100),
+  range = NULL,
+  ...
+)
 
-\method{change_scale}{data.frame}(x, select = NULL, exclude = NULL,
-  to = c(0, 100), range = NULL, ...)
+\method{change_scale}{data.frame}(
+  x,
+  select = NULL,
+  exclude = NULL,
+  to = c(0, 100),
+  range = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{Object.}

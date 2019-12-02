@@ -15,8 +15,7 @@ epsilon_squared(model)
 
 eta_squared(model, partial = TRUE, ci = NULL, ...)
 
-\method{eta_squared}{aov}(model, partial = TRUE, ci = NULL,
-  iterations = 1000, ...)
+\method{eta_squared}{aov}(model, partial = TRUE, ci = NULL, iterations = 1000, ...)
 
 omega_squared(model, partial = TRUE, ci = NULL, iterations = 1000)
 }

@@ -5,12 +5,25 @@
 \alias{standardize_posteriors}
 \title{Parameters standardization}
 \usage{
-standardize_parameters(model, parameters = NULL, method = "refit",
-  robust = FALSE, two_sd = FALSE, verbose = TRUE,
-  centrality = "median", ...)
+standardize_parameters(
+  model,
+  parameters = NULL,
+  method = "refit",
+  robust = FALSE,
+  two_sd = FALSE,
+  verbose = TRUE,
+  centrality = "median",
+  ...
+)
 
-standardize_posteriors(model, method = "refit", robust = FALSE,
-  two_sd = FALSE, verbose = TRUE, ...)
+standardize_posteriors(
+  model,
+  method = "refit",
+  robust = FALSE,
+  two_sd = FALSE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{model}{A statistical model.}

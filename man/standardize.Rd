@@ -11,17 +11,29 @@
 \usage{
 standardize(x, ...)
 
-\method{standardize}{numeric}(x, robust = FALSE, two_sd = FALSE,
-  verbose = TRUE, ...)
+\method{standardize}{numeric}(x, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...)
 
 \method{standardize}{factor}(x, force = FALSE, ...)
 
-\method{standardize}{data.frame}(x, robust = FALSE, two_sd = FALSE,
-  select = NULL, exclude = NULL, verbose = TRUE, force = FALSE,
-  ...)
+\method{standardize}{data.frame}(
+  x,
+  robust = FALSE,
+  two_sd = FALSE,
+  select = NULL,
+  exclude = NULL,
+  verbose = TRUE,
+  force = FALSE,
+  ...
+)
 
-\method{standardize}{lm}(x, robust = FALSE, two_sd = FALSE,
-  include_response = TRUE, verbose = TRUE, ...)
+\method{standardize}{lm}(
+  x,
+  robust = FALSE,
+  two_sd = FALSE,
+  include_response = TRUE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{A dataframe, a vector or a statistical model.}

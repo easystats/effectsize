@@ -4,8 +4,7 @@
 \alias{format_standardize}
 \title{Transform a standardized vector into character}
 \usage{
-format_standardize(x, reference = x, robust = FALSE, digits = NULL,
-  ...)
+format_standardize(x, reference = x, robust = FALSE, digits = NULL, ...)
 }
 \arguments{
 \item{x}{A standardized numeric vector.}
