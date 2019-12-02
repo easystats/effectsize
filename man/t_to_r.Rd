@@ -103,7 +103,7 @@ t_to_r(t = res$statistic, n = 150)
 model <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
 library(parameters)
 (param_tab <- parameters(model))
-# > Parameter    | Coefficient |   SE |       95% CI |     t |  df |      p
+# > Parameter    | Coefficient |   SE |       95\% CI |     t |  df |      p
 # > -----------------------------------------------------------------------
 # > (Intercept)  |        2.25 | 0.25 | [1.76, 2.74] |  9.07 | 147 | < .001
 # > Sepal.Width  |        0.60 | 0.07 | [0.46, 0.73] |  8.59 | 147 | < .001
