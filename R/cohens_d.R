@@ -57,7 +57,7 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE) {
   y <- out$y
 
   # Compute index
-  diff_of_means <- mean(y, na.rm = TRUE) - mean(x, na.rm = TRUE)
+  diff_of_means <- mean(x, na.rm = TRUE) - mean(y, na.rm = TRUE)
 
   if (type == "d" | type == "g") {
     if (paired) {
