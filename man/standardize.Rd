@@ -3,17 +3,11 @@
 %   R/standardize.models.R
 \name{standardize}
 \alias{standardize}
-\alias{standardize.numeric}
-\alias{standardize.factor}
 \alias{standardize.data.frame}
 \alias{standardize.lm}
 \title{Standardization (Z-scoring)}
 \usage{
 standardize(x, ...)
-
-\method{standardize}{numeric}(x, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...)
-
-\method{standardize}{factor}(x, force = FALSE, ...)
 
 \method{standardize}{data.frame}(
   x,
@@ -47,16 +41,16 @@ mean and divide it by the standard deviation (SD).}
 
 \item{two_sd}{If \code{TRUE}, the variables are scaled by two times the deviation (SD or MAD depending on \code{robust}). This method can be useful to obtain model coefficients of continuous parameters comparable to coefficients related to binary predictors (Gelman, 2008).}
 
+\item{select}{Character vector of column names. If \code{NULL} (the default), all variables will be selected.}
+
+\item{exclude}{Character vector of column names to be excluded from selection.}
+
 \item{verbose}{Toggle warnings on or off.}
 
 \item{force}{Logical, if \code{TRUE}, forces standardization of factors as
 well. Factors are converted to numerical values, with the lowest level
 being the value \code{1} (unless the factor has numeric levels, which are
 converted to the corresponding numeric value).}
-
-\item{select}{Character vector of column names. If \code{NULL} (the default), all variables will be selected.}
-
-\item{exclude}{Character vector of column names to be excluded from selection.}
 
 \item{include_response}{For a model, if \code{TRUE} (default), the response value
 will also be standardized. If \code{FALSE}, only the predictors will be standardized.

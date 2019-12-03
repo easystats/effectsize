@@ -1,4 +1,3 @@
-#' @rdname standardize
 #' @importFrom stats median mad na.omit
 #' @export
 standardize.numeric <- function(x, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
@@ -72,8 +71,6 @@ standardize.numeric <- function(x, robust = FALSE, two_sd = FALSE, verbose = TRU
 
 
 
-#' @rdname standardize
-#' @inherit standardize
 #' @export
 standardize.factor <- function(x, force = FALSE, ...) {
   if (force) {
@@ -96,7 +93,6 @@ standardize.AsIs <- standardize.numeric
 
 
 
-#' @inheritParams standardize
 #' @export
 standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, select = NULL, exclude = NULL, verbose = TRUE, force = FALSE, ...) {
   info <- attributes(x)
