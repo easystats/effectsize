@@ -1,10 +1,11 @@
 #' Effect size for ANOVA
 #'
-#' Set of functions to compute effect size measures for ANOVAs, such as omega squared, the eta squared or the epsilon squared (Kelly, 1935). They are an estimate of how much variance in the response variables are accounted for by the explanatory variables.
+#' Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared (or their partialled versions),
+#' representing an estimate of how much variance in the response variables are accounted for by the explanatory variables.
 #'
-#' @param model An ANOVA object.
-#' @param partial If \code{TRUE}, return partial indices (adjusted for sample size).
-#' @param ci Confidence Interval (CI) level computed via bootstrap.
+#' @param model An model or ANOVA object.
+#' @param partial If \code{TRUE}, return partial indices.
+#' @param ci Confidence Interval (CI) level when computed via bootstrap.
 #' @param iterations Number of bootstrap iterations.
 #' @param ... Arguments passed to or from other methods.
 #'
@@ -64,13 +65,12 @@
 #'
 #' @importFrom parameters model_parameters
 #' @export
-eta_squared <- function(model, partial = TRUE, ci = NULL, ...) {
+eta_squared <- function(model, partial = TRUE, ci = NULL, iterations = 1000, ...) {
   UseMethod("eta_squared")
 }
 
 
 #' @importFrom stats anova
-#' @rdname eta_squared
 #' @export
 eta_squared.aov <- function(model, partial = TRUE, ci = NULL, iterations = 1000, ...) {
   if (!inherits(model, c("Gam", "aov", "anova", "anova.rms"))) model <- stats::anova(model)
@@ -79,7 +79,6 @@ eta_squared.aov <- function(model, partial = TRUE, ci = NULL, iterations = 1000,
   out
 }
 
-
 #' @export
 eta_squared.lm <- eta_squared.aov
 
@@ -87,8 +86,22 @@ eta_squared.lm <- eta_squared.aov
 eta_squared.glm <- eta_squared.aov
 
 #' @export
-eta_squared.anova <- eta_squared.aov
+eta_squared.anova <- function(model, partial = TRUE, ci = NULL, iterations = 1000, ...) {
+  if ("DenDF" %in% colnames(model)) {
+    if (isFALSE(partial)) {
+      warning("Currently only supports partial eta squared for mixed models.")
+    }
+    par_table <- as.data.frame(model)
+    par_table$Parameter <- rownames(par_table)
+    colnames(par_table)[colnames(par_table) == "NumDF"] <- "df"
+    colnames(par_table)[colnames(par_table) == "DenDF"] <- "df2"
+    colnames(par_table)[colnames(par_table) == "F value"] <- "F"
 
+    .eta_square_from_F(par_table, ci = ci)
+  } else {
+    eta_squared.aov(model, partial = partial, ci = ci, iterations = iterations, ...)
+  }
+}
 
 #' @export
 eta_squared.aovlist <- function(model, partial = TRUE, ci = NULL, ...) {
@@ -108,24 +121,16 @@ eta_squared.aovlist <- function(model, partial = TRUE, ci = NULL, ...) {
 }
 
 
-
-
 #' @export
 eta_squared.merMod <- function(model, partial = TRUE, ci = NULL, ...) {
-  if (isFALSE(partial)) {
-    warning("Currently only supports partial eta squared for moxed models.")
-  }
-
   if (!requireNamespace("lmerTest", quietly = TRUE)) {
     stop("Package 'lmerTest' required for this function to work. Please install it by running `install.packages('lmerTest')`.")
   }
 
 
   model <- lmerTest::as_lmerModLmerTest(model)
-  par_table <- stats::anova(model)
-  par_table <- cbind(Parameter = rownames(par_table), par_table)
-  colnames(par_table)[4:6] <- c("df", "df2", "F")
-  .eta_square_from_F(par_table, ci = ci)
+  model <- stats::anova(model)
+  eta_squared.anova(model, partial = partial, ci = ci, ...)
 }
 
 
@@ -162,8 +167,8 @@ eta_squared.merMod <- function(model, partial = TRUE, ci = NULL, ...) {
 #' @keywords internal
 .extract_eta_squared <- function(params, values, partial) {
   if (partial == FALSE) {
-    params[params$Parameter == "Residuals", "Eta_Sq"] <- NA
     params$Eta_Sq <- params$Sum_Squares / values$Sum_Squares_total
+    params[params$Parameter == "Residuals", "Eta_Sq"] <- NA
   } else {
     params$Eta_Sq_partial <- params$Sum_Squares / (params$Sum_Squares + values$Sum_Squares_residuals)
     params[params$Parameter == "Residuals", "Eta_Sq_partial"] <- NA
@@ -183,8 +188,7 @@ eta_squared.merMod <- function(model, partial = TRUE, ci = NULL, ...) {
 
 #' @keywords internal
 .eta_square_from_F <- function(.data, ci = NULL) {
-  .data$Eta_Sq_partial <- .data$`F` * .data$df /
-    (.data$`F` * .data$df + .data$df2)
+  .data$Eta_Sq_partial <- F_to_eta2(.data$`F`, .data$df, .data$df2)
 
   if (is.numeric(ci)) {
     .data$CI_high <- .data$CI_low <- NA

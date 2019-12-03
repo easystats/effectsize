@@ -215,6 +215,12 @@ standardize.wbm <- function(x, ...) {
 }
 
 #' @export
+standardize.Surv <- function(x, ...) {
+  insight::print_color("'Surv' objects cannot be standardized.\n", "red")
+  x
+}
+
+#' @export
 standardize.clm2 <- standardize.wbm
 
 #' @export

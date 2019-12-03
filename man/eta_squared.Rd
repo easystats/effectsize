@@ -4,37 +4,38 @@
 \name{cohens_f}
 \alias{cohens_f}
 \alias{epsilon_squared}
+\alias{eta_squared_adj}
 \alias{eta_squared}
-\alias{eta_squared.aov}
 \alias{omega_squared}
 \title{Effect size for ANOVA}
 \usage{
 cohens_f(model)
 
-epsilon_squared(model)
+epsilon_squared(model, partial = TRUE)
 
-eta_squared(model, partial = TRUE, ci = NULL, ...)
+eta_squared_adj(model, partial = TRUE)
 
-\method{eta_squared}{aov}(model, partial = TRUE, ci = NULL, iterations = 1000, ...)
+eta_squared(model, partial = TRUE, ci = NULL, iterations = 1000, ...)
 
 omega_squared(model, partial = TRUE, ci = NULL, iterations = 1000)
 }
 \arguments{
-\item{model}{An ANOVA object.}
+\item{model}{An model or ANOVA object.}
 
-\item{partial}{If \code{TRUE}, return partial indices (adjusted for sample size).}
+\item{partial}{If \code{TRUE}, return partial indices.}
 
-\item{ci}{Confidence Interval (CI) level computed via bootstrap.}
-
-\item{...}{Arguments passed to or from other methods.}
+\item{ci}{Confidence Interval (CI) level when computed via bootstrap.}
 
 \item{iterations}{Number of bootstrap iterations.}
+
+\item{...}{Arguments passed to or from other methods.}
 }
 \value{
 Data.frame containing the effect size values.
 }
 \description{
-Set of functions to compute effect size measures for ANOVAs, such as omega squared, the eta squared or the epsilon squared (Kelly, 1935). They are an estimate of how much variance in the response variables are accounted for by the explanatory variables.
+Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared (or their partialled versions),
+representing an estimate of how much variance in the response variables are accounted for by the explanatory variables.
 }
 \details{
 \subsection{Omega Squared}{

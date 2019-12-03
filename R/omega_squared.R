@@ -15,30 +15,58 @@ omega_squared.aov <- function(model, partial = TRUE, ci = NULL, iterations = 100
 }
 
 #' @export
-omega_squared.anova <- omega_squared.aov
-
-#' @export
 omega_squared.lm <- omega_squared.aov
 
 #' @export
 omega_squared.glm <- omega_squared.aov
 
 #' @export
-omega_squared.aovlist <- function(model, partial = TRUE, ci = NULL, iterations = 1000) {
-  stop("Omega squared not implemented yet for repeated-measures ANOVAs.")
+omega_squared.anova <- function(model, partial = TRUE, ci = NULL, iterations = 1000, ...) {
+  if ("DenDF" %in% colnames(model)) {
+    if (isFALSE(partial)) {
+      warning("Currently only supports partial omega squared for mixed models.")
+    }
+    par_table <- as.data.frame(model)
+    par_table$Parameter <- rownames(par_table)
+    colnames(par_table)[colnames(par_table) == "NumDF"] <- "df"
+    colnames(par_table)[colnames(par_table) == "DenDF"] <- "df2"
+    colnames(par_table)[colnames(par_table) == "F value"] <- "F"
 
-  # params <- .extract_parameters_anova(model)
-  # values <- .values_aov(params)
-  #
-  # if (!"Residuals" %in% params$Parameter) {
-  #   stop("No residuals data found. Omega squared can only be computed for simple `aov` models.")
-  # }
-  #
-  # mapply(function(p, v) {
-  #   .extract_omega_squared(p, v, partial)
-  # }, split(params, params$Group), values, SIMPLIFY = FALSE)
+    .omega_square_from_F(par_table, ci = ci)
+  } else {
+    omega_squared.aov(model, partial = partial, ci = ci, iterations = iterations, ...)
+  }
 }
 
+#' @export
+omega_squared.aovlist <- function(model, partial = TRUE, ci = NULL, iterations = 1000) {
+  if (isFALSE(partial)) {
+    warning("Currently only supports partial omega squared for repeated-measures ANOVAs.")
+  }
+
+
+  par_table <- as.data.frame(parameters::model_parameters(model))
+  par_table <- split(par_table, par_table$Group)
+  par_table <- lapply(par_table, function(.data) {
+    .data$df2 <- .data$df[.data$Parameter == "Residuals"]
+    .data
+  })
+  par_table <- do.call(rbind, par_table)
+  .omega_square_from_F(par_table, ci = ci)
+}
+
+
+#' @export
+omega_squared.merMod <- function(model, partial = TRUE, ci = NULL, iterations = 1000) {
+  if (!requireNamespace("lmerTest", quietly = TRUE)) {
+    stop("Package 'lmerTest' required for this function to work. Please install it by running `install.packages('lmerTest')`.")
+  }
+
+
+  model <- lmerTest::as_lmerModLmerTest(model)
+  model <- stats::anova(model)
+  omega_squared.anova(model, partial = partial, ci = ci, iterations = iterations)
+}
 
 
 #' @keywords internal
@@ -146,4 +174,18 @@ omega_squared.aovlist <- function(model, partial = TRUE, ci = NULL, iterations =
     x$CI_high <- sapply(df[, 1:ncol(df)], stats::quantile, probs = (1 + ci.lvl) / 2, na.rm = TRUE)
     x
   }
+}
+
+#' @keywords internal
+.omega_square_from_F <- function(.data, ci = NULL) {
+  .data$Omega_Sq_partial <- F_to_omega2(.data$`F`, .data$df, .data$df2)
+
+  if (is.numeric(ci)) {
+    warning("CI not implemented yet for Partial Omega squared.")
+  }
+
+  rownames(.data) <- NULL
+  .data <- .data[, colnames(.data) %in% c("Parameter", "Omega_Sq_partial")]
+  class(.data) <- c("partial_eta_squared", class(.data))
+  .data
 }
