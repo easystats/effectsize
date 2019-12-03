@@ -83,6 +83,9 @@ standardize.mlm <- function(x, robust = FALSE, two_sd = FALSE, verbose = TRUE, .
 standardize.merMod <- standardize.lm
 
 #' @export
+standardize.glmmadmb <- standardize.lm
+
+#' @export
 standardize.rq <- standardize.lm
 
 #' @export
