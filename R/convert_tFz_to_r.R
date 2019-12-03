@@ -51,7 +51,7 @@
 #' # > Sepal.Width  |        0.60 | 0.07 | [0.46, 0.73] |  8.59 | 147 | < .001
 #' # > Petal.Length |        0.47 | 0.02 | [0.44, 0.51] | 27.57 | 147 | < .001
 #'
-#' t_to_r(param_tab$t[2:3], param_tab$df_residual[2:3])
+#' t_to_r(param_tab$t[2:3], param_tab$df_error[2:3])
 #' # > [1] 0.5781005 0.9153894
 #' }
 #'

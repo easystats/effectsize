@@ -18,6 +18,11 @@ reference:
   - standardize
   - standardize_parameters
   - standardize_info
+- title: "Rescaling"
+  contents:
+  - change_scale
+  - normalize
+  - ranktransform
 - title: "Interpretation"
   contents:
   - interpret
@@ -46,9 +51,6 @@ reference:
 - title: "Miscellaneous"
   contents:
   - adjust
-  - change_scale
-  - normalize
-  - ranktransform
   - format_standardize
   - sd_pooled
 

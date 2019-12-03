@@ -16,6 +16,12 @@ mad_pooled(x, y = NULL, data = NULL)
 
 \item{data}{An optional data frame containing the variables.}
 }
+\value{
+Numeric, the pooled standard deviation.
+}
 \description{
 The Pooled Standard Deviation is a weighted average of standard deviations for two or more groups, with more "weight" given to larger sample sizes.
+}
+\examples{
+sd_pooled(Sepal.Length ~ Petal.Width, data = iris)
 }

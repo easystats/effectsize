@@ -92,6 +92,12 @@ standardize.crq <- standardize.lm
 standardize.nlrq <- standardize.lm
 
 #' @export
+standardize.bracl <- standardize.lm
+
+#' @export
+standardize.brmultinom <- standardize.lm
+
+#' @export
 standardize.speedglm <- standardize.lm
 
 #' @export
@@ -123,6 +129,12 @@ standardize.stanreg <- standardize.lm
 
 #' @export
 standardize.brmsfit <- standardize.lm
+
+#' @export
+standardize.fixest <- standardize.lm
+
+#' @export
+standardize.complmrob <- standardize.lm
 
 #' @export
 standardize.flexsurvreg <- standardize.lm
