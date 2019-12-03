@@ -43,7 +43,8 @@
 
 
 <meta property="og:title" content="Effect size for ANOVA — cohens_f" />
-<meta property="og:description" content="Set of functions to compute effect size measures for ANOVAs, such as omega squared, the eta squared or the epsilon squared (Kelly, 1935). They are an estimate of how much variance in the response variables are accounted for by the explanatory variables." />
+<meta property="og:description" content="Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared (or their partialled versions),
+representing an estimate of how much variance in the response variables are accounted for by the explanatory variables." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -77,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -155,18 +156,17 @@
     </div>
 
     <div class="ref-description">
-    <p>Set of functions to compute effect size measures for ANOVAs, such as omega squared, the eta squared or the epsilon squared (Kelly, 1935). They are an estimate of how much variance in the response variables are accounted for by the explanatory variables.</p>
+    <p>Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared (or their partialled versions),
+representing an estimate of how much variance in the response variables are accounted for by the explanatory variables.</p>
     </div>
 
     <pre class="usage"><span class='fu'>cohens_f</span>(<span class='no'>model</span>)
 
-<span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)
+<span class='fu'>epsilon_squared</span>(<span class='no'>model</span>, <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>eta_squared</span>(<span class='no'>model</span>, <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'>eta_squared_adj</span>(<span class='no'>model</span>, <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='co'># S3 method for aov</span>
-<span class='fu'>eta_squared</span>(<span class='no'>model</span>, <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>iterations</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='no'>...</span>)
+<span class='fu'>eta_squared</span>(<span class='no'>model</span>, <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>iterations</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='no'>...</span>)
 
 <span class='fu'>omega_squared</span>(<span class='no'>model</span>, <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>iterations</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</pre>
 
@@ -175,23 +175,23 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>model</th>
-      <td><p>An ANOVA object.</p></td>
+      <td><p>An model or ANOVA object.</p></td>
     </tr>
     <tr>
       <th>partial</th>
-      <td><p>If <code>TRUE</code>, return partial indices (adjusted for sample size).</p></td>
+      <td><p>If <code>TRUE</code>, return partial indices.</p></td>
     </tr>
     <tr>
       <th>ci</th>
-      <td><p>Confidence Interval (CI) level computed via bootstrap.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Arguments passed to or from other methods.</p></td>
+      <td><p>Confidence Interval (CI) level when computed via bootstrap.</p></td>
     </tr>
     <tr>
       <th>iterations</th>
       <td><p>Number of bootstrap iterations.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments passed to or from other methods.</p></td>
     </tr>
     </table>
 
@@ -237,9 +237,9 @@
 #&gt; 1 Sepal.Big      0.004038505
 #&gt; 2 Residuals               NA</div><div class='input'><span class='fu'>eta_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;   Parameter Eta_Sq_partial
 #&gt; 1 Sepal.Big     0.01074962
-#&gt; 2 Residuals             NA</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;   Parameter  Epsilon_sq
-#&gt; 1 Sepal.Big 0.004065499
-#&gt; 2 Residuals          NA</div><div class='input'><span class='fu'>cohens_f</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;   Parameter  Cohens_f
+#&gt; 2 Residuals             NA</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;   Parameter Epsilon_sq_partial
+#&gt; 1 Sepal.Big        0.004065499
+#&gt; 2 Residuals                 NA</div><div class='input'><span class='fu'>cohens_f</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;   Parameter  Cohens_f
 #&gt; 1 Sepal.Big 0.1042422
 #&gt; 2 Residuals        NA</div><div class='input'>
 <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Big</span> * <span class='no'>Species</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>))
@@ -251,18 +251,26 @@
 #&gt; 1         Sepal.Big    0.031140626
 #&gt; 2           Species    0.661771666
 #&gt; 3 Sepal.Big:Species    0.001289171
-#&gt; 4         Residuals             NA</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;           Parameter   Epsilon_sq
-#&gt; 1         Sepal.Big  0.008427078
-#&gt; 2           Species  0.649727083
-#&gt; 3 Sepal.Big:Species -0.004213375
-#&gt; 4         Residuals           NA</div><div class='input'><span class='co'># \donttest{</span>
+#&gt; 4         Residuals             NA</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;           Parameter Epsilon_sq_partial
+#&gt; 1         Sepal.Big         0.02441244
+#&gt; 2           Species         0.65707405
+#&gt; 3 Sepal.Big:Species        -0.01258181
+#&gt; 4         Residuals                 NA</div><div class='input'><span class='co'># \donttest{</span>
 <span class='co'># Don't work for now</span>
 <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Big</span> + <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>Error</a></span>(<span class='no'>Species</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>)
-<span class='fu'>omega_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; <span class='error'>Error in omega_squared.aovlist(model): Omega squared not implemented yet for repeated-measures ANOVAs.</span></div><div class='input'><span class='fu'>eta_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;   Parameter Eta_Sq_partial
+<span class='fu'>omega_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;   Parameter Omega_Sq_partial
+#&gt; 1 Sepal.Big      -0.06795358
+#&gt; 2 Residuals               NA
+#&gt; 3 Sepal.Big       0.11502545
+#&gt; 4 Residuals               NA</div><div class='input'><span class='fu'>eta_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;   Parameter Eta_Sq_partial
 #&gt; 1 Sepal.Big      0.4472423
 #&gt; 2 Residuals             NA
 #&gt; 3 Sepal.Big      0.1217329
-#&gt; 4 Residuals             NA</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; <span class='error'>Error in epsilon_squared.aovlist(model): Epsilon squared not implemented yet for repeated-measures ANOVAs.</span></div><div class='input'># }
+#&gt; 4 Residuals             NA</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;   Parameter Epsilon_Sq_partial
+#&gt; 1 Sepal.Big         -0.1055154
+#&gt; 2 Residuals                 NA
+#&gt; 3 Sepal.Big          0.1157174
+#&gt; 4 Residuals                 NA</div><div class='input'># }
 
 </div></pre>
   </div>

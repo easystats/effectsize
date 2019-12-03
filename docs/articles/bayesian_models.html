@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -142,7 +142,7 @@
 <a class="sourceLine" id="cb3-5" title="5"></a>
 <a class="sourceLine" id="cb3-6" title="6">parameters &lt;-<span class="st"> </span><span class="kw">model_parameters</span>(model)[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>,]</a>
 <a class="sourceLine" id="cb3-7" title="7"><span class="kw"><a href="../reference/t_to_r.html">convert_t_to_r</a></span>(parameters<span class="op">$</span>t, parameters<span class="op">$</span>df_residual)</a></code></pre></div>
-<pre><code>&gt; [1]  0.63  0.72 -0.34</code></pre>
+<pre><code>&gt; numeric(0)</code></pre>
 <p>Note that these are <em>not</em> equivalent to <em>standardized parameters</em> from multiple regressions (from which coefficients can be higher than 1).</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>(model)<span class="op">$</span>Std_Coefficient[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>]</a></code></pre></div>
 <pre><code>&gt; [1]  0.34  1.51 -0.51</code></pre>
