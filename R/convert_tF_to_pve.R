@@ -58,6 +58,7 @@
 #'
 #' @export
 F_to_eta2 <- function(f, df, df_error, ...) {
+  insight::print_color("\n\nCAUTION!!! THIS FUNCTION RETURNS THE *P*A*R*T*I*A*L* ETA-SQUARED!!11!\n\n", "red")
   (f * df) / (f * df + df_error)
 }
 
