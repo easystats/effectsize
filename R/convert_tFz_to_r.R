@@ -1,9 +1,9 @@
 # t -----------------------------------------------------------------------
 
-#' Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (\strong{partial} r)
+#' Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (\strong{PARTIAL} r)
 #'
 #' These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
-#' (partial) r. These are useful in cases where the data required to compute these are not easily
+#' \strong{partial} r. These are useful in cases where the data required to compute these are not easily
 #' available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.).
 #'
 #' @param r The correlation coefficient r.
