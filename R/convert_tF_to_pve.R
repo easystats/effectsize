@@ -1,4 +1,4 @@
-#' Convert test statistics (F, t) to indices of \strong{PARTIAL} variance explained (\strong{partial} Eta / Omega / Epsilon squared)
+#' Convert test statistics (F, t) to indices of \strong{partial} variance explained (\strong{partial} Eta / Omega / Epsilon squared)
 #'
 #' These functions are convenience functions to convert F and t test statistics to \strong{partial} Eta squared, (\eqn{\eta{_p}^2}), Omega squared (\eqn{\omega{_p}^2}) and Epsilon squared (\eqn{\epsilon{_p}^2}; an alias for the adjusted Eta squared). These are useful in cases where the various Sum of Squares and Mean Squares are not easily available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.). For test statistics derived from \code{lm} and \code{aov} models, these functions give exact results. For all other cases, they return close approximations.
 #'
@@ -58,7 +58,6 @@
 #'
 #' @export
 F_to_eta2 <- function(f, df, df_error, ...) {
-  insight::print_color("\n\nCAUTION!!! THIS FUNCTION RETURNS THE *P*A*R*T*I*A*L* ETA-SQUARED!!11!\n\n", "red")
   (f * df) / (f * df + df_error)
 }
 
