@@ -1,6 +1,6 @@
-#' Convert test statistics (F, t) to indices of \strong{partial} variance explained (partial Eta / Omega / Epsilon squared)
+#' Convert test statistics (F, t) to indices of \strong{partial} variance explained (\strong{partial} Eta / Omega / Epsilon squared)
 #'
-#' These functions are convenience functions to convert F and t test statistics to partial Eta squared, (\eqn{\eta{_p}^2}), Omega squared (\eqn{\omega{_p}^2}) and Epsilon squared (\eqn{\epsilon{_p}^2}; an alias for the adjusted Eta squared). These are useful in cases where the various Sum of Squares and Mean Squares are not easily available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.). For test statistics derived from \code{lm} and \code{aov} models, these functions give exact results. For all other cases, they return close approximations.
+#' These functions are convenience functions to convert F and t test statistics to \strong{partial} Eta squared, (\eqn{\eta{_p}^2}), Omega squared (\eqn{\omega{_p}^2}) and Epsilon squared (\eqn{\epsilon{_p}^2}; an alias for the adjusted Eta squared). These are useful in cases where the various Sum of Squares and Mean Squares are not easily available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.). For test statistics derived from \code{lm} and \code{aov} models, these functions give exact results. For all other cases, they return close approximations.
 #'
 #' @param t,f The t or the F statistics.
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
