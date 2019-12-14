@@ -59,7 +59,7 @@ lm(Sepal.Length ~ Petal.Length, data = iris) %>%
   knitr::kable(digits = 2)
 ```
 
-Standardizing the coefficient of this simple linear regression gives a value of `0.87`, but did you know that this is actually the **same as a correlation**? (Technically a *partial* correlation when multiple predictors are present). Thus, you can eventually apply some (*in*)famous interpretation guidelines (e.g., Cohen's rules of thumb).
+Standardizing the coefficient of this simple linear regression gives a value of `0.87`, but did you know that for a simple regression this is actually the **same as a correlation**? Thus, you can eventually apply some (*in*)famous interpretation guidelines (e.g., Cohen's rules of thumb).
 
 ```{r, warning=FALSE, message=FALSE}
 library(parameters)
@@ -82,7 +82,7 @@ ppcor::pcor(df)$estimate[2:4, 1]  # Select the rows of interest
 ```
 
 
-Now, let's apply another method to obtain effect sizes for frequentist regressions, based on the statistic values. We will convert the *t*-value (and its degrees of freedom, *df*) into a correlation coefficient *r*.
+Now, let's apply another method to obtain effect sizes for frequentist regressions, based on the statistic values. We will convert the *t*-value (and its degrees of freedom, *df*) into a partial correlation coefficient *r*.
 
 
 ```{r, warning=FALSE, message=FALSE}
@@ -92,7 +92,9 @@ parameters <- model_parameters(model)[2:4,]
 convert_t_to_r(parameters$t, parameters$df_residual)
 ```
 
-Wow, the retrieved correlations coefficients from the regression model are **exactly** the same as the partial correlations. Can we arrive to the same conclusions by standardizing the parameters?
+Wow, the retrieved correlations coefficients from the regression model are **exactly** the same as the partial correlations!
+
+However, note that in multiple regression standardizing the parameters in not quite the same as computing the (partial)  correlation, due to... math :(
 
 ```{r, warning=FALSE, message=FALSE, eval=FALSE}
 model %>% 
@@ -103,9 +105,6 @@ model %>%
   standardize_parameters()  %>% 
   knitr::kable(digits = 2)
 ```
-
-
-**Unfortunately, not yet :(**
 
 ## Standardized differences
 
