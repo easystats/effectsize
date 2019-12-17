@@ -9,7 +9,7 @@
 \alias{t_to_eta2_adj}
 \alias{F_to_omega2}
 \alias{t_to_omega2}
-\title{Convert test statistics (F, t) to indices of \strong{partial} variance explained (partial Eta / Omega / Epsilon squared)}
+\title{Convert test statistics (F, t) to indices of \strong{partial} variance explained (\strong{partial} Eta / Omega / Epsilon squared)}
 \usage{
 F_to_eta2(f, df, df_error, ...)
 
@@ -40,7 +40,7 @@ it is possible to compute a negative number; even though this doesn't make any p
 it is recommended to report the negative number and not a 0).
 }
 \description{
-These functions are convenience functions to convert F and t test statistics to partial Eta squared, (\eqn{\eta{_p}^2}), Omega squared (\eqn{\omega{_p}^2}) and Epsilon squared (\eqn{\epsilon{_p}^2}; an alias for the adjusted Eta squared). These are useful in cases where the various Sum of Squares and Mean Squares are not easily available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.). For test statistics derived from \code{lm} and \code{aov} models, these functions give exact results. For all other cases, they return close approximations.
+These functions are convenience functions to convert F and t test statistics to \strong{partial} Eta squared, (\eqn{\eta{_p}^2}), Omega squared (\eqn{\omega{_p}^2}) and Epsilon squared (\eqn{\epsilon{_p}^2}; an alias for the adjusted Eta squared). These are useful in cases where the various Sum of Squares and Mean Squares are not easily available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.). For test statistics derived from \code{lm} and \code{aov} models, these functions give exact results. For all other cases, they return close approximations.
 }
 \details{
 These functions use the following formulae:
