@@ -69,7 +69,7 @@ A numeric value of the requested effect size.
 }
 \description{
 These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
-(partial) r. These are useful in cases where the data required to compute these are not easily
+\strong{partial} r. These are useful in cases where the data required to compute these are not easily
 available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.).
 }
 \details{

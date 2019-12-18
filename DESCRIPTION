@@ -62,6 +62,6 @@ Suggests:
 	see,
 	testthat,
 	tidyr
-RoxygenNote: 7.0.1
+RoxygenNote: 7.0.2
 Language: en-GB
 VignetteBuilder: knitr

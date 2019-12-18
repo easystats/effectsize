@@ -4,7 +4,7 @@
 #'
 #' @param model A statistical model.
 #' @param parameters An optional table containing the parameters to standardize. If \code{NULL}, will automatically retrieve it from the model.
-#' @param method The method used for standardizing the parameters. Can be \code{"refit"} (default)\code{"posthoc"}, \code{"smart"} or \code{"basic"}. See details.
+#' @param method The method used for standardizing the parameters. Can be \code{"refit"} (default), \code{"posthoc"}, \code{"smart"} or \code{"basic"}. See 'Details'.
 #' @inheritParams standardize
 #' @param centrality For Bayesian models, which point-estimates (centrality indices) to compute. Character (vector) or list with one or more of these options: "median", "mean", "MAP" or "all".
 #'

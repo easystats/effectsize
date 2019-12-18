@@ -35,9 +35,9 @@ standardize(x, ...)
 \item{...}{Arguments passed to or from other methods.}
 
 \item{robust}{Logical, if \code{TRUE}, centering is done by substracting the
-median from the variables and divide it by the median absolute deviation
+median from the variables and dividing it by the median absolute deviation
 (MAD). If \code{FALSE}, variables are standardized by substracting the
-mean and divide it by the standard deviation (SD).}
+mean and dividing it by the standard deviation (SD).}
 
 \item{two_sd}{If \code{TRUE}, the variables are scaled by two times the deviation (SD or MAD depending on \code{robust}). This method can be useful to obtain model coefficients of continuous parameters comparable to coefficients related to binary predictors (Gelman, 2008).}
 
@@ -61,7 +61,7 @@ response value will never be standardized, to make re-fitting the model work.}
 The standardized object (either a standardize dataframe or a statistical model fitted on standardized data).
 }
 \description{
-Performs a standardization of data (Z-scoring), i.e., centred and scaled, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The \code{\link{normalize}} function can also be used to scale all numeric variables within the 0 - 1 range.
+Performs a standardization of data (Z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The \code{\link{normalize}} function can also be used to scale all numeric variables within the 0 - 1 range.
 }
 \examples{
 # Dataframes
