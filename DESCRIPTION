@@ -35,9 +35,9 @@ LazyData: true
 Depends:
 	R (>= 3.0)
 Imports:
-	insight (>= 0.6.0),
+	insight (>= 0.7.0),
 	bayestestR (>= 0.4.0),
-	parameters (>= 0.2.0),
+	parameters (>= 0.3.0),
 	stats,
 	utils
 Suggests:
