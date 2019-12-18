@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -160,21 +160,27 @@
 
     <pre class="usage"><span class='fu'>standardize</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='co'># S3 method for numeric</span>
-<span class='fu'>standardize</span>(<span class='no'>x</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>two_sd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for factor</span>
-<span class='fu'>standardize</span>(<span class='no'>x</span>, <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
-
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>standardize</span>(<span class='no'>x</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>two_sd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>select</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>exclude</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>)
+<span class='fu'>standardize</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>two_sd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>select</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>exclude</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)
 
 <span class='co'># S3 method for lm</span>
-<span class='fu'>standardize</span>(<span class='no'>x</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>two_sd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>include_response</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>standardize</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>two_sd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>include_response</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -199,6 +205,14 @@ mean and divide it by the standard deviation (SD).</p></td>
       <td><p>If <code>TRUE</code>, the variables are scaled by two times the deviation (SD or MAD depending on <code>robust</code>). This method can be useful to obtain model coefficients of continuous parameters comparable to coefficients related to binary predictors (Gelman, 2008).</p></td>
     </tr>
     <tr>
+      <th>select</th>
+      <td><p>Character vector of column names. If <code>NULL</code> (the default), all variables will be selected.</p></td>
+    </tr>
+    <tr>
+      <th>exclude</th>
+      <td><p>Character vector of column names to be excluded from selection.</p></td>
+    </tr>
+    <tr>
       <th>verbose</th>
       <td><p>Toggle warnings on or off.</p></td>
     </tr>
@@ -208,14 +222,6 @@ mean and divide it by the standard deviation (SD).</p></td>
 well. Factors are converted to numerical values, with the lowest level
 being the value <code>1</code> (unless the factor has numeric levels, which are
 converted to the corresponding numeric value).</p></td>
-    </tr>
-    <tr>
-      <th>select</th>
-      <td><p>Character vector of column names. If <code>NULL</code> (the default), all variables will be selected.</p></td>
-    </tr>
-    <tr>
-      <th>exclude</th>
-      <td><p>Character vector of column names to be excluded from selection.</p></td>
     </tr>
     <tr>
       <th>include_response</th>

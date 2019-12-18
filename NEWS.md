@@ -4,7 +4,7 @@
 
 ## New features
 
-- `standardize_parameters()` and `standardize()` now support models from packages *brglm*, *brglm2*, *mixor*, *fixest*  and *complmrob*.
+- `standardize_parameters()` and `standardize()` now support models from packages *brglm*, *brglm2*, *mixor*, *fixest*, *glmmadmb* and *complmrob*.
 
 ## Bug fixes
 

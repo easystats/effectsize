@@ -93,6 +93,9 @@ standardize.merMod <- standardize.lm
 standardize.mixor <- standardize.lm
 
 #' @export
+standardize.glmmadmb <- standardize.lm
+
+#' @export
 standardize.rq <- standardize.lm
 
 #' @export
