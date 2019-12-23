@@ -1,14 +1,14 @@
 bibentry(
     bibtype="Article",
 	title="Compute and interpret indices of effect size",
-	author=c(person("Dominique", "Makowski"), person("Daniel", "Lüdecke")),
+	author=c(person("Dominique", "Makowski"), person("Mattan S.", "Ben-Shachar"), person("Daniel", "Lüdecke")),
 	journal="CRAN",
 	year="2019",
 	note="R package",
 	url="https://github.com/easystats/effectsize",
 
 	textVersion =
-  	paste("Makowski & Lüdecke (2019). Compute and interpret indices of effect size. CRAN.",
+  	paste("Makowski, Ben-Shachar & Lüdecke (2019). Compute and interpret indices of effect size. CRAN.",
 		"Available from https://github.com/easystats/effectsize."
 		),
 	mheader = "To cite effectsize in publications use:")
