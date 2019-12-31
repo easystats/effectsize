@@ -74,7 +74,7 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
 
 
 
-#' @importFrom stats lm residuals as.formula
+#' @importFrom stats lm residuals as.formula complete.cases
 #' @keywords internal
 .model_adjust_for <- function(data, formula, multilevel = FALSE, additive = FALSE, bayesian = FALSE, formula_random = NULL) {
 
@@ -85,13 +85,13 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
       if (!requireNamespace("rstanarm")) {
         stop("This function needs `rstanarm` to be installed. Please install by running `install.packages('rstanarm')`.")
       }
-      out <- rstanarm::stan_gamm4(as.formula(formula), random = formula_random, data = data, refresh = 0)$residuals
+      adjusted <- rstanarm::stan_gamm4(as.formula(formula), random = formula_random, data = data, refresh = 0)$residuals
       # Frequentist
     } else{
       if (!requireNamespace("gamm4")) {
         stop("This function needs `gamm4` to be installed. Please install by running `install.packages('gamm4')`.")
       }
-      out <- gamm4::gamm4(as.formula(formula), random = formula_random, data = data)$gam$residuals
+      adjusted <- gamm4::gamm4(as.formula(formula), random = formula_random, data = data)$gam$residuals
     }
 
   # Linear -------------------------
@@ -102,9 +102,9 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
         stop("This function needs `rstanarm` to be installed. Please install by running `install.packages('rstanarm')`.")
       }
       if (multilevel) {
-        out <- rstanarm::stan_lmer(paste(formula, formula_random), data = data, refresh = 0)$residuals
+        adjusted <- rstanarm::stan_lmer(paste(formula, formula_random), data = data, refresh = 0)$residuals
       } else{
-        out <- rstanarm::stan_glm(formula, data = data, refresh = 0)$residuals
+        adjusted <- rstanarm::stan_glm(formula, data = data, refresh = 0)$residuals
       }
     # Frequentist
     } else{
@@ -112,12 +112,16 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
         if (!requireNamespace("lme4")) {
           stop("This function needs `lme4` to be installed. Please install by running `install.packages('lme4')`.")
         }
-        out <- residuals(lme4::lmer(paste(formula, formula_random), data = data))
+        adjusted <- residuals(lme4::lmer(paste(formula, formula_random), data = data))
       } else{
-        out <- lm(formula, data = data)$residuals
+        adjusted <- lm(formula, data = data)$residuals
       }
     }
   }
 
-  as.vector(out)
+  # Deal with missing data
+  out <- rep(NA, nrow(data))
+  out[complete.cases(data)] <- as.vector(adjusted)
+
+  out
 }
