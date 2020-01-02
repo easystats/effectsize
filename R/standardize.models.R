@@ -105,6 +105,9 @@ standardize.glmmadmb <- standardize.lm
 standardize.rq <- standardize.lm
 
 #' @export
+standardize.cgam <- standardize.lm
+
+#' @export
 standardize.crq <- standardize.lm
 
 #' @export
