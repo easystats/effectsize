@@ -64,7 +64,7 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
     formula_predictors <- paste(c("1", predictors), collapse = " + ")
     formula <- paste(var, "~", formula_predictors)
 
-    x <- .model_adjust_for(data=data[c(var, effect)], formula, multilevel = multilevel, additive = additive, bayesian = bayesian, formula_random = formula_random)
+    x <- .model_adjust_for(data=data[unique(c(var, effect, facs))], formula, multilevel = multilevel, additive = additive, bayesian = bayesian, formula_random = formula_random)
     out[var] <- x
   }
   out[names(data)[!names(data) %in% names(out)]] <- data[names(data)[!names(data) %in% names(out)]]
