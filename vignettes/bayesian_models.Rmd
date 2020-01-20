@@ -28,18 +28,17 @@ options(digits=2)
 ```
 
 
-**Obtaining indices of effect size for Bayesian model is currently an issue**, as no test statistics are present to help us compute such indices. The two alternatives (both available in `effectsize`) is 1) to compute [**standardized parameters**](https://easystats.github.io/effectsize/articles/standardize_parameters.html) or 2) obtain effect sizes by **test-statistic approximation**. This second method is described here.
+**Obtaining indices of effect size for Bayesian model is currently an issue**, as no test statistics are present to help us compute such indices. The two alternatives (both available in **effectsize**) is 1) to compute [**standardized parameters**](https://easystats.github.io/effectsize/articles/standardize_parameters.html) or 2) obtain effect sizes by **test-statistic approximation**. This second method is described here.
 
 
 ## Bayesian Regression Coefficients to Correlation via Test-Statistic Approximation
 
 ### Overview
 ```{r, warning=FALSE, message=FALSE}
-library(ppcor)
-
-df <- iris[, 1:4]  # Remove the Species factor
-
-ppcor::pcor(df)$estimate[2:4, 1]  # Select the rows of interest
+if (require("ppcor")) {
+  df <- iris[, 1:4]  # Remove the Species factor
+  ppcor::pcor(df)$estimate[2:4, 1]  # Select the rows of interest
+}
 ```
 
 The goal is to retrieve coefficients similar to the above **(partial) correlations** for this multiple regression model: `Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width`. This can easily be achieved for frequentist models by converting the *t* statistic into a correlation:
@@ -65,17 +64,18 @@ standardize_parameters(model)$Std_Coefficient[2:4]
 Let's start by fitting the Bayesian regression:
 
 ```{r, warning=FALSE, message=FALSE, eval = FALSE}
-library(rstanarm)
-
-model <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = df) 
+if (require("rstanarm")) {
+  model <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = df) 
+}
 ```
 ```{r, warning=FALSE, message=FALSE, echo = FALSE}
-library(rstanarm)
-model <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = df, refresh = 0, chains = 2) 
+if (require("rstanarm")) {
+  model <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = df, refresh = 0, chains = 2) 
+}
 ```
 
 
-The `effectsize` package provides the `posteriors_to_r()` function, which attempts to estimate the posterior of the (partial) correlation coefficient by approximating the *t* statistic (deviding the coefficient by the SD of the posterior) and using frequentist degrees of freedom. It is an hybrid method that needs to be validated. However, the results appear as very close:
+The **effectsize** package provides the `posteriors_to_r()` function, which attempts to estimate the posterior of the (partial) correlation coefficient by approximating the *t* statistic (deviding the coefficient by the SD of the posterior) and using frequentist degrees of freedom. It is an hybrid method that needs to be validated. However, the results appear as very close:
 
 ```{r, warning=FALSE, message=FALSE, eval=FALSE}
 library(bayestestR)
@@ -110,26 +110,24 @@ parameters
 And now the Bayesian:
 
 ```{r, warning=FALSE, message=FALSE, eval = FALSE}
-model <- stan_glm(vs ~ cyl + disp + drat,, data = mtcars, family = "binomial") 
+if (require("rstanarm")) {
+  model <- stan_glm(vs ~ cyl + disp + drat,, data = mtcars, family = "binomial") 
+  parameters <- model_parameters(model)
+  r <- convert_posteriors_to_r(model)
+  parameters$r <- bayestestR::describe_posterior(r)$Median
+  parameters$r_from_odds <- convert_odds_to_r(parameters$Median, log = TRUE)
+  parameters
+}
 ```
 ```{r, warning=FALSE, message=FALSE, echo = FALSE, eval=FALSE}
-model <- stan_glm(vs ~ cyl + disp + drat,, data = mtcars, family = "binomial", refresh = 0) 
-```
-
-```{r, warning=FALSE, message=FALSE, eval=FALSE}
-parameters <- model_parameters(model)
-r <- convert_posteriors_to_r(model)
-parameters$r <- bayestestR::describe_posterior(r)$Median
-parameters
-```
-
-
-```{r, warning=FALSE, message=FALSE, eval=FALSE}
-parameters <- model_parameters(model)
-r <- convert_posteriors_to_r(model)
-parameters$r <- bayestestR::describe_posterior(r)$Median
-parameters$r_from_odds <- convert_odds_to_r(parameters$Median, log = TRUE)
-parameters
+if (require("rstanarm")) {
+  model <- stan_glm(vs ~ cyl + disp + drat,, data = mtcars, family = "binomial", refresh = 0) 
+  parameters <- model_parameters(model)
+  r <- convert_posteriors_to_r(model)
+  parameters$r <- bayestestR::describe_posterior(r)$Median
+  parameters$r_from_odds <- convert_odds_to_r(parameters$Median, log = TRUE)
+  parameters
+}
 ```
 
 

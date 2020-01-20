@@ -6,10 +6,11 @@
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @examples
-#' library(rstanarm)
 #' \donttest{
-#' model <- stan_glm(mpg ~ cyl, data = mtcars, refresh = 0, chains = 2)
-#' # This function is not available yet.
+#' if (require("rstanarm")) {
+#'   model <- stan_glm(mpg ~ cyl, data = mtcars, refresh = 0, chains = 2)
+#'   # This function is not available yet.
+#' }
 #' }
 #' @export
 convert_posteriors_to_r <- function(model, ...) {

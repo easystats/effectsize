@@ -24,9 +24,10 @@ posteriors_to_t(model, ...)
 Convert posterior distributions from a Bayesian model to indices of effect size.
 }
 \examples{
-library(rstanarm)
 \donttest{
-model <- stan_glm(mpg ~ cyl, data = mtcars, refresh = 0, chains = 2)
-# This function is not available yet.
+if (require("rstanarm")) {
+  model <- stan_glm(mpg ~ cyl, data = mtcars, refresh = 0, chains = 2)
+  # This function is not available yet.
+}
 }
 }

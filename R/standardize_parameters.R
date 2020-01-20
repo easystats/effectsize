@@ -50,17 +50,18 @@
 #' }
 #'
 #' \donttest{
-#' library(rstanarm)
-#' model <- stan_glm(Sepal.Length ~ Species * Petal.Width, data = iris, iter = 500, refresh = 0)
-#' standardize_posteriors(model, method = "refit")
-#' standardize_posteriors(model, method = "posthoc")
-#' standardize_posteriors(model, method = "smart")
-#' standardize_posteriors(model, method = "basic")
+#' if (require("rstanarm")) {
+#'   model <- stan_glm(Sepal.Length ~ Species * Petal.Width, data = iris, iter = 500, refresh = 0)
+#'   standardize_posteriors(model, method = "refit")
+#'   standardize_posteriors(model, method = "posthoc")
+#'   standardize_posteriors(model, method = "smart")
+#'   standardize_posteriors(model, method = "basic")
 #'
-#' standardize_parameters(model, method = "refit")
-#' standardize_parameters(model, method = "posthoc")
-#' standardize_parameters(model, method = "smart")
-#' standardize_parameters(model, method = "basic")
+#'   standardize_parameters(model, method = "refit")
+#'   standardize_parameters(model, method = "posthoc")
+#'   standardize_parameters(model, method = "smart")
+#'   standardize_parameters(model, method = "basic")
+#' }
 #' }
 #' @importFrom stats mad sd predict cor model.matrix
 #' @importFrom insight get_parameters model_info get_data get_response
