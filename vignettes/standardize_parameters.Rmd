@@ -74,11 +74,10 @@ What happens in the case of **multiple continuous variables**? As in each effect
 
 
 ```{r, warning=FALSE, message=FALSE}
-library(ppcor)
-
-df <- iris[, 1:4]  # Remove the Species factor
-
-ppcor::pcor(df)$estimate[2:4, 1]  # Select the rows of interest
+if (require("ppcor")) {
+  df <- iris[, 1:4]  # Remove the Species factor
+  ppcor::pcor(df)$estimate[2:4, 1]  # Select the rows of interest
+}
 ```
 
 
