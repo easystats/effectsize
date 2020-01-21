@@ -21,9 +21,14 @@ bibliography: bibliography.bib
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 library(knitr)
+knitr::opts_chunk$set(comment = ">")
+options(digits = 2)
 options(knitr.kable.NA = '')
-knitr::opts_chunk$set(comment=">")
-options(digits=2)
+
+if (!requireNamespace("dplyr", quietly = TRUE) ||
+    !requireNamespace("parameters", quietly = TRUE)) {
+  knitr::opts_chunk$set(eval = FALSE)
+}
 
 set.seed(333)
 ```

@@ -23,8 +23,17 @@ bibliography: bibliography.bib
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 library(knitr)
 options(knitr.kable.NA = '')
-knitr::opts_chunk$set(comment=">")
-options(digits=2)
+options(digits = 2)
+knitr::opts_chunk$set(comment = ">")
+
+if (!requireNamespace("parameters", quietly = TRUE) ||
+    !requireNamespace("rstanarm", quietly = TRUE) ||
+    !requireNamespace("bayestestR", quietly = TRUE) ||
+    !requireNamespace("ppcor", quietly = TRUE)) {
+  knitr::opts_chunk$set(eval = FALSE)
+}
+
+library(effectsize)
 ```
 
 
@@ -35,10 +44,9 @@ options(digits=2)
 
 ### Overview
 ```{r, warning=FALSE, message=FALSE}
-if (require("ppcor")) {
-  df <- iris[, 1:4]  # Remove the Species factor
-  ppcor::pcor(df)$estimate[2:4, 1]  # Select the rows of interest
-}
+library("ppcor")
+df <- iris[, 1:4]  # Remove the Species factor
+ppcor::pcor(df)$estimate[2:4, 1]  # Select the rows of interest
 ```
 
 The goal is to retrieve coefficients similar to the above **(partial) correlations** for this multiple regression model: `Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width`. This can easily be achieved for frequentist models by converting the *t* statistic into a correlation:
@@ -64,14 +72,12 @@ standardize_parameters(model)$Std_Coefficient[2:4]
 Let's start by fitting the Bayesian regression:
 
 ```{r, warning=FALSE, message=FALSE, eval = FALSE}
-if (require("rstanarm")) {
-  model <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = df) 
-}
+library("rstanarm")
+model <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = df) 
 ```
 ```{r, warning=FALSE, message=FALSE, echo = FALSE}
-if (require("rstanarm")) {
-  model <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = df, refresh = 0, chains = 2) 
-}
+library("rstanarm")
+model <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = df, refresh = 0, chains = 2) 
 ```
 
 
@@ -110,24 +116,20 @@ parameters
 And now the Bayesian:
 
 ```{r, warning=FALSE, message=FALSE, eval = FALSE}
-if (require("rstanarm")) {
-  model <- stan_glm(vs ~ cyl + disp + drat,, data = mtcars, family = "binomial") 
-  parameters <- model_parameters(model)
-  r <- convert_posteriors_to_r(model)
-  parameters$r <- bayestestR::describe_posterior(r)$Median
-  parameters$r_from_odds <- convert_odds_to_r(parameters$Median, log = TRUE)
-  parameters
-}
+model <- stan_glm(vs ~ cyl + disp + drat,, data = mtcars, family = "binomial") 
+parameters <- model_parameters(model)
+r <- convert_posteriors_to_r(model)
+parameters$r <- bayestestR::describe_posterior(r)$Median
+parameters$r_from_odds <- convert_odds_to_r(parameters$Median, log = TRUE)
+parameters
 ```
 ```{r, warning=FALSE, message=FALSE, echo = FALSE, eval=FALSE}
-if (require("rstanarm")) {
-  model <- stan_glm(vs ~ cyl + disp + drat,, data = mtcars, family = "binomial", refresh = 0) 
-  parameters <- model_parameters(model)
-  r <- convert_posteriors_to_r(model)
-  parameters$r <- bayestestR::describe_posterior(r)$Median
-  parameters$r_from_odds <- convert_odds_to_r(parameters$Median, log = TRUE)
-  parameters
-}
+model <- stan_glm(vs ~ cyl + disp + drat,, data = mtcars, family = "binomial", refresh = 0) 
+parameters <- model_parameters(model)
+r <- convert_posteriors_to_r(model)
+parameters$r <- bayestestR::describe_posterior(r)$Median
+parameters$r_from_odds <- convert_odds_to_r(parameters$Median, log = TRUE)
+parameters
 ```
 
 
