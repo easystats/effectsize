@@ -114,9 +114,9 @@ t_to_r(param_tab$t[2:3], param_tab$df_error[2:3])
 }
 
 # How does this compare to actual partial correlations?
-library(ppcor)
-pcor(iris[1:3])$estimate[1, -1]
-
+if (require("ppcor")) {
+  pcor(iris[1:3])$estimate[1, -1]
+}
 }
 \references{
 \itemize{

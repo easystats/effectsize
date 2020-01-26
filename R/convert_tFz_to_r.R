@@ -56,9 +56,9 @@
 #' }
 #'
 #' # How does this compare to actual partial correlations?
-#' library(ppcor)
-#' pcor(iris[1:3])$estimate[1, -1]
-#'
+#' if (require("ppcor")) {
+#'   pcor(iris[1:3])$estimate[1, -1]
+#' }
 #' @references
 #' \itemize{
 #'   \item Friedman, H. (1982). Simplified determinations of statistical power, magnitude of effect and research sample sizes. Educational and Psychological Measurement, 42(2), 521-526. \doi{10.1177/001316448204200214}
@@ -68,7 +68,7 @@
 #'
 #' @export
 t_to_r <- function(t, n = NULL, df_error = NULL, ...) {
-  if(is.null(df_error) & !is.null(n)){
+  if (is.null(df_error) & !is.null(n)) {
     df_error <- n - 2
   }
   t / sqrt(t^2 + df_error)
@@ -78,7 +78,7 @@ t_to_r <- function(t, n = NULL, df_error = NULL, ...) {
 #' @rdname t_to_r
 #' @export
 r_to_t <- function(r, n = NULL, df_error = NULL, ...){
-  if(is.null(df_error) & !is.null(n)){
+  if (is.null(df_error) & !is.null(n)) {
     df_error <- n - 2
   }
   sign(r) * sqrt(-(r^2 * df_error) / (r^2 - 1))
@@ -92,7 +92,7 @@ r_to_t <- function(r, n = NULL, df_error = NULL, ...){
 #' @rdname t_to_r
 #' @export
 z_to_r <- function(z, n = NULL, df_error = NULL, ...) {
-  if(is.null(n) & !is.null(df_error)){
+  if (is.null(n) & !is.null(df_error)) {
     n <- df_error + 2
   }
   z / sqrt(z^2 + n)
@@ -103,7 +103,7 @@ z_to_r <- function(z, n = NULL, df_error = NULL, ...) {
 #' @rdname t_to_r
 #' @export
 r_to_z <- function(r, n = NULL, df_error = NULL, ...) {
-  if(is.null(n) & !is.null(df_error)){
+  if (is.null(n) & !is.null(df_error)) {
     n <- df_error + 2
   }
   sign(r) * sqrt(-(r^2 * n) / (r^2 - 1))
