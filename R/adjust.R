@@ -49,7 +49,7 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
   if(is.null(select)){
     select <- names(data[nums])
   }
-  if(is.null(exclude)){
+  if(!is.null(exclude)){
     select <- select[!select %in% c(exclude)]
   }
 
