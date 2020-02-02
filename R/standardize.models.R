@@ -75,7 +75,7 @@ standardize.lm <- function(x, robust = FALSE, two_sd = FALSE, include_response =
 #' @keywords internal
 .no_response_standardize <- function(info) {
   # check if model has a response variable that should not be standardized.
-  info$is_count | info$is_ordinal | info$is_beta | info$is_censored | info$is_binomial | info$is_survival
+  info$is_count | info$is_ordinal | info$is_multinomial | info$is_beta | info$is_censored | info$is_binomial | info$is_survival
 }
 
 
