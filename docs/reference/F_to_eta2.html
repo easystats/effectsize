@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert test statistics (F, t) to indices of <strong>partial</strong> variance explained (partial Eta / Omega / Epsilon squared) — F_to_eta2 • effectsize</title>
+<title>Convert test statistics (F, t) to indices of <strong>partial</strong> variance explained (<strong>partial</strong> Eta / Omega / Epsilon squared) — F_to_eta2 • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,7 +42,7 @@
 
 
 
-<meta property="og:title" content="Convert test statistics (F, t) to indices of <strong>partial</strong> variance explained (partial Eta / Omega / Epsilon squared) — F_to_eta2" />
+<meta property="og:title" content="Convert test statistics (F, t) to indices of <strong>partial</strong> variance explained (<strong>partial</strong> Eta / Omega / Epsilon squared) — F_to_eta2" />
 <meta property="og:description" content="These functions are convenience functions to convert F and t test statistics to partial Eta squared, (\(\eta{_p}^2\)), Omega squared (\(\omega{_p}^2\)) and Epsilon squared (\(\epsilon{_p}^2\); an alias for the adjusted Eta squared). These are useful in cases where the various Sum of Squares and Mean Squares are not easily available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.). For test statistics derived from lm and aov models, these functions give exact results. For all other cases, they return close approximations." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
@@ -149,13 +149,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert test statistics (F, t) to indices of <strong>partial</strong> variance explained (partial Eta / Omega / Epsilon squared)</h1>
+    <h1>Convert test statistics (F, t) to indices of <strong>partial</strong> variance explained (<strong>partial</strong> Eta / Omega / Epsilon squared)</h1>
     <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/convert_tF_to_pve.R'><code>R/convert_tF_to_pve.R</code></a></small>
     <div class="hidden name"><code>F_to_eta2.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These functions are convenience functions to convert F and t test statistics to partial Eta squared, (\(\eta{_p}^2\)), Omega squared (\(\omega{_p}^2\)) and Epsilon squared (\(\epsilon{_p}^2\); an alias for the adjusted Eta squared). These are useful in cases where the various Sum of Squares and Mean Squares are not easily available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.). For test statistics derived from <code>lm</code> and <code>aov</code> models, these functions give exact results. For all other cases, they return close approximations.</p>
+    <p>These functions are convenience functions to convert F and t test statistics to <strong>partial</strong> Eta squared, (\(\eta{_p}^2\)), Omega squared (\(\omega{_p}^2\)) and Epsilon squared (\(\epsilon{_p}^2\); an alias for the adjusted Eta squared). These are useful in cases where the various Sum of Squares and Mean Squares are not easily available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.). For test statistics derived from <code>lm</code> and <code>aov</code> models, these functions give exact results. For all other cases, they return close approximations.</p>
     </div>
 
     <pre class="usage"><span class='fu'>F_to_eta2</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
@@ -222,7 +222,13 @@ For \(t\), the conversion is based on the equality of \(t^2 = F\) when \(df_{num
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>afex</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: lme4</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='output co'>#&gt; <span class='message'>Registered S3 methods overwritten by 'car':</span>
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"afex"</span>)) {
+  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>md_12.1</span>)
+  <span class='fu'><a href='https://rdrr.io/pkg/afex/man/aov_car.html'>aov_ez</a></span>(<span class='st'>"id"</span>, <span class='st'>"rt"</span>, <span class='no'>md_12.1</span>,
+    <span class='kw'>within</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"angle"</span>, <span class='st'>"noise"</span>),
+    <span class='kw'>anova_table</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>correction</span> <span class='kw'>=</span> <span class='st'>"none"</span>, <span class='kw'>es</span> <span class='kw'>=</span> <span class='st'>"pes"</span>)
+  )
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: afex</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: lme4</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='output co'>#&gt; <span class='message'>Registered S3 methods overwritten by 'car':</span>
 #&gt; <span class='message'>  method                          from</span>
 #&gt; <span class='message'>  influence.merMod                lme4</span>
 #&gt; <span class='message'>  cooks.distance.influence.merMod lme4</span>
@@ -238,11 +244,7 @@ For \(t\), the conversion is based on the equality of \(t^2 = F\) when \(df_{num
 #&gt; <span class='message'>************</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: 'afex'</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:lme4':</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    lmer</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>md_12.1</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/afex/man/aov_car.html'>aov_ez</a></span>(<span class='st'>"id"</span>, <span class='st'>"rt"</span>, <span class='no'>md_12.1</span>,
-  <span class='kw'>within</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"angle"</span>, <span class='st'>"noise"</span>),
-  <span class='kw'>anova_table</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>correction</span> <span class='kw'>=</span> <span class='st'>"none"</span>, <span class='kw'>es</span> <span class='kw'>=</span> <span class='st'>"pes"</span>)
-)</div><div class='output co'>#&gt; Anova Table (Type 3 tests)
+#&gt; <span class='message'>    lmer</span></div><div class='output co'>#&gt; Anova Table (Type 3 tests)
 #&gt; 
 #&gt; Response: rt
 #&gt;        Effect    df     MSE         F pes p.value
@@ -253,23 +255,23 @@ For \(t\), the conversion is based on the equality of \(t^2 = F\) when \(df_{num
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1</div><div class='input'><span class='co'># compare to:</span>
 <span class='fu'>F_to_eta2</span>(<span class='fl'>40.72</span>, <span class='fl'>2</span>, <span class='fl'>18</span>)</div><div class='output co'>#&gt; [1] 0.8189863</div><div class='input'><span class='fu'>F_to_eta2</span>(<span class='fl'>33.77</span>, <span class='fl'>1</span>, <span class='fl'>9</span>)</div><div class='output co'>#&gt; [1] 0.7895721</div><div class='input'><span class='fu'>F_to_eta2</span>(<span class='fl'>45.31</span>, <span class='fl'>2</span>, <span class='fl'>18</span>)</div><div class='output co'>#&gt; [1] 0.8342847</div><div class='input'>
 
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>lmerTest</span>) <span class='co'># for the df_error</span></div><div class='output co'>#&gt; <span class='message'></span>
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"lmerTest"</span>)) { <span class='co'># for the df_error</span>
+  <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lmerTest/man/lmer.html'>lmer</a></span>(<span class='no'>extra</span> ~ <span class='no'>group</span> + (<span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>ID</span>), <span class='no'>sleep</span>)
+  <span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span>(<span class='no'>fit</span>)
+  <span class='co'># Type III Analysis of Variance Table with Satterthwaite's method</span>
+  <span class='co'>#       Sum Sq Mean Sq NumDF DenDF F value   Pr(&gt;F)</span>
+  <span class='co'># group 12.482  12.482     1     9  16.501 0.002833 **</span>
+  <span class='co'># ---</span>
+  <span class='co'># Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+  <span class='fu'>F_to_eta2</span>(<span class='fl'>16.501</span>, <span class='fl'>1</span>, <span class='fl'>9</span>)
+  <span class='fu'>F_to_omega2</span>(<span class='fl'>16.501</span>, <span class='fl'>1</span>, <span class='fl'>9</span>)
+  <span class='fu'>F_to_epsilon2</span>(<span class='fl'>16.501</span>, <span class='fl'>1</span>, <span class='fl'>9</span>)
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: lmerTest</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: 'lmerTest'</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:lme4':</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    lmer</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:stats':</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    step</span></div><div class='input'><span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lmerTest/man/lmer.html'>lmer</a></span>(<span class='no'>extra</span> ~ <span class='no'>group</span> + (<span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>ID</span>), <span class='no'>sleep</span>)
-<span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span>(<span class='no'>fit</span>)</div><div class='output co'>#&gt; Type III Analysis of Variance Table with Satterthwaite's method
-#&gt;       Sum Sq Mean Sq NumDF DenDF F value   Pr(&gt;F)   
-#&gt; group 12.482  12.482     1     9  16.501 0.002833 **
-#&gt; ---
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'><span class='co'># Type III Analysis of Variance Table with Satterthwaite's method</span>
-<span class='co'>#       Sum Sq Mean Sq NumDF DenDF F value   Pr(&gt;F)</span>
-<span class='co'># group 12.482  12.482     1     9  16.501 0.002833 **</span>
-<span class='co'># ---</span>
-<span class='co'># Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
-<span class='fu'>F_to_eta2</span>(<span class='fl'>16.501</span>, <span class='fl'>1</span>, <span class='fl'>9</span>)</div><div class='output co'>#&gt; [1] 0.6470727</div><div class='input'><span class='fu'>F_to_omega2</span>(<span class='fl'>16.501</span>, <span class='fl'>1</span>, <span class='fl'>9</span>)</div><div class='output co'>#&gt; [1] 0.5849213</div><div class='input'><span class='fu'>F_to_epsilon2</span>(<span class='fl'>16.501</span>, <span class='fl'>1</span>, <span class='fl'>9</span>)</div><div class='output co'>#&gt; [1] 0.6078585</div><div class='input'># }
-
+#&gt; <span class='message'>    step</span></div><div class='output co'>#&gt; [1] 0.6078585</div><div class='input'># }
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -44,7 +44,7 @@
 
 <meta property="og:title" content="Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (<strong>partial</strong> r) — t_to_d" />
 <meta property="og:description" content="These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
-(partial) r. These are useful in cases where the data required to compute these are not easily
+partial r. These are useful in cases where the data required to compute these are not easily
 available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.)." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -79,7 +79,7 @@ available or their computation is not straightforward (e.g., in liner mixed mode
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
@@ -158,7 +158,7 @@ available or their computation is not straightforward (e.g., in liner mixed mode
 
     <div class="ref-description">
     <p>These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
-(partial) r. These are useful in cases where the data required to compute these are not easily
+<strong>partial</strong> r. These are useful in cases where the data required to compute these are not easily
 available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.).</p>
     </div>
 
@@ -280,9 +280,10 @@ $$Cohen's d = 2 * z / \sqrt{N}$$</p>
 <span class='co'># }</span>
 
 <span class='co'># How does this compare to actual partial correlations?</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ppcor</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: MASS</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/ppcor/man/pcor.html'>pcor</a></span>(<span class='no'>iris</span>[<span class='fl'>1</span>:<span class='fl'>3</span>])$<span class='no'>estimate</span>[<span class='fl'>1</span>, -<span class='fl'>1</span>]</div><div class='output co'>#&gt;  Sepal.Width Petal.Length 
-#&gt;    0.5781005    0.9153894 </div><div class='input'>
-</div></pre>
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"ppcor"</span>)) {
+  <span class='fu'><a href='https://rdrr.io/pkg/ppcor/man/pcor.html'>pcor</a></span>(<span class='no'>iris</span>[<span class='fl'>1</span>:<span class='fl'>3</span>])$<span class='no'>estimate</span>[<span class='fl'>1</span>, -<span class='fl'>1</span>]
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: ppcor</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: MASS</span></div><div class='output co'>#&gt;  Sepal.Width Petal.Length 
+#&gt;    0.5781005    0.9153894 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

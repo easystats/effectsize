@@ -35,7 +35,7 @@ set.seed(333)
 
 # Introduction
 
-Standardising parameters (*i.e.*, coefficients) can allow for their comparison within and between models, variables and studies. Moreover, as it returns coefficients expressed in terms of **change of variance** (for instance, coefficients expresed in terms of SD of the response variable), it can allow for the usage of [effect size interpretation guidelines](https://easystats.github.io/effectsize/articles/interpret.html), such as the famous Cohen's (1988) rules of thumb.
+Standardising parameters (*i.e.*, coefficients) can allow for their comparison within and between models, variables and studies. Moreover, as it returns coefficients expressed in terms of **change of variance** (for instance, coefficients expressed in terms of SD of the response variable), it can allow for the usage of [effect size interpretation guidelines](https://easystats.github.io/effectsize/articles/interpret.html), such as the famous Cohen's (1988) rules of thumb.
 
 However, standardizing the model's parameters should *not* be automatically and mindlessly done: for some research fields, particular variables or types of studies (*e.g.*, replications), it sometimes makes more sense to keep, use and interpret the original parameters, especially if they are well known or easily understood.
 

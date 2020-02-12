@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
@@ -121,9 +121,9 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Run the following:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)</a>
-<a class="sourceLine" id="cb1-2" title="2">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"easystats/effectsize"</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"effectsize"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"easystats/effectsize"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"effectsize"</span>)</span></code></pre></div>
 </div>
 <div id="documentation" class="section level2">
 <h2 class="hasAnchor">
@@ -141,7 +141,7 @@
 <div id="features" class="section level1">
 <h1 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h1>
-<p>This package is focused on indices of effect size. But <strong>there are hundreds of them! Thus, <em>everybody</em> is welcome to contribute</strong> by adding support for the interpretation of new indices. If you’re not sure how to code it it’s okay, just open an issue to discuss it and we’ll help :)</p>
+<p>This package is focused on indices of effect size. But <strong>there are hundreds of them! Thus, <em>everybody</em> is welcome to contribute</strong> by adding support for the interpretation of new indices. If you’re not sure how to code it’s okay, just open an issue to discuss it and we’ll help :)</p>
 <div id="effect-size-computation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#effect-size-computation" class="anchor"></a>Effect Size Computation</h2>
@@ -149,41 +149,41 @@
 <h3 class="hasAnchor">
 <a href="#basic-indices-cohens-d-hedges-g-glass-delta" class="anchor"></a>Basic Indices (Cohen’s <em>d</em>, Hedges’ <em>g</em>, Glass’ <em>delta</em>)</h3>
 <p>The package provides functions to compute indices of effect size.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="reference/cohens_d.html">cohens_d</a></span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Sepal.Width)</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="co">## [1] -4.21</span></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="kw"><a href="reference/cohens_d.html">hedges_g</a></span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Sepal.Width)</a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co">## [1] -4.2</span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="kw"><a href="reference/cohens_d.html">glass_delta</a></span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Sepal.Width)</a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">## [1] -3.36</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="reference/cohens_d.html">cohens_d</a></span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Sepal.Width)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co">## [1] 4.21</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw"><a href="reference/cohens_d.html">hedges_g</a></span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Sepal.Width)</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">## [1] 4.2</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="kw"><a href="reference/cohens_d.html">glass_delta</a></span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Sepal.Width)</span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">## [1] 3.36</span></span></code></pre></div>
 </div>
 <div id="anovas-eta2-omega2-" class="section level3">
 <h3 class="hasAnchor">
 <a href="#anovas-eta2-omega2-" class="anchor"></a>ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> iris)</a>
-<a class="sourceLine" id="cb4-2" title="2"></a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="kw"><a href="reference/eta_squared.html">omega_squared</a></span>(model, <span class="dt">partial =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="co">##   Parameter Omega_Sq_partial</span></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="co">## 1   Species            0.612</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="co">## 2 Residuals               NA</span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="kw"><a href="reference/eta_squared.html">eta_squared</a></span>(model, <span class="dt">partial =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="co">##   Parameter Eta_Sq_partial</span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="co">## 1   Species          0.619</span></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="co">## 2 Residuals             NA</span></a>
-<a class="sourceLine" id="cb4-11" title="11"><span class="kw"><a href="reference/eta_squared.html">epsilon_squared</a></span>(model)</a>
-<a class="sourceLine" id="cb4-12" title="12"><span class="co">##   Parameter Epsilon_sq</span></a>
-<a class="sourceLine" id="cb4-13" title="13"><span class="co">## 1   Species      0.614</span></a>
-<a class="sourceLine" id="cb4-14" title="14"><span class="co">## 2 Residuals         NA</span></a>
-<a class="sourceLine" id="cb4-15" title="15"><span class="kw"><a href="reference/eta_squared.html">cohens_f</a></span>(model)</a>
-<a class="sourceLine" id="cb4-16" title="16"><span class="co">##   Parameter Cohens_f</span></a>
-<a class="sourceLine" id="cb4-17" title="17"><span class="co">## 1   Species     1.27</span></a>
-<a class="sourceLine" id="cb4-18" title="18"><span class="co">## 2 Residuals       NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> iris)</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="kw"><a href="reference/eta_squared.html">omega_squared</a></span>(model, <span class="dt">partial =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">##   Parameter Omega_Sq_partial</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">## 1   Species            0.612</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">## 2 Residuals               NA</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="kw"><a href="reference/eta_squared.html">eta_squared</a></span>(model, <span class="dt">partial =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">##   Parameter Eta_Sq_partial</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">## 1   Species          0.619</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">## 2 Residuals             NA</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="kw"><a href="reference/eta_squared.html">epsilon_squared</a></span>(model)</span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">##   Parameter Epsilon_sq_partial</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">## 1   Species              0.614</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">## 2 Residuals                 NA</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="kw"><a href="reference/eta_squared.html">cohens_f</a></span>(model)</span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">##   Parameter Cohens_f</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">## 1   Species     1.27</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">## 2 Residuals       NA</span></span></code></pre></div>
 </div>
 <div id="regression-models" class="section level3">
 <h3 class="hasAnchor">
 <a href="#regression-models" class="anchor"></a>Regression Models</h3>
 <p>Importantly, <code>effectsize</code> also provides <a href="https://easystats.github.io/effectsize/articles/standardize_parameters.html">advanced methods</a> to compute standardized parameters for regression models.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species <span class="op">+</span><span class="st"> </span>Sepal.Length, <span class="dt">data =</span> iris) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="st">  </span><span class="kw"><a href="reference/standardize_parameters.html">standardize_parameters</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species <span class="op">+</span><span class="st"> </span>Sepal.Length, <span class="dt">data =</span> iris) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span><span class="kw"><a href="reference/standardize_parameters.html">standardize_parameters</a></span>()</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Parameter</th>
@@ -210,20 +210,20 @@
 <h2 class="hasAnchor">
 <a href="#effect-size-interpretation" class="anchor"></a>Effect Size Interpretation</h2>
 <p>The package allows for an automated interpretation of different indices.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="reference/interpret_r.html">interpret_r</a></span>(<span class="dt">r =</span> <span class="fl">0.3</span>)</a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="co">## [1] "large"</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="reference/interpret_r.html">interpret_r</a></span>(<span class="dt">r =</span> <span class="fl">0.3</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co">## [1] "large"</span></span></code></pre></div>
 <p>Different sets of “rules of thumb” are implemented (<a href="https://easystats.github.io/effectsize/articles/interpret.html"><strong>guidelines are detailed here</strong></a>) and can be easily changed.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="reference/interpret_d.html">interpret_d</a></span>(<span class="dt">d =</span> <span class="fl">0.45</span>, <span class="dt">rules =</span> <span class="st">"cohen1988"</span>)</a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="co">## [1] "small"</span></a>
-<a class="sourceLine" id="cb7-3" title="3"><span class="kw"><a href="reference/interpret_d.html">interpret_d</a></span>(<span class="dt">d =</span> <span class="fl">0.45</span>, <span class="dt">rules =</span> <span class="st">"funder2019"</span>)</a>
-<a class="sourceLine" id="cb7-4" title="4"><span class="co">## [1] "medium"</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="reference/interpret_d.html">interpret_d</a></span>(<span class="dt">d =</span> <span class="fl">0.45</span>, <span class="dt">rules =</span> <span class="st">"cohen1988"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co">## [1] "small"</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="kw"><a href="reference/interpret_d.html">interpret_d</a></span>(<span class="dt">d =</span> <span class="fl">0.45</span>, <span class="dt">rules =</span> <span class="st">"funder2019"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co">## [1] "medium"</span></span></code></pre></div>
 </div>
 <div id="effect-size-conversion" class="section level2">
 <h2 class="hasAnchor">
 <a href="#effect-size-conversion" class="anchor"></a>Effect Size Conversion</h2>
 <p>The package also provides ways of converting between different effect sizes.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="reference/d_to_r.html">convert_d_to_r</a></span>(<span class="dt">d =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="co">## [1] 0.447</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw"><a href="reference/d_to_r.html">convert_d_to_r</a></span>(<span class="dt">d =</span> <span class="dv">1</span>)</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="co">## [1] 0.447</span></span></code></pre></div>
 </div>
 <div id="standardization" class="section level2">
 <h2 class="hasAnchor">
@@ -233,10 +233,10 @@
 <h3 class="hasAnchor">
 <a href="#data-standardization-normalization-and-rank-transformation" class="anchor"></a>Data standardization, normalization and rank-transformation</h3>
 <p>A standardization sets the mean and SD to 0 and 1:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(parameters)</a>
-<a class="sourceLine" id="cb9-2" title="2"></a>
-<a class="sourceLine" id="cb9-3" title="3">df &lt;-<span class="st"> </span><span class="kw"><a href="reference/standardize.html">standardize</a></span>(iris)</a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="kw">describe_distribution</span>(df<span class="op">$</span>Sepal.Length)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(parameters)</span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a>df &lt;-<span class="st"> </span><span class="kw"><a href="reference/standardize.html">standardize</a></span>(iris)</span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="kw">describe_distribution</span>(df<span class="op">$</span>Sepal.Length)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="right">Mean</th>
@@ -260,13 +260,13 @@
 </tr></tbody>
 </table>
 <p>This can be also applied to statistical models:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">std_model &lt;-<span class="st"> </span><span class="kw"><a href="reference/standardize.html">standardize</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> iris))</a>
-<a class="sourceLine" id="cb10-2" title="2"><span class="kw"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span>(std_model)</a>
-<a class="sourceLine" id="cb10-3" title="3"><span class="co">##       (Intercept) Speciesversicolor  Speciesvirginica </span></a>
-<a class="sourceLine" id="cb10-4" title="4"><span class="co">##             -1.01              1.12              1.91</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>std_model &lt;-<span class="st"> </span><span class="kw"><a href="reference/standardize.html">standardize</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> iris))</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="kw"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span>(std_model)</span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">##       (Intercept) Speciesversicolor  Speciesvirginica </span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co">##             -1.01              1.12              1.91</span></span></code></pre></div>
 <p>Alternatively, normalization is similar to standardization in that it is a linear translation of the parameter space (i.e., it does not change the shape of the data distribution). However, it puts the values within a 0 - 1 range, which can be useful in cases where you want to compare or visualise data on the same scale.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">df &lt;-<span class="st"> </span><span class="kw"><a href="reference/normalize.html">normalize</a></span>(iris)</a>
-<a class="sourceLine" id="cb11-2" title="2"><span class="kw">describe_distribution</span>(df<span class="op">$</span>Sepal.Length)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>df &lt;-<span class="st"> </span><span class="kw"><a href="reference/normalize.html">normalize</a></span>(iris)</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="kw">describe_distribution</span>(df<span class="op">$</span>Sepal.Length)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="right">Mean</th>
@@ -290,8 +290,8 @@
 </tr></tbody>
 </table>
 <p>This is a special case of a rescaling function, which can be used to rescale the data to an arbitrary new scale. Let’s change all numeric variables to “percentages”:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">df &lt;-<span class="st"> </span><span class="kw"><a href="reference/change_scale.html">change_scale</a></span>(iris, <span class="dt">to =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">100</span>)) </a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="kw">describe_distribution</span>(df<span class="op">$</span>Sepal.Length)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>df &lt;-<span class="st"> </span><span class="kw"><a href="reference/change_scale.html">change_scale</a></span>(iris, <span class="dt">to =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">100</span>)) </span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="kw">describe_distribution</span>(df<span class="op">$</span>Sepal.Length)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="right">Mean</th>
@@ -315,8 +315,8 @@
 </tr></tbody>
 </table>
 <p>For some robust statistics, one might also want to transfom the numeric values into <em>ranks</em> (or signed-ranks), which can be performed using the <code><a href="reference/ranktransform.html">ranktransform()</a></code> function.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="reference/ranktransform.html">ranktransform</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">-2</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb13-2" title="2"><span class="co">## [1] 3.0 4.0 1.0 5.5 5.5 2.0</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw"><a href="reference/ranktransform.html">ranktransform</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">-2</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">0</span>))</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="co">## [1] 3.0 4.0 1.0 5.5 5.5 2.0</span></span></code></pre></div>
 </div>
 </div>
 </div>

@@ -51,8 +51,8 @@ check-out these vignettes:
 This package is focused on indices of effect size. But **there are
 hundreds of them\! Thus, *everybody* is welcome to contribute** by
 adding support for the interpretation of new indices. If you’re not sure
-how to code it it’s okay, just open an issue to discuss it and we’ll
-help :)
+how to code it’s okay, just open an issue to discuss it and we’ll help
+:)
 
 ## Effect Size Computation
 
@@ -62,11 +62,11 @@ The package provides functions to compute indices of effect size.
 
 ``` r
 cohens_d(iris$Sepal.Length, iris$Sepal.Width)
-## [1] -4.21
+## [1] 4.21
 hedges_g(iris$Sepal.Length, iris$Sepal.Width)
-## [1] -4.2
+## [1] 4.2
 glass_delta(iris$Sepal.Length, iris$Sepal.Width)
-## [1] -3.36
+## [1] 3.36
 ```
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)
@@ -83,9 +83,9 @@ eta_squared(model, partial = TRUE)
 ## 1   Species          0.619
 ## 2 Residuals             NA
 epsilon_squared(model)
-##   Parameter Epsilon_sq
-## 1   Species      0.614
-## 2 Residuals         NA
+##   Parameter Epsilon_sq_partial
+## 1   Species              0.614
+## 2 Residuals                 NA
 cohens_f(model)
 ##   Parameter Cohens_f
 ## 1   Species     1.27
