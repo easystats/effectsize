@@ -43,7 +43,7 @@
 
 
 <meta property="og:title" content="Standardization (Z-scoring) — standardize" />
-<meta property="og:description" content="Performs a standardization of data (Z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The normalize function can also be used to scale all numeric variables within the 0 - 1 range." />
+<meta property="og:description" content="Performs a standardization of data (z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The normalize function can also be used to scale all numeric variables within the 0 - 1 range." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.1</span>
       </span>
     </div>
 
@@ -155,7 +155,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Performs a standardization of data (Z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The <code><a href='normalize.html'>normalize</a></code> function can also be used to scale all numeric variables within the 0 - 1 range.</p>
+    <p>Performs a standardization of data (z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The <code><a href='normalize.html'>normalize</a></code> function can also be used to scale all numeric variables within the 0 - 1 range.</p>
     </div>
 
     <pre class="usage"><span class='fu'>standardize</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -169,6 +169,8 @@
   <span class='kw'>exclude</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='st'>"_z"</span>,
   <span class='no'>...</span>
 )
 
@@ -187,7 +189,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A dataframe, a vector or a statistical model.</p></td>
+      <td><p>A data frame, a vector or a statistical model.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -195,9 +197,9 @@
     </tr>
     <tr>
       <th>robust</th>
-      <td><p>Logical, if <code>TRUE</code>, centering is done by substracting the
+      <td><p>Logical, if <code>TRUE</code>, centering is done by subtracting the
 median from the variables and dividing it by the median absolute deviation
-(MAD). If <code>FALSE</code>, variables are standardized by substracting the
+(MAD). If <code>FALSE</code>, variables are standardized by subtracting the
 mean and dividing it by the standard deviation (SD).</p></td>
     </tr>
     <tr>
@@ -224,6 +226,17 @@ being the value <code>1</code> (unless the factor has numeric levels, which are
 converted to the corresponding numeric value).</p></td>
     </tr>
     <tr>
+      <th>append</th>
+      <td><p>Logical, if <code>TRUE</code> and <code>x</code> is a data frame, standardized
+variables will be added as additional columns; if <code>FALSE</code>,
+existing variables are overwritten.</p></td>
+    </tr>
+    <tr>
+      <th>suffix</th>
+      <td><p>Character value, will be appended to variable (column) names of
+<code>x</code>, if <code>x</code> is a data frame and <code>append = TRUE</code>.</p></td>
+    </tr>
+    <tr>
       <th>include_response</th>
       <td><p>For a model, if <code>TRUE</code> (default), the response value
 will also be standardized. If <code>FALSE</code>, only the predictors will be standardized.
@@ -234,13 +247,16 @@ response value will never be standardized, to make re-fitting the model work.</p
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The standardized object (either a standardize dataframe or a statistical model fitted on standardized data).</p>
+    <p>The standardized object (either a standardize data frame or a statistical model fitted on standardized data).</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>When <code>x</code> is a data frame or vector, missing values are preserved, so the return value has the same length / number of rows as the original input.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='normalize.html'>normalize</a></code> <code><a href='standardize_parameters.html'>standardize_parameters</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Dataframes</span>
+    <pre class="examples"><div class='input'><span class='co'># Data frames</span>
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='fu'>standardize</span>(<span class='no'>iris</span>))</div><div class='output co'>#&gt;   Sepal.Length       Sepal.Width       Petal.Length      Petal.Width     
 #&gt;  Min.   :-1.86378   Min.   :-2.4258   Min.   :-1.5623   Min.   :-1.4422  
 #&gt;  1st Qu.:-0.89767   1st Qu.:-0.5904   1st Qu.:-1.2225   1st Qu.:-1.1799  
@@ -269,6 +285,7 @@ response value will never be standardized, to make re-fitting the model work.</p
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#note">Note</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
