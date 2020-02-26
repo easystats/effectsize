@@ -2,8 +2,8 @@
 
 ## Bug fixes
 
-- `standadize.data.frame()` did not work when variables had missing values.
-- Fixed wrong computation in `standadize()` when `two_sd = TRUE`.
+- `standardize.data.frame()` did not work when variables had missing values.
+- Fixed wrong computation in `standardize()` when `two_sd = TRUE`.
 
 # effectsize 0.2.0
 
