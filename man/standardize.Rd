@@ -17,6 +17,8 @@ standardize(x, ...)
   exclude = NULL,
   verbose = TRUE,
   force = FALSE,
+  append = FALSE,
+  suffix = "_z",
   ...
 )
 
@@ -51,6 +53,13 @@ mean and dividing it by the standard deviation (SD).}
 well. Factors are converted to numerical values, with the lowest level
 being the value \code{1} (unless the factor has numeric levels, which are
 converted to the corresponding numeric value).}
+
+\item{append}{Logical, if \code{TRUE} and \code{x} is a data frame, standardized
+variables will be added as additional columns; if \code{FALSE},
+existing variables are overwritten.}
+
+\item{suffix}{Character value, will be appended to variable (column) names of
+\code{x}, if \code{x} is a data frame and \code{append = TRUE}.}
 
 \item{include_response}{For a model, if \code{TRUE} (default), the response value
 will also be standardized. If \code{FALSE}, only the predictors will be standardized.

@@ -19,6 +19,11 @@
 #'   will also be standardized. If \code{FALSE}, only the predictors will be standardized.
 #'   Note that for certain models (logistic regression, count models, ...), the
 #'   response value will never be standardized, to make re-fitting the model work.
+#' @param append Logical, if \code{TRUE} and \code{x} is a data frame, standardized
+#'   variables will be added as additional columns; if \code{FALSE},
+#'   existing variables are overwritten.
+#' @param suffix Character value, will be appended to variable (column) names of
+#'   \code{x}, if \code{x} is a data frame and \code{append = TRUE}.
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @return The standardized object (either a standardize data frame or a statistical model fitted on standardized data).

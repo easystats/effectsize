@@ -1,5 +1,9 @@
 # effectsize 0.2.1
 
+## Changes
+
+- `standardize.data.frame()` gets `append` and `suffix` arguments, to add (instead of replace) standardized variables to the returned data frame.
+
 ## Bug fixes
 
 - `standardize.data.frame()` did not work when variables had missing values.
