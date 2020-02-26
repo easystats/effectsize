@@ -7,6 +7,8 @@ standardize.numeric <- function(x, robust = FALSE, two_sd = FALSE, verbose = TRU
     return(x)
   }
 
+  valid_x <- !is.na(x)
+  scaled_x <- rep(NA, length(x))
   x <- stats::na.omit(x)
 
   # Sanity checks
@@ -28,14 +30,15 @@ standardize.numeric <- function(x, robust = FALSE, two_sd = FALSE, verbose = TRU
   }
 
   if (two_sd) {
-    x <- as.vector((x - center) / 2 * scale)
+    x <- as.vector((x - center) / (2 * scale))
   } else {
     x <- as.vector((x - center) / scale)
   }
 
-  attr(x, "center") <- center
-  attr(x, "scale") <- scale
-  x
+  scaled_x[valid_x] <- x
+  attr(scaled_x, "center") <- center
+  attr(scaled_x, "scale") <- scale
+  scaled_x
 }
 
 
@@ -138,9 +141,9 @@ standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, select = N
     select <- setdiff(select, exclude)
   }
 
-  for (i in 1:length(select)) {
-    .check_standardize_numeric(x[[select[i]]], name = select[i], verbose = verbose)
-  }
+  # for (i in 1:length(select)) {
+  #   .check_standardize_numeric(x[[select[i]]], name = select[i], verbose = verbose)
+  # }
 
   x[select] <- lapply(x[select], standardize, robust = robust, two_sd = two_sd, verbose = FALSE, force = force)
 

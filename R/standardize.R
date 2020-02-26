@@ -1,11 +1,11 @@
 #' Standardization (Z-scoring)
 #'
-#' Performs a standardization of data (Z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The \code{\link{normalize}} function can also be used to scale all numeric variables within the 0 - 1 range.
+#' Performs a standardization of data (z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The \code{\link{normalize}} function can also be used to scale all numeric variables within the 0 - 1 range.
 #'
-#' @param x A dataframe, a vector or a statistical model.
-#' @param robust Logical, if \code{TRUE}, centering is done by substracting the
+#' @param x A data frame, a vector or a statistical model.
+#' @param robust Logical, if \code{TRUE}, centering is done by subtracting the
 #'   median from the variables and dividing it by the median absolute deviation
-#'   (MAD). If \code{FALSE}, variables are standardized by substracting the
+#'   (MAD). If \code{FALSE}, variables are standardized by subtracting the
 #'   mean and dividing it by the standard deviation (SD).
 #' @param two_sd If \code{TRUE}, the variables are scaled by two times the deviation (SD or MAD depending on \code{robust}). This method can be useful to obtain model coefficients of continuous parameters comparable to coefficients related to binary predictors (Gelman, 2008).
 #' @param verbose Toggle warnings on or off.
@@ -21,11 +21,13 @@
 #'   response value will never be standardized, to make re-fitting the model work.
 #' @param ... Arguments passed to or from other methods.
 #'
-#' @return The standardized object (either a standardize dataframe or a statistical model fitted on standardized data).
+#' @return The standardized object (either a standardize data frame or a statistical model fitted on standardized data).
+#'
+#' @note When \code{x} is a data frame or vector, missing values are preserved, so the return value has the same length / number of rows as the original input.
 #'
 #' @seealso \code{\link{normalize}} \code{\link{standardize_parameters}}
 #' @examples
-#' # Dataframes
+#' # Data frames
 #' summary(standardize(iris))
 #'
 #' # Models

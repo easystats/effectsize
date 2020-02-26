@@ -1,6 +1,17 @@
-# effectsize 0.1.0
+# effectsize 0.2.1
 
-## Breaking changes
+## Bug fixes
+
+- `standadize.data.frame()` did not work when variables had missing values.
+- Fixed wrong computation in `standadize()` when `two_sd = TRUE`.
+
+# effectsize 0.2.0
+
+## Changes
+
+- News are hidden in an air of mystery...
+
+# effectsize 0.1.0
 
 ## New features
 
