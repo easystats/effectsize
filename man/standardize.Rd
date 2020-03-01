@@ -4,7 +4,7 @@
 \name{standardize}
 \alias{standardize}
 \alias{standardize.data.frame}
-\alias{standardize.lm}
+\alias{standardize.default}
 \title{Standardization (Z-scoring)}
 \usage{
 standardize(x, ...)
@@ -22,7 +22,7 @@ standardize(x, ...)
   ...
 )
 
-\method{standardize}{lm}(
+\method{standardize}{default}(
   x,
   robust = FALSE,
   two_sd = FALSE,

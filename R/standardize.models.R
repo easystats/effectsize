@@ -3,7 +3,7 @@
 #' @importFrom insight get_data model_info find_response get_response find_weights
 #' @importFrom utils capture.output
 #' @export
-standardize.lm <- function(x, robust = FALSE, two_sd = FALSE, include_response = TRUE, verbose = TRUE, ...) {
+standardize.default <- function(x, robust = FALSE, two_sd = FALSE, include_response = TRUE, verbose = TRUE, ...) {
   m_info <- insight::model_info(x)
   data <- insight::get_data(x)
   resp <- NULL
@@ -11,7 +11,7 @@ standardize.lm <- function(x, robust = FALSE, two_sd = FALSE, include_response =
   # for models with specific scale of the response value (e.g. count models
   # with positive integers, or beta with ratio between 0 and 1), we need to
   # make sure that the original response value will be restored after
-  # standardizing, as these models also require a non-standardized reponse.
+  # standardizing, as these models also require a non-standardized response.
 
   if (.no_response_standardize(m_info) || !include_response) {
     resp <- unique(c(insight::find_response(x), insight::find_response(x, combine = FALSE)))
@@ -81,161 +81,18 @@ standardize.lm <- function(x, robust = FALSE, two_sd = FALSE, include_response =
 
 
 
+
+# exceptions, models that cannot use the default-method --------------------
+
+
 #' @export
 standardize.mlm <- function(x, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
-  standardize.lm(x = x, robust = robust, two_sd = two_sd, include_response = FALSE, verbose = verbose, ...)
+  standardize.default(x = x, robust = robust, two_sd = two_sd, include_response = FALSE, verbose = verbose, ...)
 }
 
 #' @export
-standardize.cglm <- standardize.lm
-
-#' @export
-standardize.cpglmm <- standardize.lm
-
-#' @export
-standardize.cpglm <- standardize.lm
-
-#' @export
-standardize.merMod <- standardize.lm
-
-#' @export
-standardize.mixor <- standardize.lm
-
-#' @export
-standardize.glmmadmb <- standardize.lm
-
-#' @export
-standardize.rq <- standardize.lm
-
-#' @export
-standardize.cgam <- standardize.lm
-
-#' @export
-standardize.crq <- standardize.lm
-
-#' @export
-standardize.nlrq <- standardize.lm
-
-#' @export
-standardize.bracl <- standardize.lm
-
-#' @export
-standardize.brmultinom <- standardize.lm
-
-#' @export
-standardize.speedglm <- standardize.lm
-
-#' @export
-standardize.speedlm <- standardize.lm
-
-#' @export
-standardize.iv_robust <- standardize.lm
-
-#' @export
-standardize.lmrob <- standardize.lm
-
-#' @export
-standardize.glmrob <- standardize.lm
-
-#' @export
-standardize.glmRob <- standardize.lm
-
-#' @export
-standardize.lmRob <- standardize.lm
-
-#' @export
-standardize.MixMod <- standardize.lm
-
-#' @export
-standardize.glmmTMB <- standardize.lm
-
-#' @export
-standardize.stanreg <- standardize.lm
-
-#' @export
-standardize.brmsfit <- standardize.lm
-
-#' @export
-standardize.fixest <- standardize.lm
-
-#' @export
-standardize.complmrob <- standardize.lm
-
-#' @export
-standardize.flexsurvreg <- standardize.lm
-
-#' @export
-standardize.lme <- standardize.lm
-
-#' @export
-standardize.biglm <- standardize.lm
-
-#' @export
-standardize.LORgee <- standardize.lm
-
-#' @export
-standardize.gls <- standardize.lm
-
-#' @export
-standardize.plm <- standardize.lm
-
-#' @export
-standardize.feis <- standardize.lm
-
-#' @export
-standardize.negbin <- standardize.lm
-
-#' @export
-standardize.betareg <- standardize.lm
-
-#' @export
-standardize.ivreg <- standardize.lm
-
-#' @export
-standardize.truncreg <- standardize.lm
-
-#' @export
-standardize.lm_robust <- standardize.lm
-
-#' @export
-standardize.tobit <- standardize.lm
-
-#' @export
-standardize.censReg <- standardize.lm
-
-#' @export
-standardize.crch <- standardize.lm
-
-#' @export
-standardize.lrm <- standardize.lm
-
-#' @export
-standardize.psm <- standardize.lm
-
-#' @export
-standardize.ols <- standardize.lm
-
-#' @export
-standardize.geeglm <- standardize.lm
-
-#' @export
-standardize.gee <- standardize.lm
-
-#' @export
-standardize.rms <- standardize.lm
-
-#' @export
-standardize.logistf <- standardize.lm
-
-#' @export
-standardize.vglm <- standardize.lm
-
-#' @export
-standardize.clm <- standardize.lm
-
-#' @export
 standardize.wbm <- function(x, ...) {
-  warning("Standardization of parameters not possible for models from package 'panelr'.", call. = FALSE)
+  warning(paste0("Standardization of parameters not possible for models of class '", class(x)[1], "'."), call. = FALSE)
   x
 }
 
@@ -249,27 +106,10 @@ standardize.Surv <- function(x, ...) {
 standardize.clm2 <- standardize.wbm
 
 #' @export
+standardize.bcplm <- standardize.wbm
+
+#' @export
 standardize.wbgee <- standardize.wbm
-
-
-
-
-
-
-# Zero-Inflated models -------------------------------------------------------
-
-
-#' @export
-standardize.zeroinfl <- standardize.lm
-
-#' @export
-standardize.hurdle <- standardize.lm
-
-#' @export
-standardize.zerocount <- standardize.lm
-
-
-
 
 
 
@@ -284,7 +124,7 @@ standardize.coxph <- function(x, robust = FALSE, two_sd = FALSE, verbose = TRUE,
   # "update()", so we only standardize model predictors
   #
   # survival models have some strange format for the response variable,
-  # so we don't use the default standardize.lm function here, but
+  # so we don't use the default standardize function here, but
   # use a different approach that only retrieves predictors that should
   # be standardized.
 
