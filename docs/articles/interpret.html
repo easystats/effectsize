@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@
 
       
 
-      </header><script src="interpret_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Automated Interpretation of Indices of Effect Size</h1>
@@ -139,7 +139,7 @@
 <h4 class="hasAnchor">
 <a href="#falk1992primer" class="anchor"></a><span class="citation">Falk and Miller (1992)</span>
 </h4>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(x, <span class="dt">rules =</span> <span class="st">"falk1992"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(x, <span class="dt">rules =</span> <span class="st">"falk1992"</span>)</a></code></pre></div>
 <ul>
 <li>
 <strong>R2 &lt; 0.1</strong>: Negligible</li>
@@ -151,7 +151,7 @@
 <h4 class="hasAnchor">
 <a href="#cohen1988statistical" class="anchor"></a><span class="citation">Cohen (1988)</span>
 </h4>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(x, <span class="dt">rules =</span> <span class="st">"cohen1988"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(x, <span class="dt">rules =</span> <span class="st">"cohen1988"</span>)</a></code></pre></div>
 <ul>
 <li>
 <strong>R2 = 0 - 0.02</strong>: Very weak</li>
@@ -167,7 +167,7 @@
 <h4 class="hasAnchor">
 <a href="#chin1998partial" class="anchor"></a><span class="citation">Chin and others (1998)</span>
 </h4>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(x, <span class="dt">rules =</span> <span class="st">"chin1998"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(x, <span class="dt">rules =</span> <span class="st">"chin1998"</span>)</a></code></pre></div>
 <ul>
 <li>
 <strong>R2 = 0 - 0.19</strong>: Very weak</li>
@@ -183,7 +183,7 @@
 <h4 class="hasAnchor">
 <a href="#hair2011pls" class="anchor"></a><span class="citation">Hair, Ringle, and Sarstedt (2011)</span>
 </h4>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(x, <span class="dt">rules =</span> <span class="st">"hair2011"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(x, <span class="dt">rules =</span> <span class="st">"hair2011"</span>)</a></code></pre></div>
 <ul>
 <li>
 <strong>R2 = 0 - 0.25</strong>: Very weak</li>
@@ -200,7 +200,7 @@
 <h3 class="hasAnchor">
 <a href="#correlation-r" class="anchor"></a>Correlation <em>r</em>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="../reference/interpret_r.html">interpret_r</a></span>(x, <span class="dt">rules =</span> <span class="st">"funder2019"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="../reference/interpret_r.html">interpret_r</a></span>(x, <span class="dt">rules =</span> <span class="st">"funder2019"</span>)</a></code></pre></div>
 <ul>
 <li>
 <strong>r = 0 - 0.05</strong>: Very small</li>
@@ -218,7 +218,7 @@
 <a href="#gignac2016effect" class="anchor"></a><span class="citation">Gignac and Szodorai (2016)</span>
 </h4>
 <p>Gignac’s rules of thumb are actually one of few interpretation grid justified and based on actual data, in this case on the distribution of effect magnitudes in the litterature.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="../reference/interpret_r.html">interpret_r</a></span>(x, <span class="dt">rules =</span> <span class="st">"gignac2016"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="../reference/interpret_r.html">interpret_r</a></span>(x, <span class="dt">rules =</span> <span class="st">"gignac2016"</span>)</a></code></pre></div>
 <ul>
 <li>
 <strong>r = 0 - 0.1</strong>: Very small</li>
@@ -234,7 +234,7 @@
 <h4 class="hasAnchor">
 <a href="#cohen1988statistical-1" class="anchor"></a><span class="citation">Cohen (1988)</span>
 </h4>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="../reference/interpret_r.html">interpret_r</a></span>(x, <span class="dt">rules =</span> <span class="st">"cohen1988"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="../reference/interpret_r.html">interpret_r</a></span>(x, <span class="dt">rules =</span> <span class="st">"cohen1988"</span>)</a></code></pre></div>
 <ul>
 <li>
 <strong>r = 0 - 0.1</strong>: Very small</li>
@@ -250,7 +250,7 @@
 <h4 class="hasAnchor">
 <a href="#evans1996straightforward" class="anchor"></a><span class="citation">Evans (1996)</span>
 </h4>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw"><a href="../reference/interpret_r.html">interpret_r</a></span>(x, <span class="dt">rules =</span> <span class="st">"evans1996"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="../reference/interpret_r.html">interpret_r</a></span>(x, <span class="dt">rules =</span> <span class="st">"evans1996"</span>)</a></code></pre></div>
 <ul>
 <li>
 <strong>r = 0 - 0.2</strong>: Very weak</li>
@@ -269,7 +269,7 @@
 <h3 class="hasAnchor">
 <a href="#standardized-difference-d-cohens-d" class="anchor"></a>Standardized Difference <em>d</em> (Cohen’s <em>d</em>)</h3>
 <p>The sandardized difference can be obtained through the standardization of linear model’s parameters or data, in which they can be used as indices of effect size.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw"><a href="../reference/interpret_d.html">interpret_d</a></span>(x, <span class="dt">rules =</span> <span class="st">"funder2019"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="../reference/interpret_d.html">interpret_d</a></span>(x, <span class="dt">rules =</span> <span class="st">"funder2019"</span>)</a></code></pre></div>
 <ul>
 <li>
 <strong>r = 0 - 0.1</strong>: Very small</li>
@@ -287,7 +287,7 @@
 <a href="#gignac2016effect-1" class="anchor"></a><span class="citation">Gignac and Szodorai (2016)</span>
 </h4>
 <p>Gignac’s rules of thumb are actually one of few interpretation grid justified and based on actual data, in this case on the distribution of effect magnitudes in the litterature.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw"><a href="../reference/interpret_d.html">interpret_d</a></span>(x, <span class="dt">rules =</span> <span class="st">"gignac2016"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="../reference/interpret_d.html">interpret_d</a></span>(x, <span class="dt">rules =</span> <span class="st">"gignac2016"</span>)</a></code></pre></div>
 <ul>
 <li>
 <strong>d = 0 - 0.2</strong>: Very small</li>
@@ -303,7 +303,7 @@
 <h4 class="hasAnchor">
 <a href="#cohen1988statistical-2" class="anchor"></a><span class="citation">Cohen (1988)</span>
 </h4>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw"><a href="../reference/interpret_d.html">interpret_d</a></span>(x, <span class="dt">rules =</span> <span class="st">"cohen1988"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="../reference/interpret_d.html">interpret_d</a></span>(x, <span class="dt">rules =</span> <span class="st">"cohen1988"</span>)</a></code></pre></div>
 <ul>
 <li>
 <strong>d = 0 - 0.2</strong>: Very small</li>
@@ -319,7 +319,7 @@
 <h4 class="hasAnchor">
 <a href="#sawilowsky2009new" class="anchor"></a><span class="citation">Sawilowsky (2009)</span>
 </h4>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw"><a href="../reference/interpret_d.html">interpret_d</a></span>(x, <span class="dt">rules =</span> <span class="st">"sawilowsky2009"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="../reference/interpret_d.html">interpret_d</a></span>(x, <span class="dt">rules =</span> <span class="st">"sawilowsky2009"</span>)</a></code></pre></div>
 <ul>
 <li>
 <strong>d = 0 - 0.1</strong>: Tiny</li>
@@ -346,7 +346,7 @@
 <h4 class="hasAnchor">
 <a href="#chen2010big" class="anchor"></a><span class="citation">Chen, Cohen, and Chen (2010)</span>
 </h4>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw"><a href="../reference/interpret_odds.html">interpret_odds</a></span>(x, <span class="dt">rules =</span> <span class="st">"chen2010"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="../reference/interpret_odds.html">interpret_odds</a></span>(x, <span class="dt">rules =</span> <span class="st">"chen2010"</span>)</a></code></pre></div>
 <ul>
 <li>
 <strong>odds = 0 - 1.68</strong>: Very small</li>
@@ -362,9 +362,9 @@
 <h4 class="hasAnchor">
 <a href="#cohen1988statistical-3" class="anchor"></a><span class="citation">Cohen (1988)</span>
 </h4>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw"><a href="../reference/interpret_odds.html">interpret_odds</a></span>(x, <span class="dt">rules =</span> <span class="st">"cohen1988"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw"><a href="../reference/interpret_odds.html">interpret_odds</a></span>(x, <span class="dt">rules =</span> <span class="st">"cohen1988"</span>)</a></code></pre></div>
 <p>This converts (log) odds ratio to standardized difference <em>d</em> using the following formula <span class="citation">(Cohen 1988; Sánchez-Meca, Marı́n-Martı́nez, and Chacón-Moscoso 2003)</span>:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>d &lt;-<span class="st"> </span>log_odds <span class="op">*</span><span class="st"> </span>(<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(<span class="dv">3</span>) <span class="op">/</span><span class="st"> </span>pi)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">d &lt;-<span class="st"> </span>log_odds <span class="op">*</span><span class="st"> </span>(<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(<span class="dv">3</span>) <span class="op">/</span><span class="st"> </span>pi)</a></code></pre></div>
 </div>
 </div>
 <div id="omega-squared" class="section level3">
@@ -375,7 +375,7 @@
 <h4 class="hasAnchor">
 <a href="#field2013discovering" class="anchor"></a><span class="citation">Field (2013)</span>
 </h4>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw"><a href="../reference/interpret_omega_squared.html">interpret_omega_squared</a></span>(x, <span class="dt">rules =</span> <span class="st">"field2013"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw"><a href="../reference/interpret_omega_squared.html">interpret_omega_squared</a></span>(x, <span class="dt">rules =</span> <span class="st">"field2013"</span>)</a></code></pre></div>
 <ul>
 <li>
 <strong>Omega Squared = 0 - 0.01</strong>: Very small</li>
@@ -401,7 +401,7 @@
 <h4 class="hasAnchor">
 <a href="#jeffreys1961theory" class="anchor"></a><span class="citation">Jeffreys (1961)</span>
 </h4>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw"><a href="../reference/interpret_bf.html">interpret_bf</a></span>(x, <span class="dt">rules =</span> <span class="st">"jeffreys1961"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw"><a href="../reference/interpret_bf.html">interpret_bf</a></span>(x, <span class="dt">rules =</span> <span class="st">"jeffreys1961"</span>)</a></code></pre></div>
 <ul>
 <li>
 <strong>bf = 1 - 3</strong>: Anecdotal</li>
@@ -419,7 +419,7 @@
 <h4 class="hasAnchor">
 <a href="#raftery1995bayesian" class="anchor"></a><span class="citation">Raftery (1995)</span>
 </h4>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw"><a href="../reference/interpret_bf.html">interpret_bf</a></span>(x, <span class="dt">rules =</span> <span class="st">"raftery1995"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw"><a href="../reference/interpret_bf.html">interpret_bf</a></span>(x, <span class="dt">rules =</span> <span class="st">"raftery1995"</span>)</a></code></pre></div>
 <ul>
 <li>
 <strong>bf = 1 - 3</strong>: Weak</li>
@@ -445,7 +445,7 @@
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references hanging-indent">
+<div id="refs" class="references">
 <div id="ref-burkner2017brms">
 <p>Bürkner, Paul-Christian, and others. 2017. “Brms: An R Package for Bayesian Multilevel Models Using Stan.” <em>Journal of Statistical Software</em> 80 (1): 1–28.</p>
 </div>
@@ -507,8 +507,7 @@
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#why">Why?</a></li>
       <li>
-<a href="#supported-indices">Supported Indices</a>
-      <ul class="nav nav-pills nav-stacked">
+<a href="#supported-indices">Supported Indices</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#references">References</a></li>
       </ul>
 </li>

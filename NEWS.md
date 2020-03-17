@@ -1,3 +1,9 @@
+# effectsize 0.2.1
+
+## New features
+
+- New sffect sizes for contingency tables (`phi()` and `cramers_v()`).
+
 # effectsize 0.1.0
 
 ## Breaking changes

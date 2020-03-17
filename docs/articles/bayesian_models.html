@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@
 
       
 
-      </header><script src="bayesian_models_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Effect sizes for Bayesian models</h1>
@@ -127,31 +127,31 @@
 <div id="overview" class="section level3">
 <h3 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"ppcor"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>df &lt;-<span class="st"> </span>iris[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]  <span class="co"># Remove the Species factor</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>ppcor<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/ppcor/man/pcor.html">pcor</a></span>(df)<span class="op">$</span>estimate[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span>]  <span class="co"># Select the rows of interest</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"ppcor"</span>)</a>
+<a class="sourceLine" id="cb1-2" title="2">df &lt;-<span class="st"> </span>iris[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]  <span class="co"># Remove the Species factor</span></a>
+<a class="sourceLine" id="cb1-3" title="3">ppcor<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/ppcor/man/pcor.html">pcor</a></span>(df)<span class="op">$</span>estimate[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span>]  <span class="co"># Select the rows of interest</span></a></code></pre></div>
 <pre><code>&gt;  Sepal.Width Petal.Length  Petal.Width 
 &gt;         0.63         0.72        -0.34</code></pre>
 <p>The goal is to retrieve coefficients similar to the above <strong>(partial) correlations</strong> for this multiple regression model: <code>Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width</code>. This can easily be achieved for frequentist models by converting the <em>t</em> statistic into a correlation:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(effectsize)</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(parameters)</span>
-<span id="cb3-3"><a href="#cb3-3"></a></span>
-<span id="cb3-4"><a href="#cb3-4"></a>model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Sepal.Width <span class="op">+</span><span class="st"> </span>Petal.Length <span class="op">+</span><span class="st"> </span>Petal.Width, <span class="dt">data =</span> df) </span>
-<span id="cb3-5"><a href="#cb3-5"></a></span>
-<span id="cb3-6"><a href="#cb3-6"></a>parameters &lt;-<span class="st"> </span><span class="kw">model_parameters</span>(model)[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>,]</span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="kw"><a href="../reference/t_to_r.html">convert_t_to_r</a></span>(parameters<span class="op">$</span>t, parameters<span class="op">$</span>df_residual)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(effectsize)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(parameters)</a>
+<a class="sourceLine" id="cb3-3" title="3"></a>
+<a class="sourceLine" id="cb3-4" title="4">model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Sepal.Width <span class="op">+</span><span class="st"> </span>Petal.Length <span class="op">+</span><span class="st"> </span>Petal.Width, <span class="dt">data =</span> df) </a>
+<a class="sourceLine" id="cb3-5" title="5"></a>
+<a class="sourceLine" id="cb3-6" title="6">parameters &lt;-<span class="st"> </span><span class="kw">model_parameters</span>(model)[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>,]</a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="kw"><a href="../reference/t_to_r.html">convert_t_to_r</a></span>(parameters<span class="op">$</span>t, parameters<span class="op">$</span>df_residual)</a></code></pre></div>
 <pre><code>&gt; numeric(0)</code></pre>
 <p>Note that these are <em>not</em> equivalent to <em>standardized parameters</em> from multiple regressions (from which coefficients can be higher than 1).</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>(model)<span class="op">$</span>Std_Coefficient[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>(model)<span class="op">$</span>Std_Coefficient[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>]</a></code></pre></div>
 <pre><code>&gt; [1]  0.34  1.51 -0.51</code></pre>
 <p>Let’s start by fitting the Bayesian regression:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"rstanarm"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2"></a>model &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Sepal.Width <span class="op">+</span><span class="st"> </span>Petal.Length <span class="op">+</span><span class="st"> </span>Petal.Width, <span class="dt">data =</span> df) </span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"rstanarm"</span>)</a>
+<a class="sourceLine" id="cb7-2" title="2">model &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Sepal.Width <span class="op">+</span><span class="st"> </span>Petal.Length <span class="op">+</span><span class="st"> </span>Petal.Width, <span class="dt">data =</span> df) </a></code></pre></div>
 <p>The <strong>effectsize</strong> package provides the <code><a href="../reference/convert_posteriors_to_r.html">posteriors_to_r()</a></code> function, which attempts to estimate the posterior of the (partial) correlation coefficient by approximating the <em>t</em> statistic (deviding the coefficient by the SD of the posterior) and using frequentist degrees of freedom. It is an hybrid method that needs to be validated. However, the results appear as very close:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(bayestestR)</span>
-<span id="cb8-2"><a href="#cb8-2"></a></span>
-<span id="cb8-3"><a href="#cb8-3"></a>r &lt;-<span class="st"> </span><span class="kw"><a href="../reference/convert_posteriors_to_r.html">convert_posteriors_to_r</a></span>(model)</span>
-<span id="cb8-4"><a href="#cb8-4"></a>bayestestR<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bayestestR/man/describe_posterior.html">describe_posterior</a></span>(r)<span class="op">$</span>Median[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(bayestestR)</a>
+<a class="sourceLine" id="cb8-2" title="2"></a>
+<a class="sourceLine" id="cb8-3" title="3">r &lt;-<span class="st"> </span><span class="kw"><a href="../reference/convert_posteriors_to_r.html">convert_posteriors_to_r</a></span>(model)</a>
+<a class="sourceLine" id="cb8-4" title="4">bayestestR<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bayestestR/man/describe_posterior.html">describe_posterior</a></span>(r)<span class="op">$</span>Median[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>]</a></code></pre></div>
 </div>
 <div id="applicability" class="section level3">
 <h3 class="hasAnchor">
@@ -161,21 +161,21 @@
 <h4 class="hasAnchor">
 <a href="#logistic-models" class="anchor"></a>Logistic Models</h4>
 <p>Let’s start with the frequentist model:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(vs <span class="op">~</span><span class="st"> </span>cyl <span class="op">+</span><span class="st"> </span>disp <span class="op">+</span><span class="st"> </span>drat, <span class="dt">data =</span> mtcars, <span class="dt">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb9-2"><a href="#cb9-2"></a></span>
-<span id="cb9-3"><a href="#cb9-3"></a>parameters &lt;-<span class="st"> </span><span class="kw">model_parameters</span>(model)</span>
-<span id="cb9-4"><a href="#cb9-4"></a>parameters<span class="op">$</span>r &lt;-<span class="st"> </span><span class="kw"><a href="../reference/t_to_r.html">convert_z_to_r</a></span>(parameters<span class="op">$</span>z, <span class="dt">n =</span> insight<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/insight/man/n_obs.html">n_obs</a></span>(model))</span>
-<span id="cb9-5"><a href="#cb9-5"></a>parameters</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(vs <span class="op">~</span><span class="st"> </span>cyl <span class="op">+</span><span class="st"> </span>disp <span class="op">+</span><span class="st"> </span>drat, <span class="dt">data =</span> mtcars, <span class="dt">family =</span> <span class="st">"binomial"</span>)</a>
+<a class="sourceLine" id="cb9-2" title="2"></a>
+<a class="sourceLine" id="cb9-3" title="3">parameters &lt;-<span class="st"> </span><span class="kw">model_parameters</span>(model)</a>
+<a class="sourceLine" id="cb9-4" title="4">parameters<span class="op">$</span>r &lt;-<span class="st"> </span><span class="kw"><a href="../reference/t_to_r.html">convert_z_to_r</a></span>(parameters<span class="op">$</span>z, <span class="dt">n =</span> insight<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/insight/man/n_obs.html">n_obs</a></span>(model))</a>
+<a class="sourceLine" id="cb9-5" title="5">parameters</a></code></pre></div>
 <p>However, as logistic models return log-odds, these can be directly converted to <em>r</em>:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>parameters<span class="op">$</span>r_from_odds &lt;-<span class="st"> </span><span class="kw"><a href="../reference/d_to_r.html">convert_odds_to_r</a></span>(parameters<span class="op">$</span>Coefficient, <span class="dt">log =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb10-2"><a href="#cb10-2"></a>parameters</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">parameters<span class="op">$</span>r_from_odds &lt;-<span class="st"> </span><span class="kw"><a href="../reference/d_to_r.html">convert_odds_to_r</a></span>(parameters<span class="op">$</span>Coefficient, <span class="dt">log =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb10-2" title="2">parameters</a></code></pre></div>
 <p>And now the Bayesian:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>model &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(vs <span class="op">~</span><span class="st"> </span>cyl <span class="op">+</span><span class="st"> </span>disp <span class="op">+</span><span class="st"> </span>drat,, <span class="dt">data =</span> mtcars, <span class="dt">family =</span> <span class="st">"binomial"</span>) </span>
-<span id="cb11-2"><a href="#cb11-2"></a>parameters &lt;-<span class="st"> </span><span class="kw">model_parameters</span>(model)</span>
-<span id="cb11-3"><a href="#cb11-3"></a>r &lt;-<span class="st"> </span><span class="kw"><a href="../reference/convert_posteriors_to_r.html">convert_posteriors_to_r</a></span>(model)</span>
-<span id="cb11-4"><a href="#cb11-4"></a>parameters<span class="op">$</span>r &lt;-<span class="st"> </span>bayestestR<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bayestestR/man/describe_posterior.html">describe_posterior</a></span>(r)<span class="op">$</span>Median</span>
-<span id="cb11-5"><a href="#cb11-5"></a>parameters<span class="op">$</span>r_from_odds &lt;-<span class="st"> </span><span class="kw"><a href="../reference/d_to_r.html">convert_odds_to_r</a></span>(parameters<span class="op">$</span>Median, <span class="dt">log =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb11-6"><a href="#cb11-6"></a>parameters</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">model &lt;-<span class="st"> </span><span class="kw">stan_glm</span>(vs <span class="op">~</span><span class="st"> </span>cyl <span class="op">+</span><span class="st"> </span>disp <span class="op">+</span><span class="st"> </span>drat,, <span class="dt">data =</span> mtcars, <span class="dt">family =</span> <span class="st">"binomial"</span>) </a>
+<a class="sourceLine" id="cb11-2" title="2">parameters &lt;-<span class="st"> </span><span class="kw">model_parameters</span>(model)</a>
+<a class="sourceLine" id="cb11-3" title="3">r &lt;-<span class="st"> </span><span class="kw"><a href="../reference/convert_posteriors_to_r.html">convert_posteriors_to_r</a></span>(model)</a>
+<a class="sourceLine" id="cb11-4" title="4">parameters<span class="op">$</span>r &lt;-<span class="st"> </span>bayestestR<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bayestestR/man/describe_posterior.html">describe_posterior</a></span>(r)<span class="op">$</span>Median</a>
+<a class="sourceLine" id="cb11-5" title="5">parameters<span class="op">$</span>r_from_odds &lt;-<span class="st"> </span><span class="kw"><a href="../reference/d_to_r.html">convert_odds_to_r</a></span>(parameters<span class="op">$</span>Median, <span class="dt">log =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb11-6" title="6">parameters</a></code></pre></div>
 </div>
 </div>
 </div>

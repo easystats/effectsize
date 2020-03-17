@@ -13,6 +13,7 @@ reference:
   contents:
   - cohens_f
   - cohens_d
+  - phi
 - title: "Standardization"
   contents:
   - standardize
