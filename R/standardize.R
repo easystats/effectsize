@@ -30,7 +30,7 @@
 #'
 #' @note When \code{x} is a data frame or vector, missing values are preserved, so the return value has the same length / number of rows as the original input.
 #'
-#' @details If \code{x} is a model object, standardization is done by completely refitting the model on the standardized data. Hence, this approach is equal to standardizing the variables before fitting the model and will return a new model object. However, this method is particularly recommended for complex models that include interactions or transformations (e.g., polynomial or spline terms). The \code{robust} (default to \code{FALSE}) argument enables a robust standardization of data, i.e., based on the \code{median} and \code{MAD} instead of the \code{mean} and \code{SD}. See \code{\link{parameters_standardize}} for other methods of standardizing model coefficients.
+#' @details If \code{x} is a model object, standardization is done by completely refitting the model on the standardized data. Hence, this approach is equal to standardizing the variables before fitting the model and will return a new model object. However, this method is particularly recommended for complex models that include interactions or transformations (e.g., polynomial or spline terms). The \code{robust} (default to \code{FALSE}) argument enables a robust standardization of data, i.e., based on the \code{median} and \code{MAD} instead of the \code{mean} and \code{SD}. See \code{\link{standardize_parameters}} for other methods of standardizing model coefficients.
 #'
 #' @seealso \code{\link{normalize}} \code{\link{standardize_parameters}}
 #' @examples

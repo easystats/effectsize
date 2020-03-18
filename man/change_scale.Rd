@@ -48,7 +48,7 @@ change_scale(x, ...)
 A rescaled object.
 }
 \description{
-Rescale a numeric variable. This scales all numeric variables in the range 0 - 1.
+Rescale a numeric variable to a new range.
 }
 \examples{
 change_scale(c(0, 1, 5, -5, -2))

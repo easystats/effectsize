@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -174,7 +174,7 @@
   <span class='no'>...</span>
 )
 
-<span class='co'># S3 method for lm</span>
+<span class='co'># S3 method for default</span>
 <span class='fu'>standardize</span>(
   <span class='no'>x</span>,
   <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -248,6 +248,9 @@ response value will never be standardized, to make re-fitting the model work.</p
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The standardized object (either a standardize data frame or a statistical model fitted on standardized data).</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>If <code>x</code> is a model object, standardization is done by completely refitting the model on the standardized data. Hence, this approach is equal to standardizing the variables before fitting the model and will return a new model object. However, this method is particularly recommended for complex models that include interactions or transformations (e.g., polynomial or spline terms). The <code>robust</code> (default to <code>FALSE</code>) argument enables a robust standardization of data, i.e., based on the <code>median</code> and <code>MAD</code> instead of the <code>mean</code> and <code>SD</code>. See <code><a href='standardize_parameters.html'>standardize_parameters</a></code> for other methods of standardizing model coefficients.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>When <code>x</code> is a data frame or vector, missing values are preserved, so the return value has the same length / number of rows as the original input.</p>
@@ -285,6 +288,7 @@ response value will never be standardized, to make re-fitting the model work.</p
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#note">Note</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
