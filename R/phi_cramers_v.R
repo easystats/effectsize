@@ -21,6 +21,7 @@
 #'
 #' cramers_v(contingency_table)
 #'
+#' @importFrom stats chisq.test
 #' @export
 phi <- function(x, y = NULL, ...){
   res <- chisq.test(x, y, ...)

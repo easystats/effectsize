@@ -1,6 +1,6 @@
 #' Rescale a numeric variable
 #'
-#' Rescale a numeric variable. This scales all numeric variables in the range 0 - 1.
+#' Rescale a numeric variable to a new range.
 #'
 #' @inheritParams standardize.data.frame
 #'
