@@ -7,6 +7,8 @@ standardize.numeric <- function(x, robust = FALSE, two_sd = FALSE, verbose = TRU
     return(x)
   }
 
+  valid_x <- !is.na(x)
+  scaled_x <- rep(NA, length(x))
   x <- stats::na.omit(x)
 
   # Sanity checks
@@ -28,14 +30,15 @@ standardize.numeric <- function(x, robust = FALSE, two_sd = FALSE, verbose = TRU
   }
 
   if (two_sd) {
-    x <- as.vector((x - center) / 2 * scale)
+    x <- as.vector((x - center) / (2 * scale))
   } else {
     x <- as.vector((x - center) / scale)
   }
 
-  attr(x, "center") <- center
-  attr(x, "scale") <- scale
-  x
+  scaled_x[valid_x] <- x
+  attr(scaled_x, "center") <- center
+  attr(scaled_x, "scale") <- scale
+  scaled_x
 }
 
 
@@ -94,7 +97,7 @@ standardize.AsIs <- standardize.numeric
 
 
 #' @export
-standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, select = NULL, exclude = NULL, verbose = TRUE, force = FALSE, ...) {
+standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, select = NULL, exclude = NULL, verbose = TRUE, force = FALSE, append = FALSE, suffix = "_z", ...) {
   info <- attributes(x)
   # dplyr >= 0.8.0 returns attribute "indices"
   grps <- attr(x, "groups", exact = TRUE)
@@ -108,15 +111,29 @@ standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, select = N
   }
 
   x <- as.data.frame(x)
+  select <- .select_z_variables(x, select, exclude, force)
+
+  if (append) {
+    new_variables <- x[select]
+    if (!is.null(suffix)) {
+      colnames(new_variables) <- paste0(colnames(new_variables), suffix)
+    }
+    x <- cbind(x, new_variables)
+    select <- colnames(new_variables)
+    info$names <- c(info$names, select)
+  }
+
   for (rows in grps) {
     x[rows, ] <- standardize(
       x[rows, ],
       select = select,
-      exclude = exclude,
+      exclude = NULL,
       robust = robust,
       two_sd = two_sd,
       verbose = verbose,
       force = force,
+      append = FALSE,
+      suffix = NULL,
       ...
     )
   }
@@ -129,7 +146,33 @@ standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, select = N
 
 #' @rdname standardize
 #' @export
-standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, select = NULL, exclude = NULL, verbose = TRUE, force = FALSE, ...) {
+standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, select = NULL, exclude = NULL, verbose = TRUE, force = FALSE, append = FALSE, suffix = "_z", ...) {
+  select <- .select_z_variables(x, select, exclude, force)
+
+  if (append) {
+    new_variables <- x[select]
+    if (!is.null(suffix)) {
+      colnames(new_variables) <- paste0(colnames(new_variables), suffix)
+    }
+    x <- cbind(x, new_variables)
+    select <- colnames(new_variables)
+  }
+
+  x[select] <- lapply(x[select], standardize, robust = robust, two_sd = two_sd, verbose = FALSE, force = force)
+
+  attr(x, "center") <- sapply(x[select], function(z) attributes(z)$center)
+  attr(x, "scale") <- sapply(x[select], function(z) attributes(z)$scale)
+  x
+}
+
+
+
+
+
+# helper -----------------------------
+
+
+.select_z_variables <- function(x, select, exclude, force) {
   if (is.null(select)) {
     select <- names(x)
   }
@@ -138,13 +181,10 @@ standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, select = N
     select <- setdiff(select, exclude)
   }
 
-  for (i in 1:length(select)) {
-    .check_standardize_numeric(x[[select[i]]], name = select[i], verbose = verbose)
+  if (!force) {
+    factors <- sapply(x[select], function(i) is.factor(i) | is.character(i))
+    select <- select[!factors]
   }
 
-  x[select] <- lapply(x[select], standardize, robust = robust, two_sd = two_sd, verbose = FALSE, force = force)
-
-  attr(x, "center") <- sapply(x[select], function(z) attributes(z)$center)
-  attr(x, "scale") <- sapply(x[select], function(z) attributes(z)$scale)
-  x
+  select
 }

@@ -9,9 +9,9 @@ standardize_info(model, robust = FALSE, ...)
 \arguments{
 \item{model}{A statistical model.}
 
-\item{robust}{Logical, if \code{TRUE}, centering is done by substracting the
+\item{robust}{Logical, if \code{TRUE}, centering is done by subtracting the
 median from the variables and dividing it by the median absolute deviation
-(MAD). If \code{FALSE}, variables are standardized by substracting the
+(MAD). If \code{FALSE}, variables are standardized by subtracting the
 mean and dividing it by the standard deviation (SD).}
 
 \item{...}{Arguments passed to or from other methods.}

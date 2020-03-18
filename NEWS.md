@@ -3,10 +3,25 @@
 ## New features
 
 - New sffect sizes for contingency tables (`phi()` and `cramers_v()`).
+- `standardize()` for model-objects has a default-method, which usually accepts all models. Exception for model-objects that do not work will be added if missing.
+- `standardize.data.frame()` gets `append` and `suffix` arguments, to add (instead of replace) standardized variables to the returned data frame.
+
 
 # effectsize 0.1.0
 
-## Breaking changes
+## Bug fixes
+
+- `standardize.data.frame()` did not work when variables had missing values.
+- Fixed wrong computation in `standardize()` when `two_sd = TRUE`.
+- Fixed bug with missing column names in `standardize_parameters()` for models with different components (like count and zero-inflation).
+
+# effectsize 0.2.0
+
+## Changes
+
+- News are hidden in an air of mystery...
+
+# effectsize 0.1.0
 
 ## New features
 

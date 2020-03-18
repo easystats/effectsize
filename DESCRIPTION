@@ -1,7 +1,7 @@
 Package: effectsize
 Type: Package
 Title: Indices of Effect Size and Standardized Parameters
-Version: 0.2.1
+Version: 0.3.0
 Authors@R: c(
     person("Dominique", 
 		"Makowski", 
@@ -56,6 +56,7 @@ Suggests:
 	MuMIn,
 	performance,
 	ppcor,
+	rlang,
 	rmarkdown,
 	rstan,
 	rstanarm,

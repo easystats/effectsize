@@ -245,7 +245,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
     params <- insight::get_parameters(model, ...)
   } else {
     params <- insight::get_parameters(model, ...)
-    names(params) <- c("Parameter", "Std_Coefficient")
+    names(params)[2] <- "Std_Coefficient"
   }
   params
 }

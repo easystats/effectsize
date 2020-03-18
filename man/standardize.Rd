@@ -4,7 +4,7 @@
 \name{standardize}
 \alias{standardize}
 \alias{standardize.data.frame}
-\alias{standardize.lm}
+\alias{standardize.default}
 \title{Standardization (Z-scoring)}
 \usage{
 standardize(x, ...)
@@ -17,10 +17,12 @@ standardize(x, ...)
   exclude = NULL,
   verbose = TRUE,
   force = FALSE,
+  append = FALSE,
+  suffix = "_z",
   ...
 )
 
-\method{standardize}{lm}(
+\method{standardize}{default}(
   x,
   robust = FALSE,
   two_sd = FALSE,
@@ -30,13 +32,13 @@ standardize(x, ...)
 )
 }
 \arguments{
-\item{x}{A dataframe, a vector or a statistical model.}
+\item{x}{A data frame, a vector or a statistical model.}
 
 \item{...}{Arguments passed to or from other methods.}
 
-\item{robust}{Logical, if \code{TRUE}, centering is done by substracting the
+\item{robust}{Logical, if \code{TRUE}, centering is done by subtracting the
 median from the variables and dividing it by the median absolute deviation
-(MAD). If \code{FALSE}, variables are standardized by substracting the
+(MAD). If \code{FALSE}, variables are standardized by subtracting the
 mean and dividing it by the standard deviation (SD).}
 
 \item{two_sd}{If \code{TRUE}, the variables are scaled by two times the deviation (SD or MAD depending on \code{robust}). This method can be useful to obtain model coefficients of continuous parameters comparable to coefficients related to binary predictors (Gelman, 2008).}
@@ -52,19 +54,32 @@ well. Factors are converted to numerical values, with the lowest level
 being the value \code{1} (unless the factor has numeric levels, which are
 converted to the corresponding numeric value).}
 
+\item{append}{Logical, if \code{TRUE} and \code{x} is a data frame, standardized
+variables will be added as additional columns; if \code{FALSE},
+existing variables are overwritten.}
+
+\item{suffix}{Character value, will be appended to variable (column) names of
+\code{x}, if \code{x} is a data frame and \code{append = TRUE}.}
+
 \item{include_response}{For a model, if \code{TRUE} (default), the response value
 will also be standardized. If \code{FALSE}, only the predictors will be standardized.
 Note that for certain models (logistic regression, count models, ...), the
 response value will never be standardized, to make re-fitting the model work.}
 }
 \value{
-The standardized object (either a standardize dataframe or a statistical model fitted on standardized data).
+The standardized object (either a standardize data frame or a statistical model fitted on standardized data).
 }
 \description{
-Performs a standardization of data (Z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The \code{\link{normalize}} function can also be used to scale all numeric variables within the 0 - 1 range.
+Performs a standardization of data (z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The \code{\link{normalize}} function can also be used to scale all numeric variables within the 0 - 1 range.
+}
+\details{
+If \code{x} is a model object, standardization is done by completely refitting the model on the standardized data. Hence, this approach is equal to standardizing the variables before fitting the model and will return a new model object. However, this method is particularly recommended for complex models that include interactions or transformations (e.g., polynomial or spline terms). The \code{robust} (default to \code{FALSE}) argument enables a robust standardization of data, i.e., based on the \code{median} and \code{MAD} instead of the \code{mean} and \code{SD}. See \code{\link{standardize_parameters}} for other methods of standardizing model coefficients.
+}
+\note{
+When \code{x} is a data frame or vector, missing values are preserved, so the return value has the same length / number of rows as the original input.
 }
 \examples{
-# Dataframes
+# Data frames
 summary(standardize(iris))
 
 # Models
