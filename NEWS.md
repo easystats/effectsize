@@ -4,6 +4,7 @@
 
 - New sffect sizes for contingency tables (`phi()` and `cramers_v()`).
 - `F_to_eta2()` family of functions now support CIs (via the ncp method), and return a data frame.
+- `t_to_d()` and `t_to_r()` now support CIs (via the ncp method), and return a data frame.
 - `standardize()` for model-objects has a default-method, which usually accepts all models. Exception for model-objects that do not work will be added if missing.
 - `standardize.data.frame()` gets `append` and `suffix` arguments, to add (instead of replace) standardized variables to the returned data frame.
 

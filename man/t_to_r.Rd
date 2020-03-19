@@ -8,64 +8,53 @@
 \alias{F_to_d}
 \alias{convert_F_to_d}
 \alias{t_to_r}
-\alias{r_to_t}
-\alias{z_to_r}
-\alias{r_to_z}
-\alias{F_to_r}
 \alias{convert_t_to_r}
-\alias{convert_r_to_t}
+\alias{z_to_r}
 \alias{convert_z_to_r}
-\alias{convert_r_to_z}
+\alias{F_to_r}
 \alias{convert_F_to_r}
 \title{Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (\strong{partial} r)}
 \usage{
-t_to_d(t, df_error, pooled = FALSE, ...)
+t_to_d(t, df_error, pooled = FALSE, CI = 0.95, ...)
 
-convert_t_to_d(t, df_error, pooled = FALSE, ...)
+convert_t_to_d(t, df_error, pooled = FALSE, CI = 0.95, ...)
 
-z_to_d(z, n, ...)
+z_to_d(z, n, pooled = FALSE, CI = 0.95, ...)
 
-convert_z_to_d(z, n, ...)
+convert_z_to_d(z, n, pooled = FALSE, CI = 0.95, ...)
 
-F_to_d(f, df, df_error, pooled = FALSE, ...)
+F_to_d(f, df, df_error, pooled = FALSE, CI = 0.95, ...)
 
-convert_F_to_d(f, df, df_error, pooled = FALSE, ...)
+convert_F_to_d(f, df, df_error, pooled = FALSE, CI = 0.95, ...)
 
-t_to_r(t, n = NULL, df_error = NULL, ...)
+t_to_r(t, df_error, CI = 0.95, ...)
 
-r_to_t(r, n = NULL, df_error = NULL, ...)
+convert_t_to_r(t, df_error, CI = 0.95, ...)
 
-z_to_r(z, n = NULL, df_error = NULL, ...)
+z_to_r(z, n, CI = 0.95, ...)
 
-r_to_z(r, n = NULL, df_error = NULL, ...)
+convert_z_to_r(z, n, CI = 0.95, ...)
 
-F_to_r(f, df, df_error = NULL, n = NULL, ...)
+F_to_r(f, df, df_error = NULL, n = NULL, CI = 0.95, ...)
 
-convert_t_to_r(t, n = NULL, df_error = NULL, ...)
-
-convert_r_to_t(r, n = NULL, df_error = NULL, ...)
-
-convert_z_to_r(z, n = NULL, df_error = NULL, ...)
-
-convert_r_to_z(r, n = NULL, df_error = NULL, ...)
-
-convert_F_to_r(f, df, df_error = NULL, n = NULL, ...)
+convert_F_to_r(f, df, df_error = NULL, n = NULL, CI = 0.95, ...)
 }
 \arguments{
 \item{t, f, z}{The t, the F or the z statistics.}
 
 \item{pooled}{Should the estimate accout for the t-value being based on a repeated-measures design, or not (default).}
 
-\item{...}{Arguments passed to or from other methods.}
+\item{CI}{Confidence Interval (CI) level}
+
+\item{...}{Arguments passed to or from other methods.
+
+#' @return A data frame with the effect size(s) between 0-1, and confidence interval(s)}
 
 \item{n}{The number of observations (the sample size).}
 
 \item{df, df_error}{Degrees of freedom of numerator or of the error estimate (i.e., the residuals).}
 
 \item{r}{The correlation coefficient r.}
-}
-\value{
-A numeric value of the requested effect size.
 }
 \description{
 These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
@@ -84,6 +73,13 @@ These functions use the following formulae:
 \deqn{Cohen's d_z = t / \sqrt{df_{error}}}
 \cr\cr
 \deqn{Cohen's d = 2 * z / \sqrt{N}}
+
+\subsection{Confidence Intervals}{
+Confidence intervals are estimated using the Noncentrality parameter method;
+These methods searches for a the best \code{ncp} (non-central parameters) for
+of the noncentral F distribution for the desired tail-probabilities,
+and then convert these \code{ncp}s to the corresponding effect sizes.
+}
 }
 \examples{
 ## t Tests
@@ -123,5 +119,7 @@ if (require("ppcor")) {
   \item Friedman, H. (1982). Simplified determinations of statistical power, magnitude of effect and research sample sizes. Educational and Psychological Measurement, 42(2), 521-526. \doi{10.1177/001316448204200214}
   \item Wolf, F. M. (1986). Meta-analysis: Quantitative methods for research synthesis (Vol. 59). Sage.
   \item Rosenthal, R. (1991). Meta-analytic procedures for social research. Newbury Park, CA: SAGE Publications, Incorporated.
+  \item Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
+  \item Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
 }
 }

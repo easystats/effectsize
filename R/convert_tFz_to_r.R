@@ -11,9 +11,10 @@
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
 #' @param n The number of observations (the sample size).
 #' @param pooled Should the estimate accout for the t-value being based on a repeated-measures design, or not (default).
+#' @param CI Confidence Interval (CI) level
 #' @param ... Arguments passed to or from other methods.
 #'
-#' @return A numeric value of the requested effect size.
+#' #' @return A data frame with the effect size(s) between 0-1, and confidence interval(s)
 #'
 #' @details These functions use the following formulae:
 #' \cr\cr
@@ -26,6 +27,13 @@
 #' \deqn{Cohen's d_z = t / \sqrt{df_{error}}}
 #' \cr\cr
 #' \deqn{Cohen's d = 2 * z / \sqrt{N}}
+#'
+#' \subsection{Confidence Intervals}{
+#' Confidence intervals are estimated using the Noncentrality parameter method;
+#' These methods searches for a the best \code{ncp} (non-central parameters) for
+#' of the noncentral F distribution for the desired tail-probabilities,
+#' and then convert these \code{ncp}s to the corresponding effect sizes.
+#' }
 #'
 #' @examples
 #' ## t Tests
@@ -64,26 +72,32 @@
 #'   \item Friedman, H. (1982). Simplified determinations of statistical power, magnitude of effect and research sample sizes. Educational and Psychological Measurement, 42(2), 521-526. \doi{10.1177/001316448204200214}
 #'   \item Wolf, F. M. (1986). Meta-analysis: Quantitative methods for research synthesis (Vol. 59). Sage.
 #'   \item Rosenthal, R. (1991). Meta-analytic procedures for social research. Newbury Park, CA: SAGE Publications, Incorporated.
+#'   \item Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
+#'   \item Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
 #' }
 #'
 #' @export
-t_to_r <- function(t, n = NULL, df_error = NULL, ...) {
-  if (is.null(df_error) & !is.null(n)) {
-    df_error <- n - 2
-  }
-  t / sqrt(t^2 + df_error)
-}
+t_to_r <- function(t, df_error, CI = 0.95, ...) {
 
+  res <- data.frame(r = t / sqrt(t^2 + df_error))
+
+  if (is.numeric(CI)) {
+    stopifnot(length(CI) == 1, CI < 1, CI > 0)
+    res$CI <- CI
+
+    ts <- t(mapply(.get_ncp_t,
+                   t, df_error, CI))
+
+    res$CI_low <- ts[,1] / sqrt(ts[,1]^2 + df_error)
+    res$CI_high <- ts[,2] / sqrt(ts[,2]^2 + df_error)
+  }
+
+  return(res)
+}
 
 #' @rdname t_to_r
 #' @export
-r_to_t <- function(r, n = NULL, df_error = NULL, ...){
-  if (is.null(df_error) & !is.null(n)) {
-    df_error <- n - 2
-  }
-  sign(r) * sqrt(-(r^2 * df_error) / (r^2 - 1))
-}
-
+convert_t_to_r <- t_to_r
 
 # z -----------------------------------------------------------------------
 
@@ -91,62 +105,45 @@ r_to_t <- function(r, n = NULL, df_error = NULL, ...){
 
 #' @rdname t_to_r
 #' @export
-z_to_r <- function(z, n = NULL, df_error = NULL, ...) {
-  if (is.null(n) & !is.null(df_error)) {
-    n <- df_error + 2
+z_to_r <- function(z, n, CI = 0.95, ...) {
+
+  res <- data.frame(r = z / sqrt(z^2 + n))
+
+  if (is.numeric(CI)) {
+    stopifnot(length(CI) == 1, CI < 1, CI > 0)
+    res$CI <- CI
+
+    alpha <- 1 - CI
+    probs <- c(alpha / 2, 1 - alpha / 2)
+
+    qs <- qnorm(probs)
+    zs <- cbind(qs[1] + z, qs[2] + z)
+
+    res$CI_low <- zs[,1] / sqrt(zs[,1]^2 + n)
+    res$CI_high <- zs[,2] / sqrt(zs[,2]^2 + n)
   }
-  z / sqrt(z^2 + n)
+
+  return(res)
 }
-
-
-
-#' @rdname t_to_r
-#' @export
-r_to_z <- function(r, n = NULL, df_error = NULL, ...) {
-  if (is.null(n) & !is.null(df_error)) {
-    n <- df_error + 2
-  }
-  sign(r) * sqrt(-(r^2 * n) / (r^2 - 1))
-}
-
-# F -----------------------------------------------------------------------
-
-
-
-#' @rdname t_to_r
-#' @export
-F_to_r <- function(f, df, df_error = NULL, n = NULL, ...) {
-  if (df > 1) {
-    stop("Cannot convert F with more than 1 df to r.")
-  }
-  t_to_r(sqrt(f), n = n, df_error = df_error)
-}
-
-
-
-# Aliases -----------------------------------------------------------------
-
-#' @rdname t_to_r
-#' @export
-convert_t_to_r <- t_to_r
-
-#' @rdname t_to_r
-#' @export
-convert_r_to_t <- r_to_t
-
-
 
 #' @rdname t_to_r
 #' @export
 convert_z_to_r <- z_to_r
 
+# F -----------------------------------------------------------------------
+
 #' @rdname t_to_r
 #' @export
-convert_r_to_z <- r_to_z
-
-
-
+F_to_r <- function(f, df, df_error = NULL, n = NULL, CI = 0.95, ...) {
+  if (df > 1) {
+    stop("Cannot convert F with more than 1 df to r.")
+  }
+  t_to_r(sqrt(f), n = n, df_error = df_error, CI = CI)
+}
 
 #' @rdname t_to_r
 #' @export
 convert_F_to_r <- F_to_r
+
+
+
