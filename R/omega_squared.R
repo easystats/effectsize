@@ -178,14 +178,10 @@ omega_squared.merMod <- function(model, partial = TRUE, ci = NULL, iterations = 
 
 #' @keywords internal
 .omega_square_from_F <- function(.data, ci = NULL) {
-  .data$Omega_Sq_partial <- F_to_omega2(.data$`F`, .data$df, .data$df2)
-
-  if (is.numeric(ci)) {
-    warning("CI not implemented yet for Partial Omega squared.")
-  }
+  .data <- cbind(.data, F_to_omega2(.data$`F`, .data$df, .data$df2, ci))
 
   rownames(.data) <- NULL
-  .data <- .data[, colnames(.data) %in% c("Parameter", "Omega_Sq_partial")]
+  .data <- .data[, colnames(.data) %in% c("Parameter", "Omega_Sq_partial", "CI", "CI_low", "CI_high")]
   class(.data) <- c("partial_eta_squared", class(.data))
   .data
 }

@@ -100,10 +100,10 @@ epsilon_squared.merMod <- function(model, partial = TRUE) {
 
 #' @keywords internal
 .epsilon_square_from_F <- function(.data) {
-  .data$Epsilon_Sq_partial <- F_to_epsilon2(.data$`F`, .data$df, .data$df2)
+  .data <- cbind(.data, F_to_epsilon2(.data$`F`, .data$df, .data$df2, ci))
 
   rownames(.data) <- NULL
-  .data <- .data[, colnames(.data) %in% c("Parameter", "Epsilon_Sq_partial")]
+  .data <- .data[, colnames(.data) %in% c("Parameter", "Epsilon_Sq_partial", "CI", "CI_low", "CI_high")]
   class(.data) <- c("partial_epsilon_squared", class(.data))
   .data
 }
