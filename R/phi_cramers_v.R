@@ -20,11 +20,10 @@
 #' phi(contingency_table)
 #'
 #' cramers_v(contingency_table)
-#'
 #' @importFrom stats chisq.test
 #' @export
 phi <- function(x, y = NULL, ...){
-  res <- chisq.test(x, y, ...)
+  res <- stats::chisq.test(x, y, ...)
 
   chisq_to_phi(unname(res$statistic),
                n = sum(x))
@@ -33,7 +32,7 @@ phi <- function(x, y = NULL, ...){
 #' @rdname phi
 #' @export
 cramers_v <- function(x, y = NULL, ...){
-  res <- chisq.test(x, y, ...)
+  res <- stats::chisq.test(x, y, ...)
 
   chisq_to_cramers_v(unname(res$statistic),
                      n = sum(x),

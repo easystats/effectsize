@@ -35,5 +35,4 @@ contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 2
 phi(contingency_table)
 
 cramers_v(contingency_table)
-
 }
