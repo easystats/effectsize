@@ -107,11 +107,21 @@ library(parameters)
 
 t_to_r(param_tab$t[2:3], param_tab$df_error[2:3])
 # > [1] 0.5781005 0.9153894
+
+## Use with emmeans based contrasts (see also t_to_eta2)
+if (require(emmeans) & require(dplyr)) {
+  warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
+
+  emmeans(warp.lm,  ~ tension | wool) \%>\%
+    contrast("pairwise") \%>\%
+    summary() \%>\%
+    bind_cols(t_to_d(.$t.ratio, .$df))
 }
 
 # How does this compare to actual partial correlations?
 if (require("ppcor")) {
   pcor(iris[1:3])$estimate[1, -1]
+}
 }
 }
 \references{
