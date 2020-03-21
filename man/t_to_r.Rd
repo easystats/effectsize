@@ -46,15 +46,16 @@ convert_F_to_r(f, df, df_error = NULL, n = NULL, CI = 0.95, ...)
 
 \item{CI}{Confidence Interval (CI) level}
 
-\item{...}{Arguments passed to or from other methods.
-
-#' @return A data frame with the effect size(s) between 0-1, and confidence interval(s)}
+\item{...}{Arguments passed to or from other methods.}
 
 \item{n}{The number of observations (the sample size).}
 
 \item{df, df_error}{Degrees of freedom of numerator or of the error estimate (i.e., the residuals).}
 
 \item{r}{The correlation coefficient r.}
+}
+\value{
+A data frame with the effect size(s) between 0-1, and confidence interval(s)
 }
 \description{
 These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
@@ -90,9 +91,6 @@ t_to_r(t = res$statistic, res$parameter)
 res <- with(sleep, t.test(extra[group == 1], extra[group == 2], paired = TRUE))
 t_to_d(t = res$statistic, res$parameter, pooled = TRUE)
 t_to_r(t = res$statistic, res$parameter)
-
-res <- cor.test(iris$Sepal.Width, iris$Petal.Width)
-t_to_r(t = res$statistic, n = 150)
 
 \donttest{
 ## Linear Regression

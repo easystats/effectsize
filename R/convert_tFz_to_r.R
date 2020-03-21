@@ -14,7 +14,9 @@
 #' @param CI Confidence Interval (CI) level
 #' @param ... Arguments passed to or from other methods.
 #'
-#' #' @return A data frame with the effect size(s) between 0-1, and confidence interval(s)
+#'
+#' @return A data frame with the effect size(s) between 0-1, and confidence interval(s)
+#'
 #'
 #' @details These functions use the following formulae:
 #' \cr\cr
@@ -44,9 +46,6 @@
 #' res <- with(sleep, t.test(extra[group == 1], extra[group == 2], paired = TRUE))
 #' t_to_d(t = res$statistic, res$parameter, pooled = TRUE)
 #' t_to_r(t = res$statistic, res$parameter)
-#'
-#' res <- cor.test(iris$Sepal.Width, iris$Petal.Width)
-#' t_to_r(t = res$statistic, n = 150)
 #'
 #' \donttest{
 #' ## Linear Regression
