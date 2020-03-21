@@ -10,7 +10,7 @@ matrix:
     - os: osx
       dist: oldrel
     - os: osx
-      dist: release
+      dist: release 
       
       
 
