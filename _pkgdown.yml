@@ -44,7 +44,6 @@ reference:
 - title: "Conversion"
   contents:
   - chisq_to_phi
-  - convert_posteriors_to_r
   - convert_z_to_percentile
   - t_to_r
   - percentage_to_d
@@ -73,9 +72,7 @@ navbar:
         href: articles/standardize_parameters.html
   - text: Effect sizes
     menu:
-      - text: 'Bayesian models'
-        href: articles/bayesian_models.html
-  - text: Effect size conversion
-    href: articles/convert.html
-  - text: Interpretation Guidelines
-    href: articles/interpret.html
+      - text: Effect size conversion
+        href: articles/convert.html
+      - text: Interpretation Guidelines
+        href: articles/interpret.html
