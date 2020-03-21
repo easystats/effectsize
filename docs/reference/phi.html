@@ -118,15 +118,12 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/bayesian_models.html">Bayesian models</a>
+      <a href="../articles/convert.html">Effect size conversion</a>
+    </li>
+    <li>
+      <a href="../articles/interpret.html">Interpretation Guidelines</a>
     </li>
   </ul>
-</li>
-<li>
-  <a href="../articles/convert.html">Effect size conversion</a>
-</li>
-<li>
-  <a href="../articles/interpret.html">Interpretation Guidelines</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -194,8 +191,7 @@ $$\phi = \sqrt{\chi^2 / n}$$</p>
     <pre class="examples"><div class='input'><span class='no'>contingency_table</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>762</span>, <span class='fl'>327</span>, <span class='fl'>468</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>)))
 
 <span class='fu'>phi</span>(<span class='no'>contingency_table</span>)</div><div class='output co'>#&gt; [1] 0.1020804</div><div class='input'>
-<span class='fu'>cramers_v</span>(<span class='no'>contingency_table</span>)</div><div class='output co'>#&gt; [1] 0.07218172</div><div class='input'>
-</div></pre>
+<span class='fu'>cramers_v</span>(<span class='no'>contingency_table</span>)</div><div class='output co'>#&gt; [1] 0.07218172</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -118,15 +118,12 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/bayesian_models.html">Bayesian models</a>
+      <a href="../articles/convert.html">Effect size conversion</a>
+    </li>
+    <li>
+      <a href="../articles/interpret.html">Interpretation Guidelines</a>
     </li>
   </ul>
-</li>
-<li>
-  <a href="../articles/convert.html">Effect size conversion</a>
-</li>
-<li>
-  <a href="../articles/interpret.html">Interpretation Guidelines</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -158,19 +155,19 @@
     <p>These functions are convenience functions to convert F and t test statistics to <strong>partial</strong> Eta squared, (\(\eta{_p}^2\)), Omega squared (\(\omega{_p}^2\)) and Epsilon squared (\(\epsilon{_p}^2\); an alias for the adjusted Eta squared). These are useful in cases where the various Sum of Squares and Mean Squares are not easily available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.). For test statistics derived from <code>lm</code> and <code>aov</code> models, these functions give exact results. For all other cases, they return close approximations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>F_to_eta2</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>F_to_eta2</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='kw'>CI</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='no'>...</span>)
 
 <span class='fu'>t_to_eta2</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
 
-<span class='fu'>F_to_epsilon2</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
+<span class='fu'>F_to_epsilon2</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='kw'>CI</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='no'>...</span>)
 
 <span class='fu'>t_to_epsilon2</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
 
-<span class='fu'>F_to_eta2_adj</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
+<span class='fu'>F_to_eta2_adj</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='kw'>CI</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='no'>...</span>)
 
 <span class='fu'>t_to_eta2_adj</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
 
-<span class='fu'>F_to_omega2</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)
+<span class='fu'>F_to_omega2</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='kw'>CI</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='no'>...</span>)
 
 <span class='fu'>t_to_omega2</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='no'>...</span>)</pre>
 
@@ -180,6 +177,10 @@
     <tr>
       <th>df, df_error</th>
       <td><p>Degrees of freedom of numerator or of the error estimate (i.e., the residuals).</p></td>
+    </tr>
+    <tr>
+      <th>CI</th>
+      <td><p>Confidence Interval (CI) level</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -193,7 +194,7 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A numeric value between 0-1 (Note that for \(\omega_p^2\) and \(\epsilon_p^2\)
+    <p>A data frame with the effect size(s) between 0-1, and confidence interval(s) (Note that for \(\omega_p^2\) and \(\epsilon_p^2\)
 it is possible to compute a negative number; even though this doesn't make any practical sense,
 it is recommended to report the negative number and not a 0).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -206,7 +207,12 @@ $$\epsilon_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den}}$$
 <br /><br />
 $$\omega_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den} + 1}$$
 <br /><br /><br />
-For \(t\), the conversion is based on the equality of \(t^2 = F\) when \(df_{num}=1\).</p>
+For \(t\), the conversion is based on the equality of \(t^2 = F\) when \(df_{num}=1\).</p><h3>Confidence Intervals</h3>
+<p>Confidence intervals are estimated using the Noncentrality parameter method;
+These methods searches for a the best <code>ncp</code> (non-central parameters) for
+of the noncentral F distribution for the desired tail-probabilities,
+and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
+
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>\(Adj. \eta_p^2\) is an alias for \(\epsilon_p^2\).</p>
@@ -217,6 +223,8 @@ For \(t\), the conversion is based on the equality of \(t^2 = F\) when \(df_{num
 <li><p>Friedman, H. (1982). Simplified determinations of statistical power, magnitude of effect and research sample sizes. Educational and Psychological Measurement, 42(2), 521-526. doi: <a href='https://doi.org/10.1177/001316448204200214'>10.1177/001316448204200214</a></p></li>
 <li><p>Mordkoff, J. T. (2019). A Simple Method for Removing Bias From a Popular Measure of Standardized Effect Size: Adjusted Partial Eta Squared. Advances in Methods and Practices in Psychological Science, 2(3), 228-232. doi: <a href='https://doi.org/10.1177/2515245919855053'>10.1177/2515245919855053</a></p></li>
 <li><p>Albers, C., &amp; Lakens, D. (2018). When power analyses based on pilot data are biased: Inaccurate effect size estimators and follow-up bias. Journal of experimental social psychology, 74, 187-195. doi: <a href='https://doi.org/10.31234/osf.io/b7z4q'>10.31234/osf.io/b7z4q</a></p></li>
+<li><p>Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.</p></li>
+<li><p>Cumming, G., &amp; Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.</p></li>
 </ul>
 
 
@@ -228,7 +236,7 @@ For \(t\), the conversion is based on the equality of \(t^2 = F\) when \(df_{num
     <span class='kw'>within</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"angle"</span>, <span class='st'>"noise"</span>),
     <span class='kw'>anova_table</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>correction</span> <span class='kw'>=</span> <span class='st'>"none"</span>, <span class='kw'>es</span> <span class='kw'>=</span> <span class='st'>"pes"</span>)
   )
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: afex</span></div><div class='output co'>#&gt; <span class='warning'>Warning: package 'afex' was built under R version 3.6.3</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: lme4</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='output co'>#&gt; <span class='message'>Registered S3 methods overwritten by 'car':</span>
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: afex</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: lme4</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='output co'>#&gt; <span class='message'>Registered S3 methods overwritten by 'car':</span>
 #&gt; <span class='message'>  method                          from</span>
 #&gt; <span class='message'>  influence.merMod                lme4</span>
 #&gt; <span class='message'>  cooks.distance.influence.merMod lme4</span>
@@ -253,7 +261,14 @@ For \(t\), the conversion is based on the equality of \(t^2 = F\) when \(df_{num
 #&gt; 3 angle:noise 2, 18 1160.00 45.31 *** .83  &lt;.0001
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1</div><div class='input'><span class='co'># compare to:</span>
-<span class='fu'>F_to_eta2</span>(<span class='fl'>40.72</span>, <span class='fl'>2</span>, <span class='fl'>18</span>)</div><div class='output co'>#&gt; [1] 0.8189863</div><div class='input'><span class='fu'>F_to_eta2</span>(<span class='fl'>33.77</span>, <span class='fl'>1</span>, <span class='fl'>9</span>)</div><div class='output co'>#&gt; [1] 0.7895721</div><div class='input'><span class='fu'>F_to_eta2</span>(<span class='fl'>45.31</span>, <span class='fl'>2</span>, <span class='fl'>18</span>)</div><div class='output co'>#&gt; [1] 0.8342847</div><div class='input'>
+<span class='fu'>F_to_eta2</span>(
+  <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>40.72</span>, <span class='fl'>33.77</span>, <span class='fl'>45.31</span>),
+  <span class='kw'>df</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>2</span>),
+  <span class='kw'>df_error</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>18</span>, <span class='fl'>9</span>, <span class='fl'>18</span>)
+)</div><div class='output co'>#&gt;   Eta_Sq_partial  CI    CI_low   CI_high
+#&gt; 1      0.8189863 0.9 0.6604136 0.8865963
+#&gt; 2      0.7895721 0.9 0.4922275 0.8887108
+#&gt; 3      0.8342847 0.9 0.6880421 0.8962630</div><div class='input'>
 
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"lmerTest"</span>)) { <span class='co'># for the df_error</span>
   <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lmerTest/man/lmer.html'>lmer</a></span>(<span class='no'>extra</span> ~ <span class='no'>group</span> + (<span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>ID</span>), <span class='no'>sleep</span>)
@@ -271,7 +286,27 @@ For \(t\), the conversion is based on the equality of \(t^2 = F\) when \(df_{num
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    lmer</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:stats':</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    step</span></div><div class='output co'>#&gt; [1] 0.6078585</div><div class='input'># }
+#&gt; <span class='message'>    step</span></div><div class='output co'>#&gt;   Epsilon_Sq_partial  CI    CI_low   CI_high
+#&gt; 1          0.6078585 0.9 0.1643059 0.7916289</div><div class='input'>
+<span class='co'>## Use with emmeans based contrasts</span>
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>emmeans</span>) <span class='kw'>&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>dplyr</span>)) {
+  <span class='no'>warp.lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>breaks</span> ~ <span class='no'>wool</span> * <span class='no'>tension</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>warpbreaks</span>)
+
+  <span class='fu'><a href='https://rdrr.io/pkg/emmeans/man/joint_tests.html'>joint_tests</a></span>(<span class='no'>warp.lm</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"wool"</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_cols</a></span>(<span class='fu'>F_to_eta2</span>(<span class='no'>.</span>$<span class='no'>F.ratio</span>, <span class='no'>.</span>$<span class='no'>df1</span>, <span class='no'>.</span>$<span class='no'>df2</span>))
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: emmeans</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: dplyr</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: 'dplyr'</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from 'package:stats':</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from 'package:base':</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='output co'>#&gt; wool = A:
+#&gt;  model term df1 df2 F.ratio p.value Eta_Sq_partial  CI    CI_low   CI_high
+#&gt;  tension      2  48  10.312 0.0002      0.30053626 0.9 0.1196468 0.4479451
+#&gt; 
+#&gt; wool = B:
+#&gt;  model term df1 df2 F.ratio p.value Eta_Sq_partial  CI    CI_low   CI_high
+#&gt;  tension      2  48   2.375 0.1039      0.09004739 0.9 0.0000000 0.2197384
+#&gt; </div><div class='input'># }
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -4,9 +4,10 @@
 #'
 #' @param t,f The t or the F statistics.
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
+#' @param CI Confidence Interval (CI) level
 #' @param ... Arguments passed to or from other methods.
 #'
-#' @return A numeric value between 0-1 (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2}
+#' @return A data frame with the effect size(s) between 0-1, and confidence interval(s) (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2}
 #' it is possible to compute a negative number; even though this doesn't make any practical sense,
 #' it is recommended to report the negative number and not a 0).
 #'
@@ -19,6 +20,12 @@
 #' \deqn{\omega_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den} + 1}}
 #' \cr\cr\cr
 #' For \eqn{t}, the conversion is based on the equality of \eqn{t^2 = F} when \eqn{df_{num}=1}.
+#' \subsection{Confidence Intervals}{
+#' Confidence intervals are estimated using the Noncentrality parameter method;
+#' These methods searches for a the best \code{ncp} (non-central parameters) for
+#' of the noncentral F distribution for the desired tail-probabilities,
+#' and then convert these \code{ncp}s to the corresponding effect sizes.
+#' }
 #'
 #' @note \eqn{Adj. \eta_p^2} is an alias for \eqn{\epsilon_p^2}.
 #'
@@ -32,9 +39,11 @@
 #'   )
 #' }
 #' # compare to:
-#' F_to_eta2(40.72, 2, 18)
-#' F_to_eta2(33.77, 1, 9)
-#' F_to_eta2(45.31, 2, 18)
+#' F_to_eta2(
+#'   f = c(40.72, 33.77, 45.31),
+#'   df = c(2, 1, 2),
+#'   df_error = c(18, 9, 18)
+#' )
 #'
 #'
 #' if (require("lmerTest")) { # for the df_error
@@ -49,17 +58,39 @@
 #'   F_to_omega2(16.501, 1, 9)
 #'   F_to_epsilon2(16.501, 1, 9)
 #' }
+#'
+#' ## Use with emmeans based contrasts
+#' if (require(emmeans) & require(dplyr)) {
+#'   warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
+#'
+#'   joint_tests(warp.lm, by = "wool") %>%
+#'     bind_cols(F_to_eta2(.$F.ratio, .$df1, .$df2))
+#' }
 #' }
 #' @references
 #' \itemize{
 #'   \item Friedman, H. (1982). Simplified determinations of statistical power, magnitude of effect and research sample sizes. Educational and Psychological Measurement, 42(2), 521-526. \doi{10.1177/001316448204200214}
 #'   \item Mordkoff, J. T. (2019). A Simple Method for Removing Bias From a Popular Measure of Standardized Effect Size: Adjusted Partial Eta Squared. Advances in Methods and Practices in Psychological Science, 2(3), 228-232. \doi{10.1177/2515245919855053}
 #'   \item Albers, C., & Lakens, D. (2018). When power analyses based on pilot data are biased: Inaccurate effect size estimators and follow-up bias. Journal of experimental social psychology, 74, 187-195. \doi{10.31234/osf.io/b7z4q}
+#'   \item Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
+#'   \item Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
 #' }
 #'
 #' @export
-F_to_eta2 <- function(f, df, df_error, ...) {
-  (f * df) / (f * df + df_error)
+F_to_eta2 <- function(f, df, df_error, CI = 0.9, ...) {
+  res <- data.frame(Eta_Sq_partial = (f * df) / (f * df + df_error))
+
+  if (is.numeric(CI)) {
+    stopifnot(length(CI) == 1, CI < 1, CI > 0)
+    res$CI <- CI
+    fs <- t(mapply(.get_ncp_F,
+                   f, df, df_error, CI))
+
+    res$CI_low <- (fs[, 1] * df) / (fs[, 1] * df + df_error)
+    res$CI_high <- (fs[, 2] * df) / (fs[, 2] * df + df_error)
+  }
+
+  return(res)
 }
 
 
@@ -72,8 +103,20 @@ t_to_eta2 <- function(t, df_error, ...) {
 
 #' @rdname F_to_eta2
 #' @export
-F_to_epsilon2 <- function(f, df, df_error, ...) {
-  ((f - 1) * df) / (f * df + df_error)
+F_to_epsilon2 <- function(f, df, df_error, CI = 0.9, ...) {
+  res <- data.frame(Epsilon_Sq_partial = ((f - 1) * df) / (f * df + df_error))
+
+  if (is.numeric(CI)) {
+    stopifnot(length(CI) == 1, CI < 1, CI > 0)
+    res$CI <- CI
+    fs <- t(mapply(.get_ncp_F,
+                   f, df, df_error, CI))
+
+    res$CI_low <- ((fs[, 1] - 1) * df) / (fs[, 1] * df + df_error)
+    res$CI_high <- ((fs[, 2] - 1) * df) / (fs[, 2] * df + df_error)
+  }
+
+  return(res)
 }
 
 #' @rdname F_to_eta2
@@ -92,8 +135,20 @@ t_to_eta2_adj <- t_to_epsilon2
 
 #' @rdname F_to_eta2
 #' @export
-F_to_omega2 <- function(f, df, df_error, ...) {
-  ((f - 1) * df) / (f * df + df_error + 1)
+F_to_omega2 <- function(f, df, df_error, CI = 0.9, ...) {
+  res <- data.frame(Omega_Sq_partial = ((f - 1) * df) / (f * df + df_error + 1))
+
+  if (is.numeric(CI)) {
+    stopifnot(length(CI) == 1, CI < 1, CI > 0)
+    res$CI <- CI
+    fs <- t(mapply(.get_ncp_F,
+                   f, df, df_error, CI))
+
+    res$CI_low <- ((fs[,1] - 1) * df) / (fs[,1] * df + df_error + 1)
+    res$CI_high <- ((fs[,2] - 1) * df) / (fs[,2] * df + df_error + 1)
+  }
+
+  return(res)
 }
 
 #' @rdname F_to_eta2

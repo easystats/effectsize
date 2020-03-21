@@ -188,26 +188,10 @@ eta_squared.merMod <- function(model, partial = TRUE, ci = NULL, ...) {
 
 #' @keywords internal
 .eta_square_from_F <- function(.data, ci = NULL) {
-  .data$Eta_Sq_partial <- F_to_eta2(.data$`F`, .data$df, .data$df2)
-
-  if (is.numeric(ci)) {
-    .data$CI_high <- .data$CI_low <- NA
-    for (i in seq_len(nrow(.data))) {
-      if (!is.na(.data$`F`[i])) {
-        cl <- .ci_partial_eta_squared(
-          F.value = .data$`F`[i],
-          df1 = .data$df[i],
-          df2 = .data$df2[i],
-          conf.level = ci
-        )
-        .data$CI_low[i] <- cl$LL
-        .data$CI_high[i] <- cl$UL
-      }
-    }
-  }
+  .data <- cbind(.data, F_to_eta2(.data$`F`, .data$df, .data$df2, ci))
 
   rownames(.data) <- NULL
-  .data <- .data[, colnames(.data) %in% c("Parameter", "Eta_Sq_partial", "CI_high", "CI_low")]
+  .data <- .data[, colnames(.data) %in% c("Parameter", "Eta_Sq_partial", "CI", "CI_low", "CI_high")]
   class(.data) <- c("partial_eta_squared", class(.data))
   .data
 }

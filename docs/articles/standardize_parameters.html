@@ -79,15 +79,12 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/bayesian_models.html">Bayesian models</a>
+      <a href="../articles/convert.html">Effect size conversion</a>
+    </li>
+    <li>
+      <a href="../articles/interpret.html">Interpretation Guidelines</a>
     </li>
   </ul>
-</li>
-<li>
-  <a href="../articles/convert.html">Effect size conversion</a>
-</li>
-<li>
-  <a href="../articles/interpret.html">Interpretation Guidelines</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -174,8 +171,11 @@
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> df) </a>
 <a class="sourceLine" id="cb6-2" title="2"></a>
 <a class="sourceLine" id="cb6-3" title="3">parameters &lt;-<span class="st"> </span><span class="kw">model_parameters</span>(model)[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>,]</a>
-<a class="sourceLine" id="cb6-4" title="4"><span class="kw"><a href="../reference/t_to_r.html">convert_t_to_r</a></span>(parameters<span class="op">$</span>t, parameters<span class="op">$</span>df_residual)</a></code></pre></div>
-<pre><code>&gt; numeric(0)</code></pre>
+<a class="sourceLine" id="cb6-4" title="4"><span class="kw"><a href="../reference/t_to_r.html">convert_t_to_r</a></span>(parameters<span class="op">$</span>t, parameters<span class="op">$</span>df_error)</a></code></pre></div>
+<pre><code>&gt;       r   CI CI_low CI_high
+&gt; 1  0.63 0.95   0.53    0.70
+&gt; 2  0.72 0.95   0.64    0.78
+&gt; 3 -0.34 0.95  -0.47   -0.19</code></pre>
 <p>Wow, the retrieved correlations coefficients from the regression model are <strong>exactly</strong> the same as the partial correlations!</p>
 <p>However, note that in multiple regression standardizing the parameters in not quite the same as computing the (partial) correlation, due to… math :(</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">model <span class="op">%&gt;%</span><span class="st"> </span></a>
