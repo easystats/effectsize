@@ -3,6 +3,8 @@ authors:
     href: https://dominiquemakowski.github.io/
   Daniel Lüdecke:
     href: https://github.com/strengejacke
+  Mattan S. Ben-Shachar:
+    href: https://github.com/mattansb
 
 template:
   params:
@@ -43,11 +45,11 @@ reference:
   - rules
 - title: "Conversion"
   contents:
+  - F_to_eta2
+  - t_to_r
   - chisq_to_phi
   - convert_z_to_percentile
-  - t_to_r
   - percentage_to_d
-  - F_to_eta2
 - title: "Miscellaneous"
   contents:
   - adjust
