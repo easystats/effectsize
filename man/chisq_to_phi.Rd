@@ -52,10 +52,13 @@ Convert between Chi square, (\eqn{chi^2}), phi (\eqn{\phi}) and Cramer's V.
 }
 \details{
 These functions use the following formulae:
-\cr\cr
-\deqn{Cramer's V = \sqrt{\chi^2 / (n * (min(nrow,ncol)-1))}}
-\cr\cr
+\cr
 \deqn{\phi = \sqrt{\chi^2 / n}}
+\cr
+\deqn{Cramer's V = \phi / \sqrt{min(nrow,ncol)-1}}
+\cr
+For adjusted versions, see Bergsma, 2013.
+
 \subsection{Confidence Intervals}{
 Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best \code{ncp} (non-central parameters) for
@@ -88,5 +91,6 @@ chisq_to_cramers_v(41.234,
 \references{
 \itemize{
   \item Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
+  \item Bergsma, W. (2013). A bias-correction for Cramer's V and Tschuprow's T. Journal of the Korean Statistical Society, 42(3), 323-328.
 }
 }

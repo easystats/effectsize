@@ -187,18 +187,9 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A data frame with the effect size(s) between 0-1, and confidence interval(s).</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>These functions use the following formulae:
-<br /><br />
-$$Cramer's V = \sqrt{\chi^2 / (n * (min(nrow,ncol)-1))}$$
-<br /><br />
-$$\phi = \sqrt{\chi^2 / n}$$</p><h3>Confidence Intervals</h3>
-<p>Confidence intervals are estimated using the Noncentrality parameter method;
-These methods search for a the best <code>ncp</code> (non-central parameters) for
-of the noncentral F distribution for the desired tail-probabilities,
-and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
-
+    <div class='dont-index'><p><code><a href='chisq_to_phi.html'>chisq_to_phi</a></code> for details regarding estimation and CIs.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>contingency_table</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>762</span>, <span class='fl'>327</span>, <span class='fl'>468</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>)))
@@ -206,14 +197,15 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 <span class='fu'>phi</span>(<span class='no'>contingency_table</span>)</div><div class='output co'>#&gt;         phi   CI     CI_low   CI_high
 #&gt; 1 0.1020804 0.95 0.06632769 0.1299433</div><div class='input'>
 <span class='fu'>cramers_v</span>(<span class='no'>contingency_table</span>)</div><div class='output co'>#&gt;    cramers_v   CI     CI_low    CI_high
-#&gt; 1 0.07218172 0.95 0.04690076 0.09188377</div></pre>
+#&gt; 1 0.07218172 0.95 0.04690076 0.09188377</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
