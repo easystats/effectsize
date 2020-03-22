@@ -5,7 +5,7 @@
 #' @param chisq The Chi2 statistic.
 #' @param phi The Phi statistic.
 #' @param n Sample size.
-#' @param nrow,ncol The number of rows/columns in the contingency table (ignored for Phi when \code{adjust=FALSE}).
+#' @param nrow,ncol The number of rows/columns in the contingency table (ignored for Phi when \code{adjust=FALSE} and \code{CI=NULL}).
 #' @param CI Confidence Interval (CI) level
 #' @param adjust Should the effect size be bias-corrected? Defaults to \code{FALSE}.
 #' @param ... Arguments passed to or from other methods.
@@ -34,7 +34,11 @@
 #' # data:  ctab
 #' # X-squared = 41.234, df = 4, p-value = 2.405e-08
 #'
-#' chisq_to_phi(41.234, n = sum(contingency_table))
+#' chisq_to_phi(41.234,
+#'   n = sum(contingency_table),
+#'   nrow = nrow(contingency_table),
+#'   ncol = ncol(contingency_table)
+#' )
 #' chisq_to_cramers_v(41.234,
 #'   n = sum(contingency_table),
 #'   nrow = nrow(contingency_table),

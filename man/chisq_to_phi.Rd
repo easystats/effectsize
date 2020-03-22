@@ -34,7 +34,7 @@ convert_phi_to_chisq(phi, n, ...)
 
 \item{n}{Sample size.}
 
-\item{nrow, ncol}{The number of rows/columns in the contingency table (ignored for Phi when \code{adjust=FALSE}).}
+\item{nrow, ncol}{The number of rows/columns in the contingency table (ignored for Phi when \code{adjust=FALSE} and \code{CI=NULL}).}
 
 \item{CI}{Confidence Interval (CI) level}
 
@@ -73,7 +73,11 @@ chisq.test(contingency_table)
 # data:  ctab
 # X-squared = 41.234, df = 4, p-value = 2.405e-08
 
-chisq_to_phi(41.234, n = sum(contingency_table))
+chisq_to_phi(41.234,
+  n = sum(contingency_table),
+  nrow = nrow(contingency_table),
+  ncol = ncol(contingency_table)
+)
 chisq_to_cramers_v(41.234,
   n = sum(contingency_table),
   nrow = nrow(contingency_table),
