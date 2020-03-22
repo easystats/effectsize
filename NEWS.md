@@ -3,6 +3,7 @@
 ## New features
 
 - New sffect sizes for contingency tables (`phi()` and `cramers_v()`).
+- `chisq_to_phi/cramers_v()` functions now support CIs (via the ncp method), and return a data frame.
 - `F_to_eta2()` family of functions now support CIs (via the ncp method), and return a data frame.
 - `t_to_d()` and `t_to_r()` now support CIs (via the ncp method), and return a data frame.
 - `standardize()` for model-objects has a default-method, which usually accepts all models. Exception for model-objects that do not work will be added if missing.

@@ -5,19 +5,23 @@
 \alias{cramers_v}
 \title{Effect size for contingency tables}
 \usage{
-phi(x, y = NULL, ...)
+phi(x, y = NULL, CI = 0.95, adjust = FALSE, ...)
 
-cramers_v(x, y = NULL, ...)
+cramers_v(x, y = NULL, CI = 0.95, adjust = FALSE, ...)
 }
 \arguments{
 \item{x}{a numeric vector or matrix. x and y can also both be factors.}
 
 \item{y}{a numeric vector; ignored if x is a matrix. If x is a factor, y should be a factor of the same length.}
 
+\item{CI}{Confidence Interval (CI) level}
+
+\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
+
 \item{...}{Passed to \code{chisq.test()}.}
 }
 \value{
-A numeric value between 0-1.
+A data frame with the effect size(s) between 0-1, and confidence interval(s).
 }
 \description{
 Compute Cramer's V and phi (\eqn{\phi}) from contingency tables.
@@ -28,6 +32,12 @@ These functions use the following formulae:
 \deqn{Cramer's V = \sqrt{\chi^2 / (n * (min(nrow,ncol)-1))}}
 \cr\cr
 \deqn{\phi = \sqrt{\chi^2 / n}}
+\subsection{Confidence Intervals}{
+Confidence intervals are estimated using the Noncentrality parameter method;
+These methods search for a the best \code{ncp} (non-central parameters) for
+of the noncentral F distribution for the desired tail-probabilities,
+and then convert these \code{ncp}s to the corresponding effect sizes.
+}
 }
 \examples{
 contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))

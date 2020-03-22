@@ -53,3 +53,25 @@
   }
   return(t_ncp)
 }
+
+.get_ncp_chi <- function(chi, df, conf.level = 0.95) {
+  alpha <- 1 - conf.level
+  probs <- c(alpha / 2, 1 - alpha / 2)
+
+  if (isTRUE(all.equal(chi, 0))) {
+    return(c(0, Inf)) # unestimatable
+  }
+
+  ncp <- suppressWarnings(optim(
+    par = 1.1 * rep(chi, 2),
+    fn = function(x) {
+      p <- pchisq(q = chi, df, ncp = x)
+
+      abs(max(p) - probs[2]) +
+        abs(min(p) - probs[1])
+    },
+    control = list(abstol = 1e-09)
+  ))
+  chi_ncp <- sort(ncp$par)
+  return(chi_ncp)
+}
