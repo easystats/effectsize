@@ -3,15 +3,12 @@
 %   R/omega_squared.R
 \name{epsilon_squared}
 \alias{epsilon_squared}
-\alias{eta_squared_adj}
 \alias{eta_squared}
 \alias{cohens_f}
 \alias{omega_squared}
 \title{Effect size for ANOVA}
 \usage{
-epsilon_squared(model, partial = TRUE)
-
-eta_squared_adj(model, partial = TRUE)
+epsilon_squared(model, partial = TRUE, ci = 0.9, ...)
 
 eta_squared(model, partial = TRUE, ci = 0.9, ...)
 
