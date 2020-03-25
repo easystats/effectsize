@@ -21,11 +21,13 @@ omega_squared(model, partial = TRUE, ci = 0.9, ...)
 
 \item{partial}{If \code{TRUE}, return partial indices.}
 
-\item{ci}{Confidence Interval (CI) level when computed via bootstrap.}
+\item{ci}{Confidence Interval (CI) level level}
 
 \item{...}{Arguments passed to or from other methods (ignored).}
 }
 \value{
+A data frame with the effect size(s) and confidence interval(s).
+
 Data.frame containing the effect size values.
 }
 \description{

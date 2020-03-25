@@ -13,7 +13,7 @@
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
 #' @param n The number of observations (the sample size).
 #' @param pooled Should the estimate accout for the t-value being based on a repeated-measures design, or not (default).
-#' @param ci Confidence Interval (CI) level
+#' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods.
 #'
 #'

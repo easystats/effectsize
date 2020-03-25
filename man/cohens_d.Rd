@@ -12,7 +12,8 @@ cohens_d(
   data = NULL,
   correction = FALSE,
   pooled_sd = TRUE,
-  paired = FALSE
+  paired = FALSE,
+  ci = 0.95
 )
 
 hedges_g(
@@ -21,10 +22,11 @@ hedges_g(
   data = NULL,
   correction = FALSE,
   pooled_sd = TRUE,
-  paired = FALSE
+  paired = FALSE,
+  ci = 0.95
 )
 
-glass_delta(x, y = NULL, data = NULL, correction = FALSE)
+glass_delta(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
 }
 \arguments{
 \item{x}{A continuous variable or a formula.}
@@ -38,6 +40,18 @@ glass_delta(x, y = NULL, data = NULL, correction = FALSE)
 \item{pooled_sd}{If \code{FALSE}, the regular SD from both combined groups is used instead of the \code{\link{sd_pooled}}.}
 
 \item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.}
+
+\item{ci}{Confidence Interval (CI) level level}
+}
+\value{
+A data frame with the effect size(s) and confidence interval(s).
+
+\subsection{Confidence Intervals}{
+Confidence intervals are estimated using the Noncentrality parameter method;
+These methods searches for a the best \code{ncp} (non-central parameters) for
+of the noncentral F distribution for the desired tail-probabilities,
+and then convert these \code{ncp}s to the corresponding effect sizes.
+}
 }
 \description{
 Compute different indices of effect size. For very small sample sizes (n < 20) Hedges' g is considered as less biased than Cohen's d. For sample sizes > 20, the results for both statistics are roughly equivalent. The Glass’s delta is appropriate if standard deviations are significantly different between groups, as it uses only the control group's (\code{x}) standard deviation.

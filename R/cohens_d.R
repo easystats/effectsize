@@ -8,7 +8,16 @@
 #' @param correction If \code{TRUE}, applies a correction to the formula to make it less biased for small samples (McGrath & Meyer, 2006).
 #' @param pooled_sd If \code{FALSE}, the regular SD from both combined groups is used instead of the \code{\link{sd_pooled}}.
 #' @param paired If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
+#' @inheritParams chisq_to_phi
 #'
+#' @return A data frame with the effect size(s) and confidence interval(s).
+#'
+#' \subsection{Confidence Intervals}{
+#' Confidence intervals are estimated using the Noncentrality parameter method;
+#' These methods searches for a the best \code{ncp} (non-central parameters) for
+#' of the noncentral F distribution for the desired tail-probabilities,
+#' and then convert these \code{ncp}s to the corresponding effect sizes.
+#' }
 #'
 #' @examples
 #' cohens_d(iris$Sepal.Length, iris$Sepal.Width)
@@ -24,20 +33,45 @@
 #' }
 #' @importFrom stats var model.frame
 #' @export
-cohens_d <- function(x, y = NULL, data = NULL, correction = FALSE, pooled_sd = TRUE, paired = FALSE) {
-  .effect_size_difference(x, y = y, data = data, type = "d", correction = correction, pooled_sd = pooled_sd, paired = paired)
+cohens_d <- function(x, y = NULL, data = NULL, correction = FALSE, pooled_sd = TRUE, paired = FALSE, ci = 0.95) {
+  .effect_size_difference(
+    x,
+    y = y,
+    data = data,
+    type = "d",
+    correction = correction,
+    pooled_sd = pooled_sd,
+    paired = paired,
+    ci = ci
+  )
 }
 
 #' @rdname cohens_d
 #' @export
-hedges_g <- function(x, y = NULL, data = NULL, correction = FALSE, pooled_sd = TRUE, paired = FALSE) {
-  .effect_size_difference(x, y = y, data = data, type = "g", correction = correction, pooled_sd = pooled_sd, paired = paired)
+hedges_g <- function(x, y = NULL, data = NULL, correction = FALSE, pooled_sd = TRUE, paired = FALSE, ci = 0.95) {
+  .effect_size_difference(
+    x,
+    y = y,
+    data = data,
+    type = "g",
+    correction = correction,
+    pooled_sd = pooled_sd,
+    paired = paired,
+    ci = ci
+  )
 }
 
 #' @rdname cohens_d
 #' @export
-glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE) {
-  .effect_size_difference(x, y = y, data = data, type = "delta", correction = correction)
+glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95) {
+  .effect_size_difference(
+    x,
+    y = y,
+    data = data,
+    type = "delta",
+    correction = correction,
+    ci = ci
+  )
 }
 
 
@@ -51,10 +85,18 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE) {
 
 #' @importFrom stats sd
 #' @keywords internal
-.effect_size_difference <- function(x, y = NULL, data = NULL, type = "d", correction = FALSE, pooled_sd = TRUE, paired = FALSE) {
+.effect_size_difference <- function(x, y = NULL, data = NULL, type = "d", correction = FALSE, pooled_sd = TRUE, paired = FALSE, ci = ci) {
   out <- .deal_with_cohens_d_arguments(x, y, data)
   x <- out$x
   y <- out$y
+
+  if (paired) {
+    n <- length(x)
+    df <- n - 1
+  } else {
+    n <- length(c(x,y))
+    df <- n - 2
+  }
 
   # Compute index
   diff_of_means <- mean(x, na.rm = TRUE) - mean(y, na.rm = TRUE)
@@ -69,32 +111,39 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE) {
         denominator <- stats::sd(c(x, y), na.rm = TRUE)
       }
     }
-    if (type == "g") {
-      if (paired) {
-        J <- 1 - 3 / (4 * (length(x) - 1) - 1)
-      } else {
-        J <- 1 - 3 / (4 * length(c(x, y)) - 9)
-      }
-      diff_of_means <- diff_of_means * J
-    }
   } else if (type == "delta") {
     denominator <- stats::sd(x, na.rm = TRUE)
   }
 
+  out <- data.frame(d = diff_of_means / denominator)
+  types <- c("d" = "Cohens_d", "g" = "Hedges_g", "delta" = "Glass_delta")
+  colnames(out) <- types[type]
+  out <- cbind(
+    out,
+    .ci_from_t_test(x, y, type = type, paired = paired, ci = ci)
+  )
 
-  d <- diff_of_means / denominator
+  if (type == "g") {
+    if (paired) {
+      J <- 1 - 3 / (4 * (n - 1) - 1)
+    } else {
+      J <- 1 - 3 / (4 * n - 9)
+    }
 
+    out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] <-
+      out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] * J
+  }
 
   # McGrath & Meyer (2006)
   if (correction == TRUE) {
-    n <- length(c(x, y))
-    d <- d * ((n - 3) / (n - 2.25)) * ((n - 2) / n)
+    out[, colnames(out) %in% c(types, "CI_low", "CI_high")] <-
+      out[, colnames(out) %in% c(types, "CI_low", "CI_high")] *
+      ((n - 3) / (n - 2.25)) * sqrt((n - 2) / n)
   }
 
-  d
+
+  out
 }
-
-
 
 
 
@@ -145,4 +194,23 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE) {
   }
 
   list(x = x, y = y)
+}
+
+#' @keywords internal
+.ci_from_t_test <- function(x, y, type = "d", paired = FALSE, ci = 0.95){
+  if (paired) {
+    tobj <- stats::t.test(x - y)
+    df <- length(x) - 1
+  } else {
+    if (type == "delta") {
+      tobj <- stats::t.test(x, mu = mean(y))
+      df <- length(x) - 1
+      paired <- TRUE
+    } else {
+      tobj <- stats::t.test(x, y, var.equal = TRUE)
+      df <- length(c(x,y)) - 2
+    }
+  }
+
+  t_to_d(unname(tobj$statistic), df, ci = ci, pooled = paired)[, -1 , drop = FALSE]
 }

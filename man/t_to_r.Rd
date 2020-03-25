@@ -44,7 +44,7 @@ convert_F_to_r(f, df, df_error, ci = 0.95, ...)
 
 \item{pooled}{Should the estimate accout for the t-value being based on a repeated-measures design, or not (default).}
 
-\item{ci}{Confidence Interval (CI) level}
+\item{ci}{Confidence Interval (CI) level level}
 
 \item{...}{Arguments passed to or from other methods.}
 

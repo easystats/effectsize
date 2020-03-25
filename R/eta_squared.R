@@ -6,8 +6,10 @@
 #'
 #' @param model An model or ANOVA object.
 #' @param partial If \code{TRUE}, return partial indices.
-#' @param ci Confidence Interval (CI) level when computed via bootstrap.
+#' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods (ignored).
+#'
+#' @return A data frame with the effect size(s) and confidence interval(s).
 #'
 #' @details
 #'

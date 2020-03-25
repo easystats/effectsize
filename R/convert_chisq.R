@@ -6,7 +6,7 @@
 #' @param phi The Phi statistic.
 #' @param n Sample size.
 #' @param nrow,ncol The number of rows/columns in the contingency table (ignored for Phi when \code{adjust=FALSE} and \code{CI=NULL}).
-#' @param ci Confidence Interval (CI) level
+#' @param ci Confidence Interval (CI) level level
 #' @param adjust Should the effect size be bias-corrected? Defaults to \code{FALSE}.
 #' @param ... Arguments passed to or from other methods.
 #'
