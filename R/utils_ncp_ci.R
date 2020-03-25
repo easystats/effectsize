@@ -1,5 +1,6 @@
 
 #' @keywords internal
+#' @importFrom stats pf
 .get_ncp_F <- function(f, df, df_error, conf.level = 0.9) {
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)
@@ -24,6 +25,7 @@
 }
 
 #' @keywords internal
+#' @importFrom stats pt
 .get_ncp_t <- function(t, df_error, conf.level = 0.95) {
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)
@@ -54,6 +56,8 @@
   return(t_ncp)
 }
 
+#' @keywords internals
+#' @importFrom stats pchisq
 .get_ncp_chi <- function(chi, df, conf.level = 0.95) {
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)

@@ -10,6 +10,11 @@
 #' @param ... Arguments passed to or from other methods (ignored).
 #'
 #' @details
+#'
+#' For between-subjects ANOVAs, the effect sizes are computed directly with Sums-of-Squares.
+#' For all other cases, effect sizes are approsimated via test statistic conversion
+#' (see \code{\link{F_to_eta2} for more details.})
+#'
 #' \subsection{Confidence Intervals}{
 #' Confidence intervals are estimated using the Noncentrality parameter method;
 #' These methods searches for a the best \code{ncp} (non-central parameters) for
@@ -49,13 +54,13 @@
 #' omega_squared(model)
 #' eta_squared(model)
 #' epsilon_squared(model)
-#' \donttest{
-#' # Don't work for now
+#' cohens_f(model)
+#'
 #' model <- aov(Sepal.Length ~ Sepal.Big + Error(Species), data = df)
 #' omega_squared(model)
 #' eta_squared(model)
 #' epsilon_squared(model)
-#' }
+#' cohens_f(model)
 #'
 #' @return Data.frame containing the effect size values.
 #'
@@ -153,6 +158,9 @@ eta_squared.aov <- function(model, partial = TRUE, ci = 0.9, ...) {
 
 #' @export
 eta_squared.lm <- eta_squared.aov
+
+#' @export
+eta_squared.glm <- eta_squared.aov
 
 
 #' @export

@@ -14,7 +14,7 @@ eta_squared(model, partial = TRUE, ci = 0.9, ...)
 
 cohens_f(model, partial = TRUE, ci = 0.9, ...)
 
-omega_squared(model, partial = TRUE, ci = NULL, iterations = 1000)
+omega_squared(model, partial = TRUE, ci = 0.9, ...)
 }
 \arguments{
 \item{model}{An model or ANOVA object.}
@@ -34,6 +34,10 @@ Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Eps
 variables are accounted for by the explanatory variables.
 }
 \details{
+For between-subjects ANOVAs, the effect sizes are computed directly with Sums-of-Squares.
+For all other cases, effect sizes are approsimated via test statistic conversion
+(see \code{\link{F_to_eta2} for more details.})
+
 \subsection{Confidence Intervals}{
 Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best \code{ncp} (non-central parameters) for
@@ -73,13 +77,13 @@ model <- anova(lm(Sepal.Length ~ Sepal.Big * Species, data = df))
 omega_squared(model)
 eta_squared(model)
 epsilon_squared(model)
-\donttest{
-# Don't work for now
+cohens_f(model)
+
 model <- aov(Sepal.Length ~ Sepal.Big + Error(Species), data = df)
 omega_squared(model)
 eta_squared(model)
 epsilon_squared(model)
-}
+cohens_f(model)
 
 }
 \references{

@@ -84,6 +84,8 @@ epsilon_squared.aov <- function(model, partial = TRUE, ci = 0.9, ...) {
 #' @export
 epsilon_squared.lm <- epsilon_squared.aov
 
+#' @export
+epsilon_squared.glm <- epsilon_squared.aov
 
 #' @export
 epsilon_squared.anova <- function(model, partial = TRUE, ci = 0.9, ...) {
