@@ -67,7 +67,7 @@ These functions use the following formulae:
 \cr
 \deqn{\omega_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den} + 1}}
 \cr
-\deqn{\f_p = \sqrt{\frac{\eta_p^2}{1-\eta_p^2}}}
+\deqn{f_p = \sqrt{\frac{\eta_p^2}{1-\eta_p^2}}}
 \cr\cr\cr
 For \eqn{t}, the conversion is based on the equality of \eqn{t^2 = F} when \eqn{df_{num}=1}.
 \subsection{Confidence Intervals}{
