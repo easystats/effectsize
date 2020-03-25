@@ -13,30 +13,30 @@
 \alias{t_to_f}
 \title{Convert test statistics (F, t) to indices of \strong{partial} variance explained (\strong{partial} Eta / Omega / Epsilon squared and Cohen's f)}
 \usage{
-F_to_eta2(f, df, df_error, CI = 0.9, ...)
+F_to_eta2(f, df, df_error, ci = 0.9, ...)
 
-t_to_eta2(t, df_error, CI = 0.9, ...)
+t_to_eta2(t, df_error, ci = 0.9, ...)
 
-F_to_epsilon2(f, df, df_error, CI = 0.9, ...)
+F_to_epsilon2(f, df, df_error, ci = 0.9, ...)
 
-t_to_epsilon2(t, df_error, CI = 0.9, ...)
+t_to_epsilon2(t, df_error, ci = 0.9, ...)
 
-F_to_eta2_adj(f, df, df_error, CI = 0.9, ...)
+F_to_eta2_adj(f, df, df_error, ci = 0.9, ...)
 
-t_to_eta2_adj(t, df_error, CI = 0.9, ...)
+t_to_eta2_adj(t, df_error, ci = 0.9, ...)
 
-F_to_omega2(f, df, df_error, CI = 0.9, ...)
+F_to_omega2(f, df, df_error, ci = 0.9, ...)
 
-t_to_omega2(t, df_error, CI = 0.9, ...)
+t_to_omega2(t, df_error, ci = 0.9, ...)
 
-F_to_f(f, df, df_error, CI = 0.9, ...)
+F_to_f(f, df, df_error, ci = 0.9, ...)
 
-t_to_f(t, df_error, CI = 0.9, ...)
+t_to_f(t, df_error, ci = 0.9, ...)
 }
 \arguments{
 \item{df, df_error}{Degrees of freedom of numerator or of the error estimate (i.e., the residuals).}
 
-\item{CI}{Confidence Interval (CI) level}
+\item{ci}{Confidence Interval (CI) level}
 
 \item{...}{Arguments passed to or from other methods.}
 
