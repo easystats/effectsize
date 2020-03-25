@@ -158,18 +158,18 @@
     <p>Convert between Chi square, (\(chi^2\)), phi (\(\phi\)) and Cramer's V.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>chisq_to_phi</span>(<span class='no'>chisq</span>, <span class='no'>n</span>, <span class='no'>nrow</span>, <span class='no'>ncol</span>, <span class='kw'>CI</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>adjust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>chisq_to_phi</span>(<span class='no'>chisq</span>, <span class='no'>n</span>, <span class='no'>nrow</span>, <span class='no'>ncol</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>adjust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'>convert_chisq_to_phi</span>(<span class='no'>chisq</span>, <span class='no'>n</span>, <span class='no'>nrow</span>, <span class='no'>ncol</span>, <span class='kw'>CI</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>adjust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>convert_chisq_to_phi</span>(<span class='no'>chisq</span>, <span class='no'>n</span>, <span class='no'>nrow</span>, <span class='no'>ncol</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>adjust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
-<span class='fu'>chisq_to_cramers_v</span>(<span class='no'>chisq</span>, <span class='no'>n</span>, <span class='no'>nrow</span>, <span class='no'>ncol</span>, <span class='kw'>CI</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>adjust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>chisq_to_cramers_v</span>(<span class='no'>chisq</span>, <span class='no'>n</span>, <span class='no'>nrow</span>, <span class='no'>ncol</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>adjust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='fu'>convert_chisq_to_cramers_v</span>(
   <span class='no'>chisq</span>,
   <span class='no'>n</span>,
   <span class='no'>nrow</span>,
   <span class='no'>ncol</span>,
-  <span class='kw'>CI</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
   <span class='kw'>adjust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='no'>...</span>
 )
@@ -194,7 +194,7 @@
       <td><p>The number of rows/columns in the contingency table (ignored for Phi when <code>adjust=FALSE</code> and <code>CI=NULL</code>).</p></td>
     </tr>
     <tr>
-      <th>CI</th>
+      <th>ci</th>
       <td><p>Confidence Interval (CI) level</p></td>
     </tr>
     <tr>

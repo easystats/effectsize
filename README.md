@@ -75,21 +75,17 @@ glass_delta(iris$Sepal.Length, iris$Sepal.Width)
 model <- aov(Sepal.Length ~ Species, data = iris)
 
 omega_squared(model, partial = TRUE)
-##   Parameter Omega_Sq_partial
-## 1   Species            0.612
-## 2 Residuals               NA
+##   Parameter Omega_Sq_partial  CI CI_low CI_high
+## 1   Species            0.612 0.9  0.534   0.673
 eta_squared(model, partial = TRUE)
-##   Parameter Eta_Sq_partial
-## 1   Species          0.619
-## 2 Residuals             NA
+##   Parameter Eta_Sq_partial  CI CI_low CI_high
+## 1   Species          0.619 0.9  0.541   0.678
 epsilon_squared(model)
-##   Parameter Epsilon_sq_partial
-## 1   Species              0.614
-## 2 Residuals                 NA
+##   Parameter Epsilon_Sq_partial  CI CI_low CI_high
+## 1   Species              0.614 0.9  0.535   0.674
 cohens_f(model)
-##   Parameter Cohens_f
-## 1   Species     1.27
-## 2 Residuals       NA
+##   Parameter Cohens_f_partial  CI CI_low CI_high
+## 1   Species             1.27 0.9   1.09    1.45
 ```
 
 ### Regression Models
@@ -158,9 +154,9 @@ df <- standardize(iris)
 describe_distribution(df$Sepal.Length)
 ```
 
-| Mean | SD |   Min | Max | Skewness | Kurtosis |   n | n\_Missing |
-| ---: | -: | ----: | --: | -------: | -------: | --: | ---------: |
-|    0 |  1 | \-1.9 | 2.5 |      0.3 |    \-0.6 | 150 |          0 |
+| Mean | SD |   Min | Max | Skewness.Skewness | Skewness.SE | Kurtosis.Kurtosis | Kurtosis.SE |   n | n\_Missing |
+| ---: | -: | ----: | --: | ----------------: | ----------: | ----------------: | ----------: | --: | ---------: |
+|    0 |  1 | \-1.9 | 2.5 |               0.3 |         0.2 |             \-0.6 |         0.4 | 150 |          0 |
 
 This can be also applied to statistical models:
 
@@ -182,9 +178,9 @@ df <- normalize(iris)
 describe_distribution(df$Sepal.Length)
 ```
 
-| Mean |  SD | Min | Max | Skewness | Kurtosis |   n | n\_Missing |
-| ---: | --: | --: | --: | -------: | -------: | --: | ---------: |
-|  0.4 | 0.2 |   0 |   1 |      0.3 |    \-0.6 | 150 |          0 |
+| Mean |  SD | Min | Max | Skewness.Skewness | Skewness.SE | Kurtosis.Kurtosis | Kurtosis.SE |   n | n\_Missing |
+| ---: | --: | --: | --: | ----------------: | ----------: | ----------------: | ----------: | --: | ---------: |
+|  0.4 | 0.2 |   0 |   1 |               0.3 |         0.2 |             \-0.6 |         0.4 | 150 |          0 |
 
 This is a special case of a rescaling function, which can be used to
 rescale the data to an arbitrary new scale. Let’s change all numeric
@@ -195,9 +191,9 @@ df <- change_scale(iris, to = c(0, 100))
 describe_distribution(df$Sepal.Length)
 ```
 
-| Mean | SD | Min | Max | Skewness | Kurtosis |   n | n\_Missing |
-| ---: | -: | --: | --: | -------: | -------: | --: | ---------: |
-| 42.9 | 23 |   0 | 100 |      0.3 |    \-0.6 | 150 |          0 |
+| Mean | SD | Min | Max | Skewness.Skewness | Skewness.SE | Kurtosis.Kurtosis | Kurtosis.SE |   n | n\_Missing |
+| ---: | -: | --: | --: | ----------------: | ----------: | ----------------: | ----------: | --: | ---------: |
+| 42.9 | 23 |   0 | 100 |               0.3 |         0.2 |             \-0.6 |         0.4 | 150 |          0 |
 
 For some robust statistics, one might also want to transfom the numeric
 values into *ranks* (or signed-ranks), which can be performed using the

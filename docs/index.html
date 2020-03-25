@@ -162,21 +162,17 @@
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> iris)</a>
 <a class="sourceLine" id="cb4-2" title="2"></a>
 <a class="sourceLine" id="cb4-3" title="3"><span class="kw"><a href="reference/eta_squared.html">omega_squared</a></span>(model, <span class="dt">partial =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="co">##   Parameter Omega_Sq_partial</span></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="co">## 1   Species            0.612</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="co">## 2 Residuals               NA</span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="kw"><a href="reference/eta_squared.html">eta_squared</a></span>(model, <span class="dt">partial =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="co">##   Parameter Eta_Sq_partial</span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="co">## 1   Species          0.619</span></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="co">## 2 Residuals             NA</span></a>
-<a class="sourceLine" id="cb4-11" title="11"><span class="kw"><a href="reference/eta_squared.html">epsilon_squared</a></span>(model)</a>
-<a class="sourceLine" id="cb4-12" title="12"><span class="co">##   Parameter Epsilon_sq_partial</span></a>
-<a class="sourceLine" id="cb4-13" title="13"><span class="co">## 1   Species              0.614</span></a>
-<a class="sourceLine" id="cb4-14" title="14"><span class="co">## 2 Residuals                 NA</span></a>
-<a class="sourceLine" id="cb4-15" title="15"><span class="kw"><a href="reference/eta_squared.html">cohens_f</a></span>(model)</a>
-<a class="sourceLine" id="cb4-16" title="16"><span class="co">##   Parameter Cohens_f</span></a>
-<a class="sourceLine" id="cb4-17" title="17"><span class="co">## 1   Species     1.27</span></a>
-<a class="sourceLine" id="cb4-18" title="18"><span class="co">## 2 Residuals       NA</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co">##   Parameter Omega_Sq_partial  CI CI_low CI_high</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">## 1   Species            0.612 0.9  0.534   0.673</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="kw"><a href="reference/eta_squared.html">eta_squared</a></span>(model, <span class="dt">partial =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="co">##   Parameter Eta_Sq_partial  CI CI_low CI_high</span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="co">## 1   Species          0.619 0.9  0.541   0.678</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="kw"><a href="reference/eta_squared.html">epsilon_squared</a></span>(model)</a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="co">##   Parameter Epsilon_Sq_partial  CI CI_low CI_high</span></a>
+<a class="sourceLine" id="cb4-11" title="11"><span class="co">## 1   Species              0.614 0.9  0.535   0.674</span></a>
+<a class="sourceLine" id="cb4-12" title="12"><span class="kw"><a href="reference/eta_squared.html">cohens_f</a></span>(model)</a>
+<a class="sourceLine" id="cb4-13" title="13"><span class="co">##   Parameter Cohens_f_partial  CI CI_low CI_high</span></a>
+<a class="sourceLine" id="cb4-14" title="14"><span class="co">## 1   Species             1.27 0.9   1.09    1.45</span></a></code></pre></div>
 </div>
 <div id="regression-models" class="section level3">
 <h3 class="hasAnchor">
@@ -238,13 +234,27 @@
 <a class="sourceLine" id="cb9-3" title="3">df &lt;-<span class="st"> </span><span class="kw"><a href="reference/standardize.html">standardize</a></span>(iris)</a>
 <a class="sourceLine" id="cb9-4" title="4"><span class="kw">describe_distribution</span>(df<span class="op">$</span>Sepal.Length)</a></code></pre></div>
 <table class="table">
+<colgroup>
+<col width="4%">
+<col width="2%">
+<col width="6%">
+<col width="3%">
+<col width="20%">
+<col width="13%">
+<col width="20%">
+<col width="13%">
+<col width="3%">
+<col width="12%">
+</colgroup>
 <thead><tr class="header">
 <th align="right">Mean</th>
 <th align="right">SD</th>
 <th align="right">Min</th>
 <th align="right">Max</th>
-<th align="right">Skewness</th>
-<th align="right">Kurtosis</th>
+<th align="right">Skewness.Skewness</th>
+<th align="right">Skewness.SE</th>
+<th align="right">Kurtosis.Kurtosis</th>
+<th align="right">Kurtosis.SE</th>
 <th align="right">n</th>
 <th align="right">n_Missing</th>
 </tr></thead>
@@ -254,7 +264,9 @@
 <td align="right">-1.9</td>
 <td align="right">2.5</td>
 <td align="right">0.3</td>
+<td align="right">0.2</td>
 <td align="right">-0.6</td>
+<td align="right">0.4</td>
 <td align="right">150</td>
 <td align="right">0</td>
 </tr></tbody>
@@ -268,13 +280,27 @@
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">df &lt;-<span class="st"> </span><span class="kw"><a href="reference/normalize.html">normalize</a></span>(iris)</a>
 <a class="sourceLine" id="cb11-2" title="2"><span class="kw">describe_distribution</span>(df<span class="op">$</span>Sepal.Length)</a></code></pre></div>
 <table class="table">
+<colgroup>
+<col width="4%">
+<col width="3%">
+<col width="3%">
+<col width="3%">
+<col width="20%">
+<col width="13%">
+<col width="20%">
+<col width="13%">
+<col width="3%">
+<col width="12%">
+</colgroup>
 <thead><tr class="header">
 <th align="right">Mean</th>
 <th align="right">SD</th>
 <th align="right">Min</th>
 <th align="right">Max</th>
-<th align="right">Skewness</th>
-<th align="right">Kurtosis</th>
+<th align="right">Skewness.Skewness</th>
+<th align="right">Skewness.SE</th>
+<th align="right">Kurtosis.Kurtosis</th>
+<th align="right">Kurtosis.SE</th>
 <th align="right">n</th>
 <th align="right">n_Missing</th>
 </tr></thead>
@@ -284,7 +310,9 @@
 <td align="right">0</td>
 <td align="right">1</td>
 <td align="right">0.3</td>
+<td align="right">0.2</td>
 <td align="right">-0.6</td>
+<td align="right">0.4</td>
 <td align="right">150</td>
 <td align="right">0</td>
 </tr></tbody>
@@ -293,13 +321,27 @@
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">df &lt;-<span class="st"> </span><span class="kw"><a href="reference/change_scale.html">change_scale</a></span>(iris, <span class="dt">to =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">100</span>)) </a>
 <a class="sourceLine" id="cb12-2" title="2"><span class="kw">describe_distribution</span>(df<span class="op">$</span>Sepal.Length)</a></code></pre></div>
 <table class="table">
+<colgroup>
+<col width="4%">
+<col width="2%">
+<col width="3%">
+<col width="3%">
+<col width="20%">
+<col width="13%">
+<col width="20%">
+<col width="13%">
+<col width="3%">
+<col width="12%">
+</colgroup>
 <thead><tr class="header">
 <th align="right">Mean</th>
 <th align="right">SD</th>
 <th align="right">Min</th>
 <th align="right">Max</th>
-<th align="right">Skewness</th>
-<th align="right">Kurtosis</th>
+<th align="right">Skewness.Skewness</th>
+<th align="right">Skewness.SE</th>
+<th align="right">Kurtosis.Kurtosis</th>
+<th align="right">Kurtosis.SE</th>
 <th align="right">n</th>
 <th align="right">n_Missing</th>
 </tr></thead>
@@ -309,7 +351,9 @@
 <td align="right">0</td>
 <td align="right">100</td>
 <td align="right">0.3</td>
+<td align="right">0.2</td>
 <td align="right">-0.6</td>
+<td align="right">0.4</td>
 <td align="right">150</td>
 <td align="right">0</td>
 </tr></tbody>
