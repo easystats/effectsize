@@ -1,4 +1,6 @@
 authors:
+  Mattan S. Ben-Shachar:
+    href: https://github.com/mattansb
   Dominique Makowski:
     href: https://dominiquemakowski.github.io/
   Daniel Lüdecke:
@@ -43,11 +45,11 @@ reference:
   - rules
 - title: "Conversion"
   contents:
+  - F_to_eta2
+  - t_to_r
   - chisq_to_phi
   - convert_z_to_percentile
-  - t_to_r
   - percentage_to_d
-  - F_to_eta2
 - title: "Miscellaneous"
   contents:
   - adjust
@@ -74,5 +76,7 @@ navbar:
     menu:
       - text: Effect size conversion
         href: articles/convert.html
+      - text: Effect Size from Test Statistics
+        href: articles/from_test_statistics.html
       - text: Interpretation Guidelines
         href: articles/interpret.html

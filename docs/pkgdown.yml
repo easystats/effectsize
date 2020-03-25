@@ -3,6 +3,7 @@ pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
   convert: convert.html
+  from_test_statistics: from_test_statistics.html
   interpret: interpret.html
   standardize_data: standardize_data.html
   standardize_parameters: standardize_parameters.html

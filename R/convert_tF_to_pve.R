@@ -78,22 +78,8 @@
 #'
 #' @export
 F_to_eta2 <- function(f, df, df_error, CI = 0.9, ...) {
-  res <- data.frame(Eta_Sq_partial = (f * df) / (f * df + df_error))
-
-  if (is.numeric(CI)) {
-    stopifnot(length(CI) == 1, CI < 1, CI > 0)
-    res$CI <- CI
-    fs <- t(mapply(.get_ncp_F,
-                   f, df, df_error, CI))
-
-    res$CI_low <- (fs[, 1] * df) / (fs[, 1] * df + df_error)
-    res$CI_high <- (fs[, 2] * df) / (fs[, 2] * df + df_error)
-  }
-
-  return(res)
+  .F_to_pve(f, df, df_error, CI = CI, es = "eta2")
 }
-
-
 
 #' @rdname F_to_eta2
 #' @export
@@ -104,19 +90,7 @@ t_to_eta2 <- function(t, df_error, ...) {
 #' @rdname F_to_eta2
 #' @export
 F_to_epsilon2 <- function(f, df, df_error, CI = 0.9, ...) {
-  res <- data.frame(Epsilon_Sq_partial = ((f - 1) * df) / (f * df + df_error))
-
-  if (is.numeric(CI)) {
-    stopifnot(length(CI) == 1, CI < 1, CI > 0)
-    res$CI <- CI
-    fs <- t(mapply(.get_ncp_F,
-                   f, df, df_error, CI))
-
-    res$CI_low <- ((fs[, 1] - 1) * df) / (fs[, 1] * df + df_error)
-    res$CI_high <- ((fs[, 2] - 1) * df) / (fs[, 2] * df + df_error)
-  }
-
-  return(res)
+  .F_to_pve(f, df, df_error, CI = CI, es = "epsilon2")
 }
 
 #' @rdname F_to_eta2
@@ -136,23 +110,50 @@ t_to_eta2_adj <- t_to_epsilon2
 #' @rdname F_to_eta2
 #' @export
 F_to_omega2 <- function(f, df, df_error, CI = 0.9, ...) {
-  res <- data.frame(Omega_Sq_partial = ((f - 1) * df) / (f * df + df_error + 1))
-
-  if (is.numeric(CI)) {
-    stopifnot(length(CI) == 1, CI < 1, CI > 0)
-    res$CI <- CI
-    fs <- t(mapply(.get_ncp_F,
-                   f, df, df_error, CI))
-
-    res$CI_low <- ((fs[,1] - 1) * df) / (fs[,1] * df + df_error + 1)
-    res$CI_high <- ((fs[,2] - 1) * df) / (fs[,2] * df + df_error + 1)
-  }
-
-  return(res)
+  .F_to_pve(f, df, df_error, CI = CI, es = "omega2")
 }
 
 #' @rdname F_to_eta2
 #' @export
 t_to_omega2 <- function(t, df_error, ...) {
   F_to_omega2(t^2, 1, df_error)
+}
+
+
+#' @keywords internal
+.F_to_pve <- function(f, df, df_error, CI, es){
+  switch (es,
+          eta2 = {
+            es_f <- function(.f, df, df_error) {
+              (.f * df) / (.f * df + df_error)
+            }
+            es_name <- "Eta_Sq_partial"
+          },
+          epsilon2 = {
+            es_f <- function(.f, df, df_error) {
+              ((.f - 1) * df) / (.f * df + df_error)
+            }
+            es_name <- "Epsilon_Sq_partial"
+          },
+          omega2 = {
+            es_f <- function(.f, df, df_error) {
+              ((.f - 1) * df) / (.f * df + df_error + 1)
+            }
+            es_name <- "Omega_Sq_partial"
+          }
+  )
+
+  res <- data.frame(ES = es_f(f, df, df_error))
+  colnames(res) <- es_name
+
+  if (is.numeric(CI)) {
+    stopifnot(length(CI) == 1, CI < 1, CI > 0)
+    res$CI <- CI
+    fs <- t(mapply(.get_ncp_F, f, df, df_error, CI))
+
+    res$CI_low <- es_f(fs[, 1], df, df_error)
+    res$CI_high <- es_f(fs[, 2], df, df_error)
+  }
+
+  return(res)
 }

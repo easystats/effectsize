@@ -3,49 +3,68 @@
 \name{chisq_to_phi}
 \alias{chisq_to_phi}
 \alias{convert_chisq_to_phi}
-\alias{phi_to_chisq}
-\alias{convert_phi_to_chisq}
 \alias{chisq_to_cramers_v}
 \alias{convert_chisq_to_cramers_v}
+\alias{phi_to_chisq}
+\alias{convert_phi_to_chisq}
 \title{Conversion between Effect sizes for Contingency Tables (Chi2, Phi, Cramer's V...)}
 \usage{
-chisq_to_phi(chisq, n, ...)
+chisq_to_phi(chisq, n, nrow, ncol, CI = 0.95, adjust = FALSE, ...)
 
-convert_chisq_to_phi(chisq, n, ...)
+convert_chisq_to_phi(chisq, n, nrow, ncol, CI = 0.95, adjust = FALSE, ...)
+
+chisq_to_cramers_v(chisq, n, nrow, ncol, CI = 0.95, adjust = FALSE, ...)
+
+convert_chisq_to_cramers_v(
+  chisq,
+  n,
+  nrow,
+  ncol,
+  CI = 0.95,
+  adjust = FALSE,
+  ...
+)
 
 phi_to_chisq(phi, n, ...)
 
 convert_phi_to_chisq(phi, n, ...)
-
-chisq_to_cramers_v(chisq, n, nrow, ncol, ...)
-
-convert_chisq_to_cramers_v(chisq, n, nrow, ncol, ...)
 }
 \arguments{
 \item{chisq}{The Chi2 statistic.}
 
 \item{n}{Sample size.}
 
+\item{nrow, ncol}{The number of rows/columns in the contingency table (ignored for Phi when \code{adjust=FALSE} and \code{CI=NULL}).}
+
+\item{CI}{Confidence Interval (CI) level}
+
+\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
+
 \item{...}{Arguments passed to or from other methods.}
 
 \item{phi}{The Phi statistic.}
-
-\item{nrow}{The number of rows in the contingency table.}
-
-\item{ncol}{The number of columns in the contingency tables.}
 }
 \value{
-A numeric value between 0-1.
+A data frame with the effect size(s) between 0-1, and confidence interval(s).
 }
 \description{
 Convert between Chi square, (\eqn{chi^2}), phi (\eqn{\phi}) and Cramer's V.
 }
 \details{
 These functions use the following formulae:
-\cr\cr
-\deqn{Cramer's V = \sqrt{\chi^2 / (n * (min(nrow,ncol)-1))}}
-\cr\cr
+\cr
 \deqn{\phi = \sqrt{\chi^2 / n}}
+\cr
+\deqn{Cramer's V = \phi / \sqrt{min(nrow,ncol)-1}}
+\cr
+For adjusted versions, see Bergsma, 2013.
+
+\subsection{Confidence Intervals}{
+Confidence intervals are estimated using the Noncentrality parameter method;
+These methods searches for a the best \code{ncp} (non-central parameters) for
+of the noncentral F distribution for the desired tail-probabilities,
+and then convert these \code{ncp}s to the corresponding effect sizes.
+}
 }
 \examples{
 contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
@@ -57,10 +76,21 @@ chisq.test(contingency_table)
 # data:  ctab
 # X-squared = 41.234, df = 4, p-value = 2.405e-08
 
-chisq_to_phi(41.234, n = sum(contingency_table))
+chisq_to_phi(41.234,
+  n = sum(contingency_table),
+  nrow = nrow(contingency_table),
+  ncol = ncol(contingency_table)
+)
 chisq_to_cramers_v(41.234,
   n = sum(contingency_table),
   nrow = nrow(contingency_table),
   ncol = ncol(contingency_table)
 )
+
+}
+\references{
+\itemize{
+  \item Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
+  \item Bergsma, W. (2013). A bias-correction for Cramer's V and Tschuprow's T. Journal of the Korean Statistical Society, 42(3), 323-328.
+}
 }
