@@ -195,7 +195,7 @@
     </tr>
     <tr>
       <th>ci</th>
-      <td><p>Confidence Interval (CI) level</p></td>
+      <td><p>Confidence Interval (CI) level level</p></td>
     </tr>
     <tr>
       <th>adjust</th>
@@ -256,13 +256,15 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
   <span class='kw'>n</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>contingency_table</span>),
   <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>contingency_table</span>),
   <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>contingency_table</span>)
-)</div><div class='output co'>#&gt;        phi   CI     CI_low   CI_high
-#&gt; 1 0.102081 0.95 0.06632831 0.1299439</div><div class='input'><span class='fu'>chisq_to_cramers_v</span>(<span class='fl'>41.234</span>,
+)</div><div class='output co'>#&gt;  phi |       95% CI
+#&gt; -------------------
+#&gt; 0.10 | [0.07, 0.13]</div><div class='input'><span class='fu'>chisq_to_cramers_v</span>(<span class='fl'>41.234</span>,
   <span class='kw'>n</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>contingency_table</span>),
   <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>contingency_table</span>),
   <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>contingency_table</span>)
-)</div><div class='output co'>#&gt;    cramers_v   CI    CI_low   CI_high
-#&gt; 1 0.07218213 0.95 0.0469012 0.0918842</div><div class='input'>
+)</div><div class='output co'>#&gt; cramers_v |       95% CI
+#&gt; ------------------------
+#&gt;      0.07 | [0.05, 0.09]</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

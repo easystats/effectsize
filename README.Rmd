@@ -89,8 +89,8 @@ glass_delta(iris$Sepal.Length, iris$Sepal.Width)
 ```{r, warning=FALSE, message=FALSE}
 model <- aov(Sepal.Length ~ Species, data = iris)
 
-omega_squared(model, partial = TRUE)
-eta_squared(model, partial = TRUE)
+omega_squared(model)
+eta_squared(model)
 epsilon_squared(model)
 cohens_f(model)
 ```
@@ -100,14 +100,9 @@ cohens_f(model)
 
 Importantly, `effectsize` also provides [advanced methods](https://easystats.github.io/effectsize/articles/standardize_parameters.html) to compute standardized parameters for regression models.
 
-```{r, warning=FALSE, message=FALSE, eval=FALSE}
+```{r, warning=FALSE, message=FALSE}
 lm(Sepal.Length ~ Species + Sepal.Length, data = iris) %>% 
   standardize_parameters()
-```
-```{r, warning=FALSE, message=FALSE, echo = FALSE}
-lm(Sepal.Length ~ Species + Sepal.Length, data = iris) %>% 
-  standardize_parameters() %>% 
-  knitr::kable(digits = 2)
 ```
 
 ## Effect Size Interpretation
@@ -145,16 +140,11 @@ Many indices of effect size stem out, or are related, to [*standardization*](htt
 
 A standardization sets the mean and SD to 0 and 1:
 
-```{r, warning=FALSE, message=FALSE, eval=FALSE}
+```{r, warning=FALSE, message=FALSE}
 library(parameters)
 
 df <- standardize(iris)
 describe_distribution(df$Sepal.Length)
-```
-```{r, warning=FALSE, message=FALSE, echo = FALSE}
-library(parameters)
-df <- standardize(iris)
-knitr::kable(describe_distribution(df$Sepal.Length), digits = 1)
 ```
 
 This can be also applied to statistical models:
@@ -167,27 +157,18 @@ coef(std_model)
 
 Alternatively, normalization is similar to standardization in that it is a linear translation of the parameter space (i.e., it does not change the shape of the data distribution). However, it puts the values within a 0 - 1 range, which can be useful in cases where you want to compare or visualise data on the same scale. 
 
-```{r, warning=FALSE, message=FALSE, eval=FALSE}
+```{r, warning=FALSE, message=FALSE}
 df <- normalize(iris)
 describe_distribution(df$Sepal.Length)
-```
-```{r, warning=FALSE, message=FALSE, echo = FALSE}
-df <- normalize(iris)
-knitr::kable(describe_distribution(df$Sepal.Length), digits = 1)
 ```
 
 
 This is a special case of a rescaling function, which can be used to rescale the data to an arbitrary new scale. Let's change all numeric variables to "percentages": 
 
-```{r, warning=FALSE, message=FALSE, eval=FALSE}
+```{r, warning=FALSE, message=FALSE}
 df <- change_scale(iris, to = c(0, 100)) 
 describe_distribution(df$Sepal.Length)
 ```
-```{r, warning=FALSE, message=FALSE, echo = FALSE}
-df <- change_scale(iris, to = c(0, 100)) 
-knitr::kable(describe_distribution(df$Sepal.Length), digits = 1)
-```
-
 
 
 For some robust statistics, one might also want to transfom the numeric values into *ranks* (or signed-ranks), which can be performed using the `ranktransform()` function.

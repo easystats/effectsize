@@ -150,56 +150,50 @@
 <a href="#basic-indices-cohens-d-hedges-g-glass-delta" class="anchor"></a>Basic Indices (Cohen’s <em>d</em>, Hedges’ <em>g</em>, Glass’ <em>delta</em>)</h3>
 <p>The package provides functions to compute indices of effect size.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="reference/cohens_d.html">cohens_d</a></span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Sepal.Width)</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="co">## [1] 4.21</span></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="kw"><a href="reference/cohens_d.html">hedges_g</a></span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Sepal.Width)</a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co">## [1] 4.2</span></a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="kw"><a href="reference/cohens_d.html">glass_delta</a></span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Sepal.Width)</a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">## [1] 3.36</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">## Cohens_d |       95% CI</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">## -----------------------</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">##     4.21 | [3.82, 4.63]</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="kw"><a href="reference/cohens_d.html">hedges_g</a></span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Sepal.Width)</a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co">## Hedges_g |       95% CI</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co">## -----------------------</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">##     4.20 | [3.81, 4.62]</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="kw"><a href="reference/cohens_d.html">glass_delta</a></span>(iris<span class="op">$</span>Sepal.Length, iris<span class="op">$</span>Sepal.Width)</a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co">## Glass_delta |       95% CI</span></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="co">## --------------------------</span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="co">##        3.36 | [2.96, 3.79]</span></a></code></pre></div>
 </div>
 <div id="anovas-eta2-omega2-" class="section level3">
 <h3 class="hasAnchor">
 <a href="#anovas-eta2-omega2-" class="anchor"></a>ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)</h3>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> iris)</a>
 <a class="sourceLine" id="cb4-2" title="2"></a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="kw"><a href="reference/eta_squared.html">omega_squared</a></span>(model, <span class="dt">partial =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="co">##   Parameter Omega_Sq_partial  CI CI_low CI_high</span></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="co">## 1   Species            0.612 0.9  0.534   0.673</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="kw"><a href="reference/eta_squared.html">eta_squared</a></span>(model, <span class="dt">partial =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="co">##   Parameter Eta_Sq_partial  CI CI_low CI_high</span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="co">## 1   Species          0.619 0.9  0.541   0.678</span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="kw"><a href="reference/eta_squared.html">epsilon_squared</a></span>(model)</a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="co">##   Parameter Epsilon_Sq_partial  CI CI_low CI_high</span></a>
-<a class="sourceLine" id="cb4-11" title="11"><span class="co">## 1   Species              0.614 0.9  0.535   0.674</span></a>
-<a class="sourceLine" id="cb4-12" title="12"><span class="kw"><a href="reference/eta_squared.html">cohens_f</a></span>(model)</a>
-<a class="sourceLine" id="cb4-13" title="13"><span class="co">##   Parameter Cohens_f_partial  CI CI_low CI_high</span></a>
-<a class="sourceLine" id="cb4-14" title="14"><span class="co">## 1   Species             1.27 0.9   1.09    1.45</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-3" title="3"><span class="kw"><a href="reference/eta_squared.html">omega_squared</a></span>(model)</a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co">## Parameter | Omega_Sq_partial |       90% CI</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">## -------------------------------------------</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="co">## Species   |             0.61 | [0.53, 0.67]</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="kw"><a href="reference/eta_squared.html">eta_squared</a></span>(model)</a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="co">## Parameter | Eta_Sq_partial |       90% CI</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="co">## -----------------------------------------</span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="co">## Species   |           0.62 | [0.54, 0.68]</span></a>
+<a class="sourceLine" id="cb4-11" title="11"><span class="kw"><a href="reference/eta_squared.html">epsilon_squared</a></span>(model)</a>
+<a class="sourceLine" id="cb4-12" title="12"><span class="co">## Parameter | Epsilon_Sq_partial |       90% CI</span></a>
+<a class="sourceLine" id="cb4-13" title="13"><span class="co">## ---------------------------------------------</span></a>
+<a class="sourceLine" id="cb4-14" title="14"><span class="co">## Species   |               0.61 | [0.54, 0.67]</span></a>
+<a class="sourceLine" id="cb4-15" title="15"><span class="kw"><a href="reference/eta_squared.html">cohens_f</a></span>(model)</a>
+<a class="sourceLine" id="cb4-16" title="16"><span class="co">## Parameter | Cohens_f_partial |       90% CI</span></a>
+<a class="sourceLine" id="cb4-17" title="17"><span class="co">## -------------------------------------------</span></a>
+<a class="sourceLine" id="cb4-18" title="18"><span class="co">## Species   |             1.27 | [1.09, 1.45]</span></a></code></pre></div>
 </div>
 <div id="regression-models" class="section level3">
 <h3 class="hasAnchor">
 <a href="#regression-models" class="anchor"></a>Regression Models</h3>
 <p>Importantly, <code>effectsize</code> also provides <a href="https://easystats.github.io/effectsize/articles/standardize_parameters.html">advanced methods</a> to compute standardized parameters for regression models.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species <span class="op">+</span><span class="st"> </span>Sepal.Length, <span class="dt">data =</span> iris) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="st">  </span><span class="kw"><a href="reference/standardize_parameters.html">standardize_parameters</a></span>()</a></code></pre></div>
-<table class="table">
-<thead><tr class="header">
-<th align="left">Parameter</th>
-<th align="right">Std_Coefficient</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">-1.01</td>
-</tr>
-<tr class="even">
-<td align="left">Speciesversicolor</td>
-<td align="right">1.12</td>
-</tr>
-<tr class="odd">
-<td align="left">Speciesvirginica</td>
-<td align="right">1.91</td>
-</tr>
-</tbody>
-</table>
+<a class="sourceLine" id="cb5-2" title="2"><span class="st">  </span><span class="kw"><a href="reference/standardize_parameters.html">standardize_parameters</a></span>()</a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co">##           Parameter Std_Coefficient</span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co">## 1       (Intercept)           -1.01</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">## 2 Speciesversicolor            1.12</span></a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="co">## 3  Speciesvirginica            1.91</span></a></code></pre></div>
 </div>
 </div>
 <div id="effect-size-interpretation" class="section level2">
@@ -232,45 +226,10 @@
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(parameters)</a>
 <a class="sourceLine" id="cb9-2" title="2"></a>
 <a class="sourceLine" id="cb9-3" title="3">df &lt;-<span class="st"> </span><span class="kw"><a href="reference/standardize.html">standardize</a></span>(iris)</a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="kw">describe_distribution</span>(df<span class="op">$</span>Sepal.Length)</a></code></pre></div>
-<table class="table">
-<colgroup>
-<col width="4%">
-<col width="2%">
-<col width="6%">
-<col width="3%">
-<col width="20%">
-<col width="13%">
-<col width="20%">
-<col width="13%">
-<col width="3%">
-<col width="12%">
-</colgroup>
-<thead><tr class="header">
-<th align="right">Mean</th>
-<th align="right">SD</th>
-<th align="right">Min</th>
-<th align="right">Max</th>
-<th align="right">Skewness.Skewness</th>
-<th align="right">Skewness.SE</th>
-<th align="right">Kurtosis.Kurtosis</th>
-<th align="right">Kurtosis.SE</th>
-<th align="right">n</th>
-<th align="right">n_Missing</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">-1.9</td>
-<td align="right">2.5</td>
-<td align="right">0.3</td>
-<td align="right">0.2</td>
-<td align="right">-0.6</td>
-<td align="right">0.4</td>
-<td align="right">150</td>
-<td align="right">0</td>
-</tr></tbody>
-</table>
+<a class="sourceLine" id="cb9-4" title="4"><span class="kw">describe_distribution</span>(df<span class="op">$</span>Sepal.Length)</a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="co">## Mean | SD |   SE |         Range | Skewness | Kurtosis |   n | n_Missing</span></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="co">## ------------------------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb9-7" title="7"><span class="co">## 0.00 |  1 | 0.08 | [-1.86, 2.48] |     0.31 |    -0.55 | 150 |         0</span></a></code></pre></div>
 <p>This can be also applied to statistical models:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">std_model &lt;-<span class="st"> </span><span class="kw"><a href="reference/standardize.html">standardize</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> iris))</a>
 <a class="sourceLine" id="cb10-2" title="2"><span class="kw"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span>(std_model)</a>
@@ -278,86 +237,16 @@
 <a class="sourceLine" id="cb10-4" title="4"><span class="co">##             -1.01              1.12              1.91</span></a></code></pre></div>
 <p>Alternatively, normalization is similar to standardization in that it is a linear translation of the parameter space (i.e., it does not change the shape of the data distribution). However, it puts the values within a 0 - 1 range, which can be useful in cases where you want to compare or visualise data on the same scale.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">df &lt;-<span class="st"> </span><span class="kw"><a href="reference/normalize.html">normalize</a></span>(iris)</a>
-<a class="sourceLine" id="cb11-2" title="2"><span class="kw">describe_distribution</span>(df<span class="op">$</span>Sepal.Length)</a></code></pre></div>
-<table class="table">
-<colgroup>
-<col width="4%">
-<col width="3%">
-<col width="3%">
-<col width="3%">
-<col width="20%">
-<col width="13%">
-<col width="20%">
-<col width="13%">
-<col width="3%">
-<col width="12%">
-</colgroup>
-<thead><tr class="header">
-<th align="right">Mean</th>
-<th align="right">SD</th>
-<th align="right">Min</th>
-<th align="right">Max</th>
-<th align="right">Skewness.Skewness</th>
-<th align="right">Skewness.SE</th>
-<th align="right">Kurtosis.Kurtosis</th>
-<th align="right">Kurtosis.SE</th>
-<th align="right">n</th>
-<th align="right">n_Missing</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="right">0.4</td>
-<td align="right">0.2</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0.3</td>
-<td align="right">0.2</td>
-<td align="right">-0.6</td>
-<td align="right">0.4</td>
-<td align="right">150</td>
-<td align="right">0</td>
-</tr></tbody>
-</table>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw">describe_distribution</span>(df<span class="op">$</span>Sepal.Length)</a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="co">## Mean |   SD |   SE |        Range | Skewness | Kurtosis |   n | n_Missing</span></a>
+<a class="sourceLine" id="cb11-4" title="4"><span class="co">## -------------------------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb11-5" title="5"><span class="co">## 0.43 | 0.23 | 0.02 | [0.00, 1.00] |     0.31 |    -0.55 | 150 |         0</span></a></code></pre></div>
 <p>This is a special case of a rescaling function, which can be used to rescale the data to an arbitrary new scale. Let’s change all numeric variables to “percentages”:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">df &lt;-<span class="st"> </span><span class="kw"><a href="reference/change_scale.html">change_scale</a></span>(iris, <span class="dt">to =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">100</span>)) </a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="kw">describe_distribution</span>(df<span class="op">$</span>Sepal.Length)</a></code></pre></div>
-<table class="table">
-<colgroup>
-<col width="4%">
-<col width="2%">
-<col width="3%">
-<col width="3%">
-<col width="20%">
-<col width="13%">
-<col width="20%">
-<col width="13%">
-<col width="3%">
-<col width="12%">
-</colgroup>
-<thead><tr class="header">
-<th align="right">Mean</th>
-<th align="right">SD</th>
-<th align="right">Min</th>
-<th align="right">Max</th>
-<th align="right">Skewness.Skewness</th>
-<th align="right">Skewness.SE</th>
-<th align="right">Kurtosis.Kurtosis</th>
-<th align="right">Kurtosis.SE</th>
-<th align="right">n</th>
-<th align="right">n_Missing</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="right">42.9</td>
-<td align="right">23</td>
-<td align="right">0</td>
-<td align="right">100</td>
-<td align="right">0.3</td>
-<td align="right">0.2</td>
-<td align="right">-0.6</td>
-<td align="right">0.4</td>
-<td align="right">150</td>
-<td align="right">0</td>
-</tr></tbody>
-</table>
+<a class="sourceLine" id="cb12-2" title="2"><span class="kw">describe_distribution</span>(df<span class="op">$</span>Sepal.Length)</a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="co">##  Mean |    SD |   SE |          Range | Skewness | Kurtosis |   n | n_Missing</span></a>
+<a class="sourceLine" id="cb12-4" title="4"><span class="co">## -----------------------------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="co">## 42.87 | 23.00 | 1.88 | [0.00, 100.00] |     0.31 |    -0.55 | 150 |         0</span></a></code></pre></div>
 <p>For some robust statistics, one might also want to transfom the numeric values into <em>ranks</em> (or signed-ranks), which can be performed using the <code><a href="reference/ranktransform.html">ranktransform()</a></code> function.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="reference/ranktransform.html">ranktransform</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">-2</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">0</span>))</a>
 <a class="sourceLine" id="cb13-2" title="2"><span class="co">## [1] 3.0 4.0 1.0 5.5 5.5 2.0</span></a></code></pre></div>

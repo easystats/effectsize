@@ -203,7 +203,7 @@ See <a href='https://easystats.github.io/effectsize/articles/from_test_statistic
     </tr>
     <tr>
       <th>ci</th>
-      <td><p>Confidence Interval (CI) level</p></td>
+      <td><p>Confidence Interval (CI) level level</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -290,10 +290,11 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
   <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>40.72</span>, <span class='fl'>33.77</span>, <span class='fl'>45.31</span>),
   <span class='kw'>df</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>2</span>),
   <span class='kw'>df_error</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>18</span>, <span class='fl'>9</span>, <span class='fl'>18</span>)
-)</div><div class='output co'>#&gt;   Eta_Sq_partial  CI    CI_low   CI_high
-#&gt; 1      0.8189863 0.9 0.6604136 0.8865963
-#&gt; 2      0.7895721 0.9 0.4922275 0.8887108
-#&gt; 3      0.8342847 0.9 0.6880421 0.8962630</div><div class='input'>
+)</div><div class='output co'>#&gt; Eta_Sq_partial |       90% CI
+#&gt; -----------------------------
+#&gt;           0.82 | [0.66, 0.89]
+#&gt;           0.79 | [0.49, 0.89]
+#&gt;           0.83 | [0.69, 0.90]</div><div class='input'>
 
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"lmerTest"</span>)) { <span class='co'># for the df_error</span>
   <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lmerTest/man/lmer.html'>lmer</a></span>(<span class='no'>extra</span> ~ <span class='no'>group</span> + (<span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>ID</span>), <span class='no'>sleep</span>)
@@ -312,8 +313,9 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    lmer</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:stats':</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    step</span></div><div class='output co'>#&gt;   Cohens_f_partial  CI   CI_low  CI_high
-#&gt; 1         1.354047 0.9 0.574079 2.081434</div><div class='input'>
+#&gt; <span class='message'>    step</span></div><div class='output co'>#&gt; Cohens_f_partial |       90% CI
+#&gt; -------------------------------
+#&gt;             1.35 | [0.57, 2.08]</div><div class='input'>
 <span class='co'>## Use with emmeans based contrasts</span>
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>emmeans</span>) <span class='kw'>&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>dplyr</span>)) {
   <span class='no'>warp.lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>breaks</span> ~ <span class='no'>wool</span> * <span class='no'>tension</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>warpbreaks</span>)

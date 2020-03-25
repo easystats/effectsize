@@ -62,11 +62,17 @@ The package provides functions to compute indices of effect size.
 
 ``` r
 cohens_d(iris$Sepal.Length, iris$Sepal.Width)
-## [1] 4.21
+## Cohens_d |       95% CI
+## -----------------------
+##     4.21 | [3.82, 4.63]
 hedges_g(iris$Sepal.Length, iris$Sepal.Width)
-## [1] 4.2
+## Hedges_g |       95% CI
+## -----------------------
+##     4.20 | [3.81, 4.62]
 glass_delta(iris$Sepal.Length, iris$Sepal.Width)
-## [1] 3.36
+## Glass_delta |       95% CI
+## --------------------------
+##        3.36 | [2.96, 3.79]
 ```
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)
@@ -74,18 +80,22 @@ glass_delta(iris$Sepal.Length, iris$Sepal.Width)
 ``` r
 model <- aov(Sepal.Length ~ Species, data = iris)
 
-omega_squared(model, partial = TRUE)
-##   Parameter Omega_Sq_partial  CI CI_low CI_high
-## 1   Species            0.612 0.9  0.534   0.673
-eta_squared(model, partial = TRUE)
-##   Parameter Eta_Sq_partial  CI CI_low CI_high
-## 1   Species          0.619 0.9  0.541   0.678
+omega_squared(model)
+## Parameter | Omega_Sq_partial |       90% CI
+## -------------------------------------------
+## Species   |             0.61 | [0.53, 0.67]
+eta_squared(model)
+## Parameter | Eta_Sq_partial |       90% CI
+## -----------------------------------------
+## Species   |           0.62 | [0.54, 0.68]
 epsilon_squared(model)
-##   Parameter Epsilon_Sq_partial  CI CI_low CI_high
-## 1   Species              0.614 0.9  0.535   0.674
+## Parameter | Epsilon_Sq_partial |       90% CI
+## ---------------------------------------------
+## Species   |               0.61 | [0.54, 0.67]
 cohens_f(model)
-##   Parameter Cohens_f_partial  CI CI_low CI_high
-## 1   Species             1.27 0.9   1.09    1.45
+## Parameter | Cohens_f_partial |       90% CI
+## -------------------------------------------
+## Species   |             1.27 | [1.09, 1.45]
 ```
 
 ### Regression Models
@@ -97,13 +107,11 @@ to compute standardized parameters for regression models.
 ``` r
 lm(Sepal.Length ~ Species + Sepal.Length, data = iris) %>% 
   standardize_parameters()
+##           Parameter Std_Coefficient
+## 1       (Intercept)           -1.01
+## 2 Speciesversicolor            1.12
+## 3  Speciesvirginica            1.91
 ```
-
-| Parameter         | Std\_Coefficient |
-| :---------------- | ---------------: |
-| (Intercept)       |           \-1.01 |
-| Speciesversicolor |             1.12 |
-| Speciesvirginica  |             1.91 |
 
 ## Effect Size Interpretation
 
@@ -152,11 +160,10 @@ library(parameters)
 
 df <- standardize(iris)
 describe_distribution(df$Sepal.Length)
+## Mean | SD |   SE |         Range | Skewness | Kurtosis |   n | n_Missing
+## ------------------------------------------------------------------------
+## 0.00 |  1 | 0.08 | [-1.86, 2.48] |     0.31 |    -0.55 | 150 |         0
 ```
-
-| Mean | SD |   Min | Max | Skewness.Skewness | Skewness.SE | Kurtosis.Kurtosis | Kurtosis.SE |   n | n\_Missing |
-| ---: | -: | ----: | --: | ----------------: | ----------: | ----------------: | ----------: | --: | ---------: |
-|    0 |  1 | \-1.9 | 2.5 |               0.3 |         0.2 |             \-0.6 |         0.4 | 150 |          0 |
 
 This can be also applied to statistical models:
 
@@ -176,11 +183,10 @@ visualise data on the same scale.
 ``` r
 df <- normalize(iris)
 describe_distribution(df$Sepal.Length)
+## Mean |   SD |   SE |        Range | Skewness | Kurtosis |   n | n_Missing
+## -------------------------------------------------------------------------
+## 0.43 | 0.23 | 0.02 | [0.00, 1.00] |     0.31 |    -0.55 | 150 |         0
 ```
-
-| Mean |  SD | Min | Max | Skewness.Skewness | Skewness.SE | Kurtosis.Kurtosis | Kurtosis.SE |   n | n\_Missing |
-| ---: | --: | --: | --: | ----------------: | ----------: | ----------------: | ----------: | --: | ---------: |
-|  0.4 | 0.2 |   0 |   1 |               0.3 |         0.2 |             \-0.6 |         0.4 | 150 |          0 |
 
 This is a special case of a rescaling function, which can be used to
 rescale the data to an arbitrary new scale. Let’s change all numeric
@@ -189,11 +195,10 @@ variables to “percentages”:
 ``` r
 df <- change_scale(iris, to = c(0, 100)) 
 describe_distribution(df$Sepal.Length)
+##  Mean |    SD |   SE |          Range | Skewness | Kurtosis |   n | n_Missing
+## -----------------------------------------------------------------------------
+## 42.87 | 23.00 | 1.88 | [0.00, 100.00] |     0.31 |    -0.55 | 150 |         0
 ```
-
-| Mean | SD | Min | Max | Skewness.Skewness | Skewness.SE | Kurtosis.Kurtosis | Kurtosis.SE |   n | n\_Missing |
-| ---: | -: | --: | --: | ----------------: | ----------: | ----------------: | ----------: | --: | ---------: |
-| 42.9 | 23 |   0 | 100 |               0.3 |         0.2 |             \-0.6 |         0.4 | 150 |          0 |
 
 For some robust statistics, one might also want to transfom the numeric
 values into *ranks* (or signed-ranks), which can be performed using the

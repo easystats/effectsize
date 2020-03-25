@@ -103,6 +103,7 @@ t_to_r <- function(t, df_error, ci = 0.95, ...) {
     res$CI_high <- ts[,2] / sqrt(ts[,2]^2 + df_error)
   }
 
+  class(res) <- c("effectsize_table", class(res))
   return(res)
 }
 
@@ -134,6 +135,7 @@ z_to_r <- function(z, n, ci = 0.95, ...) {
     res$CI_high <- zs[,2] / sqrt(zs[,2]^2 + n)
   }
 
+  class(res) <- c("effectsize_table", class(res))
   return(res)
 }
 

@@ -141,8 +141,8 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
       ((n - 3) / (n - 2.25)) * sqrt((n - 2) / n)
   }
 
-
-  out
+  class(out) <- c("effectsize_table", class(out))
+  return(out)
 }
 
 

@@ -183,7 +183,7 @@ variables are accounted for by the explanatory variables.</p>
     </tr>
     <tr>
       <th>ci</th>
-      <td><p>Confidence Interval (CI) level when computed via bootstrap.</p></td>
+      <td><p>Confidence Interval (CI) level level</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -193,7 +193,8 @@ variables are accounted for by the explanatory variables.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Data.frame containing the effect size values.</p>
+    <p>A data frame with the effect size(s) and confidence interval(s).</p>
+<p>Data.frame containing the effect size values.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For between-subjects ANOVAs, the effect sizes are computed directly with Sums-of-Squares.
@@ -237,35 +238,47 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 <span class='no'>df</span>$<span class='no'>Sepal.Big</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>df</span>$<span class='no'>Sepal.Width</span> <span class='kw'>&gt;=</span> <span class='fl'>3</span>, <span class='st'>"Yes"</span>, <span class='st'>"No"</span>)
 
 <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Big</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>)
-<span class='fu'>omega_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;   Parameter Omega_Sq_partial  CI       CI_low    CI_high
-#&gt; 1 Sepal.Big      0.004038505 0.9 -0.006711409 0.04760887</div><div class='input'><span class='fu'>eta_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;   Parameter Eta_Sq_partial  CI       CI_low    CI_high
-#&gt; 1 Sepal.Big     0.01074962 0.9 6.946274e-11 0.05430293</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;   Parameter Epsilon_Sq_partial  CI       CI_low    CI_high
-#&gt; 1 Sepal.Big        0.004065499 0.9 -0.006756757 0.04791309</div><div class='input'><span class='fu'>cohens_f</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;   Parameter Cohens_f_partial  CI       CI_low   CI_high
-#&gt; 1 Sepal.Big        0.1042422 0.9 8.334431e-06 0.2396269</div><div class='input'>
+<span class='fu'>omega_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter | Omega_Sq_partial |        90% CI
+#&gt; --------------------------------------------
+#&gt; Sepal.Big |             0.00 | [-0.01, 0.05]</div><div class='input'><span class='fu'>eta_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter | Eta_Sq_partial |       90% CI
+#&gt; -----------------------------------------
+#&gt; Sepal.Big |           0.01 | [0.00, 0.05]</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter | Epsilon_Sq_partial |        90% CI
+#&gt; ----------------------------------------------
+#&gt; Sepal.Big |               0.00 | [-0.01, 0.05]</div><div class='input'><span class='fu'>cohens_f</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter | Cohens_f_partial |       90% CI
+#&gt; -------------------------------------------
+#&gt; Sepal.Big |             0.10 | [0.00, 0.24]</div><div class='input'>
 <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Big</span> * <span class='no'>Species</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>))
-<span class='fu'>omega_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;           Parameter Omega_Sq_partial  CI       CI_low     CI_high
-#&gt; 1         Sepal.Big       0.02361791 0.9 -0.005572754  0.08454239
-#&gt; 2           Species       0.65095815 0.9  0.583446732  0.71057155
-#&gt; 3 Sepal.Big:Species      -0.01224219 0.9 -0.013793103 -0.00544624</div><div class='input'><span class='fu'>eta_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;           Parameter Eta_Sq_partial  CI       CI_low     CI_high
-#&gt; 1         Sepal.Big    0.031140626 0.9 1.323848e-03 0.091385660
-#&gt; 2           Species    0.661771666 0.9 5.907882e-01 0.715918924
-#&gt; 3 Sepal.Big:Species    0.001289171 0.9 4.742665e-10 0.008290002</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;           Parameter Epsilon_Sq_partial  CI       CI_low      CI_high
-#&gt; 1         Sepal.Big         0.02441244 0.9 -0.005611403  0.085075838
-#&gt; 2           Species         0.65707405 0.9  0.585104740  0.711973354
-#&gt; 3 Sepal.Big:Species        -0.01258181 0.9 -0.013888888 -0.005483748</div><div class='input'><span class='fu'>cohens_f</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;           Parameter Cohens_f_partial  CI       CI_low    CI_high
-#&gt; 1         Sepal.Big        0.1792806 0.9 3.640883e-02 0.31713869
-#&gt; 2           Species        1.3987790 0.9 1.201550e+00 1.58748916
-#&gt; 3 Sepal.Big:Species        0.0359282 0.9 2.177766e-05 0.09142921</div><div class='input'>
+<span class='fu'>omega_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter         | Omega_Sq_partial |         90% CI
+#&gt; -----------------------------------------------------
+#&gt; Sepal.Big         |             0.02 | [-0.01,  0.08]
+#&gt; Species           |             0.65 | [ 0.58,  0.71]
+#&gt; Sepal.Big:Species |            -0.01 | [-0.01, -0.01]</div><div class='input'><span class='fu'>eta_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter         | Eta_Sq_partial |       90% CI
+#&gt; -------------------------------------------------
+#&gt; Sepal.Big         |           0.03 | [0.00, 0.09]
+#&gt; Species           |           0.66 | [0.59, 0.72]
+#&gt; Sepal.Big:Species |           0.00 | [0.00, 0.01]</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter         | Epsilon_Sq_partial |         90% CI
+#&gt; -------------------------------------------------------
+#&gt; Sepal.Big         |               0.02 | [-0.01,  0.09]
+#&gt; Species           |               0.66 | [ 0.59,  0.71]
+#&gt; Sepal.Big:Species |              -0.01 | [-0.01, -0.01]</div><div class='input'><span class='fu'>cohens_f</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter         | Cohens_f_partial |       90% CI
+#&gt; ---------------------------------------------------
+#&gt; Sepal.Big         |             0.18 | [0.04, 0.32]
+#&gt; Species           |             1.40 | [1.20, 1.59]
+#&gt; Sepal.Big:Species |             0.04 | [0.00, 0.09]</div><div class='input'>
 <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Big</span> + <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>Error</a></span>(<span class='no'>Species</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>)
-<span class='fu'>omega_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;   Parameter Omega_Sq_partial  CI      CI_low   CI_high
-#&gt; 1 Sepal.Big      -0.06795358 0.9 -0.49999997 0.6595829
-#&gt; 2 Sepal.Big       0.11502545 0.9  0.04383913 0.2014650</div><div class='input'><span class='fu'>eta_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;   Parameter Eta_Sq_partial  CI       CI_low   CI_high
-#&gt; 1 Sepal.Big      0.4472423 0.9 3.564867e-08 0.8720036
-#&gt; 2 Sepal.Big      0.1217329 0.9 5.062675e-02 0.2079827</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;   Parameter Epsilon_Sq_partial  CI     CI_low   CI_high
-#&gt; 1 Sepal.Big         -0.1055154 0.9 -0.9999999 0.7440071
-#&gt; 2 Sepal.Big          0.1157174 0.9  0.0441242 0.2025580</div><div class='input'><span class='fu'>cohens_f</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;   Parameter Cohens_f_partial  CI       CI_low   CI_high
-#&gt; 1 Sepal.Big        0.8995059 0.9 0.0001888086 2.6101183
-#&gt; 2 Sepal.Big        0.3722980 0.9 0.2309253165 0.5124439</div><div class='input'>
+<span class='fu'>omega_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter | Omega_Sq_partial |        90% CI
+#&gt; --------------------------------------------
+#&gt; Sepal.Big |            -0.07 | [-0.50, 0.66]
+#&gt; Sepal.Big |             0.12 | [ 0.04, 0.20]</div><div class='input'><span class='fu'>eta_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter | Eta_Sq_partial |       90% CI
+#&gt; -----------------------------------------
+#&gt; Sepal.Big |           0.45 | [0.00, 0.87]
+#&gt; Sepal.Big |           0.12 | [0.05, 0.21]</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter | Epsilon_Sq_partial |        90% CI
+#&gt; ----------------------------------------------
+#&gt; Sepal.Big |              -0.11 | [-1.00, 0.74]
+#&gt; Sepal.Big |               0.12 | [ 0.04, 0.20]</div><div class='input'><span class='fu'>cohens_f</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter | Cohens_f_partial |       90% CI
+#&gt; -------------------------------------------
+#&gt; Sepal.Big |             0.90 | [0.00, 2.61]
+#&gt; Sepal.Big |             0.37 | [0.23, 0.51]</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

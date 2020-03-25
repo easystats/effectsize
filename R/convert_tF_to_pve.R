@@ -147,6 +147,7 @@ F_to_f <- function(f, df, df_error, ci = 0.9, ...){
                           (1 - res_eta$CI_high))
   }
 
+  class(res) <- c("effectsize_table",class(res))
   return(res)
 }
 
@@ -193,5 +194,6 @@ t_to_f <- function(t, df_error, ci = 0.9, ...){
     res$CI_high <- es_f(fs[, 2], df, df_error)
   }
 
+  class(res) <- c("effectsize_table", class(res))
   return(res)
 }

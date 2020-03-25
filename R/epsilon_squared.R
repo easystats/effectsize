@@ -76,7 +76,9 @@ epsilon_squared.aov <- function(model, partial = TRUE, ci = 0.9, ...) {
     }
   }
 
-  class(out) <- c(ifelse(isTRUE(partial), "partial_epsilon_squared", "epsilon_squared"), class(out))
+  class(out) <- c(ifelse(isTRUE(partial), "partial_epsilon_squared", "epsilon_squared"),
+                  "effectsize_table",
+                  class(out))
   out
 }
 
@@ -112,7 +114,7 @@ epsilon_squared.anova <- function(model, partial = TRUE, ci = 0.9, ...) {
     )
   )
 
-  class(out) <- c("partial_epsilon_squared", class(out))
+  class(out) <- c("partial_epsilon_squared", "effectsize_table", class(out))
   out
 }
 
@@ -144,7 +146,7 @@ epsilon_squared.aovlist <- function(model, partial = TRUE, ci = 0.9, ...) {
                   ci = ci)
   )
 
-  class(out) <- c("partial_epsilon_squared", class(out))
+  class(out) <- c("partial_epsilon_squared", "effectsize_table", class(out))
   out
 }
 

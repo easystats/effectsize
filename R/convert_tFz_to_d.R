@@ -17,6 +17,7 @@ t_to_d <- function(t, df_error, pooled = FALSE, ci = 0.95, ...) {
     res$CI_high <- pooled * ts[,2] / sqrt(df_error)
   }
 
+  class(res) <- c("effectsize_table", class(res))
   return(res)
 }
 
@@ -53,6 +54,7 @@ z_to_d <- function(z, n, pooled = FALSE, ci = 0.95, ...) {
     res$CI_high <- pooled * zs[,2] / sqrt(n)
   }
 
+  class(res) <- c("effectsize_table", class(res))
   return(res)
 }
 

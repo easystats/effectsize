@@ -80,6 +80,7 @@ chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...){
     res$CI_high <- .es(chisqs[,2])
   }
 
+  class(res) <- c("effectsize_table", class(res))
   return(res)
 }
 
@@ -120,6 +121,7 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, 
     res$CI_high <- .es(chisqs[,2])
   }
 
+  class(res) <- c("effectsize_table", class(res))
   return(res)
 }
 

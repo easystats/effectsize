@@ -2,6 +2,7 @@
 
 ## New features
 
+- Effectsize for differences have CI methods, and return a data frame.
 - Effectsize for ANOVA all have CI methods, and none are based on bootstrapping.
 - New sffect sizes for contingency tables (`phi()` and `cramers_v()`).
 - `chisq_to_phi/cramers_v()` functions now support CIs (via the ncp method), and return a data frame.
