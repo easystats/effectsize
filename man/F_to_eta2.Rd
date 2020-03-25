@@ -9,23 +9,29 @@
 \alias{t_to_eta2_adj}
 \alias{F_to_omega2}
 \alias{t_to_omega2}
-\title{Convert test statistics (F, t) to indices of \strong{partial} variance explained (\strong{partial} Eta / Omega / Epsilon squared)}
+\alias{F_to_f}
+\alias{t_to_f}
+\title{Convert test statistics (F, t) to indices of \strong{partial} variance explained (\strong{partial} Eta / Omega / Epsilon squared and Cohen's f)}
 \usage{
 F_to_eta2(f, df, df_error, CI = 0.9, ...)
 
-t_to_eta2(t, df_error, ...)
+t_to_eta2(t, df_error, CI = 0.9, ...)
 
 F_to_epsilon2(f, df, df_error, CI = 0.9, ...)
 
-t_to_epsilon2(t, df_error, ...)
+t_to_epsilon2(t, df_error, CI = 0.9, ...)
 
 F_to_eta2_adj(f, df, df_error, CI = 0.9, ...)
 
-t_to_eta2_adj(t, df_error, ...)
+t_to_eta2_adj(t, df_error, CI = 0.9, ...)
 
 F_to_omega2(f, df, df_error, CI = 0.9, ...)
 
-t_to_omega2(t, df_error, ...)
+t_to_omega2(t, df_error, CI = 0.9, ...)
+
+F_to_f(f, df, df_error, CI = 0.9, ...)
+
+t_to_f(t, df_error, CI = 0.9, ...)
 }
 \arguments{
 \item{df, df_error}{Degrees of freedom of numerator or of the error estimate (i.e., the residuals).}
@@ -42,16 +48,26 @@ it is possible to compute a negative number; even though this doesn't make any p
 it is recommended to report the negative number and not a 0).
 }
 \description{
-These functions are convenience functions to convert F and t test statistics to \strong{partial} Eta squared, (\eqn{\eta{_p}^2}), Omega squared (\eqn{\omega{_p}^2}) and Epsilon squared (\eqn{\epsilon{_p}^2}; an alias for the adjusted Eta squared). These are useful in cases where the various Sum of Squares and Mean Squares are not easily available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.). For test statistics derived from \code{lm} and \code{aov} models, these functions give exact results. For all other cases, they return close approximations.
+These functions are convenience functions to convert F and t test statistics to
+\strong{partial} Eta squared, (\eqn{\eta{_p}^2}), Omega squared (\eqn{\omega{_p}^2}),
+Epsilon squared (\eqn{\epsilon{_p}^2} (an alias for the adjusted Eta squared) and Cohen's f.
+These are useful in cases where the various Sum of Squares and Mean Squares are not
+easily available or their computation is not straightforward (e.g., in liner mixed models,
+contrasts, etc.). For test statistics derived from \code{lm} and \code{aov} models, these
+functions give exact results. For all other cases, they return close approximations.
+\cr
+See \href{https://easystats.github.io/effectsize/articles/from_test_statistics.html}{Effect Size from Test Statistics vignette.}
 }
 \details{
 These functions use the following formulae:
-\cr\cr
+\cr
 \deqn{\eta_p^2 = \frac{F \times df_{num}}{F \times df_{num} + df_{den}}}
-\cr\cr
+\cr
 \deqn{\epsilon_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den}}}
-\cr\cr
+\cr
 \deqn{\omega_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den} + 1}}
+\cr
+\deqn{\f_p = \sqrt{\frac{\eta_p^2}{1-\eta_p^2}}}
 \cr\cr\cr
 For \eqn{t}, the conversion is based on the equality of \eqn{t^2 = F} when \eqn{df_{num}=1}.
 \subsection{Confidence Intervals}{
@@ -92,6 +108,7 @@ if (require("lmerTest")) { # for the df_error
   F_to_eta2(16.501, 1, 9)
   F_to_omega2(16.501, 1, 9)
   F_to_epsilon2(16.501, 1, 9)
+  F_to_f(16.501, 1, 9)
 }
 
 ## Use with emmeans based contrasts

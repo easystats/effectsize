@@ -1,6 +1,14 @@
-#' Convert test statistics (F, t) to indices of \strong{partial} variance explained (\strong{partial} Eta / Omega / Epsilon squared)
+#' Convert test statistics (F, t) to indices of \strong{partial} variance explained (\strong{partial} Eta / Omega / Epsilon squared and Cohen's f)
 #'
-#' These functions are convenience functions to convert F and t test statistics to \strong{partial} Eta squared, (\eqn{\eta{_p}^2}), Omega squared (\eqn{\omega{_p}^2}) and Epsilon squared (\eqn{\epsilon{_p}^2}; an alias for the adjusted Eta squared). These are useful in cases where the various Sum of Squares and Mean Squares are not easily available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.). For test statistics derived from \code{lm} and \code{aov} models, these functions give exact results. For all other cases, they return close approximations.
+#' These functions are convenience functions to convert F and t test statistics to
+#' \strong{partial} Eta squared, (\eqn{\eta{_p}^2}), Omega squared (\eqn{\omega{_p}^2}),
+#' Epsilon squared (\eqn{\epsilon{_p}^2} (an alias for the adjusted Eta squared) and Cohen's f.
+#' These are useful in cases where the various Sum of Squares and Mean Squares are not
+#' easily available or their computation is not straightforward (e.g., in liner mixed models,
+#' contrasts, etc.). For test statistics derived from \code{lm} and \code{aov} models, these
+#' functions give exact results. For all other cases, they return close approximations.
+#' \cr
+#' See \href{https://easystats.github.io/effectsize/articles/from_test_statistics.html}{Effect Size from Test Statistics vignette.}
 #'
 #' @param t,f The t or the F statistics.
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
@@ -12,12 +20,14 @@
 #' it is recommended to report the negative number and not a 0).
 #'
 #' @details These functions use the following formulae:
-#' \cr\cr
+#' \cr
 #' \deqn{\eta_p^2 = \frac{F \times df_{num}}{F \times df_{num} + df_{den}}}
-#' \cr\cr
+#' \cr
 #' \deqn{\epsilon_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den}}}
-#' \cr\cr
+#' \cr
 #' \deqn{\omega_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den} + 1}}
+#' \cr
+#' \deqn{\f_p = \sqrt{\frac{\eta_p^2}{1-\eta_p^2}}}
 #' \cr\cr\cr
 #' For \eqn{t}, the conversion is based on the equality of \eqn{t^2 = F} when \eqn{df_{num}=1}.
 #' \subsection{Confidence Intervals}{
@@ -57,6 +67,7 @@
 #'   F_to_eta2(16.501, 1, 9)
 #'   F_to_omega2(16.501, 1, 9)
 #'   F_to_epsilon2(16.501, 1, 9)
+#'   F_to_f(16.501, 1, 9)
 #' }
 #'
 #' ## Use with emmeans based contrasts
@@ -83,8 +94,8 @@ F_to_eta2 <- function(f, df, df_error, CI = 0.9, ...) {
 
 #' @rdname F_to_eta2
 #' @export
-t_to_eta2 <- function(t, df_error, ...) {
-  F_to_eta2(t^2, 1, df_error)
+t_to_eta2 <- function(t, df_error, CI = 0.9, ...) {
+  F_to_eta2(t^2, 1, df_error, CI = CI)
 }
 
 #' @rdname F_to_eta2
@@ -95,8 +106,8 @@ F_to_epsilon2 <- function(f, df, df_error, CI = 0.9, ...) {
 
 #' @rdname F_to_eta2
 #' @export
-t_to_epsilon2 <- function(t, df_error, ...) {
-  F_to_epsilon2(t^2, 1, df_error)
+t_to_epsilon2 <- function(t, df_error, CI = 0.9, ...) {
+  F_to_epsilon2(t^2, 1, df_error, CI = CI)
 }
 
 #' @rdname F_to_eta2
@@ -115,8 +126,35 @@ F_to_omega2 <- function(f, df, df_error, CI = 0.9, ...) {
 
 #' @rdname F_to_eta2
 #' @export
-t_to_omega2 <- function(t, df_error, ...) {
-  F_to_omega2(t^2, 1, df_error)
+t_to_omega2 <- function(t, df_error, CI = 0.9, ...) {
+  F_to_omega2(t^2, 1, df_error, CI = CI)
+}
+
+
+#' @rdname F_to_eta2
+#' @export
+F_to_f <- function(f, df, df_error, CI = 0.9, ...){
+  res_eta <- F_to_eta2(f, df, df_error, CI = CI)
+
+  res <- data.frame(Cohens_f_partial = sqrt(res_eta$Eta_Sq_partial /
+                                              (1 - res_eta$Eta_Sq_partial)))
+
+  if (is.numeric(CI)) {
+    res$CI <- res_eta$CI
+    res$CI_low <- sqrt(res_eta$CI_low /
+                         (1 - res_eta$CI_low))
+    res$CI_high <- sqrt(res_eta$CI_high /
+                          (1 - res_eta$CI_high))
+  }
+
+  return(res)
+}
+
+
+#' @rdname F_to_eta2
+#' @export
+t_to_f <- function(t, df_error, CI = 0.9, ...){
+  F_to_f(t^2, 1, df_error, CI = CI)
 }
 
 

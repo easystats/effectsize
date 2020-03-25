@@ -61,6 +61,8 @@ A data frame with the effect size(s) between 0-1, and confidence interval(s)
 These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
 \strong{partial} r. These are useful in cases where the data required to compute these are not easily
 available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.).
+\cr
+See \href{https://easystats.github.io/effectsize/articles/from_test_statistics.html}{Effect Size from Test Statistics vignette.}
 }
 \details{
 These functions use the following formulae:
