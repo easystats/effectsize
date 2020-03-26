@@ -166,17 +166,17 @@ available or their computation is not straightforward (e.g., in liner mixed mode
 See <a href='https://easystats.github.io/effectsize/articles/from_test_statistics.html'>Effect Size from Test Statistics vignette.</a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>t_to_d</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='kw'>pooled</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>t_to_d</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='kw'>paired</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>pooled</span>, <span class='no'>...</span>)
 
-<span class='fu'>convert_t_to_d</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='kw'>pooled</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
+<span class='fu'>convert_t_to_d</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='kw'>paired</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>pooled</span>, <span class='no'>...</span>)
 
-<span class='fu'>z_to_d</span>(<span class='no'>z</span>, <span class='no'>n</span>, <span class='kw'>pooled</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
+<span class='fu'>z_to_d</span>(<span class='no'>z</span>, <span class='no'>n</span>, <span class='kw'>paired</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>pooled</span>, <span class='no'>...</span>)
 
-<span class='fu'>convert_z_to_d</span>(<span class='no'>z</span>, <span class='no'>n</span>, <span class='kw'>pooled</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
+<span class='fu'>convert_z_to_d</span>(<span class='no'>z</span>, <span class='no'>n</span>, <span class='kw'>paired</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>pooled</span>, <span class='no'>...</span>)
 
-<span class='fu'>F_to_d</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='kw'>pooled</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
+<span class='fu'>F_to_d</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='kw'>paired</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>pooled</span>, <span class='no'>...</span>)
 
-<span class='fu'>convert_F_to_d</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='kw'>pooled</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
+<span class='fu'>convert_F_to_d</span>(<span class='no'>f</span>, <span class='no'>df</span>, <span class='no'>df_error</span>, <span class='kw'>paired</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>pooled</span>, <span class='no'>...</span>)
 
 <span class='fu'>t_to_r</span>(<span class='no'>t</span>, <span class='no'>df_error</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
 
@@ -198,12 +198,16 @@ See <a href='https://easystats.github.io/effectsize/articles/from_test_statistic
       <td><p>The t, the F or the z statistics.</p></td>
     </tr>
     <tr>
-      <th>pooled</th>
-      <td><p>Should the estimate accout for the t-value being based on a repeated-measures design, or not (default).</p></td>
+      <th>paired</th>
+      <td><p>Should the estimate accout for the t-value being testing the difference between dependant means?</p></td>
     </tr>
     <tr>
       <th>ci</th>
       <td><p>Confidence Interval (CI) level level</p></td>
+    </tr>
+    <tr>
+      <th>pooled</th>
+      <td><p>Deprecated. Use <code>paired</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -266,7 +270,7 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 #&gt; ----------------------
 #&gt; -0.74 | [-0.85, -0.49]</div><div class='input'>
 <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>sleep</span>, <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span>(<span class='no'>extra</span>[<span class='no'>group</span> <span class='kw'>==</span> <span class='fl'>1</span>], <span class='no'>extra</span>[<span class='no'>group</span> <span class='kw'>==</span> <span class='fl'>2</span>], <span class='kw'>paired</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
-<span class='fu'>t_to_d</span>(<span class='kw'>t</span> <span class='kw'>=</span> <span class='no'>res</span>$<span class='no'>statistic</span>, <span class='no'>res</span>$<span class='no'>parameter</span>, <span class='kw'>pooled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;     d |         95% CI
+<span class='fu'>t_to_d</span>(<span class='kw'>t</span> <span class='kw'>=</span> <span class='no'>res</span>$<span class='no'>statistic</span>, <span class='no'>res</span>$<span class='no'>parameter</span>, <span class='kw'>paired</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;     d |         95% CI
 #&gt; ----------------------
 #&gt; -1.35 | [-2.23, -0.44]</div><div class='input'><span class='fu'>t_to_r</span>(<span class='kw'>t</span> <span class='kw'>=</span> <span class='no'>res</span>$<span class='no'>statistic</span>, <span class='no'>res</span>$<span class='no'>parameter</span>)</div><div class='output co'>#&gt;     r |         95% CI
 #&gt; ----------------------

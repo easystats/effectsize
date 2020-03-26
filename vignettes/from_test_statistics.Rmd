@@ -194,12 +194,12 @@ pairs(emmeans(aov_fit, ~ angle))
 t_to_d(
   t = c(-5.7, -5.9, -3.2),
   df_error = 18,
-  pooled = TRUE
+  paired = TRUE
 )
 
 ```
 
-(Note `pooled = TRUE` to not over estimate the size of the effect; @rosenthal1991meta; @rosnow2000contrasts)
+(Note `paired = TRUE` to not over estimate the size of the effect; @rosenthal1991meta; @rosnow2000contrasts)
 
 
 # References

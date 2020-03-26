@@ -212,5 +212,5 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
     }
   }
 
-  t_to_d(unname(tobj$statistic), df, ci = ci, pooled = paired)[, -1 , drop = FALSE]
+  t_to_d(unname(tobj$statistic), df, ci = ci, paired = paired)[, -1 , drop = FALSE]
 }
