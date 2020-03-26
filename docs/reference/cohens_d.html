@@ -164,7 +164,8 @@
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>correction</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>pooled_sd</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>paired</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>paired</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>
 )
 
 <span class='fu'>hedges_g</span>(
@@ -173,10 +174,11 @@
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>correction</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>pooled_sd</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>paired</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>paired</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>
 )
 
-<span class='fu'>glass_delta</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>correction</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>glass_delta</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>correction</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -205,7 +207,20 @@
       <th>paired</th>
       <td><p>If <code>TRUE</code>, the values of <code>x</code> and <code>y</code> are considered as paired.</p></td>
     </tr>
+    <tr>
+      <th>ci</th>
+      <td><p>Confidence Interval (CI) level level</p></td>
+    </tr>
     </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A data frame with the effect size(s) and confidence interval(s).</p>
+<h3>Confidence Intervals</h3>
+<p>Confidence intervals are estimated using the Noncentrality parameter method;
+These methods searches for a the best <code>ncp</code> (non-central parameters) for
+of the noncentral F distribution for the desired tail-probabilities,
+and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -218,13 +233,24 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>cohens_d</span>(<span class='no'>iris</span>$<span class='no'>Sepal.Length</span>, <span class='no'>iris</span>$<span class='no'>Sepal.Width</span>)</div><div class='output co'>#&gt; [1] 4.210417</div><div class='input'><span class='fu'>hedges_g</span>(<span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)</div><div class='output co'>#&gt; [1] 4.199812</div><div class='input'><span class='fu'>glass_delta</span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Width</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)</div><div class='output co'>#&gt; [1] 3.364466</div><div class='input'>
-<span class='fu'>cohens_d</span>(<span class='no'>iris</span>$<span class='no'>Sepal.Length</span>, <span class='no'>iris</span>$<span class='no'>Sepal.Width</span>, <span class='kw'>correct</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>pooled_sd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] 1.788094</div><div class='input'><span class='fu'>cohens_d</span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Species</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>[<span class='no'>iris</span>$<span class='no'>Species</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"versicolor"</span>, <span class='st'>"setosa"</span>), ])</div><div class='output co'>#&gt; [1] -2.104197</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>cohens_d</span>(<span class='no'>iris</span>$<span class='no'>Sepal.Length</span>, <span class='no'>iris</span>$<span class='no'>Sepal.Width</span>)</div><div class='output co'>#&gt; Cohens_d |       95% CI
+#&gt; -----------------------
+#&gt;     4.21 | [3.82, 4.63]</div><div class='input'><span class='fu'>hedges_g</span>(<span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)</div><div class='output co'>#&gt; Hedges_g |       95% CI
+#&gt; -----------------------
+#&gt;     4.20 | [3.81, 4.62]</div><div class='input'><span class='fu'>glass_delta</span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Width</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)</div><div class='output co'>#&gt; Glass_delta |       95% CI
+#&gt; --------------------------
+#&gt;        3.36 | [2.96, 3.79]</div><div class='input'>
+<span class='fu'>cohens_d</span>(<span class='no'>iris</span>$<span class='no'>Sepal.Length</span>, <span class='no'>iris</span>$<span class='no'>Sepal.Width</span>, <span class='kw'>correct</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>pooled_sd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; Cohens_d |       95% CI
+#&gt; -----------------------
+#&gt;     1.79 | [3.79, 4.60]</div><div class='input'><span class='fu'>cohens_d</span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Species</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>[<span class='no'>iris</span>$<span class='no'>Species</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"versicolor"</span>, <span class='st'>"setosa"</span>), ])</div><div class='output co'>#&gt; Cohens_d |         95% CI
+#&gt; -------------------------
+#&gt;    -2.10 | [-2.62, -1.63]</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#references">References</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

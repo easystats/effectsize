@@ -175,10 +175,11 @@
 <a class="sourceLine" id="cb6-2" title="2"></a>
 <a class="sourceLine" id="cb6-3" title="3">parameters &lt;-<span class="st"> </span><span class="kw">model_parameters</span>(model)[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>,]</a>
 <a class="sourceLine" id="cb6-4" title="4"><span class="kw"><a href="../reference/t_to_r.html">convert_t_to_r</a></span>(parameters<span class="op">$</span>t, parameters<span class="op">$</span>df_error)</a></code></pre></div>
-<pre><code>&gt;       r   CI CI_low CI_high
-&gt; 1  0.63 0.95   0.53    0.70
-&gt; 2  0.72 0.95   0.64    0.78
-&gt; 3 -0.34 0.95  -0.47   -0.19</code></pre>
+<pre><code>&gt;     r |         95% CI
+&gt; ----------------------
+&gt;  0.63 | [ 0.53,  0.70]
+&gt;  0.72 | [ 0.64,  0.78]
+&gt; -0.34 | [-0.47, -0.19]</code></pre>
 <p>Wow, the retrieved correlations coefficients from the regression model are <strong>exactly</strong> the same as the partial correlations!</p>
 <p>However, note that in multiple regression standardizing the parameters in not quite the same as computing the (partial) correlation, due to… math :(</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">model <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -239,7 +240,9 @@
 <a class="sourceLine" id="cb10-2" title="2">data &lt;-<span class="st"> </span>iris[iris<span class="op">$</span>Species <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>), ]</a>
 <a class="sourceLine" id="cb10-3" title="3"></a>
 <a class="sourceLine" id="cb10-4" title="4"><span class="kw"><a href="../reference/cohens_d.html">cohens_d</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> data) </a></code></pre></div>
-<pre><code>&gt; [1] -2.1</code></pre>
+<pre><code>&gt; Cohens_d |         95% CI
+&gt; -------------------------
+&gt;    -2.10 | [-2.62, -1.63]</code></pre>
 <p><strong><em>It is very different!</em></strong> Why? How? Both differences should be expressed in terms of SD of the response variable. <em>And there’s the trick</em>. First of all, in the linear model above, the SD by which the difference is scaled is the one of the whole response, which include <strong>all the three levels</strong>, whereas below, we filtered the data to only include the levels of interest. If we recompute the model on this filtered data, it should be better:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> data) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb12-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>()</a></code></pre></div>
@@ -261,7 +264,9 @@
 </table>
 <p>Not really. Why? Because the actual formula to compute a <strong>Cohen’s <em>d</em></strong> doesn’t use the simple SD to scale the effect (as it is done when standardizing the parameters), but computes something called the <a href="https://easystats.github.io/effectsize/reference/sd_pooled.html"><strong>pooled SD</strong></a>. However, this can be turned off by setting <code>correct = "raw"</code>.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="../reference/cohens_d.html">cohens_d</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> data, <span class="dt">pooled_sd =</span> <span class="ot">FALSE</span>) </a></code></pre></div>
-<pre><code>&gt; [1] -1.4</code></pre>
+<pre><code>&gt; Cohens_d |         95% CI
+&gt; -------------------------
+&gt;    -1.45 | [-2.62, -1.63]</code></pre>
 <p><strong><em>And here we are :)</em></strong></p>
 <!-- However, it is interesting to note that using the *smart* method when standardizing parameters will give you indices equivalent to **Glass' delta**, which difference is expressed in terms of SD of the intercept (the "reference" factor levels). -->
 <!-- ```{r, warning=FALSE, message=FALSE, eval=FALSE} -->

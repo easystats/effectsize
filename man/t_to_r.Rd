@@ -15,36 +15,36 @@
 \alias{convert_F_to_r}
 \title{Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (\strong{partial} r)}
 \usage{
-t_to_d(t, df_error, pooled = FALSE, CI = 0.95, ...)
+t_to_d(t, df_error, pooled = FALSE, ci = 0.95, ...)
 
-convert_t_to_d(t, df_error, pooled = FALSE, CI = 0.95, ...)
+convert_t_to_d(t, df_error, pooled = FALSE, ci = 0.95, ...)
 
-z_to_d(z, n, pooled = FALSE, CI = 0.95, ...)
+z_to_d(z, n, pooled = FALSE, ci = 0.95, ...)
 
-convert_z_to_d(z, n, pooled = FALSE, CI = 0.95, ...)
+convert_z_to_d(z, n, pooled = FALSE, ci = 0.95, ...)
 
-F_to_d(f, df, df_error, pooled = FALSE, CI = 0.95, ...)
+F_to_d(f, df, df_error, pooled = FALSE, ci = 0.95, ...)
 
-convert_F_to_d(f, df, df_error, pooled = FALSE, CI = 0.95, ...)
+convert_F_to_d(f, df, df_error, pooled = FALSE, ci = 0.95, ...)
 
-t_to_r(t, df_error, CI = 0.95, ...)
+t_to_r(t, df_error, ci = 0.95, ...)
 
-convert_t_to_r(t, df_error, CI = 0.95, ...)
+convert_t_to_r(t, df_error, ci = 0.95, ...)
 
-z_to_r(z, n, CI = 0.95, ...)
+z_to_r(z, n, ci = 0.95, ...)
 
-convert_z_to_r(z, n, CI = 0.95, ...)
+convert_z_to_r(z, n, ci = 0.95, ...)
 
-F_to_r(f, df, df_error = NULL, n = NULL, CI = 0.95, ...)
+F_to_r(f, df, df_error, ci = 0.95, ...)
 
-convert_F_to_r(f, df, df_error = NULL, n = NULL, CI = 0.95, ...)
+convert_F_to_r(f, df, df_error, ci = 0.95, ...)
 }
 \arguments{
 \item{t, f, z}{The t, the F or the z statistics.}
 
 \item{pooled}{Should the estimate accout for the t-value being based on a repeated-measures design, or not (default).}
 
-\item{CI}{Confidence Interval (CI) level}
+\item{ci}{Confidence Interval (CI) level level}
 
 \item{...}{Arguments passed to or from other methods.}
 
@@ -61,6 +61,8 @@ A data frame with the effect size(s) between 0-1, and confidence interval(s)
 These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
 \strong{partial} r. These are useful in cases where the data required to compute these are not easily
 available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.).
+\cr
+See \href{https://easystats.github.io/effectsize/articles/from_test_statistics.html}{Effect Size from Test Statistics vignette.}
 }
 \details{
 These functions use the following formulae:

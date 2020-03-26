@@ -6,7 +6,7 @@
 #' @param phi The Phi statistic.
 #' @param n Sample size.
 #' @param nrow,ncol The number of rows/columns in the contingency table (ignored for Phi when \code{adjust=FALSE} and \code{CI=NULL}).
-#' @param CI Confidence Interval (CI) level
+#' @param ci Confidence Interval (CI) level level
 #' @param adjust Should the effect size be bias-corrected? Defaults to \code{FALSE}.
 #' @param ... Arguments passed to or from other methods.
 #'
@@ -55,7 +55,7 @@
 #' }
 #'
 #' @export
-chisq_to_phi <- function(chisq, n, nrow, ncol, CI = 0.95, adjust = FALSE, ...){
+chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...){
   if (adjust) {
     .es <- function(chisq) {
       pmax(0, sqrt(chisq / n) - ((nrow - 1) * (ncol - 1)) / (n - 1))
@@ -69,17 +69,18 @@ chisq_to_phi <- function(chisq, n, nrow, ncol, CI = 0.95, adjust = FALSE, ...){
   res <- data.frame(phi = .es(chisq))
 
 
-  if (is.numeric(CI)) {
-    stopifnot(length(CI) == 1, CI < 1, CI > 0)
-    res$CI <- CI
+  if (is.numeric(ci)) {
+    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+    res$CI <- ci
 
     chisqs <- t(mapply(.get_ncp_chi,
-                       chisq, (nrow - 1) * (ncol - 1), CI))
+                       chisq, (nrow - 1) * (ncol - 1), ci))
 
     res$CI_low <- .es(chisqs[,1])
     res$CI_high <- .es(chisqs[,2])
   }
 
+  class(res) <- c("effectsize_table", class(res))
   return(res)
 }
 
@@ -90,7 +91,7 @@ convert_chisq_to_phi <- chisq_to_phi
 
 #' @rdname chisq_to_phi
 #' @export
-chisq_to_cramers_v <- function(chisq, n, nrow, ncol, CI = 0.95, adjust = FALSE, ...) {
+chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...) {
   if (adjust) {
     .es <- function(chisq) {
       phi <- pmax(0, sqrt(chisq / n) - ((nrow - 1) * (ncol - 1)) / (n - 1))
@@ -109,17 +110,18 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, CI = 0.95, adjust = FALSE, 
   res <- data.frame(cramers_v = .es(chisq))
 
 
-  if (is.numeric(CI)) {
-    stopifnot(length(CI) == 1, CI < 1, CI > 0)
-    res$CI <- CI
+  if (is.numeric(ci)) {
+    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+    res$CI <- ci
 
     chisqs <- t(mapply(.get_ncp_chi,
-                       chisq, (nrow - 1) * (ncol - 1), CI))
+                       chisq, (nrow - 1) * (ncol - 1), ci))
 
     res$CI_low <- .es(chisqs[,1])
     res$CI_high <- .es(chisqs[,2])
   }
 
+  class(res) <- c("effectsize_table", class(res))
   return(res)
 }
 

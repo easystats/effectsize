@@ -9,18 +9,18 @@
 \alias{convert_phi_to_chisq}
 \title{Conversion between Effect sizes for Contingency Tables (Chi2, Phi, Cramer's V...)}
 \usage{
-chisq_to_phi(chisq, n, nrow, ncol, CI = 0.95, adjust = FALSE, ...)
+chisq_to_phi(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...)
 
-convert_chisq_to_phi(chisq, n, nrow, ncol, CI = 0.95, adjust = FALSE, ...)
+convert_chisq_to_phi(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...)
 
-chisq_to_cramers_v(chisq, n, nrow, ncol, CI = 0.95, adjust = FALSE, ...)
+chisq_to_cramers_v(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...)
 
 convert_chisq_to_cramers_v(
   chisq,
   n,
   nrow,
   ncol,
-  CI = 0.95,
+  ci = 0.95,
   adjust = FALSE,
   ...
 )
@@ -36,7 +36,7 @@ convert_phi_to_chisq(phi, n, ...)
 
 \item{nrow, ncol}{The number of rows/columns in the contingency table (ignored for Phi when \code{adjust=FALSE} and \code{CI=NULL}).}
 
-\item{CI}{Confidence Interval (CI) level}
+\item{ci}{Confidence Interval (CI) level level}
 
 \item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
 

@@ -5,13 +5,15 @@
 #' These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
 #' \strong{partial} r. These are useful in cases where the data required to compute these are not easily
 #' available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.).
+#' \cr
+#' See \href{https://easystats.github.io/effectsize/articles/from_test_statistics.html}{Effect Size from Test Statistics vignette.}
 #'
 #' @param r The correlation coefficient r.
 #' @param t,f,z The t, the F or the z statistics.
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
 #' @param n The number of observations (the sample size).
 #' @param pooled Should the estimate accout for the t-value being based on a repeated-measures design, or not (default).
-#' @param CI Confidence Interval (CI) level
+#' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods.
 #'
 #'
@@ -86,21 +88,22 @@
 #' }
 #'
 #' @export
-t_to_r <- function(t, df_error, CI = 0.95, ...) {
+t_to_r <- function(t, df_error, ci = 0.95, ...) {
 
   res <- data.frame(r = t / sqrt(t^2 + df_error))
 
-  if (is.numeric(CI)) {
-    stopifnot(length(CI) == 1, CI < 1, CI > 0)
-    res$CI <- CI
+  if (is.numeric(ci)) {
+    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+    res$CI <- ci
 
     ts <- t(mapply(.get_ncp_t,
-                   t, df_error, CI))
+                   t, df_error, ci))
 
     res$CI_low <- ts[,1] / sqrt(ts[,1]^2 + df_error)
     res$CI_high <- ts[,2] / sqrt(ts[,2]^2 + df_error)
   }
 
+  class(res) <- c("effectsize_table", class(res))
   return(res)
 }
 
@@ -114,15 +117,15 @@ convert_t_to_r <- t_to_r
 
 #' @rdname t_to_r
 #' @export
-z_to_r <- function(z, n, CI = 0.95, ...) {
+z_to_r <- function(z, n, ci = 0.95, ...) {
 
   res <- data.frame(r = z / sqrt(z^2 + n))
 
-  if (is.numeric(CI)) {
-    stopifnot(length(CI) == 1, CI < 1, CI > 0)
-    res$CI <- CI
+  if (is.numeric(ci)) {
+    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+    res$CI <- ci
 
-    alpha <- 1 - CI
+    alpha <- 1 - ci
     probs <- c(alpha / 2, 1 - alpha / 2)
 
     qs <- qnorm(probs)
@@ -132,6 +135,7 @@ z_to_r <- function(z, n, CI = 0.95, ...) {
     res$CI_high <- zs[,2] / sqrt(zs[,2]^2 + n)
   }
 
+  class(res) <- c("effectsize_table", class(res))
   return(res)
 }
 
@@ -143,11 +147,11 @@ convert_z_to_r <- z_to_r
 
 #' @rdname t_to_r
 #' @export
-F_to_r <- function(f, df, df_error = NULL, n = NULL, CI = 0.95, ...) {
+F_to_r <- function(f, df, df_error, ci = 0.95, ...) {
   if (df > 1) {
     stop("Cannot convert F with more than 1 df to r.")
   }
-  t_to_r(sqrt(f), n = n, df_error = df_error, CI = CI)
+  t_to_r(sqrt(f), df_error = df_error, ci = ci)
 }
 
 #' @rdname t_to_r
