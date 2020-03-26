@@ -29,13 +29,13 @@ hedges_g(
 glass_delta(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
 }
 \arguments{
-\item{x}{A continuous variable or a formula.}
+\item{x}{A formula, a numeric vector, or a name of one in \code{data}.}
 
-\item{y}{A continuous variable, a factor with two groups or a formula.}
+\item{y}{A numeric vector, a grouping (character / factor) vector, a or a name of one in \code{data}. Ignored if \code{x} is a formula.}
 
 \item{data}{An optional data frame containing the variables.}
 
-\item{correction}{If \code{TRUE}, applies a correction to the formula to make it less biased for small samples (McGrath & Meyer, 2006).}
+\item{correction}{If \code{TRUE}, applies a correction to make it less biased for small samples (McGrath & Meyer, 2006).}
 
 \item{pooled_sd}{If \code{FALSE}, the regular SD from both combined groups is used instead of the \code{\link{sd_pooled}}.}
 

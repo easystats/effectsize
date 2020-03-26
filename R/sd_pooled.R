@@ -81,39 +81,34 @@ mad_pooled <- function(x, y = NULL, data = NULL) {
 
 
 
+# .evaluate_arguments <- function(x, y, data) {
+#   eval_x <- .evaluate_argument(x)
+#   if (!is.null(eval_x$variable)) x <- eval_x$variable
+#   if (!is.null(eval_x$data) && is.null(data)) data <- get(eval_x$data)
+#
+#   eval_y <- .evaluate_argument(y)
+#   if (!is.null(eval_y$variable)) y <- eval_y$variable
+#   if (!is.null(eval_y$data) && is.null(data)) data <- get(eval_y$data)
+#
+#   list(x = x, y = y, data = data)
+# }
 
 
-
-.evaluate_arguments <- function(x, y, data) {
-  eval_x <- .evaluate_argument(x)
-  if (!is.null(eval_x$variable)) x <- eval_x$variable
-  if (!is.null(eval_x$data) && is.null(data)) data <- get(eval_x$data)
-
-  eval_y <- .evaluate_argument(y)
-  if (!is.null(eval_y$variable)) y <- eval_y$variable
-  if (!is.null(eval_y$data) && is.null(data)) data <- get(eval_y$data)
-
-  list(x = x, y = y, data = data)
-}
-
-
-
-
-.evaluate_argument <- function(arg) {
-  data_frame <- NULL
-  if (!is.null(arg)) {
-    if (is.numeric(arg) && length(arg) > 1) {
-      # do nothiung
-    } else if (arg == "NULL") {
-      arg <- NULL
-    } else if (grepl("~", arg, fixed = TRUE)) {
-      arg <- stats::as.formula(arg)
-    } else if (grepl("\"", arg, fixed = TRUE)) {
-      arg <- gsub("\"", "", arg, fixed = TRUE)
-    } else if (grepl("$", arg, fixed = TRUE)) {
-      data_frame <- gsub("(.*)\\$(.*)", "\\1", arg)
-      arg <- gsub("(.*)\\$(.*)", "\\2", arg)
-    }
-  }
-  list(variable = arg, data = data_frame)
-}
+# .evaluate_argument <- function(arg) {
+#   data_frame <- NULL
+#   if (!is.null(arg)) {
+#     if (is.numeric(arg) && length(arg) > 1) {
+#       # do nothiung
+#     } else if (arg == "NULL") {
+#       arg <- NULL
+#     } else if (grepl("~", arg, fixed = TRUE)) {
+#       arg <- stats::as.formula(arg)
+#     } else if (grepl("\"", arg, fixed = TRUE)) {
+#       arg <- gsub("\"", "", arg, fixed = TRUE)
+#     } else if (grepl("$", arg, fixed = TRUE)) {
+#       data_frame <- gsub("(.*)\\$(.*)", "\\1", arg)
+#       arg <- gsub("(.*)\\$(.*)", "\\2", arg)
+#     }
+#   }
+#   list(variable = arg, data = data_frame)
+# }
