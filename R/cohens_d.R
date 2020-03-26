@@ -1,6 +1,11 @@
 #' Effect size for differences
 #'
-#' Compute different indices of effect size. For very small sample sizes (n < 20) Hedges' g is considered as less biased than Cohen's d. For sample sizes > 20, the results for both statistics are roughly equivalent. The Glass’s delta is appropriate if standard deviations are significantly different between groups, as it uses only the control group's (\code{x}) standard deviation.
+#' Compute different indices of effect size. For very small sample sizes (n < 20)
+#' Hedges' g is considered as less biased than Cohen's d.
+#' For sample sizes > 20, the results for both statistics are roughly equivalent.
+#' \cr\cr
+#'  The Glass’s delta is appropriate if standard deviations are significantly different
+#'  between groups, as it uses only the \emph{second} group's standard deviation.
 #'
 #' @param x A formula, a numeric vector, or a name of one in \code{data}.
 #' @param y A numeric vector, a grouping (character / factor) vector, a or a name of one in \code{data}. Ignored if \code{x} is a formula.
@@ -22,10 +27,12 @@
 #' @examples
 #' cohens_d(iris$Sepal.Length, iris$Sepal.Width)
 #' hedges_g("Sepal.Length", "Sepal.Width", data = iris)
-#' glass_delta(Sepal.Length ~ Sepal.Width, data = iris)
 #'
-#' cohens_d(iris$Sepal.Length, iris$Sepal.Width, correct = TRUE, pooled_sd = FALSE)
-#' cohens_d(Sepal.Length ~ Species, data = iris[iris$Species %in% c("versicolor", "setosa"), ])
+#' cohens_d(mpg ~ am, data = mtcars)
+#' cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)
+#' hedges_g(mpg ~ am, data = mtcars)
+#' glass_delta(mpg ~ am, data = mtcars)
+#'
 #' @references \itemize{
 #'  \item Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.
 #'  \item McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
@@ -33,7 +40,13 @@
 #' }
 #' @importFrom stats var model.frame
 #' @export
-cohens_d <- function(x, y = NULL, data = NULL, correction = FALSE, pooled_sd = TRUE, paired = FALSE, ci = 0.95) {
+cohens_d <- function(x,
+                     y = NULL,
+                     data = NULL,
+                     correction = FALSE,
+                     pooled_sd = TRUE,
+                     paired = FALSE,
+                     ci = 0.95) {
   .effect_size_difference(
     x,
     y = y,
@@ -48,7 +61,13 @@ cohens_d <- function(x, y = NULL, data = NULL, correction = FALSE, pooled_sd = T
 
 #' @rdname cohens_d
 #' @export
-hedges_g <- function(x, y = NULL, data = NULL, correction = FALSE, pooled_sd = TRUE, paired = FALSE, ci = 0.95) {
+hedges_g <- function(x,
+                     y = NULL,
+                     data = NULL,
+                     correction = FALSE,
+                     pooled_sd = TRUE,
+                     paired = FALSE,
+                     ci = 0.95) {
   .effect_size_difference(
     x,
     y = y,
@@ -78,42 +97,59 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
 
 #' @importFrom stats sd
 #' @keywords internal
-.effect_size_difference <- function(x, y = NULL, data = NULL, type = "d", correction = FALSE, pooled_sd = TRUE, paired = FALSE, ci = 0.95) {
+.effect_size_difference <- function(x,
+                                    y = NULL,
+                                    data = NULL,
+                                    type = "d",
+                                    correction = FALSE,
+                                    pooled_sd = TRUE,
+                                    paired = FALSE,
+                                    ci = 0.95) {
   out <- .deal_with_cohens_d_arguments(x, y, data)
   x <- out$x
   y <- out$y
 
-  if (paired) {
-    n <- length(x)
-    df <- n - 1
-  } else {
-    n <- length(c(x,y))
-    df <- n - 2
+  if (is.null(y)) {
+    y <- 0
+    paired <- TRUE
   }
 
   # Compute index
-  diff_of_means <- mean(x, na.rm = TRUE) - mean(y, na.rm = TRUE)
-
-  if (type == "d" | type == "g") {
-    if (paired) {
-      denominator <- stats::sd(x - y, na.rm = TRUE)
-    } else {
+  if (paired) {
+    d <- mean(x - y, na.rm = TRUE)
+    s <- stats::sd(x - y, na.rm = TRUE)
+    n <- length(x)
+    df <- n - 1
+    t <- d / (s / sqrt(n))
+  } else {
+    d <- mean(x, na.rm = TRUE) - mean(y, na.rm = TRUE)
+    n1 <- length(x)
+    n2 <- length(y)
+    n <- n1 + n2
+    df <- n - 2
+    if (type == "d" | type == "g") {
       if (pooled_sd) {
-        denominator <- suppressWarnings(sd_pooled(x, y))
+        s <- suppressWarnings(sd_pooled(x, y))
+        t <- d / (s * sqrt(1 / n1 + 1 / n2))
       } else {
-        denominator <- stats::sd(c(x, y), na.rm = TRUE)
+        s1 <- stats::sd(x, na.rm = TRUE)
+        s2 <- stats::sd(y, na.rm = TRUE)
+        s <- sqrt((s1 ^ 2 + s2 ^ 2) / 2)
+        # s <- stats::sd(c(x, y), na.rm = TRUE)
+        t <- d / sqrt(s1 ^ 2 / n1 + s2 ^ 2 / n2)
       }
+    } else if (type == "delta") {
+      s <- stats::sd(y, na.rm = TRUE)
+      t <- d / (s * sqrt(1 / n1 + 1 / n2))
     }
-  } else if (type == "delta") {
-    denominator <- stats::sd(x, na.rm = TRUE)
   }
 
-  out <- data.frame(d = diff_of_means / denominator)
+  out <- data.frame(d = d / s)
   types <- c("d" = "Cohens_d", "g" = "Hedges_g", "delta" = "Glass_delta")
   colnames(out) <- types[type]
   out <- cbind(
     out,
-    .ci_from_t_test(x, y, type = type, paired = paired, ci = ci)
+    t_to_d(t, df, ci = ci, paired = paired)[,-1 , drop = FALSE]
   )
 
   if (type == "g") {
@@ -128,10 +164,11 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
   }
 
   # McGrath & Meyer (2006)
-  if (correction == TRUE) {
+  if (correction) {
+    correction <- ((n - 3) / (n - 2.25)) * sqrt((n - 2) / n)
+
     out[, colnames(out) %in% c(types, "CI_low", "CI_high")] <-
-      out[, colnames(out) %in% c(types, "CI_low", "CI_high")] *
-      ((n - 3) / (n - 2.25)) * sqrt((n - 2) / n)
+      out[, colnames(out) %in% c(types, "CI_low", "CI_high")] * correction
   }
 
   class(out) <- c("effectsize_table", class(out))
@@ -210,23 +247,4 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
   }
 
   list(x = x, y = y)
-}
-
-#' @keywords internal
-.ci_from_t_test <- function(x, y, type = "d", paired = FALSE, ci = 0.95){
-  if (paired) {
-    tobj <- stats::t.test(x - y)
-    df <- length(x) - 1
-  } else {
-    if (type == "delta") {
-      tobj <- stats::t.test(x, mu = mean(y))
-      df <- length(x) - 1
-      paired <- TRUE
-    } else {
-      tobj <- stats::t.test(x, y, var.equal = TRUE)
-      df <- length(c(x,y)) - 2
-    }
-  }
-
-  t_to_d(unname(tobj$statistic), df, ci = ci, paired = paired)[, -1 , drop = FALSE]
 }

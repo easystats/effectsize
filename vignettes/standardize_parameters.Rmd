@@ -26,7 +26,8 @@ options(digits = 2)
 options(knitr.kable.NA = '')
 
 if (!requireNamespace("dplyr", quietly = TRUE) ||
-    !requireNamespace("parameters", quietly = TRUE)) {
+    !requireNamespace("parameters", quietly = TRUE) ||
+    !requireNamespace("ppcor", quietly = TRUE)) {
   knitr::opts_chunk$set(eval = FALSE)
 }
 
@@ -35,7 +36,7 @@ set.seed(333)
 
 # Introduction
 
-Standardising parameters (*i.e.*, coefficients) can allow for their comparison within and between models, variables and studies. Moreover, as it returns coefficients expressed in terms of **change of variance** (for instance, coefficients expressed in terms of SD of the response variable), it can allow for the usage of [effect size interpretation guidelines](https://easystats.github.io/effectsize/articles/interpret.html), such as the famous Cohen's (1988) rules of thumb.
+Standardizing parameters (*i.e.*, coefficients) can allow for their comparison within and between models, variables and studies. Moreover, as it returns coefficients expressed in terms of **change of variance** (for instance, coefficients expressed in terms of SD of the response variable), it can allow for the usage of [effect size interpretation guidelines](https://easystats.github.io/effectsize/articles/interpret.html), such as the famous Cohen's (1988) rules of thumb.
 
 However, standardizing the model's parameters should *not* be automatically and mindlessly done: for some research fields, particular variables or types of studies (*e.g.*, replications), it sometimes makes more sense to keep, use and interpret the original parameters, especially if they are well known or easily understood.
 
@@ -77,12 +78,9 @@ cor.test(iris$Sepal.Length, iris$Petal.Length) %>%
 What happens in the case of **multiple continuous variables**? As in each effect in a regression model is "adjusted" for the other ones, we might expect coefficients to be somewhat alike to **partial correlations**. Let's first start by computing the partial correlation between **Sepal.Length** and 3 other remaining variables.
 
 
-
 ```{r, warning=FALSE, message=FALSE}
-if (require("ppcor")) {
-  df <- iris[, 1:4]  # Remove the Species factor
-  ppcor::pcor(df)$estimate[2:4, 1]  # Select the rows of interest
-}
+df <- iris[, 1:4]  # Remove the Species factor
+ppcor::pcor(df)$estimate[2:4, 1]  # Select the rows of interest
 ```
 
 
@@ -90,15 +88,15 @@ Now, let's apply another method to obtain effect sizes for frequentist regressio
 
 
 ```{r, warning=FALSE, message=FALSE}
-model <- lm(Sepal.Length ~ ., data = df) 
+parameters <- lm(Sepal.Length ~ ., data = df) %>% 
+  model_parameters()
 
-parameters <- model_parameters(model)[2:4,]
-convert_t_to_r(parameters$t, parameters$df_error)
+t_to_r(parameters$t[2:4], parameters$df_error[2:4])
 ```
 
 Wow, the retrieved correlations coefficients from the regression model are **exactly** the same as the partial correlations!
 
-However, note that in multiple regression standardizing the parameters in not quite the same as computing the (partial)  correlation, due to... math :(
+However, note that in multiple regression standardizing the parameters in not quite the same as computing the (partial) correlation, due to... math :(^[in fact, they are more closely related to the semi-partial correlations.]
 
 ```{r, warning=FALSE, message=FALSE, eval=FALSE}
 model %>% 
@@ -115,11 +113,15 @@ model %>%
 How does it work in the case of differences, when **factors** are entered and differences between a given level and a reference level (the intercept)? You might have heard that it is similar to a **Cohen's *d***. Well, let's see.
 
 ```{r, warning=FALSE, message=FALSE, eval=FALSE}
-lm(Sepal.Length ~ Species, data = iris) %>% 
+# Select portion of data containing the two levels of interest
+data <- iris[iris$Species %in% c("setosa", "versicolor"), ]
+
+lm(Sepal.Length ~ Species, data = data) %>% 
   standardize_parameters()
 ```
 ```{r, warning=FALSE, message=FALSE, echo = FALSE}
-lm(Sepal.Length ~ Species, data = iris) %>% 
+data <- iris[iris$Species %in% c("setosa", "versicolor"), ]
+lm(Sepal.Length ~ Species, data = data) %>% 
   standardize_parameters() %>% 
   knitr::kable(digits = 2)
 ```
@@ -127,55 +129,37 @@ lm(Sepal.Length ~ Species, data = iris) %>%
 This linear model suggests that the *standardized* difference between the *versicolor* level of Species and the *setosa* level (the reference level - the intercept) is of 1.12 standard deviation of `Sepal.Length` (because the response variable was standardized, right?). Let's compute the **Cohen's *d*** between these two levels:
 
 ```{r, warning=FALSE, message=FALSE}
-# Select portion of data containing the two levels of interest
-data <- iris[iris$Species %in% c("setosa", "versicolor"), ]
-
 cohens_d(Sepal.Length ~ Species, data = data) 
 ```
 
-***It is very different!*** Why? How? Both differences should be expressed in terms of SD of the response variable. *And there's the trick*. First of all, in the linear model above, the SD by which the difference is scaled is the one of the whole response, which include **all the three levels**, whereas below, we filtered the data to only include the levels of interest. If we recompute the model on this filtered data, it should be better:
+***It is very different!*** Why? How? Both differences should be expressed in units of SD! But which SDs? Different SDs!
+
+When looking at the difference between groups as a **slope**, the standardized parameter is the difference between the means in $SD_{Sepal.Length}$. That is, the *slope* between `setosa` and `versicolor` is a change of 1.45 $SD_{Sepal.Length}$.
+
+However, when looking a the difference as a distance between two populations, Cohen's d is the distance between the means in units of [**pooled SDs**](https://easystats.github.io/effectsize/reference/sd_pooled.html). That is, the *distance* between `setosa` and `versicolor` is of 2.1 SDs of each of the groups (here assumed to be equal).
+
+However, it is interesting to note that using the *smart* method when standardizing parameters will give you indices equivalent to **Glass' delta**, which difference is expressed in terms of SD of the intercept (the "reference" factor levels).
 
 ```{r, warning=FALSE, message=FALSE, eval=FALSE}
-lm(Sepal.Length ~ Species, data = data) %>% 
-  standardize_parameters()
+lm(Sepal.Length ~ Species, data = data) %>%
+  standardize_parameters(method = "smart")
 ```
 ```{r, warning=FALSE, message=FALSE, echo = FALSE}
-lm(Sepal.Length ~ Species, data = data) %>% 
-  standardize_parameters() %>% 
+lm(Sepal.Length ~ Species, data = data) %>%
+  standardize_parameters(method = "smart") %>%
   knitr::kable(digits = 2)
 ```
-
-Not really. Why? Because the actual formula to compute a **Cohen's *d*** doesn't use the simple SD to scale the effect (as it is done when standardizing the parameters), but computes something called the [**pooled SD**](https://easystats.github.io/effectsize/reference/sd_pooled.html). However, this can be turned off by setting `correct = "raw"`.
-
 ```{r, warning=FALSE, message=FALSE}
-cohens_d(Sepal.Length ~ Species, data = data, pooled_sd = FALSE) 
+glass_delta(data$Sepal.Length[data$Species=="versicolor"],
+            data$Sepal.Length[data$Species=="setosa"])
+# glass_delta takes SD from second group
 ```
 
-***And here we are :)***
+***... So note that some standardized differences are difference than others! :)***
 
-<!-- However, it is interesting to note that using the *smart* method when standardizing parameters will give you indices equivalent to **Glass' delta**, which difference is expressed in terms of SD of the intercept (the "reference" factor levels). -->
+# Standardization methods
 
-<!-- ```{r, warning=FALSE, message=FALSE, eval=FALSE} -->
-<!-- lm(Sepal.Length ~ Species, data = data) %>%  -->
-<!--   standardize_parameters(method = "smart") -->
-<!-- ``` -->
-<!-- ```{r, warning=FALSE, message=FALSE, echo = FALSE} -->
-<!-- lm(Sepal.Length ~ Species, data = data) %>%  -->
-<!--   standardize_parameters(method = "smart") %>%  -->
-<!--   knitr::kable(digits = 2) -->
-<!-- ``` -->
-<!-- ```{r, warning=FALSE, message=FALSE} -->
-<!-- glass_delta(Sepal.Length ~ Species, data = data) -->
-<!-- ``` -->
-
-
-<!-- ## What about standardized interaction effects? -->
-
-<!-- Well, this one's a mess (at least for me). Help is required to make sense out of it. Otherwise, *NEXT*. -->
-
-
-
-<!-- # Standardization methods -->
+<sub>To be added...</sub>
 
 <!-- ### **"refit"**: Re-fitting the model with standardized data -->
 

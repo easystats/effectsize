@@ -31,3 +31,54 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_warning(cohens_d("b", "e", data = df))
   })
 }
+
+
+
+if (FALSE) {
+
+  # pooled ------------------------------------------------------------------
+  effectsize::cohens_d(wt ~ am, data = mtcars, pooled_sd = TRUE)
+
+  statsExpressions:::effsize_t_parametric(
+    formula = wt ~ am,
+    data = mtcars,
+    hedges.correction = F,
+    tobject = t.test(formula = wt ~ am, data = mtcars, var.equal = TRUE),
+    var.equal = TRUE
+  )
+  effsize::cohen.d(wt ~ am, data = mtcars, pooled = TRUE)
+  rstatix::cohens_d(wt ~ am, data = mtcars, var.equal = TRUE)
+
+
+  # non-pooled --------------------------------------------------------------
+  effectsize::cohens_d(wt ~ am, data = mtcars, pooled_sd = FALSE)
+
+  statsExpressions:::effsize_t_parametric(
+    formula = wt ~ am,
+    data = mtcars,
+    hedges.correction = F,
+    tobject = t.test(formula = wt ~ am, data = mtcars, var.equal = FALSE),
+    var.equal = FALSE
+  )
+  rstatix::cohens_d(wt ~ am, data = mtcars, var.equal = FALSE)
+
+
+  # hedge -------------------------------------------------------------------
+  effectsize::hedges_g(wt ~ am, data = mtcars, pooled_sd = TRUE)
+
+  statsExpressions:::effsize_t_parametric(
+    formula = wt ~ am,
+    data = mtcars,
+    hedges.correction = TRUE,
+    tobject = t.test(formula = wt ~ am, data = mtcars, var.equal = TRUE),
+    var.equal = TRUE
+  )
+  effsize::cohen.d(wt ~ am, data = mtcars, pooled = TRUE, hedges.correction = TRUE)
+  rstatix::cohens_d(wt ~ am, data = mtcars, var.equal = TRUE, hedges.correction = TRUE)
+
+
+  # glass -------------------------------------------------------------------
+  effectsize::glass_delta(wt ~ am, data = mtcars)
+
+  effsize::cohen.d(wt ~ am, data = mtcars, pooled = F)
+}

@@ -54,15 +54,22 @@ and then convert these \code{ncp}s to the corresponding effect sizes.
 }
 }
 \description{
-Compute different indices of effect size. For very small sample sizes (n < 20) Hedges' g is considered as less biased than Cohen's d. For sample sizes > 20, the results for both statistics are roughly equivalent. The Glass’s delta is appropriate if standard deviations are significantly different between groups, as it uses only the control group's (\code{x}) standard deviation.
+Compute different indices of effect size. For very small sample sizes (n < 20)
+Hedges' g is considered as less biased than Cohen's d.
+For sample sizes > 20, the results for both statistics are roughly equivalent.
+\cr\cr
+ The Glass’s delta is appropriate if standard deviations are significantly different
+ between groups, as it uses only the \emph{second} group's standard deviation.
 }
 \examples{
 cohens_d(iris$Sepal.Length, iris$Sepal.Width)
 hedges_g("Sepal.Length", "Sepal.Width", data = iris)
-glass_delta(Sepal.Length ~ Sepal.Width, data = iris)
 
-cohens_d(iris$Sepal.Length, iris$Sepal.Width, correct = TRUE, pooled_sd = FALSE)
-cohens_d(Sepal.Length ~ Species, data = iris[iris$Species \%in\% c("versicolor", "setosa"), ])
+cohens_d(mpg ~ am, data = mtcars)
+cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)
+hedges_g(mpg ~ am, data = mtcars)
+glass_delta(mpg ~ am, data = mtcars)
+
 }
 \references{
 \itemize{

@@ -24,4 +24,5 @@ The Pooled Standard Deviation is a weighted average of standard deviations for t
 }
 \examples{
 sd_pooled(Sepal.Length ~ Petal.Width, data = iris)
+
 }

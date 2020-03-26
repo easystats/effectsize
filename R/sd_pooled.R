@@ -7,6 +7,7 @@
 #' @return Numeric, the pooled standard deviation.
 #' @examples
 #' sd_pooled(Sepal.Length ~ Petal.Width, data = iris)
+#'
 #' @export
 sd_pooled <- function(x, y = NULL, data = NULL) {
 
@@ -59,24 +60,23 @@ mad_pooled <- function(x, y = NULL, data = NULL) {
   # out <- .deal_with_cohens_d_arguments(eval_args$x, eval_args$y, eval_args$data)
 
   out <- .deal_with_cohens_d_arguments(x, y, data)
-  x <- out$x
-  y <- out$y
+  x <- na.omit(out$x)
+  y <- na.omit(out$y)
 
   if (robust) {
-    sd1 <- stats::mad(x, na.rm = TRUE)
-    sd2 <- stats::mad(y, na.rm = TRUE)
+    sd1 <- stats::mad(x)
+    sd2 <- stats::mad(y)
   } else {
-    sd1 <- stats::sd(x, na.rm = TRUE)
-    sd2 <- stats::sd(y, na.rm = TRUE)
+    sd1 <- stats::sd(x)
+    sd2 <- stats::sd(y)
   }
 
-
-  sqrt((sd1^2 + sd2^2) / 2)
+  # sqrt((sd1^2 + sd2^2) / 2)
 
   # Cohen's more complicated formula:
-  # n1 <- length(x)
-  # n2 <- length(y)
-  # sqrt( (n1-1) * var(x) + (n2-1) * var(y) / n1 + n2 - 2)
+  n1 <- length(x)
+  n2 <- length(y)
+  sqrt(((n1 - 1) * sd1 ^ 2 + (n2 - 1) * sd2 ^ 2) / (n1 + n2 - 2))
 }
 
 

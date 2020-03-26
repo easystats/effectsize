@@ -14,6 +14,7 @@
 ## Bug fixes
 
 - Fix `cohens_d()`'s dealing with formula input (#44).
+- `sd_pooled()` now returns the... pooled sd (#44).
 
 ## Changes
 
