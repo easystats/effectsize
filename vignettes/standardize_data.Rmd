@@ -29,16 +29,18 @@ options(digits=2)
 
 # Introduction
 
-To make sense of their data and effects, scientists might want to standardize (Z-score) their variables. They become unitless, expressed only in terms of deviation from an index of centrality (e.g., the mean or the median).
-
-ADD MORE.
+To make sense of their data and effects, scientists might want to standardize (Z-score) their variables. They become unitless, expressed only in terms of deviation from an index of centrality (e.g., the mean or the median). However, aside from some benefits, standardization also comes with challenges and issues, that the scientist should be aware of.
 
 
 
 
 ## Normal *vs.* Robust
 
-ADD MORE.
+The `effectsize` package offers two methods of standardization. 
+
+**[TO DO]**
+
+
 
 ## Variable-wise *vs.* Participant-wise 
 
@@ -50,22 +52,185 @@ Standardization is an important step and extra caution is required in **repeated
 
 Unfortunately, the method used is often not explicitly stated. This is an issue as these methods can generate important discrepancies (that can in turn contribute to the reproducibility crisis). Let's investigate these 3 methods.
 
-
-[Use this](https://github.com/neuropsychology/psycho.R/blob/master/docs/_posts/preparation/published/standardize_grouped_df.Rmd)
-
-<!-- **While the three standardization methods roughly present the same characteristics at a general level (mean 0 and SD 1) and a similar distribution, their values are very different and completely uncorrelated!** -->
+# The data
 
 
+We will take the `emotion` dataset in which participants were exposed to negative pictures and had to rate their emotions (**valence**) and the amount of memories associated with the picture (**autobiographical link**). One could make the hypothesis that for young participants with no context of war or violence, the most negative pictures (mutilations) are less related to memories than less negative pictures (involving for example car crashes or sick people). In other words, **we expect a positive relationship between valence** (with high values corresponding to less negativity) **and autobiographical link**.
 
-<!-- As we can see, in our case, using **participant-wise standardization resulted in a significant (at *p* = .1) effect**! But keep in mind that *this is not always the case*. In can be the contrary, or generate very similar results. **No method is better or more justified, and its choice depends on the specific case, context, data and goal**. -->
+Let's have a look at the data, averaged by participants:
 
-<!-- ### Conclusion  -->
+```{r, fig.width=7, fig.height=4.5, eval = TRUE, results='hide', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
+library(dplyr)
 
-<!-- 1.  **Standardization can be useful in *some* cases and should be justified** -->
-<!-- 2.  **Variable and Participant-wise standardization methods produce "in appearance" similar data** -->
-<!-- 3.  **Variable and Participant-wise standardization can lead to different and uncorrelated results** -->
-<!-- 4.  **The choice of the method can strongly influence the results and thus, should be explicitly stated** -->
+# Download the 'emotion' dataset
+load(url("https://raw.github.com/neuropsychology/psycho.R/master/data/emotion.rda"))  
+  
+# Discard neutral pictures (keep only negative)
+df <- emotion %>% 
+  filter(Emotion_Condition == "Negative")  
 
-<!-- We showed here yet another way of **sneakily tweaking the data** that can change the results. **To prevent its use for *p*-hacking, we can only support the generalization of open-data, open-analysis and preregistration**. -->
+# Summary
+df %>% 
+  group_by(Participant_ID) %>% 
+  summarise(n_Trials = n(),
+            Valence_Mean = mean(Subjective_Valence, na.rm=TRUE),
+            Valence_SD = sd(Subjective_Valence, na.rm=TRUE),
+            Autobiographical_Link_Mean = mean(Autobiographical_Link, na.rm=TRUE),
+            Autobiographical_Link_SD = sd(Autobiographical_Link, na.rm=TRUE))
+```
+
+As we can see from the means and SDs, there is a lot of variability **between and within** participants (between their means and their individual SD).
+
+
+# Standardize
+
+We will create three dataframes standardized with each of the three techniques.
+
+```{r, fig.width=7, fig.height=4.5, eval = TRUE, results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
+library(effectsize)
+
+Z_VariableWise <- df %>% 
+  standardize()
+
+Z_ParticipantWise <- df %>% 
+  group_by(Participant_ID) %>% 
+  standardize() 
+
+Z_Full <- df %>% 
+  group_by(Participant_ID) %>% 
+  standardize() %>% 
+  ungroup() %>% 
+  standardize() 
+```
+
+# Effect of Standardization 
+
+Let's see how these three standardization techniques affected the **Valence** variable.
+
+## At a general level
+```{r, fig.width=7, fig.height=4.5, eval = TRUE, results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
+# Create a convenient function to print
+print_summary <- function(data){
+  paste0(
+    paste0(deparse(substitute(data)), ": "), 
+    paste(round(mean(data[["Subjective_Valence"]]), 3), 
+          "+-", 
+          round(sd(data[["Subjective_Valence"]]), 3)),
+    paste0(" [", 
+           round(min(data[["Subjective_Valence"]]), 3),
+           ",", 
+           round(max(data[["Subjective_Valence"]]), 3),
+           "]")
+    )
+}
+
+# Check the results
+print_summary(Z_VariableWise)
+print_summary(Z_ParticipantWise)
+print_summary(Z_Full)
+```
+
+The **means** and the **SD** appear as fairly similar (0 and 1)...
+
+##  Distribution
+```{r, fig.width=7, fig.height=4.5, eval = TRUE, results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
+library(bayestestR)
+library(see)
+
+data.frame(VarWise = Z_VariableWise$Subjective_Valence,
+           ParWise = Z_ParticipantWise$Subjective_Valence,
+           Full = Z_Full$Subjective_Valence) %>% 
+  estimate_density(method="kernSmooth") %>% 
+  plot() +
+  see::theme_modern()
+```
+
+and the distributions appear to be similar...
+
+
+## At a participant level
+
+```{r, fig.width=7, fig.height=4.5, eval = TRUE, results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
+# Create convenient function
+print_participants <- function(data){
+  data %>% 
+    group_by(Participant_ID) %>% 
+    summarise(Mean = mean(Subjective_Valence), 
+              SD = sd(Subjective_Valence)) %>% 
+    mutate_if(is.numeric, round, 2) %>% 
+    head(5) 
+    
+}
+
+# Check the results
+print_participants(Z_VariableWise)
+print_participants(Z_ParticipantWise)
+print_participants(Z_Full)
+```
+
+Ok so there are some differences here....
+
+# Correlation
+
+Let's do a **correlation** between the **variable-wise and participant-wise methods**.
+
+
+```{r, fig.width=7, fig.height=4.5, eval = TRUE, results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
+library(ggplot2)
+
+cor.test(Z_VariableWise$Subjective_Valence, Z_ParticipantWise$Subjective_Valence)
+
+
+data.frame(Original = df$Subjective_Valence,
+           VariableWise = Z_VariableWise$Subjective_Valence,
+           ParticipantWise = Z_ParticipantWise$Subjective_Valence) %>% 
+  ggplot(aes(x=VariableWise, y=ParticipantWise, colour=Original)) +
+  geom_point() +
+  geom_smooth(method="lm") +
+  see::theme_modern()
+```
+
+
+While the three standardization methods roughly present the same characteristics at a general level (mean 0 and SD 1) and a similar distribution, their values are not exactly the same!
+
+# Test
+
+Let's now answer to the original question by investigating the **linear relationship between valence and autobiographical link**. We can do this by running a mixed model with participants entered as random effects.
+
+
+```{r, fig.width=7, fig.height=4.5, eval = TRUE, results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
+library(lme4)
+library(parameters)
+
+# Convenient function
+print_model <- function(data){
+  type_name <- deparse(substitute(data)) 
+  lmer(Subjective_Valence ~ Autobiographical_Link + (1|Participant_ID), data=data) %>% 
+    parameters() %>% 
+    filter(Parameter == "Autobiographical_Link") %>% 
+    mutate(Type = type_name,
+           Coefficient = round(Coefficient, 3),
+           p = round(p, 3)) %>% 
+    select(Type, Coefficient, p)
+}
+
+# Run the model on all datasets
+rbind(print_model(df), 
+      print_model(Z_VariableWise),
+      print_model(Z_ParticipantWise),
+      print_model(Z_Full))
+```
+
+As we can see, **variable-wise** standardization only affects **the coefficient** (which is expected, as it changes the unit), but not the **test statistics** (the *p*-value, in this case). However, using **participant-wise** standardization **does** affect the coefficient **and the *p*-value**. No method is better or more justified, and its choice depends on the specific case, context, data and goal.
+
+# Conclusion
+
+1.  **Standardization can be useful in *some* cases and should be justified**
+2.  **Variable and Participant-wise standardization methods produce "in appearance" similar data**
+3.  **Variable and Participant-wise standardization can lead to different results**
+4.  **The choice of the method can strongly influence the results and thus, should be explicitly stated**
+
+We showed here yet another way of **sneakily tweaking the data** that can change the results. To prevent its use for bad practices (e.g., *p*-hacking), we can only support the generalization of open-data, open-analysis and preregistration**
+
 
 # References
