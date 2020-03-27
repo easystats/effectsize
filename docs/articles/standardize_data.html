@@ -90,14 +90,7 @@
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/easystats/effectsize">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
+<ul class="nav navbar-nav navbar-right"></ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -113,7 +106,7 @@
       <h1>Data Standardization</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/vignettes/standardize_data.Rmd"><code>vignettes/standardize_data.Rmd</code></a></small>
+      
       <div class="hidden name"><code>standardize_data.Rmd</code></div>
 
     </div>
@@ -123,12 +116,12 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>To make sense of their data and effects, scientists might want to standardize (Z-score) their variables. They become unitless, expressed only in terms of deviation from an index of centrality (e.g., the mean or the median).</p>
-<p>ADD MORE.</p>
+<p>To make sense of their data and effects, scientists might want to standardize (Z-score) their variables. They become unitless, expressed only in terms of deviation from an index of centrality (e.g., the mean or the median). However, aside from some benefits, standardization also comes with challenges and issues, that the scientist should be aware of.</p>
 <div id="normal-vs--robust" class="section level2">
 <h2 class="hasAnchor">
 <a href="#normal-vs--robust" class="anchor"></a>Normal <em>vs.</em> Robust</h2>
-<p>ADD MORE.</p>
+<p>The <code>effectsize</code> package offers two methods of standardization.</p>
+<p><strong>[TO DO]</strong></p>
 </div>
 <div id="variable-wise-vs--participant-wise" class="section level2">
 <h2 class="hasAnchor">
@@ -143,16 +136,211 @@
 <strong>Full</strong>: Participant-wise first and then re-standardizing variable-wise.</li>
 </ul>
 <p>Unfortunately, the method used is often not explicitly stated. This is an issue as these methods can generate important discrepancies (that can in turn contribute to the reproducibility crisis). Let’s investigate these 3 methods.</p>
-<p><a href="https://github.com/neuropsychology/psycho.R/blob/master/docs/_posts/preparation/published/standardize_grouped_df.Rmd">Use this</a></p>
-<!-- **While the three standardization methods roughly present the same characteristics at a general level (mean 0 and SD 1) and a similar distribution, their values are very different and completely uncorrelated!** -->
-<!-- As we can see, in our case, using **participant-wise standardization resulted in a significant (at *p* = .1) effect**! But keep in mind that *this is not always the case*. In can be the contrary, or generate very similar results. **No method is better or more justified, and its choice depends on the specific case, context, data and goal**. -->
-<!-- ### Conclusion  -->
-<!-- 1.  **Standardization can be useful in *some* cases and should be justified** -->
-<!-- 2.  **Variable and Participant-wise standardization methods produce "in appearance" similar data** -->
-<!-- 3.  **Variable and Participant-wise standardization can lead to different and uncorrelated results** -->
-<!-- 4.  **The choice of the method can strongly influence the results and thus, should be explicitly stated** -->
-<!-- We showed here yet another way of **sneakily tweaking the data** that can change the results. **To prevent its use for *p*-hacking, we can only support the generalization of open-data, open-analysis and preregistration**. -->
 </div>
+</div>
+<div id="the-data" class="section level1">
+<h1 class="hasAnchor">
+<a href="#the-data" class="anchor"></a>The data</h1>
+<p>We will take the <code>emotion</code> dataset in which participants were exposed to negative pictures and had to rate their emotions (<strong>valence</strong>) and the amount of memories associated with the picture (<strong>autobiographical link</strong>). One could make the hypothesis that for young participants with no context of war or violence, the most negative pictures (mutilations) are less related to memories than less negative pictures (involving for example car crashes or sick people). In other words, <strong>we expect a positive relationship between valence</strong> (with high values corresponding to less negativity) <strong>and autobiographical link</strong>.</p>
+<p>Let’s have a look at the data, averaged by participants:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
+<a class="sourceLine" id="cb1-2" title="2"></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="co"># Download the 'emotion' dataset</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="kw"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/connections.html">url</a></span>(<span class="st">"https://raw.github.com/neuropsychology/psycho.R/master/data/emotion.rda"</span>))  </a>
+<a class="sourceLine" id="cb1-5" title="5">  </a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="co"># Discard neutral pictures (keep only negative)</span></a>
+<a class="sourceLine" id="cb1-7" title="7">df &lt;-<span class="st"> </span>emotion <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(Emotion_Condition <span class="op">==</span><span class="st"> "Negative"</span>)  </a>
+<a class="sourceLine" id="cb1-9" title="9"></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="co"># Summary</span></a>
+<a class="sourceLine" id="cb1-11" title="11">df <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="st">  </span><span class="kw">group_by</span>(Participant_ID) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n_Trials =</span> <span class="kw">n</span>(),</a>
+<a class="sourceLine" id="cb1-14" title="14">            <span class="dt">Valence_Mean =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(Subjective_Valence, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1-15" title="15">            <span class="dt">Valence_SD =</span> <span class="kw"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(Subjective_Valence, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1-16" title="16">            <span class="dt">Autobiographical_Link_Mean =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(Autobiographical_Link, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1-17" title="17">            <span class="dt">Autobiographical_Link_SD =</span> <span class="kw"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(Autobiographical_Link, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))</a></code></pre></div>
+<p>As we can see from the means and SDs, there is a lot of variability <strong>between and within</strong> participants (between their means and their individual SD).</p>
+</div>
+<div id="standardize" class="section level1">
+<h1 class="hasAnchor">
+<a href="#standardize" class="anchor"></a>Standardize</h1>
+<p>We will create three dataframes standardized with each of the three techniques.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(effectsize)</a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3">Z_VariableWise &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="st">  </span><span class="kw"><a href="../reference/standardize.html">standardize</a></span>()</a>
+<a class="sourceLine" id="cb2-5" title="5"></a>
+<a class="sourceLine" id="cb2-6" title="6">Z_ParticipantWise &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="st">  </span><span class="kw">group_by</span>(Participant_ID) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="st">  </span><span class="kw"><a href="../reference/standardize.html">standardize</a></span>() </a>
+<a class="sourceLine" id="cb2-9" title="9"></a>
+<a class="sourceLine" id="cb2-10" title="10">Z_Full &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="st">  </span><span class="kw">group_by</span>(Participant_ID) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="st">  </span><span class="kw"><a href="../reference/standardize.html">standardize</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-13" title="13"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-14" title="14"><span class="st">  </span><span class="kw"><a href="../reference/standardize.html">standardize</a></span>() </a></code></pre></div>
+</div>
+<div id="effect-of-standardization" class="section level1">
+<h1 class="hasAnchor">
+<a href="#effect-of-standardization" class="anchor"></a>Effect of Standardization</h1>
+<p>Let’s see how these three standardization techniques affected the <strong>Valence</strong> variable.</p>
+<div id="at-a-general-level" class="section level2">
+<h2 class="hasAnchor">
+<a href="#at-a-general-level" class="anchor"></a>At a general level</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># Create a convenient function to print</span></a>
+<a class="sourceLine" id="cb3-2" title="2">print_summary &lt;-<span class="st"> </span><span class="cf">function</span>(data){</a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(</a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/deparse.html">deparse</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/substitute.html">substitute</a></span>(data)), <span class="st">": "</span>), </a>
+<a class="sourceLine" id="cb3-5" title="5">    <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(data[[<span class="st">"Subjective_Valence"</span>]]), <span class="dv">3</span>), </a>
+<a class="sourceLine" id="cb3-6" title="6">          <span class="st">"+-"</span>, </a>
+<a class="sourceLine" id="cb3-7" title="7">          <span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(data[[<span class="st">"Subjective_Valence"</span>]]), <span class="dv">3</span>)),</a>
+<a class="sourceLine" id="cb3-8" title="8">    <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">" ["</span>, </a>
+<a class="sourceLine" id="cb3-9" title="9">           <span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(data[[<span class="st">"Subjective_Valence"</span>]]), <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb3-10" title="10">           <span class="st">","</span>, </a>
+<a class="sourceLine" id="cb3-11" title="11">           <span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(data[[<span class="st">"Subjective_Valence"</span>]]), <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb3-12" title="12">           <span class="st">"]"</span>)</a>
+<a class="sourceLine" id="cb3-13" title="13">    )</a>
+<a class="sourceLine" id="cb3-14" title="14">}</a>
+<a class="sourceLine" id="cb3-15" title="15"></a>
+<a class="sourceLine" id="cb3-16" title="16"><span class="co"># Check the results</span></a>
+<a class="sourceLine" id="cb3-17" title="17"><span class="kw">print_summary</span>(Z_VariableWise)</a></code></pre></div>
+<pre><code>[1] "Z_VariableWise: 0 +- 1 [-1.178,3.101]"</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">print_summary</span>(Z_ParticipantWise)</a></code></pre></div>
+<pre><code>[1] "Z_ParticipantWise: 0 +- 0.98 [-2.933,3.293]"</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">print_summary</span>(Z_Full)</a></code></pre></div>
+<pre><code>[1] "Z_Full: 0 +- 1 [-2.992,3.36]"</code></pre>
+<p>The <strong>means</strong> and the <strong>SD</strong> appear as fairly similar (0 and 1)…</p>
+</div>
+<div id="distribution" class="section level2">
+<h2 class="hasAnchor">
+<a href="#distribution" class="anchor"></a>Distribution</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(bayestestR)</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(see)</a>
+<a class="sourceLine" id="cb9-3" title="3"></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">VarWise =</span> Z_VariableWise<span class="op">$</span>Subjective_Valence,</a>
+<a class="sourceLine" id="cb9-5" title="5">           <span class="dt">ParWise =</span> Z_ParticipantWise<span class="op">$</span>Subjective_Valence,</a>
+<a class="sourceLine" id="cb9-6" title="6">           <span class="dt">Full =</span> Z_Full<span class="op">$</span>Subjective_Valence) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-7" title="7"><span class="st">  </span><span class="kw">estimate_density</span>(<span class="dt">method=</span><span class="st">"kernSmooth"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-8" title="8"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-9" title="9"><span class="st">  </span>see<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/see/man/theme_modern.html">theme_modern</a></span>()</a></code></pre></div>
+<p><img src="standardize_data_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"></p>
+<p>and the distributions appear to be similar…</p>
+</div>
+<div id="at-a-participant-level" class="section level2">
+<h2 class="hasAnchor">
+<a href="#at-a-participant-level" class="anchor"></a>At a participant level</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="co"># Create convenient function</span></a>
+<a class="sourceLine" id="cb10-2" title="2">print_participants &lt;-<span class="st"> </span><span class="cf">function</span>(data){</a>
+<a class="sourceLine" id="cb10-3" title="3">  data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="st">    </span><span class="kw">group_by</span>(Participant_ID) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-5" title="5"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">Mean =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(Subjective_Valence), </a>
+<a class="sourceLine" id="cb10-6" title="6">              <span class="dt">SD =</span> <span class="kw"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(Subjective_Valence)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-7" title="7"><span class="st">    </span><span class="kw">mutate_if</span>(is.numeric, round, <span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-8" title="8"><span class="st">    </span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="dv">5</span>) </a>
+<a class="sourceLine" id="cb10-9" title="9">    </a>
+<a class="sourceLine" id="cb10-10" title="10">}</a>
+<a class="sourceLine" id="cb10-11" title="11"></a>
+<a class="sourceLine" id="cb10-12" title="12"><span class="co"># Check the results</span></a>
+<a class="sourceLine" id="cb10-13" title="13"><span class="kw">print_participants</span>(Z_VariableWise)</a></code></pre></div>
+<pre><code># A tibble: 5 x 3
+  Participant_ID  Mean    SD
+  &lt;fct&gt;          &lt;dbl&gt; &lt;dbl&gt;
+1 10S            -0.05  1.15
+2 11S            -0.46  1   
+3 12S            -0.03  0.72
+4 13S            -0.19  0.64
+5 14S            -0.01  0.71</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">print_participants</span>(Z_ParticipantWise)</a></code></pre></div>
+<pre><code># A tibble: 5 x 3
+  Participant_ID  Mean    SD
+  &lt;fct&gt;          &lt;dbl&gt; &lt;dbl&gt;
+1 10S                0     1
+2 11S                0     1
+3 12S                0     1
+4 13S                0     1
+5 14S                0     1</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">print_participants</span>(Z_Full)</a></code></pre></div>
+<pre><code># A tibble: 5 x 3
+  Participant_ID  Mean    SD
+  &lt;fct&gt;          &lt;dbl&gt; &lt;dbl&gt;
+1 10S                0  1.02
+2 11S                0  1.02
+3 12S                0  1.02
+4 13S                0  1.02
+5 14S                0  1.02</code></pre>
+<p>Ok so there are some differences here….</p>
+</div>
+</div>
+<div id="correlation" class="section level1">
+<h1 class="hasAnchor">
+<a href="#correlation" class="anchor"></a>Correlation</h1>
+<p>Let’s do a <strong>correlation</strong> between the <strong>variable-wise and participant-wise methods</strong>.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
+<a class="sourceLine" id="cb16-2" title="2"></a>
+<a class="sourceLine" id="cb16-3" title="3"><span class="kw"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span>(Z_VariableWise<span class="op">$</span>Subjective_Valence, Z_ParticipantWise<span class="op">$</span>Subjective_Valence)</a></code></pre></div>
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  Z_VariableWise$Subjective_Valence and Z_ParticipantWise$Subjective_Valence
+t = 35, df = 454, p-value &lt;2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.82 0.87
+sample estimates:
+ cor 
+0.85 </code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">Original =</span> df<span class="op">$</span>Subjective_Valence,</a>
+<a class="sourceLine" id="cb18-2" title="2">           <span class="dt">VariableWise =</span> Z_VariableWise<span class="op">$</span>Subjective_Valence,</a>
+<a class="sourceLine" id="cb18-3" title="3">           <span class="dt">ParticipantWise =</span> Z_ParticipantWise<span class="op">$</span>Subjective_Valence) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>VariableWise, <span class="dt">y=</span>ParticipantWise, <span class="dt">colour=</span>Original)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-6" title="6"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">"lm"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-7" title="7"><span class="st">  </span>see<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/see/man/theme_modern.html">theme_modern</a></span>()</a></code></pre></div>
+<p><img src="standardize_data_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;"></p>
+<p>While the three standardization methods roughly present the same characteristics at a general level (mean 0 and SD 1) and a similar distribution, their values are not exactly the same!</p>
+</div>
+<div id="test" class="section level1">
+<h1 class="hasAnchor">
+<a href="#test" class="anchor"></a>Test</h1>
+<p>Let’s now answer to the original question by investigating the <strong>linear relationship between valence and autobiographical link</strong>. We can do this by running a mixed model with participants entered as random effects.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(lme4)</a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(parameters)</a>
+<a class="sourceLine" id="cb19-3" title="3"></a>
+<a class="sourceLine" id="cb19-4" title="4"><span class="co"># Convenient function</span></a>
+<a class="sourceLine" id="cb19-5" title="5">print_model &lt;-<span class="st"> </span><span class="cf">function</span>(data){</a>
+<a class="sourceLine" id="cb19-6" title="6">  type_name &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/deparse.html">deparse</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/substitute.html">substitute</a></span>(data)) </a>
+<a class="sourceLine" id="cb19-7" title="7">  <span class="kw">lmer</span>(Subjective_Valence <span class="op">~</span><span class="st"> </span>Autobiographical_Link <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>Participant_ID), <span class="dt">data=</span>data) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-8" title="8"><span class="st">    </span><span class="kw">parameters</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-9" title="9"><span class="st">    </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(Parameter <span class="op">==</span><span class="st"> "Autobiographical_Link"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-10" title="10"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">Type =</span> type_name,</a>
+<a class="sourceLine" id="cb19-11" title="11">           <span class="dt">Coefficient =</span> <span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(Coefficient, <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb19-12" title="12">           <span class="dt">p =</span> <span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(p, <span class="dv">3</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-13" title="13"><span class="st">    </span><span class="kw">select</span>(Type, Coefficient, p)</a>
+<a class="sourceLine" id="cb19-14" title="14">}</a>
+<a class="sourceLine" id="cb19-15" title="15"></a>
+<a class="sourceLine" id="cb19-16" title="16"><span class="co"># Run the model on all datasets</span></a>
+<a class="sourceLine" id="cb19-17" title="17"><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="kw">print_model</span>(df), </a>
+<a class="sourceLine" id="cb19-18" title="18">      <span class="kw">print_model</span>(Z_VariableWise),</a>
+<a class="sourceLine" id="cb19-19" title="19">      <span class="kw">print_model</span>(Z_ParticipantWise),</a>
+<a class="sourceLine" id="cb19-20" title="20">      <span class="kw">print_model</span>(Z_Full))</a></code></pre></div>
+<pre><code>               Type Coefficient    p
+1                df       0.090 0.17
+2    Z_VariableWise       0.068 0.17
+3 Z_ParticipantWise       0.082 0.08
+4            Z_Full       0.082 0.08</code></pre>
+<p>As we can see, <strong>variable-wise</strong> standardization only affects <strong>the coefficient</strong> (which is expected, as it changes the unit), but not the <strong>test statistics</strong> (the <em>p</em>-value, in this case). However, using <strong>participant-wise</strong> standardization <strong>does</strong> affect the coefficient <strong>and the <em>p</em>-value</strong>. No method is better or more justified, and its choice depends on the specific case, context, data and goal.</p>
+</div>
+<div id="conclusion" class="section level1">
+<h1 class="hasAnchor">
+<a href="#conclusion" class="anchor"></a>Conclusion</h1>
+<ol style="list-style-type: decimal">
+<li><strong>Standardization can be useful in <em>some</em> cases and should be justified</strong></li>
+<li><strong>Variable and Participant-wise standardization methods produce “in appearance” similar data</strong></li>
+<li><strong>Variable and Participant-wise standardization can lead to different results</strong></li>
+<li><strong>The choice of the method can strongly influence the results and thus, should be explicitly stated</strong></li>
+</ol>
+<p>We showed here yet another way of <strong>sneakily tweaking the data</strong> that can change the results. To prevent its use for bad practices (e.g., <em>p</em>-hacking), we can only support the generalization of open-data, open-analysis and preregistration**</p>
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
@@ -172,6 +360,18 @@
       <li><a href="#variable-wise-vs--participant-wise">Variable-wise <em>vs.</em> Participant-wise</a></li>
       </ul>
 </li>
+      <li><a href="#the-data">The data</a></li>
+      <li><a href="#standardize">Standardize</a></li>
+      <li>
+<a href="#effect-of-standardization">Effect of Standardization</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#at-a-general-level">At a general level</a></li>
+      <li><a href="#distribution">Distribution</a></li>
+      <li><a href="#at-a-participant-level">At a participant level</a></li>
+      </ul>
+</li>
+      <li><a href="#correlation">Correlation</a></li>
+      <li><a href="#test">Test</a></li>
+      <li><a href="#conclusion">Conclusion</a></li>
       <li><a href="#references">References</a></li>
       </ul>
 </div>

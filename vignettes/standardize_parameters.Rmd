@@ -88,10 +88,10 @@ Now, let's apply another method to obtain effect sizes for frequentist regressio
 
 
 ```{r, warning=FALSE, message=FALSE}
-parameters <- lm(Sepal.Length ~ ., data = df) %>% 
-  model_parameters()
+model <- lm(Sepal.Length ~ ., data = df)
+params <- model_parameters(model)
 
-t_to_r(parameters$t[2:4], parameters$df_error[2:4])
+t_to_r(params$t[2:4], params$df_error[2:4])
 ```
 
 Wow, the retrieved correlations coefficients from the regression model are **exactly** the same as the partial correlations!

@@ -129,12 +129,7 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/easystats/effectsize">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -149,7 +144,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/easystats/effectsize/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+      
     </div>
 
     <div id="effectsize-030" class="section level1">
@@ -175,6 +170,15 @@
 <code><a href="../reference/standardize.html">standardize.data.frame()</a></code> gets <code>append</code> and <code>suffix</code> arguments, to add (instead of replace) standardized variables to the returned data frame.</li>
 </ul>
 </div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>Fix <code><a href="../reference/cohens_d.html">cohens_d()</a></code>’s dealing with formula input (#44).</li>
+<li>
+<code><a href="../reference/sd_pooled.html">sd_pooled()</a></code> now returns the… pooled sd (#44).</li>
+</ul>
+</div>
 <div id="changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#changes" class="anchor"></a>Changes</h2>
@@ -187,9 +191,9 @@
 <h1 class="page-header">
 <a href="#effectsize-010" class="anchor"></a>effectsize 0.1.0<small> Unreleased </small>
 </h1>
-<div id="bug-fixes" class="section level2">
+<div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>
 <code><a href="../reference/standardize.html">standardize.data.frame()</a></code> did not work when variables had missing values.</li>
@@ -222,9 +226,9 @@
 <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> and <code><a href="../reference/standardize.html">standardize()</a></code> now support models from packages <em>brglm</em>, <em>brglm2</em>, <em>mixor</em>, <em>fixest</em>, <em>cgam</em>, <em>cplm</em>, <em>cglm</em>, <em>glmmadmb</em> and <em>complmrob</em>.</li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fix CRAN check issues.</li>
 </ul>
