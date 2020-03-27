@@ -23,6 +23,6 @@ Numeric, the pooled standard deviation.
 The Pooled Standard Deviation is a weighted average of standard deviations for two or more groups, with more "weight" given to larger sample sizes.
 }
 \examples{
-sd_pooled(Sepal.Length ~ Petal.Width, data = iris)
+sd_pooled(mpg ~ am, data = mtcars)
 
 }

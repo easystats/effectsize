@@ -6,7 +6,7 @@
 #'
 #' @return Numeric, the pooled standard deviation.
 #' @examples
-#' sd_pooled(Sepal.Length ~ Petal.Width, data = iris)
+#' sd_pooled(mpg ~ am, data = mtcars)
 #'
 #' @export
 sd_pooled <- function(x, y = NULL, data = NULL) {
