@@ -138,7 +138,15 @@ When looking at the difference between groups as a **slope**, the standardized p
 
 However, when looking a the difference as a distance between two populations, Cohen's d is the distance between the means in units of [**pooled SDs**](https://easystats.github.io/effectsize/reference/sd_pooled.html). That is, the *distance* between `setosa` and `versicolor` is of 2.1 SDs of each of the groups (here assumed to be equal).
 
-However, it is interesting to note that using the *smart* method when standardizing parameters will give you indices equivalent to **Glass' delta**, which difference is expressed in terms of SD of the intercept (the "reference" factor levels).
+Note that you can get a proximity of Cohen's d with by converting the $t$ statistic from the regression model via `t_to_d()`:
+```{r}
+(parameters <- lm(Sepal.Length ~ Species, data = data) %>% 
+  model_parameters())
+t_to_d(10.52, df_error = 98)
+```
+
+
+It is also interesting to note that using the *smart* method when standardizing parameters will give you indices equivalent to **Glass' delta**, which difference is expressed in terms of SD of the intercept (the "reference" factor levels).
 
 ```{r, warning=FALSE, message=FALSE, eval=FALSE}
 lm(Sepal.Length ~ Species, data = data) %>%
