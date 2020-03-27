@@ -43,7 +43,12 @@
 
 
 <meta property="og:title" content="Effect size for differences — cohens_d" />
-<meta property="og:description" content="Compute different indices of effect size. For very small sample sizes (n &amp;lt; 20) Hedges' g is considered as less biased than Cohen's d. For sample sizes &amp;gt; 20, the results for both statistics are roughly equivalent. The Glass’s delta is appropriate if standard deviations are significantly different between groups, as it uses only the control group's (x) standard deviation." />
+<meta property="og:description" content="Compute different indices of effect size. For very small sample sizes (n &amp;lt; 20)
+Hedges' g is considered as less biased than Cohen's d.
+For sample sizes &amp;gt; 20, the results for both statistics are roughly equivalent.
+
+ The Glass’s delta is appropriate if standard deviations are significantly different
+ between groups, as it uses only the second group's standard deviation." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -130,12 +135,7 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/easystats/effectsize">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -150,12 +150,17 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Effect size for differences</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/cohens_d.R'><code>R/cohens_d.R</code></a></small>
+    
     <div class="hidden name"><code>cohens_d.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Compute different indices of effect size. For very small sample sizes (n &lt; 20) Hedges' g is considered as less biased than Cohen's d. For sample sizes &gt; 20, the results for both statistics are roughly equivalent. The Glass’s delta is appropriate if standard deviations are significantly different between groups, as it uses only the control group's (<code>x</code>) standard deviation.</p>
+    <p>Compute different indices of effect size. For very small sample sizes (n &lt; 20)
+Hedges' g is considered as less biased than Cohen's d.
+For sample sizes &gt; 20, the results for both statistics are roughly equivalent.
+<br /><br />
+ The Glass’s delta is appropriate if standard deviations are significantly different
+ between groups, as it uses only the <em>second</em> group's standard deviation.</p>
     </div>
 
     <pre class="usage"><span class='fu'>cohens_d</span>(
@@ -185,11 +190,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A continuous variable or a formula.</p></td>
+      <td><p>A formula, a numeric vector, or a name of one in <code>data</code>.</p></td>
     </tr>
     <tr>
       <th>y</th>
-      <td><p>A continuous variable, a factor with two groups or a formula.</p></td>
+      <td><p>A numeric vector, a grouping (character / factor) vector, a or a name of one in <code>data</code>. Ignored if <code>x</code> is a formula.</p></td>
     </tr>
     <tr>
       <th>data</th>
@@ -197,7 +202,7 @@
     </tr>
     <tr>
       <th>correction</th>
-      <td><p>If <code>TRUE</code>, applies a correction to the formula to make it less biased for small samples (McGrath &amp; Meyer, 2006).</p></td>
+      <td><p>If <code>TRUE</code>, applies a correction to make it less biased for small samples (McGrath &amp; Meyer, 2006).</p></td>
     </tr>
     <tr>
       <th>pooled_sd</th>
@@ -237,14 +242,17 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 #&gt; -----------------------
 #&gt;     4.21 | [3.82, 4.63]</div><div class='input'><span class='fu'>hedges_g</span>(<span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)</div><div class='output co'>#&gt; Hedges_g |       95% CI
 #&gt; -----------------------
-#&gt;     4.20 | [3.81, 4.62]</div><div class='input'><span class='fu'>glass_delta</span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Width</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)</div><div class='output co'>#&gt; Glass_delta |       95% CI
-#&gt; --------------------------
-#&gt;        3.36 | [2.96, 3.79]</div><div class='input'>
-<span class='fu'>cohens_d</span>(<span class='no'>iris</span>$<span class='no'>Sepal.Length</span>, <span class='no'>iris</span>$<span class='no'>Sepal.Width</span>, <span class='kw'>correct</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>pooled_sd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; Cohens_d |       95% CI
-#&gt; -----------------------
-#&gt;     1.79 | [3.79, 4.60]</div><div class='input'><span class='fu'>cohens_d</span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Species</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>[<span class='no'>iris</span>$<span class='no'>Species</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"versicolor"</span>, <span class='st'>"setosa"</span>), ])</div><div class='output co'>#&gt; Cohens_d |         95% CI
+#&gt;     4.20 | [3.81, 4.62]</div><div class='input'>
+<span class='fu'>cohens_d</span>(<span class='no'>mpg</span> ~ <span class='no'>am</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)</div><div class='output co'>#&gt; Cohens_d |         95% CI
 #&gt; -------------------------
-#&gt;    -2.10 | [-2.62, -1.63]</div></pre>
+#&gt;    -1.48 | [-2.30, -0.68]</div><div class='input'><span class='fu'>cohens_d</span>(<span class='no'>mpg</span> ~ <span class='no'>am</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>, <span class='kw'>pooled_sd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; Cohens_d |         95% CI
+#&gt; -------------------------
+#&gt;    -1.41 | [-2.16, -0.57]</div><div class='input'><span class='fu'>hedges_g</span>(<span class='no'>mpg</span> ~ <span class='no'>am</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)</div><div class='output co'>#&gt; Hedges_g |         95% CI
+#&gt; -------------------------
+#&gt;    -1.44 | [-2.24, -0.66]</div><div class='input'><span class='fu'>glass_delta</span>(<span class='no'>mpg</span> ~ <span class='no'>am</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)</div><div class='output co'>#&gt; Glass_delta |         95% CI
+#&gt; ----------------------------
+#&gt;       -1.17 | [-1.96, -0.41]</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

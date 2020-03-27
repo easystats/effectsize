@@ -130,12 +130,7 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/easystats/effectsize">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -150,7 +145,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Pooled Standard Deviation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/sd_pooled.R'><code>R/sd_pooled.R</code></a></small>
+    
     <div class="hidden name"><code>sd_pooled.Rd</code></div>
     </div>
 
@@ -167,11 +162,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A continuous variable or a formula.</p></td>
+      <td><p>A formula, a numeric vector, or a name of one in <code>data</code>.</p></td>
     </tr>
     <tr>
       <th>y</th>
-      <td><p>A continuous variable, a factor with two groups or a formula.</p></td>
+      <td><p>A numeric vector, a grouping (character / factor) vector, a or a name of one in <code>data</code>. Ignored if <code>x</code> is a formula.</p></td>
     </tr>
     <tr>
       <th>data</th>
@@ -184,7 +179,8 @@
     <p>Numeric, the pooled standard deviation.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>sd_pooled</span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Petal.Width</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)</div><div class='output co'>#&gt; [1] 0.7958328</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>sd_pooled</span>(<span class='no'>mpg</span> ~ <span class='no'>am</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)</div><div class='output co'>#&gt; [1] 4.902029</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

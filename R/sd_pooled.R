@@ -6,7 +6,8 @@
 #'
 #' @return Numeric, the pooled standard deviation.
 #' @examples
-#' sd_pooled(Sepal.Length ~ Petal.Width, data = iris)
+#' sd_pooled(mpg ~ am, data = mtcars)
+#'
 #' @export
 sd_pooled <- function(x, y = NULL, data = NULL) {
 
@@ -59,61 +60,55 @@ mad_pooled <- function(x, y = NULL, data = NULL) {
   # out <- .deal_with_cohens_d_arguments(eval_args$x, eval_args$y, eval_args$data)
 
   out <- .deal_with_cohens_d_arguments(x, y, data)
-  x <- out$x
-  y <- out$y
+  x <- na.omit(out$x)
+  y <- na.omit(out$y)
 
   if (robust) {
-    sd1 <- stats::mad(x, na.rm = TRUE)
-    sd2 <- stats::mad(y, na.rm = TRUE)
+    sd1 <- stats::mad(x)
+    sd2 <- stats::mad(y)
   } else {
-    sd1 <- stats::sd(x, na.rm = TRUE)
-    sd2 <- stats::sd(y, na.rm = TRUE)
+    sd1 <- stats::sd(x)
+    sd2 <- stats::sd(y)
   }
 
-
-  sqrt((sd1^2 + sd2^2) / 2)
+  # sqrt((sd1^2 + sd2^2) / 2)
 
   # Cohen's more complicated formula:
-  # n1 <- length(x)
-  # n2 <- length(y)
-  # sqrt( (n1-1) * var(x) + (n2-1) * var(y) / n1 + n2 - 2)
+  n1 <- length(x)
+  n2 <- length(y)
+  sqrt(((n1 - 1) * sd1 ^ 2 + (n2 - 1) * sd2 ^ 2) / (n1 + n2 - 2))
 }
 
 
 
+# .evaluate_arguments <- function(x, y, data) {
+#   eval_x <- .evaluate_argument(x)
+#   if (!is.null(eval_x$variable)) x <- eval_x$variable
+#   if (!is.null(eval_x$data) && is.null(data)) data <- get(eval_x$data)
+#
+#   eval_y <- .evaluate_argument(y)
+#   if (!is.null(eval_y$variable)) y <- eval_y$variable
+#   if (!is.null(eval_y$data) && is.null(data)) data <- get(eval_y$data)
+#
+#   list(x = x, y = y, data = data)
+# }
 
 
-
-.evaluate_arguments <- function(x, y, data) {
-  eval_x <- .evaluate_argument(x)
-  if (!is.null(eval_x$variable)) x <- eval_x$variable
-  if (!is.null(eval_x$data) && is.null(data)) data <- get(eval_x$data)
-
-  eval_y <- .evaluate_argument(y)
-  if (!is.null(eval_y$variable)) y <- eval_y$variable
-  if (!is.null(eval_y$data) && is.null(data)) data <- get(eval_y$data)
-
-  list(x = x, y = y, data = data)
-}
-
-
-
-
-.evaluate_argument <- function(arg) {
-  data_frame <- NULL
-  if (!is.null(arg)) {
-    if (is.numeric(arg) && length(arg) > 1) {
-      # do nothiung
-    } else if (arg == "NULL") {
-      arg <- NULL
-    } else if (grepl("~", arg, fixed = TRUE)) {
-      arg <- stats::as.formula(arg)
-    } else if (grepl("\"", arg, fixed = TRUE)) {
-      arg <- gsub("\"", "", arg, fixed = TRUE)
-    } else if (grepl("$", arg, fixed = TRUE)) {
-      data_frame <- gsub("(.*)\\$(.*)", "\\1", arg)
-      arg <- gsub("(.*)\\$(.*)", "\\2", arg)
-    }
-  }
-  list(variable = arg, data = data_frame)
-}
+# .evaluate_argument <- function(arg) {
+#   data_frame <- NULL
+#   if (!is.null(arg)) {
+#     if (is.numeric(arg) && length(arg) > 1) {
+#       # do nothiung
+#     } else if (arg == "NULL") {
+#       arg <- NULL
+#     } else if (grepl("~", arg, fixed = TRUE)) {
+#       arg <- stats::as.formula(arg)
+#     } else if (grepl("\"", arg, fixed = TRUE)) {
+#       arg <- gsub("\"", "", arg, fixed = TRUE)
+#     } else if (grepl("$", arg, fixed = TRUE)) {
+#       data_frame <- gsub("(.*)\\$(.*)", "\\1", arg)
+#       arg <- gsub("(.*)\\$(.*)", "\\2", arg)
+#     }
+#   }
+#   list(variable = arg, data = data_frame)
+# }

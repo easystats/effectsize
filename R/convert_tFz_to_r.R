@@ -12,7 +12,8 @@
 #' @param t,f,z The t, the F or the z statistics.
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
 #' @param n The number of observations (the sample size).
-#' @param pooled Should the estimate accout for the t-value being based on a repeated-measures design, or not (default).
+#' @param paired Should the estimate accout for the t-value being testing the difference between dependant means?
+#' @param pooled Deprecated. Use \code{paired}.
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods.
 #'
@@ -46,7 +47,7 @@
 #' t_to_r(t = res$statistic, res$parameter)
 #'
 #' res <- with(sleep, t.test(extra[group == 1], extra[group == 2], paired = TRUE))
-#' t_to_d(t = res$statistic, res$parameter, pooled = TRUE)
+#' t_to_d(t = res$statistic, res$parameter, paired = TRUE)
 #' t_to_r(t = res$statistic, res$parameter)
 #'
 #' \donttest{

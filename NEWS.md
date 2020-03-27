@@ -1,4 +1,4 @@
-# effectsize 0.2.1
+# effectsize 0.3.0
 
 ## New features
 
@@ -11,6 +11,14 @@
 - `standardize()` for model-objects has a default-method, which usually accepts all models. Exception for model-objects that do not work will be added if missing.
 - `standardize.data.frame()` gets `append` and `suffix` arguments, to add (instead of replace) standardized variables to the returned data frame.
 
+## Bug fixes
+
+- Fix `cohens_d()`'s dealing with formula input (#44).
+- `sd_pooled()` now returns the... pooled sd (#44).
+
+## Changes
+
+- In `t_to_d()`, argument `pooled` is now `paired`.
 
 # effectsize 0.1.0
 

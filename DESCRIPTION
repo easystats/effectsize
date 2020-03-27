@@ -26,7 +26,7 @@ Authors@R: c(
 		role = c("ctb"))
 	)
 Maintainer: Mattan S. Ben-Shachar <matanshm@post.bgu.ac.il>
-URL: https://github.com/easystats/effectsize
+URL: https://easystats.github.io/effectsize
 BugReports: https://github.com/easystats/effectsize/issues
 Description: Provide utilities to work with indices of effect size and standardized parameters for a wide variety of models (see support list of insight; Lüdecke, Waggoner & Makowski (2019) <doi:10.21105/joss.01412>), allowing computation and conversion of indices such as Cohen's d, r, odds, etc.
 License: GPL-3

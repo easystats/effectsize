@@ -10,9 +10,9 @@ sd_pooled(x, y = NULL, data = NULL)
 mad_pooled(x, y = NULL, data = NULL)
 }
 \arguments{
-\item{x}{A continuous variable or a formula.}
+\item{x}{A formula, a numeric vector, or a name of one in \code{data}.}
 
-\item{y}{A continuous variable, a factor with two groups or a formula.}
+\item{y}{A numeric vector, a grouping (character / factor) vector, a or a name of one in \code{data}. Ignored if \code{x} is a formula.}
 
 \item{data}{An optional data frame containing the variables.}
 }
@@ -23,5 +23,6 @@ Numeric, the pooled standard deviation.
 The Pooled Standard Deviation is a weighted average of standard deviations for two or more groups, with more "weight" given to larger sample sizes.
 }
 \examples{
-sd_pooled(Sepal.Length ~ Petal.Width, data = iris)
+sd_pooled(mpg ~ am, data = mtcars)
+
 }

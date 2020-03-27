@@ -15,17 +15,17 @@
 \alias{convert_F_to_r}
 \title{Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (\strong{partial} r)}
 \usage{
-t_to_d(t, df_error, pooled = FALSE, ci = 0.95, ...)
+t_to_d(t, df_error, paired = FALSE, ci = 0.95, pooled, ...)
 
-convert_t_to_d(t, df_error, pooled = FALSE, ci = 0.95, ...)
+convert_t_to_d(t, df_error, paired = FALSE, ci = 0.95, pooled, ...)
 
-z_to_d(z, n, pooled = FALSE, ci = 0.95, ...)
+z_to_d(z, n, paired = FALSE, ci = 0.95, pooled, ...)
 
-convert_z_to_d(z, n, pooled = FALSE, ci = 0.95, ...)
+convert_z_to_d(z, n, paired = FALSE, ci = 0.95, pooled, ...)
 
-F_to_d(f, df, df_error, pooled = FALSE, ci = 0.95, ...)
+F_to_d(f, df, df_error, paired = FALSE, ci = 0.95, pooled, ...)
 
-convert_F_to_d(f, df, df_error, pooled = FALSE, ci = 0.95, ...)
+convert_F_to_d(f, df, df_error, paired = FALSE, ci = 0.95, pooled, ...)
 
 t_to_r(t, df_error, ci = 0.95, ...)
 
@@ -42,9 +42,11 @@ convert_F_to_r(f, df, df_error, ci = 0.95, ...)
 \arguments{
 \item{t, f, z}{The t, the F or the z statistics.}
 
-\item{pooled}{Should the estimate accout for the t-value being based on a repeated-measures design, or not (default).}
+\item{paired}{Should the estimate accout for the t-value being testing the difference between dependant means?}
 
 \item{ci}{Confidence Interval (CI) level level}
+
+\item{pooled}{Deprecated. Use \code{paired}.}
 
 \item{...}{Arguments passed to or from other methods.}
 
@@ -91,7 +93,7 @@ t_to_d(t = res$statistic, res$parameter)
 t_to_r(t = res$statistic, res$parameter)
 
 res <- with(sleep, t.test(extra[group == 1], extra[group == 2], paired = TRUE))
-t_to_d(t = res$statistic, res$parameter, pooled = TRUE)
+t_to_d(t = res$statistic, res$parameter, paired = TRUE)
 t_to_r(t = res$statistic, res$parameter)
 
 \donttest{

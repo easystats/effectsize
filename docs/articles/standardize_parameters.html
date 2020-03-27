@@ -90,14 +90,7 @@
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/easystats/effectsize">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
+<ul class="nav navbar-nav navbar-right"></ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -113,7 +106,7 @@
       <h1>Parameters Standardization</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/vignettes/standardize_parameters.Rmd"><code>vignettes/standardize_parameters.Rmd</code></a></small>
+      
       <div class="hidden name"><code>standardize_parameters.Rmd</code></div>
 
     </div>
@@ -123,7 +116,7 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>Standardising parameters (<em>i.e.</em>, coefficients) can allow for their comparison within and between models, variables and studies. Moreover, as it returns coefficients expressed in terms of <strong>change of variance</strong> (for instance, coefficients expressed in terms of SD of the response variable), it can allow for the usage of <a href="https://easystats.github.io/effectsize/articles/interpret.html">effect size interpretation guidelines</a>, such as the famous Cohen’s (1988) rules of thumb.</p>
+<p>Standardizing parameters (<em>i.e.</em>, coefficients) can allow for their comparison within and between models, variables and studies. Moreover, as it returns coefficients expressed in terms of <strong>change of variance</strong> (for instance, coefficients expressed in terms of SD of the response variable), it can allow for the usage of <a href="https://easystats.github.io/effectsize/articles/interpret.html">effect size interpretation guidelines</a>, such as the famous Cohen’s (1988) rules of thumb.</p>
 <p>However, standardizing the model’s parameters should <em>not</em> be automatically and mindlessly done: for some research fields, particular variables or types of studies (<em>e.g.</em>, replications), it sometimes makes more sense to keep, use and interpret the original parameters, especially if they are well known or easily understood.</p>
 <p>Critically, <strong>parameters standardization is not a trivial process</strong>. Different techniques exist, that can lead to drastically different results. Thus, it is critical that the standardization method is explicitly documented and detailed.</p>
 <p><strong><code>parameters</code> include different techniques of parameters standardization</strong>, described below <span class="citation">(Bring 1994; Menard 2004, 2011; Gelman 2008; Schielzeth 2010)</span>.</p>
@@ -164,24 +157,22 @@
 &gt; --------------------------------------------------------------------------------------------
 &gt; iris$Sepal.Length | iris$Petal.Length | 0.87 | 21.65 | 148 | &lt; .001 | [0.83, 0.91] | Pearson</code></pre>
 <p>What happens in the case of <strong>multiple continuous variables</strong>? As in each effect in a regression model is “adjusted” for the other ones, we might expect coefficients to be somewhat alike to <strong>partial correlations</strong>. Let’s first start by computing the partial correlation between <strong>Sepal.Length</strong> and 3 other remaining variables.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"ppcor"</span>)) {</a>
-<a class="sourceLine" id="cb4-2" title="2">  df &lt;-<span class="st"> </span>iris[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]  <span class="co"># Remove the Species factor</span></a>
-<a class="sourceLine" id="cb4-3" title="3">  ppcor<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/ppcor/man/pcor.html">pcor</a></span>(df)<span class="op">$</span>estimate[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span>]  <span class="co"># Select the rows of interest</span></a>
-<a class="sourceLine" id="cb4-4" title="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">df &lt;-<span class="st"> </span>iris[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]  <span class="co"># Remove the Species factor</span></a>
+<a class="sourceLine" id="cb4-2" title="2">ppcor<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/ppcor/man/pcor.html">pcor</a></span>(df)<span class="op">$</span>estimate[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span>]  <span class="co"># Select the rows of interest</span></a></code></pre></div>
 <pre><code>&gt;  Sepal.Width Petal.Length  Petal.Width 
 &gt;         0.63         0.72        -0.34</code></pre>
 <p>Now, let’s apply another method to obtain effect sizes for frequentist regressions, based on the statistic values. We will convert the <em>t</em>-value (and its degrees of freedom, <em>df</em>) into a partial correlation coefficient <em>r</em>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> df) </a>
-<a class="sourceLine" id="cb6-2" title="2"></a>
-<a class="sourceLine" id="cb6-3" title="3">parameters &lt;-<span class="st"> </span><span class="kw">model_parameters</span>(model)[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>,]</a>
-<a class="sourceLine" id="cb6-4" title="4"><span class="kw"><a href="../reference/t_to_r.html">convert_t_to_r</a></span>(parameters<span class="op">$</span>t, parameters<span class="op">$</span>df_error)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> df)</a>
+<a class="sourceLine" id="cb6-2" title="2">params &lt;-<span class="st"> </span><span class="kw">model_parameters</span>(model)</a>
+<a class="sourceLine" id="cb6-3" title="3"></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="kw"><a href="../reference/t_to_r.html">t_to_r</a></span>(params<span class="op">$</span>t[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>], params<span class="op">$</span>df_error[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>])</a></code></pre></div>
 <pre><code>&gt;     r |         95% CI
 &gt; ----------------------
 &gt;  0.63 | [ 0.53,  0.70]
 &gt;  0.72 | [ 0.64,  0.78]
 &gt; -0.34 | [-0.47, -0.19]</code></pre>
 <p>Wow, the retrieved correlations coefficients from the regression model are <strong>exactly</strong> the same as the partial correlations!</p>
-<p>However, note that in multiple regression standardizing the parameters in not quite the same as computing the (partial) correlation, due to… math :(</p>
+<p>However, note that in multiple regression standardizing the parameters in not quite the same as computing the (partial) correlation, due to… math :(<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">model <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb8-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>() </a></code></pre></div>
 <table class="table">
@@ -213,39 +204,11 @@
 <h2 class="hasAnchor">
 <a href="#standardized-differences" class="anchor"></a>Standardized differences</h2>
 <p>How does it work in the case of differences, when <strong>factors</strong> are entered and differences between a given level and a reference level (the intercept)? You might have heard that it is similar to a <strong>Cohen’s <em>d</em></strong>. Well, let’s see.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> iris) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>()</a></code></pre></div>
-<table class="table">
-<thead><tr class="header">
-<th align="left">Parameter</th>
-<th align="right">Std_Coefficient</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">-1.0</td>
-</tr>
-<tr class="even">
-<td align="left">Speciesversicolor</td>
-<td align="right">1.1</td>
-</tr>
-<tr class="odd">
-<td align="left">Speciesvirginica</td>
-<td align="right">1.9</td>
-</tr>
-</tbody>
-</table>
-<p>This linear model suggests that the <em>standardized</em> difference between the <em>versicolor</em> level of Species and the <em>setosa</em> level (the reference level - the intercept) is of 1.12 standard deviation of <code>Sepal.Length</code> (because the response variable was standardized, right?). Let’s compute the <strong>Cohen’s <em>d</em></strong> between these two levels:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="co"># Select portion of data containing the two levels of interest</span></a>
-<a class="sourceLine" id="cb10-2" title="2">data &lt;-<span class="st"> </span>iris[iris<span class="op">$</span>Species <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>), ]</a>
-<a class="sourceLine" id="cb10-3" title="3"></a>
-<a class="sourceLine" id="cb10-4" title="4"><span class="kw"><a href="../reference/cohens_d.html">cohens_d</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> data) </a></code></pre></div>
-<pre><code>&gt; Cohens_d |         95% CI
-&gt; -------------------------
-&gt;    -2.10 | [-2.62, -1.63]</code></pre>
-<p><strong><em>It is very different!</em></strong> Why? How? Both differences should be expressed in terms of SD of the response variable. <em>And there’s the trick</em>. First of all, in the linear model above, the SD by which the difference is scaled is the one of the whole response, which include <strong>all the three levels</strong>, whereas below, we filtered the data to only include the levels of interest. If we recompute the model on this filtered data, it should be better:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> data) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># Select portion of data containing the two levels of interest</span></a>
+<a class="sourceLine" id="cb9-2" title="2">data &lt;-<span class="st"> </span>iris[iris<span class="op">$</span>Species <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>), ]</a>
+<a class="sourceLine" id="cb9-3" title="3"></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> data) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="st">  </span><span class="kw"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>()</a></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Parameter</th>
@@ -262,28 +225,57 @@
 </tr>
 </tbody>
 </table>
-<p>Not really. Why? Because the actual formula to compute a <strong>Cohen’s <em>d</em></strong> doesn’t use the simple SD to scale the effect (as it is done when standardizing the parameters), but computes something called the <a href="https://easystats.github.io/effectsize/reference/sd_pooled.html"><strong>pooled SD</strong></a>. However, this can be turned off by setting <code>correct = "raw"</code>.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="../reference/cohens_d.html">cohens_d</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> data, <span class="dt">pooled_sd =</span> <span class="ot">FALSE</span>) </a></code></pre></div>
+<p>This linear model suggests that the <em>standardized</em> difference between the <em>versicolor</em> level of Species and the <em>setosa</em> level (the reference level - the intercept) is of 1.12 standard deviation of <code>Sepal.Length</code> (because the response variable was standardized, right?). Let’s compute the <strong>Cohen’s <em>d</em></strong> between these two levels:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="../reference/cohens_d.html">cohens_d</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> data) </a></code></pre></div>
 <pre><code>&gt; Cohens_d |         95% CI
 &gt; -------------------------
-&gt;    -1.45 | [-2.62, -1.63]</code></pre>
-<p><strong><em>And here we are :)</em></strong></p>
-<!-- However, it is interesting to note that using the *smart* method when standardizing parameters will give you indices equivalent to **Glass' delta**, which difference is expressed in terms of SD of the intercept (the "reference" factor levels). -->
-<!-- ```{r, warning=FALSE, message=FALSE, eval=FALSE} -->
-<!-- lm(Sepal.Length ~ Species, data = data) %>%  -->
-<!--   standardize_parameters(method = "smart") -->
-<!-- ``` -->
-<!-- ```{r, warning=FALSE, message=FALSE, echo = FALSE} -->
-<!-- lm(Sepal.Length ~ Species, data = data) %>%  -->
-<!--   standardize_parameters(method = "smart") %>%  -->
-<!--   knitr::kable(digits = 2) -->
-<!-- ``` -->
-<!-- ```{r, warning=FALSE, message=FALSE} -->
-<!-- glass_delta(Sepal.Length ~ Species, data = data) -->
-<!-- ``` -->
-<!-- ## What about standardized interaction effects? -->
-<!-- Well, this one's a mess (at least for me). Help is required to make sense out of it. Otherwise, *NEXT*. -->
-<!-- # Standardization methods -->
+&gt;    -2.10 | [-2.62, -1.63]</code></pre>
+<p><strong><em>It is very different!</em></strong> Why? How? Both differences should be expressed in units of SD! But which SDs? Different SDs!</p>
+<p>When looking at the difference between groups as a <strong>slope</strong>, the standardized parameter is the difference between the means in <span class="math inline">\(SD_{Sepal.Length}\)</span>. That is, the <em>slope</em> between <code>setosa</code> and <code>versicolor</code> is a change of 1.45 <span class="math inline">\(SD_{Sepal.Length}\)</span>.</p>
+<p>However, when looking a the difference as a distance between two populations, Cohen’s d is the distance between the means in units of <a href="https://easystats.github.io/effectsize/reference/sd_pooled.html"><strong>pooled SDs</strong></a>. That is, the <em>distance</em> between <code>setosa</code> and <code>versicolor</code> is of 2.1 SDs of each of the groups (here assumed to be equal).</p>
+<p>Note that you can get a proximity of Cohen’s d with by converting the <span class="math inline">\(t\)</span> statistic from the regression model via <code><a href="../reference/t_to_r.html">t_to_d()</a></code>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">(parameters &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> data) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="st">  </span><span class="kw">model_parameters</span>())</a></code></pre></div>
+<pre><code>&gt; Parameter            | Coefficient |   SE |       95% CI |     t | df |      p
+&gt; ------------------------------------------------------------------------------
+&gt; (Intercept)          |        5.01 | 0.06 | [4.88, 5.13] | 80.09 | 98 | &lt; .001
+&gt; Species [versicolor] |        0.93 | 0.09 | [0.75, 1.11] | 10.52 | 98 | &lt; .001</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw"><a href="../reference/t_to_r.html">t_to_d</a></span>(<span class="fl">10.52</span>, <span class="dt">df_error =</span> <span class="dv">98</span>)</a></code></pre></div>
+<pre><code>&gt;    d |       95% CI
+&gt; -------------------
+&gt; 2.13 | [1.63, 2.62]</code></pre>
+<p>It is also interesting to note that using the <em>smart</em> method when standardizing parameters will give you indices equivalent to <strong>Glass’ delta</strong>, which difference is expressed in terms of SD of the intercept (the “reference” factor levels).</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> data) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>(<span class="dt">method =</span> <span class="st">"smart"</span>)</a></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Parameter</th>
+<th align="right">Std_Coefficient</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">Speciesversicolor</td>
+<td align="right">2.6</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw"><a href="../reference/cohens_d.html">glass_delta</a></span>(data<span class="op">$</span>Sepal.Length[data<span class="op">$</span>Species<span class="op">==</span><span class="st">"versicolor"</span>],</a>
+<a class="sourceLine" id="cb17-2" title="2">            data<span class="op">$</span>Sepal.Length[data<span class="op">$</span>Species<span class="op">==</span><span class="st">"setosa"</span>])</a></code></pre></div>
+<pre><code>&gt; Glass_delta |       95% CI
+&gt; --------------------------
+&gt;        2.64 | [2.12, 3.21]</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="co"># glass_delta takes SD from second group</span></a></code></pre></div>
+<p><strong><em>… So note that some standardized differences are difference than others! :)</em></strong></p>
+</div>
+</div>
+<div id="standardization-methods" class="section level1">
+<h1 class="hasAnchor">
+<a href="#standardization-methods" class="anchor"></a>Standardization methods</h1>
+<p><sub>To be added…</sub></p>
 <!-- ### **"refit"**: Re-fitting the model with standardized data -->
 <!-- **This method is based on a complete model re-fit with a standardized version of data**. Hence, this method is equal to standardizing the variables before fitting the model. It is the "purest" and the most accurate (Neter et al., 1989), but it is also the most computationally costly and long (especially for heavy models such as, for instance, for Bayesian models). This method is particularly recommended for complex models that include interactions or transformations (e.g., polynomial or spline terms). -->
 <!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
@@ -513,6 +505,11 @@
 </div>
 </div>
 </div>
+<div class="footnotes">
+<hr>
+<ol>
+<li id="fn1"><p>in fact, they are more closely related to the semi-partial correlations.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
   </div>
 
@@ -529,6 +526,7 @@
       <li><a href="#standardized-differences">Standardized differences</a></li>
       </ul>
 </li>
+      <li><a href="#standardization-methods">Standardization methods</a></li>
       </ul>
 </div>
       </div>
