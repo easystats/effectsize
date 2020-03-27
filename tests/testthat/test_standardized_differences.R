@@ -1,5 +1,5 @@
 if (require("testthat") && require("effectsize")) {
-  test_that("cohens_d", {
+  test_that("cohens_d errors and warnings", {
 
     # Direction ---------------------------------------------------------------
     rez_t <- t.test(iris$Sepal.Length, iris$Sepal.Width)
@@ -21,6 +21,7 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_true({cohens_d("a", "c", data = df); TRUE})
     testthat::expect_true({cohens_d("a", "b", data = df); TRUE})
     testthat::expect_true({cohens_d(a2, df$b); TRUE})
+    testthat::expect_true({cohens_d(b ~ e, data = df); TRUE})
 
     testthat::expect_error(cohens_d(a ~ b, data = df))
     testthat::expect_error(cohens_d(a ~ d, data = df))
@@ -29,56 +30,41 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_error(cohens_d(a2, df$c))
 
     testthat::expect_warning(cohens_d("b", "e", data = df))
+
   })
-}
 
+  test_that("cohens_d - pooled", {
+    x <- cohens_d(wt ~ am, data = mtcars, pooled_sd = TRUE)
+    testthat::expect_equal(colnames(x)[1], "Cohens_d")
+    testthat::expect_equal(x[[1]], 1.892, tol = 0.001)
+    testthat::expect_equal(x$CI_low, 1.044, tol = 0.001)
+    testthat::expect_equal(x$CI_high, 2.772, tol = 0.001)
+  })
 
+  test_that("cohens_d - non-pooled", {
+    x <- cohens_d(wt ~ am, data = mtcars, pooled_sd = FALSE)
+    testthat::expect_equal(colnames(x)[1], "Cohens_d")
+    testthat::expect_equal(x[[1]], 1.934, tol = 0.001)
+    testthat::expect_equal(x$CI_low, 1.118, tol = 0.001)
+    testthat::expect_equal(x$CI_high, 2.870, tol = 0.001)
+  })
 
-if (FALSE) {
+  test_that("hedges_g", {
+    x <- hedges_g(wt ~ am, data = mtcars)
+    testthat::expect_equal(colnames(x)[1], "Hedges_g")
+    testthat::expect_equal(x[[1]], 1.844, tol = 0.001)
+    testthat::expect_equal(x$CI_low, 1.018, tol = 0.001)
+    testthat::expect_equal(x$CI_high, 2.702, tol = 0.001)
+  })
 
-  # pooled ------------------------------------------------------------------
-  effectsize::cohens_d(wt ~ am, data = mtcars, pooled_sd = TRUE)
+  test_that("glass_delta", {
+    x <- glass_delta(wt ~ am, data = mtcars)
+    testthat::expect_equal(colnames(x)[1], "Glass_delta")
+    testthat::expect_equal(x[[1]], 2.200, tol = 0.001)
+    testthat::expect_equal(x$CI_low, 1.310, tol = 0.001)
+    testthat::expect_equal(x$CI_high, 3.131, tol = 0.001)
 
-  statsExpressions:::effsize_t_parametric(
-    formula = wt ~ am,
-    data = mtcars,
-    hedges.correction = F,
-    tobject = t.test(formula = wt ~ am, data = mtcars, var.equal = TRUE),
-    var.equal = TRUE
-  )
-  effsize::cohen.d(wt ~ am, data = mtcars, pooled = TRUE)
-  rstatix::cohens_d(wt ~ am, data = mtcars, var.equal = TRUE)
-
-
-  # non-pooled --------------------------------------------------------------
-  effectsize::cohens_d(wt ~ am, data = mtcars, pooled_sd = FALSE)
-
-  statsExpressions:::effsize_t_parametric(
-    formula = wt ~ am,
-    data = mtcars,
-    hedges.correction = F,
-    tobject = t.test(formula = wt ~ am, data = mtcars, var.equal = FALSE),
-    var.equal = FALSE
-  )
-  rstatix::cohens_d(wt ~ am, data = mtcars, var.equal = FALSE)
-
-
-  # hedge -------------------------------------------------------------------
-  effectsize::hedges_g(wt ~ am, data = mtcars, pooled_sd = TRUE)
-
-  statsExpressions:::effsize_t_parametric(
-    formula = wt ~ am,
-    data = mtcars,
-    hedges.correction = TRUE,
-    tobject = t.test(formula = wt ~ am, data = mtcars, var.equal = TRUE),
-    var.equal = TRUE
-  )
-  effsize::cohen.d(wt ~ am, data = mtcars, pooled = TRUE, hedges.correction = TRUE)
-  rstatix::cohens_d(wt ~ am, data = mtcars, var.equal = TRUE, hedges.correction = TRUE)
-
-
-  # glass -------------------------------------------------------------------
-  effectsize::glass_delta(wt ~ am, data = mtcars)
-
-  effsize::cohen.d(wt ~ am, data = mtcars, pooled = F)
+    # must be 2 samples
+    testthat::expect_error(glass_delta(1:10))
+  })
 }
