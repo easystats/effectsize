@@ -110,6 +110,9 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
   y <- out$y
 
   if (is.null(y)) {
+    if (type == "delta") {
+      stop("For Glass' Delta, please provide data from two samples.", call. = FALSE)
+    }
     y <- 0
     paired <- TRUE
   }
