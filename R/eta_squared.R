@@ -217,12 +217,14 @@ eta_squared.aovlist <- function(model, partial = TRUE, ci = 0.9, ...) {
 
 
   out <- cbind(
-    Parameter = par_table$Parameter,
+    par_table,
     F_to_eta2(par_table$`F`,
               par_table$df,
               par_table$df_error,
               ci = ci)
   )
+  out <- out[,colnames(out) %in% c("Group", "Parameter", "Eta_Sq_partial", "CI", "CI_low", "CI_high"), drop = FALSE]
+  rownames(out) <- NULL
 
   class(out) <- c("partial_eta_squared", "effectsize_table", class(out))
   out
