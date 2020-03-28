@@ -146,7 +146,7 @@ F_to_omega2(45.8, 1, 17)
 
 ## Measure of Association
 
-Similar to $\eta^2_p$, $r$ is a signal to noise ratio, and is in fact equal to $\sqrt{\eta^2_p}$. It is often used instead of $\eta^2_p$ when discussing the *strength* of association (but I suspect people use it instead of $\eta^2_p$ because it gives a bigger number, which looks better).
+Similar to $\eta^2_p$, $r$ is a signal to noise ratio, and is in fact equal to $\sqrt{\eta^2_p}$ (so it's really a *partial* $r$). It is often used instead of $\eta^2_p$ when discussing the *strength* of association (but I suspect people use it instead of $\eta^2_p$ because it gives a bigger number, which looks better).
 
 ### For Slopes
 
