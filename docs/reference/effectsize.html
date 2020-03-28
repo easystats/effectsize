@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • effectsize</title>
+<title>Effect Size — effectsize • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,7 +42,8 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Effect Size — effectsize" />
+<meta property="og:description" content="See the documentation for eta_squared, standardize_parameters, cramers_v." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -63,7 +64,7 @@
   </head>
 
   <body>
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -143,112 +144,67 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
-      
+    <h1>Effect Size</h1>
+    
+    <div class="hidden name"><code>effectsize.Rd</code></div>
     </div>
 
-    <div id="effectsize-030" class="section level1">
-<h1 class="page-header">
-<a href="#effectsize-030" class="anchor"></a>effectsize 0.3.0<small> Unreleased </small>
-</h1>
-<div id="new-features" class="section level2">
-<h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features</h2>
-<ul>
-<li>New general purpose <code><a href="../reference/effectsize.html">effectsize()</a></code> function.</li>
-<li>Effectsize for differences have CI methods, and return a data frame.</li>
-<li>Effectsize for ANOVA all have CI methods, and none are based on bootstrapping.</li>
-<li>New sffect sizes for contingency tables (<code><a href="../reference/phi.html">phi()</a></code> and <code><a href="../reference/phi.html">cramers_v()</a></code>).</li>
-<li>
-<code>chisq_to_phi/cramers_v()</code> functions now support CIs (via the ncp method), and return a data frame.</li>
-<li>
-<code><a href="../reference/F_to_eta2.html">F_to_eta2()</a></code> family of functions now support CIs (via the ncp method), and return a data frame.</li>
-<li>
-<code><a href="../reference/t_to_r.html">t_to_d()</a></code> and <code><a href="../reference/t_to_r.html">t_to_r()</a></code> now support CIs (via the ncp method), and return a data frame.</li>
-<li>
-<code><a href="../reference/standardize.html">standardize()</a></code> for model-objects has a default-method, which usually accepts all models. Exception for model-objects that do not work will be added if missing.</li>
-<li>
-<code><a href="../reference/standardize.html">standardize.data.frame()</a></code> gets <code>append</code> and <code>suffix</code> arguments, to add (instead of replace) standardized variables to the returned data frame.</li>
-</ul>
-</div>
-<div id="bug-fixes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
-<ul>
-<li>Fix <code><a href="../reference/cohens_d.html">cohens_d()</a></code>’s dealing with formula input (#44).</li>
-<li>
-<code><a href="../reference/sd_pooled.html">sd_pooled()</a></code> now returns the… pooled sd (#44).</li>
-</ul>
-</div>
-<div id="changes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#changes" class="anchor"></a>Changes</h2>
-<ul>
-<li>In <code><a href="../reference/t_to_r.html">t_to_d()</a></code>, argument <code>pooled</code> is now <code>paired</code>.</li>
-</ul>
-</div>
-</div>
-    <div id="effectsize-010" class="section level1">
-<h1 class="page-header">
-<a href="#effectsize-010" class="anchor"></a>effectsize 0.1.0<small> Unreleased </small>
-</h1>
-<div id="bug-fixes-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
-<ul>
-<li>
-<code><a href="../reference/standardize.html">standardize.data.frame()</a></code> did not work when variables had missing values.</li>
-<li>Fixed wrong computation in <code><a href="../reference/standardize.html">standardize()</a></code> when <code>two_sd = TRUE</code>.</li>
-<li>Fixed bug with missing column names in <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> for models with different components (like count and zero-inflation).</li>
-</ul>
-</div>
-</div>
-    <div id="effectsize-020" class="section level1">
-<h1 class="page-header">
-<a href="#effectsize-020" class="anchor"></a>effectsize 0.2.0<small> 2020-02-25 </small>
-</h1>
-<div id="changes-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#changes-1" class="anchor"></a>Changes</h2>
-<ul>
-<li>News are hidden in an air of mystery…</li>
-</ul>
-</div>
-</div>
-    <div id="effectsize-010-1" class="section level1">
-<h1 class="page-header">
-<a href="#effectsize-010-1" class="anchor"></a>effectsize 0.1.0<small> Unreleased </small>
-</h1>
-<div id="new-features-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New features</h2>
-<ul>
-<li>
-<code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> and <code><a href="../reference/standardize.html">standardize()</a></code> now support models from packages <em>brglm</em>, <em>brglm2</em>, <em>mixor</em>, <em>fixest</em>, <em>cgam</em>, <em>cplm</em>, <em>cglm</em>, <em>glmmadmb</em> and <em>complmrob</em>.</li>
-</ul>
-</div>
-<div id="bug-fixes-2" class="section level2">
-<h2 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
-<ul>
-<li>Fix CRAN check issues.</li>
-</ul>
-</div>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>See the documentation for <code><a href='eta_squared.html'>eta_squared</a></code>, <code><a href='standardize_parameters.html'>standardize_parameters</a></code>, <code><a href='phi.html'>cramers_v</a></code>.</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>effectsize</span>(<span class='no'>model</span>, <span class='no'>...</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>model</th>
+      <td><p>Statistical model or object of class <code>htest</code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments passed to or from other methods. See <code>eta_squared</code>, <code>standardize_parameters</code>, <code>cramers_v</code> or <code>t_to_d</code>.</p></td>
+    </tr>
+    </table>
+
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>contingency_table</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>762</span>, <span class='fl'>327</span>, <span class='fl'>468</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>)))
+<span class='no'>Xsq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/chisq.test.html'>chisq.test</a></span>(<span class='no'>contingency_table</span>)
+<span class='fu'>effectsize</span>(<span class='no'>Xsq</span>)</div><div class='output co'>#&gt; cramers_v |       95% CI
+#&gt; ------------------------
+#&gt;      0.07 | [0.05, 0.09]</div><div class='input'>
+<span class='no'>Ts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7</span>:<span class='fl'>20</span>))
+<span class='fu'>effectsize</span>(<span class='no'>Ts</span>)</div><div class='output co'>#&gt;     d |         95% CI
+#&gt; ----------------------
+#&gt; -2.32 | [-3.38, -1.22]</div><div class='input'>
+<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mpg</span> ~ <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>) * <span class='no'>wt</span> + <span class='no'>hp</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
+<span class='fu'>effectsize</span>(<span class='no'>fit</span>)</div><div class='output co'>#&gt;         Parameter Std_Coefficient
+#&gt; 1     (Intercept)     0.001135606
+#&gt; 2    factor(cyl)6    -0.202992374
+#&gt; 3    factor(cyl)8    -0.316876202
+#&gt; 4              wt    -0.895510974
+#&gt; 5              hp    -0.253601012
+#&gt; 6 factor(cyl)6:wt     0.368715669
+#&gt; 7 factor(cyl)8:wt     0.543855222</div><div class='input'>
+<span class='no'>anova_table</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span>(<span class='no'>fit</span>)
+<span class='fu'>effectsize</span>(<span class='no'>anova_table</span>)</div><div class='output co'>#&gt; Parameter      | Eta_Sq_partial |       90% CI
+#&gt; ----------------------------------------------
+#&gt; factor(cyl)    |           0.86 | [0.76, 0.91]
+#&gt; wt             |           0.47 | [0.22, 0.64]
+#&gt; hp             |           0.14 | [0.00, 0.36]
+#&gt; factor(cyl):wt |           0.16 | [0.00, 0.35]</div><div class='input'>
+</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#effectsize-030">0.3.0</a></li>
-        <li><a href="#effectsize-010">0.1.0</a></li>
-        <li><a href="#effectsize-020">0.2.0</a></li>
-        <li><a href="#effectsize-010-1">0.1.0</a></li>
-      </ul>
-    </div>
-  </div>
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
+  </div>
 </div>
 
 

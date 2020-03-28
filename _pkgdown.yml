@@ -13,6 +13,7 @@ template:
 reference:
 - title: "Indices of Effect Size"
   contents:
+  - effectsize
   - cohens_f
   - cohens_d
   - phi
@@ -21,6 +22,13 @@ reference:
   - standardize
   - standardize_parameters
   - standardize_info
+- title: "Effect Size Conversion"
+  contents:
+  - F_to_eta2
+  - t_to_r
+  - chisq_to_phi
+  - convert_z_to_percentile
+  - percentage_to_d
 - title: "Rescaling"
   contents:
   - change_scale
@@ -30,26 +38,19 @@ reference:
   contents:
   - interpret
   - interpret_d
+  - interpret_r
+  - interpret_r2
+  - interpret_omega_squared
+  - interpret_parameters
+  - interpret_odds
+  - interpret_gfi
+  - interpret_p
   - interpret_bf
   - interpret_direction
   - interpret_ess
-  - interpret_gfi
-  - interpret_odds
-  - interpret_omega_squared
-  - interpret_p
-  - interpret_r
-  - interpret_r2
   - interpret_rhat
   - interpret_rope
-  - interpret_parameters
   - rules
-- title: "Conversion"
-  contents:
-  - F_to_eta2
-  - t_to_r
-  - chisq_to_phi
-  - convert_z_to_percentile
-  - percentage_to_d
 - title: "Miscellaneous"
   contents:
   - adjust
