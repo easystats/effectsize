@@ -5,10 +5,6 @@
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)
 
-  if (isTRUE(all.equal(f, 0))) {
-    return(c(0, Inf)) # unestimatable
-  }
-
   lambda <- f * df
   ncp <- suppressWarnings(optim(
     par = 1.1 * rep(lambda, 2),
@@ -21,6 +17,11 @@
     control = list(abstol = 1e-09)
   ))
   f_ncp <- sort(ncp$par) / df
+
+  if (f <= qf(probs[2], df, df_error)) {
+    f_ncp[1] <- 0
+  }
+
   return(f_ncp)
 }
 
@@ -29,11 +30,6 @@
 .get_ncp_t <- function(t, df_error, conf.level = 0.95) {
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)
-
-  if (isTRUE(all.equal(t, 0))) {
-    t_ncp <- qt(probs, df_error)
-    return(t_ncp)
-  }
 
   ncp <- suppressWarnings(optim(
     par = 1.1 * rep(t, 2),
@@ -46,13 +42,7 @@
     control = list(abstol = 1e-09)
   ))
   t_ncp <- unname(sort(ncp$par))
-  if (isTRUE(all.equal(t_ncp[1], 0))) {
-    t_ncp[1] <- qt(probs[1], df_error)
-  }
 
-  if (isTRUE(all.equal(t_ncp[2], 0))) {
-    t_ncp[2] <- qt(probs[2], df_error)
-  }
   return(t_ncp)
 }
 
@@ -61,10 +51,6 @@
 .get_ncp_chi <- function(chi, df, conf.level = 0.95) {
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)
-
-  if (isTRUE(all.equal(chi, 0))) {
-    return(c(0, Inf)) # unestimatable
-  }
 
   ncp <- suppressWarnings(optim(
     par = 1.1 * rep(chi, 2),
@@ -77,5 +63,10 @@
     control = list(abstol = 1e-09)
   ))
   chi_ncp <- sort(ncp$par)
+
+  if (chi <= qchisq(probs[2], df)) {
+    chi_ncp[1] <- 0
+  }
+
   return(chi_ncp)
 }
