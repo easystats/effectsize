@@ -15,12 +15,12 @@ if (require("testthat") && require("effectsize") && require("dplyr") && require(
     x <- standardize(iris)
     testthat::expect_equal(mean(x$Sepal.Length), 0, tol = 0.01)
     testthat::expect_length(levels(x$Species), 3)
-    testthat::expect_equal(mean(dplyr::filter_(x, "Species == 'virginica'")$Sepal.Length), 0.89, tol = 0.01)
+    testthat::expect_equal(mean(dplyr::filter(x, .data$Species == 'virginica')$Sepal.Length), 0.89, tol = 0.01)
 
-    x <- standardize(dplyr::group_by_(iris, "Species"))
+    x <- standardize(dplyr::group_by(iris, Species))
     testthat::expect_equal(mean(x$Sepal.Length), 0, tol = 0.01)
     testthat::expect_length(levels(x$Species), 3)
-    testthat::expect_equal(mean(dplyr::filter_(x, "Species == 'virginica'")$Sepal.Length), 0, tol = 0.01)
+    testthat::expect_equal(mean(dplyr::filter(x, .data$Species == 'virginica')$Sepal.Length), 0, tol = 0.01)
   })
 
 
