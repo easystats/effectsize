@@ -43,9 +43,14 @@
 
 
 <meta property="og:title" content="Effect size for ANOVA — eta_squared" />
-<meta property="og:description" content="Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared
-(or their partialled versions), representing an estimate of how much variance in the response
-variables are accounted for by the explanatory variables." />
+<meta property="og:description" content="Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared,
+and Cohen's f (or their partialled versions) for aov, aovlist, anova,
+and merMod models. These indices represent an estimate of how much variance in
+the response variables is accounted for by the explanatory variable(s).
+
+For effect sizes based on Type-3 ANOVA tables, the user must supply a Type-3
+ANOVA table (as is done for merMod objects), or a model fit with contr.sum
+factor weights and centered covariates (for aov and aovlist). See examples." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -152,9 +157,14 @@ variables are accounted for by the explanatory variables." />
     </div>
 
     <div class="ref-description">
-    <p>Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared
-(or their partialled versions), representing an estimate of how much variance in the response
-variables are accounted for by the explanatory variables.</p>
+    <p>Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared,
+and Cohen's f (or their partialled versions) for <code>aov</code>, <code>aovlist</code>, <code>anova</code>,
+and <code>merMod</code> models. These indices represent an estimate of how much variance in
+the response variables is accounted for by the explanatory variable(s).
+<br /><br />
+For effect sizes based on <strong>Type-3</strong> ANOVA tables, the user must supply a Type-3
+ANOVA table (as is done for <code>merMod</code> objects), or a model fit with <code>contr.sum</code>
+factor weights and centered covariates (for <code>aov</code> and <code>aovlist</code>). See examples.</p>
     </div>
 
     <pre class="usage"><span class='fu'>eta_squared</span>(<span class='no'>model</span>, <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='no'>...</span>)
@@ -189,7 +199,7 @@ variables are accounted for by the explanatory variables.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A data frame with the effect size(s) and confidence interval(s).</p>
-<p>Data.frame containing the effect size values.</p>
+<p>A data frame containing the effect size values and their confidence intervals.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For between-subjects ANOVAs, the effect sizes are computed directly with Sums-of-Squares.
@@ -225,55 +235,76 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 </ul>
 
 <p>The computation of CIs is based on the implementation done by Stanley (2018) in the <code>ApaTables</code> package and Kelley (2007) in the <code>MBESS</code> package. All credits go to them.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='F_to_eta2.html'>F_to_eta2</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>effectsize</span>)
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>effectsize</span>)
+<span class='no'>mtcars</span>$<span class='no'>am_f</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>mtcars</span>$<span class='no'>am</span>)
+<span class='no'>mtcars</span>$<span class='no'>cyl_f</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>mtcars</span>$<span class='no'>cyl</span>)
 
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>
-<span class='no'>df</span>$<span class='no'>Sepal.Big</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>df</span>$<span class='no'>Sepal.Width</span> <span class='kw'>&gt;=</span> <span class='fl'>3</span>, <span class='st'>"Yes"</span>, <span class='st'>"No"</span>)
+<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>mpg</span> ~ <span class='no'>am_f</span> * <span class='no'>cyl_f</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
 
-<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Big</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>)
-<span class='fu'>omega_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter | Omega_Sq_partial |        90% CI
+<span class='fu'>eta_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter  | Eta_Sq_partial |       90% CI
+#&gt; ------------------------------------------
+#&gt; am_f       |           0.63 | [0.42, 0.75]
+#&gt; cyl_f      |           0.66 | [0.45, 0.77]
+#&gt; am_f:cyl_f |           0.10 | [0.00, 0.27]</div><div class='input'><span class='fu'>eta_squared</span>(<span class='no'>model</span>, <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; Parameter  | Eta_Sq |       90% CI
+#&gt; ----------------------------------
+#&gt; am_f       |   0.36 | [0.14, 0.54]
+#&gt; cyl_f      |   0.41 | [0.16, 0.57]
+#&gt; am_f:cyl_f |   0.02 | [0.00, 0.12]</div><div class='input'><span class='fu'>omega_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter  | Omega_Sq_partial |        90% CI
+#&gt; ---------------------------------------------
+#&gt; am_f       |             0.57 | [ 0.39, 0.73]
+#&gt; cyl_f      |             0.60 | [ 0.40, 0.74]
+#&gt; am_f:cyl_f |             0.02 | [-0.07, 0.21]</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter  | Epsilon_Sq_partial |        90% CI
+#&gt; -----------------------------------------------
+#&gt; am_f       |               0.61 | [ 0.40, 0.74]
+#&gt; cyl_f      |               0.63 | [ 0.41, 0.75]
+#&gt; am_f:cyl_f |               0.03 | [-0.08, 0.22]</div><div class='input'><span class='fu'>cohens_f</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter  | Cohens_f_partial |       90% CI
 #&gt; --------------------------------------------
-#&gt; Sepal.Big |             0.00 | [-0.01, 0.05]</div><div class='input'><span class='fu'>eta_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter | Eta_Sq_partial |       90% CI
-#&gt; -----------------------------------------
-#&gt; Sepal.Big |           0.01 | [0.00, 0.05]</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter | Epsilon_Sq_partial |        90% CI
-#&gt; ----------------------------------------------
-#&gt; Sepal.Big |               0.00 | [-0.01, 0.05]</div><div class='input'><span class='fu'>cohens_f</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter | Cohens_f_partial |       90% CI
-#&gt; -------------------------------------------
-#&gt; Sepal.Big |             0.10 | [0.00, 0.24]</div><div class='input'>
-<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Big</span> * <span class='no'>Species</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>))
-<span class='fu'>omega_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter         | Omega_Sq_partial |         90% CI
-#&gt; -----------------------------------------------------
-#&gt; Sepal.Big         |             0.02 | [-0.01,  0.08]
-#&gt; Species           |             0.65 | [ 0.58,  0.71]
-#&gt; Sepal.Big:Species |            -0.01 | [-0.01, -0.01]</div><div class='input'><span class='fu'>eta_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter         | Eta_Sq_partial |       90% CI
-#&gt; -------------------------------------------------
-#&gt; Sepal.Big         |           0.03 | [0.00, 0.09]
-#&gt; Species           |           0.66 | [0.59, 0.72]
-#&gt; Sepal.Big:Species |           0.00 | [0.00, 0.01]</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter         | Epsilon_Sq_partial |         90% CI
-#&gt; -------------------------------------------------------
-#&gt; Sepal.Big         |               0.02 | [-0.01,  0.09]
-#&gt; Species           |               0.66 | [ 0.59,  0.71]
-#&gt; Sepal.Big:Species |              -0.01 | [-0.01, -0.01]</div><div class='input'><span class='fu'>cohens_f</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter         | Cohens_f_partial |       90% CI
-#&gt; ---------------------------------------------------
-#&gt; Sepal.Big         |             0.18 | [0.04, 0.32]
-#&gt; Species           |             1.40 | [1.20, 1.59]
-#&gt; Sepal.Big:Species |             0.04 | [0.00, 0.09]</div><div class='input'>
-<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Sepal.Big</span> + <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>Error</a></span>(<span class='no'>Species</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>)
-<span class='fu'>omega_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Group   | Parameter | Omega_Sq_partial |        90% CI
-#&gt; ------------------------------------------------------
-#&gt; Species | Sepal.Big |            -0.07 | [-0.50, 0.66]
-#&gt; Within  | Sepal.Big |             0.12 | [ 0.04, 0.20]</div><div class='input'><span class='fu'>eta_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Group   | Parameter | Eta_Sq_partial |       90% CI
-#&gt; ---------------------------------------------------
-#&gt; Species | Sepal.Big |           0.45 | [0.00, 0.87]
-#&gt; Within  | Sepal.Big |           0.12 | [0.05, 0.21]</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Group   | Parameter | Epsilon_Sq_partial |        90% CI
+#&gt; am_f       |             1.30 | [0.86, 1.73]
+#&gt; cyl_f      |             1.38 | [0.90, 1.81]
+#&gt; am_f:cyl_f |             0.33 | [0.00, 0.61]</div><div class='input'>
+<span class='co'># For type-3 effect sizes:</span>
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>car</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+  <span class='no'>model_anova</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>car</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/car/man/Anova.html'>Anova</a></span>(<span class='no'>model</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+
+  <span class='fu'>eta_squared</span>(<span class='no'>model_anova</span>)
+  <span class='fu'>eta_squared</span>(<span class='no'>model_anova</span>, <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+}</div><div class='output co'>#&gt; <span class='message'>Registered S3 methods overwritten by 'car':</span>
+#&gt; <span class='message'>  method                          from</span>
+#&gt; <span class='message'>  influence.merMod                lme4</span>
+#&gt; <span class='message'>  cooks.distance.influence.merMod lme4</span>
+#&gt; <span class='message'>  dfbeta.influence.merMod         lme4</span>
+#&gt; <span class='message'>  dfbetas.influence.merMod        lme4</span></div><div class='output co'>#&gt; Parameter  | Eta_Sq |       90% CI
+#&gt; ----------------------------------
+#&gt; am_f       |   0.12 | [0.00, 0.31]
+#&gt; cyl_f      |   0.34 | [0.10, 0.52]
+#&gt; am_f:cyl_f |   0.05 | [0.00, 0.19]</div><div class='input'>
+<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>mpg</span> ~ <span class='no'>cyl_f</span> * <span class='no'>am_f</span> + <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>Error</a></span>(<span class='no'>vs</span> / <span class='no'>am_f</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
+<span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Group  |  Parameter | Epsilon_Sq_partial |        90% CI
 #&gt; --------------------------------------------------------
-#&gt; Species | Sepal.Big |              -0.11 | [-1.00, 0.74]
-#&gt; Within  | Sepal.Big |               0.12 | [ 0.04, 0.20]</div><div class='input'><span class='fu'>cohens_f</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Group   | Parameter | Cohens_f_partial |       90% CI
-#&gt; -----------------------------------------------------
-#&gt; Species | Sepal.Big |             0.90 | [0.00, 2.61]
-#&gt; Within  | Sepal.Big |             0.37 | [0.23, 0.51]</div><div class='input'>
+#&gt; Within |       am_f |              -0.04 | [-0.04, 0.03]
+#&gt; Within | cyl_f:am_f |              -0.03 | [-0.04, 0.10]
+#&gt; Within |      cyl_f |               0.40 | [ 0.12, 0.58]</div><div class='input'>
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>lmerTest</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+  <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lmerTest/man/lmer.html'>lmer</a></span>(<span class='no'>mpg</span> ~ <span class='no'>am_f</span> * <span class='no'>cyl_f</span> + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>vs</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
+
+  <span class='fu'>omega_squared</span>(<span class='no'>model</span>)
+}</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: 'lmerTest'</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:lme4':</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    lmer</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:stats':</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    step</span></div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; Parameter  | Omega_Sq_partial |        90% CI
+#&gt; ---------------------------------------------
+#&gt; am_f       |             0.07 | [-0.04, 0.28]
+#&gt; cyl_f      |             0.60 | [ 0.36, 0.72]
+#&gt; am_f:cyl_f |             0.03 | [-0.07, 0.21]</div><div class='input'># }
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -283,6 +314,7 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
       <li><a href="#references">References</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

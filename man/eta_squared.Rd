@@ -27,12 +27,17 @@ cohens_f(model, partial = TRUE, ci = 0.9, ...)
 \value{
 A data frame with the effect size(s) and confidence interval(s).
 
-Data.frame containing the effect size values.
+A data frame containing the effect size values and their confidence intervals.
 }
 \description{
-Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared
-(or their partialled versions), representing an estimate of how much variance in the response
-variables are accounted for by the explanatory variables.
+Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared,
+and Cohen's f (or their partialled versions) for \code{aov}, \code{aovlist}, \code{anova},
+and \code{merMod} models. These indices represent an estimate of how much variance in
+the response variables is accounted for by the explanatory variable(s).
+\cr\cr
+For effect sizes based on \strong{Type-3} ANOVA tables, the user must supply a Type-3
+ANOVA table (as is done for \code{merMod} objects), or a model fit with \code{contr.sum}
+factor weights and centered covariates (for \code{aov} and \code{aovlist}). See examples.
 }
 \details{
 For between-subjects ANOVAs, the effect sizes are computed directly with Sums-of-Squares.
@@ -63,28 +68,36 @@ Cohen's f statistic is one appropriate effect size index to use for a oneway ana
 }
 }
 \examples{
+\donttest{
 library(effectsize)
+mtcars$am_f <- factor(mtcars$am)
+mtcars$cyl_f <- factor(mtcars$cyl)
 
-df <- iris
-df$Sepal.Big <- ifelse(df$Sepal.Width >= 3, "Yes", "No")
+model <- aov(mpg ~ am_f * cyl_f, data = mtcars)
 
-model <- aov(Sepal.Length ~ Sepal.Big, data = df)
-omega_squared(model)
 eta_squared(model)
+eta_squared(model, partial = FALSE)
+omega_squared(model)
 epsilon_squared(model)
 cohens_f(model)
 
-model <- anova(lm(Sepal.Length ~ Sepal.Big * Species, data = df))
-omega_squared(model)
-eta_squared(model)
-epsilon_squared(model)
-cohens_f(model)
+# For type-3 effect sizes:
+if (require(car, quietly = TRUE)) {
+  model_anova <- car::Anova(model, type = 3)
 
-model <- aov(Sepal.Length ~ Sepal.Big + Error(Species), data = df)
-omega_squared(model)
-eta_squared(model)
+  eta_squared(model_anova)
+  eta_squared(model_anova, partial = FALSE)
+}
+
+model <- aov(mpg ~ cyl_f * am_f + Error(vs / am_f), data = mtcars)
 epsilon_squared(model)
-cohens_f(model)
+
+if (require(lmerTest, quietly = TRUE)) {
+  model <- lmer(mpg ~ am_f * cyl_f + (1|vs), data = mtcars)
+
+  omega_squared(model)
+}
+}
 
 }
 \references{
@@ -97,4 +110,7 @@ cohens_f(model)
 }
 
 The computation of CIs is based on the implementation done by Stanley (2018) in the \code{ApaTables} package and Kelley (2007) in the \code{MBESS} package. All credits go to them.
+}
+\seealso{
+\code{\link{F_to_eta2}}
 }

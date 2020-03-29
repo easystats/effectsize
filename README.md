@@ -41,10 +41,12 @@ check-out these vignettes:
     Standardization**](https://easystats.github.io/effectsize/articles/standardize_data.html)
   - [**Parameters
     Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
-  - [**Automated Interpretation of Indices of Effect
-    Size**](https://easystats.github.io/effectsize/articles/interpret.html)
   - [**Effect size
     conversion**](https://easystats.github.io/effectsize/articles/convert.html)
+  - [**Effect Size from Test
+    Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
+  - [**Automated Interpretation of Indices of Effect
+    Size**](https://easystats.github.io/effectsize/articles/interpret.html)
 
 # Features
 
@@ -72,7 +74,7 @@ hedges_g(iris$Sepal.Length, iris$Sepal.Width)
 glass_delta(iris$Sepal.Length, iris$Sepal.Width)
 ## Glass_delta |       95% CI
 ## --------------------------
-##        3.36 | [2.96, 3.79]
+##        6.39 | [5.85, 6.97]
 ```
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)

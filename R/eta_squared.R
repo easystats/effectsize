@@ -1,8 +1,13 @@
 #' Effect size for ANOVA
 #'
-#' Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared
-#' (or their partialled versions), representing an estimate of how much variance in the response
-#' variables are accounted for by the explanatory variables.
+#' Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared,
+#' and Cohen's f (or their partialled versions) for \code{aov}, \code{aovlist}, \code{anova},
+#' and \code{merMod} models. These indices represent an estimate of how much variance in
+#' the response variables is accounted for by the explanatory variable(s).
+#' \cr\cr
+#' For effect sizes based on \strong{Type-3} ANOVA tables, the user must supply a Type-3
+#' ANOVA table (as is done for \code{merMod} objects), or a model fit with \code{contr.sum}
+#' factor weights and centered covariates (for \code{aov} and \code{aovlist}). See examples.
 #'
 #' @param model An model or ANOVA object.
 #' @param partial If \code{TRUE}, return partial indices.
@@ -40,31 +45,41 @@
 #' Cohen's f statistic is one appropriate effect size index to use for a oneway analysis of variance (ANOVA). Cohen's f can take on values between zero, when the population means are all equal, and an indefinitely large number as standard deviation of means increases relative to the average standard deviation within each group. Cohen has suggested that the values of 0.10, 0.25, and 0.40 represent small, medium, and large effect sizes, respectively.
 #' }
 #'
+#' @seealso \code{\link{F_to_eta2}}
+#'
 #' @examples
+#' \donttest{
 #' library(effectsize)
+#' mtcars$am_f <- factor(mtcars$am)
+#' mtcars$cyl_f <- factor(mtcars$cyl)
 #'
-#' df <- iris
-#' df$Sepal.Big <- ifelse(df$Sepal.Width >= 3, "Yes", "No")
+#' model <- aov(mpg ~ am_f * cyl_f, data = mtcars)
 #'
-#' model <- aov(Sepal.Length ~ Sepal.Big, data = df)
-#' omega_squared(model)
 #' eta_squared(model)
+#' eta_squared(model, partial = FALSE)
+#' omega_squared(model)
 #' epsilon_squared(model)
 #' cohens_f(model)
 #'
-#' model <- anova(lm(Sepal.Length ~ Sepal.Big * Species, data = df))
-#' omega_squared(model)
-#' eta_squared(model)
-#' epsilon_squared(model)
-#' cohens_f(model)
+#' # For type-3 effect sizes:
+#' if (require(car, quietly = TRUE)) {
+#'   model_anova <- car::Anova(model, type = 3)
 #'
-#' model <- aov(Sepal.Length ~ Sepal.Big + Error(Species), data = df)
-#' omega_squared(model)
-#' eta_squared(model)
-#' epsilon_squared(model)
-#' cohens_f(model)
+#'   eta_squared(model_anova)
+#'   eta_squared(model_anova, partial = FALSE)
+#' }
 #'
-#' @return Data.frame containing the effect size values.
+#' model <- aov(mpg ~ cyl_f * am_f + Error(vs / am_f), data = mtcars)
+#' epsilon_squared(model)
+#'
+#' if (require(lmerTest, quietly = TRUE)) {
+#'   model <- lmer(mpg ~ am_f * cyl_f + (1|vs), data = mtcars)
+#'
+#'   omega_squared(model)
+#' }
+#' }
+#'
+#' @return A data frame containing the effect size values and their confidence intervals.
 #'
 #'
 #' @references \itemize{
@@ -247,7 +262,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
     out <- cbind(out, eta_ci)
   }
 
-  class(out) <- c("effectsize_table", class(out))
+  class(out) <- unique(c("effectsize_table", class(out)))
   out
 
 }
@@ -269,6 +284,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                     eta = F_to_eta2,
                     omega = F_to_omega2,
                     epsilon = F_to_epsilon2)
+  model <- model[rownames(model) != "(Intercept)", ]
 
   if (!"DenDF" %in% colnames(model)) {
     # Pass to AOV method
@@ -298,7 +314,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
            ci = ci)
   )
 
-  class(out) <- c("effectsize_table", class(out))
+  class(out) <- unique(c("effectsize_table", class(out)))
   out
 }
 
@@ -328,13 +344,18 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   par_table <- as.data.frame(parameters::model_parameters(model))
   par_table <- split(par_table, par_table$Group)
   par_table <- lapply(par_table, function(.data) {
-    .data$df_error <- .data$df[.data$Parameter == "Residuals"]
+    if (any(.data$Parameter == "Residuals")) {
+      .data$df_error <- .data$df[.data$Parameter == "Residuals"]
+    } else {
+      .data$df_error <- NA
+    }
     .data
   })
   par_table <- do.call(rbind, par_table)
 
   par_table <-
-    par_table[par_table$Parameter != "Residuals", , drop = FALSE]
+    par_table[par_table$Parameter != "Residuals" &
+                !is.na(par_table$`F`), , drop = FALSE]
 
 
   out <- cbind(par_table,
@@ -354,7 +375,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   ), drop = FALSE]
   rownames(out) <- NULL
 
-  class(out) <- c("effectsize_table", class(out))
+  class(out) <- unique(c("effectsize_table", class(out)))
   out
 }
 
@@ -374,3 +395,55 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   model <- stats::anova(model)
   .anova_es.anova(model, type = type, partial = partial, ci = ci, ...)
 }
+
+
+### Requires more work to get the type 3 working...
+### Last worked on Mar 29, 2020 by MSB
+#' #' @keywords internal
+#' .anova_es.afex_aov <- function(model,
+#'                                type = c("eta", "omega", "epsilon"),
+#'                                partial = TRUE,
+#'                                ci = 0.9,
+#'                                ...) {
+#'   if (!is.null(model$aov)) {
+#'     out <- .anova_es(model$aov, type = type, partial = partial, ci = ci)
+#'     return(out)
+#'   } else if (length(attr(model, "within")) == 0) {
+#'     out <- .anova_es(model$lm, type = type, partial = partial, ci = ci)
+#'     return(out)
+#'   }
+#'
+#'   type <- match.arg(type)
+#'   es_fun <- switch (type,
+#'                     eta = F_to_eta2,
+#'                     omega = F_to_omega2,
+#'                     epsilon = F_to_epsilon2)
+#'
+#'   if (isFALSE(partial)) {
+#'     # not really true
+#'     warning(
+#'       "Currently only supports partial ",
+#'       type,
+#'       " squared for repeated-measures ANOVAs.",
+#'       call. = FALSE
+#'     )
+#'   }
+#'
+#'   anova_table <- fit$Anova
+#'   anova_table <- suppressWarnings(summary(anova_table)$univariate.tests)
+#'   anova_table <- as.data.frame(unclass(anova_table))
+#'
+#'   out <- cbind(
+#'     Parameter = rownames(anova_table),
+#'     es_fun(
+#'       anova_table$`F value`,
+#'       anova_table$`num Df`,
+#'       anova_table$`den Df`,
+#'       ci = ci
+#'     )
+#'   )
+#'
+#'   out <- out[out$Parameter != "(Intercept)", , drop = FALSE]
+#'   class(out) <- unique(c("effectsize_table", class(out)))
+#'   return(out)
+#' }
