@@ -41,7 +41,7 @@ glass_delta(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
 
 \item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.}
 
-\item{ci}{Confidence Interval (CI) level level}
+\item{ci}{Confidence Interval (CI) level}
 }
 \value{
 A data frame with the effect size(s) and confidence interval(s).

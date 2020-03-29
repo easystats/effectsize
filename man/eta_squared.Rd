@@ -20,7 +20,7 @@ cohens_f(model, partial = TRUE, ci = 0.9, ...)
 
 \item{partial}{If \code{TRUE}, return partial indices.}
 
-\item{ci}{Confidence Interval (CI) level level}
+\item{ci}{Confidence Interval (CI) level}
 
 \item{...}{Arguments passed to or from other methods (ignored).}
 }
