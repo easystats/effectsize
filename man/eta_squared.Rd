@@ -82,7 +82,7 @@ epsilon_squared(model)
 cohens_f(model)
 
 # For type-3 effect sizes:
-if (require(car)) {
+if (require(car, quietly = TRUE)) {
   model_anova <- car::Anova(model, type = 3)
 
   eta_squared(model_anova)
@@ -90,13 +90,13 @@ if (require(car)) {
 }
 
 model <- aov(mpg ~ cyl_f * am_f + Error(vs / am_f), data = mtcars)
-eta_squared(model)
+epsilon_squared(model)
 
-# For type-3 effect sizes:
-contrasts(mtcars$cyl_f) <- contr.sum
-contrasts(mtcars$am_f) <- contr.sum
-model <- aov(mpg ~ cyl_f * am_f + Error(vs / am_f), data = mtcars)
-eta_squared(model)
+if (require(lmerTest, quietly = TRUE)) {
+  model <- lmer(mpg ~ am_f * cyl_f + (1|vs), data = mtcars)
+
+  omega_squared(model)
+}
 }
 
 }

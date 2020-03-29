@@ -62,7 +62,7 @@
 #' cohens_f(model)
 #'
 #' # For type-3 effect sizes:
-#' if (require(car)) {
+#' if (require(car, quietly = TRUE)) {
 #'   model_anova <- car::Anova(model, type = 3)
 #'
 #'   eta_squared(model_anova)
@@ -70,13 +70,13 @@
 #' }
 #'
 #' model <- aov(mpg ~ cyl_f * am_f + Error(vs / am_f), data = mtcars)
-#' eta_squared(model)
+#' epsilon_squared(model)
 #'
-#' # For type-3 effect sizes:
-#' contrasts(mtcars$cyl_f) <- contr.sum
-#' contrasts(mtcars$am_f) <- contr.sum
-#' model <- aov(mpg ~ cyl_f * am_f + Error(vs / am_f), data = mtcars)
-#' eta_squared(model)
+#' if (require(lmerTest, quietly = TRUE)) {
+#'   model <- lmer(mpg ~ am_f * cyl_f + (1|vs), data = mtcars)
+#'
+#'   omega_squared(model)
+#' }
 #' }
 #'
 #' @return A data frame containing the effect size values and their confidence intervals.
@@ -284,6 +284,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                     eta = F_to_eta2,
                     omega = F_to_omega2,
                     epsilon = F_to_epsilon2)
+  model <- model[rownames(model) != "(Intercept)", ]
 
   if (!"DenDF" %in% colnames(model)) {
     # Pass to AOV method
