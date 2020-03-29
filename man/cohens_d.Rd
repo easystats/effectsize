@@ -37,11 +37,11 @@ glass_delta(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
 
 \item{correction}{If \code{TRUE}, applies a correction to make it less biased for small samples (McGrath & Meyer, 2006).}
 
-\item{pooled_sd}{If \code{FALSE}, the regular SD from both combined groups is used instead of the \code{\link{sd_pooled}}.}
+\item{pooled_sd}{If \code{TRUE} (default), a \code{\link{sd_pooled}} is used (assuming equal variance). Else the mean SD from both groups is used instead.}
 
 \item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.}
 
-\item{ci}{Confidence Interval (CI) level level}
+\item{ci}{Confidence Interval (CI) level}
 }
 \value{
 A data frame with the effect size(s) and confidence interval(s).

@@ -11,7 +11,7 @@
 #' @param y A numeric vector, a grouping (character / factor) vector, a or a name of one in \code{data}. Ignored if \code{x} is a formula.
 #' @param data An optional data frame containing the variables.
 #' @param correction If \code{TRUE}, applies a correction to make it less biased for small samples (McGrath & Meyer, 2006).
-#' @param pooled_sd If \code{FALSE}, the regular SD from both combined groups is used instead of the \code{\link{sd_pooled}}.
+#' @param pooled_sd If \code{TRUE} (default), a \code{\link{sd_pooled}} is used (assuming equal variance). Else the mean SD from both groups is used instead.
 #' @param paired If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
 #' @inheritParams chisq_to_phi
 #'

@@ -6,7 +6,7 @@
 #' @param phi The Phi statistic.
 #' @param n Sample size.
 #' @param nrow,ncol The number of rows/columns in the contingency table (ignored for Phi when \code{adjust=FALSE} and \code{CI=NULL}).
-#' @param ci Confidence Interval (CI) level level
+#' @param ci Confidence Interval (CI) level
 #' @param adjust Should the effect size be bias-corrected? Defaults to \code{FALSE}.
 #' @param ... Arguments passed to or from other methods.
 #'
@@ -60,13 +60,13 @@ chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...){
     .es <- function(chisq) {
       pmax(0, sqrt(chisq / n) - ((nrow - 1) * (ncol - 1)) / (n - 1))
     }
+    res <- data.frame(phi_adjusted = .es(chisq))
   } else {
     .es <- function(chisq) {
       sqrt(chisq / n)
     }
+    res <- data.frame(phi = .es(chisq))
   }
-
-  res <- data.frame(phi = .es(chisq))
 
 
   if (is.numeric(ci)) {
@@ -100,14 +100,14 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, 
 
       phi / sqrt((pmin(k, l) - 1))
     }
+    res <- data.frame(cramers_v_adjusted = .es(chisq))
   } else {
     .es <- function(chisq) {
       phi <- sqrt(chisq / n)
       phi / sqrt((pmin(nrow, ncol) - 1))
     }
+    res <- data.frame(cramers_v = .es(chisq))
   }
-
-  res <- data.frame(cramers_v = .es(chisq))
 
 
   if (is.numeric(ci)) {

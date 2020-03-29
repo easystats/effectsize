@@ -36,7 +36,7 @@ t_to_f(t, df_error, ci = 0.9, ...)
 \arguments{
 \item{df, df_error}{Degrees of freedom of numerator or of the error estimate (i.e., the residuals).}
 
-\item{ci}{Confidence Interval (CI) level level}
+\item{ci}{Confidence Interval (CI) level}
 
 \item{...}{Arguments passed to or from other methods.}
 

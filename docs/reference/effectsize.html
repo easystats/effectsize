@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Conversion between Effect sizes for Contingency Tables (Chi2, Phi, Cramer's V...) — chisq_to_phi • effectsize</title>
+<title>Effect Size — effectsize • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
 
 
 
-<meta property="og:title" content="Conversion between Effect sizes for Contingency Tables (Chi2, Phi, Cramer's V...) — chisq_to_phi" />
-<meta property="og:description" content="Convert between Chi square, (\(chi^2\)), phi (\(\phi\)) and Cramer's V." />
+<meta property="og:title" content="Effect Size — effectsize" />
+<meta property="og:description" content="See the documentation for eta_squared, standardize_parameters, cramers_v." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -144,131 +144,63 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Conversion between Effect sizes for Contingency Tables (Chi2, Phi, Cramer's V...)</h1>
+    <h1>Effect Size</h1>
     
-    <div class="hidden name"><code>chisq_to_phi.Rd</code></div>
+    <div class="hidden name"><code>effectsize.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Convert between Chi square, (\(chi^2\)), phi (\(\phi\)) and Cramer's V.</p>
+    <p>See the documentation for <code><a href='eta_squared.html'>eta_squared</a></code>, <code><a href='standardize_parameters.html'>standardize_parameters</a></code>, <code><a href='phi.html'>cramers_v</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>chisq_to_phi</span>(<span class='no'>chisq</span>, <span class='no'>n</span>, <span class='no'>nrow</span>, <span class='no'>ncol</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>adjust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
-
-<span class='fu'>convert_chisq_to_phi</span>(<span class='no'>chisq</span>, <span class='no'>n</span>, <span class='no'>nrow</span>, <span class='no'>ncol</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>adjust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
-
-<span class='fu'>chisq_to_cramers_v</span>(<span class='no'>chisq</span>, <span class='no'>n</span>, <span class='no'>nrow</span>, <span class='no'>ncol</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>adjust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
-
-<span class='fu'>convert_chisq_to_cramers_v</span>(
-  <span class='no'>chisq</span>,
-  <span class='no'>n</span>,
-  <span class='no'>nrow</span>,
-  <span class='no'>ncol</span>,
-  <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>adjust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)
-
-<span class='fu'>phi_to_chisq</span>(<span class='no'>phi</span>, <span class='no'>n</span>, <span class='no'>...</span>)
-
-<span class='fu'>convert_phi_to_chisq</span>(<span class='no'>phi</span>, <span class='no'>n</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>effectsize</span>(<span class='no'>model</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>chisq</th>
-      <td><p>The Chi2 statistic.</p></td>
-    </tr>
-    <tr>
-      <th>n</th>
-      <td><p>Sample size.</p></td>
-    </tr>
-    <tr>
-      <th>nrow, ncol</th>
-      <td><p>The number of rows/columns in the contingency table (ignored for Phi when <code>adjust=FALSE</code> and <code>CI=NULL</code>).</p></td>
-    </tr>
-    <tr>
-      <th>ci</th>
-      <td><p>Confidence Interval (CI) level</p></td>
-    </tr>
-    <tr>
-      <th>adjust</th>
-      <td><p>Should the effect size be bias-corrected? Defaults to <code>FALSE</code>.</p></td>
+      <th>model</th>
+      <td><p>Statistical model or object of class <code>htest</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed to or from other methods.</p></td>
-    </tr>
-    <tr>
-      <th>phi</th>
-      <td><p>The Phi statistic.</p></td>
+      <td><p>Arguments passed to or from other methods. See <code>eta_squared</code>, <code>standardize_parameters</code>, <code>cramers_v</code> or <code>t_to_d</code>.</p></td>
     </tr>
     </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A data frame with the effect size(s) between 0-1, and confidence interval(s).</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>These functions use the following formulae:
-<br />
-$$\phi = \sqrt{\chi^2 / n}$$
-<br />
-$$Cramer's V = \phi / \sqrt{min(nrow,ncol)-1}$$
-<br />
-For adjusted versions, see Bergsma, 2013.</p>
-<h3>Confidence Intervals</h3>
-<p>Confidence intervals are estimated using the Noncentrality parameter method;
-These methods searches for a the best <code>ncp</code> (non-central parameters) for
-of the noncentral F distribution for the desired tail-probabilities,
-and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
-
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    
-<ul>
-<li><p>Cumming, G., &amp; Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.</p></li>
-<li><p>Bergsma, W. (2013). A bias-correction for Cramer's V and Tschuprow's T. Journal of the Korean Statistical Society, 42(3), 323-328.</p></li>
-</ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>contingency_table</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>762</span>, <span class='fl'>327</span>, <span class='fl'>468</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>)))
-
-<span class='fu'><a href='https://rdrr.io/r/stats/chisq.test.html'>chisq.test</a></span>(<span class='no'>contingency_table</span>)</div><div class='output co'>#&gt; 
-#&gt; 	Pearson's Chi-squared test
-#&gt; 
-#&gt; data:  contingency_table
-#&gt; X-squared = 41.234, df = 4, p-value = 2.405e-08
-#&gt; </div><div class='input'><span class='co'>#</span>
-<span class='co'>#         Pearson's Chi-squared test</span>
-<span class='co'>#</span>
-<span class='co'># data:  ctab</span>
-<span class='co'># X-squared = 41.234, df = 4, p-value = 2.405e-08</span>
-
-<span class='fu'>chisq_to_phi</span>(<span class='fl'>41.234</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>contingency_table</span>),
-  <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>contingency_table</span>),
-  <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>contingency_table</span>)
-)</div><div class='output co'>#&gt;  phi |       95% CI
-#&gt; -------------------
-#&gt; 0.10 | [0.07, 0.13]</div><div class='input'><span class='fu'>chisq_to_cramers_v</span>(<span class='fl'>41.234</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>contingency_table</span>),
-  <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>contingency_table</span>),
-  <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>contingency_table</span>)
-)</div><div class='output co'>#&gt; cramers_v |       95% CI
+<span class='no'>Xsq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/chisq.test.html'>chisq.test</a></span>(<span class='no'>contingency_table</span>)
+<span class='fu'>effectsize</span>(<span class='no'>Xsq</span>)</div><div class='output co'>#&gt; cramers_v |       95% CI
 #&gt; ------------------------
 #&gt;      0.07 | [0.05, 0.09]</div><div class='input'>
+<span class='no'>Ts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7</span>:<span class='fl'>20</span>))
+<span class='fu'>effectsize</span>(<span class='no'>Ts</span>)</div><div class='output co'>#&gt;     d |         95% CI
+#&gt; ----------------------
+#&gt; -2.32 | [-3.38, -1.22]</div><div class='input'>
+<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mpg</span> ~ <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>) * <span class='no'>wt</span> + <span class='no'>hp</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
+<span class='fu'>effectsize</span>(<span class='no'>fit</span>)</div><div class='output co'>#&gt;         Parameter Std_Coefficient
+#&gt; 1     (Intercept)     0.001135606
+#&gt; 2    factor(cyl)6    -0.202992374
+#&gt; 3    factor(cyl)8    -0.316876202
+#&gt; 4              wt    -0.895510974
+#&gt; 5              hp    -0.253601012
+#&gt; 6 factor(cyl)6:wt     0.368715669
+#&gt; 7 factor(cyl)8:wt     0.543855222</div><div class='input'>
+<span class='no'>anova_table</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span>(<span class='no'>fit</span>)
+<span class='fu'>effectsize</span>(<span class='no'>anova_table</span>)</div><div class='output co'>#&gt; Parameter      | Eta_Sq_partial |       90% CI
+#&gt; ----------------------------------------------
+#&gt; factor(cyl)    |           0.86 | [0.76, 0.91]
+#&gt; wt             |           0.47 | [0.22, 0.64]
+#&gt; hp             |           0.14 | [0.00, 0.36]
+#&gt; factor(cyl):wt |           0.16 | [0.00, 0.35]</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#references">References</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

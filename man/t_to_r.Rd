@@ -44,7 +44,7 @@ convert_F_to_r(f, df, df_error, ci = 0.95, ...)
 
 \item{paired}{Should the estimate accout for the t-value being testing the difference between dependant means?}
 
-\item{ci}{Confidence Interval (CI) level level}
+\item{ci}{Confidence Interval (CI) level}
 
 \item{pooled}{Deprecated. Use \code{paired}.}
 

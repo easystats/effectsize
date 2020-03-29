@@ -77,167 +77,30 @@
 #'
 #' The computation of CIs is based on the implementation done by Stanley (2018) in the \code{ApaTables} package and Kelley (2007) in the \code{MBESS} package. All credits go to them.
 #'
-#' @importFrom parameters model_parameters
 #' @export
-eta_squared <- function(model, partial = TRUE, ci = 0.9, ...) {
-  UseMethod("eta_squared")
+eta_squared <- function(model,
+                        partial = TRUE,
+                        ci = 0.9,
+                        ...) {
+  .anova_es(model, type = "eta", partial = partial, ci = ci)
 }
 
-
-#' @importFrom stats anova
+#' @rdname eta_squared
 #' @export
-eta_squared.aov <- function(model, partial = TRUE, ci = 0.9, ...) {
-
-  if (!inherits(model, c("Gam", "aov", "anova", "anova.rms"))) {
-    # Pass to ANOVA table method
-    res <- eta_squared.anova(
-      stats::anova(model),
-      partial = partial,
-      ci = ci
-    )
-    return(res)
-  }
-
-  params <- as.data.frame(parameters::model_parameters(model))
-  if (!"Residuals" %in% params$Parameter) {
-    stop("No residuals data found. Eta squared can only be computed for simple `aov` models.")
-  }
-
-  values <- .values_aov(params)
-  if (isFALSE(partial)) {
-    params$Eta_Sq <- params$Sum_Squares / values$Sum_Squares_total
-    params[params$Parameter == "Residuals", "Eta_Sq"] <- NA
-  } else {
-    params$Eta_Sq_partial <-
-      params$Sum_Squares / (params$Sum_Squares + values$Sum_Squares_residuals)
-    params[params$Parameter == "Residuals", "Eta_Sq_partial"] <- NA
-  }
-
-  out <- params[params$Parameter != "Residuals",
-                intersect(c("Group", "Parameter", "Eta_Sq", "Eta_Sq_partial"),
-                          names(params)),
-                drop = FALSE]
-
-  if (is.numeric(ci)) {
-    df_error <- params$df[params$Parameter == "Residuals"]
-    params <- params[params$Parameter!="Residuals", , drop = FALSE]
-
-    if (isTRUE(partial)) {
-      # use NCP
-      eta_ci <- F_to_eta2(
-        f = params$`F`,
-        df = params$df,
-        df_error = df_error,
-        ci = ci
-      )
-
-      eta_ci$Eta_Sq_partial <- NULL
-
-      out <- cbind(out, eta_ci)
-    } else {
-      # Make an F value that is just the effect compared to everything else
-      SSE <- values$Sum_Squares_total - params$Sum_Squares
-      dfE <- values$n - params$df - 1
-      MSE <- SSE / dfE
-
-      eta_ci <- F_to_eta2(
-        f = params$Mean_Square / MSE,
-        df = params$df[params$Parameter!="Residuals"],
-        df_error = dfE,
-        ci = ci
-      )
-
-      eta_ci$Eta_Sq_partial <- NULL
-
-      out <- cbind(out, eta_ci)
-    }
-  }
-
-  class(out) <- c(ifelse(isTRUE(partial), "partial_eta_squared", "eta_squared"),
-                  "effectsize_table",
-                  class(out))
-  out
+omega_squared <- function(model,
+                          partial = TRUE,
+                          ci = 0.9,
+                          ...) {
+  .anova_es(model, type = "omega", partial = partial, ci = ci)
 }
 
-
+#' @rdname eta_squared
 #' @export
-eta_squared.lm <- eta_squared.aov
-
-#' @export
-eta_squared.glm <- eta_squared.aov
-
-
-#' @export
-eta_squared.anova <- function(model, partial = TRUE, ci = 0.9, ...) {
-  if (!"DenDF" %in% colnames(model)) {
-    # Pass to AOV method
-    res <- eta_squared.aov(model,
-                           partial = partial,
-                           ci = ci)
-    return(res)
-  }
-
-  if (isFALSE(partial)) {
-    warning("Currently only supports partial eta squared for mixed models.", call. = FALSE)
-  }
-
-  par_table <- as.data.frame(model)
-
-  out <- cbind(
-    Parameter = rownames(par_table),
-    F_to_eta2(par_table$`F value`,
-              par_table$NumDF,
-              par_table$DenDF,
-              ci = ci
-    )
-  )
-
-  class(out) <- c("partial_eta_squared", "effectsize_table", class(out))
-  out
-}
-
-
-
-#' @export
-eta_squared.aovlist <- function(model, partial = TRUE, ci = 0.9, ...) {
-
-  if (isFALSE(partial)) {
-    warning("Currently only supports partial eta squared for repeated-measures ANOVAs.", call. = FALSE)
-  }
-
-  par_table <- as.data.frame(parameters::model_parameters(model))
-  par_table <- split(par_table, par_table$Group)
-  par_table <- lapply(par_table, function(.data) {
-    .data$df_error <- .data$df[.data$Parameter == "Residuals"]
-    .data
-  })
-  par_table <- do.call(rbind, par_table)
-
-  par_table <- par_table[par_table$Parameter!="Residuals", , drop = FALSE]
-
-
-  out <- cbind(
-    Parameter = par_table$Parameter,
-    F_to_eta2(par_table$`F`,
-              par_table$df,
-              par_table$df_error,
-              ci = ci)
-  )
-
-  class(out) <- c("partial_eta_squared", "effectsize_table", class(out))
-  out
-}
-
-
-#' @export
-eta_squared.merMod <- function(model, partial = TRUE, ci = 0.9, ...) {
-  if (!requireNamespace("lmerTest", quietly = TRUE)) {
-    stop("Package 'lmerTest' required for this function to work. Please install it by running `install.packages('lmerTest')`.")
-  }
-
-  model <- lmerTest::as_lmerModLmerTest(model)
-  model <- stats::anova(model)
-  eta_squared.anova(model, partial = partial, ci = ci, ...)
+epsilon_squared <- function(model,
+                            partial = TRUE,
+                            ci = 0.9,
+                            ...) {
+  .anova_es(model, type = "epsilon", partial = partial, ci = ci)
 }
 
 #' @rdname eta_squared
@@ -247,7 +110,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                      partial = partial,
                      ci = ci)
 
-  if (partial) {
+  if ("Eta_Sq_partial" %in% colnames(res)) {
     res$Eta_Sq_partial <- sqrt(res$Eta_Sq_partial / (1 - res$Eta_Sq_partial))
     colnames(res)[colnames(res) == "Eta_Sq_partial"] <- "Cohens_f_partial"
   } else {
@@ -261,4 +124,253 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   }
 
   res
+}
+
+
+# Get ES ------------------------------------------------------------------
+
+#' @keywords internal
+.anova_es <-
+  function(model,
+           type = c("eta", "omega", "epsilon"),
+           partial = TRUE,
+           ci = 0.9,
+           ...) {
+    UseMethod(".anova_es")
+  }
+
+#' @keywords internal
+#' @importFrom parameters model_parameters
+#' @importFrom stats anova
+.anova_es.aov <- function(model,
+                          type = c("eta", "omega", "epsilon"),
+                          partial = TRUE,
+                          ci = 0.9,
+                          ...) {
+  type <- match.arg(type)
+  es_fun <- switch (type,
+                    eta = F_to_eta2,
+                    omega = F_to_omega2,
+                    epsilon = F_to_epsilon2)
+
+  if (!inherits(model, c("Gam", "aov", "anova", "anova.rms"))) {
+    # Pass to ANOVA table method
+    res <- .anova_es.anova(
+      stats::anova(model),
+      type = type,
+      partial = partial,
+      ci = ci
+    )
+    return(res)
+  }
+
+  params <- as.data.frame(parameters::model_parameters(model))
+  if (!"Residuals" %in% params$Parameter) {
+    stop("No residuals data found - ",
+         type,
+         " squared can only be computed for simple `aov` models.")
+  }
+
+  values <- .values_aov(params)
+  if (type == "eta") {
+    if (isFALSE(partial)) {
+      params$Eta_Sq <- params$Sum_Squares / values$Sum_Squares_total
+      params[params$Parameter == "Residuals", "Eta_Sq"] <- NA
+    } else {
+      params$Eta_Sq_partial <-
+        params$Sum_Squares / (params$Sum_Squares + values$Sum_Squares_residuals)
+      params[params$Parameter == "Residuals", "Eta_Sq_partial"] <-
+        NA
+    }
+  } else if (type == "omega") {
+    if (isFALSE(partial)) {
+      params$Omega_Sq <-
+        (params$Sum_Squares - params$df * values$Mean_Square_residuals) / (values$Sum_Squares_total + values$Mean_Square_residuals)
+      params[params$Parameter == "Residuals", "Omega_Sq"] <- NA
+    } else {
+      params$Omega_Sq_partial <-
+        (params$df * (params$Mean_Square - values$Mean_Square_residuals)) / (
+          params$df * params$Mean_Square + (values$n - params$df) * values$Mean_Square_residuals
+        )
+      params[params$Parameter == "Residuals", "Omega_Sq_partial"] <-
+        NA
+    }
+  } else if (type == "epsilon") {
+    if (isFALSE(partial)) {
+      params$Epsilon_Sq <-
+        (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
+        values$Sum_Squares_total
+      params[params$Parameter == "Residuals", "Epsilon_sq"] <- NA
+    } else {
+      params$Epsilon_Sq_partial <-
+        (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
+        (params$Sum_Squares + values$Sum_Squares_residuals)
+      params[params$Parameter == "Residuals", "Epsilon_sq_partial"] <-
+        NA
+    }
+  }
+
+
+  out <- params[params$Parameter != "Residuals",
+                colnames(params) %in% c("Group", "Parameter",
+                                        "Eta_Sq", "Eta_Sq_partial",
+                                        "Omega_Sq", "Omega_Sq_partial",
+                                        "Epsilon_Sq", "Epsilon_Sq_partial"),
+                drop = FALSE]
+
+  if (is.numeric(ci)) {
+    df_error <- params$df[params$Parameter == "Residuals"]
+    params <- params[params$Parameter != "Residuals", , drop = FALSE]
+
+    if (isTRUE(partial)) {
+      # use NCP
+      eta_ci <- es_fun(
+        f = params$`F`,
+        df = params$df,
+        df_error = df_error,
+        ci = ci
+      )
+    } else {
+      # Make an F value that is just the effect compared to everything else
+      SSE <- values$Sum_Squares_total - params$Sum_Squares
+      dfE <- values$n - params$df - 1
+      MSE <- SSE / dfE
+
+      eta_ci <- es_fun(
+        f = params$Mean_Square / MSE,
+        df = params$df,
+        df_error = dfE,
+        ci = ci
+      )
+    }
+    eta_ci[[1]] <- NULL
+    out <- cbind(out, eta_ci)
+  }
+
+  class(out) <- c("effectsize_table", class(out))
+  out
+
+}
+
+#' @keywords internal
+.anova_es.lm <- .anova_es.aov
+
+#' @keywords internal
+.anova_es.glm <- .anova_es.aov
+
+#' @keywords internal
+.anova_es.anova <- function(model,
+                            type = c("eta", "omega", "epsilon"),
+                            partial = TRUE,
+                            ci = 0.9,
+                            ...) {
+  type <- match.arg(type)
+  es_fun <- switch (type,
+                    eta = F_to_eta2,
+                    omega = F_to_omega2,
+                    epsilon = F_to_epsilon2)
+
+  if (!"DenDF" %in% colnames(model)) {
+    # Pass to AOV method
+    res <- .anova_es.aov(model,
+                         partial = partial,
+                         type = type,
+                         ci = ci)
+    return(res)
+  }
+
+  if (isFALSE(partial)) {
+    warning(
+      "Currently only supports partial ",
+      type,
+      " squared for repeated-measures ANOVAs.",
+      call. = FALSE
+    )
+  }
+
+  par_table <- as.data.frame(model)
+
+  out <- cbind(
+    Parameter = rownames(par_table),
+    es_fun(par_table$`F value`,
+           par_table$NumDF,
+           par_table$DenDF,
+           ci = ci)
+  )
+
+  class(out) <- c("effectsize_table", class(out))
+  out
+}
+
+#' @keywords internal
+#' @importFrom parameters model_parameters
+.anova_es.aovlist <- function(model,
+                              type = c("eta", "omega", "epsilon"),
+                              partial = TRUE,
+                              ci = 0.9,
+                              ...) {
+  type <- match.arg(type)
+  es_fun <- switch (type,
+                    eta = F_to_eta2,
+                    omega = F_to_omega2,
+                    epsilon = F_to_epsilon2)
+
+
+  if (isFALSE(partial)) {
+    warning(
+      "Currently only supports partial ",
+      type,
+      " squared for repeated-measures ANOVAs.",
+      call. = FALSE
+    )
+  }
+
+  par_table <- as.data.frame(parameters::model_parameters(model))
+  par_table <- split(par_table, par_table$Group)
+  par_table <- lapply(par_table, function(.data) {
+    .data$df_error <- .data$df[.data$Parameter == "Residuals"]
+    .data
+  })
+  par_table <- do.call(rbind, par_table)
+
+  par_table <-
+    par_table[par_table$Parameter != "Residuals", , drop = FALSE]
+
+
+  out <- cbind(par_table,
+               es_fun(par_table$`F`,
+                      par_table$df,
+                      par_table$df_error,
+                      ci = ci))
+  out <- out[, colnames(out) %in% c(
+    "Group",
+    "Parameter",
+    "Eta_Sq_partial",
+    "Omega_Sq_partial",
+    "Epsilon_Sq_partial",
+    "CI",
+    "CI_low",
+    "CI_high"
+  ), drop = FALSE]
+  rownames(out) <- NULL
+
+  class(out) <- c("effectsize_table", class(out))
+  out
+}
+
+#' @keywords internal
+#' @importFrom stats anova
+.anova_es.merMod <- function(model,
+                             type = c("eta", "omega", "epsilon"),
+                             partial = TRUE,
+                             ci = 0.9,
+                             ...) {
+  if (!requireNamespace("lmerTest", quietly = TRUE)) {
+    stop("Package 'lmerTest' required for this function to work. ",
+         "Please install it by running `install.packages('lmerTest')`.")
+  }
+
+  model <- lmerTest::as_lmerModLmerTest(model)
+  model <- stats::anova(model)
+  .anova_es.anova(model, type = type, partial = partial, ci = ci, ...)
 }

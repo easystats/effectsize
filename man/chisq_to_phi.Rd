@@ -36,7 +36,7 @@ convert_phi_to_chisq(phi, n, ...)
 
 \item{nrow, ncol}{The number of rows/columns in the contingency table (ignored for Phi when \code{adjust=FALSE} and \code{CI=NULL}).}
 
-\item{ci}{Confidence Interval (CI) level level}
+\item{ci}{Confidence Interval (CI) level}
 
 \item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
 
