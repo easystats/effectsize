@@ -77,7 +77,6 @@
 #'
 #' The computation of CIs is based on the implementation done by Stanley (2018) in the \code{ApaTables} package and Kelley (2007) in the \code{MBESS} package. All credits go to them.
 #'
-#' @importFrom parameters model_parameters
 #' @export
 eta_squared <- function(model,
                         partial = TRUE,
@@ -141,6 +140,8 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   }
 
 #' @keywords internal
+#' @importFrom parameters model_parameters
+#' @importFrom stats anova
 .anova_es.aov <- function(model,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,
@@ -302,6 +303,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
 }
 
 #' @keywords internal
+#' @importFrom parameters model_parameters
 .anova_es.aovlist <- function(model,
                               type = c("eta", "omega", "epsilon"),
                               partial = TRUE,
@@ -357,6 +359,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
 }
 
 #' @keywords internal
+#' @importFrom stats anova
 .anova_es.merMod <- function(model,
                              type = c("eta", "omega", "epsilon"),
                              partial = TRUE,
