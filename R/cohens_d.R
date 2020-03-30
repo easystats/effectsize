@@ -122,14 +122,15 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
     d <- mean(x - y, na.rm = TRUE)
     s <- stats::sd(x - y, na.rm = TRUE)
     n <- length(x)
-    df <- n - 1
+    hn <- n - 1
     t <- d / (s / sqrt(n))
   } else {
     d <- mean(x, na.rm = TRUE) - mean(y, na.rm = TRUE)
     n1 <- length(x)
     n2 <- length(y)
     n <- n1 + n2
-    df <- n - 2
+    # hn <- n - 2
+    hn <- 4 / (1 / n1 + 1 / n2) # When giving this ti t_to_d it is like using the harmonic mean of n
     if (type == "d" | type == "g") {
       if (pooled_sd) {
         s <- suppressWarnings(sd_pooled(x, y))
@@ -152,7 +153,7 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
   colnames(out) <- types[type]
   out <- cbind(
     out,
-    t_to_d(t, df, ci = ci, paired = paired)[,-1 , drop = FALSE]
+    t_to_d(t, hn, ci = ci, paired = paired)[,-1 , drop = FALSE]
   )
 
   if (type == "g") {
