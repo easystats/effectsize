@@ -55,14 +55,13 @@
 #' model <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
 #' library(parameters)
 #' (param_tab <- parameters(model))
-#' # > Parameter    | Coefficient |   SE |       95% CI |     t |  df |      p
-#' # > -----------------------------------------------------------------------
-#' # > (Intercept)  |        2.25 | 0.25 | [1.76, 2.74] |  9.07 | 147 | < .001
-#' # > Sepal.Width  |        0.60 | 0.07 | [0.46, 0.73] |  8.59 | 147 | < .001
-#' # > Petal.Length |        0.47 | 0.02 | [0.44, 0.51] | 27.57 | 147 | < .001
 #'
 #' t_to_r(param_tab$t[2:3], param_tab$df_error[2:3])
-#' # > [1] 0.5781005 0.9153894
+#'
+#' # How does this compare to actual partial correlations?
+#' if (require("ppcor")) {
+#'   pcor(iris[1:3])$estimate[1, -1]
+#' }
 #'
 #' ## Use with emmeans based contrasts (see also t_to_eta2)
 #' if (require(emmeans) & require(dplyr)) {
@@ -74,10 +73,6 @@
 #'     bind_cols(t_to_d(.$t.ratio, .$df))
 #' }
 #'
-#' # How does this compare to actual partial correlations?
-#' if (require("ppcor")) {
-#'   pcor(iris[1:3])$estimate[1, -1]
-#' }
 #' }
 #' @references
 #' \itemize{
