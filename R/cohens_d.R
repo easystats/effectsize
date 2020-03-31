@@ -122,15 +122,16 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
     d <- mean(x - y, na.rm = TRUE)
     s <- stats::sd(x - y, na.rm = TRUE)
     n <- length(x)
-    hn <- n - 1
+    df <- n - 1
+    hn <- 1 / df
     t <- d / (s / sqrt(n))
   } else {
     d <- mean(x, na.rm = TRUE) - mean(y, na.rm = TRUE)
     n1 <- length(x)
     n2 <- length(y)
     n <- n1 + n2
-    # hn <- n - 2
-    hn <- 4 / (1 / n1 + 1 / n2) # When giving this ti t_to_d it is like using the harmonic mean of n
+    df <- n - 2
+    hn <- (1 / n1 + 1 / n2)
     if (type == "d" | type == "g") {
       if (pooled_sd) {
         s <- suppressWarnings(sd_pooled(x, y))
@@ -151,10 +152,22 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
   out <- data.frame(d = d / s)
   types <- c("d" = "Cohens_d", "g" = "Hedges_g", "delta" = "Glass_delta")
   colnames(out) <- types[type]
-  out <- cbind(
-    out,
-    t_to_d(t, hn, ci = ci, paired = paired)[,-1 , drop = FALSE]
-  )
+
+  if (is.numeric(ci)) {
+    # Add cis
+    out$CI <- ci
+
+    ts <- .get_ncp_t(t, df, ci)
+
+    # paired <- 2 - paired
+    #
+    # out$CI_low <- paired * ts[1] / sqrt(hn)
+    # out$CI_high <- paired * ts[2] / sqrt(hn)
+
+    out$CI_low <- ts[1] * sqrt(hn)
+    out$CI_high <- ts[2] * sqrt(hn)
+  }
+
 
   if (type == "g") {
     if (paired) {
