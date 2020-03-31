@@ -37,32 +37,32 @@ if (require("testthat") && require("effectsize")) {
     x <- cohens_d(wt ~ am, data = mtcars, pooled_sd = TRUE)
     testthat::expect_equal(colnames(x)[1], "Cohens_d")
     testthat::expect_equal(x[[1]], 1.892, tol = 0.001)
-    testthat::expect_equal(x$CI_low, 1.033, tol = 0.001)
-    testthat::expect_equal(x$CI_high, 2.729, tol = 0.001)
+    testthat::expect_equal(x$CI_low, 1.030, tol = 0.001)
+    testthat::expect_equal(x$CI_high, 2.732, tol = 0.001)
   })
 
   test_that("cohens_d - non-pooled", {
     x <- cohens_d(wt ~ am, data = mtcars, pooled_sd = FALSE)
     testthat::expect_equal(colnames(x)[1], "Cohens_d")
     testthat::expect_equal(x[[1]], 1.934, tol = 0.001)
-    testthat::expect_equal(x$CI_low, 1.106, tol = 0.001)
-    testthat::expect_equal(x$CI_high, 2.826, tol = 0.001)
+    testthat::expect_equal(x$CI_low, 1.102, tol = 0.001)
+    testthat::expect_equal(x$CI_high, 2.829, tol = 0.001)
   })
 
   test_that("hedges_g", {
     x <- hedges_g(wt ~ am, data = mtcars)
     testthat::expect_equal(colnames(x)[1], "Hedges_g")
     testthat::expect_equal(x[[1]], 1.844, tol = 0.001)
-    testthat::expect_equal(x$CI_low, 1.007, tol = 0.001)
-    testthat::expect_equal(x$CI_high, 2.660, tol = 0.001)
+    testthat::expect_equal(x$CI_low, 1.004, tol = 0.001)
+    testthat::expect_equal(x$CI_high, 2.664, tol = 0.001)
   })
 
   test_that("glass_delta", {
     x <- glass_delta(wt ~ am, data = mtcars)
     testthat::expect_equal(colnames(x)[1], "Glass_delta")
     testthat::expect_equal(x[[1]], 2.200, tol = 0.001)
-    testthat::expect_equal(x$CI_low, 1.297, tol = 0.001)
-    testthat::expect_equal(x$CI_high, 3.081, tol = 0.001)
+    testthat::expect_equal(x$CI_low, 1.292, tol = 0.001)
+    testthat::expect_equal(x$CI_high, 3.086, tol = 0.001)
 
     # must be 2 samples
     testthat::expect_error(glass_delta(1:10))
