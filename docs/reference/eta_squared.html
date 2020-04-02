@@ -48,10 +48,12 @@ and Cohen's f (or their partialled versions) for aov, aovlist, anova,
 and merMod models. These indices represent an estimate of how much variance in
 the response variables is accounted for by the explanatory variable(s).
 
-Effect sizes are based on Type-1 sums of saquares for aov and aovlist
-models, and Type-3 for merMod models. It is also generally recommended to
-fit models with contr.sum factor weights and centered covariates, for
-sensible results. See examples." />
+Effect sizes are based on Type-1 sums of squares for aov and aovlist
+models, and Type-3 for merMod models. For anova tables, effect sizes
+are computed based on the table's sums of squares (whatever those may be). It is generally
+recommended to fit models with contr.sum factor weights and
+centered covariates, for sensible results. (Yeah... ANOVAs are hard...)
+ See examples." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -163,10 +165,12 @@ and Cohen's f (or their partialled versions) for <code>aov</code>, <code>aovlist
 and <code>merMod</code> models. These indices represent an estimate of how much variance in
 the response variables is accounted for by the explanatory variable(s).
 <br /><br />
-Effect sizes are based on <strong>Type-1</strong> sums of saquares for <code>aov</code> and <code>aovlist</code>
-models, and <strong>Type-3</strong> for <code>merMod</code> models. It is also generally recommended to
-fit models with <em><code>contr.sum</code> factor weights</em> and <em>centered covariates</em>, for
-sensible results. See examples.</p>
+Effect sizes are based on <strong>Type-1</strong> sums of squares for <code>aov</code> and <code>aovlist</code>
+models, and <strong>Type-3</strong> for <code>merMod</code> models. For <code>anova</code> tables, effect sizes
+are computed based on the table's sums of squares (whatever those may be). It is generally
+recommended to fit models with <em><code>contr.sum</code> factor weights</em> and
+<em>centered covariates</em>, for sensible results. (<strong><em>Yeah... ANOVAs are hard...</em></strong>)
+ See examples.</p>
     </div>
 
     <pre class="usage"><span class='fu'>eta_squared</span>(<span class='no'>model</span>, <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='no'>...</span>)
@@ -204,9 +208,9 @@ sensible results. See examples.</p>
 <p>A data frame containing the effect size values and their confidence intervals.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>For between-subjects ANOVAs, the effect sizes are computed directly with Sums-of-Squares.
-For all other cases, effect sizes are approsimated via test statistic conversion
-(see <code><a href='F_to_eta2.html'>F_to_eta2</a> for more details.</code>)</p>
+    <p>For <code>aov</code> and <code>aovlist</code> models, the effect sizes are computed directly with
+Sums-of-Squares. For all other cases, effect sizes are approximated via test statistic
+conversion (see <code><a href='F_to_eta2.html'>F_to_eta2</a> for more details.</code>)</p>
 <h3>Confidence Intervals</h3>
 <p>Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best <code>ncp</code> (non-central parameters) for
@@ -214,7 +218,9 @@ of the noncentral F distribution for the desired tail-probabilities,
 and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 
 <h3>Omega Squared</h3>
-<p>Omega squared is considered as a lesser biased alternative to eta-squared, especially when sample sizes are small (Albers \&amp; Lakens, 2018). Field (2013) suggests the following interpretation heuristics:</p><ul>
+<p>Omega squared is considered as a lesser biased alternative to eta-squared, especially
+when sample sizes are small (Albers \&amp; Lakens, 2018). Field (2013) suggests the following
+interpretation heuristics:</p><ul>
 <li><p>Omega Squared = 0 - 0.01: Very small</p></li>
 <li><p>Omega Squared = 0.01 - 0.06: Small</p></li>
 <li><p>Omega Squared = 0.06 - 0.14: Medium</p></li>
@@ -222,8 +228,15 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 </ul>
 
 <p></p><h3>Epsilon Squared</h3>
-<p>It is one of the least common measures of effect sizes: omega squared and eta squared are used more frequently. Although having a different name and a formula in appearance different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p><p></p><h3>Cohen's f</h3>
-<p>Cohen's f statistic is one appropriate effect size index to use for a oneway analysis of variance (ANOVA). Cohen's f can take on values between zero, when the population means are all equal, and an indefinitely large number as standard deviation of means increases relative to the average standard deviation within each group. Cohen has suggested that the values of 0.10, 0.25, and 0.40 represent small, medium, and large effect sizes, respectively.</p>
+<p>It is one of the least common measures of effect sizes: omega squared and eta squared are
+used more frequently. Although having a different name and a formula in appearance
+different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p><p></p><h3>Cohen's f</h3>
+<p>Cohen's f statistic is one appropriate effect size index to use for a oneway analysis
+ of variance (ANOVA). Cohen's f can take on values between zero, when the population
+ means are all equal, and an indefinitely large number as standard deviation of means
+ increases relative to the average standard deviation within each group. Cohen has
+ suggested that the values of 0.10, 0.25, and 0.40 represent small, medium, and large
+ effect sizes, respectively.</p>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
