@@ -5,9 +5,10 @@
 #' and \code{merMod} models. These indices represent an estimate of how much variance in
 #' the response variables is accounted for by the explanatory variable(s).
 #' \cr\cr
-#' For effect sizes based on \strong{Type-3} ANOVA tables, the user must supply a Type-3
-#' ANOVA table (as is done for \code{merMod} objects), or a model fit with \code{contr.sum}
-#' factor weights and centered covariates (for \code{aov} and \code{aovlist}). See examples.
+#' Effect sizes are based on \strong{Type-1} sums of saquares for \code{aov} and \code{aovlist}
+#' models, and \strong{Type-3} for \code{merMod} models. It is also generally recommended to
+#' fit models with \emph{\code{contr.sum} factor weights} and \emph{centered covariates}, for
+#' sensible results. See examples.
 #'
 #' @param model An model or ANOVA object.
 #' @param partial If \code{TRUE}, return partial indices.
@@ -61,16 +62,22 @@
 #' epsilon_squared(model)
 #' cohens_f(model)
 #'
-#' # For type-3 effect sizes:
+#' model <- aov(mpg ~ cyl_f * am_f + Error(vs / am_f), data = mtcars)
+#' epsilon_squared(model)
+#'
+#' # Recommended:
+#' # Type-3 effect sizes + effects coding
 #' if (require(car, quietly = TRUE)) {
+#'   contrasts(mtcars$am_f) <- contr.sum
+#'   contrasts(mtcars$cyl_f) <- contr.sum
+#'
+#'   model <- aov(mpg ~ am_f * cyl_f, data = mtcars)
+#'
 #'   model_anova <- car::Anova(model, type = 3)
 #'
 #'   eta_squared(model_anova)
-#'   eta_squared(model_anova, partial = FALSE)
 #' }
 #'
-#' model <- aov(mpg ~ cyl_f * am_f + Error(vs / am_f), data = mtcars)
-#' epsilon_squared(model)
 #'
 #' if (require(lmerTest, quietly = TRUE)) {
 #'   model <- lmer(mpg ~ am_f * cyl_f + (1|vs), data = mtcars)
