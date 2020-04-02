@@ -48,9 +48,10 @@ and Cohen's f (or their partialled versions) for aov, aovlist, anova,
 and merMod models. These indices represent an estimate of how much variance in
 the response variables is accounted for by the explanatory variable(s).
 
-For effect sizes based on Type-3 ANOVA tables, the user must supply a Type-3
-ANOVA table (as is done for merMod objects), or a model fit with contr.sum
-factor weights and centered covariates (for aov and aovlist). See examples." />
+Effect sizes are based on Type-1 sums of saquares for aov and aovlist
+models, and Type-3 for merMod models. It is also generally recommended to
+fit models with contr.sum factor weights and centered covariates, for
+sensible results. See examples." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -162,9 +163,10 @@ and Cohen's f (or their partialled versions) for <code>aov</code>, <code>aovlist
 and <code>merMod</code> models. These indices represent an estimate of how much variance in
 the response variables is accounted for by the explanatory variable(s).
 <br /><br />
-For effect sizes based on <strong>Type-3</strong> ANOVA tables, the user must supply a Type-3
-ANOVA table (as is done for <code>merMod</code> objects), or a model fit with <code>contr.sum</code>
-factor weights and centered covariates (for <code>aov</code> and <code>aovlist</code>). See examples.</p>
+Effect sizes are based on <strong>Type-1</strong> sums of saquares for <code>aov</code> and <code>aovlist</code>
+models, and <strong>Type-3</strong> for <code>merMod</code> models. It is also generally recommended to
+fit models with <em><code>contr.sum</code> factor weights</em> and <em>centered covariates</em>, for
+sensible results. See examples.</p>
     </div>
 
     <pre class="usage"><span class='fu'>eta_squared</span>(<span class='no'>model</span>, <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='no'>...</span>)
@@ -268,28 +270,34 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 #&gt; am_f       |             1.30 | [0.86, 1.73]
 #&gt; cyl_f      |             1.38 | [0.90, 1.81]
 #&gt; am_f:cyl_f |             0.33 | [0.00, 0.61]</div><div class='input'>
-<span class='co'># For type-3 effect sizes:</span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>car</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-  <span class='no'>model_anova</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>car</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/car/man/Anova.html'>Anova</a></span>(<span class='no'>model</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-
-  <span class='fu'>eta_squared</span>(<span class='no'>model_anova</span>)
-  <span class='fu'>eta_squared</span>(<span class='no'>model_anova</span>, <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-}</div><div class='output co'>#&gt; <span class='message'>Registered S3 methods overwritten by 'car':</span>
-#&gt; <span class='message'>  method                          from</span>
-#&gt; <span class='message'>  influence.merMod                lme4</span>
-#&gt; <span class='message'>  cooks.distance.influence.merMod lme4</span>
-#&gt; <span class='message'>  dfbeta.influence.merMod         lme4</span>
-#&gt; <span class='message'>  dfbetas.influence.merMod        lme4</span></div><div class='output co'>#&gt; Parameter  | Eta_Sq |       90% CI
-#&gt; ----------------------------------
-#&gt; am_f       |   0.12 | [0.00, 0.31]
-#&gt; cyl_f      |   0.34 | [0.10, 0.52]
-#&gt; am_f:cyl_f |   0.05 | [0.00, 0.19]</div><div class='input'>
 <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>mpg</span> ~ <span class='no'>cyl_f</span> * <span class='no'>am_f</span> + <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>Error</a></span>(<span class='no'>vs</span> / <span class='no'>am_f</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
 <span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Group  |  Parameter | Epsilon_Sq_partial |        90% CI
 #&gt; --------------------------------------------------------
 #&gt; Within |       am_f |              -0.04 | [-0.04, 0.03]
 #&gt; Within | cyl_f:am_f |              -0.03 | [-0.04, 0.10]
 #&gt; Within |      cyl_f |               0.40 | [ 0.12, 0.58]</div><div class='input'>
+<span class='co'># Recommended:</span>
+<span class='co'># Type-3 effect sizes + effects coding</span>
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>car</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+  <span class='fu'><a href='https://rdrr.io/r/stats/contrasts.html'>contrasts</a></span>(<span class='no'>mtcars</span>$<span class='no'>am_f</span>) <span class='kw'>&lt;-</span> <span class='no'>contr.sum</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/contrasts.html'>contrasts</a></span>(<span class='no'>mtcars</span>$<span class='no'>cyl_f</span>) <span class='kw'>&lt;-</span> <span class='no'>contr.sum</span>
+
+  <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>mpg</span> ~ <span class='no'>am_f</span> * <span class='no'>cyl_f</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
+
+  <span class='no'>model_anova</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>car</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/car/man/Anova.html'>Anova</a></span>(<span class='no'>model</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+
+  <span class='fu'>eta_squared</span>(<span class='no'>model_anova</span>)
+}</div><div class='output co'>#&gt; <span class='message'>Registered S3 methods overwritten by 'car':</span>
+#&gt; <span class='message'>  method                          from</span>
+#&gt; <span class='message'>  influence.merMod                lme4</span>
+#&gt; <span class='message'>  cooks.distance.influence.merMod lme4</span>
+#&gt; <span class='message'>  dfbeta.influence.merMod         lme4</span>
+#&gt; <span class='message'>  dfbetas.influence.merMod        lme4</span></div><div class='output co'>#&gt; Parameter  | Eta_Sq_partial |       90% CI
+#&gt; ------------------------------------------
+#&gt; am_f       |           0.11 | [0.00, 0.32]
+#&gt; cyl_f      |           0.63 | [0.42, 0.75]
+#&gt; am_f:cyl_f |           0.10 | [0.00, 0.27]</div><div class='input'>
+
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>lmerTest</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
   <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lmerTest/man/lmer.html'>lmer</a></span>(<span class='no'>mpg</span> ~ <span class='no'>am_f</span> * <span class='no'>cyl_f</span> + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>vs</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
 
