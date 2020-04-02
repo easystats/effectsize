@@ -291,6 +291,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
 #' @keywords internal
 .anova_es.glm <- .anova_es.aov
 
+#' @importFrom stats na.omit
 #' @keywords internal
 .anova_es.parameters_model <- function(model,
                                        type = c("eta", "omega", "epsilon"),
@@ -308,12 +309,27 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   }
 
   if ("z" %in% colnames(model)) {
-    r <- abs((exp(model[["z"]] / 0.5) - 1) / (exp(model[["z"]] / 0.5) + 1))
-    f <- ((2 * r) / (sqrt(1 - r^2))) / 2
+    stop("Cannot compute effect size from models with no proper residual variance. Consider the estimates themselves as indices of effect size.")
   }
 
-  out <- .F_to_pve(f, df = 1, df_error = model$df_error, ci = ci, es = paste0(type, "2"))
-  out$Parameter <- model$Parameter
+  df_col <- colnames(model)[colnames(model) %in% c("df", "Df", "NumDF")]
+  if (length(df_col)) {
+    df_num <- model[[df_col]][!is.na(f)]
+  } else {
+    df_num <- 1
+  }
+
+
+  if ("df_error" %in% colnames(model)) {
+    df_error <- model$df_error
+  } else if ("Residuals" %in% model$Parameter) {
+    df_error <- model[model$Parameter == "Residuals", df_col]
+  } else {
+    stop("Cannot extract degrees of freedom for the error term. Try passing the model object directly to 'eta_squared()'.")
+  }
+
+  out <- .F_to_pve(stats::na.omit(f), df = df_num, df_error = df_error, ci = ci, es = paste0(type, "2"))
+  out$Parameter <- model$Parameter[!is.na(f)]
   out[c(ncol(out), 1:4)]
 }
 
@@ -325,10 +341,10 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                             ci = 0.9,
                             ...) {
   type <- match.arg(type)
-  es_fun <- switch (type,
-                    eta = F_to_eta2,
-                    omega = F_to_omega2,
-                    epsilon = F_to_epsilon2)
+  es_fun <- switch(type,
+                   eta = F_to_eta2,
+                   omega = F_to_omega2,
+                   epsilon = F_to_epsilon2)
   model <- model[rownames(model) != "(Intercept)", ]
 
   if (!"DenDF" %in% colnames(model)) {
@@ -371,10 +387,10 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                               ci = 0.9,
                               ...) {
   type <- match.arg(type)
-  es_fun <- switch (type,
-                    eta = F_to_eta2,
-                    omega = F_to_omega2,
-                    epsilon = F_to_epsilon2)
+  es_fun <- switch(type,
+                   eta = F_to_eta2,
+                   omega = F_to_omega2,
+                   epsilon = F_to_epsilon2)
 
 
   if (isFALSE(partial)) {
