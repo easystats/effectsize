@@ -83,20 +83,23 @@
 #'   contrasts(mtcars$cyl_f) <- contr.sum
 #'
 #'   model <- aov(mpg ~ am_f * cyl_f, data = mtcars)
-#'
 #'   model_anova <- car::Anova(model, type = 3)
 #'
 #'   eta_squared(model_anova)
 #' }
 #'
+#' if (require("parameters")) {
+#'   data(mtcars)
+#'   model <- lm(mpg ~ wt + cyl, data = mtcars)
+#'   mp <- model_parameters(model)
+#'   eta_squared(mp)
+#' }
 #'
 #' if (require(lmerTest, quietly = TRUE)) {
 #'   model <- lmer(mpg ~ am_f * cyl_f + (1|vs), data = mtcars)
-#'
 #'   omega_squared(model)
 #' }
 #' }
-#'
 #' @return A data frame containing the effect size values and their confidence intervals.
 #'
 #'
@@ -181,10 +184,10 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                           ci = 0.9,
                           ...) {
   type <- match.arg(type)
-  es_fun <- switch (type,
-                    eta = F_to_eta2,
-                    omega = F_to_omega2,
-                    epsilon = F_to_epsilon2)
+  es_fun <- switch(type,
+                   eta = F_to_eta2,
+                   omega = F_to_omega2,
+                   epsilon = F_to_epsilon2)
 
   if (!inherits(model, c("Gam", "aov", "anova", "anova.rms"))) {
     # Pass to ANOVA table method

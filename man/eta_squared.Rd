@@ -103,20 +103,23 @@ if (require(car, quietly = TRUE)) {
   contrasts(mtcars$cyl_f) <- contr.sum
 
   model <- aov(mpg ~ am_f * cyl_f, data = mtcars)
-
   model_anova <- car::Anova(model, type = 3)
 
   eta_squared(model_anova)
 }
 
+if (require("parameters")) {
+  data(mtcars)
+  model <- lm(mpg ~ wt + cyl, data = mtcars)
+  mp <- model_parameters(model)
+  eta_squared(mp)
+}
 
 if (require(lmerTest, quietly = TRUE)) {
   model <- lmer(mpg ~ am_f * cyl_f + (1|vs), data = mtcars)
-
   omega_squared(model)
 }
 }
-
 }
 \references{
 \itemize{
