@@ -11,6 +11,7 @@
 #' See \href{https://easystats.github.io/effectsize/articles/from_test_statistics.html}{Effect Size from Test Statistics vignette.}
 #'
 #' @param t,f The t or the F statistics.
+#' @param model A regression model object.
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods.
@@ -55,6 +56,12 @@
 #'   df_error = c(18, 9, 18)
 #' )
 #'
+#' if (require("parameter")) {
+#'   data(mtcars)
+#'   model <- lm(mpg ~ wt + cyl, data = mtcars)
+#'   mp <- model_parameters(model)
+#'   t_to_eta2(mp)
+#' }
 #'
 #' if (require("lmerTest")) { # for the df_error
 #'   fit <- lmer(extra ~ group + (1 | ID), sleep)
@@ -88,15 +95,49 @@
 #' }
 #'
 #' @export
-F_to_eta2 <- function(f, df, df_error, ci = 0.9, ...) {
+F_to_eta2 <- function(...) {
+  UseMethod("F_to_eta2")
+}
+
+#' @rdname F_to_eta2
+#' @export
+F_to_eta2.default <- function(f, df, df_error, ci = 0.9, ...) {
   .F_to_pve(f, df, df_error, ci = ci, es = "eta2")
 }
 
 #' @rdname F_to_eta2
 #' @export
-t_to_eta2 <- function(t, df_error, ci = 0.9, ...) {
+F_to_eta2.parameters_model <- function(model, ci = 0.9, ...) {
+  if ("t" %in% colnames(model)) {
+    f <- model[["t"]]^2
+  }
+  if ("F" %in% colnames(model)) {
+    f <- model[["F"]]
+  }
+  out <- .F_to_pve(f, df = 1, df_error = model$df_error, ci = ci, es = "eta2")
+  out$Parameter <- model$Parameter
+  out[c(ncol(out), 1:4)]
+}
+
+
+#' @rdname F_to_eta2
+#' @export
+t_to_eta2 <- function(...) {
+  UseMethod("t_to_eta2")
+}
+
+#' @rdname F_to_eta2
+#' @export
+t_to_eta2.default <- function(t, df_error, ci = 0.9, ...) {
   F_to_eta2(t^2, 1, df_error, ci = ci)
 }
+
+#' @rdname F_to_eta2
+#' @export
+t_to_eta2.parameters_model <- function(model, ci = 0.9, ...) {
+  F_to_eta2(model = model, ci = ci, ...)
+}
+
 
 #' @rdname F_to_eta2
 #' @export

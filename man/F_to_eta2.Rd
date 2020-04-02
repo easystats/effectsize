@@ -2,7 +2,11 @@
 % Please edit documentation in R/convert_tF_to_pve.R
 \name{F_to_eta2}
 \alias{F_to_eta2}
+\alias{F_to_eta2.default}
+\alias{F_to_eta2.parameters_model}
 \alias{t_to_eta2}
+\alias{t_to_eta2.default}
+\alias{t_to_eta2.parameters_model}
 \alias{F_to_epsilon2}
 \alias{t_to_epsilon2}
 \alias{F_to_eta2_adj}
@@ -13,9 +17,17 @@
 \alias{t_to_f}
 \title{Convert test statistics (F, t) to indices of \strong{partial} variance explained (\strong{partial} Eta / Omega / Epsilon squared and Cohen's f)}
 \usage{
-F_to_eta2(f, df, df_error, ci = 0.9, ...)
+F_to_eta2(...)
 
-t_to_eta2(t, df_error, ci = 0.9, ...)
+\method{F_to_eta2}{default}(f, df, df_error, ci = 0.9, ...)
+
+\method{F_to_eta2}{parameters_model}(model, ci = 0.9, ...)
+
+t_to_eta2(...)
+
+\method{t_to_eta2}{default}(t, df_error, ci = 0.9, ...)
+
+\method{t_to_eta2}{parameters_model}(model, ci = 0.9, ...)
 
 F_to_epsilon2(f, df, df_error, ci = 0.9, ...)
 
@@ -34,11 +46,13 @@ F_to_f(f, df, df_error, ci = 0.9, ...)
 t_to_f(t, df_error, ci = 0.9, ...)
 }
 \arguments{
+\item{...}{Arguments passed to or from other methods.}
+
 \item{df, df_error}{Degrees of freedom of numerator or of the error estimate (i.e., the residuals).}
 
 \item{ci}{Confidence Interval (CI) level}
 
-\item{...}{Arguments passed to or from other methods.}
+\item{model}{A regression model object.}
 
 \item{t, f}{The t or the F statistics.}
 }
@@ -96,6 +110,12 @@ F_to_eta2(
   df_error = c(18, 9, 18)
 )
 
+if (require("parameter")) {
+  data(mtcars)
+  model <- lm(mpg ~ wt + cyl, data = mtcars)
+  mp <- model_parameters(model)
+  t_to_eta2(mp)
+}
 
 if (require("lmerTest")) { # for the df_error
   fit <- lmer(extra ~ group + (1 | ID), sleep)
