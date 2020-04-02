@@ -292,6 +292,33 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
 .anova_es.glm <- .anova_es.aov
 
 #' @keywords internal
+.anova_es.parameters_model <- function(model,
+                                       type = c("eta", "omega", "epsilon"),
+                                       partial = TRUE,
+                                       ci = 0.9,
+                                       ...) {
+  type <- match.arg(type)
+
+  if ("t" %in% colnames(model)) {
+    f <- model[["t"]]^2
+  }
+
+  if ("F" %in% colnames(model)) {
+    f <- model[["F"]]
+  }
+
+  if ("z" %in% colnames(model)) {
+    r <- abs((exp(model[["z"]] / 0.5) - 1) / (exp(model[["z"]] / 0.5) + 1))
+    f <- ((2 * r) / (sqrt(1 - r^2))) / 2
+  }
+
+  out <- .F_to_pve(f, df = 1, df_error = model$df_error, ci = ci, es = paste0(type, "2"))
+  out$Parameter <- model$Parameter
+  out[c(ncol(out), 1:4)]
+}
+
+
+#' @keywords internal
 .anova_es.anova <- function(model,
                             type = c("eta", "omega", "epsilon"),
                             partial = TRUE,
