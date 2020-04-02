@@ -35,15 +35,17 @@ and Cohen's f (or their partialled versions) for \code{aov}, \code{aovlist}, \co
 and \code{merMod} models. These indices represent an estimate of how much variance in
 the response variables is accounted for by the explanatory variable(s).
 \cr\cr
-Effect sizes are based on \strong{Type-1} sums of saquares for \code{aov} and \code{aovlist}
-models, and \strong{Type-3} for \code{merMod} models. It is also generally recommended to
-fit models with \emph{\code{contr.sum} factor weights} and \emph{centered covariates}, for
-sensible results. See examples.
+Effect sizes are based on \strong{Type-1} sums of squares for \code{aov} and \code{aovlist}
+models, and \strong{Type-3} for \code{merMod} models. For \code{anova} tables, effect sizes
+are computed based on the table's sums of squares (whatever those may be). It is generally
+recommended to fit models with \emph{\code{contr.sum} factor weights} and
+\emph{centered covariates}, for sensible results. (\strong{\emph{Yeah... ANOVAs are hard...}})
+ See examples.
 }
 \details{
-For between-subjects ANOVAs, the effect sizes are computed directly with Sums-of-Squares.
-For all other cases, effect sizes are approsimated via test statistic conversion
-(see \code{\link{F_to_eta2} for more details.})
+For \code{aov} and \code{aovlist} models, the effect sizes are computed directly with
+Sums-of-Squares. For all other cases, effect sizes are approximated via test statistic
+conversion (see \code{\link{F_to_eta2} for more details.})
 
 \subsection{Confidence Intervals}{
 Confidence intervals are estimated using the Noncentrality parameter method;
@@ -53,7 +55,9 @@ and then convert these \code{ncp}s to the corresponding effect sizes.
 }
 
 \subsection{Omega Squared}{
-Omega squared is considered as a lesser biased alternative to eta-squared, especially when sample sizes are small (Albers \& Lakens, 2018). Field (2013) suggests the following interpretation heuristics:
+Omega squared is considered as a lesser biased alternative to eta-squared, especially
+when sample sizes are small (Albers \& Lakens, 2018). Field (2013) suggests the following
+interpretation heuristics:
 \itemize{
   \item Omega Squared = 0 - 0.01: Very small
   \item Omega Squared = 0.01 - 0.06: Small
@@ -62,10 +66,17 @@ Omega squared is considered as a lesser biased alternative to eta-squared, espec
 }
 
 } \subsection{Epsilon Squared}{
-It is one of the least common measures of effect sizes: omega squared and eta squared are used more frequently. Although having a different name and a formula in appearance different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).
+It is one of the least common measures of effect sizes: omega squared and eta squared are
+used more frequently. Although having a different name and a formula in appearance
+different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).
 
 } \subsection{Cohen's f}{
-Cohen's f statistic is one appropriate effect size index to use for a oneway analysis of variance (ANOVA). Cohen's f can take on values between zero, when the population means are all equal, and an indefinitely large number as standard deviation of means increases relative to the average standard deviation within each group. Cohen has suggested that the values of 0.10, 0.25, and 0.40 represent small, medium, and large effect sizes, respectively.
+Cohen's f statistic is one appropriate effect size index to use for a oneway analysis
+ of variance (ANOVA). Cohen's f can take on values between zero, when the population
+ means are all equal, and an indefinitely large number as standard deviation of means
+ increases relative to the average standard deviation within each group. Cohen has
+ suggested that the values of 0.10, 0.25, and 0.40 represent small, medium, and large
+ effect sizes, respectively.
 }
 }
 \examples{
