@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9</span>
       </span>
     </div>
 
@@ -141,10 +141,10 @@
 <pre><code>&gt; Anova Table (Type 3 tests)
 &gt; 
 &gt; Response: rt
-&gt;        Effect    df     MSE         F pes p.value
-&gt; 1       angle 2, 18 3560.00 40.72 *** .82  &lt;.0001
-&gt; 2       noise  1, 9 8460.00 33.77 *** .79   .0003
-&gt; 3 angle:noise 2, 18 1160.00 45.31 *** .83  &lt;.0001
+&gt;        Effect    df     MSE         F  pes p.value
+&gt; 1       angle 2, 18 3560.00 40.72 *** .819   &lt;.001
+&gt; 2       noise  1, 9 8460.00 33.77 *** .790   &lt;.001
+&gt; 3 angle:noise 2, 18 1160.00 45.31 *** .834   &lt;.001
 &gt; ---
 &gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1</code></pre>
 <p>Let’s compare the <span class="math inline">\(\eta^2_p\)</span> (the <code>pes</code> column) obtained here with ones recovered from <code><a href="../reference/F_to_eta2.html">F_to_eta2()</a></code>:</p>

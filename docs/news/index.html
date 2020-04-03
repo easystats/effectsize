@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9</span>
       </span>
     </div>
 
@@ -158,9 +158,9 @@
 <li>New general purpose <code><a href="../reference/effectsize.html">effectsize()</a></code> function.</li>
 <li>Effectsize for differences have CI methods, and return a data frame.</li>
 <li>Effectsize for ANOVA all have CI methods, and none are based on bootstrapping.</li>
-<li>New sffect sizes for contingency tables (<code><a href="../reference/phi.html">phi()</a></code> and <code><a href="../reference/phi.html">cramers_v()</a></code>).</li>
+<li>New effect sizes for contingency tables (<code><a href="../reference/phi.html">phi()</a></code> and <code><a href="../reference/phi.html">cramers_v()</a></code>).</li>
 <li>
-<code>chisq_to_phi/cramers_v()</code> functions now support CIs (via the ncp method), and return a data frame.</li>
+<code><a href="../reference/chisq_to_phi.html">chisq_to_phi()</a></code> / <code><a href="../reference/phi.html">cramers_v()</a></code> functions now support CIs (via the ncp method), and return a data frame.</li>
 <li>
 <code><a href="../reference/F_to_eta2.html">F_to_eta2()</a></code> family of functions now support CIs (via the ncp method), and return a data frame.</li>
 <li>
@@ -169,6 +169,14 @@
 <code><a href="../reference/standardize.html">standardize()</a></code> for model-objects has a default-method, which usually accepts all models. Exception for model-objects that do not work will be added if missing.</li>
 <li>
 <code><a href="../reference/standardize.html">standardize.data.frame()</a></code> gets <code>append</code> and <code>suffix</code> arguments, to add (instead of replace) standardized variables to the returned data frame.</li>
+<li>
+<code><a href="../reference/eta_squared.html">eta_squared()</a></code>, <code><a href="../reference/eta_squared.html">omega_squared()</a></code> and <code><a href="../reference/eta_squared.html">epsilon_squared()</a></code> now works
+<ul>
+<li>output from <code><a href="https://rdrr.io/pkg/parameters/man/model_parameters.html">parameters::model_parameters()</a></code>.</li>
+<li>
+<code>mlm</code> models.</li>
+</ul>
+</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">

@@ -31,21 +31,20 @@ A data frame containing the effect size values and their confidence intervals.
 }
 \description{
 Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared,
-and Cohen's f (or their partialled versions) for \code{aov}, \code{aovlist}, \code{anova},
-and \code{merMod} models. These indices represent an estimate of how much variance in
-the response variables is accounted for by the explanatory variable(s).
+and Cohen's f (or their partialled versions) for \code{aov}, \code{aovlist} and \code{anova}
+models. These indices represent an estimate of how much variance in the response variables
+is accounted for by the explanatory variable(s).
 \cr\cr
-Effect sizes are based on \strong{Type-1} sums of squares for \code{aov} and \code{aovlist}
-models, and \strong{Type-3} for \code{merMod} models. For \code{anova} tables, effect sizes
-are computed based on the table's sums of squares (whatever those may be). It is generally
-recommended to fit models with \emph{\code{contr.sum} factor weights} and
-\emph{centered covariates}, for sensible results. (\strong{\emph{Yeah... ANOVAs are hard...}})
- See examples.
+Effect sizes are based on the \code{anova()} sums of squares, which might not always be
+appropriate (whatever those may be). It is generally recommended to fit models with
+\emph{\code{contr.sum} factor weights} and \emph{centered covariates}, for sensible results.
+(\strong{\emph{Yeah... ANOVAs are hard...}})
 }
 \details{
 For \code{aov} and \code{aovlist} models, the effect sizes are computed directly with
-Sums-of-Squares. For all other cases, effect sizes are approximated via test statistic
-conversion (see \code{\link{F_to_eta2} for more details.})
+Sums-of-Squares. For all other model, the model is passed to \code{anova()}, and effect
+sizes are approximated via test statistic conversion (see \code{\link{F_to_eta2} for
+more details.})
 
 \subsection{Confidence Intervals}{
 Confidence intervals are estimated using the Noncentrality parameter method;

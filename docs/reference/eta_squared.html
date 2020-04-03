@@ -44,16 +44,14 @@
 
 <meta property="og:title" content="Effect size for ANOVA — eta_squared" />
 <meta property="og:description" content="Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared,
-and Cohen's f (or their partialled versions) for aov, aovlist, anova,
-and merMod models. These indices represent an estimate of how much variance in
-the response variables is accounted for by the explanatory variable(s).
+and Cohen's f (or their partialled versions) for aov, aovlist and anova
+models. These indices represent an estimate of how much variance in the response variables
+is accounted for by the explanatory variable(s).
 
-Effect sizes are based on Type-1 sums of squares for aov and aovlist
-models, and Type-3 for merMod models. For anova tables, effect sizes
-are computed based on the table's sums of squares (whatever those may be). It is generally
-recommended to fit models with contr.sum factor weights and
-centered covariates, for sensible results. (Yeah... ANOVAs are hard...)
- See examples." />
+Effect sizes are based on the anova() sums of squares, which might not always be
+appropriate (whatever those may be). It is generally recommended to fit models with
+contr.sum factor weights and centered covariates, for sensible results.
+(Yeah... ANOVAs are hard...)" />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -87,7 +85,7 @@ centered covariates, for sensible results. (Yeah... ANOVAs are hard...)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9</span>
       </span>
     </div>
 
@@ -161,16 +159,14 @@ centered covariates, for sensible results. (Yeah... ANOVAs are hard...)
 
     <div class="ref-description">
     <p>Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared,
-and Cohen's f (or their partialled versions) for <code>aov</code>, <code>aovlist</code>, <code>anova</code>,
-and <code>merMod</code> models. These indices represent an estimate of how much variance in
-the response variables is accounted for by the explanatory variable(s).
+and Cohen's f (or their partialled versions) for <code>aov</code>, <code>aovlist</code> and <code>anova</code>
+models. These indices represent an estimate of how much variance in the response variables
+is accounted for by the explanatory variable(s).
 <br /><br />
-Effect sizes are based on <strong>Type-1</strong> sums of squares for <code>aov</code> and <code>aovlist</code>
-models, and <strong>Type-3</strong> for <code>merMod</code> models. For <code>anova</code> tables, effect sizes
-are computed based on the table's sums of squares (whatever those may be). It is generally
-recommended to fit models with <em><code>contr.sum</code> factor weights</em> and
-<em>centered covariates</em>, for sensible results. (<strong><em>Yeah... ANOVAs are hard...</em></strong>)
- See examples.</p>
+Effect sizes are based on the <code><a href='https://rdrr.io/r/stats/anova.html'>anova()</a></code> sums of squares, which might not always be
+appropriate (whatever those may be). It is generally recommended to fit models with
+<em><code>contr.sum</code> factor weights</em> and <em>centered covariates</em>, for sensible results.
+(<strong><em>Yeah... ANOVAs are hard...</em></strong>)</p>
     </div>
 
     <pre class="usage"><span class='fu'>eta_squared</span>(<span class='no'>model</span>, <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='no'>...</span>)
@@ -209,8 +205,9 @@ recommended to fit models with <em><code>contr.sum</code> factor weights</em> an
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For <code>aov</code> and <code>aovlist</code> models, the effect sizes are computed directly with
-Sums-of-Squares. For all other cases, effect sizes are approximated via test statistic
-conversion (see <code><a href='F_to_eta2.html'>F_to_eta2</a> for more details.</code>)</p>
+Sums-of-Squares. For all other model, the model is passed to <code><a href='https://rdrr.io/r/stats/anova.html'>anova()</a></code>, and effect
+sizes are approximated via test statistic conversion (see <code><a href='F_to_eta2.html'>F_to_eta2</a> for
+more details.</code>)</p>
 <h3>Confidence Intervals</h3>
 <p>Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best <code>ncp</code> (non-central parameters) for
@@ -296,7 +293,6 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
   <span class='fu'><a href='https://rdrr.io/r/stats/contrasts.html'>contrasts</a></span>(<span class='no'>mtcars</span>$<span class='no'>cyl_f</span>) <span class='kw'>&lt;-</span> <span class='no'>contr.sum</span>
 
   <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>mpg</span> ~ <span class='no'>am_f</span> * <span class='no'>cyl_f</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
-
   <span class='no'>model_anova</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>car</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/car/man/Anova.html'>Anova</a></span>(<span class='no'>model</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fl'>3</span>)
 
   <span class='fu'>eta_squared</span>(<span class='no'>model_anova</span>)
@@ -310,10 +306,18 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
 #&gt; am_f       |           0.11 | [0.00, 0.32]
 #&gt; cyl_f      |           0.63 | [0.42, 0.75]
 #&gt; am_f:cyl_f |           0.10 | [0.00, 0.27]</div><div class='input'>
-
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"parameters"</span>)) {
+  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>mtcars</span>)
+  <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mpg</span> ~ <span class='no'>wt</span> + <span class='no'>cyl</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
+  <span class='no'>mp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/parameters/man/model_parameters.html'>model_parameters</a></span>(<span class='no'>model</span>)
+  <span class='fu'>eta_squared</span>(<span class='no'>mp</span>)
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: parameters</span></div><div class='output co'>#&gt; Parameter   | Eta_Sq_partial |       90% CI
+#&gt; -------------------------------------------
+#&gt; (Intercept) |           0.95 | [0.92, 0.97]
+#&gt; wt          |           0.38 | [0.16, 0.56]
+#&gt; cyl         |           0.31 | [0.10, 0.50]</div><div class='input'>
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>lmerTest</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
   <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lmerTest/man/lmer.html'>lmer</a></span>(<span class='no'>mpg</span> ~ <span class='no'>am_f</span> * <span class='no'>cyl_f</span> + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>vs</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
-
   <span class='fu'>omega_squared</span>(<span class='no'>model</span>)
 }</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: 'lmerTest'</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:lme4':</span>
@@ -325,7 +329,6 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
 #&gt; am_f       |             0.07 | [-0.04, 0.28]
 #&gt; cyl_f      |             0.60 | [ 0.36, 0.72]
 #&gt; am_f:cyl_f |             0.03 | [-0.07, 0.21]</div><div class='input'># }
-
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
