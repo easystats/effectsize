@@ -48,6 +48,18 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_warning(omega_squared(model, partial = FALSE))
     testthat::expect_warning(epsilon_squared(model, partial = FALSE))
   })
+
+  test_that("mlm / anova table", {
+
+    mtcars$am_f <- factor(mtcars$am)
+    mtcars$cyl_f <- factor(mtcars$cyl)
+
+    mod <- lm(cbind(mpg, qsec) ~ am_f * cyl_f, data = mtcars)
+
+    testthat::expect_equal(eta_squared(mod)$Eta_Sq_partial,
+                           c(0.674, 0.413, 0.050),
+                           tol = 0.001)
+  })
 }
 
 
