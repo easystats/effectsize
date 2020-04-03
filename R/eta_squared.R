@@ -1,16 +1,14 @@
 #' Effect size for ANOVA
 #'
 #' Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared,
-#' and Cohen's f (or their partialled versions) for \code{aov}, \code{aovlist}, \code{anova},
-#' and \code{merMod} models. These indices represent an estimate of how much variance in
-#' the response variables is accounted for by the explanatory variable(s).
+#' and Cohen's f (or their partialled versions) for \code{aov}, \code{aovlist} and \code{anova}
+#' models. These indices represent an estimate of how much variance in the response variables
+#' is accounted for by the explanatory variable(s).
 #' \cr\cr
-#' Effect sizes are based on \strong{Type-1} sums of squares for \code{aov} and \code{aovlist}
-#' models, and \strong{Type-3} for \code{merMod} models. For \code{anova} tables, effect sizes
-#' are computed based on the table's sums of squares (whatever those may be). It is generally
-#' recommended to fit models with \emph{\code{contr.sum} factor weights} and
-#' \emph{centered covariates}, for sensible results. (\strong{\emph{Yeah... ANOVAs are hard...}})
-#'  See examples.
+#' Effect sizes are based on the \code{anova()} sums of squares, which might not always be
+#' appropriate (whatever those may be). It is generally recommended to fit models with
+#' \emph{\code{contr.sum} factor weights} and \emph{centered covariates}, for sensible results.
+#' (\strong{\emph{Yeah... ANOVAs are hard...}})
 #'
 #' @param model An model or ANOVA object.
 #' @param partial If \code{TRUE}, return partial indices.
@@ -22,8 +20,9 @@
 #' @details
 #'
 #' For \code{aov} and \code{aovlist} models, the effect sizes are computed directly with
-#' Sums-of-Squares. For all other cases, effect sizes are approximated via test statistic
-#' conversion (see \code{\link{F_to_eta2} for more details.})
+#' Sums-of-Squares. For all other model, the model is passed to \code{anova()}, and effect
+#' sizes are approximated via test statistic conversion (see \code{\link{F_to_eta2} for
+#' more details.})
 #'
 #' \subsection{Confidence Intervals}{
 #' Confidence intervals are estimated using the Noncentrality parameter method;
@@ -189,7 +188,8 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                    omega = F_to_omega2,
                    epsilon = F_to_epsilon2)
 
-  if (!inherits(model, c("Gam", "aov", "anova", "anova.rms"))) {
+  if (!inherits(model, c("Gam", "aov", "anova", "anova.rms")) ||
+      inherits(model, "mlm")) {
     # Pass to ANOVA table method
     res <- .anova_es.anova(
       stats::anova(model),
@@ -350,7 +350,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                    epsilon = F_to_epsilon2)
   model <- model[rownames(model) != "(Intercept)", ]
 
-  if (!"DenDF" %in% colnames(model)) {
+  if (!any(c("DenDF", "den Df") %in% colnames(model))) {
     # Pass to AOV method
     res <- .anova_es.aov(model,
                          partial = partial,
@@ -359,11 +359,19 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
     return(res)
   }
 
+  model <- model[rownames(model) != "Residuals", ]
+
+  F_val <- c("F value", "approx F")[c("F value", "approx F") %in% colnames(model)]
+  numDF <- c("NumDF", "num Df")[c("NumDF", "num Df") %in% colnames(model)]
+  denDF <- c("DenDF", "den Df")[c("DenDF", "den Df") %in% colnames(model)]
+
+
+
   if (isFALSE(partial)) {
     warning(
       "Currently only supports partial ",
       type,
-      " squared for repeated-measures ANOVAs.",
+      " squared for repeated-measures / multi-variate ANOVAs",
       call. = FALSE
     )
   }
@@ -372,9 +380,9 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
 
   out <- cbind(
     Parameter = rownames(par_table),
-    es_fun(par_table$`F value`,
-           par_table$NumDF,
-           par_table$DenDF,
+    es_fun(par_table[[F_val]],
+           par_table[[numDF]],
+           par_table[[denDF]],
            ci = ci)
   )
 
