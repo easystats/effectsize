@@ -303,7 +303,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                                        ...) {
   type <- match.arg(type)
 
-  if ("Group" %in% colnames(model)) {
+  if ("Group" %in% colnames(model) && sum(model$Parameter == "Residuals") > 1) {
     x <- split(model, model$Group)
     out <- do.call(rbind, lapply(x, function(i) {
       f <- i[["F"]]
