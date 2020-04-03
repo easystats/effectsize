@@ -5,12 +5,10 @@
 #' models. These indices represent an estimate of how much variance in the response variables
 #' is accounted for by the explanatory variable(s).
 #' \cr\cr
-#' Effect sizes are based on the \code{anova()} sums of squares, which might not always be
-#' appropriate (whatever those may be). It is generally recommended to fit models with
-#' \emph{\code{contr.sum} factor weights} and \emph{centered covariates}, for sensible results.
-#' (\strong{\emph{Yeah... ANOVAs are hard...}})
+#' Effect sizes are computed using the sums of squares obtained from \code{anova(model)} which
+#' might not always be appropriate (\strong{\emph{Yeah... ANOVAs are hard...}}). See details.
 #'
-#' @param model An model or ANOVA object.
+#' @param model A model, ANOVA object, or the result of \code{parameters::model_parameters}.
 #' @param partial If \code{TRUE}, return partial indices.
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods (ignored).
@@ -23,6 +21,17 @@
 #' Sums-of-Squares. For all other model, the model is passed to \code{anova()}, and effect
 #' sizes are approximated via test statistic conversion (see \code{\link{F_to_eta2} for
 #' more details.})
+#'
+#' \subsection{Type of Sums of Squares}{
+#' The sums of squares (or F statistics) used for the computation of the effect sizes is
+#' based on those returned by \code{anova(model)} (whatever those may be - for \code{aov}
+#' and \code{aovlist} these are \emph{type-1} sums of squares; for \code{merMod} these are
+#' \emph{type-3} sums of squares). Make sure these are the sums of squares you are intrested
+#' in (you might want to pass the result of \code{car::Anova(mode, type = 3)}).
+#' \cr\cr
+#' It is generally recommended to fit models with \emph{\code{contr.sum} factor weights} and
+#' \emph{centered covariates}, for sensible results. See examples.
+#' }
 #'
 #' \subsection{Confidence Intervals}{
 #' Confidence intervals are estimated using the Noncentrality parameter method;
@@ -48,8 +57,7 @@
 #' different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).
 #'
 #' } \subsection{Cohen's f}{
-#' Cohen's f statistic is one appropriate effect size index to use for a oneway analysis
-#'  of variance (ANOVA). Cohen's f can take on values between zero, when the population
+#' Cohen's f can take on values between zero, when the population
 #'  means are all equal, and an indefinitely large number as standard deviation of means
 #'  increases relative to the average standard deviation within each group. Cohen has
 #'  suggested that the values of 0.10, 0.25, and 0.40 represent small, medium, and large
@@ -294,67 +302,6 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
 #' @keywords internal
 .anova_es.glm <- .anova_es.aov
 
-#' @importFrom stats na.omit
-#' @keywords internal
-.anova_es.parameters_model <- function(model,
-                                       type = c("eta", "omega", "epsilon"),
-                                       partial = TRUE,
-                                       ci = 0.9,
-                                       ...) {
-  type <- match.arg(type)
-
-  if ("Group" %in% colnames(model) && sum(model$Parameter == "Residuals") > 1) {
-    x <- split(model, model$Group)
-    out <- do.call(rbind, lapply(x, function(i) {
-      f <- i[["F"]]
-      df_num <- i[["df"]][!is.na(f)]
-      df_error <- i[i$Parameter == "Residuals", "df"]
-      cbind(
-        data.frame(Group = unique(i$Group), stringsAsFactors = FALSE),
-        .anova_es_model_params(i, f, df_num, df_error, type, ci)
-      )
-    }))
-  } else {
-    if ("t" %in% colnames(model)) {
-      f <- model[["t"]]^2
-    }
-    if ("F" %in% colnames(model)) {
-      f <- model[["F"]]
-    }
-    if ("z" %in% colnames(model)) {
-      stop("Cannot compute effect size from models with no proper residual variance. Consider the estimates themselves as indices of effect size.")
-    }
-
-    df_col <- colnames(model)[colnames(model) %in% c("df", "Df", "NumDF")]
-    if (length(df_col)) {
-      df_num <- model[[df_col]][!is.na(f)]
-    } else {
-      df_num <- 1
-    }
-
-    if ("df_error" %in% colnames(model)) {
-      df_error <- model$df_error
-    } else if ("Residuals" %in% model$Parameter) {
-      df_error <- model[model$Parameter == "Residuals", df_col]
-    } else {
-      stop("Cannot extract degrees of freedom for the error term. Try passing the model object directly to 'eta_squared()'.")
-    }
-    out <- .anova_es_model_params(model, f, df_num, df_error, type, ci)
-  }
-
-  class(out) <- c("effectsize_table", "data.frame")
-  out
-}
-
-
-.anova_es_model_params <- function(model, f, df_num, df_error, type, ci) {
-  out <- .F_to_pve(stats::na.omit(f), df = df_num, df_error = df_error, ci = ci, es = paste0(type, "2"))
-  out$Parameter <- model$Parameter[!is.na(f)]
-  out[c(ncol(out), 1:(ncol(out) - 1))]
-}
-
-
-
 
 #' @keywords internal
 .anova_es.anova <- function(model,
@@ -485,6 +432,69 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   model <- lmerTest::as_lmerModLmerTest(model)
   model <- stats::anova(model)
   .anova_es.anova(model, type = type, partial = partial, ci = ci, ...)
+}
+
+#' @importFrom stats na.omit
+#' @keywords internal
+.anova_es.parameters_model <- function(model,
+                                       type = c("eta", "omega", "epsilon"),
+                                       partial = TRUE,
+                                       ci = 0.9,
+                                       ...) {
+  type <- match.arg(type)
+
+  if ("Group" %in% colnames(model) && sum(model$Parameter == "Residuals") > 1) {
+    x <- split(model, model$Group)
+    out <- do.call(rbind, lapply(x, function(i) {
+      f <- i[["F"]]
+      df_num <- i[["df"]][!is.na(f)]
+      df_error <- i[i$Parameter == "Residuals", "df"]
+      cbind(
+        data.frame(Group = unique(i$Group), stringsAsFactors = FALSE),
+        .anova_es_model_params(i, f, df_num, df_error, type, ci)
+      )
+    }))
+  } else {
+    if ("t" %in% colnames(model)) {
+      f <- model[["t"]]^2
+    }
+    if ("F" %in% colnames(model)) {
+      f <- model[["F"]]
+    }
+    if ("z" %in% colnames(model)) {
+      stop("Cannot compute effect size from models with no proper residual variance. Consider the estimates themselves as indices of effect size.")
+    }
+
+    df_col <- colnames(model)[colnames(model) %in% c("df", "Df", "NumDF")]
+    if (length(df_col)) {
+      df_num <- model[[df_col]][!is.na(f)]
+    } else {
+      df_num <- 1
+    }
+
+    if ("df_error" %in% colnames(model)) {
+      df_error <- model$df_error
+    } else if ("Residuals" %in% model$Parameter) {
+      df_error <- model[model$Parameter == "Residuals", df_col]
+    } else {
+      stop("Cannot extract degrees of freedom for the error term. Try passing the model object directly to 'eta_squared()'.")
+    }
+    out <- .anova_es_model_params(model, f, df_num, df_error, type, ci)
+  }
+
+  class(out) <- c("effectsize_table", "data.frame")
+  out
+}
+
+
+# Utils -------------------------------------------------------------------
+
+#' @keywords internal
+.anova_es_model_params <- function(model, f, df_num, df_error, type, ci) {
+  #used by .anova_es.parameters_model
+  out <- .F_to_pve(stats::na.omit(f), df = df_num, df_error = df_error, ci = ci, es = paste0(type, "2"))
+  out$Parameter <- model$Parameter[!is.na(f)]
+  out[c(ncol(out), 1:(ncol(out) - 1))]
 }
 
 
