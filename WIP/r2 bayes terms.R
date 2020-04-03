@@ -129,18 +129,23 @@ library(rstanarm)
 library(effectsize)
 library(bayestestR)
 
-freq_mod <- lm(Sepal.Length ~ Sepal.Width + Petal.Length * Species,
-               data = iris)
-
-
-eta_squared(car::Anova(freq_mod, type = 3), partial = F)
-
 
 # Bayesian take 1:
 bayes_mod2 <- stan_glm(Sepal.Length ~ Sepal.Width + Petal.Length * Species,
                        data = iris,
                        refresh = 0)
 
+options(contrasts = c('contr.sum', 'contr.poly'))
+freq_mod <- lm(Sepal.Length ~ Sepal.Width + Petal.Length * Species,
+               data = iris)
+
+
+
+
+eta_squared(car::Anova(freq_mod, type = 3), partial = F)
+
 R2s <- r2_bayes_term(bayes_mod2)
 ############# NOPE ####################
 describe_posterior(R2s, ci = 0.9, test = NULL)
+round(.Last.value$Median,3)
+performance::r2(bayes_mod2)
