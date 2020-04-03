@@ -161,14 +161,14 @@ t_to_f <- function(t, df_error, ci = 0.9, ...){
 
 #' @keywords internal
 .F_to_pve <- function(f, df, df_error, ci, es){
-  switch (es,
-          eta2 = {
-            es_f <- function(.f, df, df_error) {
-              (.f * df) / (.f * df + df_error)
-            }
-            es_name <- "Eta_Sq_partial"
-          },
-          epsilon2 = {
+  switch(es,
+         eta2 = {
+           es_f <- function(.f, df, df_error) {
+             (.f * df) / (.f * df + df_error)
+           }
+           es_name <- "Eta_Sq_partial"
+         },
+         epsilon2 = {
             es_f <- function(.f, df, df_error) {
               ((.f - 1) * df) / (.f * df + df_error)
             }

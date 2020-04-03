@@ -83,20 +83,23 @@
 #'   contrasts(mtcars$cyl_f) <- contr.sum
 #'
 #'   model <- aov(mpg ~ am_f * cyl_f, data = mtcars)
-#'
 #'   model_anova <- car::Anova(model, type = 3)
 #'
 #'   eta_squared(model_anova)
 #' }
 #'
+#' if (require("parameters")) {
+#'   data(mtcars)
+#'   model <- lm(mpg ~ wt + cyl, data = mtcars)
+#'   mp <- model_parameters(model)
+#'   eta_squared(mp)
+#' }
 #'
 #' if (require(lmerTest, quietly = TRUE)) {
 #'   model <- lmer(mpg ~ am_f * cyl_f + (1|vs), data = mtcars)
-#'
 #'   omega_squared(model)
 #' }
 #' }
-#'
 #' @return A data frame containing the effect size values and their confidence intervals.
 #'
 #'
@@ -181,10 +184,10 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                           ci = 0.9,
                           ...) {
   type <- match.arg(type)
-  es_fun <- switch (type,
-                    eta = F_to_eta2,
-                    omega = F_to_omega2,
-                    epsilon = F_to_epsilon2)
+  es_fun <- switch(type,
+                   eta = F_to_eta2,
+                   omega = F_to_omega2,
+                   epsilon = F_to_epsilon2)
 
   if (!inherits(model, c("Gam", "aov", "anova", "anova.rms"))) {
     # Pass to ANOVA table method
@@ -291,6 +294,49 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
 #' @keywords internal
 .anova_es.glm <- .anova_es.aov
 
+#' @importFrom stats na.omit
+#' @keywords internal
+.anova_es.parameters_model <- function(model,
+                                       type = c("eta", "omega", "epsilon"),
+                                       partial = TRUE,
+                                       ci = 0.9,
+                                       ...) {
+  type <- match.arg(type)
+
+  if ("t" %in% colnames(model)) {
+    f <- model[["t"]]^2
+  }
+
+  if ("F" %in% colnames(model)) {
+    f <- model[["F"]]
+  }
+
+  if ("z" %in% colnames(model)) {
+    stop("Cannot compute effect size from models with no proper residual variance. Consider the estimates themselves as indices of effect size.")
+  }
+
+  df_col <- colnames(model)[colnames(model) %in% c("df", "Df", "NumDF")]
+  if (length(df_col)) {
+    df_num <- model[[df_col]][!is.na(f)]
+  } else {
+    df_num <- 1
+  }
+
+
+  if ("df_error" %in% colnames(model)) {
+    df_error <- model$df_error
+  } else if ("Residuals" %in% model$Parameter) {
+    df_error <- model[model$Parameter == "Residuals", df_col]
+  } else {
+    stop("Cannot extract degrees of freedom for the error term. Try passing the model object directly to 'eta_squared()'.")
+  }
+
+  out <- .F_to_pve(stats::na.omit(f), df = df_num, df_error = df_error, ci = ci, es = paste0(type, "2"))
+  out$Parameter <- model$Parameter[!is.na(f)]
+  out[c(ncol(out), 1:4)]
+}
+
+
 #' @keywords internal
 .anova_es.anova <- function(model,
                             type = c("eta", "omega", "epsilon"),
@@ -298,10 +344,10 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                             ci = 0.9,
                             ...) {
   type <- match.arg(type)
-  es_fun <- switch (type,
-                    eta = F_to_eta2,
-                    omega = F_to_omega2,
-                    epsilon = F_to_epsilon2)
+  es_fun <- switch(type,
+                   eta = F_to_eta2,
+                   omega = F_to_omega2,
+                   epsilon = F_to_epsilon2)
   model <- model[rownames(model) != "(Intercept)", ]
 
   if (!"DenDF" %in% colnames(model)) {
@@ -344,10 +390,10 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                               ci = 0.9,
                               ...) {
   type <- match.arg(type)
-  es_fun <- switch (type,
-                    eta = F_to_eta2,
-                    omega = F_to_omega2,
-                    epsilon = F_to_epsilon2)
+  es_fun <- switch(type,
+                   eta = F_to_eta2,
+                   omega = F_to_omega2,
+                   epsilon = F_to_epsilon2)
 
 
   if (isFALSE(partial)) {
