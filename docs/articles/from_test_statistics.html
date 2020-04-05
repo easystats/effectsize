@@ -279,9 +279,11 @@
 &gt; 0.58 | [0.47, 0.66]
 &gt; 0.92 | [0.89, 0.93]</code></pre>
 <p>to:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1">ppcor<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/ppcor/man/pcor.html">pcor</a></span>(iris[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>])<span class="op">$</span>estimate[<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span>]</a></code></pre></div>
-<pre><code>&gt;  Sepal.Width Petal.Length 
-&gt;         0.58         0.92</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1">correlation<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/correlation/man/correlation.html">correlation</a></span>(iris[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="dt">partial =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">7</span><span class="op">:</span><span class="dv">8</span>)]</a></code></pre></div>
+<pre><code>&gt; Parameter1   |   Parameter2 |    r |           CI
+&gt; -------------------------------------------------
+&gt; Sepal.Length |  Sepal.Width | 0.58 | [0.46, 0.68]
+&gt; Sepal.Length | Petal.Length | 0.92 | [0.88, 0.94]</code></pre>
 </div>
 <div id="in-contrast-analysis" class="section level3">
 <h3 class="hasAnchor">

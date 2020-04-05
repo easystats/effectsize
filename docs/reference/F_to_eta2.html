@@ -85,7 +85,7 @@ See Effect Size from Test Statistics vignette." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9</span>
       </span>
     </div>
 
@@ -270,10 +270,10 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 #&gt; <span class='message'>    lmer</span></div><div class='output co'>#&gt; Anova Table (Type 3 tests)
 #&gt; 
 #&gt; Response: rt
-#&gt;        Effect    df     MSE         F pes p.value
-#&gt; 1       angle 2, 18 3560.00 40.72 *** .82  &lt;.0001
-#&gt; 2       noise  1, 9 8460.00 33.77 *** .79   .0003
-#&gt; 3 angle:noise 2, 18 1160.00 45.31 *** .83  &lt;.0001
+#&gt;        Effect    df     MSE         F  pes p.value
+#&gt; 1       angle 2, 18 3560.00 40.72 *** .819   &lt;.001
+#&gt; 2       noise  1, 9 8460.00 33.77 *** .790   &lt;.001
+#&gt; 3 angle:noise 2, 18 1160.00 45.31 *** .834   &lt;.001
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1</div><div class='input'><span class='co'># compare to:</span>
 <span class='fu'>F_to_eta2</span>(
@@ -302,26 +302,15 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 #&gt; -------------------------------
 #&gt;             1.35 | [0.57, 2.08]</div><div class='input'>
 <span class='co'>## Use with emmeans based contrasts</span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>emmeans</span>) <span class='kw'>&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>dplyr</span>)) {
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>emmeans</span>)) {
   <span class='no'>warp.lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>breaks</span> ~ <span class='no'>wool</span> * <span class='no'>tension</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>warpbreaks</span>)
 
-  <span class='fu'><a href='https://rdrr.io/pkg/emmeans/man/joint_tests.html'>joint_tests</a></span>(<span class='no'>warp.lm</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"wool"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_cols</a></span>(<span class='fu'>F_to_eta2</span>(<span class='no'>.</span>$<span class='no'>F.ratio</span>, <span class='no'>.</span>$<span class='no'>df1</span>, <span class='no'>.</span>$<span class='no'>df2</span>))
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: emmeans</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: dplyr</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: 'dplyr'</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:car':</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    recode</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from 'package:stats':</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from 'package:base':</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='output co'>#&gt; wool = A:
-#&gt;  model term df1 df2 F.ratio p.value Eta_Sq_partial  CI    CI_low   CI_high
-#&gt;  tension      2  48  10.312 0.0002      0.30053626 0.9 0.1196468 0.4479451
-#&gt; 
-#&gt; wool = B:
-#&gt;  model term df1 df2 F.ratio p.value Eta_Sq_partial  CI    CI_low   CI_high
-#&gt;  tension      2  48   2.375 0.1039      0.09004739 0.9 0.0000000 0.2197384
-#&gt; </div><div class='input'># }
+  <span class='no'>jt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/emmeans/man/joint_tests.html'>joint_tests</a></span>(<span class='no'>warp.lm</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"wool"</span>)
+  <span class='fu'>F_to_eta2</span>(<span class='no'>jt</span>$<span class='no'>F.ratio</span>, <span class='no'>jt</span>$<span class='no'>df1</span>, <span class='no'>jt</span>$<span class='no'>df2</span>)
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: emmeans</span></div><div class='output co'>#&gt; Eta_Sq_partial |       90% CI
+#&gt; -----------------------------
+#&gt;           0.30 | [0.12, 0.45]
+#&gt;           0.09 | [0.00, 0.22]</div><div class='input'># }
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

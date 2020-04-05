@@ -301,7 +301,12 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
   <span class='no'>model_anova</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>car</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/car/man/Anova.html'>Anova</a></span>(<span class='no'>model</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fl'>3</span>)
 
   <span class='fu'>eta_squared</span>(<span class='no'>model_anova</span>)
-}</div><div class='output co'>#&gt; Parameter  | Eta_Sq_partial |       90% CI
+}</div><div class='output co'>#&gt; <span class='message'>Registered S3 methods overwritten by 'car':</span>
+#&gt; <span class='message'>  method                          from</span>
+#&gt; <span class='message'>  influence.merMod                lme4</span>
+#&gt; <span class='message'>  cooks.distance.influence.merMod lme4</span>
+#&gt; <span class='message'>  dfbeta.influence.merMod         lme4</span>
+#&gt; <span class='message'>  dfbetas.influence.merMod        lme4</span></div><div class='output co'>#&gt; Parameter  | Eta_Sq_partial |       90% CI
 #&gt; ------------------------------------------
 #&gt; am_f       |           0.11 | [0.00, 0.32]
 #&gt; cyl_f      |           0.63 | [0.42, 0.75]
@@ -320,9 +325,9 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
   <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lmerTest/man/lmer.html'>lmer</a></span>(<span class='no'>mpg</span> ~ <span class='no'>am_f</span> * <span class='no'>cyl_f</span> + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>vs</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
   <span class='fu'>omega_squared</span>(<span class='no'>model</span>)
 }</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘lmerTest’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:lme4’:</span>
+#&gt; <span class='message'>Attaching package: 'lmerTest'</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:lme4':</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    lmer</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stats’:</span>
+#&gt; <span class='message'>    lmer</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:stats':</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    step</span></div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; Parameter  | Omega_Sq_partial |        90% CI
 #&gt; ---------------------------------------------
