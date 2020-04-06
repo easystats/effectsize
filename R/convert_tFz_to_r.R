@@ -59,18 +59,16 @@
 #' t_to_r(param_tab$t[2:3], param_tab$df_error[2:3])
 #'
 #' # How does this compare to actual partial correlations?
-#' if (require("ppcor")) {
-#'   pcor(iris[1:3])$estimate[1, -1]
+#' if (require("correlation")) {
+#'   correlation::correlation(iris[,1:3], partial = TRUE)[1:2, c(2,3,7,8)]
 #' }
 #'
 #' ## Use with emmeans based contrasts (see also t_to_eta2)
-#' if (require(emmeans) & require(dplyr)) {
+#' if (require(emmeans)) {
 #'   warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
 #'
-#'   emmeans(warp.lm,  ~ tension | wool) %>%
-#'     contrast("pairwise") %>%
-#'     summary() %>%
-#'     bind_cols(t_to_d(.$t.ratio, .$df))
+#'   conts <- summary(pairs(emmeans(warp.lm,  ~ tension | wool)))
+#'   t_to_d(conts$t.ratio, conts$df)
 #' }
 #'
 #' }

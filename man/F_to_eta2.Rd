@@ -112,11 +112,11 @@ if (require("lmerTest")) { # for the df_error
 }
 
 ## Use with emmeans based contrasts
-if (require(emmeans) & require(dplyr)) {
+if (require(emmeans)) {
   warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
 
-  joint_tests(warp.lm, by = "wool") \%>\%
-    bind_cols(F_to_eta2(.$F.ratio, .$df1, .$df2))
+  jt <- joint_tests(warp.lm, by = "wool")
+  F_to_eta2(jt$F.ratio, jt$df1, jt$df2)
 }
 }
 }

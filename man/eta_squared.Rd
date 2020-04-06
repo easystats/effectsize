@@ -16,7 +16,7 @@ epsilon_squared(model, partial = TRUE, ci = 0.9, ...)
 cohens_f(model, partial = TRUE, ci = 0.9, ...)
 }
 \arguments{
-\item{model}{An model or ANOVA object.}
+\item{model}{A model, ANOVA object, or the result of \code{parameters::model_parameters}.}
 
 \item{partial}{If \code{TRUE}, return partial indices.}
 
@@ -31,21 +31,29 @@ A data frame containing the effect size values and their confidence intervals.
 }
 \description{
 Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared,
-and Cohen's f (or their partialled versions) for \code{aov}, \code{aovlist}, \code{anova},
-and \code{merMod} models. These indices represent an estimate of how much variance in
-the response variables is accounted for by the explanatory variable(s).
+and Cohen's f (or their partialled versions) for \code{aov}, \code{aovlist} and \code{anova}
+models. These indices represent an estimate of how much variance in the response variables
+is accounted for by the explanatory variable(s).
 \cr\cr
-Effect sizes are based on \strong{Type-1} sums of squares for \code{aov} and \code{aovlist}
-models, and \strong{Type-3} for \code{merMod} models. For \code{anova} tables, effect sizes
-are computed based on the table's sums of squares (whatever those may be). It is generally
-recommended to fit models with \emph{\code{contr.sum} factor weights} and
-\emph{centered covariates}, for sensible results. (\strong{\emph{Yeah... ANOVAs are hard...}})
- See examples.
+Effect sizes are computed using the sums of squares obtained from \code{anova(model)} which
+might not always be appropriate (\strong{\emph{Yeah... ANOVAs are hard...}}). See details.
 }
 \details{
 For \code{aov} and \code{aovlist} models, the effect sizes are computed directly with
-Sums-of-Squares. For all other cases, effect sizes are approximated via test statistic
-conversion (see \code{\link{F_to_eta2} for more details.})
+Sums-of-Squares. For all other model, the model is passed to \code{anova()}, and effect
+sizes are approximated via test statistic conversion (see \code{\link{F_to_eta2} for
+more details.})
+
+\subsection{Type of Sums of Squares}{
+The sums of squares (or F statistics) used for the computation of the effect sizes is
+based on those returned by \code{anova(model)} (whatever those may be - for \code{aov}
+and \code{aovlist} these are \emph{type-1} sums of squares; for \code{merMod} these are
+\emph{type-3} sums of squares). Make sure these are the sums of squares you are intrested
+in (you might want to pass the result of \code{car::Anova(mode, type = 3)}).
+\cr\cr
+It is generally recommended to fit models with \emph{\code{contr.sum} factor weights} and
+\emph{centered covariates}, for sensible results. See examples.
+}
 
 \subsection{Confidence Intervals}{
 Confidence intervals are estimated using the Noncentrality parameter method;
@@ -71,8 +79,7 @@ used more frequently. Although having a different name and a formula in appearan
 different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).
 
 } \subsection{Cohen's f}{
-Cohen's f statistic is one appropriate effect size index to use for a oneway analysis
- of variance (ANOVA). Cohen's f can take on values between zero, when the population
+Cohen's f can take on values between zero, when the population
  means are all equal, and an indefinitely large number as standard deviation of means
  increases relative to the average standard deviation within each group. Cohen has
  suggested that the values of 0.10, 0.25, and 0.40 represent small, medium, and large

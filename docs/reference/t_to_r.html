@@ -81,7 +81,7 @@ See Effect Size from Test Statistics vignette." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9</span>
       </span>
     </div>
 
@@ -284,34 +284,26 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 #&gt; 0.58 | [0.47, 0.66]
 #&gt; 0.92 | [0.89, 0.93]</div><div class='input'>
 <span class='co'># How does this compare to actual partial correlations?</span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"ppcor"</span>)) {
-  <span class='fu'><a href='https://rdrr.io/pkg/ppcor/man/pcor.html'>pcor</a></span>(<span class='no'>iris</span>[<span class='fl'>1</span>:<span class='fl'>3</span>])$<span class='no'>estimate</span>[<span class='fl'>1</span>, -<span class='fl'>1</span>]
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: ppcor</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: MASS</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: 'MASS'</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:dplyr':</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    select</span></div><div class='output co'>#&gt;  Sepal.Width Petal.Length 
-#&gt;    0.5781005    0.9153894 </div><div class='input'>
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"correlation"</span>)) {
+  <span class='kw pkg'>correlation</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/correlation/man/correlation.html'>correlation</a></span>(<span class='no'>iris</span>[,<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)[<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>7</span>,<span class='fl'>8</span>)]
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: correlation</span></div><div class='output co'>#&gt; Parameter2   |    r |           CI
+#&gt; ----------------------------------
+#&gt; Sepal.Width  | 0.58 | [0.46, 0.68]
+#&gt; Petal.Length | 0.92 | [0.88, 0.94]</div><div class='input'>
 <span class='co'>## Use with emmeans based contrasts (see also t_to_eta2)</span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>emmeans</span>) <span class='kw'>&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>dplyr</span>)) {
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>emmeans</span>)) {
   <span class='no'>warp.lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>breaks</span> ~ <span class='no'>wool</span> * <span class='no'>tension</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>warpbreaks</span>)
 
-  <span class='fu'><a href='https://rdrr.io/pkg/emmeans/man/emmeans.html'>emmeans</a></span>(<span class='no'>warp.lm</span>,  ~ <span class='no'>tension</span> <span class='kw'>|</span> <span class='no'>wool</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://rdrr.io/pkg/emmeans/man/contrast.html'>contrast</a></span>(<span class='st'>"pairwise"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>() <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_cols</a></span>(<span class='fu'>t_to_d</span>(<span class='no'>.</span>$<span class='no'>t.ratio</span>, <span class='no'>.</span>$<span class='no'>df</span>))
-}</div><div class='output co'>#&gt; wool = A:
-#&gt;  contrast estimate   SE df t.ratio p.value       d   CI  CI_low CI_high
-#&gt;  L - M      20.556 5.16 48  3.986  0.0007   1.1506 0.95  0.5348   1.756
-#&gt;  L - H      20.000 5.16 48  3.878  0.0009   1.1195 0.95  0.5061   1.723
-#&gt;  M - H      -0.556 5.16 48 -0.108  0.9936  -0.0311 0.95 -0.5968   0.535
-#&gt; 
-#&gt; wool = B:
-#&gt;  contrast estimate   SE df t.ratio p.value       d   CI  CI_low CI_high
-#&gt;  L - M      -0.556 5.16 48 -0.108  0.9936  -0.0311 0.95 -0.5968   0.535
-#&gt;  L - H       9.444 5.16 48  1.831  0.1704   0.5286 0.95 -0.0496   1.102
-#&gt;  M - H      10.000 5.16 48  1.939  0.1389   0.5597 0.95 -0.0198   1.134
-#&gt; 
-#&gt; P value adjustment: tukey method for comparing a family of 3 estimates </div><div class='input'>
+  <span class='no'>conts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='fu'><a href='https://rdrr.io/r/graphics/pairs.html'>pairs</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/emmeans/man/emmeans.html'>emmeans</a></span>(<span class='no'>warp.lm</span>,  ~ <span class='no'>tension</span> <span class='kw'>|</span> <span class='no'>wool</span>)))
+  <span class='fu'>t_to_d</span>(<span class='no'>conts</span>$<span class='no'>t.ratio</span>, <span class='no'>conts</span>$<span class='no'>df</span>)
+}</div><div class='output co'>#&gt;     d |        95% CI
+#&gt; ---------------------
+#&gt;  1.15 | [ 0.53, 1.76]
+#&gt;  1.12 | [ 0.51, 1.72]
+#&gt; -0.03 | [-0.60, 0.53]
+#&gt; -0.03 | [-0.60, 0.53]
+#&gt;  0.53 | [-0.05, 1.10]
+#&gt;  0.56 | [-0.02, 1.13]</div><div class='input'>
 # }
 </div></pre>
   </div>

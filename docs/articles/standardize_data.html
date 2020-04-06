@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.9</span>
       </span>
     </div>
 
@@ -324,11 +324,12 @@ sample estimates:
 <a class="sourceLine" id="cb19-18" title="18">      <span class="kw">print_model</span>(Z_VariableWise),</a>
 <a class="sourceLine" id="cb19-19" title="19">      <span class="kw">print_model</span>(Z_ParticipantWise),</a>
 <a class="sourceLine" id="cb19-20" title="20">      <span class="kw">print_model</span>(Z_Full))</a></code></pre></div>
-<pre><code>               Type Coefficient    p
-1                df       0.090 0.17
-2    Z_VariableWise       0.068 0.17
-3 Z_ParticipantWise       0.082 0.08
-4            Z_Full       0.082 0.08</code></pre>
+<pre><code>Type              | Coefficient |     p
+---------------------------------------
+df                |        0.09 | 0.173
+Z_VariableWise    |        0.07 | 0.173
+Z_ParticipantWise |        0.08 | 0.080
+Z_Full            |        0.08 | 0.080</code></pre>
 <p>As we can see, <strong>variable-wise</strong> standardization only affects <strong>the coefficient</strong> (which is expected, as it changes the unit), but not the <strong>test statistics</strong> (the <em>p</em>-value, in this case). However, using <strong>participant-wise</strong> standardization <strong>does</strong> affect the coefficient <strong>and the <em>p</em>-value</strong>. No method is better or more justified, and its choice depends on the specific case, context, data and goal.</p>
 </div>
 <div id="conclusion" class="section level1">
