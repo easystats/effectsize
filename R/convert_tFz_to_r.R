@@ -8,7 +8,6 @@
 #' \cr
 #' See \href{https://easystats.github.io/effectsize/articles/from_test_statistics.html}{Effect Size from Test Statistics vignette.}
 #'
-#' @param r The correlation coefficient r.
 #' @param t,f,z The t, the F or the z statistics.
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
 #' @param n The number of observations (the sample size).

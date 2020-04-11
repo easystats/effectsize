@@ -53,8 +53,6 @@ convert_F_to_r(f, df, df_error, ci = 0.95, ...)
 \item{n}{The number of observations (the sample size).}
 
 \item{df, df_error}{Degrees of freedom of numerator or of the error estimate (i.e., the residuals).}
-
-\item{r}{The correlation coefficient r.}
 }
 \value{
 A data frame with the effect size(s) between 0-1, and confidence interval(s)

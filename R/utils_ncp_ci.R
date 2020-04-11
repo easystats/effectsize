@@ -1,6 +1,8 @@
 
 #' @keywords internal
 #' @importFrom stats pf
+#' @importFrom stats qf
+#' @importFrom stats optim
 .get_ncp_F <- function(f, df, df_error, conf.level = 0.9) {
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)
@@ -27,6 +29,8 @@
 
 #' @keywords internal
 #' @importFrom stats pt
+#' @importFrom stats qt
+#' @importFrom stats optim
 .get_ncp_t <- function(t, df_error, conf.level = 0.95) {
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)
@@ -48,6 +52,8 @@
 
 #' @keywords internals
 #' @importFrom stats pchisq
+#' @importFrom stats qchisq
+#' @importFrom stats optim
 .get_ncp_chi <- function(chi, df, conf.level = 0.95) {
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)
