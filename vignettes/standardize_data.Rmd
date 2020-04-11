@@ -133,7 +133,7 @@ print_summary(Z_Full)
 The **means** and the **SD** appear as fairly similar (0 and 1)...
 
 ##  Distribution
-```{r, fig.width=7, fig.height=4.5, eval = TRUE, results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
+```{r, fig.width=7, fig.height=4.5, eval = requireNamespace("KernSmooth", quietly = TRUE), results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
 library(bayestestR)
 library(see)
 
