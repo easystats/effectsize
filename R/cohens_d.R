@@ -202,6 +202,8 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
 
 
 #' @keywords internal
+#' @importFrom stats terms
+#' @importFrom stats delete.response
 .deal_with_cohens_d_arguments <- function(x, y = NULL, data = NULL) {
 
   # Sanity checks
@@ -215,9 +217,9 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
 
   # Formula
   if (inherits(x, "formula")) {
-    trms <- terms(x)
+    trms <- stats::terms(x)
 
-    group <- all.vars(delete.response(trms))
+    group <- all.vars(stats::delete.response(trms))
     outcome <- setdiff(all.vars(trms),group)
 
     if (!(length(outcome) == 1 & length(group) == 1)) {

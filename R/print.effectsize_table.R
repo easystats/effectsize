@@ -1,5 +1,5 @@
 #' @export
-print.effectsize_table <- function(x, digits = 2){
+print.effectsize_table <- function(x, digits = 2, ...){
   x_orig <- x
 
   if ("CI" %in% colnames(x)) {
