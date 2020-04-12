@@ -1,6 +1,6 @@
 #' Conversion between Effect sizes for Contingency Tables (Chi2, Phi, Cramer's V...)
 #'
-#' Convert between Chi square, (\eqn{chi^2}), phi (\eqn{\phi}) and Cramer's V.
+#' Convert between Chi square, (\eqn{\chi^2}), phi (\eqn{\phi}) and Cramer's V.
 #'
 #' @param chisq The Chi2 statistic.
 #' @param phi The Phi statistic.

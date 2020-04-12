@@ -20,7 +20,7 @@
 #' \subsection{Confidence Intervals}{
 #' Confidence intervals are estimated using the Noncentrality parameter method;
 #' These methods searches for a the best \code{ncp} (non-central parameters) for
-#' of the noncentral F distribution for the desired tail-probabilities,
+#' of the noncentral t distribution for the desired tail-probabilities,
 #' and then convert these \code{ncp}s to the corresponding effect sizes.
 #' }
 #'
