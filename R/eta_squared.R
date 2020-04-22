@@ -434,6 +434,46 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   .anova_es.anova(model, type = type, partial = partial, ci = ci, ...)
 }
 
+#' @keywords internal
+#' @importFrom stats anova
+.anova_es.gam <- function(model,
+                          type = c("eta", "omega", "epsilon"),
+                          partial = TRUE,
+                          ci = 0.9,
+                          ...) {
+  type <- match.arg(type)
+  es_fun <- switch(type,
+                   eta = F_to_eta2,
+                   omega = F_to_omega2,
+                   epsilon = F_to_epsilon2)
+
+  if (isFALSE(partial)) {
+    warning(
+      "Currently only supports partial ",
+      type,
+      " squared for repeated-measures / multi-variate ANOVAs",
+      call. = FALSE
+    )
+  }
+
+  model <- stats::anova(model)
+
+  tab <- data.frame(model$s.table)
+
+  out <- cbind(
+    Parameter = rownames(tab),
+    es_fun(
+      f = tab$`F`,
+      df = tab$Ref.df,
+      df_error = model$residual.df,
+      ci = ci
+    )
+  )
+  class(out) <- unique(c("effectsize_table", class(out)))
+  out
+}
+
+
 #' @importFrom stats na.omit
 #' @keywords internal
 .anova_es.parameters_model <- function(model,

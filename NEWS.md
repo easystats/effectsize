@@ -1,3 +1,9 @@
+# effectsize 0.3.1
+
+## New features
+
+- `eta_squared()`, `omega_squared()` and `epsilon_squared()` now works with `gam` models.
+
 # effectsize 0.3.0
 
 ## New features
