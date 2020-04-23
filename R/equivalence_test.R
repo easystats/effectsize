@@ -75,7 +75,7 @@ equivalence_test.effectsize_table <- function(x, range = "default", rule = c("cl
     stop("CI values missing from effect size table.", call. = FALSE)
   }
 
-  if (range == "default") {
+  if (any(range == "default")) {
     range <- c(-0.1, 0.1)
   }
   range <- sort(range)
