@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Equivalence test — equivalence_test.effectsize_table • effectsize</title>
+<title>Test for Practical Equivalence — equivalence_test.effectsize_table • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Equivalence test — equivalence_test.effectsize_table" />
-<meta property="og:description" content="Compute the equivalence test for frequentist models." />
+<meta property="og:title" content="Test for Practical Equivalence — equivalence_test.effectsize_table" />
+<meta property="og:description" content="Perform a Test for Practical Equivalence for indices of effect size." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -152,13 +152,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Equivalence test</h1>
+    <h1>Test for Practical Equivalence</h1>
     <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/equivalence_test.R'><code>R/equivalence_test.R</code></a></small>
     <div class="hidden name"><code>equivalence_test.effectsize_table.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Compute the equivalence test for frequentist models.</p>
+    <p>Perform a <strong>Test for Practical Equivalence</strong> for indices of effect size.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for effectsize_table</span>
@@ -186,6 +186,14 @@ the lower bound is set to 0. If <code>"default"</code>, will be set to <code>[-.
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A data frame.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    
+<ul>
+<li><p>Campbell, H., &amp; Gustafson, P. (2018). Conditional equivalence testing: An alternative remedy for publication bias. PLOS ONE, 13(4), e0195145. https://doi.org/10.1371/journal.pone.0195145</p></li>
+<li><p>Lakens, D. (2017). Equivalence Tests: A Practical Primer for t Tests, Correlations, and Meta-Analyses. Social Psychological and Personality Science, 8(4), 355–362. https://doi.org/10.1177/1948550617697177</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>For more details, see <code><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></code>.</p></div>
@@ -203,7 +211,7 @@ the lower bound is set to 0. If <code>"default"</code>, will be set to <code>[-.
 #&gt;  0.03 | [-0.12,  0.19] |  Accepted
 #&gt; -0.06 | [-0.23,  0.11] | Undecided
 #&gt; -0.15 | [-0.28, -0.02] |  Rejected
-#&gt;  0.10 | [ 0.01,  0.19] |  Accepted</div><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>see</span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>equi</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: see</span></div><div class='img'><img src='equivalence_test.effectsize_table-1.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt;  0.10 | [ 0.01,  0.19] |  Accepted</div><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>see</span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>equi</span>)</div><div class='img'><img src='equivalence_test.effectsize_table-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>mpg</span> ~ <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>am</span>) * <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
 <span class='no'>es</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eta_squared.html'>eta_squared</a></span>(<span class='no'>model</span>)

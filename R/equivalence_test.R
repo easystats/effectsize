@@ -2,9 +2,9 @@
 #' @export
 bayestestR::equivalence_test
 
-#' @title Equivalence test
+#' @title Test for Practical Equivalence
 #'
-#' @description Compute the equivalence test for frequentist models.
+#' @description Perform a \strong{Test for Practical Equivalence} for indices of effect size.
 #'
 #' @param x An effect size table, such as returned by \code{cohens_d, eta_squared, F_to_r}, etc.
 #' @param range The range of practical equivalence of an effect. If a single value is provided,
@@ -15,6 +15,12 @@ bayestestR::equivalence_test
 #' @seealso For more details, see \code{\link[bayestestR:equivalence_test]{equivalence_test}}.
 #'
 #' @return A data frame.
+#'
+#' @references
+#' \itemize{
+#'   \item Campbell, H., & Gustafson, P. (2018). Conditional equivalence testing: An alternative remedy for publication bias. PLOS ONE, 13(4), e0195145. https://doi.org/10.1371/journal.pone.0195145
+#'   \item Lakens, D. (2017). Equivalence Tests: A Practical Primer for t Tests, Correlations, and Meta-Analyses. Social Psychological and Personality Science, 8(4), 355–362. https://doi.org/10.1177/1948550617697177
+#' }
 #'
 #' @examples
 #'

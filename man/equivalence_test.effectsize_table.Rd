@@ -2,7 +2,7 @@
 % Please edit documentation in R/equivalence_test.R
 \name{equivalence_test.effectsize_table}
 \alias{equivalence_test.effectsize_table}
-\title{Equivalence test}
+\title{Test for Practical Equivalence}
 \usage{
 \method{equivalence_test}{effectsize_table}(x, range = "default", ...)
 }
@@ -19,7 +19,7 @@ the lower bound is set to 0. If \code{"default"}, will be set to \code{[-.1, .1]
 A data frame.
 }
 \description{
-Compute the equivalence test for frequentist models.
+Perform a \strong{Test for Practical Equivalence} for indices of effect size.
 }
 \examples{
 
@@ -34,6 +34,12 @@ es <- eta_squared(model)
 (equi <- equivalence_test(es, range = 0.15))
 if (require(see)) plot(equi)
 
+}
+\references{
+\itemize{
+  \item Campbell, H., & Gustafson, P. (2018). Conditional equivalence testing: An alternative remedy for publication bias. PLOS ONE, 13(4), e0195145. https://doi.org/10.1371/journal.pone.0195145
+  \item Lakens, D. (2017). Equivalence Tests: A Practical Primer for t Tests, Correlations, and Meta-Analyses. Social Psychological and Personality Science, 8(4), 355–362. https://doi.org/10.1177/1948550617697177
+}
 }
 \seealso{
 For more details, see \code{\link[bayestestR:equivalence_test]{equivalence_test}}.
