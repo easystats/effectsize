@@ -200,9 +200,21 @@ the lower bound is set to 0. If <code>"default"</code>, will be set to <code>[-.
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
+<span class='co'># \donttest{</span>
+<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>mpg</span> ~ <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>am</span>) * <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
+<span class='no'>es</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eta_squared.html'>eta_squared</a></span>(<span class='no'>model</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='no'>es</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fl'>0.15</span>)</div><div class='output co'>#&gt; <span style='color: #0000BB;'># Test for Practical Equivalence
+#&gt; 
+#&gt; </span><span>  ROPE: [0.00 0.15]
+#&gt; 
+#&gt; Parameter              | Eta_Sq_partial |       90% CI |        H0
+#&gt; ------------------------------------------------------------------
+#&gt; factor(am)             |           0.63 | [0.42, 0.75] |  Rejected
+#&gt; factor(cyl)            |           0.66 | [0.45, 0.77] |  Rejected
+#&gt; factor(am):factor(cyl) |           0.10 | [0.00, 0.27] | Undecided</div><div class='input'>
 <span class='no'>ds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='t_to_r.html'>t_to_d</a></span>(<span class='kw'>t</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.45</span>, -<span class='fl'>0.65</span>, -<span class='fl'>2.2</span>, <span class='fl'>2.25</span>),
              <span class='kw'>df_error</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>675</span>, <span class='fl'>525</span>, <span class='fl'>900</span>, <span class='fl'>1875</span>))
-(<span class='no'>equi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='no'>ds</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fl'>0.2</span>))</div><div class='output co'>#&gt; <span style='color: #0000BB;'># Test for Practical Equivalence
+(<span class='no'>equi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='no'>ds</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fl'>0.2</span>))</div><div class='output co'>#&gt; </span><span style='color: #0000BB;'># Test for Practical Equivalence
 #&gt; 
 #&gt; </span><span>  ROPE: [-0.20 0.20]
 #&gt; 
@@ -211,19 +223,10 @@ the lower bound is set to 0. If <code>"default"</code>, will be set to <code>[-.
 #&gt;  0.03 | [-0.12,  0.19] |  Accepted
 #&gt; -0.06 | [-0.23,  0.11] | Undecided
 #&gt; -0.15 | [-0.28, -0.02] |  Rejected
-#&gt;  0.10 | [ 0.01,  0.19] |  Accepted</div><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>see</span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>equi</span>)</div><div class='img'><img src='equivalence_test.effectsize_table-1.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt;  0.10 | [ 0.01,  0.19] |  Accepted</div><div class='input'>
+<span class='co'># Can also plot</span>
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>see</span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>equi</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: see</span></div><div class='img'><img src='equivalence_test.effectsize_table-1.png' alt='' width='700' height='433' /></div><div class='input'># }
 
-<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>mpg</span> ~ <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>am</span>) * <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
-<span class='no'>es</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='eta_squared.html'>eta_squared</a></span>(<span class='no'>model</span>)
-(<span class='no'>equi</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='no'>es</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fl'>0.15</span>))</div><div class='output co'>#&gt; </span><span style='color: #0000BB;'># Test for Practical Equivalence
-#&gt; 
-#&gt; </span><span>  ROPE: [0.00 0.15]
-#&gt; 
-#&gt; Parameter              | Eta_Sq_partial |       90% CI |        H0
-#&gt; ------------------------------------------------------------------
-#&gt; factor(am)             |           0.63 | [0.42, 0.75] |  Rejected
-#&gt; factor(cyl)            |           0.66 | [0.45, 0.77] |  Rejected
-#&gt; factor(am):factor(cyl) |           0.10 | [0.00, 0.27] | Undecided</div><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>see</span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>equi</span>)</div><div class='img'><img src='equivalence_test.effectsize_table-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

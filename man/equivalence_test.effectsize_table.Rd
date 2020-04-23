@@ -23,16 +23,18 @@ Perform a \strong{Test for Practical Equivalence} for indices of effect size.
 }
 \examples{
 
+\donttest{
+model <- aov(mpg ~ factor(am) * factor(cyl), data = mtcars)
+es <- eta_squared(model)
+equivalence_test(es, range = 0.15)
+
 ds <- t_to_d(t = c(0.45, -0.65, -2.2, 2.25),
              df_error = c(675, 525, 900, 1875))
 (equi <- equivalence_test(ds, range = 0.2))
-if (require(see)) plot(equi)
 
-
-model <- aov(mpg ~ factor(am) * factor(cyl), data = mtcars)
-es <- eta_squared(model)
-(equi <- equivalence_test(es, range = 0.15))
+# Can also plot
 if (require(see)) plot(equi)
+}
 
 }
 \references{
