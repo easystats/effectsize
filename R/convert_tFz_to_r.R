@@ -55,7 +55,9 @@
 #' library(parameters)
 #' (param_tab <- parameters(model))
 #'
-#' t_to_r(param_tab$t[2:3], param_tab$df_error[2:3])
+#' (rs <- t_to_r(param_tab$t[2:3], param_tab$df_error[2:3]))
+#'
+#' if(require(see)) plot(rs)
 #'
 #' # How does this compare to actual partial correlations?
 #' if (require("correlation")) {

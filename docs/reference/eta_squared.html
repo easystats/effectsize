@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -51,7 +55,6 @@ is accounted for by the explanatory variable(s).
 Effect sizes are computed using the sums of squares obtained from anova(model) which
 might not always be appropriate (Yeah... ANOVAs are hard...). See details." />
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -69,7 +72,7 @@ might not always be appropriate (Yeah... ANOVAs are hard...). See details." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -83,7 +86,7 @@ might not always be appropriate (Yeah... ANOVAs are hard...). See details." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.1</span>
       </span>
     </div>
 
@@ -136,7 +139,12 @@ might not always be appropriate (Yeah... ANOVAs are hard...). See details." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/easystats/effectsize/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -151,7 +159,7 @@ might not always be appropriate (Yeah... ANOVAs are hard...). See details." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Effect size for ANOVA</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/eta_squared.R'><code>R/eta_squared.R</code></a></small>
     <div class="hidden name"><code>eta_squared.Rd</code></div>
     </div>
 
@@ -268,11 +276,7 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
 #&gt; ------------------------------------------
 #&gt; am_f       |           0.63 | [0.42, 0.75]
 #&gt; cyl_f      |           0.66 | [0.45, 0.77]
-#&gt; am_f:cyl_f |           0.10 | [0.00, 0.27]</div><div class='input'><span class='fu'>eta_squared</span>(<span class='no'>model</span>, <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; Parameter  | Eta_Sq |       90% CI
-#&gt; ----------------------------------
-#&gt; am_f       |   0.36 | [0.14, 0.54]
-#&gt; cyl_f      |   0.41 | [0.16, 0.57]
-#&gt; am_f:cyl_f |   0.02 | [0.00, 0.12]</div><div class='input'><span class='fu'>omega_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter  | Omega_Sq_partial |        90% CI
+#&gt; am_f:cyl_f |           0.10 | [0.00, 0.27]</div><div class='input'><span class='fu'>omega_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter  | Omega_Sq_partial |        90% CI
 #&gt; ---------------------------------------------
 #&gt; am_f       |             0.57 | [ 0.39, 0.73]
 #&gt; cyl_f      |             0.60 | [ 0.40, 0.74]
@@ -284,7 +288,13 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
 #&gt; --------------------------------------------
 #&gt; am_f       |             1.30 | [0.86, 1.73]
 #&gt; cyl_f      |             1.38 | [0.90, 1.81]
-#&gt; am_f:cyl_f |             0.33 | [0.00, 0.61]</div><div class='input'>
+#&gt; am_f:cyl_f |             0.33 | [0.00, 0.61]</div><div class='input'>(<span class='no'>etas</span> <span class='kw'>&lt;-</span> <span class='fu'>eta_squared</span>(<span class='no'>model</span>, <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>))</div><div class='output co'>#&gt; Parameter  | Eta_Sq |       90% CI
+#&gt; ----------------------------------
+#&gt; am_f       |   0.36 | [0.14, 0.54]
+#&gt; cyl_f      |   0.41 | [0.16, 0.57]
+#&gt; am_f:cyl_f |   0.02 | [0.00, 0.12]</div><div class='input'>
+<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>see</span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>etas</span>)</div><div class='img'><img src='eta_squared-1.png' alt='' width='700' height='433' /></div><div class='input'>
+
 <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>mpg</span> ~ <span class='no'>cyl_f</span> * <span class='no'>am_f</span> + <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>Error</a></span>(<span class='no'>vs</span> / <span class='no'>am_f</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
 <span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Group  |  Parameter | Epsilon_Sq_partial |        90% CI
 #&gt; --------------------------------------------------------
@@ -336,17 +346,10 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
 #&gt; am_f:cyl_f |             0.03 | [-0.07, 0.21]</div><div class='input'># }
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -357,7 +360,7 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

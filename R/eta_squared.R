@@ -75,10 +75,13 @@
 #' model <- aov(mpg ~ am_f * cyl_f, data = mtcars)
 #'
 #' eta_squared(model)
-#' eta_squared(model, partial = FALSE)
 #' omega_squared(model)
 #' epsilon_squared(model)
 #' cohens_f(model)
+#' (etas <- eta_squared(model, partial = FALSE))
+#'
+#' if(require(see)) plot(etas)
+#'
 #'
 #' model <- aov(mpg ~ cyl_f * am_f + Error(vs / am_f), data = mtcars)
 #' epsilon_squared(model)

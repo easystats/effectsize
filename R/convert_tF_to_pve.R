@@ -49,11 +49,13 @@
 #'   )
 #' }
 #' # compare to:
-#' F_to_eta2(
+#' (etas <- F_to_eta2(
 #'   f = c(40.72, 33.77, 45.31),
 #'   df = c(2, 1, 2),
 #'   df_error = c(18, 9, 18)
-#' )
+#' ))
+#'
+#' if(require(see)) plot(etas)
 #'
 #'
 #' if (require("lmerTest")) { # for the df_error
