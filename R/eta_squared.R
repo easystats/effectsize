@@ -190,14 +190,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                           partial = TRUE,
                           ci = 0.9,
                           ...) {
-  type <- match.arg(type)
-  es_fun <- switch(type,
-                   eta = F_to_eta2,
-                   omega = F_to_omega2,
-                   epsilon = F_to_epsilon2)
-
-  if (!inherits(model, c("Gam", "aov", "anova", "anova.rms")) ||
-      inherits(model, "mlm")) {
+  if (!inherits(model, c("Gam", "anova", "anova.rms"))) {
     # Pass to ANOVA table method
     res <- .anova_es.anova(
       stats::anova(model),
@@ -207,6 +200,12 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
     )
     return(res)
   }
+
+  type <- match.arg(type)
+  es_fun <- switch(type,
+                   eta = F_to_eta2,
+                   omega = F_to_omega2,
+                   epsilon = F_to_epsilon2)
 
   params <- as.data.frame(parameters::model_parameters(model))
   if (!"Residuals" %in% params$Parameter) {
@@ -415,6 +414,21 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
 
   class(out) <- unique(c("effectsize_table", class(out)))
   out
+}
+
+#' @keywords internal
+#' @importFrom stats anova
+.anova_es.mlm <- function(model,
+                             type = c("eta", "omega", "epsilon"),
+                             partial = TRUE,
+                             ci = 0.9,
+                             ...) {
+  .anova_es.anova(
+    stats::anova(model),
+    type = type,
+    partial = partial,
+    ci = ci
+  )
 }
 
 #' @keywords internal
