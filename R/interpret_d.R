@@ -33,7 +33,7 @@ interpret_d <- function(d, rules = "funder2019") {
     } else if (rules == "sawilowsky2009") {
       return(interpret(abs(d), rules(c(0.1, 0.2, 0.5, 0.8, 1.2, 2), c("tiny", "very small", "small", "medium", "large", "very large", "huge"))))
     } else {
-      stop("rules must be 'cohen1988', 'sawilowsky2009' or an object of type rules.")
+      stop("rules must be 'funder2019', 'gignac2016','cohen1988', 'sawilowsky2009' or an object of type rules.")
     }
   }
 }

@@ -36,6 +36,7 @@ reference:
   - ranktransform
 - title: "Interpretation"
   contents:
+  - equivalence_test.effectsize_table
   - interpret
   - interpret_d
   - interpret_r
@@ -56,6 +57,7 @@ reference:
   - adjust
   - format_standardize
   - sd_pooled
+  - is_effectsize_name
 
 
 navbar:

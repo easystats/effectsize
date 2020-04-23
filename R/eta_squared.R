@@ -75,10 +75,13 @@
 #' model <- aov(mpg ~ am_f * cyl_f, data = mtcars)
 #'
 #' eta_squared(model)
-#' eta_squared(model, partial = FALSE)
 #' omega_squared(model)
 #' epsilon_squared(model)
 #' cohens_f(model)
+#' (etas <- eta_squared(model, partial = FALSE))
+#'
+#' if(require(see)) plot(etas)
+#'
 #'
 #' model <- aov(mpg ~ cyl_f * am_f + Error(vs / am_f), data = mtcars)
 #' epsilon_squared(model)
@@ -125,7 +128,9 @@ eta_squared <- function(model,
                         partial = TRUE,
                         ci = 0.9,
                         ...) {
-  .anova_es(model, type = "eta", partial = partial, ci = ci)
+  out <- .anova_es(model, type = "eta", partial = partial, ci = ci)
+  class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
+  return(out)
 }
 
 #' @rdname eta_squared
@@ -134,7 +139,9 @@ omega_squared <- function(model,
                           partial = TRUE,
                           ci = 0.9,
                           ...) {
-  .anova_es(model, type = "omega", partial = partial, ci = ci)
+  out <- .anova_es(model, type = "omega", partial = partial, ci = ci)
+  class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
+  return(out)
 }
 
 #' @rdname eta_squared
@@ -143,7 +150,9 @@ epsilon_squared <- function(model,
                             partial = TRUE,
                             ci = 0.9,
                             ...) {
-  .anova_es(model, type = "epsilon", partial = partial, ci = ci)
+  out <- .anova_es(model, type = "epsilon", partial = partial, ci = ci)
+  class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
+  return(out)
 }
 
 #' @rdname eta_squared
@@ -183,6 +192,21 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   }
 
 #' @keywords internal
+#' @importFrom stats anova
+.anova_es.default <- function(model,
+                              type = c("eta", "omega", "epsilon"),
+                              partial = TRUE,
+                              ci = 0.9,
+                              ...) {
+  .anova_es.anova(
+    stats::anova(model),
+    type = type,
+    partial = partial,
+    ci = ci
+  )
+}
+
+#' @keywords internal
 #' @importFrom parameters model_parameters
 #' @importFrom stats anova
 .anova_es.aov <- function(model,
@@ -190,14 +214,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                           partial = TRUE,
                           ci = 0.9,
                           ...) {
-  type <- match.arg(type)
-  es_fun <- switch(type,
-                   eta = F_to_eta2,
-                   omega = F_to_omega2,
-                   epsilon = F_to_epsilon2)
-
-  if (!inherits(model, c("Gam", "aov", "anova", "anova.rms")) ||
-      inherits(model, "mlm")) {
+  if (!inherits(model, c("Gam", "anova", "anova.rms"))) {
     # Pass to ANOVA table method
     res <- .anova_es.anova(
       stats::anova(model),
@@ -207,6 +224,12 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
     )
     return(res)
   }
+
+  type <- match.arg(type)
+  es_fun <- switch(type,
+                   eta = F_to_eta2,
+                   omega = F_to_omega2,
+                   epsilon = F_to_epsilon2)
 
   params <- as.data.frame(parameters::model_parameters(model))
   if (!"Residuals" %in% params$Parameter) {
@@ -290,8 +313,6 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
     eta_ci[[1]] <- NULL
     out <- cbind(out, eta_ci)
   }
-
-  class(out) <- unique(c("effectsize_table", class(out)))
   out
 
 }
@@ -352,7 +373,6 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
            ci = ci)
   )
 
-  class(out) <- unique(c("effectsize_table", class(out)))
   out
 }
 
@@ -413,8 +433,22 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   ), drop = FALSE]
   rownames(out) <- NULL
 
-  class(out) <- unique(c("effectsize_table", class(out)))
   out
+}
+
+#' @keywords internal
+#' @importFrom stats anova
+.anova_es.mlm <- function(model,
+                             type = c("eta", "omega", "epsilon"),
+                             partial = TRUE,
+                             ci = 0.9,
+                             ...) {
+  .anova_es.anova(
+    stats::anova(model),
+    type = type,
+    partial = partial,
+    ci = ci
+  )
 }
 
 #' @keywords internal
@@ -433,6 +467,100 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   model <- stats::anova(model)
   .anova_es.anova(model, type = type, partial = partial, ci = ci, ...)
 }
+
+#' @keywords internal
+#' @importFrom stats anova
+.anova_es.gam <- function(model,
+                          type = c("eta", "omega", "epsilon"),
+                          partial = TRUE,
+                          ci = 0.9,
+                          ...) {
+  type <- match.arg(type)
+  es_fun <- switch(type,
+                   eta = F_to_eta2,
+                   omega = F_to_omega2,
+                   epsilon = F_to_epsilon2)
+
+  if (isFALSE(partial)) {
+    warning(
+      "Currently only supports partial ",
+      type,
+      " squared for repeated-measures / multi-variate ANOVAs",
+      call. = FALSE
+    )
+  }
+
+  model <- stats::anova(model)
+
+  tab <- data.frame(model$s.table)
+
+  out <- cbind(
+    Parameter = rownames(tab),
+    es_fun(
+      f = tab$`F`,
+      df = tab$Ref.df,
+      df_error = model$residual.df,
+      ci = ci
+    )
+  )
+
+  out
+}
+
+#' @keywords internal
+.anova_es.afex_aov <- function(model,
+                               type = c("eta", "omega", "epsilon"),
+                               partial = TRUE,
+                               ci = 0.9,
+                               ...) {
+  type <- match.arg(type)
+  es_fun <- switch (type,
+                    eta = F_to_eta2,
+                    omega = F_to_omega2,
+                    epsilon = F_to_epsilon2)
+
+
+  # if (!is.null(model$aov)) {
+  #   out <- .anova_es(model$aov, type = type, partial = partial, ci = ci)
+  #   return(out)
+  # }
+
+  if (isFALSE(partial)) {
+    warning("Currently only supports partial ",
+            type,
+            " squared for afex-models.",
+            call. = FALSE)
+  }
+
+
+  if (!requireNamespace("afex", quietly = TRUE)) {
+    stop(
+      "Package 'lmerTest' required for this function to work. ",
+      "Please install it by running `install.packages('afex')`."
+    )
+  }
+  model <- afex::nice(model,
+                      correction = "none",
+                      sig_symbols  = rep("", 4))
+
+  f <- as.numeric(model$`F`)
+  dfs <- lapply(strsplit(model$df, ","), as.numeric)
+  df1 <- sapply(dfs, `[`, 1)
+  df2 <- sapply(dfs, `[`, 2)
+
+  out <- cbind(
+    Parameter = model$Effect,
+    es_fun(
+      f,
+      df1,
+      df2,
+      ci = ci
+    )
+  )
+
+  return(out)
+}
+
 
 #' @importFrom stats na.omit
 #' @keywords internal
@@ -482,10 +610,8 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
     out <- .anova_es_model_params(model, f, df_num, df_error, type, ci)
   }
 
-  class(out) <- c("effectsize_table", "data.frame")
   out
 }
-
 
 # Utils -------------------------------------------------------------------
 
@@ -497,54 +623,3 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   out[c(ncol(out), 1:(ncol(out) - 1))]
 }
 
-
-### Requires more work to get the type 3 working...
-### Last worked on Mar 29, 2020 by MSB
-#' #' @keywords internal
-#' .anova_es.afex_aov <- function(model,
-#'                                type = c("eta", "omega", "epsilon"),
-#'                                partial = TRUE,
-#'                                ci = 0.9,
-#'                                ...) {
-#'   if (!is.null(model$aov)) {
-#'     out <- .anova_es(model$aov, type = type, partial = partial, ci = ci)
-#'     return(out)
-#'   } else if (length(attr(model, "within")) == 0) {
-#'     out <- .anova_es(model$lm, type = type, partial = partial, ci = ci)
-#'     return(out)
-#'   }
-#'
-#'   type <- match.arg(type)
-#'   es_fun <- switch (type,
-#'                     eta = F_to_eta2,
-#'                     omega = F_to_omega2,
-#'                     epsilon = F_to_epsilon2)
-#'
-#'   if (isFALSE(partial)) {
-#'     # not really true
-#'     warning(
-#'       "Currently only supports partial ",
-#'       type,
-#'       " squared for repeated-measures ANOVAs.",
-#'       call. = FALSE
-#'     )
-#'   }
-#'
-#'   anova_table <- fit$Anova
-#'   anova_table <- suppressWarnings(summary(anova_table)$univariate.tests)
-#'   anova_table <- as.data.frame(unclass(anova_table))
-#'
-#'   out <- cbind(
-#'     Parameter = rownames(anova_table),
-#'     es_fun(
-#'       anova_table$`F value`,
-#'       anova_table$`num Df`,
-#'       anova_table$`den Df`,
-#'       ci = ci
-#'     )
-#'   )
-#'
-#'   out <- out[out$Parameter != "(Intercept)", , drop = FALSE]
-#'   class(out) <- unique(c("effectsize_table", class(out)))
-#'   return(out)
-#' }

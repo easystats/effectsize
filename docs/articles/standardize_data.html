@@ -12,20 +12,20 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Data Standardization">
-<meta property="og:description" content="">
+<meta property="og:description" content="effectsize">
 <meta property="og:image" content="/logo.png">
-<meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.1</span>
       </span>
     </div>
 
@@ -90,7 +90,14 @@
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/easystats/effectsize/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -103,10 +110,10 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Data Standardization</h1>
+      <h1 data-toc-skip>Data Standardization</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/vignettes/standardize_data.Rmd"><code>vignettes/standardize_data.Rmd</code></a></small>
       <div class="hidden name"><code>standardize_data.Rmd</code></div>
 
     </div>
@@ -143,43 +150,43 @@
 <a href="#the-data" class="anchor"></a>The data</h1>
 <p>We will take the <code>emotion</code> dataset in which participants were exposed to negative pictures and had to rate their emotions (<strong>valence</strong>) and the amount of memories associated with the picture (<strong>autobiographical link</strong>). One could make the hypothesis that for young participants with no context of war or violence, the most negative pictures (mutilations) are less related to memories than less negative pictures (involving for example car crashes or sick people). In other words, <strong>we expect a positive relationship between valence</strong> (with high values corresponding to less negativity) <strong>and autobiographical link</strong>.</p>
 <p>Let’s have a look at the data, averaged by participants:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb1-2" title="2"></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="co"># Download the 'emotion' dataset</span></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="kw"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/connections.html">url</a></span>(<span class="st">"https://raw.github.com/neuropsychology/psycho.R/master/data/emotion.rda"</span>))  </a>
-<a class="sourceLine" id="cb1-5" title="5">  </a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="co"># Discard neutral pictures (keep only negative)</span></a>
-<a class="sourceLine" id="cb1-7" title="7">df &lt;-<span class="st"> </span>emotion <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-8" title="8"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(Emotion_Condition <span class="op">==</span><span class="st"> "Negative"</span>)  </a>
-<a class="sourceLine" id="cb1-9" title="9"></a>
-<a class="sourceLine" id="cb1-10" title="10"><span class="co"># Summary</span></a>
-<a class="sourceLine" id="cb1-11" title="11">df <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-12" title="12"><span class="st">  </span><span class="kw">group_by</span>(Participant_ID) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-13" title="13"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n_Trials =</span> <span class="kw">n</span>(),</a>
-<a class="sourceLine" id="cb1-14" title="14">            <span class="dt">Valence_Mean =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(Subjective_Valence, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1-15" title="15">            <span class="dt">Valence_SD =</span> <span class="kw"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(Subjective_Valence, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1-16" title="16">            <span class="dt">Autobiographical_Link_Mean =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(Autobiographical_Link, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1-17" title="17">            <span class="dt">Autobiographical_Link_SD =</span> <span class="kw"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(Autobiographical_Link, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+
+<span class="co"># Download the 'emotion' dataset</span>
+<span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/connections.html">url</a></span>(<span class="st">"https://raw.github.com/neuropsychology/psycho.R/master/data/emotion.rda"</span>))
+
+<span class="co"># Discard neutral pictures (keep only negative)</span>
+<span class="no">df</span> <span class="kw">&lt;-</span> <span class="no">emotion</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="no">Emotion_Condition</span> <span class="kw">==</span> <span class="st">"Negative"</span>)
+
+<span class="co"># Summary</span>
+<span class="no">df</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">Participant_ID</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">n_Trials</span> <span class="kw">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span>(),
+            <span class="kw">Valence_Mean</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">Subjective_Valence</span>, <span class="kw">na.rm</span><span class="kw">=</span><span class="fl">TRUE</span>),
+            <span class="kw">Valence_SD</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(<span class="no">Subjective_Valence</span>, <span class="kw">na.rm</span><span class="kw">=</span><span class="fl">TRUE</span>),
+            <span class="kw">Autobiographical_Link_Mean</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">Autobiographical_Link</span>, <span class="kw">na.rm</span><span class="kw">=</span><span class="fl">TRUE</span>),
+            <span class="kw">Autobiographical_Link_SD</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(<span class="no">Autobiographical_Link</span>, <span class="kw">na.rm</span><span class="kw">=</span><span class="fl">TRUE</span>))</pre></body></html></div>
 <p>As we can see from the means and SDs, there is a lot of variability <strong>between and within</strong> participants (between their means and their individual SD).</p>
 </div>
 <div id="standardize" class="section level1">
 <h1 class="hasAnchor">
 <a href="#standardize" class="anchor"></a>Standardize</h1>
 <p>We will create three dataframes standardized with each of the three techniques.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(effectsize)</a>
-<a class="sourceLine" id="cb2-2" title="2"></a>
-<a class="sourceLine" id="cb2-3" title="3">Z_VariableWise &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="st">  </span><span class="kw"><a href="../reference/standardize.html">standardize</a></span>()</a>
-<a class="sourceLine" id="cb2-5" title="5"></a>
-<a class="sourceLine" id="cb2-6" title="6">Z_ParticipantWise &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-7" title="7"><span class="st">  </span><span class="kw">group_by</span>(Participant_ID) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-8" title="8"><span class="st">  </span><span class="kw"><a href="../reference/standardize.html">standardize</a></span>() </a>
-<a class="sourceLine" id="cb2-9" title="9"></a>
-<a class="sourceLine" id="cb2-10" title="10">Z_Full &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-11" title="11"><span class="st">  </span><span class="kw">group_by</span>(Participant_ID) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-12" title="12"><span class="st">  </span><span class="kw"><a href="../reference/standardize.html">standardize</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-13" title="13"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-14" title="14"><span class="st">  </span><span class="kw"><a href="../reference/standardize.html">standardize</a></span>() </a></code></pre></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">effectsize</span>)
+
+<span class="no">Z_VariableWise</span> <span class="kw">&lt;-</span> <span class="no">df</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/standardize.html">standardize</a></span>()
+
+<span class="no">Z_ParticipantWise</span> <span class="kw">&lt;-</span> <span class="no">df</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">Participant_ID</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/standardize.html">standardize</a></span>()
+
+<span class="no">Z_Full</span> <span class="kw">&lt;-</span> <span class="no">df</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">Participant_ID</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/standardize.html">standardize</a></span>() <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span>() <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/standardize.html">standardize</a></span>()</pre></body></html></div>
 </div>
 <div id="effect-of-standardization" class="section level1">
 <h1 class="hasAnchor">
@@ -188,61 +195,61 @@
 <div id="at-a-general-level" class="section level2">
 <h2 class="hasAnchor">
 <a href="#at-a-general-level" class="anchor"></a>At a general level</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># Create a convenient function to print</span></a>
-<a class="sourceLine" id="cb3-2" title="2">print_summary &lt;-<span class="st"> </span><span class="cf">function</span>(data){</a>
-<a class="sourceLine" id="cb3-3" title="3">  <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(</a>
-<a class="sourceLine" id="cb3-4" title="4">    <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/deparse.html">deparse</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/substitute.html">substitute</a></span>(data)), <span class="st">": "</span>), </a>
-<a class="sourceLine" id="cb3-5" title="5">    <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(data[[<span class="st">"Subjective_Valence"</span>]]), <span class="dv">3</span>), </a>
-<a class="sourceLine" id="cb3-6" title="6">          <span class="st">"+-"</span>, </a>
-<a class="sourceLine" id="cb3-7" title="7">          <span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(data[[<span class="st">"Subjective_Valence"</span>]]), <span class="dv">3</span>)),</a>
-<a class="sourceLine" id="cb3-8" title="8">    <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">" ["</span>, </a>
-<a class="sourceLine" id="cb3-9" title="9">           <span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(data[[<span class="st">"Subjective_Valence"</span>]]), <span class="dv">3</span>),</a>
-<a class="sourceLine" id="cb3-10" title="10">           <span class="st">","</span>, </a>
-<a class="sourceLine" id="cb3-11" title="11">           <span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(data[[<span class="st">"Subjective_Valence"</span>]]), <span class="dv">3</span>),</a>
-<a class="sourceLine" id="cb3-12" title="12">           <span class="st">"]"</span>)</a>
-<a class="sourceLine" id="cb3-13" title="13">    )</a>
-<a class="sourceLine" id="cb3-14" title="14">}</a>
-<a class="sourceLine" id="cb3-15" title="15"></a>
-<a class="sourceLine" id="cb3-16" title="16"><span class="co"># Check the results</span></a>
-<a class="sourceLine" id="cb3-17" title="17"><span class="kw">print_summary</span>(Z_VariableWise)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># Create a convenient function to print</span>
+<span class="no">print_summary</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">data</span>){
+  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(
+    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/deparse.html">deparse</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/substitute.html">substitute</a></span>(<span class="no">data</span>)), <span class="st">": "</span>),
+    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">data</span><span class="kw">[[</span><span class="st">"Subjective_Valence"</span>]]), <span class="fl">3</span>),
+          <span class="st">"+-"</span>,
+          <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(<span class="no">data</span><span class="kw">[[</span><span class="st">"Subjective_Valence"</span>]]), <span class="fl">3</span>)),
+    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">" ["</span>,
+           <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="no">data</span><span class="kw">[[</span><span class="st">"Subjective_Valence"</span>]]), <span class="fl">3</span>),
+           <span class="st">","</span>,
+           <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">data</span><span class="kw">[[</span><span class="st">"Subjective_Valence"</span>]]), <span class="fl">3</span>),
+           <span class="st">"]"</span>)
+    )
+}
+
+<span class="co"># Check the results</span>
+<span class="fu">print_summary</span>(<span class="no">Z_VariableWise</span>)</pre></body></html></div>
 <pre><code>[1] "Z_VariableWise: 0 +- 1 [-1.178,3.101]"</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">print_summary</span>(Z_ParticipantWise)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu">print_summary</span>(<span class="no">Z_ParticipantWise</span>)</pre></body></html></div>
 <pre><code>[1] "Z_ParticipantWise: 0 +- 0.98 [-2.933,3.293]"</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">print_summary</span>(Z_Full)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu">print_summary</span>(<span class="no">Z_Full</span>)</pre></body></html></div>
 <pre><code>[1] "Z_Full: 0 +- 1 [-2.992,3.36]"</code></pre>
 <p>The <strong>means</strong> and the <strong>SD</strong> appear as fairly similar (0 and 1)…</p>
 </div>
 <div id="distribution" class="section level2">
 <h2 class="hasAnchor">
 <a href="#distribution" class="anchor"></a>Distribution</h2>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(bayestestR)</a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(see)</a>
-<a class="sourceLine" id="cb9-3" title="3"></a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">VarWise =</span> Z_VariableWise<span class="op">$</span>Subjective_Valence,</a>
-<a class="sourceLine" id="cb9-5" title="5">           <span class="dt">ParWise =</span> Z_ParticipantWise<span class="op">$</span>Subjective_Valence,</a>
-<a class="sourceLine" id="cb9-6" title="6">           <span class="dt">Full =</span> Z_Full<span class="op">$</span>Subjective_Valence) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-7" title="7"><span class="st">  </span><span class="kw">estimate_density</span>(<span class="dt">method=</span><span class="st">"kernSmooth"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-8" title="8"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-9" title="9"><span class="st">  </span>see<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/see/man/theme_modern.html">theme_modern</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">bayestestR</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">see</span>)
+
+<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">VarWise</span> <span class="kw">=</span> <span class="no">Z_VariableWise</span>$<span class="no">Subjective_Valence</span>,
+           <span class="kw">ParWise</span> <span class="kw">=</span> <span class="no">Z_ParticipantWise</span>$<span class="no">Subjective_Valence</span>,
+           <span class="kw">Full</span> <span class="kw">=</span> <span class="no">Z_Full</span>$<span class="no">Subjective_Valence</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/bayestestR/man/estimate_density.html">estimate_density</a></span>(<span class="kw">method</span><span class="kw">=</span><span class="st">"kernSmooth"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>() +
+  <span class="kw pkg">see</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/see/man/theme_modern.html">theme_modern</a></span>()</pre></body></html></div>
 <p><img src="standardize_data_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>and the distributions appear to be similar…</p>
 </div>
 <div id="at-a-participant-level" class="section level2">
 <h2 class="hasAnchor">
 <a href="#at-a-participant-level" class="anchor"></a>At a participant level</h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="co"># Create convenient function</span></a>
-<a class="sourceLine" id="cb10-2" title="2">print_participants &lt;-<span class="st"> </span><span class="cf">function</span>(data){</a>
-<a class="sourceLine" id="cb10-3" title="3">  data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-4" title="4"><span class="st">    </span><span class="kw">group_by</span>(Participant_ID) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-5" title="5"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">Mean =</span> <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(Subjective_Valence), </a>
-<a class="sourceLine" id="cb10-6" title="6">              <span class="dt">SD =</span> <span class="kw"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(Subjective_Valence)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-7" title="7"><span class="st">    </span><span class="kw">mutate_if</span>(is.numeric, round, <span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-8" title="8"><span class="st">    </span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="dv">5</span>) </a>
-<a class="sourceLine" id="cb10-9" title="9">    </a>
-<a class="sourceLine" id="cb10-10" title="10">}</a>
-<a class="sourceLine" id="cb10-11" title="11"></a>
-<a class="sourceLine" id="cb10-12" title="12"><span class="co"># Check the results</span></a>
-<a class="sourceLine" id="cb10-13" title="13"><span class="kw">print_participants</span>(Z_VariableWise)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="co"># Create convenient function</span>
+<span class="no">print_participants</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">data</span>){
+  <span class="no">data</span> <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">Participant_ID</span>) <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">Mean</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">Subjective_Valence</span>),
+              <span class="kw">SD</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(<span class="no">Subjective_Valence</span>)) <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_if</a></span>(<span class="no">is.numeric</span>, <span class="no">round</span>, <span class="fl">2</span>) <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fl">5</span>)
+
+}
+
+<span class="co"># Check the results</span>
+<span class="fu">print_participants</span>(<span class="no">Z_VariableWise</span>)</pre></body></html></div>
 <pre><code># A tibble: 5 x 3
   Participant_ID  Mean    SD
   &lt;fct&gt;          &lt;dbl&gt; &lt;dbl&gt;
@@ -251,7 +258,7 @@
 3 12S            -0.03  0.72
 4 13S            -0.19  0.64
 5 14S            -0.01  0.71</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">print_participants</span>(Z_ParticipantWise)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu">print_participants</span>(<span class="no">Z_ParticipantWise</span>)</pre></body></html></div>
 <pre><code># A tibble: 5 x 3
   Participant_ID  Mean    SD
   &lt;fct&gt;          &lt;dbl&gt; &lt;dbl&gt;
@@ -260,7 +267,7 @@
 3 12S                0     1
 4 13S                0     1
 5 14S                0     1</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">print_participants</span>(Z_Full)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu">print_participants</span>(<span class="no">Z_Full</span>)</pre></body></html></div>
 <pre><code># A tibble: 5 x 3
   Participant_ID  Mean    SD
   &lt;fct&gt;          &lt;dbl&gt; &lt;dbl&gt;
@@ -276,9 +283,9 @@
 <h1 class="hasAnchor">
 <a href="#correlation" class="anchor"></a>Correlation</h1>
 <p>Let’s do a <strong>correlation</strong> between the <strong>variable-wise and participant-wise methods</strong>.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
-<a class="sourceLine" id="cb16-2" title="2"></a>
-<a class="sourceLine" id="cb16-3" title="3"><span class="kw"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span>(Z_VariableWise<span class="op">$</span>Subjective_Valence, Z_ParticipantWise<span class="op">$</span>Subjective_Valence)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
+
+<span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span>(<span class="no">Z_VariableWise</span>$<span class="no">Subjective_Valence</span>, <span class="no">Z_ParticipantWise</span>$<span class="no">Subjective_Valence</span>)</pre></body></html></div>
 <pre><code>
     Pearson's product-moment correlation
 
@@ -290,13 +297,13 @@ alternative hypothesis: true correlation is not equal to 0
 sample estimates:
  cor 
 0.85 </code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">Original =</span> df<span class="op">$</span>Subjective_Valence,</a>
-<a class="sourceLine" id="cb18-2" title="2">           <span class="dt">VariableWise =</span> Z_VariableWise<span class="op">$</span>Subjective_Valence,</a>
-<a class="sourceLine" id="cb18-3" title="3">           <span class="dt">ParticipantWise =</span> Z_ParticipantWise<span class="op">$</span>Subjective_Valence) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb18-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>VariableWise, <span class="dt">y=</span>ParticipantWise, <span class="dt">colour=</span>Original)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-6" title="6"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">"lm"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-7" title="7"><span class="st">  </span>see<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/see/man/theme_modern.html">theme_modern</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">Original</span> <span class="kw">=</span> <span class="no">df</span>$<span class="no">Subjective_Valence</span>,
+           <span class="kw">VariableWise</span> <span class="kw">=</span> <span class="no">Z_VariableWise</span>$<span class="no">Subjective_Valence</span>,
+           <span class="kw">ParticipantWise</span> <span class="kw">=</span> <span class="no">Z_ParticipantWise</span>$<span class="no">Subjective_Valence</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span><span class="kw">=</span><span class="no">VariableWise</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">ParticipantWise</span>, <span class="kw">colour</span><span class="kw">=</span><span class="no">Original</span>)) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span>(<span class="kw">method</span><span class="kw">=</span><span class="st">"lm"</span>) +
+  <span class="kw pkg">see</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/see/man/theme_modern.html">theme_modern</a></span>()</pre></body></html></div>
 <p><img src="standardize_data_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>While the three standardization methods roughly present the same characteristics at a general level (mean 0 and SD 1) and a similar distribution, their values are not exactly the same!</p>
 </div>
@@ -304,26 +311,26 @@ sample estimates:
 <h1 class="hasAnchor">
 <a href="#test" class="anchor"></a>Test</h1>
 <p>Let’s now answer to the original question by investigating the <strong>linear relationship between valence and autobiographical link</strong>. We can do this by running a mixed model with participants entered as random effects.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(lme4)</a>
-<a class="sourceLine" id="cb19-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(parameters)</a>
-<a class="sourceLine" id="cb19-3" title="3"></a>
-<a class="sourceLine" id="cb19-4" title="4"><span class="co"># Convenient function</span></a>
-<a class="sourceLine" id="cb19-5" title="5">print_model &lt;-<span class="st"> </span><span class="cf">function</span>(data){</a>
-<a class="sourceLine" id="cb19-6" title="6">  type_name &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/deparse.html">deparse</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/substitute.html">substitute</a></span>(data)) </a>
-<a class="sourceLine" id="cb19-7" title="7">  <span class="kw">lmer</span>(Subjective_Valence <span class="op">~</span><span class="st"> </span>Autobiographical_Link <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>Participant_ID), <span class="dt">data=</span>data) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb19-8" title="8"><span class="st">    </span><span class="kw">parameters</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb19-9" title="9"><span class="st">    </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(Parameter <span class="op">==</span><span class="st"> "Autobiographical_Link"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb19-10" title="10"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">Type =</span> type_name,</a>
-<a class="sourceLine" id="cb19-11" title="11">           <span class="dt">Coefficient =</span> <span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(Coefficient, <span class="dv">3</span>),</a>
-<a class="sourceLine" id="cb19-12" title="12">           <span class="dt">p =</span> <span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(p, <span class="dv">3</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb19-13" title="13"><span class="st">    </span><span class="kw">select</span>(Type, Coefficient, p)</a>
-<a class="sourceLine" id="cb19-14" title="14">}</a>
-<a class="sourceLine" id="cb19-15" title="15"></a>
-<a class="sourceLine" id="cb19-16" title="16"><span class="co"># Run the model on all datasets</span></a>
-<a class="sourceLine" id="cb19-17" title="17"><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="kw">print_model</span>(df), </a>
-<a class="sourceLine" id="cb19-18" title="18">      <span class="kw">print_model</span>(Z_VariableWise),</a>
-<a class="sourceLine" id="cb19-19" title="19">      <span class="kw">print_model</span>(Z_ParticipantWise),</a>
-<a class="sourceLine" id="cb19-20" title="20">      <span class="kw">print_model</span>(Z_Full))</a></code></pre></div>
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">lme4</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">parameters</span>)
+
+<span class="co"># Convenient function</span>
+<span class="no">print_model</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">data</span>){
+  <span class="no">type_name</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/deparse.html">deparse</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/substitute.html">substitute</a></span>(<span class="no">data</span>))
+  <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span>(<span class="no">Subjective_Valence</span> ~ <span class="no">Autobiographical_Link</span> + (<span class="fl">1</span><span class="kw">|</span><span class="no">Participant_ID</span>), <span class="kw">data</span><span class="kw">=</span><span class="no">data</span>) <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://rdrr.io/pkg/parameters/man/model_parameters.html">parameters</a></span>() <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="no">Parameter</span> <span class="kw">==</span> <span class="st">"Autobiographical_Link"</span>) <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">Type</span> <span class="kw">=</span> <span class="no">type_name</span>,
+           <span class="kw">Coefficient</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">Coefficient</span>, <span class="fl">3</span>),
+           <span class="kw">p</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">p</span>, <span class="fl">3</span>)) <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">Type</span>, <span class="no">Coefficient</span>, <span class="no">p</span>)
+}
+
+<span class="co"># Run the model on all datasets</span>
+<span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="fu">print_model</span>(<span class="no">df</span>),
+      <span class="fu">print_model</span>(<span class="no">Z_VariableWise</span>),
+      <span class="fu">print_model</span>(<span class="no">Z_ParticipantWise</span>),
+      <span class="fu">print_model</span>(<span class="no">Z_Full</span>))</pre></body></html></div>
 <pre><code>Type              | Coefficient |     p
 ---------------------------------------
 df                |        0.09 | 0.173
@@ -349,34 +356,11 @@ Z_Full            |        0.08 | 0.080</code></pre>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li>
-<a href="#introduction">Introduction</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#normal-vs--robust">Normal <em>vs.</em> Robust</a></li>
-      <li><a href="#variable-wise-vs--participant-wise">Variable-wise <em>vs.</em> Participant-wise</a></li>
-      </ul>
-</li>
-      <li><a href="#the-data">The data</a></li>
-      <li><a href="#standardize">Standardize</a></li>
-      <li>
-<a href="#effect-of-standardization">Effect of Standardization</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#at-a-general-level">At a general level</a></li>
-      <li><a href="#distribution">Distribution</a></li>
-      <li><a href="#at-a-participant-level">At a participant level</a></li>
-      </ul>
-</li>
-      <li><a href="#correlation">Correlation</a></li>
-      <li><a href="#test">Test</a></li>
-      <li><a href="#conclusion">Conclusion</a></li>
-      <li><a href="#references">References</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 
@@ -387,7 +371,7 @@ Z_Full            |        0.08 | 0.080</code></pre>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

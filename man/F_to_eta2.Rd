@@ -50,7 +50,7 @@ it is recommended to report the negative number and not a 0).
 \description{
 These functions are convenience functions to convert F and t test statistics to
 \strong{partial} Eta squared, (\eqn{\eta{_p}^2}), Omega squared (\eqn{\omega{_p}^2}),
-Epsilon squared (\eqn{\epsilon{_p}^2} (an alias for the adjusted Eta squared) and Cohen's f.
+Epsilon squared (\eqn{\epsilon{_p}^2}; an alias for the adjusted Eta squared) and Cohen's f.
 These are useful in cases where the various Sum of Squares and Mean Squares are not
 easily available or their computation is not straightforward (e.g., in liner mixed models,
 contrasts, etc.). For test statistics derived from \code{lm} and \code{aov} models, these
@@ -90,11 +90,13 @@ if (require("afex")) {
   )
 }
 # compare to:
-F_to_eta2(
+(etas <- F_to_eta2(
   f = c(40.72, 33.77, 45.31),
   df = c(2, 1, 2),
   df_error = c(18, 9, 18)
-)
+))
+
+if(require(see)) plot(etas)
 
 
 if (require("lmerTest")) { # for the df_error

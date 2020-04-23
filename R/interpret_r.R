@@ -54,7 +54,7 @@ interpret_r <- function(r, rules = "funder2019") {
         )
       )
     } else {
-      stop("rules must be 'gignac2016', 'cohen1988', 'evans1996' or an object of type rules.")
+      stop("rules must be 'funder2019', 'gignac2016', 'cohen1988', 'evans1996' or an object of type rules.")
     }
   }
 

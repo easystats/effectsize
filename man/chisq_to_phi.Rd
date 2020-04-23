@@ -48,7 +48,7 @@ convert_phi_to_chisq(phi, n, ...)
 A data frame with the effect size(s) between 0-1, and confidence interval(s).
 }
 \description{
-Convert between Chi square, (\eqn{chi^2}), phi (\eqn{\phi}) and Cramer's V.
+Convert between Chi square, (\eqn{\chi^2}), phi (\eqn{\phi}) and Cramer's V.
 }
 \details{
 These functions use the following formulae:

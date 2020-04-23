@@ -18,6 +18,6 @@ print.effectsize_table <- function(x, digits = 2, ...){
 
   cat(insight::format_table(x, digits = digits))
 
-  return(invisible(x_orig))
+  invisible(x_orig)
 }
 

@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -45,7 +49,7 @@
 <meta property="og:title" content="Convert test statistics (F, t) to indices of <strong>partial</strong> variance explained (<strong>partial</strong> Eta / Omega / Epsilon squared and Cohen's f) — F_to_eta2" />
 <meta property="og:description" content="These functions are convenience functions to convert F and t test statistics to
 partial Eta squared, (\(\eta{_p}^2\)), Omega squared (\(\omega{_p}^2\)),
-Epsilon squared (\(\epsilon{_p}^2\) (an alias for the adjusted Eta squared) and Cohen's f.
+Epsilon squared (\(\epsilon{_p}^2\); an alias for the adjusted Eta squared) and Cohen's f.
 These are useful in cases where the various Sum of Squares and Mean Squares are not
 easily available or their computation is not straightforward (e.g., in liner mixed models,
 contrasts, etc.). For test statistics derived from lm and aov models, these
@@ -53,7 +57,6 @@ functions give exact results. For all other cases, they return close approximati
 
 See Effect Size from Test Statistics vignette." />
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -71,7 +74,7 @@ See Effect Size from Test Statistics vignette." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -85,7 +88,7 @@ See Effect Size from Test Statistics vignette." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.1</span>
       </span>
     </div>
 
@@ -138,7 +141,12 @@ See Effect Size from Test Statistics vignette." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/easystats/effectsize/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -153,14 +161,14 @@ See Effect Size from Test Statistics vignette." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Convert test statistics (F, t) to indices of <strong>partial</strong> variance explained (<strong>partial</strong> Eta / Omega / Epsilon squared and Cohen's f)</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/convert_tF_to_pve.R'><code>R/convert_tF_to_pve.R</code></a></small>
     <div class="hidden name"><code>F_to_eta2.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>These functions are convenience functions to convert F and t test statistics to
 <strong>partial</strong> Eta squared, (\(\eta{_p}^2\)), Omega squared (\(\omega{_p}^2\)),
-Epsilon squared (\(\epsilon{_p}^2\) (an alias for the adjusted Eta squared) and Cohen's f.
+Epsilon squared (\(\epsilon{_p}^2\); an alias for the adjusted Eta squared) and Cohen's f.
 These are useful in cases where the various Sum of Squares and Mean Squares are not
 easily available or their computation is not straightforward (e.g., in liner mixed models,
 contrasts, etc.). For test statistics derived from <code>lm</code> and <code>aov</code> models, these
@@ -276,15 +284,16 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 #&gt; 3 angle:noise 2, 18 1160.00 45.31 *** .834   &lt;.001
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1</div><div class='input'><span class='co'># compare to:</span>
-<span class='fu'>F_to_eta2</span>(
+(<span class='no'>etas</span> <span class='kw'>&lt;-</span> <span class='fu'>F_to_eta2</span>(
   <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>40.72</span>, <span class='fl'>33.77</span>, <span class='fl'>45.31</span>),
   <span class='kw'>df</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>2</span>),
   <span class='kw'>df_error</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>18</span>, <span class='fl'>9</span>, <span class='fl'>18</span>)
-)</div><div class='output co'>#&gt; Eta_Sq_partial |       90% CI
+))</div><div class='output co'>#&gt; Eta_Sq_partial |       90% CI
 #&gt; -----------------------------
 #&gt;           0.82 | [0.66, 0.89]
 #&gt;           0.79 | [0.49, 0.89]
 #&gt;           0.83 | [0.69, 0.90]</div><div class='input'>
+<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>see</span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>etas</span>)</div><div class='img'><img src='F_to_eta2-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"lmerTest"</span>)) { <span class='co'># for the df_error</span>
   <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lmerTest/man/lmer.html'>lmer</a></span>(<span class='no'>extra</span> ~ <span class='no'>group</span> + (<span class='fl'>1</span> <span class='kw'>|</span> <span class='no'>ID</span>), <span class='no'>sleep</span>)
@@ -313,17 +322,10 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 #&gt;           0.09 | [0.00, 0.22]</div><div class='input'># }
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#note">Note</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -334,7 +336,7 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

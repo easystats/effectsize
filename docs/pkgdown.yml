@@ -1,5 +1,5 @@
 pandoc: 2.7.2
-pkgdown: 1.4.1
+pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   convert: convert.html
@@ -7,4 +7,5 @@ articles:
   interpret: interpret.html
   standardize_data: standardize_data.html
   standardize_parameters: standardize_parameters.html
+last_built: 2020-04-23T08:58Z
 
