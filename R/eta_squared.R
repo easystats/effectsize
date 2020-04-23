@@ -125,7 +125,9 @@ eta_squared <- function(model,
                         partial = TRUE,
                         ci = 0.9,
                         ...) {
-  .anova_es(model, type = "eta", partial = partial, ci = ci)
+  out <- .anova_es(model, type = "eta", partial = partial, ci = ci)
+  class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
+  return(out)
 }
 
 #' @rdname eta_squared
@@ -134,7 +136,9 @@ omega_squared <- function(model,
                           partial = TRUE,
                           ci = 0.9,
                           ...) {
-  .anova_es(model, type = "omega", partial = partial, ci = ci)
+  out <- .anova_es(model, type = "omega", partial = partial, ci = ci)
+  class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
+  return(out)
 }
 
 #' @rdname eta_squared
@@ -143,7 +147,9 @@ epsilon_squared <- function(model,
                             partial = TRUE,
                             ci = 0.9,
                             ...) {
-  .anova_es(model, type = "epsilon", partial = partial, ci = ci)
+  out <- .anova_es(model, type = "epsilon", partial = partial, ci = ci)
+  class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
+  return(out)
 }
 
 #' @rdname eta_squared
@@ -289,8 +295,6 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
     eta_ci[[1]] <- NULL
     out <- cbind(out, eta_ci)
   }
-
-  class(out) <- unique(c("effectsize_table", class(out)))
   out
 
 }
@@ -351,7 +355,6 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
            ci = ci)
   )
 
-  class(out) <- unique(c("effectsize_table", class(out)))
   out
 }
 
@@ -412,7 +415,6 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   ), drop = FALSE]
   rownames(out) <- NULL
 
-  class(out) <- unique(c("effectsize_table", class(out)))
   out
 }
 
@@ -483,7 +485,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
       ci = ci
     )
   )
-  class(out) <- unique(c("effectsize_table", class(out)))
+
   out
 }
 
@@ -536,7 +538,6 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
     out <- .anova_es_model_params(model, f, df_num, df_error, type, ci)
   }
 
-  class(out) <- c("effectsize_table", "data.frame")
   out
 }
 

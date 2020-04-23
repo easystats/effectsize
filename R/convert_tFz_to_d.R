@@ -25,7 +25,7 @@ t_to_d <- function(t, df_error, paired = FALSE, ci = 0.95, pooled, ...) {
     res$CI_high <- paired * ts[,2] / sqrt(df_error)
   }
 
-  class(res) <- c("effectsize_table", class(res))
+  class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   return(res)
 }
 
@@ -70,7 +70,7 @@ z_to_d <- function(z, n, paired = FALSE, ci = 0.95, pooled, ...) {
     res$CI_high <- paired * zs[,2] / sqrt(n)
   }
 
-  class(res) <- c("effectsize_table", class(res))
+  class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   return(res)
 }
 
