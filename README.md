@@ -64,17 +64,17 @@ The package provides functions to compute indices of effect size.
 
 ``` r
 cohens_d(iris$Sepal.Length, iris$Sepal.Width)
-## Cohens_d |       95% CI
-## -----------------------
-##     4.21 | [3.82, 4.63]
+## Cohen's d |       95% CI
+## ------------------------
+##      4.21 | [3.80, 4.61]
 hedges_g(iris$Sepal.Length, iris$Sepal.Width)
-## Hedges_g |       95% CI
-## -----------------------
-##     4.20 | [3.81, 4.62]
+## Hedge's g |       95% CI
+## ------------------------
+##      4.20 | [3.79, 4.60]
 glass_delta(iris$Sepal.Length, iris$Sepal.Width)
-## Glass_delta |       95% CI
-## --------------------------
-##        6.39 | [5.85, 6.97]
+## Glass' delta |       95% CI
+## ---------------------------
+##         6.39 | [5.83, 6.95]
 ```
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)
@@ -83,21 +83,21 @@ glass_delta(iris$Sepal.Length, iris$Sepal.Width)
 model <- aov(Sepal.Length ~ Species, data = iris)
 
 omega_squared(model)
-## Parameter | Omega_Sq_partial |       90% CI
+## Parameter | Omega2 (partial) |       90% CI
 ## -------------------------------------------
 ## Species   |             0.61 | [0.53, 0.67]
 eta_squared(model)
-## Parameter | Eta_Sq_partial |       90% CI
+## Parameter | Eta2 (partial) |       90% CI
 ## -----------------------------------------
 ## Species   |           0.62 | [0.54, 0.68]
 epsilon_squared(model)
-## Parameter | Epsilon_Sq_partial |       90% CI
+## Parameter | Epsilon2 (partial) |       90% CI
 ## ---------------------------------------------
 ## Species   |               0.61 | [0.54, 0.67]
 cohens_f(model)
-## Parameter | Cohens_f_partial |       90% CI
-## -------------------------------------------
-## Species   |             1.27 | [1.09, 1.45]
+## Parameter | Cohen's f (partial) |       90% CI
+## ----------------------------------------------
+## Species   |                1.27 | [1.09, 1.45]
 ```
 
 ### Regression Models
@@ -109,10 +109,11 @@ to compute standardized parameters for regression models.
 ``` r
 lm(Sepal.Length ~ Species + Sepal.Length, data = iris) %>% 
   standardize_parameters()
-##           Parameter Std_Coefficient
-## 1       (Intercept)           -1.01
-## 2 Speciesversicolor            1.12
-## 3  Speciesvirginica            1.91
+## Parameter         | Coefficient (std.) |         95% CI
+## -------------------------------------------------------
+## (Intercept)       |              -1.01 | [-1.18, -0.84]
+## Speciesversicolor |               1.12 | [ 0.88,  1.37]
+## Speciesvirginica  |               1.91 | [ 1.66,  2.16]
 ```
 
 ## Effect Size Interpretation
