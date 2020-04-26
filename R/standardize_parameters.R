@@ -79,7 +79,7 @@
 #' @importFrom bayestestR describe_posterior
 #' @importFrom parameters ci
 #' @export
-standardize_parameters <- function(model, parameters = NULL, method = "refit", ci = NULL, robust = FALSE, two_sd = FALSE, verbose = TRUE, centrality = "median", ...) {
+standardize_parameters <- function(model, parameters = NULL, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, centrality = "median", ...) {
   std_params <- .standardize_parameters(model = model, parameters = parameters, method = method, robust = robust, two_sd = two_sd, verbose = verbose, ...)
 
   # Summarise for Bayesian models
@@ -90,12 +90,13 @@ standardize_parameters <- function(model, parameters = NULL, method = "refit", c
   } else if (!is.null(ci)) {
     CIs <- parameters::ci(std_params, ci = ci)
     if (!is.null(CIs)) {
-      std_params <- cbind(std_params, CIs[c("CI","CI_low","CI_high")])
-      std_params$CI <- std_params$CI / 100
+      std_params$CI <- CIs$CI / 100
+      std_params$CI_low <- CIs$CI_low
+      std_params$CI_high <- CIs$CI_high
     }
-    class(std_params) <- c("effectsize_table",class(std_params))
+    class(std_params) <- c("effectsize_table", "see_effectsize_table",class(std_params))
   } else {
-    class(std_params) <- c("effectsize_table",class(std_params))
+    class(std_params) <- c("effectsize_table", "see_effectsize_table",class(std_params))
   }
   std_params
 }
