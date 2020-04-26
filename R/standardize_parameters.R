@@ -80,6 +80,7 @@
 #' @importFrom parameters ci
 #' @export
 standardize_parameters <- function(model, parameters = NULL, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, centrality = "median", ...) {
+  object_name <- deparse(substitute(model), width.cutoff = 500)
   std_params <-
     .standardize_parameters(
       model = model,
@@ -89,6 +90,7 @@ standardize_parameters <- function(model, parameters = NULL, method = "refit", c
       robust = robust,
       two_sd = two_sd,
       verbose = verbose,
+      object_name = object_name,
       ...
     )
 
@@ -98,6 +100,8 @@ standardize_parameters <- function(model, parameters = NULL, method = "refit", c
     std_params <- std_params[names(std_params) %in% c("Parameter", "Coefficient", "Median", "Mean", "MAP")]
     names(std_params)[-1] <- paste0("Std_", names(std_params)[-1])
   }
+
+  attr(std_params, "object_name") <- deparse(substitute(model), width.cutoff = 500)
   std_params
 }
 
@@ -115,7 +119,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 # Internal Wrapper -------------------------------------------------------------------
 
 #' @keywords internal
-.standardize_parameters <- function(model, parameters = NULL, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
+.standardize_parameters <- function(model, parameters = NULL, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, object_name = NULL, ...) {
   method <- match.arg(method, choices = c("default", "refit", "posthoc", "smart", "partial", "basic"))
 
   # Refit
@@ -124,7 +128,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 
     # Posthoc
   } else if (method %in% c("posthoc", "smart", "basic", "classic")) {
-    std_params <- .standardize_parameters_posthoc(model, parameters = parameters, method = method, ci = ci, robust = robust, two_sd = two_sd, verbose = verbose, ...)
+    std_params <- .standardize_parameters_posthoc(model, parameters = parameters, method = method, ci = ci, robust = robust, two_sd = two_sd, verbose = verbose, object_name = object_name, ...)
 
     # Partial
   } else if (method == "partial") {
@@ -171,7 +175,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 #' @importFrom parameters standard_error
 #' @importFrom insight model_info get_data
 #' @keywords internal
-.standardize_parameters_posthoc <- function(model, parameters = NULL, method = "smart", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
+.standardize_parameters_posthoc <- function(model, parameters = NULL, method = "smart", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, object_name = NULL, ...) {
 
   # Sanity Checks
   if (verbose && insight::model_info(model)$is_zero_inflated) {
@@ -252,6 +256,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
     class(std_params) <- c("effectsize_std_params", class(std_params))
   }
 
+  attr(std_params, "object_name") <- object_name
   if (!is.null(ci)) {
     CIs <- parameters::ci(std_params, ci = ci)
     if (!is.null(CIs)) {
