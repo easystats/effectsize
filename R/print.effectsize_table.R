@@ -2,6 +2,11 @@
 print.effectsize_table <- function(x, digits = 2, ...){
   x_orig <- x
 
+  i <- is_effectsize_name(colnames(x))
+  es_lab <- colnames(x)[i]
+  es_lab <- names(es_names_unlisted)[es_names_unlisted == es_lab]
+  colnames(x)[i] <- es_lab
+
   if ("CI" %in% colnames(x)) {
     ci_level <- x$CI[1]
 

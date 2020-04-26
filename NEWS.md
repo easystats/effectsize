@@ -2,6 +2,7 @@
 
 ## New features
 
+- `standardize_parameters()` can now return CIs ( #72 )
 - `eta_squared()`, `omega_squared()` and `epsilon_squared()` now works with
   - `gam` models.
   - `afex` models.

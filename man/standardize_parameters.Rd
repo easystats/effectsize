@@ -9,6 +9,7 @@ standardize_parameters(
   model,
   parameters = NULL,
   method = "refit",
+  ci = NULL,
   robust = FALSE,
   two_sd = FALSE,
   verbose = TRUE,
@@ -31,6 +32,8 @@ standardize_posteriors(
 \item{parameters}{An optional table containing the parameters to standardize. If \code{NULL}, will automatically retrieve it from the model.}
 
 \item{method}{The method used for standardizing the parameters. Can be \code{"refit"} (default), \code{"posthoc"}, \code{"smart"} or \code{"basic"}. See 'Details'.}
+
+\item{ci}{Confidence Interval (CI) level}
 
 \item{robust}{Logical, if \code{TRUE}, centering is done by subtracting the
 median from the variables and dividing it by the median absolute deviation

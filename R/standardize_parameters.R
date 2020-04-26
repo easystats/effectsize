@@ -6,6 +6,7 @@
 #' @param parameters An optional table containing the parameters to standardize. If \code{NULL}, will automatically retrieve it from the model.
 #' @param method The method used for standardizing the parameters. Can be \code{"refit"} (default), \code{"posthoc"}, \code{"smart"} or \code{"basic"}. See 'Details'.
 #' @inheritParams standardize
+#' @inheritParams chisq_to_phi
 #' @param centrality For Bayesian models, which point-estimates (centrality indices) to compute. Character (vector) or list with one or more of these options: "median", "mean", "MAP" or "all".
 #'
 #' @details \subsection{Methods:}{
@@ -76,17 +77,26 @@
 #'   \item Gelman, A. (2008). Scaling regression inputs by dividing by two standard deviations. Statistics in medicine, 27(15), 2865-2873.
 #' }
 #' @importFrom bayestestR describe_posterior
+#' @importFrom parameters ci
 #' @export
-standardize_parameters <- function(model, parameters = NULL, method = "refit", robust = FALSE, two_sd = FALSE, verbose = TRUE, centrality = "median", ...) {
+standardize_parameters <- function(model, parameters = NULL, method = "refit", ci = NULL, robust = FALSE, two_sd = FALSE, verbose = TRUE, centrality = "median", ...) {
   std_params <- .standardize_parameters(model = model, parameters = parameters, method = method, robust = robust, two_sd = two_sd, verbose = verbose, ...)
 
   # Summarise for Bayesian models
   if (insight::model_info(model)$is_bayesian) {
-    std_params <- bayestestR::describe_posterior(std_params, centrality = centrality, dispersion = FALSE, ci = NULL, test = NULL, diagnostic = NULL, priors = FALSE)
+    std_params <- bayestestR::describe_posterior(std_params, centrality = centrality, dispersion = FALSE, ci = ci, test = NULL, diagnostic = NULL, priors = FALSE)
     std_params <- std_params[names(std_params) %in% c("Parameter", "Coefficient", "Median", "Mean", "MAP")]
     names(std_params)[-1] <- paste0("Std_", names(std_params)[-1])
+  } else if (!is.null(ci)) {
+    CIs <- parameters::ci(std_params, ci = ci)
+    if (!is.null(CIs)) {
+      std_params <- cbind(std_params, CIs[c("CI","CI_low","CI_high")])
+      std_params$CI <- std_params$CI / 100
+    }
+    class(std_params) <- c("effectsize_table",class(std_params))
+  } else {
+    class(std_params) <- c("effectsize_table",class(std_params))
   }
-
   std_params
 }
 
