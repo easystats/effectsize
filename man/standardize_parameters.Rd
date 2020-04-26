@@ -9,7 +9,7 @@ standardize_parameters(
   model,
   parameters = NULL,
   method = "refit",
-  ci = NULL,
+  ci = 0.95,
   robust = FALSE,
   two_sd = FALSE,
   verbose = TRUE,

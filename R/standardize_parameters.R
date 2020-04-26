@@ -80,23 +80,23 @@
 #' @importFrom parameters ci
 #' @export
 standardize_parameters <- function(model, parameters = NULL, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, centrality = "median", ...) {
-  std_params <- .standardize_parameters(model = model, parameters = parameters, method = method, robust = robust, two_sd = two_sd, verbose = verbose, ...)
+  std_params <-
+    .standardize_parameters(
+      model = model,
+      parameters = parameters,
+      method = method,
+      ci = ci,
+      robust = robust,
+      two_sd = two_sd,
+      verbose = verbose,
+      ...
+    )
 
   # Summarise for Bayesian models
   if (insight::model_info(model)$is_bayesian) {
     std_params <- bayestestR::describe_posterior(std_params, centrality = centrality, dispersion = FALSE, ci = ci, test = NULL, diagnostic = NULL, priors = FALSE)
     std_params <- std_params[names(std_params) %in% c("Parameter", "Coefficient", "Median", "Mean", "MAP")]
     names(std_params)[-1] <- paste0("Std_", names(std_params)[-1])
-  } else if (!is.null(ci)) {
-    CIs <- parameters::ci(std_params, ci = ci)
-    if (!is.null(CIs)) {
-      std_params$CI <- CIs$CI / 100
-      std_params$CI_low <- CIs$CI_low
-      std_params$CI_high <- CIs$CI_high
-    }
-    class(std_params) <- c("effectsize_table", "see_effectsize_table",class(std_params))
-  } else {
-    class(std_params) <- c("effectsize_table", "see_effectsize_table",class(std_params))
   }
   std_params
 }
@@ -115,22 +115,23 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 # Internal Wrapper -------------------------------------------------------------------
 
 #' @keywords internal
-.standardize_parameters <- function(model, parameters = NULL, method = "refit", robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
+.standardize_parameters <- function(model, parameters = NULL, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
   method <- match.arg(method, choices = c("default", "refit", "posthoc", "smart", "partial", "basic"))
 
   # Refit
   if (method %in% c("refit")) {
-    std_params <- .standardize_parameters_refit(model, robust = robust, verbose = verbose, ...)
+    std_params <- .standardize_parameters_refit(model, ci = ci, robust = robust, verbose = verbose, ...)
 
     # Posthoc
   } else if (method %in% c("posthoc", "smart", "basic", "classic")) {
-    std_params <- .standardize_parameters_posthoc(model, parameters = parameters, method = method, robust = robust, two_sd = two_sd, verbose = verbose, ...)
+    std_params <- .standardize_parameters_posthoc(model, parameters = parameters, method = method, ci = ci, robust = robust, two_sd = two_sd, verbose = verbose, ...)
 
     # Partial
   } else if (method == "partial") {
     stop("`method = 'partial'` not implemented yet :(")
   }
 
+  class(std_params) <- c("effectsize_table", "see_effectsize_table",class(std_params))
   std_params
 }
 
@@ -140,12 +141,18 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 # REFIT -------------------------------------------------------------------
 #' @importFrom parameters standard_error ci
 #' @keywords internal
-.standardize_parameters_refit <- function(model, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
+.standardize_parameters_refit <- function(model, ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
   std_model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose, ...)
   std_params <- .extract_parameters(std_model)
 
+  if (!is.null(ci)) {
+    CIs <- parameters::ci(std_model, ci = ci)
+    std_params$CI <- CIs$CI / 100
+    std_params$CI_low <- CIs$CI_low
+    std_params$CI_high <- CIs$CI_high
+  }
+
   attr(std_params, "standard_error") <- parameters::standard_error(std_model)
-  attr(std_params, "ci") <- parameters::ci(std_model)
 
   std_params
 }
@@ -164,7 +171,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 #' @importFrom parameters standard_error
 #' @importFrom insight model_info get_data
 #' @keywords internal
-.standardize_parameters_posthoc <- function(model, parameters = NULL, method = "smart", robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
+.standardize_parameters_posthoc <- function(model, parameters = NULL, method = "smart", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
 
   # Sanity Checks
   if (verbose && insight::model_info(model)$is_zero_inflated) {
@@ -245,6 +252,14 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
     class(std_params) <- c("effectsize_std_params", class(std_params))
   }
 
+  if (!is.null(ci)) {
+    CIs <- parameters::ci(std_params, ci = ci)
+    if (!is.null(CIs)) {
+      std_params$CI <- CIs$CI / 100
+      std_params$CI_low <- CIs$CI_low
+      std_params$CI_high <- CIs$CI_high
+    }
+  }
   std_params
 }
 
