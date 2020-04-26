@@ -1,8 +1,8 @@
-# effectsize 0.3.1
+# effectsize 0.3.0.1
 
 ## New features
 
-- `standardize_parameters()` can now return CIs ( #72 )
+- `standardize_parameters()` now returns CIs ( #72 )
 - `eta_squared()`, `omega_squared()` and `epsilon_squared()` now works with
   - `gam` models.
   - `afex` models.
