@@ -37,7 +37,7 @@ Depends:
 Imports:
 	insight (>= 0.8.2),
 	bayestestR (>= 0.5.3),
-	parameters (>= 0.6.0),
+	parameters (>= 0.6.1.1),
 	stats,
 	utils
 Suggests:
