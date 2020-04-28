@@ -37,10 +37,6 @@
 #' standardize_parameters(model, robust = TRUE)
 #' standardize_parameters(model, two_sd = TRUE)
 #'
-#' # show CI
-#' library(parameters)
-#' params <- standardize_parameters(model, method = "smart", robust = TRUE)
-#' ci(params)
 #'
 #' iris$binary <- ifelse(iris$Sepal.Width > 3, 1, 0)
 #' model <- glm(binary ~ Species * Sepal.Length, data = iris, family = "binomial")
@@ -52,7 +48,7 @@
 #'
 #' \donttest{
 #' if (require("rstanarm")) {
-#'   model <- stan_glm(Sepal.Length ~ Species * Petal.Width, data = iris, iter = 500, refresh = 0)
+#'   model <- stan_glm(Sepal.Length ~ Species + Petal.Width, data = iris, iter = 500, refresh = 0)
 #'   standardize_posteriors(model, method = "refit")
 #'   standardize_posteriors(model, method = "posthoc")
 #'   standardize_posteriors(model, method = "smart")
@@ -96,9 +92,14 @@ standardize_parameters <- function(model, parameters = NULL, method = "refit", c
 
   # Summarise for Bayesian models
   if (insight::model_info(model)$is_bayesian) {
-    std_params <- bayestestR::describe_posterior(std_params, centrality = centrality, dispersion = FALSE, ci = ci, test = NULL, diagnostic = NULL, priors = FALSE)
-    std_params <- std_params[names(std_params) %in% c("Parameter", "Coefficient", "Median", "Mean", "MAP")]
-    names(std_params)[-1] <- paste0("Std_", names(std_params)[-1])
+    std_params <- bayestestR::describe_posterior(
+      std_params, centrality = centrality, dispersion = FALSE,
+      ci = ci, ci_method = "hdi",
+      test = NULL, diagnostic = NULL, priors = FALSE
+    )
+    std_params <- std_params[names(std_params) %in% c("Parameter", "Coefficient", "Median", "Mean", "MAP","CI", "CI_low", "CI_high")]
+    i <- colnames(std_params) %in% c("Coefficient", "Median", "Mean", "MAP")
+    colnames(std_params)[i] <- paste0("Std_", colnames(std_params)[i])
   }
 
   attr(std_params, "object_name") <- deparse(substitute(model), width.cutoff = 500)
@@ -149,7 +150,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   std_model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose, ...)
   std_params <- .extract_parameters(std_model)
 
-  if (!is.null(ci)) {
+  if (!is.null(ci) && !insight::model_info(model)$is_bayesian) {
     CIs <- parameters::ci(std_model, ci = ci)
     std_params$CI <- CIs$CI / 100
     std_params$CI_low <- CIs$CI_low
@@ -257,7 +258,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   }
 
   attr(std_params, "object_name") <- object_name
-  if (!is.null(ci)) {
+  if (!is.null(ci) && !insight::model_info(model)$is_bayesian) {
     CIs <- parameters::ci(std_params, ci = ci)
     if (!is.null(CIs)) {
       std_params$CI <- CIs$CI / 100
