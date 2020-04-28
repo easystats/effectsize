@@ -272,31 +272,31 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
 
 <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>mpg</span> ~ <span class='no'>am_f</span> * <span class='no'>cyl_f</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
 
-<span class='fu'>eta_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter  | Eta_Sq_partial |       90% CI
+<span class='fu'>eta_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter  | Eta2 (partial) |       90% CI
 #&gt; ------------------------------------------
 #&gt; am_f       |           0.63 | [0.42, 0.75]
 #&gt; cyl_f      |           0.66 | [0.45, 0.77]
-#&gt; am_f:cyl_f |           0.10 | [0.00, 0.27]</div><div class='input'><span class='fu'>omega_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter  | Omega_Sq_partial |        90% CI
+#&gt; am_f:cyl_f |           0.10 | [0.00, 0.27]</div><div class='input'><span class='fu'>omega_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter  | Omega2 (partial) |        90% CI
 #&gt; ---------------------------------------------
 #&gt; am_f       |             0.57 | [ 0.39, 0.73]
 #&gt; cyl_f      |             0.60 | [ 0.40, 0.74]
-#&gt; am_f:cyl_f |             0.02 | [-0.07, 0.21]</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter  | Epsilon_Sq_partial |        90% CI
+#&gt; am_f:cyl_f |             0.02 | [-0.07, 0.21]</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter  | Epsilon2 (partial) |        90% CI
 #&gt; -----------------------------------------------
 #&gt; am_f       |               0.61 | [ 0.40, 0.74]
 #&gt; cyl_f      |               0.63 | [ 0.41, 0.75]
-#&gt; am_f:cyl_f |               0.03 | [-0.08, 0.22]</div><div class='input'><span class='fu'>cohens_f</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter  | Cohens_f_partial |       90% CI
-#&gt; --------------------------------------------
-#&gt; am_f       |             1.30 | [0.86, 1.73]
-#&gt; cyl_f      |             1.38 | [0.90, 1.81]
-#&gt; am_f:cyl_f |             0.33 | [0.00, 0.61]</div><div class='input'>(<span class='no'>etas</span> <span class='kw'>&lt;-</span> <span class='fu'>eta_squared</span>(<span class='no'>model</span>, <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>))</div><div class='output co'>#&gt; Parameter  | Eta_Sq |       90% CI
-#&gt; ----------------------------------
-#&gt; am_f       |   0.36 | [0.14, 0.54]
-#&gt; cyl_f      |   0.41 | [0.16, 0.57]
-#&gt; am_f:cyl_f |   0.02 | [0.00, 0.12]</div><div class='input'>
+#&gt; am_f:cyl_f |               0.03 | [-0.08, 0.22]</div><div class='input'><span class='fu'>cohens_f</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Parameter  | Cohen's f (partial) |       90% CI
+#&gt; -----------------------------------------------
+#&gt; am_f       |                1.30 | [0.86, 1.73]
+#&gt; cyl_f      |                1.38 | [0.90, 1.81]
+#&gt; am_f:cyl_f |                0.33 | [0.00, 0.61]</div><div class='input'>(<span class='no'>etas</span> <span class='kw'>&lt;-</span> <span class='fu'>eta_squared</span>(<span class='no'>model</span>, <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>))</div><div class='output co'>#&gt; Parameter  | Eta2 |       90% CI
+#&gt; --------------------------------
+#&gt; am_f       | 0.36 | [0.14, 0.54]
+#&gt; cyl_f      | 0.41 | [0.16, 0.57]
+#&gt; am_f:cyl_f | 0.02 | [0.00, 0.12]</div><div class='input'>
 <span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>see</span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>etas</span>)</div><div class='img'><img src='eta_squared-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>mpg</span> ~ <span class='no'>cyl_f</span> * <span class='no'>am_f</span> + <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>Error</a></span>(<span class='no'>vs</span> / <span class='no'>am_f</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
-<span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Group  |  Parameter | Epsilon_Sq_partial |        90% CI
+<span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Group  |  Parameter | Epsilon2 (partial) |        90% CI
 #&gt; --------------------------------------------------------
 #&gt; Within |       am_f |              -0.04 | [-0.04, 0.03]
 #&gt; Within | cyl_f:am_f |              -0.03 | [-0.04, 0.10]
@@ -316,7 +316,7 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
 #&gt; <span class='message'>  influence.merMod                lme4</span>
 #&gt; <span class='message'>  cooks.distance.influence.merMod lme4</span>
 #&gt; <span class='message'>  dfbeta.influence.merMod         lme4</span>
-#&gt; <span class='message'>  dfbetas.influence.merMod        lme4</span></div><div class='output co'>#&gt; Parameter  | Eta_Sq_partial |       90% CI
+#&gt; <span class='message'>  dfbetas.influence.merMod        lme4</span></div><div class='output co'>#&gt; Parameter  | Eta2 (partial) |       90% CI
 #&gt; ------------------------------------------
 #&gt; am_f       |           0.11 | [0.00, 0.32]
 #&gt; cyl_f      |           0.63 | [0.42, 0.75]
@@ -326,7 +326,7 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
   <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mpg</span> ~ <span class='no'>wt</span> + <span class='no'>cyl</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
   <span class='no'>mp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/parameters/man/model_parameters.html'>model_parameters</a></span>(<span class='no'>model</span>)
   <span class='fu'>eta_squared</span>(<span class='no'>mp</span>)
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: parameters</span></div><div class='output co'>#&gt; Parameter   | Eta_Sq_partial |       90% CI
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: parameters</span></div><div class='output co'>#&gt; Parameter   | Eta2 (partial) |       90% CI
 #&gt; -------------------------------------------
 #&gt; (Intercept) |           0.95 | [0.92, 0.97]
 #&gt; wt          |           0.38 | [0.16, 0.56]
@@ -339,7 +339,7 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    lmer</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:stats':</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    step</span></div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; Parameter  | Omega_Sq_partial |        90% CI
+#&gt; <span class='message'>    step</span></div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; Parameter  | Omega2 (partial) |        90% CI
 #&gt; ---------------------------------------------
 #&gt; am_f       |             0.07 | [-0.04, 0.28]
 #&gt; cyl_f      |             0.60 | [ 0.36, 0.72]

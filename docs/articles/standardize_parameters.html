@@ -139,24 +139,12 @@
 
 <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="no">Sepal.Length</span> ~ <span class="no">Petal.Length</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">iris</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>()</pre></body></html></div>
-<table class="table">
-<thead><tr class="header">
-<th align="left">Parameter</th>
-<th align="right">Std_Coefficient</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">0.00</td>
-</tr>
-<tr class="even">
-<td align="left">Petal.Length</td>
-<td align="right">0.87</td>
-</tr>
-</tbody>
-</table>
+<pre><code>&gt; Parameter    | Coefficient (std.) |        95% CI
+&gt; -------------------------------------------------
+&gt; (Intercept)  |               0.00 | [-0.08, 0.08]
+&gt; Petal.Length |               0.87 | [ 0.79, 0.95]</code></pre>
 <p>Standardizing the coefficient of this simple linear regression gives a value of <code>0.87</code>, but did you know that for a simple regression this is actually the <strong>same as a correlation</strong>? Thus, you can eventually apply some (<em>in</em>)famous interpretation guidelines (e.g., Cohen’s rules of thumb).</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">parameters</span>)
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">parameters</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span>(<span class="no">iris</span>$<span class="no">Sepal.Length</span>, <span class="no">iris</span>$<span class="no">Petal.Length</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/parameters/man/model_parameters.html">model_parameters</a></span>()</pre></body></html></div>
@@ -164,7 +152,7 @@
 &gt; --------------------------------------------------------------------------------------------
 &gt; iris$Sepal.Length | iris$Petal.Length | 0.87 | 21.65 | 148 | &lt; .001 | [0.83, 0.91] | Pearson</code></pre>
 <p>What happens in the case of <strong>multiple continuous variables</strong>? As in each effect in a regression model is “adjusted” for the other ones, we might expect coefficients to be somewhat alike to <strong>partial correlations</strong>. Let’s first start by computing the partial correlation between <strong>Sepal.Length</strong> and 3 other remaining variables.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">df</span> <span class="kw">&lt;-</span> <span class="no">iris</span>[, <span class="fl">1</span>:<span class="fl">4</span>]  <span class="co"># Remove the Species factor</span>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">df</span> <span class="kw">&lt;-</span> <span class="no">iris</span>[, <span class="fl">1</span>:<span class="fl">4</span>]  <span class="co"># Remove the Species factor</span>
 <span class="kw pkg">correlation</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/correlation/man/correlation.html">correlation</a></span>(<span class="no">df</span>, <span class="kw">partial</span> <span class="kw">=</span> <span class="fl">TRUE</span>)[<span class="fl">1</span>:<span class="fl">3</span>, <span class="fl">1</span>:<span class="fl">3</span>] <span class="co"># Select the rows of interest</span></pre></body></html></div>
 <pre><code>&gt; Parameter1   |   Parameter2 |     r
 &gt; -----------------------------------
@@ -172,7 +160,7 @@
 &gt; Sepal.Length | Petal.Length |  0.72
 &gt; Sepal.Length |  Petal.Width | -0.34</code></pre>
 <p>Now, let’s apply another method to obtain effect sizes for frequentist regressions, based on the statistic values. We will convert the <em>t</em>-value (and its degrees of freedom, <em>df</em>) into a partial correlation coefficient <em>r</em>.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">model</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="no">Sepal.Length</span> ~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">df</span>)
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">model</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="no">Sepal.Length</span> ~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">df</span>)
 <span class="no">params</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/parameters/man/model_parameters.html">model_parameters</a></span>(<span class="no">model</span>)
 
 <span class="fu"><a href="../reference/t_to_r.html">t_to_r</a></span>(<span class="no">params</span>$<span class="no">t</span>[<span class="fl">2</span>:<span class="fl">4</span>], <span class="no">params</span>$<span class="no">df_error</span>[<span class="fl">2</span>:<span class="fl">4</span>])</pre></body></html></div>
@@ -183,102 +171,60 @@
 &gt; -0.34 | [-0.47, -0.19]</code></pre>
 <p>Wow, the retrieved correlations coefficients from the regression model are <strong>exactly</strong> the same as the partial correlations!</p>
 <p>However, note that in multiple regression standardizing the parameters in not quite the same as computing the (partial) correlation, due to… math :(<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">model</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">model</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>()</pre></body></html></div>
-<table class="table">
-<thead><tr class="header">
-<th align="left">Parameter</th>
-<th align="right">Std_Coefficient</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">0.00</td>
-</tr>
-<tr class="even">
-<td align="left">Sepal.Width</td>
-<td align="right">0.34</td>
-</tr>
-<tr class="odd">
-<td align="left">Petal.Length</td>
-<td align="right">1.51</td>
-</tr>
-<tr class="even">
-<td align="left">Petal.Width</td>
-<td align="right">-0.51</td>
-</tr>
-</tbody>
-</table>
+<pre><code>&gt; Parameter    | Coefficient (std.) |         95% CI
+&gt; --------------------------------------------------
+&gt; (Intercept)  |               0.00 | [-0.06,  0.06]
+&gt; Sepal.Width  |               0.34 | [ 0.27,  0.41]
+&gt; Petal.Length |               1.51 | [ 1.27,  1.75]
+&gt; Petal.Width  |              -0.51 | [-0.74, -0.28]</code></pre>
 </div>
 <div id="standardized-differences" class="section level2">
 <h2 class="hasAnchor">
 <a href="#standardized-differences" class="anchor"></a>Standardized differences</h2>
 <p>How does it work in the case of differences, when <strong>factors</strong> are entered and differences between a given level and a reference level (the intercept)? You might have heard that it is similar to a <strong>Cohen’s <em>d</em></strong>. Well, let’s see.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co"># Select portion of data containing the two levels of interest</span>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co"># Select portion of data containing the two levels of interest</span>
 <span class="no">data</span> <span class="kw">&lt;-</span> <span class="no">iris</span>[<span class="no">iris</span>$<span class="no">Species</span> <span class="kw">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>), ]
 
 <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="no">Sepal.Length</span> ~ <span class="no">Species</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">data</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>()</pre></body></html></div>
-<table class="table">
-<thead><tr class="header">
-<th align="left">Parameter</th>
-<th align="right">Std_Coefficient</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">-0.72</td>
-</tr>
-<tr class="even">
-<td align="left">Speciesversicolor</td>
-<td align="right">1.45</td>
-</tr>
-</tbody>
-</table>
+<pre><code>&gt; Parameter         | Coefficient (std.) |         95% CI
+&gt; -------------------------------------------------------
+&gt; (Intercept)       |              -0.72 | [-0.92, -0.53]
+&gt; Speciesversicolor |               1.45 | [ 1.18,  1.72]</code></pre>
 <p>This linear model suggests that the <em>standardized</em> difference between the <em>versicolor</em> level of Species and the <em>setosa</em> level (the reference level - the intercept) is of 1.12 standard deviation of <code>Sepal.Length</code> (because the response variable was standardized, right?). Let’s compute the <strong>Cohen’s <em>d</em></strong> between these two levels:</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span>(<span class="no">Sepal.Length</span> ~ <span class="no">Species</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">data</span>)</pre></body></html></div>
-<pre><code>&gt; Cohens_d |         95% CI
-&gt; -------------------------
-&gt;    -2.10 | [-2.59, -1.61]</code></pre>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span>(<span class="no">Sepal.Length</span> ~ <span class="no">Species</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">data</span>)</pre></body></html></div>
+<pre><code>&gt; Cohen's d |         95% CI
+&gt; --------------------------
+&gt;     -2.10 | [-2.59, -1.61]</code></pre>
 <p><strong><em>It is very different!</em></strong> Why? How? Both differences should be expressed in units of SD! But which SDs? Different SDs!</p>
 <p>When looking at the difference between groups as a <strong>slope</strong>, the standardized parameter is the difference between the means in <span class="math inline">\(SD_{Sepal.Length}\)</span>. That is, the <em>slope</em> between <code>setosa</code> and <code>versicolor</code> is a change of 1.45 <span class="math inline">\(SD_{Sepal.Length}\)</span>.</p>
 <p>However, when looking a the difference as a distance between two populations, Cohen’s d is the distance between the means in units of <a href="https://easystats.github.io/effectsize/reference/sd_pooled.html"><strong>pooled SDs</strong></a>. That is, the <em>distance</em> between <code>setosa</code> and <code>versicolor</code> is of 2.1 SDs of each of the groups (here assumed to be equal).</p>
 <p>Note that you can get a proximity of Cohen’s d with by converting the <span class="math inline">\(t\)</span> statistic from the regression model via <code><a href="../reference/t_to_r.html">t_to_d()</a></code>:</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r">(<span class="no">parameters</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="no">Sepal.Length</span> ~ <span class="no">Species</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">data</span>) <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb15"><html><body><pre class="r">(<span class="no">parameters</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="no">Sepal.Length</span> ~ <span class="no">Species</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">data</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/parameters/man/model_parameters.html">model_parameters</a></span>())</pre></body></html></div>
 <pre><code>&gt; Parameter            | Coefficient |   SE |       95% CI |     t | df |      p
 &gt; ------------------------------------------------------------------------------
 &gt; (Intercept)          |        5.01 | 0.06 | [4.88, 5.13] | 80.09 | 98 | &lt; .001
 &gt; Species [versicolor] |        0.93 | 0.09 | [0.75, 1.11] | 10.52 | 98 | &lt; .001</code></pre>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu"><a href="../reference/t_to_r.html">t_to_d</a></span>(<span class="fl">10.52</span>, <span class="kw">df_error</span> <span class="kw">=</span> <span class="fl">98</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="../reference/t_to_r.html">t_to_d</a></span>(<span class="fl">10.52</span>, <span class="kw">df_error</span> <span class="kw">=</span> <span class="fl">98</span>)</pre></body></html></div>
 <pre><code>&gt;    d |       95% CI
 &gt; -------------------
 &gt; 2.13 | [1.63, 2.62]</code></pre>
 <p>It is also interesting to note that using the <em>smart</em> method when standardizing parameters will give you indices equivalent to <strong>Glass’ delta</strong>, which difference is expressed in terms of SD of the intercept (the “reference” factor levels).</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="no">Sepal.Length</span> ~ <span class="no">Species</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">data</span>) <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="no">Sepal.Length</span> ~ <span class="no">Species</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">data</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>(<span class="kw">method</span> <span class="kw">=</span> <span class="st">"smart"</span>)</pre></body></html></div>
-<table class="table">
-<thead><tr class="header">
-<th align="left">Parameter</th>
-<th align="right">Std_Coefficient</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">0.0</td>
-</tr>
-<tr class="even">
-<td align="left">Speciesversicolor</td>
-<td align="right">2.6</td>
-</tr>
-</tbody>
-</table>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="../reference/cohens_d.html">glass_delta</a></span>(<span class="no">data</span>$<span class="no">Sepal.Length</span>[<span class="no">data</span>$<span class="no">Species</span><span class="kw">==</span><span class="st">"versicolor"</span>],
+<pre><code>&gt; Parameter         | Coefficient (std.) |       95% CI
+&gt; -----------------------------------------------------
+&gt; (Intercept)       |               0.00 | [0.00, 0.00]
+&gt; Speciesversicolor |               2.64 | [2.15, 3.13]</code></pre>
+<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="../reference/cohens_d.html">glass_delta</a></span>(<span class="no">data</span>$<span class="no">Sepal.Length</span>[<span class="no">data</span>$<span class="no">Species</span><span class="kw">==</span><span class="st">"versicolor"</span>],
             <span class="no">data</span>$<span class="no">Sepal.Length</span>[<span class="no">data</span>$<span class="no">Species</span><span class="kw">==</span><span class="st">"setosa"</span>])</pre></body></html></div>
-<pre><code>&gt; Glass_delta |       95% CI
-&gt; --------------------------
-&gt;        2.64 | [2.10, 3.17]</code></pre>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"># glass_delta takes SD from second group</pre></body></html></div>
+<pre><code>&gt; Glass' delta |       95% CI
+&gt; ---------------------------
+&gt;         2.64 | [2.10, 3.17]</code></pre>
+<div class="sourceCode" id="cb23"><html><body><pre class="r"># glass_delta takes SD from second group</pre></body></html></div>
 <p><strong><em>… So note that some standardized differences are difference than others! :)</em></strong></p>
 </div>
 </div>
@@ -288,53 +234,38 @@
 <p><sub>To be added…</sub></p>
 <!-- ### **"refit"**: Re-fitting the model with standardized data -->
 <!-- **This method is based on a complete model re-fit with a standardized version of data**. Hence, this method is equal to standardizing the variables before fitting the model. It is the "purest" and the most accurate (Neter et al., 1989), but it is also the most computationally costly and long (especially for heavy models such as, for instance, for Bayesian models). This method is particularly recommended for complex models that include interactions or transformations (e.g., polynomial or spline terms). -->
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- library(effectsize) -->
 <!-- data <- iris -->
 <!-- model <- lm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data) -->
 <!-- standardize_parameters(model, method="refit") -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(standardize_parameters(model, method="refit"), digits=2) -->
-<!-- ``` -->
 <!-- The `robust` (default to `FALSE`) argument enables a **robust standardization of data**, *i.e.*, based on the **median** and **MAD** instead of the **mean** and **SD**. -->
-<!-- ```{r warning=FALSE, message=FALSE, results='hide'} -->
+<!-- ```{r warning=FALSE, message=FALSE} -->
 <!-- standardize_parameters(model, method="refit", robust=TRUE) -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(standardize_parameters(model, method="refit", robust=TRUE), digits=2) -->
-<!-- ``` -->
 <!-- This method is very flexible as it can be applied to all types of models (linear, logistic...). -->
-<!-- ```{r warning=FALSE, message=FALSE, results='hide'} -->
+<!-- ```{r warning=FALSE, message=FALSE} -->
 <!-- data$binary <- ifelse(data$Sepal.Width > 3, 1, 0) -->
 <!-- model <- glm(binary ~ Species + Sepal.Length, data = data, family="binomial") -->
 <!-- standardize_parameters(model, method="refit") -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(standardize_parameters(model, method="refit"), digits=2) -->
-<!-- ``` -->
 <!-- ### **"posthoc"**: Refit without refitting -->
 <!-- Post-hoc standardization of the parameters, aiming at emulating the results obtained by "refit" without refitting the model. The coefficients are divided by the standard deviation (or MAD if `robust`) of the outcome (which becomes their expression 'unit'). Then, the coefficients related to numeric variables are additionally multiplied by the standard deviation (or MAD if `robust`) of the related terms, so that they correspond to changes of 1 SD of the predictor (e.g., "A change in 1 SD of *x* is related to a change of 0.24 of the SD of *y*). This does not apply to binary variables or factors, so the coefficients are still related to changes in levels. This method is not accurate and tend to give aberrant results when interactions are specified. -->
-<!-- ```{r warning=FALSE, message=FALSE, results='hide'} -->
+<!-- ```{r warning=FALSE, message=FALSE} -->
 <!-- model <- lm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data) -->
 <!-- standardize_parameters(model, method="posthoc") -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(standardize_parameters(model, method="posthoc"), digits=2) -->
-<!-- ``` -->
 <!-- ### **"smart"**: Standardization of Model's parameters with Adjustment, Reconnaissance and Transformation -->
 <!-- Similar to `method = "posthoc"` in that it does not involve model refitting. The difference is that the SD of the response is computed on the relevant section of the data. For instance, if a factor with 3 levels A (the intercept), B and C is entered as a predictor, the effect corresponding to B vs. A will be scaled by the variance of the response at the intercept only. As a results, the coefficients for effects of factors are similar to a Glass' *delta*. -->
-<!-- ```{r warning=FALSE, message=FALSE, results='hide'} -->
+<!-- ```{r warning=FALSE, message=FALSE} -->
 <!-- model <- lm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data) -->
 <!-- standardize_parameters(model, method="smart") -->
-<!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(standardize_parameters(model, method="smart"), digits=2) -->
 <!-- ``` -->
 <!-- ### **"basic"**: Raw scaling of the model frame -->
 <!-- This method is similar to `method = "posthoc"`, but treats all variables as continuous: it also scales the coefficient by the standard deviation of model's matrix' parameter of factors levels (transformed to integers) or binary predictors. Although being inappropriate for these cases, this method is the one implemented by default in other software packages, such as `lm.beta::lm.beta()`. -->
 <!-- ## Methods Comparison -->
-<!-- We will use the "refit" method as the baseline. We will then compute the differences between these standardized parameters and the ones provided by the other functions. The **bigger the (absolute) number, the worse it is**.  -->
+<!-- We will use the "refit" method as the baseline. We will then compute the differences between these standardized parameters and the ones provided by the other functions. The **bigger the (absolute) number, the worse it is**. -->
 <!-- > **SPOILER ALERT: the standardization implemented in `effectsize` is the most accurate and the most flexible.** -->
 <!-- ### Convenience function -->
 <!-- ```{r message=FALSE, warning=FALSE} -->
@@ -378,125 +309,87 @@
 <!-- ``` -->
 <!-- ### Models with only numeric predictors -->
 <!-- #### Linear Model -->
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
-<!-- model <- lm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data)  -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
+<!-- model <- lm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data) -->
 <!-- comparison(model) -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
-<!-- ``` -->
 <!-- #### Logistic Model -->
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- model <- glm(Binary_Sepal.Width ~ Petal.Width + Sepal.Length, data=data, family="binomial") -->
 <!-- comparison(model) -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
-<!-- ``` -->
 <!-- #### Linear Mixed Model -->
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- library(lme4) -->
-<!-- model <- lme4::lmer(Sepal.Length ~ Petal.Width + Sepal.Width + (1|Species), data=data) -->
+<!-- model <- lme4::lmer(Sepal.Length ~ Petal.Width + Sepal.Width + (1|Species), -->
+<!--                     data=data) -->
 <!-- comparison(model) -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
-<!-- ``` -->
 <!-- #### Bayesian Models -->
-<!-- ```{r message=FALSE, warning=FALSE, eval=FALSE} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- library(rstanarm) -->
 <!-- model <- stan_glm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data) -->
 <!-- comparison(model) -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- library(rstanarm) -->
-<!-- model <- stan_glm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data, refresh = 0) -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
-<!-- ``` -->
 <!-- For these simple models, **all methods return results equal to the "refit" method** (although the other packages fail). -->
 <!-- #### Transformation -->
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- model <- lm(Sepal.Length ~ poly(Petal.Width, 2) + poly(Sepal.Width, 2), data=data) -->
 <!-- comparison(model) -->
-<!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
 <!-- ``` -->
 <!-- When transformation are involved (e.g., polynomial transformations), **the basic method becomes very unreliable**. -->
 <!-- ### Models with factors -->
 <!-- #### Linear Model -->
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
-<!-- model <- lm(Sepal.Length ~ Petal.Width + Group_Sepal.Width, data=data)  -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
+<!-- model <- lm(Sepal.Length ~ Petal.Width + Group_Sepal.Width, data=data) -->
 <!-- comparison(model) -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
-<!-- ``` -->
 <!-- #### Logistic Model -->
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- model <- glm(Binary_Sepal.Width ~ Petal.Width + Species, data=data, family="binomial") -->
 <!-- comparison(model) -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
-<!-- ``` -->
 <!-- #### Linear Mixed Model -->
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- library(lme4) -->
 <!-- model <- lme4::lmer(Sepal.Length ~ Petal.Length + Group_Sepal.Width + (1|Species), data=data) -->
 <!-- comparison(model) -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
-<!-- ``` -->
 <!-- #### Bayesian Models -->
-<!-- ```{r message=FALSE, warning=FALSE, eval=FALSE} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- library(rstanarm) -->
-<!-- model <- stan_lmer(Sepal.Length ~ Petal.Width + Group_Sepal.Width + (1|Species), data=data) -->
+<!-- model <- stan_lmer(Sepal.Length ~ Petal.Width + Group_Sepal.Width + (1|Species), -->
+<!--                    data=data) -->
 <!-- comparison(model) -->
-<!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- library(rstanarm) -->
-<!-- model <- stan_lmer(Sepal.Length ~ Petal.Width + Group_Sepal.Width + (1|Species), data=data, refresh = 0, iter = 500) -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
 <!-- ``` -->
 <!-- When factors are involved, the basic method (that standardizes the numeric transformation of factors) give again different results. -->
 <!-- ### Models with interactions -->
 <!-- Long story short, coeffcient obtained via **posthoc** standardization (without refitting the model) go berserk when interactions are involved. However, **this is "normal"**: a regression model estimates coefficient between two variables when the other predictors are at 0 (are *fixed* at 0, that people interpret as *"adjusted for"*). When a standardized data is passed (in the *refit* method), the effects and interactions are estimated at the **means** of the other predictors (because 0 is the mean for a standardized variable). Whereas in posthoc standardization, this coefficient correspond to something different (because the 0 corresponds to something different in standardzed and non-standardized data). In other words, when it comes to interaction, passing standardized data results in a different model, which coefficient have an intrinsically different meaning from unstandardized data. And as [for now](https://github.com/easystats/effectsize/issues/6), we are unable to retrieve one from another. -->
 <!-- #### Between continuous -->
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- model <- lm(Sepal.Length ~ Petal.Width * Sepal.Width, data=data) -->
 <!-- comparison(model) -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
-<!-- ``` -->
 <!-- #### Between factors -->
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- model <- lm(Sepal.Length ~ Species * Group_Sepal.Width, data=data) -->
 <!-- comparison(model) -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
-<!-- ``` -->
 <!-- #### Between factors and continuous -->
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- model <- lm(Sepal.Length ~ Petal.Width * Group_Sepal.Width, data=data) -->
 <!-- comparison(model) -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
-<!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- model <- lm(Sepal.Length ~ Group_Sepal.Width * Petal.Width, data=data) -->
 <!-- comparison(model) -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
-<!-- ``` -->
 <!-- ## Conclusion -->
 <!-- Use `refit` if possible, but if no interactions, can use `posthoc` or `smart`. -->
-<!-- # References -->
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h1>
 <div id="refs" class="references">
 <div id="ref-bring1994standardize">
 <p>Bring, Johan. 1994. “How to Standardize Regression Coefficients.” <em>The American Statistician</em> 48 (3): 209–13.</p>

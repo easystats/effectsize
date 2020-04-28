@@ -8,37 +8,32 @@ is_effectsize_name <- function(x) {
   if (length(x) > 1) {
     sapply(x, is_effectsize_name)
   } else {
-    x %in% es_names_unlisted
+    x %in% es_info$name
   }
 }
 
 
 #' List of effect size names
+#'
+#' Can always add more info here if need be...
+#'
 #' @keywords internal
-es_names <- list(
-  onetail = c(
-    "Eta2" = "Eta_Sq",
-    "Eta2 (partial)" = "Eta_Sq_partial",
-    "Epsilon2" = "Epsilon_Sq",
-    "Epsilon2 (partial)" = "Epsilon_Sq_partial",
-    "Omega2" = "Omega_Sq",
-    "Omega2 (partial)" = "Omega_Sq_partial",
-    "Cohen's f" = "Cohens_f",
-    "Cohen's f (partial)" = "Cohens_f_partial",
-    "Cramer's V" = "cramers_v",
-    "Cramer's V (adj.)" = "cramers_v_adjusted",
-    "Phi" = "phi",
-    "Phi (adj.)" = "phi_adjusted"
-  ),
-  twotail = c(
-    d = "d",
-    r = "r",
-    "Cohen's d" = "Cohens_d",
-    "Hedge's g" = "Hedges_g",
-    "Glass' delta" = "Glass_delta",
-    "Coefficient (std.)" = "Std_Coefficient"
-  )
+es_info <- data.frame(
+  name = c("Eta_Sq", "Eta_Sq_partial", "Epsilon_Sq", "Epsilon_Sq_partial",
+           "Omega_Sq", "Omega_Sq_partial", "Cohens_f", "Cohens_f_partial",
+           "cramers_v", "cramers_v_adjusted", "phi", "phi_adjusted",
+           "d", "r", "Cohens_d", "Hedges_g",
+           "Glass_delta", "Std_Coefficient"),
+  label = c("Eta2", "Eta2 (partial)", "Epsilon2", "Epsilon2 (partial)",
+            "Omega2", "Omega2 (partial)", "Cohen's f", "Cohen's f (partial)",
+            "Cramer's V", "Cramer's V (adj.)", "Phi", "Phi (adj.)",
+            "d", "r", "Cohen's d", "Hedge's g",
+            "Glass' delta", "Coefficient (std.)"),
+  direction = c("onetail", "onetail", "onetail", "onetail",
+                "onetail", "onetail", "onetail", "onetail",
+                "onetail", "onetail", "onetail", "onetail",
+                "twotail", "twotail", "twotail", "twotail",
+                "twotail","twotail"),
+  stringsAsFactors = FALSE
 )
 
-#' @keywords internal
-es_names_unlisted <- c(es_names$onetail, es_names$twotail)

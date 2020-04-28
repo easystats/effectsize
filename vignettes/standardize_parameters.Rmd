@@ -49,20 +49,12 @@ Critically, **parameters standardization is not a trivial process**. Different t
 
 ## Measure of association (correlation *r*)
 
-```{r, warning=FALSE, message=FALSE, eval=FALSE}
+```{r, warning=FALSE, message=FALSE}
 library(effectsize)
 library(dplyr)
 
 lm(Sepal.Length ~ Petal.Length, data = iris) %>% 
   standardize_parameters()
-```
-```{r, warning=FALSE, message=FALSE, echo = FALSE}
-library(effectsize)
-library(dplyr)
-
-lm(Sepal.Length ~ Petal.Length, data = iris) %>% 
-  standardize_parameters() %>% 
-  knitr::kable(digits = 2)
 ```
 
 Standardizing the coefficient of this simple linear regression gives a value of `0.87`, but did you know that for a simple regression this is actually the **same as a correlation**? Thus, you can eventually apply some (*in*)famous interpretation guidelines (e.g., Cohen's rules of thumb).
@@ -98,32 +90,21 @@ Wow, the retrieved correlations coefficients from the regression model are **exa
 
 However, note that in multiple regression standardizing the parameters in not quite the same as computing the (partial) correlation, due to... math :(^[in fact, they are more closely related to the semi-partial correlations.]
 
-```{r, warning=FALSE, message=FALSE, eval=FALSE}
+```{r, warning=FALSE, message=FALSE}
 model %>% 
   standardize_parameters() 
-```
-```{r, warning=FALSE, message=FALSE, echo = FALSE}
-model %>% 
-  standardize_parameters()  %>% 
-  knitr::kable(digits = 2)
 ```
 
 ## Standardized differences
 
 How does it work in the case of differences, when **factors** are entered and differences between a given level and a reference level (the intercept)? You might have heard that it is similar to a **Cohen's *d***. Well, let's see.
 
-```{r, warning=FALSE, message=FALSE, eval=FALSE}
+```{r, warning=FALSE, message=FALSE}
 # Select portion of data containing the two levels of interest
 data <- iris[iris$Species %in% c("setosa", "versicolor"), ]
 
 lm(Sepal.Length ~ Species, data = data) %>% 
   standardize_parameters()
-```
-```{r, warning=FALSE, message=FALSE, echo = FALSE}
-data <- iris[iris$Species %in% c("setosa", "versicolor"), ]
-lm(Sepal.Length ~ Species, data = data) %>% 
-  standardize_parameters() %>% 
-  knitr::kable(digits = 2)
 ```
 
 This linear model suggests that the *standardized* difference between the *versicolor* level of Species and the *setosa* level (the reference level - the intercept) is of 1.12 standard deviation of `Sepal.Length` (because the response variable was standardized, right?). Let's compute the **Cohen's *d*** between these two levels:
@@ -148,15 +129,11 @@ t_to_d(10.52, df_error = 98)
 
 It is also interesting to note that using the *smart* method when standardizing parameters will give you indices equivalent to **Glass' delta**, which difference is expressed in terms of SD of the intercept (the "reference" factor levels).
 
-```{r, warning=FALSE, message=FALSE, eval=FALSE}
+```{r, warning=FALSE, message=FALSE}
 lm(Sepal.Length ~ Species, data = data) %>%
   standardize_parameters(method = "smart")
 ```
-```{r, warning=FALSE, message=FALSE, echo = FALSE}
-lm(Sepal.Length ~ Species, data = data) %>%
-  standardize_parameters(method = "smart") %>%
-  knitr::kable(digits = 2)
-```
+
 ```{r, warning=FALSE, message=FALSE}
 glass_delta(data$Sepal.Length[data$Species=="versicolor"],
             data$Sepal.Length[data$Species=="setosa"])
@@ -169,12 +146,14 @@ glass_delta(data$Sepal.Length[data$Species=="versicolor"],
 
 <sub>To be added...</sub>
 
+
+
 <!-- ### **"refit"**: Re-fitting the model with standardized data -->
 
 <!-- **This method is based on a complete model re-fit with a standardized version of data**. Hence, this method is equal to standardizing the variables before fitting the model. It is the "purest" and the most accurate (Neter et al., 1989), but it is also the most computationally costly and long (especially for heavy models such as, for instance, for Bayesian models). This method is particularly recommended for complex models that include interactions or transformations (e.g., polynomial or spline terms). -->
 
 
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- library(effectsize) -->
 
 <!-- data <- iris -->
@@ -182,41 +161,29 @@ glass_delta(data$Sepal.Length[data$Species=="versicolor"],
 
 <!-- standardize_parameters(model, method="refit") -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(standardize_parameters(model, method="refit"), digits=2) -->
-<!-- ``` -->
 
 <!-- The `robust` (default to `FALSE`) argument enables a **robust standardization of data**, *i.e.*, based on the **median** and **MAD** instead of the **mean** and **SD**. -->
 
-<!-- ```{r warning=FALSE, message=FALSE, results='hide'} -->
+<!-- ```{r warning=FALSE, message=FALSE} -->
 <!-- standardize_parameters(model, method="refit", robust=TRUE) -->
-<!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(standardize_parameters(model, method="refit", robust=TRUE), digits=2) -->
 <!-- ``` -->
 
 
 <!-- This method is very flexible as it can be applied to all types of models (linear, logistic...). -->
 
-<!-- ```{r warning=FALSE, message=FALSE, results='hide'} -->
+<!-- ```{r warning=FALSE, message=FALSE} -->
 <!-- data$binary <- ifelse(data$Sepal.Width > 3, 1, 0) -->
 <!-- model <- glm(binary ~ Species + Sepal.Length, data = data, family="binomial") -->
 <!-- standardize_parameters(model, method="refit") -->
-<!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(standardize_parameters(model, method="refit"), digits=2) -->
 <!-- ``` -->
 
 <!-- ### **"posthoc"**: Refit without refitting -->
 
 <!-- Post-hoc standardization of the parameters, aiming at emulating the results obtained by "refit" without refitting the model. The coefficients are divided by the standard deviation (or MAD if `robust`) of the outcome (which becomes their expression 'unit'). Then, the coefficients related to numeric variables are additionally multiplied by the standard deviation (or MAD if `robust`) of the related terms, so that they correspond to changes of 1 SD of the predictor (e.g., "A change in 1 SD of *x* is related to a change of 0.24 of the SD of *y*). This does not apply to binary variables or factors, so the coefficients are still related to changes in levels. This method is not accurate and tend to give aberrant results when interactions are specified. -->
 
-<!-- ```{r warning=FALSE, message=FALSE, results='hide'} -->
+<!-- ```{r warning=FALSE, message=FALSE} -->
 <!-- model <- lm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data) -->
 <!-- standardize_parameters(model, method="posthoc") -->
-<!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(standardize_parameters(model, method="posthoc"), digits=2) -->
 <!-- ``` -->
 
 <!-- ### **"smart"**: Standardization of Model's parameters with Adjustment, Reconnaissance and Transformation -->
@@ -224,12 +191,9 @@ glass_delta(data$Sepal.Length[data$Species=="versicolor"],
 <!-- Similar to `method = "posthoc"` in that it does not involve model refitting. The difference is that the SD of the response is computed on the relevant section of the data. For instance, if a factor with 3 levels A (the intercept), B and C is entered as a predictor, the effect corresponding to B vs. A will be scaled by the variance of the response at the intercept only. As a results, the coefficients for effects of factors are similar to a Glass' *delta*. -->
 
 
-<!-- ```{r warning=FALSE, message=FALSE, results='hide'} -->
+<!-- ```{r warning=FALSE, message=FALSE} -->
 <!-- model <- lm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data) -->
 <!-- standardize_parameters(model, method="smart") -->
-<!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(standardize_parameters(model, method="smart"), digits=2) -->
 <!-- ``` -->
 
 <!-- ### **"basic"**: Raw scaling of the model frame -->
@@ -238,7 +202,7 @@ glass_delta(data$Sepal.Length[data$Species=="versicolor"],
 
 <!-- ## Methods Comparison -->
 
-<!-- We will use the "refit" method as the baseline. We will then compute the differences between these standardized parameters and the ones provided by the other functions. The **bigger the (absolute) number, the worse it is**.  -->
+<!-- We will use the "refit" method as the baseline. We will then compute the differences between these standardized parameters and the ones provided by the other functions. The **bigger the (absolute) number, the worse it is**. -->
 
 <!-- > **SPOILER ALERT: the standardization implemented in `effectsize` is the most accurate and the most flexible.** -->
 
@@ -297,51 +261,38 @@ glass_delta(data$Sepal.Length[data$Species=="versicolor"],
 
 <!-- #### Linear Model -->
 
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
-<!-- model <- lm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data)  -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
+<!-- model <- lm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data) -->
 <!-- comparison(model) -->
-<!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
 <!-- ``` -->
 
 
 <!-- #### Logistic Model -->
 
 
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- model <- glm(Binary_Sepal.Width ~ Petal.Width + Sepal.Length, data=data, family="binomial") -->
 <!-- comparison(model) -->
-<!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
 <!-- ``` -->
 
 <!-- #### Linear Mixed Model -->
 
 
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- library(lme4) -->
 
-<!-- model <- lme4::lmer(Sepal.Length ~ Petal.Width + Sepal.Width + (1|Species), data=data) -->
+<!-- model <- lme4::lmer(Sepal.Length ~ Petal.Width + Sepal.Width + (1|Species), -->
+<!--                     data=data) -->
 <!-- comparison(model) -->
-<!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
 <!-- ``` -->
 
 <!-- #### Bayesian Models -->
 
-<!-- ```{r message=FALSE, warning=FALSE, eval=FALSE} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- library(rstanarm) -->
 
 <!-- model <- stan_glm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data) -->
 <!-- comparison(model) -->
-<!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- library(rstanarm) -->
-<!-- model <- stan_glm(Sepal.Length ~ Petal.Width + Sepal.Width, data=data, refresh = 0) -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
 <!-- ``` -->
 
 
@@ -350,12 +301,9 @@ glass_delta(data$Sepal.Length[data$Species=="versicolor"],
 
 <!-- #### Transformation -->
 
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- model <- lm(Sepal.Length ~ poly(Petal.Width, 2) + poly(Sepal.Width, 2), data=data) -->
 <!-- comparison(model) -->
-<!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
 <!-- ``` -->
 
 <!-- When transformation are involved (e.g., polynomial transformations), **the basic method becomes very unreliable**. -->
@@ -367,54 +315,42 @@ glass_delta(data$Sepal.Length[data$Species=="versicolor"],
 <!-- #### Linear Model -->
 
 
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
-<!-- model <- lm(Sepal.Length ~ Petal.Width + Group_Sepal.Width, data=data)  -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
+<!-- model <- lm(Sepal.Length ~ Petal.Width + Group_Sepal.Width, data=data) -->
 <!-- comparison(model) -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
-<!-- ``` -->
+
 
 
 
 <!-- #### Logistic Model -->
 
 
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- model <- glm(Binary_Sepal.Width ~ Petal.Width + Species, data=data, family="binomial") -->
 <!-- comparison(model) -->
-<!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
 <!-- ``` -->
 
 
 <!-- #### Linear Mixed Model -->
 
 
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- library(lme4) -->
 
 <!-- model <- lme4::lmer(Sepal.Length ~ Petal.Length + Group_Sepal.Width + (1|Species), data=data) -->
 <!-- comparison(model) -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
-<!-- ``` -->
 
 
 <!-- #### Bayesian Models -->
 
-<!-- ```{r message=FALSE, warning=FALSE, eval=FALSE} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- library(rstanarm) -->
 
-<!-- model <- stan_lmer(Sepal.Length ~ Petal.Width + Group_Sepal.Width + (1|Species), data=data) -->
+<!-- model <- stan_lmer(Sepal.Length ~ Petal.Width + Group_Sepal.Width + (1|Species), -->
+<!--                    data=data) -->
 <!-- comparison(model) -->
-<!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- library(rstanarm) -->
-<!-- model <- stan_lmer(Sepal.Length ~ Petal.Width + Group_Sepal.Width + (1|Species), data=data, refresh = 0, iter = 500) -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
 <!-- ``` -->
 
 <!-- When factors are involved, the basic method (that standardizes the numeric transformation of factors) give again different results. -->
@@ -428,41 +364,29 @@ glass_delta(data$Sepal.Length[data$Species=="versicolor"],
 
 <!-- #### Between continuous -->
 
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- model <- lm(Sepal.Length ~ Petal.Width * Sepal.Width, data=data) -->
 <!-- comparison(model) -->
-<!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
 <!-- ``` -->
 
 <!-- #### Between factors -->
 
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- model <- lm(Sepal.Length ~ Species * Group_Sepal.Width, data=data) -->
 <!-- comparison(model) -->
-<!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
 <!-- ``` -->
 
 
 <!-- #### Between factors and continuous -->
 
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- model <- lm(Sepal.Length ~ Petal.Width * Group_Sepal.Width, data=data) -->
 <!-- comparison(model) -->
 <!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
-<!-- ``` -->
 
-<!-- ```{r message=FALSE, warning=FALSE, results='hide'} -->
+<!-- ```{r message=FALSE, warning=FALSE} -->
 <!-- model <- lm(Sepal.Length ~ Group_Sepal.Width * Petal.Width, data=data) -->
 <!-- comparison(model) -->
-<!-- ``` -->
-<!-- ```{r message=FALSE, warning=FALSE, echo=FALSE} -->
-<!-- knitr::kable(comparison(model), digits=2, row.names = FALSE) -->
 <!-- ``` -->
 
 
@@ -471,7 +395,5 @@ glass_delta(data$Sepal.Length[data$Species=="versicolor"],
 <!-- Use `refit` if possible, but if no interactions, can use `posthoc` or `smart`. -->
 
 
-<!-- # References -->
-
-
+# References
 
