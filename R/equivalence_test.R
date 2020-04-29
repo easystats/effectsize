@@ -80,7 +80,7 @@ equivalence_test.effectsize_table <- function(x, range = "default", rule = c("cl
   }
   range <- sort(range)
 
-  if (any(colnames(x) %in% es_names$onetail)) {
+  if (any(colnames(x) %in% es_info$name[es_info$direction=="onetail"])) {
     if (all(range < 0)) {
       stop("'range' is completely negative. For this effect size, only positive values can be tested.", call. = FALSE)
     } else if (length(range) > 1) {

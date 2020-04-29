@@ -288,7 +288,7 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
   <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>40.72</span>, <span class='fl'>33.77</span>, <span class='fl'>45.31</span>),
   <span class='kw'>df</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>2</span>),
   <span class='kw'>df_error</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>18</span>, <span class='fl'>9</span>, <span class='fl'>18</span>)
-))</div><div class='output co'>#&gt; Eta_Sq_partial |       90% CI
+))</div><div class='output co'>#&gt; Eta2 (partial) |       90% CI
 #&gt; -----------------------------
 #&gt;           0.82 | [0.66, 0.89]
 #&gt;           0.79 | [0.49, 0.89]
@@ -307,16 +307,16 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
   <span class='fu'>F_to_omega2</span>(<span class='fl'>16.501</span>, <span class='fl'>1</span>, <span class='fl'>9</span>)
   <span class='fu'>F_to_epsilon2</span>(<span class='fl'>16.501</span>, <span class='fl'>1</span>, <span class='fl'>9</span>)
   <span class='fu'>F_to_f</span>(<span class='fl'>16.501</span>, <span class='fl'>1</span>, <span class='fl'>9</span>)
-}</div><div class='output co'>#&gt; Cohens_f_partial |       90% CI
-#&gt; -------------------------------
-#&gt;             1.35 | [0.57, 2.08]</div><div class='input'>
+}</div><div class='output co'>#&gt; Cohen's f (partial) |       90% CI
+#&gt; ----------------------------------
+#&gt;                1.35 | [0.57, 2.08]</div><div class='input'>
 <span class='co'>## Use with emmeans based contrasts</span>
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>emmeans</span>)) {
   <span class='no'>warp.lm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>breaks</span> ~ <span class='no'>wool</span> * <span class='no'>tension</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>warpbreaks</span>)
 
   <span class='no'>jt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/emmeans/man/joint_tests.html'>joint_tests</a></span>(<span class='no'>warp.lm</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"wool"</span>)
   <span class='fu'>F_to_eta2</span>(<span class='no'>jt</span>$<span class='no'>F.ratio</span>, <span class='no'>jt</span>$<span class='no'>df1</span>, <span class='no'>jt</span>$<span class='no'>df2</span>)
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: emmeans</span></div><div class='output co'>#&gt; Eta_Sq_partial |       90% CI
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: emmeans</span></div><div class='output co'>#&gt; Eta2 (partial) |       90% CI
 #&gt; -----------------------------
 #&gt;           0.30 | [0.12, 0.45]
 #&gt;           0.09 | [0.00, 0.22]</div><div class='input'># }

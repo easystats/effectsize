@@ -163,9 +163,9 @@ library(parameters)
 
 df <- standardize(iris)
 describe_distribution(df$Sepal.Length)
-## Mean | SD |   SE |         Range | Skewness | Kurtosis |   n | n_Missing
+## Mean | SD |  IQR |         Range | Skewness | Kurtosis |   n | n_Missing
 ## ------------------------------------------------------------------------
-## 0.00 |  1 | 0.08 | [-1.86, 2.48] |     0.31 |    -0.55 | 150 |         0
+## 0.00 |  1 | 1.57 | [-1.86, 2.48] |     0.31 |    -0.55 | 150 |         0
 ```
 
 This can be also applied to statistical models:
@@ -186,9 +186,9 @@ visualise data on the same scale.
 ``` r
 df <- normalize(iris)
 describe_distribution(df$Sepal.Length)
-## Mean |   SD |   SE |        Range | Skewness | Kurtosis |   n | n_Missing
+## Mean |   SD |  IQR |        Range | Skewness | Kurtosis |   n | n_Missing
 ## -------------------------------------------------------------------------
-## 0.43 | 0.23 | 0.02 | [0.00, 1.00] |     0.31 |    -0.55 | 150 |         0
+## 0.43 | 0.23 | 0.36 | [0.00, 1.00] |     0.31 |    -0.55 | 150 |         0
 ```
 
 This is a special case of a rescaling function, which can be used to
@@ -198,9 +198,9 @@ variables to “percentages”:
 ``` r
 df <- change_scale(iris, to = c(0, 100)) 
 describe_distribution(df$Sepal.Length)
-##  Mean |    SD |   SE |          Range | Skewness | Kurtosis |   n | n_Missing
-## -----------------------------------------------------------------------------
-## 42.87 | 23.00 | 1.88 | [0.00, 100.00] |     0.31 |    -0.55 | 150 |         0
+##  Mean |    SD |   IQR |          Range | Skewness | Kurtosis |   n | n_Missing
+## ------------------------------------------------------------------------------
+## 42.87 | 23.00 | 36.11 | [0.00, 100.00] |     0.31 |    -0.55 | 150 |         0
 ```
 
 For some robust statistics, one might also want to transfom the numeric

@@ -83,10 +83,6 @@ standardize_parameters(model, method = "basic")
 standardize_parameters(model, robust = TRUE)
 standardize_parameters(model, two_sd = TRUE)
 
-# show CI
-library(parameters)
-params <- standardize_parameters(model, method = "smart", robust = TRUE)
-ci(params)
 
 iris$binary <- ifelse(iris$Sepal.Width > 3, 1, 0)
 model <- glm(binary ~ Species * Sepal.Length, data = iris, family = "binomial")
@@ -98,7 +94,7 @@ standardize_parameters(model, method = "basic")
 
 \donttest{
 if (require("rstanarm")) {
-  model <- stan_glm(Sepal.Length ~ Species * Petal.Width, data = iris, iter = 500, refresh = 0)
+  model <- stan_glm(Sepal.Length ~ Species + Petal.Width, data = iris, iter = 500, refresh = 0)
   standardize_posteriors(model, method = "refit")
   standardize_posteriors(model, method = "posthoc")
   standardize_posteriors(model, method = "smart")
