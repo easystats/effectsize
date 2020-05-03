@@ -20,6 +20,10 @@
   ))
   f_ncp <- sort(ncp$par) / df
 
+  if (f <= qf(probs[1], df, df_error)) {
+    f_ncp[2] <- 0
+  }
+
   if (f <= qf(probs[2], df, df_error)) {
     f_ncp[1] <- 0
   }
@@ -69,6 +73,10 @@
     control = list(abstol = 1e-09)
   ))
   chi_ncp <- sort(ncp$par)
+
+  if (chi <= qchisq(probs[1], df)) {
+    chi_ncp[2] <- 0
+  }
 
   if (chi <= qchisq(probs[2], df)) {
     chi_ncp[1] <- 0
