@@ -2,32 +2,15 @@
 % Please edit documentation in R/convert_chisq.R
 \name{chisq_to_phi}
 \alias{chisq_to_phi}
-\alias{convert_chisq_to_phi}
 \alias{chisq_to_cramers_v}
-\alias{convert_chisq_to_cramers_v}
 \alias{phi_to_chisq}
-\alias{convert_phi_to_chisq}
 \title{Conversion between Effect sizes for Contingency Tables (Chi2, Phi, Cramer's V...)}
 \usage{
 chisq_to_phi(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...)
 
-convert_chisq_to_phi(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...)
-
 chisq_to_cramers_v(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...)
 
-convert_chisq_to_cramers_v(
-  chisq,
-  n,
-  nrow,
-  ncol,
-  ci = 0.95,
-  adjust = FALSE,
-  ...
-)
-
 phi_to_chisq(phi, n, ...)
-
-convert_phi_to_chisq(phi, n, ...)
 }
 \arguments{
 \item{chisq}{The Chi2 statistic.}

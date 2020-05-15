@@ -102,10 +102,6 @@ t_to_r <- function(t, df_error, ci = 0.95, ...) {
   return(res)
 }
 
-#' @rdname t_to_r
-#' @export
-convert_t_to_r <- t_to_r
-
 # z -----------------------------------------------------------------------
 
 
@@ -134,10 +130,6 @@ z_to_r <- function(z, n, ci = 0.95, ...) {
   return(res)
 }
 
-#' @rdname t_to_r
-#' @export
-convert_z_to_r <- z_to_r
-
 # F -----------------------------------------------------------------------
 
 #' @rdname t_to_r
@@ -149,9 +141,6 @@ F_to_r <- function(f, df, df_error, ci = 0.95, ...) {
   t_to_r(sqrt(f), df_error = df_error, ci = ci)
 }
 
-#' @rdname t_to_r
-#' @export
-convert_F_to_r <- F_to_r
 
 
 

@@ -22,11 +22,13 @@ reference:
   - standardize
   - standardize_parameters
   - standardize_info
-- title: "Effect Size Conversion"
+- title: "Effect Size from Test Statistics"
   contents:
   - F_to_eta2
   - t_to_r
   - chisq_to_phi
+- title: "Effect Size Conversion"
+  contents:
   - convert_z_to_percentile
   - percentage_to_d
 - title: "Rescaling"
