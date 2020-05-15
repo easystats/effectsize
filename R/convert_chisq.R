@@ -84,10 +84,6 @@ chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...){
   return(res)
 }
 
-#' @rdname chisq_to_phi
-#' @export
-convert_chisq_to_phi <- chisq_to_phi
-
 
 #' @rdname chisq_to_phi
 #' @export
@@ -125,10 +121,6 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, 
   return(res)
 }
 
-#' @rdname chisq_to_phi
-#' @export
-convert_chisq_to_cramers_v <- chisq_to_cramers_v
-
 
 # Reverse -----------------------------------------------------------------
 
@@ -138,6 +130,3 @@ phi_to_chisq <- function(phi, n, ...) {
   (phi * n)^2
 }
 
-#' @rdname chisq_to_phi
-#' @export
-convert_phi_to_chisq <- phi_to_chisq

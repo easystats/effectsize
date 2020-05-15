@@ -29,10 +29,6 @@ t_to_d <- function(t, df_error, paired = FALSE, ci = 0.95, pooled, ...) {
   return(res)
 }
 
-#' @rdname t_to_r
-#' @export
-convert_t_to_d <- t_to_d
-
 
 
 
@@ -74,11 +70,6 @@ z_to_d <- function(z, n, paired = FALSE, ci = 0.95, pooled, ...) {
   return(res)
 }
 
-#' @rdname t_to_r
-#' @export
-convert_z_to_d <- z_to_d
-
-
 
 # F -----------------------------------------------------------------------
 
@@ -102,6 +93,3 @@ F_to_d <- function(f, df, df_error, paired = FALSE, ci = 0.95, pooled, ...) {
   t_to_d(sqrt(f), df_error, paired, ci)
 }
 
-#' @rdname t_to_r
-#' @export
-convert_F_to_d <- F_to_d
