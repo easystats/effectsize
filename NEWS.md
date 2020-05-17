@@ -6,6 +6,7 @@
 - `eta_squared()`, `omega_squared()` and `epsilon_squared()` now works with
   - `gam` models.
   - `afex` models.
+  - `lme` and `anova.lme` objects.
 - New function `equivalence_test()` for effect sizes.
 - New plotting methods in the `see` package.
 
