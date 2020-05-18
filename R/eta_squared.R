@@ -380,6 +380,9 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
 }
 
 #' @keywords internal
+.anova_es.anova.lme <- .anova_es.anova
+
+#' @keywords internal
 #' @importFrom parameters model_parameters
 .anova_es.aovlist <- function(model,
                               type = c("eta", "omega", "epsilon"),
@@ -441,21 +444,6 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
 
 #' @keywords internal
 #' @importFrom stats anova
-.anova_es.mlm <- function(model,
-                             type = c("eta", "omega", "epsilon"),
-                             partial = TRUE,
-                             ci = 0.9,
-                             ...) {
-  .anova_es.anova(
-    stats::anova(model),
-    type = type,
-    partial = partial,
-    ci = ci
-  )
-}
-
-#' @keywords internal
-#' @importFrom stats anova
 .anova_es.merMod <- function(model,
                              type = c("eta", "omega", "epsilon"),
                              partial = TRUE,
@@ -470,21 +458,6 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   model <- stats::anova(model)
   .anova_es.anova(model, type = type, partial = partial, ci = ci, ...)
 }
-
-
-#' @keywords internal
-#' @importFrom stats anova
-.anova_es.lme <- function(model,
-                          type = c("eta", "omega", "epsilon"),
-                          partial = TRUE,
-                          ci = 0.9,
-                          ...) {
-  model <- stats::anova(model)
-  .anova_es.anova(model, type = type, partial = partial, ci = ci, ...)
-}
-
-#' @keywords internal
-.anova_es.anova.lme <- .anova_es.anova
 
 #' @keywords internal
 #' @importFrom stats anova
