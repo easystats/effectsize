@@ -337,7 +337,11 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                    epsilon = F_to_epsilon2)
   model <- model[rownames(model) != "(Intercept)", ]
 
-  if (!any(c("DenDF", "den Df") %in% colnames(model))) {
+  F_val <- c("F value", "approx F", "F-value")
+  numDF <- c("NumDF", "num Df", "numDF")
+  denDF <- c("DenDF", "den Df", "denDF")
+
+  if (!any(denDF %in% colnames(model))) {
     # Pass to AOV method
     res <- .anova_es.aov(model,
                          partial = partial,
@@ -348,17 +352,16 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
 
   model <- model[rownames(model) != "Residuals", ]
 
-  F_val <- c("F value", "approx F")[c("F value", "approx F") %in% colnames(model)]
-  numDF <- c("NumDF", "num Df")[c("NumDF", "num Df") %in% colnames(model)]
-  denDF <- c("DenDF", "den Df")[c("DenDF", "den Df") %in% colnames(model)]
-
+  F_val <- F_val[F_val %in% colnames(model)]
+  numDF <- numDF[numDF %in% colnames(model)]
+  denDF <- denDF[denDF %in% colnames(model)]
 
 
   if (isFALSE(partial)) {
     warning(
       "Currently only supports partial ",
       type,
-      " squared for repeated-measures / multi-variate ANOVAs",
+      " squared for this class of objects.",
       call. = FALSE
     )
   }
@@ -375,6 +378,9 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
 
   out
 }
+
+#' @keywords internal
+.anova_es.anova.lme <- .anova_es.anova
 
 #' @keywords internal
 #' @importFrom parameters model_parameters
@@ -434,21 +440,6 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   rownames(out) <- NULL
 
   out
-}
-
-#' @keywords internal
-#' @importFrom stats anova
-.anova_es.mlm <- function(model,
-                             type = c("eta", "omega", "epsilon"),
-                             partial = TRUE,
-                             ci = 0.9,
-                             ...) {
-  .anova_es.anova(
-    stats::anova(model),
-    type = type,
-    partial = partial,
-    ci = ci
-  )
 }
 
 #' @keywords internal
