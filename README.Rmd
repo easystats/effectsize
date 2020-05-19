@@ -43,15 +43,17 @@ The goal of this package is to provide utilities to work with indices of effect 
 ## Installation
 
 
-Run the following:
+Run the following to install the latest GitHub-version of `effectsize`:
 ```{r eval=FALSE, message=FALSE, warning=FALSE}
 install.packages("devtools")
 devtools::install_github("easystats/effectsize")
 ```
-```{r message=FALSE, warning=FALSE}
-library("effectsize")
-```
 
+Or install the latest stable release from CRAN:
+
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+install.packages("effectsize")
+```
 
 ## Documentation
 
@@ -73,6 +75,9 @@ Click on the buttons above to access the package [**documentation**](https://eas
 
 This package is focused on indices of effect size. But **there are hundreds of them! Thus, *everybody* is welcome to contribute** by adding support for the interpretation of new indices. If you're not sure how to code it's okay, just open an issue to discuss it and we'll help :)
 
+```{r message=FALSE, warning=FALSE}
+library("effectsize")
+```
 
 ## Effect Size Computation
 

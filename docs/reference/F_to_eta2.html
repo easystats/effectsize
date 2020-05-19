@@ -88,7 +88,7 @@ See Effect Size from Test Statistics vignette." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -278,10 +278,10 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 #&gt; <span class='message'>    lmer</span></div><div class='output co'>#&gt; Anova Table (Type 3 tests)
 #&gt; 
 #&gt; Response: rt
-#&gt;        Effect    df     MSE         F  pes p.value
-#&gt; 1       angle 2, 18 3560.00 40.72 *** .819   &lt;.001
-#&gt; 2       noise  1, 9 8460.00 33.77 *** .790   &lt;.001
-#&gt; 3 angle:noise 2, 18 1160.00 45.31 *** .834   &lt;.001
+#&gt;        Effect    df     MSE         F pes p.value
+#&gt; 1       angle 2, 18 3560.00 40.72 *** .82  &lt;.0001
+#&gt; 2       noise  1, 9 8460.00 33.77 *** .79   .0003
+#&gt; 3 angle:noise 2, 18 1160.00 45.31 *** .83  &lt;.0001
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1</div><div class='input'><span class='co'># compare to:</span>
 (<span class='no'>etas</span> <span class='kw'>&lt;-</span> <span class='fu'>F_to_eta2</span>(

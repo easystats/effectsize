@@ -15,15 +15,17 @@ conversion of indices such as Cohen’s *d*, *r*, odds-ratios, etc.
 
 ## Installation
 
-Run the following:
+Run the following to install the latest GitHub-version of `effectsize`:
 
 ``` r
 install.packages("devtools")
 devtools::install_github("easystats/effectsize")
 ```
 
+Or install the latest stable release from CRAN:
+
 ``` r
-library("effectsize")
+install.packages("effectsize")
 ```
 
 ## Documentation
@@ -55,6 +57,10 @@ hundreds of them\! Thus, *everybody* is welcome to contribute** by
 adding support for the interpretation of new indices. If you’re not sure
 how to code it’s okay, just open an issue to discuss it and we’ll help
 :)
+
+``` r
+library("effectsize")
+```
 
 ## Effect Size Computation
 

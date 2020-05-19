@@ -1,7 +1,7 @@
 Package: effectsize
 Type: Package
 Title: Indices of Effect Size and Standardized Parameters
-Version: 0.3.0.1
+Version: 0.3.1
 Authors@R: c(
   person("Mattan S.", 
 		"Ben-Shachar", 
@@ -35,9 +35,9 @@ LazyData: true
 Depends:
 	R (>= 3.2)
 Imports:
-	insight (>= 0.8.2),
-	bayestestR (>= 0.5.3),
-	parameters (>= 0.6.1.1),
+	insight (>= 0.8.4),
+	bayestestR (>= 0.6.0),
+	parameters (>= 0.7.0),
 	stats,
 	utils
 Suggests:
