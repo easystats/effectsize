@@ -99,7 +99,6 @@
 #' }
 #'
 #' if (require("parameters")) {
-#'   data(mtcars)
 #'   model <- lm(mpg ~ wt + cyl, data = mtcars)
 #'   mp <- model_parameters(model)
 #'   eta_squared(mp)
