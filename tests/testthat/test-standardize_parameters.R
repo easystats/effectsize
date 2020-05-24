@@ -62,7 +62,7 @@ if (require("testthat") && require("effectsize")) {
   })
 
   if (require(rstanarm)) {
-    test_that("standardize_parameters (simple)", {
+    test_that("standardize_parameters (Bayes)", {
       testthat::skip_on_cran()
       testthat::skip_on_travis()
       set.seed(1234)
