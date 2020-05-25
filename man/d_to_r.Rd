@@ -12,12 +12,14 @@
 \alias{convert_r_to_d}
 \alias{odds_to_d}
 \alias{convert_odds_to_d}
+\alias{logodds_to_d}
 \alias{d_to_odds}
 \alias{convert_d_to_odds}
-\alias{r_to_odds}
-\alias{convert_r_to_odds}
 \alias{odds_to_r}
 \alias{convert_odds_to_r}
+\alias{logodds_to_r}
+\alias{r_to_odds}
+\alias{convert_r_to_odds}
 \alias{odds_to_probs}
 \alias{odds_to_probs.data.frame}
 \alias{probs_to_odds}
@@ -45,17 +47,21 @@ odds_to_d(odds, log = FALSE, ...)
 
 convert_odds_to_d(odds, log = FALSE, ...)
 
+logodds_to_d(odds, log = TRUE, ...)
+
 d_to_odds(d, log = FALSE, ...)
 
 convert_d_to_odds(d, log = FALSE, ...)
 
-r_to_odds(r, log = FALSE, ...)
-
-convert_r_to_odds(r, log = FALSE, ...)
-
 odds_to_r(odds, log = FALSE, ...)
 
 convert_odds_to_r(odds, log = FALSE, ...)
+
+logodds_to_r(odds, log = TRUE, ...)
+
+r_to_odds(r, log = FALSE, ...)
+
+convert_r_to_odds(r, log = FALSE, ...)
 
 odds_to_probs(odds, log = FALSE, ...)
 
