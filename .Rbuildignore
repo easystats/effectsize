@@ -11,3 +11,4 @@
 ^pkgdown/.
 ^paper.*$
 ^WIP$
+^.github/.
