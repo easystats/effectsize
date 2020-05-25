@@ -47,7 +47,7 @@ convert_d_to_odds <- d_to_odds
 #' @rdname d_to_r
 #' @export
 odds_to_r <- function(odds, log = FALSE, ...) {
-  convert_d_to_r(convert_odds_to_d(odds, log = log))
+  d_to_r(convert_odds_to_d(odds, log = log))
 }
 
 #' @rdname d_to_r
@@ -63,7 +63,7 @@ logodds_to_r <- function(odds, log = TRUE, ...) odds_to_r(odds, log = log, ...)
 #' @rdname d_to_r
 #' @export
 r_to_odds <- function(r, log = FALSE, ...) {
-  convert_d_to_odds(convert_r_to_d(r), log = log)
+  d_to_odds(convert_r_to_d(r), log = log)
 }
 
 #' @rdname d_to_r
