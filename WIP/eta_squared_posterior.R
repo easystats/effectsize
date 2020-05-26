@@ -1,7 +1,7 @@
 library(rstanarm)
 library(effectsize)
 
-eta_squared_posterior <- function(model, partial = FALSE, nsamps = 1000, verbose = TRUE, ...) {
+eta_squared_posterior <- function(model, partial = FALSE, draws = 500, verbose = TRUE, ...) {
   if (!insight::model_info(model)$is_linear) {
     stop("Only applicable to linear models")
   }
@@ -11,10 +11,7 @@ eta_squared_posterior <- function(model, partial = FALSE, nsamps = 1000, verbose
   }
 
   # get ppd
-  ppd <- rstantools::posterior_predict(model)
-  nsamps <- min(nsamps, nrow(ppd))
-  i <- sample(nrow(ppd), size = nsamps)
-  ppd <- ppd[i,]
+  ppd <- rstantools::posterior_predict(model, draws = draws)
 
   # get model data
   f <- insight::find_formula(model)$conditional
@@ -31,13 +28,14 @@ eta_squared_posterior <- function(model, partial = FALSE, nsamps = 1000, verbose
     temp_dat[[resp_name]] <- r
 
     # fit a simple linear model
-    temp_fit <- lm(f, temp_dat)
+    temp_fit <- stats::lm(f, temp_dat)
 
     # compute effect size
     ANOVA <- car::Anova(temp_fit, type = 3)
     es <- eta_squared(ANOVA, ci = NA, partial = FALSE)
 
-    data.frame(t(setNames(es$Eta_Sq, es$Parameter)), check.names = F)
+    es <- setNames(es$Eta_Sq, es$Parameter)
+    data.frame(t(es), check.names = FALSE)
   })
 
   res <- do.call("rbind", res)
@@ -50,7 +48,12 @@ model <- stan_lmer(mpg ~ wt + qsec * factor(am) + (1|cyl),
 pp_eta2 <- eta_squared_posterior(model)
 
 
-bayestestR::describe_posterior(pp_eta2)
+bayestestR::describe_posterior(pp_eta2,
+                               ci = 0.89,
+                               test = c("rope"),
+                               rope_range = c(0, 0.1),
+                               rope_ci = 1)
+
 
 library(magrittr)
 lm(mpg ~ wt + qsec * factor(am), data = mtcars) %>%
