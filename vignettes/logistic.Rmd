@@ -60,7 +60,7 @@ As we can see, this confirms our simulation specifications, the difference is in
 
 # Cohen's *d*
 
-Let's compute now, a traditional Cohen's *d* using the `effectsize` package. While this *d* should be close to 1, it should theorethically be a tiny bit larger, because it takes into account the (pooled) SD of the whole variable `x` (accross the groups), which because of the difference is a bit larger than 1.
+Let's compute now, a traditional Cohen's *d* using the `effectsize` package. While this *d* should be close to 1, it should theoretically be a tiny bit larger, because it takes into account the (pooled) SD of the whole variable `x` (across the groups), which because of the difference is a bit larger than 1.
 
 ```{r message=FALSE, warning=FALSE}
 sd(data$x)
@@ -72,7 +72,7 @@ We can compute the Cohen's *d* as follows:
 effectsize::cohens_d(data$x, data$y)
 ```
 
-As expected, it's pretty close to 1 times the SD of the sample. Interestingly, one can estimate the Cohen's *d* directly from the result of the *t*-test, using the *t* statistic. We can convert it to a *d* using the `effectsize` pacakge:
+As expected, it's pretty close to 1 times the SD of the sample. Interestingly, one can estimate the Cohen's *d* directly from the result of the *t*-test, using the *t* statistic. We can convert it to a *d* using the `effectsize` package:
 
 ```{r message=FALSE, warning=FALSE}
 effectsize::t_to_d(ttest$t, df_error=ttest$df)
@@ -82,7 +82,7 @@ Fortunately, they are quite close.
 
 # Logistic model
 
-Another way of investigating these differences is through the lense of a logistic regression. The main difference is that here, the group variable `y` becomes the outcome and `x` the predictor. Let's fit such model and investigate the parameters: 
+Another way of investigating these differences is through the lens of a logistic regression. The main difference is that here, the group variable `y` becomes the outcome and `x` the predictor. Let's fit such model and investigate the parameters: 
 
 
 ```{r message=FALSE, warning=FALSE}
@@ -91,7 +91,7 @@ model <- glm(y ~ x, data=data, family="binomial")
 parameters::parameters(model)
 ```
 
-How to interepret this output? The coefficients of a logistic model are expressed in log-odds, which is a metric of probability. Using the [**modelbased**](https://github.com/easystats/modelbased) pacakge, one can easilly visualize this model:
+How to interpret this output? The coefficients of a logistic model are expressed in log-odds, which is a metric of probability. Using the [**modelbased**](https://github.com/easystats/modelbased) package, one can easily visualize this model:
 
 
 ```{r message=FALSE, warning=FALSE}
