@@ -1,0 +1,240 @@
+---
+title: "Effect sizes for logistic models"
+output: 
+  github_document:
+    toc: true
+    fig_width: 10.08
+    fig_height: 6
+  rmarkdown::html_vignette:
+    toc: true
+    fig_width: 10.08
+    fig_height: 6
+tags: [r, effect size, logistic, regression, glm, binomial]
+vignette: >
+  \usepackage[utf8]{inputenc}
+  %\VignetteIndexEntry{Effect sizes for logistic models}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+bibliography: bibliography.bib
+---
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(knitr)
+options(knitr.kable.NA = '')
+knitr::opts_chunk$set(comment=">")
+options(digits=2)
+```
+
+# Data
+
+Let's start off with a simple example. We will simulate 100 observations of a normally distributed variable `x` (mean = 0 and SD = 1) and a grouping variable `y`, made of *zeros* and *ones*. Importantly, the mean difference between these two groups (zeros *vs.* ones) is of 1.
+
+```{r message=FALSE, warning=FALSE}
+library(dplyr)
+library(ggplot2)
+
+data <- bayestestR::simulate_difference(n=100, d=1, names=c("y", "x"))
+
+summary(data)
+```
+
+
+# *t*-test
+
+Now, as we are interested in the difference between these two groups, we can first investigate it using a *t*-test.
+
+```{r message=FALSE, warning=FALSE}
+data %>%  
+  ggplot(aes(x=y, y=x, fill=y)) +
+  geom_boxplot() +
+  see::theme_modern()
+
+ttest <- t.test(x ~ y, data=data, var.equal=TRUE) %>% 
+  parameters::parameters()
+ttest
+```
+
+As we can see, this confirms our simulation specifications, the difference is indeed of 1.
+
+# Cohen's *d*
+
+Let's compute now, a traditional Cohen's *d* using the `effectsize` package. While this *d* should be close to 1, it should theorethically be a tiny bit larger, because it takes into account the (pooled) SD of the whole variable `x` (accross the groups), which because of the difference is a bit larger than 1.
+
+```{r message=FALSE, warning=FALSE}
+sd(data$x)
+```
+
+We can compute the Cohen's *d* as follows:
+
+```{r message=FALSE, warning=FALSE}
+effectsize::cohens_d(data$x, data$y)
+```
+
+As expected, it's pretty close to 1 times the SD of the sample. Interestingly, one can estimate the Cohen's *d* directly from the result of the *t*-test, using the *t* statistic. We can convert it to a *d* using the `effectsize` pacakge:
+
+```{r message=FALSE, warning=FALSE}
+effectsize::t_to_d(ttest$t, df_error=ttest$df)
+```
+
+Fortunately, they are quite close.
+
+# Logistic model
+
+Another way of investigating these differences is through the lense of a logistic regression. The main difference is that here, the group variable `y` becomes the outcome and `x` the predictor. Let's fit such model and investigate the parameters: 
+
+
+```{r message=FALSE, warning=FALSE}
+model <- glm(y ~ x, data=data, family="binomial")
+
+parameters::parameters(model)
+```
+
+How to interepret this output? The coefficients of a logistic model are expressed in log-odds, which is a metric of probability. Using the [**modelbased**](https://github.com/easystats/modelbased) pacakge, one can easilly visualize this model:
+
+
+```{r message=FALSE, warning=FALSE}
+model %>% 
+  modelbased::estimate_link() %>% 
+  ggplot(aes(x=x, y=Predicted)) +
+  geom_ribbon(aes(ymin=CI_low, ymax=CI_high), alpha=0.2) +
+  geom_line(color="red", size=1) + 
+  see::theme_modern()
+```
+
+We can see that the probability of `y` being 1 (vs. 0) increases as `x` increases. This is another way of saying that there is a difference of `x` between the two groups of `y`. We can visualize all of our this together as follows:
+
+
+```{r message=FALSE, warning=FALSE}
+# Convert the 'y' variable to a numeric so that it's plotted correctly
+data_plot <- data
+data_plot$y <- as.numeric(data$y)-1
+
+# Plot
+ggplot() +
+  geom_boxplot(data=data_plot, aes(x=y, y=x, fill=y, group=y)) +
+  geom_jitter(data=data_plot, aes(x=y, y=x, fill=y, group=y), width=0.1) +
+  geom_line(data=modelbased::estimate_link(model), aes(x=Predicted, y=x), color="red", size=1) +
+  see::theme_lucid()
+```
+
+You can notice that the red predicted probability line passes through `x=0` when `y=0.5`. This means that when `x=0`, the probability of the two groups is equal: it is the "middle" of the difference between them.
+
+# Odds ratios to Cohen's *d*
+
+There is *in theory* a formula to convert these log-odds ratios (the unit of the coefficients in logistic models) to standardized differences (like Cohen's *d*). The formula is: $$d = logodds * (\sqrt{3} / \pi)$$
+
+
+Let's see:
+
+```{r message=FALSE, warning=FALSE}
+logodds <- parameters::parameters(model)$Coefficient[2]
+
+effectsize::logodds_to_d(logodds)
+```
+
+Hum, it seems a bit far from the value computed above! Let's investigate.
+
+# Simulation
+
+We will simulate different datasets with a varying *difference* and *sample size* (number of observations). For each of this dataset, we will compute the "true" Cohen's *d*, as well as the *d* obtained from the conversion of the logistic coefficient. Note that the simulation takes about 30 s to run.
+
+```{r message=FALSE, warning=FALSE}
+df <- data.frame()
+for(d in seq(0.1, 2, length.out=20)){
+  for(n in exp(seq(log(20), log(150), length.out=20))){
+    data <- bayestestR::simulate_difference(n=n, d=-d, names=c("y", "x"))
+    params <- parameters::parameters(glm(y ~ x, data=data, family="binomial"))[2, ]
+    params$d <- d
+    params$n <- n
+    params$d_cohen <- effectsize::cohens_d(data$x, data$y)$Cohens_d
+    df <- rbind(df, params)
+  }
+}
+df$logodds <- df$Coefficient
+df$d_from_coef <- abs(effectsize::logodds_to_d(df$logodds))
+```
+
+```{r message=FALSE, warning=FALSE}
+df %>%
+  ggplot(aes(x=d_cohen, y=d_from_coef, alpha=n)) +
+  see::geom_point2(size=2) +
+  geom_abline(slope=1) +
+  coord_fixed(ratio = 1, xlim = c(0, 3), ylim = c(0, 3)) +
+  see::theme_modern()
+```
+
+
+Oops, it seems like this formula doesn't work well, as it tends to underestimate the Cohen's *d* (and this tendency interacts with the sample size).
+
+# Adjusted metric
+
+Can we come up with a better conversion algorithm than `d = logodds * 0.55` (`0.55` being the result of `sqrt(3) / pi`)? Let's try. We will fit a model to predict the Cohen's *d* based on the logodds and the sample size, and plot the prediction.
+
+```{r message=FALSE, warning=FALSE}
+model <- lm(d_cohen ~ logodds * n, data=df)
+
+df$d_from_coef_adjusted1 <- modelbased::estimate_response(model)$Predicted   
+
+ggplot(df, aes(x=d_cohen, y=d_from_coef_adjusted1, alpha=n)) +
+  see::geom_point2(size=2) +
+  geom_abline(slope=1) +
+  coord_fixed(ratio = 1, xlim = c(0, 3), ylim = c(0, 3)) +
+  see::theme_modern()
+```
+
+Seems better already! But if we look at the residuals, we can see that there is still a non-linear relationship with the sample size:
+
+```{r message=FALSE, warning=FALSE}
+df$resid <- residuals(model)
+
+ggplot(df, aes(x=n, y=resid, alpha=d_from_coef_adjusted1)) +
+  see::geom_point2(size=2)  +
+  geom_hline(yintercept = 0) +
+  see::theme_modern()
+```
+
+
+Can we further try to eliminate this effect?
+
+```{r message=FALSE, warning=FALSE}
+model <- lm(d_cohen ~ logodds * n * log(n), data=df)
+df$d_from_coef_adjusted2 <- modelbased::estimate_response(model)$Predicted   
+
+ggplot(df, aes(x=d_cohen, y=abs(d_from_coef_adjusted2), alpha=n)) +
+  see::geom_point2(size=2) +
+  geom_abline(slope=1) +
+  coord_fixed(ratio = 1, xlim = c(0, 3), ylim = c(0, 3)) +
+  see::theme_modern()
+```
+
+It seems like adding the log of the sample size improves the relationship! What is the formula of this new **log-odds** to ***d*** conversion?
+
+```{r message=FALSE, warning=FALSE}
+formula <- insight::get_parameters(model) %>% 
+  mutate(Coef = paste0(round(Estimate, 5), " * (", Parameter, ")"),
+         Coef = gsub(":", " * ", Coef),
+         Coef = gsub(" * ((Intercept))", "", Coef, fixed=TRUE)) %>% 
+  pull(Coef) %>% 
+  paste(collapse = " + ")
+
+print(formula)
+```
+
+```{r message=FALSE, warning=FALSE}
+newconversion <- function(logodds, n){
+  0.87341 + 0.75933 * (logodds) + 0.02705 * (n) + -0.35727 * (log(n)) + 0.03714 * (logodds * n) + -0.61004 * (logodds * log(n)) + -0.00418 * (n * log(n)) + -0.00563 * (logodds * n * log(n))
+}
+
+df$d_from_coef_adjusted <- newconversion(df$logodds, df$n)
+
+ggplot(df, aes(x=d_cohen, y=d_from_coef_adjusted)) +
+  geom_point(size=1) +
+  geom_abline(slope=1) +
+  coord_fixed(ratio = 1, xlim = c(0, 3), ylim = c(0, 3)) +
+  see::theme_modern()
+```
+
+
+# References
