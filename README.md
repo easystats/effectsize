@@ -43,6 +43,8 @@ check-out these vignettes:
     Standardization**](https://easystats.github.io/effectsize/articles/standardize_data.html)
   - [**Parameters
     Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
+  - [**Effect Sizes for Logistic
+    Models**](https://easystats.github.io/effectsize/articles/logistic.html)
   - [**Effect size
     conversion**](https://easystats.github.io/effectsize/articles/convert.html)
   - [**Effect Size from Test

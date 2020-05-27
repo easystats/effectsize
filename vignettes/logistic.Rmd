@@ -1,5 +1,5 @@
 ---
-title: "Effect sizes for logistic models"
+title: "Effect Sizes for Logistic Models"
 output: 
   github_document:
     toc: true
@@ -27,66 +27,77 @@ knitr::opts_chunk$set(comment=">")
 options(digits=2)
 ```
 
-# Data
+# Odds Ratio
 
-Let's start off with a simple example. We will simulate 100 observations of a normally distributed variable `x` (mean = 0 and SD = 1) and a grouping variable `y`, made of *zeros* and *ones*. Importantly, the mean difference between these two groups (zeros *vs.* ones) is of 1.
+*This vignette needs some love.*
+
+<!-- With binary predictors & with continuous predictors. -->
+
+<!-- ## Risk Ratios -->
+
+<!-- ## Converting to something more familiar (r/d) -->
+
+<!-- # Standerdized Coefficiants -->
+
+# Validate a *t*-test with Logistic Regression
+
+Let's start off with a simple example. We will simulate 100 observations of a normally distributed outcome variable (mean = 0 and SD = 1) and a grouping variable made of *zeros* and *ones*. Importantly, the mean difference between these two groups (zeros *vs.* ones) is of 1.
 
 ```{r message=FALSE, warning=FALSE}
-library(dplyr)
-library(ggplot2)
-
-data <- bayestestR::simulate_difference(n=100, d=1, names=c("y", "x"))
+data <- bayestestR::simulate_difference(n = 100,
+                                        d = 1,
+                                        names = c("Group", "Outcome"))
 
 summary(data)
 ```
 
 
-# *t*-test
-
 Now, as we are interested in the difference between these two groups, we can first investigate it using a *t*-test.
 
 ```{r message=FALSE, warning=FALSE}
-data %>%  
-  ggplot(aes(x=y, y=x, fill=y)) +
+library(ggplot2)
+
+ggplot(data, aes(x=Group, y=Outcome, fill=Group)) +
   geom_boxplot() +
   see::theme_modern()
 
-ttest <- t.test(x ~ y, data=data, var.equal=TRUE) %>% 
-  parameters::parameters()
-ttest
+ttest <- t.test(Outcome ~ Group, data=data, var.equal=TRUE)
+ttest_pars <- parameters::parameters(ttest)
+ttest_pars
 ```
 
 As we can see, this confirms our simulation specifications, the difference is indeed of 1.
 
-# Cohen's *d*
+## Cohen's *d*
 
 Let's compute now, a traditional Cohen's *d* using the `effectsize` package. While this *d* should be close to 1, it should theoretically be a tiny bit larger, because it takes into account the (pooled) SD of the whole variable `x` (across the groups), which because of the difference is a bit larger than 1.
 
 ```{r message=FALSE, warning=FALSE}
-sd(data$x)
+sd(data$Outcome)
 ```
 
 We can compute the Cohen's *d* as follows:
 
 ```{r message=FALSE, warning=FALSE}
-effectsize::cohens_d(data$x, data$y)
+effectsize::cohens_d(data$Outcome, data$Group)
 ```
 
 As expected, it's pretty close to 1 times the SD of the sample. Interestingly, one can estimate the Cohen's *d* directly from the result of the *t*-test, using the *t* statistic. We can convert it to a *d* using the `effectsize` package:
 
 ```{r message=FALSE, warning=FALSE}
-effectsize::t_to_d(ttest$t, df_error=ttest$df)
+effectsize::t_to_d(ttest_pars$t, df_error = ttest_pars$df)
 ```
 
 Fortunately, they are quite close.
 
-# Logistic model
+## The Complimentry Logistic Model
 
 Another way of investigating these differences is through the lens of a logistic regression. The main difference is that here, the group variable `y` becomes the outcome and `x` the predictor. Let's fit such model and investigate the parameters: 
 
 
 ```{r message=FALSE, warning=FALSE}
-model <- glm(y ~ x, data=data, family="binomial")
+model <- glm(Group ~ Outcome, data = data,
+             family = "binomial")
 
 parameters::parameters(model)
 ```
@@ -95,11 +106,11 @@ How to interpret this output? The coefficients of a logistic model are expressed
 
 
 ```{r message=FALSE, warning=FALSE}
-model %>% 
-  modelbased::estimate_link() %>% 
-  ggplot(aes(x=x, y=Predicted)) +
-  geom_ribbon(aes(ymin=CI_low, ymax=CI_high), alpha=0.2) +
-  geom_line(color="red", size=1) + 
+data_grid <- modelbased::estimate_link(model)
+
+ggplot(data_grid, aes(x = Outcome, y = Predicted)) +
+  geom_ribbon(aes(ymin = CI_low, ymax = CI_high), alpha = 0.2) +
+  geom_line(color = "red", size = 1) + 
   see::theme_modern()
 ```
 
@@ -107,16 +118,15 @@ We can see that the probability of `y` being 1 (vs. 0) increases as `x` increase
 
 
 ```{r message=FALSE, warning=FALSE}
-# Convert the 'y' variable to a numeric so that it's plotted correctly
-data_plot <- data
-data_plot$y <- as.numeric(data$y)-1
 
-# Plot
-ggplot() +
-  geom_boxplot(data=data_plot, aes(x=y, y=x, fill=y, group=y)) +
-  geom_jitter(data=data_plot, aes(x=y, y=x, fill=y, group=y), width=0.1) +
-  geom_line(data=modelbased::estimate_link(model), aes(x=Predicted, y=x), color="red", size=1) +
-  see::theme_lucid()
+ggplot(data, aes(x=Group, y=Outcome, fill=Group)) +
+  geom_boxplot() +
+  geom_jitter(width = 0.1) + 
+  # add vertical regression line
+  geom_line(data = data_grid, 
+            aes(x = Predicted + 1, y = Outcome, fill = NA), 
+            color = "red", size = 1) +
+  see::theme_modern()
 ```
 
 You can notice that the red predicted probability line passes through `x=0` when `y=0.5`. This means that when `x=0`, the probability of the two groups is equal: it is the "middle" of the difference between them.

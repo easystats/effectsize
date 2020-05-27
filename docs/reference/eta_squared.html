@@ -86,7 +86,7 @@ might not always be appropriate (Yeah... ANOVAs are hard...). See details." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.1</span>
       </span>
     </div>
 
@@ -126,6 +126,9 @@ might not always be appropriate (Yeah... ANOVAs are hard...). See details." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/logistic.html">Effect Sizes for Logistic Models</a>
+    </li>
     <li>
       <a href="../articles/convert.html">Effect size conversion</a>
     </li>
@@ -322,7 +325,6 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
 #&gt; cyl_f      |           0.63 | [0.42, 0.75]
 #&gt; am_f:cyl_f |           0.10 | [0.00, 0.27]</div><div class='input'>
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"parameters"</span>)) {
-  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>mtcars</span>)
   <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mpg</span> ~ <span class='no'>wt</span> + <span class='no'>cyl</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
   <span class='no'>mp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/parameters/man/model_parameters.html'>model_parameters</a></span>(<span class='no'>model</span>)
   <span class='fu'>eta_squared</span>(<span class='no'>mp</span>)
