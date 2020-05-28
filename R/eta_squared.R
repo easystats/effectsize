@@ -239,7 +239,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
 
   values <- .values_aov(params)
   if (type == "eta") {
-    if (isFALSE(partial)) {
+    if (!isTRUE(partial)) {
       params$Eta_Sq <- params$Sum_Squares / values$Sum_Squares_total
       params[params$Parameter == "Residuals", "Eta_Sq"] <- NA
     } else {
@@ -249,7 +249,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
         NA
     }
   } else if (type == "omega") {
-    if (isFALSE(partial)) {
+    if (!isTRUE(partial)) {
       params$Omega_Sq <-
         (params$Sum_Squares - params$df * values$Mean_Square_residuals) / (values$Sum_Squares_total + values$Mean_Square_residuals)
       params[params$Parameter == "Residuals", "Omega_Sq"] <- NA
@@ -262,7 +262,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
         NA
     }
   } else if (type == "epsilon") {
-    if (isFALSE(partial)) {
+    if (!isTRUE(partial)) {
       params$Epsilon_Sq <-
         (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
         values$Sum_Squares_total
@@ -356,7 +356,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   denDF <- denDF[denDF %in% colnames(model)]
 
 
-  if (isFALSE(partial)) {
+  if (!isTRUE(partial)) {
     warning(
       "Currently only supports partial ",
       type,
@@ -395,7 +395,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                    epsilon = F_to_epsilon2)
 
 
-  if (isFALSE(partial)) {
+  if (!isTRUE(partial)) {
     warning(
       "Currently only supports partial ",
       type,
@@ -471,7 +471,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                    omega = F_to_omega2,
                    epsilon = F_to_epsilon2)
 
-  if (isFALSE(partial)) {
+  if (!isTRUE(partial)) {
     warning(
       "Currently only supports partial ",
       type,
@@ -515,7 +515,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   #   return(out)
   # }
 
-  if (isFALSE(partial)) {
+  if (!isTRUE(partial)) {
     warning("Currently only supports partial ",
             type,
             " squared for afex-models.",
