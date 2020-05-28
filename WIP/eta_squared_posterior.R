@@ -29,6 +29,8 @@ eta_squared_posterior <- function(model, partial = FALSE, draws = 500, verbose =
   X <- insight::get_predictors(model)
   resp_name <- insight::find_response(model)
 
+  .all_centered(X)
+
 
   if (verbose) {
     message("Sampleing effect size... This can take a while...")
@@ -54,20 +56,56 @@ eta_squared_posterior <- function(model, partial = FALSE, draws = 500, verbose =
   return(res)
 }
 
+#' @keywords internal
+.all_centered <- function(X) {
+  numeric <- sapply(X, class) == "numeric"
+  numerics <- colnames(X)[numeric]
+  factors <- colnames(X)[!numeric]
+
+
+  numerics_centered <- sapply(X[, numerics, drop = FALSE],
+                              function(xi) isTRUE(all.equal(mean(xi),0)))
+
+  # if a contrast has negative and positive values, it is assumed to be one of:
+  # "contr.sum", "contr.helmert", "contr.poly", "contr.bayes"
+  factors_centered <- sapply(X[, factors, drop = FALSE],
+                             function (xi) any(contrasts(xi) < 0) & any(contrasts(xi) > 0))
+
+  if (!all(c(numerics_centered,factors_centered))) {
+    non_centered <- !c(numerics_centered,factors_centered)
+    non_centered <- names(non_centered)[non_centered]
+    warning(
+      "Not all variables are centered:\n ",
+      paste(non_centered,collapse = ", "),
+      "\n Results can be missleading...",
+      call. = FALSE, immediate. = TRUE
+    )
+  }
+
+  return(invisible(NULL))
+}
+
 # fit model
-model <- stan_lmer(mpg ~ wt + qsec * factor(am) + (1|cyl),
-                   data = mtcars, refresh = 0)
-model_p <- bayestestR:::.update_to_priors.stanreg(model) # make this an exported function?
+model0 <- stan_lmer(mpg ~ wt + qsec * factor(am) + (1|cyl),
+                    data = mtcars, refresh = 0,
+                    diagnostic_file = file.path(tempdir(), "df0.csv"))
+model1 <- stan_lmer(mpg ~ qsec * factor(am) + (1|cyl),
+                    data = mtcars, refresh = 0,
+                    diagnostic_file = file.path(tempdir(), "df1.csv"))
+
 
 # ppd effect size
-pp_eta2 <- eta_squared_posterior(model)
-pp_eta2_p <- eta_squared_posterior(model_p)
+pp_eta2_0 <- eta_squared_posterior(model0)
+pp_eta2_1 <- eta_squared_posterior(model1)
 
 # distribution
-describe_posterior(pp_eta2_p, ci = 0.89,
+BF <- bayesfactor_models(model0, model1)
+debugonce(bayestestR:::weighted_posteriors.data.frame)
+pp_eta2_w <- weighted_posteriors(pp_eta2_0, pp_eta2_1, prior_odds = BF$BF[2])
+
+describe_posterior(pp_eta2_w, ci = 0.89,
                    test = c("rope"), rope_range = c(0, 0.1), rope_ci = 1)
-describe_posterior(pp_eta2, ci = 0.89,
-                   test = c("rope"), rope_range = c(0, 0.1), rope_ci = 1)
+
 
 # Compare to
 library(magrittr)
@@ -75,21 +113,16 @@ lm(mpg ~ wt + qsec * factor(am), data = mtcars) %>%
   car::Anova(type = 3) %>%
   eta_squared(partial = FALSE)
 
+describe_posterior(pp_eta2_0, ci = 0.89,
+                   test = c("rope"), rope_range = c(0, 0.1), rope_ci = 1)
 
 
 
-# BF + SI
-(bf <- bayesfactor_parameters(pp_eta2, pp_eta2_p,
-                              null = c(0, 0.1),
-                              lbound = 0, ubound = 1))
-plot(bf)
+model0p <- update(model0, prior_PD = TRUE)
+pp_eta2_0p <- eta_squared_posterior(model0p)
 
-(si <- si(pp_eta2, pp_eta2_p,
-          BF = c(1/3,1,3, 10),
-          lbound = 0, ubound = 1))
-plot(si, support_only = T)
+si <- si(pp_eta2_0, pp_eta2_0p, BF = 1, lbound = 0, ubound = 1)
+plot(si, support_only = T) + ggplot2::coord_cartesian(xlim = c(0,1))
 
-
-
-
-
+bf <- bayesfactor_parameters(pp_eta2_0, pp_eta2_0p, null = c(0, 0.05), lbound = 0, ubound = 1)
+plot(bf) + ggplot2::coord_cartesian(xlim = c(0,1))
