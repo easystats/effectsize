@@ -8,17 +8,21 @@ about: Create a report to help us improve
 A description of what the bug is.
 
 **To Reproduce**
-Steps to reproduce the behaviour:
+Steps to reproduce the behavior:
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
-**Expected behaviour**
+[conciser using `reprex::reprex()`]
+
+**Expected behavior**
 A clear and concise description of what you expected to happen.
 
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
 **Specifiations (please complete the following information):**
- - Package Version [e.g. 0.2.1]
+ - `R` Version [version]
+ - `effectsize` Version [version]
+  
