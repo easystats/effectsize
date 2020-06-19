@@ -1,3 +1,9 @@
+# effectsize 0.3.2
+
+## Bug fixes
+
+- Fixed bug in `standardize()` for standard objects with non-standard class-attributes (like vectors of class `haven_labelled` or `vctrs_vctr`).
+
 # effectsize 0.3.1
 
 ## New features
@@ -9,10 +15,6 @@
   - `lme` and `anova.lme` objects.
 - New function `equivalence_test()` for effect sizes.
 - New plotting methods in the `see` package.
-
-## Bug fixes
-
-- Fixed bug in `standardize()` for standard objects with non-standard class-attributes (like vectors of class `haven_labelled` or `vctrs_vctr`).
 
 # effectsize 0.3.0
 
