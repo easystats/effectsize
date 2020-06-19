@@ -1,4 +1,4 @@
-# effectsize 0.3.2
+# effectsize 0.3.1.1
 
 ## Bug fixes
 
