@@ -110,7 +110,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="logistic_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Effect Sizes for Logistic Models</h1>
@@ -136,11 +136,13 @@
 <h1 class="hasAnchor">
 <a href="#validate-a-t-test-with-logistic-regression" class="anchor"></a>Validate a <em>t</em>-test with Logistic Regression</h1>
 <p>Let’s start off with a simple example. We will simulate 100 observations of a normally distributed outcome variable (mean = 0 and SD = 1) and a grouping variable made of <em>zeros</em> and <em>ones</em>. Importantly, the mean difference between these two groups (zeros <em>vs.</em> ones) is of 1.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">data</span> <span class="kw">&lt;-</span> <span class="kw pkg">bayestestR</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/bayestestR/man/simulate_correlation.html">simulate_difference</a></span>(<span class="kw">n</span> <span class="kw">=</span> <span class="fl">100</span>,
-                                        <span class="kw">d</span> <span class="kw">=</span> <span class="fl">1</span>,
-                                        <span class="kw">names</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Group"</span>, <span class="st">"Outcome"</span>))
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw">data</span> <span class="op">&lt;-</span> <span class="kw">bayestestR</span>::<span class="fu"><a href="https://rdrr.io/pkg/bayestestR/man/simulate_correlation.html">simulate_difference</a></span>(n = <span class="fl">100</span>,
+                                        d = <span class="fl">1</span>,
+                                        names = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Group"</span>, <span class="st">"Outcome"</span>))
 
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">data</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw">data</span>)
+</pre></div>
 <pre><code>&gt;  Group     Outcome     
 &gt;  0:50   Min.   :-2.55  
 &gt;  1:50   1st Qu.:-0.74  
@@ -149,15 +151,19 @@
 &gt;         3rd Qu.: 0.74  
 &gt;         Max.   : 2.55</code></pre>
 <p>Now, as we are interested in the difference between these two groups, we can first investigate it using a <em>t</em>-test.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span>)
 
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span><span class="kw">=</span><span class="no">Group</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">Outcome</span>, <span class="kw">fill</span><span class="kw">=</span><span class="no">Group</span>)) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span>() +
-  <span class="kw pkg">see</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/see/man/theme_modern.html">theme_modern</a></span>()</pre></body></html></div>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(x=<span class="kw">Group</span>, y=<span class="kw">Outcome</span>, fill=<span class="kw">Group</span>)) <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span>() <span class="op">+</span>
+  <span class="kw">see</span>::<span class="fu"><a href="https://rdrr.io/pkg/see/man/theme_modern.html">theme_modern</a></span>()
+</pre></div>
 <p><img src="logistic_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">ttest</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span>(<span class="no">Outcome</span> ~ <span class="no">Group</span>, <span class="kw">data</span><span class="kw">=</span><span class="no">data</span>, <span class="kw">var.equal</span><span class="kw">=</span><span class="fl">TRUE</span>)
-<span class="no">ttest_pars</span> <span class="kw">&lt;-</span> <span class="kw pkg">parameters</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/parameters/man/model_parameters.html">parameters</a></span>(<span class="no">ttest</span>)
-<span class="no">ttest_pars</span></pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="kw">ttest</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span>(<span class="kw">Outcome</span> <span class="op">~</span> <span class="kw">Group</span>, data=<span class="kw">data</span>, var.equal=<span class="fl">TRUE</span>)
+<span class="kw">ttest_pars</span> <span class="op">&lt;-</span> <span class="kw">parameters</span>::<span class="fu"><a href="https://rdrr.io/pkg/parameters/man/model_parameters.html">parameters</a></span>(<span class="kw">ttest</span>)
+<span class="kw">ttest_pars</span>
+</pre></div>
 <pre><code>&gt; Parameter | Group | Mean_Group1 | Mean_Group2 | Difference |     t | df |      p |         95% CI |             Method
 &gt; ----------------------------------------------------------------------------------------------------------------------
 &gt; Outcome   | Group |       -0.50 |        0.50 |       1.00 | -5.32 | 98 | &lt; .001 | [-1.37, -0.63] |  Two Sample t-test</code></pre>
@@ -167,15 +173,21 @@
 <a href="#cohens-d" class="anchor"></a>Cohen’s <em>d</em>
 </h2>
 <p>Let’s compute now, a traditional Cohen’s <em>d</em> using the <code>effectsize</code> package. While this <em>d</em> should be close to 1, it should theoretically be a tiny bit larger, because it takes into account the (pooled) SD of the whole variable <code>x</code> (across the groups), which because of the difference is a bit larger than 1.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(<span class="no">data</span>$<span class="no">Outcome</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(<span class="kw">data</span><span class="op">$</span><span class="kw">Outcome</span>)
+</pre></div>
 <pre><code>&gt; [1] 1.1</code></pre>
 <p>We can compute the Cohen’s <em>d</em> as follows:</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="kw pkg">effectsize</span><span class="kw ns">::</span><span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span>(<span class="no">data</span>$<span class="no">Outcome</span>, <span class="no">data</span>$<span class="no">Group</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="kw">effectsize</span>::<span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span>(<span class="kw">data</span><span class="op">$</span><span class="kw">Outcome</span>, <span class="kw">data</span><span class="op">$</span><span class="kw">Group</span>)
+</pre></div>
 <pre><code>&gt; Cohen's d |         95% CI
 &gt; --------------------------
 &gt;     -1.06 | [-1.48, -0.64]</code></pre>
 <p>As expected, it’s pretty close to 1 times the SD of the sample. Interestingly, one can estimate the Cohen’s <em>d</em> directly from the result of the <em>t</em>-test, using the <em>t</em> statistic. We can convert it to a <em>d</em> using the <code>effectsize</code> package:</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="kw pkg">effectsize</span><span class="kw ns">::</span><span class="fu"><a href="../reference/t_to_r.html">t_to_d</a></span>(<span class="no">ttest_pars</span>$<span class="no">t</span>, <span class="kw">df_error</span> <span class="kw">=</span> <span class="no">ttest_pars</span>$<span class="no">df</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="kw">effectsize</span>::<span class="fu"><a href="../reference/t_to_d.html">t_to_d</a></span>(<span class="kw">ttest_pars</span><span class="op">$</span><span class="kw">t</span>, df_error = <span class="kw">ttest_pars</span><span class="op">$</span><span class="kw">df</span>)
+</pre></div>
 <pre><code>&gt;     d |         95% CI
 &gt; ----------------------
 &gt; -1.07 | [-1.50, -0.65]</code></pre>
@@ -185,31 +197,37 @@
 <h2 class="hasAnchor">
 <a href="#the-complimentry-logistic-model" class="anchor"></a>The Complimentry Logistic Model</h2>
 <p>Another way of investigating these differences is through the lens of a logistic regression. The main difference is that here, the group variable <code>y</code> becomes the outcome and <code>x</code> the predictor. Let’s fit such model and investigate the parameters:</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">model</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(<span class="no">Group</span> ~ <span class="no">Outcome</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">data</span>,
-             <span class="kw">family</span> <span class="kw">=</span> <span class="st">"binomial"</span>)
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="kw">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(<span class="kw">Group</span> <span class="op">~</span> <span class="kw">Outcome</span>, data = <span class="kw">data</span>,
+             family = <span class="st">"binomial"</span>)
 
-<span class="kw pkg">parameters</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/parameters/man/model_parameters.html">parameters</a></span>(<span class="no">model</span>)</pre></body></html></div>
+<span class="kw">parameters</span>::<span class="fu"><a href="https://rdrr.io/pkg/parameters/man/model_parameters.html">parameters</a></span>(<span class="kw">model</span>)
+</pre></div>
 <pre><code>&gt; Parameter   | Coefficient |   SE |        95% CI |        z | df |      p
 &gt; -------------------------------------------------------------------------
 &gt; (Intercept) |    1.23e-16 | 0.23 | [-0.45, 0.45] | 5.41e-16 | 98 | 1.000 
 &gt; Outcome     |        1.13 | 0.27 | [ 0.65, 1.70] |     4.25 | 98 | &lt; .001</code></pre>
 <p>How to interpret this output? The coefficients of a logistic model are expressed in log-odds, which is a metric of probability. Using the <a href="https://github.com/easystats/modelbased"><strong>modelbased</strong></a> package, one can easily visualize this model:</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">data_grid</span> <span class="kw">&lt;-</span> <span class="kw pkg">modelbased</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/modelbased/man/estimate_response.html">estimate_link</a></span>(<span class="no">model</span>)
+<div class="sourceCode" id="cb14"><pre class="downlit">
+<span class="kw">data_grid</span> <span class="op">&lt;-</span> <span class="kw">modelbased</span>::<span class="fu"><a href="https://rdrr.io/pkg/modelbased/man/estimate_response.html">estimate_link</a></span>(<span class="kw">model</span>)
 
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">data_grid</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">Outcome</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">Predicted</span>)) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span>(<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">ymin</span> <span class="kw">=</span> <span class="no">CI_low</span>, <span class="kw">ymax</span> <span class="kw">=</span> <span class="no">CI_high</span>), <span class="kw">alpha</span> <span class="kw">=</span> <span class="fl">0.2</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span>(<span class="kw">color</span> <span class="kw">=</span> <span class="st">"red"</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="fl">1</span>) +
-  <span class="kw pkg">see</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/see/man/theme_modern.html">theme_modern</a></span>()</pre></body></html></div>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">data_grid</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(x = <span class="kw">Outcome</span>, y = <span class="kw">Predicted</span>)) <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span>(<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(ymin = <span class="kw">CI_low</span>, ymax = <span class="kw">CI_high</span>), alpha = <span class="fl">0.2</span>) <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span>(color = <span class="st">"red"</span>, size = <span class="fl">1</span>) <span class="op">+</span> 
+  <span class="kw">see</span>::<span class="fu"><a href="https://rdrr.io/pkg/see/man/theme_modern.html">theme_modern</a></span>()
+</pre></div>
 <p><img src="logistic_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 <p>We can see that the probability of <code>y</code> being 1 (vs. 0) increases as <code>x</code> increases. This is another way of saying that there is a difference of <code>x</code> between the two groups of <code>y</code>. We can visualize all of our this together as follows:</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span><span class="kw">=</span><span class="no">Group</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">Outcome</span>, <span class="kw">fill</span><span class="kw">=</span><span class="no">Group</span>)) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span>() +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span>(<span class="kw">width</span> <span class="kw">=</span> <span class="fl">0.1</span>) +
+<div class="sourceCode" id="cb15"><pre class="downlit">
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(x=<span class="kw">Group</span>, y=<span class="kw">Outcome</span>, fill=<span class="kw">Group</span>)) <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span>() <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span>(width = <span class="fl">0.1</span>) <span class="op">+</span> 
   <span class="co"># add vertical regression line</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">data_grid</span>,
-            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">Predicted</span> + <span class="fl">1</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">Outcome</span>, <span class="kw">fill</span> <span class="kw">=</span> <span class="fl">NA</span>),
-            <span class="kw">color</span> <span class="kw">=</span> <span class="st">"red"</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="fl">1</span>) +
-  <span class="kw pkg">see</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/see/man/theme_modern.html">theme_modern</a></span>()</pre></body></html></div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span>(data = <span class="kw">data_grid</span>, 
+            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(x = <span class="kw">Predicted</span> <span class="op">+</span> <span class="fl">1</span>, y = <span class="kw">Outcome</span>, fill = <span class="fl">NA</span>), 
+            color = <span class="st">"red"</span>, size = <span class="fl">1</span>) <span class="op">+</span>
+  <span class="kw">see</span>::<span class="fu"><a href="https://rdrr.io/pkg/see/man/theme_modern.html">theme_modern</a></span>()
+</pre></div>
 <p><img src="logistic_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p>You can notice that the red predicted probability line passes through <code>x=0</code> when <code>y=0.5</code>. This means that when <code>x=0</code>, the probability of the two groups is equal: it is the “middle” of the difference between them.</p>
 <!-- # Odds ratios to Cohen's *d* -->

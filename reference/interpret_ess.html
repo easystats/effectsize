@@ -164,11 +164,11 @@
     <p>Interpretation of Bayesian indices, such as Effective Sample Size (ESS), Rhat, or percentage in ROPE.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>interpret_ess</span>(<span class='no'>ess</span>, <span class='kw'>rules</span> <span class='kw'>=</span> <span class='st'>"burkner2017"</span>)
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_ess.html'>interpret_ess</a></span>(<span class='kw'>ess</span>, rules = <span class='st'>"burkner2017"</span>)
 
-<span class='fu'>interpret_rhat</span>(<span class='no'>rhat</span>, <span class='kw'>rules</span> <span class='kw'>=</span> <span class='st'>"vehtari2019"</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_ess.html'>interpret_rhat</a></span>(<span class='kw'>rhat</span>, rules = <span class='st'>"vehtari2019"</span>)
 
-<span class='fu'>interpret_rope</span>(<span class='no'>rope</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>rules</span> <span class='kw'>=</span> <span class='st'>"default"</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_ess.html'>interpret_rope</a></span>(<span class='kw'>rope</span>, ci = <span class='fl'>0.9</span>, rules = <span class='st'>"default"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,7 +179,7 @@
     </tr>
     <tr>
       <th>rules</th>
-      <td><p>A character string (see details) or a custom set of <code><a href='rules.html'>rules</a></code>.</p></td>
+      <td><p>A character string (see details) or a custom set of <code><a href='https://rdrr.io/pkg/effectsize/man/rules.html'>rules</a></code>.</p></td>
     </tr>
     <tr>
       <th>rhat</th>
@@ -219,9 +219,9 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>interpret_ess</span>(<span class='fl'>1001</span>)</div><div class='output co'>#&gt; [1] "sufficient"</div><div class='input'><span class='fu'>interpret_ess</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>852</span>, <span class='fl'>1200</span>))</div><div class='output co'>#&gt; [1] "unsufficient" "sufficient"  </div><div class='input'>
-<span class='fu'>interpret_rhat</span>(<span class='fl'>1.00</span>)</div><div class='output co'>#&gt; [1] "converged"</div><div class='input'><span class='fu'>interpret_rhat</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.5</span>, <span class='fl'>0.9</span>))</div><div class='output co'>#&gt; [1] "failed"    "converged"</div><div class='input'>
-<span class='fu'>interpret_rope</span>(<span class='fl'>0</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.9</span>)</div><div class='output co'>#&gt; [1] "significant"</div><div class='input'><span class='fu'>interpret_rope</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.005</span>, <span class='fl'>0.99</span>), <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "significant"         "probably negligible"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_ess.html'>interpret_ess</a></span>(<span class='fl'>1001</span>)</div><div class='output co'>#&gt; [1] "sufficient"</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_ess.html'>interpret_ess</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>852</span>, <span class='fl'>1200</span>))</div><div class='output co'>#&gt; [1] "unsufficient" "sufficient"  </div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_ess.html'>interpret_rhat</a></span>(<span class='fl'>1.00</span>)</div><div class='output co'>#&gt; [1] "converged"</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_ess.html'>interpret_rhat</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.5</span>, <span class='fl'>0.9</span>))</div><div class='output co'>#&gt; [1] "failed"    "converged"</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_ess.html'>interpret_rope</a></span>(<span class='fl'>0</span>, ci = <span class='fl'>0.9</span>)</div><div class='output co'>#&gt; [1] "significant"</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_ess.html'>interpret_rope</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.005</span>, <span class='fl'>0.99</span>), ci = <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "significant"         "probably negligible"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

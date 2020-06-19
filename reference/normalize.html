@@ -161,19 +161,19 @@
     </div>
 
     <div class="ref-description">
-    <p>Performs a normalization of data, i.e., it scales all numeric variables in the range 0 - 1. This is a special case of <code><a href='change_scale.html'>change_scale</a></code>.</p>
+    <p>Performs a normalization of data, i.e., it scales all numeric variables in the range 0 - 1. This is a special case of <code><a href='https://rdrr.io/pkg/effectsize/man/change_scale.html'>change_scale</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>normalize</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/normalize.html'>normalize</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for numeric</span>
-<span class='fu'>normalize</span>(<span class='no'>x</span>, <span class='kw'>include_bounds</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/normalize.html'>normalize</a></span>(<span class='kw'>x</span>, include_bounds = <span class='fl'>TRUE</span>, verbose = <span class='fl'>TRUE</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for grouped_df</span>
-<span class='fu'>normalize</span>(<span class='no'>x</span>, <span class='kw'>select</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>exclude</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>include_bounds</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/normalize.html'>normalize</a></span>(<span class='kw'>x</span>, select = <span class='kw'>NULL</span>, exclude = <span class='kw'>NULL</span>, include_bounds = <span class='fl'>TRUE</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>normalize</span>(<span class='no'>x</span>, <span class='kw'>select</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>exclude</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>include_bounds</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/normalize.html'>normalize</a></span>(<span class='kw'>x</span>, select = <span class='kw'>NULL</span>, exclude = <span class='kw'>NULL</span>, include_bounds = <span class='fl'>TRUE</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -217,11 +217,11 @@ include zeros and ones.</p></td>
     <p>Smithson M, Verkuilen J (2006). A Better Lemon Squeezer? Maximum-Likelihood Regression with Beta-Distributed Dependent Variables. Psychological Methods, 11(1), 54–71.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='ranktransform.html'>ranktransform</a></code> <code><a href='standardize.html'>standardize</a></code> <code><a href='change_scale.html'>change_scale</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/effectsize/man/ranktransform.html'>ranktransform</a></code> <code><a href='https://rdrr.io/pkg/effectsize/man/standardize.html'>standardize</a></code> <code><a href='https://rdrr.io/pkg/effectsize/man/change_scale.html'>change_scale</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>normalize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, -<span class='fl'>5</span>, -<span class='fl'>2</span>))</div><div class='output co'>#&gt; [1] 0.5 0.6 1.0 0.0 0.3</div><div class='input'><span class='fu'>normalize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, -<span class='fl'>5</span>, -<span class='fl'>2</span>), <span class='kw'>include_bounds</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] 0.50 0.58 0.90 0.10 0.34</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>normalize</span>(<span class='no'>iris</span>))</div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/normalize.html'>normalize</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>))</div><div class='output co'>#&gt; [1] 0.5 0.6 1.0 0.0 0.3</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/normalize.html'>normalize</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>), include_bounds = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] 0.50 0.58 0.90 0.10 0.34</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/normalize.html'>normalize</a></span>(<span class='kw'>iris</span>))</div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #&gt; 1   0.22222222   0.6250000   0.06779661  0.04166667  setosa
 #&gt; 2   0.16666667   0.4166667   0.06779661  0.04166667  setosa
 #&gt; 3   0.11111111   0.5000000   0.05084746  0.04166667  setosa

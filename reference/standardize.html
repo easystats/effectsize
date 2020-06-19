@@ -161,33 +161,33 @@
     </div>
 
     <div class="ref-description">
-    <p>Performs a standardization of data (z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The <code><a href='normalize.html'>normalize</a></code> function can also be used to scale all numeric variables within the 0 - 1 range.</p>
+    <p>Performs a standardization of data (z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The <code><a href='https://rdrr.io/pkg/effectsize/man/normalize.html'>normalize</a></code> function can also be used to scale all numeric variables within the 0 - 1 range.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>standardize</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize.html'>standardize</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>standardize</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>two_sd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>select</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>exclude</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>append</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='st'>"_z"</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize.html'>standardize</a></span>(
+  <span class='kw'>x</span>,
+  robust = <span class='fl'>FALSE</span>,
+  two_sd = <span class='fl'>FALSE</span>,
+  select = <span class='kw'>NULL</span>,
+  exclude = <span class='kw'>NULL</span>,
+  verbose = <span class='fl'>TRUE</span>,
+  force = <span class='fl'>FALSE</span>,
+  append = <span class='fl'>FALSE</span>,
+  suffix = <span class='st'>"_z"</span>,
+  <span class='kw'>...</span>
 )
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>standardize</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>two_sd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>include_response</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize.html'>standardize</a></span>(
+  <span class='kw'>x</span>,
+  robust = <span class='fl'>FALSE</span>,
+  two_sd = <span class='fl'>FALSE</span>,
+  include_response = <span class='fl'>TRUE</span>,
+  verbose = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -256,17 +256,17 @@ response value will never be standardized, to make re-fitting the model work.</p
     <p>The standardized object (either a standardize data frame or a statistical model fitted on standardized data).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>If <code>x</code> is a model object, standardization is done by completely refitting the model on the standardized data. Hence, this approach is equal to standardizing the variables before fitting the model and will return a new model object. However, this method is particularly recommended for complex models that include interactions or transformations (e.g., polynomial or spline terms). The <code>robust</code> (default to <code>FALSE</code>) argument enables a robust standardization of data, i.e., based on the <code>median</code> and <code>MAD</code> instead of the <code>mean</code> and <code>SD</code>. See <code><a href='standardize_parameters.html'>standardize_parameters</a></code> for other methods of standardizing model coefficients.</p>
+    <p>If <code>x</code> is a model object, standardization is done by completely refitting the model on the standardized data. Hence, this approach is equal to standardizing the variables before fitting the model and will return a new model object. However, this method is particularly recommended for complex models that include interactions or transformations (e.g., polynomial or spline terms). The <code>robust</code> (default to <code>FALSE</code>) argument enables a robust standardization of data, i.e., based on the <code>median</code> and <code>MAD</code> instead of the <code>mean</code> and <code>SD</code>. See <code><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters</a></code> for other methods of standardizing model coefficients.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>When <code>x</code> is a data frame or vector, missing values are preserved, so the return value has the same length / number of rows as the original input.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='normalize.html'>normalize</a></code> <code><a href='standardize_parameters.html'>standardize_parameters</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/effectsize/man/normalize.html'>normalize</a></code> <code><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Data frames</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='fu'>standardize</span>(<span class='no'>iris</span>))</div><div class='output co'>#&gt;   Sepal.Length       Sepal.Width       Petal.Length      Petal.Width     
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize.html'>standardize</a></span>(<span class='kw'>iris</span>))</div><div class='output co'>#&gt;   Sepal.Length       Sepal.Width       Petal.Length      Petal.Width     
 #&gt;  Min.   :-1.86378   Min.   :-2.4258   Min.   :-1.5623   Min.   :-1.4422  
 #&gt;  1st Qu.:-0.89767   1st Qu.:-0.5904   1st Qu.:-1.2225   1st Qu.:-1.1799  
 #&gt;  Median :-0.05233   Median :-0.1315   Median : 0.3354   Median : 0.1321  
@@ -281,8 +281,8 @@ response value will never be standardized, to make re-fitting the model work.</p
 #&gt;                 
 #&gt;                 </div><div class='input'>
 <span class='co'># Models</span>
-<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Species</span> * <span class='no'>Petal.Width</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)
-<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='fu'>standardize</span>(<span class='no'>model</span>))</div><div class='output co'>#&gt;                   (Intercept)             Speciesversicolor 
+<span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>Sepal.Length</span> <span class='op'>~</span> <span class='kw'>Species</span> <span class='op'>*</span> <span class='kw'>Petal.Width</span>, data = <span class='kw'>iris</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize.html'>standardize</a></span>(<span class='kw'>model</span>))</div><div class='output co'>#&gt;                   (Intercept)             Speciesversicolor 
 #&gt;                    0.05969491                   -0.16597410 
 #&gt;              Speciesvirginica                   Petal.Width 
 #&gt;                    0.18985849                    0.85622714 

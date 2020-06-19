@@ -158,6 +158,18 @@
       <small>Source: <a href='https://github.com/easystats/effectsize/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="effectsize-032" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.2">
+<a href="#effectsize-032" class="anchor"></a>effectsize 0.3.2<small> Unreleased </small>
+</h1>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>Fixed bug in <code><a href="https://rdrr.io/pkg/effectsize/man/standardize.html">standardize()</a></code> for standard objects with non-standard class-attributes (like vectors of class <code>haven_labelled</code> or <code>vctrs_vctr</code>).</li>
+</ul>
+</div>
+</div>
     <div id="effectsize-031" class="section level1">
 <h1 class="page-header" data-toc-text="0.3.1">
 <a href="#effectsize-031" class="anchor"></a>effectsize 0.3.1<small> 2020-05-19 </small>
@@ -167,9 +179,9 @@
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
 <li>
-<code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> now returns CIs ( <a href='https://github.com/easystats/effectsize/issues/72'>#72</a> )</li>
+<code><a href="https://rdrr.io/pkg/effectsize/man/standardize_parameters.html">standardize_parameters()</a></code> now returns CIs ( <a href='https://github.com/easystats/effectsize/issues/72'>#72</a> )</li>
 <li>
-<code><a href="../reference/eta_squared.html">eta_squared()</a></code>, <code><a href="../reference/eta_squared.html">omega_squared()</a></code> and <code><a href="../reference/eta_squared.html">epsilon_squared()</a></code> now works with
+<code><a href="https://rdrr.io/pkg/effectsize/man/eta_squared.html">eta_squared()</a></code>, <code><a href="https://rdrr.io/pkg/effectsize/man/eta_squared.html">omega_squared()</a></code> and <code><a href="https://rdrr.io/pkg/effectsize/man/eta_squared.html">epsilon_squared()</a></code> now works with
 <ul>
 <li>
 <code>gam</code> models.</li>
@@ -183,13 +195,6 @@
 <li>New plotting methods in the <code>see</code> package.</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
-<ul>
-<li>Fixed bug in <code><a href="../reference/standardize.html">standardize()</a></code> for standard objects with non-standard class-attributes (like vectors of class <code>haven_labelled</code> or <code>vctrs_vctr</code>).</li>
-</ul>
-</div>
 </div>
     <div id="effectsize-030" class="section level1">
 <h1 class="page-header" data-toc-text="0.3.0">
@@ -199,22 +204,22 @@
 <h2 class="hasAnchor">
 <a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
-<li>New general purpose <code><a href="../reference/effectsize.html">effectsize()</a></code> function.</li>
+<li>New general purpose <code><a href="https://rdrr.io/pkg/effectsize/man/effectsize.html">effectsize()</a></code> function.</li>
 <li>Effectsize for differences have CI methods, and return a data frame.</li>
 <li>Effectsize for ANOVA all have CI methods, and none are based on bootstrapping.</li>
-<li>New effect sizes for contingency tables (<code><a href="../reference/phi.html">phi()</a></code> and <code><a href="../reference/phi.html">cramers_v()</a></code>).</li>
+<li>New effect sizes for contingency tables (<code><a href="https://rdrr.io/pkg/effectsize/man/phi.html">phi()</a></code> and <code><a href="https://rdrr.io/pkg/effectsize/man/phi.html">cramers_v()</a></code>).</li>
 <li>
-<code><a href="../reference/chisq_to_phi.html">chisq_to_phi()</a></code> / <code><a href="../reference/phi.html">cramers_v()</a></code> functions now support CIs (via the ncp method), and return a data frame.</li>
+<code><a href="https://rdrr.io/pkg/effectsize/man/chisq_to_phi.html">chisq_to_phi()</a></code> / <code><a href="https://rdrr.io/pkg/effectsize/man/phi.html">cramers_v()</a></code> functions now support CIs (via the ncp method), and return a data frame.</li>
 <li>
-<code><a href="../reference/F_to_eta2.html">F_to_eta2()</a></code> family of functions now support CIs (via the ncp method), and return a data frame.</li>
+<code><a href="https://rdrr.io/pkg/effectsize/man/F_to_eta2.html">F_to_eta2()</a></code> family of functions now support CIs (via the ncp method), and return a data frame.</li>
 <li>
-<code><a href="../reference/t_to_r.html">t_to_d()</a></code> and <code><a href="../reference/t_to_r.html">t_to_r()</a></code> now support CIs (via the ncp method), and return a data frame.</li>
+<code><a href="https://rdrr.io/pkg/effectsize/man/t_to_r.html">t_to_d()</a></code> and <code><a href="https://rdrr.io/pkg/effectsize/man/t_to_r.html">t_to_r()</a></code> now support CIs (via the ncp method), and return a data frame.</li>
 <li>
-<code><a href="../reference/standardize.html">standardize()</a></code> for model-objects has a default-method, which usually accepts all models. Exception for model-objects that do not work will be added if missing.</li>
+<code><a href="https://rdrr.io/pkg/effectsize/man/standardize.html">standardize()</a></code> for model-objects has a default-method, which usually accepts all models. Exception for model-objects that do not work will be added if missing.</li>
 <li>
-<code><a href="../reference/standardize.html">standardize.data.frame()</a></code> gets <code>append</code> and <code>suffix</code> arguments, to add (instead of replace) standardized variables to the returned data frame.</li>
+<code><a href="https://rdrr.io/pkg/effectsize/man/standardize.html">standardize.data.frame()</a></code> gets <code>append</code> and <code>suffix</code> arguments, to add (instead of replace) standardized variables to the returned data frame.</li>
 <li>
-<code><a href="../reference/eta_squared.html">eta_squared()</a></code>, <code><a href="../reference/eta_squared.html">omega_squared()</a></code> and <code><a href="../reference/eta_squared.html">epsilon_squared()</a></code> now works
+<code><a href="https://rdrr.io/pkg/effectsize/man/eta_squared.html">eta_squared()</a></code>, <code><a href="https://rdrr.io/pkg/effectsize/man/eta_squared.html">omega_squared()</a></code> and <code><a href="https://rdrr.io/pkg/effectsize/man/eta_squared.html">epsilon_squared()</a></code> now works
 <ul>
 <li>output from <code><a href="https://rdrr.io/pkg/parameters/man/model_parameters.html">parameters::model_parameters()</a></code>.</li>
 <li>
@@ -227,16 +232,16 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Fix <code><a href="../reference/cohens_d.html">cohens_d()</a></code>’s dealing with formula input (<a href='https://github.com/easystats/effectsize/issues/44'>#44</a>).</li>
+<li>Fix <code><a href="https://rdrr.io/pkg/effectsize/man/cohens_d.html">cohens_d()</a></code>’s dealing with formula input (<a href='https://github.com/easystats/effectsize/issues/44'>#44</a>).</li>
 <li>
-<code><a href="../reference/sd_pooled.html">sd_pooled()</a></code> now returns the… pooled sd (<a href='https://github.com/easystats/effectsize/issues/44'>#44</a>).</li>
+<code><a href="https://rdrr.io/pkg/effectsize/man/sd_pooled.html">sd_pooled()</a></code> now returns the… pooled sd (<a href='https://github.com/easystats/effectsize/issues/44'>#44</a>).</li>
 </ul>
 </div>
 <div id="changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#changes" class="anchor"></a>Changes</h2>
 <ul>
-<li>In <code><a href="../reference/t_to_r.html">t_to_d()</a></code>, argument <code>pooled</code> is now <code>paired</code>.</li>
+<li>In <code><a href="https://rdrr.io/pkg/effectsize/man/t_to_r.html">t_to_d()</a></code>, argument <code>pooled</code> is now <code>paired</code>.</li>
 </ul>
 </div>
 </div>
@@ -249,9 +254,9 @@
 <a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>
-<code><a href="../reference/standardize.html">standardize.data.frame()</a></code> did not work when variables had missing values.</li>
-<li>Fixed wrong computation in <code><a href="../reference/standardize.html">standardize()</a></code> when <code>two_sd = TRUE</code>.</li>
-<li>Fixed bug with missing column names in <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> for models with different components (like count and zero-inflation).</li>
+<code><a href="https://rdrr.io/pkg/effectsize/man/standardize.html">standardize.data.frame()</a></code> did not work when variables had missing values.</li>
+<li>Fixed wrong computation in <code><a href="https://rdrr.io/pkg/effectsize/man/standardize.html">standardize()</a></code> when <code>two_sd = TRUE</code>.</li>
+<li>Fixed bug with missing column names in <code><a href="https://rdrr.io/pkg/effectsize/man/standardize_parameters.html">standardize_parameters()</a></code> for models with different components (like count and zero-inflation).</li>
 </ul>
 </div>
 </div>
@@ -276,7 +281,7 @@
 <a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
 <li>
-<code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> and <code><a href="../reference/standardize.html">standardize()</a></code> now support models from packages <em>brglm</em>, <em>brglm2</em>, <em>mixor</em>, <em>fixest</em>, <em>cgam</em>, <em>cplm</em>, <em>cglm</em>, <em>glmmadmb</em> and <em>complmrob</em>.</li>
+<code><a href="https://rdrr.io/pkg/effectsize/man/standardize_parameters.html">standardize_parameters()</a></code> and <code><a href="https://rdrr.io/pkg/effectsize/man/standardize.html">standardize()</a></code> now support models from packages <em>brglm</em>, <em>brglm2</em>, <em>mixor</em>, <em>fixest</em>, <em>cgam</em>, <em>cplm</em>, <em>cglm</em>, <em>glmmadmb</em> and <em>complmrob</em>.</li>
 </ul>
 </div>
 <div id="bug-fixes-3" class="section level2">

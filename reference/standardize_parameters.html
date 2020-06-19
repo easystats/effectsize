@@ -164,25 +164,25 @@
     <p>Compute standardized model parameters (coefficients).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>standardize_parameters</span>(
-  <span class='no'>model</span>,
-  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"refit"</span>,
-  <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>two_sd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>centrality</span> <span class='kw'>=</span> <span class='st'>"median"</span>,
-  <span class='no'>...</span>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters</a></span>(
+  <span class='kw'>model</span>,
+  parameters = <span class='kw'>NULL</span>,
+  method = <span class='st'>"refit"</span>,
+  ci = <span class='fl'>0.95</span>,
+  robust = <span class='fl'>FALSE</span>,
+  two_sd = <span class='fl'>FALSE</span>,
+  verbose = <span class='fl'>TRUE</span>,
+  centrality = <span class='st'>"median"</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>standardize_posteriors</span>(
-  <span class='no'>model</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"refit"</span>,
-  <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>two_sd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_posteriors</a></span>(
+  <span class='kw'>model</span>,
+  method = <span class='st'>"refit"</span>,
+  robust = <span class='fl'>FALSE</span>,
+  two_sd = <span class='fl'>FALSE</span>,
+  verbose = <span class='fl'>TRUE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -242,8 +242,8 @@ mean and dividing it by the standard deviation (SD).</p></td>
 <li><p><strong>posthoc</strong>: Post-hoc standardization of the parameters, aiming at emulating the results obtained by "refit" without refitting the model. The coefficients are divided by the standard deviation (or MAD if <code>robust</code>) of the outcome (which becomes their expression 'unit'). Then, the coefficients related to numeric variables are additionally multiplied by the standard deviation (or MAD if <code>robust</code>) of the related terms, so that they correspond to changes of 1 SD of the predictor (e.g., "A change in 1 SD of <code>x</code> is related to a change of 0.24 of the SD of <code>y</code>). This does not apply to binary variables or factors, so the coefficients are still related to changes in levels. This method is not accurate and tend to give aberrant results when interactions are specified.</p></li>
 <li><p><strong>smart</strong> (Standardization of Model's parameters with Adjustment, Reconnaissance and Transformation): Similar to <code>method = "posthoc"</code> in that it does not involve model refitting. The difference is that the SD of the response is computed on the relevant section of the data. For instance, if a factor with 3 levels A (the intercept), B and C is entered as a predictor, the effect corresponding to B vs. A will be scaled by the variance of the response at the intercept only. As a results, the coefficients for effects of factors are similar to a Glass' delta.</p></li>
 <li><p><strong>basic</strong>: This method is similar to <code>method = "posthoc"</code>, but treats all variables as continuous: it also scales the coefficient by the standard deviation of model's matrix' parameter of factors levels (transformed to integers) or binary predictors. Although being inappropriate for these cases, this method is the one implemented by default in other software packages, such as <code><a href='https://rdrr.io/pkg/lm.beta/man/lm.beta.html'>lm.beta::lm.beta()</a></code>.</p></li>
-</ul><p>When <code>method = "smart"</code> or <code>method = "classic"</code>, <code>standardize_parameters()</code>
-also returns the standard errors for the standardized coefficients. Then, <code>ci()</code> can be
+</ul><p>When <code>method = "smart"</code> or <code>method = "classic"</code>, <code><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters()</a></code>
+also returns the standard errors for the standardized coefficients. Then, <code><a href='https://rdrr.io/pkg/bayestestR/man/ci.html'>ci()</a></code> can be
 used to calculate confidence intervals for the standardized coefficients. See 'Examples'.</p>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
@@ -259,11 +259,11 @@ used to calculate confidence intervals for the standardized coefficients. See 'E
     <div class='dont-index'><p>standardize_info</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>effectsize</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>iris</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://easystats.github.io/effectsize'>effectsize</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>iris</span>)
 
-<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Species</span> * <span class='no'>Petal.Width</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>)
-<span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"refit"</span>)</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
+<span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>Sepal.Length</span> <span class='op'>~</span> <span class='kw'>Species</span> <span class='op'>*</span> <span class='kw'>Petal.Width</span>, data = <span class='kw'>iris</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters</a></span>(<span class='kw'>model</span>, method = <span class='st'>"refit"</span>)</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
 #&gt; ------------------------------------------------------------------
 #&gt; (Intercept)                   |               0.06 | [-1.43, 1.55]
 #&gt; Speciesversicolor             |              -0.17 | [-1.66, 1.33]
@@ -272,21 +272,21 @@ used to calculate confidence intervals for the standardized coefficients. See 'E
 #&gt; Speciesversicolor:Petal.Width |               0.46 | [-0.88, 1.80]
 #&gt; Speciesvirginica:Petal.Width  |              -0.26 | [-1.52, 1.01]</div><div class='input'>
 <span class='co'># \donttest{</span>
-<span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"posthoc"</span>)</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
+<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters</a></span>(<span class='kw'>model</span>, method = <span class='st'>"posthoc"</span>)</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
 #&gt; ------------------------------------------------------------------
 #&gt; (Intercept)                   |               0.00 | [ 0.00, 0.00]
 #&gt; Speciesversicolor             |              -0.88 | [-2.06, 0.29]
 #&gt; Speciesvirginica              |               0.59 | [-0.68, 1.87]
 #&gt; Petal.Width                   |               0.86 | [-0.31, 2.03]
 #&gt; Speciesversicolor:Petal.Width |               0.46 | [-0.87, 1.78]
-#&gt; Speciesvirginica:Petal.Width  |              -0.26 | [-1.51, 1.00]</div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>)</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
+#&gt; Speciesvirginica:Petal.Width  |              -0.26 | [-1.51, 1.00]</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters</a></span>(<span class='kw'>model</span>, method = <span class='st'>"smart"</span>)</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
 #&gt; ------------------------------------------------------------------
 #&gt; (Intercept)                   |               0.00 | [ 0.00, 0.00]
 #&gt; Speciesversicolor             |              -2.08 | [-4.83, 0.67]
 #&gt; Speciesvirginica              |               1.40 | [-1.59, 4.39]
 #&gt; Petal.Width                   |               0.86 | [-0.31, 2.03]
 #&gt; Speciesversicolor:Petal.Width |               1.07 | [-2.03, 4.17]
-#&gt; Speciesvirginica:Petal.Width  |              -0.60 | [-3.53, 2.33]</div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"basic"</span>)</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
+#&gt; Speciesvirginica:Petal.Width  |              -0.60 | [-3.53, 2.33]</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters</a></span>(<span class='kw'>model</span>, method = <span class='st'>"basic"</span>)</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
 #&gt; ------------------------------------------------------------------
 #&gt; (Intercept)                   |               0.00 | [ 0.00, 0.00]
 #&gt; Speciesversicolor             |              -0.42 | [-0.97, 0.14]
@@ -295,14 +295,14 @@ used to calculate confidence intervals for the standardized coefficients. See 'E
 #&gt; Speciesversicolor:Petal.Width |               0.38 | [-0.73, 1.49]
 #&gt; Speciesvirginica:Petal.Width  |              -0.33 | [-1.93, 1.27]</div><div class='input'>
 <span class='co'># Robust and 2 SD</span>
-<span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
+<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters</a></span>(<span class='kw'>model</span>, robust = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
 #&gt; ------------------------------------------------------------------
 #&gt; (Intercept)                   |               0.18 | [-1.13, 1.49]
 #&gt; Speciesversicolor             |              -0.08 | [-1.40, 1.23]
 #&gt; Speciesvirginica              |               0.12 | [-1.24, 1.48]
 #&gt; Petal.Width                   |               0.93 | [-0.35, 2.21]
 #&gt; Speciesversicolor:Petal.Width |               0.50 | [-0.96, 1.95]
-#&gt; Speciesvirginica:Petal.Width  |              -0.28 | [-1.65, 1.09]</div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>two_sd</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
+#&gt; Speciesvirginica:Petal.Width  |              -0.28 | [-1.65, 1.09]</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters</a></span>(<span class='kw'>model</span>, two_sd = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
 #&gt; ------------------------------------------------------------------
 #&gt; (Intercept)                   |               0.06 | [-1.43, 1.55]
 #&gt; Speciesversicolor             |              -0.17 | [-1.66, 1.33]
@@ -311,30 +311,30 @@ used to calculate confidence intervals for the standardized coefficients. See 'E
 #&gt; Speciesversicolor:Petal.Width |               0.46 | [-0.88, 1.80]
 #&gt; Speciesvirginica:Petal.Width  |              -0.26 | [-1.52, 1.01]</div><div class='input'>
 
-<span class='no'>iris</span>$<span class='no'>binary</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>iris</span>$<span class='no'>Sepal.Width</span> <span class='kw'>&gt;</span> <span class='fl'>3</span>, <span class='fl'>1</span>, <span class='fl'>0</span>)
-<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>binary</span> ~ <span class='no'>Species</span> * <span class='no'>Sepal.Length</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>, <span class='kw'>family</span> <span class='kw'>=</span> <span class='st'>"binomial"</span>)
-<span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"refit"</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; Parameter                      | Coefficient (std.) |          95% CI
+<span class='kw'>iris</span><span class='op'>$</span><span class='kw'>binary</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='kw'>iris</span><span class='op'>$</span><span class='kw'>Sepal.Width</span> <span class='op'>&gt;</span> <span class='fl'>3</span>, <span class='fl'>1</span>, <span class='fl'>0</span>)
+<span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='kw'>binary</span> <span class='op'>~</span> <span class='kw'>Species</span> <span class='op'>*</span> <span class='kw'>Sepal.Length</span>, data = <span class='kw'>iris</span>, family = <span class='st'>"binomial"</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters</a></span>(<span class='kw'>model</span>, method = <span class='st'>"refit"</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt; Parameter                      | Coefficient (std.) |          95% CI
 #&gt; ---------------------------------------------------------------------
 #&gt; (Intercept)                    |               6.79 | [  3.43, 11.64]
 #&gt; Speciesversicolor              |              -9.54 | [-14.60, -5.89]
 #&gt; Speciesvirginica               |              -8.15 | [-13.10, -4.61]
 #&gt; Sepal.Length                   |               4.24 | [  1.69,  7.68]
 #&gt; Speciesversicolor:Sepal.Length |              -1.52 | [ -5.33,  1.84]
-#&gt; Speciesvirginica:Sepal.Length  |              -3.51 | [ -7.04, -0.82]</div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"posthoc"</span>)</div><div class='output co'>#&gt; Parameter                      | Coefficient (std.) |          95% CI
+#&gt; Speciesvirginica:Sepal.Length  |              -3.51 | [ -7.04, -0.82]</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters</a></span>(<span class='kw'>model</span>, method = <span class='st'>"posthoc"</span>)</div><div class='output co'>#&gt; Parameter                      | Coefficient (std.) |          95% CI
 #&gt; ---------------------------------------------------------------------
 #&gt; (Intercept)                    |               0.00 | [ -0.00,  0.00]
 #&gt; Speciesversicolor              |               1.17 | [-20.87, 23.21]
 #&gt; Speciesvirginica               |              16.66 | [ -1.34, 34.66]
 #&gt; Sepal.Length                   |               4.24 | [  1.32,  7.16]
 #&gt; Speciesversicolor:Sepal.Length |              -1.52 | [ -4.98,  1.95]
-#&gt; Speciesvirginica:Sepal.Length  |              -3.51 | [ -6.55, -0.48]</div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>)</div><div class='output co'>#&gt; Parameter                      | Coefficient (std.) |          95% CI
+#&gt; Speciesvirginica:Sepal.Length  |              -3.51 | [ -6.55, -0.48]</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters</a></span>(<span class='kw'>model</span>, method = <span class='st'>"smart"</span>)</div><div class='output co'>#&gt; Parameter                      | Coefficient (std.) |          95% CI
 #&gt; ---------------------------------------------------------------------
 #&gt; (Intercept)                    |               0.00 | [ -0.00,  0.00]
 #&gt; Speciesversicolor              |               1.17 | [-20.87, 23.21]
 #&gt; Speciesvirginica               |              16.66 | [ -1.34, 34.66]
 #&gt; Sepal.Length                   |               4.24 | [  1.32,  7.16]
 #&gt; Speciesversicolor:Sepal.Length |              -1.52 | [ -4.98,  1.95]
-#&gt; Speciesvirginica:Sepal.Length  |              -3.51 | [ -6.55, -0.48]</div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"basic"</span>)</div><div class='output co'>#&gt; Parameter                      | Coefficient (std.) |          95% CI
+#&gt; Speciesvirginica:Sepal.Length  |              -3.51 | [ -6.55, -0.48]</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters</a></span>(<span class='kw'>model</span>, method = <span class='st'>"basic"</span>)</div><div class='output co'>#&gt; Parameter                      | Coefficient (std.) |          95% CI
 #&gt; ---------------------------------------------------------------------
 #&gt; (Intercept)                    |               0.00 | [ -0.00,  0.00]
 #&gt; Speciesversicolor              |               0.56 | [ -9.87, 10.98]
@@ -344,30 +344,28 @@ used to calculate confidence intervals for the standardized coefficients. See 'E
 #&gt; Speciesvirginica:Sepal.Length  |             -13.32 | [-24.80, -1.83]</div><div class='input'><span class='co'># }</span>
 
 <span class='co'># \donttest{</span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"rstanarm"</span>)) {
-  <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://mc-stan.org/rstanarm/reference/stan_glm.html'>stan_glm</a></span>(<span class='no'>Sepal.Length</span> ~ <span class='no'>Species</span> + <span class='no'>Petal.Width</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>, <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>refresh</span> <span class='kw'>=</span> <span class='fl'>0</span>)
-  <span class='fu'>standardize_posteriors</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"refit"</span>)
-  <span class='fu'>standardize_posteriors</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"posthoc"</span>)
-  <span class='fu'>standardize_posteriors</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>)
-  <span class='fu'>standardize_posteriors</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"basic"</span>)
+<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'><a href='https://mc-stan.org/rstanarm'>"rstanarm"</a></span>)) {
+  <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://mc-stan.org/rstanarm/reference/stan_glm.html'>stan_glm</a></span>(<span class='kw'>Sepal.Length</span> <span class='op'>~</span> <span class='kw'>Species</span> <span class='op'>+</span> <span class='kw'>Petal.Width</span>, data = <span class='kw'>iris</span>, iter = <span class='fl'>500</span>, refresh = <span class='fl'>0</span>)
+  <span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_posteriors</a></span>(<span class='kw'>model</span>, method = <span class='st'>"refit"</span>)
+  <span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_posteriors</a></span>(<span class='kw'>model</span>, method = <span class='st'>"posthoc"</span>)
+  <span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_posteriors</a></span>(<span class='kw'>model</span>, method = <span class='st'>"smart"</span>)
+  <span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_posteriors</a></span>(<span class='kw'>model</span>, method = <span class='st'>"basic"</span>)
 
-  <span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"refit"</span>)
-  <span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"posthoc"</span>)
-  <span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"smart"</span>)
-  <span class='fu'>standardize_parameters</span>(<span class='no'>model</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"basic"</span>)
+  <span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters</a></span>(<span class='kw'>model</span>, method = <span class='st'>"refit"</span>)
+  <span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters</a></span>(<span class='kw'>model</span>, method = <span class='st'>"posthoc"</span>)
+  <span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters</a></span>(<span class='kw'>model</span>, method = <span class='st'>"smart"</span>)
+  <span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters</a></span>(<span class='kw'>model</span>, method = <span class='st'>"basic"</span>)
 }</div><div class='output co'>#&gt; <span class='message'>Loading required package: rstanarm</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: Rcpp</span></div><div class='output co'>#&gt; <span class='message'>rstanarm (Version 2.19.3, packaged: 2020-02-11 05:16:41 UTC)</span></div><div class='output co'>#&gt; <span class='message'>- Do not expect the default priors to remain the same in future rstanarm versions.</span></div><div class='output co'>#&gt; <span class='message'>Thus, R scripts should specify priors explicitly, even if they are just the defaults.</span></div><div class='output co'>#&gt; <span class='message'>- For execution on a local, multicore CPU with excess RAM we recommend calling</span></div><div class='output co'>#&gt; <span class='message'>options(mc.cores = parallel::detectCores())</span></div><div class='output co'>#&gt; <span class='message'>- bayesplot theme set to bayesplot::theme_default()</span></div><div class='output co'>#&gt; <span class='message'>   * Does _not_ affect other ggplot2 plots</span></div><div class='output co'>#&gt; <span class='message'>   * See ?bayesplot_theme_set for details on theme setting</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
-#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.</span>
-#&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
-#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#tail-ess</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
+#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.</span>
 #&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
-#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#tail-ess</span></div><div class='output co'>#&gt;            Parameter  Std_Median CI     CI_low   CI_high
-#&gt; 1        (Intercept)          NA NA         NA        NA
-#&gt; 2  Speciesversicolor -0.02230124 95 -0.2913311 0.2458340
-#&gt; 3   Speciesvirginica -0.01666570 95 -0.4521711 0.3915711
-#&gt; 11       Petal.Width  0.83381081 95  0.4224331 1.1623595</div><div class='input'><span class='co'># }</span></div></pre>
+#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#tail-ess</span></div><div class='output co'>#&gt;            Parameter   Std_Median CI     CI_low   CI_high
+#&gt; 1        (Intercept)           NA NA         NA        NA
+#&gt; 2  Speciesversicolor -0.016049759 95 -0.2935866 0.2114135
+#&gt; 3   Speciesvirginica  0.004416279 95 -0.3478824 0.4179067
+#&gt; 11       Petal.Width  0.821246152 95  0.4637053 1.1251924</div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
