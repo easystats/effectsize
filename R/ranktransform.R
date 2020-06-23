@@ -64,7 +64,7 @@ ranktransform.numeric <- function(x, sign = FALSE, method = "average", verbose =
 
 
   if (sign) {
-    out <- sign(x) * rank(x, ties.method = method, na.last = "keep")
+    out <- sign(x) * rank(abs(x), ties.method = method, na.last = "keep")
   } else {
     out <- rank(x, ties.method = method, na.last = "keep")
   }
