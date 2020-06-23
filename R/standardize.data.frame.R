@@ -41,6 +41,12 @@ standardize.numeric <- function(x, robust = FALSE, two_sd = FALSE, verbose = TRU
   scaled_x
 }
 
+#' @export
+standardize.double <- standardize.numeric
+
+#' @export
+standardize.integer <- standardize.numeric
+
 
 
 #' @keywords internal
