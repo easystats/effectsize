@@ -162,10 +162,24 @@
 <h1 class="page-header" data-toc-text="0.3.1.1">
 <a href="#effectsize-0311" class="anchor"></a>effectsize 0.3.1.1<small> Unreleased </small>
 </h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li>
+<code><a href="https://rdrr.io/pkg/effectsize/man/eta_squared.html">eta_squared()</a></code>, <code><a href="https://rdrr.io/pkg/effectsize/man/eta_squared.html">omega_squared()</a></code> and <code><a href="https://rdrr.io/pkg/effectsize/man/eta_squared.html">epsilon_squared()</a></code> now works with
+<ul>
+<li>
+<code>ols</code> / <code>rms</code> models.</li>
+</ul>
+</li>
+</ul>
+</div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
+<li>Fixed miss-calculation of signed rank in <code><a href="https://rdrr.io/pkg/effectsize/man/ranktransform.html">ranktransform()</a></code> ( <a href='https://github.com/easystats/effectsize/issues/87'>#87</a> ).</li>
 <li>Fixed bug in <code><a href="https://rdrr.io/pkg/effectsize/man/standardize.html">standardize()</a></code> for standard objects with non-standard class-attributes (like vectors of class <code>haven_labelled</code> or <code>vctrs_vctr</code>).</li>
 </ul>
 </div>
@@ -174,9 +188,9 @@
 <h1 class="page-header" data-toc-text="0.3.1">
 <a href="#effectsize-031" class="anchor"></a>effectsize 0.3.1<small> 2020-05-19 </small>
 </h1>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features</h2>
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li>
 <code><a href="https://rdrr.io/pkg/effectsize/man/standardize_parameters.html">standardize_parameters()</a></code> now returns CIs ( <a href='https://github.com/easystats/effectsize/issues/72'>#72</a> )</li>
@@ -200,9 +214,9 @@
 <h1 class="page-header" data-toc-text="0.3.0">
 <a href="#effectsize-030" class="anchor"></a>effectsize 0.3.0<small> 2020-04-11 </small>
 </h1>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New features</h2>
+<a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
 <li>New general purpose <code><a href="https://rdrr.io/pkg/effectsize/man/effectsize.html">effectsize()</a></code> function.</li>
 <li>Effectsize for differences have CI methods, and return a data frame.</li>
@@ -276,9 +290,9 @@
 <h1 class="page-header" data-toc-text="0.1.0">
 <a href="#effectsize-010" class="anchor"></a>effectsize 0.1.0<small> Unreleased </small>
 </h1>
-<div id="new-features-2" class="section level2">
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>New features</h2>
+<a href="#new-features-3" class="anchor"></a>New features</h2>
 <ul>
 <li>
 <code><a href="https://rdrr.io/pkg/effectsize/man/standardize_parameters.html">standardize_parameters()</a></code> and <code><a href="https://rdrr.io/pkg/effectsize/man/standardize.html">standardize()</a></code> now support models from packages <em>brglm</em>, <em>brglm2</em>, <em>mixor</em>, <em>fixest</em>, <em>cgam</em>, <em>cplm</em>, <em>cglm</em>, <em>glmmadmb</em> and <em>complmrob</em>.</li>
