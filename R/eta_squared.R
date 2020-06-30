@@ -215,7 +215,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                           partial = TRUE,
                           ci = 0.9,
                           ...) {
-  if (!inherits(model, c("Gam", "anova", "anova.rms"))) {
+  if (!inherits(model, c("Gam", "anova"))) {
     # Pass to ANOVA table method
     res <- .anova_es.anova(
       stats::anova(model),
@@ -233,6 +233,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                    epsilon = F_to_epsilon2)
 
   params <- as.data.frame(parameters::model_parameters(model))
+  params <- params[params$Parameter != "(Intercept)", ]
   if (!"Residuals" %in% params$Parameter) {
     stop("No residuals data found - ",
          type,
@@ -336,7 +337,6 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                    eta = F_to_eta2,
                    omega = F_to_omega2,
                    epsilon = F_to_epsilon2)
-  model <- model[rownames(model) != "(Intercept)", ]
 
   F_val <- c("F value", "approx F", "F-value")
   numDF <- c("NumDF", "num Df", "numDF")
@@ -350,7 +350,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                          ci = ci)
     return(res)
   }
-
+  model <- model[rownames(model) != "(Intercept)", ]
   model <- model[rownames(model) != "Residuals", ]
 
   F_val <- F_val[F_val %in% colnames(model)]
@@ -382,6 +382,60 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
 
 #' @keywords internal
 .anova_es.anova.lme <- .anova_es.anova
+
+#' @importFrom stats na.omit
+#' @keywords internal
+.anova_es.parameters_model <- function(model,
+                                       type = c("eta", "omega", "epsilon"),
+                                       partial = TRUE,
+                                       ci = 0.9,
+                                       ...) {
+  type <- match.arg(type)
+
+  if ("Group" %in% colnames(model) && sum(model$Parameter == "Residuals") > 1) {
+    x <- split(model, model$Group)
+    out <- do.call(rbind, lapply(x, function(i) {
+      f <- i[["F"]]
+      df_num <- i[["df"]][!is.na(f)]
+      df_error <- i[i$Parameter == "Residuals", "df"]
+      cbind(
+        data.frame(Group = unique(i$Group), stringsAsFactors = FALSE),
+        .anova_es_model_params(i, f, df_num, df_error, type, ci)
+      )
+    }))
+  } else {
+    if ("t" %in% colnames(model)) {
+      f <- model[["t"]]^2
+    }
+    if ("F" %in% colnames(model)) {
+      f <- model[["F"]]
+    }
+    if ("z" %in% colnames(model)) {
+      stop("Cannot compute effect size from models with no proper residual variance. Consider the estimates themselves as indices of effect size.")
+    }
+
+    df_col <- colnames(model)[colnames(model) %in% c("df", "Df", "NumDF")]
+    if (length(df_col)) {
+      df_num <- model[[df_col]][!is.na(f)]
+    } else {
+      df_num <- 1
+    }
+
+    if ("df_error" %in% colnames(model)) {
+      df_error <- model$df_error
+    } else if ("Residuals" %in% model$Parameter) {
+      df_error <- model[model$Parameter == "Residuals", df_col]
+    } else {
+      stop("Cannot extract degrees of freedom for the error term. Try passing the model object directly to 'eta_squared()'.")
+    }
+    out <- .anova_es_model_params(model, f, df_num, df_error, type, ci)
+  }
+
+  out
+}
+
+
+# Specific models ---------------------------------------------------------
 
 #' @keywords internal
 #' @importFrom parameters model_parameters
@@ -554,56 +608,32 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
 }
 
 
-#' @importFrom stats na.omit
+
 #' @keywords internal
-.anova_es.parameters_model <- function(model,
-                                       type = c("eta", "omega", "epsilon"),
-                                       partial = TRUE,
-                                       ci = 0.9,
-                                       ...) {
-  type <- match.arg(type)
+#' @importFrom stats anova
+.anova_es.rms <- function(model,
+                          type = c("eta", "omega", "epsilon"),
+                          partial = TRUE,
+                          ci = 0.9,
+                          ...) {
 
-  if ("Group" %in% colnames(model) && sum(model$Parameter == "Residuals") > 1) {
-    x <- split(model, model$Group)
-    out <- do.call(rbind, lapply(x, function(i) {
-      f <- i[["F"]]
-      df_num <- i[["df"]][!is.na(f)]
-      df_error <- i[i$Parameter == "Residuals", "df"]
-      cbind(
-        data.frame(Group = unique(i$Group), stringsAsFactors = FALSE),
-        .anova_es_model_params(i, f, df_num, df_error, type, ci)
-      )
-    }))
-  } else {
-    if ("t" %in% colnames(model)) {
-      f <- model[["t"]]^2
-    }
-    if ("F" %in% colnames(model)) {
-      f <- model[["F"]]
-    }
-    if ("z" %in% colnames(model)) {
-      stop("Cannot compute effect size from models with no proper residual variance. Consider the estimates themselves as indices of effect size.")
-    }
-
-    df_col <- colnames(model)[colnames(model) %in% c("df", "Df", "NumDF")]
-    if (length(df_col)) {
-      df_num <- model[[df_col]][!is.na(f)]
-    } else {
-      df_num <- 1
-    }
-
-    if ("df_error" %in% colnames(model)) {
-      df_error <- model$df_error
-    } else if ("Residuals" %in% model$Parameter) {
-      df_error <- model[model$Parameter == "Residuals", df_col]
-    } else {
-      stop("Cannot extract degrees of freedom for the error term. Try passing the model object directly to 'eta_squared()'.")
-    }
-    out <- .anova_es_model_params(model, f, df_num, df_error, type, ci)
+  if (!inherits(model, "anova.rms")) {
+    model <- stats::anova(model)
   }
 
-  out
+  model <- as.data.frame(model)
+
+  colnames(model) <- gsub("F", "F value", colnames(model), fixed = TRUE)
+  colnames(model) <- gsub("d.f.", "NumDF", colnames(model), fixed = TRUE)
+  model$DenDF <- model$NumDF[rownames(model) == "ERROR"]
+
+  model <- model[rownames(model) != "ERROR", ]
+
+  out <- .anova_es.anova(model, type = type, partial = partial, ci = ci)
+  return(out)
 }
+
+.anova_es.anova.rms <- .anova_es.rms
 
 # Utils -------------------------------------------------------------------
 
