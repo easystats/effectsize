@@ -1,5 +1,9 @@
 # effectsize 0.3.1.1
 
+## New features
+- `eta_squared()`, `omega_squared()` and `epsilon_squared()` now works with
+  - `ols` / `rms` models.
+
 ## Bug fixes
 
 - Fixed miss-calculation of signed rank in `ranktransform()` ( #87 ).
