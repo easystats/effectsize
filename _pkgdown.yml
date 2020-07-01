@@ -56,7 +56,6 @@ reference:
   - rules
 - title: "Miscellaneous"
   contents:
-  - adjust
   - format_standardize
   - sd_pooled
   - is_effectsize_name
