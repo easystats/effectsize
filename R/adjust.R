@@ -26,18 +26,18 @@
 adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multilevel = FALSE, additive = FALSE, bayesian = FALSE){
 
   # Find predictors
-  if(is.null(effect)){
+  if (is.null(effect)) {
     effect <- names(data)
   }
 
   # Factors
   formula_random <- NULL
   facs <- names(data[effect][!sapply(data[effect], is.numeric)])
-  if (length(facs) >= 1){
-    if(multilevel){
-      if(additive){
+  if (length(facs) >= 1) {
+    if (multilevel) {
+      if (additive) {
         formula_random <- as.formula(paste("~", paste(paste0("(1|", facs, ")"), collapse = " + ")))
-      } else{
+      } else {
         formula_random <- paste("+", paste(paste0("(1|", facs, ")"), collapse = " + "))
       }
       effect <- effect[!effect %in% facs]
@@ -46,25 +46,25 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
 
   nums <- sapply(data, is.numeric)
   # Find outcomes
-  if(is.null(select)){
+  if (is.null(select)) {
     select <- names(data[nums])
   }
-  if(!is.null(exclude)){
+  if (!is.null(exclude)) {
     select <- select[!select %in% c(exclude)]
   }
 
   # Fit models
   out <- data.frame(.ID = 1:nrow(data))
-  for(var in select){
+  for (var in select) {
     predictors <- effect[effect != var]
-    if(additive){
+    if (additive) {
       predictors_num <- names(data[predictors][sapply(data[predictors], is.numeric)])
       predictors[predictors == predictors_num] <- paste0("s(", predictors_num, ")")
     }
     formula_predictors <- paste(c("1", predictors), collapse = " + ")
     formula <- paste(var, "~", formula_predictors)
 
-    x <- .model_adjust_for(data=data[unique(c(var, effect, facs))], formula, multilevel = multilevel, additive = additive, bayesian = bayesian, formula_random = formula_random)
+    x <- .model_adjust_for(data = data[unique(c(var, effect, facs))], formula, multilevel = multilevel, additive = additive, bayesian = bayesian, formula_random = formula_random)
     out[var] <- x
   }
   out[names(data)[!names(data) %in% names(out)]] <- data[names(data)[!names(data) %in% names(out)]]
@@ -79,9 +79,9 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
 .model_adjust_for <- function(data, formula, multilevel = FALSE, additive = FALSE, bayesian = FALSE, formula_random = NULL) {
 
   # Additive -----------------------
-  if(additive){
+  if (additive) {
     # Bayesian
-    if(bayesian){
+    if (bayesian) {
       if (!requireNamespace("rstanarm")) {
         stop("This function needs `rstanarm` to be installed. Please install by running `install.packages('rstanarm')`.")
       }
@@ -97,7 +97,7 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
   # Linear -------------------------
   } else{
     # Bayesian
-    if(bayesian){
+    if (bayesian) {
       if (!requireNamespace("rstanarm")) {
         stop("This function needs `rstanarm` to be installed. Please install by running `install.packages('rstanarm')`.")
       }

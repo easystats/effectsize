@@ -30,7 +30,7 @@ effectsize.htest <- function(model, ...) {
     out <- t_to_d(
       unname(model$statistic),
       unname(model$parameter),
-      paired = grepl("Paired", model$method),
+      paired = grepl("Paired", model$method) | grepl("One Sample", model$method),
       ...
     )
     return(out)

@@ -7,7 +7,9 @@
 ## Bug fixes
 
 - Fixed miss-calculation of signed rank in `ranktransform()` ( #87 ).
-- Fixed bug in `standardize()` for standard objects with non-standard class-attributes (like vectors of class `haven_labelled` or `vctrs_vctr`).
+- Fixed bug in `standardize()` for standard objects with non-standard class-attributes (like vectors of class `haven_labelled` or `vctrs_vctr`).  
+- Fix `effectsize()` for one sample `t.test(...)` ( #95 ; thanks to pull request by @mutlusun )
+
 
 # effectsize 0.3.1
 
