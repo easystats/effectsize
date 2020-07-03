@@ -2,6 +2,14 @@ library(rstanarm)
 library(effectsize)
 library(bayestestR)
 
+#' Simulate Eta squared from posterior predictive distribution
+#'
+#' @inheritParams eta_squared
+#' @param draws An integer indicating the number of draws to return. The default and maximum number of draws is the size of the posterior sample.
+#' @param verbose Show messages.
+#'
+#' @example
+#' Model averaging, using with bayestestR
 #'
 #' @importFrom insight model_info find_formula get_predictors find_response
 #' @importFrom rstantools posterior_predict
@@ -17,23 +25,29 @@ eta_squared_posterior <- function(model, partial = FALSE, draws = 500, verbose =
 
   if (partial) {
     warning("Only support non partial PVE.")
+    partial <- FALSE
     # would need to account for random effects if present.
     # Too hard right now.
   }
 
   # get ppd
-  ppd <- rstantools::posterior_predict(model, draws = draws, ...)
+  ppd <- rstantools::posterior_predict(model,
+                                       draws = draws, # for rstanreg
+                                       nsamples = draws, # for brms
+                                       ...)
 
   # get model data
   f <- insight::find_formula(model)$conditional
   X <- insight::get_predictors(model)
   resp_name <- insight::find_response(model)
 
+  # test centered
   .all_centered(X)
+  # should also center? Why not...?
 
 
   if (verbose) {
-    message("Sampleing effect size... This can take a while...")
+    message("Simulating effect size... This can take a while...")
   }
   res <- apply(ppd, 1, function(r) {
     # sampled outcome + predictors
@@ -44,9 +58,9 @@ eta_squared_posterior <- function(model, partial = FALSE, draws = 500, verbose =
     temp_fit <- stats::lm(f, temp_dat)
 
     # compute effect size
-    # es <- eta_squared(temp_fit, ci = NA, partial = FALSE)
+    # es <- eta_squared(temp_fit, ci = NA, partial = partial)
     ANOVA <- car::Anova(temp_fit, type = 3)
-    es <- eta_squared(ANOVA, ci = NA, partial = FALSE)
+    es <- eta_squared(ANOVA, ci = NA, partial = partial)
 
     es <- stats::setNames(es$Eta_Sq, es$Parameter)
     data.frame(t(es), check.names = FALSE)
@@ -77,7 +91,7 @@ eta_squared_posterior <- function(model, partial = FALSE, draws = 500, verbose =
     warning(
       "Not all variables are centered:\n ",
       paste(non_centered,collapse = ", "),
-      "\n Results can be missleading...",
+      "\n Results might be bogus...",
       call. = FALSE, immediate. = TRUE
     )
   }
