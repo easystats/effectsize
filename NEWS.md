@@ -3,6 +3,8 @@
 ## New features
 - `eta_squared()`, `omega_squared()` and `epsilon_squared()` now works with
   - `ols` / `rms` models.
+- `effectsize()` for class `htest` supports `oneway.test(...)`.
+
 
 ## Bug fixes
 
