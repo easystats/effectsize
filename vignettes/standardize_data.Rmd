@@ -25,6 +25,12 @@ library(knitr)
 options(knitr.kable.NA = '')
 knitr::opts_chunk$set(comment=">")
 options(digits=2)
+
+
+pkgs <- c("effectsize", "dplyr", "bayestestR", "see", "ggplot2", "parameters", "lme4", "KernSmooth")
+if (!all(sapply(pkgs, requireNamespace, quietly = TRUE))) {
+  knitr::opts_chunk$set(eval = FALSE)
+}
 ```
 
 # Introduction
@@ -59,7 +65,7 @@ We will take the `emotion` dataset in which participants were exposed to negativ
 
 Let's have a look at the data, averaged by participants:
 
-```{r, fig.width=7, fig.height=4.5, eval = TRUE, results='hide', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
+```{r, fig.width=7, fig.height=4.5, results='hide', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
 library(dplyr)
 
 # Download the 'emotion' dataset
@@ -86,7 +92,7 @@ As we can see from the means and SDs, there is a lot of variability **between an
 
 We will create three dataframes standardized with each of the three techniques.
 
-```{r, fig.width=7, fig.height=4.5, eval = TRUE, results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
+```{r, fig.width=7, fig.height=4.5, results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
 library(effectsize)
 
 Z_VariableWise <- df %>% 
@@ -108,7 +114,7 @@ Z_Full <- df %>%
 Let's see how these three standardization techniques affected the **Valence** variable.
 
 ## At a general level
-```{r, fig.width=7, fig.height=4.5, eval = TRUE, results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
+```{r, fig.width=7, fig.height=4.5, results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
 # Create a convenient function to print
 print_summary <- function(data){
   paste0(
@@ -133,7 +139,7 @@ print_summary(Z_Full)
 The **means** and the **SD** appear as fairly similar (0 and 1)...
 
 ##  Distribution
-```{r, fig.width=7, fig.height=4.5, eval = requireNamespace("KernSmooth", quietly = TRUE), results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
+```{r, fig.width=7, fig.height=4.5, results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
 library(bayestestR)
 library(see)
 
@@ -150,7 +156,7 @@ and the distributions appear to be similar...
 
 ## At a participant level
 
-```{r, fig.width=7, fig.height=4.5, eval = TRUE, results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
+```{r, fig.width=7, fig.height=4.5, results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
 # Create convenient function
 print_participants <- function(data){
   data %>% 
@@ -175,7 +181,7 @@ Ok so there are some differences here....
 Let's do a **correlation** between the **variable-wise and participant-wise methods**.
 
 
-```{r, fig.width=7, fig.height=4.5, eval = TRUE, results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
+```{r, fig.width=7, fig.height=4.5, results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
 library(ggplot2)
 
 cor.test(Z_VariableWise$Subjective_Valence, Z_ParticipantWise$Subjective_Valence)
@@ -198,7 +204,7 @@ While the three standardization methods roughly present the same characteristics
 Let's now answer to the original question by investigating the **linear relationship between valence and autobiographical link**. We can do this by running a mixed model with participants entered as random effects.
 
 
-```{r, fig.width=7, fig.height=4.5, eval = TRUE, results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
+```{r, fig.width=7, fig.height=4.5, results='markup', fig.align='center', comment=NA, message=FALSE, warning=FALSE}
 library(lme4)
 library(parameters)
 

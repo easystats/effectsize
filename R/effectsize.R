@@ -3,7 +3,9 @@
 #' See the documentation for \code{\link{eta_squared}}, \code{\link{standardize_parameters}}, \code{\link{cramers_v}}.
 #'
 #' @param model Statistical model or object of class \code{htest}.
-#' @param ... Arguments passed to or from other methods. See \code{eta_squared}, \code{standardize_parameters}, \code{cramers_v} or \code{t_to_d}.
+#' @param ... Arguments passed to or from other methods.
+#' See \code{eta_squared}, \code{standardize_parameters}, \code{cramers_v}, \code{t_to_d},
+#' \code{d_to_r} or \code{F_to_eta2}.
 #'
 #' @examples
 #' contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
@@ -12,6 +14,9 @@
 #'
 #' Ts <- t.test(1:10, y = c(7:20))
 #' effectsize(Ts)
+#'
+#' Aov <- oneway.test(extra ~ group, data = sleep)
+#' effectsize(Aov)
 #'
 #' fit <- lm(mpg ~ factor(cyl) * wt + hp, data = mtcars)
 #' effectsize(fit)
@@ -47,6 +52,14 @@ effectsize.htest <- function(model, ...) {
       n = sum(model$observed),
       nrow = nrow(model$observed),
       ncol = ncol(model$observed),
+      ...
+    )
+    return(out)
+  } else if (grepl("One-way", model$method)) {
+    out <- F_to_eta2(
+      model$statistic,
+      model$parameter[1],
+      model$parameter[2],
       ...
     )
     return(out)
