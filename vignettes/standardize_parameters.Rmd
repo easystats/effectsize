@@ -25,9 +25,8 @@ knitr::opts_chunk$set(comment = ">")
 options(digits = 2)
 options(knitr.kable.NA = '')
 
-if (!requireNamespace("dplyr", quietly = TRUE) ||
-    !requireNamespace("parameters", quietly = TRUE) ||
-    !requireNamespace("correlation", quietly = TRUE)) {
+pkgs <- c("effectsize", "dplyr", "parameters", "correlation")
+if (!all(sapply(pkgs, requireNamespace))) {
   knitr::opts_chunk$set(eval = FALSE)
 }
 
