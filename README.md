@@ -3,9 +3,10 @@
 
 [![CRAN](http://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize)
 [![downloads](http://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize)
-[![Build
-Status](https://travis-ci.org/easystats/effectsize.svg?branch=master)](https://travis-ci.org/easystats/effectsize)
-[![codecov](https://codecov.io/gh/easystats/effectsize/branch/master/graph/badge.svg)](https://codecov.io/gh/easystats/effectsize)
+[![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg)](https://github.com/easystats/effectsize/actions)
+[![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg)](https://github.com/easystats/effectsize/actions)
+<!-- [![Build Status](https://travis-ci.org/easystats/effectsize.svg?branch=master)](https://travis-ci.org/easystats/effectsize) -->
+<!-- [![codecov](https://codecov.io/gh/easystats/effectsize/branch/master/graph/badge.svg)](https://codecov.io/gh/easystats/effectsize) -->
 
 ***Size does matter***
 
@@ -61,7 +62,7 @@ how to code it’s okay, just open an issue to discuss it and we’ll help
 :)
 
 ``` r
-library("effectsize")
+library(effectsize)
 ```
 
 ## Effect Size Computation
@@ -171,9 +172,9 @@ library(parameters)
 
 df <- standardize(iris)
 describe_distribution(df$Sepal.Length)
-## Mean | SD |  IQR |         Range | Skewness | Kurtosis |   n | n_Missing
-## ------------------------------------------------------------------------
-## 0.00 |  1 | 1.57 | [-1.86, 2.48] |     0.31 |    -0.55 | 150 |         0
+##      Mean | SD |  IQR |         Range | Skewness | Kurtosis |   n | n_Missing
+## -----------------------------------------------------------------------------
+## -4.48e-16 |  1 | 1.57 | [-1.86, 2.48] |     0.31 |    -0.55 | 150 |         0
 ```
 
 This can be also applied to statistical models:
