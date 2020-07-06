@@ -31,8 +31,10 @@ knitr::opts_chunk$set(
 
 [![CRAN](http://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize)
 [![downloads](http://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize)
-[![Build Status](https://travis-ci.org/easystats/effectsize.svg?branch=master)](https://travis-ci.org/easystats/effectsize)
-[![codecov](https://codecov.io/gh/easystats/effectsize/branch/master/graph/badge.svg)](https://codecov.io/gh/easystats/effectsize)
+[![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg)](https://github.com/easystats/effectsize/actions)
+[![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg)](https://github.com/easystats/effectsize/actions)
+<!-- [![Build Status](https://travis-ci.org/easystats/effectsize.svg?branch=master)](https://travis-ci.org/easystats/effectsize) -->
+<!-- [![codecov](https://codecov.io/gh/easystats/effectsize/branch/master/graph/badge.svg)](https://codecov.io/gh/easystats/effectsize) -->
 
 
 ***Size does matter***
@@ -76,7 +78,7 @@ Click on the buttons above to access the package [**documentation**](https://eas
 This package is focused on indices of effect size. But **there are hundreds of them! Thus, *everybody* is welcome to contribute** by adding support for the interpretation of new indices. If you're not sure how to code it's okay, just open an issue to discuss it and we'll help :)
 
 ```{r message=FALSE, warning=FALSE}
-library("effectsize")
+library(effectsize)
 ```
 
 ## Effect Size Computation
