@@ -42,7 +42,7 @@ set.seed(747)
 
 # Introduction
 
-In many real world applications there are no straightforward ways of obtaining standardized effect sizes. However, it is possible to get approximations of most of the effect size indices ($d$, $r$, $\eta^2_p$...) with the use of test statistics. These conversions are based on the idea that **test statistics are a function of effect size and sample size**. Thus information about samples size (or more often of degrees of freedom) is used to reverse-engineer indices of effect size from test statistics.
+In many real world applications there are no straightforward ways of obtaining standardized effect sizes. However, it is possible to get approximations of most of the effect size indices ($d$, $r$, $\eta^2_p$...) with the use of test statistics. These conversions are based on the idea that **test statistics are a function of effect size and sample size**. Thus information about samples size (or more often of degrees of freedom) is used to reverse-engineer indices of effect size from test statistics. This idea and these functions also power our [***Effect Sizes From Test Statistics*** *shiny app*](https://easystats4u.shinyapps.io/statistic2effectsize/).
 
 The measures discussed here are, in one way or another, ***signal to noise ratios***, with the "noise" representing the unaccounted variance in the outcome variable^[Note that for generalized linear models (Poisson, Logistic...), where the outcome is never on an arbitrary scale, estimates themselves **are** indices of effect size! Thus this vignette is relevant only to general linear models.].
 
