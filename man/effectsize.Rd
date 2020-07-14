@@ -9,7 +9,9 @@ effectsize(model, ...)
 \arguments{
 \item{model}{Statistical model or object of class \code{htest}.}
 
-\item{...}{Arguments passed to or from other methods. See \code{eta_squared}, \code{standardize_parameters}, \code{cramers_v} or \code{t_to_d}.}
+\item{...}{Arguments passed to or from other methods.
+See \code{eta_squared}, \code{standardize_parameters}, \code{cramers_v}, \code{t_to_d},
+\code{d_to_r} or \code{F_to_eta2}.}
 }
 \description{
 See the documentation for \code{\link{eta_squared}}, \code{\link{standardize_parameters}}, \code{\link{cramers_v}}.
@@ -21,6 +23,9 @@ effectsize(Xsq)
 
 Ts <- t.test(1:10, y = c(7:20))
 effectsize(Ts)
+
+Aov <- oneway.test(extra ~ group, data = sleep)
+effectsize(Aov)
 
 fit <- lm(mpg ~ factor(cyl) * wt + hp, data = mtcars)
 effectsize(fit)
