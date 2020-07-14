@@ -95,7 +95,7 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
 
 
 
-#' @importFrom stats sd
+#' @importFrom stats sd na.omit
 #' @keywords internal
 .effect_size_difference <- function(x,
                                     y = NULL,
@@ -121,14 +121,14 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
   if (paired) {
     d <- mean(x - y, na.rm = TRUE)
     s <- stats::sd(x - y, na.rm = TRUE)
-    n <- length(x)
+    n <- length(stats::na.omit(x - y))
     df <- n - 1
     hn <- 1 / df
     t <- d / (s / sqrt(n))
   } else {
     d <- mean(x, na.rm = TRUE) - mean(y, na.rm = TRUE)
-    n1 <- length(x)
-    n2 <- length(y)
+    n1 <- length(stats::na.omit(x))
+    n2 <- length(stats::na.omit(y))
     n <- n1 + n2
     df <- n - 2
     hn <- (1 / n1 + 1 / n2)
@@ -140,7 +140,6 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
         s1 <- stats::sd(x, na.rm = TRUE)
         s2 <- stats::sd(y, na.rm = TRUE)
         s <- sqrt((s1 ^ 2 + s2 ^ 2) / 2)
-        # s <- stats::sd(c(x, y), na.rm = TRUE)
         t <- d / sqrt(s1 ^ 2 / n1 + s2 ^ 2 / n2)
       }
     } else if (type == "delta") {
