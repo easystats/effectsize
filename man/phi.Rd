@@ -18,7 +18,7 @@ cramers_v(x, y = NULL, CI = 0.95, adjust = FALSE, ...)
 
 \item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
 
-\item{...}{Passed to \code{chisq.test()}.}
+\item{...}{Ignored.}
 }
 \value{
 A data frame with the effect size(s) between 0-1, and confidence interval(s).
