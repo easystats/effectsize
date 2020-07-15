@@ -29,9 +29,9 @@ hedges_g(
 glass_delta(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
 }
 \arguments{
-\item{x}{A formula, a numeric vector, or a name of one in \code{data}.}
+\item{x}{A formula, a numeric vector, or a character name of one in \code{data}.}
 
-\item{y}{A numeric vector, a grouping (character / factor) vector, a or a name of one in \code{data}. Ignored if \code{x} is a formula.}
+\item{y}{A numeric vector, a grouping (character / factor) vector, a or a character  name of one in \code{data}. Ignored if \code{x} is a formula.}
 
 \item{data}{An optional data frame containing the variables.}
 

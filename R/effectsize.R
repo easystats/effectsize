@@ -47,8 +47,11 @@ effectsize.htest <- function(model, ...) {
     out$CI_high <- model$conf.int[2]
     return(out)
   } else if (grepl("Chi-squared", model$method)) {
+    Obs <- model$observed
+    Exp <- model$expected
+
     out <- chisq_to_cramers_v(
-      unname(model$statistic),
+      chisq = .chisq(Obs, Exp),
       n = sum(model$observed),
       nrow = nrow(model$observed),
       ncol = ncol(model$observed),
