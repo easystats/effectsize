@@ -3,7 +3,7 @@
 
 #' Interpretation Grid
 #'
-#' Create a container for interpretation rules of thumb. Usually used in conjunction with \link{interpret}.
+#' Create a container for interpretation rules of thumb. Usually used in conjunction with [interpret].
 #'
 #' @param values Vector of reference values (edges defining categories or critical values).
 #' @param labels Labels associated with each category. If `NULL`, will try to infer it from `values` (if it is a named vector or a list), otherwise, will return the breakpoints.
@@ -69,10 +69,10 @@ is.rules <- function(x) inherits(x, "rules")
 
 #' Generic function for interpretation
 #'
-#' Interpret a value based on a set of rules. See \link{rules}.
+#' Interpret a value based on a set of rules. See [rules].
 #'
 #' @param x Vector of value break points (edges defining categories).
-#' @param rules Set of \link{rules}.
+#' @param rules Set of [rules].
 #'
 #' @seealso rules
 #' @examples

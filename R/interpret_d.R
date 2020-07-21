@@ -5,7 +5,7 @@
 #'
 #'
 #' @param d,g,delta Value or vector of effect size values.
-#' @param rules Can be "funder2019" (default), "gignac2016", "cohen1988", "sawilowsky2009" or custom set of \code{\link{rules}}.
+#' @param rules Can be "funder2019" (default), "gignac2016", "cohen1988", "sawilowsky2009" or custom set of [rules()].
 #'
 #'
 #'

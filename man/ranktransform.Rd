@@ -36,7 +36,7 @@ ranktransform(x, ...)
 
 \item{sign}{Logical, if \code{TRUE}, return signed ranks.}
 
-\item{method}{Treatment of ties. Can be one of "average" (default), "first", "last", "random", "max" or "min". See \code{\link{rank}} for details.}
+\item{method}{Treatment of ties. Can be one of "average" (default), "first", "last", "random", "max" or "min". See \code{\link[=rank]{rank()}} for details.}
 
 \item{verbose}{Toggle warnings on or off.}
 
@@ -57,5 +57,5 @@ ranktransform(c(0, 1, 5, -5, -2), sign = TRUE)
 head(ranktransform(iris))
 }
 \seealso{
-\code{\link{normalize}} \code{\link{standardize}} \code{\link{change_scale}}
+\code{\link[=normalize]{normalize()}} \code{\link[=standardize]{standardize()}} \code{\link[=change_scale]{change_scale()}}
 }

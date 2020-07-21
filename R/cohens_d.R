@@ -11,7 +11,7 @@
 #' @param y A numeric vector, a grouping (character / factor) vector, a or a character  name of one in `data`. Ignored if `x` is a formula.
 #' @param data An optional data frame containing the variables.
 #' @param correction If `TRUE`, applies a correction to make it less biased for small samples (McGrath & Meyer, 2006).
-#' @param pooled_sd If `TRUE` (default), a \code{\link{sd_pooled}} is used (assuming equal variance). Else the mean SD from both groups is used instead.
+#' @param pooled_sd If `TRUE` (default), a [sd_pooled()] is used (assuming equal variance). Else the mean SD from both groups is used instead.
 #' @param paired If `TRUE`, the values of `x` and `y` are considered as paired.
 #' @inheritParams chisq_to_phi
 #'

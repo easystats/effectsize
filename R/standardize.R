@@ -1,6 +1,6 @@
 #' Standardization (Z-scoring)
 #'
-#' Performs a standardization of data (z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The \code{\link{normalize}} function can also be used to scale all numeric variables within the 0 - 1 range.
+#' Performs a standardization of data (z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The [normalize()] function can also be used to scale all numeric variables within the 0 - 1 range.
 #'
 #' @param x A data frame, a vector or a statistical model.
 #' @param robust Logical, if `TRUE`, centering is done by subtracting the
@@ -30,9 +30,9 @@
 #'
 #' @note When `x` is a data frame or vector, missing values are preserved, so the return value has the same length / number of rows as the original input.
 #'
-#' @details If `x` is a model object, standardization is done by completely refitting the model on the standardized data. Hence, this approach is equal to standardizing the variables before fitting the model and will return a new model object. However, this method is particularly recommended for complex models that include interactions or transformations (e.g., polynomial or spline terms). The `robust` (default to `FALSE`) argument enables a robust standardization of data, i.e., based on the `median` and `MAD` instead of the `mean` and `SD`. See \code{\link{standardize_parameters}} for other methods of standardizing model coefficients.
+#' @details If `x` is a model object, standardization is done by completely refitting the model on the standardized data. Hence, this approach is equal to standardizing the variables before fitting the model and will return a new model object. However, this method is particularly recommended for complex models that include interactions or transformations (e.g., polynomial or spline terms). The `robust` (default to `FALSE`) argument enables a robust standardization of data, i.e., based on the `median` and `MAD` instead of the `mean` and `SD`. See [standardize_parameters()] for other methods of standardizing model coefficients.
 #'
-#' @seealso \code{\link{normalize}} \code{\link{standardize_parameters}}
+#' @seealso [normalize()] [standardize_parameters()]
 #' @examples
 #' # Data frames
 #' summary(standardize(iris))

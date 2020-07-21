@@ -37,7 +37,7 @@ bayestestR::equivalence_test
 #' }
 #' }
 #'
-#' @seealso For more details, see \code{\link[bayestestR:equivalence_test]{equivalence_test}}.
+#' @seealso For more details, see [bayestestR::equivalence_test()].
 #'
 #' @return A data frame.
 #'

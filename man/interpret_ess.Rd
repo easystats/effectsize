@@ -15,7 +15,7 @@ interpret_rope(rope, ci = 0.9, rules = "default")
 \arguments{
 \item{ess}{Value or vector of Effective Sample Size (ESS) values.}
 
-\item{rules}{A character string (see details) or a custom set of \code{\link{rules}}.}
+\item{rules}{A character string (see details) or a custom set of \code{\link[=rules]{rules()}}.}
 
 \item{rhat}{Value or vector of Rhat values.}
 

@@ -80,5 +80,5 @@ if (require(see)) plot(equivalence_test(ds, range = 0.2, rule = "bayes"))
 }
 }
 \seealso{
-For more details, see \code{\link[bayestestR:equivalence_test]{equivalence_test}}.
+For more details, see \code{\link[bayestestR:equivalence_test]{bayestestR::equivalence_test()}}.
 }

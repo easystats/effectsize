@@ -37,7 +37,7 @@ glass_delta(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
 
 \item{correction}{If \code{TRUE}, applies a correction to make it less biased for small samples (McGrath & Meyer, 2006).}
 
-\item{pooled_sd}{If \code{TRUE} (default), a \code{\link{sd_pooled}} is used (assuming equal variance). Else the mean SD from both groups is used instead.}
+\item{pooled_sd}{If \code{TRUE} (default), a \code{\link[=sd_pooled]{sd_pooled()}} is used (assuming equal variance). Else the mean SD from both groups is used instead.}
 
 \item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.}
 

@@ -4,7 +4,7 @@
 #'
 #' @param ess Value or vector of Effective Sample Size (ESS) values.
 #' @param rhat Value or vector of Rhat values.
-#' @param rules A character string (see details) or a custom set of \code{\link{rules}}.
+#' @param rules A character string (see details) or a custom set of [rules()].
 #' @param rope Value or vector of percentages in ROPE.
 #' @param ci The Credible Interval (CI) probability, corresponding to the proportion of HDI, that was used. Can be `1` in the case of "full ROPE".
 #'

@@ -14,7 +14,7 @@ See \code{eta_squared}, \code{standardize_parameters}, \code{cramers_v}, \code{t
 \code{d_to_r} or \code{F_to_eta2}.}
 }
 \description{
-See the documentation for \code{\link{eta_squared}}, \code{\link{standardize_parameters}}, \code{\link{cramers_v}}.
+See the documentation for \code{\link[=eta_squared]{eta_squared()}}, \code{\link[=standardize_parameters]{standardize_parameters()}}, \code{\link[=cramers_v]{cramers_v()}}.
 }
 \examples{
 contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))

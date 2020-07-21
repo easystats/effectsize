@@ -19,8 +19,8 @@
 #'
 #' For `aov` and `aovlist` models, the effect sizes are computed directly with
 #' Sums-of-Squares. For all other model, the model is passed to `anova()`, and effect
-#' sizes are approximated via test statistic conversion (see \code{\link{F_to_eta2} for
-#' more details.})
+#' sizes are approximated via test statistic conversion (see `[F_to_eta2] for
+#' more details.`)
 #'
 #' \subsection{Type of Sums of Squares}{
 #' The sums of squares (or F statistics) used for the computation of the effect sizes is
@@ -68,7 +68,7 @@
 #'  effect sizes, respectively.
 #' }
 #'
-#' @seealso \code{\link{F_to_eta2}}
+#' @seealso [F_to_eta2()]
 #'
 #' @examples
 #' \donttest{

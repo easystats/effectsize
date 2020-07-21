@@ -10,7 +10,7 @@
 #'
 #' @return A data frame with the effect size(s) between 0-1, and confidence interval(s).
 #'
-#' @seealso \code{\link{chisq_to_phi}} for details regarding estimation and CIs.
+#' @seealso [chisq_to_phi()] for details regarding estimation and CIs.
 #'
 #' @examples
 #' contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))

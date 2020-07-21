@@ -1,6 +1,6 @@
 #' Effect Size
 #'
-#' See the documentation for \code{\link{eta_squared}}, \code{\link{standardize_parameters}}, \code{\link{cramers_v}}.
+#' See the documentation for [eta_squared()], [standardize_parameters()], [cramers_v()].
 #'
 #' @param model Statistical model or object of class `htest`.
 #' @param ... Arguments passed to or from other methods.
