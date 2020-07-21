@@ -1,18 +1,18 @@
 #' Coefficient of determination  (R2) interpretation
 #'
 #' @param r2 Value or vector of R2 values.
-#' @param rules Can be "cohen1988" (default), "falk1992", "chin1998", "hair2011" or custom set of rules.
+#' @param rules Can be `"cohen1988"` (default), `"falk1992"`, `"chin1998"`, `"hair2011"` or custom set of [rules()]].
 #'
 #' @examples
 #' interpret_r2(.02)
 #' interpret_r2(c(.5, .02))
+#'
 #' @references
-#' \itemize{
-#'   \item Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
-#'   \item Falk, R. F., & Miller, N. B. (1992). A primer for soft modeling. University of Akron Press.
-#'   \item Chin, W. W. (1998). The partial least squares approach to structural equation modeling. Modern methods for business research, 295(2), 295-336.
-#'   \item Hair, J. F., Ringle, C. M., & Sarstedt, M. (2011). PLS-SEM: Indeed a silver bullet. Journal of Marketing theory and Practice, 19(2), 139-152.
-#' }
+#' - Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
+#' - Falk, R. F., & Miller, N. B. (1992). A primer for soft modeling. University of Akron Press.
+#' - Chin, W. W. (1998). The partial least squares approach to structural equation modeling. Modern methods for business research, 295(2), 295-336.
+#' - Hair, J. F., Ringle, C. M., & Sarstedt, M. (2011). PLS-SEM: Indeed a silver bullet. Journal of Marketing theory and Practice, 19(2), 139-152.
+#'
 #' @export
 interpret_r2 <- function(r2, rules = "cohen1988") {
   if (is.rules(rules)) {

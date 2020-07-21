@@ -35,5 +35,5 @@ cramers_v(contingency_table)
 
 }
 \seealso{
-\code{\link{chisq_to_phi}} for details regarding estimation and CIs.
+\code{\link[=chisq_to_phi]{chisq_to_phi()}} for details regarding estimation and CIs.
 }

@@ -5,24 +5,23 @@
 #' For sample sizes > 20, the results for both statistics are roughly equivalent.
 #' \cr\cr
 #'  The Glass’s delta is appropriate if standard deviations are significantly different
-#'  between groups, as it uses only the \emph{second} group's standard deviation.
+#'  between groups, as it uses only the *second* group's standard deviation.
 #'
-#' @param x A formula, a numeric vector, or a character name of one in \code{data}.
-#' @param y A numeric vector, a grouping (character / factor) vector, a or a character  name of one in \code{data}. Ignored if \code{x} is a formula.
+#' @param x A formula, a numeric vector, or a character name of one in `data`.
+#' @param y A numeric vector, a grouping (character / factor) vector, a or a character  name of one in `data`. Ignored if `x` is a formula.
 #' @param data An optional data frame containing the variables.
-#' @param correction If \code{TRUE}, applies a correction to make it less biased for small samples (McGrath & Meyer, 2006).
-#' @param pooled_sd If \code{TRUE} (default), a \code{\link{sd_pooled}} is used (assuming equal variance). Else the mean SD from both groups is used instead.
-#' @param paired If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
+#' @param correction If `TRUE`, applies a correction to make it less biased for small samples (McGrath & Meyer, 2006).
+#' @param pooled_sd If `TRUE` (default), a [sd_pooled()] is used (assuming equal variance). Else the mean SD from both groups is used instead.
+#' @param paired If `TRUE`, the values of `x` and `y` are considered as paired.
 #' @inheritParams chisq_to_phi
 #'
 #' @return A data frame with the effect size(s) and confidence interval(s).
 #'
-#' \subsection{Confidence Intervals}{
+#' ## Confidence Intervals
 #' Confidence intervals are estimated using the Noncentrality parameter method;
-#' These methods searches for a the best \code{ncp} (non-central parameters) for
+#' These methods searches for a the best `ncp` (non-central parameters) for
 #' of the noncentral t distribution for the desired tail-probabilities,
-#' and then convert these \code{ncp}s to the corresponding effect sizes.
-#' }
+#' and then convert these `ncp`s to the corresponding effect sizes.
 #'
 #' @examples
 #' cohens_d(iris$Sepal.Length, iris$Sepal.Width)
@@ -33,11 +32,11 @@
 #' hedges_g(mpg ~ am, data = mtcars)
 #' glass_delta(mpg ~ am, data = mtcars)
 #'
-#' @references \itemize{
-#'  \item Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.
-#'  \item McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
-#'  \item Hedges, L. V. & Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.
-#' }
+#' @references
+#' - Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.
+#' - McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
+#' - Hedges, L. V. & Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.
+#'
 #' @importFrom stats var model.frame
 #' @export
 cohens_d <- function(x,

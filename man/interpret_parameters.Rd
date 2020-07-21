@@ -21,13 +21,13 @@ interpret_parameters(model, ...)
 
 \item{...}{Arguments passed to or from other methods.}
 
-\item{parameters}{A custom parameters table. If \code{NULL}, will use \code{\link{standardize_parameters}} to get it.}
+\item{parameters}{A custom parameters table. If \code{NULL}, will use \code{\link[=standardize_parameters]{standardize_parameters()}} to get it.}
 
 \item{interpretation}{Interpretation grid (i.e., the set of rules of thumb) used to interpret the effects.}
 
-\item{standardize_method}{See \code{\link{standardize_parameters}}.}
+\item{standardize_method}{See \code{\link[=standardize_parameters]{standardize_parameters()}}.}
 
-\item{standardize_robust}{See \code{\link{standardize_parameters}}.}
+\item{standardize_robust}{See \code{\link[=standardize_parameters]{standardize_parameters()}}.}
 }
 \description{
 Automated interpretation of effect sizes.

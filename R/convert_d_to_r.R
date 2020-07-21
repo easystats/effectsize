@@ -4,7 +4,7 @@
 #'
 #' @param d Standardized difference value (Cohen's d).
 #' @param r Correlation coefficient r.
-#' @param percentage Percentage value (e.g., \code{0.01} for one percent).
+#' @param percentage Percentage value (e.g., `0.01` for one percent).
 #' @param odds Odds values in vector or dataframe.
 #' @param probs Probability values.
 #' @param log Take in or output log odds (such as in logistic models).
@@ -24,18 +24,16 @@
 #' odds_to_d(1.813799, log = TRUE)
 #' @return Converted index.
 #'
-#' @details \itemize{
-#'   \item \emph{d to r}: \code{d = 2 * r / sqrt(1 - r^2)}
-#'   \item \emph{r to d}: \code{r = d / (sqrt(d^2 + 4))}
-#'   \item \emph{odds to d}: \eqn{d = \frac{\log(odds)\times\sqrt{3}}{\pi}}
-#'   \item \emph{d to odds}: \eqn{log(odds) = d * \frac{\pi}{\sqrt(3)}}
-#' }
+#' @details
+#' - *d to r*: \eqn{d = \frac{2 * r}{\sqrt{1 - r^2}}}
+#' - *r to d*: \eqn{r = \frac{d}{\sqrt{d^2 + 4}}}
+#' - *odds to d*: \eqn{d = \frac{\log(odds)\times\sqrt{3}}{\pi}}
+#' - *d to odds*: \eqn{log(odds) = d * \frac{\pi}{\sqrt(3)}}
 #'
 #'
-#' @references \itemize{
-#'   \item Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003). Effect-size indices for dichotomized outcomes in meta-analysis. Psychological methods, 8(4), 448.
-#'   \item Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R. (2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
-#' }
+#' @references
+#' - Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003). Effect-size indices for dichotomized outcomes in meta-analysis. Psychological methods, 8(4), 448.
+#' - Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R. (2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
 #' @export
 d_to_r <- function(d, ...) {
   d / (sqrt(d^2 + 4))

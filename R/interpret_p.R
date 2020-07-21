@@ -1,13 +1,14 @@
 #' p-values interpretation
 #'
 #' @param p Value or vector of p-values.
-#' @param rules Can be "default" or custom set of rules.
+#' @param rules Can be `"default"` or custom set of [rules()].
 #'
 #'
 #'
 #' @examples
 #' interpret_p(.02)
 #' interpret_p(c(.5, .02))
+#'
 #' @export
 interpret_p <- function(p, rules = "default") {
   if (is.rules(rules)) {

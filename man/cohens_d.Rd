@@ -37,7 +37,7 @@ glass_delta(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
 
 \item{correction}{If \code{TRUE}, applies a correction to make it less biased for small samples (McGrath & Meyer, 2006).}
 
-\item{pooled_sd}{If \code{TRUE} (default), a \code{\link{sd_pooled}} is used (assuming equal variance). Else the mean SD from both groups is used instead.}
+\item{pooled_sd}{If \code{TRUE} (default), a \code{\link[=sd_pooled]{sd_pooled()}} is used (assuming equal variance). Else the mean SD from both groups is used instead.}
 
 \item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.}
 
@@ -45,8 +45,8 @@ glass_delta(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
 }
 \value{
 A data frame with the effect size(s) and confidence interval(s).
-
 \subsection{Confidence Intervals}{
+
 Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best \code{ncp} (non-central parameters) for
 of the noncentral t distribution for the desired tail-probabilities,
@@ -58,8 +58,8 @@ Compute different indices of effect size. For very small sample sizes (n < 20)
 Hedges' g is considered as less biased than Cohen's d.
 For sample sizes > 20, the results for both statistics are roughly equivalent.
 \cr\cr
- The Glass’s delta is appropriate if standard deviations are significantly different
- between groups, as it uses only the \emph{second} group's standard deviation.
+The Glass’s delta is appropriate if standard deviations are significantly different
+between groups, as it uses only the \emph{second} group's standard deviation.
 }
 \examples{
 cohens_d(iris$Sepal.Length, iris$Sepal.Width)
@@ -73,8 +73,8 @@ glass_delta(mpg ~ am, data = mtcars)
 }
 \references{
 \itemize{
- \item Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.
- \item McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
- \item Hedges, L. V. & Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.
+\item Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.
+\item McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
+\item Hedges, L. V. & Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.
 }
 }

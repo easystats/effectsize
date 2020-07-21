@@ -9,7 +9,7 @@ interpret_bf(bf, rules = "jeffreys1961", include_value = FALSE)
 \arguments{
 \item{bf}{Value or vector of Bayes factor (BF) values.}
 
-\item{rules}{Can be "jeffreys1961" (default), "raftery1995" or custom set of \code{\link{rules}}.}
+\item{rules}{Can be \code{"jeffreys1961"} (default), \code{"raftery1995"} or custom set of \code{\link[=rules]{rules()}}.}
 
 \item{include_value}{Include the value in the output.}
 }
@@ -19,11 +19,12 @@ Bayes Factor (BF) Interpretation
 \examples{
 interpret_bf(1)
 interpret_bf(c(5, 2))
+
 }
 \references{
 \itemize{
- \item Jeffreys, H. (1961), Theory of Probability, 3rd ed., Oxford University Press, Oxford.
- \item Raftery, A. E. (1995). Bayesian model selection in social research. Sociological methodology, 25, 111-164.
- \item Jarosz, A. F., & Wiley, J. (2014). What are the odds? A practical guide to computing and reporting Bayes factors. The Journal of Problem Solving, 7(1), 2.
- }
+\item Jeffreys, H. (1961), Theory of Probability, 3rd ed., Oxford University Press, Oxford.
+\item Raftery, A. E. (1995). Bayesian model selection in social research. Sociological methodology, 25, 111-164.
+\item Jarosz, A. F., & Wiley, J. (2014). What are the odds? A practical guide to computing and reporting Bayes factors. The Journal of Problem Solving, 7(1), 2.
+}
 }

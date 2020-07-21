@@ -15,7 +15,7 @@ interpret_rope(rope, ci = 0.9, rules = "default")
 \arguments{
 \item{ess}{Value or vector of Effective Sample Size (ESS) values.}
 
-\item{rules}{A character string (see details) or a custom set of \code{\link{rules}}.}
+\item{rules}{A character string (see details) or a custom set of \code{\link[=rules]{rules()}}.}
 
 \item{rhat}{Value or vector of Rhat values.}
 
@@ -27,13 +27,12 @@ interpret_rope(rope, ci = 0.9, rules = "default")
 Interpretation of Bayesian indices, such as Effective Sample Size (ESS), Rhat, or percentage in ROPE.
 }
 \details{
-\subsection{Rules sets:}{
+Rules sets:
 \itemize{
-   \item \strong{ESS}: Can be "burkner2017" (default).
-   \item \strong{Rhat}: Can be "vehtari2019" (default) or "gelman1992".
-   \item \strong{ROPE}: Can be \href{https://easystats.github.io/bayestestR/articles/guidelines.html}{"default"}.
-   \item \strong{ESS}:
-}}
+\item \strong{ESS}: Can be \code{"burkner2017"} (default).
+\item \strong{Rhat}: Can be \code{"vehtari2019"} (default) or \code{"gelman1992"}.
+\item \strong{ROPE}: Can be \href{https://easystats.github.io/bayestestR/articles/guidelines.html}{"default"}.
+}
 }
 \examples{
 interpret_ess(1001)
@@ -47,9 +46,9 @@ interpret_rope(c(0.005, 0.99), ci = 1)
 }
 \references{
 \itemize{
-  \item Bürkner, P. C. (2017). brms: An R package for Bayesian multilevel models using Stan. Journal of Statistical Software, 80(1), 1-28.
-  \item Gelman, A., & Rubin, D. B. (1992). Inference from iterative simulation using multiple sequences. Statistical science, 7(4), 457-472.
-  \item Vehtari, A., Gelman, A., Simpson, D., Carpenter, B., & Bürkner, P. C. (2019). Rank-normalization, folding, and localization: An improved Rhat for assessing convergence of MCMC. arXiv preprint arXiv:1903.08008.
-  \item \href{https://easystats.github.io/bayestestR/articles/guidelines.html}{BayestestR's reporting guidelines}
+\item Bürkner, P. C. (2017). brms: An R package for Bayesian multilevel models using Stan. Journal of Statistical Software, 80(1), 1-28.
+\item Gelman, A., & Rubin, D. B. (1992). Inference from iterative simulation using multiple sequences. Statistical science, 7(4), 457-472.
+\item Vehtari, A., Gelman, A., Simpson, D., Carpenter, B., & Bürkner, P. C. (2019). Rank-normalization, folding, and localization: An improved Rhat for assessing convergence of MCMC. arXiv preprint arXiv:1903.08008.
+\item \href{https://easystats.github.io/bayestestR/articles/guidelines.html}{BayestestR's reporting guidelines}
 }
 }

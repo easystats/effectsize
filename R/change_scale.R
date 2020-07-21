@@ -6,7 +6,7 @@
 #'
 #' @param x Object.
 #' @param to New range of values of the data after rescaling.
-#' @param range Initial (old) range of values. If \code{NULL}, will take the range of data.
+#' @param range Initial (old) range of values. If `NULL`, will take the range of data.
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @examples
@@ -14,7 +14,9 @@
 #' change_scale(c(0, 1, 5, -5, -2), to = c(-5, 5))
 #'
 #' head(change_scale(iris))
-#' @seealso \code{\link{normalize}} \code{\link{standardize}} \code{\link{ranktransform}}
+#'
+#' @seealso [normalize()] [standardize()] [ranktransform()]
+#'
 #' @return A rescaled object.
 #' @export
 change_scale <- function(x, ...) {

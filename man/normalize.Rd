@@ -37,17 +37,20 @@ include zeros and ones.}
 A normalized object.
 }
 \description{
-Performs a normalization of data, i.e., it scales all numeric variables in the range 0 - 1. This is a special case of \code{\link{change_scale}}.
+Performs a normalization of data, i.e., it scales all numeric variables in the range 0 - 1. This is a special case of \code{\link[=change_scale]{change_scale()}}.
 }
 \examples{
 normalize(c(0, 1, 5, -5, -2))
 normalize(c(0, 1, 5, -5, -2), include_bounds = FALSE)
 
 head(normalize(iris))
+
 }
 \references{
-Smithson M, Verkuilen J (2006). A Better Lemon Squeezer? Maximum-Likelihood Regression with Beta-Distributed Dependent Variables. Psychological Methods, 11(1), 54–71.
+\itemize{
+\item Smithson M, Verkuilen J (2006). A Better Lemon Squeezer? Maximum-Likelihood Regression with Beta-Distributed Dependent Variables. Psychological Methods, 11(1), 54–71.
+}
 }
 \seealso{
-\code{\link{ranktransform}} \code{\link{standardize}} \code{\link{change_scale}}
+\code{\link[=ranktransform]{ranktransform()}} \code{\link[=standardize]{standardize()}} \code{\link[=change_scale]{change_scale()}}
 }

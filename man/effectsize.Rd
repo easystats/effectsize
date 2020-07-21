@@ -9,12 +9,24 @@ effectsize(model, ...)
 \arguments{
 \item{model}{Statistical model or object of class \code{htest}.}
 
-\item{...}{Arguments passed to or from other methods.
-See \code{eta_squared}, \code{standardize_parameters}, \code{cramers_v}, \code{t_to_d},
-\code{d_to_r} or \code{F_to_eta2}.}
+\item{...}{Arguments passed to or from other methods.}
 }
 \description{
-See the documentation for \code{\link{eta_squared}}, \code{\link{standardize_parameters}}, \code{\link{cramers_v}}.
+This function trys to return the best effect-size measure for the provided input model.
+See details below.
+}
+\details{
+\itemize{
+\item For an object of class \code{htest}:
+\itemize{
+\item A \strong{t-test} returns \emph{Cohen's d} via \code{\link[=t_to_d]{t_to_d()}}.
+\item A \strong{correlation test} returns \emph{r}. See \code{\link[=t_to_r]{t_to_r()}}.
+\item A \strong{Chi-squared test} returns \emph{Cramer's V} via \code{\link[=cramers_v]{cramers_v()}}.
+\item A \strong{One-way ANOVA test} returns \emph{Eta squared} via \code{\link[=F_to_eta2]{F_to_eta2()}}.
+}
+\item An object of class \code{anova} is passed to \code{\link[=eta_squared]{eta_squared()}}.
+\item Other objects are passed to \code{\link[=standardize_parameters]{standardize_parameters()}}.
+}
 }
 \examples{
 contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
