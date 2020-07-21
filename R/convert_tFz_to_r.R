@@ -32,12 +32,11 @@
 #' \cr\cr
 #' \deqn{Cohen's d = 2 * z / \sqrt{N}}
 #'
-#' \subsection{Confidence Intervals}{
+#' ## Confidence Intervals
 #' Confidence intervals are estimated using the Noncentrality parameter method;
 #' These methods searches for a the best `ncp` (non-central parameters) for
 #' of the noncentral F distribution for the desired tail-probabilities,
 #' and then convert these `ncp`s to the corresponding effect sizes.
-#' }
 #'
 #' @examples
 #' ## t Tests
@@ -73,14 +72,13 @@
 #' }
 #'
 #' }
+#'
 #' @references
-#' \itemize{
-#'   \item Friedman, H. (1982). Simplified determinations of statistical power, magnitude of effect and research sample sizes. Educational and Psychological Measurement, 42(2), 521-526. \doi{10.1177/001316448204200214}
-#'   \item Wolf, F. M. (1986). Meta-analysis: Quantitative methods for research synthesis (Vol. 59). Sage.
-#'   \item Rosenthal, R. (1991). Meta-analytic procedures for social research. Newbury Park, CA: SAGE Publications, Incorporated.
-#'   \item Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
-#'   \item Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
-#' }
+#' - Friedman, H. (1982). Simplified determinations of statistical power, magnitude of effect and research sample sizes. Educational and Psychological Measurement, 42(2), 521-526. \doi{10.1177/001316448204200214}
+#' - Wolf, F. M. (1986). Meta-analysis: Quantitative methods for research synthesis (Vol. 59). Sage.
+#' - Rosenthal, R. (1991). Meta-analytic procedures for social research. Newbury Park, CA: SAGE Publications, Incorporated.
+#' - Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
+#' - Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
 #'
 #' @export
 t_to_r <- function(t, df_error, ci = 0.95, ...) {

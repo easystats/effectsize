@@ -20,12 +20,11 @@
 #' \cr
 #' For adjusted versions, see Bergsma, 2013.
 #'
-#' \subsection{Confidence Intervals}{
+#' ## Confidence Intervals
 #' Confidence intervals are estimated using the Noncentrality parameter method;
 #' These methods searches for a the best `ncp` (non-central parameters) for
 #' of the noncentral F distribution for the desired tail-probabilities,
 #' and then convert these `ncp`s to the corresponding effect sizes.
-#' }
 #'
 #' @examples
 #' contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
@@ -49,10 +48,8 @@
 #' )
 #'
 #' @references
-#' \itemize{
-#'   \item Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
-#'   \item Bergsma, W. (2013). A bias-correction for Cramer's V and Tschuprow's T. Journal of the Korean Statistical Society, 42(3), 323-328.
-#' }
+#' - Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
+#' - Bergsma, W. (2013). A bias-correction for Cramer's V and Tschuprow's T. Journal of the Korean Statistical Society, 42(3), 323-328.
 #'
 #' @export
 chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...){

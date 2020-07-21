@@ -9,7 +9,7 @@ interpret_omega_squared(omega_squared, rules = "field2013")
 \arguments{
 \item{omega_squared}{Value or vector of omega squared values.}
 
-\item{rules}{Can be "field2013" (default) or custom set of rules.}
+\item{rules}{Can be \code{"field2013"} (default) or custom set of \code{\link[=rules]{rules()}}.}
 }
 \description{
 ANOVA effect size interpretation
@@ -17,10 +17,11 @@ ANOVA effect size interpretation
 \examples{
 interpret_omega_squared(.02)
 interpret_omega_squared(c(.5, .02))
+
 }
 \references{
 \itemize{
-\item{Field, A (2013) Discovering statistics using IBM SPSS Statistics. Fourth Edition. Sage:London.}
+\item Field, A (2013) Discovering statistics using IBM SPSS Statistics. Fourth Edition. Sage:London.
 }
 }
 \seealso{

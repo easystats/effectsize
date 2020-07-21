@@ -9,7 +9,7 @@ interpret_bf(bf, rules = "jeffreys1961", include_value = FALSE)
 \arguments{
 \item{bf}{Value or vector of Bayes factor (BF) values.}
 
-\item{rules}{Can be "jeffreys1961" (default), "raftery1995" or custom set of \code{\link[=rules]{rules()}}.}
+\item{rules}{Can be \code{"jeffreys1961"} (default), \code{"raftery1995"} or custom set of \code{\link[=rules]{rules()}}.}
 
 \item{include_value}{Include the value in the output.}
 }
@@ -19,6 +19,7 @@ Bayes Factor (BF) Interpretation
 \examples{
 interpret_bf(1)
 interpret_bf(c(5, 2))
+
 }
 \references{
 \itemize{

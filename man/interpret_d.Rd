@@ -15,7 +15,7 @@ interpret_delta(delta, rules = "funder2019")
 \arguments{
 \item{d, g, delta}{Value or vector of effect size values.}
 
-\item{rules}{Can be "funder2019" (default), "gignac2016", "cohen1988", "sawilowsky2009" or custom set of \code{\link[=rules]{rules()}}.}
+\item{rules}{Can be \code{"funder2019"} (default), \code{"gignac2016"}, \code{"cohen1988"}, \code{"sawilowsky2009"} or custom set of \code{\link[=rules]{rules()}}.}
 }
 \description{
 Interpretation of indices using different sets of rules of thumb.
@@ -24,6 +24,7 @@ Interpretation of indices using different sets of rules of thumb.
 \examples{
 interpret_d(.02)
 interpret_d(c(.5, .02))
+
 }
 \references{
 \itemize{

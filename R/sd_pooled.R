@@ -5,8 +5,11 @@
 #' @inheritParams cohens_d
 #'
 #' @return Numeric, the pooled standard deviation.
+#'
 #' @examples
 #' sd_pooled(mpg ~ am, data = mtcars)
+#'
+#' @seealso [cohens_d()]
 #'
 #' @export
 sd_pooled <- function(x, y = NULL, data = NULL) {

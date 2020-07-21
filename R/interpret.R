@@ -15,6 +15,7 @@
 #' rules(c(0.05), c("significant", "not significant"))
 #' rules(c(0.2, 0.5, 0.8), c("small", "medium", "large"))
 #' rules(c("small" = 0.2, "medium" = 0.5))
+#'
 #' @export
 rules <- function(values, labels = NULL) {
 
@@ -69,10 +70,10 @@ is.rules <- function(x) inherits(x, "rules")
 
 #' Generic function for interpretation
 #'
-#' Interpret a value based on a set of rules. See [rules].
+#' Interpret a value based on a set of rules. See [rules()].
 #'
 #' @param x Vector of value break points (edges defining categories).
-#' @param rules Set of [rules].
+#' @param rules Set of [rules()].
 #'
 #' @seealso rules
 #' @examples

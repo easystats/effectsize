@@ -42,8 +42,8 @@ might not always be appropriate (\strong{\emph{Yeah... ANOVAs are hard...}}). Se
 For \code{aov} and \code{aovlist} models, the effect sizes are computed directly with
 Sums-of-Squares. For all other model, the model is passed to \code{anova()}, and effect
 sizes are approximated via test statistic conversion (see \verb{[F_to_eta2] for more details.})
-
 \subsection{Type of Sums of Squares}{
+
 The sums of squares (or F statistics) used for the computation of the effect sizes is
 based on those returned by \code{anova(model)} (whatever those may be - for \code{aov}
 and \code{aovlist} these are \emph{type-1} sums of squares; for \code{merMod} these are
@@ -55,6 +55,7 @@ It is generally recommended to fit models with \emph{\code{contr.sum} factor wei
 }
 
 \subsection{Confidence Intervals}{
+
 Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best \code{ncp} (non-central parameters) for
 of the noncentral F distribution for the desired tail-probabilities,
@@ -66,6 +67,7 @@ to (or small then) 0, and even more care should be taken when the
 }
 
 \subsection{Omega Squared}{
+
 Omega squared is considered as a lesser biased alternative to eta-squared, especially
 when sample sizes are small (Albers \& Lakens, 2018). Field (2013) suggests the following
 interpretation heuristics:
@@ -75,13 +77,17 @@ interpretation heuristics:
 \item Omega Squared = 0.06 - 0.14: Medium
 \item Omega Squared > 0.14: Large
 }
+}
 
-} \subsection{Epsilon Squared}{
+\subsection{Epsilon Squared}{
+
 It is one of the least common measures of effect sizes: omega squared and eta squared are
 used more frequently. Although having a different name and a formula in appearance
 different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).
+}
 
-} \subsection{Cohen's f}{
+\subsection{Cohen's f}{
+
 Cohen's f can take on values between zero, when the population
 means are all equal, and an indefinitely large number as standard deviation of means
 increases relative to the average standard deviation within each group. Cohen has

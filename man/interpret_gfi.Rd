@@ -36,7 +36,7 @@ interpret_pnfi(x, rules = "default")
 \arguments{
 \item{x}{vector of values.}
 
-\item{rules}{Can be "default" or custom set of rules.}
+\item{rules}{Can be \code{"default"} or custom set of \code{\link[=rules]{rules()}}.}
 }
 \description{
 Interpretation of indices of fit found in confirmatory analysis or structural equation modelling, such as RMSEA, CFI, NFI, IFI, etc.
@@ -54,10 +54,12 @@ Interpretation of indices of fit found in confirmatory analysis or structural eq
 \item \strong{IFI}: the Incremental Fit Index (IFI) adjusts the Normed Fit Index (NFI) for sample size and degrees of freedom (Bollen's, 1989). Over 0.90 is a good fit, but the index can exceed 1.
 \item \strong{PNFI}: the Parsimony-Adjusted Measures Index. There is no commonly agreed-upon cutoff value for an acceptable model for this index. Should be > 0.50.
 }
-See the documentation for \code{lavaan::fitmeasures}.
+
+See the documentation for \code{\link[lavaan:fitMeasures]{lavaan::fitmeasures()}}.
 }
 
 \subsection{What to report}{
+
 For structural equation models (SEM), Kline (2015) suggests that at a minimum the following indices should be reported: The model \strong{chi-square}, the \strong{RMSEA}, the \strong{CFI} and the \strong{SRMR}.
 }
 }
@@ -72,6 +74,7 @@ interpret_srmr(c(.5, .99))
 interpret_rfi(c(.5, .99))
 interpret_ifi(c(.5, .99))
 interpret_pnfi(c(.5, .99))
+
 }
 \references{
 \itemize{

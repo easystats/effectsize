@@ -12,7 +12,7 @@
 )
 }
 \arguments{
-\item{x}{An effect size table, such as returned by \verb{cohens_d, eta_squared, F_to_r}, etc.}
+\item{x}{An effect size table, such as returned by \code{\link[=cohens_d]{cohens_d()}}, \code{\link[=eta_squared]{eta_squared()}}, \code{\link[=F_to_r]{F_to_r()}}, etc.}
 
 \item{range}{The range of practical equivalence of an effect. If a single value is provided,
 the test is done against \code{c(-range, range)}. For effect sizes that cannot be negative,
@@ -33,22 +33,26 @@ The CIs used in the equivalence test are the ones in the provided effect size ta
 For results equivalent (ha!) to those that can be obtained using the TOST approach (e.g., Lakens, 2017),
 appropriate CIs should be extracted using the function used to make the effect size table
 (\verb{cohens_d, eta_squared, F_to_r}, etc). See examples.
-
 \subsection{The Different Rules}{
-\code{"classic"} - \strong{the classic method}: \itemize{
+\itemize{
+\item \code{"classic"} - \strong{the classic method}:
+\itemize{
 \item If the CI is completely within the ROPE - \emph{Accept H0}
 \item Else, if the CI does not contain 0 - \emph{Reject H0}
 \item Else - \emph{Undecided}
 }
-\code{"cet"} - \strong{conditional equivalence testing}: \itemize{
+\item \code{"cet"} - \strong{conditional equivalence testing}:
+\itemize{
 \item If the CI does not contain 0 - \emph{Reject H0}
 \item Else, If the CI is completely within the ROPE - \emph{Accept H0}
 \item Else - \emph{Undecided}
 }
-\code{"bayes"} - \strong{The Bayesian approach}, as put forth by Kruschke: \itemize{
+\item \code{"bayes"} - \strong{The Bayesian approach}, as put forth by Kruschke:
+\itemize{
 \item If the CI does is completely outsie the ROPE - \emph{Reject H0}
 \item Else, If the CI is completely within the ROPE - \emph{Accept H0}
 \item Else - \emph{Undecided}
+}
 }
 }
 }

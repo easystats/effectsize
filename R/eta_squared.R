@@ -22,7 +22,7 @@
 #' sizes are approximated via test statistic conversion (see `[F_to_eta2] for
 #' more details.`)
 #'
-#' \subsection{Type of Sums of Squares}{
+#' ## Type of Sums of Squares
 #' The sums of squares (or F statistics) used for the computation of the effect sizes is
 #' based on those returned by `anova(model)` (whatever those may be - for `aov`
 #' and `aovlist` these are *type-1* sums of squares; for `merMod` these are
@@ -31,9 +31,8 @@
 #' \cr\cr
 #' It is generally recommended to fit models with *`contr.sum` factor weights* and
 #' *centered covariates*, for sensible results. See examples.
-#' }
 #'
-#' \subsection{Confidence Intervals}{
+#' ## Confidence Intervals
 #' Confidence intervals are estimated using the Noncentrality parameter method;
 #' These methods searches for a the best `ncp` (non-central parameters) for
 #' of the noncentral F distribution for the desired tail-probabilities,
@@ -42,31 +41,27 @@
 #' Special care should be taken when interpreting CIs with a lower bound equal
 #' to (or small then) 0, and even more care should be taken when the
 #' *upper* bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
-#' }
 #'
-#' \subsection{Omega Squared}{
+#' ## Omega Squared
 #' Omega squared is considered as a lesser biased alternative to eta-squared, especially
 #' when sample sizes are small (Albers \& Lakens, 2018). Field (2013) suggests the following
 #' interpretation heuristics:
-#' \itemize{
-#'   \item Omega Squared = 0 - 0.01: Very small
-#'   \item Omega Squared = 0.01 - 0.06: Small
-#'   \item Omega Squared = 0.06 - 0.14: Medium
-#'   \item Omega Squared > 0.14: Large
-#' }
+#' - Omega Squared = 0 - 0.01: Very small
+#' - Omega Squared = 0.01 - 0.06: Small
+#' - Omega Squared = 0.06 - 0.14: Medium
+#' - Omega Squared > 0.14: Large
 #'
-#' } \subsection{Epsilon Squared}{
+#' ## Epsilon Squared
 #' It is one of the least common measures of effect sizes: omega squared and eta squared are
 #' used more frequently. Although having a different name and a formula in appearance
 #' different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).
 #'
-#' } \subsection{Cohen's f}{
+#' ## Cohen's f
 #' Cohen's f can take on values between zero, when the population
 #'  means are all equal, and an indefinitely large number as standard deviation of means
 #'  increases relative to the average standard deviation within each group. Cohen has
 #'  suggested that the values of 0.10, 0.25, and 0.40 represent small, medium, and large
 #'  effect sizes, respectively.
-#' }
 #'
 #' @seealso [F_to_eta2()]
 #'

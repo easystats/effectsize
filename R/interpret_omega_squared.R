@@ -1,20 +1,19 @@
 #' ANOVA effect size interpretation
 #'
 #' @param omega_squared Value or vector of omega squared values.
-#' @param rules Can be "field2013" (default) or custom set of rules.
+#' @param rules Can be `"field2013"` (default) or custom set of [rules()].
 #'
 #'
 #'
 #' @examples
 #' interpret_omega_squared(.02)
 #' interpret_omega_squared(c(.5, .02))
+#'
 #' @seealso http://imaging.mrc-cbu.cam.ac.uk/statswiki/FAQ/effectSize
 #'
 #'
 #' @references
-#' \itemize{
-#'   \item{Field, A (2013) Discovering statistics using IBM SPSS Statistics. Fourth Edition. Sage:London.}
-#' }
+#' - Field, A (2013) Discovering statistics using IBM SPSS Statistics. Fourth Edition. Sage:London.
 #' @export
 interpret_omega_squared <- function(omega_squared, rules = "field2013") {
   if (is.rules(rules)) {

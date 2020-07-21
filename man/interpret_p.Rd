@@ -9,7 +9,7 @@ interpret_p(p, rules = "default")
 \arguments{
 \item{p}{Value or vector of p-values.}
 
-\item{rules}{Can be "default" or custom set of rules.}
+\item{rules}{Can be \code{"default"} or custom set of \code{\link[=rules]{rules()}}.}
 }
 \description{
 p-values interpretation
@@ -17,4 +17,5 @@ p-values interpretation
 \examples{
 interpret_p(.02)
 interpret_p(c(.5, .02))
+
 }

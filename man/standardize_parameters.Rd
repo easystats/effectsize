@@ -49,7 +49,7 @@ mean and dividing it by the standard deviation (SD).}
 \item{...}{Arguments passed to or from other methods.}
 }
 \value{
-Standardized parameters.
+Standardized parameters table.
 }
 \description{
 Compute standardized model parameters (coefficients).
@@ -62,6 +62,7 @@ Compute standardized model parameters (coefficients).
 \item \strong{smart} (Standardization of Model's parameters with Adjustment, Reconnaissance and Transformation): Similar to \code{method = "posthoc"} in that it does not involve model refitting. The difference is that the SD of the response is computed on the relevant section of the data. For instance, if a factor with 3 levels A (the intercept), B and C is entered as a predictor, the effect corresponding to B vs. A will be scaled by the variance of the response at the intercept only. As a results, the coefficients for effects of factors are similar to a Glass' delta.
 \item \strong{basic}: This method is similar to \code{method = "posthoc"}, but treats all variables as continuous: it also scales the coefficient by the standard deviation of model's matrix' parameter of factors levels (transformed to integers) or binary predictors. Although being inappropriate for these cases, this method is the one implemented by default in other software packages, such as \code{lm.beta::lm.beta()}.
 }
+
 When \code{method = "smart"} or \code{method = "classic"}, \code{standardize_parameters()}
 also returns the standard errors for the standardized coefficients. Then, \code{ci()} can be
 used to calculate confidence intervals for the standardized coefficients. See 'Examples'.

@@ -70,8 +70,8 @@ These functions use the following formulae:
 \deqn{f_p = \sqrt{\frac{\eta_p^2}{1-\eta_p^2}}}
 \cr\cr\cr
 For \eqn{t}, the conversion is based on the equality of \eqn{t^2 = F} when \eqn{df_{num}=1}.
-
 \subsection{Confidence Intervals}{
+
 Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best \code{ncp} (non-central parameters) for
 of the noncentral F distribution for the desired tail-probabilities,

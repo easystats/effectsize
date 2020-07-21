@@ -33,6 +33,7 @@
 #' @details If `x` is a model object, standardization is done by completely refitting the model on the standardized data. Hence, this approach is equal to standardizing the variables before fitting the model and will return a new model object. However, this method is particularly recommended for complex models that include interactions or transformations (e.g., polynomial or spline terms). The `robust` (default to `FALSE`) argument enables a robust standardization of data, i.e., based on the `median` and `MAD` instead of the `mean` and `SD`. See [standardize_parameters()] for other methods of standardizing model coefficients.
 #'
 #' @seealso [normalize()] [standardize_parameters()]
+#'
 #' @examples
 #' # Data frames
 #' summary(standardize(iris))

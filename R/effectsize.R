@@ -1,11 +1,20 @@
 #' Effect Size
 #'
-#' See the documentation for [eta_squared()], [standardize_parameters()], [cramers_v()].
+#' This function trys to return the best effect-size measure for the provided input model.
+#' See details below.
 #'
 #' @param model Statistical model or object of class `htest`.
 #' @param ... Arguments passed to or from other methods.
-#' See `eta_squared`, `standardize_parameters`, `cramers_v`, `t_to_d`,
-#' `d_to_r` or `F_to_eta2`.
+#'
+#' @details
+#'
+#' - For an object of class `htest`:
+#'   - A **t-test** returns *Cohen's d* via [t_to_d()].
+#'   - A **correlation test** returns *r*. See [t_to_r()].
+#'   - A **Chi-squared test** returns *Cramer's V* via [cramers_v()].
+#'   - A **One-way ANOVA test** returns *Eta squared* via [F_to_eta2()].
+#' - An object of class `anova` is passed to [eta_squared()].
+#' - Other objects are passed to [standardize_parameters()].
 #'
 #' @examples
 #' contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
@@ -48,15 +57,8 @@ effectsize.htest <- function(model, ...) {
     return(out)
   } else if (grepl("Chi-squared", model$method)) {
     Obs <- model$observed
-    Exp <- model$expected
 
-    out <- chisq_to_cramers_v(
-      chisq = .chisq(Obs, Exp),
-      n = sum(model$observed),
-      nrow = nrow(model$observed),
-      ncol = ncol(model$observed),
-      ...
-    )
+    out <- cramers_v(Obs, ...)
     return(out)
   } else if (grepl("One-way", model$method)) {
     out <- F_to_eta2(

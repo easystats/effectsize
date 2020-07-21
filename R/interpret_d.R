@@ -5,20 +5,20 @@
 #'
 #'
 #' @param d,g,delta Value or vector of effect size values.
-#' @param rules Can be "funder2019" (default), "gignac2016", "cohen1988", "sawilowsky2009" or custom set of [rules()].
+#' @param rules Can be `"funder2019"` (default), `"gignac2016"`, `"cohen1988"`, `"sawilowsky2009"` or custom set of [rules()].
 #'
 #'
 #'
 #' @examples
 #' interpret_d(.02)
 #' interpret_d(c(.5, .02))
+#'
 #' @references
-#' \itemize{
-#'   \item Funder, D. C., & Ozer, D. J. (2019). Evaluating effect size in psychological research: sense and nonsense. Advances in Methods and Practices in Psychological Science.
-#'   \item Gignac, G. E., & Szodorai, E. T. (2016). Effect size guidelines for individual differences researchers. Personality and individual differences, 102, 74-78.
-#'   \item Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
-#'   \item Sawilowsky, S. S. (2009). New effect size rules of thumb.
-#' }
+#' - Funder, D. C., & Ozer, D. J. (2019). Evaluating effect size in psychological research: sense and nonsense. Advances in Methods and Practices in Psychological Science.
+#' - Gignac, G. E., & Szodorai, E. T. (2016). Effect size guidelines for individual differences researchers. Personality and individual differences, 102, 74-78.
+#' - Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
+#' - Sawilowsky, S. S. (2009). New effect size rules of thumb.
+#'
 #' @export
 interpret_d <- function(d, rules = "funder2019") {
   if (is.rules(rules)) {

@@ -1,19 +1,19 @@
 #' (Log) Odds ratio interpretation
 #'
 #' @param odds Value or vector of (log) odds ratio values.
-#' @param rules Can be "chen2010" (default), "cohen1988" (through transformation to standardized difference, see [odds_to_d()]) or custom set of rules.
+#' @param rules Can be "`chen2010"` (default), `"cohen1988"` (through transformation to standardized difference, see [odds_to_d()]) or custom set of [rules()].
 #' @param log Are the provided values log odds ratio.
 #'
 #'
 #' @examples
 #' interpret_odds(1)
 #' interpret_odds(c(5, 2))
+#'
 #' @references
-#' \itemize{
-#'   \item Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
-#'   \item Chen, H., Cohen, P., & Chen, S. (2010). How big is a big odds ratio? Interpreting the magnitudes of odds ratios in epidemiological studies. Communications in Statistics—Simulation and Computation, 39(4), 860-864.
-#'   \item Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003). Effect-size indices for dichotomized outcomes in meta-analysis. Psychological methods, 8(4), 448.
-#' }
+#' - Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
+#' - Chen, H., Cohen, P., & Chen, S. (2010). How big is a big odds ratio? Interpreting the magnitudes of odds ratios in epidemiological studies. Communications in Statistics—Simulation and Computation, 39(4), 860-864.
+#' - Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003). Effect-size indices for dichotomized outcomes in meta-analysis. Psychological methods, 8(4), 448.
+#'
 #' @export
 interpret_odds <- function(odds, rules = "chen2010", log = FALSE) {
   if (is.rules(rules)) {

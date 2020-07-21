@@ -58,8 +58,8 @@ These functions use the following formulae:
 \deqn{Cohen's d_z = t / \sqrt{df_{error}}}
 \cr\cr
 \deqn{Cohen's d = 2 * z / \sqrt{N}}
-
 \subsection{Confidence Intervals}{
+
 Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best \code{ncp} (non-central parameters) for
 of the noncentral F distribution for the desired tail-probabilities,
@@ -100,6 +100,7 @@ if (require(emmeans)) {
 }
 
 }
+
 }
 \references{
 \itemize{

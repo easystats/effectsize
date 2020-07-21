@@ -9,7 +9,7 @@ interpret_odds(odds, rules = "chen2010", log = FALSE)
 \arguments{
 \item{odds}{Value or vector of (log) odds ratio values.}
 
-\item{rules}{Can be "chen2010" (default), "cohen1988" (through transformation to standardized difference, see \code{\link[=odds_to_d]{odds_to_d()}}) or custom set of rules.}
+\item{rules}{Can be "\verb{chen2010"} (default), \code{"cohen1988"} (through transformation to standardized difference, see \code{\link[=odds_to_d]{odds_to_d()}}) or custom set of \code{\link[=rules]{rules()}}.}
 
 \item{log}{Are the provided values log odds ratio.}
 }
@@ -19,6 +19,7 @@ interpret_odds(odds, rules = "chen2010", log = FALSE)
 \examples{
 interpret_odds(1)
 interpret_odds(c(5, 2))
+
 }
 \references{
 \itemize{

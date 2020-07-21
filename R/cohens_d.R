@@ -17,12 +17,11 @@
 #'
 #' @return A data frame with the effect size(s) and confidence interval(s).
 #'
-#' \subsection{Confidence Intervals}{
+#' ## Confidence Intervals
 #' Confidence intervals are estimated using the Noncentrality parameter method;
 #' These methods searches for a the best `ncp` (non-central parameters) for
 #' of the noncentral t distribution for the desired tail-probabilities,
 #' and then convert these `ncp`s to the corresponding effect sizes.
-#' }
 #'
 #' @examples
 #' cohens_d(iris$Sepal.Length, iris$Sepal.Width)
@@ -33,11 +32,11 @@
 #' hedges_g(mpg ~ am, data = mtcars)
 #' glass_delta(mpg ~ am, data = mtcars)
 #'
-#' @references \itemize{
-#'  \item Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.
-#'  \item McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
-#'  \item Hedges, L. V. & Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.
-#' }
+#' @references
+#' - Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.
+#' - McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
+#' - Hedges, L. V. & Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.
+#'
 #' @importFrom stats var model.frame
 #' @export
 cohens_d <- function(x,

@@ -27,13 +27,12 @@ interpret_rope(rope, ci = 0.9, rules = "default")
 Interpretation of Bayesian indices, such as Effective Sample Size (ESS), Rhat, or percentage in ROPE.
 }
 \details{
-\subsection{Rules sets:}{
+Rules sets:
 \itemize{
-\item \strong{ESS}: Can be "burkner2017" (default).
-\item \strong{Rhat}: Can be "vehtari2019" (default) or "gelman1992".
+\item \strong{ESS}: Can be \code{"burkner2017"} (default).
+\item \strong{Rhat}: Can be \code{"vehtari2019"} (default) or \code{"gelman1992"}.
 \item \strong{ROPE}: Can be \href{https://easystats.github.io/bayestestR/articles/guidelines.html}{"default"}.
-\item \strong{ESS}:
-}}
+}
 }
 \examples{
 interpret_ess(1001)

@@ -8,13 +8,11 @@
 #' @param rope Value or vector of percentages in ROPE.
 #' @param ci The Credible Interval (CI) probability, corresponding to the proportion of HDI, that was used. Can be `1` in the case of "full ROPE".
 #'
-#' @details \subsection{Rules sets:}{
-#' \itemize{
-#'    \item **ESS**: Can be "burkner2017" (default).
-#'    \item **Rhat**: Can be "vehtari2019" (default) or "gelman1992".
-#'    \item **ROPE**: Can be ["default"](https://easystats.github.io/bayestestR/articles/guidelines.html).
-#'    \item **ESS**:
-#' }}
+#' @details
+#' Rules sets:
+#' - **ESS**: Can be `"burkner2017"` (default).
+#' - **Rhat**: Can be `"vehtari2019"` (default) or `"gelman1992"`.
+#' - **ROPE**: Can be ["default"](https://easystats.github.io/bayestestR/articles/guidelines.html).
 #'
 #'
 #' @examples

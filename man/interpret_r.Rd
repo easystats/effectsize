@@ -9,7 +9,7 @@ interpret_r(r, rules = "funder2019")
 \arguments{
 \item{r}{Value or vector of correlation coefficient.}
 
-\item{rules}{Can be "funder2019" (default), "gignac2016", cohen1988", "evans1996" or custom set of rules.}
+\item{rules}{Can be \code{"funder2019"} (default), \code{"gignac2016"}, \code{"cohen1988"}, \code{"evans1996"} or custom set of \code{\link[=rules]{rules()}}.}
 }
 \description{
 Correlation interpretation
@@ -17,6 +17,7 @@ Correlation interpretation
 \examples{
 interpret_r(r = .015)
 interpret_r(r = c(.5, -.02))
+
 }
 \references{
 \itemize{

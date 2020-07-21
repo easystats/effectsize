@@ -9,7 +9,7 @@ interpret_r2(r2, rules = "cohen1988")
 \arguments{
 \item{r2}{Value or vector of R2 values.}
 
-\item{rules}{Can be "cohen1988" (default), "falk1992", "chin1998", "hair2011" or custom set of rules.}
+\item{rules}{Can be \code{"cohen1988"} (default), \code{"falk1992"}, \code{"chin1998"}, \code{"hair2011"} or custom set of \code{\link[=rules]{rules()}}].}
 }
 \description{
 Coefficient of determination  (R2) interpretation
@@ -17,6 +17,7 @@ Coefficient of determination  (R2) interpretation
 \examples{
 interpret_r2(.02)
 interpret_r2(c(.5, .02))
+
 }
 \references{
 \itemize{

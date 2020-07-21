@@ -45,8 +45,8 @@ glass_delta(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
 }
 \value{
 A data frame with the effect size(s) and confidence interval(s).
-
 \subsection{Confidence Intervals}{
+
 Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best \code{ncp} (non-central parameters) for
 of the noncentral t distribution for the desired tail-probabilities,

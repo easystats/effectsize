@@ -9,10 +9,10 @@ interpret(x, rules)
 \arguments{
 \item{x}{Vector of value break points (edges defining categories).}
 
-\item{rules}{Set of \link{rules}.}
+\item{rules}{Set of \code{\link[=rules]{rules()}}.}
 }
 \description{
-Interpret a value based on a set of rules. See \link{rules}.
+Interpret a value based on a set of rules. See \code{\link[=rules]{rules()}}.
 }
 \examples{
 rules_grid <- rules(c(0.01, 0.05), c("very significant", "significant", "not significant"))

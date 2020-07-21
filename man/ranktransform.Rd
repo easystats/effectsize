@@ -36,7 +36,7 @@ ranktransform(x, ...)
 
 \item{sign}{Logical, if \code{TRUE}, return signed ranks.}
 
-\item{method}{Treatment of ties. Can be one of "average" (default), "first", "last", "random", "max" or "min". See \code{\link[=rank]{rank()}} for details.}
+\item{method}{Treatment of ties. Can be one of \code{"average"} (default), \code{"first"}, \code{"last"}, \code{"random"}, \code{"max"} or \code{"min"}. See \code{\link[=rank]{rank()}} for details.}
 
 \item{verbose}{Toggle warnings on or off.}
 
@@ -48,13 +48,14 @@ ranktransform(x, ...)
 A rank-transformed object.
 }
 \description{
-Transform numeric values with the integers of their rank (i.e., 1st smallest, 2nd smallest, 3rd smallest, etc.). Setting the \code{sign} argument to \code{TRUE} will give you signed ranks, where the ranking is done according to absolute size but where the sign is presereved (i.e., 2, 1, -3, 4).
+Transform numeric values with the integers of their rank (i.e., 1st smallest, 2nd smallest, 3rd smallest, etc.). Setting the \code{sign} argument to \code{TRUE} will give you signed ranks, where the ranking is done according to absolute size but where the sign is preserved (i.e., 2, 1, -3, 4).
 }
 \examples{
 ranktransform(c(0, 1, 5, -5, -2))
 ranktransform(c(0, 1, 5, -5, -2), sign = TRUE)
 
 head(ranktransform(iris))
+
 }
 \seealso{
 \code{\link[=normalize]{normalize()}} \code{\link[=standardize]{standardize()}} \code{\link[=change_scale]{change_scale()}}

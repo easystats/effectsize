@@ -26,3 +26,6 @@ The Pooled Standard Deviation is a weighted average of standard deviations for t
 sd_pooled(mpg ~ am, data = mtcars)
 
 }
+\seealso{
+\code{\link[=cohens_d]{cohens_d()}}
+}
