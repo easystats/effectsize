@@ -4,7 +4,7 @@
 #'
 #' @param d Standardized difference value (Cohen's d).
 #' @param r Correlation coefficient r.
-#' @param percentage Percentage value (e.g., \code{0.01} for one percent).
+#' @param percentage Percentage value (e.g., `0.01` for one percent).
 #' @param odds Odds values in vector or dataframe.
 #' @param probs Probability values.
 #' @param log Take in or output log odds (such as in logistic models).
@@ -25,10 +25,10 @@
 #' @return Converted index.
 #'
 #' @details \itemize{
-#'   \item \emph{d to r}: \code{d = 2 * r / sqrt(1 - r^2)}
-#'   \item \emph{r to d}: \code{r = d / (sqrt(d^2 + 4))}
-#'   \item \emph{odds to d}: \eqn{d = \frac{\log(odds)\times\sqrt{3}}{\pi}}
-#'   \item \emph{d to odds}: \eqn{log(odds) = d * \frac{\pi}{\sqrt(3)}}
+#'   \item *d to r*: \eqn{d = \frac{2 * r}{\sqrt{1 - r^2}}}
+#'   \item *r to d*: \eqn{r = \frac{d}{\sqrt{d^2 + 4}}}
+#'   \item *odds to d*: \eqn{d = \frac{\log(odds)\times\sqrt{3}}{\pi}}
+#'   \item *d to odds*: \eqn{log(odds) = d * \frac{\pi}{\sqrt(3)}}
 #' }
 #'
 #'

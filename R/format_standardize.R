@@ -1,6 +1,6 @@
 #' Transform a standardized vector into character
 #'
-#' Transform a standardized vector into character, e.g., \code{c("-1 SD", "Mean", "+1 SD")}.
+#' Transform a standardized vector into character, e.g., `c("-1 SD", "Mean", "+1 SD")`.
 #'
 #' @param x A standardized numeric vector.
 #' @param reference The reference vector from which to compute the mean and SD.

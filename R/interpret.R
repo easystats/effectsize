@@ -6,7 +6,7 @@
 #' Create a container for interpretation rules of thumb. Usually used in conjunction with \link{interpret}.
 #'
 #' @param values Vector of reference values (edges defining categories or critical values).
-#' @param labels Labels associated with each category. If \code{NULL}, will try to infer it from \code{values} (if it is a named vector or a list), otherwise, will return the breakpoints.
+#' @param labels Labels associated with each category. If `NULL`, will try to infer it from `values` (if it is a named vector or a list), otherwise, will return the breakpoints.
 #'
 #'
 #' @seealso interpret

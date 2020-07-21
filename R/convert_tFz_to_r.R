@@ -1,18 +1,18 @@
 # t -----------------------------------------------------------------------
 
-#' Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (\strong{partial} r)
+#' Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (**partial** r)
 #'
 #' These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
-#' \strong{partial} r. These are useful in cases where the data required to compute these are not easily
+#' **partial** r. These are useful in cases where the data required to compute these are not easily
 #' available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.).
 #' \cr
-#' See \href{https://easystats.github.io/effectsize/articles/from_test_statistics.html}{Effect Size from Test Statistics vignette.}
+#' See [Effect Size from Test Statistics vignette.](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
 #'
 #' @param t,f,z The t, the F or the z statistics.
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
 #' @param n The number of observations (the sample size).
 #' @param paired Should the estimate accout for the t-value being testing the difference between dependant means?
-#' @param pooled Deprecated. Use \code{paired}.
+#' @param pooled Deprecated. Use `paired`.
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods.
 #'
@@ -34,9 +34,9 @@
 #'
 #' \subsection{Confidence Intervals}{
 #' Confidence intervals are estimated using the Noncentrality parameter method;
-#' These methods searches for a the best \code{ncp} (non-central parameters) for
+#' These methods searches for a the best `ncp` (non-central parameters) for
 #' of the noncentral F distribution for the desired tail-probabilities,
-#' and then convert these \code{ncp}s to the corresponding effect sizes.
+#' and then convert these `ncp`s to the corresponding effect sizes.
 #' }
 #'
 #' @examples

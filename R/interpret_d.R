@@ -1,7 +1,7 @@
 #' Standardized difference interpretation
 #'
 #' Interpretation of indices using different sets of rules of thumb.
-#' \href{https://easystats.github.io/report/articles/interpret_metrics.html#standardized-difference-d-cohens-d}{Click here} for details.
+#' [Click here](https://easystats.github.io/report/articles/interpret_metrics.html#standardized-difference-d-cohens-d) for details.
 #'
 #'
 #' @param d,g,delta Value or vector of effect size values.

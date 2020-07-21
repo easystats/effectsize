@@ -5,7 +5,7 @@
 #' @param x a numeric vector or matrix. x and y can also both be factors.
 #' @param y a numeric vector; ignored if x is a matrix. If x is a factor, y should be a factor of the same length.
 #' @param CI Confidence Interval (CI) level
-#' @param adjust Should the effect size be bias-corrected? Defaults to \code{FALSE}.
+#' @param adjust Should the effect size be bias-corrected? Defaults to `FALSE`.
 #' @param ... Ignored.
 #'
 #' @return A data frame with the effect size(s) between 0-1, and confidence interval(s).

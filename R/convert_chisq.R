@@ -5,9 +5,9 @@
 #' @param chisq The Chi2 statistic.
 #' @param phi The Phi statistic.
 #' @param n Sample size.
-#' @param nrow,ncol The number of rows/columns in the contingency table (ignored for Phi when \code{adjust=FALSE} and \code{CI=NULL}).
+#' @param nrow,ncol The number of rows/columns in the contingency table (ignored for Phi when `adjust=FALSE` and `CI=NULL`).
 #' @param ci Confidence Interval (CI) level
-#' @param adjust Should the effect size be bias-corrected? Defaults to \code{FALSE}.
+#' @param adjust Should the effect size be bias-corrected? Defaults to `FALSE`.
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @return A data frame with the effect size(s) between 0-1, and confidence interval(s).
@@ -22,9 +22,9 @@
 #'
 #' \subsection{Confidence Intervals}{
 #' Confidence intervals are estimated using the Noncentrality parameter method;
-#' These methods searches for a the best \code{ncp} (non-central parameters) for
+#' These methods searches for a the best `ncp` (non-central parameters) for
 #' of the noncentral F distribution for the desired tail-probabilities,
-#' and then convert these \code{ncp}s to the corresponding effect sizes.
+#' and then convert these `ncp`s to the corresponding effect sizes.
 #' }
 #'
 #' @examples

@@ -102,8 +102,8 @@ Enables a conversion between different indices of effect size, such as standardi
 }
 \details{
 \itemize{
-\item \emph{d to r}: \code{d = 2 * r / sqrt(1 - r^2)}
-\item \emph{r to d}: \code{r = d / (sqrt(d^2 + 4))}
+\item \emph{d to r}: \eqn{d = \frac{2 * r}{\sqrt{1 - r^2}}}
+\item \emph{r to d}: \eqn{r = \frac{d}{\sqrt{d^2 + 4}}}
 \item \emph{odds to d}: \eqn{d = \frac{\log(odds)\times\sqrt{3}}{\pi}}
 \item \emph{d to odds}: \eqn{log(odds) = d * \frac{\pi}{\sqrt(3)}}
 }

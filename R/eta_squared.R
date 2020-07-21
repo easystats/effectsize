@@ -1,15 +1,15 @@
 #' Effect size for ANOVA
 #'
 #' Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared,
-#' and Cohen's f (or their partialled versions) for \code{aov}, \code{aovlist} and \code{anova}
+#' and Cohen's f (or their partialled versions) for `aov`, `aovlist` and `anova`
 #' models. These indices represent an estimate of how much variance in the response variables
 #' is accounted for by the explanatory variable(s).
 #' \cr\cr
-#' Effect sizes are computed using the sums of squares obtained from \code{anova(model)} which
-#' might not always be appropriate (\strong{\emph{Yeah... ANOVAs are hard...}}). See details.
+#' Effect sizes are computed using the sums of squares obtained from `anova(model)` which
+#' might not always be appropriate (**_Yeah... ANOVAs are hard..._**). See details.
 #'
-#' @param model A model, ANOVA object, or the result of \code{parameters::model_parameters}.
-#' @param partial If \code{TRUE}, return partial indices.
+#' @param model A model, ANOVA object, or the result of `parameters::model_parameters`.
+#' @param partial If `TRUE`, return partial indices.
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods (ignored).
 #'
@@ -17,31 +17,31 @@
 #'
 #' @details
 #'
-#' For \code{aov} and \code{aovlist} models, the effect sizes are computed directly with
-#' Sums-of-Squares. For all other model, the model is passed to \code{anova()}, and effect
+#' For `aov` and `aovlist` models, the effect sizes are computed directly with
+#' Sums-of-Squares. For all other model, the model is passed to `anova()`, and effect
 #' sizes are approximated via test statistic conversion (see \code{\link{F_to_eta2} for
 #' more details.})
 #'
 #' \subsection{Type of Sums of Squares}{
 #' The sums of squares (or F statistics) used for the computation of the effect sizes is
-#' based on those returned by \code{anova(model)} (whatever those may be - for \code{aov}
-#' and \code{aovlist} these are \emph{type-1} sums of squares; for \code{merMod} these are
-#' \emph{type-3} sums of squares). Make sure these are the sums of squares you are intrested
-#' in (you might want to pass the result of \code{car::Anova(mode, type = 3)}).
+#' based on those returned by `anova(model)` (whatever those may be - for `aov`
+#' and `aovlist` these are *type-1* sums of squares; for `merMod` these are
+#' *type-3* sums of squares). Make sure these are the sums of squares you are intrested
+#' in (you might want to pass the result of `car::Anova(mode, type = 3)`).
 #' \cr\cr
-#' It is generally recommended to fit models with \emph{\code{contr.sum} factor weights} and
-#' \emph{centered covariates}, for sensible results. See examples.
+#' It is generally recommended to fit models with *`contr.sum` factor weights* and
+#' *centered covariates*, for sensible results. See examples.
 #' }
 #'
 #' \subsection{Confidence Intervals}{
 #' Confidence intervals are estimated using the Noncentrality parameter method;
-#' These methods searches for a the best \code{ncp} (non-central parameters) for
+#' These methods searches for a the best `ncp` (non-central parameters) for
 #' of the noncentral F distribution for the desired tail-probabilities,
-#' and then convert these \code{ncp}s to the corresponding effect sizes.
+#' and then convert these `ncp`s to the corresponding effect sizes.
 #' \cr\cr
 #' Special care should be taken when interpreting CIs with a lower bound equal
 #' to (or small then) 0, and even more care should be taken when the
-#' \emph{upper} bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
+#' *upper* bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
 #' }
 #'
 #' \subsection{Omega Squared}{

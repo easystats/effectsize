@@ -4,12 +4,12 @@ bayestestR::equivalence_test
 
 #' @title Test for Practical Equivalence
 #'
-#' @description Perform a \strong{Test for Practical Equivalence} for indices of effect size.
+#' @description Perform a **Test for Practical Equivalence** for indices of effect size.
 #'
-#' @param x An effect size table, such as returned by \code{cohens_d, eta_squared, F_to_r}, etc.
+#' @param x An effect size table, such as returned by `cohens_d, eta_squared, F_to_r`, etc.
 #' @param range The range of practical equivalence of an effect. If a single value is provided,
-#'   the test is done against \code{c(-range, range)}. For effect sizes that cannot be negative,
-#'   the lower bound is set to 0. If \code{"default"}, will be set to \code{[-.1, .1]}.
+#'   the test is done against `c(-range, range)`. For effect sizes that cannot be negative,
+#'   the lower bound is set to 0. If `"default"`, will be set to `[-.1, .1]`.
 #' @param rule How should acceptance and rejection be decided? See details.
 #' @param ... Arguments passed to or from other methods.
 #'
@@ -17,23 +17,23 @@ bayestestR::equivalence_test
 #' The CIs used in the equivalence test are the ones in the provided effect size table.
 #' For results equivalent (ha!) to those that can be obtained using the TOST approach (e.g., Lakens, 2017),
 #' appropriate CIs should be extracted using the function used to make the effect size table
-#' (\code{cohens_d, eta_squared, F_to_r}, etc). See examples.
+#' (`cohens_d, eta_squared, F_to_r`, etc). See examples.
 #'
 #' \subsection{The Different Rules}{
-#' \code{"classic"} - \strong{the classic method}: \itemize{
-#'     \item If the CI is completely within the ROPE - \emph{Accept H0}
-#'     \item Else, if the CI does not contain 0 - \emph{Reject H0}
-#'     \item Else - \emph{Undecided}
+#' `"classic"` - **the classic method**: \itemize{
+#'     \item If the CI is completely within the ROPE - *Accept H0*
+#'     \item Else, if the CI does not contain 0 - *Reject H0*
+#'     \item Else - *Undecided*
 #' }
-#' \code{"cet"} - \strong{conditional equivalence testing}: \itemize{
-#'     \item If the CI does not contain 0 - \emph{Reject H0}
-#'     \item Else, If the CI is completely within the ROPE - \emph{Accept H0}
-#'     \item Else - \emph{Undecided}
+#' `"cet"` - **conditional equivalence testing**: \itemize{
+#'     \item If the CI does not contain 0 - *Reject H0*
+#'     \item Else, If the CI is completely within the ROPE - *Accept H0*
+#'     \item Else - *Undecided*
 #' }
-#' \code{"bayes"} - \strong{The Bayesian approach}, as put forth by Kruschke: \itemize{
-#'     \item If the CI does is completely outsie the ROPE - \emph{Reject H0}
-#'     \item Else, If the CI is completely within the ROPE - \emph{Accept H0}
-#'     \item Else - \emph{Undecided}
+#' `"bayes"` - **The Bayesian approach**, as put forth by Kruschke: \itemize{
+#'     \item If the CI does is completely outsie the ROPE - *Reject H0*
+#'     \item Else, If the CI is completely within the ROPE - *Accept H0*
+#'     \item Else - *Undecided*
 #' }
 #' }
 #'

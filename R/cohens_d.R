@@ -5,23 +5,23 @@
 #' For sample sizes > 20, the results for both statistics are roughly equivalent.
 #' \cr\cr
 #'  The Glass’s delta is appropriate if standard deviations are significantly different
-#'  between groups, as it uses only the \emph{second} group's standard deviation.
+#'  between groups, as it uses only the *second* group's standard deviation.
 #'
-#' @param x A formula, a numeric vector, or a character name of one in \code{data}.
-#' @param y A numeric vector, a grouping (character / factor) vector, a or a character  name of one in \code{data}. Ignored if \code{x} is a formula.
+#' @param x A formula, a numeric vector, or a character name of one in `data`.
+#' @param y A numeric vector, a grouping (character / factor) vector, a or a character  name of one in `data`. Ignored if `x` is a formula.
 #' @param data An optional data frame containing the variables.
-#' @param correction If \code{TRUE}, applies a correction to make it less biased for small samples (McGrath & Meyer, 2006).
-#' @param pooled_sd If \code{TRUE} (default), a \code{\link{sd_pooled}} is used (assuming equal variance). Else the mean SD from both groups is used instead.
-#' @param paired If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
+#' @param correction If `TRUE`, applies a correction to make it less biased for small samples (McGrath & Meyer, 2006).
+#' @param pooled_sd If `TRUE` (default), a \code{\link{sd_pooled}} is used (assuming equal variance). Else the mean SD from both groups is used instead.
+#' @param paired If `TRUE`, the values of `x` and `y` are considered as paired.
 #' @inheritParams chisq_to_phi
 #'
 #' @return A data frame with the effect size(s) and confidence interval(s).
 #'
 #' \subsection{Confidence Intervals}{
 #' Confidence intervals are estimated using the Noncentrality parameter method;
-#' These methods searches for a the best \code{ncp} (non-central parameters) for
+#' These methods searches for a the best `ncp` (non-central parameters) for
 #' of the noncentral t distribution for the desired tail-probabilities,
-#' and then convert these \code{ncp}s to the corresponding effect sizes.
+#' and then convert these `ncp`s to the corresponding effect sizes.
 #' }
 #'
 #' @examples

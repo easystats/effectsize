@@ -6,7 +6,7 @@
 #'
 #' @param x Object.
 #' @param to New range of values of the data after rescaling.
-#' @param range Initial (old) range of values. If \code{NULL}, will take the range of data.
+#' @param range Initial (old) range of values. If `NULL`, will take the range of data.
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @examples

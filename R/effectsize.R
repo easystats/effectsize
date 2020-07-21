@@ -2,10 +2,10 @@
 #'
 #' See the documentation for \code{\link{eta_squared}}, \code{\link{standardize_parameters}}, \code{\link{cramers_v}}.
 #'
-#' @param model Statistical model or object of class \code{htest}.
+#' @param model Statistical model or object of class `htest`.
 #' @param ... Arguments passed to or from other methods.
-#' See \code{eta_squared}, \code{standardize_parameters}, \code{cramers_v}, \code{t_to_d},
-#' \code{d_to_r} or \code{F_to_eta2}.
+#' See `eta_squared`, `standardize_parameters`, `cramers_v`, `t_to_d`,
+#' `d_to_r` or `F_to_eta2`.
 #'
 #' @examples
 #' contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
