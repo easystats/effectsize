@@ -58,8 +58,8 @@ Compute different indices of effect size. For very small sample sizes (n < 20)
 Hedges' g is considered as less biased than Cohen's d.
 For sample sizes > 20, the results for both statistics are roughly equivalent.
 \cr\cr
- The Glass’s delta is appropriate if standard deviations are significantly different
- between groups, as it uses only the \emph{second} group's standard deviation.
+The Glass’s delta is appropriate if standard deviations are significantly different
+between groups, as it uses only the \emph{second} group's standard deviation.
 }
 \examples{
 cohens_d(iris$Sepal.Length, iris$Sepal.Width)
@@ -73,8 +73,8 @@ glass_delta(mpg ~ am, data = mtcars)
 }
 \references{
 \itemize{
- \item Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.
- \item McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
- \item Hedges, L. V. & Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.
+\item Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.
+\item McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
+\item Hedges, L. V. & Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.
 }
 }

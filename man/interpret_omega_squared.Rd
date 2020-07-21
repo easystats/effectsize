@@ -20,7 +20,7 @@ interpret_omega_squared(c(.5, .02))
 }
 \references{
 \itemize{
-  \item{Field, A (2013) Discovering statistics using IBM SPSS Statistics. Fourth Edition. Sage:London.}
+\item{Field, A (2013) Discovering statistics using IBM SPSS Statistics. Fourth Edition. Sage:London.}
 }
 }
 \seealso{
