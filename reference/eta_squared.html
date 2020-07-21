@@ -176,13 +176,13 @@ Effect sizes are computed using the sums of squares obtained from <code><a href=
 might not always be appropriate (<strong><em>Yeah... ANOVAs are hard...</em></strong>). See details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/eta_squared.html'>eta_squared</a></span>(<span class='kw'>model</span>, partial = <span class='fl'>TRUE</span>, ci = <span class='fl'>0.9</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>eta_squared</span>(<span class='kw'>model</span>, partial = <span class='fl'>TRUE</span>, ci = <span class='fl'>0.9</span>, <span class='kw'>...</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/eta_squared.html'>omega_squared</a></span>(<span class='kw'>model</span>, partial = <span class='fl'>TRUE</span>, ci = <span class='fl'>0.9</span>, <span class='kw'>...</span>)
+<span class='fu'>omega_squared</span>(<span class='kw'>model</span>, partial = <span class='fl'>TRUE</span>, ci = <span class='fl'>0.9</span>, <span class='kw'>...</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/eta_squared.html'>epsilon_squared</a></span>(<span class='kw'>model</span>, partial = <span class='fl'>TRUE</span>, ci = <span class='fl'>0.9</span>, <span class='kw'>...</span>)
+<span class='fu'>epsilon_squared</span>(<span class='kw'>model</span>, partial = <span class='fl'>TRUE</span>, ci = <span class='fl'>0.9</span>, <span class='kw'>...</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/eta_squared.html'>cohens_f</a></span>(<span class='kw'>model</span>, partial = <span class='fl'>TRUE</span>, ci = <span class='fl'>0.9</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'>cohens_f</span>(<span class='kw'>model</span>, partial = <span class='fl'>TRUE</span>, ci = <span class='fl'>0.9</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -213,9 +213,9 @@ might not always be appropriate (<strong><em>Yeah... ANOVAs are hard...</em></st
 
     <p>For <code>aov</code> and <code>aovlist</code> models, the effect sizes are computed directly with
 Sums-of-Squares. For all other model, the model is passed to <code><a href='https://rdrr.io/r/stats/anova.html'>anova()</a></code>, and effect
-sizes are approximated via test statistic conversion (see <code><a href='https://rdrr.io/pkg/effectsize/man/F_to_eta2.html'>F_to_eta2</a> for
-more details.</code>)</p>
-<h3>Type of Sums of Squares</h3>
+sizes are approximated via test statistic conversion (see <code>[F_to_eta2] for more details.</code>)</p><h3>Type of Sums of Squares</h3>
+
+
 <p>The sums of squares (or F statistics) used for the computation of the effect sizes is
 based on those returned by <code><a href='https://rdrr.io/r/stats/anova.html'>anova(model)</a></code> (whatever those may be - for <code>aov</code>
 and <code>aovlist</code> these are <em>type-1</em> sums of squares; for <code>merMod</code> these are
@@ -226,6 +226,8 @@ It is generally recommended to fit models with <em><code>contr.sum</code> factor
 <em>centered covariates</em>, for sensible results. See examples.</p>
 
 <h3>Confidence Intervals</h3>
+
+
 <p>Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best <code>ncp</code> (non-central parameters) for
 of the noncentral F distribution for the desired tail-probabilities,
@@ -236,6 +238,8 @@ to (or small then) 0, and even more care should be taken when the
 <em>upper</em> bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
 
 <h3>Omega Squared</h3>
+
+
 <p>Omega squared is considered as a lesser biased alternative to eta-squared, especially
 when sample sizes are small (Albers \&amp; Lakens, 2018). Field (2013) suggests the following
 interpretation heuristics:</p><ul>
@@ -245,15 +249,22 @@ interpretation heuristics:</p><ul>
 <li><p>Omega Squared &gt; 0.14: Large</p></li>
 </ul>
 
-<p></p><h3>Epsilon Squared</h3>
+
+<h3>Epsilon Squared</h3>
+
+
 <p>It is one of the least common measures of effect sizes: omega squared and eta squared are
 used more frequently. Although having a different name and a formula in appearance
-different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p><p></p><h3>Cohen's f</h3>
+different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p>
+
+<h3>Cohen's f</h3>
+
+
 <p>Cohen's f can take on values between zero, when the population
- means are all equal, and an indefinitely large number as standard deviation of means
- increases relative to the average standard deviation within each group. Cohen has
- suggested that the values of 0.10, 0.25, and 0.40 represent small, medium, and large
- effect sizes, respectively.</p>
+means are all equal, and an indefinitely large number as standard deviation of means
+increases relative to the average standard deviation within each group. Cohen has
+suggested that the values of 0.10, 0.25, and 0.40 represent small, medium, and large
+effect sizes, respectively.</p>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -268,7 +279,7 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/effectsize/man/F_to_eta2.html'>F_to_eta2</a></code></p></div>
+    <div class='dont-index'><p><code><a href='F_to_eta2.html'>F_to_eta2()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
@@ -278,23 +289,23 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
 
 <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>am_f</span> <span class='op'>*</span> <span class='kw'>cyl_f</span>, data = <span class='kw'>mtcars</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/eta_squared.html'>eta_squared</a></span>(<span class='kw'>model</span>)</div><div class='output co'>#&gt; Parameter  | Eta2 (partial) |       90% CI
+<span class='fu'>eta_squared</span>(<span class='kw'>model</span>)</div><div class='output co'>#&gt; Parameter  | Eta2 (partial) |       90% CI
 #&gt; ------------------------------------------
 #&gt; am_f       |           0.63 | [0.42, 0.75]
 #&gt; cyl_f      |           0.66 | [0.45, 0.77]
-#&gt; am_f:cyl_f |           0.10 | [0.00, 0.27]</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/eta_squared.html'>omega_squared</a></span>(<span class='kw'>model</span>)</div><div class='output co'>#&gt; Parameter  | Omega2 (partial) |        90% CI
+#&gt; am_f:cyl_f |           0.10 | [0.00, 0.27]</div><div class='input'><span class='fu'>omega_squared</span>(<span class='kw'>model</span>)</div><div class='output co'>#&gt; Parameter  | Omega2 (partial) |        90% CI
 #&gt; ---------------------------------------------
 #&gt; am_f       |             0.57 | [ 0.39, 0.73]
 #&gt; cyl_f      |             0.60 | [ 0.40, 0.74]
-#&gt; am_f:cyl_f |             0.02 | [-0.07, 0.21]</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/eta_squared.html'>epsilon_squared</a></span>(<span class='kw'>model</span>)</div><div class='output co'>#&gt; Parameter  | Epsilon2 (partial) |        90% CI
+#&gt; am_f:cyl_f |             0.02 | [-0.07, 0.21]</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='kw'>model</span>)</div><div class='output co'>#&gt; Parameter  | Epsilon2 (partial) |        90% CI
 #&gt; -----------------------------------------------
 #&gt; am_f       |               0.61 | [ 0.40, 0.74]
 #&gt; cyl_f      |               0.63 | [ 0.41, 0.75]
-#&gt; am_f:cyl_f |               0.03 | [-0.08, 0.22]</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/eta_squared.html'>cohens_f</a></span>(<span class='kw'>model</span>)</div><div class='output co'>#&gt; Parameter  | Cohen's f (partial) |       90% CI
+#&gt; am_f:cyl_f |               0.03 | [-0.08, 0.22]</div><div class='input'><span class='fu'>cohens_f</span>(<span class='kw'>model</span>)</div><div class='output co'>#&gt; Parameter  | Cohen's f (partial) |       90% CI
 #&gt; -----------------------------------------------
 #&gt; am_f       |                1.30 | [0.86, 1.73]
 #&gt; cyl_f      |                1.38 | [0.90, 1.81]
-#&gt; am_f:cyl_f |                0.33 | [0.00, 0.61]</div><div class='input'>(<span class='kw'>etas</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/eta_squared.html'>eta_squared</a></span>(<span class='kw'>model</span>, partial = <span class='fl'>FALSE</span>))</div><div class='output co'>#&gt; Parameter  | Eta2 |       90% CI
+#&gt; am_f:cyl_f |                0.33 | [0.00, 0.61]</div><div class='input'>(<span class='kw'>etas</span> <span class='op'>&lt;-</span> <span class='fu'>eta_squared</span>(<span class='kw'>model</span>, partial = <span class='fl'>FALSE</span>))</div><div class='output co'>#&gt; Parameter  | Eta2 |       90% CI
 #&gt; --------------------------------
 #&gt; am_f       | 0.36 | [0.14, 0.54]
 #&gt; cyl_f      | 0.41 | [0.16, 0.57]
@@ -302,7 +313,7 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
 <span class='co'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='kw'><a href='https://easystats.github.io/see'>see</a></span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>etas</span>)</div><div class='img'><img src='eta_squared-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>cyl_f</span> <span class='op'>*</span> <span class='kw'>am_f</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>Error</a></span>(<span class='kw'>vs</span> <span class='op'>/</span> <span class='kw'>am_f</span>), data = <span class='kw'>mtcars</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/eta_squared.html'>epsilon_squared</a></span>(<span class='kw'>model</span>)</div><div class='output co'>#&gt; Group  |  Parameter | Epsilon2 (partial) |        90% CI
+<span class='fu'>epsilon_squared</span>(<span class='kw'>model</span>)</div><div class='output co'>#&gt; Group  |  Parameter | Epsilon2 (partial) |        90% CI
 #&gt; --------------------------------------------------------
 #&gt; Within |       am_f |              -0.04 | [-0.04, 0.03]
 #&gt; Within | cyl_f:am_f |              -0.03 | [-0.04, 0.10]
@@ -316,7 +327,7 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
   <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>am_f</span> <span class='op'>*</span> <span class='kw'>cyl_f</span>, data = <span class='kw'>mtcars</span>)
   <span class='kw'>model_anova</span> <span class='op'>&lt;-</span> <span class='kw'>car</span>::<span class='fu'><a href='https://rdrr.io/pkg/car/man/Anova.html'>Anova</a></span>(<span class='kw'>model</span>, type = <span class='fl'>3</span>)
 
-  <span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/eta_squared.html'>eta_squared</a></span>(<span class='kw'>model_anova</span>)
+  <span class='fu'>eta_squared</span>(<span class='kw'>model_anova</span>)
 }</div><div class='output co'>#&gt; Parameter  | Eta2 (partial) |       90% CI
 #&gt; ------------------------------------------
 #&gt; am_f       |           0.11 | [0.00, 0.32]
@@ -325,7 +336,7 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'><a href='https://easystats.github.io/parameters'>"parameters"</a></span>)) {
   <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>wt</span> <span class='op'>+</span> <span class='kw'>cyl</span>, data = <span class='kw'>mtcars</span>)
   <span class='kw'>mp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/parameters/man/model_parameters.html'>model_parameters</a></span>(<span class='kw'>model</span>)
-  <span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/eta_squared.html'>eta_squared</a></span>(<span class='kw'>mp</span>)
+  <span class='fu'>eta_squared</span>(<span class='kw'>mp</span>)
 }</div><div class='output co'>#&gt; <span class='message'>Loading required package: parameters</span></div><div class='output co'>#&gt; Parameter   | Eta2 (partial) |       90% CI
 #&gt; -------------------------------------------
 #&gt; (Intercept) |           0.95 | [0.92, 0.97]
@@ -333,7 +344,7 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
 #&gt; cyl         |           0.31 | [0.10, 0.50]</div><div class='input'>
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='kw'><a href='https://github.com/runehaubo/lmerTestR'>lmerTest</a></span>, quietly = <span class='fl'>TRUE</span>)) {
   <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lmerTest/man/lmer.html'>lmer</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>am_f</span> <span class='op'>*</span> <span class='kw'>cyl_f</span> <span class='op'>+</span> (<span class='fl'>1</span><span class='op'>|</span><span class='kw'>vs</span>), data = <span class='kw'>mtcars</span>)
-  <span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/eta_squared.html'>omega_squared</a></span>(<span class='kw'>model</span>)
+  <span class='fu'>omega_squared</span>(<span class='kw'>model</span>)
 }</div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; Parameter  | Omega2 (partial) |        90% CI
 #&gt; ---------------------------------------------
 #&gt; am_f       |             0.07 | [-0.04, 0.28]

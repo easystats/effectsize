@@ -164,7 +164,7 @@
     <p>Coefficient of determination  (R2) interpretation</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_r2.html'>interpret_r2</a></span>(<span class='kw'>r2</span>, rules = <span class='st'>"cohen1988"</span>)</pre>
+    <pre class="usage"><span class='fu'>interpret_r2</span>(<span class='kw'>r2</span>, rules = <span class='st'>"cohen1988"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -175,7 +175,7 @@
     </tr>
     <tr>
       <th>rules</th>
-      <td><p>Can be "cohen1988" (default), "falk1992", "chin1998", "hair2011" or custom set of rules.</p></td>
+      <td><p>Can be <code>"cohen1988"</code> (default), <code>"falk1992"</code>, <code>"chin1998"</code>, <code>"hair2011"</code> or custom set of <code><a href='rules.html'>rules()</a></code>].</p></td>
     </tr>
     </table>
 
@@ -191,7 +191,7 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_r2.html'>interpret_r2</a></span>(<span class='fl'>.02</span>)</div><div class='output co'>#&gt; [1] "weak"</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_r2.html'>interpret_r2</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.02</span>))</div><div class='output co'>#&gt; [1] "substantial" "weak"       </div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>interpret_r2</span>(<span class='fl'>.02</span>)</div><div class='output co'>#&gt; [1] "weak"</div><div class='input'><span class='fu'>interpret_r2</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.02</span>))</div><div class='output co'>#&gt; [1] "substantial" "weak"       </div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -47,7 +47,8 @@
 
 
 <meta property="og:title" content="Effect Size — effectsize" />
-<meta property="og:description" content="See the documentation for eta_squared, standardize_parameters, cramers_v." />
+<meta property="og:description" content="This function trys to return the best effect-size measure for the provided input model.
+See details below." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -161,10 +162,11 @@
     </div>
 
     <div class="ref-description">
-    <p>See the documentation for <code><a href='https://rdrr.io/pkg/effectsize/man/eta_squared.html'>eta_squared</a></code>, <code><a href='https://rdrr.io/pkg/effectsize/man/standardize_parameters.html'>standardize_parameters</a></code>, <code><a href='https://rdrr.io/pkg/effectsize/man/phi.html'>cramers_v</a></code>.</p>
+    <p>This function trys to return the best effect-size measure for the provided input model.
+See details below.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/effectsize.html'>effectsize</a></span>(<span class='kw'>model</span>, <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>effectsize</span>(<span class='kw'>model</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -175,31 +177,43 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed to or from other methods.
-See <code>eta_squared</code>, <code>standardize_parameters</code>, <code>cramers_v</code>, <code>t_to_d</code>,
-<code>d_to_r</code> or <code>F_to_eta2</code>.</p></td>
+      <td><p>Arguments passed to or from other methods.</p></td>
     </tr>
     </table>
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    
+<ul>
+<li><p>For an object of class <code>htest</code>:</p><ul>
+<li><p>A <strong>t-test</strong> returns <em>Cohen's d</em> via <code><a href='t_to_d.html'>t_to_d()</a></code>.</p></li>
+<li><p>A <strong>correlation test</strong> returns <em>r</em>. See <code><a href='t_to_d.html'>t_to_r()</a></code>.</p></li>
+<li><p>A <strong>Chi-squared test</strong> returns <em>Cramer's V</em> via <code><a href='phi.html'>cramers_v()</a></code>.</p></li>
+<li><p>A <strong>One-way ANOVA test</strong> returns <em>Eta squared</em> via <code><a href='F_to_eta2.html'>F_to_eta2()</a></code>.</p></li>
+</ul></li>
+<li><p>An object of class <code>anova</code> is passed to <code><a href='eta_squared.html'>eta_squared()</a></code>.</p></li>
+<li><p>Other objects are passed to <code><a href='standardize_parameters.html'>standardize_parameters()</a></code>.</p></li>
+</ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>contingency_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>762</span>, <span class='fl'>327</span>, <span class='fl'>468</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>)))
 <span class='kw'>Xsq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/chisq.test.html'>chisq.test</a></span>(<span class='kw'>contingency_table</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/effectsize.html'>effectsize</a></span>(<span class='kw'>Xsq</span>)</div><div class='output co'>#&gt; Cramer's V |       95% CI
+<span class='fu'>effectsize</span>(<span class='kw'>Xsq</span>)</div><div class='output co'>#&gt; Cramer's V |       95% CI
 #&gt; -------------------------
 #&gt;       0.07 | [0.05, 0.09]</div><div class='input'>
 <span class='kw'>Ts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7</span><span class='op'>:</span><span class='fl'>20</span>))
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/effectsize.html'>effectsize</a></span>(<span class='kw'>Ts</span>)</div><div class='output co'>#&gt;     d |         95% CI
+<span class='fu'>effectsize</span>(<span class='kw'>Ts</span>)</div><div class='output co'>#&gt;     d |         95% CI
 #&gt; ----------------------
 #&gt; -2.32 | [-3.38, -1.22]</div><div class='input'>
 <span class='kw'>Aov</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/oneway.test.html'>oneway.test</a></span>(<span class='kw'>extra</span> <span class='op'>~</span> <span class='kw'>group</span>, data = <span class='kw'>sleep</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/effectsize.html'>effectsize</a></span>(<span class='kw'>Aov</span>)</div><div class='output co'>#&gt; Eta2 (partial) |       90% CI
+<span class='fu'>effectsize</span>(<span class='kw'>Aov</span>)</div><div class='output co'>#&gt; Eta2 (partial) |       90% CI
 #&gt; -----------------------------
 #&gt;           0.16 | [0.00, 0.42]</div><div class='input'>
 <span class='kw'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>) <span class='op'>*</span> <span class='kw'>wt</span> <span class='op'>+</span> <span class='kw'>hp</span>, data = <span class='kw'>mtcars</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/effectsize.html'>effectsize</a></span>(<span class='kw'>fit</span>)</div><div class='output co'>#&gt; Parameter       | Coefficient (std.) |         95% CI
+<span class='fu'>effectsize</span>(<span class='kw'>fit</span>)</div><div class='output co'>#&gt; Parameter       | Coefficient (std.) |         95% CI
 #&gt; -----------------------------------------------------
-#&gt; (Intercept)     |           1.14e-03 | [-0.53,  0.53]
+#&gt; (Intercept)     |               0.00 | [-0.53,  0.53]
 #&gt; factor(cyl)6    |              -0.20 | [-0.79,  0.38]
 #&gt; factor(cyl)8    |              -0.32 | [-1.06,  0.42]
 #&gt; wt              |              -0.90 | [-1.33, -0.46]
@@ -207,7 +221,7 @@ See <code>eta_squared</code>, <code>standardize_parameters</code>, <code>cramers
 #&gt; factor(cyl)6:wt |               0.37 | [-0.63,  1.36]
 #&gt; factor(cyl)8:wt |               0.54 | [ 0.03,  1.06]</div><div class='input'>
 <span class='kw'>anova_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span>(<span class='kw'>fit</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/effectsize.html'>effectsize</a></span>(<span class='kw'>anova_table</span>)</div><div class='output co'>#&gt; Parameter      | Eta2 (partial) |       90% CI
+<span class='fu'>effectsize</span>(<span class='kw'>anova_table</span>)</div><div class='output co'>#&gt; Parameter      | Eta2 (partial) |       90% CI
 #&gt; ----------------------------------------------
 #&gt; factor(cyl)    |           0.86 | [0.76, 0.91]
 #&gt; wt             |           0.47 | [0.22, 0.64]

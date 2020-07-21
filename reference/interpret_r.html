@@ -164,7 +164,7 @@
     <p>Correlation interpretation</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_r.html'>interpret_r</a></span>(<span class='kw'>r</span>, rules = <span class='st'>"funder2019"</span>)</pre>
+    <pre class="usage"><span class='fu'>interpret_r</span>(<span class='kw'>r</span>, rules = <span class='st'>"funder2019"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -175,7 +175,7 @@
     </tr>
     <tr>
       <th>rules</th>
-      <td><p>Can be "funder2019" (default), "gignac2016", cohen1988", "evans1996" or custom set of rules.</p></td>
+      <td><p>Can be <code>"funder2019"</code> (default), <code>"gignac2016"</code>, <code>"cohen1988"</code>, <code>"evans1996"</code> or custom set of <code><a href='rules.html'>rules()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -194,7 +194,7 @@
     <div class='dont-index'><p>Page 88 of APA's 6th Edition.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_r.html'>interpret_r</a></span>(r = <span class='fl'>.015</span>)</div><div class='output co'>#&gt; [1] "tiny"</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_r.html'>interpret_r</a></span>(r = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='op'>-</span><span class='fl'>.02</span>))</div><div class='output co'>#&gt; [1] "very large" "tiny"      </div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>interpret_r</span>(r = <span class='fl'>.015</span>)</div><div class='output co'>#&gt; [1] "tiny"</div><div class='input'><span class='fu'>interpret_r</span>(r = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='op'>-</span><span class='fl'>.02</span>))</div><div class='output co'>#&gt; [1] "very large" "tiny"      </div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

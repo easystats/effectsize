@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (<strong>partial</strong> r) — t_to_d • effectsize</title>
+<title>Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (partial r) — t_to_d • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (<strong>partial</strong> r) — t_to_d" />
+<meta property="og:title" content="Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (partial r) — t_to_d" />
 <meta property="og:description" content="These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
 partial r. These are useful in cases where the data required to compute these are not easily
 available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.).
@@ -172,17 +172,17 @@ available or their computation is not straightforward (e.g., in liner mixed mode
 See <a href='https://easystats.github.io/effectsize/articles/from_test_statistics.html'>Effect Size from Test Statistics vignette.</a></p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/t_to_r.html'>t_to_d</a></span>(<span class='kw'>t</span>, <span class='kw'>df_error</span>, paired = <span class='fl'>FALSE</span>, ci = <span class='fl'>0.95</span>, <span class='kw'>pooled</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>t_to_d</span>(<span class='kw'>t</span>, <span class='kw'>df_error</span>, paired = <span class='fl'>FALSE</span>, ci = <span class='fl'>0.95</span>, <span class='kw'>pooled</span>, <span class='kw'>...</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/t_to_r.html'>z_to_d</a></span>(<span class='kw'>z</span>, <span class='kw'>n</span>, paired = <span class='fl'>FALSE</span>, ci = <span class='fl'>0.95</span>, <span class='kw'>pooled</span>, <span class='kw'>...</span>)
+<span class='fu'>z_to_d</span>(<span class='kw'>z</span>, <span class='kw'>n</span>, paired = <span class='fl'>FALSE</span>, ci = <span class='fl'>0.95</span>, <span class='kw'>pooled</span>, <span class='kw'>...</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/t_to_r.html'>F_to_d</a></span>(<span class='kw'>f</span>, <span class='kw'>df</span>, <span class='kw'>df_error</span>, paired = <span class='fl'>FALSE</span>, ci = <span class='fl'>0.95</span>, <span class='kw'>pooled</span>, <span class='kw'>...</span>)
+<span class='fu'>F_to_d</span>(<span class='kw'>f</span>, <span class='kw'>df</span>, <span class='kw'>df_error</span>, paired = <span class='fl'>FALSE</span>, ci = <span class='fl'>0.95</span>, <span class='kw'>pooled</span>, <span class='kw'>...</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/t_to_r.html'>t_to_r</a></span>(<span class='kw'>t</span>, <span class='kw'>df_error</span>, ci = <span class='fl'>0.95</span>, <span class='kw'>...</span>)
+<span class='fu'>t_to_r</span>(<span class='kw'>t</span>, <span class='kw'>df_error</span>, ci = <span class='fl'>0.95</span>, <span class='kw'>...</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/t_to_r.html'>z_to_r</a></span>(<span class='kw'>z</span>, <span class='kw'>n</span>, ci = <span class='fl'>0.95</span>, <span class='kw'>...</span>)
+<span class='fu'>z_to_r</span>(<span class='kw'>z</span>, <span class='kw'>n</span>, ci = <span class='fl'>0.95</span>, <span class='kw'>...</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/t_to_r.html'>F_to_r</a></span>(<span class='kw'>f</span>, <span class='kw'>df</span>, <span class='kw'>df_error</span>, ci = <span class='fl'>0.95</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'>F_to_r</span>(<span class='kw'>f</span>, <span class='kw'>df</span>, <span class='kw'>df_error</span>, ci = <span class='fl'>0.95</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -232,8 +232,9 @@ $$Cohen's d = 2 * t / \sqrt{df_{error}}$$
 <br /><br />
 $$Cohen's d_z = t / \sqrt{df_{error}}$$
 <br /><br />
-$$Cohen's d = 2 * z / \sqrt{N}$$</p>
-<h3>Confidence Intervals</h3>
+$$Cohen's d = 2 * z / \sqrt{N}$$</p><h3>Confidence Intervals</h3>
+
+
 <p>Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best <code>ncp</code> (non-central parameters) for
 of the noncentral F distribution for the desired tail-probabilities,
@@ -254,15 +255,15 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## t Tests</span>
 <span class='kw'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7</span><span class='op'>:</span><span class='fl'>20</span>), var.equal = <span class='fl'>TRUE</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/t_to_r.html'>t_to_d</a></span>(t = <span class='kw'>res</span><span class='op'>$</span><span class='kw'>statistic</span>, <span class='kw'>res</span><span class='op'>$</span><span class='kw'>parameter</span>)</div><div class='output co'>#&gt;     d |         95% CI
+<span class='fu'>t_to_d</span>(t = <span class='kw'>res</span><span class='op'>$</span><span class='kw'>statistic</span>, <span class='kw'>res</span><span class='op'>$</span><span class='kw'>parameter</span>)</div><div class='output co'>#&gt;     d |         95% CI
 #&gt; ----------------------
-#&gt; -2.19 | [-3.23, -1.12]</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/t_to_r.html'>t_to_r</a></span>(t = <span class='kw'>res</span><span class='op'>$</span><span class='kw'>statistic</span>, <span class='kw'>res</span><span class='op'>$</span><span class='kw'>parameter</span>)</div><div class='output co'>#&gt;     r |         95% CI
+#&gt; -2.19 | [-3.23, -1.12]</div><div class='input'><span class='fu'>t_to_r</span>(t = <span class='kw'>res</span><span class='op'>$</span><span class='kw'>statistic</span>, <span class='kw'>res</span><span class='op'>$</span><span class='kw'>parameter</span>)</div><div class='output co'>#&gt;     r |         95% CI
 #&gt; ----------------------
 #&gt; -0.74 | [-0.85, -0.49]</div><div class='input'>
 <span class='kw'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='kw'>sleep</span>, <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span>(<span class='kw'>extra</span>[<span class='kw'>group</span> <span class='op'>==</span> <span class='fl'>1</span>], <span class='kw'>extra</span>[<span class='kw'>group</span> <span class='op'>==</span> <span class='fl'>2</span>], paired = <span class='fl'>TRUE</span>))
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/t_to_r.html'>t_to_d</a></span>(t = <span class='kw'>res</span><span class='op'>$</span><span class='kw'>statistic</span>, <span class='kw'>res</span><span class='op'>$</span><span class='kw'>parameter</span>, paired = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;     d |         95% CI
+<span class='fu'>t_to_d</span>(t = <span class='kw'>res</span><span class='op'>$</span><span class='kw'>statistic</span>, <span class='kw'>res</span><span class='op'>$</span><span class='kw'>parameter</span>, paired = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;     d |         95% CI
 #&gt; ----------------------
-#&gt; -1.35 | [-2.23, -0.44]</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/t_to_r.html'>t_to_r</a></span>(t = <span class='kw'>res</span><span class='op'>$</span><span class='kw'>statistic</span>, <span class='kw'>res</span><span class='op'>$</span><span class='kw'>parameter</span>)</div><div class='output co'>#&gt;     r |         95% CI
+#&gt; -1.35 | [-2.23, -0.44]</div><div class='input'><span class='fu'>t_to_r</span>(t = <span class='kw'>res</span><span class='op'>$</span><span class='kw'>statistic</span>, <span class='kw'>res</span><span class='op'>$</span><span class='kw'>parameter</span>)</div><div class='output co'>#&gt;     r |         95% CI
 #&gt; ----------------------
 #&gt; -0.80 | [-0.91, -0.40]</div><div class='input'>
 <span class='co'># \donttest{</span>
@@ -274,7 +275,7 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 #&gt; (Intercept)  |        2.25 | 0.25 | [1.76, 2.74] |  9.07 | 147 | &lt; .001
 #&gt; Sepal.Width  |        0.60 | 0.07 | [0.46, 0.73] |  8.59 | 147 | &lt; .001
 #&gt; Petal.Length |        0.47 | 0.02 | [0.44, 0.51] | 27.57 | 147 | &lt; .001</div><div class='input'>
-(<span class='kw'>rs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/t_to_r.html'>t_to_r</a></span>(<span class='kw'>param_tab</span><span class='op'>$</span><span class='kw'>t</span>[<span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span>], <span class='kw'>param_tab</span><span class='op'>$</span><span class='kw'>df_error</span>[<span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span>]))</div><div class='output co'>#&gt;    r |       95% CI
+(<span class='kw'>rs</span> <span class='op'>&lt;-</span> <span class='fu'>t_to_r</span>(<span class='kw'>param_tab</span><span class='op'>$</span><span class='kw'>t</span>[<span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span>], <span class='kw'>param_tab</span><span class='op'>$</span><span class='kw'>df_error</span>[<span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span>]))</div><div class='output co'>#&gt;    r |       95% CI
 #&gt; -------------------
 #&gt; 0.58 | [0.47, 0.66]
 #&gt; 0.92 | [0.89, 0.93]</div><div class='input'>
@@ -291,7 +292,7 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
   <span class='kw'>warp.lm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>breaks</span> <span class='op'>~</span> <span class='kw'>wool</span> <span class='op'>*</span> <span class='kw'>tension</span>, data = <span class='kw'>warpbreaks</span>)
 
   <span class='kw'>conts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='fu'><a href='https://rdrr.io/r/graphics/pairs.html'>pairs</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/emmeans/man/emmeans.html'>emmeans</a></span>(<span class='kw'>warp.lm</span>,  <span class='op'>~</span> <span class='kw'>tension</span> <span class='op'>|</span> <span class='kw'>wool</span>)))
-  <span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/t_to_r.html'>t_to_d</a></span>(<span class='kw'>conts</span><span class='op'>$</span><span class='kw'>t.ratio</span>, <span class='kw'>conts</span><span class='op'>$</span><span class='kw'>df</span>)
+  <span class='fu'>t_to_d</span>(<span class='kw'>conts</span><span class='op'>$</span><span class='kw'>t.ratio</span>, <span class='kw'>conts</span><span class='op'>$</span><span class='kw'>df</span>)
 }</div><div class='output co'>#&gt;     d |        95% CI
 #&gt; ---------------------
 #&gt;  1.15 | [ 0.53, 1.76]
@@ -300,7 +301,8 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 #&gt; -0.03 | [-0.60, 0.53]
 #&gt;  0.53 | [-0.05, 1.10]
 #&gt;  0.56 | [-0.02, 1.13]</div><div class='input'>
-<span class='co'># }</span></div></pre>
+<span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

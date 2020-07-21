@@ -166,11 +166,11 @@ Click here for details." />
 <a href='https://easystats.github.io/report/articles/interpret_metrics.html#standardized-difference-d-cohens-d'>Click here</a> for details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_d.html'>interpret_d</a></span>(<span class='kw'>d</span>, rules = <span class='st'>"funder2019"</span>)
+    <pre class="usage"><span class='fu'>interpret_d</span>(<span class='kw'>d</span>, rules = <span class='st'>"funder2019"</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_d.html'>interpret_g</a></span>(<span class='kw'>g</span>, rules = <span class='st'>"funder2019"</span>)
+<span class='fu'>interpret_g</span>(<span class='kw'>g</span>, rules = <span class='st'>"funder2019"</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_d.html'>interpret_delta</a></span>(<span class='kw'>delta</span>, rules = <span class='st'>"funder2019"</span>)</pre>
+<span class='fu'>interpret_delta</span>(<span class='kw'>delta</span>, rules = <span class='st'>"funder2019"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,7 +181,7 @@ Click here for details." />
     </tr>
     <tr>
       <th>rules</th>
-      <td><p>Can be "funder2019" (default), "gignac2016", "cohen1988", "sawilowsky2009" or custom set of <code><a href='https://rdrr.io/pkg/effectsize/man/rules.html'>rules</a></code>.</p></td>
+      <td><p>Can be <code>"funder2019"</code> (default), <code>"gignac2016"</code>, <code>"cohen1988"</code>, <code>"sawilowsky2009"</code> or custom set of <code><a href='rules.html'>rules()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -197,7 +197,7 @@ Click here for details." />
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_d.html'>interpret_d</a></span>(<span class='fl'>.02</span>)</div><div class='output co'>#&gt; [1] "tiny"</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/interpret_d.html'>interpret_d</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.02</span>))</div><div class='output co'>#&gt; [1] "medium" "tiny"  </div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>interpret_d</span>(<span class='fl'>.02</span>)</div><div class='output co'>#&gt; [1] "tiny"</div><div class='input'><span class='fu'>interpret_d</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.02</span>))</div><div class='output co'>#&gt; [1] "medium" "tiny"  </div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

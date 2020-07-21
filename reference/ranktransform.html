@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="(Signed) rank transformation — ranktransform" />
-<meta property="og:description" content="Transform numeric values with the integers of their rank (i.e., 1st smallest, 2nd smallest, 3rd smallest, etc.). Setting the sign argument to TRUE will give you signed ranks, where the ranking is done according to absolute size but where the sign is presereved (i.e., 2, 1, -3, 4)." />
+<meta property="og:description" content="Transform numeric values with the integers of their rank (i.e., 1st smallest, 2nd smallest, 3rd smallest, etc.). Setting the sign argument to TRUE will give you signed ranks, where the ranking is done according to absolute size but where the sign is preserved (i.e., 2, 1, -3, 4)." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -161,16 +161,16 @@
     </div>
 
     <div class="ref-description">
-    <p>Transform numeric values with the integers of their rank (i.e., 1st smallest, 2nd smallest, 3rd smallest, etc.). Setting the <code>sign</code> argument to <code>TRUE</code> will give you signed ranks, where the ranking is done according to absolute size but where the sign is presereved (i.e., 2, 1, -3, 4).</p>
+    <p>Transform numeric values with the integers of their rank (i.e., 1st smallest, 2nd smallest, 3rd smallest, etc.). Setting the <code>sign</code> argument to <code>TRUE</code> will give you signed ranks, where the ranking is done according to absolute size but where the sign is preserved (i.e., 2, 1, -3, 4).</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/ranktransform.html'>ranktransform</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>ranktransform</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for numeric</span>
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/ranktransform.html'>ranktransform</a></span>(<span class='kw'>x</span>, sign = <span class='fl'>FALSE</span>, method = <span class='st'>"average"</span>, verbose = <span class='fl'>TRUE</span>, <span class='kw'>...</span>)
+<span class='fu'>ranktransform</span>(<span class='kw'>x</span>, sign = <span class='fl'>FALSE</span>, method = <span class='st'>"average"</span>, verbose = <span class='fl'>TRUE</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for grouped_df</span>
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/ranktransform.html'>ranktransform</a></span>(
+<span class='fu'>ranktransform</span>(
   <span class='kw'>x</span>,
   select = <span class='kw'>NULL</span>,
   exclude = <span class='kw'>NULL</span>,
@@ -180,7 +180,7 @@
 )
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/ranktransform.html'>ranktransform</a></span>(
+<span class='fu'>ranktransform</span>(
   <span class='kw'>x</span>,
   select = <span class='kw'>NULL</span>,
   exclude = <span class='kw'>NULL</span>,
@@ -206,7 +206,7 @@
     </tr>
     <tr>
       <th>method</th>
-      <td><p>Treatment of ties. Can be one of "average" (default), "first", "last", "random", "max" or "min". See <code><a href='https://rdrr.io/r/base/rank.html'>rank</a></code> for details.</p></td>
+      <td><p>Treatment of ties. Can be one of <code>"average"</code> (default), <code>"first"</code>, <code>"last"</code>, <code>"random"</code>, <code>"max"</code> or <code>"min"</code>. See <code><a href='https://rdrr.io/r/base/rank.html'>rank()</a></code> for details.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -227,17 +227,17 @@
     <p>A rank-transformed object.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/effectsize/man/normalize.html'>normalize</a></code> <code><a href='https://rdrr.io/pkg/effectsize/man/standardize.html'>standardize</a></code> <code><a href='https://rdrr.io/pkg/effectsize/man/change_scale.html'>change_scale</a></code></p></div>
+    <div class='dont-index'><p><code><a href='normalize.html'>normalize()</a></code> <code><a href='standardize.html'>standardize()</a></code> <code><a href='change_scale.html'>change_scale()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/ranktransform.html'>ranktransform</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>))</div><div class='output co'>#&gt; [1] 3 4 5 1 2</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/ranktransform.html'>ranktransform</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>), sign = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1]  0.0  2.0  4.5 -4.5 -3.0</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/effectsize/man/ranktransform.html'>ranktransform</a></span>(<span class='kw'>iris</span>))</div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+    <pre class="examples"><div class='input'><span class='fu'>ranktransform</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>))</div><div class='output co'>#&gt; [1] 3 4 5 1 2</div><div class='input'><span class='fu'>ranktransform</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>), sign = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1]  0.0  2.0  4.5 -4.5 -3.0</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>ranktransform</span>(<span class='kw'>iris</span>))</div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #&gt; 1         37.0       128.5         18.0          20  setosa
 #&gt; 2         19.5        70.5         18.0          20  setosa
 #&gt; 3         10.5       101.0          8.0          20  setosa
 #&gt; 4          7.5        89.0         31.0          20  setosa
 #&gt; 5         27.5       133.5         18.0          20  setosa
-#&gt; 6         49.5       145.5         46.5          45  setosa</div></pre>
+#&gt; 6         49.5       145.5         46.5          45  setosa</div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
