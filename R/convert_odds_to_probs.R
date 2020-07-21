@@ -72,6 +72,14 @@ convert_probs_to_odds <- probs_to_odds
     df <- probs
   }
 
+  # check for formula notation, convert to character vector
+  if (inherits(select, "formula")) {
+    select <- all.vars(select)
+  }
+  if (inherits(exclude, "formula")) {
+    exclude <- all.vars(exclude)
+  }
+
   # Variable order
   var_order <- names(df)
 

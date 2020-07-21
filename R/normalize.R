@@ -100,6 +100,14 @@ normalize.grouped_df <- function(x, select = NULL, exclude = NULL, include_bound
   # dplyr >= 0.8.0 returns attribute "indices"
   grps <- attr(x, "groups", exact = TRUE)
 
+  # check for formula notation, convert to character vector
+  if (inherits(select, "formula")) {
+    select <- all.vars(select)
+  }
+  if (inherits(exclude, "formula")) {
+    exclude <- all.vars(exclude)
+  }
+
   # dplyr < 0.8.0?
   if (is.null(grps)) {
     grps <- attr(x, "indices", exact = TRUE)
@@ -127,6 +135,14 @@ normalize.grouped_df <- function(x, select = NULL, exclude = NULL, include_bound
 #' @rdname normalize
 #' @export
 normalize.data.frame <- function(x, select = NULL, exclude = NULL, include_bounds = TRUE, ...) {
+  # check for formula notation, convert to character vector
+  if (inherits(select, "formula")) {
+    select <- all.vars(select)
+  }
+  if (inherits(exclude, "formula")) {
+    exclude <- all.vars(exclude)
+  }
+
   if (is.null(select)) {
     select <- names(x)
   }
