@@ -1,7 +1,7 @@
 if (require("testthat") && require("effectsize")) {
   test_that("t-test", {
 
-    ## On samples
+    ## One sample
     htest <- t.test(mtcars$mpg - 15)
     testthat::expect_equal(effectsize::effectsize(htest)$d, 0.858, tol = 0.001)
 
@@ -12,5 +12,17 @@ if (require("testthat") && require("effectsize")) {
     ## two sample
     htest <- t.test(mpg ~ am, mtcars, var.equal = TRUE)
     testthat::expect_equal(effectsize::effectsize(htest)$d, -1.499, tol = 0.001)
+  })
+
+
+  test_that("Chisq-test", {
+    contingency_table <-
+      as.table(rbind(c(760, 330, 470), c(480, 240, 480), c(480, 240, 480)))
+
+    Xsq1 <- chisq.test(contingency_table)
+    Xsq2 <- chisq.test(contingency_table/10)
+
+    testthat::expect_equal(effectsize(Xsq1)$cramers_v,
+                           effectsize(Xsq2)$cramers_v)
   })
 }
