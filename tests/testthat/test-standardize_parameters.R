@@ -64,7 +64,6 @@ if (require("testthat") && require("effectsize")) {
   if (require(rstanarm)) {
     test_that("standardize_parameters (Bayes)", {
       testthat::skip_on_cran()
-      testthat::skip_on_travis()
       testthat::skip_on_ci()
       set.seed(1234)
       suppressWarnings(
@@ -75,13 +74,13 @@ if (require("testthat") && require("effectsize")) {
 
       testthat::expect_equal(
         suppressWarnings(standardize_parameters(model, method = "refit")$Std_Median),
-        c(0.037, -0.061, -0.060, 0.838),
+        c(0.065, -0.094, -0.100, 0.862),
         tol = 0.01
       )
 
       testthat::expect_equal(
         suppressWarnings(standardize_parameters(model, method = "posthoc")$Std_Median),
-        c(NA, -0.050, -0.030,  0.833),
+        c(NA, -0.058, -0.053,  0.838),
         tol = 0.01
       )
     })

@@ -67,4 +67,21 @@ if (require("testthat") && require("effectsize")) {
     # must be 2 samples
     testthat::expect_error(glass_delta(1:10))
   })
+
+
+  if (require("bayestestR")) {
+    test_that("fixed values", {
+
+      x1 <- bayestestR::distribution_normal(1e4, mean = 0, sd = 1)
+      x2 <- bayestestR::distribution_normal(1e4, mean = 1, sd = 1)
+      testthat::expect_equal(cohens_d(x1, x2)$Cohens_d, -1, tol = 1e-3)
+
+
+      x1 <- bayestestR::distribution_normal(1e4, mean = 0, sd = 1)
+      x2 <- bayestestR::distribution_normal(1e4, mean = 1.5, sd = 2)
+
+      testthat::expect_equal(cohens_d(x1, x2)$Cohens_d, -sqrt(0.9), tol = 1e-2)
+      testthat::expect_equal(glass_delta(x2, x1)$Glass_delta, 1.5, tol = 1e-2)
+    })
+  }
 }

@@ -13,6 +13,9 @@
 #'
 #' @export
 interpret_parameters <- function(model, ...) {
+  warning("There is a known bug in 'interpret_parameters()' when interpreting parameters related to factors. \n",
+          "(See github.com/easystats/effectsize/issues/104)",
+          call. = FALSE)
   UseMethod("interpret_parameters")
 }
 
