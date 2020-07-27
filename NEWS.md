@@ -1,6 +1,8 @@
-# effectsize 0.3.1.1
+# effectsize 0.3.2
 
 ## New features
+
+- `eta_squared_posterior()` for estimating Eta Squared for Bayesian models.
 - `eta_squared()`, `omega_squared()` and `epsilon_squared()` now works with
   - `ols` / `rms` models.
 - `effectsize()` for class `htest` supports `oneway.test(...)`.
