@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
@@ -203,10 +203,10 @@
 
 <span class="kw">parameters</span>::<span class="fu"><a href="https://rdrr.io/pkg/parameters/man/model_parameters.html">parameters</a></span>(<span class="kw">model</span>)
 </pre></div>
-<pre><code>&gt; Parameter   | Coefficient |   SE |        95% CI |        z | df |      p
-&gt; -------------------------------------------------------------------------
-&gt; (Intercept) |    1.23e-16 | 0.23 | [-0.45, 0.45] | 5.41e-16 | 98 | 1.000 
-&gt; Outcome     |        1.13 | 0.27 | [ 0.65, 1.70] |     4.25 | 98 | &lt; .001</code></pre>
+<pre><code>&gt; Parameter   | Coefficient |   SE |        95% CI |        z |      p
+&gt; --------------------------------------------------------------------
+&gt; (Intercept) |    1.23e-16 | 0.23 | [-0.45, 0.45] | 5.41e-16 | &gt; .999
+&gt; Outcome     |        1.13 | 0.27 | [ 0.65, 1.70] |     4.25 | &lt; .001</code></pre>
 <p>How to interpret this output? The coefficients of a logistic model are expressed in log-odds, which is a metric of probability. Using the <a href="https://github.com/easystats/modelbased"><strong>modelbased</strong></a> package, one can easily visualize this model:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit">
 <span class="kw">data_grid</span> <span class="op">&lt;-</span> <span class="kw">modelbased</span>::<span class="fu"><a href="https://rdrr.io/pkg/modelbased/man/estimate_response.html">estimate_link</a></span>(<span class="kw">model</span>)

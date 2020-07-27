@@ -86,7 +86,7 @@ might not always be appropriate (Yeah... ANOVAs are hard...). See details." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
@@ -315,9 +315,9 @@ effect sizes, respectively.</p>
 <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>cyl_f</span> <span class='op'>*</span> <span class='kw'>am_f</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>Error</a></span>(<span class='kw'>vs</span> <span class='op'>/</span> <span class='kw'>am_f</span>), data = <span class='kw'>mtcars</span>)
 <span class='fu'>epsilon_squared</span>(<span class='kw'>model</span>)</div><div class='output co'>#&gt; Group  |  Parameter | Epsilon2 (partial) |        90% CI
 #&gt; --------------------------------------------------------
+#&gt; Within |      cyl_f |               0.40 | [ 0.12, 0.58]
 #&gt; Within |       am_f |              -0.04 | [-0.04, 0.03]
-#&gt; Within | cyl_f:am_f |              -0.03 | [-0.04, 0.10]
-#&gt; Within |      cyl_f |               0.40 | [ 0.12, 0.58]</div><div class='input'>
+#&gt; Within | cyl_f:am_f |              -0.03 | [-0.04, 0.10]</div><div class='input'>
 <span class='co'># Recommended:</span>
 <span class='co'># Type-3 effect sizes + effects coding</span>
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='kw'><a href='https://r-forge.r-project.org/projects/car'>car</a></span>, quietly = <span class='fl'>TRUE</span>)) {
