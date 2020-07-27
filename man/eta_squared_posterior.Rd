@@ -45,6 +45,7 @@ covariates aren't centered; a warning will be given in such predictors are
 detected. See \emph{details} section in \code{\link[=eta_squared]{eta_squared()}}.
 }
 \examples{
+\donttest{
 if (require(rstanarm)) {
   fit_bayes <- stan_glm(mpg ~ factor(cyl) * wt + qsec,
                         data = mtcars,
@@ -64,6 +65,7 @@ if (require(rstanarm)) {
     aov_table <- car::Anova(fit_freq, type = 3)
     print(eta_squared(aov_table, partial = FALSE))
   }
+}
 }
 
 
