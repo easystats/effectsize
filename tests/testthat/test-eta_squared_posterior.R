@@ -4,13 +4,13 @@ if (require("testthat") &&
     require("bayestestR") &&
     require("car")) {
 
-
   fit_bayes <- stan_glm(mpg ~ factor(cyl) * wt + qsec,
                         data = mtcars,
                         family = gaussian(),
                         refresh = 0)
 
   test_that("eta_squared_posterior (PARTIAL, type = 3)", {
+    testthat::skip_on_cran()
 
     es_tab <- eta_squared(
       Anova(
@@ -31,6 +31,7 @@ if (require("testthat") &&
 
 
   test_that("eta_squared_posterior (non-PARTIAL, type = 2)", {
+    testthat::skip_on_cran()
 
     es_tab <- eta_squared(
       Anova(
