@@ -24,6 +24,7 @@
 #'   summary stats.
 #'
 #' @examples
+#' \donttest{
 #' if (require(rstanarm)) {
 #'   fit_bayes <- stan_glm(mpg ~ factor(cyl) * wt + qsec,
 #'                         data = mtcars,
@@ -43,6 +44,7 @@
 #'     aov_table <- car::Anova(fit_freq, type = 3)
 #'     print(eta_squared(aov_table, partial = FALSE))
 #'   }
+#' }
 #' }
 #'
 #'
