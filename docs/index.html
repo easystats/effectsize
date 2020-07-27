@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
@@ -148,7 +148,7 @@
 <h1 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h1>
 <p>This package is focused on indices of effect size. But <strong>there are hundreds of them! Thus, <em>everybody</em> is welcome to contribute</strong> by adding support for the interpretation of new indices. If you’re not sure how to code it’s okay, just open an issue to discuss it and we’ll help :)</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"effectsize"</span>)</pre></div>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">effectsize</span>)</pre></div>
 <div id="effect-size-computation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#effect-size-computation" class="anchor"></a>Effect Size Computation</h2>
@@ -235,9 +235,9 @@
 
 <span class="no">df</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/standardize.html">standardize</a></span>(<span class="no">iris</span>)
 <span class="fu"><a href="https://rdrr.io/pkg/parameters/man/describe_distribution.html">describe_distribution</a></span>(<span class="no">df</span>$<span class="no">Sepal.Length</span>)
-<span class="co">## Mean | SD |  IQR |         Range | Skewness | Kurtosis |   n | n_Missing</span>
-<span class="co">## ------------------------------------------------------------------------</span>
-<span class="co">## 0.00 |  1 | 1.57 | [-1.86, 2.48] |     0.31 |    -0.55 | 150 |         0</span></pre></div>
+<span class="co">##      Mean | SD |  IQR |         Range | Skewness | Kurtosis |   n | n_Missing</span>
+<span class="co">## -----------------------------------------------------------------------------</span>
+<span class="co">## -4.48e-16 |  1 | 1.57 | [-1.86, 2.48] |     0.31 |    -0.55 | 150 |         0</span></pre></div>
 <p>This can be also applied to statistical models:</p>
 <div class="sourceCode" id="cb11"><pre class="r"><span class="no">std_model</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/standardize.html">standardize</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="no">Sepal.Length</span> ~ <span class="no">Species</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">iris</span>))
 <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span>(<span class="no">std_model</span>)
@@ -313,8 +313,8 @@
 <ul class="list-unstyled">
 <li><a href="https://cran.r-project.org/package=effectsize"><img src="http://www.r-pkg.org/badges/version/effectsize" alt="CRAN"></a></li>
 <li><a href="https://cran.r-project.org/package=effectsize"><img src="http://cranlogs.r-pkg.org/badges/effectsize" alt="downloads"></a></li>
-<li><a href="https://travis-ci.org/easystats/effectsize"><img src="https://travis-ci.org/easystats/effectsize.svg?branch=master" alt="Build Status"></a></li>
-<li><a href="https://codecov.io/gh/easystats/effectsize"><img src="https://codecov.io/gh/easystats/effectsize/branch/master/graph/badge.svg" alt="codecov"></a></li>
+<li><a href="https://github.com/easystats/effectsize/actions"><img src="https://github.com/easystats/effectsize/workflows/R-check/badge.svg" alt="R-check"></a></li>
+<li><a href="https://github.com/easystats/effectsize/actions"><img src="https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg" alt="pkgdown"></a></li>
 </ul>
 </div>
 </div>

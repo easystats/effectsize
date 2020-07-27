@@ -51,8 +51,8 @@
 Hedges' g is considered as less biased than Cohen's d.
 For sample sizes &amp;gt; 20, the results for both statistics are roughly equivalent.
 
- The Glass’s delta is appropriate if standard deviations are significantly different
- between groups, as it uses only the second group's standard deviation." />
+The Glass’s delta is appropriate if standard deviations are significantly different
+between groups, as it uses only the second group's standard deviation." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -85,7 +85,7 @@ For sample sizes &amp;gt; 20, the results for both statistics are roughly equiva
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
@@ -170,8 +170,8 @@ For sample sizes &amp;gt; 20, the results for both statistics are roughly equiva
 Hedges' g is considered as less biased than Cohen's d.
 For sample sizes &gt; 20, the results for both statistics are roughly equivalent.
 <br /><br />
- The Glass’s delta is appropriate if standard deviations are significantly different
- between groups, as it uses only the <em>second</em> group's standard deviation.</p>
+The Glass’s delta is appropriate if standard deviations are significantly different
+between groups, as it uses only the <em>second</em> group's standard deviation.</p>
     </div>
 
     <pre class="usage"><span class='fu'>cohens_d</span>(
@@ -201,11 +201,11 @@ For sample sizes &gt; 20, the results for both statistics are roughly equivalent
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A formula, a numeric vector, or a name of one in <code>data</code>.</p></td>
+      <td><p>A formula, a numeric vector, or a character name of one in <code>data</code>.</p></td>
     </tr>
     <tr>
       <th>y</th>
-      <td><p>A numeric vector, a grouping (character / factor) vector, a or a name of one in <code>data</code>. Ignored if <code>x</code> is a formula.</p></td>
+      <td><p>A numeric vector, a grouping (character / factor) vector, a or a character  name of one in <code>data</code>. Ignored if <code>x</code> is a formula.</p></td>
     </tr>
     <tr>
       <th>data</th>
@@ -217,7 +217,7 @@ For sample sizes &gt; 20, the results for both statistics are roughly equivalent
     </tr>
     <tr>
       <th>pooled_sd</th>
-      <td><p>If <code>TRUE</code> (default), a <code><a href='sd_pooled.html'>sd_pooled</a></code> is used (assuming equal variance). Else the mean SD from both groups is used instead.</p></td>
+      <td><p>If <code>TRUE</code> (default), a <code><a href='sd_pooled.html'>sd_pooled()</a></code> is used (assuming equal variance). Else the mean SD from both groups is used instead.</p></td>
     </tr>
     <tr>
       <th>paired</th>
@@ -231,8 +231,9 @@ For sample sizes &gt; 20, the results for both statistics are roughly equivalent
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with the effect size(s) and confidence interval(s).</p>
-<h3>Confidence Intervals</h3>
+    <p>A data frame with the effect size(s) and confidence interval(s).</p><h3>Confidence Intervals</h3>
+
+
 <p>Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best <code>ncp</code> (non-central parameters) for
 of the noncentral t distribution for the desired tail-probabilities,

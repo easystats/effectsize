@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Normalization — normalize" />
-<meta property="og:description" content="Performs a normalization of data, i.e., it scales all numeric variables in the range 0 - 1. This is a special case of change_scale." />
+<meta property="og:description" content="Performs a normalization of data, i.e., it scales all numeric variables in the range 0 - 1. This is a special case of change_scale()." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
@@ -161,7 +161,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Performs a normalization of data, i.e., it scales all numeric variables in the range 0 - 1. This is a special case of <code><a href='change_scale.html'>change_scale</a></code>.</p>
+    <p>Performs a normalization of data, i.e., it scales all numeric variables in the range 0 - 1. This is a special case of <code><a href='change_scale.html'>change_scale()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>normalize</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -214,10 +214,14 @@ include zeros and ones.</p></td>
     <p>A normalized object.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Smithson M, Verkuilen J (2006). A Better Lemon Squeezer? Maximum-Likelihood Regression with Beta-Distributed Dependent Variables. Psychological Methods, 11(1), 54–71.</p>
+    
+<ul>
+<li><p>Smithson M, Verkuilen J (2006). A Better Lemon Squeezer? Maximum-Likelihood Regression with Beta-Distributed Dependent Variables. Psychological Methods, 11(1), 54–71.</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='ranktransform.html'>ranktransform</a></code> <code><a href='standardize.html'>standardize</a></code> <code><a href='change_scale.html'>change_scale</a></code></p></div>
+    <div class='dont-index'><p><code><a href='ranktransform.html'>ranktransform()</a></code> <code><a href='standardize.html'>standardize()</a></code> <code><a href='change_scale.html'>change_scale()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>normalize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, -<span class='fl'>5</span>, -<span class='fl'>2</span>))</div><div class='output co'>#&gt; [1] 0.5 0.6 1.0 0.0 0.3</div><div class='input'><span class='fu'>normalize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, -<span class='fl'>5</span>, -<span class='fl'>2</span>), <span class='kw'>include_bounds</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] 0.50 0.58 0.90 0.10 0.34</div><div class='input'>
@@ -227,7 +231,8 @@ include zeros and ones.</p></td>
 #&gt; 3   0.11111111   0.5000000   0.05084746  0.04166667  setosa
 #&gt; 4   0.08333333   0.4583333   0.08474576  0.04166667  setosa
 #&gt; 5   0.19444444   0.6666667   0.06779661  0.04166667  setosa
-#&gt; 6   0.30555556   0.7916667   0.11864407  0.12500000  setosa</div></pre>
+#&gt; 6   0.30555556   0.7916667   0.11864407  0.12500000  setosa</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -47,7 +47,8 @@
 
 
 <meta property="og:title" content="Effect Size — effectsize" />
-<meta property="og:description" content="See the documentation for eta_squared, standardize_parameters, cramers_v." />
+<meta property="og:description" content="This function trys to return the best effect-size measure for the provided input model.
+See details below." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
@@ -161,7 +162,8 @@
     </div>
 
     <div class="ref-description">
-    <p>See the documentation for <code><a href='eta_squared.html'>eta_squared</a></code>, <code><a href='standardize_parameters.html'>standardize_parameters</a></code>, <code><a href='phi.html'>cramers_v</a></code>.</p>
+    <p>This function trys to return the best effect-size measure for the provided input model.
+See details below.</p>
     </div>
 
     <pre class="usage"><span class='fu'>effectsize</span>(<span class='no'>model</span>, <span class='no'>...</span>)</pre>
@@ -175,9 +177,23 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed to or from other methods. See <code>eta_squared</code>, <code>standardize_parameters</code>, <code>cramers_v</code> or <code>t_to_d</code>.</p></td>
+      <td><p>Arguments passed to or from other methods.</p></td>
     </tr>
     </table>
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    
+<ul>
+<li><p>For an object of class <code>htest</code>:</p><ul>
+<li><p>A <strong>t-test</strong> returns <em>Cohen's d</em> via <code><a href='t_to_r.html'>t_to_d()</a></code>.</p></li>
+<li><p>A <strong>correlation test</strong> returns <em>r</em>. See <code><a href='t_to_r.html'>t_to_r()</a></code>.</p></li>
+<li><p>A <strong>Chi-squared test</strong> returns <em>Cramer's V</em> via <code><a href='phi.html'>cramers_v()</a></code>.</p></li>
+<li><p>A <strong>One-way ANOVA test</strong> returns <em>Eta squared</em> via <code><a href='F_to_eta2.html'>F_to_eta2()</a></code>.</p></li>
+</ul></li>
+<li><p>An object of class <code>anova</code> is passed to <code><a href='eta_squared.html'>eta_squared()</a></code>.</p></li>
+<li><p>Other objects are passed to <code><a href='standardize_parameters.html'>standardize_parameters()</a></code>.</p></li>
+</ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -190,6 +206,10 @@
 <span class='fu'>effectsize</span>(<span class='no'>Ts</span>)</div><div class='output co'>#&gt;     d |         95% CI
 #&gt; ----------------------
 #&gt; -2.32 | [-3.38, -1.22]</div><div class='input'>
+<span class='no'>Aov</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/oneway.test.html'>oneway.test</a></span>(<span class='no'>extra</span> ~ <span class='no'>group</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sleep</span>)
+<span class='fu'>effectsize</span>(<span class='no'>Aov</span>)</div><div class='output co'>#&gt; Eta2 (partial) |       90% CI
+#&gt; -----------------------------
+#&gt;           0.16 | [0.00, 0.42]</div><div class='input'>
 <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mpg</span> ~ <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>cyl</span>) * <span class='no'>wt</span> + <span class='no'>hp</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
 <span class='fu'>effectsize</span>(<span class='no'>fit</span>)</div><div class='output co'>#&gt; Parameter       | Coefficient (std.) |         95% CI
 #&gt; -----------------------------------------------------

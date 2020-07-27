@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Standardization (Z-scoring) — standardize" />
-<meta property="og:description" content="Performs a standardization of data (z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The normalize function can also be used to scale all numeric variables within the 0 - 1 range." />
+<meta property="og:description" content="Performs a standardization of data (z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The normalize() function can also be used to scale all numeric variables within the 0 - 1 range." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
@@ -161,7 +161,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Performs a standardization of data (z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The <code><a href='normalize.html'>normalize</a></code> function can also be used to scale all numeric variables within the 0 - 1 range.</p>
+    <p>Performs a standardization of data (z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The <code><a href='normalize.html'>normalize()</a></code> function can also be used to scale all numeric variables within the 0 - 1 range.</p>
     </div>
 
     <pre class="usage"><span class='fu'>standardize</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -256,13 +256,13 @@ response value will never be standardized, to make re-fitting the model work.</p
     <p>The standardized object (either a standardize data frame or a statistical model fitted on standardized data).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>If <code>x</code> is a model object, standardization is done by completely refitting the model on the standardized data. Hence, this approach is equal to standardizing the variables before fitting the model and will return a new model object. However, this method is particularly recommended for complex models that include interactions or transformations (e.g., polynomial or spline terms). The <code>robust</code> (default to <code>FALSE</code>) argument enables a robust standardization of data, i.e., based on the <code>median</code> and <code>MAD</code> instead of the <code>mean</code> and <code>SD</code>. See <code><a href='standardize_parameters.html'>standardize_parameters</a></code> for other methods of standardizing model coefficients.</p>
+    <p>If <code>x</code> is a model object, standardization is done by completely refitting the model on the standardized data. Hence, this approach is equal to standardizing the variables before fitting the model and will return a new model object. However, this method is particularly recommended for complex models that include interactions or transformations (e.g., polynomial or spline terms). The <code>robust</code> (default to <code>FALSE</code>) argument enables a robust standardization of data, i.e., based on the <code>median</code> and <code>MAD</code> instead of the <code>mean</code> and <code>SD</code>. See <code><a href='standardize_parameters.html'>standardize_parameters()</a></code> for other methods of standardizing model coefficients.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>When <code>x</code> is a data frame or vector, missing values are preserved, so the return value has the same length / number of rows as the original input.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='normalize.html'>normalize</a></code> <code><a href='standardize_parameters.html'>standardize_parameters</a></code></p></div>
+    <div class='dont-index'><p><code><a href='normalize.html'>normalize()</a></code> <code><a href='standardize_parameters.html'>standardize_parameters()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Data frames</span>

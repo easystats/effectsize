@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="standardize_parameters_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Parameters Standardization</h1>
@@ -144,7 +144,7 @@
   <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>()</pre></body></html></div>
 <pre><code>&gt; Parameter    | Coefficient (std.) |        95% CI
 &gt; -------------------------------------------------
-&gt; (Intercept)  |               0.00 | [-0.08, 0.08]
+&gt; (Intercept)  |          -5.03e-16 | [-0.08, 0.08]
 &gt; Petal.Length |               0.87 | [ 0.79, 0.95]</code></pre>
 <p>Standardizing the coefficient of this simple linear regression gives a value of <code>0.87</code>, but did you know that for a simple regression this is actually the <strong>same as a correlation</strong>? Thus, you can eventually apply some (<em>in</em>)famous interpretation guidelines (e.g., Cohen’s rules of thumb).</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">parameters</span>)
@@ -178,7 +178,7 @@
   <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>()</pre></body></html></div>
 <pre><code>&gt; Parameter    | Coefficient (std.) |         95% CI
 &gt; --------------------------------------------------
-&gt; (Intercept)  |               0.00 | [-0.06,  0.06]
+&gt; (Intercept)  |          -7.12e-17 | [-0.06,  0.06]
 &gt; Sepal.Width  |               0.34 | [ 0.27,  0.41]
 &gt; Petal.Length |               1.51 | [ 1.27,  1.75]
 &gt; Petal.Width  |              -0.51 | [-0.74, -0.28]</code></pre>
