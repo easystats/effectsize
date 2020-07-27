@@ -35,9 +35,9 @@ LazyData: true
 Depends:
 	R (>= 3.5)
 Imports:
-	insight (>= 0.8.4),
-	bayestestR (>= 0.6.0),
-	parameters (>= 0.7.0),
+	insight (>= 0.9.0),
+	bayestestR (>= 0.7.2),
+	parameters (>= 0.8.2),
 	stats,
 	utils
 Suggests:
@@ -56,7 +56,7 @@ Suggests:
 	lm.beta,
 	lme4,
 	MuMIn,
-	modelbased,
+	modelbased, 
 	performance,
 	rlang,
 	rmarkdown,

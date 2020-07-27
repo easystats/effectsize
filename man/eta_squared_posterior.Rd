@@ -39,10 +39,10 @@ and for each simulation the Eta Squared is computed for the model's fixed
 effects.
 \cr\cr
 Effect sizes are computed using the sums of squares obtained from
-\code{car::Anova(model, ...)} which might not always be appropriate (\strong{\emph{Yeah... ANOVAs are
-hard...}}), e.g., when factors aren't 0-mean codded and covariates aren't
-centered; a warning will be given in such predictors are detected. See
-\emph{details} section in \code{\link[=eta_squared]{eta_squared()}}.
+\code{car::Anova(model, ...)} which might not always be appropriate (\strong{\emph{Yeah...
+ANOVAs are hard...}}), e.g., when factors aren't 0-mean codded and
+covariates aren't centered; a warning will be given in such predictors are
+detected. See \emph{details} section in \code{\link[=eta_squared]{eta_squared()}}.
 }
 \examples{
 if (require(rstanarm)) {
