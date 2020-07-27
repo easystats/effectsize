@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
@@ -177,7 +177,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An effect size table, such as returned by <code>cohens_d, eta_squared, F_to_r</code>, etc.</p></td>
+      <td><p>An effect size table, such as returned by <code><a href='cohens_d.html'>cohens_d()</a></code>, <code><a href='eta_squared.html'>eta_squared()</a></code>, <code><a href='t_to_r.html'>F_to_r()</a></code>, etc.</p></td>
     </tr>
     <tr>
       <th>range</th>
@@ -203,20 +203,24 @@ the lower bound is set to 0. If <code>"default"</code>, will be set to <code>[-.
     <p>The CIs used in the equivalence test are the ones in the provided effect size table.
 For results equivalent (ha!) to those that can be obtained using the TOST approach (e.g., Lakens, 2017),
 appropriate CIs should be extracted using the function used to make the effect size table
-(<code>cohens_d, eta_squared, F_to_r</code>, etc). See examples.</p>
-<h3>The Different Rules</h3>
-<p><code>"classic"</code> - <strong>the classic method</strong>:</p><ul>
+(<code>cohens_d, eta_squared, F_to_r</code>, etc). See examples.</p><h3>The Different Rules</h3>
+
+<ul>
+<li><p><code>"classic"</code> - <strong>the classic method</strong>:</p><ul>
 <li><p>If the CI is completely within the ROPE - <em>Accept H0</em></p></li>
 <li><p>Else, if the CI does not contain 0 - <em>Reject H0</em></p></li>
 <li><p>Else - <em>Undecided</em></p></li>
-</ul><p><code>"cet"</code> - <strong>conditional equivalence testing</strong>:</p><ul>
+</ul></li>
+<li><p><code>"cet"</code> - <strong>conditional equivalence testing</strong>:</p><ul>
 <li><p>If the CI does not contain 0 - <em>Reject H0</em></p></li>
 <li><p>Else, If the CI is completely within the ROPE - <em>Accept H0</em></p></li>
 <li><p>Else - <em>Undecided</em></p></li>
-</ul><p><code>"bayes"</code> - <strong>The Bayesian approach</strong>, as put forth by Kruschke:</p><ul>
+</ul></li>
+<li><p><code>"bayes"</code> - <strong>The Bayesian approach</strong>, as put forth by Kruschke:</p><ul>
 <li><p>If the CI does is completely outsie the ROPE - <em>Reject H0</em></p></li>
 <li><p>Else, If the CI is completely within the ROPE - <em>Accept H0</em></p></li>
 <li><p>Else - <em>Undecided</em></p></li>
+</ul></li>
 </ul>
 
 
@@ -232,7 +236,7 @@ appropriate CIs should be extracted using the function used to make the effect s
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>For more details, see <code><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></code>.</p></div>
+    <div class='dont-index'><p>For more details, see <code><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>bayestestR::equivalence_test()</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -263,7 +267,7 @@ appropriate CIs should be extracted using the function used to make the effect s
 #&gt; -0.15 | [-0.26, -0.04] |  Rejected
 #&gt;  0.10 | [ 0.03,  0.18] |  Accepted</div><div class='input'>
 <span class='co'># Can also plot</span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>see</span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='no'>ds</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fl'>0.2</span>))</div><div class='output co'>#&gt; <span class='message'>Loading required package: see</span></div><div class='img'><img src='equivalence_test.effectsize_table-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>see</span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='no'>ds</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>rule</span> <span class='kw'>=</span> <span class='st'>"cet"</span>))</div><div class='img'><img src='equivalence_test.effectsize_table-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>see</span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='no'>ds</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>rule</span> <span class='kw'>=</span> <span class='st'>"bayes"</span>))</div><div class='img'><img src='equivalence_test.effectsize_table-3.png' alt='' width='700' height='433' /></div><div class='input'># }
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>see</span>)) <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='no'>ds</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fl'>0.2</span>))</div><div class='output co'>#&gt; <span class='message'>Loading required package: see</span></div><div class='img'><img src='equivalence_test.effectsize_table-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>see</span>)) <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='no'>ds</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>rule</span> <span class='kw'>=</span> <span class='st'>"cet"</span>))</div><div class='img'><img src='equivalence_test.effectsize_table-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>see</span>)) <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='no'>ds</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>rule</span> <span class='kw'>=</span> <span class='st'>"bayes"</span>))</div><div class='img'><img src='equivalence_test.effectsize_table-3.png' alt='' width='700' height='433' /></div><div class='input'># }
 
 </div></span></pre>
   </div>

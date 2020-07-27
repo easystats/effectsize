@@ -25,25 +25,23 @@
 #'
 #' @examples
 #' \donttest{
-#' if (require(rstanarm)) {
+#' if (require(rstanarm) && require(bayestestR)) {
 #'   fit_bayes <- stan_glm(mpg ~ factor(cyl) * wt + qsec,
 #'                         data = mtcars,
 #'                         family = gaussian(),
 #'                         refresh = 0)
 #'
-#'   es <- eta_squared_posterior(fit_bayes, partial = FALSE, type = 3)
+#'   es <- eta_squared_posterior(fit_bayes)
 #'
-#'   print(bayestestR::describe_posterior(es))
+#'   bayestestR::describe_posterior(es)
+#' }
 #'
-#'
-#'
-#'   # compare to:
-#'   if (require(car)) {
-#'     fit_freq <- lm(mpg ~ factor(cyl) * wt + qsec,
-#'                    data = mtcars)
-#'     aov_table <- car::Anova(fit_freq, type = 3)
-#'     print(eta_squared(aov_table, partial = FALSE))
-#'   }
+#' # compare to:
+#' if (require(car)) {
+#'   fit_freq <- lm(mpg ~ factor(cyl) * wt + qsec,
+#'                  data = mtcars)
+#'   aov_table <- car::Anova(fit_freq, type = 3)
+#'   eta_squared(aov_table)
 #' }
 #' }
 #'

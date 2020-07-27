@@ -86,7 +86,7 @@ might not always be appropriate (Yeah... ANOVAs are hard...). See details." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
@@ -213,9 +213,9 @@ might not always be appropriate (<strong><em>Yeah... ANOVAs are hard...</em></st
 
     <p>For <code>aov</code> and <code>aovlist</code> models, the effect sizes are computed directly with
 Sums-of-Squares. For all other model, the model is passed to <code><a href='https://rdrr.io/r/stats/anova.html'>anova()</a></code>, and effect
-sizes are approximated via test statistic conversion (see <code><a href='F_to_eta2.html'>F_to_eta2</a> for
-more details.</code>)</p>
-<h3>Type of Sums of Squares</h3>
+sizes are approximated via test statistic conversion (see <code>[F_to_eta2] for more details.</code>)</p><h3>Type of Sums of Squares</h3>
+
+
 <p>The sums of squares (or F statistics) used for the computation of the effect sizes is
 based on those returned by <code><a href='https://rdrr.io/r/stats/anova.html'>anova(model)</a></code> (whatever those may be - for <code>aov</code>
 and <code>aovlist</code> these are <em>type-1</em> sums of squares; for <code>merMod</code> these are
@@ -226,12 +226,20 @@ It is generally recommended to fit models with <em><code>contr.sum</code> factor
 <em>centered covariates</em>, for sensible results. See examples.</p>
 
 <h3>Confidence Intervals</h3>
+
+
 <p>Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best <code>ncp</code> (non-central parameters) for
 of the noncentral F distribution for the desired tail-probabilities,
-and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
+and then convert these <code>ncp</code>s to the corresponding effect sizes.
+<br /><br />
+Special care should be taken when interpreting CIs with a lower bound equal
+to (or small then) 0, and even more care should be taken when the
+<em>upper</em> bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
 
 <h3>Omega Squared</h3>
+
+
 <p>Omega squared is considered as a lesser biased alternative to eta-squared, especially
 when sample sizes are small (Albers \&amp; Lakens, 2018). Field (2013) suggests the following
 interpretation heuristics:</p><ul>
@@ -241,15 +249,22 @@ interpretation heuristics:</p><ul>
 <li><p>Omega Squared &gt; 0.14: Large</p></li>
 </ul>
 
-<p></p><h3>Epsilon Squared</h3>
+
+<h3>Epsilon Squared</h3>
+
+
 <p>It is one of the least common measures of effect sizes: omega squared and eta squared are
 used more frequently. Although having a different name and a formula in appearance
-different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p><p></p><h3>Cohen's f</h3>
+different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p>
+
+<h3>Cohen's f</h3>
+
+
 <p>Cohen's f can take on values between zero, when the population
- means are all equal, and an indefinitely large number as standard deviation of means
- increases relative to the average standard deviation within each group. Cohen has
- suggested that the values of 0.10, 0.25, and 0.40 represent small, medium, and large
- effect sizes, respectively.</p>
+means are all equal, and an indefinitely large number as standard deviation of means
+increases relative to the average standard deviation within each group. Cohen has
+suggested that the values of 0.10, 0.25, and 0.40 represent small, medium, and large
+effect sizes, respectively.</p>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -257,15 +272,14 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
 <ul>
 <li><p>Albers, C., \&amp; Lakens, D. (2018). When power analyses based on pilot data are biased: Inaccurate effect size estimators and follow-up bias. Journal of experimental social psychology, 74, 187-195.</p></li>
 <li><p>Allen, R. (2017). Statistics and Experimental Design for Psychologists: A Model Comparison Approach. World Scientific Publishing Company.</p></li>
-<li><p>Field, A. (2013). Discovering statistics using IBM SPSS statistics. sage.</p></li>
-<li><p>Kelley, K. (2007). Methods for the behavioral, educational, and social sciences: An R package. Behavior Research Methods, 39(4), 979-984.</p></li>
 <li><p>Kelley, T. (1935) An unbiased correlation ratio measure. Proceedings of the National Academy of Sciences. 21(9). 554-559.</p></li>
+<li><p>Morey, R. D., Hoekstra, R., Rouder, J. N., Lee, M. D., &amp; Wagenmakers, E. J. (2016). The fallacy of placing confidence in confidence intervals. Psychonomic bulletin &amp; review, 23(1), 103-123.</p></li>
+<li><p>Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.</p></li>
 </ul>
 
-<p>The computation of CIs is based on the implementation done by Stanley (2018) in the <code>ApaTables</code> package and Kelley (2007) in the <code>MBESS</code> package. All credits go to them.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='F_to_eta2.html'>F_to_eta2</a></code></p></div>
+    <div class='dont-index'><p><code><a href='F_to_eta2.html'>F_to_eta2()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
@@ -296,14 +310,14 @@ different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p
 #&gt; am_f       | 0.36 | [0.14, 0.54]
 #&gt; cyl_f      | 0.41 | [0.16, 0.57]
 #&gt; am_f:cyl_f | 0.02 | [0.00, 0.12]</div><div class='input'>
-<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>see</span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>etas</span>)</div><div class='img'><img src='eta_squared-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>see</span>)) <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>etas</span>)</div><div class='img'><img src='eta_squared-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='no'>mpg</span> ~ <span class='no'>cyl_f</span> * <span class='no'>am_f</span> + <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>Error</a></span>(<span class='no'>vs</span> / <span class='no'>am_f</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>)
 <span class='fu'>epsilon_squared</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Group  |  Parameter | Epsilon2 (partial) |        90% CI
 #&gt; --------------------------------------------------------
+#&gt; Within |      cyl_f |               0.40 | [ 0.12, 0.58]
 #&gt; Within |       am_f |              -0.04 | [-0.04, 0.03]
-#&gt; Within | cyl_f:am_f |              -0.03 | [-0.04, 0.10]
-#&gt; Within |      cyl_f |               0.40 | [ 0.12, 0.58]</div><div class='input'>
+#&gt; Within | cyl_f:am_f |              -0.03 | [-0.04, 0.10]</div><div class='input'>
 <span class='co'># Recommended:</span>
 <span class='co'># Type-3 effect sizes + effects coding</span>
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>car</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {

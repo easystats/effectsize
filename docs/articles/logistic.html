@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="logistic_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Effect Sizes for Logistic Models</h1>
@@ -189,10 +189,10 @@
              <span class="kw">family</span> <span class="kw">=</span> <span class="st">"binomial"</span>)
 
 <span class="kw pkg">parameters</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/parameters/man/model_parameters.html">parameters</a></span>(<span class="no">model</span>)</pre></body></html></div>
-<pre><code>&gt; Parameter   | Coefficient |   SE |        95% CI |    z | df |      p
-&gt; ---------------------------------------------------------------------
-&gt; (Intercept) |        0.00 | 0.23 | [-0.45, 0.45] | 0.00 | 98 | 1.000 
-&gt; Outcome     |        1.13 | 0.27 | [ 0.65, 1.70] | 4.25 | 98 | &lt; .001</code></pre>
+<pre><code>&gt; Parameter   | Coefficient |   SE |        95% CI |        z |      p
+&gt; --------------------------------------------------------------------
+&gt; (Intercept) |    1.23e-16 | 0.23 | [-0.45, 0.45] | 5.41e-16 | &gt; .999
+&gt; Outcome     |        1.13 | 0.27 | [ 0.65, 1.70] |     4.25 | &lt; .001</code></pre>
 <p>How to interpret this output? The coefficients of a logistic model are expressed in log-odds, which is a metric of probability. Using the <a href="https://github.com/easystats/modelbased"><strong>modelbased</strong></a> package, one can easily visualize this model:</p>
 <div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">data_grid</span> <span class="kw">&lt;-</span> <span class="kw pkg">modelbased</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/modelbased/man/estimate_response.html">estimate_link</a></span>(<span class="no">model</span>)
 

@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
@@ -158,13 +158,51 @@
       <small>Source: <a href='https://github.com/easystats/effectsize/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="effectsize-031" class="section level1">
-<h1 class="page-header" data-toc-text="0.3.1">
-<a href="#effectsize-031" class="anchor"></a>effectsize 0.3.1<small> 2020-05-19 </small>
+    <div id="effectsize-03x" class="section level1">
+<h1 class="page-header" data-toc-text="0.3">
+<a href="#effectsize-03x" class="anchor"></a>effectsize 0.3.x<small> Unreleased </small>
+</h1>
+</div>
+    <div id="effectsize-032" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.2">
+<a href="#effectsize-032" class="anchor"></a>effectsize 0.3.2<small> 2020-07-27 </small>
 </h1>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li>
+<code><a href="../reference/eta_squared_posterior.html">eta_squared_posterior()</a></code> for estimating Eta Squared for Bayesian models.</li>
+<li>
+<code><a href="../reference/eta_squared.html">eta_squared()</a></code>, <code><a href="../reference/eta_squared.html">omega_squared()</a></code> and <code><a href="../reference/eta_squared.html">epsilon_squared()</a></code> now works with
+<ul>
+<li>
+<code>ols</code> / <code>rms</code> models.</li>
+</ul>
+</li>
+<li>
+<code><a href="../reference/effectsize.html">effectsize()</a></code> for class <code>htest</code> supports <code><a href="https://rdrr.io/r/stats/oneway.test.html">oneway.test(...)</a></code>.</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>Fix minor miss-calculation of Chi-squared for 2*2 table with small samples ( <a href='https://github.com/easystats/effectsize/issues/102'>#102</a> ).</li>
+<li>Fixed miss-calculation of signed rank in <code><a href="../reference/ranktransform.html">ranktransform()</a></code> ( <a href='https://github.com/easystats/effectsize/issues/87'>#87</a> ).</li>
+<li>Fixed bug in <code><a href="../reference/standardize.html">standardize()</a></code> for standard objects with non-standard class-attributes (like vectors of class <code>haven_labelled</code> or <code>vctrs_vctr</code>).<br>
+</li>
+<li>Fix <code><a href="../reference/effectsize.html">effectsize()</a></code> for one sample <code><a href="https://rdrr.io/r/stats/t.test.html">t.test(...)</a></code> ( <a href='https://github.com/easystats/effectsize/issues/95'>#95</a> ; thanks to pull request by <a href='https://github.com/mutlusun'>@mutlusun</a> )</li>
+</ul>
+</div>
+</div>
+    <div id="effectsize-031" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.1">
+<a href="#effectsize-031" class="anchor"></a>effectsize 0.3.1<small> 2020-05-19 </small>
+</h1>
+<div id="new-features-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li>
 <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> now returns CIs ( <a href='https://github.com/easystats/effectsize/issues/72'>#72</a> )</li>
@@ -188,9 +226,9 @@
 <h1 class="page-header" data-toc-text="0.3.0">
 <a href="#effectsize-030" class="anchor"></a>effectsize 0.3.0<small> 2020-04-11 </small>
 </h1>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New features</h2>
+<a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
 <li>New general purpose <code><a href="../reference/effectsize.html">effectsize()</a></code> function.</li>
 <li>Effectsize for differences have CI methods, and return a data frame.</li>
@@ -216,9 +254,9 @@
 </li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level2">
+<div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fix <code><a href="../reference/cohens_d.html">cohens_d()</a></code>’s dealing with formula input (<a href='https://github.com/easystats/effectsize/issues/44'>#44</a>).</li>
 <li>
@@ -237,9 +275,9 @@
 <h1 class="page-header" data-toc-text="0.2.0">
 <a href="#effectsize-020" class="anchor"></a>effectsize 0.2.0<small> 2020-02-25 </small>
 </h1>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>
 <code><a href="../reference/standardize.html">standardize.data.frame()</a></code> did not work when variables had missing values.</li>
@@ -264,17 +302,17 @@
 <h1 class="page-header" data-toc-text="0.1.0">
 <a href="#effectsize-010" class="anchor"></a>effectsize 0.1.0<small> Unreleased </small>
 </h1>
-<div id="new-features-2" class="section level2">
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>New features</h2>
+<a href="#new-features-3" class="anchor"></a>New features</h2>
 <ul>
 <li>
 <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> and <code><a href="../reference/standardize.html">standardize()</a></code> now support models from packages <em>brglm</em>, <em>brglm2</em>, <em>mixor</em>, <em>fixest</em>, <em>cgam</em>, <em>cplm</em>, <em>cglm</em>, <em>glmmadmb</em> and <em>complmrob</em>.</li>
 </ul>
 </div>
-<div id="bug-fixes-2" class="section level2">
+<div id="bug-fixes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fix CRAN check issues.</li>
 </ul>
