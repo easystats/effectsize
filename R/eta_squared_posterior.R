@@ -2,7 +2,9 @@
 #'
 #' This function simulates data from the posterior predictive distribution (ppd)
 #' and for each simulation the Eta Squared is computed for the model's fixed
-#' effects.
+#' effects. This means that the returned values are the population level effect
+#' size as implied by the posterior model (and not the effect size in the sample
+#' data). See [rstantools::posterior_predict()] for more info.
 #' \cr\cr
 #' Effect sizes are computed using the sums of squares obtained from
 #' `car::Anova(model, ...)` which might not always be appropriate (**_Yeah...
