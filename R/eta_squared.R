@@ -234,39 +234,44 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   values <- .values_aov(params)
   if (type == "eta") {
     if (!isTRUE(partial)) {
-      params$Eta_Sq <- params$Sum_Squares / values$Sum_Squares_total
+      params$Eta_Sq <- params$Sum_Squares /
+        values$Sum_Squares_total
+
       params[params$Parameter == "Residuals", "Eta_Sq"] <- NA
     } else {
       params$Eta_Sq_partial <-
-        params$Sum_Squares / (params$Sum_Squares + values$Sum_Squares_residuals)
-      params[params$Parameter == "Residuals", "Eta_Sq_partial"] <-
-        NA
+        params$Sum_Squares /
+        (params$Sum_Squares + values$Sum_Squares_residuals)
+
+      params[params$Parameter == "Residuals", "Eta_Sq_partial"] <- NA
     }
   } else if (type == "omega") {
     if (!isTRUE(partial)) {
       params$Omega_Sq <-
-        (params$Sum_Squares - params$df * values$Mean_Square_residuals) / (values$Sum_Squares_total + values$Mean_Square_residuals)
+        (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
+        (values$Sum_Squares_total + values$Mean_Square_residuals)
+
       params[params$Parameter == "Residuals", "Omega_Sq"] <- NA
     } else {
       params$Omega_Sq_partial <-
-        (params$df * (params$Mean_Square - values$Mean_Square_residuals)) / (
-          params$df * params$Mean_Square + (values$n - params$df) * values$Mean_Square_residuals
-        )
-      params[params$Parameter == "Residuals", "Omega_Sq_partial"] <-
-        NA
+        (params$df * (params$Mean_Square - values$Mean_Square_residuals)) /
+        (params$df * params$Mean_Square + (values$n - params$df) * values$Mean_Square_residuals)
+
+      params[params$Parameter == "Residuals", "Omega_Sq_partial"] <- NA
     }
   } else if (type == "epsilon") {
     if (!isTRUE(partial)) {
       params$Epsilon_Sq <-
         (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
         values$Sum_Squares_total
+
       params[params$Parameter == "Residuals", "Epsilon_sq"] <- NA
     } else {
       params$Epsilon_Sq_partial <-
         (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
         (params$Sum_Squares + values$Sum_Squares_residuals)
-      params[params$Parameter == "Residuals", "Epsilon_sq_partial"] <-
-        NA
+
+      params[params$Parameter == "Residuals", "Epsilon_sq_partial"] <- NA
     }
   }
 
