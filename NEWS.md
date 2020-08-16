@@ -1,5 +1,9 @@
 # effectsize 0.3.x
 
+## Bug fixes
+
+- `phi()` and `cramers_v()` did not respect the CI argument ( #111 ).
+
 # effectsize 0.3.2
 
 ## New features
