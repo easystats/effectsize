@@ -4,8 +4,9 @@
 #'
 #' @param x a numeric vector or matrix. x and y can also both be factors.
 #' @param y a numeric vector; ignored if x is a matrix. If x is a factor, y should be a factor of the same length.
-#' @param CI Confidence Interval (CI) level
+#' @param ci Confidence Interval (CI) level
 #' @param adjust Should the effect size be bias-corrected? Defaults to `FALSE`.
+#' @param CI Deprecated in favor of `ci`.
 #' @param ... Ignored.
 #'
 #' @return A data frame with the effect size(s) between 0-1, and confidence interval(s).
@@ -21,7 +22,12 @@
 #'
 #' @importFrom stats chisq.test
 #' @export
-phi <- function(x, y = NULL, CI = 0.95, adjust = FALSE, ...){
+phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...){
+  if (!missing(CI)) {
+    ci <- CI
+    warning("'CI' argument is deprecated. Use 'ci' instead.")
+  }
+
   res <- stats::chisq.test(x, y)
   Obs <- res$observed
   Exp <- res$expected
@@ -30,14 +36,19 @@ phi <- function(x, y = NULL, CI = 0.95, adjust = FALSE, ...){
                n = sum(Obs),
                nrow = nrow(Obs),
                ncol = ncol(Obs),
-               CI = CI,
+               ci = ci,
                adjust = adjust)
 }
 
 #' @rdname phi
 #' @importFrom stats chisq.test
 #' @export
-cramers_v <- function(x, y = NULL, CI = 0.95, adjust = FALSE, ...){
+cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI,...){
+  if (!missing(CI)) {
+    ci <- CI
+    warning("'CI' argument is deprecated. Use 'ci' instead.")
+  }
+
   res <- stats::chisq.test(x, y)
   Obs <- res$observed
   Exp <- res$expected
@@ -46,7 +57,7 @@ cramers_v <- function(x, y = NULL, CI = 0.95, adjust = FALSE, ...){
                      n = sum(Obs),
                      nrow = nrow(Obs),
                      ncol = ncol(Obs),
-                     CI = CI,
+                     ci = ci,
                      adjust = adjust)
 }
 
