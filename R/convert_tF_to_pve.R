@@ -28,8 +28,16 @@
 #' \deqn{\omega_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den} + 1}}
 #' \cr
 #' \deqn{f_p = \sqrt{\frac{\eta_p^2}{1-\eta_p^2}}}
-#' \cr\cr\cr
+#' \cr\cr
 #' For \eqn{t}, the conversion is based on the equality of \eqn{t^2 = F} when \eqn{df_{num}=1}.
+#'
+#' ## Choosing an Un-Biased Estimate
+#' Both Omega and Epsilon are unbiased estimators of the population Eta. But
+#' which to choose? Though Omega is the more popular choice, it should be noted
+#' that:
+#' 1. The formula given above for Omega is only a (close) approximation for
+#' complex designs.
+#' 2. Epsilon has been found to be less biased (Carroll & Nordholm, 1975).
 #'
 #' ## Confidence Intervals
 #' Confidence intervals are estimated using the Noncentrality parameter method;
@@ -42,6 +50,8 @@
 #' *upper* bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
 #'
 #' @note \eqn{Adj. \eta_p^2} is an alias for \eqn{\epsilon_p^2}.
+#'
+#' @seealso [eta_squared()] for more details.
 #'
 #' @examples
 #' \donttest{
@@ -86,6 +96,7 @@
 #' }
 #' @references
 #' - Albers, C., & Lakens, D. (2018). When power analyses based on pilot data are biased: Inaccurate effect size estimators and follow-up bias. Journal of experimental social psychology, 74, 187-195. \doi{10.31234/osf.io/b7z4q}
+#' - Carroll, R. M., & Nordholm, L. A. (1975). Sampling Characteristics of Kelley's ε and Hays' ω. Educational and Psychological Measurement, 35(3), 541-554.
 #' - Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
 #' - Friedman, H. (1982). Simplified determinations of statistical power, magnitude of effect and research sample sizes. Educational and Psychological Measurement, 42(2), 521-526. \doi{10.1177/001316448204200214}
 #' - Mordkoff, J. T. (2019). A Simple Method for Removing Bias From a Popular Measure of Standardized Effect Size: Adjusted Partial Eta Squared. Advances in Methods and Practices in Psychological Science, 2(3), 228-232. \doi{10.1177/2515245919855053}

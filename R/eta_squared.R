@@ -42,19 +42,14 @@
 #' to (or small then) 0, and even more care should be taken when the
 #' *upper* bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
 #'
-#' ## Omega Squared
-#' Omega squared is considered as a lesser biased alternative to eta-squared, especially
-#' when sample sizes are small (Albers \& Lakens, 2018). Field (2013) suggests the following
-#' interpretation heuristics:
-#' - Omega Squared = 0 - 0.01: Very small
-#' - Omega Squared = 0.01 - 0.06: Small
-#' - Omega Squared = 0.06 - 0.14: Medium
-#' - Omega Squared > 0.14: Large
-#'
-#' ## Epsilon Squared
-#' It is one of the least common measures of effect sizes: omega squared and eta squared are
-#' used more frequently. Although having a different name and a formula in appearance
-#' different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).
+#' ## Un-Biased Estimate of Eta
+#' Both ***Omega*** and ***Epsilon*** are unbiased estimators of the
+#' population's ***Eta***, which is especially important is small samples. But
+#' which to choose?
+#' \cr\cr
+#' Though Omega is the more popular choice (Albers \& Lakens, 2018), Epsilon is
+#' analogous to adjusted R2 (Allen, 2017, p. 382), and has been found to be less
+#' biased (Carroll & Nordholm, 1975).
 #'
 #' ## Cohen's f
 #' Cohen's f can take on values between zero, when the population
@@ -108,16 +103,17 @@
 #'   omega_squared(model)
 #' }
 #' }
+#'
 #' @return A data frame containing the effect size values and their confidence intervals.
 #'
 #'
-#' @references \itemize{
-#'  \item Albers, C., \& Lakens, D. (2018). When power analyses based on pilot data are biased: Inaccurate effect size estimators and follow-up bias. Journal of experimental social psychology, 74, 187-195.
-#'  \item Allen, R. (2017). Statistics and Experimental Design for Psychologists: A Model Comparison Approach. World Scientific Publishing Company.
-#'  \item Kelley, T. (1935) An unbiased correlation ratio measure. Proceedings of the National Academy of Sciences. 21(9). 554-559.
-#'  \item Morey, R. D., Hoekstra, R., Rouder, J. N., Lee, M. D., & Wagenmakers, E. J. (2016). The fallacy of placing confidence in confidence intervals. Psychonomic bulletin & review, 23(1), 103-123.
-#'  \item Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
-#' }
+#' @references
+#' - Albers, C., \& Lakens, D. (2018). When power analyses based on pilot data are biased: Inaccurate effect size estimators and follow-up bias. Journal of experimental social psychology, 74, 187-195.
+#' - Allen, R. (2017). Statistics and Experimental Design for Psychologists: A Model Comparison Approach. World Scientific Publishing Company.
+#' - Carroll, R. M., & Nordholm, L. A. (1975). Sampling Characteristics of Kelley's ε and Hays' ω. Educational and Psychological Measurement, 35(3), 541-554.
+#' - Kelley, T. (1935) An unbiased correlation ratio measure. Proceedings of the National Academy of Sciences. 21(9). 554-559.
+#' - Morey, R. D., Hoekstra, R., Rouder, J. N., Lee, M. D., & Wagenmakers, E. J. (2016). The fallacy of placing confidence in confidence intervals. Psychonomic bulletin & review, 23(1), 103-123.
+#' - Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
 #'
 #' @export
 eta_squared <- function(model,
@@ -238,39 +234,44 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
   values <- .values_aov(params)
   if (type == "eta") {
     if (!isTRUE(partial)) {
-      params$Eta_Sq <- params$Sum_Squares / values$Sum_Squares_total
+      params$Eta_Sq <- params$Sum_Squares /
+        values$Sum_Squares_total
+
       params[params$Parameter == "Residuals", "Eta_Sq"] <- NA
     } else {
       params$Eta_Sq_partial <-
-        params$Sum_Squares / (params$Sum_Squares + values$Sum_Squares_residuals)
-      params[params$Parameter == "Residuals", "Eta_Sq_partial"] <-
-        NA
+        params$Sum_Squares /
+        (params$Sum_Squares + values$Sum_Squares_residuals)
+
+      params[params$Parameter == "Residuals", "Eta_Sq_partial"] <- NA
     }
   } else if (type == "omega") {
     if (!isTRUE(partial)) {
       params$Omega_Sq <-
-        (params$Sum_Squares - params$df * values$Mean_Square_residuals) / (values$Sum_Squares_total + values$Mean_Square_residuals)
+        (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
+        (values$Sum_Squares_total + values$Mean_Square_residuals)
+
       params[params$Parameter == "Residuals", "Omega_Sq"] <- NA
     } else {
       params$Omega_Sq_partial <-
-        (params$df * (params$Mean_Square - values$Mean_Square_residuals)) / (
-          params$df * params$Mean_Square + (values$n - params$df) * values$Mean_Square_residuals
-        )
-      params[params$Parameter == "Residuals", "Omega_Sq_partial"] <-
-        NA
+        (params$df * (params$Mean_Square - values$Mean_Square_residuals)) /
+        (params$df * params$Mean_Square + (values$n - params$df) * values$Mean_Square_residuals)
+
+      params[params$Parameter == "Residuals", "Omega_Sq_partial"] <- NA
     }
   } else if (type == "epsilon") {
     if (!isTRUE(partial)) {
       params$Epsilon_Sq <-
         (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
         values$Sum_Squares_total
+
       params[params$Parameter == "Residuals", "Epsilon_sq"] <- NA
     } else {
       params$Epsilon_Sq_partial <-
         (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
         (params$Sum_Squares + values$Sum_Squares_residuals)
-      params[params$Parameter == "Residuals", "Epsilon_sq_partial"] <-
-        NA
+
+      params[params$Parameter == "Residuals", "Epsilon_sq_partial"] <- NA
     }
   }
 

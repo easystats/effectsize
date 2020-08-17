@@ -5,18 +5,20 @@
 \alias{cramers_v}
 \title{Effect size for contingency tables}
 \usage{
-phi(x, y = NULL, CI = 0.95, adjust = FALSE, ...)
+phi(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
 
-cramers_v(x, y = NULL, CI = 0.95, adjust = FALSE, ...)
+cramers_v(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
 }
 \arguments{
 \item{x}{a numeric vector or matrix. x and y can also both be factors.}
 
 \item{y}{a numeric vector; ignored if x is a matrix. If x is a factor, y should be a factor of the same length.}
 
-\item{CI}{Confidence Interval (CI) level}
+\item{ci}{Confidence Interval (CI) level}
 
 \item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
+
+\item{CI}{Deprecated in favor of \code{ci}.}
 
 \item{...}{Ignored.}
 }

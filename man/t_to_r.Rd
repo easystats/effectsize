@@ -47,7 +47,7 @@ available or their computation is not straightforward (e.g., in liner mixed mode
 See \href{https://easystats.github.io/effectsize/articles/from_test_statistics.html}{Effect Size from Test Statistics vignette.}
 }
 \details{
-These functions use the following formulae:
+These functions use the following formulae to approximate \emph{r} and \emph{d}:
 \cr\cr
 \deqn{r_{partial} = t / \sqrt{t^2 + df_{error}}}
 \cr\cr

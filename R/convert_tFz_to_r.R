@@ -20,7 +20,7 @@
 #' @return A data frame with the effect size(s) between 0-1, and confidence interval(s)
 #'
 #'
-#' @details These functions use the following formulae:
+#' @details These functions use the following formulae to approximate *r* and *d*:
 #' \cr\cr
 #' \deqn{r_{partial} = t / \sqrt{t^2 + df_{error}}}
 #' \cr\cr
