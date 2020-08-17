@@ -237,8 +237,20 @@ $$\epsilon_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den}}$$
 $$\omega_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den} + 1}$$
 <br />
 $$f_p = \sqrt{\frac{\eta_p^2}{1-\eta_p^2}}$$
-<br /><br /><br />
-For \(t\), the conversion is based on the equality of \(t^2 = F\) when \(df_{num}=1\).</p><h3>Confidence Intervals</h3>
+<br /><br />
+For \(t\), the conversion is based on the equality of \(t^2 = F\) when \(df_{num}=1\).</p><h3>Choosing an Un-Biased Estimate</h3>
+
+
+<p>Both Omega and Epsilon are unbiased estimators of the population Eta. But
+which to choose? Though Omega is the more popular choice, it should be noted
+that:</p><ol>
+<li><p>The formula given above for Omega is only a (close) approximation for
+complex designs.</p></li>
+<li><p>Epsilon has been found to be less biased (Carroll &amp; Nordholm, 1975).</p></li>
+</ol>
+
+
+<h3>Confidence Intervals</h3>
 
 
 <p>Confidence intervals are estimated using the Noncentrality parameter method;
@@ -258,6 +270,7 @@ to (or small then) 0, and even more care should be taken when the
     
 <ul>
 <li><p>Albers, C., &amp; Lakens, D. (2018). When power analyses based on pilot data are biased: Inaccurate effect size estimators and follow-up bias. Journal of experimental social psychology, 74, 187-195. doi: <a href='https://doi.org/10.31234/osf.io/b7z4q'>10.31234/osf.io/b7z4q</a></p></li>
+<li><p>Carroll, R. M., &amp; Nordholm, L. A. (1975). Sampling Characteristics of Kelley's ε and Hays' ω. Educational and Psychological Measurement, 35(3), 541-554.</p></li>
 <li><p>Cumming, G., &amp; Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.</p></li>
 <li><p>Friedman, H. (1982). Simplified determinations of statistical power, magnitude of effect and research sample sizes. Educational and Psychological Measurement, 42(2), 521-526. doi: <a href='https://doi.org/10.1177/001316448204200214'>10.1177/001316448204200214</a></p></li>
 <li><p>Mordkoff, J. T. (2019). A Simple Method for Removing Bias From a Popular Measure of Standardized Effect Size: Adjusted Partial Eta Squared. Advances in Methods and Practices in Psychological Science, 2(3), 228-232. doi: <a href='https://doi.org/10.1177/2515245919855053'>10.1177/2515245919855053</a></p></li>
@@ -265,6 +278,9 @@ to (or small then) 0, and even more care should be taken when the
 <li><p>Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.</p></li>
 </ul>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='eta_squared.html'>eta_squared()</a></code> for more details.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>

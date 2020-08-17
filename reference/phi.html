@@ -164,9 +164,9 @@
     <p>Compute Cramer's V and phi (\(\phi\)) from contingency tables.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>phi</span>(<span class='kw'>x</span>, y = <span class='kw'>NULL</span>, CI = <span class='fl'>0.95</span>, adjust = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>phi</span>(<span class='kw'>x</span>, y = <span class='kw'>NULL</span>, ci = <span class='fl'>0.95</span>, adjust = <span class='fl'>FALSE</span>, <span class='kw'>CI</span>, <span class='kw'>...</span>)
 
-<span class='fu'>cramers_v</span>(<span class='kw'>x</span>, y = <span class='kw'>NULL</span>, CI = <span class='fl'>0.95</span>, adjust = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'>cramers_v</span>(<span class='kw'>x</span>, y = <span class='kw'>NULL</span>, ci = <span class='fl'>0.95</span>, adjust = <span class='fl'>FALSE</span>, <span class='kw'>CI</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -180,12 +180,16 @@
       <td><p>a numeric vector; ignored if x is a matrix. If x is a factor, y should be a factor of the same length.</p></td>
     </tr>
     <tr>
-      <th>CI</th>
+      <th>ci</th>
       <td><p>Confidence Interval (CI) level</p></td>
     </tr>
     <tr>
       <th>adjust</th>
       <td><p>Should the effect size be bias-corrected? Defaults to <code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>CI</th>
+      <td><p>Deprecated in favor of <code>ci</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>

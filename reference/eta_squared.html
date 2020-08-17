@@ -237,25 +237,16 @@ Special care should be taken when interpreting CIs with a lower bound equal
 to (or small then) 0, and even more care should be taken when the
 <em>upper</em> bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
 
-<h3>Omega Squared</h3>
+<h3>Un-Biased Estimate of Eta</h3>
 
 
-<p>Omega squared is considered as a lesser biased alternative to eta-squared, especially
-when sample sizes are small (Albers \&amp; Lakens, 2018). Field (2013) suggests the following
-interpretation heuristics:</p><ul>
-<li><p>Omega Squared = 0 - 0.01: Very small</p></li>
-<li><p>Omega Squared = 0.01 - 0.06: Small</p></li>
-<li><p>Omega Squared = 0.06 - 0.14: Medium</p></li>
-<li><p>Omega Squared &gt; 0.14: Large</p></li>
-</ul>
-
-
-<h3>Epsilon Squared</h3>
-
-
-<p>It is one of the least common measures of effect sizes: omega squared and eta squared are
-used more frequently. Although having a different name and a formula in appearance
-different, this index is equivalent to the adjusted R2 (Allen, 2017, p. 382).</p>
+<p>Both <em><strong>Omega</strong></em> and <em><strong>Epsilon</strong></em> are unbiased estimators of the
+population's <em><strong>Eta</strong></em>, which is especially important is small samples. But
+which to choose?
+<br /><br />
+Though Omega is the more popular choice (Albers \&amp; Lakens, 2018), Epsilon is
+analogous to adjusted R2 (Allen, 2017, p. 382), and has been found to be less
+biased (Carroll &amp; Nordholm, 1975).</p>
 
 <h3>Cohen's f</h3>
 
@@ -272,6 +263,7 @@ effect sizes, respectively.</p>
 <ul>
 <li><p>Albers, C., \&amp; Lakens, D. (2018). When power analyses based on pilot data are biased: Inaccurate effect size estimators and follow-up bias. Journal of experimental social psychology, 74, 187-195.</p></li>
 <li><p>Allen, R. (2017). Statistics and Experimental Design for Psychologists: A Model Comparison Approach. World Scientific Publishing Company.</p></li>
+<li><p>Carroll, R. M., &amp; Nordholm, L. A. (1975). Sampling Characteristics of Kelley's ε and Hays' ω. Educational and Psychological Measurement, 35(3), 541-554.</p></li>
 <li><p>Kelley, T. (1935) An unbiased correlation ratio measure. Proceedings of the National Academy of Sciences. 21(9). 554-559.</p></li>
 <li><p>Morey, R. D., Hoekstra, R., Rouder, J. N., Lee, M. D., &amp; Wagenmakers, E. J. (2016). The fallacy of placing confidence in confidence intervals. Psychonomic bulletin &amp; review, 23(1), 103-123.</p></li>
 <li><p>Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.</p></li>
@@ -349,7 +341,8 @@ effect sizes, respectively.</p>
 #&gt; ---------------------------------------------
 #&gt; am_f       |             0.07 | [-0.04, 0.28]
 #&gt; cyl_f      |             0.60 | [ 0.36, 0.72]
-#&gt; am_f:cyl_f |             0.03 | [-0.07, 0.21]</div><div class='input'><span class='co'># }</span></div></pre>
+#&gt; am_f:cyl_f |             0.03 | [-0.07, 0.21]</div><div class='input'><span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
