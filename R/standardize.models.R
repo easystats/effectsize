@@ -45,7 +45,7 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, include_respo
   # if we standardize log-terms, standardization will fail (because log of
   # negative value is NaN). Do some back-transformation here
 
-  log_terms <- .log_terms(x)
+  log_terms <- .log_terms(x, data_std)
   if (length(log_terms) > 0) {
     data_std[log_terms] <- lapply(data_std[log_terms], function(i) {
       i - min(i, na.rm = TRUE) + 1
@@ -165,9 +165,10 @@ standardize.coxme <- standardize.coxph
 
 # Find log-terms inside model formula, and return "clean" term names
 #' @importFrom insight find_terms
-.log_terms <- function(model) {
+.log_terms <- function(model, data) {
   x <- insight::find_terms(model, flatten = TRUE)
   # log_pattern <- "^log\\((.*)\\)"
   log_pattern <- "(log|log1|log10|log1p|log2)\\(([^,)]*).*"
-  gsub(log_pattern, "\\2", x[grepl(log_pattern, x)])
+  out <- gsub(log_pattern, "\\2", x[grepl(log_pattern, x)])
+  intersect(colnames(data), out)
 }
