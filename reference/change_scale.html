@@ -230,14 +230,18 @@
     <div class='dont-index'><p><code><a href='normalize.html'>normalize()</a></code> <code><a href='standardize.html'>standardize()</a></code> <code><a href='ranktransform.html'>ranktransform()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>change_scale</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>))</div><div class='output co'>#&gt; [1]  50  60 100   0  30</div><div class='input'><span class='fu'>change_scale</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>), to = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>5</span>, <span class='fl'>5</span>))</div><div class='output co'>#&gt; [1]  0  1  5 -5 -2</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>change_scale</span>(<span class='kw'>iris</span>))</div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+    <pre class="examples"><div class='input'><span class='fu'>change_scale</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>))
+</div><div class='output co'>#&gt; [1]  50  60 100   0  30</div><div class='input'><span class='fu'>change_scale</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>), to = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>5</span>, <span class='fl'>5</span>))
+</div><div class='output co'>#&gt; [1]  0  1  5 -5 -2</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>change_scale</span>(<span class='kw'>iris</span>))
+</div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #&gt; 1    22.222222    62.50000     6.779661    4.166667  setosa
 #&gt; 2    16.666667    41.66667     6.779661    4.166667  setosa
 #&gt; 3    11.111111    50.00000     5.084746    4.166667  setosa
 #&gt; 4     8.333333    45.83333     8.474576    4.166667  setosa
 #&gt; 5    19.444444    66.66667     6.779661    4.166667  setosa
-#&gt; 6    30.555556    79.16667    11.864407   12.500000  setosa</div><div class='input'></div></pre>
+#&gt; 6    30.555556    79.16667    11.864407   12.500000  setosa</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -203,7 +203,7 @@ the lower bound is set to 0. If <code>"default"</code>, will be set to <code>[-.
     <p>The CIs used in the equivalence test are the ones in the provided effect size table.
 For results equivalent (ha!) to those that can be obtained using the TOST approach (e.g., Lakens, 2017),
 appropriate CIs should be extracted using the function used to make the effect size table
-(<code>cohens_d, eta_squared, F_to_r</code>, etc). See examples.</p><h3>The Different Rules</h3>
+(<code>cohens_d, eta_squared, F_to_r</code>, etc). See examples.</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>The Different Rules</h3>
 
 <ul>
 <li><p><code>"classic"</code> - <strong>the classic method</strong>:</p><ul>
@@ -243,7 +243,8 @@ appropriate CIs should be extracted using the function used to make the effect s
 <span class='co'># \donttest{</span>
 <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>am</span>) <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>), data = <span class='kw'>mtcars</span>)
 <span class='kw'>es</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eta_squared.html'>eta_squared</a></span>(<span class='kw'>model</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='kw'>es</span>, range = <span class='fl'>0.15</span>)</div><div class='output co'>#&gt; <span style='color: #0000BB;'># Test for Practical Equivalence
+<span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='kw'>es</span>, range = <span class='fl'>0.15</span>)
+</div><div class='output co'>#&gt; <span style='color: #0000BB;'># Test for Practical Equivalence
 #&gt; 
 #&gt; </span><span>  ROPE: [0.00 0.15]
 #&gt; 
@@ -255,7 +256,8 @@ appropriate CIs should be extracted using the function used to make the effect s
 <span class='kw'>ds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='t_to_d.html'>t_to_d</a></span>(t = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.45</span>, <span class='op'>-</span><span class='fl'>0.65</span>, <span class='fl'>7</span>, <span class='op'>-</span><span class='fl'>2.2</span>, <span class='fl'>2.25</span>),
              df_error = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>675</span>, <span class='fl'>525</span>, <span class='fl'>2000</span>, <span class='fl'>900</span>, <span class='fl'>1875</span>),
              ci = <span class='fl'>0.9</span>) <span class='co'># TOST approach</span>
-<span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='kw'>ds</span>, range = <span class='fl'>0.2</span>)</div><div class='output co'>#&gt; </span><span style='color: #0000BB;'># Test for Practical Equivalence
+<span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='kw'>ds</span>, range = <span class='fl'>0.2</span>)
+</div><div class='output co'>#&gt; </span><span style='color: #0000BB;'># Test for Practical Equivalence
 #&gt; 
 #&gt; </span><span>  ROPE: [-0.20 0.20]
 #&gt; 
@@ -267,7 +269,11 @@ appropriate CIs should be extracted using the function used to make the effect s
 #&gt; -0.15 | [-0.26, -0.04] |  Rejected
 #&gt;  0.10 | [ 0.03,  0.18] |  Accepted</div><div class='input'>
 <span class='co'># Can also plot</span>
-<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='kw'><a href='https://easystats.github.io/see'>see</a></span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='kw'>ds</span>, range = <span class='fl'>0.2</span>))</div><div class='img'><img src='equivalence_test.effectsize_table-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='kw'><a href='https://easystats.github.io/see'>see</a></span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='kw'>ds</span>, range = <span class='fl'>0.2</span>, rule = <span class='st'>"cet"</span>))</div><div class='img'><img src='equivalence_test.effectsize_table-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='kw'><a href='https://easystats.github.io/see'>see</a></span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='kw'>ds</span>, range = <span class='fl'>0.2</span>, rule = <span class='st'>"bayes"</span>))</div><div class='img'><img src='equivalence_test.effectsize_table-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='kw'><a href='https://easystats.github.io/see'>see</a></span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='kw'>ds</span>, range = <span class='fl'>0.2</span>))
+</div><div class='img'><img src='equivalence_test.effectsize_table-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='kw'><a href='https://easystats.github.io/see'>see</a></span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='kw'>ds</span>, range = <span class='fl'>0.2</span>, rule = <span class='st'>"cet"</span>))
+</div><div class='img'><img src='equivalence_test.effectsize_table-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='kw'><a href='https://easystats.github.io/see'>see</a></span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/bayestestR/man/equivalence_test.html'>equivalence_test</a></span>(<span class='kw'>ds</span>, range = <span class='fl'>0.2</span>, rule = <span class='st'>"bayes"</span>))
+</div><div class='img'><img src='equivalence_test.effectsize_table-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

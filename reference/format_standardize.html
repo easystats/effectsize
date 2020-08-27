@@ -196,9 +196,12 @@ mean and dividing it by the standard deviation (SD).</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>format_standardize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] -1 SD Mean  +1 SD
-#&gt; Levels: +1 SD Mean -1 SD</div><div class='input'><span class='fu'>format_standardize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), reference = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>))</div><div class='output co'>#&gt; [1] -1 SD    2e-02 SD +1 SD    +2 SD   
-#&gt; Levels: +2 SD +1 SD 2e-02 SD -1 SD</div><div class='input'><span class='fu'>format_standardize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), reference = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>), robust = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] -1 MAD     -5e-02 MAD +1 MAD     +2 MAD    
+    <pre class="examples"><div class='input'><span class='fu'>format_standardize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>))
+</div><div class='output co'>#&gt; [1] -1 SD Mean  +1 SD
+#&gt; Levels: +1 SD Mean -1 SD</div><div class='input'><span class='fu'>format_standardize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), reference = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>))
+</div><div class='output co'>#&gt; [1] -1 SD    2e-02 SD +1 SD    +2 SD   
+#&gt; Levels: +2 SD +1 SD 2e-02 SD -1 SD</div><div class='input'><span class='fu'>format_standardize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), reference = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>), robust = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; [1] -1 MAD     -5e-02 MAD +1 MAD     +2 MAD    
 #&gt; Levels: +2 MAD +1 MAD -5e-02 MAD -1 MAD</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

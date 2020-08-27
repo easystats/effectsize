@@ -214,7 +214,7 @@ $$\phi = \sqrt{\chi^2 / n}$$
 <br />
 $$Cramer's V = \phi / \sqrt{min(nrow,ncol)-1}$$
 <br />
-For adjusted versions, see Bergsma, 2013.</p><h3>Confidence Intervals</h3>
+For adjusted versions, see Bergsma, 2013.</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Confidence Intervals</h3>
 
 
 <p>Confidence intervals are estimated using the Noncentrality parameter method;
@@ -234,7 +234,8 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>contingency_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>762</span>, <span class='fl'>327</span>, <span class='fl'>468</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>)))
 
-<span class='fu'><a href='https://rdrr.io/r/stats/chisq.test.html'>chisq.test</a></span>(<span class='kw'>contingency_table</span>)</div><div class='output co'>#&gt; 
+<span class='fu'><a href='https://rdrr.io/r/stats/chisq.test.html'>chisq.test</a></span>(<span class='kw'>contingency_table</span>)
+</div><div class='output co'>#&gt; 
 #&gt; 	Pearson's Chi-squared test
 #&gt; 
 #&gt; data:  contingency_table
@@ -249,15 +250,18 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
   n = <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>contingency_table</span>),
   nrow = <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>contingency_table</span>),
   ncol = <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='kw'>contingency_table</span>)
-)</div><div class='output co'>#&gt;  Phi |       95% CI
+)
+</div><div class='output co'>#&gt;  Phi |       95% CI
 #&gt; -------------------
 #&gt; 0.10 | [0.07, 0.13]</div><div class='input'><span class='fu'>chisq_to_cramers_v</span>(<span class='fl'>41.234</span>,
   n = <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>contingency_table</span>),
   nrow = <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>contingency_table</span>),
   ncol = <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='kw'>contingency_table</span>)
-)</div><div class='output co'>#&gt; Cramer's V |       95% CI
+)
+</div><div class='output co'>#&gt; Cramer's V |       95% CI
 #&gt; -------------------------
-#&gt;       0.07 | [0.05, 0.09]</div><div class='input'></div></pre>
+#&gt;       0.07 | [0.05, 0.09]</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

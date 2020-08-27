@@ -238,14 +238,18 @@ include zeros and ones.</p></td>
     <div class='dont-index'><p><code><a href='ranktransform.html'>ranktransform()</a></code> <code><a href='standardize.html'>standardize()</a></code> <code><a href='change_scale.html'>change_scale()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>normalize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>))</div><div class='output co'>#&gt; [1] 0.5 0.6 1.0 0.0 0.3</div><div class='input'><span class='fu'>normalize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>), include_bounds = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] 0.50 0.58 0.90 0.10 0.34</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>normalize</span>(<span class='kw'>iris</span>))</div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+    <pre class="examples"><div class='input'><span class='fu'>normalize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>))
+</div><div class='output co'>#&gt; [1] 0.5 0.6 1.0 0.0 0.3</div><div class='input'><span class='fu'>normalize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>), include_bounds = <span class='fl'>FALSE</span>)
+</div><div class='output co'>#&gt; [1] 0.50 0.58 0.90 0.10 0.34</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>normalize</span>(<span class='kw'>iris</span>))
+</div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #&gt; 1   0.22222222   0.6250000   0.06779661  0.04166667  setosa
 #&gt; 2   0.16666667   0.4166667   0.06779661  0.04166667  setosa
 #&gt; 3   0.11111111   0.5000000   0.05084746  0.04166667  setosa
 #&gt; 4   0.08333333   0.4583333   0.08474576  0.04166667  setosa
 #&gt; 5   0.19444444   0.6666667   0.06779661  0.04166667  setosa
-#&gt; 6   0.30555556   0.7916667   0.11864407  0.12500000  setosa</div><div class='input'></div></pre>
+#&gt; 6   0.30555556   0.7916667   0.11864407  0.12500000  setosa</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
