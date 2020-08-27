@@ -18,16 +18,6 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, include_respo
   }
 
 
-  # if we standardize log-terms, standardization will fail (because log of
-  # negative value is NaN)
-
-  log_terms <- .log_terms(x)
-  if (length(log_terms) > 0) {
-    data[log_terms] <- lapply(data[log_terms], function(i) {
-      i - min(i, na.rm = TRUE) + 1
-    })
-  }
-
   # Do not standardize weighting-variable, because negative weights will
   # cause errors in "update()"
 
@@ -49,6 +39,17 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, include_respo
       insight::print_color("No variables could be standardized.\n", "red")
     }
     return(x)
+  }
+
+
+  # if we standardize log-terms, standardization will fail (because log of
+  # negative value is NaN). Do some back-transformation here
+
+  log_terms <- .log_terms(x)
+  if (length(log_terms) > 0) {
+    data_std[log_terms] <- lapply(data_std[log_terms], function(i) {
+      i - min(i, na.rm = TRUE) + 1
+    })
   }
 
 
