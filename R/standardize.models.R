@@ -22,6 +22,11 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, include_respo
   # negative value is NaN)
 
   log_terms <- .log_terms(x)
+  if (length(log_terms) > 0) {
+    data[log_terms] <- lapply(data[log_terms], function(i) {
+      i - min(i, na.rm = TRUE) + 1
+    })
+  }
 
   # Do not standardize weighting-variable, because negative weights will
   # cause errors in "update()"
@@ -34,7 +39,7 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, include_respo
 
   # standardize data
 
-  dont_standardize <- c(resp, log_terms, weight_variable, random_group_factor)
+  dont_standardize <- c(resp, weight_variable, random_group_factor)
   do_standardize <- setdiff(colnames(data), dont_standardize)
 
   if (length(do_standardize)) {
@@ -161,5 +166,7 @@ standardize.coxme <- standardize.coxph
 #' @importFrom insight find_terms
 .log_terms <- function(model) {
   x <- insight::find_terms(model, flatten = TRUE)
-  gsub("^log\\((.*)\\)", "\\1", x[grepl("^log\\((.*)\\)", x)])
+  # log_pattern <- "^log\\((.*)\\)"
+  log_pattern <- "(log|log1|log10|log1p|log2)\\(([^,)]*).*"
+  gsub(log_pattern, "\\1", x[grepl(log_pattern, x)])
 }
