@@ -168,5 +168,5 @@ standardize.coxme <- standardize.coxph
   x <- insight::find_terms(model, flatten = TRUE)
   # log_pattern <- "^log\\((.*)\\)"
   log_pattern <- "(log|log1|log10|log1p|log2)\\(([^,)]*).*"
-  gsub(log_pattern, "\\1", x[grepl(log_pattern, x)])
+  gsub(log_pattern, "\\2", x[grepl(log_pattern, x)])
 }
