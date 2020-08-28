@@ -47,7 +47,13 @@
 
 
 <meta property="og:title" content="Standardization (Z-scoring) — standardize" />
-<meta property="og:description" content="Performs a standardization of data (z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The normalize() function can also be used to scale all numeric variables within the 0 - 1 range." />
+<meta property="og:description" content="Performs a standardization of data (z-scoring), i.e., centering and scaling,
+so that the data is expressed in terms of standard deviation (i.e., mean = 0,
+SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a
+statistical model, this function extracts the dataset, standardizes it, and
+refits the model with this standardized version of the dataset. The
+normalize() function can also be used to scale all numeric variables within
+the 0 - 1 range." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -161,7 +167,13 @@
     </div>
 
     <div class="ref-description">
-    <p>Performs a standardization of data (z-scoring), i.e., centering and scaling, so that the data is expressed in terms of standard deviation (i.e., mean = 0, SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a statistical model, this function extracts the dataset, standardizes it, and refits the model with this standardized version of the dataset. The <code><a href='normalize.html'>normalize()</a></code> function can also be used to scale all numeric variables within the 0 - 1 range.</p>
+    <p>Performs a standardization of data (z-scoring), i.e., centering and scaling,
+so that the data is expressed in terms of standard deviation (i.e., mean = 0,
+SD = 1) or Median Absolute Deviance (median = 0, MAD = 1). When applied to a
+statistical model, this function extracts the dataset, standardizes it, and
+refits the model with this standardized version of the dataset. The
+<code><a href='normalize.html'>normalize()</a></code> function can also be used to scale all numeric variables within
+the 0 - 1 range.</p>
     </div>
 
     <pre class="usage"><span class='fu'>standardize</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
@@ -210,11 +222,15 @@ mean and dividing it by the standard deviation (SD).</p></td>
     </tr>
     <tr>
       <th>two_sd</th>
-      <td><p>If <code>TRUE</code>, the variables are scaled by two times the deviation (SD or MAD depending on <code>robust</code>). This method can be useful to obtain model coefficients of continuous parameters comparable to coefficients related to binary predictors (Gelman, 2008).</p></td>
+      <td><p>If <code>TRUE</code>, the variables are scaled by two times the deviation
+(SD or MAD depending on <code>robust</code>). This method can be useful to obtain
+model coefficients of continuous parameters comparable to coefficients
+related to binary predictors (Gelman, 2008).</p></td>
     </tr>
     <tr>
       <th>select</th>
-      <td><p>Character vector of column names. If <code>NULL</code> (the default), all variables will be selected.</p></td>
+      <td><p>Character vector of column names. If <code>NULL</code> (the default), all
+variables will be selected.</p></td>
     </tr>
     <tr>
       <th>exclude</th>
@@ -245,21 +261,42 @@ existing variables are overwritten.</p></td>
     <tr>
       <th>include_response</th>
       <td><p>For a model, if <code>TRUE</code> (default), the response value
-will also be standardized. If <code>FALSE</code>, only the predictors will be standardized.
-Note that for certain models (logistic regression, count models, ...), the
-response value will never be standardized, to make re-fitting the model work.</p></td>
+will also be standardized. If <code>FALSE</code>, only the predictors will be
+standardized. Note that for certain models (logistic regression, count
+models, ...), the response value will never be standardized, to make
+re-fitting the model work.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The standardized object (either a standardize data frame or a statistical model fitted on standardized data).</p>
+    <p>The standardized object (either a standardize data frame or a
+statistical model fitted on standardized data).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>If <code>x</code> is a model object, standardization is done by completely refitting the model on the standardized data. Hence, this approach is equal to standardizing the variables before fitting the model and will return a new model object. However, this method is particularly recommended for complex models that include interactions or transformations (e.g., polynomial or spline terms). The <code>robust</code> (default to <code>FALSE</code>) argument enables a robust standardization of data, i.e., based on the <code>median</code> and <code>MAD</code> instead of the <code>mean</code> and <code>SD</code>. See <code><a href='standardize_parameters.html'>standardize_parameters()</a></code> for other methods of standardizing model coefficients.</p>
+    <p>If <code>x</code> is a model object, standardization is done by completely refitting the
+model on the standardized data. Hence, this approach is equal to
+standardizing the variables <em>before</em> fitting the model and will return a new
+model object. However, this method is particularly recommended for complex
+models that include interactions or transformations (e.g., polynomial or
+spline terms). The <code>robust</code> (default to <code>FALSE</code>) argument enables a robust
+standardization of data, i.e., based on the <code>median</code> and <code>MAD</code> instead of the
+<code>mean</code> and <code>SD</code>. See <code><a href='standardize_parameters.html'>standardize_parameters()</a></code> for other methods of
+standardizing model coefficients.</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Transformed Variables</h3>
+
+
+<p>When the model's formula contains transformations (e.g. <code>y ~ exp(X)</code>) the
+transformation effectively takes place after standardization (e.g.,
+<code><a href='https://rdrr.io/r/base/Log.html'>exp(scale(X))</a></code>). Some transformations are undefined for negative values,
+such as <code><a href='https://rdrr.io/r/base/Log.html'>log()</a></code> and <code><a href='https://rdrr.io/r/base/MathFun.html'>sqrt()</a></code>. To avoid dropping these values, the
+standardized data is shifted by <code>Z - min(Z) + 1</code> or <code>Z - min(Z)</code>
+(respectively).</p>
+
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>When <code>x</code> is a data frame or vector, missing values are preserved, so the return value has the same length / number of rows as the original input.</p>
+    <p>When <code>x</code> is a data frame or vector, missing values are preserved, so
+the return value has the same length / number of rows as the original
+input.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='normalize.html'>normalize()</a></code> <code><a href='standardize_parameters.html'>standardize_parameters()</a></code></p></div>
