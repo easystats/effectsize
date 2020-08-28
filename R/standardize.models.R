@@ -54,6 +54,17 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, include_respo
   }
 
 
+  # same for dqrt
+
+  sqrt_terms <- .sqrt_terms(x, data_std)
+  if (length(sqrt_terms) > 0) {
+    message("Formula contains squareroot-terms. See help(\"standardize\") for how such terms are standardized.")
+    data_std[sqrt_terms] <- lapply(data_std[sqrt_terms], function(i) {
+      i - min(i, na.rm = TRUE)
+    })
+  }
+
+
   # restore data that should not be standardized
 
   if (length(dont_standardize)) {
@@ -164,6 +175,12 @@ standardize.coxph <- function(x, robust = FALSE, two_sd = FALSE, verbose = TRUE,
 standardize.coxme <- standardize.coxph
 
 
+
+
+
+
+# helper ----------------------------
+
 # Find log-terms inside model formula, and return "clean" term names
 #' @importFrom insight find_terms
 .log_terms <- function(model, data) {
@@ -171,5 +188,14 @@ standardize.coxme <- standardize.coxph
   # log_pattern <- "^log\\((.*)\\)"
   log_pattern <- "(log\\(log|log|log1|log10|log1p|log2)\\(([^,)]*).*"
   out <- gsub(log_pattern, "\\2", x[grepl(log_pattern, x)])
+  intersect(colnames(data), out)
+}
+
+# Find log-terms inside model formula, and return "clean" term names
+#' @importFrom insight find_terms
+.sqrt_terms <- function(model, data) {
+  x <- insight::find_terms(model, flatten = TRUE)
+  pattern <- "sqrt\\(([^,)]*).*"
+  out <- gsub(pattern, "\\1", x[grepl(pattern, x)])
   intersect(colnames(data), out)
 }

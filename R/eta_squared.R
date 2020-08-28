@@ -556,10 +556,10 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
                                ci = 0.9,
                                ...) {
   type <- match.arg(type)
-  es_fun <- switch (type,
-                    eta = F_to_eta2,
-                    omega = F_to_omega2,
-                    epsilon = F_to_epsilon2)
+  es_fun <- switch(type,
+                   eta = F_to_eta2,
+                   omega = F_to_omega2,
+                   epsilon = F_to_epsilon2)
 
 
   # if (!is.null(model$aov)) {
