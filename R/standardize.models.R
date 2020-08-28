@@ -45,23 +45,28 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, include_respo
   # if we standardize log-terms, standardization will fail (because log of
   # negative value is NaN). Do some back-transformation here
 
+  log_transform <- FALSE
   log_terms <- .log_terms(x, data_std)
   if (length(log_terms) > 0) {
-    message("Formula contains log-terms. See help(\"standardize\") for how such terms are standardized.")
     data_std[log_terms] <- lapply(data_std[log_terms], function(i) {
       i - min(i, na.rm = TRUE) + 1
     })
+    log_transform <- TRUE
   }
 
 
-  # same for dqrt
+  # same for sqrt
 
   sqrt_terms <- .sqrt_terms(x, data_std)
   if (length(sqrt_terms) > 0) {
-    message("Formula contains squareroot-terms. See help(\"standardize\") for how such terms are standardized.")
     data_std[sqrt_terms] <- lapply(data_std[sqrt_terms], function(i) {
       i - min(i, na.rm = TRUE)
     })
+    log_transform <- TRUE
+  }
+
+  if (log_transform) {
+    message("Formula contains log- or sqrt-terms. See help(\"standardize\") for how such terms are standardized.")
   }
 
 
