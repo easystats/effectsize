@@ -19,7 +19,8 @@ adjust(
 
 \item{effect}{Character vector of column names to be adjusted for (regressed out). If \code{NULL} (the default), all variables will be selected.}
 
-\item{select}{Character vector of column names. If \code{NULL} (the default), all variables will be selected.}
+\item{select}{Character vector of column names. If \code{NULL} (the default), all
+variables will be selected.}
 
 \item{exclude}{Character vector of column names to be excluded from selection.}
 
