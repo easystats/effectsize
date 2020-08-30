@@ -51,9 +51,9 @@ basic t test
 
 ### Percent Variance Explained
 
-For linear models...
+For linear models... For each model term, thus ideal for accompnying ANOVA tables.
 
-anova and lmer
+anova and lmer... When sums of squares are not available, an approximation based on the test statistic of that terms is used (see bellow):
 
 Baysian (via posterior predictive distribution simulation).
 
