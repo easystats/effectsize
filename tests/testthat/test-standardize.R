@@ -24,15 +24,6 @@ if (require("testthat") && require("effectsize") && require("dplyr") && require(
   })
 
 
-
-
-  test_that("standardize.lm", {
-    model <- standardize(lm(Sepal.Length ~ Species * Petal.Width, data = iris))
-    testthat::expect_equal(coef(model)[[1]], 0.059, tol = 0.01)
-  })
-
-
-
   test_that("standardize.data.frame, NAs", {
     data(iris)
     set.seed(123)
@@ -79,5 +70,27 @@ if (require("testthat") && require("effectsize") && require("dplyr") && require(
     testthat::expect_equal(head(x$Sepal.Length_z), c(0.2086, -0.3681, -0.9447, -1.233, -0.0797, 1.0735), tol = 0.01)
     testthat::expect_equal(head(x$Sepal.Width_z), c(0.1441, -1.1586, -0.6375, -0.8981, 0.4047, 1.1863), tol = 0.01)
     testthat::expect_equal(mean(x$Sepal.Length_z), as.numeric(NA))
+  })
+
+  test_that("standardize.lm", {
+    model <- standardize(lm(Sepal.Length ~ Species * Petal.Width, data = iris))
+    testthat::expect_equal(unname(coef(model)),
+                           c(0.06, -0.166, 0.19, 0.856, 0.457, -0.257),
+                           tol = 0.01)
+
+    # deal with log / sqrt terms
+    testthat::expect_message(standardize(lm(mpg ~ sqrt(cyl) + log(hp), mtcars)))
+    testthat::expect_message(standardize(lm(mpg ~ sqrt(cyl), mtcars)))
+    testthat::expect_message(standardize(lm(mpg ~ log(hp), mtcars)))
+
+    # difference btween stand-methods:
+    fit_exp <- lm(mpg ~ exp(hp_100), mtcars)
+    fit_scale1 <- lm(scale(mpg) ~ exp(scale(hp/100)), mtcars)
+    fit_scale2 <- lm(scale(mpg) ~ scale(exp(hp/100)), mtcars)
+    testthat::expect_equal(standardize_parameters(fit_exp, method = "refit")[2,2],
+                           unname(coef(fit_scale1)[2]))
+
+    testthat::expect_equal(standardize_parameters(fit_exp, method = "basic")[2,2],
+                           unname(coef(fit_scale2)[2]))
   })
 }

@@ -98,10 +98,18 @@ normalize.factor <- function(x, ...) {
 
 #' @rdname normalize
 #' @export
-normalize.grouped_df <- function(x, select = NULL, exclude = NULL, include_bounds = TRUE, ...) {
+normalize.grouped_df <- function(x, select = NULL, exclude = NULL, include_bounds = TRUE, verbose = TRUE, ...) {
   info <- attributes(x)
   # dplyr >= 0.8.0 returns attribute "indices"
   grps <- attr(x, "groups", exact = TRUE)
+
+  # check for formula notation, convert to character vector
+  if (inherits(select, "formula")) {
+    select <- all.vars(select)
+  }
+  if (inherits(exclude, "formula")) {
+    exclude <- all.vars(exclude)
+  }
 
   # dplyr < 0.8.0?
   if (is.null(grps)) {
@@ -118,6 +126,7 @@ normalize.grouped_df <- function(x, select = NULL, exclude = NULL, include_bound
       select = select,
       exclude = exclude,
       include_bounds = include_bounds,
+      verbose = verbose,
       ...
     )
   }
@@ -129,7 +138,15 @@ normalize.grouped_df <- function(x, select = NULL, exclude = NULL, include_bound
 
 #' @rdname normalize
 #' @export
-normalize.data.frame <- function(x, select = NULL, exclude = NULL, include_bounds = TRUE, ...) {
+normalize.data.frame <- function(x, select = NULL, exclude = NULL, include_bounds = TRUE, verbose = TRUE, ...) {
+  # check for formula notation, convert to character vector
+  if (inherits(select, "formula")) {
+    select <- all.vars(select)
+  }
+  if (inherits(exclude, "formula")) {
+    exclude <- all.vars(exclude)
+  }
+
   if (is.null(select)) {
     select <- names(x)
   }
@@ -138,6 +155,6 @@ normalize.data.frame <- function(x, select = NULL, exclude = NULL, include_bound
     select <- setdiff(select, exclude)
   }
 
-  x[select] <- lapply(x[select], normalize, include_bounds = include_bounds)
+  x[select] <- lapply(x[select], normalize, include_bounds = include_bounds, verbose = verbose)
   x
 }

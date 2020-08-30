@@ -11,9 +11,23 @@ normalize(x, ...)
 
 \method{normalize}{numeric}(x, include_bounds = TRUE, verbose = TRUE, ...)
 
-\method{normalize}{grouped_df}(x, select = NULL, exclude = NULL, include_bounds = TRUE, ...)
+\method{normalize}{grouped_df}(
+  x,
+  select = NULL,
+  exclude = NULL,
+  include_bounds = TRUE,
+  verbose = TRUE,
+  ...
+)
 
-\method{normalize}{data.frame}(x, select = NULL, exclude = NULL, include_bounds = TRUE, ...)
+\method{normalize}{data.frame}(
+  x,
+  select = NULL,
+  exclude = NULL,
+  include_bounds = TRUE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{Object.}
@@ -29,7 +43,8 @@ include zeros and ones.}
 
 \item{verbose}{Toggle warnings on or off.}
 
-\item{select}{Character vector of column names. If \code{NULL} (the default), all variables will be selected.}
+\item{select}{Character vector of column names. If \code{NULL} (the default), all
+variables will be selected.}
 
 \item{exclude}{Character vector of column names to be excluded from selection.}
 }

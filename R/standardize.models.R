@@ -18,11 +18,6 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, include_respo
   }
 
 
-  # if we standardize log-terms, standardization will fail (because log of
-  # negative value is NaN)
-
-  log_terms <- .log_terms(x)
-
   # Do not standardize weighting-variable, because negative weights will
   # cause errors in "update()"
 
@@ -34,7 +29,7 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, include_respo
 
   # standardize data
 
-  dont_standardize <- c(resp, log_terms, weight_variable, random_group_factor)
+  dont_standardize <- c(resp, weight_variable, random_group_factor)
   do_standardize <- setdiff(colnames(data), dont_standardize)
 
   if (length(do_standardize)) {
@@ -44,6 +39,29 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, include_respo
       insight::print_color("No variables could be standardized.\n", "red")
     }
     return(x)
+  }
+
+
+  # if we standardize log-terms, standardization will fail (because log of
+  # negative value is NaN). Do some back-transformation here
+
+  log_terms <- .log_terms(x, data_std)
+  if (length(log_terms) > 0) {
+    data_std[log_terms] <- lapply(data_std[log_terms], function(i) {
+      i - min(i, na.rm = TRUE) + 1
+    })
+  }
+
+  # same for sqrt
+  sqrt_terms <- .sqrt_terms(x, data_std)
+  if (length(sqrt_terms) > 0) {
+    data_std[sqrt_terms] <- lapply(data_std[sqrt_terms], function(i) {
+      i - min(i, na.rm = TRUE)
+    })
+  }
+
+  if (length(log_terms) > 0 || length(sqrt_terms) > 0) {
+    message("Formula contains log- or sqrt-terms. See help(\"standardize\") for how such terms are standardized.")
   }
 
 
@@ -157,9 +175,27 @@ standardize.coxph <- function(x, robust = FALSE, two_sd = FALSE, verbose = TRUE,
 standardize.coxme <- standardize.coxph
 
 
+
+
+
+
+# helper ----------------------------
+
 # Find log-terms inside model formula, and return "clean" term names
 #' @importFrom insight find_terms
-.log_terms <- function(model) {
+.log_terms <- function(model, data) {
   x <- insight::find_terms(model, flatten = TRUE)
-  gsub("^log\\((.*)\\)", "\\1", x[grepl("^log\\((.*)\\)", x)])
+  # log_pattern <- "^log\\((.*)\\)"
+  log_pattern <- "(log\\(log|log|log1|log10|log1p|log2)\\(([^,)]*).*"
+  out <- gsub(log_pattern, "\\2", x[grepl(log_pattern, x)])
+  intersect(colnames(data), out)
+}
+
+# Find log-terms inside model formula, and return "clean" term names
+#' @importFrom insight find_terms
+.sqrt_terms <- function(model, data) {
+  x <- insight::find_terms(model, flatten = TRUE)
+  pattern <- "sqrt\\(([^,)]*).*"
+  out <- gsub(pattern, "\\1", x[grepl(pattern, x)])
+  intersect(colnames(data), out)
 }

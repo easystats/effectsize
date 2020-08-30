@@ -80,6 +80,14 @@ change_scale.grouped_df <- function(x, select = NULL, exclude = NULL, to = c(0, 
   # dplyr >= 0.8.0 returns attribute "indices"
   grps <- attr(x, "groups", exact = TRUE)
 
+  # check for formula notation, convert to character vector
+  if (inherits(select, "formula")) {
+    select <- all.vars(select)
+  }
+  if (inherits(exclude, "formula")) {
+    exclude <- all.vars(exclude)
+  }
+
   # dplyr < 0.8.0?
   if (is.null(grps)) {
     grps <- attr(x, "indices", exact = TRUE)
@@ -108,6 +116,14 @@ change_scale.grouped_df <- function(x, select = NULL, exclude = NULL, to = c(0, 
 #' @rdname change_scale
 #' @export
 change_scale.data.frame <- function(x, select = NULL, exclude = NULL, to = c(0, 100), range = NULL, ...) {
+  # check for formula notation, convert to character vector
+  if (inherits(select, "formula")) {
+    select <- all.vars(select)
+  }
+  if (inherits(exclude, "formula")) {
+    exclude <- all.vars(exclude)
+  }
+
   if (is.null(select)) {
     select <- names(x)
   }

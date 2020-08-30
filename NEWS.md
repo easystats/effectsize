@@ -3,6 +3,7 @@
 ## Bug fixes
 
 - `phi()` and `cramers_v()` did not respect the CI argument ( #111 ).
+- `standardize()` / `standardize_parameters()` properly deal with transformed data in the model formula ( #113 ).
 
 # effectsize 0.3.2
 
