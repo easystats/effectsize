@@ -28,7 +28,7 @@ phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...){
     warning("'CI' argument is deprecated. Use 'ci' instead.")
   }
 
-  res <- stats::chisq.test(x, y)
+  res <- suppressWarnings(stats::chisq.test(x, y))
   Obs <- res$observed
   Exp <- res$expected
 
@@ -49,7 +49,7 @@ cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI,...){
     warning("'CI' argument is deprecated. Use 'ci' instead.")
   }
 
-  res <- stats::chisq.test(x, y)
+  res <- suppressWarnings(stats::chisq.test(x, y))
   Obs <- res$observed
   Exp <- res$expected
 

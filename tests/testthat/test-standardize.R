@@ -83,10 +83,12 @@ if (require("testthat") && require("effectsize") && require("dplyr") && require(
     testthat::expect_message(standardize(lm(mpg ~ sqrt(cyl), mtcars)))
     testthat::expect_message(standardize(lm(mpg ~ log(hp), mtcars)))
 
-    # difference btween stand-methods:
-    fit_exp <- lm(mpg ~ exp(hp_100), mtcars)
-    fit_scale1 <- lm(scale(mpg) ~ exp(scale(hp/100)), mtcars)
-    fit_scale2 <- lm(scale(mpg) ~ scale(exp(hp/100)), mtcars)
+    # difference between stand-methods:
+    mt <- mtcars
+    mt$hp_100 <- mt$hp/100
+    fit_exp <- lm(mpg ~ exp(hp_100), mt)
+    fit_scale1 <- lm(scale(mpg) ~ exp(scale(hp_100)), mt)
+    fit_scale2 <- lm(scale(mpg) ~ scale(exp(hp_100)), mt)
     testthat::expect_equal(standardize_parameters(fit_exp, method = "refit")[2,2],
                            unname(coef(fit_scale1)[2]))
 
