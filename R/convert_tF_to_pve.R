@@ -12,7 +12,7 @@
 #'
 #' @param t,f The t or the F statistics.
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
-#' @inheritParams chisq_to_phi
+#' @inheritParams convert-chisq
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @return A data frame with the effect size(s) between 0-1, and confidence interval(s) (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2}
