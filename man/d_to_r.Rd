@@ -6,7 +6,6 @@
 \alias{d_to_percentage}
 \alias{convert_percentage_to_d}
 \alias{convert_d_to_percentage}
-\alias{convert-between-effect-sizes}
 \alias{d_to_r}
 \alias{r_to_d}
 \alias{convert_d_to_r}

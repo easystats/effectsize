@@ -34,15 +34,13 @@
 #' @references
 #' - Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003). Effect-size indices for dichotomized outcomes in meta-analysis. Psychological methods, 8(4), 448.
 #' - Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R. (2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
-#'
-#' @name convert-between-effect-sizes
 #' @export
 d_to_r <- function(d, ...) {
   d / (sqrt(d^2 + 4))
 }
 
 
-#' @rdname convert-between-effect-sizes
+#' @rdname d_to_r
 #' @export
 r_to_d <- function(r, ...) {
   2 * r / sqrt(1 - r^2)
@@ -50,10 +48,10 @@ r_to_d <- function(r, ...) {
 
 
 
-#' @rdname convert-between-effect-sizes
+#' @rdname d_to_r
 #' @export
 convert_d_to_r <- d_to_r
 
-#' @rdname convert-between-effect-sizes
+#' @rdname d_to_r
 #' @export
 convert_r_to_d <- r_to_d

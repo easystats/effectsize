@@ -1,4 +1,4 @@
-#' @rdname convert-between-effect-sizes
+#' @rdname d_to_r
 #' @export
 odds_to_probs <- function(odds, log = FALSE, ...) {
   UseMethod("odds_to_probs")
@@ -15,14 +15,14 @@ odds_to_probs.double <- odds_to_probs.numeric
 
 
 
-#' @rdname convert-between-effect-sizes
+#' @rdname d_to_r
 #' @export
 odds_to_probs.data.frame <- function(odds, log = FALSE, select = NULL, exclude = NULL, ...) {
   .odds_to_probs_df(odds = odds, log = log, select = select, exclude = exclude, ...)
 }
 
 
-#' @rdname convert-between-effect-sizes
+#' @rdname d_to_r
 #' @export
 probs_to_odds <- function(probs, log = FALSE, ...) {
   UseMethod("probs_to_odds")
@@ -42,11 +42,11 @@ probs_to_odds.data.frame <- function(probs, log = FALSE, select = NULL, exclude 
 }
 
 
-#' @rdname convert-between-effect-sizes
+#' @rdname d_to_r
 #' @export
 convert_odds_to_probs <- odds_to_probs
 
-#' @rdname convert-between-effect-sizes
+#' @rdname d_to_r
 #' @export
 convert_probs_to_odds <- probs_to_odds
 
