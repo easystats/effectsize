@@ -46,6 +46,12 @@
 #' integers) or binary predictors. Although being inappropriate for these cases,
 #' this method is the one implemented by default in other software packages,
 #' such as [lm.beta::lm.beta()].
+#' - **pseudo** (*for 2-level (G)LMMs only*): In this (post-hoc) method, the
+#' response and the predictor are standardized based on the level of the
+#' predictor: predictors are standardized based on the original SD at each
+#' level, and the response is standardized based on a fitted random intercept
+#' model where the `sqrt(random-intercept-variance)` for level 2 predictors, and
+#' `sqrt(residual-variance)` for level 1 predictors (Hoffman 2015, page 342).
 #'
 #' ## Transformed Variables
 #' When the model's formula contains transformations (e.g. `y ~ exp(X)`) `method
@@ -105,6 +111,7 @@
 #' @return Standardized parameters table.
 #'
 #' @references
+#' - Hoffman, L. (2015). Longitudinal analysis: Modeling within-person fluctuation and change. Routledge.
 #' - Neter, J., Wasserman, W., & Kutner, M. H. (1989). Applied linear regression models.
 #' - Gelman, A. (2008). Scaling regression inputs by dividing by two standard deviations. Statistics in medicine, 27(15), 2865-2873.
 #'
@@ -125,6 +132,7 @@ standardize_parameters <- function(model, parameters = NULL, method = "refit", c
       object_name = object_name,
       ...
     )
+  method <- attr(std_params, "std_method")
 
   # Summarise for Bayesian models
   if (insight::model_info(model)$is_bayesian) {
@@ -139,6 +147,7 @@ standardize_parameters <- function(model, parameters = NULL, method = "refit", c
   }
 
   attr(std_params, "object_name") <- deparse(substitute(model), width.cutoff = 500)
+  attr(std_params, "std_method") <- method
   std_params
 }
 
@@ -157,14 +166,29 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 
 #' @keywords internal
 .standardize_parameters <- function(model, parameters = NULL, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, object_name = NULL, ...) {
-  method <- match.arg(method, choices = c("default", "refit", "posthoc", "smart", "partial", "basic"))
+  method <- match.arg(method, choices = c("default", "refit", "posthoc", "smart", "partial", "basic", "pseudo"))
+
+  if (method == "pseudo") {
+    if (!(insight::model_info(model)$is_mixed &&
+         length(insight::find_random(model)$random) == 1)) {
+      warning(
+        "'pseudo' method only available for 2-level (G)LMMs.\n",
+        "Setting method to 'basic'.",
+        call. = FALSE
+      )
+      method <- "basic"
+    }
+  }
+
+  if (method == "default") method <- "refit"
+
 
   # Refit
   if (method %in% c("refit")) {
     std_params <- .standardize_parameters_refit(model, ci = ci, robust = robust, verbose = verbose, ...)
 
     # Posthoc
-  } else if (method %in% c("posthoc", "smart", "basic", "classic")) {
+  } else if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
     std_params <- .standardize_parameters_posthoc(model, parameters = parameters, method = method, ci = ci, robust = robust, two_sd = two_sd, verbose = verbose, object_name = object_name, ...)
 
     # Partial
@@ -173,6 +197,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   }
 
   class(std_params) <- c("effectsize_table", "see_effectsize_table",class(std_params))
+  attr(std_params, "std_method") <- method
   std_params
 }
 
@@ -251,8 +276,11 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   } else if (method == "smart") {
     col_dev_resp <- "Deviation_Response_Smart"
     col_dev_pred <- "Deviation_Smart"
+  } else if (method == "pseudo") {
+    col_dev_resp <- "Deviation_Response_Pseudo"
+    col_dev_pred <- "Deviation_Pseudo"
   } else {
-    stop("'method' must be one of 'basic', 'posthoc' or 'smart'.")
+    stop("'method' must be one of 'basic', 'posthoc', 'smart' or 'pseudo'.")
   }
 
   # Sapply standardization

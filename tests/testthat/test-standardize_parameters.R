@@ -85,4 +85,36 @@ if (require("testthat") && require("effectsize")) {
       )
     })
   }
+
+  if (require(lme4)) {
+    test_that("Pseudo std", {
+      set.seed(1)
+      N <- 10
+      k <- 10
+      ID <- rep(1:N, each = k)
+      x_between <- rnorm(N)[ID]
+      x_within <- rnorm(N*k)
+      y <- ID/N + x_between + x_within + rnorm(N*k, sd = 2)
+
+      dat <- data.frame(y, x_within, x_between, ID)
+
+      fit <- lmer(y ~ x_within + x_between + (x_within | ID),
+                  data = dat)
+
+
+      m0 <- lmer(y ~ 1 + (1 | ID),
+                 data = dat)
+      m0v <- insight::get_variance(m0)
+
+      b <- fixef(fit)[-1]
+      SD_y <- c(sqrt(m0v$var.residual), sqrt(m0v$var.intercept))
+      SD_x <- c(sd(dat$x_within),sd(tapply(dat$x_between,dat$ID,mean)))
+      pseudo_std <- b * SD_x / SD_y
+
+      std <- standardize_parameters(fit, method = "pseudo")
+
+      expect_equal(std$Std_Coefficient[-1], unname(pseudo_std))
+      expect_warning(standardize_parameters(fit, method = "pseudo", robust = TRUE))
+    })
+  }
 }

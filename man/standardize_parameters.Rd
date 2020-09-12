@@ -97,6 +97,12 @@ deviation of model's matrix' parameter of factors levels (transformed to
 integers) or binary predictors. Although being inappropriate for these cases,
 this method is the one implemented by default in other software packages,
 such as \code{\link[lm.beta:lm.beta]{lm.beta::lm.beta()}}.
+\item \strong{pseudo} (\emph{for 2-level (G)LMMs only}): In this (post-hoc) method, the
+response and the predictor are standardized based on the level of the
+predictor: predictors are standardized based on the original SD at each
+level, and the response is standardized based on a fitted random intercept
+model where the \code{sqrt(random-intercept-variance)} for level 2 predictors, and
+\code{sqrt(residual-variance)} for level 1 predictors (Hoffman 2015, page 342).
 }
 }
 
@@ -150,6 +156,7 @@ if (require("rstanarm")) {
 }
 \references{
 \itemize{
+\item Hoffman, L. (2015). Longitudinal analysis: Modeling within-person fluctuation and change. Routledge.
 \item Neter, J., Wasserman, W., & Kutner, M. H. (1989). Applied linear regression models.
 \item Gelman, A. (2008). Scaling regression inputs by dividing by two standard deviations. Statistics in medicine, 27(15), 2865-2873.
 }

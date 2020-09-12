@@ -23,6 +23,10 @@ print.effectsize_table <- function(x, digits = 2, ...){
 
   cat(insight::format_table(x, digits = digits))
 
+  if (!is.null(method <- attr(x_orig, "std_method"))) {
+    insight::print_color(color = "blue", paste0("\n# Standardization method: ", method, "\n"))
+  }
+
   invisible(x_orig)
 }
 
