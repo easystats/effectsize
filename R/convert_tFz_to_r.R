@@ -13,7 +13,7 @@
 #' @param n The number of observations (the sample size).
 #' @param paired Should the estimate accout for the t-value being testing the difference between dependant means?
 #' @param pooled Deprecated. Use `paired`.
-#' @inheritParams convert-chisq
+#' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods.
 #'
 #'

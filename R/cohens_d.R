@@ -13,7 +13,7 @@
 #' @param correction If `TRUE`, applies a correction to make it less biased for small samples (McGrath & Meyer, 2006).
 #' @param pooled_sd If `TRUE` (default), a [sd_pooled()] is used (assuming equal variance). Else the mean SD from both groups is used instead.
 #' @param paired If `TRUE`, the values of `x` and `y` are considered as paired.
-#' @inheritParams convert-chisq
+#' @inheritParams chisq_to_phi
 #'
 #' @return A data frame with the effect size(s) and confidence interval(s).
 #'

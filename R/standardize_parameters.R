@@ -6,7 +6,7 @@
 #' @param parameters An optional table containing the parameters to standardize. If `NULL`, will automatically retrieve it from the model.
 #' @param method The method used for standardizing the parameters. Can be `"refit"` (default), `"posthoc"`, `"smart"` or `"basic"`. See 'Details'.
 #' @inheritParams standardize
-#' @inheritParams convert-chisq
+#' @inheritParams chisq_to_phi
 #' @param centrality For Bayesian models, which point-estimates (centrality indices) to compute. Character (vector) or list with one or more of these options: "median", "mean", "MAP" or "all".
 #'
 #' @details

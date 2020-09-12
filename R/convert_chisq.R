@@ -3,6 +3,7 @@
 #' Convert between Chi square, (\eqn{\chi^2}), phi (\eqn{\phi}) and Cramer's V.
 #'
 #' @param chisq The Chi2 statistic.
+#' @param phi The Phi statistic.
 #' @param n Sample size.
 #' @param nrow,ncol The number of rows/columns in the contingency table (ignored for Phi when `adjust=FALSE` and `CI=NULL`).
 #' @param ci Confidence Interval (CI) level
@@ -50,7 +51,6 @@
 #' - Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
 #' - Bergsma, W. (2013). A bias-correction for Cramer's V and Tschuprow's T. Journal of the Korean Statistical Society, 42(3), 323-328.
 #'
-#' @name convert-chisq
 #' @export
 chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...){
   if (adjust) {
@@ -82,7 +82,7 @@ chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...){
 }
 
 
-#' @rdname convert-chisq
+#' @rdname chisq_to_phi
 #' @export
 chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...) {
   if (adjust) {
@@ -121,8 +121,7 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, 
 
 # Reverse -----------------------------------------------------------------
 
-#' @rdname convert-chisq
-#' @param phi The Phi statistic.
+#' @rdname chisq_to_phi
 #' @export
 phi_to_chisq <- function(phi, n, ...) {
   (phi * n)^2

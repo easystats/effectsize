@@ -10,7 +10,7 @@
 #'
 #' @param model A model, ANOVA object, or the result of `parameters::model_parameters`.
 #' @param partial If `TRUE`, return partial indices.
-#' @inheritParams convert-chisq
+#' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods (ignored).
 #'
 #' @return A data frame with the effect size(s) and confidence interval(s).
