@@ -254,13 +254,19 @@ standardize_info <- function(model, robust = FALSE, ...) {
 # Pseudo (GLMM) -----------------------------------------------------------
 
 
+#' @importFrom insight find_interactions clean_names get_random model_info find_formula get_variance get_data
+#' @importFrom parameters check_heterogeneity
+#' @importFrom stats as.formula sd
 .std_info_pseudo <- function(model, params, model_matrix, robust = FALSE) {
   # TODO:
   # 1. Validate that this is how the sds are calculated for y
   # 2. Validate that this is how the sds are calculated for x
 
   within_vars <- unclass(parameters::check_heterogeneity(model))
-  # interactions <- insight::find_interactions(model)$conditional
+  interactions <- insight::find_interactions(model, flatten = TRUE)$conditional
+  if (!is.null(interactions)) {
+    interactions <- insight::clean_names(unique(unlist(strsplit(interactions, ":", fixed = TRUE))))
+  }
   id <- insight::get_random(model)[[1]]
 
   if (robust) {
@@ -280,7 +286,7 @@ standardize_info <- function(model, robust = FALSE, ...) {
     f <- insight::find_formula(model)
     f <- paste0(f$conditional[2], " ~ (1|",rand_name,")")
 
-    m0 <- lme4::lmer(as.formula(f), data = insight::get_data(model))
+    m0 <- lme4::lmer(stats::as.formula(f), data = insight::get_data(model))
     m0v <- insight::get_variance(m0)
 
     sd_y_between <- unname(sqrt(m0v$var.intercept))
@@ -295,7 +301,7 @@ standardize_info <- function(model, robust = FALSE, ...) {
     if (p == "(Intercept)") {
       Deviation_Response_Pseudo[p] <- Deviation_Pseudo[p] <- NA
     } else if (p %in% within_vars ||
-               grepl(":", p) && any(sapply(within_vars, grepl, p))) {
+               (!is.null(interactions) && p %in% interactions && any(within_vars %in% interactions))) {
       ## is within
       # X_fit <- lme4::lmer(model_matrix[[p]] ~ 1 + (1|id))
       # Deviation_Pseudo[p] <- sqrt(insight::get_variance_residual(X_fit))
