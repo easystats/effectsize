@@ -61,6 +61,30 @@ if (require("testthat") && require("effectsize")) {
     )
   })
 
+  test_that("standardize_parameters (with dunction interactions)", {
+    X <- scale(rnorm(100),T,F)
+    Z <- scale(rnorm(100),T,F)
+    Y <- scale(Z + X * Z + rnorm(100),T,F)
+
+    m1 <- lm(Y ~ X * Z)
+    m2 <- lm(Y ~ X * scale(Z))
+    m3 <- lm(Y ~ scale(X) * Z)
+    m4 <- lm(Y ~ scale(X) * scale(Z))
+
+    testthat::expect_equal(
+      standardize_parameters(m1, method = "basic")$Std_Coefficient,
+      standardize_parameters(m2, method = "basic")$Std_Coefficient
+    )
+    testthat::expect_equal(
+      standardize_parameters(m1, method = "basic")$Std_Coefficient,
+      standardize_parameters(m3, method = "basic")$Std_Coefficient
+    )
+    testthat::expect_equal(
+      standardize_parameters(m1, method = "basic")$Std_Coefficient,
+      standardize_parameters(m4, method = "basic")$Std_Coefficient
+    )
+  })
+
   if (require(rstanarm)) {
     test_that("standardize_parameters (Bayes)", {
       testthat::skip_on_cran()
@@ -87,7 +111,7 @@ if (require("testthat") && require("effectsize")) {
   }
 
   if (require(lme4)) {
-    test_that("Pseudo std", {
+    test_that("standardize_parameters (Pseudo - GLMM)", {
       set.seed(1)
       N <- 10
       k <- 10
