@@ -301,7 +301,7 @@ standardize_info <- function(model, robust = FALSE, ...) {
     if (p == "(Intercept)") {
       Deviation_Response_Pseudo[p] <- Deviation_Pseudo[p] <- NA
     } else if (p %in% within_vars ||
-               (!is.null(interactions) && p %in% interactions && any(within_vars %in% interactions))) {
+               (!is.null(interactions) && p %in% interactions && any(sapply(within_vars, grepl, interactions)))) {
       ## is within
       # X_fit <- lme4::lmer(model_matrix[[p]] ~ 1 + (1|id))
       # Deviation_Pseudo[p] <- sqrt(insight::get_variance_residual(X_fit))
