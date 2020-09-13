@@ -255,6 +255,10 @@ standardize_info <- function(model, robust = FALSE, ...) {
 
 
 .std_info_pseudo <- function(model, params, model_matrix, robust = FALSE) {
+  # TODO:
+  # 1. Validate that this is how the sds are calculated for y
+  # 2. Validate that this is how the sds are calculated for x
+
   within_vars <- unclass(parameters::check_heterogeneity(model))
   id <- insight::get_random(model)[[1]]
 
@@ -270,10 +274,10 @@ standardize_info <- function(model, robust = FALSE, ...) {
       stop("This function requires 'lme4' to work.")
     }
 
-    resp_name <- insight::find_response(model)
     rand_name <- insight::find_random(model)$random
 
-    f <- paste0(resp_name, " ~ (1|",rand_name,")")
+    f <- insight::find_formula(model)
+    f <- paste0(f$conditional[2], " ~ (1|",rand_name,")")
 
     m0 <- lme4::lmer(as.formula(f), data = insight::get_data(model))
     m0v <- insight::get_variance(m0)
@@ -288,7 +292,7 @@ standardize_info <- function(model, robust = FALSE, ...) {
   Deviation_Response_Pseudo <- Deviation_Pseudo <- setNames(numeric(ncol(model_matrix)),params)
   for (p in params) {
     if (p == "(Intercept)") {
-      Deviation_Response_Pseudo[p] <- Deviation_Pseudo[p] <- 0
+      Deviation_Response_Pseudo[p] <- Deviation_Pseudo[p] <- NA
     } else if (p %in% within_vars ||
                grepl(":", p) && any(sapply(within_vars, grepl, p))) {
       ## is within
