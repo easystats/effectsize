@@ -260,6 +260,7 @@ standardize_info <- function(model, robust = FALSE, ...) {
   # 2. Validate that this is how the sds are calculated for x
 
   within_vars <- unclass(parameters::check_heterogeneity(model))
+  # interactions <- insight::find_interactions(model)$conditional
   id <- insight::get_random(model)[[1]]
 
   if (robust) {
