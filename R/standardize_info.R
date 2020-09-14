@@ -61,7 +61,7 @@ standardize_info <- function(model, robust = FALSE, ...) {
       length(insight::find_random(model)$random) == 1) {
     out <- merge(
       out,
-      .std_info_pseudo(model, params, model_matrix, robust = robust)
+      .std_info_pseudo(model, params, model_matrix, types = types$Type, robust = robust)
     )
   }
 
@@ -254,25 +254,44 @@ standardize_info <- function(model, robust = FALSE, ...) {
 # Pseudo (GLMM) -----------------------------------------------------------
 
 
-#' @importFrom insight find_interactions clean_names get_random model_info find_formula get_variance get_data
+#' @importFrom insight clean_names get_random model_info find_formula get_variance get_data
 #' @importFrom parameters check_heterogeneity
 #' @importFrom stats as.formula sd
-.std_info_pseudo <- function(model, params, model_matrix, robust = FALSE) {
-  # TODO:
-  # 1. Validate that this is how the sds are calculated for y
-  # 2. Validate that this is how the sds are calculated for x
-
-  within_vars <- unclass(parameters::check_heterogeneity(model))
-  interactions <- insight::find_interactions(model, flatten = TRUE)$conditional
-  if (!is.null(interactions)) {
-    interactions <- insight::clean_names(unique(unlist(strsplit(interactions, ":", fixed = TRUE))))
-  }
-  id <- insight::get_random(model)[[1]]
+.std_info_pseudo <- function(model, params, model_matrix, types, robust = FALSE) {
 
   if (robust) {
     warning("'robust' standardization not available for 'pseudo' method.",
             call. = FALSE)
   }
+
+  # TODO:
+  # 1. Validate that this is how the sds are calculated for y
+  # 2. Validate that this is how the sds are calculated for x
+
+  within_vars <- unclass(parameters::check_heterogeneity(model))
+  id <- insight::get_random(model)[[1]]
+
+  ## Find which parameters vary on level 1 ("within")
+  is_within <- logical(length = length(params))
+  is_within[] <- NA
+  for (i in seq_along(params)) {
+    if (types[i] == "intercept") {
+      is_within[i] <- FALSE
+    } else if (types[i] == "numeric") {
+      is_within[i] <- insight::clean_names(params[i]) %in% within_vars
+    } else if (types[i] == "factor") {
+      is_within[i] <- any(sapply(paste0("^",within_vars), grepl, insight::clean_names(params[i])))
+    } else if (types[i] == "interaction") {
+      ints <- unlist(strsplit(params[i], ":", fixed = TRUE))
+      is_within[i] <- any(sapply(ints, function(int) {
+        int <- insight::clean_names(int)
+        int %in% within_vars | # numeric
+          any(sapply(paste0("^",within_vars), grepl, int)) # factor
+      }))
+    }
+  }
+  print(data.frame(params,is_within))
+
 
   ## Get 2 types of Deviation_Response_Pseudo
   sd_y_within <- sd_y_between <- 1
@@ -283,6 +302,7 @@ standardize_info <- function(model, robust = FALSE, ...) {
 
     rand_name <- insight::find_random(model)$random
 
+    # maintain any y-transformations
     f <- insight::find_formula(model)
     f <- paste0(f$conditional[2], " ~ (1|",rand_name,")")
 
@@ -296,25 +316,23 @@ standardize_info <- function(model, robust = FALSE, ...) {
 
 
   ## Get scaling factors for each parameter
-  Deviation_Response_Pseudo <- Deviation_Pseudo <- setNames(numeric(ncol(model_matrix)),params)
-  for (p in params) {
-    if (p == "(Intercept)") {
-      Deviation_Response_Pseudo[p] <- Deviation_Pseudo[p] <- NA
-    } else if (p %in% within_vars ||
-               (!is.null(interactions) && p %in% interactions && any(sapply(within_vars, grepl, interactions)))) {
+  Deviation_Response_Pseudo <- Deviation_Pseudo <- numeric(ncol(model_matrix))
+  for (i in seq_along(params)) {
+    if (types[i] == "intercept") {
+      Deviation_Response_Pseudo[i] <- Deviation_Pseudo[i] <- NA
+    } else if (is_within[i]) {
       ## is within
       # X_fit <- lme4::lmer(model_matrix[[p]] ~ 1 + (1|id))
       # Deviation_Pseudo[p] <- sqrt(insight::get_variance_residual(X_fit))
-      Deviation_Pseudo[p] <- stats::sd(model_matrix[[p]])
-      Deviation_Response_Pseudo[p] <- sd_y_within
+      Deviation_Pseudo[i] <- stats::sd(model_matrix[[i]])
+      Deviation_Response_Pseudo[i] <- sd_y_within
     } else {
       ## is between
-      X <- tapply(model_matrix[[p]], id, mean)
-      Deviation_Pseudo[p] <- stats::sd(X)
-      Deviation_Response_Pseudo[p] <- sd_y_between
+      X <- tapply(model_matrix[[i]], id, mean)
+      Deviation_Pseudo[i] <- stats::sd(X)
+      Deviation_Response_Pseudo[i] <- sd_y_between
     }
   }
-
 
   data.frame(
     Parameter = params,

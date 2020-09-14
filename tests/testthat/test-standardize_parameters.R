@@ -113,32 +113,62 @@ if (require("testthat") && require("effectsize")) {
   if (require(lme4)) {
     test_that("standardize_parameters (Pseudo - GLMM)", {
       set.seed(1)
-      N <- 10
-      k <- 10
+      N <- 30
+      k <- 100
       ID <- rep(1:N, each = k)
       x_between <- rnorm(N)[ID]
       x_within <- rnorm(N*k)
+      c_within <- sample(letters[1:3], size = N*k, replace = TRUE)
       y <- ID/N + x_between + x_within + rnorm(N*k, sd = 2)
 
-      dat <- data.frame(y, x_within, x_between, ID)
-
-      fit <- lmer(y ~ x_within + x_between + (x_within | ID),
-                  data = dat)
+      dat <- data.frame(y, x_within, c_within, x_between, ID)
 
 
-      m0 <- lmer(y ~ 1 + (1 | ID),
-                 data = dat)
-      m0v <- insight::get_variance(m0)
 
-      b <- fixef(fit)[-1]
-      SD_y <- c(sqrt(m0v$var.residual), sqrt(m0v$var.intercept))
-      SD_x <- c(sd(dat$x_within),sd(tapply(dat$x_between,dat$ID,mean)))
-      pseudo_std <- b * SD_x / SD_y
+      fit <- lmer(y ~ scale(x_within) * x_between + c_within + (scale(x_within) | ID),
+                        data = dat)
 
-      std <- standardize_parameters(fit, method = "pseudo")
-
-      expect_equal(std$Std_Coefficient[-1], unname(pseudo_std))
       expect_warning(standardize_parameters(fit, method = "pseudo", robust = TRUE))
+
+      ## Interactions with level1 and level1 factors
+      b <- fixef(fit)[-1]
+      mm <- model.matrix(fit)[,-1]
+      SD_x <- numeric(ncol(mm))
+      SD_x[c(1,3,4,5)] <- apply(mm[,c(1,3,4,5)], 2, sd)
+      SD_x[2] <- apply(mm[,2, drop = F], 2, function(.x) sd(tapply(.x, dat$ID, mean)))
+      m0 <- lmer(y ~ 1 + (1 | ID), data = dat)
+      m0v <- insight::get_variance(m0)
+      SD_y <- c(sqrt(m0v$var.residual), sqrt(m0v$var.intercept))
+      SD_y <- SD_y[c(1,2,1,1,1)]
+
+      expect_equal(
+        data.frame(Deviation_Response_Pseudo = c(NA,SD_y),Deviation_Pseudo = c(NA,SD_x)),
+        standardize_info(fit)[, c("Deviation_Response_Pseudo", "Deviation_Pseudo")]
+      )
+      expect_equal(
+        standardize_parameters(fit, method = "pseudo")$Std_Coefficient[-1],
+        unname(b * SD_x/SD_y)
+      )
+
+
+      ## scaling should not affect
+
+      m1 <- lmer(y ~ x_within + x_between + c_within + (x_within | ID),
+                       data = dat)
+      m2 <- lmer(y ~ scale(x_within) + x_between + c_within + (scale(x_within) | ID),
+                       data = dat)
+      m3 <- lmer(scale(y) ~ x_within + x_between + c_within + (x_within | ID),
+                       data = dat)
+      m4 <- lmer(y ~ x_within + scale(x_between) + c_within + (x_within | ID),
+                       data = dat)
+      std1 <- standardize_parameters(m1, method = "pseudo")
+
+      expect_equal(std1$Std_Coefficient,
+                   standardize_parameters(m2, method = "pseudo")$Std_Coefficient, tol = 0.001)
+      expect_equal(std1$Std_Coefficient,
+                   standardize_parameters(m3, method = "pseudo")$Std_Coefficient, tol = 0.001)
+      expect_equal(std1$Std_Coefficient,
+                   standardize_parameters(m4, method = "pseudo")$Std_Coefficient, tol = 0.001)
     })
   }
 }
