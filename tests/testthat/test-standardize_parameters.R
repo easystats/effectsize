@@ -61,7 +61,7 @@ if (require("testthat") && require("effectsize")) {
     )
   })
 
-  test_that("standardize_parameters (with dunction interactions)", {
+  test_that("standardize_parameters (with function interactions)", {
     X <- scale(rnorm(100),T,F)
     Z <- scale(rnorm(100),T,F)
     Y <- scale(Z + X * Z + rnorm(100),T,F)
