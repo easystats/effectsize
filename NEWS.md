@@ -1,4 +1,8 @@
-# effectsize 0.3.x
+# effectsize 0.3.3
+
+## New features
+
+- `standardize_parameters(method = "pseudo")` returns pseudo-standardized coefficients for (G)LMM models.
 
 ## Bug fixes
 
