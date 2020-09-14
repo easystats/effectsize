@@ -99,10 +99,13 @@ this method is the one implemented by default in other software packages,
 such as \code{\link[lm.beta:lm.beta]{lm.beta::lm.beta()}}.
 \item \strong{pseudo} (\emph{for 2-level (G)LMMs only}): In this (post-hoc) method, the
 response and the predictor are standardized based on the level of the
-predictor: predictors are standardized based on the original SD at each
-level, and the response is standardized based on a fitted random intercept
-model where the \code{sqrt(random-intercept-variance)} for level 2 predictors, and
-\code{sqrt(residual-variance)} for level 1 predictors (Hoffman 2015, page 342).
+predictor: predictors are standardized according to their
+\code{sd(groupwise-mean)} if they are level 2 predictors and their \code{sd(de-meaned)}
+if they are level 1 predictors (see also \code{\link[parameters:demean]{parameters::demean()}}); the
+response is standardized based on a fitted random intercept model where the
+\code{sqrt(random-intercept-variance)} is used for level 2 predictors, and
+\code{sqrt(residual-variance)} is used for level 1 predictors (Hoffman 2015, page
+342).
 }
 }
 

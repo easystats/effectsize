@@ -134,8 +134,14 @@ if (require("testthat") && require("effectsize")) {
       b <- fixef(fit)[-1]
       mm <- model.matrix(fit)[,-1]
       SD_x <- numeric(ncol(mm))
-      SD_x[c(1,3,4,5)] <- apply(mm[,c(1,3,4,5)], 2, sd)
-      SD_x[2] <- apply(mm[,2, drop = F], 2, function(.x) sd(tapply(.x, dat$ID, mean)))
+      SD_x[c(1,3,4,5)] <- apply(mm[,c(1,3,4,5)], 2, function(.x) {
+        sd(parameters::demean(data.frame(.x,id = dat$ID),".x","id")$.x_within)
+      })
+      SD_x[2] <- apply(mm[,2,drop = FALSE], 2, function(.x) {
+        .x <- parameters::demean(data.frame(.x,id = dat$ID),".x","id")$.x_between
+        sd(tapply(.x, dat$ID, "[", 1))
+      })
+
       m0 <- lmer(y ~ 1 + (1 | ID), data = dat)
       m0v <- insight::get_variance(m0)
       SD_y <- c(sqrt(m0v$var.residual), sqrt(m0v$var.intercept))
@@ -152,7 +158,6 @@ if (require("testthat") && require("effectsize")) {
 
 
       ## scaling should not affect
-
       m1 <- lmer(y ~ x_within + x_between + c_within + (x_within | ID),
                        data = dat)
       m2 <- lmer(y ~ scale(x_within) + x_between + c_within + (scale(x_within) | ID),

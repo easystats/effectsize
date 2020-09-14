@@ -48,10 +48,13 @@
 #' such as [lm.beta::lm.beta()].
 #' - **pseudo** (*for 2-level (G)LMMs only*): In this (post-hoc) method, the
 #' response and the predictor are standardized based on the level of the
-#' predictor: predictors are standardized based on the original SD at each
-#' level, and the response is standardized based on a fitted random intercept
-#' model where the `sqrt(random-intercept-variance)` for level 2 predictors, and
-#' `sqrt(residual-variance)` for level 1 predictors (Hoffman 2015, page 342).
+#' predictor: predictors are standardized according to their
+#' `sd(groupwise-mean)` if they are level 2 predictors and their `sd(de-meaned)`
+#' if they are level 1 predictors (see also [parameters::demean()]); the
+#' response is standardized based on a fitted random intercept model where the
+#' `sqrt(random-intercept-variance)` is used for level 2 predictors, and
+#' `sqrt(residual-variance)` is used for level 1 predictors (Hoffman 2015, page
+#' 342).
 #'
 #' ## Transformed Variables
 #' When the model's formula contains transformations (e.g. `y ~ exp(X)`) `method

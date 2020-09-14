@@ -255,18 +255,13 @@ standardize_info <- function(model, robust = FALSE, ...) {
 
 
 #' @importFrom insight clean_names get_random model_info find_formula get_variance get_data
-#' @importFrom parameters check_heterogeneity
+#' @importFrom parameters check_heterogeneity demean
 #' @importFrom stats as.formula sd
 .std_info_pseudo <- function(model, params, model_matrix, types, robust = FALSE) {
-
   if (robust) {
     warning("'robust' standardization not available for 'pseudo' method.",
             call. = FALSE)
   }
-
-  # TODO:
-  # 1. Validate that this is how the sds are calculated for y
-  # 2. Validate that this is how the sds are calculated for x
 
   within_vars <- unclass(parameters::check_heterogeneity(model))
   id <- insight::get_random(model)[[1]]
@@ -290,24 +285,23 @@ standardize_info <- function(model, robust = FALSE, ...) {
       }))
     }
   }
-  insight::print_color("\nMATTAN! TURN ME OFF!\n", "red")
-  print(data.frame(params,is_within))
-
 
   ## Get 2 types of Deviation_Response_Pseudo
   sd_y_within <- sd_y_between <- 1
   if (insight::model_info(model)$is_linear) {
     if (!requireNamespace("lme4", quietly = TRUE)) {
-      stop("This function requires 'lme4' to work.")
+      stop("This function requires 'lme4' to work.", call. = FALSE)
     }
-
     rand_name <- insight::find_random(model)$random
 
     # maintain any y-transformations
     f <- insight::find_formula(model)
     f <- paste0(f$conditional[2], " ~ (1|",rand_name,")")
 
-    m0 <- lme4::lmer(stats::as.formula(f), data = insight::get_data(model))
+    m0 <- suppressWarnings(suppressMessages(
+      lme4::lmer(stats::as.formula(f),
+                 data = insight::get_data(model))
+    ))
     m0v <- insight::get_variance(m0)
 
     sd_y_between <- unname(sqrt(m0v$var.intercept))
@@ -315,23 +309,40 @@ standardize_info <- function(model, robust = FALSE, ...) {
   }
 
 
-
   ## Get scaling factors for each parameter
   Deviation_Response_Pseudo <- Deviation_Pseudo <- numeric(ncol(model_matrix))
   for (i in seq_along(params)) {
     if (types[i] == "intercept") {
       Deviation_Response_Pseudo[i] <- Deviation_Pseudo[i] <- NA
-    } else if (is_within[i]) {
-      ## is within
-      # X_fit <- lme4::lmer(model_matrix[[p]] ~ 1 + (1|id))
-      # Deviation_Pseudo[p] <- sqrt(insight::get_variance_residual(X_fit))
-      Deviation_Pseudo[i] <- stats::sd(model_matrix[[i]])
-      Deviation_Response_Pseudo[i] <- sd_y_within
     } else {
-      ## is between
-      X <- tapply(model_matrix[[i]], id, mean)
+      ## dumb way
+      X_demean <- parameters::demean(data.frame(id, X = model_matrix[[i]]), "X", "id")
+      if (is_within[i]) {
+        ## is within
+        X <- X_demean$X_within
+        Deviation_Response_Pseudo[i] <- sd_y_within
+      } else {
+        ## is between
+        X <- tapply(X_demean$X_between, id, "[", 1)
+        Deviation_Response_Pseudo[i] <- sd_y_between
+      }
       Deviation_Pseudo[i] <- stats::sd(X)
-      Deviation_Response_Pseudo[i] <- sd_y_between
+
+      ## smart way?
+      # m <- suppressWarnings(suppressMessages(lme4::lmer(model_matrix[[i]] ~ (1|id))))
+      # if (is_within[i]) {
+      #   ## is within
+      #   Deviation_Pseudo[i] <- sqrt(unname(unlist(suppressWarnings(
+      #     insight::get_variance(m, component = "residual")
+      #   ))))
+      #   Deviation_Response_Pseudo[i] <- sd_y_within
+      # } else {
+      #   ## is between
+      #   Deviation_Pseudo[i] <- sqrt(unname(unlist(suppressWarnings(
+      #     insight::get_variance(m, component = "intercept")
+      #   ))))
+      #   Deviation_Response_Pseudo[i] <- sd_y_between
+      # }
     }
   }
 
