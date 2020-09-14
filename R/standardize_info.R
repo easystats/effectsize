@@ -329,6 +329,7 @@ standardize_info <- function(model, robust = FALSE, ...) {
       Deviation_Pseudo[i] <- stats::sd(X)
 
       ## smart way?
+      ## DONT USE: see corespondance with between Mattan and Eran BC
       # m <- suppressWarnings(suppressMessages(lme4::lmer(model_matrix[[i]] ~ (1|id))))
       # if (is_within[i]) {
       #   ## is within
