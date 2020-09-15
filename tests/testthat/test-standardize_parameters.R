@@ -61,6 +61,30 @@ if (require("testthat") && require("effectsize")) {
     )
   })
 
+  test_that("standardize_parameters (with function interactions)", {
+    X <- scale(rnorm(100),T,F)
+    Z <- scale(rnorm(100),T,F)
+    Y <- scale(Z + X * Z + rnorm(100),T,F)
+
+    m1 <- lm(Y ~ X * Z)
+    m2 <- lm(Y ~ X * scale(Z))
+    m3 <- lm(Y ~ scale(X) * Z)
+    m4 <- lm(Y ~ scale(X) * scale(Z))
+
+    testthat::expect_equal(
+      standardize_parameters(m1, method = "basic")$Std_Coefficient,
+      standardize_parameters(m2, method = "basic")$Std_Coefficient
+    )
+    testthat::expect_equal(
+      standardize_parameters(m1, method = "basic")$Std_Coefficient,
+      standardize_parameters(m3, method = "basic")$Std_Coefficient
+    )
+    # testthat::expect_equal(
+    #   standardize_parameters(m1, method = "basic")$Std_Coefficient,
+    #   standardize_parameters(m4, method = "basic")$Std_Coefficient
+    # )
+  })
+
   if (require(rstanarm)) {
     test_that("standardize_parameters (Bayes)", {
       testthat::skip_on_cran()
@@ -83,6 +107,83 @@ if (require("testthat") && require("effectsize")) {
         c(NA, -0.058, -0.053,  0.838),
         tol = 0.01
       )
+    })
+  }
+
+  if (require(lme4)) {
+    test_that("standardize_parameters (Pseudo - GLMM)", {
+      set.seed(1)
+
+      dat <- data.frame(X = rnorm(1000),
+                        Z = rnorm(1000),
+                        C = sample(letters[1:3], size = 1000, replace = TRUE),
+                        ID = sort(rep(letters, length.out = 1000)))
+      dat <- transform(dat, Y = X + Z + rnorm(1000))
+      dat <- cbind(dat,parameters::demean(dat,c("X","Z"),"ID"))
+
+
+      m <- lmer(Y ~ scale(X_within) * X_between + C + (scale(X_within) | ID),
+                data = dat)
+
+      ## No robust methods... (yet)
+      expect_warning(standardize_parameters(m, method = "pseudo", robust = TRUE))
+
+
+      ## Correctly identify within and between terms
+      dev_resp <- standardize_info(m, include_pseudo = TRUE)$Deviation_Response_Pseudo
+      expect_equal(length(unique(dev_resp[c(2, 4, 5, 6)])), 1)
+      expect_true(dev_resp[2] != dev_resp[3])
+
+
+      ## Calc
+      b <- fixef(m)[-1]
+      mm <- model.matrix(m)[,-1]
+      SD_x <- numeric(ncol(mm))
+
+      SD_x[c(1,3,4,5)] <- apply(mm[,c(1,3,4,5)], 2, sd)
+      SD_x[2] <- sd(tapply(mm[,2], dat$ID, mean))
+
+      m0 <- lmer(Y ~ 1 + (1 | ID), data = dat)
+      m0v <- insight::get_variance(m0)
+      SD_y <- c(sqrt(m0v$var.residual), sqrt(m0v$var.intercept))
+      SD_y <- SD_y[c(1,2,1,1,1)]
+
+      expect_equal(
+        data.frame(Deviation_Response_Pseudo = c(NA,SD_y),Deviation_Pseudo = c(NA,SD_x)),
+        standardize_info(m, include_pseudo = TRUE)[, c("Deviation_Response_Pseudo", "Deviation_Pseudo")]
+      )
+      expect_equal(
+        standardize_parameters(m, method = "pseudo")$Std_Coefficient[-1],
+        unname(b * SD_x/SD_y)
+      )
+
+
+      ## scaling should not affect
+      m1 <- lmer(Y ~ X_within + X_between + C + (X_within | ID),
+                 data = dat)
+      m2 <- lmer(scale(Y) ~ X_within + X_between + C + (X_within | ID),
+                 data = dat)
+      m3 <- lmer(Y ~ scale(X_within) + X_between + C + (scale(X_within) | ID),
+                 data = dat)
+      m4 <- lmer(Y ~ X_within + scale(X_between) + C + (X_within | ID),
+                 data = dat)
+
+      std1 <- standardize_parameters(m1, method = "pseudo")
+      expect_equal(std1$Std_Coefficient,
+                   standardize_parameters(m2, method = "pseudo")$Std_Coefficient, tol = 0.001)
+      expect_equal(std1$Std_Coefficient,
+                   standardize_parameters(m3, method = "pseudo")$Std_Coefficient, tol = 0.001)
+      expect_equal(std1$Std_Coefficient,
+                   standardize_parameters(m4, method = "pseudo")$Std_Coefficient, tol = 0.001)
+
+
+
+      ## Give warning for within that is also between
+      mW <- lmer(Y ~ X_between + Z_within + C + (1 | ID), dat)
+      mM <- lmer(Y ~ X + Z + C + (1 | ID), dat)
+
+      expect_warning(standardize_parameters(mW, method = "pseudo"), NA)
+      expect_warning(standardize_parameters(mM, method = "pseudo"))
     })
   }
 }

@@ -1,17 +1,22 @@
 #' Effect size for differences
 #'
-#' Compute different indices of effect size. For very small sample sizes (n < 20)
-#' Hedges' g is considered as less biased than Cohen's d.
-#' For sample sizes > 20, the results for both statistics are roughly equivalent.
+#' Compute different indices of effect size. For very small sample sizes (n <
+#' 20) Hedges' g is considered as less biased than Cohen's d. For sample sizes >
+#' 20, the results for both statistics are roughly equivalent.
 #' \cr\cr
-#'  The Glass’s delta is appropriate if standard deviations are significantly different
-#'  between groups, as it uses only the *second* group's standard deviation.
+#' The Glass’s delta is appropriate if standard deviations are significantly
+#' different between groups, as it uses only the *second* group's standard
+#' deviation.
 #'
 #' @param x A formula, a numeric vector, or a character name of one in `data`.
-#' @param y A numeric vector, a grouping (character / factor) vector, a or a character  name of one in `data`. Ignored if `x` is a formula.
+#'   (For `print()` the result of one of the standardized difference functions.)
+#' @param y A numeric vector, a grouping (character / factor) vector, a or a
+#'   character  name of one in `data`. Ignored if `x` is a formula.
 #' @param data An optional data frame containing the variables.
-#' @param correction If `TRUE`, applies a correction to make it less biased for small samples (McGrath & Meyer, 2006).
-#' @param pooled_sd If `TRUE` (default), a [sd_pooled()] is used (assuming equal variance). Else the mean SD from both groups is used instead.
+#' @param correction If `TRUE`, applies a correction to make it less biased for
+#'   small samples (McGrath & Meyer, 2006).
+#' @param pooled_sd If `TRUE` (default), a [sd_pooled()] is used (assuming equal
+#'   variance). Else the mean SD from both groups is used instead.
 #' @param paired If `TRUE`, the values of `x` and `y` are considered as paired.
 #' @inheritParams chisq_to_phi
 #'
@@ -23,6 +28,8 @@
 #' of the noncentral t distribution for the desired tail-probabilities,
 #' and then convert these `ncp`s to the corresponding effect sizes.
 #'
+#' @seealso [d_to_common_language()]
+#'
 #' @examples
 #' cohens_d(iris$Sepal.Length, iris$Sepal.Width)
 #' hedges_g("Sepal.Length", "Sepal.Width", data = iris)
@@ -31,6 +38,8 @@
 #' cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)
 #' hedges_g(mpg ~ am, data = mtcars)
 #' glass_delta(mpg ~ am, data = mtcars)
+#'
+#' print(cohens_d(mpg ~ am, data = mtcars), append_CL = TRUE)
 #'
 #' @references
 #' - Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.
@@ -186,7 +195,7 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
       out[, colnames(out) %in% c(types, "CI_low", "CI_high")] * correction
   }
 
-  class(out) <- c("effectsize_table","see_effectsize_table", class(out))
+  class(out) <- c("effectsize_difference","see_effectsize_table", class(out))
   return(out)
 }
 

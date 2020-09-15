@@ -4,7 +4,6 @@
 #'
 #' @param d Standardized difference value (Cohen's d).
 #' @param r Correlation coefficient r.
-#' @param percentage Percentage value (e.g., `0.01` for one percent).
 #' @param odds Odds values in vector or dataframe.
 #' @param probs Probability values.
 #' @param log Take in or output log odds (such as in logistic models).

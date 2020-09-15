@@ -37,6 +37,7 @@ t_to_d <- function(t, df_error, paired = FALSE, ci = 0.95, pooled, ...) {
 
 
 #' @rdname t_to_r
+#' @importFrom stats qnorm
 #' @export
 z_to_d <- function(z, n, paired = FALSE, ci = 0.95, pooled, ...) {
   if (!missing(pooled)) {
@@ -59,7 +60,7 @@ z_to_d <- function(z, n, paired = FALSE, ci = 0.95, pooled, ...) {
     alpha <- 1 - ci
     probs <- c(alpha / 2, 1 - alpha / 2)
 
-    qs <- qnorm(probs)
+    qs <- stats::qnorm(probs)
     zs <- cbind(qs[1] + z, qs[2] + z)
 
     res$CI_low <- paired * zs[,1] / sqrt(n)

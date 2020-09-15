@@ -97,6 +97,14 @@ deviation of model's matrix' parameter of factors levels (transformed to
 integers) or binary predictors. Although being inappropriate for these cases,
 this method is the one implemented by default in other software packages,
 such as \code{\link[lm.beta:lm.beta]{lm.beta::lm.beta()}}.
+\item \strong{pseudo} (\emph{for 2-level (G)LMMs only}): In this (post-hoc) method, the
+response and the predictor are standardized based on the level of prediction
+(levels are detected with \code{\link[parameters:demean]{parameters::check_heterogeneity()}}): Predictors
+are standardized based on their SD at level of prediction (see also
+\code{\link[parameters:demean]{parameters::demean()}}); The outcome (in linear LMMs) is standardized based
+on a fitted random-intercept-model, where \code{sqrt(random-intercept-variance)}
+is used for level 2 predictors, and \code{sqrt(residual-variance)} is used for
+level 1 predictors (Hoffman 2015, page 342).
 }
 }
 
@@ -107,6 +115,14 @@ methods: where \code{"refit"} standardizes the data prior to the transformation
 (e.g. equivalent to \code{exp(scale(X))}), the post-hoc methods standardize the
 transformed data (e.g. equivalent to \code{scale(exp(X))}). See \code{\link[=standardize]{standardize()}}
 for more details on how different transformations are dealt with.
+}
+
+\subsection{Generalized Linear Models}{
+
+When standardizing coefficients of a generalized model (GLM, GLMM, etc), only
+the predictors are standardized, maintaining the interpretability of the
+coefficients (e.g., in a binomial model: the exponent of the standardized
+parameter is the OR of a change of 1 SD in the predictor, etc.)
 }
 }
 \examples{
@@ -140,20 +156,22 @@ if (require("rstanarm")) {
   standardize_posteriors(model, method = "posthoc")
   standardize_posteriors(model, method = "smart")
   standardize_posteriors(model, method = "basic")
+}
 
-  standardize_parameters(model, method = "refit")
-  standardize_parameters(model, method = "posthoc")
-  standardize_parameters(model, method = "smart")
-  standardize_parameters(model, method = "basic")
+if (require("lme4")) {
+  m <- lmer(mpg ~ cyl + am + vs + (1|cyl), mtcars)
+  standardize_parameters(m, method = "pseudo")
+  standardize_parameters(m, method = "basic")
 }
 }
 }
 \references{
 \itemize{
+\item Hoffman, L. (2015). Longitudinal analysis: Modeling within-person fluctuation and change. Routledge.
 \item Neter, J., Wasserman, W., & Kutner, M. H. (1989). Applied linear regression models.
 \item Gelman, A. (2008). Scaling regression inputs by dividing by two standard deviations. Statistics in medicine, 27(15), 2865-2873.
 }
 }
 \seealso{
-standardize_info
+\code{\link[=standardize_info]{standardize_info()}}
 }

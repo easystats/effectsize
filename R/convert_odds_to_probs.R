@@ -5,14 +5,14 @@ odds_to_probs <- function(odds, log = FALSE, ...) {
 }
 
 #' @export
+#' @importFrom stats plogis
 odds_to_probs.numeric <- function(odds, log = FALSE, ...) {
-  .odds_to_probs(odds, log = log)
+  if (log) {
+    stats::plogis(odds)
+  } else {
+    stats::plogis(log(odds))
+  }
 }
-
-#' @export
-odds_to_probs.double <- odds_to_probs.numeric
-
-
 
 
 #' @rdname d_to_r
@@ -29,12 +29,14 @@ probs_to_odds <- function(probs, log = FALSE, ...) {
 }
 
 #' @export
+#' @importFrom stats qlogis
 probs_to_odds.numeric <- function(probs, log = FALSE, ...) {
-  .probs_to_odds(probs, log = log)
+  if (log) {
+    stats::qlogis(probs)
+  } else {
+    exp(stats::qlogis(probs))
+  }
 }
-
-#' @export
-probs_to_odds.double <- probs_to_odds.numeric
 
 #' @export
 probs_to_odds.data.frame <- function(probs, log = FALSE, select = NULL, exclude = NULL, ...) {
@@ -108,9 +110,9 @@ convert_probs_to_odds <- probs_to_odds
 
   # Tranform
   if (!is.null(odds)) {
-    dfnum <- .odds_to_probs(dfnum, log = log)
+    dfnum <- data.frame(lapply(dfnum, odds_to_probs.numeric, log = log))
   } else {
-    dfnum <- .probs_to_odds(dfnum, log = log)
+    dfnum <- data.frame(lapply(dfnum, probs_to_odds.numeric, log = log))
   }
 
   # Add non-numerics
@@ -129,23 +131,4 @@ convert_probs_to_odds <- probs_to_odds
   df <- df[var_order]
 
   return(df)
-}
-
-
-#' @keywords internal
-.odds_to_probs <- function(odds, log = TRUE) {
-  if (log == TRUE) {
-    odds <- exp(odds)
-  }
-  probs <- odds / (1 + odds)
-  return(probs)
-}
-
-#' @keywords internal
-.probs_to_odds <- function(probs, log = TRUE) {
-  odds <- probs / (1 - probs)
-  if (log == TRUE) {
-    odds <- log(odds)
-  }
-  return(odds)
 }

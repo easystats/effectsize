@@ -3,12 +3,13 @@
 #' This function extracts information, such as the deviations (SD or MAD) from parent variables, that are necessary for post-hoc standardization of parameters. This function gives a window on how standardized are obtained, i.e., by what they are devided. The "basic" method of standardization uses
 #'
 #' @inheritParams standardize_parameters
+#' @param include_pseudo (For (G)LMMs) Should Pseudo-standardized information be included?
 #'
 #' @examples
 #' model <- lm(Sepal.Width ~ Sepal.Length * Species, data = iris)
 #' @importFrom parameters parameters_type
 #' @export
-standardize_info <- function(model, robust = FALSE, ...) {
+standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...) {
   params <- insight::find_parameters(model, effects = "fixed", flatten = TRUE, ...)
   types <- parameters::parameters_type(model)
   model_matrix <- as.data.frame(stats::model.matrix(model))
@@ -55,6 +56,16 @@ standardize_info <- function(model, robust = FALSE, ...) {
     out,
     .std_info_predictors_smart(data, params, types, robust = robust)
   )
+
+  # Pseudo (for LMM)
+  if (include_pseudo &&
+      insight::model_info(model)$is_mixed &&
+      length(insight::find_random(model)$random) == 1) {
+    out <- merge(
+      out,
+      .std_info_pseudo(model, params, model_matrix, types = types$Type, robust = robust)
+    )
+  }
 
   # Reorder
   out <- out[match(params, out$Parameter), ]
@@ -241,6 +252,132 @@ standardize_info <- function(model, robust = FALSE, ...) {
 }
 
 
+
+# Pseudo (GLMM) -----------------------------------------------------------
+
+
+#' @importFrom insight clean_names get_random model_info find_formula get_variance get_data
+#' @importFrom parameters check_heterogeneity demean
+#' @importFrom stats as.formula sd
+.std_info_pseudo <- function(model, params, model_matrix, types, robust = FALSE) {
+  if (robust) {
+    warning("'robust' standardization not available for 'pseudo' method.",
+            call. = FALSE)
+  }
+
+  within_vars <- unclass(parameters::check_heterogeneity(model))
+  id <- insight::get_random(model)[[1]]
+
+  ## Find which parameters vary on level 1 ("within")
+  is_within <- logical(length = length(params))
+  is_within[] <- NA
+  for (i in seq_along(params)) {
+    if (types[i] == "intercept") {
+      is_within[i] <- FALSE
+    } else if (types[i] == "numeric") {
+      is_within[i] <- insight::clean_names(params[i]) %in% within_vars
+    } else if (types[i] == "factor") {
+      is_within[i] <- any(sapply(paste0("^",within_vars), grepl, insight::clean_names(params[i])))
+    } else if (types[i] == "interaction") {
+      ints <- unlist(strsplit(params[i], ":", fixed = TRUE))
+      is_within[i] <- any(sapply(ints, function(int) {
+        int <- insight::clean_names(int)
+        int %in% within_vars | # numeric
+          any(sapply(paste0("^",within_vars), grepl, int)) # factor
+      }))
+    }
+  }
+
+  ## test "within"s are fully "within"
+  if (any(check_within <- is_within & types == "numeric")) {
+    # only relevant to numeric predictors that can have variance
+    p_check_within <- params[check_within]
+    temp_d <- data.frame(model_matrix[,p_check_within,drop = FALSE])
+    colnames(temp_d) <- paste0("W",seq_len(ncol(temp_d))) # overwrite because can't deal with ":"
+    dm <- parameters::demean(cbind(id,temp_d),
+                             select = colnames(temp_d),
+                             group = "id")
+    dm <- dm[,paste0(colnames(temp_d), "_between"), drop = FALSE]
+    also_between <- p_check_within[sapply(dm, function(x) !isTRUE(all.equal(sd(x),0)))]
+    if (length(also_between)) {
+      warning(
+        "The following within-group terms have between-group variance:\n\t",
+        paste0(also_between, collapse = ", "),
+        "\nThis can inflate standardized within-group parameters associated with",
+        "\nthese terms. See help(\"demean\", package = \"parameters\") for modeling",
+        "\nbetween- and within-subject effects.",
+        call. = FALSE
+      )
+    }
+  }
+
+
+  ## Get 2 types of Deviation_Response_Pseudo
+  sd_y_within <- sd_y_between <- 1
+  if (insight::model_info(model)$is_linear) {
+    if (!requireNamespace("lme4", quietly = TRUE)) {
+      stop("This function requires 'lme4' to work.", call. = FALSE)
+    }
+    rand_name <- insight::find_random(model)$random
+
+    # maintain any y-transformations
+    f <- insight::find_formula(model)
+    f <- paste0(f$conditional[2], " ~ (1|",rand_name,")")
+
+    m0 <- suppressWarnings(suppressMessages(
+      lme4::lmer(stats::as.formula(f),
+                 data = insight::get_data(model))
+    ))
+    m0v <- insight::get_variance(m0)
+
+    sd_y_between <- unname(sqrt(m0v$var.intercept))
+    sd_y_within <- unname(sqrt(m0v$var.residual))
+  }
+
+
+  ## Get scaling factors for each parameter
+  Deviation_Response_Pseudo <- Deviation_Pseudo <- numeric(ncol(model_matrix))
+  for (i in seq_along(params)) {
+    if (types[i] == "intercept") {
+      Deviation_Response_Pseudo[i] <- Deviation_Pseudo[i] <- NA
+    } else {
+      ## dumb way
+      if (is_within[i]) {
+        ## is within
+        X <- model_matrix[[i]]
+        Deviation_Response_Pseudo[i] <- sd_y_within
+      } else {
+        ## is between
+        X <- tapply(model_matrix[[i]], id, mean)
+        Deviation_Response_Pseudo[i] <- sd_y_between
+      }
+      Deviation_Pseudo[i] <- stats::sd(X)
+
+      ## smart way?
+      ## DONT USE: see corespondance with between Mattan and Eran BC
+      # m <- suppressWarnings(suppressMessages(lme4::lmer(model_matrix[[i]] ~ (1|id))))
+      # if (is_within[i]) {
+      #   ## is within
+      #   Deviation_Pseudo[i] <- sqrt(unname(unlist(suppressWarnings(
+      #     insight::get_variance(m, component = "residual")
+      #   ))))
+      #   Deviation_Response_Pseudo[i] <- sd_y_within
+      # } else {
+      #   ## is between
+      #   Deviation_Pseudo[i] <- sqrt(unname(unlist(suppressWarnings(
+      #     insight::get_variance(m, component = "intercept")
+      #   ))))
+      #   Deviation_Response_Pseudo[i] <- sd_y_between
+      # }
+    }
+  }
+
+  data.frame(
+    Parameter = params,
+    Deviation_Response_Pseudo,
+    Deviation_Pseudo
+  )
+}
 
 
 

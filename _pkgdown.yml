@@ -31,8 +31,8 @@ reference:
   - chisq_to_phi
 - subtitle: "Between Effect Sizes"
   contents:
-  - convert_z_to_percentile
-  - percentage_to_d
+  - d_to_common_language
+  - d_to_r
 - title: "Rescaling"
   contents:
   - change_scale
