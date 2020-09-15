@@ -34,14 +34,4 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_equal(odds_to_r(odds = d_to_odds(d = r_to_d(0.5))), 0.5, tol = 0.001)
     testthat::expect_equal(odds_to_d(r_to_odds(d_to_r(d = 1), log = TRUE), log = TRUE), 1, tolerance = 0.001)
   })
-
-  test_that("d_to_percentage", {
-    testthat::expect_equal(d_to_percentage(d = 1), 0.162, tolerance = 0.01)
-    testthat::expect_equal(percentage_to_d(percentage = 0.01), 0.0618, tolerance = 0.01)
-  })
-
-
-  test_that("z_to_percentile", {
-    testthat::expect_equal(z_to_percentile(percentile_to_z(0.975)), 0.975, tolerance = 0.001)
-  })
 }
