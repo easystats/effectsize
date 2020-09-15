@@ -22,11 +22,12 @@
 #' - Ruscio, J. (2008). A probability-based measure of effect size: robustness to base rates and other factors. Psychological methods, 13(1), 19–30.
 #'
 #' @export
+#' @importFrom stats pnorm
 d_to_common_language <- function(d) {
   list(
-    "Cohen's U3" = pnorm(d),
-    Overlap = 2*pnorm(-abs(d) / 2),
-    "Probability of superiority" = pnorm(d / sqrt(2))
+    "Cohen's U3" = stats::pnorm(d),
+    Overlap = 2 * stats::pnorm(-abs(d) / 2),
+    "Probability of superiority" = stats::pnorm(d / sqrt(2))
   )
 }
 

@@ -79,8 +79,6 @@ transformed.}
 from transformation.}
 
 \item{probs}{Probability values.}
-
-\item{percentage}{Percentage value (e.g., \code{0.01} for one percent).}
 }
 \value{
 Converted index.
