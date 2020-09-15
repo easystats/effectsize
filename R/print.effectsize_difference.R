@@ -1,5 +1,6 @@
 #' @export
 #' @rdname cohens_d
+#' @inheritParams insight::format_value
 #' @param append_CL Should the Common Language Effect Sizes be printed as well?
 #'   Not applicable to Glass' Delta (See [d_to_common_language()])
 #' @param ... Not used.

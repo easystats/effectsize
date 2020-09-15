@@ -50,6 +50,8 @@ variance). Else the mean SD from both groups is used instead.}
 
 \item{ci}{Confidence Interval (CI) level}
 
+\item{digits}{Number of significant digits.}
+
 \item{append_CL}{Should the Common Language Effect Sizes be printed as well?
 Not applicable to Glass' Delta (See \code{\link[=d_to_common_language]{d_to_common_language()}})}
 
