@@ -32,6 +32,7 @@ reference:
 - subtitle: "Between Effect Sizes"
   contents:
   - convert_z_to_percentile
+  - d_to_common_language
   - percentage_to_d
 - title: "Rescaling"
   contents:

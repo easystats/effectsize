@@ -3,6 +3,7 @@
 ## New features
 
 - `standardize_parameters(method = "pseudo")` returns pseudo-standardized coefficients for (G)LMM models.
+- `d_to_common_language()` for common language measures of standardized differences (a-la Cohen's d).
 
 ## Bug fixes
 
