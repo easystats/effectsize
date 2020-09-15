@@ -9,6 +9,7 @@
 
 - `phi()` and `cramers_v()` did not respect the CI argument ( #111 ).
 - `standardize()` / `standardize_parameters()` properly deal with transformed data in the model formula ( #113 ).
+- `odds_to_probs()` was mis-treating impossible odds (NEVER TELL ME THE ODDS! #123 )
 
 # effectsize 0.3.2
 
