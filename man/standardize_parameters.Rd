@@ -98,14 +98,13 @@ integers) or binary predictors. Although being inappropriate for these cases,
 this method is the one implemented by default in other software packages,
 such as \code{\link[lm.beta:lm.beta]{lm.beta::lm.beta()}}.
 \item \strong{pseudo} (\emph{for 2-level (G)LMMs only}): In this (post-hoc) method, the
-response and the predictor are standardized based on the level of prediction:
-Each predictor is standardized based on the original SD of the predictors at
-each level (\code{sd(groupwise-mean)} at level 2; \code{sd(de-meaned)} at level 1; see
-also \code{\link[parameters:demean]{parameters::demean()}}). The outcome (in linear LMMs) is standardized
-based on a fitted random-intercept-model, where the
-\code{sqrt(random-intercept-variance)} is used for level 2 predictors, and
-\code{sqrt(residual-variance)} is used for level 1 predictors (Hoffman 2015, page
-342).
+response and the predictor are standardized based on the level of prediction
+(levels are detected with \code{\link[parameters:demean]{parameters::check_heterogeneity()}}): Predictors
+are standardized based on their SD at level of prediction (see also
+\code{\link[parameters:demean]{parameters::demean()}}); The outcome (in linear LMMs) is standardized based
+on a fitted random-intercept-model, where \code{sqrt(random-intercept-variance)}
+is used for level 2 predictors, and \code{sqrt(residual-variance)} is used for
+level 1 predictors (Hoffman 2015, page 342).
 }
 }
 
@@ -174,5 +173,5 @@ if (require("lme4")) {
 }
 }
 \seealso{
-standardize_info
+\code{\link[=standardize_info]{standardize_info()}}
 }

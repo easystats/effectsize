@@ -3,12 +3,13 @@
 #' This function extracts information, such as the deviations (SD or MAD) from parent variables, that are necessary for post-hoc standardization of parameters. This function gives a window on how standardized are obtained, i.e., by what they are devided. The "basic" method of standardization uses
 #'
 #' @inheritParams standardize_parameters
+#' @param include_pseudo (For (G)LMMs) Should Pseudo-standardized information be included?
 #'
 #' @examples
 #' model <- lm(Sepal.Width ~ Sepal.Length * Species, data = iris)
 #' @importFrom parameters parameters_type
 #' @export
-standardize_info <- function(model, robust = FALSE, ...) {
+standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...) {
   params <- insight::find_parameters(model, effects = "fixed", flatten = TRUE, ...)
   types <- parameters::parameters_type(model)
   model_matrix <- as.data.frame(stats::model.matrix(model))
@@ -57,7 +58,8 @@ standardize_info <- function(model, robust = FALSE, ...) {
   )
 
   # Pseudo (for LMM)
-  if (insight::model_info(model)$is_mixed &&
+  if (include_pseudo &&
+      insight::model_info(model)$is_mixed &&
       length(insight::find_random(model)$random) == 1) {
     out <- merge(
       out,
@@ -286,6 +288,30 @@ standardize_info <- function(model, robust = FALSE, ...) {
     }
   }
 
+  ## test "within"s are fully "within"
+  if (any(check_within <- is_within & types == "numeric")) {
+    # only relevant to numeric predictors that can have variance
+    p_check_within <- params[check_within]
+    temp_d <- data.frame(model_matrix[,p_check_within,drop = FALSE])
+    colnames(temp_d) <- paste0("W",seq_len(ncol(temp_d))) # overwrite because can't deal with ":"
+    dm <- parameters::demean(cbind(id,temp_d),
+                             select = colnames(temp_d),
+                             group = "id")
+    dm <- dm[,paste0(colnames(temp_d), "_between"), drop = FALSE]
+    also_between <- p_check_within[sapply(dm, function(x) !isTRUE(all.equal(sd(x),0)))]
+    if (length(also_between)) {
+      warning(
+        "The following within-group terms have between-group variance:\n\t",
+        paste0(also_between, collapse = ", "),
+        "\nThis can inflate standardized within-group parameters associated with",
+        "\nthese terms. See help(\"demean\", package = \"parameters\") for modeling",
+        "\nbetween- and within-subject effects.",
+        call. = FALSE
+      )
+    }
+  }
+
+
   ## Get 2 types of Deviation_Response_Pseudo
   sd_y_within <- sd_y_between <- 1
   if (insight::model_info(model)$is_linear) {
@@ -316,14 +342,13 @@ standardize_info <- function(model, robust = FALSE, ...) {
       Deviation_Response_Pseudo[i] <- Deviation_Pseudo[i] <- NA
     } else {
       ## dumb way
-      X_demean <- parameters::demean(data.frame(id, X = model_matrix[[i]]), "X", "id")
       if (is_within[i]) {
         ## is within
-        X <- X_demean$X_within
+        X <- model_matrix[[i]]
         Deviation_Response_Pseudo[i] <- sd_y_within
       } else {
         ## is between
-        X <- tapply(X_demean$X_between, id, "[", 1)
+        X <- tapply(model_matrix[[i]], id, mean)
         Deviation_Response_Pseudo[i] <- sd_y_between
       }
       Deviation_Pseudo[i] <- stats::sd(X)

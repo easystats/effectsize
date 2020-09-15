@@ -4,7 +4,7 @@
 \alias{standardize_info}
 \title{Get Standardization Information}
 \usage{
-standardize_info(model, robust = FALSE, ...)
+standardize_info(model, robust = FALSE, include_pseudo = FALSE, ...)
 }
 \arguments{
 \item{model}{A statistical model.}
@@ -13,6 +13,8 @@ standardize_info(model, robust = FALSE, ...)
 median from the variables and dividing it by the median absolute deviation
 (MAD). If \code{FALSE}, variables are standardized by subtracting the
 mean and dividing it by the standard deviation (SD).}
+
+\item{include_pseudo}{(For (G)LMMs) Should Pseudo-standardized information be included?}
 
 \item{...}{Arguments passed to or from other methods.}
 }

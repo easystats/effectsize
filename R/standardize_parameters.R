@@ -47,14 +47,13 @@
 #' this method is the one implemented by default in other software packages,
 #' such as [lm.beta::lm.beta()].
 #' - **pseudo** (*for 2-level (G)LMMs only*): In this (post-hoc) method, the
-#' response and the predictor are standardized based on the level of prediction:
-#' Each predictor is standardized based on the original SD of the predictors at
-#' each level (`sd(groupwise-mean)` at level 2; `sd(de-meaned)` at level 1; see
-#' also [parameters::demean()]). The outcome (in linear LMMs) is standardized
-#' based on a fitted random-intercept-model, where the
-#' `sqrt(random-intercept-variance)` is used for level 2 predictors, and
-#' `sqrt(residual-variance)` is used for level 1 predictors (Hoffman 2015, page
-#' 342).
+#' response and the predictor are standardized based on the level of prediction
+#' (levels are detected with [parameters::check_heterogeneity()]): Predictors
+#' are standardized based on their SD at level of prediction (see also
+#' [parameters::demean()]); The outcome (in linear LMMs) is standardized based
+#' on a fitted random-intercept-model, where `sqrt(random-intercept-variance)`
+#' is used for level 2 predictors, and `sqrt(residual-variance)` is used for
+#' level 1 predictors (Hoffman 2015, page 342).
 #'
 #' ## Transformed Variables
 #' When the model's formula contains transformations (e.g. `y ~ exp(X)`) `method
@@ -116,7 +115,7 @@
 #' @importFrom utils tail
 #' @importFrom bayestestR describe_posterior
 #'
-#' @seealso standardize_info
+#' @seealso [standardize_info()]
 #'
 #' @return Standardized parameters table.
 #'
@@ -276,7 +275,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 
 
   # Get info
-  deviations <- standardize_info(model, robust = robust)
+  deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo")
   if (method == "basic") {
     col_dev_resp <- "Deviation_Response_Basic"
     col_dev_pred <- "Deviation_Basic"
