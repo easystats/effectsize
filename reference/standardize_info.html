@@ -164,7 +164,7 @@
     <p>This function extracts information, such as the deviations (SD or MAD) from parent variables, that are necessary for post-hoc standardization of parameters. This function gives a window on how standardized are obtained, i.e., by what they are devided. The "basic" method of standardization uses</p>
     </div>
 
-    <pre class="usage"><span class='fu'>standardize_info</span>(<span class='kw'>model</span>, robust = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>standardize_info</span>(<span class='kw'>model</span>, robust = <span class='fl'>FALSE</span>, include_pseudo = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,6 +179,10 @@
 median from the variables and dividing it by the median absolute deviation
 (MAD). If <code>FALSE</code>, variables are standardized by subtracting the
 mean and dividing it by the standard deviation (SD).</p></td>
+    </tr>
+    <tr>
+      <th>include_pseudo</th>
+      <td><p>(For (G)LMMs) Should Pseudo-standardized information be included?</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -205,7 +209,7 @@ mean and dividing it by the standard deviation (SD).</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

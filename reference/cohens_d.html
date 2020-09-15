@@ -47,12 +47,13 @@
 
 
 <meta property="og:title" content="Effect size for differences — cohens_d" />
-<meta property="og:description" content="Compute different indices of effect size. For very small sample sizes (n &amp;lt; 20)
-Hedges' g is considered as less biased than Cohen's d.
-For sample sizes &amp;gt; 20, the results for both statistics are roughly equivalent.
+<meta property="og:description" content="Compute different indices of effect size. For very small sample sizes (n &amp;lt;
+20) Hedges' g is considered as less biased than Cohen's d. For sample sizes &amp;gt;
+20, the results for both statistics are roughly equivalent.
 
-The Glass’s delta is appropriate if standard deviations are significantly different
-between groups, as it uses only the second group's standard deviation." />
+The Glass’s delta is appropriate if standard deviations are significantly
+different between groups, as it uses only the second group's standard
+deviation." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -161,17 +162,18 @@ between groups, as it uses only the second group's standard deviation." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Effect size for differences</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/cohens_d.R'><code>R/cohens_d.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/cohens_d.R'><code>R/cohens_d.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/print.effectsize_difference.R'><code>R/print.effectsize_difference.R</code></a></small>
     <div class="hidden name"><code>cohens_d.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Compute different indices of effect size. For very small sample sizes (n &lt; 20)
-Hedges' g is considered as less biased than Cohen's d.
-For sample sizes &gt; 20, the results for both statistics are roughly equivalent.
+    <p>Compute different indices of effect size. For very small sample sizes (n &lt;
+20) Hedges' g is considered as less biased than Cohen's d. For sample sizes &gt;
+20, the results for both statistics are roughly equivalent.
 <br /><br />
-The Glass’s delta is appropriate if standard deviations are significantly different
-between groups, as it uses only the <em>second</em> group's standard deviation.</p>
+The Glass’s delta is appropriate if standard deviations are significantly
+different between groups, as it uses only the <em>second</em> group's standard
+deviation.</p>
     </div>
 
     <pre class="usage"><span class='fu'>cohens_d</span>(
@@ -194,18 +196,23 @@ between groups, as it uses only the <em>second</em> group's standard deviation.<
   ci = <span class='fl'>0.95</span>
 )
 
-<span class='fu'>glass_delta</span>(<span class='kw'>x</span>, y = <span class='kw'>NULL</span>, data = <span class='kw'>NULL</span>, correction = <span class='fl'>FALSE</span>, ci = <span class='fl'>0.95</span>)</pre>
+<span class='fu'>glass_delta</span>(<span class='kw'>x</span>, y = <span class='kw'>NULL</span>, data = <span class='kw'>NULL</span>, correction = <span class='fl'>FALSE</span>, ci = <span class='fl'>0.95</span>)
+
+<span class='co'># S3 method for effectsize_difference</span>
+<span class='fu'><a href='https://rdrr.io/pkg/parameters/man/print.html'>print</a></span>(<span class='kw'>x</span>, digits = <span class='fl'>2</span>, append_CL = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A formula, a numeric vector, or a character name of one in <code>data</code>.</p></td>
+      <td><p>A formula, a numeric vector, or a character name of one in <code>data</code>.
+(For <code><a href='https://rdrr.io/pkg/parameters/man/print.html'>print()</a></code> the result of one of the standardized difference functions.)</p></td>
     </tr>
     <tr>
       <th>y</th>
-      <td><p>A numeric vector, a grouping (character / factor) vector, a or a character  name of one in <code>data</code>. Ignored if <code>x</code> is a formula.</p></td>
+      <td><p>A numeric vector, a grouping (character / factor) vector, a or a
+character  name of one in <code>data</code>. Ignored if <code>x</code> is a formula.</p></td>
     </tr>
     <tr>
       <th>data</th>
@@ -213,11 +220,13 @@ between groups, as it uses only the <em>second</em> group's standard deviation.<
     </tr>
     <tr>
       <th>correction</th>
-      <td><p>If <code>TRUE</code>, applies a correction to make it less biased for small samples (McGrath &amp; Meyer, 2006).</p></td>
+      <td><p>If <code>TRUE</code>, applies a correction to make it less biased for
+small samples (McGrath &amp; Meyer, 2006).</p></td>
     </tr>
     <tr>
       <th>pooled_sd</th>
-      <td><p>If <code>TRUE</code> (default), a <code><a href='sd_pooled.html'>sd_pooled()</a></code> is used (assuming equal variance). Else the mean SD from both groups is used instead.</p></td>
+      <td><p>If <code>TRUE</code> (default), a <code><a href='sd_pooled.html'>sd_pooled()</a></code> is used (assuming equal
+variance). Else the mean SD from both groups is used instead.</p></td>
     </tr>
     <tr>
       <th>paired</th>
@@ -226,6 +235,19 @@ between groups, as it uses only the <em>second</em> group's standard deviation.<
     <tr>
       <th>ci</th>
       <td><p>Confidence Interval (CI) level</p></td>
+    </tr>
+    <tr>
+      <th>digits</th>
+      <td><p>Number of significant digits.</p></td>
+    </tr>
+    <tr>
+      <th>append_CL</th>
+      <td><p>Should the Common Language Effect Sizes be printed as well?
+Not applicable to Glass' Delta (See <code><a href='d_to_common_language.html'>d_to_common_language()</a></code>)</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Not used.</p></td>
     </tr>
     </table>
 
@@ -248,6 +270,9 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 <li><p>Hedges, L. V. &amp; Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.</p></li>
 </ul>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='d_to_common_language.html'>d_to_common_language()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>cohens_d</span>(<span class='kw'>iris</span><span class='op'>$</span><span class='kw'>Sepal.Length</span>, <span class='kw'>iris</span><span class='op'>$</span><span class='kw'>Sepal.Width</span>)
@@ -270,7 +295,15 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 </div><div class='output co'>#&gt; Glass' delta |         95% CI
 #&gt; -----------------------------
 #&gt;        -1.17 | [-1.93, -0.40]</div><div class='input'>
-</div></pre>
+<span class='fu'><a href='https://rdrr.io/pkg/parameters/man/print.html'>print</a></span>(<span class='fu'>cohens_d</span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>am</span>, data = <span class='kw'>mtcars</span>), append_CL = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; Cohen's d |         95% CI
+#&gt; --------------------------
+#&gt;     -1.48 | [-2.27, -0.67]
+#&gt; 
+#&gt; <span style='color: #00BBBB;'>* Cohen's U3: 6.97%
+#&gt; * Overlap: 45.99%
+#&gt; * Probability of superiority: 14.80%</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -286,7 +319,7 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

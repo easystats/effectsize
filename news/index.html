@@ -158,10 +158,20 @@
       <small>Source: <a href='https://github.com/easystats/effectsize/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="effectsize-03x" class="section level1">
-<h1 class="page-header" data-toc-text="0.3">
-<a href="#effectsize-03x" class="anchor"></a>effectsize 0.3.x<small> Unreleased </small>
+    <div id="effectsize-033" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.3">
+<a href="#effectsize-033" class="anchor"></a>effectsize 0.3.3<small> Unreleased </small>
 </h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li>
+<code><a href="../reference/standardize_parameters.html">standardize_parameters(method = "pseudo")</a></code> returns pseudo-standardized coefficients for (G)LMM models.</li>
+<li>
+<code><a href="../reference/d_to_common_language.html">d_to_common_language()</a></code> for common language measures of standardized differences (a-la Cohen’s d).</li>
+</ul>
+</div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
@@ -170,6 +180,8 @@
 <code><a href="../reference/phi.html">phi()</a></code> and <code><a href="../reference/phi.html">cramers_v()</a></code> did not respect the CI argument ( <a href='https://github.com/easystats/effectsize/issues/111'>#111</a> ).</li>
 <li>
 <code><a href="../reference/standardize.html">standardize()</a></code> / <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> properly deal with transformed data in the model formula ( <a href='https://github.com/easystats/effectsize/issues/113'>#113</a> ).</li>
+<li>
+<code><a href="../reference/d_to_r.html">odds_to_probs()</a></code> was mis-treating impossible odds (NEVER TELL ME THE ODDS! <a href='https://github.com/easystats/effectsize/issues/123'>#123</a> )</li>
 </ul>
 </div>
 </div>
@@ -177,9 +189,9 @@
 <h1 class="page-header" data-toc-text="0.3.2">
 <a href="#effectsize-032" class="anchor"></a>effectsize 0.3.2<small> 2020-07-27 </small>
 </h1>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features</h2>
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li>
 <code><a href="../reference/eta_squared_posterior.html">eta_squared_posterior()</a></code> for estimating Eta Squared for Bayesian models.</li>
@@ -210,9 +222,9 @@
 <h1 class="page-header" data-toc-text="0.3.1">
 <a href="#effectsize-031" class="anchor"></a>effectsize 0.3.1<small> 2020-05-19 </small>
 </h1>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New features</h2>
+<a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
 <li>
 <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> now returns CIs ( <a href='https://github.com/easystats/effectsize/issues/72'>#72</a> )</li>
@@ -236,9 +248,9 @@
 <h1 class="page-header" data-toc-text="0.3.0">
 <a href="#effectsize-030" class="anchor"></a>effectsize 0.3.0<small> 2020-04-11 </small>
 </h1>
-<div id="new-features-2" class="section level2">
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>New features</h2>
+<a href="#new-features-3" class="anchor"></a>New features</h2>
 <ul>
 <li>New general purpose <code><a href="../reference/effectsize.html">effectsize()</a></code> function.</li>
 <li>Effectsize for differences have CI methods, and return a data frame.</li>
@@ -312,9 +324,9 @@
 <h1 class="page-header" data-toc-text="0.1.0">
 <a href="#effectsize-010" class="anchor"></a>effectsize 0.1.0<small> Unreleased </small>
 </h1>
-<div id="new-features-3" class="section level2">
+<div id="new-features-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-3" class="anchor"></a>New features</h2>
+<a href="#new-features-4" class="anchor"></a>New features</h2>
 <ul>
 <li>
 <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> and <code><a href="../reference/standardize.html">standardize()</a></code> now support models from packages <em>brglm</em>, <em>brglm2</em>, <em>mixor</em>, <em>fixest</em>, <em>cgam</em>, <em>cplm</em>, <em>cglm</em>, <em>glmmadmb</em> and <em>complmrob</em>.</li>
@@ -345,7 +357,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

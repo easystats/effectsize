@@ -223,7 +223,10 @@ See details below.</p>
 #&gt; wt              |              -0.90 | [-1.33, -0.46]
 #&gt; hp              |              -0.25 | [-0.52,  0.01]
 #&gt; factor(cyl)6:wt |               0.37 | [-0.63,  1.36]
-#&gt; factor(cyl)8:wt |               0.54 | [ 0.03,  1.06]</div><div class='input'>
+#&gt; factor(cyl)8:wt |               0.54 | [ 0.03,  1.06]
+#&gt; <span style='color: #0000BB;'>
+#&gt; # Standardization method: Refit
+#&gt; </span><span></div><div class='input'>
 <span class='kw'>anova_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span>(<span class='kw'>fit</span>)
 <span class='fu'>effectsize</span>(<span class='kw'>anova_table</span>)
 </div><div class='output co'>#&gt; Parameter      | Eta2 (partial) |       90% CI
@@ -232,7 +235,7 @@ See details below.</p>
 #&gt; wt             |           0.47 | [0.22, 0.64]
 #&gt; hp             |           0.14 | [0.00, 0.36]
 #&gt; factor(cyl):wt |           0.16 | [0.00, 0.35]</div><div class='input'>
-</div></pre>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -248,7 +251,7 @@ See details below.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

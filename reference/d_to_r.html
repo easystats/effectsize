@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General effect size conversion — percentage_to_d • effectsize</title>
+<title>General effect size conversion — d_to_r • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="General effect size conversion — percentage_to_d" />
+<meta property="og:title" content="General effect size conversion — d_to_r" />
 <meta property="og:description" content="Enables a conversion between different indices of effect size, such as standardized difference (Cohen's d), correlation r or (log) odds ratios." />
 <meta property="og:image" content="/logo.png" />
 
@@ -156,7 +156,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>General effect size conversion</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/convert_d_to_percentage.R'><code>R/convert_d_to_percentage.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/convert_d_to_r.R'><code>R/convert_d_to_r.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/convert_odds_to_d.R'><code>R/convert_odds_to_d.R</code></a>, and 1 more</small>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/convert_d_to_r.R'><code>R/convert_d_to_r.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/convert_odds_to_d.R'><code>R/convert_odds_to_d.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/convert_odds_to_probs.R'><code>R/convert_odds_to_probs.R</code></a></small>
     <div class="hidden name"><code>d_to_r.Rd</code></div>
     </div>
 
@@ -164,15 +164,7 @@
     <p>Enables a conversion between different indices of effect size, such as standardized difference (Cohen's d), correlation r or (log) odds ratios.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>percentage_to_d</span>(<span class='kw'>percentage</span>, <span class='kw'>...</span>)
-
-<span class='fu'>d_to_percentage</span>(<span class='kw'>d</span>, <span class='kw'>...</span>)
-
-<span class='fu'>convert_percentage_to_d</span>(<span class='kw'>percentage</span>, <span class='kw'>...</span>)
-
-<span class='fu'>convert_d_to_percentage</span>(<span class='kw'>d</span>, <span class='kw'>...</span>)
-
-<span class='fu'>d_to_r</span>(<span class='kw'>d</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>d_to_r</span>(<span class='kw'>d</span>, <span class='kw'>...</span>)
 
 <span class='fu'>r_to_d</span>(<span class='kw'>r</span>, <span class='kw'>...</span>)
 
@@ -215,16 +207,12 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>percentage</th>
-      <td><p>Percentage value (e.g., <code>0.01</code> for one percent).</p></td>
+      <th>d</th>
+      <td><p>Standardized difference value (Cohen's d).</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Arguments passed to or from other methods.</p></td>
-    </tr>
-    <tr>
-      <th>d</th>
-      <td><p>Standardized difference value (Cohen's d).</p></td>
     </tr>
     <tr>
       <th>r</th>
@@ -300,7 +288,7 @@ from transformation.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
