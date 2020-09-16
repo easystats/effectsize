@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Bayesian indices interpretation — interpret_ess • effectsize</title>
+<title>Interpret Bayesian diagnostic indices — interpret_ess • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Bayesian indices interpretation — interpret_ess" />
+<meta property="og:title" content="Interpret Bayesian diagnostic indices — interpret_ess" />
 <meta property="og:description" content="Interpretation of Bayesian indices, such as Effective Sample Size (ESS), Rhat, or percentage in ROPE." />
 <meta property="og:image" content="/logo.png" />
 
@@ -155,7 +155,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Bayesian indices interpretation</h1>
+    <h1>Interpret Bayesian diagnostic indices</h1>
     <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/interpret_bayesian_indices.R'><code>R/interpret_bayesian_indices.R</code></a></small>
     <div class="hidden name"><code>interpret_ess.Rd</code></div>
     </div>
@@ -166,9 +166,7 @@
 
     <pre class="usage"><span class='fu'>interpret_ess</span>(<span class='kw'>ess</span>, rules = <span class='st'>"burkner2017"</span>)
 
-<span class='fu'>interpret_rhat</span>(<span class='kw'>rhat</span>, rules = <span class='st'>"vehtari2019"</span>)
-
-<span class='fu'>interpret_rope</span>(<span class='kw'>rope</span>, ci = <span class='fl'>0.9</span>, rules = <span class='st'>"default"</span>)</pre>
+<span class='fu'>interpret_rhat</span>(<span class='kw'>rhat</span>, rules = <span class='st'>"vehtari2019"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -185,14 +183,6 @@
       <th>rhat</th>
       <td><p>Value or vector of Rhat values.</p></td>
     </tr>
-    <tr>
-      <th>rope</th>
-      <td><p>Value or vector of percentages in ROPE.</p></td>
-    </tr>
-    <tr>
-      <th>ci</th>
-      <td><p>The Credible Interval (CI) probability, corresponding to the proportion of HDI, that was used. Can be <code>1</code> in the case of "full ROPE".</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -200,7 +190,6 @@
     <p>Rules sets:</p><ul>
 <li><p><strong>ESS</strong>: Can be <code>"burkner2017"</code> (default).</p></li>
 <li><p><strong>Rhat</strong>: Can be <code>"vehtari2019"</code> (default) or <code>"gelman1992"</code>.</p></li>
-<li><p><strong>ROPE</strong>: Can be <a href='https://easystats.github.io/bayestestR/articles/guidelines.html'>"default"</a>.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
@@ -210,7 +199,6 @@
 <li><p>Bürkner, P. C. (2017). brms: An R package for Bayesian multilevel models using Stan. Journal of Statistical Software, 80(1), 1-28.</p></li>
 <li><p>Gelman, A., &amp; Rubin, D. B. (1992). Inference from iterative simulation using multiple sequences. Statistical science, 7(4), 457-472.</p></li>
 <li><p>Vehtari, A., Gelman, A., Simpson, D., Carpenter, B., &amp; Bürkner, P. C. (2019). Rank-normalization, folding, and localization: An improved Rhat for assessing convergence of MCMC. arXiv preprint arXiv:1903.08008.</p></li>
-<li><p><a href='https://easystats.github.io/bayestestR/articles/guidelines.html'>BayestestR's reporting guidelines</a></p></li>
 </ul>
 
 
@@ -220,10 +208,7 @@
 </div><div class='output co'>#&gt; [1] "unsufficient" "sufficient"  </div><div class='input'>
 <span class='fu'>interpret_rhat</span>(<span class='fl'>1.00</span>)
 </div><div class='output co'>#&gt; [1] "converged"</div><div class='input'><span class='fu'>interpret_rhat</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.5</span>, <span class='fl'>0.9</span>))
-</div><div class='output co'>#&gt; [1] "failed"    "converged"</div><div class='input'>
-<span class='fu'>interpret_rope</span>(<span class='fl'>0</span>, ci = <span class='fl'>0.9</span>)
-</div><div class='output co'>#&gt; [1] "significant"</div><div class='input'><span class='fu'>interpret_rope</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.005</span>, <span class='fl'>0.99</span>), ci = <span class='fl'>1</span>)
-</div><div class='output co'>#&gt; [1] "significant"         "probably negligible"</div></pre>
+</div><div class='output co'>#&gt; [1] "failed"    "converged"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

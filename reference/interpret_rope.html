@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Normalize numeric variable to [0-1] range — normalize • effectsize</title>
+<title>Interpret Bayesian diagnostic indices — interpret_rope • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,8 @@
 
 
 
-<meta property="og:title" content="Normalize numeric variable to [0-1] range — normalize" />
-<meta property="og:description" content="Performs a normalization of data, i.e., it scales all numeric variables in
-the range 0 - 1. This is a special case of change_scale()." />
+<meta property="og:title" content="Interpret Bayesian diagnostic indices — interpret_rope" />
+<meta property="og:description" content="Interpretation of Bayesian indices of percentage in ROPE." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -156,102 +155,49 @@ the range 0 - 1. This is a special case of change_scale()." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Normalize numeric variable to [0-1] range</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/normalize.R'><code>R/normalize.R</code></a></small>
-    <div class="hidden name"><code>normalize.Rd</code></div>
+    <h1>Interpret Bayesian diagnostic indices</h1>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/interpret_rope.R'><code>R/interpret_rope.R</code></a></small>
+    <div class="hidden name"><code>interpret_rope.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Performs a normalization of data, i.e., it scales all numeric variables in
-the range 0 - 1. This is a special case of <code><a href='change_scale.html'>change_scale()</a></code>.</p>
+    <p>Interpretation of Bayesian indices of percentage in ROPE.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>normalize</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
-
-<span class='co'># S3 method for numeric</span>
-<span class='fu'>normalize</span>(<span class='kw'>x</span>, include_bounds = <span class='fl'>TRUE</span>, verbose = <span class='fl'>TRUE</span>, <span class='kw'>...</span>)
-
-<span class='co'># S3 method for grouped_df</span>
-<span class='fu'>normalize</span>(
-  <span class='kw'>x</span>,
-  select = <span class='kw'>NULL</span>,
-  exclude = <span class='kw'>NULL</span>,
-  include_bounds = <span class='fl'>TRUE</span>,
-  verbose = <span class='fl'>TRUE</span>,
-  <span class='kw'>...</span>
-)
-
-<span class='co'># S3 method for data.frame</span>
-<span class='fu'>normalize</span>(
-  <span class='kw'>x</span>,
-  select = <span class='kw'>NULL</span>,
-  exclude = <span class='kw'>NULL</span>,
-  include_bounds = <span class='fl'>TRUE</span>,
-  verbose = <span class='fl'>TRUE</span>,
-  <span class='kw'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>interpret_rope</span>(<span class='kw'>rope</span>, ci = <span class='fl'>0.9</span>, rules = <span class='st'>"default"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>Object.</p></td>
+      <th>rope</th>
+      <td><p>Value or vector of percentages in ROPE.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Arguments passed to or from other methods.</p></td>
+      <th>ci</th>
+      <td><p>The Credible Interval (CI) probability, corresponding to the proportion of HDI, that was used. Can be <code>1</code> in the case of "full ROPE".</p></td>
     </tr>
     <tr>
-      <th>include_bounds</th>
-      <td><p>Logical, if <code>TRUE</code>, return value may include 0
-and 1. If <code>FALSE</code>, the return value is compressed, using the formula
-<code>(x * (n - 1) + 0.5) / n</code> (<cite>Smithson and Verkuilen 2006</cite>), to
-avoid zeros and ones in the normalized variables. This can be useful in
-case of beta-regression, where the response variable is not allowed to
-include zeros and ones.</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>Toggle warnings on or off.</p></td>
-    </tr>
-    <tr>
-      <th>select</th>
-      <td><p>Character vector of column names. If <code>NULL</code> (the default), all
-variables will be selected.</p></td>
-    </tr>
-    <tr>
-      <th>exclude</th>
-      <td><p>Character vector of column names to be excluded from selection.</p></td>
+      <th>rules</th>
+      <td><p>A character string (see details) or a custom set of <code><a href='rules.html'>rules()</a></code>.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A normalized object.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    
-<ul>
-<li><p>Smithson M, Verkuilen J (2006). A Better Lemon Squeezer? Maximum-Likelihood Regression with Beta-Distributed Dependent Variables. Psychological Methods, 11(1), 54–71.</p></li>
+    <p>Rules sets:</p><ul>
+<li><p><strong>ROPE</strong>: Can be <a href='https://easystats.github.io/bayestestR/articles/guidelines.html'>"default"</a>.</p></li>
 </ul>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <div class='dont-index'><p><code><a href='ranktransform.html'>ranktransform()</a></code> <code><a href='standardize.html'>standardize()</a></code> <code><a href='change_scale.html'>change_scale()</a></code></p></div>
+    <p><a href='https://easystats.github.io/bayestestR/articles/guidelines.html'>BayestestR's reporting guidelines</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>normalize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>))
-</div><div class='output co'>#&gt; [1] 0.5 0.6 1.0 0.0 0.3</div><div class='input'><span class='fu'>normalize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>), include_bounds = <span class='fl'>FALSE</span>)
-</div><div class='output co'>#&gt; [1] 0.50 0.58 0.90 0.10 0.34</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>normalize</span>(<span class='kw'>iris</span>))
-</div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#&gt; 1   0.22222222   0.6250000   0.06779661  0.04166667  setosa
-#&gt; 2   0.16666667   0.4166667   0.06779661  0.04166667  setosa
-#&gt; 3   0.11111111   0.5000000   0.05084746  0.04166667  setosa
-#&gt; 4   0.08333333   0.4583333   0.08474576  0.04166667  setosa
-#&gt; 5   0.19444444   0.6666667   0.06779661  0.04166667  setosa
-#&gt; 6   0.30555556   0.7916667   0.11864407  0.12500000  setosa</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='co'>#'</span>
+<span class='fu'>interpret_rope</span>(<span class='fl'>0</span>, ci = <span class='fl'>0.9</span>)
+</div><div class='output co'>#&gt; [1] "significant"</div><div class='input'><span class='fu'>interpret_rope</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.005</span>, <span class='fl'>0.99</span>), ci = <span class='fl'>1</span>)
+</div><div class='output co'>#&gt; [1] "significant"         "probably negligible"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -443,7 +443,6 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'><a href='https://github.com/lme4/lme4'>"lme4"</a></span>)) {
   <span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>cyl</span> <span class='op'>+</span> <span class='kw'>am</span> <span class='op'>+</span> <span class='kw'>vs</span> <span class='op'>+</span> (<span class='fl'>1</span><span class='op'>|</span><span class='kw'>cyl</span>), <span class='kw'>mtcars</span>)
   <span class='fu'>standardize_parameters</span>(<span class='kw'>m</span>, method = <span class='st'>"pseudo"</span>)
-  <span class='fu'>standardize_parameters</span>(<span class='kw'>m</span>, method = <span class='st'>"basic"</span>)
 }
 </div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The following within-group terms have between-group variance:</span>
 #&gt; <span class='warning'>	am, vs</span>
@@ -451,33 +450,29 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; <span class='warning'>these terms. See help("demean", package = "parameters") for modeling</span>
 #&gt; <span class='warning'>between- and within-subject effects.</span></div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
 #&gt; -------------------------------------------------
-#&gt; (Intercept) |               0.00 | [ 0.00,  0.00]
-#&gt; cyl         |              -0.63 | [-1.05, -0.22]
-#&gt; am          |               0.25 | [ 0.00,  0.50]
-#&gt; vs          |               0.11 | [-0.25,  0.47]
+#&gt; (Intercept) |                    |               
+#&gt; cyl         |              -0.74 | [-1.23, -0.26]
+#&gt; am          |               0.47 | [ 0.01,  0.93]
+#&gt; vs          |               0.20 | [-0.47,  0.87]
 #&gt; </span><span style='color: #0000BB;'>
-#&gt; # Standardization method: Basic
+#&gt; # Standardization method: Pseudo
 #&gt; </span><span></div><div class='input'>
 
 
 <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'><a href='https://mc-stan.org/rstanarm'>"rstanarm"</a></span>)) {
-  <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://mc-stan.org/rstanarm/reference/stan_glm.html'>stan_glm</a></span>(<span class='kw'>Sepal.Length</span> <span class='op'>~</span> <span class='kw'>Species</span> <span class='op'>+</span> <span class='kw'>Petal.Width</span>, data = <span class='kw'>iris</span>, iter = <span class='fl'>500</span>, refresh = <span class='fl'>0</span>)
+  <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://mc-stan.org/rstanarm/reference/stan_glm.html'>stan_glm</a></span>(<span class='kw'>Sepal.Length</span> <span class='op'>~</span> <span class='kw'>Species</span> <span class='op'>+</span> <span class='kw'>Petal.Width</span>, data = <span class='kw'>iris</span>, refresh = <span class='fl'>0</span>)
   <span class='co'># standardize_posteriors(model, method = "refit")</span>
   <span class='co'># standardize_posteriors(model, method = "posthoc")</span>
   <span class='co'># standardize_posteriors(model, method = "smart")</span>
   <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>standardize_posteriors</span>(<span class='kw'>model</span>, method = <span class='st'>"basic"</span>))
 }
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span>
-#&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
-#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#bulk-ess</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.</span>
-#&gt; <span class='warning'>Running the chains for more iterations may help. See</span>
-#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#tail-ess</span></div><div class='output co'>#&gt;   (Intercept) Speciesversicolor Speciesvirginica Petal.Width
-#&gt; 1           0       0.047117067       0.02507007   0.8601329
-#&gt; 2           0       0.003863049       0.05035296   0.7978198
-#&gt; 3           0       0.109072828       0.17774302   0.6653480
-#&gt; 4           0       0.105157651       0.12244624   0.7489312
-#&gt; 5           0       0.110218583       0.06893919   0.7929023
-#&gt; 6           0       0.100606032       0.09320134   0.7804808</div><div class='input'>
+</div><div class='output co'>#&gt;   (Intercept) Speciesversicolor Speciesvirginica Petal.Width
+#&gt; 1           0        0.02443670     -0.009429375   0.8437202
+#&gt; 2           0        0.04569722      0.139988415   0.6858118
+#&gt; 3           0        0.06528765      0.110950657   0.7460374
+#&gt; 4           0       -0.01040923     -0.030765243   0.8258345
+#&gt; 5           0       -0.01513676      0.044683846   0.7823281
+#&gt; 6           0        0.08562116      0.160969320   0.7319531</div><div class='input'>
 <span class='co'># }</span>
 
 </div></span></pre>
