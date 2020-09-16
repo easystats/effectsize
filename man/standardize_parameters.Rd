@@ -29,9 +29,12 @@ standardize_posteriors(
 \arguments{
 \item{model}{A statistical model.}
 
-\item{parameters}{An optional table containing the parameters to standardize. If \code{NULL}, will automatically retrieve it from the model.}
+\item{parameters}{An optional table containing the parameters to standardize.
+If \code{NULL}, will automatically retrieve it from the model.}
 
-\item{method}{The method used for standardizing the parameters. Can be \code{"refit"} (default), \code{"posthoc"}, \code{"smart"} or \code{"basic"}. See 'Details'.}
+\item{method}{The method used for standardizing the parameters. Can be
+\code{"refit"} (default), \code{"posthoc"}, \code{"smart"}, \code{"basic"} or \code{"pseudo"}. See
+'Details'.}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -47,7 +50,9 @@ related to binary predictors (Gelman, 2008).}
 
 \item{verbose}{Toggle warnings on or off.}
 
-\item{centrality}{For Bayesian models, which point-estimates (centrality indices) to compute. Character (vector) or list with one or more of these options: "median", "mean", "MAP" or "all".}
+\item{centrality}{For Bayesian models, which point-estimates (centrality
+indices) to compute. Character (vector) or list with one or more of these
+options: "median", "mean", "MAP" or "all".}
 
 \item{...}{Arguments passed to or from other methods.}
 }
@@ -150,20 +155,24 @@ standardize_parameters(model, method = "basic")
 }
 
 \donttest{
-if (require("rstanarm")) {
-  model <- stan_glm(Sepal.Length ~ Species + Petal.Width, data = iris, iter = 500, refresh = 0)
-  standardize_posteriors(model, method = "refit")
-  standardize_posteriors(model, method = "posthoc")
-  standardize_posteriors(model, method = "smart")
-  standardize_posteriors(model, method = "basic")
-}
-
 if (require("lme4")) {
   m <- lmer(mpg ~ cyl + am + vs + (1|cyl), mtcars)
   standardize_parameters(m, method = "pseudo")
   standardize_parameters(m, method = "basic")
 }
+
+
+
+if (require("rstanarm")) {
+  model <- stan_glm(Sepal.Length ~ Species + Petal.Width, data = iris, iter = 500, refresh = 0)
+  # standardize_posteriors(model, method = "refit")
+  # standardize_posteriors(model, method = "posthoc")
+  # standardize_posteriors(model, method = "smart")
+  head(standardize_posteriors(model, method = "basic"))
 }
+
+}
+
 }
 \references{
 \itemize{
