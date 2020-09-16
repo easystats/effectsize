@@ -72,6 +72,9 @@ standardized difference (Cohen's d), correlation r or (log) odds ratios.
 }
 
 Conversions between \emph{OR} and \emph{r} is done through these formulae.
+\cr\cr
+When converting \emph{d} to \emph{r}, the resulting \emph{r} is also called the binomial
+effect size display (BESD; Rosenthal et al., 1982).
 }
 \examples{
 r_to_d(0.5)
@@ -86,5 +89,6 @@ odds_to_d(1.813799, log = TRUE)
 \itemize{
 \item Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003). Effect-size indices for dichotomized outcomes in meta-analysis. Psychological methods, 8(4), 448.
 \item Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R. (2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
+\item Rosenthal, R., & Rubin, D. B. (1982). A simple, general purpose display of magnitude of experimental effect. Journal of educational psychology, 74(2), 166.
 }
 }
