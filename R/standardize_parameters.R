@@ -147,26 +147,30 @@ standardize_parameters <- function(model, parameters = NULL, method = "refit", c
       object_name = object_name,
       ...
     )
-  method <- attr(std_params, "std_method")
-  robust <- attr(std_params, "robust")
-  two_sd <- attr(std_params, "two_sd")
 
   # Summarise for Bayesian models
   if (insight::model_info(model)$is_bayesian) {
+    method <- attr(std_params, "std_method")
+    robust <- attr(std_params, "robust")
+    two_sd <- attr(std_params, "two_sd")
+
     std_params <- bayestestR::describe_posterior(
       std_params, centrality = centrality, dispersion = FALSE,
       ci = ci, ci_method = "hdi",
       test = NULL, diagnostic = NULL, priors = FALSE
     )
+    std_params$CI <- ci
     std_params <- std_params[names(std_params) %in% c("Parameter", "Coefficient", "Median", "Mean", "MAP","CI", "CI_low", "CI_high")]
     i <- colnames(std_params) %in% c("Coefficient", "Median", "Mean", "MAP")
     colnames(std_params)[i] <- paste0("Std_", colnames(std_params)[i])
+
+    attr(std_params, "std_method") <- method
+    attr(std_params, "two_sd") <- two_sd
+    attr(std_params, "robust") <- robust
   }
 
+  class(std_params) <- c("effectsize_table", "see_effectsize_table","data.frame")
   attr(std_params, "object_name") <- deparse(substitute(model), width.cutoff = 500)
-  attr(std_params, "std_method") <- method
-  attr(std_params, "two_sd") <- two_sd
-  attr(std_params, "robust") <- robust
   std_params
 }
 
@@ -220,7 +224,6 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
     stop("`method = 'partial'` not implemented yet :(")
   }
 
-  class(std_params) <- c("effectsize_table", "see_effectsize_table",class(std_params))
   attr(std_params, "std_method") <- method
   attr(std_params, "robust") <- robust
   attr(std_params, "two_sd") <- two_sd
@@ -365,10 +368,8 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 
 #' @keywords internal
 .extract_parameters <- function(model, ...) {
-  if (insight::model_info(model)$is_bayesian) {
-    params <- insight::get_parameters(model, ...)
-  } else {
-    params <- insight::get_parameters(model, ...)
+  params <- insight::get_parameters(model, ...)
+  if (!insight::model_info(model)$is_bayesian) {
     names(params)[2] <- "Std_Coefficient"
   }
   params

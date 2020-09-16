@@ -23,17 +23,18 @@ es_info <- data.frame(
            "Omega_Sq", "Omega_Sq_partial", "Cohens_f", "Cohens_f_partial",
            "cramers_v", "cramers_v_adjusted", "phi", "phi_adjusted",
            "d", "r", "Cohens_d", "Hedges_g",
-           "Glass_delta", "Std_Coefficient"),
+           "Glass_delta", "Std_Coefficient",
+           'Std_Median', 'Std_Mean', 'Std_MAP'),
   label = c("Eta2", "Eta2 (partial)", "Epsilon2", "Epsilon2 (partial)",
             "Omega2", "Omega2 (partial)", "Cohen's f", "Cohen's f (partial)",
             "Cramer's V", "Cramer's V (adj.)", "Phi", "Phi (adj.)",
             "d", "r", "Cohen's d", "Hedge's g",
-            "Glass' delta", "Coefficient (std.)"),
+            "Glass' delta", "Coefficient (std.)",
+            'Median (std.)', 'Mean (std.)', "MAP (std.)"),
   direction = c("onetail", "onetail", "onetail", "onetail",
                 "onetail", "onetail", "onetail", "onetail",
                 "onetail", "onetail", "onetail", "onetail",
                 "twotail", "twotail", "twotail", "twotail",
-                "twotail","twotail"),
+                "twotail","twotail","twotail","twotail","twotail"),
   stringsAsFactors = FALSE
 )
-
