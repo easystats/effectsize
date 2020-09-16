@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert between d, r and Odds ratio — d_to_r • effectsize</title>
+<title>Convert between Odds and Probabilities — odds_to_probs • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,8 @@
 
 
 
-<meta property="og:title" content="Convert between d, r and Odds ratio — d_to_r" />
-<meta property="og:description" content="Enables a conversion between different indices of effect size, such as
-standardized difference (Cohen's d), correlation r or (log) odds ratios." />
+<meta property="og:title" content="Convert between Odds and Probabilities — odds_to_probs" />
+<meta property="og:description" content="Convert between Odds and Probabilities" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -156,105 +155,71 @@ standardized difference (Cohen's d), correlation r or (log) odds ratios." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert between <em>d</em>, <em>r</em> and <em>Odds ratio</em></h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/convert_d_to_r.R'><code>R/convert_d_to_r.R</code></a></small>
-    <div class="hidden name"><code>d_to_r.Rd</code></div>
+    <h1>Convert between Odds and Probabilities</h1>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/convert_odds_to_probs.R'><code>R/convert_odds_to_probs.R</code></a></small>
+    <div class="hidden name"><code>odds_to_probs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Enables a conversion between different indices of effect size, such as
-standardized difference (Cohen's d), correlation r or (log) odds ratios.</p>
+    <p>Convert between Odds and Probabilities</p>
     </div>
 
-    <pre class="usage"><span class='fu'>d_to_r</span>(<span class='kw'>d</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>odds_to_probs</span>(<span class='kw'>odds</span>, log = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)
 
-<span class='fu'>r_to_d</span>(<span class='kw'>r</span>, <span class='kw'>...</span>)
+<span class='co'># S3 method for data.frame</span>
+<span class='fu'>odds_to_probs</span>(<span class='kw'>odds</span>, log = <span class='fl'>FALSE</span>, select = <span class='kw'>NULL</span>, exclude = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
 
-<span class='fu'>convert_d_to_r</span>(<span class='kw'>d</span>, <span class='kw'>...</span>)
+<span class='fu'>probs_to_odds</span>(<span class='kw'>probs</span>, log = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)
 
-<span class='fu'>convert_r_to_d</span>(<span class='kw'>r</span>, <span class='kw'>...</span>)
+<span class='co'># S3 method for data.frame</span>
+<span class='fu'>probs_to_odds</span>(<span class='kw'>probs</span>, log = <span class='fl'>FALSE</span>, select = <span class='kw'>NULL</span>, exclude = <span class='kw'>NULL</span>, <span class='kw'>...</span>)
 
-<span class='fu'>oddsratio_to_d</span>(<span class='kw'>OR</span>, log = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)
+<span class='fu'>convert_odds_to_probs</span>(<span class='kw'>odds</span>, log = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)
 
-<span class='fu'>convert_oddsratio_to_d</span>(<span class='kw'>OR</span>, log = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)
-
-<span class='fu'>logoddsratio_to_d</span>(<span class='kw'>OR</span>, log = <span class='fl'>TRUE</span>, <span class='kw'>...</span>)
-
-<span class='fu'>d_to_oddsratio</span>(<span class='kw'>d</span>, log = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)
-
-<span class='fu'>convert_d_to_oddsratio</span>(<span class='kw'>d</span>, log = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)
-
-<span class='fu'>oddsratio_to_r</span>(<span class='kw'>OR</span>, log = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)
-
-<span class='fu'>convert_oddsratio_to_r</span>(<span class='kw'>OR</span>, log = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)
-
-<span class='fu'>logoddsratio_to_r</span>(<span class='kw'>OR</span>, log = <span class='fl'>TRUE</span>, <span class='kw'>...</span>)
-
-<span class='fu'>r_to_oddsratio</span>(<span class='kw'>r</span>, log = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)
-
-<span class='fu'>convert_r_to_oddsratio</span>(<span class='kw'>r</span>, log = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'>convert_probs_to_odds</span>(<span class='kw'>probs</span>, log = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>d</th>
-      <td><p>Standardized difference value (Cohen's d).</p></td>
+      <th>odds</th>
+      <td><p>The <em>Odds</em> (or <code><a href='https://rdrr.io/r/base/Log.html'>log(odds)</a></code> when <code>log = TRUE</code>) to convert.</p></td>
+    </tr>
+    <tr>
+      <th>log</th>
+      <td><p>Take in or output log odds (such as in logistic models).</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Arguments passed to or from other methods.</p></td>
     </tr>
     <tr>
-      <th>r</th>
-      <td><p>Correlation coefficient r.</p></td>
+      <th>select</th>
+      <td><p>When a data frame is passed, character or list of of column names to be
+transformed.</p></td>
     </tr>
     <tr>
-      <th>OR</th>
-      <td><p><em>Odds ratio</em> values in vector or data frame.</p></td>
+      <th>exclude</th>
+      <td><p>When a data frame is passed, character or list of column names to be excluded
+from transformation.</p></td>
     </tr>
     <tr>
-      <th>log</th>
-      <td><p>Take in or output log odds ratio (such as in logistic models).</p></td>
+      <th>probs</th>
+      <td><p>Probability values to convert.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Converted index.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    
-<ul>
-<li><p><em>d to r</em>: \(d = \frac{2 * r}{\sqrt{1 - r^2}}\)</p></li>
-<li><p><em>r to d</em>: \(r = \frac{d}{\sqrt{d^2 + 4}}\)</p></li>
-<li><p><em>OR to d</em>: \(d = \frac{\log(OR)\times\sqrt{3}}{\pi}\)</p></li>
-<li><p><em>d to OR</em>: \(log(OR) = d * \frac{\pi}{\sqrt(3)}\)</p></li>
-</ul>
-
-<p>Conversions between <em>OR</em> and <em>r</em> is done through these formulae.
-<br /><br />
-When converting <em>d</em> to <em>r</em>, the resulting <em>r</em> is also called the binomial
-effect size display (BESD; Rosenthal et al., 1982).</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    
-<ul>
-<li><p>Sánchez-Meca, J., Marín-Martínez, F., &amp; Chacón-Moscoso, S. (2003). Effect-size indices for dichotomized outcomes in meta-analysis. Psychological methods, 8(4), 448.</p></li>
-<li><p>Borenstein, M., Hedges, L. V., Higgins, J. P. T., &amp; Rothstein, H. R. (2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.</p></li>
-<li><p>Rosenthal, R., &amp; Rubin, D. B. (1982). A simple, general purpose display of magnitude of experimental effect. Journal of educational psychology, 74(2), 166.</p></li>
-</ul>
-
+    <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/Logistic.html'>stats::plogis()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>r_to_d</span>(<span class='fl'>0.5</span>)
-</div><div class='output co'>#&gt; [1] 1.154701</div><div class='input'><span class='fu'>d_to_oddsratio</span>(<span class='fl'>1.154701</span>)
-</div><div class='output co'>#&gt; [1] 8.120534</div><div class='input'><span class='fu'>oddsratio_to_r</span>(<span class='fl'>8.120534</span>)
-</div><div class='output co'>#&gt; [1] 0.5000001</div><div class='input'>
-<span class='fu'>d_to_r</span>(<span class='fl'>1</span>)
-</div><div class='output co'>#&gt; [1] 0.4472136</div><div class='input'><span class='fu'>r_to_oddsratio</span>(<span class='fl'>0.4472136</span>, log = <span class='fl'>TRUE</span>)
-</div><div class='output co'>#&gt; [1] 1.813799</div><div class='input'><span class='fu'>oddsratio_to_d</span>(<span class='fl'>1.813799</span>, log = <span class='fl'>TRUE</span>)
-</div><div class='output co'>#&gt; [1] 0.9999998</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>odds_to_probs</span>(<span class='fl'>3</span>)
+</div><div class='output co'>#&gt; [1] 0.75</div><div class='input'><span class='fu'>odds_to_probs</span>(<span class='fl'>1.09</span>, log = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; [1] 0.7483817</div><div class='input'>
+<span class='fu'>probs_to_odds</span>(<span class='fl'>0.95</span>)
+</div><div class='output co'>#&gt; [1] 19</div><div class='input'><span class='fu'>probs_to_odds</span>(<span class='fl'>0.95</span>, log = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; [1] 2.944439</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
