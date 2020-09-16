@@ -96,17 +96,17 @@ standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...)
 .std_info_predictors_smart <- function(data, params, types, robust = FALSE, ...) {
 
   # Get deviations for all parameters
-  deviations <- c()
-  means <- c()
-  for (var in params) {
+  means <- deviations <- rep(NA_real_, times = length(params))
+  for (i in seq_along(params)) {
+    var <- params[i]
     info <- .std_info_predictor_smart(
       data = data,
       variable = types[types$Parameter == var, "Variable"],
       type = types[types$Parameter == var, "Type"],
       robust = robust
     )
-    deviations <- c(deviations, info$sd)
-    means <- c(means, info$mean)
+    deviations[i] <- info$sd
+    means[i] <- info$mean
   }
 
   # Out
@@ -161,16 +161,15 @@ standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...)
 .std_info_predictors_basic <- function(model_matrix, types, robust = FALSE, ...) {
 
   # Get deviations for all parameters
-  deviations <- c()
-  means <- c()
-  for (var in names(model_matrix)) {
+  means <- deviations <- rep(NA_real_, length = length(names(model_matrix)))
+  for (i in seq_along(names(model_matrix))) {
+    var <- names(model_matrix)[i]
     if (types[types$Parameter == var, "Type"] == "intercept") {
-      deviations <- c(deviations, 0)
-      means <- c(means, 0)
+      means[i] <- deviations[i] <- 0
     } else {
       std_info <- .compute_std_info(data = model_matrix, variable = var, robust = robust)
-      deviations <- c(deviations, std_info$sd)
-      means <- c(means, std_info$mean)
+      deviations[i] <- std_info$sd
+      means[i] <- std_info$mean
     }
   }
 
@@ -194,21 +193,19 @@ standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...)
 
   if (info$is_linear) {
     response <- insight::get_response(model)
-    deviations <- c()
-    means <- c()
-    for (var in names(model_matrix)) {
+    means <- deviations <- rep(NA_real_, length = length(names(model_matrix)))
+    for (i in seq_along(names(model_matrix))) {
+      var <- names(model_matrix)[i]
       if (types$Link[types$Parameter == var] == "Difference") {
         parent_var <- types$Variable[types$Parameter == var]
         intercept <- unique(data[[parent_var]])[1]
         response_at_intercept <- response[data[[parent_var]] == intercept]
         std_info <- .compute_std_info(response = response_at_intercept, robust = robust)
-        deviations <- c(deviations, std_info$sd)
-        means <- c(means, std_info$mean)
       } else {
         std_info <- .compute_std_info(response = response, robust = robust)
-        deviations <- c(deviations, std_info$sd)
-        means <- c(means, std_info$mean)
       }
+      deviations[i] <- std_info$sd
+      means[i] <- std_info$mean
     }
   } else {
     deviations <- 1
