@@ -2,19 +2,29 @@
 % Please edit documentation in R/convert_d_to_r.R
 \name{d_to_r}
 \alias{d_to_r}
+\alias{convert_r_to_odds}
+\alias{r_to_odds}
+\alias{logodds_to_r}
+\alias{convert_odds_to_r}
+\alias{odds_to_r}
+\alias{convert_d_to_odds}
+\alias{d_to_odds}
+\alias{logodds_to_d}
+\alias{convert_odds_to_d}
+\alias{odds_to_d}
 \alias{r_to_d}
 \alias{convert_d_to_r}
 \alias{convert_r_to_d}
-\alias{odds_to_d}
-\alias{convert_odds_to_d}
-\alias{logodds_to_d}
-\alias{d_to_odds}
-\alias{convert_d_to_odds}
-\alias{odds_to_r}
-\alias{convert_odds_to_r}
-\alias{logodds_to_r}
-\alias{r_to_odds}
-\alias{convert_r_to_odds}
+\alias{oddsratio_to_d}
+\alias{convert_oddsratio_to_d}
+\alias{logoddsratio_to_d}
+\alias{d_to_oddsratio}
+\alias{convert_d_to_oddsratio}
+\alias{oddsratio_to_r}
+\alias{convert_oddsratio_to_r}
+\alias{logoddsratio_to_r}
+\alias{r_to_oddsratio}
+\alias{convert_r_to_oddsratio}
 \title{Convert between \emph{d}, \emph{r} and \emph{Odds ratio}}
 \usage{
 d_to_r(d, ...)
@@ -25,25 +35,25 @@ convert_d_to_r(d, ...)
 
 convert_r_to_d(r, ...)
 
-odds_to_d(odds, log = FALSE, ...)
+oddsratio_to_d(OR, log = FALSE, ...)
 
-convert_odds_to_d(odds, log = FALSE, ...)
+convert_oddsratio_to_d(OR, log = FALSE, ...)
 
-logodds_to_d(odds, log = TRUE, ...)
+logoddsratio_to_d(OR, log = TRUE, ...)
 
-d_to_odds(d, log = FALSE, ...)
+d_to_oddsratio(d, log = FALSE, ...)
 
-convert_d_to_odds(d, log = FALSE, ...)
+convert_d_to_oddsratio(d, log = FALSE, ...)
 
-odds_to_r(odds, log = FALSE, ...)
+oddsratio_to_r(OR, log = FALSE, ...)
 
-convert_odds_to_r(odds, log = FALSE, ...)
+convert_oddsratio_to_r(OR, log = FALSE, ...)
 
-logodds_to_r(odds, log = TRUE, ...)
+logoddsratio_to_r(OR, log = TRUE, ...)
 
-r_to_odds(r, log = FALSE, ...)
+r_to_oddsratio(r, log = FALSE, ...)
 
-convert_r_to_odds(r, log = FALSE, ...)
+convert_r_to_oddsratio(r, log = FALSE, ...)
 }
 \arguments{
 \item{d}{Standardized difference value (Cohen's d).}
@@ -52,7 +62,7 @@ convert_r_to_odds(r, log = FALSE, ...)
 
 \item{r}{Correlation coefficient r.}
 
-\item{odds}{\emph{Odds ratio} values in vector or data frame.}
+\item{OR}{\emph{Odds ratio} values in vector or data frame.}
 
 \item{log}{Take in or output log odds ratio (such as in logistic models).}
 }
@@ -78,12 +88,13 @@ effect size display (BESD; Rosenthal et al., 1982).
 }
 \examples{
 r_to_d(0.5)
-d_to_odds(d = 1.154701)
-odds_to_r(odds = 8.120534)
+d_to_oddsratio(1.154701)
+oddsratio_to_r(8.120534)
 
-d_to_r(d = 1)
-r_to_odds(0.4472136, log = TRUE)
-odds_to_d(1.813799, log = TRUE)
+d_to_r(1)
+r_to_oddsratio(0.4472136, log = TRUE)
+oddsratio_to_d(1.813799, log = TRUE)
+
 }
 \references{
 \itemize{

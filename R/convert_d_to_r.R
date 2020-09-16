@@ -5,18 +5,22 @@
 #'
 #' @param d Standardized difference value (Cohen's d).
 #' @param r Correlation coefficient r.
-#' @param odds *Odds ratio* values in vector or data frame.
+#' @param OR *Odds ratio* values in vector or data frame.
 #' @param log Take in or output log odds ratio (such as in logistic models).
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @examples
 #' r_to_d(0.5)
-#' d_to_odds(d = 1.154701)
-#' odds_to_r(odds = 8.120534)
+#' d_to_oddsratio(1.154701)
+#' oddsratio_to_r(8.120534)
 #'
-#' d_to_r(d = 1)
-#' r_to_odds(0.4472136, log = TRUE)
-#' odds_to_d(1.813799, log = TRUE)
+#' d_to_r(1)
+#' r_to_oddsratio(0.4472136, log = TRUE)
+#' oddsratio_to_d(1.813799, log = TRUE)
+#'
+#' @aliases convert_r_to_odds r_to_odds logodds_to_r convert_odds_to_r odds_to_r
+#'   convert_d_to_odds d_to_odds logodds_to_d convert_odds_to_d odds_to_d
+#'
 #' @return Converted index.
 #'
 #' @details
@@ -59,80 +63,82 @@ convert_r_to_d <- r_to_d
 
 
 
-# Odds - d ----------------------------------------------------------------
+# OR - d ----------------------------------------------------------------
 
 
 
 #' @rdname d_to_r
 #' @export
-odds_to_d <- function(odds, log = FALSE, ...) {
-  if (log == FALSE) {
-    log_odds <- log(odds)
+oddsratio_to_d <- function(OR, log = FALSE, ...) {
+  if (log) {
+    log_OR <- OR
   } else {
-    log_odds <- odds
+    log_OR <- log(OR)
   }
 
-  log_odds * (sqrt(3) / pi)
+  log_OR * (sqrt(3) / pi)
 }
 
 #' @rdname d_to_r
 #' @export
-convert_odds_to_d <- odds_to_d
+convert_oddsratio_to_d <- oddsratio_to_d
 
 #' @rdname d_to_r
 #' @export
-logodds_to_d <- function(odds, log = TRUE, ...) {
-  odds_to_d(odds, log = log, ...)
+logoddsratio_to_d <- function(OR, log = TRUE, ...) {
+  oddsratio_to_d(OR, log = log, ...)
 }
 
 
 
 #' @rdname d_to_r
 #' @export
-d_to_odds <- function(d, log = FALSE, ...) {
-  if (log == TRUE) {
-    d * pi / sqrt(3)
+d_to_oddsratio <- function(d, log = FALSE, ...) {
+  log_OR <- d * pi / sqrt(3)
+
+  if (log) {
+    log_OR
   } else {
-    exp(d * pi / sqrt(3))
+    exp(log_OR)
   }
 }
 
 #' @rdname d_to_r
 #' @export
-convert_d_to_odds <- d_to_odds
+convert_d_to_oddsratio <- d_to_oddsratio
 
 
 
 
-# Odds - r ----------------------------------------------------------------
+# OR - r ----------------------------------------------------------------
 
 #' @rdname d_to_r
 #' @export
-odds_to_r <- function(odds, log = FALSE, ...) {
-  d_to_r(odds_to_d(odds, log = log))
+oddsratio_to_r <- function(OR, log = FALSE, ...) {
+  d_to_r(oddsratio_to_d(OR, log = log))
 }
 
 #' @rdname d_to_r
 #' @export
-convert_odds_to_r <- odds_to_r
+convert_oddsratio_to_r <- oddsratio_to_r
 
 #' @rdname d_to_r
 #' @export
-logodds_to_r <- function(odds, log = TRUE, ...) {
-  odds_to_r(odds, log = log, ...)
+logoddsratio_to_r <- function(OR, log = TRUE, ...) {
+  oddsratio_to_r(OR, log = log, ...)
 }
 
 
 
 #' @rdname d_to_r
 #' @export
-r_to_odds <- function(r, log = FALSE, ...) {
-  d_to_odds(r_to_d(r), log = log)
+r_to_oddsratio <- function(r, log = FALSE, ...) {
+  d_to_oddsratio(r_to_d(r), log = log)
 }
 
 #' @rdname d_to_r
 #' @export
-convert_r_to_odds <- r_to_odds
+convert_r_to_oddsratio <- r_to_oddsratio
 
 
 

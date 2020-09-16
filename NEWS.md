@@ -5,6 +5,10 @@
 - `standardize_parameters(method = "pseudo")` returns pseudo-standardized coefficients for (G)LMM models.
 - `d_to_common_language()` for common language measures of standardized differences (a-la Cohen's d).
 
+## Changes
+
+- `r_to_odds()` family is now deprecated in favor of `r_to_oddsratio()`.
+
 ## Bug fixes
 
 - `phi()` and `cramers_v()` did not respect the CI argument ( #111 ).
