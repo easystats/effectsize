@@ -18,8 +18,7 @@ interpret_delta(delta, rules = "funder2019")
 \item{rules}{Can be \code{"funder2019"} (default), \code{"gignac2016"}, \code{"cohen1988"}, \code{"sawilowsky2009"} or custom set of \code{\link[=rules]{rules()}}.}
 }
 \description{
-Interpretation of indices using different sets of rules of thumb.
-\href{https://easystats.github.io/report/articles/interpret_metrics.html#standardized-difference-d-cohens-d}{Click here} for details.
+Interpretation of standardized differences using different sets of rules of thumb.
 }
 \examples{
 interpret_d(.02)
