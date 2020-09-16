@@ -3,11 +3,16 @@
 #' Compute standardized model parameters (coefficients).
 #'
 #' @param model A statistical model.
-#' @param parameters An optional table containing the parameters to standardize. If `NULL`, will automatically retrieve it from the model.
-#' @param method The method used for standardizing the parameters. Can be `"refit"` (default), `"posthoc"`, `"smart"` or `"basic"`. See 'Details'.
+#' @param parameters An optional table containing the parameters to standardize.
+#'   If `NULL`, will automatically retrieve it from the model.
+#' @param method The method used for standardizing the parameters. Can be
+#'   `"refit"` (default), `"posthoc"`, `"smart"`, `"basic"` or `"pseudo"`. See
+#'   'Details'.
 #' @inheritParams standardize
 #' @inheritParams chisq_to_phi
-#' @param centrality For Bayesian models, which point-estimates (centrality indices) to compute. Character (vector) or list with one or more of these options: "median", "mean", "MAP" or "all".
+#' @param centrality For Bayesian models, which point-estimates (centrality
+#'   indices) to compute. Character (vector) or list with one or more of these
+#'   options: "median", "mean", "MAP" or "all".
 #'
 #' @details
 #' ## Methods:
@@ -96,24 +101,23 @@
 #' }
 #'
 #' \donttest{
-#' if (require("rstanarm")) {
-#'   model <- stan_glm(Sepal.Length ~ Species + Petal.Width, data = iris, iter = 500, refresh = 0)
-#'   standardize_posteriors(model, method = "refit")
-#'   standardize_posteriors(model, method = "posthoc")
-#'   standardize_posteriors(model, method = "smart")
-#'   standardize_posteriors(model, method = "basic")
-#' }
-#'
 #' if (require("lme4")) {
 #'   m <- lmer(mpg ~ cyl + am + vs + (1|cyl), mtcars)
 #'   standardize_parameters(m, method = "pseudo")
 #'   standardize_parameters(m, method = "basic")
 #' }
+#'
+#'
+#'
+#' if (require("rstanarm")) {
+#'   model <- stan_glm(Sepal.Length ~ Species + Petal.Width, data = iris, iter = 500, refresh = 0)
+#'   # standardize_posteriors(model, method = "refit")
+#'   # standardize_posteriors(model, method = "posthoc")
+#'   # standardize_posteriors(model, method = "smart")
+#'   head(standardize_posteriors(model, method = "basic"))
 #' }
-#' @importFrom stats mad sd predict cor model.matrix
-#' @importFrom insight get_parameters model_info get_data get_response
-#' @importFrom utils tail
-#' @importFrom bayestestR describe_posterior
+#'
+#' }
 #'
 #' @seealso [standardize_info()]
 #'
@@ -124,6 +128,9 @@
 #' - Neter, J., Wasserman, W., & Kutner, M. H. (1989). Applied linear regression models.
 #' - Gelman, A. (2008). Scaling regression inputs by dividing by two standard deviations. Statistics in medicine, 27(15), 2865-2873.
 #'
+#' @importFrom stats mad sd predict cor model.matrix
+#' @importFrom insight get_parameters model_info get_data get_response
+#' @importFrom utils tail
 #' @importFrom bayestestR describe_posterior
 #' @importFrom parameters ci
 #' @export

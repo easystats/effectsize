@@ -1,6 +1,6 @@
 #' Convert Standardized Mean Difference to Common Language Effect Sizes
 #'
-#' @inheritParams d_to_odds
+#' @inheritParams d_to_r
 #'
 #' @details
 #' This function use the following formulae:

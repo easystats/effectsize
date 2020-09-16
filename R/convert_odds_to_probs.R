@@ -1,4 +1,23 @@
-#' @rdname d_to_r
+#' Convert between Odds and Probabilities
+#'
+#' @param odds The *Odds* (or `log(odds)` when `log = TRUE`) to convert.
+#' @param probs Probability values to convert.
+#' @param log Take in or output log odds (such as in logistic models).
+#' @param select When a data frame is passed, character or list of of column names to be
+#' transformed.
+#' @param exclude When a data frame is passed, character or list of column names to be excluded
+#' from transformation.
+#' @param ... Arguments passed to or from other methods.
+#'
+#' @seealso [stats::plogis()]
+#'
+#' @examples
+#' odds_to_probs(3)
+#' odds_to_probs(1.09, log = TRUE)
+#'
+#' probs_to_odds(0.95)
+#' probs_to_odds(0.95, log = TRUE)
+#'
 #' @export
 odds_to_probs <- function(odds, log = FALSE, ...) {
   UseMethod("odds_to_probs")
@@ -15,14 +34,14 @@ odds_to_probs.numeric <- function(odds, log = FALSE, ...) {
 }
 
 
-#' @rdname d_to_r
+#' @rdname odds_to_probs
 #' @export
 odds_to_probs.data.frame <- function(odds, log = FALSE, select = NULL, exclude = NULL, ...) {
   .odds_to_probs_df(odds = odds, log = log, select = select, exclude = exclude, ...)
 }
 
 
-#' @rdname d_to_r
+#' @rdname odds_to_probs
 #' @export
 probs_to_odds <- function(probs, log = FALSE, ...) {
   UseMethod("probs_to_odds")
@@ -38,17 +57,18 @@ probs_to_odds.numeric <- function(probs, log = FALSE, ...) {
   }
 }
 
+#' @rdname odds_to_probs
 #' @export
 probs_to_odds.data.frame <- function(probs, log = FALSE, select = NULL, exclude = NULL, ...) {
   .odds_to_probs_df(probs = probs, log = log, select = select, exclude = exclude, ...)
 }
 
 
-#' @rdname d_to_r
+#' @rdname odds_to_probs
 #' @export
 convert_odds_to_probs <- odds_to_probs
 
-#' @rdname d_to_r
+#' @rdname odds_to_probs
 #' @export
 convert_probs_to_odds <- probs_to_odds
 
@@ -61,6 +81,9 @@ convert_probs_to_odds <- probs_to_odds
 
 
 
+
+
+# Data frame --------------------------------------------------------------
 
 
 
