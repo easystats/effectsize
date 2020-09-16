@@ -1,6 +1,6 @@
-#' Automated Interpretation of Effect Sizes
+#' Interpret of standardized slopes
 #'
-#' Automated interpretation of effect sizes.
+#' Automated interpretation of standardized slopes.
 #'
 #' @inheritParams standardize_parameters
 #' @param interpretation Interpretation grid (i.e., the set of rules of thumb) used to interpret the effects.
@@ -10,6 +10,7 @@
 #'
 #' @examples
 #' model <- lm(Sepal.Length ~ Species * Petal.Width, data = iris)
+#' interpret_parameters(model)
 #'
 #' @export
 interpret_parameters <- function(model, ...) {

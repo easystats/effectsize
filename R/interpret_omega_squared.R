@@ -1,4 +1,4 @@
-#' ANOVA effect size interpretation
+#' Interpret ANOVA effect size
 #'
 #' @param omega_squared Value or vector of omega squared values.
 #' @param rules Can be `"field2013"` (default) or custom set of [rules()].
@@ -14,6 +14,7 @@
 #'
 #' @references
 #' - Field, A (2013) Discovering statistics using IBM SPSS Statistics. Fourth Edition. Sage:London.
+#'
 #' @export
 interpret_omega_squared <- function(omega_squared, rules = "field2013") {
   if (is.rules(rules)) {

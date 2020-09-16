@@ -1,4 +1,4 @@
-#' Coefficient of determination  (R2) interpretation
+#' Interpret coefficient of determination (R2)
 #'
 #' @param r2 Value or vector of R2 values.
 #' @param rules Can be `"cohen1988"` (default), `"falk1992"`, `"chin1998"`, `"hair2011"` or custom set of [rules()]].

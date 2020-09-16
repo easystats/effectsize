@@ -1,6 +1,7 @@
-#' Normalization
+#' Normalize numeric variable to \[0-1\] range
 #'
-#' Performs a normalization of data, i.e., it scales all numeric variables in the range 0 - 1. This is a special case of [change_scale()].
+#' Performs a normalization of data, i.e., it scales all numeric variables in
+#' the range 0 - 1. This is a special case of [change_scale()].
 #'
 #' @inheritParams standardize.data.frame
 #'

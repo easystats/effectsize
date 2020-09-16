@@ -2,7 +2,7 @@
 % Please edit documentation in R/interpret_direction.R
 \name{interpret_direction}
 \alias{interpret_direction}
-\title{Direction interpretation}
+\title{Interpret direction}
 \usage{
 interpret_direction(x)
 }
@@ -10,7 +10,7 @@ interpret_direction(x)
 \item{x}{Numeric value.}
 }
 \description{
-Direction interpretation
+Interpret direction
 }
 \examples{
 interpret_direction(.02)

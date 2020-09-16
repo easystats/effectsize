@@ -3,7 +3,7 @@
 \name{interpret_parameters}
 \alias{interpret_parameters}
 \alias{interpret_parameters.lm}
-\title{Automated Interpretation of Effect Sizes}
+\title{Interpret of standardized slopes}
 \usage{
 interpret_parameters(model, ...)
 
@@ -30,9 +30,10 @@ interpret_parameters(model, ...)
 \item{standardize_robust}{See \code{\link[=standardize_parameters]{standardize_parameters()}}.}
 }
 \description{
-Automated interpretation of effect sizes.
+Automated interpretation of standardized slopes.
 }
 \examples{
 model <- lm(Sepal.Length ~ Species * Petal.Width, data = iris)
+interpret_parameters(model)
 
 }

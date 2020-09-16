@@ -2,7 +2,7 @@
 % Please edit documentation in R/interpret_r2.R
 \name{interpret_r2}
 \alias{interpret_r2}
-\title{Coefficient of determination  (R2) interpretation}
+\title{Interpret coefficient of determination (R2)}
 \usage{
 interpret_r2(r2, rules = "cohen1988")
 }
@@ -12,7 +12,7 @@ interpret_r2(r2, rules = "cohen1988")
 \item{rules}{Can be \code{"cohen1988"} (default), \code{"falk1992"}, \code{"chin1998"}, \code{"hair2011"} or custom set of \code{\link[=rules]{rules()}}].}
 }
 \description{
-Coefficient of determination  (R2) interpretation
+Interpret coefficient of determination (R2)
 }
 \examples{
 interpret_r2(.02)

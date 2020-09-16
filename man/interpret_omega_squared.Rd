@@ -2,7 +2,7 @@
 % Please edit documentation in R/interpret_omega_squared.R
 \name{interpret_omega_squared}
 \alias{interpret_omega_squared}
-\title{ANOVA effect size interpretation}
+\title{Interpret ANOVA effect size}
 \usage{
 interpret_omega_squared(omega_squared, rules = "field2013")
 }
@@ -12,7 +12,7 @@ interpret_omega_squared(omega_squared, rules = "field2013")
 \item{rules}{Can be \code{"field2013"} (default) or custom set of \code{\link[=rules]{rules()}}.}
 }
 \description{
-ANOVA effect size interpretation
+Interpret ANOVA effect size
 }
 \examples{
 interpret_omega_squared(.02)
