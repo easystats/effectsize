@@ -14,8 +14,13 @@
 #'
 #' @export
 interpret_parameters <- function(model, ...) {
-  warning("There is a known bug in 'interpret_parameters()' when interpreting parameters related to factors. \n",
-          "(See github.com/easystats/effectsize/issues/104)",
+  ## ----------------------------- NOTE ---------------------------------------
+  ## this is a not very informative name for a function... There are many types
+  ## of parameters, and this function is specifically dealing with standardized
+  ## SLOPES.
+  ## --------------------------------------------------------------------------
+  warning("This function is highly experimental!\n",
+          "See discussion at github.com/easystats/effectsize/issues/127",
           call. = FALSE)
   UseMethod("interpret_parameters")
 }
