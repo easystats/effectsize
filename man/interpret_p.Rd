@@ -2,7 +2,7 @@
 % Please edit documentation in R/interpret_p.R
 \name{interpret_p}
 \alias{interpret_p}
-\title{p-values interpretation}
+\title{Interpret p-values}
 \usage{
 interpret_p(p, rules = "default")
 }
@@ -12,7 +12,7 @@ interpret_p(p, rules = "default")
 \item{rules}{Can be \code{"default"} or custom set of \code{\link[=rules]{rules()}}.}
 }
 \description{
-p-values interpretation
+Interpret p-values
 }
 \examples{
 interpret_p(.02)

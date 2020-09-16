@@ -2,7 +2,7 @@
 % Please edit documentation in R/interpret_odds.R
 \name{interpret_odds}
 \alias{interpret_odds}
-\title{(Log) Odds ratio interpretation}
+\title{Interpret (log) Odds ratio}
 \usage{
 interpret_odds(odds, rules = "chen2010", log = FALSE)
 }
@@ -14,7 +14,7 @@ interpret_odds(odds, rules = "chen2010", log = FALSE)
 \item{log}{Are the provided values log odds ratio.}
 }
 \description{
-(Log) Odds ratio interpretation
+Interpret (log) Odds ratio
 }
 \examples{
 interpret_odds(1)

@@ -1,4 +1,4 @@
-#' Interpretation of indices of fit
+#' Interpret of indices of CFA / SEM fit
 #'
 #' Interpretation of indices of fit found in confirmatory analysis or structural equation modelling, such as RMSEA, CFI, NFI, IFI, etc.
 #'

@@ -1,4 +1,4 @@
-#' Standardized difference interpretation
+#' Interpret standardized differences
 #'
 #' Interpretation of indices using different sets of rules of thumb.
 #' [Click here](https://easystats.github.io/report/articles/interpret_metrics.html#standardized-difference-d-cohens-d) for details.

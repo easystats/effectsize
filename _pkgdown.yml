@@ -18,11 +18,18 @@ reference:
   - eta_squared_posterior
   - cohens_d
   - phi
+
 - title: "Standardization"
   contents:
   - standardize
   - standardize_parameters
   - standardize_info
+- subtitle: "Scale and Transform"
+  contents:
+  - change_scale
+  - normalize
+  - ranktransform
+
 - title: "Effect Size Conversion"
 - subtitle: "From Test Statistics"
   contents:
@@ -34,29 +41,26 @@ reference:
   - d_to_common_language
   - d_to_r
   - odds_to_probs
-- title: "Rescaling"
-  contents:
-  - change_scale
-  - normalize
-  - ranktransform
+
 - title: "Interpretation"
   contents:
   - equivalence_test.effectsize_table
   - interpret
+  - rules
   - interpret_d
   - interpret_r
-  - interpret_r2
   - interpret_omega_squared
   - interpret_parameters
   - interpret_odds
+  - interpret_r2
   - interpret_gfi
   - interpret_p
   - interpret_bf
-  - interpret_direction
   - interpret_ess
-  - interpret_rhat
   - interpret_rope
-  - rules
+  - interpret_direction
+
+
 - title: "Miscellaneous"
   contents:
   - adjust

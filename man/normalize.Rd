@@ -5,7 +5,7 @@
 \alias{normalize.numeric}
 \alias{normalize.grouped_df}
 \alias{normalize.data.frame}
-\title{Normalization}
+\title{Normalize numeric variable to [0-1] range}
 \usage{
 normalize(x, ...)
 
@@ -52,7 +52,8 @@ variables will be selected.}
 A normalized object.
 }
 \description{
-Performs a normalization of data, i.e., it scales all numeric variables in the range 0 - 1. This is a special case of \code{\link[=change_scale]{change_scale()}}.
+Performs a normalization of data, i.e., it scales all numeric variables in
+the range 0 - 1. This is a special case of \code{\link[=change_scale]{change_scale()}}.
 }
 \examples{
 normalize(c(0, 1, 5, -5, -2))

@@ -2,7 +2,7 @@
 % Please edit documentation in R/interpret_bf.R
 \name{interpret_bf}
 \alias{interpret_bf}
-\title{Bayes Factor (BF) Interpretation}
+\title{Interpret Bayes Factor (BF)}
 \usage{
 interpret_bf(bf, rules = "jeffreys1961", include_value = FALSE)
 }
@@ -14,7 +14,7 @@ interpret_bf(bf, rules = "jeffreys1961", include_value = FALSE)
 \item{include_value}{Include the value in the output.}
 }
 \description{
-Bayes Factor (BF) Interpretation
+Interpret Bayes Factor (BF)
 }
 \examples{
 interpret_bf(1)

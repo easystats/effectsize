@@ -8,6 +8,17 @@ print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
   x_orig <- x
   print.effectsize_table(x, digits = digits)
 
+  ## Add note
+  # note <- NULL
+  # if (any(colnames(x) %in% c("Cohens_d", "Hedges_g"))) {
+  #   note <- c(note, ifelse(attr(x, "pooled_sd"), "Pooled SD", "Unpooled SD"))
+  # }
+  # if (attr(x, "correction")) {
+  #   note <- c(note, "Bias-corrected")
+  # }
+  # if (!is.null(note)) cat(c("\n[",paste0(note, collapse = "; ")), "]\n")
+
+  ## Common lang
   if (append_CL && any(colnames(x) %in% c("Cohens_d", "Hedges_g"))) {
     cl <- d_to_common_language(x[[any(colnames(x) %in% c("Cohens_d", "Hedges_g"))]])
     cl <- sapply(cl, insight::format_value, digits = digits, as_percent = TRUE)

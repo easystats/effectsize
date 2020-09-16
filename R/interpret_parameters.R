@@ -1,6 +1,6 @@
-#' Automated Interpretation of Effect Sizes
+#' Interpret of standardized slopes
 #'
-#' Automated interpretation of effect sizes.
+#' Automated interpretation of standardized slopes.
 #'
 #' @inheritParams standardize_parameters
 #' @param interpretation Interpretation grid (i.e., the set of rules of thumb) used to interpret the effects.
@@ -10,11 +10,17 @@
 #'
 #' @examples
 #' model <- lm(Sepal.Length ~ Species * Petal.Width, data = iris)
+#' interpret_parameters(model)
 #'
 #' @export
 interpret_parameters <- function(model, ...) {
-  warning("There is a known bug in 'interpret_parameters()' when interpreting parameters related to factors. \n",
-          "(See github.com/easystats/effectsize/issues/104)",
+  ## ----------------------------- NOTE ---------------------------------------
+  ## this is a not very informative name for a function... There are many types
+  ## of parameters, and this function is specifically dealing with standardized
+  ## SLOPES.
+  ## --------------------------------------------------------------------------
+  warning("This function is highly experimental!\n",
+          "See discussion at github.com/easystats/effectsize/issues/127",
           call. = FALSE)
   UseMethod("interpret_parameters")
 }

@@ -158,13 +158,12 @@ standardize_parameters(model, method = "basic")
 if (require("lme4")) {
   m <- lmer(mpg ~ cyl + am + vs + (1|cyl), mtcars)
   standardize_parameters(m, method = "pseudo")
-  standardize_parameters(m, method = "basic")
 }
 
 
 
 if (require("rstanarm")) {
-  model <- stan_glm(Sepal.Length ~ Species + Petal.Width, data = iris, iter = 500, refresh = 0)
+  model <- stan_glm(Sepal.Length ~ Species + Petal.Width, data = iris, refresh = 0)
   # standardize_posteriors(model, method = "refit")
   # standardize_posteriors(model, method = "posthoc")
   # standardize_posteriors(model, method = "smart")

@@ -1,4 +1,4 @@
-#' Bayes Factor (BF) Interpretation
+#' Interpret Bayes Factor (BF)
 #'
 #' @param bf Value or vector of Bayes factor (BF) values.
 #' @param rules Can be `"jeffreys1961"` (default), `"raftery1995"` or custom set of [rules()].
