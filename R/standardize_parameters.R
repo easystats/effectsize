@@ -148,6 +148,8 @@ standardize_parameters <- function(model, parameters = NULL, method = "refit", c
       ...
     )
   method <- attr(std_params, "std_method")
+  robust <- attr(std_params, "robust")
+  two_sd <- attr(std_params, "two_sd")
 
   # Summarise for Bayesian models
   if (insight::model_info(model)$is_bayesian) {
@@ -163,6 +165,8 @@ standardize_parameters <- function(model, parameters = NULL, method = "refit", c
 
   attr(std_params, "object_name") <- deparse(substitute(model), width.cutoff = 500)
   attr(std_params, "std_method") <- method
+  attr(std_params, "two_sd") <- two_sd
+  attr(std_params, "robust") <- robust
   std_params
 }
 
@@ -193,6 +197,11 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
       )
       method <- "basic"
     }
+
+    if (robust) {
+      warning("'robust' standardization not available for 'pseudo' method.",
+              call. = FALSE)
+    }
   }
 
   if (method == "default") method <- "refit"
@@ -213,6 +222,8 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 
   class(std_params) <- c("effectsize_table", "see_effectsize_table",class(std_params))
   attr(std_params, "std_method") <- method
+  attr(std_params, "robust") <- robust
+  attr(std_params, "two_sd") <- two_sd
   std_params
 }
 
