@@ -1,16 +1,12 @@
-#' General effect size conversion
+#' Convert between *d*, *r* and *Odds ratio*
 #'
-#' Enables a conversion between different indices of effect size, such as standardized difference (Cohen's d), correlation r or (log) odds ratios.
+#' Enables a conversion between different indices of effect size, such as
+#' standardized difference (Cohen's d), correlation r or (log) odds ratios.
 #'
 #' @param d Standardized difference value (Cohen's d).
 #' @param r Correlation coefficient r.
-#' @param odds Odds values in vector or dataframe.
-#' @param probs Probability values.
-#' @param log Take in or output log odds (such as in logistic models).
-#' @param select When a dataframe is passed, character or list of of column names to be
-#' transformed.
-#' @param exclude When a dataframe is passed, character or list of column names to be excluded
-#' from transformation.
+#' @param odds *Odds ratio* values in vector or data frame.
+#' @param log Take in or output log odds ratio (such as in logistic models).
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @examples
@@ -26,13 +22,15 @@
 #' @details
 #' - *d to r*: \eqn{d = \frac{2 * r}{\sqrt{1 - r^2}}}
 #' - *r to d*: \eqn{r = \frac{d}{\sqrt{d^2 + 4}}}
-#' - *odds to d*: \eqn{d = \frac{\log(odds)\times\sqrt{3}}{\pi}}
-#' - *d to odds*: \eqn{log(odds) = d * \frac{\pi}{\sqrt(3)}}
+#' - *OR to d*: \eqn{d = \frac{\log(OR)\times\sqrt{3}}{\pi}}
+#' - *d to OR*: \eqn{log(OR) = d * \frac{\pi}{\sqrt(3)}}
 #'
+#' Conversions between *OR* and *r* is done through these formulae.
 #'
 #' @references
 #' - Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003). Effect-size indices for dichotomized outcomes in meta-analysis. Psychological methods, 8(4), 448.
 #' - Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R. (2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
+#'
 #' @export
 d_to_r <- function(d, ...) {
   d / (sqrt(d^2 + 4))
@@ -54,3 +52,84 @@ convert_d_to_r <- d_to_r
 #' @rdname d_to_r
 #' @export
 convert_r_to_d <- r_to_d
+
+
+
+# Odds - d ----------------------------------------------------------------
+
+
+
+#' @rdname d_to_r
+#' @export
+odds_to_d <- function(odds, log = FALSE, ...) {
+  if (log == FALSE) {
+    log_odds <- log(odds)
+  } else {
+    log_odds <- odds
+  }
+
+  log_odds * (sqrt(3) / pi)
+}
+
+#' @rdname d_to_r
+#' @export
+convert_odds_to_d <- odds_to_d
+
+#' @rdname d_to_r
+#' @export
+logodds_to_d <- function(odds, log = TRUE, ...) {
+  odds_to_d(odds, log = log, ...)
+}
+
+
+
+#' @rdname d_to_r
+#' @export
+d_to_odds <- function(d, log = FALSE, ...) {
+  if (log == TRUE) {
+    d * pi / sqrt(3)
+  } else {
+    exp(d * pi / sqrt(3))
+  }
+}
+
+#' @rdname d_to_r
+#' @export
+convert_d_to_odds <- d_to_odds
+
+
+
+
+# Odds - r ----------------------------------------------------------------
+
+#' @rdname d_to_r
+#' @export
+odds_to_r <- function(odds, log = FALSE, ...) {
+  d_to_r(odds_to_d(odds, log = log))
+}
+
+#' @rdname d_to_r
+#' @export
+convert_odds_to_r <- odds_to_r
+
+#' @rdname d_to_r
+#' @export
+logodds_to_r <- function(odds, log = TRUE, ...) {
+  odds_to_r(odds, log = log, ...)
+}
+
+
+
+#' @rdname d_to_r
+#' @export
+r_to_odds <- function(r, log = FALSE, ...) {
+  d_to_odds(r_to_d(r), log = log)
+}
+
+#' @rdname d_to_r
+#' @export
+convert_r_to_odds <- r_to_odds
+
+
+
+

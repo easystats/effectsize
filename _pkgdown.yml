@@ -33,6 +33,7 @@ reference:
   contents:
   - d_to_common_language
   - d_to_r
+  - odds_to_probs
 - title: "Rescaling"
   contents:
   - change_scale
