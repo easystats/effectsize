@@ -8,9 +8,9 @@
 \usage{
 interpret_d(d, rules = "cohen1988")
 
-interpret_g(g, rules = "funder2019")
+interpret_g(g, rules = "cohen1988")
 
-interpret_delta(delta, rules = "funder2019")
+interpret_delta(delta, rules = "cohen1988")
 }
 \arguments{
 \item{d, g, delta}{Value or vector of effect size values.}
