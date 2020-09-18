@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3.001</span>
       </span>
     </div>
 
@@ -288,21 +288,24 @@
 <h3 class="hasAnchor">
 <a href="#standardized-difference-d-cohens-d" class="anchor"></a>Standardized Difference <em>d</em> (Cohen’s <em>d</em>)</h3>
 <p>The sandardized difference can be obtained through the standardization of linear model’s parameters or data, in which they can be used as indices of effect size.</p>
+<div id="cohen1988statistical-2" class="section level4">
+<h4 class="hasAnchor">
+<a href="#cohen1988statistical-2" class="anchor"></a><span class="citation">Cohen (1988)</span>
+</h4>
 <div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_d.html">interpret_d</a></span>(<span class="kw">x</span>, rules = <span class="st">"funder2019"</span>)
+<span class="fu"><a href="../reference/interpret_d.html">interpret_d</a></span>(<span class="kw">x</span>, rules = <span class="st">"cohen1988"</span>)
 </pre></div>
 <ul>
 <li>
-<strong>r = 0 - 0.1</strong>: Very small</li>
+<strong>d = 0 - 0.2</strong>: Very small</li>
 <li>
-<strong>r = 0.1 - 0.2</strong>: Small</li>
+<strong>d = 0.2 - 0.5</strong>: Small</li>
 <li>
-<strong>r = 0.2 - 0.4</strong>: Medium</li>
+<strong>d = 0.5 - 0.8</strong>: Medium</li>
 <li>
-<strong>r = 0.4 - 0.6</strong>: Large</li>
-<li>
-<strong>r &gt; 0.6</strong>: Very large</li>
+<strong>d &gt; 0.8</strong>: Large</li>
 </ul>
+</div>
 <div id="gignac2016effect-1" class="section level4">
 <h4 class="hasAnchor">
 <a href="#gignac2016effect-1" class="anchor"></a><span class="citation">Gignac and Szodorai (2016)</span>
@@ -322,29 +325,11 @@
 <strong>d &gt; 0.6</strong>: Large</li>
 </ul>
 </div>
-<div id="cohen1988statistical-2" class="section level4">
-<h4 class="hasAnchor">
-<a href="#cohen1988statistical-2" class="anchor"></a><span class="citation">Cohen (1988)</span>
-</h4>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_d.html">interpret_d</a></span>(<span class="kw">x</span>, rules = <span class="st">"cohen1988"</span>)
-</pre></div>
-<ul>
-<li>
-<strong>d = 0 - 0.2</strong>: Very small</li>
-<li>
-<strong>d = 0.2 - 0.5</strong>: Small</li>
-<li>
-<strong>d = 0.5 - 0.8</strong>: Medium</li>
-<li>
-<strong>d &gt; 0.8</strong>: Large</li>
-</ul>
-</div>
 <div id="sawilowsky2009new" class="section level4">
 <h4 class="hasAnchor">
 <a href="#sawilowsky2009new" class="anchor"></a><span class="citation">Sawilowsky (2009)</span>
 </h4>
-<div class="sourceCode" id="cb12"><pre class="downlit">
+<div class="sourceCode" id="cb11"><pre class="downlit">
 <span class="fu"><a href="../reference/interpret_d.html">interpret_d</a></span>(<span class="kw">x</span>, rules = <span class="st">"sawilowsky2009"</span>)
 </pre></div>
 <ul>
@@ -373,7 +358,7 @@
 <h4 class="hasAnchor">
 <a href="#chen2010big" class="anchor"></a><span class="citation">Chen, Cohen, and Chen (2010)</span>
 </h4>
-<div class="sourceCode" id="cb13"><pre class="downlit">
+<div class="sourceCode" id="cb12"><pre class="downlit">
 <span class="fu"><a href="../reference/interpret_odds.html">interpret_odds</a></span>(<span class="kw">x</span>, rules = <span class="st">"chen2010"</span>)
 </pre></div>
 <ul>
@@ -391,11 +376,11 @@
 <h4 class="hasAnchor">
 <a href="#cohen1988statistical-3" class="anchor"></a><span class="citation">Cohen (1988)</span>
 </h4>
-<div class="sourceCode" id="cb14"><pre class="downlit">
+<div class="sourceCode" id="cb13"><pre class="downlit">
 <span class="fu"><a href="../reference/interpret_odds.html">interpret_odds</a></span>(<span class="kw">x</span>, rules = <span class="st">"cohen1988"</span>)
 </pre></div>
 <p>This converts (log) odds ratio to standardized difference <em>d</em> using the following formula <span class="citation">(Cohen 1988; Sánchez-Meca, Marı́n-Martı́nez, and Chacón-Moscoso 2003)</span>:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit">
+<div class="sourceCode" id="cb14"><pre class="downlit">
 <span class="kw">d</span> <span class="op">&lt;-</span> <span class="kw">log_odds</span> <span class="op">*</span> (<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(<span class="fl">3</span>) <span class="op">/</span> <span class="kw">pi</span>)
 </pre></div>
 </div>
@@ -408,7 +393,7 @@
 <h4 class="hasAnchor">
 <a href="#field2013discovering" class="anchor"></a><span class="citation">Field (2013)</span>
 </h4>
-<div class="sourceCode" id="cb16"><pre class="downlit">
+<div class="sourceCode" id="cb15"><pre class="downlit">
 <span class="fu"><a href="../reference/interpret_omega_squared.html">interpret_omega_squared</a></span>(<span class="kw">x</span>, rules = <span class="st">"field2013"</span>)
 </pre></div>
 <ul>
@@ -436,7 +421,7 @@
 <h4 class="hasAnchor">
 <a href="#jeffreys1961theory" class="anchor"></a><span class="citation">Jeffreys (1961)</span>
 </h4>
-<div class="sourceCode" id="cb17"><pre class="downlit">
+<div class="sourceCode" id="cb16"><pre class="downlit">
 <span class="fu"><a href="../reference/interpret_bf.html">interpret_bf</a></span>(<span class="kw">x</span>, rules = <span class="st">"jeffreys1961"</span>)
 </pre></div>
 <ul>
@@ -456,7 +441,7 @@
 <h4 class="hasAnchor">
 <a href="#raftery1995bayesian" class="anchor"></a><span class="citation">Raftery (1995)</span>
 </h4>
-<div class="sourceCode" id="cb18"><pre class="downlit">
+<div class="sourceCode" id="cb17"><pre class="downlit">
 <span class="fu"><a href="../reference/interpret_bf.html">interpret_bf</a></span>(<span class="kw">x</span>, rules = <span class="st">"raftery1995"</span>)
 </pre></div>
 <ul>
