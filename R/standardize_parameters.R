@@ -185,7 +185,7 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   }
 
   if (!is.null(ci)) {
-    stop("Method 'ci' argument not supported for 'model_parameters()", call. = TRUE)
+    warnings("Argument 'ci' argument not supported for 'model_parameters(). It is ignored.", call. = TRUE)
   }
 
   pars <- model
