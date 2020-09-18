@@ -121,6 +121,10 @@ if (require("testthat") && require("effectsize")) {
         c(0, -0.058, -0.053,  0.838),
         tol = 0.01
       )
+
+      posts <- standardize_posteriors(model, method = "posthoc")
+      testthat::expect_equal(dim(posts), c(1000, 4))
+      testthat::expect_is(posts, "data.frame")
     })
   }
 

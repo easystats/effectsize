@@ -287,6 +287,103 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
 .col_2_scale <- c("Coefficient","Median", "Mean", "SE", "CI_low", "CI_high")
 
 
+# standardize_posteriors --------------------------------------------------
+
+
+
+#' @rdname standardize_parameters
+#' @export
+standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
+  object_name <- deparse(substitute(model), width.cutoff = 500)
+
+  if (method == "refit") {
+    model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose)
+  }
+
+  pars <- insight::get_parameters(model)
+
+
+  if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
+    pars <- .standardize_posteriors_posthoc(pars, method, model, robust, two_sd, verbose)
+
+    method <- attr(pars, "std_method")
+    robust <- attr(pars, "robust")
+  }
+
+  ## attributes
+  attr(pars, "std_method") <- method
+  attr(pars, "two_sd") <- two_sd
+  attr(pars, "robust") <- robust
+  attr(pars, "object_name") <- object_name
+  class(pars) <- c("effectsize_std_params", class(pars))
+  return(pars)
+}
+
+
+
+#' @keywords internal
+#' @importFrom insight model_info find_random
+.standardize_posteriors_posthoc <- function(pars, method, model, robust, two_sd, verbose) {
+  # Sanity Check for ZI
+  if (verbose && insight::model_info(model)$is_zero_inflated) {
+    warning("Non-refit parameter standardization is ignoring the zero-inflation component.", call. = FALSE)
+  }
+
+  # Sanity Check for ZI "pseudo"
+  if (method == "pseudo" &&
+      !(insight::model_info(model)$is_mixed &&
+        length(insight::find_random(model)$random) == 1)) {
+    warning(
+      "'pseudo' method only available for 2-level (G)LMMs.\n",
+      "Setting method to 'basic'.",
+      call. = FALSE
+    )
+    method <- "basic"
+  }
+
+  if (robust && method == "pseudo") {
+    warning("'robust' standardization not available for 'pseudo' method.",
+            call. = FALSE)
+    robust <- FALSE
+  }
+
+  ## Get scaling factors
+  deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo")
+  i <- match(deviations$Parameter, colnames(pars))
+  pars <- pars[,i]
+
+  if (method == "basic") {
+    col_dev_resp <- "Deviation_Response_Basic"
+    col_dev_pred <- "Deviation_Basic"
+  } else if (method == "posthoc") {
+    col_dev_resp <- "Deviation_Response_Basic"
+    col_dev_pred <- "Deviation_Smart"
+  } else if (method == "smart") {
+    col_dev_resp <- "Deviation_Response_Smart"
+    col_dev_pred <- "Deviation_Smart"
+  } else if (method == "pseudo") {
+    col_dev_resp <- "Deviation_Response_Pseudo"
+    col_dev_pred <- "Deviation_Pseudo"
+  } else {
+    stop("'method' must be one of 'basic', 'posthoc', 'smart' or 'pseudo'.")
+  }
+
+  # Sapply standardization
+  f <- if (two_sd) 2 else 1
+
+  pars <- t(t(pars) * (f * deviations[[col_dev_pred]] / deviations[[col_dev_resp]]))
+  pars <- as.data.frame(pars)
+
+  attr(pars, "std_method") <- method
+  attr(pars, "two_sd") <- two_sd
+  attr(pars, "robust") <- robust
+
+  return(pars)
+}
+
+
+
+
 #' # OLD ---------------------------------------------------------------------
 #'
 #'

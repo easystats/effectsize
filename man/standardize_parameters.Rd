@@ -2,6 +2,7 @@
 % Please edit documentation in R/standardize_parameters.R
 \name{standardize_parameters}
 \alias{standardize_parameters}
+\alias{standardize_posteriors}
 \title{Parameters standardization}
 \usage{
 standardize_parameters(
@@ -12,6 +13,15 @@ standardize_parameters(
   two_sd = FALSE,
   verbose = TRUE,
   parameters,
+  ...
+)
+
+standardize_posteriors(
+  model,
+  method = "refit",
+  robust = FALSE,
+  two_sd = FALSE,
+  verbose = TRUE,
   ...
 )
 }
