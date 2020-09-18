@@ -394,7 +394,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 #' @keywords internal
 standardize_parameters2 <- function(model, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
   object_name <- deparse(substitute(model), width.cutoff = 500)
-  scale_cols <- c("Coefficient","Median", "Mean", "CI_low", "CI_high")
+  scale_cols <- c("Coefficient","Median", "Mean", "SE", "CI_low", "CI_high")
 
   if (method == "refit") {
     model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose, ...)
@@ -466,6 +466,11 @@ standardize_parameters2 <- function(model, method = "refit", ci = 0.95, robust =
   i <- colnames(pars) %in% c("Coefficient", "Median", "Mean", "MAP")
   colnames(pars)[i] <- paste0("Std_", colnames(pars)[i])
 
+  ## SE attribute?
+  if ("SE" %in% colnames(pars)) {
+    attr(pars, "standard_error") <- pars$SE
+    pars$SE <- NULL
+  }
 
   ## attributes
   attr(pars, "std_method") <- method
@@ -475,4 +480,3 @@ standardize_parameters2 <- function(model, method = "refit", ci = 0.95, robust =
   class(pars) <- c("effectsize_table", "see_effectsize_table", class(pars))
   return(pars)
 }
-
