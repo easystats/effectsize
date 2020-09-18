@@ -10,8 +10,8 @@ if (require("testthat") && require("effectsize")) {
 
 
   test_that("standardize_parameters (model_parameters)", {
-    model <- lm(mpg ~ cyl + am, data = mtcars)
-    mp <- parameters::model_parameters(model)
+    model <<- lm(mpg ~ cyl + am, data = mtcars)
+    mp <<- parameters::model_parameters(model)
 
     s1 <- standardize_parameters(model, method = "basic")
     s2 <- standardize_parameters(mp, method = "basic")
