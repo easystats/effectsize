@@ -127,8 +127,6 @@
 #' - Neter, J., Wasserman, W., & Kutner, M. H. (1989). Applied linear regression models.
 #' - Gelman, A. (2008). Scaling regression inputs by dividing by two standard deviations. Statistics in medicine, 27(15), 2865-2873.
 #'
-#' @importFrom parameters model_parameters
-#' @importFrom insight model_info find_random
 #' @export
 standardize_parameters <- function(model, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, parameters, ...) {
   if (!missing(parameters)) {
@@ -138,76 +136,30 @@ standardize_parameters <- function(model, method = "refit", ci = 0.95, robust = 
     )
   }
 
+  UseMethod("standardize_parameters")
+}
+
+#' @importFrom parameters model_parameters
+#' @export
+standardize_parameters.default <- function(model, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, parameters, ...) {
   object_name <- deparse(substitute(model), width.cutoff = 500)
-  scale_cols <- c("Coefficient","Median", "Mean", "SE", "CI_low", "CI_high")
 
   if (method == "refit") {
     model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose)
   }
 
   pars <- parameters::model_parameters(model, ci = ci, standardize = NULL, ...)
-  pars$CI <- attr(pars, "ci")
-  pars <- pars[,colnames(pars) %in% c("Parameter", "CI", scale_cols)]
-
 
   if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
-    # Sanity Check for ZI
-    if (verbose && insight::model_info(model)$is_zero_inflated) {
-      warning("Non-refit parameter standardization is ignoring the zero-inflation component.", call. = FALSE)
-    }
+    pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, verbose)
 
-    # Sanity Check for ZI "pseudo"
-    if (method == "pseudo" &&
-        !(insight::model_info(model)$is_mixed &&
-          length(insight::find_random(model)$random) == 1)) {
-      warning(
-        "'pseudo' method only available for 2-level (G)LMMs.\n",
-        "Setting method to 'basic'.",
-        call. = FALSE
-      )
-      method <- "basic"
-    }
-
-    if (robust && method == "pseudo") {
-      warning("'robust' standardization not available for 'pseudo' method.",
-              call. = FALSE)
-      robust <- FALSE
-    }
-
-
-    ## Get scaling factors
-    deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo")
-    i <- match(deviations$Parameter, pars$Parameter)
-    pars <- pars[i,]
-
-    if (method == "basic") {
-      col_dev_resp <- "Deviation_Response_Basic"
-      col_dev_pred <- "Deviation_Basic"
-    } else if (method == "posthoc") {
-      col_dev_resp <- "Deviation_Response_Basic"
-      col_dev_pred <- "Deviation_Smart"
-    } else if (method == "smart") {
-      col_dev_resp <- "Deviation_Response_Smart"
-      col_dev_pred <- "Deviation_Smart"
-    } else if (method == "pseudo") {
-      col_dev_resp <- "Deviation_Response_Pseudo"
-      col_dev_pred <- "Deviation_Pseudo"
-    } else {
-      stop("'method' must be one of 'basic', 'posthoc', 'smart' or 'pseudo'.")
-    }
-
-    # Sapply standardization
-    f <- if (two_sd) 2 else 1
-
-    pars[,colnames(pars) %in% scale_cols] <- lapply(
-      pars[, colnames(pars) %in% scale_cols, drop = FALSE],
-      function(x) {
-        x * (f * deviations[[col_dev_pred]] / deviations[[col_dev_resp]])
-      }
-    )
+    method <- attr(pars, "std_method")
+    robust <- attr(pars, "robust")
   }
 
-  ## clean names
+  ## clean cols
+  if (!is.null(ci)) pars$CI <- attr(pars, "ci")
+  pars <- pars[,colnames(pars) %in% c("Parameter", "CI", .col_2_scale)]
   i <- colnames(pars) %in% c("Coefficient", "Median", "Mean", "MAP")
   colnames(pars)[i] <- paste0("Std_", colnames(pars)[i])
 
@@ -222,10 +174,117 @@ standardize_parameters <- function(model, method = "refit", ci = 0.95, robust = 
   attr(pars, "two_sd") <- two_sd
   attr(pars, "robust") <- robust
   attr(pars, "object_name") <- object_name
-  class(pars) <- c("effectsize_table", "see_effectsize_table", class(pars))
+  class(pars) <- c("effectsize_table", "see_effectsize_table", "effectsize_std_params", "data.frame")
   return(pars)
 }
 
+#' @export
+standardize_parameters.parameters_model <- function(model, method = "refit", ci = NULL, robust = FALSE, two_sd = FALSE, verbose = TRUE, parameters, ...) {
+  if (method == "refit") {
+    stop("Method 'refit' not supported for 'model_parameters()", call. = TRUE)
+  }
+
+  if (!is.null(ci)) {
+    stop("Method 'ci' argument not supported for 'model_parameters()", call. = TRUE)
+  }
+
+  pars <- model
+  ci <- attr(pars, "ci")
+  obj_name <- attr(pars, "obj_name")
+  model <- .get_object(model)
+
+  pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, verbose)
+  method <- attr(pars, "std_method")
+  robust <- attr(pars, "robust")
+
+  ## clean cols
+  if ("CI_low" %in% colnames(pars)) pars$CI <- ci
+  pars <- pars[,colnames(pars) %in% c("Parameter", "CI", .col_2_scale)]
+  i <- colnames(pars) %in% c("Coefficient", "Median", "Mean", "MAP")
+  colnames(pars)[i] <- paste0("Std_", colnames(pars)[i])
+
+  ## SE attribute?
+  if ("SE" %in% colnames(pars)) {
+    attr(pars, "standard_error") <- pars$SE
+    pars$SE <- NULL
+  }
+
+  ## attributes
+  attr(pars, "two_sd") <- two_sd
+  attr(pars, "std_method") <- method
+  attr(pars, "two_sd") <- two_sd
+  attr(pars, "robust") <- robust
+  class(pars) <- c("effectsize_table", "see_effectsize_table", "effectsize_std_params", "data.frame")
+  return(pars)
+}
+
+#' @keywords internal
+#' @importFrom insight model_info find_random
+.standardize_parameters_posthoc <- function(pars, method, model, robust, two_sd, verbose) {
+  # Sanity Check for ZI
+  if (verbose && insight::model_info(model)$is_zero_inflated) {
+    warning("Non-refit parameter standardization is ignoring the zero-inflation component.", call. = FALSE)
+  }
+
+  # Sanity Check for ZI "pseudo"
+  if (method == "pseudo" &&
+      !(insight::model_info(model)$is_mixed &&
+        length(insight::find_random(model)$random) == 1)) {
+    warning(
+      "'pseudo' method only available for 2-level (G)LMMs.\n",
+      "Setting method to 'basic'.",
+      call. = FALSE
+    )
+    method <- "basic"
+  }
+
+  if (robust && method == "pseudo") {
+    warning("'robust' standardization not available for 'pseudo' method.",
+            call. = FALSE)
+    robust <- FALSE
+  }
+
+
+  ## Get scaling factors
+  deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo")
+  i <- match(deviations$Parameter, pars$Parameter)
+  pars <- pars[i,]
+
+  if (method == "basic") {
+    col_dev_resp <- "Deviation_Response_Basic"
+    col_dev_pred <- "Deviation_Basic"
+  } else if (method == "posthoc") {
+    col_dev_resp <- "Deviation_Response_Basic"
+    col_dev_pred <- "Deviation_Smart"
+  } else if (method == "smart") {
+    col_dev_resp <- "Deviation_Response_Smart"
+    col_dev_pred <- "Deviation_Smart"
+  } else if (method == "pseudo") {
+    col_dev_resp <- "Deviation_Response_Pseudo"
+    col_dev_pred <- "Deviation_Pseudo"
+  } else {
+    stop("'method' must be one of 'basic', 'posthoc', 'smart' or 'pseudo'.")
+  }
+
+  # Sapply standardization
+  f <- if (two_sd) 2 else 1
+
+  pars[,colnames(pars) %in% .col_2_scale] <- lapply(
+    pars[, colnames(pars) %in% .col_2_scale, drop = FALSE],
+    function(x) {
+      x * (f * deviations[[col_dev_pred]] / deviations[[col_dev_resp]])
+    }
+  )
+
+  attr(pars, "std_method") <- method
+  attr(pars, "two_sd") <- two_sd
+  attr(pars, "robust") <- robust
+
+  return(pars)
+}
+
+#' @keywords internal
+.col_2_scale <- c("Coefficient","Median", "Mean", "SE", "CI_low", "CI_high")
 
 
 #' # OLD ---------------------------------------------------------------------
