@@ -7,13 +7,12 @@
 \usage{
 standardize_parameters(
   model,
-  parameters = NULL,
   method = "refit",
   ci = 0.95,
   robust = FALSE,
   two_sd = FALSE,
   verbose = TRUE,
-  centrality = "median",
+  parameters,
   ...
 )
 
@@ -28,9 +27,6 @@ standardize_posteriors(
 }
 \arguments{
 \item{model}{A statistical model.}
-
-\item{parameters}{An optional table containing the parameters to standardize.
-If \code{NULL}, will automatically retrieve it from the model.}
 
 \item{method}{The method used for standardizing the parameters. Can be
 \code{"refit"} (default), \code{"posthoc"}, \code{"smart"}, \code{"basic"} or \code{"pseudo"}. See
@@ -50,11 +46,14 @@ related to binary predictors (Gelman, 2008).}
 
 \item{verbose}{Toggle warnings on or off.}
 
-\item{centrality}{For Bayesian models, which point-estimates (centrality
-indices) to compute. Character (vector) or list with one or more of these
-options: "median", "mean", "MAP" or "all".}
+\item{parameters}{Deprecated.}
 
-\item{...}{Arguments passed to or from other methods.}
+\item{...}{Arguments passed to \link[parameters:model_parameters]{parameters::model_parameters}, such as:
+\itemize{
+\item For Bayesian models: \code{ci_method}, \code{centrality }, ...
+\item For Mixed models: \code{df_method}, ...
+\item etc.
+}}
 }
 \value{
 A data frame with the standardized parameters and their CIs.

@@ -4,6 +4,7 @@
 #'
 #' @inheritParams standardize_parameters
 #' @param include_pseudo (For (G)LMMs) Should Pseudo-standardized information be included?
+#' @param ... Arguments passed to or from other methods.
 #'
 #' @examples
 #' model <- lm(Sepal.Width ~ Sepal.Length * Species, data = iris)

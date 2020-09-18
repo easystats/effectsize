@@ -159,15 +159,16 @@ interpret_r(x, rules = "evans1996")
 
 The sandardized difference can be obtained through the standardization of linear model's parameters or data, in which they can be used as indices of effect size.
 
+#### @cohen1988statistical
+
 ```r
-interpret_d(x, rules = "funder2019")
+interpret_d(x, rules = "cohen1988")
 ```
 
-- **r = 0 - 0.1**: Very small
-- **r = 0.1 - 0.2**: Small
-- **r = 0.2 - 0.4**: Medium 
-- **r = 0.4 - 0.6**: Large
-- **r > 0.6**: Very large
+- **d = 0 - 0.2**: Very small
+- **d = 0.2 - 0.5**: Small
+- **d = 0.5 - 0.8**: Medium
+- **d > 0.8**: Large
 
 #### @gignac2016effect
 
@@ -183,16 +184,6 @@ interpret_d(x, rules = "gignac2016")
 - **d > 0.6**: Large
 
 
-#### @cohen1988statistical
-
-```r
-interpret_d(x, rules = "cohen1988")
-```
-
-- **d = 0 - 0.2**: Very small
-- **d = 0.2 - 0.5**: Small
-- **d = 0.5 - 0.8**: Medium
-- **d > 0.8**: Large
 
 #### @sawilowsky2009new
 

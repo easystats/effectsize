@@ -4,8 +4,22 @@ if (require("testthat") && require("effectsize")) {
     r <- as.numeric(cor.test(df$Sepal.Length, df$Petal.Length)$estimate)
 
     model <- lm(Sepal.Length ~ Petal.Length, data = df)
-    es <- standardize_parameters(model)[2, 2]
-    testthat::expect_equal(es, r, tol = 0.01)
+    es <- standardize_parameters(model)
+    testthat::expect_equal(es[2,2], r, tol = 0.01)
+  })
+
+
+  test_that("standardize_parameters (model_parameters)", {
+    model <<- lm(mpg ~ cyl + am, data = mtcars)
+    mp <<- parameters::model_parameters(model)
+
+    s1 <- standardize_parameters(model, method = "basic")
+    s2 <- standardize_parameters(mp, method = "basic")
+
+    testthat::expect_equal(s1$Parameter, s2$Parameter)
+    testthat::expect_equal(s1$Std_Coefficient, s2$Std_Coefficient)
+    testthat::expect_equal(s1$CI_low, s2$CI_low)
+    testthat::expect_equal(s1$CI_high, s2$CI_high)
   })
 
   test_that("standardize_parameters (lm with ci)", {
@@ -104,9 +118,13 @@ if (require("testthat") && require("effectsize")) {
 
       testthat::expect_equal(
         suppressWarnings(standardize_parameters(model, method = "posthoc")$Std_Median),
-        c(NA, -0.058, -0.053,  0.838),
+        c(0, -0.058, -0.053,  0.838),
         tol = 0.01
       )
+
+      posts <- standardize_posteriors(model, method = "posthoc")
+      testthat::expect_equal(dim(posts), c(1000, 4))
+      testthat::expect_is(posts, "data.frame")
     })
   }
 

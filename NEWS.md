@@ -1,5 +1,9 @@
 # effectsize 0.3.x
 
+## Changes
+
+- Internal changes to `standardize_parameters()` (reducing co-dependency with `parameters`) - argument `parameters` has been dropped.
+
 # effectsize 0.3.3
 
 ## New features
