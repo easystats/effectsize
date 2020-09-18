@@ -226,7 +226,7 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
     warning("Non-refit parameter standardization is ignoring the zero-inflation component.", call. = FALSE)
   }
 
-  # Sanity Check for ZI "pseudo"
+  # Sanity Check for "pseudo"
   if (method == "pseudo" &&
       !(insight::model_info(model)$is_mixed &&
         length(insight::find_random(model)$random) == 1)) {
@@ -329,7 +329,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
     warning("Non-refit parameter standardization is ignoring the zero-inflation component.", call. = FALSE)
   }
 
-  # Sanity Check for ZI "pseudo"
+  # Sanity Check for "pseudo"
   if (method == "pseudo" &&
       !(insight::model_info(model)$is_mixed &&
         length(insight::find_random(model)$random) == 1)) {
