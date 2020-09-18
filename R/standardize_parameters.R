@@ -169,7 +169,7 @@ standardize_parameters <- function(model, parameters = NULL, method = "refit", c
     attr(std_params, "robust") <- robust
   }
 
-  class(std_params) <- c("effectsize_table", "see_effectsize_table","data.frame")
+  class(std_params) <- c("effectsize_table", "see_effectsize_table", class(std_params))
   attr(std_params, "object_name") <- deparse(substitute(model), width.cutoff = 500)
   std_params
 }
@@ -191,36 +191,52 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 .standardize_parameters <- function(model, parameters = NULL, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, object_name = NULL, ...) {
   method <- match.arg(method, choices = c("default", "refit", "posthoc", "smart", "partial", "basic", "pseudo"))
 
-  if (method == "pseudo") {
-    if (!(insight::model_info(model)$is_mixed &&
-         length(insight::find_random(model)$random) == 1)) {
-      warning(
-        "'pseudo' method only available for 2-level (G)LMMs.\n",
-        "Setting method to 'basic'.",
-        call. = FALSE
-      )
-      method <- "basic"
-    }
-
-    if (robust) {
-      warning("'robust' standardization not available for 'pseudo' method.",
-              call. = FALSE)
-    }
-  }
-
   if (method == "default") method <- "refit"
 
-
-  # Refit
   if (method %in% c("refit")) {
-    std_params <- .standardize_parameters_refit(model, ci = ci, robust = robust, verbose = verbose, ...)
-
-    # Posthoc
+    # Refit
+    std_params <- .standardize_parameters_refit(
+      model,
+      ci = ci,
+      robust = robust,
+      verbose = verbose,
+      ...
+    )
   } else if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
-    std_params <- .standardize_parameters_posthoc(model, parameters = parameters, method = method, ci = ci, robust = robust, two_sd = two_sd, verbose = verbose, object_name = object_name, ...)
+    # Posthoc
 
-    # Partial
+
+    if (method == "pseudo") {
+      if (!(insight::model_info(model)$is_mixed &&
+            length(insight::find_random(model)$random) == 1)) {
+        warning(
+          "'pseudo' method only available for 2-level (G)LMMs.\n",
+          "Setting method to 'basic'.",
+          call. = FALSE
+        )
+        method <- "basic"
+      }
+
+      if (robust) {
+        warning("'robust' standardization not available for 'pseudo' method.",
+                call. = FALSE)
+        robust <- FALSE
+      }
+    }
+
+    std_params <- .standardize_parameters_posthoc(
+      model,
+      parameters = parameters,
+      method = method,
+      ci = ci,
+      robust = robust,
+      two_sd = two_sd,
+      verbose = verbose,
+      object_name = object_name,
+      ...
+    )
   } else if (method == "partial") {
+    # Partial
     stop("`method = 'partial'` not implemented yet :(")
   }
 
@@ -333,22 +349,18 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   }
 
 
-  # Standardize SE if possible
+  # add standardized standard errors as attribute (if possible)
   std_error <- tryCatch({
     se <- parameters::standard_error(model, component = "conditional")
     se$SE[unique(match(se$Parameter, param_names))]
-  },
-  error = function(e) {
-    NULL
-  }
-  )
+  }, error = function(e) NULL)
 
-  # add standardized standard errors as attribute
   if (!is.null(std_error)) {
     std_error <- std_error * deviations[[col_dev_pred]] / deviations[[col_dev_resp]]
     attr(std_params, "standard_error") <- std_error
     class(std_params) <- c("effectsize_std_params", class(std_params))
   }
+
 
   attr(std_params, "object_name") <- object_name
   if (!is.null(ci) && !insight::model_info(model)$is_bayesian) {
