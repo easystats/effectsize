@@ -6,7 +6,7 @@
 \alias{interpret_delta}
 \title{Interpret standardized differences}
 \usage{
-interpret_d(d, rules = "funder2019")
+interpret_d(d, rules = "cohen1988")
 
 interpret_g(g, rules = "funder2019")
 
@@ -15,7 +15,7 @@ interpret_delta(delta, rules = "funder2019")
 \arguments{
 \item{d, g, delta}{Value or vector of effect size values.}
 
-\item{rules}{Can be \code{"funder2019"} (default), \code{"gignac2016"}, \code{"cohen1988"}, \code{"sawilowsky2009"} or custom set of \code{\link[=rules]{rules()}}.}
+\item{rules}{Can be \code{"cohen1988"} (default), \code{"gignac2016"}, \code{"sawilowsky2009"} or custom set of \code{\link[=rules]{rules()}}.}
 }
 \description{
 Interpretation of standardized differences using different sets of rules of thumb.
@@ -27,7 +27,6 @@ interpret_d(c(.5, .02))
 }
 \references{
 \itemize{
-\item Funder, D. C., & Ozer, D. J. (2019). Evaluating effect size in psychological research: sense and nonsense. Advances in Methods and Practices in Psychological Science.
 \item Gignac, G. E., & Szodorai, E. T. (2016). Effect size guidelines for individual differences researchers. Personality and individual differences, 102, 74-78.
 \item Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
 \item Sawilowsky, S. S. (2009). New effect size rules of thumb.
