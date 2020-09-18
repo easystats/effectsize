@@ -104,7 +104,7 @@ if (require("testthat") && require("effectsize")) {
 
       testthat::expect_equal(
         suppressWarnings(standardize_parameters(model, method = "posthoc")$Std_Median),
-        c(NA, -0.058, -0.053,  0.838),
+        c(0, -0.058, -0.053,  0.838),
         tol = 0.01
       )
     })
