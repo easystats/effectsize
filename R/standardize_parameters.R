@@ -170,7 +170,7 @@ standardize_parameters <- function(model, parameters = NULL, method = "refit", c
   }
 
   class(std_params) <- c("effectsize_table", "see_effectsize_table", class(std_params))
-  attr(std_params, "object_name") <- deparse(substitute(model), width.cutoff = 500)
+  attr(std_params, "object_name") <- object_name
   std_params
 }
 
@@ -206,22 +206,21 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
     # Posthoc
 
 
-    if (method == "pseudo") {
-      if (!(insight::model_info(model)$is_mixed &&
-            length(insight::find_random(model)$random) == 1)) {
-        warning(
-          "'pseudo' method only available for 2-level (G)LMMs.\n",
-          "Setting method to 'basic'.",
-          call. = FALSE
-        )
-        method <- "basic"
-      }
+    if (method == "pseudo" &&
+        !(insight::model_info(model)$is_mixed &&
+          length(insight::find_random(model)$random) == 1)) {
+      warning(
+        "'pseudo' method only available for 2-level (G)LMMs.\n",
+        "Setting method to 'basic'.",
+        call. = FALSE
+      )
+      method <- "basic"
+    }
 
-      if (robust) {
-        warning("'robust' standardization not available for 'pseudo' method.",
-                call. = FALSE)
-        robust <- FALSE
-      }
+    if (robust && method == "pseudo") {
+      warning("'robust' standardization not available for 'pseudo' method.",
+              call. = FALSE)
+      robust <- FALSE
     }
 
     std_params <- .standardize_parameters_posthoc(
@@ -361,7 +360,6 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
     class(std_params) <- c("effectsize_std_params", class(std_params))
   }
 
-
   attr(std_params, "object_name") <- object_name
   if (!is.null(ci) && !insight::model_info(model)$is_bayesian) {
     CIs <- parameters::ci(std_params, ci = ci)
@@ -371,7 +369,9 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
       std_params$CI_high <- CIs$CI_high
     }
   }
-  std_params
+
+
+  return(std_params)
 }
 
 
