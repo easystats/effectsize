@@ -20,6 +20,9 @@ interpret_delta(delta, rules = "cohen1988")
 \description{
 Interpretation of standardized differences using different sets of rules of thumb.
 }
+\note{
+The use of \code{"gignac2016"} is based on the \code{\link[=d_to_r]{d_to_r()}} conversion.
+}
 \examples{
 interpret_d(.02)
 interpret_d(c(.5, .02))

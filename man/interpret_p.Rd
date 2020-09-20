@@ -9,7 +9,8 @@ interpret_p(p, rules = "default")
 \arguments{
 \item{p}{Value or vector of p-values.}
 
-\item{rules}{Can be \code{"default"} or custom set of \code{\link[=rules]{rules()}}.}
+\item{rules}{Can be \code{"default"}, \code{"rss"} (for \emph{Redefine statistical
+significance} rules) or custom set of \code{\link[=rules]{rules()}}.}
 }
 \description{
 Interpret p-values
@@ -18,4 +19,9 @@ Interpret p-values
 interpret_p(.02)
 interpret_p(c(.5, .02))
 
+}
+\references{
+\itemize{
+\item Benjamin, D. J., Berger, J. O., Johannesson, M., Nosek, B. A., Wagenmakers, E. J., Berk, R., ... & Cesarini, D. (2018). Redefine statistical significance. Nature Human Behaviour, 2(1), 6-10.
+}
 }

@@ -22,6 +22,8 @@ interpret_odds <- function(odds, rules = "chen2010", log = FALSE) {
     if (rules == "chen2010") {
       if (log == TRUE) {
         odds <- exp(abs(odds))
+      } else {
+        odds <- exp(abs(log(odds)))
       }
 
       return(interpret(abs(odds), rules(c(1.68, 3.47, 6.71), c("very small", "small", "medium", "large"))))

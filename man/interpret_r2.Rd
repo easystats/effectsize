@@ -14,6 +14,10 @@ interpret_r2(r2, rules = "cohen1988")
 \description{
 Interpret coefficient of determination (R2)
 }
+\note{
+\code{"chin1998"} and \code{"hair2011"} are appropriate only for PLS / SEM
+R-Squared of \emph{latent} variables.
+}
 \examples{
 interpret_r2(.02)
 interpret_r2(c(.5, .02))

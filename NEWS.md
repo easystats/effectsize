@@ -1,8 +1,19 @@
 # effectsize 0.3.x
 
+## New features
+
+- `interpret_*` ( #131 ):
+  - `interpret_omega_squared()` added `"cohen1992"` rule.
+  - `interpret_p()` added *Redefine statistical significance* rules.
+
 ## Changes
 
 - Internal changes to `standardize_parameters()` (reducing co-dependency with `parameters`) - argument `parameters` has been dropped.
+
+## Bug fixes
+
+- `interpret_odds()` correctly treats extremely small odds the same as treats extremely large ones.
+
 
 # effectsize 0.3.3
 

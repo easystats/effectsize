@@ -6,7 +6,8 @@
 #' @param d,g,delta Value or vector of effect size values.
 #' @param rules Can be `"cohen1988"` (default), `"gignac2016"`, `"sawilowsky2009"` or custom set of [rules()].
 #'
-#'
+#' @note
+#' The use of `"gignac2016"` is based on the [d_to_r()] conversion.
 #'
 #' @examples
 #' interpret_d(.02)
@@ -23,11 +24,13 @@ interpret_d <- function(d, rules = "cohen1988") {
     return(interpret(abs(d), rules))
   } else {
     if (rules == "gignac2016") {
-      return(interpret(abs(d), rules(c(0.2, 0.4, 0.6), c("very small", "small", "medium", "large"))))
+      return(interpret_r(d_to_r(d), rules = rules))
     } else if (rules == "cohen1988") {
       return(interpret(abs(d), rules(c(0.2, 0.5, 0.8), c("very small", "small", "medium", "large"))))
     } else if (rules == "sawilowsky2009") {
-      return(interpret(abs(d), rules(c(0.1, 0.2, 0.5, 0.8, 1.2, 2), c("tiny", "very small", "small", "medium", "large", "very large", "huge"))))
+      return(interpret(abs(d),
+                       rules(c(0.1, 0.2, 0.5, 0.8, 1.2, 2),
+                             c("tiny", "very small", "small", "medium", "large", "very large", "huge"))))
     } else {
       stop("rules must be 'gignac2016','cohen1988', 'sawilowsky2009' or an object of type rules.")
     }

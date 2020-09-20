@@ -7,6 +7,9 @@
 #' interpret_r2(.02)
 #' interpret_r2(c(.5, .02))
 #'
+#' @note `"chin1998"` and `"hair2011"` are appropriate only for PLS / SEM
+#'   R-Squared of *latent* variables.
+#'
 #' @references
 #' - Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
 #' - Falk, R. F., & Miller, N. B. (1992). A primer for soft modeling. University of Akron Press.

@@ -29,13 +29,10 @@ interpret_rope <- function(rope, ci = 0.9, rules = "default") {
                       ifelse(rope == 1, "negligible", "not significant")
         ))
       } else {
-        return(ifelse(rope < 0.01, "significant",
-                      ifelse(rope < 0.025, "probably significant",
-                             ifelse(rope > 0.99, "negligible",
-                                    ifelse(rope > 0.975, "probably negligible", "not significant")
-                             )
-                      )
-        ))
+        return(interpret(rope, rules(c(0.01, 0.025,0.975, 0.99),
+                                     c("significant", "probably significant",
+                                       "not significant",
+                                       "probably negligible", "negligible"))))
       }
     } else {
       stop("rules must be 'default' or an object of type rules.")
