@@ -20,21 +20,21 @@
 #'
 #' @export
 interpret_d <- function(d, rules = "cohen1988") {
-  if (is.rules(rules)) {
-    return(interpret(abs(d), rules))
-  } else {
-    if (rules == "gignac2016") {
-      return(interpret_r(d_to_r(d), rules = rules))
-    } else if (rules == "cohen1988") {
-      return(interpret(abs(d), rules(c(0.2, 0.5, 0.8), c("very small", "small", "medium", "large"))))
-    } else if (rules == "sawilowsky2009") {
-      return(interpret(abs(d),
-                       rules(c(0.1, 0.2, 0.5, 0.8, 1.2, 2),
-                             c("tiny", "very small", "small", "medium", "large", "very large", "huge"))))
-    } else {
-      stop("rules must be 'gignac2016','cohen1988', 'sawilowsky2009' or an object of type rules.")
-    }
+  if (is.character(rules) && rules == "gignac2016") {
+    return(interpret_r(d_to_r(d), rules))
   }
+
+  rules <- .match.rules(
+    rules,
+    list(
+      cohen1988 = rules(c(0.2, 0.5, 0.8), c("very small", "small", "medium", "large")),
+      sawilowsky2009 = rules(c(0.1, 0.2, 0.5, 0.8, 1.2, 2),
+                             c("tiny", "very small", "small", "medium", "large", "very large", "huge")),
+      gignac2016 = NA # added for the correct error msg
+    )
+  )
+
+  interpret(abs(d), rules)
 }
 
 #' @rdname interpret_d

@@ -16,28 +16,33 @@
 #'
 #' @export
 interpret_bf <- function(bf, rules = "jeffreys1961", include_value = FALSE) {
-  ori_bf <- bf
+  if (any(bf < 0)) {
+    warning("Negative BFs detected. These are not possible. Converting to NA.")
+    bf[bf < 0] <- NA
+  }
+  orig_bf <- bf
 
   dir <- ifelse(bf < 1, "against", "in favour of")
-  bf <- c(bf)
-  bf[bf < 1] <- 1 / abs(bf[bf < 1])
+  bf <- exp(abs(log(bf)))
+
+  rules <- .match.rules(
+    rules,
+    list(
+      jeffreys1961 = rules(c(3, 10, 30, 100), c("anecdotal", "moderate", "strong", "very strong", "extreme")),
+      raftery1995 = rules(c(3, 20, 150), c("weak", "positive", "strong", "very strong"))
+    )
+  )
+
+  interpretation <- interpret(bf, rules)
 
 
-  if (is.rules(rules)) {
-    interpretation <- interpret(bf, rules)
-  } else {
-    if (rules == "jeffreys1961") {
-      interpretation <- interpret(bf, rules(c(1, 3, 10, 30, 100), c("no", "anecdotal", "moderate", "strong", "very strong", "extreme")))
-    } else if (rules == "raftery1995") {
-      interpretation <- interpret(bf, rules(c(1, 3, 20, 150), c("no", "weak", "positive", "strong", "very strong")))
-    } else {
-      stop("rules must be 'jeffreys1961', 'raftery1995' or an object of type rules.")
-    }
+  interpretation <- paste0(interpretation, " evidence ", dir)
+  interpretation[orig_bf==1] <- "no evidence"
+  if (include_value) {
+    interpretation <- paste0(interpretation, " (", insight::format_bf(orig_bf, protect_ratio = TRUE),")")
   }
 
-  if (include_value == FALSE) {
-    return(paste0(interpretation, " evidence ", dir))
-  } else {
-    return(paste0(interpretation, " evidence (BF = ", insight::format_value(ori_bf), ") ", dir))
-  }
+  interpretation[is.na(orig_bf)] <- NA
+
+  return(interpretation)
 }

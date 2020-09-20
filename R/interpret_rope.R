@@ -20,22 +20,22 @@
 #'
 #' @export
 interpret_rope <- function(rope, ci = 0.9, rules = "default") {
-  if (is.rules(rules)) {
-    return(interpret(rope, rules))
-  } else {
-    if (rules == "default") {
-      if (ci < 1) {
-        return(ifelse(rope == 0, "significant",
-                      ifelse(rope == 1, "negligible", "not significant")
-        ))
-      } else {
-        return(interpret(rope, rules(c(0.01, 0.025,0.975, 0.99),
-                                     c("significant", "probably significant",
-                                       "not significant",
-                                       "probably negligible", "negligible"))))
-      }
-    } else {
-      stop("rules must be 'default' or an object of type rules.")
-    }
+  if (is.character(rules) && rules == "default" && ci < 1) {
+    return(ifelse(rope == 0, "significant",
+                  ifelse(rope == 1, "negligible",
+                         "not significant")))
   }
+
+
+  rules <- .match.rules(
+    rules,
+    list(
+      default = rules(c(0.01, 0.025,0.975, 0.99),
+                      c("significant", "probably significant",
+                        "not significant",
+                        "probably negligible", "negligible"))
+    )
+  )
+
+  interpret(rope, rules)
 }

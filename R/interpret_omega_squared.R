@@ -19,21 +19,17 @@
 #'
 #' @export
 interpret_omega_squared <- function(es, rules = "field2013") {
-  if (is.rules(rules)) {
-    return(interpret(es, rules))
-  } else {
-    if (rules == "field2013") {
-      return(interpret(es,
-                       rules(c(0.01, 0.06, 0.14),
-                             c("very small", "small", "medium", "large"))))
-    } else if (rules == "cohen1992") {
-      return(interpret(es,
-                       rules(c(0.02, 0.13, 0.26),
-                             c("very small", "small", "medium", "large"))))
-    } else {
-      stop("rules must be 'field2013' or an object of type rules.")
-    }
-  }
+  rules <- .match.rules(
+    rules,
+    list(
+      field2013 = rules(c(0.01, 0.06, 0.14),
+                        c("very small", "small", "medium", "large")),
+      cohen1992 = rules(c(0.02, 0.13, 0.26),
+                        c("very small", "small", "medium", "large"))
+    )
+  )
+
+  interpret(es, rules)
 }
 
 #' @export

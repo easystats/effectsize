@@ -16,22 +16,26 @@
 #'
 #' @export
 interpret_odds <- function(odds, rules = "chen2010", log = FALSE) {
-  if (is.rules(rules)) {
-    return(interpret(abs(odds), rules))
-  } else {
-    if (rules == "chen2010") {
-      if (log == TRUE) {
-        odds <- exp(abs(odds))
-      } else {
-        odds <- exp(abs(log(odds)))
-      }
 
-      return(interpret(abs(odds), rules(c(1.68, 3.47, 6.71), c("very small", "small", "medium", "large"))))
-    } else if (rules == "cohen1988") {
-      d <- oddsratio_to_d(odds, log = log)
-      return(interpret_d(abs(d), rules = rules))
-    } else {
-      stop("rules must be 'chen2010', 'cohen1988' or an object of type rules.")
-    }
+  if (log) {
+    odds <- exp(abs(odds))
+  } else {
+    odds <- exp(abs(log(odds)))
   }
+
+
+  if (is.character(rules) && rules == "cohen1988") {
+    d <- oddsratio_to_d(odds, log = FALSE)
+    return(interpret_d(abs(d), rules = rules))
+  }
+
+  rules <- .match.rules(
+    rules,
+    list(
+      chen2010 = rules(c(1.68, 3.47, 6.71), c("very small", "small", "medium", "large")),
+      cohen1988 = NA # for correct error msg
+    )
+  )
+
+  interpret(odds, rules)
 }

@@ -26,15 +26,14 @@
 #' }
 #' @export
 interpret_ess <- function(ess, rules = "burkner2017") {
-  if (is.rules(rules)) {
-    return(interpret(abs(ess), rules))
-  } else {
-    if (rules == "burkner2017") {
-      return(interpret(abs(ess), rules(c(1000), c("unsufficient", "sufficient"))))
-    } else {
-      stop("rules must be 'burkner2017' or an object of type rules.")
-    }
-  }
+  rules <- .match.rules(
+    rules,
+    list(
+      burkner2017 = rules(c(1000), c("unsufficient", "sufficient"))
+    )
+  )
+
+  interpret(abs(ess), rules)
 }
 
 
@@ -42,15 +41,13 @@ interpret_ess <- function(ess, rules = "burkner2017") {
 #' @rdname interpret_ess
 #' @export
 interpret_rhat <- function(rhat, rules = "vehtari2019") {
-  if (is.rules(rules)) {
-    return(interpret(abs(rhat), rules))
-  } else {
-    if (rules == "vehtari2019") {
-      return(interpret(abs(rhat), rules(c(1.01), c("converged", "failed"))))
-    } else if (rules == "gelman1992") {
-      return(interpret(abs(rhat), rules(c(1.1), c("converged", "failed"))))
-    } else {
-      stop("rules must be 'vehtari2019', 'gelman1992' or an object of type rules.")
-    }
-  }
+  rules <- .match.rules(
+    rules,
+    list(
+      vehtari2019 = rules(c(1.01), c("converged", "failed")),
+      gelman1992 = rules(c(1.1), c("converged", "failed"))
+    )
+  )
+
+  interpret(abs(rhat), rules)
 }

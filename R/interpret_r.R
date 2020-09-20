@@ -19,45 +19,19 @@
 #'
 #' @export
 interpret_r <- function(r, rules = "funder2019") {
-  if (is.rules(rules)) {
-    return(interpret(abs(r), rules))
-  } else {
-    if (rules == "funder2019") {
-      text <- interpret(
-        abs(r),
-        rules(
-          c(0.05, 0.1, 0.2, 0.3, 0.4),
-          c("tiny", "very small", "small", "medium", "large", "very large")
-        )
-      )
-    } else if (rules == "gignac2016") {
-      text <- interpret(
-        abs(r),
-        rules(
-          c(0.1, 0.2, 0.3),
-          c("very small", "small", "moderate", "large")
-        )
-      )
-    } else if (rules == "cohen1988") {
-      text <- interpret(
-        abs(r),
-        rules(
-          c(0.1, 0.3, 0.5),
-          c("very small", "small", "moderate", "large")
-        )
-      )
-    } else if (rules == "evans1996") {
-      text <- interpret(
-        abs(r),
-        rules(
-          c(0.2, 0.4, 0.6, 0.8),
-          c("very weak", "weak", "moderate", "strong", "very strong")
-        )
-      )
-    } else {
-      stop("rules must be 'funder2019', 'gignac2016', 'cohen1988', 'evans1996' or an object of type rules.")
-    }
-  }
+  rules <- .match.rules(
+    rules,
+    list(
+      funder2019 = rules(c(0.05, 0.1, 0.2, 0.3, 0.4),
+                         c("tiny", "very small", "small", "medium", "large", "very large")),
+      gignac2016 = rules(c(0.1, 0.2, 0.3),
+                         c("very small", "small", "moderate", "large")),
+      cohen1988 = rules(c(0.1, 0.3, 0.5),
+                        c("very small", "small", "moderate", "large")),
+      evans1996 = rules(c(0.2, 0.4, 0.6, 0.8),
+                        c("very weak", "weak", "moderate", "strong", "very strong"))
+    )
+  )
 
-  text
+  interpret(abs(r), rules)
 }

@@ -51,47 +51,43 @@
 #'
 #' @export
 interpret_gfi <- function(x, rules = "default") {
-  if (is.rules(rules)) {
-    return(interpret(x, rules))
-  } else {
-    if (rules == "default") {
-      return(interpret(x, rules(c(0.95), c("poor", "satisfactory"))))
-    } else {
-      stop("rules must be 'default' or an object of type rules.")
-    }
-  }
+  rules <- .match.rules(
+    rules,
+    list(
+      default = rules(c(0.95), c("poor", "satisfactory"))
+    )
+  )
+
+  interpret(x, rules)
 }
 
 
 #' @rdname interpret_gfi
 #' @export
 interpret_agfi <- function(x, rules = "default") {
-  if (is.rules(rules)) {
-    return(interpret(x, rules))
-  } else {
-    if (rules == "default") {
-      return(interpret(x, rules(c(0.90), c("poor", "satisfactory"))))
-    } else {
-      stop("rules must be 'default' or an object of type rules.")
-    }
-  }
+  rules <- .match.rules(
+    rules,
+    list(
+      default = rules(c(0.90), c("poor", "satisfactory"))
+    )
+  )
+
+  interpret(x, rules)
 }
 
 
 #' @rdname interpret_gfi
 #' @export
 interpret_nfi <- function(x, rules = "byrne1994") {
-  if (is.rules(rules)) {
-    return(interpret(x, rules))
-  } else {
-    if (rules == "byrne1994") {
-      return(interpret(x, rules(c(0.90), c("poor", "satisfactory"))))
-    } else if (rules == "schumacker2004") {
-      return(interpret(x, rules(c(0.95), c("poor", "satisfactory"))))
-    } else {
-      stop("rules must be 'default' or an object of type rules.")
-    }
-  }
+  rules <- .match.rules(
+    rules,
+    list(
+      byrne1994 = rules(c(0.90), c("poor", "satisfactory")),
+      schumacker2004 =  rules(c(0.95), c("poor", "satisfactory"))
+    )
+  )
+
+  interpret(x, rules)
 }
 
 #' @rdname interpret_gfi
@@ -102,15 +98,14 @@ interpret_nnfi <- interpret_nfi
 #' @rdname interpret_gfi
 #' @export
 interpret_cfi <- function(x, rules = "default") {
-  if (is.rules(rules)) {
-    return(interpret(x, rules))
-  } else {
-    if (rules == "default") {
-      return(interpret(x, rules(c(0.90), c("poor", "satisfactory"))))
-    } else {
-      stop("rules must be 'default' or an object of type rules.")
-    }
-  }
+  rules <- .match.rules(
+    rules,
+    list(
+      default = rules(c(0.90), c("poor", "satisfactory"))
+    )
+  )
+
+  interpret(x, rules)
 }
 
 
@@ -119,72 +114,66 @@ interpret_cfi <- function(x, rules = "default") {
 #' @rdname interpret_gfi
 #' @export
 interpret_rmsea <- function(x, rules = "default") {
-  if (is.rules(rules)) {
-    return(interpret(x, rules))
-  } else {
-    if (rules == "default") {
-      return(interpret(x, rules(c(0.05), c("satisfactory", "poor"))))
-    } else if (rules == "awang2012") {
-      return(interpret(x, rules(c(0.05, 0.08), c("good", "satisfactory", "poor"))))
-    } else {
-      stop("rules must be 'default' or an object of type rules.")
-    }
-  }
+  rules <- .match.rules(
+    rules,
+    list(
+      default = rules(c(0.05), c("satisfactory", "poor")),
+      awang2012 = rules(c(0.05, 0.08), c("good", "satisfactory", "poor"))
+    )
+  )
+
+  interpret(x, rules)
 }
 
 
 #' @rdname interpret_gfi
 #' @export
 interpret_srmr <- function(x, rules = "default") {
-  if (is.rules(rules)) {
-    return(interpret(x, rules))
-  } else {
-    if (rules == "default") {
-      return(interpret(x, rules(c(0.08), c("satisfactory", "poor"))))
-    } else {
-      stop("rules must be 'default' or an object of type rules.")
-    }
-  }
+  rules <- .match.rules(
+    rules,
+    list(
+      default = rules(c(0.08), c("satisfactory", "poor"))
+    )
+  )
+
+  interpret(x, rules)
 }
 
 #' @rdname interpret_gfi
 #' @export
 interpret_rfi <- function(x, rules = "default") {
-  if (is.rules(rules)) {
-    return(interpret(x, rules))
-  } else {
-    if (rules == "default") {
-      return(interpret(x, rules(c(0.90), c("poor", "satisfactory"))))
-    } else {
-      stop("rules must be 'default' or an object of type rules.")
-    }
-  }
+  rules <- .match.rules(
+    rules,
+    list(
+      default = rules(c(0.90), c("poor", "satisfactory"))
+    )
+  )
+
+  interpret(x, rules)
 }
 
 #' @rdname interpret_gfi
 #' @export
 interpret_ifi <- function(x, rules = "default") {
-  if (is.rules(rules)) {
-    return(interpret(x, rules))
-  } else {
-    if (rules == "default") {
-      return(interpret(x, rules(c(0.90), c("poor", "satisfactory"))))
-    } else {
-      stop("rules must be 'default' or an object of type rules.")
-    }
-  }
+  rules <- .match.rules(
+    rules,
+    list(
+      default = rules(c(0.90), c("poor", "satisfactory"))
+    )
+  )
+
+  interpret(x, rules)
 }
 
 #' @rdname interpret_gfi
 #' @export
 interpret_pnfi <- function(x, rules = "default") {
-  if (is.rules(rules)) {
-    return(interpret(x, rules))
-  } else {
-    if (rules == "default") {
-      return(interpret(x, rules(c(0.50), c("poor", "satisfactory"))))
-    } else {
-      stop("rules must be 'default' or an object of type rules.")
-    }
-  }
+  rules <- .match.rules(
+    rules,
+    list(
+      default = rules(c(0.50), c("poor", "satisfactory"))
+    )
+  )
+
+  interpret(x, rules)
 }

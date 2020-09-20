@@ -18,19 +18,15 @@
 #'
 #' @export
 interpret_r2 <- function(r2, rules = "cohen1988") {
-  if (is.rules(rules)) {
-    return(interpret(r2, rules))
-  } else {
-    if (rules == "cohen1988") {
-      return(interpret(r2, rules(c(0.02, 0.13, 0.26), c("very weak", "weak", "moderate", "substantial"))))
-    } else if (rules == "falk1992") {
-      return(interpret(r2, rules(c(0.10), c("negligible", "adequate"))))
-    } else if (rules == "chin1998") {
-      return(interpret(r2, rules(c(0.19, 0.33, 0.67), c("very weak", "weak", "moderate", "substantial"))))
-    } else if (rules == "hair2011") {
-      return(interpret(r2, rules(c(0.25, 0.50, 0.75), c("very weak", "weak", "moderate", "substantial"))))
-    } else {
-      stop("rules must be 'cohen1988', 'sawilowsky2009' or an object of type rules.")
-    }
-  }
+  rules <- .match.rules(
+    rules,
+    list(
+      cohen1988 = rules(c(0.02, 0.13, 0.26), c("very weak", "weak", "moderate", "substantial")),
+      falk1992 = rules(c(0.10), c("negligible", "adequate")),
+      chin1998 = rules(c(0.19, 0.33, 0.67), c("very weak", "weak", "moderate", "substantial")),
+      hair2011 = rules(c(0.25, 0.50, 0.75), c("very weak", "weak", "moderate", "substantial"))
+    )
+  )
+
+  interpret(r2, rules)
 }

@@ -13,15 +13,13 @@
 #'
 #' @export
 interpret_p <- function(p, rules = "default") {
-  if (is.rules(rules)) {
-    return(interpret(p, rules))
-  } else {
-    if (rules == "default") {
-      return(interpret(p, rules(c(0.05), c("significant", "not significant"))))
-    } else if (rules == "rss") {
-      return(interpret(p, rules(c(0.005, 0.05), c("significant", "suggestive", "not significant"))))
-    } else {
-      stop("rules must be 'default', 'rss' or an object of type rules.")
-    }
-  }
+  rules <- .match.rules(
+    rules,
+    list(
+      default = rules(c(0.05), c("significant", "not significant")),
+      rss = rules(c(0.005, 0.05), c("significant", "suggestive", "not significant"))
+    )
+  )
+
+  interpret(p, rules)
 }
