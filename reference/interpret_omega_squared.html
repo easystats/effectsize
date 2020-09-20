@@ -164,26 +164,35 @@
     <p>Interpret ANOVA effect size</p>
     </div>
 
-    <pre class="usage"><span class='fu'>interpret_omega_squared</span>(<span class='kw'>omega_squared</span>, rules = <span class='st'>"field2013"</span>)</pre>
+    <pre class="usage"><span class='fu'>interpret_omega_squared</span>(<span class='kw'>es</span>, rules = <span class='st'>"field2013"</span>)
+
+<span class='fu'>interpret_eta_squared</span>(<span class='kw'>es</span>, rules = <span class='st'>"field2013"</span>)
+
+<span class='fu'>interpret_epsilon_squared</span>(<span class='kw'>es</span>, rules = <span class='st'>"field2013"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>omega_squared</th>
-      <td><p>Value or vector of omega squared values.</p></td>
+      <th>es</th>
+      <td><p>Value or vector of eta / omega / epsilon squared values.</p></td>
     </tr>
     <tr>
       <th>rules</th>
-      <td><p>Can be <code>"field2013"</code> (default) or custom set of <code><a href='rules.html'>rules()</a></code>.</p></td>
+      <td><p>Can be <code>"field2013"</code> (default), <code>"cohen1992"</code> or custom set of <code><a href='rules.html'>rules()</a></code>.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p><code>"cohen1992"</code>'s rules are applicable to one-way anova, or to <em>partial</em>
+eta / omega / epsilon squared in multi-way anova.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
 <ul>
 <li><p>Field, A (2013) Discovering statistics using IBM SPSS Statistics. Fourth Edition. Sage:London.</p></li>
+<li><p>Cohen, J. (1992). A power primer. Psychological bulletin, 112(1), 155.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -191,8 +200,8 @@
     <div class='dont-index'><p>http://imaging.mrc-cbu.cam.ac.uk/statswiki/FAQ/effectSize</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>interpret_omega_squared</span>(<span class='fl'>.02</span>)
-</div><div class='output co'>#&gt; [1] "small"</div><div class='input'><span class='fu'>interpret_omega_squared</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.02</span>))
+    <pre class="examples"><div class='input'><span class='fu'>interpret_eta_squared</span>(<span class='fl'>.02</span>)
+</div><div class='output co'>#&gt; [1] "small"</div><div class='input'><span class='fu'>interpret_eta_squared</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.02</span>), rules = <span class='st'>"cohen1992"</span>)
 </div><div class='output co'>#&gt; [1] "large" "small"</div><div class='input'>
 </div></pre>
   </div>
