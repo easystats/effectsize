@@ -284,7 +284,7 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
 }
 
 #' @keywords internal
-.col_2_scale <- c("Coefficient","Median", "Mean", "SE", "CI_low", "CI_high")
+.col_2_scale <- c("Coefficient","Median", "Mean", "MAP", "SE", "CI_low", "CI_high")
 
 
 # standardize_posteriors --------------------------------------------------
