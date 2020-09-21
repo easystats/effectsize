@@ -52,7 +52,7 @@ reference:
   - interpret_r
   - interpret_omega_squared
   - interpret_parameters
-  - interpret_odds
+  - interpret_oddsratio
   - interpret_r2
   - interpret_gfi
   - interpret_p

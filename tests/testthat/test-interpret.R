@@ -54,7 +54,7 @@ if (require("testthat") && require("effectsize")) {
   })
 
 
-  test_that("interpret_odds", {
+  test_that("interpret_oddsratio", {
     testthat::expect_equal(interpret_oddsratio(2), "small")
     testthat::expect_equal(interpret_oddsratio(c(1, 3)), c("very small", "small"))
     testthat::expect_equal(interpret_oddsratio(c(1, 3), rules = "cohen1988"), c("very small", "medium"))

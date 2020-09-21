@@ -1,4 +1,4 @@
-#' @importFrom utils head
+#' @importFrom utils head tail
 #' @export
 print.rules <- function(x, ...){
   orig_x <- x

@@ -2,6 +2,7 @@
 % Please edit documentation in R/interpret_oddsratio.R
 \name{interpret_oddsratio}
 \alias{interpret_oddsratio}
+\alias{interpret_odds}
 \title{Interpret Odds ratio}
 \usage{
 interpret_oddsratio(OR, rules = "chen2010", log = FALSE)
