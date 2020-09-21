@@ -14,7 +14,7 @@ riskratio_to_oddsratio(RR, p0, log = FALSE)
 
 \item{p0}{Baseline risk}
 
-\item{log}{Take in or output log odds ratio (such as in logistic models).}
+\item{log}{Take in or output the log of the ratio (such as in logistic models).}
 }
 \description{
 Convert between Odds ratios and Risk ratios
