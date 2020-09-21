@@ -200,24 +200,24 @@ See details below.</p>
     <pre class="examples"><div class='input'><span class='kw'>contingency_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>762</span>, <span class='fl'>327</span>, <span class='fl'>468</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>)))
 <span class='kw'>Xsq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/chisq.test.html'>chisq.test</a></span>(<span class='kw'>contingency_table</span>)
 <span class='fu'>effectsize</span>(<span class='kw'>Xsq</span>)
-</div><div class='output co'>#&gt; Cramer's V |       95% CI
+</div><div class='output co'>#&gt; Cramer's V |    1e+02% CI
 #&gt; -------------------------
 #&gt;       0.07 | [0.05, 0.09]</div><div class='input'>
 <span class='kw'>Ts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7</span><span class='op'>:</span><span class='fl'>20</span>))
 <span class='fu'>effectsize</span>(<span class='kw'>Ts</span>)
-</div><div class='output co'>#&gt;     d |         95% CI
+</div><div class='output co'>#&gt;     d |      1e+02% CI
 #&gt; ----------------------
 #&gt; -2.32 | [-3.38, -1.22]</div><div class='input'>
 <span class='kw'>Aov</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/oneway.test.html'>oneway.test</a></span>(<span class='kw'>extra</span> <span class='op'>~</span> <span class='kw'>group</span>, data = <span class='kw'>sleep</span>)
 <span class='fu'>effectsize</span>(<span class='kw'>Aov</span>)
-</div><div class='output co'>#&gt; Eta2 (partial) |       90% CI
+</div><div class='output co'>#&gt; Eta2 (partial) |    9e+01% CI
 #&gt; -----------------------------
 #&gt;           0.16 | [0.00, 0.42]</div><div class='input'>
 <span class='kw'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>) <span class='op'>*</span> <span class='kw'>wt</span> <span class='op'>+</span> <span class='kw'>hp</span>, data = <span class='kw'>mtcars</span>)
 <span class='fu'>effectsize</span>(<span class='kw'>fit</span>)
-</div><div class='output co'>#&gt; Parameter       | Coefficient (std.) |         95% CI
+</div><div class='output co'>#&gt; Parameter       | Coefficient (std.) |      1e+02% CI
 #&gt; -----------------------------------------------------
-#&gt; (Intercept)     |               0.00 | [-0.53,  0.53]
+#&gt; (Intercept)     |           1.14e-03 | [-0.53,  0.53]
 #&gt; factor(cyl)6    |              -0.20 | [-0.79,  0.38]
 #&gt; factor(cyl)8    |              -0.32 | [-1.06,  0.42]
 #&gt; wt              |              -0.90 | [-1.33, -0.46]
@@ -229,7 +229,7 @@ See details below.</p>
 #&gt; </span><span></div><div class='input'>
 <span class='kw'>anova_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span>(<span class='kw'>fit</span>)
 <span class='fu'>effectsize</span>(<span class='kw'>anova_table</span>)
-</div><div class='output co'>#&gt; Parameter      | Eta2 (partial) |       90% CI
+</div><div class='output co'>#&gt; Parameter      | Eta2 (partial) |    9e+01% CI
 #&gt; ----------------------------------------------
 #&gt; factor(cyl)    |           0.86 | [0.76, 0.91]
 #&gt; wt             |           0.47 | [0.22, 0.64]

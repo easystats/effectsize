@@ -183,10 +183,26 @@
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+    <h2 class="hasAnchor" id="rules"><a class="anchor" href="#rules"></a>Rules</h2>
 
-    <p><code>"cohen1992"</code>'s rules are applicable to one-way anova, or to <em>partial</em>
-eta / omega / epsilon squared in multi-way anova.</p>
+    
+
+<ul>
+<li><p>Field (2013) (<code>"field2013"</code>; default)</p><ul>
+<li><p><strong>ES &lt; 0.01</strong> - Very small</p></li>
+<li><p><strong>0.01 &lt; ES &lt; 0.06</strong> - Small</p></li>
+<li><p><strong>0.16 &lt; ES &lt; 0.14</strong> - Medium</p></li>
+<li><p>**ES &gt; 0.14 ** - Large</p></li>
+</ul></li>
+<li><p>Cohen (1992) (<code>"cohen1992"</code>) applicable to one-way anova, or to <em>partial</em>
+eta / omega / epsilon squared in multi-way anova.</p><ul>
+<li><p><strong>ES &lt; 0.02</strong> - Very small</p></li>
+<li><p><strong>0.02 &lt; ES &lt; 0.13</strong> - Small</p></li>
+<li><p><strong>0.13 &lt; ES &lt; 0.26</strong> - Medium</p></li>
+<li><p><strong>ES &gt; 0.26</strong> - Large</p></li>
+</ul></li>
+</ul>
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -203,6 +219,7 @@ eta / omega / epsilon squared in multi-way anova.</p>
     <pre class="examples"><div class='input'><span class='fu'>interpret_eta_squared</span>(<span class='fl'>.02</span>)
 </div><div class='output co'>#&gt; [1] "small"</div><div class='input'><span class='fu'>interpret_eta_squared</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.5</span>, <span class='fl'>.02</span>), rules = <span class='st'>"cohen1992"</span>)
 </div><div class='output co'>#&gt; [1] "large" "small"</div><div class='input'>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

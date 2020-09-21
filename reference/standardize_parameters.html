@@ -325,7 +325,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 
 <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>Sepal.Length</span> <span class='op'>~</span> <span class='kw'>Species</span> <span class='op'>*</span> <span class='kw'>Petal.Width</span>, data = <span class='kw'>iris</span>)
 <span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, method = <span class='st'>"refit"</span>)
-</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
+</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |     1e+02% CI
 #&gt; ------------------------------------------------------------------
 #&gt; (Intercept)                   |               0.06 | [-1.43, 1.55]
 #&gt; Speciesversicolor             |              -0.17 | [-1.66, 1.33]
@@ -338,7 +338,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; </span><span></div><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, method = <span class='st'>"posthoc"</span>)
-</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
+</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |     1e+02% CI
 #&gt; ------------------------------------------------------------------
 #&gt; (Intercept)                   |               0.00 | [ 0.00, 0.00]
 #&gt; Speciesversicolor             |              -0.88 | [-2.07, 0.30]
@@ -349,7 +349,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: Posthoc
 #&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, method = <span class='st'>"smart"</span>)
-</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
+</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |     1e+02% CI
 #&gt; ------------------------------------------------------------------
 #&gt; (Intercept)                   |               0.00 | [ 0.00, 0.00]
 #&gt; Speciesversicolor             |              -2.08 | [-4.85, 0.70]
@@ -360,7 +360,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: Smart
 #&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, method = <span class='st'>"basic"</span>)
-</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
+</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |     1e+02% CI
 #&gt; ------------------------------------------------------------------
 #&gt; (Intercept)                   |               0.00 | [ 0.00, 0.00]
 #&gt; Speciesversicolor             |              -0.42 | [-0.98, 0.14]
@@ -373,7 +373,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; </span><span></div><div class='input'>
 <span class='co'># Robust and 2 SD</span>
 <span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, robust = <span class='fl'>TRUE</span>)
-</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
+</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |     1e+02% CI
 #&gt; ------------------------------------------------------------------
 #&gt; (Intercept)                   |               0.18 | [-1.13, 1.49]
 #&gt; Speciesversicolor             |              -0.08 | [-1.40, 1.23]
@@ -384,7 +384,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: Refit
 #&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, two_sd = <span class='fl'>TRUE</span>)
-</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
+</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |     1e+02% CI
 #&gt; ------------------------------------------------------------------
 #&gt; (Intercept)                   |               0.03 | [-0.71, 0.77]
 #&gt; Speciesversicolor             |              -0.08 | [-0.83, 0.67]
@@ -398,7 +398,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 
 <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='kw'>am</span> <span class='op'>~</span> <span class='kw'>cyl</span> <span class='op'>*</span> <span class='kw'>mpg</span>, data = <span class='kw'>mtcars</span>, family = <span class='st'>"binomial"</span>)
 <span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, method = <span class='st'>"refit"</span>)
-</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |        95% CI
+</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |     1e+02% CI
 #&gt; ------------------------------------------------
 #&gt; (Intercept) |              -0.58 | [-1.98, 0.70]
 #&gt; cyl         |               0.25 | [-1.54, 2.10]
@@ -407,7 +407,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: Refit
 #&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, method = <span class='st'>"posthoc"</span>)
-</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
+</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |      1e+02% CI
 #&gt; -------------------------------------------------
 #&gt; (Intercept) |               0.00 | [ 0.00,  0.00]
 #&gt; cyl         |               1.46 | [-4.63,  9.37]
@@ -416,7 +416,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: Posthoc
 #&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, method = <span class='st'>"smart"</span>)
-</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
+</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |      1e+02% CI
 #&gt; -------------------------------------------------
 #&gt; (Intercept) |               0.00 | [ 0.00,  0.00]
 #&gt; cyl         |               1.46 | [-4.63,  9.37]
@@ -425,7 +425,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: Smart
 #&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, method = <span class='st'>"basic"</span>)
-</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
+</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |      1e+02% CI
 #&gt; -------------------------------------------------
 #&gt; (Intercept) |               0.00 | [ 0.00,  0.00]
 #&gt; cyl         |               1.46 | [-4.63,  9.37]
@@ -444,7 +444,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; <span class='warning'>	am, vs</span>
 #&gt; <span class='warning'>This can inflate standardized within-group parameters associated with</span>
 #&gt; <span class='warning'>these terms. See help("demean", package = "parameters") for modeling</span>
-#&gt; <span class='warning'>between- and within-subject effects.</span></div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
+#&gt; <span class='warning'>between- and within-subject effects.</span></div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |      1e+02% CI
 #&gt; -------------------------------------------------
 #&gt; (Intercept) |                    |               
 #&gt; cyl         |              -0.74 | [-1.23, -0.26]

@@ -177,7 +177,7 @@
     </tr>
     <tr>
       <th>rules</th>
-      <td><p>A character string (see details) or a custom set of <code><a href='rules.html'>rules()</a></code>.</p></td>
+      <td><p>A character string (see <em>Rules</em>) or a custom set of <code><a href='rules.html'>rules()</a></code>.</p></td>
     </tr>
     <tr>
       <th>rhat</th>
@@ -185,12 +185,33 @@
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="rules"><a class="anchor" href="#rules"></a>Rules</h2>
 
-    <p>Rules sets:</p><ul>
-<li><p><strong>ESS</strong>: Can be <code>"burkner2017"</code> (default).</p></li>
-<li><p><strong>Rhat</strong>: Can be <code>"vehtari2019"</code> (default) or <code>"gelman1992"</code>.</p></li>
+    
+
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>ESS</h3>
+
+<ul>
+<li><p>Bürkner, P. C. (2017) (<code>"burkner2017"</code>; default)</p><ul>
+<li><p><strong>ESS &lt; 1000</strong> - Insufficient</p></li>
+<li><p><strong>ESS &gt;= 1000</strong> - Sufficient</p></li>
+</ul></li>
 </ul>
+
+
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Rhat</h3>
+
+<ul>
+<li><p>Vehtari et al. (2019) (<code>"vehtari2019"</code>; default)</p><ul>
+<li><p><strong>Rhat &lt; 1.01</strong> - Converged</p></li>
+<li><p><strong>Rhat &gt;= 1.01</strong> - Failed</p></li>
+</ul></li>
+<li><p>Gelman &amp; Rubin (1992) (<code>"gelman1992"</code>)</p><ul>
+<li><p><strong>Rhat &lt; 1.1</strong> - Converged</p></li>
+<li><p><strong>Rhat &gt;= 1.1</strong> - Failed</p></li>
+</ul></li>
+</ul>
+
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -205,7 +226,7 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>interpret_ess</span>(<span class='fl'>1001</span>)
 </div><div class='output co'>#&gt; [1] "sufficient"</div><div class='input'><span class='fu'>interpret_ess</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>852</span>, <span class='fl'>1200</span>))
-</div><div class='output co'>#&gt; [1] "unsufficient" "sufficient"  </div><div class='input'>
+</div><div class='output co'>#&gt; [1] "insufficient" "sufficient"  </div><div class='input'>
 <span class='fu'>interpret_rhat</span>(<span class='fl'>1.00</span>)
 </div><div class='output co'>#&gt; [1] "converged"</div><div class='input'><span class='fu'>interpret_rhat</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.5</span>, <span class='fl'>0.9</span>))
 </div><div class='output co'>#&gt; [1] "failed"    "converged"</div></pre>

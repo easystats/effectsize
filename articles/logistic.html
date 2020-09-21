@@ -181,14 +181,14 @@
 <div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="kw">effectsize</span>::<span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span>(<span class="kw">data</span><span class="op">$</span><span class="kw">Outcome</span>, <span class="kw">data</span><span class="op">$</span><span class="kw">Group</span>)
 </pre></div>
-<pre><code>&gt; Cohen's d |         95% CI
+<pre><code>&gt; Cohen's d |      1e+02% CI
 &gt; --------------------------
 &gt;     -1.06 | [-1.48, -0.64]</code></pre>
 <p>As expected, it’s pretty close to 1 times the SD of the sample. Interestingly, one can estimate the Cohen’s <em>d</em> directly from the result of the <em>t</em>-test, using the <em>t</em> statistic. We can convert it to a <em>d</em> using the <code>effectsize</code> package:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit">
 <span class="kw">effectsize</span>::<span class="fu"><a href="../reference/t_to_d.html">t_to_d</a></span>(<span class="kw">ttest_pars</span><span class="op">$</span><span class="kw">t</span>, df_error = <span class="kw">ttest_pars</span><span class="op">$</span><span class="kw">df</span>)
 </pre></div>
-<pre><code>&gt;     d |         95% CI
+<pre><code>&gt;     d |      1e+02% CI
 &gt; ----------------------
 &gt; -1.07 | [-1.50, -0.65]</code></pre>
 <p>Fortunately, they are quite close.</p>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Transform a standardized vector into character — format_standardize • effectsize</title>
+<title>Convert between Odds ratios and Risk ratios — oddsratio_to_riskratio • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Transform a standardized vector into character — format_standardize" />
-<meta property="og:description" content="Transform a standardized vector into character, e.g., c(&quot;-1 SD&quot;, &quot;Mean&quot;, &quot;+1 SD&quot;)." />
+<meta property="og:title" content="Convert between Odds ratios and Risk ratios — oddsratio_to_riskratio" />
+<meta property="og:description" content="Convert between Odds ratios and Risk ratios" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -155,54 +155,51 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Transform a standardized vector into character</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/format_standardize.R'><code>R/format_standardize.R</code></a></small>
-    <div class="hidden name"><code>format_standardize.Rd</code></div>
+    <h1>Convert between Odds ratios and Risk ratios</h1>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/convert_OR_to_RR.R'><code>R/convert_OR_to_RR.R</code></a></small>
+    <div class="hidden name"><code>oddsratio_to_riskratio.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Transform a standardized vector into character, e.g., <code><a href='https://rdrr.io/r/base/c.html'>c("-1 SD", "Mean", "+1 SD")</a></code>.</p>
+    <p>Convert between Odds ratios and Risk ratios</p>
     </div>
 
-    <pre class="usage"><span class='fu'>format_standardize</span>(<span class='kw'>x</span>, reference = <span class='kw'>x</span>, robust = <span class='fl'>FALSE</span>, digits = <span class='kw'>NULL</span>, <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>oddsratio_to_riskratio</span>(<span class='kw'>OR</span>, <span class='kw'>p0</span>, log = <span class='fl'>FALSE</span>)
+
+<span class='fu'>riskratio_to_oddsratio</span>(<span class='kw'>RR</span>, <span class='kw'>p0</span>, log = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A standardized numeric vector.</p></td>
+      <th>OR, RR</th>
+      <td><p>Risk ratio of <code>p1/p0</code> or Odds ratio of <code>odds(p1)/odds(p0)</code>, possibly log-ed.</p></td>
     </tr>
     <tr>
-      <th>reference</th>
-      <td><p>The reference vector from which to compute the mean and SD.</p></td>
+      <th>p0</th>
+      <td><p>Baseline risk</p></td>
     </tr>
     <tr>
-      <th>robust</th>
-      <td><p>Logical, if <code>TRUE</code>, centering is done by subtracting the
-median from the variables and dividing it by the median absolute deviation
-(MAD). If <code>FALSE</code>, variables are standardized by subtracting the
-mean and dividing it by the standard deviation (SD).</p></td>
-    </tr>
-    <tr>
-      <th>digits</th>
-      <td><p>Number of significant digits.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Arguments passed to or from other methods.</p></td>
+      <th>log</th>
+      <td><p>Take in or output log odds ratio (such as in logistic models).</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Grant, R. L. (2014). Converting an odds ratio to a range of plausible relative risks for better communication of research findings. Bmj, 348, f7450.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>format_standardize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>))
-</div><div class='output co'>#&gt; [1] -1 SD Mean  +1 SD
-#&gt; Levels: +1 SD Mean -1 SD</div><div class='input'><span class='fu'>format_standardize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), reference = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>))
-</div><div class='output co'>#&gt; [1] -1 SD    2e-02 SD +1 SD    +2 SD   
-#&gt; Levels: +2 SD +1 SD 2e-02 SD -1 SD</div><div class='input'><span class='fu'>format_standardize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), reference = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>), robust = <span class='fl'>TRUE</span>)
-</div><div class='output co'>#&gt; [1] -1 MAD     -5e-02 MAD +1e+00 MAD +2 MAD    
-#&gt; Levels: +2 MAD +1e+00 MAD -5e-02 MAD -1 MAD</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>p0</span> <span class='op'>&lt;-</span> <span class='fl'>0.4</span>
+<span class='kw'>p1</span> <span class='op'>&lt;-</span> <span class='fl'>0.7</span>
+
+(<span class='kw'>OR</span> <span class='op'>&lt;-</span> <span class='fu'><a href='odds_to_probs.html'>probs_to_odds</a></span>(<span class='kw'>p1</span>) <span class='op'>/</span> <span class='fu'><a href='odds_to_probs.html'>probs_to_odds</a></span>(<span class='kw'>p0</span>))
+</div><div class='output co'>#&gt; [1] 3.5</div><div class='input'>(<span class='kw'>RR</span> <span class='op'>&lt;-</span> <span class='kw'>p1</span> <span class='op'>/</span> <span class='kw'>p0</span>)
+</div><div class='output co'>#&gt; [1] 1.75</div><div class='input'>
+<span class='fu'>riskratio_to_oddsratio</span>(<span class='kw'>RR</span>, p0 = <span class='kw'>p0</span>)
+</div><div class='output co'>#&gt; [1] 3.5</div><div class='input'><span class='fu'>oddsratio_to_riskratio</span>(<span class='kw'>OR</span>, p0 = <span class='kw'>p0</span>)
+</div><div class='output co'>#&gt; [1] 1.75</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

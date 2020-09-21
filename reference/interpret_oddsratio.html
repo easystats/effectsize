@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Transform a standardized vector into character — format_standardize • effectsize</title>
+<title>Interpret Odds ratio — interpret_oddsratio • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Transform a standardized vector into character — format_standardize" />
-<meta property="og:description" content="Transform a standardized vector into character, e.g., c(&quot;-1 SD&quot;, &quot;Mean&quot;, &quot;+1 SD&quot;)." />
+<meta property="og:title" content="Interpret Odds ratio — interpret_oddsratio" />
+<meta property="og:description" content="Interpret Odds ratio" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -155,54 +155,69 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Transform a standardized vector into character</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/format_standardize.R'><code>R/format_standardize.R</code></a></small>
-    <div class="hidden name"><code>format_standardize.Rd</code></div>
+    <h1>Interpret Odds ratio</h1>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/interpret_oddsratio.R'><code>R/interpret_oddsratio.R</code></a></small>
+    <div class="hidden name"><code>interpret_oddsratio.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Transform a standardized vector into character, e.g., <code><a href='https://rdrr.io/r/base/c.html'>c("-1 SD", "Mean", "+1 SD")</a></code>.</p>
+    <p>Interpret Odds ratio</p>
     </div>
 
-    <pre class="usage"><span class='fu'>format_standardize</span>(<span class='kw'>x</span>, reference = <span class='kw'>x</span>, robust = <span class='fl'>FALSE</span>, digits = <span class='kw'>NULL</span>, <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>interpret_oddsratio</span>(<span class='kw'>OR</span>, rules = <span class='st'>"chen2010"</span>, log = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A standardized numeric vector.</p></td>
+      <th>OR</th>
+      <td><p>Value or vector of (log) odds ratio values.</p></td>
     </tr>
     <tr>
-      <th>reference</th>
-      <td><p>The reference vector from which to compute the mean and SD.</p></td>
+      <th>rules</th>
+      <td><p>Can be "<code>chen2010"</code> (default), <code>"cohen1988"</code> (through transformation to standardized difference, see <code><a href='d_to_r.html'>odds_to_d()</a></code>) or custom set of <code><a href='rules.html'>rules()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>robust</th>
-      <td><p>Logical, if <code>TRUE</code>, centering is done by subtracting the
-median from the variables and dividing it by the median absolute deviation
-(MAD). If <code>FALSE</code>, variables are standardized by subtracting the
-mean and dividing it by the standard deviation (SD).</p></td>
-    </tr>
-    <tr>
-      <th>digits</th>
-      <td><p>Number of significant digits.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Arguments passed to or from other methods.</p></td>
+      <th>log</th>
+      <td><p>Are the provided values log odds ratio.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="rules"><a class="anchor" href="#rules"></a>Rules</h2>
+
+    
+
+
+<p>Rules apply to OR as ratios, so OR of 10 is as extreme as a OR of 0.1 (1/10).</p><ul>
+<li><p>Chen et al. (2010) (<code>"chen2010"</code>; default)</p><ul>
+<li><p><strong>OR &lt; 1.68</strong> - Very small</p></li>
+<li><p><strong>1.68 &lt; OR &lt; 3.47</strong> - Small</p></li>
+<li><p><strong>3.47 &lt; OR &lt; 6.71</strong> - Medium</p></li>
+<li><p>**OR &gt; 6.71 ** - Large</p></li>
+</ul></li>
+<li><p>Cohen (1988) (<code>"cohen1988"</code>, based on the <code><a href='d_to_r.html'>oddsratio_to_d()</a></code> conversion, see <code><a href='interpret_d.html'>interpret_d()</a></code>)</p><ul>
+<li><p><strong>OR &lt; 1.44</strong> - Very small</p></li>
+<li><p><strong>1.44 &lt; OR &lt; 2.48</strong> - Small</p></li>
+<li><p><strong>2.48 &lt; OR &lt; 4.27</strong> - Medium</p></li>
+<li><p>**OR &gt; 4.27 ** - Large</p></li>
+</ul></li>
+</ul>
+
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    
+<ul>
+<li><p>Cohen, J. (1988). Statistical power analysis for the behavioural sciences.</p></li>
+<li><p>Chen, H., Cohen, P., &amp; Chen, S. (2010). How big is a big odds ratio? Interpreting the magnitudes of odds ratios in epidemiological studies. Communications in Statistics—Simulation and Computation, 39(4), 860-864.</p></li>
+<li><p>Sánchez-Meca, J., Marín-Martínez, F., &amp; Chacón-Moscoso, S. (2003). Effect-size indices for dichotomized outcomes in meta-analysis. Psychological methods, 8(4), 448.</p></li>
+</ul>
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>format_standardize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>))
-</div><div class='output co'>#&gt; [1] -1 SD Mean  +1 SD
-#&gt; Levels: +1 SD Mean -1 SD</div><div class='input'><span class='fu'>format_standardize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), reference = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>))
-</div><div class='output co'>#&gt; [1] -1 SD    2e-02 SD +1 SD    +2 SD   
-#&gt; Levels: +2 SD +1 SD 2e-02 SD -1 SD</div><div class='input'><span class='fu'>format_standardize</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), reference = <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>), robust = <span class='fl'>TRUE</span>)
-</div><div class='output co'>#&gt; [1] -1 MAD     -5e-02 MAD +1e+00 MAD +2 MAD    
-#&gt; Levels: +2 MAD +1e+00 MAD -5e-02 MAD -1 MAD</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>interpret_oddsratio</span>(<span class='fl'>1</span>)
+</div><div class='output co'>#&gt; [1] "very small"</div><div class='input'><span class='fu'>interpret_oddsratio</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>2</span>))
+</div><div class='output co'>#&gt; [1] "medium" "small" </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

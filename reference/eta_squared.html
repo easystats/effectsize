@@ -282,27 +282,27 @@ effect sizes, respectively.</p>
 <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>am_f</span> <span class='op'>*</span> <span class='kw'>cyl_f</span>, data = <span class='kw'>mtcars</span>)
 
 <span class='fu'>eta_squared</span>(<span class='kw'>model</span>)
-</div><div class='output co'>#&gt; Parameter  | Eta2 (partial) |       90% CI
+</div><div class='output co'>#&gt; Parameter  | Eta2 (partial) |    9e+01% CI
 #&gt; ------------------------------------------
 #&gt; am_f       |           0.63 | [0.42, 0.75]
 #&gt; cyl_f      |           0.66 | [0.45, 0.77]
 #&gt; am_f:cyl_f |           0.10 | [0.00, 0.27]</div><div class='input'><span class='fu'>omega_squared</span>(<span class='kw'>model</span>)
-</div><div class='output co'>#&gt; Parameter  | Omega2 (partial) |        90% CI
+</div><div class='output co'>#&gt; Parameter  | Omega2 (partial) |     9e+01% CI
 #&gt; ---------------------------------------------
 #&gt; am_f       |             0.57 | [ 0.39, 0.73]
 #&gt; cyl_f      |             0.60 | [ 0.40, 0.74]
 #&gt; am_f:cyl_f |             0.02 | [-0.07, 0.21]</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='kw'>model</span>)
-</div><div class='output co'>#&gt; Parameter  | Epsilon2 (partial) |        90% CI
+</div><div class='output co'>#&gt; Parameter  | Epsilon2 (partial) |     9e+01% CI
 #&gt; -----------------------------------------------
 #&gt; am_f       |               0.61 | [ 0.40, 0.74]
 #&gt; cyl_f      |               0.63 | [ 0.41, 0.75]
 #&gt; am_f:cyl_f |               0.03 | [-0.08, 0.22]</div><div class='input'><span class='fu'>cohens_f</span>(<span class='kw'>model</span>)
-</div><div class='output co'>#&gt; Parameter  | Cohen's f (partial) |       90% CI
+</div><div class='output co'>#&gt; Parameter  | Cohen's f (partial) |    9e+01% CI
 #&gt; -----------------------------------------------
 #&gt; am_f       |                1.30 | [0.86, 1.73]
 #&gt; cyl_f      |                1.38 | [0.90, 1.81]
 #&gt; am_f:cyl_f |                0.33 | [0.00, 0.61]</div><div class='input'>(<span class='kw'>etas</span> <span class='op'>&lt;-</span> <span class='fu'>eta_squared</span>(<span class='kw'>model</span>, partial = <span class='fl'>FALSE</span>))
-</div><div class='output co'>#&gt; Parameter  | Eta2 |       90% CI
+</div><div class='output co'>#&gt; Parameter  | Eta2 |    9e+01% CI
 #&gt; --------------------------------
 #&gt; am_f       | 0.36 | [0.14, 0.54]
 #&gt; cyl_f      | 0.41 | [0.16, 0.57]
@@ -312,7 +312,7 @@ effect sizes, respectively.</p>
 
 <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>cyl_f</span> <span class='op'>*</span> <span class='kw'>am_f</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>Error</a></span>(<span class='kw'>vs</span> <span class='op'>/</span> <span class='kw'>am_f</span>), data = <span class='kw'>mtcars</span>)
 <span class='fu'>epsilon_squared</span>(<span class='kw'>model</span>)
-</div><div class='output co'>#&gt; Group  |  Parameter | Epsilon2 (partial) |        90% CI
+</div><div class='output co'>#&gt; Group  |  Parameter | Epsilon2 (partial) |     9e+01% CI
 #&gt; --------------------------------------------------------
 #&gt; Within |      cyl_f |               0.40 | [ 0.12, 0.58]
 #&gt; Within |       am_f |              -0.04 | [-0.04, 0.03]
@@ -328,7 +328,7 @@ effect sizes, respectively.</p>
 
   <span class='fu'>eta_squared</span>(<span class='kw'>model_anova</span>)
 }
-</div><div class='output co'>#&gt; Parameter  | Eta2 (partial) |       90% CI
+</div><div class='output co'>#&gt; Parameter  | Eta2 (partial) |    9e+01% CI
 #&gt; ------------------------------------------
 #&gt; am_f       |           0.11 | [0.00, 0.32]
 #&gt; cyl_f      |           0.63 | [0.42, 0.75]
@@ -338,7 +338,7 @@ effect sizes, respectively.</p>
   <span class='kw'>mp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/parameters/man/model_parameters.html'>model_parameters</a></span>(<span class='kw'>model</span>)
   <span class='fu'>eta_squared</span>(<span class='kw'>mp</span>)
 }
-</div><div class='output co'>#&gt; <span class='message'>Loading required package: parameters</span></div><div class='output co'>#&gt; Parameter   | Eta2 (partial) |       90% CI
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: parameters</span></div><div class='output co'>#&gt; Parameter   | Eta2 (partial) |    9e+01% CI
 #&gt; -------------------------------------------
 #&gt; (Intercept) |           0.95 | [0.92, 0.97]
 #&gt; wt          |           0.38 | [0.16, 0.56]
@@ -347,7 +347,7 @@ effect sizes, respectively.</p>
   <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lmerTest/man/lmer.html'>lmer</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>am_f</span> <span class='op'>*</span> <span class='kw'>cyl_f</span> <span class='op'>+</span> (<span class='fl'>1</span><span class='op'>|</span><span class='kw'>vs</span>), data = <span class='kw'>mtcars</span>)
   <span class='fu'>omega_squared</span>(<span class='kw'>model</span>)
 }
-</div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; Parameter  | Omega2 (partial) |        90% CI
+</div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; Parameter  | Omega2 (partial) |     9e+01% CI
 #&gt; ---------------------------------------------
 #&gt; am_f       |             0.07 | [-0.04, 0.28]
 #&gt; cyl_f      |             0.60 | [ 0.36, 0.72]

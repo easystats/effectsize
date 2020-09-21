@@ -123,356 +123,356 @@
 
     
     
-<div id="why" class="section level1">
-<h1 class="hasAnchor">
-<a href="#why" class="anchor"></a>Why?</h1>
-<p>The metrics used in statistics (indices of fit, model performance or parameter estimates) can be very abstract. A long experience is required to intuitively <strong><em>“feel”</em></strong> the meaning of their values. In order to facilitate the understanding of the results they are facing, many scientists use (often implicitly) some set of <strong>rules of thumb</strong>. Thus, in order to validate and standardize such interpretation grids, some authors validated and published them in the form of guidelines.</p>
-<p>One of the most famous interpertation grid was proposed by <strong>Cohen (1988)</strong> for a series of widely used indices, such as the correlation <strong>r</strong> (<em>r</em> = .20, small; <em>r</em> = .40, moderate and <em>r</em> = .60, large) or the <strong>standardized difference</strong> (<em>Cohen’s d</em>). However, there is now a clear evidence that Cohen’s guidelines (which he himself later disavowed; Funder, 2019) are much too stringent and not particularly meaningful taken out of context <span class="citation">(Funder and Ozer 2019)</span>. This led to the emergence of a litterature discussing and creating new sets of rules of thumb.</p>
-<p>Altough <strong>everybody agrees on the fact that effect size interpretation in a study should be justified with a rationale</strong> (and depend on the context, the field, the litterature, the hypothesis, etc.), these pre-baked rules can still nevertheless be useful to give a rough idea or frame of reference to understand scientific results.</p>
-<p>The package <strong><code>effectsize</code></strong> implements such sets of rules of thumb for a variety of indices in a flexible and explicit fashion, helping you understanding and reporting your results in a scientific yet meaningful way. Again, readers should keep in mind that these thresholds, altough <em>“validated”</em>, <strong>remain arbitrary</strong>. Thus, their use should be discussed on a case-by-case basis depending on the field, hypotheses, prior results and so on, to avoid their crystalisation, as for the infamous <strong><em>p</em> &lt; .05</strong> example.</p>
-<p>Moreovere, some authors suggest the counter-intuitive idea that <em>very large effects</em>, especially in the context of psychological research, is likely to be a “gross overestimate that will rarely be found in a large sample or in a replication” <span class="citation">(Funder and Ozer 2019)</span>. They suggest that smaller effect size are worth taking seriously (as they can be potentially consequential), as well as more believable.</p>
+<div id="why" class="section level2">
+<h2 class="hasAnchor">
+<a href="#why" class="anchor"></a>Why?</h2>
+<p>The metrics used in statistics (indices of fit, model performance or parameter estimates) can be very abstract. A long experience is required to intuitively <strong><em>“feel”</em></strong> the meaning of their values. In order to facilitate the understanding of the results they are facing, many scientists use (often implicitly) some set of <strong>rules of thumb</strong>. Some of these rules of thumb have been standardize and validated and subsequently published as guidelines.</p>
+<p>One of the most famous interpretation grids was proposed by <strong>Cohen (1988)</strong> for a series of widely used indices, such as the correlation <strong>r</strong> (<em>r</em> = .20, small; <em>r</em> = .40, moderate and <em>r</em> = .60, large) or the <strong>standardized difference</strong> (<em>Cohen’s d</em>). However, there is now a clear evidence that Cohen’s guidelines (which he himself later disavowed; Funder, 2019) are much too stringent and not particularly meaningful taken out of context <span class="citation">(Funder and Ozer 2019)</span>. This led to the emergence of a literature discussing and creating new sets of rules of thumb.</p>
+<p>Although <strong>everybody agrees on the fact that effect size interpretation in a study should be justified with a rationale</strong> (and depend on the context, the field, the literature, the hypothesis, etc.), these pre-baked rules can nevertheless be useful to give a rough idea or frame of reference to understand scientific results.</p>
+<p>The package <strong><code>effectsize</code></strong> implements such sets of rules of thumb for a variety of indices in a flexible and explicit fashion, helping you understanding and reporting your results in a scientific yet meaningful way. Again, readers should keep in mind that these thresholds, cited and used as they may be, <strong>remain arbitrary</strong>. Thus, their use should be discussed on a case-by-case basis depending on the field, hypotheses, prior results and so on, to avoid their crystallization, as for the infamous <strong><em>p</em> &lt; .05</strong> example.</p>
+<p>Moreover, some authors suggest the counter-intuitive idea that <em>very large effects</em>, especially in the context of psychological research, is likely to be a “gross overestimate that will rarely be found in a large sample or in a replication” <span class="citation">(Funder and Ozer 2019)</span>. They suggest that smaller effect size are worth taking seriously (as they can be potentially consequential), as well as more believable.</p>
 </div>
-<div id="supported-indices" class="section level1">
-<h1 class="hasAnchor">
-<a href="#supported-indices" class="anchor"></a>Supported Indices</h1>
-<div id="coefficient-of-determination-r2" class="section level3">
-<h3 class="hasAnchor">
-<a href="#coefficient-of-determination-r2" class="anchor"></a>Coefficient of determination (R2)</h3>
-<div id="falk1992primer" class="section level4">
+<div id="correlation-r" class="section level2">
+<h2 class="hasAnchor">
+<a href="#correlation-r" class="anchor"></a>Correlation <em>r</em>
+</h2>
+<div id="funder2019evaluating" class="section level4">
 <h4 class="hasAnchor">
-<a href="#falk1992primer" class="anchor"></a><span class="citation">Falk and Miller (1992)</span>
+<a href="#funder2019evaluating" class="anchor"></a><span class="citation">Funder and Ozer (2019)</span>
 </h4>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(<span class="kw">x</span>, rules = <span class="st">"falk1992"</span>)
+<span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span>(<span class="kw">x</span>, rules = <span class="st">"funder2019"</span>)
 </pre></div>
 <ul>
 <li>
-<strong>R2 &lt; 0.1</strong>: Negligible</li>
+<strong>r &lt; 0.05</strong> - Tiny</li>
 <li>
-<strong>R2 &gt; 0.1</strong>: Adequate</li>
+<strong>0.05 &lt; r &lt; 0.1</strong> - Very small</li>
+<li>
+<strong>0.1 &lt; r &lt; 0.2</strong> - Small</li>
+<li>
+<strong>0.2 &lt; r &lt; 0.3</strong> - Medium</li>
+<li>
+<strong>0.3 &lt; r &lt; 0.4</strong> - Large</li>
+<li>
+<strong>r &gt; 0.4</strong> - Very large</li>
+</ul>
+</div>
+<div id="gignac2016effect" class="section level4">
+<h4 class="hasAnchor">
+<a href="#gignac2016effect" class="anchor"></a><span class="citation">Gignac and Szodorai (2016)</span>
+</h4>
+<p>Gignac’s rules of thumb are actually one of few interpretation grid justified and based on actual data, in this case on the distribution of effect magnitudes in the litterature.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span>(<span class="kw">x</span>, rules = <span class="st">"gignac2016"</span>)
+</pre></div>
+<ul>
+<li>
+<strong>r &lt; 0.1</strong> - Very small</li>
+<li>
+<strong>0.1 &lt; r &lt; 0.2</strong> - Small</li>
+<li>
+<strong>0.2 &lt; r &lt; 0.3</strong> - Moderate</li>
+<li>
+<strong>r &gt; 0.3</strong> - Large</li>
 </ul>
 </div>
 <div id="cohen1988statistical" class="section level4">
 <h4 class="hasAnchor">
 <a href="#cohen1988statistical" class="anchor"></a><span class="citation">Cohen (1988)</span>
 </h4>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(<span class="kw">x</span>, rules = <span class="st">"cohen1988"</span>)
-</pre></div>
-<ul>
-<li>
-<strong>R2 = 0 - 0.02</strong>: Very weak</li>
-<li>
-<strong>R2 = 0.02 - 0.16</strong>: Weak</li>
-<li>
-<strong>R2 = 0.16 - 0.26</strong>: Moderate</li>
-<li>
-<strong>R2 &gt; 0.26</strong>: Substantial</li>
-</ul>
-</div>
-<div id="chin1998partial" class="section level4">
-<h4 class="hasAnchor">
-<a href="#chin1998partial" class="anchor"></a><span class="citation">Chin and others (1998)</span>
-</h4>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(<span class="kw">x</span>, rules = <span class="st">"chin1998"</span>)
-</pre></div>
-<ul>
-<li>
-<strong>R2 = 0 - 0.19</strong>: Very weak</li>
-<li>
-<strong>R2 = 0.19 - 0.33</strong>: Weak</li>
-<li>
-<strong>R2 = 0.33 - 0.67</strong>: Moderate</li>
-<li>
-<strong>R2 &gt; 0.67</strong>: Substantial</li>
-</ul>
-</div>
-<div id="hair2011pls" class="section level4">
-<h4 class="hasAnchor">
-<a href="#hair2011pls" class="anchor"></a><span class="citation">Hair, Ringle, and Sarstedt (2011)</span>
-</h4>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(<span class="kw">x</span>, rules = <span class="st">"hair2011"</span>)
-</pre></div>
-<ul>
-<li>
-<strong>R2 = 0 - 0.25</strong>: Very weak</li>
-<li>
-<strong>R2 = 0.25 - 0.50</strong>: Weak</li>
-<li>
-<strong>R2 = 0.50 - 0.75</strong>: Moderate</li>
-<li>
-<strong>R2 &gt; 0.75</strong>: Substantial</li>
-</ul>
-</div>
-</div>
-<div id="correlation-r" class="section level3">
-<h3 class="hasAnchor">
-<a href="#correlation-r" class="anchor"></a>Correlation <em>r</em>
-</h3>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span>(<span class="kw">x</span>, rules = <span class="st">"funder2019"</span>)
-</pre></div>
-<ul>
-<li>
-<strong>r = 0 - 0.05</strong>: Very small</li>
-<li>
-<strong>r = 0.05 - 0.1</strong>: Small</li>
-<li>
-<strong>r = 0.1 - 0.2</strong>: Medium</li>
-<li>
-<strong>r = 0.2 - 0.3</strong>: Large</li>
-<li>
-<strong>r &gt; 0.4</strong>: Very large</li>
-</ul>
-<div id="gignac2016effect" class="section level4">
-<h4 class="hasAnchor">
-<a href="#gignac2016effect" class="anchor"></a><span class="citation">Gignac and Szodorai (2016)</span>
-</h4>
-<p>Gignac’s rules of thumb are actually one of few interpretation grid justified and based on actual data, in this case on the distribution of effect magnitudes in the litterature.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span>(<span class="kw">x</span>, rules = <span class="st">"gignac2016"</span>)
-</pre></div>
-<ul>
-<li>
-<strong>r = 0 - 0.1</strong>: Very small</li>
-<li>
-<strong>r = 0.1 - 0.2</strong>: Small</li>
-<li>
-<strong>r = 0.2 - 0.3</strong>: Moderate (“typical”)</li>
-<li>
-<strong>r &gt; 0.3</strong>: Large</li>
-</ul>
-</div>
-<div id="cohen1988statistical-1" class="section level4">
-<h4 class="hasAnchor">
-<a href="#cohen1988statistical-1" class="anchor"></a><span class="citation">Cohen (1988)</span>
-</h4>
-<div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span>(<span class="kw">x</span>, rules = <span class="st">"cohen1988"</span>)
 </pre></div>
 <ul>
 <li>
-<strong>r = 0 - 0.1</strong>: Very small</li>
+<strong>r &lt; 0.1</strong> - Very small</li>
 <li>
-<strong>r = 0.1 - 0.3</strong>: Small</li>
+<strong>0.1 &lt; r &lt; 0.3</strong> - Small</li>
 <li>
-<strong>r = 0.3 - 0.5</strong>: Moderate</li>
+<strong>0.3 &lt; r &lt; 0.5</strong> - Moderate</li>
 <li>
-<strong>r &gt; 0.5</strong>: Large</li>
+<strong>r &gt; 0.5</strong> - Large</li>
 </ul>
 </div>
 <div id="evans1996straightforward" class="section level4">
 <h4 class="hasAnchor">
 <a href="#evans1996straightforward" class="anchor"></a><span class="citation">Evans (1996)</span>
 </h4>
-<div class="sourceCode" id="cb8"><pre class="downlit">
+<div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span>(<span class="kw">x</span>, rules = <span class="st">"evans1996"</span>)
 </pre></div>
 <ul>
 <li>
-<strong>r = 0 - 0.2</strong>: Very weak</li>
+<strong>r &lt; 0.2</strong> - Very weak</li>
 <li>
-<strong>r = 0.2 - 0.4</strong>: Weak</li>
+<strong>0.2 &lt; r &lt; 0.4</strong> - Weak</li>
 <li>
-<strong>r = 0.4 - 0.6</strong>: Moderate</li>
+<strong>0.4 &lt; r &lt; 0.6</strong> - Moderate</li>
 <li>
-<strong>r = 0.6 - 0.8</strong>: Strong</li>
+<strong>0.6 &lt; r &lt; 0.8</strong> - Strong</li>
 <li>
-<strong>r &gt; 0.8</strong>: Very strong</li>
+<strong>r &gt; 0.8</strong> - Very strong</li>
 </ul>
 </div>
 </div>
-<div id="standardized-difference-d-cohens-d" class="section level3">
-<h3 class="hasAnchor">
-<a href="#standardized-difference-d-cohens-d" class="anchor"></a>Standardized Difference <em>d</em> (Cohen’s <em>d</em>)</h3>
-<p>The sandardized difference can be obtained through the standardization of linear model’s parameters or data, in which they can be used as indices of effect size.</p>
-<div id="cohen1988statistical-2" class="section level4">
+<div id="standardized-difference-d-cohens-d" class="section level2">
+<h2 class="hasAnchor">
+<a href="#standardized-difference-d-cohens-d" class="anchor"></a>Standardized Difference <em>d</em> (Cohen’s <em>d</em>)</h2>
+<p>The standardized difference can be obtained through the standardization of linear model’s parameters or data, in which they can be used as indices of effect size.</p>
+<div id="cohen1988statistical-1" class="section level4">
 <h4 class="hasAnchor">
-<a href="#cohen1988statistical-2" class="anchor"></a><span class="citation">Cohen (1988)</span>
+<a href="#cohen1988statistical-1" class="anchor"></a><span class="citation">Cohen (1988)</span>
 </h4>
-<div class="sourceCode" id="cb9"><pre class="downlit">
+<div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="fu"><a href="../reference/interpret_d.html">interpret_d</a></span>(<span class="kw">x</span>, rules = <span class="st">"cohen1988"</span>)
 </pre></div>
 <ul>
 <li>
-<strong>d = 0 - 0.2</strong>: Very small</li>
+<strong>d &lt; 0.2</strong> - Very small</li>
 <li>
-<strong>d = 0.2 - 0.5</strong>: Small</li>
+<strong>0.2 &lt; d &lt; 0.5</strong> - Small</li>
 <li>
-<strong>d = 0.5 - 0.8</strong>: Medium</li>
+<strong>0.5 &lt; d &lt; 0.8</strong> - Medium</li>
 <li>
-<strong>d &gt; 0.8</strong>: Large</li>
-</ul>
-</div>
-<div id="gignac2016effect-1" class="section level4">
-<h4 class="hasAnchor">
-<a href="#gignac2016effect-1" class="anchor"></a><span class="citation">Gignac and Szodorai (2016)</span>
-</h4>
-<p>Gignac’s rules of thumb are actually one of few interpretation grid justified and based on actual data, in this case on the distribution of effect magnitudes in the litterature.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_d.html">interpret_d</a></span>(<span class="kw">x</span>, rules = <span class="st">"gignac2016"</span>)
-</pre></div>
-<ul>
-<li>
-<strong>d = 0 - 0.2</strong>: Very small</li>
-<li>
-<strong>d = 0.2 - 0.4</strong>: Small</li>
-<li>
-<strong>d = 0.4 - 0.6</strong>: Medium</li>
-<li>
-<strong>d &gt; 0.6</strong>: Large</li>
+<strong>d &gt; 0.8</strong> - Large</li>
 </ul>
 </div>
 <div id="sawilowsky2009new" class="section level4">
 <h4 class="hasAnchor">
 <a href="#sawilowsky2009new" class="anchor"></a><span class="citation">Sawilowsky (2009)</span>
 </h4>
-<div class="sourceCode" id="cb11"><pre class="downlit">
+<div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="fu"><a href="../reference/interpret_d.html">interpret_d</a></span>(<span class="kw">x</span>, rules = <span class="st">"sawilowsky2009"</span>)
 </pre></div>
 <ul>
 <li>
-<strong>d = 0 - 0.1</strong>: Tiny</li>
+<strong>d &lt; 0.1</strong> - Tiny</li>
 <li>
-<strong>d = 0.1 - 0.2</strong>: Very small</li>
+<strong>0.1 &lt; d &lt; 0.2</strong> - Very small</li>
 <li>
-<strong>d = 0.2 - 0.5</strong>: Small</li>
+<strong>0.2 &lt; d &lt; 0.5</strong> - Small</li>
 <li>
-<strong>d = 0.5 - 0.8</strong>: Medium</li>
+<strong>0.5 &lt; d &lt; 0.8</strong> - Medium</li>
 <li>
-<strong>d = 0.8 - 1.2</strong>: Large</li>
+<strong>0.8 &lt; d &lt; 1.2</strong> - Large</li>
 <li>
-<strong>d = 1.2 - 2</strong>: Very large</li>
+<strong>1.2 &lt; d &lt; 2</strong> - Very large</li>
 <li>
-<strong>d &gt; 2</strong>: Huge</li>
+<strong>d &gt; 2</strong> - Huge</li>
+</ul>
+</div>
+<div id="gignac2016effect-1" class="section level4">
+<h4 class="hasAnchor">
+<a href="#gignac2016effect-1" class="anchor"></a><span class="citation">Gignac and Szodorai (2016)</span>
+</h4>
+<p>Gignac’s rules of thumb are actually one of few interpretation grid justified and based on actual data, in this case on the distribution of effect magnitudes in the literature. These is in fact the same grid used for <em>r</em>, based on the conversion of <em>r</em> to <em>d</em>:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="fu"><a href="../reference/interpret_d.html">interpret_d</a></span>(<span class="kw">x</span>, rules = <span class="st">"gignac2016"</span>)
+</pre></div>
+<ul>
+<li>
+<strong>d &lt; 0.2</strong> - Very small</li>
+<li>
+<strong>0.2 &lt; d &lt; 0.41</strong> - Small</li>
+<li>
+<strong>0.41 &lt; d &lt; 0.63</strong> - Moderate</li>
+<li>
+<strong>d &gt; 0.63</strong> - Large</li>
 </ul>
 </div>
 </div>
-<div id="odds-ratio" class="section level3">
-<h3 class="hasAnchor">
-<a href="#odds-ratio" class="anchor"></a>Odds ratio</h3>
+<div id="odds-ratio" class="section level2">
+<h2 class="hasAnchor">
+<a href="#odds-ratio" class="anchor"></a>Odds Ratio</h2>
 <p>Odds ratio, and <em>log</em> odds ratio, are often found in epidemiological studies. However, they are also the parameters of <strong><em>logistic</em></strong> regressions, where they can be used as indices of effect size. Note that the (log) odds ratio from logistic regression coefficients are <em>unstandardized</em>, as they depend on the scale of the predictor. In order to apply the following guidelines, make sure you <a href="https://easystats.github.io/effectsize/articles/standardize_parameters.html"><em>standardize</em></a> your predictors!</p>
+<p>Note that these apply to Odds <em>ratios</em>, so Odds ratio of 10 is as extreme as a Odds ratio of 0.1 (1/10).</p>
 <div id="chen2010big" class="section level4">
 <h4 class="hasAnchor">
 <a href="#chen2010big" class="anchor"></a><span class="citation">Chen, Cohen, and Chen (2010)</span>
 </h4>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_odds.html">interpret_odds</a></span>(<span class="kw">x</span>, rules = <span class="st">"chen2010"</span>)
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="fu"><a href="../reference/interpret_oddsratio.html">interpret_oddsratio</a></span>(<span class="kw">x</span>, rules = <span class="st">"chen2010"</span>)
 </pre></div>
 <ul>
 <li>
-<strong>odds = 0 - 1.68</strong>: Very small</li>
+<strong>OR &lt; 1.68</strong> - Very small</li>
 <li>
-<strong>odds = 1.68 - 3.47</strong>: Small</li>
+<strong>1.68 &lt; OR &lt; 3.47</strong> - Small</li>
 <li>
-<strong>odds = 3.47 - 6.71</strong>: Medium</li>
+<strong>3.47 &lt; OR &lt; 6.71</strong> - Medium</li>
 <li>
-<strong>odds &gt; 6.71</strong>: Large</li>
+<strong>OR &gt; 6.71 </strong> - Large</li>
 </ul>
 </div>
+<div id="cohen1988statistical-2" class="section level4">
+<h4 class="hasAnchor">
+<a href="#cohen1988statistical-2" class="anchor"></a><span class="citation">Cohen (1988)</span>
+</h4>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="fu"><a href="../reference/interpret_oddsratio.html">interpret_oddsratio</a></span>(<span class="kw">x</span>, rules = <span class="st">"cohen1988"</span>)
+</pre></div>
+<ul>
+<li>
+<strong>OR &lt; 1.44</strong> - Very small</li>
+<li>
+<strong>1.44 &lt; OR &lt; 2.48</strong> - Small</li>
+<li>
+<strong>2.48 &lt; OR &lt; 4.27</strong> - Medium</li>
+<li>
+<strong>OR &gt; 4.27 </strong> - Large</li>
+</ul>
+<p>This converts (log) odds ratio to standardized difference <em>d</em> using the following formula <span class="citation">(Cohen 1988; Sánchez-Meca, Marı́n-Martı́nez, and Chacón-Moscoso 2003)</span>:</p>
+<p><span class="math display">\[
+d = log(OR) \times \frac{\sqrt{3}}{\pi}
+\]</span></p>
+</div>
+</div>
+<div id="coefficient-of-determination-r2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#coefficient-of-determination-r2" class="anchor"></a>Coefficient of determination (R<sup>2</sup>)</h2>
+<div id="for-linear-regression" class="section level3">
+<h3 class="hasAnchor">
+<a href="#for-linear-regression" class="anchor"></a>For Linear Regression</h3>
 <div id="cohen1988statistical-3" class="section level4">
 <h4 class="hasAnchor">
 <a href="#cohen1988statistical-3" class="anchor"></a><span class="citation">Cohen (1988)</span>
 </h4>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_odds.html">interpret_odds</a></span>(<span class="kw">x</span>, rules = <span class="st">"cohen1988"</span>)
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(<span class="kw">x</span>, rules = <span class="st">"cohen1988"</span>)
 </pre></div>
-<p>This converts (log) odds ratio to standardized difference <em>d</em> using the following formula <span class="citation">(Cohen 1988; Sánchez-Meca, Marı́n-Martı́nez, and Chacón-Moscoso 2003)</span>:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="kw">d</span> <span class="op">&lt;-</span> <span class="kw">log_odds</span> <span class="op">*</span> (<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(<span class="fl">3</span>) <span class="op">/</span> <span class="kw">pi</span>)
+<ul>
+<li>
+<strong>R2 &lt; 0.02</strong> - Very weak</li>
+<li>
+<strong>0.02 &lt; R2 &lt; 0.13</strong> - Weak</li>
+<li>
+<strong>0.13 &lt; R2 &lt; 0.26</strong> - Moderate</li>
+<li>
+<strong>R2 &gt; 0.26</strong> - Substantial</li>
+</ul>
+</div>
+<div id="falk1992primer" class="section level4">
+<h4 class="hasAnchor">
+<a href="#falk1992primer" class="anchor"></a><span class="citation">Falk and Miller (1992)</span>
+</h4>
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(<span class="kw">x</span>, rules = <span class="st">"falk1992"</span>)
 </pre></div>
+<ul>
+<li>
+<strong>R2 &lt; 0.1</strong> - Negligible</li>
+<li>
+<strong>R2 &gt; 0.1</strong> - Adequate</li>
+</ul>
 </div>
 </div>
-<div id="omega-squared" class="section level3">
+<div id="for-pls-sem-r-squared-of-latent-variables" class="section level3">
 <h3 class="hasAnchor">
-<a href="#omega-squared" class="anchor"></a>Omega Squared</h3>
+<a href="#for-pls-sem-r-squared-of-latent-variables" class="anchor"></a>For PLS / SEM R-Squared of <em>latent</em> variables</h3>
+<div id="chin1998partial" class="section level4">
+<h4 class="hasAnchor">
+<a href="#chin1998partial" class="anchor"></a><span class="citation">Chin and others (1998)</span>
+</h4>
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(<span class="kw">x</span>, rules = <span class="st">"chin1998"</span>)
+</pre></div>
+<ul>
+<li>
+<strong>R2 &lt; 0.19</strong> - Very weak</li>
+<li>
+<strong>0.19 &lt; R2 &lt; 0.33</strong> - Weak</li>
+<li>
+<strong>0.33 &lt; R2 &lt; 0.67</strong> - Moderate</li>
+<li>
+<strong>R2 &gt; 0.67</strong> - Substantial</li>
+</ul>
+</div>
+<div id="hair2011pls" class="section level4">
+<h4 class="hasAnchor">
+<a href="#hair2011pls" class="anchor"></a><span class="citation">Hair, Ringle, and Sarstedt (2011)</span>
+</h4>
+<div class="sourceCode" id="cb13"><pre class="downlit">
+<span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(<span class="kw">x</span>, rules = <span class="st">"hair2011"</span>)
+</pre></div>
+<ul>
+<li>
+<strong>R2 &lt; 0.25</strong> - Very weak</li>
+<li>
+<strong>0.25 &lt; R2 &lt; 0.50</strong> - Weak</li>
+<li>
+<strong>0.50 &lt; R2 &lt; 0.75</strong> - Moderate</li>
+<li>
+<strong>R2 &gt; 0.75</strong> - Substantial</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="omega-eta-epsilon-squared" class="section level2">
+<h2 class="hasAnchor">
+<a href="#omega-eta-epsilon-squared" class="anchor"></a>Omega / Eta / Epsilon Squared</h2>
 <p>The Omega squared is a measure of effect size used in ANOVAs. It is an estimate of how much variance in the response variables are accounted for by the explanatory variables. Omega squared is widely viewed as a lesser biased alternative to eta-squared, especially when sample sizes are small.</p>
 <div id="field2013discovering" class="section level4">
 <h4 class="hasAnchor">
 <a href="#field2013discovering" class="anchor"></a><span class="citation">Field (2013)</span>
 </h4>
-<div class="sourceCode" id="cb15"><pre class="downlit">
+<div class="sourceCode" id="cb14"><pre class="downlit">
 <span class="fu"><a href="../reference/interpret_omega_squared.html">interpret_omega_squared</a></span>(<span class="kw">x</span>, rules = <span class="st">"field2013"</span>)
 </pre></div>
 <ul>
 <li>
-<strong>Omega Squared = 0 - 0.01</strong>: Very small</li>
+<strong>ES &lt; 0.01</strong> - Very small</li>
 <li>
-<strong>Omega Squared = 0.01 - 0.06</strong>: Small</li>
+<strong>0.01 &lt; ES &lt; 0.06</strong> - Small</li>
 <li>
-<strong>Omega Squared = 0.06 - 0.14</strong>: Medium</li>
+<strong>0.16 &lt; ES &lt; 0.14</strong> - Medium</li>
 <li>
-<strong>Omega Squared &gt; 0.14</strong>: Large</li>
+<strong>ES &gt; 0.14 </strong> - Large</li>
 </ul>
 </div>
-</div>
-<div id="bayes-factor-bf" class="section level3">
-<h3 class="hasAnchor">
-<a href="#bayes-factor-bf" class="anchor"></a>Bayes Factor (BF)</h3>
-<p><strong>Bayes factors (BF)</strong> are continuous measures of relative evidence, with a Bayes factor greater than 1 giving evidence in favor of one of the models (the numerator), and a Bayes factor smaller than 1 giving evidence in favor of the other model (the denominator). Yet, it is common to interpret the <strong>magnitude</strong> of relative evidence based on conventions of intervals (presented below), such that the values of a <em>BF</em><sub>10</sub> (comparing the alternative to the null) can be interpreted as:</p>
-<p>For human readability, it is recommended to report BFs so that the ratios are larger than 1 - for example, it’s harder to understand a <em>BF</em><sub>10</sub>=0.07 (indicating the data are 0.07 times more probable under the alternative) than a <em>BF</em><sub>01</sub>=1/0.07=14.3 (indicating the data are 14.3 times more probable under the null. <strong>BFs</strong> between 0 and 1, indicating evidence <em>against</em> the hypothesis, can be converted via <code>bf = 1 / abs(bf)</code>.</p>
-<p>One can report <strong>Bayes factors</strong> using the following sentence:</p>
-<blockquote>
-<p>There is a strong evidence against the null hypothesis (BF = 12.2).</p>
-</blockquote>
-<div id="jeffreys1961theory" class="section level4">
+<div id="cohen1992power" class="section level4">
 <h4 class="hasAnchor">
-<a href="#jeffreys1961theory" class="anchor"></a><span class="citation">Jeffreys (1961)</span>
+<a href="#cohen1992power" class="anchor"></a><span class="citation">Cohen (1992)</span>
 </h4>
-<div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_bf.html">interpret_bf</a></span>(<span class="kw">x</span>, rules = <span class="st">"jeffreys1961"</span>)
+<p>These are applicable to one-way ANOVAs, or to <em>partial</em> Eta / Omega / Epsilon Squared in a multi-way ANOVA.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit">
+<span class="fu"><a href="../reference/interpret_omega_squared.html">interpret_omega_squared</a></span>(<span class="kw">x</span>, rules = <span class="st">"cohen1992"</span>)
 </pre></div>
 <ul>
 <li>
-<strong>bf = 1 - 3</strong>: Anecdotal</li>
+<strong>ES &lt; 0.02</strong> - Very small</li>
 <li>
-<strong>bf = 3 - 10</strong>: Moderate</li>
+<strong>0.02 &lt; ES &lt; 0.13</strong> - Small</li>
 <li>
-<strong>bf = 10 - 30</strong>: Strong</li>
+<strong>0.13 &lt; ES &lt; 0.26</strong> - Medium</li>
 <li>
-<strong>bf = 30 - 100</strong>: Very strong</li>
-<li>
-<strong>bf &gt; 100</strong>: Extreme</li>
+<strong>ES &gt; 0.26</strong> - Large</li>
 </ul>
 </div>
-<div id="raftery1995bayesian" class="section level4">
-<h4 class="hasAnchor">
-<a href="#raftery1995bayesian" class="anchor"></a><span class="citation">Raftery (1995)</span>
-</h4>
-<div class="sourceCode" id="cb17"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_bf.html">interpret_bf</a></span>(<span class="kw">x</span>, rules = <span class="st">"raftery1995"</span>)
-</pre></div>
+</div>
+<div id="interpertation-of-other-indices" class="section level1">
+<h1 class="hasAnchor">
+<a href="#interpertation-of-other-indices" class="anchor"></a>Interpertation of other Indices</h1>
+<p><code>effectsize</code> also offers functions for interpreting other statistical indices:</p>
 <ul>
 <li>
-<strong>bf = 1 - 3</strong>: Weak</li>
+<code><a href="../reference/interpret_gfi.html">interpret_gfi()</a></code>, <code><a href="../reference/interpret_gfi.html">interpret_agfi()</a></code>, <code><a href="../reference/interpret_gfi.html">interpret_nfi()</a></code>, <code><a href="../reference/interpret_gfi.html">interpret_nnfi()</a></code>, <code><a href="../reference/interpret_gfi.html">interpret_cfi()</a></code>, <code><a href="../reference/interpret_gfi.html">interpret_rmsea()</a></code>, <code><a href="../reference/interpret_gfi.html">interpret_srmr()</a></code>, <code><a href="../reference/interpret_gfi.html">interpret_rfi()</a></code>, <code><a href="../reference/interpret_gfi.html">interpret_ifi()</a></code>, and <code><a href="../reference/interpret_gfi.html">interpret_pnfi()</a></code> for interpretation CFA / SEM goodness of fit.</li>
 <li>
-<strong>bf = 3 - 20</strong>: Positive</li>
+<code><a href="../reference/interpret_p.html">interpret_p()</a></code> for interpretation of <em>p</em>-values.</li>
 <li>
-<strong>bf = 20 - 150</strong>: Strong</li>
+<code><a href="../reference/interpret_direction.html">interpret_direction()</a></code> for interpretation of direction.</li>
 <li>
-<strong>bf &gt; 150</strong>: Very strong</li>
+<code><a href="../reference/interpret_bf.html">interpret_bf()</a></code> for interpretation of Bayes factors.</li>
+<li>
+<code><a href="../reference/interpret_rope.html">interpret_rope()</a></code> for interpretation of Bayesian ROPE tests.</li>
+<li>
+<code><a href="../reference/interpret_ess.html">interpret_ess()</a></code> and <code><a href="../reference/interpret_ess.html">interpret_rhat()</a></code> for interpretation of Bayesian diagnostic indices.</li>
 </ul>
 </div>
-</div>
-<div id="bayesian-convergence-diagnostic-rthat-and-effective-sample-size" class="section level3">
-<h3 class="hasAnchor">
-<a href="#bayesian-convergence-diagnostic-rthat-and-effective-sample-size" class="anchor"></a>Bayesian Convergence Diagnostic (Rthat and Effective Sample Size)</h3>
-<p>Experts have suggested thresholds value to help interpreting and convergence and sampling quality. As such, <code>Rhat</code> should not be larger than 1.1 <span class="citation">(Gelman, Rubin, and others 1992)</span> or 1.01 <span class="citation">(Vehtari et al. 2019)</span>. An <code>effective sample size</code> (ESS) greater than 1,000 is sufficient for stable estimates <span class="citation">(Bürkner and others 2017)</span>.</p>
-</div>
-<div id="other-bayesian-indices-in-rope-pd" class="section level3">
-<h3 class="hasAnchor">
-<a href="#other-bayesian-indices-in-rope-pd" class="anchor"></a>Other Bayesian Indices (% in ROPE, <em>pd</em>)</h3>
-<p>The interpretation of Bayesian indices is detailed in <a href="https://easystats.github.io/bayestestR/articles/guidelines.html">this article</a>.</p>
-</div>
-<div id="references" class="section level2 unnumbered">
-<h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h2>
+<div id="references" class="section level1 unnumbered">
+<h1 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h1>
 <div id="refs" class="references">
-<div id="ref-burkner2017brms">
-<p>Bürkner, Paul-Christian, and others. 2017. “Brms: An R Package for Bayesian Multilevel Models Using Stan.” <em>Journal of Statistical Software</em> 80 (1): 1–28.</p>
-</div>
 <div id="ref-chen2010big">
 <p>Chen, Henian, Patricia Cohen, and Sophie Chen. 2010. “How Big Is a Big Odds Ratio? Interpreting the Magnitudes of Odds Ratios in Epidemiological Studies.” <em>Communications in Statistics—Simulation and Computation</em> 39 (4): 860–64.</p>
 </div>
@@ -481,6 +481,9 @@
 </div>
 <div id="ref-cohen1988statistical">
 <p>Cohen, Jacob. 1988. “Statistical Power Analysis for the Social Sciences.”</p>
+</div>
+<div id="ref-cohen1992power">
+<p>———. 1992. “A Power Primer.” <em>Psychological Bulletin</em> 112 (1): 155.</p>
 </div>
 <div id="ref-evans1996straightforward">
 <p>Evans, James D. 1996. <em>Straightforward Statistics for the Behavioral Sciences.</em> Thomson Brooks/Cole Publishing Co.</p>
@@ -494,30 +497,17 @@
 <div id="ref-funder2019evaluating">
 <p>Funder, David C, and Daniel J Ozer. 2019. “Evaluating Effect Size in Psychological Research: Sense and Nonsense.” <em>Advances in Methods and Practices in Psychological Science</em>, 2515245919847202.</p>
 </div>
-<div id="ref-gelman1992inference">
-<p>Gelman, Andrew, Donald B Rubin, and others. 1992. “Inference from Iterative Simulation Using Multiple Sequences.” <em>Statistical Science</em> 7 (4): 457–72.</p>
-</div>
 <div id="ref-gignac2016effect">
 <p>Gignac, Gilles E, and Eva T Szodorai. 2016. “Effect Size Guidelines for Individual Differences Researchers.” <em>Personality and Individual Differences</em> 102: 74–78.</p>
 </div>
 <div id="ref-hair2011pls">
 <p>Hair, Joe F, Christian M Ringle, and Marko Sarstedt. 2011. “PLS-Sem: Indeed a Silver Bullet.” <em>Journal of Marketing Theory and Practice</em> 19 (2): 139–52.</p>
 </div>
-<div id="ref-jeffreys1961theory">
-<p>Jeffreys, Harold. 1961. “Theory of Probability, Clarendon.” Oxford.</p>
-</div>
-<div id="ref-raftery1995bayesian">
-<p>Raftery, Adrian E. 1995. “Bayesian Model Selection in Social Research.” <em>Sociological Methodology</em> 25: 111–64.</p>
-</div>
 <div id="ref-sawilowsky2009new">
 <p>Sawilowsky, Shlomo S. 2009. “New Effect Size Rules of Thumb.”</p>
 </div>
 <div id="ref-sanchez2003effect">
 <p>Sánchez-Meca, Julio, Fulgencio Marı́n-Martı́nez, and Salvador Chacón-Moscoso. 2003. “Effect-Size Indices for Dichotomized Outcomes in Meta-Analysis.” <em>Psychological Methods</em> 8 (4): 448.</p>
-</div>
-<div id="ref-vehtari2019rank">
-<p>Vehtari, Aki, Andrew Gelman, Daniel Simpson, Bob Carpenter, and Paul-Christian Bürkner. 2019. <em>arXiv Preprint arXiv:1903.08008</em>.</p>
-</div>
 </div>
 </div>
 </div>

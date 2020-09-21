@@ -276,27 +276,27 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>cohens_d</span>(<span class='kw'>iris</span><span class='op'>$</span><span class='kw'>Sepal.Length</span>, <span class='kw'>iris</span><span class='op'>$</span><span class='kw'>Sepal.Width</span>)
-</div><div class='output co'>#&gt; Cohen's d |       95% CI
+</div><div class='output co'>#&gt; Cohen's d |    1e+02% CI
 #&gt; ------------------------
 #&gt;      4.21 | [3.80, 4.61]</div><div class='input'><span class='fu'>hedges_g</span>(<span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>, data = <span class='kw'>iris</span>)
-</div><div class='output co'>#&gt; Hedge's g |       95% CI
+</div><div class='output co'>#&gt; Hedge's g |    1e+02% CI
 #&gt; ------------------------
 #&gt;      4.20 | [3.79, 4.60]</div><div class='input'>
 <span class='fu'>cohens_d</span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>am</span>, data = <span class='kw'>mtcars</span>)
-</div><div class='output co'>#&gt; Cohen's d |         95% CI
+</div><div class='output co'>#&gt; Cohen's d |      1e+02% CI
 #&gt; --------------------------
 #&gt;     -1.48 | [-2.27, -0.67]</div><div class='input'><span class='fu'>cohens_d</span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>am</span>, data = <span class='kw'>mtcars</span>, pooled_sd = <span class='fl'>FALSE</span>)
-</div><div class='output co'>#&gt; Cohen's d |         95% CI
+</div><div class='output co'>#&gt; Cohen's d |      1e+02% CI
 #&gt; --------------------------
 #&gt;     -1.41 | [-2.13, -0.56]</div><div class='input'><span class='fu'>hedges_g</span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>am</span>, data = <span class='kw'>mtcars</span>)
-</div><div class='output co'>#&gt; Hedge's g |         95% CI
+</div><div class='output co'>#&gt; Hedge's g |      1e+02% CI
 #&gt; --------------------------
 #&gt;     -1.44 | [-2.21, -0.65]</div><div class='input'><span class='fu'>glass_delta</span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>am</span>, data = <span class='kw'>mtcars</span>)
-</div><div class='output co'>#&gt; Glass' delta |         95% CI
+</div><div class='output co'>#&gt; Glass' delta |      1e+02% CI
 #&gt; -----------------------------
 #&gt;        -1.17 | [-1.93, -0.40]</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/pkg/parameters/man/print.html'>print</a></span>(<span class='fu'>cohens_d</span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>am</span>, data = <span class='kw'>mtcars</span>), append_CL = <span class='fl'>TRUE</span>)
-</div><div class='output co'>#&gt; Cohen's d |         95% CI
+</div><div class='output co'>#&gt; Cohen's d |      1e+02% CI
 #&gt; --------------------------
 #&gt;     -1.48 | [-2.27, -0.67]
 #&gt; 

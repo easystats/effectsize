@@ -183,6 +183,29 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="rules"><a class="anchor" href="#rules"></a>Rules</h2>
+
+    
+
+
+<p>Rules apply to BF as ratios, so BF of 10 is as extreme as a BF of 0.1 (1/10).</p><ul>
+<li><p>Jeffreys (1961) (<code>"jeffreys1961"</code>; default)</p><ul>
+<li><p><strong>BF = 1</strong> - No evidence</p></li>
+<li><p><strong>1 &lt; BF &lt; 3</strong> - Anecdotal</p></li>
+<li><p><strong>3 &lt; BF &lt; 10</strong> - Moderate</p></li>
+<li><p><strong>10 &lt; BF &lt; 30</strong> - Strong</p></li>
+<li><p><strong>30 &lt; BF &lt; 100</strong> - Very strong</p></li>
+<li><p><strong>BF &gt; 100</strong> - Extreme.</p></li>
+</ul></li>
+<li><p>Raftery (1995) (<code>"raftery1995"</code>)</p><ul>
+<li><p><strong>BF = 1</strong> - No evidence</p></li>
+<li><p><strong>1 &lt; BF &lt; 3</strong> - Weak</p></li>
+<li><p><strong>3 &lt; BF &lt; 20</strong> - Positive</p></li>
+<li><p><strong>20 &lt; BF &lt; 150</strong> - Strong</p></li>
+<li><p><strong>BF &gt; 150</strong> - Very strong</p></li>
+</ul></li>
+</ul>
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -195,7 +218,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>interpret_bf</span>(<span class='fl'>1</span>)
-</div><div class='output co'>#&gt; [1] "anecdotal evidence in favour of"</div><div class='input'><span class='fu'>interpret_bf</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>2</span>))
+</div><div class='output co'>#&gt; [1] "no evidence"</div><div class='input'><span class='fu'>interpret_bf</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>2</span>))
 </div><div class='output co'>#&gt; [1] "moderate evidence in favour of"  "anecdotal evidence in favour of"</div><div class='input'>
 </div></pre>
   </div>

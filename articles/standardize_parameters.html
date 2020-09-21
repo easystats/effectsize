@@ -144,7 +144,7 @@
 <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="kw">Sepal.Length</span> <span class="op">~</span> <span class="kw">Petal.Length</span>, data = <span class="kw">iris</span>) <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>()
 </pre></div>
-<pre><code>&gt; Parameter    | Coefficient (std.) |        95% CI
+<pre><code>&gt; Parameter    | Coefficient (std.) |     1e+02% CI
 &gt; -------------------------------------------------
 &gt; (Intercept)  |          -5.03e-16 | [-0.08, 0.08]
 &gt; Petal.Length |               0.87 | [ 0.79, 0.95]
@@ -177,7 +177,7 @@
 
 <span class="fu"><a href="../reference/t_to_d.html">t_to_r</a></span>(<span class="kw">params</span><span class="op">$</span><span class="kw">t</span>[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>], <span class="kw">params</span><span class="op">$</span><span class="kw">df_error</span>[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>])
 </pre></div>
-<pre><code>&gt;     r |         95% CI
+<pre><code>&gt;     r |      1e+02% CI
 &gt; ----------------------
 &gt;  0.63 | [ 0.53,  0.70]
 &gt;  0.72 | [ 0.64,  0.78]
@@ -188,7 +188,7 @@
 <span class="kw">model</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>() 
 </pre></div>
-<pre><code>&gt; Parameter    | Coefficient (std.) |         95% CI
+<pre><code>&gt; Parameter    | Coefficient (std.) |      1e+02% CI
 &gt; --------------------------------------------------
 &gt; (Intercept)  |          -7.12e-17 | [-0.06,  0.06]
 &gt; Sepal.Width  |               0.34 | [ 0.27,  0.41]
@@ -208,7 +208,7 @@
 <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="kw">Sepal.Length</span> <span class="op">~</span> <span class="kw">Species</span>, data = <span class="kw">data</span>) <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>()
 </pre></div>
-<pre><code>&gt; Parameter         | Coefficient (std.) |         95% CI
+<pre><code>&gt; Parameter         | Coefficient (std.) |      1e+02% CI
 &gt; -------------------------------------------------------
 &gt; (Intercept)       |              -0.72 | [-0.92, -0.53]
 &gt; Speciesversicolor |               1.45 | [ 1.18,  1.72]
@@ -218,7 +218,7 @@
 <div class="sourceCode" id="cb13"><pre class="downlit">
 <span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span>(<span class="kw">Sepal.Length</span> <span class="op">~</span> <span class="kw">Species</span>, data = <span class="kw">data</span>) 
 </pre></div>
-<pre><code>&gt; Cohen's d |         95% CI
+<pre><code>&gt; Cohen's d |      1e+02% CI
 &gt; --------------------------
 &gt;     -2.10 | [-2.59, -1.61]</code></pre>
 <p><strong><em>It is very different!</em></strong> Why? How? Both differences should be expressed in units of SD! But which SDs? Different SDs!</p>
@@ -236,7 +236,7 @@
 <div class="sourceCode" id="cb17"><pre class="downlit">
 <span class="fu"><a href="../reference/t_to_d.html">t_to_d</a></span>(<span class="fl">10.52</span>, df_error = <span class="fl">98</span>)
 </pre></div>
-<pre><code>&gt;    d |       95% CI
+<pre><code>&gt;    d |    1e+02% CI
 &gt; -------------------
 &gt; 2.13 | [1.63, 2.62]</code></pre>
 <p>It is also interesting to note that using the <em>smart</em> method when standardizing parameters will give you indices equivalent to <strong>Glass’ delta</strong>, which difference is expressed in terms of SD of the intercept (the “reference” factor levels).</p>
@@ -244,7 +244,7 @@
 <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="kw">Sepal.Length</span> <span class="op">~</span> <span class="kw">Species</span>, data = <span class="kw">data</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span>(method = <span class="st">"smart"</span>)
 </pre></div>
-<pre><code>&gt; Parameter         | Coefficient (std.) |       95% CI
+<pre><code>&gt; Parameter         | Coefficient (std.) |    1e+02% CI
 &gt; -----------------------------------------------------
 &gt; (Intercept)       |               0.00 | [0.00, 0.00]
 &gt; Speciesversicolor |               2.64 | [2.14, 3.14]
@@ -254,7 +254,7 @@
 <span class="fu"><a href="../reference/cohens_d.html">glass_delta</a></span>(<span class="kw">data</span><span class="op">$</span><span class="kw">Sepal.Length</span>[<span class="kw">data</span><span class="op">$</span><span class="kw">Species</span><span class="op">==</span><span class="st">"versicolor"</span>],
             <span class="kw">data</span><span class="op">$</span><span class="kw">Sepal.Length</span>[<span class="kw">data</span><span class="op">$</span><span class="kw">Species</span><span class="op">==</span><span class="st">"setosa"</span>])
 </pre></div>
-<pre><code>&gt; Glass' delta |       95% CI
+<pre><code>&gt; Glass' delta |    1e+02% CI
 &gt; ---------------------------
 &gt;         2.64 | [2.10, 3.17]</code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit">
