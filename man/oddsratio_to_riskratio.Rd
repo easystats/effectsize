@@ -10,13 +10,11 @@ oddsratio_to_riskratio(OR, p0, log = FALSE)
 riskratio_to_oddsratio(RR, p0, log = FALSE)
 }
 \arguments{
-\item{OR}{Odds ratio of \code{odds(p1)/odds(p0)}}
+\item{OR, RR}{Risk ratio of \code{p1/p0} or Odds ratio of \code{odds(p1)/odds(p0)}, possibly log-ed.}
 
 \item{p0}{Baseline risk}
 
 \item{log}{Take in or output log odds ratio (such as in logistic models).}
-
-\item{RR}{Risk ratio of \code{p1/p0}.}
 }
 \description{
 Convert between Odds ratios and Risk ratios

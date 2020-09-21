@@ -1,7 +1,6 @@
 #' Convert between Odds ratios and Risk ratios
 #'
-#' @param RR Risk ratio of `p1/p0`.
-#' @param OR Odds ratio of `odds(p1)/odds(p0)`
+#' @param OR,RR Risk ratio of `p1/p0` or Odds ratio of `odds(p1)/odds(p0)`, possibly log-ed.
 #' @param p0 Baseline risk
 #' @inheritParams oddsratio_to_d
 #'
