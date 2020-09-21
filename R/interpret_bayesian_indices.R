@@ -4,12 +4,22 @@
 #'
 #' @param ess Value or vector of Effective Sample Size (ESS) values.
 #' @param rhat Value or vector of Rhat values.
-#' @param rules A character string (see details) or a custom set of [rules()].
+#' @param rules A character string (see *Rules*) or a custom set of [rules()].
 #'
-#' @details
-#' Rules sets:
-#' - **ESS**: Can be `"burkner2017"` (default).
-#' - **Rhat**: Can be `"vehtari2019"` (default) or `"gelman1992"`.
+#' @section Rules:
+#'
+#' ## ESS
+#' - Bürkner, P. C. (2017) (`"burkner2017"`; default)
+#'   - **ESS < 1000** - Insufficient
+#'   - **ESS >= 1000** - Sufficient
+#'
+#' ## Rhat
+#' - Vehtari et al. (2019) (`"vehtari2019"`; default)
+#'   - **Rhat < 1.01** - Converged
+#'   - **Rhat >= 1.01** - Failed
+#' - Gelman & Rubin (1992) (`"gelman1992"`)
+#'   - **Rhat < 1.1** - Converged
+#'   - **Rhat >= 1.1** - Failed
 #'
 #'
 #' @examples
@@ -26,15 +36,14 @@
 #' }
 #' @export
 interpret_ess <- function(ess, rules = "burkner2017") {
-  if (is.rules(rules)) {
-    return(interpret(abs(ess), rules))
-  } else {
-    if (rules == "burkner2017") {
-      return(interpret(abs(ess), rules(c(1000), c("unsufficient", "sufficient"))))
-    } else {
-      stop("rules must be 'burkner2017' or an object of type rules.")
-    }
-  }
+  rules <- .match.rules(
+    rules,
+    list(
+      burkner2017 = rules(c(1000), c("insufficient", "sufficient"))
+    )
+  )
+
+  interpret(abs(ess), rules)
 }
 
 
@@ -42,15 +51,13 @@ interpret_ess <- function(ess, rules = "burkner2017") {
 #' @rdname interpret_ess
 #' @export
 interpret_rhat <- function(rhat, rules = "vehtari2019") {
-  if (is.rules(rules)) {
-    return(interpret(abs(rhat), rules))
-  } else {
-    if (rules == "vehtari2019") {
-      return(interpret(abs(rhat), rules(c(1.01), c("converged", "failed"))))
-    } else if (rules == "gelman1992") {
-      return(interpret(abs(rhat), rules(c(1.1), c("converged", "failed"))))
-    } else {
-      stop("rules must be 'vehtari2019', 'gelman1992' or an object of type rules.")
-    }
-  }
+  rules <- .match.rules(
+    rules,
+    list(
+      vehtari2019 = rules(c(1.01), c("converged", "failed")),
+      gelman1992 = rules(c(1.1), c("converged", "failed"))
+    )
+  )
+
+  interpret(abs(rhat), rules)
 }

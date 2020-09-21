@@ -3,12 +3,25 @@
 #' @param es Value or vector of eta / omega / epsilon squared values.
 #' @param rules Can be `"field2013"` (default), `"cohen1992"` or custom set of [rules()].
 #'
-#' @note `"cohen1992"`'s rules are applicable to one-way anova, or to *partial*
-#'   eta / omega / epsilon squared in multi-way anova.
+#'
+#' @section Rules:
+#'
+#' - Field (2013) (`"field2013"`; default)
+#'   - **ES < 0.01** - Very small
+#'   - **0.01 < ES < 0.06** - Small
+#'   - **0.16 < ES < 0.14** - Medium
+#'   - **ES > 0.14 ** - Large
+#' - Cohen (1992) (`"cohen1992"`) applicable to one-way anova, or to *partial*
+#' eta / omega / epsilon squared in multi-way anova.
+#'   - **ES < 0.02** - Very small
+#'   - **0.02 < ES < 0.13** - Small
+#'   - **0.13 < ES < 0.26** - Medium
+#'   - **ES > 0.26** - Large
 #'
 #' @examples
 #' interpret_eta_squared(.02)
 #' interpret_eta_squared(c(.5, .02), rules = "cohen1992")
+#'
 #'
 #' @seealso http://imaging.mrc-cbu.cam.ac.uk/statswiki/FAQ/effectSize
 #'
@@ -19,21 +32,17 @@
 #'
 #' @export
 interpret_omega_squared <- function(es, rules = "field2013") {
-  if (is.rules(rules)) {
-    return(interpret(es, rules))
-  } else {
-    if (rules == "field2013") {
-      return(interpret(es,
-                       rules(c(0.01, 0.06, 0.14),
-                             c("very small", "small", "medium", "large"))))
-    } else if (rules == "cohen1992") {
-      return(interpret(es,
-                       rules(c(0.02, 0.13, 0.26),
-                             c("very small", "small", "medium", "large"))))
-    } else {
-      stop("rules must be 'field2013' or an object of type rules.")
-    }
-  }
+  rules <- .match.rules(
+    rules,
+    list(
+      field2013 = rules(c(0.01, 0.06, 0.14),
+                        c("very small", "small", "medium", "large")),
+      cohen1992 = rules(c(0.02, 0.13, 0.26),
+                        c("very small", "small", "medium", "large"))
+    )
+  )
+
+  interpret(es, rules)
 }
 
 #' @export

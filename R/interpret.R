@@ -5,8 +5,11 @@
 #'
 #' Create a container for interpretation rules of thumb. Usually used in conjunction with [interpret].
 #'
-#' @param values Vector of reference values (edges defining categories or critical values).
-#' @param labels Labels associated with each category. If `NULL`, will try to infer it from `values` (if it is a named vector or a list), otherwise, will return the breakpoints.
+#' @param values Vector of reference values (edges defining categories or
+#'   critical values).
+#' @param labels Labels associated with each category. If `NULL`, will try to
+#'   infer it from `values` (if it is a named vector or a list), otherwise, will
+#'   return the breakpoints.
 #'
 #'
 #' @seealso interpret
@@ -104,6 +107,8 @@ interpret <- function(x, rules) {
 
 #' @keywords internal
 .interpret <- function(x, rules) {
+  if (is.na(x)) return(NA)
+
   if(length(rules$values) == length(rules$labels)){
     index <- which.min(abs(x - rules$values))
   } else{

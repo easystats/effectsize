@@ -5,6 +5,7 @@
 - `interpret_*` ( #131 ):
   - `interpret_omega_squared()` added `"cohen1992"` rule.
   - `interpret_p()` added *Redefine statistical significance* rules.
+- `oddsratio_to_riskratio()` for converting OR to RR.
 
 ## Changes
 
@@ -12,7 +13,7 @@
 
 ## Bug fixes
 
-- `interpret_odds()` correctly treats extremely small odds the same as treats extremely large ones.
+- `interpret_oddsratio()` correctly treats extremely small odds the same as treats extremely large ones.
 
 
 # effectsize 0.3.3
@@ -25,6 +26,7 @@
 ## Changes
 
 - `r_to_odds()` family is now deprecated in favor of `r_to_oddsratio()`.
+- `interpret_odds()` is now deprecated in favor of `interpret_oddsratio()`
 
 ## Bug fixes
 

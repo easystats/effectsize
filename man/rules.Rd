@@ -10,9 +10,12 @@ rules(values, labels = NULL)
 is.rules(x)
 }
 \arguments{
-\item{values}{Vector of reference values (edges defining categories or critical values).}
+\item{values}{Vector of reference values (edges defining categories or
+critical values).}
 
-\item{labels}{Labels associated with each category. If \code{NULL}, will try to infer it from \code{values} (if it is a named vector or a list), otherwise, will return the breakpoints.}
+\item{labels}{Labels associated with each category. If \code{NULL}, will try to
+infer it from \code{values} (if it is a named vector or a list), otherwise, will
+return the breakpoints.}
 
 \item{x}{An arbitrary R object.}
 }

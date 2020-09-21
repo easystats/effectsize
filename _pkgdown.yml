@@ -41,6 +41,7 @@ reference:
   - d_to_common_language
   - d_to_r
   - odds_to_probs
+  - oddsratio_to_riskratio
 
 - title: "Interpretation"
   contents:
@@ -51,7 +52,7 @@ reference:
   - interpret_r
   - interpret_omega_squared
   - interpret_parameters
-  - interpret_odds
+  - interpret_oddsratio
   - interpret_r2
   - interpret_gfi
   - interpret_p

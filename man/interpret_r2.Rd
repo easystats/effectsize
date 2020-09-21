@@ -14,10 +14,45 @@ interpret_r2(r2, rules = "cohen1988")
 \description{
 Interpret coefficient of determination (R2)
 }
-\note{
-\code{"chin1998"} and \code{"hair2011"} are appropriate only for PLS / SEM
-R-Squared of \emph{latent} variables.
+\section{Rules}{
+
+\subsection{For Linear Regression}{
+\itemize{
+\item Cohen (1988) (\code{"cohen1988"}; default)
+\itemize{
+\item \strong{R2 < 0.02} - Very weak
+\item \strong{0.02 < R2 < 0.13} - Weak
+\item \strong{0.13 < R2 < 0.26} - Moderate
+\item \strong{R2 > 0.26} - Substantial
 }
+\item Falk & Miller (1992) (\code{"falk1992"})
+\itemize{
+\item \strong{R2 < 0.1} - Negligible
+\item \strong{R2 > 0.1} - Adequate
+}
+}
+}
+
+\subsection{For PLS / SEM R-Squared of \emph{latent} variables}{
+\itemize{
+\item Chin, W. W. (1998) (\code{"chin1998"})
+\itemize{
+\item \strong{R2 < 0.19} - Very weak
+\item \strong{0.19 < R2 < 0.33} - Weak
+\item \strong{0.33 < R2 < 0.67} - Moderate
+\item \strong{R2 > 0.67} - Substantial
+}
+\item Hair et al. (2011) (\code{"hair2011"})
+\itemize{
+\item \strong{R2 < 0.25} - Very weak
+\item \strong{0.25 < R2 < 0.50} - Weak
+\item \strong{0.50 < R2 < 0.75} - Moderate
+\item \strong{R2 > 0.75} - Substantial
+}
+}
+}
+}
+
 \examples{
 interpret_r2(.02)
 interpret_r2(c(.5, .02))

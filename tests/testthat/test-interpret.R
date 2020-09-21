@@ -47,19 +47,19 @@ if (require("testthat") && require("effectsize")) {
 
   test_that("interpret_rope", {
     testthat::expect_equal(interpret_rope(0, ci = 0.9), "significant")
-    testthat::expect_equal(interpret_rope(c(0.50, 1), ci = 0.9), c("not significant", "negligible"))
+    testthat::expect_equal(interpret_rope(c(0.50, 1), ci = 0.9), c("undecided", "negligible"))
     testthat::expect_equal(interpret_rope(c(0.98, 0.991), ci = 1), c("probably negligible", "negligible"))
     testthat::expect_equal(interpret_rope(0.6, rules = rules(c(0.5), c("A", "B"))), "B")
     testthat::expect_error(interpret_rope(0.6, rules = "DUPA"))
   })
 
 
-  test_that("interpret_odds", {
-    testthat::expect_equal(interpret_odds(2), "small")
-    testthat::expect_equal(interpret_odds(c(1, 3)), c("very small", "small"))
-    testthat::expect_equal(interpret_odds(c(1, 3), rules = "cohen1988"), c("very small", "medium"))
-    testthat::expect_equal(interpret_odds(0.6, rules = rules(c(0.5), c("A", "B"))), "B")
-    testthat::expect_error(interpret_odds(0.6, rules = "DUPA"))
+  test_that("interpret_oddsratio", {
+    testthat::expect_equal(interpret_oddsratio(2), "small")
+    testthat::expect_equal(interpret_oddsratio(c(1, 3)), c("very small", "small"))
+    testthat::expect_equal(interpret_oddsratio(c(1, 3), rules = "cohen1988"), c("very small", "medium"))
+    testthat::expect_equal(interpret_oddsratio(0.6, rules = rules(c(0.5), c("A", "B"))), "B")
+    testthat::expect_error(interpret_oddsratio(0.6, rules = "DUPA"))
   })
 
 
@@ -74,7 +74,8 @@ if (require("testthat") && require("effectsize")) {
 
 
   test_that("interpret_bf", {
-    testthat::expect_equal(interpret_bf(-2), "no evidence against")
+    testthat::expect_warning(interpret_bf(-2))
+    testthat::expect_equal(interpret_bf(1), "no evidence")
     testthat::expect_equal(interpret_bf(c(0.8, 3.5), rules = "jeffreys1961"), c("anecdotal evidence against", "moderate evidence in favour of"))
     testthat::expect_equal(interpret_bf(c(0.8, 3.5), rules = "raftery1995"), c("weak evidence against", "positive evidence in favour of"))
     testthat::expect_equal(interpret_bf(2, rules = rules(c(0.5), c("A", "B"))), "B evidence in favour of")
@@ -103,7 +104,7 @@ if (require("testthat") && require("effectsize")) {
 
   test_that("interpret_ess", {
     testthat::expect_equal(interpret_ess(1000), "sufficient")
-    testthat::expect_equal(interpret_ess(c(1000, 800)), c("sufficient", "unsufficient"))
+    testthat::expect_equal(interpret_ess(c(1000, 800)), c("sufficient", "insufficient"))
     testthat::expect_equal(interpret_ess(0.6, rules = rules(c(0.5), c("A", "B"))), "B")
     testthat::expect_error(interpret_ess(0.6, rules = "DUPA"))
   })
