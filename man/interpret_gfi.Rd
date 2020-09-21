@@ -11,7 +11,7 @@
 \alias{interpret_rfi}
 \alias{interpret_ifi}
 \alias{interpret_pnfi}
-\title{Interpret of indices of CFA / SEM fit}
+\title{Interpret of indices of CFA / SEM goodness of fit}
 \usage{
 interpret_gfi(x, rules = "default")
 
