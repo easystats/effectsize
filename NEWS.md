@@ -2,6 +2,7 @@
 
 ## New features
 
+- Added `hardlyworking` dataset, for use in examples.
 - `interpret_*` ( #131 ):
   - `interpret_omega_squared()` added `"cohen1992"` rule.
   - `interpret_p()` added *Redefine statistical significance* rules.
