@@ -3,7 +3,33 @@
 #' @param r Value or vector of correlation coefficient.
 #' @param rules Can be `"funder2019"` (default), `"gignac2016"`, `"cohen1988"`, `"evans1996"` or custom set of [rules()].
 #'
+#' @section Rules:
 #'
+#' Rules apply positive and negative *r* alike.
+#'
+#' - Funder & Ozer (2019) (`"funder2019"`; default)
+#'   - **r < 0.05** - Tiny
+#'   - **0.05 < r < 0.1** - Very small
+#'   - **0.1 < r < 0.2** - Small
+#'   - **0.2 < r < 0.3** - Medium
+#'   - **0.3 < r < 0.4** - Large
+#'   - **r > 0.4** - Very large
+#' - Gignac & Szodorai (2016) (`"gignac2016"`)
+#'   - **r < 0.1** - Very small
+#'   - **0.1 < r < 0.2** - Small
+#'   - **0.2 < r < 0.3** - Moderate
+#'   - **r > 0.3** - Large
+#' - Cohen (1988) (`"cohen1988"`)
+#'   - **r < 0.1** - Very small
+#'   - **0.1 < r < 0.3** - Small
+#'   - **0.3 < r < 0.5** - Moderate
+#'   - **r > 0.5** - Large
+#' - Evans (1996) (`"evans1996"`)
+#'   - **r < 0.2** - Very weak
+#'   - **0.2 < r < 0.4** - Weak
+#'   - **0.4 < r < 0.6** - Moderate
+#'   - **0.6 < r < 0.8** - Strong
+#'   - **r > 0.8** - Very strong
 #'
 #' @examples
 #' interpret_r(r = .015)

@@ -16,14 +16,30 @@ interpret_rope(rope, ci = 0.9, rules = "default")
 \description{
 Interpretation of Bayesian indices of percentage in ROPE.
 }
-\details{
-Rules sets:
+\section{Rules}{
+
 \itemize{
-\item \strong{ROPE}: Can be \href{https://easystats.github.io/bayestestR/articles/guidelines.html}{"default"}.
+\item Default
+\itemize{
+\item For CI < 1
+\itemize{
+\item \strong{Rope = 0} - Significant
+\item \strong{0 < Rope < 1} - Undecided
+\item \strong{Rope = 1} - Negligible
+}
+\item For CI = 1
+\itemize{
+\item \strong{Rope < 0.01} - Significant
+\item \strong{0.01 < Rope < 0.025} - Probably significant
+\item \strong{0.025 < Rope < 0.975} - Undecided
+\item \strong{0.975 < Rope < 0.99} - Probably negligible
+\item \strong{Rope > 0.99} - Negligible
 }
 }
+}
+}
+
 \examples{
-#'
 interpret_rope(0, ci = 0.9)
 interpret_rope(c(0.005, 0.99), ci = 1)
 

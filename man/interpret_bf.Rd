@@ -16,6 +16,31 @@ interpret_bf(bf, rules = "jeffreys1961", include_value = FALSE)
 \description{
 Interpret Bayes Factor (BF)
 }
+\section{Rules}{
+
+
+Rules apply to BF as ratios, so BF of 10 is as extreme as a BF of 0.1 (1/10).
+\itemize{
+\item Jeffreys (1961) (\code{"jeffreys1961"}; default)
+\itemize{
+\item \strong{BF = 1} - No evidence
+\item \strong{1 < BF < 3} - Anecdotal
+\item \strong{3 < BF < 10} - Moderate
+\item \strong{10 < BF < 30} - Strong
+\item \strong{30 < BF < 100} - Very strong
+\item \strong{BF > 100} - Extreme.
+}
+\item Raftery (1995) (\code{"raftery1995"})
+\itemize{
+\item \strong{BF = 1} - No evidence
+\item \strong{1 < BF < 3} - Weak
+\item \strong{3 < BF < 20} - Positive
+\item \strong{20 < BF < 150} - Strong
+\item \strong{BF > 150} - Very strong
+}
+}
+}
+
 \examples{
 interpret_bf(1)
 interpret_bf(c(5, 2))

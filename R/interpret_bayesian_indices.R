@@ -4,12 +4,22 @@
 #'
 #' @param ess Value or vector of Effective Sample Size (ESS) values.
 #' @param rhat Value or vector of Rhat values.
-#' @param rules A character string (see details) or a custom set of [rules()].
+#' @param rules A character string (see *Rules*) or a custom set of [rules()].
 #'
-#' @details
-#' Rules sets:
-#' - **ESS**: Can be `"burkner2017"` (default).
-#' - **Rhat**: Can be `"vehtari2019"` (default) or `"gelman1992"`.
+#' @section Rules:
+#'
+#' ## ESS
+#' - Bürkner, P. C. (2017) (`"burkner2017"`; default)
+#'   - **ESS < 1000** - Insufficient
+#'   - **ESS >= 1000** - Sufficient
+#'
+#' ## Rhat
+#' - Vehtari et al. (2019) (`"vehtari2019"`; default)
+#'   - **Rhat < 1.01** - Converged
+#'   - **Rhat >= 1.01** - Failed
+#' - Gelman & Rubin (1992) (`"gelman1992"`)
+#'   - **Rhat < 1.1** - Converged
+#'   - **Rhat >= 1.1** - Failed
 #'
 #'
 #' @examples
@@ -29,7 +39,7 @@ interpret_ess <- function(ess, rules = "burkner2017") {
   rules <- .match.rules(
     rules,
     list(
-      burkner2017 = rules(c(1000), c("unsufficient", "sufficient"))
+      burkner2017 = rules(c(1000), c("insufficient", "sufficient"))
     )
   )
 

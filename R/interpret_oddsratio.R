@@ -1,13 +1,27 @@
-#' Interpret (log) Odds ratio
+#' Interpret Odds ratio
 #'
-#' @param odds Value or vector of (log) odds ratio values.
+#' @param OR Value or vector of (log) odds ratio values.
 #' @param rules Can be "`chen2010"` (default), `"cohen1988"` (through transformation to standardized difference, see [odds_to_d()]) or custom set of [rules()].
 #' @param log Are the provided values log odds ratio.
 #'
+#' @section Rules:
+#'
+#' Rules apply to OR as ratios, so OR of 10 is as extreme as a OR of 0.1 (1/10).
+#'
+#' - Chen et al. (2010) (`"chen2010"`; default)
+#'   - **OR < 1.68** - Very small
+#'   - **1.68 < OR < 3.47** - Small
+#'   - **3.47 < OR < 6.71** - Medium
+#'   - **OR > 6.71 ** - Large
+#' - Cohen (1988) (`"cohen1988"`, based on the [oddsratio_to_d()] conversion, see [interpret_d()])
+#'   - **OR < 1.44** - Very small
+#'   - **1.44 < OR < 2.48** - Small
+#'   - **2.48 < OR < 4.27** - Medium
+#'   - **OR > 4.27 ** - Large
 #'
 #' @examples
-#' interpret_odds(1)
-#' interpret_odds(c(5, 2))
+#' interpret_oddsratio(1)
+#' interpret_oddsratio(c(5, 2))
 #'
 #' @references
 #' - Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
@@ -15,17 +29,17 @@
 #' - Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003). Effect-size indices for dichotomized outcomes in meta-analysis. Psychological methods, 8(4), 448.
 #'
 #' @export
-interpret_odds <- function(odds, rules = "chen2010", log = FALSE) {
+interpret_oddsratio <- function(OR, rules = "chen2010", log = FALSE) {
 
   if (log) {
-    odds <- exp(abs(odds))
+    OR <- exp(abs(OR))
   } else {
-    odds <- exp(abs(log(odds)))
+    OR <- exp(abs(log(OR)))
   }
 
 
   if (is.character(rules) && rules == "cohen1988") {
-    d <- oddsratio_to_d(odds, log = FALSE)
+    d <- oddsratio_to_d(OR, log = FALSE)
     return(interpret_d(abs(d), rules = rules))
   }
 
@@ -37,5 +51,5 @@ interpret_odds <- function(odds, rules = "chen2010", log = FALSE) {
     )
   )
 
-  interpret(odds, rules)
+  interpret(OR, rules)
 }

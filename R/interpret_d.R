@@ -6,8 +6,28 @@
 #' @param d,g,delta Value or vector of effect size values.
 #' @param rules Can be `"cohen1988"` (default), `"gignac2016"`, `"sawilowsky2009"` or custom set of [rules()].
 #'
-#' @note
-#' The use of `"gignac2016"` is based on the [d_to_r()] conversion.
+#' @section Rules:
+#'
+#' Rules apply to equally to positive and negative *d*.
+#'
+#' - Cohen (1988) (`"cohen1988"`; default)
+#'   - **d < 0.2** - Very small
+#'   - **0.2 < d < 0.5** - Small
+#'   - **0.5 < d < 0.8** - Medium
+#'   - **d > 0.8** - Large
+#' - Sawilowsky (2009) (`"sawilowsky2009"`)
+#'   - **d < 0.1** - Tiny
+#'   - **0.1 < d < 0.2** - Very small
+#'   - **0.2 < d < 0.5** - Small
+#'   - **0.5 < d < 0.8** - Medium
+#'   - **0.8 < d < 1.2** - Large
+#'   - **1.2 < d < 2** - Very large
+#'   - **d > 2** - Huge
+#' - Gignac & Szodorai (2016) (`"gignac2016"`, based on the [d_to_r()] conversion, see [interpret_r()])
+#'   - **d < 0.2** - Very small
+#'   - **0.2 < d < 0.41** - Small
+#'   - **0.41 < d < 0.63** - Moderate
+#'   - **d > 0.63** - Large
 #'
 #' @examples
 #' interpret_d(.02)

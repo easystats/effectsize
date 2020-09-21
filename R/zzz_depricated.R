@@ -1,35 +1,25 @@
 #' @export
 odds_to_d <- function(odds, log = FALSE, ...) {
   .Deprecated("oddsratio_to_d")
-  if (log == FALSE) {
-    log_odds <- log(odds)
-  } else {
-    log_odds <- odds
-  }
-
-  log_odds * (sqrt(3) / pi)
+  oddsratio_to_d(odds, log = log)
 }
 
 #' @export
 logodds_to_d <- function(odds, log = TRUE, ...) {
   .Deprecated("logoddsratio_to_d")
-  odds_to_d(odds, log = log, ...)
+  logoddsratio_to_d(odds, log = log, ...)
 }
 
 #' @export
 d_to_odds <- function(d, log = FALSE, ...) {
   .Deprecated("d_to_oddsratio")
-  if (log == TRUE) {
-    d * pi / sqrt(3)
-  } else {
-    exp(d * pi / sqrt(3))
-  }
+  d_to_oddsratio(d, log = log)
 }
 
 #' @export
 odds_to_r <- function(odds, log = FALSE, ...) {
   .Deprecated("oddsratio_to_r")
-  d_to_r(odds_to_d(odds, log = log))
+  oddsratio_to_r(odds, log = log)
 }
 
 
@@ -45,7 +35,11 @@ r_to_odds <- function(r, log = FALSE, ...) {
   d_to_odds(r_to_d(r), log = log)
 }
 
-
+#' @export
+interpret_odds <- function(odds, rules = "chen2010", log = FALSE) {
+  .Deprecated("interpret_oddsratio")
+  interpret_oddsratio(odds, rules = rules, log = log)
+}
 
 
 

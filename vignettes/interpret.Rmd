@@ -32,85 +32,33 @@ if (!all(sapply(pkgs, requireNamespace))) {
 }
 ```
 
-# Why?
+## Why?
 
-The metrics used in statistics (indices of fit, model performance or parameter estimates) can be very abstract. A long experience is required to intuitively ***"feel"*** the meaning of their values. In order to facilitate the understanding of the results they are facing, many scientists use (often implicitly) some set of **rules of thumb**. Thus, in order to validate and standardize such interpretation grids, some authors validated and published them in the form of guidelines. 
+The metrics used in statistics (indices of fit, model performance or parameter estimates) can be very abstract. A long experience is required to intuitively ***"feel"*** the meaning of their values. In order to facilitate the understanding of the results they are facing, many scientists use (often implicitly) some set of **rules of thumb**. Some of these rules of thumb have been standardize and validated and subsequently  published as guidelines. 
 
-One of the most famous interpertation grid was proposed by **Cohen (1988)** for a series of widely used indices, such as the correlation **r** (*r* = .20, small; *r* = .40, moderate and *r* = .60, large) or the **standardized difference** (*Cohen's d*). However, there is now a clear evidence that Cohen's guidelines (which he himself later disavowed; Funder, 2019) are much too stringent and not particularly meaningful taken out of context [@funder2019evaluating]. This led to the emergence of a litterature discussing and creating new sets of rules of thumb.  
+One of the most famous interpretation grids was proposed by **Cohen (1988)** for a series of widely used indices, such as the correlation **r** (*r* = .20, small; *r* = .40, moderate and *r* = .60, large) or the **standardized difference** (*Cohen's d*). However, there is now a clear evidence that Cohen's guidelines (which he himself later disavowed; Funder, 2019) are much too stringent and not particularly meaningful taken out of context [@funder2019evaluating]. This led to the emergence of a literature discussing and creating new sets of rules of thumb.  
 
-Altough **everybody agrees on the fact that effect size interpretation in a study should be justified with a rationale** (and depend on the context, the field, the litterature, the hypothesis, etc.), these pre-baked rules can still nevertheless be useful to give a rough idea or frame of reference to understand scientific results.
+Although **everybody agrees on the fact that effect size interpretation in a study should be justified with a rationale** (and depend on the context, the field, the literature, the hypothesis, etc.), these pre-baked rules can nevertheless be useful to give a rough idea or frame of reference to understand scientific results.
 
-The package **`effectsize`** implements such sets of rules of thumb for a variety of indices in a flexible and explicit fashion, helping you understanding and reporting your results in a scientific yet meaningful way. Again, readers should keep in mind that these thresholds, altough *"validated"*, **remain arbitrary**. Thus, their use should be discussed on a case-by-case basis depending on the field, hypotheses, prior results and so on, to avoid their crystalisation, as for the infamous ***p* < .05** example.
+The package **`effectsize`** implements such sets of rules of thumb for a variety of indices in a flexible and explicit fashion, helping you understanding and reporting your results in a scientific yet meaningful way. Again, readers should keep in mind that these thresholds, cited and used as they may be, **remain arbitrary**. Thus, their use should be discussed on a case-by-case basis depending on the field, hypotheses, prior results and so on, to avoid their crystallization, as for the infamous ***p* < .05** example.
 
-Moreovere, some authors suggest the counter-intuitive idea that *very large effects*, especially in the context of psychological research, is likely to be a "gross overestimate that will rarely be found in a large sample or in a replication" [@funder2019evaluating]. They suggest that smaller effect size are worth taking seriously (as they can be potentially consequential), as well as more believable.
+Moreover, some authors suggest the counter-intuitive idea that *very large effects*, especially in the context of psychological research, is likely to be a "gross overestimate that will rarely be found in a large sample or in a replication" [@funder2019evaluating]. They suggest that smaller effect size are worth taking seriously (as they can be potentially consequential), as well as more believable.
 
-# Supported Indices
-
-
-### Coefficient of determination  (R2)
+## Correlation *r*
 
 
-#### @falk1992primer
-
-```r
-interpret_r2(x, rules = "falk1992")
-```
-
-- **R2 < 0.1**: Negligible
-- **R2 > 0.1**: Adequate
-
-
-
-#### @cohen1988statistical
-
-```r
-interpret_r2(x, rules = "cohen1988")
-```
-
-- **R2 = 0 - 0.02**: Very weak
-- **R2 = 0.02 - 0.16**: Weak
-- **R2 = 0.16 - 0.26**: Moderate
-- **R2 > 0.26**: Substantial
-
-
-
-
-#### @chin1998partial
-
-```r
-interpret_r2(x, rules = "chin1998")
-```
-
-- **R2 = 0 - 0.19**: Very weak
-- **R2 = 0.19 - 0.33**: Weak
-- **R2 = 0.33 - 0.67**: Moderate
-- **R2 > 0.67**: Substantial
-
-#### @hair2011pls
-
-```r
-interpret_r2(x, rules = "hair2011")
-```
-
-- **R2 = 0 - 0.25**: Very weak
-- **R2 = 0.25 - 0.50**: Weak
-- **R2 = 0.50 - 0.75**: Moderate
-- **R2 > 0.75**: Substantial
-
-
-
-### Correlation *r*
-
+#### @funder2019evaluating
 
 ```r
 interpret_r(x, rules = "funder2019")
 ```
 
-- **r = 0 - 0.05**: Very small
-- **r = 0.05 - 0.1**: Small
-- **r = 0.1 - 0.2**: Medium 
-- **r = 0.2 - 0.3**: Large
-- **r > 0.4**: Very large
+- **r < 0.05** - Tiny
+- **0.05 < r < 0.1** - Very small
+- **0.1 < r < 0.2** - Small
+- **0.2 < r < 0.3** - Medium
+- **0.3 < r < 0.4** - Large
+- **r > 0.4** - Very large
 
 
 
@@ -122,10 +70,10 @@ Gignac's rules of thumb are actually one of few interpretation grid justified an
 interpret_r(x, rules = "gignac2016")
 ```
 
-- **r = 0 - 0.1**: Very small
-- **r = 0.1 - 0.2**: Small 
-- **r = 0.2 - 0.3**: Moderate ("typical")
-- **r > 0.3**: Large
+- **r < 0.1** - Very small
+- **0.1 < r < 0.2** - Small
+- **0.2 < r < 0.3** - Moderate
+- **r > 0.3** - Large
 
 
 
@@ -135,10 +83,10 @@ interpret_r(x, rules = "gignac2016")
 interpret_r(x, rules = "cohen1988")
 ```
 
-- **r = 0 - 0.1**: Very small
-- **r = 0.1 - 0.3**: Small
-- **r = 0.3 - 0.5**: Moderate
-- **r > 0.5**: Large
+- **r < 0.1** - Very small
+- **0.1 < r < 0.3** - Small
+- **0.3 < r < 0.5** - Moderate
+- **r > 0.5** - Large
 
 
 #### @evans1996straightforward
@@ -147,17 +95,17 @@ interpret_r(x, rules = "cohen1988")
 interpret_r(x, rules = "evans1996")
 ```
 
-- **r = 0 - 0.2**: Very weak
-- **r = 0.2 - 0.4**: Weak
-- **r = 0.4 - 0.6**: Moderate
-- **r = 0.6 - 0.8**: Strong
-- **r > 0.8**: Very strong
+- **r < 0.2** - Very weak
+- **0.2 < r < 0.4** - Weak
+- **0.4 < r < 0.6** - Moderate
+- **0.6 < r < 0.8** - Strong
+- **r > 0.8** - Very strong
 
 
 
-### Standardized Difference *d* (Cohen's *d*)
+## Standardized Difference *d* (Cohen's *d*)
 
-The sandardized difference can be obtained through the standardization of linear model's parameters or data, in which they can be used as indices of effect size.
+The standardized difference can be obtained through the standardization of linear model's parameters or data, in which they can be used as indices of effect size.
 
 #### @cohen1988statistical
 
@@ -165,24 +113,10 @@ The sandardized difference can be obtained through the standardization of linear
 interpret_d(x, rules = "cohen1988")
 ```
 
-- **d = 0 - 0.2**: Very small
-- **d = 0.2 - 0.5**: Small
-- **d = 0.5 - 0.8**: Medium
-- **d > 0.8**: Large
-
-#### @gignac2016effect
-
-Gignac's rules of thumb are actually one of few interpretation grid justified and based on actual data, in this case on the distribution of effect magnitudes in the litterature.
-
-```r
-interpret_d(x, rules = "gignac2016")
-```
-
-- **d = 0 - 0.2**: Very small
-- **d = 0.2 - 0.4**: Small
-- **d = 0.4 - 0.6**: Medium
-- **d > 0.6**: Large
-
+- **d < 0.2** - Very small
+- **0.2 < d < 0.5** - Small
+- **0.5 < d < 0.8** - Medium
+- **d > 0.8** - Large
 
 
 #### @sawilowsky2009new
@@ -191,44 +125,116 @@ interpret_d(x, rules = "gignac2016")
 interpret_d(x, rules = "sawilowsky2009")
 ```
 
-- **d = 0 - 0.1**: Tiny
-- **d = 0.1 - 0.2**: Very small
-- **d = 0.2 - 0.5**: Small
-- **d = 0.5 - 0.8**: Medium
-- **d = 0.8 - 1.2**: Large
-- **d = 1.2 - 2**: Very large
-- **d > 2**: Huge
+- **d < 0.1** - Tiny
+- **0.1 < d < 0.2** - Very small
+- **0.2 < d < 0.5** - Small
+- **0.5 < d < 0.8** - Medium
+- **0.8 < d < 1.2** - Large
+- **1.2 < d < 2** - Very large
+- **d > 2** - Huge
 
 
-### Odds ratio
+#### @gignac2016effect
+
+Gignac's rules of thumb are actually one of few interpretation grid justified and based on actual data, in this case on the distribution of effect magnitudes in the literature. These is in fact the same grid used for *r*, based on the conversion of *r* to *d*:
+
+```r
+interpret_d(x, rules = "gignac2016")
+```
+
+- **d < 0.2** - Very small
+- **0.2 < d < 0.41** - Small
+- **0.41 < d < 0.63** - Moderate
+- **d > 0.63** - Large
+
+
+## Odds Ratio
 
 Odds ratio, and *log* odds ratio, are often found in epidemiological studies. However, they are also the parameters of ***logistic*** regressions, where they can be used as indices of effect size. Note that the (log) odds ratio from logistic regression coefficients are *unstandardized*, as they depend on the scale of the predictor. In order to apply the following guidelines, make sure you [*standardize*](https://easystats.github.io/effectsize/articles/standardize_parameters.html) your predictors!
+
+Note that these apply to Odds *ratios*, so Odds ratio of 10 is as extreme as a Odds ratio of 0.1 (1/10).
 
 #### @chen2010big
 
 ```r
-interpret_odds(x, rules = "chen2010")
+interpret_oddsratio(x, rules = "chen2010")
 ```
 
-- **odds = 0 - 1.68**: Very small
-- **odds = 1.68 - 3.47**: Small
-- **odds = 3.47 - 6.71**: Medium
-- **odds > 6.71**: Large
+- **OR < 1.68** - Very small
+- **1.68 < OR < 3.47** - Small
+- **3.47 < OR < 6.71** - Medium
+- **OR > 6.71 ** - Large
 
 #### @cohen1988statistical
 
 ```r
-interpret_odds(x, rules = "cohen1988")
+interpret_oddsratio(x, rules = "cohen1988")
 ```
+
+- **OR < 1.44** - Very small
+- **1.44 < OR < 2.48** - Small
+- **2.48 < OR < 4.27** - Medium
+- **OR > 4.27 ** - Large
 
 This converts (log) odds ratio to standardized difference *d* using the following formula [@cohen1988statistical;@sanchez2003effect]:
 
+$$
+d = log(OR) \times \frac{\sqrt{3}}{\pi}
+$$
+
+
+## Coefficient of determination  (R<sup>2</sup>)
+
+### For Linear Regression
+
+#### @cohen1988statistical
+
 ```r
-d <- log_odds * (sqrt(3) / pi)
+interpret_r2(x, rules = "cohen1988")
 ```
 
+- **R2 < 0.02** - Very weak
+- **0.02 < R2 < 0.13** - Weak
+- **0.13 < R2 < 0.26** - Moderate
+- **R2 > 0.26** - Substantial
 
-### Omega Squared
+
+#### @falk1992primer
+
+```r
+interpret_r2(x, rules = "falk1992")
+```
+
+- **R2 < 0.1** - Negligible
+- **R2 > 0.1** - Adequate
+
+
+### For PLS / SEM R-Squared of *latent* variables
+
+#### @chin1998partial
+
+```r
+interpret_r2(x, rules = "chin1998")
+```
+
+- **R2 < 0.19** - Very weak
+- **0.19 < R2 < 0.33** - Weak
+- **0.33 < R2 < 0.67** - Moderate
+- **R2 > 0.67** - Substantial
+
+#### @hair2011pls
+
+```r
+interpret_r2(x, rules = "hair2011")
+```
+
+- **R2 < 0.25** - Very weak
+- **0.25 < R2 < 0.50** - Weak
+- **0.50 < R2 < 0.75** - Moderate
+- **R2 > 0.75** - Substantial
+
+
+## Omega / Eta / Epsilon Squared
 
 
 The Omega squared is a measure of effect size used in ANOVAs. It is an estimate of how much variance in the response variables are accounted for by the explanatory variables. Omega squared is widely viewed as a lesser biased alternative to eta-squared, especially when sample sizes are small.
@@ -239,60 +245,35 @@ The Omega squared is a measure of effect size used in ANOVAs. It is an estimate 
 interpret_omega_squared(x, rules = "field2013")
 ```
 
-- **Omega Squared = 0 - 0.01**: Very small
-- **Omega Squared = 0.01 - 0.06**: Small
-- **Omega Squared = 0.06 - 0.14**: Medium
-- **Omega Squared > 0.14**: Large
+- **ES < 0.01** - Very small
+- **0.01 < ES < 0.06** - Small
+- **0.16 < ES < 0.14** - Medium
+- **ES > 0.14 ** - Large
 
 
+#### @cohen1992power
 
-### Bayes Factor (BF)
-
-**Bayes factors (BF)** are continuous measures of relative evidence, with a Bayes factor greater than 1 giving evidence in favor of one of the models (the numerator), and a Bayes factor smaller than 1 giving evidence in favor of the other model (the denominator). Yet, it is common to interpret the **magnitude** of relative evidence based on conventions of intervals (presented below), such that the values of a *BF*<sub>10</sub> (comparing the alternative to the null) can be interpreted as:
-
-For human readability, it is recommended to report BFs so that the ratios are larger than 1 - for example, it's harder to understand a *BF*<sub>10</sub>\=0.07 (indicating the data are 0.07 times more probable under the alternative) than a *BF*<sub>01</sub>\=1/0.07\=14.3 (indicating the data are 14.3 times more probable under the null. **BFs** between 0 and 1, indicating evidence *against* the hypothesis, can be converted via `bf = 1 / abs(bf)`.
-
-One can report **Bayes factors** using the following sentence:
-
-> There is a strong evidence against the null hypothesis (BF = 12.2).
-
-#### @jeffreys1961theory
+These are applicable to one-way ANOVAs, or to *partial* Eta / Omega / Epsilon Squared in a multi-way ANOVA.
 
 ```r
-interpret_bf(x, rules = "jeffreys1961")
+interpret_omega_squared(x, rules = "cohen1992")
 ```
 
-- **bf = 1 - 3**: Anecdotal
-- **bf = 3 - 10**: Moderate
-- **bf = 10 - 30**: Strong
-- **bf = 30 - 100**: Very strong
-- **bf > 100**: Extreme
+- **ES < 0.02** - Very small
+- **0.02 < ES < 0.13** - Small
+- **0.13 < ES < 0.26** - Medium
+- **ES > 0.26** - Large
 
-#### @raftery1995bayesian
+# Interpertation of other Indices
 
-```r
-interpret_bf(x, rules = "raftery1995")
-```
+`effectsize` also offers functions for interpreting other statistical indices:
 
-- **bf = 1 - 3**: Weak
-- **bf = 3 - 20**: Positive
-- **bf = 20 - 150**: Strong
-- **bf > 150**: Very strong
-
+- `interpret_gfi()`, `interpret_agfi()`, `interpret_nfi()`, `interpret_nnfi()`, `interpret_cfi()`, `interpret_rmsea()`, `interpret_srmr()`, `interpret_rfi()`, `interpret_ifi()`, and `interpret_pnfi()` for interpretation CFA / SEM goodness of fit.
+- `interpret_p()` for interpretation of *p*-values.
+- `interpret_direction()` for interpretation of direction.
+- `interpret_bf()` for interpretation of Bayes factors.
+- `interpret_rope()` for interpretation of Bayesian ROPE tests.
+- `interpret_ess()` and `interpret_rhat()` for interpretation of Bayesian diagnostic indices.
 
 
-
-### Bayesian Convergence Diagnostic (Rthat and Effective Sample Size)
-
-
-Experts have suggested thresholds value to help interpreting and convergence and sampling quality. As such, `Rhat` should not be larger than 1.1 [@gelman1992inference] or 1.01 [@vehtari2019rank]. An `effective sample size` (ESS) greater than 1,000 is sufficient for stable estimates [@burkner2017brms].
-
-
-### Other Bayesian Indices (\% in ROPE, *pd*)
-
-
-The interpretation of Bayesian indices is detailed in [this article](https://easystats.github.io/bayestestR/articles/guidelines.html).
-
-
-
-## References
+# References

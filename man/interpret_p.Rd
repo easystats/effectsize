@@ -15,6 +15,23 @@ significance} rules) or custom set of \code{\link[=rules]{rules()}}.}
 \description{
 Interpret p-values
 }
+\section{Rules}{
+
+\itemize{
+\item Default
+\itemize{
+\item \strong{p > 0.05} - Not significant
+\item \strong{p < 0.05} - Significant
+}
+\item Benjamin et al. (2018) (\code{"rss"})
+\itemize{
+\item \strong{p > 0.05} - Not significant
+\item \strong{0.005 < p < 0.05} - Suggestive
+\item \strong{p < 0.005} - Significant
+}
+}
+}
+
 \examples{
 interpret_p(.02)
 interpret_p(c(.5, .02))

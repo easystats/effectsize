@@ -4,6 +4,24 @@
 #' @param rules Can be `"jeffreys1961"` (default), `"raftery1995"` or custom set of [rules()].
 #' @param include_value Include the value in the output.
 #'
+#' @section Rules:
+#'
+#' Rules apply to BF as ratios, so BF of 10 is as extreme as a BF of 0.1 (1/10).
+#'
+#' - Jeffreys (1961) (`"jeffreys1961"`; default)
+#'   - **BF = 1** - No evidence
+#'   - **1 < BF < 3** - Anecdotal
+#'   - **3 < BF < 10** - Moderate
+#'   - **10 < BF < 30** - Strong
+#'   - **30 < BF < 100** - Very strong
+#'   - **BF > 100** - Extreme.
+#' - Raftery (1995) (`"raftery1995"`)
+#'   - **BF = 1** - No evidence
+#'   - **1 < BF < 3** - Weak
+#'   - **3 < BF < 20** - Positive
+#'   - **20 < BF < 150** - Strong
+#'   - **BF > 150** - Very strong
+#'
 #'
 #' @examples
 #' interpret_bf(1)

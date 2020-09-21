@@ -12,20 +12,41 @@ interpret_rhat(rhat, rules = "vehtari2019")
 \arguments{
 \item{ess}{Value or vector of Effective Sample Size (ESS) values.}
 
-\item{rules}{A character string (see details) or a custom set of \code{\link[=rules]{rules()}}.}
+\item{rules}{A character string (see \emph{Rules}) or a custom set of \code{\link[=rules]{rules()}}.}
 
 \item{rhat}{Value or vector of Rhat values.}
 }
 \description{
 Interpretation of Bayesian indices, such as Effective Sample Size (ESS), Rhat, or percentage in ROPE.
 }
-\details{
-Rules sets:
+\section{Rules}{
+
+\subsection{ESS}{
 \itemize{
-\item \strong{ESS}: Can be \code{"burkner2017"} (default).
-\item \strong{Rhat}: Can be \code{"vehtari2019"} (default) or \code{"gelman1992"}.
+\item Bürkner, P. C. (2017) (\code{"burkner2017"}; default)
+\itemize{
+\item \strong{ESS < 1000} - Insufficient
+\item \strong{ESS >= 1000} - Sufficient
 }
 }
+}
+
+\subsection{Rhat}{
+\itemize{
+\item Vehtari et al. (2019) (\code{"vehtari2019"}; default)
+\itemize{
+\item \strong{Rhat < 1.01} - Converged
+\item \strong{Rhat >= 1.01} - Failed
+}
+\item Gelman & Rubin (1992) (\code{"gelman1992"})
+\itemize{
+\item \strong{Rhat < 1.1} - Converged
+\item \strong{Rhat >= 1.1} - Failed
+}
+}
+}
+}
+
 \examples{
 interpret_ess(1001)
 interpret_ess(c(852, 1200))
