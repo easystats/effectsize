@@ -5,6 +5,7 @@
 - `interpret_*` ( #131 ):
   - `interpret_omega_squared()` added `"cohen1992"` rule.
   - `interpret_p()` added *Redefine statistical significance* rules.
+- `oddsratio_to_riskratio()` for converting OR to RR.
 
 ## Changes
 

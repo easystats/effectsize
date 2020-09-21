@@ -41,6 +41,7 @@ reference:
   - d_to_common_language
   - d_to_r
   - odds_to_probs
+  - oddsratio_to_riskratio
 
 - title: "Interpretation"
   contents:
