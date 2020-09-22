@@ -21,7 +21,7 @@ print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
   ## Common lang
   if (append_CL && any(colnames(x) %in% c("Cohens_d", "Hedges_g"))) {
     cl <- d_to_common_language(x[[any(colnames(x) %in% c("Cohens_d", "Hedges_g"))]])
-    cl <- sapply(cl, insight::format_value, digits = digits, as_percent = TRUE)
+    cl <- sapply(cl, function(ff) sprintf("%g%% CI", round(ff * 100, digits = digits)))
     cl <- paste(paste0("* ", names(cl),": ",cl), collapse = "\n")
     cat("\n")
     insight::print_color(cl, "cyan")
