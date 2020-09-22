@@ -9,6 +9,32 @@ if (require("testthat") && require("effectsize")) {
   })
 
 
+  test_that("standardize_parameters (weighted)", {
+    mod_w <- lm(mpg ~ disp, data = mtcars, weights = cyl)
+
+    es <- standardize_parameters(mod_w, method = "basic")
+
+    r <- cov.wt(mtcars[, c("disp", "mpg")],
+           wt = mtcars$cyl,
+           cor = TRUE)$cor[1,2]
+
+    testthat::expect_equal(es[2,2], r, tol = 0.001)
+
+
+
+    mod <- lm(mpg ~ disp + factor(am) * hp, data = mtcars)
+    mod_w <- lm(mpg ~ disp + factor(am) * hp, data = mtcars, weights = rep(1,32))
+
+
+    testthat::expect_equal(standardize_info(mod),
+                           standardize_info(mod_w))
+    testthat::expect_equal(standardize_info(mod, robust = TRUE),
+                           standardize_info(mod_w, robust = TRUE),
+                           tol = 0.2)
+
+  })
+
+
   test_that("standardize_parameters (model_parameters)", {
     model <<- lm(mpg ~ cyl + am, data = mtcars)
     mp <<- parameters::model_parameters(model)
