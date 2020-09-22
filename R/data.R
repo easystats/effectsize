@@ -1,6 +1,6 @@
 #' Workers' salary and other information
 #'
-#' A sample data set, used in tests and some examples.
+#' A sample (simulated) dataset, used in tests and some examples.
 #'
 #' @format A data frame with 500 rows and 5 variables:
 #' \describe{
