@@ -19,19 +19,7 @@ standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...)
   # Sanity Check for ZI
   if (insight::model_info(model)$is_zero_inflated) {
     warning("Non-refit parameter standardization is ignoring the zero-inflation component.", call. = FALSE)
-
-    # pzi <- sub("(count|zero)_", "", params)
-    # match(pzi, names(model_matrix))
-    #
-    # match(names(model_matrix), pzi)
-    #
-    # pzi %in% names(model_matrix)
-    #
-    #
-    #
-    #
-    # names(model_matrix)
-    # params
+    # would need to also get the binomial model matrix...
   }
 
   out <- data.frame(
