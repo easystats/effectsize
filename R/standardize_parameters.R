@@ -221,11 +221,6 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
 #' @keywords internal
 #' @importFrom insight model_info find_random
 .standardize_parameters_posthoc <- function(pars, method, model, robust, two_sd, verbose) {
-  # Sanity Check for ZI
-  if (verbose && insight::model_info(model)$is_zero_inflated) {
-    warning("Non-refit parameter standardization is ignoring the zero-inflation component.", call. = FALSE)
-  }
-
   # Sanity Check for "pseudo"
   if (method == "pseudo" &&
       !(insight::model_info(model)$is_mixed &&
@@ -324,11 +319,6 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 #' @keywords internal
 #' @importFrom insight model_info find_random
 .standardize_posteriors_posthoc <- function(pars, method, model, robust, two_sd, verbose) {
-  # Sanity Check for ZI
-  if (verbose && insight::model_info(model)$is_zero_inflated) {
-    warning("Non-refit parameter standardization is ignoring the zero-inflation component.", call. = FALSE)
-  }
-
   # Sanity Check for "pseudo"
   if (method == "pseudo" &&
       !(insight::model_info(model)$is_mixed &&

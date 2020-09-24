@@ -16,6 +16,24 @@ standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...)
   model_matrix <- as.data.frame(stats::model.matrix(model))
   data <- insight::get_data(model)
 
+  # Sanity Check for ZI
+  if (insight::model_info(model)$is_zero_inflated) {
+    warning("Non-refit parameter standardization is ignoring the zero-inflation component.", call. = FALSE)
+
+    # pzi <- sub("(count|zero)_", "", params)
+    # match(pzi, names(model_matrix))
+    #
+    # match(names(model_matrix), pzi)
+    #
+    # pzi %in% names(model_matrix)
+    #
+    #
+    #
+    #
+    # names(model_matrix)
+    # params
+  }
+
   out <- data.frame(
     Parameter = params,
     Type = types$Type,
@@ -37,25 +55,29 @@ standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...)
   # Response - Basic
   out <- merge(
     out,
-    .std_info_response_basic(model, params, robust = robust)
+    .std_info_response_basic(model, params, robust = robust),
+    by = "Parameter", all = TRUE
   )
 
   # Response - Smart
   out <- merge(
     out,
-    .std_info_response_smart(model, data, model_matrix, types, robust = robust)
+    .std_info_response_smart(model, data, model_matrix, types, robust = robust),
+    by = "Parameter", all = TRUE
   )
 
   # Basic
   out <- merge(
     out,
-    .std_info_predictors_basic(model_matrix, types, robust = robust)
+    .std_info_predictors_basic(model_matrix, types, robust = robust),
+    by = "Parameter", all = TRUE
   )
 
   # Smart
   out <- merge(
     out,
-    .std_info_predictors_smart(data, params, types, robust = robust)
+    .std_info_predictors_smart(data, params, types, robust = robust),
+    by = "Parameter", all = TRUE
   )
 
   # Pseudo (for LMM)
@@ -70,6 +92,7 @@ standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...)
 
   # Reorder
   out <- out[match(params, out$Parameter), ]
+  out$Parameter <- params
   row.names(out) <- NULL
 
   # Remove all means for now (because it's not used)
@@ -165,7 +188,7 @@ standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...)
   means <- deviations <- rep(NA_real_, length = length(names(model_matrix)))
   for (i in seq_along(names(model_matrix))) {
     var <- names(model_matrix)[i]
-    if (types[types$Parameter == var, "Type"] == "intercept") {
+    if (types[i, "Type"] == "intercept") {
       means[i] <- deviations[i] <- 0
     } else {
       std_info <- .compute_std_info(data = model_matrix, variable = var, robust = robust)
@@ -176,7 +199,7 @@ standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...)
 
   # Out
   data.frame(
-    Parameter = names(model_matrix),
+    Parameter = types$Parameter[seq_along(names(model_matrix))],
     Deviation_Basic = deviations,
     Mean_Basic = means
   )
@@ -215,7 +238,7 @@ standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...)
 
   # Out
   data.frame(
-    Parameter = names(model_matrix),
+    Parameter = types$Parameter[seq_along(names(model_matrix))],
     Deviation_Response_Smart = deviations,
     Mean_Response_Smart = means
   )
