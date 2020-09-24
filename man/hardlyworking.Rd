@@ -20,4 +20,4 @@ hardlyworking
 \description{
 A sample (simulated) dataset, used in tests and some examples.
 }
-\keyword{datasets}
+\keyword{data}
