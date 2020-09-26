@@ -2,6 +2,7 @@
 
 ## New features
 
+- `standardize()` and `standardize_info()` (and be extention, `standardize_parameters()`) work with weighted models / data ( #82 ).
 - Added `hardlyworking` (simulated) dataset, for use in examples.
 - `interpret_*` ( #131 ):
   - `interpret_omega_squared()` added `"cohen1992"` rule.
