@@ -1,5 +1,4 @@
 #' @rdname standardize
-#' @importFrom stats na.omit
 #' @export
 standardize.numeric <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, verbose = TRUE, ...) {
 
@@ -15,7 +14,6 @@ standardize.numeric <- function(x, robust = FALSE, two_sd = FALSE, weights = NUL
   } else {
     valid_x <- !is.na(x)
     x <- x[valid_x]
-    # x <- stats::na.omit(x)
   }
   scaled_x <- rep(NA, length(x))
 
