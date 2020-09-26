@@ -3,7 +3,7 @@
 #' @importFrom insight get_data model_info find_response get_response find_weights
 #' @importFrom utils capture.output
 #' @export
-standardize.default <- function(x, robust = FALSE, two_sd = FALSE, include_response = TRUE, verbose = TRUE, ...) {
+standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, include_response = TRUE, verbose = TRUE, ...) {
   m_info <- insight::model_info(x)
   data <- insight::get_data(x)
   resp <- NULL
@@ -33,7 +33,11 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, include_respo
   do_standardize <- setdiff(colnames(data), dont_standardize)
 
   if (length(do_standardize)) {
-    data_std <- standardize(data[do_standardize], robust = robust, two_sd = two_sd, verbose = verbose)
+    data_std <- standardize(data[do_standardize],
+                            robust = robust,
+                            two_sd = two_sd,
+                            weights = if (weights) insight::get_weights(x) else NULL,
+                            verbose = verbose)
   } else {
     if (verbose) {
       insight::print_color("No variables could be standardized.\n", "red")
@@ -104,8 +108,8 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, include_respo
 
 
 #' @export
-standardize.mlm <- function(x, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
-  standardize.default(x = x, robust = robust, two_sd = two_sd, include_response = FALSE, verbose = verbose, ...)
+standardize.mlm <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, verbose = TRUE, ...) {
+  standardize.default(x = x, robust = robust, two_sd = two_sd, weights = weights, include_response = FALSE, verbose = verbose, ...)
 }
 
 #' @export
@@ -136,7 +140,7 @@ standardize.wbgee <- standardize.wbm
 
 
 #' @export
-standardize.coxph <- function(x, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
+standardize.coxph <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, verbose = TRUE, ...) {
 
   # for some models, the DV cannot be standardized when using
   # "update()", so we only standardize model predictors
@@ -161,7 +165,11 @@ standardize.coxph <- function(x, robust = FALSE, two_sd = FALSE, verbose = TRUE,
   # standardize data, if we have anything left to standardize
 
   if (length(pred)) {
-    data_std <- standardize(data[, pred, drop = FALSE], robust = robust, two_sd = two_sd, verbose = verbose)
+    data_std <- standardize(data[, pred, drop = FALSE],
+                            robust = robust,
+                            two_sd = two_sd,
+                            weights = if (weights) insight::get_weights(x) else NULL,
+                            verbose = verbose)
     data[pred] <- data_std
   }
 
