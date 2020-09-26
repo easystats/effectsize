@@ -14,9 +14,6 @@ A data frame with 500 rows and 5 variables:
 \item{seniority}{How many years with the company}
 }
 }
-\usage{
-data(hardlyworking)
-}
 \description{
 A sample (simulated) dataset, used in tests and some examples.
 }
