@@ -15,7 +15,7 @@ A data frame with 500 rows and 5 variables:
 }
 }
 \usage{
-hardlyworking
+data(hardlyworking)
 }
 \description{
 A sample (simulated) dataset, used in tests and some examples.

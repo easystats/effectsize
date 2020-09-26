@@ -2,7 +2,7 @@
 #'
 #' A sample (simulated) dataset, used in tests and some examples.
 #'
-#' @usage hardlyworking
+#' @usage data(hardlyworking)
 #'
 #' @docType data
 #'
