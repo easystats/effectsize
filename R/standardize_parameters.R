@@ -58,7 +58,8 @@
 #' [parameters::demean()]); The outcome (in linear LMMs) is standardized based
 #' on a fitted random-intercept-model, where `sqrt(random-intercept-variance)`
 #' is used for level 2 predictors, and `sqrt(residual-variance)` is used for
-#' level 1 predictors (Hoffman 2015, page 342).
+#' level 1 predictors (Hoffman 2015, page 342). A warning is given when a
+#' within-group varialbe is found to have access between-group variance.
 #'
 #' ## Transformed Variables
 #' When the model's formula contains transformations (e.g. `y ~ exp(X)`) `method
@@ -221,11 +222,6 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
 #' @keywords internal
 #' @importFrom insight model_info find_random
 .standardize_parameters_posthoc <- function(pars, method, model, robust, two_sd, verbose) {
-  # Sanity Check for ZI
-  if (verbose && insight::model_info(model)$is_zero_inflated) {
-    warning("Non-refit parameter standardization is ignoring the zero-inflation component.", call. = FALSE)
-  }
-
   # Sanity Check for "pseudo"
   if (method == "pseudo" &&
       !(insight::model_info(model)$is_mixed &&
@@ -324,11 +320,6 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 #' @keywords internal
 #' @importFrom insight model_info find_random
 .standardize_posteriors_posthoc <- function(pars, method, model, robust, two_sd, verbose) {
-  # Sanity Check for ZI
-  if (verbose && insight::model_info(model)$is_zero_inflated) {
-    warning("Non-refit parameter standardization is ignoring the zero-inflation component.", call. = FALSE)
-  }
-
   # Sanity Check for "pseudo"
   if (method == "pseudo" &&
       !(insight::model_info(model)$is_mixed &&

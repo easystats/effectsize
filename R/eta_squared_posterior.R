@@ -96,7 +96,7 @@ eta_squared_posterior.stanreg <- function(model,
   resp_name <- insight::find_response(model)
 
   # test centered predictors
-  if (verbose) .all_centered(X)
+  .all_centered(X)
 
   ## 2. get ppd
   ppd <- rstantools::posterior_predict(model,
@@ -135,7 +135,7 @@ eta_squared_posterior.brmsfit <- eta_squared_posterior.stanreg
 #' @keywords internal
 #' @importFrom stats contrasts
 .all_centered <- function(X) {
-  numeric <- sapply(X, is, class2 = "numeric")
+  numeric <- sapply(X, inherits, what = c("numeric","integer"))
   numerics <- colnames(X)[numeric]
   factors <- colnames(X)[!numeric]
 

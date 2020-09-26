@@ -2,6 +2,14 @@
 #'
 #' A sample (simulated) dataset, used in tests and some examples.
 #'
+#' @usage data(hardlyworking)
+#'
+#' @docType data
+#'
+#' @name hardlyworking
+#'
+#' @keywords data
+#'
 #' @format A data frame with 500 rows and 5 variables:
 #' \describe{
 #'   \item{salary}{Salary, in Shmekels}

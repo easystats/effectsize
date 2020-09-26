@@ -1,4 +1,6 @@
 if (require("testthat") && require("effectsize")) {
+
+  # "standardize_parameters (simple)" ---------------------------------------
   test_that("standardize_parameters (simple)", {
     df <- iris
     r <- as.numeric(cor.test(df$Sepal.Length, df$Petal.Length)$estimate)
@@ -9,6 +11,7 @@ if (require("testthat") && require("effectsize")) {
   })
 
 
+  # standardize_parameters (weighted) -------------------------------
   test_that("standardize_parameters (weighted)", {
     mod_w <- lm(mpg ~ disp, data = mtcars, weights = cyl)
 
@@ -34,7 +37,7 @@ if (require("testthat") && require("effectsize")) {
 
   })
 
-
+  # standardize_parameters (model_parameters) -------------------------------
   test_that("standardize_parameters (model_parameters)", {
     model <<- lm(mpg ~ cyl + am, data = mtcars)
     mp <<- parameters::model_parameters(model)
@@ -48,6 +51,7 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_equal(s1$CI_high, s2$CI_high)
   })
 
+  # "standardize_parameters (lm with ci)" -----------------------------------
   test_that("standardize_parameters (lm with ci)", {
     model <- lm(Sepal.Length ~ Species + Petal.Width, data = iris)
 
@@ -101,6 +105,8 @@ if (require("testthat") && require("effectsize")) {
     )
   })
 
+
+  # "standardize_parameters (with function interactions)" -------------------
   test_that("standardize_parameters (with function interactions)", {
     X <- scale(rnorm(100),T,F)
     Z <- scale(rnorm(100),T,F)
@@ -125,6 +131,8 @@ if (require("testthat") && require("effectsize")) {
     # )
   })
 
+
+  # "standardize_parameters (Bayes)" ----------------------------------------
   if (require(rstanarm)) {
     test_that("standardize_parameters (Bayes)", {
       testthat::skip_on_cran()
@@ -154,6 +162,8 @@ if (require("testthat") && require("effectsize")) {
     })
   }
 
+
+  # "standardize_parameters (Pseudo - GLMM)" --------------------------------
   if (require(lme4)) {
     test_that("standardize_parameters (Pseudo - GLMM)", {
       set.seed(1)
@@ -229,5 +239,30 @@ if (require("testthat") && require("effectsize")) {
       expect_warning(standardize_parameters(mW, method = "pseudo"), NA)
       expect_warning(standardize_parameters(mM, method = "pseudo"))
     })
+  }
+
+
+  # ZI models ---------------------------------------------------------------
+  if (require(pscl, quietly = TRUE)) {
+    data("bioChemists", package = "pscl")
+
+    m <- zeroinfl(art ~ fem + mar + kid5 + ment | kid5 + phd, data = bioChemists)
+
+    sm1 <- effectsize::standardize_parameters(m, method = "refit")
+    expect_warning(sm2 <- effectsize::standardize_parameters(m, method = "posthoc"))
+    suppressWarnings({
+      sm3 <- effectsize::standardize_parameters(m, method = "basic")
+      sm4 <- effectsize::standardize_parameters(m, method = "smart")
+    })
+
+    expect_equal(sm1$Std_Coefficient[-c(1,6)], sm2$Std_Coefficient[-c(1,6)], tol = 0.01)
+    # only numeric count
+    expect_equal(sm1$Std_Coefficient[4:5], sm3$Std_Coefficient[4:5], tol = 0.01)
+    # only count
+    expect_equal(sm1$Std_Coefficient[2:5], sm4$Std_Coefficient[2:5], tol = 0.01)
+
+    # no ZI params
+    expect_true(all(is.na(sm3$Std_Coefficient[6:8])))
+    expect_true(all(is.na(sm4$Std_Coefficient[6:8])))
   }
 }

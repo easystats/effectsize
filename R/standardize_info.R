@@ -16,6 +16,12 @@ standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...)
   model_matrix <- as.data.frame(stats::model.matrix(model))
   data <- insight::get_data(model)
 
+  # Sanity Check for ZI
+  if (insight::model_info(model)$is_zero_inflated) {
+    warning("Non-refit parameter standardization is ignoring the zero-inflation component.", call. = FALSE)
+    # would need to also get the binomial model matrix...
+  }
+
   out <- data.frame(
     Parameter = params,
     Type = types$Type,
@@ -37,25 +43,29 @@ standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...)
   # Response - Basic
   out <- merge(
     out,
-    .std_info_response_basic(model, params, robust = robust)
+    .std_info_response_basic(model, params, robust = robust),
+    by = "Parameter", all = TRUE
   )
 
   # Response - Smart
   out <- merge(
     out,
-    .std_info_response_smart(model, data, model_matrix, types, robust = robust)
+    .std_info_response_smart(model, data, model_matrix, types, robust = robust),
+    by = "Parameter", all = TRUE
   )
 
   # Basic
   out <- merge(
     out,
-    .std_info_predictors_basic(model, model_matrix, types, robust = robust)
+    .std_info_predictors_basic(model, model_matrix, types, robust = robust),
+    by = "Parameter", all = TRUE
   )
 
   # Smart
   out <- merge(
     out,
-    .std_info_predictors_smart(model, data, params, types, robust = robust)
+    .std_info_predictors_smart(model, data, params, types, robust = robust),
+    by = "Parameter", all = TRUE
   )
 
   # Pseudo (for LMM)
@@ -70,6 +80,7 @@ standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...)
 
   # Reorder
   out <- out[match(params, out$Parameter), ]
+  out$Parameter <- params
   row.names(out) <- NULL
 
   # Remove all means for now (because it's not used)
@@ -166,7 +177,7 @@ standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...)
   means <- deviations <- rep(NA_real_, length = length(names(model_matrix)))
   for (i in seq_along(names(model_matrix))) {
     var <- names(model_matrix)[i]
-    if (types[types$Parameter == var, "Type"] == "intercept") {
+    if (types[i, "Type"] == "intercept") {
       means[i] <- deviations[i] <- 0
     } else {
       std_info <- .compute_std_info(data = model_matrix, variable = var, robust = robust, weights = w)
@@ -177,7 +188,7 @@ standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...)
 
   # Out
   data.frame(
-    Parameter = names(model_matrix),
+    Parameter = types$Parameter[seq_along(names(model_matrix))],
     Deviation_Basic = deviations,
     Mean_Basic = means
   )
@@ -218,7 +229,7 @@ standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...)
 
   # Out
   data.frame(
-    Parameter = names(model_matrix),
+    Parameter = types$Parameter[seq_along(names(model_matrix))],
     Deviation_Response_Smart = deviations,
     Mean_Response_Smart = means
   )
@@ -292,16 +303,24 @@ standardize_info <- function(model, robust = FALSE, include_pseudo = FALSE, ...)
   }
 
   ## test "within"s are fully "within"
+  # only relevant to numeric predictors that can have variance
   if (any(check_within <- is_within & types == "numeric")) {
-    # only relevant to numeric predictors that can have variance
     p_check_within <- params[check_within]
     temp_d <- data.frame(model_matrix[,p_check_within,drop = FALSE])
     colnames(temp_d) <- paste0("W",seq_len(ncol(temp_d))) # overwrite because can't deal with ":"
+
     dm <- parameters::demean(cbind(id,temp_d),
                              select = colnames(temp_d),
                              group = "id")
     dm <- dm[,paste0(colnames(temp_d), "_between"), drop = FALSE]
-    also_between <- p_check_within[sapply(dm, function(x) !isTRUE(all.equal(sd(x),0)))]
+
+    has_lvl2_var <- sapply(seq_along(colnames(temp_d)), function (i) {
+      # If more than 1% of the variance in the within-var is between:
+      var(dm[,i]) /
+         var(temp_d[,i])
+    }) > 0.01
+    also_between <- p_check_within[has_lvl2_var]
+
     if (length(also_between)) {
       warning(
         "The following within-group terms have between-group variance:\n\t",
