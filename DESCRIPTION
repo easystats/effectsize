@@ -58,6 +58,7 @@ Suggests:
 	MuMIn,
 	modelbased, 
 	performance,
+	pscl,
 	rlang,
 	rmarkdown,
 	rstan,
