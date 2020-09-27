@@ -205,7 +205,8 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
   info <- insight::model_info(model)
 
   if (info$is_linear) {
-    response <- insight::get_response(model)
+    # response <- insight::get_response(model)
+    response <- model.frame(model)[[1]]
     means <- deviations <- rep(NA_real_, length = length(names(model_matrix)))
     for (i in seq_along(names(model_matrix))) {
       var <- names(model_matrix)[i]
@@ -238,7 +239,8 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 #' @keywords internal
 .std_info_response_basic <- function(model, params, robust = FALSE, ...) {
   info <- insight::model_info(model)
-  response <- insight::get_response(model)
+  # response <- insight::get_response(model)
+  response <- model.frame(model)[[1]]
 
   if (info$is_linear) {
     if (robust == FALSE) {

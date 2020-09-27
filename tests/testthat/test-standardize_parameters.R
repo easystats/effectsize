@@ -89,7 +89,7 @@ if (require("testthat") && require("effectsize")) {
 
 
   # "standardize_parameters (with function interactions)" -------------------
-  test_that("standardize_parameters (with function interactions)", {
+  test_that("standardize_parameters (with functions /  interactions)", {
     X <- scale(rnorm(100),T,F)
     Z <- scale(rnorm(100),T,F)
     Y <- scale(Z + X * Z + rnorm(100),T,F)
@@ -111,6 +111,19 @@ if (require("testthat") && require("effectsize")) {
     #   standardize_parameters(m1, method = "basic")$Std_Coefficient,
     #   standardize_parameters(m4, method = "basic")$Std_Coefficient
     # )
+
+
+    # transformed resp or pred should not affect
+    mtcars$cyl_exp <- exp(mtcars$cyl)
+    mtcars$mpg_sqrt <- sqrt(mtcars$mpg)
+    m1 <- lm(exp(cyl) ~ am + sqrt(mpg), mtcars)
+    m2 <- lm(cyl_exp ~ am + mpg_sqrt, mtcars)
+
+    expect_message(stdX <- standardize_parameters(m1, method = "refit"))
+    expect_false(isTRUE(all.equal(stdX[[2]],
+                                  standardize_parameters(m2, method = "refit")[[2]])))
+    expect_equal(standardize_parameters(m1, method = "basic")[[2]],
+                 standardize_parameters(m2, method = "basic")[[2]])
   })
 
 
