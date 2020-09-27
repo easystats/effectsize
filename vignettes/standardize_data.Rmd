@@ -9,7 +9,7 @@ output:
     toc: true
     fig_width: 10.08
     fig_height: 6
-tags: [r, effect size, rules of thumb, guidelines, interpretation]
+tags: [r, effect size, standardization]
 vignette: >
   \usepackage[utf8]{inputenc}
   %\VignetteIndexEntry{Data Standardization}
