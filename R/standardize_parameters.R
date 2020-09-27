@@ -144,6 +144,7 @@ standardize_parameters <- function(model, method = "refit", ci = 0.95, robust = 
 #' @export
 standardize_parameters.default <- function(model, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, parameters, ...) {
   object_name <- deparse(substitute(model), width.cutoff = 500)
+  method <- match.arg(method, c("refit", "posthoc", "smart", "basic", "classic", "pseudo"))
 
   if (method == "refit") {
     model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose)
