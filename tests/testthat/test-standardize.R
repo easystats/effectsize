@@ -133,11 +133,11 @@ if (require("testthat") && require("effectsize") && require("dplyr") && require(
                  standardize(data.frame(x), weights = w)$x)
 
     # name and vector give same results
-    expect_equal(standardize(mtcars, exclude = "cyl", weights = d$cyl),
+    expect_equal(standardize(mtcars, exclude = "cyl", weights = mtcars$cyl),
                  standardize(mtcars, weights = "cyl"))
 
     if (require(dplyr)) {
-      d <- group_by(mtcars, am)
+      d <- dplyr::group_by(mtcars, am)
       expect_warning(standardize(d, weights = d$cyl))
     }
   })

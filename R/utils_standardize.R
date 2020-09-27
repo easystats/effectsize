@@ -31,18 +31,20 @@
 #' @keywords internal
 #' @importFrom stats weighted.mean
 .mean <- function(x, weights = NULL) {
-  if (is.null(weights) || length(weights) == 0) {
-    mean(x)
-  } else {
-    stats::weighted.mean(x, weights)
+  if (!.are_weights(weights)) {
+    return(mean(x))
   }
+
+  stopifnot(all(weights > 0))
+
+  stats::weighted.mean(x, weights)
 }
 
 #' @keywords internal
 #' @importFrom stats sd
 .sd <- function(x, weights = NULL) {
   # from cov.wt
-  if (is.null(weights) || length(weights) == 0) {
+  if (!.are_weights(weights)) {
     return(stats::sd(x))
   }
 
@@ -61,7 +63,7 @@
 #' @importFrom stats mad
 .mad <- function(x, weights = NULL, constant = 1.4826) {
   # From matrixStats
-  if (is.null(weights) || length(weights) == 0) {
+  if (!.are_weights(weights)) {
     return(stats::mad(x))
   }
   stopifnot(all(weights > 0))
@@ -77,9 +79,10 @@
 #' @importFrom stats median
 .median <- function(x, weights = NULL) {
   # From spatstat + wiki
-  if (is.null(weights) || length(weights) == 0) {
+  if (!.are_weights(weights)) {
     return(stats::median(x))
   }
+
   stopifnot(all(weights > 0))
 
   oo <- order(x)
@@ -98,11 +101,15 @@
 
     if (!(Fx[left-1] < 0.5 && 1-Fx[left] < 0.5)) {
       right <- left + 1
-      y <- x[left]*Fx[left] + x[right]*Fx[right]
+      y <- x[left] * Fx[left] + x[right] * Fx[right]
       if(is.finite(y)) result <- y
     }
   }
 
   return(result)
+}
+
+.are_weights <- function(w) {
+  !is.null(w) && length(w) && !all(w == 1) && !all(w == w[1])
 }
 
