@@ -157,7 +157,7 @@ standardize_parameters(model, method = "basic")
 \donttest{
 if (require("lme4")) {
   m <- lmer(mpg ~ cyl + am + vs + (1|cyl), mtcars)
-  standardize_parameters(m, method = "pseudo")
+  standardize_parameters(m, method = "pseudo", df_method = "satterthwaite")
 }
 
 
