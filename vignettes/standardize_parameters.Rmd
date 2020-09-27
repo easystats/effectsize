@@ -33,6 +33,8 @@ if (!all(sapply(pkgs, requireNamespace))) {
 set.seed(333)
 ```
 
+<!-- centering and interactions! -->
+
 # Introduction
 
 Standardizing parameters (*i.e.*, coefficients) can allow for their comparison within and between models, variables and studies. Moreover, as it returns coefficients expressed in terms of **change of variance** (for instance, coefficients expressed in terms of SD of the response variable), it can allow for the usage of [effect size interpretation guidelines](https://easystats.github.io/effectsize/articles/interpret.html), such as the famous Cohen's (1988) rules of thumb.
