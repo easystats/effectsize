@@ -112,8 +112,9 @@ t_to_d(4.11, df_error = 30)
 It is also interesting to note that using the `smart` method (explained in detail below) when standardizing parameters will give you indices equivalent to **Glass' *delta***, which is a standardized difference expressed in terms of SD of the reference group.
 
 ```{r}
-lm(mpg ~ am, data = mtcars) %>%
-  standardize_parameters(method = "smart")
+m <- lm(mpg ~ am, data = mtcars)
+
+standardize_parameters(m, method = "smart")
 ```
 
 ```{r}
