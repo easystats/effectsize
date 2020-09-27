@@ -1,5 +1,5 @@
 ---
-title: "Converting between Indices of Effect Size"
+title: "Converting Between Indices of Effect Size"
 output: 
   github_document:
     toc: true
@@ -12,7 +12,7 @@ output:
 tags: [r, effect size, rules of thumb, guidelines, conversion]
 vignette: >
   \usepackage[utf8]{inputenc}
-  %\VignetteIndexEntry{Converting between indices of effect size}
+  %\VignetteIndexEntry{Converting Between Indices of Effect Size}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   chunk_output_type: console

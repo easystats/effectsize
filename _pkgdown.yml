@@ -83,7 +83,7 @@ navbar:
     href: articles/standardize_data.html
   - text: Effect Sizes
     menu:
-      - text: "Parameter Standardization"
+      - text: "Parameter and Model Standardization"
         href: articles/standardize_parameters.html
       - test: "ANOVA"
         herf: articles/anovaES.html

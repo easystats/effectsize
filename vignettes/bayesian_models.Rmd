@@ -1,5 +1,5 @@
 ---
-title: "Effect sizes for Bayesian models"
+title: "Effect Sizes for Bayesian Models"
 output: 
   github_document:
     toc: true
@@ -12,7 +12,7 @@ output:
 tags: [r, effect size, rules of thumb, bayesian, effect size]
 vignette: >
   \usepackage[utf8]{inputenc}
-  %\VignetteIndexEntry{Effect sizes for Bayesian models}
+  %\VignetteIndexEntry{Effect Sizes for Bayesian Models}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   chunk_output_type: console

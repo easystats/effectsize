@@ -12,7 +12,7 @@ output:
 tags: [r, effect size, rules of thumb, guidelines, interpretation]
 vignette: >
   \usepackage[utf8]{inputenc}
-  %\VignetteIndexEntry{Data standardization}
+  %\VignetteIndexEntry{Data Standardization}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   chunk_output_type: console

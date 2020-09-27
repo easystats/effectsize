@@ -12,7 +12,7 @@ output:
 tags: [r, effect size, rules of thumb, bayesian, effect size]
 vignette: >
   \usepackage[utf8]{inputenc}
-  %\VignetteIndexEntry{Effect sizes for Bayesian models}
+  %\VignetteIndexEntry{Effect sizes for ANOVAs}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   chunk_output_type: console

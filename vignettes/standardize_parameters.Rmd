@@ -1,5 +1,5 @@
 ---
-title: "Parameters Standardization"
+title: "Parameter and Model Standardization"
 output: 
   github_document:
     toc: true
@@ -11,7 +11,7 @@ output:
     fig_height: 6
 tags: [r, effect size, standardization, effect size, cohen d, standardized coefficients]
 vignette: >
-  %\VignetteIndexEntry{Parameters standardization}
+  %\VignetteIndexEntry{Parameter and Model Standardization}
   \usepackage[utf8]{inputenc}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
