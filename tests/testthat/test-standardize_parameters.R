@@ -1,8 +1,9 @@
 if (require("testthat") && require("effectsize")) {
+  data("iris")
+  df <- iris
 
   # "standardize_parameters (simple)" ---------------------------------------
   test_that("standardize_parameters (simple)", {
-    df <- iris
     r <- as.numeric(cor.test(df$Sepal.Length, df$Petal.Length)$estimate)
 
     model <- lm(Sepal.Length ~ Petal.Length, data = df)
@@ -77,6 +78,13 @@ if (require("testthat") && require("effectsize")) {
       c(0, 0.135, 0.234, 1.073),
       tol = 0.01
     )
+
+
+    m0 <- lm(mpg ~ cyl + factor(am), mtcars)
+    expect_equal(standardize_parameters(m0, method = "refit")[[2]][-1],
+                 standardize_parameters(m0, method = "smart")[[2]][-1], tol = 0.01)
+    expect_equal(standardize_parameters(m0, method = "refit", two_sd = TRUE)[[2]][-1],
+                 standardize_parameters(m0, method = "smart", two_sd = TRUE)[[2]][-1], tol = 0.01)
   })
 
 
@@ -119,13 +127,13 @@ if (require("testthat") && require("effectsize")) {
       )
 
       testthat::expect_equal(
-        suppressWarnings(standardize_parameters(model, method = "refit")$Std_Median),
+        suppressWarnings(standardize_parameters(model, method = "refit")$Std_Median[1:4]),
         c(0.065, -0.094, -0.100, 0.862),
         tol = 0.01
       )
 
       testthat::expect_equal(
-        suppressWarnings(standardize_parameters(model, method = "posthoc")$Std_Median),
+        suppressWarnings(standardize_parameters(model, method = "posthoc")$Std_Median[1:4]),
         c(0, -0.058, -0.053,  0.838),
         tol = 0.01
       )

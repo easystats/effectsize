@@ -242,7 +242,7 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
 
 
   ## Get scaling factors
-  deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo")
+  deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo", two_sd = two_sd)
   i <- match(deviations$Parameter, pars$Parameter)
   pars <- pars[i,]
 
@@ -263,12 +263,10 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   }
 
   # Sapply standardization
-  f <- if (two_sd) 2 else 1
-
   pars[,colnames(pars) %in% .col_2_scale] <- lapply(
     pars[, colnames(pars) %in% .col_2_scale, drop = FALSE],
     function(x) {
-      x * (f * deviations[[col_dev_pred]] / deviations[[col_dev_resp]])
+      x * deviations[[col_dev_pred]] / deviations[[col_dev_resp]]
     }
   )
 
@@ -339,7 +337,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   }
 
   ## Get scaling factors
-  deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo")
+  deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo", two_sd = two_sd)
   i <- match(deviations$Parameter, colnames(pars))
   pars <- pars[,i]
 
@@ -360,9 +358,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   }
 
   # Sapply standardization
-  f <- if (two_sd) 2 else 1
-
-  pars <- t(t(pars) * (f * deviations[[col_dev_pred]] / deviations[[col_dev_resp]]))
+  pars <- t(t(pars) * deviations[[col_dev_pred]] / deviations[[col_dev_resp]])
   pars <- as.data.frame(pars)
 
   attr(pars, "std_method") <- method
