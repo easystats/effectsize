@@ -79,19 +79,21 @@ navbar:
     href: news/index.html
   - text: Features
     href: reference/index.html
-  - text: Standardization
-    menu:
-      - text: "Data Standardization"
-        href: articles/standardize_data.html
-      - text: "Parameter Standardization"
-        href: articles/standardize_parameters.html
-      - text: "In Bayesian Models"
-        herf: articles/bayesian_models.html
+  - text: "Data Standardization"
+    href: articles/standardize_data.html
   - text: Effect Sizes
     menu:
-      - text: "Conversion (*d*, *r*, *OR*)"
+      - text: "Parameter Standardization"
+        href: articles/standardize_parameters.html
+      - test: "ANOVA"
+        herf: articles/anovaES.html
+      - text: "In Bayesian Models"
+        herf: articles/bayesian_models.html
+  - text: "Conversion"
+    menu:
+      - text: "Between *d*, *r*, *OR*"
         href: articles/convert.html
       - text: "From Test Statistics"
         href: articles/from_test_statistics.html
-      - text: "Interpretation Guidelines"
-        href: articles/interpret.html
+  - text: "Interpretation Guidelines"
+    href: articles/interpret.html
