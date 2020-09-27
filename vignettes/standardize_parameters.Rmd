@@ -115,9 +115,7 @@ It is also interesting to note that using the `smart` method (explained in detai
 m <- lm(mpg ~ am, data = mtcars)
 
 standardize_parameters(m, method = "smart")
-```
 
-```{r}
 glass_delta(mpg ~ am, data = mtcars)
 ```
 
@@ -145,7 +143,7 @@ head(hardlyworking)
 
 correlation::correlation(data = hardlyworking[,1], # the outcome of salary
                          data2 = hardlyworking[,-1], # the predictors
-                         partial = TRUE) # get partial corelations
+                         partial = TRUE) # get partial correlations
 ```
 
 
