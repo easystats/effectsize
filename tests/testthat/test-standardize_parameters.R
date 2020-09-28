@@ -2,7 +2,7 @@ if (require("testthat") && require("effectsize")) {
   data("iris")
   df <- iris
 
-  # "standardize_parameters (simple)" ---------------------------------------
+  # simple ------------------------------------------------------------------
   test_that("standardize_parameters (simple)", {
     r <- as.numeric(cor.test(df$Sepal.Length, df$Petal.Length)$estimate)
 
@@ -12,7 +12,7 @@ if (require("testthat") && require("effectsize")) {
   })
 
 
-  # standardize_parameters (model_parameters) -------------------------------
+  # model_parameters -------------------------------
   test_that("standardize_parameters (model_parameters)", {
     model <<- lm(mpg ~ cyl + am, data = mtcars)
     mp <<- parameters::model_parameters(model)
@@ -26,7 +26,7 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_equal(s1$CI_high, s2$CI_high)
   })
 
-  # "standardize_parameters (lm with ci)" -----------------------------------
+  # lm with ci -----------------------------------
   test_that("standardize_parameters (lm with ci)", {
     model <- lm(Sepal.Length ~ Species + Petal.Width, data = iris)
 
@@ -88,7 +88,7 @@ if (require("testthat") && require("effectsize")) {
   })
 
 
-  # "standardize_parameters (with function interactions)" -------------------
+  # with function interactions" -------------------
   test_that("standardize_parameters (with functions /  interactions)", {
     X <- scale(rnorm(100),T,F)
     Z <- scale(rnorm(100),T,F)
@@ -124,10 +124,14 @@ if (require("testthat") && require("effectsize")) {
                                   standardize_parameters(m2, method = "refit")[[2]])))
     expect_equal(standardize_parameters(m1, method = "basic")[[2]],
                  standardize_parameters(m2, method = "basic")[[2]])
+
+    # posthoc / smart don't support data transformation
+    expect_warning(standardize_parameters(m1, method = "smart"))
+    expect_warning(standardize_parameters(m1, method = "posthoc"))
   })
 
 
-  # "standardize_parameters (Bayes)" ----------------------------------------
+  # Bayes ----------------------------------------
   if (require(rstanarm)) {
     test_that("standardize_parameters (Bayes)", {
       testthat::skip_on_cran()
@@ -158,7 +162,7 @@ if (require("testthat") && require("effectsize")) {
   }
 
 
-  # "standardize_parameters (Pseudo - GLMM)" --------------------------------
+  # Pseudo - GLMM --------------------------------
   if (require(lme4)) {
     test_that("standardize_parameters (Pseudo - GLMM)", {
       set.seed(1)

@@ -89,13 +89,13 @@ variables or factors, so the coefficients are still related to changes in
 levels. This method is not accurate and tend to give aberrant results when
 interactions are specified.
 \item \strong{smart} (Standardization of Model's parameters with Adjustment,
-Reconnaissance and Transformation): Similar to \code{method = "posthoc"} in that
-it does not involve model refitting. The difference is that the SD (or MAD if
-\code{robust}) of the response is computed on the relevant section of the data.
-For instance, if a factor with 3 levels A (the intercept), B and C is entered
-as a predictor, the effect corresponding to B vs. A will be scaled by the
-variance of the response at the intercept only. As a results, the
-coefficients for effects of factors are similar to a Glass' delta.
+Reconnaissance and Transformation - \emph{experimental}): Similar to \code{method = "posthoc"} in that it does not involve model refitting. The difference is
+that the SD (or MAD if \code{robust}) of the response is computed on the relevant
+section of the data. For instance, if a factor with 3 levels A (the
+intercept), B and C is entered as a predictor, the effect corresponding to B
+vs. A will be scaled by the variance of the response at the intercept only.
+As a results, the coefficients for effects of factors are similar to a Glass'
+delta.
 \item \strong{basic}: This method is similar to \code{method = "posthoc"}, but treats all
 variables as continuous: it also scales the coefficient by the standard
 deviation of model's matrix' parameter of factors levels (transformed to
@@ -116,11 +116,14 @@ within-group varialbe is found to have access between-group variance.
 
 \subsection{Transformed Variables}{
 
-When the model's formula contains transformations (e.g. \code{y ~ exp(X)}) \code{method = "refit"} might give different results compared to the other (post-hoc)
-methods: where \code{"refit"} standardizes the data prior to the transformation
-(e.g. equivalent to \code{exp(scale(X))}), the post-hoc methods standardize the
-transformed data (e.g. equivalent to \code{scale(exp(X))}). See \code{\link[=standardize]{standardize()}}
-for more details on how different transformations are dealt with.
+When the model's formula contains transformations (e.g. \code{y ~ exp(X)})
+\code{method = "refit"} might give different results compared to
+\code{method = "basic"} (\code{"posthoc"} and \code{"smart"} do not support such
+transformations): where \code{"refit"} standardizes the data prior to the
+transformation (e.g. equivalent to \code{exp(scale(X))}), the \code{"basic"} method
+standardizes the transformed data (e.g. equivalent to \code{scale(exp(X))}). See
+\code{\link[=standardize]{standardize()}} for more details on how different transformations are dealt
+with.
 }
 
 \subsection{Generalized Linear Models}{

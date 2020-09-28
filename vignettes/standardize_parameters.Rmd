@@ -188,7 +188,7 @@ It seems like the best or most important predictor is `n_comps` as it has the co
 
 ### **`"refit"`**: Re-fitting the model with standardized data
 
-**This method is based on a complete model re-fit with a standardized version of data**. Hence, this method is equal to standardizing the variables *before* fitting the model. It is the "purest" and the most accurate [@neter1989applied], but it is also the most computationally costly and long (especially for heavy models such as Bayesian models, or complex mixed models). This method is particularly recommended for models that include interactions or transformations (e.g., polynomial or spline terms).
+**This method is based on a complete model re-fit with a standardized version of data**. Hence, this method is equal to standardizing the variables *before* fitting the model. It is the "purest" and the most accurate [@neter1989applied], but it is also the most computationally costly and long (especially for heavy models such as Bayesian models, or complex mixed models). This method is particularly recommended for models that include interactions or transformations (e.g., exponentiation, log, polynomial or spline terms).
 
 ```{r}
 standardize_parameters(mod, method = "refit")
@@ -229,6 +229,8 @@ standardize_parameters(mod, method = "posthoc")
 
 
 ### **`"smart"`**: Standardization of Model's parameters with Adjustment, Reconnaissance and Transformation
+
+> Experimental
 
 Similar to `method = "posthoc"` in that it does not involve model refitting. The difference is that the SD of the response is computed on the relevant section of the data. For instance, if a factor with 3 levels A (the intercept), B and C is entered as a predictor, the effect corresponding to B vs. A will be scaled by the variance of the response at the intercept only. As a results, the coefficients for effects of factors are similar to a Glass' *delta*.
 
