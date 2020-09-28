@@ -68,7 +68,7 @@ reference:
   - format_standardize
   - sd_pooled
   - is_effectsize_name
-
+  - hardlyworking
 
 navbar:
   type: default
