@@ -16,7 +16,8 @@
 #' @param two_sd If `TRUE`, the variables are scaled by two times the deviation
 #'   (SD or MAD depending on `robust`). This method can be useful to obtain
 #'   model coefficients of continuous parameters comparable to coefficients
-#'   related to binary predictors (Gelman, 2008).
+#'   related to binary predictors, when applied to **the predictors** (not the
+#'   outcome) (Gelman, 2008).
 #' @param weights Can be `NULL` (for no weighting), or:
 #' - For model: if `TRUE` (default), a weighted-standardization is carried out.
 #' - For `data.frame`s: a numeric vector of weights, or a character of the name of a column in the `data.frame` that contains the weights.

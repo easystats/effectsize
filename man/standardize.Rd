@@ -56,7 +56,8 @@ mean and dividing it by the standard deviation (SD).}
 \item{two_sd}{If \code{TRUE}, the variables are scaled by two times the deviation
 (SD or MAD depending on \code{robust}). This method can be useful to obtain
 model coefficients of continuous parameters comparable to coefficients
-related to binary predictors (Gelman, 2008).}
+related to binary predictors, when applied to \strong{the predictors} (not the
+outcome) (Gelman, 2008).}
 
 \item{weights}{Can be \code{NULL} (for no weighting), or:
 \itemize{

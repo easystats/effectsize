@@ -16,6 +16,8 @@
 
 ## Bug fixes
 
+- `standardize_parameters()` for post-hoc correctly standardizes transformed outcome.
+- Setting `two_sd = TRUE` in `standardize()` and `standardize_parameters()` (correctly) on uses 2-SDs of the predictors (and not the response). 
 - `standardize_info()` / `standardize_parameters(method = "posthoc")` work for zero-inflated models ( #135 )
 - `standardize_info(include_pseudo = TRUE)` / `standardize_parameters(method = "pseudo")` are less sensitive in detecting between-group variation of within-group variables.
 - `interpret_oddsratio()` correctly treats extremely small odds the same as treats extremely large ones.

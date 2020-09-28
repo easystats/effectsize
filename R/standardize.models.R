@@ -12,19 +12,17 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
   # with positive integers, or beta with ratio between 0 and 1), we need to
   # make sure that the original response value will be restored after
   # standardizing, as these models also require a non-standardized response.
-
   if (.no_response_standardize(m_info) || !include_response) {
+    resp <- unique(c(insight::find_response(x), insight::find_response(x, combine = FALSE)))
+  } else if (include_response && two_sd) {
     resp <- unique(c(insight::find_response(x), insight::find_response(x, combine = FALSE)))
   }
 
-
   # Do not standardize weighting-variable, because negative weights will
   # cause errors in "update()"
-
   weight_variable <- insight::find_weights(x)
 
   # don't standardize random effects
-
   random_group_factor <- insight::find_random(x, flatten = TRUE, split_nested = TRUE)
 
   # standardize data
@@ -38,6 +36,12 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
                             two_sd = two_sd,
                             weights = if (weights) insight::get_weights(x) else NULL,
                             verbose = verbose)
+
+    if (!.no_response_standardize(m_info) && include_response && two_sd) {
+      # if two_sd, it must not affect the response!
+      data_std[resp] <- standardize(data[resp], robust = robust, two_sd = FALSE, verbose = verbose)
+      dont_standardize <- setdiff(dont_standardize,resp)
+    }
   } else {
     if (verbose) {
       insight::print_color("No variables could be standardized.\n", "red")

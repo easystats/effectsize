@@ -68,28 +68,30 @@ reference:
   - format_standardize
   - sd_pooled
   - is_effectsize_name
-
+  - hardlyworking
 
 navbar:
   type: default
   left:
   - icon: fa-home fa-lg
     href: index.html
-  - text: News
+  - text: "News"
     href: news/index.html
-  - text: Features
+  - text: "Features"
     href: reference/index.html
-  - text: Standardization
+  - text: "Data Standardization"
+    href: articles/standardize_data.html
+  - text: "Effect Sizes"
     menu:
-      - text: "Data standardization"
-        href: articles/standardize_data.html
-      - text: "Parameters standardization"
+      - text: "Parameter and Model Standardization"
         href: articles/standardize_parameters.html
-  - text: Effect sizes
+      - text: "Effect Sizes for ANOVA"
+        herf: articles/anovaES.html
+  - text: "Conversion"
     menu:
-      - text: "Effect size Conversion (*d*, *r*, *OR*)"
+      - text: "Between *d*, *r*, *OR*"
         href: articles/convert.html
-      - text: "Effect Size from Test Statistics"
+      - text: "From Test Statistics"
         href: articles/from_test_statistics.html
-      - text: "Interpretation Guidelines"
-        href: articles/interpret.html
+  - text: "Interpretation Guidelines"
+    href: articles/interpret.html

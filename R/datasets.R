@@ -2,8 +2,6 @@
 #'
 #' A sample (simulated) dataset, used in tests and some examples.
 #'
-#' @usage data(hardlyworking)
-#'
 #' @docType data
 #'
 #' @name hardlyworking
@@ -19,4 +17,4 @@
 #'   \item{seniority}{How many years with the company}
 #' }
 #'
-"hardlyworking"
+NULL
