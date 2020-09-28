@@ -8,7 +8,7 @@
   probs <- c(alpha / 2, 1 - alpha / 2)
 
   lambda <- f * df
-  ncp <- suppressWarnings(optim(
+  ncp <- suppressWarnings(stats::optim(
     par = 1.1 * rep(lambda, 2),
     fn = function(x) {
       p <- pf(q = f, df, df_error, ncp = x)
