@@ -401,8 +401,10 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
     }
   }
 
+  # factors are allowed
   if (!cant_posthocsmart &&
-      !all(pars$Parameter == insight::clean_names(pars$Parameter))) {
+      !all(pars$Parameter == insight::clean_names(pars$Parameter) |
+           grepl("(as.factor|factor)\\(", pars$Parameter))) {
     cant_posthocsmart <- TRUE
   }
 

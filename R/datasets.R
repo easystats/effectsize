@@ -3,7 +3,6 @@
 #' A sample (simulated) dataset, used in tests and some examples.
 #'
 #' @docType data
-#' @title Sample data set
 #'
 #' @name hardlyworking
 #'
