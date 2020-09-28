@@ -137,7 +137,7 @@ We saw that in simple linear models, the standardized slope is equal to the corr
 
 
 ```{r}
-data("hardlyworking")
+data("hardlyworking", package = "effectsize")
 
 head(hardlyworking)
 
