@@ -116,6 +116,11 @@ modAOV <- stan_glm(salary ~ age_f * comps_f,
 
 We can use `eta_squared_posterior()` to get the posterior distribution of $eta^2$ or $eta^2_p$ for each effect. Like an ANOVA table, we must make sure to use the right effects-coding and *SS*-type:
 
+```{r echo=FALSE}
+# save old effects-coding
+old_contrasts <- getOption("contrasts")
+```
+
 ```{r}
 # set effects-coding
 options(contrasts = c('contr.sum', 'contr.poly'))
@@ -129,5 +134,11 @@ head(pes_posterior)
 
 bayestestR::describe_posterior(pes_posterior, rope_range = c(0, 0.1))
 ```
+
+```{r echo=FALSE}
+# set back effects-coding
+options(contrasts = old_contrasts)
+```
+
 
 # References
