@@ -152,7 +152,7 @@ eta_squared_posterior.brmsfit <- eta_squared_posterior.stanreg
     # if a contrast has negative and positive values, it is assumed to be one of:
     # "contr.sum", "contr.helmert", "contr.poly", "contr.bayes"
     factors_centered <- sapply(X[, factors, drop = FALSE],
-                               function (xi) any(contrasts(xi) < 0) & any(contrasts(xi) > 0))
+                               function(xi) any(contrasts(xi) < 0) & any(contrasts(xi) > 0))
   }
 
 
