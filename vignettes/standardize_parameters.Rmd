@@ -119,7 +119,7 @@ standardize_parameters(m, method = "smart")
 glass_delta(mpg ~ am, data = mtcars)
 ```
 
-***... So note that some standardized differences are difference than others! :)***
+***... So note that some standardized differences are different than others! :)***
 
 
 
