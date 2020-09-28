@@ -1,8 +1,6 @@
 
 #' @keywords internal
-#' @importFrom stats pf
-#' @importFrom stats qf
-#' @importFrom stats optim
+#' @importFrom stats pf qf optim
 .get_ncp_F <- function(f, df, df_error, conf.level = 0.9) {
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)
@@ -11,7 +9,7 @@
   ncp <- suppressWarnings(stats::optim(
     par = 1.1 * rep(lambda, 2),
     fn = function(x) {
-      p <- pf(q = f, df, df_error, ncp = x)
+      p <- stats::pf(q = f, df, df_error, ncp = x)
 
       abs(max(p) - probs[2]) +
         abs(min(p) - probs[1])
@@ -20,11 +18,11 @@
   ))
   f_ncp <- sort(ncp$par) / df
 
-  if (f <= qf(probs[1], df, df_error)) {
+  if (f <= stats::qf(probs[1], df, df_error)) {
     f_ncp[2] <- 0
   }
 
-  if (f <= qf(probs[2], df, df_error)) {
+  if (f <= stats::qf(probs[2], df, df_error)) {
     f_ncp[1] <- 0
   }
 
