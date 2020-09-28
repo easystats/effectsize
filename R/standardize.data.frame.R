@@ -1,15 +1,22 @@
-#' @importFrom stats median mad na.omit
+#' @rdname standardize
 #' @export
-standardize.numeric <- function(x, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
+standardize.numeric <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, verbose = TRUE, ...) {
 
   # Warning if all NaNs
   if (all(is.na(x))) {
     return(x)
   }
 
-  valid_x <- !is.na(x)
+  if (!is.null(weights)) {
+    valid_x <- !is.na(x) & !is.na(weights)
+    x <- x[valid_x]
+    weights <- weights[valid_x]
+  } else {
+    valid_x <- !is.na(x)
+    x <- x[valid_x]
+  }
   scaled_x <- rep(NA, length(x))
-  x <- stats::na.omit(x)
+
 
   # Sanity checks
   check <- .check_standardize_numeric(x, name = NULL, verbose = verbose)
@@ -22,11 +29,11 @@ standardize.numeric <- function(x, robust = FALSE, two_sd = FALSE, verbose = TRU
   }
 
   if (robust) {
-    center <- stats::median(x)
-    scale <- stats::mad(x)
+    center <- .median(x, weights)
+    scale <- .mad(x, weights)
   } else {
-    center <- mean(x)
-    scale <- stats::sd(x)
+    center <- .mean(x, weights)
+    scale <- .sd(x, weights)
   }
 
   if (two_sd) {
@@ -103,7 +110,7 @@ standardize.AsIs <- standardize.numeric
 
 
 #' @export
-standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, select = NULL, exclude = NULL, verbose = TRUE, force = FALSE, append = FALSE, suffix = "_z", ...) {
+standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, select = NULL, weights = NULL, exclude = NULL, verbose = TRUE, force = FALSE, append = FALSE, suffix = "_z", ...) {
   info <- attributes(x)
   # dplyr >= 0.8.0 returns attribute "indices"
   grps <- attr(x, "groups", exact = TRUE)
@@ -114,6 +121,12 @@ standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, select = N
   }
   if (inherits(exclude, "formula")) {
     exclude <- all.vars(exclude)
+  }
+
+  if (is.numeric(weights)) {
+    warning("For grouped data frames, 'weights' must be a character, not a numeric vector.\n",
+            "Ignoring weightings.")
+    weights <- NULL
   }
 
 
@@ -145,6 +158,7 @@ standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, select = N
       exclude = NULL,
       robust = robust,
       two_sd = two_sd,
+      weights = weights,
       verbose = verbose,
       force = force,
       append = FALSE,
@@ -161,13 +175,23 @@ standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, select = N
 
 #' @rdname standardize
 #' @export
-standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, select = NULL, exclude = NULL, verbose = TRUE, force = FALSE, append = FALSE, suffix = "_z", ...) {
+standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, select = NULL, exclude = NULL, verbose = TRUE, force = FALSE, append = FALSE, suffix = "_z", ...) {
   # check for formula notation, convert to character vector
   if (inherits(select, "formula")) {
     select <- all.vars(select)
   }
   if (inherits(exclude, "formula")) {
     exclude <- all.vars(exclude)
+  }
+
+  if (!is.null(weights) && is.character(weights)) {
+    if (weights %in% colnames(x)) {
+      exclude <- c(exclude,weights)
+      weights <- x[[weights]]
+    } else {
+     warning("Could not find weighting column '", weights, "'. Weighting not carried out.")
+      weights <- NULL
+    }
   }
 
   select <- .select_z_variables(x, select, exclude, force)
@@ -181,7 +205,12 @@ standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, select = N
     select <- colnames(new_variables)
   }
 
-  x[select] <- lapply(x[select], standardize, robust = robust, two_sd = two_sd, verbose = FALSE, force = force)
+  x[select] <- lapply(x[select], standardize,
+                      robust = robust,
+                      two_sd = two_sd,
+                      weights = weights,
+                      verbose = FALSE,
+                      force = force)
 
   attr(x, "center") <- sapply(x[select], function(z) attributes(z)$center)
   attr(x, "scale") <- sapply(x[select], function(z) attributes(z)$scale)
