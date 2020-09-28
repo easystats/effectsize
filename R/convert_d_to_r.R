@@ -6,7 +6,7 @@
 #' @param d Standardized difference value (Cohen's d).
 #' @param r Correlation coefficient r.
 #' @param OR *Odds ratio* values in vector or data frame.
-#' @param log Take in or output log odds ratio (such as in logistic models).
+#' @param log Take in or output the log of the ratio (such as in logistic models).
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @examples

@@ -38,13 +38,14 @@
 #' levels. This method is not accurate and tend to give aberrant results when
 #' interactions are specified.
 #' - **smart** (Standardization of Model's parameters with Adjustment,
-#' Reconnaissance and Transformation): Similar to `method = "posthoc"` in that
-#' it does not involve model refitting. The difference is that the SD (or MAD if
-#' `robust`) of the response is computed on the relevant section of the data.
-#' For instance, if a factor with 3 levels A (the intercept), B and C is entered
-#' as a predictor, the effect corresponding to B vs. A will be scaled by the
-#' variance of the response at the intercept only. As a results, the
-#' coefficients for effects of factors are similar to a Glass' delta.
+#' Reconnaissance and Transformation - *experimental*): Similar to `method =
+#' "posthoc"` in that it does not involve model refitting. The difference is
+#' that the SD (or MAD if `robust`) of the response is computed on the relevant
+#' section of the data. For instance, if a factor with 3 levels A (the
+#' intercept), B and C is entered as a predictor, the effect corresponding to B
+#' vs. A will be scaled by the variance of the response at the intercept only.
+#' As a results, the coefficients for effects of factors are similar to a Glass'
+#' delta.
 #' - **basic**: This method is similar to `method = "posthoc"`, but treats all
 #' variables as continuous: it also scales the coefficient by the standard
 #' deviation of model's matrix' parameter of factors levels (transformed to
@@ -58,15 +59,18 @@
 #' [parameters::demean()]); The outcome (in linear LMMs) is standardized based
 #' on a fitted random-intercept-model, where `sqrt(random-intercept-variance)`
 #' is used for level 2 predictors, and `sqrt(residual-variance)` is used for
-#' level 1 predictors (Hoffman 2015, page 342).
+#' level 1 predictors (Hoffman 2015, page 342). A warning is given when a
+#' within-group varialbe is found to have access between-group variance.
 #'
 #' ## Transformed Variables
-#' When the model's formula contains transformations (e.g. `y ~ exp(X)`) `method
-#' = "refit"` might give different results compared to the other (post-hoc)
-#' methods: where `"refit"` standardizes the data prior to the transformation
-#' (e.g. equivalent to `exp(scale(X))`), the post-hoc methods standardize the
-#' transformed data (e.g. equivalent to `scale(exp(X))`). See [standardize()]
-#' for more details on how different transformations are dealt with.
+#' When the model's formula contains transformations (e.g. `y ~ exp(X)`)
+#' `method = "refit"` might give different results compared to
+#' `method = "basic"` (`"posthoc"` and `"smart"` do not support such
+#' transformations): where `"refit"` standardizes the data prior to the
+#' transformation (e.g. equivalent to `exp(scale(X))`), the `"basic"` method
+#' standardizes the transformed data (e.g. equivalent to `scale(exp(X))`). See
+#' [standardize()] for more details on how different transformations are dealt
+#' with.
 #'
 #' ## Generalized Linear Models
 #' When standardizing coefficients of a generalized model (GLM, GLMM, etc), only
@@ -103,7 +107,7 @@
 #' \donttest{
 #' if (require("lme4")) {
 #'   m <- lmer(mpg ~ cyl + am + vs + (1|cyl), mtcars)
-#'   standardize_parameters(m, method = "pseudo")
+#'   standardize_parameters(m, method = "pseudo", df_method = "satterthwaite")
 #' }
 #'
 #'
@@ -143,6 +147,7 @@ standardize_parameters <- function(model, method = "refit", ci = 0.95, robust = 
 #' @export
 standardize_parameters.default <- function(model, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, parameters, ...) {
   object_name <- deparse(substitute(model), width.cutoff = 500)
+  method <- match.arg(method, c("refit", "posthoc", "smart", "basic", "classic", "pseudo"))
 
   if (method == "refit") {
     model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose)
@@ -221,11 +226,6 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
 #' @keywords internal
 #' @importFrom insight model_info find_random
 .standardize_parameters_posthoc <- function(pars, method, model, robust, two_sd, verbose) {
-  # Sanity Check for ZI
-  if (verbose && insight::model_info(model)$is_zero_inflated) {
-    warning("Non-refit parameter standardization is ignoring the zero-inflation component.", call. = FALSE)
-  }
-
   # Sanity Check for "pseudo"
   if (method == "pseudo" &&
       !(insight::model_info(model)$is_mixed &&
@@ -238,6 +238,14 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
     method <- "basic"
   }
 
+  if (method %in% c("smart", "posthoc") &&
+      .cant_smart_or_posthoc(model, pars)) {
+    warning("Method '", method, "' does not currently support models with transformed parameters.",
+            "\nReverting to 'basic' method. Concider using the 'refit' method directly.",
+            call. = FALSE)
+    method <- "basic"
+  }
+
   if (robust && method == "pseudo") {
     warning("'robust' standardization not available for 'pseudo' method.",
             call. = FALSE)
@@ -246,7 +254,7 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
 
 
   ## Get scaling factors
-  deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo")
+  deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo", two_sd = two_sd)
   i <- match(deviations$Parameter, pars$Parameter)
   pars <- pars[i,]
 
@@ -267,12 +275,10 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   }
 
   # Sapply standardization
-  f <- if (two_sd) 2 else 1
-
   pars[,colnames(pars) %in% .col_2_scale] <- lapply(
     pars[, colnames(pars) %in% .col_2_scale, drop = FALSE],
     function(x) {
-      x * (f * deviations[[col_dev_pred]] / deviations[[col_dev_resp]])
+      x * deviations[[col_dev_pred]] / deviations[[col_dev_resp]]
     }
   )
 
@@ -284,7 +290,7 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
 }
 
 #' @keywords internal
-.col_2_scale <- c("Coefficient","Median", "Mean", "SE", "CI_low", "CI_high")
+.col_2_scale <- c("Coefficient","Median", "Mean", "MAP", "SE", "CI_low", "CI_high")
 
 
 # standardize_posteriors --------------------------------------------------
@@ -324,11 +330,6 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 #' @keywords internal
 #' @importFrom insight model_info find_random
 .standardize_posteriors_posthoc <- function(pars, method, model, robust, two_sd, verbose) {
-  # Sanity Check for ZI
-  if (verbose && insight::model_info(model)$is_zero_inflated) {
-    warning("Non-refit parameter standardization is ignoring the zero-inflation component.", call. = FALSE)
-  }
-
   # Sanity Check for "pseudo"
   if (method == "pseudo" &&
       !(insight::model_info(model)$is_mixed &&
@@ -341,6 +342,14 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
     method <- "basic"
   }
 
+  if (method %in% c("smart", "posthoc") &&
+      .cant_smart_or_posthoc(model, pars)) {
+    warning("Method '", method, "' does not currently support models with transformed parameters.",
+            "\nReverting to 'basic' method. Concider using the 'refit' method directly.",
+            call. = FALSE)
+    method <- "basic"
+  }
+
   if (robust && method == "pseudo") {
     warning("'robust' standardization not available for 'pseudo' method.",
             call. = FALSE)
@@ -348,7 +357,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   }
 
   ## Get scaling factors
-  deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo")
+  deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo", two_sd = two_sd)
   i <- match(deviations$Parameter, colnames(pars))
   pars <- pars[,i]
 
@@ -369,9 +378,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   }
 
   # Sapply standardization
-  f <- if (two_sd) 2 else 1
-
-  pars <- t(t(pars) * (f * deviations[[col_dev_pred]] / deviations[[col_dev_resp]]))
+  pars <- t(t(pars) * deviations[[col_dev_pred]] / deviations[[col_dev_resp]])
   pars <- as.data.frame(pars)
 
   attr(pars, "std_method") <- method
@@ -380,6 +387,32 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 
   return(pars)
 }
+
+
+
+#' @keywords internal
+.cant_smart_or_posthoc <- function(model,pars) {
+
+  cant_posthocsmart <- FALSE
+
+  if (insight::model_info(model)$is_linear) {
+    if (!colnames(model.frame(model))[1] == insight::find_response(model)) {
+      can_posthocsmart <- TRUE
+    }
+  }
+
+  # factors are allowed
+  if (!cant_posthocsmart &&
+      !all(pars$Parameter == insight::clean_names(pars$Parameter) |
+           grepl("(as.factor|factor)\\(", pars$Parameter))) {
+    cant_posthocsmart <- TRUE
+  }
+
+  return(cant_posthocsmart)
+}
+
+
+
 
 
 

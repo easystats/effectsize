@@ -1,10 +1,16 @@
 if (require("testthat") && require("effectsize") && require("dplyr") && require("rlang")) {
   test_that("standardize.numeric", {
     x <- standardize(seq(0, 1, length.out = 100))
-    testthat::expect_equal(mean(0), 0, tol = 0.01)
+    testthat::expect_equal(mean(x), 0, tol = 0.01)
+
+    x <- standardize(seq(0, 1, length.out = 100), two_sd = TRUE)
+    testthat::expect_equal(sd(x), 0.5, tol = 0.01)
 
     x <- standardize(seq(0, 1, length.out = 100), robust = TRUE)
-    testthat::expect_equal(median(0), 0, tol = 0.01)
+    testthat::expect_equal(median(x), 0, tol = 0.01)
+
+    x <- standardize(seq(0, 1, length.out = 100), robust = TRUE, two_sd = TRUE)
+    testthat::expect_equal(mad(x), 0.5, tol = 0.01)
 
     testthat::expect_message(standardize(c(0, 0, 0, 1, 1)))
   })
@@ -73,10 +79,13 @@ if (require("testthat") && require("effectsize") && require("dplyr") && require(
   })
 
   test_that("standardize.lm", {
-    model <- standardize(lm(Sepal.Length ~ Species * Petal.Width, data = iris))
-    testthat::expect_equal(unname(coef(model)),
-                           c(0.06, -0.166, 0.19, 0.856, 0.457, -0.257),
-                           tol = 0.01)
+    iris2 <- na.omit(iris)
+    iris_z <- standardize(iris2)
+
+    m0 <- lm(Sepal.Length ~ Species * Petal.Width, data = iris_z)
+    m1 <- lm(Sepal.Length ~ Species * Petal.Width, data = iris2)
+    model <- standardize(m1)
+    testthat::expect_equal(coef(m0), coef(model))
 
     # deal with log / sqrt terms
     testthat::expect_message(standardize(lm(mpg ~ sqrt(cyl) + log(hp), mtcars)))

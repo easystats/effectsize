@@ -16,7 +16,8 @@
 #' @param two_sd If `TRUE`, the variables are scaled by two times the deviation
 #'   (SD or MAD depending on `robust`). This method can be useful to obtain
 #'   model coefficients of continuous parameters comparable to coefficients
-#'   related to binary predictors (Gelman, 2008).
+#'   related to binary predictors, when applied to **the predictors** (not the
+#'   outcome) (Gelman, 2008).
 #' @param verbose Toggle warnings on or off.
 #' @param force Logical, if `TRUE`, forces standardization of factors as
 #'   well. Factors are converted to numerical values, with the lowest level

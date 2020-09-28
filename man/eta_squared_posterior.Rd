@@ -24,7 +24,7 @@ eta_squared_posterior(
 predictive distribution to return. Larger numbers take longer to run, but
 provide estimates that are more stable.}
 
-\item{verbose}{Show messages.}
+\item{verbose}{Show messages / warning about centering.}
 
 \item{...}{Currently not used.}
 }
