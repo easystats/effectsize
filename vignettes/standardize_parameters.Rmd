@@ -27,7 +27,7 @@ knitr::opts_chunk$set(comment = ">",
 options(digits = 2)
 options(knitr.kable.NA = '')
 
-pkgs <- c("effectsize", "magrittr", "parameters", "correlation")
+pkgs <- c("effectsize", "parameters", "correlation")
 if (!all(sapply(pkgs, requireNamespace))) {
   knitr::opts_chunk$set(eval = FALSE)
 }
@@ -53,10 +53,10 @@ Critically, **parameters standardization is not a trivial process**. Different t
 
 ```{r}
 library(effectsize)
-library(magrittr)
 
-lm(Sepal.Length ~ Petal.Length, data = iris) %>% 
-  standardize_parameters()
+m <- lm(Sepal.Length ~ Petal.Length, data = iris)
+
+standardize_parameters(m)
 ```
 
 Standardizing the coefficient of this *simple* linear regression gives a value of `0.87`, but did you know that for a simple regression this is actually the **same as a correlation**? Thus, you can eventually apply some (*in*)famous interpretation guidelines (e.g., Cohen's rules of thumb).
@@ -64,9 +64,9 @@ Standardizing the coefficient of this *simple* linear regression gives a value o
 ```{r}
 library(parameters)
 
-iris %$%  # expose
-  cor.test(Sepal.Length, Petal.Length) %>% 
-  model_parameters()
+r <- cor.test(iris$Sepal.Length, iris$Petal.Length)
+
+model_parameters(r)
 ```
 
 
@@ -164,8 +164,7 @@ However, not all hope is lost yet - we can still try and recover the partial cor
 ```{r}
 params <- model_parameters(mod)
 
-params[-1,] %$% 
-  t_to_r(t, df_error = df_error)
+t_to_r(params$t[-1], df_error = params$df_error[-1])
 ```
 
 Wow, the retrieved correlations coefficients from the regression model are **exactly** the same as the partial correlations we estimated above! So these "*r*" effect sizes can also be used.
