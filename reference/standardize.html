@@ -176,11 +176,22 @@ the 0 - 1 range.</p>
 
     <pre class="usage"><span class='fu'>standardize</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
+<span class='co'># S3 method for numeric</span>
+<span class='fu'>standardize</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  robust <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  two_sd <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  weights <span class='op'>=</span> <span class='cn'>NULL</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
 <span class='co'># S3 method for data.frame</span>
 <span class='fu'>standardize</span><span class='op'>(</span>
   <span class='va'>x</span>,
   robust <span class='op'>=</span> <span class='cn'>FALSE</span>,
   two_sd <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  weights <span class='op'>=</span> <span class='cn'>NULL</span>,
   select <span class='op'>=</span> <span class='cn'>NULL</span>,
   exclude <span class='op'>=</span> <span class='cn'>NULL</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -195,6 +206,7 @@ the 0 - 1 range.</p>
   <span class='va'>x</span>,
   robust <span class='op'>=</span> <span class='cn'>FALSE</span>,
   two_sd <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  weights <span class='op'>=</span> <span class='cn'>TRUE</span>,
   include_response <span class='op'>=</span> <span class='cn'>TRUE</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>
@@ -227,6 +239,18 @@ related to binary predictors, when applied to <strong>the predictors</strong> (n
 outcome) (Gelman, 2008).</p></td>
     </tr>
     <tr>
+      <th>weights</th>
+      <td><p>Can be <code>NULL</code> (for no weighting), or:</p><ul>
+<li><p>For model: if <code>TRUE</code> (default), a weighted-standardization is carried out.</p></li>
+<li><p>For <code>data.frame</code>s: a numeric vector of weights, or a character of the name of a column in the <code>data.frame</code> that contains the weights.</p></li>
+<li><p>For numeric vectors: a numeric vector of weights.</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>Toggle warnings on or off.</p></td>
+    </tr>
+    <tr>
       <th>select</th>
       <td><p>Character vector of column names. If <code>NULL</code> (the default), all
 variables will be selected.</p></td>
@@ -234,10 +258,6 @@ variables will be selected.</p></td>
     <tr>
       <th>exclude</th>
       <td><p>Character vector of column names to be excluded from selection.</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>Toggle warnings on or off.</p></td>
     </tr>
     <tr>
       <th>force</th>
