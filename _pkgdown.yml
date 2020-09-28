@@ -75,20 +75,18 @@ navbar:
   left:
   - icon: fa-home fa-lg
     href: index.html
-  - text: News
+  - text: "News"
     href: news/index.html
-  - text: Features
+  - text: "Features"
     href: reference/index.html
   - text: "Data Standardization"
     href: articles/standardize_data.html
-  - text: Effect Sizes
+  - text: "Effect Sizes"
     menu:
       - text: "Parameter and Model Standardization"
         href: articles/standardize_parameters.html
-      - test: "ANOVA"
+      - text: "Effect Sizes for ANOVA"
         herf: articles/anovaES.html
-      - text: "In Bayesian Models"
-        herf: articles/bayesian_models.html
   - text: "Conversion"
     menu:
       - text: "Between *d*, *r*, *OR*"
