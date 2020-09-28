@@ -195,7 +195,7 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
       out[, colnames(out) %in% c(types, "CI_low", "CI_high")] * correction
   }
 
-  class(out) <- c("effectsize_difference","see_effectsize_table", class(out))
+  class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
   attr(out, "correction") <- correction
   attr(out, "pooled_sd") <- pooled_sd
   return(out)

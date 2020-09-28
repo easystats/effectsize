@@ -87,9 +87,7 @@ navbar:
         href: articles/standardize_parameters.html
   - text: Effect sizes
     menu:
-      - text: "Effect Sizes for Logistic Models"
-        href: articles/logistic.html
-      - text: "Effect size conversion"
+      - text: "Effect size Conversion (*d*, *r*, *OR*)"
         href: articles/convert.html
       - text: "Effect Size from Test Statistics"
         href: articles/from_test_statistics.html

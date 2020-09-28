@@ -3,16 +3,27 @@
 %   R/standardize.models.R
 \name{standardize}
 \alias{standardize}
+\alias{standardize.numeric}
 \alias{standardize.data.frame}
 \alias{standardize.default}
 \title{Standardization (Z-scoring)}
 \usage{
 standardize(x, ...)
 
+\method{standardize}{numeric}(
+  x,
+  robust = FALSE,
+  two_sd = FALSE,
+  weights = NULL,
+  verbose = TRUE,
+  ...
+)
+
 \method{standardize}{data.frame}(
   x,
   robust = FALSE,
   two_sd = FALSE,
+  weights = NULL,
   select = NULL,
   exclude = NULL,
   verbose = TRUE,
@@ -26,6 +37,7 @@ standardize(x, ...)
   x,
   robust = FALSE,
   two_sd = FALSE,
+  weights = TRUE,
   include_response = TRUE,
   verbose = TRUE,
   ...
@@ -46,12 +58,19 @@ mean and dividing it by the standard deviation (SD).}
 model coefficients of continuous parameters comparable to coefficients
 related to binary predictors (Gelman, 2008).}
 
+\item{weights}{Can be \code{NULL} (for no weighting), or:
+\itemize{
+\item For model: if \code{TRUE} (default), a weighted-standardization is carried out.
+\item For \code{data.frame}s: a numeric vector of weights, or a character of the name of a column in the \code{data.frame} that contains the weights.
+\item For numeric vectors: a numeric vector of weights.
+}}
+
+\item{verbose}{Toggle warnings on or off.}
+
 \item{select}{Character vector of column names. If \code{NULL} (the default), all
 variables will be selected.}
 
 \item{exclude}{Character vector of column names to be excluded from selection.}
-
-\item{verbose}{Toggle warnings on or off.}
 
 \item{force}{Logical, if \code{TRUE}, forces standardization of factors as
 well. Factors are converted to numerical values, with the lowest level

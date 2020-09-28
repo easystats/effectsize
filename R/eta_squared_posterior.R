@@ -18,7 +18,7 @@
 #' @param draws An integer indicating the number of draws from the posterior
 #'   predictive distribution to return. Larger numbers take longer to run, but
 #'   provide estimates that are more stable.
-#' @param verbose Show messages.
+#' @param verbose Show messages / warning about centering.
 #' @param ... Currently not used.
 #'
 #' @return A data frame containing the ppd of the Eta squared for each fixed
@@ -90,18 +90,18 @@ eta_squared_posterior.stanreg <- function(model,
     # Too hard right now.
   }
 
-  ## 1. get ppd
-  ppd <- rstantools::posterior_predict(model,
-                                       draws = draws, # for rstanreg
-                                       nsamples = draws) # for brms
-
-  ## 2. get model data
+  ## 1. get model data
   f <- insight::find_formula(model)$conditional
   X <- insight::get_predictors(model)
   resp_name <- insight::find_response(model)
 
   # test centered predictors
   .all_centered(X)
+
+  ## 2. get ppd
+  ppd <- rstantools::posterior_predict(model,
+                                       draws = draws, # for rstanreg
+                                       nsamples = draws) # for brms
 
   ## 3. Compute effect size...
   if (verbose) {
@@ -135,26 +135,34 @@ eta_squared_posterior.brmsfit <- eta_squared_posterior.stanreg
 #' @keywords internal
 #' @importFrom stats contrasts
 .all_centered <- function(X) {
-  numeric <- sapply(X, class) == "numeric"
+  numeric <- sapply(X, inherits, what = c("numeric","integer"))
   numerics <- colnames(X)[numeric]
   factors <- colnames(X)[!numeric]
 
+  numerics_centered <- factors_centered <- logical(0)
 
-  numerics_centered <- sapply(X[, numerics, drop = FALSE],
-                              function(xi) isTRUE(all.equal(mean(xi),0)))
+  if (length(numerics)) {
+    numerics_centered <- sapply(X[, numerics, drop = FALSE],
+                                function(xi) isTRUE(all.equal(mean(xi),0)))
+  }
 
-  # if a contrast has negative and positive values, it is assumed to be one of:
-  # "contr.sum", "contr.helmert", "contr.poly", "contr.bayes"
-  factors_centered <- sapply(X[, factors, drop = FALSE],
-                             function (xi) any(contrasts(xi) < 0) & any(contrasts(xi) > 0))
+  if (length(factors)) {
+    # if a contrast has negative and positive values, it is assumed to be one of:
+    # "contr.sum", "contr.helmert", "contr.poly", "contr.bayes"
+    factors_centered <- sapply(X[, factors, drop = FALSE],
+                               function (xi) any(contrasts(xi) < 0) & any(contrasts(xi) > 0))
+  }
 
-  if (!all(c(numerics_centered,factors_centered))) {
+
+  if ((length(numerics_centered) && !all(numerics_centered)) ||
+      length(factors_centered) && !all(factors_centered)) {
+
     non_centered <- !c(numerics_centered,factors_centered)
     non_centered <- names(non_centered)[non_centered]
     warning(
       "Not all variables are centered:\n ",
       paste(non_centered,collapse = ", "),
-      "\n Results might be bogus...",
+      "\n Results might be bogus if involved in interactions...",
       call. = FALSE, immediate. = TRUE
     )
   }
