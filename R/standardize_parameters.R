@@ -38,13 +38,14 @@
 #' levels. This method is not accurate and tend to give aberrant results when
 #' interactions are specified.
 #' - **smart** (Standardization of Model's parameters with Adjustment,
-#' Reconnaissance and Transformation): Similar to `method = "posthoc"` in that
-#' it does not involve model refitting. The difference is that the SD (or MAD if
-#' `robust`) of the response is computed on the relevant section of the data.
-#' For instance, if a factor with 3 levels A (the intercept), B and C is entered
-#' as a predictor, the effect corresponding to B vs. A will be scaled by the
-#' variance of the response at the intercept only. As a results, the
-#' coefficients for effects of factors are similar to a Glass' delta.
+#' Reconnaissance and Transformation - *experimental*): Similar to `method =
+#' "posthoc"` in that it does not involve model refitting. The difference is
+#' that the SD (or MAD if `robust`) of the response is computed on the relevant
+#' section of the data. For instance, if a factor with 3 levels A (the
+#' intercept), B and C is entered as a predictor, the effect corresponding to B
+#' vs. A will be scaled by the variance of the response at the intercept only.
+#' As a results, the coefficients for effects of factors are similar to a Glass'
+#' delta.
 #' - **basic**: This method is similar to `method = "posthoc"`, but treats all
 #' variables as continuous: it also scales the coefficient by the standard
 #' deviation of model's matrix' parameter of factors levels (transformed to
@@ -62,12 +63,14 @@
 #' within-group varialbe is found to have access between-group variance.
 #'
 #' ## Transformed Variables
-#' When the model's formula contains transformations (e.g. `y ~ exp(X)`) `method
-#' = "refit"` might give different results compared to the other (post-hoc)
-#' methods: where `"refit"` standardizes the data prior to the transformation
-#' (e.g. equivalent to `exp(scale(X))`), the post-hoc methods standardize the
-#' transformed data (e.g. equivalent to `scale(exp(X))`). See [standardize()]
-#' for more details on how different transformations are dealt with.
+#' When the model's formula contains transformations (e.g. `y ~ exp(X)`)
+#' `method = "refit"` might give different results compared to
+#' `method = "basic"` (`"posthoc"` and `"smart"` do not support such
+#' transformations): where `"refit"` standardizes the data prior to the
+#' transformation (e.g. equivalent to `exp(scale(X))`), the `"basic"` method
+#' standardizes the transformed data (e.g. equivalent to `scale(exp(X))`). See
+#' [standardize()] for more details on how different transformations are dealt
+#' with.
 #'
 #' ## Generalized Linear Models
 #' When standardizing coefficients of a generalized model (GLM, GLMM, etc), only
@@ -235,6 +238,14 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
     method <- "basic"
   }
 
+  if (method %in% c("smart", "posthoc") &&
+      .cant_smart_or_posthoc(model, pars)) {
+    warning("Method '", method, "' does not currently support models with transformed parameters.",
+            "\nReverting to 'basic' method. Concider using the 'refit' method directly.",
+            call. = FALSE)
+    method <- "basic"
+  }
+
   if (robust && method == "pseudo") {
     warning("'robust' standardization not available for 'pseudo' method.",
             call. = FALSE)
@@ -331,6 +342,14 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
     method <- "basic"
   }
 
+  if (method %in% c("smart", "posthoc") &&
+      .cant_smart_or_posthoc(model, pars)) {
+    warning("Method '", method, "' does not currently support models with transformed parameters.",
+            "\nReverting to 'basic' method. Concider using the 'refit' method directly.",
+            call. = FALSE)
+    method <- "basic"
+  }
+
   if (robust && method == "pseudo") {
     warning("'robust' standardization not available for 'pseudo' method.",
             call. = FALSE)
@@ -368,6 +387,30 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 
   return(pars)
 }
+
+
+
+#' @keywords internal
+.cant_smart_or_posthoc <- function(model,pars) {
+
+  cant_posthocsmart <- FALSE
+
+  if (insight::model_info(model)$is_linear) {
+    if (!colnames(model.frame(model))[1] == insight::find_response(model)) {
+      can_posthocsmart <- TRUE
+    }
+  }
+
+  if (!cant_posthocsmart &&
+      !all(pars$Parameter == insight::clean_names(pars$Parameter))) {
+    cant_posthocsmart <- TRUE
+  }
+
+  return(cant_posthocsmart)
+}
+
+
+
 
 
 
