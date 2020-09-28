@@ -55,7 +55,7 @@ Interpretation of indices of fit found in confirmatory analysis or structural eq
 \item \strong{PNFI}: the Parsimony-Adjusted Measures Index. There is no commonly agreed-upon cutoff value for an acceptable model for this index. Should be > 0.50.
 }
 
-See the documentation for \code{\link[lavaan:fitMeasures]{lavaan::fitmeasures()}}.
+See the documentation for \code{\link[lavaan:fitmeasures]{fitmeasures()}}.
 }
 
 \subsection{What to report}{

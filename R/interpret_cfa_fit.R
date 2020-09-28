@@ -20,7 +20,7 @@
 #' - **IFI**: the Incremental Fit Index (IFI) adjusts the Normed Fit Index (NFI) for sample size and degrees of freedom (Bollen's, 1989). Over 0.90 is a good fit, but the index can exceed 1.
 #' - **PNFI**: the Parsimony-Adjusted Measures Index. There is no commonly agreed-upon cutoff value for an acceptable model for this index. Should be > 0.50.
 #'
-#' See the documentation for [lavaan::fitmeasures()].
+#' See the documentation for \code{\link[lavaan:fitmeasures]{fitmeasures()}}.
 #'
 #'
 #' ## What to report
