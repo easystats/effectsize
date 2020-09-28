@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert between Odds and Probabilities — odds_to_probs • effectsize</title>
+<title>Workers' salary and other information — hardlyworking • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Convert between Odds and Probabilities — odds_to_probs" />
-<meta property="og:description" content="Convert between Odds and Probabilities" />
+<meta property="og:title" content="Workers' salary and other information — hardlyworking" />
+<meta property="og:description" content="A sample (simulated) dataset, used in tests and some examples." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -153,72 +153,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert between Odds and Probabilities</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/convert_odds_to_probs.R'><code>R/convert_odds_to_probs.R</code></a></small>
-    <div class="hidden name"><code>odds_to_probs.Rd</code></div>
+    <h1>Workers' salary and other information</h1>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/datasets.R'><code>R/datasets.R</code></a></small>
+    <div class="hidden name"><code>hardlyworking.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Convert between Odds and Probabilities</p>
+    <p>A sample (simulated) dataset, used in tests and some examples.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>odds_to_probs</span><span class='op'>(</span><span class='va'>odds</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S3 method for data.frame</span>
-<span class='fu'>odds_to_probs</span><span class='op'>(</span><span class='va'>odds</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span>, select <span class='op'>=</span> <span class='cn'>NULL</span>, exclude <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>probs_to_odds</span><span class='op'>(</span><span class='va'>probs</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-<span class='co'># S3 method for data.frame</span>
-<span class='fu'>probs_to_odds</span><span class='op'>(</span><span class='va'>probs</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span>, select <span class='op'>=</span> <span class='cn'>NULL</span>, exclude <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
+    <p>A data frame with 500 rows and 5 variables:</p><dl>
+<dt>salary</dt><dd><p>Salary, in Shmekels</p></dd>
+<dt>xtra_hours</dt><dd><p>Number of overtime hours (on average, per week)</p></dd>
+<dt>n_comps</dt><dd><p>Number of compliments given to the boss (observed over the last week)</p></dd>
+<dt>age</dt><dd><p>Age in years</p></dd>
+<dt>seniority</dt><dd><p>How many years with the company</p></dd>
 
-<span class='fu'>convert_odds_to_probs</span><span class='op'>(</span><span class='va'>odds</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
+</dl>
 
-<span class='fu'>convert_probs_to_odds</span><span class='op'>(</span><span class='va'>probs</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>odds</th>
-      <td><p>The <em>Odds</em> (or <code><a href='https://rdrr.io/r/base/Log.html'>log(odds)</a></code> when <code>log = TRUE</code>) to convert.</p></td>
-    </tr>
-    <tr>
-      <th>log</th>
-      <td><p>Take in or output log odds (such as in logistic models).</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Arguments passed to or from other methods.</p></td>
-    </tr>
-    <tr>
-      <th>select</th>
-      <td><p>When a data frame is passed, character or list of of column names to be
-transformed.</p></td>
-    </tr>
-    <tr>
-      <th>exclude</th>
-      <td><p>When a data frame is passed, character or list of column names to be excluded
-from transformation.</p></td>
-    </tr>
-    <tr>
-      <th>probs</th>
-      <td><p>Probability values to convert.</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/Logistic.html'>stats::plogis()</a></code></p></div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>odds_to_probs</span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.75</div><div class='input'><span class='fu'>odds_to_probs</span><span class='op'>(</span><span class='fl'>1.09</span>, log <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.7483817</div><div class='input'>
-<span class='fu'>probs_to_odds</span><span class='op'>(</span><span class='fl'>0.95</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 19</div><div class='input'><span class='fu'>probs_to_odds</span><span class='op'>(</span><span class='fl'>0.95</span>, log <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 2.944439</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

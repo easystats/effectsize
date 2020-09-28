@@ -98,41 +98,39 @@
 <li>
   <a href="../reference/index.html">Features</a>
 </li>
+<li>
+  <a href="../articles/standardize_data.html">Data Standardization</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Standardization
+    Effect Sizes
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/standardize_data.html">Data standardization</a>
+      <a href="../articles/standardize_parameters.html">Parameter and Model Standardization</a>
     </li>
-    <li>
-      <a href="../articles/standardize_parameters.html">Parameters standardization</a>
-    </li>
+    <li class="dropdown-header">Effect Sizes for ANOVA</li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Effect sizes
+    Conversion
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/logistic.html">Effect Sizes for Logistic Models</a>
+      <a href="../articles/convert.html">Between *d*, *r*, *OR*</a>
     </li>
     <li>
-      <a href="../articles/convert.html">Effect size conversion</a>
-    </li>
-    <li>
-      <a href="../articles/from_test_statistics.html">Effect Size from Test Statistics</a>
-    </li>
-    <li>
-      <a href="../articles/interpret.html">Interpretation Guidelines</a>
+      <a href="../articles/from_test_statistics.html">From Test Statistics</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../articles/interpret.html">Interpretation Guidelines</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -164,7 +162,13 @@
     <p>This function extracts information, such as the deviations (SD or MAD) from parent variables, that are necessary for post-hoc standardization of parameters. This function gives a window on how standardized are obtained, i.e., by what they are devided. The "basic" method of standardization uses</p>
     </div>
 
-    <pre class="usage"><span class='fu'>standardize_info</span>(<span class='kw'>model</span>, robust = <span class='fl'>FALSE</span>, include_pseudo = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>standardize_info</span><span class='op'>(</span>
+  <span class='va'>model</span>,
+  robust <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  two_sd <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  include_pseudo <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,6 +185,14 @@ median from the variables and dividing it by the median absolute deviation
 mean and dividing it by the standard deviation (SD).</p></td>
     </tr>
     <tr>
+      <th>two_sd</th>
+      <td><p>If <code>TRUE</code>, the variables are scaled by two times the deviation
+(SD or MAD depending on <code>robust</code>). This method can be useful to obtain
+model coefficients of continuous parameters comparable to coefficients
+related to binary predictors, when applied to <strong>the predictors</strong> (not the
+outcome) (Gelman, 2008).</p></td>
+    </tr>
+    <tr>
       <th>include_pseudo</th>
       <td><p>(For (G)LMMs) Should Pseudo-standardized information be included?</p></td>
     </tr>
@@ -192,7 +204,7 @@ mean and dividing it by the standard deviation (SD).</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>Sepal.Width</span> <span class='op'>~</span> <span class='kw'>Sepal.Length</span> <span class='op'>*</span> <span class='kw'>Species</span>, data = <span class='kw'>iris</span>)
+    <pre class="examples"><div class='input'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>Sepal.Width</span> <span class='op'>~</span> <span class='va'>Sepal.Length</span> <span class='op'>*</span> <span class='va'>Species</span>, data <span class='op'>=</span> <span class='va'>iris</span><span class='op'>)</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

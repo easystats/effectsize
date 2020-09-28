@@ -98,41 +98,39 @@
 <li>
   <a href="../reference/index.html">Features</a>
 </li>
+<li>
+  <a href="../articles/standardize_data.html">Data Standardization</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Standardization
+    Effect Sizes
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/standardize_data.html">Data standardization</a>
+      <a href="../articles/standardize_parameters.html">Parameter and Model Standardization</a>
     </li>
-    <li>
-      <a href="../articles/standardize_parameters.html">Parameters standardization</a>
-    </li>
+    <li class="dropdown-header">Effect Sizes for ANOVA</li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Effect sizes
+    Conversion
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/logistic.html">Effect Sizes for Logistic Models</a>
+      <a href="../articles/convert.html">Between *d*, *r*, *OR*</a>
     </li>
     <li>
-      <a href="../articles/convert.html">Effect size conversion</a>
-    </li>
-    <li>
-      <a href="../articles/from_test_statistics.html">Effect Size from Test Statistics</a>
-    </li>
-    <li>
-      <a href="../articles/interpret.html">Interpretation Guidelines</a>
+      <a href="../articles/from_test_statistics.html">From Test Statistics</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../articles/interpret.html">Interpretation Guidelines</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -164,9 +162,9 @@
     <p>Compute Cramer's V and phi (\(\phi\)) from contingency tables.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>phi</span>(<span class='kw'>x</span>, y = <span class='kw'>NULL</span>, ci = <span class='fl'>0.95</span>, adjust = <span class='fl'>FALSE</span>, <span class='kw'>CI</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>phi</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, adjust <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>CI</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>cramers_v</span>(<span class='kw'>x</span>, y = <span class='kw'>NULL</span>, ci = <span class='fl'>0.95</span>, adjust = <span class='fl'>FALSE</span>, <span class='kw'>CI</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'>cramers_v</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, adjust <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>CI</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -205,14 +203,14 @@
     <div class='dont-index'><p><code><a href='chisq_to_phi.html'>chisq_to_phi()</a></code> for details regarding estimation and CIs.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>contingency_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>762</span>, <span class='fl'>327</span>, <span class='fl'>468</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>)))
+    <pre class="examples"><div class='input'><span class='va'>contingency_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>762</span>, <span class='fl'>327</span>, <span class='fl'>468</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>phi</span>(<span class='kw'>contingency_table</span>)
-</div><div class='output co'>#&gt;  Phi |    1e+02% CI
+<span class='fu'>phi</span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  Phi |       95% CI
 #&gt; -------------------
 #&gt; 0.10 | [0.07, 0.13]</div><div class='input'>
-<span class='fu'>cramers_v</span>(<span class='kw'>contingency_table</span>)
-</div><div class='output co'>#&gt; Cramer's V |    1e+02% CI
+<span class='fu'>cramers_v</span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Cramer's V |       95% CI
 #&gt; -------------------------
 #&gt;       0.07 | [0.05, 0.09]</div><div class='input'>
 </div></pre>

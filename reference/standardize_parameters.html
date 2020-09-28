@@ -98,41 +98,39 @@
 <li>
   <a href="../reference/index.html">Features</a>
 </li>
+<li>
+  <a href="../articles/standardize_data.html">Data Standardization</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Standardization
+    Effect Sizes
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/standardize_data.html">Data standardization</a>
+      <a href="../articles/standardize_parameters.html">Parameter and Model Standardization</a>
     </li>
-    <li>
-      <a href="../articles/standardize_parameters.html">Parameters standardization</a>
-    </li>
+    <li class="dropdown-header">Effect Sizes for ANOVA</li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Effect sizes
+    Conversion
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/logistic.html">Effect Sizes for Logistic Models</a>
+      <a href="../articles/convert.html">Between *d*, *r*, *OR*</a>
     </li>
     <li>
-      <a href="../articles/convert.html">Effect size conversion</a>
-    </li>
-    <li>
-      <a href="../articles/from_test_statistics.html">Effect Size from Test Statistics</a>
-    </li>
-    <li>
-      <a href="../articles/interpret.html">Interpretation Guidelines</a>
+      <a href="../articles/from_test_statistics.html">From Test Statistics</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../articles/interpret.html">Interpretation Guidelines</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -164,25 +162,25 @@
     <p>Compute standardized model parameters (coefficients).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>standardize_parameters</span>(
-  <span class='kw'>model</span>,
-  method = <span class='st'>"refit"</span>,
-  ci = <span class='fl'>0.95</span>,
-  robust = <span class='fl'>FALSE</span>,
-  two_sd = <span class='fl'>FALSE</span>,
-  verbose = <span class='fl'>TRUE</span>,
-  <span class='kw'>parameters</span>,
-  <span class='kw'>...</span>
-)
+    <pre class="usage"><span class='fu'>standardize_parameters</span><span class='op'>(</span>
+  <span class='va'>model</span>,
+  method <span class='op'>=</span> <span class='st'>"refit"</span>,
+  ci <span class='op'>=</span> <span class='fl'>0.95</span>,
+  robust <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  two_sd <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>parameters</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>standardize_posteriors</span>(
-  <span class='kw'>model</span>,
-  method = <span class='st'>"refit"</span>,
-  robust = <span class='fl'>FALSE</span>,
-  two_sd = <span class='fl'>FALSE</span>,
-  verbose = <span class='fl'>TRUE</span>,
-  <span class='kw'>...</span>
-)</pre>
+<span class='fu'>standardize_posteriors</span><span class='op'>(</span>
+  <span class='va'>model</span>,
+  method <span class='op'>=</span> <span class='st'>"refit"</span>,
+  robust <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  two_sd <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -213,7 +211,8 @@ mean and dividing it by the standard deviation (SD).</p></td>
       <td><p>If <code>TRUE</code>, the variables are scaled by two times the deviation
 (SD or MAD depending on <code>robust</code>). This method can be useful to obtain
 model coefficients of continuous parameters comparable to coefficients
-related to binary predictors (Gelman, 2008).</p></td>
+related to binary predictors, when applied to <strong>the predictors</strong> (not the
+outcome) (Gelman, 2008).</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -225,7 +224,7 @@ related to binary predictors (Gelman, 2008).</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed to <a href='https://rdrr.io/pkg/parameters/man/model_parameters.html'>parameters::model_parameters</a>, such as:</p><ul>
+      <td><p>Arguments passed to <a href='https://easystats.github.io/parameters/reference/model_parameters.html'>parameters::model_parameters</a>, such as:</p><ul>
 <li><p>For Bayesian models: <code>ci_method</code>, <code>centrality </code>, ...</p></li>
 <li><p>For Mixed models: <code>df_method</code>, ...</p></li>
 <li><p>etc.</p></li>
@@ -265,13 +264,13 @@ variables or factors, so the coefficients are still related to changes in
 levels. This method is not accurate and tend to give aberrant results when
 interactions are specified.</p></li>
 <li><p><strong>smart</strong> (Standardization of Model's parameters with Adjustment,
-Reconnaissance and Transformation): Similar to <code>method = "posthoc"</code> in that
-it does not involve model refitting. The difference is that the SD (or MAD if
-<code>robust</code>) of the response is computed on the relevant section of the data.
-For instance, if a factor with 3 levels A (the intercept), B and C is entered
-as a predictor, the effect corresponding to B vs. A will be scaled by the
-variance of the response at the intercept only. As a results, the
-coefficients for effects of factors are similar to a Glass' delta.</p></li>
+Reconnaissance and Transformation - <em>experimental</em>): Similar to <code>method = "posthoc"</code> in that it does not involve model refitting. The difference is
+that the SD (or MAD if <code>robust</code>) of the response is computed on the relevant
+section of the data. For instance, if a factor with 3 levels A (the
+intercept), B and C is entered as a predictor, the effect corresponding to B
+vs. A will be scaled by the variance of the response at the intercept only.
+As a results, the coefficients for effects of factors are similar to a Glass'
+delta.</p></li>
 <li><p><strong>basic</strong>: This method is similar to <code>method = "posthoc"</code>, but treats all
 variables as continuous: it also scales the coefficient by the standard
 deviation of model's matrix' parameter of factors levels (transformed to
@@ -280,23 +279,27 @@ this method is the one implemented by default in other software packages,
 such as <code><a href='https://rdrr.io/pkg/lm.beta/man/lm.beta.html'>lm.beta::lm.beta()</a></code>.</p></li>
 <li><p><strong>pseudo</strong> (<em>for 2-level (G)LMMs only</em>): In this (post-hoc) method, the
 response and the predictor are standardized based on the level of prediction
-(levels are detected with <code><a href='https://rdrr.io/pkg/parameters/man/demean.html'>parameters::check_heterogeneity()</a></code>): Predictors
+(levels are detected with <code><a href='https://easystats.github.io/parameters/reference/demean.html'>parameters::check_heterogeneity()</a></code>): Predictors
 are standardized based on their SD at level of prediction (see also
-<code><a href='https://rdrr.io/pkg/parameters/man/demean.html'>parameters::demean()</a></code>); The outcome (in linear LMMs) is standardized based
+<code><a href='https://easystats.github.io/parameters/reference/demean.html'>parameters::demean()</a></code>); The outcome (in linear LMMs) is standardized based
 on a fitted random-intercept-model, where <code><a href='https://rdrr.io/r/base/MathFun.html'>sqrt(random-intercept-variance)</a></code>
 is used for level 2 predictors, and <code><a href='https://rdrr.io/r/base/MathFun.html'>sqrt(residual-variance)</a></code> is used for
-level 1 predictors (Hoffman 2015, page 342).</p></li>
+level 1 predictors (Hoffman 2015, page 342). A warning is given when a
+within-group varialbe is found to have access between-group variance.</p></li>
 </ul>
 
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Transformed Variables</h3>
 
 
-<p>When the model's formula contains transformations (e.g. <code>y ~ exp(X)</code>) <code>method = "refit"</code> might give different results compared to the other (post-hoc)
-methods: where <code>"refit"</code> standardizes the data prior to the transformation
-(e.g. equivalent to <code><a href='https://rdrr.io/r/base/Log.html'>exp(scale(X))</a></code>), the post-hoc methods standardize the
-transformed data (e.g. equivalent to <code><a href='https://rdrr.io/r/base/scale.html'>scale(exp(X))</a></code>). See <code><a href='standardize.html'>standardize()</a></code>
-for more details on how different transformations are dealt with.</p>
+<p>When the model's formula contains transformations (e.g. <code>y ~ exp(X)</code>)
+<code>method = "refit"</code> might give different results compared to
+<code>method = "basic"</code> (<code>"posthoc"</code> and <code>"smart"</code> do not support such
+transformations): where <code>"refit"</code> standardizes the data prior to the
+transformation (e.g. equivalent to <code><a href='https://rdrr.io/r/base/Log.html'>exp(scale(X))</a></code>), the <code>"basic"</code> method
+standardizes the transformed data (e.g. equivalent to <code><a href='https://rdrr.io/r/base/scale.html'>scale(exp(X))</a></code>). See
+<code><a href='standardize.html'>standardize()</a></code> for more details on how different transformations are dealt
+with.</p>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Generalized Linear Models</h3>
 
@@ -320,12 +323,12 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
     <div class='dont-index'><p><code><a href='standardize_info.html'>standardize_info()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://easystats.github.io/effectsize'>effectsize</a></span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>iris</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://easystats.github.io/effectsize/'>effectsize</a></span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span>
 
-<span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>Sepal.Length</span> <span class='op'>~</span> <span class='kw'>Species</span> <span class='op'>*</span> <span class='kw'>Petal.Width</span>, data = <span class='kw'>iris</span>)
-<span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, method = <span class='st'>"refit"</span>)
-</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |     1e+02% CI
+<span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>Sepal.Length</span> <span class='op'>~</span> <span class='va'>Species</span> <span class='op'>*</span> <span class='va'>Petal.Width</span>, data <span class='op'>=</span> <span class='va'>iris</span><span class='op'>)</span>
+<span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"refit"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
 #&gt; ------------------------------------------------------------------
 #&gt; (Intercept)                   |               0.06 | [-1.43, 1.55]
 #&gt; Speciesversicolor             |              -0.17 | [-1.66, 1.33]
@@ -337,8 +340,8 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; # Standardization method: Refit
 #&gt; </span><span></div><div class='input'>
 <span class='co'># \donttest{</span>
-<span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, method = <span class='st'>"posthoc"</span>)
-</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |     1e+02% CI
+<span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"posthoc"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
 #&gt; ------------------------------------------------------------------
 #&gt; (Intercept)                   |               0.00 | [ 0.00, 0.00]
 #&gt; Speciesversicolor             |              -0.88 | [-2.07, 0.30]
@@ -348,8 +351,8 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; Speciesvirginica:Petal.Width  |              -0.26 | [-1.52, 1.01]
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: Posthoc
-#&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, method = <span class='st'>"smart"</span>)
-</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |     1e+02% CI
+#&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"smart"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
 #&gt; ------------------------------------------------------------------
 #&gt; (Intercept)                   |               0.00 | [ 0.00, 0.00]
 #&gt; Speciesversicolor             |              -2.08 | [-4.85, 0.70]
@@ -359,8 +362,8 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; Speciesvirginica:Petal.Width  |              -0.60 | [-3.56, 2.35]
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: Smart
-#&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, method = <span class='st'>"basic"</span>)
-</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |     1e+02% CI
+#&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"basic"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
 #&gt; ------------------------------------------------------------------
 #&gt; (Intercept)                   |               0.00 | [ 0.00, 0.00]
 #&gt; Speciesversicolor             |              -0.42 | [-0.98, 0.14]
@@ -372,8 +375,8 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; # Standardization method: Basic
 #&gt; </span><span></div><div class='input'>
 <span class='co'># Robust and 2 SD</span>
-<span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, robust = <span class='fl'>TRUE</span>)
-</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |     1e+02% CI
+<span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, robust <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
 #&gt; ------------------------------------------------------------------
 #&gt; (Intercept)                   |               0.18 | [-1.13, 1.49]
 #&gt; Speciesversicolor             |              -0.08 | [-1.40, 1.23]
@@ -383,22 +386,22 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; Speciesvirginica:Petal.Width  |              -0.28 | [-1.65, 1.09]
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: Refit
-#&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, two_sd = <span class='fl'>TRUE</span>)
-</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |     1e+02% CI
+#&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, two_sd <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
 #&gt; ------------------------------------------------------------------
-#&gt; (Intercept)                   |               0.03 | [-0.71, 0.77]
-#&gt; Speciesversicolor             |              -0.08 | [-0.83, 0.67]
-#&gt; Speciesvirginica              |               0.09 | [-0.69, 0.88]
-#&gt; Petal.Width                   |               0.86 | [-0.32, 2.04]
-#&gt; Speciesversicolor:Petal.Width |               0.46 | [-0.88, 1.80]
-#&gt; Speciesvirginica:Petal.Width  |              -0.26 | [-1.52, 1.01]
+#&gt; (Intercept)                   |               0.06 | [-1.43, 1.55]
+#&gt; Speciesversicolor             |              -0.17 | [-1.66, 1.33]
+#&gt; Speciesvirginica              |               0.19 | [-1.38, 1.76]
+#&gt; Petal.Width                   |               1.71 | [-0.65, 4.07]
+#&gt; Speciesversicolor:Petal.Width |               0.91 | [-1.76, 3.59]
+#&gt; Speciesvirginica:Petal.Width  |              -0.51 | [-3.04, 2.02]
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: Refit
 #&gt; </span><span></div><div class='input'>
 
-<span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='kw'>am</span> <span class='op'>~</span> <span class='kw'>cyl</span> <span class='op'>*</span> <span class='kw'>mpg</span>, data = <span class='kw'>mtcars</span>, family = <span class='st'>"binomial"</span>)
-<span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, method = <span class='st'>"refit"</span>)
-</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |     1e+02% CI
+<span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>am</span> <span class='op'>~</span> <span class='va'>cyl</span> <span class='op'>*</span> <span class='va'>mpg</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, family <span class='op'>=</span> <span class='st'>"binomial"</span><span class='op'>)</span>
+<span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"refit"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |        95% CI
 #&gt; ------------------------------------------------
 #&gt; (Intercept) |              -0.58 | [-1.98, 0.70]
 #&gt; cyl         |               0.25 | [-1.54, 2.10]
@@ -406,8 +409,8 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; cyl:mpg     |              -0.36 | [-2.57, 1.54]
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: Refit
-#&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, method = <span class='st'>"posthoc"</span>)
-</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |      1e+02% CI
+#&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"posthoc"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
 #&gt; -------------------------------------------------
 #&gt; (Intercept) |               0.00 | [ 0.00,  0.00]
 #&gt; cyl         |               1.46 | [-4.63,  9.37]
@@ -415,8 +418,8 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; cyl:mpg     |              -0.20 | [-1.44,  0.86]
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: Posthoc
-#&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, method = <span class='st'>"smart"</span>)
-</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |      1e+02% CI
+#&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"smart"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
 #&gt; -------------------------------------------------
 #&gt; (Intercept) |               0.00 | [ 0.00,  0.00]
 #&gt; cyl         |               1.46 | [-4.63,  9.37]
@@ -424,8 +427,8 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; cyl:mpg     |              -0.20 | [-1.44,  0.86]
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: Smart
-#&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span>(<span class='kw'>model</span>, method = <span class='st'>"basic"</span>)
-</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |      1e+02% CI
+#&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"basic"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
 #&gt; -------------------------------------------------
 #&gt; (Intercept) |               0.00 | [ 0.00,  0.00]
 #&gt; cyl         |               1.46 | [-4.63,  9.37]
@@ -436,15 +439,15 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; </span><span></div><div class='input'><span class='co'># }</span>
 
 <span class='co'># \donttest{</span>
-<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'><a href='https://github.com/lme4/lme4'>"lme4"</a></span>)) {
-  <span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>cyl</span> <span class='op'>+</span> <span class='kw'>am</span> <span class='op'>+</span> <span class='kw'>vs</span> <span class='op'>+</span> (<span class='fl'>1</span><span class='op'>|</span><span class='kw'>cyl</span>), <span class='kw'>mtcars</span>)
-  <span class='fu'>standardize_parameters</span>(<span class='kw'>m</span>, method = <span class='st'>"pseudo"</span>)
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/lme4/lme4/'>"lme4"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>cyl</span> <span class='op'>+</span> <span class='va'>am</span> <span class='op'>+</span> <span class='va'>vs</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>|</span><span class='va'>cyl</span><span class='op'>)</span>, <span class='va'>mtcars</span><span class='op'>)</span>
+  <span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>m</span>, method <span class='op'>=</span> <span class='st'>"pseudo"</span>, df_method <span class='op'>=</span> <span class='st'>"satterthwaite"</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The following within-group terms have between-group variance:</span>
 #&gt; <span class='warning'>	am, vs</span>
 #&gt; <span class='warning'>This can inflate standardized within-group parameters associated with</span>
 #&gt; <span class='warning'>these terms. See help("demean", package = "parameters") for modeling</span>
-#&gt; <span class='warning'>between- and within-subject effects.</span></div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |      1e+02% CI
+#&gt; <span class='warning'>between- and within-subject effects.</span></div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
 #&gt; -------------------------------------------------
 #&gt; (Intercept) |                    |               
 #&gt; cyl         |              -0.74 | [-1.23, -0.26]
@@ -455,13 +458,13 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; </span><span></div><div class='input'>
 
 
-<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'><a href='https://mc-stan.org/rstanarm'>"rstanarm"</a></span>)) {
-  <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://mc-stan.org/rstanarm/reference/stan_glm.html'>stan_glm</a></span>(<span class='kw'>Sepal.Length</span> <span class='op'>~</span> <span class='kw'>Species</span> <span class='op'>+</span> <span class='kw'>Petal.Width</span>, data = <span class='kw'>iris</span>, refresh = <span class='fl'>0</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://mc-stan.org/rstanarm/'>"rstanarm"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://mc-stan.org/rstanarm/reference/stan_glm.html'>stan_glm</a></span><span class='op'>(</span><span class='va'>Sepal.Length</span> <span class='op'>~</span> <span class='va'>Species</span> <span class='op'>+</span> <span class='va'>Petal.Width</span>, data <span class='op'>=</span> <span class='va'>iris</span>, refresh <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
   <span class='co'># standardize_posteriors(model, method = "refit")</span>
   <span class='co'># standardize_posteriors(model, method = "posthoc")</span>
   <span class='co'># standardize_posteriors(model, method = "smart")</span>
-  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>standardize_posteriors</span>(<span class='kw'>model</span>, method = <span class='st'>"basic"</span>))
-}
+  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>standardize_posteriors</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"basic"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div><div class='output co'>#&gt;   (Intercept) Speciesversicolor Speciesvirginica Petal.Width
 #&gt; 1           0        0.02443670     -0.009429375   0.8437202
 #&gt; 2           0        0.04569722      0.139988415   0.6858118

@@ -99,41 +99,39 @@ See details below." />
 <li>
   <a href="../reference/index.html">Features</a>
 </li>
+<li>
+  <a href="../articles/standardize_data.html">Data Standardization</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Standardization
+    Effect Sizes
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/standardize_data.html">Data standardization</a>
+      <a href="../articles/standardize_parameters.html">Parameter and Model Standardization</a>
     </li>
-    <li>
-      <a href="../articles/standardize_parameters.html">Parameters standardization</a>
-    </li>
+    <li class="dropdown-header">Effect Sizes for ANOVA</li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Effect sizes
+    Conversion
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/logistic.html">Effect Sizes for Logistic Models</a>
+      <a href="../articles/convert.html">Between *d*, *r*, *OR*</a>
     </li>
     <li>
-      <a href="../articles/convert.html">Effect size conversion</a>
-    </li>
-    <li>
-      <a href="../articles/from_test_statistics.html">Effect Size from Test Statistics</a>
-    </li>
-    <li>
-      <a href="../articles/interpret.html">Interpretation Guidelines</a>
+      <a href="../articles/from_test_statistics.html">From Test Statistics</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../articles/interpret.html">Interpretation Guidelines</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -166,7 +164,7 @@ See details below." />
 See details below.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>effectsize</span>(<span class='kw'>model</span>, <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -197,25 +195,25 @@ See details below.</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>contingency_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>762</span>, <span class='fl'>327</span>, <span class='fl'>468</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span>)))
-<span class='kw'>Xsq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/chisq.test.html'>chisq.test</a></span>(<span class='kw'>contingency_table</span>)
-<span class='fu'>effectsize</span>(<span class='kw'>Xsq</span>)
-</div><div class='output co'>#&gt; Cramer's V |    1e+02% CI
+    <pre class="examples"><div class='input'><span class='va'>contingency_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>762</span>, <span class='fl'>327</span>, <span class='fl'>468</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>Xsq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/chisq.test.html'>chisq.test</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>
+<span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>Xsq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Cramer's V |       95% CI
 #&gt; -------------------------
 #&gt;       0.07 | [0.05, 0.09]</div><div class='input'>
-<span class='kw'>Ts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, y = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7</span><span class='op'>:</span><span class='fl'>20</span>))
-<span class='fu'>effectsize</span>(<span class='kw'>Ts</span>)
-</div><div class='output co'>#&gt;     d |      1e+02% CI
+<span class='va'>Ts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>Ts</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     d |         95% CI
 #&gt; ----------------------
 #&gt; -2.32 | [-3.38, -1.22]</div><div class='input'>
-<span class='kw'>Aov</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/oneway.test.html'>oneway.test</a></span>(<span class='kw'>extra</span> <span class='op'>~</span> <span class='kw'>group</span>, data = <span class='kw'>sleep</span>)
-<span class='fu'>effectsize</span>(<span class='kw'>Aov</span>)
-</div><div class='output co'>#&gt; Eta2 (partial) |    9e+01% CI
+<span class='va'>Aov</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/oneway.test.html'>oneway.test</a></span><span class='op'>(</span><span class='va'>extra</span> <span class='op'>~</span> <span class='va'>group</span>, data <span class='op'>=</span> <span class='va'>sleep</span><span class='op'>)</span>
+<span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>Aov</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Eta2 (partial) |       90% CI
 #&gt; -----------------------------
 #&gt;           0.16 | [0.00, 0.42]</div><div class='input'>
-<span class='kw'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>cyl</span>) <span class='op'>*</span> <span class='kw'>wt</span> <span class='op'>+</span> <span class='kw'>hp</span>, data = <span class='kw'>mtcars</span>)
-<span class='fu'>effectsize</span>(<span class='kw'>fit</span>)
-</div><div class='output co'>#&gt; Parameter       | Coefficient (std.) |      1e+02% CI
+<span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span> <span class='op'>*</span> <span class='va'>wt</span> <span class='op'>+</span> <span class='va'>hp</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+<span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>fit</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parameter       | Coefficient (std.) |         95% CI
 #&gt; -----------------------------------------------------
 #&gt; (Intercept)     |           1.14e-03 | [-0.53,  0.53]
 #&gt; factor(cyl)6    |              -0.20 | [-0.79,  0.38]
@@ -227,9 +225,9 @@ See details below.</p>
 #&gt; <span style='color: #0000BB;'>
 #&gt; # Standardization method: Refit
 #&gt; </span><span></div><div class='input'>
-<span class='kw'>anova_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span>(<span class='kw'>fit</span>)
-<span class='fu'>effectsize</span>(<span class='kw'>anova_table</span>)
-</div><div class='output co'>#&gt; Parameter      | Eta2 (partial) |    9e+01% CI
+<span class='va'>anova_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span><span class='op'>(</span><span class='va'>fit</span><span class='op'>)</span>
+<span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>anova_table</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parameter      | Eta2 (partial) |       90% CI
 #&gt; ----------------------------------------------
 #&gt; factor(cyl)    |           0.86 | [0.76, 0.91]
 #&gt; wt             |           0.47 | [0.22, 0.64]

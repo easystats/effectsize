@@ -97,41 +97,39 @@
 <li>
   <a href="../reference/index.html">Features</a>
 </li>
+<li>
+  <a href="../articles/standardize_data.html">Data Standardization</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Standardization
+    Effect Sizes
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/standardize_data.html">Data standardization</a>
+      <a href="../articles/standardize_parameters.html">Parameter and Model Standardization</a>
     </li>
-    <li>
-      <a href="../articles/standardize_parameters.html">Parameters standardization</a>
-    </li>
+    <li class="dropdown-header">Effect Sizes for ANOVA</li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Effect sizes
+    Conversion
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/logistic.html">Effect Sizes for Logistic Models</a>
+      <a href="../articles/convert.html">Between *d*, *r*, *OR*</a>
     </li>
     <li>
-      <a href="../articles/convert.html">Effect size conversion</a>
-    </li>
-    <li>
-      <a href="../articles/from_test_statistics.html">Effect Size from Test Statistics</a>
-    </li>
-    <li>
-      <a href="../articles/interpret.html">Interpretation Guidelines</a>
+      <a href="../articles/from_test_statistics.html">From Test Statistics</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../articles/interpret.html">Interpretation Guidelines</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -166,6 +164,7 @@
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
+<li>Added <code>hardlyworking</code> (simulated) dataset, for use in examples.</li>
 <li>
 <code>interpret_*</code> ( <a href='https://github.com/easystats/effectsize/issues/131'>#131</a> ):
 <ul>
@@ -190,6 +189,13 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
+<li>
+<code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> for post-hoc correctly standardizes transformed outcome.</li>
+<li>Setting <code>two_sd = TRUE</code> in <code><a href="../reference/standardize.html">standardize()</a></code> and <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> (correctly) on uses 2-SDs of the predictors (and not the response).</li>
+<li>
+<code><a href="../reference/standardize_info.html">standardize_info()</a></code> / <code><a href="../reference/standardize_parameters.html">standardize_parameters(method = "posthoc")</a></code> work for zero-inflated models ( <a href='https://github.com/easystats/effectsize/issues/135'>#135</a> )</li>
+<li>
+<code><a href="../reference/standardize_info.html">standardize_info(include_pseudo = TRUE)</a></code> / <code><a href="../reference/standardize_parameters.html">standardize_parameters(method = "pseudo")</a></code> are less sensitive in detecting between-group variation of within-group variables.</li>
 <li>
 <code><a href="../reference/interpret_oddsratio.html">interpret_oddsratio()</a></code> correctly treats extremely small odds the same as treats extremely large ones.</li>
 </ul>
@@ -287,7 +293,7 @@
 <code>lme</code> and <code>anova.lme</code> objects.</li>
 </ul>
 </li>
-<li>New function <code><a href="https://rdrr.io/pkg/bayestestR/man/equivalence_test.html">equivalence_test()</a></code> for effect sizes.</li>
+<li>New function <code><a href="https://easystats.github.io/bayestestR/reference/equivalence_test.html">equivalence_test()</a></code> for effect sizes.</li>
 <li>New plotting methods in the <code>see</code> package.</li>
 </ul>
 </div>
@@ -317,7 +323,7 @@
 <li>
 <code><a href="../reference/eta_squared.html">eta_squared()</a></code>, <code><a href="../reference/eta_squared.html">omega_squared()</a></code> and <code><a href="../reference/eta_squared.html">epsilon_squared()</a></code> now works
 <ul>
-<li>output from <code><a href="https://rdrr.io/pkg/parameters/man/model_parameters.html">parameters::model_parameters()</a></code>.</li>
+<li>output from <code><a href="https://easystats.github.io/parameters/reference/model_parameters.html">parameters::model_parameters()</a></code>.</li>
 <li>
 <code>mlm</code> models.</li>
 </ul>

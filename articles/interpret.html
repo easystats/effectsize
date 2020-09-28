@@ -56,41 +56,39 @@
 <li>
   <a href="../reference/index.html">Features</a>
 </li>
+<li>
+  <a href="../articles/standardize_data.html">Data Standardization</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Standardization
+    Effect Sizes
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/standardize_data.html">Data standardization</a>
+      <a href="../articles/standardize_parameters.html">Parameter and Model Standardization</a>
     </li>
-    <li>
-      <a href="../articles/standardize_parameters.html">Parameters standardization</a>
-    </li>
+    <li class="dropdown-header">Effect Sizes for ANOVA</li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Effect sizes
+    Conversion
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/logistic.html">Effect Sizes for Logistic Models</a>
+      <a href="../articles/convert.html">Between *d*, *r*, *OR*</a>
     </li>
     <li>
-      <a href="../articles/convert.html">Effect size conversion</a>
-    </li>
-    <li>
-      <a href="../articles/from_test_statistics.html">Effect Size from Test Statistics</a>
-    </li>
-    <li>
-      <a href="../articles/interpret.html">Interpretation Guidelines</a>
+      <a href="../articles/from_test_statistics.html">From Test Statistics</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../articles/interpret.html">Interpretation Guidelines</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -141,8 +139,7 @@
 <a href="#funder2019evaluating" class="anchor"></a><span class="citation">Funder and Ozer (2019)</span>
 </h4>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span>(<span class="kw">x</span>, rules = <span class="st">"funder2019"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"funder2019"</span><span class="op">)</span></pre></div>
 <ul>
 <li>
 <strong>r &lt; 0.05</strong> - Tiny</li>
@@ -164,8 +161,7 @@
 </h4>
 <p>Gignac’s rules of thumb are actually one of few interpretation grid justified and based on actual data, in this case on the distribution of effect magnitudes in the litterature.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span>(<span class="kw">x</span>, rules = <span class="st">"gignac2016"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"gignac2016"</span><span class="op">)</span></pre></div>
 <ul>
 <li>
 <strong>r &lt; 0.1</strong> - Very small</li>
@@ -182,8 +178,7 @@
 <a href="#cohen1988statistical" class="anchor"></a><span class="citation">Cohen (1988)</span>
 </h4>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span>(<span class="kw">x</span>, rules = <span class="st">"cohen1988"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></pre></div>
 <ul>
 <li>
 <strong>r &lt; 0.1</strong> - Very small</li>
@@ -200,8 +195,7 @@
 <a href="#evans1996straightforward" class="anchor"></a><span class="citation">Evans (1996)</span>
 </h4>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span>(<span class="kw">x</span>, rules = <span class="st">"evans1996"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"evans1996"</span><span class="op">)</span></pre></div>
 <ul>
 <li>
 <strong>r &lt; 0.2</strong> - Very weak</li>
@@ -225,8 +219,7 @@
 <a href="#cohen1988statistical-1" class="anchor"></a><span class="citation">Cohen (1988)</span>
 </h4>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_d.html">interpret_d</a></span>(<span class="kw">x</span>, rules = <span class="st">"cohen1988"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/interpret_d.html">interpret_d</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></pre></div>
 <ul>
 <li>
 <strong>d &lt; 0.2</strong> - Very small</li>
@@ -243,8 +236,7 @@
 <a href="#sawilowsky2009new" class="anchor"></a><span class="citation">Sawilowsky (2009)</span>
 </h4>
 <div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_d.html">interpret_d</a></span>(<span class="kw">x</span>, rules = <span class="st">"sawilowsky2009"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/interpret_d.html">interpret_d</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"sawilowsky2009"</span><span class="op">)</span></pre></div>
 <ul>
 <li>
 <strong>d &lt; 0.1</strong> - Tiny</li>
@@ -268,8 +260,7 @@
 </h4>
 <p>Gignac’s rules of thumb are actually one of few interpretation grid justified and based on actual data, in this case on the distribution of effect magnitudes in the literature. These is in fact the same grid used for <em>r</em>, based on the conversion of <em>r</em> to <em>d</em>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_d.html">interpret_d</a></span>(<span class="kw">x</span>, rules = <span class="st">"gignac2016"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/interpret_d.html">interpret_d</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"gignac2016"</span><span class="op">)</span></pre></div>
 <ul>
 <li>
 <strong>d &lt; 0.2</strong> - Very small</li>
@@ -292,8 +283,7 @@
 <a href="#chen2010big" class="anchor"></a><span class="citation">Chen, Cohen, and Chen (2010)</span>
 </h4>
 <div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_oddsratio.html">interpret_oddsratio</a></span>(<span class="kw">x</span>, rules = <span class="st">"chen2010"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/interpret_oddsratio.html">interpret_oddsratio</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"chen2010"</span><span class="op">)</span></pre></div>
 <ul>
 <li>
 <strong>OR &lt; 1.68</strong> - Very small</li>
@@ -310,8 +300,7 @@
 <a href="#cohen1988statistical-2" class="anchor"></a><span class="citation">Cohen (1988)</span>
 </h4>
 <div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_oddsratio.html">interpret_oddsratio</a></span>(<span class="kw">x</span>, rules = <span class="st">"cohen1988"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/interpret_oddsratio.html">interpret_oddsratio</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></pre></div>
 <ul>
 <li>
 <strong>OR &lt; 1.44</strong> - Very small</li>
@@ -339,8 +328,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 <a href="#cohen1988statistical-3" class="anchor"></a><span class="citation">Cohen (1988)</span>
 </h4>
 <div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(<span class="kw">x</span>, rules = <span class="st">"cohen1988"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></pre></div>
 <ul>
 <li>
 <strong>R2 &lt; 0.02</strong> - Very weak</li>
@@ -357,8 +345,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 <a href="#falk1992primer" class="anchor"></a><span class="citation">Falk and Miller (1992)</span>
 </h4>
 <div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(<span class="kw">x</span>, rules = <span class="st">"falk1992"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"falk1992"</span><span class="op">)</span></pre></div>
 <ul>
 <li>
 <strong>R2 &lt; 0.1</strong> - Negligible</li>
@@ -375,8 +362,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 <a href="#chin1998partial" class="anchor"></a><span class="citation">Chin and others (1998)</span>
 </h4>
 <div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(<span class="kw">x</span>, rules = <span class="st">"chin1998"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"chin1998"</span><span class="op">)</span></pre></div>
 <ul>
 <li>
 <strong>R2 &lt; 0.19</strong> - Very weak</li>
@@ -393,8 +379,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 <a href="#hair2011pls" class="anchor"></a><span class="citation">Hair, Ringle, and Sarstedt (2011)</span>
 </h4>
 <div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span>(<span class="kw">x</span>, rules = <span class="st">"hair2011"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"hair2011"</span><span class="op">)</span></pre></div>
 <ul>
 <li>
 <strong>R2 &lt; 0.25</strong> - Very weak</li>
@@ -417,8 +402,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 <a href="#field2013discovering" class="anchor"></a><span class="citation">Field (2013)</span>
 </h4>
 <div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_omega_squared.html">interpret_omega_squared</a></span>(<span class="kw">x</span>, rules = <span class="st">"field2013"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/interpret_omega_squared.html">interpret_omega_squared</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"field2013"</span><span class="op">)</span></pre></div>
 <ul>
 <li>
 <strong>ES &lt; 0.01</strong> - Very small</li>
@@ -436,8 +420,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 </h4>
 <p>These are applicable to one-way ANOVAs, or to <em>partial</em> Eta / Omega / Epsilon Squared in a multi-way ANOVA.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="fu"><a href="../reference/interpret_omega_squared.html">interpret_omega_squared</a></span>(<span class="kw">x</span>, rules = <span class="st">"cohen1992"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/interpret_omega_squared.html">interpret_omega_squared</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1992"</span><span class="op">)</span></pre></div>
 <ul>
 <li>
 <strong>ES &lt; 0.02</strong> - Very small</li>

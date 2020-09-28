@@ -98,41 +98,39 @@
 <li>
   <a href="../reference/index.html">Features</a>
 </li>
+<li>
+  <a href="../articles/standardize_data.html">Data Standardization</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Standardization
+    Effect Sizes
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/standardize_data.html">Data standardization</a>
+      <a href="../articles/standardize_parameters.html">Parameter and Model Standardization</a>
     </li>
-    <li>
-      <a href="../articles/standardize_parameters.html">Parameters standardization</a>
-    </li>
+    <li class="dropdown-header">Effect Sizes for ANOVA</li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Effect sizes
+    Conversion
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/logistic.html">Effect Sizes for Logistic Models</a>
+      <a href="../articles/convert.html">Between *d*, *r*, *OR*</a>
     </li>
     <li>
-      <a href="../articles/convert.html">Effect size conversion</a>
-    </li>
-    <li>
-      <a href="../articles/from_test_statistics.html">Effect Size from Test Statistics</a>
-    </li>
-    <li>
-      <a href="../articles/interpret.html">Interpretation Guidelines</a>
+      <a href="../articles/from_test_statistics.html">From Test Statistics</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../articles/interpret.html">Interpretation Guidelines</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -164,30 +162,30 @@
     <p>Transform numeric values with the integers of their rank (i.e., 1st smallest, 2nd smallest, 3rd smallest, etc.). Setting the <code>sign</code> argument to <code>TRUE</code> will give you signed ranks, where the ranking is done according to absolute size but where the sign is preserved (i.e., 2, 1, -3, 4).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ranktransform</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>ranktransform</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for numeric</span>
-<span class='fu'>ranktransform</span>(<span class='kw'>x</span>, sign = <span class='fl'>FALSE</span>, method = <span class='st'>"average"</span>, verbose = <span class='fl'>TRUE</span>, <span class='kw'>...</span>)
+<span class='fu'>ranktransform</span><span class='op'>(</span><span class='va'>x</span>, sign <span class='op'>=</span> <span class='cn'>FALSE</span>, method <span class='op'>=</span> <span class='st'>"average"</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for grouped_df</span>
-<span class='fu'>ranktransform</span>(
-  <span class='kw'>x</span>,
-  select = <span class='kw'>NULL</span>,
-  exclude = <span class='kw'>NULL</span>,
-  sign = <span class='fl'>FALSE</span>,
-  method = <span class='st'>"average"</span>,
-  <span class='kw'>...</span>
-)
+<span class='fu'>ranktransform</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  select <span class='op'>=</span> <span class='cn'>NULL</span>,
+  exclude <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sign <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  method <span class='op'>=</span> <span class='st'>"average"</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>ranktransform</span>(
-  <span class='kw'>x</span>,
-  select = <span class='kw'>NULL</span>,
-  exclude = <span class='kw'>NULL</span>,
-  sign = <span class='fl'>FALSE</span>,
-  method = <span class='st'>"average"</span>,
-  <span class='kw'>...</span>
-)</pre>
+<span class='fu'>ranktransform</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  select <span class='op'>=</span> <span class='cn'>NULL</span>,
+  exclude <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sign <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  method <span class='op'>=</span> <span class='st'>"average"</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -231,10 +229,10 @@ variables will be selected.</p></td>
     <div class='dont-index'><p><code><a href='normalize.html'>normalize()</a></code> <code><a href='standardize.html'>standardize()</a></code> <code><a href='change_scale.html'>change_scale()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ranktransform</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>))
-</div><div class='output co'>#&gt; [1] 3 4 5 1 2</div><div class='input'><span class='fu'>ranktransform</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span>), sign = <span class='fl'>TRUE</span>)
+    <pre class="examples"><div class='input'><span class='fu'>ranktransform</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 3 4 5 1 2</div><div class='input'><span class='fu'>ranktransform</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span>, sign <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1]  0.0  2.0  4.5 -4.5 -3.0</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>ranktransform</span>(<span class='kw'>iris</span>))
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>ranktransform</span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #&gt; 1         37.0       128.5         18.0          20  setosa
 #&gt; 2         19.5        70.5         18.0          20  setosa

@@ -104,41 +104,39 @@ might not always be appropriate (Yeah... ANOVAs are hard...). See details." />
 <li>
   <a href="../reference/index.html">Features</a>
 </li>
+<li>
+  <a href="../articles/standardize_data.html">Data Standardization</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Standardization
+    Effect Sizes
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/standardize_data.html">Data standardization</a>
+      <a href="../articles/standardize_parameters.html">Parameter and Model Standardization</a>
     </li>
-    <li>
-      <a href="../articles/standardize_parameters.html">Parameters standardization</a>
-    </li>
+    <li class="dropdown-header">Effect Sizes for ANOVA</li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Effect sizes
+    Conversion
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/logistic.html">Effect Sizes for Logistic Models</a>
+      <a href="../articles/convert.html">Between *d*, *r*, *OR*</a>
     </li>
     <li>
-      <a href="../articles/convert.html">Effect size conversion</a>
-    </li>
-    <li>
-      <a href="../articles/from_test_statistics.html">Effect Size from Test Statistics</a>
-    </li>
-    <li>
-      <a href="../articles/interpret.html">Interpretation Guidelines</a>
+      <a href="../articles/from_test_statistics.html">From Test Statistics</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../articles/interpret.html">Interpretation Guidelines</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -176,20 +174,20 @@ Effect sizes are computed using the sums of squares obtained from <code><a href=
 might not always be appropriate (<strong><em>Yeah... ANOVAs are hard...</em></strong>). See details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>eta_squared</span>(<span class='kw'>model</span>, partial = <span class='fl'>TRUE</span>, ci = <span class='fl'>0.9</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model</span>, partial <span class='op'>=</span> <span class='cn'>TRUE</span>, ci <span class='op'>=</span> <span class='fl'>0.9</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>omega_squared</span>(<span class='kw'>model</span>, partial = <span class='fl'>TRUE</span>, ci = <span class='fl'>0.9</span>, <span class='kw'>...</span>)
+<span class='fu'>omega_squared</span><span class='op'>(</span><span class='va'>model</span>, partial <span class='op'>=</span> <span class='cn'>TRUE</span>, ci <span class='op'>=</span> <span class='fl'>0.9</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>epsilon_squared</span>(<span class='kw'>model</span>, partial = <span class='fl'>TRUE</span>, ci = <span class='fl'>0.9</span>, <span class='kw'>...</span>)
+<span class='fu'>epsilon_squared</span><span class='op'>(</span><span class='va'>model</span>, partial <span class='op'>=</span> <span class='cn'>TRUE</span>, ci <span class='op'>=</span> <span class='fl'>0.9</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>cohens_f</span>(<span class='kw'>model</span>, partial = <span class='fl'>TRUE</span>, ci = <span class='fl'>0.9</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'>cohens_f</span><span class='op'>(</span><span class='va'>model</span>, partial <span class='op'>=</span> <span class='cn'>TRUE</span>, ci <span class='op'>=</span> <span class='fl'>0.9</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>model</th>
-      <td><p>A model, ANOVA object, or the result of <code><a href='https://rdrr.io/pkg/parameters/man/model_parameters.html'>parameters::model_parameters</a></code>.</p></td>
+      <td><p>A model, ANOVA object, or the result of <code><a href='https://easystats.github.io/parameters/reference/model_parameters.html'>parameters::model_parameters</a></code>.</p></td>
     </tr>
     <tr>
       <th>partial</th>
@@ -275,79 +273,79 @@ effect sizes, respectively.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://easystats.github.io/effectsize'>effectsize</a></span>)
-<span class='kw'>mtcars</span><span class='op'>$</span><span class='kw'>am_f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>mtcars</span><span class='op'>$</span><span class='kw'>am</span>)
-<span class='kw'>mtcars</span><span class='op'>$</span><span class='kw'>cyl_f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='kw'>mtcars</span><span class='op'>$</span><span class='kw'>cyl</span>)
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://easystats.github.io/effectsize/'>effectsize</a></span><span class='op'>)</span>
+<span class='va'>mtcars</span><span class='op'>$</span><span class='va'>am_f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>am</span><span class='op'>)</span>
+<span class='va'>mtcars</span><span class='op'>$</span><span class='va'>cyl_f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>cyl</span><span class='op'>)</span>
 
-<span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>am_f</span> <span class='op'>*</span> <span class='kw'>cyl_f</span>, data = <span class='kw'>mtcars</span>)
+<span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am_f</span> <span class='op'>*</span> <span class='va'>cyl_f</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
 
-<span class='fu'>eta_squared</span>(<span class='kw'>model</span>)
-</div><div class='output co'>#&gt; Parameter  | Eta2 (partial) |    9e+01% CI
+<span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parameter  | Eta2 (partial) |       90% CI
 #&gt; ------------------------------------------
 #&gt; am_f       |           0.63 | [0.42, 0.75]
 #&gt; cyl_f      |           0.66 | [0.45, 0.77]
-#&gt; am_f:cyl_f |           0.10 | [0.00, 0.27]</div><div class='input'><span class='fu'>omega_squared</span>(<span class='kw'>model</span>)
-</div><div class='output co'>#&gt; Parameter  | Omega2 (partial) |     9e+01% CI
+#&gt; am_f:cyl_f |           0.10 | [0.00, 0.27]</div><div class='input'><span class='fu'>omega_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parameter  | Omega2 (partial) |        90% CI
 #&gt; ---------------------------------------------
 #&gt; am_f       |             0.57 | [ 0.39, 0.73]
 #&gt; cyl_f      |             0.60 | [ 0.40, 0.74]
-#&gt; am_f:cyl_f |             0.02 | [-0.07, 0.21]</div><div class='input'><span class='fu'>epsilon_squared</span>(<span class='kw'>model</span>)
-</div><div class='output co'>#&gt; Parameter  | Epsilon2 (partial) |     9e+01% CI
+#&gt; am_f:cyl_f |             0.02 | [-0.07, 0.21]</div><div class='input'><span class='fu'>epsilon_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parameter  | Epsilon2 (partial) |        90% CI
 #&gt; -----------------------------------------------
 #&gt; am_f       |               0.61 | [ 0.40, 0.74]
 #&gt; cyl_f      |               0.63 | [ 0.41, 0.75]
-#&gt; am_f:cyl_f |               0.03 | [-0.08, 0.22]</div><div class='input'><span class='fu'>cohens_f</span>(<span class='kw'>model</span>)
-</div><div class='output co'>#&gt; Parameter  | Cohen's f (partial) |    9e+01% CI
+#&gt; am_f:cyl_f |               0.03 | [-0.08, 0.22]</div><div class='input'><span class='fu'>cohens_f</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parameter  | Cohen's f (partial) |       90% CI
 #&gt; -----------------------------------------------
 #&gt; am_f       |                1.30 | [0.86, 1.73]
 #&gt; cyl_f      |                1.38 | [0.90, 1.81]
-#&gt; am_f:cyl_f |                0.33 | [0.00, 0.61]</div><div class='input'>(<span class='kw'>etas</span> <span class='op'>&lt;-</span> <span class='fu'>eta_squared</span>(<span class='kw'>model</span>, partial = <span class='fl'>FALSE</span>))
-</div><div class='output co'>#&gt; Parameter  | Eta2 |    9e+01% CI
+#&gt; am_f:cyl_f |                0.33 | [0.00, 0.61]</div><div class='input'><span class='op'>(</span><span class='va'>etas</span> <span class='op'>&lt;-</span> <span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model</span>, partial <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parameter  | Eta2 |       90% CI
 #&gt; --------------------------------
 #&gt; am_f       | 0.36 | [0.14, 0.54]
 #&gt; cyl_f      | 0.41 | [0.16, 0.57]
 #&gt; am_f:cyl_f | 0.02 | [0.00, 0.12]</div><div class='input'>
-<span class='co'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='kw'><a href='https://easystats.github.io/see'>see</a></span>)) <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>etas</span>)
+<span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://easystats.github.io/see/'>see</a></span><span class='op'>)</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>etas</span><span class='op'>)</span>
 </div><div class='img'><img src='eta_squared-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
-<span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>cyl_f</span> <span class='op'>*</span> <span class='kw'>am_f</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>Error</a></span>(<span class='kw'>vs</span> <span class='op'>/</span> <span class='kw'>am_f</span>), data = <span class='kw'>mtcars</span>)
-<span class='fu'>epsilon_squared</span>(<span class='kw'>model</span>)
-</div><div class='output co'>#&gt; Group  |  Parameter | Epsilon2 (partial) |     9e+01% CI
+<span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>cyl_f</span> <span class='op'>*</span> <span class='va'>am_f</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>Error</a></span><span class='op'>(</span><span class='va'>vs</span> <span class='op'>/</span> <span class='va'>am_f</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+<span class='fu'>epsilon_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Group  |  Parameter | Epsilon2 (partial) |        90% CI
 #&gt; --------------------------------------------------------
 #&gt; Within |      cyl_f |               0.40 | [ 0.12, 0.58]
 #&gt; Within |       am_f |              -0.04 | [-0.04, 0.03]
 #&gt; Within | cyl_f:am_f |              -0.03 | [-0.04, 0.10]</div><div class='input'>
 <span class='co'># Recommended:</span>
 <span class='co'># Type-3 effect sizes + effects coding</span>
-<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='kw'><a href='https://r-forge.r-project.org/projects/car'>car</a></span>, quietly = <span class='fl'>TRUE</span>)) {
-  <span class='fu'><a href='https://rdrr.io/r/stats/contrasts.html'>contrasts</a></span>(<span class='kw'>mtcars</span><span class='op'>$</span><span class='kw'>am_f</span>) <span class='op'>&lt;-</span> <span class='kw'>contr.sum</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/contrasts.html'>contrasts</a></span>(<span class='kw'>mtcars</span><span class='op'>$</span><span class='kw'>cyl_f</span>) <span class='op'>&lt;-</span> <span class='kw'>contr.sum</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://r-forge.r-project.org/projects/car/'>car</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/contrasts.html'>contrasts</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>am_f</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>contr.sum</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/contrasts.html'>contrasts</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>cyl_f</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>contr.sum</span>
 
-  <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>am_f</span> <span class='op'>*</span> <span class='kw'>cyl_f</span>, data = <span class='kw'>mtcars</span>)
-  <span class='kw'>model_anova</span> <span class='op'>&lt;-</span> <span class='kw'>car</span>::<span class='fu'><a href='https://rdrr.io/pkg/car/man/Anova.html'>Anova</a></span>(<span class='kw'>model</span>, type = <span class='fl'>3</span>)
+  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am_f</span> <span class='op'>*</span> <span class='va'>cyl_f</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+  <span class='va'>model_anova</span> <span class='op'>&lt;-</span> <span class='fu'>car</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/car/man/Anova.html'>Anova</a></span><span class='op'>(</span><span class='va'>model</span>, type <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 
-  <span class='fu'>eta_squared</span>(<span class='kw'>model_anova</span>)
-}
-</div><div class='output co'>#&gt; Parameter  | Eta2 (partial) |    9e+01% CI
+  <span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model_anova</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; Parameter  | Eta2 (partial) |       90% CI
 #&gt; ------------------------------------------
 #&gt; am_f       |           0.11 | [0.00, 0.32]
 #&gt; cyl_f      |           0.63 | [0.42, 0.75]
 #&gt; am_f:cyl_f |           0.10 | [0.00, 0.27]</div><div class='input'>
-<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'><a href='https://easystats.github.io/parameters'>"parameters"</a></span>)) {
-  <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>wt</span> <span class='op'>+</span> <span class='kw'>cyl</span>, data = <span class='kw'>mtcars</span>)
-  <span class='kw'>mp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/parameters/man/model_parameters.html'>model_parameters</a></span>(<span class='kw'>model</span>)
-  <span class='fu'>eta_squared</span>(<span class='kw'>mp</span>)
-}
-</div><div class='output co'>#&gt; <span class='message'>Loading required package: parameters</span></div><div class='output co'>#&gt; Parameter   | Eta2 (partial) |    9e+01% CI
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://easystats.github.io/parameters/'>"parameters"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>wt</span> <span class='op'>+</span> <span class='va'>cyl</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+  <span class='va'>mp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://easystats.github.io/parameters/reference/model_parameters.html'>model_parameters</a></span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
+  <span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>mp</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: parameters</span></div><div class='output co'>#&gt; Parameter   | Eta2 (partial) |       90% CI
 #&gt; -------------------------------------------
 #&gt; (Intercept) |           0.95 | [0.92, 0.97]
 #&gt; wt          |           0.38 | [0.16, 0.56]
 #&gt; cyl         |           0.31 | [0.10, 0.50]</div><div class='input'>
-<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='kw'><a href='https://github.com/runehaubo/lmerTestR'>lmerTest</a></span>, quietly = <span class='fl'>TRUE</span>)) {
-  <span class='kw'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lmerTest/man/lmer.html'>lmer</a></span>(<span class='kw'>mpg</span> <span class='op'>~</span> <span class='kw'>am_f</span> <span class='op'>*</span> <span class='kw'>cyl_f</span> <span class='op'>+</span> (<span class='fl'>1</span><span class='op'>|</span><span class='kw'>vs</span>), data = <span class='kw'>mtcars</span>)
-  <span class='fu'>omega_squared</span>(<span class='kw'>model</span>)
-}
-</div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; Parameter  | Omega2 (partial) |     9e+01% CI
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/runehaubo/lmerTestR'>lmerTest</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lmerTest/man/lmer.html'>lmer</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am_f</span> <span class='op'>*</span> <span class='va'>cyl_f</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>|</span><span class='va'>vs</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+  <span class='fu'>omega_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; Parameter  | Omega2 (partial) |        90% CI
 #&gt; ---------------------------------------------
 #&gt; am_f       |             0.07 | [-0.04, 0.28]
 #&gt; cyl_f      |             0.60 | [ 0.36, 0.72]
