@@ -39,7 +39,7 @@ if (!all(sapply(pkgs, require, quietly = TRUE, character.only = TRUE))) {
 
 Like in OLS / ML or other frequentists methods of model parameter estimation, standardizing the parameters of Bayesian (generalized) linear regression models can allow for the comparison of so-called "effects" within and between models, variables and studies.
 
-As with frequentists methods, standardizing parameters should not be the only method of examining the role different predictors play in a particular Bayesian model, and this vignette generally assumes that the issues of model convergance, goodness of fit and model selection have already been taken care of. (Learn more about how to become a Bayesian master with [the `bayestestR` package](https://easystats.github.io/bayestestR/).)
+As with frequentists methods, standardizing parameters should not be the only method of examining the role different predictors play in a particular Bayesian model, and this vignette generally assumes that the issues of model convergence, goodness of fit and model selection have already been taken care of. (Learn more about how to become a Bayesian master with [the `bayestestR` package](https://easystats.github.io/bayestestR/).)
 
 ## Set up
 

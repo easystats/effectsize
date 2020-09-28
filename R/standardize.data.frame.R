@@ -7,7 +7,7 @@ standardize.numeric <- function(x, robust = FALSE, two_sd = FALSE, weights = NUL
     return(x)
   }
 
-  if (!is.null(weights)) {
+  if (!is.null(weights) && length(weights)) {
     valid_x <- !is.na(x) & !is.na(weights)
     x <- x[valid_x]
     weights <- weights[valid_x]
