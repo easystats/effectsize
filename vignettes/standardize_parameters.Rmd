@@ -74,6 +74,9 @@ model_parameters(r)
 
 How does it work in the case of differences, when **factors** are entered and differences between a given level and a reference level? You might have heard that it is similar to a **Cohen's *d***. Well, let's see.
 
+```{r include=FALSE}
+mtcars <- datasets::mtcars
+```
 ```{r}
 # Select portion of data containing the two levels of interest
 mtcars$am <- factor(mtcars$am, labels = c("Manual", "Automatic"))
