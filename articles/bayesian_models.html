@@ -69,7 +69,8 @@
 <li>
       <a href="../articles/standardize_parameters.html">Parameter and Model Standardization</a>
     </li>
-    <li class="dropdown-header">Effect Sizes for ANOVA</li>
+    <li class="dropdown-header">ANOVA Effect Sizes</li>
+    <li class="dropdown-header">For Bayesian Models</li>
   </ul>
 </li>
 <li class="dropdown">
@@ -80,7 +81,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/convert.html">Between *d*, *r*, *OR*</a>
+      <a href="../articles/convert.html">Between d, r, OR</a>
     </li>
     <li>
       <a href="../articles/from_test_statistics.html">From Test Statistics</a>
@@ -209,7 +210,9 @@
 <a href="#setup" class="anchor"></a>Setup</h2>
 <p>Let’s factorize out data from above:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="va">hardlyworking</span><span class="op">$</span><span class="va">age_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age</span> <span class="op">&lt;</span> <span class="fl">35</span>, <span class="st">"Young"</span>, <span class="st">"Less_young"</span><span class="op">)</span>
+<span class="va">hardlyworking</span><span class="op">$</span><span class="va">age_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age</span>, 
+                           breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">25</span>,<span class="fl">35</span>,<span class="fl">45</span><span class="op">)</span>, right <span class="op">=</span> <span class="cn">FALSE</span>,
+                           labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Young"</span>, <span class="st">"Less_young"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">hardlyworking</span><span class="op">$</span><span class="va">comps_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">n_comps</span>, 
                              breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>,
                              include.lowest <span class="op">=</span> <span class="cn">TRUE</span>, 
@@ -218,18 +221,19 @@
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age_f</span>,<span class="va">hardlyworking</span><span class="op">$</span><span class="va">comps_f</span><span class="op">)</span></pre></div>
 <pre><code>&gt;             
 &gt;              [0,1) [1,2) [2,3]
-&gt;   Less_young    13    34    27
-&gt;   Young        124   188   114</code></pre>
+&gt;   Young        124   188   114
+&gt;   Less_young    13    34    27</code></pre>
 <p>And fit our model:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="co"># use effects coding</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">contr.sum</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">comps_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">contr.sum</span>
+
 <span class="va">modAOV</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html">stan_glm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">age_f</span> <span class="op">*</span> <span class="va">comps_f</span>,
-                   data <span class="op">=</span> <span class="va">hardlyworking</span>,
-                   family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">gaussian</a></span><span class="op">(</span><span class="op">)</span>, refresh <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></pre></div>
+                   data <span class="op">=</span> <span class="va">hardlyworking</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">gaussian</a></span><span class="op">(</span><span class="op">)</span>,
+                   refresh <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></pre></div>
 <p>We can use <code><a href="../reference/eta_squared_posterior.html">eta_squared_posterior()</a></code> to get the posterior distribution of <span class="math inline">\(eta^2\)</span> or <span class="math inline">\(eta^2_p\)</span> for each effect. Like an ANOVA table, we must make sure to use the right effects-coding and <em>SS</em>-type:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="co"># set effects-coding</span>
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>contrasts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'contr.sum'</span>, <span class="st">'contr.poly'</span><span class="op">)</span><span class="op">)</span>
-
 <span class="va">pes_posterior</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eta_squared_posterior.html">eta_squared_posterior</a></span><span class="op">(</span><span class="va">modAOV</span>, 
                                        draws <span class="op">=</span> <span class="fl">500</span>, <span class="co"># how many times should the PPD be estimated</span>
                                        partial <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># partial eta squared</span>
@@ -237,23 +241,37 @@
 <pre><code>&gt; Simulating effect size... This can take a while...</code></pre>
 <div class="sourceCode" id="cb14"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">pes_posterior</span><span class="op">)</span></pre></div>
-<pre><code>&gt;    age_f comps_f age_f:comps_f
-&gt; 1 0.0047    0.73        0.4967
-&gt; 2 0.2722    0.29        0.1164
-&gt; 3 0.0871    0.52        0.0056
-&gt; 4 0.0065    0.70        0.2608
-&gt; 5 0.0018    0.56        0.0519
-&gt; 6 0.0062    0.79        0.4703</code></pre>
+<pre><code>&gt;   age_f comps_f age_f:comps_f
+&gt; 1 0.004   0.154        0.0185
+&gt; 2 0.038   0.102        0.0128
+&gt; 3 0.046   0.133        0.0147
+&gt; 4 0.022   0.111        0.0055
+&gt; 5 0.030   0.109        0.0187
+&gt; 6 0.065   0.036        0.0091</code></pre>
 <div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="fu">bayestestR</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html">describe_posterior</a></span><span class="op">(</span><span class="va">pes_posterior</span>, rope_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></pre></div>
+<span class="fu">bayestestR</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html">describe_posterior</a></span><span class="op">(</span><span class="va">pes_posterior</span>, rope_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span><span class="op">)</span>, test <span class="op">=</span> <span class="st">"rope"</span><span class="op">)</span></pre></div>
 <pre><code>&gt; # Description of Posterior Distributions
 &gt; 
-&gt; Parameter     | Median |         89% CI | pd |       89% ROPE | % in ROPE
-&gt; -------------------------------------------------------------------------
-&gt; age_f         |  0.022 | [0.000, 0.113] |  1 | [0.000, 0.100] |    97.309
-&gt; comps_f       |  0.673 | [0.529, 0.805] |  1 | [0.000, 0.100] |     0.000
-&gt; age_f:comps_f |  0.224 | [0.002, 0.460] |  1 | [0.000, 0.100] |    26.906</code></pre>
+&gt; Parameter     | Median |         89% CI |       89% ROPE | % in ROPE
+&gt; --------------------------------------------------------------------
+&gt; age_f         |  0.028 | [0.000, 0.059] | [0.000, 0.100] |   100.000
+&gt; comps_f       |  0.137 | [0.073, 0.195] | [0.000, 0.100] |    14.574
+&gt; age_f:comps_f |  0.011 | [0.000, 0.032] | [0.000, 0.100] |   100.000</code></pre>
 </div>
+</div>
+<div id="compare-to" class="section level1">
+<h1 class="hasAnchor">
+<a href="#compare-to" class="anchor"></a>Compare to:</h1>
+<div class="sourceCode" id="cb18"><pre class="downlit">
+<span class="va">modAOV_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">age_f</span> <span class="op">*</span> <span class="va">comps_f</span>,
+               data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html">Anova</a></span><span class="op">(</span><span class="va">modAOV_f</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></pre></div>
+<pre><code>&gt; Parameter     | Eta2 (partial) |       90% CI
+&gt; ---------------------------------------------
+&gt; age_f         |           0.03 | [0.01, 0.05]
+&gt; comps_f       |           0.13 | [0.09, 0.18]
+&gt; age_f:comps_f |       6.65e-03 | [0.00, 0.02]</code></pre>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">

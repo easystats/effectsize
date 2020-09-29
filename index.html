@@ -69,7 +69,8 @@
 <li>
       <a href="articles/standardize_parameters.html">Parameter and Model Standardization</a>
     </li>
-    <li class="dropdown-header">Effect Sizes for ANOVA</li>
+    <li class="dropdown-header">ANOVA Effect Sizes</li>
+    <li class="dropdown-header">For Bayesian Models</li>
   </ul>
 </li>
 <li class="dropdown">
@@ -80,7 +81,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/convert.html">Between *d*, *r*, *OR*</a>
+      <a href="articles/convert.html">Between d, r, OR</a>
     </li>
     <li>
       <a href="articles/from_test_statistics.html">From Test Statistics</a>
@@ -136,9 +137,10 @@
 <p>Click on the buttons above to access the package <a href="https://easystats.github.io/effectsize/"><strong>documentation</strong></a> and the <a href="https://easystats.github.io/blog/posts/"><strong>easystats blog</strong></a>, and check-out these vignettes:</p>
 <ul>
 <li><a href="https://easystats.github.io/effectsize/articles/standardize_data.html"><strong>Data Standardization</strong></a></li>
-<li><a href="https://easystats.github.io/effectsize/articles/standardize_parameters.html"><strong>Parameters Standardization</strong></a></li>
-<li><a href="https://easystats.github.io/effectsize/articles/logistic.html"><strong>Effect Sizes for Logistic Models</strong></a></li>
-<li><a href="https://easystats.github.io/effectsize/articles/convert.html"><strong>Effect size conversion</strong></a></li>
+<li><a href="https://easystats.github.io/effectsize/articles/standardize_parameters.html"><strong>Parameter and Model Standardization</strong></a></li>
+<li><a href="https://easystats.github.io/effectsize/articles/anovaES.html"><strong>ANOVA Effect Sizes</strong></a></li>
+<li><a href="https://easystats.github.io/effectsize/articles/bayesian_models.html"><strong>Effect Sizes in Bayesian Models</strong></a></li>
+<li><a href="https://easystats.github.io/effectsize/articles/convert.html"><strong>Effect Size Conversion</strong></a></li>
 <li><a href="https://easystats.github.io/effectsize/articles/from_test_statistics.html"><strong>Effect Size from Test Statistics</strong></a></li>
 <li><a href="https://easystats.github.io/effectsize/articles/interpret.html"><strong>Automated Interpretation of Indices of Effect Size</strong></a></li>
 </ul>
@@ -205,7 +207,9 @@
 <span class="co">## -------------------------------------------------------</span>
 <span class="co">## (Intercept)       |              -1.01 | [-1.18, -0.84]</span>
 <span class="co">## Speciesversicolor |               1.12 | [ 0.88,  1.37]</span>
-<span class="co">## Speciesvirginica  |               1.91 | [ 1.66,  2.16]</span></pre></div>
+<span class="co">## Speciesvirginica  |               1.91 | [ 1.66,  2.16]</span>
+<span class="co">## </span>
+<span class="co">## # Standardization method: Refit</span></pre></div>
 </div>
 </div>
 <div id="effect-size-interpretation" class="section level2">
@@ -219,8 +223,8 @@
 <div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="fu"><a href="reference/interpret_d.html">interpret_d</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.45</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span>
 <span class="co">## [1] "small"</span>
-<span class="fu"><a href="reference/interpret_d.html">interpret_d</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.45</span>, rules <span class="op">=</span> <span class="st">"funder2019"</span><span class="op">)</span>
-<span class="co">## [1] "medium"</span></pre></div>
+<span class="fu"><a href="reference/interpret_d.html">interpret_d</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.45</span>, rules <span class="op">=</span> <span class="st">"gignac2016"</span><span class="op">)</span>
+<span class="co">## [1] "moderate"</span></pre></div>
 </div>
 <div id="effect-size-conversion" class="section level2">
 <h2 class="hasAnchor">
