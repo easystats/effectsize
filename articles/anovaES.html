@@ -126,10 +126,196 @@
 
     
     
-<p>This vignette needs some love…</p>
-<div id="references" class="section level1">
+<div id="introduction" class="section level1">
+<h1 class="hasAnchor">
+<a href="#introduction" class="anchor"></a>Introduction</h1>
+<p>In the context of ANOVA-like tests, it is common to report ANOVA-like effect sizes. Unlike <a href="https://easystats.github.io/effectsize/articles/standardize_parameters.html">standardized parameters</a>, these effect sizes represent the amount of variance explained by each of the model’s terms, where each term can be represented by 1 <em>or more</em> parameters.</p>
+<p>For example, in the following case, the parameters for the <code>cyl</code> term represent specific contrasts between the factor’s levels - the difference between each level and the reference level (<code>cyl == 4</code>).</p>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>
+<span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span>
+
+<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span>, <span class="va">mtcars</span><span class="op">)</span>
+
+<span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></pre></div>
+<pre><code>&gt; Parameter   | Coefficient |   SE |          95% CI |     t | df |      p
+&gt; ------------------------------------------------------------------------
+&gt; (Intercept) |       26.66 | 0.97 | [ 24.68, 28.65] | 27.44 | 29 | &lt; .001
+&gt; cyl [6]     |       -6.92 | 1.56 | [-10.11, -3.73] | -4.44 | 29 | &lt; .001
+&gt; cyl [8]     |      -11.56 | 1.30 | [-14.22, -8.91] | -8.90 | 29 | &lt; .001</code></pre>
+<p>But we can also ask about the overall effect of <code>cyl</code> - how much of the variation in our defendant variable <code>mpg</code> can be predicted by (or explained by) the variation between the <code>cyl</code> groups. Such a question can be answered with an ANOVA test:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span></pre></div>
+<pre><code>&gt; Parameter | Sum_Squares | df | Mean_Square |     F |      p
+&gt; -----------------------------------------------------------
+&gt; cyl       |      824.78 |  2 |      412.39 | 39.70 | &lt; .001
+&gt; Residuals |      301.26 | 29 |       10.39 |       |</code></pre>
+<p>As we can see, the variance in <code>mpg</code> (the <em>sums-of-squares</em>, or <em>SS</em>) has been split into pieces:</p>
+<ul>
+<li>The part associated with <code>cyl</code>.</li>
+<li>The unexplained part (The Residual-<em>SS</em>).</li>
+</ul>
+<p>We can now ask what is the percent of the total variance in <code>mpg</code> that is associated with <code>cyl</code>. We can calculate this by had as 824.78 / (824.78 + 301.26) = 73%. This measure is called Eta squared, written as <span class="math inline">\(\eta^2\)</span>, and can be accessed via the <code><a href="../reference/eta_squared.html">eta_squared()</a></code> function:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/">effectsize</a></span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+<pre><code>&gt; Parameter | Eta2 |       90% CI
+&gt; -------------------------------
+&gt; cyl       | 0.73 | [0.57, 0.82]</code></pre>
+<div id="eta2-vs-eta2partial" class="section level2">
+<h2 class="hasAnchor">
+<a href="#eta2-vs-eta2partial" class="anchor"></a>Eta<sup>2</sup> vs Eta<sup>2</sup><sub>partial</sub>
+</h2>
+<p>A closely associated measure to <span class="math inline">\(\eta^2\)</span> is the partial-<span class="math inline">\(\eta^2\)</span>, often written as <span class="math inline">\(\eta^2_p\)</span>; Whereas the <span class="math inline">\(\eta^2\)</span> is the percent of the <strong><em>total</em></strong> variance associated with a term, <span class="math inline">\(\eta^2_p\)</span> is the percent of the <strong>partialled</strong> variance (after accounting for other predictors in the model) associated with a term.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="va">mtcars</span><span class="op">$</span><span class="va">am</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span><span class="op">)</span>
+
+<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">am</span>, <span class="va">mtcars</span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+<pre><code>&gt; Parameter | Eta2 |       90% CI
+&gt; -------------------------------
+&gt; cyl       | 0.73 | [0.57, 0.82]
+&gt; am        | 0.03 | [0.00, 0.19]</code></pre>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="co"># partial = TRUE by default</span></pre></div>
+<pre><code>&gt; Parameter | Eta2 (partial) |       90% CI
+&gt; -----------------------------------------
+&gt; cyl       |           0.76 | [0.61, 0.83]
+&gt; am        |           0.12 | [0.00, 0.32]</code></pre>
+<p>Note that when the model has multiple terms, it is recommended to use type-3 errors (can be accessed via <code><a href="https://rdrr.io/pkg/car/man/Anova.html">car::Anova()</a></code>, or the <code>afex</code> package), and not rely on R’s defaults (to use type-1 error):</p>
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html">Anova</a></span><span class="op">(</span><span class="va">m</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+<pre><code>&gt; Parameter | Eta2 |       90% CI
+&gt; -------------------------------
+&gt; cyl       | 0.60 | [0.39, 0.72]
+&gt; am        | 0.05 | [0.00, 0.22]</code></pre>
+<div class="sourceCode" id="cb13"><pre class="downlit">
+<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html">Anova</a></span><span class="op">(</span><span class="va">m</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># partial = TRUE by default</span></pre></div>
+<pre><code>&gt; Parameter | Eta2 (partial) |       90% CI
+&gt; -----------------------------------------
+&gt; cyl       |           0.63 | [0.43, 0.75]
+&gt; am        |           0.12 | [0.00, 0.32]</code></pre>
+<p><span class="math inline">\(\eta^2_p\)</span> will be larger (sometimes equal to) <span class="math inline">\(\eta^2\)</span>. The idea is to simulate the effect size in a design where only the term of interest is manipulated. This terminology assumes some causal relationship between the predictor and the outcome, which reflects the experimental world from which these analyses and measures hail; However, <span class="math inline">\(\eta^2_p\)</span> can also simply be seen as a <strong>signal-to-noise- ratio</strong>, as it only uses the term’s <em>SS</em> and the error-term’s <em>SS</em> (in repeated-measure designs the term-specific residual-<em>SS</em> is used for the computation).</p>
+<p>(Note that in a one-way fixed-effect designs <span class="math inline">\(\eta^2 = \eta^2_p\)</span>.)</p>
+<div id="interactions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#interactions" class="anchor"></a>Interactions</h3>
+<p>When modeling interactions, it is important to use an effects-coding scheme for the dummy variables. This unfortunately makes parameter interpretation harder, but only when this is does do the <em>SS</em>s associated with each lower-order term (or lower-order interaction) represent the <strong>main effect</strong> <strong><em>SS</em></strong>.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit">
+<span class="co"># compare</span>
+<span class="va">m_interaction1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">*</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span>,<span class="op">]</span><span class="op">)</span>
+
+<span class="co"># to:</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">contr.sum</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">contr.sum</span>
+<span class="va">m_interaction2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">*</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span>,<span class="op">]</span><span class="op">)</span>
+
+
+<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html">Anova</a></span><span class="op">(</span><span class="va">m_interaction1</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></pre></div>
+<pre><code>&gt; Parameter | Eta2 (partial) |       90% CI
+&gt; -----------------------------------------
+&gt; cyl       |           0.41 | [0.15, 0.59]
+&gt; am        |           0.20 | [0.02, 0.41]
+&gt; cyl:am    |           0.10 | [0.00, 0.28]</code></pre>
+<div class="sourceCode" id="cb17"><pre class="downlit">
+<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html">Anova</a></span><span class="op">(</span><span class="va">m_interaction2</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></pre></div>
+<pre><code>&gt; Parameter | Eta2 (partial) |       90% CI
+&gt; -----------------------------------------
+&gt; cyl       |           0.63 | [0.41, 0.75]
+&gt; am        |           0.10 | [0.00, 0.30]
+&gt; cyl:am    |           0.10 | [0.00, 0.28]</code></pre>
+</div>
+</div>
+<div id="other-measures-of-effect-size" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-measures-of-effect-size" class="anchor"></a>Other Measures of Effect Size</h2>
+<p>There are 3 more effect-size measures commonly used in ANOVAs. The first two are unbiased estimators of the population’s <span class="math inline">\(\eta^2\)</span>:</p>
+<ul>
+<li>
+<strong>Omega Squared</strong> (<span class="math inline">\(\omega^2\)</span>)</li>
+<li>
+<strong>Epsilon Squared</strong> (<span class="math inline">\(\epsilon^2\)</span>), also referred to as <em>Adjusted Eta Squared</em>.</li>
+</ul>
+<div class="sourceCode" id="cb19"><pre class="downlit">
+<span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html">Anova</a></span><span class="op">(</span><span class="va">m_interaction2</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></pre></div>
+<pre><code>&gt; Parameter | Omega2 (partial) |        90% CI
+&gt; --------------------------------------------
+&gt; cyl       |             0.57 | [ 0.35, 0.72]
+&gt; am        |             0.05 | [-0.04, 0.27]
+&gt; cyl:am    |             0.02 | [-0.08, 0.21]</code></pre>
+<div class="sourceCode" id="cb21"><pre class="downlit">
+<span class="fu"><a href="../reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html">Anova</a></span><span class="op">(</span><span class="va">m_interaction2</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></pre></div>
+<pre><code>&gt; Parameter | Epsilon2 (partial) |        90% CI
+&gt; ----------------------------------------------
+&gt; cyl       |               0.60 | [ 0.36, 0.73]
+&gt; am        |               0.06 | [-0.04, 0.28]
+&gt; cyl:am    |               0.02 | [-0.08, 0.22]</code></pre>
+<p>Both <span class="math inline">\(\omega^2\)</span> and <span class="math inline">\(\epsilon^2\)</span> (and their partial counterparts, <span class="math inline">\(\omega^2_p\)</span> &amp; <span class="math inline">\(\epsilon^2_p\)</span>) are unbiased estimators of the population’s <span class="math inline">\(\eta^2\)</span> (or <span class="math inline">\(\eta^2_p\)</span>, respectively), which is especially important is small samples. Though <span class="math inline">\(\omega^2\)</span> is the more popular choice <span class="citation">(Albers and Lakens 2018)</span>, <span class="math inline">\(\epsilon^2\)</span> is analogous to adjusted-<span class="math inline">\(R^2\)</span> <span class="citation">(Allen 2017, 382)</span>, and has been found to be less biased <span class="citation">(Carroll and Nordholm 1975)</span>.</p>
+<p>Finally, we have the forgotten child - Cohen’s <span class="math inline">\(f\)</span>. Cohen’s <span class="math inline">\(f\)</span> is a transformation of <span class="math inline">\(\eta^2_p\)</span>, and is the ratio between the term-<em>SS</em> and the error-<em>SS</em>. It can take on values between zero, when the population means are all equal, and an indefinitely large number as the means are further and further apart. It is analogous to Cohen’s <span class="math inline">\(d\)</span> when there are only two groups.</p>
+<div class="sourceCode" id="cb23"><pre class="downlit">
+<span class="fu"><a href="../reference/eta_squared.html">cohens_f</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html">Anova</a></span><span class="op">(</span><span class="va">m_interaction2</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></pre></div>
+<pre><code>&gt; Parameter | Cohen's f (partial) |       90% CI
+&gt; ----------------------------------------------
+&gt; cyl       |                1.31 | [0.83, 1.74]
+&gt; am        |                0.33 | [0.00, 0.66]
+&gt; cyl:am    |                0.33 | [0.00, 0.62]</code></pre>
+</div>
+<div id="when-sum-of-squares-are-hard-to-come-by" class="section level2">
+<h2 class="hasAnchor">
+<a href="#when-sum-of-squares-are-hard-to-come-by" class="anchor"></a>When Sum-of-Squares are Hard to Come By</h2>
+<p>Until now we’ve discusses effect sizes in fixed-effect linear model and repeated-measures ANOVA’s - cases where the <em>SS</em>s are readily available, and so the various effect sized presented can easily be estimated. How ever this is not always the case.</p>
+<p>For example, in linear mixed models (LMM/HLM/MLM), the estimation of all required <em>SS</em>s is not straightforward. However, we can still <em>approximate</em> these effect sizes (only their partial versions) based on the <strong>test-statistic approximation method</strong> (learn more in the <a href="https://easystats.github.io/effectsize/articles/from_test_statistics.html"><em>Effect Size from Test Statistics</em> vignette</a>).</p>
+<div class="sourceCode" id="cb25"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/runehaubo/lmerTestR">lmerTest</a></span><span class="op">)</span>
+
+<span class="va">fit_lmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lmerTest/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">Reaction</span> <span class="op">~</span> <span class="va">Days</span> <span class="op">+</span> <span class="op">(</span><span class="va">Days</span> <span class="op">|</span> <span class="va">Subject</span><span class="op">)</span>, <span class="va">sleepstudy</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span> <span class="co"># note the type-3 errors</span></pre></div>
+<pre><code>&gt; Type III Analysis of Variance Table with Satterthwaite's method
+&gt;      Sum Sq Mean Sq NumDF DenDF F value  Pr(&gt;F)    
+&gt; Days  30031   30031     1    17    45.9 3.3e-06 ***
+&gt; ---
+&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<div class="sourceCode" id="cb27"><pre class="downlit">
+<span class="fu"><a href="../reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span><span class="fl">45.8</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">17</span><span class="op">)</span></pre></div>
+<pre><code>&gt; Eta2 (partial) |       90% CI
+&gt; -----------------------------
+&gt;           0.73 | [0.51, 0.83]</code></pre>
+<p>Or directly with `eta_squared() and co.:</p>
+<div class="sourceCode" id="cb29"><pre class="downlit">
+<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></pre></div>
+<pre><code>&gt; Parameter | Eta2 (partial) |       90% CI
+&gt; -----------------------------------------
+&gt; Days      |           0.73 | [0.51, 0.83]</code></pre>
+<div class="sourceCode" id="cb31"><pre class="downlit">
+<span class="fu"><a href="../reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></pre></div>
+<pre><code>&gt; Parameter | Epsilon2 (partial) |       90% CI
+&gt; ---------------------------------------------
+&gt; Days      |               0.71 | [0.48, 0.82]</code></pre>
+<div class="sourceCode" id="cb33"><pre class="downlit">
+<span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></pre></div>
+<pre><code>&gt; Parameter | Omega2 (partial) |       90% CI
+&gt; -------------------------------------------
+&gt; Days      |             0.70 | [0.47, 0.82]</code></pre>
+<p>Another case where <em>SS</em>s are not available is when use Bayesian models. <code>effectsize</code> has Bayesian solutions for Bayesian models, about which you can read in the <a href="https://easystats.github.io/effectsize/articles/bayesian_models.html"><em>Effect Sizes for Bayesian Models</em> vignette</a>.</p>
+</div>
+</div>
+<div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
+<div id="refs" class="references">
+<div id="ref-albers2018power">
+<p>Albers, Casper, and Daniël Lakens. 2018. “When Power Analyses Based on Pilot Data Are Biased: Inaccurate Effect Size Estimators and Follow-up Bias.” <em>Journal of Experimental Social Psychology</em> 74: 187–95.</p>
+</div>
+<div id="ref-allen2017statistics">
+<p>Allen, Rory. 2017. <em>Statistics and Experimental Design for Psychologists: A Model Comparison Approach</em>. World Scientific Publishing Company.</p>
+</div>
+<div id="ref-carroll1975sampling">
+<p>Carroll, Robert M, and Lena A Nordholm. 1975. “Sampling Characteristics of Kelley’s Epsilon and Hays’ Omega.” <em>Educational and Psychological Measurement</em> 35 (3): 541–54.</p>
+</div>
+</div>
 </div>
   </div>
 

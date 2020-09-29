@@ -129,12 +129,118 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>To make sense of their data and effects, scientists might want to standardize (Z-score) their variables. They become unitless, expressed only in terms of deviation from an index of centrality (e.g., the mean or the median). However, aside from some benefits, standardization also comes with challenges and issues, that the scientist should be aware of.</p>
-<div id="normal-vs--robust" class="section level2">
+<p>To make sense of their data and effects, scientists might want to standardize (Z-score) their variables. This makes the data unitless, expressed only in terms of deviation from an index of centrality (e.g., the mean or the median). However, aside from some benefits, standardization also comes with challenges and issues, that the scientist should be aware of.</p>
+<div id="methods-of-standardization" class="section level2">
 <h2 class="hasAnchor">
-<a href="#normal-vs--robust" class="anchor"></a>Normal <em>vs.</em> Robust</h2>
-<p>The <code>effectsize</code> package offers two methods of standardization.</p>
-<p><strong>[TO DO]</strong></p>
+<a href="#methods-of-standardization" class="anchor"></a>Methods of Standardization</h2>
+<p>The <code>effectsize</code> package offers two methods of standardization via the <code><a href="../reference/standardize.html">standardize()</a></code> function:</p>
+<ul>
+<li>
+<strong>Normal standardization</strong>: center around the <em>mean</em>, with <em>SD</em> units (default).</li>
+<li>
+<strong>Robust standardization</strong>: center around the <em>median</em>, with <em>MAD</em> units (<code>robust = TRUE</code>).</li>
+</ul>
+<p>Let’s look at the following example:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/">effectsize</a></span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"hardlyworking"</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">)</span></pre></div>
+<pre><code>&gt;   salary xtra_hours n_comps age seniority
+&gt; 1  19745        4.2       1  32         3
+&gt; 2  11302        1.6       0  34         3
+&gt; 3  20636        1.2       3  33         5
+&gt; 4  23047        7.2       1  35         3
+&gt; 5  27342       11.3       0  33         4
+&gt; 6  25657        3.6       2  30         5</code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="va">hardlyworking</span><span class="op">$</span><span class="va">xtra_hours_z</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">xtra_hours</span><span class="op">)</span>
+
+<span class="va">hardlyworking</span><span class="op">$</span><span class="va">xtra_hours_zr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">xtra_hours</span>, robust <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<p>We can see that different methods give different central and variation values:</p>
+<table class="table">
+<thead><tr class="header">
+<th align="left">name</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">median</th>
+<th align="right">mad</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">xtra_hours</td>
+<td align="right">3.98</td>
+<td align="right">3.9</td>
+<td align="right">2.77</td>
+<td align="right">2.85</td>
+</tr>
+<tr class="even">
+<td align="left">xtra_hours_z</td>
+<td align="right">0.00</td>
+<td align="right">1.0</td>
+<td align="right">-0.31</td>
+<td align="right">0.73</td>
+</tr>
+<tr class="odd">
+<td align="left">xtra_hours_zr</td>
+<td align="right">0.42</td>
+<td align="right">1.4</td>
+<td align="right">0.00</td>
+<td align="right">1.00</td>
+</tr>
+</tbody>
+</table>
+<p><code><a href="../reference/standardize.html">standardize()</a></code> can also be used to standardize a full data frame - where each numeric variable is standardized separately:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="va">hardlyworking_z</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">)</span></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">name</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">median</th>
+<th align="right">mad</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">age</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.060</td>
+<td align="right">1.25</td>
+</tr>
+<tr class="even">
+<td align="left">n_comps</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">-0.061</td>
+<td align="right">1.80</td>
+</tr>
+<tr class="odd">
+<td align="left">salary</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">-0.162</td>
+<td align="right">0.86</td>
+</tr>
+<tr class="even">
+<td align="left">seniority</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">-0.368</td>
+<td align="right">1.29</td>
+</tr>
+<tr class="odd">
+<td align="left">xtra_hours</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">-0.308</td>
+<td align="right">0.73</td>
+</tr>
+</tbody>
+</table>
+<p>Weighted standardization is also supported via the <code>weights</code> argument, and factors can also be standardized (if you’re into that kind of thing) by setting <code>force = TRUE</code>, which converts factors to treatment-coded dummy variables before standardizing.</p>
 </div>
 <div id="variable-wise-vs--participant-wise" class="section level2">
 <h2 class="hasAnchor">
@@ -149,224 +255,250 @@
 <strong>Full</strong>: Participant-wise first and then re-standardizing variable-wise.</li>
 </ul>
 <p>Unfortunately, the method used is often not explicitly stated. This is an issue as these methods can generate important discrepancies (that can in turn contribute to the reproducibility crisis). Let’s investigate these 3 methods.</p>
-</div>
-</div>
-<div id="the-data" class="section level1">
-<h1 class="hasAnchor">
-<a href="#the-data" class="anchor"></a>The data</h1>
+<div id="the-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#the-data" class="anchor"></a>The Data</h3>
 <p>We will take the <code>emotion</code> dataset in which participants were exposed to negative pictures and had to rate their emotions (<strong>valence</strong>) and the amount of memories associated with the picture (<strong>autobiographical link</strong>). One could make the hypothesis that for young participants with no context of war or violence, the most negative pictures (mutilations) are less related to memories than less negative pictures (involving for example car crashes or sick people). In other words, <strong>we expect a positive relationship between valence</strong> (with high values corresponding to less negativity) <strong>and autobiographical link</strong>.</p>
 <p>Let’s have a look at the data, averaged by participants:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
+<div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
 
 <span class="co"># Download the 'emotion' dataset</span>
 <span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/connections.html">url</a></span><span class="op">(</span><span class="st">"https://raw.github.com/neuropsychology/psycho.R/master/data/emotion.rda"</span><span class="op">)</span><span class="op">)</span>  
   
 <span class="co"># Discard neutral pictures (keep only negative)</span>
-<span class="va">df</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op">%&gt;%</span> 
+<span class="va">emotion</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Emotion_Condition</span> <span class="op">==</span> <span class="st">"Negative"</span><span class="op">)</span>  
 
 <span class="co"># Summary</span>
-<span class="va">df</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Participant_ID</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n_Trials <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,
-            Valence_Mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Subjective_Valence</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,
-            Valence_SD <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">Subjective_Valence</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,
-            Autobiographical_Link_Mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Autobiographical_Link</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,
-            Autobiographical_Link_SD <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">Autobiographical_Link</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></pre></div>
-<p>As we can see from the means and SDs, there is a lot of variability <strong>between and within</strong> participants (between their means and their individual SD).</p>
+<span class="va">emotion</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="va">Subjective_Valence</span>, <span class="va">Autobiographical_Link</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Participant_ID</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
+    n_Trials <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,
+    Valence_Mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Subjective_Valence</span><span class="op">)</span>,
+    Valence_SD <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">Subjective_Valence</span><span class="op">)</span>
+  <span class="op">)</span></pre></div>
+<pre><code>&gt; # A tibble: 19 x 4
+&gt;    Participant_ID n_Trials Valence_Mean Valence_SD
+&gt;    &lt;fct&gt;             &lt;int&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+&gt;  1 10S                  24       -58.1       42.6 
+&gt;  2 11S                  24       -73.2       37.0 
+&gt;  3 12S                  24       -57.5       26.6 
+&gt;  4 13S                  24       -63.2       23.7 
+&gt;  5 14S                  24       -56.6       26.5 
+&gt;  6 15S                  24       -60.6       33.7 
+&gt;  7 16S                  24       -46.1       24.9 
+&gt;  8 17S                  24        -1.54       4.98
+&gt;  9 18S                  24       -67.2       35.0 
+&gt; 10 19S                  24       -59.6       33.2 
+&gt; 11 1S                   24       -53.0       42.9 
+&gt; 12 2S                   23       -43.0       39.2 
+&gt; 13 3S                   24       -64.3       34.4 
+&gt; 14 4S                   24       -81.6       27.6 
+&gt; 15 5S                   24       -58.1       25.3 
+&gt; 16 6S                   24       -74.7       29.2 
+&gt; 17 7S                   24       -62.3       39.7 
+&gt; 18 8S                   24       -56.9       32.7 
+&gt; 19 9S                   24       -31.5       52.7</code></pre>
+<p>As we can see from the means and SDs, there is a lot of variability <strong>between</strong> participants both in their means and their individual <em>within</em>-participant SD.</p>
 </div>
-<div id="standardize" class="section level1">
-<h1 class="hasAnchor">
-<a href="#standardize" class="anchor"></a>Standardize</h1>
-<p>We will create three dataframes standardized with each of the three techniques.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/">effectsize</a></span><span class="op">)</span>
-
-<span class="va">Z_VariableWise</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op">%&gt;%</span> 
+<div id="effect-of-standardization" class="section level3">
+<h3 class="hasAnchor">
+<a href="#effect-of-standardization" class="anchor"></a>Effect of Standardization</h3>
+<p>We will create three data frames standardized with each of the three techniques.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="va">Z_VariableWise</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="va">Z_ParticipantWise</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op">%&gt;%</span> 
+<span class="va">Z_ParticipantWise</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Participant_ID</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="op">)</span> 
 
-<span class="va">Z_Full</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op">%&gt;%</span> 
+<span class="va">Z_Full</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Participant_ID</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="op">)</span> </pre></div>
-</div>
-<div id="effect-of-standardization" class="section level1">
-<h1 class="hasAnchor">
-<a href="#effect-of-standardization" class="anchor"></a>Effect of Standardization</h1>
 <p>Let’s see how these three standardization techniques affected the <strong>Valence</strong> variable.</p>
-<div id="at-a-general-level" class="section level2">
-<h2 class="hasAnchor">
-<a href="#at-a-general-level" class="anchor"></a>At a general level</h2>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="co"># Create a convenient function to print</span>
-<span class="va">print_summary</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/deparse.html">deparse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substitute.html">substitute</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span>, <span class="st">": "</span><span class="op">)</span>, 
-    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">data</span><span class="op">[[</span><span class="st">"Subjective_Valence"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>, 
-          <span class="st">"+-"</span>, 
-          <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">data</span><span class="op">[[</span><span class="st">"Subjective_Valence"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">" ["</span>, 
-           <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">data</span><span class="op">[[</span><span class="st">"Subjective_Valence"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>,
-           <span class="st">","</span>, 
-           <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">data</span><span class="op">[[</span><span class="st">"Subjective_Valence"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>,
-           <span class="st">"]"</span><span class="op">)</span>
-    <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co"># Check the results</span>
-<span class="fu">print_summary</span><span class="op">(</span><span class="va">Z_VariableWise</span><span class="op">)</span></pre></div>
-<pre><code>[1] "Z_VariableWise: 0 +- 1 [-1.178,3.101]"</code></pre>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu">print_summary</span><span class="op">(</span><span class="va">Z_ParticipantWise</span><span class="op">)</span></pre></div>
-<pre><code>[1] "Z_ParticipantWise: 0 +- 0.98 [-2.933,3.293]"</code></pre>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu">print_summary</span><span class="op">(</span><span class="va">Z_Full</span><span class="op">)</span></pre></div>
-<pre><code>[1] "Z_Full: 0 +- 1 [-2.992,3.36]"</code></pre>
+</div>
+<div id="across-participants" class="section level3">
+<h3 class="hasAnchor">
+<a href="#across-participants" class="anchor"></a>Across Participants</h3>
+<p>We can calculate the mean and SD of <em>Valence</em> across all participants:</p>
+<table class="table">
+<thead><tr class="header">
+<th align="left">DF</th>
+<th align="right">Mean</th>
+<th align="right">SD</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Z_VariableWise</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+</tr>
+<tr class="even">
+<td align="left">Z_ParticipantWise</td>
+<td align="right">0</td>
+<td align="right">0.98</td>
+</tr>
+<tr class="odd">
+<td align="left">Z_Full</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+</tr>
+</tbody>
+</table>
 <p>The <strong>means</strong> and the <strong>SD</strong> appear as fairly similar (0 and 1)…</p>
+<p><img src="standardize_data_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;"></p>
+<p>and so do the marginal distributions…</p>
 </div>
-<div id="distribution" class="section level2">
-<h2 class="hasAnchor">
-<a href="#distribution" class="anchor"></a>Distribution</h2>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/bayestestR/">bayestestR</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/see/">see</a></span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>VarWise <span class="op">=</span> <span class="va">Z_VariableWise</span><span class="op">$</span><span class="va">Subjective_Valence</span>,
-           ParWise <span class="op">=</span> <span class="va">Z_ParticipantWise</span><span class="op">$</span><span class="va">Subjective_Valence</span>,
-           Full <span class="op">=</span> <span class="va">Z_Full</span><span class="op">$</span><span class="va">Subjective_Valence</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://easystats.github.io/bayestestR/reference/estimate_density.html">estimate_density</a></span><span class="op">(</span>method<span class="op">=</span><span class="st">"kernSmooth"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">see</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/see/reference/theme_modern.html">theme_modern</a></span><span class="op">(</span><span class="op">)</span></pre></div>
-<p><img src="standardize_data_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>and the distributions appear to be similar…</p>
+<div id="at-the-participant-level" class="section level3">
+<h3 class="hasAnchor">
+<a href="#at-the-participant-level" class="anchor"></a>At the Participant Level</h3>
+<p>However we can also look at what happens in the participant level. Let’s look at the first 5 participants:</p>
+<table class="table">
+<thead><tr class="header">
+<th align="left">DF</th>
+<th align="left">Participant_ID</th>
+<th align="right">Mean</th>
+<th align="right">SD</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Z_VariableWise</td>
+<td align="left">10S</td>
+<td align="right">-0.05</td>
+<td align="right">1.15</td>
+</tr>
+<tr class="even">
+<td align="left">Z_VariableWise</td>
+<td align="left">11S</td>
+<td align="right">-0.46</td>
+<td align="right">1.00</td>
+</tr>
+<tr class="odd">
+<td align="left">Z_VariableWise</td>
+<td align="left">12S</td>
+<td align="right">-0.03</td>
+<td align="right">0.72</td>
+</tr>
+<tr class="even">
+<td align="left">Z_VariableWise</td>
+<td align="left">13S</td>
+<td align="right">-0.19</td>
+<td align="right">0.64</td>
+</tr>
+<tr class="odd">
+<td align="left">Z_VariableWise</td>
+<td align="left">14S</td>
+<td align="right">-0.01</td>
+<td align="right">0.71</td>
+</tr>
+<tr class="even">
+<td align="left">Z_ParticipantWise</td>
+<td align="left">10S</td>
+<td align="right">0.00</td>
+<td align="right">1.00</td>
+</tr>
+<tr class="odd">
+<td align="left">Z_ParticipantWise</td>
+<td align="left">11S</td>
+<td align="right">0.00</td>
+<td align="right">1.00</td>
+</tr>
+<tr class="even">
+<td align="left">Z_ParticipantWise</td>
+<td align="left">12S</td>
+<td align="right">0.00</td>
+<td align="right">1.00</td>
+</tr>
+<tr class="odd">
+<td align="left">Z_ParticipantWise</td>
+<td align="left">13S</td>
+<td align="right">0.00</td>
+<td align="right">1.00</td>
+</tr>
+<tr class="even">
+<td align="left">Z_ParticipantWise</td>
+<td align="left">14S</td>
+<td align="right">0.00</td>
+<td align="right">1.00</td>
+</tr>
+<tr class="odd">
+<td align="left">Z_Full</td>
+<td align="left">10S</td>
+<td align="right">0.00</td>
+<td align="right">1.02</td>
+</tr>
+<tr class="even">
+<td align="left">Z_Full</td>
+<td align="left">11S</td>
+<td align="right">0.00</td>
+<td align="right">1.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Z_Full</td>
+<td align="left">12S</td>
+<td align="right">0.00</td>
+<td align="right">1.02</td>
+</tr>
+<tr class="even">
+<td align="left">Z_Full</td>
+<td align="left">13S</td>
+<td align="right">0.00</td>
+<td align="right">1.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Z_Full</td>
+<td align="left">14S</td>
+<td align="right">0.00</td>
+<td align="right">1.02</td>
+</tr>
+</tbody>
+</table>
+<p>Seems like <em>full</em> and <em>participant-wise</em> standardization give similar results, but different ones than <em>variable-wise</em> standardization.</p>
 </div>
-<div id="at-a-participant-level" class="section level2">
-<h2 class="hasAnchor">
-<a href="#at-a-participant-level" class="anchor"></a>At a participant level</h2>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="co"># Create convenient function</span>
-<span class="va">print_participants</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">{</span>
-  <span class="va">data</span> <span class="op">%&gt;%</span> 
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Participant_ID</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>Mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Subjective_Valence</span><span class="op">)</span>, 
-              SD <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">Subjective_Valence</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_if</a></span><span class="op">(</span><span class="va">is.numeric</span>, <span class="va">round</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-    <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span> 
-    
-<span class="op">}</span>
-
-<span class="co"># Check the results</span>
-<span class="fu">print_participants</span><span class="op">(</span><span class="va">Z_VariableWise</span><span class="op">)</span></pre></div>
-<pre><code># A tibble: 5 x 3
-  Participant_ID  Mean    SD
-  &lt;fct&gt;          &lt;dbl&gt; &lt;dbl&gt;
-1 10S            -0.05  1.15
-2 11S            -0.46  1   
-3 12S            -0.03  0.72
-4 13S            -0.19  0.64
-5 14S            -0.01  0.71</code></pre>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="fu">print_participants</span><span class="op">(</span><span class="va">Z_ParticipantWise</span><span class="op">)</span></pre></div>
-<pre><code># A tibble: 5 x 3
-  Participant_ID  Mean    SD
-  &lt;fct&gt;          &lt;dbl&gt; &lt;dbl&gt;
-1 10S                0     1
-2 11S                0     1
-3 12S                0     1
-4 13S                0     1
-5 14S                0     1</code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="fu">print_participants</span><span class="op">(</span><span class="va">Z_Full</span><span class="op">)</span></pre></div>
-<pre><code># A tibble: 5 x 3
-  Participant_ID  Mean    SD
-  &lt;fct&gt;          &lt;dbl&gt; &lt;dbl&gt;
-1 10S                0  1.02
-2 11S                0  1.02
-3 12S                0  1.02
-4 13S                0  1.02
-5 14S                0  1.02</code></pre>
-<p>Ok so there are some differences here….</p>
-</div>
-</div>
-<div id="correlation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#correlation" class="anchor"></a>Correlation</h1>
+<div id="compare" class="section level3">
+<h3 class="hasAnchor">
+<a href="#compare" class="anchor"></a>Compare</h3>
 <p>Let’s do a <strong>correlation</strong> between the <strong>variable-wise and participant-wise methods</strong>.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">Z_VariableWise</span><span class="op">$</span><span class="va">Subjective_Valence</span>, <span class="va">Z_ParticipantWise</span><span class="op">$</span><span class="va">Subjective_Valence</span><span class="op">)</span></pre></div>
-<pre><code>
-    Pearson's product-moment correlation
-
-data:  Z_VariableWise$Subjective_Valence and Z_ParticipantWise$Subjective_Valence
-t = 35, df = 454, p-value &lt;2e-16
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- 0.82 0.87
-sample estimates:
- cor 
-0.85 </code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Original <span class="op">=</span> <span class="va">df</span><span class="op">$</span><span class="va">Subjective_Valence</span>,
-           VariableWise <span class="op">=</span> <span class="va">Z_VariableWise</span><span class="op">$</span><span class="va">Subjective_Valence</span>,
-           ParticipantWise <span class="op">=</span> <span class="va">Z_ParticipantWise</span><span class="op">$</span><span class="va">Subjective_Valence</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">VariableWise</span>, y<span class="op">=</span><span class="va">ParticipantWise</span>, colour<span class="op">=</span><span class="va">Original</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method<span class="op">=</span><span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">see</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/see/reference/theme_modern.html">theme_modern</a></span><span class="op">(</span><span class="op">)</span></pre></div>
-<p><img src="standardize_data_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="standardize_data_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>While the three standardization methods roughly present the same characteristics at a general level (mean 0 and SD 1) and a similar distribution, their values are not exactly the same!</p>
-</div>
-<div id="test" class="section level1">
-<h1 class="hasAnchor">
-<a href="#test" class="anchor"></a>Test</h1>
 <p>Let’s now answer to the original question by investigating the <strong>linear relationship between valence and autobiographical link</strong>. We can do this by running a mixed model with participants entered as random effects.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit">
+<div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/">lme4</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/parameters/">parameters</a></span><span class="op">)</span>
 
-<span class="co"># Convenient function</span>
-<span class="va">print_model</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">{</span>
-  <span class="va">type_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/deparse.html">deparse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substitute.html">substitute</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">Subjective_Valence</span> <span class="op">~</span> <span class="va">Autobiographical_Link</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">Participant_ID</span><span class="op">)</span>, data<span class="op">=</span><span class="va">data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-    <span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">parameters</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Parameter</span> <span class="op">==</span> <span class="st">"Autobiographical_Link"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Type <span class="op">=</span> <span class="va">type_name</span>,
-           Coefficient <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">Coefficient</span>, <span class="fl">3</span><span class="op">)</span>,
-           p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Type</span>, <span class="va">Coefficient</span>, <span class="va">p</span><span class="op">)</span>
-<span class="op">}</span>
+<span class="va">m_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">Subjective_Valence</span> <span class="op">~</span> <span class="va">Autobiographical_Link</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">Participant_ID</span><span class="op">)</span>,
+              data <span class="op">=</span> <span class="va">emotion</span><span class="op">)</span>
 
-<span class="co"># Run the model on all datasets</span>
-<span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu">print_model</span><span class="op">(</span><span class="va">df</span><span class="op">)</span>, 
-      <span class="fu">print_model</span><span class="op">(</span><span class="va">Z_VariableWise</span><span class="op">)</span>,
-      <span class="fu">print_model</span><span class="op">(</span><span class="va">Z_ParticipantWise</span><span class="op">)</span>,
-      <span class="fu">print_model</span><span class="op">(</span><span class="va">Z_Full</span><span class="op">)</span><span class="op">)</span></pre></div>
-<pre><code>Type              | Coefficient |     p
----------------------------------------
-df                |        0.09 | 0.173
-Z_VariableWise    |        0.07 | 0.173
-Z_ParticipantWise |        0.08 | 0.080
-Z_Full            |        0.08 | 0.080</code></pre>
-<p>As we can see, <strong>variable-wise</strong> standardization only affects <strong>the coefficient</strong> (which is expected, as it changes the unit), but not the <strong>test statistics</strong> (the <em>p</em>-value, in this case). However, using <strong>participant-wise</strong> standardization <strong>does</strong> affect the coefficient <strong>and the <em>p</em>-value</strong>. No method is better or more justified, and its choice depends on the specific case, context, data and goal.</p>
+<span class="va">m_VariableWise</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="va">m_raw</span>, data <span class="op">=</span> <span class="va">Z_VariableWise</span><span class="op">)</span>
+<span class="va">m_ParticipantWise</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="va">m_raw</span>, data <span class="op">=</span> <span class="va">Z_ParticipantWise</span><span class="op">)</span>
+<span class="va">m_Full</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="va">m_raw</span>, data <span class="op">=</span> <span class="va">Z_Full</span><span class="op">)</span></pre></div>
+<p>We can extract the parameters of interest from each model, and find:</p>
+<pre><code>&gt; Model             | Coefficient |   SE |            CI |    t |  df |     p
+&gt; ---------------------------------------------------------------------------
+&gt; m_raw             |        0.09 | 0.07 | [-0.04, 0.22] | 1.36 | 451 | 0.173
+&gt; m_VariableWise    |        0.07 | 0.05 | [-0.03, 0.16] | 1.36 | 451 | 0.173
+&gt; m_ParticipantWise |        0.08 | 0.05 | [-0.01, 0.17] | 1.75 | 451 | 0.080
+&gt; m_Full            |        0.08 | 0.05 | [-0.01, 0.17] | 1.75 | 451 | 0.080</code></pre>
+<p>As we can see, <strong>variable-wise</strong> standardization only affects <strong>the coefficient</strong> (which is expected, as it changes the unit), but not the test statistics or significance. However, using <strong>participant-wise</strong> standardization <em>does</em> affect the coefficient <strong>and</strong> the significance.. No method is better or more justified, and its choice depends on the specific case, context, data and goal.</p>
 </div>
-<div id="conclusion" class="section level1">
-<h1 class="hasAnchor">
-<a href="#conclusion" class="anchor"></a>Conclusion</h1>
+<div id="conclusion" class="section level3">
+<h3 class="hasAnchor">
+<a href="#conclusion" class="anchor"></a>Conclusion</h3>
 <ol style="list-style-type: decimal">
 <li><strong>Standardization can be useful in <em>some</em> cases and should be justified</strong></li>
 <li><strong>Variable and Participant-wise standardization methods produce “in appearance” similar data</strong></li>
 <li><strong>Variable and Participant-wise standardization can lead to different results</strong></li>
 <li><strong>The choice of the method can strongly influence the results and thus, should be explicitly stated</strong></li>
 </ol>
-<p>We showed here yet another way of <strong>sneakily tweaking the data</strong> that can change the results. To prevent its use for bad practices (e.g., <em>p</em>-hacking), we can only support the generalization of open-data, open-analysis and preregistration**</p>
+<p>We showed here yet another way of <strong>sneakily tweaking the data</strong> that can change the results. To prevent its use for bad practices (e.g., <em>p</em>-hacking), we can only support the generalization of open-data, open-analysis and preregistration**.</p>
+<p><em>See also the <code><a href="https://easystats.github.io/parameters/reference/demean.html">parameters::demean()</a></code> function, and the <code><a href="../reference/standardize_parameters.html">standardize_parameters(method = "pseudo")</a></code> for more mixed-model tools.</em></p>
+</div>
+</div>
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">

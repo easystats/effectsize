@@ -261,11 +261,7 @@
 &gt; age_f         |  0.028 | [0.000, 0.059] | [0.000, 0.100] |   100.000
 &gt; comps_f       |  0.137 | [0.073, 0.195] | [0.000, 0.100] |    14.574
 &gt; age_f:comps_f |  0.011 | [0.000, 0.032] | [0.000, 0.100] |   100.000</code></pre>
-</div>
-</div>
-<div id="compare-to" class="section level1">
-<h1 class="hasAnchor">
-<a href="#compare-to" class="anchor"></a>Compare to:</h1>
+<p>Compare to:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit">
 <span class="va">modAOV_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">age_f</span> <span class="op">*</span> <span class="va">comps_f</span>,
                data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">)</span>
@@ -276,6 +272,7 @@
 &gt; age_f         |           0.03 | [0.01, 0.05]
 &gt; comps_f       |           0.13 | [0.09, 0.18]
 &gt; age_f:comps_f |       6.65e-03 | [0.00, 0.02]</code></pre>
+</div>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
