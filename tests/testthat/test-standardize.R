@@ -1,4 +1,6 @@
 if (require("testthat") && require("effectsize") && require("dplyr") && require("rlang")) {
+
+  # standardize.numeric -----------------------------------------------------
   test_that("standardize.numeric", {
     x <- standardize(seq(0, 1, length.out = 100))
     testthat::expect_equal(mean(x), 0, tol = 0.01)
@@ -16,6 +18,7 @@ if (require("testthat") && require("effectsize") && require("dplyr") && require(
   })
 
 
+  # standardize.data.frame --------------------------------------------------
   test_that("standardize.data.frame", {
     data(iris)
     x <- standardize(iris)
@@ -78,6 +81,8 @@ if (require("testthat") && require("effectsize") && require("dplyr") && require(
     testthat::expect_equal(mean(x$Sepal.Length_z), as.numeric(NA))
   })
 
+
+  # standardize.lm ----------------------------------------------------------
   test_that("standardize.lm", {
     iris2 <- na.omit(iris)
     iris_z <- standardize(iris2)
@@ -104,4 +109,46 @@ if (require("testthat") && require("effectsize") && require("dplyr") && require(
     testthat::expect_equal(standardize_parameters(fit_exp, method = "basic")[2,2],
                            unname(coef(fit_scale2)[2]))
   })
+
+
+# W/ weights --------------------------------------------------------------
+  test_that("standardize.lm", {
+    expect_warning(standardize(mtcars, weights = "xx"))
+
+    m <- lm(mpg ~ am + hp, weights = cyl, mtcars)
+
+    sm <- standardize(m, weights = TRUE)
+    sm_data <- insight::get_data(sm)
+    sm_data2 <- standardize(mtcars, select = c("mpg", "am", "hp"), weights = "cyl")
+    expect_equal(sm_data[,c("mpg", "am", "hp")], sm_data2[,c("mpg", "am", "hp")])
+
+
+    # no weights in stding
+    sm_xw <- standardize(m, weights = FALSE)
+    sm_data_xw <- insight::get_data(sm_xw)
+    expect_false(isTRUE(all.equal(coef(sm)[-1], coef(sm_xw)[-1])))
+
+    # refit and posthoc should give same results
+    expect_equal(standardize_parameters(m, method = "refit")[[2]],
+                 standardize_parameters(m, method = "posthoc")[[2]])
+
+
+    x <- rexp(30)
+    w <- rpois(30, 20) + 1
+
+    expect_equal(sqrt(cov.wt(cbind(x,x), w)$cov[1,1]),
+                 attr(standardize(x, weights = w),"scale"))
+    expect_equal(standardize(x, weights = w),
+                 standardize(data.frame(x), weights = w)$x)
+
+    # name and vector give same results
+    expect_equal(standardize(mtcars, exclude = "cyl", weights = mtcars$cyl),
+                 standardize(mtcars, weights = "cyl"))
+
+    if (require(dplyr)) {
+      d <- dplyr::group_by(mtcars, am)
+      expect_warning(standardize(d, weights = d$cyl))
+    }
+  })
+
 }

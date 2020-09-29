@@ -18,6 +18,10 @@
 #'   model coefficients of continuous parameters comparable to coefficients
 #'   related to binary predictors, when applied to **the predictors** (not the
 #'   outcome) (Gelman, 2008).
+#' @param weights Can be `NULL` (for no weighting), or:
+#' - For model: if `TRUE` (default), a weighted-standardization is carried out.
+#' - For `data.frame`s: a numeric vector of weights, or a character of the name of a column in the `data.frame` that contains the weights.
+#' - For numeric vectors: a numeric vector of weights.
 #' @param verbose Toggle warnings on or off.
 #' @param force Logical, if `TRUE`, forces standardization of factors as
 #'   well. Factors are converted to numerical values, with the lowest level
