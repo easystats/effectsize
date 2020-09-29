@@ -97,7 +97,9 @@ By sampling from the PPD, we can decompose the sample to the various *SS*s neede
 
 Let's factorize out data from above:
 ```{r}
-hardlyworking$age_f <- ifelse(hardlyworking$age < 35, "Young", "Less_young")
+hardlyworking$age_f <- cut(hardlyworking$age, 
+                           breaks = c(25,35,45), right = FALSE,
+                           labels = c("Young", "Less_young"))
 hardlyworking$comps_f <- cut(hardlyworking$n_comps, 
                              breaks = c(0,1,2,3),
                              include.lowest = TRUE, 
@@ -109,22 +111,18 @@ table(hardlyworking$age_f,hardlyworking$comps_f)
 And fit our model:
 
 ```{r}
+# use effects coding
+contrasts(hardlyworking$age_f) <- contr.sum
+contrasts(hardlyworking$comps_f) <- contr.sum
+
 modAOV <- stan_glm(salary ~ age_f * comps_f,
-                   data = hardlyworking,
-                   family = gaussian(), refresh = 0)
+                   data = hardlyworking, family = gaussian(),
+                   refresh = 0)
 ```
 
 We can use `eta_squared_posterior()` to get the posterior distribution of $eta^2$ or $eta^2_p$ for each effect. Like an ANOVA table, we must make sure to use the right effects-coding and *SS*-type:
 
-```{r echo=FALSE}
-# save old effects-coding
-old_contrasts <- getOption("contrasts")
-```
-
 ```{r}
-# set effects-coding
-options(contrasts = c('contr.sum', 'contr.poly'))
-
 pes_posterior <- eta_squared_posterior(modAOV, 
                                        draws = 500, # how many times should the PPD be estimated
                                        partial = TRUE, # partial eta squared
@@ -132,12 +130,17 @@ pes_posterior <- eta_squared_posterior(modAOV,
 
 head(pes_posterior)
 
-bayestestR::describe_posterior(pes_posterior, rope_range = c(0, 0.1))
+bayestestR::describe_posterior(pes_posterior, rope_range = c(0, 0.1), test = "rope")
+
 ```
 
-```{r echo=FALSE}
-# set back effects-coding
-options(contrasts = old_contrasts)
+# Compare to:
+
+```{r}
+modAOV_f <- lm(salary ~ age_f * comps_f,
+               data = hardlyworking)
+
+eta_squared(car::Anova(modAOV_f, type = 3))
 ```
 
 

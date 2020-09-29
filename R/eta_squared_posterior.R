@@ -135,7 +135,7 @@ eta_squared_posterior.brmsfit <- eta_squared_posterior.stanreg
 #' @keywords internal
 #' @importFrom stats contrasts
 .all_centered <- function(X) {
-  numeric <- sapply(X, inherits, what = c("numeric","integer"))
+  numeric <- sapply(X, inherits, what = c("numeric", "integer"))
   numerics <- colnames(X)[numeric]
   factors <- colnames(X)[!numeric]
 
@@ -148,11 +148,14 @@ eta_squared_posterior.brmsfit <- eta_squared_posterior.stanreg
 
 
   of <- options()$contrasts
-  if (length(factors) && !all(of %in% c('contr.sum', 'contr.poly', "contr.bayes", "contr.helmert"))) {
-    # if a contrast has negative and positive values, it is assumed to be one of:
-    # "contr.sum", "contr.helmert", "contr.poly", "contr.bayes"
-    factors_centered <- sapply(X[, factors, drop = FALSE],
-                               function(xi) any(contrasts(xi) < 0) & any(contrasts(xi) > 0))
+  if (length(factors)) {
+    factors_centered <- sapply(X[, factors, drop = FALSE], function(xi) {
+      # if a contrast has negative and positive values, it is assumed to be one of:
+      # "contr.sum", "contr.helmert", "contr.poly", "contr.bayes"
+      (is.factor(xi) && (any(contrasts(xi) < 0) & any(contrasts(xi) > 0))) ||
+        # Or if it is not a factor, is the default method one of these?
+        (!is.factor(xi) && all(of %in% c('contr.sum', 'contr.poly', "contr.bayes", "contr.helmert")))
+    })
   }
 
 

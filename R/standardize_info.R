@@ -57,14 +57,14 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
   # Basic
   out <- merge(
     out,
-    .std_info_predictors_basic(model_matrix, types, robust = robust, two_sd = two_sd),
+    .std_info_predictors_basic(model, model_matrix, types, robust = robust, two_sd = two_sd),
     by = "Parameter", all = TRUE
   )
 
   # Smart
   out <- merge(
     out,
-    .std_info_predictors_smart(data, params, types, robust = robust, two_sd = two_sd),
+    .std_info_predictors_smart(model, data, params, types, robust = robust, two_sd = two_sd),
     by = "Parameter", all = TRUE
   )
 
@@ -105,8 +105,8 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 
 
 #' @keywords internal
-.std_info_predictors_smart <- function(data, params, types, robust = FALSE, two_sd = FALSE, ...) {
-
+.std_info_predictors_smart <- function(model, data, params, types, robust = FALSE, two_sd = FALSE, ...) {
+  w <- insight::get_weights(model)
   # Get deviations for all parameters
   means <- deviations <- rep(NA_real_, times = length(params))
   for (i in seq_along(params)) {
@@ -116,7 +116,8 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
       variable = types[types$Parameter == var, "Variable"],
       type = types[types$Parameter == var, "Type"],
       robust = robust,
-      two_sd = two_sd
+      two_sd = two_sd,
+      weights = w
     )
     deviations[i] <- info$sd
     means[i] <- info$mean
@@ -133,11 +134,12 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 
 
 #' @keywords internal
-.std_info_predictor_smart <- function(data, variable, type, robust = FALSE, two_sd = FALSE, ...) {
+.std_info_predictor_smart <- function(data, variable, type, robust = FALSE, two_sd = FALSE, weights = NULL, ...) {
   if (type == "intercept") {
     info <- list(sd = 0, mean = 0)
   } else if (type == "numeric") {
-    info <- .compute_std_info(data = data, variable = variable, robust = robust, two_sd = two_sd)
+    info <- .compute_std_info(data = data, variable = variable,
+                              robust = robust, two_sd = two_sd, weights = weights)
   } else if (type == "factor") {
     info <- list(sd = 1, mean = 0)
 
@@ -153,7 +155,8 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
     # }
   } else if (type %in% c("interaction", "nested")) {
     if (is.numeric(data[, variable])) {
-      info <- .compute_std_info(data = data, variable = variable, robust = robust, two_sd = two_sd)
+      info <- .compute_std_info(data = data, variable = variable,
+                                robust = robust, two_sd = two_sd, weights = weights)
     } else if (is.factor(data[, variable])) {
       info <- list(sd = 1, mean = 0)
     } else {
@@ -171,7 +174,8 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 
 
 #' @keywords internal
-.std_info_predictors_basic <- function(model_matrix, types, robust = FALSE, two_sd = FALSE, ...) {
+.std_info_predictors_basic <- function(model, model_matrix, types, robust = FALSE, two_sd = FALSE, ...) {
+  w <- insight::get_weights(model)
 
   # Get deviations for all parameters
   means <- deviations <- rep(NA_real_, length = length(names(model_matrix)))
@@ -180,7 +184,8 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
     if (types[i, "Type"] == "intercept") {
       means[i] <- deviations[i] <- 0
     } else {
-      std_info <- .compute_std_info(data = model_matrix, variable = var, robust = robust, two_sd = two_sd)
+      std_info <- .compute_std_info(data = model_matrix, variable = var,
+                                    robust = robust, two_sd = two_sd, weights = w)
       deviations[i] <- std_info$sd
       means[i] <- std_info$mean
     }
@@ -203,6 +208,7 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 #' @keywords internal
 .std_info_response_smart <- function(model, data, model_matrix, types, robust = FALSE, ...) {
   info <- insight::model_info(model)
+  w <- insight::get_weights(model)
 
   if (info$is_linear) {
     # response <- insight::get_response(model)
@@ -214,9 +220,12 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
         parent_var <- types$Variable[types$Parameter == var]
         intercept <- unique(data[[parent_var]])[1]
         response_at_intercept <- response[data[[parent_var]] == intercept]
-        std_info <- .compute_std_info(response = response_at_intercept, robust = robust)
+        weights_at_intercept <- if(length(w)) w[data[[parent_var]] == intercept] else NULL
+        std_info <- .compute_std_info(response = response_at_intercept,
+                                      robust = robust, weights = weights_at_intercept)
       } else {
-        std_info <- .compute_std_info(response = response, robust = robust)
+        std_info <- .compute_std_info(response = response,
+                                      robust = robust, weights = w)
       }
       deviations[i] <- std_info$sd
       means[i] <- std_info$mean
@@ -239,16 +248,17 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 #' @keywords internal
 .std_info_response_basic <- function(model, params, robust = FALSE, ...) {
   info <- insight::model_info(model)
+  w <- insight::get_weights(model)
   # response <- insight::get_response(model)
   response <- model.frame(model)[[1]]
 
   if (info$is_linear) {
     if (robust == FALSE) {
-      sd_y <- stats::sd(response)
-      mean_y <- mean(response)
+      sd_y <- .sd(response, w)
+      mean_y <- .mean(response, w)
     } else {
-      sd_y <- stats::mad(response)
-      mean_y <- stats::median(response)
+      sd_y <- .mad(response, w)
+      mean_y <- .median(response, w)
     }
   } else {
     sd_y <- 1
@@ -281,6 +291,7 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 
   within_vars <- unclass(parameters::check_heterogeneity(model))
   id <- insight::get_random(model)[[1]]
+  w <- insight::get_weights(model)
 
   ## Find which parameters vary on level 1 ("within")
   is_within <- logical(length = length(params))
@@ -348,6 +359,7 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 
     m0 <- suppressWarnings(suppressMessages(
       lme4::lmer(stats::as.formula(frm),
+                 weights = w,
                  data = insight::get_data(model))
     ))
     m0v <- insight::get_variance(m0)
@@ -373,7 +385,7 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
         X <- tapply(model_matrix[[i]], id, mean)
         Deviation_Response_Pseudo[i] <- sd_y_between
       }
-      Deviation_Pseudo[i] <- f * stats::sd(X)
+      Deviation_Pseudo[i] <- f * .sd(X, w)
 
       ## smart way?
       ## DONT USE: see correspondence with between Mattan and Eran BC
@@ -407,18 +419,18 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 
 
 #' @keywords internal
-.compute_std_info <- function(data = NULL, variable = NULL, response = NULL, robust = FALSE, two_sd = FALSE) {
+.compute_std_info <- function(data = NULL, variable = NULL, response = NULL, robust = FALSE, two_sd = FALSE, weights = NULL) {
   f <- if (two_sd) 2 else 1
   if (is.null(response)) {
     response <- as.numeric(data[, variable])
   }
 
   if (robust == FALSE) {
-    sd_x <- stats::sd(response, na.rm = TRUE)
-    mean_x <- mean(response, na.rm = TRUE)
+    sd_x <- .sd(response, weights)
+    mean_x <- .mean(response, weights)
   } else {
-    sd_x <- stats::mad(response, na.rm = TRUE)
-    mean_x <- stats::median(response, na.rm = TRUE)
+    sd_x <- .mad(response, weights)
+    mean_x <- .median(response, weights)
   }
 
   list(sd = f * sd_x, mean = mean_x)

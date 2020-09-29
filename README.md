@@ -42,12 +42,14 @@ check-out these vignettes:
 
   - [**Data
     Standardization**](https://easystats.github.io/effectsize/articles/standardize_data.html)
-  - [**Parameters
+  - [**Parameter and Model
     Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
-  - [**Effect Sizes for Logistic
-    Models**](https://easystats.github.io/effectsize/articles/logistic.html)
-  - [**Effect size
-    conversion**](https://easystats.github.io/effectsize/articles/convert.html)
+  - [**ANOVA Effect
+    Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
+  - [**Effect Sizes in Bayesian
+    Models**](https://easystats.github.io/effectsize/articles/bayesian_models.html)
+  - [**Effect Size
+    Conversion**](https://easystats.github.io/effectsize/articles/convert.html)
   - [**Effect Size from Test
     Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
   - [**Automated Interpretation of Indices of Effect
@@ -123,6 +125,8 @@ lm(Sepal.Length ~ Species + Sepal.Length, data = iris) %>%
 ## (Intercept)       |              -1.01 | [-1.18, -0.84]
 ## Speciesversicolor |               1.12 | [ 0.88,  1.37]
 ## Speciesvirginica  |               1.91 | [ 1.66,  2.16]
+## 
+## # Standardization method: Refit
 ```
 
 ## Effect Size Interpretation
@@ -142,8 +146,8 @@ and can be easily changed.
 ``` r
 interpret_d(d = 0.45, rules = "cohen1988")
 ## [1] "small"
-interpret_d(d = 0.45, rules = "funder2019")
-## [1] "medium"
+interpret_d(d = 0.45, rules = "gignac2016")
+## [1] "moderate"
 ```
 
 ## Effect Size Conversion
