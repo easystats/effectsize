@@ -87,6 +87,8 @@ navbar:
         href: articles/standardize_parameters.html
       - text: "Effect Sizes for ANOVA"
         herf: articles/anovaES.html
+      - text: "For Bayesian Models"
+        herf: articles/bayesian_models.html
   - text: "Conversion"
     menu:
       - text: "Between *d*, *r*, *OR*"
