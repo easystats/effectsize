@@ -112,7 +112,7 @@ if (require("testthat") && require("effectsize") && require("dplyr") && require(
 
 
 # W/ weights --------------------------------------------------------------
-  test_that("standardize.lm", {
+  test_that("weights", {
     expect_warning(standardize(mtcars, weights = "xx"))
 
     m <- lm(mpg ~ am + hp, weights = cyl, mtcars)
@@ -129,8 +129,12 @@ if (require("testthat") && require("effectsize") && require("dplyr") && require(
     expect_false(isTRUE(all.equal(coef(sm)[-1], coef(sm_xw)[-1])))
 
     # refit and posthoc should give same results
-    expect_equal(standardize_parameters(m, method = "refit")[[2]],
+    stdREFIT <- standardize_parameters(m, method = "refit")
+    expect_equal(stdREFIT[[2]],
                  standardize_parameters(m, method = "posthoc")[[2]])
+
+    expect_equal(stdREFIT[[2]],
+                 standardize_parameters(m, method = "basic")[[2]])
 
 
     x <- rexp(30)
