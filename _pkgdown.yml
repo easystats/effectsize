@@ -91,7 +91,7 @@ navbar:
         herf: articles/bayesian_models.html
   - text: "Conversion"
     menu:
-      - text: "Between *d*, *r*, *OR*"
+      - text: "Between d, r, OR"
         href: articles/convert.html
       - text: "From Test Statistics"
         href: articles/from_test_statistics.html
