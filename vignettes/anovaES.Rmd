@@ -27,12 +27,143 @@ options(digits = 2)
 knitr::opts_chunk$set(comment = ">")
 
 set.seed(1)
-pkgs <- "effectsize"
+pkgs <- c("effectsize", "parameters", "car")
 if (!all(sapply(pkgs, require, quietly = TRUE, character.only = TRUE))) {
   knitr::opts_chunk$set(eval = FALSE)
 }
 ```
 
-This vignette needs some love...
+# Introduction
+
+In the context of ANOVA-like tests, it is common to report ANOVA-like effect sizes. Unlike [standardized parameters](https://easystats.github.io/effectsize/articles/standardize_parameters.html), these effect sizes represent the amount of variance explained by each of the model's terms, where each term can be represented by 1 *or more* parameters.
+
+For example, in the following case, the parameters for the `cyl` term represent specific contrasts between the factor's levels - the difference between each level and the reference level (`cyl == 4`).
+
+```{r}
+data(mtcars)
+mtcars$cyl <- factor(mtcars$cyl)
+
+m <- lm(mpg ~ cyl, mtcars)
+
+parameters::model_parameters(m)
+```
+
+But we can also ask about the overall effect of `cyl` - how much of the variation in our defendant variable `mpg` can be predicted by (or explained by) the variation between the `cyl` groups. Such a question can be answered with an ANOVA test:
+
+```{r}
+parameters::model_parameters(anova(m))
+```
+
+As we can see, the variance in `mpg` (the *sums-of-squares*, or *SS*) has been split into pieces:
+
+- The part associated with `cyl`.
+- The unexplained part (The Residual-*SS*).
+
+We can now ask what is the percent of the total variance in `mpg` that is associated with `cyl`. We can calculate this by had as 824.78 / (824.78 + 301.26) = 73%. This measure is called Eta squared, written as $\eta^2$, and can be accessed via the `eta_squared()` function:
+
+```{r}
+library(effectsize)
+
+eta_squared(m, partial = FALSE)
+```
+
+
+## Eta<sup>2</sup> vs Eta<sup>2</sup><sub>partial</sub>
+
+A closely associated measure to $\eta^2$ is the partial-$\eta^2$, often written as $\eta^2_p$; Whereas the $\eta^2$ is the percent of the ***total*** variance associated with a term, $\eta^2_p$ is the percent of the **partialled** variance (after accounting for other predictors in the model) associated with a term.
+
+```{r}
+mtcars$am <- factor(mtcars$am)
+
+m <- lm(mpg ~ cyl + am, mtcars)
+
+eta_squared(m, partial = FALSE)
+
+eta_squared(m) # partial = TRUE by default
+```
+
+Note that when the model has multiple terms, it is recommended to use type-3 errors (can be accessed via `car::Anova()`, or the `afex` package), and not rely on R's defaults (to use type-1 error):
+
+```{r}
+eta_squared(car::Anova(m, type = 3), partial = FALSE)
+
+eta_squared(car::Anova(m, type = 3)) # partial = TRUE by default
+```
+
+
+
+$\eta^2_p$ will be larger (sometimes equal to) $\eta^2$. The idea is to simulate the effect size in a design where only the term of interest is manipulated. This terminology assumes some causal relationship between the predictor and the outcome, which reflects the experimental world from which these analyses and measures hail; However, $\eta^2_p$ can also simply be seen as a **signal-to-noise- ratio**, as it only uses the term's *SS* and the error-term's *SS* (in repeated-measure designs the term-specific residual-*SS* is used for the computation).
+
+(Note that in a one-way fixed-effect designs $\eta^2 = \eta^2_p$.)
+
+### Interactions
+
+When modeling interactions, it is important to use an effects-coding scheme for the dummy variables. This unfortunately makes parameter interpretation harder, but only when this is does do the *SS*s associated with each lower-order term (or lower-order interaction) represent the **main effect** ***SS***.
+
+
+```{r}
+# compare
+m_interaction1 <- lm(mpg ~ cyl * am, data = mtcars[-1,])
+
+# to:
+contrasts(mtcars$am) <- contr.sum
+contrasts(mtcars$cyl) <- contr.sum
+m_interaction2 <- lm(mpg ~ cyl * am, data = mtcars[-1,])
+
+
+eta_squared(car::Anova(m_interaction1, type = 3))
+eta_squared(car::Anova(m_interaction2, type = 3))
+```
+
+## Other Measures of Effect Size
+
+There are 3 more effect-size measures commonly used in ANOVAs. The first two are unbiased estimators of the population's $\eta^2$:
+
+- **Omega Squared** ($\omega^2$)
+- **Epsilon Squared** ($\epsilon^2$), also referred to as *Adjusted Eta Squared*.
+
+```{r}
+omega_squared(car::Anova(m_interaction2, type = 3))
+
+epsilon_squared(car::Anova(m_interaction2, type = 3))
+```
+
+
+Both $\omega^2$ and $\epsilon^2$ (and their partial counterparts, $\omega^2_p$ & $\epsilon^2_p$) are unbiased estimators of the population's $\eta^2$ (or $\eta^2_p$, respectively), which is especially important is small samples. Though $\omega^2$ is the more popular choice [@albers2018power], $\epsilon^2$ is analogous to adjusted-$R^2$ [@allen2017statistics, p. 382], and has been found to be less biased [@carroll1975sampling].
+
+Finally, we have the forgotten child - Cohen's $f$. Cohen's $f$ is a transformation of $\eta^2_p$, and is the ratio between the term-*SS* and the error-*SS*. It can take on values between zero, when the population means are all equal, and an indefinitely large number as the means are further and further apart. It is analogous to Cohen's $d$ when there are only two groups.
+
+```{r}
+cohens_f(car::Anova(m_interaction2, type = 3))
+```
+
+
+## When Sum-of-Squares are Hard to Come By
+
+Until now we've discusses effect sizes in fixed-effect linear model and repeated-measures ANOVA's - cases where the *SS*s are readily available, and so the various effect sized presented can easily be estimated. How ever this is not always the case.
+
+For example, in linear mixed models (LMM/HLM/MLM), the estimation of all required *SS*s is not straightforward. However, we can still *approximate* these effect sizes (only their partial versions) based on the **test-statistic approximation method** (learn more in the [*Effect Size from Test Statistics* vignette](https://easystats.github.io/effectsize/articles/from_test_statistics.html)).
+
+```{r, eval=require(lmerTest)}
+library(lmerTest)
+
+fit_lmm <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
+
+anova(fit_lmm) # note the type-3 errors
+
+F_to_eta2(45.8, df = 1, df_error = 17)
+```
+
+Or directly with `eta_squared() and co.:
+
+
+```{r, eval=require(lmerTest)}
+eta_squared(fit_lmm)
+epsilon_squared(fit_lmm)
+omega_squared(fit_lmm)
+```
+
+Another case where *SS*s are not available is when use Bayesian models. `effectsize` has Bayesian solutions for Bayesian models, about which you can read in the [*Effect Sizes for Bayesian Models* vignette](https://easystats.github.io/effectsize/articles/bayesian_models.html).
+
 
 # References
