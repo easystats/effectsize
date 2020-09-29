@@ -83,12 +83,12 @@ navbar:
     href: articles/standardize_data.html
   - text: "Effect Sizes"
     menu:
-      - text: "Parameter and Model Standardization"
-        href: articles/standardize_parameters.html
-      - text: "ANOVA Effect Sizes"
-        herf: articles/anovaES.html
-      - text: "For Bayesian Models"
-        herf: articles/bayesian_models.html
+      - text: "Parameter and Model Standardization"  
+        href: articles/standardize_parameters.html  
+      - text: "ANOVA Effect Sizes"  
+        href: articles/anovaES.html  
+      - text: "For Bayesian Models"  
+        href: articles/bayesian_models.html  
   - text: "Conversion"
     menu:
       - text: "Between d, r, OR"
