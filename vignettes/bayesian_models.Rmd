@@ -134,7 +134,7 @@ bayestestR::describe_posterior(pes_posterior, rope_range = c(0, 0.1), test = "ro
 
 ```
 
-# Compare to:
+Compare to:
 
 ```{r}
 modAOV_f <- lm(salary ~ age_f * comps_f,
