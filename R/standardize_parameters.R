@@ -239,7 +239,7 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   }
 
   if (method %in% c("smart", "posthoc") &&
-      .cant_smart_or_posthoc(model, pars)) {
+      .cant_smart_or_posthoc(model, pars$Parameter)) {
     warning("Method '", method, "' does not currently support models with transformed parameters.",
             "\nReverting to 'basic' method. Concider using the 'refit' method directly.",
             call. = FALSE)
@@ -343,7 +343,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   }
 
   if (method %in% c("smart", "posthoc") &&
-      .cant_smart_or_posthoc(model, pars)) {
+      .cant_smart_or_posthoc(model, colnames(pars))) {
     warning("Method '", method, "' does not currently support models with transformed parameters.",
             "\nReverting to 'basic' method. Concider using the 'refit' method directly.",
             call. = FALSE)
@@ -391,7 +391,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 
 
 #' @keywords internal
-.cant_smart_or_posthoc <- function(model,pars) {
+.cant_smart_or_posthoc <- function(model,params) {
 
   cant_posthocsmart <- FALSE
 
@@ -403,8 +403,8 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 
   # factors are allowed
   if (!cant_posthocsmart &&
-      !all(pars$Parameter == insight::clean_names(pars$Parameter) |
-           grepl("(as.factor|factor)\\(", pars$Parameter))) {
+      !all(params == insight::clean_names(params) |
+           grepl("(as.factor|factor)\\(", params))) {
     cant_posthocsmart <- TRUE
   }
 
