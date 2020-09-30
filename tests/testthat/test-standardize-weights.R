@@ -27,7 +27,7 @@ if (require("testthat") && require("effectsize")) {
   test_that("standardize-weight", {
     expect_equal(unname(coef(sm1)), c(-0.01782, -0.091, 0.14961, 0.79504), tolerance = 1e-3)
     expect_equal(unname(coef(sm2)), c(-0.01847, -0.09095, 0.14953, 0.80802), tolerance = 1e-3)
-    expect_equal(unname(coef(model2)), c(-0.01782, -0.091, 0.14961, 0.79504), tolerance = 1e-3)
+    expect_equal(unname(coef(model2)), c(-0.01387, -0.09228, 0.15172, 0.82143), tolerance = 1e-3)
     expect_equal(unname(coef(model3)), c(0.00767, -0.11275, 0.0216, 0.81173), tolerance = 1e-3)
     expect_equal(unname(coef(model4)), c(-0.04349, -0.0914, 0.15028, 0.77812), tolerance = 1e-3)
     expect_equal(unname(coef(model5)), c(0.00506, -0.12284, 0.04546, 0.81432), tolerance = 1e-3)
