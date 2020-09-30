@@ -110,7 +110,11 @@ standardize.AsIs <- standardize.numeric
 
 
 #' @export
-standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, select = NULL, weights = NULL, exclude = NULL, verbose = TRUE, force = FALSE, append = FALSE, suffix = "_z", ...) {
+standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL,
+                                   select = NULL, exclude = NULL,
+                                   verbose = TRUE,
+                                   na_action = c("column", "select", "all"),
+                                   force = FALSE, append = FALSE, suffix = "_z", ...) {
   info <- attributes(x)
   # dplyr >= 0.8.0 returns attribute "indices"
   grps <- attr(x, "groups", exact = TRUE)
@@ -159,6 +163,7 @@ standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, select = N
       robust = robust,
       two_sd = two_sd,
       weights = weights,
+      na_action = na_action,
       verbose = verbose,
       force = force,
       append = FALSE,
@@ -175,7 +180,12 @@ standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, select = N
 
 #' @rdname standardize
 #' @export
-standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, select = NULL, exclude = NULL, verbose = TRUE, force = FALSE, append = FALSE, suffix = "_z", ...) {
+standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL,
+                                   select = NULL, exclude = NULL,
+                                   verbose = TRUE,
+                                   na_action = c("column", "select", "all"),
+                                   force = FALSE, append = FALSE, suffix = "_z",
+                                   ...) {
   # check for formula notation, convert to character vector
   if (inherits(select, "formula")) {
     select <- all.vars(select)
@@ -187,7 +197,6 @@ standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, weights = 
   if (!is.null(weights) && is.character(weights)) {
     if (weights %in% colnames(x)) {
       exclude <- c(exclude,weights)
-      weights <- x[[weights]]
     } else {
      warning("Could not find weighting column '", weights, "'. Weighting not carried out.")
       weights <- NULL
@@ -195,6 +204,17 @@ standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, weights = 
   }
 
   select <- .select_z_variables(x, select, exclude, force)
+
+  # drop NAs
+  na_action <- match.arg(na_action)
+
+  omit <- switch(na_action,
+                 column = logical(nrow(x)),
+                 select = rowSums(sapply(x[select], is.na)) > 0,
+                 all = rowSums(sapply(x, is.na)) > 0)
+  x <- x[!omit,,drop = FALSE]
+
+  if (!is.null(weights) && is.character(weights)) weights <- x[[weights]]
 
   if (append) {
     new_variables <- x[select]

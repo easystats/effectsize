@@ -23,6 +23,11 @@
 #' - For `data.frame`s: a numeric vector of weights, or a character of the name of a column in the `data.frame` that contains the weights.
 #' - For numeric vectors: a numeric vector of weights.
 #' @param verbose Toggle warnings on or off.
+#' @param na_action How should missing values (`NA`) be treated: if `"column"`
+#'   (default): each column's standardization is done separately, ignoring
+#'   `NA`s. Else, rows with `NA` in the selected columns (`"select"`) or in all
+#'   columns (`"all"`) are dropped before standardization, and the resulting
+#'   data frame does not include these cases.
 #' @param force Logical, if `TRUE`, forces standardization of factors as
 #'   well. Factors are converted to numerical values, with the lowest level
 #'   being the value `1` (unless the factor has numeric levels, which are

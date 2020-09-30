@@ -27,6 +27,7 @@ standardize(x, ...)
   select = NULL,
   exclude = NULL,
   verbose = TRUE,
+  na_action = c("column", "select", "all"),
   force = FALSE,
   append = FALSE,
   suffix = "_z",
@@ -72,6 +73,12 @@ outcome) (Gelman, 2008).}
 variables will be selected.}
 
 \item{exclude}{Character vector of column names to be excluded from selection.}
+
+\item{na_action}{How should missing values (\code{NA}) be treated: if \code{"column"}
+(default): each column's standardization is done separately, ignoring
+\code{NA}s. Else, rows with \code{NA} in the selected columns (\code{"select"}) or in all
+columns (\code{"all"}) are dropped before standardization, and the resulting
+data frame does not include these cases.}
 
 \item{force}{Logical, if \code{TRUE}, forces standardization of factors as
 well. Factors are converted to numerical values, with the lowest level
