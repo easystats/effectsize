@@ -69,7 +69,7 @@ library(effectsize)
 
 ## Effect Size Computation
 
-### Basic Indices (Cohen’s *d*, Hedges’ *g*, Glass’ *delta*)
+### Standardized Differences (Cohen’s *d*, Hedges’ *g*, Glass’ *delta*)
 
 The package provides functions to compute indices of effect size.
 
@@ -111,22 +111,37 @@ cohens_f(model)
 ## Species   |                1.27 | [1.09, 1.45]
 ```
 
-### Regression Models
+### Regression Models (Standardized Parameters)
 
 Importantly, `effectsize` also provides [advanced
 methods](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
 to compute standardized parameters for regression models.
 
 ``` r
-lm(Sepal.Length ~ Species + Sepal.Length, data = iris) %>% 
-  standardize_parameters()
+m <- lm(Sepal.Length ~ Species + Sepal.Width, data = iris)
+
+standardize_parameters(m)
 ## Parameter         | Coefficient (std.) |         95% CI
 ## -------------------------------------------------------
-## (Intercept)       |              -1.01 | [-1.18, -0.84]
-## Speciesversicolor |               1.12 | [ 0.88,  1.37]
-## Speciesvirginica  |               1.91 | [ 1.66,  2.16]
+## (Intercept)       |              -1.37 | [-1.55, -1.20]
+## Speciesversicolor |               1.76 | [ 1.49,  2.03]
+## Speciesvirginica  |               2.35 | [ 2.11,  2.59]
+## Sepal.Width       |               0.42 | [ 0.31,  0.53]
 ## 
 ## # Standardization method: Refit
+```
+
+Also, models can be re-fit with standardized data:
+
+``` r
+standardize(m)
+## 
+## Call:
+## lm(formula = Sepal.Length ~ Species + Sepal.Width, data = data_std)
+## 
+## Coefficients:
+##       (Intercept)  Speciesversicolor   Speciesvirginica        Sepal.Width  
+##            -1.371              1.762              2.351              0.423
 ```
 
 ## Effect Size Interpretation
@@ -160,14 +175,29 @@ convert_d_to_r(d = 1)
 ## [1] 0.447
 ```
 
-## Standardization
+And for recovering effect sizes from test statistics.
+
+``` r
+F_to_d(15, df = 1, df_error = 60)
+## d |       95% CI
+## ----------------
+## 1 | [0.46, 1.53]
+F_to_r(15, df = 1, df_error = 60)
+##    r |       95% CI
+## -------------------
+## 0.45 | [0.22, 0.61]
+F_to_eta2(15, df = 1, df_error = 60)
+## Eta2 (partial) |       90% CI
+## -----------------------------
+##           0.20 | [0.07, 0.34]
+```
+
+## Data Standardization, Normalization, Scaling, and Rank-Transforming
 
 Many indices of effect size stem out, or are related, to
 [*standardization*](https://easystats.github.io/effectsize/articles/standardize_parameters.html).
 Thus, it is expected that `effectsize` provides functions to standardize
-data and models.
-
-### Data standardization, normalization and rank-transformation
+data.
 
 A standardization sets the mean and SD to 0 and 1:
 
