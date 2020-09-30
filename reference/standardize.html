@@ -200,6 +200,7 @@ the 0 - 1 range.</p>
   select <span class='op'>=</span> <span class='cn'>NULL</span>,
   exclude <span class='op'>=</span> <span class='cn'>NULL</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  na_action <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"column"</span>, <span class='st'>"select"</span>, <span class='st'>"all"</span><span class='op'>)</span>,
   force <span class='op'>=</span> <span class='cn'>FALSE</span>,
   append <span class='op'>=</span> <span class='cn'>FALSE</span>,
   suffix <span class='op'>=</span> <span class='st'>"_z"</span>,
@@ -263,6 +264,14 @@ variables will be selected.</p></td>
     <tr>
       <th>exclude</th>
       <td><p>Character vector of column names to be excluded from selection.</p></td>
+    </tr>
+    <tr>
+      <th>na_action</th>
+      <td><p>How should missing values (<code>NA</code>) be treated: if <code>"column"</code>
+(default): each column's standardization is done separately, ignoring
+<code>NA</code>s. Else, rows with <code>NA</code> in the selected columns (<code>"select"</code>) or in all
+columns (<code>"all"</code>) are dropped before standardization, and the resulting
+data frame does not include these cases.</p></td>
     </tr>
     <tr>
       <th>force</th>
