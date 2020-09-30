@@ -16,8 +16,6 @@ editor_options:
 # effectsize <img src='man/figures/logo.png' align="right" height="139" />
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
-library(ggplot2)
-library(dplyr)
 library(effectsize)
 
 options(digits=3)
@@ -85,7 +83,7 @@ library(effectsize)
 
 ## Effect Size Computation
 
-### Basic Indices (Cohen's *d*, Hedges' *g*, Glass' *delta*)
+### Standardized Differences (Cohen's *d*, Hedges' *g*, Glass' *delta*)
 
 The package provides functions to compute indices of effect size.
 
@@ -107,13 +105,20 @@ cohens_f(model)
 ```
 
 
-### Regression Models
+### Regression Models (Standardized Parameters)
 
 Importantly, `effectsize` also provides [advanced methods](https://easystats.github.io/effectsize/articles/standardize_parameters.html) to compute standardized parameters for regression models.
 
 ```{r, warning=FALSE, message=FALSE}
-lm(Sepal.Length ~ Species + Sepal.Length, data = iris) %>% 
-  standardize_parameters()
+m <- lm(Sepal.Length ~ Species + Sepal.Width, data = iris)
+
+standardize_parameters(m)
+```
+
+Also, models can be re-fit with standardized data:
+
+```{r, warning=FALSE, message=FALSE}
+standardize(m)
 ```
 
 ## Effect Size Interpretation
@@ -141,12 +146,17 @@ The package also provides ways of converting between different effect sizes.
 convert_d_to_r(d = 1)
 ```
 
+And for recovering effect sizes from test statistics.
 
-## Standardization
+```{r, warning=FALSE, message=FALSE}
+F_to_d(15, df = 1, df_error = 60)
+F_to_r(15, df = 1, df_error = 60)
+F_to_eta2(15, df = 1, df_error = 60)
+```
 
-Many indices of effect size stem out, or are related, to [*standardization*](https://easystats.github.io/effectsize/articles/standardize_parameters.html). Thus, it is expected that `effectsize` provides functions to standardize data and models.
+## Data Standardization, Normalization, Scaling, and Rank-Transforming
 
-### Data standardization, normalization and rank-transformation
+Many indices of effect size stem out, or are related, to [*standardization*](https://easystats.github.io/effectsize/articles/standardize_parameters.html). Thus, it is expected that `effectsize` provides functions to standardize data.
 
 
 A standardization sets the mean and SD to 0 and 1:
