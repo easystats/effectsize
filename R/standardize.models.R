@@ -1,6 +1,6 @@
 #' @rdname standardize
-#' @importFrom stats update
-#' @importFrom insight get_data model_info find_response get_response find_weights
+#' @importFrom stats update na.omit
+#' @importFrom insight get_data model_info find_response get_response find_weights get_weights
 #' @importFrom utils capture.output
 #' @export
 standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, include_response = TRUE, verbose = TRUE, ...) {
@@ -22,6 +22,12 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
   # cause errors in "update()"
   weight_variable <- insight::find_weights(x)
 
+  if (!is.null(weight_variable) && !weight_variable %in% colnames(data) && "(weights)" %in% colnames(data)) {
+    data$.missing_weight <- data[["(weights)"]]
+    colnames(data)[ncol(data)] <- weight_variable
+    weight_variable <- c(weight_variable, "(weights)")
+  }
+
   # don't standardize random effects
   random_group_factor <- insight::find_random(x, flatten = TRUE, split_nested = TRUE)
 
@@ -34,7 +40,7 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
     data_std <- standardize(data[do_standardize],
                             robust = robust,
                             two_sd = two_sd,
-                            weights = if (weights) insight::get_weights(x) else NULL,
+                            weights = if (weights) stats::na.omit(insight::get_weights(x)) else NULL,
                             verbose = verbose)
 
     if (!.no_response_standardize(m_info) && include_response && two_sd) {
@@ -76,7 +82,8 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
   # restore data that should not be standardized
 
   if (length(dont_standardize)) {
-    data_std <- cbind(data[, dont_standardize, drop = FALSE], data_std)
+    remaining_columns <- intersect(colnames(data), dont_standardize)
+    data_std <- cbind(data[, remaining_columns, drop = FALSE], data_std)
   }
 
   # update model with standardized data
