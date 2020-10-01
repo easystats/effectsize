@@ -67,7 +67,7 @@ if (require("testthat") && require("effectsize")) {
 
     # standardize 2nd data set
     iris2 <- standardize(iris, select = c("Sepal.Length", "Petal.Width"),
-                         na_action = "select")
+                         na_action = "all")
     iris3 <- standardize(iris, select = c("Sepal.Length", "Petal.Width"),
                          weights = "weight_me",
                          na_action = "select")
@@ -80,12 +80,11 @@ if (require("testthat") && require("effectsize")) {
     # weights, missing data, but data isn't weight-stdized
     m2 <- lm(Sepal.Length ~ Species + Petal.Width, data = iris2, weights = weight_me)
     sm2 <- standardize(m1, weights = FALSE)
-    # testthat::expect_equal(coef(m2), coef(sm2)) #<<<<<<
+    testthat::expect_equal(coef(m2), coef(sm2))
 
     # weights, missing data, and data is weight-stdized
     m3 <- lm(Sepal.Length ~ Species + Petal.Width, data = iris3, weights = weight_me)
     sm3 <- standardize(m1, weights = TRUE)
     testthat::expect_equal(coef(m3), coef(sm3))
-
   })
 }
