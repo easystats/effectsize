@@ -165,7 +165,7 @@ the 0 - 1 range." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Standardization (Z-scoring)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/standardize.R'><code>R/standardize.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/standardize.data.frame.R'><code>R/standardize.data.frame.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/standardize.models.R'><code>R/standardize.models.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/standardize.R'><code>R/standardize.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/standardize.data.R'><code>R/standardize.data.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/standardize.models.R'><code>R/standardize.models.R</code></a></small>
     <div class="hidden name"><code>standardize.Rd</code></div>
     </div>
 
@@ -207,7 +207,7 @@ the 0 - 1 range.</p>
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
   select <span class='op'>=</span> <span class='cn'>NULL</span>,
   exclude <span class='op'>=</span> <span class='cn'>NULL</span>,
-  na_action <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"column"</span>, <span class='st'>"select"</span>, <span class='st'>"all"</span><span class='op'>)</span>,
+  remove_na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"none"</span>, <span class='st'>"select"</span>, <span class='st'>"all"</span><span class='op'>)</span>,
   force <span class='op'>=</span> <span class='cn'>FALSE</span>,
   append <span class='op'>=</span> <span class='cn'>FALSE</span>,
   suffix <span class='op'>=</span> <span class='st'>"_z"</span>,
@@ -273,8 +273,8 @@ variables will be selected.</p></td>
       <td><p>Character vector of column names to be excluded from selection.</p></td>
     </tr>
     <tr>
-      <th>na_action</th>
-      <td><p>How should missing values (<code>NA</code>) be treated: if <code>"column"</code>
+      <th>remove_na</th>
+      <td><p>How should missing values (<code>NA</code>) be treated: if <code>"none"</code>
 (default): each column's standardization is done separately, ignoring
 <code>NA</code>s. Else, rows with <code>NA</code> in the selected columns (<code>"select"</code>) or in all
 columns (<code>"all"</code>) are dropped before standardization, and the resulting
@@ -312,9 +312,16 @@ re-fitting the model work.</p></td>
 
     <p>The standardized object (either a standardize data frame or a
 statistical model fitted on standardized data).</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>If <code>x</code> is a model object, standardization is done by completely refitting the
+    <p>When <code>x</code> is a vector or a data frame with <code>remove_na = "none")</code>,
+missing values are preserved, so the return value has the same length /
+number of rows as the original input.</p>
+    <h2 class="hasAnchor" id="model-standardization"><a class="anchor" href="#model-standardization"></a>Model Standardization</h2>
+
+    
+
+<p>If <code>x</code> is a model object, standardization is done by completely refitting the
 model on the standardized data. Hence, this approach is equal to
 standardizing the variables <em>before</em> fitting the model and will return a new
 model object. However, this method is particularly recommended for complex
@@ -332,11 +339,6 @@ such as <code><a href='https://rdrr.io/r/base/Log.html'>log()</a></code> and <co
 standardized data is shifted by <code>Z - min(Z) + 1</code> or <code>Z - min(Z)</code>
 (respectively).</p>
 
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>When <code>x</code> is a vector or a data frame with <code>na_action = "column")</code>,
-missing values are preserved, so the return value has the same length /
-number of rows as the original input.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='normalize.html'>normalize()</a></code> <code><a href='standardize_parameters.html'>standardize_parameters()</a></code></p></div>
