@@ -8,7 +8,14 @@
 \alias{standardize.default}
 \title{Standardization (Z-scoring)}
 \usage{
-standardize(x, ...)
+standardize(
+  x,
+  robust = FALSE,
+  two_sd = FALSE,
+  weights = NULL,
+  verbose = TRUE,
+  ...
+)
 
 \method{standardize}{numeric}(
   x,
@@ -24,9 +31,9 @@ standardize(x, ...)
   robust = FALSE,
   two_sd = FALSE,
   weights = NULL,
+  verbose = TRUE,
   select = NULL,
   exclude = NULL,
-  verbose = TRUE,
   na_action = c("column", "select", "all"),
   force = FALSE,
   append = FALSE,
@@ -39,15 +46,13 @@ standardize(x, ...)
   robust = FALSE,
   two_sd = FALSE,
   weights = TRUE,
-  include_response = TRUE,
   verbose = TRUE,
+  include_response = TRUE,
   ...
 )
 }
 \arguments{
 \item{x}{A data frame, a vector or a statistical model.}
-
-\item{...}{Arguments passed to or from other methods.}
 
 \item{robust}{Logical, if \code{TRUE}, centering is done by subtracting the
 median from the variables and dividing it by the median absolute deviation
@@ -68,6 +73,8 @@ outcome) (Gelman, 2008).}
 }}
 
 \item{verbose}{Toggle warnings on or off.}
+
+\item{...}{Arguments passed to or from other methods.}
 
 \item{select}{Character vector of column names. If \code{NULL} (the default), all
 variables will be selected.}
@@ -132,9 +139,9 @@ standardized data is shifted by \code{Z - min(Z) + 1} or \code{Z - min(Z)}
 }
 }
 \note{
-When \code{x} is a data frame or vector, missing values are preserved, so
-the return value has the same length / number of rows as the original
-input.
+When \code{x} is a vector or a data frame with \verb{na_action = "column")},
+missing values are preserved, so the return value has the same length /
+number of rows as the original input.
 }
 \examples{
 # Data frames

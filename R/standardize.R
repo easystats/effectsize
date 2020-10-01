@@ -23,36 +23,14 @@
 #' - For `data.frame`s: a numeric vector of weights, or a character of the name of a column in the `data.frame` that contains the weights.
 #' - For numeric vectors: a numeric vector of weights.
 #' @param verbose Toggle warnings on or off.
-#' @param na_action How should missing values (`NA`) be treated: if `"column"`
-#'   (default): each column's standardization is done separately, ignoring
-#'   `NA`s. Else, rows with `NA` in the selected columns (`"select"`) or in all
-#'   columns (`"all"`) are dropped before standardization, and the resulting
-#'   data frame does not include these cases.
-#' @param force Logical, if `TRUE`, forces standardization of factors as
-#'   well. Factors are converted to numerical values, with the lowest level
-#'   being the value `1` (unless the factor has numeric levels, which are
-#'   converted to the corresponding numeric value).
-#' @param select Character vector of column names. If `NULL` (the default), all
-#'   variables will be selected.
-#' @param exclude Character vector of column names to be excluded from selection.
-#' @param include_response For a model, if `TRUE` (default), the response value
-#'   will also be standardized. If `FALSE`, only the predictors will be
-#'   standardized. Note that for certain models (logistic regression, count
-#'   models, ...), the response value will never be standardized, to make
-#'   re-fitting the model work.
-#' @param append Logical, if `TRUE` and `x` is a data frame, standardized
-#'   variables will be added as additional columns; if `FALSE`,
-#'   existing variables are overwritten.
-#' @param suffix Character value, will be appended to variable (column) names of
-#'   `x`, if `x` is a data frame and `append = TRUE`.
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @return The standardized object (either a standardize data frame or a
 #'   statistical model fitted on standardized data).
 #'
-#' @note When `x` is a data frame or vector, missing values are preserved, so
-#'   the return value has the same length / number of rows as the original
-#'   input.
+#' @note When `x` is a vector or a data frame with `na_action = "column")`,
+#'   missing values are preserved, so the return value has the same length /
+#'   number of rows as the original input.
 #'
 #' @details
 #' If `x` is a model object, standardization is done by completely refitting the
@@ -83,6 +61,6 @@
 #' model <- lm(Sepal.Length ~ Species * Petal.Width, data = iris)
 #' coef(standardize(model))
 #' @export
-standardize <- function(x, ...) {
+standardize <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, verbose = TRUE, ...) {
   UseMethod("standardize")
 }
