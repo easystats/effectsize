@@ -28,28 +28,10 @@
 #' @return The standardized object (either a standardize data frame or a
 #'   statistical model fitted on standardized data).
 #'
-#' @note When `x` is a vector or a data frame with `na_action = "column")`,
+#' @note When `x` is a vector or a data frame with `remove_na = "none")`,
 #'   missing values are preserved, so the return value has the same length /
 #'   number of rows as the original input.
 #'
-#' @details
-#' If `x` is a model object, standardization is done by completely refitting the
-#' model on the standardized data. Hence, this approach is equal to
-#' standardizing the variables *before* fitting the model and will return a new
-#' model object. However, this method is particularly recommended for complex
-#' models that include interactions or transformations (e.g., polynomial or
-#' spline terms). The `robust` (default to `FALSE`) argument enables a robust
-#' standardization of data, i.e., based on the `median` and `MAD` instead of the
-#' `mean` and `SD`. See [standardize_parameters()] for other methods of
-#' standardizing model coefficients.
-#'
-#' ## Transformed Variables
-#' When the model's formula contains transformations (e.g. `y ~ exp(X)`) the
-#' transformation effectively takes place after standardization (e.g.,
-#' `exp(scale(X))`). Some transformations are undefined for negative values,
-#' such as `log()` and `sqrt()`. To avoid dropping these values, the
-#' standardized data is shifted by `Z - min(Z) + 1` or `Z - min(Z)`
-#' (respectively).
 #'
 #' @seealso [normalize()] [standardize_parameters()]
 #'

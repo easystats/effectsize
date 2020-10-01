@@ -83,7 +83,7 @@ standardize.AsIs <- standardize.numeric
 #' @param select Character vector of column names. If `NULL` (the default), all
 #'   variables will be selected.
 #' @param exclude Character vector of column names to be excluded from selection.
-#' @param na_action How should missing values (`NA`) be treated: if `"column"`
+#' @param remove_na How should missing values (`NA`) be treated: if `"none"`
 #'   (default): each column's standardization is done separately, ignoring
 #'   `NA`s. Else, rows with `NA` in the selected columns (`"select"`) or in all
 #'   columns (`"all"`) are dropped before standardization, and the resulting
@@ -97,11 +97,30 @@ standardize.AsIs <- standardize.numeric
 #'   existing variables are overwritten.
 #' @param suffix Character value, will be appended to variable (column) names of
 #'   `x`, if `x` is a data frame and `append = TRUE`.
-
+#'
+#' @section Model Standardization:
+#' If `x` is a model object, standardization is done by completely refitting the
+#' model on the standardized data. Hence, this approach is equal to
+#' standardizing the variables *before* fitting the model and will return a new
+#' model object. However, this method is particularly recommended for complex
+#' models that include interactions or transformations (e.g., polynomial or
+#' spline terms). The `robust` (default to `FALSE`) argument enables a robust
+#' standardization of data, i.e., based on the `median` and `MAD` instead of the
+#' `mean` and `SD`. See [standardize_parameters()] for other methods of
+#' standardizing model coefficients.
+#'
+#' ## Transformed Variables
+#' When the model's formula contains transformations (e.g. `y ~ exp(X)`) the
+#' transformation effectively takes place after standardization (e.g.,
+#' `exp(scale(X))`). Some transformations are undefined for negative values,
+#' such as `log()` and `sqrt()`. To avoid dropping these values, the
+#' standardized data is shifted by `Z - min(Z) + 1` or `Z - min(Z)`
+#' (respectively).
+#'
 #' @export
 standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, verbose = TRUE,
                                    select = NULL, exclude = NULL,
-                                   na_action = c("column", "select", "all"),
+                                   remove_na = c("none", "select", "all"),
                                    force = FALSE,
                                    append = FALSE, suffix = "_z",
                                    ...) {
@@ -125,10 +144,10 @@ standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, weights = 
   select <- .select_z_variables(x, select, exclude, force)
 
   # drop NAs
-  na_action <- match.arg(na_action)
+  remove_na <- match.arg(remove_na)
 
-  omit <- switch(na_action,
-                 column = logical(nrow(x)),
+  omit <- switch(remove_na,
+                 none = logical(nrow(x)),
                  select = rowSums(sapply(x[select], is.na)) > 0,
                  all = rowSums(sapply(x, is.na)) > 0)
   x <- x[!omit,,drop = FALSE]
@@ -161,7 +180,7 @@ standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, weights = 
 #' @export
 standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, verbose = TRUE,
                                    select = NULL, exclude = NULL,
-                                   na_action = c("column", "select", "all"),
+                                   remove_na = c("none", "select", "all"),
                                    force = FALSE,
                                    append = FALSE, suffix = "_z",
                                    ...) {
@@ -213,7 +232,7 @@ standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, weights = 
       robust = robust,
       two_sd = two_sd,
       weights = weights,
-      na_action = na_action,
+      remove_na = remove_na,
       verbose = verbose,
       force = force,
       append = FALSE,

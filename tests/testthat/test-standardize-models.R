@@ -67,10 +67,10 @@ if (require("testthat") && require("effectsize")) {
 
     # standardize 2nd data set
     iris2 <- standardize(iris, select = c("Sepal.Length", "Petal.Width"),
-                         na_action = "all")
+                         remove_na = "all")
     iris3 <- standardize(iris, select = c("Sepal.Length", "Petal.Width"),
                          weights = "weight_me",
-                         na_action = "select")
+                         remove_na = "select")
 
 
 
