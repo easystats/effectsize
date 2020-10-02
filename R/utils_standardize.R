@@ -35,6 +35,11 @@
     return(mean(x))
   }
 
+  # remove missing from weights
+  if (anyNA(weights)) {
+    weights <- stats::na.omit(weights)
+  }
+
   stopifnot(all(weights > 0))
 
   stats::weighted.mean(x, weights)
