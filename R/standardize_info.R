@@ -208,7 +208,10 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 #' @keywords internal
 .std_info_response_smart <- function(model, data, model_matrix, types, robust = FALSE, ...) {
   info <- insight::model_info(model)
-  w <- insight::get_weights(model)
+  w <- insight::get_weights(model, na_rm = TRUE)
+
+  ## TODO after insight 0.9.7 on CRAN, use get_weights(model, na_rm = TRUE) and remove this line
+  if (anyNA(w)) w <- stats::na.omit(w)
 
   if (info$is_linear) {
     # response <- insight::get_response(model)

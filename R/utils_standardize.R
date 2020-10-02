@@ -36,6 +36,11 @@
   }
 
   stopifnot(all(weights > 0, na.rm = TRUE))
+
+  # remove missings
+  if (anyNA(x)) x <- stats::na.omit(x)
+  if (anyNA(weights)) weights <- stats::na.omit(weights)
+
   stats::weighted.mean(x, weights, na.rm = TRUE)
 }
 
