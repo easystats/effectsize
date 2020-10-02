@@ -35,13 +35,7 @@
     return(mean(x))
   }
 
-  # remove missing from weights
-  if (anyNA(weights)) {
-    weights <- stats::na.omit(weights)
-  }
-
-  stopifnot(all(weights > 0))
-
+  stopifnot(all(weights > 0, na.rm = TRUE))
   stats::weighted.mean(x, weights)
 }
 
@@ -53,12 +47,7 @@
     return(stats::sd(x))
   }
 
-  # remove missing from weights
-  if (anyNA(weights)) {
-    weights <- stats::na.omit(weights)
-  }
-
-  stopifnot(all(weights > 0))
+  stopifnot(all(weights > 0, na.rm = TRUE))
 
   weights1 <- weights / sum(weights)
   center <- sum(weights1 * x)
@@ -76,6 +65,7 @@
   if (!.are_weights(weights)) {
     return(stats::mad(x))
   }
+
   stopifnot(all(weights > 0))
 
   center <- .median(x, weights = weights)
@@ -93,12 +83,7 @@
     return(stats::median(x))
   }
 
-  # remove missing from weights
-  if (anyNA(weights)) {
-    weights <- stats::na.omit(weights)
-  }
-
-  stopifnot(all(weights > 0))
+  stopifnot(all(weights > 0, na.rm = TRUE))
 
   oo <- order(x)
   x <- x[oo]
