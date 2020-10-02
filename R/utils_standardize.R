@@ -66,7 +66,7 @@
     return(stats::mad(x))
   }
 
-  stopifnot(all(weights > 0))
+  stopifnot(all(weights > 0, na.rm = TRUE))
 
   center <- .median(x, weights = weights)
   x <- abs(x - center)
