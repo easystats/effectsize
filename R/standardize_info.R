@@ -253,11 +253,6 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
   # response <- insight::get_response(model)
   response <- stats::model.frame(model)[[1]]
 
-  # remove missing from weights
-  if (!is.null(w) && anyNA(w) && length(w) > length(response)) {
-    w <- stats::na.omit(w)
-  }
-
   if (info$is_linear) {
     if (robust == FALSE) {
       sd_y <- .sd(response, w)

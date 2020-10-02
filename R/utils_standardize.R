@@ -32,11 +32,11 @@
 #' @importFrom stats weighted.mean
 .mean <- function(x, weights = NULL) {
   if (!.are_weights(weights)) {
-    return(mean(x))
+    return(mean(x, na.rm = TRUE))
   }
 
   stopifnot(all(weights > 0, na.rm = TRUE))
-  stats::weighted.mean(x, weights)
+  stats::weighted.mean(x, weights, na.rm = TRUE)
 }
 
 #' @keywords internal
@@ -44,10 +44,14 @@
 .sd <- function(x, weights = NULL) {
   # from cov.wt
   if (!.are_weights(weights)) {
-    return(stats::sd(x))
+    return(stats::sd(x, na.rm = TRUE))
   }
 
   stopifnot(all(weights > 0, na.rm = TRUE))
+
+  # remove missings
+  if (anyNA(x)) x <- stats::na.omit(x)
+  if (anyNA(weights)) weights <- stats::na.omit(weights)
 
   weights1 <- weights / sum(weights)
   center <- sum(weights1 * x)
@@ -63,7 +67,7 @@
 .mad <- function(x, weights = NULL, constant = 1.4826) {
   # From matrixStats
   if (!.are_weights(weights)) {
-    return(stats::mad(x))
+    return(stats::mad(x, na.rm = TRUE))
   }
 
   stopifnot(all(weights > 0, na.rm = TRUE))
@@ -80,15 +84,18 @@
 .median <- function(x, weights = NULL) {
   # From spatstat + wiki
   if (!.are_weights(weights)) {
-    return(stats::median(x))
+    return(stats::median(x, na.rm = TRUE))
   }
 
   stopifnot(all(weights > 0, na.rm = TRUE))
 
+  if (anyNA(x)) x <- stats::na.omit(x)
+  if (anyNA(weights)) weights <- stats::na.omit(weights)
+
   oo <- order(x)
   x <- x[oo]
   weights <- weights[oo]
-  Fx <- cumsum(weights)/sum(weights)
+  Fx <- cumsum(weights) / sum(weights)
 
   lefties <- which(Fx <= 0.5)
   left <- max(lefties)
@@ -112,4 +119,3 @@
 .are_weights <- function(w) {
   !is.null(w) && length(w) && !all(w == 1) && !all(w == w[1])
 }
-
