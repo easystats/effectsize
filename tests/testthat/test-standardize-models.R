@@ -87,4 +87,21 @@ if (require("testthat") && require("effectsize")) {
     sm3 <- standardize(m1, weights = TRUE)
     testthat::expect_equal(coef(m3), coef(sm3))
   })
+
+
+  # weights + missing data ´+ na.action = na.exclude --------------------------------------------------
+  test_that("weights + NA + na.exclude", {
+    set.seed(1234)
+    data(iris)
+
+    # data setup
+    iris$weight_me <- runif(nrow(iris))
+    iris$Sepal.Length[sample(nrow(iris), size = 25)] <- NA
+    iris$weight_me[sample(nrow(iris), size = 15)] <- NA
+
+    m1 <- lm(Sepal.Length ~ Species + Petal.Width, data = iris, weights = weight_me, na.action = na.exclude)
+    m2 <- lm(Sepal.Length ~ Species + Petal.Width, data = iris, weights = weight_me)
+
+    testthat::expect_equal(coef(standardize(m2)), coef(standardize(m1)), tolerance = 1e-3)
+  })
 }
