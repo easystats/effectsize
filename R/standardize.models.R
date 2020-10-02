@@ -43,16 +43,23 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
   do_standardize <- setdiff(colnames(data), dont_standardize)
 
   if (length(do_standardize)) {
-    data_std <- standardize(data,
-                            select = do_standardize,
+    w <- insight::get_weights(x, na_rm = TRUE)
+    ## TODO after insight 0.9.7 on CRAN, use get_weights(model, na_rm = TRUE) and remove this line
+    if (anyNA(w)) w <- stats::na.omit(w)
+
+    data_std <- standardize(data[do_standardize],
                             robust = robust,
                             two_sd = two_sd,
-                            weights = if (weights) stats::na.omit(insight::get_weights(x)) else NULL,
+                            weights = if (weights) w else NULL,
                             verbose = verbose)
 
     if (!.no_response_standardize(m_info) && include_response && two_sd) {
       # if two_sd, it must not affect the response!
-      data_std[resp] <- standardize(data[resp], robust = robust, two_sd = FALSE, verbose = verbose)
+      data_std[resp] <- standardize(data[resp],
+                                    robust = robust,
+                                    two_sd = FALSE,
+                                    weights = if (weights) w else NULL,
+                                    verbose = verbose)
       dont_standardize <- setdiff(dont_standardize,resp)
     }
   } else {
@@ -148,11 +155,14 @@ standardize.coxph <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE,
   # standardize data, if we have anything left to standardize
 
   if (length(pred)) {
-    data_std <- standardize(data,
-                            select = pred,
+    w <- insight::get_weights(x, na_rm = TRUE)
+    ## TODO after insight 0.9.7 on CRAN, use get_weights(model, na_rm = TRUE) and remove this line
+    if (anyNA(w)) w <- stats::na.omit(w)
+
+    data_std <- standardize(data[pred],
                             robust = robust,
                             two_sd = two_sd,
-                            weights = if (weights) stats::na.omit(insight::get_weights(x)) else NULL,
+                            weights = if (weights) w else NULL,
                             verbose = verbose)
     data[pred] <- data_std
   }

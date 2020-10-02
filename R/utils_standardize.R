@@ -37,10 +37,6 @@
 
   stopifnot(all(weights > 0, na.rm = TRUE))
 
-  # remove missings
-  if (anyNA(x)) x <- stats::na.omit(x)
-  if (anyNA(weights)) weights <- stats::na.omit(weights)
-
   stats::weighted.mean(x, weights, na.rm = TRUE)
 }
 
@@ -53,10 +49,6 @@
   }
 
   stopifnot(all(weights > 0, na.rm = TRUE))
-
-  # remove missings
-  if (anyNA(x)) x <- stats::na.omit(x)
-  if (anyNA(weights)) weights <- stats::na.omit(weights)
 
   weights1 <- weights / sum(weights)
   center <- sum(weights1 * x)
@@ -93,9 +85,6 @@
   }
 
   stopifnot(all(weights > 0, na.rm = TRUE))
-
-  if (anyNA(x)) x <- stats::na.omit(x)
-  if (anyNA(weights)) weights <- stats::na.omit(weights)
 
   oo <- order(x)
   x <- x[oo]

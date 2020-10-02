@@ -103,5 +103,8 @@ if (require("testthat") && require("effectsize")) {
     m2 <- lm(Sepal.Length ~ Species + Petal.Width, data = iris, weights = weight_me)
 
     testthat::expect_equal(coef(standardize(m2)), coef(standardize(m1)), tolerance = 1e-3)
+    testthat::expect_equal(standardize_parameters(m1, method = "basic")[[2]],
+                           standardize_parameters(m2, method = "basic")[[2]],
+                           tolerance = 1e-3)
   })
 }
