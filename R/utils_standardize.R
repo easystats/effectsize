@@ -48,9 +48,14 @@
     return(stats::sd(x))
   }
 
+  # remove missing from weights
+  if (anyNA(weights)) {
+    weights <- stats::na.omit(weights)
+  }
+
   stopifnot(all(weights > 0))
 
-  weights1 <- weights/sum(weights)
+  weights1 <- weights / sum(weights)
   center <- sum(weights1 * x)
   xc <- sqrt(weights1) * (x - center)
   var <- (t(xc) %*% xc) / (1 - sum(weights1 ^ 2))

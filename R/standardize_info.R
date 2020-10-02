@@ -220,7 +220,7 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
         parent_var <- types$Variable[types$Parameter == var]
         intercept <- unique(data[[parent_var]])[1]
         response_at_intercept <- response[data[[parent_var]] == intercept]
-        weights_at_intercept <- if(length(w)) w[data[[parent_var]] == intercept] else NULL
+        weights_at_intercept <- if (length(w)) w[data[[parent_var]] == intercept] else NULL
         std_info <- .compute_std_info(response = response_at_intercept,
                                       robust = robust, weights = weights_at_intercept)
       } else {
@@ -245,12 +245,18 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 
 
 
+#' @importFrom stats na.omit model.frame
 #' @keywords internal
 .std_info_response_basic <- function(model, params, robust = FALSE, ...) {
   info <- insight::model_info(model)
   w <- insight::get_weights(model)
   # response <- insight::get_response(model)
-  response <- model.frame(model)[[1]]
+  response <- stats::model.frame(model)[[1]]
+
+  # remove missing from weights
+  if (!is.null(w) && anyNA(w) && length(w) > length(response)) {
+    w <- stats::na.omit(w)
+  }
 
   if (info$is_linear) {
     if (robust == FALSE) {
@@ -325,7 +331,7 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
                              group = "id")
     dm <- dm[,paste0(colnames(temp_d), "_between"), drop = FALSE]
 
-    has_lvl2_var <- sapply(seq_along(colnames(temp_d)), function (i) {
+    has_lvl2_var <- sapply(seq_along(colnames(temp_d)), function(i) {
       # If more than 1% of the variance in the within-var is between:
       var(dm[,i]) /
          var(temp_d[,i])
