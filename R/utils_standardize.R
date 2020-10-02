@@ -93,6 +93,11 @@
     return(stats::median(x))
   }
 
+  # remove missing from weights
+  if (anyNA(weights)) {
+    weights <- stats::na.omit(weights)
+  }
+
   stopifnot(all(weights > 0))
 
   oo <- order(x)
@@ -102,7 +107,7 @@
 
   lefties <- which(Fx <= 0.5)
   left <- max(lefties)
-  if(length(lefties) == 0) {
+  if (length(lefties) == 0) {
     result <- x[1]
   } else if (left == length(x)) {
     result <- x[length(x)]
