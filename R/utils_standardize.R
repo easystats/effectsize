@@ -114,10 +114,10 @@
   } else {
     result <- x[left]
 
-    if (!(Fx[left-1] < 0.5 && 1-Fx[left] < 0.5)) {
+    if (!(Fx[left - 1] < 0.5 && 1 - Fx[left] < 0.5)) {
       right <- left + 1
       y <- x[left] * Fx[left] + x[right] * Fx[right]
-      if(is.finite(y)) result <- y
+      if (is.finite(y)) result <- y
     }
   }
 
