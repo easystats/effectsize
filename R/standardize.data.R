@@ -85,9 +85,9 @@ standardize.AsIs <- standardize.numeric
 #' @param exclude Character vector of column names to be excluded from selection.
 #' @param remove_na How should missing values (`NA`) be treated: if `"none"`
 #'   (default): each column's standardization is done separately, ignoring
-#'   `NA`s. Else, rows with `NA` in the selected columns (`"select"`) or in all
-#'   columns (`"all"`) are dropped before standardization, and the resulting
-#'   data frame does not include these cases.
+#'   `NA`s. Else, rows with `NA` in the columns selected with `select` /
+#'   `exclude` (`"selected"`) or in all columns (`"all"`) are dropped before
+#'   standardization, and the resulting data frame does not include these cases.
 #' @param force Logical, if `TRUE`, forces standardization of factors as
 #'   well. Factors are converted to numerical values, with the lowest level
 #'   being the value `1` (unless the factor has numeric levels, which are
@@ -120,7 +120,7 @@ standardize.AsIs <- standardize.numeric
 #' @export
 standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, verbose = TRUE,
                                    select = NULL, exclude = NULL,
-                                   remove_na = c("none", "select", "all"),
+                                   remove_na = c("none", "selected", "all"),
                                    force = FALSE,
                                    append = FALSE, suffix = "_z",
                                    ...) {
@@ -148,7 +148,7 @@ standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, weights = 
 
   omit <- switch(remove_na,
                  none = logical(nrow(x)),
-                 select = rowSums(sapply(x[select], is.na)) > 0,
+                 selected = rowSums(sapply(x[select], is.na)) > 0,
                  all = rowSums(sapply(x, is.na)) > 0)
   x <- x[!omit,,drop = FALSE]
 
@@ -180,7 +180,7 @@ standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, weights = 
 #' @export
 standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, verbose = TRUE,
                                    select = NULL, exclude = NULL,
-                                   remove_na = c("none", "select", "all"),
+                                   remove_na = c("none", "selected", "all"),
                                    force = FALSE,
                                    append = FALSE, suffix = "_z",
                                    ...) {

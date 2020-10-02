@@ -70,7 +70,7 @@ if (require("testthat") && require("effectsize")) {
                          remove_na = "all")
     iris3 <- standardize(iris, select = c("Sepal.Length", "Petal.Width"),
                          weights = "weight_me",
-                         remove_na = "select")
+                         remove_na = "selected")
 
 
 

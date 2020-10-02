@@ -34,7 +34,7 @@ standardize(
   verbose = TRUE,
   select = NULL,
   exclude = NULL,
-  remove_na = c("none", "select", "all"),
+  remove_na = c("none", "selected", "all"),
   force = FALSE,
   append = FALSE,
   suffix = "_z",
@@ -83,9 +83,9 @@ variables will be selected.}
 
 \item{remove_na}{How should missing values (\code{NA}) be treated: if \code{"none"}
 (default): each column's standardization is done separately, ignoring
-\code{NA}s. Else, rows with \code{NA} in the selected columns (\code{"select"}) or in all
-columns (\code{"all"}) are dropped before standardization, and the resulting
-data frame does not include these cases.}
+\code{NA}s. Else, rows with \code{NA} in the columns selected with \code{select} /
+\code{exclude} (\code{"selected"}) or in all columns (\code{"all"}) are dropped before
+standardization, and the resulting data frame does not include these cases.}
 
 \item{force}{Logical, if \code{TRUE}, forces standardization of factors as
 well. Factors are converted to numerical values, with the lowest level
