@@ -1,9 +1,15 @@
 #' @rdname standardize
-#' @importFrom stats update
-#' @importFrom insight get_data model_info find_response get_response find_weights
+#' @param include_response For a model, if `TRUE` (default), the response value
+#'   will also be standardized. If `FALSE`, only the predictors will be
+#'   standardized. Note that for certain models (logistic regression, count
+#'   models, ...), the response value will never be standardized, to make
+#'   re-fitting the model work.
+#' @importFrom stats update na.omit
+#' @importFrom insight get_data model_info find_response get_response find_weights get_weights
 #' @importFrom utils capture.output
 #' @export
-standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, include_response = TRUE, verbose = TRUE, ...) {
+standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, verbose = TRUE,
+                                include_response = TRUE, ...) {
   m_info <- insight::model_info(x)
   data <- insight::get_data(x)
   resp <- NULL
@@ -22,6 +28,12 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
   # cause errors in "update()"
   weight_variable <- insight::find_weights(x)
 
+  if (!is.null(weight_variable) && !weight_variable %in% colnames(data) && "(weights)" %in% colnames(data)) {
+    data$.missing_weight <- data[["(weights)"]]
+    colnames(data)[ncol(data)] <- weight_variable
+    weight_variable <- c(weight_variable, "(weights)")
+  }
+
   # don't standardize random effects
   random_group_factor <- insight::find_random(x, flatten = TRUE, split_nested = TRUE)
 
@@ -31,15 +43,23 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
   do_standardize <- setdiff(colnames(data), dont_standardize)
 
   if (length(do_standardize)) {
+    w <- insight::get_weights(x, na_rm = TRUE)
+    ## TODO after insight 0.9.7 on CRAN, use get_weights(model, na_rm = TRUE) and remove this line
+    if (anyNA(w)) w <- stats::na.omit(w)
+
     data_std <- standardize(data[do_standardize],
                             robust = robust,
                             two_sd = two_sd,
-                            weights = if (weights) insight::get_weights(x) else NULL,
+                            weights = if (weights) w else NULL,
                             verbose = verbose)
 
     if (!.no_response_standardize(m_info) && include_response && two_sd) {
       # if two_sd, it must not affect the response!
-      data_std[resp] <- standardize(data[resp], robust = robust, two_sd = FALSE, verbose = verbose)
+      data_std[resp] <- standardize(data[resp],
+                                    robust = robust,
+                                    two_sd = FALSE,
+                                    weights = if (weights) w else NULL,
+                                    verbose = verbose)
       dont_standardize <- setdiff(dont_standardize,resp)
     }
   } else {
@@ -76,7 +96,8 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
   # restore data that should not be standardized
 
   if (length(dont_standardize)) {
-    data_std <- cbind(data[, dont_standardize, drop = FALSE], data_std)
+    remaining_columns <- intersect(colnames(data), dont_standardize)
+    data_std <- cbind(data[, remaining_columns, drop = FALSE], data_std)
   }
 
   # update model with standardized data
@@ -98,49 +119,14 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
 
 
 
-#' @keywords internal
-.no_response_standardize <- function(info) {
-  # check if model has a response variable that should not be standardized.
-  info$is_count | info$is_ordinal | info$is_multinomial | info$is_beta | info$is_censored | info$is_binomial | info$is_survival
-}
-
-
-
-
-
 # exceptions, models that cannot use the default-method --------------------
 
 
 #' @export
 standardize.mlm <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, verbose = TRUE, ...) {
-  standardize.default(x = x, robust = robust, two_sd = two_sd, weights = weights, include_response = FALSE, verbose = verbose, ...)
+  standardize.default(x, robust = robust, two_sd = two_sd, weights = weights, verbose = verbose,
+                      include_response = FALSE, ...)
 }
-
-#' @export
-standardize.wbm <- function(x, ...) {
-  warning(paste0("Standardization of parameters not possible for models of class '", class(x)[1], "'."), call. = FALSE)
-  x
-}
-
-#' @export
-standardize.Surv <- function(x, ...) {
-  insight::print_color("'Surv' objects cannot be standardized.\n", "red")
-  x
-}
-
-#' @export
-standardize.clm2 <- standardize.wbm
-
-#' @export
-standardize.bcplm <- standardize.wbm
-
-#' @export
-standardize.wbgee <- standardize.wbm
-
-
-
-
-# models with special handling of response variables ---------------------------
 
 
 #' @export
@@ -169,10 +155,14 @@ standardize.coxph <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE,
   # standardize data, if we have anything left to standardize
 
   if (length(pred)) {
-    data_std <- standardize(data[, pred, drop = FALSE],
+    w <- insight::get_weights(x, na_rm = TRUE)
+    ## TODO after insight 0.9.7 on CRAN, use get_weights(model, na_rm = TRUE) and remove this line
+    if (anyNA(w)) w <- stats::na.omit(w)
+
+    data_std <- standardize(data[pred],
                             robust = robust,
                             two_sd = two_sd,
-                            weights = if (weights) insight::get_weights(x) else NULL,
+                            weights = if (weights) w else NULL,
                             verbose = verbose)
     data[pred] <- data_std
   }
@@ -185,6 +175,30 @@ standardize.coxph <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE,
 
 #' @export
 standardize.coxme <- standardize.coxph
+
+
+
+
+# Cannot ------------------------------------------------------------------
+
+
+#' @export
+standardize.wbm <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, verbose = TRUE, ...) {
+  warning(paste0("Standardization of parameters not possible for models of class '", class(x)[1], "'."), call. = FALSE)
+  x
+}
+
+#' @export
+standardize.Surv <- standardize.wbm
+
+#' @export
+standardize.clm2 <- standardize.wbm
+
+#' @export
+standardize.bcplm <- standardize.wbm
+
+#' @export
+standardize.wbgee <- standardize.wbm
 
 
 
@@ -210,4 +224,11 @@ standardize.coxme <- standardize.coxph
   pattern <- "sqrt\\(([^,)]*).*"
   out <- gsub(pattern, "\\1", x[grepl(pattern, x)])
   intersect(colnames(data), out)
+}
+
+
+#' @keywords internal
+.no_response_standardize <- function(info) {
+  # check if model has a response variable that should not be standardized.
+  info$is_count | info$is_ordinal | info$is_multinomial | info$is_beta | info$is_censored | info$is_binomial | info$is_survival
 }

@@ -28,6 +28,7 @@ if (require("testthat") && require("effectsize")) {
 
   # lm with ci -----------------------------------
   test_that("standardize_parameters (lm with ci)", {
+    data("iris")
     model <- lm(Sepal.Length ~ Species + Petal.Width, data = iris)
 
     testthat::expect_equal(
@@ -79,12 +80,12 @@ if (require("testthat") && require("effectsize")) {
       tol = 0.01
     )
 
-
+    data("mtcars")
     m0 <- lm(mpg ~ cyl + factor(am), mtcars)
-    expect_equal(standardize_parameters(m0, method = "refit")[[2]][-1],
-                 standardize_parameters(m0, method = "smart")[[2]][-1], tol = 0.01)
-    expect_equal(standardize_parameters(m0, method = "refit", two_sd = TRUE)[[2]][-1],
-                 standardize_parameters(m0, method = "smart", two_sd = TRUE)[[2]][-1], tol = 0.01)
+    testthat::expect_equal(standardize_parameters(m0, method = "refit")[[2]][-1],
+                           standardize_parameters(m0, method = "smart")[[2]][-1], tol = 0.01)
+    testthat::expect_equal(standardize_parameters(m0, method = "refit", two_sd = TRUE)[[2]][-1],
+                           standardize_parameters(m0, method = "smart", two_sd = TRUE)[[2]][-1], tol = 0.01)
   })
 
 
@@ -156,7 +157,7 @@ if (require("testthat") && require("effectsize")) {
       )
 
       posts <- standardize_posteriors(model, method = "posthoc")
-      testthat::expect_equal(dim(posts), c(1000, 5))
+      testthat::expect_equal(dim(posts), c(1000, 4))
       testthat::expect_is(posts, "data.frame")
     })
   }
