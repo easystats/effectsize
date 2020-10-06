@@ -75,6 +75,27 @@ if (require("testthat") && require("effectsize")) {
                            c(0.674, 0.413, 0.050),
                            tol = 0.001)
   })
+
+  test_that("Cohen's f - R2 change", {
+    data(hardlyworking)
+    m1 <- lm(salary ~ xtra_hours, data = hardlyworking)
+    m2 <- lm(salary ~ xtra_hours + n_comps, data = hardlyworking)
+
+    fsD <- cohens_f2(m1, model2 = m2)[,1:4]
+    fs <- cohens_f2(m2)[-1,-1] # this only works because of the defaul type-I errors! :(
+    rownames(fsD) <- rownames(fs) <- 1
+    testthat::expect_equal(fsD, fs)
+
+    if (require("performance")) {
+      fsD <- cohens_f2(m1, model2 = m2)
+
+      R2_1 <- performance::r2(m1)[[1]]
+      R2_2 <- performance::r2(m2)[[1]]
+
+      testthat::expect_equal(fsD$Cohens_f2_partial,
+                             unname((R2_2 - R2_1) / (1 - R2_2)))
+    }
+  })
 }
 
 
