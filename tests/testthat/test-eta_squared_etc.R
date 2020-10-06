@@ -29,6 +29,21 @@ if (require("testthat") && require("effectsize")) {
                            c(0.644, 0.115, -0.012),
                            tol = 0.001)
 
+    # Cohen's f/f2
+    testthat::expect_equal(cohens_f2(fit, partial = FALSE)$Cohens_f2,
+                           c(1.623, 0.049, 0.000),
+                           tol = 0.001)
+    testthat::expect_equal(cohens_f2(fit, partial = TRUE)$Cohens_f2_partial,
+                           c(1.850, 0.139, 0.001),
+                           tol = 0.001)
+    testthat::expect_equal(cohens_f(fit, partial = FALSE)$Cohens_f,
+                           c(1.273, 0.220, 0.021),
+                           tol = 0.001)
+    testthat::expect_equal(cohens_f(fit, partial = TRUE)$Cohens_f_partial,
+                           c(1.360, 0.373, 0.036),
+                           tol = 0.001)
+    testthat::expect_equal(cohens_f(fit, squared = TRUE), cohens_f2(fit))
+    testthat::expect_equal(cohens_f2(fit, squared = FALSE), cohens_f(fit))
   })
 
   test_that("aovlist", {

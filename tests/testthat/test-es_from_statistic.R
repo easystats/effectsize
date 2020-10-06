@@ -35,5 +35,14 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_equal(res$Eta_Sq_partial, 0.088, tolerance = 0.001)
     testthat::expect_equal(res$CI_low, 0.013, tolerance = 0.001)
     testthat::expect_equal(res$CI_high, 0.163, tolerance = 0.001)
+
+    resf2 <- F_to_f2(4, 3, 123)
+    resf <- F_to_f(4, 3, 123)
+    testthat::expect_equal(as.data.frame(unname(resf2[-2])),
+                           unname(res[-2] / (1-res[-2])))
+    testthat::expect_equal(as.data.frame(unname(resf[-2])),
+                           unname(sqrt(res[-2] / (1-res[-2]))))
+    testthat::expect_equal(F_to_f(4, 3, 123), F_to_f2(4, 3, 123, squared = FALSE))
+    testthat::expect_equal(F_to_f2(4, 3, 123), F_to_f(4, 3, 123, squared = TRUE))
   })
 }

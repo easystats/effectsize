@@ -2,6 +2,7 @@
 
 ## New features
 
+- Added `Cohens_f2()` and `F_to_f2()` for Cohen's *f*-squared.
 - `standardize()` and `standardize_info()` work with weighted models / data ( #82 ).
 - Added `hardlyworking` (simulated) dataset, for use in examples.
 - `interpret_*` ( #131 ):

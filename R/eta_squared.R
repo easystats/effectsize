@@ -148,26 +148,42 @@ epsilon_squared <- function(model,
 }
 
 #' @rdname eta_squared
+#' @inheritParams F_to_f
 #' @export
-cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
+cohens_f <- function(model, partial = TRUE, ci = 0.9, squared = FALSE, ...) {
   res <- eta_squared(model,
                      partial = partial,
                      ci = ci)
 
   if ("Eta_Sq_partial" %in% colnames(res)) {
-    res$Eta_Sq_partial <- sqrt(res$Eta_Sq_partial / (1 - res$Eta_Sq_partial))
-    colnames(res)[colnames(res) == "Eta_Sq_partial"] <- "Cohens_f_partial"
+    res$Eta_Sq_partial <- res$Eta_Sq_partial / (1 - res$Eta_Sq_partial)
+    colnames(res)[colnames(res) == "Eta_Sq_partial"] <- "Cohens_f2_partial"
   } else {
-    res$Eta_Sq <- sqrt(res$Eta_Sq / (1 - res$Eta_Sq))
-    colnames(res)[colnames(res) == "Eta_Sq"] <- "Cohens_f"
+    res$Eta_Sq <- res$Eta_Sq / (1 - res$Eta_Sq)
+    colnames(res)[colnames(res) == "Eta_Sq"] <- "Cohens_f2"
   }
 
   if (is.numeric(ci)) {
-    res$CI_low <- sqrt(res$CI_low  / (1 - res$CI_low))
-    res$CI_high <- sqrt(res$CI_high  / (1 - res$CI_high))
+    res$CI_low <- res$CI_low  / (1 - res$CI_low)
+    res$CI_high <- res$CI_high  / (1 - res$CI_high)
   }
 
+
+  if (!squared) {
+    i <- colnames(res) %in% c("Cohens_f2", "Cohens_f2_partial", "CI_low", "CI_high")
+    res[i] <- sqrt(res[i])
+    colnames(res)[colnames(res) %in% c("Cohens_f2","Cohens_f2_partial")] <-
+      if ("Cohens_f2" %in% colnames(res)) "Cohens_f" else "Cohens_f_partial"
+  }
+
+
   res
+}
+
+#' @rdname eta_squared
+#' @export
+cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE, ...) {
+  cohens_f(model, partial = partial, ci = ci, squared = squared)
 }
 
 
@@ -577,7 +593,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
 
   if (!requireNamespace("afex", quietly = TRUE)) {
     stop(
-      "Package 'lmerTest' required for this function to work. ",
+      "Package 'afex' required for this function to work. ",
       "Please install it by running `install.packages('afex')`."
     )
   }

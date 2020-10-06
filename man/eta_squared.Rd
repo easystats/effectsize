@@ -5,6 +5,7 @@
 \alias{omega_squared}
 \alias{epsilon_squared}
 \alias{cohens_f}
+\alias{cohens_f2}
 \title{Effect size for ANOVA}
 \usage{
 eta_squared(model, partial = TRUE, ci = 0.9, ...)
@@ -13,7 +14,9 @@ omega_squared(model, partial = TRUE, ci = 0.9, ...)
 
 epsilon_squared(model, partial = TRUE, ci = 0.9, ...)
 
-cohens_f(model, partial = TRUE, ci = 0.9, ...)
+cohens_f(model, partial = TRUE, ci = 0.9, squared = FALSE, ...)
+
+cohens_f2(model, partial = TRUE, ci = 0.9, squared = TRUE, ...)
 }
 \arguments{
 \item{model}{A model, ANOVA object, or the result of \code{parameters::model_parameters}.}
@@ -23,6 +26,8 @@ cohens_f(model, partial = TRUE, ci = 0.9, ...)
 \item{ci}{Confidence Interval (CI) level}
 
 \item{...}{Arguments passed to or from other methods (ignored).}
+
+\item{squared}{Return Cohen's \emph{f} or Cohen's \emph{f}-squared?}
 }
 \value{
 A data frame with the effect size(s) and confidence interval(s).
