@@ -121,6 +121,8 @@ Also, models can be re-fit with standardized data:
 standardize(m)
 ```
 
+<!-- add cohens_f2? -->
+
 ## Effect Size Interpretation
 
 The package allows for an automated interpretation of different indices. 

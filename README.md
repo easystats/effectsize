@@ -144,6 +144,8 @@ standardize(m)
 ##            -1.371              1.762              2.351              0.423
 ```
 
+<!-- add cohens_f2? -->
+
 ## Effect Size Interpretation
 
 The package allows for an automated interpretation of different indices.
