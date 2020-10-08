@@ -484,6 +484,24 @@
 <span class="va">std</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod_b</span>, method <span class="op">=</span> <span class="st">"refit"</span>, two_sd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">std</span><span class="op">$</span><span class="va">Std_Coefficient</span><span class="op">)</span></pre></div>
 <pre><code>&gt; [1]  0.4 86.4  2.1  2.0</code></pre>
+</div>
+</div>
+<div id="cohens-f" class="section level1">
+<h1 class="hasAnchor">
+<a href="#cohens-f" class="anchor"></a>Cohen’s <em>f</em>
+</h1>
+<p>Cohen’s <span class="math inline">\(f\)</span> (of <a href="%5Bhttps://easystats.github.io/effectsize/articles/anovaES.html%5D">ANOVA fame</a>) can be used as a measure of effect size in the context of sequential multiple regression. That is, when comparing two models, we can examine the ratio between the increase in <span class="math inline">\(R^2\)</span> and the unexplained variance:</p>
+<p><span class="math display">\[
+f^{2}={R_{AB}^{2}-R_{A}^{2} \over 1-R_{AB}^{2}}
+\]</span></p>
+<div class="sourceCode" id="cb54"><pre class="downlit">
+<span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">xtra_hours</span>, data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">)</span>
+<span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">xtra_hours</span> <span class="op">+</span> <span class="va">n_comps</span> <span class="op">+</span> <span class="va">seniority</span>, data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/eta_squared.html">cohens_f2</a></span><span class="op">(</span><span class="va">m1</span>, model2 <span class="op">=</span> <span class="va">m2</span><span class="op">)</span></pre></div>
+<pre><code>&gt; Cohen's f2 (partial) |       90% CI | R2_delta
+&gt; ----------------------------------------------
+&gt;                 1.19 | [0.99, 1.40] |     0.17</code></pre>
 <!-- ## Methods Comparison -->
 <!-- We will use the "refit" method as the baseline. We will then compute the differences between these standardized parameters and the ones provided by the other functions. The **bigger the (absolute) number, the worse it is**. -->
 <!-- > **SPOILER ALERT: the standardization implemented in `effectsize` is the most accurate and the most flexible.** -->
@@ -597,7 +615,6 @@
 <!-- ``` -->
 <!-- ## Conclusion -->
 <!-- Use `refit` if possible, but if no interactions, can use `posthoc` or `smart`. -->
-</div>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
