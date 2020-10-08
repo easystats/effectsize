@@ -212,7 +212,8 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   obj_name <- attr(pars, "obj_name")
   model <- .get_object(model)
 
-  pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, verbose)
+  if (is.null(exponentiate <- attr(pars, "exponentiate"))) exponentiate <- FALSE
+  pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, exponentiate, verbose)
   method <- attr(pars, "std_method")
   robust <- attr(pars, "robust")
 
