@@ -289,6 +289,20 @@ std <- standardize_parameters(mod_b, method = "refit", two_sd = TRUE)
 exp(std$Std_Coefficient)
 ```
 
+# Cohen's *f*
+
+Cohen's $f$ (of [ANOVA fame]([https://easystats.github.io/effectsize/articles/anovaES.html])) can be used as a measure of effect size in the context of sequential multiple regression. That is, when comparing two models, we can examine the ratio between the increase in $R^2$ and the unexplained variance:
+
+$$
+f^{2}={R_{AB}^{2}-R_{A}^{2} \over 1-R_{AB}^{2}}
+$$
+```{r}
+m1 <- lm(salary ~ xtra_hours, data = hardlyworking)
+m2 <- lm(salary ~ xtra_hours + n_comps + seniority, data = hardlyworking)
+
+cohens_f2(m1, model2 = m2)
+```
+
 
 <!-- ## Methods Comparison -->
 

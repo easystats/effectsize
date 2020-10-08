@@ -74,7 +74,7 @@
 #'
 #' if (require("lmerTest")) { # for the df_error
 #'   fit <- lmer(extra ~ group + (1 | ID), sleep)
-#'   anova(fit)
+#'   # anova(fit)
 #'   # Type III Analysis of Variance Table with Satterthwaite's method
 #'   #       Sum Sq Mean Sq NumDF DenDF F value   Pr(>F)
 #'   # group 12.482  12.482     1     9  16.501 0.002833 **
@@ -148,19 +148,24 @@ t_to_omega2 <- function(t, df_error, ci = 0.9, ...) {
 
 
 #' @rdname F_to_eta2
+#' @param squared Return Cohen's *f* or Cohen's *f*-squared?
 #' @export
-F_to_f <- function(f, df, df_error, ci = 0.9, ...){
+F_to_f <- function(f, df, df_error, ci = 0.9, squared = FALSE, ...){
   res_eta <- F_to_eta2(f, df, df_error, ci = ci)
 
-  res <- data.frame(Cohens_f_partial = sqrt(res_eta$Eta_Sq_partial /
-                                              (1 - res_eta$Eta_Sq_partial)))
+  res <- data.frame(Cohens_f2_partial =
+                      res_eta$Eta_Sq_partial / (1 - res_eta$Eta_Sq_partial))
 
   if (is.numeric(ci)) {
     res$CI <- res_eta$CI
-    res$CI_low <- sqrt(res_eta$CI_low /
-                         (1 - res_eta$CI_low))
-    res$CI_high <- sqrt(res_eta$CI_high /
-                          (1 - res_eta$CI_high))
+    res$CI_low <- res_eta$CI_low / (1 - res_eta$CI_low)
+    res$CI_high <- res_eta$CI_high / (1 - res_eta$CI_high)
+  }
+
+  if (!squared) {
+    i <- colnames(res) %in% c("Cohens_f2_partial", "CI_low", "CI_high")
+    res[i] <- sqrt(res[i])
+    colnames(res)[colnames(res) == "Cohens_f2_partial"] <- "Cohens_f_partial"
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
@@ -170,8 +175,20 @@ F_to_f <- function(f, df, df_error, ci = 0.9, ...){
 
 #' @rdname F_to_eta2
 #' @export
-t_to_f <- function(t, df_error, ci = 0.9, ...){
-  F_to_f(t^2, 1, df_error, ci = ci)
+t_to_f <- function(t, df_error, ci = 0.9, squared = FALSE, ...){
+  F_to_f(t^2, 1, df_error, ci = ci, squared = squared)
+}
+
+#' @rdname F_to_eta2
+#' @export
+F_to_f2 <- function(f, df, df_error, ci = 0.9, squared = TRUE, ...){
+  F_to_f(f, df = df, df_error = df_error, ci = ci, squared = squared)
+}
+
+#' @rdname F_to_eta2
+#' @export
+t_to_f2 <- function(t, df_error, ci = 0.9, squared = TRUE, ...){
+  F_to_f(t^2, 1, df_error, ci = ci, squared = squared)
 }
 
 

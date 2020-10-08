@@ -11,6 +11,8 @@
 \alias{t_to_omega2}
 \alias{F_to_f}
 \alias{t_to_f}
+\alias{F_to_f2}
+\alias{t_to_f2}
 \title{Convert test statistics (F, t) to indices of \strong{partial} variance explained (\strong{partial} Eta / Omega / Epsilon squared and Cohen's f)}
 \usage{
 F_to_eta2(f, df, df_error, ci = 0.9, ...)
@@ -29,9 +31,13 @@ F_to_omega2(f, df, df_error, ci = 0.9, ...)
 
 t_to_omega2(t, df_error, ci = 0.9, ...)
 
-F_to_f(f, df, df_error, ci = 0.9, ...)
+F_to_f(f, df, df_error, ci = 0.9, squared = FALSE, ...)
 
-t_to_f(t, df_error, ci = 0.9, ...)
+t_to_f(t, df_error, ci = 0.9, squared = FALSE, ...)
+
+F_to_f2(f, df, df_error, ci = 0.9, squared = TRUE, ...)
+
+t_to_f2(t, df_error, ci = 0.9, squared = TRUE, ...)
 }
 \arguments{
 \item{df, df_error}{Degrees of freedom of numerator or of the error estimate (i.e., the residuals).}
@@ -41,6 +47,8 @@ t_to_f(t, df_error, ci = 0.9, ...)
 \item{...}{Arguments passed to or from other methods.}
 
 \item{t, f}{The t or the F statistics.}
+
+\item{squared}{Return Cohen's \emph{f} or Cohen's \emph{f}-squared?}
 }
 \value{
 A data frame with the effect size(s) between 0-1, and confidence interval(s) (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2}
@@ -118,7 +126,7 @@ if(require(see)) plot(etas)
 
 if (require("lmerTest")) { # for the df_error
   fit <- lmer(extra ~ group + (1 | ID), sleep)
-  anova(fit)
+  # anova(fit)
   # Type III Analysis of Variance Table with Satterthwaite's method
   #       Sum Sq Mean Sq NumDF DenDF F value   Pr(>F)
   # group 12.482  12.482     1     9  16.501 0.002833 **

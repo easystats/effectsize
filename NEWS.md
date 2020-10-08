@@ -2,6 +2,8 @@
 
 ## New features
 
+- Added `Cohens_f2()` and `F_to_f2()` for Cohen's *f*-squared.
+- `Cohens_f()` / `Cohens_f2()`can be used to estimate Cohen's *f* for the R-squared change between two models.
 - `standardize()` and `standardize_info()` work with weighted models / data ( #82 ).
 - Added `hardlyworking` (simulated) dataset, for use in examples.
 - `interpret_*` ( #131 ):

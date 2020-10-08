@@ -52,11 +52,17 @@
 #' biased (Carroll & Nordholm, 1975).
 #'
 #' ## Cohen's f
-#' Cohen's f can take on values between zero, when the population
-#'  means are all equal, and an indefinitely large number as standard deviation of means
-#'  increases relative to the average standard deviation within each group. Cohen has
-#'  suggested that the values of 0.10, 0.25, and 0.40 represent small, medium, and large
-#'  effect sizes, respectively.
+#' Cohen's f can take on values between zero, when the population means are all
+#' equal, and an indefinitely large number as standard deviation of means
+#' increases relative to the average standard deviation within each group.
+#' \cr\cr
+#' When comparing two models in a sequential regression analysis, Cohen's f for
+#' R-square change is the ratio between ratio between the increase in R-square
+#' and the \% unexplained variance.
+#' \cr\cr
+#' Cohen has suggested that the values of 0.10, 0.25, and 0.40 represent small,
+#' medium, and large effect sizes, respectively.
+#'
 #'
 #' @seealso [F_to_eta2()]
 #'
@@ -76,6 +82,8 @@
 #'
 #' if(require(see)) plot(etas)
 #'
+#' model0 <- aov(mpg ~ am_f + cyl_f, data = mtcars)
+#' cohens_f2(model0, model2 = model)
 #'
 #' model <- aov(mpg ~ cyl_f * am_f + Error(vs / am_f), data = mtcars)
 #' epsilon_squared(model)
@@ -148,26 +156,50 @@ epsilon_squared <- function(model,
 }
 
 #' @rdname eta_squared
+#' @inheritParams F_to_f
+#' @param model2 Second model. If specified, returns Cohen's *f* for
+#'   R-squared-change between the two models.
 #' @export
-cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
+cohens_f <- function(model, partial = TRUE, ci = 0.9, squared = FALSE,
+                     model2 = NULL, ...) {
+  if (!is.null(model2)) {
+    return(.cohens_f_delta(model, model2, ci = ci, squared = squared))
+  }
+
   res <- eta_squared(model,
                      partial = partial,
                      ci = ci)
 
   if ("Eta_Sq_partial" %in% colnames(res)) {
-    res$Eta_Sq_partial <- sqrt(res$Eta_Sq_partial / (1 - res$Eta_Sq_partial))
-    colnames(res)[colnames(res) == "Eta_Sq_partial"] <- "Cohens_f_partial"
+    res$Eta_Sq_partial <- res$Eta_Sq_partial / (1 - res$Eta_Sq_partial)
+    colnames(res)[colnames(res) == "Eta_Sq_partial"] <- "Cohens_f2_partial"
   } else {
-    res$Eta_Sq <- sqrt(res$Eta_Sq / (1 - res$Eta_Sq))
-    colnames(res)[colnames(res) == "Eta_Sq"] <- "Cohens_f"
+    res$Eta_Sq <- res$Eta_Sq / (1 - res$Eta_Sq)
+    colnames(res)[colnames(res) == "Eta_Sq"] <- "Cohens_f2"
   }
 
   if (is.numeric(ci)) {
-    res$CI_low <- sqrt(res$CI_low  / (1 - res$CI_low))
-    res$CI_high <- sqrt(res$CI_high  / (1 - res$CI_high))
+    res$CI_low <- res$CI_low  / (1 - res$CI_low)
+    res$CI_high <- res$CI_high  / (1 - res$CI_high)
   }
 
+
+  if (!squared) {
+    i <- colnames(res) %in% c("Cohens_f2", "Cohens_f2_partial", "CI_low", "CI_high")
+    res[i] <- sqrt(res[i])
+    colnames(res)[colnames(res) %in% c("Cohens_f2","Cohens_f2_partial")] <-
+      if ("Cohens_f2" %in% colnames(res)) "Cohens_f" else "Cohens_f_partial"
+  }
+
+
   res
+}
+
+#' @rdname eta_squared
+#' @export
+cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
+                      model2 = NULL, ...) {
+  cohens_f(model, partial = partial, ci = ci, squared = squared, model2 = model2)
 }
 
 
@@ -577,7 +609,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
 
   if (!requireNamespace("afex", quietly = TRUE)) {
     stop(
-      "Package 'lmerTest' required for this function to work. ",
+      "Package 'afex' required for this function to work. ",
       "Please install it by running `install.packages('afex')`."
     )
   }
@@ -631,6 +663,31 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, ...) {
 
 .anova_es.anova.rms <- .anova_es.rms
 
+
+#' @keywords internal
+#' @importFrom insight model_info
+.cohens_f_delta <- function(model, model2, ci = 0.9, squared = FALSE) {
+  # check
+  if (!inherits(model, "lm") ||
+      !inherits(model2, "lm") ||
+      !insight::model_info(model)$is_linear ||
+      !insight::model_info(model2)$is_linear) {
+    stop("Cohen's f for R2-change only supported for fixed effect linear models.",
+         call. = FALSE)
+  }
+
+  # Anova
+  ANOVA <- anova(model, model2)
+  out <- F_to_f(ANOVA[2, "F"], abs(ANOVA[2, "Df"]), min(ANOVA["Res.Df"]),
+                ci = ci, squared = squared)
+
+  if (requireNamespace("performance")) {
+    R2d <- performance::r2(model)[[1]] - performance::r2(model2)[[1]]
+    out$R2_delta <- abs(R2d)
+  }
+
+  return(out)
+}
 # Utils -------------------------------------------------------------------
 
 #' @keywords internal

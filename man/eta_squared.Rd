@@ -5,6 +5,7 @@
 \alias{omega_squared}
 \alias{epsilon_squared}
 \alias{cohens_f}
+\alias{cohens_f2}
 \title{Effect size for ANOVA}
 \usage{
 eta_squared(model, partial = TRUE, ci = 0.9, ...)
@@ -13,7 +14,9 @@ omega_squared(model, partial = TRUE, ci = 0.9, ...)
 
 epsilon_squared(model, partial = TRUE, ci = 0.9, ...)
 
-cohens_f(model, partial = TRUE, ci = 0.9, ...)
+cohens_f(model, partial = TRUE, ci = 0.9, squared = FALSE, model2 = NULL, ...)
+
+cohens_f2(model, partial = TRUE, ci = 0.9, squared = TRUE, model2 = NULL, ...)
 }
 \arguments{
 \item{model}{A model, ANOVA object, or the result of \code{parameters::model_parameters}.}
@@ -23,6 +26,11 @@ cohens_f(model, partial = TRUE, ci = 0.9, ...)
 \item{ci}{Confidence Interval (CI) level}
 
 \item{...}{Arguments passed to or from other methods (ignored).}
+
+\item{squared}{Return Cohen's \emph{f} or Cohen's \emph{f}-squared?}
+
+\item{model2}{Second model. If specified, returns Cohen's \emph{f} for
+R-squared-change between the two models.}
 }
 \value{
 A data frame with the effect size(s) and confidence interval(s).
@@ -79,11 +87,16 @@ biased (Carroll & Nordholm, 1975).
 
 \subsection{Cohen's f}{
 
-Cohen's f can take on values between zero, when the population
-means are all equal, and an indefinitely large number as standard deviation of means
-increases relative to the average standard deviation within each group. Cohen has
-suggested that the values of 0.10, 0.25, and 0.40 represent small, medium, and large
-effect sizes, respectively.
+Cohen's f can take on values between zero, when the population means are all
+equal, and an indefinitely large number as standard deviation of means
+increases relative to the average standard deviation within each group.
+\cr\cr
+When comparing two models in a sequential regression analysis, Cohen's f for
+R-square change is the ratio between ratio between the increase in R-square
+and the \\% unexplained variance.
+\cr\cr
+Cohen has suggested that the values of 0.10, 0.25, and 0.40 represent small,
+medium, and large effect sizes, respectively.
 }
 }
 \examples{
@@ -102,6 +115,8 @@ cohens_f(model)
 
 if(require(see)) plot(etas)
 
+model0 <- aov(mpg ~ am_f + cyl_f, data = mtcars)
+cohens_f2(model0, model2 = model)
 
 model <- aov(mpg ~ cyl_f * am_f + Error(vs / am_f), data = mtcars)
 epsilon_squared(model)
