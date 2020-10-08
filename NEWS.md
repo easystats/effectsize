@@ -1,4 +1,4 @@
-# effectsize 0.3.x
+# effectsize 0.4.0
 
 ## New features
 
