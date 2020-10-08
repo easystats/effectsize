@@ -2,6 +2,7 @@
 
 ## New features
 
+- `standardize_parameters()` can now return Odds ratios / IRRs (or any exponentiated parameter) by setting `exponentiate = TRUE`.
 - Added `Cohens_f2()` and `F_to_f2()` for Cohen's *f*-squared.
 - `Cohens_f()` / `Cohens_f2()`can be used to estimate Cohen's *f* for the R-squared change between two models.
 - `standardize()` and `standardize_info()` work with weighted models / data ( #82 ).

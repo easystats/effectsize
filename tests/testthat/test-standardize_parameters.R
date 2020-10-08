@@ -132,6 +132,66 @@ if (require("testthat") && require("effectsize")) {
   })
 
 
+  # exponentiate ------------------------------------------------------------
+  test_that("standardize_parameters (exponentiate)", {
+    mod_b <- glm(am ~ mpg + cyl + hp,
+                 data = mtcars,
+                 family = poisson())
+    mod_refit <- standardize_parameters(mod_b, method = "refit", exponentiate = TRUE)
+
+    testthat::expect_equal(
+      mod_refit$Std_IRR[-1],
+      standardize_parameters(mod_b, method = "basic", exponentiate = TRUE)$Std_IRR[-1]
+    )
+    testthat::expect_equal(
+      mod_refit$Std_IRR[-1],
+      standardize_parameters(mod_b, method = "posthoc", exponentiate = TRUE)$Std_IRR[-1]
+    )
+    testthat::expect_equal(
+      mod_refit$Std_IRR[-1],
+      exp(standardize_parameters(mod_b, method = "basic")$Std_Coefficient)[-1]
+    )
+
+
+    mod_b <- glm(am ~ mpg + cyl,
+                 data = mtcars,
+                 family = binomial())
+    mod_refit <- standardize_parameters(mod_b, method = "refit", exponentiate = TRUE)
+
+    testthat::expect_equal(
+      mod_refit$Std_Odds_ratio[-1],
+      standardize_parameters(mod_b, method = "basic", exponentiate = TRUE)$Std_Odds_ratio[-1]
+    )
+    testthat::expect_equal(
+      mod_refit$Std_Odds_ratio[-1],
+      standardize_parameters(mod_b, method = "posthoc", exponentiate = TRUE)$Std_Odds_ratio[-1]
+    )
+    testthat::expect_equal(
+      mod_refit$Std_Odds_ratio[-1],
+      exp(standardize_parameters(mod_b, method = "basic")$Std_Coefficient)[-1]
+    )
+
+
+    mod_b <- glm(am ~ mpg + cyl + hp,
+                 data = mtcars,
+                 family = gaussian())
+    mod_refit <- standardize_parameters(mod_b, method = "refit", exponentiate = TRUE)
+
+    testthat::expect_equal(
+      mod_refit$Std_Coefficient[-1],
+      standardize_parameters(mod_b, method = "basic", exponentiate = TRUE)$Std_Coefficient[-1]
+    )
+    testthat::expect_equal(
+      mod_refit$Std_Coefficient[-1],
+      standardize_parameters(mod_b, method = "posthoc", exponentiate = TRUE)$Std_Coefficient[-1]
+    )
+    testthat::expect_equal(
+      mod_refit$Std_Coefficient[-1],
+      exp(standardize_parameters(mod_b, method = "basic")$Std_Coefficient)[-1]
+    )
+  })
+
+
   # Bayes ----------------------------------------
   if (require(rstanarm)) {
     test_that("standardize_parameters (Bayes)", {
