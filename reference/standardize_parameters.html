@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3.001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.001</span>
       </span>
     </div>
 
@@ -229,9 +229,11 @@ outcome) (Gelman, 2008).</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed to <a href='https://easystats.github.io/parameters/reference/model_parameters.html'>parameters::model_parameters</a>, such as:</p><ul>
-<li><p>For Bayesian models: <code>ci_method</code>, <code>centrality </code>, ...</p></li>
-<li><p>For Mixed models: <code>df_method</code>, ...</p></li>
+      <td><p>For <code>standardize_parameters()</code>, arguments passed to
+<a href='https://easystats.github.io/parameters/reference/model_parameters.html'>parameters::model_parameters</a>, such as:</p><ul>
+<li><p><code>ci_method</code>, <code>centrality</code> for Bayesian models...</p></li>
+<li><p><code>df_method</code> for Mixed models ...</p></li>
+<li><p><code>exponentiate</code>, ...</p></li>
 <li><p>etc.</p></li>
 </ul></td>
     </tr>
@@ -423,22 +425,13 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; cyl:mpg     |              -0.20 | [-1.44,  0.86]
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: Posthoc
-#&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"smart"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
-#&gt; -------------------------------------------------
-#&gt; (Intercept) |               0.00 | [ 0.00,  0.00]
-#&gt; cyl         |               1.46 | [-4.63,  9.37]
-#&gt; mpg         |               3.36 | [-2.31, 12.59]
-#&gt; cyl:mpg     |              -0.20 | [-1.44,  0.86]
-#&gt; </span><span style='color: #0000BB;'>
-#&gt; # Standardization method: Smart
-#&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"basic"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
-#&gt; -------------------------------------------------
-#&gt; (Intercept) |               0.00 | [ 0.00,  0.00]
-#&gt; cyl         |               1.46 | [-4.63,  9.37]
-#&gt; mpg         |               3.36 | [-2.31, 12.59]
-#&gt; cyl:mpg     |              -0.62 | [-4.38,  2.63]
+#&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"basic"</span>, exponentiate <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Parameter   | Odds Ratio (std.) |            95% CI
+#&gt; ---------------------------------------------------
+#&gt; (Intercept) |              1.00 | [1.00,      1.00]
+#&gt; cyl         |              4.32 | [0.01,  11681.98]
+#&gt; mpg         |             28.80 | [0.10,  2.92e+05]
+#&gt; cyl:mpg     |              0.54 | [0.01,     13.94]
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: Basic
 #&gt; </span><span></div><div class='input'><span class='co'># }</span>
