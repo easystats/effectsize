@@ -8,9 +8,11 @@
 #'   'Details'.
 #' @inheritParams standardize
 #' @inheritParams chisq_to_phi
-#' @param ... Arguments passed to [parameters::model_parameters], such as:
-#' - For Bayesian models: `ci_method`, `centrality `, ...
-#' - For Mixed models: `df_method`, ...
+#' @param ... For `standardize_parameters()`, arguments passed to
+#'   [parameters::model_parameters], such as:
+#' - `ci_method`, `centrality` for Bayesian models...
+#' - `df_method` for Mixed models ...
+#' - `exponentiate`, ...
 #' - etc.
 #' @param parameters Deprecated.
 #'
@@ -100,8 +102,7 @@
 #' model <- glm(am ~ cyl * mpg, data = mtcars, family = "binomial")
 #' standardize_parameters(model, method = "refit")
 #' standardize_parameters(model, method = "posthoc")
-#' standardize_parameters(model, method = "smart")
-#' standardize_parameters(model, method = "basic")
+#' standardize_parameters(model, method = "basic", exponentiate = TRUE)
 #' }
 #'
 #' \donttest{
@@ -144,6 +145,7 @@ standardize_parameters <- function(model, method = "refit", ci = 0.95, robust = 
 }
 
 #' @importFrom parameters model_parameters
+#' @importFrom insight model_info
 #' @export
 standardize_parameters.default <- function(model, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, parameters, ...) {
   object_name <- deparse(substitute(model), width.cutoff = 500)
@@ -152,11 +154,17 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   if (method == "refit") {
     model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose)
   }
+  mi <- insight::model_info(model)
+
 
   pars <- parameters::model_parameters(model, ci = ci, standardize = NULL, ...)
 
+  # should post hoc exponentiate?
+  dots <- list(...)
+  exponentiate <- "exponentiate" %in% names(dots) && dots$exponentiate
+
   if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
-    pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, verbose)
+    pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, exponentiate, verbose)
 
     method <- attr(pars, "std_method")
     robust <- attr(pars, "robust")
@@ -165,7 +173,13 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   ## clean cols
   if (!is.null(ci)) pars$CI <- attr(pars, "ci")
   pars <- pars[,colnames(pars) %in% c("Parameter", "CI", .col_2_scale)]
-  i <- colnames(pars) %in% c("Coefficient", "Median", "Mean", "MAP")
+
+  if (exponentiate && mi$is_binomial)
+    colnames(pars)[colnames(pars) == "Coefficient"] <- "Odds_ratio"
+  if (exponentiate && mi$is_poisson)
+    colnames(pars)[colnames(pars) == "Coefficient"] <- "IRR"
+
+  i <- colnames(pars) %in% c("Coefficient", "Median", "Mean", "MAP", "Odds_ratio", "IRR")
   colnames(pars)[i] <- paste0("Std_", colnames(pars)[i])
 
   ## SE attribute?
@@ -198,7 +212,8 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   obj_name <- attr(pars, "obj_name")
   model <- .get_object(model)
 
-  pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, verbose)
+  if (is.null(exponentiate <- attr(pars, "exponentiate"))) exponentiate <- FALSE
+  pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, exponentiate, verbose)
   method <- attr(pars, "std_method")
   robust <- attr(pars, "robust")
 
@@ -225,7 +240,7 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
 
 #' @keywords internal
 #' @importFrom insight model_info find_random
-.standardize_parameters_posthoc <- function(pars, method, model, robust, two_sd, verbose) {
+.standardize_parameters_posthoc <- function(pars, method, model, robust, two_sd, exponentiate, verbose) {
   # Sanity Check for "pseudo"
   if (method == "pseudo" &&
       !(insight::model_info(model)$is_mixed &&
@@ -278,7 +293,11 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   pars[,colnames(pars) %in% .col_2_scale] <- lapply(
     pars[, colnames(pars) %in% .col_2_scale, drop = FALSE],
     function(x) {
-      x * deviations[[col_dev_pred]] / deviations[[col_dev_resp]]
+      if (exponentiate) {
+        x ^ (deviations[[col_dev_pred]] / deviations[[col_dev_resp]])
+      } else {
+        x * deviations[[col_dev_pred]] / deviations[[col_dev_resp]]
+      }
     }
   )
 

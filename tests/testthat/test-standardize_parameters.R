@@ -24,6 +24,15 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_equal(s1$Std_Coefficient, s2$Std_Coefficient)
     testthat::expect_equal(s1$CI_low, s2$CI_low)
     testthat::expect_equal(s1$CI_high, s2$CI_high)
+
+    mpe <<- parameters::model_parameters(model, exponentiate = TRUE)
+    se1 <- standardize_parameters(model, method = "basic", exponentiate = TRUE)
+    se2 <- standardize_parameters(mpe, method = "basic", exponentiate = TRUE)
+
+    testthat::expect_equal(se1$Parameter, se2$Parameter)
+    testthat::expect_equal(se1$Std_Coefficient, se2$Std_Coefficient)
+    testthat::expect_equal(se1$CI_low, se2$CI_low)
+    testthat::expect_equal(se1$CI_high, se2$CI_high)
   })
 
   # lm with ci -----------------------------------
@@ -129,6 +138,66 @@ if (require("testthat") && require("effectsize")) {
     # posthoc / smart don't support data transformation
     expect_warning(standardize_parameters(m1, method = "smart"))
     expect_warning(standardize_parameters(m1, method = "posthoc"))
+  })
+
+
+  # exponentiate ------------------------------------------------------------
+  test_that("standardize_parameters (exponentiate)", {
+    mod_b <- glm(am ~ mpg + cyl + hp,
+                 data = mtcars,
+                 family = poisson())
+    mod_refit <- standardize_parameters(mod_b, method = "refit", exponentiate = TRUE)
+
+    testthat::expect_equal(
+      mod_refit$Std_IRR[-1],
+      standardize_parameters(mod_b, method = "basic", exponentiate = TRUE)$Std_IRR[-1]
+    )
+    testthat::expect_equal(
+      mod_refit$Std_IRR[-1],
+      standardize_parameters(mod_b, method = "posthoc", exponentiate = TRUE)$Std_IRR[-1]
+    )
+    testthat::expect_equal(
+      mod_refit$Std_IRR[-1],
+      exp(standardize_parameters(mod_b, method = "basic")$Std_Coefficient)[-1]
+    )
+
+
+    mod_b <- glm(am ~ mpg + cyl,
+                 data = mtcars,
+                 family = binomial())
+    mod_refit <- standardize_parameters(mod_b, method = "refit", exponentiate = TRUE)
+
+    testthat::expect_equal(
+      mod_refit$Std_Odds_ratio[-1],
+      standardize_parameters(mod_b, method = "basic", exponentiate = TRUE)$Std_Odds_ratio[-1]
+    )
+    testthat::expect_equal(
+      mod_refit$Std_Odds_ratio[-1],
+      standardize_parameters(mod_b, method = "posthoc", exponentiate = TRUE)$Std_Odds_ratio[-1]
+    )
+    testthat::expect_equal(
+      mod_refit$Std_Odds_ratio[-1],
+      exp(standardize_parameters(mod_b, method = "basic")$Std_Coefficient)[-1]
+    )
+
+
+    mod_b <- glm(am ~ mpg + cyl + hp,
+                 data = mtcars,
+                 family = gaussian())
+    mod_refit <- standardize_parameters(mod_b, method = "refit", exponentiate = TRUE)
+
+    testthat::expect_equal(
+      mod_refit$Std_Coefficient[-1],
+      standardize_parameters(mod_b, method = "basic", exponentiate = TRUE)$Std_Coefficient[-1]
+    )
+    testthat::expect_equal(
+      mod_refit$Std_Coefficient[-1],
+      standardize_parameters(mod_b, method = "posthoc", exponentiate = TRUE)$Std_Coefficient[-1]
+    )
+    testthat::expect_equal(
+      mod_refit$Std_Coefficient[-1],
+      exp(standardize_parameters(mod_b, method = "basic")$Std_Coefficient)[-1]
+    )
   })
 
 

@@ -49,10 +49,12 @@ outcome) (Gelman, 2008).}
 
 \item{parameters}{Deprecated.}
 
-\item{...}{Arguments passed to \link[parameters:model_parameters]{parameters::model_parameters}, such as:
+\item{...}{For \code{standardize_parameters()}, arguments passed to
+\link[parameters:model_parameters]{parameters::model_parameters}, such as:
 \itemize{
-\item For Bayesian models: \code{ci_method}, \code{centrality }, ...
-\item For Mixed models: \code{df_method}, ...
+\item \code{ci_method}, \code{centrality} for Bayesian models...
+\item \code{df_method} for Mixed models ...
+\item \code{exponentiate}, ...
 \item etc.
 }}
 }
@@ -154,8 +156,7 @@ standardize_parameters(model, two_sd = TRUE)
 model <- glm(am ~ cyl * mpg, data = mtcars, family = "binomial")
 standardize_parameters(model, method = "refit")
 standardize_parameters(model, method = "posthoc")
-standardize_parameters(model, method = "smart")
-standardize_parameters(model, method = "basic")
+standardize_parameters(model, method = "basic", exponentiate = TRUE)
 }
 
 \donttest{
