@@ -434,6 +434,11 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     )
   }
 
+  if (isTRUE(generalized) || is.character(generalized)){
+    warning("generalized ", type, " squared ",
+    "is not supported for this class of object.")
+  }
+
   par_table <- as.data.frame(model)
 
   out <- cbind(
@@ -458,6 +463,21 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                                        generalized = FALSE,
                                        ci = 0.9,
                                        ...) {
+  if (!isTRUE(partial)) {
+    warning(
+      "Currently only supports partial ",
+      type,
+      " squared for this class of objects.",
+      call. = FALSE
+    )
+  }
+
+  if (isTRUE(generalized) || is.character(generalized)){
+    warning("generalized ", type, " squared ",
+            "is not supported for this class of object.")
+  }
+
+
   type <- match.arg(type)
 
   if ("Group" %in% colnames(model) && sum(model$Parameter == "Residuals") > 1) {
@@ -659,6 +679,11 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       " squared for repeated-measures / multi-variate ANOVAs",
       call. = FALSE
     )
+  }
+
+  if (isTRUE(generalized) || is.character(generalized)){
+    warning("generalized ", type, " squared ",
+            "is not supported for this class of object.")
   }
 
   model <- stats::anova(model)
