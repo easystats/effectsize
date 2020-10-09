@@ -19,7 +19,7 @@ is_effectsize_name <- function(x) {
 #'
 #' @keywords internal
 es_info <- data.frame(
-  name = c("Eta_Sq", "Eta_Sq_partial",
+  name = c("Eta_Sq", "Eta_Sq_partial",  "Eta_Sq_generalized",
            "Epsilon_Sq", "Epsilon_Sq_partial",
            "Omega_Sq", "Omega_Sq_partial",
            "Cohens_f", "Cohens_f_partial", "Cohens_f2", "Cohens_f2_partial",
@@ -27,7 +27,7 @@ es_info <- data.frame(
            "r", "d", "Cohens_d", "Hedges_g", "Glass_delta",
            "Std_Coefficient", "Std_Odds_ratio", "Std_IRR",
            'Std_Median', 'Std_Mean', 'Std_MAP'),
-  label = c("Eta2", "Eta2 (partial)",
+  label = c("Eta2", "Eta2 (partial)", "Eta2 (generalized)",
             "Epsilon2", "Epsilon2 (partial)",
             "Omega2", "Omega2 (partial)",
             "Cohen's f", "Cohen's f (partial)", "Cohen's f2", "Cohen's f2 (partial)",
@@ -35,7 +35,7 @@ es_info <- data.frame(
             "r", "d", "Cohen's d", "Hedge's g", "Glass' delta",
             "Coefficient (std.)", "Odds Ratio (std.)", "IRR (std.)",
             'Median (std.)', 'Mean (std.)', "MAP (std.)"),
-  direction = c("onetail", "onetail",
+  direction = c("onetail", "onetail", "onetail",
                 "onetail", "onetail",
                 "onetail", "onetail",
                 "onetail", "onetail", "onetail", "onetail",

@@ -10,6 +10,10 @@
 #'
 #' @param model A model, ANOVA object, or the result of `parameters::model_parameters`.
 #' @param partial If `TRUE`, return partial indices.
+#' @param generalized If TRUE, returns generalized Eta Squared, assuming all
+#'   variables are manipulated. Can also be a character vector of observed
+#'   (non-manipulated) variables, in which case generalized Eta Squared is
+#'   calculated taking these observed variables into account.
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods (ignored).
 #'
@@ -75,6 +79,7 @@
 #' model <- aov(mpg ~ am_f * cyl_f, data = mtcars)
 #'
 #' eta_squared(model)
+#' eta_squared(model, generalized = "cyl_f")
 #' omega_squared(model)
 #' epsilon_squared(model)
 #' cohens_f(model)
@@ -126,9 +131,10 @@
 #' @export
 eta_squared <- function(model,
                         partial = TRUE,
+                        generalized = FALSE,
                         ci = 0.9,
                         ...) {
-  out <- .anova_es(model, type = "eta", partial = partial, ci = ci)
+  out <- .anova_es(model, type = "eta", partial = partial, generalized = generalized, ci = ci)
   class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
   return(out)
 }
@@ -210,6 +216,7 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   function(model,
            type = c("eta", "omega", "epsilon"),
            partial = TRUE,
+           generalized = FALSE,
            ci = 0.9,
            ...) {
     UseMethod(".anova_es")
@@ -220,12 +227,14 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 .anova_es.default <- function(model,
                               type = c("eta", "omega", "epsilon"),
                               partial = TRUE,
+                              generalized = FALSE,
                               ci = 0.9,
                               ...) {
   .anova_es.anova(
     stats::anova(model),
     type = type,
     partial = partial,
+    generalized = generalized,
     ci = ci
   )
 }
@@ -236,6 +245,7 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 .anova_es.aov <- function(model,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,
+                          generalized = FALSE,
                           ci = 0.9,
                           ...) {
   if (!inherits(model, c("Gam", "anova"))) {
@@ -244,6 +254,7 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       stats::anova(model),
       type = type,
       partial = partial,
+      generalized = generalized,
       ci = ci
     )
     return(res)
@@ -264,87 +275,93 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   }
 
   values <- .values_aov(params)
+  df_error <- params$df[params$Parameter == "Residuals"]
+  params <- params[params$Parameter != "Residuals",,drop = FALSE]
+
+  # We need these for the F statistic for CIs
+  if (isTRUE(generalized) || is.character(generalized)) {
+    ## copied from afex
+    obs <- logical(nrow(params))
+    if (is.character(generalized)) {
+      for (o in generalized) {
+        oi <- grepl(paste0("\\b", o, "\\b"), params$Parameter)
+
+        if (!any(oi)) stop("Observed variable not in data: ", o, call. = FALSE)
+
+        obs <- obs | oi
+      }
+    }
+    obs_SSn1 <- sum(params$Sum_Squares * obs)
+    obs_SSn2 <- params$Sum_Squares * obs
+
+    ES <- params$Sum_Squares /
+      (params$Sum_Squares + values$Sum_Squares_residuals + obs_SSn1 - obs_SSn2)
+
+    generalized <- TRUE
+  } else if (!isTRUE(partial)) {
+    ES <- params$Sum_Squares /
+      values$Sum_Squares_total
+  } else {
+    ES <-
+      params$Sum_Squares /
+      (params$Sum_Squares + values$Sum_Squares_residuals)
+  }
+
+
+
   if (type == "eta") {
-    if (!isTRUE(partial)) {
-      params$Eta_Sq <- params$Sum_Squares /
-        values$Sum_Squares_total
-
-      params[params$Parameter == "Residuals", "Eta_Sq"] <- NA
+    if (isTRUE(generalized)) {
+      params$Eta_Sq_generalized <- ES
+    } else if (!isTRUE(partial)) {
+      params$Eta_Sq <- ES
     } else {
-      params$Eta_Sq_partial <-
-        params$Sum_Squares /
-        (params$Sum_Squares + values$Sum_Squares_residuals)
-
-      params[params$Parameter == "Residuals", "Eta_Sq_partial"] <- NA
+      params$Eta_Sq_partial <- ES
     }
   } else if (type == "omega") {
     if (!isTRUE(partial)) {
       params$Omega_Sq <-
         (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
         (values$Sum_Squares_total + values$Mean_Square_residuals)
-
-      params[params$Parameter == "Residuals", "Omega_Sq"] <- NA
     } else {
       params$Omega_Sq_partial <-
         (params$df * (params$Mean_Square - values$Mean_Square_residuals)) /
         (params$df * params$Mean_Square + (values$n - params$df) * values$Mean_Square_residuals)
-
-      params[params$Parameter == "Residuals", "Omega_Sq_partial"] <- NA
     }
   } else if (type == "epsilon") {
     if (!isTRUE(partial)) {
       params$Epsilon_Sq <-
         (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
         values$Sum_Squares_total
-
-      params[params$Parameter == "Residuals", "Epsilon_sq"] <- NA
     } else {
       params$Epsilon_Sq_partial <-
         (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
         (params$Sum_Squares + values$Sum_Squares_residuals)
-
-      params[params$Parameter == "Residuals", "Epsilon_sq_partial"] <- NA
     }
   }
 
 
-  out <- params[params$Parameter != "Residuals",
-                colnames(params) %in% c("Group", "Parameter",
-                                        "Eta_Sq", "Eta_Sq_partial",
-                                        "Omega_Sq", "Omega_Sq_partial",
-                                        "Epsilon_Sq", "Epsilon_Sq_partial"),
-                drop = FALSE]
+
+  ES <- ES
+  out <- params
 
   if (is.numeric(ci)) {
-    df_error <- params$df[params$Parameter == "Residuals"]
-    params <- params[params$Parameter != "Residuals", , drop = FALSE]
+    f <- (ES / out$df) / ((1 - ES) / df_error)
 
-    if (isTRUE(partial)) {
-      # use NCP
-      eta_ci <- es_fun(
-        f = params$`F`,
-        df = params$df,
-        df_error = df_error,
-        ci = ci
-      )
-    } else {
-      # Make an F value that is just the effect compared to everything else
-      SSE <- values$Sum_Squares_total - params$Sum_Squares
-      dfE <- values$n - params$df - 1
-      MSE <- SSE / dfE
-
-      eta_ci <- es_fun(
-        f = params$Mean_Square / MSE,
-        df = params$df,
-        df_error = dfE,
-        ci = ci
-      )
-    }
-    eta_ci[[1]] <- NULL
-    out <- cbind(out, eta_ci)
+    out <- cbind(out,
+                 es_fun(f,
+                        out$df,
+                        df_error,
+                        ci = ci)[-1])
   }
-  out
 
+
+  out <- out[, colnames(out) %in% c("Group", "Parameter",
+                                    "Eta_Sq", "Eta_Sq_partial", "Eta_Sq_generalized",
+                                    "Omega_Sq", "Omega_Sq_partial",
+                                    "Epsilon_Sq", "Epsilon_Sq_partial",
+                                    "CI", "CI_low", "CI_high"), drop = FALSE]
+
+  out
 }
 
 #' @keywords internal
@@ -358,6 +375,7 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 .anova_es.anova <- function(model,
                             type = c("eta", "omega", "epsilon"),
                             partial = TRUE,
+                            generalized = FALSE,
                             ci = 0.9,
                             ...) {
   type <- match.arg(type)
@@ -375,6 +393,7 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     res <- .anova_es.aov(model,
                          partial = partial,
                          type = type,
+                         generalized = generalized,
                          ci = ci)
     return(res)
   }
@@ -416,6 +435,7 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 .anova_es.parameters_model <- function(model,
                                        type = c("eta", "omega", "epsilon"),
                                        partial = TRUE,
+                                       generalized = FALSE,
                                        ci = 0.9,
                                        ...) {
   type <- match.arg(type)
@@ -470,6 +490,7 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 .anova_es.aovlist <- function(model,
                               type = c("eta", "omega", "epsilon"),
                               partial = TRUE,
+                              generalized = FALSE,
                               ci = 0.9,
                               ...) {
   type <- match.arg(type)
@@ -478,44 +499,98 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                    omega = F_to_omega2,
                    epsilon = F_to_epsilon2)
 
-
-  if (!isTRUE(partial)) {
-    warning(
-      "Currently only supports partial ",
-      type,
-      " squared for repeated-measures ANOVAs.",
-      call. = FALSE
-    )
+  params <- as.data.frame(parameters::model_parameters(model))
+  params <- params[params$Parameter != "(Intercept)", ]
+  if (!"Residuals" %in% params$Parameter) {
+    stop("No residuals data found - ",
+         type,
+         " squared can only be computed for simple `aov` models.")
   }
 
-  par_table <- as.data.frame(parameters::model_parameters(model))
-  par_table <- split(par_table, par_table$Group)
-  par_table <- lapply(par_table, function(.data) {
-    if (any(.data$Parameter == "Residuals")) {
-      .data$df_error <- .data$df[.data$Parameter == "Residuals"]
-    } else {
-      .data$df_error <- NA
+  values <- .values_aov(params)
+  params <- params[params$Parameter != "Residuals" & !is.na(params$`F`), ,drop = FALSE]
+  Sum_Squares_total <- sum(sapply(values, "[[", "Sum_Squares_total"))
+  Sum_Squares_residuals <- sapply(values[params$Group], "[[", "Sum_Squares_residuals")
+  Mean_Square_residuals <- sapply(values[params$Group], "[[", "Mean_Square_residuals")
+  df_residuals <- sapply(values[params$Group], "[[", "df_residuals")
+  ns <- sapply(values[params$Group], "[[", "n")
+
+  if (isTRUE(generalized) || is.character(generalized)) {
+    ## copied from afex
+    obs <- logical(nrow(params))
+    if (is.character(generalized)) {
+      for (o in generalized) {
+        oi <- grepl(paste0("\\b", o, "\\b"), params$Parameter)
+
+        if (!any(oi)) stop("Observed variable not in data: ", o, call. = FALSE)
+
+        obs <- obs | oi
+      }
     }
-    .data
-  })
-  par_table <- do.call(rbind, par_table)
+    obs_SSn1 <- sum(params$Sum_Squares * obs)
+    obs_SSn2 <- params$Sum_Squares * obs
 
-  par_table <-
-    par_table[par_table$Parameter != "Residuals" &
-                !is.na(par_table$`F`), , drop = FALSE]
+    ES <- params$Sum_Squares /
+      (params$Sum_Squares + sum(sapply(values, "[[", "Sum_Squares_residuals")) + obs_SSn1 - obs_SSn2)
+
+    generalized <- TRUE
+  } else if (!isTRUE(partial)) {
+    ES <- params$Sum_Squares / Sum_Squares_total
+  } else {
+    ES <- F_to_eta2(params[["F"]], params[["df"]], df_residuals, ci = NULL)[[1]]
+  }
 
 
-  out <- cbind(par_table,
-               es_fun(par_table$`F`,
-                      par_table$df,
-                      par_table$df_error,
-                      ci = ci))
+  if (type == "eta") {
+    if (isTRUE(generalized) || is.character(generalized)) {
+      params$Eta_Sq_generalized <- ES
+    } else if (!isTRUE(partial)) {
+      params$Eta_Sq <- ES
+    } else {
+      params$Eta_Sq_partial <- ES
+    }
+  } else if (type == "omega") {
+    if (!isTRUE(partial)) {
+      params$Omega_Sq <-
+        (params$Sum_Squares - params$df * Mean_Square_residuals) /
+        (Sum_Squares_total + Mean_Square_residuals)
+    } else {
+      params$Omega_Sq_partial <-
+        F_to_omega2(params[["F"]], params[["df"]], df_residuals, ci = NULL)[[1]]
+    }
+  } else if (type == "epsilon") {
+    if (!isTRUE(partial)) {
+      params$Epsilon_Sq <-
+        (params$Sum_Squares - params$df * Mean_Square_residuals) /
+        Sum_Squares_total
+    } else {
+      params$Epsilon_Sq_partial <-
+        F_to_epsilon2(params[["F"]], params[["df"]], df_residuals, ci = NULL)[[1]]
+    }
+  }
+
+  out <- params
+
+  if (!is.null(ci)) {
+    f <- (ES / out$df) / ((1 - ES)/df_residuals)
+
+    out <- cbind(out,
+                 es_fun(f,
+                        out$df,
+                        df_residuals,
+                        ci = ci)[-1])
+  }
+
   out <- out[, colnames(out) %in% c(
     "Group",
     "Parameter",
+    "Eta_Sq_generalized",
     "Eta_Sq_partial",
     "Omega_Sq_partial",
     "Epsilon_Sq_partial",
+    "Eta_Sq",
+    "Omega_Sq",
+    "Epsilon_Sq",
     "CI",
     "CI_low",
     "CI_high"
@@ -530,6 +605,7 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 .anova_es.merMod <- function(model,
                              type = c("eta", "omega", "epsilon"),
                              partial = TRUE,
+                             generalized = FALSE,
                              ci = 0.9,
                              ...) {
   if (!requireNamespace("lmerTest", quietly = TRUE)) {
@@ -539,7 +615,7 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
   model <- lmerTest::as_lmerModLmerTest(model)
   model <- stats::anova(model)
-  .anova_es.anova(model, type = type, partial = partial, ci = ci, ...)
+  .anova_es.anova(model, type = type, partial = partial, generalized = generalized, ci = ci, ...)
 }
 
 #' @keywords internal
@@ -547,6 +623,7 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 .anova_es.gam <- function(model,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,
+                          generalized = FALSE,
                           ci = 0.9,
                           ...) {
   type <- match.arg(type)
@@ -585,6 +662,7 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 .anova_es.afex_aov <- function(model,
                                type = c("eta", "omega", "epsilon"),
                                partial = TRUE,
+                               generalized = FALSE,
                                ci = 0.9,
                                ...) {
   type <- match.arg(type)
@@ -642,6 +720,7 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 .anova_es.rms <- function(model,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,
+                          generalized = FALSE,
                           ci = 0.9,
                           ...) {
 
@@ -657,7 +736,7 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
   model <- model[rownames(model) != "ERROR", ]
 
-  out <- .anova_es.anova(model, type = type, partial = partial, ci = ci)
+  out <- .anova_es.anova(model, type = type, partial = partial, generalized = generalized, ci = ci)
   return(out)
 }
 

@@ -8,7 +8,7 @@
 \alias{cohens_f2}
 \title{Effect size for ANOVA}
 \usage{
-eta_squared(model, partial = TRUE, ci = 0.9, ...)
+eta_squared(model, partial = TRUE, generalized = FALSE, ci = 0.9, ...)
 
 omega_squared(model, partial = TRUE, ci = 0.9, ...)
 
@@ -22,6 +22,11 @@ cohens_f2(model, partial = TRUE, ci = 0.9, squared = TRUE, model2 = NULL, ...)
 \item{model}{A model, ANOVA object, or the result of \code{parameters::model_parameters}.}
 
 \item{partial}{If \code{TRUE}, return partial indices.}
+
+\item{generalized}{If TRUE, returns generalized Eta Squared, assuming all
+variables are manipulated. Can also be a character vector of observed
+(non-manipulated) variables, in which case generalized Eta Squared is
+calculated taking these observed variables into account.}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -108,6 +113,7 @@ mtcars$cyl_f <- factor(mtcars$cyl)
 model <- aov(mpg ~ am_f * cyl_f, data = mtcars)
 
 eta_squared(model)
+eta_squared(model, generalized = "cyl_f")
 omega_squared(model)
 epsilon_squared(model)
 cohens_f(model)
