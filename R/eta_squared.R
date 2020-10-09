@@ -716,19 +716,19 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                    omega = F_to_omega2,
                    epsilon = F_to_epsilon2)
 
+  if (!requireNamespace("afex", quietly = TRUE)) {
+    stop(
+      "Package 'afex' required for this function to work. ",
+      "Please install it by running `install.packages('afex')`."
+    )
+  }
+
 
   if (type=="eta" && (isTRUE(generalized) || is.character(generalized))) {
-    if (!requireNamespace("afex", quietly = TRUE)) {
-      stop(
-        "Package 'afex' required for this function to work. ",
-        "Please install it by running `install.packages('afex')`."
-      )
-    }
-
     if (isTRUE(generalized))
       generalized <- attr(model$anova_table, "observed")
 
-    aov_tab <- anova(model, es = "ges", observed = generalized)
+    aov_tab <- anova(model, es = "ges", observed = generalized, correction = "none")
 
     ES <- aov_tab$ges
     df1 <- aov_tab$`num Df`
@@ -756,7 +756,7 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
 
   if (partial) {
-    aov_tab <- model$anova_table
+    aov_tab <- anova(model, es = "none", correction = "none")
 
     out <- cbind(Parameter = rownames(aov_tab),
                  es_fun(aov_tab$`F`,
@@ -782,23 +782,22 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
   if (inherits(model$Anova, "Anova.mlm")) {
     stop(
-      "Cannot get non-partial effect size for mixed-effects 'afex_aov' object when",
+      "Cannot get non-partial effect sizes for mixed-effects 'afex_aov' object when",
       " 'include_aov = FALSE'.\n",
       "Try fitting the model again with 'include_aov = TRUE'.",
       call. = FALSE
     )
-  } else {
-    # non-partial ES for fully between design
-    out <-
-      .anova_es(
-        model$Anova,
-        type = type,
-        partial = FALSE,
-        generalized = FALSE,
-        ci = ci
-      )
   }
 
+  # non-partial ES for fully between design
+  out <-
+    .anova_es(
+      model$Anova,
+      type = type,
+      partial = FALSE,
+      generalized = FALSE,
+      ci = ci
+    )
   return(out)
 }
 
