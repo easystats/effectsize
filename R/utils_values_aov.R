@@ -2,7 +2,8 @@
 .values_aov <- function(params) {
 
   # number of observations
-  if ("Group" %in% names(params) && ("Within" %in% params$Group)) {
+  # if ("Group" %in% names(params) && ("Within" %in% params$Group)) {
+  if ("Group" %in% names(params)) {
     lapply(split(params, params$Group), function(.i) {
       N <- sum(.i$df) + 1
       .prepare_values_aov(.i, N)
@@ -24,13 +25,15 @@
   Sum_Squares_total <- sum(params$Sum_Squares)
   # number of terms in model
   N_terms <- nrow(params) - 1
-
+  # df residuals
+  df_residuals <- sum(params[params$Parameter == "Residuals", ]$df)
 
   list(
     "Mean_Square_residuals" = Mean_Square_residuals,
     "Sum_Squares_residuals" = Sum_Squares_residuals,
     "Sum_Squares_total" = Sum_Squares_total,
     "n_terms" = N_terms,
-    "n" = N
+    "n" = N,
+    "df_residuals" = df_residuals
   )
 }

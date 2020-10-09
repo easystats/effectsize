@@ -1,4 +1,6 @@
 if (require("testthat") && require("effectsize")) {
+
+  # aov ---------------------------------------------------------------------
   test_that("aov", {
     df <- iris
     df$Sepal.Big <- ifelse(df$Sepal.Width >= 3, "Yes", "No")
@@ -46,6 +48,8 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_equal(cohens_f2(fit, squared = FALSE), cohens_f(fit))
   })
 
+
+  # aovlist -----------------------------------------------------------------
   test_that("aovlist", {
     df <- iris
     df$Sepal.Big <- ifelse(df$Sepal.Width >= 3, "Yes", "No")
@@ -59,11 +63,35 @@ if (require("testthat") && require("effectsize")) {
     res <- epsilon_squared(model, partial = TRUE)
     testthat::expect_true(all(c("Group", "Parameter") %in% colnames(res)))
 
-    testthat::expect_warning(eta_squared(model, partial = FALSE))
-    testthat::expect_warning(omega_squared(model, partial = FALSE))
-    testthat::expect_warning(epsilon_squared(model, partial = FALSE))
+
+    if (require("afex")) {
+      # non-partial Eta2 should be the same for aov and aovlist
+      data(obk.long, package = "afex")
+      model <- afex::aov_car(value ~ treatment * gender + Error(id/(phase*hour)),
+                             data = obk.long, observed = "gender",
+                             include_aov = TRUE)
+
+      model2 <- aov(value ~ treatment * gender * phase * hour,
+                    data = model$data$long,
+                    contrasts = list(
+                      treatment = contr.sum,
+                      gender = contr.sum,
+                      phase = contr.sum,
+                      hour = contr.sum
+                    ))
+
+      a1 <- eta_squared(model2, partial = F)
+      a2 <- eta_squared(model$aov, partial = F)
+
+      rownames(a1) <- a1$Parameter
+      rownames(a2) <- a2$Parameter
+
+      testthat::expect_equal(a1[a1$Parameter, "Eta_Sq"],
+                             a2[a1$Parameter, "Eta_Sq"])
+    }
   })
 
+  # mlm / anova table -------------------------------------------------------
   test_that("mlm / anova table", {
 
     mtcars$am_f <- factor(mtcars$am)
@@ -76,6 +104,8 @@ if (require("testthat") && require("effectsize")) {
                            tol = 0.001)
   })
 
+
+  # Cohen's f - R2 change ---------------------------------------------------
   test_that("Cohen's f - R2 change", {
     data(hardlyworking)
     m1 <- lm(salary ~ xtra_hours, data = hardlyworking)
@@ -96,7 +126,65 @@ if (require("testthat") && require("effectsize")) {
                              unname((R2_2 - R2_1) / (1 - R2_2)))
     }
   })
+
+  # generalized Eta -------------------------------------------------------------
+  if (require("car") && require("afex")) {
+    test_that("generalized | between", {
+      data(obk.long, package = "afex")
+      m <- afex::aov_car(value ~ treatment * gender + Error(id),
+                         data = obk.long, observed = "gender",
+                         include_aov = TRUE)
+
+      testthat::expect_equal(anova(m, es = "ges", observed = NULL)$ges,
+                             eta_squared(car::Anova(m$aov, type=3),
+                                         generalized = TRUE)$Eta_Sq_generalized)
+
+
+      testthat::expect_equal(anova(m, es = "ges", observed = "gender")$ges,
+                             eta_squared(car::Anova(m$aov, type=3),
+                                         generalized = "gender")$Eta_Sq_generalized)
+    })
+
+
+    test_that("generalized | within-mixed", {
+      data(obk.long, package = "afex")
+
+      # estimate mixed ANOVA on the full design:
+      m <- afex::aov_car(value ~ treatment * gender + Error(id/(phase*hour)),
+                         data = obk.long, observed = "gender",
+                         include_aov = TRUE)
+
+
+      ef <- eta_squared(m$aov, generalized = "gender")
+      af <- anova(m, es = "ges",  observed = "gender")
+      testthat::expect_equal(ef$Eta_Sq_generalized,
+                             af$ges, tol = 0.1)
+
+
+      ef <- eta_squared(m$aov, generalized = TRUE)
+      af <- anova(m, es = "ges",  observed = NULL)
+      testthat::expect_equal(ef$Eta_Sq_generalized,
+                             af$ges, tol = 0.1)
+
+    })
+  }
+
+
+  # afex --------------------------------------------------------------------
+  if (require("afex")) {
+    data(obk.long, package = "afex")
+    model1 <- afex::aov_car(value ~ treatment * gender + Error(id/(phase*hour)),
+                            data = obk.long, observed = "gender",
+                            include_aov = FALSE)
+
+    testthat::expect_error(eta_squared(model1, partial = FALSE))
+    testthat::expect_error(epsilon_squared(model1, partial = FALSE))
+    testthat::expect_error(omega_squared(model1, partial = FALSE))
+  }
 }
+
+
+
 
 
 
