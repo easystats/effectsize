@@ -168,6 +168,19 @@ if (require("testthat") && require("effectsize")) {
 
     })
   }
+
+
+  # afex --------------------------------------------------------------------
+  if (require("afex")) {
+    data(obk.long, package = "afex")
+    model1 <- afex::aov_car(value ~ treatment * gender + Error(id/(phase*hour)),
+                            data = obk.long, observed = "gender",
+                            include_aov = FALSE)
+
+    testthat::expect_error(eta_squared(model1, partial = FALSE))
+    testthat::expect_error(epsilon_squared(model1, partial = FALSE))
+    testthat::expect_error(omega_squared(model1, partial = FALSE))
+  }
 }
 
 

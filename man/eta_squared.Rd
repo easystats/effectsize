@@ -26,7 +26,9 @@ cohens_f2(model, partial = TRUE, ci = 0.9, squared = TRUE, model2 = NULL, ...)
 \item{generalized}{If TRUE, returns generalized Eta Squared, assuming all
 variables are manipulated. Can also be a character vector of observed
 (non-manipulated) variables, in which case generalized Eta Squared is
-calculated taking these observed variables into account.}
+calculated taking these observed variables into account. For \code{afex_aov}
+model, \code{generalized = TRUE}, the observed variables are extracted
+automatically from the model.}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -43,28 +45,32 @@ A data frame with the effect size(s) and confidence interval(s).
 A data frame containing the effect size values and their confidence intervals.
 }
 \description{
-Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared,
-and Cohen's f (or their partialled versions) for \code{aov}, \code{aovlist} and \code{anova}
-models. These indices represent an estimate of how much variance in the response variables
-is accounted for by the explanatory variable(s).
+Functions to compute effect size measures for ANOVAs, such as Eta, Omega and
+Epsilon squared, and Cohen's f (or their partialled versions) for \code{aov},
+\code{aovlist} and \code{anova} models. These indices represent an estimate of how much
+variance in the response variables is accounted for by the explanatory
+variable(s).
 \cr\cr
-Effect sizes are computed using the sums of squares obtained from \code{anova(model)} which
-might not always be appropriate (\strong{\emph{Yeah... ANOVAs are hard...}}). See details.
+Effect sizes are computed using the sums of squares obtained from
+\code{anova(model)} which might not always be appropriate (\strong{\emph{Yeah... ANOVAs are
+hard...}}). It is suggested that ANOVA models be fit with \code{afex} package.
+See details.
 }
 \details{
 For \code{aov} and \code{aovlist} models, the effect sizes are computed directly with
-Sums-of-Squares. For all other model, the model is passed to \code{anova()}, and effect
-sizes are approximated via test statistic conversion (see \verb{[F_to_eta2] for more details.})
+Sums-of-Squares. For all other model, the model is passed to \code{anova()}, and
+effect sizes are approximated via test statistic conversion (see \verb{[F_to_eta2] for more details.})
 \subsection{Type of Sums of Squares}{
 
-The sums of squares (or F statistics) used for the computation of the effect sizes is
-based on those returned by \code{anova(model)} (whatever those may be - for \code{aov}
-and \code{aovlist} these are \emph{type-1} sums of squares; for \code{merMod} these are
-\emph{type-3} sums of squares). Make sure these are the sums of squares you are intrested
-in (you might want to pass the result of \code{car::Anova(mode, type = 3)}).
+The sums of squares (or F statistics) used for the computation of the effect
+sizes is based on those returned by \code{anova(model)} (whatever those may be -
+for \code{aov} and \code{aovlist} these are \emph{type-1} sums of squares; for \code{merMod}
+these are \emph{type-3} sums of squares). Make sure these are the sums of squares
+you are interested in; You might want to pass the result of \code{car::Anova(mode, type = 3)}, or use the \code{afex} package to fit ANOVA models.
 \cr\cr
-It is generally recommended to fit models with \emph{\code{contr.sum} factor weights} and
-\emph{centered covariates}, for sensible results. See examples.
+It is generally recommended to fit models with \emph{\code{contr.sum} factor weights}
+and \emph{centered covariates}, for sensible results. See examples and the \code{afex}
+package.
 }
 
 \subsection{Confidence Intervals}{
@@ -75,8 +81,8 @@ of the noncentral F distribution for the desired tail-probabilities,
 and then convert these \code{ncp}s to the corresponding effect sizes.
 \cr\cr
 Special care should be taken when interpreting CIs with a lower bound equal
-to (or small then) 0, and even more care should be taken when the
-\emph{upper} bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
+to (or small then) 0, and even more care should be taken when the \emph{upper}
+bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
 }
 
 \subsection{Un-Biased Estimate of Eta}{
@@ -121,11 +127,9 @@ cohens_f(model)
 
 if(require(see)) plot(etas)
 
-model0 <- aov(mpg ~ am_f + cyl_f, data = mtcars)
+model0 <- aov(mpg ~ am_f + cyl_f, data = mtcars) # no interaction
 cohens_f2(model0, model2 = model)
 
-model <- aov(mpg ~ cyl_f * am_f + Error(vs / am_f), data = mtcars)
-epsilon_squared(model)
 
 # Recommended:
 # Type-3 effect sizes + effects coding
@@ -138,6 +142,21 @@ if (require(car, quietly = TRUE)) {
 
   eta_squared(model_anova)
 }
+
+# afex takes care of both type-3 effects and effects coding:
+if (require(afex)) {
+  data(obk.long, package = "afex")
+  model <- aov_car(value ~ treatment * gender + Error(id/(phase)),
+                   data = obk.long, observed = "gender")
+  eta_squared(model)
+  epsilon_squared(model)
+  omega_squared(model)
+  eta_squared(model, partial = FALSE)
+  epsilon_squared(model, partial = FALSE)
+  omega_squared(model, partial = FALSE)
+  eta_squared(model, generalized = TRUE)
+}
+
 
 if (require("parameters")) {
   model <- lm(mpg ~ wt + cyl, data = mtcars)

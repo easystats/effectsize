@@ -1,19 +1,24 @@
 #' Effect size for ANOVA
 #'
-#' Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared,
-#' and Cohen's f (or their partialled versions) for `aov`, `aovlist` and `anova`
-#' models. These indices represent an estimate of how much variance in the response variables
-#' is accounted for by the explanatory variable(s).
+#' Functions to compute effect size measures for ANOVAs, such as Eta, Omega and
+#' Epsilon squared, and Cohen's f (or their partialled versions) for `aov`,
+#' `aovlist` and `anova` models. These indices represent an estimate of how much
+#' variance in the response variables is accounted for by the explanatory
+#' variable(s).
 #' \cr\cr
-#' Effect sizes are computed using the sums of squares obtained from `anova(model)` which
-#' might not always be appropriate (**_Yeah... ANOVAs are hard..._**). See details.
+#' Effect sizes are computed using the sums of squares obtained from
+#' `anova(model)` which might not always be appropriate (**_Yeah... ANOVAs are
+#' hard..._**). It is suggested that ANOVA models be fit with `afex` package.
+#' See details.
 #'
 #' @param model A model, ANOVA object, or the result of `parameters::model_parameters`.
 #' @param partial If `TRUE`, return partial indices.
 #' @param generalized If TRUE, returns generalized Eta Squared, assuming all
 #'   variables are manipulated. Can also be a character vector of observed
 #'   (non-manipulated) variables, in which case generalized Eta Squared is
-#'   calculated taking these observed variables into account.
+#'   calculated taking these observed variables into account. For `afex_aov`
+#'   model, `generalized = TRUE`, the observed variables are extracted
+#'   automatically from the model.
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods (ignored).
 #'
@@ -22,19 +27,21 @@
 #' @details
 #'
 #' For `aov` and `aovlist` models, the effect sizes are computed directly with
-#' Sums-of-Squares. For all other model, the model is passed to `anova()`, and effect
-#' sizes are approximated via test statistic conversion (see `[F_to_eta2] for
-#' more details.`)
+#' Sums-of-Squares. For all other model, the model is passed to `anova()`, and
+#' effect sizes are approximated via test statistic conversion (see `[F_to_eta2]
+#' for more details.`)
 #'
 #' ## Type of Sums of Squares
-#' The sums of squares (or F statistics) used for the computation of the effect sizes is
-#' based on those returned by `anova(model)` (whatever those may be - for `aov`
-#' and `aovlist` these are *type-1* sums of squares; for `merMod` these are
-#' *type-3* sums of squares). Make sure these are the sums of squares you are intrested
-#' in (you might want to pass the result of `car::Anova(mode, type = 3)`).
+#' The sums of squares (or F statistics) used for the computation of the effect
+#' sizes is based on those returned by `anova(model)` (whatever those may be -
+#' for `aov` and `aovlist` these are *type-1* sums of squares; for `merMod`
+#' these are *type-3* sums of squares). Make sure these are the sums of squares
+#' you are interested in; You might want to pass the result of `car::Anova(mode,
+#' type = 3)`, or use the `afex` package to fit ANOVA models.
 #' \cr\cr
-#' It is generally recommended to fit models with *`contr.sum` factor weights* and
-#' *centered covariates*, for sensible results. See examples.
+#' It is generally recommended to fit models with *`contr.sum` factor weights*
+#' and *centered covariates*, for sensible results. See examples and the `afex`
+#' package.
 #'
 #' ## Confidence Intervals
 #' Confidence intervals are estimated using the Noncentrality parameter method;
@@ -43,8 +50,8 @@
 #' and then convert these `ncp`s to the corresponding effect sizes.
 #' \cr\cr
 #' Special care should be taken when interpreting CIs with a lower bound equal
-#' to (or small then) 0, and even more care should be taken when the
-#' *upper* bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
+#' to (or small then) 0, and even more care should be taken when the *upper*
+#' bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
 #'
 #' ## Un-Biased Estimate of Eta
 #' Both ***Omega*** and ***Epsilon*** are unbiased estimators of the
@@ -87,11 +94,9 @@
 #'
 #' if(require(see)) plot(etas)
 #'
-#' model0 <- aov(mpg ~ am_f + cyl_f, data = mtcars)
+#' model0 <- aov(mpg ~ am_f + cyl_f, data = mtcars) # no interaction
 #' cohens_f2(model0, model2 = model)
 #'
-#' model <- aov(mpg ~ cyl_f * am_f + Error(vs / am_f), data = mtcars)
-#' epsilon_squared(model)
 #'
 #' # Recommended:
 #' # Type-3 effect sizes + effects coding
@@ -104,6 +109,21 @@
 #'
 #'   eta_squared(model_anova)
 #' }
+#'
+#' # afex takes care of both type-3 effects and effects coding:
+#' if (require(afex)) {
+#'   data(obk.long, package = "afex")
+#'   model <- aov_car(value ~ treatment * gender + Error(id/(phase)),
+#'                    data = obk.long, observed = "gender")
+#'   eta_squared(model)
+#'   epsilon_squared(model)
+#'   omega_squared(model)
+#'   eta_squared(model, partial = FALSE)
+#'   epsilon_squared(model, partial = FALSE)
+#'   omega_squared(model, partial = FALSE)
+#'   eta_squared(model, generalized = TRUE)
+#' }
+#'
 #'
 #' if (require("parameters")) {
 #'   model <- lm(mpg ~ wt + cyl, data = mtcars)
@@ -672,43 +692,87 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                    epsilon = F_to_epsilon2)
 
 
-  # if (!is.null(model$aov)) {
-  #   out <- .anova_es(model$aov, type = type, partial = partial, ci = ci)
-  #   return(out)
-  # }
+  if (type=="eta" && (isTRUE(generalized) || is.character(generalized))) {
+    if (!requireNamespace("afex", quietly = TRUE)) {
+      stop(
+        "Package 'afex' required for this function to work. ",
+        "Please install it by running `install.packages('afex')`."
+      )
+    }
 
-  if (!isTRUE(partial)) {
-    warning("Currently only supports partial ",
-            type,
-            " squared for afex-models.",
-            call. = FALSE)
+    if (isTRUE(generalized))
+      generalized <- attr(model$anova_table, "observed")
+
+    aov_tab <- anova(model, es = "ges", observed = generalized)
+
+    ES <- aov_tab$ges
+    df1 <- aov_tab$`num Df`
+    df2 <- aov_tab$`den Df`
+
+    f <- (ES / df1) / ((1 - ES) / df2)
+
+    out <- data.frame(Parameter = rownames(aov_tab),
+                      Eta_Sq_generalized = ES,
+                      stringsAsFactors = FALSE)
+
+    if (is.numeric(ci)) {
+      out <- cbind(
+        out,
+        es_fun(
+          f,
+          df1,
+          df2,
+          ci = ci
+        )[-1]
+      )
+    }
+    return(out)
   }
 
 
-  if (!requireNamespace("afex", quietly = TRUE)) {
+  if (partial) {
+    aov_tab <- model$anova_table
+
+    out <- cbind(Parameter = rownames(aov_tab),
+                 es_fun(aov_tab$`F`,
+                        aov_tab$`num Df`,
+                        aov_tab$`den Df`,
+                        ci = ci))
+    return(out)
+  }
+
+
+  if (!is.null(model$aov)) {
+    out <-
+      .anova_es(
+        model$aov,
+        type = type,
+        partial = FALSE,
+        generalized = FALSE,
+        ci = ci,
+      )
+    return(out)
+  }
+
+
+  if (inherits(model$Anova, "Anova.mlm")) {
     stop(
-      "Package 'afex' required for this function to work. ",
-      "Please install it by running `install.packages('afex')`."
+      "Cannot get non-partial effect size for mixed-effects 'afex_aov' object when",
+      " 'include_aov = FALSE'.\n",
+      "Try fitting the model again with 'include_aov = TRUE'.",
+      call. = FALSE
     )
+  } else {
+    # non-partial ES for fully between design
+    out <-
+      .anova_es(
+        model$Anova,
+        type = type,
+        partial = FALSE,
+        generalized = FALSE,
+        ci = ci
+      )
   }
-  model <- afex::nice(model,
-                      correction = "none",
-                      sig_symbols  = rep("", 4))
-
-  f <- as.numeric(model$`F`)
-  dfs <- lapply(strsplit(model$df, ","), as.numeric)
-  df1 <- sapply(dfs, `[`, 1)
-  df2 <- sapply(dfs, `[`, 2)
-
-  out <- cbind(
-    Parameter = model$Effect,
-    es_fun(
-      f,
-      df1,
-      df2,
-      ci = ci
-    )
-  )
 
   return(out)
 }
