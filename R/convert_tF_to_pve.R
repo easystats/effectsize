@@ -194,37 +194,21 @@ t_to_f2 <- function(t, df_error, ci = 0.9, squared = TRUE, ...){
 
 #' @keywords internal
 .F_to_pve <- function(f, df, df_error, ci, es){
-  switch(es,
-         eta2 = {
-           es_f <- function(.f, df, df_error) {
-             (.f * df) / (.f * df + df_error)
-           }
-           es_name <- "Eta_Sq_partial"
-         },
-         epsilon2 = {
-            es_f <- function(.f, df, df_error) {
-              ((.f - 1) * df) / (.f * df + df_error)
-            }
-            es_name <- "Epsilon_Sq_partial"
-          },
-          omega2 = {
-            es_f <- function(.f, df, df_error) {
-              ((.f - 1) * df) / (.f * df + df_error + 1)
-            }
-            es_name <- "Omega_Sq_partial"
-          }
-  )
 
-  res <- data.frame(ES = es_f(f, df, df_error))
-  colnames(res) <- es_name
+  res <- switch(
+    es,
+    eta2 = data.frame(Eta_Sq_partial = (f * df) / (f * df + df_error)),
+    epsilon2 = data.frame(Epsilon_Sq_partial = ((f - 1) * df) / (f * df + df_error)),
+    omega2 = data.frame(Omega_Sq_partial = ((f - 1) * df) / (f * df + df_error + 1))
+  )
 
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
     fs <- t(mapply(.get_ncp_F, f, df, df_error, ci))
 
-    res$CI_low <- es_f(fs[, 1], df, df_error)
-    res$CI_high <- es_f(fs[, 2], df, df_error)
+    res$CI_low <- .F_to_pve(fs[, 1], df, df_error, ci = NULL, es = es)[[1]]
+    res$CI_high <- .F_to_pve(fs[, 2], df, df_error, ci = NULL, es = es)[[1]]
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
