@@ -22,6 +22,7 @@
 
 ## Bug fixes
 
+- `cramers_v()` and `phi()` now work with goodness-of-fit data ( #158 )
 - `standardize_parameters()` for post-hoc correctly standardizes transformed outcome.
 - Setting `two_sd = TRUE` in `standardize()` and `standardize_parameters()` (correctly) on uses 2-SDs of the predictors (and not the response). 
 - `standardize_info()` / `standardize_parameters(method = "posthoc")` work for zero-inflated models ( #135 )

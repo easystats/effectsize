@@ -57,8 +57,15 @@ effectsize.htest <- function(model, ...) {
     return(out)
   } else if (grepl("Chi-squared", model$method)) {
     Obs <- model$observed
+    Exp <- model$expected
 
-    out <- cramers_v(Obs, ...)
+    out <- chisq_to_cramers_v(
+      chisq = .chisq(Obs, Exp),
+      n = sum(Obs),
+      nrow = nrow(Obs),
+      ncol = ncol(Obs),
+      ...
+    )
     return(out)
   } else if (grepl("One-way", model$method)) {
     out <- F_to_eta2(

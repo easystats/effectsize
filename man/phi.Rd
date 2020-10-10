@@ -10,9 +10,11 @@ phi(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
 cramers_v(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
 }
 \arguments{
-\item{x}{a numeric vector or matrix. x and y can also both be factors.}
+\item{x}{a numeric vector or matrix. \code{x} and \code{y} can also
+    both be factors.}
 
-\item{y}{a numeric vector; ignored if x is a matrix. If x is a factor, y should be a factor of the same length.}
+\item{y}{a numeric vector; ignored if \code{x} is a matrix.  If
+    \code{x} is a factor, \code{y} should be a factor of the same length.}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -20,7 +22,7 @@ cramers_v(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
 
 \item{CI}{Deprecated in favor of \code{ci}.}
 
-\item{...}{Ignored.}
+\item{...}{Arguments passed to \code{\link[=chisq.test]{chisq.test()}}, such as \code{p}.}
 }
 \value{
 A data frame with the effect size(s) between 0-1, and confidence interval(s).

@@ -24,5 +24,10 @@ if (require("testthat") && require("effectsize")) {
 
     testthat::expect_equal(effectsize(Xsq1)$cramers_v,
                            effectsize(Xsq2)$cramers_v)
+
+    testthat::expect_equal(
+      effectsize(chisq.test(table(mtcars$cyl)))$cramers_v,
+      cramers_v(table(mtcars$cyl))$cramers_v
+    )
   })
 }
