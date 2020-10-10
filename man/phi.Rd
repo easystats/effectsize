@@ -28,7 +28,8 @@ cramers_v(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
 A data frame with the effect size(s) between 0-1, and confidence interval(s).
 }
 \description{
-Compute Cramer's V and phi (\eqn{\phi}) from contingency tables.
+Compute Cramer's V and phi (\eqn{\phi}) for contingency tables or
+goodness-of-fit.
 }
 \examples{
 M <- rbind(c(150, 130, 35, 55),

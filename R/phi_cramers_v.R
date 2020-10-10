@@ -1,6 +1,7 @@
 #' Effect size for contingency tables
 #'
-#' Compute Cramer's V and phi (\eqn{\phi}) from contingency tables.
+#' Compute Cramer's V and phi (\eqn{\phi}) for contingency tables or
+#' goodness-of-fit.
 #'
 #' @inheritParams stats::chisq.test
 #' @param ci Confidence Interval (CI) level
