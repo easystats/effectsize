@@ -14,11 +14,17 @@
 #' @seealso [chisq_to_phi()] for details regarding estimation and CIs.
 #'
 #' @examples
-#' contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
+#' M <- rbind(c(150, 130, 35, 55),
+#'            c(100, 50,  10, 40),
+#'            c(165, 65,  2,  25))
 #'
-#' phi(contingency_table)
+#' dimnames(M) <- list(Study = c("Psych", "Econ", "Law"),
+#'                     Music = c("Pop", "Rock", "Jazz", "Classic"))
+#' M
 #'
-#' cramers_v(contingency_table)
+#' phi(M)
+#'
+#' cramers_v(M)
 #'
 #' @importFrom stats chisq.test
 #' @export
