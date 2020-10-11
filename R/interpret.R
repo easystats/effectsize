@@ -10,6 +10,7 @@
 #' @param labels Labels associated with each category. If `NULL`, will try to
 #'   infer it from `values` (if it is a named vector or a list), otherwise, will
 #'   return the breakpoints.
+#' @param name Name of the set of rules (stored as a 'rule_name' attribute).
 #'
 #'
 #' @seealso interpret
@@ -17,10 +18,10 @@
 #' @examples
 #' rules(c(0.05), c("significant", "not significant"))
 #' rules(c(0.2, 0.5, 0.8), c("small", "medium", "large"))
-#' rules(c("small" = 0.2, "medium" = 0.5))
+#' rules(c("small" = 0.2, "medium" = 0.5), name = "Cohen's Rules")
 #'
 #' @export
-rules <- function(values, labels = NULL) {
+rules <- function(values, labels = NULL, name = NULL) {
 
   if(is.null(labels)){
     if(is.list(values)){
@@ -51,7 +52,13 @@ rules <- function(values, labels = NULL) {
     values = values,
     labels = labels
   )
-  attr(out, "name") <-
+
+  if(is.null(name)){
+    attr(out, "rule_name") <- "Custom rules"
+  } else{
+    attr(out, "rule_name") <- name
+  }
+
   class(out) <- c("rules", "list")
   out
 }
@@ -77,7 +84,7 @@ is.rules <- function(x) inherits(x, "rules")
 #'
 #' @param x Vector of value break points (edges defining categories).
 #' @param rules Set of [rules()].
-#' @param name Name of the set of rules (stored as a 'name' attribute).
+#' @inheritParams rules
 #'
 #' @seealso rules
 #' @examples
@@ -87,10 +94,10 @@ is.rules <- function(x) inherits(x, "rules")
 #' interpret(0.08, rules_grid)
 #' interpret(c(0.01, 0.005, 0.08), rules_grid)
 #'
-#' interpret(c(0.35, 0.15), c("small" = 0.2, "large" = 0.4))
+#' interpret(c(0.35, 0.15), c("small" = 0.2, "large" = 0.4), name = "Cohen's Rules")
 #' interpret(c(0.35, 0.15), rules(c(0.2, 0.4), c("small", "medium", "large")))
 #' @export
-interpret <- function(x, rules, name=NULL) {
+interpret <- function(x, rules, name = attr(rules, "rule_name")) {
 
   if(!inherits(rules, "rules")){
     rules <- rules(rules)
@@ -103,20 +110,13 @@ interpret <- function(x, rules, name=NULL) {
   }
 
   if(is.null(name)){
-    attr(out, "name") <- "Custom rules"
+    attr(out, "rule_name") <- "Custom rules"
   } else{
-    attr(out, "name") <- name
+    attr(out, "rule_name") <- name
   }
 
-  attr(out, "rules") <- rules
   class(out) <- c("effectsize_interpret", class(out))
   out
-}
-
-
-#' @export
-print.effectsize_interpret <- function(x, ...){
-  cat(x)
 }
 
 

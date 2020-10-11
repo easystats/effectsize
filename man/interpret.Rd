@@ -4,14 +4,14 @@
 \alias{interpret}
 \title{Generic function for interpretation}
 \usage{
-interpret(x, rules, name = NULL)
+interpret(x, rules, name = attr(rules, "rule_name"))
 }
 \arguments{
 \item{x}{Vector of value break points (edges defining categories).}
 
 \item{rules}{Set of \code{\link[=rules]{rules()}}.}
 
-\item{name}{Name of the set of rules (stored as a 'name' attribute).}
+\item{name}{Name of the set of rules (stored as a 'rule_name' attribute).}
 }
 \description{
 Interpret a value based on a set of rules. See \code{\link[=rules]{rules()}}.
@@ -23,7 +23,7 @@ interpret(0.021, rules_grid)
 interpret(0.08, rules_grid)
 interpret(c(0.01, 0.005, 0.08), rules_grid)
 
-interpret(c(0.35, 0.15), c("small" = 0.2, "large" = 0.4))
+interpret(c(0.35, 0.15), c("small" = 0.2, "large" = 0.4), name = "Cohen's Rules")
 interpret(c(0.35, 0.15), rules(c(0.2, 0.4), c("small", "medium", "large")))
 }
 \seealso{
