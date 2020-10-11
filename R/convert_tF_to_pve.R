@@ -205,10 +205,13 @@ t_to_f2 <- function(t, df_error, ci = 0.9, squared = TRUE, ...){
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
+    # based on MBESS::ci.R2
+    f <- pmax(0,(res[[1]] / df) / ((1 - res[[1]]) / df_error))
     fs <- t(mapply(.get_ncp_F, f, df, df_error, ci))
 
-    res$CI_low <- .F_to_pve(fs[, 1], df, df_error, ci = NULL, es = es)[[1]]
-    res$CI_high <- .F_to_pve(fs[, 2], df, df_error, ci = NULL, es = es)[[1]]
+    # This really is a generic F_to_R2
+    res$CI_low <- F_to_eta2(fs[, 1], df, df_error, ci = NULL)[[1]]
+    res$CI_high <- F_to_eta2(fs[, 2], df, df_error, ci = NULL)[[1]]
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
