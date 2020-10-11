@@ -49,7 +49,7 @@ effectsize.htest <- function(model, ...) {
     )
     return(out)
   } else if (grepl("correlation", model$method)) {
-    out <- t_to_r(unname(model$statistic), unname(model$parameter), ...)
+    out <- t_to_r(1, 1, ci = NULL)
     out$r <- unname(model$estimate)
     out$CI <- attr(model$conf.int, "conf.level")
     out$CI_low <- model$conf.int[1]

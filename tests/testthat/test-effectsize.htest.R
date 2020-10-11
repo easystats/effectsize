@@ -30,4 +30,19 @@ if (require("testthat") && require("effectsize")) {
       cramers_v(table(mtcars$cyl))$cramers_v
     )
   })
+
+  test_that("cor.test", {
+    r_ <- cor.test(iris$Sepal.Width, iris$Sepal.Length)
+    s_ <- suppressWarnings(cor.test(iris$Sepal.Width, iris$Sepal.Length, method = "spearman"))
+    t_ <- cor.test(iris$Sepal.Width, iris$Sepal.Length, method = "kendall")
+
+    testthat::expect_equal(effectsize(r_)[[1]], -0.118, tol = 0.01)
+    testthat::expect_equal(effectsize(s_)[[1]], -0.167, tol = 0.01)
+    testthat::expect_equal(effectsize(t_)[[1]], -0.077, tol = 0.01)
+
+    # no CI for tau or sr
+    testthat::expect_equal(ncol(effectsize(r_)), 4L)
+    testthat::expect_equal(ncol(effectsize(s_)), 1L)
+    testthat::expect_equal(ncol(effectsize(t_)), 1L)
+  })
 }
