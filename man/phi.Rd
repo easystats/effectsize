@@ -2,6 +2,7 @@
 % Please edit documentation in R/phi_cramers_v.R
 \name{phi}
 \alias{phi}
+\alias{cohens_w}
 \alias{cramers_v}
 \title{Effect size for contingency tables}
 \usage{
@@ -30,6 +31,9 @@ A data frame with the effect size(s) between 0-1, and confidence interval(s).
 \description{
 Compute Cramer's V and phi (\eqn{\phi}) for contingency tables or
 goodness-of-fit.
+}
+\note{
+Cohen's \emph{w} is equivalent to \emph{Phi}.
 }
 \examples{
 M <- rbind(c(150, 130, 35, 55),
