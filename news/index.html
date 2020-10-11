@@ -197,6 +197,7 @@
 <h2 class="hasAnchor">
 <a href="#changes" class="anchor"></a>Changes</h2>
 <ul>
+<li>CIs for Omega- and Epsilon-squared return 0s instead of negative values.</li>
 <li>
 <code><a href="../reference/standardize.html">standardize()</a></code> for data frames gains the <code>remove_na</code> argument for dealing with <code>NA</code>s ( <a href='https://github.com/easystats/effectsize/issues/147'>#147</a> ).</li>
 <li>
@@ -208,6 +209,8 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
+<li>
+<code><a href="../reference/phi.html">cramers_v()</a></code> and <code><a href="../reference/phi.html">phi()</a></code> now work with goodness-of-fit data ( <a href='https://github.com/easystats/effectsize/issues/158'>#158</a> )</li>
 <li>
 <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> for post-hoc correctly standardizes transformed outcome.</li>
 <li>Setting <code>two_sd = TRUE</code> in <code><a href="../reference/standardize.html">standardize()</a></code> and <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> (correctly) on uses 2-SDs of the predictors (and not the response).</li>

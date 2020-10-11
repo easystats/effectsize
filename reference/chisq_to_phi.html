@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Conversion between Effect sizes for Contingency Tables (Chi2, Phi, Cramer's V...) — chisq_to_phi • effectsize</title>
+<title>Conversion Chi-Squared to Phi or Cramer's V — chisq_to_phi • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="Conversion between Effect sizes for Contingency Tables (Chi2, Phi, Cramer's V...) — chisq_to_phi" />
-<meta property="og:description" content="Convert between Chi square, (\(\chi^2\)), phi (\(\phi\)) and Cramer's V." />
+<meta property="og:title" content="Conversion Chi-Squared to Phi or Cramer's V — chisq_to_phi" />
+<meta property="og:description" content="Convert between Chi square, (\(\chi^2\)), phi (\(\phi\)) and Cramer's V,
+for contingency tables or goodness of fit." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -158,13 +159,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Conversion between Effect sizes for Contingency Tables (Chi2, Phi, Cramer's V...)</h1>
+    <h1>Conversion Chi-Squared to Phi or Cramer's V</h1>
     <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/convert_chisq.R'><code>R/convert_chisq.R</code></a></small>
     <div class="hidden name"><code>chisq_to_phi.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Convert between Chi square, (\(\chi^2\)), phi (\(\phi\)) and Cramer's V.</p>
+    <p>Convert between Chi square, (\(\chi^2\)), phi (\(\phi\)) and Cramer's V,
+for contingency tables or goodness of fit.</p>
     </div>
 
     <pre class="usage"><span class='fu'>chisq_to_phi</span><span class='op'>(</span><span class='va'>chisq</span>, <span class='va'>n</span>, <span class='va'>nrow</span>, <span class='va'>ncol</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, adjust <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -178,7 +180,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>chisq</th>
-      <td><p>The Chi2 statistic.</p></td>
+      <td><p>The Chi-squared statistic.</p></td>
     </tr>
     <tr>
       <th>n</th>
