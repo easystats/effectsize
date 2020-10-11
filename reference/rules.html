@@ -167,7 +167,7 @@
     <p>Create a container for interpretation rules of thumb. Usually used in conjunction with <a href='interpret.html'>interpret</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rules</span><span class='op'>(</span><span class='va'>values</span>, labels <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>rules</span><span class='op'>(</span><span class='va'>values</span>, labels <span class='op'>=</span> <span class='cn'>NULL</span>, name <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
 <span class='fu'>is.rules</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
@@ -186,6 +186,10 @@ infer it from <code>values</code> (if it is a named vector or a list), otherwise
 return the breakpoints.</p></td>
     </tr>
     <tr>
+      <th>name</th>
+      <td><p>Name of the set of rules (stored as a 'rule_name' attribute).</p></td>
+    </tr>
+    <tr>
       <th>x</th>
       <td><p>An arbitrary R object.</p></td>
     </tr>
@@ -197,15 +201,15 @@ return the breakpoints.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>rules</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.05</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"significant"</span>, <span class='st'>"not significant"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #0000BB;'># Reference thresholds
+</div><div class='output co'>#&gt; <span style='color: #0000BB;'># Reference thresholds (Custom rules)
 #&gt; 
 #&gt; </span><span>significant &lt; 0.05 &lt; not significant</div><div class='input'><span class='fu'>rules</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='fl'>0.5</span>, <span class='fl'>0.8</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"small"</span>, <span class='st'>"medium"</span>, <span class='st'>"large"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #0000BB;'># Reference values
+</div><div class='output co'>#&gt; </span><span style='color: #0000BB;'># Reference values (Custom rules)
 #&gt; 
 #&gt; </span><span>small | medium | large
 #&gt; ----------------------
-#&gt;  0.20 |   0.50 |  0.80</div><div class='input'><span class='fu'>rules</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"small"</span> <span class='op'>=</span> <span class='fl'>0.2</span>, <span class='st'>"medium"</span> <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #0000BB;'># Reference values
+#&gt;  0.20 |   0.50 |  0.80</div><div class='input'><span class='fu'>rules</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"small"</span> <span class='op'>=</span> <span class='fl'>0.2</span>, <span class='st'>"medium"</span> <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>, name <span class='op'>=</span> <span class='st'>"Cohen's Rules"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #0000BB;'># Reference values (Cohen's Rules)
 #&gt; 
 #&gt; </span><span>small | medium
 #&gt; --------------
