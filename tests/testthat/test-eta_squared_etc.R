@@ -190,10 +190,6 @@ if (require("testthat") && require("effectsize")) {
                              c(0, 0, 0, 0.036, 0, 0, 0), tol = 0.01)
       testthat::expect_equal(ef$CI_high,
                              c(0.590, 0.441, 0.505, 0.528, 0.300, 0, 0), tol = 0.01)
-
-      # should be equal
-      ef1 <- omega_squared(m$aov, partial = TRUE)
-      testthat::expect_equal(ef, ef1)
     })
   }
 
