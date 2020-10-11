@@ -10,5 +10,5 @@
 #' #
 #' @export
 interpret_direction <- function(x) {
-  interpret(0, rules(0, c("negative", "positive"), name = "math"))
+  interpret(x, rules(0, c("negative", "positive"), name = "math"))
 }
