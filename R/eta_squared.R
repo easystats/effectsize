@@ -18,7 +18,7 @@
 #'   (non-manipulated) variables, in which case generalized Eta Squared is
 #'   calculated taking these observed variables into account. For `afex_aov`
 #'   model, `generalized = TRUE`, the observed variables are extracted
-#'   automatically from the model.
+#'   automatically from the fitted model, if they were provided then.
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods (ignored).
 #'
@@ -282,10 +282,6 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   }
 
   type <- match.arg(type)
-  es_fun <- switch(type,
-                   eta = F_to_eta2,
-                   omega = F_to_omega2,
-                   epsilon = F_to_epsilon2)
 
   params <- as.data.frame(parameters::model_parameters(model))
   params <- params[params$Parameter != "(Intercept)", ]
@@ -299,44 +295,33 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   df_error <- params$df[params$Parameter == "Residuals"]
   params <- params[params$Parameter != "Residuals",,drop = FALSE]
 
-  # We need these for the F statistic for CIs
-  if (isTRUE(generalized) || is.character(generalized)) {
-    ## copied from afex
-    obs <- logical(nrow(params))
-    if (is.character(generalized)) {
-      for (o in generalized) {
-        oi <- grepl(paste0("\\b", o, "\\b"), params$Parameter)
-
-        if (!any(oi)) stop("Observed variable not in data: ", o, call. = FALSE)
-
-        obs <- obs | oi
-      }
-    }
-    obs_SSn1 <- sum(params$Sum_Squares * obs)
-    obs_SSn2 <- params$Sum_Squares * obs
-
-    ES <- params$Sum_Squares /
-      (params$Sum_Squares + values$Sum_Squares_residuals + obs_SSn1 - obs_SSn2)
-
-    generalized <- TRUE
-  } else if (!isTRUE(partial)) {
-    ES <- params$Sum_Squares /
-      values$Sum_Squares_total
-  } else {
-    ES <-
-      params$Sum_Squares /
-      (params$Sum_Squares + values$Sum_Squares_residuals)
-  }
-
 
 
   if (type == "eta") {
-    if (isTRUE(generalized)) {
-      params$Eta_Sq_generalized <- ES
+    if (isTRUE(generalized) || is.character(generalized)) {
+      ## copied from afex
+      obs <- logical(nrow(params))
+      if (is.character(generalized)) {
+        for (o in generalized) {
+          oi <- grepl(paste0("\\b", o, "\\b"), params$Parameter)
+
+          if (!any(oi)) stop("Observed variable not in data: ", o, call. = FALSE)
+
+          obs <- obs | oi
+        }
+      }
+      obs_SSn1 <- sum(params$Sum_Squares * obs)
+      obs_SSn2 <- params$Sum_Squares * obs
+
+      params$Eta_Sq_generalized <- params$Sum_Squares /
+        (params$Sum_Squares + values$Sum_Squares_residuals + obs_SSn1 - obs_SSn2)
     } else if (!isTRUE(partial)) {
-      params$Eta_Sq <- ES
+      params$Eta_Sq <- params$Sum_Squares /
+        values$Sum_Squares_total
     } else {
-      params$Eta_Sq_partial <- ES
+      params$Eta_Sq_partial <-
+        params$Sum_Squares /
+        (params$Sum_Squares + values$Sum_Squares_residuals)
     }
   } else if (type == "omega") {
     if (!isTRUE(partial)) {
@@ -362,17 +347,19 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
 
 
-  ES <- ES
   out <- params
 
   if (is.numeric(ci)) {
+    # based on MBESS::ci.R2
+    ES <- pmax(0, out[[ncol(out)]])
     f <- (ES / out$df) / ((1 - ES) / df_error)
 
     out <- cbind(out,
-                 es_fun(f,
-                        out$df,
-                        df_error,
-                        ci = ci)[-1])
+                 # This really is a generic F_to_R2
+                 F_to_eta2(f,
+                           out$df,
+                           df_error,
+                           ci = ci)[-1])
   }
 
 
@@ -535,10 +522,6 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                               ci = 0.9,
                               ...) {
   type <- match.arg(type)
-  es_fun <- switch(type,
-                   eta = F_to_eta2,
-                   omega = F_to_omega2,
-                   epsilon = F_to_epsilon2)
 
   params <- as.data.frame(parameters::model_parameters(model))
   params <- params[params$Parameter != "(Intercept)", ]
@@ -556,39 +539,35 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   df_residuals <- sapply(values[params$Group], "[[", "df_residuals")
   ns <- sapply(values[params$Group], "[[", "n")
 
-  if (isTRUE(generalized) || is.character(generalized)) {
-    ## copied from afex
-    obs <- logical(nrow(params))
-    if (is.character(generalized)) {
-      for (o in generalized) {
-        oi <- grepl(paste0("\\b", o, "\\b"), params$Parameter)
-
-        if (!any(oi)) stop("Observed variable not in data: ", o, call. = FALSE)
-
-        obs <- obs | oi
-      }
-    }
-    obs_SSn1 <- sum(params$Sum_Squares * obs)
-    obs_SSn2 <- params$Sum_Squares * obs
-
-    ES <- params$Sum_Squares /
-      (params$Sum_Squares + sum(sapply(values, "[[", "Sum_Squares_residuals")) + obs_SSn1 - obs_SSn2)
-
-    generalized <- TRUE
-  } else if (!isTRUE(partial)) {
-    ES <- params$Sum_Squares / Sum_Squares_total
-  } else {
-    ES <- F_to_eta2(params[["F"]], params[["df"]], df_residuals, ci = NULL)[[1]]
-  }
+  SSS_values <- values[[which(names(values) %in% insight::find_predictors(model)[[1]])]]
+  Sum_Squares_Subjects <- SSS_values$Sum_Squares_residuals
+  Mean_Squares_Subjects <- SSS_values$Mean_Square_residuals
 
 
   if (type == "eta") {
     if (isTRUE(generalized) || is.character(generalized)) {
-      params$Eta_Sq_generalized <- ES
+      ## copied from afex
+      obs <- logical(nrow(params))
+      if (is.character(generalized)) {
+        for (o in generalized) {
+          oi <- grepl(paste0("\\b", o, "\\b"), params$Parameter)
+
+          if (!any(oi)) stop("Observed variable not in data: ", o, call. = FALSE)
+
+          obs <- obs | oi
+        }
+      }
+      obs_SSn1 <- sum(params$Sum_Squares * obs)
+      obs_SSn2 <- params$Sum_Squares * obs
+
+      params$Eta_Sq_generalized <- params$Sum_Squares /
+        (params$Sum_Squares + sum(Sum_Squares_residuals) + obs_SSn1 - obs_SSn2)
     } else if (!isTRUE(partial)) {
-      params$Eta_Sq <- ES
+      params$Eta_Sq <- params$Sum_Squares / Sum_Squares_total
     } else {
-      params$Eta_Sq_partial <- ES
+      params$Eta_Sq_partial <-
+        params$Sum_Squares /
+        (params$Sum_Squares + Sum_Squares_residuals)
     }
   } else if (type == "omega") {
     if (!isTRUE(partial)) {
@@ -596,8 +575,9 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
         (params$Sum_Squares - params$df * Mean_Square_residuals) /
         (Sum_Squares_total + Mean_Square_residuals)
     } else {
-      params$Omega_Sq_partial <-
-        F_to_omega2(params[["F"]], params[["df"]], df_residuals, ci = NULL)[[1]]
+      # implemented from MOTE::omega.partial.SS.rm
+      params$Omega_Sq_partial <- (params$df * (params$Mean_Square - Mean_Square_residuals)) /
+        (params$df * params$Mean_Square + Sum_Squares_residuals + Sum_Squares_Subjects + Mean_Squares_Subjects)
     }
   } else if (type == "epsilon") {
     if (!isTRUE(partial)) {
@@ -606,20 +586,24 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
         Sum_Squares_total
     } else {
       params$Epsilon_Sq_partial <-
-        F_to_epsilon2(params[["F"]], params[["df"]], df_residuals, ci = NULL)[[1]]
+        (params$Sum_Squares - params$df * Mean_Square_residuals) /
+        (params$Sum_Squares + Sum_Squares_residuals)
     }
   }
 
   out <- params
 
   if (!is.null(ci)) {
+    # based on MBESS::ci.R2
+    ES <- pmax(0, out[[ncol(out)]])
     f <- (ES / out$df) / ((1 - ES)/df_residuals)
 
     out <- cbind(out,
-                 es_fun(f,
-                        out$df,
-                        df_residuals,
-                        ci = ci)[-1])
+                 # This really is a generic F_to_R2
+                 F_to_eta2(f,
+                           out$df,
+                           df_residuals,
+                           ci = ci)[-1])
   }
 
   out <- out[, colnames(out) %in% c(
