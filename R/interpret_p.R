@@ -18,18 +18,18 @@
 #' - Benjamin, D. J., Berger, J. O., Johannesson, M., Nosek, B. A., Wagenmakers, E. J., Berk, R., ... & Cesarini, D. (2018). Redefine statistical significance. Nature Human Behaviour, 2(1), 6-10.
 #'
 #' @examples
-#' interpret_p(.02)
-#' interpret_p(c(.5, .02))
+#' interpret_p(c(.5, .02, 0.001))
+#' interpret_p(c(.5, .02, 0.001), rules = "rss")
 #'
 #' @export
 interpret_p <- function(p, rules = "default") {
-  rule <- .match.rules(
+  rules <- .match.rules(
     rules,
     list(
-      default = rules(c(0.05), c("significant", "not significant")),
-      rss = rules(c(0.005, 0.05), c("significant", "suggestive", "not significant"))
+      default = rules(c(0.05), c("significant", "not significant"), name = "default"),
+      rss = rules(c(0.005, 0.05), c("significant", "suggestive", "not significant"), name = "rss")
     )
   )
 
-  interpret(p, rule, name=rules)
+  interpret(p, rules)
 }

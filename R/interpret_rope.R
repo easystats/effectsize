@@ -30,20 +30,24 @@
 #'
 #' @export
 interpret_rope <- function(rope, ci = 0.9, rules = "default") {
-  if (is.character(rules) && rules == "default" && ci < 1) {
-    return(ifelse(rope == 0, "significant",
-                  ifelse(rope == 1, "negligible",
-                         "undecided")))
-  }
+  if (ci < 1) {
+    e <- .Machine$double.eps
 
+    default_rule <- rules(c(0, 0 + e, 1 - e, 1),
+                          c("significant", "undecided", "undecided", "negligible"),
+                          name = "default")
+  } else {
+    default_rule <- rules(c(0.01, 0.025, 0.975, 0.99),
+                          c("significant", "probably significant",
+                            "undecided",
+                            "probably negligible", "negligible"),
+                          name = "default")
+  }
 
   rules <- .match.rules(
     rules,
     list(
-      default = rules(c(0.01, 0.025,0.975, 0.99),
-                      c("significant", "probably significant",
-                        "undecided",
-                        "probably negligible", "negligible"))
+      default = default_rule
     )
   )
 

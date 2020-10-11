@@ -44,17 +44,19 @@ interpret_d <- function(d, rules = "cohen1988") {
     return(interpret_r(d_to_r(d), rules))
   }
 
-  rule <- .match.rules(
+  rules <- .match.rules(
     rules,
     list(
-      cohen1988 = rules(c(0.2, 0.5, 0.8), c("very small", "small", "medium", "large")),
+      cohen1988 = rules(c(0.2, 0.5, 0.8), c("very small", "small", "medium", "large"),
+                        name = "cohen1988"),
       sawilowsky2009 = rules(c(0.1, 0.2, 0.5, 0.8, 1.2, 2),
-                             c("tiny", "very small", "small", "medium", "large", "very large", "huge")),
+                             c("tiny", "very small", "small", "medium", "large", "very large", "huge"),
+                             name = "sawilowsky2009"),
       gignac2016 = NA # added for the correct error msg
     )
   )
 
-  interpret(abs(d), rule, name=rules)
+  interpret(abs(d), rules)
 }
 
 #' @rdname interpret_d

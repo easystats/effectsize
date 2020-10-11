@@ -36,14 +36,14 @@
 #' }
 #' @export
 interpret_ess <- function(ess, rules = "burkner2017") {
-  rule <- .match.rules(
+  rules <- .match.rules(
     rules,
     list(
-      burkner2017 = rules(c(1000), c("insufficient", "sufficient"))
+      burkner2017 = rules(c(1000), c("insufficient", "sufficient"), name = "burkner2017")
     )
   )
 
-  interpret(abs(ess), rule, name=rules)
+  interpret(abs(ess), rules)
 }
 
 
@@ -51,13 +51,13 @@ interpret_ess <- function(ess, rules = "burkner2017") {
 #' @rdname interpret_ess
 #' @export
 interpret_rhat <- function(rhat, rules = "vehtari2019") {
-  rule <- .match.rules(
+  rules <- .match.rules(
     rules,
     list(
-      vehtari2019 = rules(c(1.01), c("converged", "failed")),
-      gelman1992 = rules(c(1.1), c("converged", "failed"))
+      vehtari2019 = rules(c(1.01), c("converged", "failed"), name = "vehtari2019"),
+      gelman1992 = rules(c(1.1), c("converged", "failed"), name = "gelman1992")
     )
   )
 
-  interpret(abs(rhat), rule, name=rules)
+  interpret(abs(rhat), rules)
 }
