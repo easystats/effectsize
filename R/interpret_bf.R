@@ -46,21 +46,23 @@ interpret_bf <- function(bf, rules = "jeffreys1961", include_value = FALSE) {
   rules <- .match.rules(
     rules,
     list(
-      jeffreys1961 = rules(c(3, 10, 30, 100), c("anecdotal", "moderate", "strong", "very strong", "extreme")),
-      raftery1995 = rules(c(3, 20, 150), c("weak", "positive", "strong", "very strong"))
+      jeffreys1961 = rules(c(3, 10, 30, 100), c("anecdotal", "moderate", "strong", "very strong", "extreme"),
+                           name = "jeffreys1961"),
+      raftery1995 = rules(c(3, 20, 150), c("weak", "positive", "strong", "very strong"),
+                          name = "raftery1995")
     )
   )
 
   interpretation <- interpret(bf, rules)
 
 
-  interpretation <- paste0(interpretation, " evidence ", dir)
+  interpretation[] <- paste0(interpretation, " evidence ", dir)
   interpretation[orig_bf==1] <- "no evidence"
   if (include_value) {
-    interpretation <- paste0(interpretation, " (", insight::format_bf(orig_bf, protect_ratio = TRUE),")")
+    interpretation[] <- paste0(interpretation, " (", insight::format_bf(orig_bf, protect_ratio = TRUE),")")
   }
 
   interpretation[is.na(orig_bf)] <- NA
 
-  return(interpretation)
+  interpretation
 }

@@ -54,8 +54,8 @@ Rules apply positive and negative \emph{r} alike.
 }
 
 \examples{
-interpret_r(r = .015)
-interpret_r(r = c(.5, -.02))
+interpret_r(.015)
+interpret_r(c(.5, -.02))
 
 }
 \references{

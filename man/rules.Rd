@@ -5,7 +5,7 @@
 \alias{is.rules}
 \title{Interpretation Grid}
 \usage{
-rules(values, labels = NULL)
+rules(values, labels = NULL, name = NULL)
 
 is.rules(x)
 }
@@ -17,6 +17,8 @@ critical values).}
 infer it from \code{values} (if it is a named vector or a list), otherwise, will
 return the breakpoints.}
 
+\item{name}{Name of the set of rules (stored as a 'rule_name' attribute).}
+
 \item{x}{An arbitrary R object.}
 }
 \description{
@@ -25,7 +27,7 @@ Create a container for interpretation rules of thumb. Usually used in conjunctio
 \examples{
 rules(c(0.05), c("significant", "not significant"))
 rules(c(0.2, 0.5, 0.8), c("small", "medium", "large"))
-rules(c("small" = 0.2, "medium" = 0.5))
+rules(c("small" = 0.2, "medium" = 0.5), name = "Cohen's Rules")
 
 }
 \seealso{
