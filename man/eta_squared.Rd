@@ -28,7 +28,7 @@ variables are manipulated. Can also be a character vector of observed
 (non-manipulated) variables, in which case generalized Eta Squared is
 calculated taking these observed variables into account. For \code{afex_aov}
 model, \code{generalized = TRUE}, the observed variables are extracted
-automatically from the model.}
+automatically from the fitted model, if they were provided then.}
 
 \item{ci}{Confidence Interval (CI) level}
 

@@ -16,12 +16,14 @@
 
 ## Changes
 
+- CIs for Omega- and Epsilon-squared return 0s instead of negative values.
 - `standardize()` for data frames gains the `remove_na` argument for dealing with `NA`s ( #147 ).
 - `standardize()` and `standardize_info()` now (and by extension, `standardize_parameters()`) respect the weights in weighted models when standardizing ( #82 ).
 - Internal changes to `standardize_parameters()` (reducing co-dependency with `parameters`) - argument `parameters` has been dropped.
 
 ## Bug fixes
 
+- `cramers_v()` and `phi()` now work with goodness-of-fit data ( #158 )
 - `standardize_parameters()` for post-hoc correctly standardizes transformed outcome.
 - Setting `two_sd = TRUE` in `standardize()` and `standardize_parameters()` (correctly) on uses 2-SDs of the predictors (and not the response). 
 - `standardize_info()` / `standardize_parameters(method = "posthoc")` work for zero-inflated models ( #135 )

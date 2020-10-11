@@ -10,9 +10,11 @@ phi(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
 cramers_v(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
 }
 \arguments{
-\item{x}{a numeric vector or matrix. x and y can also both be factors.}
+\item{x}{a numeric vector or matrix. \code{x} and \code{y} can also
+    both be factors.}
 
-\item{y}{a numeric vector; ignored if x is a matrix. If x is a factor, y should be a factor of the same length.}
+\item{y}{a numeric vector; ignored if \code{x} is a matrix.  If
+    \code{x} is a factor, \code{y} should be a factor of the same length.}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -20,20 +22,27 @@ cramers_v(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
 
 \item{CI}{Deprecated in favor of \code{ci}.}
 
-\item{...}{Ignored.}
+\item{...}{Arguments passed to \code{\link[=chisq.test]{chisq.test()}}, such as \code{p}.}
 }
 \value{
 A data frame with the effect size(s) between 0-1, and confidence interval(s).
 }
 \description{
-Compute Cramer's V and phi (\eqn{\phi}) from contingency tables.
+Compute Cramer's V and phi (\eqn{\phi}) for contingency tables or
+goodness-of-fit.
 }
 \examples{
-contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
+M <- rbind(c(150, 130, 35, 55),
+           c(100, 50,  10, 40),
+           c(165, 65,  2,  25))
 
-phi(contingency_table)
+dimnames(M) <- list(Study = c("Psych", "Econ", "Law"),
+                    Music = c("Pop", "Rock", "Jazz", "Classic"))
+M
 
-cramers_v(contingency_table)
+phi(M)
+
+cramers_v(M)
 
 }
 \seealso{
