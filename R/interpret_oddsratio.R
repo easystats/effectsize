@@ -48,7 +48,7 @@ interpret_oddsratio <- function(OR, rules = "chen2010", log = FALSE) {
   rules <- .match.rules(
     rules,
     list(
-      chen2010 = rules(c(1.68, 3.47, 6.71), c("very small", "small", "medium", "large")),
+      chen2010 = rules(c(1.68, 3.47, 6.71), c("very small", "small", "medium", "large"), name = "chen2010"),
       cohen1988 = NA # for correct error msg
     )
   )

@@ -33,8 +33,8 @@ Interpret p-values
 }
 
 \examples{
-interpret_p(.02)
-interpret_p(c(.5, .02))
+interpret_p(c(.5, .02, 0.001))
+interpret_p(c(.5, .02, 0.001), rules = "rss")
 
 }
 \references{
