@@ -131,9 +131,11 @@ if (require("testthat") && require("effectsize")) {
   if (require("car") && require("afex")) {
     test_that("generalized | between", {
       data(obk.long, package = "afex")
-      m <- afex::aov_car(value ~ treatment * gender + Error(id),
-                         data = obk.long, observed = "gender",
-                         include_aov = TRUE)
+      m <- suppressWarnings(
+        afex::aov_car(value ~ treatment * gender + Error(id),
+                      data = obk.long, observed = "gender",
+                      include_aov = TRUE)
+      )
 
       testthat::expect_equal(anova(m, es = "ges", observed = NULL)$ges,
                              eta_squared(car::Anova(m$aov, type=3),
