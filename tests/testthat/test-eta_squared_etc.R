@@ -112,9 +112,9 @@ if (require("testthat") && require("effectsize")) {
     m2 <- lm(salary ~ xtra_hours + n_comps, data = hardlyworking)
 
     fsD <- cohens_f2(m1, model2 = m2)[,1:4]
-    fs <- cohens_f2(m2)[-1,-1] # this only works because of the defaul type-I errors! :(
+    fs <- cohens_f2(m2)[-1,-1] # this ONLY works because of the default type-I errors!!!!
     rownames(fsD) <- rownames(fs) <- 1
-    testthat::expect_equal(fsD, fs)
+    testthat::expect_equal(fsD, fs, tol = 0.01)
 
     if (require("performance")) {
       fsD <- cohens_f2(m1, model2 = m2)
