@@ -32,7 +32,7 @@ print.effectsize_interpret <- function(x, ...){
   class(x) <- class(x)[-1]
   print(x, ...)
 
-  insight::print_color(paste0("\n(Rules: ", name, ")\n"), "blue")
+  insight::print_color(paste0("(Rules: ", name, ")\n"), "blue")
 
   invisible(orig_x)
 }
