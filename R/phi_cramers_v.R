@@ -9,6 +9,8 @@
 #' @param CI Deprecated in favor of `ci`.
 #' @param ... Arguments passed to [chisq.test()], such as `p`.
 #'
+#' @aliases cohens_w
+#'
 #' @return A data frame with the effect size(s) between 0-1, and confidence interval(s).
 #'
 #' @seealso [chisq_to_phi()] for details regarding estimation and CIs.
@@ -25,6 +27,8 @@
 #' phi(M)
 #'
 #' cramers_v(M)
+#'
+#' @note Cohen's *w* is equivalent to *Phi*.
 #'
 #' @importFrom stats chisq.test
 #' @export

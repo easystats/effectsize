@@ -50,6 +50,9 @@ of the noncentral F distribution for the desired tail-probabilities,
 and then convert these \code{ncp}s to the corresponding effect sizes.
 }
 }
+\note{
+Cohen's \emph{w} is equivalent to \emph{Phi}.
+}
 \examples{
 contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
 

@@ -185,18 +185,11 @@ if (require("testthat") && require("effectsize")) {
 
       ef <- omega_squared(m, partial = TRUE)
       testthat::expect_equal(ef$Omega_Sq_partial,
-                             c(0.311, 0.181, 0.222, 0.568, 0.381, -0.066, -0.061), tol = 0.01)
+                             c(0.323, 0.115, 0.222, 0.320, 0.149, -0.019, -0.017), tol = 0.01)
       testthat::expect_equal(ef$CI_low,
-                             c(0, 0, 0, 0.285, 0.015, 0, 0), tol = 0.01)
+                             c(0, 0, 0, 0.036, 0, 0, 0), tol = 0.01)
       testthat::expect_equal(ef$CI_high,
-                             c(0.581, 0.504, 0.505, 0.717, 0.556, 0, 0), tol = 0.01)
-
-      # should be very similar
-      ef1 <- omega_squared(m$aov, partial = TRUE)
-      testthat::expect_equal(cor(ef$Omega_Sq_partial, ef1$Omega_Sq_partial), 0.96, tol = 0.01)
-      testthat::expect_equal(cor(ef$CI_low, ef1$CI_low), 0.99, tol = 0.01)
-      testthat::expect_equal(cor(ef$CI_high, ef1$CI_high), 0.96, tol = 0.01)
-      testthat::expect_equal(median(abs(ef$CI_high - ef1$CI_high)), 0.09, tol = 0.01)
+                             c(0.590, 0.441, 0.505, 0.528, 0.300, 0, 0), tol = 0.01)
     })
   }
 
@@ -212,12 +205,8 @@ if (require("testthat") && require("effectsize")) {
       testthat::expect_error(eta_squared(model1, partial = FALSE))
       testthat::expect_error(epsilon_squared(model1, partial = FALSE))
       testthat::expect_error(omega_squared(model1, partial = FALSE))
+      testthat::expect_error(omega_squared(model1, partial = TRUE))
     })
   }
 }
-
-
-
-
-
 
