@@ -330,8 +330,8 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
         (values$Sum_Squares_total + values$Mean_Square_residuals)
     } else {
       params$Omega_Sq_partial <-
-        (params$df * (params$Mean_Square - values$Mean_Square_residuals)) /
-        (params$df * params$Mean_Square + (values$n - params$df) * values$Mean_Square_residuals)
+        (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
+        (params$Sum_Squares + (values$n - params$df) * values$Mean_Square_residuals)
     }
   } else if (type == "epsilon") {
     if (!isTRUE(partial)) {
@@ -515,6 +515,7 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
 #' @keywords internal
 #' @importFrom parameters model_parameters
+#' @importFrom insight find_predictors
 .anova_es.aovlist <- function(model,
                               type = c("eta", "omega", "epsilon"),
                               partial = TRUE,
@@ -538,10 +539,6 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   Mean_Square_residuals <- sapply(values[params$Group], "[[", "Mean_Square_residuals")
   df_residuals <- sapply(values[params$Group], "[[", "df_residuals")
   ns <- sapply(values[params$Group], "[[", "n")
-
-  SSS_values <- values[[which(names(values) %in% insight::find_predictors(model)[[1]])]]
-  Sum_Squares_Subjects <- SSS_values$Sum_Squares_residuals
-  Mean_Squares_Subjects <- SSS_values$Mean_Square_residuals
 
 
   if (type == "eta") {
@@ -570,14 +567,21 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
         (params$Sum_Squares + Sum_Squares_residuals)
     }
   } else if (type == "omega") {
+    SSS_values <- values[[which(names(values) %in% insight::find_predictors(model)[[1]])]]
+    is_within <- !params$Group %in% insight::find_predictors(model)[[1]]
+    Sum_Squares_Subjects <- SSS_values$Sum_Squares_residuals
+    Mean_Squares_Subjects <- SSS_values$Mean_Square_residuals
+
+    # implemented from https://www.jasonfinley.com/tools/OmegaSquaredQuickRef_JRF_3-31-13.pdf
     if (!isTRUE(partial)) {
       params$Omega_Sq <-
         (params$Sum_Squares - params$df * Mean_Square_residuals) /
-        (Sum_Squares_total + Mean_Square_residuals)
+        (Sum_Squares_total + Mean_Squares_Subjects)
     } else {
-      # implemented from MOTE::omega.partial.SS.rm
-      params$Omega_Sq_partial <- (params$df * (params$Mean_Square - Mean_Square_residuals)) /
-        (params$df * params$Mean_Square + Sum_Squares_residuals + Sum_Squares_Subjects + Mean_Squares_Subjects)
+      params$Omega_Sq_partial <-
+        (params$Sum_Squares - params$df * Mean_Square_residuals) /
+        (params$Sum_Squares + is_within * Sum_Squares_residuals +
+           Sum_Squares_Subjects + Mean_Squares_Subjects)
     }
   } else if (type == "epsilon") {
     if (!isTRUE(partial)) {
@@ -696,10 +700,6 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                                ci = 0.9,
                                ...) {
   type <- match.arg(type)
-  es_fun <- switch(type,
-                   eta = F_to_eta2,
-                   omega = F_to_omega2,
-                   epsilon = F_to_epsilon2)
 
   if (!requireNamespace("afex", quietly = TRUE)) {
     stop(
@@ -708,7 +708,7 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     )
   }
 
-
+  # generalized eta2
   if (type=="eta" && (isTRUE(generalized) || is.character(generalized))) {
     if (isTRUE(generalized))
       generalized <- attr(model$anova_table, "observed")
@@ -728,7 +728,7 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     if (is.numeric(ci)) {
       out <- cbind(
         out,
-        es_fun(
+        F_to_eta2(
           f,
           df1,
           df2,
@@ -739,8 +739,13 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     return(out)
   }
 
+  # partial eta2 / partial epsilon2
+  if (partial && type %in% c("eta", "epsilon")) {
+    es_fun <- switch(type,
+                     eta = F_to_eta2,
+                     omega = F_to_omega2,
+                     epsilon = F_to_epsilon2)
 
-  if (partial) {
     aov_tab <- anova(model, es = "none", correction = "none")
 
     out <- cbind(Parameter = rownames(aov_tab),
@@ -751,21 +756,42 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     return(out)
   }
 
+  # For between, covers all
+  if (!inherits(model$Anova, "Anova.mlm")) {
+    out <-
+      .anova_es(
+        model$Anova,
+        type = type,
+        partial = FALSE,
+        generalized = FALSE,
+        ci = ci
+      )
+    return(out)
+  }
 
+
+  # If not fully between, covers all
   if (!is.null(model$aov)) {
     out <-
       .anova_es(
         model$aov,
         type = type,
-        partial = FALSE,
+        partial = partial,
         generalized = FALSE,
         ci = ci,
       )
     return(out)
   }
 
-
-  if (inherits(model$Anova, "Anova.mlm")) {
+  # Error,,, only so much can be done...
+  if (partial) {
+    stop(
+      "Cannot get partial Omega squared for mixed-effects 'afex_aov' object when",
+      " 'include_aov = FALSE'.\n",
+      "Try fitting the model again with 'include_aov = TRUE'.",
+      call. = FALSE
+    )
+  } else {
     stop(
       "Cannot get non-partial effect sizes for mixed-effects 'afex_aov' object when",
       " 'include_aov = FALSE'.\n",
@@ -773,17 +799,6 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       call. = FALSE
     )
   }
-
-  # non-partial ES for fully between design
-  out <-
-    .anova_es(
-      model$Anova,
-      type = type,
-      partial = FALSE,
-      generalized = FALSE,
-      ci = ci
-    )
-  return(out)
 }
 
 

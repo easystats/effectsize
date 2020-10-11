@@ -35,8 +35,8 @@
 #' Both Omega and Epsilon are unbiased estimators of the population Eta. But
 #' which to choose? Though Omega is the more popular choice, it should be noted
 #' that:
-#' 1. The formula given above for Omega is only a (close) approximation for
-#' complex designs.
+#' 1. The formula given above for Omega is only an approximation for complex
+#' designs.
 #' 2. Epsilon has been found to be less biased (Carroll & Nordholm, 1975).
 #'
 #' ## Confidence Intervals
