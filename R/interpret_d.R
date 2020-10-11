@@ -44,7 +44,7 @@ interpret_d <- function(d, rules = "cohen1988") {
     return(interpret_r(d_to_r(d), rules))
   }
 
-  rules <- .match.rules(
+  rule <- .match.rules(
     rules,
     list(
       cohen1988 = rules(c(0.2, 0.5, 0.8), c("very small", "small", "medium", "large")),
@@ -54,7 +54,7 @@ interpret_d <- function(d, rules = "cohen1988") {
     )
   )
 
-  interpret(abs(d), rules)
+  interpret(abs(d), rule, name=rules)
 }
 
 #' @rdname interpret_d

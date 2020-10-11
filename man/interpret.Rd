@@ -4,12 +4,14 @@
 \alias{interpret}
 \title{Generic function for interpretation}
 \usage{
-interpret(x, rules)
+interpret(x, rules, name = NULL)
 }
 \arguments{
 \item{x}{Vector of value break points (edges defining categories).}
 
 \item{rules}{Set of \code{\link[=rules]{rules()}}.}
+
+\item{name}{Name of the set of rules (stored as a 'name' attribute).}
 }
 \description{
 Interpret a value based on a set of rules. See \code{\link[=rules]{rules()}}.

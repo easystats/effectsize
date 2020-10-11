@@ -23,7 +23,7 @@
 #'
 #' @export
 interpret_p <- function(p, rules = "default") {
-  rules <- .match.rules(
+  rule <- .match.rules(
     rules,
     list(
       default = rules(c(0.05), c("significant", "not significant")),
@@ -31,5 +31,5 @@ interpret_p <- function(p, rules = "default") {
     )
   )
 
-  interpret(p, rules)
+  interpret(p, rule, name=rules)
 }

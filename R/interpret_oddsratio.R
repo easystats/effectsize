@@ -45,7 +45,7 @@ interpret_oddsratio <- function(OR, rules = "chen2010", log = FALSE) {
     return(interpret_d(abs(d), rules = rules))
   }
 
-  rules <- .match.rules(
+  rule <- .match.rules(
     rules,
     list(
       chen2010 = rules(c(1.68, 3.47, 6.71), c("very small", "small", "medium", "large")),
@@ -53,5 +53,5 @@ interpret_oddsratio <- function(OR, rules = "chen2010", log = FALSE) {
     )
   )
 
-  interpret(OR, rules)
+  interpret(OR, rule, name=rules)
 }

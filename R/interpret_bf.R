@@ -43,7 +43,7 @@ interpret_bf <- function(bf, rules = "jeffreys1961", include_value = FALSE) {
   dir <- ifelse(bf < 1, "against", "in favour of")
   bf <- exp(abs(log(bf)))
 
-  rules <- .match.rules(
+  rule <- .match.rules(
     rules,
     list(
       jeffreys1961 = rules(c(3, 10, 30, 100), c("anecdotal", "moderate", "strong", "very strong", "extreme")),
@@ -51,7 +51,7 @@ interpret_bf <- function(bf, rules = "jeffreys1961", include_value = FALSE) {
     )
   )
 
-  interpretation <- interpret(bf, rules)
+  interpretation <- interpret(bf, rule, name=rules)
 
 
   interpretation <- paste0(interpretation, " evidence ", dir)
@@ -62,5 +62,5 @@ interpret_bf <- function(bf, rules = "jeffreys1961", include_value = FALSE) {
 
   interpretation[is.na(orig_bf)] <- NA
 
-  return(interpretation)
+  interpretation
 }

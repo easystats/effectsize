@@ -51,6 +51,7 @@ rules <- function(values, labels = NULL) {
     values = values,
     labels = labels
   )
+  attr(out, "name") <-
   class(out) <- c("rules", "list")
   out
 }
@@ -66,7 +67,6 @@ is.rules <- function(x) inherits(x, "rules")
 
 
 
-
 # Interpret ---------------------------------------------------------------
 
 
@@ -77,6 +77,7 @@ is.rules <- function(x) inherits(x, "rules")
 #'
 #' @param x Vector of value break points (edges defining categories).
 #' @param rules Set of [rules()].
+#' @param name Name of the set of rules (stored as a 'name' attribute).
 #'
 #' @seealso rules
 #' @examples
@@ -89,20 +90,34 @@ is.rules <- function(x) inherits(x, "rules")
 #' interpret(c(0.35, 0.15), c("small" = 0.2, "large" = 0.4))
 #' interpret(c(0.35, 0.15), rules(c(0.2, 0.4), c("small", "medium", "large")))
 #' @export
-interpret <- function(x, rules) {
+interpret <- function(x, rules, name=NULL) {
 
   if(!inherits(rules, "rules")){
     rules <- rules(rules)
   }
 
   if (length(x) > 1) {
-    return(sapply(x, .interpret, rules))
+    out <- sapply(x, .interpret, rules)
   } else {
-    return(.interpret(x, rules))
+    out <- .interpret(x, rules)
   }
+
+  if(is.null(name)){
+    attr(out, "name") <- "Custom rules"
+  } else{
+    attr(out, "name") <- name
+  }
+
+  attr(out, "rules") <- rules
+  class(out) <- c("effectsize_interpret", class(out))
+  out
 }
 
 
+#' @export
+print.effectsize_interpret <- function(x, ...){
+  cat(x)
+}
 
 
 #' @keywords internal

@@ -51,35 +51,35 @@
 #'
 #' @export
 interpret_gfi <- function(x, rules = "default") {
-  rules <- .match.rules(
+  rule <- .match.rules(
     rules,
     list(
       default = rules(c(0.95), c("poor", "satisfactory"))
     )
   )
 
-  interpret(x, rules)
+  interpret(x, rule, name=rules)
 }
 
 
 #' @rdname interpret_gfi
 #' @export
 interpret_agfi <- function(x, rules = "default") {
-  rules <- .match.rules(
+  rule <- .match.rules(
     rules,
     list(
       default = rules(c(0.90), c("poor", "satisfactory"))
     )
   )
 
-  interpret(x, rules)
+  interpret(x, rule, name=rules)
 }
 
 
 #' @rdname interpret_gfi
 #' @export
 interpret_nfi <- function(x, rules = "byrne1994") {
-  rules <- .match.rules(
+  rule <- .match.rules(
     rules,
     list(
       byrne1994 = rules(c(0.90), c("poor", "satisfactory")),
@@ -87,7 +87,7 @@ interpret_nfi <- function(x, rules = "byrne1994") {
     )
   )
 
-  interpret(x, rules)
+  interpret(x, rule, name=rules)
 }
 
 #' @rdname interpret_gfi
@@ -98,14 +98,14 @@ interpret_nnfi <- interpret_nfi
 #' @rdname interpret_gfi
 #' @export
 interpret_cfi <- function(x, rules = "default") {
-  rules <- .match.rules(
+  rule <- .match.rules(
     rules,
     list(
       default = rules(c(0.90), c("poor", "satisfactory"))
     )
   )
 
-  interpret(x, rules)
+  interpret(x, rule, name=rules)
 }
 
 
@@ -114,7 +114,7 @@ interpret_cfi <- function(x, rules = "default") {
 #' @rdname interpret_gfi
 #' @export
 interpret_rmsea <- function(x, rules = "default") {
-  rules <- .match.rules(
+  rule <- .match.rules(
     rules,
     list(
       default = rules(c(0.05), c("satisfactory", "poor")),
@@ -122,47 +122,47 @@ interpret_rmsea <- function(x, rules = "default") {
     )
   )
 
-  interpret(x, rules)
+  interpret(x, rule, name=rules)
 }
 
 
 #' @rdname interpret_gfi
 #' @export
 interpret_srmr <- function(x, rules = "default") {
-  rules <- .match.rules(
+  rule <- .match.rules(
     rules,
     list(
       default = rules(c(0.08), c("satisfactory", "poor"))
     )
   )
 
-  interpret(x, rules)
+  interpret(x, rules, name=rules)
 }
 
 #' @rdname interpret_gfi
 #' @export
 interpret_rfi <- function(x, rules = "default") {
-  rules <- .match.rules(
+  rule <- .match.rules(
     rules,
     list(
       default = rules(c(0.90), c("poor", "satisfactory"))
     )
   )
 
-  interpret(x, rules)
+  interpret(x, rule, name=rules)
 }
 
 #' @rdname interpret_gfi
 #' @export
 interpret_ifi <- function(x, rules = "default") {
-  rules <- .match.rules(
+  rule <- .match.rules(
     rules,
     list(
       default = rules(c(0.90), c("poor", "satisfactory"))
     )
   )
 
-  interpret(x, rules)
+  interpret(x, rule, name=rules)
 }
 
 #' @rdname interpret_gfi

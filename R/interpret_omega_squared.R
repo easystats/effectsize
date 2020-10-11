@@ -32,7 +32,7 @@
 #'
 #' @export
 interpret_omega_squared <- function(es, rules = "field2013") {
-  rules <- .match.rules(
+  rule <- .match.rules(
     rules,
     list(
       field2013 = rules(c(0.01, 0.06, 0.14),
@@ -42,7 +42,7 @@ interpret_omega_squared <- function(es, rules = "field2013") {
     )
   )
 
-  interpret(es, rules)
+  interpret(es, rule, name=rules)
 }
 
 #' @export
