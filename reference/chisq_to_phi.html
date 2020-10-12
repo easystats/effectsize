@@ -171,6 +171,8 @@ for contingency tables or goodness of fit.</p>
 
     <pre class="usage"><span class='fu'>chisq_to_phi</span><span class='op'>(</span><span class='va'>chisq</span>, <span class='va'>n</span>, <span class='va'>nrow</span>, <span class='va'>ncol</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, adjust <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
+<span class='fu'>chisq_to_cohens_w</span><span class='op'>(</span><span class='va'>chisq</span>, <span class='va'>n</span>, <span class='va'>nrow</span>, <span class='va'>ncol</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, adjust <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
+
 <span class='fu'>chisq_to_cramers_v</span><span class='op'>(</span><span class='va'>chisq</span>, <span class='va'>n</span>, <span class='va'>nrow</span>, <span class='va'>ncol</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, adjust <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>phi_to_chisq</span><span class='op'>(</span><span class='va'>phi</span>, <span class='va'>n</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -223,8 +225,8 @@ For adjusted versions, see Bergsma, 2013.</p><h3 class='hasAnchor' id='arguments
 
 
 <p>Confidence intervals are estimated using the Noncentrality parameter method;
-These methods searches for a the best <code>ncp</code> (non-central parameters) for
-of the noncentral F distribution for the desired tail-probabilities,
+These methods searches for a the best <code>ncp</code> (non-central parameters) for of
+the noncentral Chi-squared distribution for the desired tail-probabilities,
 and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
