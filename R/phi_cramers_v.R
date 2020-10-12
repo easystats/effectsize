@@ -74,10 +74,18 @@ phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...){
   Obs <- res$observed
   Exp <- res$expected
 
+  if (inherits(Exp, "table")) {
+    nr <- nrow(Obs)
+    nc <- ncol(Obs)
+  } else {
+    nr <- length(Obs)
+    nc <- 1
+  }
+
   chisq_to_phi(chisq = .chisq(Obs, Exp),
                n = sum(Obs),
-               nrow = nrow(Obs),
-               ncol = ncol(Obs),
+               nrow = nr,
+               ncol = nc,
                ci = ci,
                adjust = adjust)
 }
@@ -99,10 +107,18 @@ cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI,...){
   Obs <- res$observed
   Exp <- res$expected
 
+  if (inherits(Exp, "table")) {
+    nr <- nrow(Obs)
+    nc <- ncol(Obs)
+  } else {
+    nr <- length(Obs)
+    nc <- 1
+  }
+
   chisq_to_cramers_v(chisq = .chisq(Obs, Exp),
                      n = sum(Obs),
-                     nrow = nrow(Obs),
-                     ncol = ncol(Obs),
+                     nrow = nr,
+                     ncol = nc,
                      ci = ci,
                      adjust = adjust)
 }
