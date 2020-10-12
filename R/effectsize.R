@@ -59,11 +59,19 @@ effectsize.htest <- function(model, ...) {
     Obs <- model$observed
     Exp <- model$expected
 
+    if (!is.null(dim(Exp))) {
+      nr <- nrow(Obs)
+      nc <- ncol(Obs)
+    } else {
+      nr <- length(Obs)
+      nc <- 1
+    }
+
     out <- chisq_to_cramers_v(
       chisq = .chisq(Obs, Exp),
       n = sum(Obs),
-      nrow = nrow(Obs),
-      ncol = ncol(Obs),
+      nrow = nr,
+      ncol = nc,
       ...
     )
     return(out)
