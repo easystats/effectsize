@@ -1,4 +1,6 @@
 if (require("testthat") && require("effectsize")) {
+
+  # htest -------------------------------------------------------------------
   test_that("t-test", {
 
     ## One sample
@@ -44,5 +46,14 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_equal(ncol(effectsize(r_)), 4L)
     testthat::expect_equal(ncol(effectsize(s_)), 1L)
     testthat::expect_equal(ncol(effectsize(t_)), 1L)
+  })
+
+
+  # aov ---------------------------------------------------------------------
+  test_that("aov", {
+    data <- iris
+    data$Cat1 <- rep(c("A", "B"), length.out = nrow(data))
+    model <- aov(Sepal.Length ~ Species * Cat1, data = data)
+    testthat::expect_equal(effectsize(model), eta_squared(model))
   })
 }
