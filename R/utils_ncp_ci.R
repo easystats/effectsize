@@ -53,17 +53,15 @@
 }
 
 #' @keywords internals
-#' @importFrom stats pchisq
-#' @importFrom stats qchisq
-#' @importFrom stats optim
+#' @importFrom stats pchisq qchisq optim
 .get_ncp_chi <- function(chi, df, conf.level = 0.95) {
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)
 
-  ncp <- suppressWarnings(optim(
+  ncp <- suppressWarnings(stats::optim(
     par = 1.1 * rep(chi, 2),
     fn = function(x) {
-      p <- pchisq(q = chi, df, ncp = x)
+      p <- stats::pchisq(q = chi, df, ncp = x)
 
       abs(max(p) - probs[2]) +
         abs(min(p) - probs[1])
@@ -72,13 +70,13 @@
   ))
   chi_ncp <- sort(ncp$par)
 
-  if (chi <= qchisq(probs[1], df)) {
+  if (chi <= stats::qchisq(probs[1], df)) {
     chi_ncp[2] <- 0
   }
 
-  if (chi <= qchisq(probs[2], df)) {
+  if (chi <= stats::qchisq(probs[2], df)) {
     chi_ncp[1] <- 0
   }
 
-  return(chi_ncp)
+  chi_ncp
 }
