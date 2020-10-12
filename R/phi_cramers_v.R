@@ -74,7 +74,7 @@ phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...){
   Obs <- res$observed
   Exp <- res$expected
 
-  if (inherits(Exp, "table")) {
+  if (!is.null(dim(Exp))) {
     nr <- nrow(Obs)
     nc <- ncol(Obs)
   } else {
@@ -107,7 +107,7 @@ cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI,...){
   Obs <- res$observed
   Exp <- res$expected
 
-  if (inherits(Exp, "table")) {
+  if (!is.null(dim(Exp))) {
     nr <- nrow(Obs)
     nc <- ncol(Obs)
   } else {
