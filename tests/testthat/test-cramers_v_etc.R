@@ -53,6 +53,10 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_equal(cramers_v(table(df$am, df$cyl))[[1]], 0.45, tol = 0.01)
     testthat::expect_equal(cramers_v(table(df$am, df$cyl)), cramers_v(table(df$cyl)))
     testthat::expect_equal(cramers_v(table(df$am, df$cyl)), cramers_v(table(df$cyl, df$am)))
+
+    xtab <- table(mtcars$am, mtcars$vs)
+    V <- cramers_v(xtab, adjust = TRUE)
+    testthat::expect_equal(unname(unlist(V[c(1,3,4)])), rep(0,3))
   })
 
 

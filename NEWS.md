@@ -17,7 +17,7 @@
 
 ## Changes
 
-- CIs for Omega- and Epsilon-squared return 0s instead of negative values.
+- CIs for Omega-/Epsilon-squared and Adjusted Phi/Cramer's V return 0s instead of negative values.
 - `standardize()` for data frames gains the `remove_na` argument for dealing with `NA`s ( #147 ).
 - `standardize()` and `standardize_info()` now (and by extension, `standardize_parameters()`) respect the weights in weighted models when standardizing ( #82 ).
 - Internal changes to `standardize_parameters()` (reducing co-dependency with `parameters`) - argument `parameters` has been dropped.
