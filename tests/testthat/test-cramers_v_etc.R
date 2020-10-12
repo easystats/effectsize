@@ -48,6 +48,11 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_true(phi1$phi < phi2$phi)
     testthat::expect_true(phi2$CI_low < phi2$CI_high)
 
+    # some weird exeptions...
+    df <- subset(mtcars, am == "0")
+    testthat::expect_equal(cramers_v(table(df$am, df$cyl))[[1]], 0.45, tol = 0.01)
+    testthat::expect_equal(cramers_v(table(df$am, df$cyl)), cramers_v(table(df$cyl)))
+    testthat::expect_equal(cramers_v(table(df$am, df$cyl)), cramers_v(table(df$cyl, df$am)))
   })
 
 
