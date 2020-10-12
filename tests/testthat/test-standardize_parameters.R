@@ -108,7 +108,8 @@ if (require("testthat") && require("effectsize")) {
     m_lm <- lm(Sepal.Length ~ Species * Cat1, data = data)
 
     testthat::expect_equal(standardize_parameters(m_aov),
-                           standardize_parameters(m_lm))
+                           standardize_parameters(m_lm),
+                           check.attributes = FALSE)
   })
 
 
