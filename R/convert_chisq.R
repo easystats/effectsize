@@ -23,8 +23,8 @@
 #'
 #' ## Confidence Intervals
 #' Confidence intervals are estimated using the Noncentrality parameter method;
-#' These methods searches for a the best `ncp` (non-central parameters) for
-#' of the noncentral F distribution for the desired tail-probabilities,
+#' These methods searches for a the best `ncp` (non-central parameters) for of
+#' the noncentral Chi-squared distribution for the desired tail-probabilities,
 #' and then convert these `ncp`s to the corresponding effect sizes.
 #'
 #' @note Cohen's *w* is equivalent to *Phi*.
@@ -92,6 +92,11 @@ chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...){
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   return(res)
 }
+
+
+#' @rdname chisq_to_phi
+#' @export
+chisq_to_cohens_w <- chisq_to_phi
 
 
 #' @rdname chisq_to_phi

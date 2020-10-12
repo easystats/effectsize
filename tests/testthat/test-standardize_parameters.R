@@ -98,6 +98,22 @@ if (require("testthat") && require("effectsize")) {
   })
 
 
+  # aov ---------------------------------------------------------------------
+  test_that("standardize_parameters (aov)", {
+    data <- iris
+
+    data$Cat1 <- rep(c("A", "B"), length.out = nrow(data))
+
+    m_aov <- aov(Sepal.Length ~ Species * Cat1, data = data)
+    m_lm <- lm(Sepal.Length ~ Species * Cat1, data = data)
+
+    testthat::expect_equal(standardize_parameters(m_aov),
+                           standardize_parameters(m_lm),
+                           check.attributes = FALSE)
+  })
+
+
+
   # with function interactions" -------------------
   test_that("standardize_parameters (with functions /  interactions)", {
     X <- scale(rnorm(100),T,F)

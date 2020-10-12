@@ -34,7 +34,6 @@ if (require("testthat") && require("effectsize")) {
 
 
   test_that("goodness of fit", {
-
     cv1 <- cramers_v(table(mtcars$cyl), p = c(0.34375, 0.21875 , 0.43750))
     cv2 <- cramers_v(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
 
@@ -50,4 +49,38 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_true(phi2$CI_low < phi2$CI_high)
 
   })
+
+
+  test_that("Cohen's g", {
+
+    # From mcnemar.test
+    Performance <-
+      matrix(c(794, 86, 150, 570),
+             nrow = 2,
+             dimnames = list("1st Survey" = c("Approve", "Disapprove"),
+                             "2nd Survey" = c("Approve", "Disapprove")))
+    g <- cohens_g(Performance)
+    testthat::expect_equal(g$cohens_g, 0.136, tol = 0.01)
+    testthat::expect_equal(g$CI_low, 0.072, tol = 0.01)
+    testthat::expect_equal(g$CI_high, 0.194, tol = 0.01)
+
+
+    AndersonRainBarrel <- matrix(c(9L, 17L,
+                                   5L, 15L), nrow = 2)
+    g <- cohens_g(AndersonRainBarrel)
+    testthat::expect_equal(g$cohens_g, 0.273, tol = 0.01)
+    testthat::expect_equal(g$CI_low, 0.066, tol = 0.01)
+    testthat::expect_equal(g$CI_high, 0.399, tol = 0.01)
+
+
+    M <- matrix(c(794, 86, 150,
+                  570, 794, 86,
+                  150, 570, 15),
+                nrow = 3)
+    g <- cohens_g(M)
+    testthat::expect_equal(g$cohens_g, 0.300, tol = 0.01)
+    testthat::expect_equal(g$CI_low, 0.280, tol = 0.01)
+    testthat::expect_equal(g$CI_high, 0.319, tol = 0.01)
+  })
+
 }

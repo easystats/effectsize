@@ -24,7 +24,7 @@ See details below.
 \item A \strong{Chi-squared test} returns \emph{Cramer's V} via \code{\link[=cramers_v]{cramers_v()}}.
 \item A \strong{One-way ANOVA test} returns \emph{Eta squared} via \code{\link[=F_to_eta2]{F_to_eta2()}}.
 }
-\item An object of class \code{anova} is passed to \code{\link[=eta_squared]{eta_squared()}}.
+\item Objects of class \code{anova}, \code{aov}, or \code{aovlist} are passed to \code{\link[=eta_squared]{eta_squared()}}.
 \item Other objects are passed to \code{\link[=standardize_parameters]{standardize_parameters()}}.
 }
 }

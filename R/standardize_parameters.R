@@ -156,7 +156,8 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   }
   mi <- insight::model_info(model)
 
-
+  # need model_parameters to return the parameters, not the terms
+  if (inherits(model, "aov")) class(model) <- class(model)[class(model) != "aov"]
   pars <- parameters::model_parameters(model, ci = ci, standardize = NULL, ...)
 
   # should post hoc exponentiate?

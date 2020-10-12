@@ -13,7 +13,7 @@
 #'   - A **correlation test** returns *r*. See [t_to_r()].
 #'   - A **Chi-squared test** returns *Cramer's V* via [cramers_v()].
 #'   - A **One-way ANOVA test** returns *Eta squared* via [F_to_eta2()].
-#' - An object of class `anova` is passed to [eta_squared()].
+#' - Objects of class `anova`, `aov`, or `aovlist` are passed to [eta_squared()].
 #' - Other objects are passed to [standardize_parameters()].
 #'
 #' @examples
@@ -49,7 +49,7 @@ effectsize.htest <- function(model, ...) {
     )
     return(out)
   } else if (grepl("correlation", model$method)) {
-    out <- t_to_r(unname(model$statistic), unname(model$parameter), ...)
+    out <- t_to_r(1, 1, ci = NULL)
     out$r <- unname(model$estimate)
     out$CI <- attr(model$conf.int, "conf.level")
     out$CI_low <- model$conf.int[1]
@@ -84,6 +84,12 @@ effectsize.htest <- function(model, ...) {
 effectsize.anova <- function(model, ...) {
   eta_squared(model, ...)
 }
+
+#' @export
+effectsize.aov <- effectsize.anova
+
+#' @export
+effectsize.aovlist <- effectsize.anova
 
 #' @export
 effectsize.default <- function(model, ...) {

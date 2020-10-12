@@ -2,6 +2,7 @@
 
 ## New features
 
+- `cohens_g()` effect size for paired contingency tables.
 - Generalized Eta Squared now available via `eta_squared(generalized = ...)`.
 - `eta_squared()`, `omega_squared()` and `epsilon_squared()` fully support `aovlist` and `afex_aov` objects.
 - `standardize_parameters()` can now return Odds ratios / IRRs (or any exponentiated parameter) by setting `exponentiate = TRUE`.
@@ -23,6 +24,7 @@
 
 ## Bug fixes
 
+- `effectsize()` for `htest` works with Spearman and Kendall correlations ( #165 ).  
 - `cramers_v()` and `phi()` now work with goodness-of-fit data ( #158 )
 - `standardize_parameters()` for post-hoc correctly standardizes transformed outcome.
 - Setting `two_sd = TRUE` in `standardize()` and `standardize_parameters()` (correctly) on uses 2-SDs of the predictors (and not the response). 
