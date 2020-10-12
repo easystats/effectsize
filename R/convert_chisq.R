@@ -1,7 +1,7 @@
 #' Conversion Chi-Squared to Phi or Cramer's V
 #'
-#' Convert between Chi square, (\eqn{\chi^2}), phi (\eqn{\phi}) and Cramer's V,
-#' for contingency tables or goodness of fit.
+#' Convert between Chi square, (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}) and
+#' Cohen's *w* for contingency tables or goodness of fit.
 #'
 #' @param chisq The Chi-squared statistic.
 #' @param phi The Phi statistic.

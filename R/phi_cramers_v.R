@@ -7,7 +7,8 @@
 #' @param ci Confidence Interval (CI) level
 #' @param adjust Should the effect size be bias-corrected? Defaults to `FALSE`.
 #' @param CI Deprecated in favor of `ci`.
-#' @param ... Arguments passed to [stats::chisq.test()], such as `p`.
+#' @param ... Arguments passed to [stats::chisq.test()], such as `p`. Ignored
+#'   for `cohens_g()`.
 #'
 #' @details
 #' Cramer's *V* and phi (\eqn{\phi}) are effect sizes for tests of independence
@@ -109,7 +110,7 @@ cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI,...){
 #' @rdname phi
 #' @export
 #' @importFrom stats complete.cases prop.test
-cohens_g <- function(x, y = NULL, ci = 0.95) {
+cohens_g <- function(x, y = NULL, ci = 0.95, ...) {
   if (!is.matrix(x)) {
     if (is.null(y))
       stop("if 'x' is not a matrix, 'y' must be given")

@@ -34,8 +34,8 @@ phi_to_chisq(phi, n, ...)
 A data frame with the effect size(s) between 0-1, and confidence interval(s).
 }
 \description{
-Convert between Chi square, (\eqn{\chi^2}), phi (\eqn{\phi}) and Cramer's V,
-for contingency tables or goodness of fit.
+Convert between Chi square, (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}) and
+Cohen's \emph{w} for contingency tables or goodness of fit.
 }
 \details{
 These functions use the following formulae:
