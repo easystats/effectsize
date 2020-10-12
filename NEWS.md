@@ -2,6 +2,7 @@
 
 ## New features
 
+- `cohens_g()` effect size for paired contingency tables.
 - Generalized Eta Squared now available via `eta_squared(generalized = ...)`.
 - `eta_squared()`, `omega_squared()` and `epsilon_squared()` fully support `aovlist` and `afex_aov` objects.
 - `standardize_parameters()` can now return Odds ratios / IRRs (or any exponentiated parameter) by setting `exponentiate = TRUE`.

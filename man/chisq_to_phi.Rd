@@ -2,11 +2,14 @@
 % Please edit documentation in R/convert_chisq.R
 \name{chisq_to_phi}
 \alias{chisq_to_phi}
+\alias{chisq_to_cohens_w}
 \alias{chisq_to_cramers_v}
 \alias{phi_to_chisq}
 \title{Conversion Chi-Squared to Phi or Cramer's V}
 \usage{
 chisq_to_phi(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...)
+
+chisq_to_cohens_w(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...)
 
 chisq_to_cramers_v(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...)
 
@@ -45,8 +48,8 @@ For adjusted versions, see Bergsma, 2013.
 \subsection{Confidence Intervals}{
 
 Confidence intervals are estimated using the Noncentrality parameter method;
-These methods searches for a the best \code{ncp} (non-central parameters) for
-of the noncentral F distribution for the desired tail-probabilities,
+These methods searches for a the best \code{ncp} (non-central parameters) for of
+the noncentral Chi-squared distribution for the desired tail-probabilities,
 and then convert these \code{ncp}s to the corresponding effect sizes.
 }
 }
