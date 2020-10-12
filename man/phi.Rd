@@ -13,7 +13,7 @@ cohens_w(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
 
 cramers_v(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
 
-cohens_g(x, y = NULL, ci = 0.95)
+cohens_g(x, y = NULL, ci = 0.95, ...)
 }
 \arguments{
 \item{x}{a numeric vector or matrix. \code{x} and \code{y} can also
@@ -28,7 +28,8 @@ cohens_g(x, y = NULL, ci = 0.95)
 
 \item{CI}{Deprecated in favor of \code{ci}.}
 
-\item{...}{Arguments passed to \code{\link[stats:chisq.test]{stats::chisq.test()}}, such as \code{p}.}
+\item{...}{Arguments passed to \code{\link[stats:chisq.test]{stats::chisq.test()}}, such as \code{p}. Ignored
+for \code{cohens_g()}.}
 }
 \value{
 A data frame with the effect size(s), and confidence interval(s).
