@@ -175,7 +175,7 @@ Cohen's <em>g</em> for contingency tables or goodness-of-fit. See details.</p>
 
 <span class='fu'>cramers_v</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, adjust <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>CI</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>cohens_g</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span><span class='op'>)</span></pre>
+<span class='fu'>cohens_g</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,7 +204,8 @@ Cohen's <em>g</em> for contingency tables or goodness-of-fit. See details.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed to <code><a href='https://rdrr.io/r/stats/chisq.test.html'>stats::chisq.test()</a></code>, such as <code>p</code>.</p></td>
+      <td><p>Arguments passed to <code><a href='https://rdrr.io/r/stats/chisq.test.html'>stats::chisq.test()</a></code>, such as <code>p</code>. Ignored
+for <code>cohens_g()</code>.</p></td>
     </tr>
     </table>
 
