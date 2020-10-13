@@ -8,34 +8,34 @@ if (require("testthat") && require("effectsize")) {
     fit <- aov(Sepal.Length ~ Species * Sepal.Big, df)
 
     # eta
-    testthat::expect_equal(eta_squared(fit, partial = FALSE)$Eta_Sq,
+    testthat::expect_equal(eta_squared(fit, partial = FALSE)$Eta2,
                            c(0.618, 0.046, 0.000),
                            tol = 0.001)
-    testthat::expect_equal(eta_squared(fit, partial = TRUE)$Eta_Sq_partial,
+    testthat::expect_equal(eta_squared(fit, partial = TRUE)$Eta2_partial,
                            c(0.649, 0.121, 0.001),
                            tol = 0.001)
 
     # omega
-    testthat::expect_equal(omega_squared(fit, partial = FALSE)$Omega_Sq,
+    testthat::expect_equal(omega_squared(fit, partial = FALSE)$Omega2,
                            c(0.612, 0.043, -0.004),
                            tol = 0.001)
-    testthat::expect_equal(omega_squared(fit, partial = TRUE)$Omega_Sq_partial,
+    testthat::expect_equal(omega_squared(fit, partial = TRUE)$Omega2_partial,
                            c(0.638, 0.112, -0.012),
                            tol = 0.001)
 
     # epsilon
-    testthat::expect_equal(epsilon_squared(fit, partial = FALSE)$Epsilon_Sq,
+    testthat::expect_equal(epsilon_squared(fit, partial = FALSE)$Epsilon2,
                            c(0.614, 0.044, -0.004),
                            tol = 0.001)
-    testthat::expect_equal(epsilon_squared(fit, partial = TRUE)$Epsilon_Sq_partial,
+    testthat::expect_equal(epsilon_squared(fit, partial = TRUE)$Epsilon2_partial,
                            c(0.644, 0.115, -0.012),
                            tol = 0.001)
 
     # Cohen's f/f2
-    testthat::expect_equal(cohens_f2(fit, partial = FALSE)$Cohens_f2,
+    testthat::expect_equal(cohens_f_squared(fit, partial = FALSE)$Cohens_f2,
                            c(1.623, 0.049, 0.000),
                            tol = 0.001)
-    testthat::expect_equal(cohens_f2(fit, partial = TRUE)$Cohens_f2_partial,
+    testthat::expect_equal(cohens_f_squared(fit, partial = TRUE)$Cohens_f2_partial,
                            c(1.850, 0.139, 0.001),
                            tol = 0.001)
     testthat::expect_equal(cohens_f(fit, partial = FALSE)$Cohens_f,
@@ -44,8 +44,8 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_equal(cohens_f(fit, partial = TRUE)$Cohens_f_partial,
                            c(1.360, 0.373, 0.036),
                            tol = 0.001)
-    testthat::expect_equal(cohens_f(fit, squared = TRUE), cohens_f2(fit))
-    testthat::expect_equal(cohens_f2(fit, squared = FALSE), cohens_f(fit))
+    testthat::expect_equal(cohens_f(fit, squared = TRUE), cohens_f_squared(fit))
+    testthat::expect_equal(cohens_f_squared(fit, squared = FALSE), cohens_f(fit))
   })
 
 
@@ -86,8 +86,8 @@ if (require("testthat") && require("effectsize")) {
       rownames(a1) <- a1$Parameter
       rownames(a2) <- a2$Parameter
 
-      testthat::expect_equal(a1[a1$Parameter, "Eta_Sq"],
-                             a2[a1$Parameter, "Eta_Sq"])
+      testthat::expect_equal(a1[a1$Parameter, "Eta2"],
+                             a2[a1$Parameter, "Eta2"])
     }
   })
 
@@ -99,7 +99,7 @@ if (require("testthat") && require("effectsize")) {
 
     mod <- lm(cbind(mpg, qsec) ~ am_f * cyl_f, data = mtcars)
 
-    testthat::expect_equal(eta_squared(mod)$Eta_Sq_partial,
+    testthat::expect_equal(eta_squared(mod)$Eta2_partial,
                            c(0.674, 0.413, 0.050),
                            tol = 0.001)
   })
@@ -111,13 +111,13 @@ if (require("testthat") && require("effectsize")) {
     m1 <- lm(salary ~ xtra_hours, data = hardlyworking)
     m2 <- lm(salary ~ xtra_hours + n_comps, data = hardlyworking)
 
-    fsD <- cohens_f2(m1, model2 = m2)[,1:4]
-    fs <- cohens_f2(m2)[-1,-1] # this ONLY works because of the default type-I errors!!!!
+    fsD <- cohens_f_squared(m1, model2 = m2)[,1:4]
+    fs <- cohens_f_squared(m2)[-1,-1] # this ONLY works because of the default type-I errors!!!!
     rownames(fsD) <- rownames(fs) <- 1
     testthat::expect_equal(fsD, fs, tol = 0.01)
 
     if (require("performance")) {
-      fsD <- cohens_f2(m1, model2 = m2)
+      fsD <- cohens_f_squared(m1, model2 = m2)
 
       R2_1 <- performance::r2(m1)[[1]]
       R2_2 <- performance::r2(m2)[[1]]
@@ -139,12 +139,12 @@ if (require("testthat") && require("effectsize")) {
 
       testthat::expect_equal(anova(m, es = "ges", observed = NULL)$ges,
                              eta_squared(car::Anova(m$aov, type=3),
-                                         generalized = TRUE)$Eta_Sq_generalized)
+                                         generalized = TRUE)$Eta2_generalized)
 
 
       testthat::expect_equal(anova(m, es = "ges", observed = "gender")$ges,
                              eta_squared(car::Anova(m$aov, type=3),
-                                         generalized = "gender")$Eta_Sq_generalized)
+                                         generalized = "gender")$Eta2_generalized)
     })
 
 
@@ -159,13 +159,13 @@ if (require("testthat") && require("effectsize")) {
 
       ef <- eta_squared(m$aov, generalized = "gender")
       af <- anova(m, es = "ges",  observed = "gender")
-      testthat::expect_equal(ef$Eta_Sq_generalized,
+      testthat::expect_equal(ef$Eta2_generalized,
                              af$ges, tol = 0.1)
 
 
       ef <- eta_squared(m$aov, generalized = TRUE)
       af <- anova(m, es = "ges",  observed = NULL)
-      testthat::expect_equal(ef$Eta_Sq_generalized,
+      testthat::expect_equal(ef$Eta2_generalized,
                              af$ges, tol = 0.1)
     })
 
@@ -184,7 +184,7 @@ if (require("testthat") && require("effectsize")) {
 
 
       ef <- omega_squared(m, partial = TRUE)
-      testthat::expect_equal(ef$Omega_Sq_partial,
+      testthat::expect_equal(ef$Omega2_partial,
                              c(0.323, 0.115, 0.222, 0.320, 0.149, -0.019, -0.017), tol = 0.01)
       testthat::expect_equal(ef$CI_low,
                              c(0, 0, 0, 0.036, 0, 0, 0), tol = 0.01)

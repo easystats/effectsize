@@ -74,10 +74,18 @@ phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...){
   Obs <- res$observed
   Exp <- res$expected
 
+  if (!is.null(dim(Exp))) {
+    nr <- nrow(Obs)
+    nc <- ncol(Obs)
+  } else {
+    nr <- length(Obs)
+    nc <- 1
+  }
+
   chisq_to_phi(chisq = .chisq(Obs, Exp),
                n = sum(Obs),
-               nrow = nrow(Obs),
-               ncol = ncol(Obs),
+               nrow = nr,
+               ncol = nc,
                ci = ci,
                adjust = adjust)
 }
@@ -99,10 +107,18 @@ cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI,...){
   Obs <- res$observed
   Exp <- res$expected
 
+  if (!is.null(dim(Exp))) {
+    nr <- nrow(Obs)
+    nc <- ncol(Obs)
+  } else {
+    nr <- length(Obs)
+    nc <- 1
+  }
+
   chisq_to_cramers_v(chisq = .chisq(Obs, Exp),
                      n = sum(Obs),
-                     nrow = nrow(Obs),
-                     ncol = ncol(Obs),
+                     nrow = nr,
+                     ncol = nc,
                      ci = ci,
                      adjust = adjust)
 }
@@ -134,7 +150,7 @@ cohens_g <- function(x, y = NULL, ci = 0.95, ...) {
   P <- sum(pmax(b, c)) / (sum(b) + sum(c))
   g <- P - 0.5
 
-  out <- data.frame(cohens_g = g)
+  out <- data.frame(Cohens_g = g)
 
   if (is.numeric(ci)) {
     n <- sum(b) + sum(c)

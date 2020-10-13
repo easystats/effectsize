@@ -154,7 +154,7 @@ F_to_f <- function(f, df, df_error, ci = 0.9, squared = FALSE, ...){
   res_eta <- F_to_eta2(f, df, df_error, ci = ci)
 
   res <- data.frame(Cohens_f2_partial =
-                      res_eta$Eta_Sq_partial / (1 - res_eta$Eta_Sq_partial))
+                      res_eta$Eta2_partial / (1 - res_eta$Eta2_partial))
 
   if (is.numeric(ci)) {
     res$CI <- res_eta$CI
@@ -197,9 +197,9 @@ t_to_f2 <- function(t, df_error, ci = 0.9, squared = TRUE, ...){
 
   res <- switch(
     es,
-    eta2 = data.frame(Eta_Sq_partial = (f * df) / (f * df + df_error)),
-    epsilon2 = data.frame(Epsilon_Sq_partial = ((f - 1) * df) / (f * df + df_error)),
-    omega2 = data.frame(Omega_Sq_partial = ((f - 1) * df) / (f * df + df_error + 1))
+    eta2 = data.frame(Eta2_partial = (f * df) / (f * df + df_error)),
+    epsilon2 = data.frame(Epsilon2_partial = ((f - 1) * df) / (f * df + df_error)),
+    omega2 = data.frame(Omega2_partial = ((f - 1) * df) / (f * df + df_error + 1))
   )
 
   if (is.numeric(ci)) {

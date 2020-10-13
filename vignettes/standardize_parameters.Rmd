@@ -307,7 +307,7 @@ $$
 m1 <- lm(salary ~ xtra_hours, data = hardlyworking)
 m2 <- lm(salary ~ xtra_hours + n_comps + seniority, data = hardlyworking)
 
-cohens_f2(m1, model2 = m2)
+cohens_f_squared(m1, model2 = m2)
 ```
 
 

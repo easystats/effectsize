@@ -120,7 +120,8 @@ eta_squared_posterior.stanreg <- function(model,
     ANOVA <- car::Anova(temp_fit, type = type)
     es <- eta_squared(ANOVA, ci = NA, partial = partial)
 
-    es <- stats::setNames(es$Eta_Sq, es$Parameter)
+    es <- stats::setNames(es[[if (partial) "Eta2_partial" else "Eta2"]],
+                          es$Parameter)
     data.frame(t(es), check.names = FALSE)
   })
 

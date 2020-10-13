@@ -56,20 +56,20 @@
 #'
 #' @export
 chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...){
-  if (missing(nrow) || is.na(nrow)) nrow <- 1
-  if (missing(ncol) || is.na(ncol)) ncol <- 1
-  is_goodness <- ncol == 1 || nrow == 1
+  if (adjust || is.numeric(ci)) {
+    is_goodness <- ncol == 1 || nrow == 1
 
-  if (is_goodness) {
-    df <- pmax(nrow - 1, ncol - 1)
-  } else {
-    df <- (nrow - 1) * (ncol - 1)
+    if (is_goodness) {
+      df <- pmax(nrow - 1, ncol - 1)
+    } else {
+      df <- (nrow - 1) * (ncol - 1)
+    }
   }
 
   if (adjust) {
     res <- data.frame(
-      phi_adjusted = pmax(0, sqrt((chisq / n) -
-                                    (df / (n - 1))))
+      phi_adjusted = sqrt(pmax(0, (chisq / n) -
+                                 (df / (n - 1))))
     )
   } else {
     res <- data.frame(phi = sqrt(chisq / n))
@@ -80,13 +80,15 @@ chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...){
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
 
+    chisq_ <- phi_to_chisq(res[[1]], n)
+
     chisqs <- t(mapply(.get_ncp_chi,
-                       chisq, df, ci))
+                       chisq_, df, ci))
 
     res$CI_low <-
-      chisq_to_phi(chisqs[, 1], n, nrow, ncol, ci = NULL, adjust = adjust)[[1]]
+      chisq_to_phi(chisqs[, 1], n, nrow, ncol, ci = NULL, adjust = FALSE)[[1]]
     res$CI_high <-
-      chisq_to_phi(chisqs[, 2], n, nrow, ncol, ci = NULL, adjust = adjust)[[1]]
+      chisq_to_phi(chisqs[, 2], n, nrow, ncol, ci = NULL, adjust = FALSE)[[1]]
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
@@ -102,8 +104,6 @@ chisq_to_cohens_w <- chisq_to_phi
 #' @rdname chisq_to_phi
 #' @export
 chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...) {
-  if (missing(nrow) || is.na(nrow)) nrow <- 1
-  if (missing(ncol) || is.na(ncol)) ncol <- 1
   is_goodness <- ncol == 1 || nrow == 1
 
 
@@ -125,7 +125,7 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, 
       V <- phi / sqrt((pmin(k, l) - 1))
     }
 
-    res <- data.frame(cramers_v_adjusted = V)
+    res <- data.frame(Cramers_v_adjusted = V)
   } else {
 
     if (is_goodness) {
@@ -134,7 +134,7 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, 
       V <- phi / sqrt((pmin(nrow, ncol) - 1))
     }
 
-    res <- data.frame(cramers_v = V)
+    res <- data.frame(Cramers_v = V)
   }
 
 
@@ -142,13 +142,15 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, 
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
 
+    chisq_ <- phi_to_chisq(phi, n)
+
     chisqs <- t(mapply(.get_ncp_chi,
-                       chisq, df, ci))
+                       chisq_, df, ci))
 
     res$CI_low <-
-      chisq_to_cramers_v(chisqs[, 1], n, nrow, ncol, ci = NULL, adjust = adjust)[[1]]
+      chisq_to_cramers_v(chisqs[, 1], n, nrow, ncol, ci = NULL, adjust = FALSE)[[1]]
     res$CI_high <-
-      chisq_to_cramers_v(chisqs[, 2], n, nrow, ncol, ci = NULL, adjust = adjust)[[1]]
+      chisq_to_cramers_v(chisqs[, 2], n, nrow, ncol, ci = NULL, adjust = FALSE)[[1]]
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
@@ -161,6 +163,6 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, 
 #' @rdname chisq_to_phi
 #' @export
 phi_to_chisq <- function(phi, n, ...) {
-  (phi * n)^2
+  n * (phi ^ 2)
 }
 

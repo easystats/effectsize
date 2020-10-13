@@ -5,7 +5,7 @@
 \alias{omega_squared}
 \alias{epsilon_squared}
 \alias{cohens_f}
-\alias{cohens_f2}
+\alias{cohens_f_squared}
 \title{Effect size for ANOVA}
 \usage{
 eta_squared(model, partial = TRUE, generalized = FALSE, ci = 0.9, ...)
@@ -16,7 +16,14 @@ epsilon_squared(model, partial = TRUE, ci = 0.9, ...)
 
 cohens_f(model, partial = TRUE, ci = 0.9, squared = FALSE, model2 = NULL, ...)
 
-cohens_f2(model, partial = TRUE, ci = 0.9, squared = TRUE, model2 = NULL, ...)
+cohens_f_squared(
+  model,
+  partial = TRUE,
+  ci = 0.9,
+  squared = TRUE,
+  model2 = NULL,
+  ...
+)
 }
 \arguments{
 \item{model}{A model, ANOVA object, or the result of \code{parameters::model_parameters}.}
@@ -128,7 +135,7 @@ cohens_f(model)
 if(require(see)) plot(etas)
 
 model0 <- aov(mpg ~ am_f + cyl_f, data = mtcars) # no interaction
-cohens_f2(model0, model2 = model)
+cohens_f_squared(model0, model2 = model)
 
 
 # Recommended:

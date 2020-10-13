@@ -59,11 +59,19 @@ effectsize.htest <- function(model, ...) {
     Obs <- model$observed
     Exp <- model$expected
 
+    if (!is.null(dim(Exp))) {
+      nr <- nrow(Obs)
+      nc <- ncol(Obs)
+    } else {
+      nr <- length(Obs)
+      nc <- 1
+    }
+
     out <- chisq_to_cramers_v(
       chisq = .chisq(Obs, Exp),
       n = sum(Obs),
-      nrow = nrow(Obs),
-      ncol = ncol(Obs),
+      nrow = nr,
+      ncol = nc,
       ...
     )
     return(out)
@@ -90,6 +98,26 @@ effectsize.aov <- effectsize.anova
 
 #' @export
 effectsize.aovlist <- effectsize.anova
+
+
+#' @export
+effectsize.easycorrelation <- function(model, ...){
+  if (is.null(r_name <- attr(model, "coefficient_name")))
+    r_name <- "r"
+
+  r_cols <- 1:which(colnames(model) == r_name)
+  if (!is.null(attr(model, "ci"))) {
+    model$CI <- attr(model, "ci")
+    CI_cols <- c("CI", "CI_low", "CI_high")
+    CI_cols <- sapply(CI_cols, function(ici) which(colnames(model) == ici))
+    r_cols <- c(r_cols, CI_cols)
+  }
+
+  out <- model[,r_cols, drop = FALSE]
+  class(out) <- c("effectsize_table", "data.frame")
+  out
+}
+
 
 #' @export
 effectsize.default <- function(model, ...) {

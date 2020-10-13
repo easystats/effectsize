@@ -163,6 +163,7 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   # should post hoc exponentiate?
   dots <- list(...)
   exponentiate <- "exponentiate" %in% names(dots) && dots$exponentiate
+  coefficient_name <- attr(pars, "coefficient_name")
 
   if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
     pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, exponentiate, verbose)
@@ -175,9 +176,11 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   if (!is.null(ci)) pars$CI <- attr(pars, "ci")
   pars <- pars[,colnames(pars) %in% c("Parameter", "CI", .col_2_scale)]
 
-  if (exponentiate && mi$is_binomial)
+  if (!is.null(coefficient_name) && coefficient_name == "Odds Ratio")
     colnames(pars)[colnames(pars) == "Coefficient"] <- "Odds_ratio"
-  if (exponentiate && mi$is_poisson)
+  if (!is.null(coefficient_name) && coefficient_name == "Risk Ratio")
+    colnames(pars)[colnames(pars) == "Coefficient"] <- "Risk_ratio"
+  if (!is.null(coefficient_name) && coefficient_name == "IRR")
     colnames(pars)[colnames(pars) == "Coefficient"] <- "IRR"
 
   i <- colnames(pars) %in% c("Coefficient", "Median", "Mean", "MAP", "Odds_ratio", "IRR")
