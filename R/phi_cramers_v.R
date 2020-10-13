@@ -150,7 +150,7 @@ cohens_g <- function(x, y = NULL, ci = 0.95, ...) {
   P <- sum(pmax(b, c)) / (sum(b) + sum(c))
   g <- P - 0.5
 
-  out <- data.frame(cohens_g = g)
+  out <- data.frame(Cohens_g = g)
 
   if (is.numeric(ci)) {
     n <- sum(b) + sum(c)

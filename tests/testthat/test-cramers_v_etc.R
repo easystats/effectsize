@@ -8,7 +8,7 @@ if (require("testthat") && require("effectsize")) {
     cv1 <- cramers_v(xtab)
     cv2 <- cramers_v(xtab / 2)
 
-    testthat::expect_equal(cv1$cramers_v, cv2$cramers_v)
+    testthat::expect_equal(cv1$Cramers_v, cv2$Cramers_v)
 
 
 
@@ -16,20 +16,20 @@ if (require("testthat") && require("effectsize")) {
     xtab <- rbind(c(760, 330),
                   c(480, 240))
 
-    testthat::expect_equal(cramers_v(xtab)$cramers_v,
+    testthat::expect_equal(cramers_v(xtab)$Cramers_v,
                            phi(xtab)$phi)
 
 
     ## 2*2 perfect correlation
     xtab <- rbind(c(100, 0),
                   c(0, 200))
-    testthat::expect_equal(cramers_v(xtab)$cramers_v, 1)
+    testthat::expect_equal(cramers_v(xtab)$Cramers_v, 1)
 
 
     ## 2*2 0 correlation
     xtab <- rbind(c(50, 50),
                   c(100, 100))
-    testthat::expect_equal(cramers_v(xtab)$cramers_v, 0)
+    testthat::expect_equal(cramers_v(xtab)$Cramers_v, 0)
   })
 
 
@@ -37,8 +37,8 @@ if (require("testthat") && require("effectsize")) {
     cv1 <- cramers_v(table(mtcars$cyl), p = c(0.34375, 0.21875 , 0.43750))
     cv2 <- cramers_v(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
 
-    testthat::expect_equal(cv1$cramers_v, 0)
-    testthat::expect_true(cv1$cramers_v < cv2$cramers_v)
+    testthat::expect_equal(cv1$Cramers_v, 0)
+    testthat::expect_true(cv1$Cramers_v < cv2$Cramers_v)
     testthat::expect_true(cv2$CI_low < cv2$CI_high)
 
     phi1 <- phi(table(mtcars$cyl), p = c(0.34375, 0.21875 , 0.43750))
@@ -69,7 +69,7 @@ if (require("testthat") && require("effectsize")) {
              dimnames = list("1st Survey" = c("Approve", "Disapprove"),
                              "2nd Survey" = c("Approve", "Disapprove")))
     g <- cohens_g(Performance)
-    testthat::expect_equal(g$cohens_g, 0.136, tol = 0.01)
+    testthat::expect_equal(g$Cohens_g, 0.136, tol = 0.01)
     testthat::expect_equal(g$CI_low, 0.072, tol = 0.01)
     testthat::expect_equal(g$CI_high, 0.194, tol = 0.01)
 
@@ -77,7 +77,7 @@ if (require("testthat") && require("effectsize")) {
     AndersonRainBarrel <- matrix(c(9L, 17L,
                                    5L, 15L), nrow = 2)
     g <- cohens_g(AndersonRainBarrel)
-    testthat::expect_equal(g$cohens_g, 0.273, tol = 0.01)
+    testthat::expect_equal(g$Cohens_g, 0.273, tol = 0.01)
     testthat::expect_equal(g$CI_low, 0.066, tol = 0.01)
     testthat::expect_equal(g$CI_high, 0.399, tol = 0.01)
 
@@ -87,7 +87,7 @@ if (require("testthat") && require("effectsize")) {
                   150, 570, 15),
                 nrow = 3)
     g <- cohens_g(M)
-    testthat::expect_equal(g$cohens_g, 0.300, tol = 0.01)
+    testthat::expect_equal(g$Cohens_g, 0.300, tol = 0.01)
     testthat::expect_equal(g$CI_low, 0.280, tol = 0.01)
     testthat::expect_equal(g$CI_high, 0.319, tol = 0.01)
   })

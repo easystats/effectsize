@@ -125,7 +125,7 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, 
       V <- phi / sqrt((pmin(k, l) - 1))
     }
 
-    res <- data.frame(cramers_v_adjusted = V)
+    res <- data.frame(Cramers_v_adjusted = V)
   } else {
 
     if (is_goodness) {
@@ -134,7 +134,7 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, 
       V <- phi / sqrt((pmin(nrow, ncol) - 1))
     }
 
-    res <- data.frame(cramers_v = V)
+    res <- data.frame(Cramers_v = V)
   }
 
 

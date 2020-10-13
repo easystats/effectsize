@@ -15,7 +15,7 @@ if (require("testthat") && require("effectsize")) {
                                         c(484, 239, 477)))
     res <- cramers_v(contingency_table)
 
-    testthat::expect_equal(res$cramers_v, 0.072, tolerance = 0.001)
+    testthat::expect_equal(res$Cramers_v, 0.072, tolerance = 0.001)
     testthat::expect_equal(res$CI_low, 0.046, tolerance = 0.001)
     testthat::expect_equal(res$CI_high, 0.091, tolerance = 0.001)
   })

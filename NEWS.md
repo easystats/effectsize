@@ -2,7 +2,9 @@
 
 ## Breaking Changes
 
-- Column name in `eta_squared()` / `F_to_eta2` families of function now has the `Eta2` format, where previously was `Eta_Sq`.
+- Column name changes: 
+  - `eta_squared()` / `F_to_eta2` families of function now has the `Eta2` format, where previously was `Eta_Sq`.
+  - `cramers_v` is now `Cramers_v`
 
 ## New features
 
