@@ -160,12 +160,9 @@ $\eta^2_G$ is useful in repeated-measures designs, as it can estimate what a *wi
 
 ## Cohen's *f*
 
-Finally, we have the forgotten child - Cohen's $f$. Cohen's $f$ is a transformation of $\eta^2_p$, and is the ratio between the term-*SS* and the error-*SS*.
+Finally, we have the forgotten child - Cohen's $f$. Cohen's $f$ is a transformation of $\eta^2_p$, and is the ratio between the term-*SS* and the error-*SS*. 
 
-$$\text{Cohen's} f_p
-= \sqrt{\frac{\eta^2_p}{1-\eta^2_p}}
-= \sqrt{\frac{SS_{effect}}{SS_{error}}}
-$$
+$$\text{Cohen's} f_p = \sqrt{\frac{\eta^2_p}{1-\eta^2_p}} = \sqrt{\frac{SS_{effect}}{SS_{error}}}$$
 
 It can take on values between zero, when the population means are all equal, and an indefinitely large number as the means are further and further apart. It is analogous to Cohen's $d$ when there are only two groups.
 
