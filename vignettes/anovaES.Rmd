@@ -62,7 +62,13 @@ As we can see, the variance in `value` (the *sums-of-squares*, or *SS*) has been
 - The part associated with `treatment`.
 - The unexplained part (The Residual-*SS*).
 
-We can now ask what is the percent of the total variance in `value` that is associated with `treatment`. We can calculate this as 72.23 / (72.23 + 250.96) = 22%. This measure is called Eta-squared (written as $\eta^2$), and can be accessed via the `eta_squared()` function:
+We can now ask what is the percent of the total variance in `value` that is associated with `treatment`. This measure is called Eta-squared (written as $\eta^2$):
+
+$$
+\eta^2 = \frac{SS_{effect}}{SS_{total}} = \frac{72.23}{72.23 + 250.96} = 0.22
+$$
+
+and can be accessed via the `eta_squared()` function:
 
 ```{r}
 library(effectsize)
@@ -73,7 +79,12 @@ eta_squared(m, partial = FALSE)
 
 ## Adding More Terms
 
-When we add more terms to our model, we can ask two different questions about the percent of variance explained by a predictor - how much variance is accounted by the predictor in *total*, and how much is accounted when *controlling* for any other predictors. The latter questions is answered by the *partial*-Eta squared ($\eta^2_p$), which is the percent of the **partial** variance (after accounting for other predictors in the model) associated with a term.
+When we add more terms to our model, we can ask two different questions about the percent of variance explained by a predictor - how much variance is accounted by the predictor in *total*, and how much is accounted when *controlling* for any other predictors. The latter questions is answered by the *partial*-Eta squared ($\eta^2_p$), which is the percent of the **partial** variance (after accounting for other predictors in the model) associated with a term:
+
+$$
+\eta^2_p = \frac{SS_{effect}}{SS_{effect} + SS_{error}}
+$$
+which can also be accessed via the `eta_squared()` function:
 
 ```{r}
 m <- lm(value ~ gender + phase + treatment,
@@ -160,7 +171,11 @@ $\eta^2_G$ is useful in repeated-measures designs, as it can estimate what a *wi
 
 ## Cohen's *f*
 
-Finally, we have the forgotten child - Cohen's $f$. Cohen's $f$ is a transformation of $\eta^2_p$, and is the ratio between the term-*SS* and the error-*SS*. It can take on values between zero, when the population means are all equal, and an indefinitely large number as the means are further and further apart. It is analogous to Cohen's $d$ when there are only two groups.
+Finally, we have the forgotten child - Cohen's $f$. Cohen's $f$ is a transformation of $\eta^2_p$, and is the ratio between the term-*SS* and the error-*SS*. 
+
+$$\text{Cohen's} f_p = \sqrt{\frac{\eta^2_p}{1-\eta^2_p}} = \sqrt{\frac{SS_{effect}}{SS_{error}}}$$
+
+It can take on values between zero, when the population means are all equal, and an indefinitely large number as the means are further and further apart. It is analogous to Cohen's $d$ when there are only two groups.
 
 ```{r}
 cohens_f(m_afex)
