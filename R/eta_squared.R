@@ -95,7 +95,7 @@
 #' if(require(see)) plot(etas)
 #'
 #' model0 <- aov(mpg ~ am_f + cyl_f, data = mtcars) # no interaction
-#' cohens_f2(model0, model2 = model)
+#' cohens_f_squared(model0, model2 = model)
 #'
 #'
 #' # Recommended:
@@ -197,12 +197,12 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, squared = FALSE,
                      partial = partial,
                      ci = ci)
 
-  if ("Eta_Sq_partial" %in% colnames(res)) {
-    res$Eta_Sq_partial <- res$Eta_Sq_partial / (1 - res$Eta_Sq_partial)
-    colnames(res)[colnames(res) == "Eta_Sq_partial"] <- "Cohens_f2_partial"
+  if ("Eta2_partial" %in% colnames(res)) {
+    res$Eta2_partial <- res$Eta2_partial / (1 - res$Eta2_partial)
+    colnames(res)[colnames(res) == "Eta2_partial"] <- "Cohens_f2_partial"
   } else {
-    res$Eta_Sq <- res$Eta_Sq / (1 - res$Eta_Sq)
-    colnames(res)[colnames(res) == "Eta_Sq"] <- "Cohens_f2"
+    res$Eta2 <- res$Eta2 / (1 - res$Eta2)
+    colnames(res)[colnames(res) == "Eta2"] <- "Cohens_f2"
   }
 
   if (is.numeric(ci)) {
@@ -224,8 +224,8 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, squared = FALSE,
 
 #' @rdname eta_squared
 #' @export
-cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
-                      model2 = NULL, ...) {
+cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
+                             model2 = NULL, ...) {
   cohens_f(model, partial = partial, ci = ci, squared = squared, model2 = model2)
 }
 
@@ -313,33 +313,33 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       obs_SSn1 <- sum(params$Sum_Squares * obs)
       obs_SSn2 <- params$Sum_Squares * obs
 
-      params$Eta_Sq_generalized <- params$Sum_Squares /
+      params$Eta2_generalized <- params$Sum_Squares /
         (params$Sum_Squares + values$Sum_Squares_residuals + obs_SSn1 - obs_SSn2)
     } else if (!isTRUE(partial)) {
-      params$Eta_Sq <- params$Sum_Squares /
+      params$Eta2 <- params$Sum_Squares /
         values$Sum_Squares_total
     } else {
-      params$Eta_Sq_partial <-
+      params$Eta2_partial <-
         params$Sum_Squares /
         (params$Sum_Squares + values$Sum_Squares_residuals)
     }
   } else if (type == "omega") {
     if (!isTRUE(partial)) {
-      params$Omega_Sq <-
+      params$Omega2 <-
         (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
         (values$Sum_Squares_total + values$Mean_Square_residuals)
     } else {
-      params$Omega_Sq_partial <-
+      params$Omega2_partial <-
         (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
         (params$Sum_Squares + (values$n - params$df) * values$Mean_Square_residuals)
     }
   } else if (type == "epsilon") {
     if (!isTRUE(partial)) {
-      params$Epsilon_Sq <-
+      params$Epsilon2 <-
         (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
         values$Sum_Squares_total
     } else {
-      params$Epsilon_Sq_partial <-
+      params$Epsilon2_partial <-
         (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
         (params$Sum_Squares + values$Sum_Squares_residuals)
     }
@@ -364,9 +364,9 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
 
   out <- out[, colnames(out) %in% c("Group", "Parameter",
-                                    "Eta_Sq", "Eta_Sq_partial", "Eta_Sq_generalized",
-                                    "Omega_Sq", "Omega_Sq_partial",
-                                    "Epsilon_Sq", "Epsilon_Sq_partial",
+                                    "Eta2", "Eta2_partial", "Eta2_generalized",
+                                    "Omega2", "Omega2_partial",
+                                    "Epsilon2", "Epsilon2_partial",
                                     "CI", "CI_low", "CI_high"), drop = FALSE]
 
   out
@@ -557,12 +557,12 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       obs_SSn1 <- sum(params$Sum_Squares * obs)
       obs_SSn2 <- params$Sum_Squares * obs
 
-      params$Eta_Sq_generalized <- params$Sum_Squares /
+      params$Eta2_generalized <- params$Sum_Squares /
         (params$Sum_Squares + sum(Sum_Squares_residuals) + obs_SSn1 - obs_SSn2)
     } else if (!isTRUE(partial)) {
-      params$Eta_Sq <- params$Sum_Squares / Sum_Squares_total
+      params$Eta2 <- params$Sum_Squares / Sum_Squares_total
     } else {
-      params$Eta_Sq_partial <-
+      params$Eta2_partial <-
         params$Sum_Squares /
         (params$Sum_Squares + Sum_Squares_residuals)
     }
@@ -574,22 +574,22 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
     # implemented from https://www.jasonfinley.com/tools/OmegaSquaredQuickRef_JRF_3-31-13.pdf
     if (!isTRUE(partial)) {
-      params$Omega_Sq <-
+      params$Omega2 <-
         (params$Sum_Squares - params$df * Mean_Square_residuals) /
         (Sum_Squares_total + Mean_Squares_Subjects)
     } else {
-      params$Omega_Sq_partial <-
+      params$Omega2_partial <-
         (params$Sum_Squares - params$df * Mean_Square_residuals) /
         (params$Sum_Squares + is_within * Sum_Squares_residuals +
            Sum_Squares_Subjects + Mean_Squares_Subjects)
     }
   } else if (type == "epsilon") {
     if (!isTRUE(partial)) {
-      params$Epsilon_Sq <-
+      params$Epsilon2 <-
         (params$Sum_Squares - params$df * Mean_Square_residuals) /
         Sum_Squares_total
     } else {
-      params$Epsilon_Sq_partial <-
+      params$Epsilon2_partial <-
         (params$Sum_Squares - params$df * Mean_Square_residuals) /
         (params$Sum_Squares + Sum_Squares_residuals)
     }
@@ -613,13 +613,13 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   out <- out[, colnames(out) %in% c(
     "Group",
     "Parameter",
-    "Eta_Sq_generalized",
-    "Eta_Sq_partial",
-    "Omega_Sq_partial",
-    "Epsilon_Sq_partial",
-    "Eta_Sq",
-    "Omega_Sq",
-    "Epsilon_Sq",
+    "Eta2_generalized",
+    "Eta2_partial",
+    "Omega2_partial",
+    "Epsilon2_partial",
+    "Eta2",
+    "Omega2",
+    "Epsilon2",
     "CI",
     "CI_low",
     "CI_high"
@@ -722,7 +722,7 @@ cohens_f2 <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     f <- (ES / df1) / ((1 - ES) / df2)
 
     out <- data.frame(Parameter = rownames(aov_tab),
-                      Eta_Sq_generalized = ES,
+                      Eta2_generalized = ES,
                       stringsAsFactors = FALSE)
 
     if (is.numeric(ci)) {

@@ -32,7 +32,7 @@ if (require("testthat") && require("effectsize")) {
   test_that("eta2", {
     res <- F_to_eta2(4, 3, 123)
 
-    testthat::expect_equal(res$Eta_Sq_partial, 0.088, tolerance = 0.001)
+    testthat::expect_equal(res$Eta2_partial, 0.088, tolerance = 0.001)
     testthat::expect_equal(res$CI_low, 0.013, tolerance = 0.001)
     testthat::expect_equal(res$CI_high, 0.163, tolerance = 0.001)
 

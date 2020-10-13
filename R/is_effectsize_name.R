@@ -19,9 +19,9 @@ is_effectsize_name <- function(x) {
 #'
 #' @keywords internal
 es_info <- data.frame(
-  name = c("Eta_Sq", "Eta_Sq_partial",  "Eta_Sq_generalized",
-           "Epsilon_Sq", "Epsilon_Sq_partial",
-           "Omega_Sq", "Omega_Sq_partial",
+  name = c("Eta2", "Eta2_partial",  "Eta2_generalized",
+           "Epsilon2", "Epsilon2_partial",
+           "Omega2", "Omega2_partial",
            "Cohens_f", "Cohens_f_partial", "Cohens_f2", "Cohens_f2_partial",
            "cramers_v", "cramers_v_adjusted", "phi", "phi_adjusted", "cohens_g",
            "r", "d", "Cohens_d", "Hedges_g", "Glass_delta",
