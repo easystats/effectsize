@@ -487,12 +487,12 @@
 <p>Or we can directly ask for the coefficients to be exponentiated:</p>
 <div class="sourceCode" id="cb54"><pre class="downlit">
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod_b</span>, method <span class="op">=</span> <span class="st">"refit"</span>, two_sd <span class="op">=</span> <span class="cn">TRUE</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
-<pre><code>&gt; Parameter    | Odds Ratio (std.) |           95% CI
-&gt; ---------------------------------------------------
-&gt; (Intercept)  |              0.40 | [0.04,     3.76]
-&gt; mpg          |             86.40 | [1.36, 37955.41]
-&gt; factor(cyl)6 |              2.08 | [0.13,    39.04]
-&gt; factor(cyl)8 |              2.02 | [0.04,   119.12]
+<pre><code>&gt; Parameter    | Coefficient (std.) |           95% CI
+&gt; ----------------------------------------------------
+&gt; (Intercept)  |               0.40 | [0.04,     3.76]
+&gt; mpg          |              86.40 | [1.36, 37955.41]
+&gt; factor(cyl)6 |               2.08 | [0.13,    39.04]
+&gt; factor(cyl)8 |               2.02 | [0.04,   119.12]
 &gt; 
 &gt; # Standardization method: Refit</code></pre>
 </div>
@@ -509,7 +509,7 @@ f^{2}={R_{AB}^{2}-R_{A}^{2} \over 1-R_{AB}^{2}}
 <span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">xtra_hours</span>, data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">)</span>
 <span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">xtra_hours</span> <span class="op">+</span> <span class="va">n_comps</span> <span class="op">+</span> <span class="va">seniority</span>, data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/eta_squared.html">cohens_f2</a></span><span class="op">(</span><span class="va">m1</span>, model2 <span class="op">=</span> <span class="va">m2</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="../reference/eta_squared.html">cohens_f_squared</a></span><span class="op">(</span><span class="va">m1</span>, model2 <span class="op">=</span> <span class="va">m2</span><span class="op">)</span></pre></div>
 <pre><code>&gt; Cohen's f2 (partial) |       90% CI | R2_delta
 &gt; ----------------------------------------------
 &gt;                 1.19 | [0.99, 1.40] |     0.17</code></pre>

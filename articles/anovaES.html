@@ -159,7 +159,11 @@
 <li>The part associated with <code>treatment</code>.</li>
 <li>The unexplained part (The Residual-<em>SS</em>).</li>
 </ul>
-<p>We can now ask what is the percent of the total variance in <code>value</code> that is associated with <code>treatment</code>. We can calculate this as 72.23 / (72.23 + 250.96) = 22%. This measure is called Eta-squared (written as <span class="math inline">\(\eta^2\)</span>), and can be accessed via the <code><a href="../reference/eta_squared.html">eta_squared()</a></code> function:</p>
+<p>We can now ask what is the percent of the total variance in <code>value</code> that is associated with <code>treatment</code>. This measure is called Eta-squared (written as <span class="math inline">\(\eta^2\)</span>):</p>
+<p><span class="math display">\[
+\eta^2 = \frac{SS_{effect}}{SS_{total}} = \frac{72.23}{72.23 + 250.96} = 0.22
+\]</span></p>
+<p>and can be accessed via the <code><a href="../reference/eta_squared.html">eta_squared()</a></code> function:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/">effectsize</a></span><span class="op">)</span>
 
@@ -170,7 +174,10 @@
 <div id="adding-more-terms" class="section level2">
 <h2 class="hasAnchor">
 <a href="#adding-more-terms" class="anchor"></a>Adding More Terms</h2>
-<p>When we add more terms to our model, we can ask two different questions about the percent of variance explained by a predictor - how much variance is accounted by the predictor in <em>total</em>, and how much is accounted when <em>controlling</em> for any other predictors. The latter questions is answered by the <em>partial</em>-Eta squared (<span class="math inline">\(\eta^2_p\)</span>), which is the percent of the <strong>partial</strong> variance (after accounting for other predictors in the model) associated with a term.</p>
+<p>When we add more terms to our model, we can ask two different questions about the percent of variance explained by a predictor - how much variance is accounted by the predictor in <em>total</em>, and how much is accounted when <em>controlling</em> for any other predictors. The latter questions is answered by the <em>partial</em>-Eta squared (<span class="math inline">\(\eta^2_p\)</span>), which is the percent of the <strong>partial</strong> variance (after accounting for other predictors in the model) associated with a term:</p>
+<p><span class="math display">\[
+\eta^2_p = \frac{SS_{effect}}{SS_{effect} + SS_{error}}
+\]</span> which can also be accessed via the <code><a href="../reference/eta_squared.html">eta_squared()</a></code> function:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">phase</span> <span class="op">+</span> <span class="va">treatment</span>,
          data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span>
@@ -297,7 +304,9 @@
 <h2 class="hasAnchor">
 <a href="#cohens-f" class="anchor"></a>Cohen’s <em>f</em>
 </h2>
-<p>Finally, we have the forgotten child - Cohen’s <span class="math inline">\(f\)</span>. Cohen’s <span class="math inline">\(f\)</span> is a transformation of <span class="math inline">\(\eta^2_p\)</span>, and is the ratio between the term-<em>SS</em> and the error-<em>SS</em>. It can take on values between zero, when the population means are all equal, and an indefinitely large number as the means are further and further apart. It is analogous to Cohen’s <span class="math inline">\(d\)</span> when there are only two groups.</p>
+<p>Finally, we have the forgotten child - Cohen’s <span class="math inline">\(f\)</span>. Cohen’s <span class="math inline">\(f\)</span> is a transformation of <span class="math inline">\(\eta^2_p\)</span>, and is the ratio between the term-<em>SS</em> and the error-<em>SS</em>.</p>
+<p><span class="math display">\[\text{Cohen's} f_p = \sqrt{\frac{\eta^2_p}{1-\eta^2_p}} = \sqrt{\frac{SS_{effect}}{SS_{error}}}\]</span></p>
+<p>It can take on values between zero, when the population means are all equal, and an indefinitely large number as the means are further and further apart. It is analogous to Cohen’s <span class="math inline">\(d\)</span> when there are only two groups.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit">
 <span class="fu"><a href="../reference/eta_squared.html">cohens_f</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></pre></div>
 <pre><code>&gt; Parameter        | Cohen's f (partial) |       90% CI

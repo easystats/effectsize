@@ -165,6 +165,21 @@
 <h1 class="page-header" data-toc-text="0.4.0">
 <a href="#effectsize-040" class="anchor"></a>effectsize 0.4.0<small> Unreleased </small>
 </h1>
+<div id="breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking Changes</h2>
+<ul>
+<li>Column name changes:
+<ul>
+<li>
+<code><a href="../reference/eta_squared.html">eta_squared()</a></code> / <code>F_to_eta2</code> families of function now has the <code>Eta2</code> format, where previously was <code>Eta_Sq</code>.</li>
+<li>
+<code>cramers_v</code> is now <code>Cramers_v</code>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
@@ -176,9 +191,9 @@
 <code><a href="../reference/eta_squared.html">eta_squared()</a></code>, <code><a href="../reference/eta_squared.html">omega_squared()</a></code> and <code><a href="../reference/eta_squared.html">epsilon_squared()</a></code> fully support <code>aovlist</code> and <code>afex_aov</code> objects.</li>
 <li>
 <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> can now return Odds ratios / IRRs (or any exponentiated parameter) by setting <code>exponentiate = TRUE</code>.</li>
-<li>Added <code>Cohens_f2()</code> and <code><a href="../reference/F_to_eta2.html">F_to_f2()</a></code> for Cohen’s <em>f</em>-squared.</li>
+<li>Added <code><a href="../reference/eta_squared.html">cohens_f_squared()</a></code> and <code><a href="../reference/F_to_eta2.html">F_to_f2()</a></code> for Cohen’s <em>f</em>-squared.</li>
 <li>
-<code>Cohens_f()</code> / <code>Cohens_f2()</code>can be used to estimate Cohen’s <em>f</em> for the R-squared change between two models.</li>
+<code><a href="../reference/eta_squared.html">cohens_f()</a></code> / <code><a href="../reference/eta_squared.html">cohens_f_squared()</a></code>can be used to estimate Cohen’s <em>f</em> for the R-squared change between two models.</li>
 <li>
 <code><a href="../reference/standardize.html">standardize()</a></code> and <code><a href="../reference/standardize_info.html">standardize_info()</a></code> work with weighted models / data ( <a href='https://github.com/easystats/effectsize/issues/82'>#82</a> ).</li>
 <li>Added <code>hardlyworking</code> (simulated) dataset, for use in examples.</li>
@@ -199,7 +214,7 @@
 <h2 class="hasAnchor">
 <a href="#changes" class="anchor"></a>Changes</h2>
 <ul>
-<li>CIs for Omega- and Epsilon-squared return 0s instead of negative values.</li>
+<li>CIs for Omega-/Epsilon-squared and Adjusted Phi/Cramer’s V return 0s instead of negative values.</li>
 <li>
 <code><a href="../reference/standardize.html">standardize()</a></code> for data frames gains the <code>remove_na</code> argument for dealing with <code>NA</code>s ( <a href='https://github.com/easystats/effectsize/issues/147'>#147</a> ).</li>
 <li>
