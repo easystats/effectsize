@@ -176,11 +176,11 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   if (!is.null(ci)) pars$CI <- attr(pars, "ci")
   pars <- pars[,colnames(pars) %in% c("Parameter", "CI", .col_2_scale)]
 
-  if (coefficient_name == "Odds Ratio")
+  if (!is.null(coefficient_name) && coefficient_name == "Odds Ratio")
     colnames(pars)[colnames(pars) == "Coefficient"] <- "Odds_ratio"
-  if (coefficient_name == "Risk Ratio")
+  if (!is.null(coefficient_name) && coefficient_name == "Risk Ratio")
     colnames(pars)[colnames(pars) == "Coefficient"] <- "Risk_ratio"
-  if (coefficient_name == "IRR")
+  if (!is.null(coefficient_name) && coefficient_name == "IRR")
     colnames(pars)[colnames(pars) == "Coefficient"] <- "IRR"
 
   i <- colnames(pars) %in% c("Coefficient", "Median", "Mean", "MAP", "Odds_ratio", "IRR")
