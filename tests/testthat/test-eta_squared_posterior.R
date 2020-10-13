@@ -26,7 +26,7 @@ if (require("testthat") &&
 
     # this is a very soft test...
     es_tab_bayes <- describe_posterior(es_post)
-    testthat::expect_equal(order(es_tab_bayes$Median), order(es_tab$Eta_Sq))
+    testthat::expect_equal(order(es_tab_bayes$Median), order(es_tab$Eta2))
   })
 
 
@@ -47,7 +47,7 @@ if (require("testthat") &&
 
     # this is a very soft test...
     es_tab_bayes <- describe_posterior(es_post)
-    # testthat::expect_equal(order(es_tab_bayes$Median), order(es_tab$Eta_Sq))
+    # testthat::expect_equal(order(es_tab_bayes$Median), order(es_tab$Eta2))
   })
 }
 
