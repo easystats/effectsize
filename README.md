@@ -78,10 +78,12 @@ cohens_d(iris$Sepal.Length, iris$Sepal.Width)
 ## Cohen's d |       95% CI
 ## ------------------------
 ##      4.21 | [3.80, 4.61]
+
 hedges_g(iris$Sepal.Length, iris$Sepal.Width)
 ## Hedge's g |       95% CI
 ## ------------------------
 ##      4.20 | [3.79, 4.60]
+
 glass_delta(iris$Sepal.Length, iris$Sepal.Width)
 ## Glass' delta |       95% CI
 ## ---------------------------
@@ -93,23 +95,23 @@ glass_delta(iris$Sepal.Length, iris$Sepal.Width)
 ``` r
 model <- aov(Sepal.Length ~ Species, data = iris)
 
-omega_squared(model)
-## Parameter | Omega2 (partial) |       90% CI
-## -------------------------------------------
-## Species   |             0.61 | [0.53, 0.67]
 eta_squared(model)
 ## Parameter | Eta2 (partial) |       90% CI
 ## -----------------------------------------
 ## Species   |           0.62 | [0.54, 0.68]
+
+omega_squared(model)
+## Parameter | Omega2 (partial) |       90% CI
+## -------------------------------------------
+## Species   |             0.61 | [0.53, 0.67]
+
 epsilon_squared(model)
 ## Parameter | Epsilon2 (partial) |       90% CI
 ## ---------------------------------------------
 ## Species   |               0.61 | [0.54, 0.67]
-cohens_f(model)
-## Parameter | Cohen's f (partial) |       90% CI
-## ----------------------------------------------
-## Species   |                1.27 | [1.09, 1.45]
 ```
+
+And more…
 
 ### Regression Models (Standardized Parameters)
 
@@ -146,27 +148,6 @@ standardize(m)
 
 <!-- add cohens_f2? -->
 
-## Effect Size Interpretation
-
-The package allows for an automated interpretation of different indices.
-
-``` r
-interpret_r(r = 0.3)
-## [1] "large"
-```
-
-Different sets of “rules of thumb” are implemented ([**guidelines are
-detailed
-here**](https://easystats.github.io/effectsize/articles/interpret.html))
-and can be easily changed.
-
-``` r
-interpret_d(d = 0.45, rules = "cohen1988")
-## [1] "small"
-interpret_d(d = 0.45, rules = "gignac2016")
-## [1] "moderate"
-```
-
 ## Effect Size Conversion
 
 The package also provides ways of converting between different effect
@@ -184,17 +165,46 @@ F_to_d(15, df = 1, df_error = 60)
 ## d |       95% CI
 ## ----------------
 ## 1 | [0.46, 1.53]
+
 F_to_r(15, df = 1, df_error = 60)
 ##    r |       95% CI
 ## -------------------
 ## 0.45 | [0.22, 0.61]
+
 F_to_eta2(15, df = 1, df_error = 60)
 ## Eta2 (partial) |       90% CI
 ## -----------------------------
 ##           0.20 | [0.07, 0.34]
 ```
 
-## Data Standardization, Normalization, Scaling, and Rank-Transforming
+## Effect Size Interpretation
+
+The package allows for an automated interpretation of different indices.
+
+``` r
+interpret_r(r = 0.3)
+## [1] "large"
+## (Rules: funder2019)
+```
+
+Different sets of “rules of thumb” are implemented ([**guidelines are
+detailed
+here**](https://easystats.github.io/effectsize/articles/interpret.html))
+and can be easily changed.
+
+``` r
+interpret_d(d = 0.45, rules = "cohen1988")
+## [1] "small"
+## (Rules: cohen1988)
+
+interpret_d(d = 0.45, rules = "gignac2016")
+## [1] "moderate"
+## (Rules: gignac2016)
+```
+
+## Utilities
+
+*Data Standardization, Normalization, Scaling, and Rank-Transforming*
 
 Many indices of effect size stem out, or are related, to
 [*standardization*](https://easystats.github.io/effectsize/articles/standardize_parameters.html).
@@ -211,15 +221,6 @@ describe_distribution(df$Sepal.Length)
 ##      Mean | SD |  IQR |         Range | Skewness | Kurtosis |   n | n_Missing
 ## -----------------------------------------------------------------------------
 ## -4.48e-16 |  1 | 1.57 | [-1.86, 2.48] |     0.31 |    -0.55 | 150 |         0
-```
-
-This can be also applied to statistical models:
-
-``` r
-std_model <- standardize(lm(Sepal.Length ~ Species, data = iris))
-coef(std_model)
-##       (Intercept) Speciesversicolor  Speciesvirginica 
-##             -1.01              1.12              1.91
 ```
 
 Alternatively, normalization is similar to standardization in that it is
@@ -249,10 +250,17 @@ describe_distribution(df$Sepal.Length)
 ```
 
 For some robust statistics, one might also want to transfom the numeric
-values into *ranks* (or signed-ranks), which can be performed using the
-`ranktransform()` function.
+values into *ranks*, which can be performed using the `ranktransform()`
+function.
 
 ``` r
-ranktransform(c(1, 3, -2, 6, 6, 0))
+ranktransform(c(1, 3, -2, 6, 6, 0.5))
 ## [1] 3.0 4.0 1.0 5.5 5.5 2.0
+```
+
+or signed-ranks:
+
+``` r
+ranktransform(c(1, 3, -2, 6, 6, 0.5), sign = TRUE)
+## [1]  2.0  4.0 -3.0  5.5  5.5  1.0
 ```
