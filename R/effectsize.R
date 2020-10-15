@@ -55,7 +55,8 @@ effectsize.htest <- function(model, ...) {
     out$CI_low <- model$conf.int[1]
     out$CI_high <- model$conf.int[2]
     return(out)
-  } else if (grepl("Pearson's Chi-squared", model$method)) {
+  } else if (grepl("Pearson's Chi-squared", model$method) ||
+             grepl("Chi-squared test for given probabilities", model$method)) {
     Obs <- model$observed
     Exp <- model$expected
 
