@@ -7,13 +7,13 @@
 effectsize(model, ...)
 }
 \arguments{
-\item{model}{Statistical model or object of class \code{htest}.}
+\item{model}{An object of class \code{htest}, or a statistical model. See details.}
 
 \item{...}{Arguments passed to or from other methods.}
 }
 \description{
-This function trys to return the best effect-size measure for the provided input model.
-See details below.
+This function tries to return the best effect-size measure for the provided
+input model. See details.
 }
 \details{
 \itemize{
@@ -27,6 +27,9 @@ See details below.
 \item Objects of class \code{anova}, \code{aov}, or \code{aovlist} are passed to \code{\link[=eta_squared]{eta_squared()}}.
 \item Other objects are passed to \code{\link[=standardize_parameters]{standardize_parameters()}}.
 }
+
+\strong{For statistical models it is recommended to directly use the listed
+functions, for the full range of options they provide.}
 }
 \examples{
 contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
