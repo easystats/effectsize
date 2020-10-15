@@ -160,13 +160,21 @@ if (require("testthat") && require("effectsize")) {
       ef <- eta_squared(m$aov, generalized = "gender")
       af <- anova(m, es = "ges",  observed = "gender")
       testthat::expect_equal(ef$Eta2_generalized,
-                             af$ges, tol = 0.1)
+                             c(0.211, 0.083, 0.186, 0.193, 0.099,
+                               0.002, 0.015, 0.132, 0.001, 0.004,
+                               0.011, 0.016, 0.008, 0.01, 0.02), tol = 0.05)
+      testthat::expect_equal(ef$Eta2_generalized,
+                             af$ges, tol = 0.05)
 
 
       ef <- eta_squared(m$aov, generalized = TRUE)
       af <- anova(m, es = "ges",  observed = NULL)
       testthat::expect_equal(ef$Eta2_generalized,
-                             af$ges, tol = 0.1)
+                             c(0.286, 0.111, 0.218, 0.264, 0.142,
+                               0.004, 0.021, 0.185, 0.002, 0.005,
+                               0.016, 0.023, 0.013, 0.014, 0.029), tol = 0.05)
+      testthat::expect_equal(ef$Eta2_generalized,
+                             af$ges, tol = 0.05)
     })
 
 

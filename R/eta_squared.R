@@ -558,7 +558,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       obs_SSn2 <- params$Sum_Squares * obs
 
       params$Eta2_generalized <- params$Sum_Squares /
-        (params$Sum_Squares + sum(Sum_Squares_residuals) + obs_SSn1 - obs_SSn2)
+        (params$Sum_Squares + sum(sapply(values, "[[", "Sum_Squares_residuals")) +
+           obs_SSn1 - obs_SSn2)
     } else if (!isTRUE(partial)) {
       params$Eta2 <- params$Sum_Squares / Sum_Squares_total
     } else {
