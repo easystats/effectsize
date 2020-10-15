@@ -22,7 +22,7 @@ See details below.
 \item A \strong{t-test} returns \emph{Cohen's d} via \code{\link[=t_to_d]{t_to_d()}}.
 \item A \strong{correlation test} returns \emph{r}. See \code{\link[=t_to_r]{t_to_r()}}.
 \item A \strong{Chi-squared test} returns \emph{Cramer's V} via \code{\link[=cramers_v]{cramers_v()}}.
-\item A \strong{One-way ANOVA test} returns \emph{Eta squared} via \code{\link[=F_to_eta2]{F_to_eta2()}}.
+\item A \strong{One-way ANOVA test} returns \emph{Eta squared} via \code{\link[=F_to_eta2]{F_to_eta2()}}, but can be changes via an \code{es} argument.
 }
 \item Objects of class \code{anova}, \code{aov}, or \code{aovlist} are passed to \code{\link[=eta_squared]{eta_squared()}}.
 \item Other objects are passed to \code{\link[=standardize_parameters]{standardize_parameters()}}.

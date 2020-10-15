@@ -12,7 +12,7 @@
 #'   - A **t-test** returns *Cohen's d* via [t_to_d()].
 #'   - A **correlation test** returns *r*. See [t_to_r()].
 #'   - A **Chi-squared test** returns *Cramer's V* via [cramers_v()].
-#'   - A **One-way ANOVA test** returns *Eta squared* via [F_to_eta2()].
+#'   - A **One-way ANOVA test** returns *Eta squared* via [F_to_eta2()], but can be changes via an `es` argument.
 #' - Objects of class `anova`, `aov`, or `aovlist` are passed to [eta_squared()].
 #' - Other objects are passed to [standardize_parameters()].
 #'
@@ -76,7 +76,7 @@ effectsize.htest <- function(model, ...) {
     )
     return(out)
   } else if (grepl("One-way", model$method)) {
-    out <- F_to_eta2(
+    out <- .F_to_pve(
       model$statistic,
       model$parameter[1],
       model$parameter[2],
