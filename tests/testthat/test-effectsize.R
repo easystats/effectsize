@@ -24,12 +24,15 @@ if (require("testthat") && require("effectsize")) {
     Xsq1 <- chisq.test(contingency_table)
     Xsq2 <- chisq.test(contingency_table/10)
 
-    testthat::expect_equal(effectsize(Xsq1)$cramers_v,
-                           effectsize(Xsq2)$cramers_v)
+    testthat::expect_equal(effectsize(Xsq1)$Cramers_v, 0.07, tol = 0.01)
+    testthat::expect_equal(effectsize(Xsq1)$Cramers_v,
+                           effectsize(Xsq2)$Cramers_v)
 
+    Xsq3 <- chisq.test(table(mtcars$cyl))
+    testthat::expect_equal(effectsize(Xsq3)$Cramers_v, 0.19, tol = 0.01)
     testthat::expect_equal(
-      effectsize(chisq.test(table(mtcars$cyl)))$cramers_v,
-      cramers_v(table(mtcars$cyl))$cramers_v
+      effectsize(Xsq3)$Cramers_v,
+      cramers_v(table(mtcars$cyl))$Cramers_v
     )
   })
 
