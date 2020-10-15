@@ -1,9 +1,9 @@
 #' Effect Size
 #'
-#' This function trys to return the best effect-size measure for the provided input model.
-#' See details below.
+#' This function tries to return the best effect-size measure for the provided
+#' input model. See details.
 #'
-#' @param model Statistical model or object of class `htest`.
+#' @param model An object of class `htest`, or a statistical model. See details.
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @details
@@ -15,6 +15,9 @@
 #'   - A **One-way ANOVA test** returns *Eta squared* via [F_to_eta2()], but can be changes via an `es` argument.
 #' - Objects of class `anova`, `aov`, or `aovlist` are passed to [eta_squared()].
 #' - Other objects are passed to [standardize_parameters()].
+#'
+#' **For statistical models it is recommended to directly use the listed
+#' functions, for the full range of options they provide.**
 #'
 #' @examples
 #' contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
@@ -41,10 +44,11 @@ effectsize <- function(model, ...) {
 #' @export
 effectsize.htest <- function(model, ...) {
   if (grepl("t-test", model$method)) {
+    # message("Using t_to_d().")
     out <- t_to_d(
       unname(model$statistic),
       unname(model$parameter),
-      paired = grepl("Paired", model$method) | grepl("One Sample", model$method),
+      paired = !grepl("Two", model$method),
       ...
     )
     return(out)
@@ -57,6 +61,7 @@ effectsize.htest <- function(model, ...) {
     return(out)
   } else if (grepl("Pearson's Chi-squared", model$method) ||
              grepl("Chi-squared test for given probabilities", model$method)) {
+    # message("Using chisq_to_cramers_v().")
     Obs <- model$observed
     Exp <- model$expected
 
@@ -77,6 +82,7 @@ effectsize.htest <- function(model, ...) {
     )
     return(out)
   } else if (grepl("One-way", model$method)) {
+    # message("Using F_to_eta2/epsilon2/omega2().")
     out <- .F_to_pve(
       model$statistic,
       model$parameter[1],
@@ -100,6 +106,7 @@ effectsize.htest <- function(model, ...) {
 
 #' @export
 effectsize.anova <- function(model, ...) {
+  # message("Using eta_squared().")
   eta_squared(model, ...)
 }
 
@@ -131,5 +138,6 @@ effectsize.easycorrelation <- function(model, ...){
 
 #' @export
 effectsize.default <- function(model, ...) {
+  # message("Using standardize_parameters().")
   standardize_parameters(model, ...)
 }
