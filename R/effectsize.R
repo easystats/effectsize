@@ -55,7 +55,7 @@ effectsize.htest <- function(model, ...) {
     out$CI_low <- model$conf.int[1]
     out$CI_high <- model$conf.int[2]
     return(out)
-  } else if (grepl("Chi-squared", model$method)) {
+  } else if (grepl("Pearson's Chi-squared", model$method)) {
     Obs <- model$observed
     Exp <- model$expected
 
@@ -83,8 +83,17 @@ effectsize.htest <- function(model, ...) {
       ...
     )
     return(out)
+  } else if (grepl("McNemar", model$method)) {
+    stop("Cannot extract Cohen's g from an 'htest' object.",
+         "\nTry using 'cohens_g()' directly.", call. = FALSE)
+  } else if (grepl("Fisher's Exact", model$method)) {
+    stop("Cannot extract effect size from an 'htest' of Fisher's exact test.",
+         "\nTry using 'cramers_v()' or 'phi()' directly.", call. = FALSE)
+  } else if (grepl("Wilcoxon", model$method)) {
+    stop("Cannot extract effect size from an 'htest' of Wilcoxon's test.",
+         "\nTry using 'ranktransform()' and 'cohens_d()' directly.", call. = FALSE)
   } else {
-    stop("This 'htest' method is not supported.", call. = FALSE)
+    stop("This 'htest' method is not (yet?) supported.", call. = FALSE)
   }
 }
 
