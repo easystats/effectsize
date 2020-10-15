@@ -30,6 +30,7 @@
 
 ## Bug fixes
 
+- `ranktransform(sign = TURE)` correctly (doesn't) deal with zeros.
 - `effectsize()` for `htest` works with Spearman and Kendall correlations ( #165 ).  
 - `cramers_v()` and `phi()` now work with goodness-of-fit data ( #158 )
 - `standardize_parameters()` for post-hoc correctly standardizes transformed outcome.
