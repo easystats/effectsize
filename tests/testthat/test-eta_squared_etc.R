@@ -137,14 +137,21 @@ if (require("testthat") && require("effectsize")) {
                       include_aov = TRUE)
       )
 
+      Aov <- car::Anova(m$aov, type = 3)
+
       testthat::expect_equal(anova(m, es = "ges", observed = NULL)$ges,
-                             eta_squared(car::Anova(m$aov, type=3),
-                                         generalized = TRUE)$Eta2_generalized)
+                             eta_squared(Aov, generalized = TRUE)$Eta2_generalized)
 
 
       testthat::expect_equal(anova(m, es = "ges", observed = "gender")$ges,
-                             eta_squared(car::Anova(m$aov, type=3),
-                                         generalized = "gender")$Eta2_generalized)
+                             eta_squared(Aov, generalized = "gender")$Eta2_generalized)
+
+      # in a completely between design, with all measured,
+      # all are equal to total
+      testthat::expect_equal(
+        eta_squared(Aov, generalized = c("gender", "treatment"))[[2]],
+        eta_squared(Aov, partial = FALSE)[[2]]
+      )
     })
 
 
