@@ -391,13 +391,14 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 .anova_es.glm <- .anova_es.aov
 
 #' @keywords internal
+#' @importFrom stats aov
 .anova_es.mlm <- function(model,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,
                           generalized = FALSE,
                           ci = 0.9,
                           ...){
-  model <- aov(model)
+  model <- stats::aov(model)
   params <- as.data.frame(parameters::model_parameters(model))
   params <- split(params, params$Response)
   params <- lapply(params, .es_aov,
