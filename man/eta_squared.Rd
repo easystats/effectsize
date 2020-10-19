@@ -65,8 +65,10 @@ See details.
 }
 \details{
 For \code{aov} and \code{aovlist} models, the effect sizes are computed directly with
-Sums-of-Squares. For all other model, the model is passed to \code{anova()}, and
-effect sizes are approximated via test statistic conversion (see \verb{[F_to_eta2] for more details.})
+Sums-of-Squares (for \code{mlm} / \code{maov} models, effect sizes are computed for
+each response separately). For all other model, the model is passed to
+\code{anova()}, and effect sizes are approximated via test statistic conversion
+(see \code{\link[=F_to_eta2]{F_to_eta2()}} for more details.)
 \subsection{Type of Sums of Squares}{
 
 The sums of squares (or F statistics) used for the computation of the effect
