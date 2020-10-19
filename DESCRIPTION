@@ -34,7 +34,7 @@ Encoding: UTF-8
 Depends:
 	R (>= 3.5)
 Imports:
-	insight (>= 0.9.5),
+	insight (>= 0.9.6.1),
 	bayestestR (>= 0.7.2),
 	parameters (>= 0.8.6.1),
 	stats,
