@@ -93,15 +93,25 @@ if (require("testthat") && require("effectsize")) {
 
   # mlm / anova table -------------------------------------------------------
   test_that("mlm / anova table", {
-
-    mtcars$am_f <- factor(mtcars$am)
-    mtcars$cyl_f <- factor(mtcars$cyl)
-
-    mod <- lm(cbind(mpg, qsec) ~ am_f * cyl_f, data = mtcars)
-
-    testthat::expect_equal(eta_squared(mod)$Eta2_partial,
-                           c(0.674, 0.413, 0.050),
-                           tol = 0.001)
+    ## uncomment after parameters and insight are updated
+    # mtcars$am_f <- factor(mtcars$am)
+    # mtcars$cyl_f <- factor(mtcars$cyl)
+    #
+    # mod <- lm(cbind(mpg, qsec) ~ am_f * cyl_f, data = mtcars)
+    # m1 <- lm(mpg ~ am_f * cyl_f, data = mtcars)
+    # m2 <- lm(qsec ~ am_f * cyl_f, data = mtcars)
+    #
+    # testthat::expect_equal(eta_squared(mod)$Eta2_partial[1:3],
+    #                        eta_squared(m1)$Eta2_partial)
+    #
+    # testthat::expect_equal(eta_squared(mod)$Eta2_partial[4:6],
+    #                        eta_squared(m2)$Eta2_partial)
+    #
+    # testthat::expect_equal(eta_squared(mod, partial = FALSE)$Eta2[1:3],
+    #                        eta_squared(m1, partial = FALSE)$Eta2)
+    #
+    # testthat::expect_equal(eta_squared(mod, partial = FALSE)$Eta2[4:6],
+    #                        eta_squared(m2, partial = FALSE)$Eta2)
   })
 
 
@@ -137,14 +147,21 @@ if (require("testthat") && require("effectsize")) {
                       include_aov = TRUE)
       )
 
+      Aov <- car::Anova(m$aov, type = 3)
+
       testthat::expect_equal(anova(m, es = "ges", observed = NULL)$ges,
-                             eta_squared(car::Anova(m$aov, type=3),
-                                         generalized = TRUE)$Eta2_generalized)
+                             eta_squared(Aov, generalized = TRUE)$Eta2_generalized)
 
 
       testthat::expect_equal(anova(m, es = "ges", observed = "gender")$ges,
-                             eta_squared(car::Anova(m$aov, type=3),
-                                         generalized = "gender")$Eta2_generalized)
+                             eta_squared(Aov, generalized = "gender")$Eta2_generalized)
+
+      # in a completely between design, with all measured,
+      # all are equal to total
+      testthat::expect_equal(
+        eta_squared(Aov, generalized = c("gender", "treatment"))[[2]],
+        eta_squared(Aov, partial = FALSE)[[2]]
+      )
     })
 
 

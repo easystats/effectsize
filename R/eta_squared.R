@@ -27,9 +27,10 @@
 #' @details
 #'
 #' For `aov` and `aovlist` models, the effect sizes are computed directly with
-#' Sums-of-Squares. For all other model, the model is passed to `anova()`, and
-#' effect sizes are approximated via test statistic conversion (see `[F_to_eta2]
-#' for more details.`)
+#' Sums-of-Squares (for `mlm` / `maov` models, effect sizes are computed for
+#' each response separately). For all other model, the model is passed to
+#' `anova()`, and effect sizes are approximated via test statistic conversion
+#' (see [`F_to_eta2()`] for more details.)
 #'
 #' ## Type of Sums of Squares
 #' The sums of squares (or F statistics) used for the computation of the effect
@@ -284,6 +285,17 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   type <- match.arg(type)
 
   params <- as.data.frame(parameters::model_parameters(model))
+  .es_aov(params, type, partial, generalized, ci)
+}
+
+#' @keywords internal
+.es_aov <- function(params,
+                    type = c("eta", "omega", "epsilon"),
+                    partial = TRUE,
+                    generalized = FALSE,
+                    ci = 0.9,
+                    ...) {
+
   params <- params[params$Parameter != "(Intercept)", ]
   if (!"Residuals" %in% params$Parameter) {
     stop("No residuals data found - ",
@@ -363,7 +375,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   }
 
 
-  out <- out[, colnames(out) %in% c("Group", "Parameter",
+  out <- out[, colnames(out) %in% c("Group", "Response", "Parameter",
                                     "Eta2", "Eta2_partial", "Eta2_generalized",
                                     "Omega2", "Omega2_partial",
                                     "Epsilon2", "Epsilon2_partial",
@@ -377,6 +389,35 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
 #' @keywords internal
 .anova_es.glm <- .anova_es.aov
+
+#' @keywords internal
+#' @importFrom stats aov
+#' @importFrom utils packageVersion
+.anova_es.mlm <- function(model,
+                          type = c("eta", "omega", "epsilon"),
+                          partial = TRUE,
+                          generalized = FALSE,
+                          ci = 0.9,
+                          ...){
+  # remove after parameters and insight are updated
+  if (utils::packageVersion("parameters") < package_version("0.8.6.1")) {
+    return(.anova_es.aov(model, type, partial, generalized, ci))
+  }
+
+  model <- stats::aov(model)
+  params <- as.data.frame(parameters::model_parameters(model))
+  params <- split(params, params$Response)
+  params <- lapply(params, .es_aov,
+                   type = type,
+                   partial = partial,
+                   generalized = generalized,
+                   ci = ci)
+  out <- do.call("rbind",params)
+  rownames(out) <- NULL
+  out
+}
+
+.anova_es.maov <- .anova_es.mlm
 
 
 #' @keywords internal
@@ -613,6 +654,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
   out <- out[, colnames(out) %in% c(
     "Group",
+    "Response",
     "Parameter",
     "Eta2_generalized",
     "Eta2_partial",
