@@ -213,7 +213,7 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
 
   pars <- model
   ci <- attr(pars, "ci")
-  model <- attr(pars, "obj_name")
+  model <- attr(pars, "object_name")
   if (is.character(model)) model <- .get_object(model)
 
   if (is.null(exponentiate <- attr(pars, "exponentiate"))) exponentiate <- FALSE
