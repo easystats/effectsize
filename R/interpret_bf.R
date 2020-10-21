@@ -3,6 +3,7 @@
 #' @param bf Value or vector of Bayes factor (BF) values.
 #' @param rules Can be `"jeffreys1961"` (default), `"raftery1995"` or custom set of [rules()].
 #' @param include_value Include the value in the output.
+#' @inheritParams insight::format_bf
 #'
 #' @section Rules:
 #'
@@ -33,7 +34,7 @@
 #' - Jarosz, A. F., & Wiley, J. (2014). What are the odds? A practical guide to computing and reporting Bayes factors. The Journal of Problem Solving, 7(1), 2.
 #'
 #' @export
-interpret_bf <- function(bf, rules = "jeffreys1961", include_value = FALSE) {
+interpret_bf <- function(bf, rules = "jeffreys1961", include_value = FALSE, protect_ratio = TRUE, exact = TRUE) {
   if (any(bf < 0)) {
     warning("Negative BFs detected. These are not possible. Converting to NA.")
     bf[bf < 0] <- NA
@@ -59,7 +60,7 @@ interpret_bf <- function(bf, rules = "jeffreys1961", include_value = FALSE) {
   interpretation[] <- paste0(interpretation, " evidence ", dir)
   interpretation[orig_bf==1] <- "no evidence"
   if (include_value) {
-    interpretation[] <- paste0(interpretation, " (", insight::format_bf(orig_bf, protect_ratio = TRUE),")")
+    interpretation[] <- paste0(interpretation, " (", insight::format_bf(orig_bf, protect_ratio = protect_ratio, exact = exact),")")
   }
 
   interpretation[is.na(orig_bf)] <- NA
