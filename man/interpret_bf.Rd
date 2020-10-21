@@ -4,7 +4,13 @@
 \alias{interpret_bf}
 \title{Interpret Bayes Factor (BF)}
 \usage{
-interpret_bf(bf, rules = "jeffreys1961", include_value = FALSE)
+interpret_bf(
+  bf,
+  rules = "jeffreys1961",
+  include_value = FALSE,
+  protect_ratio = TRUE,
+  exact = TRUE
+)
 }
 \arguments{
 \item{bf}{Value or vector of Bayes factor (BF) values.}
@@ -12,6 +18,8 @@ interpret_bf(bf, rules = "jeffreys1961", include_value = FALSE)
 \item{rules}{Can be \code{"jeffreys1961"} (default), \code{"raftery1995"} or custom set of \code{\link[=rules]{rules()}}.}
 
 \item{include_value}{Include the value in the output.}
+
+\item{protect_ratio}{Should values smaller than 1 be represented as ratios?}
 }
 \description{
 Interpret Bayes Factor (BF)
