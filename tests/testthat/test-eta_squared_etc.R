@@ -92,27 +92,27 @@ if (require("testthat") && require("effectsize")) {
   })
 
   # mlm / anova table -------------------------------------------------------
-  test_that("mlm / anova table", {
-    ## uncomment after parameters and insight are updated
-    # mtcars$am_f <- factor(mtcars$am)
-    # mtcars$cyl_f <- factor(mtcars$cyl)
-    #
-    # mod <- lm(cbind(mpg, qsec) ~ am_f * cyl_f, data = mtcars)
-    # m1 <- lm(mpg ~ am_f * cyl_f, data = mtcars)
-    # m2 <- lm(qsec ~ am_f * cyl_f, data = mtcars)
-    #
-    # testthat::expect_equal(eta_squared(mod)$Eta2_partial[1:3],
-    #                        eta_squared(m1)$Eta2_partial)
-    #
-    # testthat::expect_equal(eta_squared(mod)$Eta2_partial[4:6],
-    #                        eta_squared(m2)$Eta2_partial)
-    #
-    # testthat::expect_equal(eta_squared(mod, partial = FALSE)$Eta2[1:3],
-    #                        eta_squared(m1, partial = FALSE)$Eta2)
-    #
-    # testthat::expect_equal(eta_squared(mod, partial = FALSE)$Eta2[4:6],
-    #                        eta_squared(m2, partial = FALSE)$Eta2)
-  })
+  # # uncomment after parameters and insight are updated
+  # test_that("mlm / anova table", {
+  #   mtcars$am_f <- factor(mtcars$am)
+  #   mtcars$cyl_f <- factor(mtcars$cyl)
+  #
+  #   mod <- lm(cbind(mpg, qsec) ~ am_f * cyl_f, data = mtcars)
+  #   m1 <- lm(mpg ~ am_f * cyl_f, data = mtcars)
+  #   m2 <- lm(qsec ~ am_f * cyl_f, data = mtcars)
+  #
+  #   testthat::expect_equal(eta_squared(mod)$Eta2_partial[1:3],
+  #                          eta_squared(m1)$Eta2_partial)
+  #
+  #   testthat::expect_equal(eta_squared(mod)$Eta2_partial[4:6],
+  #                          eta_squared(m2)$Eta2_partial)
+  #
+  #   testthat::expect_equal(eta_squared(mod, partial = FALSE)$Eta2[1:3],
+  #                          eta_squared(m1, partial = FALSE)$Eta2)
+  #
+  #   testthat::expect_equal(eta_squared(mod, partial = FALSE)$Eta2[4:6],
+  #                          eta_squared(m2, partial = FALSE)$Eta2)
+  # })
 
 
   # Cohen's f - R2 change ---------------------------------------------------
