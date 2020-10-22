@@ -20,6 +20,10 @@ interpret_bf(
 \item{include_value}{Include the value in the output.}
 
 \item{protect_ratio}{Should values smaller than 1 be represented as ratios?}
+
+\item{exact}{Should very large or very small values be reported with a
+scientific format (e.g., 4.24e5), or as truncated values (as "> 1000" and
+"< 1/1000").}
 }
 \description{
 Interpret Bayes Factor (BF)
