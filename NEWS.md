@@ -8,6 +8,7 @@
 
 ## New features
 
+- `effectsize()` added support for `BayesFactor` objects (Cohen's *d*, Cramer's *v*, and *r*).
 - `cohens_g()` effect size for paired contingency tables.
 - Generalized Eta Squared now available via `eta_squared(generalized = ...)`.
 - `eta_squared()`, `omega_squared()` and `epsilon_squared()` fully support `aovlist`, `afex_aov` and `mlm` (or `maov`) objects.

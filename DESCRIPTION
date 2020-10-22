@@ -41,6 +41,7 @@ Imports:
 	utils
 Suggests:
 	afex,
+	BayesFactor,
 	brms,
 	boot,
 	car,
