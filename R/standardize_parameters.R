@@ -159,6 +159,8 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   # need model_parameters to return the parameters, not the terms
   if (inherits(model, "aov")) class(model) <- class(model)[class(model) != "aov"]
   pars <- parameters::model_parameters(model, ci = ci, standardize = NULL, ...)
+  # need to add as last column later, for column order
+  component_column <- pars$Component
 
   # should post hoc exponentiate?
   dots <- list(...)
@@ -166,7 +168,19 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   coefficient_name <- attr(pars, "coefficient_name")
 
   if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
+    # special handling, save rows of ZI component
+    if (inherits(model, c("glmmTMB", "MixMod"))) {
+      zi_pars <- pars[pars$Component == "zero_inflated", ]
+    } else {
+      zi_pars <- NULL
+    }
+
     pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, exponentiate, verbose)
+
+    # add back ZI-rows to parameters
+    if (!is.null(zi_pars)) {
+      pars <- rbind(pars, zi_pars)
+    }
 
     method <- attr(pars, "std_method")
     robust <- attr(pars, "robust")
@@ -174,7 +188,8 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
 
   ## clean cols
   if (!is.null(ci)) pars$CI <- attr(pars, "ci")
-  pars <- pars[,colnames(pars) %in% c("Parameter", "CI", .col_2_scale)]
+  pars <- pars[, colnames(pars) %in% c("Parameter", "CI", .col_2_scale)]
+  pars$Component <- component_column
 
   if (!is.null(coefficient_name) && coefficient_name == "Odds Ratio")
     colnames(pars)[colnames(pars) == "Coefficient"] <- "Odds_ratio"

@@ -11,7 +11,11 @@
 #' @importFrom parameters parameters_type
 #' @export
 standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseudo = FALSE, ...) {
-  params <- insight::find_parameters(model, effects = "fixed", flatten = TRUE, ...)
+  params <- if (inherits(model, c("glmmTMB", "MixMod"))) {
+    insight::find_parameters(model, effects = "fixed", component = "conditional", flatten = TRUE, ...)
+  } else {
+    insight::find_parameters(model, effects = "fixed", flatten = TRUE, ...)
+  }
   types <- parameters::parameters_type(model)
   model_matrix <- as.data.frame(stats::model.matrix(model))
   data <- insight::get_data(model)
