@@ -310,8 +310,12 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
     }
   )
 
-  if (length(i_missing) || anyNA(pars[,colnames(pars) %in% .col_2_scale])) {
-    i_missing <- union(i_missing, which(apply(pars[,colnames(pars) %in% .col_2_scale], 1, anyNA)))
+  if (length(i_missing) ||
+      any(to_complete <-
+          apply(pars[, colnames(pars) %in% .col_2_scale], 1, anyNA) &
+          deviations$Type != "intercept")) {
+
+    i_missing <- union(i_missing, which(to_complete))
 
     pars[i_missing, colnames(pars) %in% .col_2_scale] <-
       unstd[i_missing, colnames(pars) %in% .col_2_scale]
