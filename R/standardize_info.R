@@ -380,7 +380,8 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
   Deviation_Response_Pseudo <- Deviation_Pseudo <- numeric(ncol(model_matrix))
   for (i in seq_along(params)) {
     if (types[i] == "intercept") {
-      Deviation_Response_Pseudo[i] <- Deviation_Pseudo[i] <- NA
+      Deviation_Response_Pseudo[i] <- sd_y_between # doesn't matter
+      Deviation_Pseudo[i] <- 0
     } else {
       ## dumb way
       if (is_within[i]) {

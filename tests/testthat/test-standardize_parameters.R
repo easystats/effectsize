@@ -288,7 +288,7 @@ if (require("testthat") && require("effectsize")) {
       SD_y <- SD_y[c(1,2,1,1,1)]
 
       expect_equal(
-        data.frame(Deviation_Response_Pseudo = c(NA,SD_y),Deviation_Pseudo = c(NA,SD_x)),
+        data.frame(Deviation_Response_Pseudo = c(SD_y[2],SD_y),Deviation_Pseudo = c(0,SD_x)),
         standardize_info(m, include_pseudo = TRUE)[, c("Deviation_Response_Pseudo", "Deviation_Pseudo")]
       )
       expect_equal(

@@ -311,9 +311,7 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   )
 
   if (length(i_missing) ||
-      any(to_complete <-
-          apply(pars[, colnames(pars) %in% .col_2_scale], 1, anyNA) &
-          deviations$Type != "intercept")) {
+      any(to_complete <- apply(pars[, colnames(pars) %in% .col_2_scale], 1, anyNA))) {
 
     i_missing <- union(i_missing, which(to_complete))
 
