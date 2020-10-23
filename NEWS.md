@@ -2,6 +2,7 @@
 
 ## Breaking Changes
 
+- `standardize_parameters()` for multi-component models (such as zero-inflated) now returns the unstandardized parameters in some cases where standardization is not possible (previously returned `NA`s).
 - Column name changes: 
   - `eta_squared()` / `F_to_eta2` families of function now has the `Eta2` format, where previously was `Eta_Sq`.
   - `cramers_v` is now `Cramers_v`

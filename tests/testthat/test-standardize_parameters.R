@@ -333,6 +333,7 @@ if (require("testthat") && require("effectsize")) {
 
     m <- zeroinfl(art ~ fem + mar + kid5 + ment | kid5 + phd, data = bioChemists)
 
+    mp <- parameters::model_parameters(m)
     sm1 <- effectsize::standardize_parameters(m, method = "refit")
     expect_warning(sm2 <- effectsize::standardize_parameters(m, method = "posthoc"))
     suppressWarnings({
@@ -340,14 +341,20 @@ if (require("testthat") && require("effectsize")) {
       sm4 <- effectsize::standardize_parameters(m, method = "smart")
     })
 
-    expect_equal(sm1$Std_Coefficient[-c(1,6)], sm2$Std_Coefficient[-c(1,6)], tol = 0.01)
-    # only numeric count
-    expect_equal(sm1$Std_Coefficient[4:5], sm3$Std_Coefficient[4:5], tol = 0.01)
-    # only count
-    expect_equal(sm1$Std_Coefficient[2:5], sm4$Std_Coefficient[2:5], tol = 0.01)
+    # post hoc does it right (bar intercept)
+    testthat::expect_equal(sm1$Std_Coefficient[-c(1,6)],
+                           sm2$Std_Coefficient[-c(1,6)], tol = 0.01)
 
-    # no ZI params
-    expect_true(all(is.na(sm3$Std_Coefficient[6:8])))
-    expect_true(all(is.na(sm4$Std_Coefficient[6:8])))
+    # basic / smart miss the ZI
+    testthat::expect_equal(mp$Coefficient[6:8],
+                           sm3$Std_Coefficient[6:8], tol = 0.01)
+    testthat::expect_equal(mp$Coefficient[6:8],
+                           sm4$Std_Coefficient[6:8], tol = 0.01)
+
+    # get count numerics al right
+    testthat::expect_equal(sm1$Std_Coefficient[4:5],
+                           sm3$Std_Coefficient[4:5], tol = 0.01)
+    testthat::expect_equal(sm1$Std_Coefficient[4:5],
+                           sm4$Std_Coefficient[4:5], tol = 0.01)
   }
 }

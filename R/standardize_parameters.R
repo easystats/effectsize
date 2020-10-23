@@ -277,8 +277,8 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   ## Get scaling factors
   deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo", two_sd = two_sd)
   i_missing <- setdiff(seq_len(nrow(pars)), seq_len(nrow(deviations)))
+  unstd <- pars
   if (length(i_missing)) {
-    unstd <- pars
     deviations[i_missing, ] <- NA
   }
 
@@ -310,7 +310,9 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
     }
   )
 
-  if (length(i_missing)) {
+  if (length(i_missing) || anyNA(pars[,colnames(pars) %in% .col_2_scale])) {
+    i_missing <- union(i_missing, which(apply(pars[,colnames(pars) %in% .col_2_scale], 1, anyNA)))
+
     pars[i_missing, colnames(pars) %in% .col_2_scale] <-
       unstd[i_missing, colnames(pars) %in% .col_2_scale]
   }
