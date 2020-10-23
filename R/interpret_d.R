@@ -5,6 +5,7 @@
 #'
 #' @param d,g,delta Value or vector of effect size values.
 #' @param rules Can be `"cohen1988"` (default), `"gignac2016"`, `"sawilowsky2009"` or custom set of [rules()].
+#' @param ... Not directly used.
 #'
 #' @section Rules:
 #'
@@ -39,7 +40,7 @@
 #' - Sawilowsky, S. S. (2009). New effect size rules of thumb.
 #'
 #' @export
-interpret_d <- function(d, rules = "cohen1988") {
+interpret_d <- function(d, rules = "cohen1988", ...) {
   if (is.character(rules) && rules == "gignac2016") {
     return(interpret_r(d_to_r(d), rules))
   }
