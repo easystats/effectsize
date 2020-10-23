@@ -15,14 +15,22 @@ interpret_bf(
 \arguments{
 \item{bf}{Value or vector of Bayes factor (BF) values.}
 
-\item{rules}{Can be \code{"jeffreys1961"} (default), \code{"raftery1995"} or custom set of \code{\link[=rules]{rules()}}.}
+\item{rules}{Can be \code{"jeffreys1961"} (default), \code{"raftery1995"} or custom set
+of \code{\link[=rules]{rules()}} (for the \emph{absolute magnitude} of evidence).}
 
 \item{include_value}{Include the value in the output.}
 
 \item{protect_ratio}{Should values smaller than 1 be represented as ratios?}
+
+\item{exact}{Should very large or very small values be reported with a
+scientific format (e.g., 4.24e5), or as truncated values (as "> 1000" and
+"< 1/1000").}
 }
 \description{
 Interpret Bayes Factor (BF)
+}
+\details{
+Argument names can be partially matched.
 }
 \section{Rules}{
 

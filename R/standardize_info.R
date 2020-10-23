@@ -11,7 +11,11 @@
 #' @importFrom parameters parameters_type
 #' @export
 standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseudo = FALSE, ...) {
-  params <- insight::find_parameters(model, effects = "fixed", flatten = TRUE, ...)
+  params <- if (inherits(model, c("glmmTMB", "MixMod"))) {
+    insight::find_parameters(model, effects = "fixed", component = "conditional", flatten = TRUE, ...)
+  } else {
+    insight::find_parameters(model, effects = "fixed", flatten = TRUE, ...)
+  }
   types <- parameters::parameters_type(model)
   model_matrix <- as.data.frame(stats::model.matrix(model))
   data <- insight::get_data(model)
@@ -107,8 +111,6 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 #' @keywords internal
 .std_info_predictors_smart <- function(model, data, params, types, robust = FALSE, two_sd = FALSE, ...) {
   w <- insight::get_weights(model, na_rm = TRUE)
-  ## TODO after insight 0.9.7 on CRAN, use get_weights(model, na_rm = TRUE) and remove this line
-  if (anyNA(w)) w <- stats::na.omit(w)
 
   # Get deviations for all parameters
   means <- deviations <- rep(NA_real_, times = length(params))
@@ -179,8 +181,6 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 #' @keywords internal
 .std_info_predictors_basic <- function(model, model_matrix, types, robust = FALSE, two_sd = FALSE, ...) {
   w <- insight::get_weights(model, na_rm = TRUE)
-  ## TODO after insight 0.9.7 on CRAN, use get_weights(model, na_rm = TRUE) and remove this line
-  if (anyNA(w)) w <- stats::na.omit(w)
 
   # Get deviations for all parameters
   means <- deviations <- rep(NA_real_, length = length(names(model_matrix)))
@@ -214,8 +214,6 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 .std_info_response_smart <- function(model, data, model_matrix, types, robust = FALSE, ...) {
   info <- insight::model_info(model)
   w <- insight::get_weights(model, na_rm = TRUE)
-  ## TODO after insight 0.9.7 on CRAN, use get_weights(model, na_rm = TRUE) and remove this line
-  if (anyNA(w)) w <- stats::na.omit(w)
 
   if (info$is_linear) {
     # response <- insight::get_response(model)
@@ -252,13 +250,11 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 
 
 
-#' @importFrom stats na.omit model.frame
+#' @importFrom stats model.frame
 #' @keywords internal
 .std_info_response_basic <- function(model, params, robust = FALSE, ...) {
   info <- insight::model_info(model)
   w <- insight::get_weights(model, na_rm = TRUE)
-  ## TODO after insight 0.9.7 on CRAN, use get_weights(model, na_rm = TRUE) and remove this line
-  if (anyNA(w)) w <- stats::na.omit(w)
 
   # response <- insight::get_response(model)
   response <- stats::model.frame(model)[[1]]
@@ -303,8 +299,6 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
   within_vars <- unclass(parameters::check_heterogeneity(model))
   id <- insight::get_random(model)[[1]]
   w <- insight::get_weights(model, na_rm = TRUE)
-  ## TODO after insight 0.9.7 on CRAN, use get_weights(model, na_rm = TRUE) and remove this line
-  if (anyNA(w)) w <- stats::na.omit(w)
 
   ## Find which parameters vary on level 1 ("within")
   is_within <- logical(length = length(params))
@@ -386,7 +380,8 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
   Deviation_Response_Pseudo <- Deviation_Pseudo <- numeric(ncol(model_matrix))
   for (i in seq_along(params)) {
     if (types[i] == "intercept") {
-      Deviation_Response_Pseudo[i] <- Deviation_Pseudo[i] <- NA
+      Deviation_Response_Pseudo[i] <- sd_y_between # doesn't matter
+      Deviation_Pseudo[i] <- 0
     } else {
       ## dumb way
       if (is_within[i]) {

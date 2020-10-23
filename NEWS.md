@@ -2,12 +2,14 @@
 
 ## Breaking Changes
 
+- `standardize_parameters()` for multi-component models (such as zero-inflated) now returns the unstandardized parameters in some cases where standardization is not possible (previously returned `NA`s).
 - Column name changes: 
   - `eta_squared()` / `F_to_eta2` families of function now has the `Eta2` format, where previously was `Eta_Sq`.
   - `cramers_v` is now `Cramers_v`
 
 ## New features
 
+- `effectsize()` added support for `BayesFactor` objects (Cohen's *d*, Cramer's *v*, and *r*).
 - `cohens_g()` effect size for paired contingency tables.
 - Generalized Eta Squared now available via `eta_squared(generalized = ...)`.
 - `eta_squared()`, `omega_squared()` and `epsilon_squared()` fully support `aovlist`, `afex_aov` and `mlm` (or `maov`) objects.

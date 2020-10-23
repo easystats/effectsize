@@ -1,7 +1,7 @@
 Package: effectsize
 Type: Package
 Title: Indices of Effect Size and Standardized Parameters
-Version: 0.3.9.001
+Version: 0.3.9.009
 Authors@R: c(
   person("Mattan S.", 
 		"Ben-Shachar", 
@@ -34,13 +34,14 @@ Encoding: UTF-8
 Depends:
 	R (>= 3.5)
 Imports:
-	insight (>= 0.9.6),
-	bayestestR (>= 0.7.2),
+	insight (>= 0.10.0),
+	bayestestR (>= 0.7.5),
 	parameters (>= 0.8.6),
 	stats,
 	utils
 Suggests:
 	afex,
+	BayesFactor,
 	brms,
 	boot,
 	car,

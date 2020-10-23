@@ -87,7 +87,7 @@ As we can see, working harder (or at least for longer hours) has stronger predic
 
 ## Introduction
 
-In classical frequentists models, the computation of $eta^2$ or $eta^2_p$ is straightforward: based on the right combinations of sums-of-squares (*SS*s), we get the correct proportion of variance accounted for by some predictor term. However such a computation is not as straightforward for Bayesian models, for various reasons (e.g., the model-*SS* and the residual-*SS* don't necessarily sum to the total-*SS*). Although some have proposed Bayesian methods of estimating explained variance in ANOVA designs [@marsman2019bayesian], these are not yet easy to implement with `stan`-based models.
+In classical frequentists models, the computation of $\eta^2$ or $\eta^2_p$ is straightforward: based on the right combinations of sums-of-squares (*SS*s), we get the correct proportion of variance accounted for by some predictor term. However such a computation is not as straightforward for Bayesian models, for various reasons (e.g., the model-*SS* and the residual-*SS* don't necessarily sum to the total-*SS*). Although some have proposed Bayesian methods of estimating explained variance in ANOVA designs [@marsman2019bayesian], these are not yet easy to implement with `stan`-based models.
 
 An alternative route to obtaining effect sizes of explained variance, is via the use of the ***posterior predictive distribution*** (*PPD*). The PPD is the Bayesian expected distribution of possible unobserved values. Thus, after observing some data, we can estimate not just the expected mean values (the conditional marginal means), but also the full *distribution* of data around these values [@gelman2014bayesian, chapter 7].
 
@@ -111,9 +111,9 @@ table(hardlyworking$age_f,hardlyworking$comps_f)
 And fit our model:
 
 ```{r}
-# use effects coding
-contrasts(hardlyworking$age_f) <- contr.sum
-contrasts(hardlyworking$comps_f) <- contr.sum
+# use (special) effects coding
+contrasts(hardlyworking$age_f) <- bayestestR::contr.bayes
+contrasts(hardlyworking$comps_f) <- bayestestR::contr.bayes
 
 modAOV <- stan_glm(salary ~ age_f * comps_f,
                    data = hardlyworking, family = gaussian(),

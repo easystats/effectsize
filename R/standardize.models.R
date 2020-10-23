@@ -4,7 +4,7 @@
 #'   standardized. Note that for certain models (logistic regression, count
 #'   models, ...), the response value will never be standardized, to make
 #'   re-fitting the model work.
-#' @importFrom stats update na.omit
+#' @importFrom stats update
 #' @importFrom insight get_data model_info find_response get_response find_weights get_weights
 #' @importFrom utils capture.output
 #' @export
@@ -44,8 +44,6 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
 
   if (length(do_standardize)) {
     w <- insight::get_weights(x, na_rm = TRUE)
-    ## TODO after insight 0.9.7 on CRAN, use get_weights(model, na_rm = TRUE) and remove this line
-    if (anyNA(w)) w <- stats::na.omit(w)
 
     data_std <- standardize(data[do_standardize],
                             robust = robust,
@@ -156,8 +154,6 @@ standardize.coxph <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE,
 
   if (length(pred)) {
     w <- insight::get_weights(x, na_rm = TRUE)
-    ## TODO after insight 0.9.7 on CRAN, use get_weights(model, na_rm = TRUE) and remove this line
-    if (anyNA(w)) w <- stats::na.omit(w)
 
     data_std <- standardize(data[pred],
                             robust = robust,

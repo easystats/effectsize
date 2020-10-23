@@ -6,7 +6,7 @@
 \alias{interpret_delta}
 \title{Interpret standardized differences}
 \usage{
-interpret_d(d, rules = "cohen1988")
+interpret_d(d, rules = "cohen1988", ...)
 
 interpret_g(g, rules = "cohen1988")
 
@@ -16,6 +16,8 @@ interpret_delta(delta, rules = "cohen1988")
 \item{d, g, delta}{Value or vector of effect size values.}
 
 \item{rules}{Can be \code{"cohen1988"} (default), \code{"gignac2016"}, \code{"sawilowsky2009"} or custom set of \code{\link[=rules]{rules()}}.}
+
+\item{...}{Not directly used.}
 }
 \description{
 Interpretation of standardized differences using different sets of rules of thumb.

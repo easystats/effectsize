@@ -9,7 +9,7 @@ effectsize(model, ...)
 \arguments{
 \item{model}{An object of class \code{htest}, or a statistical model. See details.}
 
-\item{...}{Arguments passed to or from other methods.}
+\item{...}{Arguments passed to or from other methods. See details.}
 }
 \description{
 This function tries to return the best effect-size measure for the provided
@@ -23,6 +23,12 @@ input model. See details.
 \item A \strong{correlation test} returns \emph{r}. See \code{\link[=t_to_r]{t_to_r()}}.
 \item A \strong{Chi-squared test} returns \emph{Cramer's V} via \code{\link[=cramers_v]{cramers_v()}}.
 \item A \strong{One-way ANOVA test} returns \emph{Eta squared} via \code{\link[=F_to_eta2]{F_to_eta2()}}, but can be changes via an \code{es} argument.
+}
+\item For an object of class \code{BFBayesFactor}, using \code{\link[bayestestR:describe_posterior]{bayestestR::describe_posterior()}},
+\itemize{
+\item A \strong{t-test} returns \emph{Cohen's d}.
+\item A \strong{correlation test} returns \emph{r}..
+\item A \strong{contingency table test} returns \emph{Cramer's V}.
 }
 \item Objects of class \code{anova}, \code{aov}, or \code{aovlist} are passed to \code{\link[=eta_squared]{eta_squared()}}.
 \item Other objects are passed to \code{\link[=standardize_parameters]{standardize_parameters()}}.
@@ -41,6 +47,18 @@ effectsize(Ts)
 
 Aov <- oneway.test(extra ~ group, data = sleep)
 effectsize(Aov)
+
+if (require(BayesFactor)) {
+  bf1 <- ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
+  effectsize(bf1, test = NULL)
+
+  bf2 <- correlationBF(iris$Sepal.Length, iris$Sepal.Width)
+  effectsize(bf2, test = NULL)
+
+  data(raceDolls)
+  bf3 <- contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
+  effectsize(bf3, test = NULL)
+}
 
 fit <- lm(mpg ~ factor(cyl) * wt + hp, data = mtcars)
 effectsize(fit)

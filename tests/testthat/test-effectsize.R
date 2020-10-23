@@ -59,4 +59,20 @@ if (require("testthat") && require("effectsize")) {
     model <- aov(Sepal.Length ~ Species * Cat1, data = data)
     testthat::expect_equal(effectsize(model), eta_squared(model))
   })
+
+
+  # BayesFactor -------------------------------------------------------------
+
+  if (require("BayesFactor")) {
+    set.seed(6)
+    data(raceDolls)
+    bf1 <- contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
+    testthat::expect_equal(effectsize(bf1, test = NULL)[[2]], 0.16, tol = 0.01)
+
+    bf2 <- ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
+    testthat::expect_equal(effectsize(bf2, test = NULL)[[2]], 1.30, tol = 0.01)
+
+    bf3 <- correlationBF(iris$Sepal.Length, iris$Sepal.Width)
+    testthat::expect_equal(effectsize(bf3, test = NULL)[[2]], -0.12, tol = 0.01)
+  }
 }

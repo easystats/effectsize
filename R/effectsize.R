@@ -4,7 +4,7 @@
 #' input model. See details.
 #'
 #' @param model An object of class `htest`, or a statistical model. See details.
-#' @param ... Arguments passed to or from other methods.
+#' @param ... Arguments passed to or from other methods. See details.
 #'
 #' @details
 #'
@@ -13,6 +13,10 @@
 #'   - A **correlation test** returns *r*. See [t_to_r()].
 #'   - A **Chi-squared test** returns *Cramer's V* via [cramers_v()].
 #'   - A **One-way ANOVA test** returns *Eta squared* via [F_to_eta2()], but can be changes via an `es` argument.
+#' - For an object of class `BFBayesFactor`, using [bayestestR::describe_posterior()],
+#'   - A **t-test** returns *Cohen's d*.
+#'   - A **correlation test** returns *r*..
+#'   - A **contingency table test** returns *Cramer's V*.
 #' - Objects of class `anova`, `aov`, or `aovlist` are passed to [eta_squared()].
 #' - Other objects are passed to [standardize_parameters()].
 #'
@@ -29,6 +33,18 @@
 #'
 #' Aov <- oneway.test(extra ~ group, data = sleep)
 #' effectsize(Aov)
+#'
+#' if (require(BayesFactor)) {
+#'   bf1 <- ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
+#'   effectsize(bf1, test = NULL)
+#'
+#'   bf2 <- correlationBF(iris$Sepal.Length, iris$Sepal.Width)
+#'   effectsize(bf2, test = NULL)
+#'
+#'   data(raceDolls)
+#'   bf3 <- contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
+#'   effectsize(bf3, test = NULL)
+#' }
 #'
 #' fit <- lm(mpg ~ factor(cyl) * wt + hp, data = mtcars)
 #' effectsize(fit)
@@ -103,6 +119,50 @@ effectsize.htest <- function(model, ...) {
     stop("This 'htest' method is not (yet?) supported.", call. = FALSE)
   }
 }
+
+#' @export
+#' @importFrom insight get_data get_parameters
+#' @importFrom bayestestR describe_posterior
+effectsize.BFBayesFactor <- function(model, ...){
+  if (!requireNamespace("BayesFactor")) {
+    stop("This function requires 'BayesFactor' to work. Please install it.")
+  }
+
+  if (length(model) > 1)
+    warning("Multiple models detected. Using first only.", call. = FALSE)
+
+  if (inherits(model@numerator[[1]], "BFcontingencyTable")) {
+    data <- insight::get_data(model)
+    N <- sum(data)
+    cells <- prod(dim(data))
+
+    posts <- as.matrix(BayesFactor::posterior(model, iterations = 4000, progress = FALSE))
+    posts <- posts[, seq_len(cells)]
+    if (sum(posts[1,])==1) {
+      posts <- posts * N
+    }
+
+    V <- apply(posts, 1, function(a) {
+      cramers_v(matrix(a, nrow = nrow(data)), ci = NULL)[[1]]
+    })
+
+    res <- data.frame(Cramers_v = V)
+  } else if (inherits(model@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
+    D <- as.matrix(BayesFactor::posterior(model, iterations = 4000, progress = FALSE))[,"delta"]
+    res <- data.frame(Cohens_d = D)
+  } else if (inherits(model@numerator[[1]], "BFcorrelation")) {
+    rho <- insight::get_parameters(model)[["rho"]]
+    res <- data.frame(r = rho)
+  # } else if (inherits(model@numerator[[1]], "BFproportion")) {
+  #   p <- as.matrix(BayesFactor::posterior(model, iterations = 4000))[,"p"]
+  #   res <- data.frame(p = p)
+  } else {
+    stop("No effect size for this type of BayesFactor object.")
+  }
+
+  bayestestR::describe_posterior(res, ...)
+}
+
 
 #' @export
 effectsize.anova <- function(model, ...) {

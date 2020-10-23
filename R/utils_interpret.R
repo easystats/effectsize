@@ -4,14 +4,14 @@
     return(rules)
   }
 
-  if (!rules %in% names(choices) ||
-      !is.character(rules) ||
-      length(rules)!=1) {
+  rule <- pmatch(rules, names(choices))
+
+  if (!is.character(rules) || length(rules) != 1 || is.na(rule)) {
     stop("'rules' must be ",
          paste0("'",names(choices),"'", collapse = ", "),
          " or an object of type 'rules'.",
          call. = FALSE)
   }
 
-  return(choices[[rules]])
+  return(choices[[rule]])
 }

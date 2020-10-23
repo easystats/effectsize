@@ -174,7 +174,8 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
 
   ## clean cols
   if (!is.null(ci)) pars$CI <- attr(pars, "ci")
-  pars <- pars[,colnames(pars) %in% c("Parameter", "CI", .col_2_scale)]
+  colnm <- c("Component", "Response", "Group", "Parameter", head(.col_2_scale,-2), "CI", "CI_low", "CI_high")
+  pars <- pars[, colnm[colnm %in% colnames(pars)]]
 
   if (!is.null(coefficient_name) && coefficient_name == "Odds Ratio")
     colnames(pars)[colnames(pars) == "Coefficient"] <- "Odds_ratio"
@@ -222,8 +223,9 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   robust <- attr(pars, "robust")
 
   ## clean cols
-  if ("CI_low" %in% colnames(pars)) pars$CI <- ci
-  pars <- pars[,colnames(pars) %in% c("Parameter", "CI", .col_2_scale)]
+  if (!is.null(ci)) pars$CI <- attr(pars, "ci")
+  colnm <- c("Component", "Response", "Group", "Parameter", head(.col_2_scale,-2), "CI", "CI_low", "CI_high")
+  pars <- pars[, colnm[colnm %in% colnames(pars)]]
   i <- colnames(pars) %in% c("Coefficient", "Median", "Mean", "MAP")
   colnames(pars)[i] <- paste0("Std_", colnames(pars)[i])
 
@@ -274,8 +276,11 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
 
   ## Get scaling factors
   deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo", two_sd = two_sd)
-  i <- match(deviations$Parameter, pars$Parameter)
-  pars <- pars[i,]
+  i_missing <- setdiff(seq_len(nrow(pars)), seq_len(nrow(deviations)))
+  unstd <- pars
+  if (length(i_missing)) {
+    deviations[i_missing, ] <- NA
+  }
 
   if (method == "basic") {
     col_dev_resp <- "Deviation_Response_Basic"
@@ -304,6 +309,15 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
       }
     }
   )
+
+  if (length(i_missing) ||
+      any(to_complete <- apply(pars[, colnames(pars) %in% .col_2_scale], 1, anyNA))) {
+
+    i_missing <- union(i_missing, which(to_complete))
+
+    pars[i_missing, colnames(pars) %in% .col_2_scale] <-
+      unstd[i_missing, colnames(pars) %in% .col_2_scale]
+  }
 
   attr(pars, "std_method") <- method
   attr(pars, "two_sd") <- two_sd
