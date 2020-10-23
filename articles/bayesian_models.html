@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.009</span>
       </span>
     </div>
 
@@ -206,7 +206,7 @@
 <div id="introduction-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction-1" class="anchor"></a>Introduction</h2>
-<p>In classical frequentists models, the computation of <span class="math inline">\(eta^2\)</span> or <span class="math inline">\(eta^2_p\)</span> is straightforward: based on the right combinations of sums-of-squares (<em>SS</em>s), we get the correct proportion of variance accounted for by some predictor term. However such a computation is not as straightforward for Bayesian models, for various reasons (e.g., the model-<em>SS</em> and the residual-<em>SS</em> don’t necessarily sum to the total-<em>SS</em>). Although some have proposed Bayesian methods of estimating explained variance in ANOVA designs <span class="citation">(Marsman et al. 2019)</span>, these are not yet easy to implement with <code>stan</code>-based models.</p>
+<p>In classical frequentists models, the computation of <span class="math inline">\(\eta^2\)</span> or <span class="math inline">\(\eta^2_p\)</span> is straightforward: based on the right combinations of sums-of-squares (<em>SS</em>s), we get the correct proportion of variance accounted for by some predictor term. However such a computation is not as straightforward for Bayesian models, for various reasons (e.g., the model-<em>SS</em> and the residual-<em>SS</em> don’t necessarily sum to the total-<em>SS</em>). Although some have proposed Bayesian methods of estimating explained variance in ANOVA designs <span class="citation">(Marsman et al. 2019)</span>, these are not yet easy to implement with <code>stan</code>-based models.</p>
 <p>An alternative route to obtaining effect sizes of explained variance, is via the use of the <strong><em>posterior predictive distribution</em></strong> (<em>PPD</em>). The PPD is the Bayesian expected distribution of possible unobserved values. Thus, after observing some data, we can estimate not just the expected mean values (the conditional marginal means), but also the full <em>distribution</em> of data around these values <span class="citation">(Gelman et al. 2014, chap. 7)</span>.</p>
 <p>By sampling from the PPD, we can decompose the sample to the various <em>SS</em>s needed for the computation of explained variance measures. By repeatedly sampling from the PPD, we can generate a posterior distribution of explained variance estimates. But note that <strong>these estimates are conditioned not only on the location-parameters of the model, but also on the scale-parameters of the model!</strong> So it is vital to <a href="https://mc-stan.org/docs/2_23/stan-users-guide/meta-models-part.html#meta-models.part">validate the PPD</a> before using it to estimate explained variance measures.</p>
 </div>
@@ -230,9 +230,9 @@
 &gt;   Less_young    13    34    27</code></pre>
 <p>And fit our model:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="co"># use effects coding</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">contr.sum</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">comps_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">contr.sum</span>
+<span class="co"># use (special) effects coding</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">bayestestR</span><span class="fu">::</span><span class="va"><a href="https://easystats.github.io/bayestestR/reference/contr.bayes.html">contr.bayes</a></span>
+<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">comps_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">bayestestR</span><span class="fu">::</span><span class="va"><a href="https://easystats.github.io/bayestestR/reference/contr.bayes.html">contr.bayes</a></span>
 
 <span class="va">modAOV</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html">stan_glm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">age_f</span> <span class="op">*</span> <span class="va">comps_f</span>,
                    data <span class="op">=</span> <span class="va">hardlyworking</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">gaussian</a></span><span class="op">(</span><span class="op">)</span>,
@@ -246,22 +246,22 @@
 <pre><code>&gt; Simulating effect size... This can take a while...</code></pre>
 <div class="sourceCode" id="cb14"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">pes_posterior</span><span class="op">)</span></pre></div>
-<pre><code>&gt;   age_f comps_f age_f:comps_f
-&gt; 1 0.004   0.154        0.0185
-&gt; 2 0.038   0.102        0.0128
-&gt; 3 0.046   0.133        0.0147
-&gt; 4 0.022   0.111        0.0055
-&gt; 5 0.030   0.109        0.0187
-&gt; 6 0.065   0.036        0.0091</code></pre>
+<pre><code>&gt;    age_f comps_f age_f:comps_f
+&gt; 1 0.0070   0.139       0.00435
+&gt; 2 0.0096   0.111       0.01402
+&gt; 3 0.0402   0.136       0.00965
+&gt; 4 0.0044   0.185       0.03981
+&gt; 5 0.0500   0.076       0.00204
+&gt; 6 0.0822   0.072       0.00066</code></pre>
 <div class="sourceCode" id="cb16"><pre class="downlit">
 <span class="fu">bayestestR</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html">describe_posterior</a></span><span class="op">(</span><span class="va">pes_posterior</span>, rope_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span><span class="op">)</span>, test <span class="op">=</span> <span class="st">"rope"</span><span class="op">)</span></pre></div>
 <pre><code>&gt; # Description of Posterior Distributions
 &gt; 
 &gt; Parameter     | Median |         89% CI |       89% ROPE | % in ROPE
 &gt; --------------------------------------------------------------------
-&gt; age_f         |  0.028 | [0.000, 0.059] | [0.000, 0.100] |   100.000
-&gt; comps_f       |  0.137 | [0.073, 0.195] | [0.000, 0.100] |    14.574
-&gt; age_f:comps_f |  0.011 | [0.000, 0.032] | [0.000, 0.100] |   100.000</code></pre>
+&gt; age_f         |  0.027 | [0.000, 0.059] | [0.000, 0.100] |   100.000
+&gt; comps_f       |  0.133 | [0.076, 0.199] | [0.000, 0.100] |    15.919
+&gt; age_f:comps_f |  0.011 | [0.000, 0.033] | [0.000, 0.100] |   100.000</code></pre>
 <p>Compare to:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit">
 <span class="va">modAOV_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">age_f</span> <span class="op">*</span> <span class="va">comps_f</span>,

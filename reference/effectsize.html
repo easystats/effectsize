@@ -81,7 +81,7 @@ input model. See details." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.009</span>
       </span>
     </div>
 
@@ -180,7 +180,7 @@ input model. See details.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed to or from other methods.</p></td>
+      <td><p>Arguments passed to or from other methods. See details.</p></td>
     </tr>
     </table>
 
@@ -193,6 +193,11 @@ input model. See details.</p>
 <li><p>A <strong>correlation test</strong> returns <em>r</em>. See <code><a href='t_to_d.html'>t_to_r()</a></code>.</p></li>
 <li><p>A <strong>Chi-squared test</strong> returns <em>Cramer's V</em> via <code><a href='phi.html'>cramers_v()</a></code>.</p></li>
 <li><p>A <strong>One-way ANOVA test</strong> returns <em>Eta squared</em> via <code><a href='F_to_eta2.html'>F_to_eta2()</a></code>, but can be changes via an <code>es</code> argument.</p></li>
+</ul></li>
+<li><p>For an object of class <code>BFBayesFactor</code>, using <code><a href='https://easystats.github.io/bayestestR/reference/describe_posterior.html'>bayestestR::describe_posterior()</a></code>,</p><ul>
+<li><p>A <strong>t-test</strong> returns <em>Cohen's d</em>.</p></li>
+<li><p>A <strong>correlation test</strong> returns <em>r</em>..</p></li>
+<li><p>A <strong>contingency table test</strong> returns <em>Cramer's V</em>.</p></li>
 </ul></li>
 <li><p>Objects of class <code>anova</code>, <code>aov</code>, or <code>aovlist</code> are passed to <code><a href='eta_squared.html'>eta_squared()</a></code>.</p></li>
 <li><p>Other objects are passed to <code><a href='standardize_parameters.html'>standardize_parameters()</a></code>.</p></li>
@@ -218,6 +223,27 @@ functions, for the full range of options they provide.</strong></p>
 </div><div class='output co'>#&gt; Eta2 (partial) |       90% CI
 #&gt; -----------------------------
 #&gt;           0.16 | [0.00, 0.42]</div><div class='input'>
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://richarddmorey.github.io/BayesFactor/'>BayesFactor</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>bf1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/BayesFactor/man/ttestBF.html'>ttestBF</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>[</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>am</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>]</span>, <span class='va'>mtcars</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>[</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>am</span> <span class='op'>==</span> <span class='fl'>0</span><span class='op'>]</span><span class='op'>)</span>
+  <span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>bf1</span>, test <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+
+  <span class='va'>bf2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/BayesFactor/man/correlationBF.html'>correlationBF</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>$</span><span class='va'>Sepal.Length</span>, <span class='va'>iris</span><span class='op'>$</span><span class='va'>Sepal.Width</span><span class='op'>)</span>
+  <span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>bf2</span>, test <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+
+  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>raceDolls</span><span class='op'>)</span>
+  <span class='va'>bf3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/BayesFactor/man/contingencyTableBF.html'>contingencyTableBF</a></span><span class='op'>(</span><span class='va'>raceDolls</span>, sampleType <span class='op'>=</span> <span class='st'>"poisson"</span>, fixedMargin <span class='op'>=</span> <span class='st'>"cols"</span><span class='op'>)</span>
+  <span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>bf3</span>, test <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: BayesFactor</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: coda</span></div><div class='output co'>#&gt; <span class='message'>************</span>
+#&gt; <span class='message'>Welcome to BayesFactor 0.9.12-4.2. If you have questions, please contact Richard Morey (richarddmorey@gmail.com).</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>Type BFManual() to open the manual.</span>
+#&gt; <span class='message'>************</span></div><div class='output co'>#&gt; <span style='color: #0000BB;'># Description of Posterior Distributions
+#&gt; 
+#&gt; </span><span>Parameter | Median |         89% CI
+#&gt; -----------------------------------
+#&gt; Cramers_v |  0.165 | [0.049, 0.286]
+#&gt; </div><div class='input'>
 <span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span> <span class='op'>*</span> <span class='va'>wt</span> <span class='op'>+</span> <span class='va'>hp</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
 <span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>fit</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Parameter       | Coefficient (std.) |         95% CI
@@ -229,7 +255,7 @@ functions, for the full range of options they provide.</strong></p>
 #&gt; hp              |              -0.25 | [-0.52,  0.01]
 #&gt; factor(cyl)6:wt |               0.37 | [-0.63,  1.36]
 #&gt; factor(cyl)8:wt |               0.54 | [ 0.03,  1.06]
-#&gt; <span style='color: #0000BB;'>
+#&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: Refit
 #&gt; </span><span></div><div class='input'>
 <span class='va'>anova_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span><span class='op'>(</span><span class='va'>fit</span><span class='op'>)</span>

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.009</span>
       </span>
     </div>
 
@@ -184,7 +184,8 @@
     </tr>
     <tr>
       <th>rules</th>
-      <td><p>Can be <code>"jeffreys1961"</code> (default), <code>"raftery1995"</code> or custom set of <code><a href='rules.html'>rules()</a></code>.</p></td>
+      <td><p>Can be <code>"jeffreys1961"</code> (default), <code>"raftery1995"</code> or custom set
+of <code><a href='rules.html'>rules()</a></code> (for the <em>absolute magnitude</em> of evidence).</p></td>
     </tr>
     <tr>
       <th>include_value</th>
@@ -194,8 +195,17 @@
       <th>protect_ratio</th>
       <td><p>Should values smaller than 1 be represented as ratios?</p></td>
     </tr>
+    <tr>
+      <th>exact</th>
+      <td><p>Should very large or very small values be reported with a
+scientific format (e.g., 4.24e5), or as truncated values (as "&gt; 1000" and
+"&lt; 1/1000").</p></td>
+    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Argument names can be partially matched.</p>
     <h2 class="hasAnchor" id="rules"><a class="anchor" href="#rules"></a>Rules</h2>
 
     

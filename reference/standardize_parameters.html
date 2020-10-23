@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9.009</span>
       </span>
     </div>
 
@@ -447,7 +447,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; <span class='warning'>these terms. See help("demean", package = "parameters") for modeling</span>
 #&gt; <span class='warning'>between- and within-subject effects.</span></div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
 #&gt; -------------------------------------------------
-#&gt; (Intercept) |                    |               
+#&gt; (Intercept) |               0.00 | [ 0.00,  0.00]
 #&gt; cyl         |              -0.74 | [-1.23, -0.26]
 #&gt; am          |               0.47 | [ 0.01,  0.93]
 #&gt; vs          |               0.20 | [-0.47,  0.87]
@@ -464,12 +464,12 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
   <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>standardize_posteriors</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"basic"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div><div class='output co'>#&gt;   (Intercept) Speciesversicolor Speciesvirginica Petal.Width
-#&gt; 1           0        0.02443670     -0.009429375   0.8437202
-#&gt; 2           0        0.04569722      0.139988415   0.6858118
-#&gt; 3           0        0.06528765      0.110950657   0.7460374
-#&gt; 4           0       -0.01040923     -0.030765243   0.8258345
-#&gt; 5           0       -0.01513676      0.044683846   0.7823281
-#&gt; 6           0        0.08562116      0.160969320   0.7319531</div><div class='input'>
+#&gt; 1           0        0.09498736        0.2551256   0.5465583
+#&gt; 2           0        0.10839831        0.1899528   0.6901098
+#&gt; 3           0       -0.14816108       -0.1918447   1.0245169
+#&gt; 4           0        0.03071704        0.0721430   0.7065662
+#&gt; 5           0       -0.11396469       -0.1826143   0.9734753
+#&gt; 6           0       -0.13799408       -0.1776808   0.9601194</div><div class='input'>
 <span class='co'># }</span>
 
 </div></span></pre>
