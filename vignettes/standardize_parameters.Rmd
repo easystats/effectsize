@@ -298,7 +298,7 @@ standardize_parameters(mod_b, method = "refit", two_sd = TRUE, exponentiate = TR
 
 # Cohen's *f*
 
-Cohen's $f$ (of [ANOVA fame]([https://easystats.github.io/effectsize/articles/anovaES.html])) can be used as a measure of effect size in the context of sequential multiple regression. That is, when comparing two models, we can examine the ratio between the increase in $R^2$ and the unexplained variance:
+Cohen's $f$ (of [ANOVA fame](https://easystats.github.io/effectsize/articles/anovaES.html)) can be used as a measure of effect size in the context of sequential multiple regression. That is, when comparing two models, we can examine the ratio between the increase in $R^2$ and the unexplained variance:
 
 $$
 f^{2}={R_{AB}^{2}-R_{A}^{2} \over 1-R_{AB}^{2}}
