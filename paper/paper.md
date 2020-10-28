@@ -1,5 +1,5 @@
 ---
-title: "effectsize: Indices of Effect Size and Standardized Parameters"
+title: "Size does matter: Estimation and Interpretation of Effect Size Indices and Standardized Parameters"
 authors:
 - affiliation: 1
   name: Mattan S. Ben-Shachar
