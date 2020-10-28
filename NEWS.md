@@ -1,8 +1,64 @@
-# effectsize 0.3.x
+# effectsize 0.4.0
+
+## Breaking Changes
+
+- `standardize_parameters()` for multi-component models (such as zero-inflated) now returns the unstandardized parameters in some cases where standardization is not possible (previously returned `NA`s).
+- Column name changes: 
+  - `eta_squared()` / `F_to_eta2` families of function now has the `Eta2` format, where previously was `Eta_Sq`.
+  - `cramers_v` is now `Cramers_v`
+
+## New features
+
+- `effectsize()` added support for `BayesFactor` objects (Cohen's *d*, Cramer's *v*, and *r*).
+- `cohens_g()` effect size for paired contingency tables.
+- Generalized Eta Squared now available via `eta_squared(generalized = ...)`.
+- `eta_squared()`, `omega_squared()` and `epsilon_squared()` fully support `aovlist`, `afex_aov` and `mlm` (or `maov`) objects.
+- `standardize_parameters()` can now return Odds ratios / IRRs (or any exponentiated parameter) by setting `exponentiate = TRUE`.
+- Added `cohens_f_squared()` and `F_to_f2()` for Cohen's *f*-squared.
+- `cohens_f()` / `cohens_f_squared()`can be used to estimate Cohen's *f* for the R-squared change between two models.
+- `standardize()` and `standardize_info()` work with weighted models / data ( #82 ).
+- Added `hardlyworking` (simulated) dataset, for use in examples.
+- `interpret_*` ( #131 ):
+  - `interpret_omega_squared()` added `"cohen1992"` rule.
+  - `interpret_p()` added *Redefine statistical significance* rules.
+- `oddsratio_to_riskratio()` for converting OR to RR.
+
+## Changes
+
+- CIs for Omega-/Epsilon-squared and Adjusted Phi/Cramer's V return 0s instead of negative values.
+- `standardize()` for data frames gains the `remove_na` argument for dealing with `NA`s ( #147 ).
+- `standardize()` and `standardize_info()` now (and by extension, `standardize_parameters()`) respect the weights in weighted models when standardizing ( #82 ).
+- Internal changes to `standardize_parameters()` (reducing co-dependency with `parameters`) - argument `parameters` has been dropped.
+
+## Bug fixes
+
+- `ranktransform(sign = TURE)` correctly (doesn't) deal with zeros.
+- `effectsize()` for `htest` works with Spearman and Kendall correlations ( #165 ).  
+- `cramers_v()` and `phi()` now work with goodness-of-fit data ( #158 )
+- `standardize_parameters()` for post-hoc correctly standardizes transformed outcome.
+- Setting `two_sd = TRUE` in `standardize()` and `standardize_parameters()` (correctly) on uses 2-SDs of the predictors (and not the response). 
+- `standardize_info()` / `standardize_parameters(method = "posthoc")` work for zero-inflated models ( #135 )
+- `standardize_info(include_pseudo = TRUE)` / `standardize_parameters(method = "pseudo")` are less sensitive in detecting between-group variation of within-group variables.
+- `interpret_oddsratio()` correctly treats extremely small odds the same as treats extremely large ones.
+
+
+# effectsize 0.3.3
+
+## New features
+
+- `standardize_parameters(method = "pseudo")` returns pseudo-standardized coefficients for (G)LMM models.
+- `d_to_common_language()` for common language measures of standardized differences (a-la Cohen's d).
+
+## Changes
+
+- `r_to_odds()` family is now deprecated in favor of `r_to_oddsratio()`.
+- `interpret_odds()` is now deprecated in favor of `interpret_oddsratio()`
 
 ## Bug fixes
 
 - `phi()` and `cramers_v()` did not respect the CI argument ( #111 ).
+- `standardize()` / `standardize_parameters()` properly deal with transformed data in the model formula ( #113 ).
+- `odds_to_probs()` was mis-treating impossible odds (NEVER TELL ME THE ODDS! #123 )
 
 # effectsize 0.3.2
 

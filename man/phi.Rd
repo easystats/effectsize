@@ -2,17 +2,25 @@
 % Please edit documentation in R/phi_cramers_v.R
 \name{phi}
 \alias{phi}
+\alias{cohens_w}
 \alias{cramers_v}
+\alias{cohens_g}
 \title{Effect size for contingency tables}
 \usage{
 phi(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
 
+cohens_w(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
+
 cramers_v(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
+
+cohens_g(x, y = NULL, ci = 0.95, ...)
 }
 \arguments{
-\item{x}{a numeric vector or matrix. x and y can also both be factors.}
+\item{x}{a numeric vector or matrix. \code{x} and \code{y} can also
+    both be factors.}
 
-\item{y}{a numeric vector; ignored if x is a matrix. If x is a factor, y should be a factor of the same length.}
+\item{y}{a numeric vector; ignored if \code{x} is a matrix.  If
+    \code{x} is a factor, \code{y} should be a factor of the same length.}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -20,21 +28,67 @@ cramers_v(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
 
 \item{CI}{Deprecated in favor of \code{ci}.}
 
-\item{...}{Ignored.}
+\item{...}{Arguments passed to \code{\link[stats:chisq.test]{stats::chisq.test()}}, such as \code{p}. Ignored
+for \code{cohens_g()}.}
 }
 \value{
-A data frame with the effect size(s) between 0-1, and confidence interval(s).
+A data frame with the effect size(s), and confidence interval(s).
 }
 \description{
-Compute Cramer's V and phi (\eqn{\phi}) from contingency tables.
+Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w} (an alias of phi) and
+Cohen's \emph{g} for contingency tables or goodness-of-fit. See details.
+}
+\details{
+Cramer's \emph{V} and phi (\eqn{\phi}) are effect sizes for tests of independence
+in 2D contingency tables, or for goodness-of-fit in 1D tables. For 2x2
+tables, all 3 are identical, and are equal to the simple correlation between
+two dichotomous variables, ranging between  0 (no dependence) and 1 (perfect
+dependence). For larger tables, Cramer's \emph{V} should be used, as it is bounded
+between 0-1, whereas phi can be larger than 1.
+\cr\cr
+Cohen's \emph{g} is an effect size for dependent (paired) contingency tables
+ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry) (see
+\code{\link[stats:mcnemar.test]{stats::mcnemar.test()}}).
+\subsection{Confidence Intervals}{
+
+For Cramer's \emph{V} and phi, confidence intervals are estimated using the
+Noncentrality parameter method; These methods searches for a the best \code{ncp}
+(non-central parameters) for of the noncentral Chi-squared distribution for
+the desired tail-probabilities, and then convert these \code{ncp}s to the
+corresponding effect sizes.
+\cr\cr
+For Cohen's \emph{g}, confidence intervals are based on the proportion (\eqn{P = g
++ 0.5}) confidence intervals returned by \code{\link[stats:prop.test]{stats::prop.test()}} (minus 0.5),
+which give a good close approximation.
+}
 }
 \examples{
-contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
+M <- rbind(c(150, 130, 35, 55),
+           c(100, 50,  10, 40),
+           c(165, 65,  2,  25))
 
-phi(contingency_table)
+dimnames(M) <- list(Study = c("Psych", "Econ", "Law"),
+                    Music = c("Pop", "Rock", "Jazz", "Classic"))
+M
 
-cramers_v(contingency_table)
+phi(M)
 
+cramers_v(M)
+
+
+Performance <-
+  matrix(c(794, 86, 150, 570),
+         nrow = 2,
+         dimnames = list("1st Survey" = c("Approve", "Disapprove"),
+                         "2nd Survey" = c("Approve", "Disapprove")))
+
+cohens_g(Performance)
+
+}
+\references{
+\itemize{
+\item Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
+}
 }
 \seealso{
 \code{\link[=chisq_to_phi]{chisq_to_phi()}} for details regarding estimation and CIs.

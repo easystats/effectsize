@@ -42,12 +42,14 @@ check-out these vignettes:
 
   - [**Data
     Standardization**](https://easystats.github.io/effectsize/articles/standardize_data.html)
-  - [**Parameters
+  - [**Parameter and Model
     Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
-  - [**Effect Sizes for Logistic
-    Models**](https://easystats.github.io/effectsize/articles/logistic.html)
-  - [**Effect size
-    conversion**](https://easystats.github.io/effectsize/articles/convert.html)
+  - [**ANOVA Effect
+    Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
+  - [**Effect Sizes in Bayesian
+    Models**](https://easystats.github.io/effectsize/articles/bayesian_models.html)
+  - [**Effect Size
+    Conversion**](https://easystats.github.io/effectsize/articles/convert.html)
   - [**Effect Size from Test
     Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
   - [**Automated Interpretation of Indices of Effect
@@ -67,7 +69,7 @@ library(effectsize)
 
 ## Effect Size Computation
 
-### Basic Indices (Cohen’s *d*, Hedges’ *g*, Glass’ *delta*)
+### Standardized Differences (Cohen’s *d*, Hedges’ *g*, Glass’ *delta*)
 
 The package provides functions to compute indices of effect size.
 
@@ -76,10 +78,12 @@ cohens_d(iris$Sepal.Length, iris$Sepal.Width)
 ## Cohen's d |       95% CI
 ## ------------------------
 ##      4.21 | [3.80, 4.61]
+
 hedges_g(iris$Sepal.Length, iris$Sepal.Width)
 ## Hedge's g |       95% CI
 ## ------------------------
 ##      4.20 | [3.79, 4.60]
+
 glass_delta(iris$Sepal.Length, iris$Sepal.Width)
 ## Glass' delta |       95% CI
 ## ---------------------------
@@ -91,60 +95,58 @@ glass_delta(iris$Sepal.Length, iris$Sepal.Width)
 ``` r
 model <- aov(Sepal.Length ~ Species, data = iris)
 
-omega_squared(model)
-## Parameter | Omega2 (partial) |       90% CI
-## -------------------------------------------
-## Species   |             0.61 | [0.53, 0.67]
 eta_squared(model)
 ## Parameter | Eta2 (partial) |       90% CI
 ## -----------------------------------------
 ## Species   |           0.62 | [0.54, 0.68]
+
+omega_squared(model)
+## Parameter | Omega2 (partial) |       90% CI
+## -------------------------------------------
+## Species   |             0.61 | [0.53, 0.67]
+
 epsilon_squared(model)
 ## Parameter | Epsilon2 (partial) |       90% CI
 ## ---------------------------------------------
 ## Species   |               0.61 | [0.54, 0.67]
-cohens_f(model)
-## Parameter | Cohen's f (partial) |       90% CI
-## ----------------------------------------------
-## Species   |                1.27 | [1.09, 1.45]
 ```
 
-### Regression Models
+And more…
+
+### Regression Models (Standardized Parameters)
 
 Importantly, `effectsize` also provides [advanced
 methods](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
 to compute standardized parameters for regression models.
 
 ``` r
-lm(Sepal.Length ~ Species + Sepal.Length, data = iris) %>% 
-  standardize_parameters()
+m <- lm(Sepal.Length ~ Species + Sepal.Width, data = iris)
+
+standardize_parameters(m)
 ## Parameter         | Coefficient (std.) |         95% CI
 ## -------------------------------------------------------
-## (Intercept)       |              -1.01 | [-1.18, -0.84]
-## Speciesversicolor |               1.12 | [ 0.88,  1.37]
-## Speciesvirginica  |               1.91 | [ 1.66,  2.16]
+## (Intercept)       |              -1.37 | [-1.55, -1.20]
+## Speciesversicolor |               1.76 | [ 1.49,  2.03]
+## Speciesvirginica  |               2.35 | [ 2.11,  2.59]
+## Sepal.Width       |               0.42 | [ 0.31,  0.53]
+## 
+## # Standardization method: Refit
 ```
 
-## Effect Size Interpretation
-
-The package allows for an automated interpretation of different indices.
+Also, models can be re-fit with standardized data:
 
 ``` r
-interpret_r(r = 0.3)
-## [1] "large"
+standardize(m)
+## 
+## Call:
+## lm(formula = Sepal.Length ~ Species + Sepal.Width, data = data_std)
+## 
+## Coefficients:
+##       (Intercept)  Speciesversicolor   Speciesvirginica        Sepal.Width  
+##            -1.371              1.762              2.351              0.423
 ```
 
-Different sets of “rules of thumb” are implemented ([**guidelines are
-detailed
-here**](https://easystats.github.io/effectsize/articles/interpret.html))
-and can be easily changed.
-
-``` r
-interpret_d(d = 0.45, rules = "cohen1988")
-## [1] "small"
-interpret_d(d = 0.45, rules = "funder2019")
-## [1] "medium"
-```
+<!-- add cohens_f2? -->
 
 ## Effect Size Conversion
 
@@ -156,14 +158,58 @@ convert_d_to_r(d = 1)
 ## [1] 0.447
 ```
 
-## Standardization
+And for recovering effect sizes from test statistics.
+
+``` r
+F_to_d(15, df = 1, df_error = 60)
+## d |       95% CI
+## ----------------
+## 1 | [0.46, 1.53]
+
+F_to_r(15, df = 1, df_error = 60)
+##    r |       95% CI
+## -------------------
+## 0.45 | [0.22, 0.61]
+
+F_to_eta2(15, df = 1, df_error = 60)
+## Eta2 (partial) |       90% CI
+## -----------------------------
+##           0.20 | [0.07, 0.34]
+```
+
+## Effect Size Interpretation
+
+The package allows for an automated interpretation of different indices.
+
+``` r
+interpret_r(r = 0.3)
+## [1] "large"
+## (Rules: funder2019)
+```
+
+Different sets of “rules of thumb” are implemented ([**guidelines are
+detailed
+here**](https://easystats.github.io/effectsize/articles/interpret.html))
+and can be easily changed.
+
+``` r
+interpret_d(d = 0.45, rules = "cohen1988")
+## [1] "small"
+## (Rules: cohen1988)
+
+interpret_d(d = 0.45, rules = "gignac2016")
+## [1] "moderate"
+## (Rules: gignac2016)
+```
+
+## Utilities
+
+*Data Standardization, Normalization, Scaling, and Rank-Transforming*
 
 Many indices of effect size stem out, or are related, to
 [*standardization*](https://easystats.github.io/effectsize/articles/standardize_parameters.html).
 Thus, it is expected that `effectsize` provides functions to standardize
-data and models.
-
-### Data standardization, normalization and rank-transformation
+data.
 
 A standardization sets the mean and SD to 0 and 1:
 
@@ -175,15 +221,6 @@ describe_distribution(df$Sepal.Length)
 ##      Mean | SD |  IQR |         Range | Skewness | Kurtosis |   n | n_Missing
 ## -----------------------------------------------------------------------------
 ## -4.48e-16 |  1 | 1.57 | [-1.86, 2.48] |     0.31 |    -0.55 | 150 |         0
-```
-
-This can be also applied to statistical models:
-
-``` r
-std_model <- standardize(lm(Sepal.Length ~ Species, data = iris))
-coef(std_model)
-##       (Intercept) Speciesversicolor  Speciesvirginica 
-##             -1.01              1.12              1.91
 ```
 
 Alternatively, normalization is similar to standardization in that it is
@@ -213,10 +250,17 @@ describe_distribution(df$Sepal.Length)
 ```
 
 For some robust statistics, one might also want to transfom the numeric
-values into *ranks* (or signed-ranks), which can be performed using the
-`ranktransform()` function.
+values into *ranks*, which can be performed using the `ranktransform()`
+function.
 
 ``` r
-ranktransform(c(1, 3, -2, 6, 6, 0))
+ranktransform(c(1, 3, -2, 6, 6, 0.5))
 ## [1] 3.0 4.0 1.0 5.5 5.5 2.0
+```
+
+or signed-ranks:
+
+``` r
+ranktransform(c(1, 3, -2, 6, 6, 0.5), sign = TRUE)
+## [1]  2.0  4.0 -3.0  5.5  5.5  1.0
 ```

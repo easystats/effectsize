@@ -2,20 +2,43 @@
 % Please edit documentation in R/interpret_p.R
 \name{interpret_p}
 \alias{interpret_p}
-\title{p-values interpretation}
+\title{Interpret p-values}
 \usage{
 interpret_p(p, rules = "default")
 }
 \arguments{
 \item{p}{Value or vector of p-values.}
 
-\item{rules}{Can be \code{"default"} or custom set of \code{\link[=rules]{rules()}}.}
+\item{rules}{Can be \code{"default"}, \code{"rss"} (for \emph{Redefine statistical
+significance} rules) or custom set of \code{\link[=rules]{rules()}}.}
 }
 \description{
-p-values interpretation
+Interpret p-values
 }
-\examples{
-interpret_p(.02)
-interpret_p(c(.5, .02))
+\section{Rules}{
 
+\itemize{
+\item Default
+\itemize{
+\item \strong{p > 0.05} - Not significant
+\item \strong{p < 0.05} - Significant
+}
+\item Benjamin et al. (2018) (\code{"rss"})
+\itemize{
+\item \strong{p > 0.05} - Not significant
+\item \strong{0.005 < p < 0.05} - Suggestive
+\item \strong{p < 0.005} - Significant
+}
+}
+}
+
+\examples{
+interpret_p(c(.5, .02, 0.001))
+interpret_p(c(.5, .02, 0.001), rules = "rss")
+
+}
+\references{
+\itemize{
+\item Benjamin, D. J., Berger, J. O., Johannesson, M., Nosek, B. A., Wagenmakers, E. J., Berk, R., ... & Cesarini, D. (2018). Redefine statistical significance. Nature Human Behaviour, 2(1), 6-10.
+}
 }

@@ -2,26 +2,55 @@
 % Please edit documentation in R/interpret_omega_squared.R
 \name{interpret_omega_squared}
 \alias{interpret_omega_squared}
-\title{ANOVA effect size interpretation}
+\alias{interpret_eta_squared}
+\alias{interpret_epsilon_squared}
+\title{Interpret ANOVA effect size}
 \usage{
-interpret_omega_squared(omega_squared, rules = "field2013")
+interpret_omega_squared(es, rules = "field2013")
+
+interpret_eta_squared(es, rules = "field2013")
+
+interpret_epsilon_squared(es, rules = "field2013")
 }
 \arguments{
-\item{omega_squared}{Value or vector of omega squared values.}
+\item{es}{Value or vector of eta / omega / epsilon squared values.}
 
-\item{rules}{Can be \code{"field2013"} (default) or custom set of \code{\link[=rules]{rules()}}.}
+\item{rules}{Can be \code{"field2013"} (default), \code{"cohen1992"} or custom set of \code{\link[=rules]{rules()}}.}
 }
 \description{
-ANOVA effect size interpretation
+Interpret ANOVA effect size
 }
+\section{Rules}{
+
+\itemize{
+\item Field (2013) (\code{"field2013"}; default)
+\itemize{
+\item \strong{ES < 0.01} - Very small
+\item \strong{0.01 < ES < 0.06} - Small
+\item \strong{0.16 < ES < 0.14} - Medium
+\item **ES > 0.14 ** - Large
+}
+\item Cohen (1992) (\code{"cohen1992"}) applicable to one-way anova, or to \emph{partial}
+eta / omega / epsilon squared in multi-way anova.
+\itemize{
+\item \strong{ES < 0.02} - Very small
+\item \strong{0.02 < ES < 0.13} - Small
+\item \strong{0.13 < ES < 0.26} - Medium
+\item \strong{ES > 0.26} - Large
+}
+}
+}
+
 \examples{
-interpret_omega_squared(.02)
-interpret_omega_squared(c(.5, .02))
+interpret_eta_squared(.02)
+interpret_eta_squared(c(.5, .02), rules = "cohen1992")
+
 
 }
 \references{
 \itemize{
 \item Field, A (2013) Discovering statistics using IBM SPSS Statistics. Fourth Edition. Sage:London.
+\item Cohen, J. (1992). A power primer. Psychological bulletin, 112(1), 155.
 }
 }
 \seealso{

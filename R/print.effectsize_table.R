@@ -14,14 +14,18 @@ print.effectsize_table <- function(x, digits = 2, ...){
                                digits = digits,
                                width = "auto")
 
-    colnames(x)[colnames(x) == "CI"] <-
-      paste0(insight::format_value(ci_level, as_percent = TRUE, digits = 0),
-             " CI")
+    colnames(x)[colnames(x) == "CI"] <- sprintf("%g%% CI", round(ci_level * 100, digits = digits))
 
     x$CI_low <- x$CI_high <- NULL
   }
 
   cat(insight::format_table(x, digits = digits))
+
+  ## MSB: Move to own printing function?
+  if (!is.null(method <- attr(x_orig, "std_method"))) {
+    method <- paste0(toupper(substr(method, 1L, 1L)), substr(method, 2L, nchar(method)))
+    insight::print_color(color = "blue", paste0("\n# Standardization method: ", method, "\n"))
+  }
 
   invisible(x_orig)
 }

@@ -4,23 +4,56 @@
 \alias{interpret_d}
 \alias{interpret_g}
 \alias{interpret_delta}
-\title{Standardized difference interpretation}
+\title{Interpret standardized differences}
 \usage{
-interpret_d(d, rules = "funder2019")
+interpret_d(d, rules = "cohen1988", ...)
 
-interpret_g(g, rules = "funder2019")
+interpret_g(g, rules = "cohen1988")
 
-interpret_delta(delta, rules = "funder2019")
+interpret_delta(delta, rules = "cohen1988")
 }
 \arguments{
 \item{d, g, delta}{Value or vector of effect size values.}
 
-\item{rules}{Can be \code{"funder2019"} (default), \code{"gignac2016"}, \code{"cohen1988"}, \code{"sawilowsky2009"} or custom set of \code{\link[=rules]{rules()}}.}
+\item{rules}{Can be \code{"cohen1988"} (default), \code{"gignac2016"}, \code{"sawilowsky2009"} or custom set of \code{\link[=rules]{rules()}}.}
+
+\item{...}{Not directly used.}
 }
 \description{
-Interpretation of indices using different sets of rules of thumb.
-\href{https://easystats.github.io/report/articles/interpret_metrics.html#standardized-difference-d-cohens-d}{Click here} for details.
+Interpretation of standardized differences using different sets of rules of thumb.
 }
+\section{Rules}{
+
+
+Rules apply to equally to positive and negative \emph{d}.
+\itemize{
+\item Cohen (1988) (\code{"cohen1988"}; default)
+\itemize{
+\item \strong{d < 0.2} - Very small
+\item \strong{0.2 < d < 0.5} - Small
+\item \strong{0.5 < d < 0.8} - Medium
+\item \strong{d > 0.8} - Large
+}
+\item Sawilowsky (2009) (\code{"sawilowsky2009"})
+\itemize{
+\item \strong{d < 0.1} - Tiny
+\item \strong{0.1 < d < 0.2} - Very small
+\item \strong{0.2 < d < 0.5} - Small
+\item \strong{0.5 < d < 0.8} - Medium
+\item \strong{0.8 < d < 1.2} - Large
+\item \strong{1.2 < d < 2} - Very large
+\item \strong{d > 2} - Huge
+}
+\item Gignac & Szodorai (2016) (\code{"gignac2016"}, based on the \code{\link[=d_to_r]{d_to_r()}} conversion, see \code{\link[=interpret_r]{interpret_r()}})
+\itemize{
+\item \strong{d < 0.2} - Very small
+\item \strong{0.2 < d < 0.41} - Small
+\item \strong{0.41 < d < 0.63} - Moderate
+\item \strong{d > 0.63} - Large
+}
+}
+}
+
 \examples{
 interpret_d(.02)
 interpret_d(c(.5, .02))
@@ -28,7 +61,6 @@ interpret_d(c(.5, .02))
 }
 \references{
 \itemize{
-\item Funder, D. C., & Ozer, D. J. (2019). Evaluating effect size in psychological research: sense and nonsense. Advances in Methods and Practices in Psychological Science.
 \item Gignac, G. E., & Szodorai, E. T. (2016). Effect size guidelines for individual differences researchers. Personality and individual differences, 102, 74-78.
 \item Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
 \item Sawilowsky, S. S. (2009). New effect size rules of thumb.

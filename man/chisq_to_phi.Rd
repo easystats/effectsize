@@ -2,18 +2,21 @@
 % Please edit documentation in R/convert_chisq.R
 \name{chisq_to_phi}
 \alias{chisq_to_phi}
+\alias{chisq_to_cohens_w}
 \alias{chisq_to_cramers_v}
 \alias{phi_to_chisq}
-\title{Conversion between Effect sizes for Contingency Tables (Chi2, Phi, Cramer's V...)}
+\title{Conversion Chi-Squared to Phi or Cramer's V}
 \usage{
 chisq_to_phi(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...)
+
+chisq_to_cohens_w(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...)
 
 chisq_to_cramers_v(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...)
 
 phi_to_chisq(phi, n, ...)
 }
 \arguments{
-\item{chisq}{The Chi2 statistic.}
+\item{chisq}{The Chi-squared statistic.}
 
 \item{n}{Sample size.}
 
@@ -31,7 +34,8 @@ phi_to_chisq(phi, n, ...)
 A data frame with the effect size(s) between 0-1, and confidence interval(s).
 }
 \description{
-Convert between Chi square, (\eqn{\chi^2}), phi (\eqn{\phi}) and Cramer's V.
+Convert between Chi square, (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}) and
+Cohen's \emph{w} for contingency tables or goodness of fit.
 }
 \details{
 These functions use the following formulae:
@@ -44,10 +48,13 @@ For adjusted versions, see Bergsma, 2013.
 \subsection{Confidence Intervals}{
 
 Confidence intervals are estimated using the Noncentrality parameter method;
-These methods searches for a the best \code{ncp} (non-central parameters) for
-of the noncentral F distribution for the desired tail-probabilities,
+These methods searches for a the best \code{ncp} (non-central parameters) for of
+the noncentral Chi-squared distribution for the desired tail-probabilities,
 and then convert these \code{ncp}s to the corresponding effect sizes.
 }
+}
+\note{
+Cohen's \emph{w} is equivalent to \emph{Phi}.
 }
 \examples{
 contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))

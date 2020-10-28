@@ -5,24 +5,46 @@
 \alias{omega_squared}
 \alias{epsilon_squared}
 \alias{cohens_f}
+\alias{cohens_f_squared}
 \title{Effect size for ANOVA}
 \usage{
-eta_squared(model, partial = TRUE, ci = 0.9, ...)
+eta_squared(model, partial = TRUE, generalized = FALSE, ci = 0.9, ...)
 
 omega_squared(model, partial = TRUE, ci = 0.9, ...)
 
 epsilon_squared(model, partial = TRUE, ci = 0.9, ...)
 
-cohens_f(model, partial = TRUE, ci = 0.9, ...)
+cohens_f(model, partial = TRUE, ci = 0.9, squared = FALSE, model2 = NULL, ...)
+
+cohens_f_squared(
+  model,
+  partial = TRUE,
+  ci = 0.9,
+  squared = TRUE,
+  model2 = NULL,
+  ...
+)
 }
 \arguments{
 \item{model}{A model, ANOVA object, or the result of \code{parameters::model_parameters}.}
 
 \item{partial}{If \code{TRUE}, return partial indices.}
 
+\item{generalized}{If TRUE, returns generalized Eta Squared, assuming all
+variables are manipulated. Can also be a character vector of observed
+(non-manipulated) variables, in which case generalized Eta Squared is
+calculated taking these observed variables into account. For \code{afex_aov}
+model, \code{generalized = TRUE}, the observed variables are extracted
+automatically from the fitted model, if they were provided then.}
+
 \item{ci}{Confidence Interval (CI) level}
 
 \item{...}{Arguments passed to or from other methods (ignored).}
+
+\item{squared}{Return Cohen's \emph{f} or Cohen's \emph{f}-squared?}
+
+\item{model2}{Second model. If specified, returns Cohen's \emph{f} for
+R-squared-change between the two models.}
 }
 \value{
 A data frame with the effect size(s) and confidence interval(s).
@@ -30,28 +52,34 @@ A data frame with the effect size(s) and confidence interval(s).
 A data frame containing the effect size values and their confidence intervals.
 }
 \description{
-Functions to compute effect size measures for ANOVAs, such as Eta, Omega and Epsilon squared,
-and Cohen's f (or their partialled versions) for \code{aov}, \code{aovlist} and \code{anova}
-models. These indices represent an estimate of how much variance in the response variables
-is accounted for by the explanatory variable(s).
+Functions to compute effect size measures for ANOVAs, such as Eta, Omega and
+Epsilon squared, and Cohen's f (or their partialled versions) for \code{aov},
+\code{aovlist} and \code{anova} models. These indices represent an estimate of how much
+variance in the response variables is accounted for by the explanatory
+variable(s).
 \cr\cr
-Effect sizes are computed using the sums of squares obtained from \code{anova(model)} which
-might not always be appropriate (\strong{\emph{Yeah... ANOVAs are hard...}}). See details.
+Effect sizes are computed using the sums of squares obtained from
+\code{anova(model)} which might not always be appropriate (\strong{\emph{Yeah... ANOVAs are
+hard...}}). It is suggested that ANOVA models be fit with \code{afex} package.
+See details.
 }
 \details{
 For \code{aov} and \code{aovlist} models, the effect sizes are computed directly with
-Sums-of-Squares. For all other model, the model is passed to \code{anova()}, and effect
-sizes are approximated via test statistic conversion (see \verb{[F_to_eta2] for more details.})
+Sums-of-Squares (for \code{mlm} / \code{maov} models, effect sizes are computed for
+each response separately). For all other model, the model is passed to
+\code{anova()}, and effect sizes are approximated via test statistic conversion
+(see \code{\link[=F_to_eta2]{F_to_eta2()}} for more details.)
 \subsection{Type of Sums of Squares}{
 
-The sums of squares (or F statistics) used for the computation of the effect sizes is
-based on those returned by \code{anova(model)} (whatever those may be - for \code{aov}
-and \code{aovlist} these are \emph{type-1} sums of squares; for \code{merMod} these are
-\emph{type-3} sums of squares). Make sure these are the sums of squares you are intrested
-in (you might want to pass the result of \code{car::Anova(mode, type = 3)}).
+The sums of squares (or F statistics) used for the computation of the effect
+sizes is based on those returned by \code{anova(model)} (whatever those may be -
+for \code{aov} and \code{aovlist} these are \emph{type-1} sums of squares; for \code{merMod}
+these are \emph{type-3} sums of squares). Make sure these are the sums of squares
+you are interested in; You might want to pass the result of \code{car::Anova(mode, type = 3)}, or use the \code{afex} package to fit ANOVA models.
 \cr\cr
-It is generally recommended to fit models with \emph{\code{contr.sum} factor weights} and
-\emph{centered covariates}, for sensible results. See examples.
+It is generally recommended to fit models with \emph{\code{contr.sum} factor weights}
+and \emph{centered covariates}, for sensible results. See examples and the \code{afex}
+package.
 }
 
 \subsection{Confidence Intervals}{
@@ -62,8 +90,8 @@ of the noncentral F distribution for the desired tail-probabilities,
 and then convert these \code{ncp}s to the corresponding effect sizes.
 \cr\cr
 Special care should be taken when interpreting CIs with a lower bound equal
-to (or small then) 0, and even more care should be taken when the
-\emph{upper} bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
+to (or small then) 0, and even more care should be taken when the \emph{upper}
+bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
 }
 
 \subsection{Un-Biased Estimate of Eta}{
@@ -79,11 +107,16 @@ biased (Carroll & Nordholm, 1975).
 
 \subsection{Cohen's f}{
 
-Cohen's f can take on values between zero, when the population
-means are all equal, and an indefinitely large number as standard deviation of means
-increases relative to the average standard deviation within each group. Cohen has
-suggested that the values of 0.10, 0.25, and 0.40 represent small, medium, and large
-effect sizes, respectively.
+Cohen's f can take on values between zero, when the population means are all
+equal, and an indefinitely large number as standard deviation of means
+increases relative to the average standard deviation within each group.
+\cr\cr
+When comparing two models in a sequential regression analysis, Cohen's f for
+R-square change is the ratio between ratio between the increase in R-square
+and the \\% unexplained variance.
+\cr\cr
+Cohen has suggested that the values of 0.10, 0.25, and 0.40 represent small,
+medium, and large effect sizes, respectively.
 }
 }
 \examples{
@@ -95,6 +128,7 @@ mtcars$cyl_f <- factor(mtcars$cyl)
 model <- aov(mpg ~ am_f * cyl_f, data = mtcars)
 
 eta_squared(model)
+eta_squared(model, generalized = "cyl_f")
 omega_squared(model)
 epsilon_squared(model)
 cohens_f(model)
@@ -102,9 +136,9 @@ cohens_f(model)
 
 if(require(see)) plot(etas)
 
+model0 <- aov(mpg ~ am_f + cyl_f, data = mtcars) # no interaction
+cohens_f_squared(model0, model2 = model)
 
-model <- aov(mpg ~ cyl_f * am_f + Error(vs / am_f), data = mtcars)
-epsilon_squared(model)
 
 # Recommended:
 # Type-3 effect sizes + effects coding
@@ -117,6 +151,21 @@ if (require(car, quietly = TRUE)) {
 
   eta_squared(model_anova)
 }
+
+# afex takes care of both type-3 effects and effects coding:
+if (require(afex)) {
+  data(obk.long, package = "afex")
+  model <- aov_car(value ~ treatment * gender + Error(id/(phase)),
+                   data = obk.long, observed = "gender")
+  eta_squared(model)
+  epsilon_squared(model)
+  omega_squared(model)
+  eta_squared(model, partial = FALSE)
+  epsilon_squared(model, partial = FALSE)
+  omega_squared(model, partial = FALSE)
+  eta_squared(model, generalized = TRUE)
+}
+
 
 if (require("parameters")) {
   model <- lm(mpg ~ wt + cyl, data = mtcars)
@@ -135,9 +184,10 @@ if (require(lmerTest, quietly = TRUE)) {
 \itemize{
 \item Albers, C., \& Lakens, D. (2018). When power analyses based on pilot data are biased: Inaccurate effect size estimators and follow-up bias. Journal of experimental social psychology, 74, 187-195.
 \item Allen, R. (2017). Statistics and Experimental Design for Psychologists: A Model Comparison Approach. World Scientific Publishing Company.
-\item Carroll, R. M., & Nordholm, L. A. (1975). Sampling Characteristics of Kelley's ε and Hays' ω. Educational and Psychological Measurement, 35(3), 541-554.
+\item Carroll, R. M., & Nordholm, L. A. (1975). Sampling Characteristics of Kelley's epsilon and Hays' omega. Educational and Psychological Measurement, 35(3), 541-554.
 \item Kelley, T. (1935) An unbiased correlation ratio measure. Proceedings of the National Academy of Sciences. 21(9). 554-559.
 \item Morey, R. D., Hoekstra, R., Rouder, J. N., Lee, M. D., & Wagenmakers, E. J. (2016). The fallacy of placing confidence in confidence intervals. Psychonomic bulletin & review, 23(1), 103-123.
+\item Olejnik, S., & Algina, J. (2003). Generalized eta and omega squared statistics: measures of effect size for some common research designs. Psychological methods, 8(4), 434.
 \item Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
 }
 }

@@ -11,6 +11,8 @@
 \alias{t_to_omega2}
 \alias{F_to_f}
 \alias{t_to_f}
+\alias{F_to_f2}
+\alias{t_to_f2}
 \title{Convert test statistics (F, t) to indices of \strong{partial} variance explained (\strong{partial} Eta / Omega / Epsilon squared and Cohen's f)}
 \usage{
 F_to_eta2(f, df, df_error, ci = 0.9, ...)
@@ -29,9 +31,13 @@ F_to_omega2(f, df, df_error, ci = 0.9, ...)
 
 t_to_omega2(t, df_error, ci = 0.9, ...)
 
-F_to_f(f, df, df_error, ci = 0.9, ...)
+F_to_f(f, df, df_error, ci = 0.9, squared = FALSE, ...)
 
-t_to_f(t, df_error, ci = 0.9, ...)
+t_to_f(t, df_error, ci = 0.9, squared = FALSE, ...)
+
+F_to_f2(f, df, df_error, ci = 0.9, squared = TRUE, ...)
+
+t_to_f2(t, df_error, ci = 0.9, squared = TRUE, ...)
 }
 \arguments{
 \item{df, df_error}{Degrees of freedom of numerator or of the error estimate (i.e., the residuals).}
@@ -41,6 +47,8 @@ t_to_f(t, df_error, ci = 0.9, ...)
 \item{...}{Arguments passed to or from other methods.}
 
 \item{t, f}{The t or the F statistics.}
+
+\item{squared}{Return Cohen's \emph{f} or Cohen's \emph{f}-squared?}
 }
 \value{
 A data frame with the effect size(s) between 0-1, and confidence interval(s) (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2}
@@ -76,8 +84,8 @@ Both Omega and Epsilon are unbiased estimators of the population Eta. But
 which to choose? Though Omega is the more popular choice, it should be noted
 that:
 \enumerate{
-\item The formula given above for Omega is only a (close) approximation for
-complex designs.
+\item The formula given above for Omega is only an approximation for complex
+designs.
 \item Epsilon has been found to be less biased (Carroll & Nordholm, 1975).
 }
 }
@@ -118,7 +126,7 @@ if(require(see)) plot(etas)
 
 if (require("lmerTest")) { # for the df_error
   fit <- lmer(extra ~ group + (1 | ID), sleep)
-  anova(fit)
+  # anova(fit)
   # Type III Analysis of Variance Table with Satterthwaite's method
   #       Sum Sq Mean Sq NumDF DenDF F value   Pr(>F)
   # group 12.482  12.482     1     9  16.501 0.002833 **
@@ -142,7 +150,7 @@ if (require(emmeans)) {
 \references{
 \itemize{
 \item Albers, C., & Lakens, D. (2018). When power analyses based on pilot data are biased: Inaccurate effect size estimators and follow-up bias. Journal of experimental social psychology, 74, 187-195. \doi{10.31234/osf.io/b7z4q}
-\item Carroll, R. M., & Nordholm, L. A. (1975). Sampling Characteristics of Kelley's ε and Hays' ω. Educational and Psychological Measurement, 35(3), 541-554.
+\item Carroll, R. M., & Nordholm, L. A. (1975). Sampling Characteristics of Kelley's epsilon and Hays' omega. Educational and Psychological Measurement, 35(3), 541-554.
 \item Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
 \item Friedman, H. (1982). Simplified determinations of statistical power, magnitude of effect and research sample sizes. Educational and Psychological Measurement, 42(2), 521-526. \doi{10.1177/001316448204200214}
 \item Mordkoff, J. T. (2019). A Simple Method for Removing Bias From a Popular Measure of Standardized Effect Size: Adjusted Partial Eta Squared. Advances in Methods and Practices in Psychological Science, 2(3), 228-232. \doi{10.1177/2515245919855053}

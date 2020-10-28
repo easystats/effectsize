@@ -18,11 +18,18 @@ reference:
   - eta_squared_posterior
   - cohens_d
   - phi
+
 - title: "Standardization"
   contents:
   - standardize
   - standardize_parameters
   - standardize_info
+- subtitle: "Scale and Transform"
+  contents:
+  - change_scale
+  - normalize
+  - ranktransform
+
 - title: "Effect Size Conversion"
 - subtitle: "From Test Statistics"
   contents:
@@ -31,61 +38,62 @@ reference:
   - chisq_to_phi
 - subtitle: "Between Effect Sizes"
   contents:
-  - convert_z_to_percentile
-  - percentage_to_d
-- title: "Rescaling"
-  contents:
-  - change_scale
-  - normalize
-  - ranktransform
+  - d_to_common_language
+  - d_to_r
+  - odds_to_probs
+  - oddsratio_to_riskratio
+
 - title: "Interpretation"
   contents:
   - equivalence_test.effectsize_table
   - interpret
+  - rules
   - interpret_d
   - interpret_r
-  - interpret_r2
   - interpret_omega_squared
   - interpret_parameters
-  - interpret_odds
+  - interpret_oddsratio
+  - interpret_r2
   - interpret_gfi
   - interpret_p
   - interpret_bf
-  - interpret_direction
   - interpret_ess
-  - interpret_rhat
   - interpret_rope
-  - rules
+  - interpret_direction
+
+
 - title: "Miscellaneous"
   contents:
   - adjust
   - format_standardize
   - sd_pooled
   - is_effectsize_name
-
+  - hardlyworking
 
 navbar:
   type: default
   left:
   - icon: fa-home fa-lg
     href: index.html
-  - text: News
+  - text: "News"
     href: news/index.html
-  - text: Features
+  - text: "Features"
     href: reference/index.html
-  - text: Standardization
+  - text: "Data Standardization"
+    href: articles/standardize_data.html
+  - text: "Effect Sizes"
     menu:
-      - text: "Data standardization"
-        href: articles/standardize_data.html
-      - text: "Parameters standardization"
-        href: articles/standardize_parameters.html
-  - text: Effect sizes
+      - text: "Parameter and Model Standardization"  
+        href: articles/standardize_parameters.html  
+      - text: "ANOVA Effect Sizes"  
+        href: articles/anovaES.html  
+      - text: "For Bayesian Models"  
+        href: articles/bayesian_models.html  
+  - text: "Conversion"
     menu:
-      - text: "Effect Sizes for Logistic Models"
-        href: articles/logistic.html
-      - text: "Effect size conversion"
+      - text: "Between d, r, OR"
         href: articles/convert.html
-      - text: "Effect Size from Test Statistics"
+      - text: "From Test Statistics"
         href: articles/from_test_statistics.html
-      - text: "Interpretation Guidelines"
-        href: articles/interpret.html
+  - text: "Interpretation Guidelines"
+    href: articles/interpret.html

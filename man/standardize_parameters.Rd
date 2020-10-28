@@ -7,13 +7,12 @@
 \usage{
 standardize_parameters(
   model,
-  parameters = NULL,
   method = "refit",
   ci = 0.95,
   robust = FALSE,
   two_sd = FALSE,
   verbose = TRUE,
-  centrality = "median",
+  parameters,
   ...
 )
 
@@ -29,9 +28,9 @@ standardize_posteriors(
 \arguments{
 \item{model}{A statistical model.}
 
-\item{parameters}{An optional table containing the parameters to standardize. If \code{NULL}, will automatically retrieve it from the model.}
-
-\item{method}{The method used for standardizing the parameters. Can be \code{"refit"} (default), \code{"posthoc"}, \code{"smart"} or \code{"basic"}. See 'Details'.}
+\item{method}{The method used for standardizing the parameters. Can be
+\code{"refit"} (default), \code{"posthoc"}, \code{"smart"}, \code{"basic"} or \code{"pseudo"}. See
+'Details'.}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -40,15 +39,28 @@ median from the variables and dividing it by the median absolute deviation
 (MAD). If \code{FALSE}, variables are standardized by subtracting the
 mean and dividing it by the standard deviation (SD).}
 
-\item{two_sd}{If \code{TRUE}, the variables are scaled by two times the deviation (SD or MAD depending on \code{robust}). This method can be useful to obtain model coefficients of continuous parameters comparable to coefficients related to binary predictors (Gelman, 2008).}
+\item{two_sd}{If \code{TRUE}, the variables are scaled by two times the deviation
+(SD or MAD depending on \code{robust}). This method can be useful to obtain
+model coefficients of continuous parameters comparable to coefficients
+related to binary predictors, when applied to \strong{the predictors} (not the
+outcome) (Gelman, 2008).}
 
 \item{verbose}{Toggle warnings on or off.}
 
-\item{centrality}{For Bayesian models, which point-estimates (centrality indices) to compute. Character (vector) or list with one or more of these options: "median", "mean", "MAP" or "all".}
+\item{parameters}{Deprecated.}
 
-\item{...}{Arguments passed to or from other methods.}
+\item{...}{For \code{standardize_parameters()}, arguments passed to
+\link[parameters:model_parameters]{parameters::model_parameters}, such as:
+\itemize{
+\item \code{ci_method}, \code{centrality} for Bayesian models...
+\item \code{df_method} for Mixed models ...
+\item \code{exponentiate}, ...
+\item etc.
+}}
 }
 \value{
+A data frame with the standardized parameters and their CIs.
+
 Standardized parameters table.
 }
 \description{
@@ -57,15 +69,71 @@ Compute standardized model parameters (coefficients).
 \details{
 \subsection{Methods:}{
 \itemize{
-\item \strong{refit}: This method is based on a complete model re-fit with a standardized version of data. Hence, this method is equal to standardizing the variables before fitting the model. It is the "purest" and the most accurate (Neter et al., 1989), but it is also the most computationally costly and long (especially for heavy models such as, for instance, for Bayesian models). This method is particularly recommended for complex models that include interactions or transformations (e.g., polynomial or spline terms). The \code{robust} (default to \code{FALSE}) argument enables a robust standardization of data, i.e., based on the \code{median} and \code{MAD} instead of the \code{mean} and \code{SD}.
-\item \strong{posthoc}: Post-hoc standardization of the parameters, aiming at emulating the results obtained by "refit" without refitting the model. The coefficients are divided by the standard deviation (or MAD if \code{robust}) of the outcome (which becomes their expression 'unit'). Then, the coefficients related to numeric variables are additionally multiplied by the standard deviation (or MAD if \code{robust}) of the related terms, so that they correspond to changes of 1 SD of the predictor (e.g., "A change in 1 SD of \code{x} is related to a change of 0.24 of the SD of \code{y}). This does not apply to binary variables or factors, so the coefficients are still related to changes in levels. This method is not accurate and tend to give aberrant results when interactions are specified.
-\item \strong{smart} (Standardization of Model's parameters with Adjustment, Reconnaissance and Transformation): Similar to \code{method = "posthoc"} in that it does not involve model refitting. The difference is that the SD of the response is computed on the relevant section of the data. For instance, if a factor with 3 levels A (the intercept), B and C is entered as a predictor, the effect corresponding to B vs. A will be scaled by the variance of the response at the intercept only. As a results, the coefficients for effects of factors are similar to a Glass' delta.
-\item \strong{basic}: This method is similar to \code{method = "posthoc"}, but treats all variables as continuous: it also scales the coefficient by the standard deviation of model's matrix' parameter of factors levels (transformed to integers) or binary predictors. Although being inappropriate for these cases, this method is the one implemented by default in other software packages, such as \code{lm.beta::lm.beta()}.
+\item \strong{refit}: This method is based on a complete model re-fit with a
+standardized version of the data. Hence, this method is equal to
+standardizing the variables before fitting the model. It is the "purest" and
+the most accurate (Neter et al., 1989), but it is also the most
+computationally costly and long (especially for heavy models such as Bayesian
+models). This method is particularly recommended for complex models that
+include interactions or transformations (e.g., polynomial or spline terms).
+The \code{robust} (default to \code{FALSE}) argument enables a robust standardization
+of data, i.e., based on the \code{median} and \code{MAD} instead of the \code{mean} and
+\code{SD}. \strong{See \code{\link[=standardize]{standardize()}} for more details.}
+\item \strong{posthoc}: Post-hoc standardization of the parameters, aiming at
+emulating the results obtained by "refit" without refitting the model. The
+coefficients are divided by the standard deviation (or MAD if \code{robust}) of
+the outcome (which becomes their expression 'unit'). Then, the coefficients
+related to numeric variables are additionally multiplied by the standard
+deviation (or MAD if \code{robust}) of the related terms, so that they correspond
+to changes of 1 SD of the predictor (e.g., "A change in 1 SD of \code{x} is
+related to a change of 0.24 of the SD of \code{y}). This does not apply to binary
+variables or factors, so the coefficients are still related to changes in
+levels. This method is not accurate and tend to give aberrant results when
+interactions are specified.
+\item \strong{smart} (Standardization of Model's parameters with Adjustment,
+Reconnaissance and Transformation - \emph{experimental}): Similar to \code{method = "posthoc"} in that it does not involve model refitting. The difference is
+that the SD (or MAD if \code{robust}) of the response is computed on the relevant
+section of the data. For instance, if a factor with 3 levels A (the
+intercept), B and C is entered as a predictor, the effect corresponding to B
+vs. A will be scaled by the variance of the response at the intercept only.
+As a results, the coefficients for effects of factors are similar to a Glass'
+delta.
+\item \strong{basic}: This method is similar to \code{method = "posthoc"}, but treats all
+variables as continuous: it also scales the coefficient by the standard
+deviation of model's matrix' parameter of factors levels (transformed to
+integers) or binary predictors. Although being inappropriate for these cases,
+this method is the one implemented by default in other software packages,
+such as \code{\link[lm.beta:lm.beta]{lm.beta::lm.beta()}}.
+\item \strong{pseudo} (\emph{for 2-level (G)LMMs only}): In this (post-hoc) method, the
+response and the predictor are standardized based on the level of prediction
+(levels are detected with \code{\link[parameters:demean]{parameters::check_heterogeneity()}}): Predictors
+are standardized based on their SD at level of prediction (see also
+\code{\link[parameters:demean]{parameters::demean()}}); The outcome (in linear LMMs) is standardized based
+on a fitted random-intercept-model, where \code{sqrt(random-intercept-variance)}
+is used for level 2 predictors, and \code{sqrt(residual-variance)} is used for
+level 1 predictors (Hoffman 2015, page 342). A warning is given when a
+within-group varialbe is found to have access between-group variance.
+}
 }
 
-When \code{method = "smart"} or \code{method = "classic"}, \code{standardize_parameters()}
-also returns the standard errors for the standardized coefficients. Then, \code{ci()} can be
-used to calculate confidence intervals for the standardized coefficients. See 'Examples'.
+\subsection{Transformed Variables}{
+
+When the model's formula contains transformations (e.g. \code{y ~ exp(X)})
+\code{method = "refit"} might give different results compared to
+\code{method = "basic"} (\code{"posthoc"} and \code{"smart"} do not support such
+transformations): where \code{"refit"} standardizes the data prior to the
+transformation (e.g. equivalent to \code{exp(scale(X))}), the \code{"basic"} method
+standardizes the transformed data (e.g. equivalent to \code{scale(exp(X))}). See
+\code{\link[=standardize]{standardize()}} for more details on how different transformations are dealt
+with.
+}
+
+\subsection{Generalized Linear Models}{
+
+When standardizing coefficients of a generalized model (GLM, GLMM, etc), only
+the predictors are standardized, maintaining the interpretability of the
+coefficients (e.g., in a binomial model: the exponent of the standardized
+parameter is the OR of a change of 1 SD in the predictor, etc.)
 }
 }
 \examples{
@@ -85,35 +153,38 @@ standardize_parameters(model, robust = TRUE)
 standardize_parameters(model, two_sd = TRUE)
 
 
-iris$binary <- ifelse(iris$Sepal.Width > 3, 1, 0)
-model <- glm(binary ~ Species * Sepal.Length, data = iris, family = "binomial")
+model <- glm(am ~ cyl * mpg, data = mtcars, family = "binomial")
 standardize_parameters(model, method = "refit")
 standardize_parameters(model, method = "posthoc")
-standardize_parameters(model, method = "smart")
-standardize_parameters(model, method = "basic")
+standardize_parameters(model, method = "basic", exponentiate = TRUE)
 }
 
 \donttest{
-if (require("rstanarm")) {
-  model <- stan_glm(Sepal.Length ~ Species + Petal.Width, data = iris, iter = 500, refresh = 0)
-  standardize_posteriors(model, method = "refit")
-  standardize_posteriors(model, method = "posthoc")
-  standardize_posteriors(model, method = "smart")
-  standardize_posteriors(model, method = "basic")
+if (require("lme4")) {
+  m <- lmer(mpg ~ cyl + am + vs + (1|cyl), mtcars)
+  standardize_parameters(m, method = "pseudo", df_method = "satterthwaite")
+}
 
-  standardize_parameters(model, method = "refit")
-  standardize_parameters(model, method = "posthoc")
-  standardize_parameters(model, method = "smart")
-  standardize_parameters(model, method = "basic")
+
+
+if (require("rstanarm")) {
+  model <- stan_glm(Sepal.Length ~ Species + Petal.Width, data = iris, refresh = 0)
+  # standardize_posteriors(model, method = "refit")
+  # standardize_posteriors(model, method = "posthoc")
+  # standardize_posteriors(model, method = "smart")
+  head(standardize_posteriors(model, method = "basic"))
 }
+
 }
+
 }
 \references{
 \itemize{
+\item Hoffman, L. (2015). Longitudinal analysis: Modeling within-person fluctuation and change. Routledge.
 \item Neter, J., Wasserman, W., & Kutner, M. H. (1989). Applied linear regression models.
 \item Gelman, A. (2008). Scaling regression inputs by dividing by two standard deviations. Statistics in medicine, 27(15), 2865-2873.
 }
 }
 \seealso{
-standardize_info
+\code{\link[=standardize_info]{standardize_info()}}
 }

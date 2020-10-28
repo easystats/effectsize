@@ -3,7 +3,7 @@
 \name{interpret_parameters}
 \alias{interpret_parameters}
 \alias{interpret_parameters.lm}
-\title{Automated Interpretation of Effect Sizes}
+\title{Interpret of standardized slopes}
 \usage{
 interpret_parameters(model, ...)
 
@@ -19,7 +19,14 @@ interpret_parameters(model, ...)
 \arguments{
 \item{model}{A statistical model.}
 
-\item{...}{Arguments passed to or from other methods.}
+\item{...}{For \code{standardize_parameters()}, arguments passed to
+\link[parameters:model_parameters]{parameters::model_parameters}, such as:
+\itemize{
+\item \code{ci_method}, \code{centrality} for Bayesian models...
+\item \code{df_method} for Mixed models ...
+\item \code{exponentiate}, ...
+\item etc.
+}}
 
 \item{parameters}{A custom parameters table. If \code{NULL}, will use \code{\link[=standardize_parameters]{standardize_parameters()}} to get it.}
 
@@ -30,9 +37,10 @@ interpret_parameters(model, ...)
 \item{standardize_robust}{See \code{\link[=standardize_parameters]{standardize_parameters()}}.}
 }
 \description{
-Automated interpretation of effect sizes.
+Automated interpretation of standardized slopes.
 }
 \examples{
 model <- lm(Sepal.Length ~ Species * Petal.Width, data = iris)
+interpret_parameters(model)
 
 }

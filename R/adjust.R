@@ -30,6 +30,17 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
             call. = FALSE)
   }
 
+  # check for formula notation, convert to character vector
+  if (inherits(effect, "formula")) {
+    effect <- all.vars(effect)
+  }
+  if (inherits(select, "formula")) {
+    select <- all.vars(select)
+  }
+  if (inherits(exclude, "formula")) {
+    exclude <- all.vars(exclude)
+  }
+
   # Find predictors
   if (is.null(effect)) {
     effect <- names(data)

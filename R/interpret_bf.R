@@ -1,8 +1,30 @@
-#' Bayes Factor (BF) Interpretation
+#' Interpret Bayes Factor (BF)
 #'
 #' @param bf Value or vector of Bayes factor (BF) values.
-#' @param rules Can be `"jeffreys1961"` (default), `"raftery1995"` or custom set of [rules()].
+#' @param rules Can be `"jeffreys1961"` (default), `"raftery1995"` or custom set
+#'   of [rules()] (for the *absolute magnitude* of evidence).
 #' @param include_value Include the value in the output.
+#' @inheritParams insight::format_bf
+#'
+#' @details Argument names can be partially matched.
+#'
+#' @section Rules:
+#'
+#' Rules apply to BF as ratios, so BF of 10 is as extreme as a BF of 0.1 (1/10).
+#'
+#' - Jeffreys (1961) (`"jeffreys1961"`; default)
+#'   - **BF = 1** - No evidence
+#'   - **1 < BF < 3** - Anecdotal
+#'   - **3 < BF < 10** - Moderate
+#'   - **10 < BF < 30** - Strong
+#'   - **30 < BF < 100** - Very strong
+#'   - **BF > 100** - Extreme.
+#' - Raftery (1995) (`"raftery1995"`)
+#'   - **BF = 1** - No evidence
+#'   - **1 < BF < 3** - Weak
+#'   - **3 < BF < 20** - Positive
+#'   - **20 < BF < 150** - Strong
+#'   - **BF > 150** - Very strong
 #'
 #'
 #' @examples
@@ -15,29 +37,39 @@
 #' - Jarosz, A. F., & Wiley, J. (2014). What are the odds? A practical guide to computing and reporting Bayes factors. The Journal of Problem Solving, 7(1), 2.
 #'
 #' @export
-interpret_bf <- function(bf, rules = "jeffreys1961", include_value = FALSE) {
-  ori_bf <- bf
+interpret_bf <- function(bf, rules = "jeffreys1961", include_value = FALSE, protect_ratio = TRUE, exact = TRUE) {
+  match.call()
+
+  if (any(bf < 0, na.rm = TRUE)) {
+    warning("Negative BFs detected. These are not possible. Ignoring.")
+    bf[bf < 0] <- NA
+  }
+
+  orig_bf <- bf
 
   dir <- ifelse(bf < 1, "against", "in favour of")
-  bf <- c(bf)
-  bf[bf < 1] <- 1 / abs(bf[bf < 1])
+  bf <- exp(abs(log(bf)))
+
+  rules <- .match.rules(
+    rules,
+    list(
+      jeffreys1961 = rules(c(3, 10, 30, 100), c("anecdotal", "moderate", "strong", "very strong", "extreme"),
+                           name = "jeffreys1961"),
+      raftery1995 = rules(c(3, 20, 150), c("weak", "positive", "strong", "very strong"),
+                          name = "raftery1995")
+    )
+  )
+
+  interpretation <- interpret(bf, rules)
 
 
-  if (is.rules(rules)) {
-    interpretation <- interpret(bf, rules)
-  } else {
-    if (rules == "jeffreys1961") {
-      interpretation <- interpret(bf, rules(c(1, 3, 10, 30, 100), c("no", "anecdotal", "moderate", "strong", "very strong", "extreme")))
-    } else if (rules == "raftery1995") {
-      interpretation <- interpret(bf, rules(c(1, 3, 20, 150), c("no", "weak", "positive", "strong", "very strong")))
-    } else {
-      stop("rules must be 'jeffreys1961', 'raftery1995' or an object of type rules.")
-    }
+  interpretation[] <- paste0(interpretation, " evidence ", dir)
+  interpretation[orig_bf==1] <- "no evidence"
+  if (include_value) {
+    interpretation[] <- paste0(interpretation, " (", insight::format_bf(orig_bf, protect_ratio = protect_ratio, exact = exact),")")
   }
 
-  if (include_value == FALSE) {
-    return(paste0(interpretation, " evidence ", dir))
-  } else {
-    return(paste0(interpretation, " evidence (BF = ", insight::format_value(ori_bf), ") ", dir))
-  }
+  interpretation[is.na(orig_bf)] <- ""
+
+  interpretation
 }

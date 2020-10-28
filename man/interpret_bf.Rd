@@ -2,20 +2,61 @@
 % Please edit documentation in R/interpret_bf.R
 \name{interpret_bf}
 \alias{interpret_bf}
-\title{Bayes Factor (BF) Interpretation}
+\title{Interpret Bayes Factor (BF)}
 \usage{
-interpret_bf(bf, rules = "jeffreys1961", include_value = FALSE)
+interpret_bf(
+  bf,
+  rules = "jeffreys1961",
+  include_value = FALSE,
+  protect_ratio = TRUE,
+  exact = TRUE
+)
 }
 \arguments{
 \item{bf}{Value or vector of Bayes factor (BF) values.}
 
-\item{rules}{Can be \code{"jeffreys1961"} (default), \code{"raftery1995"} or custom set of \code{\link[=rules]{rules()}}.}
+\item{rules}{Can be \code{"jeffreys1961"} (default), \code{"raftery1995"} or custom set
+of \code{\link[=rules]{rules()}} (for the \emph{absolute magnitude} of evidence).}
 
 \item{include_value}{Include the value in the output.}
+
+\item{protect_ratio}{Should values smaller than 1 be represented as ratios?}
+
+\item{exact}{Should very large or very small values be reported with a
+scientific format (e.g., 4.24e5), or as truncated values (as "> 1000" and
+"< 1/1000").}
 }
 \description{
-Bayes Factor (BF) Interpretation
+Interpret Bayes Factor (BF)
 }
+\details{
+Argument names can be partially matched.
+}
+\section{Rules}{
+
+
+Rules apply to BF as ratios, so BF of 10 is as extreme as a BF of 0.1 (1/10).
+\itemize{
+\item Jeffreys (1961) (\code{"jeffreys1961"}; default)
+\itemize{
+\item \strong{BF = 1} - No evidence
+\item \strong{1 < BF < 3} - Anecdotal
+\item \strong{3 < BF < 10} - Moderate
+\item \strong{10 < BF < 30} - Strong
+\item \strong{30 < BF < 100} - Very strong
+\item \strong{BF > 100} - Extreme.
+}
+\item Raftery (1995) (\code{"raftery1995"})
+\itemize{
+\item \strong{BF = 1} - No evidence
+\item \strong{1 < BF < 3} - Weak
+\item \strong{3 < BF < 20} - Positive
+\item \strong{20 < BF < 150} - Strong
+\item \strong{BF > 150} - Very strong
+}
+}
+}
+
 \examples{
 interpret_bf(1)
 interpret_bf(c(5, 2))

@@ -2,7 +2,7 @@
 % Please edit documentation in R/interpret_r2.R
 \name{interpret_r2}
 \alias{interpret_r2}
-\title{Coefficient of determination  (R2) interpretation}
+\title{Interpret coefficient of determination (R2)}
 \usage{
 interpret_r2(r2, rules = "cohen1988")
 }
@@ -12,8 +12,47 @@ interpret_r2(r2, rules = "cohen1988")
 \item{rules}{Can be \code{"cohen1988"} (default), \code{"falk1992"}, \code{"chin1998"}, \code{"hair2011"} or custom set of \code{\link[=rules]{rules()}}].}
 }
 \description{
-Coefficient of determination  (R2) interpretation
+Interpret coefficient of determination (R2)
 }
+\section{Rules}{
+
+\subsection{For Linear Regression}{
+\itemize{
+\item Cohen (1988) (\code{"cohen1988"}; default)
+\itemize{
+\item \strong{R2 < 0.02} - Very weak
+\item \strong{0.02 < R2 < 0.13} - Weak
+\item \strong{0.13 < R2 < 0.26} - Moderate
+\item \strong{R2 > 0.26} - Substantial
+}
+\item Falk & Miller (1992) (\code{"falk1992"})
+\itemize{
+\item \strong{R2 < 0.1} - Negligible
+\item \strong{R2 > 0.1} - Adequate
+}
+}
+}
+
+\subsection{For PLS / SEM R-Squared of \emph{latent} variables}{
+\itemize{
+\item Chin, W. W. (1998) (\code{"chin1998"})
+\itemize{
+\item \strong{R2 < 0.19} - Very weak
+\item \strong{0.19 < R2 < 0.33} - Weak
+\item \strong{0.33 < R2 < 0.67} - Moderate
+\item \strong{R2 > 0.67} - Substantial
+}
+\item Hair et al. (2011) (\code{"hair2011"})
+\itemize{
+\item \strong{R2 < 0.25} - Very weak
+\item \strong{0.25 < R2 < 0.50} - Weak
+\item \strong{0.50 < R2 < 0.75} - Moderate
+\item \strong{R2 > 0.75} - Substantial
+}
+}
+}
+}
+
 \examples{
 interpret_r2(.02)
 interpret_r2(c(.5, .02))
