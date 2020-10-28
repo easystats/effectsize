@@ -11,7 +11,7 @@ authors:
   name: Dominique Makowski
   orcid: 0000-0001-5375-9967
 
-date: "" <!-- add -->
+date: ""
 output: 
   pdf_document:
     latex_engine: xelatex
@@ -118,15 +118,42 @@ standardize_parameters(model, exponentiate = TRUE)
 #> # Standardization method: Refit
 ```
 
-`standardize_parameters()` provides several standardization methods, such as robust standardization, or *pseudo*-standardized coefficients for (generalized) linear mixed models [@hoffman2015longitudinal]. A full review of the methods can be found in the *Parameter and Model Standardization* vignette.
+`standardize_parameters()` provides several standardization methods, such as robust standardization, or *pseudo*-standardized coefficients for (generalized) linear mixed models [@hoffman2015longitudinal]. A full review of the methods can be found in the [*Parameter and Model Standardization* vignette](https://easystats.github.io/effectsize/articles/standardize_parameters.html).
 
-<!-- From here -->
+## ANOVA Table Effect Sizes
 
-## ANOVA Table
+In the context of ANOVA-like tests, or ANOVA tables, it is common to report ANOVA-like effect sizes. Unlike standardized parameters, these effect sizes represent the amount of variance explained by each of the model's terms, where each term can be represented by 1 or more parameters. `eta_squared()` can produce such popular effect sizes as Eta-squared ($\eta^2$), its partial version ($\eta^2_p$), as well as the generalized $\eta^2_G$ [@olejnik2003generalized]:
 
-In the context of ANOVA-like tests, or ANOVA tables, it is common to report ANOVA-like effect sizes. Unlike standardized parameters, these effect sizes represent the amount of variance explained by each of the model’s terms, where each term can be represented by 1 or more parameters.
 
-<!-- To here -->
+``` r
+data("ChickWeight")
+
+options(contrasts = c('contr.sum', 'contr.poly'))
+
+ChickWeight$Time <- factor(ChickWeight$Time)
+
+model <- aov(weight ~ Diet * Time + Error(Chick / Time),
+             data = ChickWeight)
+
+eta_squared(model, partial = TRUE)
+
+#> Group      | Parameter | Eta2 (partial) |       90% CI
+#> ------------------------------------------------------
+#> Chick      |      Diet |           0.27 | [0.06, 0.42]
+#> Chick:Time |      Time |           0.87 | [0.85, 0.88]
+#> Chick:Time | Diet:Time |           0.22 | [0.11, 0.23]
+
+
+eta_squared(model, generalized = "Time")
+
+#> Group      | Parameter | Eta2 (generalized) |       90% CI
+#> ----------------------------------------------------------
+#> Chick      |      Diet |               0.04 | [0.00, 0.09]
+#> Chick:Time |      Time |               0.74 | [0.71, 0.77]
+#> Chick:Time | Diet:Time |               0.03 | [0.00, 0.00]
+```
+
+**effectsize** also offers the unbiased estimates of $\epsilon^2_p$ (`epsilon_squared()`) and $\omega^2_p$ (`omega_squared()`). For more detail about the various effect size measures and their applications, see the  [*Effect sizes for ANOVAs* vignette](https://easystats.github.io/effectsize/articles/anovaES.html).
 
 ## Effect Size Conversion
 
@@ -179,14 +206,13 @@ oddsratio_to_riskratio(1.96, p0 = 0.15)
 
 ## Effect Size Interpretation
 
-Finally, **effectsize** provides convenience functions to apply existing or custom interpretation rules of thumb, such as for instance Cohen's (1988). Altough we strongly advocate for the cautious and parcimonious use of such judgment-replacing tools, we provide these functions to allow users and developpers to explore and hopefully gain a deeper understanding of the relationship between data values and their interpretation. More information is available in the package's [**documentation**](https://easystats.github.io/effectsize/articles/interpret.html).
+Finally, **effectsize** provides convenience functions to apply existing or custom interpretation rules of thumb, such as for instance Cohen's (1988). Although we strongly advocate for the cautious and parsimonious use of such judgment-replacing tools, we provide these functions to allow users and developers to explore and hopefully gain a deeper understanding of the relationship between data values and their interpretation. More information is available in the package's [**documentation**](https://easystats.github.io/effectsize/articles/interpret.html).
 
 ``` r
-effectsize::interpret_d(c(.02, .52, 0.86), rules = "cohen1988")
+interpret_d(c(0.02, 0.52, 0.86), rules = "cohen1988")
 #> [1] "very small" "medium"     "large"     
 #> (Rules: cohen1988)
 ```
-
 
 
 # Licensing and Availability
