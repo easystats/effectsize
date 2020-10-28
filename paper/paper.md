@@ -175,6 +175,23 @@ t_to_r(t = -5.14, df_error = 22)
 #> -0.74 | [-0.85, -0.49]
 ```
 
+These functions also power the `effectsize()` convenience function for estimating effect sizes from R's `htest`-type objects. For example:
+
+``` r
+ts <- t.test(x = 1:10, y = 7:20)
+effectsize(ts)
+#>     d |         95% CI
+#> ----------------------
+#> -2.32 | [-3.38, -1.22]
+
+xtab <- rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477))
+Xsq <- chisq.test(xtab)
+effectsize(Xsq)
+#> Cramer's V |       95% CI
+#> -------------------------
+#>       0.07 | [0.05, 0.09]
+```
+
 These functions also power our *Effect Sizes From Test Statistics* shiny app (https://easystats4u.shinyapps.io/statistic2effectsize/).
 
 ### Between Effect Sizes
