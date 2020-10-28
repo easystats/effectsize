@@ -51,7 +51,6 @@ It is often of interest to to asses the size of an observed association. This is
 library(effectsize)
 
 cohens_d(mpg ~ am, data = mtcars)
-
 #> Cohen's d |         95% CI
 #> --------------------------
 #>     -1.48 | [-2.27, -0.67]
@@ -72,7 +71,6 @@ dimnames(M) <- list(
 )
 
 cramers_v(M)
-
 #> Cramer's V |       95% CI
 #> -------------------------
 #>       0.18 | [0.12, 0.22]
@@ -87,7 +85,6 @@ model <- lm(mpg ~ cyl * am,
             data = mtcars)
 
 standardize_parameters(model)
-
 #> Parameter   | Coefficient (std.) |         95% CI
 #> -------------------------------------------------
 #> (Intercept) |              -0.10 | [-0.30,  0.11]
@@ -108,7 +105,6 @@ model <- glm(am ~ cyl + hp,
              data = mtcars, )
 
 standardize_parameters(model, exponentiate = TRUE)
-
 #> Parameter   | Odds Ratio (std.) |        95% CI
 #> -----------------------------------------------
 #> (Intercept) |              0.53 | [0.18,  1.32]
@@ -136,16 +132,13 @@ model <- aov(weight ~ Diet * Time + Error(Chick / Time),
              data = ChickWeight)
 
 eta_squared(model, partial = TRUE)
-
 #> Group      | Parameter | Eta2 (partial) |       90% CI
 #> ------------------------------------------------------
 #> Chick      |      Diet |           0.27 | [0.06, 0.42]
 #> Chick:Time |      Time |           0.87 | [0.85, 0.88]
 #> Chick:Time | Diet:Time |           0.22 | [0.11, 0.23]
 
-
 eta_squared(model, generalized = "Time")
-
 #> Group      | Parameter | Eta2 (generalized) |       90% CI
 #> ----------------------------------------------------------
 #> Chick      |      Diet |               0.04 | [0.00, 0.09]
@@ -164,7 +157,6 @@ In many real world applications there are no straightforward ways of obtaining s
 ``` r
 F_to_eta2(f = c(40.72, 33.77),
           df = c(2, 1), df_error = c(18, 9))
-          
 #> Eta2 (partial) |       90% CI
 #> -----------------------------
 #>           0.82 | [0.66, 0.89]
@@ -178,7 +170,6 @@ t_to_d(t = -5.14, df_error = 22)
 
 
 t_to_r(t = -5.14, df_error = 22)
-
 #>     r |         95% CI
 #> ----------------------
 #> -0.74 | [-0.85, -0.49]
