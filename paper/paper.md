@@ -5,11 +5,11 @@ authors:
   name: Mattan S. Ben-Shachar
   orcid: 0000-0002-4287-4801
 - affiliation: 2
-  name: Dominique Makowski
-  orcid: 0000-0001-5375-9967
-- affiliation: 3
   name: Daniel Lüdecke
   orcid: 0000-0002-8895-3206
+- affiliation: 3
+  name: Dominique Makowski
+  orcid: 0000-0001-5375-9967
 
 date: "" <!-- add -->
 output: 
@@ -28,9 +28,9 @@ affiliations:
 - index: 1
   name: Ben-Gurion University of the Negev, Israel
 - index: 2
-  name: Nanyang Technological University, Singapore
-- index: 3
   name:  University Medical Center Hamburg-Eppendorf, Germany
+- index: 3
+  name: Nanyang Technological University, Singapore
 ---
 
 # Aims of the Package
@@ -176,6 +176,18 @@ oddsratio_to_r(34.99)
 oddsratio_to_riskratio(1.96, p0 = 0.15)
 #> [1] 1.713287
 ```
+
+## Effect Size Interpretation
+
+Finally, **effectsize** provides convenience functions to apply existing or custom interpretation rules of thumb, such as for instance Cohen's (1988). Altough we strongly advocate for the cautious and parcimonious use of such judgment-replacing tools, we provide these functions to allow users and developpers to explore and hopefully gain a deeper understanding of the relationship between data values and their interpretation. More information is available in the package's [**documentation**](https://easystats.github.io/effectsize/articles/interpret.html).
+
+``` r
+effectsize::interpret_d(c(.02, .52, 0.86), rules = "cohen1988")
+#> [1] "very small" "medium"     "large"     
+#> (Rules: cohen1988)
+```
+
+
 
 # Licensing and Availability
 
