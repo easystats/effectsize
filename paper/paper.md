@@ -11,8 +11,10 @@ authors:
   name: Daniel Lüdecke
   orcid: 0000-0002-8895-3206
 
-date: "01 July 2020"
-output: pdf_document
+date: "" <!-- add -->
+output: 
+  pdf_document:
+    latex_engine: xelatex
 bibliography: paper.bib
 csl: apa.csl
 tags:
@@ -33,50 +35,147 @@ affiliations:
 
 # Aims of the Package
 
-It is often of interest to to asses the size of an observed assosiation. This is typycally done to allow the judgment of the magnitude of an effect (especailly when units of measuemnt are not meanigful), to facilitate comparing predictors' importance within a given model, or both. Though some indecies of effect size, such a the correlation coefficiant (a standardized covariance coefficiant) are readly available, other measures are often harder to obtain. **effectsize** is an R-package [@rcore] that fills this important gap. Its primary goal is to provide utilities for estimating a wide variety of standardized effect sizes (i.e., effect sizes that are scale-invariant) and their confidence intervals (CI), from a variety of statistical models.
+It is often of interest to to asses the size of an observed association. This is typically done to allow the judgment of the magnitude of an effect (especially when units of measurement are not meaningful), to facilitate comparing predictors' importance within a given model, or both. Though some indecies of effect size, such a the correlation coefficient (a standardized covariance coefficient) are readily available, other measures are often harder to obtain. **effectsize** is an R-package [@rcore] that fills this important gap. Its primary goal is to provide utilities for estimating a wide variety of standardized effect sizes (i.e., effect sizes that are scale-invariant) and their confidence intervals (CI), from a variety of statistical models.
 
 # Examples of Features
 
-Also has functions to support the interpertation of these effect size indices...
-
-All of CIs (ncp method)
+**effectsize** provides various functions for extracting and estimating effect sizes and their confidence intervals [estimated using the noncentrality parameter method; @steiger2004beyond]. In the following, we show some brief examples. However, a comprehensive overview including in-depth examples are accessible via the dedicated website (https://easystats.github.io/effectsize/).
 
 ## Indices of Effect Size
 
 ### Standardized Differences
 
-basic t test
+**effectsize** provides functions for estimating the common indices of standardized differences such as Cohen's *d* (`cohens_d()`), Hedge's *g* (`hedges_g()`) for both paired and independent samples, and Glass' $\Delta$ (`glass_delta()`).
+
+``` r
+library(effectsize)
+
+cohens_d(mpg ~ am, data = mtcars)
+
+#> Cohen's d |         95% CI
+#> --------------------------
+#>     -1.48 | [-2.27, -0.67]
+```
 
 ### Contingency Tables
 
-### Percent Variance Explained
+Person's $\phi$ (`phi()`) and Cramér's *V* (`cramers_v()`) can be used to estimate the strength of association between two categorical variables, while Cohen's *g* (`cohens_g()`) estimates the deviance between paired categorical variables.
 
-For linear models... For each model term, thus ideal for accompnying ANOVA tables.
+``` r
+M <- rbind(c(150, 130, 35, 55),
+           c(100, 50,  10, 40),
+           c(165, 65,  2,  25))
 
-anova and lmer... When sums of squares are not available, an approximation based on the test statistic of that terms is used (see bellow):
+dimnames(M) <- list(
+  Study = c("Psych", "Econ", "Law"),
+  Music = c("Pop", "Rock", "Jazz", "Classic")
+)
 
-Baysian (via posterior predictive distribution simulation).
+cramers_v(M)
 
-## Standardized Parameters
+#> Cramer's V |       95% CI
+#> -------------------------
+#>       0.18 | [0.12, 0.22]
+```
 
-Also for glm (where the )
+## Parameter and Model Standardization
 
-$Beta$
+Standardizing parameters (i.e., coefficients) can allow for their comparison within and between models, variables and studies. To this end, two functions are available: `standardize()` which returns an updated model, re-fits with standardized data, and `standardize_parameters()` which returns a table of standardized coefficients from a provided model.
 
-types?
+``` r
+model <- lm(mpg ~ cyl * am, 
+            data = mtcars)
 
-Bayesian
+standardize_parameters(model)
 
-utilized by ***parameters*** []
+#> Parameter   | Coefficient (std.) |         95% CI
+#> -------------------------------------------------
+#> (Intercept) |              -0.10 | [-0.30,  0.11]
+#> cyl         |              -0.74 | [-0.95, -0.53]
+#> am          |               0.17 | [-0.04,  0.39]
+#> cyl:am      |              -0.19 | [-0.41,  0.02]
+#> 
+#> # Standardization method: Refit
+```
+
+Standardize parameters can also be produced for generalized linear models (GLMs; where only the predictors are standardized):
+
+<!-- Here I used `exponentiate`, but should maybe not? -->
+
+``` r
+model <- glm(am ~ cyl + hp,
+             family = "binomial",
+             data = mtcars, )
+
+standardize_parameters(model, exponentiate = TRUE)
+
+#> Parameter   | Odds Ratio (std.) |        95% CI
+#> -----------------------------------------------
+#> (Intercept) |              0.53 | [0.18,  1.32]
+#> cyl         |              0.05 | [0.00,  0.29]
+#> hp          |              6.70 | [1.32, 61.54]
+#> 
+#> # Standardization method: Refit
+```
+
+`standardize_parameters()` provides several standardization methods, such as robust standardization, or *pseudo*-standardized coefficients for (generalized) linear mixed models [@hoffman2015longitudinal]. A full review of the methods can be found in the *Parameter and Model Standardization* vignette.
+
+<!-- From here -->
+
+## ANOVA Table
+
+In the context of ANOVA-like tests, or ANOVA tables, it is common to report ANOVA-like effect sizes. Unlike standardized parameters, these effect sizes represent the amount of variance explained by each of the model’s terms, where each term can be represented by 1 or more parameters.
+
+<!-- To here -->
 
 ## Effect Size Conversion
 
 ### From Test Statistics
 
+In many real world applications there are no straightforward ways of obtaining standardized effect sizes. However, it is possible to get approximations of most of the effect size indices (*d*, *r*, $\eta^2_p$...) with the use of test statistics. These conversions are based on the idea that test statistics are a function of effect size and sample size (or more often of degrees of freedom). Thus it is possible to reverse-engineer indices of effect size from test statistics (*F*, *t*, $\chi^2$, and *z*). 
+
+``` r
+F_to_eta2(f = c(40.72, 33.77),
+          df = c(2, 1), df_error = c(18, 9))
+          
+#> Eta2 (partial) |       90% CI
+#> -----------------------------
+#>           0.82 | [0.66, 0.89]
+#>           0.79 | [0.49, 0.89]
+
+
+t_to_d(t = -5.14, df_error = 22)
+#>     d |         95% CI
+#> ----------------------
+#> -2.19 | [-3.23, -1.12]
+
+
+t_to_r(t = -5.14, df_error = 22)
+
+#>     r |         95% CI
+#> ----------------------
+#> -0.74 | [-0.85, -0.49]
+```
+
+These functions also power our *Effect Sizes From Test Statistics* shiny app (https://easystats4u.shinyapps.io/statistic2effectsize/).
+
 ### Between Effect Sizes
 
+For comparisons between different types of designs and analyses, it is useful to be able to convert between different types of effect sizes [*d*, *r*, Odds ratios and Risk ratios; @borenstein2009converting; grant2014converting].
 
-<!-- This is done: -->
+``` r
+r_to_d(0.7)
+#> [1] 1.960392
+
+d_to_oddsratio(1.96)
+#> [1] 34.98946
+
+oddsratio_to_r(34.99)
+#> [1] 0.6999301
+
+oddsratio_to_riskratio(1.96, p0 = 0.15)
+#> [1] 1.713287
+```
 
 # Licensing and Availability
 
