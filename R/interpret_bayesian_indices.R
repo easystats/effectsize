@@ -1,6 +1,6 @@
 #' Interpret Bayesian diagnostic indices
 #'
-#' Interpretation of Bayesian indices, such as Effective Sample Size (ESS), Rhat, or percentage in ROPE.
+#' Interpretation of Bayesian diagnostic indices, such as Effective Sample Size (ESS) and Rhat.
 #'
 #' @param ess Value or vector of Effective Sample Size (ESS) values.
 #' @param rhat Value or vector of Rhat values.
