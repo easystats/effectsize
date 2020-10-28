@@ -94,7 +94,7 @@ standardize_parameters(model)
 #> # Standardization method: Refit
 ```
 
-Standardize parameters can also be produced for generalized linear models (GLMs; where only the predictors are standardized):
+Standardized parameters can also be produced for generalized linear models (GLMs; where only the predictors are standardized):
 
 <!-- Here I used `exponentiate`, but should maybe not? -->
 
@@ -113,11 +113,11 @@ standardize_parameters(model, exponentiate = TRUE)
 #> # Standardization method: Refit
 ```
 
-`standardize_parameters()` provides several standardization methods, such as robust standardization, or *pseudo*-standardized coefficients for (generalized) linear mixed models [@hoffman2015longitudinal]. A full review of the methods can be found in the [*Parameter and Model Standardization* vignette](https://easystats.github.io/effectsize/articles/standardize_parameters.html).
+`standardize_parameters()` provides several standardization methods, such as robust standardization, or *pseudo*-standardized coefficients for (generalized) linear mixed models [@hoffman2015longitudinal]. A full review of these methods can be found in the [*Parameter and Model Standardization* vignette](https://easystats.github.io/effectsize/articles/standardize_parameters.html).
 
-## ANOVA Table Effect Sizes
+## Effect Sizes for ANOVAs
 
-In the context of ANOVA-like tests, or ANOVA tables, it is common to report ANOVA-like effect sizes. Unlike standardized parameters, these effect sizes represent the amount of variance explained by each of the model's terms, where each term can be represented by 1 or more parameters. `eta_squared()` can produce such popular effect sizes as Eta-squared ($\eta^2$), its partial version ($\eta^2_p$), as well as the generalized $\eta^2_G$ [@olejnik2003generalized]:
+In the context of ANOVAs (analysis of variance) or ANOVA-like tables, it is common to report ANOVA-like effect sizes. Unlike standardized parameters, these effect sizes represent the amount of variance explained by each of the model's terms, where each term can be represented by 1 or more parameters. `eta_squared()` can produce such popular effect sizes as Eta-squared ($\eta^2$), its partial version ($\eta^2_p$), as well as the generalized $\eta^2_G$ [@olejnik2003generalized]:
 
 
 ``` r
