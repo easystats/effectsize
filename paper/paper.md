@@ -65,11 +65,6 @@ M <- rbind(c(150, 130, 35, 55),
            c(100, 50,  10, 40),
            c(165, 65,  2,  25))
 
-dimnames(M) <- list(
-  Study = c("Psych", "Econ", "Law"),
-  Music = c("Pop", "Rock", "Jazz", "Classic")
-)
-
 cramers_v(M)
 #> Cramer's V |       95% CI
 #> -------------------------
