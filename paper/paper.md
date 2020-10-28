@@ -37,9 +37,9 @@ affiliations:
 
 <!-- not sure how much of this is needed. Edit (add, remove) as you see fit... -->
 
-It is often of interest to to asses the size of an observed association. This is typically done to allow the judgment of the magnitude of an effect (especially when units of measurement are not meaningful), to facilitate comparing predictors' importance within a given model, or both. Though some indecies of effect size, such a the correlation coefficient (a standardized covariance coefficient) are readily available, other measures are often harder to obtain. 
+It is often of interest to to assess the strength of an observed association. This is typically done to allow the judgment of the magnitude of an effect (especially when units of measurement are not meaningful), to facilitate comparing predictors' importance within a given model, or both. Though some indices of effect size, such a the correlation coefficient (a standardized covariance coefficient) are readily available, other measures are often harder to obtain. 
 
-**effectsize** is an R-package [@rcore] that fills this important gap. Its primary goal is to provide utilities for estimating a wide variety of standardized effect sizes (i.e., effect sizes that are not tied to the units of measurement of the variables of interest, i.e., they are scale-invariant) and their confidence intervals (CI), from a variety of statistical models. **effectsize** provided easy to use functions, with full documentation and explanation of the various effect sizes offered, and is also used by developers of other R packages as the back-end for effect size computation, such as *parameters* [@ludecke2020extracting] and *ggstatsplot* [@patil2020ggstatsplot], *gtsummary* [@sjoberg2020gtsummary] and more.
+**effectsize** is an R-package [@rcore] that fills this important gap. Its primary goal is to provide utilities for estimating a wide variety of standardized effect sizes (i.e., effect sizes that are not tied to the units of measurement of the variables of interest, i.e., they are scale-invariant) and their confidence intervals (CI), from a variety of statistical models. **effectsize** provides easy to use functions, with full documentation and explanation of the various effect sizes offered, and is also used by developers of other R packages as the back-end for effect size computation, such as *parameters* [@ludecke2020extracting] and *ggstatsplot* [@patil2020ggstatsplot], *gtsummary* [@sjoberg2020gtsummary] and more.
 
 # Examples of Features
 
@@ -117,7 +117,7 @@ standardize_parameters(model, exponentiate = TRUE)
 
 ## Effect Sizes for ANOVAs
 
-In the context of ANOVAs (analysis of variance) or ANOVA-like tables, it is common to report ANOVA-like effect sizes. Unlike standardized parameters, these effect sizes represent the amount of variance explained by each of the model's terms, where each term can be represented by 1 or more parameters. `eta_squared()` can produce such popular effect sizes as Eta-squared ($\eta^2$), its partial version ($\eta^2_p$), as well as the generalized $\eta^2_G$ [@olejnik2003generalized]:
+In the context of ANOVAs (analysis of variance) or ANOVA-like tables, it is common to report ANOVA-like effect sizes. Unlike standardized parameters, these effect sizes represent the amount of variance explained by each of the model's terms, where each term can be represented by one or more parameters. `eta_squared()` can produce such popular effect sizes as Eta-squared ($\eta^2$), its partial version ($\eta^2_p$), as well as the generalized $\eta^2_G$ [@olejnik2003generalized]:
 
 
 ``` r
@@ -145,7 +145,7 @@ eta_squared(model, generalized = "Time")
 #> Chick:Time | Diet:Time |               0.03 | [0.00, 0.00]
 ```
 
-**effectsize** also offers the unbiased estimates of $\epsilon^2_p$ (`epsilon_squared()`) and $\omega^2_p$ (`omega_squared()`). For more detail about the various effect size measures and their applications, see the  [*Effect sizes for ANOVAs* vignette](https://easystats.github.io/effectsize/articles/anovaES.html).
+**effectsize** also offers the unbiased estimates of $\epsilon^2_p$ (`epsilon_squared()`) and $\omega^2_p$ (`omega_squared()`). For more details about the various effect size measures and their applications, see the [*Effect sizes for ANOVAs* vignette](https://easystats.github.io/effectsize/articles/anovaES.html).
 
 ## Effect Size Conversion
 
