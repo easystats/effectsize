@@ -11,7 +11,7 @@ authors:
   name: Dominique Makowski
   orcid: 0000-0001-5375-9967
 
-date: ""
+date: "28 October, 2020"
 output: 
   pdf_document:
     latex_engine: xelatex
@@ -35,7 +35,11 @@ affiliations:
 
 # Aims of the Package
 
-It is often of interest to to asses the size of an observed association. This is typically done to allow the judgment of the magnitude of an effect (especially when units of measurement are not meaningful), to facilitate comparing predictors' importance within a given model, or both. Though some indecies of effect size, such a the correlation coefficient (a standardized covariance coefficient) are readily available, other measures are often harder to obtain. **effectsize** is an R-package [@rcore] that fills this important gap. Its primary goal is to provide utilities for estimating a wide variety of standardized effect sizes (i.e., effect sizes that are not tied to the units of measurement of the variables of interest, i.e., they are scale-invariant) and their confidence intervals (CI), from a variety of statistical models. **effectsize** provided easy to use functions, with full documentation and explanation of the various effect sizes offered, and is also used by developers of other R packages as the back-end for effect size computation, such as *parameters* [@ludecke2020extracting] and *ggstatsplot* [@patil2020ggstatsplot] and more.
+<!-- not sure how much of this is needed. Edit (add, remove) as you see fit... -->
+
+It is often of interest to to asses the size of an observed association. This is typically done to allow the judgment of the magnitude of an effect (especially when units of measurement are not meaningful), to facilitate comparing predictors' importance within a given model, or both. Though some indecies of effect size, such a the correlation coefficient (a standardized covariance coefficient) are readily available, other measures are often harder to obtain. 
+
+**effectsize** is an R-package [@rcore] that fills this important gap. Its primary goal is to provide utilities for estimating a wide variety of standardized effect sizes (i.e., effect sizes that are not tied to the units of measurement of the variables of interest, i.e., they are scale-invariant) and their confidence intervals (CI), from a variety of statistical models. **effectsize** provided easy to use functions, with full documentation and explanation of the various effect sizes offered, and is also used by developers of other R packages as the back-end for effect size computation, such as *parameters* [@ludecke2020extracting] and *ggstatsplot* [@patil2020ggstatsplot], *gtsummary* [@sjoberg2020gtsummary] and more.
 
 # Examples of Features
 
