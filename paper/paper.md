@@ -1,5 +1,5 @@
 ---
-title: "Size does matter: Estimation and Interpretation of Effect Size Indices and Standardized Parameters"
+title: "Estimation of Effect Size Indices and Standardized Parameters"
 authors:
 - affiliation: 1
   name: Mattan S. Ben-Shachar
@@ -39,7 +39,7 @@ affiliations:
 
 It is often of interest to to assess the strength of an observed association. This is typically done to allow the judgment of the magnitude of an effect (especially when units of measurement are not meaningful), to facilitate comparing predictors' importance within a given model, or both. Though some indices of effect size, such a the correlation coefficient (a standardized covariance coefficient) are readily available, other measures are often harder to obtain. 
 
-**effectsize** is an R-package [@rcore] that fills this important gap. Its primary goal is to provide utilities for estimating a wide variety of standardized effect sizes (i.e., effect sizes that are not tied to the units of measurement of the variables of interest, i.e., they are scale-invariant) and their confidence intervals (CI), from a variety of statistical models. **effectsize** provides easy to use functions, with full documentation and explanation of the various effect sizes offered, and is also used by developers of other R packages as the back-end for effect size computation, such as *parameters* [@ludecke2020extracting] and *ggstatsplot* [@patil2020ggstatsplot], *gtsummary* [@sjoberg2020gtsummary] and more.
+**effectsize** is an R-package [@rcore] that fills this important gap. Its primary goal is to provide utilities for estimating a wide variety of standardized effect sizes (i.e., effect sizes that are not tied to the units of measurement of the variables of interest, i.e., they are scale-invariant) and their confidence intervals (CIs), from a variety of statistical models. **effectsize** provides easy to use functions, with full documentation and explanation of the various effect sizes offered, and is also used by developers of other R packages as the back-end for effect size computation, such as *parameters* [@ludecke2020extracting], *ggstatsplot* [@patil2020ggstatsplot], *gtsummary* [@sjoberg2020gtsummary] and more.
 
 # Examples of Features
 
@@ -117,7 +117,7 @@ standardize_parameters(model, exponentiate = TRUE)
 
 ## Effect Sizes for ANOVAs
 
-In the context of ANOVAs (analysis of variance) or ANOVA-like tables, it is common to report ANOVA-like effect sizes. Unlike standardized parameters, these effect sizes represent the amount of variance explained by each of the model's terms, where each term can be represented by one or more parameters. `eta_squared()` can produce such popular effect sizes as Eta-squared ($\eta^2$), its partial version ($\eta^2_p$), as well as the generalized $\eta^2_G$ [@olejnik2003generalized]:
+Unlike standardized parameters, the effect sizes reported in the context of ANOVAs (analysis of variance) or ANOVA-like tables represent the amount of variance explained by each of the model's terms, where each term can be represented by one or more parameters. `eta_squared()` can produce such popular effect sizes as Eta-squared ($\eta^2$), its partial version ($\eta^2_p$), as well as the generalized $\eta^2_G$ [@olejnik2003generalized]:
 
 
 ``` r
@@ -193,7 +193,7 @@ These functions also power our *Effect Sizes From Test Statistics* shiny app (ht
 
 ### Between Effect Sizes
 
-For comparisons between different types of designs and analyses, it is useful to be able to convert between different types of effect sizes [*d*, *r*, Odds ratios and Risk ratios; @borenstein2009converting; grant2014converting].
+For comparisons between different types of designs and analyses, it is useful to be able to convert between different types of effect sizes [*d*, *r*, Odds ratios and Risk ratios; @borenstein2009converting; @grant2014converting].
 
 ``` r
 r_to_d(0.7)
