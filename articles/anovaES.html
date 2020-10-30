@@ -143,11 +143,11 @@
         data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span>
 
 <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></pre></div>
-<pre><code>&gt; Parameter     | Coefficient |   SE |       95% CI |     t | df |      p
-&gt; -----------------------------------------------------------------------
-&gt; (Intercept)   |        4.28 | 0.36 | [3.56, 5.00] | 11.85 | 77 | &lt; .001
-&gt; treatment [A] |        1.97 | 0.54 | [0.89, 3.05] |  3.64 | 77 | &lt; .001
-&gt; treatment [B] |        2.09 | 0.47 | [1.15, 3.03] |  4.42 | 77 | &lt; .001</code></pre>
+<pre><code>&gt; Parameter     | Coefficient |   SE |       95% CI | t(77) |      p
+&gt; ------------------------------------------------------------------
+&gt; (Intercept)   |        4.28 | 0.36 | [3.56, 5.00] | 11.85 | &lt; .001
+&gt; treatment [A] |        1.97 | 0.54 | [0.89, 3.05] |  3.64 | &lt; .001
+&gt; treatment [B] |        2.09 | 0.47 | [1.15, 3.03] |  4.42 | &lt; .001</code></pre>
 <p>But we can also ask about the overall effect of <code>treatment</code> - how much of the variation in our dependent variable <code>value</code> can be predicted by (or explained by) the variation between the <code>treatment</code> groups. Such a question can be answered with an ANOVA test:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span></pre></div>

@@ -154,9 +154,9 @@
 <p>But we can also treat the 2-level <code>group</code> variable as a numeric variable, and compute Pearon’s <em>r</em>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></pre></div>
-<pre><code>&gt; Parameter1 | Parameter2 |    r |        95% CI |    t | df |     p |  Method | n_Obs
-&gt; ------------------------------------------------------------------------------------
-&gt; Group      |    Outcome | 0.17 | [-0.52, 0.72] | 0.48 |  8 | 0.642 | Pearson |    10</code></pre>
+<pre><code>&gt; Parameter1 | Parameter2 |    r |        95% CI | t(8) |     p |  Method | n_Obs
+&gt; -------------------------------------------------------------------------------
+&gt; Group      |    Outcome | 0.17 | [-0.52, 0.72] | 0.48 | 0.642 | Pearson |    10</code></pre>
 <p>But what if we only have summary statistics? Say, we only have <span class="math inline">\(d=-0.37\)</span> and we want to know what the <em>r</em> would have been? We can approximate <em>r</em> using the following formula <span class="citation">(Borenstein et al. 2009)</span>:</p>
 <p><span class="math display">\[
 r \approx \frac{d}{\sqrt{d^2 + 4}}
@@ -174,11 +174,11 @@ r \approx \frac{d}{\sqrt{d^2 + 4}}
 <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span> <span class="op">+</span> <span class="va">hp</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 
 <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></pre></div>
-<pre><code>&gt; Parameter   | Coefficient |       SE |         95% CI |     t | df |      p
-&gt; ---------------------------------------------------------------------------
-&gt; (Intercept) |       26.58 |     1.43 | [23.67, 29.50] | 18.65 | 29 | &lt; .001
-&gt; am          |        5.28 |     1.08 | [ 3.07,  7.48] |  4.89 | 29 | &lt; .001
-&gt; hp          |       -0.06 | 7.86e-03 | [-0.07, -0.04] | -7.50 | 29 | &lt; .001</code></pre>
+<pre><code>&gt; Parameter   | Coefficient |       SE |         95% CI | t(29) |      p
+&gt; ----------------------------------------------------------------------
+&gt; (Intercept) |       26.58 |     1.43 | [23.67, 29.50] | 18.65 | &lt; .001
+&gt; am          |        5.28 |     1.08 | [ 3.07,  7.48] |  4.89 | &lt; .001
+&gt; hp          |       -0.06 | 7.86e-03 | [-0.07, -0.04] | -7.50 | &lt; .001</code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit">
 <span class="co"># A couple of ways to get partial-d:</span>
 <span class="fl">5.28</span> <span class="op">/</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stanreg-methods.html">sigma</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></pre></div>
@@ -194,9 +194,9 @@ r \approx \frac{d}{\sqrt{d^2 + 4}}
 &gt; 0.67 | [0.43, 0.80]</code></pre>
 <div class="sourceCode" id="cb16"><pre class="downlit">
 <span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mpg"</span>,<span class="st">"am"</span>,<span class="st">"hp"</span><span class="op">)</span><span class="op">]</span>, partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span>,<span class="op">]</span></pre></div>
-<pre><code>&gt; Parameter1 | Parameter2 |    r |       95% CI |    t | df |      p |  Method | n_Obs
-&gt; ------------------------------------------------------------------------------------
-&gt; mpg        |         am | 0.67 | [0.42, 0.83] | 4.97 | 30 | &lt; .001 | Pearson |    32</code></pre>
+<pre><code>&gt; Parameter1 | Parameter2 |    r |       95% CI | t(30) |      p |  Method | n_Obs
+&gt; --------------------------------------------------------------------------------
+&gt; mpg        |         am | 0.67 | [0.42, 0.83] |  4.97 | &lt; .001 | Pearson |    32</code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit">
 <span class="co"># all close to:</span>
 <span class="fu"><a href="../reference/d_to_r.html">d_to_r</a></span><span class="op">(</span><span class="fl">1.81</span><span class="op">)</span></pre></div>
@@ -227,10 +227,10 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
            family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></pre></div>
-<pre><code>&gt; Parameter   | Coefficient |   SE |        95% CI |     z |     p
-&gt; ----------------------------------------------------------------
-&gt; (Intercept) |        1.22 | 2.04 | [-2.77, 5.62] |  0.60 | 0.551
-&gt; Group       |       -0.81 | 1.29 | [-3.54, 1.70] | -0.63 | 0.530</code></pre>
+<pre><code>&gt; Parameter   | Log-Odds |   SE |        95% CI |     z |     p
+&gt; -------------------------------------------------------------
+&gt; (Intercept) |     1.22 | 2.04 | [-2.77, 5.62] |  0.60 | 0.551
+&gt; Group       |    -0.81 | 1.29 | [-3.54, 1.70] | -0.63 | 0.530</code></pre>
 <div class="sourceCode" id="cb22"><pre class="downlit">
 <span class="co"># Convert log(OR) (the coefficient) to d</span>
 <span class="fu"><a href="../reference/d_to_r.html">oddsratio_to_d</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.81</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
