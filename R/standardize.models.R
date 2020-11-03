@@ -7,6 +7,8 @@
 #' @importFrom stats update
 #' @importFrom insight get_data model_info find_response get_response find_weights get_weights
 #' @importFrom utils capture.output
+#'
+#' @inheritSection standardize_parameters Generalized Linear Models
 #' @export
 standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, verbose = TRUE,
                                 include_response = TRUE, ...) {
@@ -226,5 +228,10 @@ standardize.wbgee <- standardize.wbm
 #' @keywords internal
 .no_response_standardize <- function(info) {
   # check if model has a response variable that should not be standardized.
-  info$is_count | info$is_ordinal | info$is_multinomial | info$is_beta | info$is_censored | info$is_binomial | info$is_survival
+  !info$is_linear | info$family == "inverse.gaussian"
+
+  ## TODO alternative would be to keep the below line for checking if no std possible
+  ##      and then treat response for "Gamma()" or "inverse.gaussian" similar to log-terms
+
+  # info$is_count | info$is_ordinal | info$is_multinomial | info$is_beta | info$is_censored | info$is_binomial | info$is_survival
 }

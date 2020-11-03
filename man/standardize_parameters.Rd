@@ -127,15 +127,14 @@ standardizes the transformed data (e.g. equivalent to \code{scale(exp(X))}). See
 \code{\link[=standardize]{standardize()}} for more details on how different transformations are dealt
 with.
 }
-
-\subsection{Generalized Linear Models}{
-
+}
+\section{Generalized Linear Models}{
 When standardizing coefficients of a generalized model (GLM, GLMM, etc), only
 the predictors are standardized, maintaining the interpretability of the
 coefficients (e.g., in a binomial model: the exponent of the standardized
 parameter is the OR of a change of 1 SD in the predictor, etc.)
 }
-}
+
 \examples{
 library(effectsize)
 data(iris)
