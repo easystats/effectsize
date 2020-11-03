@@ -111,3 +111,9 @@ if (require(emmeans)) {
 \item Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
 }
 }
+\seealso{
+Other effect size from test statistic: 
+\code{\link{F_to_eta2}()},
+\code{\link{chisq_to_phi}()}
+}
+\concept{effect size from test statistic}

@@ -84,3 +84,9 @@ chisq_to_cramers_v(41.234,
 \item Bergsma, W. (2013). A bias-correction for Cramer's V and Tschuprow's T. Journal of the Korean Statistical Society, 42(3), 323-328.
 }
 }
+\seealso{
+Other effect size from test statistic: 
+\code{\link{F_to_eta2}()},
+\code{\link{t_to_d}()}
+}
+\concept{effect size from test statistic}

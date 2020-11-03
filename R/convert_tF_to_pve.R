@@ -52,6 +52,7 @@
 #' @note \eqn{Adj. \eta_p^2} is an alias for \eqn{\epsilon_p^2}.
 #'
 #' @seealso [eta_squared()] for more details.
+#' @family effect size from test statistic
 #'
 #' @examples
 #' \donttest{

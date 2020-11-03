@@ -27,6 +27,8 @@
 #' the noncentral Chi-squared distribution for the desired tail-probabilities,
 #' and then convert these `ncp`s to the corresponding effect sizes.
 #'
+#' @family effect size from test statistic
+#'
 #' @note Cohen's *w* is equivalent to *Phi*.
 #'
 #' @examples

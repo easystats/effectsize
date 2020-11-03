@@ -38,6 +38,8 @@
 #' of the noncentral F distribution for the desired tail-probabilities,
 #' and then convert these `ncp`s to the corresponding effect sizes.
 #'
+#' @family effect size from test statistic
+#'
 #' @examples
 #' ## t Tests
 #' res <- t.test(1:10, y = c(7:20), var.equal = TRUE)

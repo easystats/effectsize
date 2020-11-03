@@ -160,4 +160,9 @@ if (require(emmeans)) {
 }
 \seealso{
 \code{\link[=eta_squared]{eta_squared()}} for more details.
+
+Other effect size from test statistic: 
+\code{\link{chisq_to_phi}()},
+\code{\link{t_to_d}()}
 }
+\concept{effect size from test statistic}
