@@ -1,4 +1,4 @@
-if (require("testthat") && require("effectsize")) {
+if (require("testthat") && require("effectsize") && require("lme4")) {
   # standardize.lm ----------------------------------------------------------
   test_that("standardize.lm", {
     iris2 <- na.omit(iris)
@@ -106,5 +106,20 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_equal(standardize_parameters(m1, method = "basic")[[2]],
                            standardize_parameters(m2, method = "basic")[[2]],
                            tolerance = 1e-3)
+  })
+
+
+  # don't standardize non-Gaussian response ------------------------------------
+  test_that("standardize non-Gaussian response", {
+    set.seed(1234)
+    data(sleepstudy)
+
+    m1 <- glm(Reaction ~ Days, family = Gamma(), data = sleepstudy)
+    m2 <- glm(Reaction ~ Days, family = Gamma(link = "identity"), data = sleepstudy)
+    m3 <- glm(Reaction ~ Days, family = inverse.gaussian(), data = sleepstudy)
+
+    testthat::expect_equal(coef(standardize(m1)), c(`(Intercept)` = 0.00338, Days = -0.00034), tolerance = 1e-3)
+    testthat::expect_equal(coef(standardize(m2)), c(`(Intercept)` = 298.48571, Days = 29.70754), tolerance = 1e-3)
+    testthat::expect_equal(coef(standardize(m3)), c(`(Intercept)` = 1e-05, Days = 0), tolerance = 1e-3)
   })
 }
