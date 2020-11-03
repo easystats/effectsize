@@ -17,7 +17,7 @@ interpret_rhat(rhat, rules = "vehtari2019")
 \item{rhat}{Value or vector of Rhat values.}
 }
 \description{
-Interpretation of Bayesian indices, such as Effective Sample Size (ESS), Rhat, or percentage in ROPE.
+Interpretation of Bayesian diagnostic indices, such as Effective Sample Size (ESS) and Rhat.
 }
 \section{Rules}{
 
