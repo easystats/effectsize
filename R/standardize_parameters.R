@@ -82,6 +82,9 @@
 #'
 #' @return A data frame with the standardized parameters and their CIs.
 #'
+#' @family standardize
+#' @family effect size indices
+#'
 #' @examples
 #' library(effectsize)
 #' data(iris)

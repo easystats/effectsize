@@ -49,19 +49,28 @@ between 0-1, whereas phi can be larger than 1.
 Cohen's \emph{g} is an effect size for dependent (paired) contingency tables
 ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry) (see
 \code{\link[stats:mcnemar.test]{stats::mcnemar.test()}}).
-\subsection{Confidence Intervals}{
-
-For Cramer's \emph{V} and phi, confidence intervals are estimated using the
-Noncentrality parameter method; These methods searches for a the best \code{ncp}
-(non-central parameters) for of the noncentral Chi-squared distribution for
-the desired tail-probabilities, and then convert these \code{ncp}s to the
-corresponding effect sizes.
-\cr\cr
+}
+\section{Confidence Intervals for g}{
 For Cohen's \emph{g}, confidence intervals are based on the proportion (\eqn{P = g
 + 0.5}) confidence intervals returned by \code{\link[stats:prop.test]{stats::prop.test()}} (minus 0.5),
 which give a good close approximation.
 }
+
+\section{Confidence Intervals}{
+Confidence intervals are estimated using the Noncentrality parameter method;
+These methods searches for a the best non-central parameters (\code{ncp}s) of the
+noncentral t-, F- or Chi-squared distribution for the desired
+tail-probabilities, and then convert these \code{ncp}s to the corresponding effect
+sizes.
 }
+
+\section{CI Contains Zero}{
+
+Special care should be taken when interpreting CIs with a lower bound equal
+to (or small then) 0, and even more care should be taken when the \emph{upper}
+bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
+}
+
 \examples{
 M <- rbind(c(150, 130, 35, 55),
            c(100, 50,  10, 40),
@@ -92,4 +101,12 @@ cohens_g(Performance)
 }
 \seealso{
 \code{\link[=chisq_to_phi]{chisq_to_phi()}} for details regarding estimation and CIs.
+
+Other effect size indices: 
+\code{\link{cohens_d}()},
+\code{\link{effectsize}()},
+\code{\link{eta_squared_posterior}()},
+\code{\link{eta_squared}()},
+\code{\link{standardize_parameters}()}
 }
+\concept{effect size indices}

@@ -9,6 +9,8 @@
 #' @param log Take in or output the log of the ratio (such as in logistic models).
 #' @param ... Arguments passed to or from other methods.
 #'
+#' @family convert between effect sizes
+#'
 #' @examples
 #' r_to_d(0.5)
 #' d_to_oddsratio(1.154701)

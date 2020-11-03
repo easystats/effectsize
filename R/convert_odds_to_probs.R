@@ -10,6 +10,7 @@
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @seealso [stats::plogis()]
+#' @family convert between effect sizes
 #'
 #' @examples
 #' odds_to_probs(3)

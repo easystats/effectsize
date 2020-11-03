@@ -44,16 +44,6 @@
 #' and *centered covariates*, for sensible results. See examples and the `afex`
 #' package.
 #'
-#' ## Confidence Intervals
-#' Confidence intervals are estimated using the Noncentrality parameter method;
-#' These methods searches for a the best `ncp` (non-central parameters) for
-#' of the noncentral F distribution for the desired tail-probabilities,
-#' and then convert these `ncp`s to the corresponding effect sizes.
-#' \cr\cr
-#' Special care should be taken when interpreting CIs with a lower bound equal
-#' to (or small then) 0, and even more care should be taken when the *upper*
-#' bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
-#'
 #' ## Un-Biased Estimate of Eta
 #' Both ***Omega*** and ***Epsilon*** are unbiased estimators of the
 #' population's ***Eta***, which is especially important is small samples. But
@@ -75,8 +65,12 @@
 #' Cohen has suggested that the values of 0.10, 0.25, and 0.40 represent small,
 #' medium, and large effect sizes, respectively.
 #'
+#' @inheritSection cohens_d Confidence Intervals
+#' @inheritSection chisq_to_phi CI Contains Zero
+#'
 #'
 #' @seealso [F_to_eta2()]
+#' @family effect size indices
 #'
 #' @examples
 #' \donttest{

@@ -186,4 +186,17 @@ if (require("rstanarm")) {
 }
 \seealso{
 \code{\link[=standardize_info]{standardize_info()}}
+
+Other standardize: 
+\code{\link{standardize_info}()},
+\code{\link{standardize}()}
+
+Other effect size indices: 
+\code{\link{cohens_d}()},
+\code{\link{effectsize}()},
+\code{\link{eta_squared_posterior}()},
+\code{\link{eta_squared}()},
+\code{\link{phi}()}
 }
+\concept{effect size indices}
+\concept{standardize}

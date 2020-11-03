@@ -32,11 +32,9 @@
 #' \cr\cr
 #' \deqn{Cohen's d = 2 * z / \sqrt{N}}
 #'
-#' ## Confidence Intervals
-#' Confidence intervals are estimated using the Noncentrality parameter method;
-#' These methods searches for a the best `ncp` (non-central parameters) for
-#' of the noncentral F distribution for the desired tail-probabilities,
-#' and then convert these `ncp`s to the corresponding effect sizes.
+#' @inheritSection cohens_d Confidence Intervals
+#'
+#' @family effect size from test statistic
 #'
 #' @examples
 #' ## t Tests

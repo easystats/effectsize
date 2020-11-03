@@ -45,17 +45,25 @@ These functions use the following formulae:
 \deqn{Cramer's V = \phi / \sqrt{min(nrow,ncol)-1}}
 \cr
 For adjusted versions, see Bergsma, 2013.
-\subsection{Confidence Intervals}{
-
-Confidence intervals are estimated using the Noncentrality parameter method;
-These methods searches for a the best \code{ncp} (non-central parameters) for of
-the noncentral Chi-squared distribution for the desired tail-probabilities,
-and then convert these \code{ncp}s to the corresponding effect sizes.
-}
 }
 \note{
 Cohen's \emph{w} is equivalent to \emph{Phi}.
 }
+\section{CI Contains Zero}{
+
+Special care should be taken when interpreting CIs with a lower bound equal
+to (or small then) 0, and even more care should be taken when the \emph{upper}
+bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
+}
+
+\section{Confidence Intervals}{
+Confidence intervals are estimated using the Noncentrality parameter method;
+These methods searches for a the best non-central parameters (\code{ncp}s) of the
+noncentral t-, F- or Chi-squared distribution for the desired
+tail-probabilities, and then convert these \code{ncp}s to the corresponding effect
+sizes.
+}
+
 \examples{
 contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
 
@@ -84,3 +92,9 @@ chisq_to_cramers_v(41.234,
 \item Bergsma, W. (2013). A bias-correction for Cramer's V and Tschuprow's T. Journal of the Korean Statistical Society, 42(3), 323-328.
 }
 }
+\seealso{
+Other effect size from test statistic: 
+\code{\link{F_to_eta2}()},
+\code{\link{t_to_d}()}
+}
+\concept{effect size from test statistic}

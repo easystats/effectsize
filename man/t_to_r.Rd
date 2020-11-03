@@ -58,14 +58,15 @@ These functions use the following formulae to approximate \emph{r} and \emph{d}:
 \deqn{Cohen's d_z = t / \sqrt{df_{error}}}
 \cr\cr
 \deqn{Cohen's d = 2 * z / \sqrt{N}}
-\subsection{Confidence Intervals}{
-
+}
+\section{Confidence Intervals}{
 Confidence intervals are estimated using the Noncentrality parameter method;
-These methods searches for a the best \code{ncp} (non-central parameters) for
-of the noncentral F distribution for the desired tail-probabilities,
-and then convert these \code{ncp}s to the corresponding effect sizes.
+These methods searches for a the best non-central parameters (\code{ncp}s) of the
+noncentral t-, F- or Chi-squared distribution for the desired
+tail-probabilities, and then convert these \code{ncp}s to the corresponding effect
+sizes.
 }
-}
+
 \examples{
 ## t Tests
 res <- t.test(1:10, y = c(7:20), var.equal = TRUE)
@@ -111,3 +112,9 @@ if (require(emmeans)) {
 \item Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
 }
 }
+\seealso{
+Other effect size from test statistic: 
+\code{\link{F_to_eta2}()},
+\code{\link{chisq_to_phi}()}
+}
+\concept{effect size from test statistic}

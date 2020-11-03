@@ -21,11 +21,14 @@
 #' \cr
 #' For adjusted versions, see Bergsma, 2013.
 #'
-#' ## Confidence Intervals
-#' Confidence intervals are estimated using the Noncentrality parameter method;
-#' These methods searches for a the best `ncp` (non-central parameters) for of
-#' the noncentral Chi-squared distribution for the desired tail-probabilities,
-#' and then convert these `ncp`s to the corresponding effect sizes.
+#' @inheritSection cohens_d Confidence Intervals
+#'
+#' @section CI Contains Zero:
+#' Special care should be taken when interpreting CIs with a lower bound equal
+#' to (or small then) 0, and even more care should be taken when the *upper*
+#' bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
+#'
+#' @family effect size from test statistic
 #'
 #' @note Cohen's *w* is equivalent to *Phi*.
 #'

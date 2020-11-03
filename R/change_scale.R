@@ -18,6 +18,9 @@
 #' @seealso [normalize()] [standardize()] [ranktransform()]
 #'
 #' @return A rescaled object.
+#'
+#' @family transform utilities
+#'
 #' @export
 change_scale <- function(x, ...) {
   UseMethod("change_scale")
