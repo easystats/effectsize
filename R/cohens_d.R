@@ -28,7 +28,7 @@
 #' of the noncentral t distribution for the desired tail-probabilities,
 #' and then convert these `ncp`s to the corresponding effect sizes.
 #'
-#' @seealso [d_to_common_language()]
+#' @seealso [d_to_common_language()] [sd_pooled()]
 #'
 #' @examples
 #' cohens_d(iris$Sepal.Length, iris$Sepal.Width)

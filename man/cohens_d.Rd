@@ -96,5 +96,5 @@ print(cohens_d(mpg ~ am, data = mtcars), append_CL = TRUE)
 }
 }
 \seealso{
-\code{\link[=d_to_common_language]{d_to_common_language()}}
+\code{\link[=d_to_common_language]{d_to_common_language()}} \code{\link[=sd_pooled]{sd_pooled()}}
 }
