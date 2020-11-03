@@ -22,16 +22,13 @@
 #' ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry) (see
 #' [stats::mcnemar.test()]).
 #'
-#' ## Confidence Intervals
-#' For Cramer's *V* and phi, confidence intervals are estimated using the
-#' Noncentrality parameter method; These methods searches for a the best `ncp`
-#' (non-central parameters) for of the noncentral Chi-squared distribution for
-#' the desired tail-probabilities, and then convert these `ncp`s to the
-#' corresponding effect sizes.
-#' \cr\cr
+#' # Confidence Intervals for g
 #' For Cohen's *g*, confidence intervals are based on the proportion (\eqn{P = g
 #' + 0.5}) confidence intervals returned by [stats::prop.test()] (minus 0.5),
 #' which give a good close approximation.
+#'
+#' @inheritSection cohens_d Confidence Intervals
+#' @inheritSection chisq_to_phi CI Contains Zero
 #'
 #' @return A data frame with the effect size(s), and confidence interval(s).
 #'

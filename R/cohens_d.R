@@ -20,13 +20,16 @@
 #' @param paired If `TRUE`, the values of `x` and `y` are considered as paired.
 #' @inheritParams chisq_to_phi
 #'
-#' @return A data frame with the effect size(s) and confidence interval(s).
+#' @details
 #'
-#' ## Confidence Intervals
+#' # Confidence Intervals
 #' Confidence intervals are estimated using the Noncentrality parameter method;
-#' These methods searches for a the best `ncp` (non-central parameters) for
-#' of the noncentral t distribution for the desired tail-probabilities,
-#' and then convert these `ncp`s to the corresponding effect sizes.
+#' These methods searches for a the best non-central parameters (`ncp`s) of the
+#' noncentral t-, F- or Chi-squared distribution for the desired
+#' tail-probabilities, and then convert these `ncp`s to the corresponding effect
+#' sizes.
+#'
+#' @return A data frame with the effect size(s) and confidence interval(s).
 #'
 #' @seealso [d_to_common_language()] [sd_pooled()]
 #' @family effect size indices

@@ -59,13 +59,6 @@ Not applicable to Glass' Delta (See \code{\link[=d_to_common_language]{d_to_comm
 }
 \value{
 A data frame with the effect size(s) and confidence interval(s).
-\subsection{Confidence Intervals}{
-
-Confidence intervals are estimated using the Noncentrality parameter method;
-These methods searches for a the best \code{ncp} (non-central parameters) for
-of the noncentral t distribution for the desired tail-probabilities,
-and then convert these \code{ncp}s to the corresponding effect sizes.
-}
 }
 \description{
 Compute different indices of effect size. For very small sample sizes (n <
@@ -76,6 +69,14 @@ The Glass’s delta is appropriate if standard deviations are significantly
 different between groups, as it uses only the \emph{second} group's standard
 deviation.
 }
+\section{Confidence Intervals}{
+Confidence intervals are estimated using the Noncentrality parameter method;
+These methods searches for a the best non-central parameters (\code{ncp}s) of the
+noncentral t-, F- or Chi-squared distribution for the desired
+tail-probabilities, and then convert these \code{ncp}s to the corresponding effect
+sizes.
+}
+
 \examples{
 cohens_d(iris$Sepal.Length, iris$Sepal.Width)
 hedges_g("Sepal.Length", "Sepal.Width", data = iris)
