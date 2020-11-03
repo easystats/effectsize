@@ -33,7 +33,7 @@
 #'   number of rows as the original input.
 #'
 #'
-#' @seealso [normalize()] [standardize_parameters()]
+#' @family transform utilities
 #'
 #' @examples
 #' # Data frames

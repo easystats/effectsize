@@ -15,9 +15,10 @@
 #'
 #' head(ranktransform(iris))
 #'
-#' @seealso [normalize()] [standardize()] [change_scale()]
-#'
 #' @return A rank-transformed object.
+#'
+#' @family transform utilities
+#'
 #' @export
 ranktransform <- function(x, ...) {
   UseMethod("ranktransform")

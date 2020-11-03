@@ -68,5 +68,9 @@ head(normalize(iris))
 }
 }
 \seealso{
-\code{\link[=ranktransform]{ranktransform()}} \code{\link[=standardize]{standardize()}} \code{\link[=change_scale]{change_scale()}}
+Other transform utilities: 
+\code{\link{change_scale}()},
+\code{\link{ranktransform}()},
+\code{\link{standardize}()}
 }
+\concept{transform utilities}

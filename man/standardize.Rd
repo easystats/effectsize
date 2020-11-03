@@ -154,5 +154,9 @@ model <- lm(Sepal.Length ~ Species * Petal.Width, data = iris)
 coef(standardize(model))
 }
 \seealso{
-\code{\link[=normalize]{normalize()}} \code{\link[=standardize_parameters]{standardize_parameters()}}
+Other transform utilities: 
+\code{\link{change_scale}()},
+\code{\link{normalize}()},
+\code{\link{ranktransform}()}
 }
+\concept{transform utilities}
