@@ -92,4 +92,12 @@ cohens_g(Performance)
 }
 \seealso{
 \code{\link[=chisq_to_phi]{chisq_to_phi()}} for details regarding estimation and CIs.
+
+Other effect size indices: 
+\code{\link{cohens_d}()},
+\code{\link{effectsize}()},
+\code{\link{eta_squared_posterior}()},
+\code{\link{eta_squared}()},
+\code{\link{standardize_parameters}()}
 }
+\concept{effect size indices}

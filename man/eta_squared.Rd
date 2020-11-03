@@ -193,4 +193,12 @@ if (require(lmerTest, quietly = TRUE)) {
 }
 \seealso{
 \code{\link[=F_to_eta2]{F_to_eta2()}}
+
+Other effect size indices: 
+\code{\link{cohens_d}()},
+\code{\link{effectsize}()},
+\code{\link{eta_squared_posterior}()},
+\code{\link{phi}()},
+\code{\link{standardize_parameters}()}
 }
+\concept{effect size indices}

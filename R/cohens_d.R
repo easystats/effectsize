@@ -29,6 +29,7 @@
 #' and then convert these `ncp`s to the corresponding effect sizes.
 #'
 #' @seealso [d_to_common_language()] [sd_pooled()]
+#' @family effect size indices
 #'
 #' @examples
 #' cohens_d(iris$Sepal.Length, iris$Sepal.Width)

@@ -23,6 +23,8 @@
 #' **For statistical models it is recommended to directly use the listed
 #' functions, for the full range of options they provide.**
 #'
+#' @family effect size indices
+#'
 #' @examples
 #' contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
 #' Xsq <- chisq.test(contingency_table)

@@ -97,4 +97,12 @@ print(cohens_d(mpg ~ am, data = mtcars), append_CL = TRUE)
 }
 \seealso{
 \code{\link[=d_to_common_language]{d_to_common_language()}} \code{\link[=sd_pooled]{sd_pooled()}}
+
+Other effect size indices: 
+\code{\link{effectsize}()},
+\code{\link{eta_squared_posterior}()},
+\code{\link{eta_squared}()},
+\code{\link{phi}()},
+\code{\link{standardize_parameters}()}
 }
+\concept{effect size indices}

@@ -36,6 +36,7 @@
 #' @return A data frame with the effect size(s), and confidence interval(s).
 #'
 #' @seealso [chisq_to_phi()] for details regarding estimation and CIs.
+#' @family effect size indices
 #'
 #' @examples
 #' M <- rbind(c(150, 130, 35, 55),

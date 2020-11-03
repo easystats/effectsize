@@ -25,6 +25,8 @@
 #'   effect, which can then be passed to [bayestestR::describe_posterior()] for
 #'   summary stats.
 #'
+#' @family effect size indices
+#'
 #' @examples
 #' \donttest{
 #' if (require(rstanarm) && require(bayestestR)) {

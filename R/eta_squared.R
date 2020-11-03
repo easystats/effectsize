@@ -77,6 +77,7 @@
 #'
 #'
 #' @seealso [F_to_eta2()]
+#' @family effect size indices
 #'
 #' @examples
 #' \donttest{
