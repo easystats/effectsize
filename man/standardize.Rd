@@ -145,6 +145,13 @@ standardized data is shifted by \code{Z - min(Z) + 1} or \code{Z - min(Z)}
 }
 }
 
+\section{Generalized Linear Models}{
+When standardizing coefficients of a generalized model (GLM, GLMM, etc), only
+the predictors are standardized, maintaining the interpretability of the
+coefficients (e.g., in a binomial model: the exponent of the standardized
+parameter is the OR of a change of 1 SD in the predictor, etc.)
+}
+
 \examples{
 # Data frames
 summary(standardize(iris))

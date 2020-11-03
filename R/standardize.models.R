@@ -7,6 +7,8 @@
 #' @importFrom stats update
 #' @importFrom insight get_data model_info find_response get_response find_weights get_weights
 #' @importFrom utils capture.output
+#'
+#' @inheritSection standardize_parameters Generalized Linear Models
 #' @export
 standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, verbose = TRUE,
                                 include_response = TRUE, ...) {
