@@ -120,6 +120,6 @@ if (require("testthat") && require("effectsize") && require("lme4")) {
 
     testthat::expect_equal(coef(standardize(m1)), c(`(Intercept)` = 0.00338, Days = -0.00034), tolerance = 1e-3)
     testthat::expect_equal(coef(standardize(m2)), c(`(Intercept)` = 298.48571, Days = 29.70754), tolerance = 1e-3)
-    testthat::expect_equal(coef(standardize(m1)), c(`(Intercept)` = 1e-05, Days = 0), tolerance = 1e-3)
+    testthat::expect_equal(coef(standardize(m3)), c(`(Intercept)` = 1e-05, Days = 0), tolerance = 1e-3)
   })
 }
