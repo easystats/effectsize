@@ -223,19 +223,26 @@ between 0-1, whereas phi can be larger than 1.
 <br /><br />
 Cohen's <em>g</em> is an effect size for dependent (paired) contingency tables
 ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry) (see
-<code><a href='https://rdrr.io/r/stats/mcnemar.test.html'>stats::mcnemar.test()</a></code>).</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Confidence Intervals</h3>
+<code><a href='https://rdrr.io/r/stats/mcnemar.test.html'>stats::mcnemar.test()</a></code>).</p>
+    <h2 class="hasAnchor" id="confidence-intervals-for-g"><a class="anchor" href="#confidence-intervals-for-g"></a>Confidence Intervals for g</h2>
 
-
-<p>For Cramer's <em>V</em> and phi, confidence intervals are estimated using the
-Noncentrality parameter method; These methods searches for a the best <code>ncp</code>
-(non-central parameters) for of the noncentral Chi-squared distribution for
-the desired tail-probabilities, and then convert these <code>ncp</code>s to the
-corresponding effect sizes.
-<br /><br />
-For Cohen's <em>g</em>, confidence intervals are based on the proportion (\(P = g
+    <p>For Cohen's <em>g</em>, confidence intervals are based on the proportion (\(P = g
 + 0.5\)) confidence intervals returned by <code><a href='https://rdrr.io/r/stats/prop.test.html'>stats::prop.test()</a></code> (minus 0.5),
 which give a good close approximation.</p>
+    <h2 class="hasAnchor" id="confidence-intervals"><a class="anchor" href="#confidence-intervals"></a>Confidence Intervals</h2>
 
+    <p>Confidence intervals are estimated using the Noncentrality parameter method;
+These methods searches for a the best non-central parameters (<code>ncp</code>s) of the
+noncentral t-, F- or Chi-squared distribution for the desired
+tail-probabilities, and then convert these <code>ncp</code>s to the corresponding effect
+sizes.</p>
+    <h2 class="hasAnchor" id="ci-contains-zero"><a class="anchor" href="#ci-contains-zero"></a>CI Contains Zero</h2>
+
+    
+
+<p>Special care should be taken when interpreting CIs with a lower bound equal
+to (or small then) 0, and even more care should be taken when the <em>upper</em>
+bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -245,7 +252,13 @@ which give a good close approximation.</p>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='chisq_to_phi.html'>chisq_to_phi()</a></code> for details regarding estimation and CIs.</p></div>
+    <div class='dont-index'><p><code><a href='chisq_to_phi.html'>chisq_to_phi()</a></code> for details regarding estimation and CIs.</p>
+<p>Other effect size indices: 
+<code><a href='cohens_d.html'>cohens_d</a>()</code>,
+<code><a href='effectsize.html'>effectsize</a>()</code>,
+<code><a href='eta_squared_posterior.html'>eta_squared_posterior</a>()</code>,
+<code><a href='eta_squared.html'>eta_squared</a>()</code>,
+<code><a href='standardize_parameters.html'>standardize_parameters</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>M</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>150</span>, <span class='fl'>130</span>, <span class='fl'>35</span>, <span class='fl'>55</span><span class='op'>)</span>,

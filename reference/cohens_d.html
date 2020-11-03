@@ -256,14 +256,14 @@ Not applicable to Glass' Delta (See <code><a href='d_to_common_language.html'>d_
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with the effect size(s) and confidence interval(s).</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Confidence Intervals</h3>
+    <p>A data frame with the effect size(s) and confidence interval(s).</p>
+    <h2 class="hasAnchor" id="confidence-intervals"><a class="anchor" href="#confidence-intervals"></a>Confidence Intervals</h2>
 
-
-<p>Confidence intervals are estimated using the Noncentrality parameter method;
-These methods searches for a the best <code>ncp</code> (non-central parameters) for
-of the noncentral t distribution for the desired tail-probabilities,
-and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
-
+    <p>Confidence intervals are estimated using the Noncentrality parameter method;
+These methods searches for a the best non-central parameters (<code>ncp</code>s) of the
+noncentral t-, F- or Chi-squared distribution for the desired
+tail-probabilities, and then convert these <code>ncp</code>s to the corresponding effect
+sizes.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -275,7 +275,13 @@ and then convert these <code>ncp</code>s to the corresponding effect sizes.</p>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='d_to_common_language.html'>d_to_common_language()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='d_to_common_language.html'>d_to_common_language()</a></code> <code><a href='sd_pooled.html'>sd_pooled()</a></code></p>
+<p>Other effect size indices: 
+<code><a href='effectsize.html'>effectsize</a>()</code>,
+<code><a href='eta_squared_posterior.html'>eta_squared_posterior</a>()</code>,
+<code><a href='eta_squared.html'>eta_squared</a>()</code>,
+<code><a href='phi.html'>phi</a>()</code>,
+<code><a href='standardize_parameters.html'>standardize_parameters</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>iris</span><span class='op'>$</span><span class='va'>Sepal.Length</span>, <span class='va'>iris</span><span class='op'>$</span><span class='va'>Sepal.Width</span><span class='op'>)</span>
