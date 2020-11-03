@@ -103,3 +103,10 @@ oddsratio_to_d(1.813799, log = TRUE)
 \item Rosenthal, R., & Rubin, D. B. (1982). A simple, general purpose display of magnitude of experimental effect. Journal of educational psychology, 74(2), 166.
 }
 }
+\seealso{
+Other convert between effect sizes: 
+\code{\link{d_to_common_language}()},
+\code{\link{odds_to_probs}()},
+\code{\link{oddsratio_to_riskratio}()}
+}
+\concept{convert between effect sizes}

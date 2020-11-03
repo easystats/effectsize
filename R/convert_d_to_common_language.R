@@ -15,6 +15,7 @@
 #' normally distributed.
 #'
 #' @seealso [cohens_d()]
+#' @family convert between effect sizes
 #'
 #' @references
 #' - Cohen, J. (1977). Statistical power analysis for the behavioral sciencies. Routledge.

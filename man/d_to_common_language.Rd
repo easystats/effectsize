@@ -36,4 +36,10 @@ normally distributed.
 }
 \seealso{
 \code{\link[=cohens_d]{cohens_d()}}
+
+Other convert between effect sizes: 
+\code{\link{d_to_r}()},
+\code{\link{odds_to_probs}()},
+\code{\link{oddsratio_to_riskratio}()}
 }
+\concept{convert between effect sizes}
