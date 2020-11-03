@@ -34,6 +34,7 @@
 #'
 #'
 #' @family transform utilities
+#' @family standardize
 #'
 #' @examples
 #' # Data frames

@@ -6,8 +6,11 @@
 #' @param include_pseudo (For (G)LMMs) Should Pseudo-standardized information be included?
 #' @param ... Arguments passed to or from other methods.
 #'
+#' @family standardize
+#'
 #' @examples
 #' model <- lm(Sepal.Width ~ Sepal.Length * Species, data = iris)
+#'
 #' @importFrom parameters parameters_type
 #' @export
 standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseudo = FALSE, ...) {

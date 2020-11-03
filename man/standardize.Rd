@@ -158,5 +158,10 @@ Other transform utilities:
 \code{\link{change_scale}()},
 \code{\link{normalize}()},
 \code{\link{ranktransform}()}
+
+Other standardize: 
+\code{\link{standardize_info}()},
+\code{\link{standardize_parameters}()}
 }
+\concept{standardize}
 \concept{transform utilities}

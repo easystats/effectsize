@@ -187,4 +187,9 @@ if (require("rstanarm")) {
 }
 \seealso{
 \code{\link[=standardize_info]{standardize_info()}}
+
+Other standardize: 
+\code{\link{standardize_info}()},
+\code{\link{standardize}()}
 }
+\concept{standardize}
