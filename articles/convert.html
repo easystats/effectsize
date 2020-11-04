@@ -113,8 +113,7 @@
 
       
 
-      </header><script src="convert_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="convert_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="convert_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="convert_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Converting Between Indices of Effect Size</h1>
@@ -146,14 +145,14 @@
 &gt; 9      2   0.485
 &gt; 10     2   0.942</code></pre>
 <p>We can compute Cohen’s <em>d</em> between the two groups:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">Outcome</span> <span class="op">~</span> <span class="va">Group</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">Outcome</span> <span class="op">~</span> <span class="va">Group</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Cohen's d |        95% CI
 &gt; -------------------------
 &gt;     -0.31 | [-1.54, 0.95]</code></pre>
 <p>But we can also treat the 2-level <code>group</code> variable as a numeric variable, and compute Pearon’s <em>r</em>:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Parameter1 | Parameter2 |    r |        95% CI | t(8) |     p |  Method | n_Obs
 &gt; -------------------------------------------------------------------------------
 &gt; Group      |    Outcome | 0.17 | [-0.52, 0.72] | 0.48 | 0.642 | Pearson |    10</code></pre>
@@ -161,8 +160,8 @@
 <p><span class="math display">\[
 r \approx \frac{d}{\sqrt{d^2 + 4}}
 \]</span> And indeed, if we use <code><a href="../reference/d_to_r.html">d_to_r()</a></code>, we get a pretty decent approximation:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="../reference/d_to_r.html">d_to_r</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.31</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/d_to_r.html">d_to_r</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.31</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; [1] -0.153</code></pre>
 <p>(Which also works in the other way, with <code>r_to_d(0.17) = 0.345</code>)</p>
 <p>As we can see, these are rough approximations, but they can be useful when we don’t have the raw data on hand.</p>
@@ -170,36 +169,36 @@ r \approx \frac{d}{\sqrt{d^2 + 4}}
 <h3 class="hasAnchor">
 <a href="#in-multiple-regression" class="anchor"></a>In multiple regression</h3>
 <p>Although not exactly a classic Cohen’s d, we can also approximate a partial-<em>d</em> value (that is, the standardized difference between two groups / conditions, with variance from other predictors partilled out). For example:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span> <span class="op">+</span> <span class="va">hp</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span> <span class="op">+</span> <span class="va">hp</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 
-<span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></pre></div>
+<span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Parameter   | Coefficient |       SE |         95% CI | t(29) |      p
 &gt; ----------------------------------------------------------------------
 &gt; (Intercept) |       26.58 |     1.43 | [23.67, 29.50] | 18.65 | &lt; .001
 &gt; am          |        5.28 |     1.08 | [ 3.07,  7.48] |  4.89 | &lt; .001
 &gt; hp          |       -0.06 | 7.86e-03 | [-0.07, -0.04] | -7.50 | &lt; .001</code></pre>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="co"># A couple of ways to get partial-d:</span>
-<span class="fl">5.28</span> <span class="op">/</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stanreg-methods.html">sigma</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># A couple of ways to get partial-d:</span>
+<span class="fl">5.28</span> <span class="op">/</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stanreg-methods.html">sigma</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; [1] 1.81</code></pre>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="fu"><a href="../reference/t_to_d.html">t_to_d</a></span><span class="op">(</span><span class="fl">4.89</span>, df_error <span class="op">=</span> <span class="fl">29</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/t_to_d.html">t_to_d</a></span><span class="op">(</span><span class="fl">4.89</span>, df_error <span class="op">=</span> <span class="fl">29</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>&gt; [1] 1.82</code></pre>
 <p>We can convert these semi-<em>d</em> values to <em>r</em> values, but in this case these represent the <em>partial</em> correlation:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="fu"><a href="../reference/t_to_d.html">t_to_r</a></span><span class="op">(</span><span class="fl">4.89</span>, df_error <span class="op">=</span> <span class="fl">29</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/t_to_d.html">t_to_r</a></span><span class="op">(</span><span class="fl">4.89</span>, df_error <span class="op">=</span> <span class="fl">29</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt;    r |       95% CI
 &gt; -------------------
 &gt; 0.67 | [0.43, 0.80]</code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mpg"</span>,<span class="st">"am"</span>,<span class="st">"hp"</span><span class="op">)</span><span class="op">]</span>, partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span>,<span class="op">]</span></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mpg"</span>,<span class="st">"am"</span>,<span class="st">"hp"</span><span class="op">)</span><span class="op">]</span>, partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span>,<span class="op">]</span></code></pre></div>
 <pre><code>&gt; Parameter1 | Parameter2 |    r |       95% CI | t(30) |      p |  Method | n_Obs
 &gt; --------------------------------------------------------------------------------
 &gt; mpg        |         am | 0.67 | [0.42, 0.83] |  4.97 | &lt; .001 | Pearson |    32</code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit">
-<span class="co"># all close to:</span>
-<span class="fu"><a href="../reference/d_to_r.html">d_to_r</a></span><span class="op">(</span><span class="fl">1.81</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># all close to:</span>
+<span class="fu"><a href="../reference/d_to_r.html">d_to_r</a></span><span class="op">(</span><span class="fl">1.81</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; [1] 0.671</code></pre>
 </div>
 </div>
@@ -214,8 +213,8 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 \]</span></p>
 <p>which is implemented in the <code><a href="../reference/d_to_r.html">oddsratio_to_d()</a></code> function.</p>
 <p>Let’s give it a try:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit">
-<span class="co"># 1. Set a threshold</span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># 1. Set a threshold</span>
 <span class="va">thresh</span> <span class="op">&lt;-</span> <span class="fl">0</span>
 
 <span class="co"># 2. dichotomize the outcome</span>
@@ -226,14 +225,14 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
            data <span class="op">=</span> <span class="va">data</span>,
            family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></pre></div>
+<span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Parameter   | Log-Odds |   SE |        95% CI |     z |     p
 &gt; -------------------------------------------------------------
 &gt; (Intercept) |     1.22 | 2.04 | [-2.77, 5.62] |  0.60 | 0.551
 &gt; Group       |    -0.81 | 1.29 | [-3.54, 1.70] | -0.63 | 0.530</code></pre>
-<div class="sourceCode" id="cb22"><pre class="downlit">
-<span class="co"># Convert log(OR) (the coefficient) to d</span>
-<span class="fu"><a href="../reference/d_to_r.html">oddsratio_to_d</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.81</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Convert log(OR) (the coefficient) to d</span>
+<span class="fu"><a href="../reference/d_to_r.html">oddsratio_to_d</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.81</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; [1] -0.447</code></pre>
 <div id="odds-ratios-to-risk-ratios" class="section level3">
 <h3 class="hasAnchor">
@@ -245,19 +244,19 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 RR = \frac{OR}{(1 - p0 + (p0 \times OR))}  
 \]</span></p>
 <p>Where <span class="math inline">\(p0\)</span> is the base-rate risk - the probability of the event without the intervention (e.g., what is the probability of the migraine subsiding within an hour without eating any brussels sprouts). If it the base-rate risk is, say, 85%, we get a <em>RR</em> of:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit">
-<span class="va">OR</span> <span class="op">&lt;-</span> <span class="fl">3.5</span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">OR</span> <span class="op">&lt;-</span> <span class="fl">3.5</span>
 <span class="va">baserate</span> <span class="op">&lt;-</span> <span class="fl">0.85</span>
 
-<span class="fu"><a href="../reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio</a></span><span class="op">(</span><span class="va">OR</span>, <span class="va">baserate</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="../reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio</a></span><span class="op">(</span><span class="va">OR</span>, <span class="va">baserate</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; [1] 1.12</code></pre>
 <p>That is - for every bowl of brussels sprouts, we increase the chances of reducing the migraine by a mear 12%! Is if worth it? Depends on you affinity to brussels sprouts…</p>
 <p>Note that the base-rate risk is crucial here. If instead of 85% it was only 4%, then the <em>RR</em> would be:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit">
-<span class="va">OR</span> <span class="op">&lt;-</span> <span class="fl">3.5</span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">OR</span> <span class="op">&lt;-</span> <span class="fl">3.5</span>
 <span class="va">baserate</span> <span class="op">&lt;-</span> <span class="fl">0.04</span>
 
-<span class="fu"><a href="../reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio</a></span><span class="op">(</span><span class="va">OR</span>, <span class="va">baserate</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="../reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio</a></span><span class="op">(</span><span class="va">OR</span>, <span class="va">baserate</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; [1] 3.18</code></pre>
 <p>That is - for every bowl of brussels sprouts, we increase the chances of reducing the migraine by a whopping 318%! Is if worth it? I guess that still depends on you affinity to brussels sprouts…</p>
 </div>
