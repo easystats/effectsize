@@ -4,9 +4,16 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_equal(interpret(0.001, rules_grid)[1], "very significant")
     testthat::expect_equal(interpret(0.021, rules_grid)[1], "significant")
     testthat::expect_equal(interpret(0.08, rules_grid)[1], "not significant")
-    testthat::expect_equal(interpret(c(0.01, 0.005, 0.08), rules_grid)[1:3], c("significant", "very significant", "not significant"))
+    testthat::expect_equal(interpret(c(0.01, 0.005, 0.08), rules_grid)[1:3], c("very significant", "very significant", "not significant"))
     testthat::expect_error(interpret_r(0.6, rules(c(0.5), c("A", "B", "C"))))
     testthat::expect_error(interpret_r(0.6, rules(c(0.5, 0.2, 0.7), c("A", "B", "C", "D"))))
+
+
+    r1 <- rules(c(0, 1), labels = c("some", "few", "many"))
+    r2 <- rules(c(0, 1), labels = c("some", "few", "many"), right = FALSE)
+
+    testthat::expect_equal(interpret(c(0, 1), r1)[], c("some", "few"), check.attributes = FALSE)
+    testthat::expect_equal(interpret(c(0, 1), r2)[], c("few", "many"), check.attributes = FALSE)
   })
 
 

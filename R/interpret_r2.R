@@ -9,25 +9,25 @@
 #'
 #' - Cohen (1988) (`"cohen1988"`; default)
 #'   - **R2 < 0.02** - Very weak
-#'   - **0.02 < R2 < 0.13** - Weak
-#'   - **0.13 < R2 < 0.26** - Moderate
-#'   - **R2 > 0.26** - Substantial
+#'   - **0.02 <= R2 < 0.13** - Weak
+#'   - **0.13 <= R2 < 0.26** - Moderate
+#'   - **R2 >= 0.26** - Substantial
 #' - Falk & Miller (1992) (`"falk1992"`)
 #'   - **R2 < 0.1** - Negligible
-#'   - **R2 > 0.1** - Adequate
+#'   - **R2 >= 0.1** - Adequate
 #'
 #' ## For PLS / SEM R-Squared of *latent* variables
 #'
 #' - Chin, W. W. (1998) (`"chin1998"`)
 #'   - **R2 < 0.19** - Very weak
-#'   - **0.19 < R2 < 0.33** - Weak
-#'   - **0.33 < R2 < 0.67** - Moderate
-#'   - **R2 > 0.67** - Substantial
+#'   - **0.19 <= R2 < 0.33** - Weak
+#'   - **0.33 <= R2 < 0.67** - Moderate
+#'   - **R2 >= 0.67** - Substantial
 #' - Hair et al. (2011) (`"hair2011"`)
 #'   - **R2 < 0.25** - Very weak
-#'   - **0.25 < R2 < 0.50** - Weak
-#'   - **0.50 < R2 < 0.75** - Moderate
-#'   - **R2 > 0.75** - Substantial
+#'   - **0.25 <= R2 < 0.50** - Weak
+#'   - **0.50 <= R2 < 0.75** - Moderate
+#'   - **R2 >= 0.75** - Substantial
 #'
 #' @examples
 #' interpret_r2(.02)
@@ -44,10 +44,14 @@ interpret_r2 <- function(r2, rules = "cohen1988") {
   rules <- .match.rules(
     rules,
     list(
-      cohen1988 = rules(c(0.02, 0.13, 0.26), c("very weak", "weak", "moderate", "substantial"), name = "cohen1988"),
-      falk1992 = rules(c(0.10), c("negligible", "adequate"), name = "falk1992"),
-      chin1998 = rules(c(0.19, 0.33, 0.67), c("very weak", "weak", "moderate", "substantial"), name = "chin1998"),
-      hair2011 = rules(c(0.25, 0.50, 0.75), c("very weak", "weak", "moderate", "substantial"), name = "hair2011")
+      cohen1988 = rules(c(0.02, 0.13, 0.26), c("very weak", "weak", "moderate", "substantial"),
+                        name = "cohen1988", right = FALSE),
+      falk1992 = rules(c(0.10), c("negligible", "adequate"),
+                       name = "falk1992", right = FALSE),
+      chin1998 = rules(c(0.19, 0.33, 0.67), c("very weak", "weak", "moderate", "substantial"),
+                       name = "chin1998", right = FALSE),
+      hair2011 = rules(c(0.25, 0.50, 0.75), c("very weak", "weak", "moderate", "substantial"),
+                       name = "hair2011", right = FALSE)
     )
   )
 

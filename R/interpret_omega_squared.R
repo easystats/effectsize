@@ -8,15 +8,15 @@
 #'
 #' - Field (2013) (`"field2013"`; default)
 #'   - **ES < 0.01** - Very small
-#'   - **0.01 < ES < 0.06** - Small
-#'   - **0.16 < ES < 0.14** - Medium
-#'   - **ES > 0.14 ** - Large
+#'   - **0.01 <= ES < 0.06** - Small
+#'   - **0.16 <= ES < 0.14** - Medium
+#'   - **ES >= 0.14 ** - Large
 #' - Cohen (1992) (`"cohen1992"`) applicable to one-way anova, or to *partial*
 #' eta / omega / epsilon squared in multi-way anova.
 #'   - **ES < 0.02** - Very small
-#'   - **0.02 < ES < 0.13** - Small
-#'   - **0.13 < ES < 0.26** - Medium
-#'   - **ES > 0.26** - Large
+#'   - **0.02 <= ES < 0.13** - Small
+#'   - **0.13 <= ES < 0.26** - Medium
+#'   - **ES >= 0.26** - Large
 #'
 #' @examples
 #' interpret_eta_squared(.02)
@@ -37,10 +37,10 @@ interpret_omega_squared <- function(es, rules = "field2013") {
     list(
       field2013 = rules(c(0.01, 0.06, 0.14),
                         c("very small", "small", "medium", "large"),
-                        name = "field2013"),
+                        name = "field2013", right = FALSE),
       cohen1992 = rules(c(0.02, 0.13, 0.26),
                         c("very small", "small", "medium", "large"),
-                        name = "cohen1992")
+                        name = "cohen1992", right = FALSE)
     )
   )
 

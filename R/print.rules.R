@@ -10,11 +10,18 @@ print.rules <- function(x, ...){
     insight::print_color(paste0("# Reference values (",name,")\n\n"), "blue")
     cat(insight::format_table(df))
   } else{
+    if (isTRUE(attr(x, "right"))) {
+      gLeft <- " <= "
+      gRight <- " < "
+    } else {
+      gLeft <- " < "
+      gRight <- " <= "
+    }
     insight::print_color(paste0("# Reference thresholds (",name,")\n\n"), "blue")
     cat(paste0(
-      paste0(head(x$labels, -1), " < ", x$values,
-             collapse = " < "),
-      " < ",
+      paste0(head(x$labels, -1), gLeft, x$values,
+             collapse = gRight),
+      gRight,
       tail(x$labels, 1)
     ))
   }

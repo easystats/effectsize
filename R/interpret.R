@@ -11,6 +11,10 @@
 #'   infer it from `values` (if it is a named vector or a list), otherwise, will
 #'   return the breakpoints.
 #' @param name Name of the set of rules (stored as a 'rule_name' attribute).
+#' @param right logical, for threshold-type rules, indicating if the thresholds
+#'   themselves should be included in the interval to the right (lower values)
+#'   or in the interval to the left (higher values).
+#'
 #'
 #'
 #' @seealso interpret
@@ -21,7 +25,7 @@
 #' rules(c("small" = 0.2, "medium" = 0.5), name = "Cohen's Rules")
 #'
 #' @export
-rules <- function(values, labels = NULL, name = NULL) {
+rules <- function(values, labels = NULL, name = NULL, right = TRUE) {
 
   if(is.null(labels)){
     if(is.list(values)){
@@ -45,6 +49,8 @@ rules <- function(values, labels = NULL, name = NULL) {
     if (is.unsorted(values)){
       stop("Reference values must be sorted.")
     }
+  } else {
+    right <- NULL
   }
 
   # Store and return
@@ -59,6 +65,7 @@ rules <- function(values, labels = NULL, name = NULL) {
     attr(out, "rule_name") <- name
   }
 
+  attr(out, "right") <- right
   class(out) <- c("rules", "list")
   out
 }
@@ -127,8 +134,13 @@ interpret <- function(x, rules, name = attr(rules, "rule_name")) {
   if(length(rules$values) == length(rules$labels)){
     index <- which.min(abs(x - rules$values))
   } else{
-    check <- x < rules$values
-    if (TRUE %in% check) {
+    if (isTRUE(attr(rules, "right"))) {
+      check <- x <= rules$values
+    } else {
+      check <- x < rules$values
+    }
+
+    if (any(check)) {
       index <- min(which(check))
     } else {
       index <- length(rules$labels)

@@ -5,7 +5,7 @@
 \alias{is.rules}
 \title{Interpretation Grid}
 \usage{
-rules(values, labels = NULL, name = NULL)
+rules(values, labels = NULL, name = NULL, right = TRUE)
 
 is.rules(x)
 }
@@ -18,6 +18,10 @@ infer it from \code{values} (if it is a named vector or a list), otherwise, will
 return the breakpoints.}
 
 \item{name}{Name of the set of rules (stored as a 'rule_name' attribute).}
+
+\item{right}{logical, for threshold-type rules, indicating if the thresholds
+themselves should be included in the interval to the right (lower values)
+or in the interval to the left (higher values).}
 
 \item{x}{An arbitrary R object.}
 }

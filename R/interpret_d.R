@@ -13,22 +13,22 @@
 #'
 #' - Cohen (1988) (`"cohen1988"`; default)
 #'   - **d < 0.2** - Very small
-#'   - **0.2 < d < 0.5** - Small
-#'   - **0.5 < d < 0.8** - Medium
-#'   - **d > 0.8** - Large
+#'   - **0.2 <= d < 0.5** - Small
+#'   - **0.5 <= d < 0.8** - Medium
+#'   - **d >= 0.8** - Large
 #' - Sawilowsky (2009) (`"sawilowsky2009"`)
 #'   - **d < 0.1** - Tiny
-#'   - **0.1 < d < 0.2** - Very small
-#'   - **0.2 < d < 0.5** - Small
-#'   - **0.5 < d < 0.8** - Medium
-#'   - **0.8 < d < 1.2** - Large
-#'   - **1.2 < d < 2** - Very large
-#'   - **d > 2** - Huge
+#'   - **0.1 <= d < 0.2** - Very small
+#'   - **0.2 <= d < 0.5** - Small
+#'   - **0.5 <= d < 0.8** - Medium
+#'   - **0.8 <= d < 1.2** - Large
+#'   - **1.2 <= d < 2** - Very large
+#'   - **d >= 2** - Huge
 #' - Gignac & Szodorai (2016) (`"gignac2016"`, based on the [d_to_r()] conversion, see [interpret_r()])
 #'   - **d < 0.2** - Very small
-#'   - **0.2 < d < 0.41** - Small
-#'   - **0.41 < d < 0.63** - Moderate
-#'   - **d > 0.63** - Large
+#'   - **0.2 <= d < 0.41** - Small
+#'   - **0.41 <= d < 0.63** - Moderate
+#'   - **d >= 0.63** - Large
 #'
 #' @examples
 #' interpret_d(.02)
@@ -49,10 +49,10 @@ interpret_d <- function(d, rules = "cohen1988", ...) {
     rules,
     list(
       cohen1988 = rules(c(0.2, 0.5, 0.8), c("very small", "small", "medium", "large"),
-                        name = "cohen1988"),
+                        name = "cohen1988", right = FALSE),
       sawilowsky2009 = rules(c(0.1, 0.2, 0.5, 0.8, 1.2, 2),
                              c("tiny", "very small", "small", "medium", "large", "very large", "huge"),
-                             name = "sawilowsky2009"),
+                             name = "sawilowsky2009", right = FALSE),
       gignac2016 = NA # added for the correct error msg
     )
   )
