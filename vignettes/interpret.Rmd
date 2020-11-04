@@ -54,11 +54,11 @@ interpret_r(x, rules = "funder2019")
 ```
 
 - **r < 0.05** - Tiny
-- **0.05 < r < 0.1** - Very small
-- **0.1 < r < 0.2** - Small
-- **0.2 < r < 0.3** - Medium
-- **0.3 < r < 0.4** - Large
-- **r > 0.4** - Very large
+- **0.05 <= r < 0.1** - Very small
+- **0.1 <= r < 0.2** - Small
+- **0.2 <= r < 0.3** - Medium
+- **0.3 <= r < 0.4** - Large
+- **r >= 0.4** - Very large
 
 
 
@@ -71,9 +71,9 @@ interpret_r(x, rules = "gignac2016")
 ```
 
 - **r < 0.1** - Very small
-- **0.1 < r < 0.2** - Small
-- **0.2 < r < 0.3** - Moderate
-- **r > 0.3** - Large
+- **0.1 <= r < 0.2** - Small
+- **0.2 <= r < 0.3** - Moderate
+- **r >= 0.3** - Large
 
 
 
@@ -84,9 +84,9 @@ interpret_r(x, rules = "cohen1988")
 ```
 
 - **r < 0.1** - Very small
-- **0.1 < r < 0.3** - Small
-- **0.3 < r < 0.5** - Moderate
-- **r > 0.5** - Large
+- **0.1 <= r < 0.3** - Small
+- **0.3 <= r < 0.5** - Moderate
+- **r >= 0.5** - Large
 
 
 #### @evans1996straightforward
@@ -96,10 +96,10 @@ interpret_r(x, rules = "evans1996")
 ```
 
 - **r < 0.2** - Very weak
-- **0.2 < r < 0.4** - Weak
-- **0.4 < r < 0.6** - Moderate
-- **0.6 < r < 0.8** - Strong
-- **r > 0.8** - Very strong
+- **0.2 <= r < 0.4** - Weak
+- **0.4 <= r < 0.6** - Moderate
+- **0.6 <= r < 0.8** - Strong
+- **r >= 0.8** - Very strong
 
 
 
@@ -114,9 +114,9 @@ interpret_d(x, rules = "cohen1988")
 ```
 
 - **d < 0.2** - Very small
-- **0.2 < d < 0.5** - Small
-- **0.5 < d < 0.8** - Medium
-- **d > 0.8** - Large
+- **0.2 <= d < 0.5** - Small
+- **0.5 <= d < 0.8** - Medium
+- **d >= 0.8** - Large
 
 
 #### @sawilowsky2009new
@@ -126,12 +126,12 @@ interpret_d(x, rules = "sawilowsky2009")
 ```
 
 - **d < 0.1** - Tiny
-- **0.1 < d < 0.2** - Very small
-- **0.2 < d < 0.5** - Small
-- **0.5 < d < 0.8** - Medium
-- **0.8 < d < 1.2** - Large
-- **1.2 < d < 2** - Very large
-- **d > 2** - Huge
+- **0.1 <= d < 0.2** - Very small
+- **0.2 <= d < 0.5** - Small
+- **0.5 <= d < 0.8** - Medium
+- **0.8 <= d < 1.2** - Large
+- **1.2 <= d < 2** - Very large
+- **d >= 2** - Huge
 
 
 #### @gignac2016effect
@@ -143,9 +143,9 @@ interpret_d(x, rules = "gignac2016")
 ```
 
 - **d < 0.2** - Very small
-- **0.2 < d < 0.41** - Small
-- **0.41 < d < 0.63** - Moderate
-- **d > 0.63** - Large
+- **0.2 <= d < 0.41** - Small
+- **0.41 <= d < 0.63** - Moderate
+- **d >= 0.63** - Large
 
 
 ## Odds Ratio
@@ -161,9 +161,9 @@ interpret_oddsratio(x, rules = "chen2010")
 ```
 
 - **OR < 1.68** - Very small
-- **1.68 < OR < 3.47** - Small
-- **3.47 < OR < 6.71** - Medium
-- **OR > 6.71 ** - Large
+- **1.68 <= OR < 3.47** - Small
+- **3.47 <= OR < 6.71** - Medium
+- **OR >= 6.71 ** - Large
 
 #### @cohen1988statistical
 
@@ -172,9 +172,9 @@ interpret_oddsratio(x, rules = "cohen1988")
 ```
 
 - **OR < 1.44** - Very small
-- **1.44 < OR < 2.48** - Small
-- **2.48 < OR < 4.27** - Medium
-- **OR > 4.27 ** - Large
+- **1.44 <= OR < 2.48** - Small
+- **2.48 <= OR < 4.27** - Medium
+- **OR >= 4.27 ** - Large
 
 This converts (log) odds ratio to standardized difference *d* using the following formula [@cohen1988statistical;@sanchez2003effect]:
 
@@ -194,9 +194,9 @@ interpret_r2(x, rules = "cohen1988")
 ```
 
 - **R2 < 0.02** - Very weak
-- **0.02 < R2 < 0.13** - Weak
-- **0.13 < R2 < 0.26** - Moderate
-- **R2 > 0.26** - Substantial
+- **0.02 <= R2 < 0.13** - Weak
+- **0.13 <= R2 < 0.26** - Moderate
+- **R2 >= 0.26** - Substantial
 
 
 #### @falk1992primer
@@ -206,7 +206,7 @@ interpret_r2(x, rules = "falk1992")
 ```
 
 - **R2 < 0.1** - Negligible
-- **R2 > 0.1** - Adequate
+- **R2 >= 0.1** - Adequate
 
 
 ### For PLS / SEM R-Squared of *latent* variables
@@ -218,9 +218,9 @@ interpret_r2(x, rules = "chin1998")
 ```
 
 - **R2 < 0.19** - Very weak
-- **0.19 < R2 < 0.33** - Weak
-- **0.33 < R2 < 0.67** - Moderate
-- **R2 > 0.67** - Substantial
+- **0.19 <= R2 < 0.33** - Weak
+- **0.33 <= R2 < 0.67** - Moderate
+- **R2 >= 0.67** - Substantial
 
 #### @hair2011pls
 
@@ -229,9 +229,9 @@ interpret_r2(x, rules = "hair2011")
 ```
 
 - **R2 < 0.25** - Very weak
-- **0.25 < R2 < 0.50** - Weak
-- **0.50 < R2 < 0.75** - Moderate
-- **R2 > 0.75** - Substantial
+- **0.25 <= R2 < 0.50** - Weak
+- **0.50 <= R2 < 0.75** - Moderate
+- **R2 >= 0.75** - Substantial
 
 
 ## Omega / Eta / Epsilon Squared
@@ -246,9 +246,9 @@ interpret_omega_squared(x, rules = "field2013")
 ```
 
 - **ES < 0.01** - Very small
-- **0.01 < ES < 0.06** - Small
-- **0.16 < ES < 0.14** - Medium
-- **ES > 0.14 ** - Large
+- **0.01 <= ES < 0.06** - Small
+- **0.16 <= ES < 0.14** - Medium
+- **ES >= 0.14 ** - Large
 
 
 #### @cohen1992power
@@ -260,9 +260,9 @@ interpret_omega_squared(x, rules = "cohen1992")
 ```
 
 - **ES < 0.02** - Very small
-- **0.02 < ES < 0.13** - Small
-- **0.13 < ES < 0.26** - Medium
-- **ES > 0.26** - Large
+- **0.02 <= ES < 0.13** - Small
+- **0.13 <= ES < 0.26** - Medium
+- **ES >= 0.26** - Large
 
 # Interpertation of other Indices
 
