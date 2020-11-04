@@ -6,7 +6,8 @@ print.rules <- function(x, ...){
   name <- attr(x, "rule_name")
 
   if(length(x$values) == length(x$labels)){
-    df <- as.data.frame(setNames(as.list(x$values), x$labels))
+    df <- data.frame(setNames(as.list(x$values), x$labels), check.names = FALSE)
+    df <- cbind("Label " = "Value ", df)
     insight::print_color(paste0("# Reference values (",name,")\n\n"), "blue")
     cat(insight::format_table(df))
   } else{
