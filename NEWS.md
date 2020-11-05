@@ -1,3 +1,9 @@
+# effectsize 0.4.0.001
+
+## New features
+
+- `standardize()` gains support for `mediation::mediate()` models.
+
 # effectsize 0.4.0
 
 ## Breaking Changes
