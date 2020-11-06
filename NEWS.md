@@ -3,6 +3,7 @@
 ## New features
 
 - `standardize()` gains support for `mediation::mediate()` models.
+- `eta_squared()` family available for `manova` objects.
 
 # effectsize 0.4.0
 
