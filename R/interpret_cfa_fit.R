@@ -54,7 +54,7 @@ interpret_gfi <- function(x, rules = "default") {
   rules <- .match.rules(
     rules,
     list(
-      default = rules(c(0.95), c("poor", "satisfactory"), name = "default")
+      default = rules(c(0.95), c("poor", "satisfactory"), name = "default", right = FALSE)
     )
   )
 
@@ -68,7 +68,7 @@ interpret_agfi <- function(x, rules = "default") {
   rules <- .match.rules(
     rules,
     list(
-      default = rules(c(0.90), c("poor", "satisfactory"), name = "default")
+      default = rules(c(0.90), c("poor", "satisfactory"), name = "default", right = FALSE)
     )
   )
 
@@ -82,8 +82,8 @@ interpret_nfi <- function(x, rules = "byrne1994") {
   rules <- .match.rules(
     rules,
     list(
-      byrne1994 = rules(c(0.90), c("poor", "satisfactory"), name = "byrne1994"),
-      schumacker2004 =  rules(c(0.95), c("poor", "satisfactory"), name = "schumacker2004")
+      byrne1994 = rules(c(0.90), c("poor", "satisfactory"), name = "byrne1994", right = FALSE),
+      schumacker2004 =  rules(c(0.95), c("poor", "satisfactory"), name = "schumacker2004", right = FALSE)
     )
   )
 
@@ -101,7 +101,7 @@ interpret_cfi <- function(x, rules = "default") {
   rules <- .match.rules(
     rules,
     list(
-      default = rules(c(0.90), c("poor", "satisfactory"), name = "default")
+      default = rules(c(0.90), c("poor", "satisfactory"), name = "default", right = FALSE)
     )
   )
 
@@ -145,7 +145,7 @@ interpret_rfi <- function(x, rules = "default") {
   rules <- .match.rules(
     rules,
     list(
-      default = rules(c(0.90), c("poor", "satisfactory"), name = "default")
+      default = rules(c(0.90), c("poor", "satisfactory"), name = "default", right = FALSE)
     )
   )
 
@@ -158,7 +158,7 @@ interpret_ifi <- function(x, rules = "default") {
   rules <- .match.rules(
     rules,
     list(
-      default = rules(c(0.90), c("poor", "satisfactory"), name = "default")
+      default = rules(c(0.90), c("poor", "satisfactory"), name = "default", right = FALSE)
     )
   )
 

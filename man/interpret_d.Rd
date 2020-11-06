@@ -30,26 +30,26 @@ Rules apply to equally to positive and negative \emph{d}.
 \item Cohen (1988) (\code{"cohen1988"}; default)
 \itemize{
 \item \strong{d < 0.2} - Very small
-\item \strong{0.2 < d < 0.5} - Small
-\item \strong{0.5 < d < 0.8} - Medium
-\item \strong{d > 0.8} - Large
+\item \strong{0.2 <= d < 0.5} - Small
+\item \strong{0.5 <= d < 0.8} - Medium
+\item \strong{d >= 0.8} - Large
 }
 \item Sawilowsky (2009) (\code{"sawilowsky2009"})
 \itemize{
 \item \strong{d < 0.1} - Tiny
-\item \strong{0.1 < d < 0.2} - Very small
-\item \strong{0.2 < d < 0.5} - Small
-\item \strong{0.5 < d < 0.8} - Medium
-\item \strong{0.8 < d < 1.2} - Large
-\item \strong{1.2 < d < 2} - Very large
-\item \strong{d > 2} - Huge
+\item \strong{0.1 <= d < 0.2} - Very small
+\item \strong{0.2 <= d < 0.5} - Small
+\item \strong{0.5 <= d < 0.8} - Medium
+\item \strong{0.8 <= d < 1.2} - Large
+\item \strong{1.2 <= d < 2} - Very large
+\item \strong{d >= 2} - Huge
 }
 \item Gignac & Szodorai (2016) (\code{"gignac2016"}, based on the \code{\link[=d_to_r]{d_to_r()}} conversion, see \code{\link[=interpret_r]{interpret_r()}})
 \itemize{
 \item \strong{d < 0.2} - Very small
-\item \strong{0.2 < d < 0.41} - Small
-\item \strong{0.41 < d < 0.63} - Moderate
-\item \strong{d > 0.63} - Large
+\item \strong{0.2 <= d < 0.41} - Small
+\item \strong{0.41 <= d < 0.63} - Moderate
+\item \strong{d >= 0.63} - Large
 }
 }
 }

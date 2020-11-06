@@ -26,17 +26,17 @@ Interpret ANOVA effect size
 \item Field (2013) (\code{"field2013"}; default)
 \itemize{
 \item \strong{ES < 0.01} - Very small
-\item \strong{0.01 < ES < 0.06} - Small
-\item \strong{0.16 < ES < 0.14} - Medium
-\item **ES > 0.14 ** - Large
+\item \strong{0.01 <= ES < 0.06} - Small
+\item \strong{0.16 <= ES < 0.14} - Medium
+\item **ES >= 0.14 ** - Large
 }
 \item Cohen (1992) (\code{"cohen1992"}) applicable to one-way anova, or to \emph{partial}
 eta / omega / epsilon squared in multi-way anova.
 \itemize{
 \item \strong{ES < 0.02} - Very small
-\item \strong{0.02 < ES < 0.13} - Small
-\item \strong{0.13 < ES < 0.26} - Medium
-\item \strong{ES > 0.26} - Large
+\item \strong{0.02 <= ES < 0.13} - Small
+\item \strong{0.13 <= ES < 0.26} - Medium
+\item \strong{ES >= 0.26} - Large
 }
 }
 }

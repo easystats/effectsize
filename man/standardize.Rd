@@ -103,7 +103,8 @@ existing variables are overwritten.}
 will also be standardized. If \code{FALSE}, only the predictors will be
 standardized. Note that for certain models (logistic regression, count
 models, ...), the response value will never be standardized, to make
-re-fitting the model work.}
+re-fitting the model work. (For \code{mediate} models, only applies to the y
+model; m model's response will always be standardized.)}
 }
 \value{
 The standardized object (either a standardize data frame or a

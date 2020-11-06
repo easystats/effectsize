@@ -9,27 +9,27 @@
 #'
 #' - Funder & Ozer (2019) (`"funder2019"`; default)
 #'   - **r < 0.05** - Tiny
-#'   - **0.05 < r < 0.1** - Very small
-#'   - **0.1 < r < 0.2** - Small
-#'   - **0.2 < r < 0.3** - Medium
-#'   - **0.3 < r < 0.4** - Large
-#'   - **r > 0.4** - Very large
+#'   - **0.05 <= r < 0.1** - Very small
+#'   - **0.1 <= r < 0.2** - Small
+#'   - **0.2 <= r < 0.3** - Medium
+#'   - **0.3 <= r < 0.4** - Large
+#'   - **r >= 0.4** - Very large
 #' - Gignac & Szodorai (2016) (`"gignac2016"`)
 #'   - **r < 0.1** - Very small
-#'   - **0.1 < r < 0.2** - Small
-#'   - **0.2 < r < 0.3** - Moderate
-#'   - **r > 0.3** - Large
+#'   - **0.1 <= r < 0.2** - Small
+#'   - **0.2 <= r < 0.3** - Moderate
+#'   - **r >= 0.3** - Large
 #' - Cohen (1988) (`"cohen1988"`)
 #'   - **r < 0.1** - Very small
-#'   - **0.1 < r < 0.3** - Small
-#'   - **0.3 < r < 0.5** - Moderate
-#'   - **r > 0.5** - Large
+#'   - **0.1 <= r < 0.3** - Small
+#'   - **0.3 <= r < 0.5** - Moderate
+#'   - **r >= 0.5** - Large
 #' - Evans (1996) (`"evans1996"`)
 #'   - **r < 0.2** - Very weak
-#'   - **0.2 < r < 0.4** - Weak
-#'   - **0.4 < r < 0.6** - Moderate
-#'   - **0.6 < r < 0.8** - Strong
-#'   - **r > 0.8** - Very strong
+#'   - **0.2 <= r < 0.4** - Weak
+#'   - **0.4 <= r < 0.6** - Moderate
+#'   - **0.6 <= r < 0.8** - Strong
+#'   - **r >= 0.8** - Very strong
 #'
 #' @examples
 #' interpret_r(.015)
@@ -50,16 +50,16 @@ interpret_r <- function(r, rules = "funder2019") {
     list(
       funder2019 = rules(c(0.05, 0.1, 0.2, 0.3, 0.4),
                          c("tiny", "very small", "small", "medium", "large", "very large"),
-                         name = "funder2019"),
+                         name = "funder2019", right = FALSE),
       gignac2016 = rules(c(0.1, 0.2, 0.3),
                          c("very small", "small", "moderate", "large"),
-                         name = "gignac2016"),
+                         name = "gignac2016", right = FALSE),
       cohen1988 = rules(c(0.1, 0.3, 0.5),
                         c("very small", "small", "moderate", "large"),
-                        name = "cohen1988"),
+                        name = "cohen1988", right = FALSE),
       evans1996 = rules(c(0.2, 0.4, 0.6, 0.8),
                         c("very weak", "weak", "moderate", "strong", "very strong"),
-                        name = "evans1996")
+                        name = "evans1996", right = FALSE)
     )
   )
 

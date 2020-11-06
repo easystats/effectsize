@@ -14,16 +14,16 @@
 #'
 #' - Jeffreys (1961) (`"jeffreys1961"`; default)
 #'   - **BF = 1** - No evidence
-#'   - **1 < BF < 3** - Anecdotal
-#'   - **3 < BF < 10** - Moderate
-#'   - **10 < BF < 30** - Strong
-#'   - **30 < BF < 100** - Very strong
+#'   - **1 < BF <= 3** - Anecdotal
+#'   - **3 < BF <= 10** - Moderate
+#'   - **10 < BF <= 30** - Strong
+#'   - **30 < BF <= 100** - Very strong
 #'   - **BF > 100** - Extreme.
 #' - Raftery (1995) (`"raftery1995"`)
 #'   - **BF = 1** - No evidence
-#'   - **1 < BF < 3** - Weak
-#'   - **3 < BF < 20** - Positive
-#'   - **20 < BF < 150** - Strong
+#'   - **1 < BF <= 3** - Weak
+#'   - **3 < BF <= 20** - Positive
+#'   - **20 < BF <= 150** - Strong
 #'   - **BF > 150** - Very strong
 #'
 #'

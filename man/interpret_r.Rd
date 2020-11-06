@@ -22,33 +22,33 @@ Rules apply positive and negative \emph{r} alike.
 \item Funder & Ozer (2019) (\code{"funder2019"}; default)
 \itemize{
 \item \strong{r < 0.05} - Tiny
-\item \strong{0.05 < r < 0.1} - Very small
-\item \strong{0.1 < r < 0.2} - Small
-\item \strong{0.2 < r < 0.3} - Medium
-\item \strong{0.3 < r < 0.4} - Large
-\item \strong{r > 0.4} - Very large
+\item \strong{0.05 <= r < 0.1} - Very small
+\item \strong{0.1 <= r < 0.2} - Small
+\item \strong{0.2 <= r < 0.3} - Medium
+\item \strong{0.3 <= r < 0.4} - Large
+\item \strong{r >= 0.4} - Very large
 }
 \item Gignac & Szodorai (2016) (\code{"gignac2016"})
 \itemize{
 \item \strong{r < 0.1} - Very small
-\item \strong{0.1 < r < 0.2} - Small
-\item \strong{0.2 < r < 0.3} - Moderate
-\item \strong{r > 0.3} - Large
+\item \strong{0.1 <= r < 0.2} - Small
+\item \strong{0.2 <= r < 0.3} - Moderate
+\item \strong{r >= 0.3} - Large
 }
 \item Cohen (1988) (\code{"cohen1988"})
 \itemize{
 \item \strong{r < 0.1} - Very small
-\item \strong{0.1 < r < 0.3} - Small
-\item \strong{0.3 < r < 0.5} - Moderate
-\item \strong{r > 0.5} - Large
+\item \strong{0.1 <= r < 0.3} - Small
+\item \strong{0.3 <= r < 0.5} - Moderate
+\item \strong{r >= 0.5} - Large
 }
 \item Evans (1996) (\code{"evans1996"})
 \itemize{
 \item \strong{r < 0.2} - Very weak
-\item \strong{0.2 < r < 0.4} - Weak
-\item \strong{0.4 < r < 0.6} - Moderate
-\item \strong{0.6 < r < 0.8} - Strong
-\item \strong{r > 0.8} - Very strong
+\item \strong{0.2 <= r < 0.4} - Weak
+\item \strong{0.4 <= r < 0.6} - Moderate
+\item \strong{0.6 <= r < 0.8} - Strong
+\item \strong{r >= 0.8} - Very strong
 }
 }
 }

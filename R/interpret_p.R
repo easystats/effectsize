@@ -7,11 +7,11 @@
 #' @section Rules:
 #'
 #' - Default
-#'   - **p > 0.05** - Not significant
+#'   - **p >= 0.05** - Not significant
 #'   - **p < 0.05** - Significant
 #' - Benjamin et al. (2018) (`"rss"`)
-#'   - **p > 0.05** - Not significant
-#'   - **0.005 < p < 0.05** - Suggestive
+#'   - **p >= 0.05** - Not significant
+#'   - **0.005 <= p < 0.05** - Suggestive
 #'   - **p < 0.005** - Significant
 #'
 #' @references
@@ -26,8 +26,10 @@ interpret_p <- function(p, rules = "default") {
   rules <- .match.rules(
     rules,
     list(
-      default = rules(c(0.05), c("significant", "not significant"), name = "default"),
-      rss = rules(c(0.005, 0.05), c("significant", "suggestive", "not significant"), name = "rss")
+      default = rules(c(0.05), c("significant", "not significant"),
+                      name = "default", right = FALSE),
+      rss = rules(c(0.005, 0.05), c("significant", "suggestive", "not significant"),
+                  name = "rss", right = FALSE)
     )
   )
 

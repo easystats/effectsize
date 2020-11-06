@@ -39,7 +39,7 @@ interpret_ess <- function(ess, rules = "burkner2017") {
   rules <- .match.rules(
     rules,
     list(
-      burkner2017 = rules(c(1000), c("insufficient", "sufficient"), name = "burkner2017")
+      burkner2017 = rules(c(1000), c("insufficient", "sufficient"), name = "burkner2017", right = FALSE)
     )
   )
 

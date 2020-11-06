@@ -393,11 +393,6 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                           generalized = FALSE,
                           ci = 0.9,
                           ...){
-  # remove after parameters and insight are updated
-  if (utils::packageVersion("parameters") < package_version("0.8.6.1")) {
-    return(.anova_es.aov(model, type, partial, generalized, ci))
-  }
-
   model <- stats::aov(model)
   params <- as.data.frame(parameters::model_parameters(model))
   params <- split(params, params$Response)
@@ -413,6 +408,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
 .anova_es.maov <- .anova_es.mlm
 
+.anova_es.manova <- .anova_es.aov
 
 #' @keywords internal
 .anova_es.anova <- function(model,

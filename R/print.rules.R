@@ -6,15 +6,23 @@ print.rules <- function(x, ...){
   name <- attr(x, "rule_name")
 
   if(length(x$values) == length(x$labels)){
-    df <- as.data.frame(setNames(as.list(x$values), x$labels))
+    df <- data.frame(setNames(as.list(x$values), x$labels), check.names = FALSE)
+    df <- cbind("Label " = "Value ", df)
     insight::print_color(paste0("# Reference values (",name,")\n\n"), "blue")
     cat(insight::format_table(df))
   } else{
+    if (isTRUE(attr(x, "right"))) {
+      gLeft <- " <= "
+      gRight <- " < "
+    } else {
+      gLeft <- " < "
+      gRight <- " <= "
+    }
     insight::print_color(paste0("# Reference thresholds (",name,")\n\n"), "blue")
     cat(paste0(
-      paste0(head(x$labels, -1), " < ", x$values,
-             collapse = " < "),
-      " < ",
+      paste0(head(x$labels, -1), gLeft, x$values,
+             collapse = gRight),
+      gRight,
       tail(x$labels, 1)
     ))
   }
