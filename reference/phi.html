@@ -47,8 +47,9 @@
 
 
 <meta property="og:title" content="Effect size for contingency tables — phi" />
-<meta property="og:description" content="Compute Cramer's V, phi (\(\phi\)), Cohen's w (an alias of phi) and
-Cohen's g for contingency tables or goodness-of-fit. See details." />
+<meta property="og:description" content="Compute Cramer's V, phi (\(\phi\)), Cohen's w (an alias of phi), Odds
+ratios, Risk ratios and Cohen's g for contingency tables or
+goodness-of-fit. See details." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -160,13 +161,14 @@ Cohen's g for contingency tables or goodness-of-fit. See details." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Effect size for contingency tables</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/phi_cramers_v.R'><code>R/phi_cramers_v.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/xtab.R'><code>R/xtab.R</code></a></small>
     <div class="hidden name"><code>phi.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Compute Cramer's <em>V</em>, phi (\(\phi\)), Cohen's <em>w</em> (an alias of phi) and
-Cohen's <em>g</em> for contingency tables or goodness-of-fit. See details.</p>
+    <p>Compute Cramer's <em>V</em>, phi (\(\phi\)), Cohen's <em>w</em> (an alias of phi), Odds
+ratios, Risk ratios and Cohen's <em>g</em> for contingency tables or
+goodness-of-fit. See details.</p>
     </div>
 
     <pre class="usage"><span class='fu'>phi</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, adjust <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>CI</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -174,6 +176,10 @@ Cohen's <em>g</em> for contingency tables or goodness-of-fit. See details.</p>
 <span class='fu'>cohens_w</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, adjust <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>CI</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>cramers_v</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, adjust <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>CI</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>oddsratio</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>riskratio</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>cohens_g</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
@@ -207,6 +213,10 @@ Cohen's <em>g</em> for contingency tables or goodness-of-fit. See details.</p>
       <td><p>Arguments passed to <code><a href='https://rdrr.io/r/stats/chisq.test.html'>stats::chisq.test()</a></code>, such as <code>p</code>. Ignored
 for <code>cohens_g()</code>.</p></td>
     </tr>
+    <tr>
+      <th>log</th>
+      <td><p>Take in or output the log of the ratio (such as in logistic models).</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -215,20 +225,32 @@ for <code>cohens_g()</code>.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Cramer's <em>V</em> and phi (\(\phi\)) are effect sizes for tests of independence
-in 2D contingency tables, or for goodness-of-fit in 1D tables. For 2x2
-tables, all 3 are identical, and are equal to the simple correlation between
+in 2D contingency tables, or for goodness-of-fit in 1D tables. For 2-by-2
+tables, they are identical, and are equal to the simple correlation between
 two dichotomous variables, ranging between  0 (no dependence) and 1 (perfect
 dependence). For larger tables, Cramer's <em>V</em> should be used, as it is bounded
 between 0-1, whereas phi can be larger than 1.
 <br /><br />
+For 2-by-2 contingency tables, Odds ratios and Risk ratios can also be
+estimated. Note that these are computed with each <strong>column</strong> representing the
+different groups, and the first column representing the baseline (or
+control). If you wish you use rows as groups you must pass a transposed
+table, or switch the <code>x</code> and <code>y</code> arguments.
+<br /><br />
 Cohen's <em>g</em> is an effect size for dependent (paired) contingency tables
 ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry) (see
 <code><a href='https://rdrr.io/r/stats/mcnemar.test.html'>stats::mcnemar.test()</a></code>).</p>
-    <h2 class="hasAnchor" id="confidence-intervals-for-g"><a class="anchor" href="#confidence-intervals-for-g"></a>Confidence Intervals for g</h2>
+    <h2 class="hasAnchor" id="confidence-intervals-for-g-or-and-rr"><a class="anchor" href="#confidence-intervals-for-g-or-and-rr"></a>Confidence Intervals for g, OR and RR</h2>
 
     <p>For Cohen's <em>g</em>, confidence intervals are based on the proportion (\(P = g
 + 0.5\)) confidence intervals returned by <code><a href='https://rdrr.io/r/stats/prop.test.html'>stats::prop.test()</a></code> (minus 0.5),
-which give a good close approximation.</p>
+which give a good close approximation.
+<br /><br />
+For Odds ratios and Risk ratios, confidence intervals are estimated using the
+standard parametric method (see Katz et al., 1978; Szumilas, 2010).
+<br /><br />
+See <em>Confidence Intervals</em> and <em>CI Contains Zero</em> sections for <em>phi</em>, Cohen's
+<em>w</em> and Cramer's <em>V</em>.</p>
     <h2 class="hasAnchor" id="confidence-intervals"><a class="anchor" href="#confidence-intervals"></a>Confidence Intervals</h2>
 
     <p>Confidence intervals are estimated using the Noncentrality parameter method;
@@ -248,6 +270,8 @@ bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
     
 <ul>
 <li><p>Cohen, J. (1988). Statistical power analysis for the behavioural sciences.</p></li>
+<li><p>Katz, D. J. S. M., Baptista, J., Azen, S. P., &amp; Pike, M. C. (1978). Obtaining confidence intervals for the risk ratio in cohort studies. Biometrics, 469-474.</p></li>
+<li><p>Szumilas, M. (2010). Explaining odds ratios. Journal of the Canadian academy of child and adolescent psychiatry, 19(3), 227.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -281,6 +305,24 @@ bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
 </div><div class='output co'>#&gt; Cramer's V |       95% CI
 #&gt; -------------------------
 #&gt;       0.18 | [0.12, 0.22]</div><div class='input'>
+<span class='va'>RCT</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>,  <span class='fl'>71</span><span class='op'>)</span>,
+             <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>50</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>RCT</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>Diagnosis <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sick"</span>, <span class='st'>"Recovered"</span><span class='op'>)</span>,
+                      Group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Control"</span>, <span class='st'>"Treatment"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>RCT</span> <span class='co'># note groups are COLUMNS</span>
+</div><div class='output co'>#&gt;            Group
+#&gt; Diagnosis   Control Treatment
+#&gt;   Sick           30        71
+#&gt;   Recovered     100        50</div><div class='input'>
+<span class='fu'>oddsratio</span><span class='op'>(</span><span class='va'>RCT</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Odds ratio |       95% CI
+#&gt; -------------------------
+#&gt;       4.73 | [2.74, 8.17]</div><div class='input'>
+<span class='fu'>riskratio</span><span class='op'>(</span><span class='va'>RCT</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Risk ratio |       95% CI
+#&gt; -------------------------
+#&gt;       2.54 | [1.87, 3.45]</div><div class='input'>
 
 <span class='va'>Performance</span> <span class='op'>&lt;-</span>
   <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>794</span>, <span class='fl'>86</span>, <span class='fl'>150</span>, <span class='fl'>570</span><span class='op'>)</span>,
