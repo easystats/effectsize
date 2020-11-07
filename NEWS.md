@@ -2,6 +2,7 @@
 
 ## New features
 
+- `oddsratio()` and `riskratio()` functions for 2-by-2 contingency tables.
 - `standardize()` gains support for `mediation::mediate()` models.
 - `eta_squared()` family available for `manova` objects.
 

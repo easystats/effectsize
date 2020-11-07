@@ -59,6 +59,35 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_equal(unname(unlist(V[c(1,3,4)])), rep(0,3))
   })
 
+  test_that("oddsratio & riskratio", {
+    data("mtcars")
+    testthat::expect_error(oddsratio(mtcars$am, mtcars$cyl))
+
+    m <- glm(am ~ I(cyl > 4), data = mtcars, family = binomial())
+    log_or <- oddsratio(mtcars$am, mtcars$cyl > 4, log = TRUE)
+
+    testthat::expect_equal(coef(m)[2], -log_or$log_Odds_ratio,
+                           check.attributes = FALSE)
+    testthat::expect_equal(-rev(confint(m)[2,]),
+                           unlist(log_or[c("CI_low", "CI_high")]),
+                           tol = 0.1, # different methods, give slightly different values
+                           check.attributes = FALSE)
+
+    testthat::expect_equal(log_or, oddsratio(mtcars$cyl > 4, mtcars$am, log = TRUE))
+
+    ## Risk ratio
+    RCT <- rbind(c(30,  71),
+                 c(100, 50))
+    OR <- oddsratio(RCT)
+    RR <- riskratio(RCT)
+    p0 <- 30 / 130
+
+    testthat::expect_equal(oddsratio_to_riskratio(OR$Odds_ratio, p0),
+                           RR$Risk_ratio)
+    testthat::expect_equal(riskratio_to_oddsratio(RR$Risk_ratio, p0),
+                           OR$Odds_ratio)
+  })
+
 
   test_that("Cohen's g", {
 
