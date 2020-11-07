@@ -1,7 +1,8 @@
 #' Effect size for contingency tables
 #'
-#' Compute Cramer's *V*, phi (\eqn{\phi}), Cohen's *w* (an alias of phi) and
-#' Cohen's *g* for contingency tables or goodness-of-fit. See details.
+#' Compute Cramer's *V*, phi (\eqn{\phi}), Cohen's *w* (an alias of phi), Odds
+#' ratios, Risk ratios and Cohen's *g* for contingency tables or
+#' goodness-of-fit. See details.
 #'
 #' @inheritParams stats::chisq.test
 #' @param ci Confidence Interval (CI) level
@@ -12,20 +13,32 @@
 #'
 #' @details
 #' Cramer's *V* and phi (\eqn{\phi}) are effect sizes for tests of independence
-#' in 2D contingency tables, or for goodness-of-fit in 1D tables. For 2x2
-#' tables, all 3 are identical, and are equal to the simple correlation between
+#' in 2D contingency tables, or for goodness-of-fit in 1D tables. For 2-by-2
+#' tables, they are identical, and are equal to the simple correlation between
 #' two dichotomous variables, ranging between  0 (no dependence) and 1 (perfect
 #' dependence). For larger tables, Cramer's *V* should be used, as it is bounded
 #' between 0-1, whereas phi can be larger than 1.
+#' \cr\cr
+#' For 2-by-2 contingency tables, Odds ratios and Risk ratios can also be
+#' estimated. Note that these are computed with each **column** representing the
+#' different groups, and the first column representing the baseline (or
+#' control). If you wish you use rows as groups you must pass a transposed
+#' table, or switch the `x` and `y` arguments.
 #' \cr\cr
 #' Cohen's *g* is an effect size for dependent (paired) contingency tables
 #' ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry) (see
 #' [stats::mcnemar.test()]).
 #'
-#' # Confidence Intervals for g
+#' # Confidence Intervals for g, OR and RR
 #' For Cohen's *g*, confidence intervals are based on the proportion (\eqn{P = g
 #' + 0.5}) confidence intervals returned by [stats::prop.test()] (minus 0.5),
 #' which give a good close approximation.
+#' \cr\cr
+#' For Odds ratios and Risk ratios, confidence intervals are estimated using the
+#' standard parametric method (see Katz et al., 1978; Szumilas, 2010).
+#' \cr\cr
+#' See *Confidence Intervals* and *CI Contains Zero* sections for *phi*, Cohen's
+#' *w* and Cramer's *V*.
 #'
 #' @inheritSection cohens_d Confidence Intervals
 #' @inheritSection chisq_to_phi CI Contains Zero
@@ -48,6 +61,17 @@
 #'
 #' cramers_v(M)
 #'
+#' RCT <- rbind(c(30,  71),
+#'              c(100, 50))
+#'
+#' dimnames(RCT) <- list(Diagnosis = c("Sick", "Recovered"),
+#'                       Group = c("Control", "Treatment"))
+#' RCT # note groups are COLUMNS
+#'
+#' oddsratio(RCT)
+#'
+#' riskratio(RCT)
+#'
 #'
 #' Performance <-
 #'   matrix(c(794, 86, 150, 570),
@@ -59,6 +83,8 @@
 #'
 #' @references
 #' - Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
+#' - Katz, D. J. S. M., Baptista, J., Azen, S. P., & Pike, M. C. (1978). Obtaining confidence intervals for the risk ratio in cohort studies. Biometrics, 469-474.
+#' - Szumilas, M. (2010). Explaining odds ratios. Journal of the Canadian academy of child and adolescent psychiatry, 19(3), 227.
 #'
 #' @importFrom stats chisq.test
 #' @export
@@ -120,6 +146,95 @@ cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI,...){
                      ci = ci,
                      adjust = adjust)
 }
+
+
+#' @rdname phi
+#' @inheritParams oddsratio_to_d
+#' @export
+#' @importFrom stats chisq.test qnorm
+oddsratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
+  res <- suppressWarnings(stats::chisq.test(x, y, ...))
+  Obs <- res$observed
+
+  if (nrow(Obs) != 2 || ncol(Obs) != 2) {
+    stop("Odds ratio only available for 2-by-2 contingency tables", call. = FALSE)
+  }
+
+  OR <- (Obs[1, 2] / Obs[2, 2]) /
+    (Obs[1, 1] / Obs[2, 1])
+
+  res <- data.frame(Odds_ratio = OR)
+
+  if (is.numeric(ci)) {
+    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+    res$CI <- ci
+
+    alpha <- 1 - ci
+
+    SE_logodds <- sqrt(sum(1 / Obs))
+    Z_logodds <- stats::qnorm(alpha / 2, lower.tail = FALSE)
+    confs <- exp(log(OR) + c(-1, 1) * SE_logodds * Z_logodds)
+
+    res$CI_low <- confs[1]
+    res$CI_high <- confs[2]
+  }
+
+  if (log) {
+
+    res[colnames(res) %in% c("Odds_ratio", "CI_low", "CI_high")] <-
+      log(res[colnames(res) %in% c("Odds_ratio", "CI_low", "CI_high")])
+    colnames(res)[1] <- "log_Odds_ratio"
+  }
+
+  class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
+  return(res)
+}
+
+#' @rdname phi
+#' @inheritParams oddsratio_to_d
+#' @export
+#' @importFrom stats chisq.test qnorm
+riskratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
+  res <- suppressWarnings(stats::chisq.test(x, y, ...))
+  Obs <- res$observed
+
+  if (nrow(Obs) != 2 || ncol(Obs) != 2) {
+    stop("Risk ratio only available for 2-by-2 contingency tables", call. = FALSE)
+  }
+
+  n1 <- sum(Obs[, 1])
+  n2 <- sum(Obs[, 2])
+  p1 <- Obs[1, 1] / n1
+  p2 <- Obs[1, 2] / n2
+  RR <- p2 / p1
+
+  res <- data.frame(Risk_ratio = RR)
+
+  if (is.numeric(ci)) {
+    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+    res$CI <- ci
+
+    alpha <- 1 - ci
+
+    SE_logRR <- sqrt(p1 / ((1 - p1) * n1)) + sqrt(p2 / ((1 - p2) * n2))
+    Z_logRR <- stats::qnorm(alpha / 2, lower.tail = FALSE)
+    confs <- exp(log(RR) + c(-1, 1) * SE_logRR * Z_logRR)
+
+    res$CI_low <- confs[1]
+    res$CI_high <- confs[2]
+  }
+
+  if (log) {
+
+    res[colnames(res) %in% c("Risk_ratio", "CI_low", "CI_high")] <-
+      log(res[colnames(res) %in% c("Risk_ratio", "CI_low", "CI_high")])
+    colnames(res)[1] <- "log_Risk_ratio"
+  }
+
+  class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
+  return(res)
+}
+
 
 #' @rdname phi
 #' @export
