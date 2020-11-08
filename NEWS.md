@@ -1,7 +1,12 @@
 # effectsize 0.4.0.001
 
+## Breaking Changes
+
+- `eta_squared_posterior()` no longer uses `car::Anova()` by default. Any function for creating sums-of-squares can be used.
+
 ## New features
 
+- `eta_squared_posterior()` can return a generalized Eta squared.
 - `oddsratio()` and `riskratio()` functions for 2-by-2 contingency tables.
 - `standardize()` gains support for `mediation::mediate()` models.
 - `eta_squared()` family available for `manova` objects.

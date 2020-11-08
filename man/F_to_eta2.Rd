@@ -130,18 +130,21 @@ if(require(see)) plot(etas)
 if (require("lmerTest")) { # for the df_error
   fit <- lmer(extra ~ group + (1 | ID), sleep)
   # anova(fit)
-  # Type III Analysis of Variance Table with Satterthwaite's method
-  #       Sum Sq Mean Sq NumDF DenDF F value   Pr(>F)
-  # group 12.482  12.482     1     9  16.501 0.002833 **
-  # ---
-  # Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+  # #> Type III Analysis of Variance Table with Satterthwaite's method
+  # #>       Sum Sq Mean Sq NumDF DenDF F value   Pr(>F)
+  # #> group 12.482  12.482     1     9  16.501 0.002833 **
+  # #> ---
+  # #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
   F_to_eta2(16.501, 1, 9)
   F_to_omega2(16.501, 1, 9)
   F_to_epsilon2(16.501, 1, 9)
   F_to_f(16.501, 1, 9)
 }
 
+
 ## Use with emmeans based contrasts
+## --------------------------------
 if (require(emmeans)) {
   warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
 

@@ -20,9 +20,14 @@
 #'   model, `generalized = TRUE`, the observed variables are extracted
 #'   automatically from the fitted model, if they were provided then.
 #' @inheritParams chisq_to_phi
-#' @param ... Arguments passed to or from other methods (ignored).
+#' @param ... For Bayesian models, passed to `ss_function`. Otherwise ignored.
 #'
-#' @return A data frame with the effect size(s) and confidence interval(s).
+#' @return
+#' A data frame with the effect size(s) and confidence interval(s).
+#' \cr\cr
+#' For `eta_squared_posterior()`, a data frame containing the ppd of the Eta
+#' squared for each fixed effect, which can then be passed to
+#' [bayestestR::describe_posterior()] for summary stats.
 #'
 #' @details
 #'
@@ -65,6 +70,15 @@
 #' Cohen has suggested that the values of 0.10, 0.25, and 0.40 represent small,
 #' medium, and large effect sizes, respectively.
 #'
+#' ## Eta Squared from Posterior Predictive Distribution
+#' For Bayesian models (fit with `brms` or `rstanarm`),
+#' `eta_squared_posterior()` simulates data from the posterior predictive
+#' distribution (ppd) and for each simulation the Eta Squared is computed for
+#' the model's fixed effects. This means that the returned values are the
+#' population level effect size as implied by the posterior model (and not the
+#' effect size in the sample data). See [rstantools::posterior_predict()] for
+#' more info.
+#'
 #' @inheritSection cohens_d Confidence Intervals
 #' @inheritSection chisq_to_phi CI Contains Zero
 #'
@@ -93,8 +107,10 @@
 #' cohens_f_squared(model0, model2 = model)
 #'
 #'
-#' # Recommended:
-#' # Type-3 effect sizes + effects coding
+#'
+#'
+#' # Recommended: Type-3 effect sizes + effects coding
+#' # -------------------------------------------------
 #' if (require(car, quietly = TRUE)) {
 #'   contrasts(mtcars$am_f) <- contr.sum
 #'   contrasts(mtcars$cyl_f) <- contr.sum
@@ -116,19 +132,39 @@
 #'   eta_squared(model, partial = FALSE)
 #'   epsilon_squared(model, partial = FALSE)
 #'   omega_squared(model, partial = FALSE)
-#'   eta_squared(model, generalized = TRUE)
+#'   eta_squared(model, generalized = TRUE) # observed vars are pulled from the afex model.
 #' }
 #'
 #'
-#' if (require("parameters")) {
-#'   model <- lm(mpg ~ wt + cyl, data = mtcars)
-#'   mp <- model_parameters(model)
-#'   eta_squared(mp)
-#' }
 #'
+#' ## Approx. effect sizes for mixed models
+#' ## -------------------------------------
 #' if (require(lmerTest, quietly = TRUE)) {
 #'   model <- lmer(mpg ~ am_f * cyl_f + (1|vs), data = mtcars)
 #'   omega_squared(model)
+#' }
+#'
+#'
+#'
+#'
+#' ## Bayesian Models (PPD)
+#' ## ---------------------
+#' if (require(rstanarm) && require(bayestestR) && require(car)) {
+#'   fit_bayes <- stan_glm(mpg ~ factor(cyl) * wt + qsec,
+#'                         data = mtcars,
+#'                         family = gaussian(),
+#'                         refresh = 0)
+#'
+#'   es <- eta_squared_posterior(fit_bayes,
+#'                               ss_function = car::Anova, type = 3)
+#'   bayestestR::describe_posterior(es)
+#'
+#'
+#'   # compare to:
+#'   fit_freq <- lm(mpg ~ factor(cyl) * wt + qsec,
+#'                  data = mtcars)
+#'   aov_table <- car::Anova(fit_freq, type = 3)
+#'   eta_squared(aov_table)
 #' }
 #' }
 #'
@@ -179,8 +215,8 @@ epsilon_squared <- function(model,
 
 #' @rdname eta_squared
 #' @inheritParams F_to_f
-#' @param model2 Second model. If specified, returns Cohen's *f* for
-#'   R-squared-change between the two models.
+#' @param model2 Optional second model for Cohen's f (/squared). If specified,
+#'   returns the effect size for R-squared-change between the two models.
 #' @export
 cohens_f <- function(model, partial = TRUE, ci = 0.9, squared = FALSE,
                      model2 = NULL, ...) {

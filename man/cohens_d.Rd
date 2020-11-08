@@ -101,7 +101,6 @@ print(cohens_d(mpg ~ am, data = mtcars), append_CL = TRUE)
 
 Other effect size indices: 
 \code{\link{effectsize}()},
-\code{\link{eta_squared_posterior}()},
 \code{\link{eta_squared}()},
 \code{\link{phi}()},
 \code{\link{standardize_parameters}()}

@@ -52,7 +52,6 @@
 #' M <- rbind(c(150, 130, 35, 55),
 #'            c(100, 50,  10, 40),
 #'            c(165, 65,  2,  25))
-#'
 #' dimnames(M) <- list(Study = c("Psych", "Econ", "Law"),
 #'                     Music = c("Pop", "Rock", "Jazz", "Classic"))
 #' M
@@ -61,9 +60,12 @@
 #'
 #' cramers_v(M)
 #'
+#'
+#'
+#' ## 2-by-2 tables
+#' ## -------------
 #' RCT <- rbind(c(30,  71),
 #'              c(100, 50))
-#'
 #' dimnames(RCT) <- list(Diagnosis = c("Sick", "Recovered"),
 #'                       Group = c("Control", "Treatment"))
 #' RCT # note groups are COLUMNS
@@ -73,11 +75,14 @@
 #' riskratio(RCT)
 #'
 #'
-#' Performance <-
-#'   matrix(c(794, 86, 150, 570),
-#'          nrow = 2,
-#'          dimnames = list("1st Survey" = c("Approve", "Disapprove"),
-#'                          "2nd Survey" = c("Approve", "Disapprove")))
+#'
+#' ## Dependent (Paired) Contingency Tables
+#' ## -------------------------------------
+#' Performance <- rbind(c(794, 86),
+#'                      c(150, 570))
+#' dimnames(Performance) <- list("1st Survey" = c("Approve", "Disapprove"),
+#'                               "2nd Survey" = c("Approve", "Disapprove"))
+#' Performance
 #'
 #' cohens_g(Performance)
 #'
