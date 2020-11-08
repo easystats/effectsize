@@ -168,7 +168,7 @@ See details." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Effect size for ANOVA</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/eta_squared.R'><code>R/eta_squared.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/eta_squared.R'><code>R/eta_squared.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/eta_squared_posterior.R'><code>R/eta_squared_posterior.R</code></a></small>
     <div class="hidden name"><code>eta_squared.Rd</code></div>
     </div>
 
@@ -200,6 +200,16 @@ See details.</p>
   squared <span class='op'>=</span> <span class='cn'>TRUE</span>,
   model2 <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='fu'>eta_squared_posterior</span><span class='op'>(</span>
+  <span class='va'>model</span>,
+  partial <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  generalized <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  ss_function <span class='op'>=</span> <span class='fu'>stats</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span>,
+  draws <span class='op'>=</span> <span class='fl'>500</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -228,7 +238,7 @@ automatically from the fitted model, if they were provided then.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed to or from other methods (ignored).</p></td>
+      <td><p>For Bayesian models, passed to <code>ss_function</code>. Otherwise ignored.</p></td>
     </tr>
     <tr>
       <th>squared</th>
@@ -236,14 +246,34 @@ automatically from the fitted model, if they were provided then.</p></td>
     </tr>
     <tr>
       <th>model2</th>
-      <td><p>Second model. If specified, returns Cohen's <em>f</em> for
-R-squared-change between the two models.</p></td>
+      <td><p>Optional second model for Cohen's f (/squared). If specified,
+returns the effect size for R-squared-change between the two models.</p></td>
+    </tr>
+    <tr>
+      <th>ss_function</th>
+      <td><p>For Bayesian models, the function used to extract
+sum-of-squares. uses <code><a href='https://rdrr.io/r/stats/anova.html'>anova()</a></code> by default, but can also be <code><a href='https://rdrr.io/pkg/car/man/Anova.html'>car::Anova()</a></code>
+for simple linear models.</p></td>
+    </tr>
+    <tr>
+      <th>draws</th>
+      <td><p>For Bayesian models, an integer indicating the number of draws
+from the posterior predictive distribution to return. Larger numbers take
+longer to run, but provide estimates that are more stable.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>Show messages / warning about centering.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with the effect size(s) and confidence interval(s).</p>
+    <p>A data frame with the effect size(s) and confidence interval(s).
+<br /><br />
+For <code>eta_squared_posterior()</code>, a data frame containing the ppd of the Eta
+squared for each fixed effect, which can then be passed to
+<code><a href='https://easystats.github.io/bayestestR/reference/describe_posterior.html'>bayestestR::describe_posterior()</a></code> for summary stats.</p>
 <p>A data frame containing the effect size values and their confidence intervals.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -289,6 +319,17 @@ and the \<!-- % unexplained variance. -->
 Cohen has suggested that the values of 0.10, 0.25, and 0.40 represent small,
 medium, and large effect sizes, respectively.</p>
 
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Eta Squared from Posterior Predictive Distribution</h3>
+
+
+<p>For Bayesian models (fit with <code>brms</code> or <code>rstanarm</code>),
+<code>eta_squared_posterior()</code> simulates data from the posterior predictive
+distribution (ppd) and for each simulation the Eta Squared is computed for
+the model's fixed effects. This means that the returned values are the
+population level effect size as implied by the posterior model (and not the
+effect size in the sample data). See <code><a href='https://mc-stan.org/rstantools/reference/posterior_predict.html'>rstantools::posterior_predict()</a></code> for
+more info.</p>
+
     <h2 class="hasAnchor" id="confidence-intervals"><a class="anchor" href="#confidence-intervals"></a>Confidence Intervals</h2>
 
     <p>Confidence intervals are estimated using the Noncentrality parameter method;
@@ -322,7 +363,6 @@ bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
 <p>Other effect size indices: 
 <code><a href='cohens_d.html'>cohens_d</a>()</code>,
 <code><a href='effectsize.html'>effectsize</a>()</code>,
-<code><a href='eta_squared_posterior.html'>eta_squared_posterior</a>()</code>,
 <code><a href='phi.html'>phi</a>()</code>,
 <code><a href='standardize_parameters.html'>standardize_parameters</a>()</code></p></div>
 
@@ -373,8 +413,10 @@ bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
 #&gt; ----------------------------------------------
 #&gt;                 0.11 | [0.00, 0.37] |     0.02</div><div class='input'>
 
-<span class='co'># Recommended:</span>
-<span class='co'># Type-3 effect sizes + effects coding</span>
+
+
+<span class='co'># Recommended: Type-3 effect sizes + effects coding</span>
+<span class='co'># -------------------------------------------------</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://r-forge.r-project.org/projects/car/'>car</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='fu'><a href='https://rdrr.io/r/stats/contrasts.html'>contrasts</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>am_f</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>contr.sum</span>
   <span class='fu'><a href='https://rdrr.io/r/stats/contrasts.html'>contrasts</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>cyl_f</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>contr.sum</span>
@@ -400,7 +442,7 @@ bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
   <span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model</span>, partial <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
   <span class='fu'>epsilon_squared</span><span class='op'>(</span><span class='va'>model</span>, partial <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
   <span class='fu'>omega_squared</span><span class='op'>(</span><span class='va'>model</span>, partial <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-  <span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model</span>, generalized <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+  <span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model</span>, generalized <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='co'># observed vars are pulled from the afex model.</span>
 <span class='op'>}</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: More than one observation per cell, aggregating the data using mean (i.e, fun_aggregate = mean)!</span></div><div class='output co'>#&gt; <span class='message'>Contrasts set to contr.sum for the following variables: treatment, gender</span></div><div class='output co'>#&gt; Parameter              | Eta2 (generalized) |       90% CI
 #&gt; ----------------------------------------------------------
@@ -412,16 +454,9 @@ bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
 #&gt; gender:phase           |           4.25e-03 | [0.00, 0.00]
 #&gt; treatment:gender:phase |               0.02 | [0.00, 0.00]</div><div class='input'>
 
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://easystats.github.io/parameters/'>"parameters"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>wt</span> <span class='op'>+</span> <span class='va'>cyl</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
-  <span class='va'>mp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://easystats.github.io/parameters/reference/model_parameters.html'>model_parameters</a></span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
-  <span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>mp</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'>Loading required package: parameters</span></div><div class='output co'>#&gt; Parameter   | Eta2 (partial) |       90% CI
-#&gt; -------------------------------------------
-#&gt; (Intercept) |           0.95 | [0.92, 0.97]
-#&gt; wt          |           0.38 | [0.16, 0.56]
-#&gt; cyl         |           0.31 | [0.10, 0.50]</div><div class='input'>
+
+<span class='co'>## Approx. effect sizes for mixed models</span>
+<span class='co'>## -------------------------------------</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/runehaubo/lmerTestR'>lmerTest</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lmerTest/man/lmer.html'>lmer</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am_f</span> <span class='op'>*</span> <span class='va'>cyl_f</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>|</span><span class='va'>vs</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
   <span class='fu'>omega_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
@@ -430,7 +465,40 @@ bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
 #&gt; --------------------------------------------
 #&gt; am_f       |             0.07 | [0.00, 0.27]
 #&gt; cyl_f      |             0.60 | [0.36, 0.72]
-#&gt; am_f:cyl_f |             0.03 | [0.00, 0.14]</div><div class='input'><span class='co'># }</span>
+#&gt; am_f:cyl_f |             0.03 | [0.00, 0.14]</div><div class='input'>
+
+
+
+<span class='co'>## Bayesian Models (PPD)</span>
+<span class='co'>## ---------------------</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://mc-stan.org/rstanarm/'>rstanarm</a></span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://easystats.github.io/bayestestR/'>bayestestR</a></span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://r-forge.r-project.org/projects/car/'>car</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>fit_bayes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://mc-stan.org/rstanarm/reference/stan_glm.html'>stan_glm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span> <span class='op'>*</span> <span class='va'>wt</span> <span class='op'>+</span> <span class='va'>qsec</span>,
+                        data <span class='op'>=</span> <span class='va'>mtcars</span>,
+                        family <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/family.html'>gaussian</a></span><span class='op'>(</span><span class='op'>)</span>,
+                        refresh <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+
+  <span class='va'>es</span> <span class='op'>&lt;-</span> <span class='fu'>eta_squared_posterior</span><span class='op'>(</span><span class='va'>fit_bayes</span>,
+                              ss_function <span class='op'>=</span> <span class='fu'>car</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/car/man/Anova.html'>Anova</a></span>, type <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+  <span class='fu'>bayestestR</span><span class='fu'>::</span><span class='fu'><a href='https://easystats.github.io/bayestestR/reference/describe_posterior.html'>describe_posterior</a></span><span class='op'>(</span><span class='va'>es</span><span class='op'>)</span>
+
+
+  <span class='co'># compare to:</span>
+  <span class='va'>fit_freq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span> <span class='op'>*</span> <span class='va'>wt</span> <span class='op'>+</span> <span class='va'>qsec</span>,
+                 data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+  <span class='va'>aov_table</span> <span class='op'>&lt;-</span> <span class='fu'>car</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/car/man/Anova.html'>Anova</a></span><span class='op'>(</span><span class='va'>fit_freq</span>, type <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+  <span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>aov_table</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: rstanarm</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: Rcpp</span></div><div class='output co'>#&gt; <span class='message'>This is rstanarm version 2.21.1</span></div><div class='output co'>#&gt; <span class='message'>- See https://mc-stan.org/rstanarm/articles/priors for changes to default priors!</span></div><div class='output co'>#&gt; <span class='message'>- Default priors may change, so it's safest to specify priors, even if equivalent to the defaults.</span></div><div class='output co'>#&gt; <span class='message'>- For execution on a local, multicore CPU with excess RAM we recommend calling</span></div><div class='output co'>#&gt; <span class='message'>  options(mc.cores = parallel::detectCores())</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘rstanarm’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:car’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    logit</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: bayestestR</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Not all variables are centered:</span>
+#&gt; <span class='warning'> wt, qsec, cyl</span>
+#&gt; <span class='warning'> Results might be bogus if involved in interactions...</span></div><div class='output co'>#&gt; <span class='message'>Simulating effect size... This can take a while...</span></div><div class='output co'>#&gt; Parameter      | Eta2 (partial) |       90% CI
+#&gt; ----------------------------------------------
+#&gt; factor(cyl)    |           0.29 | [0.05, 0.49]
+#&gt; wt             |           0.49 | [0.25, 0.65]
+#&gt; qsec           |           0.16 | [0.00, 0.37]
+#&gt; factor(cyl):wt |           0.24 | [0.01, 0.43]</div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>

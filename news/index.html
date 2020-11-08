@@ -165,10 +165,20 @@
 <h1 class="page-header" data-toc-text="0.4.0.001">
 <a href="#effectsize-040001" class="anchor"></a>effectsize 0.4.0.001<small> Unreleased </small>
 </h1>
+<div id="breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking Changes</h2>
+<ul>
+<li>
+<code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> no longer uses <code><a href="https://rdrr.io/pkg/car/man/Anova.html">car::Anova()</a></code> by default. Any function for creating sums-of-squares can be used.</li>
+</ul>
+</div>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
+<li>
+<code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> can return a generalized Eta squared.</li>
 <li>
 <code><a href="../reference/phi.html">oddsratio()</a></code> and <code><a href="../reference/phi.html">riskratio()</a></code> functions for 2-by-2 contingency tables.</li>
 <li>
@@ -182,9 +192,9 @@
 <h1 class="page-header" data-toc-text="0.4.0">
 <a href="#effectsize-040" class="anchor"></a>effectsize 0.4.0<small> 2020-10-25 </small>
 </h1>
-<div id="breaking-changes" class="section level2">
+<div id="breaking-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes" class="anchor"></a>Breaking Changes</h2>
+<a href="#breaking-changes-1" class="anchor"></a>Breaking Changes</h2>
 <ul>
 <li>
 <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> for multi-component models (such as zero-inflated) now returns the unstandardized parameters in some cases where standardization is not possible (previously returned <code>NA</code>s).</li>
@@ -313,7 +323,7 @@
 <a href="#new-features-3" class="anchor"></a>New features</h2>
 <ul>
 <li>
-<code><a href="../reference/eta_squared_posterior.html">eta_squared_posterior()</a></code> for estimating Eta Squared for Bayesian models.</li>
+<code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> for estimating Eta Squared for Bayesian models.</li>
 <li>
 <code><a href="../reference/eta_squared.html">eta_squared()</a></code>, <code><a href="../reference/eta_squared.html">omega_squared()</a></code> and <code><a href="../reference/eta_squared.html">epsilon_squared()</a></code> now works with
 <ul>

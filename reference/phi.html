@@ -280,7 +280,6 @@ bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
 <p>Other effect size indices: 
 <code><a href='cohens_d.html'>cohens_d</a>()</code>,
 <code><a href='effectsize.html'>effectsize</a>()</code>,
-<code><a href='eta_squared_posterior.html'>eta_squared_posterior</a>()</code>,
 <code><a href='eta_squared.html'>eta_squared</a>()</code>,
 <code><a href='standardize_parameters.html'>standardize_parameters</a>()</code></p></div>
 
@@ -288,7 +287,6 @@ bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
     <pre class="examples"><div class='input'><span class='va'>M</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>150</span>, <span class='fl'>130</span>, <span class='fl'>35</span>, <span class='fl'>55</span><span class='op'>)</span>,
            <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>50</span>,  <span class='fl'>10</span>, <span class='fl'>40</span><span class='op'>)</span>,
            <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>165</span>, <span class='fl'>65</span>,  <span class='fl'>2</span>,  <span class='fl'>25</span><span class='op'>)</span><span class='op'>)</span>
-
 <span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>M</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>Study <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Psych"</span>, <span class='st'>"Econ"</span>, <span class='st'>"Law"</span><span class='op'>)</span>,
                     Music <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Pop"</span>, <span class='st'>"Rock"</span>, <span class='st'>"Jazz"</span>, <span class='st'>"Classic"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>M</span>
@@ -305,9 +303,12 @@ bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
 </div><div class='output co'>#&gt; Cramer's V |       95% CI
 #&gt; -------------------------
 #&gt;       0.18 | [0.12, 0.22]</div><div class='input'>
+
+
+<span class='co'>## 2-by-2 tables</span>
+<span class='co'>## -------------</span>
 <span class='va'>RCT</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>,  <span class='fl'>71</span><span class='op'>)</span>,
              <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>50</span><span class='op'>)</span><span class='op'>)</span>
-
 <span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>RCT</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>Diagnosis <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sick"</span>, <span class='st'>"Recovered"</span><span class='op'>)</span>,
                       Group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Control"</span>, <span class='st'>"Treatment"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>RCT</span> <span class='co'># note groups are COLUMNS</span>
@@ -324,12 +325,18 @@ bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
 #&gt; -------------------------
 #&gt;       2.54 | [1.87, 3.45]</div><div class='input'>
 
-<span class='va'>Performance</span> <span class='op'>&lt;-</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>794</span>, <span class='fl'>86</span>, <span class='fl'>150</span>, <span class='fl'>570</span><span class='op'>)</span>,
-         nrow <span class='op'>=</span> <span class='fl'>2</span>,
-         dimnames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='st'>"1st Survey"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Approve"</span>, <span class='st'>"Disapprove"</span><span class='op'>)</span>,
-                         <span class='st'>"2nd Survey"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Approve"</span>, <span class='st'>"Disapprove"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
+<span class='co'>## Dependent (Paired) Contingency Tables</span>
+<span class='co'>## -------------------------------------</span>
+<span class='va'>Performance</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>794</span>, <span class='fl'>86</span><span class='op'>)</span>,
+                     <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>150</span>, <span class='fl'>570</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>Performance</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='st'>"1st Survey"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Approve"</span>, <span class='st'>"Disapprove"</span><span class='op'>)</span>,
+                              <span class='st'>"2nd Survey"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Approve"</span>, <span class='st'>"Disapprove"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>Performance</span>
+</div><div class='output co'>#&gt;             2nd Survey
+#&gt; 1st Survey   Approve Disapprove
+#&gt;   Approve        794         86
+#&gt;   Disapprove     150        570</div><div class='input'>
 <span class='fu'>cohens_g</span><span class='op'>(</span><span class='va'>Performance</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Cohen's g |       95% CI
 #&gt; ------------------------

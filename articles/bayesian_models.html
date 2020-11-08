@@ -237,12 +237,13 @@
 <span class="va">modAOV</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html">stan_glm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">age_f</span> <span class="op">*</span> <span class="va">comps_f</span>,
                    data <span class="op">=</span> <span class="va">hardlyworking</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">gaussian</a></span><span class="op">(</span><span class="op">)</span>,
                    refresh <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
-<p>We can use <code><a href="../reference/eta_squared_posterior.html">eta_squared_posterior()</a></code> to get the posterior distribution of <span class="math inline">\(eta^2\)</span> or <span class="math inline">\(eta^2_p\)</span> for each effect. Like an ANOVA table, we must make sure to use the right effects-coding and <em>SS</em>-type:</p>
+<p>We can use <code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> to get the posterior distribution of <span class="math inline">\(eta^2\)</span> or <span class="math inline">\(eta^2_p\)</span> for each effect. Like an ANOVA table, we must make sure to use the right effects-coding and <em>SS</em>-type:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pes_posterior</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eta_squared_posterior.html">eta_squared_posterior</a></span><span class="op">(</span><span class="va">modAOV</span>, 
-                                       draws <span class="op">=</span> <span class="fl">500</span>, <span class="co"># how many times should the PPD be estimated</span>
+<code class="sourceCode R"><span class="va">pes_posterior</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eta_squared.html">eta_squared_posterior</a></span><span class="op">(</span><span class="va">modAOV</span>, 
+                                       draws <span class="op">=</span> <span class="fl">500</span>, <span class="co"># how many samples from the PPD?</span>
                                        partial <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># partial eta squared</span>
-                                       type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="co"># type 3 SS</span></code></pre></div>
+                                       <span class="co"># type 3 SS</span>
+                                       ss_function <span class="op">=</span> <span class="fu">car</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/car/man/Anova.html">Anova</a></span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> </code></pre></div>
 <pre><code>&gt; Simulating effect size... This can take a while...</code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">pes_posterior</span><span class="op">)</span></code></pre></div>
