@@ -38,6 +38,9 @@ input model. See details.
 functions, for the full range of options they provide.}
 }
 \examples{
+
+## Hypothesis Testing
+## ------------------
 contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
 Xsq <- chisq.test(contingency_table)
 effectsize(Xsq)
@@ -48,6 +51,9 @@ effectsize(Ts)
 Aov <- oneway.test(extra ~ group, data = sleep)
 effectsize(Aov)
 
+
+## Bayesian Hypothesis Testing
+## ---------------------------
 if (require(BayesFactor)) {
   bf1 <- ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
   effectsize(bf1, test = NULL)
@@ -60,6 +66,9 @@ if (require(BayesFactor)) {
   effectsize(bf3, test = NULL)
 }
 
+
+## Models and Anova Tables
+## -----------------------
 fit <- lm(mpg ~ factor(cyl) * wt + hp, data = mtcars)
 effectsize(fit)
 
