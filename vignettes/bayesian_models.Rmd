@@ -124,9 +124,10 @@ We can use `eta_squared_posterior()` to get the posterior distribution of $eta^2
 
 ```{r}
 pes_posterior <- eta_squared_posterior(modAOV, 
-                                       draws = 500, # how many times should the PPD be estimated
+                                       draws = 500, # how many samples from the PPD?
                                        partial = TRUE, # partial eta squared
-                                       type = 3) # type 3 SS
+                                       # type 3 SS
+                                       ss_function = car::Anova, type = 3) 
 
 head(pes_posterior)
 

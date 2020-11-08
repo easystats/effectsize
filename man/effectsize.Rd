@@ -70,7 +70,6 @@ effectsize(anova_table)
 \seealso{
 Other effect size indices: 
 \code{\link{cohens_d}()},
-\code{\link{eta_squared_posterior}()},
 \code{\link{eta_squared}()},
 \code{\link{phi}()},
 \code{\link{standardize_parameters}()}
