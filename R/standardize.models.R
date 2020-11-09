@@ -302,7 +302,7 @@ standardize.wbgee <- standardize.wbm
 .sqrt_terms <- function(model, data) {
   x <- insight::find_terms(model, flatten = TRUE)
   pattern <- "sqrt\\(([^,\\+)]*).*"
-  out <- gsub(pattern, "\\1", x[grepl(pattern, x)])
+  out <- trimws(gsub(pattern, "\\1", x[grepl(pattern, x)]))
   intersect(colnames(data), out)
 }
 
