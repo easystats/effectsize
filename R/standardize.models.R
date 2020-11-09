@@ -292,7 +292,7 @@ standardize.wbgee <- standardize.wbm
 .log_terms <- function(model, data) {
   x <- insight::find_terms(model, flatten = TRUE)
   # log_pattern <- "^log\\((.*)\\)"
-  log_pattern <- "(log\\(log|log|log1|log10|log1p|log2)\\(([^,)]*).*"
+  log_pattern <- "(log\\(log|log|log1|log10|log1p|log2)\\(([^,)\\+]*).*"
   out <- gsub(log_pattern, "\\2", x[grepl(log_pattern, x)])
   intersect(colnames(data), out)
 }
@@ -301,7 +301,7 @@ standardize.wbgee <- standardize.wbm
 #' @importFrom insight find_terms
 .sqrt_terms <- function(model, data) {
   x <- insight::find_terms(model, flatten = TRUE)
-  pattern <- "sqrt\\(([^,)]*).*"
+  pattern <- "sqrt\\(([^,\\+)]*).*"
   out <- gsub(pattern, "\\1", x[grepl(pattern, x)])
   intersect(colnames(data), out)
 }
