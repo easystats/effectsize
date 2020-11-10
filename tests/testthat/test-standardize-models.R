@@ -118,7 +118,7 @@ if (require("testthat") && require("effectsize") && require("lme4")) {
     m2 <- glm(Reaction ~ Days, family = Gamma(link = "identity"), data = sleepstudy)
     m3 <- glm(Reaction ~ Days, family = inverse.gaussian(), data = sleepstudy)
 
-    testthat::expect_equal(coef(standardize(m1)), c(`(Intercept)` = 0.00338, Days = -0.00034), tolerance = 1e-3)
+    testthat::expect_equal(coef(standardize(m1)), c(`(Intercept)` = 0.00338, Days = -0.00034), tolerance = 1e-2)
     testthat::expect_equal(coef(standardize(m2)), c(`(Intercept)` = 298.48571, Days = 29.70754), tolerance = 1e-3)
     testthat::expect_equal(coef(standardize(m3)), c(`(Intercept)` = 1e-05, Days = 0), tolerance = 1e-3)
   })
@@ -126,19 +126,21 @@ if (require("testthat") && require("effectsize") && require("lme4")) {
 
   # mediation models --------------------------------------------------------
   if (require(mediation)) {
-    set.seed(444)
-    data(jobs, package = "mediation")
-    b.int <- lm(job_seek ~ treat * age + econ_hard + sex, data = jobs)
-    d.int <- lm(depress2 ~ treat * job_seek * age + econ_hard + sex, data = jobs)
+    test_that("standardize non-Gaussian response", {
+      set.seed(444)
+      data(jobs, package = "mediation")
+      b.int <- lm(job_seek ~ treat * age + econ_hard + sex, data = jobs)
+      d.int <- lm(depress2 ~ treat * job_seek * age + econ_hard + sex, data = jobs)
 
-    med1 <- mediate(b.int, d.int, sims = 200, treat = "treat", mediator = "job_seek")
-    med2 <- mediate(b.int, d.int, sims = 200, treat = "treat", mediator = "job_seek",
-                    covariates = list(age = mean(jobs$age)))
+      med1 <- mediate(b.int, d.int, sims = 200, treat = "treat", mediator = "job_seek")
+      med2 <- mediate(b.int, d.int, sims = 200, treat = "treat", mediator = "job_seek",
+                      covariates = list(age = mean(jobs$age)))
 
-    out1 <- summary(standardize(med1))
-    testthat::expect_message(out2 <- summary(standardize(med2)))
-    testthat::expect_equal(unlist(out1[c("d0","d1","z0","z1","n0","n1", "tau.coef")]),
-                           unlist(out2[c("d0","d1","z0","z1","n0","n1", "tau.coef")]), tol = 0.1)
+      out1 <- summary(standardize(med1))
+      testthat::expect_message(out2 <- summary(standardize(med2)))
+      testthat::expect_equal(unlist(out1[c("d0","d1","z0","z1","n0","n1", "tau.coef")]),
+                             unlist(out2[c("d0","d1","z0","z1","n0","n1", "tau.coef")]), tolerance = 0.1)
+    })
   }
 
 }

@@ -12,8 +12,8 @@ if (require("testthat") && require("effectsize")) {
     r1 <- rules(c(0, 1), labels = c("some", "few", "many"))
     r2 <- rules(c(0, 1), labels = c("some", "few", "many"), right = FALSE)
 
-    testthat::expect_equal(interpret(c(0, 1), r1)[], c("some", "few"), check.attributes = FALSE)
-    testthat::expect_equal(interpret(c(0, 1), r2)[], c("few", "many"), check.attributes = FALSE)
+    testthat::expect_equal(interpret(c(0, 1), r1)[], c("some", "few"), ignore_attr = TRUE)
+    testthat::expect_equal(interpret(c(0, 1), r2)[], c("few", "many"), ignore_attr = TRUE)
   })
 
 
