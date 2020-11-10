@@ -36,52 +36,52 @@ if (require("testthat") && require("effectsize")) {
   test_that("cohens_d - pooled", {
     x <- cohens_d(wt ~ am, data = mtcars, pooled_sd = TRUE)
     testthat::expect_equal(colnames(x)[1], "Cohens_d")
-    testthat::expect_equal(x[[1]], 1.892, tol = 0.001)
-    testthat::expect_equal(x$CI_low, 1.030, tol = 0.001)
-    testthat::expect_equal(x$CI_high, 2.732, tol = 0.001)
+    testthat::expect_equal(x[[1]], 1.892, tolerance = 0.001)
+    testthat::expect_equal(x$CI_low, 1.030, tolerance = 0.001)
+    testthat::expect_equal(x$CI_high, 2.732, tolerance = 0.001)
   })
 
   test_that("cohens_d - non-pooled", {
     x <- cohens_d(wt ~ am, data = mtcars, pooled_sd = FALSE)
     testthat::expect_equal(colnames(x)[1], "Cohens_d")
-    testthat::expect_equal(x[[1]], 1.934, tol = 0.001)
-    testthat::expect_equal(x$CI_low, 1.102, tol = 0.001)
-    testthat::expect_equal(x$CI_high, 2.829, tol = 0.001)
+    testthat::expect_equal(x[[1]], 1.934, tolerance = 0.001)
+    testthat::expect_equal(x$CI_low, 1.102, tolerance = 0.001)
+    testthat::expect_equal(x$CI_high, 2.829, tolerance = 0.001)
   })
 
   test_that("hedges_g", {
     x <- hedges_g(wt ~ am, data = mtcars)
     testthat::expect_equal(colnames(x)[1], "Hedges_g")
-    testthat::expect_equal(x[[1]], 1.844, tol = 0.001)
-    testthat::expect_equal(x$CI_low, 1.004, tol = 0.001)
-    testthat::expect_equal(x$CI_high, 2.664, tol = 0.001)
+    testthat::expect_equal(x[[1]], 1.844, tolerance = 0.001)
+    testthat::expect_equal(x$CI_low, 1.004, tolerance = 0.001)
+    testthat::expect_equal(x$CI_high, 2.664, tolerance = 0.001)
   })
 
   test_that("glass_delta", {
     x <- glass_delta(wt ~ am, data = mtcars)
     testthat::expect_equal(colnames(x)[1], "Glass_delta")
-    testthat::expect_equal(x[[1]], 2.200, tol = 0.001)
-    testthat::expect_equal(x$CI_low, 1.292, tol = 0.001)
-    testthat::expect_equal(x$CI_high, 3.086, tol = 0.001)
+    testthat::expect_equal(x[[1]], 2.200, tolerance = 0.001)
+    testthat::expect_equal(x$CI_low, 1.292, tolerance = 0.001)
+    testthat::expect_equal(x$CI_high, 3.086, tolerance = 0.001)
 
     # must be 2 samples
     testthat::expect_error(glass_delta(1:10))
   })
 
 
-  if (require("bayestestR")) {
+  if (require("bayestestR", quietly = TRUE)) {
     test_that("fixed values", {
 
       x1 <- bayestestR::distribution_normal(1e4, mean = 0, sd = 1)
       x2 <- bayestestR::distribution_normal(1e4, mean = 1, sd = 1)
-      testthat::expect_equal(cohens_d(x1, x2)$Cohens_d, -1, tol = 1e-3)
+      testthat::expect_equal(cohens_d(x1, x2)$Cohens_d, -1, tolerance = 1e-3)
 
 
       x1 <- bayestestR::distribution_normal(1e4, mean = 0, sd = 1)
       x2 <- bayestestR::distribution_normal(1e4, mean = 1.5, sd = 2)
 
-      testthat::expect_equal(cohens_d(x1, x2)$Cohens_d, -sqrt(0.9), tol = 1e-2)
-      testthat::expect_equal(glass_delta(x2, x1)$Glass_delta, 1.5, tol = 1e-2)
+      testthat::expect_equal(cohens_d(x1, x2)$Cohens_d, -sqrt(0.9), tolerance = 1e-2)
+      testthat::expect_equal(glass_delta(x2, x1)$Glass_delta, 1.5, tolerance = 1e-2)
     })
   }
 }

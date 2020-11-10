@@ -10,40 +10,40 @@ if (require("testthat") && require("effectsize")) {
     # eta
     testthat::expect_equal(eta_squared(fit, partial = FALSE)$Eta2,
                            c(0.618, 0.046, 0.000),
-                           tol = 0.001)
+                           tolerance = 0.01)
     testthat::expect_equal(eta_squared(fit, partial = TRUE)$Eta2_partial,
                            c(0.649, 0.121, 0.001),
-                           tol = 0.001)
+                           tolerance = 0.01)
 
     # omega
     testthat::expect_equal(omega_squared(fit, partial = FALSE)$Omega2,
                            c(0.612, 0.043, -0.004),
-                           tol = 0.001)
+                           tolerance = 0.01)
     testthat::expect_equal(omega_squared(fit, partial = TRUE)$Omega2_partial,
                            c(0.638, 0.112, -0.012),
-                           tol = 0.001)
+                           tolerance = 0.01)
 
     # epsilon
     testthat::expect_equal(epsilon_squared(fit, partial = FALSE)$Epsilon2,
                            c(0.614, 0.044, -0.004),
-                           tol = 0.001)
+                           tolerance = 0.001)
     testthat::expect_equal(epsilon_squared(fit, partial = TRUE)$Epsilon2_partial,
                            c(0.644, 0.115, -0.012),
-                           tol = 0.001)
+                           tolerance = 0.01)
 
     # Cohen's f/f2
     testthat::expect_equal(cohens_f_squared(fit, partial = FALSE)$Cohens_f2,
                            c(1.623, 0.049, 0.000),
-                           tol = 0.001)
+                           tolerance = 0.001)
     testthat::expect_equal(cohens_f_squared(fit, partial = TRUE)$Cohens_f2_partial,
                            c(1.850, 0.139, 0.001),
-                           tol = 0.001)
+                           tolerance = 0.001)
     testthat::expect_equal(cohens_f(fit, partial = FALSE)$Cohens_f,
                            c(1.273, 0.220, 0.021),
-                           tol = 0.001)
+                           tolerance = 0.01)
     testthat::expect_equal(cohens_f(fit, partial = TRUE)$Cohens_f_partial,
                            c(1.360, 0.373, 0.036),
-                           tol = 0.001)
+                           tolerance = 0.001)
     testthat::expect_equal(cohens_f(fit, squared = TRUE), cohens_f_squared(fit))
     testthat::expect_equal(cohens_f_squared(fit, squared = FALSE), cohens_f(fit))
   })
@@ -129,7 +129,7 @@ if (require("testthat") && require("effectsize")) {
     fsD <- cohens_f_squared(m1, model2 = m2)[,1:4]
     fs <- cohens_f_squared(m2)[-1,-1] # this ONLY works because of the default type-I errors!!!!
     rownames(fsD) <- rownames(fs) <- 1
-    testthat::expect_equal(fsD, fs, tol = 0.01)
+    testthat::expect_equal(fsD, fs, tolerance = 0.01)
 
     if (require("performance")) {
       fsD <- cohens_f_squared(m1, model2 = m2)
@@ -184,9 +184,9 @@ if (require("testthat") && require("effectsize")) {
       testthat::expect_equal(ef$Eta2_generalized,
                              c(0.211, 0.083, 0.186, 0.193, 0.099,
                                0.002, 0.015, 0.132, 0.001, 0.004,
-                               0.011, 0.016, 0.008, 0.01, 0.02), tol = 0.05)
+                               0.011, 0.016, 0.008, 0.01, 0.02), tolerance = 0.05)
       testthat::expect_equal(ef$Eta2_generalized,
-                             af$ges, tol = 0.05)
+                             af$ges, tolerance = 0.1)
 
 
       ef <- eta_squared(m$aov, generalized = TRUE)
@@ -194,9 +194,9 @@ if (require("testthat") && require("effectsize")) {
       testthat::expect_equal(ef$Eta2_generalized,
                              c(0.286, 0.111, 0.218, 0.264, 0.142,
                                0.004, 0.021, 0.185, 0.002, 0.005,
-                               0.016, 0.023, 0.013, 0.014, 0.029), tol = 0.05)
+                               0.016, 0.023, 0.013, 0.014, 0.029), tolerance = 0.05)
       testthat::expect_equal(ef$Eta2_generalized,
-                             af$ges, tol = 0.05)
+                             af$ges, tolerance = 0.1)
     })
 
 
@@ -215,11 +215,11 @@ if (require("testthat") && require("effectsize")) {
 
       ef <- omega_squared(m, partial = TRUE)
       testthat::expect_equal(ef$Omega2_partial,
-                             c(0.323, 0.115, 0.222, 0.320, 0.149, -0.019, -0.017), tol = 0.01)
+                             c(0.323, 0.115, 0.222, 0.320, 0.149, -0.019, -0.017), tolerance = 0.01)
       testthat::expect_equal(ef$CI_low,
-                             c(0, 0, 0, 0.036, 0, 0, 0), tol = 0.01)
+                             c(0, 0, 0, 0.036, 0, 0, 0), tolerance = 0.01)
       testthat::expect_equal(ef$CI_high,
-                             c(0.590, 0.441, 0.505, 0.528, 0.300, 0, 0), tol = 0.01)
+                             c(0.590, 0.441, 0.505, 0.528, 0.300, 0, 0), tolerance = 0.01)
     })
   }
 

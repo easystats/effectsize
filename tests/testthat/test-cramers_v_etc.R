@@ -50,7 +50,7 @@ if (require("testthat") && require("effectsize")) {
 
     # some weird exeptions...
     df <- subset(mtcars, am == "0")
-    testthat::expect_equal(cramers_v(table(df$am, df$cyl))[[1]], 0.45, tol = 0.01)
+    testthat::expect_equal(cramers_v(table(df$am, df$cyl))[[1]], 0.45, tolerance = 0.01)
     testthat::expect_equal(cramers_v(table(df$am, df$cyl)), cramers_v(table(df$cyl)))
     testthat::expect_equal(cramers_v(table(df$am, df$cyl)), cramers_v(table(df$cyl, df$am)))
 
@@ -67,11 +67,11 @@ if (require("testthat") && require("effectsize")) {
     log_or <- oddsratio(mtcars$am, mtcars$cyl > 4, log = TRUE)
 
     testthat::expect_equal(coef(m)[2], -log_or$log_Odds_ratio,
-                           check.attributes = FALSE)
+                           ignore_attr = TRUE)
     testthat::expect_equal(-rev(confint(m)[2,]),
                            unlist(log_or[c("CI_low", "CI_high")]),
-                           tol = 0.1, # different methods, give slightly different values
-                           check.attributes = FALSE)
+                           tolerance = 0.1, # different methods, give slightly different values
+                           ignore_attr = TRUE)
 
     testthat::expect_equal(log_or, oddsratio(mtcars$cyl > 4, mtcars$am, log = TRUE))
 
@@ -98,17 +98,17 @@ if (require("testthat") && require("effectsize")) {
              dimnames = list("1st Survey" = c("Approve", "Disapprove"),
                              "2nd Survey" = c("Approve", "Disapprove")))
     g <- cohens_g(Performance)
-    testthat::expect_equal(g$Cohens_g, 0.136, tol = 0.01)
-    testthat::expect_equal(g$CI_low, 0.072, tol = 0.01)
-    testthat::expect_equal(g$CI_high, 0.194, tol = 0.01)
+    testthat::expect_equal(g$Cohens_g, 0.136, tolerance = 0.01)
+    testthat::expect_equal(g$CI_low, 0.072, tolerance = 0.01)
+    testthat::expect_equal(g$CI_high, 0.194, tolerance = 0.01)
 
 
     AndersonRainBarrel <- matrix(c(9L, 17L,
                                    5L, 15L), nrow = 2)
     g <- cohens_g(AndersonRainBarrel)
-    testthat::expect_equal(g$Cohens_g, 0.273, tol = 0.01)
-    testthat::expect_equal(g$CI_low, 0.066, tol = 0.01)
-    testthat::expect_equal(g$CI_high, 0.399, tol = 0.01)
+    testthat::expect_equal(g$Cohens_g, 0.273, tolerance = 0.01)
+    testthat::expect_equal(g$CI_low, 0.066, tolerance = 0.01)
+    testthat::expect_equal(g$CI_high, 0.399, tolerance = 0.01)
 
 
     M <- matrix(c(794, 86, 150,
@@ -116,9 +116,9 @@ if (require("testthat") && require("effectsize")) {
                   150, 570, 15),
                 nrow = 3)
     g <- cohens_g(M)
-    testthat::expect_equal(g$Cohens_g, 0.300, tol = 0.01)
-    testthat::expect_equal(g$CI_low, 0.280, tol = 0.01)
-    testthat::expect_equal(g$CI_high, 0.319, tol = 0.01)
+    testthat::expect_equal(g$Cohens_g, 0.300, tolerance = 0.01)
+    testthat::expect_equal(g$CI_low, 0.280, tolerance = 0.01)
+    testthat::expect_equal(g$CI_high, 0.319, tolerance = 0.01)
   })
 
 }
