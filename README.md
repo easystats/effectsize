@@ -5,8 +5,6 @@
 [![downloads](http://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize)
 [![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg)](https://github.com/easystats/effectsize/actions)
 [![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg)](https://github.com/easystats/effectsize/actions)
-<!-- [![Build Status](https://travis-ci.org/easystats/effectsize.svg?branch=master)](https://travis-ci.org/easystats/effectsize) -->
-<!-- [![codecov](https://codecov.io/gh/easystats/effectsize/branch/master/graph/badge.svg)](https://codecov.io/gh/easystats/effectsize) -->
 
 ***Size does matter***
 
@@ -270,6 +268,6 @@ package, you may either contact us via email or also [file an
 issue](https://github.com/easystats/effectsize/issues). Anyone wishing
 to contribute to the package by adding functions, features, or in
 another way, please follow [this
-guide](https://github.com/easystats/effectsize/blob/master/.github/CONTRIBUTING.md)
+guide](https://github.com/easystats/effectsize/blob/main/.github/CONTRIBUTING.md)
 and our [code of
-conduct](https://github.com/easystats/effectsize/blob/master/.github/CODE_OF_CONDUCT.md).
+conduct](https://github.com/easystats/effectsize/blob/main/.github/CODE_OF_CONDUCT.md).
