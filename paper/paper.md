@@ -35,25 +35,26 @@ affiliations:
 
 # Aims of the Package
 
-<!-- not sure how much of this is needed. Edit (add, remove) as you see fit... -->
+In both theoretical and applied research, it is often of interest to assess the strength of an observed association. This is typically done to allow the judgment of the magnitude of an effect (especially when units of measurement are not meaningful), to facilitate comparing between predictors' importance within a given model, or both. Though some indices of effect size, such as the correlation coefficient (itself a standardized covariance coefficient) are readily available, other measures are often harder to obtain. **effectsize** is an R package [@rcore] that fills this important gap, providing utilities for easily estimating a wide variety of standardized effect sizes (i.e., effect sizes that are not tied to the units of measurement of the variables of interest) and their confidence intervals (CIs), from a variety of statistical models. **effectsize** provides easy-to-use functions, with full documentation and explanation of the various effect sizes offered, and is also used by developers of other R packages as the back-end for effect size computation, such as **parameters** [@ludecke2020extracting], **ggstatsplot** [@patil2020ggstatsplot], **gtsummary** [@sjoberg2020gtsummary] and more.
 
-It is often of interest to to assess the strength of an observed association. This is typically done to allow the judgment of the magnitude of an effect (especially when units of measurement are not meaningful), to facilitate comparing predictors' importance within a given model, or both. Though some indices of effect size, such a the correlation coefficient (a standardized covariance coefficient) are readily available, other measures are often harder to obtain. 
+# Comparison to Other Packages
 
-**effectsize** is an R-package [@rcore] that fills this important gap. Its primary goal is to provide utilities for estimating a wide variety of standardized effect sizes (i.e., effect sizes that are not tied to the units of measurement of the variables of interest, i.e., they are scale-invariant) and their confidence intervals (CIs), from a variety of statistical models. **effectsize** provides easy to use functions, with full documentation and explanation of the various effect sizes offered, and is also used by developers of other R packages as the back-end for effect size computation, such as *parameters* [@ludecke2020extracting], *ggstatsplot* [@patil2020ggstatsplot], *gtsummary* [@sjoberg2020gtsummary] and more.
+**effectsize**'s functionality is in part comparable to packages like **lm.beta** [@behrendt2014lmbeta], **MOTE** [@buchanan2019MOTE] or **MBESS** [@kelley2020MBESS]. Yet, there are some notable differences, e.g.:
+
+- **lm.beta** provides standardized regression coefficients for linear models, based on post-hoc model matrix standardization. However, the functionality is available only for a limited number of models (models inheriting from the `lm` class), whereas **effectsize** provides support for many types of models, including (generalized) linear mixed models, Bayesian models, and more. Additionally, in additional to post-hoc model matrix standardization, **effectsize** offers other methods of standardization (see below).  
+- Both **MOTE** and **MBESS** provide functions for computing effect sizes such as Cohen's *d* and effect sizes for ANOVAs, and their confidence intervals. However, both require manual input of *F*- or *t*-statistics, *degrees of freedom*, and *Sums of Squares* for the computation the effect sizes, whereas **effectsize** can automatically extract this information from the provided models, thus allowing for better ease-of-use as well as reducing any potential for error.
 
 # Examples of Features
 
-**effectsize** provides various functions for extracting and estimating effect sizes and their confidence intervals [estimated using the noncentrality parameter method; @steiger2004beyond]. In the following, we show some brief examples. However, a comprehensive overview including in-depth examples are accessible via the dedicated website (https://easystats.github.io/effectsize/).
+**effectsize** provides various functions for extracting and estimating effect sizes and their confidence intervals [estimated using the noncentrality parameter method; @steiger2004beyond]. In this article, we provide basic usage examples for estimating some of the most common effect size. A comprehensive overview, including in-depth examples and [a full list of features and functions](https://easystats.github.io/effectsize/reference/index.html), are accessible via the dedicated website (https://easystats.github.io/effectsize/).
 
 ## Indices of Effect Size
 
 ### Standardized Differences
 
-**effectsize** provides functions for estimating the common indices of standardized differences such as Cohen's *d* (`cohens_d()`), Hedge's *g* (`hedges_g()`) for both paired and independent samples, and Glass' $\Delta$ (`glass_delta()`).
+**effectsize** provides functions for estimating the common indices of standardized differences such as Cohen's *d* (`cohens_d()`), Hedge's *g* (`hedges_g()`) for both paired and independent samples [@cohen1988statistical; @hedges1985statistical], and Glass' $\Delta$ (`glass_delta()`) for independent samples with different variances [@hedges2014statistical].
 
 ``` r
-library(effectsize)
-
 cohens_d(mpg ~ am, data = mtcars)
 #> Cohen's d |         95% CI
 #> --------------------------
@@ -62,7 +63,7 @@ cohens_d(mpg ~ am, data = mtcars)
 
 ### Contingency Tables
 
-Person's $\phi$ (`phi()`) and Cramér's *V* (`cramers_v()`) can be used to estimate the strength of association between two categorical variables, while Cohen's *g* (`cohens_g()`) estimates the deviance between paired categorical variables.
+Pearson's $\phi$ (`phi()`) and Cramér's *V* (`cramers_v()`) can be used to estimate the strength of association between two categorical variables, while Cohen's *g* (`cohens_g()`) estimates the deviance between paired categorical variables.
 
 ``` r
 M <- rbind(c(150, 130, 35, 55),
@@ -77,11 +78,20 @@ cramers_v(M)
 
 ## Parameter and Model Standardization
 
-Standardizing parameters (i.e., coefficients) can allow for their comparison within and between models, variables and studies. To this end, two functions are available: `standardize()` which returns an updated model, re-fits with standardized data, and `standardize_parameters()` which returns a table of standardized coefficients from a provided model.
+Standardizing parameters (i.e., coefficients) can allow for their comparison within and between models, variables and studies. To this end, two functions are available: `standardize()` which returns an updated model, re-fit with standardized data, and `standardize_parameters()` which returns a table of standardized coefficients from a provided model [for a list of supported models, see the *insight* package; @luedecke2019insight].
 
 ``` r
 model <- lm(mpg ~ cyl * am, 
             data = mtcars)
+
+standardize(model)
+#> 
+#> Call:
+#> lm(formula = mpg ~ cyl * am, data = data_std)
+#> 
+#> Coefficients:
+#> (Intercept)          cyl           am       cyl:am  
+#>     -0.0977      -0.7426       0.1739      -0.1930 
 
 standardize_parameters(model)
 #> Parameter   | Coefficient (std.) |         95% CI
@@ -95,8 +105,6 @@ standardize_parameters(model)
 ```
 
 Standardized parameters can also be produced for generalized linear models (GLMs; where only the predictors are standardized):
-
-<!-- Here I used `exponentiate`, but should maybe not? -->
 
 ``` r
 model <- glm(am ~ cyl + hp,
@@ -121,14 +129,15 @@ Unlike standardized parameters, the effect sizes reported in the context of ANOV
 
 
 ``` r
-data("ChickWeight")
-
 options(contrasts = c('contr.sum', 'contr.poly'))
 
+data("ChickWeight")
+# keep only complete cases and convert `Time` to a factor
+ChickWeight <- subset(ChickWeight, ave(weight, Chick, FUN = length) == 12)
 ChickWeight$Time <- factor(ChickWeight$Time)
 
 model <- aov(weight ~ Diet * Time + Error(Chick / Time),
-             data = ChickWeight)
+             data = ChickWeight) 
 
 eta_squared(model, partial = TRUE)
 #> Group      | Parameter | Eta2 (partial) |       90% CI
@@ -211,7 +220,7 @@ oddsratio_to_riskratio(1.96, p0 = 0.15)
 
 ## Effect Size Interpretation
 
-Finally, **effectsize** provides convenience functions to apply existing or custom interpretation rules of thumb, such as for instance Cohen's (1988). Although we strongly advocate for the cautious and parsimonious use of such judgment-replacing tools, we provide these functions to allow users and developers to explore and hopefully gain a deeper understanding of the relationship between data values and their interpretation. More information is available in the package's [**documentation**](https://easystats.github.io/effectsize/articles/interpret.html).
+Finally, **effectsize** provides convenience functions to apply existing or custom interpretation rules of thumb, such as for instance Cohen's (1988). Although we strongly advocate for the cautious and parsimonious use of such judgment-replacing tools, we provide these functions to allow users and developers to explore and hopefully gain a deeper understanding of the relationship between data values and their interpretation. More information is available in the [*Automated Interpretation of Indices of Effect Size* vignette](https://easystats.github.io/effectsize/articles/interpret.html).
 
 ``` r
 interpret_d(c(0.02, 0.52, 0.86), rules = "cohen1988")
@@ -222,7 +231,7 @@ interpret_d(c(0.02, 0.52, 0.86), rules = "cohen1988")
 
 # Licensing and Availability
 
-**effectsize** is licensed under the GNU General Public License (v3.0), with all source code stored at GitHub (https://github.com/easystats/effectsize), and with a corresponding issue tracker for bug reporting and feature enhancements. In the spirit of honest and open science, we encourage requests/tips for fixes, feature updates, as well as general questions and concerns via direct interaction with contributors and developers.
+**effectsize** is licensed under the GNU General Public License (v3.0), with all source code stored at GitHub (https://github.com/easystats/effectsize), and with a corresponding issue tracker for bug reporting and feature enhancements. In the spirit of honest and open science, we encourage requests/tips for fixes, feature updates, as well as general questions and concerns via direct interaction with contributors and developers, by [filing an issue](https://github.com/easystats/effectsize/issues). See the package's [*Contribution Guidelines*](https://github.com/easystats/effectsize/blob/master/.github/CONTRIBUTING.md).
 
 # Acknowledgments
 

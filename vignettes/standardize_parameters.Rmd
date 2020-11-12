@@ -257,9 +257,10 @@ Linear mixed models (LMM/HLM/MLM) offer an additional conundrum to standardizati
 
 The solution: standardize according to level of the predictor [@hoffman2015longitudinal, page 342]! Level 1 parameters are standardized according to variance *withing* groups, while level 2 parameters are standardized according to variance *between* groups. The resulting standardized coefficient are also called *pseudo*-standardized coefficients.[^Note that like method `"basic"`, these are based on the model matrix.]
 
-```{r, eval=require(lme4)}
+```{r, eval=knitr::opts_chunk$get("eval") && require(lme4) && require(lmerTest)}
 library(lme4)
 m <- lmer(mpg ~ cyl + am + vs + (1|cyl), mtcars)
+
 standardize_parameters(m, method = "pseudo", df_method = "satterthwaite")
 
 # compare to:

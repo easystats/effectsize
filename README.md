@@ -57,11 +57,9 @@ check-out these vignettes:
 
 # Features
 
-This package is focused on indices of effect size. But **there are
-hundreds of them\! Thus, *everybody* is welcome to contribute** by
-adding support for the interpretation of new indices. If you’re not sure
-how to code it’s okay, just open an issue to discuss it and we’ll help
-:)
+This package is focused on indices of effect size. Check out the package
+website for [**a full list of features and functions** provided by
+`effectsize`](https://easystats.github.io/effectsize/reference/index.html).
 
 ``` r
 library(effectsize)
@@ -264,3 +262,14 @@ or signed-ranks:
 ranktransform(c(1, 3, -2, 6, 6, 0.5), sign = TRUE)
 ## [1]  2.0  4.0 -3.0  5.5  5.5  1.0
 ```
+
+# Contributing and Support
+
+If you have any questions regarding the the functionality of the
+package, you may either contact us via email or also [file an
+issue](https://github.com/easystats/effectsize/issues). Anyone wishing
+to contribute to the package by adding functions, features, or in
+another way, please follow [this
+guide](https://github.com/easystats/effectsize/blob/master/.github/CONTRIBUTING.md)
+and our [code of
+conduct](https://github.com/easystats/effectsize/blob/master/.github/CODE_OF_CONDUCT.md).
