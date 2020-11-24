@@ -91,6 +91,7 @@ is.rules <- function(x) inherits(x, "rules")
 #'
 #' @param x Vector of value break points (edges defining categories).
 #' @param rules Set of [rules()].
+#' @param ... Currently not used.
 #' @inheritParams rules
 #'
 #' @seealso rules
@@ -104,14 +105,16 @@ is.rules <- function(x) inherits(x, "rules")
 #' interpret(c(0.35, 0.15), c("small" = 0.2, "large" = 0.4), name = "Cohen's Rules")
 #' interpret(c(0.35, 0.15), rules(c(0.2, 0.4), c("small", "medium", "large")))
 #' @export
-interpret <- function(x, ...){
+interpret <- function(x, ...) {
   UseMethod("interpret")
 }
 
 
+#' @rdname interpret
+#' @export
 interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
 
-  if(!inherits(rules, "rules")){
+  if (!inherits(rules, "rules")) {
     rules <- rules(rules)
   }
 
@@ -121,7 +124,7 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
     out <- .interpret(x, rules)
   }
 
-  if(is.null(name)){
+  if (is.null(name)) {
     attr(out, "rule_name") <- "Custom rules"
   } else{
     attr(out, "rule_name") <- name
@@ -136,7 +139,7 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
 .interpret <- function(x, rules) {
   if (is.na(x)) return(NA)
 
-  if(length(rules$values) == length(rules$labels)){
+  if (length(rules$values) == length(rules$labels)) {
     index <- which.min(abs(x - rules$values))
   } else{
     if (isTRUE(attr(rules, "right"))) {

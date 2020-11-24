@@ -2,14 +2,21 @@
 % Please edit documentation in R/interpret.R
 \name{interpret}
 \alias{interpret}
+\alias{interpret.numeric}
 \title{Generic function for interpretation}
 \usage{
 interpret(x, ...)
+
+\method{interpret}{numeric}(x, rules, name = attr(rules, "rule_name"), ...)
 }
 \arguments{
 \item{x}{Vector of value break points (edges defining categories).}
 
+\item{...}{Currently not used.}
+
 \item{rules}{Set of \code{\link[=rules]{rules()}}.}
+
+\item{name}{Name of the set of rules (stored as a 'rule_name' attribute).}
 }
 \description{
 Interpret a value based on a set of rules. See \code{\link[=rules]{rules()}}.
