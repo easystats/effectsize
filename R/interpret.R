@@ -104,7 +104,12 @@ is.rules <- function(x) inherits(x, "rules")
 #' interpret(c(0.35, 0.15), c("small" = 0.2, "large" = 0.4), name = "Cohen's Rules")
 #' interpret(c(0.35, 0.15), rules(c(0.2, 0.4), c("small", "medium", "large")))
 #' @export
-interpret <- function(x, rules, name = attr(rules, "rule_name")) {
+interpret <- function(x, ...){
+  UseMethod("interpret")
+}
+
+
+interpret.numeric <- function(x, rules, name = attr(rules, "rule_name")) {
 
   if(!inherits(rules, "rules")){
     rules <- rules(rules)
