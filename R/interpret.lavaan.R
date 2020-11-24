@@ -25,7 +25,7 @@ interpret.performance_lavaan <- function(x, ...){
   table <- data.frame(Name = c(), Value = c(), Interpretation = c(), Threshold = c())
 
   # GFI
-  if("GFI" %in% names(x)){
+  if ("GFI" %in% names(x)) {
     table <- rbind(table,
                         data.frame(Name = "GFI",
                                    Value = x$GFI,
@@ -34,7 +34,7 @@ interpret.performance_lavaan <- function(x, ...){
   }
 
   # AGFI
-  if("AGFI" %in% names(x)){
+  if ("AGFI" %in% names(x)) {
     table <- rbind(table,
                         data.frame(Name = "AGFI",
                                    Value = x$AGFI,
@@ -43,7 +43,7 @@ interpret.performance_lavaan <- function(x, ...){
   }
 
   # NFI
-  if("NFI" %in% names(x)){
+  if ("NFI" %in% names(x)) {
     table <- rbind(table,
                         data.frame(Name = "NFI",
                                    Value = x$NFI,
@@ -52,7 +52,7 @@ interpret.performance_lavaan <- function(x, ...){
   }
 
   # NNFI
-  if("NNFI" %in% names(x)){
+  if ("NNFI" %in% names(x)) {
     table <- rbind(table,
                         data.frame(Name = "NNFI",
                                    Value = x$NNFI,
@@ -61,7 +61,7 @@ interpret.performance_lavaan <- function(x, ...){
   }
 
   # CFI
-  if("CFI" %in% names(x)){
+  if ("CFI" %in% names(x)) {
     table <- rbind(table,
                         data.frame(Name = "CFI",
                                    Value = x$CFI,
@@ -70,7 +70,7 @@ interpret.performance_lavaan <- function(x, ...){
   }
 
   # RMSEA
-  if("RMSEA" %in% names(x)){
+  if ("RMSEA" %in% names(x)) {
     table <- rbind(table,
                         data.frame(Name = "RMSEA",
                                    Value = x$RMSEA,
@@ -79,7 +79,7 @@ interpret.performance_lavaan <- function(x, ...){
   }
 
   # SRMR
-  if("SRMR" %in% names(x)){
+  if ("SRMR" %in% names(x)) {
     table <- rbind(table,
                         data.frame(Name = "SRMR",
                                    Value = x$SRMR,
@@ -88,7 +88,7 @@ interpret.performance_lavaan <- function(x, ...){
   }
 
   # RFI
-  if("RFI" %in% names(x)){
+  if ("RFI" %in% names(x)) {
     table <- rbind(table,
                         data.frame(Name = "RFI",
                                    Value = x$RFI,
@@ -97,7 +97,7 @@ interpret.performance_lavaan <- function(x, ...){
   }
 
   # IFI
-  if("IFI" %in% names(x)){
+  if ("IFI" %in% names(x)) {
     table <- rbind(table,
                         data.frame(Name = "IFI",
                                    Value = x$IFI,
@@ -106,7 +106,7 @@ interpret.performance_lavaan <- function(x, ...){
   }
 
   # IFI
-  if("PNFI" %in% names(x)){
+  if ("PNFI" %in% names(x)) {
     table <- rbind(table,
                         data.frame(Name = "PNFI",
                                    Value = x$PNFI,
