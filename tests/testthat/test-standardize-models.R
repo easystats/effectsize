@@ -8,7 +8,11 @@ if (require("testthat") && require("effectsize") && require("lme4")) {
     m1 <- lm(Sepal.Length ~ Species * Petal.Width, data = iris2)
     model <- standardize(m1)
     testthat::expect_equal(coef(m0), coef(model))
+  })
 
+
+  # Transformations ---------------------------------------------------------
+  test_that("transformations", {
     # deal with log / sqrt terms
     testthat::expect_message(standardize(lm(mpg ~ sqrt(cyl) + log(hp), mtcars)))
     testthat::expect_message(standardize(lm(mpg ~ sqrt(cyl), mtcars)))
@@ -25,7 +29,24 @@ if (require("testthat") && require("effectsize") && require("lme4")) {
 
     testthat::expect_equal(standardize_parameters(fit_exp, method = "basic")[2,2],
                            unname(coef(fit_scale2)[2]))
+
+    if (packageVersion("insight") > "0.10.0") {
+      d <- data.frame(
+        time = as.factor(c(1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5)),
+        group = c(1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2),
+        sum = c(0, 5, 10, 15, 20, 0, 20, 25, 45, 50, 0, 5, 10, 15, 20, 0, 20, 25, 45, 50, 0, 5, 10, 15, 20, 0, 20, 25, 45, 50)
+      )
+      m <-  lm(log(sum + 1) ~ as.numeric(time) * group, data = d)
+
+
+      expect_message(out <- standardize(m))
+      expect_equal(coef(m), c(`(Intercept)` = -0.4575, `as.numeric(time)` = 0.5492, group = 0.3379,
+                              `as.numeric(time):group` = 0.15779), tolerance = 0.01)
+    }
   })
+
+
+
 
 
   # W/ weights --------------------------------------------------------------
