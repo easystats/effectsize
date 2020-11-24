@@ -109,7 +109,7 @@ interpret <- function(x, ...){
 }
 
 
-interpret.numeric <- function(x, rules, name = attr(rules, "rule_name")) {
+interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
 
   if(!inherits(rules, "rules")){
     rules <- rules(rules)
