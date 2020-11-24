@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{x}{An object of class \code{lavaan}.}
+
+\item{...}{Currently not used.}
 }
 \description{
 Interpretation for lavaan objects

@@ -27,11 +27,11 @@
 #' @export
 rules <- function(values, labels = NULL, name = NULL, right = TRUE) {
 
-  if(is.null(labels)){
-    if(is.list(values)){
+  if (is.null(labels)) {
+    if (is.list(values)) {
       values <- unlist(values)
     }
-    if(is.null(names(values))){
+    if (is.null(names(values))) {
       labels <- values
     } else{
       labels <- names(values)
@@ -39,14 +39,14 @@ rules <- function(values, labels = NULL, name = NULL, right = TRUE) {
   }
 
   # Sanity checks
-  if(length(labels) < length(values)){
+  if (length(labels) < length(values)) {
     stop("There cannot be less labels than reference values!")
-  } else if(length(labels) > length(values) + 1){
+  } else if (length(labels) > length(values) + 1) {
     stop("Too many labels for the number of reference values!")
   }
 
   if (length(values) == length(labels) - 1) {
-    if (is.unsorted(values)){
+    if (is.unsorted(values)) {
       stop("Reference values must be sorted.")
     }
   } else {
@@ -59,7 +59,7 @@ rules <- function(values, labels = NULL, name = NULL, right = TRUE) {
     labels = labels
   )
 
-  if(is.null(name)){
+  if (is.null(name)) {
     attr(out, "rule_name") <- "Custom rules"
   } else{
     attr(out, "rule_name") <- name

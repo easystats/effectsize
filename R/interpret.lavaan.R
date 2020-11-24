@@ -1,6 +1,7 @@
 #' Interpretation for lavaan objects
 #'
 #' @param x An object of class \code{lavaan}.
+#' @inheritParams interpret
 #'
 #' @examples
 #' library(effectsize)
@@ -14,7 +15,7 @@
 #'   interpret(model)
 #' }
 #' @export
-interpret.lavaan <- function(x, ...){
+interpret.lavaan <- function(x, ...) {
   interpret(performance::model_performance(x, ...), ...)
 }
 
