@@ -185,18 +185,28 @@
 
 <span class='fu'>interpret_ifi</span><span class='op'>(</span><span class='va'>x</span>, rules <span class='op'>=</span> <span class='st'>"default"</span><span class='op'>)</span>
 
-<span class='fu'>interpret_pnfi</span><span class='op'>(</span><span class='va'>x</span>, rules <span class='op'>=</span> <span class='st'>"default"</span><span class='op'>)</span></pre>
+<span class='fu'>interpret_pnfi</span><span class='op'>(</span><span class='va'>x</span>, rules <span class='op'>=</span> <span class='st'>"default"</span><span class='op'>)</span>
+
+<span class='co'># S3 method for lavaan</span>
+<span class='fu'><a href='interpret.html'>interpret</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for performance_lavaan</span>
+<span class='fu'><a href='interpret.html'>interpret</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>vector of values.</p></td>
+      <td><p>vector of values, or an object of class <code>lavaan</code>.</p></td>
     </tr>
     <tr>
       <th>rules</th>
       <td><p>Can be <code>"default"</code> or custom set of <code><a href='rules.html'>rules()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Currently not used.</p></td>
     </tr>
     </table>
 
@@ -269,6 +279,15 @@
 </div><div class='output co'>#&gt; [1] "poor"         "satisfactory"
 #&gt; </span><span style='color: #0000BB;'>(Rules: default)
 #&gt; </span><span></div><div class='input'>
+<span class='co'># Structural Equation Models (SEM)</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='http://lavaan.org'>"lavaan"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>structure</span> <span class='op'>&lt;-</span> <span class='st'>" ind60 =~ x1 + x2 + x3
+                 dem60 =~ y1 + y2 + y3
+                 dem60 ~ ind60 "</span>
+  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'>lavaan</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lavaan/man/sem.html'>sem</a></span><span class='op'>(</span><span class='va'>structure</span>, data <span class='op'>=</span> <span class='va'>PoliticalDemocracy</span><span class='op'>)</span>
+  <span class='co'># interpret(model)  # Not working until new performance is up</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: lavaan</span></div><div class='output co'>#&gt; <span class='message'>This is lavaan 0.6-7</span></div><div class='output co'>#&gt; <span class='message'>lavaan is BETA software! Please report any bugs.</span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
