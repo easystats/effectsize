@@ -228,7 +228,7 @@
 
 <span class="va">fit_lmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lmerTest/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">Reaction</span> <span class="op">~</span> <span class="va">Days</span> <span class="op">+</span> <span class="op">(</span><span class="va">Days</span> <span class="op">|</span> <span class="va">Subject</span><span class="op">)</span>, <span class="va">sleepstudy</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/lavTestLRT.html">anova</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Type III Analysis of Variance Table with Satterthwaite's method
 &gt;      Sum Sq Mean Sq NumDF DenDF F value  Pr(&gt;F)    
 &gt; Days  30031   30031     1    17    45.9 3.3e-06 ***
