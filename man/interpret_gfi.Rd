@@ -11,6 +11,8 @@
 \alias{interpret_rfi}
 \alias{interpret_ifi}
 \alias{interpret_pnfi}
+\alias{interpret.lavaan}
+\alias{interpret.performance_lavaan}
 \title{Interpret of indices of CFA / SEM goodness of fit}
 \usage{
 interpret_gfi(x, rules = "default")
@@ -32,9 +34,13 @@ interpret_rfi(x, rules = "default")
 interpret_ifi(x, rules = "default")
 
 interpret_pnfi(x, rules = "default")
+
+\method{interpret}{lavaan}(x, ...)
+
+\method{interpret}{performance_lavaan}(x, ...)
 }
 \arguments{
-\item{x}{vector of values.}
+\item{x}{vector of values, or an object of class \code{lavaan}.}
 
 \item{rules}{Can be \code{"default"} or custom set of \code{\link[=rules]{rules()}}.}
 }
@@ -74,6 +80,15 @@ interpret_srmr(c(.5, .99))
 interpret_rfi(c(.5, .99))
 interpret_ifi(c(.5, .99))
 interpret_pnfi(c(.5, .99))
+
+# Structural Equation Models (SEM)
+if (require("lavaan")) {
+  structure <- " ind60 =~ x1 + x2 + x3
+                 dem60 =~ y1 + y2 + y3
+                 dem60 ~ ind60 "
+  model <- lavaan::sem(structure, data = PoliticalDemocracy)
+  # interpret(model)  # Not working until new performance is up
+}
 
 }
 \references{

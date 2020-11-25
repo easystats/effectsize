@@ -46,7 +46,6 @@ reference:
   contents:
   - equivalence_test.effectsize_table
   - interpret
-  - interpret.performance_lavaan
   - rules
   - interpret_d
   - interpret_r
