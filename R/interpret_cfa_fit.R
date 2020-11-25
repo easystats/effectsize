@@ -4,6 +4,7 @@
 #'
 #' @param x vector of values, or an object of class `lavaan`.
 #' @param rules Can be `"default"` or custom set of [rules()].
+#' @inheritParams interpret
 #'
 #' @inherit performance::model_performance.lavaan details
 #' @inherit performance::model_performance.lavaan references

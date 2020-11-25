@@ -43,6 +43,8 @@ interpret_pnfi(x, rules = "default")
 \item{x}{vector of values, or an object of class \code{lavaan}.}
 
 \item{rules}{Can be \code{"default"} or custom set of \code{\link[=rules]{rules()}}.}
+
+\item{...}{Currently not used.}
 }
 \description{
 Interpretation of indices of fit found in confirmatory analysis or structural equation modelling, such as RMSEA, CFI, NFI, IFI, etc.
