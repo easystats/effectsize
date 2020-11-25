@@ -104,6 +104,8 @@ phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...){
   Exp <- res$expected
 
   if (!is.null(dim(Exp))) {
+    if (any(c(colSums(Obs), rowSums(Obs)) == 0L))
+      stop("Cannot have empty rows/columns in the contingency tables.", call. = FALSE)
     nr <- nrow(Obs)
     nc <- ncol(Obs)
   } else {
@@ -137,6 +139,8 @@ cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI,...){
   Exp <- res$expected
 
   if (!is.null(dim(Exp))) {
+    if (any(c(colSums(Obs), rowSums(Obs)) == 0L))
+      stop("Cannot have empty rows/columns in the contingency tables.", call. = FALSE)
     nr <- nrow(Obs)
     nc <- ncol(Obs)
   } else {
@@ -160,6 +164,9 @@ cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI,...){
 oddsratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
   res <- suppressWarnings(stats::chisq.test(x, y, ...))
   Obs <- res$observed
+
+  if (any(c(colSums(Obs), rowSums(Obs)) == 0L))
+    stop("Cannot have empty rows/columns in the contingency tables.", call. = FALSE)
 
   if (nrow(Obs) != 2 || ncol(Obs) != 2) {
     stop("Odds ratio only available for 2-by-2 contingency tables", call. = FALSE)
@@ -202,6 +209,9 @@ oddsratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
 riskratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
   res <- suppressWarnings(stats::chisq.test(x, y, ...))
   Obs <- res$observed
+
+  if (any(c(colSums(Obs), rowSums(Obs)) == 0L))
+    stop("Cannot have empty rows/columns in the contingency tables.", call. = FALSE)
 
   if (nrow(Obs) != 2 || ncol(Obs) != 2) {
     stop("Risk ratio only available for 2-by-2 contingency tables", call. = FALSE)
