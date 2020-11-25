@@ -52,6 +52,7 @@ Suggests:
 	gamm4,
 	ggplot2,
 	knitr,
+	lavaan,
 	lm.beta,
 	lme4,
 	lmerTest,
