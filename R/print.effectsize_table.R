@@ -19,7 +19,7 @@ print.effectsize_table <- function(x, digits = 2, ...){
     x$CI_low <- x$CI_high <- NULL
   }
 
-  cat(insight::format_table(x, digits = digits))
+  cat(insight::export_table(x, digits = digits))
 
   ## MSB: Move to own printing function?
   if (!is.null(method <- attr(x_orig, "std_method"))) {
