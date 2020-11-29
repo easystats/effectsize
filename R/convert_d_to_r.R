@@ -26,15 +26,16 @@
 #' @return Converted index.
 #'
 #' @details
+#' Conversions between *OR* and *r* is done through these formulae.
 #' - *d to r*: \eqn{d = \frac{2 * r}{\sqrt{1 - r^2}}}
 #' - *r to d*: \eqn{r = \frac{d}{\sqrt{d^2 + 4}}}
 #' - *OR to d*: \eqn{d = \frac{\log(OR)\times\sqrt{3}}{\pi}}
 #' - *d to OR*: \eqn{log(OR) = d * \frac{\pi}{\sqrt(3)}}
 #'
-#' Conversions between *OR* and *r* is done through these formulae.
 #' \cr\cr
-#' When converting *d* to *r*, the resulting *r* is also called the binomial
-#' effect size display (BESD; Rosenthal et al., 1982).
+#' The conversion from *d* to *r* assumes equally sized groups. The resulting
+#' *r* is also called the binomial effect size display (BESD; Rosenthal et al.,
+#' 1982).
 #'
 #' @references
 #' - Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003). Effect-size indices for dichotomized outcomes in meta-analysis. Psychological methods, 8(4), 448.

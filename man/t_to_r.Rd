@@ -53,11 +53,15 @@ These functions use the following formulae to approximate \emph{r} and \emph{d}:
 \cr\cr
 \deqn{r_{partial} = z / \sqrt{z^2 + N}}
 \cr\cr
-\deqn{Cohen's d = 2 * t / \sqrt{df_{error}}}
+\deqn{d = 2 * t / \sqrt{df_{error}}}
 \cr\cr
-\deqn{Cohen's d_z = t / \sqrt{df_{error}}}
+\deqn{d_z = t / \sqrt{df_{error}}}
 \cr\cr
-\deqn{Cohen's d = 2 * z / \sqrt{N}}
+\deqn{d = 2 * z / \sqrt{N}}
+
+The resulting \code{d} effect size is an \emph{approximation} to Cohen's \emph{d}, and
+assumes equal group sizes. When possible, it is advised to directly estimate
+Cohen's \emph{d}, with \code{\link[=cohens_d]{cohens_d()}}, \code{\link[emmeans:eff_size]{emmeans::eff_size()}}, or similar functions.
 }
 \section{Confidence Intervals}{
 Confidence intervals are estimated using the Noncentrality parameter method;
@@ -96,10 +100,12 @@ if (require("correlation")) {
 if (require(emmeans)) {
   warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
 
-  conts <- summary(pairs(emmeans(warp.lm,  ~ tension | wool)))
-  t_to_d(conts$t.ratio, conts$df)
-}
 
+  # Also see emmeans::eff_size()
+  em_tension <- emmeans(warp.lm,  ~ tension)#'
+  diff_tension <- summary(pairs(em_tension))
+  t_to_d(diff_tension$t.ratio, diff_tension$df)
+}
 }
 
 }
@@ -107,7 +113,7 @@ if (require(emmeans)) {
 \itemize{
 \item Friedman, H. (1982). Simplified determinations of statistical power, magnitude of effect and research sample sizes. Educational and Psychological Measurement, 42(2), 521-526. \doi{10.1177/001316448204200214}
 \item Wolf, F. M. (1986). Meta-analysis: Quantitative methods for research synthesis (Vol. 59). Sage.
-\item Rosenthal, R. (1991). Meta-analytic procedures for social research. Newbury Park, CA: SAGE Publications, Incorporated.
+\item Rosenthal, R. (1994) Parametric measures of effect size. In H. Cooper and L.V. Hedges (Eds.). The handbook of research synthesis. New York: Russell Sage Foundation.
 \item Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
 \item Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
 }

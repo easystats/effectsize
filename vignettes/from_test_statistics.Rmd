@@ -192,14 +192,21 @@ These can be useful in contrast analyses.
 ### Between-Subject Contrasts
 
 ```{r}
-warp.lm <- lm(breaks ~ tension, data = warpbreaks)
+m <- lm(breaks ~ tension, data = warpbreaks)
 
-pairs(emmeans(warp.lm,  ~ tension))
+em_tension <- emmeans(m, ~ tension)
+pairs(em_tension)
 
-t_to_d(t = c(2.5, 3.7, 1.2),
+t_to_d(t = c(2.53, 3.72, 1.20),
        df_error = 51)
-
 ```
+
+However, these are merely approximations of a *true* Cohen's *d*. It is advised to directly estimate Cohen's *d*, whenever possible. For example, here with `emmeans::eff_size()`:
+
+```{r}
+eff_size(em_tension, sigma = sigma(m), edf = df.residual(m))
+```
+
 
 ### Within-Subject Contrasts
 
@@ -213,7 +220,7 @@ t_to_d(t = c(-5.7,-5.9,-3.2),
 
 ```
 
-(Note `paired = TRUE` to not over estimate the size of the effect; @rosenthal1991meta; @rosnow2000contrasts)
+(Note set `paired = TRUE` to not over estimate the size of the effect; @rosenthal1991meta; @rosnow2000contrasts)
 
 
 # References

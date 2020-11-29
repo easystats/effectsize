@@ -74,6 +74,7 @@ Enables a conversion between different indices of effect size, such as
 standardized difference (Cohen's d), correlation r or (log) odds ratios.
 }
 \details{
+Conversions between \emph{OR} and \emph{r} is done through these formulae.
 \itemize{
 \item \emph{d to r}: \eqn{d = \frac{2 * r}{\sqrt{1 - r^2}}}
 \item \emph{r to d}: \eqn{r = \frac{d}{\sqrt{d^2 + 4}}}
@@ -81,10 +82,10 @@ standardized difference (Cohen's d), correlation r or (log) odds ratios.
 \item \emph{d to OR}: \eqn{log(OR) = d * \frac{\pi}{\sqrt(3)}}
 }
 
-Conversions between \emph{OR} and \emph{r} is done through these formulae.
 \cr\cr
-When converting \emph{d} to \emph{r}, the resulting \emph{r} is also called the binomial
-effect size display (BESD; Rosenthal et al., 1982).
+The conversion from \emph{d} to \emph{r} assumes equally sized groups. The resulting
+\emph{r} is also called the binomial effect size display (BESD; Rosenthal et al.,
+1982).
 }
 \examples{
 r_to_d(0.5)
