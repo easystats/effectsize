@@ -2,7 +2,7 @@
 
 ## Breaking Changes
 
-- `eta_squared_posterior()` no longer uses `car::Anova()` by default. Any function for creating sums-of-squares can be used.
+- `eta_squared_posterior()` no longer uses `car::Anova()` by default.
 
 ## New features
 

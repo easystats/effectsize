@@ -107,7 +107,7 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
 
 
 
-#' @importFrom stats sd na.omit
+#' @importFrom stats sd na.omit complete.cases
 #' @keywords internal
 .effect_size_difference <- function(x,
                                     y = NULL,
@@ -131,9 +131,13 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
 
   # Compute index
   if (paired) {
-    d <- mean(x - y, na.rm = TRUE)
-    s <- stats::sd(x - y, na.rm = TRUE)
-    n <- length(stats::na.omit(x - y))
+    o <- stats::complete.cases(x,y)
+    x <- x[o]
+    y <- y[o]
+
+    d <- mean(x - y)
+    s <- stats::sd(x - y)
+    n <- length(x)
     df <- n - 1
     hn <- 1 / df
     t <- d / (s / sqrt(n))
