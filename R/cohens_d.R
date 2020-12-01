@@ -125,7 +125,7 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
     if (type == "delta") {
       stop("For Glass' Delta, please provide data from two samples.", call. = FALSE)
     }
-    y <- 0
+    y <- rep(0, length.out = length(x))
     paired <- TRUE
   }
 
@@ -142,9 +142,12 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
     hn <- 1 / df
     t <- d / (s / sqrt(n))
   } else {
-    d <- mean(x, na.rm = TRUE) - mean(y, na.rm = TRUE)
-    n1 <- length(stats::na.omit(x))
-    n2 <- length(stats::na.omit(y))
+    x <- stats::na.omit(x)
+    y <- stats::na.omit(y)
+
+    d <- mean(x) - mean(y)
+    n1 <- length(x)
+    n2 <- length(y)
     n <- n1 + n2
     df <- n - 2
     hn <- (1 / n1 + 1 / n2)
@@ -153,13 +156,13 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
         s <- suppressWarnings(sd_pooled(x, y))
         t <- d / (s * sqrt(1 / n1 + 1 / n2))
       } else {
-        s1 <- stats::sd(x, na.rm = TRUE)
-        s2 <- stats::sd(y, na.rm = TRUE)
+        s1 <- stats::sd(x)
+        s2 <- stats::sd(y)
         s <- sqrt((s1 ^ 2 + s2 ^ 2) / 2)
         t <- d / sqrt(s1 ^ 2 / n1 + s2 ^ 2 / n2)
       }
     } else if (type == "delta") {
-      s <- stats::sd(y, na.rm = TRUE)
+      s <- stats::sd(y)
       t <- d / (s * sqrt(1 / n1 + 1 / n2))
     }
   }
