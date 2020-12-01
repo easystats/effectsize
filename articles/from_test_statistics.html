@@ -349,9 +349,10 @@
 <h3 class="hasAnchor">
 <a href="#between-subject-contrasts" class="anchor"></a>Between-Subject Contrasts</h3>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">warp.lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">tension</span>, data <span class="op">=</span> <span class="va">warpbreaks</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">tension</span>, data <span class="op">=</span> <span class="va">warpbreaks</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">warp.lm</span>,  <span class="op">~</span> <span class="va">tension</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="va">em_tension</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">m</span>, <span class="op">~</span> <span class="va">tension</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="va">em_tension</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt;  contrast estimate SE df t.ratio p.value
 &gt;  L - M        10.0  4 51 2.500   0.0400 
 &gt;  L - H        14.7  4 51 3.700   &lt;.0001 
@@ -359,18 +360,28 @@
 &gt; 
 &gt; P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/t_to_d.html">t_to_d</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="fl">3.7</span>, <span class="fl">1.2</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="fu"><a href="../reference/t_to_d.html">t_to_d</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.53</span>, <span class="fl">3.72</span>, <span class="fl">1.20</span><span class="op">)</span>,
        df_error <span class="op">=</span> <span class="fl">51</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt;    d |        95% CI
 &gt; --------------------
-&gt; 0.70 | [ 0.13, 1.26]
+&gt; 0.71 | [ 0.14, 1.27]
 &gt; 1.04 | [ 0.45, 1.62]
 &gt; 0.34 | [-0.22, 0.89]</code></pre>
+<p>However, these are merely approximations of a <em>true</em> Cohen’s <em>d</em>. It is advised to directly estimate Cohen’s <em>d</em>, whenever possible. For example, here with <code><a href="https://rdrr.io/pkg/emmeans/man/eff_size.html">emmeans::eff_size()</a></code>:</p>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/eff_size.html">eff_size</a></span><span class="op">(</span><span class="va">em_tension</span>, sigma <span class="op">=</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stanreg-methods.html">sigma</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>, edf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/df.residual.html">df.residual</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>&gt;  contrast effect.size   SE df lower.CL upper.CL
+&gt;  L - M           0.84 0.34 51     0.15     1.53
+&gt;  L - H           1.24 0.36 51     0.53     1.95
+&gt;  M - H           0.40 0.34 51    -0.28     1.07
+&gt; 
+&gt; sigma used for effect sizes: 11.88 
+&gt; Confidence level used: 0.95</code></pre>
 </div>
 <div id="within-subject-contrasts" class="section level3">
 <h3 class="hasAnchor">
 <a href="#within-subject-contrasts" class="anchor"></a>Within-Subject Contrasts</h3>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span> <span class="va">angle</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; NOTE: Results may be misleading due to involvement in interactions</code></pre>
 <pre><code>&gt;  contrast estimate   SE df t.ratio p.value
@@ -380,7 +391,7 @@
 &gt; 
 &gt; Results are averaged over the levels of: noise 
 &gt; P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/t_to_d.html">t_to_d</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5.7</span>,<span class="op">-</span><span class="fl">5.9</span>,<span class="op">-</span><span class="fl">3.2</span><span class="op">)</span>,
        df_error <span class="op">=</span> <span class="fl">18</span>,
        paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
@@ -389,7 +400,7 @@
 &gt; -1.34 | [-1.97, -0.70]
 &gt; -1.39 | [-2.03, -0.74]
 &gt; -0.75 | [-1.27, -0.22]</code></pre>
-<p>(Note <code>paired = TRUE</code> to not over estimate the size of the effect; <span class="citation">Rosenthal (1991)</span>; <span class="citation">Rosnow, Rosenthal, and Rubin (2000)</span>)</p>
+<p>(Note set <code>paired = TRUE</code> to not over estimate the size of the effect; <span class="citation">Rosenthal (1991)</span>; <span class="citation">Rosnow, Rosenthal, and Rubin (2000)</span>)</p>
 </div>
 </div>
 </div>
