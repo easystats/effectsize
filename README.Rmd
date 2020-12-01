@@ -43,8 +43,8 @@ The goal of this package is to provide utilities to work with indices of effect 
 
 Run the following to install the latest GitHub-version of `effectsize`:
 ```{r eval=FALSE, message=FALSE, warning=FALSE}
-install.packages("devtools")
-devtools::install_github("easystats/effectsize")
+install.packages("remotes")
+remotes::install_github("easystats/effectsize")
 ```
 
 Or install the latest stable release from CRAN:
