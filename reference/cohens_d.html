@@ -202,7 +202,7 @@ deviation.</p>
 <span class='fu'>glass_delta</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, data <span class='op'>=</span> <span class='cn'>NULL</span>, correction <span class='op'>=</span> <span class='cn'>FALSE</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span><span class='op'>)</span>
 
 <span class='co'># S3 method for effectsize_difference</span>
-<span class='fu'><a href='https://easystats.github.io/parameters/reference/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, digits <span class='op'>=</span> <span class='fl'>2</span>, append_CL <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, digits <span class='op'>=</span> <span class='fl'>2</span>, append_CL <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -210,7 +210,7 @@ deviation.</p>
     <tr>
       <th>x</th>
       <td><p>A formula, a numeric vector, or a character name of one in <code>data</code>.
-(For <code><a href='https://easystats.github.io/parameters/reference/print.html'>print()</a></code> the result of one of the standardized difference functions.)</p></td>
+(For <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code> the result of one of the standardized difference functions.)</p></td>
     </tr>
     <tr>
       <th>y</th>
@@ -303,7 +303,7 @@ sizes.</p>
 </div><div class='output co'>#&gt; Glass' delta |         95% CI
 #&gt; -----------------------------
 #&gt;        -1.17 | [-1.93, -0.40]</div><div class='input'>
-<span class='fu'><a href='https://easystats.github.io/parameters/reference/print.html'>print</a></span><span class='op'>(</span><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>, append_CL <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>, append_CL <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Cohen's d |         95% CI
 #&gt; --------------------------
 #&gt;     -1.48 | [-2.27, -0.67]
