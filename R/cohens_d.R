@@ -136,11 +136,12 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
     y <- y[o]
 
     d <- mean(x - y)
-    s <- stats::sd(x - y)
     n <- length(x)
+    s <- stats::sd(x - y)
+
+    hn <- 1 / (n - 1)
+    se <- s / sqrt(n)
     df <- n - 1
-    hn <- 1 / df
-    t <- d / (s / sqrt(n))
   } else {
     x <- stats::na.omit(x)
     y <- stats::na.omit(y)
@@ -149,21 +150,29 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
     n1 <- length(x)
     n2 <- length(y)
     n <- n1 + n2
-    df <- n - 2
+
     hn <- (1 / n1 + 1 / n2)
+    df <- n - 2
     if (type == "d" | type == "g") {
       if (pooled_sd) {
         s <- suppressWarnings(sd_pooled(x, y))
-        t <- d / (s * sqrt(1 / n1 + 1 / n2))
+
+        se <- s * sqrt(1 / n1 + 1 / n2)
+        df <- n - 2
       } else {
         s1 <- stats::sd(x)
         s2 <- stats::sd(y)
         s <- sqrt((s1 ^ 2 + s2 ^ 2) / 2)
-        t <- d / sqrt(s1 ^ 2 / n1 + s2 ^ 2 / n2)
+
+        se1 <- sqrt(s1 ^ 2 / n1)
+        se2 <- sqrt(s2 ^ 2 / n2)
+        se <- sqrt(se1^2 + se2^2)
+        df <- se ^ 4 / (se1 ^ 4 / (n1 - 1) + se2 ^ 4 / (n2 - 1))
       }
     } else if (type == "delta") {
       s <- stats::sd(y)
-      t <- d / (s * sqrt(1 / n1 + 1 / n2))
+
+      se <- s * sqrt(1 / n1 + 1 / n2)
     }
   }
 
@@ -175,12 +184,8 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
     # Add cis
     out$CI <- ci
 
+    t <- d / se
     ts <- .get_ncp_t(t, df, ci)
-
-    # paired <- 2 - paired
-    #
-    # out$CI_low <- paired * ts[1] / sqrt(hn)
-    # out$CI_high <- paired * ts[2] / sqrt(hn)
 
     out$CI_low <- ts[1] * sqrt(hn)
     out$CI_high <- ts[2] * sqrt(hn)
