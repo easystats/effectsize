@@ -849,6 +849,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
         generalized = FALSE,
         ci = ci,
       )
+    out <- out[, !colnames(out) == "Group"]
     return(out)
   }
 

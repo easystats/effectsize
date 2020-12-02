@@ -45,8 +45,8 @@ if (require("testthat") && require("effectsize")) {
     x <- cohens_d(wt ~ am, data = mtcars, pooled_sd = FALSE)
     testthat::expect_equal(colnames(x)[1], "Cohens_d")
     testthat::expect_equal(x[[1]], 1.934, tolerance = 0.001)
-    testthat::expect_equal(x$CI_low, 1.102, tolerance = 0.001)
-    testthat::expect_equal(x$CI_high, 2.829, tolerance = 0.001)
+    testthat::expect_equal(x$CI_low, 1.098798, tolerance = 0.001)
+    testthat::expect_equal(x$CI_high, 2.833495, tolerance = 0.001)
   })
 
   test_that("hedges_g", {
@@ -84,4 +84,14 @@ if (require("testthat") && require("effectsize")) {
       testthat::expect_equal(glass_delta(x2, x1)$Glass_delta, 1.5, tolerance = 1e-2)
     })
   }
+
+  test_that("Missing values", {
+    x <- c(1, 2, NA, 3)
+    y <- c(1, 1, 2, 3)
+    testthat::expect_equal(cohens_d(x, y)[[1]], 0.2564946, tolerance = 0.01) # indep
+    testthat::expect_equal(cohens_d(x, y, paired = TRUE)[[1]], 0.5773503, tolerance = 0.01) # paired
+
+    # no length problems
+    testthat::expect_error(cohens_d(mtcars$mpg - 23), regexp = NA)
+  })
 }

@@ -30,6 +30,13 @@ if (require("testthat") && require("effectsize")) {
     xtab <- rbind(c(50, 50),
                   c(100, 100))
     testthat::expect_equal(cramers_v(xtab)$Cramers_v, 0)
+
+
+    ## Empty rows/columns
+    xtab <- rbind(c(50, 50, 0),
+                  c(100, 100, 0))
+    testthat::expect_error(cramers_v(xtab))
+
   })
 
 

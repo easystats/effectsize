@@ -26,11 +26,16 @@
 #' \cr\cr
 #' \deqn{r_{partial} = z / \sqrt{z^2 + N}}
 #' \cr\cr
-#' \deqn{Cohen's d = 2 * t / \sqrt{df_{error}}}
+#' \deqn{d = 2 * t / \sqrt{df_{error}}}
 #' \cr\cr
-#' \deqn{Cohen's d_z = t / \sqrt{df_{error}}}
+#' \deqn{d_z = t / \sqrt{df_{error}}}
 #' \cr\cr
-#' \deqn{Cohen's d = 2 * z / \sqrt{N}}
+#' \deqn{d = 2 * z / \sqrt{N}}
+#'
+#' The resulting `d` effect size is an *approximation* to Cohen's *d*, and
+#' assumes two equal group sizes. When possible, it is advised to directly
+#' estimate Cohen's *d*, with [cohens_d()], [emmeans::eff_size()], or similar
+#' functions.
 #'
 #' @inheritSection cohens_d Confidence Intervals
 #'
@@ -65,16 +70,18 @@
 #' if (require(emmeans)) {
 #'   warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
 #'
-#'   conts <- summary(pairs(emmeans(warp.lm,  ~ tension | wool)))
-#'   t_to_d(conts$t.ratio, conts$df)
-#' }
 #'
+#'   # Also see emmeans::eff_size()
+#'   em_tension <- emmeans(warp.lm,  ~ tension)#'
+#'   diff_tension <- summary(pairs(em_tension))
+#'   t_to_d(diff_tension$t.ratio, diff_tension$df)
+#' }
 #' }
 #'
 #' @references
 #' - Friedman, H. (1982). Simplified determinations of statistical power, magnitude of effect and research sample sizes. Educational and Psychological Measurement, 42(2), 521-526. \doi{10.1177/001316448204200214}
 #' - Wolf, F. M. (1986). Meta-analysis: Quantitative methods for research synthesis (Vol. 59). Sage.
-#' - Rosenthal, R. (1991). Meta-analytic procedures for social research. Newbury Park, CA: SAGE Publications, Incorporated.
+#' - Rosenthal, R. (1994) Parametric measures of effect size. In H. Cooper and L.V. Hedges (Eds.). The handbook of research synthesis. New York: Russell Sage Foundation.
 #' - Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
 #' - Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
 #'

@@ -3,75 +3,82 @@ Type: Package
 Title: Indices of Effect Size and Standardized Parameters
 Version: 0.4.0.001
 Authors@R: c(
-  person("Mattan S.", 
-		"Ben-Shachar", 
-		role = c("aut", "cre"), 
-		email = "matanshm@post.bgu.ac.il", 
-		comment = c(ORCID = "0000-0002-4287-4801")),
-	person("Dominique", 
-		"Makowski", 
-		email = "dom.makowski@gmail.com",
-		role = c("aut"), 
-		comment = c(ORCID = "0000-0001-5375-9967")),
-	person("Daniel", 
-		"Lüdecke", 
-		role = c("aut"), 
-		email = "d.luedecke@uke.de", 
-		comment = c(ORCID = "0000-0002-8895-3206")),
-	person("Ken", 
-		"Kelley", 
-		role = c("ctb")),
-	person("David", 
-		"Stanley", 
-		role = c("ctb"))
-	)
+    person("Mattan S.", 
+        "Ben-Shachar", 
+        role = c("aut", "cre"), 
+        email = "matanshm@post.bgu.ac.il", 
+        comment = c(ORCID = "0000-0002-4287-4801")),
+    person("Dominique", 
+        "Makowski", 
+        role = c("aut"),
+        email = "dom.makowski@gmail.com",
+        comment = c(ORCID = "0000-0001-5375-9967")),
+    person("Daniel", 
+        "Lüdecke", 
+        role = c("aut"), 
+        email = "d.luedecke@uke.de", 
+        comment = c(ORCID = "0000-0002-8895-3206")),
+    person("Indrajeet", 
+        "Patil", 
+        role = c("ctb"), 
+        email = "patilindrajeet.science@gmail.com", 
+        comment = c(ORCID = "0000-0003-1995-6531", Twitter = "@patilindrajeets")),
+    person("Ken", 
+        "Kelley", 
+        role = c("ctb")),
+    person("David", 
+        "Stanley", 
+        role = c("ctb"))
+    )
 Maintainer: Mattan S. Ben-Shachar <matanshm@post.bgu.ac.il>
+License: GPL-3
 URL: https://easystats.github.io/effectsize/
 BugReports: https://github.com/easystats/effectsize/issues/
 Description: Provide utilities to work with indices of effect size and standardized parameters for a wide variety of models (see support list of insight; Lüdecke, Waggoner & Makowski (2019) <doi:10.21105/joss.01412>), allowing computation and conversion of indices such as Cohen's d, r, odds, etc.
-License: GPL-3
-Encoding: UTF-8
 Depends:
-	R (>= 3.5)
+    R (>= 3.5)
 Imports:
-	insight (>= 0.10.0),
-	bayestestR (>= 0.7.5),
-	parameters (>= 0.8.6),
-	stats,
-	utils
+    bayestestR (>= 0.7.5),
+    insight (>= 0.11.0),
+    parameters (>= 0.8.6),
+    stats,
+    utils
 Suggests:
-	afex,
-	BayesFactor,
-	boot,
-	brms,
-	car,
-	correlation,
-	covr,
-	dplyr,
-	emmeans,
-	gamm4,
-	ggplot2,
-	knitr,
-	lm.beta,
-	lme4,
-	lmerTest,
-	mediation,
-	modelbased, 
-	MuMIn,
-	performance,
-	pscl,
-	rlang,
-	rmarkdown,
-	rstan,
-	rstanarm,
-	rstantools,
-	see,
-	testthat,
-	tidyr
+    afex,
+    BayesFactor,
+    boot,
+    brms,
+    car,
+    correlation,
+    covr,
+    dplyr,
+    emmeans,
+    gamm4,
+    ggplot2,
+    knitr,
+    lavaan,
+    lm.beta,
+    lme4,
+    lmerTest,
+    mediation,
+    modelbased,
+    MuMIn,
+    performance,
+    pscl,
+    rlang,
+    rmarkdown,
+    rstan,
+    rstanarm,
+    rstantools,
+    see,
+    testthat,
+    tidyr
 RoxygenNote: 7.1.1
 Language: en-GB
 VignetteBuilder: knitr
+Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Config/testthat/start-first: watcher, parallel*
+
