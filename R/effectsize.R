@@ -247,7 +247,7 @@ effectsize.anova <- function(model, type = NULL, ...) {
 
                f2 = ,
                f_squared = ,
-               cohens_f2 = cohens_f2)
+               cohens_f2 = cohens_f_squared)
 
   f(model, ...)
 }

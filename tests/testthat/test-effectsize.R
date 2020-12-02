@@ -96,7 +96,7 @@ if (require("testthat") && require("effectsize")) {
   # BayesFactor -------------------------------------------------------------
 
   if (require("BayesFactor")) {
-    test_that("aov", {
+    test_that("BayesFactor", {
       set.seed(6)
       data(raceDolls)
       bf1 <- contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
