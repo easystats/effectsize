@@ -11,6 +11,10 @@
 - `standardize()` gains support for `mediation::mediate()` models.
 - `eta_squared()` family available for `manova` objects.
 
+## Bug fixes
+
+Fixed width of CI for Cohen's d and Hedge's g when using *non*-pooled SD.
+
 # effectsize 0.4.0
 
 ## Breaking Changes
