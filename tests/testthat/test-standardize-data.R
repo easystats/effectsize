@@ -1,4 +1,4 @@
-if (require("testthat") && require("effectsize") && require("dplyr") && require("rlang")) {
+if (require("testthat") && require("effectsize")) {
 
   # standardize.numeric -----------------------------------------------------
   test_that("standardize.numeric", {
@@ -24,12 +24,13 @@ if (require("testthat") && require("effectsize") && require("dplyr") && require(
     x <- standardize(iris)
     testthat::expect_equal(mean(x$Sepal.Length), 0, tolerance = 0.01)
     testthat::expect_length(levels(x$Species), 3)
-    testthat::expect_equal(mean(dplyr::filter(x, .data$Species == 'virginica')$Sepal.Length), 0.90, tolerance = 0.01)
+    testthat::expect_equal(mean(subset(x, Species == 'virginica')$Sepal.Length), 0.90, tolerance = 0.01)
 
+    testthat::skip_if_not_installed("dplyr")
     x <- standardize(dplyr::group_by(iris, Species))
     testthat::expect_equal(mean(x$Sepal.Length), 0, tolerance = 0.01)
     testthat::expect_length(levels(x$Species), 3)
-    testthat::expect_equal(mean(dplyr::filter(x, .data$Species == 'virginica')$Sepal.Length), 0, tolerance = 0.01)
+    testthat::expect_equal(mean(subset(x, Species == 'virginica')$Sepal.Length), 0, tolerance = 0.01)
   })
 
 
@@ -49,6 +50,7 @@ if (require("testthat") && require("effectsize") && require("dplyr") && require(
     testthat::expect_equal(head(x$Sepal.Width), c(0.4982, -0.0689, 0.158, 0.0446, 0.6116, 0.9519), tolerance = 0.01)
     testthat::expect_equal(mean(x$Sepal.Length), as.numeric(NA))
 
+    testthat::skip_if_not_installed("dplyr")
     x <- standardize(dplyr::group_by(iris, .data$Species))
     testthat::expect_equal(head(x$Sepal.Length), c(0.2086, -0.3681, -0.9447, -1.233, -0.0797, 1.0735), tolerance = 0.01)
     testthat::expect_equal(head(x$Sepal.Width), c(0.1441, -1.1586, -0.6375, -0.8981, 0.4047, 1.1863), tolerance = 0.01)
@@ -75,6 +77,7 @@ if (require("testthat") && require("effectsize") && require("dplyr") && require(
     testthat::expect_equal(head(x$Sepal.Width_z), c(0.4982, -0.0689, 0.158, 0.0446, 0.6116, 0.9519), tolerance = 0.01)
     testthat::expect_equal(mean(x$Sepal.Length_z), as.numeric(NA))
 
+    testthat::skip_if_not_installed("dplyr")
     x <- standardize(dplyr::group_by(iris, .data$Species), append = TRUE)
     testthat::expect_equal(head(x$Sepal.Length_z), c(0.2086, -0.3681, -0.9447, -1.233, -0.0797, 1.0735), tolerance = 0.01)
     testthat::expect_equal(head(x$Sepal.Width_z), c(0.1441, -1.1586, -0.6375, -0.8981, 0.4047, 1.1863), tolerance = 0.01)
@@ -96,10 +99,8 @@ if (require("testthat") && require("effectsize") && require("dplyr") && require(
     expect_equal(standardize(mtcars, exclude = "cyl", weights = mtcars$cyl),
                  standardize(mtcars, weights = "cyl"))
 
-    if (require(dplyr)) {
-      d <- dplyr::group_by(mtcars, am)
-      expect_warning(standardize(d, weights = d$cyl))
-    }
-
+    testthat::skip_if_not_installed("dplyr")
+    d <- dplyr::group_by(mtcars, am)
+    expect_warning(standardize(d, weights = d$cyl))
   })
 }

@@ -218,127 +218,126 @@ if (require("testthat") && require("effectsize")) {
 
 
   # Bayes ----------------------------------------
-  if (require(rstanarm)) {
-    test_that("standardize_parameters (Bayes)", {
-      testthat::skip_on_cran()
-      testthat::skip_on_ci()
-      set.seed(1234)
-      suppressWarnings(
-        model <- stan_glm(Sepal.Length ~ Species + Petal.Width,
-                          data = iris,
-                          iter = 500, refresh = 0)
-      )
+  test_that("standardize_parameters (Bayes)", {
+    testthat::skip_on_cran()
+    testthat::skip_on_ci()
+    testthat::skip_if_not_installed("rstanarm")
+    set.seed(1234)
+    suppressWarnings(
+      model <- rstanarm::stan_glm(Sepal.Length ~ Species + Petal.Width,
+                                  data = iris,
+                                  iter = 500, refresh = 0)
+    )
 
-      testthat::expect_equal(
-        suppressWarnings(standardize_parameters(model, method = "refit")$Std_Median[1:4]),
-        c(0.065, -0.094, -0.100, 0.862),
-        tolerance = 0.01
-      )
+    testthat::expect_equal(
+      suppressWarnings(standardize_parameters(model, method = "refit")$Std_Median[1:4]),
+      c(0.065, -0.094, -0.100, 0.862),
+      tolerance = 0.01
+    )
 
-      testthat::expect_equal(
-        suppressWarnings(standardize_parameters(model, method = "posthoc")$Std_Median[1:4]),
-        c(0, -0.058, -0.053,  0.838),
-        tolerance = 0.01
-      )
+    testthat::expect_equal(
+      suppressWarnings(standardize_parameters(model, method = "posthoc")$Std_Median[1:4]),
+      c(0, -0.058, -0.053,  0.838),
+      tolerance = 0.01
+    )
 
-      posts <- standardize_posteriors(model, method = "posthoc")
-      testthat::expect_equal(dim(posts), c(1000, 4))
-      testthat::expect_s3_class(posts, "data.frame")
-    })
-  }
+    posts <- standardize_posteriors(model, method = "posthoc")
+    testthat::expect_equal(dim(posts), c(1000, 4))
+    testthat::expect_s3_class(posts, "data.frame")
+  })
 
 
   # Pseudo - GLMM --------------------------------
-  if (require(lme4)) {
-    test_that("standardize_parameters (Pseudo - GLMM)", {
-      set.seed(1)
+  test_that("standardize_parameters (Pseudo - GLMM)", {
+    testthat::skip_if_not_installed("lme4")
+    set.seed(1)
 
-      dat <- data.frame(X = rnorm(1000),
-                        Z = rnorm(1000),
-                        C = sample(letters[1:3], size = 1000, replace = TRUE),
-                        ID = sort(rep(letters, length.out = 1000)))
-      dat <- transform(dat, Y = X + Z + rnorm(1000))
-      dat <- cbind(dat,parameters::demean(dat,c("X","Z"),"ID"))
-
-
-      m <- lmer(Y ~ scale(X_within) * X_between + C + (scale(X_within) | ID),
-                data = dat)
-
-      ## No robust methods... (yet)
-      expect_warning(standardize_parameters(m, method = "pseudo", robust = TRUE))
+    dat <- data.frame(X = rnorm(1000),
+                      Z = rnorm(1000),
+                      C = sample(letters[1:3], size = 1000, replace = TRUE),
+                      ID = sort(rep(letters, length.out = 1000)))
+    dat <- transform(dat, Y = X + Z + rnorm(1000))
+    dat <- cbind(dat,parameters::demean(dat,c("X","Z"),"ID"))
 
 
-      ## Correctly identify within and between terms
-      dev_resp <- standardize_info(m, include_pseudo = TRUE)$Deviation_Response_Pseudo
-      expect_equal(length(unique(dev_resp[c(2, 4, 5, 6)])), 1)
-      expect_true(dev_resp[2] != dev_resp[3])
+    m <- lme4::lmer(Y ~ scale(X_within) * X_between + C + (scale(X_within) | ID),
+                    data = dat)
+
+    ## No robust methods... (yet)
+    expect_warning(standardize_parameters(m, method = "pseudo", robust = TRUE))
 
 
-      ## Calc
-      b <- fixef(m)[-1]
-      mm <- model.matrix(m)[,-1]
-      SD_x <- numeric(ncol(mm))
-
-      SD_x[c(1,3,4,5)] <- apply(mm[,c(1,3,4,5)], 2, sd)
-      SD_x[2] <- sd(tapply(mm[,2], dat$ID, mean))
-
-      m0 <- lmer(Y ~ 1 + (1 | ID), data = dat)
-      m0v <- insight::get_variance(m0)
-      SD_y <- c(sqrt(m0v$var.residual), sqrt(m0v$var.intercept))
-      SD_y <- SD_y[c(1,2,1,1,1)]
-
-      expect_equal(
-        data.frame(Deviation_Response_Pseudo = c(SD_y[2],SD_y),Deviation_Pseudo = c(0,SD_x)),
-        standardize_info(m, include_pseudo = TRUE)[, c("Deviation_Response_Pseudo", "Deviation_Pseudo")]
-      )
-      expect_equal(
-        standardize_parameters(m, method = "pseudo")$Std_Coefficient[-1],
-        unname(b * SD_x/SD_y)
-      )
+    ## Correctly identify within and between terms
+    dev_resp <- standardize_info(m, include_pseudo = TRUE)$Deviation_Response_Pseudo
+    expect_equal(length(unique(dev_resp[c(2, 4, 5, 6)])), 1)
+    expect_true(dev_resp[2] != dev_resp[3])
 
 
-      ## scaling should not affect
-      m1 <- lmer(Y ~ X_within + X_between + C + (X_within | ID),
-                 data = dat)
-      m2 <- lmer(scale(Y) ~ X_within + X_between + C + (X_within | ID),
-                 data = dat)
-      m3 <- lmer(Y ~ scale(X_within) + X_between + C + (scale(X_within) | ID),
-                 data = dat)
-      m4 <- lmer(Y ~ X_within + scale(X_between) + C + (X_within | ID),
-                 data = dat)
+    ## Calc
+    b <- lme4::fixef(m)[-1]
+    mm <- model.matrix(m)[,-1]
+    SD_x <- numeric(ncol(mm))
 
-      std1 <- standardize_parameters(m1, method = "pseudo")
-      expect_equal(std1$Std_Coefficient,
-                   standardize_parameters(m2, method = "pseudo")$Std_Coefficient, tolerance = 0.001)
-      expect_equal(std1$Std_Coefficient,
-                   standardize_parameters(m3, method = "pseudo")$Std_Coefficient, tolerance = 0.001)
-      expect_equal(std1$Std_Coefficient,
-                   standardize_parameters(m4, method = "pseudo")$Std_Coefficient, tolerance = 0.001)
+    SD_x[c(1,3,4,5)] <- apply(mm[,c(1,3,4,5)], 2, sd)
+    SD_x[2] <- sd(tapply(mm[,2], dat$ID, mean))
+
+    m0 <- lme4::lmer(Y ~ 1 + (1 | ID), data = dat)
+    m0v <- insight::get_variance(m0)
+    SD_y <- c(sqrt(m0v$var.residual), sqrt(m0v$var.intercept))
+    SD_y <- SD_y[c(1,2,1,1,1)]
+
+    expect_equal(
+      data.frame(Deviation_Response_Pseudo = c(SD_y[2],SD_y),Deviation_Pseudo = c(0,SD_x)),
+      standardize_info(m, include_pseudo = TRUE)[, c("Deviation_Response_Pseudo", "Deviation_Pseudo")]
+    )
+    expect_equal(
+      standardize_parameters(m, method = "pseudo")$Std_Coefficient[-1],
+      unname(b * SD_x/SD_y)
+    )
+
+
+    ## scaling should not affect
+    m1 <- lme4::lmer(Y ~ X_within + X_between + C + (X_within | ID),
+                     data = dat)
+    m2 <- lme4::lmer(scale(Y) ~ X_within + X_between + C + (X_within | ID),
+                     data = dat)
+    m3 <- lme4::lmer(Y ~ scale(X_within) + X_between + C + (scale(X_within) | ID),
+                     data = dat)
+    m4 <- lme4::lmer(Y ~ X_within + scale(X_between) + C + (X_within | ID),
+                     data = dat)
+
+    std1 <- standardize_parameters(m1, method = "pseudo")
+    expect_equal(std1$Std_Coefficient,
+                 standardize_parameters(m2, method = "pseudo")$Std_Coefficient, tolerance = 0.001)
+    expect_equal(std1$Std_Coefficient,
+                 standardize_parameters(m3, method = "pseudo")$Std_Coefficient, tolerance = 0.001)
+    expect_equal(std1$Std_Coefficient,
+                 standardize_parameters(m4, method = "pseudo")$Std_Coefficient, tolerance = 0.001)
 
 
 
-      ## Give warning for within that is also between
-      mW <- lmer(Y ~ X_between + Z_within + C + (1 | ID), dat)
-      mM <- lmer(Y ~ X + Z + C + (1 | ID), dat)
+    ## Give warning for within that is also between
+    mW <- lme4::lmer(Y ~ X_between + Z_within + C + (1 | ID), dat)
+    mM <- lme4::lmer(Y ~ X + Z + C + (1 | ID), dat)
 
-      expect_warning(standardize_parameters(mW, method = "pseudo"), NA)
-      expect_warning(standardize_parameters(mM, method = "pseudo"))
-    })
-  }
+    expect_warning(standardize_parameters(mW, method = "pseudo"), NA)
+    expect_warning(standardize_parameters(mM, method = "pseudo"))
+  })
 
 
   # ZI models ---------------------------------------------------------------
-  if (require(pscl, quietly = TRUE)) {
+  test_that("standardize_parameters (pscl)", {
+    testthat::skip_if_not_installed("pscl")
     data("bioChemists", package = "pscl")
 
-    m <- zeroinfl(art ~ fem + mar + kid5 + ment | kid5 + phd, data = bioChemists)
+    m <- pscl::zeroinfl(art ~ fem + mar + kid5 + ment | kid5 + phd, data = bioChemists)
 
     mp <- parameters::model_parameters(m)
-    sm1 <- effectsize::standardize_parameters(m, method = "refit")
-    expect_warning(sm2 <- effectsize::standardize_parameters(m, method = "posthoc"))
+    sm1 <- standardize_parameters(m, method = "refit")
+    expect_warning(sm2 <- standardize_parameters(m, method = "posthoc"))
     suppressWarnings({
-      sm3 <- effectsize::standardize_parameters(m, method = "basic")
-      sm4 <- effectsize::standardize_parameters(m, method = "smart")
+      sm3 <- standardize_parameters(m, method = "basic")
+      sm4 <- standardize_parameters(m, method = "smart")
     })
 
     # post hoc does it right (bar intercept)
@@ -356,5 +355,5 @@ if (require("testthat") && require("effectsize")) {
                            sm3$Std_Coefficient[4:5], tolerance = 0.01)
     testthat::expect_equal(sm1$Std_Coefficient[4:5],
                            sm4$Std_Coefficient[4:5], tolerance = 0.01)
-  }
+  })
 }

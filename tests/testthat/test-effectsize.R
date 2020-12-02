@@ -94,21 +94,19 @@ if (require("testthat") && require("effectsize")) {
 
 
   # BayesFactor -------------------------------------------------------------
+  test_that("BayesFactor", {
+    testthat::skip_if_not_installed("BayesFactor")
+    testthat::skip_on_cran()
+    set.seed(6)
+    data(raceDolls, package = "BayesFactor")
+    bf1 <- BayesFactor::contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
+    testthat::expect_equal(effectsize(bf1, test = NULL)[[2]], 0.164, tolerance = 0.01)
+    testthat::expect_equal(effectsize(bf1, test = NULL, type = "OR")[[2]], 0.503, tolerance = 0.03)
 
-  if (require("BayesFactor")) {
-    test_that("BayesFactor", {
-      testthat::skip_on_cran()
-      set.seed(6)
-      data(raceDolls)
-      bf1 <- contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
-      testthat::expect_equal(effectsize(bf1, test = NULL)[[2]], 0.164, tolerance = 0.01)
-      testthat::expect_equal(effectsize(bf1, test = NULL, type = "OR")[[2]], 0.503, tolerance = 0.03)
+    bf2 <- BayesFactor::ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
+    testthat::expect_equal(effectsize(bf2, test = NULL)[[2]], 1.30, tolerance = 0.03)
 
-      bf2 <- ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
-      testthat::expect_equal(effectsize(bf2, test = NULL)[[2]], 1.30, tolerance = 0.03)
-
-      bf3 <- correlationBF(iris$Sepal.Length, iris$Sepal.Width)
-      testthat::expect_equal(effectsize(bf3, test = NULL)[[2]], -0.116, tolerance = 0.03)
-    })
-  }
+    bf3 <- BayesFactor::correlationBF(iris$Sepal.Length, iris$Sepal.Width)
+    testthat::expect_equal(effectsize(bf3, test = NULL)[[2]], -0.116, tolerance = 0.03)
+  })
 }
