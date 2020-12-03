@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0.001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -256,9 +256,11 @@ appropriate CIs should be extracted using the function used to make the effect s
 #&gt; factor(am)             |           0.63 | [0.42, 0.75] |  Rejected
 #&gt; factor(cyl)            |           0.66 | [0.45, 0.77] |  Rejected
 #&gt; factor(am):factor(cyl) |           0.10 | [0.00, 0.27] | Undecided</div><div class='input'>
-<span class='va'>ds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='t_to_d.html'>t_to_d</a></span><span class='op'>(</span>t <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.45</span>, <span class='op'>-</span><span class='fl'>0.65</span>, <span class='fl'>7</span>, <span class='op'>-</span><span class='fl'>2.2</span>, <span class='fl'>2.25</span><span class='op'>)</span>,
-             df_error <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>675</span>, <span class='fl'>525</span>, <span class='fl'>2000</span>, <span class='fl'>900</span>, <span class='fl'>1875</span><span class='op'>)</span>,
-             ci <span class='op'>=</span> <span class='fl'>0.9</span><span class='op'>)</span> <span class='co'># TOST approach</span>
+<span class='va'>ds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='t_to_d.html'>t_to_d</a></span><span class='op'>(</span>
+  t <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.45</span>, <span class='op'>-</span><span class='fl'>0.65</span>, <span class='fl'>7</span>, <span class='op'>-</span><span class='fl'>2.2</span>, <span class='fl'>2.25</span><span class='op'>)</span>,
+  df_error <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>675</span>, <span class='fl'>525</span>, <span class='fl'>2000</span>, <span class='fl'>900</span>, <span class='fl'>1875</span><span class='op'>)</span>,
+  ci <span class='op'>=</span> <span class='fl'>0.9</span>
+<span class='op'>)</span> <span class='co'># TOST approach</span>
 <span class='fu'><a href='https://easystats.github.io/bayestestR/reference/equivalence_test.html'>equivalence_test</a></span><span class='op'>(</span><span class='va'>ds</span>, range <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #0000BB;'># Test for Practical Equivalence
 #&gt; 

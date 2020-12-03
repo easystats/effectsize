@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0.001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -351,8 +351,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; Speciesvirginica:Petal.Width  |              -0.26 | [-1.52, 1.01]
 #&gt; <span style='color: #0000BB;'>
 #&gt; # Standardization method: Refit
-#&gt; </span><span></div><div class='input'>
-<span class='co'># \donttest{</span>
+#&gt; </span><span></div><div class='input'><span class='co'># \donttest{</span>
 <span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"posthoc"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
 #&gt; ------------------------------------------------------------------
@@ -444,7 +443,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 
 <span class='co'># \donttest{</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/lme4/lme4/'>"lme4"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>cyl</span> <span class='op'>+</span> <span class='va'>am</span> <span class='op'>+</span> <span class='va'>vs</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>|</span><span class='va'>cyl</span><span class='op'>)</span>, <span class='va'>mtcars</span><span class='op'>)</span>
+  <span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>cyl</span> <span class='op'>+</span> <span class='va'>am</span> <span class='op'>+</span> <span class='va'>vs</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span> <span class='op'>|</span> <span class='va'>cyl</span><span class='op'>)</span>, <span class='va'>mtcars</span><span class='op'>)</span>
   <span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>m</span>, method <span class='op'>=</span> <span class='st'>"pseudo"</span>, df_method <span class='op'>=</span> <span class='st'>"satterthwaite"</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The following within-group terms have between-group variance:</span>
@@ -470,13 +469,12 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
   <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>standardize_posteriors</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"basic"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div><div class='output co'>#&gt;   (Intercept) Speciesversicolor Speciesvirginica Petal.Width
-#&gt; 1           0        0.09498736        0.2551256   0.5465583
-#&gt; 2           0        0.10839831        0.1899528   0.6901098
-#&gt; 3           0       -0.14816108       -0.1918447   1.0245169
-#&gt; 4           0        0.03071704        0.0721430   0.7065662
-#&gt; 5           0       -0.11396469       -0.1826143   0.9734753
-#&gt; 6           0       -0.13799408       -0.1776808   0.9601194</div><div class='input'>
-<span class='co'># }</span>
+#&gt; 1           0      -0.002673739     -0.009512045   0.7926555
+#&gt; 2           0      -0.004566494     -0.047064649   0.7686223
+#&gt; 3           0       0.081786046      0.104760637   0.6462490
+#&gt; 4           0       0.037949808      0.037282763   0.7219571
+#&gt; 5           0       0.050840773      0.101072842   0.8304066
+#&gt; 6           0       0.018280829      0.047134855   0.7507167</div><div class='input'><span class='co'># }</span>
 
 </div></span></pre>
   </div>

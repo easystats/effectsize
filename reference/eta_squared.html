@@ -89,7 +89,7 @@ See details." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0.001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -405,7 +405,7 @@ bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
 #&gt; am_f       | 0.36 | [0.13, 0.55]
 #&gt; cyl_f      | 0.41 | [0.14, 0.58]
 #&gt; am_f:cyl_f | 0.02 | [0.00, 0.13]</div><div class='input'>
-<span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://easystats.github.io/see/'>see</a></span><span class='op'>)</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>etas</span><span class='op'>)</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://easystats.github.io/see/'>see</a></span><span class='op'>)</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>etas</span><span class='op'>)</span>
 </div><div class='img'><img src='eta_squared-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='va'>model0</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am_f</span> <span class='op'>+</span> <span class='va'>cyl_f</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># no interaction</span>
 <span class='fu'>cohens_f_squared</span><span class='op'>(</span><span class='va'>model0</span>, model2 <span class='op'>=</span> <span class='va'>model</span><span class='op'>)</span>
@@ -434,8 +434,9 @@ bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
 <span class='co'># afex takes care of both type-3 effects and effects coding:</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='http://afex.singmann.science/'>afex</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>obk.long</span>, package <span class='op'>=</span> <span class='st'>"afex"</span><span class='op'>)</span>
-  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/afex/man/aov_car.html'>aov_car</a></span><span class='op'>(</span><span class='va'>value</span> <span class='op'>~</span> <span class='va'>treatment</span> <span class='op'>*</span> <span class='va'>gender</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>Error</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>/</span><span class='op'>(</span><span class='va'>phase</span><span class='op'>)</span><span class='op'>)</span>,
-                   data <span class='op'>=</span> <span class='va'>obk.long</span>, observed <span class='op'>=</span> <span class='st'>"gender"</span><span class='op'>)</span>
+  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/afex/man/aov_car.html'>aov_car</a></span><span class='op'>(</span><span class='va'>value</span> <span class='op'>~</span> <span class='va'>treatment</span> <span class='op'>*</span> <span class='va'>gender</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>Error</a></span><span class='op'>(</span><span class='va'>id</span> <span class='op'>/</span> <span class='op'>(</span><span class='va'>phase</span><span class='op'>)</span><span class='op'>)</span>,
+    data <span class='op'>=</span> <span class='va'>obk.long</span>, observed <span class='op'>=</span> <span class='st'>"gender"</span>
+  <span class='op'>)</span>
   <span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
   <span class='fu'>epsilon_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
   <span class='fu'>omega_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
@@ -458,7 +459,7 @@ bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
 <span class='co'>## Approx. effect sizes for mixed models</span>
 <span class='co'>## -------------------------------------</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/runehaubo/lmerTestR'>lmerTest</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lmerTest/man/lmer.html'>lmer</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am_f</span> <span class='op'>*</span> <span class='va'>cyl_f</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>|</span><span class='va'>vs</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lmerTest/man/lmer.html'>lmer</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am_f</span> <span class='op'>*</span> <span class='va'>cyl_f</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span> <span class='op'>|</span> <span class='va'>vs</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
   <span class='fu'>omega_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; Parameter  | Omega2 (partial) |       90% CI
@@ -473,18 +474,21 @@ bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).</p>
 <span class='co'>## ---------------------</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://mc-stan.org/rstanarm/'>rstanarm</a></span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://easystats.github.io/bayestestR/'>bayestestR</a></span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://r-forge.r-project.org/projects/car/'>car</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='va'>fit_bayes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://mc-stan.org/rstanarm/reference/stan_glm.html'>stan_glm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span> <span class='op'>*</span> <span class='va'>wt</span> <span class='op'>+</span> <span class='va'>qsec</span>,
-                        data <span class='op'>=</span> <span class='va'>mtcars</span>,
-                        family <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/family.html'>gaussian</a></span><span class='op'>(</span><span class='op'>)</span>,
-                        refresh <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+    data <span class='op'>=</span> <span class='va'>mtcars</span>,
+    family <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/family.html'>gaussian</a></span><span class='op'>(</span><span class='op'>)</span>,
+    refresh <span class='op'>=</span> <span class='fl'>0</span>
+  <span class='op'>)</span>
 
   <span class='va'>es</span> <span class='op'>&lt;-</span> <span class='fu'>eta_squared_posterior</span><span class='op'>(</span><span class='va'>fit_bayes</span>,
-                              ss_function <span class='op'>=</span> <span class='fu'>car</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/car/man/Anova.html'>Anova</a></span>, type <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+    ss_function <span class='op'>=</span> <span class='fu'>car</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/car/man/Anova.html'>Anova</a></span>, type <span class='op'>=</span> <span class='fl'>3</span>
+  <span class='op'>)</span>
   <span class='fu'>bayestestR</span><span class='fu'>::</span><span class='fu'><a href='https://easystats.github.io/bayestestR/reference/describe_posterior.html'>describe_posterior</a></span><span class='op'>(</span><span class='va'>es</span><span class='op'>)</span>
 
 
   <span class='co'># compare to:</span>
   <span class='va'>fit_freq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span> <span class='op'>*</span> <span class='va'>wt</span> <span class='op'>+</span> <span class='va'>qsec</span>,
-                 data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+    data <span class='op'>=</span> <span class='va'>mtcars</span>
+  <span class='op'>)</span>
   <span class='va'>aov_table</span> <span class='op'>&lt;-</span> <span class='fu'>car</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/car/man/Anova.html'>Anova</a></span><span class='op'>(</span><span class='va'>fit_freq</span>, type <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
   <span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>aov_table</span><span class='op'>)</span>
 <span class='op'>}</span>
