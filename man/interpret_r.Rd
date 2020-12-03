@@ -56,7 +56,6 @@ Rules apply positive and negative \emph{r} alike.
 \examples{
 interpret_r(.015)
 interpret_r(c(.5, -.02))
-
 }
 \references{
 \itemize{

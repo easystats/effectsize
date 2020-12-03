@@ -17,11 +17,26 @@ if (require("testthat") && require("effectsize")) {
     )
     a2 <- 1:11
 
-    testthat::expect_true({cohens_d(a ~ c, data = df); TRUE})
-    testthat::expect_true({cohens_d("a", "c", data = df); TRUE})
-    testthat::expect_true({cohens_d("a", "b", data = df); TRUE})
-    testthat::expect_true({cohens_d(a2, df$b); TRUE})
-    testthat::expect_true({cohens_d(b ~ e, data = df); TRUE})
+    testthat::expect_true({
+      cohens_d(a ~ c, data = df)
+      TRUE
+    })
+    testthat::expect_true({
+      cohens_d("a", "c", data = df)
+      TRUE
+    })
+    testthat::expect_true({
+      cohens_d("a", "b", data = df)
+      TRUE
+    })
+    testthat::expect_true({
+      cohens_d(a2, df$b)
+      TRUE
+    })
+    testthat::expect_true({
+      cohens_d(b ~ e, data = df)
+      TRUE
+    })
 
     testthat::expect_error(cohens_d(a ~ b, data = df))
     testthat::expect_error(cohens_d(a ~ d, data = df))
@@ -30,7 +45,6 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_error(cohens_d(a2, df$c))
 
     testthat::expect_warning(cohens_d("b", "e", data = df))
-
   })
 
   test_that("cohens_d - pooled", {
@@ -69,21 +83,20 @@ if (require("testthat") && require("effectsize")) {
   })
 
 
-  if (require("bayestestR", quietly = TRUE)) {
-    test_that("fixed values", {
+  test_that("fixed values", {
+    testthat::skip_if_not_installed("bayestestR")
 
-      x1 <- bayestestR::distribution_normal(1e4, mean = 0, sd = 1)
-      x2 <- bayestestR::distribution_normal(1e4, mean = 1, sd = 1)
-      testthat::expect_equal(cohens_d(x1, x2)$Cohens_d, -1, tolerance = 1e-3)
+    x1 <- bayestestR::distribution_normal(1e4, mean = 0, sd = 1)
+    x2 <- bayestestR::distribution_normal(1e4, mean = 1, sd = 1)
+    testthat::expect_equal(cohens_d(x1, x2)$Cohens_d, -1, tolerance = 1e-3)
 
 
-      x1 <- bayestestR::distribution_normal(1e4, mean = 0, sd = 1)
-      x2 <- bayestestR::distribution_normal(1e4, mean = 1.5, sd = 2)
+    x1 <- bayestestR::distribution_normal(1e4, mean = 0, sd = 1)
+    x2 <- bayestestR::distribution_normal(1e4, mean = 1.5, sd = 2)
 
-      testthat::expect_equal(cohens_d(x1, x2)$Cohens_d, -sqrt(0.9), tolerance = 1e-2)
-      testthat::expect_equal(glass_delta(x2, x1)$Glass_delta, 1.5, tolerance = 1e-2)
-    })
-  }
+    testthat::expect_equal(cohens_d(x1, x2)$Cohens_d, -sqrt(0.9), tolerance = 1e-2)
+    testthat::expect_equal(glass_delta(x2, x1)$Glass_delta, 1.5, tolerance = 1e-2)
+  })
 
   test_that("Missing values", {
     x <- c(1, 2, NA, 3)

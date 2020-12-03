@@ -13,7 +13,8 @@ if (require("testthat") && require("effectsize")) {
         select = c("Sepal.Length"),
         exclude = c("Petal.Length"),
         log = TRUE
-      )), 5)
+      )), 5
+    )
 
     testthat::expect_equal(
       ncol(probs_to_odds(
@@ -21,6 +22,7 @@ if (require("testthat") && require("effectsize")) {
         select = c("Sepal.Length"),
         exclude = c("Petal.Length"),
         log = TRUE
-      )), 5)
+      )), 5
+    )
   })
 }

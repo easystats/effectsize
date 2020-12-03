@@ -22,34 +22,37 @@ eta_squared_posterior <- function(model,
 #' @importFrom stats lm setNames
 #' @importFrom insight model_info find_formula get_predictors find_response
 eta_squared_posterior.stanreg <- function(model,
-                                  partial = TRUE,
-                                  generalized = FALSE,
-                                  ss_function = stats::anova,
-                                  draws = 500,
-                                  verbose = TRUE,
-                                  ...){
-
+                                          partial = TRUE,
+                                          generalized = FALSE,
+                                          ss_function = stats::anova,
+                                          draws = 500,
+                                          verbose = TRUE,
+                                          ...) {
   if (!requireNamespace("rstantools", quietly = TRUE)) {
     stop("This function requires 'rstantools' to work.")
   }
 
   mo_inf <- insight::model_info(model)
   if ((!mo_inf$is_linear) ||
-      mo_inf$is_multivariate) {
+    mo_inf$is_multivariate) {
     stop("Computation of Eta Squared is only applicable to univariate linear models.")
   }
 
   if (partial && mo_inf$is_mixed) {
-    warning("Bayesian Partial Eta Squared not supported for mixed models.\n",
-            "Returning Eta Squared instead.")
+    warning(
+      "Bayesian Partial Eta Squared not supported for mixed models.\n",
+      "Returning Eta Squared instead."
+    )
     partial <- FALSE
     # would need to account for random effects if present.
     # Too hard right now.
   }
 
   if (!isFALSE(generalized) && mo_inf$is_mixed) {
-    warning("Bayesian Generalized Eta Squared not supported for mixed models.\n",
-            "Returning Eta Squared instead.")
+    warning(
+      "Bayesian Generalized Eta Squared not supported for mixed models.\n",
+      "Returning Eta Squared instead."
+    )
     generalized <- FALSE
   }
 
@@ -63,8 +66,9 @@ eta_squared_posterior.stanreg <- function(model,
 
   ## 2. get ppd
   ppd <- rstantools::posterior_predict(model,
-                                       draws = draws, # for rstanreg
-                                       nsamples = draws) # for brms
+    draws = draws, # for rstanreg
+    nsamples = draws
+  ) # for brms
 
   ## 3. Compute effect size...
   if (verbose) {
@@ -82,8 +86,10 @@ eta_squared_posterior.stanreg <- function(model,
     ANOVA <- ss_function(temp_fit, ...)
     es <- eta_squared(ANOVA, ci = NULL, partial = partial, generalized = generalized)
 
-    es <- stats::setNames(es[[if (partial) "Eta2_partial" else "Eta2"]],
-                          es$Parameter)
+    es <- stats::setNames(
+      es[[if (partial) "Eta2_partial" else "Eta2"]],
+      es$Parameter
+    )
     data.frame(t(es), check.names = FALSE)
   })
 
@@ -105,8 +111,10 @@ eta_squared_posterior.brmsfit <- eta_squared_posterior.stanreg
   numerics_centered <- factors_centered <- logical(0)
 
   if (length(numerics)) {
-    numerics_centered <- sapply(X[, numerics, drop = FALSE],
-                                function(xi) isTRUE(all.equal(mean(xi),0)))
+    numerics_centered <- sapply(
+      X[, numerics, drop = FALSE],
+      function(xi) isTRUE(all.equal(mean(xi), 0))
+    )
   }
 
 
@@ -117,19 +125,18 @@ eta_squared_posterior.brmsfit <- eta_squared_posterior.stanreg
       # "contr.sum", "contr.helmert", "contr.poly", "contr.bayes"
       (is.factor(xi) && (any(contrasts(xi) < 0) & any(contrasts(xi) > 0))) ||
         # Or if it is not a factor, is the default method one of these?
-        (!is.factor(xi) && all(of %in% c('contr.sum', 'contr.poly', "contr.bayes", "contr.helmert")))
+        (!is.factor(xi) && all(of %in% c("contr.sum", "contr.poly", "contr.bayes", "contr.helmert")))
     })
   }
 
 
   if ((length(numerics_centered) && !all(numerics_centered)) ||
-      length(factors_centered) && !all(factors_centered)) {
-
-    non_centered <- !c(numerics_centered,factors_centered)
+    length(factors_centered) && !all(factors_centered)) {
+    non_centered <- !c(numerics_centered, factors_centered)
     non_centered <- names(non_centered)[non_centered]
     warning(
       "Not all variables are centered:\n ",
-      paste(non_centered,collapse = ", "),
+      paste(non_centered, collapse = ", "),
       "\n Results might be bogus if involved in interactions...",
       call. = FALSE, immediate. = TRUE
     )

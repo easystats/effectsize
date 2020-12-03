@@ -20,16 +20,17 @@
 #' @examples
 #' interpret_p(c(.5, .02, 0.001))
 #' interpret_p(c(.5, .02, 0.001), rules = "rss")
-#'
 #' @export
 interpret_p <- function(p, rules = "default") {
   rules <- .match.rules(
     rules,
     list(
       default = rules(c(0.05), c("significant", "not significant"),
-                      name = "default", right = FALSE),
+        name = "default", right = FALSE
+      ),
       rss = rules(c(0.005, 0.05), c("significant", "suggestive", "not significant"),
-                  name = "rss", right = FALSE)
+        name = "rss", right = FALSE
+      )
     )
   )
 

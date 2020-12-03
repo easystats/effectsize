@@ -22,7 +22,6 @@
 #' @examples
 #' interpret_oddsratio(1)
 #' interpret_oddsratio(c(5, 2))
-#'
 #' @aliases interpret_odds
 #'
 #' @references
@@ -32,7 +31,6 @@
 #'
 #' @export
 interpret_oddsratio <- function(OR, rules = "chen2010", log = FALSE) {
-
   if (log) {
     OR <- exp(abs(OR))
   } else {
@@ -49,7 +47,8 @@ interpret_oddsratio <- function(OR, rules = "chen2010", log = FALSE) {
     rules,
     list(
       chen2010 = rules(c(1.68, 3.47, 6.71), c("very small", "small", "medium", "large"),
-                       name = "chen2010", right = FALSE),
+        name = "chen2010", right = FALSE
+      ),
       cohen1988 = NA # for correct error msg
     )
   )

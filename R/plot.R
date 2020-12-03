@@ -16,5 +16,3 @@ plot.equivalence_test_effectsize <- function(x, ...) {
 
 #' @export
 plot.effectsize_difference <- plot.effectsize_table
-
-

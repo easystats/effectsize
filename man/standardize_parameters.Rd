@@ -141,7 +141,6 @@ data(iris)
 
 model <- lm(Sepal.Length ~ Species * Petal.Width, data = iris)
 standardize_parameters(model, method = "refit")
-
 \donttest{
 standardize_parameters(model, method = "posthoc")
 standardize_parameters(model, method = "smart")
@@ -160,7 +159,7 @@ standardize_parameters(model, method = "basic", exponentiate = TRUE)
 
 \donttest{
 if (require("lme4")) {
-  m <- lmer(mpg ~ cyl + am + vs + (1|cyl), mtcars)
+  m <- lmer(mpg ~ cyl + am + vs + (1 | cyl), mtcars)
   standardize_parameters(m, method = "pseudo", df_method = "satterthwaite")
 }
 
@@ -173,7 +172,6 @@ if (require("rstanarm")) {
   # standardize_posteriors(model, method = "smart")
   head(standardize_posteriors(model, method = "basic"))
 }
-
 }
 
 }

@@ -35,11 +35,3 @@ d_to_common_language <- function(d) {
 #' @export
 #' @rdname d_to_common_language
 convert_d_to_common_language <- d_to_common_language
-
-
-
-
-
-
-
-

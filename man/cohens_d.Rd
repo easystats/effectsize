@@ -87,7 +87,6 @@ hedges_g(mpg ~ am, data = mtcars)
 glass_delta(mpg ~ am, data = mtcars)
 
 print(cohens_d(mpg ~ am, data = mtcars), append_CL = TRUE)
-
 }
 \references{
 \itemize{

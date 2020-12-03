@@ -1,4 +1,4 @@
-# effectsize 0.4.0.001
+# effectsize 0.4.1
 
 ## Breaking Changes
 
@@ -6,10 +6,15 @@
 
 ## New features
 
+- `effectsize()` gains `type = ` argument for specifying which effect size to return.
 - `eta_squared_posterior()` can return a generalized Eta squared.
 - `oddsratio()` and `riskratio()` functions for 2-by-2 contingency tables.
 - `standardize()` gains support for `mediation::mediate()` models.
 - `eta_squared()` family available for `manova` objects.
+
+## Changes
+
+- `eta_squared()` family of functions returns non-partial effect size for one-way between subjects design (#180).
 
 ## Bug fixes
 

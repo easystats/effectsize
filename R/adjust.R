@@ -15,19 +15,24 @@
 #' adjust(iris, effect = "Species", select = "Sepal.Length", multilevel = TRUE)
 #' adjust(iris, effect = "Species", select = "Sepal.Length", bayesian = TRUE)
 #' adjust(iris, effect = "Petal.Width", select = "Sepal.Length", additive = TRUE)
-#' adjust(iris, effect = "Petal.Width", select = "Sepal.Length",
-#'        additive = TRUE, bayesian = TRUE)
-#' adjust(iris, effect = c("Petal.Width", "Species"), select = "Sepal.Length",
-#'        multilevel = TRUE, additive = TRUE)
+#' adjust(iris,
+#'   effect = "Petal.Width", select = "Sepal.Length",
+#'   additive = TRUE, bayesian = TRUE
+#' )
+#' adjust(iris,
+#'   effect = c("Petal.Width", "Species"), select = "Sepal.Length",
+#'   multilevel = TRUE, additive = TRUE
+#' )
 #' adjust(iris)
 #' }
 #'
 #' @export
-adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multilevel = FALSE, additive = FALSE, bayesian = FALSE){
+adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multilevel = FALSE, additive = FALSE, bayesian = FALSE) {
   if (!all(colnames(data) == make.names(colnames(data), unique = TRUE))) {
     warning("Bad column names (e.g., with spaces) have been detected which might create issues in many functions.\n",
-            "Please fix it (you can run `names(mydata) <- make.names(names(mydata))` for an automatic fix).",
-            call. = FALSE)
+      "Please fix it (you can run `names(mydata) <- make.names(names(mydata))` for an automatic fix).",
+      call. = FALSE
+    )
   }
 
   # check for formula notation, convert to character vector
@@ -103,15 +108,15 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
       }
       adjusted <- rstanarm::stan_gamm4(as.formula(formula), random = formula_random, data = data, refresh = 0)$residuals
       # Frequentist
-    } else{
+    } else {
       if (!requireNamespace("gamm4")) {
         stop("This function needs `gamm4` to be installed. Please install by running `install.packages('gamm4')`.")
       }
       adjusted <- gamm4::gamm4(as.formula(formula), random = formula_random, data = data)$gam$residuals
     }
 
-  # Linear -------------------------
-  } else{
+    # Linear -------------------------
+  } else {
     # Bayesian
     if (bayesian) {
       if (!requireNamespace("rstanarm")) {
@@ -119,17 +124,17 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
       }
       if (multilevel) {
         adjusted <- rstanarm::stan_lmer(paste(formula, formula_random), data = data, refresh = 0)$residuals
-      } else{
+      } else {
         adjusted <- rstanarm::stan_glm(formula, data = data, refresh = 0)$residuals
       }
-    # Frequentist
-    } else{
+      # Frequentist
+    } else {
       if (multilevel) {
         if (!requireNamespace("lme4")) {
           stop("This function needs `lme4` to be installed. Please install by running `install.packages('lme4')`.")
         }
         adjusted <- residuals(lme4::lmer(paste(formula, formula_random), data = data))
-      } else{
+      } else {
         adjusted <- lm(formula, data = data)$residuals
       }
     }

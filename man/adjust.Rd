@@ -39,10 +39,14 @@ adjust(iris, effect = "Species", select = "Sepal.Length")
 adjust(iris, effect = "Species", select = "Sepal.Length", multilevel = TRUE)
 adjust(iris, effect = "Species", select = "Sepal.Length", bayesian = TRUE)
 adjust(iris, effect = "Petal.Width", select = "Sepal.Length", additive = TRUE)
-adjust(iris, effect = "Petal.Width", select = "Sepal.Length",
-       additive = TRUE, bayesian = TRUE)
-adjust(iris, effect = c("Petal.Width", "Species"), select = "Sepal.Length",
-       multilevel = TRUE, additive = TRUE)
+adjust(iris,
+  effect = "Petal.Width", select = "Sepal.Length",
+  additive = TRUE, bayesian = TRUE
+)
+adjust(iris,
+  effect = c("Petal.Width", "Species"), select = "Sepal.Length",
+  multilevel = TRUE, additive = TRUE
+)
 adjust(iris)
 }
 

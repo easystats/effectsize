@@ -42,7 +42,6 @@ Rules apply to OR as ratios, so OR of 10 is as extreme as a OR of 0.1 (1/10).
 \examples{
 interpret_oddsratio(1)
 interpret_oddsratio(c(5, 2))
-
 }
 \references{
 \itemize{

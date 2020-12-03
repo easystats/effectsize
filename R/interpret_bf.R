@@ -30,7 +30,6 @@
 #' @examples
 #' interpret_bf(1)
 #' interpret_bf(c(5, 2))
-#'
 #' @references
 #' - Jeffreys, H. (1961), Theory of Probability, 3rd ed., Oxford University Press, Oxford.
 #' - Raftery, A. E. (1995). Bayesian model selection in social research. Sociological methodology, 25, 111-164.
@@ -54,9 +53,11 @@ interpret_bf <- function(bf, rules = "jeffreys1961", include_value = FALSE, prot
     rules,
     list(
       jeffreys1961 = rules(c(3, 10, 30, 100), c("anecdotal", "moderate", "strong", "very strong", "extreme"),
-                           name = "jeffreys1961"),
+        name = "jeffreys1961"
+      ),
       raftery1995 = rules(c(3, 20, 150), c("weak", "positive", "strong", "very strong"),
-                          name = "raftery1995")
+        name = "raftery1995"
+      )
     )
   )
 
@@ -64,9 +65,9 @@ interpret_bf <- function(bf, rules = "jeffreys1961", include_value = FALSE, prot
 
 
   interpretation[] <- paste0(interpretation, " evidence ", dir)
-  interpretation[orig_bf==1] <- "no evidence"
+  interpretation[orig_bf == 1] <- "no evidence"
   if (include_value) {
-    interpretation[] <- paste0(interpretation, " (", insight::format_bf(orig_bf, protect_ratio = protect_ratio, exact = exact),")")
+    interpretation[] <- paste0(interpretation, " (", insight::format_bf(orig_bf, protect_ratio = protect_ratio, exact = exact), ")")
   }
 
   interpretation[is.na(orig_bf)] <- ""

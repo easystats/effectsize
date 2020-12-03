@@ -91,7 +91,6 @@
 #'
 #' model <- lm(Sepal.Length ~ Species * Petal.Width, data = iris)
 #' standardize_parameters(model, method = "refit")
-#'
 #' \donttest{
 #' standardize_parameters(model, method = "posthoc")
 #' standardize_parameters(model, method = "smart")
@@ -110,7 +109,7 @@
 #'
 #' \donttest{
 #' if (require("lme4")) {
-#'   m <- lmer(mpg ~ cyl + am + vs + (1|cyl), mtcars)
+#'   m <- lmer(mpg ~ cyl + am + vs + (1 | cyl), mtcars)
 #'   standardize_parameters(m, method = "pseudo", df_method = "satterthwaite")
 #' }
 #'
@@ -123,7 +122,6 @@
 #'   # standardize_posteriors(model, method = "smart")
 #'   head(standardize_posteriors(model, method = "basic"))
 #' }
-#'
 #' }
 #'
 #' @seealso [standardize_info()]
@@ -177,15 +175,18 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
 
   ## clean cols
   if (!is.null(ci)) pars$CI <- attr(pars, "ci")
-  colnm <- c("Component", "Response", "Group", "Parameter", head(.col_2_scale,-2), "CI", "CI_low", "CI_high")
+  colnm <- c("Component", "Response", "Group", "Parameter", head(.col_2_scale, -2), "CI", "CI_low", "CI_high")
   pars <- pars[, colnm[colnm %in% colnames(pars)]]
 
-  if (!is.null(coefficient_name) && coefficient_name == "Odds Ratio")
+  if (!is.null(coefficient_name) && coefficient_name == "Odds Ratio") {
     colnames(pars)[colnames(pars) == "Coefficient"] <- "Odds_ratio"
-  if (!is.null(coefficient_name) && coefficient_name == "Risk Ratio")
+  }
+  if (!is.null(coefficient_name) && coefficient_name == "Risk Ratio") {
     colnames(pars)[colnames(pars) == "Coefficient"] <- "Risk_ratio"
-  if (!is.null(coefficient_name) && coefficient_name == "IRR")
+  }
+  if (!is.null(coefficient_name) && coefficient_name == "IRR") {
     colnames(pars)[colnames(pars) == "Coefficient"] <- "IRR"
+  }
 
   i <- colnames(pars) %in% c("Coefficient", "Median", "Mean", "MAP", "Odds_ratio", "IRR")
   colnames(pars)[i] <- paste0("Std_", colnames(pars)[i])
@@ -227,7 +228,7 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
 
   ## clean cols
   if (!is.null(ci)) pars$CI <- attr(pars, "ci")
-  colnm <- c("Component", "Response", "Group", "Parameter", head(.col_2_scale,-2), "CI", "CI_low", "CI_high")
+  colnm <- c("Component", "Response", "Group", "Parameter", head(.col_2_scale, -2), "CI", "CI_low", "CI_high")
   pars <- pars[, colnm[colnm %in% colnames(pars)]]
   i <- colnames(pars) %in% c("Coefficient", "Median", "Mean", "MAP")
   colnames(pars)[i] <- paste0("Std_", colnames(pars)[i])
@@ -252,8 +253,8 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
 .standardize_parameters_posthoc <- function(pars, method, model, robust, two_sd, exponentiate, verbose) {
   # Sanity Check for "pseudo"
   if (method == "pseudo" &&
-      !(insight::model_info(model)$is_mixed &&
-        length(insight::find_random(model)$random) == 1)) {
+    !(insight::model_info(model)$is_mixed &&
+      length(insight::find_random(model)$random) == 1)) {
     warning(
       "'pseudo' method only available for 2-level (G)LMMs.\n",
       "Setting method to 'basic'.",
@@ -263,16 +264,18 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   }
 
   if (method %in% c("smart", "posthoc") &&
-      .cant_smart_or_posthoc(model, pars$Parameter)) {
+    .cant_smart_or_posthoc(model, pars$Parameter)) {
     warning("Method '", method, "' does not currently support models with transformed parameters.",
-            "\nReverting to 'basic' method. Concider using the 'refit' method directly.",
-            call. = FALSE)
+      "\nReverting to 'basic' method. Concider using the 'refit' method directly.",
+      call. = FALSE
+    )
     method <- "basic"
   }
 
   if (robust && method == "pseudo") {
     warning("'robust' standardization not available for 'pseudo' method.",
-            call. = FALSE)
+      call. = FALSE
+    )
     robust <- FALSE
   }
 
@@ -302,11 +305,11 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   }
 
   # Sapply standardization
-  pars[,colnames(pars) %in% .col_2_scale] <- lapply(
+  pars[, colnames(pars) %in% .col_2_scale] <- lapply(
     pars[, colnames(pars) %in% .col_2_scale, drop = FALSE],
     function(x) {
       if (exponentiate) {
-        x ^ (deviations[[col_dev_pred]] / deviations[[col_dev_resp]])
+        x^(deviations[[col_dev_pred]] / deviations[[col_dev_resp]])
       } else {
         x * deviations[[col_dev_pred]] / deviations[[col_dev_resp]]
       }
@@ -314,8 +317,7 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   )
 
   if (length(i_missing) ||
-      any(to_complete <- apply(pars[, colnames(pars) %in% .col_2_scale], 1, anyNA))) {
-
+    any(to_complete <- apply(pars[, colnames(pars) %in% .col_2_scale], 1, anyNA))) {
     i_missing <- union(i_missing, which(to_complete))
 
     pars[i_missing, colnames(pars) %in% .col_2_scale] <-
@@ -330,7 +332,7 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
 }
 
 #' @keywords internal
-.col_2_scale <- c("Coefficient","Median", "Mean", "MAP", "SE", "CI_low", "CI_high")
+.col_2_scale <- c("Coefficient", "Median", "Mean", "MAP", "SE", "CI_low", "CI_high")
 
 
 # standardize_posteriors --------------------------------------------------
@@ -372,8 +374,8 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 .standardize_posteriors_posthoc <- function(pars, method, model, robust, two_sd, verbose) {
   # Sanity Check for "pseudo"
   if (method == "pseudo" &&
-      !(insight::model_info(model)$is_mixed &&
-        length(insight::find_random(model)$random) == 1)) {
+    !(insight::model_info(model)$is_mixed &&
+      length(insight::find_random(model)$random) == 1)) {
     warning(
       "'pseudo' method only available for 2-level (G)LMMs.\n",
       "Setting method to 'basic'.",
@@ -383,23 +385,25 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   }
 
   if (method %in% c("smart", "posthoc") &&
-      .cant_smart_or_posthoc(model, colnames(pars))) {
+    .cant_smart_or_posthoc(model, colnames(pars))) {
     warning("Method '", method, "' does not currently support models with transformed parameters.",
-            "\nReverting to 'basic' method. Concider using the 'refit' method directly.",
-            call. = FALSE)
+      "\nReverting to 'basic' method. Concider using the 'refit' method directly.",
+      call. = FALSE
+    )
     method <- "basic"
   }
 
   if (robust && method == "pseudo") {
     warning("'robust' standardization not available for 'pseudo' method.",
-            call. = FALSE)
+      call. = FALSE
+    )
     robust <- FALSE
   }
 
   ## Get scaling factors
   deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo", two_sd = two_sd)
   i <- match(deviations$Parameter, colnames(pars))
-  pars <- pars[,i]
+  pars <- pars[, i]
 
   if (method == "basic") {
     col_dev_resp <- "Deviation_Response_Basic"
@@ -431,8 +435,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 
 
 #' @keywords internal
-.cant_smart_or_posthoc <- function(model,params) {
-
+.cant_smart_or_posthoc <- function(model, params) {
   cant_posthocsmart <- FALSE
 
   if (insight::model_info(model)$is_linear) {
@@ -443,8 +446,8 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 
   # factors are allowed
   if (!cant_posthocsmart &&
-      !all(params == insight::clean_names(params) |
-           grepl("(as.factor|factor)\\(", params))) {
+    !all(params == insight::clean_names(params) |
+      grepl("(as.factor|factor)\\(", params))) {
     cant_posthocsmart <- TRUE
   }
 

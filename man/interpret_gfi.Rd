@@ -91,7 +91,6 @@ if (require("lavaan")) {
   model <- lavaan::sem(structure, data = PoliticalDemocracy)
   # interpret(model)  # Not working until new performance is up
 }
-
 }
 \references{
 \itemize{

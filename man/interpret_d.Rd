@@ -57,7 +57,6 @@ Rules apply to equally to positive and negative \emph{d}.
 \examples{
 interpret_d(.02)
 interpret_d(c(.5, .02))
-
 }
 \references{
 \itemize{

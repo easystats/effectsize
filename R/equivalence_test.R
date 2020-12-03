@@ -50,9 +50,11 @@ bayestestR::equivalence_test
 #' es <- eta_squared(model)
 #' equivalence_test(es, range = 0.15)
 #'
-#' ds <- t_to_d(t = c(0.45, -0.65, 7, -2.2, 2.25),
-#'              df_error = c(675, 525, 2000, 900, 1875),
-#'              ci = 0.9) # TOST approach
+#' ds <- t_to_d(
+#'   t = c(0.45, -0.65, 7, -2.2, 2.25),
+#'   df_error = c(675, 525, 2000, 900, 1875),
+#'   ci = 0.9
+#' ) # TOST approach
 #' equivalence_test(ds, range = 0.2)
 #'
 #' # Can also plot
@@ -62,7 +64,7 @@ bayestestR::equivalence_test
 #' }
 #'
 #' @export
-equivalence_test.effectsize_table <- function(x, range = "default", rule = c("classic","cet","bayes"), ...) {
+equivalence_test.effectsize_table <- function(x, range = "default", rule = c("classic", "cet", "bayes"), ...) {
   rule <- match.arg(rule)
 
   if (!all(c("CI", "CI_low", "CI_high") %in% colnames(x))) {
@@ -74,7 +76,7 @@ equivalence_test.effectsize_table <- function(x, range = "default", rule = c("cl
   }
   range <- sort(range)
 
-  if (any(colnames(x) %in% es_info$name[es_info$direction=="onetail"])) {
+  if (any(colnames(x) %in% es_info$name[es_info$direction == "onetail"])) {
     if (all(range < 0)) {
       stop("'range' is completely negative. For this effect size, only positive values can be tested.", call. = FALSE)
     } else if (length(range) > 1) {
@@ -90,11 +92,10 @@ equivalence_test.effectsize_table <- function(x, range = "default", rule = c("cl
     in_rope <- x$CI_high < range
     out_rope <- range < x$CI_low
 
-    range <- c(0,range)
-
+    range <- c(0, range)
   } else {
     if (length(range) == 1) {
-      range <- c(-range,range)
+      range <- c(-range, range)
     }
     range <- sort(range)
 

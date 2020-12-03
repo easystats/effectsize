@@ -42,5 +42,4 @@ Automated interpretation of standardized slopes.
 \examples{
 model <- lm(Sepal.Length ~ Species * Petal.Width, data = iris)
 interpret_parameters(model)
-
 }
