@@ -344,7 +344,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   params <- params[params$Parameter != "Residuals", , drop = FALSE]
 
   if (nrow(params) == 1L &&
-      (partial || isTRUE(generalized) || is.character(generalized))) {
+    (partial || isTRUE(generalized) || is.character(generalized))) {
     txt_type <- ifelse(isTRUE(generalized) || is.character(generalized), "generalized", "partial")
     message(
       "For one-way between subjects designs, ", txt_type, " ", type, " squared is equvilant to ", type, " squared.\n",
