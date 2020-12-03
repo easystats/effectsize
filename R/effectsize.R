@@ -114,7 +114,7 @@ effectsize.htest <- function(model, type = NULL, ...) {
     return(out)
   } else if (grepl("One-way", model$method)) {
     if (grepl("not assuming", model$method, fixed = TRUE)) {
-      warning("Approximating effect size.", call. = FALSE)
+      warning("`var.equal = FALSE` - effect size is an approximation.", call. = FALSE)
     }
 
     if (is.null(type)) type <- "eta"
