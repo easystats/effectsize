@@ -56,6 +56,12 @@ if (require("testthat") && require("effectsize")) {
     )
     testthat::expect_equal(cohens_f(fit, squared = TRUE), cohens_f_squared(fit))
     testthat::expect_equal(cohens_f_squared(fit, squared = FALSE), cohens_f(fit))
+
+
+
+    #### One way-between
+    testthat::expect_message(eta_squared(aov(mpg ~ factor(gear), mtcars)))
+    testthat::expect_message(eta_squared(aov(mpg ~ factor(gear) + am, mtcars)), regexp = NA)
   })
 
 
