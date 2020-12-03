@@ -32,7 +32,7 @@ input model. See details.
 \itemize{
 \item A \strong{t-test} returns \emph{Cohen's d} via \code{\link[=t_to_d]{t_to_d()}}.
 \item A \strong{correlation test} returns \emph{r}.
-\item A \strong{Chi-squared test}, depending on \code{type}: \code{"cramers_v"} (default), \code{"phi"} or \code{"cohens_w"}, \code{"oddsratio"}, or \code{"riskratio"}.
+\item A \strong{Chi-squared tests of independence or goodness-of-fit}, depending on \code{type}: \code{"cramers_v"} (default), \code{"phi"} or \code{"cohens_w"}, \code{"oddsratio"}, or \code{"riskratio"}.
 \item A \strong{One-way ANOVA test}, depending on \code{type}: \code{"eta"} (default), \code{"omega"} or \code{"epsilon"} -squared, \code{"f"}, or \code{"f2"}.
 }
 \item For an object of class \code{BFBayesFactor}, using \code{\link[bayestestR:describe_posterior]{bayestestR::describe_posterior()}},

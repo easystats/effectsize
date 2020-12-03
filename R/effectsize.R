@@ -12,7 +12,7 @@
 #' - For an object of class `htest`:
 #'   - A **t-test** returns *Cohen's d* via [t_to_d()].
 #'   - A **correlation test** returns *r*.
-#'   - A **Chi-squared test**, depending on `type`: `"cramers_v"` (default), `"phi"` or `"cohens_w"`, `"oddsratio"`, or `"riskratio"`.
+#'   - A **Chi-squared tests of independence or goodness-of-fit**, depending on `type`: `"cramers_v"` (default), `"phi"` or `"cohens_w"`, `"oddsratio"`, or `"riskratio"`.
 #'   - A **One-way ANOVA test**, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.
 #' - For an object of class `BFBayesFactor`, using [bayestestR::describe_posterior()],
 #'   - A **t-test** returns *Cohen's d*.
