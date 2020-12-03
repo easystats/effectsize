@@ -8,7 +8,7 @@ if (require("testthat") && require("effectsize")) {
 
     model <- lm(Sepal.Length ~ Petal.Length, data = df)
     es <- standardize_parameters(model)
-    testthat::expect_equal(es[2,2], r, tolerance = 0.01)
+    testthat::expect_equal(es[2, 2], r, tolerance = 0.01)
   })
 
 
@@ -92,9 +92,13 @@ if (require("testthat") && require("effectsize")) {
     data("mtcars")
     m0 <- lm(mpg ~ cyl + factor(am), mtcars)
     testthat::expect_equal(standardize_parameters(m0, method = "refit")[[2]][-1],
-                           standardize_parameters(m0, method = "smart")[[2]][-1], tolerance = 0.01)
+      standardize_parameters(m0, method = "smart")[[2]][-1],
+      tolerance = 0.01
+    )
     testthat::expect_equal(standardize_parameters(m0, method = "refit", two_sd = TRUE)[[2]][-1],
-                           standardize_parameters(m0, method = "smart", two_sd = TRUE)[[2]][-1], tolerance = 0.01)
+      standardize_parameters(m0, method = "smart", two_sd = TRUE)[[2]][-1],
+      tolerance = 0.01
+    )
   })
 
 
@@ -108,17 +112,18 @@ if (require("testthat") && require("effectsize")) {
     m_lm <- lm(Sepal.Length ~ Species * Cat1, data = data)
 
     testthat::expect_equal(standardize_parameters(m_aov),
-                           standardize_parameters(m_lm),
-                           ignore_attr = TRUE)
+      standardize_parameters(m_lm),
+      ignore_attr = TRUE
+    )
   })
 
 
 
   # with function interactions" -------------------
   test_that("standardize_parameters (with functions /  interactions)", {
-    X <- scale(rnorm(100),T,F)
-    Z <- scale(rnorm(100),T,F)
-    Y <- scale(Z + X * Z + rnorm(100),T,F)
+    X <- scale(rnorm(100), T, F)
+    Z <- scale(rnorm(100), T, F)
+    Y <- scale(Z + X * Z + rnorm(100), T, F)
 
     m1 <- lm(Y ~ X * Z)
     m2 <- lm(Y ~ X * scale(Z))
@@ -146,10 +151,14 @@ if (require("testthat") && require("effectsize")) {
     m2 <- lm(cyl_exp ~ am + mpg_sqrt, mtcars)
 
     expect_message(stdX <- standardize_parameters(m1, method = "refit"))
-    expect_false(isTRUE(all.equal(stdX[[2]],
-                                  standardize_parameters(m2, method = "refit")[[2]])))
-    expect_equal(standardize_parameters(m1, method = "basic")[[2]],
-                 standardize_parameters(m2, method = "basic")[[2]])
+    expect_false(isTRUE(all.equal(
+      stdX[[2]],
+      standardize_parameters(m2, method = "refit")[[2]]
+    )))
+    expect_equal(
+      standardize_parameters(m1, method = "basic")[[2]],
+      standardize_parameters(m2, method = "basic")[[2]]
+    )
 
     # posthoc / smart don't support data transformation
     expect_warning(standardize_parameters(m1, method = "smart"))
@@ -160,8 +169,9 @@ if (require("testthat") && require("effectsize")) {
   # exponentiate ------------------------------------------------------------
   test_that("standardize_parameters (exponentiate)", {
     mod_b <- glm(am ~ mpg + cyl + hp,
-                 data = mtcars,
-                 family = poisson())
+      data = mtcars,
+      family = poisson()
+    )
     mod_refit <- standardize_parameters(mod_b, method = "refit", exponentiate = TRUE)
 
     testthat::expect_equal(
@@ -179,8 +189,9 @@ if (require("testthat") && require("effectsize")) {
 
 
     mod_b <- glm(am ~ mpg + cyl,
-                 data = mtcars,
-                 family = binomial())
+      data = mtcars,
+      family = binomial()
+    )
     mod_refit <- standardize_parameters(mod_b, method = "refit", exponentiate = TRUE)
 
     testthat::expect_equal(
@@ -198,8 +209,9 @@ if (require("testthat") && require("effectsize")) {
 
 
     mod_b <- glm(am ~ mpg + cyl + hp,
-                 data = mtcars,
-                 family = gaussian())
+      data = mtcars,
+      family = gaussian()
+    )
     mod_refit <- standardize_parameters(mod_b, method = "refit", exponentiate = TRUE)
 
     testthat::expect_equal(
@@ -225,8 +237,9 @@ if (require("testthat") && require("effectsize")) {
     set.seed(1234)
     suppressWarnings(
       model <- rstanarm::stan_glm(Sepal.Length ~ Species + Petal.Width,
-                                  data = iris,
-                                  iter = 500, refresh = 0)
+        data = iris,
+        iter = 500, refresh = 0
+      )
     )
 
     testthat::expect_equal(
@@ -237,7 +250,7 @@ if (require("testthat") && require("effectsize")) {
 
     testthat::expect_equal(
       suppressWarnings(standardize_parameters(model, method = "posthoc")$Std_Median[1:4]),
-      c(0, -0.058, -0.053,  0.838),
+      c(0, -0.058, -0.053, 0.838),
       tolerance = 0.01
     )
 
@@ -252,16 +265,19 @@ if (require("testthat") && require("effectsize")) {
     testthat::skip_if_not_installed("lme4")
     set.seed(1)
 
-    dat <- data.frame(X = rnorm(1000),
-                      Z = rnorm(1000),
-                      C = sample(letters[1:3], size = 1000, replace = TRUE),
-                      ID = sort(rep(letters, length.out = 1000)))
+    dat <- data.frame(
+      X = rnorm(1000),
+      Z = rnorm(1000),
+      C = sample(letters[1:3], size = 1000, replace = TRUE),
+      ID = sort(rep(letters, length.out = 1000))
+    )
     dat <- transform(dat, Y = X + Z + rnorm(1000))
-    dat <- cbind(dat,parameters::demean(dat,c("X","Z"),"ID"))
+    dat <- cbind(dat, parameters::demean(dat, c("X", "Z"), "ID"))
 
 
     m <- lme4::lmer(Y ~ scale(X_within) * X_between + C + (scale(X_within) | ID),
-                    data = dat)
+      data = dat
+    )
 
     ## No robust methods... (yet)
     expect_warning(standardize_parameters(m, method = "pseudo", robust = TRUE))
@@ -275,44 +291,54 @@ if (require("testthat") && require("effectsize")) {
 
     ## Calc
     b <- lme4::fixef(m)[-1]
-    mm <- model.matrix(m)[,-1]
+    mm <- model.matrix(m)[, -1]
     SD_x <- numeric(ncol(mm))
 
-    SD_x[c(1,3,4,5)] <- apply(mm[,c(1,3,4,5)], 2, sd)
-    SD_x[2] <- sd(tapply(mm[,2], dat$ID, mean))
+    SD_x[c(1, 3, 4, 5)] <- apply(mm[, c(1, 3, 4, 5)], 2, sd)
+    SD_x[2] <- sd(tapply(mm[, 2], dat$ID, mean))
 
     m0 <- lme4::lmer(Y ~ 1 + (1 | ID), data = dat)
     m0v <- insight::get_variance(m0)
     SD_y <- c(sqrt(m0v$var.residual), sqrt(m0v$var.intercept))
-    SD_y <- SD_y[c(1,2,1,1,1)]
+    SD_y <- SD_y[c(1, 2, 1, 1, 1)]
 
     expect_equal(
-      data.frame(Deviation_Response_Pseudo = c(SD_y[2],SD_y),Deviation_Pseudo = c(0,SD_x)),
+      data.frame(Deviation_Response_Pseudo = c(SD_y[2], SD_y), Deviation_Pseudo = c(0, SD_x)),
       standardize_info(m, include_pseudo = TRUE)[, c("Deviation_Response_Pseudo", "Deviation_Pseudo")]
     )
     expect_equal(
       standardize_parameters(m, method = "pseudo")$Std_Coefficient[-1],
-      unname(b * SD_x/SD_y)
+      unname(b * SD_x / SD_y)
     )
 
 
     ## scaling should not affect
     m1 <- lme4::lmer(Y ~ X_within + X_between + C + (X_within | ID),
-                     data = dat)
+      data = dat
+    )
     m2 <- lme4::lmer(scale(Y) ~ X_within + X_between + C + (X_within | ID),
-                     data = dat)
+      data = dat
+    )
     m3 <- lme4::lmer(Y ~ scale(X_within) + X_between + C + (scale(X_within) | ID),
-                     data = dat)
+      data = dat
+    )
     m4 <- lme4::lmer(Y ~ X_within + scale(X_between) + C + (X_within | ID),
-                     data = dat)
+      data = dat
+    )
 
     std1 <- standardize_parameters(m1, method = "pseudo")
     expect_equal(std1$Std_Coefficient,
-                 standardize_parameters(m2, method = "pseudo")$Std_Coefficient, tolerance = 0.001)
+      standardize_parameters(m2, method = "pseudo")$Std_Coefficient,
+      tolerance = 0.001
+    )
     expect_equal(std1$Std_Coefficient,
-                 standardize_parameters(m3, method = "pseudo")$Std_Coefficient, tolerance = 0.001)
+      standardize_parameters(m3, method = "pseudo")$Std_Coefficient,
+      tolerance = 0.001
+    )
     expect_equal(std1$Std_Coefficient,
-                 standardize_parameters(m4, method = "pseudo")$Std_Coefficient, tolerance = 0.001)
+      standardize_parameters(m4, method = "pseudo")$Std_Coefficient,
+      tolerance = 0.001
+    )
 
 
 
@@ -341,19 +367,29 @@ if (require("testthat") && require("effectsize")) {
     })
 
     # post hoc does it right (bar intercept)
-    testthat::expect_equal(sm1$Std_Coefficient[-c(1,6)],
-                           sm2$Std_Coefficient[-c(1,6)], tolerance = 0.01)
+    testthat::expect_equal(sm1$Std_Coefficient[-c(1, 6)],
+      sm2$Std_Coefficient[-c(1, 6)],
+      tolerance = 0.01
+    )
 
     # basic / smart miss the ZI
     testthat::expect_equal(mp$Coefficient[6:8],
-                           sm3$Std_Coefficient[6:8], tolerance = 0.01)
+      sm3$Std_Coefficient[6:8],
+      tolerance = 0.01
+    )
     testthat::expect_equal(mp$Coefficient[6:8],
-                           sm4$Std_Coefficient[6:8], tolerance = 0.01)
+      sm4$Std_Coefficient[6:8],
+      tolerance = 0.01
+    )
 
     # get count numerics al right
     testthat::expect_equal(sm1$Std_Coefficient[4:5],
-                           sm3$Std_Coefficient[4:5], tolerance = 0.01)
+      sm3$Std_Coefficient[4:5],
+      tolerance = 0.01
+    )
     testthat::expect_equal(sm1$Std_Coefficient[4:5],
-                           sm4$Std_Coefficient[4:5], tolerance = 0.01)
+      sm4$Std_Coefficient[4:5],
+      tolerance = 0.01
+    )
   })
 }

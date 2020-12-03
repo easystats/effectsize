@@ -6,19 +6,25 @@
   obj_name <- attr(x, attribute_name, exact = TRUE)
   model <- NULL
   if (!is.null(obj_name)) {
-    model <- tryCatch({
-      get(obj_name, envir = parent.frame())
-    }, error = function(e) {
-      NULL
-    })
-    if (is.null(model) ||
-        # prevent self reference
-        inherits(model, "parameters_model")) {
-      model <- tryCatch({
-        get(obj_name, envir = globalenv())
-      }, error = function(e) {
+    model <- tryCatch(
+      {
+        get(obj_name, envir = parent.frame())
+      },
+      error = function(e) {
         NULL
-      })
+      }
+    )
+    if (is.null(model) ||
+      # prevent self reference
+      inherits(model, "parameters_model")) {
+      model <- tryCatch(
+        {
+          get(obj_name, envir = globalenv())
+        },
+        error = function(e) {
+          NULL
+        }
+      )
     }
   }
   model
@@ -53,7 +59,7 @@
   weights1 <- weights / sum(weights)
   center <- sum(weights1 * x)
   xc <- sqrt(weights1) * (x - center)
-  var <- (t(xc) %*% xc) / (1 - sum(weights1 ^ 2))
+  var <- (t(xc) %*% xc) / (1 - sum(weights1^2))
   sqrt(as.vector(var))
 }
 

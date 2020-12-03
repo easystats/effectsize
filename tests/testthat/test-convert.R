@@ -24,10 +24,9 @@ if (require("testthat") && require("effectsize")) {
 
     testthat::expect_equal(riskratio_to_oddsratio(RR, p0 = p0), OR)
     testthat::expect_equal(oddsratio_to_riskratio(OR, p0 = p0), RR)
-    testthat::expect_equal(oddsratio_to_riskratio(1/OR, p0 = p1), 1/RR)
+    testthat::expect_equal(oddsratio_to_riskratio(1 / OR, p0 = p1), 1 / RR)
 
     testthat::expect_equal(riskratio_to_oddsratio(log(RR), p0 = p0, log = TRUE), log(OR))
     testthat::expect_equal(oddsratio_to_riskratio(log(OR), p0 = p0, log = TRUE), log(RR))
   })
-
 }

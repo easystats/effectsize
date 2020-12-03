@@ -42,7 +42,6 @@ Interpretation of Bayesian indices of percentage in ROPE.
 \examples{
 interpret_rope(0, ci = 0.9)
 interpret_rope(c(0.005, 0.99), ci = 1)
-
 }
 \references{
 \href{https://easystats.github.io/bayestestR/articles/guidelines.html}{BayestestR's reporting guidelines}

@@ -8,7 +8,6 @@
 #'
 #' @examples
 #' sd_pooled(mpg ~ am, data = mtcars)
-#'
 #' @seealso [cohens_d()]
 #'
 #' @export
@@ -79,7 +78,7 @@ mad_pooled <- function(x, y = NULL, data = NULL) {
   # Cohen's more complicated formula:
   n1 <- length(x)
   n2 <- length(y)
-  sqrt(((n1 - 1) * sd1 ^ 2 + (n2 - 1) * sd2 ^ 2) / (n1 + n2 - 2))
+  sqrt(((n1 - 1) * sd1^2 + (n2 - 1) * sd2^2) / (n1 + n2 - 2))
 }
 
 

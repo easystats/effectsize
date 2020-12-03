@@ -67,7 +67,6 @@
 #' anova_table <- anova(fit)
 #' effectsize(anova_table)
 #' effectsize(anova_table, type = "epsilon")
-#'
 #' @export
 effectsize <- function(model, ...) {
   UseMethod("effectsize")
@@ -93,22 +92,23 @@ effectsize.htest <- function(model, type = NULL, ...) {
     out$CI_high <- model$conf.int[2]
     return(out)
   } else if (grepl("Pearson's Chi-squared", model$method) ||
-             grepl("Chi-squared test for given probabilities", model$method)) {
+    grepl("Chi-squared test for given probabilities", model$method)) {
     if (is.null(type)) type <- "cramers_v"
 
-    f <- switch (tolower(type),
-                 v = ,
-                 cramers_v = cramers_v,
+    f <- switch(tolower(type),
+      v = ,
+      cramers_v = cramers_v,
 
-                 w = ,
-                 cohens_w = ,
-                 phi = phi,
+      w = ,
+      cohens_w = ,
+      phi = phi,
 
-                 or = ,
-                 oddsratio = oddsratio,
+      or = ,
+      oddsratio = oddsratio,
 
-                 rr = ,
-                 riskratio = riskratio)
+      rr = ,
+      riskratio = riskratio
+    )
 
     out <- f(x = model$observed, ...)
     return(out)
@@ -119,25 +119,26 @@ effectsize.htest <- function(model, type = NULL, ...) {
 
     if (is.null(type)) type <- "eta"
 
-    f <- switch (tolower(type),
-                 eta = ,
-                 eta2 = ,
-                 eta_squared = F_to_eta2,
+    f <- switch(tolower(type),
+      eta = ,
+      eta2 = ,
+      eta_squared = F_to_eta2,
 
-                 epsilon = ,
-                 epsilon2 = ,
-                 epsilon_squared = F_to_epsilon2,
+      epsilon = ,
+      epsilon2 = ,
+      epsilon_squared = F_to_epsilon2,
 
-                 omega = ,
-                 omega2 = ,
-                 omega_squared = F_to_omega2,
+      omega = ,
+      omega2 = ,
+      omega_squared = F_to_omega2,
 
-                 f = ,
-                 cohens_f = F_to_f,
+      f = ,
+      cohens_f = F_to_f,
 
-                 f2 = ,
-                 f_squared = ,
-                 cohens_f2 = F_to_f2)
+      f2 = ,
+      f_squared = ,
+      cohens_f2 = F_to_f2
+    )
 
     out <- f(
       f = model$statistic,
@@ -149,13 +150,19 @@ effectsize.htest <- function(model, type = NULL, ...) {
     return(out)
   } else if (grepl("McNemar", model$method)) {
     stop("Cannot extract Cohen's g from an 'htest' object.",
-         "\nTry using 'cohens_g()' directly.", call. = FALSE)
+      "\nTry using 'cohens_g()' directly.",
+      call. = FALSE
+    )
   } else if (grepl("Fisher's Exact", model$method)) {
     stop("Cannot extract effect size from an 'htest' of Fisher's exact test.",
-         "\nTry using 'cramers_v()' or 'phi()' directly.", call. = FALSE)
+      "\nTry using 'cramers_v()' or 'phi()' directly.",
+      call. = FALSE
+    )
   } else if (grepl("Wilcoxon", model$method)) {
     stop("Cannot extract effect size from an 'htest' of Wilcoxon's test.",
-         "\nTry using 'ranktransform()' and 'cohens_d()' directly.", call. = FALSE)
+      "\nTry using 'ranktransform()' and 'cohens_d()' directly.",
+      call. = FALSE
+    )
   } else {
     stop("This 'htest' method is not (yet?) supported.", call. = FALSE)
   }
@@ -165,7 +172,7 @@ effectsize.htest <- function(model, type = NULL, ...) {
 #' @rdname effectsize
 #' @importFrom insight get_data get_parameters
 #' @importFrom bayestestR describe_posterior
-effectsize.BFBayesFactor <- function(model, type = NULL, ...){
+effectsize.BFBayesFactor <- function(model, type = NULL, ...) {
   if (!requireNamespace("BayesFactor")) {
     stop("This function requires 'BayesFactor' to work. Please install it.")
   }
@@ -178,19 +185,20 @@ effectsize.BFBayesFactor <- function(model, type = NULL, ...){
   if (inherits(model@numerator[[1]], "BFcontingencyTable")) {
     if (is.null(type)) type <- "cramers_v"
 
-    f <- switch (tolower(type),
-                 v = ,
-                 cramers_v = cramers_v,
+    f <- switch(tolower(type),
+      v = ,
+      cramers_v = cramers_v,
 
-                 w = ,
-                 cohens_w = ,
-                 phi = phi,
+      w = ,
+      cohens_w = ,
+      phi = phi,
 
-                 or = ,
-                 oddsratio = oddsratio,
+      or = ,
+      oddsratio = oddsratio,
 
-                 rr = ,
-                 riskratio = riskratio)
+      rr = ,
+      riskratio = riskratio
+    )
 
     data <- insight::get_data(model)
     N <- sum(data)
@@ -198,7 +206,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, ...){
 
     posts <- as.matrix(BayesFactor::posterior(model, iterations = 4000, progress = FALSE))
     posts <- posts[, seq_len(cells)]
-    if (sum(posts[1,])==1) {
+    if (sum(posts[1, ]) == 1) {
       posts <- posts * N
     }
 
@@ -207,15 +215,15 @@ effectsize.BFBayesFactor <- function(model, type = NULL, ...){
     })
 
     res <- data.frame(ES)
-    colnames(res) <- colnames(f(matrix(posts[1,], nrow = nrow(data)), ci = NULL))
+    colnames(res) <- colnames(f(matrix(posts[1, ], nrow = nrow(data)), ci = NULL))
   } else if (inherits(model@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
-    D <- as.matrix(BayesFactor::posterior(model, iterations = 4000, progress = FALSE))[,"delta"]
+    D <- as.matrix(BayesFactor::posterior(model, iterations = 4000, progress = FALSE))[, "delta"]
     res <- data.frame(Cohens_d = D)
   } else if (inherits(model@numerator[[1]], "BFcorrelation")) {
     rho <- insight::get_parameters(model)[["rho"]]
     res <- data.frame(rho = rho)
   } else if (inherits(model@numerator[[1]], "BFproportion")) {
-    p <- as.matrix(BayesFactor::posterior(model, iterations = 4000))[,"p"]
+    p <- as.matrix(BayesFactor::posterior(model, iterations = 4000))[, "p"]
     res <- data.frame(p = p)
   } else {
     stop("No effect size for this type of BayesFactor object.")
@@ -229,25 +237,26 @@ effectsize.BFBayesFactor <- function(model, type = NULL, ...){
 effectsize.anova <- function(model, type = NULL, ...) {
   if (is.null(type)) type <- "eta"
 
-  f <- switch (tolower(type),
-               eta = ,
-               eta2 = ,
-               eta_squared = eta_squared,
+  f <- switch(tolower(type),
+    eta = ,
+    eta2 = ,
+    eta_squared = eta_squared,
 
-               epsilon = ,
-               epsilon2 = ,
-               epsilon_squared = epsilon_squared,
+    epsilon = ,
+    epsilon2 = ,
+    epsilon_squared = epsilon_squared,
 
-               omega = ,
-               omega2 = ,
-               omega_squared = omega_squared,
+    omega = ,
+    omega2 = ,
+    omega_squared = omega_squared,
 
-               f = ,
-               cohens_f = cohens_f,
+    f = ,
+    cohens_f = cohens_f,
 
-               f2 = ,
-               f_squared = ,
-               cohens_f2 = cohens_f_squared)
+    f2 = ,
+    f_squared = ,
+    cohens_f2 = cohens_f_squared
+  )
 
   f(model, ...)
 }
@@ -261,9 +270,10 @@ effectsize.aovlist <- effectsize.anova
 
 
 #' @export
-effectsize.easycorrelation <- function(model, ...){
-  if (is.null(r_name <- attr(model, "coefficient_name")))
+effectsize.easycorrelation <- function(model, ...) {
+  if (is.null(r_name <- attr(model, "coefficient_name"))) {
     r_name <- "r"
+  }
 
   r_cols <- 1:which(colnames(model) == r_name)
   if (!is.null(attr(model, "ci"))) {
@@ -273,7 +283,7 @@ effectsize.easycorrelation <- function(model, ...){
     r_cols <- c(r_cols, CI_cols)
   }
 
-  out <- model[,r_cols, drop = FALSE]
+  out <- model[, r_cols, drop = FALSE]
   class(out) <- c("effectsize_table", "data.frame")
   out
 }

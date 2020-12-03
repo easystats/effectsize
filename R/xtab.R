@@ -49,11 +49,15 @@
 #' @family effect size indices
 #'
 #' @examples
-#' M <- rbind(c(150, 130, 35, 55),
-#'            c(100, 50,  10, 40),
-#'            c(165, 65,  2,  25))
-#' dimnames(M) <- list(Study = c("Psych", "Econ", "Law"),
-#'                     Music = c("Pop", "Rock", "Jazz", "Classic"))
+#' M <- rbind(
+#'   c(150, 130, 35, 55),
+#'   c(100, 50, 10, 40),
+#'   c(165, 65, 2, 25)
+#' )
+#' dimnames(M) <- list(
+#'   Study = c("Psych", "Econ", "Law"),
+#'   Music = c("Pop", "Rock", "Jazz", "Classic")
+#' )
 #' M
 #'
 #' phi(M)
@@ -64,10 +68,14 @@
 #'
 #' ## 2-by-2 tables
 #' ## -------------
-#' RCT <- rbind(c(30,  71),
-#'              c(100, 50))
-#' dimnames(RCT) <- list(Diagnosis = c("Sick", "Recovered"),
-#'                       Group = c("Control", "Treatment"))
+#' RCT <- rbind(
+#'   c(30, 71),
+#'   c(100, 50)
+#' )
+#' dimnames(RCT) <- list(
+#'   Diagnosis = c("Sick", "Recovered"),
+#'   Group = c("Control", "Treatment")
+#' )
 #' RCT # note groups are COLUMNS
 #'
 #' oddsratio(RCT)
@@ -78,14 +86,17 @@
 #'
 #' ## Dependent (Paired) Contingency Tables
 #' ## -------------------------------------
-#' Performance <- rbind(c(794, 86),
-#'                      c(150, 570))
-#' dimnames(Performance) <- list("1st Survey" = c("Approve", "Disapprove"),
-#'                               "2nd Survey" = c("Approve", "Disapprove"))
+#' Performance <- rbind(
+#'   c(794, 86),
+#'   c(150, 570)
+#' )
+#' dimnames(Performance) <- list(
+#'   "1st Survey" = c("Approve", "Disapprove"),
+#'   "2nd Survey" = c("Approve", "Disapprove")
+#' )
 #' Performance
 #'
 #' cohens_g(Performance)
-#'
 #' @references
 #' - Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
 #' - Katz, D. J. S. M., Baptista, J., Azen, S. P., & Pike, M. C. (1978). Obtaining confidence intervals for the risk ratio in cohort studies. Biometrics, 469-474.
@@ -93,7 +104,7 @@
 #'
 #' @importFrom stats chisq.test
 #' @export
-phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...){
+phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...) {
   if (!missing(CI)) {
     ci <- CI
     warning("'CI' argument is deprecated. Use 'ci' instead.")
@@ -104,8 +115,9 @@ phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...){
   Exp <- res$expected
 
   if (!is.null(dim(Exp))) {
-    if (any(c(colSums(Obs), rowSums(Obs)) == 0L))
+    if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
       stop("Cannot have empty rows/columns in the contingency tables.", call. = FALSE)
+    }
     nr <- nrow(Obs)
     nc <- ncol(Obs)
   } else {
@@ -113,12 +125,14 @@ phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...){
     nc <- 1
   }
 
-  chisq_to_phi(chisq = .chisq(Obs, Exp),
-               n = sum(Obs),
-               nrow = nr,
-               ncol = nc,
-               ci = ci,
-               adjust = adjust)
+  chisq_to_phi(
+    chisq = .chisq(Obs, Exp),
+    n = sum(Obs),
+    nrow = nr,
+    ncol = nc,
+    ci = ci,
+    adjust = adjust
+  )
 }
 
 #' @rdname phi
@@ -128,7 +142,7 @@ cohens_w <- phi
 #' @rdname phi
 #' @importFrom stats chisq.test
 #' @export
-cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI,...){
+cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...) {
   if (!missing(CI)) {
     ci <- CI
     warning("'CI' argument is deprecated. Use 'ci' instead.")
@@ -139,8 +153,9 @@ cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI,...){
   Exp <- res$expected
 
   if (!is.null(dim(Exp))) {
-    if (any(c(colSums(Obs), rowSums(Obs)) == 0L))
+    if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
       stop("Cannot have empty rows/columns in the contingency tables.", call. = FALSE)
+    }
     nr <- nrow(Obs)
     nc <- ncol(Obs)
   } else {
@@ -148,12 +163,14 @@ cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI,...){
     nc <- 1
   }
 
-  chisq_to_cramers_v(chisq = .chisq(Obs, Exp),
-                     n = sum(Obs),
-                     nrow = nr,
-                     ncol = nc,
-                     ci = ci,
-                     adjust = adjust)
+  chisq_to_cramers_v(
+    chisq = .chisq(Obs, Exp),
+    n = sum(Obs),
+    nrow = nr,
+    ncol = nc,
+    ci = ci,
+    adjust = adjust
+  )
 }
 
 
@@ -165,8 +182,9 @@ oddsratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
   res <- suppressWarnings(stats::chisq.test(x, y, ...))
   Obs <- res$observed
 
-  if (any(c(colSums(Obs), rowSums(Obs)) == 0L))
+  if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
     stop("Cannot have empty rows/columns in the contingency tables.", call. = FALSE)
+  }
 
   if (nrow(Obs) != 2 || ncol(Obs) != 2) {
     stop("Odds ratio only available for 2-by-2 contingency tables", call. = FALSE)
@@ -192,7 +210,6 @@ oddsratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
   }
 
   if (log) {
-
     res[colnames(res) %in% c("Odds_ratio", "CI_low", "CI_high")] <-
       log(res[colnames(res) %in% c("Odds_ratio", "CI_low", "CI_high")])
     colnames(res)[1] <- "log_Odds_ratio"
@@ -210,8 +227,9 @@ riskratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
   res <- suppressWarnings(stats::chisq.test(x, y, ...))
   Obs <- res$observed
 
-  if (any(c(colSums(Obs), rowSums(Obs)) == 0L))
+  if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
     stop("Cannot have empty rows/columns in the contingency tables.", call. = FALSE)
+  }
 
   if (nrow(Obs) != 2 || ncol(Obs) != 2) {
     stop("Risk ratio only available for 2-by-2 contingency tables", call. = FALSE)
@@ -240,7 +258,6 @@ riskratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
   }
 
   if (log) {
-
     res[colnames(res) %in% c("Risk_ratio", "CI_low", "CI_high")] <-
       log(res[colnames(res) %in% c("Risk_ratio", "CI_low", "CI_high")])
     colnames(res)[1] <- "log_Risk_ratio"
@@ -256,19 +273,23 @@ riskratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
 #' @importFrom stats complete.cases prop.test
 cohens_g <- function(x, y = NULL, ci = 0.95, ...) {
   if (!is.matrix(x)) {
-    if (is.null(y))
+    if (is.null(y)) {
       stop("if 'x' is not a matrix, 'y' must be given")
-    if (length(x) != length(y))
+    }
+    if (length(x) != length(y)) {
       stop("'x' and 'y' must have the same length")
+    }
     OK <- stats::complete.cases(x, y)
     x <- as.factor(x[OK])
     y <- as.factor(y[OK])
-    if ((nlevels(x) < 2) || (nlevels(y) != nlevels(x)))
+    if ((nlevels(x) < 2) || (nlevels(y) != nlevels(x))) {
       stop("'x' and 'y' must have the same number of levels (minimum 2)")
+    }
     x <- table(x, y)
   } else {
-    if ((nrow(x) < 2) || (ncol(x) != nrow(x)))
+    if ((nrow(x) < 2) || (ncol(x) != nrow(x))) {
       stop("'x' must be square with at least two rows and columns")
+    }
   }
 
 
@@ -284,9 +305,11 @@ cohens_g <- function(x, y = NULL, ci = 0.95, ...) {
     n <- sum(b) + sum(c)
     k <- P * n
 
-    res <- stats::prop.test(k, n, p = 0.5,
-                            conf.level = ci,
-                            correct = FALSE)
+    res <- stats::prop.test(k, n,
+      p = 0.5,
+      conf.level = ci,
+      correct = FALSE
+    )
 
     out$CI <- ci
     out$CI_low <- res$conf.int[1] - 0.5
@@ -301,5 +324,5 @@ cohens_g <- function(x, y = NULL, ci = 0.95, ...) {
 
 #' @keywords internal
 .chisq <- function(Obs, Exp) {
-  sum(((Obs - Exp) ^ 2) / Exp)
+  sum(((Obs - Exp)^2) / Exp)
 }

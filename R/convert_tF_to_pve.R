@@ -63,7 +63,7 @@
 #'   df_error = c(18, 9, 18)
 #' ))
 #'
-#' if(require(see)) plot(etas)
+#' if (require(see)) plot(etas)
 #'
 #'
 #' if (require("lmerTest")) { # for the df_error
@@ -147,11 +147,13 @@ t_to_omega2 <- function(t, df_error, ci = 0.9, ...) {
 #' @rdname F_to_eta2
 #' @param squared Return Cohen's *f* or Cohen's *f*-squared?
 #' @export
-F_to_f <- function(f, df, df_error, ci = 0.9, squared = FALSE, ...){
+F_to_f <- function(f, df, df_error, ci = 0.9, squared = FALSE, ...) {
   res_eta <- F_to_eta2(f, df, df_error, ci = ci)
 
-  res <- data.frame(Cohens_f2_partial =
-                      res_eta$Eta2_partial / (1 - res_eta$Eta2_partial))
+  res <- data.frame(
+    Cohens_f2_partial =
+      res_eta$Eta2_partial / (1 - res_eta$Eta2_partial)
+  )
 
   if (is.numeric(ci)) {
     res$CI <- res_eta$CI
@@ -172,26 +174,25 @@ F_to_f <- function(f, df, df_error, ci = 0.9, squared = FALSE, ...){
 
 #' @rdname F_to_eta2
 #' @export
-t_to_f <- function(t, df_error, ci = 0.9, squared = FALSE, ...){
+t_to_f <- function(t, df_error, ci = 0.9, squared = FALSE, ...) {
   F_to_f(t^2, 1, df_error, ci = ci, squared = squared)
 }
 
 #' @rdname F_to_eta2
 #' @export
-F_to_f2 <- function(f, df, df_error, ci = 0.9, squared = TRUE, ...){
+F_to_f2 <- function(f, df, df_error, ci = 0.9, squared = TRUE, ...) {
   F_to_f(f, df = df, df_error = df_error, ci = ci, squared = squared)
 }
 
 #' @rdname F_to_eta2
 #' @export
-t_to_f2 <- function(t, df_error, ci = 0.9, squared = TRUE, ...){
+t_to_f2 <- function(t, df_error, ci = 0.9, squared = TRUE, ...) {
   F_to_f(t^2, 1, df_error, ci = ci, squared = squared)
 }
 
 
 #' @keywords internal
-.F_to_pve <- function(f, df, df_error, ci = 0.9, es = "eta2"){
-
+.F_to_pve <- function(f, df, df_error, ci = 0.9, es = "eta2") {
   res <- switch(
     tolower(es),
     eta2 = data.frame(Eta2_partial = (f * df) / (f * df + df_error)),
@@ -204,7 +205,7 @@ t_to_f2 <- function(t, df_error, ci = 0.9, squared = TRUE, ...){
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
     # based on MBESS::ci.R2
-    f <- pmax(0,(res[[1]] / df) / ((1 - res[[1]]) / df_error))
+    f <- pmax(0, (res[[1]] / df) / ((1 - res[[1]]) / df_error))
     fs <- t(mapply(.get_ncp_F, f, df, df_error, ci))
 
     # This really is a generic F_to_R2

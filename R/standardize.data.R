@@ -59,10 +59,13 @@ standardize.integer <- standardize.numeric
 #' @export
 standardize.factor <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, verbose = TRUE,
                                force = FALSE, ...) {
-  if (!force) return(x)
+  if (!force) {
+    return(x)
+  }
 
   standardize(as.numeric(x),
-              robust = robust, two_sd = two_sd, weights = weights, verbose = verbose, ...)
+    robust = robust, two_sd = two_sd, weights = weights, verbose = verbose, ...
+  )
 }
 
 
@@ -134,9 +137,9 @@ standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, weights = 
 
   if (!is.null(weights) && is.character(weights)) {
     if (weights %in% colnames(x)) {
-      exclude <- c(exclude,weights)
+      exclude <- c(exclude, weights)
     } else {
-     warning("Could not find weighting column '", weights, "'. Weighting not carried out.")
+      warning("Could not find weighting column '", weights, "'. Weighting not carried out.")
       weights <- NULL
     }
   }
@@ -147,10 +150,11 @@ standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, weights = 
   remove_na <- match.arg(remove_na)
 
   omit <- switch(remove_na,
-                 none = logical(nrow(x)),
-                 selected = rowSums(sapply(x[select], is.na)) > 0,
-                 all = rowSums(sapply(x, is.na)) > 0)
-  x <- x[!omit,,drop = FALSE]
+    none = logical(nrow(x)),
+    selected = rowSums(sapply(x[select], is.na)) > 0,
+    all = rowSums(sapply(x, is.na)) > 0
+  )
+  x <- x[!omit, , drop = FALSE]
 
   if (!is.null(weights) && is.character(weights)) weights <- x[[weights]]
 
@@ -164,11 +168,12 @@ standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, weights = 
   }
 
   x[select] <- lapply(x[select], standardize,
-                      robust = robust,
-                      two_sd = two_sd,
-                      weights = weights,
-                      verbose = FALSE,
-                      force = force)
+    robust = robust,
+    two_sd = two_sd,
+    weights = weights,
+    verbose = FALSE,
+    force = force
+  )
 
   attr(x, "center") <- sapply(x[select], function(z) attributes(z)$center)
   attr(x, "scale") <- sapply(x[select], function(z) attributes(z)$scale)
@@ -197,8 +202,10 @@ standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, weights = 
   }
 
   if (is.numeric(weights)) {
-    warning("For grouped data frames, 'weights' must be a character, not a numeric vector.\n",
-            "Ignoring weightings.")
+    warning(
+      "For grouped data frames, 'weights' must be a character, not a numeric vector.\n",
+      "Ignoring weightings."
+    )
     weights <- NULL
   }
 

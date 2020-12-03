@@ -28,7 +28,6 @@ p1 <- 0.7
 
 riskratio_to_oddsratio(RR, p0 = p0)
 oddsratio_to_riskratio(OR, p0 = p0)
-
 }
 \references{
 Grant, R. L. (2014). Converting an odds ratio to a range of plausible relative risks for better communication of research findings. Bmj, 348, f7450.

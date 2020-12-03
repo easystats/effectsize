@@ -50,7 +50,6 @@
 #' res <- with(sleep, t.test(extra[group == 1], extra[group == 2], paired = TRUE))
 #' t_to_d(t = res$statistic, res$parameter, paired = TRUE)
 #' t_to_r(t = res$statistic, res$parameter)
-#'
 #' \donttest{
 #' ## Linear Regression
 #' model <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
@@ -59,11 +58,11 @@
 #'
 #' (rs <- t_to_r(param_tab$t[2:3], param_tab$df_error[2:3]))
 #'
-#' if(require(see)) plot(rs)
+#' if (require(see)) plot(rs)
 #'
 #' # How does this compare to actual partial correlations?
 #' if (require("correlation")) {
-#'   correlation::correlation(iris[,1:3], partial = TRUE)[1:2, c(2,3,7,8)]
+#'   correlation::correlation(iris[, 1:3], partial = TRUE)[1:2, c(2, 3, 7, 8)]
 #' }
 #'
 #' ## Use with emmeans based contrasts (see also t_to_eta2)
@@ -72,7 +71,7 @@
 #'
 #'
 #'   # Also see emmeans::eff_size()
-#'   em_tension <- emmeans(warp.lm,  ~ tension)#'
+#'   em_tension <- emmeans(warp.lm, ~tension) #'
 #'   diff_tension <- summary(pairs(em_tension))
 #'   t_to_d(diff_tension$t.ratio, diff_tension$df)
 #' }
@@ -87,18 +86,19 @@
 #'
 #' @export
 t_to_r <- function(t, df_error, ci = 0.95, ...) {
-
   res <- data.frame(r = t / sqrt(t^2 + df_error))
 
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
 
-    ts <- t(mapply(.get_ncp_t,
-                   t, df_error, ci))
+    ts <- t(mapply(
+      .get_ncp_t,
+      t, df_error, ci
+    ))
 
-    res$CI_low <- ts[,1] / sqrt(ts[,1]^2 + df_error)
-    res$CI_high <- ts[,2] / sqrt(ts[,2]^2 + df_error)
+    res$CI_low <- ts[, 1] / sqrt(ts[, 1]^2 + df_error)
+    res$CI_high <- ts[, 2] / sqrt(ts[, 2]^2 + df_error)
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
@@ -113,7 +113,6 @@ t_to_r <- function(t, df_error, ci = 0.95, ...) {
 #' @importFrom stats qnorm
 #' @export
 z_to_r <- function(z, n, ci = 0.95, ...) {
-
   res <- data.frame(r = z / sqrt(z^2 + n))
 
   if (is.numeric(ci)) {
@@ -126,8 +125,8 @@ z_to_r <- function(z, n, ci = 0.95, ...) {
     qs <- stats::qnorm(probs)
     zs <- cbind(qs[1] + z, qs[2] + z)
 
-    res$CI_low <- zs[,1] / sqrt(zs[,1]^2 + n)
-    res$CI_high <- zs[,2] / sqrt(zs[,2]^2 + n)
+    res$CI_low <- zs[, 1] / sqrt(zs[, 1]^2 + n)
+    res$CI_high <- zs[, 2] / sqrt(zs[, 2]^2 + n)
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
@@ -144,7 +143,3 @@ F_to_r <- function(f, df, df_error, ci = 0.95, ...) {
   }
   t_to_r(sqrt(f), df_error = df_error, ci = ci)
 }
-
-
-
-

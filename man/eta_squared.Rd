@@ -173,7 +173,7 @@ epsilon_squared(model)
 cohens_f(model)
 (etas <- eta_squared(model, partial = FALSE))
 
-if(require(see)) plot(etas)
+if (require(see)) plot(etas)
 
 model0 <- aov(mpg ~ am_f + cyl_f, data = mtcars) # no interaction
 cohens_f_squared(model0, model2 = model)
@@ -196,8 +196,9 @@ if (require(car, quietly = TRUE)) {
 # afex takes care of both type-3 effects and effects coding:
 if (require(afex)) {
   data(obk.long, package = "afex")
-  model <- aov_car(value ~ treatment * gender + Error(id/(phase)),
-                   data = obk.long, observed = "gender")
+  model <- aov_car(value ~ treatment * gender + Error(id / (phase)),
+    data = obk.long, observed = "gender"
+  )
   eta_squared(model)
   epsilon_squared(model)
   omega_squared(model)
@@ -212,7 +213,7 @@ if (require(afex)) {
 ## Approx. effect sizes for mixed models
 ## -------------------------------------
 if (require(lmerTest, quietly = TRUE)) {
-  model <- lmer(mpg ~ am_f * cyl_f + (1|vs), data = mtcars)
+  model <- lmer(mpg ~ am_f * cyl_f + (1 | vs), data = mtcars)
   omega_squared(model)
 }
 
@@ -223,18 +224,21 @@ if (require(lmerTest, quietly = TRUE)) {
 ## ---------------------
 if (require(rstanarm) && require(bayestestR) && require(car)) {
   fit_bayes <- stan_glm(mpg ~ factor(cyl) * wt + qsec,
-                        data = mtcars,
-                        family = gaussian(),
-                        refresh = 0)
+    data = mtcars,
+    family = gaussian(),
+    refresh = 0
+  )
 
   es <- eta_squared_posterior(fit_bayes,
-                              ss_function = car::Anova, type = 3)
+    ss_function = car::Anova, type = 3
+  )
   bayestestR::describe_posterior(es)
 
 
   # compare to:
   fit_freq <- lm(mpg ~ factor(cyl) * wt + qsec,
-                 data = mtcars)
+    data = mtcars
+  )
   aov_table <- car::Anova(fit_freq, type = 3)
   eta_squared(aov_table)
 }

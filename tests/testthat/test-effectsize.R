@@ -22,11 +22,13 @@ if (require("testthat") && require("effectsize")) {
       as.table(rbind(c(760, 330, 470), c(480, 240, 480), c(480, 240, 480)))
 
     Xsq1 <- chisq.test(contingency_table)
-    Xsq2 <- chisq.test(contingency_table/10)
+    Xsq2 <- chisq.test(contingency_table / 10)
 
     testthat::expect_equal(effectsize(Xsq1)$Cramers_v, 0.073, tolerance = 0.01)
-    testthat::expect_equal(effectsize(Xsq1)$Cramers_v,
-                           effectsize(Xsq2)$Cramers_v)
+    testthat::expect_equal(
+      effectsize(Xsq1)$Cramers_v,
+      effectsize(Xsq2)$Cramers_v
+    )
 
     Xsq3 <- chisq.test(table(mtcars$cyl))
     testthat::expect_equal(effectsize(Xsq3)$Cramers_v, 0.19, tolerance = 0.01)
@@ -36,18 +38,26 @@ if (require("testthat") && require("effectsize")) {
     )
 
     # types
-    testthat::expect_equal(effectsize(Xsq1, type = "phi"),
-                           phi(contingency_table))
-    testthat::expect_equal(effectsize(Xsq1, type = "w"),
-                           cohens_w(contingency_table))
+    testthat::expect_equal(
+      effectsize(Xsq1, type = "phi"),
+      phi(contingency_table)
+    )
+    testthat::expect_equal(
+      effectsize(Xsq1, type = "w"),
+      cohens_w(contingency_table)
+    )
 
     testthat::expect_error(effectsize(Xsq1, type = "riskratio"))
-    contingency_table22 <- contingency_table[1:2,1:2]
+    contingency_table22 <- contingency_table[1:2, 1:2]
     Xsq4 <- chisq.test(contingency_table22)
-    testthat::expect_equal(effectsize(Xsq4, type = "oddsratio"),
-                           oddsratio(contingency_table22))
-    testthat::expect_equal(effectsize(Xsq4, type = "riskratio"),
-                           riskratio(contingency_table22))
+    testthat::expect_equal(
+      effectsize(Xsq4, type = "oddsratio"),
+      oddsratio(contingency_table22)
+    )
+    testthat::expect_equal(
+      effectsize(Xsq4, type = "riskratio"),
+      riskratio(contingency_table22)
+    )
   })
 
   test_that("cor.test", {
@@ -74,12 +84,15 @@ if (require("testthat") && require("effectsize")) {
     onew <- oneway.test(mpg ~ cyl, mtcars, var.equal = TRUE)
     m <- aov(mpg ~ cyl, mtcars)
 
-    testthat::expect_equal(eta_squared(m, partial = FALSE)[,-1], effectsize(onew),
-                           tolerance = 0.03, ignore_attr = TRUE)
-    testthat::expect_equal(omega_squared(m, partial = FALSE)[,-1], effectsize(onew, type = "omega"),
-                           tolerance = 0.03, ignore_attr = TRUE)
-    testthat::expect_equal(cohens_f(m, partial = FALSE)[,-1], effectsize(onew, type = "f"),
-                           tolerance = 0.03, ignore_attr = TRUE)
+    testthat::expect_equal(eta_squared(m, partial = FALSE)[, -1], effectsize(onew),
+      tolerance = 0.03, ignore_attr = TRUE
+    )
+    testthat::expect_equal(omega_squared(m, partial = FALSE)[, -1], effectsize(onew, type = "omega"),
+      tolerance = 0.03, ignore_attr = TRUE
+    )
+    testthat::expect_equal(cohens_f(m, partial = FALSE)[, -1], effectsize(onew, type = "f"),
+      tolerance = 0.03, ignore_attr = TRUE
+    )
   })
 
 

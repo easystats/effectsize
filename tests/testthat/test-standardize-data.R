@@ -24,13 +24,13 @@ if (require("testthat") && require("effectsize")) {
     x <- standardize(iris)
     testthat::expect_equal(mean(x$Sepal.Length), 0, tolerance = 0.01)
     testthat::expect_length(levels(x$Species), 3)
-    testthat::expect_equal(mean(subset(x, Species == 'virginica')$Sepal.Length), 0.90, tolerance = 0.01)
+    testthat::expect_equal(mean(subset(x, Species == "virginica")$Sepal.Length), 0.90, tolerance = 0.01)
 
     testthat::skip_if_not_installed("dplyr")
     x <- standardize(dplyr::group_by(iris, Species))
     testthat::expect_equal(mean(x$Sepal.Length), 0, tolerance = 0.01)
     testthat::expect_length(levels(x$Species), 3)
-    testthat::expect_equal(mean(subset(x, Species == 'virginica')$Sepal.Length), 0, tolerance = 0.01)
+    testthat::expect_equal(mean(subset(x, Species == "virginica")$Sepal.Length), 0, tolerance = 0.01)
   })
 
 
@@ -65,9 +65,11 @@ if (require("testthat") && require("effectsize")) {
     iris$Sepal.Length[sample(1:150, 10)] <- NA
 
     x <- standardize(iris, append = TRUE)
-    testthat::expect_equal(colnames(x), c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width",
-                                          "Species", "Sepal.Length_z", "Sepal.Width_z", "Petal.Length_z",
-                                          "Petal.Width_z"))
+    testthat::expect_equal(colnames(x), c(
+      "Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width",
+      "Species", "Sepal.Length_z", "Sepal.Width_z", "Petal.Length_z",
+      "Petal.Width_z"
+    ))
     testthat::expect_equal(head(x$Sepal.Length_z), c(-0.9163, -1.1588, -1.4013, -1.5226, -1.0376, -0.5526), tolerance = 0.01)
     testthat::expect_equal(head(x$Sepal.Width_z), c(0.9965, -0.1377, 0.316, 0.0891, 1.2233, 1.9038), tolerance = 0.01)
     testthat::expect_equal(mean(x$Sepal.Length_z), as.numeric(NA))
@@ -90,14 +92,20 @@ if (require("testthat") && require("effectsize")) {
     x <- rexp(30)
     w <- rpois(30, 20) + 1
 
-    expect_equal(sqrt(cov.wt(cbind(x,x), w)$cov[1,1]),
-                 attr(standardize(x, weights = w),"scale"))
-    expect_equal(standardize(x, weights = w),
-                 standardize(data.frame(x), weights = w)$x)
+    expect_equal(
+      sqrt(cov.wt(cbind(x, x), w)$cov[1, 1]),
+      attr(standardize(x, weights = w), "scale")
+    )
+    expect_equal(
+      standardize(x, weights = w),
+      standardize(data.frame(x), weights = w)$x
+    )
 
     # name and vector give same results
-    expect_equal(standardize(mtcars, exclude = "cyl", weights = mtcars$cyl),
-                 standardize(mtcars, weights = "cyl"))
+    expect_equal(
+      standardize(mtcars, exclude = "cyl", weights = mtcars$cyl),
+      standardize(mtcars, weights = "cyl")
+    )
 
     testthat::skip_if_not_installed("dplyr")
     d <- dplyr::group_by(mtcars, am)

@@ -17,11 +17,26 @@ if (require("testthat") && require("effectsize")) {
     )
     a2 <- 1:11
 
-    testthat::expect_true({cohens_d(a ~ c, data = df); TRUE})
-    testthat::expect_true({cohens_d("a", "c", data = df); TRUE})
-    testthat::expect_true({cohens_d("a", "b", data = df); TRUE})
-    testthat::expect_true({cohens_d(a2, df$b); TRUE})
-    testthat::expect_true({cohens_d(b ~ e, data = df); TRUE})
+    testthat::expect_true({
+      cohens_d(a ~ c, data = df)
+      TRUE
+    })
+    testthat::expect_true({
+      cohens_d("a", "c", data = df)
+      TRUE
+    })
+    testthat::expect_true({
+      cohens_d("a", "b", data = df)
+      TRUE
+    })
+    testthat::expect_true({
+      cohens_d(a2, df$b)
+      TRUE
+    })
+    testthat::expect_true({
+      cohens_d(b ~ e, data = df)
+      TRUE
+    })
 
     testthat::expect_error(cohens_d(a ~ b, data = df))
     testthat::expect_error(cohens_d(a ~ d, data = df))
@@ -30,7 +45,6 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_error(cohens_d(a2, df$c))
 
     testthat::expect_warning(cohens_d("b", "e", data = df))
-
   })
 
   test_that("cohens_d - pooled", {

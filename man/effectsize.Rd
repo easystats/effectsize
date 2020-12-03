@@ -89,7 +89,6 @@ effectsize(fit)
 anova_table <- anova(fit)
 effectsize(anova_table)
 effectsize(anova_table, type = "epsilon")
-
 }
 \seealso{
 Other effect size indices: 

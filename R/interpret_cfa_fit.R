@@ -50,7 +50,6 @@
 #'   model <- lavaan::sem(structure, data = PoliticalDemocracy)
 #'   # interpret(model)  # Not working until new performance is up
 #' }
-#'
 #' @references
 #' - Awang, Z. (2012). A handbook on SEM. Structural equation modeling.
 #' - Byrne, B. M. (1994). Structural equation modeling with EQS and EQS/Windows. Thousand Oaks, CA: Sage Publications.
@@ -93,7 +92,7 @@ interpret_nfi <- function(x, rules = "byrne1994") {
     rules,
     list(
       byrne1994 = rules(c(0.90), c("poor", "satisfactory"), name = "byrne1994", right = FALSE),
-      schumacker2004 =  rules(c(0.95), c("poor", "satisfactory"), name = "schumacker2004", right = FALSE)
+      schumacker2004 = rules(c(0.95), c("poor", "satisfactory"), name = "schumacker2004", right = FALSE)
     )
   )
 
@@ -199,97 +198,137 @@ interpret.lavaan <- function(x, ...) {
 
 #' @rdname interpret_gfi
 #' @export
-interpret.performance_lavaan <- function(x, ...){
+interpret.performance_lavaan <- function(x, ...) {
   table <- data.frame(Name = c(), Value = c(), Interpretation = c(), Threshold = c())
 
   # GFI
   if ("GFI" %in% names(x)) {
-    table <- rbind(table,
-                   data.frame(Name = "GFI",
-                              Value = x$GFI,
-                              Interpretation = interpret_gfi(x$GFI),
-                              Threshold = 0.95))
+    table <- rbind(
+      table,
+      data.frame(
+        Name = "GFI",
+        Value = x$GFI,
+        Interpretation = interpret_gfi(x$GFI),
+        Threshold = 0.95
+      )
+    )
   }
 
   # AGFI
   if ("AGFI" %in% names(x)) {
-    table <- rbind(table,
-                   data.frame(Name = "AGFI",
-                              Value = x$AGFI,
-                              Interpretation = interpret_agfi(x$AGFI),
-                              Threshold = 0.90))
+    table <- rbind(
+      table,
+      data.frame(
+        Name = "AGFI",
+        Value = x$AGFI,
+        Interpretation = interpret_agfi(x$AGFI),
+        Threshold = 0.90
+      )
+    )
   }
 
   # NFI
   if ("NFI" %in% names(x)) {
-    table <- rbind(table,
-                   data.frame(Name = "NFI",
-                              Value = x$NFI,
-                              Interpretation = interpret_nfi(x$NFI, rules = "byrne1994"),
-                              Threshold = 0.90))
+    table <- rbind(
+      table,
+      data.frame(
+        Name = "NFI",
+        Value = x$NFI,
+        Interpretation = interpret_nfi(x$NFI, rules = "byrne1994"),
+        Threshold = 0.90
+      )
+    )
   }
 
   # NNFI
   if ("NNFI" %in% names(x)) {
-    table <- rbind(table,
-                   data.frame(Name = "NNFI",
-                              Value = x$NNFI,
-                              Interpretation = interpret_nnfi(x$NNFI, rules = "byrne1994"),
-                              Threshold = 0.90))
+    table <- rbind(
+      table,
+      data.frame(
+        Name = "NNFI",
+        Value = x$NNFI,
+        Interpretation = interpret_nnfi(x$NNFI, rules = "byrne1994"),
+        Threshold = 0.90
+      )
+    )
   }
 
   # CFI
   if ("CFI" %in% names(x)) {
-    table <- rbind(table,
-                   data.frame(Name = "CFI",
-                              Value = x$CFI,
-                              Interpretation = interpret_cfi(x$CFI),
-                              Threshold = 0.90))
+    table <- rbind(
+      table,
+      data.frame(
+        Name = "CFI",
+        Value = x$CFI,
+        Interpretation = interpret_cfi(x$CFI),
+        Threshold = 0.90
+      )
+    )
   }
 
   # RMSEA
   if ("RMSEA" %in% names(x)) {
-    table <- rbind(table,
-                   data.frame(Name = "RMSEA",
-                              Value = x$RMSEA,
-                              Interpretation = interpret_rmsea(x$RMSEA),
-                              Threshold = 0.05))
+    table <- rbind(
+      table,
+      data.frame(
+        Name = "RMSEA",
+        Value = x$RMSEA,
+        Interpretation = interpret_rmsea(x$RMSEA),
+        Threshold = 0.05
+      )
+    )
   }
 
   # SRMR
   if ("SRMR" %in% names(x)) {
-    table <- rbind(table,
-                   data.frame(Name = "SRMR",
-                              Value = x$SRMR,
-                              Interpretation = interpret_srmr(x$SRMR),
-                              Threshold = 0.08))
+    table <- rbind(
+      table,
+      data.frame(
+        Name = "SRMR",
+        Value = x$SRMR,
+        Interpretation = interpret_srmr(x$SRMR),
+        Threshold = 0.08
+      )
+    )
   }
 
   # RFI
   if ("RFI" %in% names(x)) {
-    table <- rbind(table,
-                   data.frame(Name = "RFI",
-                              Value = x$RFI,
-                              Interpretation = interpret_rfi(x$RFI),
-                              Threshold = 0.90))
+    table <- rbind(
+      table,
+      data.frame(
+        Name = "RFI",
+        Value = x$RFI,
+        Interpretation = interpret_rfi(x$RFI),
+        Threshold = 0.90
+      )
+    )
   }
 
   # IFI
   if ("IFI" %in% names(x)) {
-    table <- rbind(table,
-                   data.frame(Name = "IFI",
-                              Value = x$IFI,
-                              Interpretation = interpret_ifi(x$IFI),
-                              Threshold = 0.90))
+    table <- rbind(
+      table,
+      data.frame(
+        Name = "IFI",
+        Value = x$IFI,
+        Interpretation = interpret_ifi(x$IFI),
+        Threshold = 0.90
+      )
+    )
   }
 
   # IFI
   if ("PNFI" %in% names(x)) {
-    table <- rbind(table,
-                   data.frame(Name = "PNFI",
-                              Value = x$PNFI,
-                              Interpretation = interpret_pnfi(x$PNFI),
-                              Threshold = 0.50))
+    table <- rbind(
+      table,
+      data.frame(
+        Name = "PNFI",
+        Value = x$PNFI,
+        Interpretation = interpret_pnfi(x$PNFI),
+        Threshold = 0.50
+      )
+    )
   }
 
   table

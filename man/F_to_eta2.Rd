@@ -124,7 +124,7 @@ if (require("afex")) {
   df_error = c(18, 9, 18)
 ))
 
-if(require(see)) plot(etas)
+if (require(see)) plot(etas)
 
 
 if (require("lmerTest")) { # for the df_error

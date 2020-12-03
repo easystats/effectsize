@@ -84,7 +84,6 @@ chisq_to_cramers_v(41.234,
   nrow = nrow(contingency_table),
   ncol = ncol(contingency_table)
 )
-
 }
 \references{
 \itemize{

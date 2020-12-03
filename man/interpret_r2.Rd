@@ -56,7 +56,6 @@ Interpret coefficient of determination (R2)
 \examples{
 interpret_r2(.02)
 interpret_r2(c(.5, .02))
-
 }
 \references{
 \itemize{

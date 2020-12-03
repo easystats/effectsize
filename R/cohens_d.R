@@ -44,7 +44,6 @@
 #' glass_delta(mpg ~ am, data = mtcars)
 #'
 #' print(cohens_d(mpg ~ am, data = mtcars), append_CL = TRUE)
-#'
 #' @references
 #' - Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.
 #' - McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
@@ -131,7 +130,7 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
 
   # Compute index
   if (paired) {
-    o <- stats::complete.cases(x,y)
+    o <- stats::complete.cases(x, y)
     x <- x[o]
     y <- y[o]
 
@@ -162,12 +161,12 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
       } else {
         s1 <- stats::sd(x)
         s2 <- stats::sd(y)
-        s <- sqrt((s1 ^ 2 + s2 ^ 2) / 2)
+        s <- sqrt((s1^2 + s2^2) / 2)
 
-        se1 <- sqrt(s1 ^ 2 / n1)
-        se2 <- sqrt(s2 ^ 2 / n2)
+        se1 <- sqrt(s1^2 / n1)
+        se2 <- sqrt(s2^2 / n2)
         se <- sqrt(se1^2 + se2^2)
-        df <- se ^ 4 / (se1 ^ 4 / (n1 - 1) + se2 ^ 4 / (n2 - 1))
+        df <- se^4 / (se1^4 / (n1 - 1) + se2^4 / (n2 - 1))
       }
     } else if (type == "delta") {
       s <- stats::sd(y)
@@ -245,7 +244,7 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
     trms <- stats::terms(x)
 
     group <- all.vars(stats::delete.response(trms))
-    outcome <- setdiff(all.vars(trms),group)
+    outcome <- setdiff(all.vars(trms), group)
 
     if (!(length(outcome) == 1 & length(group) == 1)) {
       stop("Formula must have the 'outcome ~ group'.", call. = FALSE)
@@ -273,7 +272,8 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
     if (!is.numeric(y)) {
       if (length(unique(y)) > 2) {
         stop("Cannot compute the difference as a factor with more than 2 levels has been provided.",
-             call. = FALSE)
+          call. = FALSE
+        )
       }
       if (length(x) != length(y)) {
         stop("Grouping variable must be the same length.", call. = FALSE)

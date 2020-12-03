@@ -20,15 +20,19 @@ if (require("testthat") && require("effectsize")) {
 
     # difference between stand-methods:
     mt <- mtcars
-    mt$hp_100 <- mt$hp/100
+    mt$hp_100 <- mt$hp / 100
     fit_exp <- lm(mpg ~ exp(hp_100), mt)
     fit_scale1 <- lm(scale(mpg) ~ exp(scale(hp_100)), mt)
     fit_scale2 <- lm(scale(mpg) ~ scale(exp(hp_100)), mt)
-    testthat::expect_equal(standardize_parameters(fit_exp, method = "refit")[2,2],
-                           unname(coef(fit_scale1)[2]))
+    testthat::expect_equal(
+      standardize_parameters(fit_exp, method = "refit")[2, 2],
+      unname(coef(fit_scale1)[2])
+    )
 
-    testthat::expect_equal(standardize_parameters(fit_exp, method = "basic")[2,2],
-                           unname(coef(fit_scale2)[2]))
+    testthat::expect_equal(
+      standardize_parameters(fit_exp, method = "basic")[2, 2],
+      unname(coef(fit_scale2)[2])
+    )
 
     testthat::skip_if_not_installed("insight", minimum_version = "0.10.0")
     d <- data.frame(
@@ -36,12 +40,14 @@ if (require("testthat") && require("effectsize")) {
       group = c(1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2),
       sum = c(0, 5, 10, 15, 20, 0, 20, 25, 45, 50, 0, 5, 10, 15, 20, 0, 20, 25, 45, 50, 0, 5, 10, 15, 20, 0, 20, 25, 45, 50)
     )
-    m <-  lm(log(sum + 1) ~ as.numeric(time) * group, data = d)
+    m <- lm(log(sum + 1) ~ as.numeric(time) * group, data = d)
 
 
     expect_message(out <- standardize(m))
-    expect_equal(coef(m), c(`(Intercept)` = -0.4575, `as.numeric(time)` = 0.5492, group = 0.3379,
-                            `as.numeric(time):group` = 0.15779), tolerance = 0.01)
+    expect_equal(coef(m), c(
+      `(Intercept)` = -0.4575, `as.numeric(time)` = 0.5492, group = 0.3379,
+      `as.numeric(time):group` = 0.15779
+    ), tolerance = 0.01)
   })
 
 
@@ -57,7 +63,7 @@ if (require("testthat") && require("effectsize")) {
     sm <- standardize(m, weights = TRUE)
     sm_data <- insight::get_data(sm)
     sm_data2 <- standardize(mtcars, select = c("mpg", "am", "hp"), weights = "cyl")
-    expect_equal(sm_data[,c("mpg", "am", "hp")], sm_data2[,c("mpg", "am", "hp")])
+    expect_equal(sm_data[, c("mpg", "am", "hp")], sm_data2[, c("mpg", "am", "hp")])
 
 
     # no weights in stding
@@ -67,11 +73,15 @@ if (require("testthat") && require("effectsize")) {
 
     # refit and posthoc should give same results
     stdREFIT <- standardize_parameters(m, method = "refit")
-    expect_equal(stdREFIT[[2]],
-                 standardize_parameters(m, method = "posthoc")[[2]])
+    expect_equal(
+      stdREFIT[[2]],
+      standardize_parameters(m, method = "posthoc")[[2]]
+    )
 
-    expect_equal(stdREFIT[[2]],
-                 standardize_parameters(m, method = "basic")[[2]])
+    expect_equal(
+      stdREFIT[[2]],
+      standardize_parameters(m, method = "basic")[[2]]
+    )
   })
 
 
@@ -86,11 +96,15 @@ if (require("testthat") && require("effectsize")) {
     iris$weight_me[sample(nrow(iris), size = 10)] <- NA
 
     # standardize 2nd data set
-    iris2 <- standardize(iris, select = c("Sepal.Length", "Petal.Width"),
-                         remove_na = "all")
-    iris3 <- standardize(iris, select = c("Sepal.Length", "Petal.Width"),
-                         weights = "weight_me",
-                         remove_na = "selected")
+    iris2 <- standardize(iris,
+      select = c("Sepal.Length", "Petal.Width"),
+      remove_na = "all"
+    )
+    iris3 <- standardize(iris,
+      select = c("Sepal.Length", "Petal.Width"),
+      weights = "weight_me",
+      remove_na = "selected"
+    )
 
 
 
@@ -124,8 +138,9 @@ if (require("testthat") && require("effectsize")) {
 
     testthat::expect_equal(coef(standardize(m2)), coef(standardize(m1)), tolerance = 1e-3)
     testthat::expect_equal(standardize_parameters(m1, method = "basic")[[2]],
-                           standardize_parameters(m2, method = "basic")[[2]],
-                           tolerance = 1e-3)
+      standardize_parameters(m2, method = "basic")[[2]],
+      tolerance = 1e-3
+    )
   })
 
 
@@ -154,13 +169,16 @@ if (require("testthat") && require("effectsize")) {
     d.int <- lm(depress2 ~ treat * job_seek * age + econ_hard + sex, data = jobs)
 
     med1 <- mediation::mediate(b.int, d.int, sims = 200, treat = "treat", mediator = "job_seek")
-    med2 <- mediation::mediate(b.int, d.int, sims = 200, treat = "treat", mediator = "job_seek",
-                               covariates = list(age = mean(jobs$age)))
+    med2 <- mediation::mediate(b.int, d.int,
+      sims = 200, treat = "treat", mediator = "job_seek",
+      covariates = list(age = mean(jobs$age))
+    )
 
     out1 <- summary(standardize(med1))
     testthat::expect_message(out2 <- summary(standardize(med2)))
-    testthat::expect_equal(unlist(out1[c("d0","d1","z0","z1","n0","n1", "tau.coef")]),
-                           unlist(out2[c("d0","d1","z0","z1","n0","n1", "tau.coef")]), tolerance = 0.1)
+    testthat::expect_equal(unlist(out1[c("d0", "d1", "z0", "z1", "n0", "n1", "tau.coef")]),
+      unlist(out2[c("d0", "d1", "z0", "z1", "n0", "n1", "tau.coef")]),
+      tolerance = 0.1
+    )
   })
-
 }
