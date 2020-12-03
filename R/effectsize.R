@@ -213,7 +213,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, ...){
     res <- data.frame(Cohens_d = D)
   } else if (inherits(model@numerator[[1]], "BFcorrelation")) {
     rho <- insight::get_parameters(model)[["rho"]]
-    res <- data.frame(r = rho)
+    res <- data.frame(rho = rho)
   } else if (inherits(model@numerator[[1]], "BFproportion")) {
     p <- as.matrix(BayesFactor::posterior(model, iterations = 4000))[,"p"]
     res <- data.frame(p = p)
