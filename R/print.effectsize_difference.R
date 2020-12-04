@@ -10,26 +10,27 @@ print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
   footer <- caption <- NULL
 
   ## Add footer
-  # note <- NULL
-  # if (any(colnames(x) %in% c("Cohens_d", "Hedges_g"))) {
-  #   note <- c(note, ifelse(attr(x, "pooled_sd"), "Pooled SD", "Unpooled SD"))
-  # }
-  # if (attr(x, "correction")) {
-  #   note <- c(note, "Bias-corrected")
-  # }
-  # if (!is.null(note)) cat(c("\n[",paste0(note, collapse = "; ")), "]\n")
+  if (attr(x, "correction")) {
+    footer <- "Bias-corrected "
+  }
 
-  if (append_CL && any(colnames(x) %in% c("Cohens_d", "Hedges_g"))) {
-    # Common lang
-    cl <- d_to_common_language(x[[any(colnames(x) %in% c("Cohens_d", "Hedges_g"))]])
-    cl <- sapply(cl, function(ff) sprintf("%g%%", round(ff * 100, digits = digits)))
-    cl <- paste(paste0("\n* ", names(cl), ": ", cl), collapse = "")
-
-    footer <- c(cl, "cyan")
+  if (any(colnames(x) %in% c("Cohens_d", "Hedges_g"))) {
+    footer <- paste0(footer,
+                     paste0("Estimate Using ", ifelse(attr(x, "pooled_sd"), "Pooled SD", "Unpooled SD")),
+                     collapse = " ")
+    footer <- c(footer, "cyan")
   }
 
   x <- .print_effectsize_table(x, digits = digits)
   cat(insight::export_table(x, digits = digits, caption = caption, footer = footer))
+
+  if (append_CL && any(colnames(x_orig) %in% c("Cohens_d", "Hedges_g"))) {
+    # Common lang
+    cl <- d_to_common_language(x_orig[[any(colnames(x_orig) %in% c("Cohens_d", "Hedges_g"))]])
+    cl <- lapply(cl, insight::format_value, as_percent = TRUE, digits = digits)
+    cl <- data.frame(cl, check.names = FALSE)
+    cat(insight::export_table(cl, digits = digits, caption = c("\n\n# Common Language Effect Sizes", "blue")))
+  }
 
   invisible(x_orig)
 }

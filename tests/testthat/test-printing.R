@@ -13,7 +13,14 @@ if (require("testthat") && require("effectsize")) {
   test_that("effectsize difference", {
     d <- cohens_d(1:3, c(1,1:3))
     testthat::expect_output(print(d), regexp = "Cohen")
+    testthat::expect_output(print(d), regexp = "Pooled")
     testthat::expect_output(print(d, append_CL = TRUE), regexp = "U3")
+
+    d <- cohens_d(1:3, c(1,1:3), correction = TRUE)
+    testthat::expect_output(print(d), regexp = "Bias-corrected")
+
+    d <- cohens_d(1:3, c(1,1:3), pooled_sd = FALSE)
+    testthat::expect_output(print(d), regexp = "Unpooled")
   })
 
   test_that("equivalence test effectsize", {
