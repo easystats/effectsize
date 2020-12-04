@@ -350,7 +350,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; Speciesversicolor:Petal.Width |               0.46 | [-0.88, 1.80]
 #&gt; Speciesvirginica:Petal.Width  |              -0.26 | [-1.52, 1.01]
 #&gt; <span style='color: #0000BB;'>
-#&gt; # Standardization method: Refit
+#&gt; # Standardization method: refit
 #&gt; </span><span></div><div class='input'><span class='co'># \donttest{</span>
 <span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"posthoc"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
@@ -362,7 +362,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; Speciesversicolor:Petal.Width |               0.46 | [-0.88, 1.80]
 #&gt; Speciesvirginica:Petal.Width  |              -0.26 | [-1.52, 1.01]
 #&gt; </span><span style='color: #0000BB;'>
-#&gt; # Standardization method: Posthoc
+#&gt; # Standardization method: posthoc
 #&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"smart"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
 #&gt; ------------------------------------------------------------------
@@ -373,7 +373,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; Speciesversicolor:Petal.Width |               1.07 | [-2.06, 4.19]
 #&gt; Speciesvirginica:Petal.Width  |              -0.60 | [-3.56, 2.35]
 #&gt; </span><span style='color: #0000BB;'>
-#&gt; # Standardization method: Smart
+#&gt; # Standardization method: smart
 #&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"basic"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
 #&gt; ------------------------------------------------------------------
@@ -384,7 +384,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; Speciesversicolor:Petal.Width |               0.38 | [-0.74, 1.50]
 #&gt; Speciesvirginica:Petal.Width  |              -0.33 | [-1.94, 1.28]
 #&gt; </span><span style='color: #0000BB;'>
-#&gt; # Standardization method: Basic
+#&gt; # Standardization method: basic
 #&gt; </span><span></div><div class='input'>
 <span class='co'># Robust and 2 SD</span>
 <span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, robust <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
@@ -397,7 +397,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; Speciesversicolor:Petal.Width |               0.50 | [-0.96, 1.95]
 #&gt; Speciesvirginica:Petal.Width  |              -0.28 | [-1.65, 1.09]
 #&gt; </span><span style='color: #0000BB;'>
-#&gt; # Standardization method: Refit
+#&gt; # Standardization method: refit
 #&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, two_sd <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
 #&gt; ------------------------------------------------------------------
@@ -408,7 +408,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; Speciesversicolor:Petal.Width |               0.91 | [-1.76, 3.59]
 #&gt; Speciesvirginica:Petal.Width  |              -0.51 | [-3.04, 2.02]
 #&gt; </span><span style='color: #0000BB;'>
-#&gt; # Standardization method: Refit
+#&gt; # Standardization method: refit
 #&gt; </span><span></div><div class='input'>
 
 <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>am</span> <span class='op'>~</span> <span class='va'>cyl</span> <span class='op'>*</span> <span class='va'>mpg</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, family <span class='op'>=</span> <span class='st'>"binomial"</span><span class='op'>)</span>
@@ -420,7 +420,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; mpg         |               2.10 | [-0.19, 5.28]
 #&gt; cyl:mpg     |              -0.36 | [-2.57, 1.54]
 #&gt; </span><span style='color: #0000BB;'>
-#&gt; # Standardization method: Refit
+#&gt; # Standardization method: refit
 #&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"posthoc"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
 #&gt; -------------------------------------------------
@@ -429,7 +429,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; mpg         |               3.36 | [-2.31, 12.59]
 #&gt; cyl:mpg     |              -0.20 | [-1.44,  0.86]
 #&gt; </span><span style='color: #0000BB;'>
-#&gt; # Standardization method: Posthoc
+#&gt; # Standardization method: posthoc
 #&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"basic"</span>, exponentiate <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Parameter   | Odds Ratio (std.) |           95% CI
 #&gt; --------------------------------------------------
@@ -438,7 +438,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; mpg         |             28.80 | [0.10, 2.92e+05]
 #&gt; cyl:mpg     |              0.54 | [0.01,    13.94]
 #&gt; </span><span style='color: #0000BB;'>
-#&gt; # Standardization method: Basic
+#&gt; # Standardization method: basic
 #&gt; </span><span></div><div class='input'><span class='co'># }</span>
 
 <span class='co'># \donttest{</span>
@@ -457,7 +457,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; am          |               0.47 | [ 0.01,  0.93]
 #&gt; vs          |               0.20 | [-0.47,  0.87]
 #&gt; </span><span style='color: #0000BB;'>
-#&gt; # Standardization method: Pseudo
+#&gt; # Standardization method: pseudo
 #&gt; </span><span></div><div class='input'>
 
 

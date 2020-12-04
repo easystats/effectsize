@@ -152,7 +152,7 @@
 &gt; (Intercept)  |          -5.03e-16 | [-0.08, 0.08]
 &gt; Petal.Length |               0.87 | [ 0.79, 0.95]
 &gt; 
-&gt; # Standardization method: Refit</code></pre>
+&gt; # Standardization method: refit</code></pre>
 <p>Standardizing the coefficient of this <em>simple</em> linear regression gives a value of <code>0.87</code>, but did you know that for a simple regression this is actually the <strong>same as a correlation</strong>? Thus, you can eventually apply some (<em>in</em>)famous interpretation guidelines (e.g., Cohen’s rules of thumb).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/parameters/">parameters</a></span><span class="op">)</span>
@@ -179,13 +179,14 @@
 &gt; (Intercept) |              -0.49 | [-0.87, -0.11]
 &gt; amAutomatic |               1.20 | [ 0.60,  1.80]
 &gt; 
-&gt; # Standardization method: Refit</code></pre>
+&gt; # Standardization method: refit</code></pre>
 <p>This linear model suggests that the <em>standardized</em> difference between <em>Manual</em> (the reference level - the model’s intercept) and <em>Automatic</em> is of 1.20 standard deviation of <code>mpg</code> (because the response variable was standardized, right?). Let’s compute the <strong>Cohen’s <em>d</em></strong> between these two levels:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> </code></pre></div>
 <pre><code>&gt; Cohen's d |         95% CI
 &gt; --------------------------
-&gt;     -1.48 | [-2.27, -0.67]</code></pre>
+&gt;     -1.48 | [-2.27, -0.67]
+&gt; Estimate Using Pooled SD</code></pre>
 <p><strong><em>It is larger!</em></strong> Why? How? Both differences should be expressed in units of SD! But which SDs? Different SDs!</p>
 <p>When looking at the difference between groups as a <strong>slope</strong>, the standardized parameter is the difference between the means in <span class="math inline">\(SD_{mpg}\)</span>. That is, the <em>slope</em> between <code>Manual</code> and <code>Automatic</code> is a change of 1.20 <span class="math inline">\(SD_{mpg}\)</span>s.</p>
 <p>However, when looking a the difference as a <strong>distance between two populations</strong>, Cohen’s d is the distance between the means in units of <a href="https://easystats.github.io/effectsize/reference/sd_pooled.html"><strong>pooled SDs</strong></a>. That is, the <em>distance</em> between <code>Manual</code> and <code>Automatic</code> is of 1.48 SDs of <em>each of the groups</em> (here assumed to be equal).</p>
@@ -216,7 +217,7 @@
 &gt; (Intercept) |               0.00 | [0.00, 0.00]
 &gt; amAutomatic |               1.17 | [0.59, 1.76]
 &gt; 
-&gt; # Standardization method: Smart</code></pre>
+&gt; # Standardization method: smart</code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/cohens_d.html">glass_delta</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Glass' delta |         95% CI
@@ -272,7 +273,7 @@
 &gt; age         |               0.04 | [ 0.00, 0.07]
 &gt; seniority   |               0.08 | [ 0.04, 0.12]
 &gt; 
-&gt; # Standardization method: Refit</code></pre>
+&gt; # Standardization method: refit</code></pre>
 <p>They are quite different! It seems then that <strong><em>standardized slopes in multiple linear regressions are not the same a correlations or partial correlations</em></strong> :(</p>
 <p>However, not all hope is lost yet - we can still try and recover the partial correlations from our model, in another way: by converting the <em>t</em>-statistics (and their degrees of freedom, <em>df</em>) into a partial correlation coefficient <em>r</em>.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
@@ -323,7 +324,7 @@
 &gt; age_g(35,45] |               0.10 | [-0.04, 0.23]
 &gt; seniority    |               0.08 | [ 0.04, 0.12]
 &gt; 
-&gt; # Standardization method: Refit</code></pre>
+&gt; # Standardization method: refit</code></pre>
 <p><code>standardize_parameters</code> also has a <code>robust</code> argument (default to <code>FALSE</code>), which enables a <strong>robust standardization of the data</strong>, <em>i.e.</em>, based on the <strong>median</strong> and <strong>MAD</strong> instead of the <strong>mean</strong> and <strong>SD</strong>:</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod</span>, method <span class="op">=</span> <span class="st">"refit"</span>, robust <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
@@ -336,7 +337,7 @@
 &gt; age_g(35,45] |               0.11 | [-0.05,  0.27]
 &gt; seniority    |               0.12 | [ 0.07,  0.18]
 &gt; 
-&gt; # Standardization method: Refit</code></pre>
+&gt; # Standardization method: refit</code></pre>
 <p>Note that since <code>age_g</code> is a factor, it is not numerically standardized, and so it standardized parameter is still not directly comparable to those of numeric variables. To address this, we can set <code>two_sd = TRUE</code>, thereby scaling parameters on 2 SDs (or MADs) of the predictors <span class="citation">(Gelman 2008)</span>.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod</span>, method <span class="op">=</span> <span class="st">"refit"</span>, two_sd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
@@ -349,7 +350,7 @@
 &gt; age_g(35,45] |               0.10 | [-0.04, 0.23]
 &gt; seniority    |               0.16 | [ 0.09, 0.24]
 &gt; 
-&gt; # Standardization method: Refit</code></pre>
+&gt; # Standardization method: refit</code></pre>
 <p><code>effectsize</code> also comes with a helper function that returns the re-fit model, without summarizing it, which can then be used as the original model would:</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod_z</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="va">mod</span>, two_sd <span class="op">=</span> <span class="cn">FALSE</span>, robust <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
@@ -390,7 +391,7 @@
 &gt; age_g(35,45] |               0.10 | [-0.04, 0.23]
 &gt; seniority    |               0.08 | [ 0.04, 0.12]
 &gt; 
-&gt; # Standardization method: Posthoc</code></pre>
+&gt; # Standardization method: posthoc</code></pre>
 </div>
 <div id="smart-standardization-of-models-parameters-with-adjustment-reconnaissance-and-transformation" class="section level3">
 <h3 class="hasAnchor">
@@ -410,7 +411,7 @@
 &gt; age_g(35,45] |               0.10 | [-0.04, 0.23]
 &gt; seniority    |               0.08 | [ 0.04, 0.12]
 &gt; 
-&gt; # Standardization method: Smart</code></pre>
+&gt; # Standardization method: smart</code></pre>
 </div>
 <div id="basic-raw-scaling-of-the-model-frame" class="section level3">
 <h3 class="hasAnchor">
@@ -427,7 +428,7 @@
 &gt; age_g(35,45] |               0.03 | [-0.01, 0.06]
 &gt; seniority    |               0.08 | [ 0.04, 0.12]
 &gt; 
-&gt; # Standardization method: Basic</code></pre>
+&gt; # Standardization method: basic</code></pre>
 </div>
 </div>
 <div id="standardizing-parameters-in-mixed-models" class="section level2">
@@ -447,7 +448,7 @@
 &gt; amAutomatic |               0.47 | [ 0.01,  0.93]
 &gt; vs          |               0.20 | [-0.47,  0.87]
 &gt; 
-&gt; # Standardization method: Pseudo</code></pre>
+&gt; # Standardization method: pseudo</code></pre>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># compare to:</span>
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span>, method <span class="op">=</span> <span class="st">"basic"</span>, df_method <span class="op">=</span> <span class="st">"satterthwaite"</span><span class="op">)</span></code></pre></div>
@@ -458,7 +459,7 @@
 &gt; amAutomatic |               0.25 | [ 0.00,  0.50]
 &gt; vs          |               0.11 | [-0.25,  0.47]
 &gt; 
-&gt; # Standardization method: Basic</code></pre>
+&gt; # Standardization method: basic</code></pre>
 </div>
 <div id="standardizing-parameters-in-generalized-linear-models" class="section level2">
 <h2 class="hasAnchor">
@@ -478,7 +479,7 @@
 &gt; factor(cyl)6 |               0.73 | [-2.04,  3.66]
 &gt; factor(cyl)8 |               0.70 | [-3.13,  4.78]
 &gt; 
-&gt; # Standardization method: Refit</code></pre>
+&gt; # Standardization method: refit</code></pre>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># standardize_parameters(mod_b, method = "posthoc", two_sd = TRUE)</span>
 <span class="co"># standardize_parameters(mod_b, method = "basic")</span></code></pre></div>
@@ -497,7 +498,7 @@
 &gt; factor(cyl)6 |              2.08 | [0.13,    39.04]
 &gt; factor(cyl)8 |              2.02 | [0.04,   119.12]
 &gt; 
-&gt; # Standardization method: Refit</code></pre>
+&gt; # Standardization method: refit</code></pre>
 </div>
 </div>
 <div id="cohens-f" class="section level1">
