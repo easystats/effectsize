@@ -2,27 +2,33 @@
 print.equivalence_test_effectsize <- function(x, digits = 2, ...) {
   x_orig <- x
 
-  ## Title
+  caption <- footer <- subtitle <- NULL
+
+  ## Title (caption)
   if (attr(x, "rule", exact = TRUE) == "cet") {
-    title <- "# Conditional Test for Practical Equivalence\n\n"
+    caption <- "# Conditional Test for Practical Equivalence\n"
   } else {
-    title <- "# Test for Practical Equivalence\n\n"
+    caption <- "# Test for Practical Equivalence\n"
   }
-  insight::print_color(title, "blue")
+  caption <- c(caption, "blue")
 
   ## Rope range
   .rope <- attr(x, "rope", exact = TRUE)
-  cat(sprintf("  ROPE: [%.*f %.*f]\n\n", digits, .rope[1], digits, .rope[2]))
+  subtitle <- sprintf("  ROPE: [%.*f %.*f]", digits, .rope[1], digits, .rope[2])
 
 
   ## ROPE_Equivalence
-  colnames(x)[colnames(x) == "ROPE_Equivalence"] <- "H0"
-
-  print.effectsize_table(x)
-
   if (attr(x, "rule", exact = TRUE) == "bayes") {
-    insight::print_color("\n(Using Bayesian guidlines)\n\n", "green")
+    footer <- c("\n(Using Bayesian guidlines)", "green")
   }
+
+  colnames(x)[colnames(x) == "ROPE_Equivalence"] <- "H0"
+  x <- .print_effectsize_table(x)
+
+
+
+  cat(insight::export_table(x, digits = digits,
+                            caption = caption, footer = footer, subtitle = subtitle))
 
   invisible(x_orig)
 }

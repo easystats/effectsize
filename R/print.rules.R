@@ -8,8 +8,7 @@ print.rules <- function(x, ...) {
   if (length(x$values) == length(x$labels)) {
     df <- data.frame(setNames(as.list(x$values), x$labels), check.names = FALSE)
     df <- cbind("Label " = "Value ", df)
-    insight::print_color(paste0("# Reference values (", name, ")\n\n"), "blue")
-    cat(insight::export_table(df))
+    cat(insight::export_table(df, caption = c(paste0("# Reference values (", name, ")"), "blue")))
   } else {
     if (isTRUE(attr(x, "right"))) {
       gLeft <- " <= "
