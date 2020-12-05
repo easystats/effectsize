@@ -26,7 +26,7 @@ print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
   x <- .print_effectsize_table(x, digits = digits)
   cat(insight::export_table(x, digits = digits, caption = caption, footer = footer))
 
-  if (append_CL && any(colnames(x_orig) %in% c("Cohens_d", "Hedges_g")) && attr(x_orig, "paired")) {
+  if (append_CL && any(colnames(x_orig) %in% c("Cohens_d", "Hedges_g")) && !attr(x_orig, "paired")) {
     # Common lang
     cl <- d_to_common_language(x_orig[[any(colnames(x_orig) %in% c("Cohens_d", "Hedges_g"))]])
     cl <- lapply(cl, insight::format_value, as_percent = TRUE, digits = digits)
