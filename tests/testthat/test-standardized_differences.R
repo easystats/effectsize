@@ -63,12 +63,22 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_equal(x$CI_high, 2.833495, tolerance = 0.001)
   })
 
-  test_that("hedges_g", {
-    x <- hedges_g(wt ~ am, data = mtcars)
+  test_that("hedges_g (and other bias correction things", {
+    x <- hedges_g(wt ~ am, data = mtcars, correction = 1)
     testthat::expect_equal(colnames(x)[1], "Hedges_g")
     testthat::expect_equal(x[[1]], 1.844, tolerance = 0.001)
     testthat::expect_equal(x$CI_low, 1.004, tolerance = 0.001)
     testthat::expect_equal(x$CI_high, 2.664, tolerance = 0.001)
+
+    x <- hedges_g(wt ~ am, data = mtcars, correction = 2)
+    testthat::expect_equal(colnames(x)[1], "Hedges_g")
+    testthat::expect_equal(x[[1]], 1.786, tolerance = 0.001)
+    testthat::expect_equal(x$CI_low, 0.972, tolerance = 0.001)
+    testthat::expect_equal(x$CI_high, 2.579, tolerance = 0.001)
+
+    testthat::expect_warning(hedges_g(wt ~ am, data = mtcars, correction = TRUE))
+    testthat::expect_warning(cohens_d(wt ~ am, data = mtcars, correction = TRUE))
+    testthat::expect_warning(glass_delta(wt ~ am, data = mtcars, correction = TRUE))
   })
 
   test_that("glass_delta", {

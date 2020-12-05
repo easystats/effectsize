@@ -1,24 +1,33 @@
 #' Effect size for differences
 #'
-#' Compute different indices of effect size. For very small sample sizes (n <
-#' 20) Hedges' g is considered as less biased than Cohen's d. For sample sizes >
-#' 20, the results for both statistics are roughly equivalent.
+#' Compute effect size indices for standardized differences: Cohen's *d*,
+#' Hedges' *g* and Glass’s *delta*. (This function returns the **population**
+#' estimate.)
 #' \cr\cr
-#' The Glass’s delta is appropriate if standard deviations are significantly
-#' different between groups, as it uses only the *second* group's standard
-#' deviation.
+#' Both Cohen's *d* and Hedges' *g* are the estimated the standardized
+#' difference between the means of two populations. Hedges' *g* provides a bias
+#' correction to Cohen's *d* for small sample sizes. For sample sizes > 20, the
+#' results for both statistics are roughly equivalent. Glass’s *delta* is
+#' appropriate when the standard deviations are significantly different between
+#' the populations, as it uses only the *second* group's standard deviation.
 #'
 #' @param x A formula, a numeric vector, or a character name of one in `data`.
 #'   (For `print()` the result of one of the standardized difference functions.)
 #' @param y A numeric vector, a grouping (character / factor) vector, a or a
 #'   character  name of one in `data`. Ignored if `x` is a formula.
 #' @param data An optional data frame containing the variables.
-#' @param correction If `TRUE`, applies a correction to make it less biased for
-#'   small samples (McGrath & Meyer, 2006).
+#' @param correction Type of small sample bias correction to apply to produce
+#'   Hedges' *g*. Can be `1` for Hedges and Olkin's original correction
+#'   (default) or `2` for Hunter and Schmidt's correction (see McGrath & Meyer,
+#'   2006).
 #' @param pooled_sd If `TRUE` (default), a [sd_pooled()] is used (assuming equal
 #'   variance). Else the mean SD from both groups is used instead.
 #' @param paired If `TRUE`, the values of `x` and `y` are considered as paired.
 #' @inheritParams chisq_to_phi
+#'
+#' @note The indices here give the population estimated standardized difference.
+#'   Some statistical packages give the sample estimate instead (without
+#'   applying Bessel's correction).
 #'
 #' @details
 #'
@@ -46,24 +55,29 @@
 #' print(cohens_d(mpg ~ am, data = mtcars), append_CL = TRUE)
 #' @references
 #' - Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.
-#' - McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
 #' - Hedges, L. V. & Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.
+#' - Hunter, J. E., & Schmidt, F. L. (2004). Methods of meta-analysis: Correcting error and bias in research findings. Sage.
+#' - McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
 #'
 #' @importFrom stats var model.frame
 #' @export
 cohens_d <- function(x,
                      y = NULL,
                      data = NULL,
-                     correction = FALSE,
                      pooled_sd = TRUE,
                      paired = FALSE,
-                     ci = 0.95) {
+                     ci = 0.95,
+                     correction) {
+  if (!missing(correction)) {
+    warning("`correction` argument is deprecated. To apply bias correction, use `hedges_g()`.",
+            call. = FALSE, immediate. = TRUE)
+  }
+
   .effect_size_difference(
     x,
     y = y,
     data = data,
     type = "d",
-    correction = correction,
     pooled_sd = pooled_sd,
     paired = paired,
     ci = ci
@@ -75,10 +89,16 @@ cohens_d <- function(x,
 hedges_g <- function(x,
                      y = NULL,
                      data = NULL,
-                     correction = FALSE,
+                     correction = 1,
                      pooled_sd = TRUE,
                      paired = FALSE,
                      ci = 0.95) {
+  if (isTRUE(correction) || !correction %in% c(1, 2)) {
+    warning("`correction` must be 1 or 2. See ?hedges_g. Setting to 1 for Hedges & Olkin's correction.",
+            call. = FALSE, immediate. = TRUE)
+    correction <- 1
+  }
+
   .effect_size_difference(
     x,
     y = y,
@@ -93,13 +113,17 @@ hedges_g <- function(x,
 
 #' @rdname cohens_d
 #' @export
-glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95) {
+glass_delta <- function(x, y = NULL, data = NULL, ci = 0.95, correction) {
+  if (!missing(correction)) {
+    warning("`correction` argument is deprecated. To apply bias correction, use `hedges_g()`.",
+            call. = FALSE, immediate. = TRUE)
+  }
+
   .effect_size_difference(
     x,
     y = y,
     data = data,
     type = "delta",
-    correction = correction,
     ci = ci
   )
 }
@@ -112,7 +136,7 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
                                     y = NULL,
                                     data = NULL,
                                     type = "d",
-                                    correction = FALSE,
+                                    correction = NULL,
                                     pooled_sd = TRUE,
                                     paired = FALSE,
                                     ci = 0.95) {
@@ -192,25 +216,24 @@ glass_delta <- function(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
 
 
   if (type == "g") {
-    if (paired) {
-      J <- 1 - 3 / (4 * (n - 1) - 1)
-    } else {
-      J <- 1 - 3 / (4 * n - 9)
+    if (correction == 1) {
+      if (paired) {
+        J <- 1 - 3 / (4 * (n - 1) - 1)
+      } else {
+        J <- 1 - 3 / (4 * n - 9)
+      }
+    } else if (correction == 2) {
+      # McGrath & Meyer (2006)
+      J <- ((n - 3) / (n - 2.25)) * sqrt((n - 2) / n)
     }
+
 
     out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] <-
       out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] * J
   }
 
-  # McGrath & Meyer (2006)
-  if (correction) {
-    correction <- ((n - 3) / (n - 2.25)) * sqrt((n - 2) / n)
-
-    out[, colnames(out) %in% c(types, "CI_low", "CI_high")] <-
-      out[, colnames(out) %in% c(types, "CI_low", "CI_high")] * correction
-  }
-
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
+  attr(out, "paired") <- paired
   attr(out, "correction") <- correction
   attr(out, "pooled_sd") <- pooled_sd
   return(out)

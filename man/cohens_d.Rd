@@ -11,23 +11,23 @@ cohens_d(
   x,
   y = NULL,
   data = NULL,
-  correction = FALSE,
   pooled_sd = TRUE,
   paired = FALSE,
-  ci = 0.95
+  ci = 0.95,
+  correction
 )
 
 hedges_g(
   x,
   y = NULL,
   data = NULL,
-  correction = FALSE,
+  correction = 1,
   pooled_sd = TRUE,
   paired = FALSE,
   ci = 0.95
 )
 
-glass_delta(x, y = NULL, data = NULL, correction = FALSE, ci = 0.95)
+glass_delta(x, y = NULL, data = NULL, ci = 0.95, correction)
 
 \method{print}{effectsize_difference}(x, digits = 2, append_CL = FALSE, ...)
 }
@@ -40,15 +40,17 @@ character  name of one in \code{data}. Ignored if \code{x} is a formula.}
 
 \item{data}{An optional data frame containing the variables.}
 
-\item{correction}{If \code{TRUE}, applies a correction to make it less biased for
-small samples (McGrath & Meyer, 2006).}
-
 \item{pooled_sd}{If \code{TRUE} (default), a \code{\link[=sd_pooled]{sd_pooled()}} is used (assuming equal
 variance). Else the mean SD from both groups is used instead.}
 
 \item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.}
 
 \item{ci}{Confidence Interval (CI) level}
+
+\item{correction}{Type of small sample bias correction to apply to produce
+Hedges' \emph{g}. Can be \code{1} for Hedges and Olkin's original correction
+(default) or \code{2} for Hunter and Schmidt's correction (see McGrath & Meyer,
+2006).}
 
 \item{digits}{Number of significant digits.}
 
@@ -61,13 +63,21 @@ Not applicable to Glass' Delta (See \code{\link[=d_to_common_language]{d_to_comm
 A data frame with the effect size(s) and confidence interval(s).
 }
 \description{
-Compute different indices of effect size. For very small sample sizes (n <
-20) Hedges' g is considered as less biased than Cohen's d. For sample sizes >
-20, the results for both statistics are roughly equivalent.
+Compute effect size indices for standardized differences: Cohen's \emph{d},
+Hedges' \emph{g} and Glass’s \emph{delta}. (This function returns the \strong{population}
+estimate.)
 \cr\cr
-The Glass’s delta is appropriate if standard deviations are significantly
-different between groups, as it uses only the \emph{second} group's standard
-deviation.
+Both Cohen's \emph{d} and Hedges' \emph{g} are the estimated the standardized
+difference between the means of two populations. Hedges' \emph{g} provides a bias
+correction to Cohen's \emph{d} for small sample sizes. For sample sizes > 20, the
+results for both statistics are roughly equivalent. Glass’s \emph{delta} is
+appropriate when the standard deviations are significantly different between
+the populations, as it uses only the \emph{second} group's standard deviation.
+}
+\note{
+The indices here give the population estimated standardized difference.
+Some statistical packages give the sample estimate instead (without
+applying Bessel's correction).
 }
 \section{Confidence Intervals}{
 Confidence intervals are estimated using the Noncentrality parameter method;
@@ -91,8 +101,9 @@ print(cohens_d(mpg ~ am, data = mtcars), append_CL = TRUE)
 \references{
 \itemize{
 \item Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.
-\item McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
 \item Hedges, L. V. & Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.
+\item Hunter, J. E., & Schmidt, F. L. (2004). Methods of meta-analysis: Correcting error and bias in research findings. Sage.
+\item McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
 }
 }
 \seealso{
