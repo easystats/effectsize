@@ -43,7 +43,9 @@ character  name of one in \code{data}. Ignored if \code{x} is a formula.}
 \item{pooled_sd}{If \code{TRUE} (default), a \code{\link[=sd_pooled]{sd_pooled()}} is used (assuming equal
 variance). Else the mean SD from both groups is used instead.}
 
-\item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.}
+\item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
+This produces an effect size that is equivalent to the one-sample effect
+size on \code{x - y}.}
 
 \item{ci}{Confidence Interval (CI) level}
 

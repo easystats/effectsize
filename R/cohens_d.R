@@ -23,6 +23,8 @@
 #' @param pooled_sd If `TRUE` (default), a [sd_pooled()] is used (assuming equal
 #'   variance). Else the mean SD from both groups is used instead.
 #' @param paired If `TRUE`, the values of `x` and `y` are considered as paired.
+#'   This produces an effect size that is equivalent to the one-sample effect
+#'   size on `x - y`.
 #' @inheritParams chisq_to_phi
 #'
 #' @note The indices here give the population estimated standardized difference.
