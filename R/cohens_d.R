@@ -72,7 +72,8 @@ cohens_d <- function(x,
                      correction) {
   if (!missing(correction)) {
     warning("`correction` argument is deprecated. To apply bias correction, use `hedges_g()`.",
-            call. = FALSE, immediate. = TRUE)
+      call. = FALSE, immediate. = TRUE
+    )
   }
 
   .effect_size_difference(
@@ -97,7 +98,8 @@ hedges_g <- function(x,
                      ci = 0.95) {
   if (isTRUE(correction) || !correction %in% c(1, 2)) {
     warning("`correction` must be 1 or 2. See ?hedges_g. Setting to 1 for Hedges & Olkin's correction.",
-            call. = FALSE, immediate. = TRUE)
+      call. = FALSE, immediate. = TRUE
+    )
     correction <- 1
   }
 
@@ -118,7 +120,8 @@ hedges_g <- function(x,
 glass_delta <- function(x, y = NULL, data = NULL, ci = 0.95, correction) {
   if (!missing(correction)) {
     warning("`correction` argument is deprecated. To apply bias correction, use `hedges_g()`.",
-            call. = FALSE, immediate. = TRUE)
+      call. = FALSE, immediate. = TRUE
+    )
   }
 
   .effect_size_difference(

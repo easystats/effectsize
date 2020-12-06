@@ -15,9 +15,11 @@ print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
   }
 
   if (any(colnames(x) == "Hedges_g")) {
-    correction <- paste0(" - Sample samle bias corrected using ",
-                         ifelse(attr(x, "correction") == 1, "Hedges and Olkin's", "Hunter and Schmidt's"),
-                         " correction.\n")
+    correction <- paste0(
+      " - Sample samle bias corrected using ",
+      ifelse(attr(x, "correction") == 1, "Hedges and Olkin's", "Hunter and Schmidt's"),
+      " correction.\n"
+    )
     footer <- paste0(footer, correction)
   }
 
