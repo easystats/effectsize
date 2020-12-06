@@ -36,9 +36,9 @@ URL: https://easystats.github.io/effectsize/
 BugReports: https://github.com/easystats/effectsize/issues/
 Description: Provide utilities to work with indices of effect size and standardized parameters for a wide variety of models (see support list of insight; Lüdecke, Waggoner & Makowski (2019) <doi:10.21105/joss.01412>), allowing computation and conversion of indices such as Cohen's d, r, odds, etc.
 Depends:
-    R (>= 3.5)
+    R (>= 3.5.2)
 Imports:
-    bayestestR (>= 0.8.0),
+    bayestestR (>= 0.7.5),
     insight (>= 0.11.0),
     parameters (>= 0.10.0),
     stats,
