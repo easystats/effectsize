@@ -12,7 +12,7 @@ if (require("testthat") && require("effectsize")) {
       a = 1:10,
       b = 2:11,
       c = rep(letters[1:2], each = 5),
-      d = sample(letters[1:3], 10, replace = T),
+      d = c("a", "b", "b", "c", "c", "b", "c", "a", "a", "b"),
       e = rep(0:1, each = 5)
     )
     a2 <- 1:11
