@@ -170,6 +170,8 @@
 <a href="#breaking-changes" class="anchor"></a>Breaking Changes</h2>
 <ul>
 <li>
+<code><a href="../reference/cohens_d.html">cohens_d()</a></code> and <code><a href="../reference/cohens_d.html">glass_delta()</a></code>: The <code>correction</code> argument has been deprecated, in favor of it being correctly implemented in <code><a href="../reference/cohens_d.html">hedges_g()</a></code> ( <a href='https://github.com/easystats/effectsize/issues/222'>#222</a> ).</li>
+<li>
 <code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> no longer uses <code><a href="https://rdrr.io/pkg/car/man/Anova.html">car::Anova()</a></code> by default.</li>
 </ul>
 </div>
@@ -200,7 +202,11 @@
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
-<p>Fixed width of CI for Cohen’s d and Hedge’s g when using <em>non</em>-pooled SD.</p>
+<ul>
+<li>
+<code><a href="../reference/cohens_d.html">hedges_g()</a></code> correctly implements the available bias correction methods ( <a href='https://github.com/easystats/effectsize/issues/222'>#222</a> ).</li>
+<li>Fixed width of CI for Cohen’s <em>d</em> and Hedges’ <em>g</em> when using <em>non</em>-pooled SD.</li>
+</ul>
 </div>
 </div>
     <div id="effectsize-040" class="section level1">

@@ -47,13 +47,16 @@
 
 
 <meta property="og:title" content="Effect size for differences — cohens_d" />
-<meta property="og:description" content="Compute different indices of effect size. For very small sample sizes (n &amp;lt;
-20) Hedges' g is considered as less biased than Cohen's d. For sample sizes &amp;gt;
-20, the results for both statistics are roughly equivalent.
+<meta property="og:description" content="Compute effect size indices for standardized differences: Cohen's d,
+Hedges' g and Glass’s delta. (This function returns the population
+estimate.)
 
-The Glass’s delta is appropriate if standard deviations are significantly
-different between groups, as it uses only the second group's standard
-deviation." />
+Both Cohen's d and Hedges' g are the estimated the standardized
+difference between the means of two populations. Hedges' g provides a bias
+correction to Cohen's d for small sample sizes. For sample sizes &amp;gt; 20, the
+results for both statistics are roughly equivalent. Glass’s delta is
+appropriate when the standard deviations are significantly different between
+the populations, as it uses only the second group's standard deviation." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -170,36 +173,39 @@ deviation." />
     </div>
 
     <div class="ref-description">
-    <p>Compute different indices of effect size. For very small sample sizes (n &lt;
-20) Hedges' g is considered as less biased than Cohen's d. For sample sizes &gt;
-20, the results for both statistics are roughly equivalent.
+    <p>Compute effect size indices for standardized differences: Cohen's <em>d</em>,
+Hedges' <em>g</em> and Glass’s <em>delta</em>. (This function returns the <strong>population</strong>
+estimate.)
 <br /><br />
-The Glass’s delta is appropriate if standard deviations are significantly
-different between groups, as it uses only the <em>second</em> group's standard
-deviation.</p>
+Both Cohen's <em>d</em> and Hedges' <em>g</em> are the estimated the standardized
+difference between the means of two populations. Hedges' <em>g</em> provides a bias
+correction to Cohen's <em>d</em> for small sample sizes. For sample sizes &gt; 20, the
+results for both statistics are roughly equivalent. Glass’s <em>delta</em> is
+appropriate when the standard deviations are significantly different between
+the populations, as it uses only the <em>second</em> group's standard deviation.</p>
     </div>
 
     <pre class="usage"><span class='fu'>cohens_d</span><span class='op'>(</span>
   <span class='va'>x</span>,
   y <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
-  correction <span class='op'>=</span> <span class='cn'>FALSE</span>,
   pooled_sd <span class='op'>=</span> <span class='cn'>TRUE</span>,
   paired <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  ci <span class='op'>=</span> <span class='fl'>0.95</span>
+  ci <span class='op'>=</span> <span class='fl'>0.95</span>,
+  <span class='va'>correction</span>
 <span class='op'>)</span>
 
 <span class='fu'>hedges_g</span><span class='op'>(</span>
   <span class='va'>x</span>,
   y <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
-  correction <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  correction <span class='op'>=</span> <span class='fl'>1</span>,
   pooled_sd <span class='op'>=</span> <span class='cn'>TRUE</span>,
   paired <span class='op'>=</span> <span class='cn'>FALSE</span>,
   ci <span class='op'>=</span> <span class='fl'>0.95</span>
 <span class='op'>)</span>
 
-<span class='fu'>glass_delta</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, data <span class='op'>=</span> <span class='cn'>NULL</span>, correction <span class='op'>=</span> <span class='cn'>FALSE</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span><span class='op'>)</span>
+<span class='fu'>glass_delta</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, data <span class='op'>=</span> <span class='cn'>NULL</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>correction</span><span class='op'>)</span>
 
 <span class='co'># S3 method for effectsize_difference</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, digits <span class='op'>=</span> <span class='fl'>2</span>, append_CL <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -222,22 +228,26 @@ character  name of one in <code>data</code>. Ignored if <code>x</code> is a form
       <td><p>An optional data frame containing the variables.</p></td>
     </tr>
     <tr>
-      <th>correction</th>
-      <td><p>If <code>TRUE</code>, applies a correction to make it less biased for
-small samples (McGrath &amp; Meyer, 2006).</p></td>
-    </tr>
-    <tr>
       <th>pooled_sd</th>
       <td><p>If <code>TRUE</code> (default), a <code><a href='sd_pooled.html'>sd_pooled()</a></code> is used (assuming equal
 variance). Else the mean SD from both groups is used instead.</p></td>
     </tr>
     <tr>
       <th>paired</th>
-      <td><p>If <code>TRUE</code>, the values of <code>x</code> and <code>y</code> are considered as paired.</p></td>
+      <td><p>If <code>TRUE</code>, the values of <code>x</code> and <code>y</code> are considered as paired.
+This produces an effect size that is equivalent to the one-sample effect
+size on <code>x - y</code>.</p></td>
     </tr>
     <tr>
       <th>ci</th>
       <td><p>Confidence Interval (CI) level</p></td>
+    </tr>
+    <tr>
+      <th>correction</th>
+      <td><p>Type of small sample bias correction to apply to produce
+Hedges' <em>g</em>. Can be <code>1</code> for Hedges and Olkin's original correction
+(default) or <code>2</code> for Hunter and Schmidt's correction (see McGrath &amp; Meyer,
+2006).</p></td>
     </tr>
     <tr>
       <th>digits</th>
@@ -257,6 +267,11 @@ Not applicable to Glass' Delta (See <code><a href='d_to_common_language.html'>d_
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A data frame with the effect size(s) and confidence interval(s).</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>The indices here give the population estimated standardized difference.
+Some statistical packages give the sample estimate instead (without
+applying Bessel's correction).</p>
     <h2 class="hasAnchor" id="confidence-intervals"><a class="anchor" href="#confidence-intervals"></a>Confidence Intervals</h2>
 
     <p>Confidence intervals are estimated using the Noncentrality parameter method;
@@ -269,8 +284,9 @@ sizes.</p>
     
 <ul>
 <li><p>Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.</p></li>
-<li><p>McGrath, R. E., &amp; Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.</p></li>
 <li><p>Hedges, L. V. &amp; Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.</p></li>
+<li><p>Hunter, J. E., &amp; Schmidt, F. L. (2004). Methods of meta-analysis: Correcting error and bias in research findings. Sage.</p></li>
+<li><p>McGrath, R. E., &amp; Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -287,24 +303,31 @@ sizes.</p>
 </div><div class='output co'>#&gt; Cohen's d |       95% CI
 #&gt; ------------------------
 #&gt;      4.21 | [3.80, 4.61]
-#&gt; <span style='color: #00BBBB;'>Estimate Using Pooled SD</span><span></div><div class='input'><span class='fu'>hedges_g</span><span class='op'>(</span><span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>, data <span class='op'>=</span> <span class='va'>iris</span><span class='op'>)</span>
+#&gt; <span style='color: #00BBBB;'> - Estimate using pooled SD
+#&gt; </span><span></div><div class='input'><span class='fu'>hedges_g</span><span class='op'>(</span><span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>, data <span class='op'>=</span> <span class='va'>iris</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Hedge's g |       95% CI
 #&gt; ------------------------
 #&gt;      4.20 | [3.79, 4.60]
-#&gt; </span><span style='color: #00BBBB;'>Estimate Using Pooled SD</span><span></div><div class='input'>
+#&gt; </span><span style='color: #00BBBB;'> - Estimate using pooled SD
+#&gt;  - Sample samle bias corrected using Hedges and Olkin's correction.
+#&gt; </span><span></div><div class='input'>
 <span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Cohen's d |         95% CI
 #&gt; --------------------------
 #&gt;     -1.48 | [-2.27, -0.67]
-#&gt; </span><span style='color: #00BBBB;'>Estimate Using Pooled SD</span><span></div><div class='input'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, pooled_sd <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+#&gt; </span><span style='color: #00BBBB;'> - Estimate using pooled SD
+#&gt; </span><span></div><div class='input'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, pooled_sd <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Cohen's d |         95% CI
 #&gt; --------------------------
 #&gt;     -1.41 | [-2.17, -0.51]
-#&gt; </span><span style='color: #00BBBB;'>Estimate Using Unpooled SD</span><span></div><div class='input'><span class='fu'>hedges_g</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+#&gt; </span><span style='color: #00BBBB;'> - Estimate using un-pooled SD
+#&gt; </span><span></div><div class='input'><span class='fu'>hedges_g</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Hedge's g |         95% CI
 #&gt; --------------------------
 #&gt;     -1.44 | [-2.21, -0.65]
-#&gt; </span><span style='color: #00BBBB;'>Estimate Using Pooled SD</span><span></div><div class='input'><span class='fu'>glass_delta</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+#&gt; </span><span style='color: #00BBBB;'> - Estimate using pooled SD
+#&gt;  - Sample samle bias corrected using Hedges and Olkin's correction.
+#&gt; </span><span></div><div class='input'><span class='fu'>glass_delta</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Glass' delta |         95% CI
 #&gt; -----------------------------
 #&gt;        -1.17 | [-1.93, -0.40]</div><div class='input'>
@@ -312,7 +335,8 @@ sizes.</p>
 </div><div class='output co'>#&gt; Cohen's d |         95% CI
 #&gt; --------------------------
 #&gt;     -1.48 | [-2.27, -0.67]
-#&gt; </span><span style='color: #00BBBB;'>Estimate Using Pooled SD</span><span style='color: #0000BB;'>
+#&gt; </span><span style='color: #00BBBB;'> - Estimate using pooled SD
+#&gt; </span><span style='color: #0000BB;'>
 #&gt; 
 #&gt; # Common Language Effect Sizes</span><span>
 #&gt; 
