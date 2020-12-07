@@ -437,11 +437,11 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   out
 }
 
-#' @keywords internal
 .anova_es.lm <- .anova_es.aov
 
-#' @keywords internal
 .anova_es.glm <- .anova_es.aov
+
+.anova_es.manova <- .anova_es.aov
 
 #' @keywords internal
 #' @importFrom stats aov
@@ -467,8 +467,6 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 }
 
 .anova_es.maov <- .anova_es.mlm
-
-.anova_es.manova <- .anova_es.aov
 
 #' @keywords internal
 .anova_es.anova <- function(model,
