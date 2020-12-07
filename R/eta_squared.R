@@ -150,6 +150,7 @@
 #'
 #' ## Bayesian Models (PPD)
 #' ## ---------------------
+#' \dontrun{
 #' if (require(rstanarm) && require(bayestestR) && require(car)) {
 #'   fit_bayes <- stan_glm(mpg ~ factor(cyl) * wt + qsec,
 #'     data = mtcars,
@@ -169,6 +170,7 @@
 #'   )
 #'   aov_table <- car::Anova(fit_freq, type = 3)
 #'   eta_squared(aov_table)
+#' }
 #' }
 #' }
 #'
