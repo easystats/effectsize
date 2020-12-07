@@ -27,8 +27,10 @@ print.equivalence_test_effectsize <- function(x, digits = 2, ...) {
 
 
 
-  cat(insight::export_table(x, digits = digits,
-                            caption = caption, footer = footer, subtitle = subtitle))
+  cat(insight::export_table(x,
+    digits = digits,
+    caption = caption, footer = footer, subtitle = subtitle
+  ))
 
   invisible(x_orig)
 }

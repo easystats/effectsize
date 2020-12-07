@@ -28,10 +28,10 @@ print.effectsize_table <- function(x, digits = 2, ...) {
     ci_level <- x$CI[1]
 
     x$CI <- insight::format_ci(x$CI_low,
-                               x$CI_high,
-                               ci = NULL,
-                               digits = digits,
-                               width = "auto"
+      x$CI_high,
+      ci = NULL,
+      digits = digits,
+      width = "auto"
     )
 
     colnames(x)[colnames(x) == "CI"] <- sprintf("%g%% CI", round(ci_level * 100, digits = digits))

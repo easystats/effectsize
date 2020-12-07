@@ -2,6 +2,7 @@
 
 ## Breaking Changes
 
+- `cohens_d()` and `glass_delta()`: The `correction` argument has been deprecated, in favor of it being correctly implemented in `hedges_g()` ( #222 ).
 - `eta_squared_posterior()` no longer uses `car::Anova()` by default.
 
 ## New features
@@ -18,7 +19,8 @@
 
 ## Bug fixes
 
-Fixed width of CI for Cohen's d and Hedge's g when using *non*-pooled SD.
+- `hedges_g()` correctly implements the available bias correction methods ( #222 ).
+- Fixed width of CI for Cohen's *d* and Hedges' *g* when using *non*-pooled SD.
 
 # effectsize 0.4.0
 

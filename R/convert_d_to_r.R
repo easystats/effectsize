@@ -31,7 +31,6 @@
 #' - *OR to d*: \eqn{d = \frac{\log(OR)\times\sqrt{3}}{\pi}}
 #' - *d to OR*: \eqn{log(OR) = d * \frac{\pi}{\sqrt(3)}}
 #'
-#' \cr\cr
 #' The conversion from *d* to *r* assumes equally sized groups. The resulting
 #' *r* is also called the binomial effect size display (BESD; Rosenthal et al.,
 #' 1982).

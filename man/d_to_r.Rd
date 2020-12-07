@@ -82,7 +82,6 @@ Conversions between \emph{OR} and \emph{r} is done through these formulae.
 \item \emph{d to OR}: \eqn{log(OR) = d * \frac{\pi}{\sqrt(3)}}
 }
 
-\cr\cr
 The conversion from \emph{d} to \emph{r} assumes equally sized groups. The resulting
 \emph{r} is also called the binomial effect size display (BESD; Rosenthal et al.,
 1982).
