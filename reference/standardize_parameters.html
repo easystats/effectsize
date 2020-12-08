@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1.1</span>
       </span>
     </div>
 
@@ -221,7 +221,7 @@ outcome) (Gelman, 2008).</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>Toggle warnings on or off.</p></td>
+      <td><p>Toggle warnings and messages on or off.</p></td>
     </tr>
     <tr>
       <th>parameters</th>
@@ -460,7 +460,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 #&gt; # Standardization method: pseudo
 #&gt; </span><span></div><div class='input'>
 
-
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://mc-stan.org/rstanarm/'>"rstanarm"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://mc-stan.org/rstanarm/reference/stan_glm.html'>stan_glm</a></span><span class='op'>(</span><span class='va'>Sepal.Length</span> <span class='op'>~</span> <span class='va'>Species</span> <span class='op'>+</span> <span class='va'>Petal.Width</span>, data <span class='op'>=</span> <span class='va'>iris</span>, refresh <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
   <span class='co'># standardize_posteriors(model, method = "refit")</span>
@@ -468,13 +468,8 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
   <span class='co'># standardize_posteriors(model, method = "smart")</span>
   <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>standardize_posteriors</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"basic"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt;   (Intercept) Speciesversicolor Speciesvirginica Petal.Width
-#&gt; 1           0      -0.002673739     -0.009512045   0.7926555
-#&gt; 2           0      -0.004566494     -0.047064649   0.7686223
-#&gt; 3           0       0.081786046      0.104760637   0.6462490
-#&gt; 4           0       0.037949808      0.037282763   0.7219571
-#&gt; 5           0       0.050840773      0.101072842   0.8304066
-#&gt; 6           0       0.018280829      0.047134855   0.7507167</div><div class='input'><span class='co'># }</span>
+<span class='op'>}</span>
+<span class='co'># }</span>
 
 </div></span></pre>
   </div>
