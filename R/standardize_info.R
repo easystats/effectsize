@@ -303,7 +303,7 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 .std_info_pseudo <- function(model, params, model_matrix, types, robust = FALSE, two_sd = FALSE) {
   if (robust) {
     warning("'robust' standardization not available for 'pseudo' method.",
-      call. = FALSE
+            call. = FALSE
     )
   }
 

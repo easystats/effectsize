@@ -280,7 +280,7 @@ if (require("testthat") && require("effectsize")) {
     )
 
     ## No robust methods... (yet)
-    expect_warning(standardize_parameters(m, method = "pseudo", robust = TRUE))
+    expect_warning(standardize_parameters(m, method = "pseudo", robust = TRUE), regexp = "robust")
 
 
     ## Correctly identify within and between terms
@@ -346,8 +346,8 @@ if (require("testthat") && require("effectsize")) {
     mW <- lme4::lmer(Y ~ X_between + Z_within + C + (1 | ID), dat)
     mM <- lme4::lmer(Y ~ X + Z + C + (1 | ID), dat)
 
-    expect_warning(standardize_parameters(mW, method = "pseudo"), NA)
-    expect_warning(standardize_parameters(mM, method = "pseudo"))
+    expect_warning(standardize_parameters(mW, method = "pseudo"), regexp = NA)
+    expect_warning(standardize_parameters(mM, method = "pseudo"), regexp = "within-group")
   })
 
 

@@ -67,7 +67,7 @@ ranktransform.numeric <- function(x, sign = FALSE, method = "average", verbose =
 
   if (sign) {
     ZEROES <- x == 0
-    if (any(ZEROES)) warning("Zeros detected. These cannot be sign-rank transformed.")
+    if (any(ZEROES) && verbose) warning("Zeros detected. These cannot be sign-rank transformed.")
     out <- rep(NA, length(x))
     out[!ZEROES] <- sign(x[!ZEROES]) * rank(abs(x[!ZEROES]), ties.method = method, na.last = "keep")
   } else {

@@ -91,7 +91,7 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
     })
   }
 
-  if (length(log_terms) > 0 || length(sqrt_terms) > 0) {
+  if (verbose && (length(log_terms) > 0 || length(sqrt_terms) > 0)) {
     message("Formula contains log- or sqrt-terms. See help(\"standardize\") for how such terms are standardized.")
   }
 
@@ -240,7 +240,7 @@ standardize.mediate <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
   #   if (verbose) message("control and treatment values have been rescaled to their standardized scales.")
   # }
 
-  if (!all(c(control.value, treat.value) %in% c(0, 1))) {
+  if (verbose && !all(c(control.value, treat.value) %in% c(0, 1))) {
     warning("control and treat values are not 0 and 1, and have not been re-scaled.",
       "\nInterpret results with caution.",
       call. = FALSE
@@ -282,8 +282,7 @@ standardize.mediate <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
 
 #' @export
 standardize.wbm <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, verbose = TRUE, ...) {
-  warning(paste0("Standardization of parameters not possible for models of class '", class(x)[1], "'."), call. = FALSE)
-  x
+  stop(paste0("Standardization of parameters not possible for models of class '", class(x)[1], "'."), call. = FALSE)
 }
 
 #' @export

@@ -25,9 +25,8 @@ if (require("testthat") && require("effectsize")) {
 
     testthat::expect_warning(
       es_post <- eta_squared_posterior(fit_bayes,
-        verbose = FALSE,
         ss_function = car::Anova, type = 3
-      )
+      ), regexp = "bogus"
     )
     testthat::expect_equal(colnames(es_post), es_tab$Parameter)
 
@@ -50,9 +49,9 @@ if (require("testthat") && require("effectsize")) {
 
     testthat::expect_warning(
       es_post <- eta_squared_posterior(fit_bayes,
-        verbose = FALSE, partial = FALSE,
+        partial = FALSE,
         ss_function = car::Anova, type = 3
-      )
+      ), regexp = "bogus"
     )
     testthat::expect_equal(colnames(es_post), es_tab$Parameter)
 
