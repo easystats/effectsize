@@ -30,7 +30,7 @@
 adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multilevel = FALSE, additive = FALSE, bayesian = FALSE) {
   if (!all(colnames(data) == make.names(colnames(data), unique = TRUE))) {
     warning("Bad column names (e.g., with spaces) have been detected which might create issues in many functions.\n",
-      "Please fix it (you can run `names(mydata) <- make.names(names(mydata))` for an automatic fix).",
+      "Please fix it (you can run `names(mydata) <- make.names(names(mydata))` for a quick fix).",
       call. = FALSE
     )
   }
