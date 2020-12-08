@@ -301,11 +301,9 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 #' @importFrom parameters check_heterogeneity demean
 #' @importFrom stats as.formula sd
 .std_info_pseudo <- function(model, params, model_matrix, types, robust = FALSE, two_sd = FALSE) {
-  if (robust) {
-    warning("'robust' standardization not available for 'pseudo' method.",
-      call. = FALSE
-    )
-  }
+  warning("'robust' standardization not available for 'pseudo' method.",
+          call. = FALSE
+  )
 
   f <- if (two_sd) 2 else 1
 
