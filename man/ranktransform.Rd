@@ -38,7 +38,7 @@ ranktransform(x, ...)
 
 \item{method}{Treatment of ties. Can be one of \code{"average"} (default), \code{"first"}, \code{"last"}, \code{"random"}, \code{"max"} or \code{"min"}. See \code{\link[=rank]{rank()}} for details.}
 
-\item{verbose}{Toggle warnings on or off.}
+\item{verbose}{Toggle warnings and messages on or off.}
 
 \item{select}{Character vector of column names. If \code{NULL} (the default), all
 variables will be selected.}

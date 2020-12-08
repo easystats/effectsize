@@ -17,9 +17,10 @@
 #'   variables are manipulated. Can also be a character vector of observed
 #'   (non-manipulated) variables, in which case generalized Eta Squared is
 #'   calculated taking these observed variables into account. For `afex_aov`
-#'   model, `generalized = TRUE`, the observed variables are extracted
+#'   model, when `generalized = TRUE`, the observed variables are extracted
 #'   automatically from the fitted model, if they were provided then.
 #' @inheritParams chisq_to_phi
+#' @inheritParams standardize
 #' @param ... For Bayesian models, passed to `ss_function`. Otherwise ignored.
 #'
 #' @return
@@ -191,8 +192,9 @@ eta_squared <- function(model,
                         partial = TRUE,
                         generalized = FALSE,
                         ci = 0.9,
+                        verbose = TRUE,
                         ...) {
-  out <- .anova_es(model, type = "eta", partial = partial, generalized = generalized, ci = ci)
+  out <- .anova_es(model, type = "eta", partial = partial, generalized = generalized, ci = ci, verbose = verbose)
   class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
   return(out)
 }
@@ -202,8 +204,9 @@ eta_squared <- function(model,
 omega_squared <- function(model,
                           partial = TRUE,
                           ci = 0.9,
+                          verbose = TRUE,
                           ...) {
-  out <- .anova_es(model, type = "omega", partial = partial, ci = ci)
+  out <- .anova_es(model, type = "omega", partial = partial, ci = ci, verbose = verbose)
   class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
   return(out)
 }
@@ -213,8 +216,9 @@ omega_squared <- function(model,
 epsilon_squared <- function(model,
                             partial = TRUE,
                             ci = 0.9,
+                            verbose = TRUE,
                             ...) {
-  out <- .anova_es(model, type = "epsilon", partial = partial, ci = ci)
+  out <- .anova_es(model, type = "epsilon", partial = partial, ci = ci, verbose = verbose)
   class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
   return(out)
 }
@@ -225,14 +229,16 @@ epsilon_squared <- function(model,
 #'   returns the effect size for R-squared-change between the two models.
 #' @export
 cohens_f <- function(model, partial = TRUE, ci = 0.9, squared = FALSE,
+                     verbose = TRUE,
                      model2 = NULL, ...) {
   if (!is.null(model2)) {
-    return(.cohens_f_delta(model, model2, ci = ci, squared = squared))
+    return(.cohens_f_delta(model, model2, ci = ci, squared = squared, verbose = verbose))
   }
 
   res <- eta_squared(model,
     partial = partial,
-    ci = ci
+    ci = ci,
+    verbose = verbose
   )
 
   if ("Eta2_partial" %in% colnames(res)) {
@@ -263,8 +269,9 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, squared = FALSE,
 #' @rdname eta_squared
 #' @export
 cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
+                             verbose = TRUE,
                              model2 = NULL, ...) {
-  cohens_f(model, partial = partial, ci = ci, squared = squared, model2 = model2)
+  cohens_f(model, partial = partial, ci = ci, squared = squared, verbose = verbose, model2 = model2)
 }
 
 
@@ -277,6 +284,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
            partial = TRUE,
            generalized = FALSE,
            ci = 0.9,
+           verbose = TRUE,
            ...) {
     UseMethod(".anova_es")
   }
@@ -288,13 +296,15 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                               partial = TRUE,
                               generalized = FALSE,
                               ci = 0.9,
+                              verbose = TRUE,
                               ...) {
   .anova_es.anova(
     stats::anova(model),
     type = type,
     partial = partial,
     generalized = generalized,
-    ci = ci
+    ci = ci,
+    verbose = verbose
   )
 }
 
@@ -306,6 +316,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                           partial = TRUE,
                           generalized = FALSE,
                           ci = 0.9,
+                          verbose = TRUE,
                           ...) {
   if (!inherits(model, c("Gam", "anova"))) {
     # Pass to ANOVA table method
@@ -314,7 +325,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       type = type,
       partial = partial,
       generalized = generalized,
-      ci = ci
+      ci = ci,
+      verbose = verbose
     )
     return(res)
   }
@@ -322,7 +334,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   type <- match.arg(type)
 
   params <- as.data.frame(parameters::model_parameters(model))
-  .es_aov(params, type, partial, generalized, ci)
+  .es_aov(params, type, partial, generalized, ci, verbose = verbose)
 }
 
 #' @keywords internal
@@ -331,6 +343,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                     partial = TRUE,
                     generalized = FALSE,
                     ci = 0.9,
+                    verbose = TRUE,
                     ...) {
   params <- params[params$Parameter != "(Intercept)", ]
   if (!"Residuals" %in% params$Parameter) {
@@ -347,11 +360,13 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
   if (nrow(params) == 1L &&
     (partial || isTRUE(generalized) || is.character(generalized))) {
-    txt_type <- ifelse(isTRUE(generalized) || is.character(generalized), "generalized", "partial")
-    message(
-      "For one-way between subjects designs, ", txt_type, " ", type, " squared is equvilant to ", type, " squared.\n",
-      "Returning ", type, " squared."
-    )
+    if (verbose) {
+      txt_type <- ifelse(isTRUE(generalized) || is.character(generalized), "generalized", "partial")
+      message(
+        "For one-way between subjects designs, ", txt_type, " ", type, " squared is equvilant to ", type, " squared.\n",
+        "Returning ", type, " squared."
+      )
+    }
     partial <- FALSE
   }
 
@@ -451,6 +466,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                           partial = TRUE,
                           generalized = FALSE,
                           ci = 0.9,
+                          verbose = TRUE,
                           ...) {
   model <- stats::aov(model)
   params <- as.data.frame(parameters::model_parameters(model))
@@ -459,7 +475,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     type = type,
     partial = partial,
     generalized = generalized,
-    ci = ci
+    ci = ci,
+    verbose = verbose
   )
   out <- do.call("rbind", params)
   rownames(out) <- NULL
@@ -474,6 +491,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                             partial = TRUE,
                             generalized = FALSE,
                             ci = 0.9,
+                            verbose = TRUE,
                             ...) {
   type <- match.arg(type)
   es_fun <- switch(type,
@@ -492,7 +510,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       partial = partial,
       type = type,
       generalized = generalized,
-      ci = ci
+      ci = ci,
+      verbose = verbose
     )
     return(res)
   }
@@ -504,7 +523,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   denDF <- denDF[denDF %in% colnames(model)]
 
 
-  if (!isTRUE(partial)) {
+  if (verbose && !isTRUE(partial)) {
     warning(
       "Currently only supports partial ",
       type,
@@ -513,7 +532,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     )
   }
 
-  if (isTRUE(generalized) || is.character(generalized)) {
+  if (verbose && (isTRUE(generalized) || is.character(generalized))) {
     warning(
       "generalized ", type, " squared ",
       "is not supported for this class of object."
@@ -544,8 +563,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                                        partial = TRUE,
                                        generalized = FALSE,
                                        ci = 0.9,
+                                       verbose = TRUE,
                                        ...) {
-  if (!isTRUE(partial)) {
+  if (verbose && !isTRUE(partial)) {
     warning(
       "Currently only supports partial ",
       type,
@@ -554,7 +574,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     )
   }
 
-  if (isTRUE(generalized) || is.character(generalized)) {
+  if (verbose && (isTRUE(generalized) || is.character(generalized))) {
     warning(
       "generalized ", type, " squared ",
       "is not supported for this class of object."
@@ -617,6 +637,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                               partial = TRUE,
                               generalized = FALSE,
                               ci = 0.9,
+                              verbose = TRUE,
                               ...) {
   type <- match.arg(type)
 
@@ -739,6 +760,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                              partial = TRUE,
                              generalized = FALSE,
                              ci = 0.9,
+                             verbose = TRUE,
                              ...) {
   if (!requireNamespace("lmerTest", quietly = TRUE)) {
     stop(
@@ -759,6 +781,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                           partial = TRUE,
                           generalized = FALSE,
                           ci = 0.9,
+                          verbose = TRUE,
                           ...) {
   type <- match.arg(type)
   es_fun <- switch(type,
@@ -767,7 +790,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     epsilon = F_to_epsilon2
   )
 
-  if (!isTRUE(partial)) {
+  if (verbose && !isTRUE(partial)) {
     warning(
       "Currently only supports partial ",
       type,
@@ -776,7 +799,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     )
   }
 
-  if (isTRUE(generalized) || is.character(generalized)) {
+  if (verbose && (isTRUE(generalized) || is.character(generalized))) {
     warning(
       "generalized ", type, " squared ",
       "is not supported for this class of object."
@@ -806,6 +829,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                                partial = TRUE,
                                generalized = FALSE,
                                ci = 0.9,
+                               verbose = TRUE,
                                ...) {
   type <- match.arg(type)
 
@@ -879,7 +903,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
         type = type,
         partial = FALSE,
         generalized = FALSE,
-        ci = ci
+        ci = ci,
+        verbose = verbose
       )
     return(out)
   }
@@ -894,6 +919,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
         partial = partial,
         generalized = FALSE,
         ci = ci,
+        verbose = verbose
       )
     out <- out[, !colnames(out) == "Group"]
     return(out)
@@ -926,6 +952,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                           partial = TRUE,
                           generalized = FALSE,
                           ci = 0.9,
+                          verbose = TRUE,
                           ...) {
   if (!inherits(model, "anova.rms")) {
     model <- stats::anova(model)
@@ -948,7 +975,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
 #' @keywords internal
 #' @importFrom insight model_info
-.cohens_f_delta <- function(model, model2, ci = 0.9, squared = FALSE) {
+.cohens_f_delta <- function(model, model2, ci = 0.9, squared = FALSE, verbose = TRUE) {
   # check
   if (!inherits(model, "lm") ||
     !inherits(model2, "lm") ||

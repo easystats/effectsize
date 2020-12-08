@@ -41,7 +41,7 @@ avoid zeros and ones in the normalized variables. This can be useful in
 case of beta-regression, where the response variable is not allowed to
 include zeros and ones.}
 
-\item{verbose}{Toggle warnings on or off.}
+\item{verbose}{Toggle warnings and messages on or off.}
 
 \item{select}{Character vector of column names. If \code{NULL} (the default), all
 variables will be selected.}

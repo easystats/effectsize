@@ -38,7 +38,7 @@ change_scale(x, ...)
 
 \item{range}{Initial (old) range of values. If \code{NULL}, will take the range of data.}
 
-\item{verbose}{Toggle warnings on or off.}
+\item{verbose}{Toggle warnings and messages on or off.}
 
 \item{select}{Character vector of column names. If \code{NULL} (the default), all
 variables will be selected.}

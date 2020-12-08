@@ -9,19 +9,35 @@
 \alias{eta_squared_posterior}
 \title{Effect size for ANOVA}
 \usage{
-eta_squared(model, partial = TRUE, generalized = FALSE, ci = 0.9, ...)
+eta_squared(
+  model,
+  partial = TRUE,
+  generalized = FALSE,
+  ci = 0.9,
+  verbose = TRUE,
+  ...
+)
 
-omega_squared(model, partial = TRUE, ci = 0.9, ...)
+omega_squared(model, partial = TRUE, ci = 0.9, verbose = TRUE, ...)
 
-epsilon_squared(model, partial = TRUE, ci = 0.9, ...)
+epsilon_squared(model, partial = TRUE, ci = 0.9, verbose = TRUE, ...)
 
-cohens_f(model, partial = TRUE, ci = 0.9, squared = FALSE, model2 = NULL, ...)
+cohens_f(
+  model,
+  partial = TRUE,
+  ci = 0.9,
+  squared = FALSE,
+  verbose = TRUE,
+  model2 = NULL,
+  ...
+)
 
 cohens_f_squared(
   model,
   partial = TRUE,
   ci = 0.9,
   squared = TRUE,
+  verbose = TRUE,
   model2 = NULL,
   ...
 )
@@ -45,10 +61,12 @@ eta_squared_posterior(
 variables are manipulated. Can also be a character vector of observed
 (non-manipulated) variables, in which case generalized Eta Squared is
 calculated taking these observed variables into account. For \code{afex_aov}
-model, \code{generalized = TRUE}, the observed variables are extracted
+model, when \code{generalized = TRUE}, the observed variables are extracted
 automatically from the fitted model, if they were provided then.}
 
 \item{ci}{Confidence Interval (CI) level}
+
+\item{verbose}{Toggle warnings and messages on or off.}
 
 \item{...}{For Bayesian models, passed to \code{ss_function}. Otherwise ignored.}
 
@@ -64,8 +82,6 @@ for simple linear models.}
 \item{draws}{For Bayesian models, an integer indicating the number of draws
 from the posterior predictive distribution to return. Larger numbers take
 longer to run, but provide estimates that are more stable.}
-
-\item{verbose}{Show messages / warning about centering.}
 }
 \value{
 A data frame with the effect size(s) and confidence interval(s).

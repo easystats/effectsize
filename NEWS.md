@@ -1,5 +1,10 @@
 # effectsize 0.4.1.1
 
+## Changes
+
+- `eta_squared()` family of functions gains a `verbose` argument.
+- `verbose` argument more strictly respected.
+
 # effectsize 0.4.1
 
 ## Breaking Changes

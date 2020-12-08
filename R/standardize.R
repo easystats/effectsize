@@ -22,7 +22,7 @@
 #' - For model: if `TRUE` (default), a weighted-standardization is carried out.
 #' - For `data.frame`s: a numeric vector of weights, or a character of the name of a column in the `data.frame` that contains the weights.
 #' - For numeric vectors: a numeric vector of weights.
-#' @param verbose Toggle warnings on or off.
+#' @param verbose Toggle warnings and messages on or off.
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @return The standardized object (either a standardize data frame or a

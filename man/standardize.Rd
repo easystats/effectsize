@@ -72,7 +72,7 @@ outcome) (Gelman, 2008).}
 \item For numeric vectors: a numeric vector of weights.
 }}
 
-\item{verbose}{Toggle warnings on or off.}
+\item{verbose}{Toggle warnings and messages on or off.}
 
 \item{...}{Arguments passed to or from other methods.}
 

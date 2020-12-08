@@ -4,7 +4,6 @@
 #' @param draws For Bayesian models, an integer indicating the number of draws
 #'   from the posterior predictive distribution to return. Larger numbers take
 #'   longer to run, but provide estimates that are more stable.
-#' @param verbose Show messages / warning about centering.
 #'
 #' @export
 #' @rdname eta_squared
@@ -39,20 +38,24 @@ eta_squared_posterior.stanreg <- function(model,
   }
 
   if (partial && mo_inf$is_mixed) {
-    warning(
-      "Bayesian Partial Eta Squared not supported for mixed models.\n",
-      "Returning Eta Squared instead."
-    )
+    if (verbose) {
+      warning(
+        "Bayesian Partial Eta Squared not supported for mixed models.\n",
+        "Returning Eta Squared instead."
+      )
+    }
     partial <- FALSE
     # would need to account for random effects if present.
     # Too hard right now.
   }
 
   if (!isFALSE(generalized) && mo_inf$is_mixed) {
-    warning(
-      "Bayesian Generalized Eta Squared not supported for mixed models.\n",
-      "Returning Eta Squared instead."
-    )
+    if (verbose) {
+      warning(
+        "Bayesian Generalized Eta Squared not supported for mixed models.\n",
+        "Returning Eta Squared instead."
+      )
+    }
     generalized <- FALSE
   }
 
@@ -62,7 +65,7 @@ eta_squared_posterior.stanreg <- function(model,
   resp_name <- insight::find_response(model)
 
   # test centered predictors
-  .all_centered(X)
+  if (verbose) .all_centered(X)
 
   ## 2. get ppd
   ppd <- rstantools::posterior_predict(model,

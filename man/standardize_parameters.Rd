@@ -45,7 +45,7 @@ model coefficients of continuous parameters comparable to coefficients
 related to binary predictors, when applied to \strong{the predictors} (not the
 outcome) (Gelman, 2008).}
 
-\item{verbose}{Toggle warnings on or off.}
+\item{verbose}{Toggle warnings and messages on or off.}
 
 \item{parameters}{Deprecated.}
 
