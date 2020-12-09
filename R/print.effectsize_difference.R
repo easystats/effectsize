@@ -11,14 +11,14 @@ print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
 
   ## Add footer
   if (any(colnames(x) %in% c("Cohens_d", "Hedges_g"))) {
-    footer <- paste0(" - Estimate using ", ifelse(attr(x, "pooled_sd"), "pooled SD", "un-pooled SD"), "\n")
+    footer <- paste0(" - Estimated using ", ifelse(attr(x, "pooled_sd"), "pooled SD", "un-pooled SD"), "\n")
   }
 
   if (any(colnames(x) == "Hedges_g")) {
     correction <- paste0(
-      " - Sample samle bias corrected using ",
+      " - Bias corrected using ",
       ifelse(attr(x, "correction") == 1, "Hedges and Olkin's", "Hunter and Schmidt's"),
-      " correction.\n"
+      " correction\n"
     )
     footer <- paste0(footer, correction)
   }

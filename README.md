@@ -74,14 +74,14 @@ cohens_d(mpg ~ am, data = mtcars)
 ## Cohen's d |         95% CI
 ## --------------------------
 ##     -1.48 | [-2.27, -0.67]
-##  - Estimate using pooled SD
+##  - Estimated using pooled SD
 
 hedges_g(mpg ~ am, data = mtcars)
 ## Hedge's g |         95% CI
 ## --------------------------
 ##     -1.44 | [-2.21, -0.65]
-##  - Estimate using pooled SD
-##  - Sample samle bias corrected using Hedges and Olkin's correction.
+##  - Estimated using pooled SD
+##  - Bias corrected using Hedges and Olkin's correction
 
 glass_delta(mpg ~ am, data = mtcars)
 ## Glass' delta |         95% CI

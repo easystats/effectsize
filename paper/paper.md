@@ -60,7 +60,7 @@ cohens_d(mpg ~ am, data = mtcars)
 #> Cohen's d |         95% CI
 #> --------------------------
 #>     -1.48 | [-2.27, -0.67]
-#> - Estimate using pooled SD
+#> - Estimated using pooled SD
 
 ```
 
