@@ -55,7 +55,7 @@ Transform numeric values with the integers of their rank (i.e., 1st smallest, 2n
 ranktransform(c(0, 1, 5, -5, -2))
 ranktransform(c(0, 1, 5, -5, -2), sign = TRUE)
 
-head(ranktransform(iris))
+head(ranktransform(trees))
 
 }
 \seealso{

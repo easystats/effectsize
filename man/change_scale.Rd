@@ -55,7 +55,7 @@ Rescale a numeric variable to a new range.
 change_scale(c(0, 1, 5, -5, -2))
 change_scale(c(0, 1, 5, -5, -2), to = c(-5, 5))
 
-head(change_scale(iris))
+head(change_scale(trees))
 }
 \seealso{
 \code{\link[=normalize]{normalize()}} \code{\link[=standardize]{standardize()}} \code{\link[=ranktransform]{ranktransform()}}

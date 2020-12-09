@@ -57,7 +57,7 @@
 #' t_to_r(t = res$statistic, res$parameter)
 #' \donttest{
 #' ## Linear Regression
-#' model <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
+#' model <- lm(rating  ~ complaints + critical, data = attitude)
 #' library(parameters)
 #' (param_tab <- parameters(model))
 #'
@@ -67,7 +67,7 @@
 #'
 #' # How does this compare to actual partial correlations?
 #' if (require("correlation")) {
-#'   correlation::correlation(iris[, 1:3], partial = TRUE)[1:2, c(2, 3, 7, 8)]
+#'   correlation::correlation(attitude[, c(1, 2, 6)], partial = TRUE)[1:2, c(2, 3, 7, 8)]
 #' }
 #'
 #' ## Use with emmeans based contrasts (see also t_to_eta2)

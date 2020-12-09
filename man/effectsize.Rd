@@ -75,7 +75,7 @@ if (require(BayesFactor)) {
   bf1 <- ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
   effectsize(bf1, test = NULL)
 
-  bf2 <- correlationBF(iris$Sepal.Length, iris$Sepal.Width)
+  bf2 <- correlationBF(attitude$rating, attitude$complaints)
   effectsize(bf2, test = NULL)
 
   data(raceDolls)

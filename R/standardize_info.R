@@ -14,7 +14,11 @@
 #' @family standardize
 #'
 #' @examples
-#' model <- lm(Sepal.Width ~ Sepal.Length * Species, data = iris)
+#' model <- lm(mpg ~ ., data = mtcars)
+#' standardize_info(model)
+#' standardize_info(model, robust = TRUE)
+#' standardize_info(model, two_sd = TRUE)
+#'
 #' @importFrom parameters parameters_type
 #' @export
 standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseudo = FALSE, ...) {

@@ -157,18 +157,18 @@ In a fixed-effect linear model, this returns the **partial** correlation. Compar
 
 ```{r}
 
-fit_lm <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris) 
+fit_lm <- lm(rating  ~ complaints + critical, data = attitude)
 
 parameters::model_parameters(fit_lm)
 
-t_to_r(t = c(8.59, 27.57),
-       df_error = 147)
+t_to_r(t = c(7.46, 0.01),
+       df_error = 27)
 ```
 
 to:
 
 ```{r, eval=require(correlation, quietly = TRUE)}
-correlation::correlation(iris[,1:3], partial = TRUE)[1:2, c(1:3,7:8)]
+correlation::correlation(attitude[, c(1, 2, 6)], partial = TRUE)[1:2, c(2, 3,  7, 8)]
 ```
 
 ### In Contrast Analysis

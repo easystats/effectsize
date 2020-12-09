@@ -91,9 +91,8 @@
 #'
 #' @examples
 #' library(effectsize)
-#' data(iris)
 #'
-#' model <- lm(Sepal.Length ~ Species * Petal.Width, data = iris)
+#' model <- lm(len ~ supp * dose, data = ToothGrowth)
 #' standardize_parameters(model, method = "refit")
 #' \donttest{
 #' standardize_parameters(model, method = "posthoc")
@@ -120,10 +119,10 @@
 #'
 #' \dontrun{
 #' if (require("rstanarm")) {
-#'   model <- stan_glm(Sepal.Length ~ Species + Petal.Width, data = iris, refresh = 0)
-#'   # standardize_posteriors(model, method = "refit")
-#'   # standardize_posteriors(model, method = "posthoc")
-#'   # standardize_posteriors(model, method = "smart")
+#'   model <- stan_glm(rating ~ critical + privileges, data = attitude, refresh = 0)
+#'   standardize_posteriors(model, method = "refit")
+#'   standardize_posteriors(model, method = "posthoc")
+#'   standardize_posteriors(model, method = "smart")
 #'   head(standardize_posteriors(model, method = "basic"))
 #' }
 #' }

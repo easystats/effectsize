@@ -51,21 +51,14 @@ Note that a regular correlation between two "adjusted" variables is
 equivalent to the partial correlation between them.
 }
 \examples{
-adjust(iris, effect = "Species", select = "Sepal.Length")
+adjust(attitude)
+adjust(attitude, effect = "complaints", select = "rating")
 \donttest{
 \dontrun{
-adjust(iris, effect = "Species", select = "Sepal.Length", multilevel = TRUE)
-adjust(iris, effect = "Species", select = "Sepal.Length", bayesian = TRUE)
-adjust(iris, effect = "Petal.Width", select = "Sepal.Length", additive = TRUE)
-adjust(iris,
-  effect = "Petal.Width", select = "Sepal.Length",
-  additive = TRUE, bayesian = TRUE
-)
-adjust(iris,
-  effect = c("Petal.Width", "Species"), select = "Sepal.Length",
-  multilevel = TRUE, additive = TRUE
-)
-adjust(iris)
+adjust(attitude, effect = "complaints", select = "rating", bayesian = TRUE)
+adjust(attitude, effect = "complaints", select = "rating", additive = TRUE)
+attitude$complaints_LMH <- cut(attitude$complaints, 3)
+adjust(attitude, effect = "complaints_LMH", select = "rating", multilevel = TRUE)
 }
 }
 
