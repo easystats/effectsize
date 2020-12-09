@@ -160,18 +160,25 @@ more info.
 }
 }
 \section{Confidence Intervals}{
+
 Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best non-central parameters (\code{ncp}s) of the
 noncentral t-, F- or Chi-squared distribution for the desired
 tail-probabilities, and then convert these \code{ncp}s to the corresponding effect
-sizes.
+sizes. (See full \link{effectsize-CIs} for more.)
 }
 
 \section{CI Contains Zero}{
 
-Special care should be taken when interpreting CIs with a lower bound equal
-to (or small then) 0, and even more care should be taken when the \emph{upper}
-bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
+For positive only effect sizes (Eta squared, Cramer's V, etc.; Effect sizes
+associated with Chi-squared and F distributions), special care should be
+taken when interpreting CIs with a lower bound equal to 0, and even more care
+should be taken when the \emph{upper} bound is equal to 0 (Steiger, 2004; Morey et
+al., 2016). For example:\preformatted{eta_squared(aov(mpg ~ factor(gear), mtcars[1:5, ]))
+#> Parameter    | Eta2 |       90\% CI
+#> ----------------------------------
+#> factor(gear) | 0.33 | [0.00, 0.74]
+}
 }
 
 \examples{
@@ -269,7 +276,6 @@ if (require(rstanarm) && require(bayestestR) && require(car)) {
 \item Allen, R. (2017). Statistics and Experimental Design for Psychologists: A Model Comparison Approach. World Scientific Publishing Company.
 \item Carroll, R. M., & Nordholm, L. A. (1975). Sampling Characteristics of Kelley's epsilon and Hays' omega. Educational and Psychological Measurement, 35(3), 541-554.
 \item Kelley, T. (1935) An unbiased correlation ratio measure. Proceedings of the National Academy of Sciences. 21(9). 554-559.
-\item Morey, R. D., Hoekstra, R., Rouder, J. N., Lee, M. D., & Wagenmakers, E. J. (2016). The fallacy of placing confidence in confidence intervals. Psychonomic bulletin & review, 23(1), 103-123.
 \item Olejnik, S., & Algina, J. (2003). Generalized eta and omega squared statistics: measures of effect size for some common research designs. Psychological methods, 8(4), 434.
 \item Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
 }

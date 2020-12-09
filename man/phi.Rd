@@ -78,18 +78,25 @@ See \emph{Confidence Intervals} and \emph{CI Contains Zero} sections for \emph{p
 }
 
 \section{Confidence Intervals}{
+
 Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best non-central parameters (\code{ncp}s) of the
 noncentral t-, F- or Chi-squared distribution for the desired
 tail-probabilities, and then convert these \code{ncp}s to the corresponding effect
-sizes.
+sizes. (See full \link{effectsize-CIs} for more.)
 }
 
 \section{CI Contains Zero}{
 
-Special care should be taken when interpreting CIs with a lower bound equal
-to (or small then) 0, and even more care should be taken when the \emph{upper}
-bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
+For positive only effect sizes (Eta squared, Cramer's V, etc.; Effect sizes
+associated with Chi-squared and F distributions), special care should be
+taken when interpreting CIs with a lower bound equal to 0, and even more care
+should be taken when the \emph{upper} bound is equal to 0 (Steiger, 2004; Morey et
+al., 2016). For example:\preformatted{eta_squared(aov(mpg ~ factor(gear), mtcars[1:5, ]))
+#> Parameter    | Eta2 |       90\% CI
+#> ----------------------------------
+#> factor(gear) | 0.33 | [0.00, 0.74]
+}
 }
 
 \examples{

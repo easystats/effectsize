@@ -76,17 +76,21 @@ results for both statistics are roughly equivalent. Glass’s \emph{delta} is
 appropriate when the standard deviations are significantly different between
 the populations, as it uses only the \emph{second} group's standard deviation.
 }
+\details{
+
+}
 \note{
 The indices here give the population estimated standardized difference.
 Some statistical packages give the sample estimate instead (without
 applying Bessel's correction).
 }
 \section{Confidence Intervals}{
+
 Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best non-central parameters (\code{ncp}s) of the
 noncentral t-, F- or Chi-squared distribution for the desired
 tail-probabilities, and then convert these \code{ncp}s to the corresponding effect
-sizes.
+sizes. (See full \link{effectsize-CIs} for more.)
 }
 
 \examples{

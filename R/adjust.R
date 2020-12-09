@@ -12,6 +12,7 @@
 #' @examples
 #' adjust(iris, effect = "Species", select = "Sepal.Length")
 #' \donttest{
+#' \dontrun{
 #' adjust(iris, effect = "Species", select = "Sepal.Length", multilevel = TRUE)
 #' adjust(iris, effect = "Species", select = "Sepal.Length", bayesian = TRUE)
 #' adjust(iris, effect = "Petal.Width", select = "Sepal.Length", additive = TRUE)
@@ -24,6 +25,7 @@
 #'   multilevel = TRUE, additive = TRUE
 #' )
 #' adjust(iris)
+#' }
 #' }
 #'
 #' @export
