@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Transform a standardized vector into character — format_standardize • effectsize</title>
+<title>Confidence Intervals — effectsize-CIs • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="Transform a standardized vector into character — format_standardize" />
-<meta property="og:description" content="Transform a standardized vector into character, e.g., c(&quot;-1 SD&quot;, &quot;Mean&quot;, &quot;+1 SD&quot;)." />
+<meta property="og:title" content="Confidence Intervals — effectsize-CIs" />
+<meta property="og:description" content="More information regarding Confidence Intervals and how they are computed in
+effectsize." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -158,54 +159,67 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Transform a standardized vector into character</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/format_standardize.R'><code>R/format_standardize.R</code></a></small>
-    <div class="hidden name"><code>format_standardize.Rd</code></div>
+    <h1>Confidence Intervals</h1>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/docs_exta.R'><code>R/docs_exta.R</code></a></small>
+    <div class="hidden name"><code>effectsize-CIs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Transform a standardized vector into character, e.g., <code><a href='https://rdrr.io/r/base/c.html'>c("-1 SD", "Mean", "+1 SD")</a></code>.</p>
+    <p>More information regarding Confidence Intervals and how they are computed in
+<code>effectsize</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>format_standardize</span><span class='op'>(</span><span class='va'>x</span>, reference <span class='op'>=</span> <span class='va'>x</span>, robust <span class='op'>=</span> <span class='cn'>FALSE</span>, digits <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>A standardized numeric vector.</p></td>
-    </tr>
-    <tr>
-      <th>reference</th>
-      <td><p>The reference vector from which to compute the mean and SD.</p></td>
-    </tr>
-    <tr>
-      <th>robust</th>
-      <td><p>Logical, if <code>TRUE</code>, centering is done by subtracting the
-median from the variables and dividing it by the median absolute deviation
-(MAD). If <code>FALSE</code>, variables are standardized by subtracting the
-mean and dividing it by the standard deviation (SD).</p></td>
-    </tr>
-    <tr>
-      <th>digits</th>
-      <td><p>Number of significant digits.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Arguments passed to or from other methods.</p></td>
-    </tr>
-    </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>format_standardize</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] -1 SD Mean  +1 SD
-#&gt; Levels: +1 SD Mean -1 SD</div><div class='input'><span class='fu'>format_standardize</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, reference <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] -1 SD     -3e-03 SD +1 SD     +2 SD    
-#&gt; Levels: +2 SD +1 SD -3e-03 SD -1 SD</div><div class='input'><span class='fu'>format_standardize</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, reference <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1000</span><span class='op'>)</span>, robust <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] -1 MAD    2e-04 MAD +1 MAD    +2 MAD   
-#&gt; Levels: +2 MAD +1 MAD 2e-04 MAD -1 MAD</div></pre>
+    <h2 class="hasAnchor" id="confidence-intervals"><a class="anchor" href="#confidence-intervals"></a>Confidence Intervals</h2>
+
+    
+
+<p>Confidence intervals are estimated using the Noncentrality parameter method;
+These methods searches for a the best non-central parameters (<code>ncp</code>s) of the
+noncentral t-, F- or Chi-squared distribution for the desired
+tail-probabilities, and then convert these <code>ncp</code>s to the corresponding effect
+sizes. (See full effectsize-CIs for more.)</p>
+    <h2 class="hasAnchor" id="ci-contains-zero"><a class="anchor" href="#ci-contains-zero"></a>CI Contains Zero</h2>
+
+    
+
+<p>For positive only effect sizes (Eta squared, Cramer's V, etc.; Effect sizes
+associated with Chi-squared and F distributions), special care should be
+taken when interpreting CIs with a lower bound equal to 0, and even more care
+should be taken when the <em>upper</em> bound is equal to 0 (Steiger, 2004; Morey et
+al., 2016). For example:</p><pre><span class='fu'><a href='eta_squared.html'>eta_squared</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>gear</span><span class='op'>)</span>, <span class='va'>mtcars</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'>#&gt; Parameter    | Eta2 |       90% CI</span>
+<span class='co'>#&gt; ----------------------------------</span>
+<span class='co'>#&gt; factor(gear) | 0.33 | [0.00, 0.74]</span>
+</pre>
+
+    <h2 class="hasAnchor" id="ci-does-not-contain-the-estimate"><a class="anchor" href="#ci-does-not-contain-the-estimate"></a>CI Does Not Contain the Estimate</h2>
+
+    
+
+<p>For very large sample sizes, the width of the CI can be smaller than the
+tolerance of the optimizer, resulting in CIs of width 0. This can also,
+result in the estimated CIs excluding the point estimate. For example:</p><pre><span class='fu'><a href='chisq_to_phi.html'>chisq_to_cramers_v</a></span><span class='op'>(</span><span class='fl'>13223.73</span>, n <span class='op'>=</span> <span class='fl'>76227</span>, nrow <span class='op'>=</span> <span class='fl'>6</span>, ncol <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='co'>#&gt; Cramer's V |       95% CI</span>
+<span class='co'>#&gt; -------------------------</span>
+<span class='co'>#&gt;       0.19 | [0.20, 0.20]</span>
+
+<span class='fu'><a href='t_to_d.html'>t_to_d</a></span><span class='op'>(</span><span class='fl'>80</span>, df_error <span class='op'>=</span> <span class='fl'>4555555</span><span class='op'>)</span>
+<span class='co'>#&gt;    d |       95% CI</span>
+<span class='co'>#&gt; -------------------</span>
+<span class='co'>#&gt; 0.07 | [0.08, 0.08]</span>
+</pre>
+
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    
+<ul>
+<li><p>Morey, R. D., Hoekstra, R., Rouder, J. N., Lee, M. D., &amp; Wagenmakers, E. J. (2016). The fallacy of placing confidence in confidence intervals. Psychonomic bulletin &amp; review, 23(1), 103-123.</p></li>
+<li><p>Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.</p></li>
+</ul>
+
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
