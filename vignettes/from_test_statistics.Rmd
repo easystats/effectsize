@@ -125,7 +125,7 @@ F_to_eta2(45.8, 1, 17)
 We can also use `t_to_eta2()` for the slope of `Days` (which in this case gives the same result).
 
 ```{r}
-model_parameters(fit_lmm, df_method = "satterthwaite")
+parameters::model_parameters(fit_lmm, df_method = "satterthwaite")
 
 t_to_eta2(6.77, df_error = 17)
 ```
@@ -148,7 +148,7 @@ Similar to $\eta^2_p$, $r$ is a signal to noise ratio, and is in fact equal to $
 ### For Slopes
 
 ```{r}
-model_parameters(fit_lmm, df_method = "satterthwaite")
+parameters::model_parameters(fit_lmm, df_method = "satterthwaite")
 
 t_to_r(6.77, df_error = 17)
 ```
@@ -159,7 +159,7 @@ In a fixed-effect linear model, this returns the **partial** correlation. Compar
 
 fit_lm <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris) 
 
-model_parameters(fit_lm)
+parameters::model_parameters(fit_lm)
 
 t_to_r(t = c(8.59, 27.57),
        df_error = 147)
