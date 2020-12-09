@@ -17,11 +17,8 @@
 #' taken when interpreting CIs with a lower bound equal to 0, and even more care
 #' should be taken when the *upper* bound is equal to 0 (Steiger, 2004; Morey et
 #' al., 2016). For example:
-#' ```
-#' eta_squared(aov(mpg ~ factor(gear), mtcars[1:5, ]))
-#' #> Parameter    | Eta2 |       90% CI
-#' #> ----------------------------------
-#' #> factor(gear) | 0.33 | [0.00, 0.74]
+#' ```{r}
+#' eta_squared(aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:7, ]))
 #' ```
 #'
 #'
@@ -29,16 +26,10 @@
 #' For very large sample sizes, the width of the CI can be smaller than the
 #' tolerance of the optimizer, resulting in CIs of width 0. This can also,
 #' result in the estimated CIs excluding the point estimate. For example:
-#' ```
+#' ```{r}
 #' chisq_to_cramers_v(13223.73, n = 76227, nrow = 6, ncol = 1)
-#' #> Cramer's V |       95% CI
-#' #> -------------------------
-#' #>       0.19 | [0.20, 0.20]
 #'
 #' t_to_d(80, df_error = 4555555)
-#' #>    d |       95% CI
-#' #> -------------------
-#' #> 0.07 | [0.08, 0.08]
 #' ```
 #'
 #' @references
