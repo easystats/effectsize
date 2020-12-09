@@ -33,12 +33,7 @@
 #'
 #' @details
 #'
-#' # Confidence Intervals
-#' Confidence intervals are estimated using the Noncentrality parameter method;
-#' These methods searches for a the best non-central parameters (`ncp`s) of the
-#' noncentral t-, F- or Chi-squared distribution for the desired
-#' tail-probabilities, and then convert these `ncp`s to the corresponding effect
-#' sizes.
+#' @inheritSection effectsize-CIs Confidence Intervals
 #'
 #' @return A data frame with the effect size(s) and confidence interval(s).
 #'

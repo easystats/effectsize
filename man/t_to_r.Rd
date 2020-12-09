@@ -65,11 +65,12 @@ estimate Cohen's \emph{d}, with \code{\link[=cohens_d]{cohens_d()}}, \code{\link
 functions.
 }
 \section{Confidence Intervals}{
+
 Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best non-central parameters (\code{ncp}s) of the
 noncentral t-, F- or Chi-squared distribution for the desired
 tail-probabilities, and then convert these \code{ncp}s to the corresponding effect
-sizes.
+sizes. (See full \link{effectsize-CIs} for more.)
 }
 
 \examples{

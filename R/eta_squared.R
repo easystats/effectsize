@@ -80,8 +80,8 @@
 #' effect size in the sample data). See [rstantools::posterior_predict()] for
 #' more info.
 #'
-#' @inheritSection cohens_d Confidence Intervals
-#' @inheritSection chisq_to_phi CI Contains Zero
+#' @inheritSection effectsize-CIs Confidence Intervals
+#' @inheritSection effectsize-CIs CI Contains Zero
 #'
 #'
 #' @seealso [F_to_eta2()]
@@ -183,7 +183,6 @@
 #' - Allen, R. (2017). Statistics and Experimental Design for Psychologists: A Model Comparison Approach. World Scientific Publishing Company.
 #' - Carroll, R. M., & Nordholm, L. A. (1975). Sampling Characteristics of Kelley's epsilon and Hays' omega. Educational and Psychological Measurement, 35(3), 541-554.
 #' - Kelley, T. (1935) An unbiased correlation ratio measure. Proceedings of the National Academy of Sciences. 21(9). 554-559.
-#' - Morey, R. D., Hoekstra, R., Rouder, J. N., Lee, M. D., & Wagenmakers, E. J. (2016). The fallacy of placing confidence in confidence intervals. Psychonomic bulletin & review, 23(1), 103-123.
 #' - Olejnik, S., & Algina, J. (2003). Generalized eta and omega squared statistics: measures of effect size for some common research designs. Psychological methods, 8(4), 434.
 #' - Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
 #'
