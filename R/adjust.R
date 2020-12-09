@@ -1,13 +1,29 @@
 #' Adjust data for the effect of other variable(s)
 #'
-#' This function can be used to adjust the data for the effect of other variables present in the dataset. It is based on an underlying fitting of regressions models, allowing for quite some flexibility, such as including factors as random effects in mixed models (multilevel partialization), continuous variables as smooth terms in general additive models (non-linear partialization) and/or fitting these models under a Bayesian framework. The values returned by this function are the residuals of the regression models. Note that a regular correlation between two "adjusted" variables is equivalent to the partial correlation between them.
+#' This function can be used to adjust the data for the effect of other
+#' variables present in the dataset. It is based on an underlying fitting of
+#' regressions models, allowing for quite some flexibility, such as including
+#' factors as random effects in mixed models (multilevel partialization),
+#' continuous variables as smooth terms in general additive models (non-linear
+#' partialization) and/or fitting these models under a Bayesian framework. The
+#' values returned by this function are the residuals of the regression models.
+#' Note that a regular correlation between two "adjusted" variables is
+#' equivalent to the partial correlation between them.
 #'
 #' @param data A dataframe.
-#' @param effect Character vector of column names to be adjusted for (regressed out). If `NULL` (the default), all variables will be selected.
+#' @param effect Character vector of column names to be adjusted for (regressed
+#'   out). If `NULL` (the default), all variables will be selected.
 #' @inheritParams standardize
-#' @param multilevel If `TRUE`, the factors are included as random factors. Else, if `FALSE` (default), they are included as fixed effects in the simple regression model.
-#' @param additive If `TRUE`, continuous variables as included as smooth terms in additive models. The goal is to regress-out potential non-linear effects.
-#' @param bayesian If `TRUE`, the models are fitted under the Bayesian framework using `rstanarm`.
+#' @param multilevel If `TRUE`, the factors are included as random factors.
+#'   Else, if `FALSE` (default), they are included as fixed effects in the
+#'   simple regression model.
+#' @param additive If `TRUE`, continuous variables as included as smooth terms
+#'   in additive models. The goal is to regress-out potential non-linear
+#'   effects.
+#' @param bayesian If `TRUE`, the models are fitted under the Bayesian framework
+#'   using `rstanarm`.
+#'
+#' @return A data frame comparable to `data`, with adjusted variables.
 #'
 #' @examples
 #' adjust(iris, effect = "Species", select = "Sepal.Length")

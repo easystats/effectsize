@@ -36,6 +36,9 @@ from transformation.}
 
 \item{probs}{Probability values to convert.}
 }
+\value{
+Converted index.
+}
 \description{
 Convert between Odds and Probabilities
 }

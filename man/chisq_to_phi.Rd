@@ -31,7 +31,8 @@ phi_to_chisq(phi, n, ...)
 \item{phi}{The Phi statistic.}
 }
 \value{
-A data frame with the effect size(s) between 0-1, and confidence interval(s).
+A data frame with the effect size(s) between 0-1, and confidence
+interval(s). See \code{\link[=cramers_v]{cramers_v()}}.
 }
 \description{
 Convert between Chi square, (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}) and

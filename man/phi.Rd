@@ -40,7 +40,9 @@ for \code{cohens_g()}.}
 \item{log}{Take in or output the log of the ratio (such as in logistic models).}
 }
 \value{
-A data frame with the effect size(s), and confidence interval(s).
+A data frame with the effect size (\code{Cramers_v}, \code{phi} (possibly with
+the suffix \verb{_adjusted}), \code{Odds_ratio}, \code{Risk_ratio} (possibly with the
+prefix \code{log_}), or \code{Cohens_g}) and its CIs (\code{CI_low} and \code{CI_high}).
 }
 \description{
 Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w} (an alias of phi), Odds

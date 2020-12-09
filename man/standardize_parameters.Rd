@@ -59,9 +59,9 @@ outcome) (Gelman, 2008).}
 }}
 }
 \value{
-A data frame with the standardized parameters and their CIs.
-
-Standardized parameters table.
+A data frame with the standardized parameters (\verb{Std_*}, depending on
+the model type) and their CIs (\code{CI_low} and \code{CI_high}). Where applicable,
+standard errors (SEs) are returned as an attribute (\code{attr(x, "standard_error")}).
 }
 \description{
 Compute standardized model parameters (coefficients).

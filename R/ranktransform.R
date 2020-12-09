@@ -14,6 +14,7 @@
 #' ranktransform(c(0, 1, 5, -5, -2), sign = TRUE)
 #'
 #' head(ranktransform(iris))
+#'
 #' @return A rank-transformed object.
 #'
 #' @family transform utilities

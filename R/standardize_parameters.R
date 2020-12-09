@@ -80,10 +80,14 @@
 #' coefficients (e.g., in a binomial model: the exponent of the standardized
 #' parameter is the OR of a change of 1 SD in the predictor, etc.)
 #'
-#' @return A data frame with the standardized parameters and their CIs.
+#' @return A data frame with the standardized parameters (`Std_*`, depending on
+#'   the model type) and their CIs (`CI_low` and `CI_high`). Where applicable,
+#'   standard errors (SEs) are returned as an attribute (`attr(x,
+#'   "standard_error")`).
 #'
 #' @family standardize
 #' @family effect size indices
+#' @seealso [standardize_info()]
 #'
 #' @examples
 #' library(effectsize)
@@ -124,10 +128,6 @@
 #' }
 #' }
 #' }
-#'
-#' @seealso [standardize_info()]
-#'
-#' @return Standardized parameters table.
 #'
 #' @references
 #' - Hoffman, L. (2015). Longitudinal analysis: Modeling within-person fluctuation and change. Routledge.

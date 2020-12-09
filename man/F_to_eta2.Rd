@@ -51,9 +51,12 @@ t_to_f2(t, df_error, ci = 0.9, squared = TRUE, ...)
 \item{squared}{Return Cohen's \emph{f} or Cohen's \emph{f}-squared?}
 }
 \value{
-A data frame with the effect size(s) between 0-1, and confidence interval(s) (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2}
-it is possible to compute a negative number; even though this doesn't make any practical sense,
-it is recommended to report the negative number and not a 0).
+A data frame with the effect size(s) between 0-1 (\code{Eta2_partial},
+\code{Epsilon2_partial}, \code{Omega2_partial}, \code{Cohens_f_partial} or
+\code{Cohens_f2_partial}), and their CIs (\code{CI_low} and \code{CI_high}). (Note that
+for \eqn{\omega_p^2} and \eqn{\epsilon_p^2} it is possible to compute a
+negative number; even though this doesn't make any practical sense, it is
+recommended to report the negative number and not a 0).
 }
 \description{
 These functions are convenience functions to convert F and t test statistics to

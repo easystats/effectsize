@@ -40,7 +40,8 @@
 #' tail-probabilities, and then convert these `ncp`s to the corresponding effect
 #' sizes.
 #'
-#' @return A data frame with the effect size(s) and confidence interval(s).
+#' @return A data frame with the effect size ( `Cohens_d`, `Hedges_g`,
+#'   `Glass_delta`) and their CIs (`CI_low` and `CI_high`).
 #'
 #' @seealso [d_to_common_language()] [sd_pooled()]
 #' @family effect size indices

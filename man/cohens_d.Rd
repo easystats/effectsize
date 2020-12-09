@@ -62,7 +62,8 @@ Not applicable to Glass' Delta (See \code{\link[=d_to_common_language]{d_to_comm
 \item{...}{Not used.}
 }
 \value{
-A data frame with the effect size(s) and confidence interval(s).
+A data frame with the effect size ( \code{Cohens_d}, \code{Hedges_g},
+\code{Glass_delta}) and their CIs (\code{CI_low} and \code{CI_high}).
 }
 \description{
 Compute effect size indices for standardized differences: Cohen's \emph{d},

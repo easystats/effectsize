@@ -2,22 +2,27 @@
 
 #' Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (**partial** r)
 #'
-#' These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
-#' **partial** r. These are useful in cases where the data required to compute these are not easily
-#' available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.).
+#' These functions are convenience functions to convert t, z and F test
+#' statistics to Cohen's d and **partial** r. These are useful in cases where
+#' the data required to compute these are not easily available or their
+#' computation is not straightforward (e.g., in liner mixed models, contrasts,
+#' etc.).
 #' \cr
 #' See [Effect Size from Test Statistics vignette.](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
 #'
 #' @param t,f,z The t, the F or the z statistics.
-#' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
+#' @param df,df_error Degrees of freedom of numerator or of the error estimate
+#'   (i.e., the residuals).
 #' @param n The number of observations (the sample size).
-#' @param paired Should the estimate accout for the t-value being testing the difference between dependant means?
+#' @param paired Should the estimate accout for the t-value being testing the
+#'   difference between dependant means?
 #' @param pooled Deprecated. Use `paired`.
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods.
 #'
 #'
-#' @return A data frame with the effect size(s) between 0-1, and confidence interval(s)
+#' @return A data frame with the effect size(s)(`r` or `d`), and their CIs
+#'   (`CI_low` and `CI_high`).
 #'
 #'
 #' @details These functions use the following formulae to approximate *r* and *d*:

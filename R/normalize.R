@@ -25,6 +25,7 @@
 #' @family transform utilities
 #'
 #' @return A normalized object.
+#'
 #' @export
 normalize <- function(x, ...) {
   UseMethod("normalize")

@@ -12,6 +12,9 @@ convert_d_to_common_language(d)
 \arguments{
 \item{d}{Standardized difference value (Cohen's d).}
 }
+\value{
+A list of \verb{Cohen's U3}, \code{Overlap}, \verb{Probability of superiority}.
+}
 \description{
 Convert Standardized Mean Difference to Common Language Effect Sizes
 }

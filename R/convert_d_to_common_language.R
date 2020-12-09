@@ -10,6 +10,8 @@
 #' \cr\cr
 #' \deqn{Pr(superiority) = \Phi(d/\sqrt{2})}
 #'
+#' @return A list of `Cohen's U3`, `Overlap`, `Probability of superiority`.
+#'
 #' @note
 #' These calculations assume that the populations have equal variance and are
 #' normally distributed.

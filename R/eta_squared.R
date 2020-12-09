@@ -24,7 +24,9 @@
 #' @param ... For Bayesian models, passed to `ss_function`. Otherwise ignored.
 #'
 #' @return
-#' A data frame with the effect size(s) and confidence interval(s).
+#' A data frame with the effect size(s) between 0-1 (`Eta2`, `Epsilon2`,
+#' `Omega2`, `Cohens_f` or `Cohens_f2`, possibly with the `partial` or
+#' `generalized` suffix), and their CIs (`CI_low` and `CI_high`).
 #' \cr\cr
 #' For `eta_squared_posterior()`, a data frame containing the ppd of the Eta
 #' squared for each fixed effect, which can then be passed to
@@ -58,6 +60,10 @@
 #' Though Omega is the more popular choice (Albers \& Lakens, 2018), Epsilon is
 #' analogous to adjusted R2 (Allen, 2017, p. 382), and has been found to be less
 #' biased (Carroll & Nordholm, 1975).
+#' \cr\cr
+#' (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2} it is possible to
+#' compute a negative number; even though this doesn't make any practical sense,
+#' it is recommended to report the negative number and not a 0.)
 #'
 #' ## Cohen's f
 #' Cohen's f can take on values between zero, when the population means are all

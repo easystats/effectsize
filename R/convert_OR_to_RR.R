@@ -4,6 +4,8 @@
 #' @param p0 Baseline risk
 #' @inheritParams oddsratio_to_d
 #'
+#' @return Converted index.
+#'
 #' @family convert between effect sizes
 #'
 #' @examples
