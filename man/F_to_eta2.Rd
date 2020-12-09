@@ -108,10 +108,11 @@ For positive only effect sizes (Eta squared, Cramer's V, etc.; Effect sizes
 associated with Chi-squared and F distributions), special care should be
 taken when interpreting CIs with a lower bound equal to 0, and even more care
 should be taken when the \emph{upper} bound is equal to 0 (Steiger, 2004; Morey et
-al., 2016). For example:\preformatted{eta_squared(aov(mpg ~ factor(gear), mtcars[1:5, ]))
-#> Parameter    | Eta2 |       90\% CI
-#> ----------------------------------
-#> factor(gear) | 0.33 | [0.00, 0.74]
+al., 2016). For example:\if{html}{\out{<div class="r">}}\preformatted{eta_squared(aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:7, ]))
+}\if{html}{\out{</div>}}\preformatted{## Parameter    | Eta2 (partial) |       90\% CI
+## --------------------------------------------
+## factor(gear) |           0.58 | [0.00, 0.84]
+## factor(cyl)  |           0.46 | [0.00, 0.78]
 }
 }
 
