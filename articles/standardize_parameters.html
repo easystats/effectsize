@@ -144,25 +144,23 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/">effectsize</a></span><span class="op">)</span>
 
-<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Sepal.Length</span> <span class="op">~</span> <span class="va">Petal.Length</span>, data <span class="op">=</span> <span class="va">iris</span><span class="op">)</span>
+<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">complaints</span>, data <span class="op">=</span> <span class="va">attitude</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter    | Coefficient (std.) |        95% CI
-&gt; -------------------------------------------------
-&gt; (Intercept)  |          -5.03e-16 | [-0.08, 0.08]
-&gt; Petal.Length |               0.87 | [ 0.79, 0.95]
+<pre><code>&gt; Parameter   | Coefficient (std.) |        95% CI
+&gt; ------------------------------------------------
+&gt; (Intercept) |          -9.57e-16 | [-0.21, 0.21]
+&gt; complaints  |               0.83 | [ 0.61, 1.04]
 &gt; 
 &gt; # Standardization method: refit</code></pre>
 <p>Standardizing the coefficient of this <em>simple</em> linear regression gives a value of <code>0.87</code>, but did you know that for a simple regression this is actually the <strong>same as a correlation</strong>? Thus, you can eventually apply some (<em>in</em>)famous interpretation guidelines (e.g., Cohen’s rules of thumb).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/parameters/">parameters</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">attitude</span><span class="op">$</span><span class="va">rating</span>, <span class="va">attitude</span><span class="op">$</span><span class="va">complaints</span><span class="op">)</span>
 
-<span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Length</span>, <span class="va">iris</span><span class="op">$</span><span class="va">Petal.Length</span><span class="op">)</span>
-
-<span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter1        |        Parameter2 |    r | t(148) |      p |       95% CI |  Method
-&gt; ---------------------------------------------------------------------------------------
-&gt; iris$Sepal.Length | iris$Petal.Length | 0.87 |  21.65 | &lt; .001 | [0.83, 0.91] | Pearson</code></pre>
+<span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></code></pre></div>
+<pre><code>&gt;    r |       95% CI
+&gt; -------------------
+&gt; 0.83 | [0.66, 0.91]</code></pre>
 </div>
 <div id="standardized-differences" class="section level2">
 <h2 class="hasAnchor">
@@ -280,7 +278,7 @@
 <p>They are quite different! It seems then that <strong><em>standardized slopes in multiple linear regressions are not the same a correlations or partial correlations</em></strong> :(</p>
 <p>However, not all hope is lost yet - we can still try and recover the partial correlations from our model, in another way: by converting the <em>t</em>-statistics (and their degrees of freedom, <em>df</em>) into a partial correlation coefficient <em>r</em>.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/t_to_d.html">t_to_r</a></span><span class="op">(</span><span class="va">params</span><span class="op">$</span><span class="va">t</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, df_error <span class="op">=</span> <span class="va">params</span><span class="op">$</span><span class="va">df_error</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt;    r |       95% CI
@@ -302,7 +300,7 @@
 <span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">xtra_hours</span> <span class="op">+</span> <span class="va">n_comps</span> <span class="op">+</span> <span class="va">age_g</span> <span class="op">+</span> <span class="va">seniority</span>,
           data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">)</span>
 
-<span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></code></pre></div>
+<span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Parameter     | Coefficient |     SE |              95% CI | t(494) |      p
 &gt; ----------------------------------------------------------------------------
 &gt; (Intercept)   |     9805.17 | 446.73 | [8927.44, 10682.89] |  21.95 | &lt; .001
@@ -369,7 +367,7 @@
 &gt;    seniority  
 &gt;       0.0821</code></pre>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">mod_z</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">mod_z</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Parameter     | Coefficient |   SE |        95% CI | t(494) |      p
 &gt; --------------------------------------------------------------------
 &gt; (Intercept)   |       -0.05 | 0.03 | [-0.11, 0.02] |  -1.47 | 0.142 
@@ -440,8 +438,7 @@
 <p>Linear mixed models (LMM/HLM/MLM) offer an additional conundrum to standardization - how does one even calculate the SDs of the various predictors? Of of the response - is it the deviations within each group? Or perhaps between them?</p>
 <p>The solution: standardize according to level of the predictor <span class="citation">(Hoffman 2015, 342)</span>! Level 1 parameters are standardized according to variance <em>withing</em> groups, while level 2 parameters are standardized according to variance <em>between</em> groups. The resulting standardized coefficient are also called <em>pseudo</em>-standardized coefficients.[^Note that like method <code>"basic"</code>, these are based on the model matrix.]</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/">lme4</a></span><span class="op">)</span>
-<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">am</span> <span class="op">+</span> <span class="va">vs</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">cyl</span><span class="op">)</span>, <span class="va">mtcars</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">lme4</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">am</span> <span class="op">+</span> <span class="va">vs</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">cyl</span><span class="op">)</span>, <span class="va">mtcars</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span>, method <span class="op">=</span> <span class="st">"pseudo"</span>, df_method <span class="op">=</span> <span class="st">"satterthwaite"</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Parameter   | Coefficient (std.) |         95% CI

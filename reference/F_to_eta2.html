@@ -234,9 +234,12 @@ See <a href='https://easystats.github.io/effectsize/articles/from_test_statistic
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with the effect size(s) between 0-1, and confidence interval(s) (Note that for \(\omega_p^2\) and \(\epsilon_p^2\)
-it is possible to compute a negative number; even though this doesn't make any practical sense,
-it is recommended to report the negative number and not a 0).</p>
+    <p>A data frame with the effect size(s) between 0-1 (<code>Eta2_partial</code>,
+<code>Epsilon2_partial</code>, <code>Omega2_partial</code>, <code>Cohens_f_partial</code> or
+<code>Cohens_f2_partial</code>), and their CIs (<code>CI_low</code> and <code>CI_high</code>). (Note that
+for \(\omega_p^2\) and \(\epsilon_p^2\) it is possible to compute a
+negative number; even though this doesn't make any practical sense, it is
+recommended to report the negative number and not a 0).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>These functions use the following formulae:

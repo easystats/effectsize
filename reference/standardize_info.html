@@ -207,6 +207,12 @@ outcome) (Gelman, 2008).</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A data frame with information on each parameter (see
+<a href='https://easystats.github.io/parameters/reference/parameters_type.html'>parameters::parameters_type</a>), and various standardization coefficients
+for the post-hoc methods (see <code><a href='standardize_parameters.html'>standardize_parameters()</a></code>) for the predictor
+and the response.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other standardize: 
@@ -214,7 +220,116 @@ outcome) (Gelman, 2008).</p></td>
 <code><a href='standardize.html'>standardize</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>Sepal.Width</span> <span class='op'>~</span> <span class='va'>Sepal.Length</span> <span class='op'>*</span> <span class='va'>Species</span>, data <span class='op'>=</span> <span class='va'>iris</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+<span class='fu'>standardize_info</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      Parameter      Type        Link Secondary_Parameter EffectSize_Type
+#&gt; 1  (Intercept) intercept        Mean                &lt;NA&gt;            &lt;NA&gt;
+#&gt; 2          cyl   numeric Association                &lt;NA&gt;               r
+#&gt; 3         disp   numeric Association                &lt;NA&gt;               r
+#&gt; 4           hp   numeric Association                &lt;NA&gt;               r
+#&gt; 5         drat   numeric Association                &lt;NA&gt;               r
+#&gt; 6           wt   numeric Association                &lt;NA&gt;               r
+#&gt; 7         qsec   numeric Association                &lt;NA&gt;               r
+#&gt; 8           vs   numeric Association                &lt;NA&gt;               r
+#&gt; 9           am   numeric Association                &lt;NA&gt;               r
+#&gt; 10        gear   numeric Association                &lt;NA&gt;               r
+#&gt; 11        carb   numeric Association                &lt;NA&gt;               r
+#&gt;    Deviation_Response_Basic Deviation_Response_Smart Deviation_Basic
+#&gt; 1                  6.026948                 6.026948       0.0000000
+#&gt; 2                  6.026948                 6.026948       1.7859216
+#&gt; 3                  6.026948                 6.026948     123.9386938
+#&gt; 4                  6.026948                 6.026948      68.5628685
+#&gt; 5                  6.026948                 6.026948       0.5346787
+#&gt; 6                  6.026948                 6.026948       0.9784574
+#&gt; 7                  6.026948                 6.026948       1.7869432
+#&gt; 8                  6.026948                 6.026948       0.5040161
+#&gt; 9                  6.026948                 6.026948       0.4989909
+#&gt; 10                 6.026948                 6.026948       0.7378041
+#&gt; 11                 6.026948                 6.026948       1.6152000
+#&gt;    Deviation_Smart
+#&gt; 1        0.0000000
+#&gt; 2        1.7859216
+#&gt; 3      123.9386938
+#&gt; 4       68.5628685
+#&gt; 5        0.5346787
+#&gt; 6        0.9784574
+#&gt; 7        1.7869432
+#&gt; 8        0.5040161
+#&gt; 9        0.4989909
+#&gt; 10       0.7378041
+#&gt; 11       1.6152000</div><div class='input'><span class='fu'>standardize_info</span><span class='op'>(</span><span class='va'>model</span>, robust <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      Parameter      Type        Link Secondary_Parameter EffectSize_Type
+#&gt; 1  (Intercept) intercept        Mean                &lt;NA&gt;            &lt;NA&gt;
+#&gt; 2          cyl   numeric Association                &lt;NA&gt;               r
+#&gt; 3         disp   numeric Association                &lt;NA&gt;               r
+#&gt; 4           hp   numeric Association                &lt;NA&gt;               r
+#&gt; 5         drat   numeric Association                &lt;NA&gt;               r
+#&gt; 6           wt   numeric Association                &lt;NA&gt;               r
+#&gt; 7         qsec   numeric Association                &lt;NA&gt;               r
+#&gt; 8           vs   numeric Association                &lt;NA&gt;               r
+#&gt; 9           am   numeric Association                &lt;NA&gt;               r
+#&gt; 10        gear   numeric Association                &lt;NA&gt;               r
+#&gt; 11        carb   numeric Association                &lt;NA&gt;               r
+#&gt;    Deviation_Response_Basic Deviation_Response_Smart Deviation_Basic
+#&gt; 1                   5.41149                  5.41149       0.0000000
+#&gt; 2                   5.41149                  5.41149       2.9652000
+#&gt; 3                   5.41149                  5.41149     140.4763500
+#&gt; 4                   5.41149                  5.41149      77.0952000
+#&gt; 5                   5.41149                  5.41149       0.7042350
+#&gt; 6                   5.41149                  5.41149       0.7672455
+#&gt; 7                   5.41149                  5.41149       1.4158830
+#&gt; 8                   5.41149                  5.41149       0.0000000
+#&gt; 9                   5.41149                  5.41149       0.0000000
+#&gt; 10                  5.41149                  5.41149       1.4826000
+#&gt; 11                  5.41149                  5.41149       1.4826000
+#&gt;    Deviation_Smart
+#&gt; 1        0.0000000
+#&gt; 2        2.9652000
+#&gt; 3      140.4763500
+#&gt; 4       77.0952000
+#&gt; 5        0.7042350
+#&gt; 6        0.7672455
+#&gt; 7        1.4158830
+#&gt; 8        0.0000000
+#&gt; 9        0.0000000
+#&gt; 10       1.4826000
+#&gt; 11       1.4826000</div><div class='input'><span class='fu'>standardize_info</span><span class='op'>(</span><span class='va'>model</span>, two_sd <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      Parameter      Type        Link Secondary_Parameter EffectSize_Type
+#&gt; 1  (Intercept) intercept        Mean                &lt;NA&gt;            &lt;NA&gt;
+#&gt; 2          cyl   numeric Association                &lt;NA&gt;               r
+#&gt; 3         disp   numeric Association                &lt;NA&gt;               r
+#&gt; 4           hp   numeric Association                &lt;NA&gt;               r
+#&gt; 5         drat   numeric Association                &lt;NA&gt;               r
+#&gt; 6           wt   numeric Association                &lt;NA&gt;               r
+#&gt; 7         qsec   numeric Association                &lt;NA&gt;               r
+#&gt; 8           vs   numeric Association                &lt;NA&gt;               r
+#&gt; 9           am   numeric Association                &lt;NA&gt;               r
+#&gt; 10        gear   numeric Association                &lt;NA&gt;               r
+#&gt; 11        carb   numeric Association                &lt;NA&gt;               r
+#&gt;    Deviation_Response_Basic Deviation_Response_Smart Deviation_Basic
+#&gt; 1                  6.026948                 6.026948       0.0000000
+#&gt; 2                  6.026948                 6.026948       3.5718433
+#&gt; 3                  6.026948                 6.026948     247.8773877
+#&gt; 4                  6.026948                 6.026948     137.1257370
+#&gt; 5                  6.026948                 6.026948       1.0693575
+#&gt; 6                  6.026948                 6.026948       1.9569149
+#&gt; 7                  6.026948                 6.026948       3.5738865
+#&gt; 8                  6.026948                 6.026948       1.0080323
+#&gt; 9                  6.026948                 6.026948       0.9979818
+#&gt; 10                 6.026948                 6.026948       1.4756081
+#&gt; 11                 6.026948                 6.026948       3.2304000
+#&gt;    Deviation_Smart
+#&gt; 1        0.0000000
+#&gt; 2        3.5718433
+#&gt; 3      247.8773877
+#&gt; 4      137.1257370
+#&gt; 5        1.0693575
+#&gt; 6        1.9569149
+#&gt; 7        3.5738865
+#&gt; 8        1.0080323
+#&gt; 9        0.9979818
+#&gt; 10       1.4756081
+#&gt; 11       3.2304000</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -358,30 +358,26 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Data frames</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'>standardize</span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   Sepal.Length       Sepal.Width       Petal.Length      Petal.Width     
-#&gt;  Min.   :-1.86378   Min.   :-2.4258   Min.   :-1.5623   Min.   :-1.4422  
-#&gt;  1st Qu.:-0.89767   1st Qu.:-0.5904   1st Qu.:-1.2225   1st Qu.:-1.1799  
-#&gt;  Median :-0.05233   Median :-0.1315   Median : 0.3354   Median : 0.1321  
-#&gt;  Mean   : 0.00000   Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.0000  
-#&gt;  3rd Qu.: 0.67225   3rd Qu.: 0.5567   3rd Qu.: 0.7602   3rd Qu.: 0.7880  
-#&gt;  Max.   : 2.48370   Max.   : 3.0805   Max.   : 1.7799   Max.   : 1.7064  
-#&gt;        Species  
-#&gt;  setosa    :50  
-#&gt;  versicolor:50  
-#&gt;  virginica :50  
-#&gt;                 
-#&gt;                 
-#&gt;                 </div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'>standardize</span><span class='op'>(</span><span class='va'>swiss</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    Fertility         Agriculture       Examination         Education      
+#&gt;  Min.   :-2.81327   Min.   :-2.1778   Min.   :-1.69084   Min.   :-1.0378  
+#&gt;  1st Qu.:-0.43569   1st Qu.:-0.6499   1st Qu.:-0.56273   1st Qu.:-0.5178  
+#&gt;  Median : 0.02061   Median : 0.1515   Median :-0.06134   Median :-0.3098  
+#&gt;  Mean   : 0.00000   Mean   : 0.0000   Mean   : 0.00000   Mean   : 0.0000  
+#&gt;  3rd Qu.: 0.66504   3rd Qu.: 0.7481   3rd Qu.: 0.69074   3rd Qu.: 0.1062  
+#&gt;  Max.   : 1.78978   Max.   : 1.7190   Max.   : 2.57094   Max.   : 4.3702  
+#&gt;     Catholic       Infant.Mortality  
+#&gt;  Min.   :-0.9350   Min.   :-3.13886  
+#&gt;  1st Qu.:-0.8620   1st Qu.:-0.61543  
+#&gt;  Median :-0.6235   Median : 0.01972  
+#&gt;  Mean   : 0.0000   Mean   : 0.00000  
+#&gt;  3rd Qu.: 1.2464   3rd Qu.: 0.60337  
+#&gt;  Max.   : 1.4113   Max.   : 2.28566  </div><div class='input'>
 <span class='co'># Models</span>
-<span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>Sepal.Length</span> <span class='op'>~</span> <span class='va'>Species</span> <span class='op'>*</span> <span class='va'>Petal.Width</span>, data <span class='op'>=</span> <span class='va'>iris</span><span class='op'>)</span>
+<span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>Infant.Mortality</span> <span class='op'>~</span> <span class='va'>Education</span> <span class='op'>*</span> <span class='va'>Fertility</span>, data <span class='op'>=</span> <span class='va'>swiss</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='fu'>standardize</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                   (Intercept)             Speciesversicolor 
-#&gt;                    0.05969491                   -0.16597410 
-#&gt;              Speciesvirginica                   Petal.Width 
-#&gt;                    0.18985849                    0.85622714 
-#&gt; Speciesversicolor:Petal.Width  Speciesvirginica:Petal.Width 
-#&gt;                    0.45674637                   -0.25713539 </div></pre>
+</div><div class='output co'>#&gt;         (Intercept)           Education           Fertility Education:Fertility 
+#&gt;          0.06386069          0.47482848          0.63270919          0.09829777 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

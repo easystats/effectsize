@@ -241,8 +241,9 @@ outcome) (Gelman, 2008).</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with the standardized parameters and their CIs.</p>
-<p>Standardized parameters table.</p>
+    <p>A data frame with the standardized parameters (<code>Std_*</code>, depending on
+the model type) and their CIs (<code>CI_low</code> and <code>CI_high</code>). Where applicable,
+standard errors (SEs) are returned as an attribute (<code><a href='https://rdrr.io/r/base/attr.html'>attr(x, "standard_error")</a></code>).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     
@@ -337,76 +338,63 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://easystats.github.io/effectsize/'>effectsize</a></span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span>
 
-<span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>Sepal.Length</span> <span class='op'>~</span> <span class='va'>Species</span> <span class='op'>*</span> <span class='va'>Petal.Width</span>, data <span class='op'>=</span> <span class='va'>iris</span><span class='op'>)</span>
+<span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>len</span> <span class='op'>~</span> <span class='va'>supp</span> <span class='op'>*</span> <span class='va'>dose</span>, data <span class='op'>=</span> <span class='va'>ToothGrowth</span><span class='op'>)</span>
 <span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"refit"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
-#&gt; ------------------------------------------------------------------
-#&gt; (Intercept)                   |               0.06 | [-1.43, 1.55]
-#&gt; Speciesversicolor             |              -0.17 | [-1.66, 1.33]
-#&gt; Speciesvirginica              |               0.19 | [-1.38, 1.76]
-#&gt; Petal.Width                   |               0.86 | [-0.32, 2.04]
-#&gt; Speciesversicolor:Petal.Width |               0.46 | [-0.88, 1.80]
-#&gt; Speciesvirginica:Petal.Width  |              -0.26 | [-1.52, 1.01]
+</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
+#&gt; -------------------------------------------------
+#&gt; (Intercept) |               0.24 | [ 0.05,  0.44]
+#&gt; suppVC      |              -0.48 | [-0.76, -0.21]
+#&gt; dose        |               0.64 | [ 0.45,  0.84]
+#&gt; suppVC:dose |               0.32 | [ 0.04,  0.60]
 #&gt; <span style='color: #0000BB;'>
 #&gt; # Standardization method: refit
 #&gt; </span><span></div><div class='input'><span class='co'># \donttest{</span>
 <span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"posthoc"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
-#&gt; ------------------------------------------------------------------
-#&gt; (Intercept)                   |               0.00 | [ 0.00, 0.00]
-#&gt; Speciesversicolor             |              -0.88 | [-2.07, 0.30]
-#&gt; Speciesvirginica              |               0.59 | [-0.69, 1.88]
-#&gt; Petal.Width                   |               0.86 | [-0.32, 2.04]
-#&gt; Speciesversicolor:Petal.Width |               0.46 | [-0.88, 1.80]
-#&gt; Speciesvirginica:Petal.Width  |              -0.26 | [-1.52, 1.01]
+</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
+#&gt; -------------------------------------------------
+#&gt; (Intercept) |               0.00 | [ 0.00,  0.00]
+#&gt; suppVC      |              -1.08 | [-1.66, -0.49]
+#&gt; dose        |               0.64 | [ 0.45,  0.84]
+#&gt; suppVC:dose |               0.32 | [ 0.04,  0.60]
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: posthoc
 #&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"smart"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
-#&gt; ------------------------------------------------------------------
-#&gt; (Intercept)                   |               0.00 | [ 0.00, 0.00]
-#&gt; Speciesversicolor             |              -2.08 | [-4.85, 0.70]
-#&gt; Speciesvirginica              |               1.40 | [-1.62, 4.41]
-#&gt; Petal.Width                   |               0.86 | [-0.32, 2.04]
-#&gt; Speciesversicolor:Petal.Width |               1.07 | [-2.06, 4.19]
-#&gt; Speciesvirginica:Petal.Width  |              -0.60 | [-3.56, 2.35]
+</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
+#&gt; -------------------------------------------------
+#&gt; (Intercept) |               0.00 | [ 0.00,  0.00]
+#&gt; suppVC      |              -1.00 | [-1.54, -0.46]
+#&gt; dose        |               0.64 | [ 0.45,  0.84]
+#&gt; suppVC:dose |               0.55 | [ 0.07,  1.02]
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: smart
 #&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"basic"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
-#&gt; ------------------------------------------------------------------
-#&gt; (Intercept)                   |               0.00 | [ 0.00, 0.00]
-#&gt; Speciesversicolor             |              -0.42 | [-0.98, 0.14]
-#&gt; Speciesvirginica              |               0.28 | [-0.33, 0.89]
-#&gt; Petal.Width                   |               0.86 | [-0.32, 2.04]
-#&gt; Speciesversicolor:Petal.Width |               0.38 | [-0.74, 1.50]
-#&gt; Speciesvirginica:Petal.Width  |              -0.33 | [-1.94, 1.28]
+</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
+#&gt; -------------------------------------------------
+#&gt; (Intercept) |               0.00 | [ 0.00,  0.00]
+#&gt; suppVC      |              -0.54 | [-0.84, -0.25]
+#&gt; dose        |               0.64 | [ 0.45,  0.84]
+#&gt; suppVC:dose |               0.38 | [ 0.05,  0.70]
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: basic
 #&gt; </span><span></div><div class='input'>
 <span class='co'># Robust and 2 SD</span>
 <span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, robust <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
-#&gt; ------------------------------------------------------------------
-#&gt; (Intercept)                   |               0.18 | [-1.13, 1.49]
-#&gt; Speciesversicolor             |              -0.08 | [-1.40, 1.23]
-#&gt; Speciesvirginica              |               0.12 | [-1.24, 1.48]
-#&gt; Petal.Width                   |               0.93 | [-0.35, 2.21]
-#&gt; Speciesversicolor:Petal.Width |               0.50 | [-0.96, 1.95]
-#&gt; Speciesvirginica:Petal.Width  |              -0.28 | [-1.65, 1.09]
+</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
+#&gt; -------------------------------------------------
+#&gt; (Intercept) |               0.01 | [-0.16,  0.18]
+#&gt; suppVC      |              -0.48 | [-0.72, -0.24]
+#&gt; dose        |               0.64 | [ 0.44,  0.84]
+#&gt; suppVC:dose |               0.32 | [ 0.04,  0.60]
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: refit
 #&gt; </span><span></div><div class='input'><span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>model</span>, two_sd <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Parameter                     | Coefficient (std.) |        95% CI
-#&gt; ------------------------------------------------------------------
-#&gt; (Intercept)                   |               0.06 | [-1.43, 1.55]
-#&gt; Speciesversicolor             |              -0.17 | [-1.66, 1.33]
-#&gt; Speciesvirginica              |               0.19 | [-1.38, 1.76]
-#&gt; Petal.Width                   |               1.71 | [-0.65, 4.07]
-#&gt; Speciesversicolor:Petal.Width |               0.91 | [-1.76, 3.59]
-#&gt; Speciesvirginica:Petal.Width  |              -0.51 | [-3.04, 2.02]
+</div><div class='output co'>#&gt; Parameter   | Coefficient (std.) |         95% CI
+#&gt; -------------------------------------------------
+#&gt; (Intercept) |               0.24 | [ 0.05,  0.44]
+#&gt; suppVC      |              -0.48 | [-0.76, -0.21]
+#&gt; dose        |               1.28 | [ 0.89,  1.68]
+#&gt; suppVC:dose |               0.64 | [ 0.09,  1.20]
 #&gt; </span><span style='color: #0000BB;'>
 #&gt; # Standardization method: refit
 #&gt; </span><span></div><div class='input'>
@@ -462,10 +450,10 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://mc-stan.org/rstanarm/'>"rstanarm"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://mc-stan.org/rstanarm/reference/stan_glm.html'>stan_glm</a></span><span class='op'>(</span><span class='va'>Sepal.Length</span> <span class='op'>~</span> <span class='va'>Species</span> <span class='op'>+</span> <span class='va'>Petal.Width</span>, data <span class='op'>=</span> <span class='va'>iris</span>, refresh <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
-  <span class='co'># standardize_posteriors(model, method = "refit")</span>
-  <span class='co'># standardize_posteriors(model, method = "posthoc")</span>
-  <span class='co'># standardize_posteriors(model, method = "smart")</span>
+  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://mc-stan.org/rstanarm/reference/stan_glm.html'>stan_glm</a></span><span class='op'>(</span><span class='va'>rating</span> <span class='op'>~</span> <span class='va'>critical</span> <span class='op'>+</span> <span class='va'>privileges</span>, data <span class='op'>=</span> <span class='va'>attitude</span>, refresh <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+  <span class='fu'>standardize_posteriors</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"refit"</span><span class='op'>)</span>
+  <span class='fu'>standardize_posteriors</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"posthoc"</span><span class='op'>)</span>
+  <span class='fu'>standardize_posteriors</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"smart"</span><span class='op'>)</span>
   <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>standardize_posteriors</span><span class='op'>(</span><span class='va'>model</span>, method <span class='op'>=</span> <span class='st'>"basic"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
 <span class='op'>}</span>

@@ -215,17 +215,6 @@
     </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>Sepal.Length</span> <span class='op'>~</span> <span class='va'>Species</span> <span class='op'>*</span> <span class='va'>Petal.Width</span>, data <span class='op'>=</span> <span class='va'>iris</span><span class='op'>)</span>
-<span class='fu'>interpret_parameters</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: This function is highly experimental!</span>
-#&gt; <span class='warning'>See discussion at github.com/easystats/effectsize/issues/127</span></div><div class='output co'>#&gt;                       Parameter Effect_Size Interpretation
-#&gt; 1                   (Intercept)          NA           &lt;NA&gt;
-#&gt; 2             Speciesversicolor -0.08270276     very small
-#&gt; 3              Speciesvirginica  0.09450438     very small
-#&gt; 4                   Petal.Width  0.85622714     very large
-#&gt; 5 Speciesversicolor:Petal.Width  0.22264112         medium
-#&gt; 6  Speciesvirginica:Petal.Width -0.12751810          small</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

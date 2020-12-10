@@ -250,14 +250,14 @@ variables will be selected.</p></td>
     <pre class="examples"><div class='input'><span class='fu'>normalize</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 0.5 0.6 1.0 0.0 0.3</div><div class='input'><span class='fu'>normalize</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span>, include_bounds <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 0.50 0.58 0.90 0.10 0.34</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>normalize</span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#&gt; 1   0.22222222   0.6250000   0.06779661  0.04166667  setosa
-#&gt; 2   0.16666667   0.4166667   0.06779661  0.04166667  setosa
-#&gt; 3   0.11111111   0.5000000   0.05084746  0.04166667  setosa
-#&gt; 4   0.08333333   0.4583333   0.08474576  0.04166667  setosa
-#&gt; 5   0.19444444   0.6666667   0.06779661  0.04166667  setosa
-#&gt; 6   0.30555556   0.7916667   0.11864407  0.12500000  setosa</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>normalize</span><span class='op'>(</span><span class='va'>trees</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        Girth     Height      Volume
+#&gt; 1 0.00000000 0.29166667 0.001497006
+#&gt; 2 0.02439024 0.08333333 0.001497006
+#&gt; 3 0.04065041 0.00000000 0.000000000
+#&gt; 4 0.17886179 0.37500000 0.092814371
+#&gt; 5 0.19512195 0.75000000 0.128742515
+#&gt; 6 0.20325203 0.83333333 0.142215569</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -285,7 +285,9 @@ longer to run, but provide estimates that are more stable.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with the effect size(s) and confidence interval(s).
+    <p>A data frame with the effect size(s) between 0-1 (<code>Eta2</code>, <code>Epsilon2</code>,
+<code>Omega2</code>, <code>Cohens_f</code> or <code>Cohens_f2</code>, possibly with the <code>partial</code> or
+<code>generalized</code> suffix), and their CIs (<code>CI_low</code> and <code>CI_high</code>).
 <br /><br />
 For <code>eta_squared_posterior()</code>, a data frame containing the ppd of the Eta
 squared for each fixed effect, which can then be passed to
@@ -319,7 +321,11 @@ which to choose?
 <br /><br />
 Though Omega is the more popular choice (Albers \&amp; Lakens, 2018), Epsilon is
 analogous to adjusted R2 (Allen, 2017, p. 382), and has been found to be less
-biased (Carroll &amp; Nordholm, 1975).</p>
+biased (Carroll &amp; Nordholm, 1975).
+<br /><br />
+(Note that for \(\omega_p^2\) and \(\epsilon_p^2\) it is possible to
+compute a negative number; even though this doesn't make any practical sense,
+it is recommended to report the negative number and not a 0.)</p>
 
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Cohen's f</h3>
 

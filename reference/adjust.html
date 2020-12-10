@@ -47,7 +47,15 @@
 
 
 <meta property="og:title" content="Adjust data for the effect of other variable(s) — adjust" />
-<meta property="og:description" content="This function can be used to adjust the data for the effect of other variables present in the dataset. It is based on an underlying fitting of regressions models, allowing for quite some flexibility, such as including factors as random effects in mixed models (multilevel partialization), continuous variables as smooth terms in general additive models (non-linear partialization) and/or fitting these models under a Bayesian framework. The values returned by this function are the residuals of the regression models. Note that a regular correlation between two &quot;adjusted&quot; variables is equivalent to the partial correlation between them." />
+<meta property="og:description" content="This function can be used to adjust the data for the effect of other
+variables present in the dataset. It is based on an underlying fitting of
+regressions models, allowing for quite some flexibility, such as including
+factors as random effects in mixed models (multilevel partialization),
+continuous variables as smooth terms in general additive models (non-linear
+partialization) and/or fitting these models under a Bayesian framework. The
+values returned by this function are the residuals of the regression models.
+Note that a regular correlation between two &quot;adjusted&quot; variables is
+equivalent to the partial correlation between them." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -164,7 +172,15 @@
     </div>
 
     <div class="ref-description">
-    <p>This function can be used to adjust the data for the effect of other variables present in the dataset. It is based on an underlying fitting of regressions models, allowing for quite some flexibility, such as including factors as random effects in mixed models (multilevel partialization), continuous variables as smooth terms in general additive models (non-linear partialization) and/or fitting these models under a Bayesian framework. The values returned by this function are the residuals of the regression models. Note that a regular correlation between two "adjusted" variables is equivalent to the partial correlation between them.</p>
+    <p>This function can be used to adjust the data for the effect of other
+variables present in the dataset. It is based on an underlying fitting of
+regressions models, allowing for quite some flexibility, such as including
+factors as random effects in mixed models (multilevel partialization),
+continuous variables as smooth terms in general additive models (non-linear
+partialization) and/or fitting these models under a Bayesian framework. The
+values returned by this function are the residuals of the regression models.
+Note that a regular correlation between two "adjusted" variables is
+equivalent to the partial correlation between them.</p>
     </div>
 
     <pre class="usage"><span class='fu'>adjust</span><span class='op'>(</span>
@@ -186,7 +202,8 @@
     </tr>
     <tr>
       <th>effect</th>
-      <td><p>Character vector of column names to be adjusted for (regressed out). If <code>NULL</code> (the default), all variables will be selected.</p></td>
+      <td><p>Character vector of column names to be adjusted for (regressed
+out). If <code>NULL</code> (the default), all variables will be selected.</p></td>
     </tr>
     <tr>
       <th>select</th>
@@ -199,185 +216,127 @@ variables will be selected.</p></td>
     </tr>
     <tr>
       <th>multilevel</th>
-      <td><p>If <code>TRUE</code>, the factors are included as random factors. Else, if <code>FALSE</code> (default), they are included as fixed effects in the simple regression model.</p></td>
+      <td><p>If <code>TRUE</code>, the factors are included as random factors.
+Else, if <code>FALSE</code> (default), they are included as fixed effects in the
+simple regression model.</p></td>
     </tr>
     <tr>
       <th>additive</th>
-      <td><p>If <code>TRUE</code>, continuous variables as included as smooth terms in additive models. The goal is to regress-out potential non-linear effects.</p></td>
+      <td><p>If <code>TRUE</code>, continuous variables as included as smooth terms
+in additive models. The goal is to regress-out potential non-linear
+effects.</p></td>
     </tr>
     <tr>
       <th>bayesian</th>
-      <td><p>If <code>TRUE</code>, the models are fitted under the Bayesian framework using <code>rstanarm</code>.</p></td>
+      <td><p>If <code>TRUE</code>, the models are fitted under the Bayesian framework
+using <code>rstanarm</code>.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A data frame comparable to <code>data</code>, with adjusted variables.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>adjust</span><span class='op'>(</span><span class='va'>iris</span>, effect <span class='op'>=</span> <span class='st'>"Species"</span>, select <span class='op'>=</span> <span class='st'>"Sepal.Length"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
-#&gt; 1          0.094         3.5          1.4         0.2     setosa
-#&gt; 2         -0.106         3.0          1.4         0.2     setosa
-#&gt; 3         -0.306         3.2          1.3         0.2     setosa
-#&gt; 4         -0.406         3.1          1.5         0.2     setosa
-#&gt; 5         -0.006         3.6          1.4         0.2     setosa
-#&gt; 6          0.394         3.9          1.7         0.4     setosa
-#&gt; 7         -0.406         3.4          1.4         0.3     setosa
-#&gt; 8         -0.006         3.4          1.5         0.2     setosa
-#&gt; 9         -0.606         2.9          1.4         0.2     setosa
-#&gt; 10        -0.106         3.1          1.5         0.1     setosa
-#&gt; 11         0.394         3.7          1.5         0.2     setosa
-#&gt; 12        -0.206         3.4          1.6         0.2     setosa
-#&gt; 13        -0.206         3.0          1.4         0.1     setosa
-#&gt; 14        -0.706         3.0          1.1         0.1     setosa
-#&gt; 15         0.794         4.0          1.2         0.2     setosa
-#&gt; 16         0.694         4.4          1.5         0.4     setosa
-#&gt; 17         0.394         3.9          1.3         0.4     setosa
-#&gt; 18         0.094         3.5          1.4         0.3     setosa
-#&gt; 19         0.694         3.8          1.7         0.3     setosa
-#&gt; 20         0.094         3.8          1.5         0.3     setosa
-#&gt; 21         0.394         3.4          1.7         0.2     setosa
-#&gt; 22         0.094         3.7          1.5         0.4     setosa
-#&gt; 23        -0.406         3.6          1.0         0.2     setosa
-#&gt; 24         0.094         3.3          1.7         0.5     setosa
-#&gt; 25        -0.206         3.4          1.9         0.2     setosa
-#&gt; 26        -0.006         3.0          1.6         0.2     setosa
-#&gt; 27        -0.006         3.4          1.6         0.4     setosa
-#&gt; 28         0.194         3.5          1.5         0.2     setosa
-#&gt; 29         0.194         3.4          1.4         0.2     setosa
-#&gt; 30        -0.306         3.2          1.6         0.2     setosa
-#&gt; 31        -0.206         3.1          1.6         0.2     setosa
-#&gt; 32         0.394         3.4          1.5         0.4     setosa
-#&gt; 33         0.194         4.1          1.5         0.1     setosa
-#&gt; 34         0.494         4.2          1.4         0.2     setosa
-#&gt; 35        -0.106         3.1          1.5         0.2     setosa
-#&gt; 36        -0.006         3.2          1.2         0.2     setosa
-#&gt; 37         0.494         3.5          1.3         0.2     setosa
-#&gt; 38        -0.106         3.6          1.4         0.1     setosa
-#&gt; 39        -0.606         3.0          1.3         0.2     setosa
-#&gt; 40         0.094         3.4          1.5         0.2     setosa
-#&gt; 41        -0.006         3.5          1.3         0.3     setosa
-#&gt; 42        -0.506         2.3          1.3         0.3     setosa
-#&gt; 43        -0.606         3.2          1.3         0.2     setosa
-#&gt; 44        -0.006         3.5          1.6         0.6     setosa
-#&gt; 45         0.094         3.8          1.9         0.4     setosa
-#&gt; 46        -0.206         3.0          1.4         0.3     setosa
-#&gt; 47         0.094         3.8          1.6         0.2     setosa
-#&gt; 48        -0.406         3.2          1.4         0.2     setosa
-#&gt; 49         0.294         3.7          1.5         0.2     setosa
-#&gt; 50        -0.006         3.3          1.4         0.2     setosa
-#&gt; 51         1.064         3.2          4.7         1.4 versicolor
-#&gt; 52         0.464         3.2          4.5         1.5 versicolor
-#&gt; 53         0.964         3.1          4.9         1.5 versicolor
-#&gt; 54        -0.436         2.3          4.0         1.3 versicolor
-#&gt; 55         0.564         2.8          4.6         1.5 versicolor
-#&gt; 56        -0.236         2.8          4.5         1.3 versicolor
-#&gt; 57         0.364         3.3          4.7         1.6 versicolor
-#&gt; 58        -1.036         2.4          3.3         1.0 versicolor
-#&gt; 59         0.664         2.9          4.6         1.3 versicolor
-#&gt; 60        -0.736         2.7          3.9         1.4 versicolor
-#&gt; 61        -0.936         2.0          3.5         1.0 versicolor
-#&gt; 62        -0.036         3.0          4.2         1.5 versicolor
-#&gt; 63         0.064         2.2          4.0         1.0 versicolor
-#&gt; 64         0.164         2.9          4.7         1.4 versicolor
-#&gt; 65        -0.336         2.9          3.6         1.3 versicolor
-#&gt; 66         0.764         3.1          4.4         1.4 versicolor
-#&gt; 67        -0.336         3.0          4.5         1.5 versicolor
-#&gt; 68        -0.136         2.7          4.1         1.0 versicolor
-#&gt; 69         0.264         2.2          4.5         1.5 versicolor
-#&gt; 70        -0.336         2.5          3.9         1.1 versicolor
-#&gt; 71        -0.036         3.2          4.8         1.8 versicolor
-#&gt; 72         0.164         2.8          4.0         1.3 versicolor
-#&gt; 73         0.364         2.5          4.9         1.5 versicolor
-#&gt; 74         0.164         2.8          4.7         1.2 versicolor
-#&gt; 75         0.464         2.9          4.3         1.3 versicolor
-#&gt; 76         0.664         3.0          4.4         1.4 versicolor
-#&gt; 77         0.864         2.8          4.8         1.4 versicolor
-#&gt; 78         0.764         3.0          5.0         1.7 versicolor
-#&gt; 79         0.064         2.9          4.5         1.5 versicolor
-#&gt; 80        -0.236         2.6          3.5         1.0 versicolor
-#&gt; 81        -0.436         2.4          3.8         1.1 versicolor
-#&gt; 82        -0.436         2.4          3.7         1.0 versicolor
-#&gt; 83        -0.136         2.7          3.9         1.2 versicolor
-#&gt; 84         0.064         2.7          5.1         1.6 versicolor
-#&gt; 85        -0.536         3.0          4.5         1.5 versicolor
-#&gt; 86         0.064         3.4          4.5         1.6 versicolor
-#&gt; 87         0.764         3.1          4.7         1.5 versicolor
-#&gt; 88         0.364         2.3          4.4         1.3 versicolor
-#&gt; 89        -0.336         3.0          4.1         1.3 versicolor
-#&gt; 90        -0.436         2.5          4.0         1.3 versicolor
-#&gt; 91        -0.436         2.6          4.4         1.2 versicolor
-#&gt; 92         0.164         3.0          4.6         1.4 versicolor
-#&gt; 93        -0.136         2.6          4.0         1.2 versicolor
-#&gt; 94        -0.936         2.3          3.3         1.0 versicolor
-#&gt; 95        -0.336         2.7          4.2         1.3 versicolor
-#&gt; 96        -0.236         3.0          4.2         1.2 versicolor
-#&gt; 97        -0.236         2.9          4.2         1.3 versicolor
-#&gt; 98         0.264         2.9          4.3         1.3 versicolor
-#&gt; 99        -0.836         2.5          3.0         1.1 versicolor
-#&gt; 100       -0.236         2.8          4.1         1.3 versicolor
-#&gt; 101       -0.288         3.3          6.0         2.5  virginica
-#&gt; 102       -0.788         2.7          5.1         1.9  virginica
-#&gt; 103        0.512         3.0          5.9         2.1  virginica
-#&gt; 104       -0.288         2.9          5.6         1.8  virginica
-#&gt; 105       -0.088         3.0          5.8         2.2  virginica
-#&gt; 106        1.012         3.0          6.6         2.1  virginica
-#&gt; 107       -1.688         2.5          4.5         1.7  virginica
-#&gt; 108        0.712         2.9          6.3         1.8  virginica
-#&gt; 109        0.112         2.5          5.8         1.8  virginica
-#&gt; 110        0.612         3.6          6.1         2.5  virginica
-#&gt; 111       -0.088         3.2          5.1         2.0  virginica
-#&gt; 112       -0.188         2.7          5.3         1.9  virginica
-#&gt; 113        0.212         3.0          5.5         2.1  virginica
-#&gt; 114       -0.888         2.5          5.0         2.0  virginica
-#&gt; 115       -0.788         2.8          5.1         2.4  virginica
-#&gt; 116       -0.188         3.2          5.3         2.3  virginica
-#&gt; 117       -0.088         3.0          5.5         1.8  virginica
-#&gt; 118        1.112         3.8          6.7         2.2  virginica
-#&gt; 119        1.112         2.6          6.9         2.3  virginica
-#&gt; 120       -0.588         2.2          5.0         1.5  virginica
-#&gt; 121        0.312         3.2          5.7         2.3  virginica
-#&gt; 122       -0.988         2.8          4.9         2.0  virginica
-#&gt; 123        1.112         2.8          6.7         2.0  virginica
-#&gt; 124       -0.288         2.7          4.9         1.8  virginica
-#&gt; 125        0.112         3.3          5.7         2.1  virginica
-#&gt; 126        0.612         3.2          6.0         1.8  virginica
-#&gt; 127       -0.388         2.8          4.8         1.8  virginica
-#&gt; 128       -0.488         3.0          4.9         1.8  virginica
-#&gt; 129       -0.188         2.8          5.6         2.1  virginica
-#&gt; 130        0.612         3.0          5.8         1.6  virginica
-#&gt; 131        0.812         2.8          6.1         1.9  virginica
-#&gt; 132        1.312         3.8          6.4         2.0  virginica
-#&gt; 133       -0.188         2.8          5.6         2.2  virginica
-#&gt; 134       -0.288         2.8          5.1         1.5  virginica
-#&gt; 135       -0.488         2.6          5.6         1.4  virginica
-#&gt; 136        1.112         3.0          6.1         2.3  virginica
-#&gt; 137       -0.288         3.4          5.6         2.4  virginica
-#&gt; 138       -0.188         3.1          5.5         1.8  virginica
-#&gt; 139       -0.588         3.0          4.8         1.8  virginica
-#&gt; 140        0.312         3.1          5.4         2.1  virginica
-#&gt; 141        0.112         3.1          5.6         2.4  virginica
-#&gt; 142        0.312         3.1          5.1         2.3  virginica
-#&gt; 143       -0.788         2.7          5.1         1.9  virginica
-#&gt; 144        0.212         3.2          5.9         2.3  virginica
-#&gt; 145        0.112         3.3          5.7         2.5  virginica
-#&gt; 146        0.112         3.0          5.2         2.3  virginica
-#&gt; 147       -0.288         2.5          5.0         1.9  virginica
-#&gt; 148       -0.088         3.0          5.2         2.0  virginica
-#&gt; 149       -0.388         3.4          5.4         2.3  virginica
-#&gt; 150       -0.688         3.0          5.1         1.8  virginica</div><div class='input'><span class='co'># \donttest{</span>
+    <pre class="examples"><div class='input'><span class='fu'>adjust</span><span class='op'>(</span><span class='va'>attitude</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         rating  complaints  privileges     learning      raises    critical
+#&gt; 1   -8.1102953   5.5583770 -15.8489495  -2.75102306   0.5742664  15.6055022
+#&gt; 2    1.6472337   0.0646564  -1.4225924  -3.06207012  -1.5567655  -2.3157810
+#&gt; 3    1.0605589  -7.5116953  11.1746085   5.59808033   4.8603132   8.0618012
+#&gt; 4   -0.2268416   3.8345277  -4.5674406   0.03866933  -7.1185324  13.0025744
+#&gt; 5    6.5462010  -1.2420122  -3.0510984   0.87312095  -2.7131349   6.5003528
+#&gt; 6  -10.9418499   5.2030745   2.6641564  -1.24552098   4.1370346 -21.6783822
+#&gt; 7   -9.1484140   5.4703108 -10.4328432   5.71859149   5.3656703  -5.2384340
+#&gt; 8    0.9029929   2.5608484  -5.0517951  -5.29374027   4.4574753 -11.0030328
+#&gt; 9   -7.5309862   2.4339896  12.2619091  10.26440961   2.8523548   9.9475629
+#&gt; 10   7.8015424  -4.3358833  -2.6727182  -7.23210392  -0.3002972   4.0961127
+#&gt; 11   6.0742817 -11.9900391   8.0975792   5.47869539   2.3150922  -3.6824794
+#&gt; 12  11.5989723  -4.8671195   1.5027728 -15.87942464  -0.7291924  -2.7471720
+#&gt; 13   9.4183197  -7.3970919  13.2328606  -9.42000500   2.1992437  -8.9264218
+#&gt; 14  -2.2140147   8.1881193  24.9814055 -11.64285330  -6.1495840   2.8418688
+#&gt; 15   0.4506705  -2.5770669  -5.2547496   6.64133914   6.4784591  -0.8454553
+#&gt; 16  -3.5478519  14.2969120 -14.9748695   9.70538089  -9.5300033 -13.8204493
+#&gt; 17  -2.1501319   7.2584531  -2.9433798  -2.89172149  -1.5873728  -2.1520580
+#&gt; 18   3.6026355  -3.3274750   6.7012942  12.70306315 -16.4991421  10.2712762
+#&gt; 19  -3.0165587   1.5321885  -8.8574173  -0.23273381   5.8698681   5.8895747
+#&gt; 20  -5.6201442  -1.3898277  15.5623553  -1.18623905   0.3805922   1.6696336
+#&gt; 21   7.3967582  -5.9625957  -3.2550843  -7.29972652  -4.0965067  -5.2607986
+#&gt; 22   0.1809831  -5.5453037   0.9259830   7.35994049   2.2144741   6.2047767
+#&gt; 23 -10.6639999   6.9119296  -0.5164097   2.31172066   1.3676495   6.2435385
+#&gt; 24  -4.6247464  -5.3189073  -1.9093845  10.68079101  -2.6323079 -11.5620146
+#&gt; 25   5.6828983 -10.8499327  -0.5640085  -2.57618485   9.8253009  -0.8953311
+#&gt; 26  -1.8434727   1.4351539   2.6267589 -11.80931691   8.8582382 -11.7425336
+#&gt; 27   2.8596385  -6.1038672  -0.9715536   6.42826587   6.7173702  -0.5581726
+#&gt; 28  -8.0453540   7.8050105  -4.9863879   2.81595072  -7.8541569  12.9751638
+#&gt; 29   7.3394730  -1.7770932   7.0405122  -3.58130062  -0.5856674  -5.4892951
+#&gt; 30   5.1215016   7.6423593 -19.4915135  -0.51405450  -7.1207394   4.6080728
+#&gt;        advance
+#&gt; 1    2.8684130
+#&gt; 2    5.3937097
+#&gt; 3   -6.4236221
+#&gt; 4   -0.3951046
+#&gt; 5    2.1988621
+#&gt; 6   -3.1912418
+#&gt; 7   -8.2975047
+#&gt; 8    0.3313834
+#&gt; 9  -17.8173479
+#&gt; 10   3.2077674
+#&gt; 11  -7.7480571
+#&gt; 12   8.2201619
+#&gt; 13  -5.8982920
+#&gt; 14  -0.3236635
+#&gt; 15  -5.7639676
+#&gt; 16   0.4424158
+#&gt; 17  11.6172195
+#&gt; 18  11.7550726
+#&gt; 19  -2.2362899
+#&gt; 20   2.7752634
+#&gt; 21   5.0639714
+#&gt; 22  -6.4649197
+#&gt; 23  -6.3462052
+#&gt; 24   4.3270326
+#&gt; 25  -8.6992680
+#&gt; 26  14.8238571
+#&gt; 27  -4.6986777
+#&gt; 28   0.5363293
+#&gt; 29   6.7021863
+#&gt; 30   4.0405164</div><div class='input'><span class='fu'>adjust</span><span class='op'>(</span><span class='va'>attitude</span>, effect <span class='op'>=</span> <span class='st'>"complaints"</span>, select <span class='op'>=</span> <span class='st'>"rating"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          rating complaints privileges learning raises critical advance
+#&gt; 1   -9.86142016         51         30       39     61       92      45
+#&gt; 2    0.32865220         64         51       54     63       73      47
+#&gt; 3    3.80099328         70         68       69     76       86      48
+#&gt; 4   -0.91673799         63         45       47     54       84      35
+#&gt; 5    7.76411473         78         56       66     71       83      47
+#&gt; 6  -12.87985944         55         49       44     54       49      34
+#&gt; 7   -6.93517726         67         42       56     66       68      35
+#&gt; 8    0.02794419         75         50       55     70       66      41
+#&gt; 9   -4.25432454         82         72       67     71       83      31
+#&gt; 10   6.59248165         61         45       47     62       80      41
+#&gt; 11   9.62936020         53         53       58     58       67      34
+#&gt; 12   7.34709147         60         47       39     59       74      41
+#&gt; 13   7.83787183         62         57       42     55       63      25
+#&gt; 14  -9.00893436         83         83       45     59       77      35
+#&gt; 15   4.51872455         77         54       72     79       77      46
+#&gt; 16  -1.29120309         90         50       72     60       54      36
+#&gt; 17  -4.51815400         85         64       69     79       79      63
+#&gt; 18   5.34709147         60         65       75     55       80      60
+#&gt; 19  -2.19900672         70         46       57     75       85      46
+#&gt; 20  -8.14368889         58         68       54     64       78      52
+#&gt; 21   5.43928784         40         33       34     43       64      33
+#&gt; 22   3.59248165         61         52       62     66       80      41
+#&gt; 23 -11.18056744         66         52       50     63       80      37
+#&gt; 24  -2.29688270         37         42       58     50       57      49
+#&gt; 25   7.87475038         54         42       48     66       75      33
+#&gt; 26  -6.48127545         77         66       63     88       76      72
+#&gt; 27   7.02794419         75         58       74     80       78      49
+#&gt; 28  -9.38907907         57         44       45     51       83      38
+#&gt; 29   6.48184600         85         71       71     77       74      55
+#&gt; 30   5.74567546         82         39       59     64       78      39</div><div class='input'><span class='co'># \donttest{</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>adjust</span><span class='op'>(</span><span class='va'>iris</span>, effect <span class='op'>=</span> <span class='st'>"Species"</span>, select <span class='op'>=</span> <span class='st'>"Sepal.Length"</span>, multilevel <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'>adjust</span><span class='op'>(</span><span class='va'>iris</span>, effect <span class='op'>=</span> <span class='st'>"Species"</span>, select <span class='op'>=</span> <span class='st'>"Sepal.Length"</span>, bayesian <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'>adjust</span><span class='op'>(</span><span class='va'>iris</span>, effect <span class='op'>=</span> <span class='st'>"Petal.Width"</span>, select <span class='op'>=</span> <span class='st'>"Sepal.Length"</span>, additive <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'>adjust</span><span class='op'>(</span><span class='va'>iris</span>,
-  effect <span class='op'>=</span> <span class='st'>"Petal.Width"</span>, select <span class='op'>=</span> <span class='st'>"Sepal.Length"</span>,
-  additive <span class='op'>=</span> <span class='cn'>TRUE</span>, bayesian <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span>
-<span class='fu'>adjust</span><span class='op'>(</span><span class='va'>iris</span>,
-  effect <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Petal.Width"</span>, <span class='st'>"Species"</span><span class='op'>)</span>, select <span class='op'>=</span> <span class='st'>"Sepal.Length"</span>,
-  multilevel <span class='op'>=</span> <span class='cn'>TRUE</span>, additive <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span>
-<span class='fu'>adjust</span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span>
+<span class='fu'>adjust</span><span class='op'>(</span><span class='va'>attitude</span>, effect <span class='op'>=</span> <span class='st'>"complaints"</span>, select <span class='op'>=</span> <span class='st'>"rating"</span>, bayesian <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'>adjust</span><span class='op'>(</span><span class='va'>attitude</span>, effect <span class='op'>=</span> <span class='st'>"complaints"</span>, select <span class='op'>=</span> <span class='st'>"rating"</span>, additive <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>attitude</span><span class='op'>$</span><span class='va'>complaints_LMH</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span><span class='op'>(</span><span class='va'>attitude</span><span class='op'>$</span><span class='va'>complaints</span>, <span class='fl'>3</span><span class='op'>)</span>
+<span class='fu'>adjust</span><span class='op'>(</span><span class='va'>attitude</span>, effect <span class='op'>=</span> <span class='st'>"complaints_LMH"</span>, select <span class='op'>=</span> <span class='st'>"rating"</span>, multilevel <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='op'>}</span>
 <span class='co'># }</span>
 

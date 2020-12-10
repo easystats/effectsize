@@ -128,8 +128,8 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Run the following to install the latest GitHub-version of <code>effectsize</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"easystats/effectsize"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"easystats/effectsize"</span><span class="op">)</span></code></pre></div>
 <p>Or install the latest stable release from CRAN:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"effectsize"</span><span class="op">)</span></code></pre></div>
@@ -164,41 +164,44 @@
 <a href="#standardized-differences-cohens-d-hedges-g-glass-delta" class="anchor"></a>Standardized Differences (Cohen’s <em>d</em>, Hedges’ <em>g</em>, Glass’ <em>delta</em>)</h3>
 <p>The package provides functions to compute indices of effect size.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Length</span>, <span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Width</span><span class="op">)</span>
-<span class="co">## Cohen's d |       95% CI</span>
-<span class="co">## ------------------------</span>
-<span class="co">##      4.21 | [3.80, 4.61]</span>
+<code class="sourceCode R"><span class="fu"><a href="reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
+<span class="co">## Cohen's d |         95% CI</span>
+<span class="co">## --------------------------</span>
+<span class="co">##     -1.48 | [-2.27, -0.67]</span>
+<span class="co">##  - Estimated using pooled SD</span>
 
-<span class="fu"><a href="reference/cohens_d.html">hedges_g</a></span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Length</span>, <span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Width</span><span class="op">)</span>
-<span class="co">## Hedge's g |       95% CI</span>
-<span class="co">## ------------------------</span>
-<span class="co">##      4.20 | [3.79, 4.60]</span>
+<span class="fu"><a href="reference/cohens_d.html">hedges_g</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
+<span class="co">## Hedge's g |         95% CI</span>
+<span class="co">## --------------------------</span>
+<span class="co">##     -1.44 | [-2.21, -0.65]</span>
+<span class="co">##  - Estimated using pooled SD</span>
+<span class="co">##  - Bias corrected using Hedges and Olkin's correction</span>
 
-<span class="fu"><a href="reference/cohens_d.html">glass_delta</a></span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Length</span>, <span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Width</span><span class="op">)</span>
-<span class="co">## Glass' delta |       95% CI</span>
-<span class="co">## ---------------------------</span>
-<span class="co">##         6.39 | [5.83, 6.95]</span></code></pre></div>
+<span class="fu"><a href="reference/cohens_d.html">glass_delta</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
+<span class="co">## Glass' delta |         95% CI</span>
+<span class="co">## -----------------------------</span>
+<span class="co">##        -1.17 | [-1.93, -0.40]</span></code></pre></div>
 </div>
 <div id="anovas-eta2-omega2-" class="section level3">
 <h3 class="hasAnchor">
 <a href="#anovas-eta2-omega2-" class="anchor"></a>ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)</h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span><span class="op">(</span><span class="va">Sepal.Length</span> <span class="op">~</span> <span class="va">Species</span>, data <span class="op">=</span> <span class="va">iris</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 
 <span class="fu"><a href="reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-<span class="co">## Parameter | Eta2 (partial) |       90% CI</span>
-<span class="co">## -----------------------------------------</span>
-<span class="co">## Species   |           0.62 | [0.54, 0.68]</span>
+<span class="co">## Parameter    | Eta2 |       90% CI</span>
+<span class="co">## ----------------------------------</span>
+<span class="co">## factor(gear) | 0.43 | [0.18, 0.59]</span>
 
 <span class="fu"><a href="reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-<span class="co">## Parameter | Omega2 (partial) |       90% CI</span>
-<span class="co">## -------------------------------------------</span>
-<span class="co">## Species   |             0.61 | [0.53, 0.67]</span>
+<span class="co">## Parameter    | Omega2 |       90% CI</span>
+<span class="co">## ------------------------------------</span>
+<span class="co">## factor(gear) |   0.38 | [0.14, 0.55]</span>
 
 <span class="fu"><a href="reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-<span class="co">## Parameter | Epsilon2 (partial) |       90% CI</span>
-<span class="co">## ---------------------------------------------</span>
-<span class="co">## Species   |               0.61 | [0.54, 0.67]</span></code></pre></div>
+<span class="co">## Parameter    | Epsilon2 |       90% CI</span>
+<span class="co">## --------------------------------------</span>
+<span class="co">## factor(gear) |     0.39 | [0.14, 0.56]</span></code></pre></div>
 <p>And more…</p>
 </div>
 <div id="regression-models-standardized-parameters" class="section level3">
@@ -206,27 +209,27 @@
 <a href="#regression-models-standardized-parameters" class="anchor"></a>Regression Models (Standardized Parameters)</h3>
 <p>Importantly, <code>effectsize</code> also provides <a href="https://easystats.github.io/effectsize/articles/standardize_parameters.html">advanced methods</a> to compute standardized parameters for regression models.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Sepal.Length</span> <span class="op">~</span> <span class="va">Species</span> <span class="op">+</span> <span class="va">Sepal.Width</span>, data <span class="op">=</span> <span class="va">iris</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">complaints</span> <span class="op">+</span> <span class="va">privileges</span> <span class="op">+</span> <span class="va">advance</span>, data <span class="op">=</span> <span class="va">attitude</span><span class="op">)</span>
 
 <span class="fu"><a href="reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
-<span class="co">## Parameter         | Coefficient (std.) |         95% CI</span>
-<span class="co">## -------------------------------------------------------</span>
-<span class="co">## (Intercept)       |              -1.37 | [-1.55, -1.20]</span>
-<span class="co">## Speciesversicolor |               1.76 | [ 1.49,  2.03]</span>
-<span class="co">## Speciesvirginica  |               2.35 | [ 2.11,  2.59]</span>
-<span class="co">## Sepal.Width       |               0.42 | [ 0.31,  0.53]</span>
+<span class="co">## Parameter   | Coefficient (std.) |        95% CI</span>
+<span class="co">## ------------------------------------------------</span>
+<span class="co">## (Intercept) |          -9.57e-16 | [-0.22, 0.22]</span>
+<span class="co">## complaints  |               0.85 | [ 0.58, 1.13]</span>
+<span class="co">## privileges  |              -0.04 | [-0.33, 0.24]</span>
+<span class="co">## advance     |              -0.02 | [-0.26, 0.22]</span>
 <span class="co">## </span>
-<span class="co">## # Standardization method: Refit</span></code></pre></div>
+<span class="co">## # Standardization method: refit</span></code></pre></div>
 <p>Also, models can be re-fit with standardized data:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/standardize.html">standardize</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
 <span class="co">## </span>
 <span class="co">## Call:</span>
-<span class="co">## lm(formula = Sepal.Length ~ Species + Sepal.Width, data = data_std)</span>
+<span class="co">## lm(formula = rating ~ complaints + privileges + advance, data = data_std)</span>
 <span class="co">## </span>
 <span class="co">## Coefficients:</span>
-<span class="co">##       (Intercept)  Speciesversicolor   Speciesvirginica        Sepal.Width  </span>
-<span class="co">##            -1.371              1.762              2.351              0.423</span></code></pre></div>
+<span class="co">## (Intercept)   complaints   privileges      advance  </span>
+<span class="co">##   -9.57e-16     8.55e-01    -4.35e-02    -2.19e-02</span></code></pre></div>
 <!-- add cohens_f2? -->
 </div>
 </div>
@@ -279,27 +282,27 @@
 <p>Many indices of effect size stem out, or are related, to <a href="https://easystats.github.io/effectsize/articles/standardize_parameters.html"><em>standardization</em></a>. Thus, it is expected that <code>effectsize</code> provides functions to standardize data.</p>
 <p>A standardization sets the mean and SD to 0 and 1:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/parameters/">parameters</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/parameters/">parameters</a></span><span class="op">)</span> <span class="co"># for describe_distribution</span>
 
-<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/standardize.html">standardize</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>
-<span class="fu"><a href="https://easystats.github.io/parameters/reference/describe_distribution.html">describe_distribution</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">Sepal.Length</span><span class="op">)</span>
-<span class="co">##      Mean | SD |  IQR |         Range | Skewness | Kurtosis |   n | n_Missing</span>
-<span class="co">## -----------------------------------------------------------------------------</span>
-<span class="co">## -4.48e-16 |  1 | 1.57 | [-1.86, 2.48] |     0.31 |    -0.55 | 150 |         0</span></code></pre></div>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/standardize.html">standardize</a></span><span class="op">(</span><span class="va">attitude</span><span class="op">)</span>
+<span class="fu"><a href="https://easystats.github.io/parameters/reference/describe_distribution.html">describe_distribution</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">rating</span><span class="op">)</span>
+<span class="co">##      Mean | SD |  IQR |         Range | Skewness | Kurtosis |  n | n_Missing</span>
+<span class="co">## ----------------------------------------------------------------------------</span>
+<span class="co">## -5.46e-16 |  1 | 1.29 | [-2.02, 1.67] |    -0.40 |    -0.49 | 30 |         0</span></code></pre></div>
 <p>Alternatively, normalization is similar to standardization in that it is a linear translation of the parameter space (i.e., it does not change the shape of the data distribution). However, it puts the values within a 0 - 1 range, which can be useful in cases where you want to compare or visualise data on the same scale.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/normalize.html">normalize</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>
-<span class="fu"><a href="https://easystats.github.io/parameters/reference/describe_distribution.html">describe_distribution</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">Sepal.Length</span><span class="op">)</span>
-<span class="co">## Mean |   SD |  IQR |        Range | Skewness | Kurtosis |   n | n_Missing</span>
-<span class="co">## -------------------------------------------------------------------------</span>
-<span class="co">## 0.43 | 0.23 | 0.36 | [0.00, 1.00] |     0.31 |    -0.55 | 150 |         0</span></code></pre></div>
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/normalize.html">normalize</a></span><span class="op">(</span><span class="va">attitude</span><span class="op">)</span>
+<span class="fu"><a href="https://easystats.github.io/parameters/reference/describe_distribution.html">describe_distribution</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">rating</span><span class="op">)</span>
+<span class="co">## Mean |   SD |  IQR |        Range | Skewness | Kurtosis |  n | n_Missing</span>
+<span class="co">## ------------------------------------------------------------------------</span>
+<span class="co">## 0.55 | 0.27 | 0.35 | [0.00, 1.00] |    -0.40 |    -0.49 | 30 |         0</span></code></pre></div>
 <p>This is a special case of a rescaling function, which can be used to rescale the data to an arbitrary new scale. Let’s change all numeric variables to “percentages”:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/change_scale.html">change_scale</a></span><span class="op">(</span><span class="va">iris</span>, to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span> 
-<span class="fu"><a href="https://easystats.github.io/parameters/reference/describe_distribution.html">describe_distribution</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">Sepal.Length</span><span class="op">)</span>
-<span class="co">##  Mean |    SD |   IQR |          Range | Skewness | Kurtosis |   n | n_Missing</span>
-<span class="co">## ------------------------------------------------------------------------------</span>
-<span class="co">## 42.87 | 23.00 | 36.11 | [0.00, 100.00] |     0.31 |    -0.55 | 150 |         0</span></code></pre></div>
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/change_scale.html">change_scale</a></span><span class="op">(</span><span class="va">attitude</span>, to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span> 
+<span class="fu"><a href="https://easystats.github.io/parameters/reference/describe_distribution.html">describe_distribution</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">rating</span><span class="op">)</span>
+<span class="co">##  Mean |    SD |   IQR |          Range | Skewness | Kurtosis |  n | n_Missing</span>
+<span class="co">## -----------------------------------------------------------------------------</span>
+<span class="co">## 54.74 | 27.05 | 35.00 | [0.00, 100.00] |    -0.40 |    -0.49 | 30 |         0</span></code></pre></div>
 <p>For some robust statistics, one might also want to transfom the numeric values into <em>ranks</em>, which can be performed using the <code><a href="reference/ranktransform.html">ranktransform()</a></code> function.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/ranktransform.html">ranktransform</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="op">-</span><span class="fl">2</span>, <span class="fl">6</span>, <span class="fl">6</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span>
