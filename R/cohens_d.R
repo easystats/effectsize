@@ -33,12 +33,7 @@
 #'
 #' @details
 #'
-#' # Confidence Intervals
-#' Confidence intervals are estimated using the Noncentrality parameter method;
-#' These methods searches for a the best non-central parameters (`ncp`s) of the
-#' noncentral t-, F- or Chi-squared distribution for the desired
-#' tail-probabilities, and then convert these `ncp`s to the corresponding effect
-#' sizes.
+#' @inheritSection effectsize-CIs Confidence Intervals
 #'
 #' @return A data frame with the effect size ( `Cohens_d`, `Hedges_g`,
 #'   `Glass_delta`) and their CIs (`CI_low` and `CI_high`).
@@ -158,6 +153,7 @@ glass_delta <- function(x, y = NULL, data = NULL, ci = 0.95, correction) {
     }
     y <- rep(0, length.out = length(x))
     paired <- TRUE
+    pooled_sd <- NULL
   }
 
   # Compute index
@@ -182,9 +178,8 @@ glass_delta <- function(x, y = NULL, data = NULL, ci = 0.95, correction) {
     n2 <- length(y)
     n <- n1 + n2
 
-    hn <- (1 / n1 + 1 / n2)
-    df <- n - 2
     if (type == "d" | type == "g") {
+      hn <- (1 / n1 + 1 / n2)
       if (pooled_sd) {
         s <- suppressWarnings(sd_pooled(x, y))
 
@@ -201,9 +196,11 @@ glass_delta <- function(x, y = NULL, data = NULL, ci = 0.95, correction) {
         df <- se^4 / (se1^4 / (n1 - 1) + se2^4 / (n2 - 1))
       }
     } else if (type == "delta") {
+      hn <- 1 / (n2 - 1)
       s <- stats::sd(y)
 
-      se <- s * sqrt(1 / n1 + 1 / n2)
+      se <- s / sqrt(n2)
+      df <- n2 - 1
     }
   }
 

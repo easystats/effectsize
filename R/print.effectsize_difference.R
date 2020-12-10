@@ -10,20 +10,23 @@ print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
   footer <- caption <- NULL
 
   ## Add footer
-  if (any(colnames(x) %in% c("Cohens_d", "Hedges_g"))) {
-    footer <- paste0(" - Estimated using ", ifelse(attr(x, "pooled_sd"), "pooled SD", "un-pooled SD"), "\n")
+  if (!is.null(sd_type <- attr(x, "pooled_sd", exact = TRUE))) {
+    sd_type <- sprintf(
+      "\n- Estimated using %s.",
+      ifelse(sd_type, "pooled SD", "un-pooled SD")
+    )
+
+    footer <- c(footer, list(c(sd_type, "cyan")))
   }
 
   if (any(colnames(x) == "Hedges_g")) {
-    correction <- paste0(
-      " - Bias corrected using ",
-      ifelse(attr(x, "correction") == 1, "Hedges and Olkin's", "Hunter and Schmidt's"),
-      " correction\n"
+    correction <- sprintf(
+      "\n- Bias corrected using %s method.",
+      ifelse(attr(x, "correction") == 1, "Hedges and Olkin's", "Hunter and Schmidt's")
     )
-    footer <- paste0(footer, correction)
-  }
 
-  if (!is.null(footer)) footer <- c(footer, "cyan")
+    footer <- c(footer, list(c(correction, "cyan")))
+  }
 
   x <- .print_effectsize_table(x, digits = digits)
   cat(insight::export_table(x, digits = digits, caption = caption, footer = footer))

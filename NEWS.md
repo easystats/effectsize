@@ -1,5 +1,9 @@
 # effectsize 0.4.1.1
 
+## Bug fixes
+
+- `glass_delta()` returns correct CIs (was too narrow).
+
 ## Changes
 
 - `eta_squared()` family of functions gains a `verbose` argument.

@@ -68,6 +68,7 @@ reference:
   - sd_pooled
   - is_effectsize_name
   - hardlyworking
+  - effectsize-CIs
 
 navbar:
   type: default
