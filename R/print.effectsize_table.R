@@ -6,10 +6,12 @@ print.effectsize_table <- function(x, digits = 2, ...) {
 
   ## Footer
   ## MSB: Move to own printing function?
-  if (!is.null(method <- attr(x_orig, "std_method"))) {
-    footer <- paste0(toupper(substr(method, 1L, 1L)), substr(method, 2L, nchar(method)))
-    footer <- paste0("\n# Standardization method: ", method, "\n")
-    footer <- c(footer, "blue")
+  if (!is.null(std_method <- attr(x_orig, "std_method"))) {
+    std_method <- sprintf(
+      "\n# Standardization method: %s\n",
+      std_method
+    )
+    footer <- list(c(std_method, "blue"))
   }
 
   x <- .print_effectsize_table(x, digits = digits)

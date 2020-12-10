@@ -150,6 +150,7 @@ glass_delta <- function(x, y = NULL, data = NULL, ci = 0.95, correction) {
     }
     y <- rep(0, length.out = length(x))
     paired <- TRUE
+    pooled_sd <- NULL
   }
 
   # Compute index
