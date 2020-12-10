@@ -60,7 +60,8 @@ cohens_d(mpg ~ am, data = mtcars)
 #> Cohen's d |         95% CI
 #> --------------------------
 #>     -1.48 | [-2.27, -0.67]
-#> - Estimated using pooled SD
+#>
+#> - Estimated using pooled SD.
 
 ```
 
@@ -104,7 +105,7 @@ standardize_parameters(model)
 #> am          |               0.17 | [-0.04,  0.39]
 #> cyl:am      |              -0.19 | [-0.41,  0.02]
 #> 
-#> # Standardization method: Refit
+#> # Standardization method: refit
 ```
 
 Standardized parameters can also be produced for generalized linear models (GLMs; where only the predictors are standardized):
@@ -121,7 +122,7 @@ standardize_parameters(model, exponentiate = TRUE)
 #> cyl         |              0.05 | [0.00,  0.29]
 #> hp          |              6.70 | [1.32, 61.54]
 #> 
-#> # Standardization method: Refit
+#> # Standardization method: refit
 ```
 
 `standardize_parameters()` provides several standardization methods, such as robust standardization, or *pseudo*-standardized coefficients for (generalized) linear mixed models [@hoffman2015longitudinal]. A full review of these methods can be found in the [*Parameter and Model Standardization* vignette](https://easystats.github.io/effectsize/articles/standardize_parameters.html).
