@@ -186,7 +186,8 @@
 <pre><code>&gt; Cohen's d |         95% CI
 &gt; --------------------------
 &gt;     -1.48 | [-2.27, -0.67]
-&gt;  - Estimate using pooled SD</code></pre>
+&gt; 
+&gt; - Estimated using pooled SD.</code></pre>
 <p><strong><em>It is larger!</em></strong> Why? How? Both differences should be expressed in units of SD! But which SDs? Different SDs!</p>
 <p>When looking at the difference between groups as a <strong>slope</strong>, the standardized parameter is the difference between the means in <span class="math inline">\(SD_{mpg}\)</span>. That is, the <em>slope</em> between <code>Manual</code> and <code>Automatic</code> is a change of 1.20 <span class="math inline">\(SD_{mpg}\)</span>s.</p>
 <p>However, when looking a the difference as a <strong>distance between two populations</strong>, Cohen’s d is the distance between the means in units of <a href="https://easystats.github.io/effectsize/reference/sd_pooled.html"><strong>pooled SDs</strong></a>. That is, the <em>distance</em> between <code>Manual</code> and <code>Automatic</code> is of 1.48 SDs of <em>each of the groups</em> (here assumed to be equal).</p>
@@ -222,7 +223,9 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/cohens_d.html">glass_delta</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Glass' delta |         95% CI
 &gt; -----------------------------
-&gt;        -1.17 | [-1.93, -0.40]</code></pre>
+&gt;        -1.17 | [-1.95, -0.46]
+&gt; 
+&gt; - Estimated using pooled SD.</code></pre>
 <p><strong><em>… So note that some standardized differences are different than others! :)</em></strong></p>
 </div>
 </div>
