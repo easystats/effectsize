@@ -12,7 +12,7 @@ print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
   ## Add footer
   if (!is.null(sd_type <- attr(x, "pooled_sd", exact = TRUE))) {
     sd_type <- sprintf(
-      " - Estimated using %s.\n",
+      "\n- Estimated using %s.",
       ifelse(sd_type, "pooled SD", "un-pooled SD")
     )
 
@@ -21,7 +21,7 @@ print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
 
   if (any(colnames(x) == "Hedges_g")) {
     correction <- sprintf(
-      " - Bias corrected using %s method.\n",
+      "\n- Bias corrected using %s method.",
       ifelse(attr(x, "correction") == 1, "Hedges and Olkin's", "Hunter and Schmidt's")
     )
 
