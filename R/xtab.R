@@ -100,7 +100,7 @@
 #'
 #' cohens_g(Performance)
 #' @references
-#' - Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
+#' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 #' - Katz, D. J. S. M., Baptista, J., Azen, S. P., & Pike, M. C. (1978). Obtaining confidence intervals for the risk ratio in cohort studies. Biometrics, 469-474.
 #' - Szumilas, M. (2010). Explaining odds ratios. Journal of the Canadian academy of child and adolescent psychiatry, 19(3), 227.
 #'

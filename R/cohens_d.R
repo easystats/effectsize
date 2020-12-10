@@ -59,7 +59,7 @@
 #'
 #' print(cohens_d(mpg ~ am, data = mtcars), append_CL = TRUE)
 #' @references
-#' - Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.
+#' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 #' - Hedges, L. V. & Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.
 #' - Hunter, J. E., & Schmidt, F. L. (2004). Methods of meta-analysis: Correcting error and bias in research findings. Sage.
 #' - McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
