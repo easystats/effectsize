@@ -85,8 +85,8 @@ if (require("testthat") && require("effectsize")) {
     x <- glass_delta(wt ~ am, data = mtcars)
     testthat::expect_equal(colnames(x)[1], "Glass_delta")
     testthat::expect_equal(x[[1]], 2.200, tolerance = 0.001)
-    testthat::expect_equal(x$CI_low, 1.292, tolerance = 0.001)
-    testthat::expect_equal(x$CI_high, 3.086, tolerance = 0.001)
+    testthat::expect_equal(x$CI_low, 1.210, tolerance = 0.001)
+    testthat::expect_equal(x$CI_high, 3.344, tolerance = 0.001)
 
     # must be 2 samples
     testthat::expect_error(glass_delta(1:10))
