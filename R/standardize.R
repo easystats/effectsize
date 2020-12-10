@@ -38,10 +38,10 @@
 #'
 #' @examples
 #' # Data frames
-#' summary(standardize(iris))
+#' summary(standardize(swiss))
 #'
 #' # Models
-#' model <- lm(Sepal.Length ~ Species * Petal.Width, data = iris)
+#' model <- lm(Infant.Mortality ~ Education * Fertility, data = swiss)
 #' coef(standardize(model))
 #' @export
 standardize <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, verbose = TRUE, ...) {

@@ -17,38 +17,48 @@ adjust(
 \arguments{
 \item{data}{A dataframe.}
 
-\item{effect}{Character vector of column names to be adjusted for (regressed out). If \code{NULL} (the default), all variables will be selected.}
+\item{effect}{Character vector of column names to be adjusted for (regressed
+out). If \code{NULL} (the default), all variables will be selected.}
 
 \item{select}{Character vector of column names. If \code{NULL} (the default), all
 variables will be selected.}
 
 \item{exclude}{Character vector of column names to be excluded from selection.}
 
-\item{multilevel}{If \code{TRUE}, the factors are included as random factors. Else, if \code{FALSE} (default), they are included as fixed effects in the simple regression model.}
+\item{multilevel}{If \code{TRUE}, the factors are included as random factors.
+Else, if \code{FALSE} (default), they are included as fixed effects in the
+simple regression model.}
 
-\item{additive}{If \code{TRUE}, continuous variables as included as smooth terms in additive models. The goal is to regress-out potential non-linear effects.}
+\item{additive}{If \code{TRUE}, continuous variables as included as smooth terms
+in additive models. The goal is to regress-out potential non-linear
+effects.}
 
-\item{bayesian}{If \code{TRUE}, the models are fitted under the Bayesian framework using \code{rstanarm}.}
+\item{bayesian}{If \code{TRUE}, the models are fitted under the Bayesian framework
+using \code{rstanarm}.}
+}
+\value{
+A data frame comparable to \code{data}, with adjusted variables.
 }
 \description{
-This function can be used to adjust the data for the effect of other variables present in the dataset. It is based on an underlying fitting of regressions models, allowing for quite some flexibility, such as including factors as random effects in mixed models (multilevel partialization), continuous variables as smooth terms in general additive models (non-linear partialization) and/or fitting these models under a Bayesian framework. The values returned by this function are the residuals of the regression models. Note that a regular correlation between two "adjusted" variables is equivalent to the partial correlation between them.
+This function can be used to adjust the data for the effect of other
+variables present in the dataset. It is based on an underlying fitting of
+regressions models, allowing for quite some flexibility, such as including
+factors as random effects in mixed models (multilevel partialization),
+continuous variables as smooth terms in general additive models (non-linear
+partialization) and/or fitting these models under a Bayesian framework. The
+values returned by this function are the residuals of the regression models.
+Note that a regular correlation between two "adjusted" variables is
+equivalent to the partial correlation between them.
 }
 \examples{
-adjust(iris, effect = "Species", select = "Sepal.Length")
+adjust(attitude)
+adjust(attitude, effect = "complaints", select = "rating")
 \donttest{
 \dontrun{
-adjust(iris, effect = "Species", select = "Sepal.Length", multilevel = TRUE)
-adjust(iris, effect = "Species", select = "Sepal.Length", bayesian = TRUE)
-adjust(iris, effect = "Petal.Width", select = "Sepal.Length", additive = TRUE)
-adjust(iris,
-  effect = "Petal.Width", select = "Sepal.Length",
-  additive = TRUE, bayesian = TRUE
-)
-adjust(iris,
-  effect = c("Petal.Width", "Species"), select = "Sepal.Length",
-  multilevel = TRUE, additive = TRUE
-)
-adjust(iris)
+adjust(attitude, effect = "complaints", select = "rating", bayesian = TRUE)
+adjust(attitude, effect = "complaints", select = "rating", additive = TRUE)
+attitude$complaints_LMH <- cut(attitude$complaints, 3)
+adjust(attitude, effect = "complaints_LMH", select = "rating", multilevel = TRUE)
 }
 }
 

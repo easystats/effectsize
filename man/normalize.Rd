@@ -59,7 +59,7 @@ the range 0 - 1. This is a special case of \code{\link[=change_scale]{change_sca
 normalize(c(0, 1, 5, -5, -2))
 normalize(c(0, 1, 5, -5, -2), include_bounds = FALSE)
 
-head(normalize(iris))
+head(normalize(trees))
 }
 \references{
 \itemize{

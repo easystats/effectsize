@@ -62,7 +62,8 @@ Not applicable to Glass' Delta (See \code{\link[=d_to_common_language]{d_to_comm
 \item{...}{Not used.}
 }
 \value{
-A data frame with the effect size(s) and confidence interval(s).
+A data frame with the effect size ( \code{Cohens_d}, \code{Hedges_g},
+\code{Glass_delta}) and their CIs (\code{CI_low} and \code{CI_high}).
 }
 \description{
 Compute effect size indices for standardized differences: Cohen's \emph{d},
@@ -94,8 +95,10 @@ sizes. (See full \link{effectsize-CIs} for more.)
 }
 
 \examples{
-cohens_d(iris$Sepal.Length, iris$Sepal.Width)
-hedges_g("Sepal.Length", "Sepal.Width", data = iris)
+cohens_d(sleep$extra, sleep$group)
+hedges_g("extra", "group", data = sleep)
+
+cohens_d(sleep$extra[sleep$group==1], sleep$extra[sleep$group==2], paired = TRUE)
 
 cohens_d(mpg ~ am, data = mtcars)
 cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)
@@ -106,7 +109,7 @@ print(cohens_d(mpg ~ am, data = mtcars), append_CL = TRUE)
 }
 \references{
 \itemize{
-\item Cohen, J. (2013). Statistical power analysis for the behavioral sciences. Routledge.
+\item Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 \item Hedges, L. V. & Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.
 \item Hunter, J. E., & Schmidt, F. L. (2004). Methods of meta-analysis: Correcting error and bias in research findings. Sage.
 \item McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.

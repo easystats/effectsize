@@ -155,10 +155,10 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)
 
 \examples{
 # Data frames
-summary(standardize(iris))
+summary(standardize(swiss))
 
 # Models
-model <- lm(Sepal.Length ~ Species * Petal.Width, data = iris)
+model <- lm(Infant.Mortality ~ Education * Fertility, data = swiss)
 coef(standardize(model))
 }
 \seealso{

@@ -15,9 +15,12 @@
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods.
 #'
-#' @return A data frame with the effect size(s) between 0-1, and confidence interval(s) (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2}
-#' it is possible to compute a negative number; even though this doesn't make any practical sense,
-#' it is recommended to report the negative number and not a 0).
+#' @return A data frame with the effect size(s) between 0-1 (`Eta2_partial`,
+#'   `Epsilon2_partial`, `Omega2_partial`, `Cohens_f_partial` or
+#'   `Cohens_f2_partial`), and their CIs (`CI_low` and `CI_high`). (Note that
+#'   for \eqn{\omega_p^2} and \eqn{\epsilon_p^2} it is possible to compute a
+#'   negative number; even though this doesn't make any practical sense, it is
+#'   recommended to report the negative number and not a 0).
 #'
 #' @details These functions use the following formulae:
 #' \cr

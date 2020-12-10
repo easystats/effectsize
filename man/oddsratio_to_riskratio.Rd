@@ -16,6 +16,9 @@ riskratio_to_oddsratio(RR, p0, log = FALSE)
 
 \item{log}{Take in or output the log of the ratio (such as in logistic models).}
 }
+\value{
+Converted index.
+}
 \description{
 Convert between Odds ratios and Risk ratios
 }
