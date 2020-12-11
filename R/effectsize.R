@@ -199,24 +199,15 @@ effectsize.BFBayesFactor <- function(model, type = NULL, ...) {
       rr = ,
       riskratio = riskratio
     )
-
     data <- insight::get_data(model)
-    N <- sum(data)
-    cells <- prod(dim(data))
-
-    posts <- as.matrix(BayesFactor::posterior(model, iterations = 4000, progress = FALSE))
-    posts <- posts[, seq_len(cells)]
-    if (sum(posts[1, ]) == 1) {
-      posts <- posts * N
-    }
-    colnames(posts) <- gsub("(pi|lambda)", "cell", colnames(posts))
+    posts <- insight::get_parameters(model)
 
     ES <- apply(posts, 1, function(a) {
       f(matrix(a, nrow = nrow(data)), ci = NULL)[[1]]
     })
 
     res <- data.frame(ES)
-    colnames(res) <- colnames(f(matrix(posts[1, ], nrow = nrow(data)), ci = NULL))
+    colnames(res) <- colnames(f(data, ci = NULL))
   } else if (inherits(model@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
     D <- as.matrix(BayesFactor::posterior(model, iterations = 4000, progress = FALSE))[, "delta"]
     res <- data.frame(Cohens_d = D)
