@@ -12,6 +12,7 @@ cohens_d(
   y = NULL,
   data = NULL,
   pooled_sd = TRUE,
+  mu = 0,
   paired = FALSE,
   ci = 0.95,
   correction
@@ -23,11 +24,12 @@ hedges_g(
   data = NULL,
   correction = 1,
   pooled_sd = TRUE,
+  mu = 0,
   paired = FALSE,
   ci = 0.95
 )
 
-glass_delta(x, y = NULL, data = NULL, ci = 0.95, correction)
+glass_delta(x, y = NULL, data = NULL, mu = 0, ci = 0.95, correction)
 
 \method{print}{effectsize_difference}(x, digits = 2, append_CL = FALSE, ...)
 }
@@ -42,6 +44,9 @@ character  name of one in \code{data}. Ignored if \code{x} is a formula.}
 
 \item{pooled_sd}{If \code{TRUE} (default), a \code{\link[=sd_pooled]{sd_pooled()}} is used (assuming equal
 variance). Else the mean SD from both groups is used instead.}
+
+\item{mu}{a number indicating the true value of the mean (or
+    difference in means if you are performing a two sample test).}
 
 \item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
 This produces an effect size that is equivalent to the one-sample effect
@@ -99,6 +104,7 @@ hedges_g("Sepal.Length", "Sepal.Width", data = iris)
 
 cohens_d(mpg ~ am, data = mtcars)
 cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)
+cohens_d(mpg ~ am, data = mtcars, mu = -5)
 hedges_g(mpg ~ am, data = mtcars)
 glass_delta(mpg ~ am, data = mtcars)
 

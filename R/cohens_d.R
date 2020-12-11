@@ -26,6 +26,7 @@
 #'   This produces an effect size that is equivalent to the one-sample effect
 #'   size on `x - y`.
 #' @inheritParams chisq_to_phi
+#' @inheritParams stats::t.test
 #'
 #' @note The indices here give the population estimated standardized difference.
 #'   Some statistical packages give the sample estimate instead (without
@@ -46,6 +47,7 @@
 #'
 #' cohens_d(mpg ~ am, data = mtcars)
 #' cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)
+#' cohens_d(mpg ~ am, data = mtcars, mu = -5)
 #' hedges_g(mpg ~ am, data = mtcars)
 #' glass_delta(mpg ~ am, data = mtcars)
 #'
@@ -62,6 +64,7 @@ cohens_d <- function(x,
                      y = NULL,
                      data = NULL,
                      pooled_sd = TRUE,
+                     mu = 0,
                      paired = FALSE,
                      ci = 0.95,
                      correction) {
@@ -77,6 +80,7 @@ cohens_d <- function(x,
     data = data,
     type = "d",
     pooled_sd = pooled_sd,
+    mu = mu,
     paired = paired,
     ci = ci
   )
@@ -89,6 +93,7 @@ hedges_g <- function(x,
                      data = NULL,
                      correction = 1,
                      pooled_sd = TRUE,
+                     mu = 0,
                      paired = FALSE,
                      ci = 0.95) {
   if (isTRUE(correction) || !correction %in% c(1, 2)) {
@@ -105,6 +110,7 @@ hedges_g <- function(x,
     type = "g",
     correction = correction,
     pooled_sd = pooled_sd,
+    mu = mu,
     paired = paired,
     ci = ci
   )
@@ -112,7 +118,7 @@ hedges_g <- function(x,
 
 #' @rdname cohens_d
 #' @export
-glass_delta <- function(x, y = NULL, data = NULL, ci = 0.95, correction) {
+glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, correction) {
   if (!missing(correction)) {
     warning("`correction` argument is deprecated. To apply bias correction, use `hedges_g()`.",
       call. = FALSE, immediate. = TRUE
@@ -123,6 +129,7 @@ glass_delta <- function(x, y = NULL, data = NULL, ci = 0.95, correction) {
     x,
     y = y,
     data = data,
+    mu = mu,
     type = "delta",
     ci = ci
   )
@@ -136,6 +143,7 @@ glass_delta <- function(x, y = NULL, data = NULL, ci = 0.95, correction) {
                                     y = NULL,
                                     data = NULL,
                                     type = "d",
+                                    mu = 0,
                                     correction = NULL,
                                     pooled_sd = TRUE,
                                     paired = FALSE,
@@ -201,7 +209,7 @@ glass_delta <- function(x, y = NULL, data = NULL, ci = 0.95, correction) {
     }
   }
 
-  out <- data.frame(d = d / s)
+  out <- data.frame(d = (d - mu) / s)
   types <- c("d" = "Cohens_d", "g" = "Hedges_g", "delta" = "Glass_delta")
   colnames(out) <- types[type]
 
@@ -209,7 +217,7 @@ glass_delta <- function(x, y = NULL, data = NULL, ci = 0.95, correction) {
     # Add cis
     out$CI <- ci
 
-    t <- d / se
+    t <- (d - mu) / se
     ts <- .get_ncp_t(t, df, ci)
 
     out$CI_low <- ts[1] * sqrt(hn)
@@ -238,6 +246,7 @@ glass_delta <- function(x, y = NULL, data = NULL, ci = 0.95, correction) {
   attr(out, "paired") <- paired
   attr(out, "correction") <- correction
   attr(out, "pooled_sd") <- pooled_sd
+  attr(out, "mu") <- mu
   return(out)
 }
 

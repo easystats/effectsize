@@ -6,10 +6,16 @@
 #' @param ... Not used.
 print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
   x_orig <- x
+  mu <- attr(x, "mu", exact = TRUE)
 
   footer <- caption <- NULL
 
   ## Add footer
+  if (mu != 0) {
+    mu <- sprintf("\n- Deviation from a fifference of %s.", mu)
+    footer <- c(footer, list(c(mu, "cyan")))
+  }
+
   if (!is.null(sd_type <- attr(x, "pooled_sd", exact = TRUE))) {
     sd_type <- sprintf(
       "\n- Estimated using %s.",
