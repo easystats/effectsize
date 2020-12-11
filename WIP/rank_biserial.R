@@ -27,7 +27,7 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
     r_rbs <- 4 * abs(T_ - (r_pos + r_neg) / 2) / (n * (n + 1))
     if (r_pos >= r_neg) r_rbs <- -r_rbs
   } else {
-    stop("No yet supported")
+    stop("Not yet supported")
   }
 
 
@@ -35,30 +35,35 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
 
   if (is.numeric(ci)) {
     if (!requireNamespace("boot")) {
-      stop("For CIs, the 'boot' package must be installed.")
-    }
+      warning("For CIs, the 'boot' package must be installed.")
+    } else {
+      # Add cis
+      out$CI <- ci
 
-    # Add cis
-    out$CI <- ci
+      # TODO this needs to be different for paired / one sample data
+      # TODO (both data and function call!)
+      if (paired) {
+        # TODO
+      } else {
+        temp_dat <- data.frame(x = c(x,y),
+                               g = c(rep("a", length(x)),
+                                     rep("b", length(y))))
 
-    # TODO this needs to be different for paired / one sample data
-    temp_dat <- data.frame(x = c(x,y),
-                           g = c(rep("a", length(x)),
-                                 rep("b", length(y))))
-
-    B <- boot::boot(
-      data = temp_dat, R = nboot,
-      statistic = function(.data, .i) {
-        rank_biserial("x", "g", data = .data[.i,],
-                      mu = mu, paired = paired,
-                      ci = NULL)[[1]]
+        B <- boot::boot(
+          data = temp_dat, R = nboot,
+          statistic = function(.data, .i) {
+            rank_biserial("x", "g", data = .data[.i,],
+                          mu = mu, paired = paired,
+                          ci = NULL)[[1]]
+          }
+        )
       }
-    )
 
-    BCI <- boot::boot.ci(B, conf = ci, type = "bca")
+      BCI <- boot::boot.ci(B, conf = ci, type = "bca")
 
-    out$CI_low <- BCI$bca[4]
-    out$CI_high <- BCI$bca[5]
+      out$CI_low <- BCI$bca[4]
+      out$CI_high <- BCI$bca[5]
+    }
   }
 
   class(out) <- c("effectsize_table", class(out))
