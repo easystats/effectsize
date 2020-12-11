@@ -209,6 +209,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, ...) {
     if (sum(posts[1, ]) == 1) {
       posts <- posts * N
     }
+    colnames(posts) <- gsub("(pi|lambda)", "cell", colnames(posts))
 
     ES <- apply(posts, 1, function(a) {
       f(matrix(a, nrow = nrow(data)), ci = NULL)[[1]]
