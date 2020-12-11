@@ -11,7 +11,8 @@
 #' @param adjust Should the effect size be bias-corrected? Defaults to `FALSE`.
 #' @param ... Arguments passed to or from other methods.
 #'
-#' @return A data frame with the effect size(s) between 0-1, and confidence interval(s).
+#' @return A data frame with the effect size(s) between 0-1, and confidence
+#'   interval(s). See [cramers_v()].
 #'
 #' @details These functions use the following formulae:
 #' \cr

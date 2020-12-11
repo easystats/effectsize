@@ -8,9 +8,6 @@
 #' @param standardize_method See [standardize_parameters()].
 #' @param standardize_robust See [standardize_parameters()].
 #'
-#' @examples
-#' model <- lm(Sepal.Length ~ Species * Petal.Width, data = iris)
-#' interpret_parameters(model)
 #' @export
 interpret_parameters <- function(model, ...) {
   ## ----------------------------- NOTE ---------------------------------------

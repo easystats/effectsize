@@ -24,6 +24,9 @@
 #' **For statistical models it is recommended to directly use the listed
 #' functions, for the full range of options they provide.**
 #'
+#' @return A data frame with the effect size (depending on input) and and its
+#'   CIs (`CI_low` and `CI_high`).
+#'
 #' @family effect size indices
 #'
 #' @examples
@@ -49,7 +52,7 @@
 #'   bf1 <- ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
 #'   effectsize(bf1, test = NULL)
 #'
-#'   bf2 <- correlationBF(iris$Sepal.Length, iris$Sepal.Width)
+#'   bf2 <- correlationBF(attitude$rating, attitude$complaints)
 #'   effectsize(bf2, test = NULL)
 #'
 #'   data(raceDolls)

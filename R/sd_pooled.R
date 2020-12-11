@@ -15,9 +15,7 @@ sd_pooled <- function(x, y = NULL, data = NULL) {
 
   # This actually works, you must see if you want to keep this code. If you do,
   # following will work:
-  # sd_pooled(Sepal.Length, Petal.Width, data = iris)
-  # sd_pooled("Sepal.Length", "Petal.Width", data = iris)
-  # sd_pooled(iris$Sepal.Length, iris$Petal.Width)
+  # sd_pooled(mpg, hp, data = mtcars)
   # sd_pooled(x, y) # called from a different function, like cohens_d()
 
   # needs modification in in ".sd_pooled()" as well...

@@ -35,7 +35,7 @@ bayestestR::equivalence_test
 #'
 #' @seealso For more details, see [bayestestR::equivalence_test()].
 #'
-#' @return A data frame.
+#' @return A data frame with the results of the equivalence test.
 #'
 #' @references
 #' - Campbell, H., & Gustafson, P. (2018). Conditional equivalence testing: An alternative remedy for publication bias. PLOS ONE, 13(4), e0195145. https://doi.org/10.1371/journal.pone.0195145

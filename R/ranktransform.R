@@ -13,7 +13,8 @@
 #' ranktransform(c(0, 1, 5, -5, -2))
 #' ranktransform(c(0, 1, 5, -5, -2), sign = TRUE)
 #'
-#' head(ranktransform(iris))
+#' head(ranktransform(trees))
+#'
 #' @return A rank-transformed object.
 #'
 #' @family transform utilities

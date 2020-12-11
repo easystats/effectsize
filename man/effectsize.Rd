@@ -22,6 +22,10 @@ effectsize(model, ...)
 
 \item{type}{The effect size of interest. See details.}
 }
+\value{
+A data frame with the effect size (depending on input) and and its
+CIs (\code{CI_low} and \code{CI_high}).
+}
 \description{
 This function tries to return the best effect-size measure for the provided
 input model. See details.
@@ -71,7 +75,7 @@ if (require(BayesFactor)) {
   bf1 <- ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
   effectsize(bf1, test = NULL)
 
-  bf2 <- correlationBF(iris$Sepal.Length, iris$Sepal.Width)
+  bf2 <- correlationBF(attitude$rating, attitude$complaints)
   effectsize(bf2, test = NULL)
 
   data(raceDolls)

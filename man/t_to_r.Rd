@@ -24,7 +24,8 @@ F_to_r(f, df, df_error, ci = 0.95, ...)
 \arguments{
 \item{t, f, z}{The t, the F or the z statistics.}
 
-\item{paired}{Should the estimate accout for the t-value being testing the difference between dependant means?}
+\item{paired}{Should the estimate accout for the t-value being testing the
+difference between dependant means?}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -34,15 +35,19 @@ F_to_r(f, df, df_error, ci = 0.95, ...)
 
 \item{n}{The number of observations (the sample size).}
 
-\item{df, df_error}{Degrees of freedom of numerator or of the error estimate (i.e., the residuals).}
+\item{df, df_error}{Degrees of freedom of numerator or of the error estimate
+(i.e., the residuals).}
 }
 \value{
-A data frame with the effect size(s) between 0-1, and confidence interval(s)
+A data frame with the effect size(s)(\code{r} or \code{d}), and their CIs
+(\code{CI_low} and \code{CI_high}).
 }
 \description{
-These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
-\strong{partial} r. These are useful in cases where the data required to compute these are not easily
-available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.).
+These functions are convenience functions to convert t, z and F test
+statistics to Cohen's d and \strong{partial} r. These are useful in cases where
+the data required to compute these are not easily available or their
+computation is not straightforward (e.g., in liner mixed models, contrasts,
+etc.).
 \cr
 See \href{https://easystats.github.io/effectsize/articles/from_test_statistics.html}{Effect Size from Test Statistics vignette.}
 }
@@ -84,7 +89,7 @@ t_to_d(t = res$statistic, res$parameter, paired = TRUE)
 t_to_r(t = res$statistic, res$parameter)
 \donttest{
 ## Linear Regression
-model <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
+model <- lm(rating  ~ complaints + critical, data = attitude)
 library(parameters)
 (param_tab <- parameters(model))
 
@@ -94,7 +99,7 @@ if (require(see)) plot(rs)
 
 # How does this compare to actual partial correlations?
 if (require("correlation")) {
-  correlation::correlation(iris[, 1:3], partial = TRUE)[1:2, c(2, 3, 7, 8)]
+  correlation::correlation(attitude[, c(1, 2, 6)], partial = TRUE)[1:2, c(2, 3, 7, 8)]
 }
 
 ## Use with emmeans based contrasts (see also t_to_eta2)

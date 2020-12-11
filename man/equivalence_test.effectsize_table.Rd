@@ -23,7 +23,7 @@ the lower bound is set to 0. If \code{"default"}, will be set to \verb{[-.1, .1]
 \item{...}{Arguments passed to or from other methods.}
 }
 \value{
-A data frame.
+A data frame with the results of the equivalence test.
 }
 \description{
 Perform a \strong{Test for Practical Equivalence} for indices of effect size.

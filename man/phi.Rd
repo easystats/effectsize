@@ -40,7 +40,9 @@ for \code{cohens_g()}.}
 \item{log}{Take in or output the log of the ratio (such as in logistic models).}
 }
 \value{
-A data frame with the effect size(s), and confidence interval(s).
+A data frame with the effect size (\code{Cramers_v}, \code{phi} (possibly with
+the suffix \verb{_adjusted}), \code{Odds_ratio}, \code{Risk_ratio} (possibly with the
+prefix \code{log_}), or \code{Cohens_g}) and its CIs (\code{CI_low} and \code{CI_high}).
 }
 \description{
 Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w} (an alias of phi), Odds
@@ -152,7 +154,7 @@ cohens_g(Performance)
 }
 \references{
 \itemize{
-\item Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
+\item Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 \item Katz, D. J. S. M., Baptista, J., Azen, S. P., & Pike, M. C. (1978). Obtaining confidence intervals for the risk ratio in cohort studies. Biometrics, 469-474.
 \item Szumilas, M. (2010). Explaining odds ratios. Journal of the Canadian academy of child and adolescent psychiatry, 19(3), 227.
 }

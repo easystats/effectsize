@@ -84,7 +84,9 @@ from the posterior predictive distribution to return. Larger numbers take
 longer to run, but provide estimates that are more stable.}
 }
 \value{
-A data frame with the effect size(s) and confidence interval(s).
+A data frame with the effect size(s) between 0-1 (\code{Eta2}, \code{Epsilon2},
+\code{Omega2}, \code{Cohens_f} or \code{Cohens_f2}, possibly with the \code{partial} or
+\code{generalized} suffix), and their CIs (\code{CI_low} and \code{CI_high}).
 \cr\cr
 For \code{eta_squared_posterior()}, a data frame containing the ppd of the Eta
 squared for each fixed effect, which can then be passed to
@@ -132,6 +134,10 @@ which to choose?
 Though Omega is the more popular choice (Albers \& Lakens, 2018), Epsilon is
 analogous to adjusted R2 (Allen, 2017, p. 382), and has been found to be less
 biased (Carroll & Nordholm, 1975).
+\cr\cr
+(Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2} it is possible to
+compute a negative number; even though this doesn't make any practical sense,
+it is recommended to report the negative number and not a 0.)
 }
 
 \subsection{Cohen's f}{
