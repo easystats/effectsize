@@ -223,8 +223,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, ...) {
     rho <- insight::get_parameters(model)[["rho"]]
     res <- data.frame(rho = rho)
   } else if (inherits(model@numerator[[1]], "BFproportion")) {
-    p <- as.matrix(BayesFactor::posterior(model, iterations = 4000))[, "p"]
-    res <- data.frame(p = p)
+    res <- insight::get_parameters(model)
   } else {
     stop("No effect size for this type of BayesFactor object.")
   }

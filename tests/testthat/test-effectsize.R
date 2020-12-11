@@ -121,5 +121,8 @@ if (require("testthat") && require("effectsize")) {
 
     bf3 <- BayesFactor::correlationBF(iris$Sepal.Length, iris$Sepal.Width)
     testthat::expect_equal(effectsize(bf3, test = NULL)[[2]], -0.116, tolerance = 0.03)
+
+    bf4 <- BayesFactor::proportionBF(4, 12, 0.5)
+    testthat::expect_equal(effectsize(bf4, test = NULL)[[2]], 0.3911, tolerance = 0.03)
   })
 }
