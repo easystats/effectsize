@@ -190,6 +190,7 @@ the populations, as it uses only the <em>second</em> group's standard deviation.
   y <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   pooled_sd <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  mu <span class='op'>=</span> <span class='fl'>0</span>,
   paired <span class='op'>=</span> <span class='cn'>FALSE</span>,
   ci <span class='op'>=</span> <span class='fl'>0.95</span>,
   <span class='va'>correction</span>
@@ -201,11 +202,12 @@ the populations, as it uses only the <em>second</em> group's standard deviation.
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   correction <span class='op'>=</span> <span class='fl'>1</span>,
   pooled_sd <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  mu <span class='op'>=</span> <span class='fl'>0</span>,
   paired <span class='op'>=</span> <span class='cn'>FALSE</span>,
   ci <span class='op'>=</span> <span class='fl'>0.95</span>
 <span class='op'>)</span>
 
-<span class='fu'>glass_delta</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, data <span class='op'>=</span> <span class='cn'>NULL</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>correction</span><span class='op'>)</span>
+<span class='fu'>glass_delta</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, data <span class='op'>=</span> <span class='cn'>NULL</span>, mu <span class='op'>=</span> <span class='fl'>0</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>correction</span><span class='op'>)</span>
 
 <span class='co'># S3 method for effectsize_difference</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, digits <span class='op'>=</span> <span class='fl'>2</span>, append_CL <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -231,6 +233,11 @@ character  name of one in <code>data</code>. Ignored if <code>x</code> is a form
       <th>pooled_sd</th>
       <td><p>If <code>TRUE</code> (default), a <code><a href='sd_pooled.html'>sd_pooled()</a></code> is used (assuming equal
 variance). Else the mean SD from both groups is used instead.</p></td>
+    </tr>
+    <tr>
+      <th>mu</th>
+      <td><p>a number indicating the true value of the mean (or
+    difference in means if you are performing a two sample test).</p></td>
     </tr>
     <tr>
       <th>paired</th>
@@ -335,7 +342,13 @@ sizes. (See full <a href='effectsize-CIs.html'>effectsize-CIs</a> for more.)</p>
 #&gt; --------------------------
 #&gt;     -1.41 | [-2.17, -0.51]
 #&gt; </span><span style='color: #00BBBB;'>
-#&gt; - Estimated using un-pooled SD.</span><span></div><div class='input'><span class='fu'>hedges_g</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+#&gt; - Estimated using un-pooled SD.</span><span></div><div class='input'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, mu <span class='op'>=</span> <span class='op'>-</span><span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Cohen's d |        95% CI
+#&gt; -------------------------
+#&gt;     -0.46 | [-1.17, 0.26]
+#&gt; </span><span style='color: #00BBBB;'>
+#&gt; - Deviation from a fifference of -5.
+#&gt; - Estimated using pooled SD.</span><span></div><div class='input'><span class='fu'>hedges_g</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Hedge's g |         95% CI
 #&gt; --------------------------
 #&gt;     -1.44 | [-2.21, -0.65]
