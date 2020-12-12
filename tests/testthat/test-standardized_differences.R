@@ -47,6 +47,24 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_warning(cohens_d("b", "e", data = df))
   })
 
+  test_that("cohens_d - mu", {
+    testthat::expect_equal(cohens_d(mtcars$mpg - 5),
+                           cohens_d(mtcars$mpg, mu = 5),
+                           ignore_attr = TRUE)
+
+    x <- 1:9
+    y <- c(1,1:9)
+    testthat::expect_equal(cohens_d(x - 3, y),
+                           cohens_d(x, y, mu = 3),
+                           ignore_attr = TRUE)
+
+    # t.test(x, y, mu = 3.125, var.equal = TRUE)
+    d <- cohens_d(x, y, mu = 3.125)
+    testthat::expect_equal(d[[1]], -0.969, tolerance = 0.01)
+    testthat::expect_equal(d$CI_low, -1.913, tolerance = 0.01)
+    testthat::expect_equal(d$CI_high[[1]], 0, tolerance = 0.01)
+  })
+
   test_that("cohens_d - pooled", {
     x <- cohens_d(wt ~ am, data = mtcars, pooled_sd = TRUE)
     testthat::expect_equal(colnames(x)[1], "Cohens_d")

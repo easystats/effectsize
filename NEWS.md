@@ -1,5 +1,9 @@
 # effectsize 0.4.1.1
 
+## New features
+
+- `cohens_d()` family of functions gain `mu` argument.
+
 ## Bug fixes
 
 - `glass_delta()` returns correct CIs (was too narrow).
