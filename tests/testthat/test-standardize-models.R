@@ -160,6 +160,18 @@ if (require("testthat") && require("effectsize")) {
   })
 
 
+  # variables evaluated in the environment $$$ ------------------------------
+  test_that("variables evaluated in the environment", {
+    m <- lm(mtcars$mpg ~ mtcars$cyl + am, data = mtcars)
+    expect_warning(standardize(m), "mtcars$mpg", fixed = TRUE)
+
+    m <- lm(mtcars$mpg ~ mtcars$cyl + mtcars$am, data = mtcars)
+    warns <- capture_warnings(standardize(m))
+    expect_true(grepl("mtcars$mpg", warns[1], fixed = TRUE))
+    expect_true(grepl("No variables", warns[2], fixed = TRUE))
+  })
+
+
   # mediation models --------------------------------------------------------
   test_that("standardize non-Gaussian response", {
     testthat::skip_if_not_installed("mediation")

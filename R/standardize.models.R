@@ -15,7 +15,6 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
                                 include_response = TRUE, ...) {
   m_info <- insight::model_info(x)
   data <- insight::get_data(x)
-  resp <- NULL
 
   # for models with specific scale of the response value (e.g. count models
   # with positive integers, or beta with ratio between 0 and 1), we need to
@@ -25,6 +24,8 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
     resp <- unique(c(insight::find_response(x), insight::find_response(x, combine = FALSE)))
   } else if (include_response && two_sd) {
     resp <- unique(c(insight::find_response(x), insight::find_response(x, combine = FALSE)))
+  } else {
+    resp <- NULL
   }
 
   # Do not standardize weighting-variable, because negative weights will
@@ -41,9 +42,19 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
   random_group_factor <- insight::find_random(x, flatten = TRUE, split_nested = TRUE)
 
   # standardize data
-
   dont_standardize <- c(resp, weight_variable, random_group_factor)
   do_standardize <- setdiff(colnames(data), dont_standardize)
+
+  # can't std data$var variables
+  # TODO what about "with"?
+  if (any(doller_vars <- grepl("(.*)\\$(.*)", do_standardize))) {
+    doller_vars <- colnames(data)[doller_vars]
+    warning("Unable to standardize variables evaluated in the environment (i.e., not in `data`).\n",
+            "The following variables will not be standardizd:\n\t",
+            paste0(doller_vars, collapse = ", "), call. = FALSE)
+    do_standardize <- setdiff(do_standardize, doller_vars)
+  }
+
 
   if (length(do_standardize)) {
     w <- insight::get_weights(x, na_rm = TRUE)
@@ -66,9 +77,7 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
       dont_standardize <- setdiff(dont_standardize, resp)
     }
   } else {
-    if (verbose) {
-      insight::print_color("No variables could be standardized.\n", "red")
-    }
+    warning("No variables could be standardized.", call. = FALSE)
     return(x)
   }
 
