@@ -38,7 +38,7 @@ ranktransform(x, ...)
 
 \item{method}{Treatment of ties. Can be one of \code{"average"} (default), \code{"first"}, \code{"last"}, \code{"random"}, \code{"max"} or \code{"min"}. See \code{\link[=rank]{rank()}} for details.}
 
-\item{verbose}{Toggle warnings on or off.}
+\item{verbose}{Toggle warnings and messages on or off.}
 
 \item{select}{Character vector of column names. If \code{NULL} (the default), all
 variables will be selected.}
@@ -55,7 +55,7 @@ Transform numeric values with the integers of their rank (i.e., 1st smallest, 2n
 ranktransform(c(0, 1, 5, -5, -2))
 ranktransform(c(0, 1, 5, -5, -2), sign = TRUE)
 
-head(ranktransform(iris))
+head(ranktransform(trees))
 
 }
 \seealso{

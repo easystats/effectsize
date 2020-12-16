@@ -72,7 +72,7 @@ outcome) (Gelman, 2008).}
 \item For numeric vectors: a numeric vector of weights.
 }}
 
-\item{verbose}{Toggle warnings on or off.}
+\item{verbose}{Toggle warnings and messages on or off.}
 
 \item{...}{Arguments passed to or from other methods.}
 
@@ -155,10 +155,10 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)
 
 \examples{
 # Data frames
-summary(standardize(iris))
+summary(standardize(swiss))
 
 # Models
-model <- lm(Sepal.Length ~ Species * Petal.Width, data = iris)
+model <- lm(Infant.Mortality ~ Education * Fertility, data = swiss)
 coef(standardize(model))
 }
 \seealso{

@@ -30,11 +30,20 @@ outcome) (Gelman, 2008).}
 
 \item{...}{Arguments passed to or from other methods.}
 }
+\value{
+A data frame with information on each parameter (see
+\link[parameters:parameters_type]{parameters::parameters_type}), and various standardization coefficients
+for the post-hoc methods (see \code{\link[=standardize_parameters]{standardize_parameters()}}) for the predictor
+and the response.
+}
 \description{
 This function extracts information, such as the deviations (SD or MAD) from parent variables, that are necessary for post-hoc standardization of parameters. This function gives a window on how standardized are obtained, i.e., by what they are devided. The "basic" method of standardization uses
 }
 \examples{
-model <- lm(Sepal.Width ~ Sepal.Length * Species, data = iris)
+model <- lm(mpg ~ ., data = mtcars)
+standardize_info(model)
+standardize_info(model, robust = TRUE)
+standardize_info(model, two_sd = TRUE)
 
 }
 \seealso{

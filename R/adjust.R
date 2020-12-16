@@ -1,33 +1,49 @@
 #' Adjust data for the effect of other variable(s)
 #'
-#' This function can be used to adjust the data for the effect of other variables present in the dataset. It is based on an underlying fitting of regressions models, allowing for quite some flexibility, such as including factors as random effects in mixed models (multilevel partialization), continuous variables as smooth terms in general additive models (non-linear partialization) and/or fitting these models under a Bayesian framework. The values returned by this function are the residuals of the regression models. Note that a regular correlation between two "adjusted" variables is equivalent to the partial correlation between them.
+#' This function can be used to adjust the data for the effect of other
+#' variables present in the dataset. It is based on an underlying fitting of
+#' regressions models, allowing for quite some flexibility, such as including
+#' factors as random effects in mixed models (multilevel partialization),
+#' continuous variables as smooth terms in general additive models (non-linear
+#' partialization) and/or fitting these models under a Bayesian framework. The
+#' values returned by this function are the residuals of the regression models.
+#' Note that a regular correlation between two "adjusted" variables is
+#' equivalent to the partial correlation between them.
 #'
 #' @param data A dataframe.
-#' @param effect Character vector of column names to be adjusted for (regressed out). If `NULL` (the default), all variables will be selected.
+#' @param effect Character vector of column names to be adjusted for (regressed
+#'   out). If `NULL` (the default), all variables will be selected.
 #' @inheritParams standardize
-#' @param multilevel If `TRUE`, the factors are included as random factors. Else, if `FALSE` (default), they are included as fixed effects in the simple regression model.
-#' @param additive If `TRUE`, continuous variables as included as smooth terms in additive models. The goal is to regress-out potential non-linear effects.
-#' @param bayesian If `TRUE`, the models are fitted under the Bayesian framework using `rstanarm`.
+#' @param multilevel If `TRUE`, the factors are included as random factors.
+#'   Else, if `FALSE` (default), they are included as fixed effects in the
+#'   simple regression model.
+#' @param additive If `TRUE`, continuous variables as included as smooth terms
+#'   in additive models. The goal is to regress-out potential non-linear
+#'   effects.
+#' @param bayesian If `TRUE`, the models are fitted under the Bayesian framework
+#'   using `rstanarm`.
+#'
+#' @return A data frame comparable to `data`, with adjusted variables.
 #'
 #' @examples
-#' adjust(iris, effect = "Species", select = "Sepal.Length")
+#' adjust(attitude)
+#' adjust(attitude, effect = "complaints", select = "rating")
 #' \donttest{
-#' adjust(iris, effect = "Species", select = "Sepal.Length", multilevel = TRUE)
-#' adjust(iris, effect = "Species", select = "Sepal.Length", bayesian = TRUE)
-#' adjust(iris, effect = "Petal.Width", select = "Sepal.Length", additive = TRUE)
-#' adjust(iris, effect = "Petal.Width", select = "Sepal.Length",
-#'        additive = TRUE, bayesian = TRUE)
-#' adjust(iris, effect = c("Petal.Width", "Species"), select = "Sepal.Length",
-#'        multilevel = TRUE, additive = TRUE)
-#' adjust(iris)
+#' \dontrun{
+#' adjust(attitude, effect = "complaints", select = "rating", bayesian = TRUE)
+#' adjust(attitude, effect = "complaints", select = "rating", additive = TRUE)
+#' attitude$complaints_LMH <- cut(attitude$complaints, 3)
+#' adjust(attitude, effect = "complaints_LMH", select = "rating", multilevel = TRUE)
+#' }
 #' }
 #'
 #' @export
-adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multilevel = FALSE, additive = FALSE, bayesian = FALSE){
+adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multilevel = FALSE, additive = FALSE, bayesian = FALSE) {
   if (!all(colnames(data) == make.names(colnames(data), unique = TRUE))) {
     warning("Bad column names (e.g., with spaces) have been detected which might create issues in many functions.\n",
-            "Please fix it (you can run `names(mydata) <- make.names(names(mydata))` for an automatic fix).",
-            call. = FALSE)
+      "Please fix it (you can run `names(mydata) <- make.names(names(mydata))` for a quick fix).",
+      call. = FALSE
+    )
   }
 
   # check for formula notation, convert to character vector
@@ -103,15 +119,15 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
       }
       adjusted <- rstanarm::stan_gamm4(as.formula(formula), random = formula_random, data = data, refresh = 0)$residuals
       # Frequentist
-    } else{
+    } else {
       if (!requireNamespace("gamm4")) {
         stop("This function needs `gamm4` to be installed. Please install by running `install.packages('gamm4')`.")
       }
       adjusted <- gamm4::gamm4(as.formula(formula), random = formula_random, data = data)$gam$residuals
     }
 
-  # Linear -------------------------
-  } else{
+    # Linear -------------------------
+  } else {
     # Bayesian
     if (bayesian) {
       if (!requireNamespace("rstanarm")) {
@@ -119,17 +135,17 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
       }
       if (multilevel) {
         adjusted <- rstanarm::stan_lmer(paste(formula, formula_random), data = data, refresh = 0)$residuals
-      } else{
+      } else {
         adjusted <- rstanarm::stan_glm(formula, data = data, refresh = 0)$residuals
       }
-    # Frequentist
-    } else{
+      # Frequentist
+    } else {
       if (multilevel) {
         if (!requireNamespace("lme4")) {
           stop("This function needs `lme4` to be installed. Please install by running `install.packages('lme4')`.")
         }
         adjusted <- residuals(lme4::lmer(paste(formula, formula_random), data = data))
-      } else{
+      } else {
         adjusted <- lm(formula, data = data)$residuals
       }
     }

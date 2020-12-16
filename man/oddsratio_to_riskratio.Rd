@@ -16,6 +16,9 @@ riskratio_to_oddsratio(RR, p0, log = FALSE)
 
 \item{log}{Take in or output the log of the ratio (such as in logistic models).}
 }
+\value{
+Converted index.
+}
 \description{
 Convert between Odds ratios and Risk ratios
 }
@@ -28,7 +31,6 @@ p1 <- 0.7
 
 riskratio_to_oddsratio(RR, p0 = p0)
 oddsratio_to_riskratio(OR, p0 = p0)
-
 }
 \references{
 Grant, R. L. (2014). Converting an odds ratio to a range of plausible relative risks for better communication of research findings. Bmj, 348, f7450.

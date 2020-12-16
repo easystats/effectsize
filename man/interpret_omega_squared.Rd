@@ -44,8 +44,6 @@ eta / omega / epsilon squared in multi-way anova.
 \examples{
 interpret_eta_squared(.02)
 interpret_eta_squared(c(.5, .02), rules = "cohen1992")
-
-
 }
 \references{
 \itemize{

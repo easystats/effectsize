@@ -18,11 +18,13 @@ t_to_d <- function(t, df_error, paired = FALSE, ci = 0.95, pooled, ...) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
 
-    ts <- t(mapply(.get_ncp_t,
-                   t, df_error, ci))
+    ts <- t(mapply(
+      .get_ncp_t,
+      t, df_error, ci
+    ))
 
-    res$CI_low <- paired * ts[,1] / sqrt(df_error)
-    res$CI_high <- paired * ts[,2] / sqrt(df_error)
+    res$CI_low <- paired * ts[, 1] / sqrt(df_error)
+    res$CI_high <- paired * ts[, 2] / sqrt(df_error)
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
@@ -63,8 +65,8 @@ z_to_d <- function(z, n, paired = FALSE, ci = 0.95, pooled, ...) {
     qs <- stats::qnorm(probs)
     zs <- cbind(qs[1] + z, qs[2] + z)
 
-    res$CI_low <- paired * zs[,1] / sqrt(n)
-    res$CI_high <- paired * zs[,2] / sqrt(n)
+    res$CI_low <- paired * zs[, 1] / sqrt(n)
+    res$CI_high <- paired * zs[, 2] / sqrt(n)
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
@@ -93,4 +95,3 @@ F_to_d <- function(f, df, df_error, paired = FALSE, ci = 0.95, pooled, ...) {
   }
   t_to_d(sqrt(f), df_error, paired, ci)
 }
-

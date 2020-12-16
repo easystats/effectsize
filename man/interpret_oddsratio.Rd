@@ -42,11 +42,10 @@ Rules apply to OR as ratios, so OR of 10 is as extreme as a OR of 0.1 (1/10).
 \examples{
 interpret_oddsratio(1)
 interpret_oddsratio(c(5, 2))
-
 }
 \references{
 \itemize{
-\item Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
+\item Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 \item Chen, H., Cohen, P., & Chen, S. (2010). How big is a big odds ratio? Interpreting the magnitudes of odds ratios in epidemiological studies. Communications in Statistics—Simulation and Computation, 39(4), 860-864.
 \item Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003). Effect-size indices for dichotomized outcomes in meta-analysis. Psychological methods, 8(4), 448.
 }

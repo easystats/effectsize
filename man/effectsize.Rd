@@ -2,14 +2,29 @@
 % Please edit documentation in R/effectsize.R
 \name{effectsize}
 \alias{effectsize}
+\alias{effectsize.htest}
+\alias{effectsize.BFBayesFactor}
+\alias{effectsize.aov}
 \title{Effect Size}
 \usage{
 effectsize(model, ...)
+
+\method{effectsize}{htest}(model, type = NULL, ...)
+
+\method{effectsize}{BFBayesFactor}(model, type = NULL, ...)
+
+\method{effectsize}{aov}(model, type = NULL, ...)
 }
 \arguments{
 \item{model}{An object of class \code{htest}, or a statistical model. See details.}
 
 \item{...}{Arguments passed to or from other methods. See details.}
+
+\item{type}{The effect size of interest. See details.}
+}
+\value{
+A data frame with the effect size (depending on input) and and its
+CIs (\code{CI_low} and \code{CI_high}).
 }
 \description{
 This function tries to return the best effect-size measure for the provided
@@ -20,17 +35,17 @@ input model. See details.
 \item For an object of class \code{htest}:
 \itemize{
 \item A \strong{t-test} returns \emph{Cohen's d} via \code{\link[=t_to_d]{t_to_d()}}.
-\item A \strong{correlation test} returns \emph{r}. See \code{\link[=t_to_r]{t_to_r()}}.
-\item A \strong{Chi-squared test} returns \emph{Cramer's V} via \code{\link[=cramers_v]{cramers_v()}}.
-\item A \strong{One-way ANOVA test} returns \emph{Eta squared} via \code{\link[=F_to_eta2]{F_to_eta2()}}, but can be changes via an \code{es} argument.
+\item A \strong{correlation test} returns \emph{r}.
+\item A \strong{Chi-squared tests of independence or goodness-of-fit}, depending on \code{type}: \code{"cramers_v"} (default), \code{"phi"} or \code{"cohens_w"}, \code{"oddsratio"}, or \code{"riskratio"}.
+\item A \strong{One-way ANOVA test}, depending on \code{type}: \code{"eta"} (default), \code{"omega"} or \code{"epsilon"} -squared, \code{"f"}, or \code{"f2"}.
 }
 \item For an object of class \code{BFBayesFactor}, using \code{\link[bayestestR:describe_posterior]{bayestestR::describe_posterior()}},
 \itemize{
 \item A \strong{t-test} returns \emph{Cohen's d}.
-\item A \strong{correlation test} returns \emph{r}..
-\item A \strong{contingency table test} returns \emph{Cramer's V}.
+\item A \strong{correlation test} returns \emph{r}.
+\item A \strong{contingency table test}, depending on \code{type}: \code{"cramers_v"} (default), \code{"phi"} or \code{"cohens_w"}, \code{"oddsratio"}, or \code{"riskratio"}.
 }
-\item Objects of class \code{anova}, \code{aov}, or \code{aovlist} are passed to \code{\link[=eta_squared]{eta_squared()}}.
+\item Objects of class \code{anova}, \code{aov}, or \code{aovlist}, depending on \code{type}: \code{"eta"} (default), \code{"omega"} or \code{"epsilon"} -squared, \code{"f"}, or \code{"f2"}.
 \item Other objects are passed to \code{\link[=standardize_parameters]{standardize_parameters()}}.
 }
 
@@ -44,12 +59,14 @@ functions, for the full range of options they provide.}
 contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
 Xsq <- chisq.test(contingency_table)
 effectsize(Xsq)
+effectsize(Xsq, type = "phi")
 
 Ts <- t.test(1:10, y = c(7:20))
 effectsize(Ts)
 
-Aov <- oneway.test(extra ~ group, data = sleep)
+Aov <- oneway.test(extra ~ group, data = sleep, var.equal = TRUE)
 effectsize(Aov)
+effectsize(Aov, type = "omega")
 
 
 ## Bayesian Hypothesis Testing
@@ -58,12 +75,13 @@ if (require(BayesFactor)) {
   bf1 <- ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
   effectsize(bf1, test = NULL)
 
-  bf2 <- correlationBF(iris$Sepal.Length, iris$Sepal.Width)
+  bf2 <- correlationBF(attitude$rating, attitude$complaints)
   effectsize(bf2, test = NULL)
 
   data(raceDolls)
   bf3 <- contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
   effectsize(bf3, test = NULL)
+  effectsize(bf3, type = "oddsratio", test = NULL)
 }
 
 
@@ -74,7 +92,7 @@ effectsize(fit)
 
 anova_table <- anova(fit)
 effectsize(anova_table)
-
+effectsize(anova_table, type = "epsilon")
 }
 \seealso{
 Other effect size indices: 

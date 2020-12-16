@@ -6,10 +6,18 @@
 #' @param include_pseudo (For (G)LMMs) Should Pseudo-standardized information be included?
 #' @param ... Arguments passed to or from other methods.
 #'
+#' @return A data frame with information on each parameter (see
+#'   [parameters::parameters_type]), and various standardization coefficients
+#'   for the post-hoc methods (see [standardize_parameters()]) for the predictor
+#'   and the response.
+#'
 #' @family standardize
 #'
 #' @examples
-#' model <- lm(Sepal.Width ~ Sepal.Length * Species, data = iris)
+#' model <- lm(mpg ~ ., data = mtcars)
+#' standardize_info(model)
+#' standardize_info(model, robust = TRUE)
+#' standardize_info(model, two_sd = TRUE)
 #'
 #' @importFrom parameters parameters_type
 #' @export
@@ -77,8 +85,8 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 
   # Pseudo (for LMM)
   if (include_pseudo &&
-      insight::model_info(model)$is_mixed &&
-      length(insight::find_random(model)$random) == 1) {
+    insight::model_info(model)$is_mixed &&
+    length(insight::find_random(model)$random) == 1) {
     out <- merge(
       out,
       .std_info_pseudo(model, params, model_matrix, types = types$Type, robust = robust, two_sd = two_sd)
@@ -146,8 +154,10 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
   if (type == "intercept") {
     info <- list(sd = 0, mean = 0)
   } else if (type == "numeric") {
-    info <- .compute_std_info(data = data, variable = variable,
-                              robust = robust, two_sd = two_sd, weights = weights)
+    info <- .compute_std_info(
+      data = data, variable = variable,
+      robust = robust, two_sd = two_sd, weights = weights
+    )
   } else if (type == "factor") {
     info <- list(sd = 1, mean = 0)
 
@@ -163,8 +173,10 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
     # }
   } else if (type %in% c("interaction", "nested")) {
     if (is.numeric(data[, variable])) {
-      info <- .compute_std_info(data = data, variable = variable,
-                                robust = robust, two_sd = two_sd, weights = weights)
+      info <- .compute_std_info(
+        data = data, variable = variable,
+        robust = robust, two_sd = two_sd, weights = weights
+      )
     } else if (is.factor(data[, variable])) {
       info <- list(sd = 1, mean = 0)
     } else {
@@ -192,8 +204,10 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
     if (types[i, "Type"] == "intercept") {
       means[i] <- deviations[i] <- 0
     } else {
-      std_info <- .compute_std_info(data = model_matrix, variable = var,
-                                    robust = robust, two_sd = two_sd, weights = w)
+      std_info <- .compute_std_info(
+        data = model_matrix, variable = var,
+        robust = robust, two_sd = two_sd, weights = w
+      )
       deviations[i] <- std_info$sd
       means[i] <- std_info$mean
     }
@@ -229,11 +243,15 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
         intercept <- unique(data[[parent_var]])[1]
         response_at_intercept <- response[data[[parent_var]] == intercept]
         weights_at_intercept <- if (length(w)) w[data[[parent_var]] == intercept] else NULL
-        std_info <- .compute_std_info(response = response_at_intercept,
-                                      robust = robust, weights = weights_at_intercept)
+        std_info <- .compute_std_info(
+          response = response_at_intercept,
+          robust = robust, weights = weights_at_intercept
+        )
       } else {
-        std_info <- .compute_std_info(response = response,
-                                      robust = robust, weights = w)
+        std_info <- .compute_std_info(
+          response = response,
+          robust = robust, weights = w
+        )
       }
       deviations[i] <- std_info$sd
       means[i] <- std_info$mean
@@ -294,7 +312,8 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 .std_info_pseudo <- function(model, params, model_matrix, types, robust = FALSE, two_sd = FALSE) {
   if (robust) {
     warning("'robust' standardization not available for 'pseudo' method.",
-            call. = FALSE)
+            call. = FALSE
+    )
   }
 
   f <- if (two_sd) 2 else 1
@@ -312,13 +331,13 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
     } else if (types[i] == "numeric") {
       is_within[i] <- insight::clean_names(params[i]) %in% within_vars
     } else if (types[i] == "factor") {
-      is_within[i] <- any(sapply(paste0("^",within_vars), grepl, insight::clean_names(params[i])))
+      is_within[i] <- any(sapply(paste0("^", within_vars), grepl, insight::clean_names(params[i])))
     } else if (types[i] == "interaction") {
       ints <- unlist(strsplit(params[i], ":", fixed = TRUE))
       is_within[i] <- any(sapply(ints, function(int) {
         int <- insight::clean_names(int)
         int %in% within_vars | # numeric
-          any(sapply(paste0("^",within_vars), grepl, int)) # factor
+          any(sapply(paste0("^", within_vars), grepl, int)) # factor
       }))
     }
   }
@@ -327,18 +346,19 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
   # only relevant to numeric predictors that can have variance
   if (any(check_within <- is_within & types == "numeric")) {
     p_check_within <- params[check_within]
-    temp_d <- data.frame(model_matrix[,p_check_within,drop = FALSE])
-    colnames(temp_d) <- paste0("W",seq_len(ncol(temp_d))) # overwrite because can't deal with ":"
+    temp_d <- data.frame(model_matrix[, p_check_within, drop = FALSE])
+    colnames(temp_d) <- paste0("W", seq_len(ncol(temp_d))) # overwrite because can't deal with ":"
 
-    dm <- parameters::demean(cbind(id,temp_d),
-                             select = colnames(temp_d),
-                             group = "id")
-    dm <- dm[,paste0(colnames(temp_d), "_between"), drop = FALSE]
+    dm <- parameters::demean(cbind(id, temp_d),
+      select = colnames(temp_d),
+      group = "id"
+    )
+    dm <- dm[, paste0(colnames(temp_d), "_between"), drop = FALSE]
 
     has_lvl2_var <- sapply(seq_along(colnames(temp_d)), function(i) {
       # If more than 1% of the variance in the within-var is between:
-      var(dm[,i]) /
-         var(temp_d[,i])
+      var(dm[, i]) /
+        var(temp_d[, i])
     }) > 0.01
     also_between <- p_check_within[has_lvl2_var]
 
@@ -365,12 +385,13 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 
     # maintain any y-transformations
     frm <- insight::find_formula(model)
-    frm <- paste0(frm$conditional[2], " ~ (1|",rand_name,")")
+    frm <- paste0(frm$conditional[2], " ~ (1|", rand_name, ")")
 
     m0 <- suppressWarnings(suppressMessages(
       lme4::lmer(stats::as.formula(frm),
-                 weights = w,
-                 data = insight::get_data(model))
+        weights = w,
+        data = insight::get_data(model)
+      )
     ))
     m0v <- insight::get_variance(m0)
 

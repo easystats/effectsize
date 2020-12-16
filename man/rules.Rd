@@ -32,7 +32,6 @@ Create a container for interpretation rules of thumb. Usually used in conjunctio
 rules(c(0.05), c("significant", "not significant"), right = FALSE)
 rules(c(0.2, 0.5, 0.8), c("small", "medium", "large"))
 rules(c("small" = 0.2, "medium" = 0.5), name = "Cohen's Rules")
-
 }
 \seealso{
 interpret

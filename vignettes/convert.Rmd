@@ -39,16 +39,19 @@ The `effectsize` package contains function to convert among indices of effect si
 
 The most basic conversion is between *r* values, a measure of standardized association between two continuous measures, and *d* values (such as Cohen's *d*), a measure of standardized differences between two groups / conditions.
 
-Let's look at the following data:
+Let's simulate some data:
 
-```{r, echo=FALSE}
+```{r}
 set.seed(1)
 data <- bayestestR::simulate_difference(n = 10,
                                         d = 0.2,
                                         names = c("Group", "Outcome"))
-data$Group <- as.numeric(data$Group)
+```
+
+```{r, echo=FALSE}
 print(data, digits = 3)
 ```
+
 
 We can compute Cohen's *d* between the two groups:
 
@@ -58,8 +61,8 @@ cohens_d(Outcome ~ Group, data = data)
 
 But we can also treat the 2-level `group` variable as a numeric variable, and compute Pearon's *r*:
 
-```{r}
-correlation::correlation(data)
+```{r, warning=FALSE}
+correlation::correlation(data)[2,]
 ```
 
 

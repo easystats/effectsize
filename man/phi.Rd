@@ -40,7 +40,9 @@ for \code{cohens_g()}.}
 \item{log}{Take in or output the log of the ratio (such as in logistic models).}
 }
 \value{
-A data frame with the effect size(s), and confidence interval(s).
+A data frame with the effect size (\code{Cramers_v}, \code{phi} (possibly with
+the suffix \verb{_adjusted}), \code{Odds_ratio}, \code{Risk_ratio} (possibly with the
+prefix \code{log_}), or \code{Cohens_g}) and its CIs (\code{CI_low} and \code{CI_high}).
 }
 \description{
 Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w} (an alias of phi), Odds
@@ -78,26 +80,38 @@ See \emph{Confidence Intervals} and \emph{CI Contains Zero} sections for \emph{p
 }
 
 \section{Confidence Intervals}{
+
 Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best non-central parameters (\code{ncp}s) of the
 noncentral t-, F- or Chi-squared distribution for the desired
 tail-probabilities, and then convert these \code{ncp}s to the corresponding effect
-sizes.
+sizes. (See full \link{effectsize-CIs} for more.)
 }
 
 \section{CI Contains Zero}{
 
-Special care should be taken when interpreting CIs with a lower bound equal
-to (or small then) 0, and even more care should be taken when the \emph{upper}
-bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
+For positive only effect sizes (Eta squared, Cramer's V, etc.; Effect sizes
+associated with Chi-squared and F distributions), special care should be
+taken when interpreting CIs with a lower bound equal to 0, and even more care
+should be taken when the \emph{upper} bound is equal to 0 (Steiger, 2004; Morey et
+al., 2016). For example:\if{html}{\out{<div class="r">}}\preformatted{eta_squared(aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:7, ]))
+}\if{html}{\out{</div>}}\preformatted{## Parameter    | Eta2 (partial) |       90\% CI
+## --------------------------------------------
+## factor(gear) |           0.58 | [0.00, 0.84]
+## factor(cyl)  |           0.46 | [0.00, 0.78]
+}
 }
 
 \examples{
-M <- rbind(c(150, 130, 35, 55),
-           c(100, 50,  10, 40),
-           c(165, 65,  2,  25))
-dimnames(M) <- list(Study = c("Psych", "Econ", "Law"),
-                    Music = c("Pop", "Rock", "Jazz", "Classic"))
+M <- rbind(
+  c(150, 130, 35, 55),
+  c(100, 50, 10, 40),
+  c(165, 65, 2, 25)
+)
+dimnames(M) <- list(
+  Study = c("Psych", "Econ", "Law"),
+  Music = c("Pop", "Rock", "Jazz", "Classic")
+)
 M
 
 phi(M)
@@ -108,10 +122,14 @@ cramers_v(M)
 
 ## 2-by-2 tables
 ## -------------
-RCT <- rbind(c(30,  71),
-             c(100, 50))
-dimnames(RCT) <- list(Diagnosis = c("Sick", "Recovered"),
-                      Group = c("Control", "Treatment"))
+RCT <- rbind(
+  c(30, 71),
+  c(100, 50)
+)
+dimnames(RCT) <- list(
+  Diagnosis = c("Sick", "Recovered"),
+  Group = c("Control", "Treatment")
+)
 RCT # note groups are COLUMNS
 
 oddsratio(RCT)
@@ -122,18 +140,21 @@ riskratio(RCT)
 
 ## Dependent (Paired) Contingency Tables
 ## -------------------------------------
-Performance <- rbind(c(794, 86),
-                     c(150, 570))
-dimnames(Performance) <- list("1st Survey" = c("Approve", "Disapprove"),
-                              "2nd Survey" = c("Approve", "Disapprove"))
+Performance <- rbind(
+  c(794, 86),
+  c(150, 570)
+)
+dimnames(Performance) <- list(
+  "1st Survey" = c("Approve", "Disapprove"),
+  "2nd Survey" = c("Approve", "Disapprove")
+)
 Performance
 
 cohens_g(Performance)
-
 }
 \references{
 \itemize{
-\item Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
+\item Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 \item Katz, D. J. S. M., Baptista, J., Azen, S. P., & Pike, M. C. (1978). Obtaining confidence intervals for the risk ratio in cohort studies. Biometrics, 469-474.
 \item Szumilas, M. (2010). Explaining odds ratios. Journal of the Canadian academy of child and adolescent psychiatry, 19(3), 227.
 }

@@ -8,7 +8,6 @@
 #'
 #' @examples
 #' sd_pooled(mpg ~ am, data = mtcars)
-#'
 #' @seealso [cohens_d()]
 #'
 #' @export
@@ -16,9 +15,7 @@ sd_pooled <- function(x, y = NULL, data = NULL) {
 
   # This actually works, you must see if you want to keep this code. If you do,
   # following will work:
-  # sd_pooled(Sepal.Length, Petal.Width, data = iris)
-  # sd_pooled("Sepal.Length", "Petal.Width", data = iris)
-  # sd_pooled(iris$Sepal.Length, iris$Petal.Width)
+  # sd_pooled(mpg, hp, data = mtcars)
   # sd_pooled(x, y) # called from a different function, like cohens_d()
 
   # needs modification in in ".sd_pooled()" as well...
@@ -79,7 +76,7 @@ mad_pooled <- function(x, y = NULL, data = NULL) {
   # Cohen's more complicated formula:
   n1 <- length(x)
   n2 <- length(y)
-  sqrt(((n1 - 1) * sd1 ^ 2 + (n2 - 1) * sd2 ^ 2) / (n1 + n2 - 2))
+  sqrt(((n1 - 1) * sd1^2 + (n2 - 1) * sd2^2) / (n1 + n2 - 2))
 }
 
 

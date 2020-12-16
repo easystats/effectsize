@@ -21,8 +21,6 @@
 #' @examples
 #' interpret_eta_squared(.02)
 #' interpret_eta_squared(c(.5, .02), rules = "cohen1992")
-#'
-#'
 #' @seealso http://imaging.mrc-cbu.cam.ac.uk/statswiki/FAQ/effectSize
 #'
 #'
@@ -36,11 +34,13 @@ interpret_omega_squared <- function(es, rules = "field2013") {
     rules,
     list(
       field2013 = rules(c(0.01, 0.06, 0.14),
-                        c("very small", "small", "medium", "large"),
-                        name = "field2013", right = FALSE),
+        c("very small", "small", "medium", "large"),
+        name = "field2013", right = FALSE
+      ),
       cohen1992 = rules(c(0.02, 0.13, 0.26),
-                        c("very small", "small", "medium", "large"),
-                        name = "cohen1992", right = FALSE)
+        c("very small", "small", "medium", "large"),
+        name = "cohen1992", right = FALSE
+      )
     )
   )
 

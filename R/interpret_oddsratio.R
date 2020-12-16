@@ -22,17 +22,15 @@
 #' @examples
 #' interpret_oddsratio(1)
 #' interpret_oddsratio(c(5, 2))
-#'
 #' @aliases interpret_odds
 #'
 #' @references
-#' - Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
+#' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 #' - Chen, H., Cohen, P., & Chen, S. (2010). How big is a big odds ratio? Interpreting the magnitudes of odds ratios in epidemiological studies. Communications in Statistics—Simulation and Computation, 39(4), 860-864.
 #' - Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003). Effect-size indices for dichotomized outcomes in meta-analysis. Psychological methods, 8(4), 448.
 #'
 #' @export
 interpret_oddsratio <- function(OR, rules = "chen2010", log = FALSE) {
-
   if (log) {
     OR <- exp(abs(OR))
   } else {
@@ -49,7 +47,8 @@ interpret_oddsratio <- function(OR, rules = "chen2010", log = FALSE) {
     rules,
     list(
       chen2010 = rules(c(1.68, 3.47, 6.71), c("very small", "small", "medium", "large"),
-                       name = "chen2010", right = FALSE),
+        name = "chen2010", right = FALSE
+      ),
       cohen1988 = NA # for correct error msg
     )
   )

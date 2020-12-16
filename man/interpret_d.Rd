@@ -57,12 +57,11 @@ Rules apply to equally to positive and negative \emph{d}.
 \examples{
 interpret_d(.02)
 interpret_d(c(.5, .02))
-
 }
 \references{
 \itemize{
 \item Gignac, G. E., & Szodorai, E. T. (2016). Effect size guidelines for individual differences researchers. Personality and individual differences, 102, 74-78.
-\item Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
+\item Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 \item Sawilowsky, S. S. (2009). New effect size rules of thumb.
 }
 }

@@ -1,8 +1,10 @@
 if (require("testthat") && require("effectsize")) {
   test_that("equivalence_test", {
-    ds <- t_to_d(t = c(0.45, -0.65, 7, -2.2, 2.25),
-                 df_error = c(675, 525, 2000, 900, 1875),
-                 ci = 0.9) # TOST approach
+    ds <- t_to_d(
+      t = c(0.45, -0.65, 7, -2.2, 2.25),
+      df_error = c(675, 525, 2000, 900, 1875),
+      ci = 0.9
+    ) # TOST approach
 
 
     testthat::expect_equal(

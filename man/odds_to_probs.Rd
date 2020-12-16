@@ -36,6 +36,9 @@ from transformation.}
 
 \item{probs}{Probability values to convert.}
 }
+\value{
+Converted index.
+}
 \description{
 Convert between Odds and Probabilities
 }
@@ -45,7 +48,6 @@ odds_to_probs(1.09, log = TRUE)
 
 probs_to_odds(0.95)
 probs_to_odds(0.95, log = TRUE)
-
 }
 \seealso{
 \code{\link[stats:Logistic]{stats::plogis()}}

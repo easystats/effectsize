@@ -15,7 +15,6 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
                                 include_response = TRUE, ...) {
   m_info <- insight::model_info(x)
   data <- insight::get_data(x)
-  resp <- NULL
 
   # for models with specific scale of the response value (e.g. count models
   # with positive integers, or beta with ratio between 0 and 1), we need to
@@ -25,6 +24,8 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
     resp <- unique(c(insight::find_response(x), insight::find_response(x, combine = FALSE)))
   } else if (include_response && two_sd) {
     resp <- unique(c(insight::find_response(x), insight::find_response(x, combine = FALSE)))
+  } else {
+    resp <- NULL
   }
 
   # Do not standardize weighting-variable, because negative weights will
@@ -41,32 +42,42 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
   random_group_factor <- insight::find_random(x, flatten = TRUE, split_nested = TRUE)
 
   # standardize data
-
   dont_standardize <- c(resp, weight_variable, random_group_factor)
   do_standardize <- setdiff(colnames(data), dont_standardize)
+
+  # can't std data$var variables
+  # TODO what about "with"?
+  if (any(doller_vars <- grepl("(.*)\\$(.*)", do_standardize))) {
+    doller_vars <- colnames(data)[doller_vars]
+    warning("Unable to standardize variables evaluated in the environment (i.e., not in `data`).\n",
+            "The following variables will not be standardizd:\n\t",
+            paste0(doller_vars, collapse = ", "), call. = FALSE)
+    do_standardize <- setdiff(do_standardize, doller_vars)
+  }
+
 
   if (length(do_standardize)) {
     w <- insight::get_weights(x, na_rm = TRUE)
 
     data_std <- standardize(data[do_standardize],
-                            robust = robust,
-                            two_sd = two_sd,
-                            weights = if (weights) w else NULL,
-                            verbose = verbose)
+      robust = robust,
+      two_sd = two_sd,
+      weights = if (weights) w else NULL,
+      verbose = verbose
+    )
 
     if (!.no_response_standardize(m_info) && include_response && two_sd) {
       # if two_sd, it must not affect the response!
       data_std[resp] <- standardize(data[resp],
-                                    robust = robust,
-                                    two_sd = FALSE,
-                                    weights = if (weights) w else NULL,
-                                    verbose = verbose)
-      dont_standardize <- setdiff(dont_standardize,resp)
+        robust = robust,
+        two_sd = FALSE,
+        weights = if (weights) w else NULL,
+        verbose = verbose
+      )
+      dont_standardize <- setdiff(dont_standardize, resp)
     }
   } else {
-    if (verbose) {
-      insight::print_color("No variables could be standardized.\n", "red")
-    }
+    warning("No variables could be standardized.", call. = FALSE)
     return(x)
   }
 
@@ -89,7 +100,7 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
     })
   }
 
-  if (length(log_terms) > 0 || length(sqrt_terms) > 0) {
+  if (verbose && (length(log_terms) > 0 || length(sqrt_terms) > 0)) {
     message("Formula contains log- or sqrt-terms. See help(\"standardize\") for how such terms are standardized.")
   }
 
@@ -125,8 +136,10 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
 
 #' @export
 standardize.mlm <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, verbose = TRUE, ...) {
-  standardize.default(x, robust = robust, two_sd = two_sd, weights = weights, verbose = verbose,
-                      include_response = FALSE, ...)
+  standardize.default(x,
+    robust = robust, two_sd = two_sd, weights = weights, verbose = verbose,
+    include_response = FALSE, ...
+  )
 }
 
 
@@ -159,10 +172,11 @@ standardize.coxph <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE,
     w <- insight::get_weights(x, na_rm = TRUE)
 
     data_std <- standardize(data[pred],
-                            robust = robust,
-                            two_sd = two_sd,
-                            weights = if (weights) w else NULL,
-                            verbose = verbose)
+      robust = robust,
+      two_sd = two_sd,
+      weights = if (weights) w else NULL,
+      verbose = verbose
+    )
     data[pred] <- data_std
   }
 
@@ -190,12 +204,16 @@ standardize.mediate <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
   m_data <- insight::get_data(m)
 
   # std models and data
-  y_std <- standardize(y, robust = robust, two_sd = two_sd,
-                       weights = weights, verbose = verbose,
-                       include_response = include_response, ...)
-  m_std <- standardize(m, robust = robust, two_sd = two_sd,
-                       weights = weights, verbose = verbose,
-                       include_response = TRUE, ...)
+  y_std <- standardize(y,
+    robust = robust, two_sd = two_sd,
+    weights = weights, verbose = verbose,
+    include_response = include_response, ...
+  )
+  m_std <- standardize(m,
+    robust = robust, two_sd = two_sd,
+    weights = weights, verbose = verbose,
+    include_response = TRUE, ...
+  )
   y_data_std <- insight::get_data(y_std)
   m_data_std <- insight::get_data(m_std)
 
@@ -206,9 +224,13 @@ standardize.mediate <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
 
 
   if (!is.null(covs)) {
-    covs <- mapply(.rescale_fixed_values, covs, names(covs), SIMPLIFY = FALSE,
-                   MoreArgs = list(y_data = y_data, m_data = m_data,
-                                   y_data_std = y_data_std, m_data_std = m_data_std))
+    covs <- mapply(.rescale_fixed_values, covs, names(covs),
+      SIMPLIFY = FALSE,
+      MoreArgs = list(
+        y_data = y_data, m_data = m_data,
+        y_data_std = y_data_std, m_data_std = m_data_std
+      )
+    )
     if (verbose) message("covariates' values have been rescaled to their standardized scales.")
   }
 
@@ -227,16 +249,20 @@ standardize.mediate <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
   #   if (verbose) message("control and treatment values have been rescaled to their standardized scales.")
   # }
 
-  if (!all(c(control.value, treat.value) %in% c(0, 1))) {
+  if (verbose && !all(c(control.value, treat.value) %in% c(0, 1))) {
     warning("control and treat values are not 0 and 1, and have not been re-scaled.",
-            "\nInterpret results with caution.", call. = FALSE)
+      "\nInterpret results with caution.",
+      call. = FALSE
+    )
   }
 
 
   text <- utils::capture.output(
-    model_std <- stats::update(x, model.y = y_std, model.m = m_std,
-                               # control.value = control.value, treat.value = treat.value
-                               covariates = covs)
+    model_std <- stats::update(x,
+      model.y = y_std, model.m = m_std,
+      # control.value = control.value, treat.value = treat.value
+      covariates = covs
+    )
   )
 
   model_std
@@ -254,8 +280,9 @@ standardize.mediate <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
   }
 
   change_scale(val,
-               to = range(temp_data_std[[cov_nm]]),
-               range = range(temp_data[[cov_nm]]))
+    to = range(temp_data_std[[cov_nm]]),
+    range = range(temp_data[[cov_nm]])
+  )
 }
 
 
@@ -264,8 +291,7 @@ standardize.mediate <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
 
 #' @export
 standardize.wbm <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, verbose = TRUE, ...) {
-  warning(paste0("Standardization of parameters not possible for models of class '", class(x)[1], "'."), call. = FALSE)
-  x
+  stop(paste0("Standardization of parameters not possible for models of class '", class(x)[1], "'."), call. = FALSE)
 }
 
 #' @export

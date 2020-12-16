@@ -23,17 +23,15 @@
 #' rules(c(0.05), c("significant", "not significant"), right = FALSE)
 #' rules(c(0.2, 0.5, 0.8), c("small", "medium", "large"))
 #' rules(c("small" = 0.2, "medium" = 0.5), name = "Cohen's Rules")
-#'
 #' @export
 rules <- function(values, labels = NULL, name = NULL, right = TRUE) {
-
   if (is.null(labels)) {
     if (is.list(values)) {
       values <- unlist(values)
     }
     if (is.null(names(values))) {
       labels <- values
-    } else{
+    } else {
       labels <- names(values)
     }
   }
@@ -61,7 +59,7 @@ rules <- function(values, labels = NULL, name = NULL, right = TRUE) {
 
   if (is.null(name)) {
     attr(out, "rule_name") <- "Custom rules"
-  } else{
+  } else {
     attr(out, "rule_name") <- name
   }
 
@@ -113,7 +111,6 @@ interpret <- function(x, ...) {
 #' @rdname interpret
 #' @export
 interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
-
   if (!inherits(rules, "rules")) {
     rules <- rules(rules)
   }
@@ -126,7 +123,7 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
 
   if (is.null(name)) {
     attr(out, "rule_name") <- "Custom rules"
-  } else{
+  } else {
     attr(out, "rule_name") <- name
   }
 
@@ -137,11 +134,13 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
 
 #' @keywords internal
 .interpret <- function(x, rules) {
-  if (is.na(x)) return(NA)
+  if (is.na(x)) {
+    return(NA)
+  }
 
   if (length(rules$values) == length(rules$labels)) {
     index <- which.min(abs(x - rules$values))
-  } else{
+  } else {
     if (isTRUE(attr(rules, "right"))) {
       check <- x <= rules$values
     } else {

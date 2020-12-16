@@ -31,7 +31,8 @@ phi_to_chisq(phi, n, ...)
 \item{phi}{The Phi statistic.}
 }
 \value{
-A data frame with the effect size(s) between 0-1, and confidence interval(s).
+A data frame with the effect size(s) between 0-1, and confidence
+interval(s). See \code{\link[=cramers_v]{cramers_v()}}.
 }
 \description{
 Convert between Chi square, (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}) and
@@ -49,19 +50,27 @@ For adjusted versions, see Bergsma, 2013.
 \note{
 Cohen's \emph{w} is equivalent to \emph{Phi}.
 }
-\section{CI Contains Zero}{
-
-Special care should be taken when interpreting CIs with a lower bound equal
-to (or small then) 0, and even more care should be taken when the \emph{upper}
-bound is equal to (or small then) 0 (Steiger, 2004; Morey et al., 2016).
-}
-
 \section{Confidence Intervals}{
+
 Confidence intervals are estimated using the Noncentrality parameter method;
 These methods searches for a the best non-central parameters (\code{ncp}s) of the
 noncentral t-, F- or Chi-squared distribution for the desired
 tail-probabilities, and then convert these \code{ncp}s to the corresponding effect
-sizes.
+sizes. (See full \link{effectsize-CIs} for more.)
+}
+
+\section{CI Contains Zero}{
+
+For positive only effect sizes (Eta squared, Cramer's V, etc.; Effect sizes
+associated with Chi-squared and F distributions), special care should be
+taken when interpreting CIs with a lower bound equal to 0, and even more care
+should be taken when the \emph{upper} bound is equal to 0 (Steiger, 2004; Morey et
+al., 2016). For example:\if{html}{\out{<div class="r">}}\preformatted{eta_squared(aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:7, ]))
+}\if{html}{\out{</div>}}\preformatted{## Parameter    | Eta2 (partial) |       90\% CI
+## --------------------------------------------
+## factor(gear) |           0.58 | [0.00, 0.84]
+## factor(cyl)  |           0.46 | [0.00, 0.78]
+}
 }
 
 \examples{
@@ -84,7 +93,6 @@ chisq_to_cramers_v(41.234,
   nrow = nrow(contingency_table),
   ncol = ncol(contingency_table)
 )
-
 }
 \references{
 \itemize{

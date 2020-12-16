@@ -38,7 +38,7 @@ change_scale(x, ...)
 
 \item{range}{Initial (old) range of values. If \code{NULL}, will take the range of data.}
 
-\item{verbose}{Toggle warnings on or off.}
+\item{verbose}{Toggle warnings and messages on or off.}
 
 \item{select}{Character vector of column names. If \code{NULL} (the default), all
 variables will be selected.}
@@ -55,8 +55,7 @@ Rescale a numeric variable to a new range.
 change_scale(c(0, 1, 5, -5, -2))
 change_scale(c(0, 1, 5, -5, -2), to = c(-5, 5))
 
-head(change_scale(iris))
-
+head(change_scale(trees))
 }
 \seealso{
 \code{\link[=normalize]{normalize()}} \code{\link[=standardize]{standardize()}} \code{\link[=ranktransform]{ranktransform()}}

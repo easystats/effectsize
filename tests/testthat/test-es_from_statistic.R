@@ -10,9 +10,11 @@ if (require("testthat") && require("effectsize")) {
 
 
   test_that("Cramers V", {
-    contingency_table <- as.table(rbind(c(762, 327, 468),
-                                        c(484, 239, 477),
-                                        c(484, 239, 477)))
+    contingency_table <- as.table(rbind(
+      c(762, 327, 468),
+      c(484, 239, 477),
+      c(484, 239, 477)
+    ))
     res <- cramers_v(contingency_table)
 
     testthat::expect_equal(res$Cramers_v, 0.072, tolerance = 0.01)
@@ -38,10 +40,14 @@ if (require("testthat") && require("effectsize")) {
 
     resf2 <- F_to_f2(4, 3, 123)
     resf <- F_to_f(4, 3, 123)
-    testthat::expect_equal(as.data.frame(unname(resf2[-2])),
-                           unname(res[-2] / (1-res[-2])))
-    testthat::expect_equal(as.data.frame(unname(resf[-2])),
-                           unname(sqrt(res[-2] / (1-res[-2]))))
+    testthat::expect_equal(
+      as.data.frame(unname(resf2[-2])),
+      unname(res[-2] / (1 - res[-2]))
+    )
+    testthat::expect_equal(
+      as.data.frame(unname(resf[-2])),
+      unname(sqrt(res[-2] / (1 - res[-2])))
+    )
     testthat::expect_equal(F_to_f(4, 3, 123), F_to_f2(4, 3, 123, squared = FALSE))
     testthat::expect_equal(F_to_f2(4, 3, 123), F_to_f(4, 3, 123, squared = TRUE))
   })

@@ -19,7 +19,6 @@
 #' d_to_r(1)
 #' r_to_oddsratio(0.4472136, log = TRUE)
 #' oddsratio_to_d(1.813799, log = TRUE)
-#'
 #' @aliases convert_r_to_odds r_to_odds logodds_to_r convert_odds_to_r odds_to_r
 #'   convert_d_to_odds d_to_odds logodds_to_d convert_odds_to_d odds_to_d
 #'
@@ -32,7 +31,6 @@
 #' - *OR to d*: \eqn{d = \frac{\log(OR)\times\sqrt{3}}{\pi}}
 #' - *d to OR*: \eqn{log(OR) = d * \frac{\pi}{\sqrt(3)}}
 #'
-#' \cr\cr
 #' The conversion from *d* to *r* assumes equally sized groups. The resulting
 #' *r* is also called the binomial effect size display (BESD; Rosenthal et al.,
 #' 1982).
@@ -142,7 +140,3 @@ r_to_oddsratio <- function(r, log = FALSE, ...) {
 #' @rdname d_to_r
 #' @export
 convert_r_to_oddsratio <- r_to_oddsratio
-
-
-
-

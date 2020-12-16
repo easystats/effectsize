@@ -86,17 +86,17 @@ library(effectsize)
 The package provides functions to compute indices of effect size.
 
 ```{r, warning=FALSE, message=FALSE}
-cohens_d(iris$Sepal.Length, iris$Sepal.Width)
+cohens_d(mpg ~ am, data = mtcars)
 
-hedges_g(iris$Sepal.Length, iris$Sepal.Width)
+hedges_g(mpg ~ am, data = mtcars)
 
-glass_delta(iris$Sepal.Length, iris$Sepal.Width)
+glass_delta(mpg ~ am, data = mtcars)
 ```
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, ...)
 
 ```{r, warning=FALSE, message=FALSE}
-model <- aov(Sepal.Length ~ Species, data = iris)
+model <- aov(mpg ~ factor(gear), data = mtcars)
 
 eta_squared(model)
 
@@ -113,7 +113,7 @@ And more...
 Importantly, `effectsize` also provides [advanced methods](https://easystats.github.io/effectsize/articles/standardize_parameters.html) to compute standardized parameters for regression models.
 
 ```{r, warning=FALSE, message=FALSE}
-m <- lm(Sepal.Length ~ Species + Sepal.Width, data = iris)
+m <- lm(rating ~ complaints + privileges + advance, data = attitude)
 
 standardize_parameters(m)
 ```
@@ -172,25 +172,25 @@ Many indices of effect size stem out, or are related, to [*standardization*](htt
 A standardization sets the mean and SD to 0 and 1:
 
 ```{r, warning=FALSE, message=FALSE}
-library(parameters)
+library(parameters) # for describe_distribution
 
-df <- standardize(iris)
-describe_distribution(df$Sepal.Length)
+df <- standardize(attitude)
+describe_distribution(df$rating)
 ```
 
 Alternatively, normalization is similar to standardization in that it is a linear translation of the parameter space (i.e., it does not change the shape of the data distribution). However, it puts the values within a 0 - 1 range, which can be useful in cases where you want to compare or visualise data on the same scale. 
 
 ```{r, warning=FALSE, message=FALSE}
-df <- normalize(iris)
-describe_distribution(df$Sepal.Length)
+df <- normalize(attitude)
+describe_distribution(df$rating)
 ```
 
 
 This is a special case of a rescaling function, which can be used to rescale the data to an arbitrary new scale. Let's change all numeric variables to "percentages": 
 
 ```{r, warning=FALSE, message=FALSE}
-df <- change_scale(iris, to = c(0, 100)) 
-describe_distribution(df$Sepal.Length)
+df <- change_scale(attitude, to = c(0, 100)) 
+describe_distribution(df$rating)
 ```
 
 

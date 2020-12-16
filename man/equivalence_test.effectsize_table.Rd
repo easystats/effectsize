@@ -23,7 +23,7 @@ the lower bound is set to 0. If \code{"default"}, will be set to \verb{[-.1, .1]
 \item{...}{Arguments passed to or from other methods.}
 }
 \value{
-A data frame.
+A data frame with the results of the equivalence test.
 }
 \description{
 Perform a \strong{Test for Practical Equivalence} for indices of effect size.
@@ -63,9 +63,11 @@ model <- aov(mpg ~ factor(am) * factor(cyl), data = mtcars)
 es <- eta_squared(model)
 equivalence_test(es, range = 0.15)
 
-ds <- t_to_d(t = c(0.45, -0.65, 7, -2.2, 2.25),
-             df_error = c(675, 525, 2000, 900, 1875),
-             ci = 0.9) # TOST approach
+ds <- t_to_d(
+  t = c(0.45, -0.65, 7, -2.2, 2.25),
+  df_error = c(675, 525, 2000, 900, 1875),
+  ci = 0.9
+) # TOST approach
 equivalence_test(ds, range = 0.2)
 
 # Can also plot

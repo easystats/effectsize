@@ -2,22 +2,27 @@
 
 #' Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (**partial** r)
 #'
-#' These functions are convenience functions to convert t, z and F test statistics to Cohen's d and
-#' **partial** r. These are useful in cases where the data required to compute these are not easily
-#' available or their computation is not straightforward (e.g., in liner mixed models, contrasts, etc.).
+#' These functions are convenience functions to convert t, z and F test
+#' statistics to Cohen's d and **partial** r. These are useful in cases where
+#' the data required to compute these are not easily available or their
+#' computation is not straightforward (e.g., in liner mixed models, contrasts,
+#' etc.).
 #' \cr
 #' See [Effect Size from Test Statistics vignette.](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
 #'
 #' @param t,f,z The t, the F or the z statistics.
-#' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
+#' @param df,df_error Degrees of freedom of numerator or of the error estimate
+#'   (i.e., the residuals).
 #' @param n The number of observations (the sample size).
-#' @param paired Should the estimate accout for the t-value being testing the difference between dependant means?
+#' @param paired Should the estimate accout for the t-value being testing the
+#'   difference between dependant means?
 #' @param pooled Deprecated. Use `paired`.
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods.
 #'
 #'
-#' @return A data frame with the effect size(s) between 0-1, and confidence interval(s)
+#' @return A data frame with the effect size(s)(`r` or `d`), and their CIs
+#'   (`CI_low` and `CI_high`).
 #'
 #'
 #' @details These functions use the following formulae to approximate *r* and *d*:
@@ -50,20 +55,19 @@
 #' res <- with(sleep, t.test(extra[group == 1], extra[group == 2], paired = TRUE))
 #' t_to_d(t = res$statistic, res$parameter, paired = TRUE)
 #' t_to_r(t = res$statistic, res$parameter)
-#'
 #' \donttest{
 #' ## Linear Regression
-#' model <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)
+#' model <- lm(rating  ~ complaints + critical, data = attitude)
 #' library(parameters)
 #' (param_tab <- parameters(model))
 #'
 #' (rs <- t_to_r(param_tab$t[2:3], param_tab$df_error[2:3]))
 #'
-#' if(require(see)) plot(rs)
+#' if (require(see)) plot(rs)
 #'
 #' # How does this compare to actual partial correlations?
 #' if (require("correlation")) {
-#'   correlation::correlation(iris[,1:3], partial = TRUE)[1:2, c(2,3,7,8)]
+#'   correlation::correlation(attitude[, c(1, 2, 6)], partial = TRUE)[1:2, c(2, 3, 7, 8)]
 #' }
 #'
 #' ## Use with emmeans based contrasts (see also t_to_eta2)
@@ -72,7 +76,7 @@
 #'
 #'
 #'   # Also see emmeans::eff_size()
-#'   em_tension <- emmeans(warp.lm,  ~ tension)#'
+#'   em_tension <- emmeans(warp.lm, ~tension) #'
 #'   diff_tension <- summary(pairs(em_tension))
 #'   t_to_d(diff_tension$t.ratio, diff_tension$df)
 #' }
@@ -87,18 +91,19 @@
 #'
 #' @export
 t_to_r <- function(t, df_error, ci = 0.95, ...) {
-
   res <- data.frame(r = t / sqrt(t^2 + df_error))
 
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
 
-    ts <- t(mapply(.get_ncp_t,
-                   t, df_error, ci))
+    ts <- t(mapply(
+      .get_ncp_t,
+      t, df_error, ci
+    ))
 
-    res$CI_low <- ts[,1] / sqrt(ts[,1]^2 + df_error)
-    res$CI_high <- ts[,2] / sqrt(ts[,2]^2 + df_error)
+    res$CI_low <- ts[, 1] / sqrt(ts[, 1]^2 + df_error)
+    res$CI_high <- ts[, 2] / sqrt(ts[, 2]^2 + df_error)
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
@@ -113,7 +118,6 @@ t_to_r <- function(t, df_error, ci = 0.95, ...) {
 #' @importFrom stats qnorm
 #' @export
 z_to_r <- function(z, n, ci = 0.95, ...) {
-
   res <- data.frame(r = z / sqrt(z^2 + n))
 
   if (is.numeric(ci)) {
@@ -126,8 +130,8 @@ z_to_r <- function(z, n, ci = 0.95, ...) {
     qs <- stats::qnorm(probs)
     zs <- cbind(qs[1] + z, qs[2] + z)
 
-    res$CI_low <- zs[,1] / sqrt(zs[,1]^2 + n)
-    res$CI_high <- zs[,2] / sqrt(zs[,2]^2 + n)
+    res$CI_low <- zs[, 1] / sqrt(zs[, 1]^2 + n)
+    res$CI_high <- zs[, 2] / sqrt(zs[, 2]^2 + n)
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
@@ -144,7 +148,3 @@ F_to_r <- function(f, df, df_error, ci = 0.95, ...) {
   }
   t_to_r(sqrt(f), df_error = df_error, ci = ci)
 }
-
-
-
-

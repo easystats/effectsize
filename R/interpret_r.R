@@ -34,13 +34,12 @@
 #' @examples
 #' interpret_r(.015)
 #' interpret_r(c(.5, -.02))
-#'
 #' @seealso Page 88 of APA's 6th Edition.
 #'
 #' @references
 #' - Funder, D. C., & Ozer, D. J. (2019). Evaluating effect size in psychological research: sense and nonsense. Advances in Methods and Practices in Psychological Science.
 #' - Gignac, G. E., & Szodorai, E. T. (2016). Effect size guidelines for individual differences researchers. Personality and individual differences, 102, 74-78.
-#' - Cohen, J. (1988). Statistical power analysis for the behavioural sciences.
+#' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 #' - Evans, J. D. (1996). Straightforward statistics for the behavioral sciences. Thomson Brooks/Cole Publishing Co.
 #'
 #' @export
@@ -49,17 +48,21 @@ interpret_r <- function(r, rules = "funder2019") {
     rules,
     list(
       funder2019 = rules(c(0.05, 0.1, 0.2, 0.3, 0.4),
-                         c("tiny", "very small", "small", "medium", "large", "very large"),
-                         name = "funder2019", right = FALSE),
+        c("tiny", "very small", "small", "medium", "large", "very large"),
+        name = "funder2019", right = FALSE
+      ),
       gignac2016 = rules(c(0.1, 0.2, 0.3),
-                         c("very small", "small", "moderate", "large"),
-                         name = "gignac2016", right = FALSE),
+        c("very small", "small", "moderate", "large"),
+        name = "gignac2016", right = FALSE
+      ),
       cohen1988 = rules(c(0.1, 0.3, 0.5),
-                        c("very small", "small", "moderate", "large"),
-                        name = "cohen1988", right = FALSE),
+        c("very small", "small", "moderate", "large"),
+        name = "cohen1988", right = FALSE
+      ),
       evans1996 = rules(c(0.2, 0.4, 0.6, 0.8),
-                        c("very weak", "weak", "moderate", "strong", "very strong"),
-                        name = "evans1996", right = FALSE)
+        c("very weak", "weak", "moderate", "strong", "very strong"),
+        name = "evans1996", right = FALSE
+      )
     )
   )
 
