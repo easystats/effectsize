@@ -161,7 +161,6 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, correction)
     }
     y <- rep(0, length.out = length(x))
     paired <- TRUE
-    pooled_sd <- NULL
   }
 
   # Compute index
@@ -177,6 +176,8 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, correction)
     hn <- 1 / (n - 1)
     se <- s / sqrt(n)
     df <- n - 1
+
+    pooled_sd <- NULL
   } else {
     x <- stats::na.omit(x)
     y <- stats::na.omit(y)
