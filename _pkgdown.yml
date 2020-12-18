@@ -39,6 +39,7 @@ reference:
   contents:
   - d_to_common_language
   - d_to_r
+  - eta2_to_f2
   - odds_to_probs
   - oddsratio_to_riskratio
 

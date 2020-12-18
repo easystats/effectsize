@@ -219,25 +219,3 @@ t_to_f2 <- function(t, df_error, ci = 0.9, squared = TRUE, ...) {
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   return(res)
 }
-
-
-#' @export
-f_to_eta2 <- function(f, ...) {
-  f_squared <- f^2
-
-  f_squared / (1 + f_squared)
-}
-
-
-#' @export
-eta2_to_F <- function(eta2, df, df_error, ...) {
-  eta2 * df_error / ((1 - eta2) * df)
-}
-
-
-#' @export
-f_to_omega2 <- function(f, df, df_error, ci = 0.9, ...) {
-  eta2 <- f_to_eta2(f)
-  fvalue <- eta2_to_F(eta2, df, df_error)
-  F_to_omega2(f = fvalue, df = df, df_error = df_error, ci = ci)
-}
