@@ -105,6 +105,7 @@ oddsratio_to_d(1.813799, log = TRUE)
 \seealso{
 Other convert between effect sizes: 
 \code{\link{d_to_common_language}()},
+\code{\link{eta2_to_f2}()},
 \code{\link{odds_to_probs}()},
 \code{\link{oddsratio_to_riskratio}()}
 }

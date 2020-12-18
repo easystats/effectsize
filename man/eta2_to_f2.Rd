@@ -43,3 +43,13 @@ less biaed estimate of Cohen's \emph{f}.
 \item Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
 }
 }
+\seealso{
+\code{\link[=eta_squared]{eta_squared()}} for more details.
+
+Other convert between effect sizes: 
+\code{\link{d_to_common_language}()},
+\code{\link{d_to_r}()},
+\code{\link{odds_to_probs}()},
+\code{\link{oddsratio_to_riskratio}()}
+}
+\concept{convert between effect sizes}
