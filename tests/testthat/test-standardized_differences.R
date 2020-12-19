@@ -4,7 +4,7 @@ if (require("testthat") && require("effectsize")) {
     # Direction ---------------------------------------------------------------
     rez_t <- t.test(iris$Sepal.Length, iris$Sepal.Width)
     rez_d <- cohens_d(iris$Sepal.Length, iris$Sepal.Width)
-    testthat::expect_true(sign(rez_t$statistic) == sign(rez_d$Cohens_d))
+    testthat::expect_equal(sign(rez_t$statistic), sign(rez_d$Cohens_d), ignore_attr = TRUE)
 
 
     # Errors and warnings -----------------------------------------------------
@@ -15,34 +15,23 @@ if (require("testthat") && require("effectsize")) {
       d = c("a", "b", "b", "c", "c", "b", "c", "a", "a", "b"),
       e = rep(0:1, each = 5)
     )
+    df$exp_a <- exp(df$a)
     a2 <- 1:11
 
-    testthat::expect_true({
-      cohens_d(a ~ c, data = df)
-      TRUE
-    })
-    testthat::expect_true({
-      cohens_d("a", "c", data = df)
-      TRUE
-    })
-    testthat::expect_true({
-      cohens_d("a", "b", data = df)
-      TRUE
-    })
-    testthat::expect_true({
-      cohens_d(a2, df$b)
-      TRUE
-    })
-    testthat::expect_true({
-      cohens_d(b ~ e, data = df)
-      TRUE
-    })
+    testthat::expect_error(cohens_d(a ~ c, data = df), regexp = NA)
+    testthat::expect_error(cohens_d("a", "c", data = df), regexp = NA)
+    testthat::expect_error(cohens_d("a", "b", data = df), regexp = NA)
+    testthat::expect_error(cohens_d(a2, df$b), regexp = NA)
+    testthat::expect_error(cohens_d(b ~ e, data = df), regexp = NA)
+
+    testthat::expect_equal(cohens_d("exp_a", "c", data = df), cohens_d(exp(a) ~ c, data = df))
 
     testthat::expect_error(cohens_d(a ~ b, data = df))
     testthat::expect_error(cohens_d(a ~ d, data = df))
     testthat::expect_error(cohens_d("a", "d", data = df))
     testthat::expect_error(cohens_d("c", "c", data = df))
     testthat::expect_error(cohens_d(a2, df$c))
+    testthat::expect_error(cohens_d("a", "aa", data = df))
 
     testthat::expect_warning(cohens_d("b", "e", data = df))
   })

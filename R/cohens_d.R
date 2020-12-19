@@ -270,35 +270,43 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, correction)
 
   # Sanity checks
   if (inherits(x, "formula") | is.character(x) | is.character(y)) {
-    if (is.null(data)) {
+    if (is.null(data)) { # && !is.data.frame(data <- y) ?
       stop("Please provide data argument.")
     }
   }
+
 
   ## Preprocess data
 
   # Formula
   if (inherits(x, "formula")) {
-    trms <- stats::terms(x)
+    if (length(x) != 3)
+      stop("Formula must have the 'outcome ~ group'.", call. = FALSE)
 
-    group <- all.vars(stats::delete.response(trms))
-    outcome <- setdiff(all.vars(trms), group)
+    mf <- stats::model.frame(stats::lm(formula = x, data = data))
 
-    if (!(length(outcome) == 1 & length(group) == 1)) {
+    x <- mf[[1]]
+    if (ncol(mf) == 1) {
+      y <- NULL
+    } else if (ncol(mf) == 2) {
+      y <- mf[[2]]
+    } else {
       stop("Formula must have the 'outcome ~ group'.", call. = FALSE)
     }
 
-    x <- data[[outcome]]
-    y <- as.factor(data[[group]])
+    if (!is.null(y) && !is.factor(y)) y <- factor(y)
   }
 
-
   if (is.character(x)) {
-    x <- data[[x]]
+    if (is.null(x <- data[[xn <- x]])) {
+      stop("Column ", xn, " missing from data.", call. = FALSE)
+    }
   }
 
   if (is.character(y)) {
-    y <- data[[y]]
+    if (is.null(y <- data[[yn <- y]])) {
+      stop("Column ", yn, " missing from data.", call. = FALSE)
+    }
   }
 
   if (!is.numeric(x)) {
