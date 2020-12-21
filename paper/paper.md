@@ -188,11 +188,12 @@ t_to_r(t = -5.14, df_error = 22)
 These functions also power the `effectsize()` convenience function for estimating effect sizes from R's `htest`-type objects. For example:
 
 ``` r
-ts <- t.test(x = 1:10, y = 7:20)
-effectsize(ts)
-#>     d |         95% CI
-#> ----------------------
-#> -2.32 | [-3.38, -1.22]
+aov1 <- oneway.test(salary ~ n_comps, 
+                    data = hardlyworking, var.equal = TRUE)
+effectsize(aov1)
+#> Eta2 |       90% CI
+#> -------------------
+#> 0.20 | [0.14, 0.24]
 
 xtab <- rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477))
 Xsq <- chisq.test(xtab)
