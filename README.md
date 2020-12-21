@@ -38,19 +38,19 @@ Click on the buttons above to access the package
 [**easystats blog**](https://easystats.github.io/blog/posts/), and
 check-out these vignettes:
 
-  - [**Data
+-   [**Data
     Standardization**](https://easystats.github.io/effectsize/articles/standardize_data.html)
-  - [**Parameter and Model
+-   [**Parameter and Model
     Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
-  - [**ANOVA Effect
+-   [**ANOVA Effect
     Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
-  - [**Effect Sizes in Bayesian
+-   [**Effect Sizes in Bayesian
     Models**](https://easystats.github.io/effectsize/articles/bayesian_models.html)
-  - [**Effect Size
+-   [**Effect Size
     Conversion**](https://easystats.github.io/effectsize/articles/convert.html)
-  - [**Effect Size from Test
+-   [**Effect Size from Test
     Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
-  - [**Automated Interpretation of Indices of Effect
+-   [**Automated Interpretation of Indices of Effect
     Size**](https://easystats.github.io/effectsize/articles/interpret.html)
 
 # Features
@@ -74,19 +74,23 @@ cohens_d(mpg ~ am, data = mtcars)
 ## Cohen's d |         95% CI
 ## --------------------------
 ##     -1.48 | [-2.27, -0.67]
-##  - Estimated using pooled SD
+## 
+## - Estimated using pooled SD.
 
 hedges_g(mpg ~ am, data = mtcars)
 ## Hedge's g |         95% CI
 ## --------------------------
 ##     -1.44 | [-2.21, -0.65]
-##  - Estimated using pooled SD
-##  - Bias corrected using Hedges and Olkin's correction
+## 
+## - Estimated using pooled SD.
+## - Bias corrected using Hedges and Olkin's method.
 
 glass_delta(mpg ~ am, data = mtcars)
 ## Glass' delta |         95% CI
 ## -----------------------------
-##        -1.17 | [-1.93, -0.40]
+##        -1.17 | [-1.95, -0.46]
+## 
+## - Estimated using pooled SD.
 ```
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)
