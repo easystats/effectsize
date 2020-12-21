@@ -180,6 +180,8 @@
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>
+<code><a href="../reference/cohens_d.html">cohens_d()</a></code> family / <code><a href="../reference/sd_pooled.html">sd_pooled()</a></code> now properly fails when given a missing column name.</li>
+<li>
 <code><a href="../reference/cohens_d.html">glass_delta()</a></code> returns correct CIs (was too narrow).</li>
 </ul>
 </div>
@@ -187,6 +189,8 @@
 <h2 class="hasAnchor">
 <a href="#changes" class="anchor"></a>Changes</h2>
 <ul>
+<li>
+<code><a href="../reference/cohens_d.html">cohens_d()</a></code> family / <code><a href="../reference/sd_pooled.html">sd_pooled()</a></code> now respect any transformations (e.g. <code>I(log(x) - 3) ~ factor(y)</code>) in a passed formula.</li>
 <li>
 <code><a href="../reference/eta_squared.html">eta_squared()</a></code> family of functions gains a <code>verbose</code> argument.</li>
 <li>
