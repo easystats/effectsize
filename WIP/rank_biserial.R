@@ -1,5 +1,8 @@
 # https://doi.org/10.2466/11.IT.3.1
 
+# stats::kruskal.test
+# stats::friedman.test
+
 rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
                           ci = 0.95, nboot = 200,
                           paired = FALSE) {
