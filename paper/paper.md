@@ -1,5 +1,5 @@
 ---
-title: "Estimation of Effect Size Indices and Standardized Parameters"
+title: "effectsize: Estimation of Effect Size Indices and Standardized Parameters"
 authors:
 - affiliation: 1
   name: Mattan S. Ben-Shachar
