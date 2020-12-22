@@ -2,18 +2,23 @@ if (require("testthat") && require("effectsize")) {
 
   # htest -------------------------------------------------------------------
   test_that("t-test", {
+    x <- 1:10
+    y <- c(1,1:9)
+    model <- t.test(x, y)
+    expect_equal(effectsize(model), cohens_d(x, y, pooled_sd = FALSE), ignore_attr = TRUE)
 
-    ## One sample
-    htest <- t.test(mtcars$mpg - 15)
-    testthat::expect_equal(effectsize::effectsize(htest)$d, 0.858, tolerance = 0.001)
+    model <- t.test(x, y, paired = TRUE)
+    expect_equal(effectsize(model), cohens_d(x, y, paired = TRUE), ignore_attr = TRUE)
 
-    ## paired
-    htest <- t.test(iris$Sepal.Length, iris$Sepal.Width, paired = TRUE)
-    testthat::expect_equal(effectsize::effectsize(htest)$d, 2.852, tolerance = 0.001)
+    model <- t.test(x, y, var.equal = TRUE)
+    expect_equal(effectsize(model), cohens_d(x, y), ignore_attr = TRUE)
 
-    ## two sample
-    htest <- t.test(mpg ~ am, mtcars, var.equal = TRUE)
-    testthat::expect_equal(effectsize::effectsize(htest)$d, -1.499, tolerance = 0.001)
+    model <- t.test(x, y, var.equal = TRUE, mu = 3)
+    expect_equal(effectsize(model), cohens_d(x, y, mu = 3), ignore_attr = TRUE)
+
+    df <- data.frame(DV = c(x, y), g = rep(1:2, each = 10))
+    model <- t.test(DV ~ g, data = df, var.equal = TRUE, mu = 3)
+    expect_error(effectsize(model))
   })
 
 
@@ -93,6 +98,21 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_equal(cohens_f(m, partial = FALSE)[, -1], effectsize(onew, type = "f"),
       tolerance = 0.03, ignore_attr = TRUE
     )
+  })
+
+  test_that("McNemar", {
+    Performance <- rbind(
+      c(794, 86),
+      c(150, 570)
+    )
+
+    model <- mcnemar.test(Performance)
+    expect_equal(effectsize(model), cohens_g(Performance), ignore_attr = TRUE)
+
+    model <- mcnemar.test(mtcars$cyl, mtcars$gear)
+    expect_equal(effectsize(model), cohens_g(mtcars$cyl, mtcars$gear), ignore_attr = TRUE)
+
+
   })
 
 
