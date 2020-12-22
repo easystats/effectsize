@@ -2,8 +2,8 @@ if (require("testthat") && require("effectsize")) {
 
   # htest -------------------------------------------------------------------
   test_that("t-test", {
-    x <- 1:10
-    y <- c(1,1:9)
+    x <<- 1:10
+    y <<- c(1,1:9)
     model <- t.test(x, y)
     expect_equal(effectsize(model), cohens_d(x, y, pooled_sd = FALSE), ignore_attr = TRUE)
 
@@ -18,9 +18,8 @@ if (require("testthat") && require("effectsize")) {
 
     df <- data.frame(DV = c(x, y), g = rep(1:2, each = 10))
     model <- t.test(DV ~ g, data = df, var.equal = TRUE, mu = 3)
-    expect_error(effectsize(model))
+    expect_warning(effectsize(model))
   })
-
 
   test_that("Chisq-test", {
     contingency_table <-
@@ -80,7 +79,6 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_equal(ncol(effectsize(t_)), 1L)
   })
 
-
   test_that("one way", {
     onew <- oneway.test(mpg ~ cyl, mtcars)
     testthat::expect_warning(effectsize(onew))
@@ -101,7 +99,7 @@ if (require("testthat") && require("effectsize")) {
   })
 
   test_that("McNemar", {
-    Performance <- rbind(
+    Performance <<- rbind(
       c(794, 86),
       c(150, 570)
     )
@@ -111,8 +109,6 @@ if (require("testthat") && require("effectsize")) {
 
     model <- mcnemar.test(mtcars$cyl, mtcars$gear)
     expect_equal(effectsize(model), cohens_g(mtcars$cyl, mtcars$gear), ignore_attr = TRUE)
-
-
   })
 
 
