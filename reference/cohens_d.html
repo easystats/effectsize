@@ -89,7 +89,7 @@ the populations, as it uses only the second group's standard deviation." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1.1</span>
       </span>
     </div>
 
@@ -329,7 +329,9 @@ sizes. (See full <a href='effectsize-CIs.html'>effectsize-CIs</a> for more.)</p>
 <span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span><span class='op'>==</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span><span class='op'>==</span><span class='fl'>2</span><span class='op'>]</span>, paired <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Cohen's d |         95% CI
 #&gt; --------------------------
-#&gt;     -1.28 | [-2.23, -0.44]</div><div class='input'>
+#&gt;     -1.28 | [-2.23, -0.44]
+#&gt; </span><span style='color: #00BBBB;'>
+#&gt; - Estimated using pooled SD.</span><span></div><div class='input'>
 <span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Cohen's d |         95% CI
 #&gt; --------------------------
