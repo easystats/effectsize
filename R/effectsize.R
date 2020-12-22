@@ -6,6 +6,7 @@
 #' @param model An object of class `htest`, or a statistical model. See details.
 #' @param type The effect size of interest. See details.
 #' @param ... Arguments passed to or from other methods. See details.
+#' @inheritParams standardize
 #'
 #' @details
 #'
@@ -80,13 +81,14 @@ effectsize <- function(model, ...) {
 #' @rdname effectsize
 #' @importFrom insight get_data get_parameters
 #' @importFrom bayestestR describe_posterior
-effectsize.BFBayesFactor <- function(model, type = NULL, ...) {
+effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, ...) {
   if (!requireNamespace("BayesFactor")) {
     stop("This function requires 'BayesFactor' to work. Please install it.")
   }
 
   if (length(model) > 1) {
-    warning("Multiple models detected. Using first only.", call. = FALSE)
+    if (verbose)
+      warning("Multiple models detected. Using first only.", call. = FALSE)
     model <- model[1]
   }
 

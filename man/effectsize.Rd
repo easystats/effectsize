@@ -9,11 +9,11 @@
 \usage{
 effectsize(model, ...)
 
-\method{effectsize}{BFBayesFactor}(model, type = NULL, ...)
+\method{effectsize}{BFBayesFactor}(model, type = NULL, verbose = TRUE, ...)
 
 \method{effectsize}{aov}(model, type = NULL, ...)
 
-\method{effectsize}{htest}(model, type = NULL, ...)
+\method{effectsize}{htest}(model, type = NULL, verbose = TRUE, ...)
 }
 \arguments{
 \item{model}{An object of class \code{htest}, or a statistical model. See details.}
@@ -21,6 +21,8 @@ effectsize(model, ...)
 \item{...}{Arguments passed to or from other methods. See details.}
 
 \item{type}{The effect size of interest. See details.}
+
+\item{verbose}{Toggle warnings and messages on or off.}
 }
 \value{
 A data frame with the effect size (depending on input) and and its

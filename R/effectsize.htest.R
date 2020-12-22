@@ -1,10 +1,11 @@
 #' @export
 #' @rdname effectsize
-effectsize.htest <- function(model, type = NULL, ...) {
+effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   if (grepl("t-test", model$method)) {
     # t-test ----
     if (is.null(data <- insight::get_data(model))) {
-      warning("Unable to retrieve data from htest object. Using t_to_d() approximation.")
+      if (verbose)
+        warning("Unable to retrieve data from htest object. Using t_to_d() approximation.")
       out <- t_to_d(
         unname(model$statistic),
         unname(model$parameter),
@@ -52,7 +53,7 @@ effectsize.htest <- function(model, type = NULL, ...) {
     return(out)
   } else if (grepl("One-way", model$method)) {
     # one way anove ----
-    if (grepl("not assuming", model$method, fixed = TRUE)) {
+    if (grepl("not assuming", model$method, fixed = TRUE) && verbose) {
       warning("`var.equal = FALSE` - effect size is an approximation.", call. = FALSE)
     }
 
