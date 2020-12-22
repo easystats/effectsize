@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1.2</span>
       </span>
     </div>
 
@@ -170,6 +170,8 @@
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
 <li>
+<code><a href="../reference/eta2_to_f2.html">eta2_to_f2()</a></code> / <code><a href="../reference/eta2_to_f2.html">f2_to_eta2()</a></code> to convert between two types of effect sizes for ANOVA ( <a href='https://github.com/easystats/effectsize/issues/240'>#240</a> ).</li>
+<li>
 <code><a href="../reference/cohens_d.html">cohens_d()</a></code> family of functions gain <code>mu</code> argument.</li>
 </ul>
 </div>
@@ -178,6 +180,8 @@
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>
+<code><a href="../reference/cohens_d.html">cohens_d()</a></code> family / <code><a href="../reference/sd_pooled.html">sd_pooled()</a></code> now properly fails when given a missing column name.</li>
+<li>
 <code><a href="../reference/cohens_d.html">glass_delta()</a></code> returns correct CIs (was too narrow).</li>
 </ul>
 </div>
@@ -185,6 +189,8 @@
 <h2 class="hasAnchor">
 <a href="#changes" class="anchor"></a>Changes</h2>
 <ul>
+<li>
+<code><a href="../reference/cohens_d.html">cohens_d()</a></code> family / <code><a href="../reference/sd_pooled.html">sd_pooled()</a></code> now respect any transformations (e.g. <code>I(log(x) - 3) ~ factor(y)</code>) in a passed formula.</li>
 <li>
 <code><a href="../reference/eta_squared.html">eta_squared()</a></code> family of functions gains a <code>verbose</code> argument.</li>
 <li>
