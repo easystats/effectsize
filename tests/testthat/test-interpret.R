@@ -82,12 +82,21 @@ if (require("testthat") && require("effectsize")) {
 
   test_that("interpret_bf", {
     testthat::expect_warning(interpret_bf(-2))
-    testthat::expect_equal(interpret_bf(1)[1], "no evidence in favour of")
+    testthat::expect_equal(interpret_bf(1)[1], "no evidence against or in favour of")
     testthat::expect_equal(interpret_bf(c(0.8, 3.5), "jeffreys1961")[1:2], c("anecdotal evidence against", "moderate evidence in favour of"))
     testthat::expect_equal(interpret_bf(c(0.8, 3.5), "raftery1995")[1:2], c("weak evidence against", "positive evidence in favour of"))
     testthat::expect_equal(interpret_bf(2, rules(c(0.5), c("A", "B")))[1], "B evidence in favour of")
     testthat::expect_error(interpret_bf(2, "DUPA"))
-    testthat::expect_equal(interpret_bf(c(0.8), include_value = TRUE), c("anecdotal evidence (BF = 1/1.25) against"))
+
+    testthat::skip_on_cran() # just in case there are changes in insight
+    bf <- c(10^seq(-4,4), NA)
+    testthat::expect_equal(interpret_bf(bf, include_value = TRUE, protect_ratio = TRUE, exact = TRUE),
+                           c("extreme evidence (BF = 1/1.00e+04) against", "extreme evidence (BF = 1/1000.00) against",
+                             "very strong evidence (BF = 1/100.00) against", "moderate evidence (BF = 1/10.00) against",
+                             "no evidence (BF = 1.00) against or in favour of", "strong evidence (BF = 10.00) in favour of",
+                             "extreme evidence (BF = 100.00) in favour of", "extreme evidence (BF = 1000.00) in favour of",
+                             "extreme evidence (BF = 1.00e+04) in favour of", ""),
+                           ignore_attr = TRUE)
   })
 
 
