@@ -1,5 +1,5 @@
 ---
-title: "Estimation of Effect Size Indices and Standardized Parameters"
+title: "effectsize: Estimation of Effect Size Indices and Standardized Parameters"
 authors:
 - affiliation: 1
   name: Mattan S. Ben-Shachar
@@ -42,7 +42,7 @@ In both theoretical and applied research, it is often of interest to assess the 
 **effectsize**'s functionality is in part comparable to packages like **lm.beta** [@behrendt2014lmbeta], **MOTE** [@buchanan2019MOTE] or **MBESS** [@kelley2020MBESS]. Yet, there are some notable differences, e.g.:
 
 - **lm.beta** provides standardized regression coefficients for linear models, based on post-hoc model matrix standardization. However, the functionality is available only for a limited number of models (models inheriting from the `lm` class), whereas **effectsize** provides support for many types of models, including (generalized) linear mixed models, Bayesian models, and more. Additionally, in additional to post-hoc model matrix standardization, **effectsize** offers other methods of standardization (see below).  
-- Both **MOTE** and **MBESS** provide functions for computing effect sizes such as Cohen's *d* and effect sizes for ANOVAs [@cohen1988statistical], and their confidence intervals. However, both require manual input of *F*- or *t*-statistics, *degrees of freedom*, and *Sums of Squares* for the computation the effect sizes, whereas **effectsize** can automatically extract this information from the provided models, thus allowing for better ease-of-use as well as reducing any potential for error.  
+- Both **MOTE** and **MBESS** provide functions for computing effect sizes such as Cohen's *d* and effect sizes for ANOVAs [@cohen1988statistical], and their confidence intervals. However, both require manual input of *F*- or *t*-statistics, *degrees of freedom*, and *sums of squares* for the computation the effect sizes, whereas **effectsize** can automatically extract this information from the provided models, thus allowing for better ease-of-use as well as reducing any potential for error.  
 - Finally, in **base R**, the function `scale()` can be used to standardize vectors, matrices and data frame, which can be used to standardize data prior to model fitting. The coefficients of a linear model fit on such data are in effect standardized regression coefficients. **effectsize** expands an this, allowing for robust standardization (using the median and the MAD, instead of the mean and SD), post-hoc parameter standardization, and more.
 
 # Examples of Features
@@ -188,11 +188,12 @@ t_to_r(t = -5.14, df_error = 22)
 These functions also power the `effectsize()` convenience function for estimating effect sizes from R's `htest`-type objects. For example:
 
 ``` r
-ts <- t.test(x = 1:10, y = 7:20)
-effectsize(ts)
-#>     d |         95% CI
-#> ----------------------
-#> -2.32 | [-3.38, -1.22]
+aov1 <- oneway.test(salary ~ n_comps, 
+                    data = hardlyworking, var.equal = TRUE)
+effectsize(aov1)
+#> Eta2 |       90% CI
+#> -------------------
+#> 0.20 | [0.14, 0.24]
 
 xtab <- rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477))
 Xsq <- chisq.test(xtab)
@@ -215,11 +216,11 @@ r_to_d(0.7)
 d_to_oddsratio(1.96)
 #> [1] 34.98946
 
+oddsratio_to_riskratio(34.99, p0 = 0.4)
+#> [1] 2.397232
+
 oddsratio_to_r(34.99)
 #> [1] 0.6999301
-
-oddsratio_to_riskratio(1.96, p0 = 0.15)
-#> [1] 1.713287
 ```
 
 ## Effect Size Interpretation

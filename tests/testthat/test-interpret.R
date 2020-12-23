@@ -82,11 +82,12 @@ if (require("testthat") && require("effectsize")) {
 
   test_that("interpret_bf", {
     testthat::expect_warning(interpret_bf(-2))
-    testthat::expect_equal(interpret_bf(1)[1], "no evidence")
+    testthat::expect_equal(interpret_bf(1)[1], "no evidence in favour of")
     testthat::expect_equal(interpret_bf(c(0.8, 3.5), "jeffreys1961")[1:2], c("anecdotal evidence against", "moderate evidence in favour of"))
     testthat::expect_equal(interpret_bf(c(0.8, 3.5), "raftery1995")[1:2], c("weak evidence against", "positive evidence in favour of"))
     testthat::expect_equal(interpret_bf(2, rules(c(0.5), c("A", "B")))[1], "B evidence in favour of")
     testthat::expect_error(interpret_bf(2, "DUPA"))
+    testthat::expect_equal(interpret_bf(c(0.8), include_value = TRUE), c("anecdotal evidence (BF = 1/1.25) against"))
   })
 
 
