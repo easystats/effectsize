@@ -1,7 +1,8 @@
-# effectsize 0.4.1.1
+# effectsize 0.4.1.2
 
 ## New features
 
+- `effectsize()` supports Cohen's *g* for McNemar's test.
 - `eta2_to_f2()` / `f2_to_eta2()` to convert between two types of effect sizes for ANOVA ( #240 ).
 - `cohens_d()` family of functions gain `mu` argument.
 
@@ -12,6 +13,7 @@
 
 ## Changes
 
+- `effectsize()` for `htest` objects now tries first to extract the data used for testing, and computed the effect size directly on that data.
 - `cohens_d()` family / `sd_pooled()` now respect any transformations (e.g. `I(log(x) - 3) ~ factor(y)`) in a passed formula.
 - `eta_squared()` family of functions gains a `verbose` argument.
 - `verbose` argument more strictly respected.

@@ -6,14 +6,16 @@
 #' @param model An object of class `htest`, or a statistical model. See details.
 #' @param type The effect size of interest. See details.
 #' @param ... Arguments passed to or from other methods. See details.
+#' @inheritParams standardize
 #'
 #' @details
 #'
-#' - For an object of class `htest`:
-#'   - A **t-test** returns *Cohen's d* via [t_to_d()].
+#' - For an object of class `htest`, data is extracted via [insight::get_data()], and passed to the relevant function according to:
+#'   - A **t-test** returns *Cohen's d*.
 #'   - A **correlation test** returns *r*.
 #'   - A **Chi-squared tests of independence or goodness-of-fit**, depending on `type`: `"cramers_v"` (default), `"phi"` or `"cohens_w"`, `"oddsratio"`, or `"riskratio"`.
 #'   - A **One-way ANOVA test**, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.
+#'   - A **McNemar test** returns *Cohen's g*.
 #' - For an object of class `BFBayesFactor`, using [bayestestR::describe_posterior()],
 #'   - A **t-test** returns *Cohen's d*.
 #'   - A **correlation test** returns *r*.
@@ -77,111 +79,16 @@ effectsize <- function(model, ...) {
 
 #' @export
 #' @rdname effectsize
-effectsize.htest <- function(model, type = NULL, ...) {
-  if (grepl("t-test", model$method)) {
-    # message("Using t_to_d().")
-    out <- t_to_d(
-      unname(model$statistic),
-      unname(model$parameter),
-      paired = !grepl("Two", model$method),
-      ...
-    )
-    return(out)
-  } else if (grepl("correlation", model$method)) {
-    out <- t_to_r(1, 1, ci = NULL)
-    out$r <- unname(model$estimate)
-    out$CI <- attr(model$conf.int, "conf.level")
-    out$CI_low <- model$conf.int[1]
-    out$CI_high <- model$conf.int[2]
-    return(out)
-  } else if (grepl("Pearson's Chi-squared", model$method) ||
-    grepl("Chi-squared test for given probabilities", model$method)) {
-    if (is.null(type)) type <- "cramers_v"
-
-    f <- switch(tolower(type),
-      v = ,
-      cramers_v = cramers_v,
-
-      w = ,
-      cohens_w = ,
-      phi = phi,
-
-      or = ,
-      oddsratio = oddsratio,
-
-      rr = ,
-      riskratio = riskratio
-    )
-
-    out <- f(x = model$observed, ...)
-    return(out)
-  } else if (grepl("One-way", model$method)) {
-    if (grepl("not assuming", model$method, fixed = TRUE)) {
-      warning("`var.equal = FALSE` - effect size is an approximation.", call. = FALSE)
-    }
-
-    if (is.null(type)) type <- "eta"
-
-    f <- switch(tolower(type),
-      eta = ,
-      eta2 = ,
-      eta_squared = F_to_eta2,
-
-      epsilon = ,
-      epsilon2 = ,
-      epsilon_squared = F_to_epsilon2,
-
-      omega = ,
-      omega2 = ,
-      omega_squared = F_to_omega2,
-
-      f = ,
-      cohens_f = F_to_f,
-
-      f2 = ,
-      f_squared = ,
-      cohens_f2 = F_to_f2
-    )
-
-    out <- f(
-      f = model$statistic,
-      df = model$parameter[1],
-      df_error = model$parameter[2],
-      ...
-    )
-    colnames(out)[1] <- sub("_partial", "", colnames(out)[1])
-    return(out)
-  } else if (grepl("McNemar", model$method)) {
-    stop("Cannot extract Cohen's g from an 'htest' object.",
-      "\nTry using 'cohens_g()' directly.",
-      call. = FALSE
-    )
-  } else if (grepl("Fisher's Exact", model$method)) {
-    stop("Cannot extract effect size from an 'htest' of Fisher's exact test.",
-      "\nTry using 'cramers_v()' or 'phi()' directly.",
-      call. = FALSE
-    )
-  } else if (grepl("Wilcoxon", model$method)) {
-    stop("Cannot extract effect size from an 'htest' of Wilcoxon's test.",
-      "\nTry using 'ranktransform()' and 'cohens_d()' directly.",
-      call. = FALSE
-    )
-  } else {
-    stop("This 'htest' method is not (yet?) supported.", call. = FALSE)
-  }
-}
-
-#' @export
-#' @rdname effectsize
 #' @importFrom insight get_data get_parameters
 #' @importFrom bayestestR describe_posterior
-effectsize.BFBayesFactor <- function(model, type = NULL, ...) {
+effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, ...) {
   if (!requireNamespace("BayesFactor")) {
     stop("This function requires 'BayesFactor' to work. Please install it.")
   }
 
   if (length(model) > 1) {
-    warning("Multiple models detected. Using first only.", call. = FALSE)
+    if (verbose)
+      warning("Multiple models detected. Using first only.", call. = FALSE)
     model <- model[1]
   }
 

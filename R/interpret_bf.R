@@ -46,7 +46,7 @@ interpret_bf <- function(bf, rules = "jeffreys1961", include_value = FALSE, prot
 
   orig_bf <- bf
 
-  dir <- ifelse(bf < 1, "against", "in favour of")
+  dir <- ifelse(bf < 1, "against", ifelse(bf > 1, "in favour of", "against or in favour of"))
   bf <- exp(abs(log(bf)))
 
   rules <- .match.rules(
@@ -73,7 +73,7 @@ interpret_bf <- function(bf, rules = "jeffreys1961", include_value = FALSE, prot
   }
 
   # Add direction
-  interpretation <- paste(interpretation, dir)
+  interpretation[] <- paste(interpretation[], dir)
 
   interpretation[is.na(orig_bf)] <- ""
 
