@@ -27,10 +27,13 @@ knitr::opts_chunk$set(
 )
 ```
 
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.02815/status.svg)](https://doi.org/10.21105/joss.02815)
 [![CRAN](http://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize)
 [![downloads](http://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize)
 [![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg)](https://github.com/easystats/effectsize/actions)
 [![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg)](https://github.com/easystats/effectsize/actions)
+
+
 
 
 ***Size does matter***
@@ -204,6 +207,29 @@ or signed-ranks:
 
 ```{r, warning=FALSE, message=FALSE}
 ranktransform(c(1, 3, -2, 6, 6, 0.5), sign = TRUE)
+```
+
+### Citation
+
+In order to cite this package, please use the following citation:
+
+  * Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation of Effect Size Indices and Standardized Parameters. _Journal of Open Source Software_, *5*(56), 2815. doi: 10.21105/joss.02815
+  
+Corresponding BibTeX entry:
+
+```
+@Article{,
+  title = {{e}ffectsize: Estimation of Effect Size Indices and Standardized Parameters},
+  author = {Mattan S. Ben-Shachar and Daniel Lüdecke and Dominique Makowski},
+  year = {2020},
+  journal = {Journal of Open Source Software},
+  volume = {5},
+  number = {56},
+  pages = {2815},
+  publisher = {The Open Journal},
+  doi = {10.21105/joss.02815},
+  url = {https://doi.org/10.21105/joss.02815}
+}
 ```
 
 # Contributing and Support

@@ -1,6 +1,7 @@
 
 # effectsize <img src='man/figures/logo.png' align="right" height="139" />
 
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.02815/status.svg)](https://doi.org/10.21105/joss.02815)
 [![CRAN](http://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize)
 [![downloads](http://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize)
 [![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg)](https://github.com/easystats/effectsize/actions)
@@ -267,6 +268,29 @@ or signed-ranks:
 ranktransform(c(1, 3, -2, 6, 6, 0.5), sign = TRUE)
 ## [1]  2.0  4.0 -3.0  5.5  5.5  1.0
 ```
+
+### Citation
+
+In order to cite this package, please use the following citation:
+
+-   Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation
+    of Effect Size Indices and Standardized Parameters. *Journal of Open
+    Source Software*, *5*(56), 2815. doi: 10.21105/joss.02815
+
+Corresponding BibTeX entry:
+
+    @Article{,
+      title = {{e}ffectsize: Estimation of Effect Size Indices and Standardized Parameters},
+      author = {Mattan S. Ben-Shachar and Daniel Lüdecke and Dominique Makowski},
+      year = {2020},
+      journal = {Journal of Open Source Software},
+      volume = {5},
+      number = {56},
+      pages = {2815},
+      publisher = {The Open Journal},
+      doi = {10.21105/joss.02815},
+      url = {https://doi.org/10.21105/joss.02815}
+    }
 
 # Contributing and Support
 
