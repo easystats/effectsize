@@ -1,14 +1,18 @@
 bibentry(
-    bibtype="Article",
-	title="Compute and interpret indices of effect size",
-	author=c(person("Mattan S.", "Ben-Shachar"), person("Dominique", "Makowski"), person("Daniel", "Lüdecke")),
-	journal="CRAN",
-	year="2020",
-	note="R package",
-	url="https://github.com/easystats/effectsize",
+  bibtype="Article",
+	title = "{e}ffectsize: Estimation of Effect Size Indices and Standardized Parameters",
+  author = "Mattan S. Ben-Shachar and Daniel Lüdecke and Dominique Makowski",
+  year = "2020",
+  journal = "Journal of Open Source Software",
+  volume = "5",
+  number = "56",
+  pages = "2815",
+  publisher = "The Open Journal",
+  doi = "10.21105/joss.02815",
+  url = "https://doi.org/10.21105/joss.02815",
 
 	textVersion =
-  	paste("Ben-Shachar, Makowski & Lüdecke (2020). Compute and interpret indices of effect size. CRAN.",
-		"Available from https://github.com/easystats/effectsize."
+  	paste("Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation of Effect Size Indices and Standardized Parameters.",
+  	"Journal of Open Source Software, 5(56), 2815. doi: 10.21105/joss.02815"
 		),
 	mheader = "To cite effectsize in publications use:")
