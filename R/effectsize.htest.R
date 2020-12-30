@@ -13,11 +13,21 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
         ...
       )
     } else {
-      out <- cohens_d(data$x, data$y,
-                      mu = model$null.value,
-                      paired = !grepl("Two", model$method),
-                      pooled_sd = !grepl("Welch", model$method),
-                      ...)
+      if (is.null(type)) type <- "d"
+      f <- switch(tolower(type),
+                  d = ,
+                  cohens_d = cohens_d,
+
+                  g = ,
+                  hedges_g = hedges_g
+      )
+
+
+      out <- f(data$x, data$y,
+               mu = model$null.value,
+               paired = !grepl("Two", model$method),
+               pooled_sd = !grepl("Welch", model$method),
+               ...)
     }
 
     return(out)

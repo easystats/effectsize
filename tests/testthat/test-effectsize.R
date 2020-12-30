@@ -6,6 +6,7 @@ if (require("testthat") && require("effectsize")) {
     y <<- c(1,1:9)
     model <- t.test(x, y)
     expect_equal(effectsize(model), cohens_d(x, y, pooled_sd = FALSE), ignore_attr = TRUE)
+    expect_equal(effectsize(model, type = "g"), hedges_g(x, y, pooled_sd = FALSE), ignore_attr = TRUE)
 
     model <- t.test(x, y, paired = TRUE)
     expect_equal(effectsize(model), cohens_d(x, y, paired = TRUE), ignore_attr = TRUE)
