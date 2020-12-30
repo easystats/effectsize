@@ -520,8 +520,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     )
     return(res)
   }
-  model <- model[rownames(model) != "(Intercept)", ]
-  model <- model[rownames(model) != "Residuals", ]
+  model <- model[rownames(model) != "(Intercept)", , drop = FALSE]
+  model <- model[rownames(model) != "Residuals", , drop = FALSE]
 
   F_val <- F_val[F_val %in% colnames(model)]
   numDF <- numDF[numDF %in% colnames(model)]
@@ -556,6 +556,35 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   )
 
   out
+}
+
+#' @keywords internal
+.anova_es.Anova.mlm <- function(model,
+                                type = c("eta", "omega", "epsilon"),
+                                partial = TRUE,
+                                generalized = FALSE,
+                                ci = 0.9,
+                                verbose = TRUE,
+                                ...) {
+  # ## For the univariate test
+  # model <- summary(mlm1.aov)$univariate.tests
+  # .anova_es.anova(model, type = type,
+  #                 partial = partial,
+  #                 generalized = generalized,
+  #                 ci = ci,
+  #                 verbose = verbose,
+  #                 ...)
+
+  ## For the multivariate test
+  model <- parameters::model_parameters(model)
+  model$df <- model$df_num
+  model <- model[model$Parameter != "(Intercept)", , drop = FALSE]
+  .anova_es.parameters_model(model, type = type,
+                             partial = partial,
+                             generalized = generalized,
+                             ci = ci,
+                             verbose = verbose,
+                             ...)
 }
 
 #' @keywords internal

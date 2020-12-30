@@ -294,4 +294,23 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_error(omega_squared(model1, partial = FALSE))
     testthat::expect_error(omega_squared(model1, partial = TRUE))
   })
+
+
+  # car ---------------------------------------------------------------------
+  test_that("car MLM", {
+    testthat::skip_if_not_installed("afex")
+    testthat::skip_if_not_installed("car")
+    data(obk.long, package = "afex")
+    model1 <- afex::aov_car(value ~ treatment * gender + Error(id / (phase * hour)),
+                            data = obk.long, observed = "gender",
+                            include_aov = FALSE
+    )
+
+    testthat::expect_warning(eta_squared(model1$Anova, partial = FALSE))
+    testthat::expect_equal(
+      eta_squared(model1$Anova)[1:3, ][[2]],
+      c(0.4407468, 0.2678884, 0.3635011),
+      tolerance = 0.01
+    )
+  })
 }
