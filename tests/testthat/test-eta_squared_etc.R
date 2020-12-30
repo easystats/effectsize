@@ -1,5 +1,21 @@
 if (require("testthat") && require("effectsize")) {
 
+  # anova() -----------------------------------------------------------------
+  test_that("anova()", {
+    m <- matrix(c(3, 1, 1), nrow = 1,
+                dimnames = list(
+                  "Term",
+                  c("F value", "NumDF", "DenDF")
+                ))
+    class(m) <- "anova"
+
+    testthat::expect_error(eta_squared(m), regexp = NA)
+    testthat::expect_equal(
+      eta_squared(m)[,-1],
+      F_to_eta2(3, 1, 1)
+    )
+  })
+
   # aov ---------------------------------------------------------------------
   test_that("aov", {
     df <- iris
@@ -293,5 +309,24 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_error(epsilon_squared(model1, partial = FALSE))
     testthat::expect_error(omega_squared(model1, partial = FALSE))
     testthat::expect_error(omega_squared(model1, partial = TRUE))
+  })
+
+
+  # car ---------------------------------------------------------------------
+  test_that("car MLM", {
+    testthat::skip_if_not_installed("afex")
+    testthat::skip_if_not_installed("car")
+    data(obk.long, package = "afex")
+    model1 <- afex::aov_car(value ~ treatment * gender + Error(id / (phase * hour)),
+                            data = obk.long, observed = "gender",
+                            include_aov = FALSE
+    )
+
+    testthat::expect_warning(eta_squared(model1$Anova, partial = FALSE))
+    testthat::expect_equal(
+      eta_squared(model1$Anova)[1:3, ][[2]],
+      c(0.4407468, 0.2678884, 0.3635011),
+      tolerance = 0.01
+    )
   })
 }
