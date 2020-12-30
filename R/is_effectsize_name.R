@@ -37,7 +37,7 @@ es_info <- data.frame(
     "Cohen's f", "Cohen's f (partial)", "Cohen's f2", "Cohen's f2 (partial)",
     "Cramer's V", "Cramer's V (adj.)", "Phi", "Phi (adj.)", "Cohen's g",
     "Odds ratio", "log(Odds ratio)", "Risk ratio", "log(Risk ratio)",
-    "r", "d", "Cohen's d", "Hedge's g", "Glass' delta",
+    "r", "d", "Cohen's d", "Hedges' g", "Glass' delta",
     "Coefficient (std.)", "Odds Ratio (std.)", "Risk Ratio (std.)", "IRR (std.)",
     "Median (std.)", "Mean (std.)", "MAP (std.)"
   ),
