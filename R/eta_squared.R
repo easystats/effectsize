@@ -199,6 +199,13 @@ eta_squared <- function(model,
                         ci = 0.9,
                         verbose = TRUE,
                         ...) {
+  if (inherits(model, "htest")) {
+    if (!grepl("One-way", model$method))
+      stop("'model' is not a one-way test!", call. = FALSE)
+    return(effectsize(model, type = "eta", ci = ci))
+  }
+
+
   out <- .anova_es(model, type = "eta", partial = partial, generalized = generalized, ci = ci, verbose = verbose)
   class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
   return(out)
@@ -211,6 +218,12 @@ omega_squared <- function(model,
                           ci = 0.9,
                           verbose = TRUE,
                           ...) {
+  if (inherits(model, "htest")) {
+    if (!grepl("One-way", model$method))
+      stop("'model' is not a one-way test!", call. = FALSE)
+    return(effectsize(model, type = "omega", ci = ci))
+  }
+
   out <- .anova_es(model, type = "omega", partial = partial, ci = ci, verbose = verbose)
   class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
   return(out)
@@ -223,6 +236,12 @@ epsilon_squared <- function(model,
                             ci = 0.9,
                             verbose = TRUE,
                             ...) {
+  if (inherits(model, "htest")) {
+    if (!grepl("One-way", model$method))
+      stop("'model' is not a one-way test!", call. = FALSE)
+    return(effectsize(model, type = "epsilon", ci = ci))
+  }
+
   out <- .anova_es(model, type = "epsilon", partial = partial, ci = ci, verbose = verbose)
   class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
   return(out)
@@ -238,6 +257,12 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, squared = FALSE,
                      model2 = NULL, ...) {
   if (!is.null(model2)) {
     return(.cohens_f_delta(model, model2, ci = ci, squared = squared, verbose = verbose))
+  }
+
+  if (inherits(model, "htest")) {
+    if (!grepl("One-way", model$method))
+      stop("'model' is not a one-way test!", call. = FALSE)
+    return(effectsize(model, type = "f", ci = ci))
   }
 
   res <- eta_squared(model,
@@ -276,6 +301,12 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, squared = FALSE,
 cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                              verbose = TRUE,
                              model2 = NULL, ...) {
+  if (inherits(model, "htest")) {
+    if (!grepl("One-way", model$method))
+      stop("'model' is not a one-way test!", call. = FALSE)
+    return(effectsize(model, type = "f2", ci = ci))
+  }
+
   cohens_f(model, partial = partial, ci = ci, squared = squared, verbose = verbose, model2 = model2)
 }
 

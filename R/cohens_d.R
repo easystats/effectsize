@@ -77,6 +77,13 @@ cohens_d <- function(x,
     )
   }
 
+  if (inherits(x, "htest")) {
+    if (!grepl("t-test", x$method))
+      stop("'x' is not a t-test!", call. = FALSE)
+    return(effectsize(x, type = "d", correction = correction, ci = ci))
+  }
+
+
   .effect_size_difference(
     x,
     y = y,
@@ -104,6 +111,12 @@ hedges_g <- function(x,
       call. = FALSE, immediate. = TRUE
     )
     correction <- 1
+  }
+
+  if (inherits(x, "htest")) {
+    if (!grepl("t-test", x$method))
+      stop("'x' is not a t-test!", call. = FALSE)
+    return(effectsize(x, type = "g", correction = correction, ci = ci))
   }
 
   .effect_size_difference(
