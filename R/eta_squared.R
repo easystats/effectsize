@@ -206,7 +206,7 @@ eta_squared <- function(model,
   }
 
 
-  out <- .anova_es(model, type = "eta", partial = partial, generalized = generalized, ci = ci, verbose = verbose)
+  out <- .anova_es(model, type = "eta", partial = partial, generalized = generalized, ci = ci, verbose = verbose, ...)
   class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
   return(out)
 }
@@ -224,7 +224,7 @@ omega_squared <- function(model,
     return(effectsize(model, type = "omega", ci = ci))
   }
 
-  out <- .anova_es(model, type = "omega", partial = partial, ci = ci, verbose = verbose)
+  out <- .anova_es(model, type = "omega", partial = partial, ci = ci, verbose = verbose, ...)
   class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
   return(out)
 }
@@ -242,7 +242,7 @@ epsilon_squared <- function(model,
     return(effectsize(model, type = "epsilon", ci = ci))
   }
 
-  out <- .anova_es(model, type = "epsilon", partial = partial, ci = ci, verbose = verbose)
+  out <- .anova_es(model, type = "epsilon", partial = partial, ci = ci, verbose = verbose, ...)
   class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
   return(out)
 }
@@ -268,7 +268,8 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, squared = FALSE,
   res <- eta_squared(model,
     partial = partial,
     ci = ci,
-    verbose = verbose
+    verbose = verbose,
+    ...
   )
 
   if ("Eta2_partial" %in% colnames(res)) {
@@ -307,7 +308,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     return(effectsize(model, type = "f2", ci = ci))
   }
 
-  cohens_f(model, partial = partial, ci = ci, squared = squared, verbose = verbose, model2 = model2)
+  cohens_f(model, partial = partial, ci = ci, squared = squared, verbose = verbose, model2 = model2, ...)
 }
 
 
@@ -807,8 +808,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   #                 ...)
 
   ## For the multivariate test
-  model <- parameters::model_parameters(model)
-  model$df <- model$df_num
+  model <- parameters::model_parameters(model, ...)
+  if ("df_num" %in% colnames(model))
+    model$df <- model$df_num
   model <- model[model$Parameter != "(Intercept)", , drop = FALSE]
   .anova_es.parameters_model(model, type = type,
                              partial = partial,
