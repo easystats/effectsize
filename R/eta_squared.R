@@ -559,35 +559,6 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 }
 
 #' @keywords internal
-.anova_es.Anova.mlm <- function(model,
-                                type = c("eta", "omega", "epsilon"),
-                                partial = TRUE,
-                                generalized = FALSE,
-                                ci = 0.9,
-                                verbose = TRUE,
-                                ...) {
-  # ## For the univariate test
-  # model <- summary(mlm1.aov)$univariate.tests
-  # .anova_es.anova(model, type = type,
-  #                 partial = partial,
-  #                 generalized = generalized,
-  #                 ci = ci,
-  #                 verbose = verbose,
-  #                 ...)
-
-  ## For the multivariate test
-  model <- parameters::model_parameters(model)
-  model$df <- model$df_num
-  model <- model[model$Parameter != "(Intercept)", , drop = FALSE]
-  .anova_es.parameters_model(model, type = type,
-                             partial = partial,
-                             generalized = generalized,
-                             ci = ci,
-                             verbose = verbose,
-                             ...)
-}
-
-#' @keywords internal
 .anova_es.anova.lme <- .anova_es.anova
 
 #' @importFrom stats na.omit
@@ -785,6 +756,35 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   rownames(out) <- NULL
 
   out
+}
+
+#' @keywords internal
+.anova_es.Anova.mlm <- function(model,
+                                type = c("eta", "omega", "epsilon"),
+                                partial = TRUE,
+                                generalized = FALSE,
+                                ci = 0.9,
+                                verbose = TRUE,
+                                ...) {
+  # ## For the univariate test
+  # model <- summary(mlm1.aov)$univariate.tests
+  # .anova_es.anova(model, type = type,
+  #                 partial = partial,
+  #                 generalized = generalized,
+  #                 ci = ci,
+  #                 verbose = verbose,
+  #                 ...)
+
+  ## For the multivariate test
+  model <- parameters::model_parameters(model)
+  model$df <- model$df_num
+  model <- model[model$Parameter != "(Intercept)", , drop = FALSE]
+  .anova_es.parameters_model(model, type = type,
+                             partial = partial,
+                             generalized = generalized,
+                             ci = ci,
+                             verbose = verbose,
+                             ...)
 }
 
 #' @keywords internal

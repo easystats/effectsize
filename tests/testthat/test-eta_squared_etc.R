@@ -1,5 +1,21 @@
 if (require("testthat") && require("effectsize")) {
 
+  # anova() -----------------------------------------------------------------
+  test_that("anova()", {
+    m <- matrix(c(3, 1, 1), nrow = 1,
+                dimnames = list(
+                  "Term",
+                  c("F value", "NumDF", "DenDF")
+                ))
+    class(m) <- "anova"
+
+    testthat::expect_error(eta_squared(m), regexp = NA)
+    testthat::expect_equal(
+      eta_squared(m)[,-1],
+      F_to_eta2(3, 1, 1)
+    )
+  })
+
   # aov ---------------------------------------------------------------------
   test_that("aov", {
     df <- iris
