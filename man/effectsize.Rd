@@ -36,7 +36,7 @@ input model. See details.
 \itemize{
 \item For an object of class \code{htest}, data is extracted via \code{\link[insight:get_data]{insight::get_data()}}, and passed to the relevant function according to:
 \itemize{
-\item A \strong{t-test} returns \emph{Cohen's d}.
+\item A \strong{t-test} depending on \code{type}: \code{"cohens_d"} (default), \code{"hedges_g"}.
 \item A \strong{correlation test} returns \emph{r}.
 \item A \strong{Chi-squared tests of independence or goodness-of-fit}, depending on \code{type}: \code{"cramers_v"} (default), \code{"phi"} or \code{"cohens_w"}, \code{"oddsratio"}, or \code{"riskratio"}.
 \item A \strong{One-way ANOVA test}, depending on \code{type}: \code{"eta"} (default), \code{"omega"} or \code{"epsilon"} -squared, \code{"f"}, or \code{"f2"}.

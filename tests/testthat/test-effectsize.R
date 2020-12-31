@@ -6,6 +6,7 @@ if (require("testthat") && require("effectsize")) {
     y <<- c(1,1:9)
     model <- t.test(x, y)
     expect_equal(effectsize(model), cohens_d(x, y, pooled_sd = FALSE), ignore_attr = TRUE)
+    expect_equal(effectsize(model, type = "g"), hedges_g(x, y, pooled_sd = FALSE), ignore_attr = TRUE)
 
     model <- t.test(x, y, paired = TRUE)
     expect_equal(effectsize(model), cohens_d(x, y, paired = TRUE), ignore_attr = TRUE)
@@ -109,6 +110,47 @@ if (require("testthat") && require("effectsize")) {
 
     model <- mcnemar.test(mtcars$cyl, mtcars$gear)
     expect_equal(effectsize(model), cohens_g(mtcars$cyl, mtcars$gear), ignore_attr = TRUE)
+  })
+
+  test_that("htest | wrappers", {
+    x <<- 1:10
+    y <<- c(1,1:9)
+    Ts <- t.test(x, y)
+    expect_equal(cohens_d(Ts), cohens_d(x, y, pooled_sd = FALSE),
+                 ignore_attr = TRUE, tolerance = 0.01)
+    expect_equal(hedges_g(Ts), hedges_g(x, y, pooled_sd = FALSE),
+                 ignore_attr = TRUE, tolerance = 0.01)
+
+    M <<- as.table(rbind(c(762, 327, 468), c(484, 239, 477)))
+    Xsq <- chisq.test(M)
+    expect_equal(phi(Xsq), phi(M), tolerance = 0.01)
+    expect_equal(cramers_v(Xsq), cramers_v(M), tolerance = 0.01)
+
+    M <<- as.table(rbind(c(762, 327), c(484, 239)))
+    Xsq <- chisq.test(M)
+    expect_equal(oddsratio(Xsq), oddsratio(M), tolerance = 0.01)
+    expect_equal(riskratio(Xsq), riskratio(M), tolerance = 0.01)
+
+
+    OWA <- oneway.test(mpg ~ factor(cyl), data = mtcars, var.equal = TRUE)
+    m <- lm(mpg ~ factor(cyl), data = mtcars)
+    expect_equal(eta_squared(OWA), eta_squared(m, verbose = FALSE)[,-1],
+                 ignore_attr = TRUE, tolerance = 0.01)
+    expect_equal(omega_squared(OWA), omega_squared(m, verbose = FALSE)[,-1],
+                 ignore_attr = TRUE, tolerance = 0.01)
+    expect_equal(epsilon_squared(OWA), epsilon_squared(m, verbose = FALSE)[,-1],
+                 ignore_attr = TRUE, tolerance = 0.01)
+    expect_equal(cohens_f(OWA), cohens_f(m, verbose = FALSE)[,-1],
+                 ignore_attr = TRUE, tolerance = 0.01)
+    expect_equal(cohens_f_squared(OWA), cohens_f_squared(m, verbose = FALSE)[,-1],
+                 ignore_attr = TRUE, tolerance = 0.01)
+
+    Performance <<- rbind(
+      c(794, 86),
+      c(150, 570)
+    )
+    Mc <- mcnemar.test(Performance)
+    expect_equal(cohens_g(Mc), cohens_g(Performance), tolerance = 0.01)
   })
 
 

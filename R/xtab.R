@@ -112,6 +112,13 @@ phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...) {
     warning("'CI' argument is deprecated. Use 'ci' instead.")
   }
 
+  if (inherits(x, "htest")) {
+    if (!(grepl("Pearson's Chi-squared", x$method) ||
+          grepl("Chi-squared test for given probabilities", x$method)))
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    return(effectsize(x, type = "phi", adjust = adjust, ci = ci))
+  }
+
   res <- suppressWarnings(stats::chisq.test(x, y, ...))
   Obs <- res$observed
   Exp <- res$expected
@@ -150,6 +157,13 @@ cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...) {
     warning("'CI' argument is deprecated. Use 'ci' instead.")
   }
 
+  if (inherits(x, "htest")) {
+    if (!(grepl("Pearson's Chi-squared", x$method) ||
+          grepl("Chi-squared test for given probabilities", x$method)))
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci))
+  }
+
   res <- suppressWarnings(stats::chisq.test(x, y, ...))
   Obs <- res$observed
   Exp <- res$expected
@@ -181,6 +195,13 @@ cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...) {
 #' @export
 #' @importFrom stats chisq.test qnorm
 oddsratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
+  if (inherits(x, "htest")) {
+    if (!(grepl("Pearson's Chi-squared", x$method) ||
+          grepl("Chi-squared test for given probabilities", x$method)))
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    return(effectsize(x, type = "or", log = log, ci = ci))
+  }
+
   res <- suppressWarnings(stats::chisq.test(x, y, ...))
   Obs <- res$observed
 
@@ -226,6 +247,13 @@ oddsratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
 #' @export
 #' @importFrom stats chisq.test qnorm
 riskratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
+  if (inherits(x, "htest")) {
+    if (!(grepl("Pearson's Chi-squared", x$method) ||
+          grepl("Chi-squared test for given probabilities", x$method)))
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    return(effectsize(x, type = "rr", log = log, ci = ci))
+  }
+
   res <- suppressWarnings(stats::chisq.test(x, y, ...))
   Obs <- res$observed
 
@@ -274,6 +302,13 @@ riskratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
 #' @export
 #' @importFrom stats complete.cases prop.test
 cohens_g <- function(x, y = NULL, ci = 0.95, ...) {
+  if (inherits(x, "htest")) {
+    if (!grepl("McNemar", x$method))
+      stop("'x' is not a McNemar test!", call. = FALSE)
+    return(effectsize(x, ci = ci))
+  }
+
+
   if (!is.matrix(x)) {
     if (is.null(y)) {
       stop("if 'x' is not a matrix, 'y' must be given")
