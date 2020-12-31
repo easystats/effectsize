@@ -210,7 +210,7 @@ CIs (<code>CI_low</code> and <code>CI_high</code>).</p>
     
 <ul>
 <li><p>For an object of class <code>htest</code>, data is extracted via <code><a href='https://easystats.github.io/insight/reference/get_data.html'>insight::get_data()</a></code>, and passed to the relevant function according to:</p><ul>
-<li><p>A <strong>t-test</strong> returns <em>Cohen's d</em>.</p></li>
+<li><p>A <strong>t-test</strong> depending on <code>type</code>: <code>"cohens_d"</code> (default), <code>"hedges_g"</code>.</p></li>
 <li><p>A <strong>correlation test</strong> returns <em>r</em>.</p></li>
 <li><p>A <strong>Chi-squared tests of independence or goodness-of-fit</strong>, depending on <code>type</code>: <code>"cramers_v"</code> (default), <code>"phi"</code> or <code>"cohens_w"</code>, <code>"oddsratio"</code>, or <code>"riskratio"</code>.</p></li>
 <li><p>A <strong>One-way ANOVA test</strong>, depending on <code>type</code>: <code>"eta"</code> (default), <code>"omega"</code> or <code>"epsilon"</code> -squared, <code>"f"</code>, or <code>"f2"</code>.</p></li>
