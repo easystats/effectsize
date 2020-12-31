@@ -26,6 +26,7 @@
 #'   This produces an effect size that is equivalent to the one-sample effect
 #'   size on `x - y`.
 #' @inheritParams chisq_to_phi
+#' @inheritParams eta_squared
 #' @inheritParams stats::t.test
 #'
 #' @note The indices here give the population estimated standardized difference.
@@ -70,6 +71,7 @@ cohens_d <- function(x,
                      mu = 0,
                      paired = FALSE,
                      ci = 0.95,
+                     verbose = TRUE,
                      correction) {
   if (!missing(correction)) {
     warning("`correction` argument is deprecated. To apply bias correction, use `hedges_g()`.",
@@ -92,7 +94,8 @@ cohens_d <- function(x,
     pooled_sd = pooled_sd,
     mu = mu,
     paired = paired,
-    ci = ci
+    ci = ci,
+    verbose = verbose
   )
 }
 
@@ -105,7 +108,8 @@ hedges_g <- function(x,
                      pooled_sd = TRUE,
                      mu = 0,
                      paired = FALSE,
-                     ci = 0.95) {
+                     ci = 0.95,
+                     verbose = TRUE) {
   if (isTRUE(correction) || !correction %in% c(1, 2)) {
     warning("`correction` must be 1 or 2. See ?hedges_g. Setting to 1 for Hedges & Olkin's correction.",
       call. = FALSE, immediate. = TRUE
@@ -128,13 +132,14 @@ hedges_g <- function(x,
     pooled_sd = pooled_sd,
     mu = mu,
     paired = paired,
-    ci = ci
+    ci = ci,
+    verbose = verbose
   )
 }
 
 #' @rdname cohens_d
 #' @export
-glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, correction) {
+glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, verbose = TRUE, correction) {
   if (!missing(correction)) {
     warning("`correction` argument is deprecated. To apply bias correction, use `hedges_g()`.",
       call. = FALSE, immediate. = TRUE
@@ -147,7 +152,8 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, correction)
     data = data,
     mu = mu,
     type = "delta",
-    ci = ci
+    ci = ci,
+    verbose = verbose
   )
 }
 
@@ -163,8 +169,9 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, correction)
                                     correction = NULL,
                                     pooled_sd = TRUE,
                                     paired = FALSE,
-                                    ci = 0.95) {
-  out <- .deal_with_cohens_d_arguments(x, y, data)
+                                    ci = 0.95,
+                                    verbose = TRUE) {
+  out <- .deal_with_cohens_d_arguments(x, y, data, verbose)
   x <- out$x
   y <- out$y
 
@@ -279,7 +286,7 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, correction)
 #' @keywords internal
 #' @importFrom stats terms
 #' @importFrom stats delete.response
-.deal_with_cohens_d_arguments <- function(x, y = NULL, data = NULL) {
+.deal_with_cohens_d_arguments <- function(x, y = NULL, data = NULL, verbose = TRUE) {
 
   # Sanity checks
   if (inherits(x, "formula") | is.character(x) | is.character(y)) {
@@ -341,7 +348,7 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, correction)
       data <- split(x, y)
       x <- data[[1]]
       y <- data[[2]]
-    } else if (length(unique(y)) == 2) {
+    } else if (verbose && length(unique(y)) == 2) {
       warning(
         "'y' is numeric but has only 2 unique values. If this is a grouping variable, convert it to a factor.",
         call. = FALSE
