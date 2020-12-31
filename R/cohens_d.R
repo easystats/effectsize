@@ -225,11 +225,13 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, verbose = T
         df <- se^4 / (se1^4 / (n1 - 1) + se2^4 / (n2 - 1))
       }
     } else if (type == "delta") {
+      pooled_sd <- NULL
       hn <- 1 / (n2 - 1)
       s <- stats::sd(y)
 
       se <- s / sqrt(n2)
       df <- n2 - 1
+
     }
   }
 
