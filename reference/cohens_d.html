@@ -193,6 +193,7 @@ the populations, as it uses only the <em>second</em> group's standard deviation.
   mu <span class='op'>=</span> <span class='fl'>0</span>,
   paired <span class='op'>=</span> <span class='cn'>FALSE</span>,
   ci <span class='op'>=</span> <span class='fl'>0.95</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>correction</span>
 <span class='op'>)</span>
 
@@ -204,10 +205,19 @@ the populations, as it uses only the <em>second</em> group's standard deviation.
   pooled_sd <span class='op'>=</span> <span class='cn'>TRUE</span>,
   mu <span class='op'>=</span> <span class='fl'>0</span>,
   paired <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  ci <span class='op'>=</span> <span class='fl'>0.95</span>
+  ci <span class='op'>=</span> <span class='fl'>0.95</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
-<span class='fu'>glass_delta</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, data <span class='op'>=</span> <span class='cn'>NULL</span>, mu <span class='op'>=</span> <span class='fl'>0</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>correction</span><span class='op'>)</span>
+<span class='fu'>glass_delta</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  y <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  mu <span class='op'>=</span> <span class='fl'>0</span>,
+  ci <span class='op'>=</span> <span class='fl'>0.95</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>correction</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for effectsize_difference</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, digits <span class='op'>=</span> <span class='fl'>2</span>, append_CL <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -248,6 +258,10 @@ size on <code>x - y</code>.</p></td>
     <tr>
       <th>ci</th>
       <td><p>Confidence Interval (CI) level</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>Toggle warnings and messages on or off.</p></td>
     </tr>
     <tr>
       <th>correction</th>

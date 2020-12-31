@@ -167,7 +167,7 @@
     <p>The Pooled Standard Deviation is a weighted average of standard deviations for two or more groups, with more "weight" given to larger sample sizes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sd_pooled</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, data <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>sd_pooled</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, data <span class='op'>=</span> <span class='cn'>NULL</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='fu'>mad_pooled</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, data <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
@@ -187,6 +187,10 @@ character  name of one in <code>data</code>. Ignored if <code>x</code> is a form
     <tr>
       <th>data</th>
       <td><p>An optional data frame containing the variables.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>Toggle warnings and messages on or off.</p></td>
     </tr>
     </table>
 
