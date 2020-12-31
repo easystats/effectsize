@@ -15,6 +15,7 @@ cohens_d(
   mu = 0,
   paired = FALSE,
   ci = 0.95,
+  verbose = TRUE,
   correction
 )
 
@@ -26,10 +27,19 @@ hedges_g(
   pooled_sd = TRUE,
   mu = 0,
   paired = FALSE,
-  ci = 0.95
+  ci = 0.95,
+  verbose = TRUE
 )
 
-glass_delta(x, y = NULL, data = NULL, mu = 0, ci = 0.95, correction)
+glass_delta(
+  x,
+  y = NULL,
+  data = NULL,
+  mu = 0,
+  ci = 0.95,
+  verbose = TRUE,
+  correction
+)
 
 \method{print}{effectsize_difference}(x, digits = 2, append_CL = FALSE, ...)
 }
@@ -53,6 +63,8 @@ This produces an effect size that is equivalent to the one-sample effect
 size on \code{x - y}.}
 
 \item{ci}{Confidence Interval (CI) level}
+
+\item{verbose}{Toggle warnings and messages on or off.}
 
 \item{correction}{Type of small sample bias correction to apply to produce
 Hedges' \emph{g}. Can be \code{1} for Hedges and Olkin's original correction

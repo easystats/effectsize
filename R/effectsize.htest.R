@@ -22,6 +22,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
                   hedges_g = hedges_g
       )
 
+      if (grepl(" by ", model$data.name, fixed = TRUE))
+        data$y <- factor(data$y)
 
       out <- f(data$x, data$y,
                mu = model$null.value,

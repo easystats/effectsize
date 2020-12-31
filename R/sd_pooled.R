@@ -11,7 +11,7 @@
 #' @seealso [cohens_d()]
 #'
 #' @export
-sd_pooled <- function(x, y = NULL, data = NULL) {
+sd_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE) {
 
   # This actually works, you must see if you want to keep this code. If you do,
   # following will work:
@@ -33,7 +33,7 @@ sd_pooled <- function(x, y = NULL, data = NULL) {
   # else
   #   y <- y1
 
-  .sd_pooled(x, y, data, robust = FALSE)
+  .sd_pooled(x, y, data, robust = FALSE, verbose = verbose)
 }
 
 
@@ -41,7 +41,7 @@ sd_pooled <- function(x, y = NULL, data = NULL) {
 #' @rdname sd_pooled
 #' @export
 mad_pooled <- function(x, y = NULL, data = NULL) {
-  .sd_pooled(x, y, data, robust = TRUE)
+  .sd_pooled(x, y, data, robust = TRUE, verbose = verbose)
 }
 
 
@@ -52,14 +52,14 @@ mad_pooled <- function(x, y = NULL, data = NULL) {
 
 
 #' @importFrom stats mad sd as.formula
-.sd_pooled <- function(x, y = NULL, data = NULL, robust = FALSE) {
+.sd_pooled <- function(x, y = NULL, data = NULL, robust = FALSE, verbose = TRUE) {
 
   # Activate here for evaluation of arguments...
 
   # eval_args <- .evaluate_arguments(x, y, data)
   # out <- .deal_with_cohens_d_arguments(eval_args$x, eval_args$y, eval_args$data)
 
-  out <- .deal_with_cohens_d_arguments(x, y, data)
+  out <- .deal_with_cohens_d_arguments(x, y, data, verbose)
   x <- na.omit(out$x)
   y <- na.omit(out$y)
 

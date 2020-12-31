@@ -20,6 +20,12 @@ if (require("testthat") && require("effectsize")) {
     df <- data.frame(DV = c(x, y), g = rep(1:2, each = 10))
     model <- t.test(DV ~ g, data = df, var.equal = TRUE, mu = 3)
     expect_warning(effectsize(model))
+
+    ## Auto convert y to factor
+    Ts <- t.test(mtcars$mpg ~ mtcars$vs)
+    expect_equal(effectsize(Ts, verbose = FALSE),
+                 cohens_d(mtcars$mpg,factor(mtcars$vs), pooled_sd = FALSE),
+                 ignore_attr = TRUE)
   })
 
   test_that("Chisq-test", {
