@@ -37,6 +37,7 @@ glass_delta(
   data = NULL,
   mu = 0,
   ci = 0.95,
+  iterations = 200,
   verbose = TRUE,
   correction
 )
@@ -71,6 +72,8 @@ Hedges' \emph{g}. Can be \code{1} for Hedges and Olkin's original correction
 (default) or \code{2} for Hunter and Schmidt's correction (see McGrath & Meyer,
 2006).}
 
+\item{iterations}{The number of bootstrap replicates for computing confidence intervals. Only applies when \code{ci} is not \code{NULL}.}
+
 \item{digits}{Number of significant digits.}
 
 \item{append_CL}{Should the Common Language Effect Sizes be printed as well?
@@ -95,7 +98,11 @@ appropriate when the standard deviations are significantly different between
 the populations, as it uses only the \emph{second} group's standard deviation.
 }
 \details{
+\subsection{Confidence Intervals for Glass' \emph{delta}}{
 
+Confidence Intervals for Glass' \emph{delta} are estimated using the bootstrap
+method.
+}
 }
 \note{
 The indices here give the population estimated standardized difference.
@@ -104,11 +111,12 @@ applying Bessel's correction).
 }
 \section{Confidence Intervals}{
 
-Confidence intervals are estimated using the Noncentrality parameter method;
-These methods searches for a the best non-central parameters (\code{ncp}s) of the
-noncentral t-, F- or Chi-squared distribution for the desired
-tail-probabilities, and then convert these \code{ncp}s to the corresponding effect
-sizes. (See full \link{effectsize-CIs} for more.)
+Unless stated otherwise, confidence intervals are estimated using the
+Noncentrality parameter method; These methods searches for a the best
+non-central parameters (\code{ncp}s) of the noncentral t-, F- or Chi-squared
+distribution for the desired tail-probabilities, and then convert these
+\code{ncp}s to the corresponding effect sizes. (See full \link{effectsize-CIs} for
+more.)
 }
 
 \examples{

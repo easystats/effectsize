@@ -10,7 +10,6 @@
 ## Bug fixes
 
 - `cohens_d()` family / `sd_pooled()` now properly fails when given a missing column name.
-- `glass_delta()` returns correct CIs (was too narrow).
 
 ## Changes
 
@@ -18,6 +17,7 @@
 - `cohens_d()` family / `sd_pooled()` now respect any transformations (e.g. `I(log(x) - 3) ~ factor(y)`) in a passed formula.
 - `eta_squared()` family of functions gains a `verbose` argument.
 - `verbose` argument more strictly respected.
+- `glass_delta()` returns CIs based on the bootstrap.
 
 # effectsize 0.4.1
 
