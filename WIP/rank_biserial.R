@@ -93,7 +93,11 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
 }
 
 #' @keywords internal
+#' @importFrom stats na.omit
 .r_rbs_indep <- function(x, y, mu){
+  x <- stats::na.omit(x)
+  y <- stats::na.omit(y)
+
   Ry <- effectsize::ranktransform(c(x - mu, y))
   Group = c(rep("A", length(x)),
             rep("B", length(y)))
