@@ -2,6 +2,7 @@
 
 ## New features
 
+- `keep_intercept=TRUE` argument to `adjust()` to keep the intercept. 
 - `eta_squared()` family of functions supports `Anova.mlm` objects (from the `car` package).
 - `effectsize()` supports Cohen's *g* for McNemar's test.
 - `eta2_to_f2()` / `f2_to_eta2()` to convert between two types of effect sizes for ANOVA ( #240 ).
