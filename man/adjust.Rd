@@ -49,7 +49,10 @@ effects.}
 \item{bayesian}{If \code{TRUE}, the models are fitted under the Bayesian framework
 using \code{rstanarm}.}
 
-\item{keep_intercept}{If \code{FALSE} (default), the intercept of the model is re-added.}
+\item{keep_intercept}{If \code{FALSE} (default), the intercept of the model is
+re-added. This avoids the centering around 0 that happens by default
+when regressing out another variable (see the examples below for a
+visual representation of this).}
 }
 \value{
 A data frame comparable to \code{data}, with adjusted variables.
@@ -66,8 +69,10 @@ Note that a regular correlation between two "adjusted" variables is
 equivalent to the partial correlation between them.
 }
 \examples{
-adjust(attitude)
-adjust(attitude, effect = "complaints", select = "rating")
+adjusted_all <- adjust(attitude)
+head(adjusted_all)
+adjusted_one <- adjust(attitude, effect = "complaints", select = "rating")
+head(adjusted_one)
 
 \donttest{
 \dontrun{
