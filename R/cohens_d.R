@@ -12,7 +12,6 @@
 #' the populations, as it uses only the *second* group's standard deviation.
 #'
 #' @param x A formula, a numeric vector, or a character name of one in `data`.
-#'   (For `print()` the result of one of the standardized difference functions.)
 #' @param y A numeric vector, a grouping (character / factor) vector, a or a
 #'   character  name of one in `data`. Ignored if `x` is a formula.
 #' @param data An optional data frame containing the variables.
