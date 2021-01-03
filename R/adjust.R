@@ -55,7 +55,7 @@
 #' # Visualize
 #' plot(data$V1, data$V2, pch = 19, col = "blue",
 #'   ylim=c(min(adjusted$V2), max(data$V2)),
-#'   main = "Original (blue), adjusted (green), and adjusted - intercept kept (blue) data")
+#'   main = "Original (blue), adjusted (green), and adjusted - intercept kept (red) data")
 #' abline(lm(V2 ~ V1, data = data), col = "blue")
 #' points(adjusted$V1, adjusted$V2, pch = 19, col = "green")
 #' abline(lm(V2 ~ V1, data = adjusted), col = "green")
