@@ -57,6 +57,7 @@
 #' points(adjusted_icpt$V1, adjusted_icpt$V2, pch = 19, col = "red")
 #' abline(lm(V2 ~ V1, data = adjusted_icpt), col = "red")
 #' }
+#' @importFrom stats as.formula
 #' @export
 adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multilevel = FALSE, additive = FALSE, bayesian = FALSE, keep_intercept = FALSE) {
   if (!all(colnames(data) == make.names(colnames(data), unique = TRUE))) {
@@ -88,7 +89,7 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
   if (length(facs) >= 1) {
     if (multilevel) {
       if (additive) {
-        formula_random <- as.formula(paste("~", paste(paste0("(1|", facs, ")"), collapse = " + ")))
+        formula_random <- stats::as.formula(paste("~", paste(paste0("(1|", facs, ")"), collapse = " + ")))
       } else {
         formula_random <- paste("+", paste(paste0("(1|", facs, ")"), collapse = " + "))
       }
@@ -128,7 +129,8 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
 data_adjust <- adjust
 
 
-#' @importFrom stats lm residuals as.formula complete.cases
+#' @importFrom stats lm residuals as.formula complete.cases median
+#' @importFrom insight get_intercept get_residuals
 #' @keywords internal
 .model_adjust_for <- function(data, formula, multilevel = FALSE, additive = FALSE, bayesian = FALSE, formula_random = NULL, keep_intercept = FALSE) {
 
@@ -139,13 +141,13 @@ data_adjust <- adjust
       if (!requireNamespace("rstanarm")) {
         stop("This function needs `rstanarm` to be installed. Please install by running `install.packages('rstanarm')`.")
       }
-      model <- rstanarm::stan_gamm4(as.formula(formula), random = formula_random, data = data, refresh = 0)
+      model <- rstanarm::stan_gamm4(stats::as.formula(formula), random = formula_random, data = data, refresh = 0)
       # Frequentist
     } else {
       if (!requireNamespace("gamm4")) {
         stop("This function needs `gamm4` to be installed. Please install by running `install.packages('gamm4')`.")
       }
-      model <- gamm4::gamm4(as.formula(formula), random = formula_random, data = data)
+      model <- gamm4::gamm4(stats::as.formula(formula), random = formula_random, data = data)
     }
 
     # Linear -------------------------
@@ -166,7 +168,7 @@ data_adjust <- adjust
         if (!requireNamespace("lme4")) {
           stop("This function needs `lme4` to be installed. Please install by running `install.packages('lme4')`.")
         }
-        model <- residuals(lme4::lmer(paste(formula, formula_random), data = data))
+        model <- insight::get_residuals(lme4::lmer(paste(formula, formula_random), data = data))
       } else {
         model <- lm(formula, data = data)
       }
@@ -176,10 +178,10 @@ data_adjust <- adjust
   adjusted <- insight::get_residuals(model)
 
   # Re-add intercept if need be
-  if(keep_intercept){
+  if (keep_intercept) {
     intercept <- insight::get_intercept(model)
-    if(length(intercept) > 1) intercept <- median(intercept)  # For bayesian model
-    if(is.na(intercept)) intercept <- 0
+    if (length(intercept) > 1) intercept <- stats::median(intercept)  # For bayesian model
+    if (is.na(intercept)) intercept <- 0
     adjusted <- adjusted + intercept
   }
 
