@@ -26,33 +26,33 @@ rank_epsilon_squared <- function(x, g, data = NULL, ci = 0.95, iterations = 200)
   return(out)
 }
 
-rank_eta_squared <- function(x, g, data = NULL, ci = 0.95, iterations = 200) {
-
-  data <- .rank_anova_xg(x, g, data)
-  data <- stats::na.omit(data)
-  x <- data$x
-  g <- data$g
-
-  model <- stats::kruskal.test(x, g)
-
-  H <- unname(model$statistic)
-  k <- length(unique(g)) # model$parameter + 1
-  n <- length(g)
-
-  E <- (H - k + 1) / (n - k)
-
-  out <- data.frame(rank_eta_squared = E)
-
-  if (is.numeric(ci)) {
-    warning("Nope. Not yet.")
-    out$CI <- ci
-    out$CI_low <- 0
-    out$CI_high <- 1
-  }
-
-  class(out) <- c("effectsize_table", class(out))
-  return(out)
-}
+# rank_eta_squared <- function(x, g, data = NULL, ci = 0.95, iterations = 200) {
+#
+#   data <- .rank_anova_xg(x, g, data)
+#   data <- stats::na.omit(data)
+#   x <- data$x
+#   g <- data$g
+#
+#   model <- stats::kruskal.test(x, g)
+#
+#   H <- unname(model$statistic)
+#   k <- length(unique(g)) # model$parameter + 1
+#   n <- length(g)
+#
+#   E <- (H - k + 1) / (n - k)
+#
+#   out <- data.frame(rank_eta_squared = E)
+#
+#   if (is.numeric(ci)) {
+#     warning("Nope. Not yet.")
+#     out$CI <- ci
+#     out$CI_low <- 0
+#     out$CI_high <- 1
+#   }
+#
+#   class(out) <- c("effectsize_table", class(out))
+#   return(out)
+# }
 
 .rank_anova_xg <- function(x, g, data) {
   if (inherits(frm <- x, "formula")) {
