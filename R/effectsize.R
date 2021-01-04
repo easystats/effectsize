@@ -186,7 +186,7 @@ effectsize.easycorrelation <- function(model, ...) {
   }
 
   out <- model[, r_cols, drop = FALSE]
-  class(out) <- c("effectsize_table", "data.frame")
+  class(out) <- c("effectsize_table", "see_effectsize_table", "data.frame")
   out
 }
 
