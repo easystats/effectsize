@@ -38,9 +38,9 @@ tolerance of the optimizer, resulting in CIs of width 0. This can also,
 result in the estimated CIs excluding the point estimate. For example:\if{html}{\out{<div class="r">}}\preformatted{chisq_to_cramers_v(13223.73, n = 76227, nrow = 6, ncol = 1)
 }\if{html}{\out{</div>}}\preformatted{## Cramer's V |       95\% CI
 ## -------------------------
-##       0.19 | [0.20, 0.20]
+## 0.19       | [0.20, 0.20]
 }\if{html}{\out{<div class="r">}}\preformatted{t_to_d(80, df_error = 4555555)
-}\if{html}{\out{</div>}}\preformatted{##    d |       95\% CI
+}\if{html}{\out{</div>}}\preformatted{## d    |       95\% CI
 ## -------------------
 ## 0.07 | [0.08, 0.08]
 }

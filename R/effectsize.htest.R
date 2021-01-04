@@ -125,6 +125,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     out$CI <- attr(model$conf.int, "conf.level")
     out$CI_low <- model$conf.int[1]
     out$CI_high <- model$conf.int[2]
+    attr(out, "table_footer") <- c("\n- Maximum likelihood estimate (MLE) of the OR.", "cyan")
     return(out)
   } else if (grepl("Wilcoxon", model$method)) {
     # Wilcoxon ----

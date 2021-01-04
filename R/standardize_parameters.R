@@ -202,7 +202,7 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   attr(pars, "two_sd") <- two_sd
   attr(pars, "robust") <- robust
   attr(pars, "object_name") <- object_name
-  class(pars) <- c("effectsize_table", "see_effectsize_table", "effectsize_std_params", "data.frame")
+  class(pars) <- c("effectsize_std_params", "effectsize_table", "see_effectsize_table", "data.frame")
   return(pars)
 }
 
@@ -240,11 +240,10 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   }
 
   ## attributes
-  attr(pars, "two_sd") <- two_sd
   attr(pars, "std_method") <- method
   attr(pars, "two_sd") <- two_sd
   attr(pars, "robust") <- robust
-  class(pars) <- c("effectsize_table", "see_effectsize_table", "effectsize_std_params", "data.frame")
+  class(pars) <- c("effectsize_std_params", "effectsize_table", "see_effectsize_table", "data.frame")
   return(pars)
 }
 
