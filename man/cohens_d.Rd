@@ -45,8 +45,7 @@ glass_delta(
 \method{print}{effectsize_difference}(x, digits = 2, append_CL = FALSE, ...)
 }
 \arguments{
-\item{x}{A formula, a numeric vector, or a character name of one in \code{data}.
-(For \code{print()} the result of one of the standardized difference functions.)}
+\item{x}{A formula, a numeric vector, or a character name of one in \code{data}.}
 
 \item{y}{A numeric vector, a grouping (character / factor) vector, a or a
 character  name of one in \code{data}. Ignored if \code{x} is a formula.}
