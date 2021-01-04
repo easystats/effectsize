@@ -174,7 +174,12 @@
 <li>
 <code><a href="../reference/eta_squared.html">eta_squared()</a></code> family of functions supports <code>Anova.mlm</code> objects (from the <code>car</code> package).</li>
 <li>
-<code><a href="../reference/effectsize.html">effectsize()</a></code> supports Cohen’s <em>g</em> for McNemar’s test.</li>
+<code><a href="../reference/effectsize.html">effectsize()</a></code>:
+<ul>
+<li>supports Cohen’s <em>g</em> for McNemar’s test.</li>
+<li>Extracts OR from Fisher’s Exact Test in the 2x2 case.</li>
+</ul>
+</li>
 <li>
 <code><a href="../reference/eta2_to_f2.html">eta2_to_f2()</a></code> / <code><a href="../reference/eta2_to_f2.html">f2_to_eta2()</a></code> to convert between two types of effect sizes for ANOVA ( <a href='https://github.com/easystats/effectsize/issues/240'>#240</a> ).</li>
 <li>
@@ -187,8 +192,6 @@
 <ul>
 <li>
 <code><a href="../reference/cohens_d.html">cohens_d()</a></code> family / <code><a href="../reference/sd_pooled.html">sd_pooled()</a></code> now properly fails when given a missing column name.</li>
-<li>
-<code><a href="../reference/cohens_d.html">glass_delta()</a></code> returns correct CIs (was too narrow).</li>
 </ul>
 </div>
 <div id="changes" class="section level2">
@@ -203,6 +206,8 @@
 <code><a href="../reference/eta_squared.html">eta_squared()</a></code> family of functions gains a <code>verbose</code> argument.</li>
 <li>
 <code>verbose</code> argument more strictly respected.</li>
+<li>
+<code><a href="../reference/cohens_d.html">glass_delta()</a></code> returns CIs based on the bootstrap.</li>
 </ul>
 </div>
 </div>

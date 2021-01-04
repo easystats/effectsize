@@ -215,6 +215,7 @@ CIs (<code>CI_low</code> and <code>CI_high</code>).</p>
 <li><p>A <strong>Chi-squared tests of independence or goodness-of-fit</strong>, depending on <code>type</code>: <code>"cramers_v"</code> (default), <code>"phi"</code> or <code>"cohens_w"</code>, <code>"oddsratio"</code>, or <code>"riskratio"</code>.</p></li>
 <li><p>A <strong>One-way ANOVA test</strong>, depending on <code>type</code>: <code>"eta"</code> (default), <code>"omega"</code> or <code>"epsilon"</code> -squared, <code>"f"</code>, or <code>"f2"</code>.</p></li>
 <li><p>A <strong>McNemar test</strong> returns <em>Cohen's g</em>.</p></li>
+<li><p>A <strong>Fisher's Exact test</strong> (in the 2x2 case) returns <em>Odds ratio</em>.</p></li>
 </ul></li>
 <li><p>For an object of class <code>BFBayesFactor</code>, using <code><a href='https://easystats.github.io/bayestestR/reference/describe_posterior.html'>bayestestR::describe_posterior()</a></code>,</p><ul>
 <li><p>A <strong>t-test</strong> returns <em>Cohen's d</em>.</p></li>
@@ -244,15 +245,15 @@ functions, for the full range of options they provide.</strong></p>
 <span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>Xsq</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Cramer's V |       95% CI
 #&gt; -------------------------
-#&gt;       0.07 | [0.05, 0.09]</div><div class='input'><span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>Xsq</span>, type <span class='op'>=</span> <span class='st'>"phi"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  Phi |       95% CI
+#&gt; 0.07       | [0.05, 0.09]</div><div class='input'><span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>Xsq</span>, type <span class='op'>=</span> <span class='st'>"phi"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Phi  |       95% CI
 #&gt; -------------------
 #&gt; 0.10 | [0.07, 0.13]</div><div class='input'>
 <span class='va'>Ts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>Ts</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Cohen's d |         95% CI
 #&gt; --------------------------
-#&gt;     -2.19 | [-3.28, -1.19]
+#&gt; -2.19     | [-3.28, -1.19]
 #&gt; <span style='color: #00BBBB;'>
 #&gt; - Estimated using un-pooled SD.</span><span></div><div class='input'>
 <span class='va'>Aov</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/oneway.test.html'>oneway.test</a></span><span class='op'>(</span><span class='va'>extra</span> <span class='op'>~</span> <span class='va'>group</span>, data <span class='op'>=</span> <span class='va'>sleep</span>, var.equal <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
@@ -262,7 +263,7 @@ functions, for the full range of options they provide.</strong></p>
 #&gt; 0.16 | [0.00, 0.41]</div><div class='input'><span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>Aov</span>, type <span class='op'>=</span> <span class='st'>"omega"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Omega2 |       90% CI
 #&gt; ---------------------
-#&gt;   0.11 | [0.00, 0.36]</div><div class='input'>
+#&gt; 0.11   | [0.00, 0.36]</div><div class='input'>
 
 <span class='co'>## Bayesian Hypothesis Testing</span>
 <span class='co'>## ---------------------------</span>
@@ -286,14 +287,16 @@ functions, for the full range of options they provide.</strong></p>
 #&gt; 
 #&gt; </span><span>Parameter  | Median |         89% CI
 #&gt; ------------------------------------
-#&gt; Odds_ratio |  0.496 | [0.249, 0.775]
+#&gt; Odds_ratio |  0.500 | [0.247, 0.776]
 #&gt; </div><div class='input'>
 
 <span class='co'>## Models and Anova Tables</span>
 <span class='co'>## -----------------------</span>
 <span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span> <span class='op'>*</span> <span class='va'>wt</span> <span class='op'>+</span> <span class='va'>hp</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
 <span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>fit</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Parameter       | Coefficient (std.) |         95% CI
+</div><div class='output co'>#&gt; </span><span style='color: #0000BB;'># Standardization method: refit</span><span>
+#&gt; 
+#&gt; Parameter       | Coefficient (std.) |         95% CI
 #&gt; -----------------------------------------------------
 #&gt; (Intercept)     |           1.14e-03 | [-0.53,  0.53]
 #&gt; factor(cyl)6    |              -0.20 | [-0.79,  0.38]
@@ -301,10 +304,7 @@ functions, for the full range of options they provide.</strong></p>
 #&gt; wt              |              -0.90 | [-1.33, -0.46]
 #&gt; hp              |              -0.25 | [-0.52,  0.01]
 #&gt; factor(cyl)6:wt |               0.37 | [-0.63,  1.36]
-#&gt; factor(cyl)8:wt |               0.54 | [ 0.03,  1.06]
-#&gt; </span><span style='color: #0000BB;'>
-#&gt; # Standardization method: refit
-#&gt; </span><span></div><div class='input'>
+#&gt; factor(cyl)8:wt |               0.54 | [ 0.03,  1.06]</div><div class='input'>
 <span class='va'>anova_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span><span class='op'>(</span><span class='va'>fit</span><span class='op'>)</span>
 <span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>anova_table</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Parameter      | Eta2 (partial) |       90% CI

@@ -249,7 +249,7 @@ ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry) (see
 which give a good close approximation.
 <br /><br />
 For Odds ratios and Risk ratios, confidence intervals are estimated using the
-standard parametric method (see Katz et al., 1978; Szumilas, 2010).
+standard normal parametric method (see Katz et al., 1978; Szumilas, 2010).
 <br /><br />
 See <em>Confidence Intervals</em> and <em>CI Contains Zero</em> sections for <em>phi</em>, Cohen's
 <em>w</em> and Cramer's <em>V</em>.</p>
@@ -257,11 +257,12 @@ See <em>Confidence Intervals</em> and <em>CI Contains Zero</em> sections for <em
 
     
 
-<p>Confidence intervals are estimated using the Noncentrality parameter method;
-These methods searches for a the best non-central parameters (<code>ncp</code>s) of the
-noncentral t-, F- or Chi-squared distribution for the desired
-tail-probabilities, and then convert these <code>ncp</code>s to the corresponding effect
-sizes. (See full <a href='effectsize-CIs.html'>effectsize-CIs</a> for more.)</p>
+<p>Unless stated otherwise, confidence intervals are estimated using the
+Noncentrality parameter method; These methods searches for a the best
+non-central parameters (<code>ncp</code>s) of the noncentral t-, F- or Chi-squared
+distribution for the desired tail-probabilities, and then convert these
+<code>ncp</code>s to the corresponding effect sizes. (See full <a href='effectsize-CIs.html'>effectsize-CIs</a> for
+more.)</p>
     <h2 class="hasAnchor" id="ci-contains-zero"><a class="anchor" href="#ci-contains-zero"></a>CI Contains Zero</h2>
 
     
@@ -312,13 +313,13 @@ al., 2016). For example:<div class="r"></p><pre><span class='fu'><a href='eta_sq
 #&gt;   Econ  100   50   10      40
 #&gt;   Law   165   65    2      25</div><div class='input'>
 <span class='fu'>phi</span><span class='op'>(</span><span class='va'>M</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  Phi |       95% CI
+</div><div class='output co'>#&gt; Phi  |       95% CI
 #&gt; -------------------
 #&gt; 0.25 | [0.17, 0.31]</div><div class='input'>
 <span class='fu'>cramers_v</span><span class='op'>(</span><span class='va'>M</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Cramer's V |       95% CI
 #&gt; -------------------------
-#&gt;       0.18 | [0.12, 0.22]</div><div class='input'>
+#&gt; 0.18       | [0.12, 0.22]</div><div class='input'>
 
 
 <span class='co'>## 2-by-2 tables</span>
@@ -339,11 +340,11 @@ al., 2016). For example:<div class="r"></p><pre><span class='fu'><a href='eta_sq
 <span class='fu'>oddsratio</span><span class='op'>(</span><span class='va'>RCT</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Odds ratio |       95% CI
 #&gt; -------------------------
-#&gt;       4.73 | [2.74, 8.17]</div><div class='input'>
+#&gt; 4.73       | [2.74, 8.17]</div><div class='input'>
 <span class='fu'>riskratio</span><span class='op'>(</span><span class='va'>RCT</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Risk ratio |       95% CI
 #&gt; -------------------------
-#&gt;       2.54 | [1.87, 3.45]</div><div class='input'>
+#&gt; 2.54       | [1.87, 3.45]</div><div class='input'>
 
 
 <span class='co'>## Dependent (Paired) Contingency Tables</span>
@@ -364,7 +365,7 @@ al., 2016). For example:<div class="r"></p><pre><span class='fu'><a href='eta_sq
 <span class='fu'>cohens_g</span><span class='op'>(</span><span class='va'>Performance</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Cohen's g |       95% CI
 #&gt; ------------------------
-#&gt;      0.14 | [0.07, 0.19]</div></pre>
+#&gt; 0.14      | [0.07, 0.19]</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

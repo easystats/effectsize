@@ -147,18 +147,18 @@
 <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">complaints</span>, data <span class="op">=</span> <span class="va">attitude</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter   | Coefficient (std.) |        95% CI
+<pre><code>&gt; # Standardization method: refit
+&gt; 
+&gt; Parameter   | Coefficient (std.) |        95% CI
 &gt; ------------------------------------------------
 &gt; (Intercept) |          -9.57e-16 | [-0.21, 0.21]
-&gt; complaints  |               0.83 | [ 0.61, 1.04]
-&gt; 
-&gt; # Standardization method: refit</code></pre>
+&gt; complaints  |               0.83 | [ 0.61, 1.04]</code></pre>
 <p>Standardizing the coefficient of this <em>simple</em> linear regression gives a value of <code>0.87</code>, but did you know that for a simple regression this is actually the <strong>same as a correlation</strong>? Thus, you can eventually apply some (<em>in</em>)famous interpretation guidelines (e.g., Cohen’s rules of thumb).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">attitude</span><span class="op">$</span><span class="va">rating</span>, <span class="va">attitude</span><span class="op">$</span><span class="va">complaints</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt;    r |       95% CI
+<pre><code>&gt; r    |       95% CI
 &gt; -------------------
 &gt; 0.83 | [0.66, 0.91]</code></pre>
 </div>
@@ -172,18 +172,18 @@
 
 <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter   | Coefficient (std.) |         95% CI
+<pre><code>&gt; # Standardization method: refit
+&gt; 
+&gt; Parameter   | Coefficient (std.) |         95% CI
 &gt; -------------------------------------------------
 &gt; (Intercept) |              -0.49 | [-0.87, -0.11]
-&gt; amAutomatic |               1.20 | [ 0.60,  1.80]
-&gt; 
-&gt; # Standardization method: refit</code></pre>
+&gt; amAutomatic |               1.20 | [ 0.60,  1.80]</code></pre>
 <p>This linear model suggests that the <em>standardized</em> difference between <em>Manual</em> (the reference level - the model’s intercept) and <em>Automatic</em> is of 1.20 standard deviation of <code>mpg</code> (because the response variable was standardized, right?). Let’s compute the <strong>Cohen’s <em>d</em></strong> between these two levels:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> </code></pre></div>
 <pre><code>&gt; Cohen's d |         95% CI
 &gt; --------------------------
-&gt;     -1.48 | [-2.27, -0.67]
+&gt; -1.48     | [-2.27, -0.67]
 &gt; 
 &gt; - Estimated using pooled SD.</code></pre>
 <p><strong><em>It is larger!</em></strong> Why? How? Both differences should be expressed in units of SD! But which SDs? Different SDs!</p>
@@ -203,7 +203,7 @@
 &gt; am [Automatic] |        7.24 | 1.76 | [ 3.64, 10.85] |  4.11 | &lt; .001</code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/t_to_d.html">t_to_d</a></span><span class="op">(</span><span class="fl">4.11</span>, df_error <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt;    d |       95% CI
+<pre><code>&gt; d    |       95% CI
 &gt; -------------------
 &gt; 1.50 | [0.68, 2.30]</code></pre>
 <p>It is also interesting to note that using the <code>smart</code> method (explained in detail below) when standardizing parameters will give you indices equivalent to <strong>Glass’ <em>delta</em></strong>, which is a standardized difference expressed in terms of SD of the reference group.</p>
@@ -211,19 +211,17 @@
 <code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span>, method <span class="op">=</span> <span class="st">"smart"</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter   | Coefficient (std.) |       95% CI
+<pre><code>&gt; # Standardization method: smart
+&gt; 
+&gt; Parameter   | Coefficient (std.) |       95% CI
 &gt; -----------------------------------------------
 &gt; (Intercept) |               0.00 | [0.00, 0.00]
-&gt; amAutomatic |               1.17 | [0.59, 1.76]
-&gt; 
-&gt; # Standardization method: smart</code></pre>
+&gt; amAutomatic |               1.17 | [0.59, 1.76]</code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/cohens_d.html">glass_delta</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Glass' delta |         95% CI
 &gt; -----------------------------
-&gt;        -1.17 | [-1.95, -0.46]
-&gt; 
-&gt; - Estimated using pooled SD.</code></pre>
+&gt; -1.17        | [-2.30, -0.66]</code></pre>
 <p><strong><em>… So note that some standardized differences are different than others! :)</em></strong></p>
 </div>
 </div>
@@ -266,22 +264,22 @@
           data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter   | Coefficient (std.) |        95% CI
+<pre><code>&gt; # Standardization method: refit
+&gt; 
+&gt; Parameter   | Coefficient (std.) |        95% CI
 &gt; ------------------------------------------------
 &gt; (Intercept) |          -4.52e-17 | [-0.03, 0.03]
 &gt; xtra_hours  |               0.77 | [ 0.73, 0.81]
 &gt; n_comps     |               0.39 | [ 0.36, 0.42]
 &gt; age         |               0.04 | [ 0.00, 0.07]
-&gt; seniority   |               0.08 | [ 0.04, 0.12]
-&gt; 
-&gt; # Standardization method: refit</code></pre>
+&gt; seniority   |               0.08 | [ 0.04, 0.12]</code></pre>
 <p>They are quite different! It seems then that <strong><em>standardized slopes in multiple linear regressions are not the same a correlations or partial correlations</em></strong> :(</p>
 <p>However, not all hope is lost yet - we can still try and recover the partial correlations from our model, in another way: by converting the <em>t</em>-statistics (and their degrees of freedom, <em>df</em>) into a partial correlation coefficient <em>r</em>.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/t_to_d.html">t_to_r</a></span><span class="op">(</span><span class="va">params</span><span class="op">$</span><span class="va">t</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, df_error <span class="op">=</span> <span class="va">params</span><span class="op">$</span><span class="va">df_error</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt;    r |       95% CI
+<pre><code>&gt; r    |       95% CI
 &gt; -------------------
 &gt; 0.87 | [0.85, 0.89]
 &gt; 0.71 | [0.67, 0.74]
@@ -316,20 +314,22 @@
 <p><strong>This method is based on a complete model re-fit with a standardized version of data</strong>. Hence, this method is equal to standardizing the variables <em>before</em> fitting the model. It is the “purest” and the most accurate <span class="citation">(Neter, Wasserman, and Kutner 1989)</span>, but it is also the most computationally costly and long (especially for heavy models such as Bayesian models, or complex mixed models). This method is particularly recommended for models that include interactions or transformations (e.g., exponentiation, log, polynomial or spline terms).</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod</span>, method <span class="op">=</span> <span class="st">"refit"</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter    | Coefficient (std.) |        95% CI
+<pre><code>&gt; # Standardization method: refit
+&gt; 
+&gt; Parameter    | Coefficient (std.) |        95% CI
 &gt; -------------------------------------------------
 &gt; (Intercept)  |              -0.05 | [-0.11, 0.02]
 &gt; xtra_hours   |               0.77 | [ 0.73, 0.81]
 &gt; n_comps      |               0.39 | [ 0.36, 0.43]
 &gt; age_g(30,35] |               0.06 | [-0.01, 0.14]
 &gt; age_g(35,45] |               0.10 | [-0.04, 0.23]
-&gt; seniority    |               0.08 | [ 0.04, 0.12]
-&gt; 
-&gt; # Standardization method: refit</code></pre>
+&gt; seniority    |               0.08 | [ 0.04, 0.12]</code></pre>
 <p><code>standardize_parameters</code> also has a <code>robust</code> argument (default to <code>FALSE</code>), which enables a <strong>robust standardization of the data</strong>, <em>i.e.</em>, based on the <strong>median</strong> and <strong>MAD</strong> instead of the <strong>mean</strong> and <strong>SD</strong>:</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod</span>, method <span class="op">=</span> <span class="st">"refit"</span>, robust <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter    | Coefficient (std.) |         95% CI
+<pre><code>&gt; # Standardization method: refit
+&gt; 
+&gt; Parameter    | Coefficient (std.) |         95% CI
 &gt; --------------------------------------------------
 &gt; (Intercept)  |              -0.20 | [-0.27, -0.13]
 &gt; xtra_hours   |               0.65 | [ 0.62,  0.68]
@@ -338,11 +338,13 @@
 &gt; age_g(35,45] |               0.11 | [-0.05,  0.27]
 &gt; seniority    |               0.12 | [ 0.07,  0.18]
 &gt; 
-&gt; # Standardization method: refit</code></pre>
+&gt; - Scaled by one MAD(s) from the median.</code></pre>
 <p>Note that since <code>age_g</code> is a factor, it is not numerically standardized, and so it standardized parameter is still not directly comparable to those of numeric variables. To address this, we can set <code>two_sd = TRUE</code>, thereby scaling parameters on 2 SDs (or MADs) of the predictors <span class="citation">(Gelman 2008)</span>.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod</span>, method <span class="op">=</span> <span class="st">"refit"</span>, two_sd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter    | Coefficient (std.) |        95% CI
+<pre><code>&gt; # Standardization method: refit
+&gt; 
+&gt; Parameter    | Coefficient (std.) |        95% CI
 &gt; -------------------------------------------------
 &gt; (Intercept)  |              -0.05 | [-0.11, 0.02]
 &gt; xtra_hours   |               1.54 | [ 1.46, 1.61]
@@ -351,7 +353,7 @@
 &gt; age_g(35,45] |               0.10 | [-0.04, 0.23]
 &gt; seniority    |               0.16 | [ 0.09, 0.24]
 &gt; 
-&gt; # Standardization method: refit</code></pre>
+&gt; - Scaled by two SD(s) from the mean.</code></pre>
 <p><code>effectsize</code> also comes with a helper function that returns the re-fit model, without summarizing it, which can then be used as the original model would:</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod_z</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="va">mod</span>, two_sd <span class="op">=</span> <span class="cn">FALSE</span>, robust <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
@@ -383,16 +385,16 @@
 <p>Post-hoc standardization of the parameters aims at emulating the results obtained by <code>"refit"</code> without refitting the model. The coefficients are divided by the standard deviation (or MAD if <code>robust</code>) of the outcome (which becomes their expression ‘unit’). Then, the coefficients related to numeric variables are additionally multiplied by the standard deviation (or MAD if <code>robust</code>) of the related terms, so that they correspond to changes of 1 SD of the predictor (e.g., "A change in 1 SD of <em>x</em> is related to a change of 0.24 of the SD of <em>y</em>). This does not apply to binary variables or factors, so the coefficients are still related to changes in levels. This method is not accurate and tend to give aberrant results when interactions are specified.</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod</span>, method <span class="op">=</span> <span class="st">"posthoc"</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter    | Coefficient (std.) |        95% CI
+<pre><code>&gt; # Standardization method: posthoc
+&gt; 
+&gt; Parameter    | Coefficient (std.) |        95% CI
 &gt; -------------------------------------------------
 &gt; (Intercept)  |               0.00 | [ 0.00, 0.00]
 &gt; xtra_hours   |               0.77 | [ 0.73, 0.81]
 &gt; n_comps      |               0.39 | [ 0.36, 0.43]
 &gt; age_g(30,35] |               0.06 | [-0.01, 0.14]
 &gt; age_g(35,45] |               0.10 | [-0.04, 0.23]
-&gt; seniority    |               0.08 | [ 0.04, 0.12]
-&gt; 
-&gt; # Standardization method: posthoc</code></pre>
+&gt; seniority    |               0.08 | [ 0.04, 0.12]</code></pre>
 </div>
 <div id="smart-standardization-of-models-parameters-with-adjustment-reconnaissance-and-transformation" class="section level3">
 <h3 class="hasAnchor">
@@ -403,16 +405,16 @@
 <p>Similar to <code>method = "posthoc"</code> in that it does not involve model refitting. The difference is that the SD of the response is computed on the relevant section of the data. For instance, if a factor with 3 levels A (the intercept), B and C is entered as a predictor, the effect corresponding to B vs. A will be scaled by the variance of the response at the intercept only. As a results, the coefficients for effects of factors are similar to a Glass’ <em>delta</em>.</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod</span>, method <span class="op">=</span> <span class="st">"smart"</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter    | Coefficient (std.) |        95% CI
+<pre><code>&gt; # Standardization method: smart
+&gt; 
+&gt; Parameter    | Coefficient (std.) |        95% CI
 &gt; -------------------------------------------------
 &gt; (Intercept)  |               0.00 | [ 0.00, 0.00]
 &gt; xtra_hours   |               0.77 | [ 0.73, 0.81]
 &gt; n_comps      |               0.39 | [ 0.36, 0.43]
 &gt; age_g(30,35] |               0.06 | [-0.01, 0.14]
 &gt; age_g(35,45] |               0.10 | [-0.04, 0.23]
-&gt; seniority    |               0.08 | [ 0.04, 0.12]
-&gt; 
-&gt; # Standardization method: smart</code></pre>
+&gt; seniority    |               0.08 | [ 0.04, 0.12]</code></pre>
 </div>
 <div id="basic-raw-scaling-of-the-model-frame" class="section level3">
 <h3 class="hasAnchor">
@@ -420,16 +422,16 @@
 <p>This method is similar to <code>method = "posthoc"</code>, but treats all variables as continuous: it scales the coefficient by the standard deviation of model’s matrix’ parameter of factors levels (transformed to integers) or binary predictors. Although it can be argued that this might be inappropriate for these cases, this method allows for easier importance judgment across all predictor type (numeric, factor, interactions…). It is also the type of standardization implemented by default in other software packages (also <code><a href="https://rdrr.io/pkg/lm.beta/man/lm.beta.html">lm.beta::lm.beta()</a></code>), and, such as can be used for reproducibility and replication purposes.</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod</span>, method <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter    | Coefficient (std.) |        95% CI
+<pre><code>&gt; # Standardization method: basic
+&gt; 
+&gt; Parameter    | Coefficient (std.) |        95% CI
 &gt; -------------------------------------------------
 &gt; (Intercept)  |               0.00 | [ 0.00, 0.00]
 &gt; xtra_hours   |               0.77 | [ 0.73, 0.81]
 &gt; n_comps      |               0.39 | [ 0.36, 0.43]
 &gt; age_g(30,35] |               0.03 | [-0.01, 0.07]
 &gt; age_g(35,45] |               0.03 | [-0.01, 0.06]
-&gt; seniority    |               0.08 | [ 0.04, 0.12]
-&gt; 
-&gt; # Standardization method: basic</code></pre>
+&gt; seniority    |               0.08 | [ 0.04, 0.12]</code></pre>
 </div>
 </div>
 <div id="standardizing-parameters-in-mixed-models" class="section level2">
@@ -441,25 +443,25 @@
 <code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">lme4</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">am</span> <span class="op">+</span> <span class="va">vs</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">cyl</span><span class="op">)</span>, <span class="va">mtcars</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span>, method <span class="op">=</span> <span class="st">"pseudo"</span>, df_method <span class="op">=</span> <span class="st">"satterthwaite"</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter   | Coefficient (std.) |         95% CI
+<pre><code>&gt; # Standardization method: pseudo
+&gt; 
+&gt; Parameter   | Coefficient (std.) |         95% CI
 &gt; -------------------------------------------------
 &gt; (Intercept) |               0.00 | [ 0.00,  0.00]
 &gt; cyl         |              -0.74 | [-1.23, -0.26]
 &gt; amAutomatic |               0.47 | [ 0.01,  0.93]
-&gt; vs          |               0.20 | [-0.47,  0.87]
-&gt; 
-&gt; # Standardization method: pseudo</code></pre>
+&gt; vs          |               0.20 | [-0.47,  0.87]</code></pre>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># compare to:</span>
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span>, method <span class="op">=</span> <span class="st">"basic"</span>, df_method <span class="op">=</span> <span class="st">"satterthwaite"</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter   | Coefficient (std.) |         95% CI
+<pre><code>&gt; # Standardization method: basic
+&gt; 
+&gt; Parameter   | Coefficient (std.) |         95% CI
 &gt; -------------------------------------------------
 &gt; (Intercept) |               0.00 | [ 0.00,  0.00]
 &gt; cyl         |              -0.63 | [-1.05, -0.22]
 &gt; amAutomatic |               0.25 | [ 0.00,  0.50]
-&gt; vs          |               0.11 | [-0.25,  0.47]
-&gt; 
-&gt; # Standardization method: basic</code></pre>
+&gt; vs          |               0.11 | [-0.25,  0.47]</code></pre>
 </div>
 <div id="standardizing-parameters-in-generalized-linear-models" class="section level2">
 <h2 class="hasAnchor">
@@ -472,14 +474,16 @@
              family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod_b</span>, method <span class="op">=</span> <span class="st">"refit"</span>, two_sd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter    | Coefficient (std.) |         95% CI
+<pre><code>&gt; # Standardization method: refit
+&gt; 
+&gt; Parameter    | Coefficient (std.) |         95% CI
 &gt; --------------------------------------------------
 &gt; (Intercept)  |              -0.91 | [-3.32,  1.33]
 &gt; mpg          |               4.46 | [ 0.30, 10.54]
 &gt; factor(cyl)6 |               0.73 | [-2.04,  3.66]
 &gt; factor(cyl)8 |               0.70 | [-3.13,  4.78]
 &gt; 
-&gt; # Standardization method: refit</code></pre>
+&gt; - Scaled by two SD(s) from the mean.</code></pre>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># standardize_parameters(mod_b, method = "posthoc", two_sd = TRUE)</span>
 <span class="co"># standardize_parameters(mod_b, method = "basic")</span></code></pre></div>
@@ -491,14 +495,16 @@
 <p>Or we can directly ask for the coefficients to be exponentiated:</p>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod_b</span>, method <span class="op">=</span> <span class="st">"refit"</span>, two_sd <span class="op">=</span> <span class="cn">TRUE</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter    | Odds Ratio (std.) |           95% CI
+<pre><code>&gt; # Standardization method: refit
+&gt; 
+&gt; Parameter    | Odds Ratio (std.) |           95% CI
 &gt; ---------------------------------------------------
 &gt; (Intercept)  |              0.40 | [0.04,     3.76]
 &gt; mpg          |             86.40 | [1.36, 37955.41]
 &gt; factor(cyl)6 |              2.08 | [0.13,    39.04]
 &gt; factor(cyl)8 |              2.02 | [0.04,   119.12]
 &gt; 
-&gt; # Standardization method: refit</code></pre>
+&gt; - Scaled by two SD(s) from the mean.</code></pre>
 </div>
 </div>
 <div id="cohens-f" class="section level1">
@@ -516,7 +522,7 @@ f^{2}={R_{AB}^{2}-R_{A}^{2} \over 1-R_{AB}^{2}}
 <span class="fu"><a href="../reference/eta_squared.html">cohens_f_squared</a></span><span class="op">(</span><span class="va">m1</span>, model2 <span class="op">=</span> <span class="va">m2</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Cohen's f2 (partial) |       90% CI | R2_delta
 &gt; ----------------------------------------------
-&gt;                 1.19 | [0.99, 1.40] |     0.17</code></pre>
+&gt; 1.19                 | [0.99, 1.40] |     0.17</code></pre>
 <!-- ## Methods Comparison -->
 <!-- We will use the "refit" method as the baseline. We will then compute the differences between these standardized parameters and the ones provided by the other functions. The **bigger the (absolute) number, the worse it is**. -->
 <!-- > **SPOILER ALERT: the standardization implemented in `effectsize` is the most accurate and the most flexible.** -->

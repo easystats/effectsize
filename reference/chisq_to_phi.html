@@ -230,11 +230,12 @@ For adjusted versions, see Bergsma, 2013.</p>
 
     
 
-<p>Confidence intervals are estimated using the Noncentrality parameter method;
-These methods searches for a the best non-central parameters (<code>ncp</code>s) of the
-noncentral t-, F- or Chi-squared distribution for the desired
-tail-probabilities, and then convert these <code>ncp</code>s to the corresponding effect
-sizes. (See full <a href='effectsize-CIs.html'>effectsize-CIs</a> for more.)</p>
+<p>Unless stated otherwise, confidence intervals are estimated using the
+Noncentrality parameter method; These methods searches for a the best
+non-central parameters (<code>ncp</code>s) of the noncentral t-, F- or Chi-squared
+distribution for the desired tail-probabilities, and then convert these
+<code>ncp</code>s to the corresponding effect sizes. (See full <a href='effectsize-CIs.html'>effectsize-CIs</a> for
+more.)</p>
     <h2 class="hasAnchor" id="ci-contains-zero"><a class="anchor" href="#ci-contains-zero"></a>CI Contains Zero</h2>
 
     
@@ -284,7 +285,7 @@ al., 2016). For example:<div class="r"></p><pre><span class='fu'><a href='eta_sq
   nrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>,
   ncol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt;  Phi |       95% CI
+</div><div class='output co'>#&gt; Phi  |       95% CI
 #&gt; -------------------
 #&gt; 0.10 | [0.07, 0.13]</div><div class='input'><span class='fu'>chisq_to_cramers_v</span><span class='op'>(</span><span class='fl'>41.234</span>,
   n <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>,
@@ -293,7 +294,7 @@ al., 2016). For example:<div class="r"></p><pre><span class='fu'><a href='eta_sq
 <span class='op'>)</span>
 </div><div class='output co'>#&gt; Cramer's V |       95% CI
 #&gt; -------------------------
-#&gt;       0.07 | [0.05, 0.09]</div></pre>
+#&gt; 0.07       | [0.05, 0.09]</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
