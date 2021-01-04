@@ -12,7 +12,6 @@
 #' the populations, as it uses only the *second* group's standard deviation.
 #'
 #' @param x A formula, a numeric vector, or a character name of one in `data`.
-#'   (For `print()` the result of one of the standardized difference functions.)
 #' @param y A numeric vector, a grouping (character / factor) vector, a or a
 #'   character  name of one in `data`. Ignored if `x` is a formula.
 #' @param data An optional data frame containing the variables.
@@ -34,6 +33,10 @@
 #'   applying Bessel's correction).
 #'
 #' @details
+#'
+#' ## Confidence Intervals for Glass' *delta*
+#' Confidence Intervals for Glass' *delta* are estimated using the bootstrap
+#' method.
 #'
 #' @inheritSection effectsize-CIs Confidence Intervals
 #'
@@ -100,6 +103,7 @@ cohens_d <- function(x,
 }
 
 #' @rdname cohens_d
+#' @param iterations The number of bootstrap replicates for computing confidence intervals. Only applies when \code{ci} is not \code{NULL}.
 #' @export
 hedges_g <- function(x,
                      y = NULL,
@@ -139,7 +143,7 @@ hedges_g <- function(x,
 
 #' @rdname cohens_d
 #' @export
-glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, verbose = TRUE, correction) {
+glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, iterations = 200, verbose = TRUE, correction) {
   if (!missing(correction)) {
     warning("`correction` argument is deprecated. To apply bias correction, use `hedges_g()`.",
       call. = FALSE, immediate. = TRUE
@@ -153,7 +157,8 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, verbose = T
     mu = mu,
     type = "delta",
     ci = ci,
-    verbose = verbose
+    verbose = verbose,
+    iterations = iterations
   )
 }
 
@@ -170,7 +175,8 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, verbose = T
                                     pooled_sd = TRUE,
                                     paired = FALSE,
                                     ci = 0.95,
-                                    verbose = TRUE) {
+                                    verbose = TRUE,
+                                    ...) {
   out <- .deal_with_cohens_d_arguments(x, y, data, verbose)
   x <- out$x
   y <- out$y
@@ -207,7 +213,7 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, verbose = T
     n2 <- length(y)
     n <- n1 + n2
 
-    if (type == "d" | type == "g") {
+    if (type %in% c("d", "g")) {
       hn <- (1 / n1 + 1 / n2)
       if (pooled_sd) {
         s <- suppressWarnings(sd_pooled(x, y))
@@ -225,11 +231,8 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, verbose = T
         df <- se^4 / (se1^4 / (n1 - 1) + se2^4 / (n2 - 1))
       }
     } else if (type == "delta") {
-      hn <- 1 / (n2 - 1)
+      pooled_sd <- NULL
       s <- stats::sd(y)
-
-      se <- s / sqrt(n2)
-      df <- n2 - 1
     }
   }
 
@@ -238,14 +241,20 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, verbose = T
   colnames(out) <- types[type]
 
   if (is.numeric(ci)) {
+    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+
     # Add cis
-    out$CI <- ci
+    if (type %in% c("d", "g")) {
+      out$CI <- ci
 
-    t <- (d - mu) / se
-    ts <- .get_ncp_t(t, df, ci)
+      t <- (d - mu) / se
+      ts <- .get_ncp_t(t, df, ci)
 
-    out$CI_low <- ts[1] * sqrt(hn)
-    out$CI_high <- ts[2] * sqrt(hn)
+      out$CI_low <- ts[1] * sqrt(hn)
+      out$CI_high <- ts[2] * sqrt(hn)
+    } else if (type == "delta") {
+      out <- cbind(out, .delta_ci(x, y, mu = mu, ci = ci, ...))
+    }
   }
 
 
@@ -260,7 +269,6 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, verbose = T
       # McGrath & Meyer (2006)
       J <- ((n - 3) / (n - 2.25)) * sqrt((n - 2) / n)
     }
-
 
     out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] <-
       out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] * J
@@ -358,3 +366,36 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, verbose = T
 
   list(x = x, y = y)
 }
+
+.delta_ci <- function(x, y, mu = 0, ci = 0.95, iterations = 200) {
+  if (!requireNamespace("boot")) {
+    warning("'boot' package required for estimating CIs for Glass' delta. Please install the package and try again.", call. = FALSE)
+    return(NULL)
+  }
+
+  boot_delta <- function(data, .i, mu = 0) {
+    .x <- sample(x, replace = TRUE)
+    .y <- sample(y, replace = TRUE)
+
+    d <- mean(.x) - mean(.y)
+    s <- stats::sd(.y)
+    (d - mu) / s
+  }
+
+  # dud, not actually used
+  data <- data.frame(
+    i = seq_along(c(x, y))
+  )
+
+  R <- boot::boot(data = data,
+                  statistic = boot_delta,
+                  R = iterations,
+                  mu = mu)
+
+  out <- as.data.frame(
+    bayestestR::ci(na.omit(R$t), ci = ci, verbose = FALSE)
+  )
+  out$CI <- ci
+  out
+}
+

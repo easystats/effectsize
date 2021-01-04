@@ -23,9 +23,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       )
 
       if (grepl(" by ", model$data.name, fixed = TRUE))
-        data$y <- factor(data$y)
+        data[[2]] <- factor(data[[2]])
 
-      out <- f(data$x, data$y,
+      out <- f(data[[1]], data[[2]],
                mu = model$null.value,
                paired = !grepl("Two", model$method),
                pooled_sd = !grepl("Welch", model$method),
@@ -111,21 +111,25 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     if (inherits(data, "table")) {
       out <- cohens_g(data, ...)
     } else {
-      out <- cohens_g(data$x, data$y, ...)
+      out <- cohens_g(data[[1]], data[[2]], ...)
     }
     return(out)
   } else if (grepl("Fisher's Exact", model$method)) {
     # Fisher's Exact ----
-    stop("Cannot extract effect size from an 'htest' of Fisher's exact test.",
-         "\nTry using 'cramers_v()' or 'phi()' directly.",
-         call. = FALSE
-    )
+    if (is.null(model$estimate))
+      stop("Cannot extract effect size for Fisher's exact test on a table larger than 2x2.",
+           call. = FALSE)
+
+    out <- oddsratio(c(1,2), c(1,2), ci = NULL)
+    out[[1]] <- unname(model$estimate)
+    out$CI <- attr(model$conf.int, "conf.level")
+    out$CI_low <- model$conf.int[1]
+    out$CI_high <- model$conf.int[2]
+    attr(out, "table_footer") <- c("\n- Maximum likelihood estimate (MLE) of the OR.", "cyan")
+    return(out)
   } else if (grepl("Wilcoxon", model$method)) {
     # Wilcoxon ----
-    stop("Cannot extract effect size from an 'htest' of Wilcoxon's test.",
-         "\nTry using 'ranktransform()' and 'cohens_d()' directly.",
-         call. = FALSE
-    )
+    stop("This 'htest' method is not (yet?) supported.", call. = FALSE)
   } else {
     stop("This 'htest' method is not (yet?) supported.", call. = FALSE)
   }

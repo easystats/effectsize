@@ -89,14 +89,17 @@ if (require("testthat") && require("effectsize")) {
   })
 
   test_that("glass_delta", {
+    # must be 2 samples
+    testthat::expect_error(glass_delta(1:10))
+
+    set.seed(8007)
     x <- glass_delta(wt ~ am, data = mtcars)
     testthat::expect_equal(colnames(x)[1], "Glass_delta")
     testthat::expect_equal(x[[1]], 2.200, tolerance = 0.001)
-    testthat::expect_equal(x$CI_low, 1.210, tolerance = 0.001)
-    testthat::expect_equal(x$CI_high, 3.344, tolerance = 0.001)
 
-    # must be 2 samples
-    testthat::expect_error(glass_delta(1:10))
+    testthat::skip_if_not_installed("boot")
+    testthat::expect_equal(x$CI_low, 1.490089, tolerance = 0.001)
+    testthat::expect_equal(x$CI_high, 3.858925, tolerance = 0.001)
   })
 
 

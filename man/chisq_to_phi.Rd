@@ -52,11 +52,12 @@ Cohen's \emph{w} is equivalent to \emph{Phi}.
 }
 \section{Confidence Intervals}{
 
-Confidence intervals are estimated using the Noncentrality parameter method;
-These methods searches for a the best non-central parameters (\code{ncp}s) of the
-noncentral t-, F- or Chi-squared distribution for the desired
-tail-probabilities, and then convert these \code{ncp}s to the corresponding effect
-sizes. (See full \link{effectsize-CIs} for more.)
+Unless stated otherwise, confidence intervals are estimated using the
+Noncentrality parameter method; These methods searches for a the best
+non-central parameters (\code{ncp}s) of the noncentral t-, F- or Chi-squared
+distribution for the desired tail-probabilities, and then convert these
+\code{ncp}s to the corresponding effect sizes. (See full \link{effectsize-CIs} for
+more.)
 }
 
 \section{CI Contains Zero}{

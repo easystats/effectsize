@@ -41,6 +41,7 @@ input model. See details.
 \item A \strong{Chi-squared tests of independence or goodness-of-fit}, depending on \code{type}: \code{"cramers_v"} (default), \code{"phi"} or \code{"cohens_w"}, \code{"oddsratio"}, or \code{"riskratio"}.
 \item A \strong{One-way ANOVA test}, depending on \code{type}: \code{"eta"} (default), \code{"omega"} or \code{"epsilon"} -squared, \code{"f"}, or \code{"f2"}.
 \item A \strong{McNemar test} returns \emph{Cohen's g}.
+\item A \strong{Fisher's Exact test} (in the 2x2 case) returns \emph{Odds ratio}.
 }
 \item For an object of class \code{BFBayesFactor}, using \code{\link[bayestestR:describe_posterior]{bayestestR::describe_posterior()}},
 \itemize{

@@ -73,7 +73,7 @@ For Cohen's \emph{g}, confidence intervals are based on the proportion (\eqn{P =
 which give a good close approximation.
 \cr\cr
 For Odds ratios and Risk ratios, confidence intervals are estimated using the
-standard parametric method (see Katz et al., 1978; Szumilas, 2010).
+standard normal parametric method (see Katz et al., 1978; Szumilas, 2010).
 \cr\cr
 See \emph{Confidence Intervals} and \emph{CI Contains Zero} sections for \emph{phi}, Cohen's
 \emph{w} and Cramer's \emph{V}.
@@ -81,11 +81,12 @@ See \emph{Confidence Intervals} and \emph{CI Contains Zero} sections for \emph{p
 
 \section{Confidence Intervals}{
 
-Confidence intervals are estimated using the Noncentrality parameter method;
-These methods searches for a the best non-central parameters (\code{ncp}s) of the
-noncentral t-, F- or Chi-squared distribution for the desired
-tail-probabilities, and then convert these \code{ncp}s to the corresponding effect
-sizes. (See full \link{effectsize-CIs} for more.)
+Unless stated otherwise, confidence intervals are estimated using the
+Noncentrality parameter method; These methods searches for a the best
+non-central parameters (\code{ncp}s) of the noncentral t-, F- or Chi-squared
+distribution for the desired tail-probabilities, and then convert these
+\code{ncp}s to the corresponding effect sizes. (See full \link{effectsize-CIs} for
+more.)
 }
 
 \section{CI Contains Zero}{

@@ -4,14 +4,15 @@
 
 - `keep_intercept=TRUE` argument to `adjust()` to keep the intercept. 
 - `eta_squared()` family of functions supports `Anova.mlm` objects (from the `car` package).
-- `effectsize()` supports Cohen's *g* for McNemar's test.
+- `effectsize()`:
+  - supports Cohen's *g* for McNemar's test.
+  - Extracts OR from Fisher's Exact Test in the 2x2 case.
 - `eta2_to_f2()` / `f2_to_eta2()` to convert between two types of effect sizes for ANOVA ( #240 ).
 - `cohens_d()` family of functions gain `mu` argument.
 
 ## Bug fixes
 
 - `cohens_d()` family / `sd_pooled()` now properly fails when given a missing column name.
-- `glass_delta()` returns correct CIs (was too narrow).
 
 ## Changes
 
@@ -19,6 +20,7 @@
 - `cohens_d()` family / `sd_pooled()` now respect any transformations (e.g. `I(log(x) - 3) ~ factor(y)`) in a passed formula.
 - `eta_squared()` family of functions gains a `verbose` argument.
 - `verbose` argument more strictly respected.
+- `glass_delta()` returns CIs based on the bootstrap.
 
 # effectsize 0.4.1
 
