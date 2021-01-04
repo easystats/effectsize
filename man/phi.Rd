@@ -73,7 +73,7 @@ For Cohen's \emph{g}, confidence intervals are based on the proportion (\eqn{P =
 which give a good close approximation.
 \cr\cr
 For Odds ratios and Risk ratios, confidence intervals are estimated using the
-standard parametric method (see Katz et al., 1978; Szumilas, 2010).
+standard normal parametric method (see Katz et al., 1978; Szumilas, 2010).
 \cr\cr
 See \emph{Confidence Intervals} and \emph{CI Contains Zero} sections for \emph{phi}, Cohen's
 \emph{w} and Cramer's \emph{V}.

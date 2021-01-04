@@ -35,7 +35,7 @@
 #' which give a good close approximation.
 #' \cr\cr
 #' For Odds ratios and Risk ratios, confidence intervals are estimated using the
-#' standard parametric method (see Katz et al., 1978; Szumilas, 2010).
+#' standard normal parametric method (see Katz et al., 1978; Szumilas, 2010).
 #' \cr\cr
 #' See *Confidence Intervals* and *CI Contains Zero* sections for *phi*, Cohen's
 #' *w* and Cramer's *V*.
@@ -196,10 +196,14 @@ cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...) {
 #' @importFrom stats chisq.test qnorm
 oddsratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
   if (inherits(x, "htest")) {
-    if (!(grepl("Pearson's Chi-squared", x$method) ||
-          grepl("Chi-squared test for given probabilities", x$method)))
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    return(effectsize(x, type = "or", log = log, ci = ci))
+    if (grepl("Pearson's Chi-squared", x$method) ||
+          grepl("Chi-squared test for given probabilities", x$method)) {
+      return(effectsize(x, type = "or", log = log, ci = ci))
+    } else if (grepl("Fisher's Exact", x$method)) {
+      return(effectsize(x, ...))
+    } else {
+      stop("'x' is not a Chi-squared / Fisher's Exact test!", call. = FALSE)
+    }
   }
 
   res <- suppressWarnings(stats::chisq.test(x, y, ...))

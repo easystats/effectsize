@@ -3,7 +3,9 @@
 ## New features
 
 - `eta_squared()` family of functions supports `Anova.mlm` objects (from the `car` package).
-- `effectsize()` supports Cohen's *g* for McNemar's test.
+- `effectsize()`:
+  - supports Cohen's *g* for McNemar's test.
+  - Extracts OR from Fisher's Exact Test in the 2x2 case.
 - `eta2_to_f2()` / `f2_to_eta2()` to convert between two types of effect sizes for ANOVA ( #240 ).
 - `cohens_d()` family of functions gain `mu` argument.
 
