@@ -23,9 +23,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       )
 
       if (grepl(" by ", model$data.name, fixed = TRUE))
-        data$y <- factor(data$y)
+        data[[2]] <- factor(data[[2]])
 
-      out <- f(data$x, data$y,
+      out <- f(data[[1]], data[[2]],
                mu = model$null.value,
                paired = !grepl("Two", model$method),
                pooled_sd = !grepl("Welch", model$method),
@@ -111,7 +111,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     if (inherits(data, "table")) {
       out <- cohens_g(data, ...)
     } else {
-      out <- cohens_g(data$x, data$y, ...)
+      out <- cohens_g(data[[1]], data[[2]], ...)
     }
     return(out)
   } else if (grepl("Fisher's Exact", model$method)) {
@@ -122,10 +122,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     )
   } else if (grepl("Wilcoxon", model$method)) {
     # Wilcoxon ----
-    stop("Cannot extract effect size from an 'htest' of Wilcoxon's test.",
-         "\nTry using 'ranktransform()' and 'cohens_d()' directly.",
-         call. = FALSE
-    )
+    stop("This 'htest' method is not (yet?) supported.", call. = FALSE)
   } else {
     stop("This 'htest' method is not (yet?) supported.", call. = FALSE)
   }
