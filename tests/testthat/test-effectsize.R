@@ -26,6 +26,14 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(effectsize(Ts, verbose = FALSE),
                  cohens_d(mtcars$mpg,factor(mtcars$vs), pooled_sd = FALSE),
                  ignore_attr = TRUE)
+
+
+    # one sample
+    z <<- mtcars$wt
+    model <- t.test(z, mu = 3, var.equal = TRUE)
+    expect_equal(effectsize(model),
+                 cohens_d(z, mu = 3),
+                 ignore_attr = TRUE)
   })
 
   test_that("Chisq-test", {
