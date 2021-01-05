@@ -25,7 +25,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       if (grepl(" by ", model$data.name, fixed = TRUE))
         data[[2]] <- factor(data[[2]])
 
-      out <- f(data[[1]], data[[2]],
+      out <- f(data[[1]], if (ncol(data) == 2) data[[2]],
                mu = model$null.value,
                paired = !grepl("Two", model$method),
                pooled_sd = !grepl("Welch", model$method),
@@ -139,7 +139,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     mu <- model$null.value
 
     x <- data[[1]]
-    y <- data[[2]]
+    y <- if (ncol(data) == 2) data[[2]]
 
     out <- rank_biserial(x, y, mu = mu, paired = paired, ...)
     return(out)
