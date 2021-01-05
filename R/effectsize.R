@@ -17,6 +17,9 @@
 #'   - A **One-way ANOVA test**, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.
 #'   - A **McNemar test** returns *Cohen's g*.
 #'   - A **Fisher's Exact test** (in the 2x2 case) returns *Odds ratio*.
+#'   - A **Wilcoxon test** returns *rank biserial correlation*.
+#'   - A **Kruskal-Wallis test** returns *rank Epsilon squared*.
+#'   - A **Friedman test** returns *Kendall's W*.
 #' - For an object of class `BFBayesFactor`, using [bayestestR::describe_posterior()],
 #'   - A **t-test** returns *Cohen's d*.
 #'   - A **correlation test** returns *r*.

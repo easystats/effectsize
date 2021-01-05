@@ -129,7 +129,51 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     return(out)
   } else if (grepl("Wilcoxon", model$method)) {
     # Wilcoxon ----
-    stop("This 'htest' method is not (yet?) supported.", call. = FALSE)
+    if (is.null(data <- insight::get_data(model))) {
+      stop("Unable to retrieve data from htest object.",
+           "\nTry using 'rank_biserial()' directly.",
+           call. = FALSE)
+    }
+
+    paired <- grepl("signed rank", model$method, fixed = TRUE)
+    mu <- model$null.value
+
+    x <- data[[1]]
+    y <- data[[2]]
+
+    out <- rank_biserial(x, y, mu = mu, paired = paired, ...)
+    return(out)
+  } else if (grepl("Kruskal-Wallis", model$method)) {
+    # Kruskal-Wallis ----
+    if (is.null(data <- insight::get_data(model))) {
+      stop("Unable to retrieve data from htest object.",
+           "\nTry using 'rank_epsilon_squared()' directly.",
+           call. = FALSE)
+    }
+    if (inherits(data, "list")) {
+      out <- rank_epsilon_squared(data, ...)
+    } else  { # data frame
+      out <- rank_epsilon_squared(data[[1]], data[[2]], ...)
+    }
+    return(out)
+
+  } else if (grepl("Friedman", model$method)) {
+    # Friedman ----
+    if (is.null(data <- insight::get_data(model))) {
+      stop("Unable to retrieve data from htest object.",
+           "\nTry using 'kendalls_w()' directly.",
+           call. = FALSE)
+    }
+
+    if (inherits(data, "table")) {
+      data <- data.frame(x = c(data),
+                         groups = rep(colnames(data), each=nrow(data)),
+                         blocks = rep(rownames(data), ncol(data)))
+    }
+
+    out <- kendalls_w(data[[1]], data[[2]], data[[3]], ...)
+    return(out)
+
   } else {
     stop("This 'htest' method is not (yet?) supported.", call. = FALSE)
   }

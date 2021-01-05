@@ -20,6 +20,7 @@ is_effectsize_name <- function(x) {
 #' @keywords internal
 es_info <- data.frame(
   name = c(
+    "r_rank_biserial", "Kendalls_W", "rank_epsilon_squared",
     "Eta2", "Eta2_partial", "Eta2_generalized",
     "Epsilon2", "Epsilon2_partial",
     "Omega2", "Omega2_partial",
@@ -31,6 +32,7 @@ es_info <- data.frame(
     "Std_Median", "Std_Mean", "Std_MAP"
   ),
   label = c(
+    "r (rank biserial)", "Kendall's W", "Epsilon2 (rank)",
     "Eta2", "Eta2 (partial)", "Eta2 (generalized)",
     "Epsilon2", "Epsilon2 (partial)",
     "Omega2", "Omega2 (partial)",
@@ -42,6 +44,7 @@ es_info <- data.frame(
     "Median (std.)", "Mean (std.)", "MAP (std.)"
   ),
   direction = c(
+    "twotail", "onetail", "onetail",
     "onetail", "onetail", "onetail",
     "onetail", "onetail",
     "onetail", "onetail",

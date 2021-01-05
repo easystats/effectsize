@@ -193,7 +193,8 @@ Other effect size indices:
 \code{\link{cohens_d}()},
 \code{\link{effectsize}()},
 \code{\link{eta_squared}()},
-\code{\link{phi}()}
+\code{\link{phi}()},
+\code{\link{rank_biserial}()}
 }
 \concept{effect size indices}
 \concept{standardize}

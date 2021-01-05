@@ -137,6 +137,7 @@ Other effect size indices:
 \code{\link{effectsize}()},
 \code{\link{eta_squared}()},
 \code{\link{phi}()},
+\code{\link{rank_biserial}()},
 \code{\link{standardize_parameters}()}
 }
 \concept{effect size indices}
