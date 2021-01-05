@@ -69,15 +69,19 @@ The rank-biserial correlation is appropriate for non-parametric tests of
 differences - both for the one sample or paired samples case (that would
 normally be tested with Wilcoxon's Signed Rank Test) and for two independant
 samples case (that would normally be tested with Mann-Whitney's \emph{U} Test).
-See \link[stats:wilcox.test]{stats::wilcox.test}.
+See \link[stats:wilcox.test]{stats::wilcox.test}. Values range from (\code{-1}) indicating that all values
+of the second sample are smaller than the first sample, to (\code{+1}) indicating
+that all values of the second sample are larger than the first sample.
 \cr\cr
 The rank Epsilon squared is appropriate for non-parametric tests of
 differences between 2 or more samples (a rank based ANOVA). See
-\link[stats:kruskal.test]{stats::kruskal.test}.
+\link[stats:kruskal.test]{stats::kruskal.test}. Values range from 0 to 1, with larger values
+indicating larger differences between groups.
 \cr\cr
 Kendall's \emph{W} is appropriate for non-parametric tests of differences between
 2 or more dependant samples (a rank based rmANOVA). See
-\link[stats:friedman.test]{stats::friedman.test}.
+\link[stats:friedman.test]{stats::friedman.test}. Values range from 0 to 1, with larger values
+indicating larger differences between groups.
 }
 \section{Confidence Intervals}{
 Confidence Intervals are estimated using the bootstrap method.
