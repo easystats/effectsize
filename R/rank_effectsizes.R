@@ -59,6 +59,9 @@
 #' y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
 #' rank_biserial(x, y, paired = TRUE)
 #'
+#' x <- c(1.15, 0.88, 0.90, 0.74, 1.21)
+#' rank_biserial(x, mu = 1)
+#'
 #' x1 <- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
 #' x2 <- c(3.8, 2.7, 4.0, 2.4)      # with obstructive airway disease
 #' x3 <- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
@@ -118,7 +121,9 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
     ))
   }
 
-  class(out) <- c("effectsize_table", class(out))
+  class(out) <- c("effectsize_difference", "effectsize_table", class(out)) # "see_effectsize_table"
+  attr(out, "paired") <- paired
+  attr(out, "mu") <- mu
   return(out)
 }
 
