@@ -77,6 +77,7 @@
 #'
 #' @references
 #' - Cureton, E. E. (1956). Rank-biserial correlation. Psychometrika, 21(3), 287-290.
+#' - Kendall, M.G. (1948) Rank correlation methods. London: Griffin.
 #' - Kerby, D. S. (2014). The simple difference formula: An approach to teaching nonparametric correlation. Comprehensive Psychology, 3, 11-IT.
 #' - Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates revisited. An overview of some recommended measures of effect size.
 #'
@@ -170,11 +171,8 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 
   data <- .kendalls_w_data(x, groups, blocks, data)
   data <- stats::na.omit(data)
-  x <- data$x
-  groups <- data$groups
-  blocks <- data$blocks
 
-  W <- .kendalls_w(x, groups, blocks)
+  W <- .kendalls_w(data)
 
   out <- data.frame(Kendalls_W = W)
 
@@ -303,14 +301,13 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 
 #' @keywords internal
 #' @importFrom stats friedman.test
-.kendalls_w <- function(x, groups, blocks) {
-  model <- stats::friedman.test(x, groups, blocks)
+.kendalls_w <- function(ratings) {
+  n <- nrow(ratings)
+  m <- ncol(ratings)
 
-  Chi <- unname(model$statistic)
-  N <- length(unique(groups))
-  k <- length(unique(blocks))
-
-  W <- Chi / (N * (k - 1))
+  ratings.rank <- apply(ratings, 2, rank)
+  S <- var(apply(ratings.rank, 1, sum)) * (n - 1)
+  W <- (12 * S) / (m^2 * (n^3 - n))
 }
 
 ## CI ----
@@ -394,17 +391,10 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
   stopifnot(length(ci) == 1, ci < 1, ci > 0)
 
   boot_w <- function(.data, .i) {
-    rp <- sample(split(.data, .data$blocks), replace = TRUE)
-    rp <- mapply(function(tmp, L) {
-      tmp$blocks <- L
-      tmp
-    }, rp, factor(seq_along(rp)), SIMPLIFY = FALSE)
-    .data <- do.call("rbind", rp)
-
-    .kendalls_w(.data$x, .data$groups, .data$blocks)
+    .kendalls_w(t(.data[.i, ]))
   }
 
-  R <- boot::boot(data = data,
+  R <- boot::boot(data = t(data),
                   statistic = boot_w,
                   R = iterations)
 
@@ -484,5 +474,15 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
     stop("x, groups and blocks must be of the same length.", call. = FALSE)
   }
 
-  data.frame(x, groups, blocks)
+  data <- data.frame(x, groups, blocks)
+
+  data <- reshape(
+    data,
+    direction = "wide",
+    v.names = "x",
+    timevar = "groups",
+    idvar = "blocks"
+  )
+
+  as.matrix(data[, -1])
 }

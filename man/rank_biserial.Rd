@@ -122,6 +122,7 @@ kendalls_w(x ~ w | t, data = wb)
 \references{
 \itemize{
 \item Cureton, E. E. (1956). Rank-biserial correlation. Psychometrika, 21(3), 287-290.
+\item Kendall, M.G. (1948) Rank correlation methods. London: Griffin.
 \item Kerby, D. S. (2014). The simple difference formula: An approach to teaching nonparametric correlation. Comprehensive Psychology, 3, 11-IT.
 \item Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates revisited. An overview of some recommended measures of effect size.
 }
