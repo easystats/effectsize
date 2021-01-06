@@ -82,6 +82,7 @@
 #' - Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates revisited. An overview of some recommended measures of effect size.
 #'
 #' @export
+#' @importFrom stats na.omit complete.cases
 rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
                           ci = 0.95, iterations = 200,
                           paired = FALSE,
@@ -93,8 +94,8 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
     return(effectsize(x, ci = ci, iterations = iterations))
   }
 
+  ## Prep data
   out <- .deal_with_cohens_d_arguments(x, y, data)
-
   x <- out$x
   y <- out$y
 
@@ -104,14 +105,23 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
   }
 
   if (paired) {
+    oo <- stats::complete.cases(x, y)
+    x <- x[oo]
+    y <- y[oo]
+  } else {
+    x <- stats::na.omit(x)
+    y <- stats::na.omit(y)
+  }
+
+  ## Compute
+  if (paired) {
     r_rbs <- .r_rbs_paired(x, y, mu = mu, verbose = verbose)
   } else {
     r_rbs <- .r_rbs_indep(x, y, mu = mu, verbose = verbose)
   }
-
-
   out <- data.frame(r_rank_biserial = r_rbs)
 
+  ## CI
   if (is.numeric(ci)) {
     out <- cbind(out, .rbs_ci_boot(
       x,
@@ -123,7 +133,7 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
     ))
   }
 
-  class(out) <- c("effectsize_difference", "effectsize_table", class(out)) # "see_effectsize_table"
+  class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
   attr(out, "paired") <- paired
   attr(out, "mu") <- mu
   return(out)
@@ -141,20 +151,22 @@ rank_epsilon_squared <- function(x, groups, data = NULL, ci = 0.95, iterations =
     return(effectsize(x, ci = ci, iterations = iterations))
   }
 
+  ## pep data
   data <- .rank_anova_xg(x, groups, data)
   data <- stats::na.omit(data)
   x <- data$x
   groups <- data$groups
 
+  ## compute
   E <- .repsilon(x, groups)
-
   out <- data.frame(rank_epsilon_squared = E)
 
+  ## CI
   if (is.numeric(ci)) {
     out <- cbind(out, .repsilon_ci(data, ci, iterations))
   }
 
-  class(out) <- c("effectsize_table", class(out)) # "see_effectsize_table"
+  class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
   return(out)
 }
 
@@ -169,13 +181,15 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
     return(effectsize(x, ci = ci, iterations = iterations))
   }
 
+  ## prep data
   data <- .kendalls_w_data(x, groups, blocks, data)
   data <- stats::na.omit(data)
 
+  ## compute
   W <- .kendalls_w(data)
-
   out <- data.frame(Kendalls_W = W)
 
+  ## CI
   if (is.numeric(ci)) {
     out <- cbind(out, .kendalls_w_ci(data, ci, iterations))
   }
@@ -230,18 +244,16 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
   T_ <- min(r_pos, r_neg)
   n <- length(r_sign)
 
-  r_rbs <- 4 * abs(T_ - (r_pos + r_neg) / 2) / (n * (n + 1))
-  if (r_pos >= r_neg) r_rbs <- -r_rbs
+  r_rbs <- 4 * -(T_ - (r_pos + r_neg) / 2) / (n * (n + 1))
+  ## same as:
+  # r_rbs <- 4 * abs(T_ - (r_pos + r_neg) / 2) / (n * (n + 1))
+  # if (r_pos < r_neg) r_rbs <- -r_rbs
   r_rbs <- sign(r_rbs) * pmin(abs(r_rbs), 1)
   r_rbs
 }
 
 #' @keywords internal
-#' @importFrom stats na.omit
 .r_rbs_indep <- function(x, y, mu, verbose = FALSE){
-  x <- stats::na.omit(x)
-  y <- stats::na.omit(y)
-
   Ry <- ranktransform(c(x - mu, y), verbose = verbose)
   Group <- c(rep("A", length(x)),
              rep("B", length(y)))
