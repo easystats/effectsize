@@ -221,7 +221,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 
 #' @keywords internal
 #' @importFrom stats na.omit
-.r_rbs_paired <- function(x, y, mu, verbose) {
+.r_rbs_paired <- function(x, y, mu, verbose = FALSE) {
   d <- (x - y) - mu
 
   r_sign <- ranktransform(d, sign = TRUE, verbose = verbose)
@@ -240,7 +240,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 
 #' @keywords internal
 #' @importFrom stats na.omit
-.r_rbs_indep <- function(x, y, mu, verbose){
+.r_rbs_indep <- function(x, y, mu, verbose = FALSE){
   x <- stats::na.omit(x)
   y <- stats::na.omit(y)
 
