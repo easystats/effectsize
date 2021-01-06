@@ -302,6 +302,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 #' @keywords internal
 #' @importFrom stats friedman.test
 .kendalls_w <- function(ratings) {
+  # TODO add ties corrction
   n <- nrow(ratings)
   m <- ncol(ratings)
 
