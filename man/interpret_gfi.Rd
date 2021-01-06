@@ -71,6 +71,10 @@ See the documentation for \code{\link[lavaan:fitmeasures]{fitmeasures()}}.
 For structural equation models (SEM), Kline (2015) suggests that at a minimum the following indices should be reported: The model \strong{chi-square}, the \strong{RMSEA}, the \strong{CFI} and the \strong{SRMR}.
 }
 }
+\note{
+When possible, it is recommended to report dynamic cutoffs of fit
+indices. See https://dynamicfit.app/cfa/.
+}
 \examples{
 interpret_gfi(c(.5, .99))
 interpret_agfi(c(.5, .99))
