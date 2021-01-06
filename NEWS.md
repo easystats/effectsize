@@ -1,5 +1,9 @@
 # effectsize 0.4.1.2
 
+## Breaking Changes
+
+- `oddsratio()` and `riskratio()` - order of groups has been changed (the *first* groups is now the **treatment group**, and the *second* group is the **control group**), so that effect sizes are given as *treatment over control* (treatment / control) (previously was reversed). This is done to be consistent with other functions in R and in `effectsize`.
+
 ## New features
 
 - `rank_biserial()`, `rank_epsilon_squared()` and `kendalls_w()` functions for effect sizes for rank-based tests.

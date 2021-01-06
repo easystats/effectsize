@@ -21,8 +21,9 @@
 #' \cr\cr
 #' For 2-by-2 contingency tables, Odds ratios and Risk ratios can also be
 #' estimated. Note that these are computed with each **column** representing the
-#' different groups, and the first column representing the baseline (or
-#' control). If you wish you use rows as groups you must pass a transposed
+#' different groups, and the first column representing the treatment group and
+#' the second column baseline (or control). Effects are given as `treatment /
+#' control`. If you wish you use rows as groups you must pass a transposed
 #' table, or switch the `x` and `y` arguments.
 #' \cr\cr
 #' Cohen's *g* is an effect size for dependent (paired) contingency tables
@@ -217,8 +218,8 @@ oddsratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
     stop("Odds ratio only available for 2-by-2 contingency tables", call. = FALSE)
   }
 
-  OR <- (Obs[1, 2] / Obs[2, 2]) /
-    (Obs[1, 1] / Obs[2, 1])
+  OR <- (Obs[1, 1] / Obs[2, 1]) /
+    (Obs[1, 2] / Obs[2, 2])
 
   res <- data.frame(Odds_ratio = OR)
 
@@ -273,7 +274,7 @@ riskratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
   n2 <- sum(Obs[, 2])
   p1 <- Obs[1, 1] / n1
   p2 <- Obs[1, 2] / n2
-  RR <- p2 / p1
+  RR <- p1 / p2
 
   res <- data.frame(Risk_ratio = RR)
 
