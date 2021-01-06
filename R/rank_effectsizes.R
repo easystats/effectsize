@@ -25,12 +25,14 @@
 #' Compute effect sizes for non-parametric (rank sum) tests.
 #' \cr\cr
 #' The rank-biserial correlation is appropriate for non-parametric tests of
-#' differences - both for the one sample or paired samples case (that would
-#' normally be tested with Wilcoxon's Signed Rank Test) and for two independant
-#' samples case (that would normally be tested with Mann-Whitney's *U* Test).
-#' See [stats::wilcox.test]. Values range from (`-1`) indicating that all values
-#' of the second sample are smaller than the first sample, to (`+1`) indicating
-#' that all values of the second sample are larger than the first sample.
+#' differences - both for the one sample or paired samples case, that would
+#' normally be tested with Wilcoxon's Signed Rank Test (giving the
+#' **matched-pairs** rank-biserial correlation) and for two independent samples
+#' case, that would normally be tested with Mann-Whitney's *U* Test (giving
+#' **Glass'** rank-biserial correlation). See [stats::wilcox.test]. Values range
+#' from `-1` indicating that all values of the second sample are smaller than
+#' the first sample, to `+1` indicating that all values of the second sample are
+#' larger than the first sample.
 #' \cr\cr
 #' The rank Epsilon squared is appropriate for non-parametric tests of
 #' differences between 2 or more samples (a rank based ANOVA). See
@@ -77,8 +79,10 @@
 #'
 #' @references
 #' - Cureton, E. E. (1956). Rank-biserial correlation. Psychometrika, 21(3), 287-290.
+#' - Glass, G. V. (1965). A ranking variable analogue of biserial correlation: Implications for short-cut item analysis. Journal of Educational Measurement, 2(1), 91-95.
 #' - Kendall, M.G. (1948) Rank correlation methods. London: Griffin.
 #' - Kerby, D. S. (2014). The simple difference formula: An approach to teaching nonparametric correlation. Comprehensive Psychology, 3, 11-IT.
+#' - King, B. M., & Minium, E. W. (2008). Statistical reasoning in the behavioral sciences. John Wiley & Sons Inc.
 #' - Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates revisited. An overview of some recommended measures of effect size.
 #'
 #' @export
@@ -255,48 +259,52 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 #' @keywords internal
 .r_rbs_indep <- function(x, y, mu, verbose = FALSE){
   Ry <- ranktransform(c(x - mu, y), verbose = verbose)
-  Group <- c(rep("A", length(x)),
-             rep("B", length(y)))
+  Group <- rep(1:2, c(length(x), length(y)))
 
-  oo <- rev(order(Ry))
-  Ry_sort <- Ry[oo]
-  Group_sort <- Group[oo]
+  ## assumes no ties (ignores them)
+  rr <- -2 * diff(tapply(Ry, Group, mean)) / length(Ry)
+  return(rr)
 
-  # count inversions
-  inv <- numeric(length = length(Ry))
-  agr <- numeric(length = length(Ry))
-
-  for (b in seq_along(Ry)) {
-    if (Group_sort[b]=="B") {
-      inv[b] <- sum(tail(Group_sort == "A" &
-                           Ry_sort < Ry_sort[b],
-                         -b))
-    } else {
-      agr[b] <- sum(tail(Group_sort == "B" &
-                           Ry_sort < Ry_sort[b],
-                         -b))
-    }
-  }
-
-  Q_ <- sum(inv)
-  P_ <- sum(agr)
-
-  # pmax
-  Group_pmax <- rev(sort(Group))
-  agr_max <- numeric(length = length(Ry))
-  for (b in seq_along(Ry)) {
-    if (Group_pmax[b]=="B") {
-      agr_max[b] <- sum(tail(Group_pmax == "A" &
-                               Ry_sort < Ry_sort[b],
-                             -b))
-    }
-  }
-
-  P_max <- sum(agr_max)
-
-  rr <- (P_-Q_)/P_max
-  rr <- sign(rr) * pmin(abs(rr), 1)
-  rr
+  # ## for ties
+  # oo <- rev(order(Ry))
+  # Ry_sort <- Ry[oo]
+  # Group_sort <- Group[oo]
+  #
+  # # count inversions
+  # inv <- numeric(length = length(Ry))
+  # agr <- numeric(length = length(Ry))
+  #
+  # for (b in seq_along(Ry)) {
+  #   if (Group_sort[b]=="B") {
+  #     inv[b] <- sum(tail(Group_sort == "A" &
+  #                          Ry_sort < Ry_sort[b],
+  #                        -b))
+  #   } else {
+  #     agr[b] <- sum(tail(Group_sort == "B" &
+  #                          Ry_sort < Ry_sort[b],
+  #                        -b))
+  #   }
+  # }
+  #
+  # Q_ <- sum(inv)
+  # P_ <- sum(agr)
+  #
+  # # pmax
+  # Group_pmax <- rev(sort(Group))
+  # agr_max <- numeric(length = length(Ry))
+  # for (b in seq_along(Ry)) {
+  #   if (Group_pmax[b]=="B") {
+  #     agr_max[b] <- sum(tail(Group_pmax == "A" &
+  #                              Ry_sort < Ry_sort[b],
+  #                            -b))
+  #   }
+  # }
+  #
+  # P_max <- sum(agr_max)
+  #
+  # rr <- (P_-Q_)/P_max
+  # rr <- sign(rr) * pmin(abs(rr), 1)
+  # rr
 }
 
 #' @keywords internal
@@ -314,7 +322,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 #' @keywords internal
 #' @importFrom stats friedman.test
 .kendalls_w <- function(ratings) {
-  # TODO add ties corrction
+  # TODO add ties corrction?
   n <- nrow(ratings)
   m <- ncol(ratings)
 

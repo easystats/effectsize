@@ -72,12 +72,14 @@ Compute the rank-biserial correlation, rank Epsilon squared, and Kendall's
 Compute effect sizes for non-parametric (rank sum) tests.
 \cr\cr
 The rank-biserial correlation is appropriate for non-parametric tests of
-differences - both for the one sample or paired samples case (that would
-normally be tested with Wilcoxon's Signed Rank Test) and for two independant
-samples case (that would normally be tested with Mann-Whitney's \emph{U} Test).
-See \link[stats:wilcox.test]{stats::wilcox.test}. Values range from (\code{-1}) indicating that all values
-of the second sample are smaller than the first sample, to (\code{+1}) indicating
-that all values of the second sample are larger than the first sample.
+differences - both for the one sample or paired samples case, that would
+normally be tested with Wilcoxon's Signed Rank Test (giving the
+\strong{matched-pairs} rank-biserial correlation) and for two independent samples
+case, that would normally be tested with Mann-Whitney's \emph{U} Test (giving
+\strong{Glass'} rank-biserial correlation). See \link[stats:wilcox.test]{stats::wilcox.test}. Values range
+from \code{-1} indicating that all values of the second sample are smaller than
+the first sample, to \code{+1} indicating that all values of the second sample are
+larger than the first sample.
 \cr\cr
 The rank Epsilon squared is appropriate for non-parametric tests of
 differences between 2 or more samples (a rank based ANOVA). See
@@ -122,8 +124,10 @@ kendalls_w(x ~ w | t, data = wb)
 \references{
 \itemize{
 \item Cureton, E. E. (1956). Rank-biserial correlation. Psychometrika, 21(3), 287-290.
+\item Glass, G. V. (1965). A ranking variable analogue of biserial correlation: Implications for short-cut item analysis. Journal of Educational Measurement, 2(1), 91-95.
 \item Kendall, M.G. (1948) Rank correlation methods. London: Griffin.
 \item Kerby, D. S. (2014). The simple difference formula: An approach to teaching nonparametric correlation. Comprehensive Psychology, 3, 11-IT.
+\item King, B. M., & Minium, E. W. (2008). Statistical reasoning in the behavioral sciences. John Wiley & Sons Inc.
 \item Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates revisited. An overview of some recommended measures of effect size.
 }
 }
