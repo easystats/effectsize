@@ -29,6 +29,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
                mu = model$null.value,
                paired = !grepl("Two", model$method),
                pooled_sd = !grepl("Welch", model$method),
+               verbose = verbose,
                ...)
     }
 
