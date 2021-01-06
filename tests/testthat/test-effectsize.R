@@ -186,7 +186,7 @@ if (require("testthat") && require("effectsize")) {
     data(raceDolls, package = "BayesFactor")
     bf1 <- BayesFactor::contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
     testthat::expect_equal(effectsize(bf1, test = NULL)[[2]], 0.164, tolerance = 0.01)
-    testthat::expect_equal(effectsize(bf1, test = NULL, type = "OR")[[2]], 0.503, tolerance = 0.03)
+    testthat::expect_equal(effectsize(bf1, test = NULL, type = "OR")[[2]], 1/0.503, tolerance = 0.03)
 
     bf2 <- BayesFactor::ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
     testthat::expect_equal(effectsize(bf2, test = NULL)[[2]], 1.30, tolerance = 0.03)
