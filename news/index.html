@@ -165,12 +165,22 @@
 <h1 class="page-header" data-toc-text="0.4.1.2">
 <a href="#effectsize-0412" class="anchor"></a>effectsize 0.4.1.2<small> Unreleased </small>
 </h1>
+<div id="breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking Changes</h2>
+<ul>
+<li>
+<code><a href="../reference/phi.html">oddsratio()</a></code> and <code><a href="../reference/phi.html">riskratio()</a></code> - order of groups has been changed (the <em>first</em> groups is now the <strong>treatment group</strong>, and the <em>second</em> group is the <strong>control group</strong>), so that effect sizes are given as <em>treatment over control</em> (treatment / control) (previously was reversed). This is done to be consistent with other functions in R and in <code>effectsize</code>.</li>
+</ul>
+</div>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
 <li>
-<code>keep_intercept=TRUE</code> argument to <code><a href="../reference/adjust.html">adjust()</a></code> to keep the intercept.</li>
+<code><a href="../reference/rank_biserial.html">rank_biserial()</a></code>, <code><a href="../reference/rank_biserial.html">rank_epsilon_squared()</a></code> and <code><a href="../reference/rank_biserial.html">kendalls_w()</a></code> functions for effect sizes for rank-based tests.</li>
+<li>
+<code><a href="../reference/adjust.html">adjust()</a></code> gains <code>keep_intercept</code> argument to keep the intercept.</li>
 <li>
 <code><a href="../reference/eta_squared.html">eta_squared()</a></code> family of functions supports <code>Anova.mlm</code> objects (from the <code>car</code> package).</li>
 <li>
@@ -215,9 +225,9 @@
 <h1 class="page-header" data-toc-text="0.4.1">
 <a href="#effectsize-041" class="anchor"></a>effectsize 0.4.1<small> 2020-12-07 </small>
 </h1>
-<div id="breaking-changes" class="section level2">
+<div id="breaking-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes" class="anchor"></a>Breaking Changes</h2>
+<a href="#breaking-changes-1" class="anchor"></a>Breaking Changes</h2>
 <ul>
 <li>
 <code><a href="../reference/cohens_d.html">cohens_d()</a></code> and <code><a href="../reference/cohens_d.html">glass_delta()</a></code>: The <code>correction</code> argument has been deprecated, in favor of it being correctly implemented in <code><a href="../reference/cohens_d.html">hedges_g()</a></code> ( <a href='https://github.com/easystats/effectsize/issues/222'>#222</a> ).</li>
@@ -263,9 +273,9 @@
 <h1 class="page-header" data-toc-text="0.4.0">
 <a href="#effectsize-040" class="anchor"></a>effectsize 0.4.0<small> 2020-10-25 </small>
 </h1>
-<div id="breaking-changes-1" class="section level2">
+<div id="breaking-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes-1" class="anchor"></a>Breaking Changes</h2>
+<a href="#breaking-changes-2" class="anchor"></a>Breaking Changes</h2>
 <ul>
 <li>
 <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> for multi-component models (such as zero-inflated) now returns the unstandardized parameters in some cases where standardization is not possible (previously returned <code>NA</code>s).</li>

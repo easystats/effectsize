@@ -235,8 +235,8 @@ between 0-1, whereas phi can be larger than 1.
 <br /><br />
 For 2-by-2 contingency tables, Odds ratios and Risk ratios can also be
 estimated. Note that these are computed with each <strong>column</strong> representing the
-different groups, and the first column representing the baseline (or
-control). If you wish you use rows as groups you must pass a transposed
+different groups, and the first column representing the treatment group and
+the second column baseline (or control). Effects are given as <code>treatment / control</code>. If you wish you use rows as groups you must pass a transposed
 table, or switch the <code>x</code> and <code>y</code> arguments.
 <br /><br />
 Cohen's <em>g</em> is an effect size for dependent (paired) contingency tables
@@ -294,6 +294,7 @@ al., 2016). For example:<div class="r"></p><pre><span class='fu'><a href='eta_sq
 <code><a href='cohens_d.html'>cohens_d</a>()</code>,
 <code><a href='effectsize.html'>effectsize</a>()</code>,
 <code><a href='eta_squared.html'>eta_squared</a>()</code>,
+<code><a href='rank_biserial.html'>rank_biserial</a>()</code>,
 <code><a href='standardize_parameters.html'>standardize_parameters</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -340,11 +341,11 @@ al., 2016). For example:<div class="r"></p><pre><span class='fu'><a href='eta_sq
 <span class='fu'>oddsratio</span><span class='op'>(</span><span class='va'>RCT</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Odds ratio |       95% CI
 #&gt; -------------------------
-#&gt; 4.73       | [2.74, 8.17]</div><div class='input'>
+#&gt; 0.21       | [0.12, 0.36]</div><div class='input'>
 <span class='fu'>riskratio</span><span class='op'>(</span><span class='va'>RCT</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Risk ratio |       95% CI
 #&gt; -------------------------
-#&gt; 2.54       | [1.87, 3.45]</div><div class='input'>
+#&gt; 0.39       | [0.29, 0.53]</div><div class='input'>
 
 
 <span class='co'>## Dependent (Paired) Contingency Tables</span>

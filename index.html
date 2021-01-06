@@ -167,14 +167,14 @@
 <code class="sourceCode R"><span class="fu"><a href="reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 <span class="co">## Cohen's d |         95% CI</span>
 <span class="co">## --------------------------</span>
-<span class="co">##     -1.48 | [-2.27, -0.67]</span>
+<span class="co">## -1.48     | [-2.27, -0.67]</span>
 <span class="co">## </span>
 <span class="co">## - Estimated using pooled SD.</span>
 
 <span class="fu"><a href="reference/cohens_d.html">hedges_g</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
-<span class="co">## Hedge's g |         95% CI</span>
+<span class="co">## Hedges' g |         95% CI</span>
 <span class="co">## --------------------------</span>
-<span class="co">##     -1.44 | [-2.21, -0.65]</span>
+<span class="co">## -1.44     | [-2.21, -0.65]</span>
 <span class="co">## </span>
 <span class="co">## - Estimated using pooled SD.</span>
 <span class="co">## - Bias corrected using Hedges and Olkin's method.</span>
@@ -182,9 +182,7 @@
 <span class="fu"><a href="reference/cohens_d.html">glass_delta</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 <span class="co">## Glass' delta |         95% CI</span>
 <span class="co">## -----------------------------</span>
-<span class="co">##        -1.17 | [-1.95, -0.46]</span>
-<span class="co">## </span>
-<span class="co">## - Estimated using pooled SD.</span></code></pre></div>
+<span class="co">## -1.17        | [-2.06, -0.58]</span></code></pre></div>
 </div>
 <div id="anovas-eta2-omega2-" class="section level3">
 <h3 class="hasAnchor">
@@ -216,14 +214,14 @@
 <code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">complaints</span> <span class="op">+</span> <span class="va">privileges</span> <span class="op">+</span> <span class="va">advance</span>, data <span class="op">=</span> <span class="va">attitude</span><span class="op">)</span>
 
 <span class="fu"><a href="reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
+<span class="co">## # Standardization method: refit</span>
+<span class="co">## </span>
 <span class="co">## Parameter   | Coefficient (std.) |        95% CI</span>
 <span class="co">## ------------------------------------------------</span>
 <span class="co">## (Intercept) |          -9.57e-16 | [-0.22, 0.22]</span>
 <span class="co">## complaints  |               0.85 | [ 0.58, 1.13]</span>
 <span class="co">## privileges  |              -0.04 | [-0.33, 0.24]</span>
-<span class="co">## advance     |              -0.02 | [-0.26, 0.22]</span>
-<span class="co">## </span>
-<span class="co">## # Standardization method: refit</span></code></pre></div>
+<span class="co">## advance     |              -0.02 | [-0.26, 0.22]</span></code></pre></div>
 <p>Also, models can be re-fit with standardized data:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/standardize.html">standardize</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
@@ -247,19 +245,19 @@
 <p>And for recovering effect sizes from test statistics.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/t_to_d.html">F_to_d</a></span><span class="op">(</span><span class="fl">15</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>
-<span class="co">## d |       95% CI</span>
-<span class="co">## ----------------</span>
-<span class="co">## 1 | [0.46, 1.53]</span>
+<span class="co">## d    |       95% CI</span>
+<span class="co">## -------------------</span>
+<span class="co">## 1.00 | [0.46, 1.53]</span>
 
 <span class="fu"><a href="reference/t_to_d.html">F_to_r</a></span><span class="op">(</span><span class="fl">15</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>
-<span class="co">##    r |       95% CI</span>
+<span class="co">## r    |       95% CI</span>
 <span class="co">## -------------------</span>
 <span class="co">## 0.45 | [0.22, 0.61]</span>
 
 <span class="fu"><a href="reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span><span class="fl">15</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>
 <span class="co">## Eta2 (partial) |       90% CI</span>
 <span class="co">## -----------------------------</span>
-<span class="co">##           0.20 | [0.07, 0.34]</span></code></pre></div>
+<span class="co">## 0.20           | [0.07, 0.34]</span></code></pre></div>
 </div>
 <div id="effect-size-interpretation" class="section level2">
 <h2 class="hasAnchor">
