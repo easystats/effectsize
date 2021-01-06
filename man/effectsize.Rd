@@ -42,6 +42,9 @@ input model. See details.
 \item A \strong{One-way ANOVA test}, depending on \code{type}: \code{"eta"} (default), \code{"omega"} or \code{"epsilon"} -squared, \code{"f"}, or \code{"f2"}.
 \item A \strong{McNemar test} returns \emph{Cohen's g}.
 \item A \strong{Fisher's Exact test} (in the 2x2 case) returns \emph{Odds ratio}.
+\item A \strong{Wilcoxon test} returns \emph{rank biserial correlation}.
+\item A \strong{Kruskal-Wallis test} returns \emph{rank Epsilon squared}.
+\item A \strong{Friedman test} returns \emph{Kendall's W}.
 }
 \item For an object of class \code{BFBayesFactor}, using \code{\link[bayestestR:describe_posterior]{bayestestR::describe_posterior()}},
 \itemize{
@@ -103,6 +106,7 @@ Other effect size indices:
 \code{\link{cohens_d}()},
 \code{\link{eta_squared}()},
 \code{\link{phi}()},
+\code{\link{rank_biserial}()},
 \code{\link{standardize_parameters}()}
 }
 \concept{effect size indices}

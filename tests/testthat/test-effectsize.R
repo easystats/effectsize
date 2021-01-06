@@ -26,6 +26,14 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(effectsize(Ts, verbose = FALSE),
                  cohens_d(mtcars$mpg,factor(mtcars$vs), pooled_sd = FALSE),
                  ignore_attr = TRUE)
+
+
+    # one sample
+    z <<- mtcars$wt
+    model <- t.test(z, mu = 3, var.equal = TRUE)
+    expect_equal(effectsize(model),
+                 cohens_d(z, mu = 3),
+                 ignore_attr = TRUE)
   })
 
   test_that("Chisq-test", {
@@ -178,7 +186,7 @@ if (require("testthat") && require("effectsize")) {
     data(raceDolls, package = "BayesFactor")
     bf1 <- BayesFactor::contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
     testthat::expect_equal(effectsize(bf1, test = NULL)[[2]], 0.164, tolerance = 0.01)
-    testthat::expect_equal(effectsize(bf1, test = NULL, type = "OR")[[2]], 0.503, tolerance = 0.03)
+    testthat::expect_equal(effectsize(bf1, test = NULL, type = "OR")[[2]], 1/0.503, tolerance = 0.03)
 
     bf2 <- BayesFactor::ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
     testthat::expect_equal(effectsize(bf2, test = NULL)[[2]], 1.30, tolerance = 0.03)

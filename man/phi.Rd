@@ -59,8 +59,8 @@ between 0-1, whereas phi can be larger than 1.
 \cr\cr
 For 2-by-2 contingency tables, Odds ratios and Risk ratios can also be
 estimated. Note that these are computed with each \strong{column} representing the
-different groups, and the first column representing the baseline (or
-control). If you wish you use rows as groups you must pass a transposed
+different groups, and the first column representing the treatment group and
+the second column baseline (or control). Effects are given as \code{treatment / control}. If you wish you use rows as groups you must pass a transposed
 table, or switch the \code{x} and \code{y} arguments.
 \cr\cr
 Cohen's \emph{g} is an effect size for dependent (paired) contingency tables
@@ -167,6 +167,7 @@ Other effect size indices:
 \code{\link{cohens_d}()},
 \code{\link{effectsize}()},
 \code{\link{eta_squared}()},
+\code{\link{rank_biserial}()},
 \code{\link{standardize_parameters}()}
 }
 \concept{effect size indices}

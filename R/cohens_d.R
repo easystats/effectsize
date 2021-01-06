@@ -75,6 +75,7 @@ cohens_d <- function(x,
                      paired = FALSE,
                      ci = 0.95,
                      verbose = TRUE,
+                     ...,
                      correction) {
   if (!missing(correction)) {
     warning("`correction` argument is deprecated. To apply bias correction, use `hedges_g()`.",
@@ -85,7 +86,7 @@ cohens_d <- function(x,
   if (inherits(x, "htest")) {
     if (!grepl("t-test", x$method))
       stop("'x' is not a t-test!", call. = FALSE)
-    return(effectsize(x, type = "d", correction = correction, ci = ci))
+    return(effectsize(x, type = "d", correction = correction, ci = ci, verbose = verbose))
   }
 
 
@@ -113,7 +114,8 @@ hedges_g <- function(x,
                      mu = 0,
                      paired = FALSE,
                      ci = 0.95,
-                     verbose = TRUE) {
+                     verbose = TRUE,
+                     ...) {
   if (isTRUE(correction) || !correction %in% c(1, 2)) {
     warning("`correction` must be 1 or 2. See ?hedges_g. Setting to 1 for Hedges & Olkin's correction.",
       call. = FALSE, immediate. = TRUE
@@ -124,7 +126,7 @@ hedges_g <- function(x,
   if (inherits(x, "htest")) {
     if (!grepl("t-test", x$method))
       stop("'x' is not a t-test!", call. = FALSE)
-    return(effectsize(x, type = "g", correction = correction, ci = ci))
+    return(effectsize(x, type = "g", correction = correction, ci = ci, verbose = verbose))
   }
 
   .effect_size_difference(
@@ -143,7 +145,7 @@ hedges_g <- function(x,
 
 #' @rdname cohens_d
 #' @export
-glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, iterations = 200, verbose = TRUE, correction) {
+glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, iterations = 200, verbose = TRUE, ..., correction) {
   if (!missing(correction)) {
     warning("`correction` argument is deprecated. To apply bias correction, use `hedges_g()`.",
       call. = FALSE, immediate. = TRUE

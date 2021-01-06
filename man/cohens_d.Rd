@@ -15,6 +15,7 @@ cohens_d(
   paired = FALSE,
   ci = 0.95,
   verbose = TRUE,
+  ...,
   correction
 )
 
@@ -27,7 +28,8 @@ hedges_g(
   mu = 0,
   paired = FALSE,
   ci = 0.95,
-  verbose = TRUE
+  verbose = TRUE,
+  ...
 )
 
 glass_delta(
@@ -38,6 +40,7 @@ glass_delta(
   ci = 0.95,
   iterations = 200,
   verbose = TRUE,
+  ...,
   correction
 )
 }
@@ -62,6 +65,8 @@ size on \code{x - y}.}
 \item{ci}{Confidence Interval (CI) level}
 
 \item{verbose}{Toggle warnings and messages on or off.}
+
+\item{...}{Arguments passed to or from other methods.}
 
 \item{correction}{Type of small sample bias correction to apply to produce
 Hedges' \emph{g}. Can be \code{1} for Hedges and Olkin's original correction
@@ -137,6 +142,7 @@ Other effect size indices:
 \code{\link{effectsize}()},
 \code{\link{eta_squared}()},
 \code{\link{phi}()},
+\code{\link{rank_biserial}()},
 \code{\link{standardize_parameters}()}
 }
 \concept{effect size indices}

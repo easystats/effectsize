@@ -74,14 +74,14 @@ The package provides functions to compute indices of effect size.
 cohens_d(mpg ~ am, data = mtcars)
 ## Cohen's d |         95% CI
 ## --------------------------
-##     -1.48 | [-2.27, -0.67]
+## -1.48     | [-2.27, -0.67]
 ## 
 ## - Estimated using pooled SD.
 
 hedges_g(mpg ~ am, data = mtcars)
-## Hedge's g |         95% CI
+## Hedges' g |         95% CI
 ## --------------------------
-##     -1.44 | [-2.21, -0.65]
+## -1.44     | [-2.21, -0.65]
 ## 
 ## - Estimated using pooled SD.
 ## - Bias corrected using Hedges and Olkin's method.
@@ -89,9 +89,7 @@ hedges_g(mpg ~ am, data = mtcars)
 glass_delta(mpg ~ am, data = mtcars)
 ## Glass' delta |         95% CI
 ## -----------------------------
-##        -1.17 | [-1.95, -0.46]
-## 
-## - Estimated using pooled SD.
+## -1.17        | [-2.06, -0.58]
 ```
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)
@@ -127,14 +125,14 @@ to compute standardized parameters for regression models.
 m <- lm(rating ~ complaints + privileges + advance, data = attitude)
 
 standardize_parameters(m)
+## # Standardization method: refit
+## 
 ## Parameter   | Coefficient (std.) |        95% CI
 ## ------------------------------------------------
 ## (Intercept) |          -9.57e-16 | [-0.22, 0.22]
 ## complaints  |               0.85 | [ 0.58, 1.13]
 ## privileges  |              -0.04 | [-0.33, 0.24]
 ## advance     |              -0.02 | [-0.26, 0.22]
-## 
-## # Standardization method: refit
 ```
 
 Also, models can be re-fit with standardized data:
@@ -166,19 +164,19 @@ And for recovering effect sizes from test statistics.
 
 ``` r
 F_to_d(15, df = 1, df_error = 60)
-## d |       95% CI
-## ----------------
-## 1 | [0.46, 1.53]
+## d    |       95% CI
+## -------------------
+## 1.00 | [0.46, 1.53]
 
 F_to_r(15, df = 1, df_error = 60)
-##    r |       95% CI
+## r    |       95% CI
 ## -------------------
 ## 0.45 | [0.22, 0.61]
 
 F_to_eta2(15, df = 1, df_error = 60)
 ## Eta2 (partial) |       90% CI
 ## -----------------------------
-##           0.20 | [0.07, 0.34]
+## 0.20           | [0.07, 0.34]
 ```
 
 ## Effect Size Interpretation

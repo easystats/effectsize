@@ -23,7 +23,7 @@ format.effectsize_table <- function(x, digits = 2, ...) {
   i <- is_effectsize_name(colnames(x))
   colnames(x)[i] <- es_info$label[es_info$name == colnames(x)[i]]
 
-  insight::format_table(x, digits = digits, preserve_attributes = TRUE, ...)
+  insight::format_table(x, digits = digits, ci_digits = digits, preserve_attributes = TRUE, ...)
 }
 
 
@@ -84,7 +84,7 @@ print.equivalence_test_effectsize <- function(x, digits = 2, ...) {
   attr(x, "table_footer") <- footer
   attr(x, "table_caption") <- caption
   attr(x, "table_subtitle") <- subtitle
-  print.effectsize_table(x, ...)
+  print.effectsize_table(x, digits = digits, ...)
   invisible(x_orig)
 }
 
@@ -126,7 +126,7 @@ print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
   attr(x, "table_footer") <- footer
   attr(x, "table_caption") <- caption
   attr(x, "table_subtitle") <- subtitle
-  print.effectsize_table(x, ...)
+  print.effectsize_table(x, digits = digits, ...)
 
 
   if (append_CL && any(colnames(x_orig) %in% c("Cohens_d", "Hedges_g")) && !attr(x_orig, "paired")) {

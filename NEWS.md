@@ -1,8 +1,13 @@
 # effectsize 0.4.1.2
 
+## Breaking Changes
+
+- `oddsratio()` and `riskratio()` - order of groups has been changed (the *first* groups is now the **treatment group**, and the *second* group is the **control group**), so that effect sizes are given as *treatment over control* (treatment / control) (previously was reversed). This is done to be consistent with other functions in R and in `effectsize`.
+
 ## New features
 
-- `keep_intercept=TRUE` argument to `adjust()` to keep the intercept. 
+- `rank_biserial()`, `rank_epsilon_squared()` and `kendalls_w()` functions for effect sizes for rank-based tests.
+- `adjust()` gains `keep_intercept` argument to keep the intercept.
 - `eta_squared()` family of functions supports `Anova.mlm` objects (from the `car` package).
 - `effectsize()`:
   - supports Cohen's *g* for McNemar's test.

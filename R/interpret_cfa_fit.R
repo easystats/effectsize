@@ -27,7 +27,8 @@
 #' ## What to report
 #' For structural equation models (SEM), Kline (2015) suggests that at a minimum the following indices should be reported: The model **chi-square**, the **RMSEA**, the **CFI** and the **SRMR**.
 #'
-#'
+#' @note When possible, it is recommended to report dynamic cutoffs of fit
+#'   indices. See https://dynamicfit.app/cfa/.
 #'
 #'
 #' @examples

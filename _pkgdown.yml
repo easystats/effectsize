@@ -17,6 +17,7 @@ reference:
   - cohens_d
   - phi
   - eta_squared
+  - rank_biserial
 
 - title: "Standardization"
   contents:
