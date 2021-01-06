@@ -464,10 +464,15 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
     x <- mf[[1]]
     groups <- mf[[2]]
     blocks <- mf[[3]]
-  } else if (inherits(x, c("table", "matrix", "array"))) {
-    data <- data.frame(x = c(x),
-                       groups = rep(colnames(x), each=nrow(x)),
-                       blocks = rep(rownames(x), ncol(x)))
+  } else if (inherits(x, c("table", "matrix", "array", "data.frame"))) {
+    data <- data.frame(
+      x = c(x),
+      groups = rep(factor(seq_len(ncol(x))),
+                   each = nrow(x)),
+      blocks = rep(factor(seq_len(nrow(x))),
+                   ncol(x))
+    )
+
     x <- data[[1]]
     groups <- data[[2]]
     blocks <- data[[3]]
