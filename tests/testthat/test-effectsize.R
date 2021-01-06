@@ -165,6 +165,12 @@ if (require("testthat") && require("effectsize")) {
     )
     Mc <- mcnemar.test(Performance)
     expect_equal(cohens_g(Mc), cohens_g(Performance), tolerance = 0.01)
+
+    H <- effectsize(chisq.test(Performance), type = "h")
+    expect_equal(H, cohens_h(Performance), tolerance = 0.01)
+    expect_equal(H[[1]], 1.580585, tolerance = 0.01)
+    expect_equal(H$CI_low, 1.480959, tolerance = 0.01)
+    expect_equal(H$CI_high, 1.68021, tolerance = 0.01)
   })
 
 

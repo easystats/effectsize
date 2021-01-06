@@ -1,7 +1,7 @@
 #' Effect size for contingency tables
 #'
 #' Compute Cramer's *V*, phi (\eqn{\phi}), Cohen's *w* (an alias of phi), Odds
-#' ratios, Risk ratios and Cohen's *g* for contingency tables or
+#' ratios, Risk ratios, Cohen's *h* and Cohen's *g* for contingency tables or
 #' goodness-of-fit. See details.
 #'
 #' @inheritParams stats::chisq.test
@@ -19,24 +19,25 @@
 #' dependence). For larger tables, Cramer's *V* should be used, as it is bounded
 #' between 0-1, whereas phi can be larger than 1.
 #' \cr\cr
-#' For 2-by-2 contingency tables, Odds ratios and Risk ratios can also be
-#' estimated. Note that these are computed with each **column** representing the
-#' different groups, and the first column representing the treatment group and
-#' the second column baseline (or control). Effects are given as `treatment /
-#' control`. If you wish you use rows as groups you must pass a transposed
-#' table, or switch the `x` and `y` arguments.
+#' For 2-by-2 contingency tables, Odds ratios, Risk ratios and Cohen's *h* can
+#' also be estimated. Note that these are computed with each **column**
+#' representing the different groups, and the first column representing the
+#' treatment group and the second column baseline (or control). Effects are
+#' given as `treatment / control`. If you wish you use rows as groups you must
+#' pass a transposed table, or switch the `x` and `y` arguments.
 #' \cr\cr
 #' Cohen's *g* is an effect size for dependent (paired) contingency tables
 #' ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry) (see
 #' [stats::mcnemar.test()]).
 #'
-#' # Confidence Intervals for g, OR and RR
+#' # Confidence Intervals for Cohen's g, OR, RR and Cohen's h
 #' For Cohen's *g*, confidence intervals are based on the proportion (\eqn{P = g
 #' + 0.5}) confidence intervals returned by [stats::prop.test()] (minus 0.5),
 #' which give a good close approximation.
 #' \cr\cr
-#' For Odds ratios and Risk ratios, confidence intervals are estimated using the
-#' standard normal parametric method (see Katz et al., 1978; Szumilas, 2010).
+#' For Odds ratios, Risk ratios and Cohen's *h*, confidence intervals are
+#' estimated using the standard normal parametric method (see Katz et al., 1978;
+#' Szumilas, 2010).
 #' \cr\cr
 #' See *Confidence Intervals* and *CI Contains Zero* sections for *phi*, Cohen's
 #' *w* and Cramer's *V*.
@@ -84,6 +85,8 @@
 #' oddsratio(RCT)
 #'
 #' riskratio(RCT)
+#'
+#' cohens_h(RCT)
 #'
 #'
 #'
@@ -300,6 +303,52 @@ riskratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   return(res)
+}
+
+#' @rdname phi
+#' @export
+#' @importFrom stats qnorm
+cohens_h <- function(x, y = NULL, ci = 0.95, ...) {
+  if (inherits(x, "htest")) {
+    if (!(grepl("Pearson's Chi-squared", x$method) ||
+          grepl("Chi-squared test for given probabilities", x$method)))
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    return(effectsize(x, type = "cohens_h", ci = ci))
+  }
+
+  res <- suppressWarnings(stats::chisq.test(x, y, ...))
+  Obs <- res$observed
+
+  if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
+    stop("Cannot have empty rows/columns in the contingency tables.", call. = FALSE)
+  }
+
+  if (nrow(Obs) != 2 || ncol(Obs) != 2) {
+    stop("Cohen's h only available for 2-by-2 contingency tables", call. = FALSE)
+  }
+
+  n1 <- sum(Obs[, 1])
+  n2 <- sum(Obs[, 2])
+  p1 <- Obs[1, 1] / n1
+  p2 <- Obs[1, 2] / n2
+  H <- 2 * asin(sqrt(p1)) - 2 * asin(sqrt(p2))
+
+  out <- data.frame(Cohens_h = H)
+
+  if (is.numeric(ci)) {
+    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+
+    alpha <- (1 - ci) / 2
+
+    se_arcsin <- sqrt(0.25 * (1 / n1 + 1 / n2))
+    Zc <- stats::qnorm(alpha, lower.tail = FALSE)
+    out$CI <- ci
+    out$CI_low <- H - Zc * (2 * se_arcsin)
+    out$CI_high <- H + Zc * (2 * se_arcsin)
+  }
+
+  class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
+  return(out)
 }
 
 

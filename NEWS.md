@@ -6,6 +6,7 @@
 
 ## New features
 
+- `cohens_h()` effect size for comparing two independent proportions.
 - `rank_biserial()`, `rank_epsilon_squared()` and `kendalls_w()` functions for effect sizes for rank-based tests.
 - `adjust()` gains `keep_intercept` argument to keep the intercept.
 - `eta_squared()` family of functions supports `Anova.mlm` objects (from the `car` package).
