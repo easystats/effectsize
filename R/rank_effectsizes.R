@@ -398,7 +398,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
     rp <- mapply(function(tmp, L) {
       tmp$blocks <- L
       tmp
-    }, rp, letters[seq_along(rp)], SIMPLIFY = FALSE)
+    }, rp, factor(seq_along(rp)), SIMPLIFY = FALSE)
     .data <- do.call("rbind", rp)
 
     .kendalls_w(.data$x, .data$groups, .data$blocks)
