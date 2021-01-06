@@ -80,7 +80,8 @@
 #' @export
 rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
                           ci = 0.95, iterations = 200,
-                          paired = FALSE) {
+                          paired = FALSE,
+                          ...) {
   if (inherits(x, "htest")) {
     if (!grepl("Wilcoxon", x$method))
       stop("'x' is not a Wilcoxon-test!", call. = FALSE)
@@ -125,7 +126,7 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
 #' @rdname rank_biserial
 #' @export
 #' @importFrom stats na.omit
-rank_epsilon_squared <- function(x, groups, data = NULL, ci = 0.95, iterations = 200) {
+rank_epsilon_squared <- function(x, groups, data = NULL, ci = 0.95, iterations = 200, ...) {
 
   if (inherits(x, "htest")) {
     if (!grepl("Kruskal-Wallis", x$method))
@@ -153,7 +154,7 @@ rank_epsilon_squared <- function(x, groups, data = NULL, ci = 0.95, iterations =
 #' @rdname rank_biserial
 #' @export
 #' @importFrom stats na.omit
-kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 200) {
+kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 200, ...) {
 
   if (inherits(x, "htest")) {
     if (!grepl("Friedman", x$method))

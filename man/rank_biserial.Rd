@@ -13,12 +13,13 @@ rank_biserial(
   mu = 0,
   ci = 0.95,
   iterations = 200,
-  paired = FALSE
+  paired = FALSE,
+  ...
 )
 
-rank_epsilon_squared(x, groups, data = NULL, ci = 0.95, iterations = 200)
+rank_epsilon_squared(x, groups, data = NULL, ci = 0.95, iterations = 200, ...)
 
-kendalls_w(x, groups, blocks, data = NULL, ci = 0.95, iterations = 200)
+kendalls_w(x, groups, blocks, data = NULL, ci = 0.95, iterations = 200, ...)
 }
 \arguments{
 \item{x}{Can be one of:
@@ -46,6 +47,8 @@ estimated. See \link[stats:wilcox.test]{stats::wilcox.test}.}
 \item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
 This produces an effect size that is equivalent to the one-sample effect
 size on \code{x - y}.}
+
+\item{...}{Arguments passed to or from other methods.}
 
 \item{groups}{A vector or factor object giving the group for the
 corresponding elements of \code{x}, or a character name of one in \code{data}.
