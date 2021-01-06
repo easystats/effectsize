@@ -84,6 +84,7 @@
 rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
                           ci = 0.95, iterations = 200,
                           paired = FALSE,
+                          verbose = TRUE,
                           ...) {
   if (inherits(x, "htest")) {
     if (!grepl("Wilcoxon", x$method))
@@ -102,9 +103,9 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
   }
 
   if (paired) {
-    r_rbs <- .r_rbs_paired(x, y, mu = mu)
+    r_rbs <- .r_rbs_paired(x, y, mu = mu, verbose = verbose)
   } else {
-    r_rbs <- .r_rbs_indep(x, y, mu = mu)
+    r_rbs <- .r_rbs_indep(x, y, mu = mu, verbose = verbose)
   }
 
 
@@ -220,10 +221,10 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 
 #' @keywords internal
 #' @importFrom stats na.omit
-.r_rbs_paired <- function(x, y, mu) {
+.r_rbs_paired <- function(x, y, mu, verbose) {
   d <- (x - y) - mu
 
-  r_sign <- ranktransform(d, sign = TRUE)
+  r_sign <- ranktransform(d, sign = TRUE, verbose = verbose)
   r_sign <- stats::na.omit(r_sign)
 
   r_pos <-  sum(r_sign[r_sign > 0])
@@ -239,11 +240,11 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 
 #' @keywords internal
 #' @importFrom stats na.omit
-.r_rbs_indep <- function(x, y, mu){
+.r_rbs_indep <- function(x, y, mu, verbose){
   x <- stats::na.omit(x)
   y <- stats::na.omit(y)
 
-  Ry <- ranktransform(c(x - mu, y))
+  Ry <- ranktransform(c(x - mu, y), verbose = verbose)
   Group <- c(rep("A", length(x)),
              rep("B", length(y)))
 

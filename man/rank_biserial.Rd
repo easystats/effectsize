@@ -14,6 +14,7 @@ rank_biserial(
   ci = 0.95,
   iterations = 200,
   paired = FALSE,
+  verbose = TRUE,
   ...
 )
 
@@ -47,6 +48,8 @@ estimated. See \link[stats:wilcox.test]{stats::wilcox.test}.}
 \item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
 This produces an effect size that is equivalent to the one-sample effect
 size on \code{x - y}.}
+
+\item{verbose}{Toggle warnings and messages on or off.}
 
 \item{...}{Arguments passed to or from other methods.}
 
@@ -98,6 +101,9 @@ rank_biserial(A, B)
 x <- c(1.83,  0.50,  1.62,  2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
 y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
 rank_biserial(x, y, paired = TRUE)
+
+x <- c(1.15, 0.88, 0.90, 0.74, 1.21)
+rank_biserial(x, mu = 1)
 
 x1 <- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
 x2 <- c(3.8, 2.7, 4.0, 2.4)      # with obstructive airway disease
