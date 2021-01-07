@@ -59,7 +59,10 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
                 oddsratio = oddsratio,
 
                 rr = ,
-                riskratio = riskratio
+                riskratio = riskratio,
+
+                h = ,
+                cohens_h = cohens_h
     )
 
     out <- f(x = model$observed, ...)

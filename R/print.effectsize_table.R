@@ -21,7 +21,8 @@ print.effectsize_table <- function(x, digits = 2, ...) {
 #' @export
 format.effectsize_table <- function(x, digits = 2, ...) {
   i <- is_effectsize_name(colnames(x))
-  colnames(x)[i] <- es_info$label[es_info$name == colnames(x)[i]]
+  labs <- get_effectsize_label(colnames(x))
+  colnames(x)[i] <- labs[i]
 
   insight::format_table(x, digits = digits, ci_digits = digits, preserve_attributes = TRUE, ...)
 }

@@ -6,6 +6,7 @@
 \alias{cramers_v}
 \alias{oddsratio}
 \alias{riskratio}
+\alias{cohens_h}
 \alias{cohens_g}
 \title{Effect size for contingency tables}
 \usage{
@@ -18,6 +19,8 @@ cramers_v(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
 oddsratio(x, y = NULL, ci = 0.95, log = FALSE, ...)
 
 riskratio(x, y = NULL, ci = 0.95, log = FALSE, ...)
+
+cohens_h(x, y = NULL, ci = 0.95, ...)
 
 cohens_g(x, y = NULL, ci = 0.95, ...)
 }
@@ -46,7 +49,7 @@ prefix \code{log_}), or \code{Cohens_g}) and its CIs (\code{CI_low} and \code{CI
 }
 \description{
 Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w} (an alias of phi), Odds
-ratios, Risk ratios and Cohen's \emph{g} for contingency tables or
+ratios, Risk ratios, Cohen's \emph{h} and Cohen's \emph{g} for contingency tables or
 goodness-of-fit. See details.
 }
 \details{
@@ -57,23 +60,25 @@ two dichotomous variables, ranging between  0 (no dependence) and 1 (perfect
 dependence). For larger tables, Cramer's \emph{V} should be used, as it is bounded
 between 0-1, whereas phi can be larger than 1.
 \cr\cr
-For 2-by-2 contingency tables, Odds ratios and Risk ratios can also be
-estimated. Note that these are computed with each \strong{column} representing the
-different groups, and the first column representing the treatment group and
-the second column baseline (or control). Effects are given as \code{treatment / control}. If you wish you use rows as groups you must pass a transposed
-table, or switch the \code{x} and \code{y} arguments.
+For 2-by-2 contingency tables, Odds ratios, Risk ratios and Cohen's \emph{h} can
+also be estimated. Note that these are computed with each \strong{column}
+representing the different groups, and the first column representing the
+treatment group and the second column baseline (or control). Effects are
+given as \code{treatment / control}. If you wish you use rows as groups you must
+pass a transposed table, or switch the \code{x} and \code{y} arguments.
 \cr\cr
 Cohen's \emph{g} is an effect size for dependent (paired) contingency tables
 ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry) (see
 \code{\link[stats:mcnemar.test]{stats::mcnemar.test()}}).
 }
-\section{Confidence Intervals for g, OR and RR}{
+\section{Confidence Intervals for Cohen's g, OR, RR and Cohen's h}{
 For Cohen's \emph{g}, confidence intervals are based on the proportion (\eqn{P = g
 + 0.5}) confidence intervals returned by \code{\link[stats:prop.test]{stats::prop.test()}} (minus 0.5),
 which give a good close approximation.
 \cr\cr
-For Odds ratios and Risk ratios, confidence intervals are estimated using the
-standard normal parametric method (see Katz et al., 1978; Szumilas, 2010).
+For Odds ratios, Risk ratios and Cohen's \emph{h}, confidence intervals are
+estimated using the standard normal parametric method (see Katz et al., 1978;
+Szumilas, 2010).
 \cr\cr
 See \emph{Confidence Intervals} and \emph{CI Contains Zero} sections for \emph{phi}, Cohen's
 \emph{w} and Cramer's \emph{V}.
@@ -136,6 +141,8 @@ RCT # note groups are COLUMNS
 oddsratio(RCT)
 
 riskratio(RCT)
+
+cohens_h(RCT)
 
 
 
