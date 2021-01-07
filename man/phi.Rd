@@ -45,7 +45,8 @@ for \code{cohens_g()}.}
 \value{
 A data frame with the effect size (\code{Cramers_v}, \code{phi} (possibly with
 the suffix \verb{_adjusted}), \code{Odds_ratio}, \code{Risk_ratio} (possibly with the
-prefix \code{log_}), or \code{Cohens_g}) and its CIs (\code{CI_low} and \code{CI_high}).
+prefix \code{log_}), \code{Cohens_h}, or \code{Cohens_g}) and its CIs (\code{CI_low} and
+\code{CI_high}).
 }
 \description{
 Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w} (an alias of phi), Odds

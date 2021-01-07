@@ -47,7 +47,8 @@
 #'
 #' @return A data frame with the effect size (`Cramers_v`, `phi` (possibly with
 #'   the suffix `_adjusted`), `Odds_ratio`, `Risk_ratio` (possibly with the
-#'   prefix `log_`), or `Cohens_g`) and its CIs (`CI_low` and `CI_high`).
+#'   prefix `log_`), `Cohens_h`, or `Cohens_g`) and its CIs (`CI_low` and
+#'   `CI_high`).
 #'
 #' @seealso [chisq_to_phi()] for details regarding estimation and CIs.
 #' @family effect size indices
