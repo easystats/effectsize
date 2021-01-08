@@ -76,7 +76,9 @@ differences - both for the one sample or paired samples case, that would
 normally be tested with Wilcoxon's Signed Rank Test (giving the
 \strong{matched-pairs} rank-biserial correlation) and for two independent samples
 case, that would normally be tested with Mann-Whitney's \emph{U} Test (giving
-\strong{Glass'} rank-biserial correlation). See \link[stats:wilcox.test]{stats::wilcox.test}. Values range
+\strong{Glass'} rank-biserial correlation). See \link[stats:wilcox.test]{stats::wilcox.test}. In both
+cases, the correlation represents the difference between the proportion of
+favorable and unfavorable pairs / signed ranks (Kerby, 2014). Values range
 from \code{-1} indicating that all values of the second sample are smaller than
 the first sample, to \code{+1} indicating that all values of the second sample are
 larger than the first sample.
