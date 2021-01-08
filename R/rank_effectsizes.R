@@ -1,7 +1,7 @@
 #' Effect size for non-parametric (rank sum) tests
 #'
-#' Compute the rank-biserial correlation, rank Epsilon squared, and Kendall's
-#' *W* effect sizes for non-parametric (rank sum) tests.
+#' Compute the rank-biserial correlation, Cliff's *delta*, rank Epsilon squared,
+#' and Kendall's *W* effect sizes for non-parametric (rank sum) tests.
 #'
 #' @inheritParams cohens_d
 #' @param x Can be one of:
@@ -29,10 +29,13 @@
 #' normally be tested with Wilcoxon's Signed Rank Test (giving the
 #' **matched-pairs** rank-biserial correlation) and for two independent samples
 #' case, that would normally be tested with Mann-Whitney's *U* Test (giving
-#' **Glass'** rank-biserial correlation). See [stats::wilcox.test]. Values range
+#' **Glass'** rank-biserial correlation). See [stats::wilcox.test]. In both
+#' cases, the correlation represents the difference between the proportion of
+#' favorable and unfavorable pairs / signed ranks (Kerby, 2014). Values range
 #' from `-1` indicating that all values of the second sample are smaller than
 #' the first sample, to `+1` indicating that all values of the second sample are
-#' larger than the first sample.
+#' larger than the first sample. (Cliff's *delta* is an alias to the
+#' rank-biserial correlation in the two sample case.)
 #' \cr\cr
 #' The rank Epsilon squared is appropriate for non-parametric tests of
 #' differences between 2 or more samples (a rank based ANOVA). See
@@ -83,6 +86,7 @@
 #' - Kendall, M.G. (1948) Rank correlation methods. London: Griffin.
 #' - Kerby, D. S. (2014). The simple difference formula: An approach to teaching nonparametric correlation. Comprehensive Psychology, 3, 11-IT.
 #' - King, B. M., & Minium, E. W. (2008). Statistical reasoning in the behavioral sciences. John Wiley & Sons Inc.
+#' - Cliff, N. (1993). Dominance statistics: Ordinal analyses to answer ordinal questions. Psychological bulletin, 114(3), 494.
 #' - Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates revisited. An overview of some recommended measures of effect size.
 #'
 #' @export
@@ -141,6 +145,18 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
   attr(out, "paired") <- paired
   attr(out, "mu") <- mu
   return(out)
+}
+
+#' @export
+#' @rdname rank_biserial
+cliffs_delta <- function(x, y = NULL, data = NULL, mu = 0,
+                         ci = 0.95, iterations = 200,
+                         verbose = TRUE,
+                         ...){
+  rank_biserial(x, y, data = data, mu = mu,
+                paired = FALSE,
+                ci = ci, iterations = iterations,
+                verbose = verbose)
 }
 
 
@@ -245,25 +261,35 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 
   r_pos <-  sum(r_sign[r_sign > 0])
   r_neg <- -sum(r_sign[r_sign < 0])
-  T_ <- min(r_pos, r_neg)
   n <- length(r_sign)
+  S <- (n * (n + 1) / 2)
 
-  r_rbs <- 4 * -(T_ - (r_pos + r_neg) / 2) / (n * (n + 1))
-  ## same as:
+  u_ <- r_pos / S
+  f_ <- r_neg / S
+  return(u_ - f_)
+
+  # T_ <- min(r_pos, r_neg)
   # r_rbs <- 4 * abs(T_ - (r_pos + r_neg) / 2) / (n * (n + 1))
-  # if (r_pos < r_neg) r_rbs <- -r_rbs
-  r_rbs <- sign(r_rbs) * pmin(abs(r_rbs), 1)
-  r_rbs
+  # if (r_pos < r_neg) r_rbs <- -r_rbs # make directional
+  # r_rbs <- sign(r_rbs) * pmin(abs(r_rbs), 1)
+  # return(r_rbs)
 }
 
 #' @keywords internal
 .r_rbs_indep <- function(x, y, mu, verbose = FALSE){
   Ry <- ranktransform(c(x - mu, y), verbose = verbose)
-  Group <- rep(1:2, c(length(x), length(y)))
+  # Group <- rep(1:2, c(length(x), length(y)))
 
   ## assumes no ties (ignores them)
-  rr <- -2 * diff(tapply(Ry, Group, mean)) / length(Ry)
-  return(rr)
+  n1 <- length(x)
+  n2 <- length(y)
+
+  U1 <- sum(Ry[seq_along(x)]) - n1 * (n1 + 1) / 2
+  U2 <- sum(Ry[-seq_along(x)]) - n2 * (n2 + 1) / 2
+
+  u_ <- U1 / (n1 * n2)
+  f_ <- U2 / (n1 * n2)
+  return(u_ - f_)
 
   # ## for ties
   # oo <- rev(order(Ry))

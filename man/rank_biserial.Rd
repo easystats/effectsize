@@ -2,6 +2,7 @@
 % Please edit documentation in R/rank_effectsizes.R
 \name{rank_biserial}
 \alias{rank_biserial}
+\alias{cliffs_delta}
 \alias{rank_epsilon_squared}
 \alias{kendalls_w}
 \title{Effect size for non-parametric (rank sum) tests}
@@ -14,6 +15,17 @@ rank_biserial(
   ci = 0.95,
   iterations = 200,
   paired = FALSE,
+  verbose = TRUE,
+  ...
+)
+
+cliffs_delta(
+  x,
+  y = NULL,
+  data = NULL,
+  mu = 0,
+  ci = 0.95,
+  iterations = 200,
   verbose = TRUE,
   ...
 )
@@ -65,8 +77,8 @@ A data frame with the effect size (\code{r_rank_biserial}, \code{Kendalls_W} or
 \code{rank_epsilon_squared}) and its CI (\code{CI_low} and \code{CI_high}).
 }
 \description{
-Compute the rank-biserial correlation, rank Epsilon squared, and Kendall's
-\emph{W} effect sizes for non-parametric (rank sum) tests.
+Compute the rank-biserial correlation, Cliff's \emph{delta}, rank Epsilon squared,
+and Kendall's \emph{W} effect sizes for non-parametric (rank sum) tests.
 }
 \details{
 Compute effect sizes for non-parametric (rank sum) tests.
@@ -76,10 +88,13 @@ differences - both for the one sample or paired samples case, that would
 normally be tested with Wilcoxon's Signed Rank Test (giving the
 \strong{matched-pairs} rank-biserial correlation) and for two independent samples
 case, that would normally be tested with Mann-Whitney's \emph{U} Test (giving
-\strong{Glass'} rank-biserial correlation). See \link[stats:wilcox.test]{stats::wilcox.test}. Values range
+\strong{Glass'} rank-biserial correlation). See \link[stats:wilcox.test]{stats::wilcox.test}. In both
+cases, the correlation represents the difference between the proportion of
+favorable and unfavorable pairs / signed ranks (Kerby, 2014). Values range
 from \code{-1} indicating that all values of the second sample are smaller than
 the first sample, to \code{+1} indicating that all values of the second sample are
-larger than the first sample.
+larger than the first sample. (Cliff's \emph{delta} is an alias to the
+rank-biserial correlation in the two sample case.)
 \cr\cr
 The rank Epsilon squared is appropriate for non-parametric tests of
 differences between 2 or more samples (a rank based ANOVA). See
@@ -128,6 +143,7 @@ kendalls_w(x ~ w | t, data = wb)
 \item Kendall, M.G. (1948) Rank correlation methods. London: Griffin.
 \item Kerby, D. S. (2014). The simple difference formula: An approach to teaching nonparametric correlation. Comprehensive Psychology, 3, 11-IT.
 \item King, B. M., & Minium, E. W. (2008). Statistical reasoning in the behavioral sciences. John Wiley & Sons Inc.
+\item Cliff, N. (1993). Dominance statistics: Ordinal analyses to answer ordinal questions. Psychological bulletin, 114(3), 494.
 \item Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates revisited. An overview of some recommended measures of effect size.
 }
 }

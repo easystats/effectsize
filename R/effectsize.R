@@ -167,6 +167,9 @@ effectsize.anova <- function(model, type = NULL, ...) {
 }
 
 #' @export
+effectsize.afex_aov <- effectsize.anova
+
+#' @export
 #' @rdname effectsize
 effectsize.aov <- effectsize.anova
 
