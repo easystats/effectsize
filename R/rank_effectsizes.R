@@ -264,7 +264,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 #' @keywords internal
 .r_rbs_indep <- function(x, y, mu, verbose = FALSE){
   Ry <- ranktransform(c(x - mu, y), verbose = verbose)
-  Group <- rep(1:2, c(length(x), length(y)))
+  # Group <- rep(1:2, c(length(x), length(y)))
 
   ## assumes no ties (ignores them)
   n1 <- length(x)
