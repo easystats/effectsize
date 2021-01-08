@@ -1,7 +1,7 @@
 #' Effect size for non-parametric (rank sum) tests
 #'
-#' Compute the rank-biserial correlation, rank Epsilon squared, and Kendall's
-#' *W* effect sizes for non-parametric (rank sum) tests.
+#' Compute the rank-biserial correlation, Cliff's *delta*, rank Epsilon squared,
+#' and Kendall's *W* effect sizes for non-parametric (rank sum) tests.
 #'
 #' @inheritParams cohens_d
 #' @param x Can be one of:
@@ -34,7 +34,8 @@
 #' favorable and unfavorable pairs / signed ranks (Kerby, 2014). Values range
 #' from `-1` indicating that all values of the second sample are smaller than
 #' the first sample, to `+1` indicating that all values of the second sample are
-#' larger than the first sample.
+#' larger than the first sample. (Cliff's *delta* is an alias to the
+#' rank-biserial correlation in the two sample case.)
 #' \cr\cr
 #' The rank Epsilon squared is appropriate for non-parametric tests of
 #' differences between 2 or more samples (a rank based ANOVA). See
@@ -85,6 +86,7 @@
 #' - Kendall, M.G. (1948) Rank correlation methods. London: Griffin.
 #' - Kerby, D. S. (2014). The simple difference formula: An approach to teaching nonparametric correlation. Comprehensive Psychology, 3, 11-IT.
 #' - King, B. M., & Minium, E. W. (2008). Statistical reasoning in the behavioral sciences. John Wiley & Sons Inc.
+#' - Cliff, N. (1993). Dominance statistics: Ordinal analyses to answer ordinal questions. Psychological bulletin, 114(3), 494.
 #' - Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates revisited. An overview of some recommended measures of effect size.
 #'
 #' @export
@@ -143,6 +145,18 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
   attr(out, "paired") <- paired
   attr(out, "mu") <- mu
   return(out)
+}
+
+#' @export
+#' @rdname rank_biserial
+cliffs_delta <- function(x, y = NULL, data = NULL, mu = 0,
+                         ci = 0.95, iterations = 200,
+                         verbose = TRUE,
+                         ...){
+  rank_biserial(x, y, data = data, mu = mu,
+                paired = FALSE,
+                ci = ci, iterations = iterations,
+                verbose = verbose)
 }
 
 
