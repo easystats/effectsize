@@ -484,7 +484,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 }
 
 #' @keywords internal
-#' @importFrom stats model.frame lm
+#' @importFrom stats model.frame lm reshape
 .kendalls_w_data <- function(x, groups, blocks, data = NULL) {
   if (inherits(frm <- x, "formula")) {
     if ((length(frm) != 3L) ||
@@ -521,9 +521,9 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
     stop("x, groups and blocks must be of the same length.", call. = FALSE)
   }
 
-  data <- data.frame(x, groups, blocks)
+  data <- data.frame(x, groups, blocks, stringsAsFactors = FALSE)
 
-  data <- reshape(
+  data <- stats::reshape(
     data,
     direction = "wide",
     v.names = "x",
