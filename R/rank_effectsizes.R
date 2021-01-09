@@ -122,11 +122,7 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
   }
 
   ## Compute
-  if (paired) {
-    r_rbs <- .r_rbs_paired(x, y, mu = mu, verbose = verbose)
-  } else {
-    r_rbs <- .r_rbs_indep(x, y, mu = mu, verbose = verbose)
-  }
+  r_rbs <- .r_rbs(x, y, mu = mu, paired = paired, verbose = verbose)
   out <- data.frame(r_rank_biserial = r_rbs)
 
   ## CI
@@ -253,84 +249,30 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 
 #' @keywords internal
 #' @importFrom stats na.omit
-.r_rbs_paired <- function(x, y, mu, verbose = FALSE) {
-  d <- (x - y) - mu
+.r_rbs <- function(x, y, mu, paired, verbose = FALSE) {
+  if (paired) {
+    Ry <- ranktransform((x - y) - mu, sign = TRUE, verbose = verbose)
+    Ry <- stats::na.omit(Ry)
 
-  r_sign <- ranktransform(d, sign = TRUE, verbose = verbose)
-  r_sign <- stats::na.omit(r_sign)
+    n <- length(Ry)
+    S <- (n * (n + 1) / 2)
 
-  r_pos <-  sum(r_sign[r_sign > 0])
-  r_neg <- -sum(r_sign[r_sign < 0])
-  n <- length(r_sign)
-  S <- (n * (n + 1) / 2)
+    U1 <-  sum(Ry[Ry > 0], na.rm = TRUE)
+    U2 <- -sum(Ry[Ry < 0], na.rm = TRUE)
+  } else {
+    Ry <- ranktransform(c(x - mu, y), verbose = verbose)
 
-  u_ <- r_pos / S
-  f_ <- r_neg / S
+    n1 <- length(x)
+    n2 <- length(y)
+    S <- (n1 * n2)
+
+    U1 <- sum(Ry[seq_along(x)]) - n1 * (n1 + 1) / 2
+    U2 <- sum(Ry[-seq_along(x)]) - n2 * (n2 + 1) / 2
+  }
+
+  u_ <- U1 / S
+  f_ <- U2 / S
   return(u_ - f_)
-
-  # T_ <- min(r_pos, r_neg)
-  # r_rbs <- 4 * abs(T_ - (r_pos + r_neg) / 2) / (n * (n + 1))
-  # if (r_pos < r_neg) r_rbs <- -r_rbs # make directional
-  # r_rbs <- sign(r_rbs) * pmin(abs(r_rbs), 1)
-  # return(r_rbs)
-}
-
-#' @keywords internal
-.r_rbs_indep <- function(x, y, mu, verbose = FALSE){
-  Ry <- ranktransform(c(x - mu, y), verbose = verbose)
-  # Group <- rep(1:2, c(length(x), length(y)))
-
-  ## assumes no ties (ignores them)
-  n1 <- length(x)
-  n2 <- length(y)
-
-  U1 <- sum(Ry[seq_along(x)]) - n1 * (n1 + 1) / 2
-  U2 <- sum(Ry[-seq_along(x)]) - n2 * (n2 + 1) / 2
-
-  u_ <- U1 / (n1 * n2)
-  f_ <- U2 / (n1 * n2)
-  return(u_ - f_)
-
-  # ## for ties
-  # oo <- rev(order(Ry))
-  # Ry_sort <- Ry[oo]
-  # Group_sort <- Group[oo]
-  #
-  # # count inversions
-  # inv <- numeric(length = length(Ry))
-  # agr <- numeric(length = length(Ry))
-  #
-  # for (b in seq_along(Ry)) {
-  #   if (Group_sort[b]=="B") {
-  #     inv[b] <- sum(tail(Group_sort == "A" &
-  #                          Ry_sort < Ry_sort[b],
-  #                        -b))
-  #   } else {
-  #     agr[b] <- sum(tail(Group_sort == "B" &
-  #                          Ry_sort < Ry_sort[b],
-  #                        -b))
-  #   }
-  # }
-  #
-  # Q_ <- sum(inv)
-  # P_ <- sum(agr)
-  #
-  # # pmax
-  # Group_pmax <- rev(sort(Group))
-  # agr_max <- numeric(length = length(Ry))
-  # for (b in seq_along(Ry)) {
-  #   if (Group_pmax[b]=="B") {
-  #     agr_max[b] <- sum(tail(Group_pmax == "A" &
-  #                              Ry_sort < Ry_sort[b],
-  #                            -b))
-  #   }
-  # }
-  #
-  # P_max <- sum(agr_max)
-  #
-  # rr <- (P_-Q_)/P_max
-  # rr <- sign(rr) * pmin(abs(rr), 1)
-  # rr
 }
 
 #' @keywords internal
@@ -376,7 +318,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
       .data <- .data[.i, ]
       .x <- .data$x
       .y <- .data$y
-      suppressWarnings(.r_rbs_paired(.x, .y, mu = mu))
+      suppressWarnings(.r_rbs(.x, .y, mu = mu, paired = TRUE))
     }
   } else {
     data <- data.frame(
@@ -387,7 +329,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
       .x <- sample(x, replace = TRUE)
       .y <- sample(y, replace = TRUE)
 
-      suppressWarnings(.r_rbs_indep(.x, .y, mu = mu))
+      suppressWarnings(.r_rbs(.x, .y, mu = mu, paired = FALSE))
     }
   }
 
