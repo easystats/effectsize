@@ -54,6 +54,8 @@ and Kendall's W effect sizes for non-parametric (rank sum) tests." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -315,7 +317,8 @@ indicating larger differences between groups.</p>
 <code><a href='standardize_parameters.html'>standardize_parameters</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>48</span>, <span class='fl'>48</span>, <span class='fl'>77</span>, <span class='fl'>86</span>, <span class='fl'>85</span>, <span class='fl'>85</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>48</span>, <span class='fl'>48</span>, <span class='fl'>77</span>, <span class='fl'>86</span>, <span class='fl'>85</span>, <span class='fl'>85</span><span class='op'>)</span>
 <span class='va'>B</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>14</span>, <span class='fl'>34</span>, <span class='fl'>34</span>, <span class='fl'>77</span><span class='op'>)</span>
 <span class='fu'>rank_biserial</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>B</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; r (rank biserial) |       95% CI
@@ -350,7 +353,8 @@ indicating larger differences between groups.</p>
 <span class='fu'>kendalls_w</span><span class='op'>(</span><span class='va'>x</span> <span class='op'>~</span> <span class='va'>w</span> <span class='op'>|</span> <span class='va'>t</span>, data <span class='op'>=</span> <span class='va'>wb</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Kendall's W |       95% CI
 #&gt; --------------------------
-#&gt; 0.25        | [0.25, 1.00]</div><div class='input'>
+#&gt; 0.25        | [0.25, 1.00]</div><div class='input'><span class='co'># }</span>
+
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -62,6 +62,8 @@ the populations, as it uses only the second group's standard deviation." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -367,8 +369,8 @@ more.)</p>
 #&gt; -1.44     | [-2.21, -0.65]
 #&gt; </span><span style='color: #00BBBB;'>
 #&gt; - Estimated using pooled SD.
-#&gt; - Bias corrected using Hedges and Olkin's method.</span><span></div><div class='input'><span class='fu'>glass_delta</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Glass' delta |         95% CI
+#&gt; - Bias corrected using Hedges and Olkin's method.</span><span></div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'>boot</span><span class='op'>)</span><span class='op'>)</span> <span class='fu'>glass_delta</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: boot</span></div><div class='output co'>#&gt; Glass' delta |         95% CI
 #&gt; -----------------------------
 #&gt; -1.17        | [-2.14, -0.70]</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>, append_CL <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
