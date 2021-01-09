@@ -56,6 +56,7 @@
 #' @family effect size indices
 #'
 #' @examples
+#' \donttest{
 #' A <- c(48, 48, 77, 86, 85, 85)
 #' B <- c(14, 34, 34, 77)
 #' rank_biserial(A, B)
@@ -79,6 +80,7 @@
 #'                           t = warpbreaks$tension),
 #'                 FUN = mean)
 #' kendalls_w(x ~ w | t, data = wb)
+#' }
 #'
 #' @references
 #' - Cureton, E. E. (1956). Rank-biserial correlation. Psychometrika, 21(3), 287-290.
@@ -127,14 +129,18 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
 
   ## CI
   if (is.numeric(ci)) {
-    out <- cbind(out, .rbs_ci_boot(
-      x,
-      y,
-      mu = mu,
-      paired = paired,
-      ci = ci,
-      iterations = iterations
-    ))
+    if (requireNamespace("boot", quietly = TRUE)) {
+      out <- cbind(out, .rbs_ci_boot(
+        x,
+        y,
+        mu = mu,
+        paired = paired,
+        ci = ci,
+        iterations = iterations
+      ))
+    } else {
+      warning("For CIs, the 'boot' package must be installed.")
+    }
   }
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
@@ -179,7 +185,11 @@ rank_epsilon_squared <- function(x, groups, data = NULL, ci = 0.95, iterations =
 
   ## CI
   if (is.numeric(ci)) {
-    out <- cbind(out, .repsilon_ci(data, ci, iterations))
+    if (requireNamespace("boot", quietly = TRUE)) {
+      out <- cbind(out, .repsilon_ci(data, ci, iterations))
+    } else {
+      warning("'boot' package required for estimating CIs for Glass' delta. Please install the package and try again.", call. = FALSE)
+    }
   }
 
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
@@ -207,7 +217,11 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 
   ## CI
   if (is.numeric(ci)) {
-    out <- cbind(out, .kendalls_w_ci(data, ci, iterations))
+    if (requireNamespace("boot", quietly = TRUE)) {
+      out <- cbind(out, .kendalls_w_ci(data, ci, iterations))
+    } else {
+      warning("'boot' package required for estimating CIs for Glass' delta. Please install the package and try again.", call. = FALSE)
+    }
   }
 
   class(out) <- c("effectsize_table", class(out))
@@ -304,12 +318,6 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 #' @keywords internal
 #' @importFrom bayestestR ci
 .rbs_ci_boot <- function(x, y, mu = 0, paired = FALSE, ci = 0.95, iterations = 200) {
-
-  if (!requireNamespace("boot")) {
-    warning("For CIs, the 'boot' package must be installed.")
-    return(NULL)
-  }
-
   stopifnot(length(ci) == 1, ci < 1, ci > 0)
 
   if (paired) {
@@ -346,11 +354,6 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 
 #' @keywords internal
 .repsilon_ci <- function(data, ci, iterations){
-  if (!requireNamespace("boot")) {
-    warning("'boot' package required for estimating CIs for Glass' delta. Please install the package and try again.", call. = FALSE)
-    return(NULL)
-  }
-
   stopifnot(length(ci) == 1, ci < 1, ci > 0)
 
   boot_r_epsilon <- function(.data, .i) {
@@ -372,11 +375,6 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 
 #' @keywords internal
 .kendalls_w_ci <- function(data, ci, iterations) {
-  if (!requireNamespace("boot")) {
-    warning("'boot' package required for estimating CIs for Glass' delta. Please install the package and try again.", call. = FALSE)
-    return(NULL)
-  }
-
   stopifnot(length(ci) == 1, ci < 1, ci > 0)
 
   boot_w <- function(.data, .i) {
@@ -426,7 +424,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 }
 
 #' @keywords internal
-#' @importFrom stats model.frame lm
+#' @importFrom stats model.frame lm reshape
 .kendalls_w_data <- function(x, groups, blocks, data = NULL) {
   if (inherits(frm <- x, "formula")) {
     if ((length(frm) != 3L) ||
@@ -465,7 +463,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 
   data <- data.frame(x, groups, blocks)
 
-  data <- reshape(
+  data <- stats::reshape(
     data,
     direction = "wide",
     v.names = "x",

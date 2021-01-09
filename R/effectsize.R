@@ -86,7 +86,7 @@ effectsize <- function(model, ...) {
 #' @importFrom insight get_data get_parameters
 #' @importFrom bayestestR describe_posterior
 effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, ...) {
-  if (!requireNamespace("BayesFactor")) {
+  if (!requireNamespace("BayesFactor", quietly = TRUE)) {
     stop("This function requires 'BayesFactor' to work. Please install it.")
   }
 

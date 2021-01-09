@@ -92,7 +92,8 @@ print.equivalence_test_effectsize <- function(x, digits = 2, ...) {
 #' @export
 #' @rdname print.effectsize_table
 #' @param append_CL Should the Common Language Effect Sizes be printed as well?
-#'   Not applicable to Glass' Delta (See [d_to_common_language()])
+#'   Only applicable to Cohen's *d*, Hedges' *g* for independent samples of
+#'   equal variance (pooled sd) (See [d_to_common_language()])
 print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
   x_orig <- x
 
@@ -130,13 +131,17 @@ print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
   print.effectsize_table(x, digits = digits, ...)
 
 
-  if (append_CL && any(colnames(x_orig) %in% c("Cohens_d", "Hedges_g")) && !attr(x_orig, "paired")) {
-    # Common lang
-    cl <- d_to_common_language(x_orig[[any(colnames(x_orig) %in% c("Cohens_d", "Hedges_g"))]])
-    cl <- lapply(cl, insight::format_value, as_percent = TRUE, digits = digits)
-    cl <- data.frame(cl, check.names = FALSE)
-    cat(insight::export_table(cl, digits = digits,
-                              caption = c("\n\n# Common Language Effect Sizes", "blue"), ...))
+  if (append_CL) {
+    if (any(colnames(x_orig) %in% c("Cohens_d", "Hedges_g")) &&
+        attr(x_orig, "pooled_sd") &&
+        !attr(x_orig, "paired")) {
+      # Common lang
+      cl <- d_to_common_language(x_orig[[any(colnames(x_orig) %in% c("Cohens_d", "Hedges_g"))]])
+      cl <- lapply(cl, insight::format_value, as_percent = TRUE, digits = digits)
+      cl <- data.frame(cl, check.names = FALSE)
+      cat(insight::export_table(cl, digits = digits,
+                                caption = c("\n\n# Common Language Effect Sizes", "blue"), ...))
+    }
   }
 
   invisible(x_orig)

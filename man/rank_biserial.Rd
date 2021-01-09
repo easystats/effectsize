@@ -111,6 +111,7 @@ Confidence Intervals are estimated using the bootstrap method.
 }
 
 \examples{
+\donttest{
 A <- c(48, 48, 77, 86, 85, 85)
 B <- c(14, 34, 34, 77)
 rank_biserial(A, B)
@@ -134,6 +135,7 @@ wb <- aggregate(warpbreaks$breaks,
                           t = warpbreaks$tension),
                 FUN = mean)
 kendalls_w(x ~ w | t, data = wb)
+}
 
 }
 \references{

@@ -85,19 +85,18 @@ if (require("testthat") && require("effectsize")) {
 
     testthat::expect_warning(hedges_g(wt ~ am, data = mtcars, correction = TRUE))
     testthat::expect_warning(cohens_d(wt ~ am, data = mtcars, correction = TRUE))
-    testthat::expect_warning(glass_delta(wt ~ am, data = mtcars, correction = TRUE))
+    testthat::expect_warning(glass_delta(wt ~ am, data = mtcars, correction = TRUE, ci = NULL))
   })
 
   test_that("glass_delta", {
     # must be 2 samples
     testthat::expect_error(glass_delta(1:10))
 
+    testthat::skip_if_not_installed("boot")
     set.seed(8007)
     x <- glass_delta(wt ~ am, data = mtcars)
     testthat::expect_equal(colnames(x)[1], "Glass_delta")
     testthat::expect_equal(x[[1]], 2.200, tolerance = 0.001)
-
-    testthat::skip_if_not_installed("boot")
     testthat::expect_equal(x$CI_low, 1.490089, tolerance = 0.001)
     testthat::expect_equal(x$CI_high, 3.858925, tolerance = 0.001)
   })
@@ -114,8 +113,8 @@ if (require("testthat") && require("effectsize")) {
     x1 <- bayestestR::distribution_normal(1e4, mean = 0, sd = 1)
     x2 <- bayestestR::distribution_normal(1e4, mean = 1.5, sd = 2)
 
-    testthat::expect_equal(cohens_d(x1, x2)$Cohens_d, -sqrt(0.9), tolerance = 1e-2)
-    testthat::expect_equal(glass_delta(x2, x1)$Glass_delta, 1.5, tolerance = 1e-2)
+    testthat::expect_equal(cohens_d(x1, x2)[[1]], -sqrt(0.9), tolerance = 1e-2)
+    testthat::expect_equal(glass_delta(x2, x1, ci = NULL)[[1]], 1.5, tolerance = 1e-2)
   })
 
   test_that("Missing values", {

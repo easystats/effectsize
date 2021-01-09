@@ -60,6 +60,7 @@ Suggests:
     lm.beta,
     lme4,
     lmerTest,
+    MASS,
     mediation,
     modelbased,
     MuMIn,

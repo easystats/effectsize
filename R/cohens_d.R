@@ -56,7 +56,7 @@
 #' cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)
 #' cohens_d(mpg ~ am, data = mtcars, mu = -5)
 #' hedges_g(mpg ~ am, data = mtcars)
-#' glass_delta(mpg ~ am, data = mtcars)
+#' if (require(boot)) glass_delta(mpg ~ am, data = mtcars)
 #'
 #' print(cohens_d(mpg ~ am, data = mtcars), append_CL = TRUE)
 #' @references
@@ -255,7 +255,11 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, iterations 
       out$CI_low <- ts[1] * sqrt(hn)
       out$CI_high <- ts[2] * sqrt(hn)
     } else if (type == "delta") {
-      out <- cbind(out, .delta_ci(x, y, mu = mu, ci = ci, ...))
+      if (requireNamespace("boot", quietly = TRUE)) {
+        out <- cbind(out, .delta_ci(x, y, mu = mu, ci = ci, ...))
+      } else {
+        warning("'boot' package required for estimating CIs for Glass' delta. Please install the package and try again.", call. = FALSE)
+      }
     }
   }
 
@@ -370,11 +374,6 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, iterations 
 }
 
 .delta_ci <- function(x, y, mu = 0, ci = 0.95, iterations = 200) {
-  if (!requireNamespace("boot")) {
-    warning("'boot' package required for estimating CIs for Glass' delta. Please install the package and try again.", call. = FALSE)
-    return(NULL)
-  }
-
   boot_delta <- function(data, .i, mu = 0) {
     .x <- sample(x, replace = TRUE)
     .y <- sample(y, replace = TRUE)

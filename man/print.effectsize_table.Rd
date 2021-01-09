@@ -23,7 +23,8 @@
 \item{digits}{Number of significant digits.}
 
 \item{append_CL}{Should the Common Language Effect Sizes be printed as well?
-Not applicable to Glass' Delta (See \code{\link[=d_to_common_language]{d_to_common_language()}})}
+Only applicable to Cohen's \emph{d}, Hedges' \emph{g} for independent samples of
+equal variance (pooled sd) (See \code{\link[=d_to_common_language]{d_to_common_language()}})}
 }
 \description{
 Printing, formatting and plotting methods for \code{effectsize} tables.

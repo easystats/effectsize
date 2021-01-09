@@ -78,23 +78,6 @@ if (require("testthat") && require("effectsize")) {
   })
 
   test_that("oddsratio & riskratio", {
-    data("mtcars")
-    testthat::expect_error(oddsratio(mtcars$am, mtcars$cyl))
-
-    m <- glm(am ~ I(cyl > 4), data = mtcars, family = binomial())
-    log_or <- oddsratio(mtcars$am, mtcars$cyl > 4, log = TRUE)
-
-    testthat::expect_equal(coef(m)[2], log_or$log_Odds_ratio,
-      ignore_attr = TRUE
-    )
-    testthat::expect_equal(confint(m)[2, ],
-      unlist(log_or[c("CI_low", "CI_high")]),
-      tolerance = 0.1, # different methods, give slightly different values
-      ignore_attr = TRUE
-    )
-
-    testthat::expect_equal(log_or, oddsratio(mtcars$cyl > 4, mtcars$am, log = TRUE))
-
     ## Risk ratio
     RCT <- rbind(
       c(30, 71),
@@ -111,6 +94,27 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_equal(
       riskratio_to_oddsratio(RR$Risk_ratio, p0),
       OR$Odds_ratio
+    )
+
+
+    ## OR
+    data("mtcars")
+    testthat::expect_error(oddsratio(mtcars$am, mtcars$cyl))
+
+    m <- glm(am ~ I(cyl > 4), data = mtcars, family = binomial())
+    log_or <- oddsratio(mtcars$am, mtcars$cyl > 4, log = TRUE)
+
+    testthat::expect_equal(coef(m)[2], log_or$log_Odds_ratio,
+      ignore_attr = TRUE
+    )
+
+    testthat::expect_equal(log_or, oddsratio(mtcars$cyl > 4, mtcars$am, log = TRUE))
+
+    testthat::skip_if_not_installed("MASS")
+    testthat::expect_equal(confint(m)[2, ],
+      unlist(log_or[c("CI_low", "CI_high")]),
+      tolerance = 0.1, # different methods, give slightly different values
+      ignore_attr = TRUE
     )
   })
 

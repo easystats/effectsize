@@ -123,7 +123,7 @@ cohens_d(mpg ~ am, data = mtcars)
 cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)
 cohens_d(mpg ~ am, data = mtcars, mu = -5)
 hedges_g(mpg ~ am, data = mtcars)
-glass_delta(mpg ~ am, data = mtcars)
+if (require(boot)) glass_delta(mpg ~ am, data = mtcars)
 
 print(cohens_d(mpg ~ am, data = mtcars), append_CL = TRUE)
 }

@@ -1,5 +1,6 @@
 if (require("testthat") && require("effectsize")) {
   test_that("rank_biserial", {
+    skip_if_not_installed("boot")
     x <- c(1.83,  0.50,  1.62,  2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
     y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
     rRB1 <- {set.seed(1); rank_biserial(x, y, paired = TRUE)}
@@ -14,6 +15,7 @@ if (require("testthat") && require("effectsize")) {
 
 
   test_that("rank_epsilon_squared", {
+    skip_if_not_installed("boot")
     x1 <- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
     x2 <- c(3.8, 2.7, 4.0, 2.4)      # with obstructive airway disease
     x3 <- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
@@ -30,6 +32,7 @@ if (require("testthat") && require("effectsize")) {
 
 
   test_that("kendalls_w", {
+    skip_if_not_installed("boot")
     M1 <- structure(
       c(5.4, 5.85, 5.2, 5.5, 5.7, 5.6, 5.55, 5.75, 5.5),
       .Dim = c(3L, 3L),
