@@ -199,13 +199,6 @@ eta_squared <- function(model,
                         ci = 0.9,
                         verbose = TRUE,
                         ...) {
-  if (inherits(model, "htest")) {
-    if (!grepl("One-way", model$method))
-      stop("'model' is not a one-way test!", call. = FALSE)
-    return(effectsize(model, type = "eta", ci = ci))
-  }
-
-
   out <- .anova_es(model, type = "eta", partial = partial, generalized = generalized, ci = ci, verbose = verbose, ...)
   class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
   return(out)
@@ -218,12 +211,6 @@ omega_squared <- function(model,
                           ci = 0.9,
                           verbose = TRUE,
                           ...) {
-  if (inherits(model, "htest")) {
-    if (!grepl("One-way", model$method))
-      stop("'model' is not a one-way test!", call. = FALSE)
-    return(effectsize(model, type = "omega", ci = ci))
-  }
-
   out <- .anova_es(model, type = "omega", partial = partial, ci = ci, verbose = verbose, ...)
   class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
   return(out)
@@ -236,12 +223,6 @@ epsilon_squared <- function(model,
                             ci = 0.9,
                             verbose = TRUE,
                             ...) {
-  if (inherits(model, "htest")) {
-    if (!grepl("One-way", model$method))
-      stop("'model' is not a one-way test!", call. = FALSE)
-    return(effectsize(model, type = "epsilon", ci = ci))
-  }
-
   out <- .anova_es(model, type = "epsilon", partial = partial, ci = ci, verbose = verbose, ...)
   class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
   return(out)
@@ -257,12 +238,6 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, squared = FALSE,
                      model2 = NULL, ...) {
   if (!is.null(model2)) {
     return(.cohens_f_delta(model, model2, ci = ci, squared = squared, verbose = verbose))
-  }
-
-  if (inherits(model, "htest")) {
-    if (!grepl("One-way", model$method))
-      stop("'model' is not a one-way test!", call. = FALSE)
-    return(effectsize(model, type = "f", ci = ci))
   }
 
   res <- eta_squared(model,
@@ -302,12 +277,6 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, squared = FALSE,
 cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                              verbose = TRUE,
                              model2 = NULL, ...) {
-  if (inherits(model, "htest")) {
-    if (!grepl("One-way", model$method))
-      stop("'model' is not a one-way test!", call. = FALSE)
-    return(effectsize(model, type = "f2", ci = ci))
-  }
-
   cohens_f(model, partial = partial, ci = ci, squared = squared, verbose = verbose, model2 = model2, ...)
 }
 
@@ -496,6 +465,130 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 .anova_es.manova <- .anova_es.aov
 
 #' @keywords internal
+#' @importFrom parameters model_parameters
+#' @importFrom insight find_predictors
+.anova_es.aovlist <- function(model,
+                              type = c("eta", "omega", "epsilon"),
+                              partial = TRUE,
+                              generalized = FALSE,
+                              ci = 0.9,
+                              verbose = TRUE,
+                              ...) {
+  type <- match.arg(type)
+
+  params <- as.data.frame(parameters::model_parameters(model))
+  params <- params[params$Parameter != "(Intercept)", ]
+  if (!"Residuals" %in% params$Parameter) {
+    stop(
+      "No residuals data found - ",
+      type,
+      " squared can only be computed for simple `aov` models."
+    )
+  }
+
+  values <- .values_aov(params)
+  params <- params[params$Parameter != "Residuals" & !is.na(params$`F`), , drop = FALSE]
+  Sum_Squares_total <- sum(sapply(values, "[[", "Sum_Squares_total"))
+  Sum_Squares_residuals <- sapply(values[params$Group], "[[", "Sum_Squares_residuals")
+  Mean_Square_residuals <- sapply(values[params$Group], "[[", "Mean_Square_residuals")
+  df_residuals <- sapply(values[params$Group], "[[", "df_residuals")
+  ns <- sapply(values[params$Group], "[[", "n")
+
+
+  if (type == "eta") {
+    if (isTRUE(generalized) || is.character(generalized)) {
+      ## copied from afex
+      obs <- logical(nrow(params))
+      if (is.character(generalized)) {
+        for (o in generalized) {
+          oi <- grepl(paste0("\\b", o, "\\b"), params$Parameter)
+
+          if (!any(oi)) stop("Observed variable not in data: ", o, call. = FALSE)
+
+          obs <- obs | oi
+        }
+      }
+      obs_SSn1 <- sum(params$Sum_Squares * obs)
+      obs_SSn2 <- params$Sum_Squares * obs
+
+      params$Eta2_generalized <- params$Sum_Squares /
+        (params$Sum_Squares + sum(sapply(values, "[[", "Sum_Squares_residuals")) +
+           obs_SSn1 - obs_SSn2)
+    } else if (!isTRUE(partial)) {
+      params$Eta2 <- params$Sum_Squares / Sum_Squares_total
+    } else {
+      params$Eta2_partial <-
+        params$Sum_Squares /
+        (params$Sum_Squares + Sum_Squares_residuals)
+    }
+  } else if (type == "omega") {
+    SSS_values <- values[[which(names(values) %in% insight::find_predictors(model)[[1]])]]
+    is_within <- !params$Group %in% insight::find_predictors(model)[[1]]
+    Sum_Squares_Subjects <- SSS_values$Sum_Squares_residuals
+    Mean_Squares_Subjects <- SSS_values$Mean_Square_residuals
+
+    # implemented from https://www.jasonfinley.com/tools/OmegaSquaredQuickRef_JRF_3-31-13.pdf
+    if (!isTRUE(partial)) {
+      params$Omega2 <-
+        (params$Sum_Squares - params$df * Mean_Square_residuals) /
+        (Sum_Squares_total + Mean_Squares_Subjects)
+    } else {
+      params$Omega2_partial <-
+        (params$Sum_Squares - params$df * Mean_Square_residuals) /
+        (params$Sum_Squares + is_within * Sum_Squares_residuals +
+           Sum_Squares_Subjects + Mean_Squares_Subjects)
+    }
+  } else if (type == "epsilon") {
+    if (!isTRUE(partial)) {
+      params$Epsilon2 <-
+        (params$Sum_Squares - params$df * Mean_Square_residuals) /
+        Sum_Squares_total
+    } else {
+      params$Epsilon2_partial <-
+        (params$Sum_Squares - params$df * Mean_Square_residuals) /
+        (params$Sum_Squares + Sum_Squares_residuals)
+    }
+  }
+
+  out <- params
+
+  if (!is.null(ci)) {
+    # based on MBESS::ci.R2
+    ES <- pmax(0, out[[ncol(out)]])
+    f <- (ES / out$df) / ((1 - ES) / df_residuals)
+
+    out <- cbind(
+      out,
+      # This really is a generic F_to_R2
+      F_to_eta2(f,
+                out$df,
+                df_residuals,
+                ci = ci
+      )[-1]
+    )
+  }
+
+  out <- out[, colnames(out) %in% c(
+    "Group",
+    "Response",
+    "Parameter",
+    "Eta2_generalized",
+    "Eta2_partial",
+    "Omega2_partial",
+    "Epsilon2_partial",
+    "Eta2",
+    "Omega2",
+    "Epsilon2",
+    "CI",
+    "CI_low",
+    "CI_high"
+  ), drop = FALSE]
+  rownames(out) <- NULL
+
+  out
+}
+
+#' @keywords internal
 #' @importFrom stats aov
 #' @importFrom utils packageVersion
 .anova_es.mlm <- function(model,
@@ -667,127 +760,25 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 # Specific models ---------------------------------------------------------
 
 #' @keywords internal
-#' @importFrom parameters model_parameters
-#' @importFrom insight find_predictors
-.anova_es.aovlist <- function(model,
-                              type = c("eta", "omega", "epsilon"),
-                              partial = TRUE,
-                              generalized = FALSE,
-                              ci = 0.9,
-                              verbose = TRUE,
-                              ...) {
-  type <- match.arg(type)
+.anova_es.htest <- function(model,
+                            type = c("eta", "omega", "epsilon"),
+                            partial = TRUE,
+                            generalized = FALSE,
+                            ci = 0.9,
+                            verbose = TRUE,
+                            ...){
+  if (!grepl("One-way", model$method))
+    stop("'model' is not a one-way test!", call. = FALSE)
 
-  params <- as.data.frame(parameters::model_parameters(model))
-  params <- params[params$Parameter != "(Intercept)", ]
-  if (!"Residuals" %in% params$Parameter) {
-    stop(
-      "No residuals data found - ",
-      type,
-      " squared can only be computed for simple `aov` models."
+  if (verbose && (partial || isTRUE(generalized) || is.character(generalized))) {
+    txt_type <- ifelse(isTRUE(generalized) || is.character(generalized), "generalized", "partial")
+    message(
+      "For one-way between subjects designs, ", txt_type, " ", type, " squared is equvilant to ", type, " squared.\n",
+      "Returning ", type, " squared."
     )
   }
 
-  values <- .values_aov(params)
-  params <- params[params$Parameter != "Residuals" & !is.na(params$`F`), , drop = FALSE]
-  Sum_Squares_total <- sum(sapply(values, "[[", "Sum_Squares_total"))
-  Sum_Squares_residuals <- sapply(values[params$Group], "[[", "Sum_Squares_residuals")
-  Mean_Square_residuals <- sapply(values[params$Group], "[[", "Mean_Square_residuals")
-  df_residuals <- sapply(values[params$Group], "[[", "df_residuals")
-  ns <- sapply(values[params$Group], "[[", "n")
-
-
-  if (type == "eta") {
-    if (isTRUE(generalized) || is.character(generalized)) {
-      ## copied from afex
-      obs <- logical(nrow(params))
-      if (is.character(generalized)) {
-        for (o in generalized) {
-          oi <- grepl(paste0("\\b", o, "\\b"), params$Parameter)
-
-          if (!any(oi)) stop("Observed variable not in data: ", o, call. = FALSE)
-
-          obs <- obs | oi
-        }
-      }
-      obs_SSn1 <- sum(params$Sum_Squares * obs)
-      obs_SSn2 <- params$Sum_Squares * obs
-
-      params$Eta2_generalized <- params$Sum_Squares /
-        (params$Sum_Squares + sum(sapply(values, "[[", "Sum_Squares_residuals")) +
-          obs_SSn1 - obs_SSn2)
-    } else if (!isTRUE(partial)) {
-      params$Eta2 <- params$Sum_Squares / Sum_Squares_total
-    } else {
-      params$Eta2_partial <-
-        params$Sum_Squares /
-          (params$Sum_Squares + Sum_Squares_residuals)
-    }
-  } else if (type == "omega") {
-    SSS_values <- values[[which(names(values) %in% insight::find_predictors(model)[[1]])]]
-    is_within <- !params$Group %in% insight::find_predictors(model)[[1]]
-    Sum_Squares_Subjects <- SSS_values$Sum_Squares_residuals
-    Mean_Squares_Subjects <- SSS_values$Mean_Square_residuals
-
-    # implemented from https://www.jasonfinley.com/tools/OmegaSquaredQuickRef_JRF_3-31-13.pdf
-    if (!isTRUE(partial)) {
-      params$Omega2 <-
-        (params$Sum_Squares - params$df * Mean_Square_residuals) /
-          (Sum_Squares_total + Mean_Squares_Subjects)
-    } else {
-      params$Omega2_partial <-
-        (params$Sum_Squares - params$df * Mean_Square_residuals) /
-          (params$Sum_Squares + is_within * Sum_Squares_residuals +
-            Sum_Squares_Subjects + Mean_Squares_Subjects)
-    }
-  } else if (type == "epsilon") {
-    if (!isTRUE(partial)) {
-      params$Epsilon2 <-
-        (params$Sum_Squares - params$df * Mean_Square_residuals) /
-          Sum_Squares_total
-    } else {
-      params$Epsilon2_partial <-
-        (params$Sum_Squares - params$df * Mean_Square_residuals) /
-          (params$Sum_Squares + Sum_Squares_residuals)
-    }
-  }
-
-  out <- params
-
-  if (!is.null(ci)) {
-    # based on MBESS::ci.R2
-    ES <- pmax(0, out[[ncol(out)]])
-    f <- (ES / out$df) / ((1 - ES) / df_residuals)
-
-    out <- cbind(
-      out,
-      # This really is a generic F_to_R2
-      F_to_eta2(f,
-        out$df,
-        df_residuals,
-        ci = ci
-      )[-1]
-    )
-  }
-
-  out <- out[, colnames(out) %in% c(
-    "Group",
-    "Response",
-    "Parameter",
-    "Eta2_generalized",
-    "Eta2_partial",
-    "Omega2_partial",
-    "Epsilon2_partial",
-    "Eta2",
-    "Omega2",
-    "Epsilon2",
-    "CI",
-    "CI_low",
-    "CI_high"
-  ), drop = FALSE]
-  rownames(out) <- NULL
-
-  out
+  effectsize(model, type = type, ci = ci)
 }
 
 #' @keywords internal
