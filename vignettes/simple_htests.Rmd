@@ -55,7 +55,7 @@ t.test(mpg ~ am, data = mtcars, var.equal = TRUE)
 cohens_d(mpg ~ am, data = mtcars)
 ```
 
-Hedge's *g* provides a bias correction for small sample sizes ($N \< 20$).
+Hedge's *g* provides a bias correction for small sample sizes ($N < 20$).
 
 ```{r}
 hedges_g(mpg ~ am, data = mtcars)
@@ -142,12 +142,6 @@ chisq.test(O, p = E, rescale.p = TRUE)
 cramers_v(O, p = E, rescale.p = TRUE)
 
 phi(O, p = E, rescale.p = TRUE)
-```
-
-```{r}
-cramers_v(Music)
-
-phi(Music)
 ```
 
 These can also be extracted from the equivalent Bayesian test:
