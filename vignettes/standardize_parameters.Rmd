@@ -28,7 +28,7 @@ options(digits = 2)
 options(knitr.kable.NA = '')
 
 pkgs <- c("effectsize", "parameters", "correlation")
-if (!all(sapply(pkgs, requireNamespace))) {
+if (!all(sapply(pkgs, requireNamespace, quietly = TRUE))) {
   knitr::opts_chunk$set(eval = FALSE)
 }
 

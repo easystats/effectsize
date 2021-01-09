@@ -43,7 +43,7 @@
 #' adjust(attitude, effect = "complaints_LMH", select = "rating", multilevel = TRUE)
 #' }
 #' }
-#' if(require("bayestestR")){
+#' if(require("bayestestR") && require("MASS")){
 #' # Generate data
 #' data <- bayestestR::simulate_correlation(n=100, r=0.7)
 #' data$V2 <- (5 * data$V2) + 20  # Add intercept
@@ -143,13 +143,13 @@ data_adjust <- adjust
   if (additive) {
     # Bayesian
     if (bayesian) {
-      if (!requireNamespace("rstanarm")) {
+      if (!requireNamespace("rstanarm", quietly = TRUE)) {
         stop("This function needs `rstanarm` to be installed. Please install by running `install.packages('rstanarm')`.")
       }
       model <- rstanarm::stan_gamm4(stats::as.formula(formula), random = formula_random, data = data, refresh = 0)
       # Frequentist
     } else {
-      if (!requireNamespace("gamm4")) {
+      if (!requireNamespace("gamm4", quietly = TRUE)) {
         stop("This function needs `gamm4` to be installed. Please install by running `install.packages('gamm4')`.")
       }
       model <- gamm4::gamm4(stats::as.formula(formula), random = formula_random, data = data)
@@ -159,7 +159,7 @@ data_adjust <- adjust
   } else {
     # Bayesian
     if (bayesian) {
-      if (!requireNamespace("rstanarm")) {
+      if (!requireNamespace("rstanarm", quietly = TRUE)) {
         stop("This function needs `rstanarm` to be installed. Please install by running `install.packages('rstanarm')`.")
       }
       if (multilevel) {
@@ -170,7 +170,7 @@ data_adjust <- adjust
       # Frequentist
     } else {
       if (multilevel) {
-        if (!requireNamespace("lme4")) {
+        if (!requireNamespace("lme4", quietly = TRUE)) {
           stop("This function needs `lme4` to be installed. Please install by running `install.packages('lme4')`.")
         }
         model <- insight::get_residuals(lme4::lmer(paste(formula, formula_random), data = data))

@@ -13,7 +13,7 @@
 #' - For an object of class `htest`, data is extracted via [insight::get_data()], and passed to the relevant function according to:
 #'   - A **t-test** depending on `type`: `"cohens_d"` (default), `"hedges_g"`.
 #'   - A **correlation test** returns *r*.
-#'   - A **Chi-squared tests of independence or goodness-of-fit**, depending on `type`: `"cramers_v"` (default), `"phi"` or `"cohens_w"`, `"oddsratio"`, or `"riskratio"`.
+#'   - A **Chi-squared tests of independence or goodness-of-fit**, depending on `type`: `"cramers_v"` (default), `"phi"` or `"cohens_w"`, `"cohens_h"`, `"oddsratio"`, or `"riskratio"`.
 #'   - A **One-way ANOVA test**, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.
 #'   - A **McNemar test** returns *Cohen's g*.
 #'   - A **Fisher's Exact test** (in the 2x2 case) returns *Odds ratio*.
@@ -23,7 +23,7 @@
 #' - For an object of class `BFBayesFactor`, using [bayestestR::describe_posterior()],
 #'   - A **t-test** returns *Cohen's d*.
 #'   - A **correlation test** returns *r*.
-#'   - A **contingency table test**, depending on `type`: `"cramers_v"` (default), `"phi"` or `"cohens_w"`, `"oddsratio"`, or `"riskratio"`.
+#'   - A **contingency table test**, depending on `type`: `"cramers_v"` (default), `"phi"` or `"cohens_w"`, `"cohens_h"`, `"oddsratio"`, or `"riskratio"`.
 #' - Objects of class `anova`, `aov`, or `aovlist`, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.
 #' - Other objects are passed to [standardize_parameters()].
 #'
@@ -86,7 +86,7 @@ effectsize <- function(model, ...) {
 #' @importFrom insight get_data get_parameters
 #' @importFrom bayestestR describe_posterior
 effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, ...) {
-  if (!requireNamespace("BayesFactor")) {
+  if (!requireNamespace("BayesFactor", quietly = TRUE)) {
     stop("This function requires 'BayesFactor' to work. Please install it.")
   }
 
@@ -106,6 +106,9 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, ...) {
       w = ,
       cohens_w = ,
       phi = phi,
+
+      h = ,
+      cohens_h = cohens_h,
 
       or = ,
       oddsratio = oddsratio,
