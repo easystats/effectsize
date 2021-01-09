@@ -890,21 +890,41 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                                verbose = TRUE,
                                ...) {
   type <- match.arg(type)
+  if (type == "eta" && isTRUE(generalized))
+    generalized <- attr(model$anova_table, "observed")
 
-  if (!requireNamespace("afex", quietly = TRUE)) {
-    stop(
-      "Package 'afex' required for this function to work. ",
-      "Please install it by running `install.packages('afex')`."
-    )
+  # For between, covers all
+  if (!inherits(model$Anova, "Anova.mlm")) {
+    out <-
+      .anova_es(
+        model$Anova,
+        type = type,
+        partial = partial,
+        generalized = generalized,
+        ci = ci,
+        verbose = verbose
+      )
+    return(out)
   }
 
+
+
+
+
+
+
   # generalized eta2
-  if (type == "eta" && (isTRUE(generalized) || is.character(generalized))) {
-    if (isTRUE(generalized)) {
-      generalized <- attr(model$anova_table, "observed")
+  if (type == "eta" && is.character(generalized)) {
+    if (!requireNamespace("afex", quietly = TRUE)) {
+      stop(
+        "Package 'afex' required for this function to work. ",
+        "Please install it by running `install.packages('afex')`."
+      )
     }
 
-    aov_tab <- anova(model, es = "ges", observed = generalized, correction = "none")
+    aov_tab <- anova(model, es = "ges",
+                     observed = generalized,
+                     correction = "none")
 
     ES <- aov_tab$ges
     df1 <- aov_tab$`num Df`
@@ -953,21 +973,6 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     return(out)
   }
 
-  # For between, covers all
-  if (!inherits(model$Anova, "Anova.mlm")) {
-    out <-
-      .anova_es(
-        model$Anova,
-        type = type,
-        partial = FALSE,
-        generalized = FALSE,
-        ci = ci,
-        verbose = verbose
-      )
-    return(out)
-  }
-
-
   # If not fully between, covers all
   if (!is.null(model$aov)) {
     out <-
@@ -983,7 +988,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     return(out)
   }
 
-  # Error,,, only so much can be done...
+  # Error... only so much can be done...
   if (partial) {
     stop(
       "Cannot get partial Omega squared for mixed-effects 'afex_aov' object when",
