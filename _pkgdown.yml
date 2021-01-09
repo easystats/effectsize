@@ -92,6 +92,8 @@ navbar:
         href: articles/anovaES.html
       - text: "For Bayesian Models"
         href: articles/bayesian_models.html
+      - text: "Effect Sizes for Simple Hypothesis Tests"
+        href: articles/simple_htests.html
   - text: "Conversion"
     menu:
       - text: "Between d, r, OR"

@@ -73,15 +73,13 @@
 #'
 #' ## 2-by-2 tables
 #' ## -------------
-#' RCT <- rbind(
-#'   c(30, 71),
-#'   c(100, 50)
-#' )
-#' dimnames(RCT) <- list(
-#'   Diagnosis = c("Sick", "Recovered"),
-#'   Group = c("Control", "Treatment")
-#' )
-#' RCT # note groups are COLUMNS
+#' (RCT <- matrix(
+#'   c(71,  30,
+#'     50, 100),
+#'   nrow = 2, byrow = TRUE,
+#'   dimnames = list(Diagnosis = c("Sick", "Recovered"),
+#'                   Group = c("Treatment", "Control"))
+#' )) # note groups are COLUMNS
 #'
 #' oddsratio(RCT)
 #'
