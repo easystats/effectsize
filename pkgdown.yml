@@ -7,7 +7,8 @@ articles:
   convert: convert.html
   from_test_statistics: from_test_statistics.html
   interpret: interpret.html
+  simple_htests: simple_htests.html
   standardize_data: standardize_data.html
   standardize_parameters: standardize_parameters.html
-last_built: 2021-01-09T09:26Z
+last_built: 2021-01-09T15:08Z
 
