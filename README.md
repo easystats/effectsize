@@ -41,16 +41,20 @@ check-out these vignettes:
 
 -   [**Data
     Standardization**](https://easystats.github.io/effectsize/articles/standardize_data.html)
--   [**Parameter and Model
-    Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
--   [**ANOVA Effect
-    Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
--   [**Effect Sizes in Bayesian
-    Models**](https://easystats.github.io/effectsize/articles/bayesian_models.html)
--   [**Effect Size
-    Conversion**](https://easystats.github.io/effectsize/articles/convert.html)
--   [**Effect Size from Test
-    Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
+-   **Effect Sizes**
+    -   [**Parameter and Model
+        Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
+    -   [**ANOVA Effect
+        Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
+    -   [**Effect Sizes in Bayesian
+        Models**](https://easystats.github.io/effectsize/articles/bayesian_models.html)  
+    -   [**For Simple Hypothesis
+        Tests**](https://easystats.github.io/effectsize/articles/simple_htests.html)  
+-   **Effect Sizes Conversion**
+    -   [**Between Effect
+        Sizes**](https://easystats.github.io/effectsize/articles/convert.html)
+    -   [**Effect Size from Test
+        Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
 -   [**Automated Interpretation of Indices of Effect
     Size**](https://easystats.github.io/effectsize/articles/interpret.html)
 
@@ -89,7 +93,7 @@ hedges_g(mpg ~ am, data = mtcars)
 glass_delta(mpg ~ am, data = mtcars)
 ## Glass' delta |         95% CI
 ## -----------------------------
-## -1.17        | [-2.06, -0.58]
+## -1.17        | [-2.18, -0.57]
 ```
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)
