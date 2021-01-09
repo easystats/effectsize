@@ -411,7 +411,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
       stop("Formula must have the 'outcome ~ group'.", call. = FALSE)
     }
   } else if (inherits(x, "list")) {
-    groups <- rep(names(x), sapply(x, length))
+    groups <- rep(seq_along(x), sapply(x, length))
     x <- unsplit(x, groups)
   } else  if (is.character(x)) {
     x <- data[[x]]
