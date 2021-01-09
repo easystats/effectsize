@@ -40,7 +40,7 @@ sd_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE) {
 
 #' @rdname sd_pooled
 #' @export
-mad_pooled <- function(x, y = NULL, data = NULL) {
+mad_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE) {
   .sd_pooled(x, y, data, robust = TRUE, verbose = verbose)
 }
 

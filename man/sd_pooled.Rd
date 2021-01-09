@@ -7,7 +7,7 @@
 \usage{
 sd_pooled(x, y = NULL, data = NULL, verbose = TRUE)
 
-mad_pooled(x, y = NULL, data = NULL)
+mad_pooled(x, y = NULL, data = NULL, verbose = TRUE)
 }
 \arguments{
 \item{x}{A formula, a numeric vector, or a character name of one in \code{data}.}
