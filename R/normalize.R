@@ -159,3 +159,9 @@ normalize.data.frame <- function(x, select = NULL, exclude = NULL, include_bound
   x[select] <- lapply(x[select], normalize, include_bounds = include_bounds, verbose = verbose)
   x
 }
+
+
+#' @export
+normalize.matrix <- function(x, ...) {
+  matrix(normalize(as.numeric(x), ...), nrow = nrow(x))
+}
