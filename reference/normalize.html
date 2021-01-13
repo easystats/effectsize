@@ -47,8 +47,10 @@
 
 
 <meta property="og:title" content="Normalize numeric variable to [0-1] range — normalize" />
-<meta property="og:description" content="Performs a normalization of data, i.e., it scales all numeric variables in
-the range 0 - 1. This is a special case of change_scale()." />
+<meta property="og:description" content="Performs a normalization of data, i.e., it scales variables in the range 0 -
+This is a special case of change_scale().
+
+" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -170,8 +172,10 @@ the range 0 - 1. This is a special case of change_scale()." />
     </div>
 
     <div class="ref-description">
-    <p>Performs a normalization of data, i.e., it scales all numeric variables in
-the range 0 - 1. This is a special case of <code><a href='change_scale.html'>change_scale()</a></code>.</p>
+    <p>Performs a normalization of data, i.e., it scales variables in the range 0 -</p><ol>
+<li><p>This is a special case of <code><a href='change_scale.html'>change_scale()</a></code>.</p></li>
+</ol>
+
     </div>
 
     <pre class="usage"><span class='fu'>normalize</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -204,7 +208,7 @@ the range 0 - 1. This is a special case of <code><a href='change_scale.html'>cha
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>Object.</p></td>
+      <td><p>A numeric vector, data frame, or matrix. See details.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -212,12 +216,11 @@ the range 0 - 1. This is a special case of <code><a href='change_scale.html'>cha
     </tr>
     <tr>
       <th>include_bounds</th>
-      <td><p>Logical, if <code>TRUE</code>, return value may include 0
-and 1. If <code>FALSE</code>, the return value is compressed, using the formula
-<code>(x * (n - 1) + 0.5) / n</code> (<cite>Smithson and Verkuilen 2006</cite>), to
-avoid zeros and ones in the normalized variables. This can be useful in
-case of beta-regression, where the response variable is not allowed to
-include zeros and ones.</p></td>
+      <td><p>Logical, if <code>TRUE</code>, return value may include 0 and 1.
+If <code>FALSE</code>, the return value is compressed, using Smithson and Verkuilen's
+(2006) formula <code>(x * (n - 1) + 0.5) / n</code>, to avoid zeros and ones in the
+normalized variables. This can be useful in case of beta-regression, where
+the response variable is not allowed to include zeros and ones.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -237,6 +240,17 @@ variables will be selected.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A normalized object.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    
+<ul>
+<li><p>If <code>x</code> is a matrix, normalization is performed across all values (not
+column- or row-wise). For column-wise normalization, convert the matrix to a
+data.frame.</p></li>
+<li><p>If <code>x</code> is a grouped data frame (<code>grouped_df</code>), normalization is performed
+separately for each group.</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
