@@ -30,16 +30,15 @@ normalize(x, ...)
 )
 }
 \arguments{
-\item{x}{Object.}
+\item{x}{A numeric vector, data frame, or matrix. See details.}
 
 \item{...}{Arguments passed to or from other methods.}
 
-\item{include_bounds}{Logical, if \code{TRUE}, return value may include 0
-and 1. If \code{FALSE}, the return value is compressed, using the formula
-\code{(x * (n - 1) + 0.5) / n} (\cite{Smithson and Verkuilen 2006}), to
-avoid zeros and ones in the normalized variables. This can be useful in
-case of beta-regression, where the response variable is not allowed to
-include zeros and ones.}
+\item{include_bounds}{Logical, if \code{TRUE}, return value may include 0 and 1.
+If \code{FALSE}, the return value is compressed, using Smithson and Verkuilen's
+(2006) formula \code{(x * (n - 1) + 0.5) / n}, to avoid zeros and ones in the
+normalized variables. This can be useful in case of beta-regression, where
+the response variable is not allowed to include zeros and ones.}
 
 \item{verbose}{Toggle warnings and messages on or off.}
 
@@ -52,8 +51,19 @@ variables will be selected.}
 A normalized object.
 }
 \description{
-Performs a normalization of data, i.e., it scales all numeric variables in
-the range 0 - 1. This is a special case of \code{\link[=change_scale]{change_scale()}}.
+Performs a normalization of data, i.e., it scales variables in the range 0 -
+\enumerate{
+\item This is a special case of \code{\link[=change_scale]{change_scale()}}.
+}
+}
+\details{
+\itemize{
+\item If \code{x} is a matrix, normalization is performed across all values (not
+column- or row-wise). For column-wise normalization, convert the matrix to a
+data.frame.
+\item If \code{x} is a grouped data frame (\code{grouped_df}), normalization is performed
+separately for each group.
+}
 }
 \examples{
 normalize(c(0, 1, 5, -5, -2))
