@@ -461,7 +461,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
     stop("x, groups and blocks must be of the same length.", call. = FALSE)
   }
 
-  data <- data.frame(x, groups, blocks)
+  data <- data.frame(x, groups, blocks, stringsAsFactors = FALSE)
 
   data <- stats::reshape(
     data,
