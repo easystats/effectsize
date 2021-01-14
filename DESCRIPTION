@@ -1,7 +1,7 @@
 Package: effectsize
 Type: Package
 Title: Indices of Effect Size and Standardized Parameters
-Version: 0.4.1.2
+Version: 0.4.3
 Authors@R: c(
     person("Mattan S.", 
         "Ben-Shachar", 
