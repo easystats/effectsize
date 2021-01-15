@@ -79,7 +79,6 @@ effectsize(Aov, type = "omega")
 ## Bayesian Hypothesis Testing
 ## ---------------------------
 \donttest{
-\dontrun{
 if (require(BayesFactor)) {
   bf1 <- ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
   effectsize(bf1, test = NULL)
@@ -91,7 +90,6 @@ if (require(BayesFactor)) {
   bf3 <- contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
   effectsize(bf3, test = NULL)
   effectsize(bf3, type = "oddsratio", test = NULL)
-}
 }
 }
 
