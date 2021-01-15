@@ -8,7 +8,7 @@
 #' Any measure of variance explained can be converted to a corresponding Cohen's
 #' *f* via:
 #' \cr\cr
-#' \deqn{\text{Cohen's }f^2 = \frac{\eta^2}{1 - \eta^2}}
+#' \deqn{f^2 = \frac{\eta^2}{1 - \eta^2}}
 #' \cr\cr
 #' \deqn{\eta^2 = \frac{f^2}{1 + f^2}}
 #' \cr\cr
