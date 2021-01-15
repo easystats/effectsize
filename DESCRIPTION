@@ -40,7 +40,7 @@ Depends:
 Imports:
     bayestestR (>= 0.8.0),
     insight (>= 0.12.0),
-    parameters (>= 0.10.1.1),
+    parameters (>= 0.11.0),
     stats,
     utils
 Suggests:
@@ -74,8 +74,6 @@ Suggests:
     see,
     testthat,
     tidyr
-Remotes:
-    github::easystats/parameters
 RoxygenNote: 7.1.1
 Language: en-GB
 VignetteBuilder: knitr
