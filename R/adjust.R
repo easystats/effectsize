@@ -173,7 +173,7 @@ data_adjust <- adjust
         if (!requireNamespace("lme4", quietly = TRUE)) {
           stop("This function needs `lme4` to be installed. Please install by running `install.packages('lme4')`.")
         }
-        model <- insight::get_residuals(lme4::lmer(paste(formula, formula_random), data = data))
+        model <- lme4::lmer(paste(formula, formula_random), data = data)
       } else {
         model <- lm(formula, data = data)
       }
