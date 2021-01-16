@@ -134,7 +134,7 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
 data_adjust <- adjust
 
 
-#' @importFrom stats lm residuals as.formula complete.cases median
+#' @importFrom stats lm as.formula complete.cases median
 #' @importFrom insight get_intercept get_residuals
 #' @keywords internal
 .model_adjust_for <- function(data, formula, multilevel = FALSE, additive = FALSE, bayesian = FALSE, formula_random = NULL, keep_intercept = FALSE) {

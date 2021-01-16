@@ -1,3 +1,9 @@
+# effectsize 0.4.4
+
+## Bug fixes
+
+- Fixed bug in `adjust()` when `multilevel` was set to `TRUE`.
+
 # effectsize 0.4.3
 
 ## Breaking Changes
