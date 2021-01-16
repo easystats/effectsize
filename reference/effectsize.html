@@ -83,7 +83,7 @@ input model. See details." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.3</span>
       </span>
     </div>
 
@@ -276,6 +276,7 @@ functions, for the full range of options they provide.</strong></p>
 
 <span class='co'>## Bayesian Hypothesis Testing</span>
 <span class='co'>## ---------------------------</span>
+<span class='co'># \donttest{</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://richarddmorey.github.io/BayesFactor/'>BayesFactor</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='va'>bf1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/BayesFactor/man/ttestBF.html'>ttestBF</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>[</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>am</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>]</span>, <span class='va'>mtcars</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>[</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>am</span> <span class='op'>==</span> <span class='fl'>0</span><span class='op'>]</span><span class='op'>)</span>
   <span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>bf1</span>, test <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
@@ -297,7 +298,7 @@ functions, for the full range of options they provide.</strong></p>
 #&gt; </span><span>Parameter  | Median |         89% CI
 #&gt; ------------------------------------
 #&gt; Odds_ratio |  1.998 | [0.993, 3.104]
-#&gt; </div><div class='input'>
+#&gt; </div><div class='input'><span class='co'># }</span>
 
 <span class='co'>## Models and Anova Tables</span>
 <span class='co'>## -----------------------</span>
@@ -327,7 +328,8 @@ functions, for the full range of options they provide.</strong></p>
 #&gt; factor(cyl)    |               0.85 | [0.74, 0.90]
 #&gt; wt             |               0.44 | [0.20, 0.62]
 #&gt; hp             |               0.11 | [0.00, 0.32]
-#&gt; factor(cyl):wt |               0.09 | [0.00, 0.27]</div></span></pre>
+#&gt; factor(cyl):wt |               0.09 | [0.00, 0.27]</div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
