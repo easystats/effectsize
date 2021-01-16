@@ -1,7 +1,7 @@
 Package: effectsize
 Type: Package
 Title: Indices of Effect Size and Standardized Parameters
-Version: 0.4.1.2
+Version: 0.4.3
 Authors@R: c(
     person("Mattan S.", 
         "Ben-Shachar", 
@@ -39,8 +39,8 @@ Depends:
     R (>= 3.6)
 Imports:
     bayestestR (>= 0.8.0),
-    insight (>= 0.11.1.1),
-    parameters (>= 0.10.1.1),
+    insight (>= 0.12.0),
+    parameters (>= 0.11.0),
     stats,
     utils
 Suggests:
@@ -74,9 +74,6 @@ Suggests:
     see,
     testthat,
     tidyr
-Remotes:
-    github::easystats/insight,
-    github::easystats/parameters
 RoxygenNote: 7.1.1
 Language: en-GB
 VignetteBuilder: knitr

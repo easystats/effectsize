@@ -71,8 +71,8 @@
 #' increases relative to the average standard deviation within each group.
 #' \cr\cr
 #' When comparing two models in a sequential regression analysis, Cohen's f for
-#' R-square change is the ratio between ratio between the increase in R-square
-#' and the \% unexplained variance.
+#' R-square change is the ratio between the increase in R-square
+#' and the percent of unexplained variance.
 #' \cr\cr
 #' Cohen has suggested that the values of 0.10, 0.25, and 0.40 represent small,
 #' medium, and large effect sizes, respectively.

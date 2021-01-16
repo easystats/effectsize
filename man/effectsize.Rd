@@ -78,6 +78,7 @@ effectsize(Aov, type = "omega")
 
 ## Bayesian Hypothesis Testing
 ## ---------------------------
+\donttest{
 if (require(BayesFactor)) {
   bf1 <- ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
   effectsize(bf1, test = NULL)
@@ -90,7 +91,7 @@ if (require(BayesFactor)) {
   effectsize(bf3, test = NULL)
   effectsize(bf3, type = "oddsratio", test = NULL)
 }
-
+}
 
 ## Models and Anova Tables
 ## -----------------------
@@ -100,6 +101,7 @@ effectsize(fit)
 anova_table <- anova(fit)
 effectsize(anova_table)
 effectsize(anova_table, type = "epsilon")
+
 }
 \seealso{
 Other effect size indices: 
