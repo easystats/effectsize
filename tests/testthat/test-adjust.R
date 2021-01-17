@@ -1,6 +1,7 @@
 if (require("testthat") && require("effectsize")) {
   data(iris)
   test_that("adjust multilevel", {
+    skip_if_not_installed("lme4")
     adj <- effectsize::adjust(iris[c("Sepal.Length", "Species")], multilevel = TRUE, bayesian = FALSE)
     expect_equal(
       head(adj$Sepal.Length),

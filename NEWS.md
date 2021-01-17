@@ -1,9 +1,3 @@
-# effectsize 0.4.4
-
-## Bug fixes
-
-- Fixed bug in `adjust()` when `multilevel` was set to `TRUE`.
-
 # effectsize 0.4.3
 
 ## Breaking Changes
@@ -24,6 +18,7 @@
 
 ## Bug fixes
 
+- `adjust()` properly works when `multilevel = TRUE`.
 - `cohens_d()` family / `sd_pooled()` now properly fails when given a missing column name.
 
 ## Changes
