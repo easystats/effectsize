@@ -1,7 +1,7 @@
 Package: effectsize
 Type: Package
 Title: Indices of Effect Size and Standardized Parameters
-Version: 0.4.3
+Version: 0.4.3.1
 Authors@R: c(
     person("Mattan S.", 
         "Ben-Shachar", 
@@ -36,11 +36,11 @@ URL: https://easystats.github.io/effectsize/
 BugReports: https://github.com/easystats/effectsize/issues/
 Description: Provide utilities to work with indices of effect size and standardized parameters for a wide variety of models (see support list of insight; Lüdecke, Waggoner & Makowski (2019) <doi:10.21105/joss.01412>), allowing computation and conversion of indices such as Cohen's d, r, odds, etc.
 Depends:
-    R (>= 3.6)
+    R (>= 3.4)
 Imports:
-    bayestestR (>= 0.8.0),
-    insight (>= 0.12.0),
-    parameters (>= 0.11.0),
+    bayestestR (>= 0.8.1),
+    insight (>= 0.12.0.1),
+    parameters (>= 0.11.0.1),
     stats,
     utils
 Suggests:
@@ -74,6 +74,10 @@ Suggests:
     see,
     testthat,
     tidyr
+Remotes:
+    easystats/bayestestR,
+    easystats/insight,
+    easystats/parameters
 RoxygenNote: 7.1.1
 Language: en-GB
 VignetteBuilder: knitr
