@@ -2,10 +2,8 @@
 # effectsize <img src='man/figures/logo.png' align="right" height="139" />
 
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.02815/status.svg)](https://doi.org/10.21105/joss.02815)
-[![CRAN](http://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize)
 [![downloads](http://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize)
-[![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg)](https://github.com/easystats/effectsize/actions)
-[![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg)](https://github.com/easystats/effectsize/actions)
+[![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize)](https://cranlogs.r-pkg.org/)
 
 ***Size does matter***
 
@@ -15,17 +13,22 @@ conversion of indices such as Cohen’s *d*, *r*, odds-ratios, etc.
 
 ## Installation
 
-Run the following to install the latest GitHub-version of `effectsize`:
+[![CRAN](http://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize)
+[![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg)](https://github.com/easystats/effectsize/actions)
+[![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg)](https://github.com/easystats/effectsize/actions)
+
+Run the following to install the stable release of **effectsize** from
+CRAN:
+
+``` r
+install.packages("effectsize")
+```
+
+Or this one to install the latest development version:
 
 ``` r
 install.packages("remotes")
 remotes::install_github("easystats/effectsize")
-```
-
-Or install the latest stable release from CRAN:
-
-``` r
-install.packages("effectsize")
 ```
 
 ## Documentation
@@ -93,7 +96,7 @@ hedges_g(mpg ~ am, data = mtcars)
 glass_delta(mpg ~ am, data = mtcars)
 ## Glass' delta |         95% CI
 ## -----------------------------
-## -1.17        | [-2.18, -0.57]
+## -1.17        | [-1.99, -0.60]
 ```
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)
