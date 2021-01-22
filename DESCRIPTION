@@ -75,8 +75,8 @@ Suggests:
     testthat,
     tidyr
 Remotes:
-    easystats/bayestestR,
     easystats/insight,
+    easystats/bayestestR,
     easystats/parameters
 RoxygenNote: 7.1.1
 Language: en-GB
@@ -85,4 +85,3 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true
-
