@@ -13,7 +13,7 @@ t_to_d(t, df_error, paired = FALSE, ci = 0.95, pooled, ...)
 
 z_to_d(z, n, paired = FALSE, ci = 0.95, pooled, ...)
 
-F_to_d(f, df, df_error, paired = FALSE, ci = 0.95, pooled, ...)
+F_to_d(f, df, df_error, paired = FALSE, ci = 0.95, ...)
 
 t_to_r(t, df_error, ci = 0.95, ...)
 
