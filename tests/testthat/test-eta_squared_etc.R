@@ -12,7 +12,8 @@ if (require("testthat") && require("effectsize")) {
     testthat::expect_error(eta_squared(m), regexp = NA)
     testthat::expect_equal(
       eta_squared(m)[,-1],
-      F_to_eta2(3, 1, 1)
+      F_to_eta2(3, 1, 1),
+      ignore_attr = TRUE
     )
   })
 
