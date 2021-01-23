@@ -217,5 +217,6 @@ t_to_f2 <- function(t, df_error, ci = 0.9, squared = TRUE, ...) {
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
+  attr(res, "ci") <- ci
   return(res)
 }

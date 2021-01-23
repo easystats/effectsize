@@ -281,6 +281,33 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 }
 
 
+#' @keywords internal
+#' @importFrom insight model_info
+.cohens_f_delta <- function(model, model2, ci = 0.9, squared = FALSE, verbose = TRUE) {
+  # check
+  if (!inherits(model, "lm") ||
+      !inherits(model2, "lm") ||
+      !insight::model_info(model)$is_linear ||
+      !insight::model_info(model2)$is_linear) {
+    stop("Cohen's f for R2-change only supported for fixed effect linear models.",
+         call. = FALSE
+    )
+  }
+
+  # Anova
+  ANOVA <- anova(model, model2)
+  out <- F_to_f(ANOVA[2, "F"], abs(ANOVA[2, "Df"]), min(ANOVA["Res.Df"]),
+                ci = ci, squared = squared
+  )
+
+  if (requireNamespace("performance")) {
+    R2d <- performance::r2(model)[[1]] - performance::r2(model2)[[1]]
+    out$R2_delta <- abs(R2d)
+  }
+
+  return(out)
+}
+
 # Get ES ------------------------------------------------------------------
 
 #' @keywords internal
@@ -455,6 +482,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     "CI", "CI_low", "CI_high"
   ), drop = FALSE]
 
+  attr(out, "partial") <- partial
+  attr(out, "generalized") <- generalized
+  attr(out, "ci") <- ci
   out
 }
 
@@ -585,6 +615,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   ), drop = FALSE]
   rownames(out) <- NULL
 
+  attr(out, "partial") <- partial
+  attr(out, "generalized") <- generalized
+  attr(out, "ci") <- ci
   out
 }
 
@@ -610,6 +643,10 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   )
   out <- do.call("rbind", params)
   rownames(out) <- NULL
+
+  attr(out, "partial") <- attr(params[[1]], "partial")
+  attr(out, "generalized") <- attr(params[[1]], "generalized")
+  attr(out, "ci") <- attr(params[[1]], "ci")
   out
 }
 
@@ -660,6 +697,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       " squared for this class of objects.",
       call. = FALSE
     )
+    partial <- TRUE
   }
 
   if (verbose && (isTRUE(generalized) || is.character(generalized))) {
@@ -667,6 +705,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       "generalized ", type, " squared ",
       "is not supported for this class of object."
     )
+    generalized <- FALSE
   }
 
   par_table <- as.data.frame(model)
@@ -680,6 +719,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     )
   )
 
+  attr(out, "partial") <- partial
+  attr(out, "generalized") <- generalized
+  attr(out, "ci") <- ci
   out
 }
 
@@ -702,6 +744,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       " squared for this class of objects.",
       call. = FALSE
     )
+    partial <- TRUE
   }
 
   if (verbose && (isTRUE(generalized) || is.character(generalized))) {
@@ -709,6 +752,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       "generalized ", type, " squared ",
       "is not supported for this class of object."
     )
+    generalized <- FALSE
   }
 
 
@@ -753,6 +797,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     out <- .anova_es_model_params(model, f, df_num, df_error, type, ci)
   }
 
+  attr(out, "partial") <- partial
+  attr(out, "generalized") <- generalized
+  attr(out, "ci") <- ci
   out
 }
 
@@ -855,6 +902,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       " squared for repeated-measures / multi-variate ANOVAs",
       call. = FALSE
     )
+    partial <- TRUE
   }
 
   if (verbose && (isTRUE(generalized) || is.character(generalized))) {
@@ -862,6 +910,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       "generalized ", type, " squared ",
       "is not supported for this class of object."
     )
+    generalized <- FALSE
   }
 
   model <- stats::anova(model)
@@ -878,6 +927,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     )
   )
 
+  attr(out, "ci") <- ci
+  attr(out, "partial") <- partial
+  attr(out, "generalized") <- generalized
   out
 }
 
@@ -949,6 +1001,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
         )[-1]
       )
     }
+    attr(out, "ci") <- ci
+    attr(out, "partial") <- partial
+    attr(out, "generalized") <- generalized
     return(out)
   }
 
@@ -970,6 +1025,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
         ci = ci
       )
     )
+    attr(out, "ci") <- ci
+    attr(out, "partial") <- partial
+    attr(out, "generalized") <- generalized
     return(out)
   }
 
@@ -1029,39 +1087,11 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
   model <- model[rownames(model) != "ERROR", ]
 
-  out <- .anova_es.anova(model, type = type, partial = partial, generalized = generalized, ci = ci)
-  return(out)
+  .anova_es.anova(model, type = type, partial = partial, generalized = generalized, ci = ci)
 }
 
 .anova_es.anova.rms <- .anova_es.rms
 
-
-#' @keywords internal
-#' @importFrom insight model_info
-.cohens_f_delta <- function(model, model2, ci = 0.9, squared = FALSE, verbose = TRUE) {
-  # check
-  if (!inherits(model, "lm") ||
-    !inherits(model2, "lm") ||
-    !insight::model_info(model)$is_linear ||
-    !insight::model_info(model2)$is_linear) {
-    stop("Cohen's f for R2-change only supported for fixed effect linear models.",
-      call. = FALSE
-    )
-  }
-
-  # Anova
-  ANOVA <- anova(model, model2)
-  out <- F_to_f(ANOVA[2, "F"], abs(ANOVA[2, "Df"]), min(ANOVA["Res.Df"]),
-    ci = ci, squared = squared
-  )
-
-  if (requireNamespace("performance")) {
-    R2d <- performance::r2(model)[[1]] - performance::r2(model2)[[1]]
-    out$R2_delta <- abs(R2d)
-  }
-
-  return(out)
-}
 # Utils -------------------------------------------------------------------
 
 #' @keywords internal

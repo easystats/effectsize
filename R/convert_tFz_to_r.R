@@ -107,6 +107,7 @@ t_to_r <- function(t, df_error, ci = 0.95, ...) {
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
+  attr(res, "ci") <- ci
   return(res)
 }
 
@@ -135,6 +136,7 @@ z_to_r <- function(z, n, ci = 0.95, ...) {
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
+  attr(res, "ci") <- ci
   return(res)
 }
 
