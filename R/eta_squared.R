@@ -668,8 +668,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   )
 
   F_val <- c("F value", "approx F", "F-value")
-  numDF <- c("NumDF", "num Df", "numDF")
-  denDF <- c("DenDF", "den Df", "denDF")
+  numDF <- c("NumDF", "num Df", "numDF", "npar")
+  denDF <- c("DenDF", "den Df", "denDF", "df_error")
 
   if (!any(denDF %in% colnames(model))) {
     # Pass to AOV method
