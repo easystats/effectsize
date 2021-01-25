@@ -97,6 +97,8 @@ eta_squared_posterior.stanreg <- function(model,
   })
 
   res <- do.call("rbind", res)
+  attr(res, "partial") <- partial
+  attr(res, "generalized") <- generalized
   return(res)
 }
 

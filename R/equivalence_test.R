@@ -118,9 +118,8 @@ equivalence_test.effectsize_table <- function(x, range = "default", rule = c("cl
 
   # x$ROPE_Equivalence[x$CI_low == x$CI_high] <- NA_character_
 
-
+  class(x) <- c("equivalence_test_effectsize", "see_equivalence_test_effectsize", "data.frame")
   attr(x, "rope") <- range
   attr(x, "rule") <- rule
-  class(x) <- c("equivalence_test_effectsize", "see_equivalence_test_effectsize", "data.frame")
   return(x)
 }

@@ -14,10 +14,3 @@ plot.equivalence_test_effectsize <- function(x, ...) {
   }
   NextMethod()
 }
-
-#' @export
-plot.effectsize_difference <- plot.effectsize_table
-
-
-#' @export
-plot.effectsize_std_params <- plot.effectsize_table
