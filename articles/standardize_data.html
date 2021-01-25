@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.3.1</span>
       </span>
     </div>
 
@@ -481,7 +481,7 @@
 <span class="va">m_ParticipantWise</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="va">m_raw</span>, data <span class="op">=</span> <span class="va">Z_ParticipantWise</span><span class="op">)</span>
 <span class="va">m_Full</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="va">m_raw</span>, data <span class="op">=</span> <span class="va">Z_Full</span><span class="op">)</span></code></pre></div>
 <p>We can extract the parameters of interest from each model, and find:</p>
-<pre><code>&gt; Model             | Coefficient |   SE |            CI | t(451) |     p
+<pre><code>&gt; Model             | Coefficient |   SE |        95% CI | t(451) |     p
 &gt; -----------------------------------------------------------------------
 &gt; m_raw             |        0.09 | 0.07 | [-0.04, 0.22] |   1.36 | 0.173
 &gt; m_VariableWise    |        0.07 | 0.05 | [-0.03, 0.16] |   1.36 | 0.173
