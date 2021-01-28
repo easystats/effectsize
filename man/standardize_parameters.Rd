@@ -128,6 +128,12 @@ standardizes the transformed data (e.g. equivalent to \code{scale(exp(X))}). See
 with.
 }
 }
+\section{Confidence Intervals}{
+The returned confidence intervals are re-scaled versions of the
+unstandardized confidence intervals, and not "true" confidence intervals of
+the standardized coefficients (cf. Jones & Waller, 2015).
+}
+
 \section{Generalized Linear Models}{
 When standardizing coefficients of a generalized model (GLM, GLMM, etc), only
 the predictors are standardized, maintaining the interpretability of the
@@ -178,6 +184,7 @@ if (require("rstanarm")) {
 \references{
 \itemize{
 \item Hoffman, L. (2015). Longitudinal analysis: Modeling within-person fluctuation and change. Routledge.
+\item Jones, J. A., & Waller, N. G. (2015). The normal-theory and asymptotic distribution-free (ADF) covariance matrix of standardized regression coefficients: theoretical extensions and finite sample behavior. Psychometrika, 80(2), 365-378.
 \item Neter, J., Wasserman, W., & Kutner, M. H. (1989). Applied linear regression models.
 \item Gelman, A. (2008). Scaling regression inputs by dividing by two standard deviations. Statistics in medicine, 27(15), 2865-2873.
 }

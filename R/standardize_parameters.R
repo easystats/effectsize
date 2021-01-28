@@ -74,6 +74,12 @@
 #' [standardize()] for more details on how different transformations are dealt
 #' with.
 #'
+#' # Confidence Intervals
+#'
+#' The returned confidence intervals are re-scaled versions of the
+#' unstandardized confidence intervals, and not "true" confidence intervals of
+#' the standardized coefficients (cf. Jones & Waller, 2015).
+#'
 #' # Generalized Linear Models
 #' When standardizing coefficients of a generalized model (GLM, GLMM, etc), only
 #' the predictors are standardized, maintaining the interpretability of the
@@ -130,6 +136,7 @@
 #'
 #' @references
 #' - Hoffman, L. (2015). Longitudinal analysis: Modeling within-person fluctuation and change. Routledge.
+#' - Jones, J. A., & Waller, N. G. (2015). The normal-theory and asymptotic distribution-free (ADF) covariance matrix of standardized regression coefficients: theoretical extensions and finite sample behavior. Psychometrika, 80(2), 365-378.
 #' - Neter, J., Wasserman, W., & Kutner, M. H. (1989). Applied linear regression models.
 #' - Gelman, A. (2008). Scaling regression inputs by dividing by two standard deviations. Statistics in medicine, 27(15), 2865-2873.
 #'
@@ -148,7 +155,7 @@ standardize_parameters <- function(model, method = "refit", ci = 0.95, robust = 
 #' @importFrom parameters model_parameters
 #' @importFrom insight model_info
 #' @export
-standardize_parameters.default <- function(model, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, parameters, ...) {
+standardize_parameters.default <- function(model, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
   object_name <- deparse(substitute(model), width.cutoff = 500)
   method <- match.arg(method, c("refit", "posthoc", "smart", "basic", "classic", "pseudo"))
 
@@ -208,7 +215,7 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
 }
 
 #' @export
-standardize_parameters.parameters_model <- function(model, method = "refit", ci = NULL, robust = FALSE, two_sd = FALSE, verbose = TRUE, parameters, ...) {
+standardize_parameters.parameters_model <- function(model, method = "refit", ci = NULL, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
   if (method == "refit") {
     stop("Method 'refit' not supported for 'model_parameters()", call. = TRUE)
   }
