@@ -157,9 +157,7 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">Outcome</span> <span class="op">~</span> <span class="va">Group</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Cohen's d |        95% CI
 &gt; -------------------------
-&gt; -0.31     | [-1.54, 0.95]
-&gt; 
-&gt; - Estimated using pooled SD.</code></pre>
+&gt; -0.31     | [-1.54, 0.95]</code></pre>
 <p>But we can also treat the 2-level <code>group</code> variable as a numeric variable, and compute Pearon’s <em>r</em>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span>,<span class="op">]</span></code></pre></div>
