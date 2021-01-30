@@ -337,10 +337,15 @@ more.)</p>
     <pre class="examples"><div class='input'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span>, <span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Cohen's d |        95% CI
 #&gt; -------------------------
-#&gt; -0.83     | [-1.74, 0.10]</div><div class='input'><span class='fu'>hedges_g</span><span class='op'>(</span><span class='st'>"extra"</span>, <span class='st'>"group"</span>, data <span class='op'>=</span> <span class='va'>sleep</span><span class='op'>)</span>
+#&gt; -0.83     | [-1.74, 0.10]
+#&gt; <span style='color: #00BBBB;'>
+#&gt; - Estimated using pooled SD.</span><span></div><div class='input'><span class='fu'>hedges_g</span><span class='op'>(</span><span class='st'>"extra"</span>, <span class='st'>"group"</span>, data <span class='op'>=</span> <span class='va'>sleep</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Hedges' g |        95% CI
 #&gt; -------------------------
-#&gt; -0.80     | [-1.67, 0.09]</div><div class='input'>
+#&gt; -0.80     | [-1.67, 0.09]
+#&gt; </span><span style='color: #00BBBB;'>
+#&gt; - Estimated using pooled SD.
+#&gt; - Bias corrected using Hedges and Olkin's method.</span><span></div><div class='input'>
 <span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span><span class='op'>==</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span><span class='op'>==</span><span class='fl'>2</span><span class='op'>]</span>, paired <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Cohen's d |         95% CI
 #&gt; --------------------------
@@ -348,16 +353,26 @@ more.)</p>
 <span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Cohen's d |         95% CI
 #&gt; --------------------------
-#&gt; -1.48     | [-2.27, -0.67]</div><div class='input'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, pooled_sd <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+#&gt; -1.48     | [-2.27, -0.67]
+#&gt; </span><span style='color: #00BBBB;'>
+#&gt; - Estimated using pooled SD.</span><span></div><div class='input'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, pooled_sd <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Cohen's d |         95% CI
 #&gt; --------------------------
-#&gt; -1.41     | [-2.17, -0.51]</div><div class='input'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, mu <span class='op'>=</span> <span class='op'>-</span><span class='fl'>5</span><span class='op'>)</span>
+#&gt; -1.41     | [-2.17, -0.51]
+#&gt; </span><span style='color: #00BBBB;'>
+#&gt; - Estimated using un-pooled SD.</span><span></div><div class='input'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, mu <span class='op'>=</span> <span class='op'>-</span><span class='fl'>5</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Cohen's d |        95% CI
 #&gt; -------------------------
-#&gt; -0.46     | [-1.17, 0.26]</div><div class='input'><span class='fu'>hedges_g</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+#&gt; -0.46     | [-1.17, 0.26]
+#&gt; </span><span style='color: #00BBBB;'>
+#&gt; - Deviation from a difference of -5.
+#&gt; - Estimated using pooled SD.</span><span></div><div class='input'><span class='fu'>hedges_g</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Hedges' g |         95% CI
 #&gt; --------------------------
-#&gt; -1.44     | [-2.21, -0.65]</div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'>boot</span><span class='op'>)</span><span class='op'>)</span> <span class='fu'>glass_delta</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
+#&gt; -1.44     | [-2.21, -0.65]
+#&gt; </span><span style='color: #00BBBB;'>
+#&gt; - Estimated using pooled SD.
+#&gt; - Bias corrected using Hedges and Olkin's method.</span><span></div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'>boot</span><span class='op'>)</span><span class='op'>)</span> <span class='fu'>glass_delta</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Loading required package: boot</span></div><div class='output co'>#&gt; Glass' delta |         95% CI
 #&gt; -----------------------------
 #&gt; -1.17        | [-2.14, -0.70]</div><div class='input'>
@@ -365,7 +380,8 @@ more.)</p>
 </div><div class='output co'>#&gt; Cohen's d |         95% CI
 #&gt; --------------------------
 #&gt; -1.48     | [-2.27, -0.67]
-#&gt; <span style='color: #0000BB;'>
+#&gt; </span><span style='color: #00BBBB;'>
+#&gt; - Estimated using pooled SD.</span><span style='color: #0000BB;'>
 #&gt; 
 #&gt; # Common Language Effect Sizes</span><span>
 #&gt; 

@@ -162,7 +162,9 @@
                 refresh <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> 
 
 <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">mod</span>, test <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter   |   Median |              89% CI |  Rhat |  ESS |                      Prior
+<pre><code>&gt; # Fixed effects
+&gt; 
+&gt; Parameter   |   Median |              89% CI |  Rhat |  ESS |                      Prior
 &gt; ----------------------------------------------------------------------------------------
 &gt; (Intercept) | 10016.89 | [9367.91, 10753.54] | 1.000 | 5288 | Normal (20000 +- 15495.02)
 &gt; xtra_hours  |  1235.83 | [1192.22,  1287.14] | 1.000 | 4032 |      Normal (0 +- 1587.80)
@@ -179,7 +181,9 @@
 <pre><code>&gt; Warning: Note that the default rope range for linear models might change in
 &gt; future versions (see https://github.com/easystats/bayestestR/issues/364).Please
 &gt; set it explicitly to preserve current results.</code></pre>
-<pre><code>&gt; Parameter   | Median (std.) |        89% CI
+<pre><code>&gt; # Standardization method: refit
+&gt; 
+&gt; Parameter   | Median (std.) |        89% CI
 &gt; -------------------------------------------
 &gt; (Intercept) |     -2.63e-04 | [-0.03, 0.03]
 &gt; xtra_hours  |          0.78 | [ 0.75, 0.81]
@@ -194,7 +198,9 @@
 <pre><code>&gt; Warning: Note that the default rope range for linear models might change in
 &gt; future versions (see https://github.com/easystats/bayestestR/issues/364).Please
 &gt; set it explicitly to preserve current results.</code></pre>
-<pre><code>&gt; Parameter   | MAP (std.) |       89% CI
+<pre><code>&gt; # Standardization method: basic
+&gt; 
+&gt; Parameter   | MAP (std.) |       89% CI
 &gt; ---------------------------------------
 &gt; (Intercept) |       0.00 | [0.00, 0.00]
 &gt; xtra_hours  |       0.78 | [0.75, 0.81]
