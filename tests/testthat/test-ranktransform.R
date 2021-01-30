@@ -5,12 +5,12 @@ if (require("testthat") && require("effectsize")) {
     sr <- ranktransform(x, sign = TRUE)
     r <- ranktransform(x, sign = FALSE)
 
-    testthat::expect_equal(sr, x) # unchanged
-    testthat::expect_equal(r, c(2, 3, 1, 4))
+    expect_equal(sr, x) # unchanged
+    expect_equal(r, c(2, 3, 1, 4))
 
 
     x <- c(1, -2, -2, 4, 0, 3, -14, 0)
-    testthat::expect_warning(ranktransform(x, sign = TRUE))
-    testthat::expect_true(all(is.na(suppressWarnings(ranktransform(x, sign = TRUE)[c(5, 8)]))))
+    expect_warning(ranktransform(x, sign = TRUE))
+    expect_true(all(is.na(suppressWarnings(ranktransform(x, sign = TRUE)[c(5, 8)]))))
   })
 }

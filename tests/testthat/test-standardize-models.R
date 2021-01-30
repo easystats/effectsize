@@ -7,16 +7,16 @@ if (require("testthat") && require("effectsize")) {
     m0 <- lm(Sepal.Length ~ Species * Petal.Width, data = iris_z)
     m1 <- lm(Sepal.Length ~ Species * Petal.Width, data = iris2)
     model <- standardize(m1)
-    testthat::expect_equal(coef(m0), coef(model))
+    expect_equal(coef(m0), coef(model))
   })
 
 
   # Transformations ---------------------------------------------------------
   test_that("transformations", {
     # deal with log / sqrt terms
-    testthat::expect_message(standardize(lm(mpg ~ sqrt(cyl) + log(hp), mtcars)))
-    testthat::expect_message(standardize(lm(mpg ~ sqrt(cyl), mtcars)))
-    testthat::expect_message(standardize(lm(mpg ~ log(hp), mtcars)))
+    expect_message(standardize(lm(mpg ~ sqrt(cyl) + log(hp), mtcars)))
+    expect_message(standardize(lm(mpg ~ sqrt(cyl), mtcars)))
+    expect_message(standardize(lm(mpg ~ log(hp), mtcars)))
 
     # difference between stand-methods:
     mt <- mtcars
@@ -24,17 +24,17 @@ if (require("testthat") && require("effectsize")) {
     fit_exp <- lm(mpg ~ exp(hp_100), mt)
     fit_scale1 <- lm(scale(mpg) ~ exp(scale(hp_100)), mt)
     fit_scale2 <- lm(scale(mpg) ~ scale(exp(hp_100)), mt)
-    testthat::expect_equal(
+    expect_equal(
       standardize_parameters(fit_exp, method = "refit")[2, 2],
       unname(coef(fit_scale1)[2])
     )
 
-    testthat::expect_equal(
+    expect_equal(
       standardize_parameters(fit_exp, method = "basic")[2, 2],
       unname(coef(fit_scale2)[2])
     )
 
-    testthat::skip_if_not_installed("insight", minimum_version = "0.10.0")
+    skip_if_not_installed("insight", minimum_version = "0.10.0")
     d <- data.frame(
       time = as.factor(c(1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5)),
       group = c(1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2),
@@ -114,12 +114,12 @@ if (require("testthat") && require("effectsize")) {
     # weights, missing data, but data isn't weight-stdized
     m2 <- lm(Sepal.Length ~ Species + Petal.Width, data = iris2, weights = weight_me)
     sm2 <- standardize(m1, weights = FALSE)
-    testthat::expect_equal(coef(m2), coef(sm2))
+    expect_equal(coef(m2), coef(sm2))
 
     # weights, missing data, and data is weight-stdized
     m3 <- lm(Sepal.Length ~ Species + Petal.Width, data = iris3, weights = weight_me)
     sm3 <- standardize(m1, weights = TRUE)
-    testthat::expect_equal(coef(m3), coef(sm3))
+    expect_equal(coef(m3), coef(sm3))
   })
 
 
@@ -136,8 +136,8 @@ if (require("testthat") && require("effectsize")) {
     m1 <- lm(Sepal.Length ~ Species + Petal.Width, data = iris, weights = weight_me, na.action = na.exclude)
     m2 <- lm(Sepal.Length ~ Species + Petal.Width, data = iris, weights = weight_me)
 
-    testthat::expect_equal(coef(standardize(m2)), coef(standardize(m1)), tolerance = 1e-3)
-    testthat::expect_equal(standardize_parameters(m1, method = "basic")[[2]],
+    expect_equal(coef(standardize(m2)), coef(standardize(m1)), tolerance = 1e-3)
+    expect_equal(standardize_parameters(m1, method = "basic")[[2]],
       standardize_parameters(m2, method = "basic")[[2]],
       tolerance = 1e-3
     )
@@ -146,7 +146,7 @@ if (require("testthat") && require("effectsize")) {
 
   # don't standardize non-Gaussian response ------------------------------------
   test_that("standardize non-Gaussian response", {
-    testthat::skip_if_not_installed("lme4")
+    skip_if_not_installed("lme4")
     set.seed(1234)
     data(sleepstudy, package = "lme4")
 
@@ -154,9 +154,9 @@ if (require("testthat") && require("effectsize")) {
     m2 <- glm(Reaction ~ Days, family = Gamma(link = "identity"), data = sleepstudy)
     m3 <- glm(Reaction ~ Days, family = inverse.gaussian(), data = sleepstudy)
 
-    testthat::expect_equal(coef(standardize(m1)), c(`(Intercept)` = 0.00338, Days = -0.00034), tolerance = 1e-2)
-    testthat::expect_equal(coef(standardize(m2)), c(`(Intercept)` = 298.48571, Days = 29.70754), tolerance = 1e-3)
-    testthat::expect_equal(coef(standardize(m3)), c(`(Intercept)` = 1e-05, Days = 0), tolerance = 1e-3)
+    expect_equal(coef(standardize(m1)), c(`(Intercept)` = 0.00338, Days = -0.00034), tolerance = 1e-2)
+    expect_equal(coef(standardize(m2)), c(`(Intercept)` = 298.48571, Days = 29.70754), tolerance = 1e-3)
+    expect_equal(coef(standardize(m3)), c(`(Intercept)` = 1e-05, Days = 0), tolerance = 1e-3)
   })
 
 
@@ -174,7 +174,7 @@ if (require("testthat") && require("effectsize")) {
 
   # mediation models --------------------------------------------------------
   test_that("standardize non-Gaussian response", {
-    testthat::skip_if_not_installed("mediation")
+    skip_if_not_installed("mediation")
     set.seed(444)
     data(jobs, package = "mediation")
     b.int <- lm(job_seek ~ treat * age + econ_hard + sex, data = jobs)
@@ -187,8 +187,8 @@ if (require("testthat") && require("effectsize")) {
     )
 
     out1 <- summary(standardize(med1))
-    testthat::expect_message(out2 <- summary(standardize(med2)))
-    testthat::expect_equal(unlist(out1[c("d0", "d1", "z0", "z1", "n0", "n1", "tau.coef")]),
+    expect_message(out2 <- summary(standardize(med2)))
+    expect_equal(unlist(out1[c("d0", "d1", "z0", "z1", "n0", "n1", "tau.coef")]),
       unlist(out2[c("d0", "d1", "z0", "z1", "n0", "n1", "tau.coef")]),
       tolerance = 0.1
     )

@@ -1,9 +1,9 @@
 if (require("testthat") && require("effectsize")) {
   test_that("eta_squared_posterior", {
-    testthat::skip_on_cran()
-    testthat::skip_if_not_installed("rstanarm")
-    testthat::skip_if_not_installed("bayestestR")
-    testthat::skip_if_not_installed("car")
+    skip_on_cran()
+    skip_if_not_installed("rstanarm")
+    skip_if_not_installed("bayestestR")
+    skip_if_not_installed("car")
 
     fit_bayes <- rstanarm::stan_glm(mpg ~ factor(cyl) * wt + qsec,
       data = mtcars,
@@ -23,16 +23,16 @@ if (require("testthat") && require("effectsize")) {
       partial = TRUE
     )
 
-    testthat::expect_warning(
+    expect_warning(
       es_post <- eta_squared_posterior(fit_bayes,
         ss_function = car::Anova, type = 3
       ), regexp = "bogus"
     )
-    testthat::expect_equal(colnames(es_post), es_tab$Parameter)
+    expect_equal(colnames(es_post), es_tab$Parameter)
 
     # this is a very soft test...
     es_tab_bayes <- bayestestR::describe_posterior(es_post)
-    testthat::expect_equal(order(es_tab_bayes$Median), order(es_tab$Eta2))
+    expect_equal(order(es_tab_bayes$Median), order(es_tab$Eta2))
 
 
 
@@ -47,16 +47,16 @@ if (require("testthat") && require("effectsize")) {
       partial = FALSE
     )
 
-    testthat::expect_warning(
+    expect_warning(
       es_post <- eta_squared_posterior(fit_bayes,
         partial = FALSE,
         ss_function = car::Anova, type = 3
       ), regexp = "bogus"
     )
-    testthat::expect_equal(colnames(es_post), es_tab$Parameter)
+    expect_equal(colnames(es_post), es_tab$Parameter)
 
     # this is a very soft test...
     es_tab_bayes <- bayestestR::describe_posterior(es_post)
-    testthat::expect_equal(order(es_tab_bayes$Median), order(es_tab$Eta2))
+    expect_equal(order(es_tab_bayes$Median), order(es_tab$Eta2))
   })
 }

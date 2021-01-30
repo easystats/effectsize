@@ -8,7 +8,7 @@ if (require("testthat") && require("effectsize")) {
 
     model <- lm(Sepal.Length ~ Petal.Length, data = df)
     es <- standardize_parameters(model)
-    testthat::expect_equal(es[2, 2], r, tolerance = 0.01)
+    expect_equal(es[2, 2], r, tolerance = 0.01)
   })
 
 
@@ -20,19 +20,19 @@ if (require("testthat") && require("effectsize")) {
     s1 <- standardize_parameters(model, method = "basic")
     s2 <- standardize_parameters(mp, method = "basic")
 
-    testthat::expect_equal(s1$Parameter, s2$Parameter)
-    testthat::expect_equal(s1$Std_Coefficient, s2$Std_Coefficient)
-    testthat::expect_equal(s1$CI_low, s2$CI_low)
-    testthat::expect_equal(s1$CI_high, s2$CI_high)
+    expect_equal(s1$Parameter, s2$Parameter)
+    expect_equal(s1$Std_Coefficient, s2$Std_Coefficient)
+    expect_equal(s1$CI_low, s2$CI_low)
+    expect_equal(s1$CI_high, s2$CI_high)
 
     mpe <<- parameters::model_parameters(model, exponentiate = TRUE)
     se1 <- standardize_parameters(model, method = "basic", exponentiate = TRUE)
     se2 <- standardize_parameters(mpe, method = "basic", exponentiate = TRUE)
 
-    testthat::expect_equal(se1$Parameter, se2$Parameter)
-    testthat::expect_equal(se1$Std_Coefficient, se2$Std_Coefficient)
-    testthat::expect_equal(se1$CI_low, se2$CI_low)
-    testthat::expect_equal(se1$CI_high, se2$CI_high)
+    expect_equal(se1$Parameter, se2$Parameter)
+    expect_equal(se1$Std_Coefficient, se2$Std_Coefficient)
+    expect_equal(se1$CI_low, se2$CI_low)
+    expect_equal(se1$CI_high, se2$CI_high)
   })
 
   # lm with ci -----------------------------------
@@ -40,50 +40,50 @@ if (require("testthat") && require("effectsize")) {
     data("iris")
     model <- lm(Sepal.Length ~ Species + Petal.Width, data = iris)
 
-    testthat::expect_equal(
+    expect_equal(
       standardize_parameters(model, method = "refit")$Std_Coefficient,
       c(0.044, -0.072, -0.060, 0.844),
       tolerance = 0.01
     )
 
-    testthat::expect_equal(
+    expect_equal(
       standardize_parameters(model, method = "posthoc")$Std_Coefficient,
       c(0, -0.072, -0.060, 0.844),
       tolerance = 0.01
     )
 
-    testthat::expect_equal(
+    expect_equal(
       standardize_parameters(model, method = "smart")$Std_Coefficient,
       c(0, -0.170, -0.142, 0.844),
       tolerance = 0.01
     )
 
-    testthat::expect_equal(
+    expect_equal(
       standardize_parameters(model, method = "basic")$Std_Coefficient,
       c(0, -0.034, -0.028, 0.844),
       tolerance = 0.01
     )
 
     ## CI
-    testthat::expect_equal(
+    expect_equal(
       standardize_parameters(model, method = "basic")$CI_low,
       c(0, -0.294, -0.433, 0.491),
       tolerance = 0.01
     )
 
-    testthat::expect_equal(
+    expect_equal(
       standardize_parameters(model, method = "basic")$CI_high,
       c(0, 0.225, 0.375, 1.196),
       tolerance = 0.01
     )
 
-    testthat::expect_equal(
+    expect_equal(
       standardize_parameters(model, ci = 0.8, method = "basic")$CI_low,
       c(0, -0.203, -0.292, 0.614),
       tolerance = 0.01
     )
 
-    testthat::expect_equal(
+    expect_equal(
       standardize_parameters(model, ci = 0.8, method = "basic")$CI_high,
       c(0, 0.135, 0.234, 1.073),
       tolerance = 0.01
@@ -91,11 +91,11 @@ if (require("testthat") && require("effectsize")) {
 
     data("mtcars")
     m0 <- lm(mpg ~ cyl + factor(am), mtcars)
-    testthat::expect_equal(standardize_parameters(m0, method = "refit")[[2]][-1],
+    expect_equal(standardize_parameters(m0, method = "refit")[[2]][-1],
       standardize_parameters(m0, method = "smart")[[2]][-1],
       tolerance = 0.01
     )
-    testthat::expect_equal(standardize_parameters(m0, method = "refit", two_sd = TRUE)[[2]][-1],
+    expect_equal(standardize_parameters(m0, method = "refit", two_sd = TRUE)[[2]][-1],
       standardize_parameters(m0, method = "smart", two_sd = TRUE)[[2]][-1],
       tolerance = 0.01
     )
@@ -111,7 +111,7 @@ if (require("testthat") && require("effectsize")) {
     m_aov <- aov(Sepal.Length ~ Species * Cat1, data = data)
     m_lm <- lm(Sepal.Length ~ Species * Cat1, data = data)
 
-    testthat::expect_equal(standardize_parameters(m_aov),
+    expect_equal(standardize_parameters(m_aov),
       standardize_parameters(m_lm),
       ignore_attr = TRUE
     )
@@ -130,15 +130,15 @@ if (require("testthat") && require("effectsize")) {
     m3 <- lm(Y ~ scale(X) * Z)
     m4 <- lm(Y ~ scale(X) * scale(Z))
 
-    testthat::expect_equal(
+    expect_equal(
       standardize_parameters(m1, method = "basic")$Std_Coefficient,
       standardize_parameters(m2, method = "basic")$Std_Coefficient
     )
-    testthat::expect_equal(
+    expect_equal(
       standardize_parameters(m1, method = "basic")$Std_Coefficient,
       standardize_parameters(m3, method = "basic")$Std_Coefficient
     )
-    # testthat::expect_equal(
+    # expect_equal(
     #   standardize_parameters(m1, method = "basic")$Std_Coefficient,
     #   standardize_parameters(m4, method = "basic")$Std_Coefficient
     # )
@@ -174,15 +174,15 @@ if (require("testthat") && require("effectsize")) {
     )
     mod_refit <- standardize_parameters(mod_b, method = "refit", exponentiate = TRUE)
 
-    testthat::expect_equal(
+    expect_equal(
       mod_refit[[2]][-1],
       standardize_parameters(mod_b, method = "basic", exponentiate = TRUE)[[2]][-1]
     )
-    testthat::expect_equal(
+    expect_equal(
       mod_refit[[2]][-1],
       standardize_parameters(mod_b, method = "posthoc", exponentiate = TRUE)[[2]][-1]
     )
-    testthat::expect_equal(
+    expect_equal(
       mod_refit[[2]][-1],
       exp(standardize_parameters(mod_b, method = "basic")[[2]])[-1]
     )
@@ -194,15 +194,15 @@ if (require("testthat") && require("effectsize")) {
     )
     mod_refit <- standardize_parameters(mod_b, method = "refit", exponentiate = TRUE)
 
-    testthat::expect_equal(
+    expect_equal(
       mod_refit[[2]][-1],
       standardize_parameters(mod_b, method = "basic", exponentiate = TRUE)[[2]][-1]
     )
-    testthat::expect_equal(
+    expect_equal(
       mod_refit[[2]][-1],
       standardize_parameters(mod_b, method = "posthoc", exponentiate = TRUE)[[2]][-1]
     )
-    testthat::expect_equal(
+    expect_equal(
       mod_refit[[2]][-1],
       exp(standardize_parameters(mod_b, method = "basic")[[2]])[-1]
     )
@@ -214,15 +214,15 @@ if (require("testthat") && require("effectsize")) {
     )
     mod_refit <- standardize_parameters(mod_b, method = "refit", exponentiate = TRUE)
 
-    testthat::expect_equal(
+    expect_equal(
       mod_refit[[2]][-1],
       standardize_parameters(mod_b, method = "basic", exponentiate = TRUE)[[2]][-1]
     )
-    testthat::expect_equal(
+    expect_equal(
       mod_refit[[2]][-1],
       standardize_parameters(mod_b, method = "posthoc", exponentiate = TRUE)[[2]][-1]
     )
-    testthat::expect_equal(
+    expect_equal(
       mod_refit[[2]][-1],
       exp(standardize_parameters(mod_b, method = "basic")[[2]])[-1]
     )
@@ -231,9 +231,9 @@ if (require("testthat") && require("effectsize")) {
 
   # Bayes ----------------------------------------
   test_that("standardize_parameters (Bayes)", {
-    testthat::skip_on_cran()
-    testthat::skip_on_ci()
-    testthat::skip_if_not_installed("rstanarm")
+    skip_on_cran()
+    skip_on_ci()
+    skip_if_not_installed("rstanarm")
     set.seed(1234)
     suppressWarnings(
       model <- rstanarm::stan_glm(Sepal.Length ~ Species + Petal.Width,
@@ -242,27 +242,27 @@ if (require("testthat") && require("effectsize")) {
       )
     )
 
-    testthat::expect_equal(
+    expect_equal(
       suppressWarnings(standardize_parameters(model, method = "refit")$Std_Median[1:4]),
       c(0.065, -0.094, -0.100, 0.862),
       tolerance = 0.01
     )
 
-    testthat::expect_equal(
+    expect_equal(
       suppressWarnings(standardize_parameters(model, method = "posthoc")$Std_Median[1:4]),
       c(0, -0.058, -0.053, 0.838),
       tolerance = 0.01
     )
 
     posts <- standardize_posteriors(model, method = "posthoc")
-    testthat::expect_equal(dim(posts), c(1000, 4))
-    testthat::expect_s3_class(posts, "data.frame")
+    expect_equal(dim(posts), c(1000, 4))
+    expect_s3_class(posts, "data.frame")
   })
 
 
   # Pseudo - GLMM --------------------------------
   test_that("standardize_parameters (Pseudo - GLMM)", {
-    testthat::skip_if_not_installed("lme4")
+    skip_if_not_installed("lme4")
     set.seed(1)
 
     dat <- data.frame(
@@ -353,7 +353,7 @@ if (require("testthat") && require("effectsize")) {
 
   # ZI models ---------------------------------------------------------------
   test_that("standardize_parameters (pscl)", {
-    testthat::skip_if_not_installed("pscl")
+    skip_if_not_installed("pscl")
     data("bioChemists", package = "pscl")
 
     m <- pscl::zeroinfl(art ~ fem + mar + kid5 + ment | kid5 + phd, data = bioChemists)
@@ -367,27 +367,27 @@ if (require("testthat") && require("effectsize")) {
     })
 
     # post hoc does it right (bar intercept)
-    testthat::expect_equal(sm1$Std_Coefficient[-c(1, 6)],
+    expect_equal(sm1$Std_Coefficient[-c(1, 6)],
       sm2$Std_Coefficient[-c(1, 6)],
       tolerance = 0.01
     )
 
     # basic / smart miss the ZI
-    testthat::expect_equal(mp$Coefficient[6:8],
+    expect_equal(mp$Coefficient[6:8],
       sm3$Std_Coefficient[6:8],
       tolerance = 0.01
     )
-    testthat::expect_equal(mp$Coefficient[6:8],
+    expect_equal(mp$Coefficient[6:8],
       sm4$Std_Coefficient[6:8],
       tolerance = 0.01
     )
 
     # get count numerics al right
-    testthat::expect_equal(sm1$Std_Coefficient[4:5],
+    expect_equal(sm1$Std_Coefficient[4:5],
       sm3$Std_Coefficient[4:5],
       tolerance = 0.01
     )
-    testthat::expect_equal(sm1$Std_Coefficient[4:5],
+    expect_equal(sm1$Std_Coefficient[4:5],
       sm4$Std_Coefficient[4:5],
       tolerance = 0.01
     )

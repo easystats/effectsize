@@ -7,17 +7,17 @@ if (require("testthat") && require("effectsize")) {
     ) # TOST approach
 
 
-    testthat::expect_equal(
+    expect_equal(
       equivalence_test(ds, range = 0.2)$ROPE_Equivalence,
       c("Accepted", "Undecided", "Rejected", "Rejected", "Accepted")
     )
 
-    testthat::expect_equal(
+    expect_equal(
       equivalence_test(ds, range = 0.2, rule = "cet")$ROPE_Equivalence,
       c("Accepted", "Undecided", "Rejected", "Rejected", "Rejected")
     )
 
-    testthat::expect_equal(
+    expect_equal(
       equivalence_test(ds, range = 0.2, rule = "bayes")$ROPE_Equivalence,
       c("Accepted", "Undecided", "Rejected", "Undecided", "Accepted")
     )
