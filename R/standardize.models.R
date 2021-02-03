@@ -50,8 +50,10 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
   if (any(doller_vars <- grepl("(.*)\\$(.*)", do_standardize))) {
     doller_vars <- colnames(data)[doller_vars]
     warning("Unable to standardize variables evaluated in the environment (i.e., not in `data`).\n",
-            "The following variables will not be standardizd:\n\t",
-            paste0(doller_vars, collapse = ", "), call. = FALSE)
+      "The following variables will not be standardizd:\n\t",
+      paste0(doller_vars, collapse = ", "),
+      call. = FALSE
+    )
     do_standardize <- setdiff(do_standardize, doller_vars)
   }
 

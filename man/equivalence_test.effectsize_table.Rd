@@ -49,7 +49,7 @@ appropriate CIs should be extracted using the function used to make the effect s
 }
 \item \code{"bayes"} - \strong{The Bayesian approach}, as put forth by Kruschke:
 \itemize{
-\item If the CI does is completely outsie the ROPE - \emph{Reject H0}
+\item If the CI does is completely outside the ROPE - \emph{Reject H0}
 \item Else, If the CI is completely within the ROPE - \emph{Accept H0}
 \item Else - \emph{Undecided}
 }

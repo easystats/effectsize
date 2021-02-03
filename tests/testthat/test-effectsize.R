@@ -3,7 +3,7 @@ if (require("testthat") && require("effectsize")) {
   # htest -------------------------------------------------------------------
   test_that("t-test", {
     x <<- 1:10
-    y <<- c(1,1:9)
+    y <<- c(1, 1:9)
     model <- t.test(x, y)
     expect_equal(effectsize(model), cohens_d(x, y, pooled_sd = FALSE), ignore_attr = TRUE)
     expect_equal(effectsize(model, type = "g"), hedges_g(x, y, pooled_sd = FALSE), ignore_attr = TRUE)
@@ -24,16 +24,18 @@ if (require("testthat") && require("effectsize")) {
     ## Auto convert y to factor
     Ts <- t.test(mtcars$mpg ~ mtcars$vs)
     expect_equal(effectsize(Ts, verbose = FALSE),
-                 cohens_d(mtcars$mpg,factor(mtcars$vs), pooled_sd = FALSE),
-                 ignore_attr = TRUE)
+      cohens_d(mtcars$mpg, factor(mtcars$vs), pooled_sd = FALSE),
+      ignore_attr = TRUE
+    )
 
 
     # one sample
     z <<- mtcars$wt
     model <- t.test(z, mu = 3, var.equal = TRUE)
     expect_equal(effectsize(model),
-                 cohens_d(z, mu = 3),
-                 ignore_attr = TRUE)
+      cohens_d(z, mu = 3),
+      ignore_attr = TRUE
+    )
   })
 
   test_that("Chisq-test", {
@@ -103,13 +105,13 @@ if (require("testthat") && require("effectsize")) {
     m <- aov(mpg ~ cyl, mtcars)
 
     expect_equal(eta_squared(m, partial = FALSE)[, -1], effectsize(onew),
-                 tolerance = 0.03, ignore_attr = TRUE
+      tolerance = 0.03, ignore_attr = TRUE
     )
     expect_equal(omega_squared(m, partial = FALSE)[, -1], effectsize(onew, type = "omega"),
-                 tolerance = 0.03, ignore_attr = TRUE
+      tolerance = 0.03, ignore_attr = TRUE
     )
     expect_equal(cohens_f(m, partial = FALSE)[, -1], effectsize(onew, type = "f"),
-                 tolerance = 0.03, ignore_attr = TRUE
+      tolerance = 0.03, ignore_attr = TRUE
     )
   })
 
@@ -128,12 +130,14 @@ if (require("testthat") && require("effectsize")) {
 
   test_that("htest | wrappers", {
     x <<- 1:10
-    y <<- c(1,1:9)
+    y <<- c(1, 1:9)
     Ts <- t.test(x, y)
     expect_equal(cohens_d(Ts), cohens_d(x, y, pooled_sd = FALSE),
-                 ignore_attr = TRUE, tolerance = 0.01)
+      ignore_attr = TRUE, tolerance = 0.01
+    )
     expect_equal(hedges_g(Ts), hedges_g(x, y, pooled_sd = FALSE),
-                 ignore_attr = TRUE, tolerance = 0.01)
+      ignore_attr = TRUE, tolerance = 0.01
+    )
 
     M <<- as.table(rbind(c(762, 327, 468), c(484, 239, 477)))
     Xsq <- chisq.test(M)
@@ -148,16 +152,21 @@ if (require("testthat") && require("effectsize")) {
 
     OWA <- oneway.test(mpg ~ factor(cyl), data = mtcars, var.equal = TRUE)
     m <- lm(mpg ~ factor(cyl), data = mtcars)
-    expect_equal(eta_squared(OWA), eta_squared(m, verbose = FALSE)[,-1],
-                 ignore_attr = TRUE, tolerance = 0.01)
-    expect_equal(omega_squared(OWA), omega_squared(m, verbose = FALSE)[,-1],
-                 ignore_attr = TRUE, tolerance = 0.01)
-    expect_equal(epsilon_squared(OWA), epsilon_squared(m, verbose = FALSE)[,-1],
-                 ignore_attr = TRUE, tolerance = 0.01)
-    expect_equal(cohens_f(OWA), cohens_f(m, verbose = FALSE)[,-1],
-                 ignore_attr = TRUE, tolerance = 0.01)
-    expect_equal(cohens_f_squared(OWA), cohens_f_squared(m, verbose = FALSE)[,-1],
-                 ignore_attr = TRUE, tolerance = 0.01)
+    expect_equal(eta_squared(OWA), eta_squared(m, verbose = FALSE)[, -1],
+      ignore_attr = TRUE, tolerance = 0.01
+    )
+    expect_equal(omega_squared(OWA), omega_squared(m, verbose = FALSE)[, -1],
+      ignore_attr = TRUE, tolerance = 0.01
+    )
+    expect_equal(epsilon_squared(OWA), epsilon_squared(m, verbose = FALSE)[, -1],
+      ignore_attr = TRUE, tolerance = 0.01
+    )
+    expect_equal(cohens_f(OWA), cohens_f(m, verbose = FALSE)[, -1],
+      ignore_attr = TRUE, tolerance = 0.01
+    )
+    expect_equal(cohens_f_squared(OWA), cohens_f_squared(m, verbose = FALSE)[, -1],
+      ignore_attr = TRUE, tolerance = 0.01
+    )
 
     Performance <<- rbind(
       c(794, 86),
@@ -192,7 +201,7 @@ if (require("testthat") && require("effectsize")) {
     data(raceDolls, package = "BayesFactor")
     bf1 <- BayesFactor::contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
     expect_equal(effectsize(bf1, test = NULL)[[2]], 0.164, tolerance = 0.01)
-    expect_equal(effectsize(bf1, test = NULL, type = "OR")[[2]], 1/0.503, tolerance = 0.03)
+    expect_equal(effectsize(bf1, test = NULL, type = "OR")[[2]], 1 / 0.503, tolerance = 0.03)
 
     bf2 <- BayesFactor::ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
     expect_equal(effectsize(bf2, test = NULL)[[2]], 1.30, tolerance = 0.03)

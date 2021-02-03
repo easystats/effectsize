@@ -89,14 +89,17 @@ if (require("testthat") && require("effectsize")) {
     expect_error(interpret_bf(2, "DUPA"))
 
     skip_on_cran() # just in case there are changes in insight
-    bf <- c(10^seq(-4,4), NA)
+    bf <- c(10^seq(-4, 4), NA)
     expect_equal(interpret_bf(bf, include_value = TRUE, protect_ratio = TRUE, exact = TRUE),
-                           c("extreme evidence (BF = 1/1.00e+04) against", "extreme evidence (BF = 1/1000.00) against",
-                             "very strong evidence (BF = 1/100.00) against", "moderate evidence (BF = 1/10.00) against",
-                             "no evidence (BF = 1.00) against or in favour of", "strong evidence (BF = 10.00) in favour of",
-                             "extreme evidence (BF = 100.00) in favour of", "extreme evidence (BF = 1000.00) in favour of",
-                             "extreme evidence (BF = 1.00e+04) in favour of", ""),
-                           ignore_attr = TRUE)
+      c(
+        "extreme evidence (BF = 1/1.00e+04) against", "extreme evidence (BF = 1/1000.00) against",
+        "very strong evidence (BF = 1/100.00) against", "moderate evidence (BF = 1/10.00) against",
+        "no evidence (BF = 1.00) against or in favour of", "strong evidence (BF = 10.00) in favour of",
+        "extreme evidence (BF = 100.00) in favour of", "extreme evidence (BF = 1000.00) in favour of",
+        "extreme evidence (BF = 1.00e+04) in favour of", ""
+      ),
+      ignore_attr = TRUE
+    )
   })
 
 

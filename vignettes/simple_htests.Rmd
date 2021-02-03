@@ -178,7 +178,7 @@ We can also compute the Risk-ratio (RR), which is the ratio between the proporti
 riskratio(RCT)
 ```
 
-Additionally, Cohen's *h* can also be computed, which uses the *arcsin* transformation. Negative values indicate smaller proportion in the first group (and vise versa).
+Additionally, Cohen's *h* can also be computed, which uses the *arcsin* transformation. Negative values indicate smaller proportion in the first group (and vice versa).
 
 ```{r}
 cohens_h(RCT)

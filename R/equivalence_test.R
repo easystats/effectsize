@@ -29,7 +29,7 @@ bayestestR::equivalence_test
 #'   - Else, If the CI is completely within the ROPE - *Accept H0*
 #'   - Else - *Undecided*
 #' - `"bayes"` - **The Bayesian approach**, as put forth by Kruschke:
-#'   - If the CI does is completely outsie the ROPE - *Reject H0*
+#'   - If the CI does is completely outside the ROPE - *Reject H0*
 #'   - Else, If the CI is completely within the ROPE - *Accept H0*
 #'   - Else - *Undecided*
 #'

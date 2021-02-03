@@ -15,7 +15,7 @@
 #' If a partial Eta-Squared is used, the resulting Cohen's *f* is a
 #' partial-Cohen's *f*; If a less biased estimate of variance explained is used
 #' (such as Epsilon- or Omega-Squared), the resulting Cohen's *f* is likewise a
-#' less biaed estimate of Cohen's *f*.
+#' less biased estimate of Cohen's *f*.
 #'
 #' @seealso [eta_squared()] for more details.
 #' @family convert between effect sizes
@@ -46,7 +46,7 @@ f2_to_eta2 <- function(f2) {
 #' @export
 #' @rdname eta2_to_f2
 f_to_eta2 <- function(f) {
-  f2_to_eta2(f ^ 2)
+  f2_to_eta2(f^2)
 }
 
 

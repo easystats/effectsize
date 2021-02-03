@@ -50,7 +50,7 @@
 #' cohens_d(sleep$extra, sleep$group)
 #' hedges_g("extra", "group", data = sleep)
 #'
-#' cohens_d(sleep$extra[sleep$group==1], sleep$extra[sleep$group==2], paired = TRUE)
+#' cohens_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], paired = TRUE)
 #'
 #' cohens_d(mpg ~ am, data = mtcars)
 #' cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)
@@ -84,8 +84,9 @@ cohens_d <- function(x,
   }
 
   if (inherits(x, "htest")) {
-    if (!grepl("t-test", x$method))
+    if (!grepl("t-test", x$method)) {
       stop("'x' is not a t-test!", call. = FALSE)
+    }
     return(effectsize(x, type = "d", correction = correction, ci = ci, verbose = verbose))
   }
 
@@ -124,8 +125,9 @@ hedges_g <- function(x,
   }
 
   if (inherits(x, "htest")) {
-    if (!grepl("t-test", x$method))
+    if (!grepl("t-test", x$method)) {
       stop("'x' is not a t-test!", call. = FALSE)
+    }
     return(effectsize(x, type = "g", correction = correction, ci = ci, verbose = verbose))
   }
 
@@ -315,8 +317,9 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, iterations 
 
   # Formula
   if (inherits(x, "formula")) {
-    if (length(x) != 3)
+    if (length(x) != 3) {
       stop("Formula must have the 'outcome ~ group'.", call. = FALSE)
+    }
 
     mf <- stats::model.frame(stats::lm(formula = x, data = data))
 
@@ -389,10 +392,12 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, iterations 
     i = seq_along(c(x, y))
   )
 
-  R <- boot::boot(data = data,
-                  statistic = boot_delta,
-                  R = iterations,
-                  mu = mu)
+  R <- boot::boot(
+    data = data,
+    statistic = boot_delta,
+    R = iterations,
+    mu = mu
+  )
 
   out <- as.data.frame(
     bayestestR::ci(na.omit(R$t), ci = ci, verbose = FALSE)
@@ -400,4 +405,3 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, iterations 
   out$CI <- ci
   out
 }
-

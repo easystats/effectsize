@@ -61,7 +61,7 @@
 #' B <- c(14, 34, 34, 77)
 #' rank_biserial(A, B)
 #'
-#' x <- c(1.83,  0.50,  1.62,  2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
+#' x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
 #' y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
 #' rank_biserial(x, y, paired = TRUE)
 #'
@@ -69,16 +69,19 @@
 #' rank_biserial(x, mu = 1)
 #'
 #' x1 <- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
-#' x2 <- c(3.8, 2.7, 4.0, 2.4)      # with obstructive airway disease
+#' x2 <- c(3.8, 2.7, 4.0, 2.4) # with obstructive airway disease
 #' x3 <- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
 #' x <- c(x1, x2, x3)
 #' g <- factor(rep(1:3, c(5, 4, 5)))
 #' rank_epsilon_squared(x, g)
 #'
 #' wb <- aggregate(warpbreaks$breaks,
-#'                 by = list(w = warpbreaks$wool,
-#'                           t = warpbreaks$tension),
-#'                 FUN = mean)
+#'   by = list(
+#'     w = warpbreaks$wool,
+#'     t = warpbreaks$tension
+#'   ),
+#'   FUN = mean
+#' )
 #' kendalls_w(x ~ w | t, data = wb)
 #' }
 #'
@@ -99,8 +102,9 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
                           verbose = TRUE,
                           ...) {
   if (inherits(x, "htest")) {
-    if (!grepl("Wilcoxon", x$method))
+    if (!grepl("Wilcoxon", x$method)) {
       stop("'x' is not a Wilcoxon-test!", call. = FALSE)
+    }
     return(effectsize(x, ci = ci, iterations = iterations))
   }
 
@@ -155,11 +159,13 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
 cliffs_delta <- function(x, y = NULL, data = NULL, mu = 0,
                          ci = 0.95, iterations = 200,
                          verbose = TRUE,
-                         ...){
-  rank_biserial(x, y, data = data, mu = mu,
-                paired = FALSE,
-                ci = ci, iterations = iterations,
-                verbose = verbose)
+                         ...) {
+  rank_biserial(x, y,
+    data = data, mu = mu,
+    paired = FALSE,
+    ci = ci, iterations = iterations,
+    verbose = verbose
+  )
 }
 
 
@@ -167,10 +173,10 @@ cliffs_delta <- function(x, y = NULL, data = NULL, mu = 0,
 #' @export
 #' @importFrom stats na.omit
 rank_epsilon_squared <- function(x, groups, data = NULL, ci = 0.95, iterations = 200, ...) {
-
   if (inherits(x, "htest")) {
-    if (!grepl("Kruskal-Wallis", x$method))
+    if (!grepl("Kruskal-Wallis", x$method)) {
       stop("'x' is not a Kruskal-Wallis-test!", call. = FALSE)
+    }
     return(effectsize(x, ci = ci, iterations = iterations))
   }
 
@@ -202,10 +208,10 @@ rank_epsilon_squared <- function(x, groups, data = NULL, ci = 0.95, iterations =
 #' @export
 #' @importFrom stats na.omit
 kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 200, ...) {
-
   if (inherits(x, "htest")) {
-    if (!grepl("Friedman", x$method))
+    if (!grepl("Friedman", x$method)) {
       stop("'x' is not a Friedman-test!", call. = FALSE)
+    }
     return(effectsize(x, ci = ci, iterations = iterations))
   }
 
@@ -274,7 +280,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
     n <- length(Ry)
     S <- (n * (n + 1) / 2)
 
-    U1 <-  sum(Ry[Ry > 0], na.rm = TRUE)
+    U1 <- sum(Ry[Ry > 0], na.rm = TRUE)
     U2 <- -sum(Ry[Ry < 0], na.rm = TRUE)
   } else {
     Ry <- ranktransform(c(x - mu, y), verbose = verbose)
@@ -300,7 +306,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
   H <- unname(model$statistic)
   n <- length(groups)
 
-  E <- H / ((n^2 - 1)/(n + 1))
+  E <- H / ((n^2 - 1) / (n + 1))
 }
 
 
@@ -344,9 +350,11 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
     }
   }
 
-  R <- boot::boot(data = data,
-                  statistic = boot_rbs,
-                  R = iterations)
+  R <- boot::boot(
+    data = data,
+    statistic = boot_rbs,
+    R = iterations
+  )
 
   out <- as.data.frame(
     bayestestR::ci(na.omit(R$t), ci = ci, verbose = FALSE)
@@ -356,18 +364,22 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 }
 
 #' @keywords internal
-.repsilon_ci <- function(data, ci, iterations){
+.repsilon_ci <- function(data, ci, iterations) {
   stopifnot(length(ci) == 1, ci < 1, ci > 0)
 
   boot_r_epsilon <- function(.data, .i) {
     split(.data$x, .data$groups) <- lapply(split(.data$x, .data$groups),
-                                           sample, replace = TRUE)
+      sample,
+      replace = TRUE
+    )
     .repsilon(.data$x, .data$groups)
   }
 
-  R <- boot::boot(data = data,
-                  statistic = boot_r_epsilon,
-                  R = iterations)
+  R <- boot::boot(
+    data = data,
+    statistic = boot_r_epsilon,
+    R = iterations
+  )
 
   out <- as.data.frame(
     bayestestR::ci(na.omit(R$t), ci = ci, verbose = FALSE)
@@ -384,9 +396,11 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
     .kendalls_w(t(.data[.i, ]))
   }
 
-  R <- boot::boot(data = t(data),
-                  statistic = boot_w,
-                  R = iterations)
+  R <- boot::boot(
+    data = t(data),
+    statistic = boot_w,
+    R = iterations
+  )
 
   out <- as.data.frame(
     bayestestR::ci(na.omit(R$t), ci = ci, verbose = FALSE)
@@ -402,8 +416,9 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 #' @importFrom stats model.frame lm
 .rank_anova_xg <- function(x, groups, data) {
   if (inherits(frm <- x, "formula")) {
-    if (length(frm) != 3)
+    if (length(frm) != 3) {
       stop("Formula must have the 'outcome ~ group'.", call. = FALSE)
+    }
 
     mf <- stats::model.frame(stats::lm(formula = frm, data = data))
 
@@ -416,7 +431,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
   } else if (inherits(x, "list")) {
     groups <- rep(seq_along(x), sapply(x, length))
     x <- unsplit(x, groups)
-  } else  if (is.character(x)) {
+  } else if (is.character(x)) {
     x <- data[[x]]
     groups <- data[[groups]]
   } else if (length(x) != length(groups)) {
@@ -431,11 +446,12 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 .kendalls_w_data <- function(x, groups, blocks, data = NULL) {
   if (inherits(frm <- x, "formula")) {
     if ((length(frm) != 3L) ||
-        (length(frm[[3L]]) != 3L) ||
-        (frm[[3L]][[1L]] != as.name("|")) ||
-        (length(frm[[3L]][[2L]]) != 1L) ||
-        (length(frm[[3L]][[3L]]) != 1L))
+      (length(frm[[3L]]) != 3L) ||
+      (frm[[3L]][[1L]] != as.name("|")) ||
+      (length(frm[[3L]][[2L]]) != 1L) ||
+      (length(frm[[3L]][[3L]]) != 1L)) {
       stop("Formula must have the 'x ~ groups | blocks'.", call. = FALSE)
+    }
 
     frm[[3L]][[1L]] <- as.name("+")
 
@@ -448,9 +464,12 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
     data <- data.frame(
       x = c(x),
       groups = rep(factor(seq_len(ncol(x))),
-                   each = nrow(x)),
-      blocks = rep(factor(seq_len(nrow(x))),
-                   ncol(x))
+        each = nrow(x)
+      ),
+      blocks = rep(
+        factor(seq_len(nrow(x))),
+        ncol(x)
+      )
     )
 
     x <- data[[1]]

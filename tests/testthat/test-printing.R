@@ -34,7 +34,7 @@ if (require("testthat") && require("effectsize")) {
     d <- cohens_d(1:3, c(1, 1:3), pooled_sd = FALSE)
     expect_output(print(d), regexp = "un-pooled")
 
-    d <- cohens_d(1:5, c(1,1:4), paired = TRUE)
+    d <- cohens_d(1:5, c(1, 1:4), paired = TRUE)
     expect_error(expect_output(print(d), regexp = "pooled"))
 
     d <- hedges_g(1:3, c(1, 1:3), correction = 1)

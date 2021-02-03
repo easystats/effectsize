@@ -14,7 +14,7 @@
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate
 #'   (i.e., the residuals).
 #' @param n The number of observations (the sample size).
-#' @param paired Should the estimate accout for the t-value being testing the
+#' @param paired Should the estimate account for the t-value being testing the
 #'   difference between dependant means?
 #' @param pooled Deprecated. Use `paired`.
 #' @inheritParams chisq_to_phi
@@ -57,7 +57,7 @@
 #' t_to_r(t = res$statistic, res$parameter)
 #' \donttest{
 #' ## Linear Regression
-#' model <- lm(rating  ~ complaints + critical, data = attitude)
+#' model <- lm(rating ~ complaints + critical, data = attitude)
 #' library(parameters)
 #' (param_tab <- parameters(model))
 #'
