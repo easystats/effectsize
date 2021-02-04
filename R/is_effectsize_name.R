@@ -82,7 +82,10 @@ es_info <- as.data.frame(matrix(c(
 
   ## Other
   "r", "r", "twotail",
-  "d", "d", "twotail"),
-  ncol = 3, byrow = TRUE,
-  dimnames = list(NULL, c("name", "label", "direction"))),
-  stringsAsFactors = FALSE)
+  "d", "d", "twotail"
+),
+ncol = 3, byrow = TRUE,
+dimnames = list(NULL, c("name", "label", "direction"))
+),
+stringsAsFactors = FALSE
+)

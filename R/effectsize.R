@@ -77,7 +77,6 @@
 #' anova_table <- anova(fit)
 #' effectsize(anova_table)
 #' effectsize(anova_table, type = "epsilon")
-#'
 #' @export
 effectsize <- function(model, ...) {
   UseMethod("effectsize")
@@ -93,8 +92,9 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, ...) {
   }
 
   if (length(model) > 1) {
-    if (verbose)
+    if (verbose) {
       warning("Multiple models detected. Using first only.", call. = FALSE)
+    }
     model <- model[1]
   }
 
@@ -104,17 +104,13 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, ...) {
     f <- switch(tolower(type),
       v = ,
       cramers_v = cramers_v,
-
       w = ,
       cohens_w = ,
       phi = phi,
-
       h = ,
       cohens_h = cohens_h,
-
       or = ,
       oddsratio = oddsratio,
-
       rr = ,
       riskratio = riskratio
     )
@@ -151,18 +147,14 @@ effectsize.anova <- function(model, type = NULL, ...) {
     eta = ,
     eta2 = ,
     eta_squared = eta_squared,
-
     epsilon = ,
     epsilon2 = ,
     epsilon_squared = epsilon_squared,
-
     omega = ,
     omega2 = ,
     omega_squared = omega_squared,
-
     f = ,
     cohens_f = cohens_f,
-
     f2 = ,
     f_squared = ,
     cohens_f2 = cohens_f_squared

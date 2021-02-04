@@ -2,16 +2,18 @@ if (require("testthat") && require("effectsize")) {
 
   # anova() -----------------------------------------------------------------
   test_that("anova()", {
-    m <- matrix(c(3, 1, 1), nrow = 1,
-                dimnames = list(
-                  "Term",
-                  c("F value", "NumDF", "DenDF")
-                ))
+    m <- matrix(c(3, 1, 1),
+      nrow = 1,
+      dimnames = list(
+        "Term",
+        c("F value", "NumDF", "DenDF")
+      )
+    )
     class(m) <- "anova"
 
     expect_error(eta_squared(m), regexp = NA)
     expect_equal(
-      eta_squared(m)[,-1],
+      eta_squared(m)[, -1],
       F_to_eta2(3, 1, 1),
       ignore_attr = TRUE
     )
@@ -319,8 +321,8 @@ if (require("testthat") && require("effectsize")) {
     skip_if_not_installed("car")
     data(obk.long, package = "afex")
     model1 <- afex::aov_car(value ~ treatment * gender + Error(id / (phase * hour)),
-                            data = obk.long, observed = "gender",
-                            include_aov = FALSE
+      data = obk.long, observed = "gender",
+      include_aov = FALSE
     )
 
     expect_warning(eta_squared(model1$Anova, partial = FALSE))

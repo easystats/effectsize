@@ -44,7 +44,6 @@ model <- lm(mpg ~ ., data = mtcars)
 standardize_info(model)
 standardize_info(model, robust = TRUE)
 standardize_info(model, two_sd = TRUE)
-
 }
 \seealso{
 Other standardize: 

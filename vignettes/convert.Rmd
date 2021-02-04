@@ -168,7 +168,7 @@ baserate <- 0.85
 oddsratio_to_riskratio(OR, baserate)
 ```
 
-That is - for every bowl of brussels sprouts, we increase the chances of reducing the migraine by a mear 12%! Is if worth it? Depends on you affinity to brussels sprouts...
+That is - for every bowl of brussels sprouts, we increase the chances of reducing the migraine by a mere 12%! Is if worth it? Depends on you affinity to brussels sprouts...
 
 Note that the base-rate risk is crucial here. If instead of 85% it was only 4%, then the *RR* would be:
 

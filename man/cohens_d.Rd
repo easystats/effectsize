@@ -117,7 +117,7 @@ more.)
 cohens_d(sleep$extra, sleep$group)
 hedges_g("extra", "group", data = sleep)
 
-cohens_d(sleep$extra[sleep$group==1], sleep$extra[sleep$group==2], paired = TRUE)
+cohens_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], paired = TRUE)
 
 cohens_d(mpg ~ am, data = mtcars)
 cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)

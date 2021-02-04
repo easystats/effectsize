@@ -74,11 +74,15 @@
 #' ## 2-by-2 tables
 #' ## -------------
 #' (RCT <- matrix(
-#'   c(71,  30,
-#'     50, 100),
+#'   c(
+#'     71, 30,
+#'     50, 100
+#'   ),
 #'   nrow = 2, byrow = TRUE,
-#'   dimnames = list(Diagnosis = c("Sick", "Recovered"),
-#'                   Group = c("Treatment", "Control"))
+#'   dimnames = list(
+#'     Diagnosis = c("Sick", "Recovered"),
+#'     Group = c("Treatment", "Control")
+#'   )
 #' )) # note groups are COLUMNS
 #'
 #' oddsratio(RCT)
@@ -117,8 +121,9 @@ phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...) {
 
   if (inherits(x, "htest")) {
     if (!(grepl("Pearson's Chi-squared", x$method) ||
-          grepl("Chi-squared test for given probabilities", x$method)))
+      grepl("Chi-squared test for given probabilities", x$method))) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
     return(effectsize(x, type = "phi", adjust = adjust, ci = ci))
   }
 
@@ -162,8 +167,9 @@ cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...) {
 
   if (inherits(x, "htest")) {
     if (!(grepl("Pearson's Chi-squared", x$method) ||
-          grepl("Chi-squared test for given probabilities", x$method)))
+      grepl("Chi-squared test for given probabilities", x$method))) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
     return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci))
   }
 
@@ -200,7 +206,7 @@ cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...) {
 oddsratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
   if (inherits(x, "htest")) {
     if (grepl("Pearson's Chi-squared", x$method) ||
-          grepl("Chi-squared test for given probabilities", x$method)) {
+      grepl("Chi-squared test for given probabilities", x$method)) {
       return(effectsize(x, type = "or", log = log, ci = ci))
     } else if (grepl("Fisher's Exact", x$method)) {
       return(effectsize(x, ...))
@@ -258,8 +264,9 @@ oddsratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
 riskratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
   if (inherits(x, "htest")) {
     if (!(grepl("Pearson's Chi-squared", x$method) ||
-          grepl("Chi-squared test for given probabilities", x$method)))
+      grepl("Chi-squared test for given probabilities", x$method))) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
     return(effectsize(x, type = "rr", log = log, ci = ci))
   }
 
@@ -314,8 +321,9 @@ riskratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
 cohens_h <- function(x, y = NULL, ci = 0.95, ...) {
   if (inherits(x, "htest")) {
     if (!(grepl("Pearson's Chi-squared", x$method) ||
-          grepl("Chi-squared test for given probabilities", x$method)))
+      grepl("Chi-squared test for given probabilities", x$method))) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
     return(effectsize(x, type = "cohens_h", ci = ci))
   }
 
@@ -361,8 +369,9 @@ cohens_h <- function(x, y = NULL, ci = 0.95, ...) {
 #' @importFrom stats complete.cases prop.test
 cohens_g <- function(x, y = NULL, ci = 0.95, ...) {
   if (inherits(x, "htest")) {
-    if (!grepl("McNemar", x$method))
+    if (!grepl("McNemar", x$method)) {
       stop("'x' is not a McNemar test!", call. = FALSE)
+    }
     return(effectsize(x, ci = ci))
   }
 

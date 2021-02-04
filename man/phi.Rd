@@ -130,11 +130,15 @@ cramers_v(M)
 ## 2-by-2 tables
 ## -------------
 (RCT <- matrix(
-  c(71,  30,
-    50, 100),
+  c(
+    71, 30,
+    50, 100
+  ),
   nrow = 2, byrow = TRUE,
-  dimnames = list(Diagnosis = c("Sick", "Recovered"),
-                  Group = c("Treatment", "Control"))
+  dimnames = list(
+    Diagnosis = c("Sick", "Recovered"),
+    Group = c("Treatment", "Control")
+  )
 )) # note groups are COLUMNS
 
 oddsratio(RCT)

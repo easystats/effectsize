@@ -35,7 +35,7 @@ Any measure of variance explained can be converted to a corresponding Cohen's
 If a partial Eta-Squared is used, the resulting Cohen's \emph{f} is a
 partial-Cohen's \emph{f}; If a less biased estimate of variance explained is used
 (such as Epsilon- or Omega-Squared), the resulting Cohen's \emph{f} is likewise a
-less biaed estimate of Cohen's \emph{f}.
+less biased estimate of Cohen's \emph{f}.
 }
 \references{
 \itemize{

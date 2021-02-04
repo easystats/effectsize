@@ -85,7 +85,7 @@ if (require("testthat") && require("effectsize")) {
     )
     OR <- oddsratio(RCT)
     RR <- riskratio(RCT)
-    p0 <- RCT[1,2] / sum(RCT[,2])
+    p0 <- RCT[1, 2] / sum(RCT[, 2])
 
     expect_equal(
       oddsratio_to_riskratio(OR$Odds_ratio, p0),
@@ -105,16 +105,16 @@ if (require("testthat") && require("effectsize")) {
     log_or <- oddsratio(mtcars$am, mtcars$cyl > 4, log = TRUE)
 
     expect_equal(coef(m)[2], log_or$log_Odds_ratio,
-                 ignore_attr = TRUE
+      ignore_attr = TRUE
     )
 
     expect_equal(log_or, oddsratio(mtcars$cyl > 4, mtcars$am, log = TRUE))
 
     skip_if_not_installed("MASS")
     expect_equal(confint(m)[2, ],
-                 unlist(log_or[c("CI_low", "CI_high")]),
-                 tolerance = 0.1, # different methods, give slightly different values
-                 ignore_attr = TRUE
+      unlist(log_or[c("CI_low", "CI_high")]),
+      tolerance = 0.1, # different methods, give slightly different values
+      ignore_attr = TRUE
     )
   })
 
@@ -124,11 +124,11 @@ if (require("testthat") && require("effectsize")) {
     # From mcnemar.test
     Performance <-
       matrix(c(794, 86, 150, 570),
-             nrow = 2,
-             dimnames = list(
-               "1st Survey" = c("Approve", "Disapprove"),
-               "2nd Survey" = c("Approve", "Disapprove")
-             )
+        nrow = 2,
+        dimnames = list(
+          "1st Survey" = c("Approve", "Disapprove"),
+          "2nd Survey" = c("Approve", "Disapprove")
+        )
       )
     g <- cohens_g(Performance)
     expect_equal(g$Cohens_g, 0.136, tolerance = 0.01)

@@ -38,14 +38,16 @@ if (require("testthat") && require("effectsize")) {
 
   test_that("cohens_d - mu", {
     expect_equal(cohens_d(mtcars$mpg - 5),
-                           cohens_d(mtcars$mpg, mu = 5),
-                           ignore_attr = TRUE)
+      cohens_d(mtcars$mpg, mu = 5),
+      ignore_attr = TRUE
+    )
 
     x <- 1:9
-    y <- c(1,1:9)
+    y <- c(1, 1:9)
     expect_equal(cohens_d(x - 3, y),
-                           cohens_d(x, y, mu = 3),
-                           ignore_attr = TRUE)
+      cohens_d(x, y, mu = 3),
+      ignore_attr = TRUE
+    )
 
     # t.test(x, y, mu = 3.125, var.equal = TRUE)
     d <- cohens_d(x, y, mu = 3.125)

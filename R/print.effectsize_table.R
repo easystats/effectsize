@@ -38,7 +38,7 @@ print.effectsize_std_params <- function(x, digits = 2, ...) {
 
   footer <- caption <- subtitle <- NULL
 
-  caption <- c(sprintf("# Standardization method: %s",attr(x, "std_method")), "blue")
+  caption <- c(sprintf("# Standardization method: %s", attr(x, "std_method")), "blue")
 
   # robust / two_sd
   if (attr(x, "two_sd") || attr(x, "robust")) {
@@ -135,14 +135,16 @@ print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
 
   if (append_CL) {
     if (any(colnames(x_orig) %in% c("Cohens_d", "Hedges_g")) &&
-        attr(x_orig, "pooled_sd") &&
-        !attr(x_orig, "paired")) {
+      attr(x_orig, "pooled_sd") &&
+      !attr(x_orig, "paired")) {
       # Common lang
       cl <- d_to_common_language(x_orig[[any(colnames(x_orig) %in% c("Cohens_d", "Hedges_g"))]])
       cl <- lapply(cl, insight::format_value, as_percent = TRUE, digits = digits)
       cl <- data.frame(cl, check.names = FALSE)
-      cat(insight::export_table(cl, digits = digits,
-                                caption = c("\n\n# Common Language Effect Sizes", "blue"), ...))
+      cat(insight::export_table(cl,
+        digits = digits,
+        caption = c("\n\n# Common Language Effect Sizes", "blue"), ...
+      ))
     }
   }
 
