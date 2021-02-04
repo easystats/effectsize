@@ -42,7 +42,7 @@ The goal of this package is to provide utilities to work with indices of effect 
 [![CRAN](http://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize)
 [![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg)](https://github.com/easystats/effectsize/actions)
 [![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg)](https://github.com/easystats/effectsize/actions)
-[![Codecov test coverage](https://codecov.io/gh/easystats/effectsize/branch/master/graph/badge.svg)](https://codecov.io/gh/easystats/effectsize?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/easystats/effectsize/branch/main/graph/badge.svg)](https://codecov.io/gh/easystats/effectsize?branch=main)
 
 Run the following to install the stable release of **effectsize** from CRAN:
 

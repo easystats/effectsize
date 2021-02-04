@@ -17,7 +17,7 @@ conversion of indices such as Cohen’s *d*, *r*, odds-ratios, etc.
 [![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg)](https://github.com/easystats/effectsize/actions)
 [![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg)](https://github.com/easystats/effectsize/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/easystats/effectsize/branch/master/graph/badge.svg)](https://codecov.io/gh/easystats/effectsize?branch=master)
+coverage](https://codecov.io/gh/easystats/effectsize/branch/main/graph/badge.svg)](https://codecov.io/gh/easystats/effectsize?branch=main)
 
 Run the following to install the stable release of **effectsize** from
 CRAN:
@@ -98,7 +98,7 @@ hedges_g(mpg ~ am, data = mtcars)
 glass_delta(mpg ~ am, data = mtcars)
 ## Glass' delta |         95% CI
 ## -----------------------------
-## -1.17        | [-1.91, -0.69]
+## -1.17        | [-1.81, -0.64]
 ```
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)
