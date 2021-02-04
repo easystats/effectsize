@@ -1,6 +1,6 @@
 pandoc: 2.7.3
 pkgdown: 1.6.1.9000
-pkgdown_sha: 84f234cf19153ce99bf1bcf875dc56248ddf0cbe
+pkgdown_sha: c931fe24c135c6ca704ae9f300470e9c66d8bfe7
 articles:
   anovaES: anovaES.html
   bayesian_models: bayesian_models.html
@@ -10,5 +10,5 @@ articles:
   simple_htests: simple_htests.html
   standardize_data: standardize_data.html
   standardize_parameters: standardize_parameters.html
-last_built: 2021-01-30T15:16Z
+last_built: 2021-02-04T09:39Z
 

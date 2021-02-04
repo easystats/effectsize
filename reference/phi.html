@@ -336,11 +336,15 @@ al., 2016). For example:<div class="r"></p><pre><span class='fu'><a href='eta_sq
 <span class='co'>## 2-by-2 tables</span>
 <span class='co'>## -------------</span>
 <span class='op'>(</span><span class='va'>RCT</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>71</span>,  <span class='fl'>30</span>,
-    <span class='fl'>50</span>, <span class='fl'>100</span><span class='op'>)</span>,
+  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+    <span class='fl'>71</span>, <span class='fl'>30</span>,
+    <span class='fl'>50</span>, <span class='fl'>100</span>
+  <span class='op'>)</span>,
   nrow <span class='op'>=</span> <span class='fl'>2</span>, byrow <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  dimnames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>Diagnosis <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sick"</span>, <span class='st'>"Recovered"</span><span class='op'>)</span>,
-                  Group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Treatment"</span>, <span class='st'>"Control"</span><span class='op'>)</span><span class='op'>)</span>
+  dimnames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+    Diagnosis <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sick"</span>, <span class='st'>"Recovered"</span><span class='op'>)</span>,
+    Group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Treatment"</span>, <span class='st'>"Control"</span><span class='op'>)</span>
+  <span class='op'>)</span>
 <span class='op'>)</span><span class='op'>)</span> <span class='co'># note groups are COLUMNS</span>
 </div><div class='output co'>#&gt;            Group
 #&gt; Diagnosis   Treatment Control
