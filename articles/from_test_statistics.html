@@ -136,9 +136,9 @@
 <p>The measures discussed here are, in one way or another, <strong><em>signal to noise ratios</em></strong>, with the “noise” representing the unaccounted variance in the outcome variable<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
 <p>The indices are:</p>
 <ul>
-<li>Percent variance explained (<span class="math inline">\(\eta^2_p\)</span>, <span class="math inline">\(\omega^2_p\)</span>, <span class="math inline">\(\epsilon^2_p\)</span>).</li>
-<li>Measure of association (<span class="math inline">\(r\)</span>).</li>
-<li>Measure of difference (<span class="math inline">\(d\)</span>).</li>
+<li><p>Percent variance explained (<span class="math inline">\(\eta^2_p\)</span>, <span class="math inline">\(\omega^2_p\)</span>, <span class="math inline">\(\epsilon^2_p\)</span>).</p></li>
+<li><p>Measure of association (<span class="math inline">\(r\)</span>).</p></li>
+<li><p>Measure of difference (<span class="math inline">\(d\)</span>).</p></li>
 </ul>
 <div id="partial-percent-variance-explained" class="section level2">
 <h2 class="hasAnchor">
@@ -151,9 +151,10 @@
 
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">md_12.1</span><span class="op">)</span>
 
-<span class="va">aov_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html">aov_car</a></span><span class="op">(</span><span class="va">rt</span> <span class="op">~</span> <span class="va">angle</span> <span class="op">*</span> <span class="va">noise</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html">Error</a></span><span class="op">(</span><span class="va">id</span><span class="op">/</span><span class="op">(</span><span class="va">angle</span> <span class="op">*</span> <span class="va">noise</span><span class="op">)</span><span class="op">)</span>,
-                   data <span class="op">=</span> <span class="va">md_12.1</span>,
-                   anova_table<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>correction <span class="op">=</span> <span class="st">"none"</span>, es <span class="op">=</span> <span class="st">"pes"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">aov_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html">aov_car</a></span><span class="op">(</span><span class="va">rt</span> <span class="op">~</span> <span class="va">angle</span> <span class="op">*</span> <span class="va">noise</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html">Error</a></span><span class="op">(</span><span class="va">id</span> <span class="op">/</span> <span class="op">(</span><span class="va">angle</span> <span class="op">*</span> <span class="va">noise</span><span class="op">)</span><span class="op">)</span>,
+  data <span class="op">=</span> <span class="va">md_12.1</span>,
+  anova_table <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>correction <span class="op">=</span> <span class="st">"none"</span>, es <span class="op">=</span> <span class="st">"pes"</span><span class="op">)</span>
+<span class="op">)</span>
 <span class="va">aov_fit</span></code></pre></div>
 <pre><code>&gt; Anova Table (Type 3 tests)
 &gt; 
@@ -196,16 +197,18 @@
 &gt;  model term df1 df2 F.ratio p.value
 &gt;  angle        2  29      79 &lt;.0001</code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span>f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">79</span><span class="op">)</span>,
-          df <span class="op">=</span> <span class="fl">2</span>,
-          df_error <span class="op">=</span> <span class="fl">29</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span>
+  f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">79</span><span class="op">)</span>,
+  df <span class="op">=</span> <span class="fl">2</span>,
+  df_error <span class="op">=</span> <span class="fl">29</span>
+<span class="op">)</span></code></pre></div>
 <pre><code>&gt; Eta2 (partial) |       90% CI
 &gt; -----------------------------
 &gt; 0.26           | [0.04, 0.44]
 &gt; 0.84           | [0.75, 0.89]</code></pre>
 <p>We can also use <code><a href="../reference/F_to_eta2.html">t_to_eta2()</a></code> for contrast analysis:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span> <span class="va">angle</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span><span class="va">angle</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; NOTE: Results may be misleading due to involvement in interactions</code></pre>
 <pre><code>&gt;  contrast estimate   SE df t.ratio p.value
 &gt;  X0 - X4      -108 18.9 18 -5.700  0.0001 
@@ -215,8 +218,10 @@
 &gt; Results are averaged over the levels of: noise 
 &gt; P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/F_to_eta2.html">t_to_eta2</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5.7</span>, <span class="op">-</span><span class="fl">8.9</span>, <span class="op">-</span><span class="fl">3.2</span><span class="op">)</span>,
-          df_error <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/F_to_eta2.html">t_to_eta2</a></span><span class="op">(</span>
+  t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5.7</span>, <span class="op">-</span><span class="fl">8.9</span>, <span class="op">-</span><span class="fl">3.2</span><span class="op">)</span>,
+  df_error <span class="op">=</span> <span class="fl">18</span>
+<span class="op">)</span></code></pre></div>
 <pre><code>&gt; Eta2 (partial) |       90% CI
 &gt; -----------------------------
 &gt; 0.64           | [0.39, 0.78]
@@ -296,7 +301,7 @@
 &gt; 0.85 | [0.67, 0.92]</code></pre>
 <p>In a fixed-effect linear model, this returns the <strong>partial</strong> correlation. Compare:</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">fit_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">rating</span>  <span class="op">~</span> <span class="va">complaints</span> <span class="op">+</span> <span class="va">critical</span>, data <span class="op">=</span> <span class="va">attitude</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">fit_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">complaints</span> <span class="op">+</span> <span class="va">critical</span>, data <span class="op">=</span> <span class="va">attitude</span><span class="op">)</span>
 
 <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">fit_lm</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Parameter   | Coefficient |    SE |         95% CI | t(27) |      p
@@ -305,15 +310,17 @@
 &gt; complaints  |        0.75 |  0.10 | [ 0.55,  0.96] |  7.46 | &lt; .001
 &gt; critical    |    1.91e-03 |  0.14 | [-0.28,  0.28] |  0.01 | 0.989</code></pre>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/t_to_d.html">t_to_r</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">7.46</span>, <span class="fl">0.01</span><span class="op">)</span>,
-       df_error <span class="op">=</span> <span class="fl">27</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/t_to_d.html">t_to_r</a></span><span class="op">(</span>
+  t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">7.46</span>, <span class="fl">0.01</span><span class="op">)</span>,
+  df_error <span class="op">=</span> <span class="fl">27</span>
+<span class="op">)</span></code></pre></div>
 <pre><code>&gt; r        |        95% CI
 &gt; ------------------------
 &gt; 0.82     | [ 0.67, 0.89]
 &gt; 1.92e-03 | [-0.35, 0.35]</code></pre>
 <p>to:</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation</a></span><span class="op">(</span><span class="va">attitude</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">]</span>, partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>,  <span class="fl">7</span>, <span class="fl">8</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation</a></span><span class="op">(</span><span class="va">attitude</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">]</span>, partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">7</span>, <span class="fl">8</span><span class="op">)</span><span class="op">]</span></code></pre></div>
 <pre><code>&gt; Parameter2 |        r | df |      p
 &gt; -----------------------------------
 &gt; complaints |     0.82 | 28 | &lt; .001
@@ -324,7 +331,7 @@
 <a href="#in-contrast-analysis" class="anchor"></a>In Contrast Analysis</h3>
 <p>This measure is also sometimes used in contrast analysis, where it is called the point bi-serial correlation - <span class="math inline">\(r_{pb}\)</span> <span class="citation">(Cohen and others 1965; Rosnow, Rosenthal, and Rubin 2000)</span>:</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span> <span class="va">angle</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span><span class="va">angle</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; NOTE: Results may be misleading due to involvement in interactions</code></pre>
 <pre><code>&gt;  contrast estimate   SE df t.ratio p.value
 &gt;  X0 - X4      -108 18.9 18 -5.700  0.0001 
@@ -334,8 +341,10 @@
 &gt; Results are averaged over the levels of: noise 
 &gt; P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/t_to_d.html">t_to_r</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5.7</span>, <span class="op">-</span><span class="fl">8.9</span>, <span class="op">-</span><span class="fl">3.2</span><span class="op">)</span>,
-       df_error <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/t_to_d.html">t_to_r</a></span><span class="op">(</span>
+  t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5.7</span>, <span class="op">-</span><span class="fl">8.9</span>, <span class="op">-</span><span class="fl">3.2</span><span class="op">)</span>,
+  df_error <span class="op">=</span> <span class="fl">18</span>
+<span class="op">)</span></code></pre></div>
 <pre><code>&gt; r     |         95% CI
 &gt; ----------------------
 &gt; -0.80 | [-0.89, -0.57]
@@ -354,7 +363,7 @@
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">tension</span>, data <span class="op">=</span> <span class="va">warpbreaks</span><span class="op">)</span>
 
-<span class="va">em_tension</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">m</span>, <span class="op">~</span> <span class="va">tension</span><span class="op">)</span>
+<span class="va">em_tension</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">m</span>, <span class="op">~</span><span class="va">tension</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="va">em_tension</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt;  contrast estimate SE df t.ratio p.value
 &gt;  L - M        10.0  4 51 2.500   0.0400 
@@ -363,8 +372,10 @@
 &gt; 
 &gt; P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/t_to_d.html">t_to_d</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.53</span>, <span class="fl">3.72</span>, <span class="fl">1.20</span><span class="op">)</span>,
-       df_error <span class="op">=</span> <span class="fl">51</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/t_to_d.html">t_to_d</a></span><span class="op">(</span>
+  t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.53</span>, <span class="fl">3.72</span>, <span class="fl">1.20</span><span class="op">)</span>,
+  df_error <span class="op">=</span> <span class="fl">51</span>
+<span class="op">)</span></code></pre></div>
 <pre><code>&gt; d    |        95% CI
 &gt; --------------------
 &gt; 0.71 | [ 0.14, 1.27]
@@ -385,7 +396,7 @@
 <h3 class="hasAnchor">
 <a href="#within-subject-contrasts" class="anchor"></a>Within-Subject Contrasts</h3>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span> <span class="va">angle</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span><span class="va">angle</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; NOTE: Results may be misleading due to involvement in interactions</code></pre>
 <pre><code>&gt;  contrast estimate   SE df t.ratio p.value
 &gt;  X0 - X4      -108 18.9 18 -5.700  0.0001 
@@ -395,9 +406,11 @@
 &gt; Results are averaged over the levels of: noise 
 &gt; P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/t_to_d.html">t_to_d</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5.7</span>,<span class="op">-</span><span class="fl">5.9</span>,<span class="op">-</span><span class="fl">3.2</span><span class="op">)</span>,
-       df_error <span class="op">=</span> <span class="fl">18</span>,
-       paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/t_to_d.html">t_to_d</a></span><span class="op">(</span>
+  t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5.7</span>, <span class="op">-</span><span class="fl">5.9</span>, <span class="op">-</span><span class="fl">3.2</span><span class="op">)</span>,
+  df_error <span class="op">=</span> <span class="fl">18</span>,
+  paired <span class="op">=</span> <span class="cn">TRUE</span>
+<span class="op">)</span></code></pre></div>
 <pre><code>&gt; d     |         95% CI
 &gt; ----------------------
 &gt; -1.34 | [-1.97, -0.70]

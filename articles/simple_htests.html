@@ -278,12 +278,16 @@
 <p>For contingency tables Cramér’s <em>V</em> and <span class="math inline">\(\phi\)</span> (Phi, also known as Cohen’s <em>w</em>) indicate the strength of association with 0 indicating no association between the variables. While Cramér’s <em>V</em> is capped at 1 (perfect association), <span class="math inline">\(\phi\)</span> can be larger than 1.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">Music</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">150</span>, <span class="fl">130</span>, <span class="fl">35</span>, <span class="fl">55</span>,
-    <span class="fl">100</span>,  <span class="fl">50</span>, <span class="fl">10</span>, <span class="fl">40</span>,
-    <span class="fl">165</span>,  <span class="fl">65</span>,  <span class="fl">2</span>, <span class="fl">25</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    <span class="fl">150</span>, <span class="fl">130</span>, <span class="fl">35</span>, <span class="fl">55</span>,
+    <span class="fl">100</span>, <span class="fl">50</span>, <span class="fl">10</span>, <span class="fl">40</span>,
+    <span class="fl">165</span>, <span class="fl">65</span>, <span class="fl">2</span>, <span class="fl">25</span>
+  <span class="op">)</span>,
   byrow <span class="op">=</span> <span class="cn">TRUE</span>, nrow <span class="op">=</span> <span class="fl">3</span>,
-  dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>Study <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Psych"</span>, <span class="st">"Econ"</span>, <span class="st">"Law"</span><span class="op">)</span>,
-                  Music <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Pop"</span>, <span class="st">"Rock"</span>, <span class="st">"Jazz"</span>, <span class="st">"Classic"</span><span class="op">)</span><span class="op">)</span>
+  dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    Study <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Psych"</span>, <span class="st">"Econ"</span>, <span class="st">"Law"</span><span class="op">)</span>,
+    Music <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Pop"</span>, <span class="st">"Rock"</span>, <span class="st">"Jazz"</span>, <span class="st">"Classic"</span><span class="op">)</span>
+  <span class="op">)</span>
 <span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt;        Music
 &gt; Study   Pop Rock Jazz Classic
@@ -359,11 +363,15 @@
 <p>For <span class="math inline">\(2\times 2\)</span> tables, in addition to Cramér’s <em>V</em> and <span class="math inline">\(\phi\)</span>, we can also compute the Odds-ratio (OR), where each column represents a different group. Values larger than 1 indicate that the odds are higher in the first group (and vice versa).</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">RCT</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">71</span>,  <span class="fl">30</span>,
-    <span class="fl">50</span>, <span class="fl">100</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    <span class="fl">71</span>, <span class="fl">30</span>,
+    <span class="fl">50</span>, <span class="fl">100</span>
+  <span class="op">)</span>,
   nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>,
-  dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>Diagnosis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Sick"</span>, <span class="st">"Recovered"</span><span class="op">)</span>,
-                  Group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="st">"Control"</span><span class="op">)</span><span class="op">)</span>
+  dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    Diagnosis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Sick"</span>, <span class="st">"Recovered"</span><span class="op">)</span>,
+    Group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="st">"Control"</span><span class="op">)</span>
+  <span class="op">)</span>
 <span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt;            Group
 &gt; Diagnosis   Treatment Control
@@ -400,12 +408,15 @@
 <p>For dependent (paired) contingency tables, Cohen’s <em>g</em> represents the symmetry of the table, ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry).</p>
 <div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">Performance</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">794</span>, <span class="fl">86</span>,
-    <span class="fl">150</span>, <span class="fl">570</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    <span class="fl">794</span>, <span class="fl">86</span>,
+    <span class="fl">150</span>, <span class="fl">570</span>
+  <span class="op">)</span>,
   nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>,
   dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
     <span class="st">"1st Survey"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Approve"</span>, <span class="st">"Disapprove"</span><span class="op">)</span>,
-    <span class="st">"2nd Survey"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Approve"</span>, <span class="st">"Disapprove"</span><span class="op">)</span><span class="op">)</span>
+    <span class="st">"2nd Survey"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Approve"</span>, <span class="st">"Disapprove"</span><span class="op">)</span>
+  <span class="op">)</span>
 <span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt;             2nd Survey
 &gt; 1st Survey   Approve Disapprove
@@ -468,7 +479,7 @@
 &gt; 
 &gt; - Deviation from a difference of 1.</code></pre>
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.83</span>,  <span class="fl">0.50</span>,  <span class="fl">1.62</span>,  <span class="fl">2.48</span>, <span class="fl">1.68</span>, <span class="fl">1.88</span>, <span class="fl">1.55</span>, <span class="fl">3.06</span>, <span class="fl">1.30</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.83</span>, <span class="fl">0.50</span>, <span class="fl">1.62</span>, <span class="fl">2.48</span>, <span class="fl">1.68</span>, <span class="fl">1.88</span>, <span class="fl">1.55</span>, <span class="fl">3.06</span>, <span class="fl">1.30</span><span class="op">)</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.878</span>, <span class="fl">0.647</span>, <span class="fl">0.598</span>, <span class="fl">2.05</span>, <span class="fl">1.06</span>, <span class="fl">1.29</span>, <span class="fl">1.06</span>, <span class="fl">3.14</span>, <span class="fl">1.29</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># aka Signed-Rank test</span></code></pre></div>
@@ -491,8 +502,8 @@
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">group_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   g1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.9</span>, <span class="fl">3.0</span>, <span class="fl">2.5</span>, <span class="fl">2.6</span>, <span class="fl">3.2</span><span class="op">)</span>, <span class="co"># normal subjects</span>
-  g2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3.8</span>, <span class="fl">2.7</span>, <span class="fl">4.0</span>, <span class="fl">2.4</span><span class="op">)</span>,      <span class="co"># with obstructive airway disease </span>
-  g3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.8</span>, <span class="fl">3.4</span>, <span class="fl">3.7</span>, <span class="fl">2.2</span>, <span class="fl">2.0</span><span class="op">)</span>  <span class="co"># with asbestosis</span>
+  g2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3.8</span>, <span class="fl">2.7</span>, <span class="fl">4.0</span>, <span class="fl">2.4</span><span class="op">)</span>, <span class="co"># with obstructive airway disease</span>
+  g3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.8</span>, <span class="fl">3.4</span>, <span class="fl">3.7</span>, <span class="fl">2.2</span>, <span class="fl">2.0</span><span class="op">)</span> <span class="co"># with asbestosis</span>
 <span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/stats/kruskal.test.html">kruskal.test</a></span><span class="op">(</span><span class="va">group_data</span><span class="op">)</span></code></pre></div>
@@ -514,16 +525,20 @@
 <div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Subjects are COLUMNS</span>
 <span class="op">(</span><span class="va">ReactionTimes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">398</span>, <span class="fl">338</span>, <span class="fl">520</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    <span class="fl">398</span>, <span class="fl">338</span>, <span class="fl">520</span>,
     <span class="fl">325</span>, <span class="fl">388</span>, <span class="fl">555</span>,
     <span class="fl">393</span>, <span class="fl">363</span>, <span class="fl">561</span>,
     <span class="fl">367</span>, <span class="fl">433</span>, <span class="fl">470</span>,
     <span class="fl">286</span>, <span class="fl">492</span>, <span class="fl">536</span>,
     <span class="fl">362</span>, <span class="fl">475</span>, <span class="fl">496</span>,
-    <span class="fl">253</span>, <span class="fl">334</span>, <span class="fl">610</span><span class="op">)</span>,
+    <span class="fl">253</span>, <span class="fl">334</span>, <span class="fl">610</span>
+  <span class="op">)</span>,
   nrow <span class="op">=</span> <span class="fl">7</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>,
-  dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Subject"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span>,
-                  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Congruent"</span>, <span class="st">"Neutral"</span>, <span class="st">"Incongruent"</span><span class="op">)</span><span class="op">)</span>
+  dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Subject"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span>,
+    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Congruent"</span>, <span class="st">"Neutral"</span>, <span class="st">"Incongruent"</span><span class="op">)</span>
+  <span class="op">)</span>
 <span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt;             Subject1 Subject2 Subject3 Subject4 Subject5 Subject6 Subject7
 &gt; Congruent        398      325      393      367      286      362      253

@@ -141,8 +141,7 @@
 <span class="va">obk.long</span> <span class="op">&lt;-</span> <span class="va">obk.long</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">240</span> <span class="op">%%</span> <span class="fl">3</span> <span class="op">==</span> <span class="fl">0</span>, <span class="op">]</span>
 <span class="va">obk.long</span><span class="op">$</span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">obk.long</span><span class="op">)</span><span class="op">)</span>
 
-<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span>, 
-        data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span>
+<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span>, data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span>
 
 <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Parameter     | Coefficient |   SE |       95% CI | t(77) |      p
@@ -182,8 +181,7 @@
 \eta^2_p = \frac{SS_{effect}}{SS_{effect} + SS_{error}}
 \]</span> which can also be accessed via the <code><a href="../reference/eta_squared.html">eta_squared()</a></code> function:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">phase</span> <span class="op">+</span> <span class="va">treatment</span>,
-         data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">phase</span> <span class="op">+</span> <span class="va">treatment</span>, data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Parameter |     Eta2 |       90% CI
@@ -223,14 +221,17 @@
 <p>When modeling interactions, it is important to center all of the predictors; for numeric variables this can be done by mean-centering the predictors; for factors this can be done by using <strong>effects-coding</strong> for the dummy variables. This unfortunately makes parameter interpretation harder, but <em>only</em> when this is does do the <em>SS</em>s associated with each lower-order term (or lower-order interaction) represent the <strong><em>SS</em></strong> <strong>main effect</strong> (with treatment coding they represent the <em>SS</em> of the simple effects).</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># compare</span>
-<span class="va">m_interaction1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span>,
-                      data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span>
+<span class="va">m_interaction1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span>, data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span>
 
 <span class="co"># to:</span>
-<span class="va">m_interaction2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span>,
-                      data <span class="op">=</span> <span class="va">obk.long</span>, 
-                     contrasts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>treatment <span class="op">=</span> <span class="st">"contr.sum"</span>,
-                                      gender <span class="op">=</span> <span class="st">"contr.sum"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">m_interaction2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span>
+  <span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span>,
+  data <span class="op">=</span> <span class="va">obk.long</span>,
+  contrasts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    treatment <span class="op">=</span> <span class="st">"contr.sum"</span>,
+    gender <span class="op">=</span> <span class="st">"contr.sum"</span>
+  <span class="op">)</span>
+<span class="op">)</span>
 
 <span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html">Anova</a></span><span class="op">(</span><span class="va">m_interaction1</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Parameter        | Eta2 (partial) |       90% CI
@@ -248,8 +249,7 @@
 <p>If all of this type-III-effects-coding seems like a hassle, you can use the <code>afex</code> package, which takes care of all of this behind the scenes:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://afex.singmann.science/">afex</a></span><span class="op">)</span>
-<span class="va">m_afex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html">aov_car</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html">Error</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span>,
-                  data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span></code></pre></div>
+<span class="va">m_afex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html">aov_car</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html">Error</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Contrasts set to contr.sum for the following variables: treatment, gender</code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></code></pre></div>

@@ -138,10 +138,8 @@
 <a href="#methods-of-standardization" class="anchor"></a>Methods of Standardization</h2>
 <p>The <code>effectsize</code> package offers two methods of standardization via the <code><a href="../reference/standardize.html">standardize()</a></code> function:</p>
 <ul>
-<li>
-<strong>Normal standardization</strong>: center around the <em>mean</em>, with <em>SD</em> units (default).</li>
-<li>
-<strong>Robust standardization</strong>: center around the <em>median</em>, with <em>MAD</em> units (<code>robust = TRUE</code>).</li>
+<li><p><strong>Normal standardization</strong>: center around the <em>mean</em>, with <em>SD</em> units (default).</p></li>
+<li><p><strong>Robust standardization</strong>: center around the <em>median</em>, with <em>MAD</em> units (<code>robust = TRUE</code>).</p></li>
 </ul>
 <p>Let’s look at the following example:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -250,12 +248,9 @@
 <a href="#variable-wise-vs--participant-wise" class="anchor"></a>Variable-wise <em>vs.</em> Participant-wise</h2>
 <p>Standardization is an important step and extra caution is required in <strong>repeated-measures designs</strong>, in which there are three ways of standardizing data:</p>
 <ul>
-<li>
-<strong>Variable-wise</strong>: The most common method. A simple scaling of each column.</li>
-<li>
-<strong>Participant-wise</strong>: Variables are standardized “within” each participant, <em>i.e.</em>, for each participant, by the participant’s mean and SD.</li>
-<li>
-<strong>Full</strong>: Participant-wise first and then re-standardizing variable-wise.</li>
+<li><p><strong>Variable-wise</strong>: The most common method. A simple scaling of each column.</p></li>
+<li><p><strong>Participant-wise</strong>: Variables are standardized “within” each participant, <em>i.e.</em>, for each participant, by the participant’s mean and SD.</p></li>
+<li><p><strong>Full</strong>: Participant-wise first and then re-standardizing variable-wise.</p></li>
 </ul>
 <p>Unfortunately, the method used is often not explicitly stated. This is an issue as these methods can generate important discrepancies (that can in turn contribute to the reproducibility crisis). Let’s investigate these 3 methods.</p>
 <div id="the-data" class="section level3">
@@ -268,11 +263,11 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
 
 <span class="co"># Download the 'emotion' dataset</span>
-<span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/connections.html">url</a></span><span class="op">(</span><span class="st">"https://raw.github.com/neuropsychology/psycho.R/master/data/emotion.rda"</span><span class="op">)</span><span class="op">)</span>  
-  
+<span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/connections.html">url</a></span><span class="op">(</span><span class="st">"https://raw.github.com/neuropsychology/psycho.R/master/data/emotion.rda"</span><span class="op">)</span><span class="op">)</span>
+
 <span class="co"># Discard neutral pictures (keep only negative)</span>
-<span class="va">emotion</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Emotion_Condition</span> <span class="op">==</span> <span class="st">"Negative"</span><span class="op">)</span>  
+<span class="va">emotion</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Emotion_Condition</span> <span class="op">==</span> <span class="st">"Negative"</span><span class="op">)</span>
 
 <span class="co"># Summary</span>
 <span class="va">emotion</span> <span class="op">%&gt;%</span>
@@ -312,18 +307,18 @@
 <a href="#effect-of-standardization" class="anchor"></a>Effect of Standardization</h3>
 <p>We will create three data frames standardized with each of the three techniques.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">Z_VariableWise</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">Z_VariableWise</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="va">Z_ParticipantWise</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Participant_ID</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="op">)</span> 
+<span class="va">Z_ParticipantWise</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Participant_ID</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="va">Z_Full</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Participant_ID</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="op">)</span> </code></pre></div>
+<span class="va">Z_Full</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Participant_ID</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>Let’s see how these three standardization techniques affected the <strong>Valence</strong> variable.</p>
 </div>
 <div id="across-participants" class="section level3">
@@ -475,7 +470,8 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/">lme4</a></span><span class="op">)</span>
 
 <span class="va">m_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">Subjective_Valence</span> <span class="op">~</span> <span class="va">Autobiographical_Link</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">Participant_ID</span><span class="op">)</span>,
-              data <span class="op">=</span> <span class="va">emotion</span><span class="op">)</span>
+  data <span class="op">=</span> <span class="va">emotion</span>
+<span class="op">)</span>
 
 <span class="va">m_VariableWise</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="va">m_raw</span>, data <span class="op">=</span> <span class="va">Z_VariableWise</span><span class="op">)</span>
 <span class="va">m_ParticipantWise</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="va">m_raw</span>, data <span class="op">=</span> <span class="va">Z_ParticipantWise</span><span class="op">)</span>
@@ -493,10 +489,10 @@
 <h3 class="hasAnchor">
 <a href="#conclusion" class="anchor"></a>Conclusion</h3>
 <ol style="list-style-type: decimal">
-<li><strong>Standardization can be useful in <em>some</em> cases and should be justified</strong></li>
-<li><strong>Variable and Participant-wise standardization methods produce “in appearance” similar data</strong></li>
-<li><strong>Variable and Participant-wise standardization can lead to different results</strong></li>
-<li><strong>The choice of the method can strongly influence the results and thus, should be explicitly stated</strong></li>
+<li><p><strong>Standardization can be useful in <em>some</em> cases and should be justified</strong></p></li>
+<li><p><strong>Variable and Participant-wise standardization methods produce “in appearance” similar data</strong></p></li>
+<li><p><strong>Variable and Participant-wise standardization can lead to different results</strong></p></li>
+<li><p><strong>The choice of the method can strongly influence the results and thus, should be explicitly stated</strong></p></li>
 </ol>
 <p>We showed here yet another way of <strong>sneakily tweaking the data</strong> that can change the results. To prevent its use for bad practices (e.g., <em>p</em>-hacking), we can only support the generalization of open-data, open-analysis and preregistration**.</p>
 <p><em>See also the <code><a href="https://easystats.github.io/parameters/reference/demean.html">parameters::demean()</a></code> function, and the <code><a href="../reference/standardize_parameters.html">standardize_parameters(method = "pseudo")</a></code> for more mixed-model tools.</em></p>
