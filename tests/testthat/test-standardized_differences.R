@@ -95,6 +95,7 @@ if (require("testthat") && require("effectsize")) {
     expect_error(glass_delta(1:10))
 
     skip_if_not_installed("boot")
+    skip_if_not_installed("base", minimum_version = "3.6.0")
     set.seed(8007)
     x <- glass_delta(wt ~ am, data = mtcars)
     expect_equal(colnames(x)[1], "Glass_delta")

@@ -1,6 +1,7 @@
 if (require("testthat") && require("effectsize")) {
   test_that("rank_biserial", {
     skip_if_not_installed("boot")
+    skip_if_not_installed("base", minimum_version = "3.6.0")
     x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
     y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
     rRB1 <- {
@@ -13,6 +14,9 @@ if (require("testthat") && require("effectsize")) {
     }
     expect_equal(rRB1, rRB2)
     expect_equal(rRB1[[1]], 0.777, tolerance = 0.01)
+    expect_equal(rRB1$CI_low, 0.1977778, tolerance = 0.01)
+    expect_equal(rRB1$CI_high, 1, tolerance = 0.01)
+
 
     A <- c(48, 48, 77, 86, 85, 85, 16)
     B <- c(14, 34, 34, 77)
@@ -22,6 +26,7 @@ if (require("testthat") && require("effectsize")) {
 
   test_that("rank_epsilon_squared", {
     skip_if_not_installed("boot")
+    skip_if_not_installed("base", minimum_version = "3.6.0")
     x1 <- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
     x2 <- c(3.8, 2.7, 4.0, 2.4) # with obstructive airway disease
     x3 <- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
@@ -39,6 +44,7 @@ if (require("testthat") && require("effectsize")) {
 
   test_that("kendalls_w", {
     skip_if_not_installed("boot")
+    skip_if_not_installed("base", minimum_version = "3.6.0")
     M1 <- structure(
       c(5.4, 5.85, 5.2, 5.5, 5.7, 5.6, 5.55, 5.75, 5.5),
       .Dim = c(3L, 3L),
@@ -77,5 +83,7 @@ if (require("testthat") && require("effectsize")) {
 
     expect_equal(W1, W2)
     expect_equal(W1, W3)
+    expect_equal(W1$CI_low, 0.7777778, tolerance = 0.01)
+    expect_equal(W1$CI_high, 1, tolerance = 0.01)
   })
 }
