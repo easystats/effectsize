@@ -142,6 +142,8 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
         ci = ci,
         iterations = iterations
       ))
+
+      ci_method <- list(method = "bootstrap", iterations = iterations)
     } else {
       warning("For CIs, the 'boot' package must be installed.")
     }
@@ -151,6 +153,7 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
   attr(out, "paired") <- paired
   attr(out, "mu") <- mu
   attr(out, "ci") <- ci
+  attr(out, "ci_method") <- if (!missing(ci_method)) ci_method
   return(out)
 }
 
@@ -194,6 +197,7 @@ rank_epsilon_squared <- function(x, groups, data = NULL, ci = 0.95, iterations =
   if (is.numeric(ci)) {
     if (requireNamespace("boot", quietly = TRUE)) {
       out <- cbind(out, .repsilon_ci(data, ci, iterations))
+      ci_method <- list(method = "bootstrap", iterations = iterations)
     } else {
       warning("'boot' package required for estimating CIs for Glass' delta. Please install the package and try again.", call. = FALSE)
     }
@@ -201,6 +205,7 @@ rank_epsilon_squared <- function(x, groups, data = NULL, ci = 0.95, iterations =
 
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
   attr(out, "ci") <- ci
+  attr(out, "ci_method") <- if (!missing(ci_method)) ci_method
   return(out)
 }
 
@@ -227,6 +232,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
   if (is.numeric(ci)) {
     if (requireNamespace("boot", quietly = TRUE)) {
       out <- cbind(out, .kendalls_w_ci(data, ci, iterations))
+      ci_method <- list(method = "bootstrap", iterations = iterations)
     } else {
       warning("'boot' package required for estimating CIs for Glass' delta. Please install the package and try again.", call. = FALSE)
     }
@@ -234,6 +240,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
   attr(out, "ci") <- ci
+  attr(out, "ci_method") <- if (!missing(ci_method)) ci_method
   return(out)
 }
 

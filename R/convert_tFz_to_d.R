@@ -25,10 +25,13 @@ t_to_d <- function(t, df_error, paired = FALSE, ci = 0.95, pooled, ...) {
 
     res$CI_low <- paired * ts[, 1] / sqrt(df_error)
     res$CI_high <- paired * ts[, 2] / sqrt(df_error)
+
+    ci_method <- list(method = "ncp", distribution = "t")
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
+  attr(res, "ci_method") <- if (!missing(ci_method)) ci_method
   return(res)
 }
 
@@ -68,10 +71,13 @@ z_to_d <- function(z, n, paired = FALSE, ci = 0.95, pooled, ...) {
 
     res$CI_low <- paired * zs[, 1] / sqrt(n)
     res$CI_high <- paired * zs[, 2] / sqrt(n)
+
+    ci_method <- list(method = "normal")
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
+  attr(res, "ci_method") <- if (!missing(ci_method)) ci_method
   return(res)
 }
 

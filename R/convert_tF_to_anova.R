@@ -162,6 +162,8 @@ F_to_f <- function(f, df, df_error, ci = 0.9, squared = FALSE, ...) {
     res$CI <- res_eta$CI
     res$CI_low <- res_eta$CI_low / (1 - res_eta$CI_low)
     res$CI_high <- res_eta$CI_high / (1 - res_eta$CI_high)
+
+    ci_method <- list(method = "ncp", distribution = "F")
   }
 
   if (!squared) {
@@ -171,6 +173,8 @@ F_to_f <- function(f, df, df_error, ci = 0.9, squared = FALSE, ...) {
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
+  attr(res, "ci") <- ci
+  attr(res, "ci_method") <- if (!missing(ci_method)) ci_method
   return(res)
 }
 
@@ -213,9 +217,12 @@ t_to_f2 <- function(t, df_error, ci = 0.9, squared = TRUE, ...) {
     # This really is a generic F_to_R2
     res$CI_low <- F_to_eta2(fs[, 1], df, df_error, ci = NULL)[[1]]
     res$CI_high <- F_to_eta2(fs[, 2], df, df_error, ci = NULL)[[1]]
+
+    ci_method <- list(method = "ncp", distribution = "F")
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
+  attr(res, "ci_method") <- if (!missing(ci_method)) ci_method
   return(res)
 }

@@ -243,6 +243,8 @@ oddsratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
 
     res$CI_low <- confs[1]
     res$CI_high <- confs[2]
+
+    ci_method <- list(method = "normal")
   }
 
   if (log) {
@@ -253,6 +255,7 @@ oddsratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
+  attr(res, "ci_method") <- if (!missing(ci_method)) ci_method
   attr(res, "log") <- log
   return(res)
 }
@@ -301,6 +304,8 @@ riskratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
 
     res$CI_low <- confs[1]
     res$CI_high <- confs[2]
+
+    ci_method <- list(method = "normal")
   }
 
   if (log) {
@@ -311,6 +316,7 @@ riskratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
+  attr(res, "ci_method") <- if (!missing(ci_method)) ci_method
   attr(res, "log") <- log
   return(res)
 }
@@ -356,10 +362,13 @@ cohens_h <- function(x, y = NULL, ci = 0.95, ...) {
     out$CI <- ci
     out$CI_low <- H - Zc * (2 * se_arcsin)
     out$CI_high <- H + Zc * (2 * se_arcsin)
+
+    ci_method <- list(method = "normal")
   }
 
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
   attr(out, "ci") <- ci
+  attr(out, "ci_method") <- if (!missing(ci_method)) ci_method
   return(out)
 }
 
@@ -418,10 +427,13 @@ cohens_g <- function(x, y = NULL, ci = 0.95, ...) {
     out$CI <- ci
     out$CI_low <- res$conf.int[1] - 0.5
     out$CI_high <- res$conf.int[2] - 0.5
+
+    ci_method <- list(method = "binomial")
   }
 
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
   attr(out, "ci") <- ci
+  attr(out, "ci_method") <- if (!missing(ci_method)) ci_method
   return(out)
 }
 
