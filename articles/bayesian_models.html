@@ -275,11 +275,11 @@
 <code class="sourceCode R"><span class="fu">bayestestR</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html">describe_posterior</a></span><span class="op">(</span><span class="va">pes_posterior</span>, rope_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span><span class="op">)</span>, test <span class="op">=</span> <span class="st">"rope"</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Description of Posterior Distributions
 &gt; 
-&gt; Parameter     | Median |       0.89% CI |       89% ROPE | % in ROPE
+&gt; Parameter     | Median |         89% CI |       89% ROPE | % in ROPE
 &gt; --------------------------------------------------------------------
-&gt; age_f         |  0.027 | [0.000, 0.059] | [0.000, 0.100] |   100.000
-&gt; comps_f       |  0.133 | [0.076, 0.199] | [0.000, 0.100] |    15.919
-&gt; age_f:comps_f |  0.011 | [0.000, 0.033] | [0.000, 0.100] |   100.000</code></pre>
+&gt; age_f         |  0.027 | [0.000, 0.059] | [0.000, 0.100] |      100%
+&gt; comps_f       |  0.133 | [0.076, 0.199] | [0.000, 0.100] |    15.92%
+&gt; age_f:comps_f |  0.011 | [0.000, 0.033] | [0.000, 0.100] |      100%</code></pre>
 <p>Compare to:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">modAOV_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">age_f</span> <span class="op">*</span> <span class="va">comps_f</span>,
