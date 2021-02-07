@@ -125,6 +125,11 @@ phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
     return(effectsize(x, type = "phi", adjust = adjust, ci = ci))
+  } else if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "phi", adjust = adjust, ci = ci))
   }
 
   res <- suppressWarnings(stats::chisq.test(x, y, ...))
@@ -171,6 +176,11 @@ cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
     return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci))
+  } else if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci))
   }
 
   res <- suppressWarnings(stats::chisq.test(x, y, ...))
@@ -213,6 +223,11 @@ oddsratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
     } else {
       stop("'x' is not a Chi-squared / Fisher's Exact test!", call. = FALSE)
     }
+  } else if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "or", log = log, ci = ci))
   }
 
   res <- suppressWarnings(stats::chisq.test(x, y, ...))
@@ -265,6 +280,11 @@ riskratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
   if (inherits(x, "htest")) {
     if (!(grepl("Pearson's Chi-squared", x$method) ||
       grepl("Chi-squared test for given probabilities", x$method))) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "rr", log = log, ci = ci))
+  } else if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
     return(effectsize(x, type = "rr", log = log, ci = ci))
@@ -322,6 +342,11 @@ cohens_h <- function(x, y = NULL, ci = 0.95, ...) {
   if (inherits(x, "htest")) {
     if (!(grepl("Pearson's Chi-squared", x$method) ||
       grepl("Chi-squared test for given probabilities", x$method))) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "cohens_h", ci = ci))
+  } else if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
     return(effectsize(x, type = "cohens_h", ci = ci))
