@@ -96,7 +96,7 @@ chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...) {
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
-  attr(res, "ci_method") <- if (!missing(ci_method)) ci_method
+  attr(res, "ci_method") <- if (exists("ci_method")) ci_method
   attr(res, "adjust") <- adjust
   return(res)
 }
@@ -164,7 +164,7 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, 
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
-  attr(res, "ci_method") <- if (!missing(ci_method)) ci_method
+  attr(res, "ci_method") <- if (exists("ci_method")) ci_method
   attr(res, "adjust") <- adjust
   return(res)
 }

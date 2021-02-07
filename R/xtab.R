@@ -255,7 +255,7 @@ oddsratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
-  attr(res, "ci_method") <- if (!missing(ci_method)) ci_method
+  attr(res, "ci_method") <- if (exists("ci_method")) ci_method
   attr(res, "log") <- log
   return(res)
 }
@@ -316,7 +316,7 @@ riskratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
-  attr(res, "ci_method") <- if (!missing(ci_method)) ci_method
+  attr(res, "ci_method") <- if (exists("ci_method")) ci_method
   attr(res, "log") <- log
   return(res)
 }
@@ -368,7 +368,7 @@ cohens_h <- function(x, y = NULL, ci = 0.95, ...) {
 
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
   attr(out, "ci") <- ci
-  attr(out, "ci_method") <- if (!missing(ci_method)) ci_method
+  attr(out, "ci_method") <- if (exists("ci_method")) ci_method
   return(out)
 }
 
@@ -433,7 +433,7 @@ cohens_g <- function(x, y = NULL, ci = 0.95, ...) {
 
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
   attr(out, "ci") <- ci
-  attr(out, "ci_method") <- if (!missing(ci_method)) ci_method
+  attr(out, "ci_method") <- if (exists("ci_method")) ci_method
   return(out)
 }
 

@@ -174,7 +174,7 @@ F_to_f <- function(f, df, df_error, ci = 0.9, squared = FALSE, ...) {
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
-  attr(res, "ci_method") <- if (!missing(ci_method)) ci_method
+  attr(res, "ci_method") <- if (exists("ci_method")) ci_method
   return(res)
 }
 
@@ -223,6 +223,6 @@ t_to_f2 <- function(t, df_error, ci = 0.9, squared = TRUE, ...) {
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
-  attr(res, "ci_method") <- if (!missing(ci_method)) ci_method
+  attr(res, "ci_method") <- if (exists("ci_method")) ci_method
   return(res)
 }

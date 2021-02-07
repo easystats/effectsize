@@ -291,7 +291,7 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, iterations 
   attr(out, "pooled_sd") <- pooled_sd
   attr(out, "mu") <- mu
   attr(out, "ci") <- ci
-  attr(out, "ci_method") <- if (!missing(ci_method)) ci_method
+  attr(out, "ci_method") <- if (exists("ci_method")) ci_method
   return(out)
 }
 

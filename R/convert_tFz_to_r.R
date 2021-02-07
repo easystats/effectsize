@@ -110,7 +110,7 @@ t_to_r <- function(t, df_error, ci = 0.95, ...) {
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
-  attr(res, "ci_method") <- if (!missing(ci_method)) ci_method
+  attr(res, "ci_method") <- if (exists("ci_method")) ci_method
   return(res)
 }
 
@@ -142,7 +142,7 @@ z_to_r <- function(z, n, ci = 0.95, ...) {
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
-  attr(res, "ci_method") <- if (!missing(ci_method)) ci_method
+  attr(res, "ci_method") <- if (exists("ci_method")) ci_method
   return(res)
 }
 
