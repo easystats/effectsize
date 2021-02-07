@@ -88,6 +88,11 @@ cohens_d <- function(x,
       stop("'x' is not a t-test!", call. = FALSE)
     }
     return(effectsize(x, type = "d", correction = correction, ci = ci, verbose = verbose))
+  } else if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
+      stop("'x' is not a t-test!", call. = FALSE)
+    }
+    return(effectsize(x, ci = ci, verbose = verbose))
   }
 
 
@@ -129,6 +134,11 @@ hedges_g <- function(x,
       stop("'x' is not a t-test!", call. = FALSE)
     }
     return(effectsize(x, type = "g", correction = correction, ci = ci, verbose = verbose))
+  } else if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
+      stop("'x' is not a t-test!", call. = FALSE)
+    }
+    return(effectsize(x, ci = ci, verbose = verbose))
   }
 
   .effect_size_difference(
