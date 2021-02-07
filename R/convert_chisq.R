@@ -74,7 +74,7 @@ chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...) {
     res <- data.frame(phi = sqrt(chisq / n))
   }
 
-
+  ci_method <- NULL
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
@@ -90,10 +90,13 @@ chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...) {
       chisq_to_phi(chisqs[, 1], n, nrow, ncol, ci = NULL, adjust = FALSE)[[1]]
     res$CI_high <-
       chisq_to_phi(chisqs[, 2], n, nrow, ncol, ci = NULL, adjust = FALSE)[[1]]
+
+    ci_method <- list(method = "ncp", distribution = "chisq")
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
+  # attr(res, "ci_method") <- ci_method
   attr(res, "adjust") <- adjust
   return(res)
 }
@@ -139,7 +142,7 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, 
     res <- data.frame(Cramers_v = V)
   }
 
-
+  ci_method <- NULL
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
@@ -155,10 +158,13 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, 
       chisq_to_cramers_v(chisqs[, 1], n, nrow, ncol, ci = NULL, adjust = FALSE)[[1]]
     res$CI_high <-
       chisq_to_cramers_v(chisqs[, 2], n, nrow, ncol, ci = NULL, adjust = FALSE)[[1]]
+
+    ci_method <- list(method = "ncp", distribution = "chisq")
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
+  # attr(res, "ci_method") <- ci_method
   attr(res, "adjust") <- adjust
   return(res)
 }

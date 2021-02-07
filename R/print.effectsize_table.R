@@ -25,6 +25,7 @@ format.effectsize_table <- function(x, digits = 2, ...) {
   colnames(x)[i] <- labs[i]
 
   attr(x, "ci") <- NULL
+  attr(x, "ci_method") <- NULL
 
   insight::format_table(x, digits = digits, ci_digits = digits, preserve_attributes = TRUE, ...)
 }

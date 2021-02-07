@@ -485,6 +485,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   attr(out, "partial") <- partial
   attr(out, "generalized") <- generalized
   attr(out, "ci") <- ci
+  attr(out, "ci_method") <- if (is.numeric(ci)) list(method = "ncp", distribution = "t")
   out
 }
 
@@ -618,6 +619,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   attr(out, "partial") <- partial
   attr(out, "generalized") <- generalized
   attr(out, "ci") <- ci
+  attr(out, "ci_method") <- if (is.numeric(ci)) list(method = "ncp", distribution = "t")
   out
 }
 
@@ -646,7 +648,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
   attr(out, "partial") <- attr(params[[1]], "partial")
   attr(out, "generalized") <- attr(params[[1]], "generalized")
-  attr(out, "ci") <- attr(params[[1]], "ci")
+  attr(out, "ci") <- attr(params[[1]], "ci", exact = TRUE)
+  attr(out, "ci_method") <- attr(params[[1]], "ci_method", exact = TRUE)
   out
 }
 
@@ -722,6 +725,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   attr(out, "partial") <- partial
   attr(out, "generalized") <- generalized
   attr(out, "ci") <- ci
+  attr(out, "ci_method") <- if (is.numeric(ci)) list(method = "ncp", distribution = "t")
   out
 }
 
@@ -800,6 +804,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   attr(out, "partial") <- partial
   attr(out, "generalized") <- generalized
   attr(out, "ci") <- ci
+  attr(out, "ci_method") <- if (is.numeric(ci)) list(method = "ncp", distribution = "t")
   out
 }
 
@@ -928,6 +933,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   )
 
   attr(out, "ci") <- ci
+  attr(out, "ci_method") <- if (is.numeric(ci)) list(method = "ncp", distribution = "t")
   attr(out, "partial") <- partial
   attr(out, "generalized") <- generalized
   out
@@ -1002,6 +1008,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       )
     }
     attr(out, "ci") <- ci
+    attr(out, "ci_method") <- if (is.numeric(ci)) list(method = "ncp", distribution = "t")
     attr(out, "partial") <- partial
     attr(out, "generalized") <- generalized
     return(out)
@@ -1026,6 +1033,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       )
     )
     attr(out, "ci") <- ci
+    attr(out, "ci_method") <- if (is.numeric(ci)) list(method = "ncp", distribution = "t")
     attr(out, "partial") <- partial
     attr(out, "generalized") <- generalized
     return(out)
