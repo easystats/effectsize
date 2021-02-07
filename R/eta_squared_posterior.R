@@ -49,7 +49,7 @@ eta_squared_posterior.stanreg <- function(model,
     # Too hard right now.
   }
 
-  if (!isFALSE(generalized) && mo_inf$is_mixed) {
+  if ((isTRUE(generalized) || is.character(generalized)) && mo_inf$is_mixed) {
     if (verbose) {
       warning(
         "Bayesian Generalized Eta Squared not supported for mixed models.\n",
