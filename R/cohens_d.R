@@ -245,6 +245,7 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, iterations 
   types <- c("d" = "Cohens_d", "g" = "Hedges_g", "delta" = "Glass_delta")
   colnames(out) <- types[type]
 
+  ci_method <- NULL
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
 
@@ -263,6 +264,7 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, iterations 
         out <- cbind(out, .delta_ci(x, y, mu = mu, ci = ci, ...))
         ci_method <- list(method = "bootstrap", iterations = iterations)
       } else {
+        ci <- NULL
         warning("'boot' package required for estimating CIs for Glass' delta. Please install the package and try again.", call. = FALSE)
       }
     }
@@ -291,7 +293,7 @@ glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, iterations 
   attr(out, "pooled_sd") <- pooled_sd
   attr(out, "mu") <- mu
   attr(out, "ci") <- ci
-  attr(out, "ci_method") <- if (exists("ci_method")) ci_method
+  attr(out, "ci_method") <- ci_method
   return(out)
 }
 

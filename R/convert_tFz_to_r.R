@@ -93,6 +93,7 @@
 t_to_r <- function(t, df_error, ci = 0.95, ...) {
   res <- data.frame(r = t / sqrt(t^2 + df_error))
 
+  ci_method <- NULL
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
@@ -110,7 +111,7 @@ t_to_r <- function(t, df_error, ci = 0.95, ...) {
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
-  attr(res, "ci_method") <- if (exists("ci_method")) ci_method
+  attr(res, "ci_method") <- ci_method
   return(res)
 }
 
@@ -124,6 +125,7 @@ t_to_r <- function(t, df_error, ci = 0.95, ...) {
 z_to_r <- function(z, n, ci = 0.95, ...) {
   res <- data.frame(r = z / sqrt(z^2 + n))
 
+  ci_method <- NULL
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
@@ -142,7 +144,7 @@ z_to_r <- function(z, n, ci = 0.95, ...) {
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
-  attr(res, "ci_method") <- if (exists("ci_method")) ci_method
+  attr(res, "ci_method") <- ci_method
   return(res)
 }
 

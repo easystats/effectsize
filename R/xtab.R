@@ -231,6 +231,7 @@ oddsratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
 
   res <- data.frame(Odds_ratio = OR)
 
+  ci_method <- NULL
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
@@ -255,7 +256,7 @@ oddsratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
-  attr(res, "ci_method") <- if (exists("ci_method")) ci_method
+  attr(res, "ci_method") <- ci_method
   attr(res, "log") <- log
   return(res)
 }
@@ -292,6 +293,7 @@ riskratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
 
   res <- data.frame(Risk_ratio = RR)
 
+  ci_method <- NULL
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
@@ -316,7 +318,7 @@ riskratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
-  attr(res, "ci_method") <- if (exists("ci_method")) ci_method
+  attr(res, "ci_method") <- ci_method
   attr(res, "log") <- log
   return(res)
 }
@@ -352,6 +354,7 @@ cohens_h <- function(x, y = NULL, ci = 0.95, ...) {
 
   out <- data.frame(Cohens_h = H)
 
+  ci_method <- NULL
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
 
@@ -368,7 +371,7 @@ cohens_h <- function(x, y = NULL, ci = 0.95, ...) {
 
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
   attr(out, "ci") <- ci
-  attr(out, "ci_method") <- if (exists("ci_method")) ci_method
+  attr(out, "ci_method") <- ci_method
   return(out)
 }
 
@@ -414,6 +417,7 @@ cohens_g <- function(x, y = NULL, ci = 0.95, ...) {
 
   out <- data.frame(Cohens_g = g)
 
+  ci_method <- NULL
   if (is.numeric(ci)) {
     n <- sum(b) + sum(c)
     k <- P * n
@@ -433,7 +437,7 @@ cohens_g <- function(x, y = NULL, ci = 0.95, ...) {
 
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
   attr(out, "ci") <- ci
-  attr(out, "ci_method") <- if (exists("ci_method")) ci_method
+  attr(out, "ci_method") <- ci_method
   return(out)
 }
 

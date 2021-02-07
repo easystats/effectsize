@@ -132,6 +132,7 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
   out <- data.frame(r_rank_biserial = r_rbs)
 
   ## CI
+  ci_method <- NULL
   if (is.numeric(ci)) {
     if (requireNamespace("boot", quietly = TRUE)) {
       out <- cbind(out, .rbs_ci_boot(
@@ -145,6 +146,7 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
 
       ci_method <- list(method = "bootstrap", iterations = iterations)
     } else {
+      ci <- NULL
       warning("For CIs, the 'boot' package must be installed.")
     }
   }
@@ -153,7 +155,7 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
   attr(out, "paired") <- paired
   attr(out, "mu") <- mu
   attr(out, "ci") <- ci
-  attr(out, "ci_method") <- if (exists("ci_method")) ci_method
+  attr(out, "ci_method") <- ci_method
   return(out)
 }
 
@@ -194,18 +196,20 @@ rank_epsilon_squared <- function(x, groups, data = NULL, ci = 0.95, iterations =
   out <- data.frame(rank_epsilon_squared = E)
 
   ## CI
+  ci_method <- NULL
   if (is.numeric(ci)) {
     if (requireNamespace("boot", quietly = TRUE)) {
       out <- cbind(out, .repsilon_ci(data, ci, iterations))
       ci_method <- list(method = "bootstrap", iterations = iterations)
     } else {
+      ci <- NULL
       warning("'boot' package required for estimating CIs for Glass' delta. Please install the package and try again.", call. = FALSE)
     }
   }
 
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
   attr(out, "ci") <- ci
-  attr(out, "ci_method") <- if (exists("ci_method")) ci_method
+  attr(out, "ci_method") <- ci_method
   return(out)
 }
 
@@ -229,18 +233,20 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
   out <- data.frame(Kendalls_W = W)
 
   ## CI
+  ci_method <- NULL
   if (is.numeric(ci)) {
     if (requireNamespace("boot", quietly = TRUE)) {
       out <- cbind(out, .kendalls_w_ci(data, ci, iterations))
       ci_method <- list(method = "bootstrap", iterations = iterations)
     } else {
+      ci <- NULL
       warning("'boot' package required for estimating CIs for Glass' delta. Please install the package and try again.", call. = FALSE)
     }
   }
 
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
   attr(out, "ci") <- ci
-  attr(out, "ci_method") <- if (exists("ci_method")) ci_method
+  attr(out, "ci_method") <- ci_method
   return(out)
 }
 

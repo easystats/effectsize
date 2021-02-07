@@ -158,6 +158,7 @@ F_to_f <- function(f, df, df_error, ci = 0.9, squared = FALSE, ...) {
       res_eta$Eta2_partial / (1 - res_eta$Eta2_partial)
   )
 
+  ci_method <- NULL
   if (is.numeric(ci)) {
     res$CI <- res_eta$CI
     res$CI_low <- res_eta$CI_low / (1 - res_eta$CI_low)
@@ -174,7 +175,7 @@ F_to_f <- function(f, df, df_error, ci = 0.9, squared = FALSE, ...) {
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
-  attr(res, "ci_method") <- if (exists("ci_method")) ci_method
+  attr(res, "ci_method") <- ci_method
   return(res)
 }
 
@@ -207,6 +208,7 @@ t_to_f2 <- function(t, df_error, ci = 0.9, squared = TRUE, ...) {
     stop("'es' must be 'eta2', 'epsilon2', or 'omega2'.")
   )
 
+  ci_method <- NULL
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
@@ -223,6 +225,6 @@ t_to_f2 <- function(t, df_error, ci = 0.9, squared = TRUE, ...) {
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
-  attr(res, "ci_method") <- if (exists("ci_method")) ci_method
+  attr(res, "ci_method") <- ci_method
   return(res)
 }
