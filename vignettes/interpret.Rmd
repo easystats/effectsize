@@ -138,6 +138,21 @@ interpret_r(x, rules = "evans1996")
 
 - **r >= 0.8** - Very strong
 
+#### @lovakov2021empirically
+
+```r
+interpret_r(x, rules = "lovakov2021")
+```
+
+- **r < 0.12** - Very small
+
+- **0.12 <= r < 0.24** - Small
+
+- **0.24 <= r < 0.41** - Moderate
+
+- **r >= 0.41** - Large
+
+
 ## Standardized Difference *d* (Cohen's *d*)
 
 The standardized difference can be obtained through the standardization of
@@ -196,6 +211,21 @@ interpret_d(x, rules = "gignac2016")
 - **0.41 <= d < 0.63** - Moderate
 
 - **d >= 0.63** - Large
+
+#### @lovakov2021empirically
+
+```r
+interpret_d(x, rules = "lovakov2021")
+```
+
+- **r < 0.15** - Very small
+
+- **0.15 <= r < 0.36** - Small
+
+- **0.36 <= r < 0.65** - Moderate
+
+- **r >= 0.65** - Large
+
 
 ## Odds Ratio
 

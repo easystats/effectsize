@@ -15,7 +15,7 @@ interpret_delta(delta, rules = "cohen1988")
 \arguments{
 \item{d, g, delta}{Value or vector of effect size values.}
 
-\item{rules}{Can be \code{"cohen1988"} (default), \code{"gignac2016"}, \code{"sawilowsky2009"} or custom set of \code{\link[=rules]{rules()}}.}
+\item{rules}{Can be \code{"cohen1988"} (default), \code{"gignac2016"}, \code{"sawilowsky2009"}, \code{"lovakov2021"} or a custom set of \code{\link[=rules]{rules()}}.}
 
 \item{...}{Not directly used.}
 }
@@ -25,7 +25,7 @@ Interpretation of standardized differences using different sets of rules of thum
 \section{Rules}{
 
 
-Rules apply to equally to positive and negative \emph{d}.
+Rules apply to equally to positive and negative \emph{d} (i.e., they are given as absolute values).
 \itemize{
 \item Cohen (1988) (\code{"cohen1988"}; default)
 \itemize{
@@ -44,6 +44,13 @@ Rules apply to equally to positive and negative \emph{d}.
 \item \strong{1.2 <= d < 2} - Very large
 \item \strong{d >= 2} - Huge
 }
+\item Lovakov & Agadullina (2021) (\code{"lovakov2021"})
+\itemize{
+\item \strong{d < 0.15} - Very small
+\item \strong{0.15 <= d < 0.36} - Small
+\item \strong{0.36 <= d < 0.65} - Medium
+\item \strong{d >= 0.65} - Large
+}
 \item Gignac & Szodorai (2016) (\code{"gignac2016"}, based on the \code{\link[=d_to_r]{d_to_r()}} conversion, see \code{\link[=interpret_r]{interpret_r()}})
 \itemize{
 \item \strong{d < 0.2} - Very small
@@ -57,9 +64,11 @@ Rules apply to equally to positive and negative \emph{d}.
 \examples{
 interpret_d(.02)
 interpret_d(c(.5, .02))
+interpret_d(.3, rules = "lovakov2021")
 }
 \references{
 \itemize{
+\item Lovakov, A., & Agadullina, E. R. (2021). Empirically Derived Guidelines for Effect Size Interpretation in Social Psychology. European Journal of Social Psychology.
 \item Gignac, G. E., & Szodorai, E. T. (2016). Effect size guidelines for individual differences researchers. Personality and individual differences, 102, 74-78.
 \item Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 \item Sawilowsky, S. S. (2009). New effect size rules of thumb.
