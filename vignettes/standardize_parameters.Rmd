@@ -329,7 +329,7 @@ standardize_parameters(mod, method = "basic")
 
 Linear mixed models (LMM/HLM/MLM) offer an additional conundrum to
 standardization - how does one even calculate the SDs of the various predictors?
-Of of the response - is it the deviations within each group? Or perhaps between
+Or of the response - is it the deviations within each group? Or perhaps between
 them?
 
 The solution: standardize according to level of the predictor
