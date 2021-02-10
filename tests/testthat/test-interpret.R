@@ -20,6 +20,7 @@ if (require("testthat") && require("effectsize")) {
   test_that("interpret_r", {
     expect_equal(interpret_r(0.21)[1], "medium")
     expect_equal(interpret_r(0.21, "cohen1988")[1], "small")
+    expect_equal(interpret_r(0.21, "lovakov2021")[1], "small")
     expect_equal(interpret_r(0.7, "evans1996")[1], "strong")
     expect_equal(interpret_r(c(0.5, -0.08), "cohen1988")[1:2], c("large", "very small"))
     expect_equal(interpret_r(0.6, rules(c(0.5), c("A", "B")))[1], "B")
@@ -46,6 +47,7 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(interpret_d(0.021)[1], "very small")
     expect_equal(interpret_d(1.3, "sawilowsky2009")[1], "very large")
     expect_equal(interpret_d(c(0.45, 0.85), "cohen1988")[1:2], c("small", "large"))
+    expect_equal(interpret_d(c(0.45, 0.85), "lovakov2021")[1:2], c("medium", "large"))
     expect_equal(interpret_d(0.6, rules(c(0.5), c("A", "B")))[1], "B")
     expect_error(interpret_d(0.6, "DUPA"))
   })

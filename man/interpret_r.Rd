@@ -44,10 +44,10 @@ Rules apply positive and negative \emph{r} alike.
 }
 \item Lovakov & Agadullina (2021) (\code{"lovakov2021"})
 \itemize{
-\item \strong{r < 0.1} - Very small
-\item \strong{0.1 <= r < 0.3} - Small
-\item \strong{0.3 <= r < 0.5} - Moderate
-\item \strong{r >= 0.5} - Large
+\item \strong{r < 0.12} - Very small
+\item \strong{0.12 <= r < 0.24} - Small
+\item \strong{0.24 <= r < 0.41} - Moderate
+\item \strong{r >= 0.41} - Large
 }
 \item Evans (1996) (\code{"evans1996"})
 \itemize{
