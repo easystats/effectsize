@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -256,14 +258,17 @@ standardization**, described below
 <code class="sourceCode R"><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="co"># the outcome of salary</span>
                          data2 <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="co"># the predictors</span>
                          partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># get partial correlations</span></code></pre></div>
-<pre><code>&gt; Parameter1 | Parameter2 |    r |       95% CI | t(498) |      p |  Method | n_Obs
-&gt; ---------------------------------------------------------------------------------
-&gt; data       | xtra_hours | 0.87 | [0.85, 0.89] |  39.79 | &lt; .001 | Pearson |   500
-&gt; data       |    n_comps | 0.71 | [0.66, 0.75] |  22.40 | &lt; .001 | Pearson |   500
-&gt; data       |        age | 0.09 | [0.01, 0.18] |   2.09 | 0.221  | Pearson |   500
-&gt; data       |  seniority | 0.19 | [0.10, 0.27] |   4.30 | &lt; .001 | Pearson |   500
+<pre><code>&gt; # Correlation table (pearson-method)
 &gt; 
-&gt; p-value adjustment method: Holm (1979)</code></pre>
+&gt; Parameter1 | Parameter2 |    r |       95% CI | t(498) |         p
+&gt; ------------------------------------------------------------------
+&gt; data       | xtra_hours | 0.87 | [0.85, 0.89] |  39.79 | &lt; .001***
+&gt; data       |    n_comps | 0.71 | [0.66, 0.75] |  22.40 | &lt; .001***
+&gt; data       |        age | 0.09 | [0.01, 0.18] |   2.09 | 0.221    
+&gt; data       |  seniority | 0.19 | [0.10, 0.27] |   4.30 | &lt; .001***
+&gt; 
+&gt; p-value adjustment method: Holm (1979)
+&gt; Observations: 500</code></pre>
 <p>Let’s compare these to the standardized slopes:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">xtra_hours</span> <span class="op">+</span> <span class="va">n_comps</span> <span class="op">+</span> <span class="va">age</span> <span class="op">+</span> <span class="va">seniority</span>,
@@ -737,6 +742,8 @@ Group_Sepal.Width * Petal.Width, data=data) -->
 
   
 
+
+  
 
   </body>
 </html>

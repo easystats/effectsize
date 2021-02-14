@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -165,11 +167,14 @@
 <p>But we can also treat the 2-level <code>group</code> variable as a numeric variable, and compute Pearon’s <em>r</em>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span></code></pre></div>
-<pre><code>&gt; Parameter1 | Parameter2 |     r |        95% CI |  t(8) |      p |  Method | n_Obs
-&gt; ----------------------------------------------------------------------------------
-&gt; Group.0    |    Outcome | -0.17 | [-0.72, 0.52] | -0.48 | &gt; .999 | Pearson |    10
+<pre><code>&gt; # Correlation table (pearson-method)
 &gt; 
-&gt; p-value adjustment method: Holm (1979)</code></pre>
+&gt; Parameter1 | Parameter2 |     r |        95% CI |  t(8) |      p
+&gt; ----------------------------------------------------------------
+&gt; Group.0    |    Outcome | -0.17 | [-0.72, 0.52] | -0.48 | &gt; .999
+&gt; 
+&gt; p-value adjustment method: Holm (1979)
+&gt; Observations: 10</code></pre>
 <p>But what if we only have summary statistics? Say, we only have <span class="math inline">\(d=-0.37\)</span> and we want to know what the <em>r</em> would have been? We can approximate <em>r</em> using the following formula <span class="citation">(Borenstein et al. 2009)</span>:</p>
 <p><span class="math display">\[
 r \approx \frac{d}{\sqrt{d^2 + 4}}
@@ -207,11 +212,14 @@ r \approx \frac{d}{\sqrt{d^2 + 4}}
 &gt; 0.67 | [0.43, 0.80]</code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mpg"</span>, <span class="st">"am"</span>, <span class="st">"hp"</span><span class="op">)</span><span class="op">]</span>, partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span></code></pre></div>
-<pre><code>&gt; Parameter1 | Parameter2 |    r |       95% CI | t(30) |      p |  Method | n_Obs
-&gt; --------------------------------------------------------------------------------
-&gt; mpg        |         am | 0.67 | [0.42, 0.83] |  4.97 | &lt; .001 | Pearson |    32
+<pre><code>&gt; # Correlation table (pearson-method)
 &gt; 
-&gt; p-value adjustment method: Holm (1979)</code></pre>
+&gt; Parameter1 | Parameter2 |    r |       95% CI | t(30) |         p
+&gt; -----------------------------------------------------------------
+&gt; mpg        |         am | 0.67 | [0.42, 0.83] |  4.97 | &lt; .001***
+&gt; 
+&gt; p-value adjustment method: Holm (1979)
+&gt; Observations: 32</code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># all close to:</span>
 <span class="fu"><a href="../reference/d_to_r.html">d_to_r</a></span><span class="op">(</span><span class="fl">1.81</span><span class="op">)</span></code></pre></div>
@@ -318,6 +326,8 @@ RR = \frac{OR}{(1 - p0 + (p0 \times OR))}
 
   
 
+
+  
 
   </body>
 </html>
