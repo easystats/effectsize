@@ -1,4 +1,4 @@
-# effectsize 0.4.3.1
+# effectsize 0.4.3-1
 
 `effectsize` now supports `R >= 3.4`.
 
