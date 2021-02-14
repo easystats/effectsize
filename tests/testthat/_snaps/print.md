@@ -28,3 +28,28 @@
       -------------------
       0.16 | [0.00, 0.41]
 
+---
+
+    Code
+      print(equivalence_test(es, range = 0.15))
+    Output
+      # Test for Practical Equivalence
+       	ROPE: [0.00 0.15]
+      
+      Parameter              | Eta2 (partial) |       90% CI |        H0
+      ------------------------------------------------------------------
+      factor(am)             |           0.63 | [0.42, 0.75] |  Rejected
+      factor(cyl)            |           0.66 | [0.45, 0.77] |  Rejected
+      factor(am):factor(cyl) |           0.10 | [0.00, 0.27] | Undecided
+
+---
+
+    Code
+      print(rules(c(small = 0.2, medium = 0.5), name = "Cohen's Rules"))
+    Output
+      # Reference values (Cohen's Rules)
+      
+      Label | small | medium
+      ----------------------
+      Value |  0.20 |   0.50
+

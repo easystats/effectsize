@@ -12,5 +12,12 @@ if (require("testthat") && require("effectsize")) {
 
     set.seed(123)
     expect_snapshot(print(effectsize(oneway.test(extra ~ group, data = sleep, var.equal = TRUE))))
+
+    set.seed(123)
+    model <- aov(mpg ~ factor(am) * factor(cyl), data = mtcars)
+    es <- eta_squared(model)
+    expect_snapshot(print(equivalence_test(es, range = 0.15)))
+
+    expect_snapshot(print(rules(c("small" = 0.2, "medium" = 0.5), name = "Cohen's Rules")))
   })
 }
