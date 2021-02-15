@@ -130,4 +130,18 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(interpret_ess(0.6, rules(c(0.5), c("A", "B")))[1], "B")
     expect_error(interpret_ess(0.6, "DUPA"))
   })
+
+
+  test_that("interpret_fit", {
+    expect_equal(interpret_gfi(c(.5, .99)), c("poor", "satisfactory"), ignore_attr = TRUE)
+    expect_equal(interpret_agfi(c(.5, .99)), c("poor", "satisfactory"), ignore_attr = TRUE)
+    expect_equal(interpret_nfi(c(.5, .99)), c("poor", "satisfactory"), ignore_attr = TRUE)
+    expect_equal(interpret_nnfi(c(.5, .99)), c("poor", "satisfactory"), ignore_attr = TRUE)
+    expect_equal(interpret_cfi(c(.5, .99)), c("poor", "satisfactory"), ignore_attr = TRUE)
+    expect_equal(interpret_rfi(c(.5, .99)), c("poor", "satisfactory"), ignore_attr = TRUE)
+    expect_equal(interpret_ifi(c(.5, .99)), c("poor", "satisfactory"), ignore_attr = TRUE)
+    expect_equal(interpret_pnfi(c(.5, .99)), c("poor", "satisfactory"), ignore_attr = TRUE)
+    expect_equal(interpret_rmsea(c(.1, .05)), c("poor", "satisfactory"), ignore_attr = TRUE)
+    expect_equal(interpret_srmr(c(.1, .05)), c("poor", "satisfactory"), ignore_attr = TRUE)
+  })
 }
