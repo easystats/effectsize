@@ -1,6 +1,5 @@
 if (require("testthat") && require("effectsize")) {
   test_that("format_standardize", {
-    set.seed(123)
     expect_equal(
       format_standardize(c(-1, 0, 1)),
       structure(3:1, .Label = c("+1 SD", "Mean", "-1 SD"), class = "factor")
@@ -24,7 +23,7 @@ if (require("testthat") && require("effectsize")) {
 
     expect_equal(
       format_standardize(c(-1, 0, 1, 2), reference = ref, robust = TRUE, digits = 2),
-      structure(4:1, .Label = c("+2.00 MAD", "+1.00 MAD", "+0.00 MAD", "-1.00 MAD"),
+      structure(4:1, .Label = c("+2.00 MAD", "+1.00 MAD", "Median", "-1.00 MAD"),
                 class = "factor")
     )
   })
