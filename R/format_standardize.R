@@ -32,15 +32,16 @@ format_standardize <- function(x, reference = x, robust = FALSE, digits = NULL, 
 
   # Round
   if (is.null(digits)) {
-    x <- insight::format_value(x, round(1 / diff(range(x, na.rm = TRUE))), protect_integers = TRUE)
+    L <- insight::format_value(x, round(1 / diff(range(x, na.rm = TRUE))), protect_integers = TRUE)
   } else {
-    x <- insight::format_value(x, digits = digits, protect_integers = TRUE)
+    L <- insight::format_value(x, digits = digits, protect_integers = TRUE)
   }
 
   # Complete
-  x[!grepl("-", x)] <- paste0("+", x[!grepl("-", x)])
-  x[x != "+0"] <- paste(x[x != "+0"], deviation_name)
-  x[x == "+0"] <- central_name
+  L[!grepl("-", L)] <- paste0("+", L[!grepl("-", L)])
+  L <- paste(L, deviation_name)
+  is_central <- sapply(x, function(.) isTRUE(all.equal(., 0)))
+  L[is_central] <- central_name
 
-  factor(x, levels = rev(unique(x)))
+  factor(L, levels = rev(unique(L)))
 }
