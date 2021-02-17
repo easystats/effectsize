@@ -103,7 +103,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/easystats/effectsize/">
+  <a href="https://github.com/easystats/effectsize/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -124,7 +124,7 @@
       <h1 data-toc-skip>Parameter and Model Standardization</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/vignettes/standardize_parameters.Rmd"><code>vignettes/standardize_parameters.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/vignettes/standardize_parameters.Rmd" class="external-link"><code>vignettes/standardize_parameters.Rmd</code></a></small>
       <div class="hidden name"><code>standardize_parameters.Rmd</code></div>
 
     </div>
@@ -135,7 +135,7 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>Standardizing parameters (<em>i.e.</em>, coefficients) can allow for their comparison within and between models, variables and studies. Moreover, as it returns coefficients expressed in terms of <strong>change of variance</strong> (for instance, coefficients expressed in terms of SD of the response variable), it can allow for the usage of <a href="https://easystats.github.io/effectsize/articles/interpret.html">effect size interpretation guidelines</a>, such as Cohen’s (1988) famous rules of thumb.</p>
+<p>Standardizing parameters (<em>i.e.</em>, coefficients) can allow for their comparison within and between models, variables and studies. Moreover, as it returns coefficients expressed in terms of <strong>change of variance</strong> (for instance, coefficients expressed in terms of SD of the response variable), it can allow for the usage of <a href="https://easystats.github.io/effectsize/articles/interpret.html" class="external-link">effect size interpretation guidelines</a>, such as Cohen’s (1988) famous rules of thumb.</p>
 <p>However, standardizing a model’s parameters should <em>not</em> be automatically and mindlessly done: for some research fields, particular variables or types of studies (<em>e.g.</em>, replications), it sometimes makes more sense to keep, use and interpret the original parameters, especially if they are well known or easily understood.</p>
 <p>Critically, <strong>parameters standardization is not a trivial process</strong>. Different techniques exist, that can lead to drastically different results. Thus, it is critical that the standardization method is explicitly documented and detailed.</p>
 <!-- **`parameters` include different techniques of parameters
@@ -150,9 +150,9 @@ standardization**, described below
 <h2 class="hasAnchor">
 <a href="#standardized-associations" class="anchor"></a>Standardized Associations</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/">effectsize</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/" class="external-link">effectsize</a></span><span class="op">)</span>
 
-<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">complaints</span>, data <span class="op">=</span> <span class="va">attitude</span><span class="op">)</span>
+<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">complaints</span>, data <span class="op">=</span> <span class="va">attitude</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Standardization method: refit
@@ -163,7 +163,7 @@ standardization**, described below
 &gt; complaints  |               0.83 | [ 0.61, 1.04]</code></pre>
 <p>Standardizing the coefficient of this <em>simple</em> linear regression gives a value of <code>0.87</code>, but did you know that for a simple regression this is actually the <strong>same as a correlation</strong>? Thus, you can eventually apply some (<em>in</em>)famous interpretation guidelines (e.g., Cohen’s rules of thumb).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">attitude</span><span class="op">$</span><span class="va">rating</span>, <span class="va">attitude</span><span class="op">$</span><span class="va">complaints</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test</a></span><span class="op">(</span><span class="va">attitude</span><span class="op">$</span><span class="va">rating</span>, <span class="va">attitude</span><span class="op">$</span><span class="va">complaints</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; r    |       95% CI
@@ -176,9 +176,9 @@ standardization**, described below
 <p>How does it work in the case of differences, when <strong>factors</strong> are entered and differences between a given level and a reference level? You might have heard that it is similar to a <strong>Cohen’s <em>d</em></strong>. Well, let’s see.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Select portion of data containing the two levels of interest</span>
-<span class="va">mtcars</span><span class="op">$</span><span class="va">am</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Manual"</span>, <span class="st">"Automatic"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">mtcars</span><span class="op">$</span><span class="va">am</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Manual"</span>, <span class="st">"Automatic"</span><span class="op">)</span><span class="op">)</span>
 
-<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
+<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Standardization method: refit
 &gt; 
@@ -196,15 +196,15 @@ standardization**, described below
 &gt; - Estimated using pooled SD.</code></pre>
 <p><strong><em>It is larger!</em></strong> Why? How? Both differences should be expressed in units of SD! But which SDs? Different SDs!</p>
 <p>When looking at the difference between groups as a <strong>slope</strong>, the standardized parameter is the difference between the means in <span class="math inline">\(SD_{mpg}\)</span>. That is, the <em>slope</em> between <code>Manual</code> and <code>Automatic</code> is a change of 1.20 <span class="math inline">\(SD_{mpg}\)</span>s.</p>
-<p>However, when looking a the difference as a <strong>distance between two populations</strong>, Cohen’s d is the distance between the means in units of <a href="https://easystats.github.io/effectsize/reference/sd_pooled.html"><strong>pooled SDs</strong></a>. That is, the <em>distance</em> between <code>Manual</code> and <code>Automatic</code> is of 1.48 SDs of <em>each of the groups</em> (here assumed to be equal).</p>
+<p>However, when looking a the difference as a <strong>distance between two populations</strong>, Cohen’s d is the distance between the means in units of <a href="https://easystats.github.io/effectsize/reference/sd_pooled.html" class="external-link"><strong>pooled SDs</strong></a>. That is, the <em>distance</em> between <code>Manual</code> and <code>Automatic</code> is of 1.48 SDs of <em>each of the groups</em> (here assumed to be equal).</p>
 <p>In this simple model, the pooled SD is the residual SD, so we can also estimate Cohen’s <em>d</em> as:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/sigma.html">sigma</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/sigma.html" class="external-link">sigma</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; amAutomatic 
 &gt;         1.5</code></pre>
 <p>And we can also get an approximation of Cohen’s <em>d</em> by converting the <span class="math inline">\(t\)</span>-statistic from the regression model via <code><a href="../reference/t_to_d.html">t_to_d()</a></code>:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Parameter      | Coefficient |   SE |         95% CI | t(30) |      p
 &gt; ---------------------------------------------------------------------
 &gt; (Intercept)    |       17.15 | 1.12 | [14.85, 19.44] | 15.25 | &lt; .001
@@ -216,7 +216,7 @@ standardization**, described below
 &gt; 1.50 | [0.68, 2.30]</code></pre>
 <p>It is also interesting to note that using the <code>smart</code> method (explained in detail below) when standardizing parameters will give you indices equivalent to <strong>Glass’ <em>delta</em></strong>, which is a standardized difference expressed in terms of SD of the reference group.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span>, method <span class="op">=</span> <span class="st">"smart"</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Standardization method: smart
@@ -244,9 +244,9 @@ standardization**, described below
 <a href="#standardized-slopes-are-not-always-correlations" class="anchor"></a>Standardized Slopes are Not (Always) Correlations</h2>
 <p>We saw that in simple linear models, the standardized slope is equal to the correlation between the outcome and predictor - does this hold for <strong>multiple regression</strong> as well? As in each effect in a regression model is “adjusted” for the other ones, we might expect coefficients to be somewhat alike to <strong>partial correlations</strong>. Let’s first start by computing the partial correlation between numeric predictors and the outcome.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"hardlyworking"</span>, package <span class="op">=</span> <span class="st">"effectsize"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"hardlyworking"</span>, package <span class="op">=</span> <span class="st">"effectsize"</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt;   salary xtra_hours n_comps age seniority
 &gt; 1  19745        4.2       1  32         3
 &gt; 2  11302        1.6       0  34         3
@@ -255,7 +255,7 @@ standardization**, described below
 &gt; 5  27342       11.3       0  33         4
 &gt; 6  25657        3.6       2  30         5</code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="co"># the outcome of salary</span>
+<code class="sourceCode R"><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html" class="external-link">correlation</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="co"># the outcome of salary</span>
                          data2 <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="co"># the predictors</span>
                          partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># get partial correlations</span></code></pre></div>
 <pre><code>&gt; # Correlation table (pearson-method)
@@ -271,7 +271,7 @@ standardization**, described below
 &gt; Observations: 500</code></pre>
 <p>Let’s compare these to the standardized slopes:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">xtra_hours</span> <span class="op">+</span> <span class="va">n_comps</span> <span class="op">+</span> <span class="va">age</span> <span class="op">+</span> <span class="va">seniority</span>,
+<code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">xtra_hours</span> <span class="op">+</span> <span class="va">n_comps</span> <span class="op">+</span> <span class="va">age</span> <span class="op">+</span> <span class="va">seniority</span>,
           data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></code></pre></div>
@@ -287,7 +287,7 @@ standardization**, described below
 <p>They are quite different! It seems then that <strong><em>standardized slopes in multiple linear regressions are not the same a correlations or partial correlations</em></strong> :(</p>
 <p>However, not all hope is lost yet - we can still try and recover the partial correlations from our model, in another way: by converting the <em>t</em>-statistics (and their degrees of freedom, <em>df</em>) into a partial correlation coefficient <em>r</em>.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/t_to_d.html">t_to_r</a></span><span class="op">(</span><span class="va">params</span><span class="op">$</span><span class="va">t</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, df_error <span class="op">=</span> <span class="va">params</span><span class="op">$</span><span class="va">df_error</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; r    |       95% CI
@@ -303,13 +303,13 @@ standardization**, described below
 <a href="#methods-of-standardizing-parameters" class="anchor"></a>Methods of Standardizing Parameters</h2>
 <p>Let’s convert <code>age</code> into a 3-level factor:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age</span>,
-                           breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">25</span>,<span class="fl">30</span>,<span class="fl">35</span>,<span class="fl">45</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age</span>,
+                           breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>,<span class="fl">30</span>,<span class="fl">35</span>,<span class="fl">45</span><span class="op">)</span><span class="op">)</span>
 
-<span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">xtra_hours</span> <span class="op">+</span> <span class="va">n_comps</span> <span class="op">+</span> <span class="va">age_g</span> <span class="op">+</span> <span class="va">seniority</span>,
+<span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">xtra_hours</span> <span class="op">+</span> <span class="va">n_comps</span> <span class="op">+</span> <span class="va">age_g</span> <span class="op">+</span> <span class="va">seniority</span>,
           data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">)</span>
 
-<span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></code></pre></div>
+<span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Parameter     | Coefficient |     SE |              95% CI | t(494) |      p
 &gt; ----------------------------------------------------------------------------
 &gt; (Intercept)   |     9805.17 | 446.73 | [8927.44, 10682.89] |  21.95 | &lt; .001
@@ -380,7 +380,7 @@ standardization**, described below
 &gt;    seniority  
 &gt;       0.0821</code></pre>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html">model_parameters</a></span><span class="op">(</span><span class="va">mod_z</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="va">mod_z</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Parameter     | Coefficient |   SE |        95% CI | t(494) |      p
 &gt; --------------------------------------------------------------------
 &gt; (Intercept)   |       -0.05 | 0.03 | [-0.11, 0.02] |  -1.47 | 0.142 
@@ -430,7 +430,7 @@ standardization**, described below
 <div id="basic-raw-scaling-of-the-model-frame" class="section level3">
 <h3 class="hasAnchor">
 <a href="#basic-raw-scaling-of-the-model-frame" class="anchor"></a><strong><code>"basic"</code></strong>: Raw scaling of the model frame</h3>
-<p>This method is similar to <code>method = "posthoc"</code>, but treats all variables as continuous: it scales the coefficient by the standard deviation of model’s matrix’ parameter of factors levels (transformed to integers) or binary predictors. Although it can be argued that this might be inappropriate for these cases, this method allows for easier importance judgment across all predictor type (numeric, factor, interactions…). It is also the type of standardization implemented by default in other software packages (also <code><a href="https://rdrr.io/pkg/lm.beta/man/lm.beta.html">lm.beta::lm.beta()</a></code>), and, such as can be used for reproducibility and replication purposes.</p>
+<p>This method is similar to <code>method = "posthoc"</code>, but treats all variables as continuous: it scales the coefficient by the standard deviation of model’s matrix’ parameter of factors levels (transformed to integers) or binary predictors. Although it can be argued that this might be inappropriate for these cases, this method allows for easier importance judgment across all predictor type (numeric, factor, interactions…). It is also the type of standardization implemented by default in other software packages (also <code><a href="https://rdrr.io/pkg/lm.beta/man/lm.beta.html" class="external-link">lm.beta::lm.beta()</a></code>), and, such as can be used for reproducibility and replication purposes.</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod</span>, method <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Standardization method: basic
@@ -451,7 +451,7 @@ standardization**, described below
 <p>Linear mixed models (LMM/HLM/MLM) offer an additional conundrum to standardization - how does one even calculate the SDs of the various predictors? Or of the response - is it the deviations within each group? Or perhaps between them?</p>
 <p>The solution: standardize according to level of the predictor <span class="citation">(Hoffman 2015, 342)</span>! Level 1 parameters are standardized according to variance <em>within</em> groups, while level 2 parameters are standardized according to variance <em>between</em> groups. The resulting standardized coefficient are also called <em>pseudo</em>-standardized coefficients.[^Note that like method <code>"basic"</code>, these are based on the model matrix.]</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">lme4</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">am</span> <span class="op">+</span> <span class="va">vs</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">cyl</span><span class="op">)</span>, <span class="va">mtcars</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">lme4</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">am</span> <span class="op">+</span> <span class="va">vs</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">cyl</span><span class="op">)</span>, <span class="va">mtcars</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span>, method <span class="op">=</span> <span class="st">"pseudo"</span>, df_method <span class="op">=</span> <span class="st">"satterthwaite"</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Standardization method: pseudo
@@ -480,9 +480,9 @@ standardization**, described below
 <p>Unlike linear (/mixed) models, in generalized linear (/mixed) models (GLMs) there is <em>less</em> of a need for standardization. Why? Because in many GLMs the estimated coefficients are themselves measures of effect size, such as <em>odds-ratios</em> (OR) in logistic regression, or <em>incidence rate ratios</em> (IRR) in Poisson regressions. This is because in such model the outcome is <strong>not</strong> on an arbitrary scale - that is, the meaning of rates and probabilities are changed by arbitrary linear transformations.</p>
 <p>But still, some standardization is sometimes needed, for the predictors. Luckily, <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> (and <code><a href="../reference/standardize.html">standardize()</a></code>) are smart enough to know when GLMs are passed so as to only standardize according to the predictors:</p>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod_b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">am</span> <span class="op">~</span> <span class="va">mpg</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">mod_b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">am</span> <span class="op">~</span> <span class="va">mpg</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>,
              data <span class="op">=</span> <span class="va">mtcars</span>,
-             family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+             family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">binomial</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod_b</span>, method <span class="op">=</span> <span class="st">"refit"</span>, two_sd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Standardization method: refit
@@ -498,10 +498,10 @@ standardization**, described below
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># standardize_parameters(mod_b, method = "posthoc", two_sd = TRUE)</span>
 <span class="co"># standardize_parameters(mod_b, method = "basic")</span></code></pre></div>
-<p>These can then be converted to OR (with <code><a href="https://rdrr.io/r/base/Log.html">exp()</a></code>) and discussed as the “<em>change in Odds as a function of a change in one SD of x</em>”.</p>
+<p>These can then be converted to OR (with <code><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp()</a></code>) and discussed as the “<em>change in Odds as a function of a change in one SD of x</em>”.</p>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">std</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod_b</span>, method <span class="op">=</span> <span class="st">"refit"</span>, two_sd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">std</span><span class="op">$</span><span class="va">Std_Coefficient</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">std</span><span class="op">$</span><span class="va">Std_Coefficient</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; [1]  0.4 86.4  2.1  2.0</code></pre>
 <p>Or we can directly ask for the coefficients to be exponentiated:</p>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
@@ -522,13 +522,13 @@ standardization**, described below
 <h1 class="hasAnchor">
 <a href="#cohens-f" class="anchor"></a>Cohen’s <em>f</em>
 </h1>
-<p>Cohen’s <span class="math inline">\(f\)</span> (of <a href="https://easystats.github.io/effectsize/articles/anovaES.html">ANOVA fame</a>) can be used as a measure of effect size in the context of sequential multiple regression (i.e., <a href="https://easystats.github.io/performance/reference/test_performance.html"><strong>nested models</strong></a>). That is, when comparing two models, we can examine the ratio between the increase in <span class="math inline">\(R^2\)</span> and the unexplained variance:</p>
+<p>Cohen’s <span class="math inline">\(f\)</span> (of <a href="https://easystats.github.io/effectsize/articles/anovaES.html" class="external-link">ANOVA fame</a>) can be used as a measure of effect size in the context of sequential multiple regression (i.e., <a href="https://easystats.github.io/performance/reference/test_performance.html" class="external-link"><strong>nested models</strong></a>). That is, when comparing two models, we can examine the ratio between the increase in <span class="math inline">\(R^2\)</span> and the unexplained variance:</p>
 <p><span class="math display">\[
 f^{2}={R_{AB}^{2}-R_{A}^{2} \over 1-R_{AB}^{2}}
 \]</span></p>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">xtra_hours</span>, data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">)</span>
-<span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">xtra_hours</span> <span class="op">+</span> <span class="va">n_comps</span> <span class="op">+</span> <span class="va">seniority</span>, data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">xtra_hours</span>, data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">)</span>
+<span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">xtra_hours</span> <span class="op">+</span> <span class="va">n_comps</span> <span class="op">+</span> <span class="va">seniority</span>, data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/eta_squared.html">cohens_f_squared</a></span><span class="op">(</span><span class="va">m1</span>, model2 <span class="op">=</span> <span class="va">m2</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Cohen's f2 (partial) |       90% CI | R2_delta
@@ -730,11 +730,11 @@ Group_Sepal.Width * Petal.Width, data=data) -->
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://github.com/mattansb">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/">Dominique Makowski</a>, <a href="https://github.com/strengejacke">Daniel Lüdecke</a>.</p>
+  <p>Developed by <a href="https://github.com/mattansb" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
