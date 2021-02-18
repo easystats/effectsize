@@ -236,14 +236,23 @@ the 0 - 1 range.</p>
   <span class='va'>...</span>
 <span class='op'>)</span>
 
-<span class='fu'>unstandardize</span><span class='op'>(</span><span class='va'>x</span>, center <span class='op'>=</span> <span class='cn'>NULL</span>, scale <span class='op'>=</span> <span class='cn'>NULL</span>, reference <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+<span class='fu'>unstandardize</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  center <span class='op'>=</span> <span class='cn'>NULL</span>,
+  scale <span class='op'>=</span> <span class='cn'>NULL</span>,
+  reference <span class='op'>=</span> <span class='cn'>NULL</span>,
+  robust <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  two_sd <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A data frame, a vector or a statistical model.</p></td>
+      <td><p>A data frame, a vector or a statistical model (for <code>unstandardize()</code>
+cannot be a model).</p></td>
     </tr>
     <tr>
       <th>robust</th>
@@ -322,7 +331,15 @@ model; m model's response will always be standardized.)</p></td>
     </tr>
     <tr>
       <th>center, scale, reference</th>
-      <td><p>Used by <code>unstandardize()</code>; <code>center</code> and <code>scale</code> correspond to the center (the mean) and the scale (SD) of the original non-standardized data. However, one can also directly provide the original data through <code>reference</code>, from which the center and the scale will be computed. Also, if the input contains the attributes <code>center</code> and <code>scale</code> (as does the output of <code>standardize()</code>), it will take it from there if the rest of the arguments are absent.</p></td>
+      <td><p>Used by <code>unstandardize()</code>; <code>center</code> and <code>scale</code>
+correspond to the center (the mean / median) and the scale (SD / MAD) of
+the original non-standardized data (for data frames, should be named, or
+have column order correspond to the numeric column). However, one can also
+directly provide the original data through <code>reference</code>, from which the
+center and the scale will be computed (according to <code>robust</code> and <code>two_sd</code>.
+Alternatively, if the input contains the attributes <code>center</code> and <code>scale</code>
+(as does the output of <code>standardize()</code>), it will take it from there if the
+rest of the arguments are absent.</p></td>
     </tr>
     </table>
 
