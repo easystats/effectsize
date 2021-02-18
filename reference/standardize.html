@@ -176,7 +176,7 @@ the 0 - 1 range." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Standardization (Z-scoring)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/standardize.R'><code>R/standardize.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/standardize.data.R'><code>R/standardize.data.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/standardize.models.R'><code>R/standardize.models.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/standardize.R'><code>R/standardize.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/standardize.data.R'><code>R/standardize.data.R</code></a>, <a href='https://github.com/easystats/effectsize/blob/master/R/standardize.models.R'><code>R/standardize.models.R</code></a>, and 1 more</small>
     <div class="hidden name"><code>standardize.Rd</code></div>
     </div>
 
@@ -234,7 +234,9 @@ the 0 - 1 range.</p>
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
   include_response <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span>
+
+<span class='fu'>unstandardize</span><span class='op'>(</span><span class='va'>x</span>, center <span class='op'>=</span> <span class='cn'>NULL</span>, scale <span class='op'>=</span> <span class='cn'>NULL</span>, reference <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -317,6 +319,10 @@ standardized. Note that for certain models (logistic regression, count
 models, ...), the response value will never be standardized, to make
 re-fitting the model work. (For <code>mediate</code> models, only applies to the y
 model; m model's response will always be standardized.)</p></td>
+    </tr>
+    <tr>
+      <th>center, scale, reference</th>
+      <td><p>Used by <code>unstandardize()</code>; <code>center</code> and <code>scale</code> correspond to the center (the mean) and the scale (SD) of the original non-standardized data. However, one can also directly provide the original data through <code>reference</code>, from which the center and the scale will be computed. Also, if the input contains the attributes <code>center</code> and <code>scale</code> (as does the output of <code>standardize()</code>), it will take it from there if the rest of the arguments are absent.</p></td>
     </tr>
     </table>
 
