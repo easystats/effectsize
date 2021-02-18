@@ -2,6 +2,10 @@
 
 `effectsize` now supports `R >= 3.4`.
 
+## New features
+
+- `unstandardize()` which will reverse the effects of `standardize()`.
+
 # effectsize 0.4.3
 
 ## Breaking Changes

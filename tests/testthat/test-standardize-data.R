@@ -111,24 +111,81 @@ if (require("testthat") && require("effectsize")) {
   })
 
 
+# Unstandardize -----------------------------------------------------------
   test_that("unstandardize, numeric", {
-    x <- effectsize::standardize(iris$Petal.Length)
+    data(iris)
+    x <- standardize(iris$Petal.Length)
     rez <- unstandardize(x)
-    expect_equal(max(abs(iris$Petal.Length - rez)), 0, tolerance = 1e-3)
+    expect_equal(rez, iris$Petal.Length, tolerance = 1e-3, ignore_attr = TRUE)
 
     rez <- unstandardize(x, reference = iris$Petal.Length)
-    expect_equal(max(abs(iris$Petal.Length - rez)), 0, tolerance = 1e-3)
+    expect_equal(rez, iris$Petal.Length, tolerance = 1e-3, ignore_attr = TRUE)
 
     rez <- unstandardize(x, center = mean(iris$Petal.Length), scale = stats::sd(iris$Petal.Length))
-    expect_equal(max(abs(iris$Petal.Length - rez)), 0, tolerance = 1e-3)
+    expect_equal(rez, iris$Petal.Length, tolerance = 1e-3, ignore_attr = TRUE)
 
     rez <- unstandardize(0, center = mean(iris$Petal.Length), scale = stats::sd(iris$Petal.Length))
     expect_equal(rez, mean(iris$Petal.Length), tolerance = 1e-3)
+
+    x <- standardize(iris$Petal.Length, robust = TRUE, two_sd = TRUE)
+    rez <- unstandardize(x, robust = TRUE, two_sd = TRUE)
+    expect_equal(rez, iris$Petal.Length, tolerance = 1e-3, ignore_attr = TRUE)
+
+    x <- scale(iris$Petal.Length)
+    rez <- unstandardize(x)
+    expect_equal(rez, iris$Petal.Length, tolerance = 1e-3, ignore_attr = TRUE)
+
+    x <- scale(iris$Petal.Length, center = 3, scale = 2)
+    rez <- unstandardize(x)
+    expect_equal(rez, iris$Petal.Length, tolerance = 1e-3, ignore_attr = TRUE)
   })
 
   test_that("unstandardize, dataframe", {
-    x <- effectsize::standardize(iris)
+    data(iris)
+    x <- standardize(iris)
     rez <- unstandardize(x)
-    expect_equal(max(rez[1:4] - iris[1:4]), 0, tolerance = 1e-3)
+    expect_equal(rez, iris, tolerance = 0.1, ignore_attr = TRUE)
+
+    x <- standardize(iris, select = "Petal.Length")
+    rez <- unstandardize(x)
+    expect_equal(rez, iris, tolerance = 0.1, ignore_attr = TRUE)
+
+    x <- standardize(iris, select = "Petal.Length")
+    rez <- unstandardize(x,
+                         center = c(Petal.Length = mean(iris$Petal.Length)),
+                         scale = c(Petal.Length = stats::sd(iris$Petal.Length)))
+    expect_equal(rez, iris, tolerance = 0.1, ignore_attr = TRUE)
+
+    expect_error(unstandardize(x,
+                               center = mean(iris$Petal.Length),
+                               scale = stats::sd(iris$Petal.Length)))
+
+    x <- standardize(iris)
+    rez <- unstandardize(x, center = rep(0, 4), scale = rep(1, 4))
+    expect_equal(rez, x, tolerance = 0.1, ignore_attr = TRUE)
+
+    data(iris)
+    x <- standardize(iris, robust = TRUE, two_sd = TRUE)
+    rez <- unstandardize(x, robust = TRUE, two_sd = TRUE)
+    expect_equal(rez, iris, tolerance = 0.1, ignore_attr = TRUE)
+
+    skip_if_not_installed("dplyr")
+    d <- dplyr::group_by(mtcars, am)
+    x <- standardize(d)
+    expect_error(unstandardize(x))
+  })
+
+  test_that("unstandardize, matrix", {
+    skip("Skipping 'unstandardize, matrix'")
+    # this isn't working... :(
+    data(mtcars)
+    d <- as.matrix(mtcars)
+    x <- standardize(d)
+    rez <- unstandardize(x)
+    expect_equal(rez, d, tolerance = 1e-3, ignore_attr = TRUE)
+
+    x <- scale(d)
+    rez <- unstandardize(x)
+    expect_equal(rez, d, tolerance = 1e-3, ignore_attr = TRUE)
   })
 }

@@ -8,7 +8,8 @@
 #' [normalize()] function can also be used to scale all numeric variables within
 #' the 0 - 1 range.
 #'
-#' @param x A data frame, a vector or a statistical model.
+#' @param x A data frame, a vector or a statistical model (for `unstandardize()`
+#'   cannot be a model).
 #' @param robust Logical, if `TRUE`, centering is done by subtracting the
 #'   median from the variables and dividing it by the median absolute deviation
 #'   (MAD). If `FALSE`, variables are standardized by subtracting the

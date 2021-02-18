@@ -52,10 +52,19 @@ standardize(
   ...
 )
 
-unstandardize(x, center = NULL, scale = NULL, reference = NULL)
+unstandardize(
+  x,
+  center = NULL,
+  scale = NULL,
+  reference = NULL,
+  robust = FALSE,
+  two_sd = FALSE,
+  ...
+)
 }
 \arguments{
-\item{x}{A data frame, a vector or a statistical model.}
+\item{x}{A data frame, a vector or a statistical model (for \code{unstandardize()}
+cannot be a model).}
 
 \item{robust}{Logical, if \code{TRUE}, centering is done by subtracting the
 median from the variables and dividing it by the median absolute deviation
@@ -109,7 +118,15 @@ models, ...), the response value will never be standardized, to make
 re-fitting the model work. (For \code{mediate} models, only applies to the y
 model; m model's response will always be standardized.)}
 
-\item{center, scale, reference}{Used by \code{unstandardize()}; \code{center} and \code{scale} correspond to the center (the mean) and the scale (SD) of the original non-standardized data. However, one can also directly provide the original data through \code{reference}, from which the center and the scale will be computed. Also, if the input contains the attributes \code{center} and \code{scale} (as does the output of \code{standardize()}), it will take it from there if the rest of the arguments are absent.}
+\item{center, scale, reference}{Used by \code{unstandardize()}; \code{center} and \code{scale}
+correspond to the center (the mean / median) and the scale (SD / MAD) of
+the original non-standardized data (for data frames, should be named, or
+have column order correspond to the numeric column). However, one can also
+directly provide the original data through \code{reference}, from which the
+center and the scale will be computed (according to \code{robust} and \code{two_sd}.
+Alternatively, if the input contains the attributes \code{center} and \code{scale}
+(as does the output of \code{standardize()}), it will take it from there if the
+rest of the arguments are absent.}
 }
 \value{
 The standardized object (either a standardize data frame or a
