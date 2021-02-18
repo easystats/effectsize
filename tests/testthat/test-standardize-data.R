@@ -109,4 +109,26 @@ if (require("testthat") && require("effectsize")) {
     d <- dplyr::group_by(mtcars, am)
     expect_warning(standardize(d, weights = d$cyl))
   })
+
+
+  test_that("unstandardize, numeric", {
+    x <- effectsize::standardize(iris$Petal.Length)
+    rez <- unstandardize(x)
+    expect_equal(max(abs(iris$Petal.Length - rez)), 0, tolerance = 1e-3)
+
+    rez <- unstandardize(x, reference = iris$Petal.Length)
+    expect_equal(max(abs(iris$Petal.Length - rez)), 0, tolerance = 1e-3)
+
+    rez <- unstandardize(x, center = mean(iris$Petal.Length), scale = stats::sd(iris$Petal.Length))
+    expect_equal(max(abs(iris$Petal.Length - rez)), 0, tolerance = 1e-3)
+
+    rez <- unstandardize(0, center = mean(iris$Petal.Length), scale = stats::sd(iris$Petal.Length))
+    expect_equal(rez, mean(iris$Petal.Length), tolerance = 1e-3)
+  })
+
+  test_that("unstandardize, dataframe", {
+    x <- effectsize::standardize(iris)
+    rez <- unstandardize(x)
+    expect_equal(max(rez[1:4] - iris[1:4]), 0, tolerance = 1e-3)
+  })
 }
