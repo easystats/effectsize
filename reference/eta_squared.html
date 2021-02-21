@@ -303,7 +303,8 @@ longer to run, but provide estimates that are more stable.</p></td>
 For <code>eta_squared_posterior()</code>, a data frame containing the ppd of the Eta
 squared for each fixed effect, which can then be passed to
 <code><a href='https://easystats.github.io/bayestestR/reference/describe_posterior.html'>bayestestR::describe_posterior()</a></code> for summary stats.</p>
-<p>A data frame containing the effect size values and their confidence intervals.</p>
+<p>A data frame containing the effect size values and their confidence
+intervals.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For <code>aov</code> and <code>aovlist</code> models, the effect sizes are computed directly with
@@ -392,12 +393,22 @@ al., 2016). For example:<div class="r"></p><pre><span class='fu'>eta_squared</sp
 
     
 <ul>
-<li><p>Albers, C., \&amp; Lakens, D. (2018). When power analyses based on pilot data are biased: Inaccurate effect size estimators and follow-up bias. Journal of experimental social psychology, 74, 187-195.</p></li>
-<li><p>Allen, R. (2017). Statistics and Experimental Design for Psychologists: A Model Comparison Approach. World Scientific Publishing Company.</p></li>
-<li><p>Carroll, R. M., &amp; Nordholm, L. A. (1975). Sampling Characteristics of Kelley's epsilon and Hays' omega. Educational and Psychological Measurement, 35(3), 541-554.</p></li>
-<li><p>Kelley, T. (1935) An unbiased correlation ratio measure. Proceedings of the National Academy of Sciences. 21(9). 554-559.</p></li>
-<li><p>Olejnik, S., &amp; Algina, J. (2003). Generalized eta and omega squared statistics: measures of effect size for some common research designs. Psychological methods, 8(4), 434.</p></li>
-<li><p>Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.</p></li>
+<li><p>Albers, C., \&amp; Lakens, D. (2018). When power analyses based on pilot data
+are biased: Inaccurate effect size estimators and follow-up bias. Journal of
+experimental social psychology, 74, 187-195.</p></li>
+<li><p>Allen, R. (2017). Statistics and Experimental Design for Psychologists: A
+Model Comparison Approach. World Scientific Publishing Company.</p></li>
+<li><p>Carroll, R. M., &amp; Nordholm, L. A. (1975). Sampling Characteristics of
+Kelley's epsilon and Hays' omega. Educational and Psychological Measurement,
+35(3), 541-554.</p></li>
+<li><p>Kelley, T. (1935) An unbiased correlation ratio measure. Proceedings of the
+National Academy of Sciences. 21(9). 554-559.</p></li>
+<li><p>Olejnik, S., &amp; Algina, J. (2003). Generalized eta and omega squared
+statistics: measures of effect size for some common research designs.
+Psychological methods, 8(4), 434.</p></li>
+<li><p>Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals
+and tests of close fit in the analysis of variance and contrast analysis.
+Psychological Methods, 9, 164-182.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -456,9 +467,19 @@ al., 2016). For example:<div class="r"></p><pre><span class='fu'>eta_squared</sp
 </div><div class='output co'>#&gt; <span class='message'>Loading required namespace: performance</span></div><div class='output co'>#&gt; Cohen's f2 (partial) |       90% CI | R2_delta
 #&gt; ----------------------------------------------
 #&gt; 0.11                 | [0.00, 0.37] |     0.02</div><div class='input'>
+<span class='co'>## Interpretation of effect sizes</span>
+<span class='co'>## -------------------------------------</span>
 
-
-
+<span class='fu'><a href='interpret_omega_squared.html'>interpret_omega_squared</a></span><span class='op'>(</span><span class='fl'>0.15</span>, rules <span class='op'>=</span> <span class='st'>"field2013"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "large"
+#&gt; <span style='color: #0000BB;'>(Rules: field2013)
+#&gt; </span><span></div><div class='input'><span class='fu'><a href='interpret_omega_squared.html'>interpret_eta_squared</a></span><span class='op'>(</span><span class='fl'>0.15</span>, rules <span class='op'>=</span> <span class='st'>"cohen1992"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "medium"
+#&gt; </span><span style='color: #0000BB;'>(Rules: cohen1992)
+#&gt; </span><span></div><div class='input'><span class='fu'><a href='interpret_omega_squared.html'>interpret_epsilon_squared</a></span><span class='op'>(</span><span class='fl'>0.15</span>, rules <span class='op'>=</span> <span class='st'>"cohen1992"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "medium"
+#&gt; </span><span style='color: #0000BB;'>(Rules: cohen1992)
+#&gt; </span><span></div><div class='input'>
 <span class='co'># Recommended: Type-3 effect sizes + effects coding</span>
 <span class='co'># -------------------------------------------------</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://r-forge.r-project.org/projects/car/'>car</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
@@ -543,7 +564,7 @@ al., 2016). For example:<div class="r"></p><pre><span class='fu'>eta_squared</sp
 <span class='op'>}</span>
 <span class='co'># }</span>
 
-</div></pre>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -555,11 +576,11 @@ al., 2016). For example:<div class="r"></p><pre><span class='fu'>eta_squared</sp
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://github.com/mattansb'>Mattan S. Ben-Shachar</a>, <a href='https://dominiquemakowski.github.io/'>Dominique Makowski</a>, <a href='https://github.com/strengejacke'>Daniel Lüdecke</a>.</p>
+  <p><p>Developed by <a href="https://github.com/mattansb" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p></p>
 </div>
 
       </footer>

@@ -232,7 +232,7 @@ character name of one in <code>data</code>. Ignored if <code>x</code> is not a v
     <tr>
       <th>mu</th>
       <td><p>a number indicating the value around which (a-)symmetry (for
-one-sample or paired samples) or shift (for independant samples) is to be
+one-sample or paired samples) or shift (for independent samples) is to be
 estimated. See <a href='https://rdrr.io/r/stats/wilcox.test.html'>stats::wilcox.test</a>.</p></td>
     </tr>
     <tr>
@@ -297,7 +297,7 @@ differences between 2 or more samples (a rank based ANOVA). See
 indicating larger differences between groups.
 <br /><br />
 Kendall's <em>W</em> is appropriate for non-parametric tests of differences between
-2 or more dependant samples (a rank based rmANOVA). See
+2 or more dependent samples (a rank based rmANOVA). See
 <a href='https://rdrr.io/r/stats/friedman.test.html'>stats::friedman.test</a>. Values range from 0 to 1, with larger values
 indicating larger differences between groups.</p>
     <h2 class="hasAnchor" id="confidence-intervals"><a class="anchor" href="#confidence-intervals"></a>Confidence Intervals</h2>
@@ -307,13 +307,20 @@ indicating larger differences between groups.</p>
 
     
 <ul>
-<li><p>Cureton, E. E. (1956). Rank-biserial correlation. Psychometrika, 21(3), 287-290.</p></li>
-<li><p>Glass, G. V. (1965). A ranking variable analogue of biserial correlation: Implications for short-cut item analysis. Journal of Educational Measurement, 2(1), 91-95.</p></li>
+<li><p>Cureton, E. E. (1956). Rank-biserial correlation. Psychometrika, 21(3),
+287-290.</p></li>
+<li><p>Glass, G. V. (1965). A ranking variable analogue of biserial correlation:
+Implications for short-cut item analysis. Journal of Educational Measurement,
+2(1), 91-95.</p></li>
 <li><p>Kendall, M.G. (1948) Rank correlation methods. London: Griffin.</p></li>
-<li><p>Kerby, D. S. (2014). The simple difference formula: An approach to teaching nonparametric correlation. Comprehensive Psychology, 3, 11-IT.</p></li>
-<li><p>King, B. M., &amp; Minium, E. W. (2008). Statistical reasoning in the behavioral sciences. John Wiley &amp; Sons Inc.</p></li>
-<li><p>Cliff, N. (1993). Dominance statistics: Ordinal analyses to answer ordinal questions. Psychological bulletin, 114(3), 494.</p></li>
-<li><p>Tomczak, M., &amp; Tomczak, E. (2014). The need to report effect size estimates revisited. An overview of some recommended measures of effect size.</p></li>
+<li><p>Kerby, D. S. (2014). The simple difference formula: An approach to teaching
+nonparametric correlation. Comprehensive Psychology, 3, 11-IT.</p></li>
+<li><p>King, B. M., &amp; Minium, E. W. (2008). Statistical reasoning in the
+behavioral sciences. John Wiley &amp; Sons Inc.</p></li>
+<li><p>Cliff, N. (1993). Dominance statistics: Ordinal analyses to answer ordinal
+questions. Psychological bulletin, 114(3), 494.</p></li>
+<li><p>Tomczak, M., &amp; Tomczak, E. (2014). The need to report effect size estimates
+revisited. An overview of some recommended measures of effect size.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -327,6 +334,8 @@ indicating larger differences between groups.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='co'># two-sample tests -----------------------</span>
+
 <span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>48</span>, <span class='fl'>48</span>, <span class='fl'>77</span>, <span class='fl'>86</span>, <span class='fl'>85</span>, <span class='fl'>85</span><span class='op'>)</span>
 <span class='va'>B</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>14</span>, <span class='fl'>34</span>, <span class='fl'>34</span>, <span class='fl'>77</span><span class='op'>)</span>
 <span class='fu'>rank_biserial</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>B</span><span class='op'>)</span>
@@ -339,6 +348,7 @@ indicating larger differences between groups.</p>
 </div><div class='output co'>#&gt; r (rank biserial) |       95% CI
 #&gt; --------------------------------
 #&gt; 0.78              | [0.33, 1.00]</div><div class='input'>
+<span class='co'># one-sample tests -----------------------</span>
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.15</span>, <span class='fl'>0.88</span>, <span class='fl'>0.90</span>, <span class='fl'>0.74</span>, <span class='fl'>1.21</span><span class='op'>)</span>
 <span class='fu'>rank_biserial</span><span class='op'>(</span><span class='va'>x</span>, mu <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; r (rank biserial) |        95% CI
@@ -346,9 +356,11 @@ indicating larger differences between groups.</p>
 #&gt; -0.07             | [-1.00, 0.87]
 #&gt; <span style='color: #00BBBB;'>
 #&gt; - Deviation from a difference of 1.</span><span></div><div class='input'>
-<span class='va'>x1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.9</span>, <span class='fl'>3.0</span>, <span class='fl'>2.5</span>, <span class='fl'>2.6</span>, <span class='fl'>3.2</span><span class='op'>)</span> <span class='co'># normal subjects</span>
-<span class='va'>x2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3.8</span>, <span class='fl'>2.7</span>, <span class='fl'>4.0</span>, <span class='fl'>2.4</span><span class='op'>)</span> <span class='co'># with obstructive airway disease</span>
-<span class='va'>x3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.8</span>, <span class='fl'>3.4</span>, <span class='fl'>3.7</span>, <span class='fl'>2.2</span>, <span class='fl'>2.0</span><span class='op'>)</span> <span class='co'># with asbestosis</span>
+<span class='co'># anova tests ----------------------------</span>
+
+<span class='va'>x1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.9</span>, <span class='fl'>3.0</span>, <span class='fl'>2.5</span>, <span class='fl'>2.6</span>, <span class='fl'>3.2</span><span class='op'>)</span> <span class='co'># control group</span>
+<span class='va'>x2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3.8</span>, <span class='fl'>2.7</span>, <span class='fl'>4.0</span>, <span class='fl'>2.4</span><span class='op'>)</span>      <span class='co'># obstructive airway disease group</span>
+<span class='va'>x3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.8</span>, <span class='fl'>3.4</span>, <span class='fl'>3.7</span>, <span class='fl'>2.2</span>, <span class='fl'>2.0</span><span class='op'>)</span> <span class='co'># asbestosis group</span>
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>x1</span>, <span class='va'>x2</span>, <span class='va'>x3</span><span class='op'>)</span>
 <span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>4</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>rank_epsilon_squared</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span>
@@ -365,7 +377,8 @@ indicating larger differences between groups.</p>
 <span class='fu'>kendalls_w</span><span class='op'>(</span><span class='va'>x</span> <span class='op'>~</span> <span class='va'>w</span> <span class='op'>|</span> <span class='va'>t</span>, data <span class='op'>=</span> <span class='va'>wb</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Kendall's W |       95% CI
 #&gt; --------------------------
-#&gt; 0.25        | [0.25, 1.00]</div><div class='input'><span class='co'># }</span>
+#&gt; 0.25        | [0.25, 1.00]</div><div class='input'>
+<span class='co'># }</span>
 
 </div></span></pre>
   </div>
@@ -379,11 +392,11 @@ indicating larger differences between groups.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://github.com/mattansb'>Mattan S. Ben-Shachar</a>, <a href='https://dominiquemakowski.github.io/'>Dominique Makowski</a>, <a href='https://github.com/strengejacke'>Daniel Lüdecke</a>.</p>
+  <p><p>Developed by <a href="https://github.com/mattansb" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p></p>
 </div>
 
       </footer>

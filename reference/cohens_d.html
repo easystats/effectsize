@@ -323,10 +323,14 @@ more.)</p>
 
     
 <ul>
-<li><p>Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.</p></li>
-<li><p>Hedges, L. V. &amp; Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.</p></li>
-<li><p>Hunter, J. E., &amp; Schmidt, F. L. (2004). Methods of meta-analysis: Correcting error and bias in research findings. Sage.</p></li>
-<li><p>McGrath, R. E., &amp; Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.</p></li>
+<li><p>Cohen, J. (1988). Statistical power analysis for the behavioral
+sciences (2nd Ed.). New York: Routledge.</p></li>
+<li><p>Hedges, L. V. &amp; Olkin, I. (1985). Statistical methods for
+meta-analysis. Orlando, FL: Academic Press.</p></li>
+<li><p>Hunter, J. E., &amp; Schmidt, F. L. (2004). Methods of meta-analysis:
+Correcting error and bias in research findings. Sage.</p></li>
+<li><p>McGrath, R. E., &amp; Meyer, G. J. (2006). When effect sizes disagree: the
+case of r and d. Psychological methods, 11(4), 386.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -340,27 +344,15 @@ more.)</p>
 <code><a href='standardize_parameters.html'>standardize_parameters</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span>, <span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Cohen's d |        95% CI
-#&gt; -------------------------
-#&gt; -0.83     | [-1.74, 0.10]
-#&gt; <span style='color: #00BBBB;'>
-#&gt; - Estimated using pooled SD.</span><span></div><div class='input'><span class='fu'>hedges_g</span><span class='op'>(</span><span class='st'>"extra"</span>, <span class='st'>"group"</span>, data <span class='op'>=</span> <span class='va'>sleep</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Hedges' g |        95% CI
-#&gt; -------------------------
-#&gt; -0.80     | [-1.67, 0.09]
-#&gt; </span><span style='color: #00BBBB;'>
-#&gt; - Estimated using pooled SD.
-#&gt; - Bias corrected using Hedges and Olkin's method.</span><span></div><div class='input'>
-<span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>]</span>, <span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>2</span><span class='op'>]</span>, paired <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Cohen's d |         95% CI
-#&gt; --------------------------
-#&gt; -1.28     | [-2.23, -0.44]</div><div class='input'>
+    <pre class="examples"><div class='input'>
+<span class='co'># two-sample tests -----------------------</span>
+
+<span class='co'># using formula interface</span>
 <span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Cohen's d |         95% CI
 #&gt; --------------------------
 #&gt; -1.48     | [-2.27, -0.67]
-#&gt; </span><span style='color: #00BBBB;'>
+#&gt; <span style='color: #00BBBB;'>
 #&gt; - Estimated using pooled SD.</span><span></div><div class='input'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, pooled_sd <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Cohen's d |         95% CI
 #&gt; --------------------------
@@ -381,8 +373,7 @@ more.)</p>
 #&gt; - Bias corrected using Hedges and Olkin's method.</span><span></div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'>boot</span><span class='op'>)</span><span class='op'>)</span> <span class='fu'>glass_delta</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Loading required package: boot</span></div><div class='output co'>#&gt; Glass' delta |         95% CI
 #&gt; -----------------------------
-#&gt; -1.17        | [-2.14, -0.70]</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>, append_CL <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+#&gt; -1.17        | [-2.14, -0.70]</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>, append_CL <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Cohen's d |         95% CI
 #&gt; --------------------------
 #&gt; -1.48     | [-2.27, -0.67]
@@ -393,7 +384,58 @@ more.)</p>
 #&gt; 
 #&gt; Cohen's U3 | Overlap | Probability of superiority
 #&gt; -------------------------------------------------
-#&gt; 6.97%      |  45.99% |                     14.80%</div></span></pre>
+#&gt; 6.97%      |  45.99% |                     14.80%</div><div class='input'>
+<span class='co'># other acceptable ways to specify arguments</span>
+<span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span>, <span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Cohen's d |        95% CI
+#&gt; -------------------------
+#&gt; -0.83     | [-1.74, 0.10]
+#&gt; </span><span style='color: #00BBBB;'>
+#&gt; - Estimated using pooled SD.</span><span></div><div class='input'><span class='fu'>hedges_g</span><span class='op'>(</span><span class='st'>"extra"</span>, <span class='st'>"group"</span>, data <span class='op'>=</span> <span class='va'>sleep</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Hedges' g |        95% CI
+#&gt; -------------------------
+#&gt; -0.80     | [-1.67, 0.09]
+#&gt; </span><span style='color: #00BBBB;'>
+#&gt; - Estimated using pooled SD.
+#&gt; - Bias corrected using Hedges and Olkin's method.</span><span></div><div class='input'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>]</span>, <span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>2</span><span class='op'>]</span>, paired <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Cohen's d |         95% CI
+#&gt; --------------------------
+#&gt; -1.28     | [-2.23, -0.44]</div><div class='input'>
+<span class='co'># one-sample tests -----------------------</span>
+
+<span class='fu'>cohens_d</span><span class='op'>(</span><span class='st'>"wt"</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, mu <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Cohen's d |        95% CI
+#&gt; -------------------------
+#&gt; 0.22      | [-0.13, 0.58]
+#&gt; </span><span style='color: #00BBBB;'>
+#&gt; - Deviation from a difference of 3.</span><span></div><div class='input'><span class='fu'>hedges_g</span><span class='op'>(</span><span class='st'>"wt"</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, mu <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Hedges' g |        95% CI
+#&gt; -------------------------
+#&gt; 0.22      | [-0.13, 0.57]
+#&gt; </span><span style='color: #00BBBB;'>
+#&gt; - Deviation from a difference of 3.
+#&gt; - Bias corrected using Hedges and Olkin's method.</span><span></div><div class='input'>
+<span class='co'># interpretation -----------------------</span>
+
+<span class='fu'><a href='interpret_d.html'>interpret_d</a></span><span class='op'>(</span><span class='fl'>0.4</span>, rules <span class='op'>=</span> <span class='st'>"cohen1988"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "small"
+#&gt; </span><span style='color: #0000BB;'>(Rules: cohen1988)
+#&gt; </span><span></div><div class='input'><span class='fu'><a href='d_to_common_language.html'>d_to_common_language</a></span><span class='op'>(</span><span class='fl'>0.4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $`Cohen's U3`
+#&gt; [1] 0.6554217
+#&gt; 
+#&gt; $Overlap
+#&gt; [1] 0.8414806
+#&gt; 
+#&gt; $`Probability of superiority`
+#&gt; [1] 0.6113513
+#&gt; </div><div class='input'><span class='fu'><a href='interpret_d.html'>interpret_g</a></span><span class='op'>(</span><span class='fl'>0.4</span>, rules <span class='op'>=</span> <span class='st'>"sawilowsky2009"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "small"
+#&gt; </span><span style='color: #0000BB;'>(Rules: sawilowsky2009)
+#&gt; </span><span></div><div class='input'><span class='fu'><a href='interpret_d.html'>interpret_delta</a></span><span class='op'>(</span><span class='fl'>0.4</span>, rules <span class='op'>=</span> <span class='st'>"gignac2016"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "small"
+#&gt; </span><span style='color: #0000BB;'>(Rules: gignac2016)
+#&gt; </span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -405,11 +447,11 @@ more.)</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://github.com/mattansb'>Mattan S. Ben-Shachar</a>, <a href='https://dominiquemakowski.github.io/'>Dominique Makowski</a>, <a href='https://github.com/strengejacke'>Daniel Lüdecke</a>.</p>
+  <p><p>Developed by <a href="https://github.com/mattansb" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p></p>
 </div>
 
       </footer>
