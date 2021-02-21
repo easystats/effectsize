@@ -372,7 +372,7 @@ interpret_omega_squared(x, rules = "cohen1992")
 
 - **ES >= 0.26** - Large
 
-# Interpertation of other Indices
+# Interpretation of other Indices
 
 `effectsize` also offers functions for interpreting other statistical indices:
 

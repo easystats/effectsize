@@ -3,7 +3,7 @@
 #' This function extracts information, such as the deviations (SD or MAD) from
 #' parent variables, that are necessary for post-hoc standardization of
 #' parameters. This function gives a window on how standardized are obtained,
-#' i.e., by what they are devided. The "basic" method of standardization uses.
+#' i.e., by what they are divided. The "basic" method of standardization uses.
 #'
 #' @inheritParams standardize_parameters
 #' @param include_pseudo (For (G)LMMs) Should Pseudo-standardized information be
