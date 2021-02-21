@@ -47,23 +47,45 @@
 #' @family effect size indices
 #'
 #' @examples
-#' cohens_d(sleep$extra, sleep$group)
-#' hedges_g("extra", "group", data = sleep)
 #'
-#' cohens_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], paired = TRUE)
+#' # two-sample tests -----------------------
 #'
+#' # using formula interface
 #' cohens_d(mpg ~ am, data = mtcars)
 #' cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)
 #' cohens_d(mpg ~ am, data = mtcars, mu = -5)
 #' hedges_g(mpg ~ am, data = mtcars)
 #' if (require(boot)) glass_delta(mpg ~ am, data = mtcars)
-#'
 #' print(cohens_d(mpg ~ am, data = mtcars), append_CL = TRUE)
+#'
+#' # other acceptable ways to specify arguments
+#' cohens_d(sleep$extra, sleep$group)
+#' hedges_g("extra", "group", data = sleep)
+#' cohens_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], paired = TRUE)
+#'
+#' # one-sample tests -----------------------
+#'
+#' cohens_d("wt", data = mtcars, mu = 3)
+#' hedges_g("wt", data = mtcars, mu = 3)
+#'
+#' # interpretation -----------------------
+#'
+#' interpret_d(0.4, rules = "cohen1988")
+#' d_to_common_language(0.4)
+#' interpret_g(0.4, rules = "sawilowsky2009")
+#' interpret_delta(0.4, rules = "gignac2016")
 #' @references
-#' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
-#' - Hedges, L. V. & Olkin, I. (1985). Statistical methods for meta-analysis. Orlando, FL: Academic Press.
-#' - Hunter, J. E., & Schmidt, F. L. (2004). Methods of meta-analysis: Correcting error and bias in research findings. Sage.
-#' - McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the case of r and d. Psychological methods, 11(4), 386.
+#' - Cohen, J. (1988). Statistical power analysis for the behavioral
+#' sciences (2nd Ed.). New York: Routledge.
+#'
+#' - Hedges, L. V. & Olkin, I. (1985). Statistical methods for
+#' meta-analysis. Orlando, FL: Academic Press.
+#'
+#' - Hunter, J. E., & Schmidt, F. L. (2004). Methods of meta-analysis:
+#' Correcting error and bias in research findings. Sage.
+#'
+#' - McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the
+#' case of r and d. Psychological methods, 11(4), 386.
 #'
 #' @importFrom stats var model.frame
 #' @export
@@ -157,7 +179,15 @@ hedges_g <- function(x,
 
 #' @rdname cohens_d
 #' @export
-glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, iterations = 200, verbose = TRUE, ..., correction) {
+glass_delta <- function(x,
+                        y = NULL,
+                        data = NULL,
+                        mu = 0,
+                        ci = 0.95,
+                        iterations = 200,
+                        verbose = TRUE,
+                        ...,
+                        correction) {
   if (!missing(correction)) {
     warning("`correction` argument is deprecated. To apply bias correction, use `hedges_g()`.",
       call. = FALSE, immediate. = TRUE

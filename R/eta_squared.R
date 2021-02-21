@@ -113,8 +113,12 @@
 #' model0 <- aov(mpg ~ am_f + cyl_f, data = mtcars) # no interaction
 #' cohens_f_squared(model0, model2 = model)
 #'
+#' ## Interpretation of effect sizes
+#' ## -------------------------------------
 #'
-#'
+#' interpret_omega_squared(0.15, rules = "field2013")
+#' interpret_eta_squared(0.15, rules = "cohen1992")
+#' interpret_epsilon_squared(0.15, rules = "cohen1992")
 #'
 #' # Recommended: Type-3 effect sizes + effects coding
 #' # -------------------------------------------------
@@ -181,16 +185,31 @@
 #' }
 #' }
 #'
-#' @return A data frame containing the effect size values and their confidence intervals.
-#'
+#' @return A data frame containing the effect size values and their confidence
+#'   intervals.
 #'
 #' @references
-#' - Albers, C., \& Lakens, D. (2018). When power analyses based on pilot data are biased: Inaccurate effect size estimators and follow-up bias. Journal of experimental social psychology, 74, 187-195.
-#' - Allen, R. (2017). Statistics and Experimental Design for Psychologists: A Model Comparison Approach. World Scientific Publishing Company.
-#' - Carroll, R. M., & Nordholm, L. A. (1975). Sampling Characteristics of Kelley's epsilon and Hays' omega. Educational and Psychological Measurement, 35(3), 541-554.
-#' - Kelley, T. (1935) An unbiased correlation ratio measure. Proceedings of the National Academy of Sciences. 21(9). 554-559.
-#' - Olejnik, S., & Algina, J. (2003). Generalized eta and omega squared statistics: measures of effect size for some common research designs. Psychological methods, 8(4), 434.
-#' - Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
+#' - Albers, C., \& Lakens, D. (2018). When power analyses based on pilot data
+#' are biased: Inaccurate effect size estimators and follow-up bias. Journal of
+#' experimental social psychology, 74, 187-195.
+#'
+#' - Allen, R. (2017). Statistics and Experimental Design for Psychologists: A
+#' Model Comparison Approach. World Scientific Publishing Company.
+#'
+#' - Carroll, R. M., & Nordholm, L. A. (1975). Sampling Characteristics of
+#' Kelley's epsilon and Hays' omega. Educational and Psychological Measurement,
+#' 35(3), 541-554.
+#'
+#' - Kelley, T. (1935) An unbiased correlation ratio measure. Proceedings of the
+#' National Academy of Sciences. 21(9). 554-559.
+#'
+#' - Olejnik, S., & Algina, J. (2003). Generalized eta and omega squared
+#' statistics: measures of effect size for some common research designs.
+#' Psychological methods, 8(4), 434.
+#'
+#' - Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals
+#' and tests of close fit in the analysis of variance and contrast analysis.
+#' Psychological Methods, 9, 164-182.
 #'
 #' @export
 eta_squared <- function(model,
@@ -199,7 +218,15 @@ eta_squared <- function(model,
                         ci = 0.9,
                         verbose = TRUE,
                         ...) {
-  out <- .anova_es(model, type = "eta", partial = partial, generalized = generalized, ci = ci, verbose = verbose, ...)
+  out <- .anova_es(
+    model,
+    type = "eta",
+    partial = partial,
+    generalized = generalized,
+    ci = ci,
+    verbose = verbose,
+    ...
+  )
   class(out) <- unique(c("effectsize_table", "see_effectsize_table", class(out)))
   return(out)
 }
@@ -277,7 +304,15 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, squared = FALSE,
 cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                              verbose = TRUE,
                              model2 = NULL, ...) {
-  cohens_f(model, partial = partial, ci = ci, squared = squared, verbose = verbose, model2 = model2, ...)
+  cohens_f(
+    model,
+    partial = partial,
+    ci = ci,
+    squared = squared,
+    verbose = verbose,
+    model2 = model2,
+    ...
+  )
 }
 
 

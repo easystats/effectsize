@@ -18,7 +18,7 @@
 #' @param blocks A vector giving the block for the corresponding elements of
 #'   `x`, or a character name of one in `data`. Ignored if `x` is not a vector.
 #' @param mu a number indicating the value around which (a-)symmetry (for
-#'   one-sample or paired samples) or shift (for independant samples) is to be
+#'   one-sample or paired samples) or shift (for independent samples) is to be
 #'   estimated. See [stats::wilcox.test].
 #'
 #' @details
@@ -43,7 +43,7 @@
 #' indicating larger differences between groups.
 #' \cr\cr
 #' Kendall's *W* is appropriate for non-parametric tests of differences between
-#' 2 or more dependant samples (a rank based rmANOVA). See
+#' 2 or more dependent samples (a rank based rmANOVA). See
 #' [stats::friedman.test]. Values range from 0 to 1, with larger values
 #' indicating larger differences between groups.
 #'
@@ -57,6 +57,8 @@
 #'
 #' @examples
 #' \donttest{
+#' # two-sample tests -----------------------
+#'
 #' A <- c(48, 48, 77, 86, 85, 85)
 #' B <- c(14, 34, 34, 77)
 #' rank_biserial(A, B)
@@ -65,12 +67,15 @@
 #' y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
 #' rank_biserial(x, y, paired = TRUE)
 #'
+#' # one-sample tests -----------------------
 #' x <- c(1.15, 0.88, 0.90, 0.74, 1.21)
 #' rank_biserial(x, mu = 1)
 #'
-#' x1 <- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
-#' x2 <- c(3.8, 2.7, 4.0, 2.4) # with obstructive airway disease
-#' x3 <- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
+#' # anova tests ----------------------------
+#'
+#' x1 <- c(2.9, 3.0, 2.5, 2.6, 3.2) # control group
+#' x2 <- c(3.8, 2.7, 4.0, 2.4)      # obstructive airway disease group
+#' x3 <- c(2.8, 3.4, 3.7, 2.2, 2.0) # asbestosis group
 #' x <- c(x1, x2, x3)
 #' g <- factor(rep(1:3, c(5, 4, 5)))
 #' rank_epsilon_squared(x, g)
@@ -83,16 +88,30 @@
 #'   FUN = mean
 #' )
 #' kendalls_w(x ~ w | t, data = wb)
+#'
 #' }
 #'
 #' @references
-#' - Cureton, E. E. (1956). Rank-biserial correlation. Psychometrika, 21(3), 287-290.
-#' - Glass, G. V. (1965). A ranking variable analogue of biserial correlation: Implications for short-cut item analysis. Journal of Educational Measurement, 2(1), 91-95.
+#' - Cureton, E. E. (1956). Rank-biserial correlation. Psychometrika, 21(3),
+#' 287-290.
+#'
+#' - Glass, G. V. (1965). A ranking variable analogue of biserial correlation:
+#' Implications for short-cut item analysis. Journal of Educational Measurement,
+#' 2(1), 91-95.
+#'
 #' - Kendall, M.G. (1948) Rank correlation methods. London: Griffin.
-#' - Kerby, D. S. (2014). The simple difference formula: An approach to teaching nonparametric correlation. Comprehensive Psychology, 3, 11-IT.
-#' - King, B. M., & Minium, E. W. (2008). Statistical reasoning in the behavioral sciences. John Wiley & Sons Inc.
-#' - Cliff, N. (1993). Dominance statistics: Ordinal analyses to answer ordinal questions. Psychological bulletin, 114(3), 494.
-#' - Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates revisited. An overview of some recommended measures of effect size.
+#'
+#' - Kerby, D. S. (2014). The simple difference formula: An approach to teaching
+#' nonparametric correlation. Comprehensive Psychology, 3, 11-IT.
+#'
+#' - King, B. M., & Minium, E. W. (2008). Statistical reasoning in the
+#' behavioral sciences. John Wiley & Sons Inc.
+#'
+#' - Cliff, N. (1993). Dominance statistics: Ordinal analyses to answer ordinal
+#' questions. Psychological bulletin, 114(3), 494.
+#'
+#' - Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates
+#' revisited. An overview of some recommended measures of effect size.
 #'
 #' @export
 #' @importFrom stats na.omit complete.cases
@@ -165,10 +184,13 @@ cliffs_delta <- function(x, y = NULL, data = NULL, mu = 0,
                          ci = 0.95, iterations = 200,
                          verbose = TRUE,
                          ...) {
-  rank_biserial(x, y,
-    data = data, mu = mu,
+  rank_biserial(
+    x, y,
+    data = data,
+    mu = mu,
     paired = FALSE,
-    ci = ci, iterations = iterations,
+    ci = ci,
+    iterations = iterations,
     verbose = verbose
   )
 }

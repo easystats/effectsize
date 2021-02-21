@@ -47,7 +47,8 @@ interpret_eta_squared(c(.5, .02), rules = "cohen1992")
 }
 \references{
 \itemize{
-\item Field, A (2013) Discovering statistics using IBM SPSS Statistics. Fourth Edition. Sage:London.
+\item Field, A (2013) Discovering statistics using IBM SPSS Statistics. Fourth
+Edition. Sage:London.
 \item Cohen, J. (1992). A power primer. Psychological bulletin, 112(1), 155.
 }
 }

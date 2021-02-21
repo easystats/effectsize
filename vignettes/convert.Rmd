@@ -168,7 +168,7 @@ instead we instead tend to think in terms of *probability* or some event - or
 the *risk*. Talking about *risks* we can also talk about the *change in risk*,
 knows as the *risk ratio* (*RR*).
 
-For example, if we find that for indevidual suffering from a migraine, for every
+For example, if we find that for individual suffering from a migraine, for every
 bowl of brussels sprouts they eat, they're odds of reducing the migraine
 increase by an $OR = 3.5$ over a period of an hour. So, should people eat
 brussels sprouts to effectively reduce pain? Well, hard to say... Maybe if we
