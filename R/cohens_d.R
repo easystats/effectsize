@@ -67,14 +67,12 @@
 #'
 #' cohens_d("wt", data = mtcars, mu = 3)
 #' hedges_g("wt", data = mtcars, mu = 3)
-#' if (require(boot)) glass_delta("wt", data = mtcars, mu = 3)
 #'
 #' # interpretation -----------------------
 #'
 #' interpret_d(0.4, rules = "cohen1988")
 #' interpret_g(0.4, rules = "sawilowsky2009")
 #' interpret_delta(0.4, rules = "gignac2016")
-#'
 #' @references
 #' - Cohen, J. (1988). Statistical power analysis for the behavioral
 #' sciences (2nd Ed.). New York: Routledge.
@@ -180,7 +178,15 @@ hedges_g <- function(x,
 
 #' @rdname cohens_d
 #' @export
-glass_delta <- function(x, y = NULL, data = NULL, mu = 0, ci = 0.95, iterations = 200, verbose = TRUE, ..., correction) {
+glass_delta <- function(x,
+                        y = NULL,
+                        data = NULL,
+                        mu = 0,
+                        ci = 0.95,
+                        iterations = 200,
+                        verbose = TRUE,
+                        ...,
+                        correction) {
   if (!missing(correction)) {
     warning("`correction` argument is deprecated. To apply bias correction, use `hedges_g()`.",
       call. = FALSE, immediate. = TRUE

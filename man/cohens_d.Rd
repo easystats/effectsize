@@ -134,14 +134,12 @@ cohens_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], paired = 
 
 cohens_d("wt", data = mtcars, mu = 3)
 hedges_g("wt", data = mtcars, mu = 3)
-if (require(boot)) glass_delta("wt", data = mtcars, mu = 3)
 
 # interpretation -----------------------
 
 interpret_d(0.4, rules = "cohen1988")
 interpret_g(0.4, rules = "sawilowsky2009")
 interpret_delta(0.4, rules = "gignac2016")
-
 }
 \references{
 \itemize{
