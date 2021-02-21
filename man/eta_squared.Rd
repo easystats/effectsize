@@ -76,7 +76,7 @@ automatically from the fitted model, if they were provided then.}
 returns the effect size for R-squared-change between the two models.}
 
 \item{ss_function}{For Bayesian models, the function used to extract
-sum-of-squares. Uses \code{\link[=anova]{anova()}} by default, but can also be \code{\link[car:Anova]{car::Anova()}}
+sum-of-squares. Uses \code{\link[=anova]{anova()}} by default, but can also be \code{car::Anova()}
 for simple linear models.}
 
 \item{draws}{For Bayesian models, an integer indicating the number of draws

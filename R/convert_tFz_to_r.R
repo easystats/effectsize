@@ -39,7 +39,7 @@
 #'
 #' The resulting `d` effect size is an *approximation* to Cohen's *d*, and
 #' assumes two equal group sizes. When possible, it is advised to directly
-#' estimate Cohen's *d*, with [cohens_d()], [emmeans::eff_size()], or similar
+#' estimate Cohen's *d*, with [cohens_d()], `emmeans::eff_size()`, or similar
 #' functions.
 #'
 #' @inheritSection cohens_d Confidence Intervals

@@ -66,7 +66,7 @@ These functions use the following formulae to approximate \emph{r} and \emph{d}:
 
 The resulting \code{d} effect size is an \emph{approximation} to Cohen's \emph{d}, and
 assumes two equal group sizes. When possible, it is advised to directly
-estimate Cohen's \emph{d}, with \code{\link[=cohens_d]{cohens_d()}}, \code{\link[emmeans:eff_size]{emmeans::eff_size()}}, or similar
+estimate Cohen's \emph{d}, with \code{\link[=cohens_d]{cohens_d()}}, \code{emmeans::eff_size()}, or similar
 functions.
 }
 \section{Confidence Intervals}{
