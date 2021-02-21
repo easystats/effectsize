@@ -7,7 +7,8 @@
 \alias{t_to_r}
 \alias{z_to_r}
 \alias{F_to_r}
-\title{Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (\strong{partial} r)}
+\title{Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d)
+or association (\strong{partial} r)}
 \usage{
 t_to_d(t, df_error, paired = FALSE, ci = 0.95, pooled, ...)
 
@@ -25,7 +26,7 @@ F_to_r(f, df, df_error, ci = 0.95, ...)
 \item{t, f, z}{The t, the F or the z statistics.}
 
 \item{paired}{Should the estimate account for the t-value being testing the
-difference between dependant means?}
+difference between dependent means?}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -118,11 +119,20 @@ if (require(emmeans)) {
 }
 \references{
 \itemize{
-\item Friedman, H. (1982). Simplified determinations of statistical power, magnitude of effect and research sample sizes. Educational and Psychological Measurement, 42(2), 521-526. \doi{10.1177/001316448204200214}
-\item Wolf, F. M. (1986). Meta-analysis: Quantitative methods for research synthesis (Vol. 59). Sage.
-\item Rosenthal, R. (1994) Parametric measures of effect size. In H. Cooper and L.V. Hedges (Eds.). The handbook of research synthesis. New York: Russell Sage Foundation.
-\item Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
-\item Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
+\item Friedman, H. (1982). Simplified determinations of statistical power,
+magnitude of effect and research sample sizes. Educational and Psychological
+Measurement, 42(2), 521-526. \doi{10.1177/001316448204200214}
+\item Wolf, F. M. (1986). Meta-analysis: Quantitative methods for research
+synthesis (Vol. 59). Sage.
+\item Rosenthal, R. (1994) Parametric measures of effect size. In H. Cooper and
+L.V. Hedges (Eds.). The handbook of research synthesis. New York: Russell
+Sage Foundation.
+\item Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals
+and tests of close fit in the analysis of variance and contrast analysis.
+Psychological Methods, 9, 164-182.
+\item Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and
+calculation of confidence intervals that are based on central and noncentral
+distributions. Educational and Psychological Measurement, 61(4), 532-574.
 }
 }
 \seealso{

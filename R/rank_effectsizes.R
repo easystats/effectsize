@@ -43,7 +43,7 @@
 #' indicating larger differences between groups.
 #' \cr\cr
 #' Kendall's *W* is appropriate for non-parametric tests of differences between
-#' 2 or more dependant samples (a rank based rmANOVA). See
+#' 2 or more dependent samples (a rank based rmANOVA). See
 #' [stats::friedman.test]. Values range from 0 to 1, with larger values
 #' indicating larger differences between groups.
 #'
@@ -88,8 +88,6 @@
 #'   FUN = mean
 #' )
 #' kendalls_w(x ~ w | t, data = wb)
-#'
-#' # interpretation -----------------------
 #'
 #' }
 #'
