@@ -11,8 +11,13 @@
 #'
 #' @inheritSection standardize_parameters Generalized Linear Models
 #' @export
-standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, verbose = TRUE,
-                                include_response = TRUE, ...) {
+standardize.default <- function(x,
+                                robust = FALSE,
+                                two_sd = FALSE,
+                                weights = TRUE,
+                                verbose = TRUE,
+                                include_response = TRUE,
+                                ...) {
   m_info <- insight::model_info(x)
   data <- insight::get_data(x)
 
@@ -137,7 +142,12 @@ standardize.default <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
 
 
 #' @export
-standardize.mlm <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, verbose = TRUE, ...) {
+standardize.mlm <- function(x,
+                            robust = FALSE,
+                            two_sd = FALSE,
+                            weights = TRUE,
+                            verbose = TRUE,
+                            ...) {
   standardize.default(x,
     robust = robust, two_sd = two_sd, weights = weights, verbose = verbose,
     include_response = FALSE, ...
@@ -146,7 +156,13 @@ standardize.mlm <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, v
 
 
 #' @export
-standardize.coxph <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, verbose = TRUE, ...) {
+standardize.coxph <- function(x,
+                              robust = FALSE,
+                              two_sd = FALSE,
+                              weights = TRUE,
+                              verbose = TRUE,
+                              ...) {
+
 
   # for some models, the DV cannot be standardized when using
   # "update()", so we only standardize model predictors
@@ -196,8 +212,14 @@ standardize.coxme <- standardize.coxph
 #' @importFrom utils capture.output
 #' @importFrom insight get_data
 #' @importFrom stats update
-standardize.mediate <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, verbose = TRUE,
-                                include_response = TRUE, ...) {
+standardize.mediate <- function(x,
+                                robust = FALSE,
+                                two_sd = FALSE,
+                                weights = TRUE,
+                                verbose = TRUE,
+                                include_response = TRUE,
+                                ...) {
+
 
   # models and data
   y <- x$model.y
@@ -292,7 +314,12 @@ standardize.mediate <- function(x, robust = FALSE, two_sd = FALSE, weights = TRU
 
 
 #' @export
-standardize.wbm <- function(x, robust = FALSE, two_sd = FALSE, weights = TRUE, verbose = TRUE, ...) {
+standardize.wbm <- function(x,
+                            robust = FALSE,
+                            two_sd = FALSE,
+                            weights = TRUE,
+                            verbose = TRUE,
+                            ...) {
   stop(paste0("Standardization of parameters not possible for models of class '", class(x)[1], "'."), call. = FALSE)
 }
 

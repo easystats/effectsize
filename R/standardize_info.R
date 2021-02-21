@@ -1,9 +1,13 @@
 #' Get Standardization Information
 #'
-#' This function extracts information, such as the deviations (SD or MAD) from parent variables, that are necessary for post-hoc standardization of parameters. This function gives a window on how standardized are obtained, i.e., by what they are devided. The "basic" method of standardization uses
+#' This function extracts information, such as the deviations (SD or MAD) from
+#' parent variables, that are necessary for post-hoc standardization of
+#' parameters. This function gives a window on how standardized are obtained,
+#' i.e., by what they are devided. The "basic" method of standardization uses.
 #'
 #' @inheritParams standardize_parameters
-#' @param include_pseudo (For (G)LMMs) Should Pseudo-standardized information be included?
+#' @param include_pseudo (For (G)LMMs) Should Pseudo-standardized information be
+#'   included?
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @return A data frame with information on each parameter (see

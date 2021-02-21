@@ -60,11 +60,18 @@ Rules apply to BF as ratios, so BF of 10 is as extreme as a BF of 0.1 (1/10).
 \examples{
 interpret_bf(1)
 interpret_bf(c(5, 2))
+
 }
 \references{
 \itemize{
-\item Jeffreys, H. (1961), Theory of Probability, 3rd ed., Oxford University Press, Oxford.
-\item Raftery, A. E. (1995). Bayesian model selection in social research. Sociological methodology, 25, 111-164.
-\item Jarosz, A. F., & Wiley, J. (2014). What are the odds? A practical guide to computing and reporting Bayes factors. The Journal of Problem Solving, 7(1), 2.
+\item Jeffreys, H. (1961), Theory of Probability, 3rd ed., Oxford University
+Press, Oxford.
+\item Raftery, A. E. (1995). Bayesian model selection in social research.
+Sociological methodology, 25, 111-164.
+\item Jarosz, A. F., & Wiley, J. (2014). What are the odds? A practical guide to
+computing and reporting Bayes factors. The Journal of Problem Solving, 7(1),
+}
+\enumerate{
+\item 
 }
 }

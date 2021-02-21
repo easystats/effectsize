@@ -26,7 +26,8 @@ model coefficients of continuous parameters comparable to coefficients
 related to binary predictors, when applied to \strong{the predictors} (not the
 outcome) (Gelman, 2008).}
 
-\item{include_pseudo}{(For (G)LMMs) Should Pseudo-standardized information be included?}
+\item{include_pseudo}{(For (G)LMMs) Should Pseudo-standardized information be
+included?}
 
 \item{...}{Arguments passed to or from other methods.}
 }
@@ -37,7 +38,10 @@ for the post-hoc methods (see \code{\link[=standardize_parameters]{standardize_p
 and the response.
 }
 \description{
-This function extracts information, such as the deviations (SD or MAD) from parent variables, that are necessary for post-hoc standardization of parameters. This function gives a window on how standardized are obtained, i.e., by what they are devided. The "basic" method of standardization uses
+This function extracts information, such as the deviations (SD or MAD) from
+parent variables, that are necessary for post-hoc standardization of
+parameters. This function gives a window on how standardized are obtained,
+i.e., by what they are devided. The "basic" method of standardization uses.
 }
 \examples{
 model <- lm(mpg ~ ., data = mtcars)

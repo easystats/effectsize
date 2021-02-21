@@ -32,9 +32,13 @@ normally distributed.
 }
 \references{
 \itemize{
-\item Cohen, J. (1977). Statistical power analysis for the behavioral sciences. New York: Routledge.
-\item Reiser, B., & Faraggi, D. (1999). Confidence intervals for the overlapping coefficient: the normal equal variance case. Journal of the Royal Statistical Society, 48(3), 413-418.
-\item Ruscio, J. (2008). A probability-based measure of effect size: robustness to base rates and other factors. Psychological methods, 13(1), 19–30.
+\item Cohen, J. (1977). Statistical power analysis for the behavioral sciences.
+New York: Routledge.
+\item Reiser, B., & Faraggi, D. (1999). Confidence intervals for the overlapping
+coefficient: the normal equal variance case. Journal of the Royal Statistical
+Society, 48(3), 413-418.
+\item Ruscio, J. (2008). A probability-based measure of effect size: robustness
+to base rates and other factors. Psychological methods, 13(1), 19–30.
 }
 }
 \seealso{

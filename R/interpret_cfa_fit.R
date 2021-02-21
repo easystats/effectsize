@@ -1,6 +1,7 @@
 #' Interpret of indices of CFA / SEM goodness of fit
 #'
-#' Interpretation of indices of fit found in confirmatory analysis or structural equation modelling, such as RMSEA, CFI, NFI, IFI, etc.
+#' Interpretation of indices of fit found in confirmatory analysis or structural
+#' equation modelling, such as RMSEA, CFI, NFI, IFI, etc.
 #'
 #' @param x vector of values, or an object of class `lavaan`.
 #' @param rules Can be `"default"` or custom set of [rules()].
@@ -57,7 +58,9 @@
 #'
 #'
 #' ## What to report
-#' For structural equation models (SEM), Kline (2015) suggests that at a minimum the following indices should be reported: The model **chi-square**, the **RMSEA**, the **CFI** and the **SRMR**.
+#' For structural equation models (SEM), Kline (2015) suggests that at a minimum
+#' the following indices should be reported: The model **chi-square**, the
+#' **RMSEA**, the **CFI** and the **SRMR**.
 #'
 #' @note When possible, it is recommended to report dynamic cutoffs of fit
 #'   indices. See https://dynamicfit.app/cfa/.

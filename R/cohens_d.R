@@ -71,6 +71,7 @@
 #' # interpretation -----------------------
 #'
 #' interpret_d(0.4, rules = "cohen1988")
+#' d_to_common_language(0.4)
 #' interpret_g(0.4, rules = "sawilowsky2009")
 #' interpret_delta(0.4, rules = "gignac2016")
 #' @references

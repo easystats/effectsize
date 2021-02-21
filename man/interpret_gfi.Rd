@@ -47,7 +47,8 @@ interpret_pnfi(x, rules = "default")
 \item{...}{Currently not used.}
 }
 \description{
-Interpretation of indices of fit found in confirmatory analysis or structural equation modelling, such as RMSEA, CFI, NFI, IFI, etc.
+Interpretation of indices of fit found in confirmatory analysis or structural
+equation modelling, such as RMSEA, CFI, NFI, IFI, etc.
 }
 \details{
 \subsection{Indices of fit}{
@@ -92,7 +93,9 @@ See the documentation for \code{\link[lavaan:fitmeasures]{fitmeasures()}}.
 
 \subsection{What to report}{
 
-For structural equation models (SEM), Kline (2015) suggests that at a minimum the following indices should be reported: The model \strong{chi-square}, the \strong{RMSEA}, the \strong{CFI} and the \strong{SRMR}.
+For structural equation models (SEM), Kline (2015) suggests that at a minimum
+the following indices should be reported: The model \strong{chi-square}, the
+\strong{RMSEA}, the \strong{CFI} and the \strong{SRMR}.
 }
 }
 \note{
