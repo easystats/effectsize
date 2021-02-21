@@ -132,9 +132,9 @@ cohens_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], paired = 
 
 # one-sample tests -----------------------
 
-cohens_d(wt, data = mtcars, mu = 3)
-hedges_g(wt, data = mtcars, mu = 3)
-if (require(boot)) glass_delta(wt, data = mtcars, mu = 3)
+cohens_d("wt", data = mtcars, mu = 3)
+hedges_g("wt", data = mtcars, mu = 3)
+if (require(boot)) glass_delta("wt", data = mtcars, mu = 3)
 
 # interpretation -----------------------
 
@@ -144,7 +144,7 @@ interpret_delta(0.4, rules = "gignac2016")
 
 }
 \references{
-\itemize {
+\itemize{
 \item Cohen, J. (1988). Statistical power analysis for the behavioral
 sciences (2nd Ed.). New York: Routledge.
 \item Hedges, L. V. & Olkin, I. (1985). Statistical methods for

@@ -65,9 +65,9 @@
 #'
 #' # one-sample tests -----------------------
 #'
-#' cohens_d(wt, data = mtcars, mu = 3)
-#' hedges_g(wt, data = mtcars, mu = 3)
-#' if (require(boot)) glass_delta(wt, data = mtcars, mu = 3)
+#' cohens_d("wt", data = mtcars, mu = 3)
+#' hedges_g("wt", data = mtcars, mu = 3)
+#' if (require(boot)) glass_delta("wt", data = mtcars, mu = 3)
 #'
 #' # interpretation -----------------------
 #'
@@ -76,16 +76,17 @@
 #' interpret_delta(0.4, rules = "gignac2016")
 #'
 #' @references
-#' \itemize {
-#' \item Cohen, J. (1988). Statistical power analysis for the behavioral
+#' - Cohen, J. (1988). Statistical power analysis for the behavioral
 #' sciences (2nd Ed.). New York: Routledge.
-#' \item Hedges, L. V. & Olkin, I. (1985). Statistical methods for
+#'
+#' - Hedges, L. V. & Olkin, I. (1985). Statistical methods for
 #' meta-analysis. Orlando, FL: Academic Press.
-#' \item Hunter, J. E., & Schmidt, F. L. (2004). Methods of meta-analysis:
+#'
+#' - Hunter, J. E., & Schmidt, F. L. (2004). Methods of meta-analysis:
 #' Correcting error and bias in research findings. Sage.
-#' \item McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the
+#'
+#' - McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the
 #' case of r and d. Psychological methods, 11(4), 386.
-#' }
 #'
 #' @importFrom stats var model.frame
 #' @export
