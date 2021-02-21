@@ -25,7 +25,9 @@
 #'
 #'
 #' @references
-#' - Field, A (2013) Discovering statistics using IBM SPSS Statistics. Fourth Edition. Sage:London.
+#' - Field, A (2013) Discovering statistics using IBM SPSS Statistics. Fourth
+#' Edition. Sage:London.
+#'
 #' - Cohen, J. (1992). A power primer. Psychological bulletin, 112(1), 155.
 #'
 #' @export

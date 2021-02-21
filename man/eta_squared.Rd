@@ -92,7 +92,8 @@ For \code{eta_squared_posterior()}, a data frame containing the ppd of the Eta
 squared for each fixed effect, which can then be passed to
 \code{\link[bayestestR:describe_posterior]{bayestestR::describe_posterior()}} for summary stats.
 
-A data frame containing the effect size values and their confidence intervals.
+A data frame containing the effect size values and their confidence
+intervals.
 }
 \description{
 Functions to compute effect size measures for ANOVAs, such as Eta, Omega and
@@ -209,8 +210,12 @@ if (require(see)) plot(etas)
 model0 <- aov(mpg ~ am_f + cyl_f, data = mtcars) # no interaction
 cohens_f_squared(model0, model2 = model)
 
+## Interpretation of effect sizes
+## -------------------------------------
 
-
+interpret_omega_squared(0.15, rules = "field2013")
+interpret_eta_squared(0.15, rules = "cohen1992")
+interpret_epsilon_squared(0.15, rules = "cohen1992")
 
 # Recommended: Type-3 effect sizes + effects coding
 # -------------------------------------------------
@@ -280,12 +285,22 @@ if (require(rstanarm) && require(bayestestR) && require(car)) {
 }
 \references{
 \itemize{
-\item Albers, C., \& Lakens, D. (2018). When power analyses based on pilot data are biased: Inaccurate effect size estimators and follow-up bias. Journal of experimental social psychology, 74, 187-195.
-\item Allen, R. (2017). Statistics and Experimental Design for Psychologists: A Model Comparison Approach. World Scientific Publishing Company.
-\item Carroll, R. M., & Nordholm, L. A. (1975). Sampling Characteristics of Kelley's epsilon and Hays' omega. Educational and Psychological Measurement, 35(3), 541-554.
-\item Kelley, T. (1935) An unbiased correlation ratio measure. Proceedings of the National Academy of Sciences. 21(9). 554-559.
-\item Olejnik, S., & Algina, J. (2003). Generalized eta and omega squared statistics: measures of effect size for some common research designs. Psychological methods, 8(4), 434.
-\item Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
+\item Albers, C., \& Lakens, D. (2018). When power analyses based on pilot data
+are biased: Inaccurate effect size estimators and follow-up bias. Journal of
+experimental social psychology, 74, 187-195.
+\item Allen, R. (2017). Statistics and Experimental Design for Psychologists: A
+Model Comparison Approach. World Scientific Publishing Company.
+\item Carroll, R. M., & Nordholm, L. A. (1975). Sampling Characteristics of
+Kelley's epsilon and Hays' omega. Educational and Psychological Measurement,
+35(3), 541-554.
+\item Kelley, T. (1935) An unbiased correlation ratio measure. Proceedings of the
+National Academy of Sciences. 21(9). 554-559.
+\item Olejnik, S., & Algina, J. (2003). Generalized eta and omega squared
+statistics: measures of effect size for some common research designs.
+Psychological methods, 8(4), 434.
+\item Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals
+and tests of close fit in the analysis of variance and contrast analysis.
+Psychological Methods, 9, 164-182.
 }
 }
 \seealso{

@@ -30,13 +30,24 @@
 #' @examples
 #' interpret_bf(1)
 #' interpret_bf(c(5, 2))
+#'
 #' @references
-#' - Jeffreys, H. (1961), Theory of Probability, 3rd ed., Oxford University Press, Oxford.
-#' - Raftery, A. E. (1995). Bayesian model selection in social research. Sociological methodology, 25, 111-164.
-#' - Jarosz, A. F., & Wiley, J. (2014). What are the odds? A practical guide to computing and reporting Bayes factors. The Journal of Problem Solving, 7(1), 2.
+#' - Jeffreys, H. (1961), Theory of Probability, 3rd ed., Oxford University
+#' Press, Oxford.
+#'
+#' - Raftery, A. E. (1995). Bayesian model selection in social research.
+#' Sociological methodology, 25, 111-164.
+#'
+#' - Jarosz, A. F., & Wiley, J. (2014). What are the odds? A practical guide to
+#' computing and reporting Bayes factors. The Journal of Problem Solving, 7(1),
+#' 2.
 #'
 #' @export
-interpret_bf <- function(bf, rules = "jeffreys1961", include_value = FALSE, protect_ratio = TRUE, exact = TRUE) {
+interpret_bf <- function(bf,
+                         rules = "jeffreys1961",
+                         include_value = FALSE,
+                         protect_ratio = TRUE,
+                         exact = TRUE) {
   match.call()
 
   if (any(bf < 0, na.rm = TRUE)) {

@@ -1,6 +1,7 @@
 # t -----------------------------------------------------------------------
 
-#' Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d) or association (**partial** r)
+#' Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d)
+#' or association (**partial** r)
 #'
 #' These functions are convenience functions to convert t, z and F test
 #' statistics to Cohen's d and **partial** r. These are useful in cases where
@@ -15,7 +16,7 @@
 #'   (i.e., the residuals).
 #' @param n The number of observations (the sample size).
 #' @param paired Should the estimate account for the t-value being testing the
-#'   difference between dependant means?
+#'   difference between dependent means?
 #' @param pooled Deprecated. Use `paired`.
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods.
@@ -83,11 +84,24 @@
 #' }
 #'
 #' @references
-#' - Friedman, H. (1982). Simplified determinations of statistical power, magnitude of effect and research sample sizes. Educational and Psychological Measurement, 42(2), 521-526. \doi{10.1177/001316448204200214}
-#' - Wolf, F. M. (1986). Meta-analysis: Quantitative methods for research synthesis (Vol. 59). Sage.
-#' - Rosenthal, R. (1994) Parametric measures of effect size. In H. Cooper and L.V. Hedges (Eds.). The handbook of research synthesis. New York: Russell Sage Foundation.
-#' - Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
-#' - Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
+#' - Friedman, H. (1982). Simplified determinations of statistical power,
+#' magnitude of effect and research sample sizes. Educational and Psychological
+#' Measurement, 42(2), 521-526. \doi{10.1177/001316448204200214}
+#'
+#' - Wolf, F. M. (1986). Meta-analysis: Quantitative methods for research
+#' synthesis (Vol. 59). Sage.
+#'
+#' - Rosenthal, R. (1994) Parametric measures of effect size. In H. Cooper and
+#' L.V. Hedges (Eds.). The handbook of research synthesis. New York: Russell
+#' Sage Foundation.
+#'
+#' - Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals
+#' and tests of close fit in the analysis of variance and contrast analysis.
+#' Psychological Methods, 9, 164-182.
+#'
+#' - Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and
+#' calculation of confidence intervals that are based on central and noncentral
+#' distributions. Educational and Psychological Measurement, 61(4), 532-574.
 #'
 #' @export
 t_to_r <- function(t, df_error, ci = 0.95, ...) {

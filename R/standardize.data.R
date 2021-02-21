@@ -1,6 +1,11 @@
 #' @rdname standardize
 #' @export
-standardize.numeric <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, verbose = TRUE, ...) {
+standardize.numeric <- function(x,
+                                robust = FALSE,
+                                two_sd = FALSE,
+                                weights = NULL,
+                                verbose = TRUE,
+                                ...) {
 
   # Warning if all NaNs
   if (all(is.na(x))) {
@@ -57,8 +62,13 @@ standardize.integer <- standardize.numeric
 
 
 #' @export
-standardize.factor <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, verbose = TRUE,
-                               force = FALSE, ...) {
+standardize.factor <- function(x,
+                               robust = FALSE,
+                               two_sd = FALSE,
+                               weights = NULL,
+                               verbose = TRUE,
+                               force = FALSE,
+                               ...) {
   if (!force) {
     return(x)
   }
@@ -121,12 +131,19 @@ standardize.AsIs <- standardize.numeric
 #' (respectively).
 #'
 #' @export
-standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, verbose = TRUE,
-                                   select = NULL, exclude = NULL,
+standardize.data.frame <- function(x,
+                                   robust = FALSE,
+                                   two_sd = FALSE,
+                                   weights = NULL,
+                                   verbose = TRUE,
+                                   select = NULL,
+                                   exclude = NULL,
                                    remove_na = c("none", "selected", "all"),
                                    force = FALSE,
-                                   append = FALSE, suffix = "_z",
+                                   append = FALSE,
+                                   suffix = "_z",
                                    ...) {
+
   # check for formula notation, convert to character vector
   if (inherits(select, "formula")) {
     select <- all.vars(select)
@@ -183,11 +200,17 @@ standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, weights = 
 
 
 #' @export
-standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, verbose = TRUE,
-                                   select = NULL, exclude = NULL,
+standardize.grouped_df <- function(x,
+                                   robust = FALSE,
+                                   two_sd = FALSE,
+                                   weights = NULL,
+                                   verbose = TRUE,
+                                   select = NULL,
+                                   exclude = NULL,
                                    remove_na = c("none", "selected", "all"),
                                    force = FALSE,
-                                   append = FALSE, suffix = "_z",
+                                   append = FALSE,
+                                   suffix = "_z",
                                    ...) {
   info <- attributes(x)
   # dplyr >= 0.8.0 returns attribute "indices"
