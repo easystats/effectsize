@@ -1,5 +1,17 @@
 if (require("testthat") && require("effectsize")) {
   test_that("contingency table", {
+    contingency_table <- as.table(rbind(
+      c(762, 327, 468),
+      c(484, 239, 477),
+      c(484, 239, 477)
+    ))
+    res <- cramers_v(contingency_table)
+
+    expect_equal(res$Cramers_v, 0.072, tolerance = 0.01)
+    expect_equal(res$CI_low, 0.047, tolerance = 0.01)
+    expect_equal(res$CI_high, 0.091, tolerance = 0.01)
+
+
     ## Size does not affect estimate
     xtab <- rbind(
       c(760, 330, 470),
