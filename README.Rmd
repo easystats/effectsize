@@ -100,6 +100,8 @@ hedges_g(mpg ~ am, data = mtcars)
 glass_delta(mpg ~ am, data = mtcars)
 ```
 
+`effectsize` also provides effect sizes for *contingency tables*, *rank tests*, and more...
+
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, ...)
 
 ```{r, warning=FALSE, message=FALSE}
@@ -130,8 +132,6 @@ Also, models can be re-fit with standardized data:
 ```{r, warning=FALSE, message=FALSE}
 standardize(m)
 ```
-
-<!-- add cohens_f2? -->
 
 ## Effect Size Conversion
 

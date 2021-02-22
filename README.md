@@ -98,8 +98,11 @@ hedges_g(mpg ~ am, data = mtcars)
 glass_delta(mpg ~ am, data = mtcars)
 ## Glass' delta |         95% CI
 ## -----------------------------
-## -1.17        | [-1.93, -0.68]
+## -1.17        | [-2.13, -0.73]
 ```
+
+`effectsize` also provides effect sizes for *contingency tables*, *rank
+tests*, and more…
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)
 
@@ -156,8 +159,6 @@ standardize(m)
 ## (Intercept)   complaints   privileges      advance  
 ##   -9.57e-16     8.55e-01    -4.35e-02    -2.19e-02
 ```
-
-<!-- add cohens_f2? -->
 
 ## Effect Size Conversion
 
