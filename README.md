@@ -98,7 +98,7 @@ hedges_g(mpg ~ am, data = mtcars)
 glass_delta(mpg ~ am, data = mtcars)
 ## Glass' delta |         95% CI
 ## -----------------------------
-## -1.17        | [-2.13, -0.73]
+## -1.17        | [-2.01, -0.66]
 ```
 
 `effectsize` also provides effect sizes for *contingency tables*, *rank
