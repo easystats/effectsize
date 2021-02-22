@@ -13,7 +13,7 @@ if (require("testthat") && require("effectsize")) {
       nrow = nrow(xtab),
       ncol = ncol(xtab)
     )
-    expect_equal(res1, cramers_v(xtab), ignore_attr = TRUE)
+    expect_equal(res, cramers_v(xtab), ignore_attr = TRUE)
 
 
     res <- chisq_to_phi(
