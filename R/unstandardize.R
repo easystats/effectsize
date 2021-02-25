@@ -9,17 +9,26 @@
 #'   rest of the arguments are absent.
 #' @rdname standardize
 #' @export
-unstandardize <- function(x, center = NULL, scale = NULL, reference = NULL,
-                          robust = FALSE, two_sd = FALSE, ...) {
+unstandardize <- function(x,
+                          center = NULL,
+                          scale = NULL,
+                          reference = NULL,
+                          robust = FALSE,
+                          two_sd = FALSE,
+                          ...) {
   UseMethod("unstandardize")
 }
 
 
 #' @export
-unstandardize.numeric <- function(x, center = NULL, scale = NULL, reference = NULL,
-                                  robust = FALSE, two_sd = FALSE, ...) {
-
-  if(!is.null(reference)) {
+unstandardize.numeric <- function(x,
+                                  center = NULL,
+                                  scale = NULL,
+                                  reference = NULL,
+                                  robust = FALSE,
+                                  two_sd = FALSE,
+                                  ...) {
+  if (!is.null(reference)) {
     if (robust) {
       center <- stats::median(reference, na.rm = TRUE)
       scale <- stats::mad(reference, na.rm = TRUE)
@@ -36,7 +45,7 @@ unstandardize.numeric <- function(x, center = NULL, scale = NULL, reference = NU
       center <- attr(x, "scaled:center", exact = TRUE)
       scale <- attr(x, "scaled:scale", exact = TRUE)
       attr(x, "scaled:scale") <- attr(x, "scaled:center") <- NULL
-    } else{
+    } else {
       stop("You must provide the arguments `center`, `scale` or `reference`.")
     }
   }
@@ -49,10 +58,14 @@ unstandardize.numeric <- function(x, center = NULL, scale = NULL, reference = NU
 }
 
 #' @export
-unstandardize.data.frame <- function(x, center = NULL, scale = NULL, reference = NULL,
-                                     robust = FALSE, two_sd = FALSE, ...) {
-
-  if(!is.null(reference)) {
+unstandardize.data.frame <- function(x,
+                                     center = NULL,
+                                     scale = NULL,
+                                     reference = NULL,
+                                     robust = FALSE,
+                                     two_sd = FALSE,
+                                     ...) {
+  if (!is.null(reference)) {
     i <- sapply(x, is.numeric)
     i <- i[i]
     reference <- reference[names(i)]
@@ -97,27 +110,38 @@ unstandardize.data.frame <- function(x, center = NULL, scale = NULL, reference =
   }
 
   x[names(i)] <- mapply(unstandardize, x[names(i)],
-                        center = center[names(i)],
-                        scale = scale[names(i)])
+    center = center[names(i)],
+    scale = scale[names(i)]
+  )
   x
 }
 
 #' @export
-unstandardize.grouped_df <- function(x, center = NULL, scale = NULL, reference = NULL,
-                                     robust = FALSE, two_sd = FALSE, ...) {
+unstandardize.grouped_df <- function(x,
+                                     center = NULL,
+                                     scale = NULL,
+                                     reference = NULL,
+                                     robust = FALSE,
+                                     two_sd = FALSE,
+                                     ...) {
   stop("Cannot (yet) unstandardize a grouped_df.")
 }
 
 #' @export
-unstandardize.matrix <- function(x, center = NULL, scale = NULL, reference = NULL,
-                                     robust = FALSE, two_sd = FALSE, ...) {
+unstandardize.matrix <- function(x,
+                                 center = NULL,
+                                 scale = NULL,
+                                 reference = NULL,
+                                 robust = FALSE,
+                                 two_sd = FALSE,
+                                 ...) {
   if (all(c("scaled:center", "scaled:scale") %in% names(attributes(x)))) {
     center <- attr(x, "scaled:center", exact = TRUE)
     scale <- attr(x, "scaled:scale", exact = TRUE)
     attr(x, "scaled:center") <- attr(x, "scaled:scale") <- NULL
 
     for (col in seq_len(ncol(x))) {
-      x[,col] <- unstandardize.numeric(x[,col], center = center[col], scale = scale[col])
+      x[, col] <- unstandardize.numeric(x[, col], center = center[col], scale = scale[col])
     }
   } else {
     x <- unstandardize.numeric(

@@ -1,17 +1,21 @@
-#' Convert test statistics (F, t) to indices of **partial** variance explained (**partial** Eta / Omega / Epsilon squared and Cohen's f)
+#' Convert test statistics (F, t) to indices of **partial** variance explained
+#' (**partial** Eta / Omega / Epsilon squared and Cohen's f)
 #'
-#' These functions are convenience functions to convert F and t test statistics to
-#' **partial** Eta squared, (\eqn{\eta{_p}^2}), Omega squared (\eqn{\omega{_p}^2}),
-#' Epsilon squared (\eqn{\epsilon{_p}^2}; an alias for the adjusted Eta squared) and Cohen's f.
-#' These are useful in cases where the various Sum of Squares and Mean Squares are not
-#' easily available or their computation is not straightforward (e.g., in liner mixed models,
-#' contrasts, etc.). For test statistics derived from `lm` and `aov` models, these
-#' functions give exact results. For all other cases, they return close approximations.
+#' These functions are convenience functions to convert F and t test statistics
+#' to **partial** Eta squared, (\eqn{\eta{_p}^2}), Omega squared
+#' (\eqn{\omega{_p}^2}), Epsilon squared (\eqn{\epsilon{_p}^2}; an alias for the
+#' adjusted Eta squared) and Cohen's f. These are useful in cases where the
+#' various Sum of Squares and Mean Squares are not easily available or their
+#' computation is not straightforward (e.g., in liner mixed models, contrasts,
+#' etc.). For test statistics derived from `lm` and `aov` models, these
+#' functions give exact results. For all other cases, they return close
+#' approximations.
 #' \cr
 #' See [Effect Size from Test Statistics vignette.](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
 #'
 #' @param t,f The t or the F statistics.
-#' @param df,df_error Degrees of freedom of numerator or of the error estimate (i.e., the residuals).
+#' @param df,df_error Degrees of freedom of numerator or of the error estimate
+#'   (i.e., the residuals).
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods.
 #'
@@ -95,13 +99,34 @@
 #' }
 #' }
 #' @references
-#' - Albers, C., & Lakens, D. (2018). When power analyses based on pilot data are biased: Inaccurate effect size estimators and follow-up bias. Journal of experimental social psychology, 74, 187-195. \doi{10.31234/osf.io/b7z4q}
-#' - Carroll, R. M., & Nordholm, L. A. (1975). Sampling Characteristics of Kelley's epsilon and Hays' omega. Educational and Psychological Measurement, 35(3), 541-554.
-#' - Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
-#' - Friedman, H. (1982). Simplified determinations of statistical power, magnitude of effect and research sample sizes. Educational and Psychological Measurement, 42(2), 521-526. \doi{10.1177/001316448204200214}
-#' - Mordkoff, J. T. (2019). A Simple Method for Removing Bias From a Popular Measure of Standardized Effect Size: Adjusted Partial Eta Squared. Advances in Methods and Practices in Psychological Science, 2(3), 228-232. \doi{10.1177/2515245919855053}
-#' - Morey, R. D., Hoekstra, R., Rouder, J. N., Lee, M. D., & Wagenmakers, E. J. (2016). The fallacy of placing confidence in confidence intervals. Psychonomic bulletin & review, 23(1), 103-123.
-#' - Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
+#' - Albers, C., & Lakens, D. (2018). When power analyses based on pilot data
+#' are biased: Inaccurate effect size estimators and follow-up bias. Journal of
+#' experimental social psychology, 74, 187-195. \doi{10.31234/osf.io/b7z4q}
+#'
+#' - Carroll, R. M., & Nordholm, L. A. (1975). Sampling Characteristics of
+#' Kelley's epsilon and Hays' omega. Educational and Psychological Measurement,
+#' 35(3), 541-554.
+#'
+#' - Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and
+#' calculation of confidence intervals that are based on central and noncentral
+#' distributions. Educational and Psychological Measurement, 61(4), 532-574.
+#'
+#' - Friedman, H. (1982). Simplified determinations of statistical power,
+#' magnitude of effect and research sample sizes. Educational and Psychological
+#' Measurement, 42(2), 521-526. \doi{10.1177/001316448204200214}
+#'
+#' - Mordkoff, J. T. (2019). A Simple Method for Removing Bias From a Popular
+#' Measure of Standardized Effect Size: Adjusted Partial Eta Squared. Advances
+#' in Methods and Practices in Psychological Science, 2(3), 228-232.
+#' \doi{10.1177/2515245919855053}
+#'
+#' - Morey, R. D., Hoekstra, R., Rouder, J. N., Lee, M. D., & Wagenmakers, E. J.
+#' (2016). The fallacy of placing confidence in confidence intervals.
+#' Psychonomic bulletin & review, 23(1), 103-123.
+#'
+#' - Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals
+#' and tests of close fit in the analysis of variance and contrast analysis.
+#' Psychological Methods, 9, 164-182.
 #'
 #' @export
 F_to_eta2 <- function(f, df, df_error, ci = 0.9, ...) {

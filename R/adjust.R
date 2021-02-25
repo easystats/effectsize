@@ -64,7 +64,15 @@
 #' }
 #' @importFrom stats as.formula
 #' @export
-adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multilevel = FALSE, additive = FALSE, bayesian = FALSE, keep_intercept = FALSE) {
+adjust <- function(data,
+                   effect = NULL,
+                   select = NULL,
+                   exclude = NULL,
+                   multilevel = FALSE,
+                   additive = FALSE,
+                   bayesian = FALSE,
+                   keep_intercept = FALSE) {
+
   if (!all(colnames(data) == make.names(colnames(data), unique = TRUE))) {
     warning("Bad column names (e.g., with spaces) have been detected which might create issues in many functions.\n",
       "Please fix it (you can run `names(mydata) <- make.names(names(mydata))` for a quick fix).",
@@ -122,7 +130,15 @@ adjust <- function(data, effect = NULL, select = NULL, exclude = NULL, multileve
     formula_predictors <- paste(c("1", predictors), collapse = " + ")
     formula <- paste(var, "~", formula_predictors)
 
-    x <- .model_adjust_for(data = data[unique(c(var, effect, facs))], formula, multilevel = multilevel, additive = additive, bayesian = bayesian, formula_random = formula_random, keep_intercept = keep_intercept)
+    x <-  .model_adjust_for(
+        data = data[unique(c(var, effect, facs))],
+        formula,
+        multilevel = multilevel,
+        additive = additive,
+        bayesian = bayesian,
+        formula_random = formula_random,
+        keep_intercept = keep_intercept
+      )
     out[var] <- x
   }
   out[names(data)[!names(data) %in% names(out)]] <- data[names(data)[!names(data) %in% names(out)]]
@@ -137,7 +153,13 @@ data_adjust <- adjust
 #' @importFrom stats lm as.formula complete.cases median
 #' @importFrom insight get_intercept get_residuals
 #' @keywords internal
-.model_adjust_for <- function(data, formula, multilevel = FALSE, additive = FALSE, bayesian = FALSE, formula_random = NULL, keep_intercept = FALSE) {
+.model_adjust_for <- function(data,
+                              formula,
+                              multilevel = FALSE,
+                              additive = FALSE,
+                              bayesian = FALSE,
+                              formula_random = NULL,
+                              keep_intercept = FALSE) {
 
   # Additive -----------------------
   if (additive) {
