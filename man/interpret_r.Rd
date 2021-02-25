@@ -9,7 +9,8 @@ interpret_r(r, rules = "funder2019")
 \arguments{
 \item{r}{Value or vector of correlation coefficient.}
 
-\item{rules}{Can be \code{"funder2019"} (default), \code{"gignac2016"}, \code{"cohen1988"}, \code{"evans1996"}, \code{"lovakov2021"} or a custom set of \code{\link[=rules]{rules()}}.}
+\item{rules}{Can be \code{"funder2019"} (default), \code{"gignac2016"}, \code{"cohen1988"},
+\code{"evans1996"}, \code{"lovakov2021"} or a custom set of \code{\link[=rules]{rules()}}.}
 }
 \description{
 Interpret correlation
@@ -67,11 +68,19 @@ interpret_r(.3, rules = "lovakov2021")
 }
 \references{
 \itemize{
-\item Lovakov, A., & Agadullina, E. R. (2021). Empirically Derived Guidelines for Effect Size Interpretation in Social Psychology. European Journal of Social Psychology.
-\item Funder, D. C., & Ozer, D. J. (2019). Evaluating effect size in psychological research: sense and nonsense. Advances in Methods and Practices in Psychological Science.
-\item Gignac, G. E., & Szodorai, E. T. (2016). Effect size guidelines for individual differences researchers. Personality and individual differences, 102, 74-78.
-\item Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
-\item Evans, J. D. (1996). Straightforward statistics for the behavioral sciences. Thomson Brooks/Cole Publishing Co.
+\item Lovakov, A., & Agadullina, E. R. (2021). Empirically Derived Guidelines for
+Effect Size Interpretation in Social Psychology. European Journal of Social
+Psychology.
+\item Funder, D. C., & Ozer, D. J. (2019). Evaluating effect size in
+psychological research: sense and nonsense. Advances in Methods and Practices
+in Psychological Science.
+\item Gignac, G. E., & Szodorai, E. T. (2016). Effect size guidelines for
+individual differences researchers. Personality and individual differences,
+102, 74-78.
+\item Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+(2nd Ed.). New York: Routledge.
+\item Evans, J. D. (1996). Straightforward statistics for the behavioral
+sciences. Thomson Brooks/Cole Publishing Co.
 }
 }
 \seealso{

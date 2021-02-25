@@ -77,10 +77,11 @@ model coefficients of continuous parameters comparable to coefficients
 related to binary predictors, when applied to \strong{the predictors} (not the
 outcome) (Gelman, 2008).}
 
-\item{weights}{Can be \code{NULL} (for no weighting), or:
+\item{weights}{Can be \code{NULL} (for no weighting), or: - For model: if \code{TRUE}
+(default), a weighted-standardization is carried out. - For \code{data.frame}s:
+a numeric vector of weights, or a character of the name of a column in the
+\code{data.frame} that contains the weights.
 \itemize{
-\item For model: if \code{TRUE} (default), a weighted-standardization is carried out.
-\item For \code{data.frame}s: a numeric vector of weights, or a character of the name of a column in the \code{data.frame} that contains the weights.
 \item For numeric vectors: a numeric vector of weights.
 }}
 

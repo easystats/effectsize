@@ -9,7 +9,8 @@ interpret_r2(r2, rules = "cohen1988")
 \arguments{
 \item{r2}{Value or vector of R2 values.}
 
-\item{rules}{Can be \code{"cohen1988"} (default), \code{"falk1992"}, \code{"chin1998"}, \code{"hair2011"} or custom set of \code{\link[=rules]{rules()}}].}
+\item{rules}{Can be \code{"cohen1988"} (default), \code{"falk1992"}, \code{"chin1998"},
+\code{"hair2011"}, or custom set of \code{\link[=rules]{rules()}}].}
 }
 \description{
 Interpret coefficient of determination (R2)
@@ -59,9 +60,13 @@ interpret_r2(c(.5, .02))
 }
 \references{
 \itemize{
-\item Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
-\item Falk, R. F., & Miller, N. B. (1992). A primer for soft modeling. University of Akron Press.
-\item Chin, W. W. (1998). The partial least squares approach to structural equation modeling. Modern methods for business research, 295(2), 295-336.
-\item Hair, J. F., Ringle, C. M., & Sarstedt, M. (2011). PLS-SEM: Indeed a silver bullet. Journal of Marketing theory and Practice, 19(2), 139-152.
+\item Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+(2nd Ed.). New York: Routledge.
+\item Falk, R. F., & Miller, N. B. (1992). A primer for soft modeling. University
+of Akron Press.
+\item Chin, W. W. (1998). The partial least squares approach to structural
+equation modeling. Modern methods for business research, 295(2), 295-336.
+\item Hair, J. F., Ringle, C. M., & Sarstedt, M. (2011). PLS-SEM: Indeed a silver
+bullet. Journal of Marketing theory and Practice, 19(2), 139-152.
 }
 }

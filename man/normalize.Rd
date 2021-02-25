@@ -73,7 +73,9 @@ head(normalize(trees))
 }
 \references{
 \itemize{
-\item Smithson M, Verkuilen J (2006). A Better Lemon Squeezer? Maximum-Likelihood Regression with Beta-Distributed Dependent Variables. Psychological Methods, 11(1), 54–71.
+\item Smithson M, Verkuilen J (2006). A Better Lemon Squeezer? Maximum-Likelihood
+Regression with Beta-Distributed Dependent Variables. Psychological Methods,
+11(1), 54–71.
 }
 }
 \seealso{

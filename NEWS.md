@@ -6,6 +6,9 @@
 
 - `unstandardize()` which will reverse the effects of `standardize()`.
 
+- Adds a `interpret_kendalls_w()` function to interpret Kendall's coefficient of
+  concordance
+
 # effectsize 0.4.3
 
 ## Breaking Changes

@@ -82,7 +82,13 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
   # Smart
   out <- merge(
     out,
-    .std_info_predictors_smart(model, data, params, types, robust = robust, two_sd = two_sd),
+    .std_info_predictors_smart(model,
+      data,
+      params,
+      types,
+      robust = robust,
+      two_sd = two_sd
+    ),
     by = "Parameter", all = TRUE
   )
 
@@ -92,7 +98,14 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
     length(insight::find_random(model)$random) == 1) {
     out <- merge(
       out,
-      .std_info_pseudo(model, params, model_matrix, types = types$Type, robust = robust, two_sd = two_sd)
+      .std_info_pseudo(
+        model,
+        params,
+        model_matrix,
+        types = types$Type,
+        robust = robust,
+        two_sd = two_sd
+      )
     )
   }
 
@@ -123,7 +136,13 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 
 
 #' @keywords internal
-.std_info_predictors_smart <- function(model, data, params, types, robust = FALSE, two_sd = FALSE, ...) {
+.std_info_predictors_smart <- function(model,
+                                       data,
+                                       params,
+                                       types,
+                                       robust = FALSE,
+                                       two_sd = FALSE,
+                                       ...) {
   w <- insight::get_weights(model, na_rm = TRUE)
 
   # Get deviations for all parameters
@@ -153,13 +172,22 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 
 
 #' @keywords internal
-.std_info_predictor_smart <- function(data, variable, type, robust = FALSE, two_sd = FALSE, weights = NULL, ...) {
+.std_info_predictor_smart <- function(data,
+                                      variable,
+                                      type,
+                                      robust = FALSE,
+                                      two_sd = FALSE,
+                                      weights = NULL,
+                                      ...) {
   if (type == "intercept") {
     info <- list(sd = 0, mean = 0)
   } else if (type == "numeric") {
     info <- .compute_std_info(
-      data = data, variable = variable,
-      robust = robust, two_sd = two_sd, weights = weights
+      data = data,
+      variable = variable,
+      robust = robust,
+      two_sd = two_sd,
+      weights = weights
     )
   } else if (type == "factor") {
     info <- list(sd = 1, mean = 0)
@@ -177,8 +205,11 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
   } else if (type %in% c("interaction", "nested")) {
     if (is.numeric(data[, variable])) {
       info <- .compute_std_info(
-        data = data, variable = variable,
-        robust = robust, two_sd = two_sd, weights = weights
+        data = data,
+        variable = variable,
+        robust = robust,
+        two_sd = two_sd,
+        weights = weights
       )
     } else if (is.factor(data[, variable])) {
       info <- list(sd = 1, mean = 0)
@@ -197,7 +228,12 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 
 
 #' @keywords internal
-.std_info_predictors_basic <- function(model, model_matrix, types, robust = FALSE, two_sd = FALSE, ...) {
+.std_info_predictors_basic <- function(model,
+                                       model_matrix,
+                                       types,
+                                       robust = FALSE,
+                                       two_sd = FALSE,
+                                       ...) {
   w <- insight::get_weights(model, na_rm = TRUE)
 
   # Get deviations for all parameters
@@ -312,7 +348,12 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 #' @importFrom insight clean_names get_random model_info find_formula get_variance get_data
 #' @importFrom parameters check_heterogeneity demean
 #' @importFrom stats as.formula sd
-.std_info_pseudo <- function(model, params, model_matrix, types, robust = FALSE, two_sd = FALSE) {
+.std_info_pseudo <- function(model,
+                             params,
+                             model_matrix,
+                             types,
+                             robust = FALSE,
+                             two_sd = FALSE) {
   if (robust) {
     warning("'robust' standardization not available for 'pseudo' method.",
       call. = FALSE
@@ -454,7 +495,12 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 
 
 #' @keywords internal
-.compute_std_info <- function(data = NULL, variable = NULL, response = NULL, robust = FALSE, two_sd = FALSE, weights = NULL) {
+.compute_std_info <- function(data = NULL,
+                              variable = NULL,
+                              response = NULL,
+                              robust = FALSE,
+                              two_sd = FALSE,
+                              weights = NULL) {
   f <- if (two_sd) 2 else 1
   if (is.null(response)) {
     response <- as.numeric(data[, variable])

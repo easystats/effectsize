@@ -1,6 +1,7 @@
 #' Pooled Standard Deviation
 #'
-#' The Pooled Standard Deviation is a weighted average of standard deviations for two or more groups, with more "weight" given to larger sample sizes.
+#' The Pooled Standard Deviation is a weighted average of standard deviations
+#' for two or more groups, with more "weight" given to larger sample sizes.
 #'
 #' @inheritParams cohens_d
 #'
