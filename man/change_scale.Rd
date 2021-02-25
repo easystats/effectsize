@@ -36,7 +36,8 @@ change_scale(x, ...)
 
 \item{to}{New range of values of the data after rescaling.}
 
-\item{range}{Initial (old) range of values. If \code{NULL}, will take the range of data.}
+\item{range}{Initial (old) range of values. If \code{NULL}, will take the range of
+data.}
 
 \item{verbose}{Toggle warnings and messages on or off.}
 
