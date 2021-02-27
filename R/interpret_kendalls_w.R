@@ -11,7 +11,7 @@
 #'   - **0.40 <= w < 0.60** - Moderate agreement
 #'   - **0.60 <= w < 0.80** - Substantial agreement
 #'   - **w >= 0.80**        - Almost perfect agreement
-
+#'
 #' @references
 #' - Landis, J. R., & Koch G. G. (1977). The measurement of observer agreement
 #' for categorical data. Biometrics, 33:159-74.
