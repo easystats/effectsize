@@ -100,8 +100,8 @@ variables will be selected.}
 \code{exclude} (\code{"selected"}) or in all columns (\code{"all"}) are dropped before
 standardization, and the resulting data frame does not include these cases.}
 
-\item{force}{Logical, if \code{TRUE}, forces standardization of factors as
-well. Factors are converted to numerical values, with the lowest level
+\item{force}{Logical, if \code{TRUE}, forces standardization of factors and dates
+as well. Factors are converted to numerical values, with the lowest level
 being the value \code{1} (unless the factor has numeric levels, which are
 converted to the corresponding numeric value).}
 

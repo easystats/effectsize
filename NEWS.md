@@ -5,9 +5,11 @@
 ## New features
 
 - `unstandardize()` which will reverse the effects of `standardize()`.
+- `interpret_kendalls_w()` to interpret Kendall's coefficient of concordance.
 
-- Adds a `interpret_kendalls_w()` function to interpret Kendall's coefficient of
-  concordance
+## Bug fixes
+
+- `standardize()` can now deal with dates ( #300 ).
 
 # effectsize 0.4.3
 
