@@ -131,7 +131,10 @@ if (require("testthat") && require("effectsize")) {
 
   test_that("interpret_kendalls_w", {
     expect_equal(interpret_kendalls_w(0.1)[1], "slight agreement")
-    expect_equal(interpret_kendalls_w(c(0.1, 0.25))[1:2], c("slight agreement", "fair agreement"))
+    expect_equal(
+      interpret_kendalls_w(c(0.1, 0.25))[1:2],
+      c("slight agreement", "fair agreement")
+    )
     expect_equal(interpret_kendalls_w(0.9)[1], "almost perfect agreement")
     expect_equal(interpret_kendalls_w(0.6, rules(c(0.5), c("A", "B")))[1], "B")
     expect_error(interpret_kendalls_w(0.6, "DUPA"))

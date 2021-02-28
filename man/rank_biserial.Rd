@@ -129,7 +129,7 @@ rank_biserial(x, mu = 1)
 # anova tests ----------------------------
 
 x1 <- c(2.9, 3.0, 2.5, 2.6, 3.2) # control group
-x2 <- c(3.8, 2.7, 4.0, 2.4)      # obstructive airway disease group
+x2 <- c(3.8, 2.7, 4.0, 2.4) # obstructive airway disease group
 x3 <- c(2.8, 3.4, 3.7, 2.2, 2.0) # asbestosis group
 x <- c(x1, x2, x3)
 g <- factor(rep(1:3, c(5, 4, 5)))
@@ -143,7 +143,6 @@ wb <- aggregate(warpbreaks$breaks,
   FUN = mean
 )
 kendalls_w(x ~ w | t, data = wb)
-
 }
 
 }

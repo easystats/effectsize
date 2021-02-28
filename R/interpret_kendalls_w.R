@@ -22,7 +22,7 @@ interpret_kendalls_w <- function(w, rules = "landis1977") {
   rules <- .match.rules(
     rules,
     list(
-      landis1977 = rules(c(0, 0.2, 0.4, 0.6, 0.8),
+      landis1977 = rules(c(0.2, 0.4, 0.6, 0.8),
         c(
           "slight agreement", "fair agreement", "moderate agreement",
           "substantial agreement", "almost perfect agreement"
