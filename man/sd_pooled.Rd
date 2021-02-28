@@ -23,7 +23,8 @@ character  name of one in \code{data}. Ignored if \code{x} is a formula.}
 Numeric, the pooled standard deviation.
 }
 \description{
-The Pooled Standard Deviation is a weighted average of standard deviations for two or more groups, with more "weight" given to larger sample sizes.
+The Pooled Standard Deviation is a weighted average of standard deviations
+for two or more groups, with more "weight" given to larger sample sizes.
 }
 \examples{
 sd_pooled(mpg ~ am, data = mtcars)

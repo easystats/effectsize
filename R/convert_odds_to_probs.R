@@ -3,10 +3,10 @@
 #' @param odds The *Odds* (or `log(odds)` when `log = TRUE`) to convert.
 #' @param probs Probability values to convert.
 #' @param log Take in or output log odds (such as in logistic models).
-#' @param select When a data frame is passed, character or list of of column names to be
-#' transformed.
-#' @param exclude When a data frame is passed, character or list of column names to be excluded
-#' from transformation.
+#' @param select When a data frame is passed, character or list of of column
+#'   names to be transformed.
+#' @param exclude When a data frame is passed, character or list of column names
+#'   to be excluded from transformation.
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @return Converted index.

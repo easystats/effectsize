@@ -1,12 +1,17 @@
 #' (Signed) rank transformation
 #'
-#' Transform numeric values with the integers of their rank (i.e., 1st smallest, 2nd smallest, 3rd smallest, etc.). Setting the `sign` argument to `TRUE` will give you signed ranks, where the ranking is done according to absolute size but where the sign is preserved (i.e., 2, 1, -3, 4).
+#' Transform numeric values with the integers of their rank (i.e., 1st smallest,
+#' 2nd smallest, 3rd smallest, etc.). Setting the `sign` argument to `TRUE` will
+#' give you signed ranks, where the ranking is done according to absolute size
+#' but where the sign is preserved (i.e., 2, 1, -3, 4).
 #'
 #' @inheritParams standardize.data.frame
 #'
 #' @param x Object.
 #' @param sign Logical, if `TRUE`, return signed ranks.
-#' @param method Treatment of ties. Can be one of `"average"` (default), `"first"`, `"last"`, `"random"`, `"max"` or `"min"`. See [rank()] for details.
+#' @param method Treatment of ties. Can be one of `"average"` (default),
+#'   `"first"`, `"last"`, `"random"`, `"max"` or `"min"`. See [rank()] for
+#'   details.
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @examples
@@ -30,7 +35,12 @@ ranktransform <- function(x, ...) {
 
 #' @rdname ranktransform
 #' @export
-ranktransform.numeric <- function(x, sign = FALSE, method = "average", verbose = TRUE, ...) {
+ranktransform.numeric <- function(x,
+                                  sign = FALSE,
+                                  method = "average",
+                                  verbose = TRUE,
+                                  ...) {
+
 
   # Warning if all NaNs
   if (all(is.na(x))) {
@@ -94,7 +104,12 @@ ranktransform.factor <- function(x, ...) {
 
 #' @rdname ranktransform
 #' @export
-ranktransform.grouped_df <- function(x, select = NULL, exclude = NULL, sign = FALSE, method = "average", ...) {
+ranktransform.grouped_df <- function(x,
+                                     select = NULL,
+                                     exclude = NULL,
+                                     sign = FALSE,
+                                     method = "average",
+                                     ...) {
   info <- attributes(x)
   # dplyr >= 0.8.0 returns attribute "indices"
   grps <- attr(x, "groups", exact = TRUE)
@@ -134,7 +149,13 @@ ranktransform.grouped_df <- function(x, select = NULL, exclude = NULL, sign = FA
 
 #' @rdname ranktransform
 #' @export
-ranktransform.data.frame <- function(x, select = NULL, exclude = NULL, sign = FALSE, method = "average", ...) {
+ranktransform.data.frame <- function(x,
+                                     select = NULL,
+                                     exclude = NULL,
+                                     sign = FALSE,
+                                     method = "average",
+                                     ...) {
+
   # check for formula notation, convert to character vector
   if (inherits(select, "formula")) {
     select <- all.vars(select)

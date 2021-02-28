@@ -1,7 +1,8 @@
 #' Interpret coefficient of determination (R2)
 #'
 #' @param r2 Value or vector of R2 values.
-#' @param rules Can be `"cohen1988"` (default), `"falk1992"`, `"chin1998"`, `"hair2011"` or custom set of [rules()]].
+#' @param rules Can be `"cohen1988"` (default), `"falk1992"`, `"chin1998"`,
+#'   `"hair2011"`, or custom set of [rules()]].
 #'
 #' @section Rules:
 #'
@@ -33,10 +34,17 @@
 #' interpret_r2(.02)
 #' interpret_r2(c(.5, .02))
 #' @references
-#' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
-#' - Falk, R. F., & Miller, N. B. (1992). A primer for soft modeling. University of Akron Press.
-#' - Chin, W. W. (1998). The partial least squares approach to structural equation modeling. Modern methods for business research, 295(2), 295-336.
-#' - Hair, J. F., Ringle, C. M., & Sarstedt, M. (2011). PLS-SEM: Indeed a silver bullet. Journal of Marketing theory and Practice, 19(2), 139-152.
+#' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+#' (2nd Ed.). New York: Routledge.
+#'
+#' - Falk, R. F., & Miller, N. B. (1992). A primer for soft modeling. University
+#' of Akron Press.
+#'
+#' - Chin, W. W. (1998). The partial least squares approach to structural
+#' equation modeling. Modern methods for business research, 295(2), 295-336.
+#'
+#' - Hair, J. F., Ringle, C. M., & Sarstedt, M. (2011). PLS-SEM: Indeed a silver
+#' bullet. Journal of Marketing theory and Practice, 19(2), 139-152.
 #'
 #' @export
 interpret_r2 <- function(r2, rules = "cohen1988") {
