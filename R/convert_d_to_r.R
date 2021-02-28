@@ -19,6 +19,7 @@
 #' d_to_r(1)
 #' r_to_oddsratio(0.4472136, log = TRUE)
 #' oddsratio_to_d(1.813799, log = TRUE)
+#'
 #' @aliases convert_r_to_odds r_to_odds logodds_to_r convert_odds_to_r odds_to_r
 #'   convert_d_to_odds d_to_odds logodds_to_d convert_odds_to_d odds_to_d
 #'
@@ -36,9 +37,16 @@
 #' 1982).
 #'
 #' @references
-#' - Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003). Effect-size indices for dichotomized outcomes in meta-analysis. Psychological methods, 8(4), 448.
-#' - Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R. (2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
-#' - Rosenthal, R., & Rubin, D. B. (1982). A simple, general purpose display of magnitude of experimental effect. Journal of educational psychology, 74(2), 166.
+#' - Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003).
+#' Effect-size indices for dichotomized outcomes in meta-analysis. Psychological
+#' methods, 8(4), 448.
+#'
+#' - Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R.
+#' (2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
+#'
+#' - Rosenthal, R., & Rubin, D. B. (1982). A simple, general purpose display of
+#' magnitude of experimental effect. Journal of educational psychology, 74(2),
+#' 166.
 #'
 #' @export
 d_to_r <- function(d, ...) {

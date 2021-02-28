@@ -1,15 +1,18 @@
 #' Interpret standardized differences
 #'
-#' Interpretation of standardized differences using different sets of rules of thumb.
+#' Interpretation of standardized differences using different sets of rules of
+#' thumb.
 #'
 #'
 #' @param d,g,delta Value or vector of effect size values.
-#' @param rules Can be `"cohen1988"` (default), `"gignac2016"`, `"sawilowsky2009"`, `"lovakov2021"` or a custom set of [rules()].
+#' @param rules Can be `"cohen1988"` (default), `"gignac2016"`,
+#'   `"sawilowsky2009"`, `"lovakov2021"` or a custom set of [rules()].
 #' @param ... Not directly used.
 #'
 #' @section Rules:
 #'
-#' Rules apply to equally to positive and negative *d* (i.e., they are given as absolute values).
+#' Rules apply to equally to positive and negative *d* (i.e., they are given as
+#' absolute values).
 #'
 #' - Cohen (1988) (`"cohen1988"`; default)
 #'   - **d < 0.2** - Very small
@@ -40,9 +43,17 @@
 #' interpret_d(c(.5, .02))
 #' interpret_d(.3, rules = "lovakov2021")
 #' @references
-#' - Lovakov, A., & Agadullina, E. R. (2021). Empirically Derived Guidelines for Effect Size Interpretation in Social Psychology. European Journal of Social Psychology.
-#' - Gignac, G. E., & Szodorai, E. T. (2016). Effect size guidelines for individual differences researchers. Personality and individual differences, 102, 74-78.
-#' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
+#' - Lovakov, A., & Agadullina, E. R. (2021). Empirically Derived Guidelines for
+#' Effect Size Interpretation in Social Psychology. European Journal of Social
+#' Psychology.
+#'
+#' - Gignac, G. E., & Szodorai, E. T. (2016). Effect size guidelines for
+#' individual differences researchers. Personality and individual differences,
+#' 102, 74-78.
+#'
+#' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+#' (2nd Ed.). New York: Routledge.
+#'
 #' - Sawilowsky, S. S. (2009). New effect size rules of thumb.
 #'
 #' @export

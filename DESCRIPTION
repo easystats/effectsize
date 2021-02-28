@@ -75,7 +75,7 @@ Suggests:
     testthat,
     tidyr,
     spelling
-RoxygenNote: 7.1.1.9000
+RoxygenNote: 7.1.1.9001
 Language: en-US
 VignetteBuilder: knitr
 Encoding: UTF-8

@@ -20,7 +20,8 @@ phi_to_chisq(phi, n, ...)
 
 \item{n}{Sample size.}
 
-\item{nrow, ncol}{The number of rows/columns in the contingency table (ignored for Phi when \code{adjust=FALSE} and \code{CI=NULL}).}
+\item{nrow, ncol}{The number of rows/columns in the contingency table (ignored
+for Phi when \code{adjust=FALSE} and \code{CI=NULL}).}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -97,8 +98,11 @@ chisq_to_cramers_v(41.234,
 }
 \references{
 \itemize{
-\item Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and calculation of confidence intervals that are based on central and noncentral distributions. Educational and Psychological Measurement, 61(4), 532-574.
-\item Bergsma, W. (2013). A bias-correction for Cramer's V and Tschuprow's T. Journal of the Korean Statistical Society, 42(3), 323-328.
+\item Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and
+calculation of confidence intervals that are based on central and noncentral
+distributions. Educational and Psychological Measurement, 61(4), 532-574.
+\item Bergsma, W. (2013). A bias-correction for Cramer's V and Tschuprow's T.
+Journal of the Korean Statistical Society, 42(3), 323-328.
 }
 }
 \seealso{

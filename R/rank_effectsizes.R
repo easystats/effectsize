@@ -74,7 +74,7 @@
 #' # anova tests ----------------------------
 #'
 #' x1 <- c(2.9, 3.0, 2.5, 2.6, 3.2) # control group
-#' x2 <- c(3.8, 2.7, 4.0, 2.4)      # obstructive airway disease group
+#' x2 <- c(3.8, 2.7, 4.0, 2.4) # obstructive airway disease group
 #' x3 <- c(2.8, 3.4, 3.7, 2.2, 2.0) # asbestosis group
 #' x <- c(x1, x2, x3)
 #' g <- factor(rep(1:3, c(5, 4, 5)))
@@ -88,7 +88,6 @@
 #'   FUN = mean
 #' )
 #' kendalls_w(x ~ w | t, data = wb)
-#'
 #' }
 #'
 #' @references
@@ -115,8 +114,12 @@
 #'
 #' @export
 #' @importFrom stats na.omit complete.cases
-rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
-                          ci = 0.95, iterations = 200,
+rank_biserial <- function(x,
+                          y = NULL,
+                          data = NULL,
+                          mu = 0,
+                          ci = 0.95,
+                          iterations = 200,
                           paired = FALSE,
                           verbose = TRUE,
                           ...) {
@@ -180,8 +183,12 @@ rank_biserial <- function(x, y = NULL, data = NULL, mu = 0,
 
 #' @export
 #' @rdname rank_biserial
-cliffs_delta <- function(x, y = NULL, data = NULL, mu = 0,
-                         ci = 0.95, iterations = 200,
+cliffs_delta <- function(x,
+                         y = NULL,
+                         data = NULL,
+                         mu = 0,
+                         ci = 0.95,
+                         iterations = 200,
                          verbose = TRUE,
                          ...) {
   rank_biserial(
@@ -199,7 +206,12 @@ cliffs_delta <- function(x, y = NULL, data = NULL, mu = 0,
 #' @rdname rank_biserial
 #' @export
 #' @importFrom stats na.omit
-rank_epsilon_squared <- function(x, groups, data = NULL, ci = 0.95, iterations = 200, ...) {
+rank_epsilon_squared <- function(x,
+                                 groups,
+                                 data = NULL,
+                                 ci = 0.95,
+                                 iterations = 200,
+                                 ...) {
   if (inherits(x, "htest")) {
     if (!grepl("Kruskal-Wallis", x$method)) {
       stop("'x' is not a Kruskal-Wallis-test!", call. = FALSE)
@@ -238,7 +250,13 @@ rank_epsilon_squared <- function(x, groups, data = NULL, ci = 0.95, iterations =
 #' @rdname rank_biserial
 #' @export
 #' @importFrom stats na.omit
-kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 200, ...) {
+kendalls_w <- function(x,
+                       groups,
+                       blocks,
+                       data = NULL,
+                       ci = 0.95,
+                       iterations = 200,
+                       ...) {
   if (inherits(x, "htest")) {
     if (!grepl("Friedman", x$method)) {
       stop("'x' is not a Friedman-test!", call. = FALSE)
@@ -361,7 +379,12 @@ kendalls_w <- function(x, groups, blocks, data = NULL, ci = 0.95, iterations = 2
 
 #' @keywords internal
 #' @importFrom bayestestR ci
-.rbs_ci_boot <- function(x, y, mu = 0, paired = FALSE, ci = 0.95, iterations = 200) {
+.rbs_ci_boot <- function(x,
+                         y,
+                         mu = 0,
+                         paired = FALSE,
+                         ci = 0.95,
+                         iterations = 200) {
   stopifnot(length(ci) == 1, ci < 1, ci > 0)
 
   if (paired) {

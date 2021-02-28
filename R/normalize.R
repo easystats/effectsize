@@ -26,7 +26,9 @@
 #'
 #' head(normalize(trees))
 #' @references
-#' - Smithson M, Verkuilen J (2006). A Better Lemon Squeezer? Maximum-Likelihood Regression with Beta-Distributed Dependent Variables. Psychological Methods, 11(1), 54–71.
+#' - Smithson M, Verkuilen J (2006). A Better Lemon Squeezer? Maximum-Likelihood
+#' Regression with Beta-Distributed Dependent Variables. Psychological Methods,
+#' 11(1), 54–71.
 #'
 #' @family transform utilities
 #'
@@ -105,7 +107,12 @@ normalize.factor <- function(x, ...) {
 
 #' @rdname normalize
 #' @export
-normalize.grouped_df <- function(x, select = NULL, exclude = NULL, include_bounds = TRUE, verbose = TRUE, ...) {
+normalize.grouped_df <- function(x,
+                                 select = NULL,
+                                 exclude = NULL,
+                                 include_bounds = TRUE,
+                                 verbose = TRUE,
+                                 ...) {
   info <- attributes(x)
   # dplyr >= 0.8.0 returns attribute "indices"
   grps <- attr(x, "groups", exact = TRUE)
@@ -145,7 +152,13 @@ normalize.grouped_df <- function(x, select = NULL, exclude = NULL, include_bound
 
 #' @rdname normalize
 #' @export
-normalize.data.frame <- function(x, select = NULL, exclude = NULL, include_bounds = TRUE, verbose = TRUE, ...) {
+normalize.data.frame <- function(x,
+                                 select = NULL,
+                                 exclude = NULL,
+                                 include_bounds = TRUE,
+                                 verbose = TRUE,
+                                 ...) {
+
   # check for formula notation, convert to character vector
   if (inherits(select, "formula")) {
     select <- all.vars(select)

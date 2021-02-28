@@ -10,7 +10,8 @@ oddsratio_to_riskratio(OR, p0, log = FALSE)
 riskratio_to_oddsratio(RR, p0, log = FALSE)
 }
 \arguments{
-\item{OR, RR}{Risk ratio of \code{p1/p0} or Odds ratio of \code{odds(p1)/odds(p0)}, possibly log-ed.}
+\item{OR, RR}{Risk ratio of \code{p1/p0} or Odds ratio of \code{odds(p1)/odds(p0)},
+possibly log-ed.}
 
 \item{p0}{Baseline risk}
 
@@ -31,9 +32,12 @@ p1 <- 0.7
 
 riskratio_to_oddsratio(RR, p0 = p0)
 oddsratio_to_riskratio(OR, p0 = p0)
+
 }
 \references{
-Grant, R. L. (2014). Converting an odds ratio to a range of plausible relative risks for better communication of research findings. Bmj, 348, f7450.
+Grant, R. L. (2014). Converting an odds ratio to a range of plausible
+relative risks for better communication of research findings. Bmj, 348,
+f7450.
 }
 \seealso{
 Other convert between effect sizes: 

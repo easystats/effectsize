@@ -10,7 +10,9 @@ interpret_oddsratio(OR, rules = "chen2010", log = FALSE)
 \arguments{
 \item{OR}{Value or vector of (log) odds ratio values.}
 
-\item{rules}{Can be "\verb{chen2010"} (default), \code{"cohen1988"} (through transformation to standardized difference, see \code{\link[=odds_to_d]{odds_to_d()}}) or custom set of \code{\link[=rules]{rules()}}.}
+\item{rules}{Can be "\verb{chen2010"} (default), \code{"cohen1988"} (through
+transformation to standardized difference, see \code{\link[=odds_to_d]{odds_to_d()}}) or custom set
+of \code{\link[=rules]{rules()}}.}
 
 \item{log}{Are the provided values log odds ratio.}
 }
@@ -45,8 +47,13 @@ interpret_oddsratio(c(5, 2))
 }
 \references{
 \itemize{
-\item Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
-\item Chen, H., Cohen, P., & Chen, S. (2010). How big is a big odds ratio? Interpreting the magnitudes of odds ratios in epidemiological studies. Communications in Statistics—Simulation and Computation, 39(4), 860-864.
-\item Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003). Effect-size indices for dichotomized outcomes in meta-analysis. Psychological methods, 8(4), 448.
+\item Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+(2nd Ed.). New York: Routledge.
+\item Chen, H., Cohen, P., & Chen, S. (2010). How big is a big odds ratio?
+Interpreting the magnitudes of odds ratios in epidemiological studies.
+Communications in Statistics—Simulation and Computation, 39(4), 860-864.
+\item Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003).
+Effect-size indices for dichotomized outcomes in meta-analysis. Psychological
+methods, 8(4), 448.
 }
 }

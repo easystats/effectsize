@@ -1,7 +1,8 @@
 #' Interpret correlation
 #'
 #' @param r Value or vector of correlation coefficient.
-#' @param rules Can be `"funder2019"` (default), `"gignac2016"`, `"cohen1988"`, `"evans1996"`, `"lovakov2021"` or a custom set of [rules()].
+#' @param rules Can be `"funder2019"` (default), `"gignac2016"`, `"cohen1988"`,
+#'   `"evans1996"`, `"lovakov2021"` or a custom set of [rules()].
 #'
 #' @section Rules:
 #'
@@ -43,11 +44,23 @@
 #' @seealso Page 88 of APA's 6th Edition.
 #'
 #' @references
-#' - Lovakov, A., & Agadullina, E. R. (2021). Empirically Derived Guidelines for Effect Size Interpretation in Social Psychology. European Journal of Social Psychology.
-#' - Funder, D. C., & Ozer, D. J. (2019). Evaluating effect size in psychological research: sense and nonsense. Advances in Methods and Practices in Psychological Science.
-#' - Gignac, G. E., & Szodorai, E. T. (2016). Effect size guidelines for individual differences researchers. Personality and individual differences, 102, 74-78.
-#' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
-#' - Evans, J. D. (1996). Straightforward statistics for the behavioral sciences. Thomson Brooks/Cole Publishing Co.
+#' - Lovakov, A., & Agadullina, E. R. (2021). Empirically Derived Guidelines for
+#' Effect Size Interpretation in Social Psychology. European Journal of Social
+#' Psychology.
+#'
+#' - Funder, D. C., & Ozer, D. J. (2019). Evaluating effect size in
+#' psychological research: sense and nonsense. Advances in Methods and Practices
+#' in Psychological Science.
+#'
+#' - Gignac, G. E., & Szodorai, E. T. (2016). Effect size guidelines for
+#' individual differences researchers. Personality and individual differences,
+#' 102, 74-78.
+#'
+#' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+#' (2nd Ed.). New York: Routledge.
+#'
+#' - Evans, J. D. (1996). Straightforward statistics for the behavioral
+#' sciences. Thomson Brooks/Cole Publishing Co.
 #'
 #' @export
 interpret_r <- function(r, rules = "funder2019") {

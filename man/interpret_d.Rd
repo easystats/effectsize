@@ -15,17 +15,20 @@ interpret_delta(delta, rules = "cohen1988")
 \arguments{
 \item{d, g, delta}{Value or vector of effect size values.}
 
-\item{rules}{Can be \code{"cohen1988"} (default), \code{"gignac2016"}, \code{"sawilowsky2009"}, \code{"lovakov2021"} or a custom set of \code{\link[=rules]{rules()}}.}
+\item{rules}{Can be \code{"cohen1988"} (default), \code{"gignac2016"},
+\code{"sawilowsky2009"}, \code{"lovakov2021"} or a custom set of \code{\link[=rules]{rules()}}.}
 
 \item{...}{Not directly used.}
 }
 \description{
-Interpretation of standardized differences using different sets of rules of thumb.
+Interpretation of standardized differences using different sets of rules of
+thumb.
 }
 \section{Rules}{
 
 
-Rules apply to equally to positive and negative \emph{d} (i.e., they are given as absolute values).
+Rules apply to equally to positive and negative \emph{d} (i.e., they are given as
+absolute values).
 \itemize{
 \item Cohen (1988) (\code{"cohen1988"}; default)
 \itemize{
@@ -68,9 +71,14 @@ interpret_d(.3, rules = "lovakov2021")
 }
 \references{
 \itemize{
-\item Lovakov, A., & Agadullina, E. R. (2021). Empirically Derived Guidelines for Effect Size Interpretation in Social Psychology. European Journal of Social Psychology.
-\item Gignac, G. E., & Szodorai, E. T. (2016). Effect size guidelines for individual differences researchers. Personality and individual differences, 102, 74-78.
-\item Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
+\item Lovakov, A., & Agadullina, E. R. (2021). Empirically Derived Guidelines for
+Effect Size Interpretation in Social Psychology. European Journal of Social
+Psychology.
+\item Gignac, G. E., & Szodorai, E. T. (2016). Effect size guidelines for
+individual differences researchers. Personality and individual differences,
+102, 74-78.
+\item Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+(2nd Ed.). New York: Routledge.
 \item Sawilowsky, S. S. (2009). New effect size rules of thumb.
 }
 }
