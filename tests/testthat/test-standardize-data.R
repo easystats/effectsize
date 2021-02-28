@@ -18,6 +18,18 @@ if (require("testthat") && require("effectsize")) {
   })
 
 
+  # standardize factor / Date -----------------------------------------------
+  test_that("standardize.numeric", {
+    f <- factor(c("c", "a", "b"))
+    expect_equal(standardize(f), f)
+    expect_equal(standardize(f, force = TRUE), c(1, -1, 0), ignore_attr = TRUE)
+
+    d <- as.Date(c("1989/08/06", "1989/08/04", "1989/08/05"))
+    expect_equal(standardize(d), d)
+    expect_equal(standardize(d, force = TRUE), c(1, -1, 0), ignore_attr = TRUE)
+  })
+
+
   # standardize.data.frame --------------------------------------------------
   test_that("standardize.data.frame", {
     data(iris)

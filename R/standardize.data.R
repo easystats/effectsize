@@ -86,6 +86,9 @@ standardize.character <- standardize.factor
 standardize.logical <- standardize.factor
 
 #' @export
+standardize.Date <- standardize.factor
+
+#' @export
 standardize.AsIs <- standardize.numeric
 
 
@@ -101,8 +104,8 @@ standardize.AsIs <- standardize.numeric
 #'   `NA`s. Else, rows with `NA` in the columns selected with `select` /
 #'   `exclude` (`"selected"`) or in all columns (`"all"`) are dropped before
 #'   standardization, and the resulting data frame does not include these cases.
-#' @param force Logical, if `TRUE`, forces standardization of factors as
-#'   well. Factors are converted to numerical values, with the lowest level
+#' @param force Logical, if `TRUE`, forces standardization of factors and dates
+#'   as well. Factors are converted to numerical values, with the lowest level
 #'   being the value `1` (unless the factor has numeric levels, which are
 #'   converted to the corresponding numeric value).
 #' @param append Logical, if `TRUE` and `x` is a data frame, standardized

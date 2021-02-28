@@ -6,6 +6,11 @@
 
 - `unstandardize()` which will reverse the effects of `standardize()`.
 
+## Bug fixes
+
+- `standardize()` can now deal with dates ( #300 ).
+
+
 # effectsize 0.4.3
 
 ## Breaking Changes
