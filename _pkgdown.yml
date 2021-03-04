@@ -61,6 +61,7 @@ reference:
   - interpret_ess
   - interpret_rope
   - interpret_direction
+  - interpret_kendalls_w
 
 
 - title: "Miscellaneous"
