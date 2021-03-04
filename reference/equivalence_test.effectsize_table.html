@@ -47,7 +47,8 @@
 
 
 <meta property="og:title" content="Test for Practical Equivalence — equivalence_test.effectsize_table" />
-<meta property="og:description" content="Perform a Test for Practical Equivalence for indices of effect size." />
+<meta property="og:description" content="Perform a Test for Practical Equivalence for indices of
+effect size." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -175,7 +176,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Perform a <strong>Test for Practical Equivalence</strong> for indices of effect size.</p>
+    <p>Perform a <strong>Test for Practical Equivalence</strong> for indices of
+effect size.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for effectsize_table</span>
@@ -191,13 +193,15 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An effect size table, such as returned by <code><a href='cohens_d.html'>cohens_d()</a></code>, <code><a href='eta_squared.html'>eta_squared()</a></code>, <code><a href='t_to_d.html'>F_to_r()</a></code>, etc.</p></td>
+      <td><p>An effect size table, such as returned by <code><a href='cohens_d.html'>cohens_d()</a></code>,
+<code><a href='eta_squared.html'>eta_squared()</a></code>, <code><a href='t_to_d.html'>F_to_r()</a></code>, etc.</p></td>
     </tr>
     <tr>
       <th>range</th>
-      <td><p>The range of practical equivalence of an effect. If a single value is provided,
-the test is done against <code><a href='https://rdrr.io/r/base/c.html'>c(-range, range)</a></code>. For effect sizes that cannot be negative,
-the lower bound is set to 0. If <code>"default"</code>, will be set to <code>[-.1, .1]</code>.</p></td>
+      <td><p>The range of practical equivalence of an effect. If a single
+value is provided, the test is done against <code><a href='https://rdrr.io/r/base/c.html'>c(-range, range)</a></code>. For effect
+sizes that cannot be negative, the lower bound is set to 0. If <code>"default"</code>,
+will be set to <code>[-.1, .1]</code>.</p></td>
     </tr>
     <tr>
       <th>rule</th>
@@ -214,10 +218,11 @@ the lower bound is set to 0. If <code>"default"</code>, will be set to <code>[-.
     <p>A data frame with the results of the equivalence test.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The CIs used in the equivalence test are the ones in the provided effect size table.
-For results equivalent (ha!) to those that can be obtained using the TOST approach (e.g., Lakens, 2017),
-appropriate CIs should be extracted using the function used to make the effect size table
-(<code>cohens_d, eta_squared, F_to_r</code>, etc). See examples.</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>The Different Rules</h3>
+    <p>The CIs used in the equivalence test are the ones in the provided effect size
+table. For results equivalent (ha!) to those that can be obtained using the
+TOST approach (e.g., Lakens, 2017), appropriate CIs should be extracted using
+the function used to make the effect size table (<code>cohens_d</code>, <code>eta_squared</code>,
+<code>F_to_r</code>, etc). See examples.</p><h3 class='hasAnchor' id='the-different-rules'><a class='anchor' href='#the-different-rules'></a>The Different Rules</h3>
 
 <ul>
 <li><p><code>"classic"</code> - <strong>the classic method</strong>:</p><ul>
@@ -242,10 +247,17 @@ appropriate CIs should be extracted using the function used to make the effect s
 
     
 <ul>
-<li><p>Campbell, H., &amp; Gustafson, P. (2018). Conditional equivalence testing: An alternative remedy for publication bias. PLOS ONE, 13(4), e0195145. https://doi.org/10.1371/journal.pone.0195145</p></li>
-<li><p>Kruschke, J. K. (2014). Doing Bayesian data analysis: A tutorial with R, JAGS, and Stan. Academic Press</p></li>
-<li><p>Kruschke, J. K. (2018). Rejecting or accepting parameter values in Bayesian estimation. Advances in Methods and Practices in Psychological Science, 1(2), 270-280. doi: 10.1177/2515245918771304</p></li>
-<li><p>Lakens, D. (2017). Equivalence Tests: A Practical Primer for t Tests, Correlations, and Meta-Analyses. Social Psychological and Personality Science, 8(4), 355–362. https://doi.org/10.1177/1948550617697177</p></li>
+<li><p>Campbell, H., &amp; Gustafson, P. (2018). Conditional equivalence testing: An
+alternative remedy for publication bias. PLOS ONE, 13(4), e0195145.
+https://doi.org/10.1371/journal.pone.0195145</p></li>
+<li><p>Kruschke, J. K. (2014). Doing Bayesian data analysis: A tutorial with R,
+JAGS, and Stan. Academic Press</p></li>
+<li><p>Kruschke, J. K. (2018). Rejecting or accepting parameter values in Bayesian
+estimation. Advances in Methods and Practices in Psychological Science, 1(2),
+270-280. doi: 10.1177/2515245918771304</p></li>
+<li><p>Lakens, D. (2017). Equivalence Tests: A Practical Primer for t Tests,
+Correlations, and Meta-Analyses. Social Psychological and Personality
+Science, 8(4), 355–362. https://doi.org/10.1177/1948550617697177</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>

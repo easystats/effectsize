@@ -311,7 +311,7 @@ intervals.</p>
 Sums-of-Squares (for <code>mlm</code> / <code>maov</code> models, effect sizes are computed for
 each response separately). For all other model, the model is passed to
 <code><a href='https://rdrr.io/r/stats/anova.html'>anova()</a></code>, and effect sizes are approximated via test statistic conversion
-(see <code><a href='F_to_eta2.html'>F_to_eta2()</a></code> for more details.)</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Type of Sums of Squares</h3>
+(see <code><a href='F_to_eta2.html'>F_to_eta2()</a></code> for more details.)</p><h3 class='hasAnchor' id='type-of-sums-of-squares'><a class='anchor' href='#type-of-sums-of-squares'></a>Type of Sums of Squares</h3>
 
 
 <p>The sums of squares (or F statistics) used for the computation of the effect
@@ -324,7 +324,7 @@ It is generally recommended to fit models with <em><code>contr.sum</code> factor
 and <em>centered covariates</em>, for sensible results. See examples and the <code>afex</code>
 package.</p>
 
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Un-Biased Estimate of Eta</h3>
+<h3 class='hasAnchor' id='un-biased-estimate-of-eta'><a class='anchor' href='#un-biased-estimate-of-eta'></a>Un-Biased Estimate of Eta</h3>
 
 
 <p>Both <em><strong>Omega</strong></em> and <em><strong>Epsilon</strong></em> are unbiased estimators of the
@@ -339,7 +339,7 @@ biased (Carroll &amp; Nordholm, 1975).
 compute a negative number; even though this doesn't make any practical sense,
 it is recommended to report the negative number and not a 0.)</p>
 
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Cohen's f</h3>
+<h3 class='hasAnchor' id='cohen-s-f'><a class='anchor' href='#cohen-s-f'></a>Cohen's f</h3>
 
 
 <p>Cohen's f can take on values between zero, when the population means are all
@@ -353,7 +353,7 @@ and the percent of unexplained variance.
 Cohen has suggested that the values of 0.10, 0.25, and 0.40 represent small,
 medium, and large effect sizes, respectively.</p>
 
-<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Eta Squared from Posterior Predictive Distribution</h3>
+<h3 class='hasAnchor' id='eta-squared-from-posterior-predictive-distribution'><a class='anchor' href='#eta-squared-from-posterior-predictive-distribution'></a>Eta Squared from Posterior Predictive Distribution</h3>
 
 
 <p>For Bayesian models (fit with <code>brms</code> or <code>rstanarm</code>),

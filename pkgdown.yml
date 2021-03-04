@@ -1,6 +1,6 @@
 pandoc: 2.7.3
 pkgdown: 1.6.1.9000
-pkgdown_sha: 86e9d1eddcc1c47e1ae61f5d4c3feb2d6f16f952
+pkgdown_sha: 9c95f00d2505ddd83c4722e019202370715d3a3d
 articles:
   additional: additional.html
   anovaES: anovaES.html
@@ -11,5 +11,5 @@ articles:
   simple_htests: simple_htests.html
   standardize_data: standardize_data.html
   standardize_parameters: standardize_parameters.html
-last_built: 2021-02-22T13:48Z
+last_built: 2021-03-04T08:07Z
 

@@ -134,10 +134,10 @@
 <div id="why" class="section level2">
 <h2 class="hasAnchor">
 <a href="#why" class="anchor"></a>Why?</h2>
-<p>The metrics used in statistics (indices of fit, model performance or parameter estimates) can be very abstract. A long experience is required to intuitively <strong><em>“feel”</em></strong> the meaning of their values. In order to facilitate the understanding of the results they are facing, many scientists use (often implicitly) some set of <strong>rules of thumb</strong>. Some of these rules of thumb have been standardize and validated and subsequently published as guidelines.</p>
+<p>The metrics used in statistics (indices of fit, model performance, or parameter estimates) can be very abstract. A long experience is required to intuitively <strong><em>feel</em></strong> the meaning of their values. In order to facilitate the understanding of the results they are facing, many scientists use (often implicitly) some set of <strong>rules of thumb</strong>. Some of these rules of thumb have been standardize and validated and subsequently published as guidelines. Understandably then, such rules of thumb are just suggestions and there is nothing universal about them. The interpretation of <strong>any</strong> effect size measures is always going to be relative to the discipline, the specific data, and the aims of the analyst. This is important because what might be considered a small effect in psychology might be large for some other field like public health.</p>
 <p>One of the most famous interpretation grids was proposed by <strong>Cohen (1988)</strong> for a series of widely used indices, such as the correlation <strong>r</strong> (<em>r</em> = .20, small; <em>r</em> = .40, moderate and <em>r</em> = .60, large) or the <strong>standardized difference</strong> (<em>Cohen’s d</em>). However, there is now a clear evidence that Cohen’s guidelines (which he himself later disavowed; Funder, 2019) are much too stringent and not particularly meaningful taken out of context <span class="citation">(Funder and Ozer 2019)</span>. This led to the emergence of a literature discussing and creating new sets of rules of thumb.</p>
-<p>Although <strong>everybody agrees on the fact that effect size interpretation in a study should be justified with a rationale</strong> (and depend on the context, the field, the literature, the hypothesis, etc.), these pre-baked rules can nevertheless be useful to give a rough idea or frame of reference to understand scientific results.</p>
-<p>The package <strong><code>effectsize</code></strong> implements such sets of rules of thumb for a variety of indices in a flexible and explicit fashion, helping you understanding and reporting your results in a scientific yet meaningful way. Again, readers should keep in mind that these thresholds, cited and used as they may be, <strong>remain arbitrary</strong>. Thus, their use should be discussed on a case-by-case basis depending on the field, hypotheses, prior results and so on, to avoid their crystallization, as for the infamous <strong><em>p</em> &lt; .05</strong> example.</p>
+<p>Although <strong>everybody</strong> agrees on the fact that effect size interpretation in a study should be justified with a rationale (and depend on the context, the field, the literature, the hypothesis, etc.), these pre-baked rules can nevertheless be useful to give a rough idea or frame of reference to understand scientific results.</p>
+<p>The package <strong><code>effectsize</code></strong> catalogs such sets of rules of thumb for a variety of indices in a flexible and explicit fashion, helping you understand and report your results in a scientific yet meaningful way. Again, readers should keep in mind that these thresholds, as ubiquitous as they may be, <strong>remain arbitrary</strong>. Thus, their use should be discussed on a case-by-case basis depending on the field, hypotheses, prior results, and so on, to avoid their crystallization, as for the infamous <span class="math inline">\(p &lt; .05\)</span> criterion of hypothesis testing.</p>
 <p>Moreover, some authors suggest the counter-intuitive idea that <em>very large effects</em>, especially in the context of psychological research, is likely to be a “gross overestimate that will rarely be found in a large sample or in a replication” <span class="citation">(Funder and Ozer 2019)</span>. They suggest that smaller effect size are worth taking seriously (as they can be potentially consequential), as well as more believable.</p>
 </div>
 <div id="correlation-r" class="section level2">
@@ -275,11 +275,11 @@
 </ul>
 </div>
 </div>
-<div id="odds-ratio" class="section level2">
+<div id="odds-ratio-or" class="section level2">
 <h2 class="hasAnchor">
-<a href="#odds-ratio" class="anchor"></a>Odds Ratio</h2>
+<a href="#odds-ratio-or" class="anchor"></a>Odds Ratio (OR)</h2>
 <p>Odds ratio, and <em>log</em> odds ratio, are often found in epidemiological studies. However, they are also the parameters of <strong><em>logistic</em></strong> regressions, where they can be used as indices of effect size. Note that the (log) odds ratio from logistic regression coefficients are <em>unstandardized</em>, as they depend on the scale of the predictor. In order to apply the following guidelines, make sure you <a href="https://easystats.github.io/effectsize/articles/standardize_parameters.html" class="external-link"><em>standardize</em></a> your predictors!</p>
-<p>Note that these apply to Odds <em>ratios</em>, so Odds ratio of 10 is as extreme as a Odds ratio of 0.1 (1/10).</p>
+<p>Keep in mind that these apply to Odds <em>ratios</em>, so Odds ratio of 10 is as extreme as a Odds ratio of 0.1 (1/10).</p>
 <div id="chen2010big" class="section level4">
 <h4 class="hasAnchor">
 <a href="#chen2010big" class="anchor"></a><span class="citation">Chen, Cohen, and Chen (2010)</span>
@@ -405,6 +405,30 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 </ul>
 </div>
 </div>
+<div id="kendalls-coefficient-of-concordance" class="section level2">
+<h2 class="hasAnchor">
+<a href="#kendalls-coefficient-of-concordance" class="anchor"></a>Kendall’s coefficient of concordance</h2>
+<p>The Interpret Kendall’s coefficient of concordance (<em>w</em>) is a measure of effect size used in non-parametric ANOVAs (the Friedman rank sum test). It is an estimate of agreement among multiple raters.</p>
+<div id="landis1977measurement" class="section level4">
+<h4 class="hasAnchor">
+<a href="#landis1977measurement" class="anchor"></a><span class="citation">Landis and Koch (1977)</span>
+</h4>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/interpret_omega_squared.html">interpret_omega_squared</a></span><span class="op">(</span><span class="va">w</span>, rules <span class="op">=</span> <span class="st">"landis1977"</span><span class="op">)</span></code></pre></div>
+<ul>
+<li>
+<strong>0.00 &lt;= w &lt; 0.20</strong> - Slight agreement</li>
+<li>
+<strong>0.20 &lt;= w &lt; 0.40</strong> - Fair agreement</li>
+<li>
+<strong>0.40 &lt;= w &lt; 0.60</strong> - Moderate agreement</li>
+<li>
+<strong>0.60 &lt;= w &lt; 0.80</strong> - Substantial agreement</li>
+<li>
+<strong>w &gt;= 0.80</strong> - Almost perfect agreement</li>
+</ul>
+</div>
+</div>
 <div id="interpretation-of-other-indices" class="section level1">
 <h1 class="hasAnchor">
 <a href="#interpretation-of-other-indices" class="anchor"></a>Interpretation of other Indices</h1>
@@ -452,6 +476,9 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 <div id="ref-hair2011pls">
 <p>Hair, Joe F, Christian M Ringle, and Marko Sarstedt. 2011. “PLS-Sem: Indeed a Silver Bullet.” <em>Journal of Marketing Theory and Practice</em> 19 (2): 139–52.</p>
 </div>
+<div id="ref-landis1977measurement">
+<p>Landis, J Richard, and Gary G Koch. 1977. “The Measurement of Observer Agreement for Categorical Data.” <em>Biometrics</em>, 159–74.</p>
+</div>
 <div id="ref-lovakov2021empirically">
 <p>Lovakov, Andrey, and Elena R Agadullina. 2021. “Empirically Derived Guidelines for Effect Size Interpretation in Social Psychology.” <em>European Journal of Social Psychology</em>.</p>
 </div>
@@ -477,12 +504,12 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by <a href="https://github.com/mattansb" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>.</p>
+<p>Developed by <a href="https://github.com/mattansb" class="external-link external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link external-link">Daniel Lüdecke</a>.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

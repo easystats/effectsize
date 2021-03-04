@@ -273,7 +273,8 @@ outcome) (Gelman, 2008).</p></td>
       <th>weights</th>
       <td><p>Can be <code>NULL</code> (for no weighting), or:</p><ul>
 <li><p>For model: if <code>TRUE</code> (default), a weighted-standardization is carried out.</p></li>
-<li><p>For <code>data.frame</code>s: a numeric vector of weights, or a character of the name of a column in the <code>data.frame</code> that contains the weights.</p></li>
+<li><p>For <code>data.frame</code>s: a numeric vector of weights, or a character of the
+name of a column in the <code>data.frame</code> that contains the weights.</p></li>
 <li><p>For numeric vectors: a numeric vector of weights.</p></li>
 </ul></td>
     </tr>
@@ -304,8 +305,8 @@ standardization, and the resulting data frame does not include these cases.</p><
     </tr>
     <tr>
       <th>force</th>
-      <td><p>Logical, if <code>TRUE</code>, forces standardization of factors as
-well. Factors are converted to numerical values, with the lowest level
+      <td><p>Logical, if <code>TRUE</code>, forces standardization of factors and dates
+as well. Factors are converted to numerical values, with the lowest level
 being the value <code>1</code> (unless the factor has numeric levels, which are
 converted to the corresponding numeric value).</p></td>
     </tr>
@@ -364,7 +365,7 @@ models that include interactions or transformations (e.g., polynomial or
 spline terms). The <code>robust</code> (default to <code>FALSE</code>) argument enables a robust
 standardization of data, i.e., based on the <code>median</code> and <code>MAD</code> instead of the
 <code>mean</code> and <code>SD</code>. See <code><a href='standardize_parameters.html'>standardize_parameters()</a></code> for other methods of
-standardizing model coefficients.</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Transformed Variables</h3>
+standardizing model coefficients.</p><h3 class='hasAnchor' id='transformed-variables'><a class='anchor' href='#transformed-variables'></a>Transformed Variables</h3>
 
 
 <p>When the model's formula contains transformations (e.g. <code>y ~ exp(X)</code>) the

@@ -359,7 +359,7 @@ revisited. An overview of some recommended measures of effect size.</p></li>
 <span class='co'># anova tests ----------------------------</span>
 
 <span class='va'>x1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.9</span>, <span class='fl'>3.0</span>, <span class='fl'>2.5</span>, <span class='fl'>2.6</span>, <span class='fl'>3.2</span><span class='op'>)</span> <span class='co'># control group</span>
-<span class='va'>x2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3.8</span>, <span class='fl'>2.7</span>, <span class='fl'>4.0</span>, <span class='fl'>2.4</span><span class='op'>)</span>      <span class='co'># obstructive airway disease group</span>
+<span class='va'>x2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3.8</span>, <span class='fl'>2.7</span>, <span class='fl'>4.0</span>, <span class='fl'>2.4</span><span class='op'>)</span> <span class='co'># obstructive airway disease group</span>
 <span class='va'>x3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.8</span>, <span class='fl'>3.4</span>, <span class='fl'>3.7</span>, <span class='fl'>2.2</span>, <span class='fl'>2.0</span><span class='op'>)</span> <span class='co'># asbestosis group</span>
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>x1</span>, <span class='va'>x2</span>, <span class='va'>x3</span><span class='op'>)</span>
 <span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>4</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
@@ -377,8 +377,7 @@ revisited. An overview of some recommended measures of effect size.</p></li>
 <span class='fu'>kendalls_w</span><span class='op'>(</span><span class='va'>x</span> <span class='op'>~</span> <span class='va'>w</span> <span class='op'>|</span> <span class='va'>t</span>, data <span class='op'>=</span> <span class='va'>wb</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Kendall's W |       95% CI
 #&gt; --------------------------
-#&gt; 0.25        | [0.25, 1.00]</div><div class='input'>
-<span class='co'># }</span>
+#&gt; 0.25        | [0.25, 1.00]</div><div class='input'><span class='co'># }</span>
 
 </div></span></pre>
   </div>
