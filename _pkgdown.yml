@@ -52,6 +52,7 @@ reference:
   - interpret_d
   - interpret_r
   - interpret_omega_squared
+  - interpret_kendalls_w
   - interpret_parameters
   - interpret_oddsratio
   - interpret_r2
@@ -61,7 +62,6 @@ reference:
   - interpret_ess
   - interpret_rope
   - interpret_direction
-  - interpret_kendalls_w
 
 
 - title: "Miscellaneous"
