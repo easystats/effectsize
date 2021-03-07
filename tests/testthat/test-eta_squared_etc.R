@@ -376,9 +376,9 @@ if (require("testthat") && require("effectsize")) {
     data(obk.long, package = "afex")
 
     suppressWarnings(suppressMessages(
-      a <- aov_car(value ~ treatment * gender + Error(id),
-                   include_aov = TRUE,
-                   data = obk.long)
+      a <- afex::aov_car(value ~ treatment * gender + Error(id),
+                         include_aov = TRUE,
+                         data = obk.long)
     ))
 
     resE0 <- eta_squared(a)
