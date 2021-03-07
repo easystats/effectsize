@@ -21,7 +21,9 @@
 #'   automatically from the fitted model, if they were provided then.
 #' @inheritParams chisq_to_phi
 #' @inheritParams standardize
-#' @param ... For Bayesian models, passed to `ss_function`. Otherwise ignored.
+#' @param ... Arguments passed to or from other methods.
+#'   - Can be `include_intercept = TRUE` to include the effect size for the intercept.
+#'   - For Bayesian models, arguments passed to `ss_function`.
 #'
 #' @return
 #' A data frame with the effect size(s) between 0-1 (`Eta2`, `Epsilon2`,
@@ -394,7 +396,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       partial = partial,
       generalized = generalized,
       ci = ci,
-      verbose = verbose
+      verbose = verbose,
+      ...
     )
     return(res)
   }
@@ -402,7 +405,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   type <- match.arg(type)
 
   params <- as.data.frame(parameters::model_parameters(model))
-  .es_aov(params, type, partial, generalized, ci, verbose = verbose)
+  .es_aov(params, type, partial, generalized, ci, verbose = verbose, ...)
 }
 
 #' @keywords internal
@@ -412,8 +415,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                     generalized = FALSE,
                     ci = 0.9,
                     verbose = TRUE,
+                    include_intercept = FALSE,
                     ...) {
-  params <- params[params$Parameter != "(Intercept)", ]
+
   if (!"Residuals" %in% params$Parameter) {
     stop(
       "No residuals data found - ",
@@ -422,7 +426,13 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     )
   }
 
-  values <- .values_aov(params)
+  if (include_intercept) {
+    values <- .values_aov(params[params$Parameter != "(Intercept)", ])
+  } else {
+    params <- params[params$Parameter != "(Intercept)", ]
+    values <- .values_aov(params)
+  }
+
   df_error <- params$df[params$Parameter == "Residuals"]
   params <- params[params$Parameter != "Residuals", , drop = FALSE]
 
@@ -539,11 +549,11 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                               generalized = FALSE,
                               ci = 0.9,
                               verbose = TRUE,
+                              include_intercept = FALSE,
                               ...) {
   type <- match.arg(type)
 
   params <- as.data.frame(parameters::model_parameters(model))
-  params <- params[params$Parameter != "(Intercept)", ]
   if (!"Residuals" %in% params$Parameter) {
     stop(
       "No residuals data found - ",
@@ -552,7 +562,13 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     )
   }
 
-  values <- .values_aov(params)
+  if (include_intercept) {
+    values <- .values_aov(params[params$Parameter != "(Intercept)", ])
+  } else {
+    params <- params[params$Parameter != "(Intercept)", ]
+    values <- .values_aov(params)
+  }
+
   params <- params[params$Parameter != "Residuals" & !is.na(params$`F`), , drop = FALSE]
   Sum_Squares_total <- sum(sapply(values, "[[", "Sum_Squares_total"))
   Sum_Squares_residuals <- sapply(values[params$Group], "[[", "Sum_Squares_residuals")
@@ -676,7 +692,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     partial = partial,
     generalized = generalized,
     ci = ci,
-    verbose = verbose
+    verbose = verbose,
+    ...
   )
   out <- do.call("rbind", params)
   rownames(out) <- NULL
@@ -697,6 +714,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                             generalized = FALSE,
                             ci = 0.9,
                             verbose = TRUE,
+                            include_intercept = FALSE,
                             ...) {
   type <- match.arg(type)
   es_fun <- switch(type,
@@ -716,11 +734,13 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       type = type,
       generalized = generalized,
       ci = ci,
-      verbose = verbose
+      verbose = verbose,
+      include_intercept = include_intercept,
+      ...
     )
     return(res)
   }
-  model <- model[rownames(model) != "(Intercept)", , drop = FALSE]
+  if (!include_intercept) model <- model[rownames(model) != "(Intercept)", , drop = FALSE]
   model <- model[rownames(model) != "Residuals", , drop = FALSE]
 
   F_val <- F_val[F_val %in% colnames(model)]
@@ -875,6 +895,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                                 generalized = FALSE,
                                 ci = 0.9,
                                 verbose = TRUE,
+                                include_intercept = FALSE,
                                 ...) {
   # ## For the univariate test
   # model <- summary(mlm1.aov)$univariate.tests
@@ -889,7 +910,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   model <- parameters::model_parameters(model, ...)
   if ("df_num" %in% colnames(model))
     model$df <- model$df_num
-  model <- model[model$Parameter != "(Intercept)", , drop = FALSE]
+  if (!include_intercept)
+    model <- model[model$Parameter != "(Intercept)", , drop = FALSE]
   .anova_es.parameters_model(model, type = type,
                              partial = partial,
                              generalized = generalized,
@@ -981,12 +1003,13 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                                generalized = FALSE,
                                ci = 0.9,
                                verbose = TRUE,
+                               include_intercept = FALSE,
                                ...) {
   type <- match.arg(type)
   if (type == "eta" && isTRUE(generalized))
     generalized <- attr(model$anova_table, "observed")
 
-  # For between, covers all
+  # For completely between, covers all
   if (!inherits(model$Anova, "Anova.mlm")) {
     out <-
       .anova_es(
@@ -995,7 +1018,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
         partial = partial,
         generalized = generalized,
         ci = ci,
-        verbose = verbose
+        verbose = verbose,
+        include_intercept = include_intercept,
+        ...
       )
     return(out)
   }
@@ -1017,7 +1042,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
     aov_tab <- anova(model, es = "ges",
                      observed = generalized,
-                     correction = "none")
+                     correction = "none",
+                     intercept = include_intercept)
 
     ES <- aov_tab$ges
     df1 <- aov_tab$`num Df`
@@ -1057,7 +1083,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       epsilon = F_to_epsilon2
     )
 
-    aov_tab <- anova(model, es = "none", correction = "none")
+    aov_tab <- anova(model, es = "none", correction = "none",
+                     intercept = include_intercept)
 
     out <- cbind(
       Parameter = rownames(aov_tab),
@@ -1074,7 +1101,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     return(out)
   }
 
-  # If not fully between, covers all
+  # Even if not fully between, covers all
   if (!is.null(model$aov)) {
     out <-
       .anova_es(
@@ -1083,7 +1110,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
         partial = partial,
         generalized = FALSE,
         ci = ci,
-        verbose = verbose
+        verbose = verbose,
+        include_intercept = include_intercept,
+        ...
       )
     out <- out[, !colnames(out) == "Group"]
     return(out)
@@ -1130,7 +1159,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
   model <- model[rownames(model) != "ERROR", ]
 
-  .anova_es.anova(model, type = type, partial = partial, generalized = generalized, ci = ci)
+  .anova_es.anova(model, type = type, partial = partial, generalized = generalized, ci = ci, ...)
 }
 
 .anova_es.anova.rms <- .anova_es.rms
