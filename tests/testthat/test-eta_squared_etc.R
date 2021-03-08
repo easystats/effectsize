@@ -332,4 +332,71 @@ if (require("testthat") && require("effectsize")) {
       tolerance = 0.01
     )
   })
+
+
+# Include intercept -------------------------------------------------------
+
+
+
+  test_that("include_intercept | car", {
+    skip_if_not_installed("car")
+
+    m <- lm(mpg ~ factor(cyl) * factor(am), data = mtcars)
+    AOV <- car::Anova(m, type = 3)
+
+    res0 <- eta_squared(AOV)
+    res1 <- eta_squared(AOV, include_intercept = TRUE)
+    expect_equal(nrow(res0), 3)
+    expect_equal(nrow(res1), nrow(res0) + 1)
+    expect_equal(res1[[1]][1], "(Intercept)")
+    expect_equal(res1[[2]][1], 0.8680899, tolerance = 0.01)
+
+    res0 <- epsilon_squared(AOV)
+    res1 <- epsilon_squared(AOV, include_intercept = TRUE)
+    expect_equal(nrow(res0), 3)
+    expect_equal(nrow(res1), nrow(res0) + 1)
+    expect_equal(res1[[1]][1], "(Intercept)")
+
+
+    res0 <- omega_squared(AOV)
+    res1 <- omega_squared(AOV, include_intercept = TRUE)
+    expect_equal(nrow(res0), 3)
+    expect_equal(nrow(res1), nrow(res0) + 1)
+    expect_equal(res1[[1]][1], "(Intercept)")
+
+    # generalized
+    res1 <- eta_squared(AOV, generalized = "cyl", include_intercept = TRUE)
+    expect_equal(res1[[1]][1], "(Intercept)")
+    expect_equal(res1[[2]][1], 0.784483, tolerance = 0.01)
+  })
+
+
+  test_that("include_intercept | afex", {
+    skip_if_not_installed("afex")
+    data(obk.long, package = "afex")
+
+    suppressWarnings(suppressMessages(
+      a <- afex::aov_car(value ~ treatment * gender + Error(id),
+                         include_aov = TRUE,
+                         data = obk.long)
+    ))
+
+    resE0 <- eta_squared(a)
+    resA0 <- anova(a, es = "pes")
+    expect_equal(nrow(resE0), 3)
+    expect_equal(nrow(resE0), nrow(resA0))
+
+
+    resE1 <- eta_squared(a, include_intercept = TRUE)
+    resA1 <- anova(a, es = "pes", intercept = TRUE)
+    expect_equal(nrow(resE1), nrow(resE0) + 1)
+    expect_equal(nrow(resE1), nrow(resA1))
+
+    skip_if_not_installed("car")
+    resE1 <- eta_squared(car::Anova(a$aov, type = 3), include_intercept = TRUE, generalized = "gender")
+    resA1 <- anova(a, es = "ges", intercept = TRUE, observed = "gender")
+    expect_equal(resE1[[2]][1], 0.9386555, tolerance = 0.01)
+    expect_equal(resE1[[2]][1], resA1[[5]][1], tolerance = 0.01)
+  })
+
 }

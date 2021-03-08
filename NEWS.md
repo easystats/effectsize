@@ -6,6 +6,7 @@
 
 - `unstandardize()` which will reverse the effects of `standardize()`.
 - `interpret_kendalls_w()` to interpret Kendall's coefficient of concordance.
+- `eta_squared()` family of functions can now also return effect sizes for the intercept by setting `include_intercept = TRUE` ( #156 ).
 
 ## Bug fixes
 

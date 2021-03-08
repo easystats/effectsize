@@ -68,7 +68,11 @@ automatically from the fitted model, if they were provided then.}
 
 \item{verbose}{Toggle warnings and messages on or off.}
 
-\item{...}{For Bayesian models, passed to \code{ss_function}. Otherwise ignored.}
+\item{...}{Arguments passed to or from other methods.
+\itemize{
+\item Can be \code{include_intercept = TRUE} to include the effect size for the intercept.
+\item For Bayesian models, arguments passed to \code{ss_function}.
+}}
 
 \item{squared}{Return Cohen's \emph{f} or Cohen's \emph{f}-squared?}
 
