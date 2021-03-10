@@ -50,7 +50,7 @@ character name of one in \code{data}. Ignored if \code{x} is not a vector.}
 \item{data}{An optional data frame containing the variables.}
 
 \item{mu}{a number indicating the value around which (a-)symmetry (for
-one-sample or paired samples) or shift (for independant samples) is to be
+one-sample or paired samples) or shift (for independent samples) is to be
 estimated. See \link[stats:wilcox.test]{stats::wilcox.test}.}
 
 \item{ci}{Confidence Interval (CI) level}
@@ -102,7 +102,7 @@ differences between 2 or more samples (a rank based ANOVA). See
 indicating larger differences between groups.
 \cr\cr
 Kendall's \emph{W} is appropriate for non-parametric tests of differences between
-2 or more dependant samples (a rank based rmANOVA). See
+2 or more dependent samples (a rank based rmANOVA). See
 \link[stats:friedman.test]{stats::friedman.test}. Values range from 0 to 1, with larger values
 indicating larger differences between groups.
 }
@@ -112,6 +112,8 @@ Confidence Intervals are estimated using the bootstrap method.
 
 \examples{
 \donttest{
+# two-sample tests -----------------------
+
 A <- c(48, 48, 77, 86, 85, 85)
 B <- c(14, 34, 34, 77)
 rank_biserial(A, B)
@@ -120,12 +122,15 @@ x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
 y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
 rank_biserial(x, y, paired = TRUE)
 
+# one-sample tests -----------------------
 x <- c(1.15, 0.88, 0.90, 0.74, 1.21)
 rank_biserial(x, mu = 1)
 
-x1 <- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
-x2 <- c(3.8, 2.7, 4.0, 2.4) # with obstructive airway disease
-x3 <- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
+# anova tests ----------------------------
+
+x1 <- c(2.9, 3.0, 2.5, 2.6, 3.2) # control group
+x2 <- c(3.8, 2.7, 4.0, 2.4) # obstructive airway disease group
+x3 <- c(2.8, 3.4, 3.7, 2.2, 2.0) # asbestosis group
 x <- c(x1, x2, x3)
 g <- factor(rep(1:3, c(5, 4, 5)))
 rank_epsilon_squared(x, g)
@@ -143,13 +148,20 @@ kendalls_w(x ~ w | t, data = wb)
 }
 \references{
 \itemize{
-\item Cureton, E. E. (1956). Rank-biserial correlation. Psychometrika, 21(3), 287-290.
-\item Glass, G. V. (1965). A ranking variable analogue of biserial correlation: Implications for short-cut item analysis. Journal of Educational Measurement, 2(1), 91-95.
+\item Cureton, E. E. (1956). Rank-biserial correlation. Psychometrika, 21(3),
+287-290.
+\item Glass, G. V. (1965). A ranking variable analogue of biserial correlation:
+Implications for short-cut item analysis. Journal of Educational Measurement,
+2(1), 91-95.
 \item Kendall, M.G. (1948) Rank correlation methods. London: Griffin.
-\item Kerby, D. S. (2014). The simple difference formula: An approach to teaching nonparametric correlation. Comprehensive Psychology, 3, 11-IT.
-\item King, B. M., & Minium, E. W. (2008). Statistical reasoning in the behavioral sciences. John Wiley & Sons Inc.
-\item Cliff, N. (1993). Dominance statistics: Ordinal analyses to answer ordinal questions. Psychological bulletin, 114(3), 494.
-\item Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates revisited. An overview of some recommended measures of effect size.
+\item Kerby, D. S. (2014). The simple difference formula: An approach to teaching
+nonparametric correlation. Comprehensive Psychology, 3, 11-IT.
+\item King, B. M., & Minium, E. W. (2008). Statistical reasoning in the
+behavioral sciences. John Wiley & Sons Inc.
+\item Cliff, N. (1993). Dominance statistics: Ordinal analyses to answer ordinal
+questions. Psychological bulletin, 114(3), 494.
+\item Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates
+revisited. An overview of some recommended measures of effect size.
 }
 }
 \seealso{

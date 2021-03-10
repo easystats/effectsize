@@ -4,7 +4,10 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(interpret(0.001, rules_grid)[1], "very significant")
     expect_equal(interpret(0.021, rules_grid)[1], "significant")
     expect_equal(interpret(0.08, rules_grid)[1], "not significant")
-    expect_equal(interpret(c(0.01, 0.005, 0.08), rules_grid)[1:3], c("very significant", "very significant", "not significant"))
+    expect_equal(
+      interpret(c(0.01, 0.005, 0.08), rules_grid)[1:3],
+      c("very significant", "very significant", "not significant")
+    )
     expect_error(interpret_r(0.6, rules(c(0.5), c("A", "B", "C"))))
     expect_error(interpret_r(0.6, rules(c(0.5, 0.2, 0.7), c("A", "B", "C", "D"))))
 
@@ -20,6 +23,7 @@ if (require("testthat") && require("effectsize")) {
   test_that("interpret_r", {
     expect_equal(interpret_r(0.21)[1], "medium")
     expect_equal(interpret_r(0.21, "cohen1988")[1], "small")
+    expect_equal(interpret_r(0.21, "lovakov2021")[1], "small")
     expect_equal(interpret_r(0.7, "evans1996")[1], "strong")
     expect_equal(interpret_r(c(0.5, -0.08), "cohen1988")[1:2], c("large", "very small"))
     expect_equal(interpret_r(0.6, rules(c(0.5), c("A", "B")))[1], "B")
@@ -46,6 +50,7 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(interpret_d(0.021)[1], "very small")
     expect_equal(interpret_d(1.3, "sawilowsky2009")[1], "very large")
     expect_equal(interpret_d(c(0.45, 0.85), "cohen1988")[1:2], c("small", "large"))
+    expect_equal(interpret_d(c(0.45, 0.85), "lovakov2021")[1:2], c("medium", "large"))
     expect_equal(interpret_d(0.6, rules(c(0.5), c("A", "B")))[1], "B")
     expect_error(interpret_d(0.6, "DUPA"))
   })
@@ -83,8 +88,14 @@ if (require("testthat") && require("effectsize")) {
   test_that("interpret_bf", {
     expect_warning(interpret_bf(-2))
     expect_equal(interpret_bf(1)[1], "no evidence against or in favour of")
-    expect_equal(interpret_bf(c(0.8, 3.5), "jeffreys1961")[1:2], c("anecdotal evidence against", "moderate evidence in favour of"))
-    expect_equal(interpret_bf(c(0.8, 3.5), "raftery1995")[1:2], c("weak evidence against", "positive evidence in favour of"))
+    expect_equal(
+      interpret_bf(c(0.8, 3.5), "jeffreys1961")[1:2],
+      c("anecdotal evidence against", "moderate evidence in favour of")
+    )
+    expect_equal(
+      interpret_bf(c(0.8, 3.5), "raftery1995")[1:2],
+      c("weak evidence against", "positive evidence in favour of")
+    )
     expect_equal(interpret_bf(2, rules(c(0.5), c("A", "B")))[1], "B evidence in favour of")
     expect_error(interpret_bf(2, "DUPA"))
 
@@ -109,8 +120,25 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(interpret_omega_squared(c(0.1, 0.25))[1:2], c("medium", "large"))
     expect_equal(interpret_omega_squared(0.6, rules(c(0.5), c("A", "B")))[1], "B")
     expect_error(interpret_omega_squared(0.6, "DUPA"))
+
+    # these should be same
+    expect_equal(interpret_eta_squared(0.1)[1], interpret_omega_squared(0.1)[1])
+    expect_equal(
+      interpret_eta_squared(c(0.1, 0.25))[1:2],
+      interpret_omega_squared(c(0.1, 0.25))[1:2]
+    )
   })
 
+  test_that("interpret_kendalls_w", {
+    expect_equal(interpret_kendalls_w(0.1)[1], "slight agreement")
+    expect_equal(
+      interpret_kendalls_w(c(0.1, 0.25))[1:2],
+      c("slight agreement", "fair agreement")
+    )
+    expect_equal(interpret_kendalls_w(0.9)[1], "almost perfect agreement")
+    expect_equal(interpret_kendalls_w(0.6, rules(c(0.5), c("A", "B")))[1], "B")
+    expect_error(interpret_kendalls_w(0.6, "DUPA"))
+  })
 
 
   test_that("interpret_rhat", {
@@ -127,5 +155,19 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(interpret_ess(c(1000, 800))[1:2], c("sufficient", "insufficient"))
     expect_equal(interpret_ess(0.6, rules(c(0.5), c("A", "B")))[1], "B")
     expect_error(interpret_ess(0.6, "DUPA"))
+  })
+
+
+  test_that("interpret_fit", {
+    expect_equal(interpret_gfi(c(.5, .99)), c("poor", "satisfactory"), ignore_attr = TRUE)
+    expect_equal(interpret_agfi(c(.5, .99)), c("poor", "satisfactory"), ignore_attr = TRUE)
+    expect_equal(interpret_nfi(c(.5, .99)), c("poor", "satisfactory"), ignore_attr = TRUE)
+    expect_equal(interpret_nnfi(c(.5, .99)), c("poor", "satisfactory"), ignore_attr = TRUE)
+    expect_equal(interpret_cfi(c(.5, .99)), c("poor", "satisfactory"), ignore_attr = TRUE)
+    expect_equal(interpret_rfi(c(.5, .99)), c("poor", "satisfactory"), ignore_attr = TRUE)
+    expect_equal(interpret_ifi(c(.5, .99)), c("poor", "satisfactory"), ignore_attr = TRUE)
+    expect_equal(interpret_pnfi(c(.5, .99)), c("poor", "satisfactory"), ignore_attr = TRUE)
+    expect_equal(interpret_rmsea(c(.1, .05)), c("poor", "satisfactory"), ignore_attr = TRUE)
+    expect_equal(interpret_srmr(c(.1, .05)), c("poor", "satisfactory"), ignore_attr = TRUE)
   })
 }

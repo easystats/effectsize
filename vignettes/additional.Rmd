@@ -1,0 +1,24 @@
+---
+title: "Additional Vignettes"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    toc: false
+vignette: >
+  %\VignetteIndexEntry{additional vignettes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Additional Vignettes
+
+Due to constraints on the size of the `R` package, all available vignettes are
+only available on the website for this package: <br>
+<https://easystats.github.io/effectsize/>

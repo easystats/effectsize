@@ -28,6 +28,11 @@
 #' The `robust` (default to `FALSE`) argument enables a robust standardization
 #' of data, i.e., based on the `median` and `MAD` instead of the `mean` and
 #' `SD`. **See [standardize()] for more details.**
+#'   - **Note** that `standardize_parameters(method = "refit")` may not return
+#'   the same results as fitting a model on data that has been standardized with
+#'   `standardize()`; `standardize_parameters()` used the data used by the model
+#'   fitting function, which might not be same data if there are missing values.
+#'   see the `remove_na` argument in `standardize()`.
 #' - **posthoc**: Post-hoc standardization of the parameters, aiming at
 #' emulating the results obtained by "refit" without refitting the model. The
 #' coefficients are divided by the standard deviation (or MAD if `robust`) of

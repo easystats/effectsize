@@ -1,6 +1,11 @@
 #' @rdname standardize
 #' @export
-standardize.numeric <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, verbose = TRUE, ...) {
+standardize.numeric <- function(x,
+                                robust = FALSE,
+                                two_sd = FALSE,
+                                weights = NULL,
+                                verbose = TRUE,
+                                ...) {
 
   # Warning if all NaNs
   if (all(is.na(x))) {
@@ -57,8 +62,13 @@ standardize.integer <- standardize.numeric
 
 
 #' @export
-standardize.factor <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, verbose = TRUE,
-                               force = FALSE, ...) {
+standardize.factor <- function(x,
+                               robust = FALSE,
+                               two_sd = FALSE,
+                               weights = NULL,
+                               verbose = TRUE,
+                               force = FALSE,
+                               ...) {
   if (!force) {
     return(x)
   }
@@ -76,6 +86,9 @@ standardize.character <- standardize.factor
 standardize.logical <- standardize.factor
 
 #' @export
+standardize.Date <- standardize.factor
+
+#' @export
 standardize.AsIs <- standardize.numeric
 
 
@@ -91,8 +104,8 @@ standardize.AsIs <- standardize.numeric
 #'   `NA`s. Else, rows with `NA` in the columns selected with `select` /
 #'   `exclude` (`"selected"`) or in all columns (`"all"`) are dropped before
 #'   standardization, and the resulting data frame does not include these cases.
-#' @param force Logical, if `TRUE`, forces standardization of factors as
-#'   well. Factors are converted to numerical values, with the lowest level
+#' @param force Logical, if `TRUE`, forces standardization of factors and dates
+#'   as well. Factors are converted to numerical values, with the lowest level
 #'   being the value `1` (unless the factor has numeric levels, which are
 #'   converted to the corresponding numeric value).
 #' @param append Logical, if `TRUE` and `x` is a data frame, standardized
@@ -121,12 +134,19 @@ standardize.AsIs <- standardize.numeric
 #' (respectively).
 #'
 #' @export
-standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, verbose = TRUE,
-                                   select = NULL, exclude = NULL,
+standardize.data.frame <- function(x,
+                                   robust = FALSE,
+                                   two_sd = FALSE,
+                                   weights = NULL,
+                                   verbose = TRUE,
+                                   select = NULL,
+                                   exclude = NULL,
                                    remove_na = c("none", "selected", "all"),
                                    force = FALSE,
-                                   append = FALSE, suffix = "_z",
+                                   append = FALSE,
+                                   suffix = "_z",
                                    ...) {
+
   # check for formula notation, convert to character vector
   if (inherits(select, "formula")) {
     select <- all.vars(select)
@@ -183,11 +203,17 @@ standardize.data.frame <- function(x, robust = FALSE, two_sd = FALSE, weights = 
 
 
 #' @export
-standardize.grouped_df <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, verbose = TRUE,
-                                   select = NULL, exclude = NULL,
+standardize.grouped_df <- function(x,
+                                   robust = FALSE,
+                                   two_sd = FALSE,
+                                   weights = NULL,
+                                   verbose = TRUE,
+                                   select = NULL,
+                                   exclude = NULL,
                                    remove_na = c("none", "selected", "all"),
                                    force = FALSE,
-                                   append = FALSE, suffix = "_z",
+                                   append = FALSE,
+                                   suffix = "_z",
                                    ...) {
   info <- attributes(x)
   # dplyr >= 0.8.0 returns attribute "indices"

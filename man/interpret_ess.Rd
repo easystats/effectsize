@@ -56,8 +56,12 @@ interpret_rhat(c(1.5, 0.9))
 }
 \references{
 \itemize{
-\item Bürkner, P. C. (2017). brms: An R package for Bayesian multilevel models using Stan. Journal of Statistical Software, 80(1), 1-28.
-\item Gelman, A., & Rubin, D. B. (1992). Inference from iterative simulation using multiple sequences. Statistical science, 7(4), 457-472.
-\item Vehtari, A., Gelman, A., Simpson, D., Carpenter, B., & Bürkner, P. C. (2019). Rank-normalization, folding, and localization: An improved Rhat for assessing convergence of MCMC. arXiv preprint arXiv:1903.08008.
+\item Bürkner, P. C. (2017). brms: An R package for Bayesian multilevel models
+using Stan. Journal of Statistical Software, 80(1), 1-28.
+\item Gelman, A., & Rubin, D. B. (1992). Inference from iterative simulation
+using multiple sequences. Statistical science, 7(4), 457-472.
+\item Vehtari, A., Gelman, A., Simpson, D., Carpenter, B., & Bürkner, P. C.
+(2019). Rank-normalization, folding, and localization: An improved Rhat for
+assessing convergence of MCMC. arXiv preprint arXiv:1903.08008.
 }
 }

@@ -6,7 +6,8 @@
 #'
 #' @param x Object.
 #' @param to New range of values of the data after rescaling.
-#' @param range Initial (old) range of values. If `NULL`, will take the range of data.
+#' @param range Initial (old) range of values. If `NULL`, will take the range of
+#'   data.
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @examples
@@ -32,8 +33,11 @@ change_scale <- function(x, ...) {
 
 #' @rdname change_scale
 #' @export
-change_scale.numeric <- function(x, to = c(0, 100), range = NULL, verbose = TRUE, ...) {
-
+change_scale.numeric <- function(x,
+                                 to = c(0, 100),
+                                 range = NULL,
+                                 verbose = TRUE,
+                                 ...) {
   # Warning if all NaNs
   if (all(is.na(x))) {
     return(x)
@@ -63,10 +67,6 @@ change_scale.numeric <- function(x, to = c(0, 100), range = NULL, verbose = TRUE
 
 
 
-
-
-
-
 #' @export
 change_scale.factor <- function(x, ...) {
   x
@@ -77,8 +77,14 @@ change_scale.factor <- function(x, ...) {
 
 #' @rdname change_scale
 #' @export
-change_scale.grouped_df <- function(x, select = NULL, exclude = NULL, to = c(0, 100), range = NULL, ...) {
+change_scale.grouped_df <- function(x,
+                                    select = NULL,
+                                    exclude = NULL,
+                                    to = c(0, 100),
+                                    range = NULL,
+                                    ...) {
   info <- attributes(x)
+
   # dplyr >= 0.8.0 returns attribute "indices"
   grps <- attr(x, "groups", exact = TRUE)
 
@@ -117,7 +123,13 @@ change_scale.grouped_df <- function(x, select = NULL, exclude = NULL, to = c(0, 
 
 #' @rdname change_scale
 #' @export
-change_scale.data.frame <- function(x, select = NULL, exclude = NULL, to = c(0, 100), range = NULL, ...) {
+change_scale.data.frame <- function(x,
+                                    select = NULL,
+                                    exclude = NULL,
+                                    to = c(0, 100),
+                                    range = NULL,
+                                    ...) {
+
   # check for formula notation, convert to character vector
   if (inherits(select, "formula")) {
     select <- all.vars(select)

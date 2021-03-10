@@ -1,6 +1,16 @@
-# effectsize 0.4.3.1
+# effectsize 0.4.3-1
 
 `effectsize` now supports `R >= 3.4`.
+
+## New features
+
+- `unstandardize()` which will reverse the effects of `standardize()`.
+- `interpret_kendalls_w()` to interpret Kendall's coefficient of concordance.
+- `eta_squared()` family of functions can now also return effect sizes for the intercept by setting `include_intercept = TRUE` ( #156 ).
+
+## Bug fixes
+
+- `standardize()` can now deal with dates ( #300 ).
 
 # effectsize 0.4.3
 

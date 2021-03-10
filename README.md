@@ -98,8 +98,11 @@ hedges_g(mpg ~ am, data = mtcars)
 glass_delta(mpg ~ am, data = mtcars)
 ## Glass' delta |         95% CI
 ## -----------------------------
-## -1.17        | [-1.81, -0.64]
+## -1.17        | [-2.01, -0.66]
 ```
+
+`effectsize` also provides effect sizes for *contingency tables*, *rank
+tests*, and more…
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)
 
@@ -156,8 +159,6 @@ standardize(m)
 ## (Intercept)   complaints   privileges      advance  
 ##   -9.57e-16     8.55e-01    -4.35e-02    -2.19e-02
 ```
-
-<!-- add cohens_f2? -->
 
 ## Effect Size Conversion
 
@@ -260,7 +261,7 @@ describe_distribution(df$rating)
 ## 54.74 | 27.05 | 35.00 | [0.00, 100.00] |    -0.40 |    -0.49 | 30 |         0
 ```
 
-For some robust statistics, one might also want to transfom the numeric
+For some robust statistics, one might also want to transform the numeric
 values into *ranks*, which can be performed using the `ranktransform()`
 function.
 

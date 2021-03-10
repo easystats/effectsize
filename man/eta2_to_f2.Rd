@@ -39,8 +39,11 @@ less biased estimate of Cohen's \emph{f}.
 }
 \references{
 \itemize{
-\item Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
-\item Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
+\item Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+(2nd Ed.). New York: Routledge.
+\item Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals
+and tests of close fit in the analysis of variance and contrast analysis.
+Psychological Methods, 9, 164-182.
 }
 }
 \seealso{

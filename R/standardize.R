@@ -8,7 +8,8 @@
 #' [normalize()] function can also be used to scale all numeric variables within
 #' the 0 - 1 range.
 #'
-#' @param x A data frame, a vector or a statistical model.
+#' @param x A data frame, a vector or a statistical model (for `unstandardize()`
+#'   cannot be a model).
 #' @param robust Logical, if `TRUE`, centering is done by subtracting the
 #'   median from the variables and dividing it by the median absolute deviation
 #'   (MAD). If `FALSE`, variables are standardized by subtracting the
@@ -20,7 +21,8 @@
 #'   outcome) (Gelman, 2008).
 #' @param weights Can be `NULL` (for no weighting), or:
 #' - For model: if `TRUE` (default), a weighted-standardization is carried out.
-#' - For `data.frame`s: a numeric vector of weights, or a character of the name of a column in the `data.frame` that contains the weights.
+#' - For `data.frame`s: a numeric vector of weights, or a character of the
+#'   name of a column in the `data.frame` that contains the weights.
 #' - For numeric vectors: a numeric vector of weights.
 #' @param verbose Toggle warnings and messages on or off.
 #' @param ... Arguments passed to or from other methods.
@@ -44,6 +46,11 @@
 #' model <- lm(Infant.Mortality ~ Education * Fertility, data = swiss)
 #' coef(standardize(model))
 #' @export
-standardize <- function(x, robust = FALSE, two_sd = FALSE, weights = NULL, verbose = TRUE, ...) {
+standardize <- function(x,
+                        robust = FALSE,
+                        two_sd = FALSE,
+                        weights = NULL,
+                        verbose = TRUE,
+                        ...) {
   UseMethod("standardize")
 }

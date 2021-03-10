@@ -21,8 +21,12 @@
 #' @family convert between effect sizes
 #'
 #' @references
-#' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
-#' - Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
+#' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+#' (2nd Ed.). New York: Routledge.
+#'
+#' - Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals
+#' and tests of close fit in the analysis of variance and contrast analysis.
+#' Psychological Methods, 9, 164-182.
 #'
 #' @export
 eta2_to_f2 <- function(es) {

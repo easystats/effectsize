@@ -94,12 +94,20 @@ oddsratio_to_r(8.120534)
 d_to_r(1)
 r_to_oddsratio(0.4472136, log = TRUE)
 oddsratio_to_d(1.813799, log = TRUE)
+
 }
 \references{
 \itemize{
-\item Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003). Effect-size indices for dichotomized outcomes in meta-analysis. Psychological methods, 8(4), 448.
-\item Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R. (2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
-\item Rosenthal, R., & Rubin, D. B. (1982). A simple, general purpose display of magnitude of experimental effect. Journal of educational psychology, 74(2), 166.
+\item Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003).
+Effect-size indices for dichotomized outcomes in meta-analysis. Psychological
+methods, 8(4), 448.
+\item Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R.
+(2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
+\item Rosenthal, R., & Rubin, D. B. (1982). A simple, general purpose display of
+magnitude of experimental effect. Journal of educational psychology, 74(2),
+}
+\enumerate{
+\item 
 }
 }
 \seealso{
