@@ -188,8 +188,6 @@ if (require("testthat") && require("effectsize")) {
   })
 
   test_that("unstandardize, matrix", {
-    skip("Skipping 'unstandardize, matrix'")
-    # this isn't working... :(
     data(mtcars)
     d <- as.matrix(mtcars)
     x <- standardize(d)
