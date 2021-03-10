@@ -261,49 +261,75 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   return(pars)
 }
 
-#' #' @export
-#' standardize_parameters.bootstrap_model <-
-#'   function(model,
-#'            method = "refit",
-#'            ci = 0.95,
-#'            robust = FALSE,
-#'            two_sd = FALSE,
-#'            verbose = TRUE,
-#'            ...) {
-#'     object_name <- deparse(substitute(model), width.cutoff = 500)
-#'     method <- match.arg(method, c("refit", "posthoc", "smart", "basic", "classic", "pseudo"))
-#'
-#'     pars <- model
-#'     model <- attr(pars, "original_model")
-#'
-#'     if (method == "refit") {
-#'       stop("Not yet...")
-#'       # model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose)
-#'       # model <- parameters::bootstrap_model(model, iterations = 1000, verbose = verbose)
-#'       # return(model)
-#'     }
-#'     mi <- insight::model_info(model)
-#'
-#'     # need model_parameters to return the parameters, not the terms
-#'     if (inherits(model, "aov")) class(model) <- class(model)[class(model) != "aov"]
-#'
-#'
-#'     if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
-#'       pars <- .standardize_posteriors_posthoc(pars, method, model, robust, two_sd, verbose)
-#'
-#'       method <- attr(pars, "std_method")
-#'       robust <- attr(pars, "robust")
-#'     }
-#'
-#'     attr(pars, "std_method") <- method
-#'     attr(pars, "two_sd") <- two_sd
-#'     attr(pars, "robust") <- robust
-#'     attr(pars, "object_name") <- object_name
-#'     attr(pars, "ci") <- ci
-#'     class(pars) <- c("effectsize_std_params", class(pars))
-#'     return(pars)
-#'
-#'   }
+#' @export
+standardize_parameters.bootstrap_model <-
+  function(model,
+           method = "refit",
+           ci = 0.95,
+           robust = FALSE,
+           two_sd = FALSE,
+           verbose = TRUE,
+           ...) {
+    object_name <- deparse(substitute(model), width.cutoff = 500)
+    method <- match.arg(method, c("refit", "posthoc", "smart", "basic", "classic", "pseudo"))
+
+    pars <- model
+    model <- attr(pars, "original_model")
+
+    if (method == "refit") {
+      stop("The 'refit' method is not supported for bootstrapped models.")
+      ## But it would look something like this:
+      # model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose)
+      # model <- parameters::bootstrap_model(model, iterations = 1000, verbose = verbose)
+      # return(model)
+    }
+    mi <- insight::model_info(model)
+
+    # need model_parameters to return the parameters, not the terms
+    if (inherits(model, "aov")) class(model) <- class(model)[class(model) != "aov"]
+
+
+    if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
+      pars <- .standardize_posteriors_posthoc(pars, method, model, robust, two_sd, verbose)
+
+      method <- attr(pars, "std_method")
+      robust <- attr(pars, "robust")
+    }
+
+    pars <- bayestestR::describe_posterior(pars, centrality = "median",
+                                           ci = ci, ci_method = "quantile",
+                                           test = NULL)
+    names(pars)[names(pars) == "Median"] <- "Std_Coefficient"
+
+
+    attr(pars, "std_method") <- method
+    attr(pars, "two_sd") <- two_sd
+    attr(pars, "robust") <- robust
+    attr(pars, "object_name") <- object_name
+    attr(pars, "ci") <- ci
+    class(pars) <- c("effectsize_std_params", "effectsize_table", "see_effectsize_table", "data.frame")
+    return(pars)
+  }
+
+#' @export
+standardize_parameters.bootstrap_parameters <-
+  function(model,
+           method = "refit",
+           ci = 0.95,
+           robust = FALSE,
+           two_sd = FALSE,
+           verbose = TRUE,
+           ...) {
+
+    standardize_parameters(attr(model, "boot_samples"),
+                           method = method,
+                           ci = ci,
+                           robust = robust,
+                           two_sd = two_sd,
+                           verbose = verbose,
+                           ...)
+  }
+
 
 
 #' @keywords internal
