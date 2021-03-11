@@ -1,3 +1,13 @@
+## Test environments
+
+* local R installation, R 4.0.4
+* ubuntu 16.04 (on github actions), R 4.0.4
+* win-builder (devel)
+
+## R CMD check results
+
+0 errors | 0 warnings | 0 note
+
 ## revdepcheck results
 
 We checked 13 reverse dependencies, comparing R CMD check results across CRAN
@@ -15,5 +25,5 @@ Issues with CRAN packages are summarised below.
 * statsExpressions
   
   The maintainer of this package confirms that the failure is unrelated to the
-  `effectsize` update.
-
+  `effectsize` update and should resolve itself with the new release
+  (`statsExpressions 1.0.0`).
