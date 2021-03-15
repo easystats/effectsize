@@ -28,7 +28,7 @@ publication/*
 ^\.httr-oauth$
 ^CRAN-RELEASE$
 tests\^spelling
-^LICENSE\.md$
+^LICENSE
 ^\.lintr$
 ^\.circleci$
 ^tests/manual$
@@ -48,4 +48,6 @@ references.bib
 hextools
 ^paper/.
 ^WIP/.
-^vignettes/(?!additional).*
+# Flip these two to no build vignettes:
+# ^vignettes/(?!additional).*
+^vignettes/additional

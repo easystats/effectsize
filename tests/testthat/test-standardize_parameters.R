@@ -38,6 +38,7 @@ if (require("testthat") && require("effectsize")) {
   # bootstrap_model ---------------------------------------------------------
 
   test_that("standardize_parameters (bootstrap_model)",{
+    skip_if_not_installed("boot")
     m <- lm(mpg ~ factor(cyl) + hp, mtcars)
 
     set.seed(1); bm_draws <- parameters::bootstrap_model(m, iterations = 599)
