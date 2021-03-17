@@ -6,10 +6,12 @@
 #' @inheritParams cohens_d
 #' @param x Can be one of:
 #'   - A numeric vector, or a character name of one in `data`.
-#'   - A formula in to form of `x ~ groups` (for `rank_biserial()` and
-#'   `rank_epsilon_squared()`) or `x ~ groups | blocks` (for `kendalls_w()`).
+#'   - A formula in to form of `DV ~ groups` (for `rank_biserial()` and
+#'   `rank_epsilon_squared()`) or `DV ~ groups | blocks` (for `kendalls_w()`;
+#'   See details for the `blocks` and `groups` terminology used here).
 #'   - A list of vectors (for `rank_epsilon_squared()`).
-#'   - A matrix of `blocks x groups` (for `kendalls_w()`).
+#'   - A matrix of `blocks x groups` (for `kendalls_w()`). See details for the
+#'   `blocks` and `groups` terminology used here.
 #' @param y An optional numeric vector of data values to compare to `x`, or a
 #'   character name of one in `data`. Ignored if `x` is not a vector.
 #' @param groups A vector or factor object giving the group for the
@@ -22,8 +24,6 @@
 #'   estimated. See [stats::wilcox.test].
 #'
 #' @details
-#' Compute effect sizes for non-parametric (rank sum) tests.
-#' \cr\cr
 #' The rank-biserial correlation is appropriate for non-parametric tests of
 #' differences - both for the one sample or paired samples case, that would
 #' normally be tested with Wilcoxon's Signed Rank Test (giving the
@@ -43,9 +43,12 @@
 #' indicating larger differences between groups.
 #' \cr\cr
 #' Kendall's *W* is appropriate for non-parametric tests of differences between
-#' 2 or more dependent samples (a rank based rmANOVA). See
-#' [stats::friedman.test]. Values range from 0 to 1, with larger values
-#' indicating larger differences between groups.
+#' 2 or more dependent samples (a rank based rmANOVA), where each `group` (e.g.,
+#' experimental condition) was measured for each `block` (e.g., subject). This
+#' measure is also common as a measure of reliability of the rankings of the
+#' `groups` between raters (`blocks`). See [stats::friedman.test]. Values range
+#' from 0 to 1, with larger values indicating larger differences between groups
+#' / higher agreement between raters.
 #'
 #' # Confidence Intervals
 #' Confidence Intervals are estimated using the bootstrap method.
@@ -366,12 +369,12 @@ kendalls_w <- function(x,
 #' @keywords internal
 #' @importFrom stats friedman.test
 .kendalls_w <- function(ratings) {
-  # TODO add ties corrction?
+  # TODO add ties correction?
   n <- nrow(ratings)
   m <- ncol(ratings)
 
-  ratings.rank <- apply(ratings, 2, rank)
-  S <- var(apply(ratings.rank, 1, sum)) * (n - 1)
+  col_ranks <- apply(ratings, 2, ranktransform)
+  S <- var(rowSums(col_ranks)) * (n - 1)
   W <- (12 * S) / (m^2 * (n^3 - n))
 }
 
