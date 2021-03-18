@@ -214,10 +214,12 @@ and Kendall's <em>W</em> effect sizes for non-parametric (rank sum) tests.</p>
       <th>x</th>
       <td><p>Can be one of:</p><ul>
 <li><p>A numeric vector, or a character name of one in <code>data</code>.</p></li>
-<li><p>A formula in to form of <code>x ~ groups</code> (for <code>rank_biserial()</code> and
-<code>rank_epsilon_squared()</code>) or <code>x ~ groups | blocks</code> (for <code>kendalls_w()</code>).</p></li>
+<li><p>A formula in to form of <code>DV ~ groups</code> (for <code>rank_biserial()</code> and
+<code>rank_epsilon_squared()</code>) or <code>DV ~ groups | blocks</code> (for <code>kendalls_w()</code>;
+See details for the <code>blocks</code> and <code>groups</code> terminology used here).</p></li>
 <li><p>A list of vectors (for <code>rank_epsilon_squared()</code>).</p></li>
-<li><p>A matrix of <code>blocks x groups</code> (for <code>kendalls_w()</code>).</p></li>
+<li><p>A matrix of <code>blocks x groups</code> (for <code>kendalls_w()</code>). See details for the
+<code>blocks</code> and <code>groups</code> terminology used here.</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -276,9 +278,7 @@ Ignored if <code>x</code> is not a vector.</p></td>
 <code>rank_epsilon_squared</code>) and its CI (<code>CI_low</code> and <code>CI_high</code>).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Compute effect sizes for non-parametric (rank sum) tests.
-<br /><br />
-The rank-biserial correlation is appropriate for non-parametric tests of
+    <p>The rank-biserial correlation is appropriate for non-parametric tests of
 differences - both for the one sample or paired samples case, that would
 normally be tested with Wilcoxon's Signed Rank Test (giving the
 <strong>matched-pairs</strong> rank-biserial correlation) and for two independent samples
@@ -297,9 +297,12 @@ differences between 2 or more samples (a rank based ANOVA). See
 indicating larger differences between groups.
 <br /><br />
 Kendall's <em>W</em> is appropriate for non-parametric tests of differences between
-2 or more dependent samples (a rank based rmANOVA). See
-<a href='https://rdrr.io/r/stats/friedman.test.html'>stats::friedman.test</a>. Values range from 0 to 1, with larger values
-indicating larger differences between groups.</p>
+2 or more dependent samples (a rank based rmANOVA), where each <code>group</code> (e.g.,
+experimental condition) was measured for each <code>block</code> (e.g., subject). This
+measure is also common as a measure of reliability of the rankings of the
+<code>groups</code> between raters (<code>blocks</code>). See <a href='https://rdrr.io/r/stats/friedman.test.html'>stats::friedman.test</a>. Values range
+from 0 to 1, with larger values indicating larger differences between groups
+/ higher agreement between raters.</p>
     <h2 class="hasAnchor" id="confidence-intervals"><a class="anchor" href="#confidence-intervals"></a>Confidence Intervals</h2>
 
     <p>Confidence Intervals are estimated using the bootstrap method.</p>
