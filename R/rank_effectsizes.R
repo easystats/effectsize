@@ -48,11 +48,17 @@
 #' from 0 to 1, with larger values indicating larger differences between groups
 #' / higher agreement between raters.
 #'
+#' ## Ties
+#' When tied values occur, they are each given the average of the ranks that
+#' would have been given had no ties occurred. No other corrections have been
+#' implemented yet.
+#'
 #' # Confidence Intervals
 #' Confidence Intervals are estimated using the bootstrap method.
 #'
-#' @return A data frame with the effect size (`r_rank_biserial`, `Kendalls_W` or
-#'   `rank_epsilon_squared`) and its CI (`CI_low` and `CI_high`).
+#' @return A data frame with the effect size (`r_rank_biserial`,
+#'   `rank_epsilon_squared` or `Kendalls_W`) and its CI (`CI_low` and
+#'   `CI_high`).
 #'
 #' @family effect size indices
 #'
@@ -257,6 +263,7 @@ kendalls_w <- function(x,
                        data = NULL,
                        ci = 0.95,
                        iterations = 200,
+                       verbose = TRUE,
                        ...) {
   if (inherits(x, "htest")) {
     if (!grepl("Friedman", x$method)) {
@@ -268,7 +275,7 @@ kendalls_w <- function(x,
   ## prep data
   data <- .kendalls_w_data(x, groups, blocks, data)
   data <- stats::na.omit(data)
-  rankings <- apply(data, 1, ranktransform, verbose = FALSE)
+  rankings <- apply(data, 1, ranktransform, verbose = verbose)
   rankings <- t(rankings) # keep dims
 
   ## compute
@@ -395,7 +402,7 @@ kendalls_w <- function(x,
       .data <- .data[.i, ]
       .x <- .data$x
       .y <- .data$y
-      suppressWarnings(.r_rbs(.x, .y, mu = mu, paired = TRUE))
+      .r_rbs(.x, .y, mu = mu, paired = TRUE, verbose = FALSE)
     }
   } else {
     data <- data.frame(
@@ -406,7 +413,7 @@ kendalls_w <- function(x,
       .x <- sample(x, replace = TRUE)
       .y <- sample(y, replace = TRUE)
 
-      suppressWarnings(.r_rbs(.x, .y, mu = mu, paired = FALSE))
+      .r_rbs(.x, .y, mu = mu, paired = FALSE, verbose = FALSE)
     }
   }
 

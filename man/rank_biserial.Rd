@@ -32,7 +32,16 @@ cliffs_delta(
 
 rank_epsilon_squared(x, groups, data = NULL, ci = 0.95, iterations = 200, ...)
 
-kendalls_w(x, groups, blocks, data = NULL, ci = 0.95, iterations = 200, ...)
+kendalls_w(
+  x,
+  groups,
+  blocks,
+  data = NULL,
+  ci = 0.95,
+  iterations = 200,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{Can be one of:
@@ -72,8 +81,9 @@ corresponding elements of \code{x}, or a character name of one in \code{data}.
 Ignored if \code{x} is not a vector.}
 }
 \value{
-A data frame with the effect size (\code{r_rank_biserial}, \code{Kendalls_W} or
-\code{rank_epsilon_squared}) and its CI (\code{CI_low} and \code{CI_high}).
+A data frame with the effect size (\code{r_rank_biserial},
+\code{rank_epsilon_squared} or \code{Kendalls_W}) and its CI (\code{CI_low} and
+\code{CI_high}).
 }
 \description{
 Compute the rank-biserial correlation, Cliff's \emph{delta}, rank Epsilon squared,
@@ -105,6 +115,12 @@ measure is also common as a measure of reliability of the rankings of the
 \code{groups} between raters (\code{blocks}). See \link[stats:friedman.test]{stats::friedman.test}. Values range
 from 0 to 1, with larger values indicating larger differences between groups
 / higher agreement between raters.
+\subsection{Ties}{
+
+When tied values occur, they are each given the average of the ranks that
+would have been given had no ties occurred. No other corrections have been
+implemented yet.
+}
 }
 \section{Confidence Intervals}{
 Confidence Intervals are estimated using the bootstrap method.
