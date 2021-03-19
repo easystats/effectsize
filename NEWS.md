@@ -1,3 +1,9 @@
+# effectsize 0.4.4.0001
+
+## Bug fixes
+
+- `kendalls_w()` now actually returns correct effect size. Previous estimates were incorrect, and based on transposing the groups and blocks.
+
 # effectsize 0.4.4
 
 `effectsize` now supports `R >= 3.4`.

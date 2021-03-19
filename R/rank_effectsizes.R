@@ -14,11 +14,9 @@
 #'   `blocks` and `groups` terminology used here.
 #' @param y An optional numeric vector of data values to compare to `x`, or a
 #'   character name of one in `data`. Ignored if `x` is not a vector.
-#' @param groups A vector or factor object giving the group for the
+#' @param groups,blocks A factor vector giving the group / block for the
 #'   corresponding elements of `x`, or a character name of one in `data`.
 #'   Ignored if `x` is not a vector.
-#' @param blocks A vector giving the block for the corresponding elements of
-#'   `x`, or a character name of one in `data`. Ignored if `x` is not a vector.
 #' @param mu a number indicating the value around which (a-)symmetry (for
 #'   one-sample or paired samples) or shift (for independent samples) is to be
 #'   estimated. See [stats::wilcox.test].
@@ -270,16 +268,18 @@ kendalls_w <- function(x,
   ## prep data
   data <- .kendalls_w_data(x, groups, blocks, data)
   data <- stats::na.omit(data)
+  rankings <- apply(data, 1, ranktransform, verbose = FALSE)
+  rankings <- t(rankings) # keep dims
 
   ## compute
-  W <- .kendalls_w(data)
+  W <- .kendalls_w(rankings)
   out <- data.frame(Kendalls_W = W)
 
   ## CI
   ci_method <- NULL
   if (is.numeric(ci)) {
     if (requireNamespace("boot", quietly = TRUE)) {
-      out <- cbind(out, .kendalls_w_ci(data, ci, iterations))
+      out <- cbind(out, .kendalls_w_ci(rankings, ci, iterations))
       ci_method <- list(method = "bootstrap", iterations = iterations)
     } else {
       ci <- NULL
@@ -367,14 +367,13 @@ kendalls_w <- function(x,
 
 
 #' @keywords internal
-#' @importFrom stats friedman.test
-.kendalls_w <- function(ratings) {
+.kendalls_w <- function(rankings) {
   # TODO add ties correction?
-  n <- nrow(ratings)
-  m <- ncol(ratings)
+  n <- ncol(rankings) # items
+  m <- nrow(rankings) # judges
 
-  col_ranks <- apply(ratings, 2, ranktransform)
-  S <- var(rowSums(col_ranks)) * (n - 1)
+  R <- colSums(rankings)
+  S <- var(R) * (n - 1)
   W <- (12 * S) / (m^2 * (n^3 - n))
 }
 
@@ -454,11 +453,11 @@ kendalls_w <- function(x,
   stopifnot(length(ci) == 1, ci < 1, ci > 0)
 
   boot_w <- function(.data, .i) {
-    .kendalls_w(t(.data[.i, ]))
+    .kendalls_w(.data[.i, ]) # sample rows
   }
 
   R <- boot::boot(
-    data = t(data),
+    data = data,
     statistic = boot_w,
     R = iterations
   )

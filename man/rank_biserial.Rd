@@ -67,12 +67,9 @@ size on \code{x - y}.}
 
 \item{...}{Arguments passed to or from other methods.}
 
-\item{groups}{A vector or factor object giving the group for the
+\item{groups, blocks}{A factor vector giving the group / block for the
 corresponding elements of \code{x}, or a character name of one in \code{data}.
 Ignored if \code{x} is not a vector.}
-
-\item{blocks}{A vector giving the block for the corresponding elements of
-\code{x}, or a character name of one in \code{data}. Ignored if \code{x} is not a vector.}
 }
 \value{
 A data frame with the effect size (\code{r_rank_biserial}, \code{Kendalls_W} or

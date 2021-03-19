@@ -305,7 +305,7 @@ rank_epsilon_squared(group_data)
 For a rank based repeated measures one-way ANOVA, Kendall's *W* is a measure of
 agreement on the effect of condition between various "blocks" (the subjects), or
 more often conceptualized as a measure of reliability of the rating / scores of
-observations (or "groups") between "raters".
+observations (or "groups") between "raters" ("blocks").
 
 ```{r}
 # Subjects are COLUMNS

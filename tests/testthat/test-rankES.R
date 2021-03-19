@@ -68,22 +68,15 @@ if (require("testthat") && require("effectsize")) {
       class = c("tbl_df", "tbl", "data.frame")
     )
 
-    W1 <- {
-      set.seed(1)
-      kendalls_w(M1)
-    }
-    W2 <- {
-      set.seed(1)
-      kendalls_w(value ~ name | id, data = M2)
-    }
-    W3 <- {
-      set.seed(1)
-      kendalls_w(M2$value, M2$name, M2$id)
-    }
+    set.seed(1)
+    W1 <- kendalls_w(M1)
+    W2 <- kendalls_w(value ~ name | id, data = M2, ci = NULL)
+    W3 <- kendalls_w(M2$value, M2$name, M2$id, ci = NULL)
 
-    expect_equal(W1, W2)
-    expect_equal(W1, W3)
-    expect_equal(W1$CI_low, 0.7777778, tolerance = 0.01)
+    expect_equal(W1[[1]], W2[[1]])
+    expect_equal(W1[[1]], W3[[1]])
+    expect_equal(W1[[1]], 0.11111111, tolerance = 0.01)
+    expect_equal(W1$CI_low, 0.11111111, tolerance = 0.01)
     expect_equal(W1$CI_high, 1, tolerance = 0.01)
   })
 }
