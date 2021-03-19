@@ -205,7 +205,16 @@ and Kendall's <em>W</em> effect sizes for non-parametric (rank sum) tests.</p>
 
 <span class='fu'>rank_epsilon_squared</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>groups</span>, data <span class='op'>=</span> <span class='cn'>NULL</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, iterations <span class='op'>=</span> <span class='fl'>200</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>kendalls_w</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>groups</span>, <span class='va'>blocks</span>, data <span class='op'>=</span> <span class='cn'>NULL</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, iterations <span class='op'>=</span> <span class='fl'>200</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>kendalls_w</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>groups</span>,
+  <span class='va'>blocks</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ci <span class='op'>=</span> <span class='fl'>0.95</span>,
+  iterations <span class='op'>=</span> <span class='fl'>200</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -269,8 +278,9 @@ Ignored if <code>x</code> is not a vector.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with the effect size (<code>r_rank_biserial</code>, <code>Kendalls_W</code> or
-<code>rank_epsilon_squared</code>) and its CI (<code>CI_low</code> and <code>CI_high</code>).</p>
+    <p>A data frame with the effect size (<code>r_rank_biserial</code>,
+<code>rank_epsilon_squared</code> or <code>Kendalls_W</code>) and its CI (<code>CI_low</code> and
+<code>CI_high</code>).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The rank-biserial correlation is appropriate for non-parametric tests of
@@ -297,7 +307,13 @@ experimental condition) was measured for each <code>block</code> (e.g., subject)
 measure is also common as a measure of reliability of the rankings of the
 <code>groups</code> between raters (<code>blocks</code>). See <a href='https://rdrr.io/r/stats/friedman.test.html'>stats::friedman.test</a>. Values range
 from 0 to 1, with larger values indicating larger differences between groups
-/ higher agreement between raters.</p>
+/ higher agreement between raters.</p><h3 class='hasAnchor' id='ties'><a class='anchor' href='#ties'></a>Ties</h3>
+
+
+<p>When tied values occur, they are each given the average of the ranks that
+would have been given had no ties occurred. No other corrections have been
+implemented yet.</p>
+
     <h2 class="hasAnchor" id="confidence-intervals"><a class="anchor" href="#confidence-intervals"></a>Confidence Intervals</h2>
 
     <p>Confidence Intervals are estimated using the bootstrap method.</p>
@@ -373,7 +389,7 @@ revisited. An overview of some recommended measures of effect size.</p></li>
   FUN <span class='op'>=</span> <span class='va'>mean</span>
 <span class='op'>)</span>
 <span class='fu'>kendalls_w</span><span class='op'>(</span><span class='va'>x</span> <span class='op'>~</span> <span class='va'>w</span> <span class='op'>|</span> <span class='va'>t</span>, data <span class='op'>=</span> <span class='va'>wb</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Kendall's W |       95% CI
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Variable `x.A` contains only two different values. Consider converting it to a factor.Variable `x.B` contains only two different values. Consider converting it to a factor.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Variable `x.A` contains only two different values. Consider converting it to a factor.Variable `x.B` contains only two different values. Consider converting it to a factor.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Variable `x.A` contains only two different values. Consider converting it to a factor.Variable `x.B` contains only two different values. Consider converting it to a factor.</span></div><div class='output co'>#&gt; Kendall's W |       95% CI
 #&gt; --------------------------
 #&gt; 0.11        | [0.11, 1.00]</div><div class='input'><span class='co'># }</span>
 
