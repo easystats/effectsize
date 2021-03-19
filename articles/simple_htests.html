@@ -523,7 +523,7 @@
 <div id="rank-one-way-repeated-measures-anova" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rank-one-way-repeated-measures-anova" class="anchor"></a>Rank One way Repeated-Measures ANOVA</h2>
-<p>For a rank based repeated measures one-way ANOVA, Kendall’s <em>W</em> is a measure of agreement on the effect of condition between various “blocks” (the subjects), or more often conceptualized as a measure of reliability of the rating / scores of observations (or “groups”) between “raters”.</p>
+<p>For a rank based repeated measures one-way ANOVA, Kendall’s <em>W</em> is a measure of agreement on the effect of condition between various “blocks” (the subjects), or more often conceptualized as a measure of reliability of the rating / scores of observations (or “groups”) between “raters” (“blocks”).</p>
 <div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Subjects are COLUMNS</span>
 <span class="op">(</span><span class="va">ReactionTimes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>
@@ -559,7 +559,7 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/rank_biserial.html">kendalls_w</a></span><span class="op">(</span><span class="va">ReactionTimes</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Kendall's W |       95% CI
 &gt; --------------------------
-&gt; 0.08        | [0.08, 1.00]</code></pre>
+&gt; 0.80        | [0.76, 1.00]</code></pre>
 </div>
 </div>
 <div id="references" class="section level1">
