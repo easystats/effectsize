@@ -446,7 +446,7 @@ test_that("include_response | parameters", {
 
   data(iris)
   iris$Sepal.Length <- iris$Sepal.Length * 5
-  m <- lm(Sepal.Length ~ Petal.Length + Petal.Width, data = iris)
+  m <<- lm(Sepal.Length ~ Petal.Length + Petal.Width, data = iris)
 
   # parameters ---
   pars <- parameters::model_parameters(m)
