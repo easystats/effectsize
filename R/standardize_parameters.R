@@ -6,6 +6,10 @@
 #' @param method The method used for standardizing the parameters. Can be
 #'   `"refit"` (default), `"posthoc"`, `"smart"`, `"basic"` or `"pseudo"`. See
 #'   'Details'.
+#' @param include_response If `TRUE` (default), the response value will also be
+#'   standardized. If `FALSE`, only the predictors will be standardized. For
+#'   GLMs the response value will never be standardized (see *Generalized Linear
+#'   Models* section).
 #' @inheritParams standardize
 #' @inheritParams chisq_to_phi
 #' @param ... For `standardize_parameters()`, arguments passed to
@@ -146,7 +150,7 @@
 #' - Gelman, A. (2008). Scaling regression inputs by dividing by two standard deviations. Statistics in medicine, 27(15), 2865-2873.
 #'
 #' @export
-standardize_parameters <- function(model, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, parameters, ...) {
+standardize_parameters <- function(model, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, include_response = TRUE, verbose = TRUE, parameters, ...) {
   if (!missing(parameters)) {
     warning(
       "'parameters' argument is deprecated, and will not be used.",
@@ -160,12 +164,15 @@ standardize_parameters <- function(model, method = "refit", ci = 0.95, robust = 
 #' @importFrom parameters model_parameters
 #' @importFrom insight model_info
 #' @export
-standardize_parameters.default <- function(model, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
+standardize_parameters.default <- function(model, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, include_response = TRUE, verbose = TRUE, ...) {
   object_name <- deparse(substitute(model), width.cutoff = 500)
   method <- match.arg(method, c("refit", "posthoc", "smart", "basic", "classic", "pseudo"))
 
+  m_info <- insight::model_info(model)
+  include_response <- include_response && !.no_response_standardize(m_info)
+
   if (method == "refit") {
-    model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose)
+    model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose, include_response = include_response)
   }
   mi <- insight::model_info(model)
 
@@ -179,7 +186,7 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   coefficient_name <- attr(pars, "coefficient_name")
 
   if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
-    pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, exponentiate, verbose)
+    pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, exponentiate, include_response, verbose)
 
     method <- attr(pars, "std_method")
     robust <- attr(pars, "robust")
@@ -215,12 +222,13 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   attr(pars, "robust") <- robust
   attr(pars, "object_name") <- object_name
   attr(pars, "ci") <- ci
+  attr(pars, "include_response") <- include_response
   class(pars) <- c("effectsize_std_params", "effectsize_table", "see_effectsize_table", "data.frame")
   return(pars)
 }
 
 #' @export
-standardize_parameters.parameters_model <- function(model, method = "refit", ci = NULL, robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
+standardize_parameters.parameters_model <- function(model, method = "refit", ci = NULL, robust = FALSE, two_sd = FALSE, include_response = TRUE, verbose = TRUE, ...) {
   if (method == "refit") {
     stop("Method 'refit' not supported for 'model_parameters()", call. = TRUE)
   }
@@ -234,8 +242,11 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   model <- .get_object(pars)
   if (is.null(model)) model <- attr(pars, "object")
 
+  m_info <- insight::model_info(model)
+  include_response <- include_response && !.no_response_standardize(m_info)
+
   if (is.null(exponentiate <- attr(pars, "exponentiate"))) exponentiate <- FALSE
-  pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, exponentiate, verbose)
+  pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, exponentiate, include_response, verbose)
   method <- attr(pars, "std_method")
   robust <- attr(pars, "robust")
 
@@ -257,6 +268,7 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   attr(pars, "two_sd") <- two_sd
   attr(pars, "robust") <- robust
   attr(pars, "ci") <- ci
+  attr(pars, "include_response") <- include_response
   class(pars) <- c("effectsize_std_params", "effectsize_table", "see_effectsize_table", "data.frame")
   return(pars)
 }
@@ -268,6 +280,7 @@ standardize_parameters.bootstrap_model <-
            ci = 0.95,
            robust = FALSE,
            two_sd = FALSE,
+           include_response = TRUE,
            verbose = TRUE,
            ...) {
     object_name <- deparse(substitute(model), width.cutoff = 500)
@@ -275,6 +288,9 @@ standardize_parameters.bootstrap_model <-
 
     pars <- model
     model <- attr(pars, "original_model")
+
+    m_info <- insight::model_info(model)
+    include_response <- include_response && !.no_response_standardize(m_info)
 
     if (method == "refit") {
       stop("The 'refit' method is not supported for bootstrapped models.")
@@ -290,7 +306,7 @@ standardize_parameters.bootstrap_model <-
 
 
     if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
-      pars <- .standardize_posteriors_posthoc(pars, method, model, robust, two_sd, verbose)
+      pars <- .standardize_posteriors_posthoc(pars, method, model, robust, two_sd, include_response, verbose)
 
       method <- attr(pars, "std_method")
       robust <- attr(pars, "robust")
@@ -307,6 +323,7 @@ standardize_parameters.bootstrap_model <-
     attr(pars, "robust") <- robust
     attr(pars, "object_name") <- object_name
     attr(pars, "ci") <- ci
+    attr(pars, "include_response") <- include_response
     class(pars) <- c("effectsize_std_params", "effectsize_table", "see_effectsize_table", "data.frame")
     return(pars)
   }
@@ -318,6 +335,7 @@ standardize_parameters.bootstrap_parameters <-
            ci = 0.95,
            robust = FALSE,
            two_sd = FALSE,
+           include_response = TRUE,
            verbose = TRUE,
            ...) {
 
@@ -326,6 +344,7 @@ standardize_parameters.bootstrap_parameters <-
                            ci = ci,
                            robust = robust,
                            two_sd = two_sd,
+                           include_response = include_response,
                            verbose = verbose,
                            ...)
   }
@@ -334,7 +353,7 @@ standardize_parameters.bootstrap_parameters <-
 
 #' @keywords internal
 #' @importFrom insight model_info find_random
-.standardize_parameters_posthoc <- function(pars, method, model, robust, two_sd, exponentiate, verbose) {
+.standardize_parameters_posthoc <- function(pars, method, model, robust, two_sd, exponentiate, include_response, verbose) {
   # Sanity Check for "pseudo"
   method <- .should_pseudo(method, model)
 
@@ -372,14 +391,20 @@ standardize_parameters.bootstrap_parameters <-
     stop("'method' must be one of 'basic', 'posthoc', 'smart' or 'pseudo'.")
   }
 
+
+  .dev_pred <- deviations[[col_dev_pred]]
+  .dev_resp <- deviations[[col_dev_resp]]
+  if (!include_response) .dev_resp <- 1
+  .dev_factor <- .dev_pred / .dev_resp
+
   # Sapply standardization
   pars[, colnames(pars) %in% .col_2_scale] <- lapply(
     pars[, colnames(pars) %in% .col_2_scale, drop = FALSE],
     function(x) {
       if (exponentiate) {
-        x^(deviations[[col_dev_pred]] / deviations[[col_dev_resp]])
+        x ^ .dev_factor
       } else {
-        x * deviations[[col_dev_pred]] / deviations[[col_dev_resp]]
+        x * .dev_factor
       }
     }
   )
@@ -409,18 +434,22 @@ standardize_parameters.bootstrap_parameters <-
 
 #' @rdname standardize_parameters
 #' @export
-standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_sd = FALSE, verbose = TRUE, ...) {
+standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_sd = FALSE, include_response = TRUE, verbose = TRUE, ...) {
   object_name <- deparse(substitute(model), width.cutoff = 500)
 
+  m_info <- insight::model_info(model)
+  include_response <- include_response && !.no_response_standardize(m_info)
+
   if (method == "refit") {
-    model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose)
+    model <- standardize(model, robust = robust, two_sd = two_sd, include_response = include_response,
+                         verbose = verbose)
   }
 
   pars <- insight::get_parameters(model)
 
 
   if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
-    pars <- .standardize_posteriors_posthoc(pars, method, model, robust, two_sd, verbose)
+    pars <- .standardize_posteriors_posthoc(pars, method, model, robust, two_sd, include_response, verbose)
 
     method <- attr(pars, "std_method")
     robust <- attr(pars, "robust")
@@ -430,6 +459,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   attr(pars, "std_method") <- method
   attr(pars, "two_sd") <- two_sd
   attr(pars, "robust") <- robust
+  attr(pars, "include_response") <- include_response
   attr(pars, "object_name") <- object_name
   class(pars) <- c("effectsize_std_params", class(pars))
   return(pars)
@@ -439,7 +469,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 
 #' @keywords internal
 #' @importFrom insight model_info find_random
-.standardize_posteriors_posthoc <- function(pars, method, model, robust, two_sd, verbose) {
+.standardize_posteriors_posthoc <- function(pars, method, model, robust, two_sd, include_response, verbose) {
   # Sanity Check for "pseudo"
   method <- .should_pseudo(method, model)
 
@@ -473,8 +503,13 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
     stop("'method' must be one of 'basic', 'posthoc', 'smart' or 'pseudo'.")
   }
 
+  .dev_pred <- deviations[[col_dev_pred]]
+  .dev_resp <- deviations[[col_dev_resp]]
+  if (!include_response) .dev_resp <- 1
+  .dev_factor <- .dev_pred / .dev_resp
+
   # Sapply standardization
-  pars <- t(t(pars) * deviations[[col_dev_pred]] / deviations[[col_dev_resp]])
+  pars <- t(t(pars) * .dev_factor)
   pars <- as.data.frame(pars)
 
   attr(pars, "std_method") <- method

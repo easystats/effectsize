@@ -22,6 +22,9 @@ if (require("testthat") && require("effectsize")) {
 
     es <- standardize_parameters(lm(mpg ~ cyl + gear, mtcars), two_sd = TRUE)
     expect_output(print(es), regexp = "two")
+
+    es <- standardize_parameters(lm(mpg ~ cyl + gear, mtcars), include_response = FALSE)
+    expect_output(print(es), regexp = "unstandardized")
   })
 
 

@@ -11,6 +11,7 @@ standardize_parameters(
   ci = 0.95,
   robust = FALSE,
   two_sd = FALSE,
+  include_response = TRUE,
   verbose = TRUE,
   parameters,
   ...
@@ -21,6 +22,7 @@ standardize_posteriors(
   method = "refit",
   robust = FALSE,
   two_sd = FALSE,
+  include_response = TRUE,
   verbose = TRUE,
   ...
 )
@@ -44,6 +46,11 @@ mean and dividing it by the standard deviation (SD).}
 model coefficients of continuous parameters comparable to coefficients
 related to binary predictors, when applied to \strong{the predictors} (not the
 outcome) (Gelman, 2008).}
+
+\item{include_response}{If \code{TRUE} (default), the response value will also be
+standardized. If \code{FALSE}, only the predictors will be standardized. For
+GLMs the response value will never be standardized (see \emph{Generalized Linear
+Models} section).}
 
 \item{verbose}{Toggle warnings and messages on or off.}
 

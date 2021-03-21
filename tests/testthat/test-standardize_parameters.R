@@ -399,9 +399,9 @@ if (require("testthat") && require("effectsize")) {
       sm3$Std_Coefficient[6:8],
       tolerance = 0.01
     )
-    expect_equal(mp$Coefficient[6:8],
-      sm4$Std_Coefficient[6:8],
-      tolerance = 0.01
+    expect_equal(mp$Coefficient[7:8],
+      sm4$Std_Coefficient[7:8],
+      tolerance = 0.1
     )
 
     # get count numerics al right
@@ -415,3 +415,67 @@ if (require("testthat") && require("effectsize")) {
     )
   })
 }
+
+test_that("include_response | (g)lm", {
+  # lm ---
+  data(iris)
+  iris$Sepal.Length <- iris$Sepal.Length * 5
+  m <- lm(Sepal.Length ~ Petal.Length + Petal.Width, data = iris)
+
+  m_z <- standardize(m, include_response = FALSE)
+  par_z0 <- standardize_parameters(m, method = "basic")
+  par_z1 <- standardize_parameters(m, include_response = FALSE)
+  par_z2 <- standardize_parameters(m, method = "basic", include_response = FALSE)
+
+  expect_equal(coef(m_z), par_z1$Std_Coefficient, ignore_attr = TRUE)
+  expect_equal(par_z1$Std_Coefficient[-1], par_z2$Std_Coefficient[-1])
+  expect_equal(par_z0$Std_Coefficient * sd(iris$Sepal.Length), par_z2$Std_Coefficient)
+
+  # glm ---
+  m <- glm(am ~ mpg, mtcars, family = binomial())
+  expect_equal(
+    standardize_parameters(m),
+    standardize_parameters(m, include_response = FALSE),
+    ignore_attr = TRUE
+  )
+})
+
+
+test_that("include_response | parameters", {
+  skip_if_not_installed("parameters")
+
+  data(iris)
+  iris$Sepal.Length <- iris$Sepal.Length * 5
+  m <- lm(Sepal.Length ~ Petal.Length + Petal.Width, data = iris)
+
+  # parameters ---
+  pars <- parameters::model_parameters(m)
+  pars_z0 <- standardize_parameters(pars, method = "basic")
+  pars_z1 <- standardize_parameters(pars, method = "basic", include_response = FALSE)
+  expect_equal(pars_z0$Std_Coefficient[-1] * sd(iris$Sepal.Length), pars_z1$Std_Coefficient[-1])
+
+  # boot ---
+  pars <- parameters::bootstrap_parameters(m)
+  pars_z0 <- standardize_parameters(pars, method = "basic")
+  pars_z1 <- standardize_parameters(pars, method = "basic", include_response = FALSE)
+  expect_equal(pars_z0$Std_Coefficient[-1] * sd(iris$Sepal.Length), pars_z1$Std_Coefficient[-1])
+})
+
+
+test_that("include_response | bayes", {
+  skip_if_not_installed("rstanarm")
+  skip_on_cran()
+
+  data(iris)
+  iris$Sepal.Length <- iris$Sepal.Length * 5
+  m <- rstanarm::stan_glm(Sepal.Length ~ Petal.Length + Petal.Width, data = iris, refresh = 0)
+
+  m_z <- standardize(m, include_response = FALSE)
+  par_z0 <- standardize_posteriors(m, method = "basic")
+  par_z1 <- standardize_posteriors(m, include_response = FALSE)
+  par_z2 <- standardize_posteriors(m, method = "basic", include_response = FALSE)
+
+  expect_equal(sapply(insight::get_parameters(m_z), mean), sapply(par_z1, mean), tolerance = 0.1)
+  expect_equal(sapply(par_z1, mean)[-1], sapply(par_z2, mean)[-1], tolerance = 0.1)
+  expect_equal(sapply(par_z0, mean) * sd(iris$Sepal.Length), sapply(par_z2, mean), tolerance = 0.1)
+})

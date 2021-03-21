@@ -47,8 +47,20 @@ print.effectsize_std_params <- function(x, digits = 2, ...) {
       "\n- Scaled by %s %s.\n",
       ifelse(attr(x, "two_sd"), "two", "one"),
       ifelse(attr(x, "robust"), "MAD(s) from the median", "SD(s) from the mean")
+
     )
     footer <- c(footer, "cyan")
+  }
+
+  # include_response
+  if (!attr(x, "include_response")) {
+    msg <- "(Response is unstandardized)\n"
+    if (length(footer)) {
+      footer[1] <- paste0(footer[1], msg)
+    } else {
+      footer <- paste0("\n", msg)
+      footer <- c(footer, "cyan")
+    }
   }
 
   attr(x, "table_footer") <- footer

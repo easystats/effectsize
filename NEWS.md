@@ -1,5 +1,10 @@
 # effectsize 0.4.4.0001
 
+## New features
+
+- `standardize_parameters()` gains the `include_response` argument (default to `TRUE`) ( #309 ). 
+
+
 ## Bug fixes
 
 - `kendalls_w()` now actually returns correct effect size. Previous estimates were incorrect, and based on transposing the groups and blocks.
