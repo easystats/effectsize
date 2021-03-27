@@ -53,7 +53,7 @@ In both theoretical and applied research, it is often of interest to assess the 
 
 ### Standardized Differences
 
-**effectsize** provides functions for estimating the common indices of standardized differences such as Cohen's *d* (`cohens_d()`), Hedge's *g* (`hedges_g()`) for both paired and independent samples [@cohen1988statistical; @hedges1985statistical], and Glass' $\Delta$ (`glass_delta()`) for independent samples with different variances [@hedges1985statistical].
+**effectsize** provides functions for estimating the common indices of standardized differences such as Cohen's *d* (`cohens_d()`), Hedges' *g* (`hedges_g()`) for both paired and independent samples [@cohen1988statistical; @hedges1985statistical], and Glass' $\Delta$ (`glass_delta()`) for independent samples with different variances [@hedges1985statistical].
 
 ``` r
 cohens_d(mpg ~ am, data = mtcars)
