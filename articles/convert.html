@@ -202,11 +202,11 @@ r \approx \frac{d}{\sqrt{d^2 + 4}}
 <span class="fl">5.28</span> <span class="op">/</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stanreg-methods.html" class="external-link">sigma</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; [1] 1.81</code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/t_to_d.html">t_to_d</a></span><span class="op">(</span><span class="fl">4.89</span>, df_error <span class="op">=</span> <span class="fl">29</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/t_to_r.html">t_to_d</a></span><span class="op">(</span><span class="fl">4.89</span>, df_error <span class="op">=</span> <span class="fl">29</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>&gt; [1] 1.82</code></pre>
 <p>We can convert these semi-<em>d</em> values to <em>r</em> values, but in this case these represent the <em>partial</em> correlation:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/t_to_d.html">t_to_r</a></span><span class="op">(</span><span class="fl">4.89</span>, df_error <span class="op">=</span> <span class="fl">29</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/t_to_r.html">t_to_r</a></span><span class="op">(</span><span class="fl">4.89</span>, df_error <span class="op">=</span> <span class="fl">29</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; r    |       95% CI
 &gt; -------------------
 &gt; 0.67 | [0.43, 0.80]</code></pre>
@@ -320,7 +320,7 @@ RR = \frac{OR}{(1 - p0 + (p0 \times OR))}
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9001.</p>
 </div>
 
       </footer>

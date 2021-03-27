@@ -74,6 +74,9 @@ See Effect Size from Test Statistics vignette." />
 
 
 
+<!-- dependencies from examples -->
+
+
   
 
   
@@ -193,17 +196,17 @@ etc.).
 See <a href='https://easystats.github.io/effectsize/articles/from_test_statistics.html'>Effect Size from Test Statistics vignette.</a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>t_to_d</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>df_error</span>, paired <span class='op'>=</span> <span class='cn'>FALSE</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>pooled</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'><a href='t_to_r.html'>t_to_d</a></span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>df_error</span>, paired <span class='op'>=</span> <span class='cn'>FALSE</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>pooled</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>z_to_d</span><span class='op'>(</span><span class='va'>z</span>, <span class='va'>n</span>, paired <span class='op'>=</span> <span class='cn'>FALSE</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>pooled</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'><a href='t_to_r.html'>z_to_d</a></span><span class='op'>(</span><span class='va'>z</span>, <span class='va'>n</span>, paired <span class='op'>=</span> <span class='cn'>FALSE</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>pooled</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>F_to_d</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>df</span>, <span class='va'>df_error</span>, paired <span class='op'>=</span> <span class='cn'>FALSE</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'><a href='t_to_r.html'>F_to_d</a></span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>df</span>, <span class='va'>df_error</span>, paired <span class='op'>=</span> <span class='cn'>FALSE</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>t_to_r</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'><a href='t_to_r.html'>t_to_r</a></span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>z_to_r</span><span class='op'>(</span><span class='va'>z</span>, <span class='va'>n</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'><a href='t_to_r.html'>z_to_r</a></span><span class='op'>(</span><span class='va'>z</span>, <span class='va'>n</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>F_to_r</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>df</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'><a href='t_to_r.html'>F_to_r</a></span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>df</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -300,18 +303,18 @@ distributions. Educational and Psychological Measurement, 61(4), 532-574.</p></l
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## t Tests</span>
 <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>)</span>, var.equal <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'>t_to_d</span><span class='op'>(</span>t <span class='op'>=</span> <span class='va'>res</span><span class='op'>$</span><span class='va'>statistic</span>, <span class='va'>res</span><span class='op'>$</span><span class='va'>parameter</span><span class='op'>)</span>
+<span class='fu'><a href='t_to_r.html'>t_to_d</a></span><span class='op'>(</span>t <span class='op'>=</span> <span class='va'>res</span><span class='op'>$</span><span class='va'>statistic</span>, <span class='va'>res</span><span class='op'>$</span><span class='va'>parameter</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; d     |         95% CI
 #&gt; ----------------------
-#&gt; -2.19 | [-3.23, -1.12]</div><div class='input'><span class='fu'>t_to_r</span><span class='op'>(</span>t <span class='op'>=</span> <span class='va'>res</span><span class='op'>$</span><span class='va'>statistic</span>, <span class='va'>res</span><span class='op'>$</span><span class='va'>parameter</span><span class='op'>)</span>
+#&gt; -2.19 | [-3.23, -1.12]</div><div class='input'><span class='fu'><a href='t_to_r.html'>t_to_r</a></span><span class='op'>(</span>t <span class='op'>=</span> <span class='va'>res</span><span class='op'>$</span><span class='va'>statistic</span>, <span class='va'>res</span><span class='op'>$</span><span class='va'>parameter</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; r     |         95% CI
 #&gt; ----------------------
 #&gt; -0.74 | [-0.85, -0.49]</div><div class='input'>
 <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>sleep</span>, <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span><span class='op'>(</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>]</span>, <span class='va'>extra</span><span class='op'>[</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>2</span><span class='op'>]</span>, paired <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>t_to_d</span><span class='op'>(</span>t <span class='op'>=</span> <span class='va'>res</span><span class='op'>$</span><span class='va'>statistic</span>, <span class='va'>res</span><span class='op'>$</span><span class='va'>parameter</span>, paired <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'><a href='t_to_r.html'>t_to_d</a></span><span class='op'>(</span>t <span class='op'>=</span> <span class='va'>res</span><span class='op'>$</span><span class='va'>statistic</span>, <span class='va'>res</span><span class='op'>$</span><span class='va'>parameter</span>, paired <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; d     |         95% CI
 #&gt; ----------------------
-#&gt; -1.35 | [-2.23, -0.44]</div><div class='input'><span class='fu'>t_to_r</span><span class='op'>(</span>t <span class='op'>=</span> <span class='va'>res</span><span class='op'>$</span><span class='va'>statistic</span>, <span class='va'>res</span><span class='op'>$</span><span class='va'>parameter</span><span class='op'>)</span>
+#&gt; -1.35 | [-2.23, -0.44]</div><div class='input'><span class='fu'><a href='t_to_r.html'>t_to_r</a></span><span class='op'>(</span>t <span class='op'>=</span> <span class='va'>res</span><span class='op'>$</span><span class='va'>statistic</span>, <span class='va'>res</span><span class='op'>$</span><span class='va'>parameter</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; r     |         95% CI
 #&gt; ----------------------
 #&gt; -0.80 | [-0.91, -0.40]</div><div class='input'><span class='co'># \donttest{</span>
@@ -324,7 +327,7 @@ distributions. Educational and Psychological Measurement, 61(4), 532-574.</p></l
 #&gt; (Intercept) |       14.25 | 11.17 | [-8.67, 37.18] |  1.28 | 0.213 
 #&gt; complaints  |        0.75 |  0.10 | [ 0.55,  0.96] |  7.46 | &lt; .001
 #&gt; critical    |    1.91e-03 |  0.14 | [-0.28,  0.28] |  0.01 | 0.989 </div><div class='input'>
-<span class='op'>(</span><span class='va'>rs</span> <span class='op'>&lt;-</span> <span class='fu'>t_to_r</span><span class='op'>(</span><span class='va'>param_tab</span><span class='op'>$</span><span class='va'>t</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, <span class='va'>param_tab</span><span class='op'>$</span><span class='va'>df_error</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>(</span><span class='va'>rs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='t_to_r.html'>t_to_r</a></span><span class='op'>(</span><span class='va'>param_tab</span><span class='op'>$</span><span class='va'>t</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, <span class='va'>param_tab</span><span class='op'>$</span><span class='va'>df_error</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; r        |        95% CI
 #&gt; ------------------------
 #&gt; 0.82     | [ 0.67, 0.89]
@@ -347,7 +350,7 @@ distributions. Educational and Psychological Measurement, 61(4), 532-574.</p></l
   <span class='co'># Also see emmeans::eff_size()</span>
   <span class='va'>em_tension</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/emmeans/man/emmeans.html'>emmeans</a></span><span class='op'>(</span><span class='va'>warp.lm</span>, <span class='op'>~</span><span class='va'>tension</span><span class='op'>)</span> <span class='co'>#'</span>
   <span class='va'>diff_tension</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/graphics/pairs.html'>pairs</a></span><span class='op'>(</span><span class='va'>em_tension</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='fu'>t_to_d</span><span class='op'>(</span><span class='va'>diff_tension</span><span class='op'>$</span><span class='va'>t.ratio</span>, <span class='va'>diff_tension</span><span class='op'>$</span><span class='va'>df</span><span class='op'>)</span>
+  <span class='fu'><a href='t_to_r.html'>t_to_d</a></span><span class='op'>(</span><span class='va'>diff_tension</span><span class='op'>$</span><span class='va'>t.ratio</span>, <span class='va'>diff_tension</span><span class='op'>$</span><span class='va'>df</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div><div class='output co'>#&gt; <span class='message'>NOTE: Results may be misleading due to involvement in interactions</span></div><div class='output co'>#&gt; d    |        95% CI
 #&gt; --------------------
@@ -371,7 +374,7 @@ distributions. Educational and Psychological Measurement, 61(4), 532-574.</p></l
 </div>
 
 <div class="pkgdown">
-  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p></p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
