@@ -363,9 +363,15 @@ standardize.wbgee <- standardize.wbm
 
 
 #' @keywords internal
-.no_response_standardize <- function(info) {
+.no_response_standardize <- function(info, verbose = TRUE) {
+  if (is.null(info)) {
+    if (verbose)
+      warning("Unable to varify if response should not be standardized.\nResponse will be standardized.",
+              immediate. = TRUE, call. = FALSE)
+    return(FALSE)
+  }
   # check if model has a response variable that should not be standardized.
-  !info$is_linear | info$is_censored | info$family == "inverse.gaussian"
+  !info$is_linear || info$is_censored || info$family == "inverse.gaussian"
 
   ## TODO alternative would be to keep the below line for checking if no std possible
   ##      and then treat response for "Gamma()" or "inverse.gaussian" similar to log-terms

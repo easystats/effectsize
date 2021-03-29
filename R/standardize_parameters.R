@@ -169,7 +169,7 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   method <- match.arg(method, c("refit", "posthoc", "smart", "basic", "classic", "pseudo"))
 
   m_info <- insight::model_info(model)
-  include_response <- include_response && !.no_response_standardize(m_info)
+  include_response <- include_response && !.no_response_standardize(m_info, verbose = verbose)
 
   if (method == "refit") {
     model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose, include_response = include_response)
@@ -228,6 +228,14 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
 }
 
 #' @export
+standardize_parameters.mediate <- function(model, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, include_response = TRUE, verbose = TRUE, ...) {
+  if (method != "refit")
+    warning("Only method = 'refit' is supported for mediation models.", immediate. = TRUE)
+
+  NextMethod("standardize_parameters", method = "refit", ci = ci, robust = robust, two_sd = two_sd, include_response = include_response, verbose = verbose)
+}
+
+#' @export
 standardize_parameters.parameters_model <- function(model, method = "refit", ci = NULL, robust = FALSE, two_sd = FALSE, include_response = TRUE, verbose = TRUE, ...) {
   if (method == "refit") {
     stop("Method 'refit' not supported for 'model_parameters()", call. = TRUE)
@@ -243,7 +251,7 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   if (is.null(model)) model <- attr(pars, "object")
 
   m_info <- insight::model_info(model)
-  include_response <- include_response && !.no_response_standardize(m_info)
+  include_response <- include_response && !.no_response_standardize(m_info, verbose = verbose)
 
   if (is.null(exponentiate <- attr(pars, "exponentiate"))) exponentiate <- FALSE
   pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, exponentiate, include_response, verbose)
@@ -290,7 +298,7 @@ standardize_parameters.bootstrap_model <-
     model <- attr(pars, "original_model")
 
     m_info <- insight::model_info(model)
-    include_response <- include_response && !.no_response_standardize(m_info)
+    include_response <- include_response && !.no_response_standardize(m_info, verbose = verbose)
 
     if (method == "refit") {
       stop("The 'refit' method is not supported for bootstrapped models.")
@@ -438,7 +446,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   object_name <- deparse(substitute(model), width.cutoff = 500)
 
   m_info <- insight::model_info(model)
-  include_response <- include_response && !.no_response_standardize(m_info)
+  include_response <- include_response && !.no_response_standardize(m_info, verbose = verbose)
 
   if (method == "refit") {
     model <- standardize(model, robust = robust, two_sd = two_sd, include_response = include_response,

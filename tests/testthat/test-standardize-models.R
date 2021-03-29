@@ -192,5 +192,14 @@ if (require("testthat") && require("effectsize")) {
       unlist(out2[c("d0", "d1", "z0", "z1", "n0", "n1", "tau.coef")]),
       tolerance = 0.1
     )
+
+    med0 <- mediation::mediate(standardize(b.int), standardize(d.int), sims = 200, treat = "treat", mediator = "job_seek")
+    out0 <- summary(med0)
+    medz <- standardize(mediation::mediate(b.int, d.int, sims = 200, treat = "treat", mediator = "job_seek"))
+    outz <- summary(medz)
+    expect_equal(unlist(out0[c("d0", "d1", "z0", "z1", "n0", "n1", "tau.coef")]),
+                 unlist(outz[c("d0", "d1", "z0", "z1", "n0", "n1", "tau.coef")]),
+                 tolerance = 0.1
+    )
   })
 }
