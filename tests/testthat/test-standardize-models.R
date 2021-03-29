@@ -177,6 +177,7 @@ if (require("testthat") && require("effectsize")) {
     skip_if_not_installed("mediation")
     set.seed(444)
     data(jobs, package = "mediation")
+    jobs$econ_hard <- jobs$econ_hard * 20
     b.int <- lm(job_seek ~ treat * age + econ_hard + sex, data = jobs)
     d.int <- lm(depress2 ~ treat * job_seek * age + econ_hard + sex, data = jobs)
 
