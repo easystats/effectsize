@@ -58,7 +58,6 @@ bayestestR::equivalence_test
 #' Science, 8(4), 355–362. https://doi.org/10.1177/1948550617697177
 #'
 #' @examples
-#'
 #' \donttest{
 #' model <- aov(mpg ~ factor(am) * factor(cyl), data = mtcars)
 #' es <- eta_squared(model)

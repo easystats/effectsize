@@ -47,7 +47,6 @@ print.effectsize_std_params <- function(x, digits = 2, ...) {
       "\n- Scaled by %s %s.\n",
       ifelse(attr(x, "two_sd"), "two", "one"),
       ifelse(attr(x, "robust"), "MAD(s) from the median", "SD(s) from the mean")
-
     )
     footer <- c(footer, "cyan")
   }

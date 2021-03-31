@@ -37,19 +37,22 @@ if (require("testthat") && require("effectsize")) {
 
   # bootstrap_model ---------------------------------------------------------
 
-  test_that("standardize_parameters (bootstrap_model)",{
+  test_that("standardize_parameters (bootstrap_model)", {
     skip_if_not_installed("boot")
     m <- lm(mpg ~ factor(cyl) + hp, mtcars)
 
-    set.seed(1); bm_draws <- parameters::bootstrap_model(m, iterations = 599)
-    set.seed(1); bm_tab <- parameters::bootstrap_parameters(m, iterations = 599)
+    set.seed(1)
+    bm_draws <- parameters::bootstrap_model(m, iterations = 599)
+    set.seed(1)
+    bm_tab <- parameters::bootstrap_parameters(m, iterations = 599)
 
     out_true <- standardize_parameters(m, method = "basic")
     out_boot1 <- standardize_parameters(bm_draws, method = "basic")
     out_boot2 <- standardize_parameters(bm_tab, method = "basic")
 
     expect_equal(out_boot1$Std_Coefficient, out_true$Std_Coefficient,
-                 tolerance = 0.05)
+      tolerance = 0.05
+    )
     expect_equal(out_boot1, out_boot2, ignore_attr = TRUE)
     expect_error(standardize_parameters(bm_draws, method = "refit"))
     expect_error(standardize_parameters(bm_tab, method = "refit"))

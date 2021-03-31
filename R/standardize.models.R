@@ -365,9 +365,11 @@ standardize.wbgee <- standardize.wbm
 #' @keywords internal
 .no_response_standardize <- function(info, verbose = TRUE) {
   if (is.null(info)) {
-    if (verbose)
+    if (verbose) {
       warning("Unable to varify if response should not be standardized.\nResponse will be standardized.",
-              immediate. = TRUE, call. = FALSE)
+        immediate. = TRUE, call. = FALSE
+      )
+    }
     return(FALSE)
   }
   # check if model has a response variable that should not be standardized.

@@ -11,20 +11,26 @@ if (require("testthat") && require("effectsize")) {
 
     expect_equal(
       format_standardize(c(-1, 0, 1, 2), reference = ref),
-      structure(4:1, .Label = c("+2 SD", "+1 SD", "Mean", "-1 SD"),
-                class = "factor")
+      structure(4:1,
+        .Label = c("+2 SD", "+1 SD", "Mean", "-1 SD"),
+        class = "factor"
+      )
     )
 
     expect_equal(
       format_standardize(c(-1, 0, 1, 2), reference = ref, robust = TRUE),
-      structure(4:1, .Label = c("+2 MAD", "+1 MAD", "Median", "-1 MAD"),
-                class = "factor")
+      structure(4:1,
+        .Label = c("+2 MAD", "+1 MAD", "Median", "-1 MAD"),
+        class = "factor"
+      )
     )
 
     expect_equal(
       format_standardize(c(-1, 0, 1, 2), reference = ref, robust = TRUE, digits = 2),
-      structure(4:1, .Label = c("+2.00 MAD", "+1.00 MAD", "Median", "-1.00 MAD"),
-                class = "factor")
+      structure(4:1,
+        .Label = c("+2.00 MAD", "+1.00 MAD", "Median", "-1.00 MAD"),
+        class = "factor"
+      )
     )
   })
 }

@@ -123,7 +123,7 @@ if (require("testthat") && require("effectsize")) {
   })
 
 
-# Unstandardize -----------------------------------------------------------
+  # Unstandardize -----------------------------------------------------------
   test_that("unstandardize, numeric", {
     data(iris)
     x <- standardize(iris$Petal.Length)
@@ -164,13 +164,15 @@ if (require("testthat") && require("effectsize")) {
 
     x <- standardize(iris, select = "Petal.Length")
     rez <- unstandardize(x,
-                         center = c(Petal.Length = mean(iris$Petal.Length)),
-                         scale = c(Petal.Length = stats::sd(iris$Petal.Length)))
+      center = c(Petal.Length = mean(iris$Petal.Length)),
+      scale = c(Petal.Length = stats::sd(iris$Petal.Length))
+    )
     expect_equal(rez, iris, tolerance = 0.1, ignore_attr = TRUE)
 
     expect_error(unstandardize(x,
-                               center = mean(iris$Petal.Length),
-                               scale = stats::sd(iris$Petal.Length)))
+      center = mean(iris$Petal.Length),
+      scale = stats::sd(iris$Petal.Length)
+    ))
 
     x <- standardize(iris)
     rez <- unstandardize(x, center = rep(0, 4), scale = rep(1, 4))
