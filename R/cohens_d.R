@@ -405,7 +405,7 @@ glass_delta <- function(x,
           call. = FALSE
         )
       }
-      if (length(x) != length(y)) {
+      if (ifelse(inherits(x, "Pair"), nrow(x), length(x)) != length(y)) {
         stop("Grouping variable must be the same length.", call. = FALSE)
       }
 
@@ -418,6 +418,10 @@ glass_delta <- function(x,
         call. = FALSE
       )
     }
+  }
+
+  if (inherits(x, "Pair")) {
+    x <- -apply(x, 1, diff)
   }
 
   list(x = x, y = y)

@@ -2,6 +2,7 @@
 
 ## New features
 
+- `cohens_d()` family now supports `Pairs()` objects as input.
 - `standardize_parameters()` gains the `include_response` argument (default to `TRUE`) ( #309 ). 
 
 
