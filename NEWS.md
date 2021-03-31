@@ -2,6 +2,7 @@
 
 ## New features
 
+- `standardize_parameters()` + `eta_sqaured()` support `tidymodels` (when that the underlying model is supported; #311 ).
 - `cohens_d()` family now supports `Pairs()` objects as input.
 - `standardize_parameters()` gains the `include_response` argument (default to `TRUE`) ( #309 ). 
 

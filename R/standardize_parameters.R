@@ -358,6 +358,30 @@ standardize_parameters.bootstrap_parameters <-
   }
 
 
+#' @export
+standardize_parameters.model_fit <-
+  function(model,
+           method = "refit",
+           ci = 0.95,
+           robust = FALSE,
+           two_sd = FALSE,
+           include_response = TRUE,
+           verbose = TRUE,
+           ...) {
+
+    standardize_parameters(
+      model$fit,
+      method = method,
+      ci = ci,
+      robust = robust,
+      two_sd = two_sd,
+      include_response = include_response,
+      verbose = verbose,
+      ...
+    )
+  }
+
+
 
 #' @keywords internal
 #' @importFrom insight model_info find_random

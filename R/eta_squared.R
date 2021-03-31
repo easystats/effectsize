@@ -1164,6 +1164,26 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
 .anova_es.anova.rms <- .anova_es.rms
 
+
+#' @export
+.anova_es.model_fit <- function(model,
+                                type = c("eta", "omega", "epsilon"),
+                                partial = TRUE,
+                                generalized = FALSE,
+                                ci = 0.9,
+                                verbose = TRUE,
+                                ...) {
+  .anova_es(
+    model$fit,
+    type = type,
+    partial = partial,
+    generalized = generalized,
+    ci = ci,
+    verbose = verbose,
+    ...
+  )
+}
+
 # Utils -------------------------------------------------------------------
 
 #' @keywords internal
