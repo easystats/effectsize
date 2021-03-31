@@ -334,7 +334,7 @@ if (require("testthat") && require("effectsize")) {
   })
 
 
-# Include intercept -------------------------------------------------------
+  # Include intercept -------------------------------------------------------
 
 
 
@@ -377,8 +377,9 @@ if (require("testthat") && require("effectsize")) {
 
     suppressWarnings(suppressMessages(
       a <- afex::aov_car(value ~ treatment * gender + Error(id),
-                         include_aov = TRUE,
-                         data = obk.long)
+        include_aov = TRUE,
+        data = obk.long
+      )
     ))
 
     resE0 <- eta_squared(a)
@@ -398,5 +399,4 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(resE1[[2]][1], 0.9386555, tolerance = 0.01)
     expect_equal(resE1[[2]][1], resA1[[5]][1], tolerance = 0.01)
   })
-
 }

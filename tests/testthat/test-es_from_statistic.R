@@ -52,9 +52,9 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(res$CI_high, 1.469, tolerance = 0.01)
 
     res <- t_to_d(4, 68, paired = TRUE)
-    expect_equal(res$d, 0.970/2, tolerance = 0.01)
-    expect_equal(res$CI_low, 0.464/2, tolerance = 0.01)
-    expect_equal(res$CI_high, 1.469/2, tolerance = 0.01)
+    expect_equal(res$d, 0.970 / 2, tolerance = 0.01)
+    expect_equal(res$CI_low, 0.464 / 2, tolerance = 0.01)
+    expect_equal(res$CI_high, 1.469 / 2, tolerance = 0.01)
 
     res <- F_to_d(16, 1, 68)
     expect_equal(res$d, 0.970, tolerance = 0.01)

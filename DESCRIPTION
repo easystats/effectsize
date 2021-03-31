@@ -73,6 +73,7 @@ Suggests:
     rstantools,
     see,
     testthat,
+    tidymodels,
     tidyr,
     spelling
 RoxygenNote: 7.1.1.9001
