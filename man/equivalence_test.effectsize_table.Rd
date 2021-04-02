@@ -61,7 +61,6 @@ the function used to make the effect size table (\code{cohens_d}, \code{eta_squa
 }
 }
 \examples{
-
 \donttest{
 model <- aov(mpg ~ factor(am) * factor(cyl), data = mtcars)
 es <- eta_squared(model)

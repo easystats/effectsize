@@ -94,7 +94,6 @@ oddsratio_to_r(8.120534)
 d_to_r(1)
 r_to_oddsratio(0.4472136, log = TRUE)
 oddsratio_to_d(1.813799, log = TRUE)
-
 }
 \references{
 \itemize{
