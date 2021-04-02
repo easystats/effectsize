@@ -480,21 +480,17 @@ kendalls_w <- function(x,
 
 
 #' @keywords internal
-#' @importFrom stats model.frame lm
+#' @importFrom stats model.frame
 .rank_anova_xg <- function(x, groups, data) {
   if (inherits(frm <- x, "formula")) {
-    if (length(frm) != 3) {
-      stop("Formula must have the 'outcome ~ group'.", call. = FALSE)
-    }
+    mf <- stats::model.frame(formula = frm, data = data)
 
-    mf <- stats::model.frame(stats::lm(formula = frm, data = data))
+    if (length(frm) != 3 | ncol(mf) != 2) {
+      stop("Formula must have the form of 'outcome ~ group'.", call. = FALSE)
+    }
 
     x <- mf[[1]]
-    if (ncol(mf) == 2) {
-      groups <- factor(mf[[2]])
-    } else {
-      stop("Formula must have the 'outcome ~ group'.", call. = FALSE)
-    }
+    groups <- factor(mf[[2]])
   } else if (inherits(x, "list")) {
     groups <- rep(seq_along(x), sapply(x, length))
     x <- unsplit(x, groups)
@@ -509,20 +505,22 @@ kendalls_w <- function(x,
 }
 
 #' @keywords internal
-#' @importFrom stats model.frame lm reshape
+#' @importFrom stats model.frame reshape
 .kendalls_w_data <- function(x, groups, blocks, data = NULL) {
   if (inherits(frm <- x, "formula")) {
     if ((length(frm) != 3L) ||
       (length(frm[[3L]]) != 3L) ||
-      (frm[[3L]][[1L]] != as.name("|")) ||
-      (length(frm[[3L]][[2L]]) != 1L) ||
-      (length(frm[[3L]][[3L]]) != 1L)) {
+      (frm[[3L]][[1L]] != as.name("|"))) {
       stop("Formula must have the 'x ~ groups | blocks'.", call. = FALSE)
     }
 
     frm[[3L]][[1L]] <- as.name("+")
 
-    mf <- stats::model.frame(stats::lm(formula = frm, data = data))
+    mf <- stats::model.frame(formula = frm, data = data)
+
+    if (ncol(mf) != 3) {
+      stop("Formula must have only two terms on the RHS.", call. = FALSE)
+    }
 
     x <- mf[[1]]
     groups <- mf[[2]]

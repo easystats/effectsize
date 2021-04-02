@@ -352,10 +352,8 @@ glass_delta <- function(x,
 .deal_with_cohens_d_arguments <- function(x, y = NULL, data = NULL, verbose = TRUE) {
 
   # Sanity checks
-  if (inherits(x, "formula") | is.character(x) | is.character(y)) {
-    if (is.null(data)) { # && !is.data.frame(data <- y) ?
-      stop("Please provide data argument.")
-    }
+  if ((is.character(x) | is.character(y)) && is.null(data)) {
+    stop("Please provide data argument.")
   }
 
 
@@ -364,10 +362,10 @@ glass_delta <- function(x,
   # Formula
   if (inherits(x, "formula")) {
     if (length(x) != 3) {
-      stop("Formula must have the 'outcome ~ group'.", call. = FALSE)
+      stop("Formula must be two sided.", call. = FALSE)
     }
 
-    mf <- stats::model.frame(stats::lm(formula = x, data = data))
+    mf <- stats::model.frame(formula = x, data = data)
 
     x <- mf[[1]]
     if (ncol(mf) == 1) {
@@ -375,7 +373,7 @@ glass_delta <- function(x,
     } else if (ncol(mf) == 2) {
       y <- mf[[2]]
     } else {
-      stop("Formula must have the 'outcome ~ group'.", call. = FALSE)
+      stop("Formula must have only one term on the RHS.", call. = FALSE)
     }
 
     if (!is.null(y) && !is.factor(y)) y <- factor(y)

@@ -4,6 +4,7 @@ if (require("testthat") && require("effectsize")) {
     skip_if_not_installed("base", minimum_version = "3.6.0")
     x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
     y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
+
     rRB1 <- {
       set.seed(1)
       rank_biserial(x, y, paired = TRUE)
@@ -21,6 +22,20 @@ if (require("testthat") && require("effectsize")) {
     A <- c(48, 48, 77, 86, 85, 85, 16)
     B <- c(14, 34, 34, 77)
     expect_equal(rank_biserial(A, B)[[1]], 0.6071429, tolerance = 0.01)
+
+
+    df <- data.frame(
+      outcome = c(x,y),
+      g = factor(rep(0:1, each = 9))
+    )
+    expect_equal(
+      rank_biserial(outcome ~ g, data = df, ci = NULL),
+      rank_biserial(df$outcome ~ df$g, ci = NULL)
+    )
+    expect_equal(
+      rank_biserial(outcome ~ g, data = df, ci = NULL),
+      rank_biserial("outcome", "g", data = df, ci = NULL)
+    )
   })
 
 
@@ -39,6 +54,11 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(E[[1]], 0.05934066, tolerance = 0.01)
     expect_equal(E$CI_low, 0.01002212, tolerance = 0.01)
     expect_equal(E$CI_high, 0.7408143, tolerance = 0.01)
+
+    expect_equal(
+      rank_epsilon_squared(x ~ g, ci = NULL),
+      rank_epsilon_squared(x, g, ci = NULL)
+    )
   })
 
 
@@ -72,9 +92,11 @@ if (require("testthat") && require("effectsize")) {
     W1 <- kendalls_w(M1)
     W2 <- kendalls_w(value ~ name | id, data = M2, ci = NULL)
     W3 <- kendalls_w(M2$value, M2$name, M2$id, ci = NULL)
+    W4 <- kendalls_w(M2$value ~ M2$name | M2$id, ci = NULL)
 
     expect_equal(W1[[1]], W2[[1]])
     expect_equal(W1[[1]], W3[[1]])
+    expect_equal(W1[[1]], W4[[1]])
     expect_equal(W1[[1]], 0.11111111, tolerance = 0.01)
     expect_equal(W1$CI_low, 0.11111111, tolerance = 0.01)
     expect_equal(W1$CI_high, 1, tolerance = 0.01)

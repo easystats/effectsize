@@ -24,6 +24,7 @@ if (require("testthat") && require("effectsize")) {
     expect_error(cohens_d(a2, df$b), regexp = NA)
     expect_error(cohens_d(b ~ e, data = df), regexp = NA)
 
+    expect_error(cohens_d(df$a ~ df$c), regexp = NA)
     expect_equal(cohens_d("exp_a", "c", data = df), cohens_d(exp(a) ~ c, data = df))
 
     expect_error(cohens_d(a ~ b, data = df))
