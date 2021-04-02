@@ -25,9 +25,9 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(s1$CI_low, s2$CI_low)
     expect_equal(s1$CI_high, s2$CI_high)
 
-    mpe <<- parameters::model_parameters(model, exponentiate = TRUE)
+    mp_exp <<- parameters::model_parameters(model, exponentiate = TRUE)
     se1 <- standardize_parameters(model, method = "basic", exponentiate = TRUE)
-    se2 <- standardize_parameters(mpe, method = "basic", exponentiate = TRUE)
+    se2 <- standardize_parameters(mp_exp, method = "basic", exponentiate = TRUE)
 
     expect_equal(se1$Parameter, se2$Parameter)
     expect_equal(se1$Std_Coefficient, se2$Std_Coefficient)
