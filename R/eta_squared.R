@@ -441,7 +441,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     if (verbose) {
       txt_type <- ifelse(isTRUE(generalized) || is.character(generalized), "generalized", "partial")
       message(
-        "For one-way between subjects designs, ", txt_type, " ", type, " squared is equvilant to ", type, " squared.\n",
+        "For one-way between subjects designs, ", txt_type, " ", type, " squared is equivalent to ", type, " squared.\n",
         "Returning ", type, " squared."
       )
     }
@@ -880,7 +880,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   if (verbose && (partial || isTRUE(generalized) || is.character(generalized))) {
     txt_type <- ifelse(isTRUE(generalized) || is.character(generalized), "generalized", "partial")
     message(
-      "For one-way between subjects designs, ", txt_type, " ", type, " squared is equvilant to ", type, " squared.\n",
+      "For one-way between subjects designs, ", txt_type, " ", type, " squared is equivalent to ", type, " squared.\n",
       "Returning ", type, " squared."
     )
   }
