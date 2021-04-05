@@ -134,7 +134,7 @@ rank_biserial <- function(x,
     if (!grepl("Wilcoxon", x$method)) {
       stop("'x' is not a Wilcoxon-test!", call. = FALSE)
     }
-    return(effectsize(x, ci = ci, iterations = iterations))
+    return(effectsize(x, ci = ci, iterations = iterations, verbose = verbose))
   }
 
   ## Prep data
@@ -269,7 +269,7 @@ kendalls_w <- function(x,
     if (!grepl("Friedman", x$method)) {
       stop("'x' is not a Friedman-test!", call. = FALSE)
     }
-    return(effectsize(x, ci = ci, iterations = iterations))
+    return(effectsize(x, ci = ci, iterations = iterations, verbose = verbose))
   }
 
   ## prep data
