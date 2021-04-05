@@ -1,7 +1,7 @@
 Package: effectsize
 Type: Package
 Title: Indices of Effect Size and Standardized Parameters
-Version: 0.4.4.0001
+Version: 0.4.4-1
 Authors@R: c(
     person("Mattan S.", 
         "Ben-Shachar", 
@@ -39,43 +39,42 @@ Depends:
     R (>= 3.4)
 Imports:
     bayestestR (>= 0.8.2),
-    insight (>= 0.13.1),
+    insight (>= 0.13.2),
     parameters (>= 0.12.0),
     stats,
     utils
 Suggests:
-    afex,
-    BayesFactor,
     boot,
-    brms,
-    car,
     correlation,
     covr,
     dplyr,
-    emmeans,
     gamm4,
     ggplot2,
     knitr,
-    lavaan,
-    lm.beta,
     lme4,
     lmerTest,
-    MASS,
-    mediation,
     modelbased,
-    MuMIn,
     performance,
-    pscl,
-    rlang,
     rmarkdown,
-    rstan,
     rstanarm,
     rstantools,
     see,
+    spelling,
     testthat,
-    tidymodels,
-    tidyr,
-    spelling
+    tidyr
+Enhances:
+    afex,
+    BayesFactor,
+    brms,
+    car,
+    emmeans,
+    lavaan,
+    lm.beta,
+    MASS,
+    mediation,
+    MuMIn,
+    pscl,
+    tidymodels
 RoxygenNote: 7.1.1.9001
 Language: en-US
 VignetteBuilder: knitr

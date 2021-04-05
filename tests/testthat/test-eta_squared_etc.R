@@ -403,6 +403,7 @@ if (require("testthat") && require("effectsize")) {
 
   # tidymodels --------------------------------------------------------------
   test_that("ets_squared | tidymodels", {
+    skip_on_cran()
     skip_if_not_installed("tidymodels")
     require("tidymodels", quietly = TRUE)
 

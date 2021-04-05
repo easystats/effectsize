@@ -458,6 +458,7 @@ test_that("include_response | parameters", {
   expect_equal(pars_z0$Std_Coefficient[-1] * sd(iris$Sepal.Length), pars_z1$Std_Coefficient[-1])
 
   # boot ---
+  skip_if_not_installed("boot")
   pars <- parameters::bootstrap_parameters(m)
   pars_z0 <- standardize_parameters(pars, method = "basic")
   pars_z1 <- standardize_parameters(pars, method = "basic", include_response = FALSE)
