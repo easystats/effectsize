@@ -91,7 +91,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4.0001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4-1</span>
       </span>
     </div>
 
@@ -203,7 +203,10 @@ mean and dividing it by the standard deviation (SD).</p></td>
     </tr>
     <tr>
       <th>digits</th>
-      <td><p>Number of significant digits.</p></td>
+      <td><p>Number of significant digits. May also be <code>"scientific"</code>
+to return scientific notation. For the latter case, control the number of
+digits by adding the value as suffix, e.g. <code>digits = "scientific4"</code>
+to have scientific notation with 4 decimal places.</p></td>
     </tr>
     <tr>
       <th>...</th>
