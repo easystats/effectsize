@@ -20,7 +20,10 @@
 
 \item{...}{Arguments passed to or from other functions.}
 
-\item{digits}{Number of significant digits.}
+\item{digits}{Number of significant digits. May also be \code{"scientific"}
+to return scientific notation. For the latter case, control the number of
+digits by adding the value as suffix, e.g. \code{digits = "scientific4"}
+to have scientific notation with 4 decimal places.}
 
 \item{append_CL}{Should the Common Language Effect Sizes be printed as well?
 Only applicable to Cohen's \emph{d}, Hedges' \emph{g} for independent samples of

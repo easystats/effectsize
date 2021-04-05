@@ -16,7 +16,10 @@ median from the variables and dividing it by the median absolute deviation
 (MAD). If \code{FALSE}, variables are standardized by subtracting the
 mean and dividing it by the standard deviation (SD).}
 
-\item{digits}{Number of significant digits.}
+\item{digits}{Number of significant digits. May also be \code{"scientific"}
+to return scientific notation. For the latter case, control the number of
+digits by adding the value as suffix, e.g. \code{digits = "scientific4"}
+to have scientific notation with 4 decimal places.}
 
 \item{...}{Arguments passed to or from other methods.}
 }
