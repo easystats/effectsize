@@ -305,7 +305,7 @@ if (require("testthat") && require("effectsize")) {
     )
 
     ## No robust methods... (yet)
-    expect_warning(standardize_parameters(m, method = "pseudo", robust = TRUE), regexp = "robust")
+    expect_warning(standardize_parameters(m, method = "pseudo", robust = TRUE, verbose = FALSE), regexp = "robust")
 
 
     ## Correctly identify within and between terms
