@@ -167,7 +167,7 @@
 <p>But we can also treat the 2-level <code>group</code> variable as a numeric variable, and compute Pearon’s <em>r</em>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html" class="external-link">correlation</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span></code></pre></div>
-<pre><code>&gt; # Correlation table (pearson-method)
+<pre><code>&gt; # Correlation Matrix (pearson-method)
 &gt; 
 &gt; Parameter1 | Parameter2 |     r |        95% CI |  t(8) |      p
 &gt; ----------------------------------------------------------------
@@ -212,7 +212,7 @@ r \approx \frac{d}{\sqrt{d^2 + 4}}
 &gt; 0.67 | [0.43, 0.80]</code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html" class="external-link">correlation</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mpg"</span>, <span class="st">"am"</span>, <span class="st">"hp"</span><span class="op">)</span><span class="op">]</span>, partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span></code></pre></div>
-<pre><code>&gt; # Correlation table (pearson-method)
+<pre><code>&gt; # Correlation Matrix (pearson-method)
 &gt; 
 &gt; Parameter1 | Parameter2 |    r |       95% CI | t(30) |         p
 &gt; -----------------------------------------------------------------
