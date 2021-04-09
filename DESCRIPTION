@@ -79,6 +79,7 @@ RoxygenNote: 7.1.1.9001
 Language: en-US
 VignetteBuilder: knitr
 Encoding: UTF-8
+Remotes: easystats/parameters
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true
