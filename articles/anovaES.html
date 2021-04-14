@@ -146,18 +146,9 @@
 <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span>, data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span>
 
 <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter     | Coefficient |   SE |       95% CI | t(77) |      p
-&gt; ------------------------------------------------------------------
-&gt; (Intercept)   |        4.28 | 0.36 | [3.56, 5.00] | 11.85 | &lt; .001
-&gt; treatment [A] |        1.97 | 0.54 | [0.89, 3.05] |  3.64 | &lt; .001
-&gt; treatment [B] |        2.09 | 0.47 | [1.15, 3.03] |  4.42 | &lt; .001</code></pre>
 <p>But we can also ask about the overall effect of <code>treatment</code> - how much of the variation in our dependent variable <code>value</code> can be predicted by (or explained by) the variation between the <code>treatment</code> groups. Such a question can be answered with an ANOVA test:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/lavTestLRT.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter | Sum_Squares | df | Mean_Square |     F |      p
-&gt; -----------------------------------------------------------
-&gt; treatment |       72.23 |  2 |       36.11 | 11.08 | &lt; .001
-&gt; Residuals |      250.96 | 77 |        3.26 |       |</code></pre>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>As we can see, the variance in <code>value</code> (the <em>sums-of-squares</em>, or <em>SS</em>) has been split into pieces:</p>
 <ul>
 <li>The part associated with <code>treatment</code>.</li>
@@ -168,13 +159,10 @@
 \eta^2 = \frac{SS_{effect}}{SS_{total}} = \frac{72.23}{72.23 + 250.96} = 0.22
 \]</span></p>
 <p>and can be accessed via the <code><a href="../reference/eta_squared.html">eta_squared()</a></code> function:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/" class="external-link">effectsize</a></span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter | Eta2 |       90% CI
-&gt; -------------------------------
-&gt; treatment | 0.22 | [0.09, 0.34]</code></pre>
 <div id="adding-more-terms" class="section level2">
 <h2 class="hasAnchor">
 <a href="#adding-more-terms" class="anchor"></a>Adding More Terms</h2>
@@ -182,38 +170,18 @@
 <p><span class="math display">\[
 \eta^2_p = \frac{SS_{effect}}{SS_{effect} + SS_{error}}
 \]</span> which can also be accessed via the <code><a href="../reference/eta_squared.html">eta_squared()</a></code> function:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">phase</span> <span class="op">+</span> <span class="va">treatment</span>, data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter |     Eta2 |       90% CI
-&gt; -----------------------------------
-&gt; gender    |     0.03 | [0.00, 0.12]
-&gt; phase     | 9.48e-03 | [0.00, 0.05]
-&gt; treatment |     0.25 | [0.11, 0.37]</code></pre>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="co"># partial = TRUE by default</span></code></pre></div>
-<pre><code>&gt; Parameter | Eta2 (partial) |       90% CI
-&gt; -----------------------------------------
-&gt; gender    |           0.04 | [0.00, 0.13]
-&gt; phase     |           0.01 | [0.00, 0.07]
-&gt; treatment |           0.26 | [0.12, 0.38]</code></pre>
+<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="co"># partial = TRUE by default</span></code></pre></div>
 <p><em>(<code>phase</code> is a repeated-measures variable, but for simplicity it is not modeled as such.)</em></p>
-<p>In the calculation above, the <em>SS</em>s were computed sequentially - that is the <em>SS</em> for <code>phase</code> is computed after controlling for <code>gender</code>, and the <em>SS</em> for <code>treatment</code> is computed after controlling for both <code>gender</code> and <code>phase</code>. This method of sequential <em>SS</em> is called also <em>type-I</em> test. If this is what you want, that’s great - however in many fields (and other statistical programs) it is common to use “simultaneous” sums of squares (<em>type-II</em> or <em>type-III</em> tests), where each <em>SS</em> is computed controlling for all other predictors, regardless of order. This can be done with <code><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">car::Anova(type = ...)</a></code>:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">m</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter |     Eta2 |       90% CI
-&gt; -----------------------------------
-&gt; gender    |     0.05 | [0.00, 0.16]
-&gt; phase     | 9.22e-03 | [0.00, 0.05]
-&gt; treatment |     0.24 | [0.11, 0.37]</code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">m</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># partial = TRUE by default</span></code></pre></div>
-<pre><code>&gt; Parameter | Eta2 (partial) |       90% CI
-&gt; -----------------------------------------
-&gt; gender    |           0.07 | [0.01, 0.18]
-&gt; phase     |           0.01 | [0.00, 0.07]
-&gt; treatment |           0.26 | [0.12, 0.38]</code></pre>
+<p>In the calculation above, the <em>SS</em>s were computed sequentially - that is the <em>SS</em> for <code>phase</code> is computed after controlling for <code>gender</code>, and the <em>SS</em> for <code>treatment</code> is computed after controlling for both <code>gender</code> and <code>phase</code>. This method of sequential <em>SS</em> is called also <em>type-I</em> test. If this is what you want, that’s great - however in many fields (and other statistical programs) it is common to use “simultaneous” sums of squares (<em>type-II</em> or <em>type-III</em> tests), where each <em>SS</em> is computed controlling for all other predictors, regardless of order. This can be done with <code>car::Anova(type = ...)</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu">Anova</span><span class="op">(</span><span class="va">m</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu">Anova</span><span class="op">(</span><span class="va">m</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># partial = TRUE by default</span></code></pre></div>
 <p><span class="math inline">\(\eta^2_p\)</span> will always be larger than <span class="math inline">\(\eta^2\)</span>. The idea is to simulate the effect size in a design where only the term of interest was manipulated. This terminology assumes some causal relationship between the predictor and the outcome, which reflects the experimental world from which these analyses and measures hail; However, <span class="math inline">\(\eta^2_p\)</span> can also simply be seen as a <strong>signal-to-noise- ratio</strong>, as it only uses the term’s <em>SS</em> and the error-term’s <em>SS</em>.[^in repeated-measure designs the term-specific residual-<em>SS</em> is used for the computation of the effect size].</p>
 <p>(Note that in a one-way fixed-effect designs <span class="math inline">\(\eta^2 = \eta^2_p\)</span>.)</p>
 </div>
@@ -221,7 +189,7 @@
 <h2 class="hasAnchor">
 <a href="#adding-interactions" class="anchor"></a>Adding Interactions</h2>
 <p>When modeling interactions, it is important to center all of the predictors; for numeric variables this can be done by mean-centering the predictors; for factors this can be done by using <strong>effects-coding</strong> for the dummy variables. This unfortunately makes parameter interpretation harder, but <em>only</em> when this is does do the <em>SS</em>s associated with each lower-order term (or lower-order interaction) represent the <strong><em>SS</em></strong> <strong>main effect</strong> (with treatment coding they represent the <em>SS</em> of the simple effects).</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># compare</span>
 <span class="va">m_interaction1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span>, data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span>
 
@@ -235,31 +203,14 @@
   <span class="op">)</span>
 <span class="op">)</span>
 
-<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">m_interaction1</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter        | Eta2 (partial) |       90% CI
-&gt; ------------------------------------------------
-&gt; treatment        |           0.12 | [0.02, 0.23]
-&gt; gender           |       9.11e-03 | [0.00, 0.08]
-&gt; treatment:gender |           0.20 | [0.07, 0.33]</code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">m_interaction2</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter        | Eta2 (partial) |       90% CI
-&gt; ------------------------------------------------
-&gt; treatment        |           0.27 | [0.13, 0.39]
-&gt; gender           |           0.12 | [0.03, 0.24]
-&gt; treatment:gender |           0.20 | [0.07, 0.33]</code></pre>
+<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu">Anova</span><span class="op">(</span><span class="va">m_interaction1</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu">Anova</span><span class="op">(</span><span class="va">m_interaction2</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>If all of this type-III-effects-coding seems like a hassle, you can use the <code>afex</code> package, which takes care of all of this behind the scenes:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://afex.singmann.science/" class="external-link">afex</a></span><span class="op">)</span>
-<span class="va">m_afex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_car</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">Error</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Contrasts set to contr.sum for the following variables: treatment, gender</code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter        | Eta2 (partial) |       90% CI
-&gt; ------------------------------------------------
-&gt; treatment        |           0.27 | [0.13, 0.39]
-&gt; gender           |           0.12 | [0.03, 0.24]
-&gt; treatment:gender |           0.20 | [0.07, 0.33]</code></pre>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">afex</span><span class="op">)</span>
+<span class="va">m_afex</span> <span class="op">&lt;-</span> <span class="fu">aov_car</span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">Error</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="other-measures-of-effect-size" class="section level1">
@@ -275,20 +226,10 @@
 <li>
 <strong>Epsilon Squared</strong> (<span class="math inline">\(\epsilon^2\)</span>), also referred to as <em>Adjusted Eta Squared</em>.</li>
 </ul>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter        | Omega2 (partial) |       90% CI
-&gt; --------------------------------------------------
-&gt; treatment        |             0.24 | [0.10, 0.36]
-&gt; gender           |             0.10 | [0.02, 0.22]
-&gt; treatment:gender |             0.17 | [0.05, 0.29]</code></pre>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter        | Epsilon2 (partial) |       90% CI
-&gt; ----------------------------------------------------
-&gt; treatment        |               0.25 | [0.11, 0.37]
-&gt; gender           |               0.11 | [0.02, 0.23]
-&gt; treatment:gender |               0.18 | [0.06, 0.30]</code></pre>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></code></pre></div>
 <p>Both <span class="math inline">\(\omega^2\)</span> and <span class="math inline">\(\epsilon^2\)</span> (and their partial counterparts, <span class="math inline">\(\omega^2_p\)</span> &amp; <span class="math inline">\(\epsilon^2_p\)</span>) are unbiased estimators of the population’s <span class="math inline">\(\eta^2\)</span> (or <span class="math inline">\(\eta^2_p\)</span>, respectively), which is especially important is small samples. Though <span class="math inline">\(\omega^2\)</span> is the more popular choice <span class="citation">(Albers and Lakens 2018)</span>, <span class="math inline">\(\epsilon^2\)</span> is analogous to adjusted-<span class="math inline">\(R^2\)</span> <span class="citation">(Allen 2017, 382)</span>, and has been found to be less biased <span class="citation">(Carroll and Nordholm 1975)</span>.</p>
 </div>
 <div id="generalized-eta2" class="section level2">
@@ -296,13 +237,8 @@
 <a href="#generalized-eta2" class="anchor"></a>Generalized Eta<sup>2</sup>
 </h2>
 <p><em>Partial</em> Eta squared aims at estimating the effect size in a design where only the term of interest was manipulated, assuming all other terms are have also manipulated. However, not all predictors are always manipulated - some can only be observed. For such cases, we can use <em>generalized</em> Eta squared (<span class="math inline">\(\eta^2_G\)</span>), which like <span class="math inline">\(\eta^2_p\)</span> estimating the effect size in a design where only the term of interest was manipulated, accounting for the fact that some terms cannot be manipulated (and so their variance would be present in such a design).</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m_afex</span>, generalized <span class="op">=</span> <span class="st">"gender"</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter        | Eta2 (generalized) |       90% CI
-&gt; ----------------------------------------------------
-&gt; treatment        |               0.21 | [0.08, 0.33]
-&gt; gender           |               0.10 | [0.02, 0.22]
-&gt; treatment:gender |               0.18 | [0.06, 0.30]</code></pre>
 <p><span class="math inline">\(\eta^2_G\)</span> is useful in repeated-measures designs, as it can estimate what a <em>within-subject</em> effect size would have been had that predictor been manipulated <em>between-subjects</em> <span class="citation">(Olejnik and Algina 2003)</span>.</p>
 </div>
 <div id="cohens-f" class="section level2">
@@ -312,13 +248,8 @@
 <p>Finally, we have the forgotten child - Cohen’s <span class="math inline">\(f\)</span>. Cohen’s <span class="math inline">\(f\)</span> is a transformation of <span class="math inline">\(\eta^2_p\)</span>, and is the ratio between the term-<em>SS</em> and the error-<em>SS</em>.</p>
 <p><span class="math display">\[\text{Cohen's} f_p = \sqrt{\frac{\eta^2_p}{1-\eta^2_p}} = \sqrt{\frac{SS_{effect}}{SS_{error}}}\]</span></p>
 <p>It can take on values between zero, when the population means are all equal, and an indefinitely large number as the means are further and further apart. It is analogous to Cohen’s <span class="math inline">\(d\)</span> when there are only two groups.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">cohens_f</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Parameter        | Cohen's f (partial) |       90% CI
-&gt; -----------------------------------------------------
-&gt; treatment        |                0.61 | [0.38, 0.80]
-&gt; gender           |                0.37 | [0.17, 0.56]
-&gt; treatment:gender |                0.50 | [0.28, 0.69]</code></pre>
 </div>
 </div>
 <div id="when-sum-of-squares-are-hard-to-come-by" class="section level1">
@@ -326,34 +257,34 @@
 <a href="#when-sum-of-squares-are-hard-to-come-by" class="anchor"></a>When Sum-of-Squares are Hard to Come By</h1>
 <p>Until now we’ve discusses effect sizes in fixed-effect linear model and repeated-measures ANOVA’s - cases where the <em>SS</em>s are readily available, and so the various effect sized presented can easily be estimated. How ever this is not always the case.</p>
 <p>For example, in linear mixed models (LMM/HLM/MLM), the estimation of all required <em>SS</em>s is not straightforward. However, we can still <em>approximate</em> these effect sizes (only their partial versions) based on the <strong>test-statistic approximation method</strong> (learn more in the <a href="https://easystats.github.io/effectsize/articles/from_test_statistics.html" class="external-link"><em>Effect Size from Test Statistics</em> vignette</a>).</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/runehaubo/lmerTestR" class="external-link">lmerTest</a></span><span class="op">)</span>
 
 <span class="va">fit_lmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lmerTest/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">Reaction</span> <span class="op">~</span> <span class="va">Days</span> <span class="op">+</span> <span class="op">(</span><span class="va">Days</span> <span class="op">|</span> <span class="va">Subject</span><span class="op">)</span>, <span class="va">sleepstudy</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/lavTestLRT.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span> <span class="co"># note the type-3 errors</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span> <span class="co"># note the type-3 errors</span></code></pre></div>
 <pre><code>&gt; Type III Analysis of Variance Table with Satterthwaite's method
 &gt;      Sum Sq Mean Sq NumDF DenDF F value  Pr(&gt;F)    
 &gt; Days  30031   30031     1    17    45.9 3.3e-06 ***
 &gt; ---
 &gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span><span class="fl">45.8</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">17</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Eta2 (partial) |       90% CI
 &gt; -----------------------------
 &gt; 0.73           | [0.51, 0.83]</code></pre>
 <p>Or directly with `eta_squared() and co.:</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Parameter | Eta2 (partial) |       90% CI
 &gt; -----------------------------------------
 &gt; Days      |           0.73 | [0.51, 0.83]</code></pre>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Parameter | Epsilon2 (partial) |       90% CI
 &gt; ---------------------------------------------
 &gt; Days      |               0.71 | [0.48, 0.82]</code></pre>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Parameter | Omega2 (partial) |       90% CI
 &gt; -------------------------------------------
