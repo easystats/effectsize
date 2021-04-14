@@ -46,8 +46,8 @@
 #' designs.
 #' 2. Epsilon has been found to be less biased (Carroll & Nordholm, 1975).
 #'
-#' @inheritSection cohens_d Confidence Intervals
-#' @inheritSection chisq_to_phi CI Contains Zero
+#' @inheritSection effectsize-CIs Confidence Intervals
+#' @inheritSection effectsize-CIs CI Contains Zero
 #'
 #' @note \eqn{Adj. \eta_p^2} is an alias for \eqn{\epsilon_p^2}.
 #'

@@ -113,6 +113,29 @@ distribution for the desired tail-probabilities, and then convert these
 more.)
 }
 
+\section{CI Contains Zero}{
+
+Keep in mind that confidence intervals used here are inverted test
+statistics, and only inform us about which values are not significantly
+different than our sample estimate. (They do \emph{not} inform us about which
+values are plausible, likely or compatible with our data.) Thus, when CIs
+contain the value 0, this should not be taken to mean that a null effect size
+is supported by the data - instead this merely reflects a non-significant
+test statistic - i.e. \emph{p}-value is greater than alpha (Morey et al., 2016).
+\cr\cr
+For positive only effect sizes (Eta squared, Cramer's V, etc.; Effect sizes
+associated with Chi-squared and F distributions), this applies also to cases
+where the lower bound of the CI is equal to 0. Even more care should be taken
+when the \emph{upper} bound is equal to 0 - this merely reflects that the
+\emph{p}-value is greater than {1−alpha/2} making the upper bound unestimatable,
+and is arbitrarily sets to 0 (Steiger, 2004). For example:\if{html}{\out{<div class="r">}}\preformatted{eta_squared(aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:7, ]))
+}\if{html}{\out{</div>}}\preformatted{## Parameter    | Eta2 (partial) |       90\% CI
+## --------------------------------------------
+## factor(gear) |           0.58 | [0.00, 0.84]
+## factor(cyl)  |           0.46 | [0.00, 0.78]
+}
+}
+
 \examples{
 
 # two-sample tests -----------------------

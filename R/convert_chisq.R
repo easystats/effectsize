@@ -23,7 +23,7 @@
 #' \cr
 #' For adjusted versions, see Bergsma, 2013.
 #'
-#' @inheritSection cohens_d Confidence Intervals
+#' @inheritSection effectsize-CIs Confidence Intervals
 #' @inheritSection effectsize-CIs CI Contains Zero
 #'
 #' @family effect size from test statistic

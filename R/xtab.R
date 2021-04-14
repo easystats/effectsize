@@ -42,8 +42,8 @@
 #' See *Confidence Intervals* and *CI Contains Zero* sections for *phi*, Cohen's
 #' *w* and Cramer's *V*.
 #'
-#' @inheritSection cohens_d Confidence Intervals
-#' @inheritSection chisq_to_phi CI Contains Zero
+#' @inheritSection effectsize-CIs Confidence Intervals
+#' @inheritSection effectsize-CIs CI Contains Zero
 #'
 #' @return A data frame with the effect size (`Cramers_v`, `phi` (possibly with
 #'   the suffix `_adjusted`), `Odds_ratio`, `Risk_ratio` (possibly with the

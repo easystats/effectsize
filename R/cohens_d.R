@@ -39,6 +39,7 @@
 #' method.
 #'
 #' @inheritSection effectsize-CIs Confidence Intervals
+#' @inheritSection effectsize-CIs CI Contains Zero
 #'
 #' @return A data frame with the effect size ( `Cohens_d`, `Hedges_g`,
 #'   `Glass_delta`) and their CIs (`CI_low` and `CI_high`).

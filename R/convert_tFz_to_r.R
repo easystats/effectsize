@@ -43,7 +43,8 @@
 #' estimate Cohen's *d*, with [cohens_d()], `emmeans::eff_size()`, or similar
 #' functions.
 #'
-#' @inheritSection cohens_d Confidence Intervals
+#' @inheritSection effectsize-CIs Confidence Intervals
+#' @inheritSection effectsize-CIs CI Contains Zero
 #'
 #' @family effect size from test statistic
 #'
