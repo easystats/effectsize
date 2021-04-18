@@ -289,7 +289,7 @@ returns the effect size for R-squared-change between the two models.</p></td>
     <tr>
       <th>ss_function</th>
       <td><p>For Bayesian models, the function used to extract
-sum-of-squares. Uses <code><a href='https://rdrr.io/r/stats/anova.html'>anova()</a></code> by default, but can also be <code><a href='https://rdrr.io/pkg/car/man/Anova.html'>car::Anova()</a></code>
+sum-of-squares. Uses <code><a href='https://rdrr.io/r/stats/anova.html'>anova()</a></code> by default, but can also be <code>car::Anova()</code>
 for simple linear models.</p></td>
     </tr>
     <tr>
@@ -324,7 +324,7 @@ each response separately). For all other model, the model is passed to
 sizes is based on those returned by <code><a href='https://rdrr.io/r/stats/anova.html'>anova(model)</a></code> (whatever those may be -
 for <code>aov</code> and <code>aovlist</code> these are <em>type-1</em> sums of squares; for <code>merMod</code>
 these are <em>type-3</em> sums of squares). Make sure these are the sums of squares
-you are interested in; You might want to pass the result of <code><a href='https://rdrr.io/pkg/car/man/Anova.html'>car::Anova(mode, type = 3)</a></code>, or use the <code>afex</code> package to fit ANOVA models.
+you are interested in; You might want to pass the result of <code>car::Anova(mode, type = 3)</code>, or use the <code>afex</code> package to fit ANOVA models.
 <br /><br />
 It is generally recommended to fit models with <em><code>contr.sum</code> factor weights</em>
 and <em>centered covariates</em>, for sensible results. See examples and the <code>afex</code>
@@ -497,27 +497,20 @@ Psychological Methods, 9, 164-182.</p></li>
 #&gt; </span><span></div><div class='input'>
 <span class='co'># Recommended: Type-3 effect sizes + effects coding</span>
 <span class='co'># -------------------------------------------------</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://r-forge.r-project.org/projects/car/'>car</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'>car</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='fu'><a href='https://rdrr.io/r/stats/contrasts.html'>contrasts</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>am_f</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>contr.sum</span>
   <span class='fu'><a href='https://rdrr.io/r/stats/contrasts.html'>contrasts</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>cyl_f</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>contr.sum</span>
 
   <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am_f</span> <span class='op'>*</span> <span class='va'>cyl_f</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>
-  <span class='va'>model_anova</span> <span class='op'>&lt;-</span> <span class='fu'>car</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/car/man/Anova.html'>Anova</a></span><span class='op'>(</span><span class='va'>model</span>, type <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+  <span class='va'>model_anova</span> <span class='op'>&lt;-</span> <span class='fu'>car</span><span class='fu'>::</span><span class='fu'>Anova</span><span class='op'>(</span><span class='va'>model</span>, type <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 
   <span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model_anova</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘car’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:boot’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    logit</span></div><div class='output co'>#&gt; Parameter  | Eta2 (partial) |       90% CI
-#&gt; ------------------------------------------
-#&gt; am_f       |           0.11 | [0.00, 0.32]
-#&gt; cyl_f      |           0.63 | [0.42, 0.75]
-#&gt; am_f:cyl_f |           0.10 | [0.00, 0.27]</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: there is no package called ‘car’</span></div><div class='input'>
 <span class='co'># afex takes care of both type-3 effects and effects coding:</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='http://afex.singmann.science/'>afex</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'>afex</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>obk.long</span>, package <span class='op'>=</span> <span class='st'>"afex"</span><span class='op'>)</span>
-  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/afex/man/aov_car.html'>aov_car</a></span><span class='op'>(</span><span class='va'>value</span> <span class='op'>~</span> <span class='va'>treatment</span> <span class='op'>*</span> <span class='va'>gender</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>Error</a></span><span class='op'>(</span><span class='va'>id</span> <span class='op'>/</span> <span class='op'>(</span><span class='va'>phase</span><span class='op'>)</span><span class='op'>)</span>,
+  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'>aov_car</span><span class='op'>(</span><span class='va'>value</span> <span class='op'>~</span> <span class='va'>treatment</span> <span class='op'>*</span> <span class='va'>gender</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>Error</a></span><span class='op'>(</span><span class='va'>id</span> <span class='op'>/</span> <span class='op'>(</span><span class='va'>phase</span><span class='op'>)</span><span class='op'>)</span>,
     data <span class='op'>=</span> <span class='va'>obk.long</span>, observed <span class='op'>=</span> <span class='st'>"gender"</span>
   <span class='op'>)</span>
   <span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
@@ -528,15 +521,7 @@ Psychological Methods, 9, 164-182.</p></li>
   <span class='fu'>omega_squared</span><span class='op'>(</span><span class='va'>model</span>, partial <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
   <span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model</span>, generalized <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='co'># observed vars are pulled from the afex model.</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: More than one observation per cell, aggregating the data using mean (i.e, fun_aggregate = mean)!</span></div><div class='output co'>#&gt; <span class='message'>Contrasts set to contr.sum for the following variables: treatment, gender</span></div><div class='output co'>#&gt; Parameter              | Eta2 (generalized) |       90% CI
-#&gt; ----------------------------------------------------------
-#&gt; treatment              |               0.25 | [0.00, 0.53]
-#&gt; gender                 |               0.16 | [0.00, 0.48]
-#&gt; treatment:gender       |               0.24 | [0.00, 0.52]
-#&gt; phase                  |               0.20 | [0.00, 0.41]
-#&gt; treatment:phase        |               0.13 | [0.00, 0.26]
-#&gt; gender:phase           |           4.25e-03 | [0.00, 0.00]
-#&gt; treatment:gender:phase |               0.02 | [0.00, 0.00]</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: afex</span></div><div class='output co'>#&gt; <span class='warning'>Warning: there is no package called ‘afex’</span></div><div class='input'>
 
 
 <span class='co'>## Approx. effect sizes for mixed models</span>
@@ -556,7 +541,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='co'>## Bayesian Models (PPD)</span>
 <span class='co'>## ---------------------</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://mc-stan.org/rstanarm/'>rstanarm</a></span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://easystats.github.io/bayestestR/'>bayestestR</a></span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://r-forge.r-project.org/projects/car/'>car</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://mc-stan.org/rstanarm/'>rstanarm</a></span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://easystats.github.io/bayestestR/'>bayestestR</a></span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'>car</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='va'>fit_bayes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://mc-stan.org/rstanarm/reference/stan_glm.html'>stan_glm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span> <span class='op'>*</span> <span class='va'>wt</span> <span class='op'>+</span> <span class='va'>qsec</span>,
     data <span class='op'>=</span> <span class='va'>mtcars</span>,
     family <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/family.html'>gaussian</a></span><span class='op'>(</span><span class='op'>)</span>,
@@ -564,7 +549,7 @@ Psychological Methods, 9, 164-182.</p></li>
   <span class='op'>)</span>
 
   <span class='va'>es</span> <span class='op'>&lt;-</span> <span class='fu'>eta_squared_posterior</span><span class='op'>(</span><span class='va'>fit_bayes</span>,
-    ss_function <span class='op'>=</span> <span class='fu'>car</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/car/man/Anova.html'>Anova</a></span>, type <span class='op'>=</span> <span class='fl'>3</span>
+    ss_function <span class='op'>=</span> <span class='fu'>car</span><span class='fu'>::</span><span class='va'>Anova</span>, type <span class='op'>=</span> <span class='fl'>3</span>
   <span class='op'>)</span>
   <span class='fu'>bayestestR</span><span class='fu'>::</span><span class='fu'><a href='https://easystats.github.io/bayestestR/reference/describe_posterior.html'>describe_posterior</a></span><span class='op'>(</span><span class='va'>es</span><span class='op'>)</span>
 
@@ -573,7 +558,7 @@ Psychological Methods, 9, 164-182.</p></li>
   <span class='va'>fit_freq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span> <span class='op'>*</span> <span class='va'>wt</span> <span class='op'>+</span> <span class='va'>qsec</span>,
     data <span class='op'>=</span> <span class='va'>mtcars</span>
   <span class='op'>)</span>
-  <span class='va'>aov_table</span> <span class='op'>&lt;-</span> <span class='fu'>car</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/car/man/Anova.html'>Anova</a></span><span class='op'>(</span><span class='va'>fit_freq</span>, type <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+  <span class='va'>aov_table</span> <span class='op'>&lt;-</span> <span class='fu'>car</span><span class='fu'>::</span><span class='fu'>Anova</span><span class='op'>(</span><span class='va'>fit_freq</span>, type <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
   <span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>aov_table</span><span class='op'>)</span>
 <span class='op'>}</span>
 <span class='op'>}</span>

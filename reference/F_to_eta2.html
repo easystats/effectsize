@@ -360,38 +360,14 @@ Psychological Methods, 9, 164-182.</p></li>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='http://afex.singmann.science/'>"afex"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"afex"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>md_12.1</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/afex/man/aov_car.html'>aov_ez</a></span><span class='op'>(</span><span class='st'>"id"</span>, <span class='st'>"rt"</span>, <span class='va'>md_12.1</span>,
+  <span class='fu'>aov_ez</span><span class='op'>(</span><span class='st'>"id"</span>, <span class='st'>"rt"</span>, <span class='va'>md_12.1</span>,
     within <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"angle"</span>, <span class='st'>"noise"</span><span class='op'>)</span>,
     anova_table <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>correction <span class='op'>=</span> <span class='st'>"none"</span>, es <span class='op'>=</span> <span class='st'>"pes"</span><span class='op'>)</span>
   <span class='op'>)</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'>Loading required package: afex</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: lme4</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='output co'>#&gt; <span class='message'>Registered S3 methods overwritten by 'car':</span>
-#&gt; <span class='message'>  method                          from</span>
-#&gt; <span class='message'>  influence.merMod                lme4</span>
-#&gt; <span class='message'>  cooks.distance.influence.merMod lme4</span>
-#&gt; <span class='message'>  dfbeta.influence.merMod         lme4</span>
-#&gt; <span class='message'>  dfbetas.influence.merMod        lme4</span></div><div class='output co'>#&gt; <span class='message'>************</span>
-#&gt; <span class='message'>Welcome to afex. For support visit: http://afex.singmann.science/</span></div><div class='output co'>#&gt; <span class='message'>- Functions for ANOVAs: aov_car(), aov_ez(), and aov_4()</span>
-#&gt; <span class='message'>- Methods for calculating p-values with mixed(): 'KR', 'S', 'LRT', and 'PB'</span>
-#&gt; <span class='message'>- 'afex_aov' and 'mixed' objects can be passed to emmeans() for follow-up tests</span>
-#&gt; <span class='message'>- NEWS: library('emmeans') now needs to be called explicitly!</span>
-#&gt; <span class='message'>- Get and set global package options with: afex_options()</span>
-#&gt; <span class='message'>- Set orthogonal sum-to-zero contrasts globally: set_sum_contrasts()</span>
-#&gt; <span class='message'>- For example analyses see: browseVignettes("afex")</span>
-#&gt; <span class='message'>************</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘afex’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:lme4’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    lmer</span></div><div class='output co'>#&gt; Anova Table (Type 3 tests)
-#&gt; 
-#&gt; Response: rt
-#&gt;        Effect    df     MSE         F  pes p.value
-#&gt; 1       angle 2, 18 3560.00 40.72 *** .819   &lt;.001
-#&gt; 2       noise  1, 9 8460.00 33.77 *** .790   &lt;.001
-#&gt; 3 angle:noise 2, 18 1160.00 45.31 *** .834   &lt;.001
-#&gt; ---
-#&gt; Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘+’ 0.1 ‘ ’ 1</div><div class='input'><span class='co'># compare to:</span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: afex</span></div><div class='output co'>#&gt; <span class='warning'>Warning: there is no package called ‘afex’</span></div><div class='input'><span class='co'># compare to:</span>
 <span class='op'>(</span><span class='va'>etas</span> <span class='op'>&lt;-</span> <span class='fu'>F_to_eta2</span><span class='op'>(</span>
   f <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>40.72</span>, <span class='fl'>33.77</span>, <span class='fl'>45.31</span><span class='op'>)</span>,
   df <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>,
@@ -419,7 +395,7 @@ Psychological Methods, 9, 164-182.</p></li>
   <span class='fu'>F_to_epsilon2</span><span class='op'>(</span><span class='fl'>16.501</span>, <span class='fl'>1</span>, <span class='fl'>9</span><span class='op'>)</span>
   <span class='fu'>F_to_f</span><span class='op'>(</span><span class='fl'>16.501</span>, <span class='fl'>1</span>, <span class='fl'>9</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'>Loading required package: lmerTest</span></div><div class='output co'>#&gt; <span class='message'></span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: lmerTest</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: lme4</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘lmerTest’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:lme4’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    lmer</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stats’:</span>
