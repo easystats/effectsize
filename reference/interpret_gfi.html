@@ -92,7 +92,7 @@ equation modelling, such as RMSEA, CFI, NFI, IFI, etc." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4-2</span>
       </span>
     </div>
 
@@ -267,7 +267,7 @@ agreed-upon cutoff value for an acceptable model for this index. Should be &gt;
 0.50.</p></li>
 </ul>
 
-<p>See the documentation for <code>fitmeasures()</code>.</p>
+<p>See the documentation for <code><a href='https://rdrr.io/pkg/lavaan/man/fitMeasures.html'>fitmeasures()</a></code>.</p>
 
 <h3 class='hasAnchor' id='what-to-report'><a class='anchor' href='#what-to-report'></a>What to report</h3>
 
@@ -332,14 +332,15 @@ modeling. Guilford publications.</p></li>
 #&gt; </span><span style='color: #0000BB;'>(Rules: default)
 #&gt; </span><span></div><div class='input'>
 <span class='co'># Structural Equation Models (SEM)</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"lavaan"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://lavaan.ugent.be'>"lavaan"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='va'>structure</span> <span class='op'>&lt;-</span> <span class='st'>" ind60 =~ x1 + x2 + x3
                  dem60 =~ y1 + y2 + y3
                  dem60 ~ ind60 "</span>
-  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'>lavaan</span><span class='fu'>::</span><span class='fu'>sem</span><span class='op'>(</span><span class='va'>structure</span>, data <span class='op'>=</span> <span class='va'>PoliticalDemocracy</span><span class='op'>)</span>
+  <span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'>lavaan</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lavaan/man/sem.html'>sem</a></span><span class='op'>(</span><span class='va'>structure</span>, data <span class='op'>=</span> <span class='va'>PoliticalDemocracy</span><span class='op'>)</span>
   <span class='co'># interpret(model)  # Not working until new performance is up</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'>Loading required package: lavaan</span></div><div class='output co'>#&gt; <span class='warning'>Warning: there is no package called ‘lavaan’</span></div></span></pre>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: lavaan</span></div><div class='output co'>#&gt; <span class='message'>This is lavaan 0.6-8</span>
+#&gt; <span class='message'>lavaan is FREE software! Please report any bugs.</span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

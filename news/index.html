@@ -88,7 +88,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4-2</span>
       </span>
     </div>
 
@@ -286,7 +286,7 @@
 <a href="#breaking-changes-1" class="anchor"></a>Breaking Changes</h2>
 <ul>
 <li><p><code><a href="../reference/cohens_d.html">cohens_d()</a></code> and <code><a href="../reference/cohens_d.html">glass_delta()</a></code>: The <code>correction</code> argument has been deprecated, in favor of it being correctly implemented in <code><a href="../reference/cohens_d.html">hedges_g()</a></code> ( <a href='https://github.com/easystats/effectsize/issues/222'>#222</a> ).</p></li>
-<li><p><code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> no longer uses <code>car::Anova()</code> by default.</p></li>
+<li><p><code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> no longer uses <code><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">car::Anova()</a></code> by default.</p></li>
 </ul>
 </div>
 <div id="new-features-3" class="section level2">
@@ -296,7 +296,7 @@
 <li><p><code><a href="../reference/effectsize.html">effectsize()</a></code> gains <code>type =</code> argument for specifying which effect size to return.</p></li>
 <li><p><code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> can return a generalized Eta squared.</p></li>
 <li><p><code><a href="../reference/phi.html">oddsratio()</a></code> and <code><a href="../reference/phi.html">riskratio()</a></code> functions for 2-by-2 contingency tables.</p></li>
-<li><p><code><a href="../reference/standardize.html">standardize()</a></code> gains support for <code>mediation::mediate()</code> models.</p></li>
+<li><p><code><a href="../reference/standardize.html">standardize()</a></code> gains support for <code><a href="https://rdrr.io/pkg/mediation/man/mediate.html" class="external-link">mediation::mediate()</a></code> models.</p></li>
 <li><p><code><a href="../reference/eta_squared.html">eta_squared()</a></code> family available for <code>manova</code> objects.</p></li>
 </ul>
 </div>
