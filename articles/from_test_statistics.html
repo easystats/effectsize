@@ -133,7 +133,7 @@
     
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h1>
+<a href="#introduction" class="anchor" aria-hidden="true"></a>Introduction</h1>
 <p>In many real world applications there are no straightforward ways of obtaining standardized effect sizes. However, it is possible to get approximations of most of the effect size indices (<span class="math inline">\(d\)</span>, <span class="math inline">\(r\)</span>, <span class="math inline">\(\eta^2_p\)</span>…) with the use of test statistics. These conversions are based on the idea that <strong>test statistics are a function of effect size and sample size</strong>. Thus information about samples size (or more often of degrees of freedom) is used to reverse-engineer indices of effect size from test statistics. This idea and these functions also power our <a href="https://easystats4u.shinyapps.io/statistic2effectsize/" class="external-link"><strong><em>Effect Sizes From Test Statistics</em></strong> <em>shiny app</em></a>.</p>
 <p>The measures discussed here are, in one way or another, <strong><em>signal to noise ratios</em></strong>, with the “noise” representing the unaccounted variance in the outcome variable<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
 <p>The indices are:</p>
@@ -144,7 +144,7 @@
 </ul>
 <div id="partial-percent-variance-explained" class="section level2">
 <h2 class="hasAnchor">
-<a href="#partial-percent-variance-explained" class="anchor"></a>(Partial) Percent Variance Explained</h2>
+<a href="#partial-percent-variance-explained" class="anchor" aria-hidden="true"></a>(Partial) Percent Variance Explained</h2>
 <p>These measures represent the ratio of <span class="math inline">\(Signal^2 / (Signal^2 + Noise^2)\)</span>, with the “noise” having all other “signals” partial-ed out (be they of other fixed or random effects). The most popular of these indices is <span class="math inline">\(\eta^2_p\)</span> (Eta; which is equivalent to <span class="math inline">\(R^2\)</span>).</p>
 <p>The conversion of the <span class="math inline">\(F\)</span>- or <span class="math inline">\(t\)</span>-statistic is based on <span class="citation">Friedman (1982)</span>.</p>
 <p>Let’s look at an example:</p>
@@ -186,7 +186,7 @@
 <p>For example:</p>
 <div id="in-simple-effect-and-contrast-analysis" class="section level3">
 <h3 class="hasAnchor">
-<a href="#in-simple-effect-and-contrast-analysis" class="anchor"></a>In Simple Effect and Contrast Analysis</h3>
+<a href="#in-simple-effect-and-contrast-analysis" class="anchor" aria-hidden="true"></a>In Simple Effect and Contrast Analysis</h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rvlenth/emmeans" class="external-link">emmeans</a></span><span class="op">)</span>
 
@@ -232,7 +232,7 @@
 </div>
 <div id="in-linear-mixed-models" class="section level3">
 <h3 class="hasAnchor">
-<a href="#in-linear-mixed-models" class="anchor"></a>In Linear Mixed Models</h3>
+<a href="#in-linear-mixed-models" class="anchor" aria-hidden="true"></a>In Linear Mixed Models</h3>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/runehaubo/lmerTestR" class="external-link">lmerTest</a></span><span class="op">)</span>
 
@@ -275,7 +275,7 @@
 </div>
 <div id="bias-corrected-indices" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bias-corrected-indices" class="anchor"></a>Bias-Corrected Indices</h3>
+<a href="#bias-corrected-indices" class="anchor" aria-hidden="true"></a>Bias-Corrected Indices</h3>
 <p>Alongside <span class="math inline">\(\eta^2_p\)</span> there are also the less biased <span class="math inline">\(\omega_p^2\)</span> (Omega) and <span class="math inline">\(\epsilon^2_p\)</span> (Epsilon; sometimes called <span class="math inline">\(\text{Adj. }\eta^2_p\)</span>, which is equivalent to <span class="math inline">\(R^2_{adj}\)</span>; <span class="citation">Albers and Lakens (2018)</span>, <span class="citation">Mordkoff (2019)</span>).</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span><span class="fl">45.8</span>, <span class="fl">1</span>, <span class="fl">17</span><span class="op">)</span></code></pre></div>
@@ -296,11 +296,11 @@
 </div>
 <div id="measure-of-association" class="section level2">
 <h2 class="hasAnchor">
-<a href="#measure-of-association" class="anchor"></a>Measure of Association</h2>
+<a href="#measure-of-association" class="anchor" aria-hidden="true"></a>Measure of Association</h2>
 <p>Similar to <span class="math inline">\(\eta^2_p\)</span>, <span class="math inline">\(r\)</span> is a signal to noise ratio, and is in fact equal to <span class="math inline">\(\sqrt{\eta^2_p}\)</span> (so it’s really a <em>partial</em> <span class="math inline">\(r\)</span>). It is often used instead of <span class="math inline">\(\eta^2_p\)</span> when discussing the <em>strength</em> of association (but I suspect people use it instead of <span class="math inline">\(\eta^2_p\)</span> because it gives a bigger number, which looks better).</p>
 <div id="for-slopes" class="section level3">
 <h3 class="hasAnchor">
-<a href="#for-slopes" class="anchor"></a>For Slopes</h3>
+<a href="#for-slopes" class="anchor" aria-hidden="true"></a>For Slopes</h3>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="va">fit_lmm</span>, df_method <span class="op">=</span> <span class="st">"satterthwaite"</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Fixed Effects
@@ -352,7 +352,7 @@
 </div>
 <div id="in-contrast-analysis" class="section level3">
 <h3 class="hasAnchor">
-<a href="#in-contrast-analysis" class="anchor"></a>In Contrast Analysis</h3>
+<a href="#in-contrast-analysis" class="anchor" aria-hidden="true"></a>In Contrast Analysis</h3>
 <p>This measure is also sometimes used in contrast analysis, where it is called the point bi-serial correlation - <span class="math inline">\(r_{pb}\)</span> <span class="citation">(Cohen and others 1965; Rosnow, Rosenthal, and Rubin 2000)</span>:</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span><span class="va">angle</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -378,12 +378,12 @@
 </div>
 <div id="measures-of-difference" class="section level2">
 <h2 class="hasAnchor">
-<a href="#measures-of-difference" class="anchor"></a>Measures of Difference</h2>
+<a href="#measures-of-difference" class="anchor" aria-hidden="true"></a>Measures of Difference</h2>
 <p>These indices represent <span class="math inline">\(Signal/Noise\)</span> with the “signal” representing the difference between two means. This is akin to Cohen’s <span class="math inline">\(d\)</span>, and is a close approximation when comparing two groups of equal size <span class="citation">(Wolf 1986; Rosnow, Rosenthal, and Rubin 2000)</span>.</p>
 <p>These can be useful in contrast analyses.</p>
 <div id="between-subject-contrasts" class="section level3">
 <h3 class="hasAnchor">
-<a href="#between-subject-contrasts" class="anchor"></a>Between-Subject Contrasts</h3>
+<a href="#between-subject-contrasts" class="anchor" aria-hidden="true"></a>Between-Subject Contrasts</h3>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">tension</span>, data <span class="op">=</span> <span class="va">warpbreaks</span><span class="op">)</span>
 
@@ -418,7 +418,7 @@
 </div>
 <div id="within-subject-contrasts" class="section level3">
 <h3 class="hasAnchor">
-<a href="#within-subject-contrasts" class="anchor"></a>Within-Subject Contrasts</h3>
+<a href="#within-subject-contrasts" class="anchor" aria-hidden="true"></a>Within-Subject Contrasts</h3>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span><span class="va">angle</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; NOTE: Results may be misleading due to involvement in interactions</code></pre>
@@ -446,7 +446,7 @@
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
+<a href="#references" class="anchor" aria-hidden="true"></a>References</h1>
 <div id="refs" class="references">
 <div id="ref-albers2018power">
 <p>Albers, Casper, and Daniël Lakens. 2018. “When Power Analyses Based on Pilot Data Are Biased: Inaccurate Effect Size Estimators and Follow-up Bias.” <em>Journal of Experimental Social Psychology</em> 74: 187–95.</p>

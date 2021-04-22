@@ -133,16 +133,16 @@
     
 <div id="standardized-parameters" class="section level1">
 <h1 class="hasAnchor">
-<a href="#standardized-parameters" class="anchor"></a>Standardized Parameters</h1>
+<a href="#standardized-parameters" class="anchor" aria-hidden="true"></a>Standardized Parameters</h1>
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
+<a href="#introduction" class="anchor" aria-hidden="true"></a>Introduction</h2>
 <p>Like in OLS / ML or other frequentists methods of model parameter estimation, standardizing the parameters of Bayesian (generalized) linear regression models can allow for the comparison of so-called “effects” within and between models, variables and studies.</p>
 <p>As with frequentists methods, standardizing parameters should not be the only method of examining the role different predictors play in a particular Bayesian model, and this vignette generally assumes that the issues of model convergence, goodness of fit and model selection have already been taken care of. (Learn more about how to become a Bayesian master with <a href="https://easystats.github.io/bayestestR/" class="external-link">the <code>bayestestR</code> package</a>.)</p>
 </div>
 <div id="set-up" class="section level2">
 <h2 class="hasAnchor">
-<a href="#set-up" class="anchor"></a>Set up</h2>
+<a href="#set-up" class="anchor" aria-hidden="true"></a>Set up</h2>
 <p>We will examine the predictive role of overtime (<code>xtra_hours</code>), number of compliments given to the boss (<code>n_comps</code>) and seniority in predicting workers salaries. Let’s fit the model:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/rstanarm/" class="external-link">rstanarm</a></span><span class="op">)</span>
@@ -210,18 +210,18 @@
 </div>
 <div id="eta2" class="section level1">
 <h1 class="hasAnchor">
-<a href="#eta2" class="anchor"></a>Eta<sup>2</sup>
+<a href="#eta2" class="anchor" aria-hidden="true"></a>Eta<sup>2</sup>
 </h1>
 <div id="introduction-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#introduction-1" class="anchor"></a>Introduction</h2>
+<a href="#introduction-1" class="anchor" aria-hidden="true"></a>Introduction</h2>
 <p>In classical frequentists models, the computation of <span class="math inline">\(\eta^2\)</span> or <span class="math inline">\(\eta^2_p\)</span> is straightforward: based on the right combinations of sums-of-squares (<em>SS</em>s), we get the correct proportion of variance accounted for by some predictor term. However such a computation is not as straightforward for Bayesian models, for various reasons (e.g., the model-<em>SS</em> and the residual-<em>SS</em> don’t necessarily sum to the total-<em>SS</em>). Although some have proposed Bayesian methods of estimating explained variance in ANOVA designs <span class="citation">(Marsman et al. 2019)</span>, these are not yet easy to implement with <code>stan</code>-based models.</p>
 <p>An alternative route to obtaining effect sizes of explained variance, is via the use of the <strong><em>posterior predictive distribution</em></strong> (<em>PPD</em>). The PPD is the Bayesian expected distribution of possible unobserved values. Thus, after observing some data, we can estimate not just the expected mean values (the conditional marginal means), but also the full <em>distribution</em> of data around these values <span class="citation">(Gelman et al. 2014, chap. 7)</span>.</p>
 <p>By sampling from the PPD, we can decompose the sample to the various <em>SS</em>s needed for the computation of explained variance measures. By repeatedly sampling from the PPD, we can generate a posterior distribution of explained variance estimates. But note that <strong>these estimates are conditioned not only on the location-parameters of the model, but also on the scale-parameters of the model!</strong> So it is vital to <a href="https://mc-stan.org/docs/2_23/stan-users-guide/meta-models-part.html#meta-models.part" class="external-link">validate the PPD</a> before using it to estimate explained variance measures.</p>
 </div>
 <div id="setup" class="section level2">
 <h2 class="hasAnchor">
-<a href="#setup" class="anchor"></a>Setup</h2>
+<a href="#setup" class="anchor" aria-hidden="true"></a>Setup</h2>
 <p>Let’s factorize out data from above:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age</span>,
@@ -292,7 +292,7 @@
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
+<a href="#references" class="anchor" aria-hidden="true"></a>References</h1>
 <div id="refs" class="references">
 <div id="ref-gelman2014bayesian">
 <p>Gelman, Andrew, John B Carlin, Hal S Stern, and Donald B Rubin. 2014. “Bayesian Data Analysis (Vol. 2).” <em>Boca Raton, FL: Chapman</em>.</p>

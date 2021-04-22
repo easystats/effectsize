@@ -134,7 +134,7 @@
 <p>The <code>effectsize</code> package contains function to convert among indices of effect size. This can be useful for meta-analyses, or any comparison between different types of statistical analyses.</p>
 <div id="converting-between-r-and-d" class="section level2">
 <h2 class="hasAnchor">
-<a href="#converting-between-r-and-d" class="anchor"></a>Converting Between <em>r</em> and <em>d</em>
+<a href="#converting-between-r-and-d" class="anchor" aria-hidden="true"></a>Converting Between <em>r</em> and <em>d</em>
 </h2>
 <p>The most basic conversion is between <em>r</em> values, a measure of standardized association between two continuous measures, and <em>d</em> values (such as Cohen’s <em>d</em>), a measure of standardized differences between two groups / conditions.</p>
 <p>Let’s simulate some data:</p>
@@ -186,7 +186,7 @@ r \approx \frac{d}{\sqrt{d^2 + 4}}
 <p>As we can see, these are rough approximations, but they can be useful when we don’t have the raw data on hand.</p>
 <div id="in-multiple-regression" class="section level3">
 <h3 class="hasAnchor">
-<a href="#in-multiple-regression" class="anchor"></a>In multiple regression</h3>
+<a href="#in-multiple-regression" class="anchor" aria-hidden="true"></a>In multiple regression</h3>
 <p>Although not exactly a classic Cohen’s d, we can also approximate a partial-<em>d</em> value (that is, the standardized difference between two groups / conditions, with variance from other predictors partilled out). For example:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span> <span class="op">+</span> <span class="va">hp</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
@@ -228,7 +228,7 @@ r \approx \frac{d}{\sqrt{d^2 + 4}}
 </div>
 <div id="from-odds-ratios" class="section level2">
 <h2 class="hasAnchor">
-<a href="#from-odds-ratios" class="anchor"></a>From Odds ratios</h2>
+<a href="#from-odds-ratios" class="anchor" aria-hidden="true"></a>From Odds ratios</h2>
 <p>In binomial regression (more specifically in logistic regression), Odds ratios (OR) are themselves measures of effect size; they indicate the expected change in the odds of a some event.</p>
 <p>In some fields, it is common to dichotomize outcomes in order to be able to analyze them with logistic models. For example, if the outcome is the count of white blood cells, it can be more useful (medically) to predict the crossing of the threshold rather than the raw count itself. And so, where some scientists would maybe analyze the above data with a <em>t</em>-test and present Cohen’s <em>d</em>, others might analyze it with a logistic regression model on the dichotomized outcome, and present OR. So the question can be asked: given such a OR, what would Cohen’s <em>d</em> have been?</p>
 <p>Fortunately, there is a formula to approximate this <span class="citation">(Sánchez-Meca, Marı́n-Martı́nez, and Chacón-Moscoso 2003)</span>:</p>
@@ -261,7 +261,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 <pre><code>&gt; [1] -0.447</code></pre>
 <div id="odds-ratios-to-risk-ratios" class="section level3">
 <h3 class="hasAnchor">
-<a href="#odds-ratios-to-risk-ratios" class="anchor"></a>Odds ratios to Risk Ratios</h3>
+<a href="#odds-ratios-to-risk-ratios" class="anchor" aria-hidden="true"></a>Odds ratios to Risk Ratios</h3>
 <p>Odds ratio, although popular, are not very intuitive in their interpretations. We don’t often think about the chances of catching a disease in terms of <em>odds</em>, instead we instead tend to think in terms of <em>probability</em> or some event - or the <em>risk</em>. Talking about <em>risks</em> we can also talk about the <em>change in risk</em>, knows as the <em>risk ratio</em> (<em>RR</em>).</p>
 <p>For example, if we find that for individual suffering from a migraine, for every bowl of brussels sprouts they eat, they’re odds of reducing the migraine increase by an <span class="math inline">\(OR = 3.5\)</span> over a period of an hour. So, should people eat brussels sprouts to effectively reduce pain? Well, hard to say… Maybe if we look at <em>RR</em> we’ll get a clue.</p>
 <p>We can convert between <em>OR</em> and <em>RR</em> for the following formula <span class="citation">(Grant 2014)</span>:</p>
@@ -288,7 +288,7 @@ RR = \frac{OR}{(1 - p0 + (p0 \times OR))}
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
+<a href="#references" class="anchor" aria-hidden="true"></a>References</h1>
 <div id="refs" class="references">
 <div id="ref-borenstein2009converting">
 <p>Borenstein, Michael, Larry V Hedges, JPT Higgins, and Hannah R Rothstein. 2009. “Converting Among Effect Sizes.” <em>Introduction to Meta-Analysis</em>, 45–49.</p>

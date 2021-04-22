@@ -123,14 +123,14 @@
 
 <div id="effectsize-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#effectsize-" class="anchor"></a>effectsize <img src="reference/figures/logo.png" align="right" height="139">
+<a href="#effectsize-" class="anchor" aria-hidden="true"></a>effectsize <img src="reference/figures/logo.png" align="right" height="139">
 </h1></div>
 
 <p><strong><em>Size does matter</em></strong></p>
 <p>The goal of this package is to provide utilities to work with indices of effect size and standardized parameters, allowing computation and conversion of indices such as Cohen’s <em>d</em>, <em>r</em>, odds-ratios, etc.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<a href="#installation" class="anchor" aria-hidden="true"></a>Installation</h2>
 <p><a href="https://cran.r-project.org/package=effectsize" class="external-link"><img src="http://www.r-pkg.org/badges/version/effectsize" alt="CRAN"></a> <a href="https://github.com/easystats/effectsize/actions" class="external-link"><img src="https://github.com/easystats/effectsize/workflows/R-check/badge.svg" alt="R-check"></a> <a href="https://github.com/easystats/effectsize/actions" class="external-link"><img src="https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg" alt="pkgdown"></a> <a href="https://codecov.io/gh/easystats/effectsize?branch=main" class="external-link"><img src="https://codecov.io/gh/easystats/effectsize/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></p>
 <p>Run the following to install the stable release of <strong>effectsize</strong> from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -142,7 +142,7 @@
 </div>
 <div id="documentation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#documentation" class="anchor"></a>Documentation</h2>
+<a href="#documentation" class="anchor" aria-hidden="true"></a>Documentation</h2>
 <p><a href="https://easystats.github.io/effectsize/" class="external-link"><img src="https://img.shields.io/badge/documentation-effectsize-orange.svg?colorB=E91E63" alt="Documentation"></a> <a href="https://easystats.github.io/blog/posts/" class="external-link"><img src="https://img.shields.io/badge/blog-easystats-orange.svg?colorB=FF9800" alt="Blog"></a> <a href="https://easystats.github.io/effectsize/reference/index.html" class="external-link"><img src="https://img.shields.io/badge/features-effectsize-orange.svg?colorB=2196F3" alt="Features"></a></p>
 <p>Click on the buttons above to access the package <a href="https://easystats.github.io/effectsize/" class="external-link"><strong>documentation</strong></a> and the <a href="https://easystats.github.io/blog/posts/" class="external-link"><strong>easystats blog</strong></a>, and check-out these vignettes:</p>
 <ul>
@@ -173,16 +173,16 @@
 </div>
 <div id="features" class="section level1">
 <h1 class="hasAnchor">
-<a href="#features" class="anchor"></a>Features</h1>
+<a href="#features" class="anchor" aria-hidden="true"></a>Features</h1>
 <p>This package is focused on indices of effect size. Check out the package website for <a href="https://easystats.github.io/effectsize/reference/index.html" class="external-link"><strong>a full list of features and functions</strong> provided by <code>effectsize</code></a>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/" class="external-link">effectsize</a></span><span class="op">)</span></code></pre></div>
 <div id="effect-size-computation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#effect-size-computation" class="anchor"></a>Effect Size Computation</h2>
+<a href="#effect-size-computation" class="anchor" aria-hidden="true"></a>Effect Size Computation</h2>
 <div id="standardized-differences-cohens-d-hedges-g-glass-delta" class="section level3">
 <h3 class="hasAnchor">
-<a href="#standardized-differences-cohens-d-hedges-g-glass-delta" class="anchor"></a>Standardized Differences (Cohen’s <em>d</em>, Hedges’ <em>g</em>, Glass’ <em>delta</em>)</h3>
+<a href="#standardized-differences-cohens-d-hedges-g-glass-delta" class="anchor" aria-hidden="true"></a>Standardized Differences (Cohen’s <em>d</em>, Hedges’ <em>g</em>, Glass’ <em>delta</em>)</h3>
 <p>The package provides functions to compute indices of effect size.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
@@ -208,7 +208,7 @@
 </div>
 <div id="anovas-eta2-omega2-" class="section level3">
 <h3 class="hasAnchor">
-<a href="#anovas-eta2-omega2-" class="anchor"></a>ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)</h3>
+<a href="#anovas-eta2-omega2-" class="anchor" aria-hidden="true"></a>ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)</h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 
@@ -230,7 +230,7 @@
 </div>
 <div id="regression-models-standardized-parameters" class="section level3">
 <h3 class="hasAnchor">
-<a href="#regression-models-standardized-parameters" class="anchor"></a>Regression Models (Standardized Parameters)</h3>
+<a href="#regression-models-standardized-parameters" class="anchor" aria-hidden="true"></a>Regression Models (Standardized Parameters)</h3>
 <p>Importantly, <code>effectsize</code> also provides <a href="https://easystats.github.io/effectsize/articles/standardize_parameters.html" class="external-link">advanced methods</a> to compute standardized parameters for regression models.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">complaints</span> <span class="op">+</span> <span class="va">privileges</span> <span class="op">+</span> <span class="va">advance</span>, data <span class="op">=</span> <span class="va">attitude</span><span class="op">)</span>
@@ -258,7 +258,7 @@
 </div>
 <div id="effect-size-conversion" class="section level2">
 <h2 class="hasAnchor">
-<a href="#effect-size-conversion" class="anchor"></a>Effect Size Conversion</h2>
+<a href="#effect-size-conversion" class="anchor" aria-hidden="true"></a>Effect Size Conversion</h2>
 <p>The package also provides ways of converting between different effect sizes.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/d_to_r.html">convert_d_to_r</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
@@ -282,7 +282,7 @@
 </div>
 <div id="effect-size-interpretation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#effect-size-interpretation" class="anchor"></a>Effect Size Interpretation</h2>
+<a href="#effect-size-interpretation" class="anchor" aria-hidden="true"></a>Effect Size Interpretation</h2>
 <p>The package allows for an automated interpretation of different indices.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/interpret_r.html">interpret_r</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span>
@@ -300,7 +300,7 @@
 </div>
 <div id="utilities" class="section level2">
 <h2 class="hasAnchor">
-<a href="#utilities" class="anchor"></a>Utilities</h2>
+<a href="#utilities" class="anchor" aria-hidden="true"></a>Utilities</h2>
 <p><em>Data Standardization, Normalization, Scaling, and Rank-Transforming</em></p>
 <p>Many indices of effect size stem out, or are related, to <a href="https://easystats.github.io/effectsize/articles/standardize_parameters.html" class="external-link"><em>standardization</em></a>. Thus, it is expected that <code>effectsize</code> provides functions to standardize data.</p>
 <p>A standardization sets the mean and SD to 0 and 1:</p>
@@ -336,7 +336,7 @@
 <span class="co">## [1]  2.0  4.0 -3.0  5.5  5.5  1.0</span></code></pre></div>
 <div id="citation" class="section level3">
 <h3 class="hasAnchor">
-<a href="#citation" class="anchor"></a>Citation</h3>
+<a href="#citation" class="anchor" aria-hidden="true"></a>Citation</h3>
 <p>In order to cite this package, please use the following citation:</p>
 <ul>
 <li>Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation of Effect Size Indices and Standardized Parameters. <em>Journal of Open Source Software</em>, <em>5</em>(56), 2815. doi: 10.21105/joss.02815</li>
@@ -359,7 +359,7 @@
 </div>
 <div id="contributing-and-support" class="section level1">
 <h1 class="hasAnchor">
-<a href="#contributing-and-support" class="anchor"></a>Contributing and Support</h1>
+<a href="#contributing-and-support" class="anchor" aria-hidden="true"></a>Contributing and Support</h1>
 <p>If you have any questions regarding the the functionality of the package, you may either contact us via email or also <a href="https://github.com/easystats/effectsize/issues" class="external-link">file an issue</a>. Anyone wishing to contribute to the package by adding functions, features, or in another way, please follow <a href="https://github.com/easystats/effectsize/blob/main/.github/CONTRIBUTING.md" class="external-link">this guide</a> and our <a href="https://github.com/easystats/effectsize/blob/main/.github/CODE_OF_CONDUCT.md" class="external-link">code of conduct</a>.</p>
 </div>
 

@@ -133,11 +133,11 @@
     
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h1>
+<a href="#introduction" class="anchor" aria-hidden="true"></a>Introduction</h1>
 <p>To make sense of their data and effects, scientists might want to standardize (Z-score) their variables. This makes the data unitless, expressed only in terms of deviation from an index of centrality (e.g., the mean or the median). However, aside from some benefits, standardization also comes with challenges and issues, that the scientist should be aware of.</p>
 <div id="methods-of-standardization" class="section level2">
 <h2 class="hasAnchor">
-<a href="#methods-of-standardization" class="anchor"></a>Methods of Standardization</h2>
+<a href="#methods-of-standardization" class="anchor" aria-hidden="true"></a>Methods of Standardization</h2>
 <p>The <code>effectsize</code> package offers two methods of standardization via the <code><a href="../reference/standardize.html">standardize()</a></code> function:</p>
 <ul>
 <li><p><strong>Normal standardization</strong>: center around the <em>mean</em>, with <em>SD</em> units (default).</p></li>
@@ -247,7 +247,7 @@
 </div>
 <div id="variable-wise-vs--participant-wise" class="section level2">
 <h2 class="hasAnchor">
-<a href="#variable-wise-vs--participant-wise" class="anchor"></a>Variable-wise <em>vs.</em> Participant-wise</h2>
+<a href="#variable-wise-vs--participant-wise" class="anchor" aria-hidden="true"></a>Variable-wise <em>vs.</em> Participant-wise</h2>
 <p>Standardization is an important step and extra caution is required in <strong>repeated-measures designs</strong>, in which there are three ways of standardizing data:</p>
 <ul>
 <li><p><strong>Variable-wise</strong>: The most common method. A simple scaling of each column.</p></li>
@@ -257,7 +257,7 @@
 <p>Unfortunately, the method used is often not explicitly stated. This is an issue as these methods can generate important discrepancies (that can in turn contribute to the reproducibility crisis). Let’s investigate these 3 methods.</p>
 <div id="the-data" class="section level3">
 <h3 class="hasAnchor">
-<a href="#the-data" class="anchor"></a>The Data</h3>
+<a href="#the-data" class="anchor" aria-hidden="true"></a>The Data</h3>
 <p>We will take the <code>emotion</code> dataset in which participants were exposed to negative pictures and had to rate their emotions (<strong>valence</strong>) and the amount of memories associated with the picture (<strong>autobiographical link</strong>). One could make the hypothesis that for young participants with no context of war or violence, the most negative pictures (mutilations) are less related to memories than less negative pictures (involving for example car crashes or sick people). In other words, <strong>we expect a positive relationship between valence</strong> (with high values corresponding to less negativity) <strong>and autobiographical link</strong>.</p>
 <p>Let’s have a look at the data, averaged by participants:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -306,7 +306,7 @@
 </div>
 <div id="effect-of-standardization" class="section level3">
 <h3 class="hasAnchor">
-<a href="#effect-of-standardization" class="anchor"></a>Effect of Standardization</h3>
+<a href="#effect-of-standardization" class="anchor" aria-hidden="true"></a>Effect of Standardization</h3>
 <p>We will create three data frames standardized with each of the three techniques.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Z_VariableWise</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op">%&gt;%</span>
@@ -325,7 +325,7 @@
 </div>
 <div id="across-participants" class="section level3">
 <h3 class="hasAnchor">
-<a href="#across-participants" class="anchor"></a>Across Participants</h3>
+<a href="#across-participants" class="anchor" aria-hidden="true"></a>Across Participants</h3>
 <p>We can calculate the mean and SD of <em>Valence</em> across all participants:</p>
 <table class="table">
 <thead><tr class="header">
@@ -357,7 +357,7 @@
 </div>
 <div id="at-the-participant-level" class="section level3">
 <h3 class="hasAnchor">
-<a href="#at-the-participant-level" class="anchor"></a>At the Participant Level</h3>
+<a href="#at-the-participant-level" class="anchor" aria-hidden="true"></a>At the Participant Level</h3>
 <p>However we can also look at what happens in the participant level. Let’s look at the first 5 participants:</p>
 <table class="table">
 <thead><tr class="header">
@@ -463,7 +463,7 @@
 </div>
 <div id="compare" class="section level3">
 <h3 class="hasAnchor">
-<a href="#compare" class="anchor"></a>Compare</h3>
+<a href="#compare" class="anchor" aria-hidden="true"></a>Compare</h3>
 <p>Let’s do a <strong>correlation</strong> between the <strong>variable-wise and participant-wise methods</strong>.</p>
 <p><img src="standardize_data_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>While the three standardization methods roughly present the same characteristics at a general level (mean 0 and SD 1) and a similar distribution, their values are not exactly the same!</p>
@@ -509,7 +509,7 @@
 </div>
 <div id="conclusion" class="section level3">
 <h3 class="hasAnchor">
-<a href="#conclusion" class="anchor"></a>Conclusion</h3>
+<a href="#conclusion" class="anchor" aria-hidden="true"></a>Conclusion</h3>
 <ol style="list-style-type: decimal">
 <li><p><strong>Standardization can be useful in <em>some</em> cases and should be justified</strong></p></li>
 <li><p><strong>Variable and Participant-wise standardization methods produce “in appearance” similar data</strong></p></li>
@@ -523,7 +523,7 @@
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
+<a href="#references" class="anchor" aria-hidden="true"></a>References</h1>
 </div>
   </div>
 
