@@ -2,7 +2,7 @@
 #'
 #' @param es Value or vector of eta / omega / epsilon squared values.
 #' @param rules Can be `"field2013"` (default), `"cohen1992"` or custom set of [rules()].
-#'
+#' @param ... Not used for now.
 #'
 #' @section Rules:
 #'
@@ -31,7 +31,7 @@
 #' - Cohen, J. (1992). A power primer. Psychological bulletin, 112(1), 155.
 #'
 #' @export
-interpret_omega_squared <- function(es, rules = "field2013") {
+interpret_omega_squared <- function(es, rules = "field2013", ...) {
   rules <- .match.rules(
     rules,
     list(
