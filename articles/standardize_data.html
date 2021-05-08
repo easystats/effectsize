@@ -268,13 +268,13 @@
 <span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="st">"https://raw.github.com/neuropsychology/psycho.R/master/data/emotion.rda"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># Discard neutral pictures (keep only negative)</span>
-<span class="va">emotion</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op">%&gt;%</span>
+<span class="va">emotion</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Emotion_Condition</span> <span class="op">==</span> <span class="st">"Negative"</span><span class="op">)</span>
 
 <span class="co"># Summary</span>
-<span class="va">emotion</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">Subjective_Valence</span>, <span class="va">Autobiographical_Link</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Participant_ID</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">emotion</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">Subjective_Valence</span>, <span class="va">Autobiographical_Link</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Participant_ID</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>
     n_Trials <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>,
     Valence_Mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">Subjective_Valence</span><span class="op">)</span>,
@@ -309,17 +309,17 @@
 <a href="#effect-of-standardization" class="anchor" aria-hidden="true"></a>Effect of Standardization</h3>
 <p>We will create three data frames standardized with each of the three techniques.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">Z_VariableWise</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">Z_VariableWise</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="va">Z_ParticipantWise</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Participant_ID</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">Z_ParticipantWise</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Participant_ID</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="va">Z_Full</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Participant_ID</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">Z_Full</span> <span class="op">&lt;-</span> <span class="va">emotion</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Participant_ID</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="../reference/standardize.html">standardize</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>Let’s see how these three standardization techniques affected the <strong>Valence</strong> variable.</p>
 </div>
@@ -517,7 +517,7 @@
 <li><p><strong>The choice of the method can strongly influence the results and thus, should be explicitly stated</strong></p></li>
 </ol>
 <p>We showed here yet another way of <strong>sneakily tweaking the data</strong> that can change the results. To prevent its use for bad practices (e.g., <em>p</em>-hacking), we can only support the generalization of open-data, open-analysis and preregistration**.</p>
-<p><em>See also the <code><a href="https://easystats.github.io/parameters/reference/demean.html" class="external-link">parameters::demean()</a></code> function, and the <code><a href="../reference/standardize_parameters.html">standardize_parameters(method = "pseudo")</a></code> for more mixed-model tools.</em></p>
+<p><em>See also the <code><a href="https://easystats.github.io/parameters/reference/demean.html" class="external-link">parameters::demean()</a></code> function, and the <code>standardize_parameters(method = "pseudo")</code> for more mixed-model tools.</em></p>
 </div>
 </div>
 </div>

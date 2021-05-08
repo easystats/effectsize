@@ -350,53 +350,61 @@ revisited. An overview of some recommended measures of effect size.</p></li>
 <code><a href='standardize_parameters.html'>standardize_parameters</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='co'># two-sample tests -----------------------</span>
-
-<span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>48</span>, <span class='fl'>48</span>, <span class='fl'>77</span>, <span class='fl'>86</span>, <span class='fl'>85</span>, <span class='fl'>85</span><span class='op'>)</span>
-<span class='va'>B</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>14</span>, <span class='fl'>34</span>, <span class='fl'>34</span>, <span class='fl'>77</span><span class='op'>)</span>
-<span class='fu'>rank_biserial</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>B</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; r (rank biserial) |       95% CI
-#&gt; --------------------------------
-#&gt; 0.79              | [0.25, 1.00]</div><div class='input'>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.83</span>, <span class='fl'>0.50</span>, <span class='fl'>1.62</span>, <span class='fl'>2.48</span>, <span class='fl'>1.68</span>, <span class='fl'>1.88</span>, <span class='fl'>1.55</span>, <span class='fl'>3.06</span>, <span class='fl'>1.30</span><span class='op'>)</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.878</span>, <span class='fl'>0.647</span>, <span class='fl'>0.598</span>, <span class='fl'>2.05</span>, <span class='fl'>1.06</span>, <span class='fl'>1.29</span>, <span class='fl'>1.06</span>, <span class='fl'>3.14</span>, <span class='fl'>1.29</span><span class='op'>)</span>
-<span class='fu'>rank_biserial</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, paired <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; r (rank biserial) |       95% CI
-#&gt; --------------------------------
-#&gt; 0.78              | [0.33, 1.00]</div><div class='input'>
-<span class='co'># one-sample tests -----------------------</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.15</span>, <span class='fl'>0.88</span>, <span class='fl'>0.90</span>, <span class='fl'>0.74</span>, <span class='fl'>1.21</span><span class='op'>)</span>
-<span class='fu'>rank_biserial</span><span class='op'>(</span><span class='va'>x</span>, mu <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; r (rank biserial) |        95% CI
-#&gt; ---------------------------------
-#&gt; -0.07             | [-1.00, 0.87]
-#&gt; <span style='color: #00BBBB;'>
-#&gt; - Deviation from a difference of 1.</span><span></div><div class='input'>
-<span class='co'># anova tests ----------------------------</span>
-
-<span class='va'>x1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.9</span>, <span class='fl'>3.0</span>, <span class='fl'>2.5</span>, <span class='fl'>2.6</span>, <span class='fl'>3.2</span><span class='op'>)</span> <span class='co'># control group</span>
-<span class='va'>x2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3.8</span>, <span class='fl'>2.7</span>, <span class='fl'>4.0</span>, <span class='fl'>2.4</span><span class='op'>)</span> <span class='co'># obstructive airway disease group</span>
-<span class='va'>x3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.8</span>, <span class='fl'>3.4</span>, <span class='fl'>3.7</span>, <span class='fl'>2.2</span>, <span class='fl'>2.0</span><span class='op'>)</span> <span class='co'># asbestosis group</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>x1</span>, <span class='va'>x2</span>, <span class='va'>x3</span><span class='op'>)</span>
-<span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>4</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>rank_epsilon_squared</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Epsilon2 (rank) |       95% CI
-#&gt; ------------------------------
-#&gt; 0.06            | [0.01, 0.71]</div><div class='input'>
-<span class='va'>wb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aggregate.html'>aggregate</a></span><span class='op'>(</span><span class='va'>warpbreaks</span><span class='op'>$</span><span class='va'>breaks</span>,
-  by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-    w <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>$</span><span class='va'>wool</span>,
-    t <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>$</span><span class='va'>tension</span>
-  <span class='op'>)</span>,
-  FUN <span class='op'>=</span> <span class='va'>mean</span>
-<span class='op'>)</span>
-<span class='fu'>kendalls_w</span><span class='op'>(</span><span class='va'>x</span> <span class='op'>~</span> <span class='va'>w</span> <span class='op'>|</span> <span class='va'>t</span>, data <span class='op'>=</span> <span class='va'>wb</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Variable `x.A` contains only two different values. Consider converting it to a factor.Variable `x.B` contains only two different values. Consider converting it to a factor.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Variable `x.A` contains only two different values. Consider converting it to a factor.Variable `x.B` contains only two different values. Consider converting it to a factor.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Variable `x.A` contains only two different values. Consider converting it to a factor.Variable `x.B` contains only two different values. Consider converting it to a factor.</span></div><div class='output co'>#&gt; Kendall's W |       95% CI
-#&gt; --------------------------
-#&gt; 0.11        | [0.11, 1.00]</div><div class='input'><span class='co'># }</span>
-
-</div></span></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># \donttest{</span></span>
+<span class='r-in'><span class='co'># two-sample tests -----------------------</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>48</span>, <span class='fl'>48</span>, <span class='fl'>77</span>, <span class='fl'>86</span>, <span class='fl'>85</span>, <span class='fl'>85</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>B</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>14</span>, <span class='fl'>34</span>, <span class='fl'>34</span>, <span class='fl'>77</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>rank_biserial</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>B</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> r (rank biserial) |       95% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.79              | [0.25, 1.00]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.83</span>, <span class='fl'>0.50</span>, <span class='fl'>1.62</span>, <span class='fl'>2.48</span>, <span class='fl'>1.68</span>, <span class='fl'>1.88</span>, <span class='fl'>1.55</span>, <span class='fl'>3.06</span>, <span class='fl'>1.30</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.878</span>, <span class='fl'>0.647</span>, <span class='fl'>0.598</span>, <span class='fl'>2.05</span>, <span class='fl'>1.06</span>, <span class='fl'>1.29</span>, <span class='fl'>1.06</span>, <span class='fl'>3.14</span>, <span class='fl'>1.29</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>rank_biserial</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, paired <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> r (rank biserial) |       95% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.78              | [0.33, 1.00]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># one-sample tests -----------------------</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.15</span>, <span class='fl'>0.88</span>, <span class='fl'>0.90</span>, <span class='fl'>0.74</span>, <span class='fl'>1.21</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>rank_biserial</span><span class='op'>(</span><span class='va'>x</span>, mu <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> r (rank biserial) |        95% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -0.07             | [-1.00, 0.87]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'></span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Deviation from a difference of 1.</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># anova tests ----------------------------</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>x1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.9</span>, <span class='fl'>3.0</span>, <span class='fl'>2.5</span>, <span class='fl'>2.6</span>, <span class='fl'>3.2</span><span class='op'>)</span> <span class='co'># control group</span></span>
+<span class='r-in'><span class='va'>x2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3.8</span>, <span class='fl'>2.7</span>, <span class='fl'>4.0</span>, <span class='fl'>2.4</span><span class='op'>)</span> <span class='co'># obstructive airway disease group</span></span>
+<span class='r-in'><span class='va'>x3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.8</span>, <span class='fl'>3.4</span>, <span class='fl'>3.7</span>, <span class='fl'>2.2</span>, <span class='fl'>2.0</span><span class='op'>)</span> <span class='co'># asbestosis group</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>x1</span>, <span class='va'>x2</span>, <span class='va'>x3</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>4</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>rank_epsilon_squared</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Epsilon2 (rank) |       95% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.06            | [0.01, 0.71]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>wb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aggregate.html'>aggregate</a></span><span class='op'>(</span><span class='va'>warpbreaks</span><span class='op'>$</span><span class='va'>breaks</span>,</span>
+<span class='r-in'>  by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>
+<span class='r-in'>    w <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>$</span><span class='va'>wool</span>,</span>
+<span class='r-in'>    t <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>$</span><span class='va'>tension</span></span>
+<span class='r-in'>  <span class='op'>)</span>,</span>
+<span class='r-in'>  FUN <span class='op'>=</span> <span class='va'>mean</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>kendalls_w</span><span class='op'>(</span><span class='va'>x</span> <span class='op'>~</span> <span class='va'>w</span> <span class='op'>|</span> <span class='va'>t</span>, data <span class='op'>=</span> <span class='va'>wb</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Variable `x.A` contains only two different values. Consider converting it to a factor.Variable `x.B` contains only two different values. Consider converting it to a factor.</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Variable `x.A` contains only two different values. Consider converting it to a factor.Variable `x.B` contains only two different values. Consider converting it to a factor.</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Variable `x.A` contains only two different values. Consider converting it to a factor.Variable `x.B` contains only two different values. Consider converting it to a factor.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Kendall's W |       95% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.11        | [0.11, 1.00]</span>
+<span class='r-in'><span class='co'># }</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

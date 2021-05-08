@@ -238,7 +238,7 @@
 
 <span class="va">fit_lmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lmerTest/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">Reaction</span> <span class="op">~</span> <span class="va">Days</span> <span class="op">+</span> <span class="op">(</span><span class="va">Days</span> <span class="op">|</span> <span class="va">Subject</span><span class="op">)</span>, <span class="va">sleepstudy</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/lavTestLRT.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Type III Analysis of Variance Table with Satterthwaite's method
 &gt;      Sum Sq Mean Sq NumDF DenDF F value  Pr(&gt;F)    
 &gt; Days  30031   30031     1    17    45.9 3.3e-06 ***
@@ -407,7 +407,7 @@
 &gt; 0.34 | [-0.22, 0.89]</code></pre>
 <p>However, these are merely approximations of a <em>true</em> Cohen’s <em>d</em>. It is advised to directly estimate Cohen’s <em>d</em>, whenever possible. For example, here with <code><a href="https://rdrr.io/pkg/emmeans/man/eff_size.html" class="external-link">emmeans::eff_size()</a></code>:</p>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/eff_size.html" class="external-link">eff_size</a></span><span class="op">(</span><span class="va">em_tension</span>, sigma <span class="op">=</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stanreg-methods.html" class="external-link">sigma</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>, edf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/df.residual.html" class="external-link">df.residual</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/eff_size.html" class="external-link">eff_size</a></span><span class="op">(</span><span class="va">em_tension</span>, sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/sigma.html" class="external-link">sigma</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>, edf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/df.residual.html" class="external-link">df.residual</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt;  contrast effect.size   SE df lower.CL upper.CL
 &gt;  L - M           0.84 0.34 51     0.15     1.53
 &gt;  L - H           1.24 0.36 51     0.53     1.95

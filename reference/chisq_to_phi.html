@@ -293,35 +293,38 @@ Journal of the Korean Statistical Society, 42(3), 323-328.</p></li>
 <code><a href='t_to_r.html'>t_to_d</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>contingency_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>762</span>, <span class='fl'>327</span>, <span class='fl'>468</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/stats/chisq.test.html'>chisq.test</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 	Pearson's Chi-squared test
-#&gt; 
-#&gt; data:  contingency_table
-#&gt; X-squared = 41.234, df = 4, p-value = 2.405e-08
-#&gt; </div><div class='input'><span class='co'>#</span>
-<span class='co'>#         Pearson's Chi-squared test</span>
-<span class='co'>#</span>
-<span class='co'># data:  ctab</span>
-<span class='co'># X-squared = 41.234, df = 4, p-value = 2.405e-08</span>
-
-<span class='fu'>chisq_to_phi</span><span class='op'>(</span><span class='fl'>41.234</span>,
-  n <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>,
-  nrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>,
-  ncol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>
-<span class='op'>)</span>
-</div><div class='output co'>#&gt; Phi  |       95% CI
-#&gt; -------------------
-#&gt; 0.10 | [0.07, 0.13]</div><div class='input'><span class='fu'>chisq_to_cramers_v</span><span class='op'>(</span><span class='fl'>41.234</span>,
-  n <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>,
-  nrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>,
-  ncol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>
-<span class='op'>)</span>
-</div><div class='output co'>#&gt; Cramer's V |       95% CI
-#&gt; -------------------------
-#&gt; 0.07       | [0.05, 0.09]</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>contingency_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>762</span>, <span class='fl'>327</span>, <span class='fl'>468</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/chisq.test.html'>chisq.test</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Pearson's Chi-squared test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  contingency_table</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> X-squared = 41.234, df = 4, p-value = 2.405e-08</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='co'>#</span></span>
+<span class='r-in'><span class='co'>#         Pearson's Chi-squared test</span></span>
+<span class='r-in'><span class='co'>#</span></span>
+<span class='r-in'><span class='co'># data:  ctab</span></span>
+<span class='r-in'><span class='co'># X-squared = 41.234, df = 4, p-value = 2.405e-08</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>chisq_to_phi</span><span class='op'>(</span><span class='fl'>41.234</span>,</span>
+<span class='r-in'>  n <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>,</span>
+<span class='r-in'>  nrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>,</span>
+<span class='r-in'>  ncol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Phi  |       95% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.10 | [0.07, 0.13]</span>
+<span class='r-in'><span class='fu'>chisq_to_cramers_v</span><span class='op'>(</span><span class='fl'>41.234</span>,</span>
+<span class='r-in'>  n <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>,</span>
+<span class='r-in'>  nrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>,</span>
+<span class='r-in'>  ncol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cramer's V |       95% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.07       | [0.05, 0.09]</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

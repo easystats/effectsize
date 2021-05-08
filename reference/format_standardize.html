@@ -178,7 +178,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Transform a standardized vector into character, e.g., <code><a href='https://rdrr.io/r/base/c.html'>c("-1 SD", "Mean", "+1 SD")</a></code>.</p>
+    <p>Transform a standardized vector into character, e.g., <code>c("-1 SD", "Mean", "+1 SD")</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>format_standardize</span><span class='op'>(</span><span class='va'>x</span>, reference <span class='op'>=</span> <span class='va'>x</span>, robust <span class='op'>=</span> <span class='cn'>FALSE</span>, digits <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -216,13 +216,16 @@ to have scientific notation with 4 decimal places.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>format_standardize</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] -1 SD Mean  +1 SD
-#&gt; Levels: +1 SD Mean -1 SD</div><div class='input'><span class='fu'>format_standardize</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, reference <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] -1 SD     -3e-02 SD +1e+00 SD +2 SD    
-#&gt; Levels: +2 SD +1e+00 SD -3e-02 SD -1 SD</div><div class='input'><span class='fu'>format_standardize</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, reference <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1000</span><span class='op'>)</span>, robust <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] -9e-01 MAD 3e-02 MAD  +1e+00 MAD +2 MAD    
-#&gt; Levels: +2 MAD +1e+00 MAD 3e-02 MAD -9e-01 MAD</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>format_standardize</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] -1 SD Mean  +1 SD</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: +1 SD Mean -1 SD</span>
+<span class='r-in'><span class='fu'>format_standardize</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, reference <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] -1 SD     -3e-02 SD +1e+00 SD +2 SD    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: +2 SD +1e+00 SD -3e-02 SD -1 SD</span>
+<span class='r-in'><span class='fu'>format_standardize</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, reference <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1000</span><span class='op'>)</span>, robust <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] -9e-01 MAD 3e-02 MAD  +1e+00 MAD +2 MAD    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: +2 MAD +1e+00 MAD 3e-02 MAD -9e-01 MAD</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

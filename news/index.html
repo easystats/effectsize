@@ -175,39 +175,32 @@
 
     <div id="effectsize-044-1" class="section level1">
 <h1 class="page-header" data-toc-text="0.4.4-1">
-<a href="#effectsize-044-1" class="anchor" aria-hidden="true"></a>effectsize 0.4.4-1<small> 2021-04-05 </small>
-</h1>
+<a href="#effectsize-044-1" class="anchor" aria-hidden="true"></a>effectsize 0.4.4-1<small> 2021-04-05 </small></h1>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor" aria-hidden="true"></a>New features</h2>
-<ul>
-<li>
+<ul><li>
 <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> + <code>eta_sqaured()</code> support <code>tidymodels</code> (when that the underlying model is supported; <a href='https://github.com/easystats/effectsize/issues/311'>#311</a> ).</li>
 <li>
 <code><a href="../reference/cohens_d.html">cohens_d()</a></code> family now supports <code>Pairs()</code> objects as input.</li>
 <li>
 <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> gains the <code>include_response</code> argument (default to <code>TRUE</code>) ( <a href='https://github.com/easystats/effectsize/issues/309'>#309</a> ).</li>
-</ul>
-</div>
+</ul></div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
-<ul>
-<li>
+<ul><li>
 <code><a href="../reference/rank_biserial.html">kendalls_w()</a></code> now actually returns correct effect size. Previous estimates were incorrect, and based on transposing the groups and blocks.</li>
-</ul>
-</div>
+</ul></div>
 </div>
     <div id="effectsize-044" class="section level1">
 <h1 class="page-header" data-toc-text="0.4.4">
-<a href="#effectsize-044" class="anchor" aria-hidden="true"></a>effectsize 0.4.4<small> 2021-03-14 </small>
-</h1>
+<a href="#effectsize-044" class="anchor" aria-hidden="true"></a>effectsize 0.4.4<small> 2021-03-14 </small></h1>
 <p><code>effectsize</code> now supports <code>R &gt;= 3.4</code>.</p>
 <div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features-1" class="anchor" aria-hidden="true"></a>New features</h2>
-<ul>
-<li>
+<ul><li>
 <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> now supports bootstrapped estimates (from <code><a href="https://easystats.github.io/parameters/reference/bootstrap_model.html" class="external-link">parameters::bootstrap_model()</a></code> and <code><a href="https://easystats.github.io/parameters/reference/bootstrap_parameters.html" class="external-link">parameters::bootstrap_parameters()</a></code>).</li>
 <li>
 <code><a href="../reference/standardize.html">unstandardize()</a></code> which will reverse the effects of <code><a href="../reference/standardize.html">standardize()</a></code>.</li>
@@ -215,133 +208,104 @@
 <code><a href="../reference/interpret_kendalls_w.html">interpret_kendalls_w()</a></code> to interpret Kendall’s coefficient of concordance.</li>
 <li>
 <code><a href="../reference/eta_squared.html">eta_squared()</a></code> family of functions can now also return effect sizes for the intercept by setting <code>include_intercept = TRUE</code> ( <a href='https://github.com/easystats/effectsize/issues/156'>#156</a> ).</li>
-</ul>
-</div>
+</ul></div>
 <div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes-1" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
-<ul>
-<li>
+<ul><li>
 <code><a href="../reference/standardize.html">standardize()</a></code> can now deal with dates ( <a href='https://github.com/easystats/effectsize/issues/300'>#300</a> ).</li>
-</ul>
-</div>
+</ul></div>
 </div>
     <div id="effectsize-043" class="section level1">
 <h1 class="page-header" data-toc-text="0.4.3">
-<a href="#effectsize-043" class="anchor" aria-hidden="true"></a>effectsize 0.4.3<small> 2021-01-18 </small>
-</h1>
+<a href="#effectsize-043" class="anchor" aria-hidden="true"></a>effectsize 0.4.3<small> 2021-01-18 </small></h1>
 <div id="breaking-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#breaking-changes" class="anchor" aria-hidden="true"></a>Breaking Changes</h2>
-<ul>
-<li>
+<ul><li>
 <code><a href="../reference/phi.html">oddsratio()</a></code> and <code><a href="../reference/phi.html">riskratio()</a></code> - order of groups has been changed (the <em>first</em> groups is now the <strong>treatment group</strong>, and the <em>second</em> group is the <strong>control group</strong>), so that effect sizes are given as <em>treatment over control</em> (treatment / control) (previously was reversed). This is done to be consistent with other functions in R and in <code>effectsize</code>.</li>
-</ul>
-</div>
+</ul></div>
 <div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features-2" class="anchor" aria-hidden="true"></a>New features</h2>
-<ul>
-<li><p><code><a href="../reference/phi.html">cohens_h()</a></code> effect size for comparing two independent proportions.</p></li>
+<ul><li><p><code><a href="../reference/phi.html">cohens_h()</a></code> effect size for comparing two independent proportions.</p></li>
 <li><p><code><a href="../reference/rank_biserial.html">rank_biserial()</a></code>, <code><a href="../reference/rank_biserial.html">cliffs_delta()</a></code>, <code><a href="../reference/rank_biserial.html">rank_epsilon_squared()</a></code> and <code><a href="../reference/rank_biserial.html">kendalls_w()</a></code> functions for effect sizes for rank-based tests.</p></li>
 <li><p><code><a href="../reference/adjust.html">adjust()</a></code> gains <code>keep_intercept</code> argument to keep the intercept.</p></li>
 <li><p><code><a href="../reference/eta_squared.html">eta_squared()</a></code> family of functions supports <code>Anova.mlm</code> objects (from the <code>car</code> package).</p></li>
 <li>
 <p><code><a href="../reference/effectsize.html">effectsize()</a></code>:</p>
-<ul>
-<li><p>supports Cohen’s <em>g</em> for McNemar’s test.</p></li>
+<ul><li><p>supports Cohen’s <em>g</em> for McNemar’s test.</p></li>
 <li><p>Extracts OR from Fisher’s Exact Test in the 2x2 case.</p></li>
-</ul>
-</li>
+</ul></li>
 <li><p><code><a href="../reference/eta2_to_f2.html">eta2_to_f2()</a></code> / <code><a href="../reference/eta2_to_f2.html">f2_to_eta2()</a></code> to convert between two types of effect sizes for ANOVA ( <a href='https://github.com/easystats/effectsize/issues/240'>#240</a> ).</p></li>
 <li><p><code><a href="../reference/cohens_d.html">cohens_d()</a></code> family of functions gain <code>mu</code> argument.</p></li>
-</ul>
-</div>
+</ul></div>
 <div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes-2" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
-<ul>
-<li><p><code><a href="../reference/adjust.html">adjust()</a></code> properly works when <code>multilevel = TRUE</code>.</p></li>
+<ul><li><p><code><a href="../reference/adjust.html">adjust()</a></code> properly works when <code>multilevel = TRUE</code>.</p></li>
 <li><p><code><a href="../reference/cohens_d.html">cohens_d()</a></code> family / <code><a href="../reference/sd_pooled.html">sd_pooled()</a></code> now properly fails when given a missing column name.</p></li>
-</ul>
-</div>
+</ul></div>
 <div id="changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#changes" class="anchor" aria-hidden="true"></a>Changes</h2>
-<ul>
-<li><p><code><a href="../reference/effectsize.html">effectsize()</a></code> for <code>htest</code> objects now tries first to extract the data used for testing, and computed the effect size directly on that data.</p></li>
+<ul><li><p><code><a href="../reference/effectsize.html">effectsize()</a></code> for <code>htest</code> objects now tries first to extract the data used for testing, and computed the effect size directly on that data.</p></li>
 <li><p><code><a href="../reference/cohens_d.html">cohens_d()</a></code> family / <code><a href="../reference/sd_pooled.html">sd_pooled()</a></code> now respect any transformations (e.g. <code>I(log(x) - 3) ~ factor(y)</code>) in a passed formula.</p></li>
 <li><p><code><a href="../reference/eta_squared.html">eta_squared()</a></code> family of functions gains a <code>verbose</code> argument.</p></li>
 <li><p><code>verbose</code> argument more strictly respected.</p></li>
 <li><p><code><a href="../reference/cohens_d.html">glass_delta()</a></code> returns CIs based on the bootstrap.</p></li>
-</ul>
-</div>
+</ul></div>
 </div>
     <div id="effectsize-041" class="section level1">
 <h1 class="page-header" data-toc-text="0.4.1">
-<a href="#effectsize-041" class="anchor" aria-hidden="true"></a>effectsize 0.4.1<small> 2020-12-07 </small>
-</h1>
+<a href="#effectsize-041" class="anchor" aria-hidden="true"></a>effectsize 0.4.1<small> 2020-12-07 </small></h1>
 <div id="breaking-changes-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#breaking-changes-1" class="anchor" aria-hidden="true"></a>Breaking Changes</h2>
-<ul>
-<li><p><code><a href="../reference/cohens_d.html">cohens_d()</a></code> and <code><a href="../reference/cohens_d.html">glass_delta()</a></code>: The <code>correction</code> argument has been deprecated, in favor of it being correctly implemented in <code><a href="../reference/cohens_d.html">hedges_g()</a></code> ( <a href='https://github.com/easystats/effectsize/issues/222'>#222</a> ).</p></li>
+<ul><li><p><code><a href="../reference/cohens_d.html">cohens_d()</a></code> and <code><a href="../reference/cohens_d.html">glass_delta()</a></code>: The <code>correction</code> argument has been deprecated, in favor of it being correctly implemented in <code><a href="../reference/cohens_d.html">hedges_g()</a></code> ( <a href='https://github.com/easystats/effectsize/issues/222'>#222</a> ).</p></li>
 <li><p><code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> no longer uses <code><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">car::Anova()</a></code> by default.</p></li>
-</ul>
-</div>
+</ul></div>
 <div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features-3" class="anchor" aria-hidden="true"></a>New features</h2>
-<ul>
-<li><p><code><a href="../reference/effectsize.html">effectsize()</a></code> gains <code>type =</code> argument for specifying which effect size to return.</p></li>
+<ul><li><p><code><a href="../reference/effectsize.html">effectsize()</a></code> gains <code>type =</code> argument for specifying which effect size to return.</p></li>
 <li><p><code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> can return a generalized Eta squared.</p></li>
 <li><p><code><a href="../reference/phi.html">oddsratio()</a></code> and <code><a href="../reference/phi.html">riskratio()</a></code> functions for 2-by-2 contingency tables.</p></li>
 <li><p><code><a href="../reference/standardize.html">standardize()</a></code> gains support for <code><a href="https://rdrr.io/pkg/mediation/man/mediate.html" class="external-link">mediation::mediate()</a></code> models.</p></li>
 <li><p><code><a href="../reference/eta_squared.html">eta_squared()</a></code> family available for <code>manova</code> objects.</p></li>
-</ul>
-</div>
+</ul></div>
 <div id="changes-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#changes-1" class="anchor" aria-hidden="true"></a>Changes</h2>
-<ul>
-<li>
+<ul><li>
 <code><a href="../reference/eta_squared.html">eta_squared()</a></code> family of functions returns non-partial effect size for one-way between subjects design (<a href='https://github.com/easystats/effectsize/issues/180'>#180</a>).</li>
-</ul>
-</div>
+</ul></div>
 <div id="bug-fixes-3" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes-3" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
-<ul>
-<li><p><code><a href="../reference/cohens_d.html">hedges_g()</a></code> correctly implements the available bias correction methods ( <a href='https://github.com/easystats/effectsize/issues/222'>#222</a> ).</p></li>
+<ul><li><p><code><a href="../reference/cohens_d.html">hedges_g()</a></code> correctly implements the available bias correction methods ( <a href='https://github.com/easystats/effectsize/issues/222'>#222</a> ).</p></li>
 <li><p>Fixed width of CI for Cohen’s <em>d</em> and Hedges’ <em>g</em> when using <em>non</em>-pooled SD.</p></li>
-</ul>
-</div>
+</ul></div>
 </div>
     <div id="effectsize-040" class="section level1">
 <h1 class="page-header" data-toc-text="0.4.0">
-<a href="#effectsize-040" class="anchor" aria-hidden="true"></a>effectsize 0.4.0<small> 2020-10-25 </small>
-</h1>
+<a href="#effectsize-040" class="anchor" aria-hidden="true"></a>effectsize 0.4.0<small> 2020-10-25 </small></h1>
 <div id="breaking-changes-2" class="section level2">
 <h2 class="hasAnchor">
 <a href="#breaking-changes-2" class="anchor" aria-hidden="true"></a>Breaking Changes</h2>
-<ul>
-<li><p><code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> for multi-component models (such as zero-inflated) now returns the unstandardized parameters in some cases where standardization is not possible (previously returned <code>NA</code>s).</p></li>
+<ul><li><p><code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> for multi-component models (such as zero-inflated) now returns the unstandardized parameters in some cases where standardization is not possible (previously returned <code>NA</code>s).</p></li>
 <li>
 <p>Column name changes:</p>
-<ul>
-<li><p><code><a href="../reference/eta_squared.html">eta_squared()</a></code> / <code>F_to_eta2</code> families of function now has the <code>Eta2</code> format, where previously was <code>Eta_Sq</code>.</p></li>
+<ul><li><p><code><a href="../reference/eta_squared.html">eta_squared()</a></code> / <code>F_to_eta2</code> families of function now has the <code>Eta2</code> format, where previously was <code>Eta_Sq</code>.</p></li>
 <li><p><code>cramers_v</code> is now <code>Cramers_v</code></p></li>
-</ul>
-</li>
-</ul>
-</div>
+</ul></li>
+</ul></div>
 <div id="new-features-4" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features-4" class="anchor" aria-hidden="true"></a>New features</h2>
-<ul>
-<li><p><code><a href="../reference/effectsize.html">effectsize()</a></code> added support for <code>BayesFactor</code> objects (Cohen’s <em>d</em>, Cramer’s <em>v</em>, and <em>r</em>).</p></li>
+<ul><li><p><code><a href="../reference/effectsize.html">effectsize()</a></code> added support for <code>BayesFactor</code> objects (Cohen’s <em>d</em>, Cramer’s <em>v</em>, and <em>r</em>).</p></li>
 <li><p><code><a href="../reference/phi.html">cohens_g()</a></code> effect size for paired contingency tables.</p></li>
-<li><p>Generalized Eta Squared now available via <code><a href="../reference/eta_squared.html">eta_squared(generalized = ...)</a></code>.</p></li>
+<li><p>Generalized Eta Squared now available via <code>eta_squared(generalized = ...)</code>.</p></li>
 <li><p><code><a href="../reference/eta_squared.html">eta_squared()</a></code>, <code><a href="../reference/eta_squared.html">omega_squared()</a></code> and <code><a href="../reference/eta_squared.html">epsilon_squared()</a></code> fully support <code>aovlist</code>, <code>afex_aov</code> and <code>mlm</code> (or <code>maov</code>) objects.</p></li>
 <li><p><code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> can now return Odds ratios / IRRs (or any exponentiated parameter) by setting <code>exponentiate = TRUE</code>.</p></li>
 <li><p>Added <code><a href="../reference/eta_squared.html">cohens_f_squared()</a></code> and <code><a href="../reference/F_to_eta2.html">F_to_f2()</a></code> for Cohen’s <em>f</em>-squared.</p></li>
@@ -350,130 +314,102 @@
 <li><p>Added <code>hardlyworking</code> (simulated) dataset, for use in examples.</p></li>
 <li>
 <p><code>interpret_*</code> ( <a href='https://github.com/easystats/effectsize/issues/131'>#131</a> ):</p>
-<ul>
-<li><p><code><a href="../reference/interpret_omega_squared.html">interpret_omega_squared()</a></code> added <code>"cohen1992"</code> rule.</p></li>
+<ul><li><p><code><a href="../reference/interpret_omega_squared.html">interpret_omega_squared()</a></code> added <code>"cohen1992"</code> rule.</p></li>
 <li><p><code><a href="../reference/interpret_p.html">interpret_p()</a></code> added <em>Redefine statistical significance</em> rules.</p></li>
-</ul>
-</li>
+</ul></li>
 <li><p><code><a href="../reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio()</a></code> for converting OR to RR.</p></li>
-</ul>
-</div>
+</ul></div>
 <div id="changes-2" class="section level2">
 <h2 class="hasAnchor">
 <a href="#changes-2" class="anchor" aria-hidden="true"></a>Changes</h2>
-<ul>
-<li><p>CIs for Omega-/Epsilon-squared and Adjusted Phi/Cramer’s V return 0s instead of negative values.</p></li>
+<ul><li><p>CIs for Omega-/Epsilon-squared and Adjusted Phi/Cramer’s V return 0s instead of negative values.</p></li>
 <li><p><code><a href="../reference/standardize.html">standardize()</a></code> for data frames gains the <code>remove_na</code> argument for dealing with <code>NA</code>s ( <a href='https://github.com/easystats/effectsize/issues/147'>#147</a> ).</p></li>
 <li><p><code><a href="../reference/standardize.html">standardize()</a></code> and <code><a href="../reference/standardize_info.html">standardize_info()</a></code> now (and by extension, <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code>) respect the weights in weighted models when standardizing ( <a href='https://github.com/easystats/effectsize/issues/82'>#82</a> ).</p></li>
 <li><p>Internal changes to <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> (reducing co-dependency with <code>parameters</code>) - argument <code>parameters</code> has been dropped.</p></li>
-</ul>
-</div>
+</ul></div>
 <div id="bug-fixes-4" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes-4" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
-<ul>
-<li><p><code><a href="../reference/ranktransform.html">ranktransform(sign = TURE)</a></code> correctly (doesn’t) deal with zeros.</p></li>
+<ul><li><p><code>ranktransform(sign = TURE)</code> correctly (doesn’t) deal with zeros.</p></li>
 <li><p><code><a href="../reference/effectsize.html">effectsize()</a></code> for <code>htest</code> works with Spearman and Kendall correlations ( <a href='https://github.com/easystats/effectsize/issues/165'>#165</a> ).</p></li>
 <li><p><code><a href="../reference/phi.html">cramers_v()</a></code> and <code><a href="../reference/phi.html">phi()</a></code> now work with goodness-of-fit data ( <a href='https://github.com/easystats/effectsize/issues/158'>#158</a> )</p></li>
 <li><p><code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> for post-hoc correctly standardizes transformed outcome.</p></li>
 <li><p>Setting <code>two_sd = TRUE</code> in <code><a href="../reference/standardize.html">standardize()</a></code> and <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> (correctly) on uses 2-SDs of the predictors (and not the response).</p></li>
-<li><p><code><a href="../reference/standardize_info.html">standardize_info()</a></code> / <code><a href="../reference/standardize_parameters.html">standardize_parameters(method = "posthoc")</a></code> work for zero-inflated models ( <a href='https://github.com/easystats/effectsize/issues/135'>#135</a> )</p></li>
-<li><p><code><a href="../reference/standardize_info.html">standardize_info(include_pseudo = TRUE)</a></code> / <code><a href="../reference/standardize_parameters.html">standardize_parameters(method = "pseudo")</a></code> are less sensitive in detecting between-group variation of within-group variables.</p></li>
+<li><p><code><a href="../reference/standardize_info.html">standardize_info()</a></code> / <code>standardize_parameters(method = "posthoc")</code> work for zero-inflated models ( <a href='https://github.com/easystats/effectsize/issues/135'>#135</a> )</p></li>
+<li><p><code>standardize_info(include_pseudo = TRUE)</code> / <code>standardize_parameters(method = "pseudo")</code> are less sensitive in detecting between-group variation of within-group variables.</p></li>
 <li><p><code><a href="../reference/interpret_oddsratio.html">interpret_oddsratio()</a></code> correctly treats extremely small odds the same as treats extremely large ones.</p></li>
-</ul>
-</div>
+</ul></div>
 </div>
     <div id="effectsize-033" class="section level1">
 <h1 class="page-header" data-toc-text="0.3.3">
-<a href="#effectsize-033" class="anchor" aria-hidden="true"></a>effectsize 0.3.3<small> 2020-09-17 </small>
-</h1>
+<a href="#effectsize-033" class="anchor" aria-hidden="true"></a>effectsize 0.3.3<small> 2020-09-17 </small></h1>
 <div id="new-features-5" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features-5" class="anchor" aria-hidden="true"></a>New features</h2>
-<ul>
-<li><p><code><a href="../reference/standardize_parameters.html">standardize_parameters(method = "pseudo")</a></code> returns pseudo-standardized coefficients for (G)LMM models.</p></li>
+<ul><li><p><code>standardize_parameters(method = "pseudo")</code> returns pseudo-standardized coefficients for (G)LMM models.</p></li>
 <li><p><code><a href="../reference/d_to_common_language.html">d_to_common_language()</a></code> for common language measures of standardized differences (a-la Cohen’s d).</p></li>
-</ul>
-</div>
+</ul></div>
 <div id="changes-3" class="section level2">
 <h2 class="hasAnchor">
 <a href="#changes-3" class="anchor" aria-hidden="true"></a>Changes</h2>
-<ul>
-<li><p><code><a href="../reference/d_to_r.html">r_to_odds()</a></code> family is now deprecated in favor of <code><a href="../reference/d_to_r.html">r_to_oddsratio()</a></code>.</p></li>
+<ul><li><p><code><a href="../reference/d_to_r.html">r_to_odds()</a></code> family is now deprecated in favor of <code><a href="../reference/d_to_r.html">r_to_oddsratio()</a></code>.</p></li>
 <li><p><code><a href="../reference/interpret_oddsratio.html">interpret_odds()</a></code> is now deprecated in favor of <code><a href="../reference/interpret_oddsratio.html">interpret_oddsratio()</a></code></p></li>
-</ul>
-</div>
+</ul></div>
 <div id="bug-fixes-5" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes-5" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
-<ul>
-<li><p><code><a href="../reference/phi.html">phi()</a></code> and <code><a href="../reference/phi.html">cramers_v()</a></code> did not respect the CI argument ( <a href='https://github.com/easystats/effectsize/issues/111'>#111</a> ).</p></li>
+<ul><li><p><code><a href="../reference/phi.html">phi()</a></code> and <code><a href="../reference/phi.html">cramers_v()</a></code> did not respect the CI argument ( <a href='https://github.com/easystats/effectsize/issues/111'>#111</a> ).</p></li>
 <li><p><code><a href="../reference/standardize.html">standardize()</a></code> / <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> properly deal with transformed data in the model formula ( <a href='https://github.com/easystats/effectsize/issues/113'>#113</a> ).</p></li>
 <li><p><code><a href="../reference/odds_to_probs.html">odds_to_probs()</a></code> was mis-treating impossible odds (NEVER TELL ME THE ODDS! <a href='https://github.com/easystats/effectsize/issues/123'>#123</a> )</p></li>
-</ul>
-</div>
+</ul></div>
 </div>
     <div id="effectsize-032" class="section level1">
 <h1 class="page-header" data-toc-text="0.3.2">
-<a href="#effectsize-032" class="anchor" aria-hidden="true"></a>effectsize 0.3.2<small> 2020-07-27 </small>
-</h1>
+<a href="#effectsize-032" class="anchor" aria-hidden="true"></a>effectsize 0.3.2<small> 2020-07-27 </small></h1>
 <div id="new-features-6" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features-6" class="anchor" aria-hidden="true"></a>New features</h2>
-<ul>
-<li><p><code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> for estimating Eta Squared for Bayesian models.</p></li>
+<ul><li><p><code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> for estimating Eta Squared for Bayesian models.</p></li>
 <li>
 <p><code><a href="../reference/eta_squared.html">eta_squared()</a></code>, <code><a href="../reference/eta_squared.html">omega_squared()</a></code> and <code><a href="../reference/eta_squared.html">epsilon_squared()</a></code> now works with</p>
-<ul>
-<li>
+<ul><li>
 <code>ols</code> / <code>rms</code> models.</li>
-</ul>
-</li>
-<li><p><code><a href="../reference/effectsize.html">effectsize()</a></code> for class <code>htest</code> supports <code><a href="https://rdrr.io/r/stats/oneway.test.html" class="external-link">oneway.test(...)</a></code>.</p></li>
-</ul>
-</div>
+</ul></li>
+<li><p><code><a href="../reference/effectsize.html">effectsize()</a></code> for class <code>htest</code> supports <code>oneway.test(...)</code>.</p></li>
+</ul></div>
 <div id="bug-fixes-6" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes-6" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
-<ul>
-<li><p>Fix minor miss-calculation of Chi-squared for 2*2 table with small samples ( <a href='https://github.com/easystats/effectsize/issues/102'>#102</a> ).</p></li>
+<ul><li><p>Fix minor miss-calculation of Chi-squared for 2*2 table with small samples ( <a href='https://github.com/easystats/effectsize/issues/102'>#102</a> ).</p></li>
 <li><p>Fixed miss-calculation of signed rank in <code><a href="../reference/ranktransform.html">ranktransform()</a></code> ( <a href='https://github.com/easystats/effectsize/issues/87'>#87</a> ).</p></li>
 <li><p>Fixed bug in <code><a href="../reference/standardize.html">standardize()</a></code> for standard objects with non-standard class-attributes (like vectors of class <code>haven_labelled</code> or <code>vctrs_vctr</code>).</p></li>
-<li><p>Fix <code><a href="../reference/effectsize.html">effectsize()</a></code> for one sample <code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test(...)</a></code> ( <a href='https://github.com/easystats/effectsize/issues/95'>#95</a> ; thanks to pull request by <a href='https://github.com/mutlusun'>@mutlusun</a> )</p></li>
-</ul>
-</div>
+<li><p>Fix <code><a href="../reference/effectsize.html">effectsize()</a></code> for one sample <code>t.test(...)</code> ( <a href='https://github.com/easystats/effectsize/issues/95'>#95</a> ; thanks to pull request by <a href='https://github.com/mutlusun'>@mutlusun</a> )</p></li>
+</ul></div>
 </div>
     <div id="effectsize-031" class="section level1">
 <h1 class="page-header" data-toc-text="0.3.1">
-<a href="#effectsize-031" class="anchor" aria-hidden="true"></a>effectsize 0.3.1<small> 2020-05-19 </small>
-</h1>
+<a href="#effectsize-031" class="anchor" aria-hidden="true"></a>effectsize 0.3.1<small> 2020-05-19 </small></h1>
 <div id="new-features-7" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features-7" class="anchor" aria-hidden="true"></a>New features</h2>
-<ul>
-<li><p><code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> now returns CIs ( <a href='https://github.com/easystats/effectsize/issues/72'>#72</a> )</p></li>
+<ul><li><p><code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> now returns CIs ( <a href='https://github.com/easystats/effectsize/issues/72'>#72</a> )</p></li>
 <li>
 <p><code><a href="../reference/eta_squared.html">eta_squared()</a></code>, <code><a href="../reference/eta_squared.html">omega_squared()</a></code> and <code><a href="../reference/eta_squared.html">epsilon_squared()</a></code> now works with</p>
-<ul>
-<li><p><code>gam</code> models.</p></li>
+<ul><li><p><code>gam</code> models.</p></li>
 <li><p><code>afex</code> models.</p></li>
 <li><p><code>lme</code> and <code>anova.lme</code> objects.</p></li>
-</ul>
-</li>
+</ul></li>
 <li><p>New function <code><a href="https://easystats.github.io/bayestestR/reference/equivalence_test.html" class="external-link">equivalence_test()</a></code> for effect sizes.</p></li>
 <li><p>New plotting methods in the <code>see</code> package.</p></li>
-</ul>
-</div>
+</ul></div>
 </div>
     <div id="effectsize-030" class="section level1">
 <h1 class="page-header" data-toc-text="0.3.0">
-<a href="#effectsize-030" class="anchor" aria-hidden="true"></a>effectsize 0.3.0<small> 2020-04-11 </small>
-</h1>
+<a href="#effectsize-030" class="anchor" aria-hidden="true"></a>effectsize 0.3.0<small> 2020-04-11 </small></h1>
 <div id="new-features-8" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features-8" class="anchor" aria-hidden="true"></a>New features</h2>
-<ul>
-<li><p>New general purpose <code><a href="../reference/effectsize.html">effectsize()</a></code> function.</p></li>
+<ul><li><p>New general purpose <code><a href="../reference/effectsize.html">effectsize()</a></code> function.</p></li>
 <li><p>Effectsize for differences have CI methods, and return a data frame.</p></li>
 <li><p>Effectsize for ANOVA all have CI methods, and none are based on bootstrapping.</p></li>
 <li><p>New effect sizes for contingency tables (<code><a href="../reference/phi.html">phi()</a></code> and <code><a href="../reference/phi.html">cramers_v()</a></code>).</p></li>
@@ -484,74 +420,56 @@
 <li><p><code><a href="../reference/standardize.html">standardize.data.frame()</a></code> gets <code>append</code> and <code>suffix</code> arguments, to add (instead of replace) standardized variables to the returned data frame.</p></li>
 <li>
 <p><code><a href="../reference/eta_squared.html">eta_squared()</a></code>, <code><a href="../reference/eta_squared.html">omega_squared()</a></code> and <code><a href="../reference/eta_squared.html">epsilon_squared()</a></code> now works</p>
-<ul>
-<li><p>output from <code><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">parameters::model_parameters()</a></code>.</p></li>
+<ul><li><p>output from <code><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">parameters::model_parameters()</a></code>.</p></li>
 <li><p><code>mlm</code> models.</p></li>
-</ul>
-</li>
-</ul>
-</div>
+</ul></li>
+</ul></div>
 <div id="bug-fixes-7" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes-7" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
-<ul>
-<li><p>Fix <code><a href="../reference/cohens_d.html">cohens_d()</a></code>’s dealing with formula input (<a href='https://github.com/easystats/effectsize/issues/44'>#44</a>).</p></li>
+<ul><li><p>Fix <code><a href="../reference/cohens_d.html">cohens_d()</a></code>’s dealing with formula input (<a href='https://github.com/easystats/effectsize/issues/44'>#44</a>).</p></li>
 <li><p><code><a href="../reference/sd_pooled.html">sd_pooled()</a></code> now returns the… pooled sd (<a href='https://github.com/easystats/effectsize/issues/44'>#44</a>).</p></li>
-</ul>
-</div>
+</ul></div>
 <div id="changes-4" class="section level2">
 <h2 class="hasAnchor">
 <a href="#changes-4" class="anchor" aria-hidden="true"></a>Changes</h2>
-<ul>
-<li>In <code><a href="../reference/t_to_r.html">t_to_d()</a></code>, argument <code>pooled</code> is now <code>paired</code>.</li>
-</ul>
-</div>
+<ul><li>In <code><a href="../reference/t_to_r.html">t_to_d()</a></code>, argument <code>pooled</code> is now <code>paired</code>.</li>
+</ul></div>
 </div>
     <div id="effectsize-020" class="section level1">
 <h1 class="page-header" data-toc-text="0.2.0">
-<a href="#effectsize-020" class="anchor" aria-hidden="true"></a>effectsize 0.2.0<small> 2020-02-25 </small>
-</h1>
+<a href="#effectsize-020" class="anchor" aria-hidden="true"></a>effectsize 0.2.0<small> 2020-02-25 </small></h1>
 <div id="bug-fixes-8" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes-8" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
-<ul>
-<li><p><code><a href="../reference/standardize.html">standardize.data.frame()</a></code> did not work when variables had missing values.</p></li>
+<ul><li><p><code><a href="../reference/standardize.html">standardize.data.frame()</a></code> did not work when variables had missing values.</p></li>
 <li><p>Fixed wrong computation in <code><a href="../reference/standardize.html">standardize()</a></code> when <code>two_sd = TRUE</code>.</p></li>
 <li><p>Fixed bug with missing column names in <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> for models with different components (like count and zero-inflation).</p></li>
-</ul>
-</div>
+</ul></div>
 </div>
     <div id="effectsize-011" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.1">
-<a href="#effectsize-011" class="anchor" aria-hidden="true"></a>effectsize 0.1.1<small> 2020-01-27 </small>
-</h1>
+<a href="#effectsize-011" class="anchor" aria-hidden="true"></a>effectsize 0.1.1<small> 2020-01-27 </small></h1>
 <div id="changes-5" class="section level2">
 <h2 class="hasAnchor">
 <a href="#changes-5" class="anchor" aria-hidden="true"></a>Changes</h2>
-<ul>
-<li>News are hidden in an air of mystery…</li>
-</ul>
-</div>
+<ul><li>News are hidden in an air of mystery…</li>
+</ul></div>
 </div>
     <div id="effectsize-010" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.0">
-<a href="#effectsize-010" class="anchor" aria-hidden="true"></a>effectsize 0.1.0<small> Unreleased </small>
-</h1>
+<a href="#effectsize-010" class="anchor" aria-hidden="true"></a>effectsize 0.1.0<small> Unreleased </small></h1>
 <div id="new-features-9" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features-9" class="anchor" aria-hidden="true"></a>New features</h2>
-<ul>
-<li>
+<ul><li>
 <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> and <code><a href="../reference/standardize.html">standardize()</a></code> now support models from packages <em>brglm</em>, <em>brglm2</em>, <em>mixor</em>, <em>fixest</em>, <em>cgam</em>, <em>cplm</em>, <em>cglm</em>, <em>glmmadmb</em> and <em>complmrob</em>.</li>
-</ul>
-</div>
+</ul></div>
 <div id="bug-fixes-9" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes-9" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
-<ul>
-<li>Fix CRAN check issues.</li>
-</ul>
-</div>
+<ul><li>Fix CRAN check issues.</li>
+</ul></div>
 </div>
   </div>
 

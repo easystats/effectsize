@@ -373,7 +373,7 @@ standardizing model coefficients.</p><h3 class='hasAnchor' id='transformed-varia
 
 <p>When the model's formula contains transformations (e.g. <code>y ~ exp(X)</code>) the
 transformation effectively takes place after standardization (e.g.,
-<code><a href='https://rdrr.io/r/base/Log.html'>exp(scale(X))</a></code>). Some transformations are undefined for negative values,
+<code>exp(scale(X))</code>). Some transformations are undefined for negative values,
 such as <code><a href='https://rdrr.io/r/base/Log.html'>log()</a></code> and <code><a href='https://rdrr.io/r/base/MathFun.html'>sqrt()</a></code>. To avoid dropping these values, the
 standardized data is shifted by <code>Z - min(Z) + 1</code> or <code>Z - min(Z)</code>
 (respectively).</p>
@@ -395,27 +395,29 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 <code><a href='standardize_parameters.html'>standardize_parameters</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Data frames</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'>standardize</span><span class='op'>(</span><span class='va'>swiss</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    Fertility         Agriculture       Examination         Education      
-#&gt;  Min.   :-2.81327   Min.   :-2.1778   Min.   :-1.69084   Min.   :-1.0378  
-#&gt;  1st Qu.:-0.43569   1st Qu.:-0.6499   1st Qu.:-0.56273   1st Qu.:-0.5178  
-#&gt;  Median : 0.02061   Median : 0.1515   Median :-0.06134   Median :-0.3098  
-#&gt;  Mean   : 0.00000   Mean   : 0.0000   Mean   : 0.00000   Mean   : 0.0000  
-#&gt;  3rd Qu.: 0.66504   3rd Qu.: 0.7481   3rd Qu.: 0.69074   3rd Qu.: 0.1062  
-#&gt;  Max.   : 1.78978   Max.   : 1.7190   Max.   : 2.57094   Max.   : 4.3702  
-#&gt;     Catholic       Infant.Mortality  
-#&gt;  Min.   :-0.9350   Min.   :-3.13886  
-#&gt;  1st Qu.:-0.8620   1st Qu.:-0.61543  
-#&gt;  Median :-0.6235   Median : 0.01972  
-#&gt;  Mean   : 0.0000   Mean   : 0.00000  
-#&gt;  3rd Qu.: 1.2464   3rd Qu.: 0.60337  
-#&gt;  Max.   : 1.4113   Max.   : 2.28566  </div><div class='input'>
-<span class='co'># Models</span>
-<span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>Infant.Mortality</span> <span class='op'>~</span> <span class='va'>Education</span> <span class='op'>*</span> <span class='va'>Fertility</span>, data <span class='op'>=</span> <span class='va'>swiss</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='fu'>standardize</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         (Intercept)           Education           Fertility Education:Fertility 
-#&gt;          0.06386069          0.47482848          0.63270919          0.09829777 </div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># Data frames</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'>standardize</span><span class='op'>(</span><span class='va'>swiss</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    Fertility         Agriculture       Examination         Education      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Min.   :-2.81327   Min.   :-2.1778   Min.   :-1.69084   Min.   :-1.0378  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  1st Qu.:-0.43569   1st Qu.:-0.6499   1st Qu.:-0.56273   1st Qu.:-0.5178  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Median : 0.02061   Median : 0.1515   Median :-0.06134   Median :-0.3098  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Mean   : 0.00000   Mean   : 0.0000   Mean   : 0.00000   Mean   : 0.0000  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  3rd Qu.: 0.66504   3rd Qu.: 0.7481   3rd Qu.: 0.69074   3rd Qu.: 0.1062  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Max.   : 1.78978   Max.   : 1.7190   Max.   : 2.57094   Max.   : 4.3702  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Catholic       Infant.Mortality  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Min.   :-0.9350   Min.   :-3.13886  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  1st Qu.:-0.8620   1st Qu.:-0.61543  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Median :-0.6235   Median : 0.01972  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Mean   : 0.0000   Mean   : 0.00000  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  3rd Qu.: 1.2464   3rd Qu.: 0.60337  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Max.   : 1.4113   Max.   : 2.28566  </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Models</span></span>
+<span class='r-in'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>Infant.Mortality</span> <span class='op'>~</span> <span class='va'>Education</span> <span class='op'>*</span> <span class='va'>Fertility</span>, data <span class='op'>=</span> <span class='va'>swiss</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='fu'>standardize</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         (Intercept)           Education           Fertility Education:Fertility </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          0.06386069          0.47482848          0.63270919          0.09829777 </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

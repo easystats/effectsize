@@ -253,17 +253,20 @@ variables will be selected.</p></td>
 <code><a href='standardize.html'>standardize</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>change_scale</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]  50  60 100   0  30</div><div class='input'><span class='fu'>change_scale</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span>, to <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>5</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]  0  1  5 -5 -2</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>change_scale</span><span class='op'>(</span><span class='va'>trees</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;       Girth    Height     Volume
-#&gt; 1  0.000000 29.166667  0.1497006
-#&gt; 2  2.439024  8.333333  0.1497006
-#&gt; 3  4.065041  0.000000  0.0000000
-#&gt; 4 17.886179 37.500000  9.2814371
-#&gt; 5 19.512195 75.000000 12.8742515
-#&gt; 6 20.325203 83.333333 14.2215569</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>change_scale</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1]  50  60 100   0  30</span>
+<span class='r-in'><span class='fu'>change_scale</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span>, to <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>5</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1]  0  1  5 -5 -2</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>change_scale</span><span class='op'>(</span><span class='va'>trees</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Girth    Height     Volume</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  0.000000 29.166667  0.1497006</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  2.439024  8.333333  0.1497006</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  4.065041  0.000000  0.0000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 17.886179 37.500000  9.2814371</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 19.512195 75.000000 12.8742515</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 20.325203 83.333333 14.2215569</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
