@@ -130,14 +130,9 @@ print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
   }
 
   if (any(colnames(x) == "Hedges_g")) {
-    correction <- sprintf(
-      "\n- Bias corrected using %s method.",
-      ifelse(attr(x, "correction") == 1, "Hedges and Olkin's", "Hunter and Schmidt's")
-    )
-
+    correction <- "\n- Bias corrected using exact method."
     footer <- c(footer, list(c(correction, "cyan")))
   }
-
 
   attr(x, "table_footer") <- footer
   attr(x, "table_caption") <- caption

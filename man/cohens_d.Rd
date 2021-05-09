@@ -15,21 +15,20 @@ cohens_d(
   paired = FALSE,
   ci = 0.95,
   verbose = TRUE,
-  ...,
-  correction
+  ...
 )
 
 hedges_g(
   x,
   y = NULL,
   data = NULL,
-  correction = 1,
   pooled_sd = TRUE,
   mu = 0,
   paired = FALSE,
   ci = 0.95,
   verbose = TRUE,
-  ...
+  ...,
+  correction
 )
 
 glass_delta(
@@ -38,10 +37,9 @@ glass_delta(
   data = NULL,
   mu = 0,
   ci = 0.95,
-  iterations = 200,
   verbose = TRUE,
   ...,
-  correction
+  iterations
 )
 }
 \arguments{
@@ -68,12 +66,7 @@ size on \code{x - y}.}
 
 \item{...}{Arguments passed to or from other methods.}
 
-\item{correction}{Type of small sample bias correction to apply to produce
-Hedges' \emph{g}. Can be \code{1} for Hedges and Olkin's original correction
-(default) or \code{2} for Hunter and Schmidt's correction (see McGrath & Meyer,
-2006).}
-
-\item{iterations}{The number of bootstrap replicates for computing confidence intervals. Only applies when \code{ci} is not \code{NULL}.}
+\item{iterations, correction}{deprecated.}
 }
 \value{
 A data frame with the effect size ( \code{Cohens_d}, \code{Hedges_g},
@@ -92,11 +85,8 @@ appropriate when the standard deviations are significantly different between
 the populations, as it uses only the \emph{second} group's standard deviation.
 }
 \details{
-\subsection{Confidence Intervals for Glass' \emph{delta}}{
-
-Confidence Intervals for Glass' \emph{delta} are estimated using the bootstrap
-method.
-}
+Set \code{pooled_sd = FALSE} for effect sizes that are to accompany a Welch's
+\emph{t}-test (Delacre et al, 2021).
 }
 \note{
 The indices here give the population estimated standardized difference.
@@ -145,13 +135,15 @@ cohens_d(mpg ~ am, data = mtcars)
 cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)
 cohens_d(mpg ~ am, data = mtcars, mu = -5)
 hedges_g(mpg ~ am, data = mtcars)
-if (require(boot)) glass_delta(mpg ~ am, data = mtcars)
+glass_delta(mpg ~ am, data = mtcars)
 print(cohens_d(mpg ~ am, data = mtcars), append_CL = TRUE)
 
 # other acceptable ways to specify arguments
-cohens_d(sleep$extra, sleep$group)
+glass_delta(sleep$extra, sleep$group)
 hedges_g("extra", "group", data = sleep)
 cohens_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], paired = TRUE)
+# cohens_d(Pair(extra[group == 1], extra[group == 2]) ~ 1,
+#          data = sleep, paired = TRUE)
 
 # one-sample tests -----------------------
 
@@ -164,17 +156,22 @@ interpret_d(0.4, rules = "cohen1988")
 d_to_common_language(0.4)
 interpret_g(0.4, rules = "sawilowsky2009")
 interpret_delta(0.4, rules = "gignac2016")
+
 }
 \references{
 \itemize{
+\item Algina, J., Keselman, H. J., & Penfield, R. D. (2006). Confidence intervals
+for an effect size when variances are not equal. Journal of Modern Applied
+Statistical Methods, 5(1), 2.
 \item Cohen, J. (1988). Statistical power analysis for the behavioral
 sciences (2nd Ed.). New York: Routledge.
+\item Delacre, M., Lakens, D., Ley, C., Liu, L., & Leys, C. (2021, May 7). Why
+Hedges’ g*s based on the non-pooled standard deviation should be reported
+with Welch’s t-test. https://doi.org/10.31234/osf.io/tu6mp
 \item Hedges, L. V. & Olkin, I. (1985). Statistical methods for
 meta-analysis. Orlando, FL: Academic Press.
 \item Hunter, J. E., & Schmidt, F. L. (2004). Methods of meta-analysis:
 Correcting error and bias in research findings. Sage.
-\item McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the
-case of r and d. Psychological methods, 11(4), 386.
 }
 }
 \seealso{
