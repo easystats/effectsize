@@ -4,6 +4,10 @@
 
 - `hedges_g()` now used exact bias correction (thanks to @mdelacre for the suggestion!)
 
+## Bug fixes
+
+- `cohens_d()` / `hedges_g()` minor fix for CI with unequal variances.
+
 # effectsize 0.4.4-1
 
 ## New features

@@ -243,10 +243,10 @@ glass_delta <- function(x,
     n <- n1 + n2
 
     if (type %in% c("d", "g")) {
-      hn <- (1 / n1 + 1 / n2)
       if (pooled_sd) {
         s <- suppressWarnings(sd_pooled(x, y))
 
+        hn <- (1 / n1 + 1 / n2)
         se <- s * sqrt(1 / n1 + 1 / n2)
         df <- n - 2
       } else {
@@ -256,6 +256,8 @@ glass_delta <- function(x,
 
         se1 <- sqrt(s1^2 / n1)
         se2 <- sqrt(s2^2 / n2)
+
+        hn <- (2 * (n2 * s1 ^ 2 + n1 * s2 ^ 2)) / (n1 * n2 * (s1 ^ 2 + s2 ^ 2))
         se <- sqrt(se1^2 + se2^2)
         df <- se^4 / (se1^4 / (n1 - 1) + se2^4 / (n2 - 1))
       }
