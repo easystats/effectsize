@@ -190,6 +190,12 @@
 <ul><li>
 <code><a href="../reference/cohens_d.html">cohens_d()</a></code> / <code><a href="../reference/cohens_d.html">hedges_g()</a></code> minor fix for CI with unequal variances.</li>
 </ul></div>
+<div id="changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#changes" class="anchor" aria-hidden="true"></a>Changes</h2>
+<ul><li>
+<code><a href="../reference/sd_pooled.html">mad_pooled()</a></code> (the robust version of <code><a href="../reference/sd_pooled.html">sd_pooled()</a></code>) now correctly pools the the two samples.</li>
+</ul></div>
 </div>
     <div id="effectsize-044-1" class="section level1">
 <h1 class="page-header" data-toc-text="0.4.4-1">
@@ -264,9 +270,9 @@
 <ul><li><p><code><a href="../reference/adjust.html">adjust()</a></code> properly works when <code>multilevel = TRUE</code>.</p></li>
 <li><p><code><a href="../reference/cohens_d.html">cohens_d()</a></code> family / <code><a href="../reference/sd_pooled.html">sd_pooled()</a></code> now properly fails when given a missing column name.</p></li>
 </ul></div>
-<div id="changes" class="section level2">
+<div id="changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes" class="anchor" aria-hidden="true"></a>Changes</h2>
+<a href="#changes-1" class="anchor" aria-hidden="true"></a>Changes</h2>
 <ul><li><p><code><a href="../reference/effectsize.html">effectsize()</a></code> for <code>htest</code> objects now tries first to extract the data used for testing, and computed the effect size directly on that data.</p></li>
 <li><p><code><a href="../reference/cohens_d.html">cohens_d()</a></code> family / <code><a href="../reference/sd_pooled.html">sd_pooled()</a></code> now respect any transformations (e.g. <code>I(log(x) - 3) ~ factor(y)</code>) in a passed formula.</p></li>
 <li><p><code><a href="../reference/eta_squared.html">eta_squared()</a></code> family of functions gains a <code>verbose</code> argument.</p></li>
@@ -292,9 +298,9 @@
 <li><p><code><a href="../reference/standardize.html">standardize()</a></code> gains support for <code><a href="https://rdrr.io/pkg/mediation/man/mediate.html" class="external-link">mediation::mediate()</a></code> models.</p></li>
 <li><p><code><a href="../reference/eta_squared.html">eta_squared()</a></code> family available for <code>manova</code> objects.</p></li>
 </ul></div>
-<div id="changes-1" class="section level2">
+<div id="changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-1" class="anchor" aria-hidden="true"></a>Changes</h2>
+<a href="#changes-2" class="anchor" aria-hidden="true"></a>Changes</h2>
 <ul><li>
 <code><a href="../reference/eta_squared.html">eta_squared()</a></code> family of functions returns non-partial effect size for one-way between subjects design (<a href='https://github.com/easystats/effectsize/issues/180'>#180</a>).</li>
 </ul></div>
@@ -337,9 +343,9 @@
 </ul></li>
 <li><p><code><a href="../reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio()</a></code> for converting OR to RR.</p></li>
 </ul></div>
-<div id="changes-2" class="section level2">
+<div id="changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-2" class="anchor" aria-hidden="true"></a>Changes</h2>
+<a href="#changes-3" class="anchor" aria-hidden="true"></a>Changes</h2>
 <ul><li><p>CIs for Omega-/Epsilon-squared and Adjusted Phi/Cramer’s V return 0s instead of negative values.</p></li>
 <li><p><code><a href="../reference/standardize.html">standardize()</a></code> for data frames gains the <code>remove_na</code> argument for dealing with <code>NA</code>s ( <a href='https://github.com/easystats/effectsize/issues/147'>#147</a> ).</p></li>
 <li><p><code><a href="../reference/standardize.html">standardize()</a></code> and <code><a href="../reference/standardize_info.html">standardize_info()</a></code> now (and by extension, <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code>) respect the weights in weighted models when standardizing ( <a href='https://github.com/easystats/effectsize/issues/82'>#82</a> ).</p></li>
@@ -367,9 +373,9 @@
 <ul><li><p><code>standardize_parameters(method = "pseudo")</code> returns pseudo-standardized coefficients for (G)LMM models.</p></li>
 <li><p><code><a href="../reference/d_to_common_language.html">d_to_common_language()</a></code> for common language measures of standardized differences (a-la Cohen’s d).</p></li>
 </ul></div>
-<div id="changes-3" class="section level2">
+<div id="changes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-3" class="anchor" aria-hidden="true"></a>Changes</h2>
+<a href="#changes-4" class="anchor" aria-hidden="true"></a>Changes</h2>
 <ul><li><p><code><a href="../reference/d_to_r.html">r_to_odds()</a></code> family is now deprecated in favor of <code><a href="../reference/d_to_r.html">r_to_oddsratio()</a></code>.</p></li>
 <li><p><code><a href="../reference/interpret_oddsratio.html">interpret_odds()</a></code> is now deprecated in favor of <code><a href="../reference/interpret_oddsratio.html">interpret_oddsratio()</a></code></p></li>
 </ul></div>
@@ -448,9 +454,9 @@
 <ul><li><p>Fix <code><a href="../reference/cohens_d.html">cohens_d()</a></code>’s dealing with formula input (<a href='https://github.com/easystats/effectsize/issues/44'>#44</a>).</p></li>
 <li><p><code><a href="../reference/sd_pooled.html">sd_pooled()</a></code> now returns the… pooled sd (<a href='https://github.com/easystats/effectsize/issues/44'>#44</a>).</p></li>
 </ul></div>
-<div id="changes-4" class="section level2">
+<div id="changes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-4" class="anchor" aria-hidden="true"></a>Changes</h2>
+<a href="#changes-5" class="anchor" aria-hidden="true"></a>Changes</h2>
 <ul><li>In <code><a href="../reference/t_to_r.html">t_to_d()</a></code>, argument <code>pooled</code> is now <code>paired</code>.</li>
 </ul></div>
 </div>
@@ -468,9 +474,9 @@
     <div id="effectsize-011" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.1">
 <a href="#effectsize-011" class="anchor" aria-hidden="true"></a>effectsize 0.1.1<small> 2020-01-27 </small></h1>
-<div id="changes-5" class="section level2">
+<div id="changes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-5" class="anchor" aria-hidden="true"></a>Changes</h2>
+<a href="#changes-6" class="anchor" aria-hidden="true"></a>Changes</h2>
 <ul><li>News are hidden in an air of mystery…</li>
 </ul></div>
 </div>

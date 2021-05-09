@@ -48,7 +48,8 @@
 
 <meta property="og:title" content="Pooled Standard Deviation — sd_pooled" />
 <meta property="og:description" content="The Pooled Standard Deviation is a weighted average of standard deviations
-for two or more groups, with more &quot;weight&quot; given to larger sample sizes." />
+for two or more groups, assumed to have equal variance. It represents the
+common deviation among the groups, around each of their respective means." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -180,12 +181,13 @@ for two or more groups, with more &quot;weight&quot; given to larger sample size
 
     <div class="ref-description">
     <p>The Pooled Standard Deviation is a weighted average of standard deviations
-for two or more groups, with more "weight" given to larger sample sizes.</p>
+for two or more groups, <em>assumed to have equal variance</em>. It represents the
+common deviation among the groups, around each of their respective means.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sd_pooled</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, data <span class='op'>=</span> <span class='cn'>NULL</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>mad_pooled</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, data <span class='op'>=</span> <span class='cn'>NULL</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+<span class='fu'>mad_pooled</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, data <span class='op'>=</span> <span class='cn'>NULL</span>, constant <span class='op'>=</span> <span class='fl'>1.4826</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -207,11 +209,21 @@ character  name of one in <code>data</code>. Ignored if <code>x</code> is a form
       <th>verbose</th>
       <td><p>Toggle warnings and messages on or off.</p></td>
     </tr>
+    <tr>
+      <th>constant</th>
+      <td><p>scale factor.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Numeric, the pooled standard deviation.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The standard version is calculated as:
+$$\sqrt{\frac{\Sum (x_i - \bar{x})^2}{n_1 + n_2 - 2}}$$
+The robust version is calculated as:
+$$1.4826 \times MAD {x - Median_x; y - Median_y}$$</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='cohens_d.html'>cohens_d()</a></code></p></div>
@@ -219,6 +231,9 @@ character  name of one in <code>data</code>. Ignored if <code>x</code> is a form
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='r-in'><span class='fu'>sd_pooled</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 4.902029</span>
+<span class='r-in'><span class='fu'>mad_pooled</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>mpg</span>, <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>am</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 6.704213</span>
+<span class='r-in'></span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
