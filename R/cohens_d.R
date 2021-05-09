@@ -98,14 +98,7 @@ cohens_d <- function(x,
                      paired = FALSE,
                      ci = 0.95,
                      verbose = TRUE,
-                     ...,
-                     correction) {
-  if (!missing(correction)) {
-    warning("`correction` argument is deprecated. To apply bias correction, use `hedges_g()`.",
-      call. = FALSE, immediate. = TRUE
-    )
-  }
-
+                     ...) {
   if (inherits(x, "htest")) {
     if (!grepl("t-test", x$method)) {
       stop("'x' is not a t-test!", call. = FALSE)
@@ -138,25 +131,24 @@ cohens_d <- function(x,
 hedges_g <- function(x,
                      y = NULL,
                      data = NULL,
-                     correction = 1,
                      pooled_sd = TRUE,
                      mu = 0,
                      paired = FALSE,
                      ci = 0.95,
                      verbose = TRUE,
-                     ...) {
-  if (isTRUE(correction) || !correction %in% c(1, 2)) {
-    warning("`correction` must be 1 or 2. See ?hedges_g. Setting to 1 for Hedges & Olkin's correction.",
-      call. = FALSE, immediate. = TRUE
+                     ...,
+                     correction) {
+  if (!missing(correction)) {
+    warning("`correction` argument is deprecated. *Exact* bias correction method is used.",
+            call. = FALSE, immediate. = TRUE
     )
-    correction <- 1
   }
 
   if (inherits(x, "htest")) {
     if (!grepl("t-test", x$method)) {
       stop("'x' is not a t-test!", call. = FALSE)
     }
-    return(effectsize(x, type = "g", correction = correction, ci = ci, verbose = verbose))
+    return(effectsize(x, type = "g", ci = ci, verbose = verbose))
   } else if (inherits(x, "BFBayesFactor")) {
     if (!inherits(x@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
       stop("'x' is not a t-test!", call. = FALSE)
@@ -169,7 +161,6 @@ hedges_g <- function(x,
     y = y,
     data = data,
     type = "g",
-    correction = correction,
     pooled_sd = pooled_sd,
     mu = mu,
     paired = paired,
@@ -187,14 +178,7 @@ glass_delta <- function(x,
                         ci = 0.95,
                         iterations = 200,
                         verbose = TRUE,
-                        ...,
-                        correction) {
-  if (!missing(correction)) {
-    warning("`correction` argument is deprecated. To apply bias correction, use `hedges_g()`.",
-      call. = FALSE, immediate. = TRUE
-    )
-  }
-
+                        ...) {
   .effect_size_difference(
     x,
     y = y,
@@ -216,7 +200,6 @@ glass_delta <- function(x,
                                     data = NULL,
                                     type = "d",
                                     mu = 0,
-                                    correction = NULL,
                                     pooled_sd = TRUE,
                                     paired = FALSE,
                                     ci = 0.95,
@@ -313,16 +296,9 @@ glass_delta <- function(x,
 
 
   if (type == "g") {
-    if (correction == 1) {
-      if (paired) {
-        J <- 1 - 3 / (4 * (n - 1) - 1)
-      } else {
-        J <- 1 - 3 / (4 * n - 9)
-      }
-    } else if (correction == 2) {
-      # McGrath & Meyer (2006)
-      J <- ((n - 3) / (n - 2.25)) * sqrt((n - 2) / n)
-    }
+    J <- gamma(df / 2) / (sqrt(df / 2) * gamma((df - 1) / 2)) # exact method
+    # J <- 1 - 3 / (4 * df - 1) # orig method
+    # J <- ((n - 3) / (n - 2.25)) * sqrt((n - 2) / n) # McGrath & Meyer (2006)
 
     out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] <-
       out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] * J
@@ -330,7 +306,7 @@ glass_delta <- function(x,
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
   attr(out, "paired") <- paired
-  attr(out, "correction") <- correction
+  attr(out, "correction") <- type == "g"
   attr(out, "pooled_sd") <- pooled_sd
   attr(out, "mu") <- mu
   attr(out, "ci") <- ci

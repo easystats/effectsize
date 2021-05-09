@@ -1,3 +1,9 @@
+# effectsize 0.4.4-2
+
+## New features
+
+- `hedges_g()` now used exact bias correction (thanks to @mdelacre for the suggestion!)
+
 # effectsize 0.4.4-1
 
 ## New features

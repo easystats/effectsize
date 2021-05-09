@@ -15,21 +15,20 @@ cohens_d(
   paired = FALSE,
   ci = 0.95,
   verbose = TRUE,
-  ...,
-  correction
+  ...
 )
 
 hedges_g(
   x,
   y = NULL,
   data = NULL,
-  correction = 1,
   pooled_sd = TRUE,
   mu = 0,
   paired = FALSE,
   ci = 0.95,
   verbose = TRUE,
-  ...
+  ...,
+  correction
 )
 
 glass_delta(
@@ -40,8 +39,7 @@ glass_delta(
   ci = 0.95,
   iterations = 200,
   verbose = TRUE,
-  ...,
-  correction
+  ...
 )
 }
 \arguments{
