@@ -67,8 +67,6 @@ size on \code{x - y}.}
 \item{...}{Arguments passed to or from other methods.}
 
 \item{iterations, correction}{deprecated.}
-
-\item{iterations}{The number of bootstrap replicates for computing confidence intervals. Only applies when \code{ci} is not \code{NULL}.}
 }
 \value{
 A data frame with the effect size ( \code{Cohens_d}, \code{Hedges_g},

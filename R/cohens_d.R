@@ -128,7 +128,6 @@ cohens_d <- function(x,
 }
 
 #' @rdname cohens_d
-#' @param iterations The number of bootstrap replicates for computing confidence intervals. Only applies when \code{ci} is not \code{NULL}.
 #' @export
 hedges_g <- function(x,
                      y = NULL,
@@ -402,31 +401,31 @@ glass_delta <- function(x,
   list(x = x, y = y)
 }
 
-.delta_ci <- function(x, y, mu = 0, ci = 0.95, iterations = 200) {
-  boot_delta <- function(data, .i, mu = 0) {
-    .x <- sample(x, replace = TRUE)
-    .y <- sample(y, replace = TRUE)
-
-    d <- mean(.x) - mean(.y)
-    s <- stats::sd(.y)
-    (d - mu) / s
-  }
-
-  # dud, not actually used
-  data <- data.frame(
-    i = seq_along(c(x, y))
-  )
-
-  R <- boot::boot(
-    data = data,
-    statistic = boot_delta,
-    R = iterations,
-    mu = mu
-  )
-
-  out <- as.data.frame(
-    bayestestR::ci(na.omit(R$t), ci = ci, verbose = FALSE)
-  )
-  out$CI <- ci
-  out
-}
+# .delta_ci <- function(x, y, mu = 0, ci = 0.95, iterations = 200) {
+#   boot_delta <- function(data, .i, mu = 0) {
+#     .x <- sample(x, replace = TRUE)
+#     .y <- sample(y, replace = TRUE)
+#
+#     d <- mean(.x) - mean(.y)
+#     s <- stats::sd(.y)
+#     (d - mu) / s
+#   }
+#
+#   # dud, not actually used
+#   data <- data.frame(
+#     i = seq_along(c(x, y))
+#   )
+#
+#   R <- boot::boot(
+#     data = data,
+#     statistic = boot_delta,
+#     R = iterations,
+#     mu = mu
+#   )
+#
+#   out <- as.data.frame(
+#     bayestestR::ci(na.omit(R$t), ci = ci, verbose = FALSE)
+#   )
+#   out$CI <- ci
+#   out
+# }
