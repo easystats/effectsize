@@ -66,7 +66,7 @@ estimated. See \link[stats:wilcox.test]{stats::wilcox.test}.}
 
 \item{ci}{Confidence Interval (CI) level}
 
-\item{iterations}{The number of bootstrap replicates for computing confidence intervals. Only applies when \code{ci} is not \code{NULL}.}
+\item{iterations}{deprecated.}
 
 \item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
 This produces an effect size that is equivalent to the one-sample effect

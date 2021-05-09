@@ -15,15 +15,12 @@
 #' @param y A numeric vector, a grouping (character / factor) vector, a or a
 #'   character  name of one in `data`. Ignored if `x` is a formula.
 #' @param data An optional data frame containing the variables.
-#' @param correction Type of small sample bias correction to apply to produce
-#'   Hedges' *g*. Can be `1` for Hedges and Olkin's original correction
-#'   (default) or `2` for Hunter and Schmidt's correction (see McGrath & Meyer,
-#'   2006).
 #' @param pooled_sd If `TRUE` (default), a [sd_pooled()] is used (assuming equal
 #'   variance). Else the mean SD from both groups is used instead.
 #' @param paired If `TRUE`, the values of `x` and `y` are considered as paired.
 #'   This produces an effect size that is equivalent to the one-sample effect
 #'   size on `x - y`.
+#' @param iterations,correction deprecated.
 #' @inheritParams chisq_to_phi
 #' @inheritParams eta_squared
 #' @inheritParams stats::t.test
@@ -33,10 +30,8 @@
 #'   applying Bessel's correction).
 #'
 #' @details
-#'
-#' ## Confidence Intervals for Glass' *delta*
-#' Confidence Intervals for Glass' *delta* are estimated using the bootstrap
-#' method.
+#' Set `pooled_sd = FALSE` for effect sizes that are to accompany a Welch's
+#' *t*-test (Delacre et al, 2021).
 #'
 #' @inheritSection effectsize-CIs Confidence Intervals
 #' @inheritSection effectsize-CIs CI Contains Zero
@@ -56,13 +51,14 @@
 #' cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)
 #' cohens_d(mpg ~ am, data = mtcars, mu = -5)
 #' hedges_g(mpg ~ am, data = mtcars)
-#' if (require(boot)) glass_delta(mpg ~ am, data = mtcars)
+#' glass_delta(mpg ~ am, data = mtcars)
 #' print(cohens_d(mpg ~ am, data = mtcars), append_CL = TRUE)
 #'
 #' # other acceptable ways to specify arguments
-#' cohens_d(sleep$extra, sleep$group)
+#' glass_delta(sleep$extra, sleep$group)
 #' hedges_g("extra", "group", data = sleep)
 #' cohens_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], paired = TRUE)
+#' cohens_d(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, paired = TRUE)
 #'
 #' # one-sample tests -----------------------
 #'
@@ -75,18 +71,24 @@
 #' d_to_common_language(0.4)
 #' interpret_g(0.4, rules = "sawilowsky2009")
 #' interpret_delta(0.4, rules = "gignac2016")
+#'
 #' @references
+#' - Algina, J., Keselman, H. J., & Penfield, R. D. (2006). Confidence intervals
+#' for an effect size when variances are not equal. Journal of Modern Applied
+#' Statistical Methods, 5(1), 2.
+#'
 #' - Cohen, J. (1988). Statistical power analysis for the behavioral
 #' sciences (2nd Ed.). New York: Routledge.
+#'
+#' - Delacre, M., Lakens, D., Ley, C., Liu, L., & Leys, C. (2021, May 7). Why
+#' Hedges’ g*s based on the non-pooled standard deviation should be reported
+#' with Welch’s t-test. https://doi.org/10.31234/osf.io/tu6mp
 #'
 #' - Hedges, L. V. & Olkin, I. (1985). Statistical methods for
 #' meta-analysis. Orlando, FL: Academic Press.
 #'
 #' - Hunter, J. E., & Schmidt, F. L. (2004). Methods of meta-analysis:
 #' Correcting error and bias in research findings. Sage.
-#'
-#' - McGrath, R. E., & Meyer, G. J. (2006). When effect sizes disagree: the
-#' case of r and d. Psychological methods, 11(4), 386.
 #'
 #' @importFrom stats var model.frame
 #' @export
@@ -176,9 +178,15 @@ glass_delta <- function(x,
                         data = NULL,
                         mu = 0,
                         ci = 0.95,
-                        iterations = 200,
                         verbose = TRUE,
-                        ...) {
+                        ...,
+                        iterations) {
+  if (!missing(iterations)) {
+    warning("`iterations` argument is deprecated. Parametric CIs are estimated.",
+            call. = FALSE, immediate. = TRUE
+    )
+  }
+
   .effect_size_difference(
     x,
     y = y,
@@ -186,8 +194,7 @@ glass_delta <- function(x,
     mu = mu,
     type = "delta",
     ci = ci,
-    verbose = verbose,
-    iterations = iterations
+    verbose = verbose
   )
 }
 
@@ -204,7 +211,6 @@ glass_delta <- function(x,
                                     paired = FALSE,
                                     ci = 0.95,
                                     verbose = TRUE,
-                                    iterations = NULL,
                                     ...) {
   out <- .deal_with_cohens_d_arguments(x, y, data, verbose)
   x <- out$x
@@ -238,6 +244,10 @@ glass_delta <- function(x,
     y <- stats::na.omit(y)
 
     d <- mean(x) - mean(y)
+
+    s1 <- stats::sd(x)
+    s2 <- stats::sd(y)
+
     n1 <- length(x)
     n2 <- length(y)
     n <- n1 + n2
@@ -245,25 +255,23 @@ glass_delta <- function(x,
     if (type %in% c("d", "g")) {
       if (pooled_sd) {
         s <- suppressWarnings(sd_pooled(x, y))
-
         hn <- (1 / n1 + 1 / n2)
         se <- s * sqrt(1 / n1 + 1 / n2)
         df <- n - 2
       } else {
-        s1 <- stats::sd(x)
-        s2 <- stats::sd(y)
         s <- sqrt((s1^2 + s2^2) / 2)
-
+        hn <- (2 * (n2 * s1 ^ 2 + n1 * s2 ^ 2)) / (n1 * n2 * (s1 ^ 2 + s2 ^ 2))
         se1 <- sqrt(s1^2 / n1)
         se2 <- sqrt(s2^2 / n2)
-
-        hn <- (2 * (n2 * s1 ^ 2 + n1 * s2 ^ 2)) / (n1 * n2 * (s1 ^ 2 + s2 ^ 2))
         se <- sqrt(se1^2 + se2^2)
         df <- se^4 / (se1^4 / (n1 - 1) + se2^4 / (n2 - 1))
       }
     } else if (type == "delta") {
       pooled_sd <- NULL
       s <- stats::sd(y)
+      hn <- 1 / n2 + s1 ^ 2 / (n1 * s2 ^ 2)
+      se <- (s2 * sqrt(1 / n2 + s1 ^ 2 / (n1 * s2 ^ 2)))
+      df <- n2 - 1
     }
   }
 
@@ -276,24 +284,14 @@ glass_delta <- function(x,
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
 
     # Add cis
-    if (type %in% c("d", "g")) {
-      out$CI <- ci
+    out$CI <- ci
 
-      t <- (d - mu) / se
-      ts <- .get_ncp_t(t, df, ci)
+    t <- (d - mu) / se
+    ts <- .get_ncp_t(t, df, ci)
 
-      out$CI_low <- ts[1] * sqrt(hn)
-      out$CI_high <- ts[2] * sqrt(hn)
-      ci_method <- list(method = "ncp", distribution = "t")
-    } else if (type == "delta") {
-      if (requireNamespace("boot", quietly = TRUE)) {
-        out <- cbind(out, .delta_ci(x, y, mu = mu, ci = ci, ...))
-        ci_method <- list(method = "bootstrap", iterations = iterations)
-      } else {
-        ci <- NULL
-        warning("'boot' package required for estimating CIs for Glass' delta. Please install the package and try again.", call. = FALSE)
-      }
-    }
+    out$CI_low <- ts[1] * sqrt(hn)
+    out$CI_high <- ts[2] * sqrt(hn)
+    ci_method <- list(method = "ncp", distribution = "t")
   }
 
 

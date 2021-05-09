@@ -2,7 +2,8 @@
 
 ## New features
 
-- `hedges_g()` now used exact bias correction (thanks to @mdelacre for the suggestion!)
+- `hedges_g()` now used exact bias correction (thanks to @mdelacre for the suggestion!)  
+- `glass_delta()` now estimates CIs using the NCP method based on Algina et al (2006).
 
 ## Bug fixes
 
