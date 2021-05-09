@@ -58,7 +58,7 @@
 #' glass_delta(sleep$extra, sleep$group)
 #' hedges_g("extra", "group", data = sleep)
 #' cohens_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], paired = TRUE)
-#' cohens_d(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, paired = TRUE)
+#' cohens_d(stats::Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, paired = TRUE)
 #'
 #' # one-sample tests -----------------------
 #'
@@ -105,7 +105,7 @@ cohens_d <- function(x,
     if (!grepl("t-test", x$method)) {
       stop("'x' is not a t-test!", call. = FALSE)
     }
-    return(effectsize(x, type = "d", correction = correction, ci = ci, verbose = verbose))
+    return(effectsize(x, type = "d", ci = ci, verbose = verbose))
   } else if (inherits(x, "BFBayesFactor")) {
     if (!inherits(x@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
       stop("'x' is not a t-test!", call. = FALSE)
