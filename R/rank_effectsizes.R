@@ -20,6 +20,8 @@
 #' @param mu a number indicating the value around which (a-)symmetry (for
 #'   one-sample or paired samples) or shift (for independent samples) is to be
 #'   estimated. See [stats::wilcox.test].
+#' @param iterations The number of bootstrap replicates for computing confidence
+#'   intervals. Only applies when `ci` is not `NULL`.
 #'
 #' @details
 #' The rank-biserial correlation is appropriate for non-parametric tests of
