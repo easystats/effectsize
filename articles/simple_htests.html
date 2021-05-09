@@ -172,7 +172,7 @@
 &gt; -1.44     | [-2.21, -0.65]
 &gt; 
 &gt; - Estimated using pooled SD.
-&gt; - Bias corrected using Hedges and Olkin's method.</code></pre>
+&gt; - Bias corrected using exact method.</code></pre>
 <p>If variances cannot be assumed to be equal, it is possible to get estimates that are not based on the pooled standard deviation:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span>, var.equal <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
@@ -191,23 +191,23 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span>, pooled_sd <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Cohen's d |         95% CI
 &gt; --------------------------
-&gt; -1.41     | [-2.17, -0.51]
+&gt; -1.41     | [-2.26, -0.53]
 &gt; 
 &gt; - Estimated using un-pooled SD.</code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/cohens_d.html">hedges_g</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span>, pooled_sd <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Hedges' g |         95% CI
 &gt; --------------------------
-&gt; -1.38     | [-2.12, -0.50]
+&gt; -1.35     | [-2.17, -0.51]
 &gt; 
 &gt; - Estimated using un-pooled SD.
-&gt; - Bias corrected using Hedges and Olkin's method.</code></pre>
+&gt; - Bias corrected using exact method.</code></pre>
 <p>In cases where the differences between the variances are substantial, it is also common to standardize the difference based only on the standard deviation of one of the groups (usually the “control” group); this effect size is known as Glass’ <span class="math inline">\(\Delta\)</span> (delta)</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/cohens_d.html">glass_delta</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Glass' delta |         95% CI
 &gt; -----------------------------
-&gt; -1.17        | [-2.23, -0.67]</code></pre>
+&gt; -1.17        | [-1.93, -0.39]</code></pre>
 <p>(Note that the standard deviation is taken from the <em>second</em> sample.)</p>
 </div>
 <div id="one-sample-and-paired-samples" class="section level2">
@@ -238,7 +238,7 @@
 &gt; --------------------------
 &gt; -1.17     | [-2.04, -0.40]
 &gt; 
-&gt; - Bias corrected using Hedges and Olkin's method.</code></pre>
+&gt; - Bias corrected using exact method.</code></pre>
 </div>
 <div id="for-a-bayesian-t-test" class="section level2">
 <h2 class="hasAnchor">
@@ -259,7 +259,7 @@
 &gt; 
 &gt; Parameter | Median |         95% CI
 &gt; -----------------------------------
-&gt; Cohens_d  |  -1.28 | [-2.06, -0.46]</code></pre>
+&gt; Cohens_d  |  -1.29 | [-2.09, -0.51]</code></pre>
 </div>
 </div>
 <div id="one-way-anova" class="section level1">
@@ -358,7 +358,7 @@
 &gt; 
 &gt; Parameter | Median |       95% CI
 &gt; ---------------------------------
-&gt; phi       |   0.26 | [0.19, 0.32]</code></pre>
+&gt; phi       |   0.26 | [0.19, 0.31]</code></pre>
 <div id="comparing-two-proportions-2x2-tables" class="section level2">
 <h2 class="hasAnchor">
 <a href="#comparing-two-proportions-2x2-tables" class="anchor" aria-hidden="true"></a>Comparing Two Proportions (2x2 tables)</h2>
@@ -518,7 +518,7 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/rank_biserial.html">rank_epsilon_squared</a></span><span class="op">(</span><span class="va">group_data</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Epsilon2 (rank) |       95% CI
 &gt; ------------------------------
-&gt; 0.06            | [0.01, 0.73]</code></pre>
+&gt; 0.06            | [0.01, 0.71]</code></pre>
 </div>
 <div id="rank-one-way-repeated-measures-anova" class="section level2">
 <h2 class="hasAnchor">

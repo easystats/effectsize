@@ -208,21 +208,20 @@ the populations, as it uses only the <em>second</em> group's standard deviation.
   paired <span class='op'>=</span> <span class='cn'>FALSE</span>,
   ci <span class='op'>=</span> <span class='fl'>0.95</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  <span class='va'>...</span>,
-  <span class='va'>correction</span>
+  <span class='va'>...</span>
 <span class='op'>)</span>
 
 <span class='fu'>hedges_g</span><span class='op'>(</span>
   <span class='va'>x</span>,
   y <span class='op'>=</span> <span class='cn'>NULL</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
-  correction <span class='op'>=</span> <span class='fl'>1</span>,
   pooled_sd <span class='op'>=</span> <span class='cn'>TRUE</span>,
   mu <span class='op'>=</span> <span class='fl'>0</span>,
   paired <span class='op'>=</span> <span class='cn'>FALSE</span>,
   ci <span class='op'>=</span> <span class='fl'>0.95</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  <span class='va'>...</span>
+  <span class='va'>...</span>,
+  <span class='va'>correction</span>
 <span class='op'>)</span>
 
 <span class='fu'>glass_delta</span><span class='op'>(</span>
@@ -231,10 +230,9 @@ the populations, as it uses only the <em>second</em> group's standard deviation.
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   mu <span class='op'>=</span> <span class='fl'>0</span>,
   ci <span class='op'>=</span> <span class='fl'>0.95</span>,
-  iterations <span class='op'>=</span> <span class='fl'>200</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>,
-  <span class='va'>correction</span>
+  <span class='va'>iterations</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -282,15 +280,8 @@ size on <code>x - y</code>.</p></td>
       <td><p>Arguments passed to or from other methods.</p></td>
     </tr>
     <tr>
-      <th>correction</th>
-      <td><p>Type of small sample bias correction to apply to produce
-Hedges' <em>g</em>. Can be <code>1</code> for Hedges and Olkin's original correction
-(default) or <code>2</code> for Hunter and Schmidt's correction (see McGrath &amp; Meyer,
-2006).</p></td>
-    </tr>
-    <tr>
-      <th>iterations</th>
-      <td><p>The number of bootstrap replicates for computing confidence intervals. Only applies when <code>ci</code> is not <code>NULL</code>.</p></td>
+      <th>iterations, correction</th>
+      <td><p>deprecated.</p></td>
     </tr>
     </table>
 
@@ -300,17 +291,8 @@ Hedges' <em>g</em>. Can be <code>1</code> for Hedges and Olkin's original correc
 <code>Glass_delta</code>) and their CIs (<code>CI_low</code> and <code>CI_high</code>).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    
-<h3 class='hasAnchor' id='confidence-intervals-for-glass-'><a class='anchor' aria-hidden='true' href='#confidence-intervals-for-glass-'></a>Confidence Intervals for Glass' <em>delta</em></h3>
-
-
-<p>Confidence Intervals for Glass' <em>delta</em> are estimated using the bootstrap
-method.</p><h3 class='hasAnchor' id='list-delta-'><a class='anchor' aria-hidden='true' href='#list-delta-'></a>Confidence Intervals for Glass' <em>delta</em></h3>
-
-
-<p>Confidence Intervals for Glass' <em>delta</em> are estimated using the bootstrap
-method.</p>
-
+    <p>Set <code>pooled_sd = FALSE</code> for effect sizes that are to accompany a Welch's
+<em>t</em>-test (Delacre et al, 2021).</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>The indices here give the population estimated standardized difference.
@@ -354,14 +336,18 @@ arbitrarily sets to 0 (Steiger, 2004). For example:<div class="r"></p><pre><span
 
     
 <ul>
+<li><p>Algina, J., Keselman, H. J., &amp; Penfield, R. D. (2006). Confidence intervals
+for an effect size when variances are not equal. Journal of Modern Applied
+Statistical Methods, 5(1), 2.</p></li>
 <li><p>Cohen, J. (1988). Statistical power analysis for the behavioral
 sciences (2nd Ed.). New York: Routledge.</p></li>
+<li><p>Delacre, M., Lakens, D., Ley, C., Liu, L., &amp; Leys, C. (2021, May 7). Why
+Hedges’ g*s based on the non-pooled standard deviation should be reported
+with Welch’s t-test. https://doi.org/10.31234/osf.io/tu6mp</p></li>
 <li><p>Hedges, L. V. &amp; Olkin, I. (1985). Statistical methods for
 meta-analysis. Orlando, FL: Academic Press.</p></li>
 <li><p>Hunter, J. E., &amp; Schmidt, F. L. (2004). Methods of meta-analysis:
 Correcting error and bias in research findings. Sage.</p></li>
-<li><p>McGrath, R. E., &amp; Meyer, G. J. (2006). When effect sizes disagree: the
-case of r and d. Psychological methods, 11(4), 386.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -388,7 +374,7 @@ case of r and d. Psychological methods, 11(4), 386.</p></li>
 <span class='r-in'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, pooled_sd <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Cohen's d |         95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> -1.41     | [-2.17, -0.51]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -1.41     | [-2.26, -0.53]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Estimated using un-pooled SD.</span></span>
 <span class='r-in'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, mu <span class='op'>=</span> <span class='op'>-</span><span class='fl'>5</span><span class='op'>)</span></span>
@@ -404,12 +390,11 @@ case of r and d. Psychological methods, 11(4), 386.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -1.44     | [-2.21, -0.65]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Estimated using pooled SD.</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Bias corrected using Hedges and Olkin's method.</span></span>
-<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'>boot</span><span class='op'>)</span><span class='op'>)</span> <span class='fu'>glass_delta</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> Loading required package: boot</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Bias corrected using exact method.</span></span>
+<span class='r-in'><span class='fu'>glass_delta</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Glass' delta |         95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -----------------------------</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> -1.17        | [-2.14, -0.70]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -1.17        | [-1.93, -0.39]</span>
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>, append_CL <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Cohen's d |         95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------</span>
@@ -424,23 +409,23 @@ case of r and d. Psychological methods, 11(4), 386.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 6.97%      |  45.99% |                     14.80%</span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># other acceptable ways to specify arguments</span></span>
-<span class='r-in'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span>, <span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Cohen's d |        95% CI</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> -------------------------</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> -0.83     | [-1.74, 0.10]</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'></span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Estimated using pooled SD.</span></span>
+<span class='r-in'><span class='fu'>glass_delta</span><span class='op'>(</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span>, <span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Glass' delta |        95% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ----------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -0.79        | [-1.68, 0.13]</span>
 <span class='r-in'><span class='fu'>hedges_g</span><span class='op'>(</span><span class='st'>"extra"</span>, <span class='st'>"group"</span>, data <span class='op'>=</span> <span class='va'>sleep</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Hedges' g |        95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -0.80     | [-1.67, 0.09]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Estimated using pooled SD.</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Bias corrected using Hedges and Olkin's method.</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Bias corrected using exact method.</span></span>
 <span class='r-in'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>]</span>, <span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>2</span><span class='op'>]</span>, paired <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Cohen's d |         95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -1.28     | [-2.23, -0.44]</span>
+<span class='r-in'><span class='co'># cohens_d(Pair(extra[group == 1], extra[group == 2]) ~ 1,</span></span>
+<span class='r-in'><span class='co'>#          data = sleep, paired = TRUE)</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># one-sample tests -----------------------</span></span>
 <span class='r-in'></span>
@@ -456,7 +441,7 @@ case of r and d. Psychological methods, 11(4), 386.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 0.22      | [-0.13, 0.57]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Deviation from a difference of 3.</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Bias corrected using Hedges and Olkin's method.</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Bias corrected using exact method.</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># interpretation -----------------------</span></span>
 <span class='r-in'></span>
@@ -482,6 +467,7 @@ case of r and d. Psychological methods, 11(4), 386.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "small"</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Rules: gignac2016)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'></span></span>
+<span class='r-in'></span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
