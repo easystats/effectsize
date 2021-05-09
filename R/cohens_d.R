@@ -58,7 +58,8 @@
 #' glass_delta(sleep$extra, sleep$group)
 #' hedges_g("extra", "group", data = sleep)
 #' cohens_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], paired = TRUE)
-#' cohens_d(stats::Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, paired = TRUE)
+#' # cohens_d(Pair(extra[group == 1], extra[group == 2]) ~ 1,
+#' #          data = sleep, paired = TRUE)
 #'
 #' # one-sample tests -----------------------
 #'
