@@ -1,3 +1,14 @@
+# effectsize 0.4.4-2
+
+## New features
+
+- `hedges_g()` now used exact bias correction (thanks to @mdelacre for the suggestion!)  
+- `glass_delta()` now estimates CIs using the NCP method based on Algina et al (2006).
+
+## Bug fixes
+
+- `cohens_d()` / `hedges_g()` minor fix for CI with unequal variances.
+
 # effectsize 0.4.4-1
 
 ## New features
