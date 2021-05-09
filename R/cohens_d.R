@@ -278,7 +278,15 @@ glass_delta <- function(x,
       }
     } else if (type == "delta") {
       pooled_sd <- NULL
+<<<<<<< Updated upstream
       s <- stats::sd(y)
+=======
+
+      s <- s2
+      hn <- 1 / n2 + s1 ^ 2 / (n1 * s2 ^ 2)
+      se <- (s2 * sqrt(1 / n2 + s1 ^ 2 / (n1 * s2 ^ 2)))
+      df <- n2 - 1
+>>>>>>> Stashed changes
     }
   }
 
