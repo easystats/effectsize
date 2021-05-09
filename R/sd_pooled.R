@@ -1,14 +1,24 @@
 #' Pooled Standard Deviation
 #'
 #' The Pooled Standard Deviation is a weighted average of standard deviations
-#' for two or more groups, with more "weight" given to larger sample sizes.
+#' for two or more groups, *assumed to have equal variance*. It represents the
+#' common deviation among the groups, around each of their respective means.
 #'
 #' @inheritParams cohens_d
+#' @inheritParams stats::mad
+#'
+#' @details
+#' The standard version is calculated as:
+#' \deqn{\sqrt{\frac{\Sum (x_i - \bar{x})^2}{n_1 + n_2 - 2}}}{sqrt(sum(c(x - mean(x), y - mean(y))^2) / (n1 + n2 - 2))}
+#' The robust version is calculated as:
+#' \deqn{1.4826 \times MAD {x - Median_x; y - Median_y}}{mad(c(x - median(x), y - median(y)), constant = 1.4826)}
 #'
 #' @return Numeric, the pooled standard deviation.
 #'
 #' @examples
 #' sd_pooled(mpg ~ am, data = mtcars)
+#' mad_pooled(mtcars$mpg, factor(mtcars$am))
+#'
 #' @seealso [cohens_d()]
 #'
 #' @export
@@ -41,8 +51,8 @@ sd_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE) {
 
 #' @rdname sd_pooled
 #' @export
-mad_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE) {
-  .sd_pooled(x, y, data, robust = TRUE, verbose = verbose)
+mad_pooled <- function(x, y = NULL, data = NULL, constant = 1.4826, verbose = TRUE) {
+  .sd_pooled(x, y, data, robust = TRUE, verbose = verbose, constant = constant)
 }
 
 
@@ -53,7 +63,7 @@ mad_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE) {
 
 
 #' @importFrom stats mad sd as.formula
-.sd_pooled <- function(x, y = NULL, data = NULL, robust = FALSE, verbose = TRUE) {
+.sd_pooled <- function(x, y = NULL, data = NULL, robust = FALSE, verbose = TRUE, constant = 1) {
 
   # Activate here for evaluation of arguments...
 
@@ -65,22 +75,24 @@ mad_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE) {
   y <- na.omit(out$y)
 
   if (robust) {
-    sd1 <- stats::mad(x)
-    sd2 <- stats::mad(y)
+    f <- constant
+    center <- stats::median
+    div <- stats::mad
   } else {
-    sd1 <- stats::sd(x)
-    sd2 <- stats::sd(y)
+    n1 <- length(x)
+    n2 <- length(y)
+
+    f <- sqrt(c(n1 + n2 - 1) / c(n1 + n2 - 2))
+    center <- mean
+    div <- stats::sd
   }
 
-  # sqrt((sd1^2 + sd2^2) / 2)
+  div(c(
+    x - ave(x, FUN = center),
+    y - ave(y, FUN = center)
+  )) * f
 
-  # Cohen's more complicated formula:
-  n1 <- length(x)
-  n2 <- length(y)
-  sqrt(((n1 - 1) * sd1^2 + (n2 - 1) * sd2^2) / (n1 + n2 - 2))
 }
-
-
 
 # .evaluate_arguments <- function(x, y, data) {
 #   eval_x <- .evaluate_argument(x)

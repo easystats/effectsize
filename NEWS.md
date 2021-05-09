@@ -9,14 +9,17 @@
 
 - `cohens_d()` / `hedges_g()` minor fix for CI with unequal variances.
 
+## Changes
+
+- `mad_pooled()` (the robust version of `sd_pooled()`) now correctly pools the the two samples.
+
 # effectsize 0.4.4-1
 
 ## New features
 
 - `standardize_parameters()` + `eta_sqaured()` support `tidymodels` (when that the underlying model is supported; #311 ).
 - `cohens_d()` family now supports `Pairs()` objects as input.
-- `standardize_parameters()` gains the `include_response` argument (default to `TRUE`) ( #309 ). 
-
+- `standardize_parameters()` gains the `include_response` argument (default to `TRUE`) ( #309 ).
 
 ## Bug fixes
 
