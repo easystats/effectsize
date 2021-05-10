@@ -885,7 +885,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     )
   }
 
-  effectsize(model, type = type, ci = ci)
+  effectsize(model, type = type, ci = ci, verbose = verbose, ...)
 }
 
 #' @keywords internal
