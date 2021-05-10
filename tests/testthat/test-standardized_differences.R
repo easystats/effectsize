@@ -117,5 +117,12 @@ if (require("testthat") && require("effectsize")) {
 
     # no length problems
     expect_error(cohens_d(mtcars$mpg - 23), regexp = NA)
+
+    # Missing factor levels: the actual levels in the data are 3rd and 4th
+    f <- factor(letters[1:2], levels = c("d", "e", "a", "b"))
+    f <- rep(f, each = 5)
+    y <- c(2, 4, 3, 5, 1, 7, 9, 8, 6, 1)
+    expect_error(d <- cohens_d(y, f), regexp = NA)
+    expect_true(attr(d, "pooled_sd"))
   })
 }

@@ -298,6 +298,8 @@ glass_delta <- function(x,
 
   if (type == "g") {
     J <- gamma(df / 2) / (sqrt(df / 2) * gamma((df - 1) / 2)) # exact method
+    if (is.na(J) || is.nan(J) || is.infinite(J)) J <- 1
+
     # J <- 1 - 3 / (4 * df - 1) # orig method
     # J <- ((n - 3) / (n - 2.25)) * sqrt((n - 2) / n) # McGrath & Meyer (2006)
 
@@ -386,6 +388,7 @@ glass_delta <- function(x,
       }
 
       data <- split(x, y)
+      data <- Filter(length, data)
       x <- data[[1]]
       y <- data[[2]]
     } else if (verbose && length(unique(y)) == 2) {

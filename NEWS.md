@@ -7,7 +7,9 @@
 
 ## Bug fixes
 
-- `cohens_d()` / `hedges_g()` minor fix for CI with unequal variances.
+- `cohens_d()` family now correctly deals with missing factor levels ( #318 )
+- `cohens_d()` / `hedges_g()` minor fix for CI with unequal variances.  
+
 
 ## Changes
 
