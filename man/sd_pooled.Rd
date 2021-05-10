@@ -38,7 +38,6 @@ The robust version is calculated as:
 \examples{
 sd_pooled(mpg ~ am, data = mtcars)
 mad_pooled(mtcars$mpg, factor(mtcars$am))
-
 }
 \seealso{
 \code{\link[=cohens_d]{cohens_d()}}
