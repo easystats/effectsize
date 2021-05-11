@@ -118,8 +118,8 @@ For positive only effect sizes (Eta squared, Cramer's V, etc.; Effect sizes
 associated with Chi-squared and F distributions), this applies also to cases
 where the lower bound of the CI is equal to 0. Even more care should be taken
 when the \emph{upper} bound is equal to 0 - this occurs when \emph{p}-value is greater
-than 1−alpha/2 making, the upper bound unestimatable, and the upper bound is
-arbitrarily sets to 0 (Steiger, 2004). For example:\if{html}{\out{<div class="r">}}\preformatted{eta_squared(aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:7, ]))
+than 1−alpha/2 making, the upper bound cannot be estimated, and the upper
+bound is arbitrarily set to 0 (Steiger, 2004). For example:\if{html}{\out{<div class="r">}}\preformatted{eta_squared(aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:7, ]))
 }\if{html}{\out{</div>}}\preformatted{## Parameter    | Eta2 (partial) |       90\% CI
 ## --------------------------------------------
 ## factor(gear) |           0.58 | [0.00, 0.84]
@@ -157,7 +157,6 @@ interpret_d(0.4, rules = "cohen1988")
 d_to_common_language(0.4)
 interpret_g(0.4, rules = "sawilowsky2009")
 interpret_delta(0.4, rules = "gignac2016")
-
 }
 \references{
 \itemize{
@@ -168,7 +167,7 @@ Statistical Methods, 5(1), 2.
 sciences (2nd Ed.). New York: Routledge.
 \item Delacre, M., Lakens, D., Ley, C., Liu, L., & Leys, C. (2021, May 7). Why
 Hedges’ g*s based on the non-pooled standard deviation should be reported
-with Welch’s t-test. https://doi.org/10.31234/osf.io/tu6mp
+with Welch's t-test. https://doi.org/10.31234/osf.io/tu6mp
 \item Hedges, L. V. & Olkin, I. (1985). Statistical methods for
 meta-analysis. Orlando, FL: Academic Press.
 \item Hunter, J. E., & Schmidt, F. L. (2004). Methods of meta-analysis:

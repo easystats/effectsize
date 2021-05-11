@@ -18,7 +18,6 @@
 #' @examples
 #' sd_pooled(mpg ~ am, data = mtcars)
 #' mad_pooled(mtcars$mpg, factor(mtcars$am))
-#'
 #' @seealso [cohens_d()]
 #'
 #' @export
@@ -91,7 +90,6 @@ mad_pooled <- function(x, y = NULL, data = NULL, constant = 1.4826, verbose = TR
     x - ave(x, FUN = center),
     y - ave(y, FUN = center)
   )) * f
-
 }
 
 # .evaluate_arguments <- function(x, y, data) {

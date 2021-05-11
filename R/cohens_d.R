@@ -73,7 +73,6 @@
 #' d_to_common_language(0.4)
 #' interpret_g(0.4, rules = "sawilowsky2009")
 #' interpret_delta(0.4, rules = "gignac2016")
-#'
 #' @references
 #' - Algina, J., Keselman, H. J., & Penfield, R. D. (2006). Confidence intervals
 #' for an effect size when variances are not equal. Journal of Modern Applied
@@ -84,7 +83,7 @@
 #'
 #' - Delacre, M., Lakens, D., Ley, C., Liu, L., & Leys, C. (2021, May 7). Why
 #' Hedges’ g*s based on the non-pooled standard deviation should be reported
-#' with Welch’s t-test. https://doi.org/10.31234/osf.io/tu6mp
+#' with Welch's t-test. https://doi.org/10.31234/osf.io/tu6mp
 #'
 #' - Hedges, L. V. & Olkin, I. (1985). Statistical methods for
 #' meta-analysis. Orlando, FL: Academic Press.
@@ -143,7 +142,7 @@ hedges_g <- function(x,
                      correction) {
   if (!missing(correction)) {
     warning("`correction` argument is deprecated. *Exact* bias correction method is used.",
-            call. = FALSE, immediate. = TRUE
+      call. = FALSE, immediate. = TRUE
     )
   }
 
@@ -184,7 +183,7 @@ glass_delta <- function(x,
                         iterations) {
   if (!missing(iterations)) {
     warning("`iterations` argument is deprecated. Parametric CIs are estimated.",
-            call. = FALSE, immediate. = TRUE
+      call. = FALSE, immediate. = TRUE
     )
   }
 
@@ -261,7 +260,7 @@ glass_delta <- function(x,
         df <- n - 2
       } else {
         s <- sqrt((s1^2 + s2^2) / 2)
-        hn <- (2 * (n2 * s1 ^ 2 + n1 * s2 ^ 2)) / (n1 * n2 * (s1 ^ 2 + s2 ^ 2))
+        hn <- (2 * (n2 * s1^2 + n1 * s2^2)) / (n1 * n2 * (s1^2 + s2^2))
         se1 <- sqrt(s1^2 / n1)
         se2 <- sqrt(s2^2 / n2)
         se <- sqrt(se1^2 + se2^2)
@@ -271,8 +270,8 @@ glass_delta <- function(x,
       pooled_sd <- NULL
 
       s <- s2
-      hn <- 1 / n2 + s1 ^ 2 / (n1 * s2 ^ 2)
-      se <- (s2 * sqrt(1 / n2 + s1 ^ 2 / (n1 * s2 ^ 2)))
+      hn <- 1 / n2 + s1^2 / (n1 * s2^2)
+      se <- (s2 * sqrt(1 / n2 + s1^2 / (n1 * s2^2)))
       df <- n2 - 1
     }
   }
