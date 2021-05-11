@@ -21,7 +21,8 @@
 #'   one-sample or paired samples) or shift (for independent samples) is to be
 #'   estimated. See [stats::wilcox.test].
 #' @param iterations The number of bootstrap replicates for computing confidence
-#'   intervals. Only applies when `ci` is not `NULL`.
+#'   intervals. Only applies when `ci` is not `NULL`. (Deprecated for
+#'   `rank_biserial()`).
 #'
 #' @details
 #' The rank-biserial correlation is appropriate for non-parametric tests of
@@ -131,15 +132,22 @@ rank_biserial <- function(x,
                           data = NULL,
                           mu = 0,
                           ci = 0.95,
-                          iterations = 200,
                           paired = FALSE,
                           verbose = TRUE,
-                          ...) {
+                          ...,
+                          iterations) {
   if (inherits(x, "htest")) {
     if (!grepl("Wilcoxon", x$method)) {
       stop("'x' is not a Wilcoxon-test!", call. = FALSE)
     }
-    return(effectsize(x, ci = ci, iterations = iterations, verbose = verbose))
+    return(effectsize(x, ci = ci, verbose = verbose))
+  }
+
+  if (!missing(iterations) && verbose) {
+    warning(
+      "'iterations' argument is deprecated. CIs are estimated using a parametric normal approximation.",
+      immediate. = TRUE
+    )
   }
 
   ## Prep data

@@ -13,10 +13,10 @@ rank_biserial(
   data = NULL,
   mu = 0,
   ci = 0.95,
-  iterations = 200,
   paired = FALSE,
   verbose = TRUE,
-  ...
+  ...,
+  iterations
 )
 
 cliffs_delta(
@@ -66,9 +66,6 @@ estimated. See \link[stats:wilcox.test]{stats::wilcox.test}.}
 
 \item{ci}{Confidence Interval (CI) level}
 
-\item{iterations}{The number of bootstrap replicates for computing confidence
-intervals. Only applies when \code{ci} is not \code{NULL}.}
-
 \item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
 This produces an effect size that is equivalent to the one-sample effect
 size on \code{x - y}.}
@@ -76,6 +73,10 @@ size on \code{x - y}.}
 \item{verbose}{Toggle warnings and messages on or off.}
 
 \item{...}{Arguments passed to or from other methods.}
+
+\item{iterations}{The number of bootstrap replicates for computing confidence
+intervals. Only applies when \code{ci} is not \code{NULL}. (Deprecated for
+\code{rank_biserial()}).}
 
 \item{groups, blocks}{A factor vector giving the group / block for the
 corresponding elements of \code{x}, or a character name of one in \code{data}.
