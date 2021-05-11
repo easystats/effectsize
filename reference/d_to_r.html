@@ -187,29 +187,17 @@ standardized difference (Cohen's d), correlation r or (log) odds ratios.</p>
 
 <span class='fu'>r_to_d</span><span class='op'>(</span><span class='va'>r</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>convert_d_to_r</span><span class='op'>(</span><span class='va'>d</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>convert_r_to_d</span><span class='op'>(</span><span class='va'>r</span>, <span class='va'>...</span><span class='op'>)</span>
-
 <span class='fu'>oddsratio_to_d</span><span class='op'>(</span><span class='va'>OR</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>convert_oddsratio_to_d</span><span class='op'>(</span><span class='va'>OR</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>logoddsratio_to_d</span><span class='op'>(</span><span class='va'>OR</span>, log <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>d_to_oddsratio</span><span class='op'>(</span><span class='va'>d</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>convert_d_to_oddsratio</span><span class='op'>(</span><span class='va'>d</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
-
 <span class='fu'>oddsratio_to_r</span><span class='op'>(</span><span class='va'>OR</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>convert_oddsratio_to_r</span><span class='op'>(</span><span class='va'>OR</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>logoddsratio_to_r</span><span class='op'>(</span><span class='va'>OR</span>, log <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>r_to_oddsratio</span><span class='op'>(</span><span class='va'>r</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>convert_r_to_oddsratio</span><span class='op'>(</span><span class='va'>r</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>r_to_oddsratio</span><span class='op'>(</span><span class='va'>r</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -241,11 +229,11 @@ standardized difference (Cohen's d), correlation r or (log) odds ratios.</p>
     <p>Converted index.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Conversions between <em>OR</em> and <em>r</em> is done through these formulae.</p><ul>
-<li><p><em>d to r</em>: \(d = \frac{2 * r}{\sqrt{1 - r^2}}\)</p></li>
-<li><p><em>r to d</em>: \(r = \frac{d}{\sqrt{d^2 + 4}}\)</p></li>
-<li><p><em>OR to d</em>: \(d = \frac{\log(OR)\times\sqrt{3}}{\pi}\)</p></li>
-<li><p><em>d to OR</em>: \(log(OR) = d * \frac{\pi}{\sqrt(3)}\)</p></li>
+    <p>Conversions between <em>d</em> and <em>OR</em> or <em>r</em> is done through these formulae.</p><ul>
+<li><p>\(d = \frac{2 * r}{\sqrt{1 - r^2}}\)</p></li>
+<li><p>\(r = \frac{d}{\sqrt{d^2 + 4}}\)</p></li>
+<li><p>\(d = \frac{\log(OR)\times\sqrt{3}}{\pi}\)</p></li>
+<li><p>\(log(OR) = d * \frac{\pi}{\sqrt(3)}\)</p></li>
 </ul>
 
 <p>The conversion from <em>d</em> to <em>r</em> assumes equally sized groups. The resulting
@@ -261,11 +249,8 @@ methods, 8(4), 448.</p></li>
 <li><p>Borenstein, M., Hedges, L. V., Higgins, J. P. T., &amp; Rothstein, H. R.
 (2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.</p></li>
 <li><p>Rosenthal, R., &amp; Rubin, D. B. (1982). A simple, general purpose display of
-magnitude of experimental effect. Journal of educational psychology, 74(2),</p></li>
+magnitude of experimental effect. Journal of educational psychology, 74(2), 166.</p></li>
 </ul>
-<ol>
-<li><p></p></li>
-</ol>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

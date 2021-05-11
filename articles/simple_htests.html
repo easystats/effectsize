@@ -171,8 +171,7 @@
 &gt; --------------------------
 &gt; -1.44     | [-2.21, -0.65]
 &gt; 
-&gt; - Estimated using pooled SD.
-&gt; - Bias corrected using exact method.</code></pre>
+&gt; - Estimated using pooled SD.</code></pre>
 <p>If variances cannot be assumed to be equal, it is possible to get estimates that are not based on the pooled standard deviation:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span>, var.equal <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
@@ -200,8 +199,7 @@
 &gt; --------------------------
 &gt; -1.35     | [-2.17, -0.51]
 &gt; 
-&gt; - Estimated using un-pooled SD.
-&gt; - Bias corrected using exact method.</code></pre>
+&gt; - Estimated using un-pooled SD.</code></pre>
 <p>In cases where the differences between the variances are substantial, it is also common to standardize the difference based only on the standard deviation of one of the groups (usually the “control” group); this effect size is known as Glass’ <span class="math inline">\(\Delta\)</span> (delta)</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/cohens_d.html">glass_delta</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></code></pre></div>
@@ -236,9 +234,7 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/cohens_d.html">hedges_g</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">sleep</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Hedges' g |         95% CI
 &gt; --------------------------
-&gt; -1.17     | [-2.04, -0.40]
-&gt; 
-&gt; - Bias corrected using exact method.</code></pre>
+&gt; -1.17     | [-2.04, -0.40]</code></pre>
 </div>
 <div id="for-a-bayesian-t-test" class="section level2">
 <h2 class="hasAnchor">

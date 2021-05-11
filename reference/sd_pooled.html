@@ -221,9 +221,9 @@ character  name of one in <code>data</code>. Ignored if <code>x</code> is a form
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The standard version is calculated as:
-$$\sqrt{\frac{\Sum (x_i - \bar{x})^2}{n_1 + n_2 - 2}}$$
+$$\sqrt{\frac{\sum (x_i - \bar{x})^2}{n_1 + n_2 - 2}}$$
 The robust version is calculated as:
-$$1.4826 \times MAD {x - Median_x; y - Median_y}$$</p>
+$$1.4826 \times Median(|\left\{x - Median_x,\,y - Median_y\right\}|)$$</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='cohens_d.html'>cohens_d()</a></code></p></div>

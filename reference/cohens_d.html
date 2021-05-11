@@ -53,10 +53,11 @@ estimate.)
 
 Both Cohen's d and Hedges' g are the estimated the standardized
 difference between the means of two populations. Hedges' g provides a bias
-correction to Cohen's d for small sample sizes. For sample sizes &amp;gt; 20, the
-results for both statistics are roughly equivalent. Glass’s delta is
-appropriate when the standard deviations are significantly different between
-the populations, as it uses only the second group's standard deviation." />
+correction (using the exact method) to Cohen's d for small sample sizes.
+For sample sizes &amp;gt; 20, the results for both statistics are roughly
+equivalent. Glass’s delta is appropriate when the standard deviations are
+significantly different between the populations, as it uses only the second
+group's standard deviation." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -193,10 +194,11 @@ estimate.)
 <br /><br />
 Both Cohen's <em>d</em> and Hedges' <em>g</em> are the estimated the standardized
 difference between the means of two populations. Hedges' <em>g</em> provides a bias
-correction to Cohen's <em>d</em> for small sample sizes. For sample sizes &gt; 20, the
-results for both statistics are roughly equivalent. Glass’s <em>delta</em> is
-appropriate when the standard deviations are significantly different between
-the populations, as it uses only the <em>second</em> group's standard deviation.</p>
+correction (using the exact method) to Cohen's <em>d</em> for small sample sizes.
+For sample sizes &gt; 20, the results for both statistics are roughly
+equivalent. Glass’s <em>delta</em> is appropriate when the standard deviations are
+significantly different between the populations, as it uses only the <em>second</em>
+group's standard deviation.</p>
     </div>
 
     <pre class="usage"><span class='fu'>cohens_d</span><span class='op'>(</span>
@@ -390,7 +392,6 @@ Correcting error and bias in research findings. Sage.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -1.44     | [-2.21, -0.65]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Estimated using pooled SD.</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Bias corrected using exact method.</span></span>
 <span class='r-in'><span class='fu'>glass_delta</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Glass' delta |         95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -----------------------------</span>
@@ -419,7 +420,6 @@ Correcting error and bias in research findings. Sage.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -0.80     | [-1.67, 0.09]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Estimated using pooled SD.</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Bias corrected using exact method.</span></span>
 <span class='r-in'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>]</span>, <span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>2</span><span class='op'>]</span>, paired <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Cohen's d |         95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------</span>
@@ -441,7 +441,6 @@ Correcting error and bias in research findings. Sage.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 0.22      | [-0.13, 0.57]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Deviation from a difference of 3.</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Bias corrected using exact method.</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># interpretation -----------------------</span></span>
 <span class='r-in'></span>
