@@ -39,9 +39,6 @@ if (require("testthat") && require("effectsize")) {
 
     d <- cohens_d(1:5, c(1, 1:4), paired = TRUE)
     expect_error(expect_output(print(d), regexp = "pooled"))
-
-    d <- hedges_g(1:3, c(1, 1:3))
-    expect_output(print(d), regexp = "exact method")
   })
 
   test_that("equivalence test effectsize", {

@@ -6,10 +6,11 @@
 #' \cr\cr
 #' Both Cohen's *d* and Hedges' *g* are the estimated the standardized
 #' difference between the means of two populations. Hedges' *g* provides a bias
-#' correction to Cohen's *d* for small sample sizes. For sample sizes > 20, the
-#' results for both statistics are roughly equivalent. Glass’s *delta* is
-#' appropriate when the standard deviations are significantly different between
-#' the populations, as it uses only the *second* group's standard deviation.
+#' correction (using the exact method) to Cohen's *d* for small sample sizes.
+#' For sample sizes > 20, the results for both statistics are roughly
+#' equivalent. Glass’s *delta* is appropriate when the standard deviations are
+#' significantly different between the populations, as it uses only the *second*
+#' group's standard deviation.
 #'
 #' @param x A formula, a numeric vector, or a character name of one in `data`.
 #' @param y A numeric vector, a grouping (character / factor) vector, a or a
@@ -309,7 +310,7 @@ glass_delta <- function(x,
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
   attr(out, "paired") <- paired
-  attr(out, "correction") <- type == "g"
+  attr(out, "correction") <- type == "g" # Don't actually need this
   attr(out, "pooled_sd") <- pooled_sd
   attr(out, "mu") <- mu
   attr(out, "ci") <- ci
