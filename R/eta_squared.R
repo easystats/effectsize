@@ -930,12 +930,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                              ci = 0.9,
                              verbose = TRUE,
                              ...) {
-  if (!requireNamespace("lmerTest", quietly = TRUE)) {
-    stop(
-      "Package 'lmerTest' required for this function to work. ",
-      "Please install it by running `install.packages('lmerTest')`."
-    )
-  }
+  insight::check_if_installed("lmerTest")
 
   model <- lmerTest::as_lmerModLmerTest(model)
   model <- stats::anova(model)
