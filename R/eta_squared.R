@@ -63,9 +63,10 @@
 #' analogous to adjusted R2 (Allen, 2017, p. 382), and has been found to be less
 #' biased (Carroll & Nordholm, 1975).
 #' \cr\cr
-#' (Note that for \eqn{\omega_p^2} and \eqn{\epsilon_p^2} it is possible to
-#' compute a negative number; even though this doesn't make any practical sense,
-#' it is recommended to report the negative number and not a 0.)
+#' (Note that for \eqn{\omega_p^2}{Omega2p} and \eqn{\epsilon_p^2}{Epsilon2p} it
+#' is possible to compute a negative number; even though this doesn't make any
+#' practical sense, it is recommended to report the negative number and not a
+#' 0.)
 #'
 #' ## Cohen's f
 #' Cohen's f can take on values between zero, when the population means are all

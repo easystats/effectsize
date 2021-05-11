@@ -4,11 +4,11 @@
 #'
 #' @details
 #' This function use the following formulae:
-#' \deqn{Cohen's U_3 = \Phi(d)}
+#' \deqn{Cohen's U_3 = \Phi(d)}{U3 = pnorm(d)}
 #' \cr\cr
-#' \deqn{Overlap = 2 \times \Phi(-|d|/2)}
+#' \deqn{Overlap = 2 \times \Phi(-|d|/2)}{Overlap = 2 * pnorm(-abs(d) / 2)}
 #' \cr\cr
-#' \deqn{Pr(superiority) = \Phi(d/\sqrt{2})}
+#' \deqn{Pr(superiority) = \Phi(d/\sqrt{2})}{Pr(superiority) = pnorm(d / sqrt(2))}
 #'
 #' @return A list of `Cohen's U3`, `Overlap`, `Probability of superiority`.
 #'
@@ -31,6 +31,7 @@
 #' to base rates and other factors. Psychological methods, 13(1), 19–30.
 #'
 #' @export
+#' @aliases convert_d_to_common_language
 #' @importFrom stats pnorm
 d_to_common_language <- function(d) {
   list(
@@ -41,5 +42,4 @@ d_to_common_language <- function(d) {
 }
 
 #' @export
-#' @rdname d_to_common_language
 convert_d_to_common_language <- d_to_common_language

@@ -21,9 +21,14 @@
 #' probs_to_odds(0.95)
 #' probs_to_odds(0.95, log = TRUE)
 #' @export
+#' @aliases convert_odds_to_probs
 odds_to_probs <- function(odds, log = FALSE, ...) {
   UseMethod("odds_to_probs")
 }
+
+#' @export
+convert_odds_to_probs <- odds_to_probs
+
 
 #' @export
 #' @importFrom stats plogis
@@ -44,10 +49,14 @@ odds_to_probs.data.frame <- function(odds, log = FALSE, select = NULL, exclude =
 
 
 #' @rdname odds_to_probs
+#' @aliases convert_probs_to_odds
 #' @export
 probs_to_odds <- function(probs, log = FALSE, ...) {
   UseMethod("probs_to_odds")
 }
+
+#' @export
+convert_probs_to_odds <- probs_to_odds
 
 #' @export
 #' @importFrom stats qlogis
@@ -64,18 +73,6 @@ probs_to_odds.numeric <- function(probs, log = FALSE, ...) {
 probs_to_odds.data.frame <- function(probs, log = FALSE, select = NULL, exclude = NULL, ...) {
   .odds_to_probs_df(probs = probs, log = log, select = select, exclude = exclude, ...)
 }
-
-
-#' @rdname odds_to_probs
-#' @export
-convert_odds_to_probs <- odds_to_probs
-
-#' @rdname odds_to_probs
-#' @export
-convert_probs_to_odds <- probs_to_odds
-
-
-
 
 
 

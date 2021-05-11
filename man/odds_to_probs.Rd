@@ -2,11 +2,11 @@
 % Please edit documentation in R/convert_odds_to_probs.R
 \name{odds_to_probs}
 \alias{odds_to_probs}
+\alias{convert_odds_to_probs}
 \alias{odds_to_probs.data.frame}
 \alias{probs_to_odds}
-\alias{probs_to_odds.data.frame}
-\alias{convert_odds_to_probs}
 \alias{convert_probs_to_odds}
+\alias{probs_to_odds.data.frame}
 \title{Convert between Odds and Probabilities}
 \usage{
 odds_to_probs(odds, log = FALSE, ...)
@@ -16,10 +16,6 @@ odds_to_probs(odds, log = FALSE, ...)
 probs_to_odds(probs, log = FALSE, ...)
 
 \method{probs_to_odds}{data.frame}(probs, log = FALSE, select = NULL, exclude = NULL, ...)
-
-convert_odds_to_probs(odds, log = FALSE, ...)
-
-convert_probs_to_odds(probs, log = FALSE, ...)
 }
 \arguments{
 \item{odds}{The \emph{Odds} (or \code{log(odds)} when \code{log = TRUE}) to convert.}

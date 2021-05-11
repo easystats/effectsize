@@ -1,11 +1,10 @@
 #' Conversion Chi-Squared to Phi or Cramer's V
 #'
-#' Convert between Chi square, (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}) and
+#' Convert between Chi square \eqn{(\chi^2)}{}, Cramer's V, phi (\eqn{\phi}) and
 #' Cohen's *w* for contingency tables or goodness of fit.
 #'
 #' @param chisq The Chi-squared statistic.
-#' @param phi The Phi statistic.
-#' @param n Sample size.
+#' @param n Total sample size.
 #' @param nrow,ncol The number of rows/columns in the contingency table (ignored
 #'   for Phi when `adjust=FALSE` and `CI=NULL`).
 #' @param ci Confidence Interval (CI) level
@@ -17,9 +16,9 @@
 #'
 #' @details These functions use the following formulae:
 #' \cr
-#' \deqn{\phi = \sqrt{\chi^2 / n}}
+#' \deqn{\phi = \sqrt{\chi^2 / n}}{phi = sqrt(X^2 / n)}
 #' \cr
-#' \deqn{Cramer's V = \phi / \sqrt{min(nrow,ncol)-1}}
+#' \deqn{Cramer's V = \phi / \sqrt{min(nrow,ncol)-1}}{Cramer's V = Phi / sqrt(min(nrow,ncol)-1)}
 #' \cr
 #' For adjusted versions, see Bergsma, 2013.
 #'
@@ -178,6 +177,7 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, 
 # Reverse -----------------------------------------------------------------
 
 #' @rdname chisq_to_phi
+#' @param phi The Phi statistic.
 #' @export
 phi_to_chisq <- function(phi, n, ...) {
   n * (phi^2)

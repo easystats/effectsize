@@ -12,17 +12,19 @@
 \alias{logodds_to_d}
 \alias{convert_odds_to_d}
 \alias{odds_to_d}
-\alias{r_to_d}
 \alias{convert_d_to_r}
+\alias{r_to_d}
 \alias{convert_r_to_d}
 \alias{oddsratio_to_d}
 \alias{convert_oddsratio_to_d}
 \alias{logoddsratio_to_d}
+\alias{convert_logoddsratio_to_d}
 \alias{d_to_oddsratio}
 \alias{convert_d_to_oddsratio}
 \alias{oddsratio_to_r}
 \alias{convert_oddsratio_to_r}
 \alias{logoddsratio_to_r}
+\alias{convert_logoddsratio_to_r}
 \alias{r_to_oddsratio}
 \alias{convert_r_to_oddsratio}
 \title{Convert between \emph{d}, \emph{r} and \emph{Odds ratio}}
@@ -31,29 +33,17 @@ d_to_r(d, ...)
 
 r_to_d(r, ...)
 
-convert_d_to_r(d, ...)
-
-convert_r_to_d(r, ...)
-
 oddsratio_to_d(OR, log = FALSE, ...)
-
-convert_oddsratio_to_d(OR, log = FALSE, ...)
 
 logoddsratio_to_d(OR, log = TRUE, ...)
 
 d_to_oddsratio(d, log = FALSE, ...)
 
-convert_d_to_oddsratio(d, log = FALSE, ...)
-
 oddsratio_to_r(OR, log = FALSE, ...)
-
-convert_oddsratio_to_r(OR, log = FALSE, ...)
 
 logoddsratio_to_r(OR, log = TRUE, ...)
 
 r_to_oddsratio(r, log = FALSE, ...)
-
-convert_r_to_oddsratio(r, log = FALSE, ...)
 }
 \arguments{
 \item{d}{Standardized difference value (Cohen's d).}
@@ -74,12 +64,12 @@ Enables a conversion between different indices of effect size, such as
 standardized difference (Cohen's d), correlation r or (log) odds ratios.
 }
 \details{
-Conversions between \emph{OR} and \emph{r} is done through these formulae.
+Conversions between \emph{d} and \emph{OR} or \emph{r} is done through these formulae.
 \itemize{
-\item \emph{d to r}: \eqn{d = \frac{2 * r}{\sqrt{1 - r^2}}}
-\item \emph{r to d}: \eqn{r = \frac{d}{\sqrt{d^2 + 4}}}
-\item \emph{OR to d}: \eqn{d = \frac{\log(OR)\times\sqrt{3}}{\pi}}
-\item \emph{d to OR}: \eqn{log(OR) = d * \frac{\pi}{\sqrt(3)}}
+\item \eqn{d = \frac{2 * r}{\sqrt{1 - r^2}}}{d = 2 * r / sqrt(1 - r^2)}
+\item \eqn{r = \frac{d}{\sqrt{d^2 + 4}}}{r = d / sqrt(d^2 + 4)}
+\item \eqn{d = \frac{\log(OR)\times\sqrt{3}}{\pi}}{d = log(OR) * sqrt(3) / pi}
+\item \eqn{log(OR) = d * \frac{\pi}{\sqrt(3)}}{log(OR) = d * pi / sqrt(3)}
 }
 
 The conversion from \emph{d} to \emph{r} assumes equally sized groups. The resulting
@@ -103,10 +93,7 @@ methods, 8(4), 448.
 \item Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R.
 (2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
 \item Rosenthal, R., & Rubin, D. B. (1982). A simple, general purpose display of
-magnitude of experimental effect. Journal of educational psychology, 74(2),
-}
-\enumerate{
-\item 
+magnitude of experimental effect. Journal of educational psychology, 74(2), 166.
 }
 }
 \seealso{

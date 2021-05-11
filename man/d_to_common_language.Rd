@@ -6,8 +6,6 @@
 \title{Convert Standardized Mean Difference to Common Language Effect Sizes}
 \usage{
 d_to_common_language(d)
-
-convert_d_to_common_language(d)
 }
 \arguments{
 \item{d}{Standardized difference value (Cohen's d).}
@@ -20,11 +18,11 @@ Convert Standardized Mean Difference to Common Language Effect Sizes
 }
 \details{
 This function use the following formulae:
-\deqn{Cohen's U_3 = \Phi(d)}
+\deqn{Cohen's U_3 = \Phi(d)}{U3 = pnorm(d)}
 \cr\cr
-\deqn{Overlap = 2 \times \Phi(-|d|/2)}
+\deqn{Overlap = 2 \times \Phi(-|d|/2)}{Overlap = 2 * pnorm(-abs(d) / 2)}
 \cr\cr
-\deqn{Pr(superiority) = \Phi(d/\sqrt{2})}
+\deqn{Pr(superiority) = \Phi(d/\sqrt{2})}{Pr(superiority) = pnorm(d / sqrt(2))}
 }
 \note{
 These calculations assume that the populations have equal variance and are

@@ -31,9 +31,9 @@ common deviation among the groups, around each of their respective means.
 }
 \details{
 The standard version is calculated as:
-\deqn{\sqrt{\frac{\Sum (x_i - \bar{x})^2}{n_1 + n_2 - 2}}}{sqrt(sum(c(x - mean(x), y - mean(y))^2) / (n1 + n2 - 2))}
+\deqn{\sqrt{\frac{\sum (x_i - \bar{x})^2}{n_1 + n_2 - 2}}}{sqrt(sum(c(x - mean(x), y - mean(y))^2) / (n1 + n2 - 2))}
 The robust version is calculated as:
-\deqn{1.4826 \times MAD {x - Median_x; y - Median_y}}{mad(c(x - median(x), y - median(y)), constant = 1.4826)}
+\deqn{1.4826 \times Median(|\left\{x - Median_x,\,y - Median_y\right\}|)}{mad(c(x - median(x), y - median(y)), constant = 1.4826)}
 }
 \examples{
 sd_pooled(mpg ~ am, data = mtcars)
