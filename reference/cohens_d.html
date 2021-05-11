@@ -326,8 +326,8 @@ For positive only effect sizes (Eta squared, Cramer's V, etc.; Effect sizes
 associated with Chi-squared and F distributions), this applies also to cases
 where the lower bound of the CI is equal to 0. Even more care should be taken
 when the <em>upper</em> bound is equal to 0 - this occurs when <em>p</em>-value is greater
-than 1−alpha/2 making, the upper bound unestimatable, and the upper bound is
-arbitrarily sets to 0 (Steiger, 2004). For example:<div class="r"></p><pre><span class='fu'><a href='eta_squared.html'>eta_squared</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>gear</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, <span class='va'>mtcars</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span>, <span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+than 1−alpha/2 making, the upper bound cannot be estimated, and the upper
+bound is arbitrarily set to 0 (Steiger, 2004). For example:<div class="r"></p><pre><span class='fu'><a href='eta_squared.html'>eta_squared</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>gear</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, <span class='va'>mtcars</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span>, <span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
 </pre><p></div></p><pre><span class='co'>## Parameter    | Eta2 (partial) |       90% CI</span>
 <span class='co'>## --------------------------------------------</span>
 <span class='co'>## factor(gear) |           0.58 | [0.00, 0.84]</span>
@@ -345,7 +345,7 @@ Statistical Methods, 5(1), 2.</p></li>
 sciences (2nd Ed.). New York: Routledge.</p></li>
 <li><p>Delacre, M., Lakens, D., Ley, C., Liu, L., &amp; Leys, C. (2021, May 7). Why
 Hedges’ g*s based on the non-pooled standard deviation should be reported
-with Welch’s t-test. https://doi.org/10.31234/osf.io/tu6mp</p></li>
+with Welch's t-test. https://doi.org/10.31234/osf.io/tu6mp</p></li>
 <li><p>Hedges, L. V. &amp; Olkin, I. (1985). Statistical methods for
 meta-analysis. Orlando, FL: Academic Press.</p></li>
 <li><p>Hunter, J. E., &amp; Schmidt, F. L. (2004). Methods of meta-analysis:
@@ -466,7 +466,6 @@ Correcting error and bias in research findings. Sage.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "small"</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Rules: gignac2016)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'></span></span>
-<span class='r-in'></span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
