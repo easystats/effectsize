@@ -4,8 +4,8 @@ standardize.numeric <- function(x,
                                 robust = FALSE,
                                 two_sd = FALSE,
                                 weights = NULL,
-                                verbose = TRUE,
                                 reference = NULL,
+                                verbose = TRUE,
                                 ...) {
 
   # Warning if all NaNs
@@ -134,6 +134,7 @@ standardize.data.frame <- function(x,
                                    robust = FALSE,
                                    two_sd = FALSE,
                                    weights = NULL,
+                                   reference = NULL,
                                    verbose = TRUE,
                                    select = NULL,
                                    exclude = NULL,
@@ -187,6 +188,7 @@ standardize.data.frame <- function(x,
     robust = robust,
     two_sd = two_sd,
     weights = weights,
+    reference = reference, # How to pass only the reference[select] column??
     verbose = FALSE,
     force = force
   )
