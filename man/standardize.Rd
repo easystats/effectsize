@@ -24,6 +24,7 @@ standardize(
   two_sd = FALSE,
   weights = NULL,
   verbose = TRUE,
+  reference = NULL,
   ...
 )
 
@@ -88,6 +89,8 @@ name of a column in the \code{data.frame} that contains the weights.
 \item{verbose}{Toggle warnings and messages on or off.}
 
 \item{...}{Arguments passed to or from other methods.}
+
+\item{reference}{A dataframe or variable from which the centrality and deviation will be computed instead of from the input variable. Useful for standardizing a subset or new data according to another dataframe.}
 
 \item{select}{Character vector of column names. If \code{NULL} (the default), all
 variables will be selected.}
