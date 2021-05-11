@@ -124,7 +124,10 @@ implemented yet.
 }
 }
 \section{Confidence Intervals}{
-Confidence Intervals are estimated using the bootstrap method.
+Confidence intervals for the rank-biserial correlation (and Cliff's \emph{delta})
+are estimated using the normal approximation (via Fisher's transformation).
+Confidence intervals for rank Epsilon squared, and Kendall's \emph{W} are
+estimated using the bootstrap method (using the \code{{boot}} package).
 }
 
 \examples{
