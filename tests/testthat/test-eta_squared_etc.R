@@ -432,7 +432,7 @@ if (require("testthat") && require("effectsize")) {
         partial = TRUE,
         generalized = FALSE,
         ci = 0.95,
-        ci_method = list(method = "ncp", distribution = "t")
+        ci_method = list(method = "ncp", distribution = "F")
       ),
       tolerance = 0.001
     )
