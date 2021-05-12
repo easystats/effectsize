@@ -930,7 +930,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                              ci = 0.9,
                              verbose = TRUE,
                              ...) {
-  insight::check_if_installed("lmerTest")
+  check_if_installed("lmerTest")
 
   model <- lmerTest::as_lmerModLmerTest(model)
   model <- stats::anova(model)

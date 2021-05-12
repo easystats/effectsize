@@ -27,7 +27,7 @@ eta_squared_posterior.stanreg <- function(model,
                                           draws = 500,
                                           verbose = TRUE,
                                           ...) {
-  insight::check_if_installed("rstantools")
+  check_if_installed("rstantools")
 
   mo_inf <- insight::model_info(model)
   if ((!mo_inf$is_linear) ||

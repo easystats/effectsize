@@ -87,7 +87,7 @@ effectsize <- function(model, ...) {
 #' @importFrom insight get_data get_parameters
 #' @importFrom bayestestR describe_posterior
 effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, ...) {
-  insight::check_if_installed("BayesFactor")
+  check_if_installed("BayesFactor")
 
   if (length(model) > 1) {
     if (verbose) {
