@@ -297,11 +297,7 @@ glass_delta <- function(x,
 
 
   if (type == "g") {
-    J <- gamma(df / 2) / (sqrt(df / 2) * gamma((df - 1) / 2)) # exact method
-    if (is.na(J) || is.nan(J) || is.infinite(J)) J <- 1
-
-    # J <- 1 - 3 / (4 * df - 1) # orig method
-    # J <- ((n - 3) / (n - 2.25)) * sqrt((n - 2) / n) # McGrath & Meyer (2006)
+    J <- exp(lgamma(df / 2) - log(sqrt(df / 2)) - lgamma((df - 1) / 2)) # exact method
 
     out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] <-
       out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] * J
