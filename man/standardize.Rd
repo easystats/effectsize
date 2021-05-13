@@ -34,6 +34,7 @@ standardize(
   two_sd = FALSE,
   weights = NULL,
   verbose = TRUE,
+  reference = NULL,
   select = NULL,
   exclude = NULL,
   remove_na = c("none", "selected", "all"),
@@ -122,7 +123,7 @@ models, ...), the response value will never be standardized, to make
 re-fitting the model work. (For \code{mediate} models, only applies to the y
 model; m model's response will always be standardized.)}
 
-\item{center, scale, reference}{Used by \code{unstandardize()}; \code{center} and \code{scale}
+\item{center, scale}{Used by \code{unstandardize()}; \code{center} and \code{scale}
 correspond to the center (the mean / median) and the scale (SD / MAD) of
 the original non-standardized data (for data frames, should be named, or
 have column order correspond to the numeric column). However, one can also

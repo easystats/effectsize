@@ -4,8 +4,8 @@ standardize.numeric <- function(x,
                                 robust = FALSE,
                                 two_sd = FALSE,
                                 weights = NULL,
-                                reference = NULL,
                                 verbose = TRUE,
+                                reference = NULL,
                                 ...) {
 
   # Warning if all NaNs
@@ -23,9 +23,9 @@ standardize.numeric <- function(x,
   }
   scaled_x <- rep(NA, length(x))
 
-
   # Sanity checks
-  check <- .check_standardize_numeric(x, name = NULL, verbose = verbose)
+  check <- .check_standardize_numeric(x, name = NULL, verbose = verbose, reference = reference)
+
   if (is.null(check)) {
     return(x)
   }
@@ -134,8 +134,8 @@ standardize.data.frame <- function(x,
                                    robust = FALSE,
                                    two_sd = FALSE,
                                    weights = NULL,
-                                   reference = NULL,
                                    verbose = TRUE,
+                                   reference = NULL,
                                    select = NULL,
                                    exclude = NULL,
                                    remove_na = c("none", "selected", "all"),
@@ -143,6 +143,10 @@ standardize.data.frame <- function(x,
                                    append = FALSE,
                                    suffix = "_z",
                                    ...) {
+
+  if(!is.null(reference) && !all(names(x) %in% names(reference))) {
+    stop("The 'reference' must have the same columns as the input.")
+  }
 
   # check for formula notation, convert to character vector
   if (inherits(select, "formula")) {
@@ -184,14 +188,17 @@ standardize.data.frame <- function(x,
     select <- colnames(new_variables)
   }
 
-  x[select] <- lapply(x[select], standardize,
-    robust = robust,
-    two_sd = two_sd,
-    weights = weights,
-    reference = reference, # How to pass only the reference[select] column??
-    verbose = FALSE,
-    force = force
-  )
+  # Loop through variables and standardize it
+  for (var in select) {
+    x[[var]] <- standardize(x[[var]],
+                          robust = robust,
+                          two_sd = two_sd,
+                          weights = weights,
+                          reference = reference[[var]],
+                          verbose = FALSE,
+                          force = force)
+  }
+
 
   attr(x, "center") <- sapply(x[select], function(z) attributes(z)$center)
   attr(x, "scale") <- sapply(x[select], function(z) attributes(z)$scale)
@@ -206,6 +213,7 @@ standardize.grouped_df <- function(x,
                                    two_sd = FALSE,
                                    weights = NULL,
                                    verbose = TRUE,
+                                   reference = NULL,
                                    select = NULL,
                                    exclude = NULL,
                                    remove_na = c("none", "selected", "all"),
@@ -213,6 +221,11 @@ standardize.grouped_df <- function(x,
                                    append = FALSE,
                                    suffix = "_z",
                                    ...) {
+
+  if(!is.null(reference)) {
+    stop("The `reference` argument cannot be used with grouped standardization for now.")
+  }
+
   info <- attributes(x)
   # dplyr >= 0.8.0 returns attribute "indices"
   grps <- attr(x, "groups", exact = TRUE)
@@ -312,9 +325,9 @@ standardize.grouped_df <- function(x,
 }
 
 #' @keywords internal
-.check_standardize_numeric <- function(x, name = NULL, verbose = TRUE) {
+.check_standardize_numeric <- function(x, name = NULL, verbose = TRUE, reference = NULL) {
   # Warning if only one value
-  if (length(unique(x)) == 1) {
+  if (length(unique(x)) == 1 && is.null(reference)) {
     if (verbose) {
       if (is.null(name)) {
         message("The variable contains only one unique value and will not be standardized.")
