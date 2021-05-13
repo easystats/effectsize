@@ -163,7 +163,8 @@ if (require("testthat") && require("effectsize")) {
   # variables evaluated in the environment $$$ ------------------------------
   test_that("variables evaluated in the environment", {
     m <- lm(mtcars$mpg ~ mtcars$cyl + am, data = mtcars)
-    expect_warning(standardize(m), "mtcars$mpg", fixed = TRUE)
+    w <- testthat::capture_warnings(standardize(m))
+    expect_match(w[1], "mtcars$mpg", fixed = TRUE)
 
     skip_if(packageVersion("base") == package_version(3.4))
     ## Note:
