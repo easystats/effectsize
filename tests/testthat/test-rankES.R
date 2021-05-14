@@ -45,8 +45,8 @@ if (require("testthat") && require("effectsize")) {
     E <- rank_epsilon_squared(x, g)
 
     expect_equal(E[[1]], 0.05934066, tolerance = 0.01)
-    expect_equal(E$CI_low, 0.01002212, tolerance = 0.01)
-    expect_equal(E$CI_high, 0.7408143, tolerance = 0.01)
+    expect_equal(E$CI_low, 0.004149302, tolerance = 0.01)
+    expect_equal(E$CI_high, 0.7596009, tolerance = 0.01)
 
     expect_equal(
       rank_epsilon_squared(x ~ g, ci = NULL),

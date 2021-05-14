@@ -276,7 +276,7 @@ rank_epsilon_squared <- function(x,
   if (is.numeric(ci)) {
     if (requireNamespace("boot", quietly = TRUE)) {
       out <- cbind(out, .repsilon_ci(data, ci, iterations))
-      ci_method <- list(method = "bootstrap", iterations = iterations)
+      ci_method <- list(method = "percentile bootstrap", iterations = iterations)
     } else {
       ci <- NULL
       warning("'boot' package required for estimating CIs for Glass' delta. Please install the package and try again.", call. = FALSE)
@@ -322,7 +322,7 @@ kendalls_w <- function(x,
   if (is.numeric(ci)) {
     if (requireNamespace("boot", quietly = TRUE)) {
       out <- cbind(out, .kendalls_w_ci(rankings, ci, iterations))
-      ci_method <- list(method = "bootstrap", iterations = iterations)
+      ci_method <- list(method = "percentile bootstrap", iterations = iterations)
     } else {
       ci <- NULL
       warning("'boot' package required for estimating CIs for Glass' delta. Please install the package and try again.", call. = FALSE)
@@ -483,11 +483,14 @@ kendalls_w <- function(x,
     R = iterations
   )
 
-  out <- as.data.frame(
-    bayestestR::ci(na.omit(R$t), ci = ci, verbose = FALSE)
+  bCI <- boot::boot.ci(R, conf = ci, type = "perc")$percent
+  bCI <- tail(as.vector(bCI), 2)
+
+  data.frame(
+    CI = ci,
+    CI_low = bCI[1],
+    CI_high = bCI[2]
   )
-  out$CI <- ci
-  out
 }
 
 #' @keywords internal
@@ -504,11 +507,14 @@ kendalls_w <- function(x,
     R = iterations
   )
 
-  out <- as.data.frame(
-    bayestestR::ci(na.omit(R$t), ci = ci, verbose = FALSE)
+  bCI <- boot::boot.ci(R, conf = ci, type = "perc")$percent
+  bCI <- tail(as.vector(bCI), 2)
+
+  data.frame(
+    CI = ci,
+    CI_low = bCI[1],
+    CI_high = bCI[2]
   )
-  out$CI <- ci
-  out
 }
 
 ## data ----
