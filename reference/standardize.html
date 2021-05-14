@@ -209,6 +209,7 @@ the 0 - 1 range.</p>
   two_sd <span class='op'>=</span> <span class='cn'>FALSE</span>,
   weights <span class='op'>=</span> <span class='cn'>NULL</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  reference <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
 
@@ -219,6 +220,7 @@ the 0 - 1 range.</p>
   two_sd <span class='op'>=</span> <span class='cn'>FALSE</span>,
   weights <span class='op'>=</span> <span class='cn'>NULL</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  reference <span class='op'>=</span> <span class='cn'>NULL</span>,
   select <span class='op'>=</span> <span class='cn'>NULL</span>,
   exclude <span class='op'>=</span> <span class='cn'>NULL</span>,
   remove_na <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"none"</span>, <span class='st'>"selected"</span>, <span class='st'>"all"</span><span class='op'>)</span>,
@@ -290,6 +292,10 @@ name of a column in the <code>data.frame</code> that contains the weights.</p></
       <td><p>Arguments passed to or from other methods.</p></td>
     </tr>
     <tr>
+      <th>reference</th>
+      <td><p>A dataframe or variable from which the centrality and deviation will be computed instead of from the input variable. Useful for standardizing a subset or new data according to another dataframe.</p></td>
+    </tr>
+    <tr>
       <th>select</th>
       <td><p>Character vector of column names. If <code>NULL</code> (the default), all
 variables will be selected.</p></td>
@@ -334,7 +340,7 @@ re-fitting the model work. (For <code>mediate</code> models, only applies to the
 model; m model's response will always be standardized.)</p></td>
     </tr>
     <tr>
-      <th>center, scale, reference</th>
+      <th>center, scale</th>
       <td><p>Used by <code>unstandardize()</code>; <code>center</code> and <code>scale</code>
 correspond to the center (the mean / median) and the scale (SD / MAD) of
 the original non-standardized data (for data frames, should be named, or
