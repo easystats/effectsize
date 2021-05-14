@@ -15,6 +15,9 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(mad(x), 0.5, tolerance = 0.01)
 
     expect_message(standardize(c(0, 0, 0, 1, 1)))
+
+    x <- standardize(c(-1, 0, 1), reference = seq(3, 4, length.out = 100))
+    expect_equal(mean(x), -11.943, tolerance = 0.01)
   })
 
 
@@ -38,11 +41,17 @@ if (require("testthat") && require("effectsize")) {
     expect_length(levels(x$Species), 3)
     expect_equal(mean(subset(x, Species == "virginica")$Sepal.Length), 0.90, tolerance = 0.01)
 
+    x2 <- standardize(x = iris[1, ], reference = iris)
+    expect_true(all(x2[1, ] == x[1, ]))
+
     skip_if_not_installed("dplyr")
     x <- standardize(dplyr::group_by(iris, Species))
     expect_equal(mean(x$Sepal.Length), 0, tolerance = 0.01)
     expect_length(levels(x$Species), 3)
     expect_equal(mean(subset(x, Species == "virginica")$Sepal.Length), 0, tolerance = 0.01)
+
+
+
   })
 
 

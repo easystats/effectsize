@@ -1,4 +1,4 @@
-#' @param center,scale,reference Used by `unstandardize()`; `center` and `scale`
+#' @param center,scale Used by `unstandardize()`; `center` and `scale`
 #'   correspond to the center (the mean / median) and the scale (SD / MAD) of
 #'   the original non-standardized data (for data frames, should be named, or
 #'   have column order correspond to the numeric column). However, one can also

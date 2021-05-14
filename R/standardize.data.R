@@ -5,6 +5,7 @@ standardize.numeric <- function(x,
                                 two_sd = FALSE,
                                 weights = NULL,
                                 verbose = TRUE,
+                                reference = NULL,
                                 ...) {
 
   # Warning if all NaNs
@@ -22,9 +23,9 @@ standardize.numeric <- function(x,
   }
   scaled_x <- rep(NA, length(x))
 
-
   # Sanity checks
-  check <- .check_standardize_numeric(x, name = NULL, verbose = verbose)
+  check <- .check_standardize_numeric(x, name = NULL, verbose = verbose, reference = reference)
+
   if (is.null(check)) {
     return(x)
   }
@@ -33,23 +34,17 @@ standardize.numeric <- function(x,
     x <- .factor_to_numeric(x)
   }
 
-  if (robust) {
-    center <- .median(x, weights)
-    scale <- .mad(x, weights)
-  } else {
-    center <- .mean(x, weights)
-    scale <- .sd(x, weights)
-  }
+  ref <- .get_center_scale(x, robust, weights, reference)
 
   if (two_sd) {
-    x <- as.vector((x - center) / (2 * scale))
+    x <- as.vector((x - ref$center) / (2 * ref$scale))
   } else {
-    x <- as.vector((x - center) / scale)
+    x <- as.vector((x - ref$center) / ref$scale)
   }
 
   scaled_x[valid_x] <- x
-  attr(scaled_x, "center") <- center
-  attr(scaled_x, "scale") <- scale
+  attr(scaled_x, "center") <- ref$center
+  attr(scaled_x, "scale") <- ref$scale
   scaled_x
 }
 
@@ -113,6 +108,7 @@ standardize.AsIs <- standardize.numeric
 #'   existing variables are overwritten.
 #' @param suffix Character value, will be appended to variable (column) names of
 #'   `x`, if `x` is a data frame and `append = TRUE`.
+#' @param reference A dataframe or variable from which the centrality and deviation will be computed instead of from the input variable. Useful for standardizing a subset or new data according to another dataframe.
 #'
 #' @section Model Standardization:
 #' If `x` is a model object, standardization is done by completely refitting the
@@ -139,6 +135,7 @@ standardize.data.frame <- function(x,
                                    two_sd = FALSE,
                                    weights = NULL,
                                    verbose = TRUE,
+                                   reference = NULL,
                                    select = NULL,
                                    exclude = NULL,
                                    remove_na = c("none", "selected", "all"),
@@ -146,6 +143,10 @@ standardize.data.frame <- function(x,
                                    append = FALSE,
                                    suffix = "_z",
                                    ...) {
+
+  if(!is.null(reference) && !all(names(x) %in% names(reference))) {
+    stop("The 'reference' must have the same columns as the input.")
+  }
 
   # check for formula notation, convert to character vector
   if (inherits(select, "formula")) {
@@ -187,13 +188,17 @@ standardize.data.frame <- function(x,
     select <- colnames(new_variables)
   }
 
-  x[select] <- lapply(x[select], standardize,
-    robust = robust,
-    two_sd = two_sd,
-    weights = weights,
-    verbose = FALSE,
-    force = force
-  )
+  # Loop through variables and standardize it
+  for (var in select) {
+    x[[var]] <- standardize(x[[var]],
+                          robust = robust,
+                          two_sd = two_sd,
+                          weights = weights,
+                          reference = reference[[var]],
+                          verbose = FALSE,
+                          force = force)
+  }
+
 
   attr(x, "center") <- sapply(x[select], function(z) attributes(z)$center)
   attr(x, "scale") <- sapply(x[select], function(z) attributes(z)$scale)
@@ -208,6 +213,7 @@ standardize.grouped_df <- function(x,
                                    two_sd = FALSE,
                                    weights = NULL,
                                    verbose = TRUE,
+                                   reference = NULL,
                                    select = NULL,
                                    exclude = NULL,
                                    remove_na = c("none", "selected", "all"),
@@ -215,6 +221,11 @@ standardize.grouped_df <- function(x,
                                    append = FALSE,
                                    suffix = "_z",
                                    ...) {
+
+  if(!is.null(reference)) {
+    stop("The `reference` argument cannot be used with grouped standardization for now.")
+  }
+
   info <- attributes(x)
   # dplyr >= 0.8.0 returns attribute "indices"
   grps <- attr(x, "groups", exact = TRUE)
@@ -282,6 +293,19 @@ standardize.grouped_df <- function(x,
 
 # helper -----------------------------
 
+.get_center_scale <- function(x, robust = FALSE, weights = NULL, reference = NULL) {
+  if(is.null(reference)) reference <- x
+
+  if (robust) {
+    center <- .median(reference, weights)
+    scale <- .mad(reference, weights)
+  } else {
+    center <- .mean(reference, weights)
+    scale <- .sd(reference, weights)
+  }
+  list(center = center, scale = scale)
+}
+
 
 .select_z_variables <- function(x, select, exclude, force) {
   if (is.null(select)) {
@@ -301,9 +325,9 @@ standardize.grouped_df <- function(x,
 }
 
 #' @keywords internal
-.check_standardize_numeric <- function(x, name = NULL, verbose = TRUE) {
+.check_standardize_numeric <- function(x, name = NULL, verbose = TRUE, reference = NULL) {
   # Warning if only one value
-  if (length(unique(x)) == 1) {
+  if (length(unique(x)) == 1 && is.null(reference)) {
     if (verbose) {
       if (is.null(name)) {
         message("The variable contains only one unique value and will not be standardized.")
