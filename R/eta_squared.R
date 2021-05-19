@@ -230,7 +230,7 @@ eta_squared <- function(model,
     verbose = verbose,
     ...
   )
-  class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
+  if (!inherits(model, "htest")) class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
   if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
   return(out)
 }
@@ -243,7 +243,7 @@ omega_squared <- function(model,
                           verbose = TRUE,
                           ...) {
   out <- .anova_es(model, type = "omega", partial = partial, ci = ci, verbose = verbose, ...)
-  class(out) <- unique(c("effectsize_anova", "effectsize_table", "see_effectsize_table", class(out)))
+  if (!inherits(model, "htest")) class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
   if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
   return(out)
 }
@@ -256,7 +256,7 @@ epsilon_squared <- function(model,
                             verbose = TRUE,
                             ...) {
   out <- .anova_es(model, type = "epsilon", partial = partial, ci = ci, verbose = verbose, ...)
-  class(out) <- unique(c("effectsize_anova", "effectsize_table", "see_effectsize_table", class(out)))
+  if (!inherits(model, "htest")) class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
   if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
   return(out)
 }
@@ -302,6 +302,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, squared = FALSE,
   }
 
   if ("CI" %in% colnames(res)) attr(res, "ci_method") <- list(method = "ncp", distribution = "F")
+  if (!inherits(model, "htest")) class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
   res
 }
 
