@@ -93,12 +93,11 @@ hedges_g(mpg ~ am, data = mtcars)
 ## -1.44     | [-2.21, -0.65]
 ## 
 ## - Estimated using pooled SD.
-## - Bias corrected using Hedges and Olkin's method.
 
 glass_delta(mpg ~ am, data = mtcars)
 ## Glass' delta |         95% CI
 ## -----------------------------
-## -1.17        | [-2.01, -0.66]
+## -1.17        | [-1.93, -0.39]
 ```
 
 `effectsize` also provides effect sizes for *contingency tables*, *rank
@@ -110,16 +109,22 @@ tests*, and more…
 model <- aov(mpg ~ factor(gear), data = mtcars)
 
 eta_squared(model)
+## # Effect Size for ANOVA
+## 
 ## Parameter    | Eta2 |       90% CI
 ## ----------------------------------
 ## factor(gear) | 0.43 | [0.18, 0.59]
 
 omega_squared(model)
+## # Effect Size for ANOVA
+## 
 ## Parameter    | Omega2 |       90% CI
 ## ------------------------------------
 ## factor(gear) |   0.38 | [0.14, 0.55]
 
 epsilon_squared(model)
+## # Effect Size for ANOVA
+## 
 ## Parameter    | Epsilon2 |       90% CI
 ## --------------------------------------
 ## factor(gear) |     0.39 | [0.14, 0.56]

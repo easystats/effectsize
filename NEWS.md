@@ -2,11 +2,13 @@
 
 ## New features
 
+- `eta_squared()` family now indicate the type of sum-os-squares used.
 - `hedges_g()` now used exact bias correction (thanks to @mdelacre for the suggestion!)  
 - `glass_delta()` now estimates CIs using the NCP method based on Algina et al (2006).
 
 ## Bug fixes
 
+- `eta_squared()` family return correct Omega squared and non-partialled Eta and Epsilon squared for mixed models.
 - `cohens_d()` family now correctly deals with missing factor levels ( #318 )
 - `cohens_d()` / `hedges_g()` minor fix for CI with unequal variances.  
 

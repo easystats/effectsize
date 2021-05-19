@@ -154,6 +154,38 @@ print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
 }
 
 
+#' @export
+print.effectsize_anova <- function(x, digits = 2, ...) {
+  x_orig <- x
+
+  footer <- caption <- subtitle <- NULL
+
+  ## Title (caption)
+  if (is.na(anova_type <- attr(x, "anova_type", exact = TRUE))) {
+    caption <- "# Effect Size for ANOVA"
+  } else {
+    caption <- paste0("# Effect Size for ANOVA (Type ", as.roman(anova_type), ")")
+  }
+  caption <- c(caption, "blue")
+
+  ## Footer
+  obs <- attr(x, "generalized")
+  if (is.character(obs) || isTRUE(obs)) {
+    if (isTRUE(obs)) {
+      footer <- "\n- Observed variabels: All"
+    } else {
+      footer <- paste0("\n- Observed variabels: ", paste0(obs, collapse = ", "))
+    }
+    footer <- c(footer, "cyan")
+  }
+
+  attr(x, "table_footer") <- footer
+  attr(x, "table_caption") <- caption
+  attr(x, "table_subtitle") <- subtitle
+  print.effectsize_table(x, digits = digits, ...)
+  invisible(x_orig)
+}
+
 
 # Format Methods --------------------------------------------------------
 
