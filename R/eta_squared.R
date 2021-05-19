@@ -302,7 +302,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, squared = FALSE,
   }
 
   if ("CI" %in% colnames(res)) attr(res, "ci_method") <- list(method = "ncp", distribution = "F")
-  if (!inherits(model, "htest")) class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
+  if (!inherits(model, "htest")) class(res) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(res)))
   res
 }
 
