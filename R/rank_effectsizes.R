@@ -274,12 +274,11 @@ rank_epsilon_squared <- function(x,
   ## CI
   ci_method <- NULL
   if (is.numeric(ci)) {
-    if (requireNamespace("boot", quietly = TRUE)) {
+    if (check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
       out <- cbind(out, .repsilon_ci(data, ci, iterations))
       ci_method <- list(method = "percentile bootstrap", iterations = iterations)
     } else {
       ci <- NULL
-      warning("'boot' package required for estimating CIs for Glass' delta. Please install the package and try again.", call. = FALSE)
     }
   }
 
@@ -320,12 +319,11 @@ kendalls_w <- function(x,
   ## CI
   ci_method <- NULL
   if (is.numeric(ci)) {
-    if (requireNamespace("boot", quietly = TRUE)) {
+    if (check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
       out <- cbind(out, .kendalls_w_ci(rankings, ci, iterations))
       ci_method <- list(method = "percentile bootstrap", iterations = iterations)
     } else {
       ci <- NULL
-      warning("'boot' package required for estimating CIs for Glass' delta. Please install the package and try again.", call. = FALSE)
     }
   }
 

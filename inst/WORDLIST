@@ -28,6 +28,7 @@ Cramer's
 Cramér's
 Cureton
 DOI
+Delacre
 EQS
 ESS
 Erlbaum
@@ -54,12 +55,16 @@ Jeffreys
 Johannesson
 Katz
 Kerby
+Keselman
 Kruschke
 Kutner
 LMM
 LMMs
 Lakens
 Landis
+Ley
+Leys
+Liu
 Lomax
 Lovakov
 MADs
@@ -67,7 +72,6 @@ MLM
 Mahwah
 Martínez
 Marín
-McGrath
 McNemar
 McNemar's
 Meca
@@ -75,6 +79,7 @@ Minium
 Mordkoff
 Morey
 Moscoso
+NCP
 NFI
 NNFI
 Neter
@@ -84,12 +89,12 @@ Normed
 Nosek
 Olejnik
 Olkin
-Olkin's
 Ozer
 PLOS
 PNFI
 PPD
 Pearon's
+Penfield
 Psychometrika
 Psychonomic
 RFI
@@ -129,6 +134,7 @@ Verkuilen's
 Wagenmakers
 Waggoner
 Wasserman
+Welch's
 Wilcoxon's
 al
 anova
@@ -174,6 +180,7 @@ ncp
 ncps
 nd
 noncentral
+osf
 partialization
 partialled
 partilled
@@ -191,6 +198,7 @@ rmANOVA
 sd
 statswiki
 th
+tu
 uk
 un
 unitless

@@ -165,15 +165,11 @@ data_adjust <- adjust
   if (additive) {
     # Bayesian
     if (bayesian) {
-      if (!requireNamespace("rstanarm", quietly = TRUE)) {
-        stop("This function needs `rstanarm` to be installed. Please install by running `install.packages('rstanarm')`.")
-      }
+      check_if_installed("rstanarm")
       model <- rstanarm::stan_gamm4(stats::as.formula(formula), random = formula_random, data = data, refresh = 0)
       # Frequentist
     } else {
-      if (!requireNamespace("gamm4", quietly = TRUE)) {
-        stop("This function needs `gamm4` to be installed. Please install by running `install.packages('gamm4')`.")
-      }
+      check_if_installed("gamm4")
       model <- gamm4::gamm4(stats::as.formula(formula), random = formula_random, data = data)
     }
 
@@ -181,9 +177,7 @@ data_adjust <- adjust
   } else {
     # Bayesian
     if (bayesian) {
-      if (!requireNamespace("rstanarm", quietly = TRUE)) {
-        stop("This function needs `rstanarm` to be installed. Please install by running `install.packages('rstanarm')`.")
-      }
+      check_if_installed("rstanarm")
       if (multilevel) {
         model <- rstanarm::stan_lmer(paste(formula, formula_random), data = data, refresh = 0)
       } else {
@@ -192,9 +186,7 @@ data_adjust <- adjust
       # Frequentist
     } else {
       if (multilevel) {
-        if (!requireNamespace("lme4", quietly = TRUE)) {
-          stop("This function needs `lme4` to be installed. Please install by running `install.packages('lme4')`.")
-        }
+        check_if_installed("lme4")
         model <- lme4::lmer(paste(formula, formula_random), data = data)
       } else {
         model <- lm(formula, data = data)

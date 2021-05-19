@@ -18,7 +18,7 @@ if (require("testthat") && require("effectsize")) {
 
 
     df <- data.frame(
-      outcome = c(x,y),
+      outcome = c(x, y),
       g = factor(rep(0:1, each = 9))
     )
     expect_equal(
