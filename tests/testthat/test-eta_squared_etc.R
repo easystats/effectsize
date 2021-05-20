@@ -303,19 +303,25 @@ if (require("testthat") && require("effectsize")) {
 
     data(obk.long, package = "afex")
 
-    mod <- afex::aov_ez("id", "value", obk.long, between = c("treatment", "gender"),
+    mod <- afex::aov_ez("id", "value", obk.long,
+                        between = c("treatment", "gender"),
                         within = c("phase", "hour"),
-                        observed = "gender",
-                        anova_table = list(correction = "none"))
+                        observed = "gender")
 
     x <- eta_squared(mod, generalized = TRUE)
-    a <- anova(mod)
-    r <- cor(a$ges[order(rownames(a))], x$Eta2_generalized[order(x$Parameter)])
+    a <- anova(mod, observed = "gender")
+    r <- cor(a$ges, x$Eta2_generalized)
     expect_equal(r, 1, tolerance = 0.005)
 
     x <- eta_squared(mod)
     a <- anova(mod, es = "pes")
-    r <- cor(a$pes[order(rownames(a))], x$Eta2_partial[order(x$Parameter)])
+    r <- cor(a$pes, x$Eta2_partial)
+    expect_equal(r, 1, tolerance = 0.005)
+
+
+    x <- eta_squared(mod, include_intercept = TRUE)
+    a <- anova(mod, es = "pes", intercept = TRUE)
+    r <- cor(a$pes, x$Eta2_partial)
     expect_equal(r, 1, tolerance = 0.005)
   })
 

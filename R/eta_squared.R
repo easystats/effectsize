@@ -1047,8 +1047,13 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                                include_intercept = FALSE,
                                ...) {
   type <- match.arg(type)
-  if (type == "eta" && isTRUE(generalized))
-    generalized <- attr(model$anova_table, "observed")
+  if (type == "eta" && isTRUE(generalized)) {
+    if (length(attr(model$anova_table, "observed"))) {
+      generalized <- attr(model$anova_table, "observed")
+    } else {
+      generalized <- names(c(attr(model, "between"),attr(model, "within")))
+    }
+  }
 
   # For completely between, covers all
   if (!inherits(model$Anova, "Anova.mlm")) {
@@ -1117,6 +1122,12 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     out$Group <- NULL
   }
 
+  # Reorder rows
+  orig_terms <- rownames(model$anova_table)
+  if (include_intercept && !"(Intercept)" %in% orig_terms) {
+    orig_terms <- c("(Intercept)", orig_terms)
+  }
+  out <- out[match(out$Parameter, orig_terms),]
   attr(out, "anova_type") <- attr(model, "type", exact = TRUE)
   out
 }
