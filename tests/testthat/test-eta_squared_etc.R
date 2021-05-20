@@ -418,26 +418,9 @@ if (require("testthat") && require("effectsize")) {
       fit(mpg ~ am + vs, data = mtcars)
 
     set.seed(123)
-    df_lm <- as.data.frame(eta_squared(mod_lm, ci = 0.95))
+    tidy_lm <- eta_squared(mod_lm)
+    lm_lm <- eta_squared(lm(mpg ~ am + vs, data = mtcars))
 
-    expect_equal(
-      df_lm,
-      structure(
-        list(
-          Parameter = c("am", "vs"),
-          Eta2_partial = c(0.534050980382337, 0.509657899929074),
-          CI = c(0.95, 0.95),
-          CI_low = c(0.270477566572333, 0.242410781810851),
-          CI_high = c(0.698019260414593, 0.681154789342689)
-        ),
-        class = "data.frame",
-        row.names = 1:2,
-        partial = TRUE,
-        generalized = FALSE,
-        ci = 0.95,
-        ci_method = list(method = "ncp", distribution = "F")
-      ),
-      tolerance = 0.001
-    )
+    expect_equal(tidy_lm, lm_lm, tolerance = 0.001)
   })
 }
