@@ -1077,12 +1077,12 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
     within <- c(NA,names(attr(model, "within")))
     within <- utils::combn(within, length(within) - 1)
-    within <- apply(within, 2, identity, simplify = FALSE)
+    within <- apply(within, 2, as.list)
     within <- Filter(f = function(x) !all(is.na(x)), within)
     within <- lapply(within, Filter, f = Negate(is.na))
     within <- sapply(within, paste0, collapse = ":")
     l <- sapply(within, grepl, x = aov_tab$Parameter, simplify = TRUE)
-    l <- apply(l, 1, function(x) if (!any(x)) 0 else max(which(x)), simplify = TRUE)
+    l <- apply(l, 1, function(x) if (!any(x)) 0 else max(which(x)))
     l <- c(NA, within)[l+1]
     l <- sapply(l, function(x) paste0(na.omit(c(id, x)), collapse = ":"))
     aov_tab$Group <- l
