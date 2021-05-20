@@ -198,12 +198,11 @@
 <span class="co">## -1.44     | [-2.21, -0.65]</span>
 <span class="co">## </span>
 <span class="co">## - Estimated using pooled SD.</span>
-<span class="co">## - Bias corrected using Hedges and Olkin's method.</span>
 
 <span class="fu"><a href="reference/cohens_d.html">glass_delta</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 <span class="co">## Glass' delta |         95% CI</span>
 <span class="co">## -----------------------------</span>
-<span class="co">## -1.17        | [-2.01, -0.66]</span></code></pre></div>
+<span class="co">## -1.17        | [-1.93, -0.39]</span></code></pre></div>
 <p><code>effectsize</code> also provides effect sizes for <em>contingency tables</em>, <em>rank tests</em>, and more…</p>
 </div>
 <div id="anovas-eta2-omega2-" class="section level3">
@@ -213,16 +212,22 @@
 <code class="sourceCode R"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 
 <span class="fu"><a href="reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
+<span class="co">## # Effect Size for ANOVA</span>
+<span class="co">## </span>
 <span class="co">## Parameter    | Eta2 |       90% CI</span>
 <span class="co">## ----------------------------------</span>
 <span class="co">## factor(gear) | 0.43 | [0.18, 0.59]</span>
 
 <span class="fu"><a href="reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
+<span class="co">## # Effect Size for ANOVA</span>
+<span class="co">## </span>
 <span class="co">## Parameter    | Omega2 |       90% CI</span>
 <span class="co">## ------------------------------------</span>
 <span class="co">## factor(gear) |   0.38 | [0.14, 0.55]</span>
 
 <span class="fu"><a href="reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
+<span class="co">## # Effect Size for ANOVA</span>
+<span class="co">## </span>
 <span class="co">## Parameter    | Epsilon2 |       90% CI</span>
 <span class="co">## --------------------------------------</span>
 <span class="co">## factor(gear) |     0.39 | [0.14, 0.56]</span></code></pre></div>

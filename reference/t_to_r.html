@@ -74,8 +74,6 @@ See Effect Size from Test Statistics vignette." />
 
 
 
-<!-- dependencies from examples -->
-
 
   
 
@@ -196,7 +194,7 @@ etc.).
 See <a href='https://easystats.github.io/effectsize/articles/from_test_statistics.html'>Effect Size from Test Statistics vignette.</a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>t_to_d</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>df_error</span>, paired <span class='op'>=</span> <span class='cn'>FALSE</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>pooled</span>, <span class='va'>...</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>t_to_d</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>df_error</span>, paired <span class='op'>=</span> <span class='cn'>FALSE</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>pooled</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>z_to_d</span><span class='op'>(</span><span class='va'>z</span>, <span class='va'>n</span>, paired <span class='op'>=</span> <span class='cn'>FALSE</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>pooled</span>, <span class='va'>...</span><span class='op'>)</span>
 
@@ -206,7 +204,7 @@ See <a href='https://easystats.github.io/effectsize/articles/from_test_statistic
 
 <span class='fu'>z_to_r</span><span class='op'>(</span><span class='va'>z</span>, <span class='va'>n</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>F_to_r</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>df</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>F_to_r</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>df</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -291,12 +289,14 @@ associated with Chi-squared and F distributions), this applies also to cases
 where the lower bound of the CI is equal to 0. Even more care should be taken
 when the <em>upper</em> bound is equal to 0 - this occurs when <em>p</em>-value is greater
 than 1−alpha/2 making, the upper bound cannot be estimated, and the upper
-bound is arbitrarily set to 0 (Steiger, 2004). For example:<div class="r"></p><pre><span class='fu'><a href='eta_squared.html'>eta_squared</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>gear</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, <span class='va'>mtcars</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span>, <span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Parameter    | Eta2 (partial) |       90% CI</span>
+bound is arbitrarily set to 0 (Steiger, 2004). For example:<div class="r"></p><pre class='sourceCode r'><code><span class='fu'><a href='eta_squared.html'>eta_squared</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>gear</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, <span class='va'>mtcars</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span>, <span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre><p></div></p><pre class='sourceCode r'><code><span class='co'>## # Effect Size for ANOVA (Type I)</span>
+<span class='co'>## </span>
+<span class='co'>## Parameter    | Eta2 (partial) |       90% CI</span>
 <span class='co'>## --------------------------------------------</span>
 <span class='co'>## factor(gear) |           0.58 | [0.00, 0.84]</span>
 <span class='co'>## factor(cyl)  |           0.46 | [0.00, 0.78]</span>
-</pre>
+</code></pre>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -325,7 +325,7 @@ distributions. Educational and Psychological Measurement, 61(4), 532-574.</p></l
 <code><a href='chisq_to_phi.html'>chisq_to_phi</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='co'>## t Tests</span></span>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'>## t Tests</span></span>
 <span class='r-in'><span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>)</span>, var.equal <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'>t_to_d</span><span class='op'>(</span>t <span class='op'>=</span> <span class='va'>res</span><span class='op'>$</span><span class='va'>statistic</span>, <span class='va'>res</span><span class='op'>$</span><span class='va'>parameter</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> d     |         95% CI</span>
@@ -393,7 +393,7 @@ distributions. Educational and Psychological Measurement, 61(4), 532-574.</p></l
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 0.37 | [-0.20, 0.94]</span>
 <span class='r-in'><span class='co'># }</span></span>
 <span class='r-in'></span>
-</pre>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

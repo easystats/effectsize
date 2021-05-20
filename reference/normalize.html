@@ -69,8 +69,6 @@ This is a special case of change_scale().
 
 
 
-<!-- dependencies from examples -->
-
 
   
 
@@ -187,7 +185,7 @@ This is a special case of change_scale().
 
     </div>
 
-    <pre class="usage"><span class='fu'>normalize</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>normalize</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for numeric</span>
 <span class='fu'>normalize</span><span class='op'>(</span><span class='va'>x</span>, include_bounds <span class='op'>=</span> <span class='cn'>TRUE</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -210,7 +208,7 @@ This is a special case of change_scale().
   include_bounds <span class='op'>=</span> <span class='cn'>TRUE</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -277,7 +275,7 @@ Regression with Beta-Distributed Dependent Variables. Psychological Methods,
 <code><a href='standardize.html'>standardize</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='fu'>normalize</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='fu'>normalize</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.5 0.6 1.0 0.0 0.3</span>
 <span class='r-in'><span class='fu'>normalize</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span>, include_bounds <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.50 0.58 0.90 0.10 0.34</span>
@@ -290,7 +288,7 @@ Regression with Beta-Distributed Dependent Variables. Psychological Methods,
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 4 0.17886179 0.37500000 0.092814371</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 5 0.19512195 0.75000000 0.128742515</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 6 0.20325203 0.83333333 0.142215569</span>
-</pre>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

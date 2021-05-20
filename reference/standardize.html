@@ -72,8 +72,6 @@ the 0 - 1 range." />
 
 
 
-<!-- dependencies from examples -->
-
 
   
 
@@ -193,7 +191,7 @@ refits the model with this standardized version of the dataset. The
 the 0 - 1 range.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>standardize</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>standardize</span><span class='op'>(</span>
   <span class='va'>x</span>,
   robust <span class='op'>=</span> <span class='cn'>FALSE</span>,
   two_sd <span class='op'>=</span> <span class='cn'>FALSE</span>,
@@ -249,7 +247,7 @@ the 0 - 1 range.</p>
   robust <span class='op'>=</span> <span class='cn'>FALSE</span>,
   two_sd <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -401,7 +399,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 <code><a href='standardize_parameters.html'>standardize_parameters</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='co'># Data frames</span></span>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># Data frames</span></span>
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'>standardize</span><span class='op'>(</span><span class='va'>swiss</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>    Fertility         Agriculture       Examination         Education      </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>  Min.   :-2.81327   Min.   :-2.1778   Min.   :-1.69084   Min.   :-1.0378  </span>
@@ -423,7 +421,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='fu'>standardize</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>         (Intercept)           Education           Fertility Education:Fertility </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>          0.06386069          0.47482848          0.63270919          0.09829777 </span>
-</pre>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

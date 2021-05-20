@@ -75,8 +75,6 @@ See details." />
 
 
 
-<!-- dependencies from examples -->
-
 
   
 
@@ -199,7 +197,7 @@ hard...</em></strong>). It is suggested that ANOVA models be fit with <code>afex
 See details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>eta_squared</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>eta_squared</span><span class='op'>(</span>
   <span class='va'>model</span>,
   partial <span class='op'>=</span> <span class='cn'>TRUE</span>,
   generalized <span class='op'>=</span> <span class='cn'>FALSE</span>,
@@ -240,7 +238,7 @@ See details.</p>
   draws <span class='op'>=</span> <span class='fl'>500</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -256,7 +254,7 @@ See details.</p>
     <tr>
       <th>generalized</th>
       <td><p>If TRUE, returns generalized Eta Squared, assuming all
-variables are manipulated. Can also be a character vector of observed
+variables are <strong>observed</strong>. Can also be a character vector of observed
 (non-manipulated) variables, in which case generalized Eta Squared is
 calculated taking these observed variables into account. For <code>afex_aov</code>
 model, when <code>generalized = TRUE</code>, the observed variables are extracted
@@ -398,12 +396,14 @@ associated with Chi-squared and F distributions), this applies also to cases
 where the lower bound of the CI is equal to 0. Even more care should be taken
 when the <em>upper</em> bound is equal to 0 - this occurs when <em>p</em>-value is greater
 than 1−alpha/2 making, the upper bound cannot be estimated, and the upper
-bound is arbitrarily set to 0 (Steiger, 2004). For example:<div class="r"></p><pre><span class='fu'>eta_squared</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>gear</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, <span class='va'>mtcars</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span>, <span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
-</pre><p></div></p><pre><span class='co'>## Parameter    | Eta2 (partial) |       90% CI</span>
+bound is arbitrarily set to 0 (Steiger, 2004). For example:<div class="r"></p><pre class='sourceCode r'><code><span class='fu'>eta_squared</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>gear</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, <span class='va'>mtcars</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span>, <span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre><p></div></p><pre class='sourceCode r'><code><span class='co'>## # Effect Size for ANOVA (Type I)</span>
+<span class='co'>## </span>
+<span class='co'>## Parameter    | Eta2 (partial) |       90% CI</span>
 <span class='co'>## --------------------------------------------</span>
 <span class='co'>## factor(gear) |           0.58 | [0.00, 0.84]</span>
 <span class='co'>## factor(cyl)  |           0.46 | [0.00, 0.78]</span>
-</pre>
+</code></pre>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -438,7 +438,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <code><a href='standardize_parameters.html'>standardize_parameters</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='co'># \donttest{</span></span>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># \donttest{</span></span>
 <span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://easystats.github.io/effectsize/'>effectsize</a></span><span class='op'>)</span></span>
 <span class='r-in'><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>am_f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>am</span><span class='op'>)</span></span>
 <span class='r-in'><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>cyl_f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>cyl</span><span class='op'>)</span></span>
@@ -446,36 +446,50 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-in'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am_f</span> <span class='op'>*</span> <span class='va'>cyl_f</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA (Type I)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter  | Eta2 (partial) |       90% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f       |           0.63 | [0.42, 0.75]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> cyl_f      |           0.66 | [0.45, 0.77]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f:cyl_f |           0.10 | [0.00, 0.27]</span>
 <span class='r-in'><span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model</span>, generalized <span class='op'>=</span> <span class='st'>"cyl_f"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA (Type I)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter  | Eta2 (generalized) |       90% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> ----------------------------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f       |               0.36 | [0.13, 0.55]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> cyl_f      |               0.63 | [0.42, 0.75]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f:cyl_f |               0.04 | [0.00, 0.16]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'></span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Observed variabels: cyl_f</span></span>
 <span class='r-in'><span class='fu'>omega_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA (Type I)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter  | Omega2 (partial) |       90% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f       |             0.57 | [0.35, 0.71]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> cyl_f      |             0.60 | [0.37, 0.72]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f:cyl_f |             0.02 | [0.00, 0.13]</span>
 <span class='r-in'><span class='fu'>epsilon_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA (Type I)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter  | Epsilon2 (partial) |       90% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> ----------------------------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f       |               0.61 | [0.40, 0.74]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> cyl_f      |               0.63 | [0.41, 0.75]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f:cyl_f |               0.03 | [0.00, 0.06]</span>
 <span class='r-in'><span class='fu'>cohens_f</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA (Type I)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter  | Cohen's f (partial) |       90% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -----------------------------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f       |                1.30 | [0.86, 1.73]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> cyl_f      |                1.38 | [0.90, 1.81]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f:cyl_f |                0.33 | [0.00, 0.61]</span>
 <span class='r-in'><span class='op'>(</span><span class='va'>etas</span> <span class='op'>&lt;-</span> <span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model</span>, partial <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA (Type I)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter  | Eta2 |       90% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f       | 0.36 | [0.13, 0.55]</span>
@@ -519,6 +533,12 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-in'></span>
 <span class='r-in'>  <span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model_anova</span><span class='op'>)</span></span>
 <span class='r-in'><span class='op'>}</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Type 3 ANOVAs only give sensible and informative results when covariates are</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>   mean-centered and factors are coded with orthogonal contrasts (such as those</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>   produced by 'contr.sum', 'contr.poly', or 'contr.helmert', but *not* by the</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>   default 'contr.treatment').</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA (Type III)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter  | Eta2 (partial) |       90% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f       |           0.11 | [0.00, 0.32]</span>
@@ -541,6 +561,8 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-in'><span class='op'>}</span></span>
 <span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>More than one observation per cell, aggregating the data using mean (i.e, fun_aggregate = mean)!</span>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span> Contrasts set to contr.sum for the following variables: treatment, gender</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA (Type III)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter              | Eta2 (generalized) |       90% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> ----------------------------------------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> treatment              |               0.25 | [0.00, 0.53]</span>
@@ -550,6 +572,8 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> treatment:phase        |               0.13 | [0.00, 0.26]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> gender:phase           |           4.25e-03 | [0.00, 0.00]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> treatment:gender:phase |               0.02 | [0.00, 0.00]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'></span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Observed variabels: gender</span></span>
 <span class='r-in'></span>
 <span class='r-in'></span>
 <span class='r-in'></span>
@@ -560,6 +584,8 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-in'>  <span class='fu'>omega_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></span>
 <span class='r-in'><span class='op'>}</span></span>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span> boundary (singular) fit: see ?isSingular</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA (Type III)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter  | Omega2 (partial) |       90% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f       |             0.07 | [0.00, 0.27]</span>
@@ -595,7 +621,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-in'><span class='op'>}</span></span>
 <span class='r-in'><span class='co'># }</span></span>
 <span class='r-in'></span>
-</pre>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

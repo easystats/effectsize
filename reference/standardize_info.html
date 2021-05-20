@@ -69,8 +69,6 @@ i.e., by what they are divided. The &quot;basic&quot; method of standardization 
 
 
 
-<!-- dependencies from examples -->
-
 
   
 
@@ -187,13 +185,13 @@ parameters. This function gives a window on how standardized are obtained,
 i.e., by what they are divided. The "basic" method of standardization uses.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>standardize_info</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>standardize_info</span><span class='op'>(</span>
   <span class='va'>model</span>,
   robust <span class='op'>=</span> <span class='cn'>FALSE</span>,
   two_sd <span class='op'>=</span> <span class='cn'>FALSE</span>,
   include_pseudo <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -241,7 +239,7 @@ and the response.</p>
 <code><a href='standardize.html'>standardize</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'>standardize_info</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>      Parameter      Type        Link Secondary_Parameter EffectSize_Type</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 1  (Intercept) intercept        Mean                &lt;NA&gt;            &lt;NA&gt;</span>
@@ -353,7 +351,7 @@ and the response.</p>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 9        0.9979818</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 10       1.4756081</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 11       3.2304000</span>
-</pre>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
