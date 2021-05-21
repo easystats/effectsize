@@ -61,7 +61,7 @@ mad_pooled <- function(x, y = NULL, data = NULL, constant = 1.4826, verbose = TR
 
 
 
-#' @importFrom stats mad sd as.formula
+#' @importFrom stats mad sd as.formula ave
 .sd_pooled <- function(x, y = NULL, data = NULL, robust = FALSE, verbose = TRUE, constant = 1) {
 
   # Activate here for evaluation of arguments...
@@ -87,8 +87,8 @@ mad_pooled <- function(x, y = NULL, data = NULL, constant = 1.4826, verbose = TR
   }
 
   div(c(
-    x - ave(x, FUN = center),
-    y - ave(y, FUN = center)
+    x - stats::ave(x, FUN = center),
+    y - stats::ave(y, FUN = center)
   )) * f
 }
 

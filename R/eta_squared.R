@@ -1019,21 +1019,27 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
   model <- stats::anova(model)
 
-  tab <- data.frame(model$s.table)
+  p.table <- as.data.frame(model$pTerms.table)
+  s.table <- as.data.frame(model$s.table)
+  colnames(s.table)[colnames(s.table)=="Ref.df"] <- "df"
+  s.table[setdiff(colnames(p.table), colnames(s.table))] <- NA
+  p.table[setdiff(colnames(s.table), colnames(p.table))] <- NA
+  tab <- rbind(p.table, s.table)
+  colnames(tab)[colnames(tab)=="F"] <- "F-value"
+  colnames(tab)[colnames(tab)=="df"] <- "npar"
+  tab$df_error <- model$residual.df
 
-  out <- cbind(
-    Parameter = rownames(tab),
-    es_fun(
-      f = tab$`F`,
-      df = tab$Ref.df,
-      df_error = model$residual.df,
-      ci = ci
+  out <-
+    .anova_es.anova(
+      tab,
+      type = type,
+      generalized = generalized,
+      partial = partial,
+      ci = ci,
+      verbose = verbose
     )
-  )
 
-  attr(out, "ci") <- ci
-  attr(out, "partial") <- partial
-  attr(out, "generalized") <- generalized
+  attr(out, "anova_type") <- 3
   out
 }
 
@@ -1072,11 +1078,10 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     # Faking the model_parameters.aovlist output:
     aov_tab <- summary(model$Anova)$univariate.tests
     aov_tab <- as.data.frame(unclass(aov_tab))
-    aov_tab <- transform(aov_tab,
-                         Parameter = rownames(aov_tab),
-                         Sum_Squares = `Sum Sq`,
-                         df = `num Df`)
-    aov_tab <- subset(aov_tab, select = c("Parameter", "Sum_Squares","Error.SS", "df", "den.Df"))
+    aov_tab$Parameter <- rownames(aov_tab)
+    colnames(aov_tab)[colnames(aov_tab)== "Sum Sq"] <- "Sum_Squares"
+    colnames(aov_tab)[colnames(aov_tab)== "num Df"] <- "df"
+    aov_tab <- aov_tab[c("Parameter", "Sum_Squares","Error SS", "df", "den Df")]
 
     id <- attr(model, "id")
 
@@ -1095,14 +1100,14 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     aov_tab <- split(aov_tab, aov_tab$Group)
     aov_tab <- lapply(aov_tab, function (x) {
       x <- x[c(seq_len(nrow(x)), 1), ]
-      x$Sum_Squares[nrow(x)] <- x$Error.SS[1]
-      x$df[nrow(x)] <- x$den.Df[1]
+      x$Sum_Squares[nrow(x)] <- x[["Error SS"]][1]
+      x$df[nrow(x)] <- x[["den Df"]][1]
       x$Parameter[nrow(x)] <- "Residuals"
       x
     })
     aov_tab <- do.call(rbind, aov_tab)
-    aov_tab$Error.SS <- NULL
-    aov_tab$den.Df <- NULL
+    aov_tab[["Error SS"]] <- NULL
+    aov_tab[["den Df"]] <- NULL
     aov_tab$`F` <- ifelse(aov_tab$Parameter == "Residuals", NA, 1)
     aov_tab$Mean_Square <- aov_tab$Sum_Squares/aov_tab$df
 
@@ -1144,9 +1149,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                           verbose = TRUE,
                           ...) {
   if (!inherits(model, "anova.rms")) {
-    model <- stats::anova(model)
+    model <- stats::anova(model, test = "F")
   }
-
+  i <- rownames(model)
   model <- as.data.frame(model)
 
   colnames(model) <- gsub("F", "F value", colnames(model), fixed = TRUE)
@@ -1155,7 +1160,10 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
   model <- model[rownames(model) != "ERROR", ]
 
-  .anova_es.anova(model, type = type, partial = partial, generalized = generalized, ci = ci, ...)
+  out <- .anova_es.anova(model, type = type, partial = partial, generalized = generalized, ci = ci, ...)
+  out$Parameter <- i[match(make.names(i), out$Parameter, nomatch = 0)]
+  attr(out, "anova_type") <- 2
+  out
 }
 
 .anova_es.anova.rms <- .anova_es.rms

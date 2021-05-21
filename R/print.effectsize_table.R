@@ -155,16 +155,18 @@ print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
 
 
 #' @export
+#' @importFrom utils as.roman
 print.effectsize_anova <- function(x, digits = 2, ...) {
   x_orig <- x
 
   footer <- caption <- subtitle <- NULL
 
   ## Title (caption)
-  if (is.na(anova_type <- attr(x, "anova_type", exact = TRUE))) {
+  anova_type <- attr(x, "anova_type", exact = TRUE)
+  if (is.null(anova_type) || is.na(anova_type)) {
     caption <- "# Effect Size for ANOVA"
   } else {
-    caption <- paste0("# Effect Size for ANOVA (Type ", as.roman(anova_type), ")")
+    caption <- paste0("# Effect Size for ANOVA (Type ", utils::as.roman(anova_type), ")")
   }
   caption <- c(caption, "blue")
 
