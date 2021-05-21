@@ -410,8 +410,9 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(resE1[[2]][1], resA1[[5]][1], tolerance = 0.01)
   })
 
+  # Special cases --------------------------------------------------------------
 
-  # tidymodels --------------------------------------------------------------
+  ## tidymodels -------------------
   test_that("ets_squared | tidymodels", {
     skip_on_cran()
     skip_if_not_installed("tidymodels")
@@ -429,5 +430,34 @@ if (require("testthat") && require("effectsize")) {
     lm_lm <- eta_squared(lm(mpg ~ am + vs, data = mtcars))
 
     expect_equal(tidy_lm, lm_lm, tolerance = 0.001)
+  })
+
+
+  ## GAMs -------------------
+  test_that("ets_squared | gam", {
+    skip_on_cran()
+    skip_if_not_installed("mgcv")
+
+    set.seed(2) ## simulate some data...
+    dat <- mgcv::gamSim(1, n = 400, dist = "normal", scale = 2)
+    b <- mgcv::gam(y ~ x0 + s(x1) + s(x2) + t2(x1, x2) + s(x3), data = dat)
+
+    expect_error(out <- eta_squared(b), regexp = NA)
+    expect_output(print(out), "Type III")
+  })
+
+  ## rms -------------------
+  test_that("ets_squared | rms", {
+    skip_on_cran()
+    skip_if_not_installed("rms")
+
+    b <- rms::ols(mpg ~ cyl + am, data = mtcars)
+    expect_error(out <- eta_squared(b), regexp = NA)
+    expect_output(print(out), "Type II")
+
+    skip_if_not_installed("car")
+    b_lm <- car::Anova(lm(mpg ~ cyl + am, data = mtcars), type = 2)
+    out_lm <- eta_squared(b_lm)
+    expect_equal(out[1:2, ], out_lm)
   })
 }

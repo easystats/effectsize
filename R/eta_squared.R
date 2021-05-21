@@ -1019,21 +1019,27 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
   model <- stats::anova(model)
 
-  tab <- data.frame(model$s.table)
+  p.table <- as.data.frame(model$pTerms.table)
+  s.table <- as.data.frame(model$s.table)
+  colnames(s.table)[colnames(s.table)=="Ref.df"] <- "df"
+  s.table[setdiff(colnames(p.table), colnames(s.table))] <- NA
+  p.table[setdiff(colnames(s.table), colnames(p.table))] <- NA
+  tab <- rbind(p.table, s.table)
+  colnames(tab)[colnames(tab)=="F"] <- "F-value"
+  colnames(tab)[colnames(tab)=="df"] <- "npar"
+  tab$df_error <- model$residual.df
 
-  out <- cbind(
-    Parameter = rownames(tab),
-    es_fun(
-      f = tab$`F`,
-      df = tab$Ref.df,
-      df_error = model$residual.df,
-      ci = ci
+  out <-
+    .anova_es.anova(
+      tab,
+      type = type,
+      generalized = generalized,
+      partial = partial,
+      ci = ci,
+      verbose = verbose
     )
-  )
 
-  attr(out, "ci") <- ci
-  attr(out, "partial") <- partial
-  attr(out, "generalized") <- generalized
+  attr(out, "anova_type") <- 3
   out
 }
 
@@ -1144,9 +1150,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                           verbose = TRUE,
                           ...) {
   if (!inherits(model, "anova.rms")) {
-    model <- stats::anova(model)
+    model <- stats::anova(model, test = "F")
   }
-
+  i <- rownames(model)
   model <- as.data.frame(model)
 
   colnames(model) <- gsub("F", "F value", colnames(model), fixed = TRUE)
@@ -1155,7 +1161,10 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
   model <- model[rownames(model) != "ERROR", ]
 
-  .anova_es.anova(model, type = type, partial = partial, generalized = generalized, ci = ci, ...)
+  out <- .anova_es.anova(model, type = type, partial = partial, generalized = generalized, ci = ci, ...)
+  out$Parameter <- i[match(make.names(i), out$Parameter, nomatch = 0)]
+  attr(out, "anova_type") <- 2
+  out
 }
 
 .anova_es.anova.rms <- .anova_es.rms
