@@ -167,12 +167,12 @@
 <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="va">mod</span>, test <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Fixed effects
 &gt; 
-&gt; Parameter   |     Mean |     SD |              89% CI |  Rhat |     ESS |                      Prior
-&gt; ----------------------------------------------------------------------------------------------------
-&gt; (Intercept) | 10022.51 | 432.46 | [9367.91, 10753.54] | 1.000 | 5288.00 | Normal (20000 +- 15495.02)
-&gt; xtra_hours  |  1236.03 |  29.74 | [1192.22,  1287.14] | 1.000 | 4032.00 |      Normal (0 +- 1587.80)
-&gt; n_comps     |  2960.11 | 129.96 | [2740.41,  3149.45] | 1.000 | 4405.00 |      Normal (0 +- 3755.71)
-&gt; seniority   |   442.51 | 104.64 | [ 267.69,   603.24] | 1.000 | 4023.00 |      Normal (0 +- 2702.93)</code></pre>
+&gt; Parameter   |   Median |              89% CI |  Rhat |     ESS |                      Prior
+&gt; -------------------------------------------------------------------------------------------
+&gt; (Intercept) | 10016.89 | [9367.91, 10753.54] | 1.000 | 5288.00 | Normal (20000 +- 15495.02)
+&gt; xtra_hours  |  1235.83 | [1192.22,  1287.14] | 1.000 | 4032.00 |      Normal (0 +- 1587.80)
+&gt; n_comps     |  2962.41 | [2740.41,  3149.45] | 1.000 | 4405.00 |      Normal (0 +- 3755.71)
+&gt; seniority   |   442.16 | [ 267.69,   603.24] | 1.000 | 4023.00 |      Normal (0 +- 2702.93)</code></pre>
 <pre><code>&gt; 
 &gt; Using highest density intervals as credible intervals.</code></pre>
 <p>Looking at the un-standardized (“raw”) parameters, it looks like all predictors positively predict workers’ salaries, but which has the highest predictive power? Unfortunately, the predictors are not on the same scale (hours, compliments, years), so comparing them is hard when looking at the raw data. This is where standardization comes in.</p>
@@ -183,12 +183,12 @@
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod</span>, method <span class="op">=</span> <span class="st">"refit"</span>, ci <span class="op">=</span> <span class="fl">0.89</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Standardization method: refit
 &gt; 
-&gt; Parameter   | Mean (std.) |        89% CI
-&gt; -----------------------------------------
-&gt; (Intercept) |   -4.27e-04 | [-0.03, 0.03]
-&gt; xtra_hours  |        0.78 | [ 0.75, 0.81]
-&gt; n_comps     |        0.39 | [ 0.37, 0.42]
-&gt; seniority   |        0.08 | [ 0.05, 0.11]</code></pre>
+&gt; Parameter   | Median (std.) |        89% CI
+&gt; -------------------------------------------
+&gt; (Intercept) |     -2.63e-04 | [-0.03, 0.03]
+&gt; xtra_hours  |          0.78 | [ 0.75, 0.81]
+&gt; n_comps     |          0.39 | [ 0.37, 0.42]
+&gt; seniority   |          0.08 | [ 0.05, 0.11]</code></pre>
 <p>Note that the central tendency of the posterior distribution is still the <em>median</em> - the median of the standardized posterior distribution. We can easily change this, of the type of credible interval used:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/" class="external-link">effectsize</a></span><span class="op">)</span>
