@@ -58,7 +58,7 @@ eta_squared_posterior(
 \item{partial}{If \code{TRUE}, return partial indices.}
 
 \item{generalized}{If TRUE, returns generalized Eta Squared, assuming all
-variables are \strong{observed}. Can also be a character vector of observed
+variables are manipulated. Can also be a character vector of observed
 (non-manipulated) variables, in which case generalized Eta Squared is
 calculated taking these observed variables into account. For \code{afex_aov}
 model, when \code{generalized = TRUE}, the observed variables are extracted

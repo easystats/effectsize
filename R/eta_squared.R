@@ -14,7 +14,7 @@
 #' @param model A model, ANOVA object, or the result of `parameters::model_parameters`.
 #' @param partial If `TRUE`, return partial indices.
 #' @param generalized If TRUE, returns generalized Eta Squared, assuming all
-#'   variables are **observed**. Can also be a character vector of observed
+#'   variables are manipulated. Can also be a character vector of observed
 #'   (non-manipulated) variables, in which case generalized Eta Squared is
 #'   calculated taking these observed variables into account. For `afex_aov`
 #'   model, when `generalized = TRUE`, the observed variables are extracted
@@ -1053,12 +1053,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                                include_intercept = FALSE,
                                ...) {
   type <- match.arg(type)
-  if (type == "eta" && isTRUE(generalized)) {
-    if (length(attr(model$anova_table, "observed"))) {
-      generalized <- attr(model$anova_table, "observed")
-    } else {
-      generalized <- names(c(attr(model, "between"),attr(model, "within")))
-    }
+  if (type == "eta" && isTRUE(generalized) && length(attr(model$anova_table, "observed"))) {
+    generalized <- attr(model$anova_table, "observed")
   }
 
   # For completely between, covers all
