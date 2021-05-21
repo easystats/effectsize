@@ -319,8 +319,7 @@ if (require("testthat") && require("effectsize")) {
 
     x <- eta_squared(mod, include_intercept = TRUE)
     a <- anova(mod, es = "pes", intercept = TRUE)
-    r <- cor(a$pes, x$Eta2_partial)
-    expect_equal(r, 1, tolerance = 0.005)
+    expect_equal(a$pes, x$Eta2_partial)
   })
 
 
