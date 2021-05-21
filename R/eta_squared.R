@@ -1079,9 +1079,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     aov_tab <- summary(model$Anova)$univariate.tests
     aov_tab <- as.data.frame(unclass(aov_tab))
     aov_tab$Parameter <- rownames(aov_tab)
-    aov_tab$Sum_Squares <- aov_tab$`Sum Sq`
-    aov_tab$df <- aov_tab$`num Df`
-    aov_tab <- aov_tab[c("Parameter", "Sum_Squares","Error.SS", "df", "den.Df")]
+    colnames(aov_tab)[colnames(aov_tab)== "Sum Sq"] <- "Sum_Squares"
+    colnames(aov_tab)[colnames(aov_tab)== "num Df"] <- "df"
+    aov_tab <- aov_tab[c("Parameter", "Sum_Squares","Error SS", "df", "den Df")]
 
     id <- attr(model, "id")
 
@@ -1100,14 +1100,14 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     aov_tab <- split(aov_tab, aov_tab$Group)
     aov_tab <- lapply(aov_tab, function (x) {
       x <- x[c(seq_len(nrow(x)), 1), ]
-      x$Sum_Squares[nrow(x)] <- x$Error.SS[1]
-      x$df[nrow(x)] <- x$den.Df[1]
+      x$Sum_Squares[nrow(x)] <- x[["Error SS"]][1]
+      x$df[nrow(x)] <- x[["den Df"]][1]
       x$Parameter[nrow(x)] <- "Residuals"
       x
     })
     aov_tab <- do.call(rbind, aov_tab)
-    aov_tab$Error.SS <- NULL
-    aov_tab$den.Df <- NULL
+    aov_tab[["Error SS"]] <- NULL
+    aov_tab[["den Df"]] <- NULL
     aov_tab$`F` <- ifelse(aov_tab$Parameter == "Residuals", NA, 1)
     aov_tab$Mean_Square <- aov_tab$Sum_Squares/aov_tab$df
 

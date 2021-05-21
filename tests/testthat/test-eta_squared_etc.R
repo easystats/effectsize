@@ -310,13 +310,11 @@ if (require("testthat") && require("effectsize")) {
 
     x <- eta_squared(mod, generalized = TRUE)
     a <- anova(mod, observed = "gender")
-    r <- cor(a$ges, x$Eta2_generalized)
-    expect_equal(r, 1, tolerance = 0.005)
+    expect_equal(a$ges, x$Eta2_generalized)
 
     x <- eta_squared(mod)
     a <- anova(mod, es = "pes")
-    r <- cor(a$pes, x$Eta2_partial)
-    expect_equal(r, 1, tolerance = 0.005)
+    expect_equal(a$pes, x$Eta2_partial)
 
 
     x <- eta_squared(mod, include_intercept = TRUE)
