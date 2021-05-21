@@ -1078,11 +1078,10 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     # Faking the model_parameters.aovlist output:
     aov_tab <- summary(model$Anova)$univariate.tests
     aov_tab <- as.data.frame(unclass(aov_tab))
-    aov_tab <- transform(aov_tab,
-                         Parameter = rownames(aov_tab),
-                         Sum_Squares = `Sum Sq`,
-                         df = `num Df`)
-    aov_tab <- subset(aov_tab, select = c("Parameter", "Sum_Squares","Error.SS", "df", "den.Df"))
+    aov_tab$Parameter <- rownames(aov_tab)
+    aov_tab$Sum_Squares <- aov_tab$`Sum Sq`
+    aov_tab$df <- aov_tab$`num Df`
+    aov_tab <- aov_tab[c("Parameter", "Sum_Squares","Error.SS", "df", "den.Df")]
 
     id <- attr(model, "id")
 
