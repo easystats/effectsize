@@ -161,7 +161,8 @@ print.effectsize_anova <- function(x, digits = 2, ...) {
   footer <- caption <- subtitle <- NULL
 
   ## Title (caption)
-  if (is.na(anova_type <- attr(x, "anova_type", exact = TRUE))) {
+  anova_type <- attr(x, "anova_type", exact = TRUE)
+  if (is.null(anova_type) || is.na(anova_type)) {
     caption <- "# Effect Size for ANOVA"
   } else {
     caption <- paste0("# Effect Size for ANOVA (Type ", as.roman(anova_type), ")")
