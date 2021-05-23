@@ -4,7 +4,14 @@
 \alias{format_standardize}
 \title{Transform a standardized vector into character}
 \usage{
-format_standardize(x, reference = x, robust = FALSE, digits = NULL, ...)
+format_standardize(
+  x,
+  reference = x,
+  robust = FALSE,
+  digits = 1,
+  protect_integers = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{A standardized numeric vector.}
@@ -21,7 +28,10 @@ to return scientific notation. For the latter case, control the number of
 digits by adding the value as suffix, e.g. \code{digits = "scientific4"}
 to have scientific notation with 4 decimal places.}
 
-\item{...}{Arguments passed to or from other methods.}
+\item{protect_integers}{Should integers be kept as integers (i.e., without
+decimals)?}
+
+\item{...}{Other arguments to pass to \code{\link[insight:format_value]{insight::format_value()}} such as \code{digits}, etc.}
 }
 \description{
 Transform a standardized vector into character, e.g., \code{c("-1 SD", "Mean", "+1 SD")}.
@@ -30,4 +40,7 @@ Transform a standardized vector into character, e.g., \code{c("-1 SD", "Mean", "
 format_standardize(c(-1, 0, 1))
 format_standardize(c(-1, 0, 1, 2), reference = rnorm(1000))
 format_standardize(c(-1, 0, 1, 2), reference = rnorm(1000), robust = TRUE)
+
+format_standardize(standardize(mtcars$wt), digits = 1)
+format_standardize(standardize(mtcars$wt, robust = TRUE), digits = 1)
 }

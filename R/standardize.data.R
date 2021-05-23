@@ -45,6 +45,7 @@ standardize.numeric <- function(x,
   scaled_x[valid_x] <- x
   attr(scaled_x, "center") <- ref$center
   attr(scaled_x, "scale") <- ref$scale
+  attr(scaled_x, "robust") <- robust
   scaled_x
 }
 
@@ -202,6 +203,7 @@ standardize.data.frame <- function(x,
 
   attr(x, "center") <- sapply(x[select], function(z) attributes(z)$center)
   attr(x, "scale") <- sapply(x[select], function(z) attributes(z)$scale)
+  attr(x, "robust") <- robust
   x
 }
 

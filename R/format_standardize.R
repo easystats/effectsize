@@ -6,15 +6,26 @@
 #' @param reference The reference vector from which to compute the mean and SD.
 #' @inheritParams standardize
 #' @inheritParams insight::format_value
+#' @param ... Other arguments to pass to \code{\link[insight:format_value]{insight::format_value()}} such as \code{digits}, etc.
 #'
 #' @examples
 #' format_standardize(c(-1, 0, 1))
 #' format_standardize(c(-1, 0, 1, 2), reference = rnorm(1000))
 #' format_standardize(c(-1, 0, 1, 2), reference = rnorm(1000), robust = TRUE)
+#'
+#' format_standardize(standardize(mtcars$wt), digits = 1)
+#' format_standardize(standardize(mtcars$wt, robust = TRUE), digits = 1)
 #' @importFrom stats median mad sd
 #' @importFrom insight format_value
 #' @export
-format_standardize <- function(x, reference = x, robust = FALSE, digits = NULL, ...) {
+format_standardize <- function(x, reference = x, robust = FALSE, digits = 1, protect_integers = TRUE, ...) {
+
+  # Check if robust info stored in attributes
+  if("robust" %in% names(attributes(reference))) {
+    robust <- attributes(reference)$robust
+  }
+
+  # Find parameters and their names
   if (robust) {
     central <- stats::median(reference, na.rm = TRUE)
     central_name <- "Median"
@@ -27,21 +38,33 @@ format_standardize <- function(x, reference = x, robust = FALSE, digits = NULL, 
     deviation_name <- "SD"
   }
 
+  # See if they are not stored as attributes
+  if("center" %in% names(attributes(reference))) {
+    central <- attributes(reference)$center
+  }
+  if("scale" %in% names(attributes(reference))) {
+    deviation <- attributes(reference)$scale
+  }
+
+
   # Express in deviations
-  x <- (x - central) / deviation
+  if(any(x != reference)) {
+    x <- (x - central) / deviation
+  }
 
   # Round
-  if (is.null(digits)) {
-    L <- insight::format_value(x, round(1 / diff(range(x, na.rm = TRUE))), protect_integers = TRUE)
-  } else {
-    L <- insight::format_value(x, digits = digits, protect_integers = TRUE)
-  }
+  x <- round(x, digits = digits)
+
+
+  # Format vector as character
+  L <- insight::format_value(x, digits = digits, ...)
 
   # Complete
   L[!grepl("-", L)] <- paste0("+", L[!grepl("-", L)])
   L <- paste(L, deviation_name)
-  is_central <- sapply(x, function(.) isTRUE(all.equal(., 0)))
-  L[is_central] <- central_name
+  L[x == 0] <- central_name
 
-  factor(L, levels = rev(unique(L)))
+  # Order
+  idx <- L[order(x, decreasing = TRUE)]
+  factor(L, levels = unique(idx))
 }
