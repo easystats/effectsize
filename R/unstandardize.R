@@ -64,6 +64,8 @@ unstandardize.data.frame <- function(x,
                                      reference = NULL,
                                      robust = FALSE,
                                      two_sd = FALSE,
+                                     select = NULL,
+                                     exclude = NULL,
                                      ...) {
   if (!is.null(reference)) {
     i <- sapply(x, is.numeric)
@@ -109,9 +111,15 @@ unstandardize.data.frame <- function(x,
     scale <- 2 * scale
   }
 
-  x[names(i)] <- mapply(unstandardize, x[names(i)],
-    center = center[names(i)],
-    scale = scale[names(i)]
+  # Select and deselect
+  cols <- names(i)
+  if(!is.null(select)) cols <- cols[cols %in% select]
+  if(!is.null(exclude)) cols <- cols[!cols %in% exclude]
+
+  # Apply unstandardization to cols
+  x[cols] <- mapply(unstandardize, x[cols],
+    center = center[cols],
+    scale = scale[cols]
   )
   x
 }
