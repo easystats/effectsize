@@ -1,46 +1,49 @@
-Package: effectsize
 Type: Package
+Package: effectsize
 Title: Indices of Effect Size and Standardized Parameters
 Version: 0.4.4-2
-Authors@R: c(
-    person("Mattan S.", 
-        "Ben-Shachar", 
-        role = c("aut", "cre"), 
-        email = "matanshm@post.bgu.ac.il", 
-        comment = c(ORCID = "0000-0002-4287-4801", Twitter = "@mattansb")),
-    person("Dominique", 
-        "Makowski", 
-        role = c("aut"),
-        email = "dom.makowski@gmail.com",
-        comment = c(ORCID = "0000-0001-5375-9967", Twitter = "@Dom_Makowski")),
-    person("Daniel", 
-        "Lüdecke", 
-        role = c("aut"), 
-        email = "d.luedecke@uke.de", 
-        comment = c(ORCID = "0000-0002-8895-3206", Twitter = "@strengejacke")),
-    person("Indrajeet", 
-        "Patil", 
-        role = c("ctb"), 
-        email = "patilindrajeet.science@gmail.com", 
-        comment = c(ORCID = "0000-0003-1995-6531", Twitter = "@patilindrajeets")),
-    person("Ken", 
-        "Kelley", 
-        role = c("ctb")),
-    person("David", 
-        "Stanley", 
-        role = c("ctb"))
-    )
+Authors@R: 
+    c(person(given = "Mattan S.",
+             family = "Ben-Shachar",
+             role = c("aut", "cre"),
+             email = "matanshm@post.bgu.ac.il",
+             comment = c(ORCID = "0000-0002-4287-4801", Twitter = "@mattansb")),
+      person(given = "Dominique",
+             family = "Makowski",
+             role = "aut",
+             email = "dom.makowski@gmail.com",
+             comment = c(ORCID = "0000-0001-5375-9967", Twitter = "@Dom_Makowski")),
+      person(given = "Daniel",
+             family = "Lüdecke",
+             role = "aut",
+             email = "d.luedecke@uke.de",
+             comment = c(ORCID = "0000-0002-8895-3206", Twitter = "@strengejacke")),
+      person(given = "Indrajeet",
+             family = "Patil",
+             role = "ctb",
+             email = "patilindrajeet.science@gmail.com",
+             comment = c(ORCID = "0000-0003-1995-6531", Twitter = "@patilindrajeets")),
+      person(given = "Ken",
+             family = "Kelley",
+             role = "ctb"),
+      person(given = "David",
+             family = "Stanley",
+             role = "ctb"))
 Maintainer: Mattan S. Ben-Shachar <matanshm@post.bgu.ac.il>
+Description: Provide utilities to work with indices of effect size and
+    standardized parameters for a wide variety of models (see list of
+    supported models in insight; Lüdecke, Waggoner & Makowski (2019)
+    <doi:10.21105/joss.01412>), allowing computation of and conversion
+    between indices such as Cohen's d, r, odds, etc.
 License: GPL-3
 URL: https://easystats.github.io/effectsize/
 BugReports: https://github.com/easystats/effectsize/issues/
-Description: Provide utilities to work with indices of effect size and standardized parameters for a wide variety of models (see list of supported models in insight; Lüdecke, Waggoner & Makowski (2019) <doi:10.21105/joss.01412>), allowing computation of and conversion between indices such as Cohen's d, r, odds, etc.
 Depends:
     R (>= 3.4)
 Imports:
     bayestestR (>= 0.9.0),
     insight (>= 0.14.0),
-    parameters (>= 0.13.0.1),
+    parameters (>= 0.13.0),
     stats,
     utils
 Suggests:
@@ -76,11 +79,11 @@ Suggests:
     testthat,
     tidymodels,
     tidyr
-RoxygenNote: 7.1.1.9001
-Language: en-US
-VignetteBuilder: knitr
-Encoding: UTF-8
-Remotes: easystats/parameters
-Roxygen: list(markdown = TRUE)
+VignetteBuilder: 
+    knitr
 Config/testthat/edition: 3
 Config/testthat/parallel: true
+Encoding: UTF-8
+Language: en-US
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1.9001
