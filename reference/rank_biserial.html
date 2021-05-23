@@ -47,8 +47,9 @@
 
 
 <meta property="og:title" content="Effect size for non-parametric (rank sum) tests — rank_biserial" />
-<meta property="og:description" content="Compute the rank-biserial correlation, Cliff's delta, rank Epsilon squared,
-and Kendall's W effect sizes for non-parametric (rank sum) tests." />
+<meta property="og:description" content="Compute the rank-biserial correlation \((r_{rb})\), Cliff's delta
+\((\delta)\), rank epsilon squared \((\varepsilon^2)\), and Kendall's
+W effect sizes for non-parametric (rank sum) tests." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -177,8 +178,9 @@ and Kendall's W effect sizes for non-parametric (rank sum) tests." />
     </div>
 
     <div class="ref-description">
-    <p>Compute the rank-biserial correlation, Cliff's <em>delta</em>, rank Epsilon squared,
-and Kendall's <em>W</em> effect sizes for non-parametric (rank sum) tests.</p>
+    <p>Compute the rank-biserial correlation \((r_{rb})\), Cliff's <em>delta</em>
+\((\delta)\), rank epsilon squared \((\varepsilon^2)\), and Kendall's
+<em>W</em> effect sizes for non-parametric (rank sum) tests.</p>
     </div>
 
     <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>rank_biserial</span><span class='op'>(</span>
@@ -298,7 +300,7 @@ the first sample, to <code>+1</code> indicating that all values of the second sa
 larger than the first sample. (Cliff's <em>delta</em> is an alias to the
 rank-biserial correlation in the two sample case.)
 <br /><br />
-The rank Epsilon squared is appropriate for non-parametric tests of
+The rank epsilon squared is appropriate for non-parametric tests of
 differences between 2 or more samples (a rank based ANOVA). See
 <a href='https://rdrr.io/r/stats/kruskal.test.html'>stats::kruskal.test</a>. Values range from 0 to 1, with larger values
 indicating larger differences between groups.

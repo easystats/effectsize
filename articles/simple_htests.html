@@ -441,7 +441,7 @@
 <div id="difference-in-ranks" class="section level2">
 <h2 class="hasAnchor">
 <a href="#difference-in-ranks" class="anchor" aria-hidden="true"></a>Difference in Ranks</h2>
-<p>For two independent samples, the rank-biserial correlation (<span class="math inline">\(r_{RB}\)</span>) is a measure of relative superiority - i.e., larger values indicate a higher probability of a randomly selected observation from <em>X</em> being larger than randomly selected observation from <em>Y</em>. A value of <span class="math inline">\((-1)\)</span> indicates that all observations in the second group are larger than the first, and a value of <span class="math inline">\((+1)\)</span> indicates that all observations in the first group are larger than the second.</p>
+<p>For two independent samples, the rank-biserial correlation (<span class="math inline">\(r_{rb}\)</span>) is a measure of relative superiority - i.e., larger values indicate a higher probability of a randomly selected observation from <em>X</em> being larger than randomly selected observation from <em>Y</em>. A value of <span class="math inline">\((-1)\)</span> indicates that all observations in the second group are larger than the first, and a value of <span class="math inline">\((+1)\)</span> indicates that all observations in the first group are larger than the second.</p>
 <div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">48</span>, <span class="fl">48</span>, <span class="fl">77</span>, <span class="fl">86</span>, <span class="fl">85</span>, <span class="fl">85</span><span class="op">)</span>
 <span class="va">B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">14</span>, <span class="fl">34</span>, <span class="fl">34</span>, <span class="fl">77</span><span class="op">)</span>
@@ -458,7 +458,7 @@
 <pre><code>&gt; r (rank biserial) |       95% CI
 &gt; --------------------------------
 &gt; 0.79              | [0.25, 1.00]</code></pre>
-<p>For one sample, <span class="math inline">\(r_{RB}\)</span> measures the symmetry around <span class="math inline">\(\mu\)</span> (mu; the null value), with 0 indicating perfect symmetry, <span class="math inline">\((-1)\)</span> indicates that all observations fall below <span class="math inline">\(\mu\)</span>, and <span class="math inline">\((+1)\)</span> indicates that all observations fall above <span class="math inline">\(\mu\)</span>. For paired samples the difference between the paired samples is used:</p>
+<p>For one sample, <span class="math inline">\(r_{rb}\)</span> measures the symmetry around <span class="math inline">\(\mu\)</span> (mu; the null value), with 0 indicating perfect symmetry, <span class="math inline">\((-1)\)</span> indicates that all observations fall below <span class="math inline">\(\mu\)</span>, and <span class="math inline">\((+1)\)</span> indicates that all observations fall above <span class="math inline">\(\mu\)</span>. For paired samples the difference between the paired samples is used:</p>
 <div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.15</span>, <span class="fl">0.88</span>, <span class="fl">0.90</span>, <span class="fl">0.74</span>, <span class="fl">1.21</span><span class="op">)</span>
 
@@ -496,7 +496,7 @@
 <div id="rank-one-way-anova" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rank-one-way-anova" class="anchor" aria-hidden="true"></a>Rank One way ANOVA</h2>
-<p>The Rank-Epsilon-Squared (<span class="math inline">\(E^2_R\)</span> or <span class="math inline">\(\epsilon^2_R\)</span>) is a measure of association for the rank based one-way ANOVA. Values range between 0 (no relative superiority between any of the groups) to 1 (complete separation - with no overlap in ranks between the groups).</p>
+<p>The Rank-Epsilon-Squared (<span class="math inline">\(\varepsilon^2\)</span>) is a measure of association for the rank based one-way ANOVA. Values range between 0 (no relative superiority between any of the groups) to 1 (complete separation - with no overlap in ranks between the groups).</p>
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">group_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
   g1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.9</span>, <span class="fl">3.0</span>, <span class="fl">2.5</span>, <span class="fl">2.6</span>, <span class="fl">3.2</span><span class="op">)</span>, <span class="co"># normal subjects</span>

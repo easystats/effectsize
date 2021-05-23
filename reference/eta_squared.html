@@ -47,16 +47,15 @@
 
 
 <meta property="og:title" content="Effect size for ANOVA — eta_squared" />
-<meta property="og:description" content="Functions to compute effect size measures for ANOVAs, such as Eta, Omega and
-Epsilon squared, and Cohen's f (or their partialled versions) for aov,
-aovlist and anova models. These indices represent an estimate of how much
-variance in the response variables is accounted for by the explanatory
-variable(s).
+<meta property="og:description" content="Functions to compute effect size measures for ANOVAs, such as Eta
+\((\eta)\), Omega \((\omega)\) and Epsilon \((\epsilon)\)
+squared, and Cohen's f (or their partialled versions) for ANOVA tables. These
+indices represent an estimate of how much variance in the response variables
+is accounted for by the explanatory variable(s).
 
-Effect sizes are computed using the sums of squares obtained from
-anova(model) which might not always be appropriate (Yeah... ANOVAs are
-hard...). It is suggested that ANOVA models be fit with afex package.
-See details." />
+When passing models, effect sizes are computed using the sums of squares
+obtained from anova(model) which might not always be appropriate. See
+details." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -185,16 +184,15 @@ See details." />
     </div>
 
     <div class="ref-description">
-    <p>Functions to compute effect size measures for ANOVAs, such as Eta, Omega and
-Epsilon squared, and Cohen's f (or their partialled versions) for <code>aov</code>,
-<code>aovlist</code> and <code>anova</code> models. These indices represent an estimate of how much
-variance in the response variables is accounted for by the explanatory
-variable(s).
+    <p>Functions to compute effect size measures for ANOVAs, such as Eta
+\((\eta)\), Omega \((\omega)\) and Epsilon \((\epsilon)\)
+squared, and Cohen's f (or their partialled versions) for ANOVA tables. These
+indices represent an estimate of how much variance in the response variables
+is accounted for by the explanatory variable(s).
 <br /><br />
-Effect sizes are computed using the sums of squares obtained from
-<code>anova(model)</code> which might not always be appropriate (<strong><em>Yeah... ANOVAs are
-hard...</em></strong>). It is suggested that ANOVA models be fit with <code>afex</code> package.
-See details.</p>
+When passing models, effect sizes are computed using the sums of squares
+obtained from <code>anova(model)</code> which might not always be appropriate. See
+details.</p>
     </div>
 
     <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>eta_squared</span><span class='op'>(</span>
@@ -311,22 +309,25 @@ squared for each fixed effect, which can then be passed to
 intervals.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>For <code>aov</code> and <code>aovlist</code> models, the effect sizes are computed directly with
+    <p>For <code>aov</code>, <code>aovlist</code> and <code>afex_aov</code> models, and for <code>anova</code> objects that
+provide Sums-of-Squares, the effect sizes are computed directly using
 Sums-of-Squares (for <code>mlm</code> / <code>maov</code> models, effect sizes are computed for
-each response separately). For all other model, the model is passed to
-<code><a href='https://rdrr.io/r/stats/anova.html'>anova()</a></code>, and effect sizes are approximated via test statistic conversion
-(see <code><a href='F_to_eta2.html'>F_to_eta2()</a></code> for more details.)</p><h3 class='hasAnchor' id='type-of-sums-of-squares'><a class='anchor' aria-hidden='true' href='#type-of-sums-of-squares'></a>Type of Sums of Squares</h3>
+each response separately). For all other model, effect sizes are approximated
+via test statistic conversion of the omnibus <em>F</em> statistic provided by the
+appropriate <code><a href='https://rdrr.io/r/stats/anova.html'>anova()</a></code> method (see <code><a href='F_to_eta2.html'>F_to_eta2()</a></code> for more details.)</p><h3 class='hasAnchor' id='type-of-sums-of-squares'><a class='anchor' aria-hidden='true' href='#type-of-sums-of-squares'></a>Type of Sums of Squares</h3>
 
 
-<p>The sums of squares (or F statistics) used for the computation of the effect
-sizes is based on those returned by <code>anova(model)</code> (whatever those may be -
-for <code>aov</code> and <code>aovlist</code> these are <em>type-1</em> sums of squares; for <code>merMod</code>
-these are <em>type-3</em> sums of squares). Make sure these are the sums of squares
-you are interested in; You might want to pass the result of <code>car::Anova(mode, type = 3)</code>, or use the <code>afex</code> package to fit ANOVA models.
+<p>The sums of squares (or <em>F</em> statistics) used for the computation of the
+effect sizes is based on those returned by <code>anova(model)</code> (whatever those may
+be - for <code>aov</code> and <code>aovlist</code> these are <em>type-1</em> sums of squares; for
+<code>lmerMod</code> (and <code>lmerModLmerTest</code>) these are <em>type-3</em> sums of squares). Make
+sure these are the sums of squares you are interested in; You might want to
+pass the result of <code>car::Anova(mode, type = 2)</code> or <code>type = 3</code> instead of the
+model itself, or use the <code>afex</code> package to fit ANOVA models.
 <br /><br />
-It is generally recommended to fit models with <em><code>contr.sum</code> factor weights</em>
-and <em>centered covariates</em>, for sensible results. See examples and the <code>afex</code>
-package.</p>
+For type 3 sum of squares, it is generally recommended to fit models with
+<em><code>contr.sum</code> factor weights</em> and <em>centered covariates</em>, for sensible results.
+See examples and the <code>afex</code> package.</p>
 
 <h3 class='hasAnchor' id='un-biased-estimate-of-eta'><a class='anchor' aria-hidden='true' href='#un-biased-estimate-of-eta'></a>Un-Biased Estimate of Eta</h3>
 
