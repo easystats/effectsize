@@ -117,10 +117,9 @@ unstandardize.data.frame <- function(x,
   if(!is.null(exclude)) cols <- cols[!cols %in% exclude]
 
   # Apply unstandardization to cols
-  x[cols] <- mapply(unstandardize, x[cols],
-    center = center[cols],
-    scale = scale[cols]
-  )
+  for(col in cols) {
+    x[cols] <- unstandardize(x[[col]], center = center[[col]], scale = scale[[col]])
+  }
   x
 }
 
