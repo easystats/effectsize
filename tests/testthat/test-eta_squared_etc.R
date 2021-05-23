@@ -455,6 +455,6 @@ if (require("testthat") && require("effectsize")) {
     skip_if_not_installed("car")
     b_lm <- car::Anova(lm(mpg ~ cyl + am, data = mtcars), type = 2)
     out_lm <- eta_squared(b_lm)
-    expect_equal(out[1:2, ], out_lm)
+    expect_equal(out[1:2, ], out_lm, ignore_attr = TRUE)
   })
 }
