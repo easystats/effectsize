@@ -410,7 +410,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
   type <- match.arg(type)
 
-  params <- parameters::model_parameters(model, verbose = verbose)
+  params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
   out <- .es_aov(as.data.frame(params), type, partial, generalized, ci, verbose = verbose, ...)
   if (is.null(attr(out, "anova_type"))) attr(out, "anova_type") <- attr(params, "anova_type")
   out
@@ -562,7 +562,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                               verbose = TRUE,
                               include_intercept = FALSE,
                               ...) {
-  params <- parameters::model_parameters(model, verbose = verbose)
+  params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
   anova_type <- attr(params, "anova_type")
   params <- as.data.frame(params)
 
@@ -723,7 +723,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                           verbose = TRUE,
                           ...) {
   model <- stats::aov(model)
-  params <- parameters::model_parameters(model, verbose = verbose)
+  params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
   anova_type <- attr(params, "anova_type")
 
   params <- as.data.frame(params)
@@ -782,7 +782,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     return(res)
   }
 
-  anova_type <- tryCatch(attr(parameters::model_parameters(model, verbose = FALSE), "anova_type"),
+  anova_type <- tryCatch(attr(parameters::model_parameters(model, verbose = FALSE, effects = "fixed"), "anova_type"),
                          error = function(...) 1)
 
   if (!include_intercept) model <- model[rownames(model) != "(Intercept)", , drop = FALSE]
@@ -951,7 +951,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   #                 ...)
 
   ## For the multivariate test
-  model <- parameters::model_parameters(model, verbose = verbose, ...)
+  model <- parameters::model_parameters(model, verbose = verbose, effects = "fixed", ...)
   anova_type <- attr(model, "anova_type")
 
   if ("df_num" %in% colnames(model))
