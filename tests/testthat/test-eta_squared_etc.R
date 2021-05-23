@@ -175,7 +175,7 @@ if (require("testthat") && require("effectsize")) {
     fsD <- cohens_f_squared(m1, model2 = m2)[, 1:4]
     fs <- cohens_f_squared(m2)[-1, -1] # this ONLY works because of the default type-I errors!!!!
     rownames(fsD) <- rownames(fs) <- 1
-    expect_equal(fsD, fs, tolerance = 0.01)
+    expect_equal(fsD, fs, tolerance = 0.01, ignore_attr = TRUE)
 
 
     skip_if_not_installed("performance")
@@ -205,20 +205,20 @@ if (require("testthat") && require("effectsize")) {
 
     expect_equal(
       anova(m, es = "ges", observed = NULL)$ges,
-      eta_squared(Aov, generalized = TRUE)$Eta2_generalized
+      eta_squared(Aov, generalized = TRUE, verbose = FALSE)$Eta2_generalized
     )
 
 
     expect_equal(
       anova(m, es = "ges", observed = "gender")$ges,
-      eta_squared(Aov, generalized = "gender")$Eta2_generalized
+      eta_squared(Aov, generalized = "gender", verbose = FALSE)$Eta2_generalized
     )
 
     # in a completely between design, with all measured,
     # all are equal to total
     expect_equal(
-      eta_squared(Aov, generalized = c("gender", "treatment"))[[2]],
-      eta_squared(Aov, partial = FALSE)[[2]]
+      eta_squared(Aov, generalized = c("gender", "treatment"), verbose = FALSE)[[2]],
+      eta_squared(Aov, partial = FALSE, verbose = FALSE)[[2]]
     )
   })
 
@@ -284,34 +284,42 @@ if (require("testthat") && require("effectsize")) {
 
     ef <- omega_squared(m, partial = TRUE)
     expect_equal(ef$Omega2_partial,
-      c(0.323, 0.115, 0.222, 0.320, 0.149, -0.019, -0.017),
-      tolerance = 0.01
-    )
+                 c(0.3115, 0.1814, 0.2221, 0.2637, 0.1512, -0.0173, -0.0171),
+                 tolerance = 0.01)
     expect_equal(ef$CI_low,
-      c(0, 0, 0, 0.036, 0, 0, 0),
-      tolerance = 0.01
-    )
-    expect_equal(ef$CI_high,
-      c(0.590, 0.441, 0.505, 0.528, 0.300, 0, 0),
-      tolerance = 0.01
-    )
+                 c(0, 0, 0, 0, 0, 0, 0),
+                 tolerance = 0.01)
+    # TODO Why are we getting diferent results on different systems and R releases?
+    # expect_equal(ef$CI_high,
+    #              c(0.5814, 0.5036, 0.5052, 0.4589, 0.3023, 0, 0),
+    #              tolerance = 0.01)
   })
 
 
 
   # afex --------------------------------------------------------------------
-  test_that("generalized | within-mixed", {
+  test_that("afex | within-mixed", {
     skip_if_not_installed("afex")
-    data(obk.long, package = "afex")
-    model1 <- afex::aov_car(value ~ treatment * gender + Error(id / (phase * hour)),
-      data = obk.long, observed = "gender",
-      include_aov = FALSE
-    )
 
-    expect_error(eta_squared(model1, partial = FALSE))
-    expect_error(epsilon_squared(model1, partial = FALSE))
-    expect_error(omega_squared(model1, partial = FALSE))
-    expect_error(omega_squared(model1, partial = TRUE))
+    data(obk.long, package = "afex")
+
+    mod <- afex::aov_ez("id", "value", obk.long,
+                        between = c("treatment", "gender"),
+                        within = c("phase", "hour"),
+                        observed = "gender")
+
+    x <- eta_squared(mod, generalized = TRUE)
+    a <- anova(mod, observed = "gender")
+    expect_equal(a$ges, x$Eta2_generalized)
+
+    x <- eta_squared(mod)
+    a <- anova(mod, es = "pes")
+    expect_equal(a$pes, x$Eta2_partial)
+
+
+    x <- eta_squared(mod, include_intercept = TRUE)
+    a <- anova(mod, es = "pes", intercept = TRUE)
+    expect_equal(a$pes, x$Eta2_partial)
   })
 
 
@@ -325,9 +333,11 @@ if (require("testthat") && require("effectsize")) {
       include_aov = FALSE
     )
 
-    expect_warning(eta_squared(model1$Anova, partial = FALSE))
+    ws <- capture_warnings(eta_squared(model1$Anova, partial = FALSE))
+    expect_match(tail(ws, 1), "Currently only supports partial eta", fixed = TRUE)
+
     expect_equal(
-      eta_squared(model1$Anova)[1:3, ][[2]],
+      eta_squared(model1$Anova, verbose = FALSE)[1:3, ][[2]],
       c(0.4407468, 0.2678884, 0.3635011),
       tolerance = 0.01
     )
@@ -335,37 +345,34 @@ if (require("testthat") && require("effectsize")) {
 
 
   # Include intercept -------------------------------------------------------
-
-
-
   test_that("include_intercept | car", {
     skip_if_not_installed("car")
 
     m <- lm(mpg ~ factor(cyl) * factor(am), data = mtcars)
     AOV <- car::Anova(m, type = 3)
 
-    res0 <- eta_squared(AOV)
-    res1 <- eta_squared(AOV, include_intercept = TRUE)
+    res0 <- eta_squared(AOV, verbose = FALSE)
+    res1 <- eta_squared(AOV, include_intercept = TRUE, verbose = FALSE)
     expect_equal(nrow(res0), 3)
     expect_equal(nrow(res1), nrow(res0) + 1)
     expect_equal(res1[[1]][1], "(Intercept)")
     expect_equal(res1[[2]][1], 0.8680899, tolerance = 0.01)
 
-    res0 <- epsilon_squared(AOV)
-    res1 <- epsilon_squared(AOV, include_intercept = TRUE)
+    res0 <- epsilon_squared(AOV, verbose = FALSE)
+    res1 <- epsilon_squared(AOV, include_intercept = TRUE, verbose = FALSE)
     expect_equal(nrow(res0), 3)
     expect_equal(nrow(res1), nrow(res0) + 1)
     expect_equal(res1[[1]][1], "(Intercept)")
 
 
-    res0 <- omega_squared(AOV)
-    res1 <- omega_squared(AOV, include_intercept = TRUE)
+    res0 <- omega_squared(AOV, verbose = FALSE)
+    res1 <- omega_squared(AOV, include_intercept = TRUE, verbose = FALSE)
     expect_equal(nrow(res0), 3)
     expect_equal(nrow(res1), nrow(res0) + 1)
     expect_equal(res1[[1]][1], "(Intercept)")
 
     # generalized
-    res1 <- eta_squared(AOV, generalized = "cyl", include_intercept = TRUE)
+    res1 <- eta_squared(AOV, generalized = "cyl", include_intercept = TRUE, verbose = FALSE)
     expect_equal(res1[[1]][1], "(Intercept)")
     expect_equal(res1[[2]][1], 0.784483, tolerance = 0.01)
   })
@@ -382,26 +389,27 @@ if (require("testthat") && require("effectsize")) {
       )
     ))
 
-    resE0 <- eta_squared(a)
+    resE0 <- eta_squared(a, verbose = FALSE)
     resA0 <- anova(a, es = "pes")
     expect_equal(nrow(resE0), 3)
     expect_equal(nrow(resE0), nrow(resA0))
 
 
-    resE1 <- eta_squared(a, include_intercept = TRUE)
+    resE1 <- eta_squared(a, include_intercept = TRUE, verbose = FALSE)
     resA1 <- anova(a, es = "pes", intercept = TRUE)
     expect_equal(nrow(resE1), nrow(resE0) + 1)
     expect_equal(nrow(resE1), nrow(resA1))
 
     skip_if_not_installed("car")
-    resE1 <- eta_squared(car::Anova(a$aov, type = 3), include_intercept = TRUE, generalized = "gender")
+    resE1 <- eta_squared(car::Anova(a$aov, type = 3), include_intercept = TRUE, generalized = "gender", verbose = FALSE)
     resA1 <- anova(a, es = "ges", intercept = TRUE, observed = "gender")
     expect_equal(resE1[[2]][1], 0.9386555, tolerance = 0.01)
     expect_equal(resE1[[2]][1], resA1[[5]][1], tolerance = 0.01)
   })
 
+  # Special cases --------------------------------------------------------------
 
-  # tidymodels --------------------------------------------------------------
+  ## tidymodels -------------------
   test_that("ets_squared | tidymodels", {
     skip_on_cran()
     skip_if_not_installed("tidymodels")
@@ -415,26 +423,38 @@ if (require("testthat") && require("effectsize")) {
       fit(mpg ~ am + vs, data = mtcars)
 
     set.seed(123)
-    df_lm <- as.data.frame(eta_squared(mod_lm, ci = 0.95))
+    tidy_lm <- eta_squared(mod_lm)
+    lm_lm <- eta_squared(lm(mpg ~ am + vs, data = mtcars))
 
-    expect_equal(
-      df_lm,
-      structure(
-        list(
-          Parameter = c("am", "vs"),
-          Eta2_partial = c(0.534050980382337, 0.509657899929074),
-          CI = c(0.95, 0.95),
-          CI_low = c(0.270477566572333, 0.242410781810851),
-          CI_high = c(0.698019260414593, 0.681154789342689)
-        ),
-        class = "data.frame",
-        row.names = 1:2,
-        partial = TRUE,
-        generalized = FALSE,
-        ci = 0.95,
-        ci_method = list(method = "ncp", distribution = "F")
-      ),
-      tolerance = 0.001
-    )
+    expect_equal(tidy_lm, lm_lm, tolerance = 0.001)
+  })
+
+
+  ## GAMs -------------------
+  test_that("ets_squared | gam", {
+    skip_on_cran()
+    skip_if_not_installed("mgcv")
+
+    set.seed(2) ## simulate some data...
+    dat <- mgcv::gamSim(1, n = 400, dist = "normal", scale = 2)
+    b <- mgcv::gam(y ~ x0 + s(x1) + s(x2) + t2(x1, x2) + s(x3), data = dat)
+
+    expect_error(out <- eta_squared(b), regexp = NA)
+    expect_output(print(out), "Type III")
+  })
+
+  ## rms -------------------
+  test_that("ets_squared | rms", {
+    skip_on_cran()
+    skip_if_not_installed("rms")
+
+    b <- rms::ols(mpg ~ cyl + am, data = mtcars)
+    expect_error(out <- eta_squared(b), regexp = NA)
+    expect_output(print(out), "Type II")
+
+    skip_if_not_installed("car")
+    b_lm <- car::Anova(lm(mpg ~ cyl + am, data = mtcars), type = 2)
+    out_lm <- eta_squared(b_lm)
+    expect_equal(out[1:2, ], out_lm)
   })
 }

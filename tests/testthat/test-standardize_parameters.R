@@ -15,7 +15,7 @@ if (require("testthat") && require("effectsize")) {
   # model_parameters -------------------------------
   test_that("standardize_parameters (model_parameters)", {
     model <<- lm(mpg ~ cyl + am, data = mtcars)
-    mp <<- parameters::model_parameters(model)
+    mp <<- parameters::model_parameters(model, effects = "fixed")
 
     s1 <- standardize_parameters(model, method = "basic")
     s2 <- standardize_parameters(mp, method = "basic")
@@ -25,7 +25,7 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(s1$CI_low, s2$CI_low)
     expect_equal(s1$CI_high, s2$CI_high)
 
-    mp_exp <<- parameters::model_parameters(model, exponentiate = TRUE)
+    mp_exp <<- parameters::model_parameters(model, exponentiate = TRUE, effects = "fixed")
     se1 <- standardize_parameters(model, method = "basic", exponentiate = TRUE)
     se2 <- standardize_parameters(mp_exp, method = "basic", exponentiate = TRUE)
 
@@ -383,7 +383,7 @@ if (require("testthat") && require("effectsize")) {
 
     m <- pscl::zeroinfl(art ~ fem + mar + kid5 + ment | kid5 + phd, data = bioChemists)
 
-    mp <- parameters::model_parameters(m)
+    mp <- parameters::model_parameters(m, effects = "fixed")
     sm1 <- standardize_parameters(m, method = "refit")
     expect_warning(sm2 <- standardize_parameters(m, method = "posthoc"))
     suppressWarnings({
@@ -452,7 +452,7 @@ test_that("include_response | parameters", {
   m <<- lm(Sepal.Length ~ Petal.Length + Petal.Width, data = iris)
 
   # parameters ---
-  pars <- parameters::model_parameters(m)
+  pars <- parameters::model_parameters(m, effects = "fixed")
   pars_z0 <- standardize_parameters(pars, method = "basic")
   pars_z1 <- standardize_parameters(pars, method = "basic", include_response = FALSE)
   expect_equal(pars_z0$Std_Coefficient[-1] * sd(iris$Sepal.Length), pars_z1$Std_Coefficient[-1])

@@ -88,8 +88,9 @@ A data frame with the effect size (\code{r_rank_biserial},
 \code{CI_high}).
 }
 \description{
-Compute the rank-biserial correlation, Cliff's \emph{delta}, rank Epsilon squared,
-and Kendall's \emph{W} effect sizes for non-parametric (rank sum) tests.
+Compute the rank-biserial correlation \eqn{(r_{rb})}{}, Cliff's \emph{delta}
+\eqn{(\delta)}{}, rank epsilon squared \eqn{(\varepsilon^2)}{}, and Kendall's
+\emph{W} effect sizes for non-parametric (rank sum) tests.
 }
 \details{
 The rank-biserial correlation is appropriate for non-parametric tests of
@@ -105,7 +106,7 @@ the first sample, to \code{+1} indicating that all values of the second sample a
 larger than the first sample. (Cliff's \emph{delta} is an alias to the
 rank-biserial correlation in the two sample case.)
 \cr\cr
-The rank Epsilon squared is appropriate for non-parametric tests of
+The rank epsilon squared is appropriate for non-parametric tests of
 differences between 2 or more samples (a rank based ANOVA). See
 \link[stats:kruskal.test]{stats::kruskal.test}. Values range from 0 to 1, with larger values
 indicating larger differences between groups.

@@ -1,7 +1,8 @@
 #' Effect size for non-parametric (rank sum) tests
 #'
-#' Compute the rank-biserial correlation, Cliff's *delta*, rank Epsilon squared,
-#' and Kendall's *W* effect sizes for non-parametric (rank sum) tests.
+#' Compute the rank-biserial correlation \eqn{(r_{rb})}{}, Cliff's *delta*
+#' \eqn{(\delta)}{}, rank epsilon squared \eqn{(\varepsilon^2)}{}, and Kendall's
+#' *W* effect sizes for non-parametric (rank sum) tests.
 #'
 #' @inheritParams cohens_d
 #' @param x Can be one of:
@@ -38,7 +39,7 @@
 #' larger than the first sample. (Cliff's *delta* is an alias to the
 #' rank-biserial correlation in the two sample case.)
 #' \cr\cr
-#' The rank Epsilon squared is appropriate for non-parametric tests of
+#' The rank epsilon squared is appropriate for non-parametric tests of
 #' differences between 2 or more samples (a rank based ANOVA). See
 #' [stats::kruskal.test]. Values range from 0 to 1, with larger values
 #' indicating larger differences between groups.

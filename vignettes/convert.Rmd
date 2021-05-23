@@ -59,10 +59,10 @@ cohens_d(Outcome ~ Group, data = data)
 ```
 
 But we can also treat the 2-level `group` variable as a numeric variable, and
-compute Pearon's *r*:
+compute Pearson's *r*:
 
 ```{r, warning=FALSE}
-correlation::correlation(data)[2, ]
+correlation::correlation(data, include_factors = TRUE)[2, ]
 ```
 
 But what if we only have summary statistics? Say, we only have $d=-0.37$ and we

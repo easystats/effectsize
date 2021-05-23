@@ -77,7 +77,9 @@ where the lower bound of the CI is equal to 0. Even more care should be taken
 when the \emph{upper} bound is equal to 0 - this occurs when \emph{p}-value is greater
 than 1−alpha/2 making, the upper bound cannot be estimated, and the upper
 bound is arbitrarily set to 0 (Steiger, 2004). For example:\if{html}{\out{<div class="r">}}\preformatted{eta_squared(aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:7, ]))
-}\if{html}{\out{</div>}}\preformatted{## Parameter    | Eta2 (partial) |       90\% CI
+}\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
+## 
+## Parameter    | Eta2 (partial) |       90\% CI
 ## --------------------------------------------
 ## factor(gear) |           0.58 | [0.00, 0.84]
 ## factor(cyl)  |           0.46 | [0.00, 0.78]

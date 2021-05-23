@@ -242,7 +242,7 @@ Rank based tests get rank based effect sizes!
 
 ## Difference in Ranks
 
-For two independent samples, the rank-biserial correlation ($r_{RB}$) is a
+For two independent samples, the rank-biserial correlation ($r_{rb}$) is a
 measure of relative superiority - i.e., larger values indicate a higher
 probability of a randomly selected observation from *X* being larger than
 randomly selected observation from *Y*. A value of $(-1)$ indicates that all
@@ -259,7 +259,7 @@ wilcox.test(A, B) # aka Mann–Whitney U test
 rank_biserial(A, B)
 ```
 
-For one sample, $r_{RB}$ measures the symmetry around $\mu$ (mu; the null
+For one sample, $r_{rb}$ measures the symmetry around $\mu$ (mu; the null
 value), with 0 indicating perfect symmetry, $(-1)$ indicates that all
 observations fall below $\mu$, and $(+1)$ indicates that all observations fall
 above $\mu$. For paired samples the difference between the paired samples is
@@ -283,7 +283,7 @@ rank_biserial(x, y, paired = TRUE)
 
 ## Rank One way ANOVA
 
-The Rank-Epsilon-Squared ($E^2_R$ or $\epsilon^2_R$) is a measure of association
+The Rank-Epsilon-Squared ($\varepsilon^2$) is a measure of association
 for the rank based one-way ANOVA. Values range between 0 (no relative
 superiority between any of the groups) to 1 (complete separation - with no
 overlap in ranks between the groups).

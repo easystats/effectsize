@@ -100,34 +100,36 @@ A data frame containing the effect size values and their confidence
 intervals.
 }
 \description{
-Functions to compute effect size measures for ANOVAs, such as Eta, Omega and
-Epsilon squared, and Cohen's f (or their partialled versions) for \code{aov},
-\code{aovlist} and \code{anova} models. These indices represent an estimate of how much
-variance in the response variables is accounted for by the explanatory
-variable(s).
+Functions to compute effect size measures for ANOVAs, such as Eta
+\eqn{(\eta)}{}, Omega \eqn{(\omega)}{} and Epsilon \eqn{(\epsilon)}{}
+squared, and Cohen's f (or their partialled versions) for ANOVA tables. These
+indices represent an estimate of how much variance in the response variables
+is accounted for by the explanatory variable(s).
 \cr\cr
-Effect sizes are computed using the sums of squares obtained from
-\code{anova(model)} which might not always be appropriate (\strong{\emph{Yeah... ANOVAs are
-hard...}}). It is suggested that ANOVA models be fit with \code{afex} package.
-See details.
+When passing models, effect sizes are computed using the sums of squares
+obtained from \code{anova(model)} which might not always be appropriate. See
+details.
 }
 \details{
-For \code{aov} and \code{aovlist} models, the effect sizes are computed directly with
+For \code{aov}, \code{aovlist} and \code{afex_aov} models, and for \code{anova} objects that
+provide Sums-of-Squares, the effect sizes are computed directly using
 Sums-of-Squares (for \code{mlm} / \code{maov} models, effect sizes are computed for
-each response separately). For all other model, the model is passed to
-\code{anova()}, and effect sizes are approximated via test statistic conversion
-(see \code{\link[=F_to_eta2]{F_to_eta2()}} for more details.)
+each response separately). For all other model, effect sizes are approximated
+via test statistic conversion of the omnibus \emph{F} statistic provided by the
+appropriate \code{anova()} method (see \code{\link[=F_to_eta2]{F_to_eta2()}} for more details.)
 \subsection{Type of Sums of Squares}{
 
-The sums of squares (or F statistics) used for the computation of the effect
-sizes is based on those returned by \code{anova(model)} (whatever those may be -
-for \code{aov} and \code{aovlist} these are \emph{type-1} sums of squares; for \code{merMod}
-these are \emph{type-3} sums of squares). Make sure these are the sums of squares
-you are interested in; You might want to pass the result of \code{car::Anova(mode, type = 3)}, or use the \code{afex} package to fit ANOVA models.
+The sums of squares (or \emph{F} statistics) used for the computation of the
+effect sizes is based on those returned by \code{anova(model)} (whatever those may
+be - for \code{aov} and \code{aovlist} these are \emph{type-1} sums of squares; for
+\code{lmerMod} (and \code{lmerModLmerTest}) these are \emph{type-3} sums of squares). Make
+sure these are the sums of squares you are interested in; You might want to
+pass the result of \code{car::Anova(mode, type = 2)} or \code{type = 3} instead of the
+model itself, or use the \code{afex} package to fit ANOVA models.
 \cr\cr
-It is generally recommended to fit models with \emph{\code{contr.sum} factor weights}
-and \emph{centered covariates}, for sensible results. See examples and the \code{afex}
-package.
+For type 3 sum of squares, it is generally recommended to fit models with
+\emph{\code{contr.sum} factor weights} and \emph{centered covariates}, for sensible results.
+See examples and the \code{afex} package.
 }
 
 \subsection{Un-Biased Estimate of Eta}{
@@ -197,7 +199,9 @@ where the lower bound of the CI is equal to 0. Even more care should be taken
 when the \emph{upper} bound is equal to 0 - this occurs when \emph{p}-value is greater
 than 1−alpha/2 making, the upper bound cannot be estimated, and the upper
 bound is arbitrarily set to 0 (Steiger, 2004). For example:\if{html}{\out{<div class="r">}}\preformatted{eta_squared(aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:7, ]))
-}\if{html}{\out{</div>}}\preformatted{## Parameter    | Eta2 (partial) |       90\% CI
+}\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
+## 
+## Parameter    | Eta2 (partial) |       90\% CI
 ## --------------------------------------------
 ## factor(gear) |           0.58 | [0.00, 0.84]
 ## factor(cyl)  |           0.46 | [0.00, 0.78]

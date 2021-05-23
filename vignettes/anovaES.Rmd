@@ -20,7 +20,7 @@ bibliography: bibliography.bib
 library(knitr)
 options(knitr.kable.NA = "")
 options(digits = 2)
-knitr::opts_chunk$set(comment = ">")
+knitr::opts_chunk$set(comment = ">", warning = FALSE)
 
 set.seed(1)
 pkgs <- c("effectsize", "parameters", "car", "afex")
@@ -113,7 +113,7 @@ where each *SS* is computed controlling for all other predictors, regardless of
 order. This can be done with `car::Anova(type = ...)`:
 
 ```{r}
-eta_squared(car::Anova(m, type = 3), partial = FALSE)
+eta_squared(car::Anova(m, type = 2), partial = FALSE)
 
 eta_squared(car::Anova(m, type = 3)) # partial = TRUE by default
 ```
@@ -131,13 +131,11 @@ the computation of the effect size].
 
 ## Adding Interactions
 
-When modeling interactions, it is important to center all of the predictors; for
-numeric variables this can be done by mean-centering the predictors; for factors
-this can be done by using **effects-coding** for the dummy variables. This
-unfortunately makes parameter interpretation harder, but *only* when this is
-does do the *SS*s associated with each lower-order term (or lower-order
-interaction) represent the ***SS*** **main effect** (with treatment coding they
-represent the *SS* of the simple effects).
+Type II and type III treat interaction differently.
+Without going into the weeds here, keep in mind that **when using type III SS, it is important to center all of the predictors**;
+for numeric variables this can be done by mean-centering the predictors;
+for factors this can be done by using orthogonal coding (such as `contr.sum` for *effects-coding*) for the dummy variables (and *NOT* treatment coding, which is the default in R).
+This unfortunately makes parameter interpretation harder, but *only* when this is does do the *SS*s associated with each lower-order term (or lower-order interaction) represent the ***SS*** of the **main effect** (with treatment coding they represent the *SS* of the simple effects).
 
 
 ```{r}
