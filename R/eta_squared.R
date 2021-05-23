@@ -1,15 +1,14 @@
 #' Effect size for ANOVA
 #'
-#' Functions to compute effect size measures for ANOVAs, such as Eta, Omega and
-#' Epsilon squared, and Cohen's f (or their partialled versions) for `aov`,
-#' `aovlist` and `anova` models. These indices represent an estimate of how much
-#' variance in the response variables is accounted for by the explanatory
-#' variable(s).
+#' Functions to compute effect size measures for ANOVAs, such as Eta
+#' \eqn{(\eta)}{}, Omega \eqn{(\omega)}{} and Epsilon \eqn{(\epsilon)}{}
+#' squared, and Cohen's f (or their partialled versions) for ANOVA tables. These
+#' indices represent an estimate of how much variance in the response variables
+#' is accounted for by the explanatory variable(s).
 #' \cr\cr
-#' Effect sizes are computed using the sums of squares obtained from
-#' `anova(model)` which might not always be appropriate (**_Yeah... ANOVAs are
-#' hard..._**). It is suggested that ANOVA models be fit with `afex` package.
-#' See details.
+#' When passing models, effect sizes are computed using the sums of squares
+#' obtained from `anova(model)` which might not always be appropriate. See
+#' details.
 #'
 #' @param model A model, ANOVA object, or the result of `parameters::model_parameters`.
 #' @param partial If `TRUE`, return partial indices.
@@ -36,23 +35,25 @@
 #'
 #' @details
 #'
-#' For `aov` and `aovlist` models, the effect sizes are computed directly with
+#' For `aov`, `aovlist` and `afex_aov` models, and for `anova` objects that
+#' provide Sums-of-Squares, the effect sizes are computed directly using
 #' Sums-of-Squares (for `mlm` / `maov` models, effect sizes are computed for
-#' each response separately). For all other model, the model is passed to
-#' `anova()`, and effect sizes are approximated via test statistic conversion
-#' (see [`F_to_eta2()`] for more details.)
+#' each response separately). For all other model, effect sizes are approximated
+#' via test statistic conversion of the omnibus *F* statistic provided by the
+#' appropriate `anova()` method (see [`F_to_eta2()`] for more details.)
 #'
 #' ## Type of Sums of Squares
-#' The sums of squares (or F statistics) used for the computation of the effect
-#' sizes is based on those returned by `anova(model)` (whatever those may be -
-#' for `aov` and `aovlist` these are *type-1* sums of squares; for `merMod`
-#' these are *type-3* sums of squares). Make sure these are the sums of squares
-#' you are interested in; You might want to pass the result of `car::Anova(mode,
-#' type = 3)`, or use the `afex` package to fit ANOVA models.
+#' The sums of squares (or *F* statistics) used for the computation of the
+#' effect sizes is based on those returned by `anova(model)` (whatever those may
+#' be - for `aov` and `aovlist` these are *type-1* sums of squares; for
+#' `lmerMod` (and `lmerModLmerTest`) these are *type-3* sums of squares). Make
+#' sure these are the sums of squares you are interested in; You might want to
+#' pass the result of `car::Anova(mode, type = 2)` or `type = 3` instead of the
+#' model itself, or use the `afex` package to fit ANOVA models.
 #' \cr\cr
-#' It is generally recommended to fit models with *`contr.sum` factor weights*
-#' and *centered covariates*, for sensible results. See examples and the `afex`
-#' package.
+#' For type 3 sum of squares, it is generally recommended to fit models with
+#' *`contr.sum` factor weights* and *centered covariates*, for sensible results.
+#' See examples and the `afex` package.
 #'
 #' ## Un-Biased Estimate of Eta
 #' Both ***Omega*** and ***Epsilon*** are unbiased estimators of the
