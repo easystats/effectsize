@@ -48,7 +48,7 @@ format_standardize <- function(x, reference = x, robust = FALSE, digits = 1, pro
 
 
   # Express in deviations
-  if(any(x != reference)) {
+  if(length(x) != length(reference) || any(x != reference)) {
     x <- (x - central) / deviation
   }
 

@@ -118,7 +118,7 @@ unstandardize.data.frame <- function(x,
 
   # Apply unstandardization to cols
   for(col in cols) {
-    x[cols] <- unstandardize(x[[col]], center = center[[col]], scale = scale[[col]])
+    x[col] <- unstandardize(x[[col]], center = center[[col]], scale = scale[[col]])
   }
   x
 }
