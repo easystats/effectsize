@@ -25,7 +25,7 @@
 #' associated with Chi-squared and F distributions), this applies also to cases
 #' where the lower bound of the CI is equal to 0. Even more care should be taken
 #' when the *upper* bound is equal to 0 - this occurs when *p*-value is greater
-#' than 1−alpha/2 making, the upper bound cannot be estimated, and the upper
+#' than 1-alpha/2 making, the upper bound cannot be estimated, and the upper
 #' bound is arbitrarily set to 0 (Steiger, 2004). For example:
 #' ```{r}
 #' eta_squared(aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:7, ]))
