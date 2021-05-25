@@ -3,6 +3,7 @@
 ## New features
 
 - `eta_squared()` family now indicate the type of sum-of-squares used.
+- `rank_biserial()` estimates CIs using the normal approximation (previously used bootstrapping).  
 - `hedges_g()` now used exact bias correction (thanks to @mdelacre for the suggestion!)  
 - `glass_delta()` now estimates CIs using the NCP method based on Algina et al (2006).
 

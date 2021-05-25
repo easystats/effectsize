@@ -22,7 +22,8 @@
 #'   one-sample or paired samples) or shift (for independent samples) is to be
 #'   estimated. See [stats::wilcox.test].
 #' @param iterations The number of bootstrap replicates for computing confidence
-#'   intervals. Only applies when `ci` is not `NULL`.
+#'   intervals. Only applies when `ci` is not `NULL`. (Deprecated for
+#'   `rank_biserial()`).
 #'
 #' @details
 #' The rank-biserial correlation is appropriate for non-parametric tests of
@@ -57,7 +58,10 @@
 #' implemented yet.
 #'
 #' # Confidence Intervals
-#' Confidence Intervals are estimated using the bootstrap method.
+#' Confidence intervals for the rank-biserial correlation (and Cliff's *delta*)
+#' are estimated using the normal approximation (via Fisher's transformation).
+#' Confidence intervals for rank Epsilon squared, and Kendall's *W* are
+#' estimated using the bootstrap method (using the `{boot}` package).
 #'
 #' @return A data frame with the effect size (`r_rank_biserial`,
 #'   `rank_epsilon_squared` or `Kendalls_W`) and its CI (`CI_low` and
@@ -129,15 +133,22 @@ rank_biserial <- function(x,
                           data = NULL,
                           mu = 0,
                           ci = 0.95,
-                          iterations = 200,
                           paired = FALSE,
                           verbose = TRUE,
-                          ...) {
+                          ...,
+                          iterations) {
   if (inherits(x, "htest")) {
     if (!grepl("Wilcoxon", x$method)) {
       stop("'x' is not a Wilcoxon-test!", call. = FALSE)
     }
-    return(effectsize(x, ci = ci, iterations = iterations, verbose = verbose))
+    return(effectsize(x, ci = ci, verbose = verbose))
+  }
+
+  if (!missing(iterations) && verbose) {
+    warning(
+      "'iterations' argument is deprecated. CIs are estimated using a parametric normal approximation.",
+      immediate. = TRUE
+    )
   }
 
   ## Prep data
@@ -166,20 +177,43 @@ rank_biserial <- function(x,
   ## CI
   ci_method <- NULL
   if (is.numeric(ci)) {
-    if (check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
-      out <- cbind(out, .rbs_ci_boot(
-        x,
-        y,
-        mu = mu,
-        paired = paired,
-        ci = ci,
-        iterations = iterations
-      ))
+    # if (requireNamespace("boot", quietly = TRUE)) {
+    #   out <- cbind(out, .rbs_ci_boot(
+    #     x,
+    #     y,
+    #     mu = mu,
+    #     paired = paired,
+    #     ci = ci,
+    #     iterations = iterations
+    #   ))
+    #
+    #   ci_method <- list(method = "bootstrap", iterations = iterations)
+    # } else {
+    #   ci <- NULL
+    #   warning("For CIs, the 'boot' package must be installed.")
+    # }
 
-      ci_method <- list(method = "bootstrap", iterations = iterations)
+    # Parametric method
+    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+    alpha <- 1 - ci
+    out$CI <- ci
+    rf <- atanh(r_rbs)
+    if (paired) {
+      nd <- sum((x - mu) != 0)
+      maxw <- (nd * (nd + 1)) / 2
+
+      rfSE <- sqrt(((nd * (nd + 1) * (2 * nd + 1)) / 6) * (1 / maxw ^ 2))
     } else {
-      ci <- NULL
+      n1 <- length(x)
+      n2 <- length(y)
+
+      rfSE <- sqrt(4 * 1 / (n1 * n2) ^ 2 * ((n1 * n2 * (n1 + n2 + 1)) / 12))
     }
+
+    confint <- tanh(rf + c(-1, 1) * qnorm(1 - alpha / 2) * rfSE)
+    out$CI_low <- confint[1]
+    out$CI_high <- confint[2]
+    ci_method <- list(method = "normal")
   }
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
@@ -243,7 +277,7 @@ rank_epsilon_squared <- function(x,
   if (is.numeric(ci)) {
     if (check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
       out <- cbind(out, .repsilon_ci(data, ci, iterations))
-      ci_method <- list(method = "bootstrap", iterations = iterations)
+      ci_method <- list(method = "percentile bootstrap", iterations = iterations)
     } else {
       ci <- NULL
     }
@@ -288,7 +322,7 @@ kendalls_w <- function(x,
   if (is.numeric(ci)) {
     if (check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
       out <- cbind(out, .kendalls_w_ci(rankings, ci, iterations))
-      ci_method <- list(method = "bootstrap", iterations = iterations)
+      ci_method <- list(method = "percentile bootstrap", iterations = iterations)
     } else {
       ci <- NULL
     }
@@ -386,49 +420,49 @@ kendalls_w <- function(x,
 
 ## CI ----
 
-#' @keywords internal
-#' @importFrom bayestestR ci
-.rbs_ci_boot <- function(x,
-                         y,
-                         mu = 0,
-                         paired = FALSE,
-                         ci = 0.95,
-                         iterations = 200) {
-  stopifnot(length(ci) == 1, ci < 1, ci > 0)
-
-  if (paired) {
-    data <- data.frame(x, y)
-    boot_rbs <- function(.data, .i) {
-      .data <- .data[.i, ]
-      .x <- .data$x
-      .y <- .data$y
-      .r_rbs(.x, .y, mu = mu, paired = TRUE, verbose = FALSE)
-    }
-  } else {
-    data <- data.frame(
-      i = seq_along(c(x, y))
-    )
-
-    boot_rbs <- function(.data, .i) {
-      .x <- sample(x, replace = TRUE)
-      .y <- sample(y, replace = TRUE)
-
-      .r_rbs(.x, .y, mu = mu, paired = FALSE, verbose = FALSE)
-    }
-  }
-
-  R <- boot::boot(
-    data = data,
-    statistic = boot_rbs,
-    R = iterations
-  )
-
-  out <- as.data.frame(
-    bayestestR::ci(na.omit(R$t), ci = ci, verbose = FALSE)
-  )
-  out$CI <- ci
-  out
-}
+# #' @keywords internal
+# #' @importFrom bayestestR ci
+# .rbs_ci_boot <- function(x,
+#                          y,
+#                          mu = 0,
+#                          paired = FALSE,
+#                          ci = 0.95,
+#                          iterations = 200) {
+#   stopifnot(length(ci) == 1, ci < 1, ci > 0)
+#
+#   if (paired) {
+#     data <- data.frame(x, y)
+#     boot_rbs <- function(.data, .i) {
+#       .data <- .data[.i, ]
+#       .x <- .data$x
+#       .y <- .data$y
+#       .r_rbs(.x, .y, mu = mu, paired = TRUE, verbose = FALSE)
+#     }
+#   } else {
+#     data <- data.frame(
+#       i = seq_along(c(x, y))
+#     )
+#
+#     boot_rbs <- function(.data, .i) {
+#       .x <- sample(x, replace = TRUE)
+#       .y <- sample(y, replace = TRUE)
+#
+#       .r_rbs(.x, .y, mu = mu, paired = FALSE, verbose = FALSE)
+#     }
+#   }
+#
+#   R <- boot::boot(
+#     data = data,
+#     statistic = boot_rbs,
+#     R = iterations
+#   )
+#
+#   out <- as.data.frame(
+#     bayestestR::ci(na.omit(R$t), ci = ci, verbose = FALSE)
+#   )
+#   out$CI <- ci
+#   out
+# }
 
 #' @keywords internal
 .repsilon_ci <- function(data, ci, iterations) {
@@ -448,11 +482,14 @@ kendalls_w <- function(x,
     R = iterations
   )
 
-  out <- as.data.frame(
-    bayestestR::ci(na.omit(R$t), ci = ci, verbose = FALSE)
+  bCI <- boot::boot.ci(R, conf = ci, type = "perc")$percent
+  bCI <- tail(as.vector(bCI), 2)
+
+  data.frame(
+    CI = ci,
+    CI_low = bCI[1],
+    CI_high = bCI[2]
   )
-  out$CI <- ci
-  out
 }
 
 #' @keywords internal
@@ -469,11 +506,14 @@ kendalls_w <- function(x,
     R = iterations
   )
 
-  out <- as.data.frame(
-    bayestestR::ci(na.omit(R$t), ci = ci, verbose = FALSE)
+  bCI <- boot::boot.ci(R, conf = ci, type = "perc")$percent
+  bCI <- tail(as.vector(bCI), 2)
+
+  data.frame(
+    CI = ci,
+    CI_low = bCI[1],
+    CI_high = bCI[2]
   )
-  out$CI <- ci
-  out
 }
 
 ## data ----
