@@ -189,10 +189,10 @@ W effect sizes for non-parametric (rank sum) tests." />
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   mu <span class='op'>=</span> <span class='fl'>0</span>,
   ci <span class='op'>=</span> <span class='fl'>0.95</span>,
-  iterations <span class='op'>=</span> <span class='fl'>200</span>,
   paired <span class='op'>=</span> <span class='cn'>FALSE</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  <span class='va'>...</span>
+  <span class='va'>...</span>,
+  <span class='va'>iterations</span>
 <span class='op'>)</span>
 
 <span class='fu'>cliffs_delta</span><span class='op'>(</span>
@@ -254,11 +254,6 @@ estimated. See <a href='https://rdrr.io/r/stats/wilcox.test.html'>stats::wilcox.
       <td><p>Confidence Interval (CI) level</p></td>
     </tr>
     <tr>
-      <th>iterations</th>
-      <td><p>The number of bootstrap replicates for computing confidence
-intervals. Only applies when <code>ci</code> is not <code>NULL</code>.</p></td>
-    </tr>
-    <tr>
       <th>paired</th>
       <td><p>If <code>TRUE</code>, the values of <code>x</code> and <code>y</code> are considered as paired.
 This produces an effect size that is equivalent to the one-sample effect
@@ -271,6 +266,12 @@ size on <code>x - y</code>.</p></td>
     <tr>
       <th>...</th>
       <td><p>Arguments passed to or from other methods.</p></td>
+    </tr>
+    <tr>
+      <th>iterations</th>
+      <td><p>The number of bootstrap replicates for computing confidence
+intervals. Only applies when <code>ci</code> is not <code>NULL</code>. (Deprecated for
+<code>rank_biserial()</code>).</p></td>
     </tr>
     <tr>
       <th>groups, blocks</th>
@@ -320,7 +321,10 @@ implemented yet.</p>
 
     <h2 class="hasAnchor" id="confidence-intervals"><a class="anchor" href="#confidence-intervals"></a>Confidence Intervals</h2>
 
-    <p>Confidence Intervals are estimated using the bootstrap method.</p>
+    <p>Confidence intervals for the rank-biserial correlation (and Cliff's <em>delta</em>)
+are estimated using the normal approximation (via Fisher's transformation).
+Confidence intervals for rank Epsilon squared, and Kendall's <em>W</em> are
+estimated using the bootstrap method (using the <code>{boot}</code> package).</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -359,21 +363,21 @@ revisited. An overview of some recommended measures of effect size.</p></li>
 <span class='r-in'><span class='fu'>rank_biserial</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>B</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> r (rank biserial) |       95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------------</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.79              | [0.33, 1.00]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.79              | [0.30, 0.95]</span>
 <span class='r-in'></span>
 <span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.83</span>, <span class='fl'>0.50</span>, <span class='fl'>1.62</span>, <span class='fl'>2.48</span>, <span class='fl'>1.68</span>, <span class='fl'>1.88</span>, <span class='fl'>1.55</span>, <span class='fl'>3.06</span>, <span class='fl'>1.30</span><span class='op'>)</span></span>
 <span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.878</span>, <span class='fl'>0.647</span>, <span class='fl'>0.598</span>, <span class='fl'>2.05</span>, <span class='fl'>1.06</span>, <span class='fl'>1.29</span>, <span class='fl'>1.06</span>, <span class='fl'>3.14</span>, <span class='fl'>1.29</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'>rank_biserial</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, paired <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> r (rank biserial) |       95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------------</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.78              | [0.20, 1.00]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.78              | [0.30, 0.94]</span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># one-sample tests -----------------------</span></span>
 <span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.15</span>, <span class='fl'>0.88</span>, <span class='fl'>0.90</span>, <span class='fl'>0.74</span>, <span class='fl'>1.21</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'>rank_biserial</span><span class='op'>(</span><span class='va'>x</span>, mu <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> r (rank biserial) |        95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> ---------------------------------</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> -0.07             | [-1.00, 0.87]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -0.07             | [-0.78, 0.72]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'></span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Deviation from a difference of 1.</span></span>
 <span class='r-in'></span>
@@ -387,7 +391,7 @@ revisited. An overview of some recommended measures of effect size.</p></li>
 <span class='r-in'><span class='fu'>rank_epsilon_squared</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Epsilon2 (rank) |       95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.06            | [0.01, 0.72]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.06            | [0.00, 0.71]</span>
 <span class='r-in'></span>
 <span class='r-in'><span class='va'>wb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aggregate.html'>aggregate</a></span><span class='op'>(</span><span class='va'>warpbreaks</span><span class='op'>$</span><span class='va'>breaks</span>,</span>
 <span class='r-in'>  by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>

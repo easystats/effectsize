@@ -151,7 +151,7 @@
 &gt; 
 &gt; data:  mpg by am
 &gt; t = -4, df = 30, p-value = 3e-04
-&gt; alternative hypothesis: true difference in means is not equal to 0
+&gt; alternative hypothesis: true difference in means between group 0 and group 1 is not equal to 0
 &gt; 95 percent confidence interval:
 &gt;  -10.85  -3.64
 &gt; sample estimates:
@@ -180,7 +180,7 @@
 &gt; 
 &gt; data:  mpg by am
 &gt; t = -4, df = 18, p-value = 0.001
-&gt; alternative hypothesis: true difference in means is not equal to 0
+&gt; alternative hypothesis: true difference in means between group 0 and group 1 is not equal to 0
 &gt; 95 percent confidence interval:
 &gt;  -11.28  -3.21
 &gt; sample estimates:
@@ -457,7 +457,7 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/rank_biserial.html">rank_biserial</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; r (rank biserial) |       95% CI
 &gt; --------------------------------
-&gt; 0.79              | [0.25, 1.00]</code></pre>
+&gt; 0.79              | [0.30, 0.95]</code></pre>
 <p>For one sample, <span class="math inline">\(r_{rb}\)</span> measures the symmetry around <span class="math inline">\(\mu\)</span> (mu; the null value), with 0 indicating perfect symmetry, <span class="math inline">\((-1)\)</span> indicates that all observations fall below <span class="math inline">\(\mu\)</span>, and <span class="math inline">\((+1)\)</span> indicates that all observations fall above <span class="math inline">\(\mu\)</span>. For paired samples the difference between the paired samples is used:</p>
 <div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.15</span>, <span class="fl">0.88</span>, <span class="fl">0.90</span>, <span class="fl">0.74</span>, <span class="fl">1.21</span><span class="op">)</span>
@@ -473,7 +473,7 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/rank_biserial.html">rank_biserial</a></span><span class="op">(</span><span class="va">x</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; r (rank biserial) |        95% CI
 &gt; ---------------------------------
-&gt; -0.07             | [-1.00, 0.87]
+&gt; -0.07             | [-0.78, 0.72]
 &gt; 
 &gt; - Deviation from a difference of 1.</code></pre>
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
@@ -491,7 +491,7 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/rank_biserial.html">rank_biserial</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; r (rank biserial) |       95% CI
 &gt; --------------------------------
-&gt; 0.78              | [0.20, 1.00]</code></pre>
+&gt; 0.78              | [0.30, 0.94]</code></pre>
 </div>
 <div id="rank-one-way-anova" class="section level2">
 <h2 class="hasAnchor">
@@ -514,7 +514,7 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/rank_biserial.html">rank_epsilon_squared</a></span><span class="op">(</span><span class="va">group_data</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Epsilon2 (rank) |       95% CI
 &gt; ------------------------------
-&gt; 0.06            | [0.01, 0.71]</code></pre>
+&gt; 0.06            | [0.01, 0.65]</code></pre>
 </div>
 <div id="rank-one-way-repeated-measures-anova" class="section level2">
 <h2 class="hasAnchor">
