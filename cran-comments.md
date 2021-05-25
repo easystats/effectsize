@@ -9,3 +9,13 @@
 ## R CMD check results
 
 0 errors | 0 warnings | 0 notes
+
+### Known issues
+
+- Failed handshake with shinyapps.io is a false positive.
+
+
+
+## Reverse Dependancies 
+
+- The maintainer of `statsExperssions` has been informed about the imminent failure of tests with this new version.
