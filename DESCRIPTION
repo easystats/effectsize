@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size and Standardized Parameters
-Version: 0.4.4-2
+Version: 0.4.5
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
@@ -86,4 +86,4 @@ Config/testthat/parallel: true
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1.9001
+RoxygenNote: 7.1.1
