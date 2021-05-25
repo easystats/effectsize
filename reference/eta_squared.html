@@ -396,7 +396,7 @@ For positive only effect sizes (Eta squared, Cramer's V, etc.; Effect sizes
 associated with Chi-squared and F distributions), this applies also to cases
 where the lower bound of the CI is equal to 0. Even more care should be taken
 when the <em>upper</em> bound is equal to 0 - this occurs when <em>p</em>-value is greater
-than 1−alpha/2 making, the upper bound cannot be estimated, and the upper
+than 1-alpha/2 making, the upper bound cannot be estimated, and the upper
 bound is arbitrarily set to 0 (Steiger, 2004). For example:<div class="r"></p><pre class='sourceCode r'><code><span class='fu'>eta_squared</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>gear</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, <span class='va'>mtcars</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span>, <span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre><p></div></p><pre class='sourceCode r'><code><span class='co'>## # Effect Size for ANOVA (Type I)</span>
 <span class='co'>## </span>
@@ -462,7 +462,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f       |               0.36 | [0.13, 0.55]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> cyl_f      |               0.63 | [0.42, 0.75]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f:cyl_f |               0.04 | [0.00, 0.16]</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'></span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Observed variabels: cyl_f</span></span>
 <span class='r-in'><span class='fu'>omega_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA</span></span>
@@ -513,15 +513,15 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-in'><span class='fu'><a href='interpret_omega_squared.html'>interpret_omega_squared</a></span><span class='op'>(</span><span class='fl'>0.15</span>, rules <span class='op'>=</span> <span class='st'>"field2013"</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "large"</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Rules: field2013)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'></span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-in'><span class='fu'><a href='interpret_omega_squared.html'>interpret_eta_squared</a></span><span class='op'>(</span><span class='fl'>0.15</span>, rules <span class='op'>=</span> <span class='st'>"cohen1992"</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "medium"</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Rules: cohen1992)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'></span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-in'><span class='fu'><a href='interpret_omega_squared.html'>interpret_epsilon_squared</a></span><span class='op'>(</span><span class='fl'>0.15</span>, rules <span class='op'>=</span> <span class='st'>"cohen1992"</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "medium"</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Rules: cohen1992)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'></span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># Recommended: Type-3 effect sizes + effects coding</span></span>
 <span class='r-in'><span class='co'># -------------------------------------------------</span></span>
@@ -569,7 +569,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> treatment:phase        |               0.13 | [0.00, 0.26]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> gender:phase           |           4.25e-03 | [0.00, 0.00]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> treatment:gender:phase |               0.02 | [0.00, 0.00]</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'></span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Observed variabels: gender</span></span>
 <span class='r-in'></span>
 <span class='r-in'></span>
