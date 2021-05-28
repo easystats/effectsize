@@ -202,14 +202,14 @@ rank_biserial <- function(x,
     rf <- atanh(r_rbs)
     if (paired) {
       nd <- sum((x - mu) != 0)
-      maxw <- (nd * (nd + 1)) / 2
+      maxw <- (nd^2 + nd) / 2
 
-      rfSE <- sqrt(((nd * (nd + 1) * (2 * nd + 1)) / 6) * (1 / maxw ^ 2))
+      rfSE <- sqrt((2 * nd^3 + 3 * nd^2 + nd) / (6 * maxw ^ 2))
     } else {
       n1 <- length(x)
       n2 <- length(y)
 
-      rfSE <- sqrt(4 * 1 / (n1 * n2) ^ 2 * ((n1 * n2 * (n1 + n2 + 1)) / 12))
+      rfSE <- sqrt(4 * 1 / (n1 * n2) * (n1 + n2 + 1) / 12)
     }
 
     confint <- tanh(rf + c(-1, 1) * qnorm(1 - alpha / 2) * rfSE)
