@@ -204,12 +204,20 @@ rank_biserial <- function(x,
       nd <- sum((x - mu) != 0)
       maxw <- (nd^2 + nd) / 2
 
-      rfSE <- sqrt((2 * nd^3 + 3 * nd^2 + nd) / (6 * maxw ^ 2))
+      # From: https://en.wikipedia.org/wiki/Wilcoxon_signed-rank_test#Historical_T_statistic
+      # wSE <- sqrt((n * (n + 1) * (2 * n + 1)) / 24)
+      # Delta method for f(x) = w * 2 / (maxw) - 1
+      # r_rbsSE <- wSE * sqrt(4 / (maxw)^2)
+      rfSE <- sqrt((2 * nd^3 + 3 * nd^2 + nd) / (6 * maxw ^ 2)) # I think this needs to be further divided by (1 - r_rbs^2)
     } else {
       n1 <- length(x)
       n2 <- length(y)
 
-      rfSE <- sqrt(4 * 1 / (n1 * n2) * (n1 + n2 + 1) / 12)
+      # From: https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test#Normal_approximation_and_tie_correction
+      # wSE <- sqrt((n1 * n2 * (n1 + n2 + 1)) / 12)
+      # Delta method for f(x) = 1 - 2 * w / (n1 * n2) * sign(diff)
+      # r_rbsSE <- wSE * sqrt(4 / (n1 * n2)^2)
+      rfSE <- sqrt((n1 + n2 + 1) / (3 * n1 * n2)) # I think this needs to be further divided by (1 - r_rbs^2)
     }
 
     confint <- tanh(rf + c(-1, 1) * qnorm(1 - alpha / 2) * rfSE)
