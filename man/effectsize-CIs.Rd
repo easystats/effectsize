@@ -33,9 +33,12 @@ where the lower bound of the CI is equal to 0. Even more care should be taken
 when the \emph{upper} bound is equal to 0 - this occurs when \emph{p}-value is greater
 than 1-alpha/2 making, the upper bound cannot be estimated, and the upper
 bound is arbitrarily set to 0 (Steiger, 2004). For example:\if{html}{\out{<div class="r">}}\preformatted{eta_squared(aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:7, ]))
-}\if{html}{\out{</div>}}\preformatted{##      Parameter Eta2_partial  CI CI_low   CI_high
-## 1 factor(gear)    0.5778214 0.9      0 0.8423232
-## 2  factor(cyl)    0.4568633 0.9      0 0.7751856
+}\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA
+## 
+## Parameter    | Eta2 (partial) |       90\% CI
+## --------------------------------------------
+## factor(gear) |           0.58 | [0.00, 0.84]
+## factor(cyl)  |           0.46 | [0.00, 0.78]
 }
 }
 
@@ -44,11 +47,13 @@ bound is arbitrarily set to 0 (Steiger, 2004). For example:\if{html}{\out{<div c
 For very large sample sizes, the width of the CI can be smaller than the
 tolerance of the optimizer, resulting in CIs of width 0. This can also,
 result in the estimated CIs excluding the point estimate. For example:\if{html}{\out{<div class="r">}}\preformatted{chisq_to_cramers_v(13223.73, n = 76227, nrow = 6, ncol = 1)
-}\if{html}{\out{</div>}}\preformatted{##   Cramers_v   CI    CI_low   CI_high
-## 1 0.1862677 0.95 0.1953592 0.1953592
+}\if{html}{\out{</div>}}\preformatted{## Cramer's V |       95\% CI
+## -------------------------
+## 0.19       | [0.20, 0.20]
 }\if{html}{\out{<div class="r">}}\preformatted{t_to_d(80, df_error = 4555555)
-}\if{html}{\out{</div>}}\preformatted{##            d   CI     CI_low    CI_high
-## 1 0.07496341 0.95 0.08245975 0.08245975
+}\if{html}{\out{</div>}}\preformatted{## d    |       95\% CI
+## -------------------
+## 0.07 | [0.08, 0.08]
 }
 }
 

@@ -64,7 +64,6 @@ Suggests:
     lme4,
     lmerTest,
     MASS,
-    mathjaxr,
     mediation,
     mgcv,
     modelbased,
@@ -88,4 +87,3 @@ Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-RdMacros: mathjaxr

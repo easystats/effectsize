@@ -88,11 +88,10 @@ A data frame with the effect size (\code{r_rank_biserial},
 \code{CI_high}).
 }
 \description{
-\loadmathjax
-Compute the rank-biserial correlation \mjeqn{(r_{rb})}{r_rb},
-Cliff's \emph{delta} \mjeqn{(\delta)}{(\\u03b4)},
-rank epsilon squared \mjeqn{(\varepsilon^2)}{(\\u03b5^2)}, and
-Kendall's \mjeqn{W}{\emph{W}} effect sizes for non-parametric (rank sum) tests.
+Compute the rank-biserial correlation (\eqn{r_{rb}}{r_rb}),
+Cliff's \emph{delta} (\eqn{\delta}{\delta}),
+rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}), and
+Kendall's \eqn{W}{W} effect sizes for non-parametric (rank sum) tests.
 }
 \details{
 The rank-biserial correlation is appropriate for non-parametric tests of

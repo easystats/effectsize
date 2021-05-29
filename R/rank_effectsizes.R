@@ -1,10 +1,9 @@
 #' Effect size for non-parametric (rank sum) tests
 #'
-#' \loadmathjax
-#' Compute the rank-biserial correlation \mjeqn{(r_{rb})}{r_rb},
-#' Cliff's *delta* \mjeqn{(\delta)}{(\\u03b4)},
-#' rank epsilon squared \mjeqn{(\varepsilon^2)}{(\\u03b5^2)}, and
-#' Kendall's \mjeqn{W}{*W*} effect sizes for non-parametric (rank sum) tests.
+#' Compute the rank-biserial correlation (\eqn{r_{rb}}{r_rb}),
+#' Cliff's *delta* (\eqn{\delta}{\delta}),
+#' rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}), and
+#' Kendall's \eqn{W}{W} effect sizes for non-parametric (rank sum) tests.
 #'
 #' @inheritParams cohens_d
 #' @param x Can be one of:
