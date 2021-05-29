@@ -970,6 +970,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
 #' @keywords internal
 #' @importFrom stats anova
+#' @importFrom insight check_if_installed
 .anova_es.merMod <- function(model,
                              type = c("eta", "omega", "epsilon"),
                              partial = TRUE,
@@ -977,7 +978,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                              ci = 0.9,
                              verbose = TRUE,
                              ...) {
-  check_if_installed("lmerTest")
+  insight::check_if_installed("lmerTest")
 
   model <- lmerTest::as_lmerModLmerTest(model)
   model <- stats::anova(model)

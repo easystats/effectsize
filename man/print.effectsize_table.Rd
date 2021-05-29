@@ -2,12 +2,15 @@
 % Please edit documentation in R/plot.R, R/print.effectsize_table.R
 \name{plot.effectsize_table}
 \alias{plot.effectsize_table}
+\alias{plot.equivalence_test_effectsize}
 \alias{print.effectsize_table}
 \alias{format.effectsize_table}
 \alias{print.effectsize_difference}
 \title{Methods for \code{effectsize} tables}
 \usage{
 \method{plot}{effectsize_table}(x, ...)
+
+\method{plot}{equivalence_test_effectsize}(x, ...)
 
 \method{print}{effectsize_table}(x, digits = 2, ...)
 

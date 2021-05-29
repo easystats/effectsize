@@ -249,6 +249,7 @@ cliffs_delta <- function(x,
 #' @rdname rank_biserial
 #' @export
 #' @importFrom stats na.omit
+#' @importFrom insight check_if_installed
 rank_epsilon_squared <- function(x,
                                  groups,
                                  data = NULL,
@@ -275,7 +276,7 @@ rank_epsilon_squared <- function(x,
   ## CI
   ci_method <- NULL
   if (is.numeric(ci)) {
-    if (check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
+    if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
       out <- cbind(out, .repsilon_ci(data, ci, iterations))
       ci_method <- list(method = "percentile bootstrap", iterations = iterations)
     } else {
@@ -292,6 +293,7 @@ rank_epsilon_squared <- function(x,
 #' @rdname rank_biserial
 #' @export
 #' @importFrom stats na.omit
+#' @importFrom insight check_if_installed
 kendalls_w <- function(x,
                        groups,
                        blocks,
@@ -320,7 +322,7 @@ kendalls_w <- function(x,
   ## CI
   ci_method <- NULL
   if (is.numeric(ci)) {
-    if (check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
+    if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
       out <- cbind(out, .kendalls_w_ci(rankings, ci, iterations))
       ci_method <- list(method = "percentile bootstrap", iterations = iterations)
     } else {
