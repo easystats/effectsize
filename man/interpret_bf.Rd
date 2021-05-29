@@ -7,6 +7,7 @@
 interpret_bf(
   bf,
   rules = "jeffreys1961",
+  log = FALSE,
   include_value = FALSE,
   protect_ratio = TRUE,
   exact = TRUE
@@ -17,6 +18,8 @@ interpret_bf(
 
 \item{rules}{Can be \code{"jeffreys1961"} (default), \code{"raftery1995"} or custom set
 of \code{\link[=rules]{rules()}} (for the \emph{absolute magnitude} of evidence).}
+
+\item{log}{Is the \code{bf} value \code{log(bf)}?}
 
 \item{include_value}{Include the value in the output.}
 
