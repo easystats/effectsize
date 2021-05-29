@@ -79,6 +79,8 @@ Suggests:
     testthat,
     tidymodels,
     tidyr
+Remotes:
+    easystats/bayestestR
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
