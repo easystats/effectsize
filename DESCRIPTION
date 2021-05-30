@@ -28,7 +28,17 @@ Authors@R:
              role = "ctb"),
       person(given = "David",
              family = "Stanley",
-             role = "ctb"))
+             role = "ctb"),
+      person(given = "Jessica",
+             family = "Burnett",
+             role = c("rev"),
+             email = "jburnett@usgs.gov",
+             comment = c(ORCID = "0000-0002-0896-5099")),
+      person(given = "Johannes",
+             family = "Karreth",
+             role = c("rev"),
+             email = "jkarreth@ursinus.edu",
+             comment = c(ORCID = "0000-0003-4586-7153")))
 Maintainer: Mattan S. Ben-Shachar <matanshm@post.bgu.ac.il>
 Description: Provide utilities to work with indices of effect size and
     standardized parameters for a wide variety of models (see list of
