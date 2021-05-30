@@ -447,7 +447,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-in'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am_f</span> <span class='op'>*</span> <span class='va'>cyl_f</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA (Type I)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter  | Eta2 (partial) |       90% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------------------</span>
@@ -455,7 +455,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> cyl_f      |           0.66 | [0.45, 0.77]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f:cyl_f |           0.10 | [0.00, 0.27]</span>
 <span class='r-in'><span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model</span>, generalized <span class='op'>=</span> <span class='st'>"cyl_f"</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA (Type I)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter  | Eta2 (generalized) |       90% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> ----------------------------------------------</span>
@@ -465,7 +465,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Observed variabels: cyl_f</span></span>
 <span class='r-in'><span class='fu'>omega_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA (Type I)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter  | Omega2 (partial) |       90% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------------------------</span>
@@ -473,7 +473,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> cyl_f      |             0.60 | [0.37, 0.72]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f:cyl_f |             0.02 | [0.00, 0.13]</span>
 <span class='r-in'><span class='fu'>epsilon_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA (Type I)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter  | Epsilon2 (partial) |       90% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> ----------------------------------------------</span>
@@ -481,7 +481,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> cyl_f      |               0.63 | [0.41, 0.75]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f:cyl_f |               0.03 | [0.00, 0.06]</span>
 <span class='r-in'><span class='fu'>cohens_f</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA (Type I)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter  | Cohen's f (partial) |       90% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -----------------------------------------------</span>
@@ -489,7 +489,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> cyl_f      |                1.38 | [0.90, 1.81]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am_f:cyl_f |                0.33 | [0.00, 0.61]</span>
 <span class='r-in'><span class='op'>(</span><span class='va'>etas</span> <span class='op'>&lt;-</span> <span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model</span>, partial <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA (Type I)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter  | Eta2 |       90% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------------</span>
@@ -534,7 +534,11 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-in'></span>
 <span class='r-in'>  <span class='fu'>eta_squared</span><span class='op'>(</span><span class='va'>model_anova</span><span class='op'>)</span></span>
 <span class='r-in'><span class='op'>}</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Type 3 ANOVAs only give sensible and informative results when covariates are</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>   mean-centered and factors are coded with orthogonal contrasts (such as those</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>   produced by 'contr.sum', 'contr.poly', or 'contr.helmert', but *not* by the</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>   default 'contr.treatment').</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA (Type III)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter  | Eta2 (partial) |       90% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------------------</span>
@@ -581,7 +585,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-in'>  <span class='fu'>omega_squared</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></span>
 <span class='r-in'><span class='op'>}</span></span>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span> boundary (singular) fit: see ?isSingular</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Effect Size for ANOVA (Type III)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter  | Omega2 (partial) |       90% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------------------------</span>
