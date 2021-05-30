@@ -1,9 +1,8 @@
 #' Effect size for non-parametric (rank sum) tests
 #'
-#' Compute the rank-biserial correlation (\eqn{r_{rb}}{r_rb}),
-#' Cliff's *delta* (\eqn{\delta}{\delta}),
-#' rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}), and
-#' Kendall's \eqn{W}{W} effect sizes for non-parametric (rank sum) tests.
+#' Compute the rank-biserial correlation (\eqn{r_{rb}}{r_rb}), Cliff's *delta*
+#' (\eqn{\delta}), rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}), and
+#' Kendall's *W* effect sizes for non-parametric (rank sum) tests.
 #'
 #' @inheritParams cohens_d
 #' @param x Can be one of:

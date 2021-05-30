@@ -2,14 +2,13 @@
 #' (**partial** Eta / Omega / Epsilon squared and Cohen's f)
 #'
 #' These functions are convenience functions to convert F and t test statistics
-#' to **partial** Eta squared \eqn{(\eta{_p}^2)}{}, Omega squared
-#' \eqn{(\omega{_p}^2)}{}, Epsilon squared (\eqn{\epsilon{_p}^2;}{} an alias for the
-#' adjusted Eta squared) and Cohen's f. These are useful in cases where the
-#' various Sum of Squares and Mean Squares are not easily available or their
-#' computation is not straightforward (e.g., in liner mixed models, contrasts,
-#' etc.). For test statistics derived from `lm` and `aov` models, these
-#' functions give exact results. For all other cases, they return close
-#' approximations.
+#' to **partial** Eta- (\eqn{\eta}), Omega- (\eqn{\omega}) Epsilon-
+#' (\eqn{\epsilon}) squared (an alias for the adjusted Eta squared) and Cohen's
+#' f. These are useful in cases where the various Sum of Squares and Mean
+#' Squares are not easily available or their computation is not straightforward
+#' (e.g., in liner mixed models, contrasts, etc.). For test statistics derived
+#' from `lm` and `aov` models, these functions give exact results. For all other
+#' cases, they return close approximations.
 #' \cr
 #' See [Effect Size from Test Statistics vignette.](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
 #'
@@ -28,15 +27,15 @@
 #'
 #' @details These functions use the following formulae:
 #' \cr
-#' \deqn{\eta_p^2 = \frac{F \times df_{num}}{F \times df_{num} + df_{den}}}{Eta2p = F * df1 / (F * df1 + df2)}
+#' \deqn{\eta_p^2 = \frac{F \times df_{num}}{F \times df_{num} + df_{den}}}{\eta^2_p = F * df1 / (F * df1 + df2)}
 #' \cr
-#' \deqn{\epsilon_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den}}}{Epsilon2p = (F - 1) * df1 / (F * df1 + df2)}
+#' \deqn{\epsilon_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den}}}{\epsilon^2_p = (F - 1) * df1 / (F * df1 + df2)}
 #' \cr
-#' \deqn{\omega_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den} + 1}}{Omega2p=(F - 1) * df1 / (F * df1 + df2 + 1)}
+#' \deqn{\omega_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den} + 1}}{\omega^2_p=(F - 1) * df1 / (F * df1 + df2 + 1)}
 #' \cr
-#' \deqn{f_p = \sqrt{\frac{\eta_p^2}{1-\eta_p^2}}}{f = Eta2 / (1 - Eta2)}
+#' \deqn{f_p = \sqrt{\frac{\eta_p^2}{1-\eta_p^2}}}{f = \eta^2 / (1 - \eta^2)}
 #' \cr\cr
-#' For \eqn{t}, the conversion is based on the equality of \eqn{t^2 = F} when \eqn{df_{num}=1}{df1 = 1}.
+#' For *t*, the conversion is based on the equality of \eqn{t^2 = F} when \eqn{df_{num}=1}{df1 = 1}.
 #'
 #' ## Choosing an Un-Biased Estimate
 #' Both Omega and Epsilon are unbiased estimators of the population Eta. But
@@ -49,7 +48,7 @@
 #' @inheritSection effectsize-CIs Confidence Intervals
 #' @inheritSection effectsize-CIs CI Contains Zero
 #'
-#' @note \eqn{Adj. \eta_p^2}{adjusted (partial) Eta squared} is an alias for \eqn{\epsilon_p^2}{partial) Epsilon squared}.
+#' @note Adjusted (partial) Eta-squared is an alias for (partial) Epsilon-squared.
 #'
 #' @seealso [eta_squared()] for more details.
 #' @family effect size from test statistic
