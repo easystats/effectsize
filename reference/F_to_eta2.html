@@ -50,14 +50,13 @@
 <meta property="og:title" content="Convert test statistics (F, t) to indices of partial variance explained
 (partial Eta / Omega / Epsilon squared and Cohen's f) — F_to_eta2" />
 <meta property="og:description" content="These functions are convenience functions to convert F and t test statistics
-to partial Eta squared \((\eta{_p}^2)\), Omega squared
-\((\omega{_p}^2)\), Epsilon squared (\(\epsilon{_p}^2;\) an alias for the
-adjusted Eta squared) and Cohen's f. These are useful in cases where the
-various Sum of Squares and Mean Squares are not easily available or their
-computation is not straightforward (e.g., in liner mixed models, contrasts,
-etc.). For test statistics derived from lm and aov models, these
-functions give exact results. For all other cases, they return close
-approximations.
+to partial Eta- (\(\eta\)), Omega- (\(\omega\)) Epsilon-
+(\(\epsilon\)) squared (an alias for the adjusted Eta squared) and Cohen's
+f. These are useful in cases where the various Sum of Squares and Mean
+Squares are not easily available or their computation is not straightforward
+(e.g., in liner mixed models, contrasts, etc.). For test statistics derived
+from lm and aov models, these functions give exact results. For all other
+cases, they return close approximations.
 
 See Effect Size from Test Statistics vignette." />
 <meta property="og:image" content="/logo.png" />
@@ -190,14 +189,13 @@ See Effect Size from Test Statistics vignette." />
 
     <div class="ref-description">
     <p>These functions are convenience functions to convert F and t test statistics
-to <strong>partial</strong> Eta squared \((\eta{_p}^2)\), Omega squared
-\((\omega{_p}^2)\), Epsilon squared (\(\epsilon{_p}^2;\) an alias for the
-adjusted Eta squared) and Cohen's f. These are useful in cases where the
-various Sum of Squares and Mean Squares are not easily available or their
-computation is not straightforward (e.g., in liner mixed models, contrasts,
-etc.). For test statistics derived from <code>lm</code> and <code>aov</code> models, these
-functions give exact results. For all other cases, they return close
-approximations.
+to <strong>partial</strong> Eta- (\(\eta\)), Omega- (\(\omega\)) Epsilon-
+(\(\epsilon\)) squared (an alias for the adjusted Eta squared) and Cohen's
+f. These are useful in cases where the various Sum of Squares and Mean
+Squares are not easily available or their computation is not straightforward
+(e.g., in liner mixed models, contrasts, etc.). For test statistics derived
+from <code>lm</code> and <code>aov</code> models, these functions give exact results. For all other
+cases, they return close approximations.
 <br />
 See <a href='https://easystats.github.io/effectsize/articles/from_test_statistics.html'>Effect Size from Test Statistics vignette.</a></p>
     </div>
@@ -272,7 +270,7 @@ $$\omega_p^2 = \frac{(F - 1) \times df_{num}}{F \times df_{num} + df_{den} + 1}$
 <br />
 $$f_p = \sqrt{\frac{\eta_p^2}{1-\eta_p^2}}$$
 <br /><br />
-For \(t\), the conversion is based on the equality of \(t^2 = F\) when \(df_{num}=1\).</p><h3 class='hasAnchor' id='choosing-an-un-biased-estimate'><a class='anchor' aria-hidden='true' href='#choosing-an-un-biased-estimate'></a>Choosing an Un-Biased Estimate</h3>
+For <em>t</em>, the conversion is based on the equality of \(t^2 = F\) when \(df_{num}=1\).</p><h3 class='hasAnchor' id='choosing-an-un-biased-estimate'><a class='anchor' aria-hidden='true' href='#choosing-an-un-biased-estimate'></a>Choosing an Un-Biased Estimate</h3>
 
 
 <p>Both Omega and Epsilon are unbiased estimators of the population Eta. But
@@ -286,7 +284,7 @@ designs.</p></li>
 
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>\(Adj. \eta_p^2\) is an alias for \(\epsilon_p^2\).</p>
+    <p>Adjusted (partial) Eta-squared is an alias for (partial) Epsilon-squared.</p>
     <h2 class="hasAnchor" id="confidence-intervals"><a class="anchor" href="#confidence-intervals"></a>Confidence Intervals</h2>
 
     
