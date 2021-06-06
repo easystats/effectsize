@@ -181,6 +181,8 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/" class="external-link">effectsize</a></span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod</span>, method <span class="op">=</span> <span class="st">"refit"</span>, ci <span class="op">=</span> <span class="fl">0.89</span><span class="op">)</span></code></pre></div>
+<pre><code>&gt; Warning: Standardizing variables without adjusting priors may lead to bogus
+&gt; results unless priors are auto-scaled.</code></pre>
 <pre><code>&gt; # Standardization method: refit
 &gt; 
 &gt; Parameter   | Median (std.) |        89% CI
@@ -190,7 +192,7 @@
 &gt; n_comps     |          0.39 | [ 0.37, 0.42]
 &gt; seniority   |          0.08 | [ 0.05, 0.11]</code></pre>
 <p>Note that the central tendency of the posterior distribution is still the <em>median</em> - the median of the standardized posterior distribution. We can easily change this, of the type of credible interval used:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/" class="external-link">effectsize</a></span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod</span>,
@@ -223,7 +225,7 @@
 <h2 class="hasAnchor">
 <a href="#setup" class="anchor" aria-hidden="true"></a>Setup</h2>
 <p>Let’s factorize out data from above:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age</span>,
   breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">35</span>, <span class="fl">45</span><span class="op">)</span>, right <span class="op">=</span> <span class="cn">FALSE</span>,
   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Young"</span>, <span class="st">"Less_young"</span><span class="op">)</span>
@@ -240,17 +242,24 @@
 &gt;   Young        124   188   114
 &gt;   Less_young    13    34    27</code></pre>
 <p>And fit our model:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># use (special) effects coding</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">bayestestR</span><span class="fu">::</span><span class="va"><a href="https://easystats.github.io/bayestestR/reference/contr.bayes.html" class="external-link">contr.bayes</a></span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">comps_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">bayestestR</span><span class="fu">::</span><span class="va"><a href="https://easystats.github.io/bayestestR/reference/contr.bayes.html" class="external-link">contr.bayes</a></span>
-
-<span class="va">modAOV</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html" class="external-link">stan_glm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">age_f</span> <span class="op">*</span> <span class="va">comps_f</span>,
+<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">bayestestR</span><span class="fu">::</span><span class="va"><a href="https://easystats.github.io/bayestestR/reference/contr.orthonorm.html" class="external-link">contr.bayes</a></span></code></pre></div>
+<pre><code>&gt; Warning: 'contr.bayes' is deprecated.
+&gt; Use 'contr.orthonorm' instead.
+&gt; See help("Deprecated")</code></pre>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">comps_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">bayestestR</span><span class="fu">::</span><span class="va"><a href="https://easystats.github.io/bayestestR/reference/contr.orthonorm.html" class="external-link">contr.bayes</a></span></code></pre></div>
+<pre><code>&gt; Warning: 'contr.bayes' is deprecated.
+&gt; Use 'contr.orthonorm' instead.
+&gt; See help("Deprecated")</code></pre>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">modAOV</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html" class="external-link">stan_glm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">age_f</span> <span class="op">*</span> <span class="va">comps_f</span>,
   data <span class="op">=</span> <span class="va">hardlyworking</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">gaussian</a></span><span class="op">(</span><span class="op">)</span>,
   refresh <span class="op">=</span> <span class="fl">0</span>
 <span class="op">)</span></code></pre></div>
 <p>We can use <code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> to get the posterior distribution of <span class="math inline">\(eta^2\)</span> or <span class="math inline">\(eta^2_p\)</span> for each effect. Like an ANOVA table, we must make sure to use the right effects-coding and <em>SS</em>-type:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pes_posterior</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eta_squared.html">eta_squared_posterior</a></span><span class="op">(</span><span class="va">modAOV</span>,
   draws <span class="op">=</span> <span class="fl">500</span>, <span class="co"># how many samples from the PPD?</span>
   partial <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># partial eta squared</span>
@@ -2258,7 +2267,7 @@
 &gt;   mean-centered and factors are coded with orthogonal contrasts (such as those
 &gt;   produced by 'contr.sum', 'contr.poly', or 'contr.helmert', but *not* by the
 &gt;   default 'contr.treatment').</code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pes_posterior</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt;    age_f comps_f age_f:comps_f
 &gt; 1 0.0070   0.139       0.00435
@@ -2267,7 +2276,7 @@
 &gt; 4 0.0044   0.185       0.03981
 &gt; 5 0.0500   0.076       0.00204
 &gt; 6 0.0822   0.072       0.00066</code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">bayestestR</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html" class="external-link">describe_posterior</a></span><span class="op">(</span><span class="va">pes_posterior</span>, rope_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span><span class="op">)</span>, test <span class="op">=</span> <span class="st">"rope"</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Summary of Posterior Distribution
 &gt; 
@@ -2277,7 +2286,7 @@
 &gt; comps_f       |   0.13 | [0.06, 0.21] | [0.00, 0.10] |    17.86%
 &gt; age_f:comps_f |   0.01 | [0.00, 0.04] | [0.00, 0.10] |      100%</code></pre>
 <p>Compare to:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">modAOV_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">age_f</span> <span class="op">*</span> <span class="va">comps_f</span>,
   data <span class="op">=</span> <span class="va">hardlyworking</span>
 <span class="op">)</span>
