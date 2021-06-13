@@ -4,7 +4,7 @@
 \alias{interpret_pd}
 \title{Interpret Probability of Direction (pd)}
 \usage{
-interpret_pd(pd, rules = "default")
+interpret_pd(pd, rules = "default", ...)
 }
 \arguments{
 \item{pd}{Value or vector of probabilities of direction.}

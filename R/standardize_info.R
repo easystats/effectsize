@@ -344,8 +344,7 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 
 # Pseudo (GLMM) -----------------------------------------------------------
 
-
-#' @importFrom insight clean_names get_random model_info find_formula get_variance get_data
+#' @importFrom insight clean_names get_random model_info find_formula get_variance get_data check_if_installed
 #' @importFrom parameters check_heterogeneity demean
 #' @importFrom stats as.formula sd
 .std_info_pseudo <- function(model,
@@ -422,7 +421,7 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
   ## Get 2 types of Deviation_Response_Pseudo
   sd_y_within <- sd_y_between <- 1
   if (insight::model_info(model)$is_linear) {
-    check_if_installed("lme4")
+    insight::check_if_installed("lme4")
 
     rand_name <- insight::find_random(model)$random
 

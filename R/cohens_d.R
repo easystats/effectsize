@@ -332,10 +332,9 @@ glass_delta <- function(x,
     stop("Please provide data argument.")
   }
 
+  ## Pull columns ----
 
-  ## Preprocess data
-
-  # Formula
+  ### Formula ----
   if (inherits(x, "formula")) {
     if (length(x) != 3) {
       stop("Formula must be two sided.", call. = FALSE)
@@ -355,18 +354,20 @@ glass_delta <- function(x,
     if (!is.null(y) && !is.factor(y)) y <- factor(y)
   }
 
+  ### Character ----
   if (is.character(x)) {
-    if (is.null(x <- data[[xn <- x]])) {
-      stop("Column ", xn, " missing from data.", call. = FALSE)
-    }
+    if (!x %in% names(data))
+      stop("Column ", x, " missing from data.", call. = FALSE)
+    x <- data[[x]]
   }
 
-  if (is.character(y)) {
-    if (is.null(y <- data[[yn <- y]])) {
-      stop("Column ", yn, " missing from data.", call. = FALSE)
-    }
+  if (is.character(y) && length(y) == 1) {
+    if (!y %in% names(data))
+      stop("Column ", y, " missing from data.", call. = FALSE)
+    y <- data[[y]]
   }
 
+  ## Validate x,y ----
   if (!is.numeric(x)) {
     stop("Cannot compute effect size for a non-numeric vector.", call. = FALSE)
   }
@@ -375,7 +376,7 @@ glass_delta <- function(x,
   if (!is.null(y)) {
     if (!is.numeric(y)) {
       if (length(unique(y)) > 2) {
-        stop("Cannot compute the difference as a factor with more than 2 levels has been provided.",
+        stop("Grouping variable y has more that 2 levels.",
           call. = FALSE
         )
       }
@@ -387,46 +388,21 @@ glass_delta <- function(x,
       data <- Filter(length, data)
       x <- data[[1]]
       y <- data[[2]]
-    } else if (verbose && length(unique(y)) == 2) {
-      warning(
-        "'y' is numeric but has only 2 unique values. If this is a grouping variable, convert it to a factor.",
-        call. = FALSE
-      )
-    }
-  }
+    } else {
+      # Only relevant when y is not a factor
+      if (inherits(x, "Pair")) {
+        x <- -apply(x, 1, diff)
+      }
 
-  if (inherits(x, "Pair")) {
-    x <- -apply(x, 1, diff)
+      if (verbose && length(unique(y)) == 2) {
+        warning(
+          "'y' is numeric but has only 2 unique values. If this is a grouping variable, convert it to a factor.",
+          call. = FALSE
+        )
+      }
+    }
   }
 
   list(x = x, y = y)
 }
 
-# .delta_ci <- function(x, y, mu = 0, ci = 0.95, iterations = 200) {
-#   boot_delta <- function(data, .i, mu = 0) {
-#     .x <- sample(x, replace = TRUE)
-#     .y <- sample(y, replace = TRUE)
-#
-#     d <- mean(.x) - mean(.y)
-#     s <- stats::sd(.y)
-#     (d - mu) / s
-#   }
-#
-#   # dud, not actually used
-#   data <- data.frame(
-#     i = seq_along(c(x, y))
-#   )
-#
-#   R <- boot::boot(
-#     data = data,
-#     statistic = boot_delta,
-#     R = iterations,
-#     mu = mu
-#   )
-#
-#   out <- as.data.frame(
-#     bayestestR::ci(na.omit(R$t), ci = ci, verbose = FALSE)
-#   )
-#   out$CI <- ci
-#   out
-# }

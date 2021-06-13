@@ -19,7 +19,7 @@ eta_squared_posterior <- function(model,
 
 #' @export
 #' @importFrom stats lm setNames
-#' @importFrom insight model_info find_formula get_predictors find_response
+#' @importFrom insight model_info find_formula get_predictors find_response check_if_installed
 eta_squared_posterior.stanreg <- function(model,
                                           partial = TRUE,
                                           generalized = FALSE,
@@ -27,7 +27,7 @@ eta_squared_posterior.stanreg <- function(model,
                                           draws = 500,
                                           verbose = TRUE,
                                           ...) {
-  check_if_installed("rstantools")
+  insight::check_if_installed("rstantools")
 
   mo_inf <- insight::model_info(model)
   if ((!mo_inf$is_linear) ||
