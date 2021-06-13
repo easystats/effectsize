@@ -7,7 +7,12 @@
 interpret_pd(pd, rules = "default")
 }
 \arguments{
-\item{x}{Value or vector of probabilities of direction (pd).}
+\item{pd}{Value or vector of probabilities of direction.}
+
+\item{rules}{Can be \code{"default"}, \code{"makowski2019"} or a custom set of
+\code{\link[=rules]{rules()}}.}
+
+\item{...}{Not directly used.}
 }
 \description{
 Interpret Probability of Direction (pd)

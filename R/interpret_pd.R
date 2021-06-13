@@ -1,6 +1,9 @@
 #' Interpret Probability of Direction (pd)
 #'
-#' @param x Value or vector of probabilities of direction (pd).
+#' @param pd Value or vector of probabilities of direction.
+#' @param rules Can be `"default"`, `"makowski2019"` or a custom set of
+#'   [rules()].
+#' @param ... Not directly used.
 #'
 #' @section Rules:
 #'
@@ -28,10 +31,10 @@ interpret_pd <- function(pd, rules = "default") {
     rules,
     list(
       default = rules(c(0.975), c("not significant", "significant"),
-                      name = "default", right = FALSE
+                      name = "default", right = TRUE
       ),
       makowski2019 = rules(c(0.95, 0.97, 0.99, 0.999), c("uncertain", "possibly existing", "likely existing", "probably existing", "certainly existing"),
-                  name = "makowski2019", right = FALSE
+                  name = "makowski2019", right = TRUE
       )
     )
   )
