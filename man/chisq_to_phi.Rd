@@ -36,15 +36,15 @@ A data frame with the effect size(s) between 0-1, and confidence
 interval(s). See \code{\link[=cramers_v]{cramers_v()}}.
 }
 \description{
-Convert between Chi square \eqn{(\chi^2)}{}, Cramer's V, phi (\eqn{\phi}) and
+Convert between Chi square (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}) and
 Cohen's \emph{w} for contingency tables or goodness of fit.
 }
 \details{
 These functions use the following formulae:
 \cr
-\deqn{\phi = \sqrt{\chi^2 / n}}{phi = sqrt(X^2 / n)}
+\deqn{\phi = \sqrt{\chi^2 / n}}{phi = sqrt(\chi^2 / n)}
 \cr
-\deqn{Cramer's V = \phi / \sqrt{min(nrow,ncol)-1}}{Cramer's V = Phi / sqrt(min(nrow,ncol)-1)}
+\deqn{Cramer's V = \phi / \sqrt{min(nrow,ncol)-1}}{Cramer's V = \phi / sqrt(min(nrow,ncol)-1)}
 \cr
 For adjusted versions, see Bergsma, 2013.
 }

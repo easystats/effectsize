@@ -53,15 +53,16 @@ reference:
   - interpret_r
   - interpret_omega_squared
   - interpret_kendalls_w
-  - interpret_parameters
   - interpret_oddsratio
   - interpret_r2
+  - interpret_parameters
   - interpret_gfi
+  - interpret_direction
   - interpret_p
   - interpret_bf
-  - interpret_ess
+  - interpret_pd
   - interpret_rope
-  - interpret_direction
+  - interpret_ess
 
 
 - title: "Miscellaneous"

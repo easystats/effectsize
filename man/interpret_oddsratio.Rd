@@ -5,7 +5,7 @@
 \alias{interpret_odds}
 \title{Interpret Odds ratio}
 \usage{
-interpret_oddsratio(OR, rules = "chen2010", log = FALSE)
+interpret_oddsratio(OR, rules = "chen2010", log = FALSE, ...)
 }
 \arguments{
 \item{OR}{Value or vector of (log) odds ratio values.}
@@ -15,6 +15,8 @@ transformation to standardized difference, see \code{\link[=odds_to_d]{odds_to_d
 of \code{\link[=rules]{rules()}}.}
 
 \item{log}{Are the provided values log odds ratio.}
+
+\item{...}{Currently not used.}
 }
 \description{
 Interpret Odds ratio

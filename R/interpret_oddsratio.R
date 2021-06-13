@@ -5,6 +5,7 @@
 #'   transformation to standardized difference, see [odds_to_d()]) or custom set
 #'   of [rules()].
 #' @param log Are the provided values log odds ratio.
+#' @inheritParams interpret
 #'
 #' @section Rules:
 #'
@@ -39,7 +40,7 @@
 #' methods, 8(4), 448.
 #'
 #' @export
-interpret_oddsratio <- function(OR, rules = "chen2010", log = FALSE) {
+interpret_oddsratio <- function(OR, rules = "chen2010", log = FALSE, ...) {
   if (log) {
     OR <- exp(abs(OR))
   } else {

@@ -21,11 +21,20 @@ standardize.default <- function(x,
   m_info <- insight::model_info(x)
   data <- insight::get_data(x)
 
+  if (insight::is_multivariate(x) && inherits(x, "brmsfit")) {
+    stop("multivariate brmsfit models not supported.",
+         "\nAs an alternative: you may standardize your data (and adjust your priors), and re-fit the model.",
+         call. = FALSE)
+  } else if (m_info$is_bayesian) {
+    warning("Standardizing variables without adjusting priors may lead to bogus results unless priors are auto-scaled.",
+            call. = FALSE, immediate. = TRUE)
+  }
+
   # for models with specific scale of the response value (e.g. count models
   # with positive integers, or beta with ratio between 0 and 1), we need to
   # make sure that the original response value will be restored after
   # standardizing, as these models also require a non-standardized response.
-  if (.no_response_standardize(m_info) || !include_response) {
+  if (!include_response || .no_response_standardize(m_info)) {
     resp <- unique(c(insight::find_response(x), insight::find_response(x, combine = FALSE)))
   } else if (include_response && two_sd) {
     resp <- unique(c(insight::find_response(x), insight::find_response(x, combine = FALSE)))
