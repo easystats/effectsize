@@ -133,7 +133,9 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, ...) {
     stop("No effect size for this type of BayesFactor object.")
   }
 
-  bayestestR::describe_posterior(res, ...)
+  out <- bayestestR::describe_posterior(res, ...)
+  attr(out, "approximate") <- FALSE
+  out
 }
 
 
@@ -188,6 +190,7 @@ effectsize.easycorrelation <- function(model, ...) {
 
   out <- model[, r_cols, drop = FALSE]
   class(out) <- c("effectsize_table", "see_effectsize_table", "data.frame")
+  attr(out, "approximate") <- FALSE
   out
 }
 

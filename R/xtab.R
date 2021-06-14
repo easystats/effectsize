@@ -147,7 +147,7 @@ phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...) {
     nc <- 1
   }
 
-  chisq_to_phi(
+  out <- chisq_to_phi(
     chisq = .chisq(Obs, Exp),
     n = sum(Obs),
     nrow = nr,
@@ -155,6 +155,8 @@ phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...) {
     ci = ci,
     adjust = adjust
   )
+  attr(out, "approximate") <- FALSE
+  out
 }
 
 #' @rdname phi
@@ -198,7 +200,7 @@ cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...) {
     nc <- 1
   }
 
-  chisq_to_cramers_v(
+  out <- chisq_to_cramers_v(
     chisq = .chisq(Obs, Exp),
     n = sum(Obs),
     nrow = nr,
@@ -206,6 +208,8 @@ cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...) {
     ci = ci,
     adjust = adjust
   )
+  attr(out, "approximate") <- FALSE
+  out
 }
 
 
@@ -273,6 +277,7 @@ oddsratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
   attr(res, "ci") <- ci
   attr(res, "ci_method") <- ci_method
   attr(res, "log") <- log
+  attr(res, "approximate") <- FALSE
   return(res)
 }
 
@@ -340,6 +345,7 @@ riskratio <- function(x, y = NULL, ci = 0.95, log = FALSE, ...) {
   attr(res, "ci") <- ci
   attr(res, "ci_method") <- ci_method
   attr(res, "log") <- log
+  attr(res, "approximate") <- FALSE
   return(res)
 }
 
@@ -397,6 +403,7 @@ cohens_h <- function(x, y = NULL, ci = 0.95, ...) {
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
   attr(out, "ci") <- ci
   attr(out, "ci_method") <- ci_method
+  attr(out, "approximate") <- FALSE
   return(out)
 }
 
@@ -463,6 +470,7 @@ cohens_g <- function(x, y = NULL, ci = 0.95, ...) {
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
   attr(out, "ci") <- ci
   attr(out, "ci_method") <- ci_method
+  attr(out, "approximate") <- FALSE
   return(out)
 }
 

@@ -1,9 +1,13 @@
 #' @export
 #' @rdname effectsize
 effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
+  # Get data?
+  data <- insight::get_data(model)
+  approx <- is.null(data)
+
   if (grepl("t-test", model$method)) {
     # t-test ----
-    if (is.null(data <- insight::get_data(model))) {
+    if (approx) {
       if (verbose) {
         warning("Unable to retrieve data from htest object. Using t_to_d() approximation.")
       }
@@ -34,7 +38,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
         ...
       )
     }
-
+    attr(out, "approximate") <- approx
     return(out)
   } else if (grepl("correlation", model$method)) {
     # correlation ----
@@ -44,6 +48,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     out$CI_low <- model$conf.int[1]
     out$CI_high <- model$conf.int[2]
     attr(out, "ci") <- out$CI
+    attr(out, "approximate") <- FALSE
     return(out)
   } else if (grepl("Pearson's Chi-squared", model$method) ||
     grepl("Chi-squared test for given probabilities", model$method)) {
@@ -68,7 +73,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     return(out)
   } else if (grepl("One-way", model$method)) {
     # one way anove ----
-    if (grepl("not assuming", model$method, fixed = TRUE) && verbose) {
+    if (approx <- grepl("not assuming", model$method, fixed = TRUE) && verbose) {
       warning("`var.equal = FALSE` - effect size is an approximation.", call. = FALSE)
     }
 
@@ -98,10 +103,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       ...
     )
     colnames(out)[1] <- sub("_partial", "", colnames(out)[1])
+    attr(out, "approximate") <- approx
     return(out)
   } else if (grepl("McNemar", model$method)) {
     # McNemar ----
-    if (is.null(data <- insight::get_data(model))) {
+    if (approx) {
       stop("Unable to retrieve data from htest object.",
         "\nTry using 'cohens_g()' directly.",
         call. = FALSE
@@ -129,10 +135,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     out$CI_high <- model$conf.int[2]
     attr(out, "ci") <- out$CI
     attr(out, "table_footer") <- c("\n- Maximum likelihood estimate (MLE) of the OR.", "cyan")
+    attr(out, "approximate") <- FALSE
     return(out)
   } else if (grepl("Wilcoxon", model$method)) {
     # Wilcoxon ----
-    if (is.null(data <- insight::get_data(model))) {
+    if (approx) {
       stop("Unable to retrieve data from htest object.",
         "\nTry using 'rank_biserial()' directly.",
         call. = FALSE
@@ -149,7 +156,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     return(out)
   } else if (grepl("Kruskal-Wallis", model$method)) {
     # Kruskal-Wallis ----
-    if (is.null(data <- insight::get_data(model))) {
+    if (approx) {
       stop("Unable to retrieve data from htest object.",
         "\nTry using 'rank_epsilon_squared()' directly.",
         call. = FALSE
@@ -163,7 +170,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     return(out)
   } else if (grepl("Friedman", model$method)) {
     # Friedman ----
-    if (is.null(data <- insight::get_data(model))) {
+    if (approx) {
       stop("Unable to retrieve data from htest object.",
         "\nTry using 'kendalls_w()' directly.",
         call. = FALSE

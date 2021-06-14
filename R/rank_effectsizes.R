@@ -237,6 +237,7 @@ rank_biserial <- function(x,
   attr(out, "mu") <- mu
   attr(out, "ci") <- ci
   attr(out, "ci_method") <- ci_method
+  attr(out, "approximate") <- FALSE
   return(out)
 }
 
@@ -303,6 +304,7 @@ rank_epsilon_squared <- function(x,
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
   attr(out, "ci") <- ci
   attr(out, "ci_method") <- ci_method
+  attr(out, "approximate") <- FALSE
   return(out)
 }
 
@@ -349,6 +351,7 @@ kendalls_w <- function(x,
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
   attr(out, "ci") <- ci
   attr(out, "ci_method") <- ci_method
+  attr(out, "approximate") <- FALSE
   return(out)
 }
 
