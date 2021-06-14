@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Interpret correlation — interpret_r • effectsize</title>
+<title>Interpret correlation coefficient — interpret_r • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Interpret correlation — interpret_r" />
-<meta property="og:description" content="Interpret correlation" />
+<meta property="og:title" content="Interpret correlation coefficient — interpret_r" />
+<meta property="og:description" content="Interpret correlation coefficient" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -169,16 +169,22 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Interpret correlation</h1>
+    <h1>Interpret correlation coefficient</h1>
     <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/interpret_r.R'><code>R/interpret_r.R</code></a></small>
     <div class="hidden name"><code>interpret_r.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Interpret correlation</p>
+    <p>Interpret correlation coefficient</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>interpret_r</span><span class='op'>(</span><span class='va'>r</span>, rules <span class='op'>=</span> <span class='st'>"funder2019"</span><span class='op'>)</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>interpret_r</span><span class='op'>(</span><span class='va'>r</span>, rules <span class='op'>=</span> <span class='st'>"funder2019"</span><span class='op'>)</span>
+
+<span class='fu'>interpret_phi</span><span class='op'>(</span><span class='va'>r</span>, rules <span class='op'>=</span> <span class='st'>"funder2019"</span><span class='op'>)</span>
+
+<span class='fu'>interpret_cramers_v</span><span class='op'>(</span><span class='va'>r</span>, rules <span class='op'>=</span> <span class='st'>"funder2019"</span><span class='op'>)</span>
+
+<span class='fu'>interpret_rank_biserial</span><span class='op'>(</span><span class='va'>r</span>, rules <span class='op'>=</span> <span class='st'>"funder2019"</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,6 +200,10 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>As \(\phi\) can be larger than 1 - it is recommended to compute
+and interpret Cramer's <em>V</em> instead.</p>
     <h2 class="hasAnchor" id="rules"><a class="anchor" href="#rules"></a>Rules</h2>
 
     
