@@ -310,6 +310,7 @@ glass_delta <- function(x,
   attr(out, "mu") <- mu
   attr(out, "ci") <- ci
   attr(out, "ci_method") <- ci_method
+  attr(out, "approximate") <- FALSE
   return(out)
 }
 
