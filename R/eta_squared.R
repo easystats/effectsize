@@ -232,6 +232,7 @@ eta_squared <- function(model,
   )
   if (!inherits(model, "htest")) class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
   if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
+  attr(out, "approximate") <- isTRUE(attr(out, "approximate", exact = TRUE))
   return(out)
 }
 
@@ -245,6 +246,7 @@ omega_squared <- function(model,
   out <- .anova_es(model, type = "omega", partial = partial, ci = ci, verbose = verbose, ...)
   if (!inherits(model, "htest")) class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
   if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
+  attr(out, "approximate") <- isTRUE(attr(out, "approximate", exact = TRUE))
   return(out)
 }
 
@@ -258,6 +260,7 @@ epsilon_squared <- function(model,
   out <- .anova_es(model, type = "epsilon", partial = partial, ci = ci, verbose = verbose, ...)
   if (!inherits(model, "htest")) class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
   if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
+  attr(out, "approximate") <- isTRUE(attr(out, "approximate", exact = TRUE))
   return(out)
 }
 
@@ -303,6 +306,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, squared = FALSE,
 
   if ("CI" %in% colnames(res)) attr(res, "ci_method") <- list(method = "ncp", distribution = "F")
   if (!inherits(model, "htest")) class(res) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(res)))
+  attr(res, "approximate") <- isTRUE(attr(res, "approximate", exact = TRUE))
   res
 }
 
@@ -541,6 +545,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   attr(out, "generalized") <- generalized
   attr(out, "ci") <- ci
   attr(out, "anova_type") <- anova_type
+  attr(out, "approximate") <- FALSE
   out
 }
 
@@ -708,6 +713,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   attr(out, "partial") <- partial
   attr(out, "generalized") <- generalized
   attr(out, "ci") <- ci
+  attr(out, "approximate") <- FALSE
   out
 }
 
@@ -742,6 +748,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   attr(out, "generalized") <- attr(params[[1]], "generalized")
   attr(out, "ci") <- attr(params[[1]], "ci", exact = TRUE)
   attr(out, "anova_type") <- anova_type
+  attr(out, "approximate") <- FALSE
   out
 }
 
@@ -1131,6 +1138,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   }
   out <- out[match(out$Parameter, orig_terms),]
   attr(out, "anova_type") <- attr(model, "type", exact = TRUE)
+  attr(out, "approximate") <- FALSE
   out
 }
 
