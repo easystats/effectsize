@@ -2,9 +2,18 @@
 % Please edit documentation in R/interpret_r.R
 \name{interpret_r}
 \alias{interpret_r}
-\title{Interpret correlation}
+\alias{interpret_phi}
+\alias{interpret_cramers_v}
+\alias{interpret_rank_biserial}
+\title{Interpret correlation coefficient}
 \usage{
 interpret_r(r, rules = "funder2019")
+
+interpret_phi(r, rules = "funder2019")
+
+interpret_cramers_v(r, rules = "funder2019")
+
+interpret_rank_biserial(r, rules = "funder2019")
 }
 \arguments{
 \item{r}{Value or vector of correlation coefficient.}
@@ -13,7 +22,11 @@ interpret_r(r, rules = "funder2019")
 \code{"evans1996"}, \code{"lovakov2021"} or a custom set of \code{\link[=rules]{rules()}}.}
 }
 \description{
-Interpret correlation
+Interpret correlation coefficient
+}
+\note{
+As \eqn{\phi}{\phi} can be larger than 1 - it is recommended to compute
+and interpret Cramer's \emph{V} instead.
 }
 \section{Rules}{
 

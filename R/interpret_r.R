@@ -1,8 +1,11 @@
-#' Interpret correlation
+#' Interpret correlation coefficient
 #'
 #' @param r Value or vector of correlation coefficient.
 #' @param rules Can be `"funder2019"` (default), `"gignac2016"`, `"cohen1988"`,
 #'   `"evans1996"`, `"lovakov2021"` or a custom set of [rules()].
+#'
+#' @note As \eqn{\phi}{\phi} can be larger than 1 - it is recommended to compute
+#'   and interpret Cramer's *V* instead.
 #'
 #' @section Rules:
 #'
@@ -92,3 +95,15 @@ interpret_r <- function(r, rules = "funder2019") {
 
   interpret(abs(r), rules)
 }
+
+#' @export
+#' @rdname interpret_r
+interpret_phi <- interpret_r
+
+#' @export
+#' @rdname interpret_r
+interpret_cramers_v <- interpret_r
+
+#' @export
+#' @rdname interpret_r
+interpret_rank_biserial <- interpret_r
