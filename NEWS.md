@@ -1,3 +1,14 @@
+# effectsize 0.4.5-1
+
+## New features
+
+- `interpret_pd()` for the interpretation of the [*Probability of Direction*](https://easystats.github.io/bayestestR/reference/p_direction.html).
+
+## Changes
+
+- `interpret_bf()` now accepts *`log(BF)`* as input.
+
+
 # effectsize 0.4.5
 
 ## New features
