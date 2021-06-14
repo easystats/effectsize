@@ -31,20 +31,20 @@ Authors@R:
              role = "ctb"),
       person(given = "Jessica",
              family = "Burnett",
-             role = c("rev"),
+             role = "rev",
              email = "jburnett@usgs.gov",
              comment = c(ORCID = "0000-0002-0896-5099")),
       person(given = "Johannes",
              family = "Karreth",
-             role = c("rev"),
+             role = "rev",
              email = "jkarreth@ursinus.edu",
              comment = c(ORCID = "0000-0003-4586-7153")))
 Maintainer: Mattan S. Ben-Shachar <matanshm@post.bgu.ac.il>
 Description: Provide utilities to work with indices of effect size and
     standardized parameters for a wide variety of models (see list of
-    supported models in insight; Lüdecke, Waggoner & Makowski (2019)
-    <doi:10.21105/joss.01412>), allowing computation of and conversion
-    between indices such as Cohen's d, r, odds, etc.
+    supported models using the function 'insight::supported_models()'),
+    allowing computation of and conversion between indices such as Cohen's
+    d, r, odds, etc.
 License: GPL-3
 URL: https://easystats.github.io/effectsize/
 BugReports: https://github.com/easystats/effectsize/issues/
@@ -89,13 +89,13 @@ Suggests:
     testthat,
     tidymodels,
     tidyr
-Remotes:
-    easystats/bayestestR
 VignetteBuilder: 
     knitr
-Config/testthat/edition: 3
-Config/testthat/parallel: true
+Remotes:
+    easystats/bayestestR
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Config/testthat/edition: 3
+Config/testthat/parallel: true
