@@ -55,19 +55,46 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     # Chisq ----
     if (is.null(type)) type <- "cramers_v"
 
-    f <- switch(tolower(type),
-      v = ,
-      cramers_v = cramers_v,
-      w = ,
-      cohens_w = ,
-      phi = phi,
-      or = ,
-      oddsratio = oddsratio,
-      rr = ,
-      riskratio = riskratio,
-      h = ,
-      cohens_h = cohens_h
-    )
+    if (grepl("(v|w|phi)$", tolower(type))) {
+      f <- switch(tolower(type),
+                  v = ,
+                  cramers_v = chisq_to_cramers_v,
+                  w = ,
+                  cohens_w = ,
+                  phi = chisq_to_phi)
+
+      Obs <- model$observed
+      Exp <- model$expected
+
+      if (!is.null(dim(Exp))) {
+        if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
+          stop("Cannot have empty rows/columns in the contingency tables.", call. = FALSE)
+        }
+        nr <- nrow(Obs)
+        nc <- ncol(Obs)
+      } else {
+        nr <- length(Obs)
+        nc <- 1
+      }
+
+      out <- f(
+        chisq = .chisq(Obs, Exp),
+        n = sum(Obs),
+        nrow = nr,
+        ncol = nc,
+        ...
+      )
+      attr(out, "approximate") <- FALSE
+      return(out)
+    } else {
+      f <- switch(tolower(type),
+                  or = ,
+                  oddsratio = oddsratio,
+                  rr = ,
+                  riskratio = riskratio,
+                  h = ,
+                  cohens_h = cohens_h)
+    }
 
     out <- f(x = model$observed, ...)
     return(out)
@@ -190,4 +217,10 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   } else {
     stop("This 'htest' method is not (yet?) supported.", call. = FALSE)
   }
+}
+
+
+#' @keywords internal
+.chisq <- function(Obs, Exp) {
+  sum(((Obs - Exp)^2) / Exp)
 }
