@@ -95,7 +95,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -181,6 +181,12 @@
 <ul><li>
 <code><a href="../reference/interpret_pd.html">interpret_pd()</a></code> for the interpretation of the <a href="https://easystats.github.io/bayestestR/reference/p_direction.html" class="external-link"><em>Probability of Direction</em></a>.</li>
 </ul></div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
+<ul><li>
+<code><a href="../reference/effectsize.html">effectsize()</a></code> for Chi-squared test of goodness-of-fit now correctly respects non-uniform expected probabilities ( <a href='https://github.com/easystats/effectsize/issues/352'>#352</a> ).</li>
+</ul></div>
 <div id="changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#changes" class="anchor" aria-hidden="true"></a>Changes</h2>
@@ -203,9 +209,9 @@
 <li>
 <code><a href="../reference/cohens_d.html">glass_delta()</a></code> now estimates CIs using the NCP method based on Algina et al (2006).</li>
 </ul></div>
-<div id="bug-fixes" class="section level2">
+<div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
+<a href="#bug-fixes-1" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
 <ul><li>
 <code><a href="../reference/eta_squared.html">eta_squared()</a></code> family returns correctly returns the type 2/3 effect sizes for mixed ANOVAs fit with <code>afex</code>.</li>
 <li>
@@ -233,9 +239,9 @@
 <li>
 <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> gains the <code>include_response</code> argument (default to <code>TRUE</code>) ( <a href='https://github.com/easystats/effectsize/issues/309'>#309</a> ).</li>
 </ul></div>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
+<a href="#bug-fixes-2" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
 <ul><li>
 <code><a href="../reference/rank_biserial.html">kendalls_w()</a></code> now actually returns correct effect size. Previous estimates were incorrect, and based on transposing the groups and blocks.</li>
 </ul></div>
@@ -256,9 +262,9 @@
 <li>
 <code><a href="../reference/eta_squared.html">eta_squared()</a></code> family of functions can now also return effect sizes for the intercept by setting <code>include_intercept = TRUE</code> ( <a href='https://github.com/easystats/effectsize/issues/156'>#156</a> ).</li>
 </ul></div>
-<div id="bug-fixes-2" class="section level2">
+<div id="bug-fixes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
+<a href="#bug-fixes-3" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
 <ul><li>
 <code><a href="../reference/standardize.html">standardize()</a></code> can now deal with dates ( <a href='https://github.com/easystats/effectsize/issues/300'>#300</a> ).</li>
 </ul></div>
@@ -287,9 +293,9 @@
 <li><p><code><a href="../reference/eta2_to_f2.html">eta2_to_f2()</a></code> / <code><a href="../reference/eta2_to_f2.html">f2_to_eta2()</a></code> to convert between two types of effect sizes for ANOVA ( <a href='https://github.com/easystats/effectsize/issues/240'>#240</a> ).</p></li>
 <li><p><code><a href="../reference/cohens_d.html">cohens_d()</a></code> family of functions gain <code>mu</code> argument.</p></li>
 </ul></div>
-<div id="bug-fixes-3" class="section level2">
+<div id="bug-fixes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
+<a href="#bug-fixes-4" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
 <ul><li><p><code><a href="../reference/adjust.html">adjust()</a></code> properly works when <code>multilevel = TRUE</code>.</p></li>
 <li><p><code><a href="../reference/cohens_d.html">cohens_d()</a></code> family / <code><a href="../reference/sd_pooled.html">sd_pooled()</a></code> now properly fails when given a missing column name.</p></li>
 </ul></div>
@@ -327,9 +333,9 @@
 <ul><li>
 <code><a href="../reference/eta_squared.html">eta_squared()</a></code> family of functions returns non-partial effect size for one-way between subjects design (<a href='https://github.com/easystats/effectsize/issues/180'>#180</a>).</li>
 </ul></div>
-<div id="bug-fixes-4" class="section level2">
+<div id="bug-fixes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-4" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
+<a href="#bug-fixes-5" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
 <ul><li><p><code><a href="../reference/cohens_d.html">hedges_g()</a></code> correctly implements the available bias correction methods ( <a href='https://github.com/easystats/effectsize/issues/222'>#222</a> ).</p></li>
 <li><p>Fixed width of CI for Cohen’s <em>d</em> and Hedges’ <em>g</em> when using <em>non</em>-pooled SD.</p></li>
 </ul></div>
@@ -374,9 +380,9 @@
 <li><p><code><a href="../reference/standardize.html">standardize()</a></code> and <code><a href="../reference/standardize_info.html">standardize_info()</a></code> now (and by extension, <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code>) respect the weights in weighted models when standardizing ( <a href='https://github.com/easystats/effectsize/issues/82'>#82</a> ).</p></li>
 <li><p>Internal changes to <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> (reducing co-dependency with <code>parameters</code>) - argument <code>parameters</code> has been dropped.</p></li>
 </ul></div>
-<div id="bug-fixes-5" class="section level2">
+<div id="bug-fixes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-5" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
+<a href="#bug-fixes-6" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
 <ul><li><p><code>ranktransform(sign = TURE)</code> correctly (doesn’t) deal with zeros.</p></li>
 <li><p><code><a href="../reference/effectsize.html">effectsize()</a></code> for <code>htest</code> works with Spearman and Kendall correlations ( <a href='https://github.com/easystats/effectsize/issues/165'>#165</a> ).</p></li>
 <li><p><code><a href="../reference/phi.html">cramers_v()</a></code> and <code><a href="../reference/phi.html">phi()</a></code> now work with goodness-of-fit data ( <a href='https://github.com/easystats/effectsize/issues/158'>#158</a> )</p></li>
@@ -402,9 +408,9 @@
 <ul><li><p><code><a href="../reference/d_to_r.html">r_to_odds()</a></code> family is now deprecated in favor of <code><a href="../reference/d_to_r.html">r_to_oddsratio()</a></code>.</p></li>
 <li><p><code><a href="../reference/interpret_oddsratio.html">interpret_odds()</a></code> is now deprecated in favor of <code><a href="../reference/interpret_oddsratio.html">interpret_oddsratio()</a></code></p></li>
 </ul></div>
-<div id="bug-fixes-6" class="section level2">
+<div id="bug-fixes-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-6" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
+<a href="#bug-fixes-7" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
 <ul><li><p><code><a href="../reference/phi.html">phi()</a></code> and <code><a href="../reference/phi.html">cramers_v()</a></code> did not respect the CI argument ( <a href='https://github.com/easystats/effectsize/issues/111'>#111</a> ).</p></li>
 <li><p><code><a href="../reference/standardize.html">standardize()</a></code> / <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> properly deal with transformed data in the model formula ( <a href='https://github.com/easystats/effectsize/issues/113'>#113</a> ).</p></li>
 <li><p><code><a href="../reference/odds_to_probs.html">odds_to_probs()</a></code> was mis-treating impossible odds (NEVER TELL ME THE ODDS! <a href='https://github.com/easystats/effectsize/issues/123'>#123</a> )</p></li>
@@ -424,9 +430,9 @@
 </ul></li>
 <li><p><code><a href="../reference/effectsize.html">effectsize()</a></code> for class <code>htest</code> supports <code>oneway.test(...)</code>.</p></li>
 </ul></div>
-<div id="bug-fixes-7" class="section level2">
+<div id="bug-fixes-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-7" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
+<a href="#bug-fixes-8" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
 <ul><li><p>Fix minor miss-calculation of Chi-squared for 2*2 table with small samples ( <a href='https://github.com/easystats/effectsize/issues/102'>#102</a> ).</p></li>
 <li><p>Fixed miss-calculation of signed rank in <code><a href="../reference/ranktransform.html">ranktransform()</a></code> ( <a href='https://github.com/easystats/effectsize/issues/87'>#87</a> ).</p></li>
 <li><p>Fixed bug in <code><a href="../reference/standardize.html">standardize()</a></code> for standard objects with non-standard class-attributes (like vectors of class <code>haven_labelled</code> or <code>vctrs_vctr</code>).</p></li>
@@ -471,9 +477,9 @@
 <li><p><code>mlm</code> models.</p></li>
 </ul></li>
 </ul></div>
-<div id="bug-fixes-8" class="section level2">
+<div id="bug-fixes-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-8" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
+<a href="#bug-fixes-9" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
 <ul><li><p>Fix <code><a href="../reference/cohens_d.html">cohens_d()</a></code>’s dealing with formula input (<a href='https://github.com/easystats/effectsize/issues/44'>#44</a>).</p></li>
 <li><p><code><a href="../reference/sd_pooled.html">sd_pooled()</a></code> now returns the… pooled sd (<a href='https://github.com/easystats/effectsize/issues/44'>#44</a>).</p></li>
 </ul></div>
@@ -486,9 +492,9 @@
     <div id="effectsize-020" class="section level1">
 <h1 class="page-header" data-toc-text="0.2.0">
 <a href="#effectsize-020" class="anchor" aria-hidden="true"></a>effectsize 0.2.0<small> 2020-02-25 </small></h1>
-<div id="bug-fixes-9" class="section level2">
+<div id="bug-fixes-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-9" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
+<a href="#bug-fixes-10" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
 <ul><li><p><code><a href="../reference/standardize.html">standardize.data.frame()</a></code> did not work when variables had missing values.</p></li>
 <li><p>Fixed wrong computation in <code><a href="../reference/standardize.html">standardize()</a></code> when <code>two_sd = TRUE</code>.</p></li>
 <li><p>Fixed bug with missing column names in <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> for models with different components (like count and zero-inflation).</p></li>
@@ -512,9 +518,9 @@
 <ul><li>
 <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> and <code><a href="../reference/standardize.html">standardize()</a></code> now support models from packages <em>brglm</em>, <em>brglm2</em>, <em>mixor</em>, <em>fixest</em>, <em>cgam</em>, <em>cplm</em>, <em>cglm</em>, <em>glmmadmb</em> and <em>complmrob</em>.</li>
 </ul></div>
-<div id="bug-fixes-10" class="section level2">
+<div id="bug-fixes-11" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-10" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
+<a href="#bug-fixes-11" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
 <ul><li>Fix CRAN check issues.</li>
 </ul></div>
 </div>
