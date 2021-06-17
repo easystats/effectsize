@@ -7,7 +7,6 @@
 #' @inheritParams stats::chisq.test
 #' @param ci Confidence Interval (CI) level
 #' @param adjust Should the effect size be bias-corrected? Defaults to `FALSE`.
-#' @param CI Deprecated in favor of `ci`.
 #' @param ... Arguments passed to [stats::chisq.test()], such as `p`. Ignored
 #'   for `cohens_g()`.
 #'
@@ -113,50 +112,26 @@
 #'
 #' @importFrom stats chisq.test
 #' @export
-phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...) {
-  if (!missing(CI)) {
-    ci <- CI
-    warning("'CI' argument is deprecated. Use 'ci' instead.")
-  }
-
-  if (inherits(x, "htest")) {
-    if (!(grepl("Pearson's Chi-squared", x$method) ||
-      grepl("Chi-squared test for given probabilities", x$method))) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
-    return(effectsize(x, type = "phi", adjust = adjust, ci = ci))
-  } else if (inherits(x, "BFBayesFactor")) {
+phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, ...) {
+  if (inherits(x, "BFBayesFactor")) {
     if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
     return(effectsize(x, type = "phi", adjust = adjust, ci = ci))
   }
 
-  res <- suppressWarnings(stats::chisq.test(x, y, ...))
-  Obs <- res$observed
-  Exp <- res$expected
 
-  if (!is.null(dim(Exp))) {
-    if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
-      stop("Cannot have empty rows/columns in the contingency tables.", call. = FALSE)
+  if (inherits(x, "htest")) {
+    if (!(grepl("Pearson's Chi-squared", x$method) ||
+          grepl("Chi-squared test for given probabilities", x$method))) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
-    nr <- nrow(Obs)
-    nc <- ncol(Obs)
   } else {
-    nr <- length(Obs)
-    nc <- 1
+    x <- suppressWarnings(stats::chisq.test(x, y, ...))
+    x$data.name <- NULL
   }
 
-  out <- chisq_to_phi(
-    chisq = .chisq(Obs, Exp),
-    n = sum(Obs),
-    nrow = nr,
-    ncol = nc,
-    ci = ci,
-    adjust = adjust
-  )
-  attr(out, "approximate") <- FALSE
-  out
+  effectsize(x, type = "phi", adjust = adjust, ci = ci)
 }
 
 #' @rdname phi
@@ -166,50 +141,26 @@ cohens_w <- phi
 #' @rdname phi
 #' @importFrom stats chisq.test
 #' @export
-cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...) {
-  if (!missing(CI)) {
-    ci <- CI
-    warning("'CI' argument is deprecated. Use 'ci' instead.")
-  }
-
-  if (inherits(x, "htest")) {
-    if (!(grepl("Pearson's Chi-squared", x$method) ||
-      grepl("Chi-squared test for given probabilities", x$method))) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
-    return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci))
-  } else if (inherits(x, "BFBayesFactor")) {
+cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, ...) {
+  if (inherits(x, "BFBayesFactor")) {
     if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
     return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci))
   }
 
-  res <- suppressWarnings(stats::chisq.test(x, y, ...))
-  Obs <- res$observed
-  Exp <- res$expected
 
-  if (!is.null(dim(Exp))) {
-    if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
-      stop("Cannot have empty rows/columns in the contingency tables.", call. = FALSE)
+  if (inherits(x, "htest")) {
+    if (!(grepl("Pearson's Chi-squared", x$method) ||
+      grepl("Chi-squared test for given probabilities", x$method))) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
-    nr <- nrow(Obs)
-    nc <- ncol(Obs)
   } else {
-    nr <- length(Obs)
-    nc <- 1
+    x <- suppressWarnings(stats::chisq.test(x, y, ...))
+    x$data.name <- NULL
   }
 
-  out <- chisq_to_cramers_v(
-    chisq = .chisq(Obs, Exp),
-    n = sum(Obs),
-    nrow = nr,
-    ncol = nc,
-    ci = ci,
-    adjust = adjust
-  )
-  attr(out, "approximate") <- FALSE
-  out
+  effectsize(x, type = "cramers_v", adjust = adjust, ci = ci)
 }
 
 
@@ -474,9 +425,3 @@ cohens_g <- function(x, y = NULL, ci = 0.95, ...) {
   return(out)
 }
 
-
-
-#' @keywords internal
-.chisq <- function(Obs, Exp) {
-  sum(((Obs - Exp)^2) / Exp)
-}

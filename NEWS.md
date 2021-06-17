@@ -4,6 +4,10 @@
 
 - `interpret_pd()` for the interpretation of the [*Probability of Direction*](https://easystats.github.io/bayestestR/reference/p_direction.html).
 
+## Bug fixes
+
+- `effectsize()` for Chi-squared test of goodness-of-fit now correctly respects non-uniform expected probabilities ( #352 ).
+
 ## Changes
 
 - `interpret_bf()` now accepts *`log(BF)`* as input.

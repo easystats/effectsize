@@ -10,11 +10,11 @@
 \alias{cohens_g}
 \title{Effect size for contingency tables}
 \usage{
-phi(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
+phi(x, y = NULL, ci = 0.95, adjust = FALSE, ...)
 
-cohens_w(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
+cohens_w(x, y = NULL, ci = 0.95, adjust = FALSE, ...)
 
-cramers_v(x, y = NULL, ci = 0.95, adjust = FALSE, CI, ...)
+cramers_v(x, y = NULL, ci = 0.95, adjust = FALSE, ...)
 
 oddsratio(x, y = NULL, ci = 0.95, log = FALSE, ...)
 
@@ -34,8 +34,6 @@ cohens_g(x, y = NULL, ci = 0.95, ...)
 \item{ci}{Confidence Interval (CI) level}
 
 \item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
-
-\item{CI}{Deprecated in favor of \code{ci}.}
 
 \item{...}{Arguments passed to \code{\link[stats:chisq.test]{stats::chisq.test()}}, such as \code{p}. Ignored
 for \code{cohens_g()}.}

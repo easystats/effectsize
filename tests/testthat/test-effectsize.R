@@ -79,6 +79,16 @@ if (require("testthat") && require("effectsize")) {
       effectsize(Xsq4, type = "riskratio"),
       riskratio(contingency_table22)
     )
+
+    # goodness of fit
+    observed.dfc <<- c(119,61)
+    expected.dfc <<- c(0.165, 0.835)
+
+    x <- chisq.test(x = observed.dfc, p = expected.dfc)
+    ref <- cramers_v(x = observed.dfc, p = expected.dfc)
+
+    expect_equal(effectsize(x, type = "v"), ref)
+    expect_equal(cramers_v(x), ref)
   })
 
   test_that("cor.test", {
