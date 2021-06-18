@@ -67,7 +67,7 @@
 #' response and the predictor are standardized based on the level of prediction
 #' (levels are detected with [parameters::check_heterogeneity()]): Predictors
 #' are standardized based on their SD at level of prediction (see also
-#' [parameters::demean()]); The outcome (in linear LMMs) is standardized based
+#' [datawizard::demean()]); The outcome (in linear LMMs) is standardized based
 #' on a fitted random-intercept-model, where `sqrt(random-intercept-variance)`
 #' is used for level 2 predictors, and `sqrt(residual-variance)` is used for
 #' level 1 predictors (Hoffman 2015, page 342). A warning is given when a
