@@ -1,7 +1,7 @@
 #' Re-fit a model with standardized data
 #'
 #' Performs a standardization of data (z-scoring) using
-#' [`datawizrd:standardize()`] and then re-fits the model to the standardized
+#' [`datawizard::standardize()`] and then re-fits the model to the standardized
 #' data.
 #'
 #' @param x A statistical model.

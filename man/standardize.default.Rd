@@ -47,7 +47,7 @@ A statistical model fitted on standardized data
 }
 \description{
 Performs a standardization of data (z-scoring) using
-\code{\link[=datawizrd:standardize]{datawizrd:standardize()}} and then re-fits the model to the standardized
+\code{\link[datawizard:standardize]{datawizard::standardize()}} and then re-fits the model to the standardized
 data.
 }
 \section{Generalized Linear Models}{
