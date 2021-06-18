@@ -54,6 +54,7 @@ Imports:
     bayestestR (>= 0.10.0),
     insight (>= 0.14.1),
     parameters (>= 0.13.0),
+    datawizard (>= 0.1.0),
     stats,
     utils
 Suggests:

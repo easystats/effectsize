@@ -21,14 +21,9 @@ reference:
 
 - title: "Standardization"
   contents:
-  - standardize
+  - standardize.default
   - standardize_parameters
   - standardize_info
-- subtitle: "Scale and Transform"
-  contents:
-  - change_scale
-  - normalize
-  - ranktransform
 
 - title: "Effect Size Conversion"
 - subtitle: "From Test Statistics"
@@ -67,7 +62,6 @@ reference:
 
 - title: "Miscellaneous"
   contents:
-  - adjust
   - sd_pooled
   - is_effectsize_name
   - hardlyworking

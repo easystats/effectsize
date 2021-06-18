@@ -1,5 +1,9 @@
 # effectsize 0.4.5-1
 
+## Breaking Changes
+
+- `adjust()`, `change_scale()`, `normalize()`, `ranktransform()`, `standardize()` (data), and `unstandardize()` have moved to the new [`{datawizard}`](https://easystats.github.io/datawizard) package!
+
 ## New features
 
 - `interpret_pd()` for the interpretation of the [*Probability of Direction*](https://easystats.github.io/bayestestR/reference/p_direction.html).

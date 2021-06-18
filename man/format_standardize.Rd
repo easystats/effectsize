@@ -18,9 +18,9 @@ format_standardize(
 
 \item{reference}{The reference vector from which to compute the mean and SD.}
 
-\item{robust}{Logical, if \code{TRUE}, centering is done by subtracting the
+\item{robust}{Logical, if `TRUE`, centering is done by subtracting the
 median from the variables and dividing it by the median absolute deviation
-(MAD). If \code{FALSE}, variables are standardized by subtracting the
+(MAD). If `FALSE`, variables are standardized by subtracting the
 mean and dividing it by the standard deviation (SD).}
 
 \item{digits}{Number of significant digits. May also be \code{"scientific"}

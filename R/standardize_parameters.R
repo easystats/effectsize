@@ -10,7 +10,7 @@
 #'   standardized. If `FALSE`, only the predictors will be standardized. For
 #'   GLMs the response value will never be standardized (see *Generalized Linear
 #'   Models* section).
-#' @inheritParams standardize
+#' @inheritParams standardize.default
 #' @inheritParams chisq_to_phi
 #' @param ... For `standardize_parameters()`, arguments passed to
 #'   [parameters::model_parameters], such as:

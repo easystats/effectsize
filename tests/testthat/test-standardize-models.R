@@ -177,7 +177,7 @@ if (require("testthat") && require("effectsize")) {
 
 
   # mediation models --------------------------------------------------------
-  test_that("standardize non-Gaussian response", {
+  test_that("standardize mediation", {
     skip_if_not_installed("mediation")
     set.seed(444)
     data(jobs, package = "mediation")
