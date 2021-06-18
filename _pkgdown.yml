@@ -78,8 +78,6 @@ navbar:
     href: news/index.html
   - text: "Features"
     href: reference/index.html
-  - text: "Data Standardization"
-    href: articles/standardize_data.html
   - text: "Effect Sizes"
     menu:
       - text: "Parameter and Model Standardization"
