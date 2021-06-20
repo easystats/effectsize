@@ -345,7 +345,8 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 # Pseudo (GLMM) -----------------------------------------------------------
 
 #' @importFrom insight clean_names get_random model_info find_formula get_variance get_data check_if_installed
-#' @importFrom parameters check_heterogeneity demean
+#' @importFrom parameters check_heterogeneity
+#' @importFrom datawizard demean
 #' @importFrom stats as.formula sd
 .std_info_pseudo <- function(model,
                              params,
@@ -392,7 +393,7 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
     temp_d <- data.frame(model_matrix[, p_check_within, drop = FALSE])
     colnames(temp_d) <- paste0("W", seq_len(ncol(temp_d))) # overwrite because can't deal with ":"
 
-    dm <- parameters::demean(cbind(id, temp_d),
+    dm <- datawizard::demean(cbind(id, temp_d),
       select = colnames(temp_d),
       group = "id"
     )
@@ -410,7 +411,7 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
         "The following within-group terms have between-group variance:\n\t",
         paste0(also_between, collapse = ", "),
         "\nThis can inflate standardized within-group parameters associated with",
-        "\nthese terms. See help(\"demean\", package = \"parameters\") for modeling",
+        "\nthese terms. See help(\"demean\", package = \"datawizard\") for modeling",
         "\nbetween- and within-subject effects.",
         call. = FALSE
       )

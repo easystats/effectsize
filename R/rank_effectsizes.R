@@ -330,7 +330,7 @@ kendalls_w <- function(x,
   ## prep data
   data <- .kendalls_w_data(x, groups, blocks, data)
   data <- stats::na.omit(data)
-  rankings <- apply(data, 1, ranktransform, verbose = verbose)
+  rankings <- apply(data, 1, datawizard::ranktransform, verbose = verbose)
   rankings <- t(rankings) # keep dims
 
   ## compute
@@ -392,7 +392,7 @@ kendalls_w <- function(x,
 #' @importFrom stats na.omit
 .r_rbs <- function(x, y, mu, paired, verbose = FALSE) {
   if (paired) {
-    Ry <- ranktransform((x - y) - mu, sign = TRUE, verbose = verbose)
+    Ry <- datawizard::ranktransform((x - y) - mu, sign = TRUE, verbose = verbose)
     Ry <- stats::na.omit(Ry)
 
     n <- length(Ry)
@@ -401,7 +401,7 @@ kendalls_w <- function(x,
     U1 <- sum(Ry[Ry > 0], na.rm = TRUE)
     U2 <- -sum(Ry[Ry < 0], na.rm = TRUE)
   } else {
-    Ry <- ranktransform(c(x - mu, y), verbose = verbose)
+    Ry <- datawizard::ranktransform(c(x - mu, y), verbose = verbose)
 
     n1 <- length(x)
     n2 <- length(y)

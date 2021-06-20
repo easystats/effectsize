@@ -51,18 +51,22 @@ BugReports: https://github.com/easystats/effectsize/issues/
 Depends:
     R (>= 3.4)
 Imports:
-    bayestestR (>= 0.10.0),
-    insight (>= 0.14.1),
-    parameters (>= 0.13.0),
+    bayestestR (>= 0.10.5),
+    insight (>= 0.14.1.1),
+    parameters (>= 0.14.0.1),
+    datawizard (>= 0.1.0),
     stats,
     utils
 Suggests:
+    correlation (>= 0.6.1.1),
+    modelbased (>= 0.8.0),
+    performance (>= 0.7.2.1),
+    see (>= 0.6.5),
     afex,
     BayesFactor,
     boot,
     brms,
     car,
-    correlation,
     covr,
     dplyr,
     emmeans,
@@ -76,15 +80,12 @@ Suggests:
     MASS,
     mediation,
     mgcv,
-    modelbased,
     MuMIn,
-    performance,
     pscl,
     rmarkdown,
     rms,
     rstanarm,
     rstantools,
-    see,
     spelling,
     testthat,
     tidymodels,
@@ -92,7 +93,14 @@ Suggests:
 VignetteBuilder: 
     knitr
 Remotes:
-    easystats/bayestestR
+    easystats/bayestestR,
+    easystats/insight,
+    easystats/parameters,
+    easystats/datawizard,
+    easystats/correlation,
+    easystats/modelbased,
+    easystats/performance,
+    easystats/see
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)

@@ -18,8 +18,8 @@
 #'   calculated taking these observed variables into account. For `afex_aov`
 #'   model, when `generalized = TRUE`, the observed variables are extracted
 #'   automatically from the fitted model, if they were provided then.
+#' @param verbose Toggle warnings and messages on or off.
 #' @inheritParams chisq_to_phi
-#' @inheritParams standardize
 #' @param ... Arguments passed to or from other methods.
 #'   - Can be `include_intercept = TRUE` to include the effect size for the intercept.
 #'   - For Bayesian models, arguments passed to `ss_function`.

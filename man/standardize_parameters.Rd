@@ -36,15 +36,15 @@ standardize_posteriors(
 
 \item{ci}{Confidence Interval (CI) level}
 
-\item{robust}{Logical, if \code{TRUE}, centering is done by subtracting the
+\item{robust}{Logical, if `TRUE`, centering is done by subtracting the
 median from the variables and dividing it by the median absolute deviation
-(MAD). If \code{FALSE}, variables are standardized by subtracting the
+(MAD). If `FALSE`, variables are standardized by subtracting the
 mean and dividing it by the standard deviation (SD).}
 
-\item{two_sd}{If \code{TRUE}, the variables are scaled by two times the deviation
-(SD or MAD depending on \code{robust}). This method can be useful to obtain
+\item{two_sd}{If `TRUE`, the variables are scaled by two times the deviation
+(SD or MAD depending on `robust`). This method can be useful to obtain
 model coefficients of continuous parameters comparable to coefficients
-related to binary predictors, when applied to \strong{the predictors} (not the
+related to binary predictors, when applied to **the predictors** (not the
 outcome) (Gelman, 2008).}
 
 \item{include_response}{If \code{TRUE} (default), the response value will also be
@@ -122,7 +122,7 @@ such as \code{\link[lm.beta:lm.beta]{lm.beta::lm.beta()}}.
 response and the predictor are standardized based on the level of prediction
 (levels are detected with \code{\link[parameters:demean]{parameters::check_heterogeneity()}}): Predictors
 are standardized based on their SD at level of prediction (see also
-\code{\link[parameters:demean]{parameters::demean()}}); The outcome (in linear LMMs) is standardized based
+\code{\link[datawizard:demean]{datawizard::demean()}}); The outcome (in linear LMMs) is standardized based
 on a fitted random-intercept-model, where \code{sqrt(random-intercept-variance)}
 is used for level 2 predictors, and \code{sqrt(residual-variance)} is used for
 level 1 predictors (Hoffman 2015, page 342). A warning is given when a
@@ -207,8 +207,7 @@ if (require("rstanarm")) {
 \code{\link[=standardize_info]{standardize_info()}}
 
 Other standardize: 
-\code{\link{standardize_info}()},
-\code{\link{standardize}()}
+\code{\link{standardize_info}()}
 
 Other effect size indices: 
 \code{\link{cohens_d}()},
