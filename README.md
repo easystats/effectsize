@@ -44,8 +44,6 @@ Click on the buttons above to access the package
 [**easystats blog**](https://easystats.github.io/blog/posts/), and
 check-out these vignettes:
 
--   [**Data
-    Standardization**](https://easystats.github.io/effectsize/articles/standardize_data.html)
 -   **Effect Sizes**
     -   [**Parameter and Model
         Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
@@ -217,69 +215,6 @@ interpret_d(d = 0.45, rules = "cohen1988")
 interpret_d(d = 0.45, rules = "gignac2016")
 ## [1] "moderate"
 ## (Rules: gignac2016)
-```
-
-## Utilities
-
-*Data Standardization, Normalization, Scaling, and Rank-Transforming*
-
-Many indices of effect size stem out, or are related, to
-[*standardization*](https://easystats.github.io/effectsize/articles/standardize_parameters.html).
-Thus, it is expected that `effectsize` provides functions to standardize
-data.
-
-A standardization sets the mean and SD to 0 and 1:
-
-``` r
-library(parameters) # for describe_distribution
-
-df <- standardize(attitude)
-describe_distribution(df$rating)
-##      Mean | SD |  IQR |         Range | Skewness | Kurtosis |  n | n_Missing
-## ----------------------------------------------------------------------------
-## -5.46e-16 |  1 | 1.29 | [-2.02, 1.67] |    -0.40 |    -0.49 | 30 |         0
-```
-
-Alternatively, normalization is similar to standardization in that it is
-a linear translation of the parameter space (i.e., it does not change
-the shape of the data distribution). However, it puts the values within
-a 0 - 1 range, which can be useful in cases where you want to compare or
-visualise data on the same scale.
-
-``` r
-df <- normalize(attitude)
-describe_distribution(df$rating)
-## Mean |   SD |  IQR |        Range | Skewness | Kurtosis |  n | n_Missing
-## ------------------------------------------------------------------------
-## 0.55 | 0.27 | 0.35 | [0.00, 1.00] |    -0.40 |    -0.49 | 30 |         0
-```
-
-This is a special case of a rescaling function, which can be used to
-rescale the data to an arbitrary new scale. Let’s change all numeric
-variables to “percentages”:
-
-``` r
-df <- change_scale(attitude, to = c(0, 100)) 
-describe_distribution(df$rating)
-##  Mean |    SD |   IQR |          Range | Skewness | Kurtosis |  n | n_Missing
-## -----------------------------------------------------------------------------
-## 54.74 | 27.05 | 35.00 | [0.00, 100.00] |    -0.40 |    -0.49 | 30 |         0
-```
-
-For some robust statistics, one might also want to transform the numeric
-values into *ranks*, which can be performed using the `ranktransform()`
-function.
-
-``` r
-ranktransform(c(1, 3, -2, 6, 6, 0.5))
-## [1] 3.0 4.0 1.0 5.5 5.5 2.0
-```
-
-or signed-ranks:
-
-``` r
-ranktransform(c(1, 3, -2, 6, 6, 0.5), sign = TRUE)
-## [1]  2.0  4.0 -3.0  5.5  5.5  1.0
 ```
 
 ### Citation

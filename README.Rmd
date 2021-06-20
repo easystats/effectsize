@@ -67,7 +67,6 @@ remotes::install_github("easystats/effectsize")
 
 Click on the buttons above to access the package [**documentation**](https://easystats.github.io/effectsize/) and the [**easystats blog**](https://easystats.github.io/blog/posts/), and check-out these vignettes:
 
-- [**Data Standardization**](https://easystats.github.io/effectsize/articles/standardize_data.html)
 - **Effect Sizes**  
   - [**Parameter and Model Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
   - [**ANOVA Effect Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
