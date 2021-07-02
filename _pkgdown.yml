@@ -58,6 +58,7 @@ reference:
   - interpret_pd
   - interpret_rope
   - interpret_ess
+  - interpret_icc
 
 
 - title: "Miscellaneous"
