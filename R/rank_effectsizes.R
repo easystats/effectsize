@@ -2,8 +2,10 @@
 #'
 #' Compute the rank-biserial correlation
 #' (\Sexpr[results=rd, stage=build]{katex::math_to_rd('r_{rb}', 'r_rb', FALSE)}),
-#' Cliff's *delta* (\eqn{\delta}), rank epsilon squared (\eqn{\varepsilon^2}{\epsilon²}), and
+#' Cliff's *delta* (\Sexpr[results=rd, stage=build]{katex::math_to_rd('\\delta', 'delta', FALSE)}),
+#' rank epsilon squared (\Sexpr[results=rd, stage=build]{katex::math_to_rd('\\varepsilon^2', 'epsilon^2', FALSE)}), and
 #' Kendall's \eqn{W} effect sizes for non-parametric (rank sum) tests.
+#'
 #'
 #' @inheritParams cohens_d
 #' @param x Can be one of:

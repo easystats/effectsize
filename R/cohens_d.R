@@ -1,7 +1,7 @@
 #' Effect size for differences
 #'
 #' Compute effect size indices for standardized differences: Cohen's *d*,
-#' Hedges' *g* and Glass’s *delta* (\eqn{\Delta}). (This function returns the
+#' Hedges' *g* and Glass's *delta* (\eqn{\Delta}). (This function returns the
 #' **population** estimate.)
 #' \cr\cr
 #' Both Cohen's *d* and Hedges' *g* are the estimated the standardized
