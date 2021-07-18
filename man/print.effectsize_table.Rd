@@ -23,10 +23,12 @@
 
 \item{...}{Arguments passed to or from other functions.}
 
-\item{digits}{Number of significant digits. May also be \code{"scientific"}
-to return scientific notation. For the latter case, control the number of
-digits by adding the value as suffix, e.g. \code{digits = "scientific4"}
-to have scientific notation with 4 decimal places.}
+\item{digits}{Number of digits for rounding or significant figures. May also
+be \code{"signif"} to return significant figures or \code{"scientific"}
+to return scientific notation. Control the number of digits by adding the
+value as suffix, e.g. \code{digits = "scientific4"} to have scientific
+notation with 4 decimal places, or \code{digits = "signif5"} for 5
+significant figures (see also \code{\link{signif}}).}
 
 \item{append_CL}{Should the Common Language Effect Sizes be printed as well?
 Only applicable to Cohen's \emph{d}, Hedges' \emph{g} for independent samples of

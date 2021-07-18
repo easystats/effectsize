@@ -87,10 +87,16 @@ is.rules <- function(x) inherits(x, "rules")
 #'
 #' Interpret a value based on a set of rules. See [rules()].
 #'
-#' @param x Vector of value break points (edges defining categories).
-#' @param rules Set of [rules()].
+#' @param x Vector of value break points (edges defining categories), or a data
+#'   frame of class `effectsize_table`.
+#' @param rules Set of [rules()]. When `x` is a data frame, can be a name of an
+#'   established set of rules.
 #' @param ... Currently not used.
 #' @inheritParams rules
+#'
+#' @return
+#' - For numeric input: A character vector of interpertations.
+#' - For data frames: the `x` input with an additional `Interpretation` column.
 #'
 #' @seealso rules
 #' @examples
@@ -102,6 +108,24 @@ is.rules <- function(x) inherits(x, "rules")
 #'
 #' interpret(c(0.35, 0.15), c("small" = 0.2, "large" = 0.4), name = "Cohen's Rules")
 #' interpret(c(0.35, 0.15), rules(c(0.2, 0.4), c("small", "medium", "large")))
+#'
+#' # ----------
+#' d <- cohens_d(mpg ~ am, data = mtcars)
+#' interpret(d, rules = "cohen1988")
+#'
+#' d <- glass_delta(mpg ~ am, data = mtcars)
+#' interpret(d, rules = "gignac2016")
+#'
+#' interpret(d, rules = rules(1, c("tiny", "yeah okay")))
+#'
+#' m <- lm(formula = wt ~ am * cyl, data = mtcars)
+#' eta2 <- eta_squared(m)
+#' interpret(eta2, rules = "field2013")
+#'
+#' X <- chisq.test(mtcars$am, mtcars$cyl == 8)
+#' interpret(oddsratio(X), rules = "chen2010")
+#' interpret(cramers_v(X), "lovakov2021")
+#'
 #' @export
 interpret <- function(x, ...) {
   UseMethod("interpret")
@@ -131,6 +155,52 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
   out
 }
 
+#' @rdname interpret
+#' @export
+interpret.effectsize_table <- function(x, rules, ...) {
+  if (missing(rules)) stop("You MUST specify the rules of interpretation!")
+
+  es_name <- colnames(x)[is_effectsize_name(colnames(x))]
+  value <- x[[es_name]]
+
+  x$Interpretation <- switch(
+    es_name,
+    Cohens_d = ,
+    Hedges_g = ,
+    Glass_delta = ,
+    d = interpret_d(value, rules = rules),
+
+    Cramers_v = ,
+    Cramers_v_adjusted = ,
+    phi = ,
+    phi_adjusted = interpret_cramers_v(value, rules = rules),
+
+    Odds_ratio = interpret_oddsratio(value, rules = rules, log = FALSE),
+    log_Odds_ratio = interpret_oddsratio(value, rules = rules, log = TRUE),
+
+    Eta2 = ,
+    Eta2_partial = ,
+    Eta2_generalized = ,
+    Epsilon2 = ,
+    Epsilon2_partial = ,
+    Omega2 = ,
+    Omega2_partial = interpret_omega_squared(value, rules = rules),
+
+    Cohens_f = ,
+    Cohens_f_partial = interpret_omega_squared(f_to_eta2(value), rules = rules),
+    Cohens_f2 = ,
+    Cohens_f2_partial = interpret_omega_squared(f2_to_eta2(value), rules = rules),
+
+    r_rank_biserial = ,
+    rank_epsilon_squared = ,
+    r = interpret_r(value, rules = rules),
+
+    Kendalls_W = interpret_kendalls_w(value, rules = rules)
+  )
+
+  attr(x, "rule_name") <- attr(x$Interpretation, "rule_name")
+  x
+}
 
 #' @keywords internal
 .interpret <- function(x, rules) {
