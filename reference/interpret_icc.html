@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rescale a numeric variable — change_scale • effectsize</title>
+<title>Interpret Intraclass Correlation Coefficient (ICC) — interpret_icc • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Rescale a numeric variable — change_scale" />
-<meta property="og:description" content="Rescale a numeric variable to a new range." />
+<meta property="og:title" content="Interpret Intraclass Correlation Coefficient (ICC) — interpret_icc" />
+<meta property="og:description" content="The value of an ICC lies between 0 to 1, with 0 indicating no reliability among raters and 1 indicating perfect reliability." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -88,7 +88,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5.1</span>
       </span>
     </div>
 
@@ -105,9 +105,6 @@
 </li>
 <li>
   <a href="../reference/index.html">Features</a>
-</li>
-<li>
-  <a href="../articles/standardize_data.html">Data Standardization</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -169,100 +166,65 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Rescale a numeric variable</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/change_scale.R'><code>R/change_scale.R</code></a></small>
-    <div class="hidden name"><code>change_scale.Rd</code></div>
+    <h1>Interpret Intraclass Correlation Coefficient (ICC)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/interpret_icc.R'><code>R/interpret_icc.R</code></a></small>
+    <div class="hidden name"><code>interpret_icc.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Rescale a numeric variable to a new range.</p>
+    <p>The value of an ICC lies between 0 to 1, with 0 indicating no reliability among raters and 1 indicating perfect reliability.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>change_scale</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for numeric</span>
-<span class='fu'>change_scale</span><span class='op'>(</span><span class='va'>x</span>, to <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>100</span><span class='op'>)</span>, range <span class='op'>=</span> <span class='cn'>NULL</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for grouped_df</span>
-<span class='fu'>change_scale</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  select <span class='op'>=</span> <span class='cn'>NULL</span>,
-  exclude <span class='op'>=</span> <span class='cn'>NULL</span>,
-  to <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>100</span><span class='op'>)</span>,
-  range <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
-
-<span class='co'># S3 method for data.frame</span>
-<span class='fu'>change_scale</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  select <span class='op'>=</span> <span class='cn'>NULL</span>,
-  exclude <span class='op'>=</span> <span class='cn'>NULL</span>,
-  to <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>100</span><span class='op'>)</span>,
-  range <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>interpret_icc</span><span class='op'>(</span><span class='va'>icc</span>, rules <span class='op'>=</span> <span class='st'>"koo2016"</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>Object.</p></td>
+      <th>icc</th>
+      <td><p>Value or vector of Intraclass Correlation Coefficient (ICC) values.</p></td>
+    </tr>
+    <tr>
+      <th>rules</th>
+      <td><p>Can be <code>"koo2016"</code> (default) or custom set of <code><a href='rules.html'>rules()</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed to or from other methods.</p></td>
-    </tr>
-    <tr>
-      <th>to</th>
-      <td><p>New range of values of the data after rescaling.</p></td>
-    </tr>
-    <tr>
-      <th>range</th>
-      <td><p>Initial (old) range of values. If <code>NULL</code>, will take the range of
-data.</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>Toggle warnings and messages on or off.</p></td>
-    </tr>
-    <tr>
-      <th>select</th>
-      <td><p>Character vector of column names. If <code>NULL</code> (the default), all
-variables will be selected.</p></td>
-    </tr>
-    <tr>
-      <th>exclude</th>
-      <td><p>Character vector of column names to be excluded from selection.</p></td>
+      <td><p>Not used for now.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="rules"><a class="anchor" href="#rules"></a>Rules</h2>
 
-    <p>A rescaled object.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    
 
-    <div class='dont-index'><p><code><a href='normalize.html'>normalize()</a></code> <code><a href='standardize.html'>standardize()</a></code> <code><a href='ranktransform.html'>ranktransform()</a></code></p>
-<p>Other transform utilities: 
-<code><a href='normalize.html'>normalize</a>()</code>,
-<code><a href='ranktransform.html'>ranktransform</a>()</code>,
-<code><a href='standardize.html'>standardize</a>()</code></p></div>
+<ul>
+<li><p>Koo (2016) (<code>"koo2016"</code>; default)</p><ul>
+<li><p><strong>ICC &lt; 0.50</strong> - Poor reliability</p></li>
+<li><p><strong>0.5 &lt;= ICC &lt; 0.75</strong> - Moderate reliability</p></li>
+<li><p><strong>0.75 &lt;= ICC &lt; 0.9</strong> - Good reliability</p></li>
+<li><p>**ICC &gt;= 0.9 ** - Excellent reliability</p></li>
+</ul></li>
+</ul>
+
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    
+<ul>
+<li><p>Koo, T. K., \&amp; Li, M. Y. (2016). A guideline of selecting and reporting intraclass correlation coefficients for reliability research. Journal of chiropractic medicine, 15(2), 155-163.</p></li>
+</ul>
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='fu'>change_scale</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1]  50  60 100   0  30</span>
-<span class='r-in'><span class='fu'>change_scale</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span>, to <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>5</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1]  0  1  5 -5 -2</span>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='fu'>interpret_icc</span><span class='op'>(</span><span class='fl'>0.6</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "moderate"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Rules: koo2016)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>interpret_icc</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.4</span>, <span class='fl'>0.8</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "poor" "good"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Rules: koo2016)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-in'></span>
-<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>change_scale</span><span class='op'>(</span><span class='va'>trees</span><span class='op'>)</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>       Girth    Height     Volume</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  0.000000 29.166667  0.1497006</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  2.439024  8.333333  0.1497006</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  4.065041  0.000000  0.0000000</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 17.886179 37.500000  9.2814371</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 19.512195 75.000000 12.8742515</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 20.325203 83.333333 14.2215569</span>
 </code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

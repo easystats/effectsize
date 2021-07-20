@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5.1</span>
       </span>
     </div>
 
@@ -57,9 +57,6 @@
 </li>
 <li>
   <a href="../reference/index.html">Features</a>
-</li>
-<li>
-  <a href="../articles/standardize_data.html">Data Standardization</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -255,7 +252,9 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 &gt; -------------------------------------------------------------
 &gt; (Intercept) |     0.41 | 0.91 | [-1.39, 2.43] |  0.44 | 0.657
 &gt; Group [1]   |    -0.81 | 1.29 | [-3.54, 1.70] | -0.63 | 0.530</code></pre>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<pre><code>&gt; 
+&gt; Degrees of freedom based on Profile approximation.</code></pre>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Convert log(OR) (the coefficient) to d</span>
 <span class="fu"><a href="../reference/d_to_r.html">oddsratio_to_d</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.81</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; [1] -0.447</code></pre>
@@ -269,7 +268,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 RR = \frac{OR}{(1 - p0 + (p0 \times OR))}  
 \]</span></p>
 <p>Where <span class="math inline">\(p0\)</span> is the base-rate risk - the probability of the event without the intervention (e.g., what is the probability of the migraine subsiding within an hour without eating any brussels sprouts). If it the base-rate risk is, say, 85%, we get a <em>RR</em> of:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">OR</span> <span class="op">&lt;-</span> <span class="fl">3.5</span>
 <span class="va">baserate</span> <span class="op">&lt;-</span> <span class="fl">0.85</span>
 
@@ -277,7 +276,7 @@ RR = \frac{OR}{(1 - p0 + (p0 \times OR))}
 <pre><code>&gt; [1] 1.12</code></pre>
 <p>That is - for every bowl of brussels sprouts, we increase the chances of reducing the migraine by a mere 12%! Is if worth it? Depends on you affinity to brussels sprouts…</p>
 <p>Note that the base-rate risk is crucial here. If instead of 85% it was only 4%, then the <em>RR</em> would be:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">OR</span> <span class="op">&lt;-</span> <span class="fl">3.5</span>
 <span class="va">baserate</span> <span class="op">&lt;-</span> <span class="fl">0.04</span>
 

@@ -91,7 +91,7 @@ i.e., by what they are divided. The &quot;basic&quot; method of standardization 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5.1</span>
       </span>
     </div>
 
@@ -108,9 +108,6 @@ i.e., by what they are divided. The &quot;basic&quot; method of standardization 
 </li>
 <li>
   <a href="../reference/index.html">Features</a>
-</li>
-<li>
-  <a href="../articles/standardize_data.html">Data Standardization</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -201,17 +198,17 @@ i.e., by what they are divided. The "basic" method of standardization uses.</p>
     </tr>
     <tr>
       <th>robust</th>
-      <td><p>Logical, if <code>TRUE</code>, centering is done by subtracting the
+      <td><p>Logical, if `TRUE`, centering is done by subtracting the
 median from the variables and dividing it by the median absolute deviation
-(MAD). If <code>FALSE</code>, variables are standardized by subtracting the
+(MAD). If `FALSE`, variables are standardized by subtracting the
 mean and dividing it by the standard deviation (SD).</p></td>
     </tr>
     <tr>
       <th>two_sd</th>
-      <td><p>If <code>TRUE</code>, the variables are scaled by two times the deviation
-(SD or MAD depending on <code>robust</code>). This method can be useful to obtain
+      <td><p>If `TRUE`, the variables are scaled by two times the deviation
+(SD or MAD depending on `robust`). This method can be useful to obtain
 model coefficients of continuous parameters comparable to coefficients
-related to binary predictors, when applied to <strong>the predictors</strong> (not the
+related to binary predictors, when applied to **the predictors** (not the
 outcome) (Gelman, 2008).</p></td>
     </tr>
     <tr>
@@ -234,8 +231,7 @@ and the response.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other standardize: 
-<code><a href='standardize_parameters.html'>standardize_parameters</a>()</code>,
-<code><a href='standardize.html'>standardize</a>()</code></p></div>
+<code><a href='standardize_parameters.html'>standardize_parameters</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>

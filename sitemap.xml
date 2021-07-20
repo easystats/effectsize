@@ -40,9 +40,6 @@
     <loc>/articles/simple_htests.html</loc>
   </url>
   <url>
-    <loc>/articles/standardize_data.html</loc>
-  </url>
-  <url>
     <loc>/articles/standardize_parameters.html</loc>
   </url>
   <url>
@@ -56,12 +53,6 @@
   </url>
   <url>
     <loc>/reference/F_to_eta2.html</loc>
-  </url>
-  <url>
-    <loc>/reference/adjust.html</loc>
-  </url>
-  <url>
-    <loc>/reference/change_scale.html</loc>
   </url>
   <url>
     <loc>/reference/chisq_to_phi.html</loc>
@@ -124,6 +115,9 @@
     <loc>/reference/interpret_gfi.html</loc>
   </url>
   <url>
+    <loc>/reference/interpret_icc.html</loc>
+  </url>
+  <url>
     <loc>/reference/interpret_kendalls_w.html</loc>
   </url>
   <url>
@@ -154,9 +148,6 @@
     <loc>/reference/is_effectsize_name.html</loc>
   </url>
   <url>
-    <loc>/reference/normalize.html</loc>
-  </url>
-  <url>
     <loc>/reference/odds_to_probs.html</loc>
   </url>
   <url>
@@ -172,9 +163,6 @@
     <loc>/reference/rank_biserial.html</loc>
   </url>
   <url>
-    <loc>/reference/ranktransform.html</loc>
-  </url>
-  <url>
     <loc>/reference/reexports.html</loc>
   </url>
   <url>
@@ -184,7 +172,7 @@
     <loc>/reference/sd_pooled.html</loc>
   </url>
   <url>
-    <loc>/reference/standardize.html</loc>
+    <loc>/reference/standardize.default.html</loc>
   </url>
   <url>
     <loc>/reference/standardize_info.html</loc>

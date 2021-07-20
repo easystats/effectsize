@@ -87,7 +87,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5.1</span>
       </span>
     </div>
 
@@ -104,9 +104,6 @@
 </li>
 <li>
   <a href="../reference/index.html">Features</a>
-</li>
-<li>
-  <a href="../articles/standardize_data.html">Data Standardization</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -237,9 +234,9 @@
       <tr>
         
         <td>
-          <p><code><a href="standardize.html">standardize()</a></code> <code><a href="standardize.html">unstandardize()</a></code> </p>
+          <p><code><a href="standardize.default.html">standardize(<i>&lt;default&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Standardization (Z-scoring)</p></td>
+        <td><p>Re-fit a model with standardized data</p></td>
       </tr><tr>
         
         <td>
@@ -252,37 +249,6 @@
           <p><code><a href="standardize_info.html">standardize_info()</a></code> </p>
         </td>
         <td><p>Get Standardization Information</p></td>
-      </tr>
-    </tbody><tbody>
-      
-      <tr>
-        <th colspan="2">
-          <h3 id="section-scale-and-transform" class="hasAnchor"><a href="#section-scale-and-transform" class="anchor"></a>Scale and Transform</h3>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="change_scale.html">change_scale()</a></code> </p>
-        </td>
-        <td><p>Rescale a numeric variable</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="normalize.html">normalize()</a></code> </p>
-        </td>
-        <td><p>Normalize numeric variable to [0-1] range</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ranktransform.html">ranktransform()</a></code> </p>
-        </td>
-        <td><p>(Signed) rank transformation</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -483,6 +449,12 @@ or association (<strong>partial</strong> r)</p></td>
           <p><code><a href="interpret_ess.html">interpret_ess()</a></code> <code><a href="interpret_ess.html">interpret_rhat()</a></code> </p>
         </td>
         <td><p>Interpret Bayesian diagnostic indices</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="interpret_icc.html">interpret_icc()</a></code> </p>
+        </td>
+        <td><p>Interpret Intraclass Correlation Coefficient (ICC)</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -497,12 +469,6 @@ or association (<strong>partial</strong> r)</p></td>
       
       
       <tr>
-        
-        <td>
-          <p><code><a href="adjust.html">adjust()</a></code> <code><a href="adjust.html">data_adjust()</a></code> </p>
-        </td>
-        <td><p>Adjust data for the effect of other variable(s)</p></td>
-      </tr><tr>
         
         <td>
           <p><code><a href="sd_pooled.html">sd_pooled()</a></code> <code><a href="sd_pooled.html">mad_pooled()</a></code> </p>

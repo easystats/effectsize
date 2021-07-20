@@ -88,7 +88,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5.1</span>
       </span>
     </div>
 
@@ -105,9 +105,6 @@
 </li>
 <li>
   <a href="../reference/index.html">Features</a>
-</li>
-<li>
-  <a href="../articles/standardize_data.html">Data Standardization</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -219,17 +216,17 @@
     </tr>
     <tr>
       <th>robust</th>
-      <td><p>Logical, if <code>TRUE</code>, centering is done by subtracting the
+      <td><p>Logical, if `TRUE`, centering is done by subtracting the
 median from the variables and dividing it by the median absolute deviation
-(MAD). If <code>FALSE</code>, variables are standardized by subtracting the
+(MAD). If `FALSE`, variables are standardized by subtracting the
 mean and dividing it by the standard deviation (SD).</p></td>
     </tr>
     <tr>
       <th>two_sd</th>
-      <td><p>If <code>TRUE</code>, the variables are scaled by two times the deviation
-(SD or MAD depending on <code>robust</code>). This method can be useful to obtain
+      <td><p>If `TRUE`, the variables are scaled by two times the deviation
+(SD or MAD depending on `robust`). This method can be useful to obtain
 model coefficients of continuous parameters comparable to coefficients
-related to binary predictors, when applied to <strong>the predictors</strong> (not the
+related to binary predictors, when applied to **the predictors** (not the
 outcome) (Gelman, 2008).</p></td>
     </tr>
     <tr>
@@ -279,12 +276,12 @@ models). This method is particularly recommended for complex models that
 include interactions or transformations (e.g., polynomial or spline terms).
 The <code>robust</code> (default to <code>FALSE</code>) argument enables a robust standardization
 of data, i.e., based on the <code>median</code> and <code>MAD</code> instead of the <code>mean</code> and
-<code>SD</code>. <strong>See <code><a href='standardize.html'>standardize()</a></code> for more details.</strong></p><ul>
+<code>SD</code>. <strong>See <code><a href='https://easystats.github.io/datawizard/reference/standardize.html'>standardize()</a></code> for more details.</strong></p><ul>
 <li><p><strong>Note</strong> that <code>standardize_parameters(method = "refit")</code> may not return
 the same results as fitting a model on data that has been standardized with
-<code><a href='standardize.html'>standardize()</a></code>; <code>standardize_parameters()</code> used the data used by the model
+<code><a href='https://easystats.github.io/datawizard/reference/standardize.html'>standardize()</a></code>; <code>standardize_parameters()</code> used the data used by the model
 fitting function, which might not be same data if there are missing values.
-see the <code>remove_na</code> argument in <code><a href='standardize.html'>standardize()</a></code>.</p></li>
+see the <code>remove_na</code> argument in <code><a href='https://easystats.github.io/datawizard/reference/standardize.html'>standardize()</a></code>.</p></li>
 </ul></li>
 <li><p><strong>posthoc</strong>: Post-hoc standardization of the parameters, aiming at
 emulating the results obtained by "refit" without refitting the model. The
@@ -313,9 +310,9 @@ this method is the one implemented by default in other software packages,
 such as <code><a href='https://rdrr.io/pkg/lm.beta/man/lm.beta.html'>lm.beta::lm.beta()</a></code>.</p></li>
 <li><p><strong>pseudo</strong> (<em>for 2-level (G)LMMs only</em>): In this (post-hoc) method, the
 response and the predictor are standardized based on the level of prediction
-(levels are detected with <code><a href='https://easystats.github.io/parameters/reference/demean.html'>parameters::check_heterogeneity()</a></code>): Predictors
+(levels are detected with <code><a href='https://easystats.github.io/datawizard/reference/demean.html'>parameters::check_heterogeneity()</a></code>): Predictors
 are standardized based on their SD at level of prediction (see also
-<code><a href='https://easystats.github.io/parameters/reference/demean.html'>parameters::demean()</a></code>); The outcome (in linear LMMs) is standardized based
+<code><a href='https://easystats.github.io/datawizard/reference/demean.html'>datawizard::demean()</a></code>); The outcome (in linear LMMs) is standardized based
 on a fitted random-intercept-model, where <code>sqrt(random-intercept-variance)</code>
 is used for level 2 predictors, and <code>sqrt(residual-variance)</code> is used for
 level 1 predictors (Hoffman 2015, page 342). A warning is given when a
@@ -332,7 +329,7 @@ within-group varialbe is found to have access between-group variance.</p></li>
 transformations): where <code>"refit"</code> standardizes the data prior to the
 transformation (e.g. equivalent to <code>exp(scale(X))</code>), the <code>"basic"</code> method
 standardizes the transformed data (e.g. equivalent to <code>scale(exp(X))</code>). See
-<code><a href='standardize.html'>standardize()</a></code> for more details on how different transformations are dealt
+<code><a href='https://easystats.github.io/datawizard/reference/standardize.html'>standardize()</a></code> for more details on how different transformations are dealt
 with.</p>
 
     <h2 class="hasAnchor" id="confidence-intervals"><a class="anchor" href="#confidence-intervals"></a>Confidence Intervals</h2>
@@ -360,8 +357,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 
     <div class='dont-index'><p><code><a href='standardize_info.html'>standardize_info()</a></code></p>
 <p>Other standardize: 
-<code><a href='standardize_info.html'>standardize_info</a>()</code>,
-<code><a href='standardize.html'>standardize</a>()</code></p>
+<code><a href='standardize_info.html'>standardize_info</a>()</code></p>
 <p>Other effect size indices: 
 <code><a href='cohens_d.html'>cohens_d</a>()</code>,
 <code><a href='effectsize.html'>effectsize</a>()</code>,
@@ -486,7 +482,7 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 <span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>The following within-group terms have between-group variance:</span>
 <span class='r-wrn co'><span class='r-pr'>#&gt;</span> 	am, vs</span>
 <span class='r-wrn co'><span class='r-pr'>#&gt;</span> This can inflate standardized within-group parameters associated with</span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> these terms. See help("demean", package = "parameters") for modeling</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> these terms. See help("demean", package = "datawizard") for modeling</span>
 <span class='r-wrn co'><span class='r-pr'>#&gt;</span> between- and within-subject effects.</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Standardization method: pseudo</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
