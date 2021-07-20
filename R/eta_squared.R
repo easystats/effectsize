@@ -346,10 +346,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                 ci = ci, squared = squared
   )
 
-  if (requireNamespace("performance")) {
-    R2d <- performance::r2(model)[[1]] - performance::r2(model2)[[1]]
-    out$R2_delta <- abs(R2d)
-  }
+  R2d <- performance::r2(model)[[1]] - performance::r2(model2)[[1]]
+  out$R2_delta <- abs(R2d)
 
   return(out)
 }
