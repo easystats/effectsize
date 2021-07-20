@@ -177,8 +177,6 @@ if (require("testthat") && require("effectsize")) {
     rownames(fsD) <- rownames(fs) <- 1
     expect_equal(fsD, fs, tolerance = 0.01, ignore_attr = TRUE)
 
-
-    skip_if_not_installed("performance")
     fsD <- cohens_f_squared(m1, model2 = m2)
     R2_1 <- performance::r2(m1)[[1]]
     R2_2 <- performance::r2(m2)[[1]]
