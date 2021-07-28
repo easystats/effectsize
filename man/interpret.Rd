@@ -3,20 +3,31 @@
 \name{interpret}
 \alias{interpret}
 \alias{interpret.numeric}
+\alias{interpret.effectsize_table}
 \title{Generic function for interpretation}
 \usage{
 interpret(x, ...)
 
 \method{interpret}{numeric}(x, rules, name = attr(rules, "rule_name"), ...)
+
+\method{interpret}{effectsize_table}(x, rules, ...)
 }
 \arguments{
-\item{x}{Vector of value break points (edges defining categories).}
+\item{x}{Vector of value break points (edges defining categories), or a data
+frame of class \code{effectsize_table}.}
 
 \item{...}{Currently not used.}
 
-\item{rules}{Set of \code{\link[=rules]{rules()}}.}
+\item{rules}{Set of \code{\link[=rules]{rules()}}. When \code{x} is a data frame, can be a name of an
+established set of rules.}
 
 \item{name}{Name of the set of rules (stored as a 'rule_name' attribute).}
+}
+\value{
+\itemize{
+\item For numeric input: A character vector of interpertations.
+\item For data frames: the \code{x} input with an additional \code{Interpretation} column.
+}
 }
 \description{
 Interpret a value based on a set of rules. See \code{\link[=rules]{rules()}}.
@@ -30,6 +41,24 @@ interpret(c(0.01, 0.005, 0.08), rules_grid)
 
 interpret(c(0.35, 0.15), c("small" = 0.2, "large" = 0.4), name = "Cohen's Rules")
 interpret(c(0.35, 0.15), rules(c(0.2, 0.4), c("small", "medium", "large")))
+
+# ----------
+d <- cohens_d(mpg ~ am, data = mtcars)
+interpret(d, rules = "cohen1988")
+
+d <- glass_delta(mpg ~ am, data = mtcars)
+interpret(d, rules = "gignac2016")
+
+interpret(d, rules = rules(1, c("tiny", "yeah okay")))
+
+m <- lm(formula = wt ~ am * cyl, data = mtcars)
+eta2 <- eta_squared(m)
+interpret(eta2, rules = "field2013")
+
+X <- chisq.test(mtcars$am, mtcars$cyl == 8)
+interpret(oddsratio(X), rules = "chen2010")
+interpret(cramers_v(X), "lovakov2021")
+
 }
 \seealso{
 rules

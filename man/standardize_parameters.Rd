@@ -36,15 +36,15 @@ standardize_posteriors(
 
 \item{ci}{Confidence Interval (CI) level}
 
-\item{robust}{Logical, if `TRUE`, centering is done by subtracting the
+\item{robust}{Logical, if \code{TRUE}, centering is done by subtracting the
 median from the variables and dividing it by the median absolute deviation
-(MAD). If `FALSE`, variables are standardized by subtracting the
+(MAD). If \code{FALSE}, variables are standardized by subtracting the
 mean and dividing it by the standard deviation (SD).}
 
-\item{two_sd}{If `TRUE`, the variables are scaled by two times the deviation
-(SD or MAD depending on `robust`). This method can be useful to obtain
+\item{two_sd}{If \code{TRUE}, the variables are scaled by two times the deviation
+(SD or MAD depending on \code{robust}). This method can be useful to obtain
 model coefficients of continuous parameters comparable to coefficients
-related to binary predictors, when applied to **the predictors** (not the
+related to binary predictors, when applied to \strong{the predictors} (not the
 outcome) (Gelman, 2008).}
 
 \item{include_response}{If \code{TRUE} (default), the response value will also be
@@ -120,7 +120,7 @@ this method is the one implemented by default in other software packages,
 such as \code{\link[lm.beta:lm.beta]{lm.beta::lm.beta()}}.
 \item \strong{pseudo} (\emph{for 2-level (G)LMMs only}): In this (post-hoc) method, the
 response and the predictor are standardized based on the level of prediction
-(levels are detected with \code{\link[parameters:demean]{parameters::check_heterogeneity()}}): Predictors
+(levels are detected with \code{\link[performance:check_heterogeneity_bias]{performance::check_heterogeneity_bias()}}): Predictors
 are standardized based on their SD at level of prediction (see also
 \code{\link[datawizard:demean]{datawizard::demean()}}); The outcome (in linear LMMs) is standardized based
 on a fitted random-intercept-model, where \code{sqrt(random-intercept-variance)}

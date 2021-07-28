@@ -27,7 +27,12 @@ format.effectsize_table <- function(x, digits = 2, ...) {
   attr(x, "ci") <- NULL
   attr(x, "ci_method") <- NULL
 
-  insight::format_table(x, digits = digits, ci_digits = digits, preserve_attributes = TRUE, ...)
+  out <- insight::format_table(x, digits = digits, ci_digits = digits, preserve_attributes = TRUE, ...)
+  if (!is.null(rule_name <- attr(x, "rule_name", exact = TRUE))) {
+    attr(out, "table_footer") <- c(attr(out, "table_footer"),
+                                   list(c(paste0("\n(Interpretation rule: ", rule_name, ")"), "blue")))
+  }
+  out
 }
 
 

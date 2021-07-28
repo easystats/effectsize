@@ -6,6 +6,7 @@
 
 ## New features
 
+- `interpret()` now accepts as input the results from `cohens_d()`, `eta_squared()`, `rank_biserial()`, etc.
 - `interpret_pd()` for the interpretation of the [*Probability of Direction*](https://easystats.github.io/bayestestR/reference/p_direction.html).
 
 ## Bug fixes

@@ -98,20 +98,22 @@
 #'
 #' @examples
 #' \donttest{
-#' library(effectsize)
+#' data(mtcars)
 #' mtcars$am_f <- factor(mtcars$am)
 #' mtcars$cyl_f <- factor(mtcars$cyl)
 #'
 #' model <- aov(mpg ~ am_f * cyl_f, data = mtcars)
 #'
-#' eta_squared(model)
+#' (eta2 <- eta_squared(model))
+#'
+#' # More types:
+#' eta_squared(model, partial = FALSE)
 #' eta_squared(model, generalized = "cyl_f")
 #' omega_squared(model)
 #' epsilon_squared(model)
 #' cohens_f(model)
-#' (etas <- eta_squared(model, partial = FALSE))
 #'
-#' if (require(see)) plot(etas)
+#' if (require(see)) plot(eta2)
 #'
 #' model0 <- aov(mpg ~ am_f + cyl_f, data = mtcars) # no interaction
 #' cohens_f_squared(model0, model2 = model)
@@ -119,9 +121,11 @@
 #' ## Interpretation of effect sizes
 #' ## -------------------------------------
 #'
-#' interpret_omega_squared(0.15, rules = "field2013")
-#' interpret_eta_squared(0.15, rules = "cohen1992")
-#' interpret_epsilon_squared(0.15, rules = "cohen1992")
+#' interpret_omega_squared(0.10, rules = "field2013")
+#' interpret_eta_squared(0.10, rules = "cohen1992")
+#' interpret_epsilon_squared(0.10, rules = "cohen1992")
+#'
+#' interpret(eta2, rules = "cohen1992")
 #'
 #' # Recommended: Type-3 effect sizes + effects coding
 #' # -------------------------------------------------
@@ -1072,7 +1076,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
         partial = partial,
         generalized = generalized,
         ci = ci,
-        verbose = verbose,
+        verbose = FALSE,
         include_intercept = include_intercept,
         ...
       )
