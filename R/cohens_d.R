@@ -45,34 +45,63 @@
 #'
 #' @examples
 #'
-#' # two-sample tests -----------------------
+#' data(mtcars)
+#' mtcars$am <- factor(mtcars$am)
 #'
-#' # using formula interface
-#' cohens_d(mpg ~ am, data = mtcars)
+#' # Two Independent Samples ----------
+#'
+#' (d <- cohens_d(mpg ~ am, data = mtcars))
+#' # Same as:
+#' # cohens_d("mpg", "am", data = mtcars)
+#' # cohens_d(mtcars$mpg[mtcars$am=="0"], mtcars$mpg[mtcars$am=="1"])
+#'
+#' # More options:
 #' cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)
 #' cohens_d(mpg ~ am, data = mtcars, mu = -5)
 #' hedges_g(mpg ~ am, data = mtcars)
 #' glass_delta(mpg ~ am, data = mtcars)
-#' print(cohens_d(mpg ~ am, data = mtcars), append_CL = TRUE)
 #'
-#' # other acceptable ways to specify arguments
-#' glass_delta(sleep$extra, sleep$group)
-#' hedges_g("extra", "group", data = sleep)
-#' cohens_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], paired = TRUE)
-#' # cohens_d(Pair(extra[group == 1], extra[group == 2]) ~ 1,
-#' #          data = sleep, paired = TRUE)
 #'
-#' # one-sample tests -----------------------
+#' # One Sample ----------
 #'
-#' cohens_d("wt", data = mtcars, mu = 3)
-#' hedges_g("wt", data = mtcars, mu = 3)
+#' cohens_d(wt ~ 1, data = mtcars)
 #'
-#' # interpretation -----------------------
+#' # same as:
+#' # cohens_d("wt", data = mtcars)
+#' # cohens_d(mtcars$wt)
 #'
-#' interpret_d(0.4, rules = "cohen1988")
-#' d_to_common_language(0.4)
-#' interpret_g(0.4, rules = "sawilowsky2009")
-#' interpret_delta(0.4, rules = "gignac2016")
+#' # More options:
+#' cohens_d(wt ~ 1, data = mtcars, mu = 3)
+#' hedges_g(wt ~ 1, data = mtcars, mu = 3)
+#'
+#'
+#' # Paired Samples ----------
+#'
+#' data(sleep)
+#'
+#' cohens_d(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep)
+#'
+#' # same as:
+#' # cohens_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], paired = TRUE)
+#'
+#' # More options:
+#' cohens_d(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, mu = -1)
+#' hedges_g(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep)
+#'
+#'
+#' # Interpretation -----------------------
+#' interpret_d(-1.48, rules = "cohen1988")
+#' interpret_g(-1.48, rules = "sawilowsky2009")
+#' interpret_delta(-1.48, rules = "gignac2016")
+#' # Or:
+#' interpret(d, rules = "sawilowsky2009")
+#'
+#' # Common Language Effect Sizes
+#' d_to_common_language(1.48)
+#' # Or:
+#' print(d, append_CL = TRUE)
+#'
+#'
 #' @references
 #' - Algina, J., Keselman, H. J., & Penfield, R. D. (2006). Confidence intervals
 #' for an effect size when variances are not equal. Journal of Modern Applied
@@ -371,6 +400,8 @@ glass_delta <- function(x,
   ## Validate x,y ----
   if (!is.numeric(x)) {
     stop("Cannot compute effect size for a non-numeric vector.", call. = FALSE)
+  } else if (inherits(x, "Pair")) {
+    x <- -apply(x, 1, diff)
   }
 
   # If y is a factor
@@ -391,10 +422,6 @@ glass_delta <- function(x,
       y <- data[[2]]
     } else {
       # Only relevant when y is not a factor
-      if (inherits(x, "Pair")) {
-        x <- -apply(x, 1, diff)
-      }
-
       if (verbose && length(unique(y)) == 2) {
         warning(
           "'y' is numeric but has only 2 unique values. If this is a grouping variable, convert it to a factor.",

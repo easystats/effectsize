@@ -134,21 +134,29 @@ estimated using the bootstrap method (using the \code{{boot}} package).
 
 \examples{
 \donttest{
-# two-sample tests -----------------------
+# Rank Biserial Correlation
+# =========================
 
+# Two Independent Samples ----------
 A <- c(48, 48, 77, 86, 85, 85)
 B <- c(14, 34, 34, 77)
 rank_biserial(A, B)
 
-x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
-y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
-rank_biserial(x, y, paired = TRUE)
-
-# one-sample tests -----------------------
+# One Sample ----------
 x <- c(1.15, 0.88, 0.90, 0.74, 1.21)
 rank_biserial(x, mu = 1)
 
-# anova tests ----------------------------
+# Paired Samples ----------
+x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
+y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
+(rbs <- rank_biserial(x, y, paired = TRUE))
+
+interpret_rank_biserial(0.78)
+interpret(rbs, rules = "funder2019")
+
+
+# Rank Epsilon Squared
+# ====================
 
 x1 <- c(2.9, 3.0, 2.5, 2.6, 3.2) # control group
 x2 <- c(3.8, 2.7, 4.0, 2.4) # obstructive airway disease group
@@ -157,14 +165,16 @@ x <- c(x1, x2, x3)
 g <- factor(rep(1:3, c(5, 4, 5)))
 rank_epsilon_squared(x, g)
 
+# Kendall's W
+# ===========
 wb <- aggregate(warpbreaks$breaks,
-  by = list(
-    w = warpbreaks$wool,
-    t = warpbreaks$tension
-  ),
-  FUN = mean
-)
-kendalls_w(x ~ w | t, data = wb)
+                by = list(w = warpbreaks$wool,
+                          t = warpbreaks$tension),
+                FUN = mean)
+(W <- kendalls_w(x ~ w | t, data = wb, verbose = FALSE))
+
+interpret_kendalls_w(0.11)
+interpret(W, rules = "landis1977")
 }
 
 }

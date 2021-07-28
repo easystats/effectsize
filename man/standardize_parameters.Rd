@@ -120,7 +120,7 @@ this method is the one implemented by default in other software packages,
 such as \code{\link[lm.beta:lm.beta]{lm.beta::lm.beta()}}.
 \item \strong{pseudo} (\emph{for 2-level (G)LMMs only}): In this (post-hoc) method, the
 response and the predictor are standardized based on the level of prediction
-(levels are detected with \code{\link[parameters:check_heterogeneity]{parameters::check_heterogeneity()}}): Predictors
+(levels are detected with \code{\link[performance:check_heterogeneity_bias]{performance::check_heterogeneity_bias()}}): Predictors
 are standardized based on their SD at level of prediction (see also
 \code{\link[datawizard:demean]{datawizard::demean()}}); The outcome (in linear LMMs) is standardized based
 on a fitted random-intercept-model, where \code{sqrt(random-intercept-variance)}
