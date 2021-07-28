@@ -1,4 +1,4 @@
-# effectsize 0.4.5-1
+# effectsize 0.4.5-2
 
 ## Breaking Changes
 
@@ -10,6 +10,7 @@
 
 ## Bug fixes
 
+- `cohens_d()`, `sd_pooled()` and `rank_biserial()` now properly respect when `y` is a grouping character vector.
 - `effectsize()` for Chi-squared test of goodness-of-fit now correctly respects non-uniform expected probabilities ( #352 ).
 
 ## Changes

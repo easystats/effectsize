@@ -329,7 +329,9 @@ glass_delta <- function(x,
 .deal_with_cohens_d_arguments <- function(x, y = NULL, data = NULL, verbose = TRUE) {
 
   # Sanity checks
-  if ((is.character(x) | is.character(y)) && is.null(data)) {
+  if (((is.character(x) && length(x)==1) ||
+       (is.character(y) && length(y)==1)) &&
+      is.null(data)) {
     stop("Please provide data argument.")
   }
 
