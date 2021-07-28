@@ -1,5 +1,6 @@
 if (require("testthat") && require("effectsize")) {
-  test_that("interpret", {
+  # interpret generic ----
+  test_that("interpret generic", {
     rules_grid <- rules(c(0.01, 0.05), c("very significant", "significant", "not significant"))
     expect_equal(interpret(0.001, rules_grid)[1], "very significant")
     expect_equal(interpret(0.021, rules_grid)[1], "significant")
@@ -19,7 +20,7 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(interpret(c(0, 1), r2)[], c("few", "many"), ignore_attr = TRUE)
   })
 
-
+  # interpret types ----
   test_that("interpret_r", {
     expect_equal(interpret_r(0.21)[1], "medium")
     expect_equal(interpret_r(0.21, "cohen1988")[1], "small")
@@ -169,5 +170,18 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(interpret_pnfi(c(.5, .99)), c("poor", "satisfactory"), ignore_attr = TRUE)
     expect_equal(interpret_rmsea(c(.1, .05)), c("poor", "satisfactory"), ignore_attr = TRUE)
     expect_equal(interpret_srmr(c(.1, .05)), c("poor", "satisfactory"), ignore_attr = TRUE)
+  })
+
+  # interpret effectsize_table ----
+  test_that("interpret effectsize_table", {
+    d <- cohens_d(mpg ~ am, data = mtcars)
+
+    expect_error(interpret(d))
+
+    d_ <- interpret(d, rules = "cohen1988")
+    expect_equal(d_[["Interpretation"]], "large", ignore_attr = TRUE)
+    expect_s3_class(d_[["Interpretation"]], "effectsize_interpret")
+    expect_output(print(d_), "large")
+    expect_output(print(d_), "Interpretation rule: cohen1988")
   })
 }
