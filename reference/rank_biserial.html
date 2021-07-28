@@ -352,8 +352,10 @@ revisited. An overview of some recommended measures of effect size.</p></li>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># \donttest{</span></span>
-<span class='r-in'><span class='co'># two-sample tests -----------------------</span></span>
+<span class='r-in'><span class='co'># Rank Biserial Correlation</span></span>
+<span class='r-in'><span class='co'># =========================</span></span>
 <span class='r-in'></span>
+<span class='r-in'><span class='co'># Two Independent Samples ----------</span></span>
 <span class='r-in'><span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>48</span>, <span class='fl'>48</span>, <span class='fl'>77</span>, <span class='fl'>86</span>, <span class='fl'>85</span>, <span class='fl'>85</span><span class='op'>)</span></span>
 <span class='r-in'><span class='va'>B</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>14</span>, <span class='fl'>34</span>, <span class='fl'>34</span>, <span class='fl'>77</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'>rank_biserial</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>B</span><span class='op'>)</span></span>
@@ -361,14 +363,7 @@ revisited. An overview of some recommended measures of effect size.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 0.79              | [0.30, 0.95]</span>
 <span class='r-in'></span>
-<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.83</span>, <span class='fl'>0.50</span>, <span class='fl'>1.62</span>, <span class='fl'>2.48</span>, <span class='fl'>1.68</span>, <span class='fl'>1.88</span>, <span class='fl'>1.55</span>, <span class='fl'>3.06</span>, <span class='fl'>1.30</span><span class='op'>)</span></span>
-<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.878</span>, <span class='fl'>0.647</span>, <span class='fl'>0.598</span>, <span class='fl'>2.05</span>, <span class='fl'>1.06</span>, <span class='fl'>1.29</span>, <span class='fl'>1.06</span>, <span class='fl'>3.14</span>, <span class='fl'>1.29</span><span class='op'>)</span></span>
-<span class='r-in'><span class='fu'>rank_biserial</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, paired <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> r (rank biserial) |       95% CI</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------------</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.78              | [0.30, 0.94]</span>
-<span class='r-in'></span>
-<span class='r-in'><span class='co'># one-sample tests -----------------------</span></span>
+<span class='r-in'><span class='co'># One Sample ----------</span></span>
 <span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.15</span>, <span class='fl'>0.88</span>, <span class='fl'>0.90</span>, <span class='fl'>0.74</span>, <span class='fl'>1.21</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'>rank_biserial</span><span class='op'>(</span><span class='va'>x</span>, mu <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> r (rank biserial) |        95% CI</span>
@@ -377,7 +372,28 @@ revisited. An overview of some recommended measures of effect size.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Deviation from a difference of 1.</span></span>
 <span class='r-in'></span>
-<span class='r-in'><span class='co'># anova tests ----------------------------</span></span>
+<span class='r-in'><span class='co'># Paired Samples ----------</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.83</span>, <span class='fl'>0.50</span>, <span class='fl'>1.62</span>, <span class='fl'>2.48</span>, <span class='fl'>1.68</span>, <span class='fl'>1.88</span>, <span class='fl'>1.55</span>, <span class='fl'>3.06</span>, <span class='fl'>1.30</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.878</span>, <span class='fl'>0.647</span>, <span class='fl'>0.598</span>, <span class='fl'>2.05</span>, <span class='fl'>1.06</span>, <span class='fl'>1.29</span>, <span class='fl'>1.06</span>, <span class='fl'>3.14</span>, <span class='fl'>1.29</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>(</span><span class='va'>rbs</span> <span class='op'>&lt;-</span> <span class='fu'>rank_biserial</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, paired <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> r (rank biserial) |       95% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.78              | [0.30, 0.94]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='interpret_r.html'>interpret_rank_biserial</a></span><span class='op'>(</span><span class='fl'>0.78</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "very large"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Rules: funder2019)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'><a href='interpret.html'>interpret</a></span><span class='op'>(</span><span class='va'>rbs</span>, rules <span class='op'>=</span> <span class='st'>"funder2019"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> r (rank biserial) |       95% CI | Interpretation</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.78              | [0.30, 0.94] |     very large</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Interpretation rule: funder2019)</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Rank Epsilon Squared</span></span>
+<span class='r-in'><span class='co'># ====================</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='va'>x1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.9</span>, <span class='fl'>3.0</span>, <span class='fl'>2.5</span>, <span class='fl'>2.6</span>, <span class='fl'>3.2</span><span class='op'>)</span> <span class='co'># control group</span></span>
 <span class='r-in'><span class='va'>x2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3.8</span>, <span class='fl'>2.7</span>, <span class='fl'>4.0</span>, <span class='fl'>2.4</span><span class='op'>)</span> <span class='co'># obstructive airway disease group</span></span>
@@ -389,20 +405,27 @@ revisited. An overview of some recommended measures of effect size.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 0.06            | [0.01, 0.71]</span>
 <span class='r-in'></span>
+<span class='r-in'><span class='co'># Kendall's W</span></span>
+<span class='r-in'><span class='co'># ===========</span></span>
 <span class='r-in'><span class='va'>wb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/aggregate.html'>aggregate</a></span><span class='op'>(</span><span class='va'>warpbreaks</span><span class='op'>$</span><span class='va'>breaks</span>,</span>
-<span class='r-in'>  by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>
-<span class='r-in'>    w <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>$</span><span class='va'>wool</span>,</span>
-<span class='r-in'>    t <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>$</span><span class='va'>tension</span></span>
-<span class='r-in'>  <span class='op'>)</span>,</span>
-<span class='r-in'>  FUN <span class='op'>=</span> <span class='va'>mean</span></span>
-<span class='r-in'><span class='op'>)</span></span>
-<span class='r-in'><span class='fu'>kendalls_w</span><span class='op'>(</span><span class='va'>x</span> <span class='op'>~</span> <span class='va'>w</span> <span class='op'>|</span> <span class='va'>t</span>, data <span class='op'>=</span> <span class='va'>wb</span><span class='op'>)</span></span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Variable `x.A` contains only two different values. Consider converting it to a factor.Variable `x.B` contains only two different values. Consider converting it to a factor.</span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Variable `x.A` contains only two different values. Consider converting it to a factor.Variable `x.B` contains only two different values. Consider converting it to a factor.</span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Variable `x.A` contains only two different values. Consider converting it to a factor.Variable `x.B` contains only two different values. Consider converting it to a factor.</span>
+<span class='r-in'>                by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>w <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>$</span><span class='va'>wool</span>,</span>
+<span class='r-in'>                          t <span class='op'>=</span> <span class='va'>warpbreaks</span><span class='op'>$</span><span class='va'>tension</span><span class='op'>)</span>,</span>
+<span class='r-in'>                FUN <span class='op'>=</span> <span class='va'>mean</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>(</span><span class='va'>W</span> <span class='op'>&lt;-</span> <span class='fu'>kendalls_w</span><span class='op'>(</span><span class='va'>x</span> <span class='op'>~</span> <span class='va'>w</span> <span class='op'>|</span> <span class='va'>t</span>, data <span class='op'>=</span> <span class='va'>wb</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Kendall's W |       95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 0.11        | [0.11, 1.00]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='interpret_kendalls_w.html'>interpret_kendalls_w</a></span><span class='op'>(</span><span class='fl'>0.11</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "slight agreement"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Rules: landis1977)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'><a href='interpret.html'>interpret</a></span><span class='op'>(</span><span class='va'>W</span>, rules <span class='op'>=</span> <span class='st'>"landis1977"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Kendall's W |       95% CI |   Interpretation</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.11        | [0.11, 1.00] | slight agreement</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Interpretation rule: landis1977)</span></span>
 <span class='r-in'><span class='co'># }</span></span>
 <span class='r-in'></span>
 </code></pre></div>

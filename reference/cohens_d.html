@@ -360,15 +360,22 @@ Correcting error and bias in research findings. Sage.</p></li>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'></span>
-<span class='r-in'><span class='co'># two-sample tests -----------------------</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>am</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>am</span><span class='op'>)</span></span>
 <span class='r-in'></span>
-<span class='r-in'><span class='co'># using formula interface</span></span>
-<span class='r-in'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># Two Independent Samples ----------</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='op'>(</span><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Cohen's d |         95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -1.48     | [-2.27, -0.67]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Estimated using pooled SD.</span></span>
+<span class='r-in'><span class='co'># Same as:</span></span>
+<span class='r-in'><span class='co'># cohens_d("mpg", "am", data = mtcars)</span></span>
+<span class='r-in'><span class='co'># cohens_d(mtcars$mpg[mtcars$am=="0"], mtcars$mpg[mtcars$am=="1"])</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># More options:</span></span>
 <span class='r-in'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, pooled_sd <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Cohen's d |         95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------</span>
@@ -392,7 +399,94 @@ Correcting error and bias in research findings. Sage.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Glass' delta |         95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -----------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -1.17        | [-1.93, -0.39]</span>
-<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span>, append_CL <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># One Sample ----------</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>wt</span> <span class='op'>~</span> <span class='fl'>1</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cohen's d |       95% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.29      | [2.44, 4.24]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># same as:</span></span>
+<span class='r-in'><span class='co'># cohens_d("wt", data = mtcars)</span></span>
+<span class='r-in'><span class='co'># cohens_d(mtcars$wt)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># More options:</span></span>
+<span class='r-in'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>wt</span> <span class='op'>~</span> <span class='fl'>1</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, mu <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cohen's d |        95% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.22      | [-0.13, 0.58]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Deviation from a difference of 3.</span></span>
+<span class='r-in'><span class='fu'>hedges_g</span><span class='op'>(</span><span class='va'>wt</span> <span class='op'>~</span> <span class='fl'>1</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, mu <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hedges' g |        95% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.22      | [-0.13, 0.57]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Deviation from a difference of 3.</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Paired Samples ----------</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sleep</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Pair.html'>Pair</a></span><span class='op'>(</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>]</span>, <span class='va'>extra</span><span class='op'>[</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>~</span> <span class='fl'>1</span>, data <span class='op'>=</span> <span class='va'>sleep</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cohen's d |         95% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -1.28     | [-2.23, -0.44]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># same as:</span></span>
+<span class='r-in'><span class='co'># cohens_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], paired = TRUE)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># More options:</span></span>
+<span class='r-in'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Pair.html'>Pair</a></span><span class='op'>(</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>]</span>, <span class='va'>extra</span><span class='op'>[</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>~</span> <span class='fl'>1</span>, data <span class='op'>=</span> <span class='va'>sleep</span>, mu <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cohen's d |        95% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -0.47     | [-1.18, 0.21]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Deviation from a difference of -1.</span></span>
+<span class='r-in'><span class='fu'>hedges_g</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Pair.html'>Pair</a></span><span class='op'>(</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>]</span>, <span class='va'>extra</span><span class='op'>[</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>~</span> <span class='fl'>1</span>, data <span class='op'>=</span> <span class='va'>sleep</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Hedges' g |         95% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -1.17     | [-2.04, -0.40]</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Interpretation -----------------------</span></span>
+<span class='r-in'><span class='fu'><a href='interpret_d.html'>interpret_d</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1.48</span>, rules <span class='op'>=</span> <span class='st'>"cohen1988"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "large"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Rules: cohen1988)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'><a href='interpret_d.html'>interpret_g</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1.48</span>, rules <span class='op'>=</span> <span class='st'>"sawilowsky2009"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "very large"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Rules: sawilowsky2009)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'><a href='interpret_d.html'>interpret_delta</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1.48</span>, rules <span class='op'>=</span> <span class='st'>"gignac2016"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "large"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Rules: gignac2016)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='co'># Or:</span></span>
+<span class='r-in'><span class='fu'><a href='interpret.html'>interpret</a></span><span class='op'>(</span><span class='va'>d</span>, rules <span class='op'>=</span> <span class='st'>"sawilowsky2009"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cohen's d |         95% CI | Interpretation</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -1.48     | [-2.27, -0.67] |     very large</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Estimated using pooled SD.</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Interpretation rule: sawilowsky2009)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Common Language Effect Sizes</span></span>
+<span class='r-in'><span class='fu'><a href='d_to_common_language.html'>d_to_common_language</a></span><span class='op'>(</span><span class='fl'>1.48</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $`Cohen's U3`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.9305634</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $Overlap</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.4593</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $`Probability of superiority`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.852339</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='co'># Or:</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>d</span>, append_CL <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Cohen's d |         95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -1.48     | [-2.27, -0.67]</span>
@@ -405,63 +499,7 @@ Correcting error and bias in research findings. Sage.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -------------------------------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 6.97%      |  45.99% |                     14.80%</span>
 <span class='r-in'></span>
-<span class='r-in'><span class='co'># other acceptable ways to specify arguments</span></span>
-<span class='r-in'><span class='fu'>glass_delta</span><span class='op'>(</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span>, <span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Glass' delta |        95% CI</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> ----------------------------</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> -0.79        | [-1.68, 0.13]</span>
-<span class='r-in'><span class='fu'>hedges_g</span><span class='op'>(</span><span class='st'>"extra"</span>, <span class='st'>"group"</span>, data <span class='op'>=</span> <span class='va'>sleep</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Hedges' g |        95% CI</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> -------------------------</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> -0.80     | [-1.67, 0.09]</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Estimated using pooled SD.</span></span>
-<span class='r-in'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>]</span>, <span class='va'>sleep</span><span class='op'>$</span><span class='va'>extra</span><span class='op'>[</span><span class='va'>sleep</span><span class='op'>$</span><span class='va'>group</span> <span class='op'>==</span> <span class='fl'>2</span><span class='op'>]</span>, paired <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Cohen's d |         95% CI</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> -1.28     | [-2.23, -0.44]</span>
-<span class='r-in'><span class='co'># cohens_d(Pair(extra[group == 1], extra[group == 2]) ~ 1,</span></span>
-<span class='r-in'><span class='co'>#          data = sleep, paired = TRUE)</span></span>
 <span class='r-in'></span>
-<span class='r-in'><span class='co'># one-sample tests -----------------------</span></span>
-<span class='r-in'></span>
-<span class='r-in'><span class='fu'>cohens_d</span><span class='op'>(</span><span class='st'>"wt"</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, mu <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Cohen's d |        95% CI</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> -------------------------</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.22      | [-0.13, 0.58]</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Deviation from a difference of 3.</span></span>
-<span class='r-in'><span class='fu'>hedges_g</span><span class='op'>(</span><span class='st'>"wt"</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>, mu <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Hedges' g |        95% CI</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> -------------------------</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.22      | [-0.13, 0.57]</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- Deviation from a difference of 3.</span></span>
-<span class='r-in'></span>
-<span class='r-in'><span class='co'># interpretation -----------------------</span></span>
-<span class='r-in'></span>
-<span class='r-in'><span class='fu'><a href='interpret_d.html'>interpret_d</a></span><span class='op'>(</span><span class='fl'>0.4</span>, rules <span class='op'>=</span> <span class='st'>"cohen1988"</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "small"</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Rules: cohen1988)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-in'><span class='fu'><a href='d_to_common_language.html'>d_to_common_language</a></span><span class='op'>(</span><span class='fl'>0.4</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $`Cohen's U3`</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.6554217</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $Overlap</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.8414806</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> $`Probability of superiority`</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.6113513</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-in'><span class='fu'><a href='interpret_d.html'>interpret_g</a></span><span class='op'>(</span><span class='fl'>0.4</span>, rules <span class='op'>=</span> <span class='st'>"sawilowsky2009"</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "small"</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Rules: sawilowsky2009)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-in'><span class='fu'><a href='interpret_d.html'>interpret_delta</a></span><span class='op'>(</span><span class='fl'>0.4</span>, rules <span class='op'>=</span> <span class='st'>"gignac2016"</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "small"</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Rules: gignac2016)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 </code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -216,17 +216,17 @@
     </tr>
     <tr>
       <th>robust</th>
-      <td><p>Logical, if `TRUE`, centering is done by subtracting the
+      <td><p>Logical, if <code>TRUE</code>, centering is done by subtracting the
 median from the variables and dividing it by the median absolute deviation
-(MAD). If `FALSE`, variables are standardized by subtracting the
+(MAD). If <code>FALSE</code>, variables are standardized by subtracting the
 mean and dividing it by the standard deviation (SD).</p></td>
     </tr>
     <tr>
       <th>two_sd</th>
-      <td><p>If `TRUE`, the variables are scaled by two times the deviation
-(SD or MAD depending on `robust`). This method can be useful to obtain
+      <td><p>If <code>TRUE</code>, the variables are scaled by two times the deviation
+(SD or MAD depending on <code>robust</code>). This method can be useful to obtain
 model coefficients of continuous parameters comparable to coefficients
-related to binary predictors, when applied to **the predictors** (not the
+related to binary predictors, when applied to <strong>the predictors</strong> (not the
 outcome) (Gelman, 2008).</p></td>
     </tr>
     <tr>
@@ -310,7 +310,7 @@ this method is the one implemented by default in other software packages,
 such as <code><a href='https://rdrr.io/pkg/lm.beta/man/lm.beta.html'>lm.beta::lm.beta()</a></code>.</p></li>
 <li><p><strong>pseudo</strong> (<em>for 2-level (G)LMMs only</em>): In this (post-hoc) method, the
 response and the predictor are standardized based on the level of prediction
-(levels are detected with <code><a href='https://easystats.github.io/datawizard/reference/demean.html'>parameters::check_heterogeneity()</a></code>): Predictors
+(levels are detected with <code><a href='https://easystats.github.io/performance/reference/check_heterogeneity_bias.html'>performance::check_heterogeneity_bias()</a></code>): Predictors
 are standardized based on their SD at level of prediction (see also
 <code><a href='https://easystats.github.io/datawizard/reference/demean.html'>datawizard::demean()</a></code>); The outcome (in linear LMMs) is standardized based
 on a fitted random-intercept-model, where <code>sqrt(random-intercept-variance)</code>

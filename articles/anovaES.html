@@ -276,10 +276,6 @@
 <pre><code>&gt; Contrasts set to contr.sum for the following variables: treatment, gender</code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Type 3 ANOVAs only give sensible and informative results when covariates are
-&gt;   mean-centered and factors are coded with orthogonal contrasts (such as those
-&gt;   produced by 'contr.sum', 'contr.poly', or 'contr.helmert', but *not* by the
-&gt;   default 'contr.treatment').</code></pre>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
 &gt; Parameter        | Eta2 (partial) |       90% CI
@@ -302,12 +298,8 @@
 <li>
 <strong>Epsilon Squared</strong> (<span class="math inline">\(\epsilon^2\)</span>), also referred to as <em>Adjusted Eta Squared</em>.</li>
 </ul>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Type 3 ANOVAs only give sensible and informative results when covariates are
-&gt;   mean-centered and factors are coded with orthogonal contrasts (such as those
-&gt;   produced by 'contr.sum', 'contr.poly', or 'contr.helmert', but *not* by the
-&gt;   default 'contr.treatment').</code></pre>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
 &gt; Parameter        | Omega2 (partial) |       90% CI
@@ -315,12 +307,8 @@
 &gt; treatment        |             0.24 | [0.10, 0.36]
 &gt; gender           |             0.10 | [0.02, 0.22]
 &gt; treatment:gender |             0.17 | [0.05, 0.29]</code></pre>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Type 3 ANOVAs only give sensible and informative results when covariates are
-&gt;   mean-centered and factors are coded with orthogonal contrasts (such as those
-&gt;   produced by 'contr.sum', 'contr.poly', or 'contr.helmert', but *not* by the
-&gt;   default 'contr.treatment').</code></pre>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
 &gt; Parameter        | Epsilon2 (partial) |       90% CI
@@ -335,12 +323,8 @@
 <a href="#generalized-eta2" class="anchor" aria-hidden="true"></a>Generalized Eta<sup>2</sup>
 </h2>
 <p><em>Partial</em> Eta squared aims at estimating the effect size in a design where only the term of interest was manipulated, assuming all other terms are have also manipulated. However, not all predictors are always manipulated - some can only be observed. For such cases, we can use <em>generalized</em> Eta squared (<span class="math inline">\(\eta^2_G\)</span>), which like <span class="math inline">\(\eta^2_p\)</span> estimating the effect size in a design where only the term of interest was manipulated, accounting for the fact that some terms cannot be manipulated (and so their variance would be present in such a design).</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m_afex</span>, generalized <span class="op">=</span> <span class="st">"gender"</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Type 3 ANOVAs only give sensible and informative results when covariates are
-&gt;   mean-centered and factors are coded with orthogonal contrasts (such as those
-&gt;   produced by 'contr.sum', 'contr.poly', or 'contr.helmert', but *not* by the
-&gt;   default 'contr.treatment').</code></pre>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
 &gt; Parameter        | Eta2 (generalized) |       90% CI
@@ -359,12 +343,8 @@
 <p>Finally, we have the forgotten child - Cohen’s <span class="math inline">\(f\)</span>. Cohen’s <span class="math inline">\(f\)</span> is a transformation of <span class="math inline">\(\eta^2_p\)</span>, and is the ratio between the term-<em>SS</em> and the error-<em>SS</em>.</p>
 <p><span class="math display">\[\text{Cohen's} f_p = \sqrt{\frac{\eta^2_p}{1-\eta^2_p}} = \sqrt{\frac{SS_{effect}}{SS_{error}}}\]</span></p>
 <p>It can take on values between zero, when the population means are all equal, and an indefinitely large number as the means are further and further apart. It is analogous to Cohen’s <span class="math inline">\(d\)</span> when there are only two groups.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">cohens_f</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Type 3 ANOVAs only give sensible and informative results when covariates are
-&gt;   mean-centered and factors are coded with orthogonal contrasts (such as those
-&gt;   produced by 'contr.sum', 'contr.poly', or 'contr.helmert', but *not* by the
-&gt;   default 'contr.treatment').</code></pre>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
 &gt; Parameter        | Cohen's f (partial) |       90% CI
@@ -379,7 +359,7 @@
 <a href="#when-sum-of-squares-are-hard-to-come-by" class="anchor" aria-hidden="true"></a>When Sum-of-Squares are Hard to Come By</h1>
 <p>Until now we’ve discusses effect sizes in fixed-effect linear model and repeated-measures ANOVA’s - cases where the <em>SS</em>s are readily available, and so the various effect sized presented can easily be estimated. How ever this is not always the case.</p>
 <p>For example, in linear mixed models (LMM/HLM/MLM), the estimation of all required <em>SS</em>s is not straightforward. However, we can still <em>approximate</em> these effect sizes (only their partial versions) based on the <strong>test-statistic approximation method</strong> (learn more in the <a href="https://easystats.github.io/effectsize/articles/from_test_statistics.html" class="external-link"><em>Effect Size from Test Statistics</em> vignette</a>).</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/runehaubo/lmerTestR" class="external-link">lmerTest</a></span><span class="op">)</span>
 
 <span class="va">fit_lmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lmerTest/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">Reaction</span> <span class="op">~</span> <span class="va">Days</span> <span class="op">+</span> <span class="op">(</span><span class="va">Days</span> <span class="op">|</span> <span class="va">Subject</span><span class="op">)</span>, <span class="va">sleepstudy</span><span class="op">)</span>
@@ -390,27 +370,27 @@
 &gt; Days  30031   30031     1    17    45.9 3.3e-06 ***
 &gt; ---
 &gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span><span class="fl">45.8</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">17</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Eta2 (partial) |       90% CI
 &gt; -----------------------------
 &gt; 0.73           | [0.51, 0.83]</code></pre>
 <p>Or directly with `eta_squared() and co.:</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
 &gt; Parameter | Eta2 (partial) |       90% CI
 &gt; -----------------------------------------
 &gt; Days      |           0.73 | [0.51, 0.83]</code></pre>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
 &gt; Parameter | Epsilon2 (partial) |       90% CI
 &gt; ---------------------------------------------
 &gt; Days      |               0.71 | [0.48, 0.82]</code></pre>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
