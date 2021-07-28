@@ -37,6 +37,23 @@ if (require("testthat") && require("effectsize")) {
     expect_warning(cohens_d("b", "e", data = df))
   })
 
+  test_that("cohens d - grouping character vector", {
+    dat <- data.frame(
+      g = rep(c("treatment", "control"), each = 100),
+      y = c(rnorm(n = 200))
+    )
+
+    d <- cohens_d(dat$y, factor(dat$g), ci = NULL)[[1]]
+    expect_equal(cohens_d(dat$y, dat$g, ci = NULL)[[1]], d)
+    expect_equal(cohens_d(y ~ g, data = dat, ci = NULL)[[1]], d)
+    expect_equal(cohens_d(y ~ factor(g), data = dat, ci = NULL)[[1]], d)
+    expect_equal(cohens_d(dat$y ~ dat$g, ci = NULL)[[1]], d)
+    expect_equal(cohens_d(dat$y ~ factor(dat$g), ci = NULL)[[1]], d)
+    expect_equal(cohens_d("y", "g", data = dat, ci = NULL)[[1]], d)
+    expect_equal(cohens_d("y", dat$g, data = dat, ci = NULL)[[1]], d)
+    expect_equal(cohens_d(dat$y, "g", data = dat, ci = NULL)[[1]], d)
+  })
+
   test_that("cohens_d - mu", {
     expect_equal(cohens_d(mtcars$mpg - 5),
       cohens_d(mtcars$mpg, mu = 5),
