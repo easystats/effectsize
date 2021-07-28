@@ -345,7 +345,7 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 # Pseudo (GLMM) -----------------------------------------------------------
 
 #' @importFrom insight clean_names get_random model_info find_formula get_variance get_data check_if_installed
-#' @importFrom parameters check_heterogeneity
+#' @importFrom performance check_heterogeneity_bias
 #' @importFrom datawizard demean
 #' @importFrom stats as.formula sd
 .std_info_pseudo <- function(model,
@@ -362,7 +362,7 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
 
   f <- if (two_sd) 2 else 1
 
-  within_vars <- unclass(parameters::check_heterogeneity(model))
+  within_vars <- unclass(performance::check_heterogeneity_bias(model))
   id <- insight::get_random(model)[[1]]
   w <- insight::get_weights(model, na_rm = TRUE)
 

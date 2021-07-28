@@ -54,14 +54,14 @@ Imports:
     bayestestR (>= 0.10.5),
     insight (>= 0.14.1.1),
     parameters (>= 0.14.0.1),
+    performance (>= 0.7.2.1),
     datawizard (>= 0.1.0),
     stats,
     utils
 Suggests:
-    correlation (>= 0.6.1.1),
-    modelbased (>= 0.8.0),
-    performance (>= 0.7.2.1),
-    see (>= 0.6.5),
+    correlation (>= 0.6.1),
+    modelbased (>= 0.7.0),
+    see (>= 0.6.4),
     afex,
     BayesFactor,
     boot,
@@ -96,14 +96,10 @@ Remotes:
     easystats/bayestestR,
     easystats/insight,
     easystats/parameters,
-    easystats/datawizard,
-    easystats/correlation,
-    easystats/modelbased,
-    easystats/performance,
-    easystats/see
+    easystats/performance
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.1.9001
 Config/testthat/edition: 3
 Config/testthat/parallel: true
