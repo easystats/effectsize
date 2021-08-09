@@ -26,12 +26,17 @@ CRAN:
 install.packages("effectsize")
 ```
 
-Or this one to install the latest development version:
+Or you can install the latest development version from *r-universe*:
 
 ``` r
-install.packages("remotes")
-remotes::install_github("easystats/effectsize")
+install.packages("effectsize", repos = "https://easystats.r-universe.dev")
 ```
+
+<!-- Or from *GitHub*: -->
+<!-- ```{r, warning=FALSE, message=FALSE, eval=FALSE} -->
+<!-- if (!require("remotes")) install.packages("remotes") -->
+<!-- remotes::install_github("easystats/effectsize") -->
+<!-- ``` -->
 
 ## Documentation
 
