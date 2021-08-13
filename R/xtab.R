@@ -123,7 +123,7 @@ phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, ...) {
 
   if (inherits(x, "htest")) {
     if (!(grepl("Pearson's Chi-squared", x$method) ||
-          grepl("Chi-squared test for given probabilities", x$method))) {
+      grepl("Chi-squared test for given probabilities", x$method))) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
   } else {
@@ -424,4 +424,3 @@ cohens_g <- function(x, y = NULL, ci = 0.95, ...) {
   attr(out, "approximate") <- FALSE
   return(out)
 }
-

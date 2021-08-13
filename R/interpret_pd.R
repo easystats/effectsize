@@ -21,7 +21,6 @@
 #' @examples
 #' interpret_pd(.98)
 #' interpret_pd(c(.96, .99), rules = "makowski2019")
-#'
 #' @references
 #' - Makowski, D., Ben-Shachar, M. S., Chen, S. H., \& Lüdecke, D. (2019). Indices of effect existence and significance in the Bayesian framework. Frontiers in psychology, 10, 2767.
 #'
@@ -31,10 +30,10 @@ interpret_pd <- function(pd, rules = "default", ...) {
     rules,
     list(
       default = rules(c(0.975), c("not significant", "significant"),
-                      name = "default", right = TRUE
+        name = "default", right = TRUE
       ),
       makowski2019 = rules(c(0.95, 0.97, 0.99, 0.999), c("uncertain", "possibly existing", "likely existing", "probably existing", "certainly existing"),
-                  name = "makowski2019", right = TRUE
+        name = "makowski2019", right = TRUE
       )
     )
   )

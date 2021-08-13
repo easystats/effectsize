@@ -55,7 +55,7 @@ Imports:
     insight (>= 0.14.1.1),
     parameters (>= 0.14.0.1),
     performance (>= 0.7.2.1),
-    datawizard (>= 0.1.0),
+    datawizard (>= 0.2.0),
     stats,
     utils
 Suggests:
@@ -93,8 +93,9 @@ Suggests:
 VignetteBuilder: 
     knitr
 Remotes:
-    easystats/bayestestR,
     easystats/insight,
+    easystats/datawizard,
+    easystats/bayestestR,
     easystats/parameters,
     easystats/performance
 Encoding: UTF-8

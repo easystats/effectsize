@@ -57,11 +57,12 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
     if (grepl("(v|w|phi)$", tolower(type))) {
       f <- switch(tolower(type),
-                  v = ,
-                  cramers_v = chisq_to_cramers_v,
-                  w = ,
-                  cohens_w = ,
-                  phi = chisq_to_phi)
+        v = ,
+        cramers_v = chisq_to_cramers_v,
+        w = ,
+        cohens_w = ,
+        phi = chisq_to_phi
+      )
 
       Obs <- model$observed
       Exp <- model$expected
@@ -88,12 +89,13 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       return(out)
     } else {
       f <- switch(tolower(type),
-                  or = ,
-                  oddsratio = oddsratio,
-                  rr = ,
-                  riskratio = riskratio,
-                  h = ,
-                  cohens_h = cohens_h)
+        or = ,
+        oddsratio = oddsratio,
+        rr = ,
+        riskratio = riskratio,
+        h = ,
+        cohens_h = cohens_h
+      )
     }
 
     out <- f(x = model$observed, ...)

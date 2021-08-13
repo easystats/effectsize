@@ -81,7 +81,7 @@ if (require("testthat") && require("effectsize")) {
     )
 
     # goodness of fit
-    observed.dfc <<- c(119,61)
+    observed.dfc <<- c(119, 61)
     expected.dfc <<- c(0.165, 0.835)
 
     x <- chisq.test(x = observed.dfc, p = expected.dfc)

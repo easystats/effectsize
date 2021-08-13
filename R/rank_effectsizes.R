@@ -105,9 +105,12 @@
 #' # Kendall's W
 #' # ===========
 #' wb <- aggregate(warpbreaks$breaks,
-#'                 by = list(w = warpbreaks$wool,
-#'                           t = warpbreaks$tension),
-#'                 FUN = mean)
+#'   by = list(
+#'     w = warpbreaks$wool,
+#'     t = warpbreaks$tension
+#'   ),
+#'   FUN = mean
+#' )
 #' (W <- kendalls_w(x ~ w | t, data = wb, verbose = FALSE))
 #'
 #' interpret_kendalls_w(0.11)

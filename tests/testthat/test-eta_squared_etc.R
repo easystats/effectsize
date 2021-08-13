@@ -282,11 +282,13 @@ if (require("testthat") && require("effectsize")) {
 
     ef <- omega_squared(m, partial = TRUE)
     expect_equal(ef$Omega2_partial,
-                 c(0.3115, 0.1814, 0.2221, 0.2637, 0.1512, -0.0173, -0.0171),
-                 tolerance = 0.01)
+      c(0.3115, 0.1814, 0.2221, 0.2637, 0.1512, -0.0173, -0.0171),
+      tolerance = 0.01
+    )
     expect_equal(ef$CI_low,
-                 c(0, 0, 0, 0, 0, 0, 0),
-                 tolerance = 0.01)
+      c(0, 0, 0, 0, 0, 0, 0),
+      tolerance = 0.01
+    )
     # TODO Why are we getting diferent results on different systems and R releases?
     # expect_equal(ef$CI_high,
     #              c(0.5814, 0.5036, 0.5052, 0.4589, 0.3023, 0, 0),
@@ -302,9 +304,10 @@ if (require("testthat") && require("effectsize")) {
     data(obk.long, package = "afex")
 
     mod <- afex::aov_ez("id", "value", obk.long,
-                        between = c("treatment", "gender"),
-                        within = c("phase", "hour"),
-                        observed = "gender")
+      between = c("treatment", "gender"),
+      within = c("phase", "hour"),
+      observed = "gender"
+    )
 
     x <- eta_squared(mod, generalized = TRUE)
     a <- anova(mod, observed = "gender")

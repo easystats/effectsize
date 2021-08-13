@@ -100,8 +100,6 @@
 #' d_to_common_language(1.48)
 #' # Or:
 #' print(d, append_CL = TRUE)
-#'
-#'
 #' @references
 #' - Algina, J., Keselman, H. J., & Penfield, R. D. (2006). Confidence intervals
 #' for an effect size when variances are not equal. Journal of Modern Applied
@@ -358,9 +356,9 @@ glass_delta <- function(x,
 .deal_with_cohens_d_arguments <- function(x, y = NULL, data = NULL, verbose = TRUE) {
 
   # Sanity checks
-  if (((is.character(x) && length(x)==1) ||
-       (is.character(y) && length(y)==1)) &&
-      is.null(data)) {
+  if (((is.character(x) && length(x) == 1) ||
+    (is.character(y) && length(y) == 1)) &&
+    is.null(data)) {
     stop("Please provide data argument.")
   }
 
@@ -388,14 +386,16 @@ glass_delta <- function(x,
 
   ### Character ----
   if (is.character(x)) {
-    if (!x %in% names(data))
+    if (!x %in% names(data)) {
       stop("Column ", x, " missing from data.", call. = FALSE)
+    }
     x <- data[[x]]
   }
 
   if (is.character(y) && length(y) == 1) {
-    if (!y %in% names(data))
+    if (!y %in% names(data)) {
       stop("Column ", y, " missing from data.", call. = FALSE)
+    }
     y <- data[[y]]
   }
 
@@ -435,4 +435,3 @@ glass_delta <- function(x,
 
   list(x = x, y = y)
 }
-

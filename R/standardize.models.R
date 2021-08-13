@@ -21,7 +21,6 @@
 #' @examples
 #' model <- lm(Infant.Mortality ~ Education * Fertility, data = swiss)
 #' coef(standardize(model))
-#'
 #' @importFrom stats update
 #' @importFrom insight get_data model_info find_response get_response find_weights get_weights
 #' @importFrom datawizard standardize
@@ -40,11 +39,13 @@ standardize.default <- function(x,
 
   if (insight::is_multivariate(x) && inherits(x, "brmsfit")) {
     stop("multivariate brmsfit models not supported.",
-         "\nAs an alternative: you may standardize your data (and adjust your priors), and re-fit the model.",
-         call. = FALSE)
+      "\nAs an alternative: you may standardize your data (and adjust your priors), and re-fit the model.",
+      call. = FALSE
+    )
   } else if (m_info$is_bayesian) {
     warning("Standardizing variables without adjusting priors may lead to bogus results unless priors are auto-scaled.",
-            call. = FALSE, immediate. = TRUE)
+      call. = FALSE, immediate. = TRUE
+    )
   }
 
   # for models with specific scale of the response value (e.g. count models
