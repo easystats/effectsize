@@ -163,16 +163,19 @@ interpret.effectsize_table <- function(x, rules, ...) {
   value <- x[[es_name]]
 
   x$Interpretation <- switch(es_name,
+    # std diff
     Cohens_d = ,
     Hedges_g = ,
     Glass_delta = ,
     d = interpret_d(value, rules = rules),
+    # xtab
     Cramers_v = ,
     Cramers_v_adjusted = ,
     phi = ,
     phi_adjusted = interpret_cramers_v(value, rules = rules),
     Odds_ratio = interpret_oddsratio(value, rules = rules, log = FALSE),
     log_Odds_ratio = interpret_oddsratio(value, rules = rules, log = TRUE),
+    # anova
     Eta2 = ,
     Eta2_partial = ,
     Eta2_generalized = ,
@@ -184,10 +187,12 @@ interpret.effectsize_table <- function(x, rules, ...) {
     Cohens_f_partial = interpret_omega_squared(f_to_eta2(value), rules = rules),
     Cohens_f2 = ,
     Cohens_f2_partial = interpret_omega_squared(f2_to_eta2(value), rules = rules),
+    # rank
+    Kendalls_W = interpret_kendalls_w(value, rules = rules),
     r_rank_biserial = ,
     rank_epsilon_squared = ,
-    r = interpret_r(value, rules = rules),
-    Kendalls_W = interpret_kendalls_w(value, rules = rules)
+    # corr
+    r = interpret_r(value, rules = rules)
   )
 
   attr(x, "rule_name") <- attr(x$Interpretation, "rule_name")
