@@ -2,6 +2,7 @@
 
 ## Breaking Changes
 
+- `phi()`, `cramers_v()` now defaults to a 90% CI.
 - `adjust()`, `change_scale()`, `normalize()`, `ranktransform()`, `standardize()` (data), and `unstandardize()` have moved to the new [`{datawizard}`](https://easystats.github.io/datawizard) package!
 
 ## New features

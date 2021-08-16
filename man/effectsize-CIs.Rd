@@ -47,13 +47,49 @@ bound is arbitrarily set to 0 (Steiger, 2004). For example:\if{html}{\out{<div c
 For very large sample sizes, the width of the CI can be smaller than the
 tolerance of the optimizer, resulting in CIs of width 0. This can also,
 result in the estimated CIs excluding the point estimate. For example:\if{html}{\out{<div class="r">}}\preformatted{chisq_to_cramers_v(13223.73, n = 76227, nrow = 6, ncol = 1)
-}\if{html}{\out{</div>}}\preformatted{## Cramer's V |       95\% CI
+}\if{html}{\out{</div>}}\preformatted{## Cramer's V |       90\% CI
 ## -------------------------
 ## 0.19       | [0.20, 0.20]
 }\if{html}{\out{<div class="r">}}\preformatted{t_to_d(80, df_error = 4555555)
 }\if{html}{\out{</div>}}\preformatted{## d    |       95\% CI
 ## -------------------
 ## 0.07 | [0.08, 0.08]
+}
+}
+
+\section{Choosing the Appropriate CI Level}{
+
+"Confidence intervals on measures of effect size convey all the information
+in a hypothesis test, and more" (Steiger, 2004). Essentially, a hypothesis
+test can be preformed by inspecting the CI - if it excludes the null
+hypothesized value, then we can conclude that the effect size is
+significantly different from this value. For 2-sided tests, such as those
+involving \emph{t}- or \emph{z}-statistics, the CI level should complement the
+significance level. So if \eqn{\alpha} = 5\%, then the confidence level should
+be 1-\eqn{\alpha} = 1-5\% = 95\%.
+\cr\cr
+However, one-sided hypothesis tests, such as those involving \emph{F}- or
+\eqn{\chi^2}-statistics (or one-tailed \emph{t}- or \emph{z}-tests), a two sided CI can
+include the null value even when the test itself is significant. One common
+solution is to use a two sided CI with a confidence level of 1-2\eqn{\alpha}
+= 1-2*5\% = 90\%. This is why across \code{effectsize}, effect sizes associated with
+\emph{F}- or \eqn{\chi^2}-statistics (Cramer's \emph{V}, \eqn{\eta^2}, ...) default to
+a 90\% CI.
+\cr\cr
+The problem with this solution is that it doesn't actually give 95\% coverage
+on the estimated effect size. To this end we can use a one-sided 95\% CI. This
+can be done by setting the upper bound of the CI to \code{Inf}. For example:\if{html}{\out{<div class="r">}}\preformatted{data("hardlyworking")
+fit <- lm(salary ~ n_comps + age, data = hardlyworking)
+etasq <- eta_squared(fit, ci = 0.90)
+etasq[["CI"]] <- 0.95
+etasq[["CI_high"]] <- Inf
+etasq
+}\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
+## 
+## Parameter | Eta2 (partial) |           95\% CI
+## ---------------------------------------------
+## n_comps   |           0.21 | [0.16,      Inf]
+## age       |           0.10 | [0.06,      Inf]
 }
 }
 

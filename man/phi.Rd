@@ -10,11 +10,11 @@
 \alias{cohens_g}
 \title{Effect size for contingency tables}
 \usage{
-phi(x, y = NULL, ci = 0.95, adjust = FALSE, ...)
+phi(x, y = NULL, ci = 0.9, adjust = FALSE, ...)
 
-cohens_w(x, y = NULL, ci = 0.95, adjust = FALSE, ...)
+cohens_w(x, y = NULL, ci = 0.9, adjust = FALSE, ...)
 
-cramers_v(x, y = NULL, ci = 0.95, adjust = FALSE, ...)
+cramers_v(x, y = NULL, ci = 0.9, adjust = FALSE, ...)
 
 oddsratio(x, y = NULL, ci = 0.95, log = FALSE, ...)
 

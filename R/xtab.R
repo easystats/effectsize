@@ -112,7 +112,7 @@
 #'
 #' @importFrom stats chisq.test
 #' @export
-phi <- function(x, y = NULL, ci = 0.95, adjust = FALSE, ...) {
+phi <- function(x, y = NULL, ci = 0.9, adjust = FALSE, ...) {
   if (inherits(x, "BFBayesFactor")) {
     if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
@@ -141,7 +141,7 @@ cohens_w <- phi
 #' @rdname phi
 #' @importFrom stats chisq.test
 #' @export
-cramers_v <- function(x, y = NULL, ci = 0.95, adjust = FALSE, ...) {
+cramers_v <- function(x, y = NULL, ci = 0.9, adjust = FALSE, ...) {
   if (inherits(x, "BFBayesFactor")) {
     if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)

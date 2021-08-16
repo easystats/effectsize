@@ -60,5 +60,4 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)
 \examples{
 model <- lm(Infant.Mortality ~ Education * Fertility, data = swiss)
 coef(standardize(model))
-
 }

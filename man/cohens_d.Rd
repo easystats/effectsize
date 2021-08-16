@@ -186,8 +186,6 @@ interpret(d, rules = "sawilowsky2009")
 d_to_common_language(1.48)
 # Or:
 print(d, append_CL = TRUE)
-
-
 }
 \references{
 \itemize{
