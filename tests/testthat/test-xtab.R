@@ -8,8 +8,8 @@ if (require("testthat") && require("effectsize")) {
     res <- cramers_v(contingency_table)
 
     expect_equal(res$Cramers_v, 0.072, tolerance = 0.01)
-    expect_equal(res$CI_low, 0.047, tolerance = 0.01)
-    expect_equal(res$CI_high, 0.091, tolerance = 0.01)
+    expect_equal(res$CI_low, 0.051, tolerance = 0.01)
+    expect_equal(res$CI_high, 0.088, tolerance = 0.01)
 
 
     ## Size does not affect estimate
