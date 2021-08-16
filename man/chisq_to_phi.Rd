@@ -7,11 +7,38 @@
 \alias{phi_to_chisq}
 \title{Conversion Chi-Squared to Phi or Cramer's V}
 \usage{
-chisq_to_phi(chisq, n, nrow, ncol, ci = 0.9, adjust = FALSE, ...)
+chisq_to_phi(
+  chisq,
+  n,
+  nrow,
+  ncol,
+  ci = 0.95,
+  alternative = "greater",
+  adjust = FALSE,
+  ...
+)
 
-chisq_to_cohens_w(chisq, n, nrow, ncol, ci = 0.9, adjust = FALSE, ...)
+chisq_to_cohens_w(
+  chisq,
+  n,
+  nrow,
+  ncol,
+  ci = 0.95,
+  alternative = "greater",
+  adjust = FALSE,
+  ...
+)
 
-chisq_to_cramers_v(chisq, n, nrow, ncol, ci = 0.9, adjust = FALSE, ...)
+chisq_to_cramers_v(
+  chisq,
+  n,
+  nrow,
+  ncol,
+  ci = 0.95,
+  alternative = "greater",
+  adjust = FALSE,
+  ...
+)
 
 phi_to_chisq(phi, n, ...)
 }
@@ -24,6 +51,11 @@ phi_to_chisq(phi, n, ...)
 for Phi when \code{adjust=FALSE} and \code{CI=NULL}).}
 
 \item{ci}{Confidence Interval (CI) level}
+
+\item{alternative}{a character string specifying the alternative hypothesis;
+Controls the type of CI returned: \code{"greater"} (default) or \code{"less"}
+(one-sided CI), or \code{"two.sided"} (default, two-sided CI). Partial matching
+is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...).}
 
 \item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
 
@@ -81,8 +113,8 @@ bound is arbitrarily set to 0 (Steiger, 2004). For example:\if{html}{\out{<div c
 ## 
 ## Parameter    | Eta2 (partial) |       90\% CI
 ## --------------------------------------------
-## factor(gear) |           0.58 | [0.00, 0.84]
-## factor(cyl)  |           0.46 | [0.00, 0.78]
+## factor(gear) |           0.58 | [0.00, 1.00]
+## factor(cyl)  |           0.46 | [0.00, 1.00]
 }
 }
 
@@ -93,7 +125,7 @@ chisq.test(contingency_table)
 #
 #         Pearson's Chi-squared test
 #
-# data:  ctab
+# data:  contingency_table
 # X-squared = 41.234, df = 4, p-value = 2.405e-08
 
 chisq_to_phi(41.234,

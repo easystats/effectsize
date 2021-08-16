@@ -16,35 +16,56 @@
 \title{Convert test statistics (F, t) to indices of \strong{partial} variance explained
 (\strong{partial} Eta / Omega / Epsilon squared and Cohen's f)}
 \usage{
-F_to_eta2(f, df, df_error, ci = 0.9, ...)
+F_to_eta2(f, df, df_error, ci = 0.95, alternative = "greater", ...)
 
-t_to_eta2(t, df_error, ci = 0.9, ...)
+t_to_eta2(t, df_error, ci = 0.95, alternative = "greater", ...)
 
-F_to_epsilon2(f, df, df_error, ci = 0.9, ...)
+F_to_epsilon2(f, df, df_error, ci = 0.95, alternative = "greater", ...)
 
-t_to_epsilon2(t, df_error, ci = 0.9, ...)
+t_to_epsilon2(t, df_error, ci = 0.95, alternative = "greater", ...)
 
-F_to_eta2_adj(f, df, df_error, ci = 0.9, ...)
+F_to_eta2_adj(f, df, df_error, ci = 0.95, alternative = "greater", ...)
 
-t_to_eta2_adj(t, df_error, ci = 0.9, ...)
+t_to_eta2_adj(t, df_error, ci = 0.95, alternative = "greater", ...)
 
-F_to_omega2(f, df, df_error, ci = 0.9, ...)
+F_to_omega2(f, df, df_error, ci = 0.95, alternative = "greater", ...)
 
-t_to_omega2(t, df_error, ci = 0.9, ...)
+t_to_omega2(t, df_error, ci = 0.95, alternative = "greater", ...)
 
-F_to_f(f, df, df_error, ci = 0.9, squared = FALSE, ...)
+F_to_f(
+  f,
+  df,
+  df_error,
+  ci = 0.95,
+  alternative = "greater",
+  squared = FALSE,
+  ...
+)
 
-t_to_f(t, df_error, ci = 0.9, squared = FALSE, ...)
+t_to_f(t, df_error, ci = 0.95, alternative = "greater", squared = FALSE, ...)
 
-F_to_f2(f, df, df_error, ci = 0.9, squared = TRUE, ...)
+F_to_f2(
+  f,
+  df,
+  df_error,
+  ci = 0.95,
+  alternative = "greater",
+  squared = TRUE,
+  ...
+)
 
-t_to_f2(t, df_error, ci = 0.9, squared = TRUE, ...)
+t_to_f2(t, df_error, ci = 0.95, alternative = "greater", squared = TRUE, ...)
 }
 \arguments{
 \item{df, df_error}{Degrees of freedom of numerator or of the error estimate
 (i.e., the residuals).}
 
 \item{ci}{Confidence Interval (CI) level}
+
+\item{alternative}{a character string specifying the alternative hypothesis;
+Controls the type of CI returned: \code{"greater"} (default) or \code{"less"}
+(one-sided CI), or \code{"two.sided"} (default, two-sided CI). Partial matching
+is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...).}
 
 \item{...}{Arguments passed to or from other methods.}
 
@@ -129,8 +150,8 @@ bound is arbitrarily set to 0 (Steiger, 2004). For example:\if{html}{\out{<div c
 ## 
 ## Parameter    | Eta2 (partial) |       90\% CI
 ## --------------------------------------------
-## factor(gear) |           0.58 | [0.00, 0.84]
-## factor(cyl)  |           0.46 | [0.00, 0.78]
+## factor(gear) |           0.58 | [0.00, 1.00]
+## factor(cyl)  |           0.46 | [0.00, 1.00]
 }
 }
 

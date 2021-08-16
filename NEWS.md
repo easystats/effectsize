@@ -2,11 +2,12 @@
 
 ## Breaking Changes
 
-- `phi()`, `cramers_v()` now defaults to a 90% CI.
+- Phi, Cohen's *w*, Cramer's *V*, ANOVA effect sizes, rank Epsilon squared, Kendall's *W* - CIs default to 95% one-sided (`alternative = "greater"`).
 - `adjust()`, `change_scale()`, `normalize()`, `ranktransform()`, `standardize()` (data), and `unstandardize()` have moved to the new [`{datawizard}`](https://easystats.github.io/datawizard) package!
 
 ## New features
 
+- All effect-size functions gain an `alternative` argument which can be used to make one- or two-sided CIs.
 - `interpret()` now accepts as input the results from `cohens_d()`, `eta_squared()`, `rank_biserial()`, etc.
 - `interpret_pd()` for the interpretation of the [*Probability of Direction*](https://easystats.github.io/bayestestR/reference/p_direction.html).
 

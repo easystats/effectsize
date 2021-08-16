@@ -14,6 +14,7 @@ cohens_d(
   mu = 0,
   paired = FALSE,
   ci = 0.95,
+  alternative = "two.sided",
   verbose = TRUE,
   ...
 )
@@ -26,6 +27,7 @@ hedges_g(
   mu = 0,
   paired = FALSE,
   ci = 0.95,
+  alternative = "two.sided",
   verbose = TRUE,
   ...,
   correction
@@ -37,6 +39,7 @@ glass_delta(
   data = NULL,
   mu = 0,
   ci = 0.95,
+  alternative = "two.sided",
   verbose = TRUE,
   ...,
   iterations
@@ -61,6 +64,11 @@ This produces an effect size that is equivalent to the one-sample effect
 size on \code{x - y}.}
 
 \item{ci}{Confidence Interval (CI) level}
+
+\item{alternative}{a character string specifying the alternative hypothesis;
+Controls the type of CI returned: \code{"two.sided"} (default, two-sided CI),
+\code{"greater"} or \code{"less"} (one-sided CI). Partial matching is allowed (e.g.,
+\code{"g"}, \code{"l"}, \code{"two"}...).}
 
 \item{verbose}{Toggle warnings and messages on or off.}
 
@@ -124,8 +132,8 @@ bound is arbitrarily set to 0 (Steiger, 2004). For example:\if{html}{\out{<div c
 ## 
 ## Parameter    | Eta2 (partial) |       90\% CI
 ## --------------------------------------------
-## factor(gear) |           0.58 | [0.00, 0.84]
-## factor(cyl)  |           0.46 | [0.00, 0.78]
+## factor(gear) |           0.58 | [0.00, 1.00]
+## factor(cyl)  |           0.46 | [0.00, 1.00]
 }
 }
 

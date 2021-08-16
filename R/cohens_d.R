@@ -15,6 +15,10 @@
 #' @param x A formula, a numeric vector, or a character name of one in `data`.
 #' @param y A numeric vector, a grouping (character / factor) vector, a or a
 #'   character  name of one in `data`. Ignored if `x` is a formula.
+#' @param alternative a character string specifying the alternative hypothesis;
+#'   Controls the type of CI returned: `"two.sided"` (default, two-sided CI),
+#'   `"greater"` or `"less"` (one-sided CI). Partial matching is allowed (e.g.,
+#'   `"g"`, `"l"`, `"two"`...).
 #' @param data An optional data frame containing the variables.
 #' @param pooled_sd If `TRUE` (default), a [sd_pooled()] is used (assuming equal
 #'   variance). Else the mean SD from both groups is used instead.
@@ -127,6 +131,7 @@ cohens_d <- function(x,
                      mu = 0,
                      paired = FALSE,
                      ci = 0.95,
+                     alternative = "two.sided",
                      verbose = TRUE,
                      ...) {
   if (inherits(x, "htest")) {
@@ -148,6 +153,7 @@ cohens_d <- function(x,
     data = data,
     type = "d",
     pooled_sd = pooled_sd,
+    alternative = alternative,
     mu = mu,
     paired = paired,
     ci = ci,
@@ -164,6 +170,7 @@ hedges_g <- function(x,
                      mu = 0,
                      paired = FALSE,
                      ci = 0.95,
+                     alternative = "two.sided",
                      verbose = TRUE,
                      ...,
                      correction) {
@@ -191,6 +198,7 @@ hedges_g <- function(x,
     data = data,
     type = "g",
     pooled_sd = pooled_sd,
+    alternative = alternative,
     mu = mu,
     paired = paired,
     ci = ci,
@@ -205,6 +213,7 @@ glass_delta <- function(x,
                         data = NULL,
                         mu = 0,
                         ci = 0.95,
+                        alternative = "two.sided",
                         verbose = TRUE,
                         ...,
                         iterations) {
@@ -218,6 +227,7 @@ glass_delta <- function(x,
     x,
     y = y,
     data = data,
+    alternative = alternative,
     mu = mu,
     type = "delta",
     ci = ci,
@@ -234,11 +244,13 @@ glass_delta <- function(x,
                                     data = NULL,
                                     type = "d",
                                     mu = 0,
+                                    alternative = "two.sided",
                                     pooled_sd = TRUE,
                                     paired = FALSE,
                                     ci = 0.95,
                                     verbose = TRUE,
                                     ...) {
+  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
   out <- .deal_with_cohens_d_arguments(x, y, data, verbose)
   x <- out$x
   y <- out$y
@@ -313,13 +325,21 @@ glass_delta <- function(x,
 
     # Add cis
     out$CI <- ci
+    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
     t <- (d - mu) / se
-    ts <- .get_ncp_t(t, df, ci)
+    ts <- .get_ncp_t(t, df, ci.level)
 
     out$CI_low <- ts[1] * sqrt(hn)
     out$CI_high <- ts[2] * sqrt(hn)
     ci_method <- list(method = "ncp", distribution = "t")
+    if (alternative == "less") {
+      out$CI_low <- -Inf
+    } else if (alternative == "greater") {
+      out$CI_high <- Inf
+    }
+  } else {
+    alternative <- NULL
   }
 
 
@@ -338,6 +358,7 @@ glass_delta <- function(x,
   attr(out, "ci") <- ci
   attr(out, "ci_method") <- ci_method
   attr(out, "approximate") <- FALSE
+  attr(out, "alternative") <- alternative
   return(out)
 }
 

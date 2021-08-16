@@ -37,8 +37,6 @@
 #' tolerance of the optimizer, resulting in CIs of width 0. This can also,
 #' result in the estimated CIs excluding the point estimate. For example:
 #' ```{r}
-#' chisq_to_cramers_v(13223.73, n = 76227, nrow = 6, ncol = 1)
-#'
 #' t_to_d(80, df_error = 4555555)
 #' ```
 #'

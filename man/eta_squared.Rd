@@ -202,8 +202,8 @@ bound is arbitrarily set to 0 (Steiger, 2004). For example:\if{html}{\out{<div c
 ## 
 ## Parameter    | Eta2 (partial) |       90\% CI
 ## --------------------------------------------
-## factor(gear) |           0.58 | [0.00, 0.84]
-## factor(cyl)  |           0.46 | [0.00, 0.78]
+## factor(gear) |           0.58 | [0.00, 1.00]
+## factor(cyl)  |           0.46 | [0.00, 1.00]
 }
 }
 

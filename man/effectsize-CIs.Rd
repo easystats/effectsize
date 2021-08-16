@@ -37,8 +37,8 @@ bound is arbitrarily set to 0 (Steiger, 2004). For example:\if{html}{\out{<div c
 ## 
 ## Parameter    | Eta2 (partial) |       90\% CI
 ## --------------------------------------------
-## factor(gear) |           0.58 | [0.00, 0.84]
-## factor(cyl)  |           0.46 | [0.00, 0.78]
+## factor(gear) |           0.58 | [0.00, 1.00]
+## factor(cyl)  |           0.46 | [0.00, 1.00]
 }
 }
 
@@ -46,11 +46,7 @@ bound is arbitrarily set to 0 (Steiger, 2004). For example:\if{html}{\out{<div c
 
 For very large sample sizes, the width of the CI can be smaller than the
 tolerance of the optimizer, resulting in CIs of width 0. This can also,
-result in the estimated CIs excluding the point estimate. For example:\if{html}{\out{<div class="r">}}\preformatted{chisq_to_cramers_v(13223.73, n = 76227, nrow = 6, ncol = 1)
-}\if{html}{\out{</div>}}\preformatted{## Cramer's V |       90\% CI
-## -------------------------
-## 0.19       | [0.20, 0.20]
-}\if{html}{\out{<div class="r">}}\preformatted{t_to_d(80, df_error = 4555555)
+result in the estimated CIs excluding the point estimate. For example:\if{html}{\out{<div class="r">}}\preformatted{t_to_d(80, df_error = 4555555)
 }\if{html}{\out{</div>}}\preformatted{## d    |       95\% CI
 ## -------------------
 ## 0.07 | [0.08, 0.08]
@@ -88,8 +84,8 @@ etasq
 ## 
 ## Parameter | Eta2 (partial) |           95\% CI
 ## ---------------------------------------------
-## n_comps   |           0.21 | [0.16,      Inf]
-## age       |           0.10 | [0.06,      Inf]
+## n_comps   |           0.21 | [0.17,      Inf]
+## age       |           0.10 | [0.07,      Inf]
 }
 }
 

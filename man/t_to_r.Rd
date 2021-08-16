@@ -10,17 +10,33 @@
 \title{Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d)
 or association (\strong{partial} r)}
 \usage{
-t_to_d(t, df_error, paired = FALSE, ci = 0.95, pooled, ...)
+t_to_d(
+  t,
+  df_error,
+  paired = FALSE,
+  ci = 0.95,
+  alternative = "two.sided",
+  pooled,
+  ...
+)
 
-z_to_d(z, n, paired = FALSE, ci = 0.95, pooled, ...)
+z_to_d(z, n, paired = FALSE, ci = 0.95, alternative = "two.sided", pooled, ...)
 
-F_to_d(f, df, df_error, paired = FALSE, ci = 0.95, ...)
+F_to_d(
+  f,
+  df,
+  df_error,
+  paired = FALSE,
+  ci = 0.95,
+  alternative = "two.sided",
+  ...
+)
 
-t_to_r(t, df_error, ci = 0.95, ...)
+t_to_r(t, df_error, ci = 0.95, alternative = "two.sided", ...)
 
-z_to_r(z, n, ci = 0.95, ...)
+z_to_r(z, n, ci = 0.95, alternative = "two.sided", ...)
 
-F_to_r(f, df, df_error, ci = 0.95, ...)
+F_to_r(f, df, df_error, ci = 0.95, alternative = "two.sided", ...)
 }
 \arguments{
 \item{t, f, z}{The t, the F or the z statistics.}
@@ -29,6 +45,11 @@ F_to_r(f, df, df_error, ci = 0.95, ...)
 difference between dependent means?}
 
 \item{ci}{Confidence Interval (CI) level}
+
+\item{alternative}{a character string specifying the alternative hypothesis;
+Controls the type of CI returned: \code{"two.sided"} (default, two-sided CI),
+\code{"greater"} or \code{"less"} (one-sided CI). Partial matching is allowed (e.g.,
+\code{"g"}, \code{"l"}, \code{"two"}...).}
 
 \item{pooled}{Deprecated. Use \code{paired}.}
 
@@ -100,8 +121,8 @@ bound is arbitrarily set to 0 (Steiger, 2004). For example:\if{html}{\out{<div c
 ## 
 ## Parameter    | Eta2 (partial) |       90\% CI
 ## --------------------------------------------
-## factor(gear) |           0.58 | [0.00, 0.84]
-## factor(cyl)  |           0.46 | [0.00, 0.78]
+## factor(gear) |           0.58 | [0.00, 1.00]
+## factor(cyl)  |           0.46 | [0.00, 1.00]
 }
 }
 
@@ -117,8 +138,7 @@ t_to_r(t = res$statistic, res$parameter)
 \donttest{
 ## Linear Regression
 model <- lm(rating ~ complaints + critical, data = attitude)
-library(parameters)
-(param_tab <- parameters(model))
+(param_tab <- parameters::model_parameters(model))
 
 (rs <- t_to_r(param_tab$t[2:3], param_tab$df_error[2:3]))
 
@@ -127,17 +147,6 @@ if (require(see)) plot(rs)
 # How does this compare to actual partial correlations?
 if (require("correlation")) {
   correlation::correlation(attitude[, c(1, 2, 6)], partial = TRUE)[1:2, c(2, 3, 7, 8)]
-}
-
-## Use with emmeans based contrasts (see also t_to_eta2)
-if (require(emmeans)) {
-  warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
-
-
-  # Also see emmeans::eff_size()
-  em_tension <- emmeans(warp.lm, ~tension) #'
-  diff_tension <- summary(pairs(em_tension))
-  t_to_d(diff_tension$t.ratio, diff_tension$df)
 }
 }
 

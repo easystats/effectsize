@@ -10,19 +10,19 @@
 \alias{cohens_g}
 \title{Effect size for contingency tables}
 \usage{
-phi(x, y = NULL, ci = 0.9, adjust = FALSE, ...)
+phi(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
 
-cohens_w(x, y = NULL, ci = 0.9, adjust = FALSE, ...)
+cohens_w(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
 
-cramers_v(x, y = NULL, ci = 0.9, adjust = FALSE, ...)
+cramers_v(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
 
-oddsratio(x, y = NULL, ci = 0.95, log = FALSE, ...)
+oddsratio(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...)
 
-riskratio(x, y = NULL, ci = 0.95, log = FALSE, ...)
+riskratio(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...)
 
-cohens_h(x, y = NULL, ci = 0.95, ...)
+cohens_h(x, y = NULL, ci = 0.95, alternative = "two.sided", ...)
 
-cohens_g(x, y = NULL, ci = 0.95, ...)
+cohens_g(x, y = NULL, ci = 0.95, alternative = "two.sided", ...)
 }
 \arguments{
 \item{x}{a numeric vector or matrix. \code{x} and \code{y} can also
@@ -32,6 +32,12 @@ cohens_g(x, y = NULL, ci = 0.95, ...)
     \code{x} is a factor, \code{y} should be a factor of the same length.}
 
 \item{ci}{Confidence Interval (CI) level}
+
+\item{alternative}{a character string specifying the alternative hypothesis;
+Controls the type of CI returned: \code{"two.sided"} (two-sided CI; default for
+Cramer's \emph{V}, phi (\eqn{\phi}), and Cohen's \emph{w}), \code{"greater"} (default for
+OR, RR, Cohen's \emph{h} and Cohen's \emph{g}) or \code{"less"} (one-sided CI). Partial
+matching is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...).}
 
 \item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
 
@@ -113,8 +119,8 @@ bound is arbitrarily set to 0 (Steiger, 2004). For example:\if{html}{\out{<div c
 ## 
 ## Parameter    | Eta2 (partial) |       90\% CI
 ## --------------------------------------------
-## factor(gear) |           0.58 | [0.00, 0.84]
-## factor(cyl)  |           0.46 | [0.00, 0.78]
+## factor(gear) |           0.58 | [0.00, 1.00]
+## factor(cyl)  |           0.46 | [0.00, 1.00]
 }
 }
 
