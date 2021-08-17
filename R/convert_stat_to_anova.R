@@ -175,7 +175,7 @@ t_to_omega2 <- function(t, df_error, ci = 0.95, alternative = "greater", ...) {
 #' @param squared Return Cohen's *f* or Cohen's *f*-squared?
 #' @export
 F_to_f <- function(f, df, df_error, ci = 0.95, alternative = "greater", squared = FALSE, ...) {
-  res_eta <- F_to_eta2(f, df, df_error, ci = ci)
+  res_eta <- F_to_eta2(f, df, df_error, ci = ci, alternative = alternative)
 
   res <- data.frame(
     Cohens_f2_partial =
@@ -200,6 +200,7 @@ F_to_f <- function(f, df, df_error, ci = 0.95, alternative = "greater", squared 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
   attr(res, "ci_method") <- ci_method
+  attr(res, "alternative") <- if (is.numeric(ci)) alternative
   return(res)
 }
 

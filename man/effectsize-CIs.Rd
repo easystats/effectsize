@@ -28,18 +28,24 @@ supported by the data; Instead this merely reflects a non-significant test
 statistic - i.e. the \emph{p}-value is greater than alpha (Morey et al., 2016).
 \cr\cr
 For positive only effect sizes (Eta squared, Cramer's V, etc.; Effect sizes
-associated with Chi-squared and F distributions), this applies also to cases
-where the lower bound of the CI is equal to 0. Even more care should be taken
-when the \emph{upper} bound is equal to 0 - this occurs when \emph{p}-value is greater
-than 1-alpha/2 making, the upper bound cannot be estimated, and the upper
-bound is arbitrarily set to 0 (Steiger, 2004). For example:\if{html}{\out{<div class="r">}}\preformatted{eta_squared(aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:7, ]))
+associated with Chi-squared and F distributions), and for one-sided CIs in
+general, this applies also to cases where the lower bound of the CI is equal
+to 0. For example:\if{html}{\out{<div class="r">}}\preformatted{fit <- aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:6, ])
+eta_squared(fit)
 }\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
 ## 
-## Parameter    | Eta2 (partial) |       90\% CI
+## Parameter    | Eta2 (partial) |       95\% CI
 ## --------------------------------------------
-## factor(gear) |           0.58 | [0.00, 1.00]
-## factor(cyl)  |           0.46 | [0.00, 1.00]
+## factor(gear) |           0.57 | [0.00, 1.00]
+## factor(cyl)  |           0.35 | [0.00, 1.00]
+## 
+## - One-sided CIs: upper bound fixed at (1).
 }
+
+Even more care should be taken when the \emph{upper} bound is equal to 0 - this
+occurs when \emph{p}-value is greater than 1-alpha/2 making, the upper bound
+cannot be estimated, and the upper bound is arbitrarily set to 0 (Steiger,
+2004).
 }
 
 \section{CI Does Not Contain the Estimate}{
@@ -53,39 +59,53 @@ result in the estimated CIs excluding the point estimate. For example:\if{html}{
 }
 }
 
-\section{Choosing the Appropriate CI Level}{
+\section{One-Sided CIs}{
 
 "Confidence intervals on measures of effect size convey all the information
 in a hypothesis test, and more" (Steiger, 2004). Essentially, a hypothesis
 test can be preformed by inspecting the CI - if it excludes the null
 hypothesized value, then we can conclude that the effect size is
 significantly different from this value. For 2-sided tests, such as those
-involving \emph{t}- or \emph{z}-statistics, the CI level should complement the
-significance level. So if \eqn{\alpha} = 5\%, then the confidence level should
-be 1-\eqn{\alpha} = 1-5\% = 95\%.
+typically involving \emph{t}- or \emph{z}-statistics, this is done by estimating an
+upper bound, which indicates values the effect size is significantly smaller
+than, and a lower bound, which indicates values the effect size is
+significantly larger than.
 \cr\cr
 However, one-sided hypothesis tests, such as those involving \emph{F}- or
-\eqn{\chi^2}-statistics (or one-tailed \emph{t}- or \emph{z}-tests), a two sided CI can
-include the null value even when the test itself is significant. One common
-solution is to use a two sided CI with a confidence level of 1-2\eqn{\alpha}
-= 1-2*5\% = 90\%. This is why across \code{effectsize}, effect sizes associated with
+\eqn{\chi^2}-statistics (or one-tailed \emph{t}- or \emph{z}-tests), test if the
+estimated effect size is \emph{larger} than the null hypothesized value.
+Accordingly, the constructed CI is constructed by estimating only a \emph{lower
+bound}, which indicates values the effect size is significantly larger than,
+whereas the \emph{upper bound} is fixed at the maximal possible value of the
+effect size, since there is no value \emph{above} the estimated effect size that
+is significantly \emph{smaller} than it. (And vice versa for one-sided tests of
+inferiority.) This is why across \code{effectsize}, effect sizes associated with
 \emph{F}- or \eqn{\chi^2}-statistics (Cramer's \emph{V}, \eqn{\eta^2}, ...) default to
-a 90\% CI.
+a 95\% CI with \code{alternative = "greater"}, to construct one sided CIs.
 \cr\cr
-The problem with this solution is that it doesn't actually give 95\% coverage
-on the estimated effect size. To this end we can use a one-sided 95\% CI. This
-can be done by setting the upper bound of the CI to \code{Inf}. For example:\if{html}{\out{<div class="r">}}\preformatted{data("hardlyworking")
+An alternative solution that can often be found in the literature is to
+construct a two-sided CI at a lower confidence level (1-2\eqn{\alpha} =
+1-2*5\% = 90\%), which gives the same lower bound, but also estimates an upper
+bound. Although this can be useful for equivalence testing, it should be
+noted that this solution doesn't actually give 95\% coverage on the estimated
+effect size. For example:\if{html}{\out{<div class="r">}}\preformatted{data("hardlyworking")
 fit <- lm(salary ~ n_comps + age, data = hardlyworking)
-etasq <- eta_squared(fit, ci = 0.90)
-etasq[["CI"]] <- 0.95
-etasq[["CI_high"]] <- Inf
-etasq
+eta_squared(fit)
 }\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
 ## 
-## Parameter | Eta2 (partial) |           95\% CI
-## ---------------------------------------------
-## n_comps   |           0.21 | [0.17,      Inf]
-## age       |           0.10 | [0.07,      Inf]
+## Parameter | Eta2 (partial) |       95\% CI
+## -----------------------------------------
+## n_comps   |           0.21 | [0.16, 1.00]
+## age       |           0.10 | [0.06, 1.00]
+## 
+## - One-sided CIs: upper bound fixed at (1).
+}\if{html}{\out{<div class="r">}}\preformatted{eta_squared(fit, ci = 0.9, alternative = "two.sided")
+}\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
+## 
+## Parameter | Eta2 (partial) |       90\% CI
+## -----------------------------------------
+## n_comps   |           0.21 | [0.16, 0.26]
+## age       |           0.10 | [0.06, 0.14]
 }
 }
 

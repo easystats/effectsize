@@ -20,7 +20,7 @@
 #' @param alternative a character string specifying the alternative hypothesis;
 #'   Controls the type of CI returned: `"two.sided"` (default, two-sided CI),
 #'   `"greater"` or `"less"` (one-sided CI). Partial matching is allowed (e.g.,
-#'   `"g"`, `"l"`, `"two"`...).
+#'   `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in [effectsize-CIs].
 #' @param pooled Deprecated. Use `paired`.
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods.
@@ -57,10 +57,13 @@
 #' res <- t.test(1:10, y = c(7:20), var.equal = TRUE)
 #' t_to_d(t = res$statistic, res$parameter)
 #' t_to_r(t = res$statistic, res$parameter)
+#' t_to_r(t = res$statistic, res$parameter, alternative = "less")
 #'
 #' res <- with(sleep, t.test(extra[group == 1], extra[group == 2], paired = TRUE))
 #' t_to_d(t = res$statistic, res$parameter, paired = TRUE)
 #' t_to_r(t = res$statistic, res$parameter)
+#' t_to_r(t = res$statistic, res$parameter, alternative = "greater")
+#'
 #' \donttest{
 #' ## Linear Regression
 #' model <- lm(rating ~ complaints + critical, data = attitude)

@@ -10,7 +10,8 @@
 #'   Controls the type of CI returned: `"two.sided"` (two-sided CI; default for
 #'   Cramer's *V*, phi (\eqn{\phi}), and Cohen's *w*), `"greater"` (default for
 #'   OR, RR, Cohen's *h* and Cohen's *g*) or `"less"` (one-sided CI). Partial
-#'   matching is allowed (e.g., `"g"`, `"l"`, `"two"`...).
+#'   matching is allowed (e.g., `"g"`, `"l"`, `"two"`...). See *One-Sided CIs*
+#'   in [effectsize-CIs].
 #' @param adjust Should the effect size be bias-corrected? Defaults to `FALSE`.
 #' @param ... Arguments passed to [stats::chisq.test()], such as `p`. Ignored
 #'   for `cohens_g()`.
@@ -90,6 +91,7 @@
 #' )) # note groups are COLUMNS
 #'
 #' oddsratio(RCT)
+#' oddsratio(RCT, alternative = "greater")
 #'
 #' riskratio(RCT)
 #'

@@ -55,7 +55,8 @@ for Phi when \code{adjust=FALSE} and \code{CI=NULL}).}
 \item{alternative}{a character string specifying the alternative hypothesis;
 Controls the type of CI returned: \code{"greater"} (default) or \code{"less"}
 (one-sided CI), or \code{"two.sided"} (default, two-sided CI). Partial matching
-is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...).}
+is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in
+\link{effectsize-CIs}.}
 
 \item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
 
@@ -104,18 +105,24 @@ supported by the data; Instead this merely reflects a non-significant test
 statistic - i.e. the \emph{p}-value is greater than alpha (Morey et al., 2016).
 \cr\cr
 For positive only effect sizes (Eta squared, Cramer's V, etc.; Effect sizes
-associated with Chi-squared and F distributions), this applies also to cases
-where the lower bound of the CI is equal to 0. Even more care should be taken
-when the \emph{upper} bound is equal to 0 - this occurs when \emph{p}-value is greater
-than 1-alpha/2 making, the upper bound cannot be estimated, and the upper
-bound is arbitrarily set to 0 (Steiger, 2004). For example:\if{html}{\out{<div class="r">}}\preformatted{eta_squared(aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:7, ]))
+associated with Chi-squared and F distributions), and for one-sided CIs in
+general, this applies also to cases where the lower bound of the CI is equal
+to 0. For example:\if{html}{\out{<div class="r">}}\preformatted{fit <- aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:6, ])
+eta_squared(fit)
 }\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
 ## 
-## Parameter    | Eta2 (partial) |       90\% CI
+## Parameter    | Eta2 (partial) |       95\% CI
 ## --------------------------------------------
-## factor(gear) |           0.58 | [0.00, 1.00]
-## factor(cyl)  |           0.46 | [0.00, 1.00]
+## factor(gear) |           0.57 | [0.00, 1.00]
+## factor(cyl)  |           0.35 | [0.00, 1.00]
+## 
+## - One-sided CIs: upper bound fixed at (1).
 }
+
+Even more care should be taken when the \emph{upper} bound is equal to 0 - this
+occurs when \emph{p}-value is greater than 1-alpha/2 making, the upper bound
+cannot be estimated, and the upper bound is arbitrarily set to 0 (Steiger,
+2004).
 }
 
 \examples{

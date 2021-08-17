@@ -196,7 +196,7 @@ print.effectsize_anova <- function(x, digits = 2, ...) {
     } else {
       footer <- paste0("\n- Observed variabels: ", paste0(obs, collapse = ", "))
     }
-    footer <- c(footer, "cyan")
+    footer <- list(c(footer, "cyan"))
   }
 
   attr(x, "table_footer") <- footer

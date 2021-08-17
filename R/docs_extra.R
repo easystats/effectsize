@@ -22,15 +22,17 @@
 #' statistic - i.e. the *p*-value is greater than alpha (Morey et al., 2016).
 #' \cr\cr
 #' For positive only effect sizes (Eta squared, Cramer's V, etc.; Effect sizes
-#' associated with Chi-squared and F distributions), this applies also to cases
-#' where the lower bound of the CI is equal to 0. Even more care should be taken
-#' when the *upper* bound is equal to 0 - this occurs when *p*-value is greater
-#' than 1-alpha/2 making, the upper bound cannot be estimated, and the upper
-#' bound is arbitrarily set to 0 (Steiger, 2004). For example:
+#' associated with Chi-squared and F distributions), and for one-sided CIs in
+#' general, this applies also to cases where the lower bound of the CI is equal
+#' to 0. For example:
 #' ```{r}
-#' eta_squared(aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:7, ]))
+#' fit <- aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:6, ])
+#' eta_squared(fit)
 #' ```
-#'
+#' Even more care should be taken when the *upper* bound is equal to 0 - this
+#' occurs when *p*-value is greater than 1-alpha/2 making, the upper bound
+#' cannot be estimated, and the upper bound is arbitrarily set to 0 (Steiger,
+#' 2004).
 #'
 #' @section CI Does Not Contain the Estimate:
 #' For very large sample sizes, the width of the CI can be smaller than the
@@ -40,34 +42,40 @@
 #' t_to_d(80, df_error = 4555555)
 #' ```
 #'
-#' @section Choosing the Appropriate CI Level:
+#' @section One-Sided CIs:
 #' "Confidence intervals on measures of effect size convey all the information
 #' in a hypothesis test, and more" (Steiger, 2004). Essentially, a hypothesis
 #' test can be preformed by inspecting the CI - if it excludes the null
 #' hypothesized value, then we can conclude that the effect size is
 #' significantly different from this value. For 2-sided tests, such as those
-#' involving *t*- or *z*-statistics, the CI level should complement the
-#' significance level. So if \eqn{\alpha} = 5%, then the confidence level should
-#' be 1-\eqn{\alpha} = 1-5% = 95%.
+#' typically involving *t*- or *z*-statistics, this is done by estimating an
+#' upper bound, which indicates values the effect size is significantly smaller
+#' than, and a lower bound, which indicates values the effect size is
+#' significantly larger than.
 #' \cr\cr
 #' However, one-sided hypothesis tests, such as those involving *F*- or
-#' \eqn{\chi^2}-statistics (or one-tailed *t*- or *z*-tests), a two sided CI can
-#' include the null value even when the test itself is significant. One common
-#' solution is to use a two sided CI with a confidence level of 1-2\eqn{\alpha}
-#' = 1-2*5% = 90%. This is why across `effectsize`, effect sizes associated with
+#' \eqn{\chi^2}-statistics (or one-tailed *t*- or *z*-tests), test if the
+#' estimated effect size is *larger* than the null hypothesized value.
+#' Accordingly, the constructed CI is constructed by estimating only a *lower
+#' bound*, which indicates values the effect size is significantly larger than,
+#' whereas the *upper bound* is fixed at the maximal possible value of the
+#' effect size, since there is no value *above* the estimated effect size that
+#' is significantly *smaller* than it. (And vice versa for one-sided tests of
+#' inferiority.) This is why across `effectsize`, effect sizes associated with
 #' *F*- or \eqn{\chi^2}-statistics (Cramer's *V*, \eqn{\eta^2}, ...) default to
-#' a 90% CI.
+#' a 95% CI with `alternative = "greater"`, to construct one sided CIs.
 #' \cr\cr
-#' The problem with this solution is that it doesn't actually give 95% coverage
-#' on the estimated effect size. To this end we can use a one-sided 95% CI. This
-#' can be done by setting the upper bound of the CI to `Inf`. For example:
+#' An alternative solution that can often be found in the literature is to
+#' construct a two-sided CI at a lower confidence level (1-2\eqn{\alpha} =
+#' 1-2*5% = 90%), which gives the same lower bound, but also estimates an upper
+#' bound. Although this can be useful for equivalence testing, it should be
+#' noted that this solution doesn't actually give 95% coverage on the estimated
+#' effect size. For example:
 #' ```{r}
 #' data("hardlyworking")
 #' fit <- lm(salary ~ n_comps + age, data = hardlyworking)
-#' etasq <- eta_squared(fit, ci = 0.90)
-#' etasq[["CI"]] <- 0.95
-#' etasq[["CI_high"]] <- Inf
-#' etasq
+#' eta_squared(fit)
+#' eta_squared(fit, ci = 0.9, alternative = "two.sided")
 #' ```
 #'
 #' @references

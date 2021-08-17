@@ -11,7 +11,8 @@
 #' @param alternative a character string specifying the alternative hypothesis;
 #'   Controls the type of CI returned: `"greater"` (default) or `"less"`
 #'   (one-sided CI), or `"two.sided"` (default, two-sided CI). Partial matching
-#'   is allowed (e.g., `"g"`, `"l"`, `"two"`...).
+#'   is allowed (e.g., `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in
+#'   [effectsize-CIs].
 #' @param adjust Should the effect size be bias-corrected? Defaults to `FALSE`.
 #' @param ... Arguments passed to or from other methods.
 #'

@@ -18,7 +18,7 @@
 #' @param alternative a character string specifying the alternative hypothesis;
 #'   Controls the type of CI returned: `"two.sided"` (default, two-sided CI),
 #'   `"greater"` or `"less"` (one-sided CI). Partial matching is allowed (e.g.,
-#'   `"g"`, `"l"`, `"two"`...).
+#'   `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in [effectsize-CIs].
 #' @param data An optional data frame containing the variables.
 #' @param pooled_sd If `TRUE` (default), a [sd_pooled()] is used (assuming equal
 #'   variance). Else the mean SD from both groups is used instead.
@@ -62,6 +62,7 @@
 #' # More options:
 #' cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)
 #' cohens_d(mpg ~ am, data = mtcars, mu = -5)
+#' cohens_d(mpg ~ am, data = mtcars, alternative = "less")
 #' hedges_g(mpg ~ am, data = mtcars)
 #' glass_delta(mpg ~ am, data = mtcars)
 #'

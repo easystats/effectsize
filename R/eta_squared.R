@@ -92,7 +92,6 @@
 #' @inheritSection effectsize-CIs Confidence Intervals
 #' @inheritSection effectsize-CIs CI Contains Zero
 #'
-#'
 #' @seealso [F_to_eta2()]
 #' @family effect size indices
 #'
@@ -222,15 +221,16 @@
 eta_squared <- function(model,
                         partial = TRUE,
                         generalized = FALSE,
-                        ci = 0.9,
+                        ci = 0.95, alternative = "greater",
                         verbose = TRUE,
                         ...) {
+  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
   out <- .anova_es(
     model,
     type = "eta",
     partial = partial,
     generalized = generalized,
-    ci = ci,
+    ci = ci, alternative = alternative,
     verbose = verbose,
     ...
   )
@@ -244,10 +244,11 @@ eta_squared <- function(model,
 #' @export
 omega_squared <- function(model,
                           partial = TRUE,
-                          ci = 0.9,
+                          ci = 0.95, alternative = "greater",
                           verbose = TRUE,
                           ...) {
-  out <- .anova_es(model, type = "omega", partial = partial, ci = ci, verbose = verbose, ...)
+  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  out <- .anova_es(model, type = "omega", partial = partial, ci = ci, alternative = alternative, verbose = verbose, ...)
   if (!inherits(model, "htest")) class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
   if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
   attr(out, "approximate") <- isTRUE(attr(out, "approximate", exact = TRUE))
@@ -258,10 +259,11 @@ omega_squared <- function(model,
 #' @export
 epsilon_squared <- function(model,
                             partial = TRUE,
-                            ci = 0.9,
+                            ci = 0.95, alternative = "greater",
                             verbose = TRUE,
                             ...) {
-  out <- .anova_es(model, type = "epsilon", partial = partial, ci = ci, verbose = verbose, ...)
+  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  out <- .anova_es(model, type = "epsilon", partial = partial, ci = ci, alternative = alternative, verbose = verbose, ...)
   if (!inherits(model, "htest")) class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
   if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
   attr(out, "approximate") <- isTRUE(attr(out, "approximate", exact = TRUE))
@@ -273,16 +275,17 @@ epsilon_squared <- function(model,
 #' @param model2 Optional second model for Cohen's f (/squared). If specified,
 #'   returns the effect size for R-squared-change between the two models.
 #' @export
-cohens_f <- function(model, partial = TRUE, ci = 0.9, squared = FALSE,
+cohens_f <- function(model, partial = TRUE, ci = 0.95, alternative = "greater", squared = FALSE,
                      verbose = TRUE,
                      model2 = NULL, ...) {
+  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
   if (!is.null(model2)) {
-    return(.cohens_f_delta(model, model2, ci = ci, squared = squared, verbose = verbose))
+    return(.cohens_f_delta(model, model2, ci = ci, alternative = alternative, squared = squared, verbose = verbose))
   }
 
   res <- eta_squared(model,
     partial = partial,
-    ci = ci,
+    ci = ci, alternative = alternative,
     verbose = verbose,
     ...
   )
@@ -316,13 +319,14 @@ cohens_f <- function(model, partial = TRUE, ci = 0.9, squared = FALSE,
 
 #' @rdname eta_squared
 #' @export
-cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
+cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "greater", squared = TRUE,
                              verbose = TRUE,
                              model2 = NULL, ...) {
+  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
   cohens_f(
     model,
     partial = partial,
-    ci = ci,
+    ci = ci, alternative = alternative,
     squared = squared,
     verbose = verbose,
     model2 = model2,
@@ -333,7 +337,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
 #' @keywords internal
 #' @importFrom insight model_info
-.cohens_f_delta <- function(model, model2, ci = 0.9, squared = FALSE, verbose = TRUE) {
+.cohens_f_delta <- function(model, model2, ci = 0.95, alternative = "greater", squared = FALSE, verbose = TRUE) {
   # check
   if (!inherits(model, "lm") ||
       !inherits(model2, "lm") ||
@@ -347,8 +351,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   # Anova
   ANOVA <- anova(model, model2)
   out <- F_to_f(ANOVA[2, "F"], abs(ANOVA[2, "Df"]), min(ANOVA["Res.Df"]),
-                ci = ci, squared = squared
-  )
+                ci = ci, alternative = alternative,
+                squared = squared)
 
   R2d <- performance::r2(model)[[1]] - performance::r2(model2)[[1]]
   out$R2_delta <- abs(R2d)
@@ -364,7 +368,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
            type = c("eta", "omega", "epsilon"),
            partial = TRUE,
            generalized = FALSE,
-           ci = 0.9,
+           ci = 0.95, alternative = "greater",
            verbose = TRUE,
            ...) {
     UseMethod(".anova_es")
@@ -376,7 +380,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                               type = c("eta", "omega", "epsilon"),
                               partial = TRUE,
                               generalized = FALSE,
-                              ci = 0.9,
+                              ci = 0.95, alternative = "greater",
                               verbose = TRUE,
                               ...) {
   .anova_es.anova(
@@ -385,6 +389,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     partial = partial,
     generalized = generalized,
     ci = ci,
+    alternative = alternative,
     verbose = verbose
   )
 }
@@ -396,7 +401,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,
                           generalized = FALSE,
-                          ci = 0.9,
+                          ci = 0.95, alternative = "greater",
                           verbose = TRUE,
                           ...) {
   if (!inherits(model, c("Gam", "anova"))) {
@@ -406,7 +411,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       type = type,
       partial = partial,
       generalized = generalized,
-      ci = ci,
+      ci = ci, alternative = alternative,
       verbose = verbose,
       ...
     )
@@ -416,7 +421,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   type <- match.arg(type)
 
   params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
-  out <- .es_aov(as.data.frame(params), type, partial, generalized, ci, verbose = verbose, ...)
+  out <- .es_aov(as.data.frame(params), type, partial, generalized, ci, alternative, verbose = verbose, ...)
   if (is.null(attr(out, "anova_type"))) attr(out, "anova_type") <- attr(params, "anova_type")
   out
 }
@@ -426,7 +431,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                     type = c("eta", "omega", "epsilon"),
                     partial = TRUE,
                     generalized = FALSE,
-                    ci = 0.9,
+                    ci = 0.95, alternative = "greater",
                     verbose = TRUE,
                     include_intercept = FALSE,
                     ...) {
@@ -529,9 +534,11 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       F_to_eta2(f,
         out$df,
         df_error,
-        ci = ci
+        ci = ci, alternative = alternative
       )[-1]
     )
+  } else {
+    alternative <- NULL
   }
 
 
@@ -548,6 +555,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   attr(out, "ci") <- ci
   attr(out, "anova_type") <- anova_type
   attr(out, "approximate") <- FALSE
+  attr(out, "alternative") <- alternative
   out
 }
 
@@ -564,7 +572,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                               type = c("eta", "omega", "epsilon"),
                               partial = TRUE,
                               generalized = FALSE,
-                              ci = 0.9,
+                              ci = 0.95, alternative = "greater",
                               verbose = TRUE,
                               include_intercept = FALSE,
                               ...) {
@@ -581,7 +589,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       type = type,
       partial = partial,
       generalized = generalized,
-      ci = ci,
+      ci = ci, alternative = alternative,
       verbose = verbose,
       include_intercept = include_intercept
     )
@@ -594,7 +602,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                         type = c("eta", "omega", "epsilon"),
                         partial = TRUE,
                         generalized = FALSE,
-                        ci = 0.9,
+                        ci = 0.95, alternative = "greater",
                         verbose = TRUE,
                         include_intercept = FALSE) {
   type <- match.arg(type)
@@ -690,9 +698,11 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       F_to_eta2(f,
                 out$df,
                 df_residuals,
-                ci = ci
+                ci = ci, alternative = alternative
       )[-1]
     )
+  } else {
+    alternative <- NULL
   }
 
   out <- out[, colnames(out) %in% c(
@@ -716,6 +726,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   attr(out, "generalized") <- generalized
   attr(out, "ci") <- ci
   attr(out, "approximate") <- FALSE
+  attr(out, "alternative") <- alternative
   out
 }
 
@@ -726,7 +737,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,
                           generalized = FALSE,
-                          ci = 0.9,
+                          ci = 0.95, alternative = "greater",
                           verbose = TRUE,
                           ...) {
   model <- stats::aov(model)
@@ -739,7 +750,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     type = type,
     partial = partial,
     generalized = generalized,
-    ci = ci,
+    ci = ci, alternative = alternative,
     verbose = verbose,
     ...
   )
@@ -751,6 +762,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   attr(out, "ci") <- attr(params[[1]], "ci", exact = TRUE)
   attr(out, "anova_type") <- anova_type
   attr(out, "approximate") <- FALSE
+  attr(out, "alternative") <- if (is.numeric(attr(out, "ci"))) alternative
   out
 }
 
@@ -761,7 +773,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                             type = c("eta", "omega", "epsilon"),
                             partial = TRUE,
                             generalized = FALSE,
-                            ci = 0.9,
+                            ci = 0.95, alternative = "greater",
                             verbose = TRUE,
                             include_intercept = FALSE,
                             ...) {
@@ -782,7 +794,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       partial = partial,
       type = type,
       generalized = generalized,
-      ci = ci,
+      ci = ci, alternative = alternative,
       verbose = verbose,
       include_intercept = include_intercept,
       ...
@@ -826,7 +838,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     es_fun(par_table[[F_val]],
       par_table[[numDF]],
       par_table[[denDF]],
-      ci = ci
+      ci = ci, alternative = alternative
     )
   )
 
@@ -834,6 +846,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   attr(out, "generalized") <- generalized
   attr(out, "ci") <- ci
   attr(out, "anova_type") <- anova_type
+  attr(out, "alternative") <- if (is.numeric(ci)) alternative
   out
 }
 
@@ -846,7 +859,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                                        type = c("eta", "omega", "epsilon"),
                                        partial = TRUE,
                                        generalized = FALSE,
-                                       ci = 0.9,
+                                       ci = 0.95, alternative = "greater",
                                        verbose = TRUE,
                                        ...) {
   if (verbose && !isTRUE(partial)) {
@@ -878,7 +891,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       df_error <- i[i$Parameter == "Residuals", "df"]
       cbind(
         data.frame(Group = unique(i$Group), stringsAsFactors = FALSE),
-        .anova_es_model_params(i, f, df_num, df_error, type, ci)
+        .anova_es_model_params(i, f, df_num, df_error, type, ci, alternative)
       )
     }))
   } else {
@@ -906,12 +919,13 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     } else {
       stop("Cannot extract degrees of freedom for the error term. Try passing the model object directly to 'eta_squared()'.")
     }
-    out <- .anova_es_model_params(model, f, df_num, df_error, type, ci)
+    out <- .anova_es_model_params(model, f, df_num, df_error, type, ci, alternative)
   }
 
   attr(out, "partial") <- partial
   attr(out, "generalized") <- generalized
   attr(out, "ci") <- ci
+  attr(out, "alternative") <- if (is.numeric(ci)) alternative
   out
 }
 
@@ -923,7 +937,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                             type = c("eta", "omega", "epsilon"),
                             partial = TRUE,
                             generalized = FALSE,
-                            ci = 0.9,
+                            ci = 0.95, alternative = "greater",
                             verbose = TRUE,
                             ...){
   if (!grepl("One-way", model$method))
@@ -937,7 +951,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     )
   }
 
-  effectsize(model, type = type, ci = ci, verbose = verbose, ...)
+  effectsize(model, type = type, ci = ci, alternative = alternative, verbose = verbose, ...)
 }
 
 #' @keywords internal
@@ -945,7 +959,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                                 type = c("eta", "omega", "epsilon"),
                                 partial = TRUE,
                                 generalized = FALSE,
-                                ci = 0.9,
+                                ci = 0.95, alternative = "greater",
                                 verbose = TRUE,
                                 include_intercept = FALSE,
                                 ...) {
@@ -954,7 +968,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   # .anova_es.anova(model, type = type,
   #                 partial = partial,
   #                 generalized = generalized,
-  #                 ci = ci,
+  #                 ci = ci, alternative = alternative,
   #                 verbose = verbose,
   #                 ...)
 
@@ -969,7 +983,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
   out <- .anova_es.parameters_model(model, type = type,
                                     partial = partial,
                                     generalized = generalized,
-                                    ci = ci,
+                                    ci = ci, alternative = alternative,
                                     verbose = verbose,
                                     ...)
   attr(out, "anova_type") <- anova_type
@@ -983,14 +997,14 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                              type = c("eta", "omega", "epsilon"),
                              partial = TRUE,
                              generalized = FALSE,
-                             ci = 0.9,
+                             ci = 0.95, alternative = "greater",
                              verbose = TRUE,
                              ...) {
   insight::check_if_installed("lmerTest")
 
   model <- lmerTest::as_lmerModLmerTest(model)
   model <- stats::anova(model)
-  .anova_es.anova(model, type = type, partial = partial, generalized = generalized, ci = ci, ...)
+  .anova_es.anova(model, type = type, partial = partial, generalized = generalized, ci = ci, alternative = alternative, ...)
 }
 
 #' @keywords internal
@@ -999,7 +1013,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,
                           generalized = FALSE,
-                          ci = 0.9,
+                          ci = 0.95, alternative = "greater",
                           verbose = TRUE,
                           ...) {
   type <- match.arg(type)
@@ -1045,7 +1059,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
       type = type,
       generalized = generalized,
       partial = partial,
-      ci = ci,
+      ci = ci, alternative = alternative,
       verbose = verbose
     )
 
@@ -1058,7 +1072,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                                type = c("eta", "omega", "epsilon"),
                                partial = TRUE,
                                generalized = FALSE,
-                               ci = 0.9,
+                               ci = 0.95, alternative = "greater",
                                verbose = TRUE,
                                include_intercept = FALSE,
                                ...) {
@@ -1075,7 +1089,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
         type = type,
         partial = partial,
         generalized = generalized,
-        ci = ci,
+        ci = ci, alternative = alternative,
         verbose = FALSE,
         include_intercept = include_intercept,
         ...
@@ -1126,7 +1140,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
         type = type,
         partial = partial,
         generalized = generalized,
-        ci = ci,
+        ci = ci, alternative = alternative,
         verbose = verbose,
         include_intercept = include_intercept
       )
@@ -1152,7 +1166,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,
                           generalized = FALSE,
-                          ci = 0.9,
+                          ci = 0.95, alternative = "greater",
                           verbose = TRUE,
                           ...) {
   if (!inherits(model, "anova.rms")) {
@@ -1167,7 +1181,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 
   model <- model[rownames(model) != "ERROR", ]
 
-  out <- .anova_es.anova(model, type = type, partial = partial, generalized = generalized, ci = ci, ...)
+  out <- .anova_es.anova(model, type = type, partial = partial, generalized = generalized, ci = ci, alternative = alternative, ...)
   out$Parameter <- i[match(make.names(i), out$Parameter, nomatch = 0)]
   attr(out, "anova_type") <- 2
   out
@@ -1181,7 +1195,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
                                 type = c("eta", "omega", "epsilon"),
                                 partial = TRUE,
                                 generalized = FALSE,
-                                ci = 0.9,
+                                ci = 0.95, alternative = "greater",
                                 verbose = TRUE,
                                 ...) {
   .anova_es(
@@ -1189,7 +1203,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
     type = type,
     partial = partial,
     generalized = generalized,
-    ci = ci,
+    ci = ci, alternative = alternative,
     verbose = verbose,
     ...
   )
@@ -1198,9 +1212,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.9, squared = TRUE,
 # Utils -------------------------------------------------------------------
 
 #' @keywords internal
-.anova_es_model_params <- function(model, f, df_num, df_error, type, ci) {
+.anova_es_model_params <- function(model, f, df_num, df_error, type, ci, alternative) {
   # used by .anova_es.parameters_model
-  out <- .F_to_pve(stats::na.omit(f), df = df_num, df_error = df_error, ci = ci, es = paste0(type, "2"))
+  out <- .F_to_pve(stats::na.omit(f), df = df_num, df_error = df_error, ci = ci, alternative = alternative, es = paste0(type, "2"))
   out$Parameter <- model$Parameter[!is.na(f)]
   out[c(ncol(out), 1:(ncol(out) - 1))]
 }
