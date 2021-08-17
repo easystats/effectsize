@@ -137,19 +137,6 @@ cohens_d <- function(x,
                      alternative = "two.sided",
                      verbose = TRUE,
                      ...) {
-  if (inherits(x, "htest")) {
-    if (!grepl("t-test", x$method)) {
-      stop("'x' is not a t-test!", call. = FALSE)
-    }
-    return(effectsize(x, type = "d", ci = ci, verbose = verbose))
-  } else if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
-      stop("'x' is not a t-test!", call. = FALSE)
-    }
-    return(effectsize(x, ci = ci, verbose = verbose))
-  }
-
-
   .effect_size_difference(
     x,
     y = y,
@@ -179,20 +166,8 @@ hedges_g <- function(x,
                      correction) {
   if (!missing(correction)) {
     warning("`correction` argument is deprecated. *Exact* bias correction method is used.",
-      call. = FALSE, immediate. = TRUE
+            call. = FALSE, immediate. = TRUE
     )
-  }
-
-  if (inherits(x, "htest")) {
-    if (!grepl("t-test", x$method)) {
-      stop("'x' is not a t-test!", call. = FALSE)
-    }
-    return(effectsize(x, type = "g", ci = ci, verbose = verbose))
-  } else if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
-      stop("'x' is not a t-test!", call. = FALSE)
-    }
-    return(effectsize(x, ci = ci, verbose = verbose))
   }
 
   .effect_size_difference(
@@ -253,6 +228,19 @@ glass_delta <- function(x,
                                     ci = 0.95,
                                     verbose = TRUE,
                                     ...) {
+  if (type != "delta" && inherits(x, "htest")) {
+    if (!grepl("t-test", x$method)) {
+      stop("'x' is not a t-test!", call. = FALSE)
+    }
+    return(effectsize(x, type = type, ci = ci, alternative = alternative, verbose = verbose))
+  } else if (type != "delta" && inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
+      stop("'x' is not a t-test!", call. = FALSE)
+    }
+    return(effectsize(x, ci = ci, verbose = verbose))
+  }
+
+
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
   out <- .deal_with_cohens_d_arguments(x, y, data, verbose)
   x <- out$x
