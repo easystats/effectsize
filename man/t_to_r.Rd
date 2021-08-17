@@ -96,9 +96,12 @@ functions.
 Unless stated otherwise, confidence (compatibility) intervals (CIs) are
 estimated using the noncentrality parameter method (also called the
 "pivot method"). This method finds the noncentrality parameter ("\emph{ncp}") of
-a noncentral \emph{t}, \emph{F}, or chi-squared distribution that places the observed
-\emph{t}, \emph{F}, or chi-squared test statistic at the desired probability point of
-the distribution. For example, if the observed \emph{t} statistic is 2.0, with 50
+a noncentral \emph{t}, \emph{F}, or
+\ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}
+distribution that places the observed \emph{t}, \emph{F}, or
+\ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}
+test statistic at the desired probability point of the distribution.
+For example, if the observed \emph{t} statistic is 2.0, with 50
 degrees of freedom, for which cumulative noncentral \emph{t} distribution is
 \emph{t} = 2.0 the .025 quantile (answer: the noncentral \emph{t} distribution with
 \emph{ncp} = .04)? After estimating these confidence bounds on the \emph{ncp}, they are

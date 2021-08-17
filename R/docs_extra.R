@@ -7,9 +7,12 @@
 #' Unless stated otherwise, confidence (compatibility) intervals (CIs) are
 #' estimated using the noncentrality parameter method (also called the
 #' "pivot method"). This method finds the noncentrality parameter ("*ncp*") of
-#' a noncentral *t*, *F*, or chi-squared distribution that places the observed
-#' *t*, *F*, or chi-squared test statistic at the desired probability point of
-#' the distribution. For example, if the observed *t* statistic is 2.0, with 50
+#' a noncentral *t*, *F*, or
+#' \ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}
+#' distribution that places the observed *t*, *F*, or
+#' \ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}
+#' test statistic at the desired probability point of the distribution.
+#' For example, if the observed *t* statistic is 2.0, with 50
 #' degrees of freedom, for which cumulative noncentral *t* distribution is
 #' *t* = 2.0 the .025 quantile (answer: the noncentral *t* distribution with
 #' *ncp* = .04)? After estimating these confidence bounds on the *ncp*, they are
@@ -57,11 +60,11 @@
 #' \cr\cr
 #' Some effect sizes are strictly positive--they have a minimum value of 0.
 #' For example,
-#' \ifelse{latex}{\out{$R^2$}}{\ifelse{html}{\out{*R*<sup>2</sup>}}{R^2}},
+#' \ifelse{latex}{\out{$R^2$}}{\ifelse{html}{\out{<i>R</i><sup>2</sup>}}{R^2}},
 #' \ifelse{latex}{\out{$\eta^2$}}{\ifelse{html}{\out{&eta;<sup>2</sup>}}{eta^2}},
 #' and other variance-accounted-for effect sizes, as well as Cramer's *V* and
 #' multiple *R*, range from 0 to 1. These typically involve *F*- or
-#' \ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{\chi;<sup>2</sup>}}{chi-squared}}-statistics
+#' \ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}-statistics
 #' and are generally tested using *1-tailed* tests. These test test whether the
 #' estimated effect size is *larger* than the hypothesized value (e.g., 0). The
 #' corresponding CI that yields the same significance decision is a *1-sided* CI
@@ -77,7 +80,7 @@
 #' \cr\cr
 #' An alternative 1-sided CI that can be used to test against the maximum effect
 #' size value (e.g., is
-#' \ifelse{latex}{\out{$R^2$}}{\ifelse{html}{\out{*R*<sup>2</sup>}}{R^2}}
+#' \ifelse{latex}{\out{$R^2$}}{\ifelse{html}{\out{<i>R</i><sup>2</sup>}}{R^2}}
 #' significantly different from a perfect correlation of 1.0?) can by setting
 #' `alternative = "less"`. This estimates a CI with only an *upper* bound;
 #' anything from the minimum possible value of the effect size (e.g., 0) up to
@@ -90,10 +93,10 @@
 #' \cr\cr
 #' An alternative approach to aligning significance tests using CIs and 1-tailed
 #' *p* values that can often be found in the literature is to
-#' construct a 2-sided CI at a lower confidence level (
+#' construct a 2-sided CI at a lower confidence level (e.g.,
 #' 100(\ifelse{latex}{\out{$1 - 2\alpha$}}{\ifelse{html}{\out{1 &minus; 2&alpha;}}{1 - 2*alpha}})%
-#' = \ifelse{latex}{\out{$100 - 2 \times 5\% = 90\%$}}{\ifelse{html}{\out{100 &minus; 2 %times; 5% = 90%}}{100 - 2*5% = 90%}}),
-#' estimates the lower bound and upper bound for the above 1-sided intervals
+#' = \ifelse{latex}{\out{$100 - 2 \times 5\% = 90\%$}}{\ifelse{html}{\out{100 &minus; 2 &times; 5&percnt; = 90&percnt;}}{100 - 2*5% = 90%}}).
+#' This estimates the lower bound and upper bound for the above 1-sided intervals
 #' simultaneously. These intervals are commonly reported when conducting equivalence
 #' tests. For example, a 90% 2-sided interval gives the bounds for an equivalence
 #' test with \ifelse{latex}{\out{$\alpha = .05$}}{\ifelse{html}{\out{&alpha; = .05}}{alpha = .05}}.

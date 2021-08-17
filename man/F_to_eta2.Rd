@@ -126,9 +126,12 @@ Adjusted (partial) Eta-squared is an alias for (partial) Epsilon-squared.
 Unless stated otherwise, confidence (compatibility) intervals (CIs) are
 estimated using the noncentrality parameter method (also called the
 "pivot method"). This method finds the noncentrality parameter ("\emph{ncp}") of
-a noncentral \emph{t}, \emph{F}, or chi-squared distribution that places the observed
-\emph{t}, \emph{F}, or chi-squared test statistic at the desired probability point of
-the distribution. For example, if the observed \emph{t} statistic is 2.0, with 50
+a noncentral \emph{t}, \emph{F}, or
+\ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}
+distribution that places the observed \emph{t}, \emph{F}, or
+\ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}
+test statistic at the desired probability point of the distribution.
+For example, if the observed \emph{t} statistic is 2.0, with 50
 degrees of freedom, for which cumulative noncentral \emph{t} distribution is
 \emph{t} = 2.0 the .025 quantile (answer: the noncentral \emph{t} distribution with
 \emph{ncp} = .04)? After estimating these confidence bounds on the \emph{ncp}, they are
@@ -180,11 +183,11 @@ typically involve \emph{t}- or \emph{z}-statistics and are generally tested usin
 \cr\cr
 Some effect sizes are strictly positive--they have a minimum value of 0.
 For example,
-\ifelse{latex}{\out{$R^2$}}{\ifelse{html}{\out{*R*<sup>2</sup>}}{R^2}},
+\ifelse{latex}{\out{$R^2$}}{\ifelse{html}{\out{<i>R</i><sup>2</sup>}}{R^2}},
 \ifelse{latex}{\out{$\eta^2$}}{\ifelse{html}{\out{&eta;<sup>2</sup>}}{eta^2}},
 and other variance-accounted-for effect sizes, as well as Cramer's \emph{V} and
 multiple \emph{R}, range from 0 to 1. These typically involve \emph{F}- or
-\ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{\chi;<sup>2</sup>}}{chi-squared}}-statistics
+\ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}-statistics
 and are generally tested using \emph{1-tailed} tests. These test test whether the
 estimated effect size is \emph{larger} than the hypothesized value (e.g., 0). The
 corresponding CI that yields the same significance decision is a \emph{1-sided} CI
@@ -200,7 +203,7 @@ up to the maximum possible value of the effect size (e.g., 1) is in the interval
 \cr\cr
 An alternative 1-sided CI that can be used to test against the maximum effect
 size value (e.g., is
-\ifelse{latex}{\out{$R^2$}}{\ifelse{html}{\out{*R*<sup>2</sup>}}{R^2}}
+\ifelse{latex}{\out{$R^2$}}{\ifelse{html}{\out{<i>R</i><sup>2</sup>}}{R^2}}
 significantly different from a perfect correlation of 1.0?) can by setting
 \code{alternative = "less"}. This estimates a CI with only an \emph{upper} bound;
 anything from the minimum possible value of the effect size (e.g., 0) up to
@@ -213,10 +216,10 @@ for \emph{r}, \emph{d}, or \emph{g}.
 \cr\cr
 An alternative approach to aligning significance tests using CIs and 1-tailed
 \emph{p} values that can often be found in the literature is to
-construct a 2-sided CI at a lower confidence level (
+construct a 2-sided CI at a lower confidence level (e.g.,
 100(\ifelse{latex}{\out{$1 - 2\alpha$}}{\ifelse{html}{\out{1 &minus; 2&alpha;}}{1 - 2*alpha}})\%
-= \ifelse{latex}{\out{$100 - 2 \times 5\% = 90\%$}}{\ifelse{html}{\out{100 − 2 \%times; 5\% = 90\%}}{100 - 2*5\% = 90\%}}),
-estimates the lower bound and upper bound for the above 1-sided intervals
+= \ifelse{latex}{\out{$100 - 2 \times 5\% = 90\%$}}{\ifelse{html}{\out{100 &minus; 2 &times; 5&percnt; = 90&percnt;}}{100 - 2*5\% = 90\%}}).
+This estimates the lower bound and upper bound for the above 1-sided intervals
 simultaneously. These intervals are commonly reported when conducting equivalence
 tests. For example, a 90\% 2-sided interval gives the bounds for an equivalence
 test with \ifelse{latex}{\out{$\alpha = .05$}}{\ifelse{html}{\out{&alpha; = .05}}{alpha = .05}}.
