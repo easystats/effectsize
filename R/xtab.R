@@ -44,11 +44,12 @@
 #' estimated using the standard normal parametric method (see Katz et al., 1978;
 #' Szumilas, 2010).
 #' \cr\cr
-#' See *Confidence Intervals* and *CI Contains Zero* sections for *phi*, Cohen's
-#' *w* and Cramer's *V*.
+#' See *Confidence (Compatibility) Intervals (CIs)*, *CIs and Significance Tests*,
+#' and *One-Sided CIs* sections for *phi*, Cohen's *w* and Cramer's *V*.
 #'
-#' @inheritSection effectsize-CIs Confidence Intervals
-#' @inheritSection effectsize-CIs CI Contains Zero
+#' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
+#' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection effectsize_CIs One-Sided CIs
 #'
 #' @return A data frame with the effect size (`Cramers_v`, `phi` (possibly with
 #'   the suffix `_adjusted`), `Odds_ratio`, `Risk_ratio` (possibly with the

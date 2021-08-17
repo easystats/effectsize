@@ -45,8 +45,9 @@
 #' designs.
 #' 2. Epsilon has been found to be less biased (Carroll & Nordholm, 1975).
 #'
-#' @inheritSection effectsize-CIs Confidence Intervals
-#' @inheritSection effectsize-CIs CI Contains Zero
+#' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
+#' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection effectsize_CIs One-Sided CIs
 #'
 #' @note Adjusted (partial) Eta-squared is an alias for (partial) Epsilon-squared.
 #'
