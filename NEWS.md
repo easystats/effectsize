@@ -2,7 +2,7 @@
 
 ## Breaking Changes
 
-- Phi, Cohen's *w*, Cramer's *V*, ANOVA effect sizes, rank Epsilon squared, Kendall's *W* - CIs default to 95% one-sided (`alternative = "greater"`).
+- Phi, Cohen's *w*, Cramer's *V*, ANOVA effect sizes, rank Epsilon squared, Kendall's *W* - CIs default to 95% one-sided CIs (`alternative = "greater"`).
 - `adjust()`, `change_scale()`, `normalize()`, `ranktransform()`, `standardize()` (data), and `unstandardize()` have moved to the new [`{datawizard}`](https://easystats.github.io/datawizard) package!
 
 ## New features
@@ -13,6 +13,7 @@
 
 ## Bug fixes
 
+- `kendalls_w()` CIs now correctly bootstrap samples from the raw data (previously the rank-transformed data was sampled from).
 - `cohens_d()`, `sd_pooled()` and `rank_biserial()` now properly respect when `y` is a grouping character vector.
 - `effectsize()` for Chi-squared test of goodness-of-fit now correctly respects non-uniform expected probabilities ( #352 ).
 

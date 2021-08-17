@@ -138,7 +138,7 @@ bound is arbitrarily set to 0 (Steiger, 2004). For example:\if{html}{\out{<div c
 }
 
 \examples{
-
+\donttest{
 data(mtcars)
 mtcars$am <- factor(mtcars$am)
 
@@ -194,6 +194,8 @@ interpret(d, rules = "sawilowsky2009")
 d_to_common_language(1.48)
 # Or:
 print(d, append_CL = TRUE)
+}
+
 }
 \references{
 \itemize{

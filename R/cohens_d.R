@@ -48,7 +48,7 @@
 #' @family effect size indices
 #'
 #' @examples
-#'
+#' \donttest{
 #' data(mtcars)
 #' mtcars$am <- factor(mtcars$am)
 #'
@@ -104,6 +104,8 @@
 #' d_to_common_language(1.48)
 #' # Or:
 #' print(d, append_CL = TRUE)
+#' }
+#'
 #' @references
 #' - Algina, J., Keselman, H. J., & Penfield, R. D. (2006). Confidence intervals
 #' for an effect size when variances are not equal. Journal of Modern Applied

@@ -13,6 +13,7 @@ rank_biserial(
   data = NULL,
   mu = 0,
   ci = 0.95,
+  alternative = "two.sided",
   paired = FALSE,
   verbose = TRUE,
   ...,
@@ -25,12 +26,20 @@ cliffs_delta(
   data = NULL,
   mu = 0,
   ci = 0.95,
-  iterations = 200,
+  alternative = "two.sided",
   verbose = TRUE,
   ...
 )
 
-rank_epsilon_squared(x, groups, data = NULL, ci = 0.95, iterations = 200, ...)
+rank_epsilon_squared(
+  x,
+  groups,
+  data = NULL,
+  ci = 0.95,
+  alternative = "greater",
+  iterations = 200,
+  ...
+)
 
 kendalls_w(
   x,
@@ -38,6 +47,7 @@ kendalls_w(
   blocks,
   data = NULL,
   ci = 0.95,
+  alternative = "greater",
   iterations = 200,
   verbose = TRUE,
   ...
@@ -65,6 +75,12 @@ one-sample or paired samples) or shift (for independent samples) is to be
 estimated. See \link[stats:wilcox.test]{stats::wilcox.test}.}
 
 \item{ci}{Confidence Interval (CI) level}
+
+\item{alternative}{a character string specifying the alternative hypothesis;
+Controls the type of CI returned: \code{"two.sided"} (two-sided CI; default for
+rank-biserial correlation and Cliff's \emph{delta}), \code{"greater"} (default for
+rank epsilon squared and Kendall's \emph{W}) or \code{"less"} (one-sided CI). Partial
+matching is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...).}
 
 \item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
 This produces an effect size that is equivalent to the one-sample effect
@@ -134,22 +150,37 @@ estimated using the bootstrap method (using the \code{{boot}} package).
 
 \examples{
 \donttest{
+data(mtcars)
+mtcars$am <- factor(mtcars$am)
+mtcars$cyl <- factor(mtcars$cyl)
+
 # Rank Biserial Correlation
 # =========================
 
 # Two Independent Samples ----------
-A <- c(48, 48, 77, 86, 85, 85)
-B <- c(14, 34, 34, 77)
-rank_biserial(A, B)
+rank_biserial(mpg ~ am, data = mtcars)
+# Same as:
+# rank_biserial("mpg", "am", data = mtcars)
+# rank_biserial(mtcars$mpg[mtcars$am=="0"], mtcars$mpg[mtcars$am=="1"])
+
+# More options:
+rank_biserial(mpg ~ am, data = mtcars, mu = -5)
+
 
 # One Sample ----------
-x <- c(1.15, 0.88, 0.90, 0.74, 1.21)
-rank_biserial(x, mu = 1)
+rank_biserial(wt ~ 1, data = mtcars, mu = 3)
+# same as:
+# rank_biserial("wt", data = mtcars, mu = 3)
+# rank_biserial(mtcars$wt, mu = 3)
+
 
 # Paired Samples ----------
-x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
-y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
-(rbs <- rank_biserial(x, y, paired = TRUE))
+dat <- data.frame(Cond1 = c(1.83, 0.5, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.3),
+                  Cond2 = c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29))
+(rbs <- rank_biserial(Pair(Cond1, Cond2) ~ 1, data = dat, paired = TRUE))
+
+# same as:
+# rank_biserial(dat$Cond1, dat$Cond2, paired = TRUE)
 
 interpret_rank_biserial(0.78)
 interpret(rbs, rules = "funder2019")
@@ -158,23 +189,16 @@ interpret(rbs, rules = "funder2019")
 # Rank Epsilon Squared
 # ====================
 
-x1 <- c(2.9, 3.0, 2.5, 2.6, 3.2) # control group
-x2 <- c(3.8, 2.7, 4.0, 2.4) # obstructive airway disease group
-x3 <- c(2.8, 3.4, 3.7, 2.2, 2.0) # asbestosis group
-x <- c(x1, x2, x3)
-g <- factor(rep(1:3, c(5, 4, 5)))
-rank_epsilon_squared(x, g)
+rank_epsilon_squared(mpg ~ cyl, data = mtcars)
+
+
 
 # Kendall's W
 # ===========
-wb <- aggregate(warpbreaks$breaks,
-  by = list(
-    w = warpbreaks$wool,
-    t = warpbreaks$tension
-  ),
-  FUN = mean
-)
-(W <- kendalls_w(x ~ w | t, data = wb, verbose = FALSE))
+dat <- data.frame(cond = c("A", "B", "A", "B", "A", "B"),
+                  ID = c("L", "L", "M", "M", "H", "H"),
+                  y = c(44.56, 28.22, 24, 28.78, 24.56, 18.78))
+(W <- kendalls_w(y ~ cond | ID, data = dat, verbose = FALSE))
 
 interpret_kendalls_w(0.11)
 interpret(W, rules = "landis1977")
