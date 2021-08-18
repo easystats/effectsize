@@ -334,6 +334,19 @@ Science, 8(4), 355–362. https://doi.org/10.1177/1948550617697177</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> factor(cyl)    |           0.21 | [0.00, 0.40] | Undecided</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> am:factor(cyl) |           0.05 | [0.00, 0.20] |  Accepted</span>
 <span class='r-in'></span>
+<span class='r-in'><span class='va'>RCT</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>71</span>, <span class='fl'>101</span>,</span>
+<span class='r-in'>                <span class='fl'>50</span>, <span class='fl'>100</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>OR</span> <span class='op'>&lt;-</span> <span class='fu'><a href='phi.html'>oddsratio</a></span><span class='op'>(</span><span class='va'>RCT</span>, alternative <span class='op'>=</span> <span class='st'>"greater"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://easystats.github.io/bayestestR/reference/equivalence_test.html'>equivalence_test</a></span><span class='op'>(</span><span class='va'>OR</span>, range <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'># Test for Practical Equivalence</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	ROPE: [0.00 1.00]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Odds ratio |           95% CI |        H0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -----------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.41       | [0.96,      Inf] | Undecided</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- One-sided CIs: upper bound fixed at (Inf).</span></span>
+<span class='r-in'></span>
 <span class='r-in'><span class='va'>ds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='t_to_r.html'>t_to_d</a></span><span class='op'>(</span></span>
 <span class='r-in'>  t <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.45</span>, <span class='op'>-</span><span class='fl'>0.65</span>, <span class='fl'>7</span>, <span class='op'>-</span><span class='fl'>2.2</span>, <span class='fl'>2.25</span><span class='op'>)</span>,</span>
 <span class='r-in'>  df_error <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>675</span>, <span class='fl'>525</span>, <span class='fl'>2000</span>, <span class='fl'>900</span>, <span class='fl'>1875</span><span class='op'>)</span>,</span>
