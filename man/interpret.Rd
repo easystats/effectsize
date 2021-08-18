@@ -58,7 +58,6 @@ interpret(eta2, rules = "field2013")
 X <- chisq.test(mtcars$am, mtcars$cyl == 8)
 interpret(oddsratio(X), rules = "chen2010")
 interpret(cramers_v(X), "lovakov2021")
-
 }
 \seealso{
 rules

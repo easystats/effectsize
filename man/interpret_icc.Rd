@@ -32,7 +32,6 @@ The value of an ICC lies between 0 to 1, with 0 indicating no reliability among 
 \examples{
 interpret_icc(0.6)
 interpret_icc(c(0.4, 0.8))
-
 }
 \references{
 \itemize{

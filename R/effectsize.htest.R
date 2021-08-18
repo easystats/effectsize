@@ -5,19 +5,28 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   data <- insight::get_data(model)
   approx <- is.null(data)
 
+  dots <- list(...)
+
   if (grepl("t-test", model$method)) {
     # t-test ----
+    if (is.null(dots$alternative)) dots$alternative <- model$alternative
+    if (is.null(dots$ci)) dots$ci <- attr(model$conf.int,"conf.level")
     if (approx) {
       if (verbose) {
         warning("Unable to retrieve data from htest object. Using t_to_d() approximation.")
       }
-      out <- t_to_d(
-        unname(model$statistic),
-        unname(model$parameter),
-        paired = !grepl("Two", model$method),
-        ...
+
+      f <- t_to_d
+      args <- list(
+        t = unname(model$statistic),
+        df_error = unname(model$parameter),
+        paired = !grepl("Two", model$method)
       )
     } else {
+      if (grepl(" by ", model$data.name, fixed = TRUE)) {
+        data[[2]] <- factor(data[[2]])
+      }
+
       if (is.null(type)) type <- "d"
       f <- switch(tolower(type),
         d = ,
@@ -26,18 +35,16 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
         hedges_g = hedges_g
       )
 
-      if (grepl(" by ", model$data.name, fixed = TRUE)) {
-        data[[2]] <- factor(data[[2]])
-      }
-
-      out <- f(data[[1]], if (ncol(data) == 2) data[[2]],
+      args <- list(
+        x = data[[1]],
+        y = if (ncol(data) == 2) data[[2]],
         mu = model$null.value,
         paired = !grepl("Two", model$method),
         pooled_sd = !grepl("Welch", model$method),
-        verbose = verbose,
-        ...
+        verbose = verbose
       )
     }
+    out <- do.call(f, c(args, dots))
     attr(out, "approximate") <- approx
     return(out)
   } else if (grepl("correlation", model$method)) {
@@ -49,6 +56,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     out$CI_high <- model$conf.int[2]
     attr(out, "ci") <- out$CI
     attr(out, "approximate") <- FALSE
+    attr(out, "alternative") <- model$alternative
     return(out)
   } else if (grepl("Pearson's Chi-squared", model$method) ||
     grepl("Chi-squared test for given probabilities", model$method)) {
@@ -165,9 +173,13 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     attr(out, "ci") <- out$CI
     attr(out, "table_footer") <- c("\n- Maximum likelihood estimate (MLE) of the OR.", "cyan")
     attr(out, "approximate") <- FALSE
+    attr(out, "alternative") <- model$alternative
     return(out)
   } else if (grepl("Wilcoxon", model$method)) {
     # Wilcoxon ----
+    if (is.null(dots$alternative)) dots$alternative <- model$alternative
+    if (is.null(dots$ci)) dots$ci <- attr(model$conf.int,"conf.level")
+
     if (approx) {
       stop("Unable to retrieve data from htest object.",
         "\nTry using 'rank_biserial()' directly.",
@@ -175,13 +187,14 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       )
     }
 
-    paired <- grepl("signed rank", model$method, fixed = TRUE)
-    mu <- model$null.value
-
-    x <- data[[1]]
-    y <- if (ncol(data) == 2) data[[2]]
-
-    out <- rank_biserial(x, y, mu = mu, paired = paired, ...)
+    f <- rank_biserial
+    args <- list(
+      x = data[[1]],
+      y = if (ncol(data) == 2) data[[2]],
+      paired = grepl("signed rank", model$method, fixed = TRUE),
+      mu = model$null.value
+    )
+    out <- do.call(f, c(args, dots))
     return(out)
   } else if (grepl("Kruskal-Wallis", model$method)) {
     # Kruskal-Wallis ----

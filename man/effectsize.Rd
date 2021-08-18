@@ -45,6 +45,7 @@ input model. See details.
 \item A \strong{Wilcoxon test} returns \emph{rank biserial correlation}.
 \item A \strong{Kruskal-Wallis test} returns \emph{rank Epsilon squared}.
 \item A \strong{Friedman test} returns \emph{Kendall's W}.
+(Where applicable, \code{ci} and \code{alternative} are taken from the \code{htest} if not otherwise provided.)
 }
 \item For an object of class \code{BFBayesFactor}, using \code{\link[bayestestR:describe_posterior]{bayestestR::describe_posterior()}},
 \itemize{
@@ -68,13 +69,15 @@ Xsq <- chisq.test(contingency_table)
 effectsize(Xsq)
 effectsize(Xsq, type = "phi")
 
-Ts <- t.test(1:10, y = c(7:20))
-effectsize(Ts)
+Tt <- t.test(1:10, y = c(7:20), alternative = "less")
+effectsize(Tt)
 
 Aov <- oneway.test(extra ~ group, data = sleep, var.equal = TRUE)
 effectsize(Aov)
 effectsize(Aov, type = "omega")
 
+Wt <- wilcox.test(1:10, 7:20, mu = -3, alternative = "less")
+effectsize(Wt)
 
 ## Bayesian Hypothesis Testing
 ## ---------------------------

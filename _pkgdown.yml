@@ -85,10 +85,12 @@ navbar:
         href: articles/standardize_parameters.html
       - text: "ANOVA Effect Sizes"
         href: articles/anovaES.html
-      - text: "For Bayesian Models"
-        href: articles/bayesian_models.html
       - text: "Effect Sizes for Simple Hypothesis Tests"
         href: articles/simple_htests.html
+      - text: "Confidence Intervals"
+        href: reference/effectsize_CIs.html
+      - text: "For Bayesian Models"
+        href: articles/bayesian_models.html
   - text: "Conversion"
     menu:
       - text: "Between d, r, OR"

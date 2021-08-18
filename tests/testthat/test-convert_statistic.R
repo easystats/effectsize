@@ -77,19 +77,19 @@ if (require("testthat") && require("effectsize")) {
     res <- F_to_eta2(4, 3, 123)
     expect_equal(res[[1]], 0.089, tolerance = 0.01)
     expect_equal(res$CI_low, 0.014, tolerance = 0.02)
-    expect_equal(res$CI_high, 0.163, tolerance = 0.01)
+    expect_equal(res$CI_high, 1)
     expect_equal(t_to_eta2(2, 123), F_to_eta2(4, 1, 123))
 
     res <- F_to_epsilon2(4, 3, 123)
     expect_equal(res[[1]], 0.067, tolerance = 0.01)
     expect_equal(res$CI_low, 0.002, tolerance = 0.01)
-    expect_equal(res$CI_high, 0.133, tolerance = 0.01)
+    expect_equal(res$CI_high, 1)
     expect_equal(t_to_epsilon2(2, 123), F_to_epsilon2(4, 1, 123))
 
     res <- F_to_omega2(4, 3, 123)
     expect_equal(res[[1]], 0.066, tolerance = 0.01)
     expect_equal(res$CI_low, 0.002, tolerance = 0.01)
-    expect_equal(res$CI_high, 0.132, tolerance = 0.01)
+    expect_equal(res$CI_high, 1)
     expect_equal(t_to_epsilon2(2, 123), F_to_epsilon2(4, 1, 123))
 
     res <- F_to_eta2(4, 3, 123)

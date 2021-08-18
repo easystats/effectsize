@@ -17,6 +17,10 @@
 #' @param n The number of observations (the sample size).
 #' @param paired Should the estimate account for the t-value being testing the
 #'   difference between dependent means?
+#' @param alternative a character string specifying the alternative hypothesis;
+#'   Controls the type of CI returned: `"two.sided"` (default, two-sided CI),
+#'   `"greater"` or `"less"` (one-sided CI). Partial matching is allowed (e.g.,
+#'   `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in [effectsize_CIs].
 #' @param pooled Deprecated. Use `paired`.
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods.
@@ -43,8 +47,8 @@
 #' estimate Cohen's *d*, with [cohens_d()], `emmeans::eff_size()`, or similar
 #' functions.
 #'
-#' @inheritSection effectsize-CIs Confidence Intervals
-#' @inheritSection effectsize-CIs CI Contains Zero
+#' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
+#' @inheritSection effectsize_CIs CIs and Significance Tests
 #'
 #' @family effect size from test statistic
 #'
@@ -53,15 +57,17 @@
 #' res <- t.test(1:10, y = c(7:20), var.equal = TRUE)
 #' t_to_d(t = res$statistic, res$parameter)
 #' t_to_r(t = res$statistic, res$parameter)
+#' t_to_r(t = res$statistic, res$parameter, alternative = "less")
 #'
 #' res <- with(sleep, t.test(extra[group == 1], extra[group == 2], paired = TRUE))
 #' t_to_d(t = res$statistic, res$parameter, paired = TRUE)
 #' t_to_r(t = res$statistic, res$parameter)
+#' t_to_r(t = res$statistic, res$parameter, alternative = "greater")
+#'
 #' \donttest{
 #' ## Linear Regression
 #' model <- lm(rating ~ complaints + critical, data = attitude)
-#' library(parameters)
-#' (param_tab <- parameters(model))
+#' (param_tab <- parameters::model_parameters(model))
 #'
 #' (rs <- t_to_r(param_tab$t[2:3], param_tab$df_error[2:3]))
 #'
@@ -70,17 +76,6 @@
 #' # How does this compare to actual partial correlations?
 #' if (require("correlation")) {
 #'   correlation::correlation(attitude[, c(1, 2, 6)], partial = TRUE)[1:2, c(2, 3, 7, 8)]
-#' }
-#'
-#' ## Use with emmeans based contrasts (see also t_to_eta2)
-#' if (require(emmeans)) {
-#'   warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
-#'
-#'
-#'   # Also see emmeans::eff_size()
-#'   em_tension <- emmeans(warp.lm, ~tension) #'
-#'   diff_tension <- summary(pairs(em_tension))
-#'   t_to_d(diff_tension$t.ratio, diff_tension$df)
 #' }
 #' }
 #'
@@ -105,28 +100,39 @@
 #' distributions. Educational and Psychological Measurement, 61(4), 532-574.
 #'
 #' @export
-t_to_r <- function(t, df_error, ci = 0.95, ...) {
+t_to_r <- function(t, df_error, ci = 0.95, alternative = "two.sided", ...) {
+  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+
   res <- data.frame(r = t / sqrt(t^2 + df_error))
 
   ci_method <- NULL
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
+    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
     ts <- t(mapply(
       .get_ncp_t,
-      t, df_error, ci
+      t, df_error, ci.level
     ))
 
     res$CI_low <- ts[, 1] / sqrt(ts[, 1]^2 + df_error)
     res$CI_high <- ts[, 2] / sqrt(ts[, 2]^2 + df_error)
 
     ci_method <- list(method = "ncp", distribution = "t")
+    if (alternative == "less") {
+      res$CI_low <- -1
+    } else if (alternative == "greater") {
+      res$CI_high <- 1
+    }
+  } else {
+    alternative <- NULL
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
   attr(res, "ci_method") <- ci_method
+  attr(res, "alternative") <- alternative
   return(res)
 }
 
@@ -137,15 +143,18 @@ t_to_r <- function(t, df_error, ci = 0.95, ...) {
 #' @rdname t_to_r
 #' @importFrom stats qnorm
 #' @export
-z_to_r <- function(z, n, ci = 0.95, ...) {
+z_to_r <- function(z, n, ci = 0.95, alternative = "two.sided", ...) {
+  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+
   res <- data.frame(r = z / sqrt(z^2 + n))
 
   ci_method <- NULL
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
+    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
-    alpha <- 1 - ci
+    alpha <- 1 - ci.level
     probs <- c(alpha / 2, 1 - alpha / 2)
 
     qs <- stats::qnorm(probs)
@@ -155,11 +164,19 @@ z_to_r <- function(z, n, ci = 0.95, ...) {
     res$CI_high <- zs[, 2] / sqrt(zs[, 2]^2 + n)
 
     ci_method <- list(method = "normal")
+    if (alternative == "less") {
+      res$CI_low <- -1
+    } else if (alternative == "greater") {
+      res$CI_high <- 1
+    }
+  } else {
+    alternative <- NULL
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
   attr(res, "ci_method") <- ci_method
+  attr(res, "alternative") <- alternative
   return(res)
 }
 
@@ -167,9 +184,9 @@ z_to_r <- function(z, n, ci = 0.95, ...) {
 
 #' @rdname t_to_r
 #' @export
-F_to_r <- function(f, df, df_error, ci = 0.95, ...) {
+F_to_r <- function(f, df, df_error, ci = 0.95, alternative = "two.sided", ...) {
   if (df > 1) {
     stop("Cannot convert F with more than 1 df to r.")
   }
-  t_to_r(sqrt(f), df_error = df_error, ci = ci)
+  t_to_r(sqrt(f), df_error, ci = ci, alternative = alternative, ...)
 }

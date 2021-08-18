@@ -24,6 +24,12 @@
 #' @param iterations The number of bootstrap replicates for computing confidence
 #'   intervals. Only applies when `ci` is not `NULL`. (Deprecated for
 #'   `rank_biserial()`).
+#' @param alternative a character string specifying the alternative hypothesis;
+#'   Controls the type of CI returned: `"two.sided"` (two-sided CI; default for
+#'   rank-biserial correlation and Cliff's *delta*), `"greater"` (default for
+#'   rank epsilon squared and Kendall's *W*) or `"less"` (one-sided CI). Partial
+#'   matching is allowed (e.g., `"g"`, `"l"`, `"two"`...). See *One-Sided CIs*
+#'   in [effectsize_CIs].
 #'
 #' @details
 #' The rank-biserial correlation is appropriate for non-parametric tests of
@@ -71,22 +77,37 @@
 #'
 #' @examples
 #' \donttest{
+#' data(mtcars)
+#' mtcars$am <- factor(mtcars$am)
+#' mtcars$cyl <- factor(mtcars$cyl)
+#'
 #' # Rank Biserial Correlation
 #' # =========================
 #'
 #' # Two Independent Samples ----------
-#' A <- c(48, 48, 77, 86, 85, 85)
-#' B <- c(14, 34, 34, 77)
-#' rank_biserial(A, B)
+#' rank_biserial(mpg ~ am, data = mtcars)
+#' # Same as:
+#' # rank_biserial("mpg", "am", data = mtcars)
+#' # rank_biserial(mtcars$mpg[mtcars$am=="0"], mtcars$mpg[mtcars$am=="1"])
+#'
+#' # More options:
+#' rank_biserial(mpg ~ am, data = mtcars, mu = -5)
+#'
 #'
 #' # One Sample ----------
-#' x <- c(1.15, 0.88, 0.90, 0.74, 1.21)
-#' rank_biserial(x, mu = 1)
+#' rank_biserial(wt ~ 1, data = mtcars, mu = 3)
+#' # same as:
+#' # rank_biserial("wt", data = mtcars, mu = 3)
+#' # rank_biserial(mtcars$wt, mu = 3)
+#'
 #'
 #' # Paired Samples ----------
-#' x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
-#' y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
-#' (rbs <- rank_biserial(x, y, paired = TRUE))
+#' dat <- data.frame(Cond1 = c(1.83, 0.5, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.3),
+#'                   Cond2 = c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29))
+#' (rbs <- rank_biserial(Pair(Cond1, Cond2) ~ 1, data = dat, paired = TRUE))
+#'
+#' # same as:
+#' # rank_biserial(dat$Cond1, dat$Cond2, paired = TRUE)
 #'
 #' interpret_rank_biserial(0.78)
 #' interpret(rbs, rules = "funder2019")
@@ -95,23 +116,16 @@
 #' # Rank Epsilon Squared
 #' # ====================
 #'
-#' x1 <- c(2.9, 3.0, 2.5, 2.6, 3.2) # control group
-#' x2 <- c(3.8, 2.7, 4.0, 2.4) # obstructive airway disease group
-#' x3 <- c(2.8, 3.4, 3.7, 2.2, 2.0) # asbestosis group
-#' x <- c(x1, x2, x3)
-#' g <- factor(rep(1:3, c(5, 4, 5)))
-#' rank_epsilon_squared(x, g)
+#' rank_epsilon_squared(mpg ~ cyl, data = mtcars)
+#'
+#'
 #'
 #' # Kendall's W
 #' # ===========
-#' wb <- aggregate(warpbreaks$breaks,
-#'   by = list(
-#'     w = warpbreaks$wool,
-#'     t = warpbreaks$tension
-#'   ),
-#'   FUN = mean
-#' )
-#' (W <- kendalls_w(x ~ w | t, data = wb, verbose = FALSE))
+#' dat <- data.frame(cond = c("A", "B", "A", "B", "A", "B"),
+#'                   ID = c("L", "L", "M", "M", "H", "H"),
+#'                   y = c(44.56, 28.22, 24, 28.78, 24.56, 18.78))
+#' (W <- kendalls_w(y ~ cond | ID, data = dat, verbose = FALSE))
 #'
 #' interpret_kendalls_w(0.11)
 #' interpret(W, rules = "landis1977")
@@ -146,15 +160,18 @@ rank_biserial <- function(x,
                           data = NULL,
                           mu = 0,
                           ci = 0.95,
+                          alternative = "two.sided",
                           paired = FALSE,
                           verbose = TRUE,
                           ...,
                           iterations) {
+  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+
   if (inherits(x, "htest")) {
     if (!grepl("Wilcoxon", x$method)) {
       stop("'x' is not a Wilcoxon-test!", call. = FALSE)
     }
-    return(effectsize(x, ci = ci, verbose = verbose))
+    return(effectsize(x, ci = ci, verbose = verbose, alternative = alternative))
   }
 
   if (!missing(iterations) && verbose) {
@@ -208,8 +225,11 @@ rank_biserial <- function(x,
 
     # Parametric method
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
-    alpha <- 1 - ci
     out$CI <- ci
+    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+
+    alpha <- 1 - ci.level
+
     rf <- atanh(r_rbs)
     if (paired) {
       nd <- sum((x - mu) != 0)
@@ -243,6 +263,13 @@ rank_biserial <- function(x,
     out$CI_low <- confint[1]
     out$CI_high <- confint[2]
     ci_method <- list(method = "normal")
+    if (alternative == "less") {
+      out$CI_low <- -1
+    } else if (alternative == "greater") {
+      out$CI_high <- 1
+    }
+  } else {
+    alternative <- NULL
   }
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
@@ -251,6 +278,7 @@ rank_biserial <- function(x,
   attr(out, "ci") <- ci
   attr(out, "ci_method") <- ci_method
   attr(out, "approximate") <- FALSE
+  attr(out, "alternative") <- alternative
   return(out)
 }
 
@@ -261,7 +289,7 @@ cliffs_delta <- function(x,
                          data = NULL,
                          mu = 0,
                          ci = 0.95,
-                         iterations = 200,
+                         alternative = "two.sided",
                          verbose = TRUE,
                          ...) {
   rank_biserial(
@@ -270,8 +298,9 @@ cliffs_delta <- function(x,
     mu = mu,
     paired = FALSE,
     ci = ci,
-    iterations = iterations,
-    verbose = verbose
+    alternative = alternative,
+    verbose = verbose,
+    ...
   )
 }
 
@@ -284,40 +313,42 @@ rank_epsilon_squared <- function(x,
                                  groups,
                                  data = NULL,
                                  ci = 0.95,
+                                 alternative = "greater",
                                  iterations = 200,
                                  ...) {
+  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+
   if (inherits(x, "htest")) {
     if (!grepl("Kruskal-Wallis", x$method)) {
       stop("'x' is not a Kruskal-Wallis-test!", call. = FALSE)
     }
-    return(effectsize(x, ci = ci, iterations = iterations))
+    return(effectsize(x, ci = ci, iterations = iterations, alternative = alternative))
   }
 
   ## pep data
   data <- .rank_anova_xg(x, groups, data)
   data <- stats::na.omit(data)
-  x <- data$x
-  groups <- data$groups
 
   ## compute
-  E <- .repsilon(x, groups)
-  out <- data.frame(rank_epsilon_squared = E)
+  out <- data.frame(rank_epsilon_squared = .repsilon(data))
 
   ## CI
   ci_method <- NULL
   if (is.numeric(ci)) {
     if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
-      out <- cbind(out, .repsilon_ci(data, ci, iterations))
+      out <- cbind(out, .repsilon_ci(data, ci, alternative, iterations))
       ci_method <- list(method = "percentile bootstrap", iterations = iterations)
     } else {
       ci <- NULL
     }
   }
+  if (is.null(ci)) alternative <- NULL
 
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
   attr(out, "ci") <- ci
   attr(out, "ci_method") <- ci_method
   attr(out, "approximate") <- FALSE
+  attr(out, "alternative") <- alternative
   return(out)
 }
 
@@ -330,41 +361,44 @@ kendalls_w <- function(x,
                        blocks,
                        data = NULL,
                        ci = 0.95,
+                       alternative = "greater",
                        iterations = 200,
                        verbose = TRUE,
                        ...) {
+  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+
   if (inherits(x, "htest")) {
     if (!grepl("Friedman", x$method)) {
       stop("'x' is not a Friedman-test!", call. = FALSE)
     }
-    return(effectsize(x, ci = ci, iterations = iterations, verbose = verbose))
+    return(effectsize(x, ci = ci, iterations = iterations, verbose = verbose, alternative = alternative))
   }
 
   ## prep data
   data <- .kendalls_w_data(x, groups, blocks, data)
   data <- stats::na.omit(data)
-  rankings <- apply(data, 1, datawizard::ranktransform, verbose = verbose)
-  rankings <- t(rankings) # keep dims
 
   ## compute
-  W <- .kendalls_w(rankings)
+  W <- .kendalls_w(data, verbose = verbose)
   out <- data.frame(Kendalls_W = W)
 
   ## CI
   ci_method <- NULL
   if (is.numeric(ci)) {
     if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
-      out <- cbind(out, .kendalls_w_ci(rankings, ci, iterations))
+      out <- cbind(out, .kendalls_w_ci(data, ci, alternative, iterations))
       ci_method <- list(method = "percentile bootstrap", iterations = iterations)
     } else {
       ci <- NULL
     }
   }
+  if (is.null(ci)) alternative <- NULL
 
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
   attr(out, "ci") <- ci
   attr(out, "ci_method") <- ci_method
   attr(out, "approximate") <- FALSE
+  attr(out, "alternative") <- alternative
   return(out)
 }
 
@@ -405,7 +439,7 @@ kendalls_w <- function(x,
 #' @importFrom stats na.omit
 .r_rbs <- function(x, y, mu, paired, verbose = FALSE) {
   if (paired) {
-    Ry <- datawizard::ranktransform((x - y) - mu, sign = TRUE, verbose = verbose)
+    Ry <- .safe_ranktransform((x - y) - mu, sign = TRUE, verbose = verbose)
     Ry <- stats::na.omit(Ry)
 
     n <- length(Ry)
@@ -414,7 +448,7 @@ kendalls_w <- function(x,
     U1 <- sum(Ry[Ry > 0], na.rm = TRUE)
     U2 <- -sum(Ry[Ry < 0], na.rm = TRUE)
   } else {
-    Ry <- datawizard::ranktransform(c(x - mu, y), verbose = verbose)
+    Ry <- .safe_ranktransform(c(x - mu, y), verbose = verbose)
 
     n1 <- length(x)
     n2 <- length(y)
@@ -431,18 +465,21 @@ kendalls_w <- function(x,
 
 #' @keywords internal
 #' @importFrom stats kruskal.test
-.repsilon <- function(x, groups) {
-  model <- stats::kruskal.test(x, groups)
+.repsilon <- function(data) {
+  model <- stats::kruskal.test(data$x, data$groups)
 
   H <- unname(model$statistic)
-  n <- length(groups)
+  n <- nrow(data)
 
   E <- H / ((n^2 - 1) / (n + 1))
 }
 
 
 #' @keywords internal
-.kendalls_w <- function(rankings) {
+.kendalls_w <- function(data, verbose) {
+  rankings <- apply(data, 1, .safe_ranktransform, verbose = verbose)
+  rankings <- t(rankings) # keep dims
+
   # TODO add ties correction?
   n <- ncol(rankings) # items
   m <- nrow(rankings) # judges
@@ -499,15 +536,17 @@ kendalls_w <- function(x,
 # }
 
 #' @keywords internal
-.repsilon_ci <- function(data, ci, iterations) {
+.repsilon_ci <- function(data, ci, alternative, iterations) {
   stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+
 
   boot_r_epsilon <- function(.data, .i) {
     split(.data$x, .data$groups) <- lapply(split(.data$x, .data$groups),
       sample,
       replace = TRUE
     )
-    .repsilon(.data$x, .data$groups)
+    .repsilon(.data)
   }
 
   R <- boot::boot(
@@ -516,22 +555,23 @@ kendalls_w <- function(x,
     R = iterations
   )
 
-  bCI <- boot::boot.ci(R, conf = ci, type = "perc")$percent
+  bCI <- boot::boot.ci(R, conf = ci.level, type = "perc")$percent
   bCI <- tail(as.vector(bCI), 2)
 
   data.frame(
     CI = ci,
-    CI_low = bCI[1],
-    CI_high = bCI[2]
+    CI_low = if (alternative == "less") 0 else bCI[1],
+    CI_high = if (alternative == "greater") 1 else bCI[2]
   )
 }
 
 #' @keywords internal
-.kendalls_w_ci <- function(data, ci, iterations) {
+.kendalls_w_ci <- function(data, ci, alternative, iterations) {
   stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
   boot_w <- function(.data, .i) {
-    .kendalls_w(.data[.i, ]) # sample rows
+    .kendalls_w(.data[.i, ], verbose = FALSE) # sample rows
   }
 
   R <- boot::boot(
@@ -540,13 +580,13 @@ kendalls_w <- function(x,
     R = iterations
   )
 
-  bCI <- boot::boot.ci(R, conf = ci, type = "perc")$percent
+  bCI <- boot::boot.ci(R, conf = ci.level, type = "perc")$percent
   bCI <- tail(as.vector(bCI), 2)
 
   data.frame(
     CI = ci,
-    CI_low = bCI[1],
-    CI_high = bCI[2]
+    CI_low = if (alternative == "less") 0 else bCI[1],
+    CI_high = if (alternative == "greater") 1 else bCI[2]
   )
 }
 
@@ -633,4 +673,15 @@ kendalls_w <- function(x,
   )
 
   as.matrix(data[, -1])
+}
+
+
+# Utils -------------------------------------------------------------------
+
+.safe_ranktransform <- function(x, verbose = TRUE, ...) {
+  if (length(unique(x)) == 1) {
+    if (verbose) warning("Only one unique value - rank fixed at 1")
+    return(rep(1, length(x)))
+  }
+  datawizard::ranktransform(x, verbose = verbose, ...)
 }

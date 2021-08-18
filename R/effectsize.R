@@ -20,6 +20,7 @@
 #'   - A **Wilcoxon test** returns *rank biserial correlation*.
 #'   - A **Kruskal-Wallis test** returns *rank Epsilon squared*.
 #'   - A **Friedman test** returns *Kendall's W*.
+#'   (Where applicable, `ci` and `alternative` are taken from the `htest` if not otherwise provided.)
 #' - For an object of class `BFBayesFactor`, using [bayestestR::describe_posterior()],
 #'   - A **t-test** returns *Cohen's d*.
 #'   - A **correlation test** returns *r*.
@@ -44,13 +45,15 @@
 #' effectsize(Xsq)
 #' effectsize(Xsq, type = "phi")
 #'
-#' Ts <- t.test(1:10, y = c(7:20))
-#' effectsize(Ts)
+#' Tt <- t.test(1:10, y = c(7:20), alternative = "less")
+#' effectsize(Tt)
 #'
 #' Aov <- oneway.test(extra ~ group, data = sleep, var.equal = TRUE)
 #' effectsize(Aov)
 #' effectsize(Aov, type = "omega")
 #'
+#' Wt <- wilcox.test(1:10, 7:20, mu = -3, alternative = "less")
+#' effectsize(Wt)
 #'
 #' ## Bayesian Hypothesis Testing
 #' ## ---------------------------

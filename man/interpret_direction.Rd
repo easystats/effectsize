@@ -15,5 +15,4 @@ Interpret direction
 \examples{
 interpret_direction(.02)
 interpret_direction(c(.5, -.02))
-
 }
