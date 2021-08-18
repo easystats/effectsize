@@ -55,7 +55,7 @@
 #' and using *p* values (whether p < alpha for that value) are only guaranteed
 #' to agree when both are constructed using the same number of sides/tails.
 #' \cr\cr
-#' Most effect sizes are not bounded by zero (e.g., *r*, *d*, *g*), as as such
+#' Most effect sizes are not bounded by zero (e.g., *r*, *d*, *g*), and as such
 #' are generally tested using 2-tailed tests and 2-sided CIs.
 #' \cr\cr
 #' Some effect sizes are strictly positive--they do have a minimum value, of 0.

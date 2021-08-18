@@ -114,23 +114,29 @@ model <- aov(mpg ~ factor(gear), data = mtcars)
 eta_squared(model)
 ## # Effect Size for ANOVA
 ## 
-## Parameter    | Eta2 |       90% CI
+## Parameter    | Eta2 |       95% CI
 ## ----------------------------------
-## factor(gear) | 0.43 | [0.18, 0.59]
+## factor(gear) | 0.43 | [0.18, 1.00]
+## 
+## - One-sided CIs: upper bound fixed at (1).
 
 omega_squared(model)
 ## # Effect Size for ANOVA
 ## 
-## Parameter    | Omega2 |       90% CI
+## Parameter    | Omega2 |       95% CI
 ## ------------------------------------
-## factor(gear) |   0.38 | [0.14, 0.55]
+## factor(gear) |   0.38 | [0.14, 1.00]
+## 
+## - One-sided CIs: upper bound fixed at (1).
 
 epsilon_squared(model)
 ## # Effect Size for ANOVA
 ## 
-## Parameter    | Epsilon2 |       90% CI
+## Parameter    | Epsilon2 |       95% CI
 ## --------------------------------------
-## factor(gear) |     0.39 | [0.14, 0.56]
+## factor(gear) |     0.39 | [0.14, 1.00]
+## 
+## - One-sided CIs: upper bound fixed at (1).
 ```
 
 And more…
@@ -192,9 +198,11 @@ F_to_r(15, df = 1, df_error = 60)
 ## 0.45 | [0.22, 0.61]
 
 F_to_eta2(15, df = 1, df_error = 60)
-## Eta2 (partial) |       90% CI
+## Eta2 (partial) |       95% CI
 ## -----------------------------
-## 0.20           | [0.07, 0.34]
+## 0.20           | [0.07, 1.00]
+## 
+## - One-sided CIs: upper bound fixed at (1).
 ```
 
 ## Effect Size Interpretation
