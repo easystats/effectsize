@@ -59,15 +59,14 @@
 #' @family effect size indices
 #'
 #' @examples
-#' M <- rbind(
-#'   c(150, 130, 35, 55),
-#'   c(100, 50, 10, 40),
-#'   c(165, 65, 2, 25)
-#' )
-#' dimnames(M) <- list(
-#'   Study = c("Psych", "Econ", "Law"),
-#'   Music = c("Pop", "Rock", "Jazz", "Classic")
-#' )
+#' M <-
+#'   matrix(c(150, 100, 165,
+#'            130, 50, 65,
+#'            35, 10, 2,
+#'            55, 40, 25), nrow = 4,
+#'          dimnames = list(
+#'            Music = c("Pop", "Rock", "Jazz", "Classic"),
+#'            Study = c("Psych", "Econ", "Law")))
 #' M
 #'
 #' phi(M)
@@ -78,17 +77,13 @@
 #'
 #' ## 2-by-2 tables
 #' ## -------------
-#' (RCT <- matrix(
-#'   c(
-#'     71, 30,
-#'     50, 100
-#'   ),
-#'   nrow = 2, byrow = TRUE,
-#'   dimnames = list(
-#'     Diagnosis = c("Sick", "Recovered"),
-#'     Group = c("Treatment", "Control")
-#'   )
-#' )) # note groups are COLUMNS
+#' RCT <-
+#'   matrix(c(71, 30,
+#'            50, 100), nrow = 2, byrow = TRUE,
+#'          dimnames = list(
+#'            Diagnosis = c("Sick", "Recovered"),
+#'            Group = c("Treatment", "Control")))
+#' RCT # note groups are COLUMNS
 #'
 #' oddsratio(RCT)
 #' oddsratio(RCT, alternative = "greater")
@@ -101,17 +96,17 @@
 #'
 #' ## Dependent (Paired) Contingency Tables
 #' ## -------------------------------------
-#' Performance <- rbind(
-#'   c(794, 86),
-#'   c(150, 570)
-#' )
-#' dimnames(Performance) <- list(
-#'   "1st Survey" = c("Approve", "Disapprove"),
-#'   "2nd Survey" = c("Approve", "Disapprove")
-#' )
+#
+#' Performance <-
+#'   matrix(c(794, 150,
+#'            86, 570), nrow = 2,
+#'          dimnames = list(
+#'            "1st Survey" = c("Approve", "Disapprove"),
+#'            "2nd Survey" = c("Approve", "Disapprove")))
 #' Performance
 #'
 #' cohens_g(Performance)
+#'
 #' @references
 #' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 #' - Katz, D. J. S. M., Baptista, J., Azen, S. P., & Pike, M. C. (1978). Obtaining confidence intervals for the risk ratio in cohort studies. Biometrics, 469-474.
