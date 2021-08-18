@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5-1</span>
       </span>
     </div>
 
@@ -76,10 +76,13 @@
       <a href="articles/anovaES.html">ANOVA Effect Sizes</a>
     </li>
     <li>
-      <a href="articles/bayesian_models.html">For Bayesian Models</a>
+      <a href="articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
     </li>
     <li>
-      <a href="articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
+      <a href="reference/effectsize_CIs.html">Confidence Intervals</a>
+    </li>
+    <li>
+      <a href="articles/bayesian_models.html">For Bayesian Models</a>
     </li>
   </ul>
 </li>
@@ -218,23 +221,29 @@
 <span class="fu"><a href="reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
 <span class="co">## # Effect Size for ANOVA</span>
 <span class="co">## </span>
-<span class="co">## Parameter    | Eta2 |       90% CI</span>
+<span class="co">## Parameter    | Eta2 |       95% CI</span>
 <span class="co">## ----------------------------------</span>
-<span class="co">## factor(gear) | 0.43 | [0.18, 0.59]</span>
+<span class="co">## factor(gear) | 0.43 | [0.18, 1.00]</span>
+<span class="co">## </span>
+<span class="co">## - One-sided CIs: upper bound fixed at (1).</span>
 
 <span class="fu"><a href="reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
 <span class="co">## # Effect Size for ANOVA</span>
 <span class="co">## </span>
-<span class="co">## Parameter    | Omega2 |       90% CI</span>
+<span class="co">## Parameter    | Omega2 |       95% CI</span>
 <span class="co">## ------------------------------------</span>
-<span class="co">## factor(gear) |   0.38 | [0.14, 0.55]</span>
+<span class="co">## factor(gear) |   0.38 | [0.14, 1.00]</span>
+<span class="co">## </span>
+<span class="co">## - One-sided CIs: upper bound fixed at (1).</span>
 
 <span class="fu"><a href="reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
 <span class="co">## # Effect Size for ANOVA</span>
 <span class="co">## </span>
-<span class="co">## Parameter    | Epsilon2 |       90% CI</span>
+<span class="co">## Parameter    | Epsilon2 |       95% CI</span>
 <span class="co">## --------------------------------------</span>
-<span class="co">## factor(gear) |     0.39 | [0.14, 0.56]</span></code></pre></div>
+<span class="co">## factor(gear) |     0.39 | [0.14, 1.00]</span>
+<span class="co">## </span>
+<span class="co">## - One-sided CIs: upper bound fixed at (1).</span></code></pre></div>
 <p>And more…</p>
 </div>
 <div id="regression-models-standardized-parameters" class="section level3">
@@ -285,9 +294,11 @@
 <span class="co">## 0.45 | [0.22, 0.61]</span>
 
 <span class="fu"><a href="reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span><span class="fl">15</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>
-<span class="co">## Eta2 (partial) |       90% CI</span>
+<span class="co">## Eta2 (partial) |       95% CI</span>
 <span class="co">## -----------------------------</span>
-<span class="co">## 0.20           | [0.07, 0.34]</span></code></pre></div>
+<span class="co">## 0.20           | [0.07, 1.00]</span>
+<span class="co">## </span>
+<span class="co">## - One-sided CIs: upper bound fixed at (1).</span></code></pre></div>
 </div>
 <div id="effect-size-interpretation" class="section level2">
 <h2 class="hasAnchor">

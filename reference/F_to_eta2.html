@@ -99,7 +99,7 @@ See Effect Size from Test Statistics vignette." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5-1</span>
       </span>
     </div>
 
@@ -131,10 +131,13 @@ See Effect Size from Test Statistics vignette." />
       <a href="../articles/anovaES.html">ANOVA Effect Sizes</a>
     </li>
     <li>
-      <a href="../articles/bayesian_models.html">For Bayesian Models</a>
+      <a href="../articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
     </li>
     <li>
-      <a href="../articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
+      <a href="../reference/effectsize_CIs.html">Confidence Intervals</a>
+    </li>
+    <li>
+      <a href="../articles/bayesian_models.html">For Bayesian Models</a>
     </li>
   </ul>
 </li>
@@ -179,7 +182,7 @@ See Effect Size from Test Statistics vignette." />
     <div class="page-header">
     <h1>Convert test statistics (F, t) to indices of <strong>partial</strong> variance explained
 (<strong>partial</strong> Eta / Omega / Epsilon squared and Cohen's f)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/convert_tF_to_anova.R'><code>R/convert_tF_to_anova.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/convert_stat_to_anova.R'><code>R/convert_stat_to_anova.R</code></a></small>
     <div class="hidden name"><code>F_to_eta2.Rd</code></div>
     </div>
 
@@ -196,29 +199,45 @@ cases, they return close approximations.
 See <a href='https://easystats.github.io/effectsize/articles/from_test_statistics.html'>Effect Size from Test Statistics vignette.</a></p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>F_to_eta2</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>df</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.9</span>, <span class='va'>...</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>F_to_eta2</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>df</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, alternative <span class='op'>=</span> <span class='st'>"greater"</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>t_to_eta2</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.9</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>t_to_eta2</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, alternative <span class='op'>=</span> <span class='st'>"greater"</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>F_to_epsilon2</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>df</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.9</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>F_to_epsilon2</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>df</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, alternative <span class='op'>=</span> <span class='st'>"greater"</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>t_to_epsilon2</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.9</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>t_to_epsilon2</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, alternative <span class='op'>=</span> <span class='st'>"greater"</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>F_to_eta2_adj</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>df</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.9</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>F_to_eta2_adj</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>df</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, alternative <span class='op'>=</span> <span class='st'>"greater"</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>t_to_eta2_adj</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.9</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>t_to_eta2_adj</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, alternative <span class='op'>=</span> <span class='st'>"greater"</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>F_to_omega2</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>df</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.9</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>F_to_omega2</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>df</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, alternative <span class='op'>=</span> <span class='st'>"greater"</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>t_to_omega2</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.9</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>t_to_omega2</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, alternative <span class='op'>=</span> <span class='st'>"greater"</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>F_to_f</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>df</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.9</span>, squared <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>F_to_f</span><span class='op'>(</span>
+  <span class='va'>f</span>,
+  <span class='va'>df</span>,
+  <span class='va'>df_error</span>,
+  ci <span class='op'>=</span> <span class='fl'>0.95</span>,
+  alternative <span class='op'>=</span> <span class='st'>"greater"</span>,
+  squared <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>t_to_f</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.9</span>, squared <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>t_to_f</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, alternative <span class='op'>=</span> <span class='st'>"greater"</span>, squared <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>F_to_f2</span><span class='op'>(</span><span class='va'>f</span>, <span class='va'>df</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.9</span>, squared <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>F_to_f2</span><span class='op'>(</span>
+  <span class='va'>f</span>,
+  <span class='va'>df</span>,
+  <span class='va'>df_error</span>,
+  ci <span class='op'>=</span> <span class='fl'>0.95</span>,
+  alternative <span class='op'>=</span> <span class='st'>"greater"</span>,
+  squared <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>t_to_f2</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.9</span>, squared <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
+<span class='fu'>t_to_f2</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>df_error</span>, ci <span class='op'>=</span> <span class='fl'>0.95</span>, alternative <span class='op'>=</span> <span class='st'>"greater"</span>, squared <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -231,6 +250,14 @@ See <a href='https://easystats.github.io/effectsize/articles/from_test_statistic
     <tr>
       <th>ci</th>
       <td><p>Confidence Interval (CI) level</p></td>
+    </tr>
+    <tr>
+      <th>alternative</th>
+      <td><p>a character string specifying the alternative hypothesis;
+Controls the type of CI returned: <code>"greater"</code> (default) or <code>"less"</code>
+(one-sided CI), or <code>"two.sided"</code> (default, two-sided CI). Partial matching
+is allowed (e.g., <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em> in
+<a href='effectsize_CIs.html'>effectsize_CIs</a>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -281,42 +308,51 @@ designs.</p></li>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Adjusted (partial) Eta-squared is an alias for (partial) Epsilon-squared.</p>
-    <h2 class="hasAnchor" id="confidence-intervals"><a class="anchor" href="#confidence-intervals"></a>Confidence Intervals</h2>
+    <h2 class="hasAnchor" id="confidence-compatibility-intervals-cis-"><a class="anchor" href="#confidence-compatibility-intervals-cis-"></a>Confidence (Compatibility) Intervals (CIs)</h2>
 
     
 
-<p>Unless stated otherwise, confidence intervals are estimated using the
-Noncentrality parameter method; These methods searches for a the best
-non-central parameters (<code>ncp</code>s) of the noncentral t-, F- or Chi-squared
-distribution for the desired tail-probabilities, and then convert these
-<code>ncp</code>s to the corresponding effect sizes. (See full <a href='effectsize-CIs.html'>effectsize-CIs</a> for
-more.)</p>
-    <h2 class="hasAnchor" id="ci-contains-zero"><a class="anchor" href="#ci-contains-zero"></a>CI Contains Zero</h2>
-
-    
-
-<p>Keep in mind that <code>ncp</code> confidence intervals are inverted significance tests,
-and only inform us about which values are not significantly different than
-our sample estimate. (They do <em>not</em> inform us about which values are
-plausible, likely or compatible with our data.) Thus, when CIs contain the
-value 0, this should <em>not</em> be taken to mean that a null effect size is
-supported by the data; Instead this merely reflects a non-significant test
-statistic - i.e. the <em>p</em>-value is greater than alpha (Morey et al., 2016).
+<p>Unless stated otherwise, confidence (compatibility) intervals (CIs) are
+estimated using the noncentrality parameter method (also called the
+"pivot method"). This method finds the noncentrality parameter ("<em>ncp</em>") of
+a noncentral <em>t</em>, <em>F</em>, or
+&chi;<sup>2</sup>
+distribution that places the observed <em>t</em>, <em>F</em>, or
+&chi;<sup>2</sup>
+test statistic at the desired probability point of the distribution.
+For example, if the observed <em>t</em> statistic is 2.0, with 50
+degrees of freedom, for which cumulative noncentral <em>t</em> distribution is
+<em>t</em> = 2.0 the .025 quantile (answer: the noncentral <em>t</em> distribution with
+<em>ncp</em> = .04)? After estimating these confidence bounds on the <em>ncp</em>, they are
+converted into the effect size metric to obtain a confidence interval for the
+effect size (Steiger, 2004).
 <br /><br />
-For positive only effect sizes (Eta squared, Cramer's V, etc.; Effect sizes
-associated with Chi-squared and F distributions), this applies also to cases
-where the lower bound of the CI is equal to 0. Even more care should be taken
-when the <em>upper</em> bound is equal to 0 - this occurs when <em>p</em>-value is greater
-than 1-alpha/2 making, the upper bound cannot be estimated, and the upper
-bound is arbitrarily set to 0 (Steiger, 2004). For example:<div class="r"></p><pre class='sourceCode r'><code><span class='fu'><a href='eta_squared.html'>eta_squared</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/aov.html'>aov</a></span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>gear</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, <span class='va'>mtcars</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span>, <span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre><p></div></p><pre class='sourceCode r'><code><span class='co'>## # Effect Size for ANOVA (Type I)</span>
-<span class='co'>## </span>
-<span class='co'>## Parameter    | Eta2 (partial) |       90% CI</span>
-<span class='co'>## --------------------------------------------</span>
-<span class='co'>## factor(gear) |           0.58 | [0.00, 0.84]</span>
-<span class='co'>## factor(cyl)  |           0.46 | [0.00, 0.78]</span>
-</code></pre>
+For additional details on estimation and troubleshooting, see <a href='effectsize_CIs.html'>effectsize_CIs</a>.</p>
+    <h2 class="hasAnchor" id="cis-and-significance-tests"><a class="anchor" href="#cis-and-significance-tests"></a>CIs and Significance Tests</h2>
 
+    
+
+<p>"Confidence intervals on measures of effect size convey all the information
+in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
+intervals and p values are complementary summaries of parameter uncertainty
+given the observed data. A dichotomous hypothesis test could be performed
+with either a CI or a p value. The
+100(1 &minus; &alpha;)%
+confidence interval contains all of the parameter values for which
+p > &alpha;
+for the current data and model. For example, a 95% confidence interval
+contains all of the values for which p &gt; .05.
+<br /><br />
+Note that a confidence interval including 0 <em>does not</em> indicate that the null
+(no effect) is true. Rather, it suggests that the observed data together with
+the model and its assumptions combined do not provided clear evidence against
+a parameter value of 0 (same as with any other value in the interval), with
+the level of this evidence defined by the chosen
+&alpha; level
+(Rafi &amp; Greenland, 2020; Schweder &amp; Hjort, 2016; Xie &amp; Singh, 2013). To infer
+no effect, additional judgments about what parameter values are "close
+enough" to 0 to be negligible are needed ("equivalence testing"; Bauer &amp;
+Kiesser, 1996).</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -394,11 +430,13 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-in'>  df <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>,</span>
 <span class='r-in'>  df_error <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>18</span>, <span class='fl'>9</span>, <span class='fl'>18</span><span class='op'>)</span></span>
 <span class='r-in'><span class='op'>)</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Eta2 (partial) |       90% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Eta2 (partial) |       95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -----------------------------</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.82           | [0.66, 0.89]</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.79           | [0.49, 0.89]</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.83           | [0.69, 0.90]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.82           | [0.66, 1.00]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.79           | [0.49, 1.00]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.83           | [0.69, 1.00]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- One-sided CIs: upper bound fixed at (1).</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://easystats.github.io/see/'>see</a></span><span class='op'>)</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>etas</span><span class='op'>)</span></span>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span> Loading required package: see</span>
@@ -429,9 +467,11 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span> The following object is masked from ‘package:stats’:</span>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span>     step</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Cohen's f (partial) |       90% CI</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> ----------------------------------</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.35                | [0.57, 2.08]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Cohen's f (partial) |           95% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.35                | [0.57,      Inf]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- One-sided CIs: upper bound fixed at (Inf).</span></span>
 <span class='r-in'></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'>## Use with emmeans based contrasts</span></span>
@@ -443,10 +483,12 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class='r-in'>  <span class='fu'>F_to_eta2</span><span class='op'>(</span><span class='va'>jt</span><span class='op'>$</span><span class='va'>F.ratio</span>, <span class='va'>jt</span><span class='op'>$</span><span class='va'>df1</span>, <span class='va'>jt</span><span class='op'>$</span><span class='va'>df2</span><span class='op'>)</span></span>
 <span class='r-in'><span class='op'>}</span></span>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span> Loading required package: emmeans</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Eta2 (partial) |       90% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Eta2 (partial) |       95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -----------------------------</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.30           | [0.12, 0.45]</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.09           | [0.00, 0.22]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.30           | [0.12, 1.00]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.09           | [0.00, 1.00]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- One-sided CIs: upper bound fixed at (1).</span></span>
 <span class='r-in'><span class='co'># }</span></span>
 </code></pre></div>
   </div>

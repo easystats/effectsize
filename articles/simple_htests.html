@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5-1</span>
       </span>
     </div>
 
@@ -72,10 +72,13 @@
       <a href="../articles/anovaES.html">ANOVA Effect Sizes</a>
     </li>
     <li>
-      <a href="../articles/bayesian_models.html">For Bayesian Models</a>
+      <a href="../articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
     </li>
     <li>
-      <a href="../articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
+      <a href="../reference/effectsize_CIs.html">Confidence Intervals</a>
+    </li>
+    <li>
+      <a href="../articles/bayesian_models.html">For Bayesian Models</a>
     </li>
   </ul>
 </li>
@@ -197,19 +200,40 @@
 &gt; -1.35     | [-2.17, -0.51]
 &gt; 
 &gt; - Estimated using un-pooled SD.</code></pre>
-<p>In cases where the differences between the variances are substantial, it is also common to standardize the difference based only on the standard deviation of one of the groups (usually the “control” group); this effect size is known as Glass’ <span class="math inline">\(\Delta\)</span> (delta)</p>
+<p>In cases where the differences between the variances are substantial, it is also common to standardize the difference based only on the standard deviation of one of the groups (usually the “control” group); this effect size is known as Glass’ <span class="math inline">\(\Delta\)</span> (delta) (Note that the standard deviation is taken from the <em>second</em> sample).</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/cohens_d.html">glass_delta</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Glass' delta |         95% CI
 &gt; -----------------------------
 &gt; -1.17        | [-1.93, -0.39]</code></pre>
-<p>(Note that the standard deviation is taken from the <em>second</em> sample.)</p>
+<p>For a one-sided hypothesis, it is also possible to construct one-sided confidence intervals:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span>, var.equal <span class="op">=</span> <span class="cn">TRUE</span>, alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span></code></pre></div>
+<pre><code>&gt; 
+&gt;   Two Sample t-test
+&gt; 
+&gt; data:  mpg by am
+&gt; t = -4, df = 30, p-value = 1e-04
+&gt; alternative hypothesis: true difference in means between group 0 and group 1 is less than 0
+&gt; 95 percent confidence interval:
+&gt;   -Inf -4.25
+&gt; sample estimates:
+&gt; mean in group 0 mean in group 1 
+&gt;            17.1            24.4</code></pre>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span>, pooled_sd <span class="op">=</span> <span class="cn">TRUE</span>, alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span></code></pre></div>
+<pre><code>&gt; Cohen's d |        95% CI
+&gt; -------------------------
+&gt; -1.48     | [-Inf, -0.80]
+&gt; 
+&gt; - Estimated using pooled SD.
+&gt; - One-sided CIs: lower bound fixed at (-Inf).</code></pre>
 </div>
 <div id="one-sample-and-paired-samples" class="section level2">
 <h2 class="hasAnchor">
 <a href="#one-sample-and-paired-samples" class="anchor" aria-hidden="true"></a>One Sample and Paired Samples</h2>
 <p>In the case of a one-sample test, the effect size represents the standardized distance of the mean of the sample from the null value. For paired-samples, the difference between the paired samples is used:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">sleep</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; 
 &gt;   Paired t-test
@@ -222,12 +246,12 @@
 &gt; sample estimates:
 &gt; mean of the differences 
 &gt;                   -1.58</code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">sleep</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Cohen's d |         95% CI
 &gt; --------------------------
 &gt; -1.28     | [-2.23, -0.44]</code></pre>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/cohens_d.html">hedges_g</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">sleep</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Hedges' g |         95% CI
 &gt; --------------------------
@@ -236,7 +260,7 @@
 <div id="for-a-bayesian-t-test" class="section level2">
 <h2 class="hasAnchor">
 <a href="#for-a-bayesian-t-test" class="anchor" aria-hidden="true"></a>For a Bayesian <em>t</em>-test</h2>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">BFt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html" class="external-link">ttestBF</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span><span class="op">[</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span>, <span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span><span class="op">[</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Bayes factor analysis
 &gt; --------------
@@ -246,7 +270,7 @@
 &gt;   Null, mu1-mu2 = 0 
 &gt; ---
 &gt; Bayes factor type: BFindepSample, JZS</code></pre>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFt</span>, test <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Summary of Posterior Distribution
 &gt; 
@@ -259,19 +283,21 @@
 <h1 class="hasAnchor">
 <a href="#one-way-anova" class="anchor" aria-hidden="true"></a>One way ANOVA</h1>
 <p>For more details, see <a href="https://easystats.github.io/effectsize/articles/anovaES.html" class="external-link">ANOVA vignette</a>.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">onew</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/oneway.test.html" class="external-link">oneway.test</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">gear</span>, data <span class="op">=</span> <span class="va">mtcars</span>, var.equal <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">onew</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Eta2 |       90% CI
+<pre><code>&gt; Eta2 |       95% CI
 &gt; -------------------
-&gt; 0.43 | [0.18, 0.59]</code></pre>
+&gt; 0.43 | [0.18, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 </div>
 <div id="contingency-tables-and-proportions" class="section level1">
 <h1 class="hasAnchor">
 <a href="#contingency-tables-and-proportions" class="anchor" aria-hidden="true"></a>Contingency Tables and Proportions</h1>
 <p>For contingency tables Cramér’s <em>V</em> and <span class="math inline">\(\phi\)</span> (Phi, also known as Cohen’s <em>w</em>) indicate the strength of association with 0 indicating no association between the variables. While Cramér’s <em>V</em> is capped at 1 (perfect association), <span class="math inline">\(\phi\)</span> can be larger than 1.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">Music</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>
   <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
     <span class="fl">150</span>, <span class="fl">130</span>, <span class="fl">35</span>, <span class="fl">55</span>,
@@ -289,25 +315,29 @@
 &gt;   Psych 150  130   35      55
 &gt;   Econ  100   50   10      40
 &gt;   Law   165   65    2      25</code></pre>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html" class="external-link">chisq.test</a></span><span class="op">(</span><span class="va">Music</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; 
 &gt;   Pearson's Chi-squared test
 &gt; 
 &gt; data:  Music
 &gt; X-squared = 52, df = 6, p-value = 2e-09</code></pre>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/phi.html">cramers_v</a></span><span class="op">(</span><span class="va">Music</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Cramer's V |       95% CI
 &gt; -------------------------
-&gt; 0.18       | [0.12, 0.22]</code></pre>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+&gt; 0.18       | [0.13, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/phi.html">phi</a></span><span class="op">(</span><span class="va">Music</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Phi  |       95% CI
 &gt; -------------------
-&gt; 0.25 | [0.17, 0.31]</code></pre>
+&gt; 0.25 | [0.18, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 <p>These are also applicable to tests of goodness-of-fit, where small values indicate no deviation from the hypothetical probabilities and large values indicate… large deviation from the hypothetical probabilities.</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">O</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">89</span>, <span class="fl">37</span>, <span class="fl">30</span>, <span class="fl">28</span>, <span class="fl">2</span><span class="op">)</span> <span class="co"># observed group sizes</span>
 <span class="va">E</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">40</span>, <span class="fl">20</span>, <span class="fl">20</span>, <span class="fl">15</span>, <span class="fl">6</span><span class="op">)</span> <span class="co"># expected group sizes</span>
 
@@ -317,18 +347,22 @@
 &gt; 
 &gt; data:  O
 &gt; X-squared = 12, df = 4, p-value = 0.02</code></pre>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/phi.html">cramers_v</a></span><span class="op">(</span><span class="va">O</span>, p <span class="op">=</span> <span class="va">E</span>, rescale.p <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Cramer's V |       95% CI
 &gt; -------------------------
-&gt; 0.13       | [0.02, 0.18]</code></pre>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+&gt; 0.13       | [0.04, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/phi.html">phi</a></span><span class="op">(</span><span class="va">O</span>, p <span class="op">=</span> <span class="va">E</span>, rescale.p <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Phi  |       95% CI
 &gt; -------------------
-&gt; 0.25 | [0.04, 0.37]</code></pre>
+&gt; 0.25 | [0.08, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 <p>These can also be extracted from the equivalent Bayesian test:</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">BFX</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/contingencyTableBF.html" class="external-link">contingencyTableBF</a></span><span class="op">(</span><span class="va">Music</span>, sampleType <span class="op">=</span> <span class="st">"jointMulti"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Bayes factor analysis
 &gt; --------------
@@ -338,14 +372,14 @@
 &gt;   Null, independence, a = 1 
 &gt; ---
 &gt; Bayes factor type: BFcontingencyTable, joint multinomial</code></pre>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFX</span>, type <span class="op">=</span> <span class="st">"cramers_v"</span>, test <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Summary of Posterior Distribution
 &gt; 
 &gt; Parameter | Median |       95% CI
 &gt; ---------------------------------
 &gt; Cramers_v |   0.18 | [0.14, 0.22]</code></pre>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFX</span>, type <span class="op">=</span> <span class="st">"phi"</span>, test <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Summary of Posterior Distribution
 &gt; 
@@ -356,7 +390,7 @@
 <h2 class="hasAnchor">
 <a href="#comparing-two-proportions-2x2-tables" class="anchor" aria-hidden="true"></a>Comparing Two Proportions (2x2 tables)</h2>
 <p>For <span class="math inline">\(2\times 2\)</span> tables, in addition to Cramér’s <em>V</em> and <span class="math inline">\(\phi\)</span>, we can also compute the Odds-ratio (OR), where each column represents a different group. Values larger than 1 indicate that the odds are higher in the first group (and vice versa).</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">RCT</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>
   <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
     <span class="fl">71</span>, <span class="fl">30</span>,
@@ -372,26 +406,26 @@
 &gt; Diagnosis   Treatment Control
 &gt;   Sick             71      30
 &gt;   Recovered        50     100</code></pre>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html" class="external-link">chisq.test</a></span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span> <span class="co"># or fisher.test(RCT)</span></code></pre></div>
 <pre><code>&gt; 
 &gt;   Pearson's Chi-squared test with Yates' continuity correction
 &gt; 
 &gt; data:  RCT
 &gt; X-squared = 32, df = 1, p-value = 2e-08</code></pre>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/phi.html">oddsratio</a></span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Odds ratio |       95% CI
 &gt; -------------------------
 &gt; 4.73       | [2.74, 8.17]</code></pre>
 <p>We can also compute the Risk-ratio (RR), which is the ratio between the proportions of the two groups - a measure which some claim is more intuitive.</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/phi.html">riskratio</a></span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Risk ratio |       95% CI
 &gt; -------------------------
 &gt; 2.54       | [1.87, 3.45]</code></pre>
 <p>Additionally, Cohen’s <em>h</em> can also be computed, which uses the <em>arcsin</em> transformation. Negative values indicate smaller proportion in the first group (and vice versa).</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/phi.html">cohens_h</a></span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Cohen's h |       95% CI
 &gt; ------------------------
@@ -401,7 +435,7 @@
 <h2 class="hasAnchor">
 <a href="#paired-contingency-tables" class="anchor" aria-hidden="true"></a>Paired Contingency Tables</h2>
 <p>For dependent (paired) contingency tables, Cohen’s <em>g</em> represents the symmetry of the table, ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry).</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">Performance</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>
   <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
     <span class="fl">794</span>, <span class="fl">86</span>,
@@ -417,14 +451,14 @@
 &gt; 1st Survey   Approve Disapprove
 &gt;   Approve        794         86
 &gt;   Disapprove     150        570</code></pre>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/mcnemar.test.html" class="external-link">mcnemar.test</a></span><span class="op">(</span><span class="va">Performance</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; 
 &gt;   McNemar's Chi-squared test with continuity correction
 &gt; 
 &gt; data:  Performance
 &gt; McNemar's chi-squared = 17, df = 1, p-value = 4e-05</code></pre>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/phi.html">cohens_g</a></span><span class="op">(</span><span class="va">Performance</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Cohen's g |       95% CI
 &gt; ------------------------
@@ -439,7 +473,7 @@
 <h2 class="hasAnchor">
 <a href="#difference-in-ranks" class="anchor" aria-hidden="true"></a>Difference in Ranks</h2>
 <p>For two independent samples, the rank-biserial correlation (<span class="math inline">\(r_{rb}\)</span>) is a measure of relative superiority - i.e., larger values indicate a higher probability of a randomly selected observation from <em>X</em> being larger than randomly selected observation from <em>Y</em>. A value of <span class="math inline">\((-1)\)</span> indicates that all observations in the second group are larger than the first, and a value of <span class="math inline">\((+1)\)</span> indicates that all observations in the first group are larger than the second.</p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">48</span>, <span class="fl">48</span>, <span class="fl">77</span>, <span class="fl">86</span>, <span class="fl">85</span>, <span class="fl">85</span><span class="op">)</span>
 <span class="va">B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">14</span>, <span class="fl">34</span>, <span class="fl">34</span>, <span class="fl">77</span><span class="op">)</span>
 
@@ -450,30 +484,30 @@
 &gt; data:  A and B
 &gt; W = 22, p-value = 0.05
 &gt; alternative hypothesis: true location shift is not equal to 0</code></pre>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/rank_biserial.html">rank_biserial</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; r (rank biserial) |       95% CI
 &gt; --------------------------------
 &gt; 0.79              | [0.30, 0.95]</code></pre>
 <p>For one sample, <span class="math inline">\(r_{rb}\)</span> measures the symmetry around <span class="math inline">\(\mu\)</span> (mu; the null value), with 0 indicating perfect symmetry, <span class="math inline">\((-1)\)</span> indicates that all observations fall below <span class="math inline">\(\mu\)</span>, and <span class="math inline">\((+1)\)</span> indicates that all observations fall above <span class="math inline">\(\mu\)</span>. For paired samples the difference between the paired samples is used:</p>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.15</span>, <span class="fl">0.88</span>, <span class="fl">0.90</span>, <span class="fl">0.74</span>, <span class="fl">1.21</span><span class="op">)</span>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.15</span>, <span class="fl">0.88</span>, <span class="fl">0.90</span>, <span class="fl">0.74</span>, <span class="fl">1.21</span>, <span class="fl">1.36</span>, <span class="fl">0.89</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">wilcox.test</a></span><span class="op">(</span><span class="va">x</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># aka Signed-Rank test</span></code></pre></div>
 <pre><code>&gt; 
 &gt;   Wilcoxon signed rank exact test
 &gt; 
 &gt; data:  x
-&gt; V = 7, p-value = 1
+&gt; V = 16, p-value = 0.8
 &gt; alternative hypothesis: true location is not equal to 1</code></pre>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/rank_biserial.html">rank_biserial</a></span><span class="op">(</span><span class="va">x</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; r (rank biserial) |        95% CI
 &gt; ---------------------------------
-&gt; -0.07             | [-0.78, 0.72]
+&gt; 0.14              | [-0.59, 0.75]
 &gt; 
 &gt; - Deviation from a difference of 1.</code></pre>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.83</span>, <span class="fl">0.50</span>, <span class="fl">1.62</span>, <span class="fl">2.48</span>, <span class="fl">1.68</span>, <span class="fl">1.88</span>, <span class="fl">1.55</span>, <span class="fl">3.06</span>, <span class="fl">1.30</span><span class="op">)</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.878</span>, <span class="fl">0.647</span>, <span class="fl">0.598</span>, <span class="fl">2.05</span>, <span class="fl">1.06</span>, <span class="fl">1.29</span>, <span class="fl">1.06</span>, <span class="fl">3.14</span>, <span class="fl">1.29</span><span class="op">)</span>
 
@@ -484,7 +518,7 @@
 &gt; data:  x and y
 &gt; V = 40, p-value = 0.04
 &gt; alternative hypothesis: true location shift is not equal to 0</code></pre>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/rank_biserial.html">rank_biserial</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; r (rank biserial) |       95% CI
 &gt; --------------------------------
@@ -494,7 +528,7 @@
 <h2 class="hasAnchor">
 <a href="#rank-one-way-anova" class="anchor" aria-hidden="true"></a>Rank One way ANOVA</h2>
 <p>The Rank-Epsilon-Squared (<span class="math inline">\(\varepsilon^2\)</span>) is a measure of association for the rank based one-way ANOVA. Values range between 0 (no relative superiority between any of the groups) to 1 (complete separation - with no overlap in ranks between the groups).</p>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">group_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
   g1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.9</span>, <span class="fl">3.0</span>, <span class="fl">2.5</span>, <span class="fl">2.6</span>, <span class="fl">3.2</span><span class="op">)</span>, <span class="co"># normal subjects</span>
   g2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.8</span>, <span class="fl">2.7</span>, <span class="fl">4.0</span>, <span class="fl">2.4</span><span class="op">)</span>, <span class="co"># with obstructive airway disease</span>
@@ -507,17 +541,19 @@
 &gt; 
 &gt; data:  group_data
 &gt; Kruskal-Wallis chi-squared = 0.8, df = 2, p-value = 0.7</code></pre>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/rank_biserial.html">rank_epsilon_squared</a></span><span class="op">(</span><span class="va">group_data</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Epsilon2 (rank) |       95% CI
 &gt; ------------------------------
-&gt; 0.06            | [0.01, 0.65]</code></pre>
+&gt; 0.06            | [0.02, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 </div>
 <div id="rank-one-way-repeated-measures-anova" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rank-one-way-repeated-measures-anova" class="anchor" aria-hidden="true"></a>Rank One way Repeated-Measures ANOVA</h2>
 <p>For a rank based repeated measures one-way ANOVA, Kendall’s <em>W</em> is a measure of agreement on the effect of condition between various “blocks” (the subjects), or more often conceptualized as a measure of reliability of the rating / scores of observations (or “groups”) between “raters” (“blocks”).</p>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Subjects are COLUMNS</span>
 <span class="op">(</span><span class="va">ReactionTimes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>
   <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">398</span>, <span class="fl">338</span>, <span class="fl">520</span>,
@@ -541,18 +577,20 @@
 &gt; Subject5       286     492         536
 &gt; Subject6       362     475         496
 &gt; Subject7       253     334         610</code></pre>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/friedman.test.html" class="external-link">friedman.test</a></span><span class="op">(</span><span class="va">ReactionTimes</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; 
 &gt;   Friedman rank sum test
 &gt; 
 &gt; data:  ReactionTimes
 &gt; Friedman chi-squared = 11, df = 2, p-value = 0.004</code></pre>
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/rank_biserial.html">kendalls_w</a></span><span class="op">(</span><span class="va">ReactionTimes</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Kendall's W |       95% CI
 &gt; --------------------------
-&gt; 0.80        | [0.76, 1.00]</code></pre>
+&gt; 0.80        | [0.76, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 </div>
 </div>
 <div id="references" class="section level1">

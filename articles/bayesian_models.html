@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5-1</span>
       </span>
     </div>
 
@@ -72,10 +72,13 @@
       <a href="../articles/anovaES.html">ANOVA Effect Sizes</a>
     </li>
     <li>
-      <a href="../articles/bayesian_models.html">For Bayesian Models</a>
+      <a href="../articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
     </li>
     <li>
-      <a href="../articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
+      <a href="../reference/effectsize_CIs.html">Confidence Intervals</a>
+    </li>
+    <li>
+      <a href="../articles/bayesian_models.html">For Bayesian Models</a>
     </li>
   </ul>
 </li>
@@ -2295,11 +2298,13 @@
 &gt;   default 'contr.treatment').</code></pre>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
-&gt; Parameter     | Eta2 (partial) |       90% CI
+&gt; Parameter     | Eta2 (partial) |       95% CI
 &gt; ---------------------------------------------
-&gt; age_f         |           0.03 | [0.01, 0.05]
-&gt; comps_f       |           0.13 | [0.09, 0.18]
-&gt; age_f:comps_f |       6.65e-03 | [0.00, 0.02]</code></pre>
+&gt; age_f         |           0.03 | [0.01, 1.00]
+&gt; comps_f       |           0.13 | [0.09, 1.00]
+&gt; age_f:comps_f |       6.65e-03 | [0.00, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 </div>
 </div>
 <div id="references" class="section level1 unnumbered">

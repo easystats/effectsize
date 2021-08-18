@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5-1</span>
       </span>
     </div>
 
@@ -72,10 +72,13 @@
       <a href="../articles/anovaES.html">ANOVA Effect Sizes</a>
     </li>
     <li>
-      <a href="../articles/bayesian_models.html">For Bayesian Models</a>
+      <a href="../articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
     </li>
     <li>
-      <a href="../articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
+      <a href="../reference/effectsize_CIs.html">Confidence Intervals</a>
+    </li>
+    <li>
+      <a href="../articles/bayesian_models.html">For Bayesian Models</a>
     </li>
   </ul>
 </li>
@@ -173,9 +176,11 @@
 <span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type I)
 &gt; 
-&gt; Parameter | Eta2 |       90% CI
+&gt; Parameter | Eta2 |       95% CI
 &gt; -------------------------------
-&gt; treatment | 0.22 | [0.09, 0.34]</code></pre>
+&gt; treatment | 0.22 | [0.09, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 <div id="adding-more-terms" class="section level2">
 <h2 class="hasAnchor">
 <a href="#adding-more-terms" class="anchor" aria-hidden="true"></a>Adding More Terms</h2>
@@ -189,40 +194,48 @@
 <span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type I)
 &gt; 
-&gt; Parameter |     Eta2 |       90% CI
+&gt; Parameter |     Eta2 |       95% CI
 &gt; -----------------------------------
-&gt; gender    |     0.03 | [0.00, 0.12]
-&gt; phase     | 9.48e-03 | [0.00, 0.05]
-&gt; treatment |     0.25 | [0.11, 0.37]</code></pre>
+&gt; gender    |     0.03 | [0.00, 1.00]
+&gt; phase     | 9.48e-03 | [0.00, 1.00]
+&gt; treatment |     0.25 | [0.11, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="co"># partial = TRUE by default</span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type I)
 &gt; 
-&gt; Parameter | Eta2 (partial) |       90% CI
+&gt; Parameter | Eta2 (partial) |       95% CI
 &gt; -----------------------------------------
-&gt; gender    |           0.04 | [0.00, 0.13]
-&gt; phase     |           0.01 | [0.00, 0.07]
-&gt; treatment |           0.26 | [0.12, 0.38]</code></pre>
+&gt; gender    |           0.04 | [0.00, 1.00]
+&gt; phase     |           0.01 | [0.00, 1.00]
+&gt; treatment |           0.26 | [0.12, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 <p><em>(<code>phase</code> is a repeated-measures variable, but for simplicity it is not modeled as such.)</em></p>
 <p>In the calculation above, the <em>SS</em>s were computed sequentially - that is the <em>SS</em> for <code>phase</code> is computed after controlling for <code>gender</code>, and the <em>SS</em> for <code>treatment</code> is computed after controlling for both <code>gender</code> and <code>phase</code>. This method of sequential <em>SS</em> is called also <em>type-I</em> test. If this is what you want, that’s great - however in many fields (and other statistical programs) it is common to use “simultaneous” sums of squares (<em>type-II</em> or <em>type-III</em> tests), where each <em>SS</em> is computed controlling for all other predictors, regardless of order. This can be done with <code>car::Anova(type = ...)</code>:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">m</span>, type <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type II)
 &gt; 
-&gt; Parameter |     Eta2 |       90% CI
+&gt; Parameter |     Eta2 |       95% CI
 &gt; -----------------------------------
-&gt; gender    |     0.05 | [0.00, 0.16]
-&gt; phase     | 9.22e-03 | [0.00, 0.05]
-&gt; treatment |     0.24 | [0.11, 0.37]</code></pre>
+&gt; gender    |     0.05 | [0.00, 1.00]
+&gt; phase     | 9.22e-03 | [0.00, 1.00]
+&gt; treatment |     0.24 | [0.11, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">m</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># partial = TRUE by default</span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
-&gt; Parameter | Eta2 (partial) |       90% CI
+&gt; Parameter | Eta2 (partial) |       95% CI
 &gt; -----------------------------------------
-&gt; gender    |           0.07 | [0.01, 0.18]
-&gt; phase     |           0.01 | [0.00, 0.07]
-&gt; treatment |           0.26 | [0.12, 0.38]</code></pre>
+&gt; gender    |           0.07 | [0.01, 1.00]
+&gt; phase     |           0.01 | [0.00, 1.00]
+&gt; treatment |           0.26 | [0.12, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 <p><span class="math inline">\(\eta^2_p\)</span> will always be larger than <span class="math inline">\(\eta^2\)</span>. The idea is to simulate the effect size in a design where only the term of interest was manipulated. This terminology assumes some causal relationship between the predictor and the outcome, which reflects the experimental world from which these analyses and measures hail; However, <span class="math inline">\(\eta^2_p\)</span> can also simply be seen as a <strong>signal-to-noise- ratio</strong>, as it only uses the term’s <em>SS</em> and the error-term’s <em>SS</em>.[^in repeated-measure designs the term-specific residual-<em>SS</em> is used for the computation of the effect size].</p>
 <p>(Note that in a one-way fixed-effect designs <span class="math inline">\(\eta^2 = \eta^2_p\)</span>.)</p>
 </div>
@@ -251,11 +264,13 @@
 &gt;   default 'contr.treatment').</code></pre>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
-&gt; Parameter        | Eta2 (partial) |       90% CI
+&gt; Parameter        | Eta2 (partial) |       95% CI
 &gt; ------------------------------------------------
-&gt; treatment        |           0.12 | [0.02, 0.23]
-&gt; gender           |       9.11e-03 | [0.00, 0.08]
-&gt; treatment:gender |           0.20 | [0.07, 0.33]</code></pre>
+&gt; treatment        |           0.12 | [0.02, 1.00]
+&gt; gender           |       9.11e-03 | [0.00, 1.00]
+&gt; treatment:gender |           0.20 | [0.07, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">m_interaction2</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Type 3 ANOVAs only give sensible and informative results when covariates are
@@ -264,11 +279,13 @@
 &gt;   default 'contr.treatment').</code></pre>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
-&gt; Parameter        | Eta2 (partial) |       90% CI
+&gt; Parameter        | Eta2 (partial) |       95% CI
 &gt; ------------------------------------------------
-&gt; treatment        |           0.27 | [0.13, 0.39]
-&gt; gender           |           0.12 | [0.03, 0.24]
-&gt; treatment:gender |           0.20 | [0.07, 0.33]</code></pre>
+&gt; treatment        |           0.27 | [0.13, 1.00]
+&gt; gender           |           0.12 | [0.03, 1.00]
+&gt; treatment:gender |           0.20 | [0.07, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 <p>If all of this type-III-effects-coding seems like a hassle, you can use the <code>afex</code> package, which takes care of all of this behind the scenes:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://afex.singmann.science/" class="external-link">afex</a></span><span class="op">)</span>
@@ -278,11 +295,13 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
-&gt; Parameter        | Eta2 (partial) |       90% CI
+&gt; Parameter        | Eta2 (partial) |       95% CI
 &gt; ------------------------------------------------
-&gt; treatment        |           0.27 | [0.13, 0.39]
-&gt; gender           |           0.12 | [0.03, 0.24]
-&gt; treatment:gender |           0.20 | [0.07, 0.33]</code></pre>
+&gt; treatment        |           0.27 | [0.13, 1.00]
+&gt; gender           |           0.12 | [0.03, 1.00]
+&gt; treatment:gender |           0.20 | [0.07, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 </div>
 </div>
 <div id="other-measures-of-effect-size" class="section level1">
@@ -302,20 +321,24 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
-&gt; Parameter        | Omega2 (partial) |       90% CI
+&gt; Parameter        | Omega2 (partial) |       95% CI
 &gt; --------------------------------------------------
-&gt; treatment        |             0.24 | [0.10, 0.36]
-&gt; gender           |             0.10 | [0.02, 0.22]
-&gt; treatment:gender |             0.17 | [0.05, 0.29]</code></pre>
+&gt; treatment        |             0.24 | [0.10, 1.00]
+&gt; gender           |             0.10 | [0.02, 1.00]
+&gt; treatment:gender |             0.17 | [0.05, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
-&gt; Parameter        | Epsilon2 (partial) |       90% CI
+&gt; Parameter        | Epsilon2 (partial) |       95% CI
 &gt; ----------------------------------------------------
-&gt; treatment        |               0.25 | [0.11, 0.37]
-&gt; gender           |               0.11 | [0.02, 0.23]
-&gt; treatment:gender |               0.18 | [0.06, 0.30]</code></pre>
+&gt; treatment        |               0.25 | [0.11, 1.00]
+&gt; gender           |               0.11 | [0.02, 1.00]
+&gt; treatment:gender |               0.18 | [0.06, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 <p>Both <span class="math inline">\(\omega^2\)</span> and <span class="math inline">\(\epsilon^2\)</span> (and their partial counterparts, <span class="math inline">\(\omega^2_p\)</span> &amp; <span class="math inline">\(\epsilon^2_p\)</span>) are unbiased estimators of the population’s <span class="math inline">\(\eta^2\)</span> (or <span class="math inline">\(\eta^2_p\)</span>, respectively), which is especially important is small samples. Though <span class="math inline">\(\omega^2\)</span> is the more popular choice <span class="citation">(Albers and Lakens 2018)</span>, <span class="math inline">\(\epsilon^2\)</span> is analogous to adjusted-<span class="math inline">\(R^2\)</span> <span class="citation">(Allen 2017, 382)</span>, and has been found to be less biased <span class="citation">(Carroll and Nordholm 1975)</span>.</p>
 </div>
 <div id="generalized-eta2" class="section level2">
@@ -327,13 +350,14 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m_afex</span>, generalized <span class="op">=</span> <span class="st">"gender"</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
-&gt; Parameter        | Eta2 (generalized) |       90% CI
+&gt; Parameter        | Eta2 (generalized) |       95% CI
 &gt; ----------------------------------------------------
-&gt; treatment        |               0.21 | [0.08, 0.33]
-&gt; gender           |               0.10 | [0.02, 0.22]
-&gt; treatment:gender |               0.18 | [0.06, 0.30]
+&gt; treatment        |               0.21 | [0.08, 1.00]
+&gt; gender           |               0.10 | [0.02, 1.00]
+&gt; treatment:gender |               0.18 | [0.06, 1.00]
 &gt; 
-&gt; - Observed variabels: gender</code></pre>
+&gt; - Observed variabels: gender
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 <p><span class="math inline">\(\eta^2_G\)</span> is useful in repeated-measures designs, as it can estimate what a <em>within-subject</em> effect size would have been had that predictor been manipulated <em>between-subjects</em> <span class="citation">(Olejnik and Algina 2003)</span>.</p>
 </div>
 <div id="cohens-f" class="section level2">
@@ -347,11 +371,13 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">cohens_f</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
-&gt; Parameter        | Cohen's f (partial) |       90% CI
-&gt; -----------------------------------------------------
-&gt; treatment        |                0.61 | [0.38, 0.80]
-&gt; gender           |                0.37 | [0.17, 0.56]
-&gt; treatment:gender |                0.50 | [0.28, 0.69]</code></pre>
+&gt; Parameter        | Cohen's f (partial) |           95% CI
+&gt; ---------------------------------------------------------
+&gt; treatment        |                0.61 | [0.38,      Inf]
+&gt; gender           |                0.37 | [0.17,      Inf]
+&gt; treatment:gender |                0.50 | [0.28,      Inf]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (Inf).</code></pre>
 </div>
 </div>
 <div id="when-sum-of-squares-are-hard-to-come-by" class="section level1">
@@ -372,31 +398,39 @@
 &gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span><span class="fl">45.8</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">17</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Eta2 (partial) |       90% CI
+<pre><code>&gt; Eta2 (partial) |       95% CI
 &gt; -----------------------------
-&gt; 0.73           | [0.51, 0.83]</code></pre>
+&gt; 0.73           | [0.51, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 <p>Or directly with `eta_squared() and co.:</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
-&gt; Parameter | Eta2 (partial) |       90% CI
+&gt; Parameter | Eta2 (partial) |       95% CI
 &gt; -----------------------------------------
-&gt; Days      |           0.73 | [0.51, 0.83]</code></pre>
+&gt; Days      |           0.73 | [0.51, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
-&gt; Parameter | Epsilon2 (partial) |       90% CI
+&gt; Parameter | Epsilon2 (partial) |       95% CI
 &gt; ---------------------------------------------
-&gt; Days      |               0.71 | [0.48, 0.82]</code></pre>
+&gt; Days      |               0.71 | [0.48, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
-&gt; Parameter | Omega2 (partial) |       90% CI
+&gt; Parameter | Omega2 (partial) |       95% CI
 &gt; -------------------------------------------
-&gt; Days      |             0.70 | [0.47, 0.82]</code></pre>
+&gt; Days      |             0.70 | [0.47, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 <p>Another case where <em>SS</em>s are not available is when use Bayesian models. <code>effectsize</code> has Bayesian solutions for Bayesian models, about which you can read in the <a href="https://easystats.github.io/effectsize/articles/bayesian_models.html" class="external-link"><em>Effect Sizes for Bayesian Models</em> vignette</a>.</p>
 </div>
 <div id="references" class="section level1 unnumbered">

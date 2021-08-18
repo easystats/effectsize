@@ -87,7 +87,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5-1</span>
       </span>
     </div>
 
@@ -119,10 +119,13 @@
       <a href="../articles/anovaES.html">ANOVA Effect Sizes</a>
     </li>
     <li>
-      <a href="../articles/bayesian_models.html">For Bayesian Models</a>
+      <a href="../articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
     </li>
     <li>
-      <a href="../articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
+      <a href="../reference/effectsize_CIs.html">Confidence Intervals</a>
+    </li>
+    <li>
+      <a href="../articles/bayesian_models.html">For Bayesian Models</a>
     </li>
   </ul>
 </li>
@@ -175,13 +178,15 @@
 <div id="breaking-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#breaking-changes" class="anchor" aria-hidden="true"></a>Breaking Changes</h2>
-<ul><li>
+<ul><li>Phi, Cohen’s <em>w</em>, Cramer’s <em>V</em>, ANOVA effect sizes, rank Epsilon squared, Kendall’s <em>W</em> - CIs default to 95% one-sided CIs (<code>alternative = "greater"</code>). (To restore previous behavior, set <code>ci = .9, alternative = "two.sided"</code>.)</li>
+<li>
 <code><a href="https://easystats.github.io/datawizard/reference/adjust.html" class="external-link">adjust()</a></code>, <code><a href="https://easystats.github.io/datawizard/reference/data_rescale.html" class="external-link">change_scale()</a></code>, <code><a href="https://easystats.github.io/datawizard/reference/normalize.html" class="external-link">normalize()</a></code>, <code><a href="https://easystats.github.io/datawizard/reference/ranktransform.html" class="external-link">ranktransform()</a></code>, <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> (data), and <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">unstandardize()</a></code> have moved to the new <a href="https://easystats.github.io/datawizard" class="external-link"><code>{datawizard}</code></a> package!</li>
 </ul></div>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor" aria-hidden="true"></a>New features</h2>
-<ul><li>
+<ul><li>All effect-size functions gain an <code>alternative</code> argument which can be used to make one- or two-sided CIs.</li>
+<li>
 <code><a href="../reference/interpret.html">interpret()</a></code> now accepts as input the results from <code><a href="../reference/cohens_d.html">cohens_d()</a></code>, <code><a href="../reference/eta_squared.html">eta_squared()</a></code>, <code><a href="../reference/rank_biserial.html">rank_biserial()</a></code>, etc.</li>
 <li>
 <code><a href="../reference/interpret_pd.html">interpret_pd()</a></code> for the interpretation of the <a href="https://easystats.github.io/bayestestR/reference/p_direction.html" class="external-link"><em>Probability of Direction</em></a>.</li>
@@ -190,6 +195,8 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor" aria-hidden="true"></a>Bug fixes</h2>
 <ul><li>
+<code><a href="../reference/rank_biserial.html">kendalls_w()</a></code> CIs now correctly bootstrap samples from the raw data (previously the rank-transformed data was sampled from).</li>
+<li>
 <code><a href="../reference/cohens_d.html">cohens_d()</a></code>, <code><a href="../reference/sd_pooled.html">sd_pooled()</a></code> and <code><a href="../reference/rank_biserial.html">rank_biserial()</a></code> now properly respect when <code>y</code> is a grouping character vector.</li>
 <li>
 <code><a href="../reference/effectsize.html">effectsize()</a></code> for Chi-squared test of goodness-of-fit now correctly respects non-uniform expected probabilities ( <a href='https://github.com/easystats/effectsize/issues/352'>#352</a> ).</li>

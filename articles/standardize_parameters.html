@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5-1</span>
       </span>
     </div>
 
@@ -72,10 +72,13 @@
       <a href="../articles/anovaES.html">ANOVA Effect Sizes</a>
     </li>
     <li>
-      <a href="../articles/bayesian_models.html">For Bayesian Models</a>
+      <a href="../articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
     </li>
     <li>
-      <a href="../articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
+      <a href="../reference/effectsize_CIs.html">Confidence Intervals</a>
+    </li>
+    <li>
+      <a href="../articles/bayesian_models.html">For Bayesian Models</a>
     </li>
   </ul>
 </li>
@@ -530,9 +533,11 @@ f^{2}={R_{AB}^{2}-R_{A}^{2} \over 1-R_{AB}^{2}}
 <span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">xtra_hours</span> <span class="op">+</span> <span class="va">n_comps</span> <span class="op">+</span> <span class="va">seniority</span>, data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/eta_squared.html">cohens_f_squared</a></span><span class="op">(</span><span class="va">m1</span>, model2 <span class="op">=</span> <span class="va">m2</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Cohen's f2 (partial) |       90% CI | R2_delta
-&gt; ----------------------------------------------
-&gt; 1.19                 | [0.99, 1.40] |     0.17</code></pre>
+<pre><code>&gt; Cohen's f2 (partial) |           95% CI | R2_delta
+&gt; --------------------------------------------------
+&gt; 1.19                 | [0.99,      Inf] |     0.17
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at (Inf).</code></pre>
 <!-- ## Methods Comparison -->
 <!-- We will use the "refit" method as the baseline. We will then compute the
 differences between these standardized parameters and the ones provided by the
