@@ -7,6 +7,14 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(sign(rez_t$statistic), sign(rez_d$Cohens_d), ignore_attr = TRUE)
 
 
+    # Alternative -------------------------------------------------------------
+    d1 <- cohens_d(iris$Sepal.Length, iris$Sepal.Width, ci = 0.80)
+    d2 <- cohens_d(iris$Sepal.Length, iris$Sepal.Width, ci = 0.90, alternative = "l")
+    d3 <- cohens_d(iris$Sepal.Length, iris$Sepal.Width, ci = 0.90, alternative = "g")
+    expect_equal(d1$CI_high, d2$CI_high)
+    expect_equal(d1$CI_low, d3$CI_low)
+
+
     # Errors and warnings -----------------------------------------------------
     df <- data.frame(
       a = 1:10,
