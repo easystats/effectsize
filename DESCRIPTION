@@ -93,7 +93,6 @@ Suggests:
 VignetteBuilder: 
     knitr
 Remotes:
-    easystats/datawizard,
     easystats/parameters,
     easystats/performance
 Encoding: UTF-8
