@@ -91,7 +91,6 @@
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
-#' @inheritSection effectsize_CIs One-Sided CIs
 #'
 #' @seealso [F_to_eta2()]
 #' @family effect size indices

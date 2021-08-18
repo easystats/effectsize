@@ -11,7 +11,7 @@
 #'   Cramer's *V*, phi (\eqn{\phi}), and Cohen's *w*), `"greater"` (default for
 #'   OR, RR, Cohen's *h* and Cohen's *g*) or `"less"` (one-sided CI). Partial
 #'   matching is allowed (e.g., `"g"`, `"l"`, `"two"`...). See *One-Sided CIs*
-#'   in [effectsize-CIs].
+#'   in [effectsize_CIs].
 #' @param adjust Should the effect size be bias-corrected? Defaults to `FALSE`.
 #' @param ... Arguments passed to [stats::chisq.test()], such as `p`. Ignored
 #'   for `cohens_g()`.
@@ -49,7 +49,6 @@
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
-#' @inheritSection effectsize_CIs One-Sided CIs
 #'
 #' @return A data frame with the effect size (`Cramers_v`, `phi` (possibly with
 #'   the suffix `_adjusted`), `Odds_ratio`, `Risk_ratio` (possibly with the

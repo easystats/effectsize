@@ -12,7 +12,7 @@
 #'   Controls the type of CI returned: `"greater"` (default) or `"less"`
 #'   (one-sided CI), or `"two.sided"` (default, two-sided CI). Partial matching
 #'   is allowed (e.g., `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in
-#'   [effectsize-CIs].
+#'   [effectsize_CIs].
 #' @param adjust Should the effect size be bias-corrected? Defaults to `FALSE`.
 #' @param ... Arguments passed to or from other methods.
 #'
@@ -29,7 +29,6 @@
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
-#' @inheritSection effectsize_CIs One-Sided CIs
 #'
 #' @family effect size from test statistic
 #'
