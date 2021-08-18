@@ -28,7 +28,8 @@
 #'   Controls the type of CI returned: `"two.sided"` (two-sided CI; default for
 #'   rank-biserial correlation and Cliff's *delta*), `"greater"` (default for
 #'   rank epsilon squared and Kendall's *W*) or `"less"` (one-sided CI). Partial
-#'   matching is allowed (e.g., `"g"`, `"l"`, `"two"`...).
+#'   matching is allowed (e.g., `"g"`, `"l"`, `"two"`...). See *One-Sided CIs*
+#'   in [effectsize_CIs].
 #'
 #' @details
 #' The rank-biserial correlation is appropriate for non-parametric tests of
@@ -677,10 +678,10 @@ kendalls_w <- function(x,
 
 # Utils -------------------------------------------------------------------
 
-.safe_ranktransform <- function(x, ...) {
+.safe_ranktransform <- function(x, verbose = TRUE, ...) {
   if (length(unique(x)) == 1) {
     if (verbose) warning("Only one unique value - rank fixed at 1")
     return(rep(1, length(x)))
   }
-  datawizard::ranktransform(x, ...)
+  datawizard::ranktransform(x, verbose = verbose, ...)
 }

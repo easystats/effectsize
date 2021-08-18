@@ -80,7 +80,8 @@ estimated. See \link[stats:wilcox.test]{stats::wilcox.test}.}
 Controls the type of CI returned: \code{"two.sided"} (two-sided CI; default for
 rank-biserial correlation and Cliff's \emph{delta}), \code{"greater"} (default for
 rank epsilon squared and Kendall's \emph{W}) or \code{"less"} (one-sided CI). Partial
-matching is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...).}
+matching is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs}
+in \link{effectsize_CIs}.}
 
 \item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
 This produces an effect size that is equivalent to the one-sample effect
