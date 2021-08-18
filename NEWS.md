@@ -2,7 +2,7 @@
 
 ## Breaking Changes
 
-- Phi, Cohen's *w*, Cramer's *V*, ANOVA effect sizes, rank Epsilon squared, Kendall's *W* - CIs default to 95% one-sided CIs (`alternative = "greater"`). To restore previous behavior, set `ci = .9, alternative = "two.sided"`.
+- Phi, Cohen's *w*, Cramer's *V*, ANOVA effect sizes, rank Epsilon squared, Kendall's *W* - CIs default to 95% one-sided CIs (`alternative = "greater"`). (To restore previous behavior, set `ci = .9, alternative = "two.sided"`.)
 - `adjust()`, `change_scale()`, `normalize()`, `ranktransform()`, `standardize()` (data), and `unstandardize()` have moved to the new [`{datawizard}`](https://easystats.github.io/datawizard) package!
 
 ## New features

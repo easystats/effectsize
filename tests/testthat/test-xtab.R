@@ -9,7 +9,7 @@ if (require("testthat") && require("effectsize")) {
 
     expect_equal(res$Cramers_v, 0.072, tolerance = 0.01)
     expect_equal(res$CI_low, 0.051, tolerance = 0.01)
-    expect_equal(res$CI_high, 0.088, tolerance = 0.01)
+    expect_equal(res$CI_high, 1)
 
 
     ## Size does not affect estimate
@@ -86,7 +86,9 @@ if (require("testthat") && require("effectsize")) {
 
     xtab <- table(mtcars$am, mtcars$vs)
     V <- cramers_v(xtab, adjust = TRUE)
-    expect_equal(unname(unlist(V[c(1, 3, 4)])), rep(0, 3))
+    expect_equal(V$Cramers_v_adjusted, 0)
+    expect_equal(V$CI_low, 0)
+    expect_equal(V$CI_high, 1)
   })
 
   test_that("oddsratio & riskratio", {
