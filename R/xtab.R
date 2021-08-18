@@ -386,9 +386,9 @@ cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
 
     ci_method <- list(method = "normal")
     if (alternative == "less") {
-      out$CI_low <- 0
+      out$CI_low <- -pi
     } else if (alternative == "greater") {
-      out$CI_high <- Inf
+      out$CI_high <- pi
     }
   } else {
     alternative <- NULL

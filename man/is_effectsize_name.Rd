@@ -2,10 +2,13 @@
 % Please edit documentation in R/is_effectsize_name.R
 \name{is_effectsize_name}
 \alias{is_effectsize_name}
+\alias{get_effectsize_name}
 \alias{get_effectsize_label}
 \title{Checks if character is of a supported effect size}
 \usage{
 is_effectsize_name(x, ignore_case = TRUE)
+
+get_effectsize_name(x, ignore_case = TRUE)
 
 get_effectsize_label(x, ignore_case = TRUE)
 }

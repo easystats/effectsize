@@ -10,15 +10,22 @@
   rule = c("classic", "cet", "bayes"),
   ...
 )
+
+\method{equivalence_test}{effectsize_table}(
+  x,
+  range = "default",
+  rule = c("classic", "cet", "bayes"),
+  ...
+)
 }
 \arguments{
 \item{x}{An effect size table, such as returned by \code{\link[=cohens_d]{cohens_d()}},
 \code{\link[=eta_squared]{eta_squared()}}, \code{\link[=F_to_r]{F_to_r()}}, etc.}
 
-\item{range}{The range of practical equivalence of an effect. If a single
-value is provided, the test is done against \code{c(-range, range)}. For effect
-sizes that cannot be negative, the lower bound is set to 0. If \code{"default"},
-will be set to \verb{[-.1, .1]}.}
+\item{range}{The range of practical equivalence of an effect. For one-sides
+CIs, a single value can be proved for the lower / upper bound to test
+against (but see more details below). For two-sided CIs, a single value is
+duplicated to \code{c(-range, range)}. If \code{"default"}, will be set to \verb{[-.1, .1]}.}
 
 \item{rule}{How should acceptance and rejection be decided? See details.}
 
@@ -26,8 +33,13 @@ will be set to \verb{[-.1, .1]}.}
 }
 \value{
 A data frame with the results of the equivalence test.
+
+A data frame with the results of the equivalence test.
 }
 \description{
+Perform a \strong{Test for Practical Equivalence} for indices of
+effect size.
+
 Perform a \strong{Test for Practical Equivalence} for indices of
 effect size.
 }
@@ -36,7 +48,35 @@ The CIs used in the equivalence test are the ones in the provided effect size
 table. For results equivalent (ha!) to those that can be obtained using the
 TOST approach (e.g., Lakens, 2017), appropriate CIs should be extracted using
 the function used to make the effect size table (\code{cohens_d}, \code{eta_squared},
-\code{F_to_r}, etc). See examples.
+\code{F_to_r}, etc), with \code{alternative = "two.sided"}. See examples.
+\subsection{The Different Rules}{
+\itemize{
+\item \code{"classic"} - \strong{the classic method}:
+\itemize{
+\item If the CI is completely within the ROPE - \emph{Accept H0}
+\item Else, if the CI does not contain 0 - \emph{Reject H0}
+\item Else - \emph{Undecided}
+}
+\item \code{"cet"} - \strong{conditional equivalence testing}:
+\itemize{
+\item If the CI does not contain 0 - \emph{Reject H0}
+\item Else, If the CI is completely within the ROPE - \emph{Accept H0}
+\item Else - \emph{Undecided}
+}
+\item \code{"bayes"} - \strong{The Bayesian approach}, as put forth by Kruschke:
+\itemize{
+\item If the CI does is completely outside the ROPE - \emph{Reject H0}
+\item Else, If the CI is completely within the ROPE - \emph{Accept H0}
+\item Else - \emph{Undecided}
+}
+}
+}
+
+The CIs used in the equivalence test are the ones in the provided effect size
+table. For results equivalent (ha!) to those that can be obtained using the
+TOST approach (e.g., Lakens, 2017), appropriate CIs should be extracted using
+the function used to make the effect size table (\code{cohens_d}, \code{eta_squared},
+\code{F_to_r}, etc), with \code{alternative = "two.sided"}. See examples.
 \subsection{The Different Rules}{
 \itemize{
 \item \code{"classic"} - \strong{the classic method}:
@@ -62,17 +102,38 @@ the function used to make the effect size table (\code{cohens_d}, \code{eta_squa
 }
 \examples{
 \donttest{
-model <- aov(mpg ~ factor(am) * factor(cyl), data = mtcars)
-es <- eta_squared(model)
-equivalence_test(es, range = 0.15)
+
+model <- aov(mpg ~ hp + am * factor(cyl), data = mtcars)
+es <- eta_squared(model, ci = 0.9, alternative = "two.sided")
+equivalence_test(es, range = 0.30) # TOST
 
 ds <- t_to_d(
   t = c(0.45, -0.65, 7, -2.2, 2.25),
   df_error = c(675, 525, 2000, 900, 1875),
-  ci = 0.9
-) # TOST approach
-equivalence_test(ds, range = 0.2)
+  ci = 0.9, alternative = "two.sided" # TOST
+)
+# Can also plot
+if (require(see)) plot(equivalence_test(ds, range = 0.2))
+if (require(see)) plot(equivalence_test(ds, range = 0.2, rule = "cet"))
+if (require(see)) plot(equivalence_test(ds, range = 0.2, rule = "bayes"))
+}
 
+\donttest{
+
+model <- aov(mpg ~ hp + am * factor(cyl), data = mtcars)
+es <- eta_squared(model, ci = 0.9, alternative = "two.sided")
+equivalence_test(es, range = 0.30) # TOST
+
+RCT <- matrix(c(71, 101,
+                50, 100), nrow = 2)
+OR <- oddsratio(RCT, alternative = "greater")
+equivalence_test(OR, range = 1)
+
+ds <- t_to_d(
+  t = c(0.45, -0.65, 7, -2.2, 2.25),
+  df_error = c(675, 525, 2000, 900, 1875),
+  ci = 0.9, alternative = "two.sided" # TOST
+)
 # Can also plot
 if (require(see)) plot(equivalence_test(ds, range = 0.2))
 if (require(see)) plot(equivalence_test(ds, range = 0.2, rule = "cet"))
@@ -94,7 +155,23 @@ estimation. Advances in Methods and Practices in Psychological Science, 1(2),
 Correlations, and Meta-Analyses. Social Psychological and Personality
 Science, 8(4), 355–362. https://doi.org/10.1177/1948550617697177
 }
+
+\itemize{
+\item Campbell, H., & Gustafson, P. (2018). Conditional equivalence testing: An
+alternative remedy for publication bias. PLOS ONE, 13(4), e0195145.
+https://doi.org/10.1371/journal.pone.0195145
+\item Kruschke, J. K. (2014). Doing Bayesian data analysis: A tutorial with R,
+JAGS, and Stan. Academic Press
+\item Kruschke, J. K. (2018). Rejecting or accepting parameter values in Bayesian
+estimation. Advances in Methods and Practices in Psychological Science, 1(2),
+270-280. doi: 10.1177/2515245918771304
+\item Lakens, D. (2017). Equivalence Tests: A Practical Primer for t Tests,
+Correlations, and Meta-Analyses. Social Psychological and Personality
+Science, 8(4), 355–362. https://doi.org/10.1177/1948550617697177
+}
 }
 \seealso{
+For more details, see \code{\link[bayestestR:equivalence_test]{bayestestR::equivalence_test()}}.
+
 For more details, see \code{\link[bayestestR:equivalence_test]{bayestestR::equivalence_test()}}.
 }
