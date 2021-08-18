@@ -117,15 +117,16 @@ confidence interval contains all of the parameter values for which
 for the current data and model. For example, a 95\% confidence interval
 contains all of the values for which p > .05.
 \cr\cr
-Note that a confidence interval including 0 \emph{does not} indicate no effect.
-Rather, it suggests that the observed data and background model assumptions
-combined do not clearly indicate against a parameter value of 0 (or any other
-value in the interval), with the level of this evidence defined by the chosen
+Note that a confidence interval including 0 \emph{does not} indicate that the null
+(no effect) is true. Rather, it suggests that the observed data together with
+the model and its assumptions combined do not provided clear evidence against
+a parameter value of 0 (same as with any other value in the interval), with
+the level of this evidence defined by the chosen
 \ifelse{latex}{\out{$\alpha$}}{\ifelse{html}{\out{&alpha;}}{alpha}} level
-(Rafi & Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To
-infer no effect, additional judgments about what parameter values are "close
-enough" to 0 to be negligible are needed ("equivalence testing";
-Bauer & Kiesser, 1996).
+(Rafi & Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To infer
+no effect, additional judgments about what parameter values are "close
+enough" to 0 to be negligible are needed ("equivalence testing"; Bauer &
+Kiesser, 1996).
 }
 
 \examples{

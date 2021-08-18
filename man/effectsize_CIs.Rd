@@ -40,15 +40,16 @@ confidence interval contains all of the parameter values for which
 for the current data and model. For example, a 95\% confidence interval
 contains all of the values for which p > .05.
 \cr\cr
-Note that a confidence interval including 0 \emph{does not} indicate no effect.
-Rather, it suggests that the observed data and background model assumptions
-combined do not clearly indicate against a parameter value of 0 (or any other
-value in the interval), with the level of this evidence defined by the chosen
+Note that a confidence interval including 0 \emph{does not} indicate that the null
+(no effect) is true. Rather, it suggests that the observed data together with
+the model and its assumptions combined do not provided clear evidence against
+a parameter value of 0 (same as with any other value in the interval), with
+the level of this evidence defined by the chosen
 \ifelse{latex}{\out{$\alpha$}}{\ifelse{html}{\out{&alpha;}}{alpha}} level
-(Rafi & Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To
-infer no effect, additional judgments about what parameter values are "close
-enough" to 0 to be negligible are needed ("equivalence testing";
-Bauer & Kiesser, 1996).
+(Rafi & Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To infer
+no effect, additional judgments about what parameter values are "close
+enough" to 0 to be negligible are needed ("equivalence testing"; Bauer &
+Kiesser, 1996).
 }
 
 \section{One-Sided CIs}{
@@ -63,66 +64,59 @@ Significance tests conducted using CIs (whether a value is inside the interval)
 and using \emph{p} values (whether p < alpha for that value) are only guaranteed
 to agree when both are constructed using the same number of sides/tails.
 \cr\cr
-Most effect sizes are not bounded by zero (e.g., \emph{r}, \emph{d}, \emph{g}). These
-typically involve \emph{t}- or \emph{z}-statistics and are generally tested using
-2-tailed tests and 2-sided CIs.
+Most effect sizes are not bounded by zero (e.g., \emph{r}, \emph{d}, \emph{g}), as as such
+are generally tested using 2-tailed tests and 2-sided CIs.
 \cr\cr
-Some effect sizes are strictly positive--they have a minimum value of 0.
+Some effect sizes are strictly positive--they do have a minimum value, of 0.
 For example,
 \ifelse{latex}{\out{$R^2$}}{\ifelse{html}{\out{<i>R</i><sup>2</sup>}}{R^2}},
 \ifelse{latex}{\out{$\eta^2$}}{\ifelse{html}{\out{&eta;<sup>2</sup>}}{eta^2}},
 and other variance-accounted-for effect sizes, as well as Cramer's \emph{V} and
 multiple \emph{R}, range from 0 to 1. These typically involve \emph{F}- or
 \ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}-statistics
-and are generally tested using \emph{1-tailed} tests. These test test whether the
-estimated effect size is \emph{larger} than the hypothesized value (e.g., 0). The
-corresponding CI that yields the same significance decision is a \emph{1-sided} CI
-estimating only a lower bound. This is the default CI computed by \emph{effectsize}
-for these effect sizes, called by setting \code{alternative = "greater"}.
+and are generally tested using \emph{1-tailed} tests which test whether the
+estimated effect size is \emph{larger} than the hypothesized null value (e.g., 0).
+In order for a CI to yield the same significance decision it must then by a
+\emph{1-sided} CI, estimating only a lower bound. This is the default CI computed
+by \emph{effectsize} for these effect sizes, where \code{alternative = "greater"} is
+set.
 \cr\cr
 This lower bound interval indicates the smallest effect size that is not
 significantly different from the observed effect size. That is, it is the
-minimum effectsize compatible with the observed data, background model
-assumptions, and \ifelse{latex}{\out{$\alpha$}}{\ifelse{html}{\out{&alpha;}}{alpha}}
-level. The interval does not indicate a maximum effect size value; anything
-up to the maximum possible value of the effect size (e.g., 1) is in the interval.
+minimum effect size compatible with the observed data, background model
+assumptions, and
+\ifelse{latex}{\out{$\alpha$}}{\ifelse{html}{\out{&alpha;}}{alpha}} level.
+This type of interval does not indicate a maximum effect size value; anything
+up to the maximum possible value of the effect size (e.g., 1) is in the
+interval.
 \cr\cr
-An alternative 1-sided CI that can be used to test against the maximum effect
-size value (e.g., is
+One-sided CIs can also be used to test against a maximum effect size value
+(e.g., is
 \ifelse{latex}{\out{$R^2$}}{\ifelse{html}{\out{<i>R</i><sup>2</sup>}}{R^2}}
-significantly different from a perfect correlation of 1.0?) can by setting
+significantly smaller than a perfect correlation of 1.0?) can by setting
 \code{alternative = "less"}. This estimates a CI with only an \emph{upper} bound;
 anything from the minimum possible value of the effect size (e.g., 0) up to
 this upper bound is in the interval.
 \cr\cr
-To obtain a 2-sided interval with equal probability proportions above and
-below the interval, set \code{alternative = "two-sided"}. These intervals can
-be interpreted in the same way as other 2-sided intervals, such as those
-for \emph{r}, \emph{d}, or \emph{g}.
+We can also obtain a 2-sided interval by setting \code{alternative = "two-sided"}.
+These intervals can be interpreted in the same way as other 2-sided
+intervals, such as those for \emph{r}, \emph{d}, or \emph{g}.
 \cr\cr
 An alternative approach to aligning significance tests using CIs and 1-tailed
-\emph{p} values that can often be found in the literature is to
-construct a 2-sided CI at a lower confidence level (e.g.,
-100(\ifelse{latex}{\out{$1 - 2\alpha$}}{\ifelse{html}{\out{1 &minus; 2&alpha;}}{1 - 2*alpha}})\%
-= \ifelse{latex}{\out{$100 - 2 \times 5\% = 90\%$}}{\ifelse{html}{\out{100 &minus; 2 &times; 5&percnt; = 90&percnt;}}{100 - 2*5\% = 90\%}}).
-This estimates the lower bound and upper bound for the above 1-sided intervals
-simultaneously. These intervals are commonly reported when conducting equivalence
-tests. For example, a 90\% 2-sided interval gives the bounds for an equivalence
-test with \ifelse{latex}{\out{$\alpha = .05$}}{\ifelse{html}{\out{&alpha; = .05}}{alpha = .05}}.
-However, be aware that this interval does not give 95\% coverage for the
-underlying effect size parameter value. For that, construct a 95\% 2-sided CI.
-For example:\if{html}{\out{<div class="r">}}\preformatted{data("hardlyworking")
+\emph{p} values that can often be found in the literature is to construct a
+2-sided CI at a lower confidence level (e.g., 100(\ifelse{latex}{\out{$1 -
+2\alpha$}}{\ifelse{html}{\out{1 &minus; 2&alpha;}}{1 - 2*alpha}})\% =
+\ifelse{latex}{\out{$100 - 2 \times 5\% = 90\%$}}{\ifelse{html}{\out{100
+&minus; 2 &times; 5&percnt; = 90&percnt;}}{100 - 2*5\% = 90\%}}). This
+estimates the lower bound and upper bound for the above 1-sided intervals
+simultaneously. These intervals are commonly reported when conducting
+\strong{equivalence tests}. For example, a 90\% 2-sided interval gives the bounds
+for an equivalence test with \ifelse{latex}{\out{$\alpha =
+.05$}}{\ifelse{html}{\out{&alpha; = .05}}{alpha = .05}}. However, be aware
+that this interval does not give 95\% coverage for the underlying effect size
+parameter value. For that, construct a 95\% 2-sided CI.\if{html}{\out{<div class="r">}}\preformatted{data("hardlyworking")
 fit <- lm(salary ~ n_comps + age, data = hardlyworking)
-eta_squared(fit, ci = 0.95, alternative = "less") # default, lower 1-sided bound
-}\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
-## 
-## Parameter | Eta2 (partial) |       95\% CI
-## -----------------------------------------
-## n_comps   |           0.21 | [0.00, 0.26]
-## age       |           0.10 | [0.00, 0.14]
-## 
-## - One-sided CIs: lower bound fixed at (0).
-}\if{html}{\out{<div class="r">}}\preformatted{eta_squared(fit, ci = 0.95, alternative = "greater") # upper 1-sided bound
+eta_squared(fit) # default, ci = 0.95, alternative = "greater"
 }\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
 ## 
 ## Parameter | Eta2 (partial) |       95\% CI
@@ -131,6 +125,22 @@ eta_squared(fit, ci = 0.95, alternative = "less") # default, lower 1-sided bound
 ## age       |           0.10 | [0.06, 1.00]
 ## 
 ## - One-sided CIs: upper bound fixed at (1).
+}\if{html}{\out{<div class="r">}}\preformatted{eta_squared(fit, alternative = "less") # Test is eta is smaller than some value
+}\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
+## 
+## Parameter | Eta2 (partial) |       95\% CI
+## -----------------------------------------
+## n_comps   |           0.21 | [0.00, 0.26]
+## age       |           0.10 | [0.00, 0.14]
+## 
+## - One-sided CIs: lower bound fixed at (0).
+}\if{html}{\out{<div class="r">}}\preformatted{eta_squared(fit, alternative = "two.sided") # 2-sided bounds for alpha = .05
+}\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
+## 
+## Parameter | Eta2 (partial) |       95\% CI
+## -----------------------------------------
+## n_comps   |           0.21 | [0.15, 0.27]
+## age       |           0.10 | [0.06, 0.15]
 }\if{html}{\out{<div class="r">}}\preformatted{eta_squared(fit, ci = 0.9, alternative = "two.sided") # both 1-sided bounds for alpha = .05
 }\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
 ## 
@@ -138,13 +148,6 @@ eta_squared(fit, ci = 0.95, alternative = "less") # default, lower 1-sided bound
 ## -----------------------------------------
 ## n_comps   |           0.21 | [0.16, 0.26]
 ## age       |           0.10 | [0.06, 0.14]
-}\if{html}{\out{<div class="r">}}\preformatted{eta_squared(fit, ci = 0.95, alternative = "two.sided") # 2-sided bounds for alpha = .05
-}\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
-## 
-## Parameter | Eta2 (partial) |       95\% CI
-## -----------------------------------------
-## n_comps   |           0.21 | [0.15, 0.27]
-## age       |           0.10 | [0.06, 0.15]
 }
 }
 
@@ -160,9 +163,8 @@ For example:\if{html}{\out{<div class="r">}}\preformatted{t_to_d(80, df_error = 
 ## 0.07 | [0.08, 0.08]
 }
 
-In these cases, consider an alternative optimizer, such as though used in
-the \pkg{MBESS} package or an alternative method for computing CIs,
-such as the bootstrap.
+In these cases, consider an alternative optimizer, or an alternative method
+for computing CIs, such as the bootstrap.
 }
 
 \references{
