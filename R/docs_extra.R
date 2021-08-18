@@ -1,51 +1,161 @@
-#' Confidence Intervals
+#' Confidence (Compatibility) Intervals
 #'
-#' More information regarding Confidence Intervals and how they are computed in
-#' `effectsize`.
+#' More information regarding Confidence (Compatibiity) Intervals and how
+#' they are computed in *effectsize*.
 #'
-#' @section Confidence Intervals:
-#' Unless stated otherwise, confidence intervals are estimated using the
-#' Noncentrality parameter method; These methods searches for a the best
-#' non-central parameters (`ncp`s) of the noncentral t-, F- or Chi-squared
-#' distribution for the desired tail-probabilities, and then convert these
-#' `ncp`s to the corresponding effect sizes. (See full [effectsize-CIs] for
-#' more.)
-#'
-#'
-#' @section CI Contains Zero:
-#' Keep in mind that `ncp` confidence intervals are inverted significance tests,
-#' and only inform us about which values are not significantly different than
-#' our sample estimate. (They do *not* inform us about which values are
-#' plausible, likely or compatible with our data.) Thus, when CIs contain the
-#' value 0, this should *not* be taken to mean that a null effect size is
-#' supported by the data; Instead this merely reflects a non-significant test
-#' statistic - i.e. the *p*-value is greater than alpha (Morey et al., 2016).
+#' @section Confidence (Compatibility) Intervals (CIs):
+#' Unless stated otherwise, confidence (compatibility) intervals (CIs) are
+#' estimated using the noncentrality parameter method (also called the
+#' "pivot method"). This method finds the noncentrality parameter ("*ncp*") of
+#' a noncentral *t*, *F*, or
+#' \ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}
+#' distribution that places the observed *t*, *F*, or
+#' \ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}
+#' test statistic at the desired probability point of the distribution.
+#' For example, if the observed *t* statistic is 2.0, with 50
+#' degrees of freedom, for which cumulative noncentral *t* distribution is
+#' *t* = 2.0 the .025 quantile (answer: the noncentral *t* distribution with
+#' *ncp* = .04)? After estimating these confidence bounds on the *ncp*, they are
+#' converted into the effect size metric to obtain a confidence interval for the
+#' effect size (Steiger, 2004).
 #' \cr\cr
-#' For positive only effect sizes (Eta squared, Cramer's V, etc.; Effect sizes
-#' associated with Chi-squared and F distributions), this applies also to cases
-#' where the lower bound of the CI is equal to 0. Even more care should be taken
-#' when the *upper* bound is equal to 0 - this occurs when *p*-value is greater
-#' than 1-alpha/2 making, the upper bound cannot be estimated, and the upper
-#' bound is arbitrarily set to 0 (Steiger, 2004). For example:
+#' For additional details on estimation and troubleshooting, see [effectsize_CIs].
+#'
+#' @section CIs and Significance Tests:
+#' "Confidence intervals on measures of effect size convey all the information
+#' in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
+#' intervals and p values are complementary summaries of parameter uncertainty
+#' given the observed data. A dichotomous hypothesis test could be performed
+#' with either a CI or a p value. The
+#' 100(\ifelse{latex}{\out{$1 - \alpha$}}{\ifelse{html}{\out{1 &minus; &alpha;}}{1 - alpha}})%
+#' confidence interval contains all of the parameter values for which
+#' \ifelse{latex}{\out{$p > \alpha$}}{\ifelse{html}{\out{p > &alpha;}}{p > alpha}}
+#' for the current data and model. For example, a 95% confidence interval
+#' contains all of the values for which p > .05.
+#' \cr\cr
+#' Note that a confidence interval including 0 *does not* indicate that the null
+#' (no effect) is true. Rather, it suggests that the observed data together with
+#' the model and its assumptions combined do not provided clear evidence against
+#' a parameter value of 0 (same as with any other value in the interval), with
+#' the level of this evidence defined by the chosen
+#' \ifelse{latex}{\out{$\alpha$}}{\ifelse{html}{\out{&alpha;}}{alpha}} level
+#' (Rafi & Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To infer
+#' no effect, additional judgments about what parameter values are "close
+#' enough" to 0 to be negligible are needed ("equivalence testing"; Bauer &
+#' Kiesser, 1996).
+#'
+#' @section One-Sided CIs:
+#' Typically, CIs are constructed as two-tailed intervals, with an equal
+#' proportion of the cumulative probability distribution above and below the
+#' interval. CIs can also be constructed as *one-sided* intervals,
+#' giving only a lower bound or upper bound. This is analogous to computing a
+#' 1-tailed *p* value or conducting a 1-tailed hypothesis test.
+#' \cr\cr
+#' Significance tests conducted using CIs (whether a value is inside the interval)
+#' and using *p* values (whether p < alpha for that value) are only guaranteed
+#' to agree when both are constructed using the same number of sides/tails.
+#' \cr\cr
+#' Most effect sizes are not bounded by zero (e.g., *r*, *d*, *g*), as as such
+#' are generally tested using 2-tailed tests and 2-sided CIs.
+#' \cr\cr
+#' Some effect sizes are strictly positive--they do have a minimum value, of 0.
+#' For example,
+#' \ifelse{latex}{\out{$R^2$}}{\ifelse{html}{\out{<i>R</i><sup>2</sup>}}{R^2}},
+#' \ifelse{latex}{\out{$\eta^2$}}{\ifelse{html}{\out{&eta;<sup>2</sup>}}{eta^2}},
+#' and other variance-accounted-for effect sizes, as well as Cramer's *V* and
+#' multiple *R*, range from 0 to 1. These typically involve *F*- or
+#' \ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}-statistics
+#' and are generally tested using *1-tailed* tests which test whether the
+#' estimated effect size is *larger* than the hypothesized null value (e.g., 0).
+#' In order for a CI to yield the same significance decision it must then by a
+#' *1-sided* CI, estimating only a lower bound. This is the default CI computed
+#' by *effectsize* for these effect sizes, where `alternative = "greater"` is
+#' set.
+#' \cr\cr
+#' This lower bound interval indicates the smallest effect size that is not
+#' significantly different from the observed effect size. That is, it is the
+#' minimum effect size compatible with the observed data, background model
+#' assumptions, and
+#' \ifelse{latex}{\out{$\alpha$}}{\ifelse{html}{\out{&alpha;}}{alpha}} level.
+#' This type of interval does not indicate a maximum effect size value; anything
+#' up to the maximum possible value of the effect size (e.g., 1) is in the
+#' interval.
+#' \cr\cr
+#' One-sided CIs can also be used to test against a maximum effect size value
+#' (e.g., is
+#' \ifelse{latex}{\out{$R^2$}}{\ifelse{html}{\out{<i>R</i><sup>2</sup>}}{R^2}}
+#' significantly smaller than a perfect correlation of 1.0?) can by setting
+#' `alternative = "less"`. This estimates a CI with only an *upper* bound;
+#' anything from the minimum possible value of the effect size (e.g., 0) up to
+#' this upper bound is in the interval.
+#' \cr\cr
+#' We can also obtain a 2-sided interval by setting `alternative = "two-sided"`.
+#' These intervals can be interpreted in the same way as other 2-sided
+#' intervals, such as those for *r*, *d*, or *g*.
+#' \cr\cr
+#' An alternative approach to aligning significance tests using CIs and 1-tailed
+#' *p* values that can often be found in the literature is to construct a
+#' 2-sided CI at a lower confidence level (e.g., 100(\ifelse{latex}{\out{$1 -
+#' 2\alpha$}}{\ifelse{html}{\out{1 &minus; 2&alpha;}}{1 - 2*alpha}})% =
+#' \ifelse{latex}{\out{$100 - 2 \times 5\% = 90\%$}}{\ifelse{html}{\out{100
+#' &minus; 2 &times; 5&percnt; = 90&percnt;}}{100 - 2*5% = 90%}}). This
+#' estimates the lower bound and upper bound for the above 1-sided intervals
+#' simultaneously. These intervals are commonly reported when conducting
+#' **equivalence tests**. For example, a 90% 2-sided interval gives the bounds
+#' for an equivalence test with \ifelse{latex}{\out{$\alpha =
+#' .05$}}{\ifelse{html}{\out{&alpha; = .05}}{alpha = .05}}. However, be aware
+#' that this interval does not give 95% coverage for the underlying effect size
+#' parameter value. For that, construct a 95% 2-sided CI.
+#'
 #' ```{r}
-#' eta_squared(aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:7, ]))
+#' data("hardlyworking")
+#' fit <- lm(salary ~ n_comps + age, data = hardlyworking)
+#' eta_squared(fit) # default, ci = 0.95, alternative = "greater"
+#' eta_squared(fit, alternative = "less") # Test is eta is smaller than some value
+#' eta_squared(fit, alternative = "two.sided") # 2-sided bounds for alpha = .05
+#' eta_squared(fit, ci = 0.9, alternative = "two.sided") # both 1-sided bounds for alpha = .05
 #' ```
 #'
-#'
 #' @section CI Does Not Contain the Estimate:
-#' For very large sample sizes, the width of the CI can be smaller than the
-#' tolerance of the optimizer, resulting in CIs of width 0. This can also,
-#' result in the estimated CIs excluding the point estimate. For example:
-#' ```{r}
-#' chisq_to_cramers_v(13223.73, n = 76227, nrow = 6, ncol = 1)
+#' For very large sample sizes or effect sizes, the width of the CI can be
+#' smaller than the tolerance of the optimizer, resulting in CIs of width 0.
+#' This can also result in the estimated CIs excluding the point estimate.
 #'
+#' For example:
+#' ```{r}
 #' t_to_d(80, df_error = 4555555)
 #' ```
 #'
-#' @references
-#' - Morey, R. D., Hoekstra, R., Rouder, J. N., Lee, M. D., & Wagenmakers, E. J. (2016). The fallacy of placing confidence in confidence intervals. Psychonomic bulletin & review, 23(1), 103-123.
-#' - Steiger, J. H. (2004). Beyond the F test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis. Psychological Methods, 9, 164-182.
+#' In these cases, consider an alternative optimizer, or an alternative method
+#' for computing CIs, such as the bootstrap.
 #'
-#' @rdname effectsize-CIs
-#' @name effectsize-CIs
+#'
+#' @references
+#' Bauer, P., & Kieser, M. (1996).
+#' A unifying approach for confidence intervals and testing of equivalence and difference.
+#' _Biometrika, 83_(4), 934-–937.
+#' \doi{10.1093/biomet/83.4.934}
+#'
+#' Rafi, Z., & Greenland, S. (2020).
+#' Semantic and cognitive tools to aid statistical science: Replace confidence and significance by compatibility and surprise.
+#' _BMC Medical Research Methodology, 20_(1), Article 244.
+#' \doi{10.1186/s12874-020-01105-9}
+#'
+#' Schweder, T., & Hjort, N. L. (2016).
+#' _Confidence, likelihood, probability: Statistical inference with confidence distributions._
+#' Cambridge University Press.
+#' \doi{10.1017/CBO9781139046671}
+#'
+#' Steiger, J. H. (2004).
+#' Beyond the _F_ test: Effect size confidence intervals and tests of close fit in the analysis of variance and contrast analysis.
+#' _Psychological Methods, 9_(2), 164--182.
+#' \doi{10.1037/1082-989x.9.2.164}
+#'
+#' Xie, M., & Singh, K. (2013).
+#' Confidence distribution, the frequentist distribution estimator of a parameter: A review.
+#' _International Statistical Review, 81_(1), 3–-39.
+#' \doi{10.1111/insr.12000}
+#'
+#' @rdname effectsize_CIs
+#' @name effectsize_CIs
 NULL

@@ -79,13 +79,19 @@ hedges_g(mpg ~ am, data = mtcars, pooled_sd = FALSE)
 In cases where the differences between the variances are substantial, it is also
 common to standardize the difference based only on the standard deviation of one
 of the groups (usually the "control" group); this effect size is known as Glass'
-$\Delta$ (delta)
+$\Delta$ (delta) (Note that the standard deviation is taken from the *second* sample).
 
 ```{r}
 glass_delta(mpg ~ am, data = mtcars)
 ```
 
-(Note that the standard deviation is taken from the *second* sample.)
+For a one-sided hypothesis, it is also possible to construct one-sided confidence intervals:
+
+```{r}
+t.test(mpg ~ am, data = mtcars, var.equal = TRUE, alternative = "less")
+
+cohens_d(mpg ~ am, data = mtcars, pooled_sd = TRUE, alternative = "less")
+```
 
 ## One Sample and Paired Samples
 
@@ -266,7 +272,7 @@ above $\mu$. For paired samples the difference between the paired samples is
 used:
 
 ```{r}
-x <- c(1.15, 0.88, 0.90, 0.74, 1.21)
+x <- c(1.15, 0.88, 0.90, 0.74, 1.21, 1.36, 0.89)
 
 wilcox.test(x, mu = 1) # aka Signed-Rank test
 

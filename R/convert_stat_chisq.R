@@ -8,6 +8,11 @@
 #' @param nrow,ncol The number of rows/columns in the contingency table (ignored
 #'   for Phi when `adjust=FALSE` and `CI=NULL`).
 #' @param ci Confidence Interval (CI) level
+#' @param alternative a character string specifying the alternative hypothesis;
+#'   Controls the type of CI returned: `"greater"` (default) or `"less"`
+#'   (one-sided CI), or `"two.sided"` (default, two-sided CI). Partial matching
+#'   is allowed (e.g., `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in
+#'   [effectsize_CIs].
 #' @param adjust Should the effect size be bias-corrected? Defaults to `FALSE`.
 #' @param ... Arguments passed to or from other methods.
 #'
@@ -22,8 +27,8 @@
 #' \cr
 #' For adjusted versions, see Bergsma, 2013.
 #'
-#' @inheritSection effectsize-CIs Confidence Intervals
-#' @inheritSection effectsize-CIs CI Contains Zero
+#' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
+#' @inheritSection effectsize_CIs CIs and Significance Tests
 #'
 #' @family effect size from test statistic
 #'
@@ -36,7 +41,7 @@
 #' #
 #' #         Pearson's Chi-squared test
 #' #
-#' # data:  ctab
+#' # data:  contingency_table
 #' # X-squared = 41.234, df = 4, p-value = 2.405e-08
 #'
 #' chisq_to_phi(41.234,
@@ -58,7 +63,8 @@
 #' Journal of the Korean Statistical Society, 42(3), 323-328.
 #'
 #' @export
-chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...) {
+chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
+  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
   if (adjust || is.numeric(ci)) {
     is_goodness <- ncol == 1 || nrow == 1
 
@@ -82,12 +88,13 @@ chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...) {
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
+    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
     chisq_ <- phi_to_chisq(res[[1]], n)
 
     chisqs <- t(mapply(
       .get_ncp_chi,
-      chisq_, df, ci
+      chisq_, df, ci.level
     ))
 
     res$CI_low <-
@@ -96,12 +103,20 @@ chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...) {
       chisq_to_phi(chisqs[, 2], n, nrow, ncol, ci = NULL, adjust = FALSE)[[1]]
 
     ci_method <- list(method = "ncp", distribution = "chisq")
+    if (alternative == "less") {
+      res$CI_low <- 0
+    } else if (alternative == "greater") {
+      res$CI_high <- 1
+    }
+  } else {
+    alternative <- NULL
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
   attr(res, "ci_method") <- ci_method
   attr(res, "adjust") <- adjust
+  attr(res, "alternative") <- alternative
   return(res)
 }
 
@@ -113,7 +128,8 @@ chisq_to_cohens_w <- chisq_to_phi
 
 #' @rdname chisq_to_phi
 #' @export
-chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, ...) {
+chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
+  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
   is_goodness <- ncol == 1 || nrow == 1
 
 
@@ -150,12 +166,13 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, 
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     res$CI <- ci
+    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
     chisq_ <- phi_to_chisq(phi, n)
 
     chisqs <- t(mapply(
       .get_ncp_chi,
-      chisq_, df, ci
+      chisq_, df, ci.level
     ))
 
     res$CI_low <-
@@ -164,12 +181,20 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, adjust = FALSE, 
       chisq_to_cramers_v(chisqs[, 2], n, nrow, ncol, ci = NULL, adjust = FALSE)[[1]]
 
     ci_method <- list(method = "ncp", distribution = "chisq")
+    if (alternative == "less") {
+      res$CI_low <- 0
+    } else if (alternative == "greater") {
+      res$CI_high <- 1
+    }
+  } else {
+    alternative <- NULL
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
   attr(res, "ci_method") <- ci_method
   attr(res, "adjust") <- adjust
+  attr(res, "alternative") <- alternative
   return(res)
 }
 

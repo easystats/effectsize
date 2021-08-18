@@ -17,8 +17,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{bayestestR}{\code{\link[bayestestR]{equivalence_test}}}
+  \item{bayestestR}{\code{\link[bayestestR]{equivalence_test}}, \code{\link[bayestestR]{equivalence_test}}}
 
-  \item{datawizard}{\code{\link[datawizard]{adjust}}, \code{\link[datawizard]{change_scale}}, \code{\link[datawizard]{normalize}}, \code{\link[datawizard]{ranktransform}}, \code{\link[datawizard]{standardize}}, \code{\link[datawizard:standardize]{unstandardize}}}
+  \item{datawizard}{\code{\link[datawizard]{adjust}}, \code{\link[datawizard:data_rescale]{change_scale}}, \code{\link[datawizard]{normalize}}, \code{\link[datawizard]{ranktransform}}, \code{\link[datawizard]{standardize}}, \code{\link[datawizard:standardize]{unstandardize}}}
 }}
 

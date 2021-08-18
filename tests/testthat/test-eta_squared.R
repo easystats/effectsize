@@ -81,6 +81,12 @@ if (require("testthat") && require("effectsize")) {
     #### One way-between
     expect_message(eta_squared(aov(mpg ~ factor(gear), mtcars)))
     expect_message(eta_squared(aov(mpg ~ factor(gear) + am, mtcars)), regexp = NA)
+
+    #### Alternative
+    m <- aov(mpg ~ factor(gear) + am, mtcars)
+    et1 <- eta_squared(m)
+    et2 <- eta_squared(m, ci = 0.9, alternative = "two.sided")
+    expect_equal(et1$CI_low, et2$CI_low)
   })
 
 

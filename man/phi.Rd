@@ -10,19 +10,19 @@
 \alias{cohens_g}
 \title{Effect size for contingency tables}
 \usage{
-phi(x, y = NULL, ci = 0.95, adjust = FALSE, ...)
+phi(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
 
-cohens_w(x, y = NULL, ci = 0.95, adjust = FALSE, ...)
+cohens_w(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
 
-cramers_v(x, y = NULL, ci = 0.95, adjust = FALSE, ...)
+cramers_v(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
 
-oddsratio(x, y = NULL, ci = 0.95, log = FALSE, ...)
+oddsratio(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...)
 
-riskratio(x, y = NULL, ci = 0.95, log = FALSE, ...)
+riskratio(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...)
 
-cohens_h(x, y = NULL, ci = 0.95, ...)
+cohens_h(x, y = NULL, ci = 0.95, alternative = "two.sided", ...)
 
-cohens_g(x, y = NULL, ci = 0.95, ...)
+cohens_g(x, y = NULL, ci = 0.95, alternative = "two.sided", ...)
 }
 \arguments{
 \item{x}{a numeric vector or matrix. \code{x} and \code{y} can also
@@ -32,6 +32,13 @@ cohens_g(x, y = NULL, ci = 0.95, ...)
     \code{x} is a factor, \code{y} should be a factor of the same length.}
 
 \item{ci}{Confidence Interval (CI) level}
+
+\item{alternative}{a character string specifying the alternative hypothesis;
+Controls the type of CI returned: \code{"two.sided"} (two-sided CI; default for
+Cramer's \emph{V}, phi (\eqn{\phi}), and Cohen's \emph{w}), \code{"greater"} (default for
+OR, RR, Cohen's \emph{h} and Cohen's \emph{g}) or \code{"less"} (one-sided CI). Partial
+matching is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs}
+in \link{effectsize_CIs}.}
 
 \item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
 
@@ -79,55 +86,64 @@ For Odds ratios, Risk ratios and Cohen's \emph{h}, confidence intervals are
 estimated using the standard normal parametric method (see Katz et al., 1978;
 Szumilas, 2010).
 \cr\cr
-See \emph{Confidence Intervals} and \emph{CI Contains Zero} sections for \emph{phi}, Cohen's
-\emph{w} and Cramer's \emph{V}.
+See \emph{Confidence (Compatibility) Intervals (CIs)}, \emph{CIs and Significance Tests},
+and \emph{One-Sided CIs} sections for \emph{phi}, Cohen's \emph{w} and Cramer's \emph{V}.
 }
 
-\section{Confidence Intervals}{
+\section{Confidence (Compatibility) Intervals (CIs)}{
 
-Unless stated otherwise, confidence intervals are estimated using the
-Noncentrality parameter method; These methods searches for a the best
-non-central parameters (\code{ncp}s) of the noncentral t-, F- or Chi-squared
-distribution for the desired tail-probabilities, and then convert these
-\code{ncp}s to the corresponding effect sizes. (See full \link{effectsize-CIs} for
-more.)
-}
-
-\section{CI Contains Zero}{
-
-Keep in mind that \code{ncp} confidence intervals are inverted significance tests,
-and only inform us about which values are not significantly different than
-our sample estimate. (They do \emph{not} inform us about which values are
-plausible, likely or compatible with our data.) Thus, when CIs contain the
-value 0, this should \emph{not} be taken to mean that a null effect size is
-supported by the data; Instead this merely reflects a non-significant test
-statistic - i.e. the \emph{p}-value is greater than alpha (Morey et al., 2016).
+Unless stated otherwise, confidence (compatibility) intervals (CIs) are
+estimated using the noncentrality parameter method (also called the
+"pivot method"). This method finds the noncentrality parameter ("\emph{ncp}") of
+a noncentral \emph{t}, \emph{F}, or
+\ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}
+distribution that places the observed \emph{t}, \emph{F}, or
+\ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}
+test statistic at the desired probability point of the distribution.
+For example, if the observed \emph{t} statistic is 2.0, with 50
+degrees of freedom, for which cumulative noncentral \emph{t} distribution is
+\emph{t} = 2.0 the .025 quantile (answer: the noncentral \emph{t} distribution with
+\emph{ncp} = .04)? After estimating these confidence bounds on the \emph{ncp}, they are
+converted into the effect size metric to obtain a confidence interval for the
+effect size (Steiger, 2004).
 \cr\cr
-For positive only effect sizes (Eta squared, Cramer's V, etc.; Effect sizes
-associated with Chi-squared and F distributions), this applies also to cases
-where the lower bound of the CI is equal to 0. Even more care should be taken
-when the \emph{upper} bound is equal to 0 - this occurs when \emph{p}-value is greater
-than 1-alpha/2 making, the upper bound cannot be estimated, and the upper
-bound is arbitrarily set to 0 (Steiger, 2004). For example:\if{html}{\out{<div class="r">}}\preformatted{eta_squared(aov(mpg ~ factor(gear) + factor(cyl), mtcars[1:7, ]))
-}\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
-## 
-## Parameter    | Eta2 (partial) |       90\% CI
-## --------------------------------------------
-## factor(gear) |           0.58 | [0.00, 0.84]
-## factor(cyl)  |           0.46 | [0.00, 0.78]
+For additional details on estimation and troubleshooting, see \link{effectsize_CIs}.
 }
+
+\section{CIs and Significance Tests}{
+
+"Confidence intervals on measures of effect size convey all the information
+in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
+intervals and p values are complementary summaries of parameter uncertainty
+given the observed data. A dichotomous hypothesis test could be performed
+with either a CI or a p value. The
+100(\ifelse{latex}{\out{$1 - \alpha$}}{\ifelse{html}{\out{1 &minus; &alpha;}}{1 - alpha}})\%
+confidence interval contains all of the parameter values for which
+\ifelse{latex}{\out{$p > \alpha$}}{\ifelse{html}{\out{p > &alpha;}}{p > alpha}}
+for the current data and model. For example, a 95\% confidence interval
+contains all of the values for which p > .05.
+\cr\cr
+Note that a confidence interval including 0 \emph{does not} indicate that the null
+(no effect) is true. Rather, it suggests that the observed data together with
+the model and its assumptions combined do not provided clear evidence against
+a parameter value of 0 (same as with any other value in the interval), with
+the level of this evidence defined by the chosen
+\ifelse{latex}{\out{$\alpha$}}{\ifelse{html}{\out{&alpha;}}{alpha}} level
+(Rafi & Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To infer
+no effect, additional judgments about what parameter values are "close
+enough" to 0 to be negligible are needed ("equivalence testing"; Bauer &
+Kiesser, 1996).
 }
 
 \examples{
-M <- rbind(
-  c(150, 130, 35, 55),
-  c(100, 50, 10, 40),
-  c(165, 65, 2, 25)
-)
-dimnames(M) <- list(
-  Study = c("Psych", "Econ", "Law"),
-  Music = c("Pop", "Rock", "Jazz", "Classic")
-)
+M <-
+  matrix(c(150, 100, 165,
+           130, 50, 65,
+           35, 10, 2,
+           55, 40, 25), nrow = 4,
+         dimnames = list(
+           Music = c("Pop", "Rock", "Jazz", "Classic"),
+           Study = c("Psych", "Econ", "Law")))
 M
 
 phi(M)
@@ -138,19 +154,16 @@ cramers_v(M)
 
 ## 2-by-2 tables
 ## -------------
-(RCT <- matrix(
-  c(
-    71, 30,
-    50, 100
-  ),
-  nrow = 2, byrow = TRUE,
-  dimnames = list(
-    Diagnosis = c("Sick", "Recovered"),
-    Group = c("Treatment", "Control")
-  )
-)) # note groups are COLUMNS
+RCT <-
+  matrix(c(71, 30,
+           50, 100), nrow = 2, byrow = TRUE,
+         dimnames = list(
+           Diagnosis = c("Sick", "Recovered"),
+           Group = c("Treatment", "Control")))
+RCT # note groups are COLUMNS
 
 oddsratio(RCT)
+oddsratio(RCT, alternative = "greater")
 
 riskratio(RCT)
 
@@ -160,17 +173,16 @@ cohens_h(RCT)
 
 ## Dependent (Paired) Contingency Tables
 ## -------------------------------------
-Performance <- rbind(
-  c(794, 86),
-  c(150, 570)
-)
-dimnames(Performance) <- list(
-  "1st Survey" = c("Approve", "Disapprove"),
-  "2nd Survey" = c("Approve", "Disapprove")
-)
+Performance <-
+  matrix(c(794, 150,
+           86, 570), nrow = 2,
+         dimnames = list(
+           "1st Survey" = c("Approve", "Disapprove"),
+           "2nd Survey" = c("Approve", "Disapprove")))
 Performance
 
 cohens_g(Performance)
+
 }
 \references{
 \itemize{

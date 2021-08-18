@@ -15,6 +15,10 @@
 #' @param x A formula, a numeric vector, or a character name of one in `data`.
 #' @param y A numeric vector, a grouping (character / factor) vector, a or a
 #'   character  name of one in `data`. Ignored if `x` is a formula.
+#' @param alternative a character string specifying the alternative hypothesis;
+#'   Controls the type of CI returned: `"two.sided"` (default, two-sided CI),
+#'   `"greater"` or `"less"` (one-sided CI). Partial matching is allowed (e.g.,
+#'   `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in [effectsize_CIs].
 #' @param data An optional data frame containing the variables.
 #' @param pooled_sd If `TRUE` (default), a [sd_pooled()] is used (assuming equal
 #'   variance). Else the mean SD from both groups is used instead.
@@ -34,8 +38,8 @@
 #' Set `pooled_sd = FALSE` for effect sizes that are to accompany a Welch's
 #' *t*-test (Delacre et al, 2021).
 #'
-#' @inheritSection effectsize-CIs Confidence Intervals
-#' @inheritSection effectsize-CIs CI Contains Zero
+#' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
+#' @inheritSection effectsize_CIs CIs and Significance Tests
 #'
 #' @return A data frame with the effect size ( `Cohens_d`, `Hedges_g`,
 #'   `Glass_delta`) and their CIs (`CI_low` and `CI_high`).
@@ -44,7 +48,7 @@
 #' @family effect size indices
 #'
 #' @examples
-#'
+#' \donttest{
 #' data(mtcars)
 #' mtcars$am <- factor(mtcars$am)
 #'
@@ -58,6 +62,7 @@
 #' # More options:
 #' cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)
 #' cohens_d(mpg ~ am, data = mtcars, mu = -5)
+#' cohens_d(mpg ~ am, data = mtcars, alternative = "less")
 #' hedges_g(mpg ~ am, data = mtcars)
 #' glass_delta(mpg ~ am, data = mtcars)
 #'
@@ -100,6 +105,8 @@
 #' d_to_common_language(1.48)
 #' # Or:
 #' print(d, append_CL = TRUE)
+#' }
+#'
 #' @references
 #' - Algina, J., Keselman, H. J., & Penfield, R. D. (2006). Confidence intervals
 #' for an effect size when variances are not equal. Journal of Modern Applied
@@ -127,27 +134,16 @@ cohens_d <- function(x,
                      mu = 0,
                      paired = FALSE,
                      ci = 0.95,
+                     alternative = "two.sided",
                      verbose = TRUE,
                      ...) {
-  if (inherits(x, "htest")) {
-    if (!grepl("t-test", x$method)) {
-      stop("'x' is not a t-test!", call. = FALSE)
-    }
-    return(effectsize(x, type = "d", ci = ci, verbose = verbose))
-  } else if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
-      stop("'x' is not a t-test!", call. = FALSE)
-    }
-    return(effectsize(x, ci = ci, verbose = verbose))
-  }
-
-
   .effect_size_difference(
     x,
     y = y,
     data = data,
     type = "d",
     pooled_sd = pooled_sd,
+    alternative = alternative,
     mu = mu,
     paired = paired,
     ci = ci,
@@ -164,25 +160,14 @@ hedges_g <- function(x,
                      mu = 0,
                      paired = FALSE,
                      ci = 0.95,
+                     alternative = "two.sided",
                      verbose = TRUE,
                      ...,
                      correction) {
   if (!missing(correction)) {
     warning("`correction` argument is deprecated. *Exact* bias correction method is used.",
-      call. = FALSE, immediate. = TRUE
+            call. = FALSE, immediate. = TRUE
     )
-  }
-
-  if (inherits(x, "htest")) {
-    if (!grepl("t-test", x$method)) {
-      stop("'x' is not a t-test!", call. = FALSE)
-    }
-    return(effectsize(x, type = "g", ci = ci, verbose = verbose))
-  } else if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
-      stop("'x' is not a t-test!", call. = FALSE)
-    }
-    return(effectsize(x, ci = ci, verbose = verbose))
   }
 
   .effect_size_difference(
@@ -191,6 +176,7 @@ hedges_g <- function(x,
     data = data,
     type = "g",
     pooled_sd = pooled_sd,
+    alternative = alternative,
     mu = mu,
     paired = paired,
     ci = ci,
@@ -205,6 +191,7 @@ glass_delta <- function(x,
                         data = NULL,
                         mu = 0,
                         ci = 0.95,
+                        alternative = "two.sided",
                         verbose = TRUE,
                         ...,
                         iterations) {
@@ -218,6 +205,7 @@ glass_delta <- function(x,
     x,
     y = y,
     data = data,
+    alternative = alternative,
     mu = mu,
     type = "delta",
     ci = ci,
@@ -234,11 +222,26 @@ glass_delta <- function(x,
                                     data = NULL,
                                     type = "d",
                                     mu = 0,
+                                    alternative = "two.sided",
                                     pooled_sd = TRUE,
                                     paired = FALSE,
                                     ci = 0.95,
                                     verbose = TRUE,
                                     ...) {
+  if (type != "delta" && inherits(x, "htest")) {
+    if (!grepl("t-test", x$method)) {
+      stop("'x' is not a t-test!", call. = FALSE)
+    }
+    return(effectsize(x, type = type, ci = ci, alternative = alternative, verbose = verbose))
+  } else if (type != "delta" && inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
+      stop("'x' is not a t-test!", call. = FALSE)
+    }
+    return(effectsize(x, ci = ci, verbose = verbose))
+  }
+
+
+  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
   out <- .deal_with_cohens_d_arguments(x, y, data, verbose)
   x <- out$x
   y <- out$y
@@ -313,13 +316,21 @@ glass_delta <- function(x,
 
     # Add cis
     out$CI <- ci
+    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
     t <- (d - mu) / se
-    ts <- .get_ncp_t(t, df, ci)
+    ts <- .get_ncp_t(t, df, ci.level)
 
     out$CI_low <- ts[1] * sqrt(hn)
     out$CI_high <- ts[2] * sqrt(hn)
     ci_method <- list(method = "ncp", distribution = "t")
+    if (alternative == "less") {
+      out$CI_low <- -Inf
+    } else if (alternative == "greater") {
+      out$CI_high <- Inf
+    }
+  } else {
+    alternative <- NULL
   }
 
 
@@ -338,6 +349,7 @@ glass_delta <- function(x,
   attr(out, "ci") <- ci
   attr(out, "ci_method") <- ci_method
   attr(out, "approximate") <- FALSE
+  attr(out, "alternative") <- alternative
   return(out)
 }
 

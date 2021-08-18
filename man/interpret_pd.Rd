@@ -39,7 +39,6 @@ Interpret Probability of Direction (pd)
 \examples{
 interpret_pd(.98)
 interpret_pd(c(.96, .99), rules = "makowski2019")
-
 }
 \references{
 \itemize{
