@@ -65,6 +65,11 @@ bayestestR::equivalence_test
 #' es <- eta_squared(model, ci = 0.9, alternative = "two.sided")
 #' equivalence_test(es, range = 0.30) # TOST
 #'
+#' RCT <- matrix(c(71, 101,
+#'                 50, 100), nrow = 2)
+#' OR <- oddsratio(RCT, alternative = "greater")
+#' equivalence_test(OR, range = 1)
+#'
 #' ds <- t_to_d(
 #'   t = c(0.45, -0.65, 7, -2.2, 2.25),
 #'   df_error = c(675, 525, 2000, 900, 1875),
@@ -116,7 +121,7 @@ equivalence_test.effectsize_table <- function(x,
   }
 
   # Test ---
-  signif <- x$CI_high < 0 | 0 < x$CI_low
+  signif <- x$CI_high < x_es_info$null | x_es_info$null < x$CI_low
   in_rope <- range[1] <= x$CI_low & x$CI_high <= range[2]
   out_rope <- x$CI_high < range[1] | range[2] < x$CI_low
 
@@ -140,6 +145,7 @@ equivalence_test.effectsize_table <- function(x,
   attr(x, "rule") <- rule
   return(x)
 }
+
 #' @importFrom bayestestR equivalence_test
 #' @export
 bayestestR::equivalence_test
