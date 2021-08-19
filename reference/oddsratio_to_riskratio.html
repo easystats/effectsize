@@ -88,7 +88,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5-2</span>
       </span>
     </div>
 
@@ -178,7 +178,7 @@
     <p>Convert between Odds ratios and Risk ratios</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>oddsratio_to_riskratio</span><span class='op'>(</span><span class='va'>OR</span>, <span class='va'>p0</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>oddsratio_to_riskratio</span><span class='op'>(</span><span class='va'>OR</span>, <span class='va'>p0</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>riskratio_to_oddsratio</span><span class='op'>(</span><span class='va'>RR</span>, <span class='va'>p0</span>, log <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></code></pre></div>
 
@@ -188,7 +188,7 @@
     <tr>
       <th>OR, RR</th>
       <td><p>Risk ratio of <code>p1/p0</code> or Odds ratio of <code>odds(p1)/odds(p0)</code>,
-possibly log-ed.</p></td>
+possibly log-ed. <code>OR</code> can also be a logistic regression model.</p></td>
     </tr>
     <tr>
       <th>p0</th>
@@ -198,11 +198,16 @@ possibly log-ed.</p></td>
       <th>log</th>
       <td><p>Take in or output the log of the ratio (such as in logistic models).</p></td>
     </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments passed to and from other methods.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Converted index.</p>
+    <p>Converted index, or if <code>OR</code> is a logistic regression model, a
+parameter table with the converted indices.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Grant, R. L. (2014). Converting an odds ratio to a range of plausible
@@ -229,6 +234,18 @@ f7450.</p>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 3.5</span>
 <span class='r-in'><span class='fu'>oddsratio_to_riskratio</span><span class='op'>(</span><span class='va'>OR</span>, p0 <span class='op'>=</span> <span class='va'>p0</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1.75</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>am</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>cyl</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>mtcars</span>,</span>
+<span class='r-in'>         family <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/family.html'>binomial</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>oddsratio_to_riskratio</span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>'p0' not provided.RR is relative to the intercept (p0 = 0.73) - make sure your intercept is meaningful.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter   | Risk Ratio |       95% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (Intercept) |       0.73 |             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cyl [6]     |       0.59 | [0.11, 1.16]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cyl [8]     |       0.20 | [0.02, 0.70]</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Showing profiled confidence intervals.</span>
 </code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
