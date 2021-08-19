@@ -11,14 +11,17 @@ riskratio_to_oddsratio(RR, p0, log = FALSE)
 }
 \arguments{
 \item{OR, RR}{Risk ratio of \code{p1/p0} or Odds ratio of \code{odds(p1)/odds(p0)},
-possibly log-ed.}
+possibly log-ed. \code{OR} can also be a logistic regression model.}
 
 \item{p0}{Baseline risk}
 
 \item{log}{Take in or output the log of the ratio (such as in logistic models).}
+
+\item{...}{Arguments passed to and from other methods.}
 }
 \value{
-Converted index.
+Converted index, or if \code{OR} is a logistic regression model, a
+parameter table with the converted indices.
 }
 \description{
 Convert between Odds ratios and Risk ratios
@@ -32,6 +35,10 @@ p1 <- 0.7
 
 riskratio_to_oddsratio(RR, p0 = p0)
 oddsratio_to_riskratio(OR, p0 = p0)
+
+m <- glm(am ~ factor(cyl), data = mtcars,
+         family = binomial())
+oddsratio_to_riskratio(m)
 }
 \references{
 Grant, R. L. (2014). Converting an odds ratio to a range of plausible

@@ -28,6 +28,20 @@ if (require("testthat") && require("effectsize")) {
 
     expect_equal(riskratio_to_oddsratio(log(RR), p0 = p0, log = TRUE), log(OR))
     expect_equal(oddsratio_to_riskratio(log(OR), p0 = p0, log = TRUE), log(RR))
+
+
+    m <- glm(am ~ factor(cyl), data = mtcars,
+             family = binomial())
+
+    expect_warning(RR <- oddsratio_to_riskratio(m))
+    expect_true("(Intercept)" %in% RR$Parameter)
+    expect_false("(p0)" %in% RR$Parameter)
+    expect_equal(RR$Coefficient, c(0.7272, 0.5892, 0.1964), tolerance = 0.001)
+
+    RR <- oddsratio_to_riskratio(m, p0 = 0.05)
+    expect_true("(p0)" %in% RR$Parameter)
+    expect_false("(Intercept)" %in% RR$Parameter)
+    expect_equal(RR$Coefficient, c(0.05, 0.29173, 0.06557), tolerance = 0.001)
   })
 
   test_that("odds_to_probs", {

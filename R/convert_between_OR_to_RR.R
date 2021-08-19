@@ -1,11 +1,13 @@
 #' Convert between Odds ratios and Risk ratios
 #'
 #' @param OR,RR Risk ratio of `p1/p0` or Odds ratio of `odds(p1)/odds(p0)`,
-#'   possibly log-ed.
+#'   possibly log-ed. `OR` can also be a logistic regression model.
 #' @param p0 Baseline risk
+#' @param ... Arguments passed to and from other methods.
 #' @inheritParams oddsratio_to_d
 #'
-#' @return Converted index.
+#' @return Converted index, or if `OR` is a logistic regression model, a
+#'   parameter table with the converted indices.
 #'
 #' @family convert between effect sizes
 #'
@@ -18,6 +20,10 @@
 #'
 #' riskratio_to_oddsratio(RR, p0 = p0)
 #' oddsratio_to_riskratio(OR, p0 = p0)
+#'
+#' m <- glm(am ~ factor(cyl), data = mtcars,
+#'          family = binomial())
+#' oddsratio_to_riskratio(m)
 #' @references
 #'
 #' Grant, R. L. (2014). Converting an odds ratio to a range of plausible
@@ -26,11 +32,50 @@
 #'
 #' @export
 oddsratio_to_riskratio <- function(OR, p0, log = FALSE) {
+  UseMethod("oddsratio_to_riskratio")
+}
+
+#' @export
+oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, ...) {
   if (log) OR <- exp(OR)
 
   RR <- OR / (1 - p0 + (p0 * OR))
 
   if (log) RR <- log(RR)
+  return(RR)
+}
+
+#' @export
+oddsratio_to_riskratio.glm <- function(OR, p0, log = FALSE, ...) {
+  mi <- insight::model_info(OR)
+  if (!mi$is_binomial || !mi$is_logit) stop("Model must a binomial model with logit-link (logistic regression)")
+
+  if (used_intercept <- missing(p0)) {
+    p0 <- plogis(coef(OR)["(Intercept)"])
+    warning("'p0' not provided.",
+            "RR is relative to the intercept (p0 = ",
+            insight::format_value(p0),
+            ") - make sure your intercept is meaningful.")
+  }
+
+  RR <- parameters::model_parameters(OR, exponentiate = !log, ...)
+  RR$SE <- NULL
+  RR$z <- NULL
+  RR$df_error <- NULL
+  RR$p <- NULL
+
+  RR[,colnames(RR) %in% c("Coefficient", "CI_low", "CI_high")] <-
+    lapply(RR[,colnames(RR) %in% c("Coefficient", "CI_low", "CI_high")],
+           oddsratio_to_riskratio, p0 = p0, log = log)
+
+  RR[RR$Parameter=="(Intercept)", "Coefficient"] <- p0
+  RR[RR$Parameter=="(Intercept)", c("CI_low", "CI_high")] <- NA
+
+  if (!used_intercept) {
+    RR[RR$Parameter=="(Intercept)", "Parameter"] <- "(p0)"
+  }
+
+  attr(RR, "coefficient_name") <- if (log) "Log-RR" else "Risk Ratio"
   return(RR)
 }
 
@@ -46,3 +91,4 @@ riskratio_to_oddsratio <- function(RR, p0, log = FALSE) {
   if (log) OR <- log(OR)
   return(OR)
 }
+
