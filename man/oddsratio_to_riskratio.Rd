@@ -5,7 +5,7 @@
 \alias{riskratio_to_oddsratio}
 \title{Convert between Odds ratios and Risk ratios}
 \usage{
-oddsratio_to_riskratio(OR, p0, log = FALSE)
+oddsratio_to_riskratio(OR, p0, log = FALSE, ...)
 
 riskratio_to_oddsratio(RR, p0, log = FALSE)
 }

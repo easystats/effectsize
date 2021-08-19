@@ -31,7 +31,7 @@
 #' f7450.
 #'
 #' @export
-oddsratio_to_riskratio <- function(OR, p0, log = FALSE) {
+oddsratio_to_riskratio <- function(OR, p0, log = FALSE, ...) {
   UseMethod("oddsratio_to_riskratio")
 }
 
@@ -46,12 +46,13 @@ oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, ...) {
 }
 
 #' @export
+#' @importFrom stats coef
 oddsratio_to_riskratio.glm <- function(OR, p0, log = FALSE, ...) {
   mi <- insight::model_info(OR)
   if (!mi$is_binomial || !mi$is_logit) stop("Model must a binomial model with logit-link (logistic regression)")
 
   if (used_intercept <- missing(p0)) {
-    p0 <- plogis(coef(OR)["(Intercept)"])
+    p0 <- plogis(stats::coef(OR)["(Intercept)"])
     warning("'p0' not provided.",
             "RR is relative to the intercept (p0 = ",
             insight::format_value(p0),
