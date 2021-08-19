@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size and Standardized Parameters
-Version: 0.5-1
+Version: 0.5-2
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
