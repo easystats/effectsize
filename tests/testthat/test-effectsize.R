@@ -195,6 +195,26 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(H$CI_high, 1.68021, tolerance = 0.01)
   })
 
+  test_that("htest | Get args from htest", {
+    tt <- t.test(mtcars$hp, mtcars$mpg, alternative = "l", mu=-3, conf.level = 0.8, var.equal = TRUE)
+    expect_equal(cohens_d(tt), cohens_d(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3, ci = 0.8), ignore_attr = TRUE)
+    expect_equal(cohens_d(tt, mu = -4, ci = 0.99, alternative = "t"),
+                 cohens_d(mtcars$hp, mtcars$mpg, mu = -4, ci = 0.99, alternative = "t"),
+                 ignore_attr = TRUE)
+
+    suppressWarnings(ww1 <- wilcox.test(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3))
+    expect_equal(rank_biserial(ww1), rank_biserial(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3), ignore_attr = TRUE)
+    expect_equal(rank_biserial(ww1, mu = -4, alternative = "t"),
+                 rank_biserial(mtcars$hp, mtcars$mpg, mu = -4, alternative = "t"),
+                 ignore_attr = TRUE)
+
+    suppressWarnings(ww2 <- wilcox.test(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3,  conf.int = TRUE, conf.level = 0.8))
+    expect_equal(rank_biserial(ww2), rank_biserial(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3, ci = 0.8), ignore_attr = TRUE)
+    expect_equal(rank_biserial(ww2, mu = -4, alternative = "t", ci = 0.99),
+                 rank_biserial(mtcars$hp, mtcars$mpg, mu = -4, alternative = "t", ci = 0.99),
+                 ignore_attr = TRUE)
+  })
+
 
   # aov ---------------------------------------------------------------------
   test_that("aov", {
