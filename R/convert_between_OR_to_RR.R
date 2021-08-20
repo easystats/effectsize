@@ -69,6 +69,10 @@ oddsratio_to_riskratio.glm <- function(OR, p0, log = FALSE, ...) {
     lapply(RR[,colnames(RR) %in% c("Coefficient", "CI_low", "CI_high")],
            oddsratio_to_riskratio, p0 = p0, log = log)
 
+  if (any(c("CI_low", "CI_high") %in% colnames(RR))) {
+    warning("CIs are back-transformed from the logit scale.")
+  }
+
   RR[RR$Parameter=="(Intercept)", "Coefficient"] <- p0
   RR[RR$Parameter=="(Intercept)", c("CI_low", "CI_high")] <- NA
 

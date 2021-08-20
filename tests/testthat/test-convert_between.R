@@ -33,14 +33,20 @@ if (require("testthat") && require("effectsize")) {
     m <- glm(am ~ factor(cyl), data = mtcars,
              family = binomial())
 
-    expect_warning(RR <- oddsratio_to_riskratio(m))
+    w <- capture_warnings(RR <- oddsratio_to_riskratio(m))
+    expect_match(w[1],"p0")
+    expect_match(w[2],"CIs")
     expect_true("(Intercept)" %in% RR$Parameter)
     expect_false("(p0)" %in% RR$Parameter)
+    # these values confirmed from emmeans
     expect_equal(RR$Coefficient, c(0.7272, 0.5892, 0.1964), tolerance = 0.001)
+    expect_equal(RR$CI_low, c(NA, 0.1118, 0.0232), tolerance = 0.001)
+    expect_equal(RR$CI_high, c(NA, 1.157, 0.703), tolerance = 0.001)
 
-    RR <- oddsratio_to_riskratio(m, p0 = 0.05)
+    expect_warning(RR <- oddsratio_to_riskratio(m, p0 = 0.05), "CIs")
     expect_true("(p0)" %in% RR$Parameter)
     expect_false("(Intercept)" %in% RR$Parameter)
+    # these values confirmed from emmeans
     expect_equal(RR$Coefficient, c(0.05, 0.29173, 0.06557), tolerance = 0.001)
   })
 
