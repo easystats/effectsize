@@ -137,6 +137,13 @@ cohens_d <- function(x,
                      alternative = "two.sided",
                      verbose = TRUE,
                      ...) {
+  if (inherits(x, "htest")) {
+    cl <- match.call()
+    alternative <- cl$alternative
+    mu <- cl$mu
+    ci <- cl$ci
+  }
+
   .effect_size_difference(
     x,
     y = y,
@@ -170,6 +177,13 @@ hedges_g <- function(x,
     )
   }
 
+  if (inherits(x, "htest")) {
+    cl <- match.call()
+    alternative <- cl$alternative
+    mu <- cl$mu
+    ci <- cl$ci
+  }
+
   .effect_size_difference(
     x,
     y = y,
@@ -199,6 +213,13 @@ glass_delta <- function(x,
     warning("`iterations` argument is deprecated. Parametric CIs are estimated.",
       call. = FALSE, immediate. = TRUE
     )
+  }
+
+  if (inherits(x, "htest")) {
+    cl <- match.call()
+    alternative <- cl$alternative
+    mu <- cl$mu
+    ci <- cl$ci
   }
 
   .effect_size_difference(
@@ -232,7 +253,7 @@ glass_delta <- function(x,
     if (!grepl("t-test", x$method)) {
       stop("'x' is not a t-test!", call. = FALSE)
     }
-    return(effectsize(x, type = type, ci = ci, alternative = alternative, verbose = verbose))
+    return(effectsize(x, type = type, ci = ci, alternative = alternative, mu = mu, verbose = verbose))
   } else if (type != "delta" && inherits(x, "BFBayesFactor")) {
     if (!inherits(x@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
       stop("'x' is not a t-test!", call. = FALSE)

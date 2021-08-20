@@ -234,7 +234,7 @@ eta_squared <- function(model,
     verbose = verbose,
     ...
   )
-  if (!inherits(model, "htest")) class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
+  class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
   if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
   attr(out, "approximate") <- isTRUE(attr(out, "approximate", exact = TRUE))
   return(out)
@@ -249,7 +249,7 @@ omega_squared <- function(model,
                           ...) {
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
   out <- .anova_es(model, type = "omega", partial = partial, ci = ci, alternative = alternative, verbose = verbose, ...)
-  if (!inherits(model, "htest")) class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
+  class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
   if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
   attr(out, "approximate") <- isTRUE(attr(out, "approximate", exact = TRUE))
   return(out)
@@ -264,7 +264,7 @@ epsilon_squared <- function(model,
                             ...) {
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
   out <- .anova_es(model, type = "epsilon", partial = partial, ci = ci, alternative = alternative, verbose = verbose, ...)
-  if (!inherits(model, "htest")) class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
+  class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
   if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
   attr(out, "approximate") <- isTRUE(attr(out, "approximate", exact = TRUE))
   return(out)
@@ -312,7 +312,7 @@ cohens_f <- function(model, partial = TRUE, ci = 0.95, alternative = "greater", 
   }
 
   if ("CI" %in% colnames(res)) attr(res, "ci_method") <- list(method = "ncp", distribution = "F")
-  if (!inherits(model, "htest")) class(res) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(res)))
+  class(res) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(res)))
   attr(res, "approximate") <- isTRUE(attr(res, "approximate", exact = TRUE))
   res
 }
@@ -322,7 +322,6 @@ cohens_f <- function(model, partial = TRUE, ci = 0.95, alternative = "greater", 
 cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "greater", squared = TRUE,
                              verbose = TRUE,
                              model2 = NULL, ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
   cohens_f(
     model,
     partial = partial,

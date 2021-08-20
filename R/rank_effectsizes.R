@@ -171,7 +171,12 @@ rank_biserial <- function(x,
     if (!grepl("Wilcoxon", x$method)) {
       stop("'x' is not a Wilcoxon-test!", call. = FALSE)
     }
-    return(effectsize(x, ci = ci, verbose = verbose, alternative = alternative))
+    cl <- match.call()
+    return(effectsize(
+      x, ci = cl$ci,
+      mu = cl$mu, alternative = cl$alternative,
+      verbose = verbose
+    ))
   }
 
   if (!missing(iterations) && verbose) {

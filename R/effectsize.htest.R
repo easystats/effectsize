@@ -11,6 +11,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     # t-test ----
     if (is.null(dots$alternative)) dots$alternative <- model$alternative
     if (is.null(dots$ci)) dots$ci <- attr(model$conf.int,"conf.level")
+    if (is.null(dots$mu)) dots$mu <- model$null.value
+
     if (approx) {
       if (verbose) {
         warning("Unable to retrieve data from htest object. Using t_to_d() approximation.")
@@ -38,7 +40,6 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       args <- list(
         x = data[[1]],
         y = if (ncol(data) == 2) data[[2]],
-        mu = model$null.value,
         paired = !grepl("Two", model$method),
         pooled_sd = !grepl("Welch", model$method),
         verbose = verbose
@@ -179,6 +180,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     # Wilcoxon ----
     if (is.null(dots$alternative)) dots$alternative <- model$alternative
     if (is.null(dots$ci)) dots$ci <- attr(model$conf.int,"conf.level")
+    if (is.null(dots$mu)) dots$mu <- model$null.value
 
     if (approx) {
       stop("Unable to retrieve data from htest object.",
@@ -191,8 +193,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     args <- list(
       x = data[[1]],
       y = if (ncol(data) == 2) data[[2]],
-      paired = grepl("signed rank", model$method, fixed = TRUE),
-      mu = model$null.value
+      paired = grepl("signed rank", model$method, fixed = TRUE)
     )
     out <- do.call(f, c(args, dots))
     return(out)
