@@ -10,6 +10,18 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(coef(m0), coef(model))
   })
 
+  test_that("standardize | errors", {
+    my_lm_external_formula <- function(.dat, predicted, predictor){
+      my_formula <- as.formula(paste0(predicted, "~", predictor))
+      lm(formula = my_formula, data = .dat)
+    }
+
+    m <- my_lm_external_formula(mtcars, "mpg", "am")
+
+    expect_error(standardize(m), "Try instead to standardize the data", fixed = TRUE)
+
+  })
+
 
   # Transformations ---------------------------------------------------------
   test_that("transformations", {

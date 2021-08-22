@@ -148,16 +148,23 @@ standardize.default <- function(x,
 
   # update model with standardized data
 
-  if (inherits(x, "brmsfit")) {
-    text <- utils::capture.output(model_std <- stats::update(x, newdata = data_std))
-  } else if (inherits(x, "biglm")) {
-    text <- utils::capture.output(model_std <- stats::update(x, moredata = data_std))
-  } else if (inherits(x, "mixor")) {
-    data_std <- data_std[order(data_std[, random_group_factor, drop = FALSE]), ]
-    text <- utils::capture.output(model_std <- stats::update(x, data = data_std))
-  } else {
-    text <- utils::capture.output(model_std <- stats::update(x, data = data_std))
-  }
+  tryCatch({
+    if (inherits(x, "brmsfit")) {
+      text <- utils::capture.output(model_std <- stats::update(x, newdata = data_std))
+    } else if (inherits(x, "biglm")) {
+      text <- utils::capture.output(model_std <- stats::update(x, moredata = data_std))
+    } else {
+      if (inherits(x, "mixor")) {
+        data_std <- data_std[order(data_std[, random_group_factor, drop = FALSE]), ]
+      }
+      text <- utils::capture.output(model_std <- stats::update(x, data = data_std))
+    }
+  }, error = function(er) {
+    stop("Unable to refit the model with standardized data.\n",
+         "Failed with the following error:\n\"", er, "\b\"\n\n",
+         "Try instead to standardize the data (standardize(data)) and refit the model manually.",
+         call. = FALSE)
+  })
 
   model_std
 }
