@@ -41,7 +41,21 @@ The goal of this package is to provide utilities to work with indices of effect 
 
 ## Installation
 
+```{r, echo = FALSE}
+runi_v <- tryCatch({
+  c_url <- utils::contrib.url("https://easystats.r-universe.dev")
+  ru_pkgs <- utils::available.packages(c_url)
+  runi_v <- gsub("-", "--", ru_pkgs["effectsize", "Version"])  
+}, error = function(...) "effectsize")
+
+runi_badge <- paste0("https://img.shields.io/badge/",
+                     "R--universe%20%F0%9F%9A%80-",
+                     runi_v, "-brightgreen")
+```
+
+
 [![CRAN](http://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize)
+[![R-universe](`r runi_badge`)](https://easystats.r-universe.dev/)
 [![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg)](https://github.com/easystats/effectsize/actions)
 [![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg)](https://github.com/easystats/effectsize/actions)
 [![Codecov test coverage](https://codecov.io/gh/easystats/effectsize/branch/main/graph/badge.svg)](https://codecov.io/gh/easystats/effectsize?branch=main)

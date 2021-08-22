@@ -14,6 +14,7 @@ conversion of indices such as Cohen’s *d*, *r*, odds-ratios, etc.
 ## Installation
 
 [![CRAN](http://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize)
+[![R-universe](https://img.shields.io/badge/R--universe%20%F0%9F%9A%80-0.5--2-brightgreen)](https://easystats.r-universe.dev/)
 [![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg)](https://github.com/easystats/effectsize/actions)
 [![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg)](https://github.com/easystats/effectsize/actions)
 [![Codecov test
