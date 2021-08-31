@@ -222,11 +222,9 @@ CIs (<code>CI_low</code> and <code>CI_high</code>).</p>
 <ul>
 <li><p>For an object of class <code>htest</code>, data is extracted via <code><a href='https://easystats.github.io/insight/reference/get_data.html'>insight::get_data()</a></code>, and passed to the relevant function according to:</p><ul>
 <li><p>A <strong>t-test</strong> depending on <code>type</code>: <code>"cohens_d"</code> (default), <code>"hedges_g"</code>.</p></li>
-<li><p>A <strong>correlation test</strong> returns <em>r</em>.</p></li>
 <li><p>A <strong>Chi-squared tests of independence or goodness-of-fit</strong>, depending on <code>type</code>: <code>"cramers_v"</code> (default), <code>"phi"</code> or <code>"cohens_w"</code>, <code>"cohens_h"</code>, <code>"oddsratio"</code>, or <code>"riskratio"</code>.</p></li>
 <li><p>A <strong>One-way ANOVA test</strong>, depending on <code>type</code>: <code>"eta"</code> (default), <code>"omega"</code> or <code>"epsilon"</code> -squared, <code>"f"</code>, or <code>"f2"</code>.</p></li>
 <li><p>A <strong>McNemar test</strong> returns <em>Cohen's g</em>.</p></li>
-<li><p>A <strong>Fisher's Exact test</strong> (in the 2x2 case) returns <em>Odds ratio</em>.</p></li>
 <li><p>A <strong>Wilcoxon test</strong> returns <em>rank biserial correlation</em>.</p></li>
 <li><p>A <strong>Kruskal-Wallis test</strong> returns <em>rank Epsilon squared</em>.</p></li>
 <li><p>A <strong>Friedman test</strong> returns <em>Kendall's W</em>.
@@ -267,9 +265,9 @@ functions, for the full range of options they provide.</strong></p>
 <span class='r-in'><span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>Xsq</span>, type <span class='op'>=</span> <span class='st'>"phi"</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Phi  |       95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -------------------</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.10 | [0.07, 1.00]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.10 | [0.07, 1.41]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- One-sided CIs: upper bound fixed at (1).</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- One-sided CIs: upper bound fixed at (1.4142135623731).</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='va'>Tt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>)</span>, alternative <span class='op'>=</span> <span class='st'>"less"</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'>effectsize</span><span class='op'>(</span><span class='va'>Tt</span><span class='op'>)</span></span>

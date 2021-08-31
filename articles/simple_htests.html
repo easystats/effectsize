@@ -335,9 +335,9 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/phi.html">phi</a></span><span class="op">(</span><span class="va">Music</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Phi  |       95% CI
 &gt; -------------------
-&gt; 0.25 | [0.18, 1.00]
+&gt; 0.25 | [0.18, 1.41]
 &gt; 
-&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
+&gt; - One-sided CIs: upper bound fixed at (1.4142135623731).</code></pre>
 <p>These are also applicable to tests of goodness-of-fit, where small values indicate no deviation from the hypothetical probabilities and large values indicate… large deviation from the hypothetical probabilities.</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">O</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">89</span>, <span class="fl">37</span>, <span class="fl">30</span>, <span class="fl">28</span>, <span class="fl">2</span><span class="op">)</span> <span class="co"># observed group sizes</span>
@@ -360,9 +360,9 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/phi.html">phi</a></span><span class="op">(</span><span class="va">O</span>, p <span class="op">=</span> <span class="va">E</span>, rescale.p <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Phi  |       95% CI
 &gt; -------------------
-&gt; 0.25 | [0.08, 1.00]
+&gt; 0.25 | [0.08, 2.00]
 &gt; 
-&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
+&gt; - One-sided CIs: upper bound fixed at (2).</code></pre>
 <p>These can also be extracted from the equivalent Bayesian test:</p>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">BFX</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/contingencyTableBF.html" class="external-link">contingencyTableBF</a></span><span class="op">(</span><span class="va">Music</span>, sampleType <span class="op">=</span> <span class="st">"jointMulti"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
