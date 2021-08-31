@@ -35,9 +35,13 @@ install.packages("effectsize", repos = "https://easystats.r-universe.dev")
 ```
 
 <!-- Or from *GitHub*: -->
+
 <!-- ```{r, warning=FALSE, message=FALSE, eval=FALSE} -->
+
 <!-- if (!require("remotes")) install.packages("remotes") -->
+
 <!-- remotes::install_github("easystats/effectsize") -->
+
 <!-- ``` -->
 
 ## Documentation
@@ -51,21 +55,21 @@ Click on the buttons above to access the package
 [**easystats blog**](https://easystats.github.io/blog/posts/), and
 check-out these vignettes:
 
--   **Effect Sizes**
-    -   [**Parameter and Model
+  - **Effect Sizes**
+      - [**Parameter and Model
         Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
-    -   [**ANOVA Effect
+      - [**ANOVA Effect
         Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
-    -   [**Effect Sizes in Bayesian
+      - [**Effect Sizes in Bayesian
         Models**](https://easystats.github.io/effectsize/articles/bayesian_models.html)  
-    -   [**For Simple Hypothesis
+      - [**For Simple Hypothesis
         Tests**](https://easystats.github.io/effectsize/articles/simple_htests.html)  
--   **Effect Sizes Conversion**
-    -   [**Between Effect
+  - **Effect Sizes Conversion**
+      - [**Between Effect
         Sizes**](https://easystats.github.io/effectsize/articles/convert.html)
-    -   [**Effect Size from Test
+      - [**Effect Size from Test
         Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
--   [**Automated Interpretation of Indices of Effect
+  - [**Automated Interpretation of Indices of Effect
     Size**](https://easystats.github.io/effectsize/articles/interpret.html)
 
 # Features
@@ -236,7 +240,7 @@ interpret_d(d = 0.45, rules = "gignac2016")
 
 In order to cite this package, please use the following citation:
 
--   Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation
+  - Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation
     of Effect Size Indices and Standardized Parameters. *Journal of Open
     Source Software*, *5*(56), 2815. doi: 10.21105/joss.02815
 
