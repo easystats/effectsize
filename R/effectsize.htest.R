@@ -48,17 +48,6 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     out <- do.call(f, c(args, dots))
     attr(out, "approximate") <- approx
     return(out)
-  } else if (grepl("correlation", model$method)) {
-    # correlation ----
-    out <- t_to_r(1, 1, ci = NULL)
-    out$r <- unname(model$estimate)
-    out$CI <- attr(model$conf.int, "conf.level")
-    out$CI_low <- model$conf.int[1]
-    out$CI_high <- model$conf.int[2]
-    attr(out, "ci") <- out$CI
-    attr(out, "approximate") <- FALSE
-    attr(out, "alternative") <- model$alternative
-    return(out)
   } else if (grepl("Pearson's Chi-squared", model$method) ||
     grepl("Chi-squared test for given probabilities", model$method)) {
     # Chisq ----
@@ -158,24 +147,6 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       out <- cohens_g(data[[1]], data[[2]], ...)
     }
     return(out)
-  } else if (grepl("Fisher's Exact", model$method)) {
-    # Fisher's Exact ----
-    if (is.null(model$estimate)) {
-      stop("Cannot extract effect size for Fisher's exact test on a table larger than 2x2.",
-        call. = FALSE
-      )
-    }
-
-    out <- oddsratio(c(1, 2), c(1, 2), ci = NULL)
-    out[[1]] <- unname(model$estimate)
-    out$CI <- attr(model$conf.int, "conf.level")
-    out$CI_low <- model$conf.int[1]
-    out$CI_high <- model$conf.int[2]
-    attr(out, "ci") <- out$CI
-    attr(out, "table_footer") <- c("\n- Maximum likelihood estimate (MLE) of the OR.", "cyan")
-    attr(out, "approximate") <- FALSE
-    attr(out, "alternative") <- model$alternative
-    return(out)
   } else if (grepl("Wilcoxon", model$method)) {
     # Wilcoxon ----
     if (is.null(dots$alternative)) dots$alternative <- model$alternative
@@ -221,17 +192,17 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     }
 
     if (inherits(data, "table")) {
-      data <- data.frame(
-        x = c(data),
-        groups = rep(colnames(data), each = nrow(data)),
-        blocks = rep(rownames(data), ncol(data))
-      )
+      data <- as.data.frame(data)[c("Freq", "Var2", "Var1")]
     }
 
     out <- kendalls_w(data[[1]], data[[2]], data[[3]], ...)
     return(out)
   } else {
-    stop("This 'htest' method is not (yet?) supported.", call. = FALSE)
+    # Other ----
+    warning("This 'htest' method is not (yet?) supported.\n",
+            "Returning 'parameters::model_parameters(model)'.",
+            call. = FALSE)
+    parameters::model_parameters(model, verbose = verbose, ...)
   }
 }
 

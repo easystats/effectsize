@@ -37,11 +37,9 @@ input model. See details.
 \item For an object of class \code{htest}, data is extracted via \code{\link[insight:get_data]{insight::get_data()}}, and passed to the relevant function according to:
 \itemize{
 \item A \strong{t-test} depending on \code{type}: \code{"cohens_d"} (default), \code{"hedges_g"}.
-\item A \strong{correlation test} returns \emph{r}.
 \item A \strong{Chi-squared tests of independence or goodness-of-fit}, depending on \code{type}: \code{"cramers_v"} (default), \code{"phi"} or \code{"cohens_w"}, \code{"cohens_h"}, \code{"oddsratio"}, or \code{"riskratio"}.
 \item A \strong{One-way ANOVA test}, depending on \code{type}: \code{"eta"} (default), \code{"omega"} or \code{"epsilon"} -squared, \code{"f"}, or \code{"f2"}.
 \item A \strong{McNemar test} returns \emph{Cohen's g}.
-\item A \strong{Fisher's Exact test} (in the 2x2 case) returns \emph{Odds ratio}.
 \item A \strong{Wilcoxon test} returns \emph{rank biserial correlation}.
 \item A \strong{Kruskal-Wallis test} returns \emph{rank Epsilon squared}.
 \item A \strong{Friedman test} returns \emph{Kendall's W}.
