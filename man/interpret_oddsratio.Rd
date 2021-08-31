@@ -2,7 +2,6 @@
 % Please edit documentation in R/interpret_oddsratio.R
 \name{interpret_oddsratio}
 \alias{interpret_oddsratio}
-\alias{interpret_odds}
 \title{Interpret Odds ratio}
 \usage{
 interpret_oddsratio(OR, rules = "chen2010", log = FALSE, ...)
@@ -46,6 +45,7 @@ Rules apply to OR as ratios, so OR of 10 is as extreme as a OR of 0.1 (1/10).
 \examples{
 interpret_oddsratio(1)
 interpret_oddsratio(c(5, 2))
+
 }
 \references{
 \itemize{

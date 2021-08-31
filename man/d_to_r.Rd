@@ -2,16 +2,6 @@
 % Please edit documentation in R/convert_between_d_to_r.R
 \name{d_to_r}
 \alias{d_to_r}
-\alias{convert_r_to_odds}
-\alias{r_to_odds}
-\alias{logodds_to_r}
-\alias{convert_odds_to_r}
-\alias{odds_to_r}
-\alias{convert_d_to_odds}
-\alias{d_to_odds}
-\alias{logodds_to_d}
-\alias{convert_odds_to_d}
-\alias{odds_to_d}
 \alias{convert_d_to_r}
 \alias{r_to_d}
 \alias{convert_r_to_d}
@@ -84,6 +74,7 @@ oddsratio_to_r(8.120534)
 d_to_r(1)
 r_to_oddsratio(0.4472136, log = TRUE)
 oddsratio_to_d(1.813799, log = TRUE)
+
 }
 \references{
 \itemize{

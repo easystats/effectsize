@@ -25,7 +25,6 @@
 #' @examples
 #' interpret_oddsratio(1)
 #' interpret_oddsratio(c(5, 2))
-#' @aliases interpret_odds
 #'
 #' @references
 #' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences
