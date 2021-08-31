@@ -19,8 +19,6 @@
 #' d_to_r(1)
 #' r_to_oddsratio(0.4472136, log = TRUE)
 #' oddsratio_to_d(1.813799, log = TRUE)
-#' @aliases convert_r_to_odds r_to_odds logodds_to_r convert_odds_to_r odds_to_r
-#'   convert_d_to_odds d_to_odds logodds_to_d convert_odds_to_d odds_to_d
 #'
 #' @return Converted index.
 #'
