@@ -186,8 +186,11 @@ The package also provides ways of converting between different effect
 sizes.
 
 ``` r
-convert_d_to_r(d = 1)
-## [1] 0.447
+d_to_r(d = 0.2)
+## [1] 0.0995
+
+oddsratio_to_riskratio(2.6, p0 = 0.4)
+## [1] 1.59
 ```
 
 And for recovering effect sizes from test statistics.
