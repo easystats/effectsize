@@ -146,7 +146,9 @@ standardize(m)
 The package also provides ways of converting between different effect sizes.
 
 ```{r, warning=FALSE, message=FALSE}
-convert_d_to_r(d = 1)
+d_to_r(d = 0.2)
+
+oddsratio_to_riskratio(2.6, p0 = 0.4)
 ```
 
 And for recovering effect sizes from test statistics.

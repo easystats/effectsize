@@ -21,6 +21,7 @@
 #' probs_to_odds(0.95)
 #' probs_to_odds(0.95, log = TRUE)
 #' @export
+#' @aliases convert_odds_to_probs
 odds_to_probs <- function(odds, log = FALSE, ...) {
   UseMethod("odds_to_probs")
 }
