@@ -10,7 +10,7 @@ interpret_oddsratio(OR, rules = "chen2010", log = FALSE, ...)
 \item{OR}{Value or vector of (log) odds ratio values.}
 
 \item{rules}{Can be "\verb{chen2010"} (default), \code{"cohen1988"} (through
-transformation to standardized difference, see \code{\link[=odds_to_d]{odds_to_d()}}) or custom set
+transformation to standardized difference, see \code{\link[=oddsratio_to_d]{oddsratio_to_d()}}) or custom set
 of \code{\link[=rules]{rules()}}.}
 
 \item{log}{Are the provided values log odds ratio.}

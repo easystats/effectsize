@@ -46,7 +46,7 @@
 #' \cr\cr
 #' See *Confidence (Compatibility) Intervals (CIs)*, *CIs and Significance
 #' Tests*, and *One-Sided CIs* sections for *phi*, Cohen's *w* and Cramer's *V*.
-#' (*Note* that *phi* (and Cohen's *w*) is not bound to [0-1], but instead the
+#' (*Note* that *phi* (and Cohen's *w*) is not bound to (0-1), but instead the
 #' upper bound for is `sqrt(min(nrow, ncol) - 1))`.)
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
