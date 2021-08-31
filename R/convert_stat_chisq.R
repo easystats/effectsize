@@ -70,8 +70,10 @@ chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater
 
     if (is_goodness) {
       df <- pmax(nrow - 1, ncol - 1)
+      max_upper <- sqrt((pmax(nrow, ncol) - 1))
     } else {
       df <- (nrow - 1) * (ncol - 1)
+      max_upper <- sqrt((pmin(nrow, ncol) - 1))
     }
   }
 
@@ -106,7 +108,7 @@ chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater
     if (alternative == "less") {
       res$CI_low <- 0
     } else if (alternative == "greater") {
-      res$CI_high <- 1
+      res$CI_high <- max_upper
     }
   } else {
     alternative <- NULL

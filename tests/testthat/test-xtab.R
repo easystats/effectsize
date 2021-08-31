@@ -24,7 +24,9 @@ if (require("testthat") && require("effectsize")) {
 
     expect_equal(cv1$Cramers_v, cv2$Cramers_v)
 
-
+    # Upper bound of phi is the ratio between phi / V and sqrt(min(K,L)-1)
+    expect_equal(phi(xtab, alternative = "greater")$CI_high, sqrt(2))
+    expect_equal(phi(xtab)[[1]] / cramers_v(xtab)[[1]], sqrt(2))
 
     ## 2*2 tables return phi and cramers_v
     xtab <- rbind(
@@ -33,8 +35,8 @@ if (require("testthat") && require("effectsize")) {
     )
 
     expect_equal(
-      cramers_v(xtab)$Cramers_v,
-      phi(xtab)$phi
+      cramers_v(xtab)[[1]],
+      phi(xtab)[[1]]
     )
 
 

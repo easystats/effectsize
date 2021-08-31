@@ -86,8 +86,10 @@ For Odds ratios, Risk ratios and Cohen's \emph{h}, confidence intervals are
 estimated using the standard normal parametric method (see Katz et al., 1978;
 Szumilas, 2010).
 \cr\cr
-See \emph{Confidence (Compatibility) Intervals (CIs)}, \emph{CIs and Significance Tests},
-and \emph{One-Sided CIs} sections for \emph{phi}, Cohen's \emph{w} and Cramer's \emph{V}.
+See \emph{Confidence (Compatibility) Intervals (CIs)}, \emph{CIs and Significance
+Tests}, and \emph{One-Sided CIs} sections for \emph{phi}, Cohen's \emph{w} and Cramer's \emph{V}.
+(\emph{Note} that \emph{phi} (and Cohen's \emph{w}) is not bound to \link{0-1}, but instead the
+upper bound for is \verb{sqrt(min(nrow, ncol) - 1))}.)
 }
 
 \section{Confidence (Compatibility) Intervals (CIs)}{
@@ -146,6 +148,8 @@ M <-
            Study = c("Psych", "Econ", "Law")))
 M
 
+# Note that Phi is not bound to [0-1], but instead
+# the upper bound for phi is sqrt(min(nrow, ncol) - 1)
 phi(M)
 
 cramers_v(M)
