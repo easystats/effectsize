@@ -74,4 +74,12 @@ if (require("testthat") && require("effectsize")) {
       )), 5
     )
   })
+
+  test_that("between anova", {
+    expect_equal(eta2_to_f2(0.25), 1/3)
+    expect_equal(eta2_to_f(0.25), sqrt(eta2_to_f2(0.25)))
+
+    expect_equal(f2_to_eta2(1/3), 0.25)
+    expect_equal(f_to_eta2(1/sqrt(3)), f2_to_eta2(1/3))
+  })
 }

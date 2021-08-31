@@ -50,12 +50,18 @@ if (require("testthat") && require("effectsize")) {
 
 
   test_that("rules", {
-    r1 <- rules(1:3, letters[1:4])
+    r1 <- rules(1:3, letters[1:4], name = "XX")
     expect_output(print(r1), regexp = "thresholds")
     expect_output(print(r1), regexp = "<=")
+    expect_output(print(r1), regexp = "XX")
 
 
-    r2 <- rules(1:3, letters[1:3])
+    r2 <- rules(1:3, letters[1:3], name = "YY")
     expect_output(print(r2), regexp = "values")
+    expect_output(print(r2), regexp = "YY")
+
+
+    expect_output(print(interpret(0, r1)), '"a"')
+    expect_output(print(interpret(0, r1)), 'XX')
   })
 }
