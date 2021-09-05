@@ -625,7 +625,7 @@ kendalls_w <- function(x,
 
 #' @keywords internal
 #' @importFrom stats model.frame reshape
-.kendalls_w_data <- function(x, groups, blocks, data = NULL) {
+.kendalls_w_data <- function(x, groups, blocks, data = NULL, wide = TRUE) {
   if (inherits(frm <- x, "formula")) {
     if ((length(frm) != 3L) ||
       (length(frm[[3L]]) != 3L) ||
@@ -669,15 +669,19 @@ kendalls_w <- function(x,
 
   data <- data.frame(x, groups, blocks, stringsAsFactors = FALSE)
 
-  data <- stats::reshape(
-    data,
-    direction = "wide",
-    v.names = "x",
-    timevar = "groups",
-    idvar = "blocks"
-  )
+  if (wide) {
+    data <- stats::reshape(
+      data,
+      direction = "wide",
+      v.names = "x",
+      timevar = "groups",
+      idvar = "blocks"
+    )
 
-  as.matrix(data[, -1])
+    as.matrix(data[, -1])
+  } else {
+    data
+  }
 }
 
 
