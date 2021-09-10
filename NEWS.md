@@ -1,4 +1,4 @@
-# effectsize 0.4.5-2
+# effectsize 0.5
 
 ## Breaking Changes
 
@@ -7,7 +7,7 @@
 
 ## New features
 
-- `oddsratio_to_riskratio()` can now convert OR coefficients to RR coefficients from a logistic GLM. 
+- `oddsratio_to_riskratio()` can now convert OR coefficients to RR coefficients from a logistic GLM(M). 
 - All effect-size functions gain an `alternative` argument which can be used to make one- or two-sided CIs.
 - `interpret()` now accepts as input the results from `cohens_d()`, `eta_squared()`, `rank_biserial()`, etc.
 - `interpret_pd()` for the interpretation of the [*Probability of Direction*](https://easystats.github.io/bayestestR/reference/p_direction.html).

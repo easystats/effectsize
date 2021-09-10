@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size and Standardized Parameters
-Version: 0.4.5-4
+Version: 0.5
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
@@ -53,8 +53,8 @@ Depends:
 Imports:
     bayestestR (>= 0.10.5),
     insight (>= 0.14.3),
-    parameters (>= 0.14.0.2),
-    performance (>= 0.7.3.1),
+    parameters (>= 0.14.0),
+    performance (>= 0.7.3),
     datawizard (>= 0.2.0),
     stats,
     utils
