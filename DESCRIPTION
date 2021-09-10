@@ -92,9 +92,6 @@ Suggests:
     tidyr
 VignetteBuilder: 
     knitr
-Remotes:
-    easystats/parameters,
-    easystats/performance
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
