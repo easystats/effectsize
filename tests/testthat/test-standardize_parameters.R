@@ -474,9 +474,9 @@ test_that("include_response | bayes", {
   iris$Sepal.Length <- iris$Sepal.Length * 5
   m <- rstanarm::stan_glm(Sepal.Length ~ Petal.Length + Petal.Width, data = iris, refresh = 0)
 
-  m_z <- standardize(m, include_response = FALSE)
+  expect_warning(m_z <- standardize(m, include_response = FALSE))
+  expect_warning(par_z1 <- standardize_posteriors(m, include_response = FALSE))
   par_z0 <- standardize_posteriors(m, method = "basic")
-  par_z1 <- standardize_posteriors(m, include_response = FALSE)
   par_z2 <- standardize_posteriors(m, method = "basic", include_response = FALSE)
 
   expect_equal(sapply(insight::get_parameters(m_z), mean), sapply(par_z1, mean), tolerance = 0.1)
