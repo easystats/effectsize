@@ -95,7 +95,7 @@ VignetteBuilder:
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1.9001
-Remotes: easystats/parameters
+RoxygenNote: 7.1.1
+Remotes: easystats/parameters, easystats/performance
 Config/testthat/edition: 3
 Config/testthat/parallel: true
