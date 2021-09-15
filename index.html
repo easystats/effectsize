@@ -279,8 +279,11 @@
 <a href="#effect-size-conversion" class="anchor" aria-hidden="true"></a>Effect Size Conversion</h2>
 <p>The package also provides ways of converting between different effect sizes.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/d_to_r.html">convert_d_to_r</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="co">## [1] 0.447</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="reference/d_to_r.html">d_to_r</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>
+<span class="co">## [1] 0.0995</span>
+
+<span class="fu"><a href="reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio</a></span><span class="op">(</span><span class="fl">2.6</span>, p0 <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span>
+<span class="co">## [1] 1.59</span></code></pre></div>
 <p>And for recovering effect sizes from test statistics.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/t_to_r.html">F_to_d</a></span><span class="op">(</span><span class="fl">15</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>
