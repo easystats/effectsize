@@ -56,6 +56,12 @@ if (require("testthat") && require("effectsize")) {
     expect_error(interpret_cohens_d(0.6, "DUPA"))
   })
 
+  test_that("interpret_cohens_g", {
+    expect_equal(interpret_cohens_g(0.021)[1], "small")
+    expect_equal(interpret_cohens_g(c(0.10, 0.35), "cohen1988")[1:2], c("medium", "large"))
+    expect_equal(interpret_cohens_g(0.6, rules(c(0.5), c("A", "B")))[1], "B")
+    expect_error(interpret_cohens_g(0.6, "DUPA"))
+  })
 
 
   test_that("interpret_rope", {

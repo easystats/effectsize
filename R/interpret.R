@@ -173,6 +173,7 @@ interpret.effectsize_table <- function(x, rules, ...) {
     Cramers_v_adjusted = ,
     phi = ,
     phi_adjusted = interpret_cramers_v(value, rules = rules),
+    Cohens_g = interpret_cohens_g(value, rules = rules),
     Odds_ratio = interpret_oddsratio(value, rules = rules, log = FALSE),
     log_Odds_ratio = interpret_oddsratio(value, rules = rules, log = TRUE),
     # anova
