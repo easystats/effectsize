@@ -6,6 +6,7 @@
 #' - `interpret_d` is now [`interpret_cohens_d`].
 #' - `interpret_g` is now [`interpret_hedges_g`].
 #' - `interpret_delta` is now [`interpret_glass_delta`].
+#' - `interpret_parameters` for *standardized parameters* was incorrect. Use [`interpret_r`] instead.
 #'
 #' @rdname effectsize_deprecated
 #' @name effectsize_deprecated
@@ -31,4 +32,11 @@ interpret_g <- function(...) {
 interpret_delta <- function(...) {
   .Deprecated("interpret_glass_delta")
   interpret_glass_delta(...)
+}
+
+#' @rdname effectsize_deprecated
+#' @export
+interpret_parameters <- function(...) {
+  .Deprecated("interpret_r")
+  interpret_r(...)
 }

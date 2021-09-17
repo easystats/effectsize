@@ -5,6 +5,7 @@
 \alias{interpret_d}
 \alias{interpret_g}
 \alias{interpret_delta}
+\alias{interpret_parameters}
 \title{Deprecated functions}
 \usage{
 interpret_d(...)
@@ -12,6 +13,8 @@ interpret_d(...)
 interpret_g(...)
 
 interpret_delta(...)
+
+interpret_parameters(...)
 }
 \arguments{
 \item{...}{Arguments to the deprecated function.}
@@ -24,5 +27,6 @@ Deprecated functions
 \item \code{interpret_d} is now \code{\link{interpret_cohens_d}}.
 \item \code{interpret_g} is now \code{\link{interpret_hedges_g}}.
 \item \code{interpret_delta} is now \code{\link{interpret_glass_delta}}.
+\item \code{interpret_parameters} for \emph{standardized parameters} was incorrect. Use \code{\link{interpret_r}} instead.
 }
 }
