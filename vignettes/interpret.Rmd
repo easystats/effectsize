@@ -375,8 +375,8 @@ interpret_omega_squared(x, rules = "cohen1992")
 
 ##  Kendall's coefficient of concordance
 
-The  Interpret Kendall's coefficient of concordance (*w*) is a measure of effect
-size used in non-parametric ANOVAs (the Friedman rank sum test). It is an
+The interpretation of Kendall's coefficient of concordance (*w*) is a measure of
+effect size used in non-parametric ANOVAs (the Friedman rank sum test). It is an
 estimate of agreement among multiple raters.
 
 #### @landis1977measurement
@@ -390,6 +390,26 @@ interpret_omega_squared(w, rules = "landis1977")
 - **0.40 <= w < 0.60** - Moderate agreement
 - **0.60 <= w < 0.80** - Substantial agreement
 - **w >= 0.80**        - Almost perfect agreement
+
+## Cohen's *g*
+
+Cohen's *g* is a measure of effect size used for McNemar's test of agreement in
+selection - when repeating a multiple chose selection, is the percent of matches
+(first response is equal to the second response) different than 50%?
+
+#### @cohen1988statistical
+
+```r
+interpret_cohens_g(x, rules = "cohen1988")
+```
+
+- **d < 0.05** - Very small
+
+- **0.05 <= d < 0.15** - Small
+
+- **0.15 <= d < 0.25** - Medium
+
+- **d >= 0.25** - Large
 
 # Interpretation of other Indices
 

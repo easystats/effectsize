@@ -31,10 +31,10 @@ absolute values).
 \itemize{
 \item Cohen (1988) (\code{"cohen1988"}; default)
 \itemize{
-\item \strong{d < 0.2} - Very small
-\item \strong{0.2 <= d < 0.5} - Small
-\item \strong{0.5 <= d < 0.8} - Medium
-\item \strong{d >= 0.8} - Large
+\item \strong{d < 0.05} - Very small
+\item \strong{0.05 <= d < 0.15} - Small
+\item \strong{0.15 <= d < 0.25} - Medium
+\item \strong{d >= 0.25} - Large
 }
 }
 }

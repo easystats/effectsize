@@ -11,10 +11,10 @@
 #' absolute values).
 #'
 #' - Cohen (1988) (`"cohen1988"`; default)
-#'   - **d < 0.2** - Very small
-#'   - **0.2 <= d < 0.5** - Small
-#'   - **0.5 <= d < 0.8** - Medium
-#'   - **d >= 0.8** - Large
+#'   - **d < 0.05** - Very small
+#'   - **0.05 <= d < 0.15** - Small
+#'   - **0.15 <= d < 0.25** - Medium
+#'   - **d >= 0.25** - Large
 #'
 #' @note "*Since **g** is so transparently clear a unit, it is expected that
 #'   workers in any given substantive area of the behavioral sciences will very
@@ -35,7 +35,7 @@ interpret_cohens_g <- function(g, rules = "cohen1988", ...) {
   rules <- .match.rules(
     rules,
     list(
-      cohen1988 = rules(c(0.05, 0.15, 0.25), c("small", "medium", "large"),
+      cohen1988 = rules(c(0.05, 0.15, 0.25), c("very small", "small", "medium", "large"),
         name = "cohen1988", right = FALSE)
     )
   )
