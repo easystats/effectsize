@@ -22,7 +22,7 @@ Deprecated functions
 \details{
 \itemize{
 \item \code{interpret_d} is now \code{\link{interpret_cohens_d}}.
-\item \code{interpret_g} is now \code{\link{interpret_hedges_d}}.
+\item \code{interpret_g} is now \code{\link{interpret_hedges_g}}.
 \item \code{interpret_delta} is now \code{\link{interpret_glass_delta}}.
 }
 }

@@ -4,7 +4,7 @@
 #'
 #' @details
 #' - `interpret_d` is now [`interpret_cohens_d`].
-#' - `interpret_g` is now [`interpret_hedges_d`].
+#' - `interpret_g` is now [`interpret_hedges_g`].
 #' - `interpret_delta` is now [`interpret_glass_delta`].
 #'
 #' @rdname effectsize_deprecated
