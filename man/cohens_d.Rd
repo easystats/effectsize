@@ -195,9 +195,9 @@ hedges_g(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep)
 
 
 # Interpretation -----------------------
-interpret_d(-1.48, rules = "cohen1988")
-interpret_g(-1.48, rules = "sawilowsky2009")
-interpret_delta(-1.48, rules = "gignac2016")
+interpret_cohens_d(-1.48, rules = "cohen1988")
+interpret_hedges_g(-1.48, rules = "sawilowsky2009")
+interpret_glass_delta(-1.48, rules = "gignac2016")
 # Or:
 interpret(d, rules = "sawilowsky2009")
 

@@ -173,9 +173,9 @@ Different sets of "rules of thumb" are implemented ([**guidelines are detailed h
 
 
 ```{r, warning=FALSE, message=FALSE}
-interpret_d(d = 0.45, rules = "cohen1988")
+interpret_cohens_d(d = 0.45, rules = "cohen1988")
 
-interpret_d(d = 0.45, rules = "gignac2016")
+interpret_cohens_d(d = 0.45, rules = "gignac2016")
 ```
 
 

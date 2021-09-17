@@ -162,7 +162,7 @@ effect size.
 #### @cohen1988statistical
 
 ```r
-interpret_d(x, rules = "cohen1988")
+interpret_cohens_d(x, rules = "cohen1988")
 ```
 
 - **d < 0.2** - Very small
@@ -176,7 +176,7 @@ interpret_d(x, rules = "cohen1988")
 #### @sawilowsky2009new
 
 ```r
-interpret_d(x, rules = "sawilowsky2009")
+interpret_cohens_d(x, rules = "sawilowsky2009")
 ```
 
 - **d < 0.1** - Tiny
@@ -201,7 +201,7 @@ in the literature. These is in fact the same grid used for *r*, based on the
 conversion of *r* to *d*:
 
 ```r
-interpret_d(x, rules = "gignac2016")
+interpret_cohens_d(x, rules = "gignac2016")
 ```
 
 - **d < 0.2** - Very small
@@ -215,7 +215,7 @@ interpret_d(x, rules = "gignac2016")
 #### @lovakov2021empirically
 
 ```r
-interpret_d(x, rules = "lovakov2021")
+interpret_cohens_d(x, rules = "lovakov2021")
 ```
 
 - **r < 0.15** - Very small

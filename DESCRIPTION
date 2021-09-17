@@ -54,7 +54,7 @@ Imports:
     bayestestR (>= 0.10.5),
     insight (>= 0.14.3),
     parameters (>= 0.14.0),
-    performance (>= 0.7.3.1),
+    performance (>= 0.7.3.5),
     datawizard (>= 0.2.0),
     stats,
     utils
