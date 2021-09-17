@@ -17,11 +17,11 @@ interpret_cohens_g(g, rules = "cohen1988", ...)
 Interpret Cohen's g
 }
 \note{
-\emph{Since \strong{g} is so transparently clear a unit, it is expected that
+"\emph{Since \strong{g} is so transparently clear a unit, it is expected that
 workers in any given substantive area of the behavioral sciences will very
-frequently be able to set relevant ES values without the proposed
-conventions, or set up conventions of their own which are suited to their
-area of inquiry.} - Cohen, 1988, page 147.
+frequently be able to set relevant [effect size] values without the
+proposed conventions, or set up conventions of their own which are suited
+to their area of inquiry.}" - Cohen, 1988, page 147.
 }
 \section{Rules}{
 
