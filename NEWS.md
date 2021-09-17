@@ -9,6 +9,7 @@
 
 ## New features
 
+- `interpret_vif()` for interpretation of *variance inflation factors*.
 - `oddsratio_to_riskratio()` can now convert OR coefficients to RR coefficients from a logistic GLM(M). 
 - All effect-size functions gain an `alternative` argument which can be used to make one- or two-sided CIs.
 - `interpret()` now accepts as input the results from `cohens_d()`, `eta_squared()`, `rank_biserial()`, etc.

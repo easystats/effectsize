@@ -52,6 +52,7 @@ reference:
   - interpret_oddsratio
   - interpret_r2
   - interpret_icc
+  - interpret_vif
   - interpret_gfi
   - interpret_direction
   - interpret_p
