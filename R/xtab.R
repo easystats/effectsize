@@ -119,7 +119,7 @@
 #' @importFrom stats chisq.test
 #' @export
 phi <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "BFBayesFactor")) {
     if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
@@ -150,7 +150,7 @@ cohens_w <- phi
 #' @importFrom stats chisq.test
 #' @export
 cramers_v <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "BFBayesFactor")) {
     if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {

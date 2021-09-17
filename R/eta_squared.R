@@ -224,7 +224,7 @@ eta_squared <- function(model,
                         ci = 0.95, alternative = "greater",
                         verbose = TRUE,
                         ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
   out <- .anova_es(
     model,
     type = "eta",
@@ -247,7 +247,7 @@ omega_squared <- function(model,
                           ci = 0.95, alternative = "greater",
                           verbose = TRUE,
                           ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
   out <- .anova_es(model, type = "omega", partial = partial, ci = ci, alternative = alternative, verbose = verbose, ...)
   class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
   if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
@@ -262,7 +262,7 @@ epsilon_squared <- function(model,
                             ci = 0.95, alternative = "greater",
                             verbose = TRUE,
                             ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
   out <- .anova_es(model, type = "epsilon", partial = partial, ci = ci, alternative = alternative, verbose = verbose, ...)
   class(out) <- unique(c("effectsize_anova","effectsize_table", "see_effectsize_table", class(out)))
   if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
@@ -278,7 +278,7 @@ epsilon_squared <- function(model,
 cohens_f <- function(model, partial = TRUE, ci = 0.95, alternative = "greater", squared = FALSE,
                      verbose = TRUE,
                      model2 = NULL, ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
   if (!is.null(model2)) {
     return(.cohens_f_delta(model, model2, ci = ci, alternative = alternative, squared = squared, verbose = verbose))
   }

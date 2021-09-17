@@ -321,7 +321,7 @@ rank_epsilon_squared <- function(x,
                                  alternative = "greater",
                                  iterations = 200,
                                  ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "htest")) {
     if (!grepl("Kruskal-Wallis", x$method)) {
@@ -370,7 +370,7 @@ kendalls_w <- function(x,
                        iterations = 200,
                        verbose = TRUE,
                        ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "htest")) {
     if (!grepl("Friedman", x$method)) {

@@ -64,7 +64,7 @@
 #'
 #' @export
 chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
   if (adjust || is.numeric(ci)) {
     is_goodness <- ncol == 1 || nrow == 1
 
@@ -131,7 +131,7 @@ chisq_to_cohens_w <- chisq_to_phi
 #' @rdname chisq_to_phi
 #' @export
 chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
   is_goodness <- ncol == 1 || nrow == 1
 
 
