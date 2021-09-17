@@ -27,10 +27,7 @@ Interpret VIF index of multicollinearity.
 }
 
 \examples{
-m <- lm(mpg ~ ., mtcars)
 
-(VIFs <- performance::check_collinearity(m))
-
-interpret_vif(VIFs$VIF)
+interpret_vif(c(1.4, 30.4))
 
 }
