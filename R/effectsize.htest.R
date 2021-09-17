@@ -199,9 +199,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     return(out)
   } else {
     # Other ----
-    warning("This 'htest' method is not (yet?) supported.\n",
-            "Returning 'parameters::model_parameters(model)'.",
-            call. = FALSE)
+    if (verbose) warning("This 'htest' method is not (yet?) supported.\n",
+                         "Returning 'parameters::model_parameters(model)'.",
+                         call. = FALSE)
     parameters::model_parameters(model, verbose = verbose, ...)
   }
 }
