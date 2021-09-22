@@ -16,7 +16,11 @@ NULL
 #' @rdname effectsize_deprecated
 #' @export
 interpret_d <- function(...) {
-  .Deprecated("interpret_cohens_d")
+
+  ## TODO deprecate later
+  # .Deprecated("interpret_cohens_d")
+
+  message("'interpret_d()' is now deprecated. Please use 'interpret_cohens_d()'.")
   interpret_cohens_d(...)
 }
 
