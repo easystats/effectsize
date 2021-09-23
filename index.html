@@ -198,14 +198,12 @@
 <span class="co">## -1.48     | [-2.27, -0.67]</span>
 <span class="co">## </span>
 <span class="co">## - Estimated using pooled SD.</span>
-
 <span class="fu"><a href="reference/cohens_d.html">hedges_g</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 <span class="co">## Hedges' g |         95% CI</span>
 <span class="co">## --------------------------</span>
 <span class="co">## -1.44     | [-2.21, -0.65]</span>
 <span class="co">## </span>
 <span class="co">## - Estimated using pooled SD.</span>
-
 <span class="fu"><a href="reference/cohens_d.html">glass_delta</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
 <span class="co">## Glass' delta |         95% CI</span>
 <span class="co">## -----------------------------</span>
@@ -226,7 +224,6 @@
 <span class="co">## factor(gear) | 0.43 | [0.18, 1.00]</span>
 <span class="co">## </span>
 <span class="co">## - One-sided CIs: upper bound fixed at (1).</span>
-
 <span class="fu"><a href="reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
 <span class="co">## # Effect Size for ANOVA</span>
 <span class="co">## </span>
@@ -235,7 +232,6 @@
 <span class="co">## factor(gear) |   0.38 | [0.14, 1.00]</span>
 <span class="co">## </span>
 <span class="co">## - One-sided CIs: upper bound fixed at (1).</span>
-
 <span class="fu"><a href="reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
 <span class="co">## # Effect Size for ANOVA</span>
 <span class="co">## </span>
@@ -281,7 +277,6 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/d_to_r.html">d_to_r</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>
 <span class="co">## [1] 0.0995</span>
-
 <span class="fu"><a href="reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio</a></span><span class="op">(</span><span class="fl">2.6</span>, p0 <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span>
 <span class="co">## [1] 1.59</span></code></pre></div>
 <p>And for recovering effect sizes from test statistics.</p>
@@ -290,12 +285,10 @@
 <span class="co">## d    |       95% CI</span>
 <span class="co">## -------------------</span>
 <span class="co">## 1.00 | [0.46, 1.53]</span>
-
 <span class="fu"><a href="reference/t_to_r.html">F_to_r</a></span><span class="op">(</span><span class="fl">15</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>
 <span class="co">## r    |       95% CI</span>
 <span class="co">## -------------------</span>
 <span class="co">## 0.45 | [0.22, 0.61]</span>
-
 <span class="fu"><a href="reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span><span class="fl">15</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>
 <span class="co">## Eta2 (partial) |       95% CI</span>
 <span class="co">## -----------------------------</span>
@@ -316,7 +309,6 @@
 <code class="sourceCode R"><span class="fu"><a href="reference/interpret_d.html">interpret_d</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.45</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span>
 <span class="co">## [1] "small"</span>
 <span class="co">## (Rules: cohen1988)</span>
-
 <span class="fu"><a href="reference/interpret_d.html">interpret_d</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.45</span>, rules <span class="op">=</span> <span class="st">"gignac2016"</span><span class="op">)</span>
 <span class="co">## [1] "moderate"</span>
 <span class="co">## (Rules: gignac2016)</span></code></pre></div>
