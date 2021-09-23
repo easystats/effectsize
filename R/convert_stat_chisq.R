@@ -92,17 +92,15 @@ chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater
     res$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
-    chisq_ <- phi_to_chisq(res[[1]], n)
-
     chisqs <- t(mapply(
       .get_ncp_chi,
-      chisq_, df, ci.level
+      chisq, df, ci.level
     ))
 
     res$CI_low <-
-      chisq_to_phi(chisqs[, 1], n, nrow, ncol, ci = NULL, adjust = FALSE)[[1]]
+      chisq_to_phi(chisqs[, 1], n, nrow, ncol, ci = NULL, adjust = adjust)[[1]]
     res$CI_high <-
-      chisq_to_phi(chisqs[, 2], n, nrow, ncol, ci = NULL, adjust = FALSE)[[1]]
+      chisq_to_phi(chisqs[, 2], n, nrow, ncol, ci = NULL, adjust = adjust)[[1]]
 
     ci_method <- list(method = "ncp", distribution = "chisq")
     if (alternative == "less") {
@@ -131,72 +129,25 @@ chisq_to_cohens_w <- chisq_to_phi
 #' @rdname chisq_to_phi
 #' @export
 chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
   is_goodness <- ncol == 1 || nrow == 1
-
-
-  if (is_goodness) {
-    df <- pmax(nrow - 1, ncol - 1)
-  } else {
-    df <- (nrow - 1) * (ncol - 1)
-  }
-
-  phi <- chisq_to_phi(chisq, n, nrow, ncol, ci = NULL, adjust = adjust)[[1]]
 
   if (adjust) {
     k <- nrow - ((nrow - 1)^2) / (n - 1)
     l <- ncol - ((ncol - 1)^2) / (n - 1)
-
-    if (is_goodness) {
-      V <- phi / sqrt((pmax(k, l) - 1))
-    } else {
-      V <- phi / sqrt((pmin(k, l) - 1))
-    }
-
-    res <- data.frame(Cramers_v_adjusted = V)
   } else {
-    if (is_goodness) {
-      V <- phi / sqrt((pmax(nrow, ncol) - 1))
-    } else {
-      V <- phi / sqrt((pmin(nrow, ncol) - 1))
-    }
-
-    res <- data.frame(Cramers_v = V)
+    k <- nrow
+    l <- ncol
   }
 
-  ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
-    res$CI <- ci
-    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
-
-    chisq_ <- phi_to_chisq(phi, n)
-
-    chisqs <- t(mapply(
-      .get_ncp_chi,
-      chisq_, df, ci.level
-    ))
-
-    res$CI_low <-
-      chisq_to_cramers_v(chisqs[, 1], n, nrow, ncol, ci = NULL, adjust = FALSE)[[1]]
-    res$CI_high <-
-      chisq_to_cramers_v(chisqs[, 2], n, nrow, ncol, ci = NULL, adjust = FALSE)[[1]]
-
-    ci_method <- list(method = "ncp", distribution = "chisq")
-    if (alternative == "less") {
-      res$CI_low <- 0
-    } else if (alternative == "greater") {
-      res$CI_high <- 1
-    }
+  if (is_goodness) {
+    phi_2_V <- sqrt((pmax(k, l) - 1))
   } else {
-    alternative <- NULL
+    phi_2_V <- sqrt((pmin(k, l) - 1))
   }
 
-  class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
-  attr(res, "ci") <- ci
-  attr(res, "ci_method") <- ci_method
-  attr(res, "adjust") <- adjust
-  attr(res, "alternative") <- alternative
+  res <- chisq_to_phi(chisq, n, nrow, ncol, ci = ci, alternative = alternative, adjust = adjust)
+  res[grepl("^(phi|CI_)", colnames(res))] <- res[grepl("^(phi|CI_)", colnames(res))] / phi_2_V
+  colnames(res)[1] <- gsub("phi", "Cramers_v", colnames(res)[1])
   return(res)
 }
 
