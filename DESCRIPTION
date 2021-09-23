@@ -85,7 +85,7 @@ Suggests:
     spelling,
     testthat,
     tidymodels
-Remotes: easystats/parameters, easystats/performance
+Remotes: easystats/performance
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
