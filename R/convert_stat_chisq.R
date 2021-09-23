@@ -148,6 +148,13 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "g
   res <- chisq_to_phi(chisq, n, nrow, ncol, ci = ci, alternative = alternative, adjust = adjust)
   res[grepl("^(phi|CI_)", colnames(res))] <- res[grepl("^(phi|CI_)", colnames(res))] / phi_2_V
   colnames(res)[1] <- gsub("phi", "Cramers_v", colnames(res)[1])
+
+  if ("CI" %in% colnames(res))
+    if ((alternative <- attr(res, "alternative")) == "less") {
+      res$CI_low <- 0
+    } else if (alternative == "greater") {
+      res$CI_high <- 1
+    }
   return(res)
 }
 
