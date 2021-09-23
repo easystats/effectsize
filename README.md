@@ -95,14 +95,12 @@ cohens_d(mpg ~ am, data = mtcars)
 ## -1.48     | [-2.27, -0.67]
 ## 
 ## - Estimated using pooled SD.
-
 hedges_g(mpg ~ am, data = mtcars)
 ## Hedges' g |         95% CI
 ## --------------------------
 ## -1.44     | [-2.21, -0.65]
 ## 
 ## - Estimated using pooled SD.
-
 glass_delta(mpg ~ am, data = mtcars)
 ## Glass' delta |         95% CI
 ## -----------------------------
@@ -125,7 +123,6 @@ eta_squared(model)
 ## factor(gear) | 0.43 | [0.18, 1.00]
 ## 
 ## - One-sided CIs: upper bound fixed at (1).
-
 omega_squared(model)
 ## # Effect Size for ANOVA
 ## 
@@ -134,7 +131,6 @@ omega_squared(model)
 ## factor(gear) |   0.38 | [0.14, 1.00]
 ## 
 ## - One-sided CIs: upper bound fixed at (1).
-
 epsilon_squared(model)
 ## # Effect Size for ANOVA
 ## 
@@ -188,7 +184,6 @@ sizes.
 ``` r
 d_to_r(d = 0.2)
 ## [1] 0.0995
-
 oddsratio_to_riskratio(2.6, p0 = 0.4)
 ## [1] 1.59
 ```
@@ -200,12 +195,10 @@ F_to_d(15, df = 1, df_error = 60)
 ## d    |       95% CI
 ## -------------------
 ## 1.00 | [0.46, 1.53]
-
 F_to_r(15, df = 1, df_error = 60)
 ## r    |       95% CI
 ## -------------------
 ## 0.45 | [0.22, 0.61]
-
 F_to_eta2(15, df = 1, df_error = 60)
 ## Eta2 (partial) |       95% CI
 ## -----------------------------
@@ -233,7 +226,6 @@ and can be easily changed.
 interpret_d(d = 0.45, rules = "cohen1988")
 ## [1] "small"
 ## (Rules: cohen1988)
-
 interpret_d(d = 0.45, rules = "gignac2016")
 ## [1] "moderate"
 ## (Rules: gignac2016)
