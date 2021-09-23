@@ -60,7 +60,6 @@ Imports:
     utils
 Suggests:
     correlation (>= 0.6.1),
-    modelbased (>= 0.7.0),
     see (>= 0.6.4),
     afex,
     BayesFactor,
@@ -68,10 +67,8 @@ Suggests:
     brms,
     car,
     covr,
-    dplyr,
     emmeans,
     gamm4,
-    ggplot2,
     knitr,
     lavaan,
     lm.beta,
@@ -80,7 +77,6 @@ Suggests:
     MASS,
     mediation,
     mgcv,
-    MuMIn,
     pscl,
     rmarkdown,
     rms,
@@ -88,8 +84,7 @@ Suggests:
     rstantools,
     spelling,
     testthat,
-    tidymodels,
-    tidyr
+    tidymodels
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
