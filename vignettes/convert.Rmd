@@ -31,7 +31,7 @@ The `effectsize` package contains function to convert among indices of effect
 size. This can be useful for meta-analyses, or any comparison between different
 types of statistical analyses.
 
-## Converting Between *r* and *d*
+## Converting Between *d*, *r*, and *OR*
 
 The most basic conversion is between *r* values, a measure of standardized
 association between two continuous measures, and *d* values (such as Cohen's
@@ -78,8 +78,8 @@ And indeed, if we use `d_to_r()`, we get a pretty decent approximation:
 d_to_r(-0.31)
 ```
 
-(Which also works in the other way, with <code>r_to_d(0.17) = `r
-r_to_d(0.17)`</code>)
+(Which also works in the other way, with `r_to_d(0.17)` gives `r
+round(r_to_d(-0.17),3)`)
 
 As we can see, these are rough approximations, but they can be useful when we
 don't have the raw data on hand.
@@ -205,6 +205,6 @@ oddsratio_to_riskratio(OR, baserate)
 
 That is - for every bowl of brussels sprouts, we increase the chances of
 reducing the migraine by a whopping 318%! Is if worth it? I guess that still
-depends on you affinity to brussels sprouts...
+depends on your affinity to brussels sprouts...
 
 # References
