@@ -1,4 +1,13 @@
 bibentry(
+  mheader = "To cite effectsize in publications use:",
+  textVersion =
+  	paste(
+  	"Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation of Effect Size Indices and Standardized Parameters.",
+  	"Journal of Open Source Software, 5(56), 2815. doi: 10.21105/joss.02815"
+		),
+
+
+  # BibTeX info:
   bibtype="Article",
 	title = "{e}ffectsize: Estimation of Effect Size Indices and Standardized Parameters",
   author = "Mattan S. Ben-Shachar and Daniel Lüdecke and Dominique Makowski",
@@ -9,10 +18,5 @@ bibentry(
   pages = "2815",
   publisher = "The Open Journal",
   doi = "10.21105/joss.02815",
-  url = "https://doi.org/10.21105/joss.02815",
-
-	textVersion =
-  	paste("Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation of Effect Size Indices and Standardized Parameters.",
-  	"Journal of Open Source Software, 5(56), 2815. doi: 10.21105/joss.02815"
-		),
-	mheader = "To cite effectsize in publications use:")
+  url = "https://doi.org/10.21105/joss.02815"
+)
