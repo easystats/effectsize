@@ -54,13 +54,6 @@ if (require("testthat") && require("effectsize")) {
       effectsize(Xsq2)$Cramers_v
     )
 
-    Xsq3 <- chisq.test(table(mtcars$cyl))
-    expect_equal(effectsize(Xsq3)$Cramers_v, 0.19, tolerance = 0.01)
-    expect_equal(
-      effectsize(Xsq3)$Cramers_v,
-      cramers_v(table(mtcars$cyl))$Cramers_v
-    )
-
     # types
     expect_equal(
       effectsize(Xsq1, type = "phi"),
@@ -88,10 +81,7 @@ if (require("testthat") && require("effectsize")) {
     expected.dfc <<- c(0.165, 0.835)
 
     x <- chisq.test(x = observed.dfc, p = expected.dfc)
-    ref <- cramers_v(x = observed.dfc, p = expected.dfc)
-
-    expect_equal(effectsize(x, type = "v"), ref)
-    expect_equal(cramers_v(x), ref)
+    expect_error(effectsize(x, type = "v"))
   })
 
   test_that("cor.test / other", {
