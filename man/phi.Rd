@@ -70,7 +70,7 @@ Cohen's \emph{g} for contingency tables or goodness-of-fit. See details.
 }
 \details{
 Cramer's \emph{V}, phi (\eqn{\phi}) and Pearson's \emph{C} are effect sizes for tests
-of independence in 2D contingency tables. For 2-by-2 tables, Cramer's \emph{V} and
+of independence in 2D contingency tables. For 2-by-k tables, Cramer's \emph{V} and
 phi are identical, and are equal to the simple correlation between two
 dichotomous variables, ranging between  0 (no dependence) and 1 (perfect
 dependence). For larger tables, Cramer's \emph{V} or Pearson's \emph{C} should be used,

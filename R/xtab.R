@@ -18,7 +18,7 @@
 #'
 #' @details
 #' Cramer's *V*, phi (\eqn{\phi}) and Pearson's *C* are effect sizes for tests
-#' of independence in 2D contingency tables. For 2-by-2 tables, Cramer's *V* and
+#' of independence in 2D contingency tables. For 2-by-k tables, Cramer's *V* and
 #' phi are identical, and are equal to the simple correlation between two
 #' dichotomous variables, ranging between  0 (no dependence) and 1 (perfect
 #' dependence). For larger tables, Cramer's *V* or Pearson's *C* should be used,
