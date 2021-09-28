@@ -1,6 +1,6 @@
 paired_d <- function(x, group, block, data = NULL,
                      mu = 0, ci = 0.95, alternative = "two.sided",
-                     type = c("d", "z", "t", "a", "r")) {
+                     type = c("d", "z", "a", "r")) {
   type <- match.arg(type)
   data <- effectsize:::.kendalls_w_data(x, group, block, data, wide = FALSE)
   data$groups <- factor(data$groups)
@@ -21,7 +21,7 @@ paired_d <- function(x, group, block, data = NULL,
     names(x) <- c("x", "y")
     d <- unname(diff(sapply(x, mean)))
     s <- do.call(sd_pooled, x)
-  } else if (type %in% c("z", "t")) {
+  } else if (type == "z") {
     data <- data[order(data$groups),]
     data <- aggregate(data$x, data[2], function(.x) {
       if (length(.x) != 2L){
@@ -30,14 +30,9 @@ paired_d <- function(x, group, block, data = NULL,
         diff(.x)
       }
     })
-    if (type == "z") {
-      d <- mean(data$x, na.rm = TRUE)
-      s <- sd(data$x, na.rm = TRUE)
-    } else {
-      tt <- t.test(data$x)
-      d <- unname(tt$statistic / sqrt(tt$parameter + 1))
-      s <- 1
-    }
+    return(cohens_d(data$x, mu = mu, ci = ci, alternative = alternative))
+    # d <- mean(data$x, na.rm = TRUE)
+    # s <- sd(data$x, na.rm = TRUE)
   } else if (type == "r") {
     insight::check_if_installed("lme4")
 
@@ -50,10 +45,30 @@ paired_d <- function(x, group, block, data = NULL,
     s <- sigma(mod)
   }
 
-  ci_method <- ci <- alternative <- NULL
 
   out <- data.frame(d = (d - mu) / s)
   if (orig_type != "d") names(out) <- paste0("d_", orig_type)
+
+  if (!is.null(ci)) {
+    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+
+    # Add cis
+    # USE emmeans::eff_size???? (w/ qdrg?)
+    out$CI <- ci
+    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+
+    out$CI_low <- -Inf
+    out$CI_high <- Inf
+
+    ci_method <- list()
+    if (alternative == "less") {
+      out$CI_low <- -Inf
+    } else if (alternative == "greater") {
+      out$CI_high <- Inf
+    }
+  } else {
+    ci_method <- alternative <- NULL
+  }
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
   attr(out, "paired_type") <- orig_type
@@ -69,10 +84,10 @@ library(effectsize)
 
 dat <- read.table("http://pcl.missouri.edu/exp/effectSizePuzzler.txt", header=TRUE)
 
+paired_d(rt ~ cond | id, data = dat, type = "z") # 1.353713 DONE
 paired_d(rt ~ cond | id, data = dat, type = "d") # 0.2497971
 paired_d(rt ~ cond | id, data = dat, type = "a") # 0.8357347
-paired_d(rt ~ cond | id, data = dat, type = "z") # 1.353713
-paired_d(rt ~ cond | id, data = dat, type = "t") # withOUT sqrt(2) bias, is the same as d_z
+# paired_d(rt ~ cond | id, data = dat, type = "t") # withOUT sqrt(2) bias, is the same as d_z
 paired_d(rt ~ cond | id, data = dat, type = "r") # 0.259
 
 
