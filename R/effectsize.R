@@ -12,7 +12,7 @@
 #'
 #' - For an object of class `htest`, data is extracted via [insight::get_data()], and passed to the relevant function according to:
 #'   - A **t-test** depending on `type`: `"cohens_d"` (default), `"hedges_g"`.
-#'   - A **Chi-squared tests of independence or goodness-of-fit**, depending on `type`: `"cramers_v"` (default), `"phi"` or `"cohens_w"`, `"cohens_h"`, `"oddsratio"`, or `"riskratio"`.
+#'   - A **Chi-squared tests of independence or goodness-of-fit**, depending on `type`: `"cramers_v"` (default), `"phi"`, `"cohens_w"`, `"pearsons_c"`, `"cohens_h"`, `"oddsratio"`, or `"riskratio"`.
 #'   - A **One-way ANOVA test**, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.
 #'   - A **McNemar test** returns *Cohen's g*.
 #'   - A **Wilcoxon test** returns *rank biserial correlation*.
@@ -22,7 +22,7 @@
 #' - For an object of class `BFBayesFactor`, using [bayestestR::describe_posterior()],
 #'   - A **t-test** returns *Cohen's d*.
 #'   - A **correlation test** returns *r*.
-#'   - A **contingency table test**, depending on `type`: `"cramers_v"` (default), `"phi"` or `"cohens_w"`, `"cohens_h"`, `"oddsratio"`, or `"riskratio"`.
+#'   - A **contingency table test**, depending on `type`: `"cramers_v"` (default), `"phi"`, `"cohens_w"`, `"pearsons_c"`, `"cohens_h"`, `"oddsratio"`, or `"riskratio"`.
 #' - Objects of class `anova`, `aov`, or `aovlist`, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.
 #' - Other objects are passed to [standardize_parameters()].
 #'
@@ -106,6 +106,8 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, ...) {
       w = ,
       cohens_w = ,
       phi = phi,
+      c = ,
+      pearsons_c = pearsons_c,
       h = ,
       cohens_h = cohens_h,
       or = ,

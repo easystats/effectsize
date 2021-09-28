@@ -4,6 +4,7 @@
 \alias{chisq_to_phi}
 \alias{chisq_to_cohens_w}
 \alias{chisq_to_cramers_v}
+\alias{chisq_to_pearsons_c}
 \alias{phi_to_chisq}
 \title{Conversion Chi-Squared to Phi or Cramer's V}
 \usage{
@@ -40,6 +41,16 @@ chisq_to_cramers_v(
   ...
 )
 
+chisq_to_pearsons_c(
+  chisq,
+  n,
+  nrow,
+  ncol,
+  ci = 0.95,
+  alternative = "greater",
+  ...
+)
+
 phi_to_chisq(phi, n, ...)
 }
 \arguments{
@@ -65,12 +76,12 @@ is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided 
 \item{phi}{The Phi statistic.}
 }
 \value{
-A data frame with the effect size(s) between 0-1, and confidence
-interval(s). See \code{\link[=cramers_v]{cramers_v()}}.
+A data frame with the effect size(s), and confidence interval(s). See
+\code{\link[=cramers_v]{cramers_v()}}.
 }
 \description{
-Convert between Chi square (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}) and
-Cohen's \emph{w} for contingency tables or goodness of fit.
+Convert between Chi square (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}),
+Cohen's \emph{w} and Pearson's \emph{C} for contingency tables or goodness of fit.
 }
 \details{
 These functions use the following formulae:
@@ -79,6 +90,8 @@ These functions use the following formulae:
 \cr
 \deqn{Cramer's V = \phi / \sqrt{min(nrow,ncol)-1}}{Cramer's V = \phi / sqrt(min(nrow,ncol)-1)}
 \cr
+\deqn{Pearson's C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
+\cr\cr
 For adjusted versions, see Bergsma, 2013.
 }
 \note{
@@ -132,12 +145,12 @@ Kiesser, 1996).
 \examples{
 contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
 
-chisq.test(contingency_table)
-#
-#         Pearson's Chi-squared test
-#
-# data:  contingency_table
-# X-squared = 41.234, df = 4, p-value = 2.405e-08
+# chisq.test(contingency_table)
+#>
+#>         Pearson's Chi-squared test
+#>
+#> data:  contingency_table
+#> X-squared = 41.234, df = 4, p-value = 2.405e-08
 
 chisq_to_phi(41.234,
   n = sum(contingency_table),
@@ -145,6 +158,11 @@ chisq_to_phi(41.234,
   ncol = ncol(contingency_table)
 )
 chisq_to_cramers_v(41.234,
+  n = sum(contingency_table),
+  nrow = nrow(contingency_table),
+  ncol = ncol(contingency_table)
+)
+chisq_to_pearsons_c(41.234,
   n = sum(contingency_table),
   nrow = nrow(contingency_table),
   ncol = ncol(contingency_table)
