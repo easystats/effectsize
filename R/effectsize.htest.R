@@ -53,13 +53,15 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     # Chisq ----
     if (is.null(type)) type <- "cramers_v"
 
-    if (grepl("(v|w|phi)$", tolower(type))) {
+    if (grepl("(c|v|w|phi)$", tolower(type))) {
       f <- switch(tolower(type),
         v = ,
         cramers_v = chisq_to_cramers_v,
         w = ,
         cohens_w = ,
-        phi = chisq_to_phi
+        phi = chisq_to_phi,
+        c = ,
+        pearsons_c = chisq_to_pearsons_c
       )
 
       Obs <- model$observed
@@ -199,9 +201,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     return(out)
   } else {
     # Other ----
-    warning("This 'htest' method is not (yet?) supported.\n",
-            "Returning 'parameters::model_parameters(model)'.",
-            call. = FALSE)
+    if (verbose) warning("This 'htest' method is not (yet?) supported.\n",
+                         "Returning 'parameters::model_parameters(model)'.",
+                         call. = FALSE)
     parameters::model_parameters(model, verbose = verbose, ...)
   }
 }

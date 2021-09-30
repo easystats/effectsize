@@ -73,8 +73,7 @@ standard errors (SEs) are returned as an attribute (\code{attr(x, "standard_erro
 \description{
 Compute standardized model parameters (coefficients).
 }
-\details{
-\subsection{Methods:}{
+\section{Standardization Methods:}{
 \itemize{
 \item \strong{refit}: This method is based on a complete model re-fit with a
 standardized version of the data. Hence, this method is equal to
@@ -104,6 +103,12 @@ related to a change of 0.24 of the SD of \code{y}). This does not apply to binar
 variables or factors, so the coefficients are still related to changes in
 levels. This method is not accurate and tend to give aberrant results when
 interactions are specified.
+\item \strong{basic}: This method is similar to \code{method = "posthoc"}, but treats all
+variables as continuous: it also scales the coefficient by the standard
+deviation of model's matrix' parameter of factors levels (transformed to
+integers) or binary predictors. Although being inappropriate for these cases,
+this method is the one implemented by default in other software packages,
+such as \code{\link[lm.beta:lm.beta]{lm.beta::lm.beta()}}.
 \item \strong{smart} (Standardization of Model's parameters with Adjustment,
 Reconnaissance and Transformation - \emph{experimental}): Similar to \code{method = "posthoc"} in that it does not involve model refitting. The difference is
 that the SD (or MAD if \code{robust}) of the response is computed on the relevant
@@ -112,12 +117,6 @@ intercept), B and C is entered as a predictor, the effect corresponding to B
 vs. A will be scaled by the variance of the response at the intercept only.
 As a results, the coefficients for effects of factors are similar to a Glass'
 delta.
-\item \strong{basic}: This method is similar to \code{method = "posthoc"}, but treats all
-variables as continuous: it also scales the coefficient by the standard
-deviation of model's matrix' parameter of factors levels (transformed to
-integers) or binary predictors. Although being inappropriate for these cases,
-this method is the one implemented by default in other software packages,
-such as \code{\link[lm.beta:lm.beta]{lm.beta::lm.beta()}}.
 \item \strong{pseudo} (\emph{for 2-level (G)LMMs only}): In this (post-hoc) method, the
 response and the predictor are standardized based on the level of prediction
 (levels are detected with \code{\link[performance:check_heterogeneity_bias]{performance::check_heterogeneity_bias()}}): Predictors
@@ -128,6 +127,13 @@ is used for level 2 predictors, and \code{sqrt(residual-variance)} is used for
 level 1 predictors (Hoffman 2015, page 342). A warning is given when a
 within-group varialbe is found to have access between-group variance.
 }
+\subsection{Dealing with Factors}{
+
+The \code{"refit"} method does \emph{not} standardized categorical predictors (i.e.
+factors), which may be a different behaviour compared to other R packages
+(such as \pkg{lm.beta}) or other software packages (like SPSS). to mimic such
+behaviours, either use the \code{"basic"} method or standardize the data with
+\code{effectsize::standardize(force=TRUE)} \emph{before} fitting the model.
 }
 
 \subsection{Transformed Variables}{
@@ -142,6 +148,7 @@ standardizes the transformed data (e.g. equivalent to \code{scale(exp(X))}). See
 with.
 }
 }
+
 \section{Confidence Intervals}{
 The returned confidence intervals are re-scaled versions of the
 unstandardized confidence intervals, and not "true" confidence intervals of

@@ -36,7 +36,7 @@ oddsratio_to_riskratio <- function(OR, p0, log = FALSE, ...) {
 }
 
 #' @export
-oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, ...) {
+oddsratio_to_riskratio.numeric <- function(OR, p0, log = FALSE, ...) {
   if (log) OR <- exp(OR)
 
   RR <- OR / (1 - p0 + (p0 * OR))
@@ -46,24 +46,26 @@ oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, ...) {
 }
 
 #' @export
-#' @importFrom stats coef
-oddsratio_to_riskratio.glm <- function(OR, p0, log = FALSE, ...) {
+oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, ...) {
   mi <- insight::model_info(OR)
   if (!mi$is_binomial || !mi$is_logit) stop("Model must a binomial model with logit-link (logistic regression)")
 
+  RR <- parameters::model_parameters(OR, exponentiate = !log, effects = "fixed", ...)
+  RR$SE <- NULL
+  RR$z <- NULL
+  RR$df_error <- NULL
+  RR$p <- NULL
+
   if (used_intercept <- missing(p0)) {
-    p0 <- plogis(stats::coef(OR)["(Intercept)"])
+    p0 <- RR[["Coefficient"]][RR$Parameter == "(Intercept)"]
+    if (!log) p0 <- log(p0)
+    p0 <- plogis(p0)
+
     warning("'p0' not provided.",
             "RR is relative to the intercept (p0 = ",
             insight::format_value(p0),
             ") - make sure your intercept is meaningful.")
   }
-
-  RR <- parameters::model_parameters(OR, exponentiate = !log, ...)
-  RR$SE <- NULL
-  RR$z <- NULL
-  RR$df_error <- NULL
-  RR$p <- NULL
 
   RR[,colnames(RR) %in% c("Coefficient", "CI_low", "CI_high")] <-
     lapply(RR[,colnames(RR) %in% c("Coefficient", "CI_low", "CI_high")],

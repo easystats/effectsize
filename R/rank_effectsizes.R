@@ -40,10 +40,10 @@
 #' **Glass'** rank-biserial correlation). See [stats::wilcox.test]. In both
 #' cases, the correlation represents the difference between the proportion of
 #' favorable and unfavorable pairs / signed ranks (Kerby, 2014). Values range
-#' from `-1` indicating that all values of the second sample are smaller than
-#' the first sample, to `+1` indicating that all values of the second sample are
-#' larger than the first sample. (Cliff's *delta* is an alias to the
-#' rank-biserial correlation in the two sample case.)
+#' from `-1` (*all* values of the second sample are larger than *all* the values
+#' of the first sample) to `+1` (*all* values of the second sample are smaller
+#' than *all* the values of the first sample). Cliff's *delta* is an alias to
+#' the rank-biserial correlation in the two sample case.
 #' \cr\cr
 #' The rank epsilon squared is appropriate for non-parametric tests of
 #' differences between 2 or more samples (a rank based ANOVA). See
@@ -321,7 +321,7 @@ rank_epsilon_squared <- function(x,
                                  alternative = "greater",
                                  iterations = 200,
                                  ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "htest")) {
     if (!grepl("Kruskal-Wallis", x$method)) {
@@ -370,7 +370,7 @@ kendalls_w <- function(x,
                        iterations = 200,
                        verbose = TRUE,
                        ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "htest")) {
     if (!grepl("Friedman", x$method)) {

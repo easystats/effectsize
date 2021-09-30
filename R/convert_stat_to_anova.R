@@ -226,7 +226,7 @@ t_to_f2 <- function(t, df_error, ci = 0.95, alternative = "greater", squared = T
 
 #' @keywords internal
 .F_to_pve <- function(f, df, df_error, ci = 0.95, alternative = "greater", es = "eta2") {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   res <- switch(tolower(es),
     eta2 = data.frame(Eta2_partial = (f * df) / (f * df + df_error)),

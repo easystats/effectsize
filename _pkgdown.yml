@@ -44,13 +44,15 @@ reference:
   - equivalence_test.effectsize_table
   - interpret
   - rules
-  - interpret_d
+  - interpret_cohens_d
   - interpret_r
-  - interpret_omega_squared
+  - interpret_eta_squared
+  - interpret_cohens_g
   - interpret_kendalls_w
   - interpret_oddsratio
   - interpret_r2
-  - interpret_parameters
+  - interpret_icc
+  - interpret_vif
   - interpret_gfi
   - interpret_direction
   - interpret_p
@@ -58,8 +60,6 @@ reference:
   - interpret_pd
   - interpret_rope
   - interpret_ess
-  - interpret_icc
-
 
 - title: "Miscellaneous"
   contents:

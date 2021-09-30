@@ -118,10 +118,10 @@ case, that would normally be tested with Mann-Whitney's \emph{U} Test (giving
 \strong{Glass'} rank-biserial correlation). See \link[stats:wilcox.test]{stats::wilcox.test}. In both
 cases, the correlation represents the difference between the proportion of
 favorable and unfavorable pairs / signed ranks (Kerby, 2014). Values range
-from \code{-1} indicating that all values of the second sample are smaller than
-the first sample, to \code{+1} indicating that all values of the second sample are
-larger than the first sample. (Cliff's \emph{delta} is an alias to the
-rank-biserial correlation in the two sample case.)
+from \code{-1} (\emph{all} values of the second sample are larger than \emph{all} the values
+of the first sample) to \code{+1} (\emph{all} values of the second sample are smaller
+than \emph{all} the values of the first sample). Cliff's \emph{delta} is an alias to
+the rank-biserial correlation in the two sample case.
 \cr\cr
 The rank epsilon squared is appropriate for non-parametric tests of
 differences between 2 or more samples (a rank based ANOVA). See

@@ -167,12 +167,13 @@ interpret.effectsize_table <- function(x, rules, ...) {
     Cohens_d = ,
     Hedges_g = ,
     Glass_delta = ,
-    d = interpret_d(value, rules = rules),
+    d = interpret_cohens_d(value, rules = rules),
     # xtab
     Cramers_v = ,
     Cramers_v_adjusted = ,
     phi = ,
     phi_adjusted = interpret_cramers_v(value, rules = rules),
+    Cohens_g = interpret_cohens_g(value, rules = rules),
     Odds_ratio = interpret_oddsratio(value, rules = rules, log = FALSE),
     log_Odds_ratio = interpret_oddsratio(value, rules = rules, log = TRUE),
     # anova

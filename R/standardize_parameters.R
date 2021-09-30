@@ -21,7 +21,8 @@
 #' @param parameters Deprecated.
 #'
 #' @details
-#' ## Methods:
+#'
+#' # Standardization Methods:
 #' - **refit**: This method is based on a complete model re-fit with a
 #' standardized version of the data. Hence, this method is equal to
 #' standardizing the variables before fitting the model. It is the "purest" and
@@ -48,6 +49,12 @@
 #' variables or factors, so the coefficients are still related to changes in
 #' levels. This method is not accurate and tend to give aberrant results when
 #' interactions are specified.
+#' - **basic**: This method is similar to `method = "posthoc"`, but treats all
+#' variables as continuous: it also scales the coefficient by the standard
+#' deviation of model's matrix' parameter of factors levels (transformed to
+#' integers) or binary predictors. Although being inappropriate for these cases,
+#' this method is the one implemented by default in other software packages,
+#' such as [lm.beta::lm.beta()].
 #' - **smart** (Standardization of Model's parameters with Adjustment,
 #' Reconnaissance and Transformation - *experimental*): Similar to `method =
 #' "posthoc"` in that it does not involve model refitting. The difference is
@@ -57,12 +64,6 @@
 #' vs. A will be scaled by the variance of the response at the intercept only.
 #' As a results, the coefficients for effects of factors are similar to a Glass'
 #' delta.
-#' - **basic**: This method is similar to `method = "posthoc"`, but treats all
-#' variables as continuous: it also scales the coefficient by the standard
-#' deviation of model's matrix' parameter of factors levels (transformed to
-#' integers) or binary predictors. Although being inappropriate for these cases,
-#' this method is the one implemented by default in other software packages,
-#' such as [lm.beta::lm.beta()].
 #' - **pseudo** (*for 2-level (G)LMMs only*): In this (post-hoc) method, the
 #' response and the predictor are standardized based on the level of prediction
 #' (levels are detected with [performance::check_heterogeneity_bias()]): Predictors
@@ -72,6 +73,13 @@
 #' is used for level 2 predictors, and `sqrt(residual-variance)` is used for
 #' level 1 predictors (Hoffman 2015, page 342). A warning is given when a
 #' within-group varialbe is found to have access between-group variance.
+#'
+#' ## Dealing with Factors
+#' The `"refit"` method does *not* standardized categorical predictors (i.e.
+#' factors), which may be a different behaviour compared to other R packages
+#' (such as \pkg{lm.beta}) or other software packages (like SPSS). to mimic such
+#' behaviours, either use the `"basic"` method or standardize the data with
+#' `effectsize::standardize(force=TRUE)` *before* fitting the model.
 #'
 #' ## Transformed Variables
 #' When the model's formula contains transformations (e.g. `y ~ exp(X)`)
@@ -84,7 +92,6 @@
 #' with.
 #'
 #' # Confidence Intervals
-#'
 #' The returned confidence intervals are re-scaled versions of the
 #' unstandardized confidence intervals, and not "true" confidence intervals of
 #' the standardized coefficients (cf. Jones & Waller, 2015).

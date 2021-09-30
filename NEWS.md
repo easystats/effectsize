@@ -1,13 +1,18 @@
-# effectsize 0.4.5-2
+# effectsize 0.5
 
 ## Breaking Changes
 
+- `cramers_v()` correctly does not work with 1-dimentional tables (for goodness-of-fit tests).
+- `interpret_d()`, `interpret_g()`, and `interpret_delta()` are now `interpret_cohens_d()`, `interpret_hedges_g()`, and `interpret_glass_delta()`.
+- `interpret_parameters()` was removed. Use `interpret_r()` instead (with caution!).
 - Phi, Cohen's *w*, Cramer's *V*, ANOVA effect sizes, rank Epsilon squared, Kendall's *W* - CIs default to 95% one-sided CIs (`alternative = "greater"`). (To restore previous behavior, set `ci = .9, alternative = "two.sided"`.)
 - `adjust()`, `change_scale()`, `normalize()`, `ranktransform()`, `standardize()` (data), and `unstandardize()` have moved to the new [`{datawizard}`](https://easystats.github.io/datawizard) package!
 
 ## New features
 
-- `oddsratio_to_riskratio()` can now convert OR coefficients to RR coefficients from a logistic GLM. 
+- `pearsons_c()` (and `chisq_to_pearsons_c()`) for estimating Pearson's contingency coefficient.
+- `interpret_vif()` for interpretation of *variance inflation factors*.
+- `oddsratio_to_riskratio()` can now convert OR coefficients to RR coefficients from a logistic GLM(M). 
 - All effect-size functions gain an `alternative` argument which can be used to make one- or two-sided CIs.
 - `interpret()` now accepts as input the results from `cohens_d()`, `eta_squared()`, `rank_biserial()`, etc.
 - `interpret_pd()` for the interpretation of the [*Probability of Direction*](https://easystats.github.io/bayestestR/reference/p_direction.html).

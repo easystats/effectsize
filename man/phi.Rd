@@ -4,6 +4,7 @@
 \alias{phi}
 \alias{cohens_w}
 \alias{cramers_v}
+\alias{pearsons_c}
 \alias{oddsratio}
 \alias{riskratio}
 \alias{cohens_h}
@@ -15,6 +16,15 @@ phi(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
 cohens_w(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
 
 cramers_v(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
+
+pearsons_c(
+  x,
+  y = NULL,
+  ci = 0.95,
+  alternative = "greater",
+  adjust = FALSE,
+  ...
+)
 
 oddsratio(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...)
 
@@ -54,17 +64,22 @@ prefix \code{log_}), \code{Cohens_h}, or \code{Cohens_g}) and its CIs (\code{CI_
 \code{CI_high}).
 }
 \description{
-Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w} (an alias of phi), Odds
-ratios, Risk ratios, Cohen's \emph{h} and Cohen's \emph{g} for contingency tables or
-goodness-of-fit. See details.
+Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w} (an alias of phi),
+Pearson's contingency coefficient, Odds ratios, Risk ratios, Cohen's \emph{h} and
+Cohen's \emph{g} for contingency tables or goodness-of-fit. See details.
 }
 \details{
-Cramer's \emph{V} and phi (\eqn{\phi}) are effect sizes for tests of independence
-in 2D contingency tables, or for goodness-of-fit in 1D tables. For 2-by-2
-tables, they are identical, and are equal to the simple correlation between
-two dichotomous variables, ranging between  0 (no dependence) and 1 (perfect
-dependence). For larger tables, Cramer's \emph{V} should be used, as it is bounded
-between 0-1, whereas phi can be larger than 1.
+Cramer's \emph{V}, phi (\eqn{\phi}) and Pearson's \emph{C} are effect sizes for tests
+of independence in 2D contingency tables. For 2-by-k tables, Cramer's \emph{V} and
+phi are identical, and are equal to the simple correlation between two
+dichotomous variables, ranging between  0 (no dependence) and 1 (perfect
+dependence). For larger tables, Cramer's \emph{V} or Pearson's \emph{C} should be used,
+as they are bounded between 0-1, whereas phi can be larger than 1 (upper
+bound is \verb{sqrt(min(nrow, ncol) - 1))}).
+\cr\cr
+For goodness-of-fit in 1D tables Pearson's \emph{C} or phi can be used. Phi has no
+upper bound (can be arbitrarily large, depending on the expected
+distribution), while Pearson's \emph{C} is bounded between 0-1.
 \cr\cr
 For 2-by-2 contingency tables, Odds ratios, Risk ratios and Cohen's \emph{h} can
 also be estimated. Note that these are computed with each \strong{column}
@@ -87,9 +102,8 @@ estimated using the standard normal parametric method (see Katz et al., 1978;
 Szumilas, 2010).
 \cr\cr
 See \emph{Confidence (Compatibility) Intervals (CIs)}, \emph{CIs and Significance
-Tests}, and \emph{One-Sided CIs} sections for \emph{phi}, Cohen's \emph{w} and Cramer's \emph{V}.
-(\emph{Note} that \emph{phi} (and Cohen's \emph{w}) is not bound to (0-1), but instead the
-upper bound for is \verb{sqrt(min(nrow, ncol) - 1))}.)
+Tests}, and \emph{One-Sided CIs} sections for \emph{phi}, Cohen's \emph{w}, Cramer's \emph{V} and
+Pearson's \emph{C}.
 }
 
 \section{Confidence (Compatibility) Intervals (CIs)}{
@@ -154,6 +168,7 @@ phi(M)
 
 cramers_v(M)
 
+pearsons_c(M)
 
 
 ## 2-by-2 tables

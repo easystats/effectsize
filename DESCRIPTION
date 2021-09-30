@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size and Standardized Parameters
-Version: 0.4.5-4
+Version: 0.4.99
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
@@ -53,14 +53,13 @@ Depends:
 Imports:
     bayestestR (>= 0.10.5),
     insight (>= 0.14.3),
-    parameters (>= 0.14.0.2),
-    performance (>= 0.7.3.1),
+    parameters (>= 0.14.0),
+    performance (>= 0.7.3.5),
     datawizard (>= 0.2.0),
     stats,
     utils
 Suggests:
     correlation (>= 0.6.1),
-    modelbased (>= 0.7.0),
     see (>= 0.6.4),
     afex,
     BayesFactor,
@@ -68,10 +67,8 @@ Suggests:
     brms,
     car,
     covr,
-    dplyr,
     emmeans,
     gamm4,
-    ggplot2,
     knitr,
     lavaan,
     lm.beta,
@@ -80,7 +77,6 @@ Suggests:
     MASS,
     mediation,
     mgcv,
-    MuMIn,
     pscl,
     rmarkdown,
     rms,
@@ -88,14 +84,13 @@ Suggests:
     rstantools,
     spelling,
     testthat,
-    tidymodels,
-    tidyr
+    tidymodels
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-Remotes: easystats/parameters, easystats/performance
+Remotes: easystats/performance
 Config/testthat/edition: 3
 Config/testthat/parallel: true
