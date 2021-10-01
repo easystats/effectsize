@@ -65,10 +65,13 @@ reference:
   contents:
   - sd_pooled
   - is_effectsize_name
-  - hardlyworking
   - effectsize_CIs
   - format_standardize
   - print.effectsize_table
+- subtitle: "Datasets"
+  - hardlyworking
+- subtitle: "Deprecated functions"
+  - effectsize_deprecated
 
 navbar:
   type: default
