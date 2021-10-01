@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.99</span>
       </span>
     </div>
 
@@ -132,9 +132,9 @@
     
     
 <p>The <code>effectsize</code> package contains function to convert among indices of effect size. This can be useful for meta-analyses, or any comparison between different types of statistical analyses.</p>
-<div id="converting-between-r-and-d" class="section level2">
+<div id="converting-between-d-r-and-or" class="section level2">
 <h2 class="hasAnchor">
-<a href="#converting-between-r-and-d" class="anchor" aria-hidden="true"></a>Converting Between <em>r</em> and <em>d</em>
+<a href="#converting-between-d-r-and-or" class="anchor" aria-hidden="true"></a>Converting Between <em>d</em>, <em>r</em>, and <em>OR</em>
 </h2>
 <p>The most basic conversion is between <em>r</em> values, a measure of standardized association between two continuous measures, and <em>d</em> values (such as Cohen’s <em>d</em>), a measure of standardized differences between two groups / conditions.</p>
 <p>Let’s simulate some data:</p>
@@ -182,7 +182,7 @@ r \approx \frac{d}{\sqrt{d^2 + 4}}
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/d_to_r.html">d_to_r</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.31</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; [1] -0.153</code></pre>
-<p>(Which also works in the other way, with <code>r_to_d(0.17) = <code>r r_to_d(0.17)</code></code>)</p>
+<p>(Which also works in the other way, with <code>r_to_d(0.17)</code> gives <code>r round(r_to_d(-0.17),3)</code>)</p>
 <p>As we can see, these are rough approximations, but they can be useful when we don’t have the raw data on hand.</p>
 <div id="in-multiple-regression" class="section level3">
 <h3 class="hasAnchor">
@@ -255,9 +255,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 &gt; -------------------------------------------------------------
 &gt; (Intercept) |     0.41 | 0.91 | [-1.39, 2.43] |  0.44 | 0.657
 &gt; Group [1]   |    -0.81 | 1.29 | [-3.54, 1.70] | -0.63 | 0.530</code></pre>
-<pre><code>&gt; 
-&gt; Showing profiled confidence intervals.</code></pre>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Convert log(OR) (the coefficient) to d</span>
 <span class="fu"><a href="../reference/d_to_r.html">oddsratio_to_d</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.81</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; [1] -0.447</code></pre>
@@ -271,7 +269,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 RR = \frac{OR}{(1 - p0 + (p0 \times OR))}  
 \]</span></p>
 <p>Where <span class="math inline">\(p0\)</span> is the base-rate risk - the probability of the event without the intervention (e.g., what is the probability of the migraine subsiding within an hour without eating any brussels sprouts). If it the base-rate risk is, say, 85%, we get a <em>RR</em> of:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">OR</span> <span class="op">&lt;-</span> <span class="fl">3.5</span>
 <span class="va">baserate</span> <span class="op">&lt;-</span> <span class="fl">0.85</span>
 
@@ -279,13 +277,13 @@ RR = \frac{OR}{(1 - p0 + (p0 \times OR))}
 <pre><code>&gt; [1] 1.12</code></pre>
 <p>That is - for every bowl of brussels sprouts, we increase the chances of reducing the migraine by a mere 12%! Is if worth it? Depends on you affinity to brussels sprouts…</p>
 <p>Note that the base-rate risk is crucial here. If instead of 85% it was only 4%, then the <em>RR</em> would be:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">OR</span> <span class="op">&lt;-</span> <span class="fl">3.5</span>
 <span class="va">baserate</span> <span class="op">&lt;-</span> <span class="fl">0.04</span>
 
 <span class="fu"><a href="../reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio</a></span><span class="op">(</span><span class="va">OR</span>, <span class="va">baserate</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; [1] 3.18</code></pre>
-<p>That is - for every bowl of brussels sprouts, we increase the chances of reducing the migraine by a whopping 318%! Is if worth it? I guess that still depends on you affinity to brussels sprouts…</p>
+<p>That is - for every bowl of brussels sprouts, we increase the chances of reducing the migraine by a whopping 318%! Is if worth it? I guess that still depends on your affinity to brussels sprouts…</p>
 </div>
 </div>
 <div id="references" class="section level1 unnumbered">

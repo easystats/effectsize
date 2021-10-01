@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.99</span>
       </span>
     </div>
 
@@ -317,10 +317,10 @@ standardization**, described below
 <pre><code>&gt; Parameter     | Coefficient |     SE |              95% CI | t(494) |      p
 &gt; ----------------------------------------------------------------------------
 &gt; (Intercept)   |     9805.17 | 446.73 | [8927.44, 10682.89] |  21.95 | &lt; .001
-&gt; xtra hours    |     1221.39 |  30.72 | [1161.03,  1281.75] |  39.76 | &lt; .001
-&gt; n comps       |     2944.95 | 131.12 | [2687.32,  3202.57] |  22.46 | &lt; .001
-&gt; age g [31-35] |      393.40 | 241.02 | [ -80.16,   866.96] |   1.63 | 0.103 
-&gt; age g [36-45] |      596.31 | 427.75 | [-244.12,  1436.75] |   1.39 | 0.164 
+&gt; xtra_hours    |     1221.39 |  30.72 | [1161.03,  1281.75] |  39.76 | &lt; .001
+&gt; n_comps       |     2944.95 | 131.12 | [2687.32,  3202.57] |  22.46 | &lt; .001
+&gt; age_g [31-35] |      393.40 | 241.02 | [ -80.16,   866.96] |   1.63 | 0.103 
+&gt; age_g [36-45] |      596.31 | 427.75 | [-244.12,  1436.75] |   1.39 | 0.164 
 &gt; seniority     |      443.92 | 102.38 | [ 242.77,   645.08] |   4.34 | &lt; .001</code></pre>
 <p>It seems like the best or most important predictor is <code>n_comps</code> as it has the coefficient. However, it is hard to compare among predictors, as they are on different scales. To address this issue, we must have all the predictors on the same scale - usually in the arbitrary unit of <em>standard deviations</em>.</p>
 <div id="refit-re-fitting-the-model-with-standardized-data" class="section level3">
@@ -388,10 +388,10 @@ standardization**, described below
 <pre><code>&gt; Parameter     | Coefficient |   SE |        95% CI | t(494) |      p
 &gt; --------------------------------------------------------------------
 &gt; (Intercept)   |       -0.05 | 0.03 | [-0.11, 0.02] |  -1.47 | 0.142 
-&gt; xtra hours    |        0.77 | 0.02 | [ 0.73, 0.81] |  39.76 | &lt; .001
-&gt; n comps       |        0.39 | 0.02 | [ 0.36, 0.43] |  22.46 | &lt; .001
-&gt; age g [31-35] |        0.06 | 0.04 | [-0.01, 0.14] |   1.63 | 0.103 
-&gt; age g [36-45] |        0.10 | 0.07 | [-0.04, 0.23] |   1.39 | 0.164 
+&gt; xtra_hours    |        0.77 | 0.02 | [ 0.73, 0.81] |  39.76 | &lt; .001
+&gt; n_comps       |        0.39 | 0.02 | [ 0.36, 0.43] |  22.46 | &lt; .001
+&gt; age_g [31-35] |        0.06 | 0.04 | [-0.01, 0.14] |   1.63 | 0.103 
+&gt; age_g [36-45] |        0.10 | 0.07 | [-0.04, 0.23] |   1.39 | 0.164 
 &gt; seniority     |        0.08 | 0.02 | [ 0.04, 0.12] |   4.34 | &lt; .001</code></pre>
 </div>
 <div id="posthoc-refit-without-refitting" class="section level3">
@@ -463,9 +463,9 @@ standardization**, described below
 &gt; Parameter   | Coefficient (std.) |         95% CI
 &gt; -------------------------------------------------
 &gt; (Intercept) |               0.00 | [ 0.00,  0.00]
-&gt; cyl         |              -0.74 | [-1.25, -0.23]
-&gt; amAutomatic |               0.47 | [-0.01,  0.95]
-&gt; vs          |               0.20 | [-0.50,  0.90]</code></pre>
+&gt; cyl         |              -0.74 | [-1.23, -0.26]
+&gt; amAutomatic |               0.47 | [ 0.01,  0.93]
+&gt; vs          |               0.20 | [-0.47,  0.87]</code></pre>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># compare to:</span>
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span>, method <span class="op">=</span> <span class="st">"basic"</span>, df_method <span class="op">=</span> <span class="st">"satterthwaite"</span><span class="op">)</span></code></pre></div>
@@ -474,9 +474,9 @@ standardization**, described below
 &gt; Parameter   | Coefficient (std.) |         95% CI
 &gt; -------------------------------------------------
 &gt; (Intercept) |               0.00 | [ 0.00,  0.00]
-&gt; cyl         |              -0.63 | [-1.07, -0.20]
-&gt; amAutomatic |               0.25 | [-0.01,  0.51]
-&gt; vs          |               0.11 | [-0.27,  0.48]</code></pre>
+&gt; cyl         |              -0.63 | [-1.05, -0.22]
+&gt; amAutomatic |               0.25 | [ 0.00,  0.50]
+&gt; vs          |               0.11 | [-0.25,  0.47]</code></pre>
 </div>
 <div id="standardizing-parameters-in-generalized-linear-models" class="section level2">
 <h2 class="hasAnchor">

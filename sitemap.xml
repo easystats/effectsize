@@ -73,6 +73,9 @@
     <loc>/reference/effectsize_CIs.html</loc>
   </url>
   <url>
+    <loc>/reference/effectsize_deprecated.html</loc>
+  </url>
+  <url>
     <loc>/reference/equivalence_test.effectsize_table.html</loc>
   </url>
   <url>
@@ -100,7 +103,10 @@
     <loc>/reference/interpret_bf.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret_d.html</loc>
+    <loc>/reference/interpret_cohens_d.html</loc>
+  </url>
+  <url>
+    <loc>/reference/interpret_cohens_g.html</loc>
   </url>
   <url>
     <loc>/reference/interpret_direction.html</loc>
@@ -127,9 +133,6 @@
     <loc>/reference/interpret_p.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret_parameters.html</loc>
-  </url>
-  <url>
     <loc>/reference/interpret_pd.html</loc>
   </url>
   <url>
@@ -140,6 +143,9 @@
   </url>
   <url>
     <loc>/reference/interpret_rope.html</loc>
+  </url>
+  <url>
+    <loc>/reference/interpret_vif.html</loc>
   </url>
   <url>
     <loc>/reference/is_effectsize_name.html</loc>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pooled Standard Deviation — sd_pooled • effectsize</title>
+<title>Deprecated functions — effectsize_deprecated • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,8 @@
 
 
 
-<meta property="og:title" content="Pooled Standard Deviation — sd_pooled" />
-<meta property="og:description" content="The Pooled Standard Deviation is a weighted average of standard deviations
-for two or more groups, assumed to have equal variance. It represents the
-common deviation among the groups, around each of their respective means." />
+<meta property="og:title" content="Deprecated functions — effectsize_deprecated" />
+<meta property="og:description" content="Deprecated functions" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -171,66 +169,43 @@ common deviation among the groups, around each of their respective means." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pooled Standard Deviation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/sd_pooled.R'><code>R/sd_pooled.R</code></a></small>
-    <div class="hidden name"><code>sd_pooled.Rd</code></div>
+    <h1>Deprecated functions</h1>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/zzz_deprecated.R'><code>R/zzz_deprecated.R</code></a></small>
+    <div class="hidden name"><code>effectsize_deprecated.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The Pooled Standard Deviation is a weighted average of standard deviations
-for two or more groups, <em>assumed to have equal variance</em>. It represents the
-common deviation among the groups, around each of their respective means.</p>
+    <p>Deprecated functions</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>sd_pooled</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, data <span class='op'>=</span> <span class='cn'>NULL</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>interpret_d</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>mad_pooled</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, data <span class='op'>=</span> <span class='cn'>NULL</span>, constant <span class='op'>=</span> <span class='fl'>1.4826</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></code></pre></div>
+<span class='fu'>interpret_g</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>interpret_delta</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>interpret_parameters</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A formula, a numeric vector, or a character name of one in <code>data</code>.</p></td>
-    </tr>
-    <tr>
-      <th>y</th>
-      <td><p>A numeric vector, a grouping (character / factor) vector, a or a
-character  name of one in <code>data</code>. Ignored if <code>x</code> is a formula.</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p>An optional data frame containing the variables.</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>Toggle warnings and messages on or off.</p></td>
-    </tr>
-    <tr>
-      <th>constant</th>
-      <td><p>scale factor.</p></td>
+      <th>...</th>
+      <td><p>Arguments to the deprecated function.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Numeric, the pooled standard deviation.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The standard version is calculated as:
-$$\sqrt{\frac{\sum (x_i - \bar{x})^2}{n_1 + n_2 - 2}}$$
-The robust version is calculated as:
-$$1.4826 \times Median(|\left\{x - Median_x,\,y - Median_y\right\}|)$$</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    
+<ul>
+<li><p><code>interpret_d</code> is now <code><a href='interpret_cohens_d.html'>interpret_cohens_d</a></code>.</p></li>
+<li><p><code>interpret_g</code> is now <code><a href='interpret_cohens_d.html'>interpret_hedges_g</a></code>.</p></li>
+<li><p><code>interpret_delta</code> is now <code><a href='interpret_cohens_d.html'>interpret_glass_delta</a></code>.</p></li>
+<li><p><code>interpret_parameters</code> for <em>standardized parameters</em> was incorrect. Use <code><a href='interpret_r.html'>interpret_r</a></code> instead.</p></li>
+</ul>
 
-    <div class='dont-index'><p><code><a href='cohens_d.html'>cohens_d()</a></code></p></div>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='fu'>sd_pooled</span><span class='op'>(</span><span class='va'>mpg</span> <span class='op'>~</span> <span class='va'>am</span>, data <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 4.902029</span>
-<span class='r-in'><span class='fu'>mad_pooled</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>mpg</span>, <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>$</span><span class='va'>am</span><span class='op'>)</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 6.704213</span>
-</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

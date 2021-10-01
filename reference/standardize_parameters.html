@@ -88,7 +88,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.99</span>
       </span>
     </div>
 
@@ -264,11 +264,9 @@ Models</em> section).</p></td>
     <p>A data frame with the standardized parameters (<code>Std_*</code>, depending on
 the model type) and their CIs (<code>CI_low</code> and <code>CI_high</code>). Where applicable,
 standard errors (SEs) are returned as an attribute (<code>attr(x, "standard_error")</code>).</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="standardization-methods-"><a class="anchor" href="#standardization-methods-"></a>Standardization Methods:</h2>
 
     
-<h3 class='hasAnchor' id='methods-'><a class='anchor' aria-hidden='true' href='#methods-'></a>Methods:</h3>
-
 <ul>
 <li><p><strong>refit</strong>: This method is based on a complete model re-fit with a
 standardized version of the data. Hence, this method is equal to
@@ -297,6 +295,12 @@ related to a change of 0.24 of the SD of <code>y</code>). This does not apply to
 variables or factors, so the coefficients are still related to changes in
 levels. This method is not accurate and tend to give aberrant results when
 interactions are specified.</p></li>
+<li><p><strong>basic</strong>: This method is similar to <code>method = "posthoc"</code>, but treats all
+variables as continuous: it also scales the coefficient by the standard
+deviation of model's matrix' parameter of factors levels (transformed to
+integers) or binary predictors. Although being inappropriate for these cases,
+this method is the one implemented by default in other software packages,
+such as <code><a href='https://rdrr.io/pkg/lm.beta/man/lm.beta.html'>lm.beta::lm.beta()</a></code>.</p></li>
 <li><p><strong>smart</strong> (Standardization of Model's parameters with Adjustment,
 Reconnaissance and Transformation - <em>experimental</em>): Similar to <code>method = "posthoc"</code> in that it does not involve model refitting. The difference is
 that the SD (or MAD if <code>robust</code>) of the response is computed on the relevant
@@ -305,12 +309,6 @@ intercept), B and C is entered as a predictor, the effect corresponding to B
 vs. A will be scaled by the variance of the response at the intercept only.
 As a results, the coefficients for effects of factors are similar to a Glass'
 delta.</p></li>
-<li><p><strong>basic</strong>: This method is similar to <code>method = "posthoc"</code>, but treats all
-variables as continuous: it also scales the coefficient by the standard
-deviation of model's matrix' parameter of factors levels (transformed to
-integers) or binary predictors. Although being inappropriate for these cases,
-this method is the one implemented by default in other software packages,
-such as <code><a href='https://rdrr.io/pkg/lm.beta/man/lm.beta.html'>lm.beta::lm.beta()</a></code>.</p></li>
 <li><p><strong>pseudo</strong> (<em>for 2-level (G)LMMs only</em>): In this (post-hoc) method, the
 response and the predictor are standardized based on the level of prediction
 (levels are detected with <code><a href='https://easystats.github.io/performance/reference/check_heterogeneity_bias.html'>performance::check_heterogeneity_bias()</a></code>): Predictors
@@ -321,7 +319,14 @@ is used for level 2 predictors, and <code>sqrt(residual-variance)</code> is used
 level 1 predictors (Hoffman 2015, page 342). A warning is given when a
 within-group varialbe is found to have access between-group variance.</p></li>
 </ul>
+<h3 class='hasAnchor' id='dealing-with-factors'><a class='anchor' aria-hidden='true' href='#dealing-with-factors'></a>Dealing with Factors</h3>
 
+
+<p>The <code>"refit"</code> method does <em>not</em> standardized categorical predictors (i.e.
+factors), which may be a different behaviour compared to other R packages
+(such as <span class="pkg">lm.beta</span>) or other software packages (like SPSS). to mimic such
+behaviours, either use the <code>"basic"</code> method or standardize the data with
+<code>effectsize::standardize(force=TRUE)</code> <em>before</em> fitting the model.</p>
 
 <h3 class='hasAnchor' id='transformed-variables'><a class='anchor' aria-hidden='true' href='#transformed-variables'></a>Transformed Variables</h3>
 
@@ -482,7 +487,6 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 <span class='r-in'>  <span class='fu'>standardize_parameters</span><span class='op'>(</span><span class='va'>m</span>, method <span class='op'>=</span> <span class='st'>"pseudo"</span>, df_method <span class='op'>=</span> <span class='st'>"satterthwaite"</span><span class='op'>)</span></span>
 <span class='r-in'><span class='op'>}</span></span>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span> boundary (singular) fit: see ?isSingular</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> Argument 'df_method' is deprecated. Please use 'ci_method' instead.</span>
 <span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>The following within-group terms have between-group variance:</span>
 <span class='r-wrn co'><span class='r-pr'>#&gt;</span> 	am, vs</span>
 <span class='r-wrn co'><span class='r-pr'>#&gt;</span> This can inflate standardized within-group parameters associated with</span>
@@ -493,9 +497,9 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter   | Coefficient (std.) |         95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -------------------------------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> (Intercept) |               0.00 | [ 0.00,  0.00]</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> cyl         |              -0.74 | [-1.25, -0.23]</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> am          |               0.47 | [-0.01,  0.95]</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> vs          |               0.20 | [-0.50,  0.90]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cyl         |              -0.74 | [-1.23, -0.26]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> am          |               0.47 | [ 0.01,  0.93]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> vs          |               0.20 | [-0.47,  0.87]</span>
 <span class='r-in'></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>

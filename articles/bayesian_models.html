@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.99</span>
       </span>
     </div>
 
@@ -167,12 +167,12 @@
 <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="va">mod</span>, test <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Fixed effects
 &gt; 
-&gt; Parameter   |   Median |              95% CI |  Rhat |     ESS |                      Prior
+&gt; Parameter   |   Median |              89% CI |  Rhat |     ESS |                      Prior
 &gt; -------------------------------------------------------------------------------------------
-&gt; (Intercept) | 10016.89 | [9190.41, 10871.71] | 1.000 | 5288.00 | Normal (20000 +- 15495.02)
-&gt; xtra_hours  |  1235.83 | [1175.83,  1292.33] | 1.000 | 4032.00 |      Normal (0 +- 1587.80)
-&gt; n_comps     |  2962.41 | [2712.00,  3220.75] | 1.000 | 4405.00 |      Normal (0 +- 3755.71)
-&gt; seniority   |   442.16 | [ 228.84,   637.99] | 1.000 | 4023.00 |      Normal (0 +- 2702.93)</code></pre>
+&gt; (Intercept) | 10016.89 | [9367.91, 10753.54] | 1.000 | 5288.00 | Normal (20000 +- 15495.02)
+&gt; xtra_hours  |  1235.83 | [1192.22,  1287.14] | 1.000 | 4032.00 |      Normal (0 +- 1587.80)
+&gt; n_comps     |  2962.41 | [2740.41,  3149.45] | 1.000 | 4405.00 |      Normal (0 +- 3755.71)
+&gt; seniority   |   442.16 | [ 267.69,   603.24] | 1.000 | 4023.00 |      Normal (0 +- 2702.93)</code></pre>
 <pre><code>&gt; 
 &gt; Using highest density intervals as credible intervals.</code></pre>
 <p>Looking at the un-standardized (“raw”) parameters, it looks like all predictors positively predict workers’ salaries, but which has the highest predictive power? Unfortunately, the predictors are not on the same scale (hours, compliments, years), so comparing them is hard when looking at the raw data. This is where standardization comes in.</p>

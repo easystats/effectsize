@@ -47,8 +47,8 @@
 
 
 <meta property="og:title" content="Conversion Chi-Squared to Phi or Cramer's V — chisq_to_phi" />
-<meta property="og:description" content="Convert between Chi square (\(\chi^2\)), Cramer's V, phi (\(\phi\)) and
-Cohen's w for contingency tables or goodness of fit." />
+<meta property="og:description" content="Convert between Chi square (\(\chi^2\)), Cramer's V, phi (\(\phi\)),
+Cohen's w and Pearson's C for contingency tables or goodness of fit." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -89,7 +89,7 @@ Cohen's w for contingency tables or goodness of fit." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.99</span>
       </span>
     </div>
 
@@ -176,8 +176,8 @@ Cohen's w for contingency tables or goodness of fit." />
     </div>
 
     <div class="ref-description">
-    <p>Convert between Chi square (\(\chi^2\)), Cramer's V, phi (\(\phi\)) and
-Cohen's <em>w</em> for contingency tables or goodness of fit.</p>
+    <p>Convert between Chi square (\(\chi^2\)), Cramer's V, phi (\(\phi\)),
+Cohen's <em>w</em> and Pearson's <em>C</em> for contingency tables or goodness of fit.</p>
     </div>
 
     <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>chisq_to_phi</span><span class='op'>(</span>
@@ -210,6 +210,16 @@ Cohen's <em>w</em> for contingency tables or goodness of fit.</p>
   ci <span class='op'>=</span> <span class='fl'>0.95</span>,
   alternative <span class='op'>=</span> <span class='st'>"greater"</span>,
   adjust <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='fu'>chisq_to_pearsons_c</span><span class='op'>(</span>
+  <span class='va'>chisq</span>,
+  <span class='va'>n</span>,
+  <span class='va'>nrow</span>,
+  <span class='va'>ncol</span>,
+  ci <span class='op'>=</span> <span class='fl'>0.95</span>,
+  alternative <span class='op'>=</span> <span class='st'>"greater"</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
 
@@ -259,8 +269,8 @@ is allowed (e.g., <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). Se
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with the effect size(s) between 0-1, and confidence
-interval(s). See <code><a href='phi.html'>cramers_v()</a></code>.</p>
+    <p>A data frame with the effect size(s), and confidence interval(s). See
+<code><a href='phi.html'>cramers_v()</a></code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>These functions use the following formulae:
@@ -269,6 +279,8 @@ $$\phi = \sqrt{\chi^2 / n}$$
 <br />
 $$Cramer's V = \phi / \sqrt{min(nrow,ncol)-1}$$
 <br />
+$$Pearson's C = \sqrt{\chi^2 / (\chi^2 + n)}$$
+<br /><br />
 For adjusted versions, see Bergsma, 2013.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -338,18 +350,12 @@ Journal of the Korean Statistical Society, 42(3), 323-328.</p></li>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>contingency_table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>as.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>762</span>, <span class='fl'>327</span>, <span class='fl'>468</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>484</span>, <span class='fl'>239</span>, <span class='fl'>477</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-in'></span>
-<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/chisq.test.html'>chisq.test</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Pearson's Chi-squared test</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> data:  contingency_table</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> X-squared = 41.234, df = 4, p-value = 2.405e-08</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
-<span class='r-in'><span class='co'>#</span></span>
-<span class='r-in'><span class='co'>#         Pearson's Chi-squared test</span></span>
-<span class='r-in'><span class='co'>#</span></span>
-<span class='r-in'><span class='co'># data:  contingency_table</span></span>
-<span class='r-in'><span class='co'># X-squared = 41.234, df = 4, p-value = 2.405e-08</span></span>
+<span class='r-in'><span class='co'># chisq.test(contingency_table)</span></span>
+<span class='r-in'><span class='co'>#&gt;</span></span>
+<span class='r-in'><span class='co'>#&gt;         Pearson's Chi-squared test</span></span>
+<span class='r-in'><span class='co'>#&gt;</span></span>
+<span class='r-in'><span class='co'>#&gt; data:  contingency_table</span></span>
+<span class='r-in'><span class='co'>#&gt; X-squared = 41.234, df = 4, p-value = 2.405e-08</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='fu'>chisq_to_phi</span><span class='op'>(</span><span class='fl'>41.234</span>,</span>
 <span class='r-in'>  n <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>,</span>
@@ -369,6 +375,16 @@ Journal of the Korean Statistical Society, 42(3), 323-328.</p></li>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Cramer's V |       95% CI</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> -------------------------</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 0.07       | [0.05, 1.00]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- One-sided CIs: upper bound fixed at (1).</span></span>
+<span class='r-in'><span class='fu'>chisq_to_pearsons_c</span><span class='op'>(</span><span class='fl'>41.234</span>,</span>
+<span class='r-in'>  n <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>,</span>
+<span class='r-in'>  nrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span>,</span>
+<span class='r-in'>  ncol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>contingency_table</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Pearson's C |       95% CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> --------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.10        | [0.07, 1.00]</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>- One-sided CIs: upper bound fixed at (1).</span></span>
 </code></pre></div>

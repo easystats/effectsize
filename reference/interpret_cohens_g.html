@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Interpret of standardized slopes — interpret_parameters • effectsize</title>
+<title>Interpret Cohen's g — interpret_cohens_g • effectsize</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Interpret of standardized slopes — interpret_parameters" />
-<meta property="og:description" content="Automated interpretation of standardized slopes." />
+<meta property="og:title" content="Interpret Cohen's g — interpret_cohens_g" />
+<meta property="og:description" content="Interpret Cohen's g" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -88,7 +88,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.99</span>
       </span>
     </div>
 
@@ -169,63 +169,76 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Interpret of standardized slopes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/interpret_parameters.R'><code>R/interpret_parameters.R</code></a></small>
-    <div class="hidden name"><code>interpret_parameters.Rd</code></div>
+    <h1>Interpret Cohen's g</h1>
+    <small class="dont-index">Source: <a href='https://github.com/easystats/effectsize/blob/master/R/interpret_cohens_g.R'><code>R/interpret_cohens_g.R</code></a></small>
+    <div class="hidden name"><code>interpret_cohens_g.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Automated interpretation of standardized slopes.</p>
+    <p>Interpret Cohen's g</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>interpret_parameters</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for lm</span>
-<span class='fu'>interpret_parameters</span><span class='op'>(</span>
-  <span class='va'>model</span>,
-  parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
-  interpretation <span class='op'>=</span> <span class='st'>"funder2019"</span>,
-  standardize_method <span class='op'>=</span> <span class='st'>"refit"</span>,
-  standardize_robust <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>interpret_cohens_g</span><span class='op'>(</span><span class='va'>g</span>, rules <span class='op'>=</span> <span class='st'>"cohen1988"</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>model</th>
-      <td><p>A statistical model.</p></td>
+      <th>g</th>
+      <td><p>Value or vector of effect size values.</p></td>
+    </tr>
+    <tr>
+      <th>rules</th>
+      <td><p>Can be <code>"cohen1988"</code> (default) or a custom set of <code><a href='rules.html'>rules()</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>For <code><a href='standardize_parameters.html'>standardize_parameters()</a></code>, arguments passed to
-<a href='https://easystats.github.io/parameters/reference/model_parameters.html'>parameters::model_parameters</a>, such as:</p><ul>
-<li><p><code>ci_method</code>, <code>centrality</code> for Bayesian models...</p></li>
-<li><p><code>df_method</code> for Mixed models ...</p></li>
-<li><p><code>exponentiate</code>, ...</p></li>
-<li><p>etc.</p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>parameters</th>
-      <td><p>A custom parameters table. If <code>NULL</code>, will use <code><a href='standardize_parameters.html'>standardize_parameters()</a></code> to get it.</p></td>
-    </tr>
-    <tr>
-      <th>interpretation</th>
-      <td><p>Interpretation grid (i.e., the set of rules of thumb) used to interpret the effects.</p></td>
-    </tr>
-    <tr>
-      <th>standardize_method</th>
-      <td><p>See <code><a href='standardize_parameters.html'>standardize_parameters()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>standardize_robust</th>
-      <td><p>See <code><a href='standardize_parameters.html'>standardize_parameters()</a></code>.</p></td>
+      <td><p>Not directly used.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
+    <p>"<em>Since <strong>g</strong> is so transparently clear a unit, it is expected that
+workers in any given substantive area of the behavioral sciences will very
+frequently be able to set relevant [effect size] values without the
+proposed conventions, or set up conventions of their own which are suited
+to their area of inquiry.</em>" - Cohen, 1988, page 147.</p>
+    <h2 class="hasAnchor" id="rules"><a class="anchor" href="#rules"></a>Rules</h2>
+
+    
+
+
+<p>Rules apply to equally to positive and negative <em>g</em> (i.e., they are given as
+absolute values).</p><ul>
+<li><p>Cohen (1988) (<code>"cohen1988"</code>; default)</p><ul>
+<li><p><strong>d &lt; 0.05</strong> - Very small</p></li>
+<li><p><strong>0.05 &lt;= d &lt; 0.15</strong> - Small</p></li>
+<li><p><strong>0.15 &lt;= d &lt; 0.25</strong> - Medium</p></li>
+<li><p><strong>d &gt;= 0.25</strong> - Large</p></li>
+</ul></li>
+</ul>
+
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    
+<ul>
+<li><p>Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+(2nd Ed.). New York: Routledge.</p></li>
+</ul>
+
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='fu'>interpret_cohens_g</span><span class='op'>(</span><span class='fl'>.02</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "very small"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Rules: cohen1988)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>interpret_cohens_g</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.3</span>, <span class='fl'>.15</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "large"  "medium"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>(Rules: cohen1988)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

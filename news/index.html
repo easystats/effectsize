@@ -87,7 +87,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5-4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.99</span>
       </span>
     </div>
 
@@ -172,13 +172,19 @@
       <small>Source: <a href='https://github.com/easystats/effectsize/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="effectsize-045-2" class="section level1">
-<h1 class="page-header" data-toc-text="0.4.5-2">
-<a href="#effectsize-045-2" class="anchor" aria-hidden="true"></a>effectsize 0.4.5-2<small> Unreleased </small></h1>
+    <div id="effectsize-05" class="section level1">
+<h1 class="page-header" data-toc-text="0.5">
+<a href="#effectsize-05" class="anchor" aria-hidden="true"></a>effectsize 0.5<small> Unreleased </small></h1>
 <div id="breaking-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#breaking-changes" class="anchor" aria-hidden="true"></a>Breaking Changes</h2>
-<ul><li>Phi, Cohen’s <em>w</em>, Cramer’s <em>V</em>, ANOVA effect sizes, rank Epsilon squared, Kendall’s <em>W</em> - CIs default to 95% one-sided CIs (<code>alternative = "greater"</code>). (To restore previous behavior, set <code>ci = .9, alternative = "two.sided"</code>.)</li>
+<ul><li>
+<code><a href="../reference/phi.html">cramers_v()</a></code> correctly does not work with 1-dimentional tables (for goodness-of-fit tests).</li>
+<li>
+<code><a href="../reference/effectsize_deprecated.html">interpret_d()</a></code>, <code><a href="../reference/effectsize_deprecated.html">interpret_g()</a></code>, and <code><a href="../reference/effectsize_deprecated.html">interpret_delta()</a></code> are now <code><a href="../reference/interpret_cohens_d.html">interpret_cohens_d()</a></code>, <code><a href="../reference/interpret_cohens_d.html">interpret_hedges_g()</a></code>, and <code><a href="../reference/interpret_cohens_d.html">interpret_glass_delta()</a></code>.</li>
+<li>
+<code><a href="../reference/effectsize_deprecated.html">interpret_parameters()</a></code> was removed. Use <code><a href="../reference/interpret_r.html">interpret_r()</a></code> instead (with caution!).</li>
+<li>Phi, Cohen’s <em>w</em>, Cramer’s <em>V</em>, ANOVA effect sizes, rank Epsilon squared, Kendall’s <em>W</em> - CIs default to 95% one-sided CIs (<code>alternative = "greater"</code>). (To restore previous behavior, set <code>ci = .9, alternative = "two.sided"</code>.)</li>
 <li>
 <code><a href="https://easystats.github.io/datawizard/reference/adjust.html" class="external-link">adjust()</a></code>, <code><a href="https://easystats.github.io/datawizard/reference/data_rescale.html" class="external-link">change_scale()</a></code>, <code><a href="https://easystats.github.io/datawizard/reference/normalize.html" class="external-link">normalize()</a></code>, <code><a href="https://easystats.github.io/datawizard/reference/ranktransform.html" class="external-link">ranktransform()</a></code>, <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> (data), and <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">unstandardize()</a></code> have moved to the new <a href="https://easystats.github.io/datawizard" class="external-link"><code>{datawizard}</code></a> package!</li>
 </ul></div>
@@ -186,7 +192,11 @@
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor" aria-hidden="true"></a>New features</h2>
 <ul><li>
-<code><a href="../reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio()</a></code> can now convert OR coefficients to RR coefficients from a logistic GLM.</li>
+<code><a href="../reference/phi.html">pearsons_c()</a></code> (and <code><a href="../reference/chisq_to_phi.html">chisq_to_pearsons_c()</a></code>) for estimating Pearson’s contingency coefficient.</li>
+<li>
+<code><a href="../reference/interpret_vif.html">interpret_vif()</a></code> for interpretation of <em>variance inflation factors</em>.</li>
+<li>
+<code><a href="../reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio()</a></code> can now convert OR coefficients to RR coefficients from a logistic GLM(M).</li>
 <li>All effect-size functions gain an <code>alternative</code> argument which can be used to make one- or two-sided CIs.</li>
 <li>
 <code><a href="../reference/interpret.html">interpret()</a></code> now accepts as input the results from <code><a href="../reference/cohens_d.html">cohens_d()</a></code>, <code><a href="../reference/eta_squared.html">eta_squared()</a></code>, <code><a href="../reference/rank_biserial.html">rank_biserial()</a></code>, etc.</li>
