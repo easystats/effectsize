@@ -69,8 +69,10 @@ reference:
   - format_standardize
   - print.effectsize_table
 - subtitle: "Datasets"
+  contents:
   - hardlyworking
 - subtitle: "Deprecated functions"
+  contents:
   - effectsize_deprecated
 
 navbar:
