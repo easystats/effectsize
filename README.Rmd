@@ -15,7 +15,7 @@ editor_options:
 ---
 # effectsize <img src='man/figures/logo.png' align="right" height="139" />
 
-```{r, echo = FALSE, warning=FALSE, message=FALSE}
+```{r setup, echo = FALSE, warning=FALSE, message=FALSE}
 library(effectsize)
 
 options(digits=3)
@@ -49,13 +49,13 @@ The goal of this package is to provide utilities to work with indices of effect 
 
 Run the following to install the stable release of **effectsize** from CRAN:
 
-```{r, warning=FALSE, message=FALSE, eval=FALSE}
+```{r install-CRAN, warning=FALSE, message=FALSE, eval=FALSE}
 install.packages("effectsize")
 ```
 
 Or you can install the latest development version ``r packageVersion("effectsize")`` from [*R-universe*](https://easystats.r-universe.dev):
 
-```{r, warning=FALSE, message=FALSE, eval=FALSE}
+```{r install-R-universe, warning=FALSE, message=FALSE, eval=FALSE}
 install.packages("effectsize", repos = "https://easystats.r-universe.dev")
 ```
 
@@ -90,7 +90,7 @@ Click on the buttons above to access the package [**documentation**](https://eas
 
 This package is focused on indices of effect size. Check out the package website for [**a full list of features and functions** provided by `effectsize`](https://easystats.github.io/effectsize/reference/index.html).
 
-```{r message=FALSE, warning=FALSE}
+```{r load, message=FALSE, warning=FALSE}
 library(effectsize)
 ```
 
@@ -100,7 +100,7 @@ library(effectsize)
 
 The package provides functions to compute indices of effect size.
 
-```{r, warning=FALSE, message=FALSE}
+```{r d, warning=FALSE, message=FALSE}
 cohens_d(mpg ~ am, data = mtcars)
 
 hedges_g(mpg ~ am, data = mtcars)
@@ -112,7 +112,7 @@ glass_delta(mpg ~ am, data = mtcars)
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, ...)
 
-```{r, warning=FALSE, message=FALSE}
+```{r aov, warning=FALSE, message=FALSE}
 model <- aov(mpg ~ factor(gear), data = mtcars)
 
 eta_squared(model)
@@ -129,7 +129,7 @@ And more...
 
 Importantly, `effectsize` also provides [advanced methods](https://easystats.github.io/effectsize/articles/standardize_parameters.html) to compute standardized parameters for regression models.
 
-```{r, warning=FALSE, message=FALSE}
+```{r beta, warning=FALSE, message=FALSE}
 m <- lm(rating ~ complaints + privileges + advance, data = attitude)
 
 standardize_parameters(m)
@@ -137,7 +137,7 @@ standardize_parameters(m)
 
 Also, models can be re-fit with standardized data:
 
-```{r, warning=FALSE, message=FALSE}
+```{r std-model, warning=FALSE, message=FALSE}
 standardize(m)
 ```
 
@@ -145,7 +145,7 @@ standardize(m)
 
 The package also provides ways of converting between different effect sizes.
 
-```{r, warning=FALSE, message=FALSE}
+```{r convert-between, warning=FALSE, message=FALSE}
 d_to_r(d = 0.2)
 
 oddsratio_to_riskratio(2.6, p0 = 0.4)
@@ -153,7 +153,7 @@ oddsratio_to_riskratio(2.6, p0 = 0.4)
 
 And for recovering effect sizes from test statistics.
 
-```{r, warning=FALSE, message=FALSE}
+```{r convert-stat, warning=FALSE, message=FALSE}
 F_to_d(15, df = 1, df_error = 60)
 
 F_to_r(15, df = 1, df_error = 60)
@@ -165,14 +165,14 @@ F_to_eta2(15, df = 1, df_error = 60)
 
 The package allows for an automated interpretation of different indices. 
 
-```{r, warning=FALSE, message=FALSE}
+```{r interp-r, warning=FALSE, message=FALSE}
 interpret_r(r = 0.3)
 ```
 
 Different sets of "rules of thumb" are implemented ([**guidelines are detailed here**](https://easystats.github.io/effectsize/articles/interpret.html)) and can be easily changed.
 
 
-```{r, warning=FALSE, message=FALSE}
+```{r interp-d, warning=FALSE, message=FALSE}
 interpret_cohens_d(d = 0.45, rules = "cohen1988")
 
 interpret_cohens_d(d = 0.45, rules = "gignac2016")
