@@ -16,6 +16,7 @@ if (require("testthat") && require("effectsize")) {
   })
 
   test_that("oddsratio_to_RR", {
+    skip_on_cran()
     p0 <- 0.4
     p1 <- 0.7
 
@@ -32,18 +33,18 @@ if (require("testthat") && require("effectsize")) {
     # -- GLMs --
     data(mtcars)
 
-    m <- glm(am ~ factor(cyl), data = mtcars,
-             family = binomial())
+    m <<- glm(am ~ factor(cyl), data = mtcars,
+              family = binomial())
 
-    w <- capture_warnings(RR <- oddsratio_to_riskratio(m))
+    w <- capture_warnings(RR <- oddsratio_to_riskratio(m, df_method = "wald"))
     expect_match(w[1],"p0")
     expect_match(w[2],"CIs")
     expect_true("(Intercept)" %in% RR$Parameter)
     expect_false("(p0)" %in% RR$Parameter)
     # these values confirmed from emmeans
     expect_equal(RR$Coefficient, c(0.7272, 0.5892, 0.1964), tolerance = 0.001)
-    expect_equal(RR$CI_low, c(NA, 0.1118, 0.0232), tolerance = 0.001)
-    # expect_equal(RR$CI_high, c(NA, 1.157, 0.703), tolerance = 0.001) # Don't know why this fails...
+    expect_equal(RR$CI_low, c(NA, 0.1267, 0.0303), tolerance = 0.001)
+    expect_equal(RR$CI_high, c(NA, 1.1648, 0.7589), tolerance = 0.001)
 
     expect_warning(RR <- oddsratio_to_riskratio(m, p0 = 0.05), "CIs")
     expect_true("(p0)" %in% RR$Parameter)
