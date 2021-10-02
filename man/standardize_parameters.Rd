@@ -127,26 +127,17 @@ is used for level 2 predictors, and \code{sqrt(residual-variance)} is used for
 level 1 predictors (Hoffman 2015, page 342). A warning is given when a
 within-group varialbe is found to have access between-group variance.
 }
-\subsection{Dealing with Factors}{
-
-The \code{"refit"} method does \emph{not} standardized categorical predictors (i.e.
-factors), which may be a different behaviour compared to other R packages
-(such as \pkg{lm.beta}) or other software packages (like SPSS). to mimic such
-behaviours, either use the \code{"basic"} method or standardize the data with
-\code{effectsize::standardize(force=TRUE)} \emph{before} fitting the model.
 }
 
-\subsection{Transformed Variables}{
-
-When the model's formula contains transformations (e.g. \code{y ~ exp(X)})
-\code{method = "refit"} might give different results compared to
-\code{method = "basic"} (\code{"posthoc"} and \code{"smart"} do not support such
-transformations): where \code{"refit"} standardizes the data prior to the
-transformation (e.g. equivalent to \code{exp(scale(X))}), the \code{"basic"} method
-standardizes the transformed data (e.g. equivalent to \code{scale(exp(X))}). See
-\code{\link[=standardize]{standardize()}} for more details on how different transformations are dealt
-with.
-}
+\section{Transformed Variables}{
+When the model's formula contains transformations (e.g. \code{y ~ exp(X)}) \code{method = "refit"} will give different results compared to \code{method = "basic"}
+(\code{"posthoc"} and \code{"smart"} do not support such transformations): While
+\code{"refit"} standardizes the data \emph{prior} to the transformation (e.g.
+equivalent to \code{exp(scale(X))}), the \code{"basic"} method standardizes the
+transformed data (e.g. equivalent to \code{scale(exp(X))}).
+\cr\cr
+See the \emph{Transformed Variables} section in \code{\link[=standardize.default]{standardize.default()}} for more
+details on how different transformations are dealt with when \code{method = "refit"}.
 }
 
 \section{Confidence Intervals}{
@@ -156,10 +147,21 @@ the standardized coefficients (cf. Jones & Waller, 2015).
 }
 
 \section{Generalized Linear Models}{
-When standardizing coefficients of a generalized model (GLM, GLMM, etc), only
-the predictors are standardized, maintaining the interpretability of the
-coefficients (e.g., in a binomial model: the exponent of the standardized
-parameter is the OR of a change of 1 SD in the predictor, etc.)
+Standardization for generalized linear models (GLM, GLMM, etc) is done only
+with respect to the predictors (while the outcome remains as-is,
+unstandardized) - maintaining the interpretability of the coefficients (e.g.,
+in a binomial model: the exponent of the standardized parameter is the OR of
+a change of 1 SD in the predictor, etc.)
+}
+
+\section{Dealing with Factors}{
+\code{standardize(model)} or \code{standardize_parameters(model, method = "refit")} do
+\emph{not} standardized categorical predictors (i.e. factors) / their
+dummy-variables, which may be a different behaviour compared to other R
+packages (such as \pkg{lm.beta}) or other software packages (like SPSS). To
+mimic such behaviours, either use \code{standardize_parameters(model, method = "basic")} to obtain post-hoc standardized parameters, or standardize the data
+with \code{datawizard::standardize(data, force = TRUE)} \emph{before} fitting the
+model.
 }
 
 \examples{
@@ -211,9 +213,8 @@ if (require("rstanarm")) {
 }
 }
 \seealso{
-\code{\link[=standardize_info]{standardize_info()}}
-
 Other standardize: 
+\code{\link{standardize.default}()},
 \code{\link{standardize_info}()}
 
 Other effect size indices: 
