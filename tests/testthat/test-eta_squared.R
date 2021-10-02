@@ -92,6 +92,7 @@ if (require("testthat") && require("effectsize")) {
 
   # aovlist -----------------------------------------------------------------
   test_that("aovlist", {
+    skip_on_cran()
     df <- iris
     df$Sepal.Big <- ifelse(df$Sepal.Width >= 3, "Yes", "No")
 
@@ -353,6 +354,7 @@ if (require("testthat") && require("effectsize")) {
 
   # Include intercept -------------------------------------------------------
   test_that("include_intercept | car", {
+    skip_on_cran()
     skip_if_not_installed("car")
 
     m <- lm(mpg ~ factor(cyl) * factor(am), data = mtcars)

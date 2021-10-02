@@ -14,6 +14,7 @@ if (require("testthat") && require("effectsize")) {
 
   # model_parameters -------------------------------
   test_that("standardize_parameters (model_parameters)", {
+    skip_on_cran()
     model <<- lm(mpg ~ cyl + am, data = mtcars)
     mp <<- parameters::model_parameters(model, effects = "fixed")
 
@@ -38,6 +39,7 @@ if (require("testthat") && require("effectsize")) {
   # bootstrap_model ---------------------------------------------------------
 
   test_that("standardize_parameters (bootstrap_model)", {
+    skip_on_cran()
     skip_if_not_installed("boot")
     m <- lm(mpg ~ factor(cyl) + hp, mtcars)
 
@@ -83,44 +85,49 @@ if (require("testthat") && require("effectsize")) {
       tolerance = 0.01
     )
 
+    z_basic <- standardize_parameters(model, method = "basic")
+
     expect_equal(
-      standardize_parameters(model, method = "basic")$Std_Coefficient,
+      z_basic$Std_Coefficient,
       c(0, -0.034, -0.028, 0.844),
       tolerance = 0.01
     )
 
     ## CI
     expect_equal(
-      standardize_parameters(model, method = "basic")$CI_low,
+      z_basic$CI_low,
       c(0, -0.294, -0.433, 0.491),
       tolerance = 0.01
     )
 
     expect_equal(
-      standardize_parameters(model, method = "basic")$CI_high,
+      z_basic$CI_high,
       c(0, 0.225, 0.375, 1.196),
       tolerance = 0.01
     )
 
+    z_basic.0.80 <- standardize_parameters(model, ci = 0.8, method = "basic")
     expect_equal(
-      standardize_parameters(model, ci = 0.8, method = "basic")$CI_low,
+      z_basic.0.80$CI_low,
       c(0, -0.203, -0.292, 0.614),
       tolerance = 0.01
     )
 
     expect_equal(
-      standardize_parameters(model, ci = 0.8, method = "basic")$CI_high,
+      z_basic.0.80$CI_high,
       c(0, 0.135, 0.234, 1.073),
       tolerance = 0.01
     )
 
     data("mtcars")
     m0 <- lm(mpg ~ cyl + factor(am), mtcars)
-    expect_equal(standardize_parameters(m0, method = "refit")[[2]][-1],
+    expect_equal(
+      standardize_parameters(m0, method = "refit")[[2]][-1],
       standardize_parameters(m0, method = "smart")[[2]][-1],
       tolerance = 0.01
     )
-    expect_equal(standardize_parameters(m0, method = "refit", two_sd = TRUE)[[2]][-1],
+    expect_equal(
+      standardize_parameters(m0, method = "refit", two_sd = TRUE)[[2]][-1],
       standardize_parameters(m0, method = "smart", two_sd = TRUE)[[2]][-1],
       tolerance = 0.01
     )
@@ -146,6 +153,7 @@ if (require("testthat") && require("effectsize")) {
 
   # with function interactions" -------------------
   test_that("standardize_parameters (with functions /  interactions)", {
+    skip_on_cran()
     X <- scale(rnorm(100), T, F)
     Z <- scale(rnorm(100), T, F)
     Y <- scale(Z + X * Z + rnorm(100), T, F)
@@ -287,6 +295,7 @@ if (require("testthat") && require("effectsize")) {
 
   # Pseudo - GLMM --------------------------------
   test_that("standardize_parameters (Pseudo - GLMM)", {
+    skip_on_cran()
     skip_if_not_installed("lme4")
     set.seed(1)
 
@@ -378,6 +387,7 @@ if (require("testthat") && require("effectsize")) {
 
   # ZI models ---------------------------------------------------------------
   test_that("standardize_parameters (pscl)", {
+    skip_on_cran()
     skip_if_not_installed("pscl")
     data("bioChemists", package = "pscl")
 
