@@ -4,7 +4,7 @@
 * GitHub Actions (windows):      devel, release, oldrel
 * Github Actions (macOS):        devel, release, oldrel
 * GitHub Actions (ubuntu-16.04): devel, release, oldrel, 3.6, 3.5, 3.4
-* win-builder:                   devel
+* win-builder:                   devel????
 
 
 ## R CMD check results
@@ -17,6 +17,9 @@
 
 
 
-## Reverse Dependancies 
+## `revdepcheck` results
 
-- The maintainer of `statsExperssions` has been informed about the imminent failure of tests with this new version.
+We checked 15 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages

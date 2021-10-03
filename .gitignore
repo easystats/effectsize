@@ -2,6 +2,9 @@
 .Rhistory
 .Rapp.history
 
+# revdepcheck
+/revdep*
+
 # Session Data files
 .RData
 
