@@ -4,7 +4,7 @@
 * GitHub Actions (windows):      devel, release, oldrel
 * Github Actions (macOS):        devel, release, oldrel
 * GitHub Actions (ubuntu-16.04): devel, release, oldrel, 3.6, 3.5, 3.4
-* win-builder:                   devel????
+* win-builder:                   release
 
 
 ## R CMD check results
