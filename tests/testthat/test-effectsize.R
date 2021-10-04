@@ -213,16 +213,16 @@ if (require("testthat") && require("effectsize")) {
     set.seed(6)
     data(raceDolls, package = "BayesFactor")
     bf1 <- BayesFactor::contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
-    expect_equal(effectsize(bf1, test = NULL)[[2]], 0.164, tolerance = 0.01)
-    expect_equal(effectsize(bf1, test = NULL, type = "OR")[[2]], 1 / 0.503, tolerance = 0.03)
+    expect_equal(effectsize(bf1)[[1]], 0.164, tolerance = 0.01)
+    expect_equal(effectsize(bf1, type = "OR")[[1]], 1 / 0.503, tolerance = 0.03)
 
     bf2 <- BayesFactor::ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
-    expect_equal(effectsize(bf2, test = NULL)[[2]], 1.30, tolerance = 0.03)
+    expect_equal(effectsize(bf2)[[1]], 1.30, tolerance = 0.03)
 
     bf3 <- BayesFactor::correlationBF(iris$Sepal.Length, iris$Sepal.Width)
-    expect_equal(effectsize(bf3, test = NULL)[[2]], -0.116, tolerance = 0.03)
+    expect_equal(effectsize(bf3)[[1]], -0.116, tolerance = 0.03)
 
     bf4 <- BayesFactor::proportionBF(4, 12, 0.5)
-    expect_equal(effectsize(bf4, test = NULL)[[2]], 0.3911, tolerance = 0.03)
+    expect_equal(effectsize(bf4)[[1]], 0.3911, tolerance = 0.03)
   })
 }
