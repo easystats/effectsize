@@ -1,8 +1,12 @@
 # effectsize 0.5.0.1
 
+## Breaking Changes
+
+- `pearsons_c()` effect size column name changed to `Pearsons_c` for consistency. 
+
 ## Changes
 
-- `effectsize()` for `BayesFactor` objects returns the same stnadardized output as for `htest`.
+- `effectsize()` for `BayesFactor` objects returns the same standardized output as for `htest`.
 
 # effectsize 0.5.0
 
