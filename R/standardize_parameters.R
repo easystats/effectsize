@@ -14,8 +14,7 @@
 #' @inheritParams chisq_to_phi
 #' @param ... For `standardize_parameters()`, arguments passed to
 #'   [parameters::model_parameters], such as:
-#' - `ci_method`, `centrality` for Bayesian models...
-#' - `df_method` for Mixed models ...
+#' - `ci_method`, `centrality` for Mixed models and Bayesian models...
 #' - `exponentiate`, ...
 #' - etc.
 #' @param parameters Deprecated.
@@ -126,7 +125,7 @@
 #' \donttest{
 #' if (require("lme4")) {
 #'   m <- lmer(mpg ~ cyl + am + vs + (1 | cyl), mtcars)
-#'   standardize_parameters(m, method = "pseudo", df_method = "satterthwaite")
+#'   standardize_parameters(m, method = "pseudo", ci_method = "satterthwaite")
 #' }
 #'
 #'

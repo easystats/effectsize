@@ -59,8 +59,7 @@ Models} section).}
 \item{...}{For \code{standardize_parameters()}, arguments passed to
 \link[parameters:model_parameters]{parameters::model_parameters}, such as:
 \itemize{
-\item \code{ci_method}, \code{centrality} for Bayesian models...
-\item \code{df_method} for Mixed models ...
+\item \code{ci_method}, \code{centrality} for Mixed models and Bayesian models...
 \item \code{exponentiate}, ...
 \item etc.
 }}
@@ -188,7 +187,7 @@ standardize_parameters(model, method = "basic", exponentiate = TRUE)
 \donttest{
 if (require("lme4")) {
   m <- lmer(mpg ~ cyl + am + vs + (1 | cyl), mtcars)
-  standardize_parameters(m, method = "pseudo", df_method = "satterthwaite")
+  standardize_parameters(m, method = "pseudo", ci_method = "satterthwaite")
 }
 
 

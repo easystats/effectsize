@@ -153,7 +153,7 @@ We can also use `t_to_eta2()` for the slope of `Days` (which in this case gives
 the same result).
 
 ```{r}
-parameters::model_parameters(fit_lmm, effects = "fixed", df_method = "satterthwaite")
+parameters::model_parameters(fit_lmm, effects = "fixed", ci_method = "satterthwaite")
 
 t_to_eta2(6.77, df_error = 17)
 ```
@@ -181,7 +181,7 @@ better).
 ### For Slopes
 
 ```{r}
-parameters::model_parameters(fit_lmm, effects = "fixed", df_method = "satterthwaite")
+parameters::model_parameters(fit_lmm, effects = "fixed", ci_method = "satterthwaite")
 
 t_to_r(6.77, df_error = 17)
 ```
