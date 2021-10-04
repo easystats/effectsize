@@ -23,6 +23,7 @@
 #'   - A **t-test** returns *Cohen's d*.
 #'   - A **correlation test** returns *r*.
 #'   - A **contingency table test**, depending on `type`: `"cramers_v"` (default), `"phi"`, `"cohens_w"`, `"pearsons_c"`, `"cohens_h"`, `"oddsratio"`, or `"riskratio"`.
+#'   - A **proportion test** returns *p*.
 #' - Objects of class `anova`, `aov`, or `aovlist`, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.
 #' - Other objects are passed to [standardize_parameters()].
 #'
@@ -57,16 +58,21 @@
 #' ## ---------------------------
 #' \donttest{
 #' if (require(BayesFactor)) {
-#'   bf1 <- ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
-#'   effectsize(bf1, test = NULL)
+#'   bf_prop <- proportionBF(3, 7, p = 0.3)
+#'   effectsize(bf_prop)
 #'
-#'   bf2 <- correlationBF(attitude$rating, attitude$complaints)
-#'   effectsize(bf2, test = NULL)
+#'   bf_corr <- correlationBF(attitude$rating, attitude$complaints)
+#'   effectsize(bf_corr)
 #'
 #'   data(raceDolls)
-#'   bf3 <- contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
-#'   effectsize(bf3, test = NULL)
-#'   effectsize(bf3, type = "oddsratio", test = NULL)
+#'   bf_xtab <- contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
+#'   effectsize(bf_xtab)
+#'   effectsize(bf_xtab, type = "oddsratio")
+#'
+#'   bf_ttest <- ttestBF(sleep$extra[sleep$group==1],
+#'                       sleep$extra[sleep$group==2],
+#'                       paired = TRUE, mu = -1)
+#'   effectsize(bf_ttest)
 #' }
 #' }
 #'
@@ -82,65 +88,6 @@
 effectsize <- function(model, ...) {
   UseMethod("effectsize")
 }
-
-#' @export
-#' @rdname effectsize
-#' @importFrom insight get_data get_parameters check_if_installed
-#' @importFrom bayestestR describe_posterior
-effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, ...) {
-  insight::check_if_installed("BayesFactor")
-
-  if (length(model) > 1) {
-    if (verbose) {
-      warning("Multiple models detected. Using first only.", call. = FALSE)
-    }
-    model <- model[1]
-  }
-
-  if (inherits(model@numerator[[1]], "BFcontingencyTable")) {
-    if (is.null(type)) type <- "cramers_v"
-
-    f <- switch(tolower(type),
-      v = ,
-      cramers_v = cramers_v,
-      w = ,
-      cohens_w = ,
-      phi = phi,
-      c = ,
-      pearsons_c = pearsons_c,
-      h = ,
-      cohens_h = cohens_h,
-      or = ,
-      oddsratio = oddsratio,
-      rr = ,
-      riskratio = riskratio
-    )
-    data <- insight::get_data(model)
-    posts <- insight::get_parameters(model)
-
-    ES <- apply(posts, 1, function(a) {
-      f(matrix(a, nrow = nrow(data)), ci = NULL)[[1]]
-    })
-
-    res <- data.frame(ES)
-    colnames(res) <- colnames(f(data, ci = NULL))
-  } else if (inherits(model@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
-    D <- as.matrix(BayesFactor::posterior(model, iterations = 4000, progress = FALSE))[, "delta"]
-    res <- data.frame(Cohens_d = D)
-  } else if (inherits(model@numerator[[1]], "BFcorrelation")) {
-    rho <- insight::get_parameters(model)[["rho"]]
-    res <- data.frame(rho = rho)
-  } else if (inherits(model@numerator[[1]], "BFproportion")) {
-    res <- insight::get_parameters(model)
-  } else {
-    stop("No effect size for this type of BayesFactor object.")
-  }
-
-  out <- bayestestR::describe_posterior(res, ...)
-  attr(out, "approximate") <- FALSE
-  out
-}
-
 
 #' @export
 effectsize.anova <- function(model, type = NULL, ...) {

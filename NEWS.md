@@ -1,4 +1,10 @@
-# effectsize 0.5
+# effectsize 0.5.0.1
+
+## Changes
+
+- `effectsize()` for `BayesFactor` objects returns the same stnadardized output as for `htest`.
+
+# effectsize 0.5.0
 
 ## Breaking Changes
 

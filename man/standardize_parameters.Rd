@@ -219,7 +219,7 @@ Other standardize:
 
 Other effect size indices: 
 \code{\link{cohens_d}()},
-\code{\link{effectsize}()},
+\code{\link{effectsize.BFBayesFactor}()},
 \code{\link{eta_squared}()},
 \code{\link{phi}()},
 \code{\link{rank_biserial}()}
