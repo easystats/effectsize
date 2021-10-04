@@ -89,7 +89,7 @@ they are computed in effectsize." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.99</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5</span>
       </span>
     </div>
 
@@ -187,17 +187,14 @@ they are computed in <em>effectsize</em>.</p>
     
 
 <p>Unless stated otherwise, confidence (compatibility) intervals (CIs) are
-estimated using the noncentrality parameter method (also called the
-"pivot method"). This method finds the noncentrality parameter ("<em>ncp</em>") of
-a noncentral <em>t</em>, <em>F</em>, or
-&chi;<sup>2</sup>
-distribution that places the observed <em>t</em>, <em>F</em>, or
-&chi;<sup>2</sup>
-test statistic at the desired probability point of the distribution.
-For example, if the observed <em>t</em> statistic is 2.0, with 50
-degrees of freedom, for which cumulative noncentral <em>t</em> distribution is
-<em>t</em> = 2.0 the .025 quantile (answer: the noncentral <em>t</em> distribution with
-<em>ncp</em> = .04)? After estimating these confidence bounds on the <em>ncp</em>, they are
+estimated using the noncentrality parameter method (also called the "pivot
+method"). This method finds the noncentrality parameter ("<em>ncp</em>") of a
+noncentral <em>t</em>, <em>F</em>, or \(\chi^2\) distribution that places the observed
+<em>t</em>, <em>F</em>, or \(\chi^2\) test statistic at the desired probability point of
+the distribution. For example, if the observed <em>t</em> statistic is 2.0, with 50
+degrees of freedom, for which cumulative noncentral <em>t</em> distribution is <em>t</em> =
+2.0 the .025 quantile (answer: the noncentral <em>t</em> distribution with <em>ncp</em> =
+.04)? After estimating these confidence bounds on the <em>ncp</em>, they are
 converted into the effect size metric to obtain a confidence interval for the
 effect size (Steiger, 2004).
 <br /><br />
@@ -210,10 +207,8 @@ For additional details on estimation and troubleshooting, see effectsize_CIs.</p
 in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
 intervals and p values are complementary summaries of parameter uncertainty
 given the observed data. A dichotomous hypothesis test could be performed
-with either a CI or a p value. The
-100(1 &minus; &alpha;)%
-confidence interval contains all of the parameter values for which
-p > &alpha;
+with either a CI or a p value. The 100 (1 - \(\alpha\))% confidence
+interval contains all of the parameter values for which <em>p</em> &gt; \(\alpha\)
 for the current data and model. For example, a 95% confidence interval
 contains all of the values for which p &gt; .05.
 <br /><br />
@@ -221,12 +216,11 @@ Note that a confidence interval including 0 <em>does not</em> indicate that the 
 (no effect) is true. Rather, it suggests that the observed data together with
 the model and its assumptions combined do not provided clear evidence against
 a parameter value of 0 (same as with any other value in the interval), with
-the level of this evidence defined by the chosen
-&alpha; level
-(Rafi &amp; Greenland, 2020; Schweder &amp; Hjort, 2016; Xie &amp; Singh, 2013). To infer
-no effect, additional judgments about what parameter values are "close
-enough" to 0 to be negligible are needed ("equivalence testing"; Bauer &amp;
-Kiesser, 1996).</p>
+the level of this evidence defined by the chosen \(\alpha\) level (Rafi &amp;
+Greenland, 2020; Schweder &amp; Hjort, 2016; Xie &amp; Singh, 2013). To infer no
+effect, additional judgments about what parameter values are "close enough"
+to 0 to be negligible are needed ("equivalence testing"; Bauer &amp; Kiesser,
+1996).</p>
     <h2 class="hasAnchor" id="one-sided-cis"><a class="anchor" href="#one-sided-cis"></a>One-Sided CIs</h2>
 
     
@@ -245,35 +239,27 @@ Most effect sizes are not bounded by zero (e.g., <em>r</em>, <em>d</em>, <em>g</
 are generally tested using 2-tailed tests and 2-sided CIs.
 <br /><br />
 Some effect sizes are strictly positive--they do have a minimum value, of 0.
-For example,
-<i>R</i><sup>2</sup>,
-&eta;<sup>2</sup>,
-and other variance-accounted-for effect sizes, as well as Cramer's <em>V</em> and
-multiple <em>R</em>, range from 0 to 1. These typically involve <em>F</em>- or
-&chi;<sup>2</sup>-statistics
-and are generally tested using <em>1-tailed</em> tests which test whether the
-estimated effect size is <em>larger</em> than the hypothesized null value (e.g., 0).
-In order for a CI to yield the same significance decision it must then by a
-<em>1-sided</em> CI, estimating only a lower bound. This is the default CI computed
-by <em>effectsize</em> for these effect sizes, where <code>alternative = "greater"</code> is
-set.
+For example, \(R^2\), \(\eta^2\), and other variance-accounted-for effect
+sizes, as well as Cramer's <em>V</em> and multiple <em>R</em>, range from 0 to 1. These
+typically involve <em>F</em>- or \(\chi^2\)-statistics and are generally tested
+using <em>1-tailed</em> tests which test whether the estimated effect size is
+<em>larger</em> than the hypothesized null value (e.g., 0). In order for a CI to
+yield the same significance decision it must then by a <em>1-sided</em> CI,
+estimating only a lower bound. This is the default CI computed by
+<em>effectsize</em> for these effect sizes, where <code>alternative = "greater"</code> is set.
 <br /><br />
 This lower bound interval indicates the smallest effect size that is not
 significantly different from the observed effect size. That is, it is the
 minimum effect size compatible with the observed data, background model
-assumptions, and
-&alpha; level.
-This type of interval does not indicate a maximum effect size value; anything
-up to the maximum possible value of the effect size (e.g., 1) is in the
-interval.
+assumptions, and \(\alpha\) level. This type of interval does not indicate
+a maximum effect size value; anything up to the maximum possible value of the
+effect size (e.g., 1) is in the interval.
 <br /><br />
 One-sided CIs can also be used to test against a maximum effect size value
-(e.g., is
-<i>R</i><sup>2</sup>
-significantly smaller than a perfect correlation of 1.0?) can by setting
-<code>alternative = "less"</code>. This estimates a CI with only an <em>upper</em> bound;
-anything from the minimum possible value of the effect size (e.g., 0) up to
-this upper bound is in the interval.
+(e.g., is \(R^2\) significantly smaller than a perfect correlation of 1.0?)
+can by setting <code>alternative = "less"</code>. This estimates a CI with only an
+<em>upper</em> bound; anything from the minimum possible value of the effect size
+(e.g., 0) up to this upper bound is in the interval.
 <br /><br />
 We can also obtain a 2-sided interval by setting <code>alternative = "two-sided"</code>.
 These intervals can be interpreted in the same way as other 2-sided
@@ -281,13 +267,11 @@ intervals, such as those for <em>r</em>, <em>d</em>, or <em>g</em>.
 <br /><br />
 An alternative approach to aligning significance tests using CIs and 1-tailed
 <em>p</em> values that can often be found in the literature is to construct a
-2-sided CI at a lower confidence level (e.g., 100(1 &minus; 2&alpha;)% =
-100
-&minus; 2 &times; 5&percnt; = 90&percnt;). This
-estimates the lower bound and upper bound for the above 1-sided intervals
-simultaneously. These intervals are commonly reported when conducting
-<strong>equivalence tests</strong>. For example, a 90% 2-sided interval gives the bounds
-for an equivalence test with &alpha; = .05. However, be aware
+2-sided CI at a lower confidence level (e.g., 100(1-2\(\alpha\))% = 100 -
+2*5% = 90%. This estimates the lower bound and upper bound for the above
+1-sided intervals simultaneously. These intervals are commonly reported when
+conducting <strong>equivalence tests</strong>. For example, a 90% 2-sided interval gives
+the bounds for an equivalence test with \(\alpha\) = .05. However, be aware
 that this interval does not give 95% coverage for the underlying effect size
 parameter value. For that, construct a 95% 2-sided CI.<div class="r"></p><pre class='sourceCode r'><code><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"hardlyworking"</span><span class='op'>)</span>
 <span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>salary</span> <span class='op'>~</span> <span class='va'>n_comps</span> <span class='op'>+</span> <span class='va'>age</span>, data <span class='op'>=</span> <span class='va'>hardlyworking</span><span class='op'>)</span>
@@ -374,11 +358,11 @@ doi: <a href='https://doi.org/10.1111/insr.12000'>10.1111/insr.12000</a></p>
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by <a href="https://github.com/mattansb" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>.</p></p>
+  <p><p>Developed by <a href="https://github.com/mattansb" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel LÃ¼decke</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p></p>
 </div>
 
       </footer>

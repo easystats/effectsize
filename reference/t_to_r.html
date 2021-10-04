@@ -96,7 +96,7 @@ See Effect Size from Test Statistics vignette." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.99</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5</span>
       </span>
     </div>
 
@@ -289,17 +289,14 @@ functions.</p>
     
 
 <p>Unless stated otherwise, confidence (compatibility) intervals (CIs) are
-estimated using the noncentrality parameter method (also called the
-"pivot method"). This method finds the noncentrality parameter ("<em>ncp</em>") of
-a noncentral <em>t</em>, <em>F</em>, or
-&chi;<sup>2</sup>
-distribution that places the observed <em>t</em>, <em>F</em>, or
-&chi;<sup>2</sup>
-test statistic at the desired probability point of the distribution.
-For example, if the observed <em>t</em> statistic is 2.0, with 50
-degrees of freedom, for which cumulative noncentral <em>t</em> distribution is
-<em>t</em> = 2.0 the .025 quantile (answer: the noncentral <em>t</em> distribution with
-<em>ncp</em> = .04)? After estimating these confidence bounds on the <em>ncp</em>, they are
+estimated using the noncentrality parameter method (also called the "pivot
+method"). This method finds the noncentrality parameter ("<em>ncp</em>") of a
+noncentral <em>t</em>, <em>F</em>, or \(\chi^2\) distribution that places the observed
+<em>t</em>, <em>F</em>, or \(\chi^2\) test statistic at the desired probability point of
+the distribution. For example, if the observed <em>t</em> statistic is 2.0, with 50
+degrees of freedom, for which cumulative noncentral <em>t</em> distribution is <em>t</em> =
+2.0 the .025 quantile (answer: the noncentral <em>t</em> distribution with <em>ncp</em> =
+.04)? After estimating these confidence bounds on the <em>ncp</em>, they are
 converted into the effect size metric to obtain a confidence interval for the
 effect size (Steiger, 2004).
 <br /><br />
@@ -312,10 +309,8 @@ For additional details on estimation and troubleshooting, see <a href='effectsiz
 in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
 intervals and p values are complementary summaries of parameter uncertainty
 given the observed data. A dichotomous hypothesis test could be performed
-with either a CI or a p value. The
-100(1 &minus; &alpha;)%
-confidence interval contains all of the parameter values for which
-p > &alpha;
+with either a CI or a p value. The 100 (1 - \(\alpha\))% confidence
+interval contains all of the parameter values for which <em>p</em> &gt; \(\alpha\)
 for the current data and model. For example, a 95% confidence interval
 contains all of the values for which p &gt; .05.
 <br /><br />
@@ -323,12 +318,11 @@ Note that a confidence interval including 0 <em>does not</em> indicate that the 
 (no effect) is true. Rather, it suggests that the observed data together with
 the model and its assumptions combined do not provided clear evidence against
 a parameter value of 0 (same as with any other value in the interval), with
-the level of this evidence defined by the chosen
-&alpha; level
-(Rafi &amp; Greenland, 2020; Schweder &amp; Hjort, 2016; Xie &amp; Singh, 2013). To infer
-no effect, additional judgments about what parameter values are "close
-enough" to 0 to be negligible are needed ("equivalence testing"; Bauer &amp;
-Kiesser, 1996).</p>
+the level of this evidence defined by the chosen \(\alpha\) level (Rafi &amp;
+Greenland, 2020; Schweder &amp; Hjort, 2016; Xie &amp; Singh, 2013). To infer no
+effect, additional judgments about what parameter values are "close enough"
+to 0 to be negligible are needed ("equivalence testing"; Bauer &amp; Kiesser,
+1996).</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -431,11 +425,11 @@ distributions. Educational and Psychological Measurement, 61(4), 532-574.</p></l
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by <a href="https://github.com/mattansb" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>.</p></p>
+  <p><p>Developed by <a href="https://github.com/mattansb" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel LÃ¼decke</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p></p>
 </div>
 
       </footer>

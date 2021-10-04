@@ -88,7 +88,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.99</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5</span>
       </span>
     </div>
 
@@ -319,27 +319,17 @@ is used for level 2 predictors, and <code>sqrt(residual-variance)</code> is used
 level 1 predictors (Hoffman 2015, page 342). A warning is given when a
 within-group varialbe is found to have access between-group variance.</p></li>
 </ul>
-<h3 class='hasAnchor' id='dealing-with-factors'><a class='anchor' aria-hidden='true' href='#dealing-with-factors'></a>Dealing with Factors</h3>
 
+    <h2 class="hasAnchor" id="transformed-variables"><a class="anchor" href="#transformed-variables"></a>Transformed Variables</h2>
 
-<p>The <code>"refit"</code> method does <em>not</em> standardized categorical predictors (i.e.
-factors), which may be a different behaviour compared to other R packages
-(such as <span class="pkg">lm.beta</span>) or other software packages (like SPSS). to mimic such
-behaviours, either use the <code>"basic"</code> method or standardize the data with
-<code>effectsize::standardize(force=TRUE)</code> <em>before</em> fitting the model.</p>
-
-<h3 class='hasAnchor' id='transformed-variables'><a class='anchor' aria-hidden='true' href='#transformed-variables'></a>Transformed Variables</h3>
-
-
-<p>When the model's formula contains transformations (e.g. <code>y ~ exp(X)</code>)
-<code>method = "refit"</code> might give different results compared to
-<code>method = "basic"</code> (<code>"posthoc"</code> and <code>"smart"</code> do not support such
-transformations): where <code>"refit"</code> standardizes the data prior to the
-transformation (e.g. equivalent to <code>exp(scale(X))</code>), the <code>"basic"</code> method
-standardizes the transformed data (e.g. equivalent to <code>scale(exp(X))</code>). See
-<code><a href='https://easystats.github.io/datawizard/reference/standardize.html'>standardize()</a></code> for more details on how different transformations are dealt
-with.</p>
-
+    <p>When the model's formula contains transformations (e.g. <code>y ~ exp(X)</code>) <code>method = "refit"</code> will give different results compared to <code>method = "basic"</code>
+(<code>"posthoc"</code> and <code>"smart"</code> do not support such transformations): While
+<code>"refit"</code> standardizes the data <em>prior</em> to the transformation (e.g.
+equivalent to <code>exp(scale(X))</code>), the <code>"basic"</code> method standardizes the
+transformed data (e.g. equivalent to <code>scale(exp(X))</code>).
+<br /><br />
+See the <em>Transformed Variables</em> section in <code><a href='standardize.default.html'>standardize.default()</a></code> for more
+details on how different transformations are dealt with when <code>method = "refit"</code>.</p>
     <h2 class="hasAnchor" id="confidence-intervals"><a class="anchor" href="#confidence-intervals"></a>Confidence Intervals</h2>
 
     <p>The returned confidence intervals are re-scaled versions of the
@@ -347,10 +337,20 @@ unstandardized confidence intervals, and not "true" confidence intervals of
 the standardized coefficients (cf. Jones &amp; Waller, 2015).</p>
     <h2 class="hasAnchor" id="generalized-linear-models"><a class="anchor" href="#generalized-linear-models"></a>Generalized Linear Models</h2>
 
-    <p>When standardizing coefficients of a generalized model (GLM, GLMM, etc), only
-the predictors are standardized, maintaining the interpretability of the
-coefficients (e.g., in a binomial model: the exponent of the standardized
-parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
+    <p>Standardization for generalized linear models (GLM, GLMM, etc) is done only
+with respect to the predictors (while the outcome remains as-is,
+unstandardized) - maintaining the interpretability of the coefficients (e.g.,
+in a binomial model: the exponent of the standardized parameter is the OR of
+a change of 1 SD in the predictor, etc.)</p>
+    <h2 class="hasAnchor" id="dealing-with-factors"><a class="anchor" href="#dealing-with-factors"></a>Dealing with Factors</h2>
+
+    <p><code>standardize(model)</code> or <code>standardize_parameters(model, method = "refit")</code> do
+<em>not</em> standardized categorical predictors (i.e. factors) / their
+dummy-variables, which may be a different behaviour compared to other R
+packages (such as <span class="pkg">lm.beta</span>) or other software packages (like SPSS). To
+mimic such behaviours, either use <code>standardize_parameters(model, method = "basic")</code> to obtain post-hoc standardized parameters, or standardize the data
+with <code>datawizard::standardize(data, force = TRUE)</code> <em>before</em> fitting the
+model.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -363,8 +363,8 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='standardize_info.html'>standardize_info()</a></code></p>
-<p>Other standardize: 
+    <div class='dont-index'><p>Other standardize: 
+<code><a href='standardize.default.html'>standardize.default</a>()</code>,
 <code><a href='standardize_info.html'>standardize_info</a>()</code></p>
 <p>Other effect size indices: 
 <code><a href='cohens_d.html'>cohens_d</a>()</code>,
@@ -525,11 +525,11 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by <a href="https://github.com/mattansb" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>.</p></p>
+  <p><p>Developed by <a href="https://github.com/mattansb" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel LÃ¼decke</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p></p>
 </div>
 
       </footer>

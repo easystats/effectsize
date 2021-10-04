@@ -49,7 +49,15 @@
 <meta property="og:title" content="Re-fit a model with standardized data — standardize.default" />
 <meta property="og:description" content="Performs a standardization of data (z-scoring) using
 datawizard::standardize() and then re-fits the model to the standardized
-data." />
+data.
+
+Standardization is done by completely refitting the model on the standardized
+data. Hence, this approach is equal to standardizing the variables before
+fitting the model and will return a new model object. This method is
+particularly recommended for complex models that include interactions or
+transformations (e.g., polynomial or spline terms). The robust (default to
+FALSE) argument enables a robust standardization of data, based on the
+median and the MAD instead of the mean and the SD." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -90,7 +98,7 @@ data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.99</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5</span>
       </span>
     </div>
 
@@ -179,7 +187,15 @@ data." />
     <div class="ref-description">
     <p>Performs a standardization of data (z-scoring) using
 <code><a href='https://easystats.github.io/datawizard/reference/standardize.html'>datawizard::standardize()</a></code> and then re-fits the model to the standardized
-data.</p>
+data.
+<br /><br />
+Standardization is done by completely refitting the model on the standardized
+data. Hence, this approach is equal to standardizing the variables <em>before</em>
+fitting the model and will return a new model object. This method is
+particularly recommended for complex models that include interactions or
+transformations (e.g., polynomial or spline terms). The <code>robust</code> (default to
+<code>FALSE</code>) argument enables a robust standardization of data, based on the
+<code>median</code> and the <code>MAD</code> instead of the <code>mean</code> and the <code>SD</code>.</p>
     </div>
 
     <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='co'># S3 method for default</span>
@@ -243,16 +259,39 @@ model; m model's response will always be standardized.)</p></td>
     <p>A statistical model fitted on standardized data</p>
     <h2 class="hasAnchor" id="generalized-linear-models"><a class="anchor" href="#generalized-linear-models"></a>Generalized Linear Models</h2>
 
-    <p>When standardizing coefficients of a generalized model (GLM, GLMM, etc), only
-the predictors are standardized, maintaining the interpretability of the
-coefficients (e.g., in a binomial model: the exponent of the standardized
-parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
+    <p>Standardization for generalized linear models (GLM, GLMM, etc) is done only
+with respect to the predictors (while the outcome remains as-is,
+unstandardized) - maintaining the interpretability of the coefficients (e.g.,
+in a binomial model: the exponent of the standardized parameter is the OR of
+a change of 1 SD in the predictor, etc.)</p>
+    <h2 class="hasAnchor" id="dealing-with-factors"><a class="anchor" href="#dealing-with-factors"></a>Dealing with Factors</h2>
+
+    <p><code>standardize(model)</code> or <code>standardize_parameters(model, method = "refit")</code> do
+<em>not</em> standardized categorical predictors (i.e. factors) / their
+dummy-variables, which may be a different behaviour compared to other R
+packages (such as <span class="pkg">lm.beta</span>) or other software packages (like SPSS). To
+mimic such behaviours, either use <code>standardize_parameters(model, method = "basic")</code> to obtain post-hoc standardized parameters, or standardize the data
+with <code>datawizard::standardize(data, force = TRUE)</code> <em>before</em> fitting the
+model.</p>
+    <h2 class="hasAnchor" id="transformed-variables"><a class="anchor" href="#transformed-variables"></a>Transformed Variables</h2>
+
+    <p>When the model's formula contains transformations (e.g. <code>y ~ exp(X)</code>) the
+transformation effectively takes place after standardization (e.g.,
+<code>exp(scale(X))</code>). Since some transformations are undefined for none positive
+values, such as <code><a href='https://rdrr.io/r/base/Log.html'>log()</a></code> and <code><a href='https://rdrr.io/r/base/MathFun.html'>sqrt()</a></code>, the releven variables are shifted (post
+standardization) by <code>Z - min(Z) + 1</code> or <code>Z - min(Z)</code> (respectively).</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other standardize: 
+<code><a href='standardize_info.html'>standardize_info</a>()</code>,
+<code><a href='standardize_parameters.html'>standardize_parameters</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>Infant.Mortality</span> <span class='op'>~</span> <span class='va'>Education</span> <span class='op'>*</span> <span class='va'>Fertility</span>, data <span class='op'>=</span> <span class='va'>swiss</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='fu'><a href='https://easystats.github.io/datawizard/reference/standardize.html'>standardize</a></span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>         (Intercept)           Education           Fertility Education:Fertility </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>          0.06386069          0.47482848          0.63270919          0.09829777 </span>
+<span class='r-in'></span>
 </code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -265,11 +304,11 @@ parameter is the OR of a change of 1 SD in the predictor, etc.)</p>
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by <a href="https://github.com/mattansb" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>.</p></p>
+  <p><p>Developed by <a href="https://github.com/mattansb" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel LÃ¼decke</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p></p>
 </div>
 
       </footer>
