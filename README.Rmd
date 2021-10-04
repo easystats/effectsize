@@ -34,7 +34,7 @@ set.seed(111)
 [![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize)](https://cranlogs.r-pkg.org/) 
 
 
-***Size does matter***
+***Significant is just not enough!***
 
 The goal of this package is to provide utilities to work with indices of effect size and standardized parameters, allowing computation and conversion of indices such as Cohen's *d*, *r*, odds-ratios, etc.
 
