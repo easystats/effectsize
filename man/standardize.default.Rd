@@ -49,15 +49,49 @@ A statistical model fitted on standardized data
 Performs a standardization of data (z-scoring) using
 \code{\link[datawizard:standardize]{datawizard::standardize()}} and then re-fits the model to the standardized
 data.
+\cr\cr
+Standardization is done by completely refitting the model on the standardized
+data. Hence, this approach is equal to standardizing the variables \emph{before}
+fitting the model and will return a new model object. This method is
+particularly recommended for complex models that include interactions or
+transformations (e.g., polynomial or spline terms). The \code{robust} (default to
+\code{FALSE}) argument enables a robust standardization of data, based on the
+\code{median} and the \code{MAD} instead of the \code{mean} and the \code{SD}.
 }
 \section{Generalized Linear Models}{
-When standardizing coefficients of a generalized model (GLM, GLMM, etc), only
-the predictors are standardized, maintaining the interpretability of the
-coefficients (e.g., in a binomial model: the exponent of the standardized
-parameter is the OR of a change of 1 SD in the predictor, etc.)
+Standardization for generalized linear models (GLM, GLMM, etc) is done only
+with respect to the predictors (while the outcome remains as-is,
+unstandardized) - maintaining the interpretability of the coefficients (e.g.,
+in a binomial model: the exponent of the standardized parameter is the OR of
+a change of 1 SD in the predictor, etc.)
+}
+
+\section{Dealing with Factors}{
+\code{standardize(model)} or \code{standardize_parameters(model, method = "refit")} do
+\emph{not} standardized categorical predictors (i.e. factors) / their
+dummy-variables, which may be a different behaviour compared to other R
+packages (such as \pkg{lm.beta}) or other software packages (like SPSS). To
+mimic such behaviours, either use \code{standardize_parameters(model, method = "basic")} to obtain post-hoc standardized parameters, or standardize the data
+with \code{datawizard::standardize(data, force = TRUE)} \emph{before} fitting the
+model.
+}
+
+\section{Transformed Variables}{
+When the model's formula contains transformations (e.g. \code{y ~ exp(X)}) the
+transformation effectively takes place after standardization (e.g.,
+\code{exp(scale(X))}). Since some transformations are undefined for none positive
+values, such as \code{log()} and \code{sqrt()}, the releven variables are shifted (post
+standardization) by \code{Z - min(Z) + 1} or \code{Z - min(Z)} (respectively).
 }
 
 \examples{
 model <- lm(Infant.Mortality ~ Education * Fertility, data = swiss)
 coef(standardize(model))
+
 }
+\seealso{
+Other standardize: 
+\code{\link{standardize_info}()},
+\code{\link{standardize_parameters}()}
+}
+\concept{standardize}

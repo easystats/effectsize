@@ -3,6 +3,14 @@
 #' Performs a standardization of data (z-scoring) using
 #' [`datawizard::standardize()`] and then re-fits the model to the standardized
 #' data.
+#' \cr\cr
+#' Standardization is done by completely refitting the model on the standardized
+#' data. Hence, this approach is equal to standardizing the variables *before*
+#' fitting the model and will return a new model object. This method is
+#' particularly recommended for complex models that include interactions or
+#' transformations (e.g., polynomial or spline terms). The `robust` (default to
+#' `FALSE`) argument enables a robust standardization of data, based on the
+#' `median` and the `MAD` instead of the `mean` and the `SD`.
 #'
 #' @param x A statistical model.
 #' @param weights If `TRUE` (default), a weighted-standardization is carried out.
@@ -16,11 +24,37 @@
 #'
 #' @return A statistical model fitted on standardized data
 #'
-#' @inheritSection standardize_parameters Generalized Linear Models
+#' @details
 #'
+#' # Generalized Linear Models
+#' Standardization for generalized linear models (GLM, GLMM, etc) is done only
+#' with respect to the predictors (while the outcome remains as-is,
+#' unstandardized) - maintaining the interpretability of the coefficients (e.g.,
+#' in a binomial model: the exponent of the standardized parameter is the OR of
+#' a change of 1 SD in the predictor, etc.)
+#'
+#' # Dealing with Factors
+#' `standardize(model)` or `standardize_parameters(model, method = "refit")` do
+#' *not* standardized categorical predictors (i.e. factors) / their
+#' dummy-variables, which may be a different behaviour compared to other R
+#' packages (such as \pkg{lm.beta}) or other software packages (like SPSS). To
+#' mimic such behaviours, either use `standardize_parameters(model, method =
+#' "basic")` to obtain post-hoc standardized parameters, or standardize the data
+#' with `datawizard::standardize(data, force = TRUE)` *before* fitting the
+#' model.
+#'
+#' # Transformed Variables
+#' When the model's formula contains transformations (e.g. `y ~ exp(X)`) the
+#' transformation effectively takes place after standardization (e.g.,
+#' `exp(scale(X))`). Since some transformations are undefined for none positive
+#' values, such as `log()` and `sqrt()`, the releven variables are shifted (post
+#' standardization) by `Z - min(Z) + 1` or `Z - min(Z)` (respectively).
+#'
+#' @family standardize
 #' @examples
 #' model <- lm(Infant.Mortality ~ Education * Fertility, data = swiss)
 #' coef(standardize(model))
+#'
 #' @importFrom stats update
 #' @importFrom insight get_data model_info find_response get_response find_weights get_weights
 #' @importFrom datawizard standardize

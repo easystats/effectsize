@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size and Standardized Parameters
-Version: 0.4.99
+Version: 0.5
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
@@ -54,7 +54,7 @@ Imports:
     bayestestR (>= 0.10.5),
     insight (>= 0.14.3),
     parameters (>= 0.14.0),
-    performance (>= 0.7.3.5),
+    performance (>= 0.8.0),
     datawizard (>= 0.2.0),
     stats,
     utils
@@ -91,6 +91,5 @@ Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-Remotes: easystats/performance
 Config/testthat/edition: 3
 Config/testthat/parallel: true

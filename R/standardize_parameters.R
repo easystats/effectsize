@@ -74,33 +74,25 @@
 #' level 1 predictors (Hoffman 2015, page 342). A warning is given when a
 #' within-group varialbe is found to have access between-group variance.
 #'
-#' ## Dealing with Factors
-#' The `"refit"` method does *not* standardized categorical predictors (i.e.
-#' factors), which may be a different behaviour compared to other R packages
-#' (such as \pkg{lm.beta}) or other software packages (like SPSS). to mimic such
-#' behaviours, either use the `"basic"` method or standardize the data with
-#' `effectsize::standardize(force=TRUE)` *before* fitting the model.
-#'
-#' ## Transformed Variables
-#' When the model's formula contains transformations (e.g. `y ~ exp(X)`)
-#' `method = "refit"` might give different results compared to
-#' `method = "basic"` (`"posthoc"` and `"smart"` do not support such
-#' transformations): where `"refit"` standardizes the data prior to the
-#' transformation (e.g. equivalent to `exp(scale(X))`), the `"basic"` method
-#' standardizes the transformed data (e.g. equivalent to `scale(exp(X))`). See
-#' [standardize()] for more details on how different transformations are dealt
-#' with.
+#' # Transformed Variables
+#' When the model's formula contains transformations (e.g. `y ~ exp(X)`) `method
+#' = "refit"` will give different results compared to `method = "basic"`
+#' (`"posthoc"` and `"smart"` do not support such transformations): While
+#' `"refit"` standardizes the data *prior* to the transformation (e.g.
+#' equivalent to `exp(scale(X))`), the `"basic"` method standardizes the
+#' transformed data (e.g. equivalent to `scale(exp(X))`).
+#' \cr\cr
+#' See the *Transformed Variables* section in [standardize.default()] for more
+#' details on how different transformations are dealt with when `method =
+#' "refit"`.
 #'
 #' # Confidence Intervals
 #' The returned confidence intervals are re-scaled versions of the
 #' unstandardized confidence intervals, and not "true" confidence intervals of
 #' the standardized coefficients (cf. Jones & Waller, 2015).
 #'
-#' # Generalized Linear Models
-#' When standardizing coefficients of a generalized model (GLM, GLMM, etc), only
-#' the predictors are standardized, maintaining the interpretability of the
-#' coefficients (e.g., in a binomial model: the exponent of the standardized
-#' parameter is the OR of a change of 1 SD in the predictor, etc.)
+#' @inheritSection standardize.default Generalized Linear Models
+#' @inheritSection standardize.default Dealing with Factors
 #'
 #' @return A data frame with the standardized parameters (`Std_*`, depending on
 #'   the model type) and their CIs (`CI_low` and `CI_high`). Where applicable,
@@ -109,7 +101,6 @@
 #'
 #' @family standardize
 #' @family effect size indices
-#' @seealso [standardize_info()]
 #'
 #' @examples
 #' library(effectsize)
