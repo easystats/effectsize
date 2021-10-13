@@ -42,7 +42,7 @@ The goal of this package is to provide utilities to work with indices of effect 
 ## Installation
 
 [![CRAN](http://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize)
-[![R-universe](https://img.shields.io/badge/R--universe%20%F0%9F%9A%80-easystats-brightgreen)](https://easystats.r-universe.dev/)
+[![effectsize status badge](https://easystats.r-universe.dev/badges/effectsize)](https://easystats.r-universe.dev)
 [![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg)](https://github.com/easystats/effectsize/actions)
 [![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg)](https://github.com/easystats/effectsize/actions)
 [![Codecov test coverage](https://codecov.io/gh/easystats/effectsize/branch/main/graph/badge.svg)](https://codecov.io/gh/easystats/effectsize?branch=main)
@@ -53,7 +53,7 @@ Run the following to install the stable release of **effectsize** from CRAN:
 install.packages("effectsize")
 ```
 
-Or you can install the latest development version ``r packageVersion("effectsize")`` from [*R-universe*](https://easystats.r-universe.dev):
+Or you can install the latest development version ``r available.packages(repos = "https://easystats.r-universe.dev")["effectsize","Version"]`` from [*R-universe*](https://easystats.r-universe.dev):
 
 ```{r install-R-universe, warning=FALSE, message=FALSE, eval=FALSE}
 install.packages("effectsize", repos = "https://easystats.r-universe.dev")
