@@ -8,6 +8,10 @@
 
 - `effectsize()` for `BayesFactor` objects returns the same standardized output as for `htest`.
 
+## Bug fixes
+
+- `eta_squared()`: fixed a bug that caused `afex_aov` models with more than 2 within-subject factros to return incorrect effect sizes for the lower level factors ( #389 ).
+
 # effectsize 0.5.0
 
 ## Breaking Changes
