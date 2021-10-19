@@ -1103,9 +1103,14 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     aov_tab <- aov_tab[c("Parameter", "Sum_Squares","Error SS", "df", "den Df")]
 
     id <- attr(model, "id")
-    within <- c(NA, names(attr(model, "within")))
-    within <- sapply(seq_len(length(within) - 1), .get_all_combs, V = within)
-    within <- unique(unlist(within))
+    within <- names(attr(model, "within"))
+    within <- lapply(within, function(x) c(NA, x))
+    within <- do.call(expand.grid, within)
+    within <- apply(within, 1, na.omit)
+    ns <- sapply(within, length)
+    within <- sapply(within, paste, collapse = ":")
+    within <- within[order(ns)]
+    within <- Filter(function(x) nchar(x) > 0, within)
     l <- sapply(within, grepl, x = aov_tab$Parameter, simplify = TRUE)
     l <- apply(l, 1, function(x) if (!any(x)) 0 else max(which(x)))
     l <- c(NA, within)[l+1]
@@ -1212,13 +1217,4 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   out <- .F_to_pve(stats::na.omit(f), df = df_num, df_error = df_error, ci = ci, alternative = alternative, es = paste0(type, "2"))
   out$Parameter <- model$Parameter[!is.na(f)]
   out[c(ncol(out), 1:(ncol(out) - 1))]
-}
-
-#' @keywords internal
-.get_all_combs <- function(V, n) {
-  within <- utils::combn(V, n)
-  within <- apply(within, 2, as.list)
-  within <- Filter(f = function(x) !all(is.na(x)), within)
-  within <- lapply(within, Filter, f = Negate(is.na))
-  within <- sapply(within, paste0, collapse = ":")
 }
