@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.1</span>
       </span>
     </div>
 
@@ -103,7 +103,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/easystats/effectsize/" class="external-link">
+  <a href="https://github.com/easystats/effectsize/" class="external-link external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -124,7 +124,7 @@
       <h1 data-toc-skip>Converting Between Indices of Effect Size</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/vignettes/convert.Rmd" class="external-link"><code>vignettes/convert.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/vignettes/convert.Rmd" class="external-link external-link"><code>vignettes/convert.Rmd</code></a></small>
       <div class="hidden name"><code>convert.Rmd</code></div>
 
     </div>
@@ -132,9 +132,8 @@
     
     
 <p>The <code>effectsize</code> package contains function to convert among indices of effect size. This can be useful for meta-analyses, or any comparison between different types of statistical analyses.</p>
-<div id="converting-between-d-r-and-or" class="section level2">
-<h2 class="hasAnchor">
-<a href="#converting-between-d-r-and-or" class="anchor" aria-hidden="true"></a>Converting Between <em>d</em>, <em>r</em>, and <em>OR</em>
+<div class="section level2">
+<h2 id="converting-between-d-r-and-or">Converting Between <em>d</em>, <em>r</em>, and <em>OR</em><a class="anchor" aria-label="anchor" href="#converting-between-d-r-and-or"></a>
 </h2>
 <p>The most basic conversion is between <em>r</em> values, a measure of standardized association between two continuous measures, and <em>d</em> values (such as Cohen’s <em>d</em>), a measure of standardized differences between two groups / conditions.</p>
 <p>Let’s simulate some data:</p>
@@ -184,9 +183,9 @@ r \approx \frac{d}{\sqrt{d^2 + 4}}
 <pre><code>&gt; [1] -0.153</code></pre>
 <p>(Which also works in the other way, with <code>r_to_d(0.17)</code> gives <code>r round(r_to_d(-0.17),3)</code>)</p>
 <p>As we can see, these are rough approximations, but they can be useful when we don’t have the raw data on hand.</p>
-<div id="in-multiple-regression" class="section level3">
-<h3 class="hasAnchor">
-<a href="#in-multiple-regression" class="anchor" aria-hidden="true"></a>In multiple regression</h3>
+<div class="section level3">
+<h3 id="in-multiple-regression">In multiple regression<a class="anchor" aria-label="anchor" href="#in-multiple-regression"></a>
+</h3>
 <p>Although not exactly a classic Cohen’s d, we can also approximate a partial-<em>d</em> value (that is, the standardized difference between two groups / conditions, with variance from other predictors partilled out). For example:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span> <span class="op">+</span> <span class="va">hp</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
@@ -197,20 +196,23 @@ r \approx \frac{d}{\sqrt{d^2 + 4}}
 &gt; (Intercept) |       26.58 |     1.43 | [23.67, 29.50] | 18.65 | &lt; .001
 &gt; am          |        5.28 |     1.08 | [ 3.07,  7.48] |  4.89 | &lt; .001
 &gt; hp          |       -0.06 | 7.86e-03 | [-0.07, -0.04] | -7.50 | &lt; .001</code></pre>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<pre><code>&gt; 
+&gt; Uncertainty intervals (equal-tailed) and p values (two-tailed) computed using a
+&gt;   Wald t-distribution approximation.</code></pre>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># A couple of ways to get partial-d:</span>
 <span class="fl">5.28</span> <span class="op">/</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stanreg-methods.html" class="external-link">sigma</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; [1] 1.81</code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/t_to_r.html">t_to_d</a></span><span class="op">(</span><span class="fl">4.89</span>, df_error <span class="op">=</span> <span class="fl">29</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>&gt; [1] 1.82</code></pre>
 <p>We can convert these semi-<em>d</em> values to <em>r</em> values, but in this case these represent the <em>partial</em> correlation:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/t_to_r.html">t_to_r</a></span><span class="op">(</span><span class="fl">4.89</span>, df_error <span class="op">=</span> <span class="fl">29</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; r    |       95% CI
 &gt; -------------------
 &gt; 0.67 | [0.43, 0.80]</code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html" class="external-link">correlation</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mpg"</span>, <span class="st">"am"</span>, <span class="st">"hp"</span><span class="op">)</span><span class="op">]</span>, partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span></code></pre></div>
 <pre><code>&gt; # Correlation Matrix (pearson-method)
 &gt; 
@@ -220,15 +222,15 @@ r \approx \frac{d}{\sqrt{d^2 + 4}}
 &gt; 
 &gt; p-value adjustment method: Holm (1979)
 &gt; Observations: 32</code></pre>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># all close to:</span>
 <span class="fu"><a href="../reference/d_to_r.html">d_to_r</a></span><span class="op">(</span><span class="fl">1.81</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; [1] 0.671</code></pre>
 </div>
 </div>
-<div id="from-odds-ratios" class="section level2">
-<h2 class="hasAnchor">
-<a href="#from-odds-ratios" class="anchor" aria-hidden="true"></a>From Odds ratios</h2>
+<div class="section level2">
+<h2 id="from-odds-ratios">From Odds ratios<a class="anchor" aria-label="anchor" href="#from-odds-ratios"></a>
+</h2>
 <p>In binomial regression (more specifically in logistic regression), Odds ratios (OR) are themselves measures of effect size; they indicate the expected change in the odds of a some event.</p>
 <p>In some fields, it is common to dichotomize outcomes in order to be able to analyze them with logistic models. For example, if the outcome is the count of white blood cells, it can be more useful (medically) to predict the crossing of the threshold rather than the raw count itself. And so, where some scientists would maybe analyze the above data with a <em>t</em>-test and present Cohen’s <em>d</em>, others might analyze it with a logistic regression model on the dichotomized outcome, and present OR. So the question can be asked: given such a OR, what would Cohen’s <em>d</em> have been?</p>
 <p>Fortunately, there is a formula to approximate this <span class="citation">(Sánchez-Meca, Marı́n-Martı́nez, and Chacón-Moscoso 2003)</span>:</p>
@@ -237,7 +239,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 \]</span></p>
 <p>which is implemented in the <code><a href="../reference/d_to_r.html">oddsratio_to_d()</a></code> function.</p>
 <p>Let’s give it a try:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># 1. Set a threshold</span>
 <span class="va">thresh</span> <span class="op">&lt;-</span> <span class="fl">0</span>
 
@@ -255,13 +257,16 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 &gt; -------------------------------------------------------------
 &gt; (Intercept) |     0.41 | 0.91 | [-1.39, 2.43] |  0.44 | 0.657
 &gt; Group [1]   |    -0.81 | 1.29 | [-3.54, 1.70] | -0.63 | 0.530</code></pre>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<pre><code>&gt; 
+&gt; Uncertainty intervals (profile-likelihood) and p values (two-tailed) computed
+&gt;   using a Wald z-distribution approximation.</code></pre>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Convert log(OR) (the coefficient) to d</span>
 <span class="fu"><a href="../reference/d_to_r.html">oddsratio_to_d</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.81</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; [1] -0.447</code></pre>
-<div id="odds-ratios-to-risk-ratios" class="section level3">
-<h3 class="hasAnchor">
-<a href="#odds-ratios-to-risk-ratios" class="anchor" aria-hidden="true"></a>Odds ratios to Risk Ratios</h3>
+<div class="section level3">
+<h3 id="odds-ratios-to-risk-ratios">Odds ratios to Risk Ratios<a class="anchor" aria-label="anchor" href="#odds-ratios-to-risk-ratios"></a>
+</h3>
 <p>Odds ratio, although popular, are not very intuitive in their interpretations. We don’t often think about the chances of catching a disease in terms of <em>odds</em>, instead we instead tend to think in terms of <em>probability</em> or some event - or the <em>risk</em>. Talking about <em>risks</em> we can also talk about the <em>change in risk</em>, knows as the <em>risk ratio</em> (<em>RR</em>).</p>
 <p>For example, if we find that for individual suffering from a migraine, for every bowl of brussels sprouts they eat, they’re odds of reducing the migraine increase by an <span class="math inline">\(OR = 3.5\)</span> over a period of an hour. So, should people eat brussels sprouts to effectively reduce pain? Well, hard to say… Maybe if we look at <em>RR</em> we’ll get a clue.</p>
 <p>We can convert between <em>OR</em> and <em>RR</em> for the following formula <span class="citation">(Grant 2014)</span>:</p>
@@ -269,7 +274,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 RR = \frac{OR}{(1 - p0 + (p0 \times OR))}  
 \]</span></p>
 <p>Where <span class="math inline">\(p0\)</span> is the base-rate risk - the probability of the event without the intervention (e.g., what is the probability of the migraine subsiding within an hour without eating any brussels sprouts). If it the base-rate risk is, say, 85%, we get a <em>RR</em> of:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">OR</span> <span class="op">&lt;-</span> <span class="fl">3.5</span>
 <span class="va">baserate</span> <span class="op">&lt;-</span> <span class="fl">0.85</span>
 
@@ -277,7 +282,7 @@ RR = \frac{OR}{(1 - p0 + (p0 \times OR))}
 <pre><code>&gt; [1] 1.12</code></pre>
 <p>That is - for every bowl of brussels sprouts, we increase the chances of reducing the migraine by a mere 12%! Is if worth it? Depends on you affinity to brussels sprouts…</p>
 <p>Note that the base-rate risk is crucial here. If instead of 85% it was only 4%, then the <em>RR</em> would be:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">OR</span> <span class="op">&lt;-</span> <span class="fl">3.5</span>
 <span class="va">baserate</span> <span class="op">&lt;-</span> <span class="fl">0.04</span>
 
@@ -286,9 +291,9 @@ RR = \frac{OR}{(1 - p0 + (p0 \times OR))}
 <p>That is - for every bowl of brussels sprouts, we increase the chances of reducing the migraine by a whopping 318%! Is if worth it? I guess that still depends on your affinity to brussels sprouts…</p>
 </div>
 </div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor" aria-hidden="true"></a>References</h1>
+<div class="section level1 unnumbered">
+<h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h1>
 <div id="refs" class="references">
 <div id="ref-borenstein2009converting">
 <p>Borenstein, Michael, Larry V Hedges, JPT Higgins, and Hannah R Rothstein. 2009. “Converting Among Effect Sizes.” <em>Introduction to Meta-Analysis</em>, 45–49.</p>
@@ -315,7 +320,7 @@ RR = \frac{OR}{(1 - p0 + (p0 \times OR))}
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by <a href="https://github.com/mattansb" class="external-link external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link external-link">Daniel LÃ¼decke</a>.</p>
+<p>Developed by <a href="https://github.com/mattansb" class="external-link external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link external-link">Daniel Lüdecke</a>.</p>
 </div>
 
 <div class="pkgdown">

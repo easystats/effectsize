@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.1</span>
       </span>
     </div>
 
@@ -103,7 +103,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/easystats/effectsize/" class="external-link">
+  <a href="https://github.com/easystats/effectsize/" class="external-link external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -124,7 +124,7 @@
       <h1 data-toc-skip>Effect Sizes for Simple Hypothesis Tests</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/vignettes/simple_htests.Rmd" class="external-link"><code>vignettes/simple_htests.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/vignettes/simple_htests.Rmd" class="external-link external-link"><code>vignettes/simple_htests.Rmd</code></a></small>
       <div class="hidden name"><code>simple_htests.Rmd</code></div>
 
     </div>
@@ -136,13 +136,13 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/" class="external-link">effectsize</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://richarddmorey.github.io/BayesFactor/" class="external-link">BayesFactor</a></span><span class="op">)</span></code></pre></div>
 <p>In most cases, the effect sizes can be automagically extracted from the <code>htest</code> object via the <code><a href="../reference/effectsize.html">effectsize()</a></code> function.</p>
-<div id="standardized-differences" class="section level1">
-<h1 class="hasAnchor">
-<a href="#standardized-differences" class="anchor" aria-hidden="true"></a>Standardized Differences</h1>
+<div class="section level1">
+<h1 id="standardized-differences">Standardized Differences<a class="anchor" aria-label="anchor" href="#standardized-differences"></a>
+</h1>
 <p>For <em>t</em>-tests, it is common to report an effect size representing a standardized difference between the two compared samples’ means. These measures range from <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(+\infty\)</span>, with negative values indicating the second group’s mean is larger (and vice versa).</p>
-<div id="two-independent-samples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#two-independent-samples" class="anchor" aria-hidden="true"></a>Two Independent Samples</h2>
+<div class="section level2">
+<h2 id="two-independent-samples">Two Independent Samples<a class="anchor" aria-label="anchor" href="#two-independent-samples"></a>
+</h2>
 <p>For two independent samples, the difference between the means is standardized based on the pooled standard deviation of both samples (assumed to be equal in the population):</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span>, var.equal <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
@@ -229,9 +229,9 @@
 &gt; - Estimated using pooled SD.
 &gt; - One-sided CIs: lower bound fixed at (-Inf).</code></pre>
 </div>
-<div id="one-sample-and-paired-samples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#one-sample-and-paired-samples" class="anchor" aria-hidden="true"></a>One Sample and Paired Samples</h2>
+<div class="section level2">
+<h2 id="one-sample-and-paired-samples">One Sample and Paired Samples<a class="anchor" aria-label="anchor" href="#one-sample-and-paired-samples"></a>
+</h2>
 <p>In the case of a one-sample test, the effect size represents the standardized distance of the mean of the sample from the null value. For paired-samples, the difference between the paired samples is used:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">sleep</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
@@ -257,9 +257,9 @@
 &gt; --------------------------
 &gt; -1.17     | [-2.04, -0.40]</code></pre>
 </div>
-<div id="for-a-bayesian-t-test" class="section level2">
-<h2 class="hasAnchor">
-<a href="#for-a-bayesian-t-test" class="anchor" aria-hidden="true"></a>For a Bayesian <em>t</em>-test</h2>
+<div class="section level2">
+<h2 id="for-a-bayesian-t-test">For a Bayesian <em>t</em>-test<a class="anchor" aria-label="anchor" href="#for-a-bayesian-t-test"></a>
+</h2>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">BFt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html" class="external-link">ttestBF</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span><span class="op">[</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span>, <span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span><span class="op">[</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Bayes factor analysis
@@ -272,16 +272,14 @@
 &gt; Bayes factor type: BFindepSample, JZS</code></pre>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFt</span>, test <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Summary of Posterior Distribution
-&gt; 
-&gt; Parameter | Median |         95% CI
-&gt; -----------------------------------
-&gt; Cohens_d  |  -1.29 | [-2.09, -0.51]</code></pre>
+<pre><code>&gt; Cohen's d |         95% CI
+&gt; --------------------------
+&gt; -1.29     | [-2.09, -0.51]</code></pre>
 </div>
 </div>
-<div id="one-way-anova" class="section level1">
-<h1 class="hasAnchor">
-<a href="#one-way-anova" class="anchor" aria-hidden="true"></a>One way ANOVA</h1>
+<div class="section level1">
+<h1 id="one-way-anova">One way ANOVA<a class="anchor" aria-label="anchor" href="#one-way-anova"></a>
+</h1>
 <p>For more details, see <a href="https://easystats.github.io/effectsize/articles/anovaES.html" class="external-link">ANOVA vignette</a>.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">onew</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/oneway.test.html" class="external-link">oneway.test</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">gear</span>, data <span class="op">=</span> <span class="va">mtcars</span>, var.equal <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -295,9 +293,9 @@
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 </div>
-<div id="contingency-tables-and-proportions" class="section level1">
-<h1 class="hasAnchor">
-<a href="#contingency-tables-and-proportions" class="anchor" aria-hidden="true"></a>Contingency Tables and Proportions</h1>
+<div class="section level1">
+<h1 id="contingency-tables-and-proportions">Contingency Tables and Proportions<a class="anchor" aria-label="anchor" href="#contingency-tables-and-proportions"></a>
+</h1>
 <p>For contingency tables Cramér’s <em>V</em>, <span class="math inline">\(\phi\)</span> (Phi, also known as Cohen’s <em>w</em>) and Pearson’s contingency coefficient indicate the strength of association with 0 indicating no association between the variables. While Cramér’s <em>V</em> and Pearson’s <em>C</em> are capped at 1 (perfect association), <span class="math inline">\(\phi\)</span> can be larger than 1.</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">Music</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>
@@ -383,28 +381,22 @@
 &gt; Bayes factor type: BFcontingencyTable, joint multinomial</code></pre>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFX</span>, type <span class="op">=</span> <span class="st">"cramers_v"</span>, test <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Summary of Posterior Distribution
-&gt; 
-&gt; Parameter | Median |       95% CI
-&gt; ---------------------------------
-&gt; Cramers_v |   0.18 | [0.14, 0.22]</code></pre>
+<pre><code>&gt; Cramer's V |       95% CI
+&gt; -------------------------
+&gt; 0.18       | [0.14, 0.22]</code></pre>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFX</span>, type <span class="op">=</span> <span class="st">"phi"</span>, test <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Summary of Posterior Distribution
-&gt; 
-&gt; Parameter | Median |       95% CI
-&gt; ---------------------------------
-&gt; phi       |   0.26 | [0.19, 0.31]</code></pre>
+<pre><code>&gt; Phi  |       95% CI
+&gt; -------------------
+&gt; 0.26 | [0.19, 0.31]</code></pre>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFX</span>, type <span class="op">=</span> <span class="st">"pearsons_c"</span>, test <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Summary of Posterior Distribution
-&gt; 
-&gt; Parameter  | Median |       95% CI
-&gt; ----------------------------------
-&gt; pearsons_c |   0.25 | [0.19, 0.30]</code></pre>
-<div id="comparing-two-proportions-2x2-tables" class="section level2">
-<h2 class="hasAnchor">
-<a href="#comparing-two-proportions-2x2-tables" class="anchor" aria-hidden="true"></a>Comparing Two Proportions (2x2 tables)</h2>
+<pre><code>&gt; Pearson's C |       95% CI
+&gt; --------------------------
+&gt; 0.25        | [0.19, 0.30]</code></pre>
+<div class="section level2">
+<h2 id="comparing-two-proportions-2x2-tables">Comparing Two Proportions (2x2 tables)<a class="anchor" aria-label="anchor" href="#comparing-two-proportions-2x2-tables"></a>
+</h2>
 <p>For <span class="math inline">\(2\times 2\)</span> tables, in addition to Cramér’s <em>V</em>, <span class="math inline">\(\phi\)</span> and Pearson’s <em>C</em>, we can also compute the Odds-ratio (OR), where each column represents a different group. Values larger than 1 indicate that the odds are higher in the first group (and vice versa).</p>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">RCT</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>
@@ -447,9 +439,9 @@
 &gt; ------------------------
 &gt; 0.74      | [0.50, 0.99]</code></pre>
 </div>
-<div id="paired-contingency-tables" class="section level2">
-<h2 class="hasAnchor">
-<a href="#paired-contingency-tables" class="anchor" aria-hidden="true"></a>Paired Contingency Tables</h2>
+<div class="section level2">
+<h2 id="paired-contingency-tables">Paired Contingency Tables<a class="anchor" aria-label="anchor" href="#paired-contingency-tables"></a>
+</h2>
 <p>For dependent (paired) contingency tables, Cohen’s <em>g</em> represents the symmetry of the table, ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry).</p>
 <div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">Performance</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>
@@ -481,13 +473,13 @@
 &gt; 0.14      | [0.07, 0.19]</code></pre>
 </div>
 </div>
-<div id="rank-based-tests" class="section level1">
-<h1 class="hasAnchor">
-<a href="#rank-based-tests" class="anchor" aria-hidden="true"></a>Rank Based tests</h1>
+<div class="section level1">
+<h1 id="rank-based-tests">Rank Based tests<a class="anchor" aria-label="anchor" href="#rank-based-tests"></a>
+</h1>
 <p>Rank based tests get rank based effect sizes!</p>
-<div id="difference-in-ranks" class="section level2">
-<h2 class="hasAnchor">
-<a href="#difference-in-ranks" class="anchor" aria-hidden="true"></a>Difference in Ranks</h2>
+<div class="section level2">
+<h2 id="difference-in-ranks">Difference in Ranks<a class="anchor" aria-label="anchor" href="#difference-in-ranks"></a>
+</h2>
 <p>For two independent samples, the rank-biserial correlation (<span class="math inline">\(r_{rb}\)</span>) is a measure of relative superiority - i.e., larger values indicate a higher probability of a randomly selected observation from <em>X</em> being larger than randomly selected observation from <em>Y</em>. A value of <span class="math inline">\((-1)\)</span> indicates that all observations in the second group are larger than the first, and a value of <span class="math inline">\((+1)\)</span> indicates that all observations in the first group are larger than the second.</p>
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">48</span>, <span class="fl">48</span>, <span class="fl">77</span>, <span class="fl">86</span>, <span class="fl">85</span>, <span class="fl">85</span><span class="op">)</span>
@@ -540,9 +532,9 @@
 &gt; --------------------------------
 &gt; 0.78              | [0.30, 0.94]</code></pre>
 </div>
-<div id="rank-one-way-anova" class="section level2">
-<h2 class="hasAnchor">
-<a href="#rank-one-way-anova" class="anchor" aria-hidden="true"></a>Rank One way ANOVA</h2>
+<div class="section level2">
+<h2 id="rank-one-way-anova">Rank One way ANOVA<a class="anchor" aria-label="anchor" href="#rank-one-way-anova"></a>
+</h2>
 <p>The Rank-Epsilon-Squared (<span class="math inline">\(\varepsilon^2\)</span>) is a measure of association for the rank based one-way ANOVA. Values range between 0 (no relative superiority between any of the groups) to 1 (complete separation - with no overlap in ranks between the groups).</p>
 <div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">group_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
@@ -565,9 +557,9 @@
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 </div>
-<div id="rank-one-way-repeated-measures-anova" class="section level2">
-<h2 class="hasAnchor">
-<a href="#rank-one-way-repeated-measures-anova" class="anchor" aria-hidden="true"></a>Rank One way Repeated-Measures ANOVA</h2>
+<div class="section level2">
+<h2 id="rank-one-way-repeated-measures-anova">Rank One way Repeated-Measures ANOVA<a class="anchor" aria-label="anchor" href="#rank-one-way-repeated-measures-anova"></a>
+</h2>
 <p>For a rank based repeated measures one-way ANOVA, Kendall’s <em>W</em> is a measure of agreement on the effect of condition between various “blocks” (the subjects), or more often conceptualized as a measure of reliability of the rating / scores of observations (or “groups”) between “raters” (“blocks”).</p>
 <div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Subjects are COLUMNS</span>
@@ -609,9 +601,9 @@
 &gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 </div>
 </div>
-<div id="references" class="section level1">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor" aria-hidden="true"></a>References</h1>
+<div class="section level1">
+<h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h1>
 </div>
   </div>
 
@@ -627,7 +619,7 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by <a href="https://github.com/mattansb" class="external-link external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link external-link">Daniel LÃ¼decke</a>.</p>
+<p>Developed by <a href="https://github.com/mattansb" class="external-link external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link external-link">Daniel Lüdecke</a>.</p>
 </div>
 
 <div class="pkgdown">
