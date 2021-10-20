@@ -362,70 +362,6 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 # Get ES ------------------------------------------------------------------
 
 #' @keywords internal
-.anova_es <-
-  function(model,
-           type = c("eta", "omega", "epsilon"),
-           partial = TRUE,
-           generalized = FALSE,
-           ci = 0.95, alternative = "greater",
-           verbose = TRUE,
-           ...) {
-    UseMethod(".anova_es")
-  }
-
-#' @keywords internal
-#' @importFrom stats anova
-.anova_es.default <- function(model,
-                              type = c("eta", "omega", "epsilon"),
-                              partial = TRUE,
-                              generalized = FALSE,
-                              ci = 0.95, alternative = "greater",
-                              verbose = TRUE,
-                              ...) {
-  .anova_es.anova(
-    stats::anova(model),
-    type = type,
-    partial = partial,
-    generalized = generalized,
-    ci = ci,
-    alternative = alternative,
-    verbose = verbose
-  )
-}
-
-#' @keywords internal
-#' @importFrom parameters model_parameters
-#' @importFrom stats anova
-.anova_es.aov <- function(model,
-                          type = c("eta", "omega", "epsilon"),
-                          partial = TRUE,
-                          generalized = FALSE,
-                          ci = 0.95, alternative = "greater",
-                          verbose = TRUE,
-                          ...) {
-  if (!inherits(model, c("Gam", "anova"))) {
-    # Pass to ANOVA table method
-    res <- .anova_es.anova(
-      stats::anova(model),
-      type = type,
-      partial = partial,
-      generalized = generalized,
-      ci = ci, alternative = alternative,
-      verbose = verbose,
-      ...
-    )
-    return(res)
-  }
-
-  type <- match.arg(type)
-
-  params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
-  out <- .es_aov(as.data.frame(params), type, partial, generalized, ci, alternative, verbose = verbose, ...)
-  if (is.null(attr(out, "anova_type"))) attr(out, "anova_type") <- attr(params, "anova_type")
-  out
-}
-
-#' @keywords internal
 .es_aov <- function(params,
                     type = c("eta", "omega", "epsilon"),
                     partial = TRUE,
@@ -435,14 +371,17 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
                     include_intercept = FALSE,
                     ...) {
 
-  if (!"Residuals" %in% params$Parameter) {
-    stop(
-      "No residuals data found - ",
-      type,
-      " squared can only be computed for simple `aov` models."
-    )
+  # Clean up data ---
+  if (!Mean_Square_residuals %in% colnames(params)) {
+    min_aov[["Mean_Square_residuals"]] = min_aov[["Sum_Squares"]] / min_aov[["df"]]
   }
 
+  if (!"Residuals" %in% params$Parameter) {
+    stop(insight::format_message("No residuals data found - cannot compute effect size."))
+  }
+
+
+  # Include intercept? ---
   if (include_intercept) {
     values <- .values_aov(params[params$Parameter != "(Intercept)", ])
   } else {
@@ -450,11 +389,15 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     values <- .values_aov(params)
   }
 
+  # Get error df ---
   df_error <- params$df[params$Parameter == "Residuals"]
   params <- params[params$Parameter != "Residuals", , drop = FALSE]
 
+
+  # Validate anova type (1,2,3) and partial ---
+  anova_type <- NULL
   if (nrow(params) == 1L &&
-    (partial || isTRUE(generalized) || is.character(generalized))) {
+      (partial || isTRUE(generalized) || is.character(generalized))) {
     if (verbose) {
       txt_type <- ifelse(isTRUE(generalized) || is.character(generalized), "generalized", "partial")
       message(
@@ -464,12 +407,10 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     }
     partial <- FALSE
     anova_type <- NA
-  } else {
-    anova_type <- NULL
   }
 
 
-
+  # Estimate effect size ---
   if (type == "eta") {
     if (isTRUE(generalized) || is.character(generalized)) {
       ## copied from afex
@@ -494,34 +435,33 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     } else {
       params$Eta2_partial <-
         params$Sum_Squares /
-          (params$Sum_Squares + values$Sum_Squares_residuals)
+        (params$Sum_Squares + values$Sum_Squares_residuals)
     }
   } else if (type == "omega") {
     if (!isTRUE(partial)) {
       params$Omega2 <-
         (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
-          (values$Sum_Squares_total + values$Mean_Square_residuals)
+        (values$Sum_Squares_total + values$Mean_Square_residuals)
     } else {
       params$Omega2_partial <-
         (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
-          (params$Sum_Squares + (values$n - params$df) * values$Mean_Square_residuals)
+        (params$Sum_Squares + (values$n - params$df) * values$Mean_Square_residuals)
     }
   } else if (type == "epsilon") {
     if (!isTRUE(partial)) {
       params$Epsilon2 <-
         (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
-          values$Sum_Squares_total
+        values$Sum_Squares_total
     } else {
       params$Epsilon2_partial <-
         (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
-          (params$Sum_Squares + values$Sum_Squares_residuals)
+        (params$Sum_Squares + values$Sum_Squares_residuals)
     }
   }
 
-
-
   out <- params
 
+  # Add CIs ---
   if (is.numeric(ci)) {
     # based on MBESS::ci.R2
     ES <- pmax(0, out[[ncol(out)]])
@@ -531,9 +471,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
       out,
       # This really is a generic F_to_R2
       F_to_eta2(f,
-        out$df,
-        df_error,
-        ci = ci, alternative = alternative
+                out$df,
+                df_error,
+                ci = ci, alternative = alternative
       )[-1]
     )
   } else {
@@ -541,58 +481,22 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   }
 
 
+  # Clean up output ---
   out <- out[, colnames(out) %in% c(
-    "Group", "Response", "Parameter",
+    "Response", "Parameter",
     "Eta2", "Eta2_partial", "Eta2_generalized",
     "Omega2", "Omega2_partial",
     "Epsilon2", "Epsilon2_partial",
     "CI", "CI_low", "CI_high"
   ), drop = FALSE]
 
+  # Set attributes ---
   attr(out, "partial") <- partial
   attr(out, "generalized") <- generalized
   attr(out, "ci") <- ci
   attr(out, "anova_type") <- anova_type
   attr(out, "approximate") <- FALSE
   attr(out, "alternative") <- alternative
-  out
-}
-
-.anova_es.lm <- .anova_es.aov
-
-.anova_es.glm <- .anova_es.aov
-
-.anova_es.manova <- .anova_es.aov
-
-#' @keywords internal
-#' @importFrom parameters model_parameters
-#' @importFrom insight find_predictors
-.anova_es.aovlist <- function(model,
-                              type = c("eta", "omega", "epsilon"),
-                              partial = TRUE,
-                              generalized = FALSE,
-                              ci = 0.95, alternative = "greater",
-                              verbose = TRUE,
-                              include_intercept = FALSE,
-                              ...) {
-  params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
-  anova_type <- attr(params, "anova_type")
-  params <- as.data.frame(params)
-
-  IVs <- insight::find_predictors(model)[[1]]
-
-  out <-
-    .es_aovlist(
-      params,
-      IVs = IVs,
-      type = type,
-      partial = partial,
-      generalized = generalized,
-      ci = ci, alternative = alternative,
-      verbose = verbose,
-      include_intercept = include_intercept
-    )
-  attr(out, "anova_type") <- anova_type
   out
 }
 
@@ -726,6 +630,112 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   attr(out, "ci") <- ci
   attr(out, "approximate") <- FALSE
   attr(out, "alternative") <- alternative
+  out
+}
+
+# Clean up wrappers -------------------------------------------------------
+
+
+
+#' @keywords internal
+.anova_es <-
+  function(model,
+           type = c("eta", "omega", "epsilon"),
+           partial = TRUE,
+           generalized = FALSE,
+           ci = 0.95, alternative = "greater",
+           verbose = TRUE,
+           ...) {
+    UseMethod(".anova_es")
+  }
+
+#' @keywords internal
+#' @importFrom stats anova
+.anova_es.default <- function(model,
+                              type = c("eta", "omega", "epsilon"),
+                              partial = TRUE,
+                              generalized = FALSE,
+                              ci = 0.95, alternative = "greater",
+                              verbose = TRUE,
+                              ...) {
+  .anova_es.anova(
+    stats::anova(model),
+    type = type,
+    partial = partial,
+    generalized = generalized,
+    ci = ci,
+    alternative = alternative,
+    verbose = verbose
+  )
+}
+
+#' @keywords internal
+#' @importFrom parameters model_parameters
+#' @importFrom stats anova
+.anova_es.aov <- function(model,
+                          type = c("eta", "omega", "epsilon"),
+                          partial = TRUE,
+                          generalized = FALSE,
+                          ci = 0.95, alternative = "greater",
+                          verbose = TRUE,
+                          ...) {
+  if (!inherits(model, c("Gam", "anova"))) {
+    # Pass to ANOVA table method
+    res <- .anova_es.anova(
+      stats::anova(model),
+      type = type,
+      partial = partial,
+      generalized = generalized,
+      ci = ci, alternative = alternative,
+      verbose = verbose,
+      ...
+    )
+    return(res)
+  }
+
+  type <- match.arg(type)
+
+  params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
+  out <- .es_aov(as.data.frame(params), type, partial, generalized, ci, alternative, verbose = verbose, ...)
+  if (is.null(attr(out, "anova_type"))) attr(out, "anova_type") <- attr(params, "anova_type")
+  out
+}
+
+.anova_es.lm <- .anova_es.aov
+
+.anova_es.glm <- .anova_es.aov
+
+.anova_es.manova <- .anova_es.aov
+
+#' @keywords internal
+#' @importFrom parameters model_parameters
+#' @importFrom insight find_predictors
+.anova_es.aovlist <- function(model,
+                              type = c("eta", "omega", "epsilon"),
+                              partial = TRUE,
+                              generalized = FALSE,
+                              ci = 0.95, alternative = "greater",
+                              verbose = TRUE,
+                              include_intercept = FALSE,
+                              ...) {
+  params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
+  anova_type <- attr(params, "anova_type")
+  params <- as.data.frame(params)
+
+  IVs <- insight::find_predictors(model)[[1]]
+
+  out <-
+    .es_aovlist(
+      params,
+      IVs = IVs,
+      type = type,
+      partial = partial,
+      generalized = generalized,
+      ci = ci, alternative = alternative,
+      verbose = verbose,
+      include_intercept = include_intercept
+    )
+  attr(out, "anova_type") <- anova_type
   out
 }
 
