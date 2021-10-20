@@ -154,7 +154,8 @@ cohens_d <- function(x,
     mu = mu,
     paired = paired,
     ci = ci,
-    verbose = verbose
+    verbose = verbose,
+    ...
   )
 }
 
@@ -194,7 +195,8 @@ hedges_g <- function(x,
     mu = mu,
     paired = paired,
     ci = ci,
-    verbose = verbose
+    verbose = verbose,
+    ...
   )
 }
 
@@ -230,7 +232,10 @@ glass_delta <- function(x,
     mu = mu,
     type = "delta",
     ci = ci,
-    verbose = verbose
+    verbose = verbose,
+    pooled_sd = NULL,
+    paired = NULL,
+    ...
   )
 }
 
@@ -253,12 +258,12 @@ glass_delta <- function(x,
     if (!grepl("t-test", x$method)) {
       stop("'x' is not a t-test!", call. = FALSE)
     }
-    return(effectsize(x, type = type, ci = ci, alternative = alternative, mu = mu, verbose = verbose))
+    return(effectsize(x, type = type, ci = ci, alternative = alternative, mu = mu, verbose = verbose, ...))
   } else if (type != "delta" && inherits(x, "BFBayesFactor")) {
     if (!inherits(x@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
       stop("'x' is not a t-test!", call. = FALSE)
     }
-    return(effectsize(x, ci = ci, verbose = verbose))
+    return(effectsize(x, ci = ci, verbose = verbose, ...))
   }
 
 
