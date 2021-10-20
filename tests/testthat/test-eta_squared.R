@@ -328,6 +328,30 @@ if (require("testthat") && require("effectsize")) {
     x <- eta_squared(mod, include_intercept = TRUE)
     a <- anova(mod, es = "pes", intercept = TRUE)
     expect_equal(a$pes, x$Eta2_partial)
+
+    # see issue #389
+    data <- data.frame(subject = c(1L, 2L, 1L, 2L, 1L, 2L, 1L, 2L, 1L,
+                                   2L, 1L, 2L, 1L, 2L, 1L, 2L),
+                       y = c(0.0586978983148275, -0.159870038198774, 0.0125690871484012,
+                             -0.0152529928817782, 0.092433880558952, 0.0359796249184537,
+                             -0.00786545388312909, 0.0340005375703463, 0.165294695432772,
+                             0.0201040753050847, 0.0741924965491503, -0.0345053066539826,
+                             0.0108194665250311, -0.163941830205729, 0.310344189786906,
+                             -0.106627229564326),
+                       A = c("A1", "A1", "A1", "A1", "A1", "A1", "A1", "A1", "A2",
+                             "A2", "A2", "A2", "A2", "A2", "A2", "A2"),
+                       B = c("B1", "B1", "B1", "B1", "B2", "B2", "B2", "B2", "B1",
+                             "B1", "B1", "B1", "B2", "B2", "B2", "B2"),
+                       C = c("C1", "C1", "C2", "C2", "C1", "C1", "C2", "C2", "C1",
+                             "C1", "C2", "C2", "C1", "C1", "C2", "C2"))
+    mod <- afex::aov_ez("subject", "y", data, within = c("A", "B", "C"))
+    tab <- as.data.frame(anova(mod, es = "pes"))
+    res <- eta_squared(mod)
+
+    tab <- tab[order(rownames(tab)),]
+    res <- res[order(res$Parameter),]
+
+    expect_equal(res$Eta2_partial,tab$pes, tolerance = 0.001)
   })
 
 

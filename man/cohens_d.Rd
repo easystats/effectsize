@@ -222,7 +222,7 @@ Correcting error and bias in research findings. Sage.
 \code{\link[=d_to_common_language]{d_to_common_language()}} \code{\link[=sd_pooled]{sd_pooled()}}
 
 Other effect size indices: 
-\code{\link{effectsize}()},
+\code{\link{effectsize.BFBayesFactor}()},
 \code{\link{eta_squared}()},
 \code{\link{phi}()},
 \code{\link{rank_biserial}()},

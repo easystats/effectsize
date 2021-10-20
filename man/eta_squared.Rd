@@ -356,7 +356,7 @@ Psychological Methods, 9, 164-182.
 
 Other effect size indices: 
 \code{\link{cohens_d}()},
-\code{\link{effectsize}()},
+\code{\link{effectsize.BFBayesFactor}()},
 \code{\link{phi}()},
 \code{\link{rank_biserial}()},
 \code{\link{standardize_parameters}()}

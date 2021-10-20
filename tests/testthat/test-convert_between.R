@@ -36,7 +36,7 @@ if (require("testthat") && require("effectsize")) {
     m <<- glm(am ~ factor(cyl), data = mtcars,
               family = binomial())
 
-    w <- capture_warnings(RR <- oddsratio_to_riskratio(m, df_method = "wald"))
+    w <- capture_warnings(RR <- oddsratio_to_riskratio(m, ci_method = "wald"))
     expect_match(w[1],"p0")
     expect_match(w[2],"CIs")
     expect_true("(Intercept)" %in% RR$Parameter)

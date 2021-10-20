@@ -170,7 +170,7 @@ chisq_to_pearsons_c <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "
 
   res <- chisq_to_phi(chisq, n, nrow, ncol, ci = ci, alternative = alternative, adjust = FALSE)
   res[grepl("^(phi|CI_)", colnames(res))] <- lapply(res[grepl("^(phi|CI_)", colnames(res))], function(phi) sqrt(1/(1/phi^2 + 1)))
-  colnames(res)[1] <- "pearsons_c"
+  colnames(res)[1] <- "Pearsons_c"
 
   if ("CI" %in% colnames(res))
     if ((alternative <- attr(res, "alternative")) == "less") {

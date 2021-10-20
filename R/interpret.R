@@ -138,11 +138,15 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
     rules <- rules(rules)
   }
 
+  nm <- names(x)
+
   if (length(x) > 1) {
     out <- sapply(x, .interpret, rules)
   } else {
     out <- .interpret(x, rules)
   }
+
+  names(out) <- nm
 
   if (is.null(name)) {
     attr(out, "rule_name") <- "Custom rules"
