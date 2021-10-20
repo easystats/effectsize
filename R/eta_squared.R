@@ -370,10 +370,11 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
                     verbose = TRUE,
                     include_intercept = FALSE,
                     ...) {
+  type <- match.arg(type)
 
   # Clean up data ---
-  if (!Mean_Square_residuals %in% colnames(params)) {
-    min_aov[["Mean_Square_residuals"]] = min_aov[["Sum_Squares"]] / min_aov[["df"]]
+  if (!"Mean_Square_residuals" %in% colnames(params)) {
+    params[["Mean_Square_residuals"]] = params[["Sum_Squares"]] / params[["df"]]
   }
 
   if (!"Residuals" %in% params$Parameter) {
@@ -633,6 +634,82 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   out
 }
 
+#' @keywords internal
+.es_anova <- function(params,
+                      type = c("eta", "omega", "epsilon"),
+                      partial = TRUE,
+                      generalized = FALSE,
+                      ci = 0.95, alternative = "greater",
+                      verbose = TRUE,
+                      include_intercept = FALSE) {
+
+  # Get correct function ---
+  type <- match.arg(type)
+  es_fun <- switch(type,
+                   eta = F_to_eta2,
+                   omega = F_to_omega2,
+                   epsilon = F_to_epsilon2)
+
+
+  # Non-Partial / Generalized -> BAD ---
+  if (verbose) {
+    if (!isTRUE(partial))
+      warning(
+        "Currently only supports partial ",
+        type,
+        " squared for this class of objects.",
+        call. = FALSE
+      )
+
+    if (isTRUE(generalized) || is.character(generalized))
+      warning(
+        "generalized ", type, " squared ",
+        "is not supported for this class of object.",
+        call. = FALSE
+      )
+  }
+
+
+  # Turn ts to Fs (if needed) ---
+  if (!"F" %in% colnames(params))
+    if ("t" %in% colnames(params)) {
+      params[["F"]] <- params[["t"]]^2
+      params[["df"]] <- 1
+    } else {
+      stop(insight::format_message("ANOVA table does not have F values - cannot compute effect size."))
+    }
+
+
+  # include_intercept? ---
+  if (!include_intercept)
+    params <- params[params$Parameter != "(Intercept)", , drop = FALSE]
+
+  out <- cbind(params,
+               es_fun(params[["F"]],
+                      params[["df"]],
+                      params[["df_error"]],
+                      ci = ci, alternative = alternative
+               ))
+
+  # Clean up output ---
+  out <- out[, colnames(out) %in% c(
+    "Parameter",
+    "Eta2", "Eta2_partial", "Eta2_generalized",
+    "Omega2", "Omega2_partial",
+    "Epsilon2", "Epsilon2_partial",
+    "CI", "CI_low", "CI_high"
+  ), drop = FALSE]
+
+  # Set attributes ---
+  attr(out, "partial") <- TRUE
+  attr(out, "generalized") <- FALSE
+  attr(out, "ci") <- if ("CI" %in% colnames(out)) ci
+  attr(out, "alternative") <- if (!is.null(attr(out, "ci"))) alternative
+  attr(out, "anova_type") <- NULL
+  attr(out, "approximate") <- NULL
+  out
+}
+
 # Clean up wrappers -------------------------------------------------------
 
 
@@ -692,8 +769,6 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     )
     return(res)
   }
-
-  type <- match.arg(type)
 
   params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
   out <- .es_aov(as.data.frame(params), type, partial, generalized, ci, alternative, verbose = verbose, ...)
@@ -786,18 +861,12 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
                             verbose = TRUE,
                             include_intercept = FALSE,
                             ...) {
-  type <- match.arg(type)
-  es_fun <- switch(type,
-    eta = F_to_eta2,
-    omega = F_to_omega2,
-    epsilon = F_to_epsilon2
-  )
+  F.nm <- c("F value", "approx F", "F-value")
+  df.nm <- c("NumDF", "num Df", "numDF", "npar")
+  df_error.nm <- c("DenDF", "den Df", "denDF", "df_error")
 
-  F_val <- c("F value", "approx F", "F-value")
-  numDF <- c("NumDF", "num Df", "numDF", "npar")
-  denDF <- c("DenDF", "den Df", "denDF", "df_error")
-
-  if (!any(denDF %in% colnames(model))) {
+  # If there is no df_error *or* is there IS a residuals row...
+  if (!any(df_error.nm %in% colnames(model))) {
     # Pass to AOV method
     res <- .anova_es.aov(model,
       partial = partial,
@@ -811,51 +880,29 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     return(res)
   }
 
-  anova_type <- tryCatch(attr(parameters::model_parameters(model, verbose = FALSE, effects = "fixed"), "anova_type"),
-                         error = function(...) 1)
-
-  if (!include_intercept) model <- model[rownames(model) != "(Intercept)", , drop = FALSE]
-  model <- model[rownames(model) != "Residuals", , drop = FALSE]
-
-  F_val <- F_val[F_val %in% colnames(model)]
-  numDF <- numDF[numDF %in% colnames(model)]
-  denDF <- denDF[denDF %in% colnames(model)]
-
-
-  if (verbose && !isTRUE(partial)) {
-    warning(
-      "Currently only supports partial ",
-      type,
-      " squared for this class of objects.",
-      call. = FALSE
-    )
-    partial <- TRUE
-  }
-
-  if (verbose && (isTRUE(generalized) || is.character(generalized))) {
-    warning(
-      "generalized ", type, " squared ",
-      "is not supported for this class of object."
-    )
-    generalized <- FALSE
-  }
-
-  par_table <- as.data.frame(model)
-
-  out <- cbind(
-    Parameter = rownames(par_table),
-    es_fun(par_table[[F_val]],
-      par_table[[numDF]],
-      par_table[[denDF]],
-      ci = ci, alternative = alternative
-    )
+  # Clean up table ---
+  par_table <- data.frame(
+    Parameter = rownames(model),
+    F = model[,F.nm[F.nm %in% colnames(model)]],
+    df = model[,df.nm[df.nm %in% colnames(model)]],
+    df_error = model[,df_error.nm[df_error.nm %in% colnames(model)]]
   )
+  par_table <- par_table[!par_table[["Parameter"]] %in% "Residuals",]
 
-  attr(out, "partial") <- partial
-  attr(out, "generalized") <- generalized
-  attr(out, "ci") <- ci
-  attr(out, "anova_type") <- anova_type
-  attr(out, "alternative") <- if (is.numeric(ci)) alternative
+  out <-
+    .es_anova(
+      par_table,
+      type = type,
+      partial = partial,
+      generalized = generalized,
+      ci = ci,
+      alternative = alternative,
+      verbose = verbose,
+      include_intercept = include_intercept
+    )
+
+  attr(out, "anova_type") <- tryCatch(attr(parameters::model_parameters(model, verbose = FALSE, effects = "fixed"), "anova_type"),
+                                      error = function(...) 1)
   out
 }
 
