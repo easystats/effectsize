@@ -1,9 +1,8 @@
 #' @keywords internal
-.values_aov <- function(params) {
+.values_aov <- function(params, group = FALSE) {
 
   # number of observations
-  # if ("Group" %in% names(params) && ("Within" %in% params$Group)) {
-  if ("Group" %in% names(params)) {
+  if (isTRUE(group)) {
     lapply(split(params, params$Group), function(.i) {
       N <- sum(.i$df) + 1
       .prepare_values_aov(.i, N)

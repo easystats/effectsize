@@ -1,37 +1,42 @@
-# AOV ----
+
+
+
+# AOVLIST ----
+
 
 #' Build an `.anova_es()` function that cleans up your model and makes a minimal
 #' table with these columns:
+#' - Group (char)
 #' - Parameter (char)
 #' - Sum_Squares (num)
 #' - df (num)
-#' And *1* row Where `Parameter` is `Residual`
-#' Optionally, a row where `Parameter` is `(Intercept)`
+#' And *1* row ***per group*** Where `Parameter` is `Residual`.
+#' Optionally, a row where `Parameter` is `(Intercept)`.
 #'
 #' eg:
-min_aov <- data.frame(
-  Parameter = c("(Intercept)","A", "B", "Residuals"),
-  Sum_Squares = c(30, 40, 10, 100),
-  df = c(1,1,2,50)
+min_aovlist <- data.frame(
+  Group = c("A", "A", "B", "B"),
+  Parameter = c("(Intercept)", "Residuals", "D", "Residuals"),
+  Sum_Squares = c(34, 21, 34, 400),
+  df = c(1, 12, 4, 30)
 )
-#' Any other column is ignored
-#' A "Group" column is not allowed {FIX - ignore}
+#' Any other column is ignored.
 #'
 #' Optional columns:
-#' - "Response" - effect is estimated separately for each response (so the Residuals / must appear for each response) {FIX - do}
 #' - "Mean_Square_residuals" - if *not* present, is calculated as Sum_Squares / df
 #'
-#' Pass the table to `.es_aov()`: {FIX - export this function}
-effectsize:::.es_aov(
-  params = min_aov,
-  type = "eta",
-  partial = FALSE,
+#' Pass the table to `.es_aovlist()`: {FIX - export this function}
+effectsize:::.es_aovlist(
+  min_aovlist, c("D"),
+  type = c("eta", "omega", "epsilon"),
+  partial = TRUE,
   generalized = FALSE,
-  include_intercept = FALSE,
   ci = 0.95, alternative = "greater",
-  verbose = TRUE
+  verbose = TRUE,
+  include_intercept = FALSE
 )
 #' The output is a data.frame with
+#' - Group
 #' - Parameter
 #' - {effect size}
 #' - Optional: CI + CI_low + CI_high
@@ -39,21 +44,20 @@ effectsize:::.es_aov(
 #' And with the following attributes:
 #' - partial
 #' - generalized
-#' - anova_type
 #' - ci
 #' - alternative
 #' - approximate
+#' - anova_type (NULL)
 #'
 #'
-#' You must then set the `anova_type` attribute to {1,2,3,NULL} return the
-#' output.
+#' You should then set the `anova_type` attribute to {1,2,3,NULL}, and
+#' optionally the `approximate` attribute, and return the output.
 #' BAM!
 
 
-# AOVLIST ----
-
 
 # ANOVA table w/o SS ----
+
 #' Build an `.anova_es()` function that cleans up your model and makes a minimal
 #' table with these columns:
 #' - Parameter (char)
@@ -100,8 +104,6 @@ effectsize:::.es_anova(
 #' You should then set the `anova_type` attribute to {1,2,3,NULL}, and
 #' optionally the `approximate` attribute, and return the output.
 #' BAM!
-#'
-#'
 
 # parameters_model --------------------------------------------------------
 

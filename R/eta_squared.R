@@ -361,43 +361,47 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 
 # Get ES ------------------------------------------------------------------
 
-#' @keywords internal
-.es_aov <- function(params,
+#' @param type Which effect size to compute?
+#' @param include_intercept Should the intercept (`(Intercept)`) be included?
+#' @param partial,generalized,ci,alternative,verbose See [eta_squared()].
+#'
+#' @rdname effectsize_API
+#' @export
+.es_aov <- function(aov_table,
                     type = c("eta", "omega", "epsilon"),
                     partial = TRUE,
                     generalized = FALSE,
                     ci = 0.95, alternative = "greater",
                     verbose = TRUE,
-                    include_intercept = FALSE,
-                    ...) {
+                    include_intercept = FALSE) {
   type <- match.arg(type)
 
   # Clean up data ---
-  if (!"Mean_Square_residuals" %in% colnames(params)) {
-    params[["Mean_Square_residuals"]] = params[["Sum_Squares"]] / params[["df"]]
+  if (!"Mean_Square_residuals" %in% colnames(aov_table)) {
+    aov_table[["Mean_Square_residuals"]] = aov_table[["Sum_Squares"]] / aov_table[["df"]]
   }
 
-  if (!"Residuals" %in% params$Parameter) {
+  if (!"Residuals" %in% aov_table$Parameter) {
     stop(insight::format_message("No residuals data found - cannot compute effect size."))
   }
 
 
   # Include intercept? ---
   if (include_intercept) {
-    values <- .values_aov(params[params$Parameter != "(Intercept)", ])
+    values <- .values_aov(aov_table[aov_table$Parameter != "(Intercept)", ])
   } else {
-    params <- params[params$Parameter != "(Intercept)", ]
-    values <- .values_aov(params)
+    aov_table <- aov_table[aov_table$Parameter != "(Intercept)", ]
+    values <- .values_aov(aov_table)
   }
 
   # Get error df ---
-  df_error <- params$df[params$Parameter == "Residuals"]
-  params <- params[params$Parameter != "Residuals", , drop = FALSE]
+  df_error <- aov_table$df[aov_table$Parameter == "Residuals"]
+  aov_table <- aov_table[aov_table$Parameter != "Residuals", , drop = FALSE]
 
 
   # Validate anova type (1,2,3) and partial ---
   anova_type <- NULL
-  if (nrow(params) == 1L &&
+  if (nrow(aov_table) == 1L &&
       (partial || isTRUE(generalized) || is.character(generalized))) {
     if (verbose) {
       txt_type <- ifelse(isTRUE(generalized) || is.character(generalized), "generalized", "partial")
@@ -415,52 +419,52 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   if (type == "eta") {
     if (isTRUE(generalized) || is.character(generalized)) {
       ## copied from afex
-      obs <- logical(nrow(params))
+      obs <- logical(nrow(aov_table))
       if (is.character(generalized)) {
         for (o in generalized) {
-          oi <- grepl(paste0("\\b", o, "\\b"), params$Parameter)
+          oi <- grepl(paste0("\\b", o, "\\b"), aov_table$Parameter)
 
           if (!any(oi)) stop("Observed variable not in data: ", o, call. = FALSE)
 
           obs <- obs | oi
         }
       }
-      obs_SSn1 <- sum(params$Sum_Squares * obs)
-      obs_SSn2 <- params$Sum_Squares * obs
+      obs_SSn1 <- sum(aov_table$Sum_Squares * obs)
+      obs_SSn2 <- aov_table$Sum_Squares * obs
 
-      params$Eta2_generalized <- params$Sum_Squares /
-        (params$Sum_Squares + values$Sum_Squares_residuals + obs_SSn1 - obs_SSn2)
+      aov_table$Eta2_generalized <- aov_table$Sum_Squares /
+        (aov_table$Sum_Squares + values$Sum_Squares_residuals + obs_SSn1 - obs_SSn2)
     } else if (!isTRUE(partial)) {
-      params$Eta2 <- params$Sum_Squares /
+      aov_table$Eta2 <- aov_table$Sum_Squares /
         values$Sum_Squares_total
     } else {
-      params$Eta2_partial <-
-        params$Sum_Squares /
-        (params$Sum_Squares + values$Sum_Squares_residuals)
+      aov_table$Eta2_partial <-
+        aov_table$Sum_Squares /
+        (aov_table$Sum_Squares + values$Sum_Squares_residuals)
     }
   } else if (type == "omega") {
     if (!isTRUE(partial)) {
-      params$Omega2 <-
-        (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
+      aov_table$Omega2 <-
+        (aov_table$Sum_Squares - aov_table$df * values$Mean_Square_residuals) /
         (values$Sum_Squares_total + values$Mean_Square_residuals)
     } else {
-      params$Omega2_partial <-
-        (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
-        (params$Sum_Squares + (values$n - params$df) * values$Mean_Square_residuals)
+      aov_table$Omega2_partial <-
+        (aov_table$Sum_Squares - aov_table$df * values$Mean_Square_residuals) /
+        (aov_table$Sum_Squares + (values$n - aov_table$df) * values$Mean_Square_residuals)
     }
   } else if (type == "epsilon") {
     if (!isTRUE(partial)) {
-      params$Epsilon2 <-
-        (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
+      aov_table$Epsilon2 <-
+        (aov_table$Sum_Squares - aov_table$df * values$Mean_Square_residuals) /
         values$Sum_Squares_total
     } else {
-      params$Epsilon2_partial <-
-        (params$Sum_Squares - params$df * values$Mean_Square_residuals) /
-        (params$Sum_Squares + values$Sum_Squares_residuals)
+      aov_table$Epsilon2_partial <-
+        (aov_table$Sum_Squares - aov_table$df * values$Mean_Square_residuals) /
+        (aov_table$Sum_Squares + values$Sum_Squares_residuals)
     }
   }
 
-  out <- params
+  out <- aov_table
 
   # Add CIs ---
   if (is.numeric(ci)) {
@@ -501,8 +505,12 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   out
 }
 
-#' @keywords internal
-.es_aovlist <- function(params, IVs,
+#' @param DV_names A character vector with the names of all the predictors,
+#'   including the grouping variable (e.g., `"Subject"`).
+#'
+#' @rdname effectsize_API
+#' @export
+.es_aovlist <- function(aov_table, DV_names,
                         type = c("eta", "omega", "epsilon"),
                         partial = TRUE,
                         generalized = FALSE,
@@ -511,86 +519,94 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
                         include_intercept = FALSE) {
   type <- match.arg(type)
 
-  if (!"Residuals" %in% params$Parameter) {
-    stop(
-      "No residuals data found - ",
-      type,
-      " squared can only be computed for simple `aov` models."
-    )
+  # Clean up data ---
+  if (!"Mean_Square_residuals" %in% colnames(aov_table)) {
+    aov_table[["Mean_Square_residuals"]] = aov_table[["Sum_Squares"]] / aov_table[["df"]]
   }
 
+  if (!"Residuals" %in% aov_table$Parameter) {
+    stop(insight::format_message("No residuals data found - cannot compute effect size."))
+  }
+
+
+  # Include intercept? ---
   if (include_intercept) {
-    values <- .values_aov(params[params$Parameter != "(Intercept)", ])
+    values <- .values_aov(aov_table[aov_table$Parameter != "(Intercept)", ], group = TRUE)
   } else {
-    params <- params[params$Parameter != "(Intercept)", ]
-    values <- .values_aov(params)
+    aov_table <- aov_table[aov_table$Parameter != "(Intercept)", ]
+    values <- .values_aov(aov_table, group = TRUE)
   }
 
-  params <- params[params$Parameter != "Residuals" & !is.na(params$`F`), , drop = FALSE]
+
+  # Get all the correct SSs... ---
+  aov_table <- aov_table[aov_table$Parameter != "Residuals", , drop = FALSE]
   Sum_Squares_total <- sum(sapply(values, "[[", "Sum_Squares_total"))
-  Sum_Squares_residuals <- sapply(values[params$Group], "[[", "Sum_Squares_residuals")
-  Mean_Square_residuals <- sapply(values[params$Group], "[[", "Mean_Square_residuals")
-  df_residuals <- sapply(values[params$Group], "[[", "df_residuals")
-  ns <- sapply(values[params$Group], "[[", "n")
+  Sum_Squares_residuals <- sapply(values[aov_table$Group], "[[", "Sum_Squares_residuals")
+  Mean_Square_residuals <- sapply(values[aov_table$Group], "[[", "Mean_Square_residuals")
+  df_residuals <- sapply(values[aov_table$Group], "[[", "df_residuals")
+  ns <- sapply(values[aov_table$Group], "[[", "n")
 
 
+  # Estimate effect size ---
   if (type == "eta") {
     if (isTRUE(generalized) || is.character(generalized)) {
       ## copied from afex
-      obs <- logical(nrow(params))
+      obs <- logical(nrow(aov_table))
       if (is.character(generalized)) {
         for (o in generalized) {
-          oi <- grepl(paste0("\\b", o, "\\b"), params$Parameter)
+          oi <- grepl(paste0("\\b", o, "\\b"), aov_table$Parameter)
 
           if (!any(oi)) stop("Observed variable not in data: ", o, call. = FALSE)
 
           obs <- obs | oi
         }
       }
-      obs_SSn1 <- sum(params$Sum_Squares * obs)
-      obs_SSn2 <- params$Sum_Squares * obs
+      obs_SSn1 <- sum(aov_table$Sum_Squares * obs)
+      obs_SSn2 <- aov_table$Sum_Squares * obs
 
-      params$Eta2_generalized <- params$Sum_Squares /
-        (params$Sum_Squares + sum(sapply(values, "[[", "Sum_Squares_residuals")) +
+      aov_table$Eta2_generalized <- aov_table$Sum_Squares /
+        (aov_table$Sum_Squares + sum(sapply(values, "[[", "Sum_Squares_residuals")) +
            obs_SSn1 - obs_SSn2)
     } else if (!isTRUE(partial)) {
-      params$Eta2 <- params$Sum_Squares / Sum_Squares_total
+      aov_table$Eta2 <- aov_table$Sum_Squares / Sum_Squares_total
     } else {
-      params$Eta2_partial <-
-        params$Sum_Squares /
-        (params$Sum_Squares + Sum_Squares_residuals)
+      aov_table$Eta2_partial <-
+        aov_table$Sum_Squares /
+        (aov_table$Sum_Squares + Sum_Squares_residuals)
     }
   } else if (type == "omega") {
-    SSS_values <- values[[which(names(values) %in% IVs)]]
-    is_within <- !params$Group %in% IVs
+    SSS_values <- values[[which(names(values) %in% DV_names)]]
+    is_within <- !aov_table$Group %in% DV_names
     Sum_Squares_Subjects <- SSS_values$Sum_Squares_residuals
     Mean_Squares_Subjects <- SSS_values$Mean_Square_residuals
 
     # implemented from https://www.jasonfinley.com/tools/OmegaSquaredQuickRef_JRF_3-31-13.pdf
     if (!isTRUE(partial)) {
-      params$Omega2 <-
-        (params$Sum_Squares - params$df * Mean_Square_residuals) /
+      aov_table$Omega2 <-
+        (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /
         (Sum_Squares_total + Mean_Squares_Subjects)
     } else {
-      params$Omega2_partial <-
-        (params$Sum_Squares - params$df * Mean_Square_residuals) /
-        (params$Sum_Squares + is_within * Sum_Squares_residuals +
+      aov_table$Omega2_partial <-
+        (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /
+        (aov_table$Sum_Squares + is_within * Sum_Squares_residuals +
            Sum_Squares_Subjects + Mean_Squares_Subjects)
     }
   } else if (type == "epsilon") {
     if (!isTRUE(partial)) {
-      params$Epsilon2 <-
-        (params$Sum_Squares - params$df * Mean_Square_residuals) /
+      aov_table$Epsilon2 <-
+        (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /
         Sum_Squares_total
     } else {
-      params$Epsilon2_partial <-
-        (params$Sum_Squares - params$df * Mean_Square_residuals) /
-        (params$Sum_Squares + Sum_Squares_residuals)
+      aov_table$Epsilon2_partial <-
+        (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /
+        (aov_table$Sum_Squares + Sum_Squares_residuals)
     }
   }
 
-  out <- params
+  out <- aov_table
 
+
+  # Add CIs ---
   if (!is.null(ci)) {
     # based on MBESS::ci.R2
     ES <- pmax(0, out[[ncol(out)]])
@@ -609,20 +625,15 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     alternative <- NULL
   }
 
+
+  # Clean up output ---
   out <- out[, colnames(out) %in% c(
     "Group",
-    "Response",
     "Parameter",
-    "Eta2_generalized",
-    "Eta2_partial",
-    "Omega2_partial",
-    "Epsilon2_partial",
-    "Eta2",
-    "Omega2",
-    "Epsilon2",
-    "CI",
-    "CI_low",
-    "CI_high"
+    "Eta2", "Eta2_generalized", "Eta2_partial",
+    "Omega2", "Omega2_partial",
+    "Epsilon2", "Epsilon2_partial",
+    "CI", "CI_low", "CI_high"
   ), drop = FALSE]
   rownames(out) <- NULL
 
@@ -634,8 +645,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   out
 }
 
-#' @keywords internal
-.es_anova <- function(params,
+#' @rdname effectsize_API
+#' @export
+.es_anova <- function(aov_table,
                       type = c("eta", "omega", "epsilon"),
                       partial = TRUE,
                       generalized = FALSE,
@@ -671,10 +683,10 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 
 
   # Turn ts to Fs (if needed) ---
-  if (!"F" %in% colnames(params))
-    if ("t" %in% colnames(params)) {
-      params[["F"]] <- params[["t"]]^2
-      params[["df"]] <- 1
+  if (!"F" %in% colnames(aov_table))
+    if ("t" %in% colnames(aov_table)) {
+      aov_table[["F"]] <- aov_table[["t"]]^2
+      aov_table[["df"]] <- 1
     } else {
       stop(insight::format_message("ANOVA table does not have F values - cannot compute effect size."))
     }
@@ -682,12 +694,12 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 
   # include_intercept? ---
   if (!include_intercept)
-    params <- params[params$Parameter != "(Intercept)", , drop = FALSE]
+    aov_table <- aov_table[aov_table$Parameter != "(Intercept)", , drop = FALSE]
 
-  out <- cbind(params,
-               es_fun(params[["F"]],
-                      params[["df"]],
-                      params[["df_error"]],
+  out <- cbind(aov_table,
+               es_fun(aov_table[["F"]],
+                      aov_table[["df"]],
+                      aov_table[["df_error"]],
                       ci = ci, alternative = alternative
                ))
 
@@ -797,12 +809,12 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   anova_type <- attr(params, "anova_type")
   params <- as.data.frame(params)
 
-  IVs <- insight::find_predictors(model)[[1]]
+  DV_names <- insight::find_predictors(model)[[1]]
 
   out <-
     .es_aovlist(
       params,
-      IVs = IVs,
+      DV_names = DV_names,
       type = type,
       partial = partial,
       generalized = generalized,
@@ -1188,12 +1200,12 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     aov_tab$`F` <- ifelse(aov_tab$Parameter == "Residuals", NA, 1)
     aov_tab$Mean_Square <- aov_tab$Sum_Squares/aov_tab$df
 
-    IVs <- c(id, names(attr(model, "within")), names(attr(model, "between")))
+    DV_names <- c(id, names(attr(model, "within")), names(attr(model, "between")))
 
     out <-
       .es_aovlist(
         aov_tab,
-        IVs = IVs,
+        DV_names = DV_names,
         type = type,
         partial = partial,
         generalized = generalized,

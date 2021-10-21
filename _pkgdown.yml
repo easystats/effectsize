@@ -65,12 +65,15 @@ reference:
   contents:
   - sd_pooled
   - is_effectsize_name
-  - effectsize_CIs
   - format_standardize
   - print.effectsize_table
 - subtitle: "Datasets"
   contents:
   - hardlyworking
+- subtitle: "Extra Docs"
+  contents:
+  - effectsize_CIs
+  - effectsize_API
 - subtitle: "Deprecated functions"
   contents:
   - effectsize_deprecated
