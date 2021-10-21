@@ -22,6 +22,18 @@ knitr::opts_chunk$set(comment = ">",
                       message = FALSE)
 options(digits = 2)
 options(knitr.kable.NA = '')
+
+
+pkgs <- c("effectsize")
+if (!all(sapply(pkgs, requireNamespace, quietly = TRUE))) {
+  knitr::opts_chunk$set(eval = FALSE)
+}
+
+set.seed(333)
+```
+
+```{r}
+library(effectsize)
 ```
 
 # Supporting ANOVA Effect Sizes
