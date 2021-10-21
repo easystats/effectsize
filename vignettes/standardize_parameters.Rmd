@@ -76,9 +76,7 @@ of `0.87`, but did you know that for a simple regression this is actually the
 interpretation guidelines (e.g., Cohen's rules of thumb).
 
 ```{r}
-r <- cor.test(attitude$rating, attitude$complaints)
-
-effectsize(r)
+correlation::correlation(attitude, select = c("rating", "complaints"))
 ```
 
 ## Standardized Differences
@@ -90,6 +88,7 @@ that it is similar to a **Cohen's *d***. Well, let's see.
 ```{r include=FALSE}
 mtcars <- datasets::mtcars
 ```
+
 ```{r}
 # Select portion of data containing the two levels of interest
 mtcars$am <- factor(mtcars$am, labels = c("Manual", "Automatic"))
@@ -181,9 +180,12 @@ data("hardlyworking", package = "effectsize")
 
 head(hardlyworking)
 
-correlation::correlation(data = hardlyworking[,1], # the outcome of salary
-                         data2 = hardlyworking[,-1], # the predictors
-                         partial = TRUE) # get partial correlations
+correlation::correlation(
+  hardlyworking,
+  select = "salary",
+  select2 = c("xtra_hours", "n_comps", "age", "seniority"),
+  partial = TRUE # get partial correlations
+) 
 ```
 
 Let's compare these to the standardized slopes:
