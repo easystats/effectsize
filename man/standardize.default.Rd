@@ -2,7 +2,7 @@
 % Please edit documentation in R/standardize.models.R
 \name{standardize.default}
 \alias{standardize.default}
-\alias{standardize-models}
+\alias{standardize_models}
 \title{Re-fit a model with standardized data}
 \usage{
 \method{standardize}{default}(

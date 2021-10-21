@@ -60,7 +60,7 @@
 #' @importFrom datawizard standardize
 #' @importFrom utils capture.output
 #' @export
-#' @aliases standardize-models
+#' @aliases standardize_models
 standardize.default <- function(x,
                                 robust = FALSE,
                                 two_sd = FALSE,
@@ -187,10 +187,11 @@ standardize.default <- function(x,
       text <- utils::capture.output(model_std <- stats::update(x, newdata = data_std))
     } else if (inherits(x, "biglm")) {
       text <- utils::capture.output(model_std <- stats::update(x, moredata = data_std))
+    } else if (inherits(x, "mixor")) {
+      data_std <- data_std[order(data_std[, random_group_factor, drop = FALSE]), ]
+      text <- utils::capture.output(model_std <- stats::update(x, data = data_std))
     } else {
-      if (inherits(x, "mixor")) {
-        data_std <- data_std[order(data_std[, random_group_factor, drop = FALSE]), ]
-      }
+      # DEFAULT METHOD
       text <- utils::capture.output(model_std <- stats::update(x, data = data_std))
     }
   }, error = function(er) {
@@ -360,23 +361,6 @@ standardize.mediate <- function(x,
   model_std
 }
 
-#' @keywords internal
-.rescale_fixed_values <- function(val, cov_nm,
-                                  y_data, m_data, y_data_std, m_data_std) {
-  if (cov_nm %in% colnames(y_data)) {
-    temp_data <- y_data
-    temp_data_std <- y_data_std
-  } else {
-    temp_data <- m_data
-    temp_data_std <- m_data_std
-  }
-
-  datawizard::change_scale(val,
-    to = range(temp_data_std[[cov_nm]]),
-    range = range(temp_data[[cov_nm]])
-  )
-}
-
 
 # Cannot ------------------------------------------------------------------
 
@@ -447,4 +431,21 @@ standardize.wbgee <- standardize.wbm
   ##      and then treat response for "Gamma()" or "inverse.gaussian" similar to log-terms
 
   # info$is_count | info$is_ordinal | info$is_multinomial | info$is_beta | info$is_censored | info$is_binomial | info$is_survival
+}
+
+#' @keywords internal
+.rescale_fixed_values <- function(val, cov_nm,
+                                  y_data, m_data, y_data_std, m_data_std) {
+  if (cov_nm %in% colnames(y_data)) {
+    temp_data <- y_data
+    temp_data_std <- y_data_std
+  } else {
+    temp_data <- m_data
+    temp_data_std <- m_data_std
+  }
+
+  datawizard::change_scale(val,
+                           to = range(temp_data_std[[cov_nm]]),
+                           range = range(temp_data[[cov_nm]])
+  )
 }

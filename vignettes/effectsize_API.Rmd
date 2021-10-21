@@ -180,6 +180,7 @@ Let's fit a simple linear model and change its class:
 
 ```{r}
 mod <- lm(mpg ~ factor(cyl) + am, mtcars)
+
 class(mod) <- "superMODEL"
 ```
 
@@ -193,7 +194,7 @@ We now need a new `.anova_es.superMODEL` function:
   
   # Clean up
   anov[["Parameter"]] <- rownames(anov)
-  colnames(anov)[1:2] <- c("df", "Sum_Squares")
+  colnames(anov)[2:1] <- c("Sum_Squares", "df")
   
   # Pass
   out <- .es_aov(anov, ...)
@@ -216,8 +217,16 @@ omega_squared(mod)
 ```
 
 
+# Supporting Model Re-Fitting with Standardized Data
 
+Although you can make your own `standardize.my_class()` function, DIY-style (possibly using `datawizard::standardize.data.frame()` or `datawizard::standardize.numeric()`), you can also let `effectsize::standardize()` handle all the heavy lifting for you. 
 
+For this option, you will need:
+
+1. `insight` support.
+2. An `update()` method that can take the model and a data frame via the `data = ` argument.
+
+And... that's it!
 
 # References
 
