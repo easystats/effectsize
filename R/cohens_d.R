@@ -234,7 +234,7 @@ glass_delta <- function(x,
     ci = ci,
     verbose = verbose,
     pooled_sd = NULL,
-    paired = NULL,
+    paired = FALSE,
     ...
   )
 }
