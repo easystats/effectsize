@@ -361,6 +361,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 
 # Get ES ------------------------------------------------------------------
 
+#' @param aov_table Input data frame
 #' @param type Which effect size to compute?
 #' @param include_intercept Should the intercept (`(Intercept)`) be included?
 #' @param partial,generalized,ci,alternative,verbose See [eta_squared()].
