@@ -489,12 +489,13 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 
   # Clean up output ---
   out <- out[, colnames(out) %in% c(
-    "Response", "Parameter",
+    "Parameter",
     "Eta2", "Eta2_partial", "Eta2_generalized",
     "Omega2", "Omega2_partial",
     "Epsilon2", "Epsilon2_partial",
     "CI", "CI_low", "CI_high"
   ), drop = FALSE]
+  rownames(out) <- NULL
 
   # Set attributes ---
   attr(out, "partial") <- partial
@@ -712,6 +713,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     "Epsilon2", "Epsilon2_partial",
     "CI", "CI_low", "CI_high"
   ), drop = FALSE]
+  rownames(out) <- NULL
 
   # Set attributes ---
   attr(out, "partial") <- TRUE
@@ -841,7 +843,6 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
   anova_type <- attr(params, "anova_type")
 
-  params <- as.data.frame(params)
   params <- split(params, params$Response)
   params <- lapply(params, .es_aov,
     type = type,
@@ -1096,20 +1097,6 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     warning(
       "Currently only supports partial ",
       type,
-      " squared for repeated-measures / multi-variate ANOVAs",
-      call. = FALSE
-    )
-    partial <- TRUE
-  }
-
-  if (verbose && (isTRUE(generalized) || is.character(generalized))) {
-    warning(
-      "generalized ", type, " squared ",
-      "is not supported for this class of object."
-    )
-    generalized <- FALSE
-  }
-
   model <- stats::anova(model)
 
   p.table <- as.data.frame(model$pTerms.table)
@@ -1223,6 +1210,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     orig_terms <- c("(Intercept)", orig_terms)
   }
   out <- out[match(out$Parameter, orig_terms),]
+
   attr(out, "anova_type") <- attr(model, "type", exact = TRUE)
   attr(out, "approximate") <- FALSE
   out
@@ -1242,17 +1230,23 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   if (!inherits(model, "anova.rms")) {
     model <- stats::anova(model, test = "F")
   }
+
   i <- rownames(model)
   model <- as.data.frame(model)
-
-  colnames(model) <- gsub("F", "F value", colnames(model), fixed = TRUE)
-  colnames(model) <- gsub("d.f.", "NumDF", colnames(model), fixed = TRUE)
-  model$DenDF <- model$NumDF[rownames(model) == "ERROR"]
-
+  model$Parameter <- i
+  colnames(model) <- gsub("d.f.", "df", colnames(model), fixed = TRUE)
+  model$df_error <- model$df[rownames(model) == "ERROR"]
   model <- model[rownames(model) != "ERROR", ]
 
-  out <- .anova_es.anova(model, type = type, partial = partial, generalized = generalized, ci = ci, alternative = alternative, ...)
-  out$Parameter <- i[match(make.names(i), out$Parameter, nomatch = 0)]
+  out <- .es_anova(
+    model,
+    type = type,
+    partial = partial,
+    generalized = generalized,
+    ci = ci,
+    alternative = alternative,
+    ...
+  )
   attr(out, "anova_type") <- 2
   out
 }
