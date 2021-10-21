@@ -852,6 +852,10 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     verbose = verbose,
     ...
   )
+
+  params <- lapply(names(params), function(nm) {
+    cbind(Response = nm, params[[nm]])
+  })
   out <- do.call("rbind", params)
   rownames(out) <- NULL
 
@@ -1086,17 +1090,6 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
                           ci = 0.95, alternative = "greater",
                           verbose = TRUE,
                           ...) {
-  type <- match.arg(type)
-  es_fun <- switch(type,
-    eta = F_to_eta2,
-    omega = F_to_omega2,
-    epsilon = F_to_epsilon2
-  )
-
-  if (verbose && !isTRUE(partial)) {
-    warning(
-      "Currently only supports partial ",
-      type,
   model <- stats::anova(model)
 
   p.table <- as.data.frame(model$pTerms.table)
