@@ -96,8 +96,7 @@
     <p>Compute standardized model parameters (coefficients).</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span>
+    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">standardize_parameters</span><span class="op">(</span>
   <span class="va">model</span>,
   method <span class="op">=</span> <span class="st">"refit"</span>,
   ci <span class="op">=</span> <span class="fl">0.95</span>,
@@ -109,7 +108,7 @@
   <span class="va">...</span>
 <span class="op">)</span>
 
-<span class="fu"><a href="../reference/standardize_parameters.html">standardize_posteriors</a></span><span class="op">(</span>
+<span class="fu">standardize_posteriors</span><span class="op">(</span>
   <span class="va">model</span>,
   method <span class="op">=</span> <span class="st">"refit"</span>,
   robust <span class="op">=</span> <span class="cn">FALSE</span>,
@@ -121,7 +120,7 @@
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="table ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>model</th>
+    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>model</th>
       <td><p>A statistical model.</p></td>
     </tr><tr><th>method</th>
       <td><p>The method used for standardizing the parameters. Can be
@@ -150,13 +149,14 @@ Models</em> section).</p></td>
     </tr><tr><th>parameters</th>
       <td><p>Deprecated.</p></td>
     </tr><tr><th>...</th>
-      <td><p>For <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code>, arguments passed to
+      <td><p>For <code>standardize_parameters()</code>, arguments passed to
 <a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">parameters::model_parameters</a>, such as:</p><ul><li><p><code>ci_method</code>, <code>centrality</code> for Mixed models and Bayesian models...</p></li>
 <li><p><code>exponentiate</code>, ...</p></li>
 <li><p>etc.</p></li>
 </ul></td>
     </tr></table></div>
 
+    <div id="ref-sections">
     <div id="value">
     <h2>Value</h2>
     <p>A data frame with the standardized parameters (<code>Std_*</code>, depending on
@@ -177,7 +177,7 @@ The <code>robust</code> (default to <code>FALSE</code>) argument enables a robus
 of data, i.e., based on the <code>median</code> and <code>MAD</code> instead of the <code>mean</code> and
 <code>SD</code>. <strong>See <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> for more details.</strong></p><ul><li><p><strong>Note</strong> that <code>standardize_parameters(method = "refit")</code> may not return
 the same results as fitting a model on data that has been standardized with
-<code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code>; <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> used the data used by the model
+<code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code>; <code>standardize_parameters()</code> used the data used by the model
 fitting function, which might not be same data if there are missing values.
 see the <code>remove_na</code> argument in <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code>.</p></li>
 </ul></li>
@@ -271,149 +271,149 @@ model.</p>
 <code><a href="phi.html">phi</a>()</code>,
 <code><a href="rank_biserial.html">rank_biserial</a>()</code></p></div>
     </div>
+    </div>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/" class="external-link">effectsize</a></span><span class="op">)</span>
-
-<span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">len</span> <span class="op">~</span> <span class="va">supp</span> <span class="op">*</span> <span class="va">dose</span>, data <span class="op">=</span> <span class="va">ToothGrowth</span><span class="op">)</span>
-<span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"refit"</span><span class="op">)</span>
-<span class="co">#&gt; # Standardization method: refit</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter   | Coefficient (std.) |         95% CI</span>
-<span class="co">#&gt; -------------------------------------------------</span>
-<span class="co">#&gt; (Intercept) |               0.24 | [ 0.05,  0.44]</span>
-<span class="co">#&gt; suppVC      |              -0.48 | [-0.76, -0.21]</span>
-<span class="co">#&gt; dose        |               0.64 | [ 0.45,  0.84]</span>
-<span class="co">#&gt; suppVC:dose |               0.32 | [ 0.04,  0.60]</span>
-<span class="co"># \donttest{</span>
-<span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"posthoc"</span><span class="op">)</span>
-<span class="co">#&gt; # Standardization method: posthoc</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter   | Coefficient (std.) |         95% CI</span>
-<span class="co">#&gt; -------------------------------------------------</span>
-<span class="co">#&gt; (Intercept) |               0.00 | [ 0.00,  0.00]</span>
-<span class="co">#&gt; suppVC      |              -1.08 | [-1.66, -0.49]</span>
-<span class="co">#&gt; dose        |               0.64 | [ 0.45,  0.84]</span>
-<span class="co">#&gt; suppVC:dose |               0.32 | [ 0.04,  0.60]</span>
-<span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"smart"</span><span class="op">)</span>
-<span class="co">#&gt; # Standardization method: smart</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter   | Coefficient (std.) |         95% CI</span>
-<span class="co">#&gt; -------------------------------------------------</span>
-<span class="co">#&gt; (Intercept) |               0.00 | [ 0.00,  0.00]</span>
-<span class="co">#&gt; suppVC      |              -1.00 | [-1.54, -0.46]</span>
-<span class="co">#&gt; dose        |               0.64 | [ 0.45,  0.84]</span>
-<span class="co">#&gt; suppVC:dose |               0.55 | [ 0.07,  1.02]</span>
-<span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span>
-<span class="co">#&gt; # Standardization method: basic</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter   | Coefficient (std.) |         95% CI</span>
-<span class="co">#&gt; -------------------------------------------------</span>
-<span class="co">#&gt; (Intercept) |               0.00 | [ 0.00,  0.00]</span>
-<span class="co">#&gt; suppVC      |              -0.54 | [-0.84, -0.25]</span>
-<span class="co">#&gt; dose        |               0.64 | [ 0.45,  0.84]</span>
-<span class="co">#&gt; suppVC:dose |               0.38 | [ 0.05,  0.70]</span>
-
-<span class="co"># Robust and 2 SD</span>
-<span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">model</span>, robust <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; # Standardization method: refit</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter   | Coefficient (std.) |         95% CI</span>
-<span class="co">#&gt; -------------------------------------------------</span>
-<span class="co">#&gt; (Intercept) |               0.01 | [-0.16,  0.18]</span>
-<span class="co">#&gt; suppVC      |              -0.48 | [-0.72, -0.24]</span>
-<span class="co">#&gt; dose        |               0.64 | [ 0.44,  0.84]</span>
-<span class="co">#&gt; suppVC:dose |               0.32 | [ 0.04,  0.60]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - Scaled by one MAD(s) from the median.</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">model</span>, two_sd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; # Standardization method: refit</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter   | Coefficient (std.) |         95% CI</span>
-<span class="co">#&gt; -------------------------------------------------</span>
-<span class="co">#&gt; (Intercept) |               0.24 | [ 0.05,  0.44]</span>
-<span class="co">#&gt; suppVC      |              -0.48 | [-0.76, -0.21]</span>
-<span class="co">#&gt; dose        |               1.28 | [ 0.89,  1.68]</span>
-<span class="co">#&gt; suppVC:dose |               0.64 | [ 0.09,  1.20]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - Scaled by two SD(s) from the mean.</span>
-<span class="co">#&gt; </span>
-
-
-<span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">am</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">*</span> <span class="va">mpg</span>, data <span class="op">=</span> <span class="va">mtcars</span>, family <span class="op">=</span> <span class="st">"binomial"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"refit"</span><span class="op">)</span>
-<span class="co">#&gt; # Standardization method: refit</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter   | Coefficient (std.) |        95% CI</span>
-<span class="co">#&gt; ------------------------------------------------</span>
-<span class="co">#&gt; (Intercept) |              -0.58 | [-1.98, 0.70]</span>
-<span class="co">#&gt; cyl         |               0.25 | [-1.54, 2.10]</span>
-<span class="co">#&gt; mpg         |               2.10 | [-0.19, 5.28]</span>
-<span class="co">#&gt; cyl:mpg     |              -0.36 | [-2.57, 1.54]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; (Response is unstandardized)</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"posthoc"</span><span class="op">)</span>
-<span class="co">#&gt; # Standardization method: posthoc</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter   | Coefficient (std.) |         95% CI</span>
-<span class="co">#&gt; -------------------------------------------------</span>
-<span class="co">#&gt; (Intercept) |               0.00 | [ 0.00,  0.00]</span>
-<span class="co">#&gt; cyl         |               1.46 | [-4.63,  9.37]</span>
-<span class="co">#&gt; mpg         |               3.36 | [-2.31, 12.59]</span>
-<span class="co">#&gt; cyl:mpg     |              -0.20 | [-1.44,  0.86]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; (Response is unstandardized)</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"basic"</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; # Standardization method: basic</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter   | Odds Ratio (std.) |           95% CI</span>
-<span class="co">#&gt; --------------------------------------------------</span>
-<span class="co">#&gt; (Intercept) |              1.00 | [1.00,     1.00]</span>
-<span class="co">#&gt; cyl         |              4.32 | [0.01, 11681.98]</span>
-<span class="co">#&gt; mpg         |             28.80 | [0.10, 2.92e+05]</span>
-<span class="co">#&gt; cyl:mpg     |              0.54 | [0.01,    13.94]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; (Response is unstandardized)</span>
-<span class="co">#&gt; </span>
-<span class="co"># }</span>
-
-<span class="co"># \donttest{</span>
-<span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/lme4/lme4/" class="external-link">"lme4"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">am</span> <span class="op">+</span> <span class="va">vs</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">cyl</span><span class="op">)</span>, <span class="va">mtcars</span><span class="op">)</span>
-  <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span>, method <span class="op">=</span> <span class="st">"pseudo"</span>, ci_method <span class="op">=</span> <span class="st">"satterthwaite"</span><span class="op">)</span>
-<span class="op">}</span>
-<span class="co">#&gt; boundary (singular) fit: see ?isSingular</span>
-<span class="co">#&gt; Warning: The following within-group terms have between-group variance:</span>
-<span class="co">#&gt;   am, vs</span>
-<span class="co">#&gt; This can inflate standardized within-group parameters associated with</span>
-<span class="co">#&gt; these terms. See help("demean", package = "datawizard") for modeling</span>
-<span class="co">#&gt; between- and within-subject effects.</span>
-<span class="co">#&gt; # Standardization method: pseudo</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter   | Coefficient (std.) |         95% CI</span>
-<span class="co">#&gt; -------------------------------------------------</span>
-<span class="co">#&gt; (Intercept) |               0.00 | [ 0.00,  0.00]</span>
-<span class="co">#&gt; cyl         |              -0.74 | [-1.25, -0.23]</span>
-<span class="co">#&gt; am          |               0.47 | [-0.01,  0.95]</span>
-<span class="co">#&gt; vs          |               0.20 | [-0.50,  0.90]</span>
-
-
-<span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span>
-<span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://mc-stan.org/rstanarm/" class="external-link">"rstanarm"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html" class="external-link">stan_glm</a></span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">critical</span> <span class="op">+</span> <span class="va">privileges</span>, data <span class="op">=</span> <span class="va">attitude</span>, refresh <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-  <span class="fu"><a href="../reference/standardize_parameters.html">standardize_posteriors</a></span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"refit"</span><span class="op">)</span>
-  <span class="fu"><a href="../reference/standardize_parameters.html">standardize_posteriors</a></span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"posthoc"</span><span class="op">)</span>
-  <span class="fu"><a href="../reference/standardize_parameters.html">standardize_posteriors</a></span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"smart"</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/standardize_parameters.html">standardize_posteriors</a></span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span>
-<span class="op">}</span>
-<span class="co"># }</span>
-
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/" class="external-link">effectsize</a></span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">len</span> <span class="op">~</span> <span class="va">supp</span> <span class="op">*</span> <span class="va">dose</span>, data <span class="op">=</span> <span class="va">ToothGrowth</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">standardize_parameters</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"refit"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Standardization method: refit</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter   | Coefficient (std.) |         95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) |               0.24 | [ 0.05,  0.44]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> suppVC      |              -0.48 | [-0.76, -0.21]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> dose        |               0.64 | [ 0.45,  0.84]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> suppVC:dose |               0.32 | [ 0.04,  0.60]</span>
+<span class="r-in"><span class="co"># \donttest{</span></span>
+<span class="r-in"><span class="fu">standardize_parameters</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"posthoc"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Standardization method: posthoc</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter   | Coefficient (std.) |         95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) |               0.00 | [ 0.00,  0.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> suppVC      |              -1.08 | [-1.66, -0.49]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> dose        |               0.64 | [ 0.45,  0.84]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> suppVC:dose |               0.32 | [ 0.04,  0.60]</span>
+<span class="r-in"><span class="fu">standardize_parameters</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"smart"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Standardization method: smart</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter   | Coefficient (std.) |         95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) |               0.00 | [ 0.00,  0.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> suppVC      |              -1.00 | [-1.54, -0.46]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> dose        |               0.64 | [ 0.45,  0.84]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> suppVC:dose |               0.55 | [ 0.07,  1.02]</span>
+<span class="r-in"><span class="fu">standardize_parameters</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Standardization method: basic</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter   | Coefficient (std.) |         95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) |               0.00 | [ 0.00,  0.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> suppVC      |              -0.54 | [-0.84, -0.25]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> dose        |               0.64 | [ 0.45,  0.84]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> suppVC:dose |               0.38 | [ 0.05,  0.70]</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Robust and 2 SD</span></span>
+<span class="r-in"><span class="fu">standardize_parameters</span><span class="op">(</span><span class="va">model</span>, robust <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Standardization method: refit</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter   | Coefficient (std.) |         95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) |               0.01 | [-0.16,  0.18]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> suppVC      |              -0.48 | [-0.72, -0.24]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> dose        |               0.64 | [ 0.44,  0.84]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> suppVC:dose |               0.32 | [ 0.04,  0.60]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Scaled by one MAD(s) from the median.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu">standardize_parameters</span><span class="op">(</span><span class="va">model</span>, two_sd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Standardization method: refit</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter   | Coefficient (std.) |         95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) |               0.24 | [ 0.05,  0.44]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> suppVC      |              -0.48 | [-0.76, -0.21]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> dose        |               1.28 | [ 0.89,  1.68]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> suppVC:dose |               0.64 | [ 0.09,  1.20]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Scaled by two SD(s) from the mean.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">am</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">*</span> <span class="va">mpg</span>, data <span class="op">=</span> <span class="va">mtcars</span>, family <span class="op">=</span> <span class="st">"binomial"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">standardize_parameters</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"refit"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Standardization method: refit</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter   | Coefficient (std.) |        95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) |              -0.58 | [-1.98, 0.70]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl         |               0.25 | [-1.54, 2.10]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mpg         |               2.10 | [-0.19, 5.28]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl:mpg     |              -0.36 | [-2.57, 1.54]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">(Response is unstandardized)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu">standardize_parameters</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"posthoc"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Standardization method: posthoc</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter   | Coefficient (std.) |         95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) |               0.00 | [ 0.00,  0.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl         |               1.46 | [-4.63,  9.37]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mpg         |               3.36 | [-2.31, 12.59]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl:mpg     |              -0.20 | [-1.44,  0.86]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">(Response is unstandardized)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu">standardize_parameters</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"basic"</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Standardization method: basic</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter   | Odds Ratio (std.) |           95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) |              1.00 | [1.00,     1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl         |              4.32 | [0.01, 11681.98]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mpg         |             28.80 | [0.10, 2.92e+05]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl:mpg     |              0.54 | [0.01,    13.94]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">(Response is unstandardized)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># \donttest{</span></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/lme4/lme4/" class="external-link">"lme4"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in">  <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">am</span> <span class="op">+</span> <span class="va">vs</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">cyl</span><span class="op">)</span>, <span class="va">mtcars</span><span class="op">)</span></span>
+<span class="r-in">  <span class="fu">standardize_parameters</span><span class="op">(</span><span class="va">m</span>, method <span class="op">=</span> <span class="st">"pseudo"</span>, ci_method <span class="op">=</span> <span class="st">"satterthwaite"</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> boundary (singular) fit: see ?isSingular</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following within-group terms have between-group variance:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> 	am, vs</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> This can inflate standardized within-group parameters associated with</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> these terms. See help("demean", package = "datawizard") for modeling</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> between- and within-subject effects.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Standardization method: pseudo</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter   | Coefficient (std.) |         95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) |               0.00 | [ 0.00,  0.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl         |              -0.74 | [-1.25, -0.23]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am          |               0.47 | [-0.01,  0.95]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> vs          |               0.20 | [-0.50,  0.90]</span>
+<span class="r-in"></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://mc-stan.org/rstanarm/" class="external-link">"rstanarm"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in">  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html" class="external-link">stan_glm</a></span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">critical</span> <span class="op">+</span> <span class="va">privileges</span>, data <span class="op">=</span> <span class="va">attitude</span>, refresh <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span class="r-in">  <span class="fu">standardize_posteriors</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"refit"</span><span class="op">)</span></span>
+<span class="r-in">  <span class="fu">standardize_posteriors</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"posthoc"</span><span class="op">)</span></span>
+<span class="r-in">  <span class="fu">standardize_posteriors</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"smart"</span><span class="op">)</span></span>
+<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">standardize_posteriors</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"></span>
 </code></pre></div>
     </div>
   </div>

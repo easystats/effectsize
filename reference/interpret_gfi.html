@@ -98,36 +98,35 @@ equation modelling, such as RMSEA, CFI, NFI, IFI, etc."><meta property="og:image
 equation modelling, such as RMSEA, CFI, NFI, IFI, etc.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/interpret_gfi.html">interpret_gfi</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
+    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">interpret_gfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/interpret_gfi.html">interpret_agfi</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
+<span class="fu">interpret_agfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/interpret_gfi.html">interpret_nfi</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"byrne1994"</span><span class="op">)</span>
+<span class="fu">interpret_nfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"byrne1994"</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/interpret_gfi.html">interpret_nnfi</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"byrne1994"</span><span class="op">)</span>
+<span class="fu">interpret_nnfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"byrne1994"</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/interpret_gfi.html">interpret_cfi</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
+<span class="fu">interpret_cfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/interpret_gfi.html">interpret_rmsea</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
+<span class="fu">interpret_rmsea</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/interpret_gfi.html">interpret_srmr</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
+<span class="fu">interpret_srmr</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/interpret_gfi.html">interpret_rfi</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
+<span class="fu">interpret_rfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/interpret_gfi.html">interpret_ifi</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
+<span class="fu">interpret_ifi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/interpret_gfi.html">interpret_pnfi</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
+<span class="fu">interpret_pnfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
 
 <span class="co"># S3 method for lavaan</span>
-<span class="fu"><a href="../reference/interpret.html">interpret</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
+<span class="fu"><a href="interpret.html">interpret</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="co"># S3 method for performance_lavaan</span>
-<span class="fu"><a href="../reference/interpret.html">interpret</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="interpret.html">interpret</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="table ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
+    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
       <td><p>vector of values, or an object of class <code>lavaan</code>.</p></td>
     </tr><tr><th>rules</th>
       <td><p>Can be <code>"default"</code> or custom set of <code><a href="rules.html">rules()</a></code>.</p></td>
@@ -135,6 +134,7 @@ equation modelling, such as RMSEA, CFI, NFI, IFI, etc.</p>
       <td><p>Currently not used.</p></td>
     </tr></table></div>
 
+    <div id="ref-sections">
     <div id="details">
     <h2>Details</h2>
     
@@ -208,62 +208,62 @@ Structural Equation Modeling, 6, 56-83.</p></li>
 <li><p>Kline, R. B. (2015). Principles and practice of structural equation
 modeling. Guilford publications.</p></li>
 </ul></div>
+    </div>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/interpret_gfi.html">interpret_gfi</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "poor"         "satisfactory"</span>
-<span class="co">#&gt; (Rules: default)</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/interpret_gfi.html">interpret_agfi</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "poor"         "satisfactory"</span>
-<span class="co">#&gt; (Rules: default)</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/interpret_gfi.html">interpret_nfi</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "poor"         "satisfactory"</span>
-<span class="co">#&gt; (Rules: byrne1994)</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/interpret_gfi.html">interpret_nnfi</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "poor"         "satisfactory"</span>
-<span class="co">#&gt; (Rules: byrne1994)</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/interpret_gfi.html">interpret_cfi</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "poor"         "satisfactory"</span>
-<span class="co">#&gt; (Rules: default)</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/interpret_gfi.html">interpret_rmsea</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.07</span>, <span class="fl">.04</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "poor"         "satisfactory"</span>
-<span class="co">#&gt; (Rules: default)</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/interpret_gfi.html">interpret_srmr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "poor" "poor"</span>
-<span class="co">#&gt; (Rules: default)</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/interpret_gfi.html">interpret_rfi</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "poor"         "satisfactory"</span>
-<span class="co">#&gt; (Rules: default)</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/interpret_gfi.html">interpret_ifi</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "poor"         "satisfactory"</span>
-<span class="co">#&gt; (Rules: default)</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/interpret_gfi.html">interpret_pnfi</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "poor"         "satisfactory"</span>
-<span class="co">#&gt; (Rules: default)</span>
-<span class="co">#&gt; </span>
-
-<span class="co"># Structural Equation Models (SEM)</span>
-<span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://lavaan.ugent.be" class="external-link">"lavaan"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">structure</span> <span class="op">&lt;-</span> <span class="st">" ind60 =~ x1 + x2 + x3
-                 dem60 =~ y1 + y2 + y3
-                 dem60 ~ ind60 "</span>
-  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">sem</a></span><span class="op">(</span><span class="va">structure</span>, data <span class="op">=</span> <span class="va">PoliticalDemocracy</span><span class="op">)</span>
-  <span class="co"># interpret(model)  # Not working until new performance is up</span>
-<span class="op">}</span>
-<span class="co">#&gt; Loading required package: lavaan</span>
-<span class="co">#&gt; This is lavaan 0.6-9</span>
-<span class="co">#&gt; lavaan is FREE software! Please report any bugs.</span>
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">interpret_gfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu">interpret_agfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu">interpret_nfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: byrne1994)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu">interpret_nnfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: byrne1994)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu">interpret_cfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu">interpret_rmsea</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.07</span>, <span class="fl">.04</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu">interpret_srmr</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor" "poor"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu">interpret_rfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu">interpret_ifi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu">interpret_pnfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Structural Equation Models (SEM)</span></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://lavaan.ugent.be" class="external-link">"lavaan"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in">  <span class="va">structure</span> <span class="op">&lt;-</span> <span class="st">" ind60 =~ x1 + x2 + x3</span>
+<span class="r-in">                 dem60 =~ y1 + y2 + y3</span>
+<span class="r-in">                 dem60 ~ ind60 "</span></span>
+<span class="r-in">  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">sem</a></span><span class="op">(</span><span class="va">structure</span>, data <span class="op">=</span> <span class="va">PoliticalDemocracy</span><span class="op">)</span></span>
+<span class="r-in">  <span class="co"># interpret(model)  # Not working until new performance is up</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: lavaan</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> This is lavaan 0.6-9</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> lavaan is FREE software! Please report any bugs.</span>
 </code></pre></div>
     </div>
   </div>

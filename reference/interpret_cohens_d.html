@@ -98,16 +98,15 @@ thumb."><meta property="og:image" content="/logo.png"><!-- mathjax --><script sr
 thumb.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span><span class="va">d</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span>, <span class="va">...</span><span class="op">)</span>
+    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">interpret_cohens_d</span><span class="op">(</span><span class="va">d</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span>, <span class="va">...</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/interpret_cohens_d.html">interpret_hedges_g</a></span><span class="op">(</span><span class="va">g</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span>
+<span class="fu">interpret_hedges_g</span><span class="op">(</span><span class="va">g</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/interpret_cohens_d.html">interpret_glass_delta</a></span><span class="op">(</span><span class="va">delta</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></code></pre></div>
+<span class="fu">interpret_glass_delta</span><span class="op">(</span><span class="va">delta</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></code></pre></div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="table ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>d, g, delta</th>
+    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>d, g, delta</th>
       <td><p>Value or vector of effect size values.</p></td>
     </tr><tr><th>rules</th>
       <td><p>Can be <code>"cohen1988"</code> (default), <code>"gignac2016"</code>,
@@ -116,6 +115,7 @@ thumb.</p>
       <td><p>Not directly used.</p></td>
     </tr></table></div>
 
+    <div id="ref-sections">
     <div id="rules">
     <h2>Rules</h2>
     
@@ -159,22 +159,22 @@ individual differences researchers. Personality and individual differences,
 (2nd Ed.). New York: Routledge.</p></li>
 <li><p>Sawilowsky, S. S. (2009). New effect size rules of thumb.</p></li>
 </ul></div>
+    </div>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span><span class="fl">.02</span><span class="op">)</span>
-<span class="co">#&gt; [1] "very small"</span>
-<span class="co">#&gt; (Rules: cohen1988)</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.02</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "medium"     "very small"</span>
-<span class="co">#&gt; (Rules: cohen1988)</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span><span class="fl">.3</span>, rules <span class="op">=</span> <span class="st">"lovakov2021"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "small"</span>
-<span class="co">#&gt; (Rules: lovakov2021)</span>
-<span class="co">#&gt; </span>
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">interpret_cohens_d</span><span class="op">(</span><span class="fl">.02</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "very small"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: cohen1988)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu">interpret_cohens_d</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.02</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "medium"     "very small"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: cohen1988)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu">interpret_cohens_d</span><span class="op">(</span><span class="fl">.3</span>, rules <span class="op">=</span> <span class="st">"lovakov2021"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "small"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: lovakov2021)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
   </div>

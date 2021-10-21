@@ -96,12 +96,11 @@
     <p>Interpret Cohen's g</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/interpret_cohens_g.html">interpret_cohens_g</a></span><span class="op">(</span><span class="va">g</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">interpret_cohens_g</span><span class="op">(</span><span class="va">g</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="table ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>g</th>
+    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>g</th>
       <td><p>Value or vector of effect size values.</p></td>
     </tr><tr><th>rules</th>
       <td><p>Can be <code>"cohen1988"</code> (default) or a custom set of <code><a href="rules.html">rules()</a></code>.</p></td>
@@ -109,6 +108,7 @@
       <td><p>Not directly used.</p></td>
     </tr></table></div>
 
+    <div id="ref-sections">
     <div id="note">
     <h2>Note</h2>
     <p>"<em>Since <strong>g</strong> is so transparently clear a unit, it is expected that
@@ -135,19 +135,19 @@ absolute values).</p><ul><li><p>Cohen (1988) (<code>"cohen1988"</code>; default)
 <ul><li><p>Cohen, J. (1988). Statistical power analysis for the behavioral sciences
 (2nd Ed.). New York: Routledge.</p></li>
 </ul></div>
+    </div>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/interpret_cohens_g.html">interpret_cohens_g</a></span><span class="op">(</span><span class="fl">.02</span><span class="op">)</span>
-<span class="co">#&gt; [1] "very small"</span>
-<span class="co">#&gt; (Rules: cohen1988)</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/interpret_cohens_g.html">interpret_cohens_g</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.3</span>, <span class="fl">.15</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "large"  "medium"</span>
-<span class="co">#&gt; (Rules: cohen1988)</span>
-<span class="co">#&gt; </span>
-
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">interpret_cohens_g</span><span class="op">(</span><span class="fl">.02</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "very small"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: cohen1988)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu">interpret_cohens_g</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.3</span>, <span class="fl">.15</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "large"  "medium"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: cohen1988)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"></span>
 </code></pre></div>
     </div>
   </div>

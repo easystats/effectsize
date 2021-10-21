@@ -96,12 +96,11 @@
     <p>Interpretation of Bayesian indices of percentage in ROPE.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/interpret_rope.html">interpret_rope</a></span><span class="op">(</span><span class="va">rope</span>, ci <span class="op">=</span> <span class="fl">0.9</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">interpret_rope</span><span class="op">(</span><span class="va">rope</span>, ci <span class="op">=</span> <span class="fl">0.9</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></code></pre></div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="table ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>rope</th>
+    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>rope</th>
       <td><p>Value or vector of percentages in ROPE.</p></td>
     </tr><tr><th>ci</th>
       <td><p>The Credible Interval (CI) probability, corresponding to the proportion of HDI, that was used. Can be <code>1</code> in the case of "full ROPE".</p></td>
@@ -109,6 +108,7 @@
       <td><p>A character string (see details) or a custom set of <code><a href="rules.html">rules()</a></code>.</p></td>
     </tr></table></div>
 
+    <div id="ref-sections">
     <div id="rules">
     <h2>Rules</h2>
     
@@ -129,18 +129,18 @@
     <h2>References</h2>
     <p><a href="https://easystats.github.io/bayestestR/articles/guidelines.html" class="external-link">BayestestR's reporting guidelines</a></p>
     </div>
+    </div>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/interpret_rope.html">interpret_rope</a></span><span class="op">(</span><span class="fl">0</span>, ci <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span>
-<span class="co">#&gt; [1] "significant"</span>
-<span class="co">#&gt; (Rules: default)</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/interpret_rope.html">interpret_rope</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.005</span>, <span class="fl">0.99</span><span class="op">)</span>, ci <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] "significant"         "probably negligible"</span>
-<span class="co">#&gt; (Rules: default)</span>
-<span class="co">#&gt; </span>
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">interpret_rope</span><span class="op">(</span><span class="fl">0</span>, ci <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "significant"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu">interpret_rope</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.005</span>, <span class="fl">0.99</span><span class="op">)</span>, ci <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "significant"         "probably negligible"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
   </div>

@@ -116,8 +116,7 @@ transformations (e.g., polynomial or spline terms). The <code>robust</code> (def
 <code>median</code> and the <code>MAD</code> instead of the <code>mean</code> and the <code>SD</code>.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># S3 method for default</span>
+    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for default</span>
 <span class="fu"><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize</a></span><span class="op">(</span>
   <span class="va">x</span>,
   robust <span class="op">=</span> <span class="cn">FALSE</span>,
@@ -130,7 +129,7 @@ transformations (e.g., polynomial or spline terms). The <code>robust</code> (def
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="table ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
+    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
       <td><p>A statistical model.</p></td>
     </tr><tr><th>robust</th>
       <td><p>Logical, if <code>TRUE</code>, centering is done by subtracting the
@@ -158,6 +157,7 @@ model; m model's response will always be standardized.)</p></td>
       <td><p>Arguments passed to or from other methods.</p></td>
     </tr></table></div>
 
+    <div id="ref-sections">
     <div id="value">
     <h2>Value</h2>
     <p>A statistical model fitted on standardized data</p>
@@ -194,15 +194,15 @@ standardization) by <code>Z - min(Z) + 1</code> or <code>Z - min(Z)</code> (resp
 <code><a href="standardize_info.html">standardize_info</a>()</code>,
 <code><a href="standardize_parameters.html">standardize_parameters</a>()</code></p></div>
     </div>
+    </div>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Infant.Mortality</span> <span class="op">~</span> <span class="va">Education</span> <span class="op">*</span> <span class="va">Fertility</span>, data <span class="op">=</span> <span class="va">swiss</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="fu"><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;         (Intercept)           Education           Fertility Education:Fertility </span>
-<span class="co">#&gt;          0.06386069          0.47482848          0.63270919          0.09829777 </span>
-
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Infant.Mortality</span> <span class="op">~</span> <span class="va">Education</span> <span class="op">*</span> <span class="va">Fertility</span>, data <span class="op">=</span> <span class="va">swiss</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="fu"><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         (Intercept)           Education           Fertility Education:Fertility </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          0.06386069          0.47482848          0.63270919          0.09829777 </span>
+<span class="r-in"></span>
 </code></pre></div>
     </div>
   </div>

@@ -112,8 +112,7 @@ obtained from <code>anova(model)</code> which might not always be appropriate. S
 details.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span>
+    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">eta_squared</span><span class="op">(</span>
   <span class="va">model</span>,
   partial <span class="op">=</span> <span class="cn">TRUE</span>,
   generalized <span class="op">=</span> <span class="cn">FALSE</span>,
@@ -123,7 +122,7 @@ details.</p>
   <span class="va">...</span>
 <span class="op">)</span>
 
-<span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span>
+<span class="fu">omega_squared</span><span class="op">(</span>
   <span class="va">model</span>,
   partial <span class="op">=</span> <span class="cn">TRUE</span>,
   ci <span class="op">=</span> <span class="fl">0.95</span>,
@@ -132,7 +131,7 @@ details.</p>
   <span class="va">...</span>
 <span class="op">)</span>
 
-<span class="fu"><a href="../reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span>
+<span class="fu">epsilon_squared</span><span class="op">(</span>
   <span class="va">model</span>,
   partial <span class="op">=</span> <span class="cn">TRUE</span>,
   ci <span class="op">=</span> <span class="fl">0.95</span>,
@@ -141,7 +140,7 @@ details.</p>
   <span class="va">...</span>
 <span class="op">)</span>
 
-<span class="fu"><a href="../reference/eta_squared.html">cohens_f</a></span><span class="op">(</span>
+<span class="fu">cohens_f</span><span class="op">(</span>
   <span class="va">model</span>,
   partial <span class="op">=</span> <span class="cn">TRUE</span>,
   ci <span class="op">=</span> <span class="fl">0.95</span>,
@@ -152,7 +151,7 @@ details.</p>
   <span class="va">...</span>
 <span class="op">)</span>
 
-<span class="fu"><a href="../reference/eta_squared.html">cohens_f_squared</a></span><span class="op">(</span>
+<span class="fu">cohens_f_squared</span><span class="op">(</span>
   <span class="va">model</span>,
   partial <span class="op">=</span> <span class="cn">TRUE</span>,
   ci <span class="op">=</span> <span class="fl">0.95</span>,
@@ -163,7 +162,7 @@ details.</p>
   <span class="va">...</span>
 <span class="op">)</span>
 
-<span class="fu"><a href="../reference/eta_squared.html">eta_squared_posterior</a></span><span class="op">(</span>
+<span class="fu">eta_squared_posterior</span><span class="op">(</span>
   <span class="va">model</span>,
   partial <span class="op">=</span> <span class="cn">TRUE</span>,
   generalized <span class="op">=</span> <span class="cn">FALSE</span>,
@@ -175,7 +174,7 @@ details.</p>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="table ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>model</th>
+    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>model</th>
       <td><p>A model, ANOVA object, or the result of <code><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">parameters::model_parameters</a></code>.</p></td>
     </tr><tr><th>partial</th>
       <td><p>If <code>TRUE</code>, return partial indices.</p></td>
@@ -215,13 +214,14 @@ from the posterior predictive distribution to return. Larger numbers take
 longer to run, but provide estimates that are more stable.</p></td>
     </tr></table></div>
 
+    <div id="ref-sections">
     <div id="value">
     <h2>Value</h2>
     <p>A data frame with the effect size(s) between 0-1 (<code>Eta2</code>, <code>Epsilon2</code>,
 <code>Omega2</code>, <code>Cohens_f</code> or <code>Cohens_f2</code>, possibly with the <code>partial</code> or
 <code>generalized</code> suffix), and their CIs (<code>CI_low</code> and <code>CI_high</code>).
 <br><br>
-For <code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code>, a data frame containing the ppd of the Eta
+For <code>eta_squared_posterior()</code>, a data frame containing the ppd of the Eta
 squared for each fixed effect, which can then be passed to
 <code><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html" class="external-link">bayestestR::describe_posterior()</a></code> for summary stats.</p>
 <p>A data frame containing the effect size values and their confidence
@@ -289,7 +289,7 @@ medium, and large effect sizes, respectively.</p>
 
 
 <p>For Bayesian models (fit with <code>brms</code> or <code>rstanarm</code>),
-<code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> simulates data from the posterior predictive
+<code>eta_squared_posterior()</code> simulates data from the posterior predictive
 distribution (ppd) and for each simulation the Eta Squared is computed for
 the model's fixed effects. This means that the returned values are the
 population level effect size as implied by the posterior model (and not the
@@ -369,224 +369,224 @@ Psychological Methods, 9, 164-182.</p></li>
 <code><a href="rank_biserial.html">rank_biserial</a>()</code>,
 <code><a href="standardize_parameters.html">standardize_parameters</a>()</code></p></div>
     </div>
+    </div>
 
     <div id="examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># \donttest{</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>
-<span class="va">mtcars</span><span class="op">$</span><span class="va">am_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span><span class="op">)</span>
-<span class="va">mtcars</span><span class="op">$</span><span class="va">cyl_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span>
-
-<span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am_f</span> <span class="op">*</span> <span class="va">cyl_f</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
-
-<span class="op">(</span><span class="va">eta2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # Effect Size for ANOVA (Type I)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter  | Eta2 (partial) |       95% CI</span>
-<span class="co">#&gt; ------------------------------------------</span>
-<span class="co">#&gt; am_f       |           0.63 | [0.42, 1.00]</span>
-<span class="co">#&gt; cyl_f      |           0.66 | [0.45, 1.00]</span>
-<span class="co">#&gt; am_f:cyl_f |           0.10 | [0.00, 1.00]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at (1).</span>
-
-<span class="co"># More types:</span>
-<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">#&gt; # Effect Size for ANOVA (Type I)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter  | Eta2 |       95% CI</span>
-<span class="co">#&gt; --------------------------------</span>
-<span class="co">#&gt; am_f       | 0.36 | [0.13, 1.00]</span>
-<span class="co">#&gt; cyl_f      | 0.41 | [0.14, 1.00]</span>
-<span class="co">#&gt; am_f:cyl_f | 0.02 | [0.00, 1.00]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at (1).</span>
-<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span>, generalized <span class="op">=</span> <span class="st">"cyl_f"</span><span class="op">)</span>
-<span class="co">#&gt; # Effect Size for ANOVA (Type I)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter  | Eta2 (generalized) |       95% CI</span>
-<span class="co">#&gt; ----------------------------------------------</span>
-<span class="co">#&gt; am_f       |               0.36 | [0.13, 1.00]</span>
-<span class="co">#&gt; cyl_f      |               0.63 | [0.42, 1.00]</span>
-<span class="co">#&gt; am_f:cyl_f |               0.04 | [0.00, 1.00]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - Observed variabels: cyl_f</span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at (1).</span>
-<span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-<span class="co">#&gt; # Effect Size for ANOVA (Type I)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter  | Omega2 (partial) |       95% CI</span>
-<span class="co">#&gt; --------------------------------------------</span>
-<span class="co">#&gt; am_f       |             0.57 | [0.35, 1.00]</span>
-<span class="co">#&gt; cyl_f      |             0.60 | [0.37, 1.00]</span>
-<span class="co">#&gt; am_f:cyl_f |             0.02 | [0.00, 1.00]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at (1).</span>
-<span class="fu"><a href="../reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-<span class="co">#&gt; # Effect Size for ANOVA (Type I)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter  | Epsilon2 (partial) |       95% CI</span>
-<span class="co">#&gt; ----------------------------------------------</span>
-<span class="co">#&gt; am_f       |               0.61 | [0.40, 1.00]</span>
-<span class="co">#&gt; cyl_f      |               0.63 | [0.41, 1.00]</span>
-<span class="co">#&gt; am_f:cyl_f |               0.03 | [0.00, 1.00]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at (1).</span>
-<span class="fu"><a href="../reference/eta_squared.html">cohens_f</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-<span class="co">#&gt; # Effect Size for ANOVA (Type I)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter  | Cohen's f (partial) |           95% CI</span>
-<span class="co">#&gt; ---------------------------------------------------</span>
-<span class="co">#&gt; am_f       |                1.30 | [0.86,      Inf]</span>
-<span class="co">#&gt; cyl_f      |                1.38 | [0.90,      Inf]</span>
-<span class="co">#&gt; am_f:cyl_f |                0.33 | [0.00,      Inf]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at (Inf).</span>
-
-<span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/see/" class="external-link">see</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">eta2</span><span class="op">)</span>
-
-
-<span class="va">model0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am_f</span> <span class="op">+</span> <span class="va">cyl_f</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="co"># no interaction</span>
-<span class="fu"><a href="../reference/eta_squared.html">cohens_f_squared</a></span><span class="op">(</span><span class="va">model0</span>, model2 <span class="op">=</span> <span class="va">model</span><span class="op">)</span>
-<span class="co">#&gt; Cohen's f2 (partial) |           95% CI | R2_delta</span>
-<span class="co">#&gt; --------------------------------------------------</span>
-<span class="co">#&gt; 0.11                 | [0.00,      Inf] |     0.02</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at (Inf).</span>
-
-<span class="co">## Interpretation of effect sizes</span>
-<span class="co">## -------------------------------------</span>
-
-<span class="fu"><a href="../reference/interpret_omega_squared.html">interpret_omega_squared</a></span><span class="op">(</span><span class="fl">0.10</span>, rules <span class="op">=</span> <span class="st">"field2013"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "medium"</span>
-<span class="co">#&gt; (Rules: field2013)</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/interpret_omega_squared.html">interpret_eta_squared</a></span><span class="op">(</span><span class="fl">0.10</span>, rules <span class="op">=</span> <span class="st">"cohen1992"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "small"</span>
-<span class="co">#&gt; (Rules: cohen1992)</span>
-<span class="co">#&gt; </span>
-<span class="fu"><a href="../reference/interpret_omega_squared.html">interpret_epsilon_squared</a></span><span class="op">(</span><span class="fl">0.10</span>, rules <span class="op">=</span> <span class="st">"cohen1992"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "small"</span>
-<span class="co">#&gt; (Rules: cohen1992)</span>
-<span class="co">#&gt; </span>
-
-<span class="fu"><a href="../reference/interpret.html">interpret</a></span><span class="op">(</span><span class="va">eta2</span>, rules <span class="op">=</span> <span class="st">"cohen1992"</span><span class="op">)</span>
-<span class="co">#&gt; # Effect Size for ANOVA (Type I)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter  | Eta2 (partial) |       95% CI | Interpretation</span>
-<span class="co">#&gt; -----------------------------------------------------------</span>
-<span class="co">#&gt; am_f       |           0.63 | [0.42, 1.00] |          large</span>
-<span class="co">#&gt; cyl_f      |           0.66 | [0.45, 1.00] |          large</span>
-<span class="co">#&gt; am_f:cyl_f |           0.10 | [0.00, 1.00] |          small</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at (1).</span>
-<span class="co">#&gt; (Interpretation rule: cohen1992)</span>
-
-<span class="co"># Recommended: Type-3 effect sizes + effects coding</span>
-<span class="co"># -------------------------------------------------</span>
-<span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/" class="external-link">car</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">contr.sum</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">contr.sum</span>
-
-  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am_f</span> <span class="op">*</span> <span class="va">cyl_f</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
-  <span class="va">model_anova</span> <span class="op">&lt;-</span> <span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
-
-  <span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model_anova</span><span class="op">)</span>
-<span class="op">}</span>
-<span class="co">#&gt; Type 3 ANOVAs only give sensible and informative results when covariates are</span>
-<span class="co">#&gt;   mean-centered and factors are coded with orthogonal contrasts (such as those</span>
-<span class="co">#&gt;   produced by 'contr.sum', 'contr.poly', or 'contr.helmert', but *not* by the</span>
-<span class="co">#&gt;   default 'contr.treatment').</span>
-<span class="co">#&gt; # Effect Size for ANOVA (Type III)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter  | Eta2 (partial) |       95% CI</span>
-<span class="co">#&gt; ------------------------------------------</span>
-<span class="co">#&gt; am_f       |           0.11 | [0.00, 1.00]</span>
-<span class="co">#&gt; cyl_f      |           0.63 | [0.42, 1.00]</span>
-<span class="co">#&gt; am_f:cyl_f |           0.10 | [0.00, 1.00]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at (1).</span>
-
-<span class="co"># afex takes care of both type-3 effects and effects coding:</span>
-<span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="http://afex.singmann.science/" class="external-link">afex</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">obk.long</span>, package <span class="op">=</span> <span class="st">"afex"</span><span class="op">)</span>
-  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_car</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">Error</a></span><span class="op">(</span><span class="va">id</span> <span class="op">/</span> <span class="op">(</span><span class="va">phase</span><span class="op">)</span><span class="op">)</span>,
-    data <span class="op">=</span> <span class="va">obk.long</span>, observed <span class="op">=</span> <span class="st">"gender"</span>
-  <span class="op">)</span>
-  <span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-  <span class="fu"><a href="../reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-  <span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-  <span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-  <span class="fu"><a href="../reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">model</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-  <span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">model</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-  <span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span>, generalized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># observed vars are pulled from the afex model.</span>
-<span class="op">}</span>
-<span class="co">#&gt; Warning: More than one observation per cell, aggregating the data using mean (i.e, fun_aggregate = mean)!</span>
-<span class="co">#&gt; Contrasts set to contr.sum for the following variables: treatment, gender</span>
-<span class="co">#&gt; # Effect Size for ANOVA (Type III)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter              | Eta2 (generalized) |       95% CI</span>
-<span class="co">#&gt; ----------------------------------------------------------</span>
-<span class="co">#&gt; treatment              |               0.25 | [0.00, 1.00]</span>
-<span class="co">#&gt; gender                 |               0.16 | [0.00, 1.00]</span>
-<span class="co">#&gt; treatment:gender       |               0.24 | [0.00, 1.00]</span>
-<span class="co">#&gt; phase                  |               0.20 | [0.00, 1.00]</span>
-<span class="co">#&gt; treatment:phase        |               0.13 | [0.00, 1.00]</span>
-<span class="co">#&gt; gender:phase           |           4.25e-03 | [0.00, 1.00]</span>
-<span class="co">#&gt; treatment:gender:phase |               0.02 | [0.00, 1.00]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - Observed variabels: gender</span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at (1).</span>
-
-
-
-<span class="co">## Approx. effect sizes for mixed models</span>
-<span class="co">## -------------------------------------</span>
-<span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/runehaubo/lmerTestR" class="external-link">lmerTest</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lmerTest/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am_f</span> <span class="op">*</span> <span class="va">cyl_f</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">vs</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
-  <span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-<span class="op">}</span>
-<span class="co">#&gt; boundary (singular) fit: see ?isSingular</span>
-<span class="co">#&gt; # Effect Size for ANOVA (Type III)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parameter  | Omega2 (partial) |       95% CI</span>
-<span class="co">#&gt; --------------------------------------------</span>
-<span class="co">#&gt; am_f       |             0.07 | [0.00, 1.00]</span>
-<span class="co">#&gt; cyl_f      |             0.60 | [0.36, 1.00]</span>
-<span class="co">#&gt; am_f:cyl_f |             0.03 | [0.00, 1.00]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at (1).</span>
-
-
-
-
-<span class="co">## Bayesian Models (PPD)</span>
-<span class="co">## ---------------------</span>
-<span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span>
-<span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/rstanarm/" class="external-link">rstanarm</a></span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/bayestestR/" class="external-link">bayestestR</a></span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/" class="external-link">car</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">fit_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html" class="external-link">stan_glm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op">*</span> <span class="va">wt</span> <span class="op">+</span> <span class="va">qsec</span>,
-    data <span class="op">=</span> <span class="va">mtcars</span>,
-    family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">gaussian</a></span><span class="op">(</span><span class="op">)</span>,
-    refresh <span class="op">=</span> <span class="fl">0</span>
-  <span class="op">)</span>
-
-  <span class="va">es</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eta_squared.html">eta_squared_posterior</a></span><span class="op">(</span><span class="va">fit_bayes</span>,
-    ss_function <span class="op">=</span> <span class="fu">car</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span>, type <span class="op">=</span> <span class="fl">3</span>
-  <span class="op">)</span>
-  <span class="fu">bayestestR</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html" class="external-link">describe_posterior</a></span><span class="op">(</span><span class="va">es</span><span class="op">)</span>
-
-
-  <span class="co"># compare to:</span>
-  <span class="va">fit_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op">*</span> <span class="va">wt</span> <span class="op">+</span> <span class="va">qsec</span>,
-    data <span class="op">=</span> <span class="va">mtcars</span>
-  <span class="op">)</span>
-  <span class="va">aov_table</span> <span class="op">&lt;-</span> <span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">fit_freq</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
-  <span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">aov_table</span><span class="op">)</span>
-<span class="op">}</span>
-<span class="op">}</span>
-<span class="co"># }</span>
-
+    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">mtcars</span><span class="op">$</span><span class="va">am_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am_f</span> <span class="op">*</span> <span class="va">cyl_f</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="op">(</span><span class="va">eta2</span> <span class="op">&lt;-</span> <span class="fu">eta_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Eta2 (partial) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f       |           0.63 | [0.42, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      |           0.66 | [0.45, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f |           0.10 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at (1).</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># More types:</span></span>
+<span class="r-in"><span class="fu">eta_squared</span><span class="op">(</span><span class="va">model</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Eta2 |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f       | 0.36 | [0.13, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      | 0.41 | [0.14, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f | 0.02 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at (1).</span></span>
+<span class="r-in"><span class="fu">eta_squared</span><span class="op">(</span><span class="va">model</span>, generalized <span class="op">=</span> <span class="st">"cyl_f"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Eta2 (generalized) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f       |               0.36 | [0.13, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      |               0.63 | [0.42, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f |               0.04 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Observed variabels: cyl_f</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at (1).</span></span>
+<span class="r-in"><span class="fu">omega_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Omega2 (partial) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f       |             0.57 | [0.35, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      |             0.60 | [0.37, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f |             0.02 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at (1).</span></span>
+<span class="r-in"><span class="fu">epsilon_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Epsilon2 (partial) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f       |               0.61 | [0.40, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      |               0.63 | [0.41, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f |               0.03 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at (1).</span></span>
+<span class="r-in"><span class="fu">cohens_f</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Cohen's f (partial) |           95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f       |                1.30 | [0.86,      Inf]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      |                1.38 | [0.90,      Inf]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f |                0.33 | [0.00,      Inf]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at (Inf).</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/see/" class="external-link">see</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">eta2</span><span class="op">)</span></span>
+<span class="r-plt"><img src="eta_squared-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="va">model0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am_f</span> <span class="op">+</span> <span class="va">cyl_f</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="co"># no interaction</span></span>
+<span class="r-in"><span class="fu">cohens_f_squared</span><span class="op">(</span><span class="va">model0</span>, model2 <span class="op">=</span> <span class="va">model</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's f2 (partial) |           95% CI | R2_delta</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.11                 | [0.00,      Inf] |     0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at (Inf).</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">## Interpretation of effect sizes</span></span>
+<span class="r-in"><span class="co">## -------------------------------------</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="fu"><a href="interpret_omega_squared.html">interpret_omega_squared</a></span><span class="op">(</span><span class="fl">0.10</span>, rules <span class="op">=</span> <span class="st">"field2013"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "medium"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: field2013)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu"><a href="interpret_omega_squared.html">interpret_eta_squared</a></span><span class="op">(</span><span class="fl">0.10</span>, rules <span class="op">=</span> <span class="st">"cohen1992"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "small"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: cohen1992)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu"><a href="interpret_omega_squared.html">interpret_epsilon_squared</a></span><span class="op">(</span><span class="fl">0.10</span>, rules <span class="op">=</span> <span class="st">"cohen1992"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "small"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: cohen1992)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"></span>
+<span class="r-in"><span class="fu"><a href="interpret.html">interpret</a></span><span class="op">(</span><span class="va">eta2</span>, rules <span class="op">=</span> <span class="st">"cohen1992"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Eta2 (partial) |       95% CI | Interpretation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f       |           0.63 | [0.42, 1.00] |          large</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      |           0.66 | [0.45, 1.00] |          large</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f |           0.10 | [0.00, 1.00] |          small</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at (1).</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Interpretation rule: cohen1992)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Recommended: Type-3 effect sizes + effects coding</span></span>
+<span class="r-in"><span class="co"># -------------------------------------------------</span></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/" class="external-link">car</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">contr.sum</span></span>
+<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">contr.sum</span></span>
+<span class="r-in"></span>
+<span class="r-in">  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am_f</span> <span class="op">*</span> <span class="va">cyl_f</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<span class="r-in">  <span class="va">model_anova</span> <span class="op">&lt;-</span> <span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in">  <span class="fu">eta_squared</span><span class="op">(</span><span class="va">model_anova</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Type 3 ANOVAs only give sensible and informative results when covariates are</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   mean-centered and factors are coded with orthogonal contrasts (such as those</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   produced by 'contr.sum', 'contr.poly', or 'contr.helmert', but *not* by the</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   default 'contr.treatment').</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type III)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Eta2 (partial) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f       |           0.11 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      |           0.63 | [0.42, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f |           0.10 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at (1).</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># afex takes care of both type-3 effects and effects coding:</span></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="http://afex.singmann.science/" class="external-link">afex</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">obk.long</span>, package <span class="op">=</span> <span class="st">"afex"</span><span class="op">)</span></span>
+<span class="r-in">  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_car</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">Error</a></span><span class="op">(</span><span class="va">id</span> <span class="op">/</span> <span class="op">(</span><span class="va">phase</span><span class="op">)</span><span class="op">)</span>,</span>
+<span class="r-in">    data <span class="op">=</span> <span class="va">obk.long</span>, observed <span class="op">=</span> <span class="st">"gender"</span></span>
+<span class="r-in">  <span class="op">)</span></span>
+<span class="r-in">  <span class="fu">eta_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span class="r-in">  <span class="fu">epsilon_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span class="r-in">  <span class="fu">omega_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span class="r-in">  <span class="fu">eta_squared</span><span class="op">(</span><span class="va">model</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in">  <span class="fu">epsilon_squared</span><span class="op">(</span><span class="va">model</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in">  <span class="fu">omega_squared</span><span class="op">(</span><span class="va">model</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in">  <span class="fu">eta_squared</span><span class="op">(</span><span class="va">model</span>, generalized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># observed vars are pulled from the afex model.</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>More than one observation per cell, aggregating the data using mean (i.e, fun_aggregate = mean)!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Contrasts set to contr.sum for the following variables: treatment, gender</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type III)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter              | Eta2 (generalized) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> treatment              |               0.25 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gender                 |               0.16 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:gender       |               0.24 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> phase                  |               0.20 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:phase        |               0.13 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gender:phase           |           4.25e-03 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:gender:phase |               0.02 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Observed variabels: gender</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at (1).</span></span>
+<span class="r-in"></span>
+<span class="r-in"></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">## Approx. effect sizes for mixed models</span></span>
+<span class="r-in"><span class="co">## -------------------------------------</span></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/runehaubo/lmerTestR" class="external-link">lmerTest</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in">  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lmerTest/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am_f</span> <span class="op">*</span> <span class="va">cyl_f</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">vs</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<span class="r-in">  <span class="fu">omega_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> boundary (singular) fit: see ?isSingular</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type III)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Omega2 (partial) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f       |             0.07 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      |             0.60 | [0.36, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f |             0.03 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at (1).</span></span>
+<span class="r-in"></span>
+<span class="r-in"></span>
+<span class="r-in"></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">## Bayesian Models (PPD)</span></span>
+<span class="r-in"><span class="co">## ---------------------</span></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/rstanarm/" class="external-link">rstanarm</a></span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/bayestestR/" class="external-link">bayestestR</a></span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/" class="external-link">car</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in">  <span class="va">fit_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html" class="external-link">stan_glm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op">*</span> <span class="va">wt</span> <span class="op">+</span> <span class="va">qsec</span>,</span>
+<span class="r-in">    data <span class="op">=</span> <span class="va">mtcars</span>,</span>
+<span class="r-in">    family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">gaussian</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span class="r-in">    refresh <span class="op">=</span> <span class="fl">0</span></span>
+<span class="r-in">  <span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in">  <span class="va">es</span> <span class="op">&lt;-</span> <span class="fu">eta_squared_posterior</span><span class="op">(</span><span class="va">fit_bayes</span>,</span>
+<span class="r-in">    ss_function <span class="op">=</span> <span class="fu">car</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span>, type <span class="op">=</span> <span class="fl">3</span></span>
+<span class="r-in">  <span class="op">)</span></span>
+<span class="r-in">  <span class="fu">bayestestR</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html" class="external-link">describe_posterior</a></span><span class="op">(</span><span class="va">es</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"></span>
+<span class="r-in">  <span class="co"># compare to:</span></span>
+<span class="r-in">  <span class="va">fit_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op">*</span> <span class="va">wt</span> <span class="op">+</span> <span class="va">qsec</span>,</span>
+<span class="r-in">    data <span class="op">=</span> <span class="va">mtcars</span></span>
+<span class="r-in">  <span class="op">)</span></span>
+<span class="r-in">  <span class="va">aov_table</span> <span class="op">&lt;-</span> <span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">fit_freq</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in">  <span class="fu">eta_squared</span><span class="op">(</span><span class="va">aov_table</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"></span>
 </code></pre></div>
     </div>
   </div>

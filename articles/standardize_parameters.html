@@ -103,7 +103,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/easystats/effectsize/" class="external-link external-link">
+  <a href="https://github.com/easystats/effectsize/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -124,7 +124,7 @@
       <h1 data-toc-skip>Parameter and Model Standardization</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/vignettes/standardize_parameters.Rmd" class="external-link external-link"><code>vignettes/standardize_parameters.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/vignettes/standardize_parameters.Rmd" class="external-link"><code>vignettes/standardize_parameters.Rmd</code></a></small>
       <div class="hidden name"><code>standardize_parameters.Rmd</code></div>
 
     </div>
@@ -163,16 +163,15 @@ standardization**, described below
 &gt; complaints  |               0.83 | [ 0.61, 1.04]</code></pre>
 <p>Standardizing the coefficient of this <em>simple</em> linear regression gives a value of <code>0.87</code>, but did you know that for a simple regression this is actually the <strong>same as a correlation</strong>? Thus, you can eventually apply some (<em>in</em>)famous interpretation guidelines (e.g., Cohen’s rules of thumb).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test</a></span><span class="op">(</span><span class="va">attitude</span><span class="op">$</span><span class="va">rating</span>, <span class="va">attitude</span><span class="op">$</span><span class="va">complaints</span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Pearson's product-moment correlation
+<code class="sourceCode R"><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html" class="external-link">correlation</a></span><span class="op">(</span><span class="va">attitude</span>, select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"rating"</span>, <span class="st">"complaints"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>&gt; # Correlation Matrix (pearson-method)
 &gt; 
-&gt; Parameter1      |          Parameter2 |    r |       95% CI | t(28) |      p
-&gt; ----------------------------------------------------------------------------
-&gt; attitude$rating | attitude$complaints | 0.83 | [0.66, 0.91] |  7.74 | &lt; .001
+&gt; Parameter1 | Parameter2 |    r |       95% CI | t(28) |         p
+&gt; -----------------------------------------------------------------
+&gt; rating     | complaints | 0.83 | [0.66, 0.91] |  7.74 | &lt; .001***
 &gt; 
-&gt; Alternative hypothesis: true correlation is not equal to 0</code></pre>
+&gt; p-value adjustment method: Holm (1979)
+&gt; Observations: 30</code></pre>
 </div>
 <div class="section level2">
 <h2 id="standardized-differences">Standardized Differences<a class="anchor" aria-label="anchor" href="#standardized-differences"></a>
@@ -259,17 +258,20 @@ standardization**, described below
 &gt; 5  27342       11.3       0  33         4
 &gt; 6  25657        3.6       2  30         5</code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html" class="external-link">correlation</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="co"># the outcome of salary</span>
-                         data2 <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="co"># the predictors</span>
-                         partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># get partial correlations</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html" class="external-link">correlation</a></span><span class="op">(</span>
+  <span class="va">hardlyworking</span>,
+  select <span class="op">=</span> <span class="st">"salary"</span>,
+  select2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"xtra_hours"</span>, <span class="st">"n_comps"</span>, <span class="st">"age"</span>, <span class="st">"seniority"</span><span class="op">)</span>,
+  partial <span class="op">=</span> <span class="cn">TRUE</span> <span class="co"># get partial correlations</span>
+<span class="op">)</span> </code></pre></div>
 <pre><code>&gt; # Correlation Matrix (pearson-method)
 &gt; 
 &gt; Parameter1 | Parameter2 |    r |       95% CI | t(498) |         p
 &gt; ------------------------------------------------------------------
-&gt; data       | xtra_hours | 0.87 | [0.85, 0.89] |  39.79 | &lt; .001***
-&gt; data       |    n_comps | 0.71 | [0.66, 0.75] |  22.40 | &lt; .001***
-&gt; data       |        age | 0.09 | [0.01, 0.18] |   2.09 | 0.037*   
-&gt; data       |  seniority | 0.19 | [0.10, 0.27] |   4.30 | &lt; .001***
+&gt; salary     | xtra_hours | 0.87 | [0.85, 0.89] |  39.79 | &lt; .001***
+&gt; salary     |    n_comps | 0.71 | [0.66, 0.75] |  22.40 | &lt; .001***
+&gt; salary     |        age | 0.09 | [0.01, 0.18] |   2.09 | 0.037*   
+&gt; salary     |  seniority | 0.19 | [0.10, 0.27] |   4.30 | &lt; .001***
 &gt; 
 &gt; p-value adjustment method: Holm (1979)
 &gt; Observations: 500</code></pre>
@@ -742,12 +744,12 @@ Group_Sepal.Width * Petal.Width, data=data) -->
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by <a href="https://github.com/mattansb" class="external-link external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link external-link">Daniel Lüdecke</a>.</p>
+<p>Developed by <a href="https://github.com/mattansb" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.9000.9000.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
 </div>
 
       </footer>
