@@ -34,15 +34,20 @@ paired_d <- function(x, group, block, data = NULL,
     # d <- mean(data$x, na.rm = TRUE)
     # s <- sd(data$x, na.rm = TRUE)
   } else if (type == "r") {
-    insight::check_if_installed("lme4")
+    # insight::check_if_installed("lme4")
+    # mod <- tryCatch({
+    #   lme4::lmer(x ~ groups + (groups | blocks), data = data)
+    # }, error = function(...) {
+    #   lme4::lmer(x ~ groups + (1 | blocks), data = data)
+    # })
+    # d <- unname(lme4::fixef(mod)[2])
+    # s <- sigma(mod)
 
-    mod <- tryCatch({
-      lme4::lmer(x ~ groups + (groups | blocks), data = data)
-    }, error = function(...) {
-      lme4::lmer(x ~ groups + (1 | blocks), data = data)
-    })
-    d <- unname(lme4::fixef(mod)[2])
-    s <- sigma(mod)
+    # Use ANOVA decomp instead
+    mod <- aov(x ~ groups + Error(blocks), data = data) # blocks/groups? TryCatch?
+    summ <- summary(mod)
+    s <- sqrt(summ[["Error: Within"]][[1]][2,"Mean Sq"])
+    browser()
   }
 
 
@@ -80,14 +85,5 @@ paired_d <- function(x, group, block, data = NULL,
   return(out)
 }
 
-library(effectsize)
-
-dat <- read.table("http://pcl.missouri.edu/exp/effectSizePuzzler.txt", header=TRUE)
-
-paired_d(rt ~ cond | id, data = dat, type = "z") # 1.353713 DONE
-paired_d(rt ~ cond | id, data = dat, type = "d") # 0.2497971
-paired_d(rt ~ cond | id, data = dat, type = "a") # 0.8357347
-# paired_d(rt ~ cond | id, data = dat, type = "t") # withOUT sqrt(2) bias, is the same as d_z
-paired_d(rt ~ cond | id, data = dat, type = "r") # 0.259
 
 
