@@ -936,8 +936,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
                                        ci = 0.95, alternative = "greater",
                                        verbose = TRUE,
                                        ...) {
-  if ("Sum_Squares" %in% colnames(mp) && "Residuals" %in% mp[["Parameter"]]) {
-    if ("Group" %in% colnames(mp)) {
+  if ("Sum_Squares" %in% colnames(model) && "Residuals" %in% model[["Parameter"]]) {
+    if ("Group" %in% colnames(model)) {
       stop("Waiting for Denial's fix: https://github.com/easystats/parameters/issues/624")
       # # get the model
       # attr(model, "object_name", exact = TRUE)
