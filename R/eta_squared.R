@@ -376,10 +376,11 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
                            verbose = TRUE,
                            include_intercept = FALSE) {
   type <- match.arg(type)
+  aov_table <- as.data.frame(aov_table)
 
   # Clean up data ---
-  if (!"Mean_Square_residuals" %in% colnames(aov_table)) {
-    aov_table[["Mean_Square_residuals"]] = aov_table[["Sum_Squares"]] / aov_table[["df"]]
+  if (!"Mean_Square" %in% colnames(aov_table)) {
+    aov_table[["Mean_Square"]] <- aov_table[["Sum_Squares"]] / aov_table[["df"]]
   }
 
   if (!"Residuals" %in% aov_table$Parameter) {
@@ -523,8 +524,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   aov_table <- as.data.frame(aov_table)
 
   # Clean up data ---
-  if (!"Mean_Square_residuals" %in% colnames(aov_table)) {
-    aov_table[["Mean_Square_residuals"]] <- aov_table[["Sum_Squares"]] / aov_table[["df"]]
+  if (!"Mean_Square" %in% colnames(aov_table)) {
+    aov_table[["Mean_Square"]] <- aov_table[["Sum_Squares"]] / aov_table[["df"]]
   }
 
   if (!"Residuals" %in% aov_table$Parameter) {
@@ -657,6 +658,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
                           ci = 0.95, alternative = "greater",
                           verbose = TRUE,
                           include_intercept = FALSE) {
+  aov_table <- as.data.frame(aov_table)
 
   # Get correct function ---
   type <- match.arg(type)

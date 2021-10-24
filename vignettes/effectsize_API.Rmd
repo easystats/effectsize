@@ -214,6 +214,8 @@ eta_squared(mod)
 eta_squared(mod, partial = FALSE)
 
 omega_squared(mod)
+
+# Etc...
 ```
 
 
