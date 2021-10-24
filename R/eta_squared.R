@@ -520,10 +520,11 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
                            verbose = TRUE,
                            include_intercept = FALSE) {
   type <- match.arg(type)
+  aov_table <- as.data.frame(aov_table)
 
   # Clean up data ---
   if (!"Mean_Square_residuals" %in% colnames(aov_table)) {
-    aov_table[["Mean_Square_residuals"]] = aov_table[["Sum_Squares"]] / aov_table[["df"]]
+    aov_table[["Mean_Square_residuals"]] <- aov_table[["Sum_Squares"]] / aov_table[["df"]]
   }
 
   if (!"Residuals" %in% aov_table$Parameter) {
@@ -938,10 +939,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
                                        ...) {
   if ("Sum_Squares" %in% colnames(model) && "Residuals" %in% model[["Parameter"]]) {
     if ("Group" %in% colnames(model)) {
-      stop("Waiting for Denial's fix: https://github.com/easystats/parameters/issues/624")
-      # # get the model
-      # attr(model, "object_name", exact = TRUE)
-      # DVs <- insight::get_predictors()
+      DVs <- unlist(insight::find_predictors(.get_object(model)))
       out <- .es_aov_strata(
         model, DV_names = DVs,
         type = type, partial = partial, generalized = generalized,
