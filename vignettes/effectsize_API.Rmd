@@ -67,10 +67,10 @@ min_aov <- data.frame(
 )
 ```
 
-Pass the data frame to `.es_aov()`:
+Pass the data frame to `.es_aov_simple()`:
 
 ```{r}
-.es_aov(
+.es_aov_simple(
   min_aov,
   type = "eta", partial = TRUE, generalized = FALSE,
   include_intercept = FALSE,
@@ -112,10 +112,10 @@ min_aovlist <- data.frame(
 )
 ```
 
-Pass the data frame to `.es_aovlist()`:
+Pass the data frame to `.es_aov_strata()`, along with a list of predictors (including the stratifying variables) to the `DV_names` argument:
 
 ```{r}
-.es_aovlist(
+.es_aov_strata(
   min_aovlist, DV_names = c("S", "A"),
   type = "omega", partial = TRUE, generalized = FALSE,
   ci = 0.95, alternative = "greater",
@@ -156,10 +156,10 @@ min_anova <- data.frame(
 )
 ```
 
-Pass the table to `.es_anova()`:
+Pass the table to `.es_aov_table()`:
 
 ```{r}
-effectsize:::.es_anova(
+.es_aov_table(
   min_anova,
   type = "eta", partial = TRUE, generalized = FALSE,
   include_intercept = FALSE,
@@ -197,7 +197,7 @@ We now need a new `.anova_es.superMODEL` function:
   colnames(anov)[2:1] <- c("Sum_Squares", "df")
   
   # Pass
-  out <- .es_aov(anov, ...)
+  out <- .es_aov_simple(anov, ...)
   
   # Set attribute
   attr(out, "anova_type") <- 1

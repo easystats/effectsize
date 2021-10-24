@@ -368,13 +368,13 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 #'
 #' @rdname effectsize_API
 #' @export
-.es_aov <- function(aov_table,
-                    type = c("eta", "omega", "epsilon"),
-                    partial = TRUE,
-                    generalized = FALSE,
-                    ci = 0.95, alternative = "greater",
-                    verbose = TRUE,
-                    include_intercept = FALSE) {
+.es_aov_simple <- function(aov_table,
+                           type = c("eta", "omega", "epsilon"),
+                           partial = TRUE,
+                           generalized = FALSE,
+                           ci = 0.95, alternative = "greater",
+                           verbose = TRUE,
+                           include_intercept = FALSE) {
   type <- match.arg(type)
 
   # Clean up data ---
@@ -512,13 +512,13 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 #'
 #' @rdname effectsize_API
 #' @export
-.es_aovlist <- function(aov_table, DV_names,
-                        type = c("eta", "omega", "epsilon"),
-                        partial = TRUE,
-                        generalized = FALSE,
-                        ci = 0.95, alternative = "greater",
-                        verbose = TRUE,
-                        include_intercept = FALSE) {
+.es_aov_strata <- function(aov_table, DV_names,
+                           type = c("eta", "omega", "epsilon"),
+                           partial = TRUE,
+                           generalized = FALSE,
+                           ci = 0.95, alternative = "greater",
+                           verbose = TRUE,
+                           include_intercept = FALSE) {
   type <- match.arg(type)
 
   # Clean up data ---
@@ -649,13 +649,13 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 
 #' @rdname effectsize_API
 #' @export
-.es_anova <- function(aov_table,
-                      type = c("eta", "omega", "epsilon"),
-                      partial = TRUE,
-                      generalized = FALSE,
-                      ci = 0.95, alternative = "greater",
-                      verbose = TRUE,
-                      include_intercept = FALSE) {
+.es_aov_table <- function(aov_table,
+                          type = c("eta", "omega", "epsilon"),
+                          partial = TRUE,
+                          generalized = FALSE,
+                          ci = 0.95, alternative = "greater",
+                          verbose = TRUE,
+                          include_intercept = FALSE) {
 
   # Get correct function ---
   type <- match.arg(type)
@@ -786,7 +786,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   }
 
   params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
-  out <- .es_aov(as.data.frame(params), type, partial, generalized, ci, alternative, verbose = verbose, ...)
+  out <- .es_aov_simple(as.data.frame(params), type, partial, generalized, ci, alternative, verbose = verbose, ...)
   if (is.null(attr(out, "anova_type"))) attr(out, "anova_type") <- attr(params, "anova_type")
   out
 }
@@ -815,7 +815,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   DV_names <- insight::find_predictors(model)[[1]]
 
   out <-
-    .es_aovlist(
+    .es_aov_strata(
       params,
       DV_names = DV_names,
       type = type,
@@ -844,7 +844,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   anova_type <- attr(params, "anova_type")
 
   params <- split(params, params$Response)
-  params <- lapply(params, .es_aov,
+  params <- lapply(params, .es_aov_simple,
     type = type,
     partial = partial,
     generalized = generalized,
@@ -908,7 +908,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   par_table <- par_table[!par_table[["Parameter"]] %in% "Residuals",]
 
   out <-
-    .es_anova(
+    .es_aov_table(
       par_table,
       type = type,
       partial = partial,
@@ -942,14 +942,14 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
       # # get the model
       # attr(model, "object_name", exact = TRUE)
       # DVs <- insight::get_predictors()
-      out <- .es_aovlist(
+      out <- .es_aov_strata(
         model, DV_names = DVs,
         type = type, partial = partial, generalized = generalized,
         ci = ci, alternative = alternative,
         verbose = verbose, ...
       )
     } else {
-      out <- .es_aov(
+      out <- .es_aov_simple(
         model,
         type = type, partial = partial, generalized = generalized,
         ci = ci, alternative = alternative,
@@ -957,7 +957,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
       )
     }
   } else {
-    out <- .es_anova(
+    out <- .es_aov_table(
       model,
       type = type, partial = partial, generalized = generalized,
       ci = ci, alternative = alternative,
@@ -1149,7 +1149,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     DV_names <- c(id, names(attr(model, "within")), names(attr(model, "between")))
 
     out <-
-      .es_aovlist(
+      .es_aov_strata(
         aov_tab,
         DV_names = DV_names,
         type = type,
@@ -1196,7 +1196,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   model$df_error <- model$df[rownames(model) == "ERROR"]
   model <- model[rownames(model) != "ERROR", ]
 
-  out <- .es_anova(
+  out <- .es_aov_table(
     model,
     type = type,
     partial = partial,

@@ -2,12 +2,12 @@
 % Please edit documentation in R/docs_extra.R, R/eta_squared.R
 \name{effectsize_API}
 \alias{effectsize_API}
-\alias{.es_aov}
-\alias{.es_aovlist}
-\alias{.es_anova}
+\alias{.es_aov_simple}
+\alias{.es_aov_strata}
+\alias{.es_aov_table}
 \title{\code{effectsize} API}
 \usage{
-.es_aov(
+.es_aov_simple(
   aov_table,
   type = c("eta", "omega", "epsilon"),
   partial = TRUE,
@@ -18,7 +18,7 @@
   include_intercept = FALSE
 )
 
-.es_aovlist(
+.es_aov_strata(
   aov_table,
   DV_names,
   type = c("eta", "omega", "epsilon"),
@@ -30,7 +30,7 @@
   include_intercept = FALSE
 )
 
-.es_anova(
+.es_aov_table(
   aov_table,
   type = c("eta", "omega", "epsilon"),
   partial = TRUE,
