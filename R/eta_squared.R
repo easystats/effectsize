@@ -936,70 +936,35 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
                                        ci = 0.95, alternative = "greater",
                                        verbose = TRUE,
                                        ...) {
-  if (verbose && !isTRUE(partial)) {
-    warning(
-      "Currently only supports partial ",
-      type,
-      " squared for this class of objects.",
-      call. = FALSE
-    )
-    partial <- TRUE
-  }
-
-  if (verbose && (isTRUE(generalized) || is.character(generalized))) {
-    warning(
-      "generalized ", type, " squared ",
-      "is not supported for this class of object."
-    )
-    generalized <- FALSE
-  }
-
-
-  type <- match.arg(type)
-
-  if ("Group" %in% colnames(model) && sum(model$Parameter == "Residuals") > 1) {
-    x <- split(model, model$Group)
-    out <- do.call(rbind, lapply(x, function(i) {
-      f <- i[["F"]]
-      df_num <- i[["df"]][!is.na(f)]
-      df_error <- i[i$Parameter == "Residuals", "df"]
-      cbind(
-        data.frame(Group = unique(i$Group), stringsAsFactors = FALSE),
-        .anova_es_model_params(i, f, df_num, df_error, type, ci, alternative)
+  if ("Sum_Squares" %in% colnames(mp) && "Residuals" %in% mp[["Parameter"]]) {
+    if ("Group" %in% colnames(mp)) {
+      stop("Waiting for Denial's fix: https://github.com/easystats/parameters/issues/624")
+      # # get the model
+      # attr(model, "object_name", exact = TRUE)
+      # DVs <- insight::get_predictors()
+      out <- .es_aovlist(
+        model, DV_names = DVs,
+        type = type, partial = partial, generalized = generalized,
+        ci = ci, alternative = alternative,
+        verbose = verbose, ...
       )
-    }))
+    } else {
+      out <- .es_aov(
+        model,
+        type = type, partial = partial, generalized = generalized,
+        ci = ci, alternative = alternative,
+        verbose = verbose, ...
+      )
+    }
   } else {
-    if ("t" %in% colnames(model)) {
-      f <- model[["t"]]^2
-    }
-    if ("F" %in% colnames(model)) {
-      f <- model[["F"]]
-    }
-    if ("z" %in% colnames(model)) {
-      stop("Cannot compute effect size from models with no proper residual variance. Consider the estimates themselves as indices of effect size.")
-    }
-
-    df_col <- colnames(model)[colnames(model) %in% c("df", "Df", "NumDF")]
-    if (length(df_col)) {
-      df_num <- model[[df_col]][!is.na(f)]
-    } else {
-      df_num <- 1
-    }
-
-    if ("df_error" %in% colnames(model)) {
-      df_error <- model$df_error
-    } else if ("Residuals" %in% model$Parameter) {
-      df_error <- model[model$Parameter == "Residuals", df_col]
-    } else {
-      stop("Cannot extract degrees of freedom for the error term. Try passing the model object directly to 'eta_squared()'.")
-    }
-    out <- .anova_es_model_params(model, f, df_num, df_error, type, ci, alternative)
+    out <- .es_anova(
+      model,
+      type = type, partial = partial, generalized = generalized,
+      ci = ci, alternative = alternative,
+      verbose = verbose, ...
+    )
   }
-
-  attr(out, "partial") <- partial
-  attr(out, "generalized") <- generalized
-  attr(out, "ci") <- ci
-  attr(out, "alternative") <- if (is.numeric(ci)) alternative
+  attr(out, "anova_type") <- attr(model, "anova_type")
   out
 }
 
@@ -1264,14 +1229,4 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     verbose = verbose,
     ...
   )
-}
-
-# Utils -------------------------------------------------------------------
-
-#' @keywords internal
-.anova_es_model_params <- function(model, f, df_num, df_error, type, ci, alternative) {
-  # used by .anova_es.parameters_model
-  out <- .F_to_pve(stats::na.omit(f), df = df_num, df_error = df_error, ci = ci, alternative = alternative, es = paste0(type, "2"))
-  out$Parameter <- model$Parameter[!is.na(f)]
-  out[c(ncol(out), 1:(ncol(out) - 1))]
 }
