@@ -16,7 +16,7 @@
 
 #' @keywords internal
 .prepare_values_aov <- function(params, N) {
-  iResid <- "Residuals" %in% params$Parameter
+  iResid <- params$Parameter == "Residuals"
   # get mean squared of residuals
   Mean_Square_residuals <- sum(params[iResid, "Mean_Square"])
   # get sum of squares of residuals
