@@ -306,7 +306,7 @@ if (require("testthat") && require("effectsize")) {
       ID = sort(rep(letters, length.out = 1000))
     )
     dat <- transform(dat, Y = X + Z + rnorm(1000))
-    dat <- cbind(dat, parameters::demean(dat, c("X", "Z"), "ID"))
+    dat <- cbind(dat, datawizard::demean(dat, c("X", "Z"), "ID"))
 
 
     m <- lme4::lmer(Y ~ scale(X_within) * X_between + C + (scale(X_within) | ID),
