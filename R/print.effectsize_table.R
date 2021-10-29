@@ -154,18 +154,17 @@ print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
 
 
   if (append_CL) {
-    if (any(colnames(x_orig) %in% c("Cohens_d", "Hedges_g")) &&
-      attr(x_orig, "pooled_sd") &&
-      !attr(x_orig, "paired")) {
-      # Common lang
-      cl <- d_to_common_language(x_orig[[any(colnames(x_orig) %in% c("Cohens_d", "Hedges_g"))]])
-      cl <- lapply(cl, insight::format_value, as_percent = TRUE, digits = digits)
-      cl <- data.frame(cl, check.names = FALSE)
-      cat(insight::export_table(cl,
-        digits = digits,
-        caption = c("\n\n# Common Language Effect Sizes", "blue"), ...
-      ))
+    if ("r_rank_biserial" %in% colnames(x_orig)) {
+      to_cl_coverter <- rbs_to_common_language
+    } else {
+      to_cl_coverter <- d_to_common_language
     }
+
+    tryCatch({
+      CL <- to_cl_coverter(x_orig)
+      attr(CL, "table_caption") <- c("\n\n# Common Language Effect Sizes", "blue")
+      print(CL, digits = digits)
+    }, error = function(...) invisible(NULL))
   }
 
   invisible(x_orig)

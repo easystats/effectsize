@@ -159,13 +159,14 @@ mtcars$cyl <- factor(mtcars$cyl)
 # =========================
 
 # Two Independent Samples ----------
-rank_biserial(mpg ~ am, data = mtcars)
+(rbs <- rank_biserial(mpg ~ am, data = mtcars))
 # Same as:
 # rank_biserial("mpg", "am", data = mtcars)
 # rank_biserial(mtcars$mpg[mtcars$am=="0"], mtcars$mpg[mtcars$am=="1"])
 
 # More options:
 rank_biserial(mpg ~ am, data = mtcars, mu = -5)
+print(rbs, append_CL = TRUE)
 
 
 # One Sample ----------
