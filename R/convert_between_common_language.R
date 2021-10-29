@@ -4,7 +4,7 @@
 #'   the output from [cohens_d()] / [rank_biserial()].
 #'
 #' @details
-#' This function use the following formulae:
+#' This function use the following formulae for Cohen's *d*:
 #' \deqn{Cohen's U_3 = \Phi(d)}{U3 = pnorm(d)}
 #' \cr\cr
 #' \deqn{Overlap = 2 \times \Phi(-|d|/2)}{Overlap = 2 * pnorm(-abs(d) / 2)}
@@ -19,7 +19,7 @@
 #' These calculations assume that the populations have equal variance and are
 #' normally distributed.
 #'
-#' @seealso [cohens_d()]
+#' @seealso [cohens_d()], [rank_biserial()]
 #' @family convert between effect sizes
 #'
 #' @references

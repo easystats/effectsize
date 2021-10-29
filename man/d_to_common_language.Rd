@@ -23,7 +23,7 @@ on the input.
 Convert Standardized Mean Difference to Common Language Effect Sizes
 }
 \details{
-This function use the following formulae:
+This function use the following formulae for Cohen's \emph{d}:
 \deqn{Cohen's U_3 = \Phi(d)}{U3 = pnorm(d)}
 \cr\cr
 \deqn{Overlap = 2 \times \Phi(-|d|/2)}{Overlap = 2 * pnorm(-abs(d) / 2)}
@@ -46,7 +46,7 @@ to base rates and other factors. Psychological methods, 13(1), 19–30.
 }
 }
 \seealso{
-\code{\link[=cohens_d]{cohens_d()}}
+\code{\link[=cohens_d]{cohens_d()}}, \code{\link[=rank_biserial]{rank_biserial()}}
 
 Other convert between effect sizes: 
 \code{\link{d_to_r}()},
