@@ -2,11 +2,11 @@
 % Please edit documentation in R/convert_between_common_language.R
 \name{d_to_cles}
 \alias{d_to_cles}
-\alias{convert_d_to_common_language,}
-\alias{d_to_common_language,}
-\alias{rbs_to_common_language,}
-\alias{convert_rbs_to_common_language}
+\alias{convert_d_to_common_language}
+\alias{d_to_common_language}
 \alias{rbs_to_cles}
+\alias{rbs_to_common_language}
+\alias{convert_rbs_to_common_language}
 \title{Convert Standardized Mean Difference to Common Language Effect Sizes}
 \usage{
 d_to_cles(d)

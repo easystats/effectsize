@@ -34,7 +34,7 @@
 #' to base rates and other factors. Psychological methods, 13(1), 19–30.
 #'
 #' @export
-#' @aliases convert_d_to_common_language, d_to_common_language, rbs_to_common_language, convert_rbs_to_common_language
+#' @aliases convert_d_to_common_language d_to_common_language
 #' @importFrom stats pnorm
 d_to_cles <- function(d) {
   UseMethod("d_to_cles")
@@ -84,6 +84,7 @@ d_to_cles.effectsize_difference <- function(d) {
 
 
 #' @export
+#' @aliases rbs_to_common_language convert_rbs_to_common_language
 #' @rdname d_to_cles
 rbs_to_cles <- function(rbs) {
   UseMethod("rbs_to_cles")
