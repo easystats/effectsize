@@ -93,6 +93,14 @@ t.test(mpg ~ am, data = mtcars, var.equal = TRUE, alternative = "less")
 cohens_d(mpg ~ am, data = mtcars, pooled_sd = TRUE, alternative = "less")
 ```
 
+### Common Language Effect Sizes
+
+Related effect sizes are the *common language effect sizes* which present information about group differences in terms of probability.
+
+```{r}
+cles(mpg ~ am, data = mtcars)
+```
+
 ## One Sample and Paired Samples
 
 In the case of a one-sample test, the effect size represents the standardized
@@ -263,6 +271,12 @@ B <- c(14, 34, 34, 77)
 wilcox.test(A, B) # aka Mann–Whitney U test
 
 rank_biserial(A, B)
+```
+
+Here too we have a *common language effect size*:
+
+```{r}
+cles(A, B, np = TRUE)
 ```
 
 For one sample, $r_{rb}$ measures the symmetry around $\mu$ (mu; the null
