@@ -68,10 +68,11 @@ d_to_cles.effectsize_difference <- function(d) {
     out$CI <- d$CI
     out <- out[c("Parameter", "Coefficient", "CI", "CI_low", "CI_high")]
 
+    if (d[[1]] > 0) {
+      out[2, 4:5] <- out[2, 5:4]
+    }
+
     if (sign(d$CI_low) != sign(d$CI_high)) {
-      if (d[[1]] > 0) {
-        out$CI_low[2] <- out$CI_high[2]
-      }
       out$CI_high[2] <- 1
     }
   } else {
