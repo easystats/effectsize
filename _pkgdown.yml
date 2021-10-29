@@ -18,7 +18,7 @@ reference:
   - phi
   - eta_squared
   - rank_biserial
-  - common_language
+  - cles
 
 - title: "Standardization"
   contents:
@@ -34,7 +34,7 @@ reference:
   - chisq_to_phi
 - subtitle: "Between Effect Sizes"
   contents:
-  - d_to_common_language
+  - d_to_cles
   - d_to_r
   - eta2_to_f2
   - odds_to_probs

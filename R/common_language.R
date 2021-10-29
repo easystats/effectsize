@@ -7,29 +7,33 @@
 #' @return A data frame containing the common language effect sizes (and
 #'   optionally their CIs).
 #'
+#' @seealso [d_to_cles()] [sd_pooled()]
+#' @family effect size indices
+#'
 #' @export
-common_language <- function(x,
-                            y = NULL,
-                            data = NULL,
-                            mu = 0,
-                            ci = 0.95,
-                            alternative = "two.sided",
-                            verbose = TRUE,
-                            np = FALSE,
-                            ...) {
+cles <- function(x,
+                 y = NULL,
+                 data = NULL,
+                 mu = 0,
+                 ci = 0.95,
+                 alternative = "two.sided",
+                 verbose = TRUE,
+                 np = FALSE,
+                 ...) {
+  cl <- match.call()
+  cl$paired <- FALSE
+
   if (np) {
-    es <- rank_biserial(
-      x, y = y, data = data,
-      mu = mu, paired = FALSE,
-      ci = ci, alternative = alternative,
-      verbose = verbose)
-    rbs_to_common_language(es)
+    cl[[1]] <- as.name("rank_biserial")
+    rbs_to_cles(eval(cl))
   } else {
-    es <- cohens_d(
-      x, y = y, data = data,
-      mu = mu, paired = FALSE, pooled_sd = TRUE,
-      ci = ci, alternative = alternative,
-      verbose = verbose)
-    d_to_common_language(es)
+    cl$pooled_sd <- TRUE
+    cl[[1]] <- as.name("cohens_d")
+
+    d_to_cles(eval(cl))
   }
 }
+
+#' @export
+#' @rdname cles
+common_language <- cles

@@ -44,7 +44,7 @@
 #' @return A data frame with the effect size ( `Cohens_d`, `Hedges_g`,
 #'   `Glass_delta`) and their CIs (`CI_low` and `CI_high`).
 #'
-#' @seealso [d_to_common_language()] [sd_pooled()]
+#' @seealso [d_to_cles()] [sd_pooled()]
 #' @family effect size indices
 #'
 #' @examples
@@ -102,7 +102,7 @@
 #' interpret(d, rules = "sawilowsky2009")
 #'
 #' # Common Language Effect Sizes
-#' d_to_common_language(1.48)
+#' d_to_cles(1.48)
 #' # Or:
 #' print(d, append_CL = TRUE)
 #' }

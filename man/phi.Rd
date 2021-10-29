@@ -208,6 +208,7 @@ cohens_g(Performance)
 \code{\link[=chisq_to_phi]{chisq_to_phi()}} for details regarding estimation and CIs.
 
 Other effect size indices: 
+\code{\link{cles}()},
 \code{\link{cohens_d}()},
 \code{\link{effectsize.BFBayesFactor}()},
 \code{\link{eta_squared}()},

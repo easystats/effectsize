@@ -120,6 +120,7 @@ effectsize(anova_table, type = "epsilon")
 }
 \seealso{
 Other effect size indices: 
+\code{\link{cles}()},
 \code{\link{cohens_d}()},
 \code{\link{eta_squared}()},
 \code{\link{phi}()},

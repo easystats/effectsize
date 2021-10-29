@@ -32,7 +32,7 @@ significant figures (see also \code{\link[=signif]{signif()}}).}
 
 \item{append_CL}{Should the Common Language Effect Sizes be printed as well?
 Only applicable to Cohen's \emph{d}, Hedges' \emph{g} for independent samples of
-equal variance (pooled sd) (See \code{\link[=d_to_common_language]{d_to_common_language()}})}
+equal variance (pooled sd) (See \code{\link[=d_to_cles]{d_to_cles()}})}
 }
 \description{
 Printing, formatting and plotting methods for \code{effectsize} tables.

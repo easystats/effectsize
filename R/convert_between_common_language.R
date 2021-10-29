@@ -34,14 +34,14 @@
 #' to base rates and other factors. Psychological methods, 13(1), 19–30.
 #'
 #' @export
-#' @aliases convert_d_to_common_language
+#' @aliases convert_d_to_common_language, d_to_common_language, rbs_to_common_language, convert_rbs_to_common_language
 #' @importFrom stats pnorm
-d_to_common_language <- function(d) {
-  UseMethod("d_to_common_language")
+d_to_cles <- function(d) {
+  UseMethod("d_to_cles")
 }
 
 #' @export
-d_to_common_language.numeric <- function(d) {
+d_to_cles.numeric <- function(d) {
   list(
     "Cohen's U3" = stats::pnorm(d),
     Overlap = 2 * stats::pnorm(-abs(d) / 2),
@@ -50,7 +50,7 @@ d_to_common_language.numeric <- function(d) {
 }
 
 #' @export
-d_to_common_language.effectsize_difference <- function(d) {
+d_to_cles.effectsize_difference <- function(d) {
   if (!any(colnames(d) %in% c("Cohens_d", "Hedges_g")) ||
       attr(d, "paired") ||
       !attr(d, "pooled_sd")) {
@@ -58,7 +58,7 @@ d_to_common_language.effectsize_difference <- function(d) {
   }
 
   out <- lapply(d[,colnames(d) %in% c("Cohens_d", "Hedges_g", "CI_low", "CI_high")],
-                function(x) unlist(d_to_common_language(x)))
+                function(x) unlist(d_to_cles(x)))
   out <- as.data.frame(out)
   out$Parameter <- rownames(out)
   rownames(out) <- NULL
@@ -84,25 +84,25 @@ d_to_common_language.effectsize_difference <- function(d) {
 
 
 #' @export
-#' @rdname d_to_common_language
-rbs_to_common_language <- function(rbs) {
-  UseMethod("rbs_to_common_language")
+#' @rdname d_to_cles
+rbs_to_cles <- function(rbs) {
+  UseMethod("rbs_to_cles")
 }
 
 #' @export
-rbs_to_common_language.numeric <- function(rbs) {
+rbs_to_cles.numeric <- function(rbs) {
   (rbs + 1)/2
 }
 
 #' @export
-rbs_to_common_language.effectsize_difference <- function(rbs) {
+rbs_to_cles.effectsize_difference <- function(rbs) {
   if (!any(colnames(rbs) == "r_rank_biserial") ||
       attr(rbs, "paired")) {
     stop("Common language effect size only applicable to 2-sample rank-biserial correlation.")
   }
 
   out <- lapply(rbs[,colnames(rbs) %in% c("r_rank_biserial", "CI_low", "CI_high")],
-                rbs_to_common_language)
+                rbs_to_cles)
   out <- as.data.frame(out)
   out$Parameter <- "Probability of superiority"
   rownames(out) <- NULL
@@ -122,4 +122,14 @@ rbs_to_common_language.effectsize_difference <- function(rbs) {
 # Aliases -----------------------------------------------------------------
 
 #' @export
-convert_d_to_common_language <- d_to_common_language
+convert_d_to_common_language <- d_to_cles
+
+#' @export
+convert_rbs_to_common_language <- rbs_to_cles
+
+#' @export
+d_to_common_language <- d_to_cles
+
+#' @export
+rbs_to_common_language <- rbs_to_cles
+

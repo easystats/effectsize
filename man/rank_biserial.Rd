@@ -227,6 +227,7 @@ revisited. An overview of some recommended measures of effect size.
 }
 \seealso{
 Other effect size indices: 
+\code{\link{cles}()},
 \code{\link{cohens_d}()},
 \code{\link{effectsize.BFBayesFactor}()},
 \code{\link{eta_squared}()},
