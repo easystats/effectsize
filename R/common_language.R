@@ -1,8 +1,8 @@
 #' Estimate Common Language Effect Sizes
 #'
 #' @inheritParams cohens_d
-#' @param np Use non-parametric estimation (see [rank_biserial()]) instead of
-#'   parametric estimation (see [cohens_d()]).
+#' @param rank Use non-parametric rank-based estimation (see [rank_biserial()])
+#'   instead of parametric estimation (see [cohens_d()]).
 #'
 #' @return A data frame containing the common language effect sizes (and
 #'   optionally their CIs).
@@ -18,12 +18,12 @@ cles <- function(x,
                  ci = 0.95,
                  alternative = "two.sided",
                  verbose = TRUE,
-                 np = FALSE,
+                 rank = FALSE,
                  ...) {
   cl <- match.call()
   cl$paired <- FALSE
 
-  if (np) {
+  if (rank) {
     cl[[1]] <- as.name("rank_biserial")
     rbs_to_cles(eval(cl))
   } else {

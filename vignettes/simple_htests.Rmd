@@ -276,7 +276,7 @@ rank_biserial(A, B)
 Here too we have a *common language effect size*:
 
 ```{r}
-cles(A, B, np = TRUE)
+cles(A, B, rank = TRUE)
 ```
 
 For one sample, $r_{rb}$ measures the symmetry around $\mu$ (mu; the null

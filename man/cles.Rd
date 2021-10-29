@@ -13,7 +13,7 @@ cles(
   ci = 0.95,
   alternative = "two.sided",
   verbose = TRUE,
-  np = FALSE,
+  rank = FALSE,
   ...
 )
 
@@ -25,7 +25,7 @@ common_language(
   ci = 0.95,
   alternative = "two.sided",
   verbose = TRUE,
-  np = FALSE,
+  rank = FALSE,
   ...
 )
 }
@@ -49,8 +49,8 @@ Controls the type of CI returned: \code{"two.sided"} (default, two-sided CI),
 
 \item{verbose}{Toggle warnings and messages on or off.}
 
-\item{np}{Use non-parametric estimation (see \code{\link[=rank_biserial]{rank_biserial()}}) instead of
-parametric estimation (see \code{\link[=cohens_d]{cohens_d()}}).}
+\item{rank}{Use non-parametric rank-based estimation (see \code{\link[=rank_biserial]{rank_biserial()}})
+instead of parametric estimation (see \code{\link[=cohens_d]{cohens_d()}}).}
 
 \item{...}{Arguments passed to or from other methods.}
 }
