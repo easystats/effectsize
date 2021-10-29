@@ -18,6 +18,7 @@ reference:
   - phi
   - eta_squared
   - rank_biserial
+  - common_language
 
 - title: "Standardization"
   contents:
