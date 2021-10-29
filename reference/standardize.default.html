@@ -98,7 +98,7 @@ median and the MAD instead of the mean and the SD."><meta property="og:image" co
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Re-fit a model with standardized data</h1>
-    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/R/standardize.models.R" class="external-link"><code>R/standardize.models.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/R/standardize.models.R" class="external-link"><code>R/standardize.models.R</code></a></small>
     <div class="hidden name"><code>standardize.default.Rd</code></div>
     </div>
 
@@ -127,37 +127,36 @@ transformations (e.g., polynomial or spline terms). The <code>robust</code> (def
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
-      <td><p>A statistical model.</p></td>
-    </tr><tr><th>robust</th>
-      <td><p>Logical, if <code>TRUE</code>, centering is done by subtracting the
+    <dl><dt>x</dt>
+<dd><p>A statistical model.</p></dd>
+<dt>robust</dt>
+<dd><p>Logical, if <code>TRUE</code>, centering is done by subtracting the
 median from the variables and dividing it by the median absolute deviation
 (MAD). If <code>FALSE</code>, variables are standardized by subtracting the
-mean and dividing it by the standard deviation (SD).</p></td>
-    </tr><tr><th>two_sd</th>
-      <td><p>If <code>TRUE</code>, the variables are scaled by two times the deviation
+mean and dividing it by the standard deviation (SD).</p></dd>
+<dt>two_sd</dt>
+<dd><p>If <code>TRUE</code>, the variables are scaled by two times the deviation
 (SD or MAD depending on <code>robust</code>). This method can be useful to obtain
 model coefficients of continuous parameters comparable to coefficients
 related to binary predictors, when applied to <strong>the predictors</strong> (not the
-outcome) (Gelman, 2008).</p></td>
-    </tr><tr><th>weights</th>
-      <td><p>If <code>TRUE</code> (default), a weighted-standardization is carried out.</p></td>
-    </tr><tr><th>verbose</th>
-      <td><p>Toggle warnings and messages on or off.</p></td>
-    </tr><tr><th>include_response</th>
-      <td><p>For a model, if <code>TRUE</code> (default), the response value
+outcome) (Gelman, 2008).</p></dd>
+<dt>weights</dt>
+<dd><p>If <code>TRUE</code> (default), a weighted-standardization is carried out.</p></dd>
+<dt>verbose</dt>
+<dd><p>Toggle warnings and messages on or off.</p></dd>
+<dt>include_response</dt>
+<dd><p>For a model, if <code>TRUE</code> (default), the response value
 will also be standardized. If <code>FALSE</code>, only the predictors will be
 standardized. Note that for certain models (logistic regression, count
 models, ...), the response value will never be standardized, to make
 re-fitting the model work. (For <code>mediate</code> models, only applies to the y
-model; m model's response will always be standardized.)</p></td>
-    </tr><tr><th>...</th>
-      <td><p>Arguments passed to or from other methods.</p></td>
-    </tr></table></div>
-
-    <div id="ref-sections">
+model; m model's response will always be standardized.)</p></dd>
+<dt>...</dt>
+<dd><p>Arguments passed to or from other methods.</p></dd>
+</dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>A statistical model fitted on standardized data</p>

@@ -88,7 +88,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Generic function for interpretation</h1>
-    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/R/interpret.R" class="external-link"><code>R/interpret.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/R/interpret.R" class="external-link"><code>R/interpret.R</code></a></small>
     <div class="hidden name"><code>interpret.Rd</code></div>
     </div>
 
@@ -104,25 +104,23 @@
 <span class="co"># S3 method for effectsize_table</span>
 <span class="fu">interpret</span><span class="op">(</span><span class="va">x</span>, <span class="va">rules</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
-      <td><p>Vector of value break points (edges defining categories), or a data
-frame of class <code>effectsize_table</code>.</p></td>
-    </tr><tr><th>...</th>
-      <td><p>Currently not used.</p></td>
-    </tr><tr><th>rules</th>
-      <td><p>Set of <code><a href="rules.html">rules()</a></code>. When <code>x</code> is a data frame, can be a name of an
-established set of rules.</p></td>
-    </tr><tr><th>name</th>
-      <td><p>Name of the set of rules (stored as a 'rule_name' attribute).</p></td>
-    </tr></table></div>
-
-    <div id="ref-sections">
+    <dl><dt>x</dt>
+<dd><p>Vector of value break points (edges defining categories), or a data
+frame of class <code>effectsize_table</code>.</p></dd>
+<dt>...</dt>
+<dd><p>Currently not used.</p></dd>
+<dt>rules</dt>
+<dd><p>Set of <code><a href="rules.html">rules()</a></code>. When <code>x</code> is a data frame, can be a name of an
+established set of rules.</p></dd>
+<dt>name</dt>
+<dd><p>Name of the set of rules (stored as a 'rule_name' attribute).</p></dd>
+</dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-<ul><li><p>For numeric input: A character vector of interpertations.</p></li>
+    <ul><li><p>For numeric input: A character vector of interpertations.</p></li>
 <li><p>For data frames: the <code>x</code> input with an additional <code>Interpretation</code> column.</p></li>
 </ul></div>
     <div id="see-also">

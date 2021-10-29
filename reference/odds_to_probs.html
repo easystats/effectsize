@@ -88,7 +88,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Convert between Odds and Probabilities</h1>
-    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/R/convert_between_odds_to_probs.R" class="external-link"><code>R/convert_between_odds_to_probs.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/R/convert_between_odds_to_probs.R" class="external-link"><code>R/convert_between_odds_to_probs.R</code></a></small>
     <div class="hidden name"><code>odds_to_probs.Rd</code></div>
     </div>
 
@@ -106,25 +106,24 @@
 <span class="co"># S3 method for data.frame</span>
 <span class="fu">probs_to_odds</span><span class="op">(</span><span class="va">probs</span>, log <span class="op">=</span> <span class="cn">FALSE</span>, select <span class="op">=</span> <span class="cn">NULL</span>, exclude <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>odds</th>
-      <td><p>The <em>Odds</em> (or <code>log(odds)</code> when <code>log = TRUE</code>) to convert.</p></td>
-    </tr><tr><th>log</th>
-      <td><p>Take in or output log odds (such as in logistic models).</p></td>
-    </tr><tr><th>...</th>
-      <td><p>Arguments passed to or from other methods.</p></td>
-    </tr><tr><th>select</th>
-      <td><p>When a data frame is passed, character or list of of column
-names to be transformed.</p></td>
-    </tr><tr><th>exclude</th>
-      <td><p>When a data frame is passed, character or list of column names
-to be excluded from transformation.</p></td>
-    </tr><tr><th>probs</th>
-      <td><p>Probability values to convert.</p></td>
-    </tr></table></div>
-
-    <div id="ref-sections">
+    <dl><dt>odds</dt>
+<dd><p>The <em>Odds</em> (or <code>log(odds)</code> when <code>log = TRUE</code>) to convert.</p></dd>
+<dt>log</dt>
+<dd><p>Take in or output log odds (such as in logistic models).</p></dd>
+<dt>...</dt>
+<dd><p>Arguments passed to or from other methods.</p></dd>
+<dt>select</dt>
+<dd><p>When a data frame is passed, character or list of of column
+names to be transformed.</p></dd>
+<dt>exclude</dt>
+<dd><p>When a data frame is passed, character or list of column names
+to be excluded from transformation.</p></dd>
+<dt>probs</dt>
+<dd><p>Probability values to convert.</p></dd>
+</dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>Converted index.</p>

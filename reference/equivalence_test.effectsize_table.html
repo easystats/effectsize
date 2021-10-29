@@ -89,7 +89,7 @@ effect size."><meta property="og:image" content="/logo.png"><!-- mathjax --><scr
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Test for Practical Equivalence</h1>
-    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/R/equivalence_test.R" class="external-link"><code>R/equivalence_test.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/R/equivalence_test.R" class="external-link"><code>R/equivalence_test.R</code></a></small>
     <div class="hidden name"><code>equivalence_test.effectsize_table.Rd</code></div>
     </div>
 
@@ -106,23 +106,22 @@ effect size.</p>
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
-      <td><p>An effect size table, such as returned by <code><a href="cohens_d.html">cohens_d()</a></code>,
-<code><a href="eta_squared.html">eta_squared()</a></code>, <code><a href="t_to_r.html">F_to_r()</a></code>, etc.</p></td>
-    </tr><tr><th>range</th>
-      <td><p>The range of practical equivalence of an effect. For one-sides
+    <dl><dt>x</dt>
+<dd><p>An effect size table, such as returned by <code><a href="cohens_d.html">cohens_d()</a></code>,
+<code><a href="eta_squared.html">eta_squared()</a></code>, <code><a href="t_to_r.html">F_to_r()</a></code>, etc.</p></dd>
+<dt>range</dt>
+<dd><p>The range of practical equivalence of an effect. For one-sides
 CIs, a single value can be proved for the lower / upper bound to test
 against (but see more details below). For two-sided CIs, a single value is
-duplicated to <code>c(-range, range)</code>. If <code>"default"</code>, will be set to <code>[-.1, .1]</code>.</p></td>
-    </tr><tr><th>rule</th>
-      <td><p>How should acceptance and rejection be decided? See details.</p></td>
-    </tr><tr><th>...</th>
-      <td><p>Arguments passed to or from other methods.</p></td>
-    </tr></table></div>
-
-    <div id="ref-sections">
+duplicated to <code>c(-range, range)</code>. If <code>"default"</code>, will be set to <code>[-.1, .1]</code>.</p></dd>
+<dt>rule</dt>
+<dd><p>How should acceptance and rejection be decided? See details.</p></dd>
+<dt>...</dt>
+<dd><p>Arguments passed to or from other methods.</p></dd>
+</dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>A data frame with the results of the equivalence test.</p>

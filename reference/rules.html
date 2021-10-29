@@ -88,7 +88,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Interpretation Grid</h1>
-    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/R/interpret.R" class="external-link"><code>R/interpret.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/R/interpret.R" class="external-link"><code>R/interpret.R</code></a></small>
     <div class="hidden name"><code>rules.Rd</code></div>
     </div>
 
@@ -100,26 +100,25 @@
 
 <span class="fu">is.rules</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>values</th>
-      <td><p>Vector of reference values (edges defining categories or
-critical values).</p></td>
-    </tr><tr><th>labels</th>
-      <td><p>Labels associated with each category. If <code>NULL</code>, will try to
+    <dl><dt>values</dt>
+<dd><p>Vector of reference values (edges defining categories or
+critical values).</p></dd>
+<dt>labels</dt>
+<dd><p>Labels associated with each category. If <code>NULL</code>, will try to
 infer it from <code>values</code> (if it is a named vector or a list), otherwise, will
-return the breakpoints.</p></td>
-    </tr><tr><th>name</th>
-      <td><p>Name of the set of rules (stored as a 'rule_name' attribute).</p></td>
-    </tr><tr><th>right</th>
-      <td><p>logical, for threshold-type rules, indicating if the thresholds
+return the breakpoints.</p></dd>
+<dt>name</dt>
+<dd><p>Name of the set of rules (stored as a 'rule_name' attribute).</p></dd>
+<dt>right</dt>
+<dd><p>logical, for threshold-type rules, indicating if the thresholds
 themselves should be included in the interval to the right (lower values)
-or in the interval to the left (higher values).</p></td>
-    </tr><tr><th>x</th>
-      <td><p>An arbitrary R object.</p></td>
-    </tr></table></div>
-
-    <div id="ref-sections">
+or in the interval to the left (higher values).</p></dd>
+<dt>x</dt>
+<dd><p>An arbitrary R object.</p></dd>
+</dl></div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>interpret</p></div>

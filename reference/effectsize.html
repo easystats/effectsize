@@ -89,7 +89,7 @@ input model. See details."><meta property="og:image" content="/logo.png"><!-- ma
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Effect Size</h1>
-    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/R/effectsize.BFBayesFactor.R" class="external-link"><code>R/effectsize.BFBayesFactor.R</code></a>, <a href="https://github.com/easystats/effectsize/blob/master/R/effectsize.R" class="external-link"><code>R/effectsize.R</code></a>, <a href="https://github.com/easystats/effectsize/blob/master/R/effectsize.htest.R" class="external-link"><code>R/effectsize.htest.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/R/effectsize.BFBayesFactor.R" class="external-link"><code>R/effectsize.BFBayesFactor.R</code></a>, <a href="https://github.com/easystats/effectsize/blob/HEAD/R/effectsize.R" class="external-link"><code>R/effectsize.R</code></a>, <a href="https://github.com/easystats/effectsize/blob/HEAD/R/effectsize.htest.R" class="external-link"><code>R/effectsize.htest.R</code></a></small>
     <div class="hidden name"><code>effectsize.Rd</code></div>
     </div>
 
@@ -109,27 +109,26 @@ input model. See details.</p>
 <span class="co"># S3 method for htest</span>
 <span class="fu">effectsize</span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="cn">NULL</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>model</th>
-      <td><p>An object of class <code>htest</code>, or a statistical model. See details.</p></td>
-    </tr><tr><th>type</th>
-      <td><p>The effect size of interest. See details.</p></td>
-    </tr><tr><th>verbose</th>
-      <td><p>Toggle off warnings.</p></td>
-    </tr><tr><th>test</th>
-      <td><p>The indices of effect existence to compute. Character (vector) or
+    <dl><dt>model</dt>
+<dd><p>An object of class <code>htest</code>, or a statistical model. See details.</p></dd>
+<dt>type</dt>
+<dd><p>The effect size of interest. See details.</p></dd>
+<dt>verbose</dt>
+<dd><p>Toggle off warnings.</p></dd>
+<dt>test</dt>
+<dd><p>The indices of effect existence to compute. Character (vector) or
 list with one or more of these options: <code>"p_direction"</code> (or <code>"pd"</code>),
 <code>"rope"</code>, <code>"p_map"</code>, <code>"equivalence_test"</code> (or <code>"equitest"</code>),
 <code>"bayesfactor"</code> (or <code>"bf"</code>) or <code>"all"</code> to compute all tests.
 For each "test", the corresponding <span class="pkg">bayestestR</span> function is called
 (e.g. <code><a href="https://easystats.github.io/bayestestR/reference/rope.html" class="external-link">rope()</a></code> or <code><a href="https://easystats.github.io/bayestestR/reference/p_direction.html" class="external-link">p_direction()</a></code>) and its results
-included in the summary output.</p></td>
-    </tr><tr><th>...</th>
-      <td><p>Arguments passed to or from other methods. See details.</p></td>
-    </tr></table></div>
-
-    <div id="ref-sections">
+included in the summary output.</p></dd>
+<dt>...</dt>
+<dd><p>Arguments passed to or from other methods. See details.</p></dd>
+</dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>A data frame with the effect size (depending on input) and and its
@@ -250,7 +249,7 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ************</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's d |        95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.32     | [-0.98, 0.36]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.33     | [-1.04, 0.28]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Deviation from a difference of -1.</span></span>
 <span class="r-in"><span class="co"># }</span></span>

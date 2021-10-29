@@ -90,7 +90,7 @@ Kendall's W effect sizes for non-parametric (rank sum) tests."><meta property="o
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Effect size for non-parametric (rank sum) tests</h1>
-    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/R/rank_effectsizes.R" class="external-link"><code>R/rank_effectsizes.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/R/rank_effectsizes.R" class="external-link"><code>R/rank_effectsizes.R</code></a></small>
     <div class="hidden name"><code>rank_biserial.Rd</code></div>
     </div>
 
@@ -146,54 +146,53 @@ Kendall's <em>W</em> effect sizes for non-parametric (rank sum) tests.</p>
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
-      <td><p>Can be one of:</p><ul><li><p>A numeric vector, or a character name of one in <code>data</code>.</p></li>
+    <dl><dt>x</dt>
+<dd><p>Can be one of:</p><ul><li><p>A numeric vector, or a character name of one in <code>data</code>.</p></li>
 <li><p>A formula in to form of <code>DV ~ groups</code> (for <code>rank_biserial()</code> and
 <code>rank_epsilon_squared()</code>) or <code>DV ~ groups | blocks</code> (for <code>kendalls_w()</code>;
 See details for the <code>blocks</code> and <code>groups</code> terminology used here).</p></li>
 <li><p>A list of vectors (for <code>rank_epsilon_squared()</code>).</p></li>
 <li><p>A matrix of <code>blocks x groups</code> (for <code>kendalls_w()</code>). See details for the
 <code>blocks</code> and <code>groups</code> terminology used here.</p></li>
-</ul></td>
-    </tr><tr><th>y</th>
-      <td><p>An optional numeric vector of data values to compare to <code>x</code>, or a
-character name of one in <code>data</code>. Ignored if <code>x</code> is not a vector.</p></td>
-    </tr><tr><th>data</th>
-      <td><p>An optional data frame containing the variables.</p></td>
-    </tr><tr><th>mu</th>
-      <td><p>a number indicating the value around which (a-)symmetry (for
+</ul></dd>
+<dt>y</dt>
+<dd><p>An optional numeric vector of data values to compare to <code>x</code>, or a
+character name of one in <code>data</code>. Ignored if <code>x</code> is not a vector.</p></dd>
+<dt>data</dt>
+<dd><p>An optional data frame containing the variables.</p></dd>
+<dt>mu</dt>
+<dd><p>a number indicating the value around which (a-)symmetry (for
 one-sample or paired samples) or shift (for independent samples) is to be
-estimated. See <a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">stats::wilcox.test</a>.</p></td>
-    </tr><tr><th>ci</th>
-      <td><p>Confidence Interval (CI) level</p></td>
-    </tr><tr><th>alternative</th>
-      <td><p>a character string specifying the alternative hypothesis;
+estimated. See <a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">stats::wilcox.test</a>.</p></dd>
+<dt>ci</dt>
+<dd><p>Confidence Interval (CI) level</p></dd>
+<dt>alternative</dt>
+<dd><p>a character string specifying the alternative hypothesis;
 Controls the type of CI returned: <code>"two.sided"</code> (two-sided CI; default for
 rank-biserial correlation and Cliff's <em>delta</em>), <code>"greater"</code> (default for
 rank epsilon squared and Kendall's <em>W</em>) or <code>"less"</code> (one-sided CI). Partial
 matching is allowed (e.g., <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em>
-in <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></td>
-    </tr><tr><th>paired</th>
-      <td><p>If <code>TRUE</code>, the values of <code>x</code> and <code>y</code> are considered as paired.
+in <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
+<dt>paired</dt>
+<dd><p>If <code>TRUE</code>, the values of <code>x</code> and <code>y</code> are considered as paired.
 This produces an effect size that is equivalent to the one-sample effect
-size on <code>x - y</code>.</p></td>
-    </tr><tr><th>verbose</th>
-      <td><p>Toggle warnings and messages on or off.</p></td>
-    </tr><tr><th>...</th>
-      <td><p>Arguments passed to or from other methods.</p></td>
-    </tr><tr><th>iterations</th>
-      <td><p>The number of bootstrap replicates for computing confidence
+size on <code>x - y</code>.</p></dd>
+<dt>verbose</dt>
+<dd><p>Toggle warnings and messages on or off.</p></dd>
+<dt>...</dt>
+<dd><p>Arguments passed to or from other methods.</p></dd>
+<dt>iterations</dt>
+<dd><p>The number of bootstrap replicates for computing confidence
 intervals. Only applies when <code>ci</code> is not <code>NULL</code>. (Deprecated for
-<code>rank_biserial()</code>).</p></td>
-    </tr><tr><th>groups, blocks</th>
-      <td><p>A factor vector giving the group / block for the
+<code>rank_biserial()</code>).</p></dd>
+<dt>groups, blocks</dt>
+<dd><p>A factor vector giving the group / block for the
 corresponding elements of <code>x</code>, or a character name of one in <code>data</code>.
-Ignored if <code>x</code> is not a vector.</p></td>
-    </tr></table></div>
-
-    <div id="ref-sections">
+Ignored if <code>x</code> is not a vector.</p></dd>
+</dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>A data frame with the effect size (<code>r_rank_biserial</code>,

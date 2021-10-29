@@ -91,7 +91,7 @@ i.e., by what they are divided. The "basic" method of standardization uses.'><me
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Get Standardization Information</h1>
-    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/R/standardize_info.R" class="external-link"><code>R/standardize_info.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/R/standardize_info.R" class="external-link"><code>R/standardize_info.R</code></a></small>
     <div class="hidden name"><code>standardize_info.Rd</code></div>
     </div>
 
@@ -110,29 +110,28 @@ i.e., by what they are divided. The "basic" method of standardization uses.</p>
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>model</th>
-      <td><p>A statistical model.</p></td>
-    </tr><tr><th>robust</th>
-      <td><p>Logical, if <code>TRUE</code>, centering is done by subtracting the
+    <dl><dt>model</dt>
+<dd><p>A statistical model.</p></dd>
+<dt>robust</dt>
+<dd><p>Logical, if <code>TRUE</code>, centering is done by subtracting the
 median from the variables and dividing it by the median absolute deviation
 (MAD). If <code>FALSE</code>, variables are standardized by subtracting the
-mean and dividing it by the standard deviation (SD).</p></td>
-    </tr><tr><th>two_sd</th>
-      <td><p>If <code>TRUE</code>, the variables are scaled by two times the deviation
+mean and dividing it by the standard deviation (SD).</p></dd>
+<dt>two_sd</dt>
+<dd><p>If <code>TRUE</code>, the variables are scaled by two times the deviation
 (SD or MAD depending on <code>robust</code>). This method can be useful to obtain
 model coefficients of continuous parameters comparable to coefficients
 related to binary predictors, when applied to <strong>the predictors</strong> (not the
-outcome) (Gelman, 2008).</p></td>
-    </tr><tr><th>include_pseudo</th>
-      <td><p>(For (G)LMMs) Should Pseudo-standardized information be
-included?</p></td>
-    </tr><tr><th>...</th>
-      <td><p>Arguments passed to or from other methods.</p></td>
-    </tr></table></div>
-
-    <div id="ref-sections">
+outcome) (Gelman, 2008).</p></dd>
+<dt>include_pseudo</dt>
+<dd><p>(For (G)LMMs) Should Pseudo-standardized information be
+included?</p></dd>
+<dt>...</dt>
+<dd><p>Arguments passed to or from other methods.</p></dd>
+</dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>A data frame with information on each parameter (see

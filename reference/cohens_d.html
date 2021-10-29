@@ -98,7 +98,7 @@ group's standard deviation."><meta property="og:image" content="/logo.png"><!-- 
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Effect size for differences</h1>
-    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/R/cohens_d.R" class="external-link"><code>R/cohens_d.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/R/cohens_d.R" class="external-link"><code>R/cohens_d.R</code></a></small>
     <div class="hidden name"><code>cohens_d.Rd</code></div>
     </div>
 
@@ -155,41 +155,40 @@ group's standard deviation.</p>
   <span class="va">iterations</span>
 <span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
-      <td><p>A formula, a numeric vector, or a character name of one in <code>data</code>.</p></td>
-    </tr><tr><th>y</th>
-      <td><p>A numeric vector, a grouping (character / factor) vector, a or a
-character  name of one in <code>data</code>. Ignored if <code>x</code> is a formula.</p></td>
-    </tr><tr><th>data</th>
-      <td><p>An optional data frame containing the variables.</p></td>
-    </tr><tr><th>pooled_sd</th>
-      <td><p>If <code>TRUE</code> (default), a <code><a href="sd_pooled.html">sd_pooled()</a></code> is used (assuming equal
-variance). Else the mean SD from both groups is used instead.</p></td>
-    </tr><tr><th>mu</th>
-      <td><p>a number indicating the true value of the mean (or
-    difference in means if you are performing a two sample test).</p></td>
-    </tr><tr><th>paired</th>
-      <td><p>If <code>TRUE</code>, the values of <code>x</code> and <code>y</code> are considered as paired.
+    <dl><dt>x</dt>
+<dd><p>A formula, a numeric vector, or a character name of one in <code>data</code>.</p></dd>
+<dt>y</dt>
+<dd><p>A numeric vector, a grouping (character / factor) vector, a or a
+character  name of one in <code>data</code>. Ignored if <code>x</code> is a formula.</p></dd>
+<dt>data</dt>
+<dd><p>An optional data frame containing the variables.</p></dd>
+<dt>pooled_sd</dt>
+<dd><p>If <code>TRUE</code> (default), a <code><a href="sd_pooled.html">sd_pooled()</a></code> is used (assuming equal
+variance). Else the mean SD from both groups is used instead.</p></dd>
+<dt>mu</dt>
+<dd><p>a number indicating the true value of the mean (or
+    difference in means if you are performing a two sample test).</p></dd>
+<dt>paired</dt>
+<dd><p>If <code>TRUE</code>, the values of <code>x</code> and <code>y</code> are considered as paired.
 This produces an effect size that is equivalent to the one-sample effect
-size on <code>x - y</code>.</p></td>
-    </tr><tr><th>ci</th>
-      <td><p>Confidence Interval (CI) level</p></td>
-    </tr><tr><th>alternative</th>
-      <td><p>a character string specifying the alternative hypothesis;
+size on <code>x - y</code>.</p></dd>
+<dt>ci</dt>
+<dd><p>Confidence Interval (CI) level</p></dd>
+<dt>alternative</dt>
+<dd><p>a character string specifying the alternative hypothesis;
 Controls the type of CI returned: <code>"two.sided"</code> (default, two-sided CI),
 <code>"greater"</code> or <code>"less"</code> (one-sided CI). Partial matching is allowed (e.g.,
-<code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em> in <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></td>
-    </tr><tr><th>verbose</th>
-      <td><p>Toggle warnings and messages on or off.</p></td>
-    </tr><tr><th>...</th>
-      <td><p>Arguments passed to or from other methods.</p></td>
-    </tr><tr><th>iterations, correction</th>
-      <td><p>deprecated.</p></td>
-    </tr></table></div>
-
-    <div id="ref-sections">
+<code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em> in <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
+<dt>verbose</dt>
+<dd><p>Toggle warnings and messages on or off.</p></dd>
+<dt>...</dt>
+<dd><p>Arguments passed to or from other methods.</p></dd>
+<dt>iterations, correction</dt>
+<dd><p>deprecated.</p></dd>
+</dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>A data frame with the effect size ( <code>Cohens_d</code>, <code>Hedges_g</code>,

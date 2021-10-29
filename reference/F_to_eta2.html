@@ -100,7 +100,7 @@ See Effect Size from Test Statistics vignette."><meta property="og:image" conten
     <div class="page-header">
     <h1>Convert test statistics (F, t) to indices of <strong>partial</strong> variance explained
 (<strong>partial</strong> Eta / Omega / Epsilon squared and Cohen's f)</h1>
-    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/R/convert_stat_to_anova.R" class="external-link"><code>R/convert_stat_to_anova.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/R/convert_stat_to_anova.R" class="external-link"><code>R/convert_stat_to_anova.R</code></a></small>
     <div class="hidden name"><code>F_to_eta2.Rd</code></div>
     </div>
 
@@ -157,28 +157,27 @@ See <a href="https://easystats.github.io/effectsize/articles/from_test_statistic
 
 <span class="fu">t_to_f2</span><span class="op">(</span><span class="va">t</span>, <span class="va">df_error</span>, ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"greater"</span>, squared <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>df, df_error</th>
-      <td><p>Degrees of freedom of numerator or of the error estimate
-(i.e., the residuals).</p></td>
-    </tr><tr><th>ci</th>
-      <td><p>Confidence Interval (CI) level</p></td>
-    </tr><tr><th>alternative</th>
-      <td><p>a character string specifying the alternative hypothesis;
+    <dl><dt>df, df_error</dt>
+<dd><p>Degrees of freedom of numerator or of the error estimate
+(i.e., the residuals).</p></dd>
+<dt>ci</dt>
+<dd><p>Confidence Interval (CI) level</p></dd>
+<dt>alternative</dt>
+<dd><p>a character string specifying the alternative hypothesis;
 Controls the type of CI returned: <code>"greater"</code> (default) or <code>"less"</code>
 (one-sided CI), or <code>"two.sided"</code> (default, two-sided CI). Partial matching
 is allowed (e.g., <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em> in
-<a href="effectsize_CIs.html">effectsize_CIs</a>.</p></td>
-    </tr><tr><th>...</th>
-      <td><p>Arguments passed to or from other methods.</p></td>
-    </tr><tr><th>t, f</th>
-      <td><p>The t or the F statistics.</p></td>
-    </tr><tr><th>squared</th>
-      <td><p>Return Cohen's <em>f</em> or Cohen's <em>f</em>-squared?</p></td>
-    </tr></table></div>
-
-    <div id="ref-sections">
+<a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
+<dt>...</dt>
+<dd><p>Arguments passed to or from other methods.</p></dd>
+<dt>t, f</dt>
+<dd><p>The t or the F statistics.</p></dd>
+<dt>squared</dt>
+<dd><p>Return Cohen's <em>f</em> or Cohen's <em>f</em>-squared?</p></dd>
+</dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>A data frame with the effect size(s) between 0-1 (<code>Eta2_partial</code>,

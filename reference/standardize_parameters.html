@@ -88,7 +88,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Parameters standardization</h1>
-    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/R/standardize_parameters.R" class="external-link"><code>R/standardize_parameters.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/R/standardize_parameters.R" class="external-link"><code>R/standardize_parameters.R</code></a></small>
     <div class="hidden name"><code>standardize_parameters.Rd</code></div>
     </div>
 
@@ -118,45 +118,44 @@
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>model</th>
-      <td><p>A statistical model.</p></td>
-    </tr><tr><th>method</th>
-      <td><p>The method used for standardizing the parameters. Can be
+    <dl><dt>model</dt>
+<dd><p>A statistical model.</p></dd>
+<dt>method</dt>
+<dd><p>The method used for standardizing the parameters. Can be
 <code>"refit"</code> (default), <code>"posthoc"</code>, <code>"smart"</code>, <code>"basic"</code> or <code>"pseudo"</code>. See
-'Details'.</p></td>
-    </tr><tr><th>ci</th>
-      <td><p>Confidence Interval (CI) level</p></td>
-    </tr><tr><th>robust</th>
-      <td><p>Logical, if <code>TRUE</code>, centering is done by subtracting the
+'Details'.</p></dd>
+<dt>ci</dt>
+<dd><p>Confidence Interval (CI) level</p></dd>
+<dt>robust</dt>
+<dd><p>Logical, if <code>TRUE</code>, centering is done by subtracting the
 median from the variables and dividing it by the median absolute deviation
 (MAD). If <code>FALSE</code>, variables are standardized by subtracting the
-mean and dividing it by the standard deviation (SD).</p></td>
-    </tr><tr><th>two_sd</th>
-      <td><p>If <code>TRUE</code>, the variables are scaled by two times the deviation
+mean and dividing it by the standard deviation (SD).</p></dd>
+<dt>two_sd</dt>
+<dd><p>If <code>TRUE</code>, the variables are scaled by two times the deviation
 (SD or MAD depending on <code>robust</code>). This method can be useful to obtain
 model coefficients of continuous parameters comparable to coefficients
 related to binary predictors, when applied to <strong>the predictors</strong> (not the
-outcome) (Gelman, 2008).</p></td>
-    </tr><tr><th>include_response</th>
-      <td><p>If <code>TRUE</code> (default), the response value will also be
+outcome) (Gelman, 2008).</p></dd>
+<dt>include_response</dt>
+<dd><p>If <code>TRUE</code> (default), the response value will also be
 standardized. If <code>FALSE</code>, only the predictors will be standardized. For
 GLMs the response value will never be standardized (see <em>Generalized Linear
-Models</em> section).</p></td>
-    </tr><tr><th>verbose</th>
-      <td><p>Toggle warnings and messages on or off.</p></td>
-    </tr><tr><th>parameters</th>
-      <td><p>Deprecated.</p></td>
-    </tr><tr><th>...</th>
-      <td><p>For <code>standardize_parameters()</code>, arguments passed to
+Models</em> section).</p></dd>
+<dt>verbose</dt>
+<dd><p>Toggle warnings and messages on or off.</p></dd>
+<dt>parameters</dt>
+<dd><p>Deprecated.</p></dd>
+<dt>...</dt>
+<dd><p>For <code>standardize_parameters()</code>, arguments passed to
 <a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">parameters::model_parameters</a>, such as:</p><ul><li><p><code>ci_method</code>, <code>centrality</code> for Mixed models and Bayesian models...</p></li>
 <li><p><code>exponentiate</code>, ...</p></li>
 <li><p>etc.</p></li>
-</ul></td>
-    </tr></table></div>
-
-    <div id="ref-sections">
+</ul></dd>
+</dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>A data frame with the standardized parameters (<code>Std_*</code>, depending on

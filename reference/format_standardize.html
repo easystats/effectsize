@@ -88,7 +88,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Transform a standardized vector into character</h1>
-    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/master/R/format_standardize.R" class="external-link"><code>R/format_standardize.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/R/format_standardize.R" class="external-link"><code>R/format_standardize.R</code></a></small>
     <div class="hidden name"><code>format_standardize.Rd</code></div>
     </div>
 
@@ -105,32 +105,31 @@
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>x</th>
-      <td><p>A standardized numeric vector.</p></td>
-    </tr><tr><th>reference</th>
-      <td><p>The reference vector from which to compute the mean and SD.</p></td>
-    </tr><tr><th>robust</th>
-      <td><p>Logical, if <code>TRUE</code>, centering is done by subtracting the
+    <dl><dt>x</dt>
+<dd><p>A standardized numeric vector.</p></dd>
+<dt>reference</dt>
+<dd><p>The reference vector from which to compute the mean and SD.</p></dd>
+<dt>robust</dt>
+<dd><p>Logical, if <code>TRUE</code>, centering is done by subtracting the
 median from the variables and dividing it by the median absolute deviation
 (MAD). If <code>FALSE</code>, variables are standardized by subtracting the
-mean and dividing it by the standard deviation (SD).</p></td>
-    </tr><tr><th>digits</th>
-      <td><p>Number of digits for rounding or significant figures. May also
+mean and dividing it by the standard deviation (SD).</p></dd>
+<dt>digits</dt>
+<dd><p>Number of digits for rounding or significant figures. May also
 be <code>"signif"</code> to return significant figures or <code>"scientific"</code>
 to return scientific notation. Control the number of digits by adding the
 value as suffix, e.g. <code>digits = "scientific4"</code> to have scientific
 notation with 4 decimal places, or <code>digits = "signif5"</code> for 5
-significant figures (see also <code><a href="https://rdrr.io/r/base/Round.html" class="external-link">signif()</a></code>).</p></td>
-    </tr><tr><th>protect_integers</th>
-      <td><p>Should integers be kept as integers (i.e., without
-decimals)?</p></td>
-    </tr><tr><th>...</th>
-      <td><p>Other arguments to pass to <code><a href="https://easystats.github.io/insight/reference/format_value.html" class="external-link">insight::format_value()</a></code> such as <code>digits</code>, etc.</p></td>
-    </tr></table></div>
-
-    <div id="ref-sections">
+significant figures (see also <code><a href="https://rdrr.io/r/base/Round.html" class="external-link">signif()</a></code>).</p></dd>
+<dt>protect_integers</dt>
+<dd><p>Should integers be kept as integers (i.e., without
+decimals)?</p></dd>
+<dt>...</dt>
+<dd><p>Other arguments to pass to <code><a href="https://easystats.github.io/insight/reference/format_value.html" class="external-link">insight::format_value()</a></code> such as <code>digits</code>, etc.</p></dd>
+</dl></div>
     </div>
 
     <div id="examples">
@@ -139,11 +138,11 @@ decimals)?</p></td>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.0 SD Mean    +1.0 SD</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: +1.0 SD Mean -1.0 SD</span>
 <span class="r-in"><span class="fu">format_standardize</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, reference <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.0 SD Mean    +0.9 SD +1.9 SD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: +1.9 SD +0.9 SD Mean -1.0 SD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.0 SD Mean    +1.0 SD +2.0 SD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: +2.0 SD +1.0 SD Mean -1.0 SD</span>
 <span class="r-in"><span class="fu">format_standardize</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, reference <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span>, robust <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.9 MAD Median   +0.9 MAD +1.9 MAD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: +1.9 MAD +0.9 MAD Median -0.9 MAD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.1 MAD -0.1 MAD +1.0 MAD +2.0 MAD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: +2.0 MAD +1.0 MAD -0.1 MAD -1.1 MAD</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">format_standardize</span><span class="op">(</span><span class="fu"><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">wt</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -0.6 SD -0.3 SD -0.9 SD Mean    +0.2 SD +0.2 SD +0.4 SD Mean    -0.1 SD</span>
