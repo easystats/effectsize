@@ -6,10 +6,13 @@
 #' @details
 #' This function use the following formulae for Cohen's *d*:
 #' \deqn{Cohen's U_3 = \Phi(d)}{U3 = pnorm(d)}
-#' \cr\cr
+#' \cr
 #' \deqn{Overlap = 2 \times \Phi(-|d|/2)}{Overlap = 2 * pnorm(-abs(d) / 2)}
-#' \cr\cr
+#' \cr
 #' \deqn{Pr(superiority) = \Phi(d/\sqrt{2})}{Pr(superiority) = pnorm(d / sqrt(2))}
+#' \cr
+#' And the following for the rank-biserial correlation:
+#' \deqn{Pr(superiority) = (r_{rbs} + 1)/2}{Pr(superiority) = (rbs + 1)/2}
 #'
 #' @return A list of `Cohen's U3`, `Overlap`, `Probability of superiority`, a
 #'   numeric vector of `Probability of superiority`, or a data frame, depending

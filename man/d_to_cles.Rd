@@ -28,10 +28,13 @@ Convert Standardized Mean Difference to Common Language Effect Sizes
 \details{
 This function use the following formulae for Cohen's \emph{d}:
 \deqn{Cohen's U_3 = \Phi(d)}{U3 = pnorm(d)}
-\cr\cr
+\cr
 \deqn{Overlap = 2 \times \Phi(-|d|/2)}{Overlap = 2 * pnorm(-abs(d) / 2)}
-\cr\cr
+\cr
 \deqn{Pr(superiority) = \Phi(d/\sqrt{2})}{Pr(superiority) = pnorm(d / sqrt(2))}
+\cr
+And the following for the rank-biserial correlation:
+\deqn{Pr(superiority) = (r_{rbs} + 1)/2}{Pr(superiority) = (rbs + 1)/2}
 }
 \note{
 These calculations assume that the populations have equal variance and are
