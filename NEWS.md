@@ -7,7 +7,7 @@
 ## New features
 
 - `cles()` for estimating common language effect sizes.
-- `rbs_to_cles()` for converting rank-biserial correlation to Probability of superiority.
+- `rb_to_cles()` for converting rank-biserial correlation to Probability of superiority.
 
 ## Changes
 

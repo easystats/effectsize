@@ -3,7 +3,7 @@
 \name{cles}
 \alias{cles}
 \alias{common_language}
-\title{Estimate Common Language Effect Sizes}
+\title{Estimate Common Language Effect Sizes (CLES)}
 \usage{
 cles(
   x,
@@ -59,7 +59,37 @@ A data frame containing the common language effect sizes (and
 optionally their CIs).
 }
 \description{
-Estimate Common Language Effect Sizes
+Estimate Common Language Effect Sizes (CLES)
+}
+\details{
+These measures of effect size present group differences in probabilistic
+terms:
+\itemize{
+\item \strong{Probability of superiority} is the probability that, when sampling an
+observation from each of the groups at random, that the observation from
+the second group will be larger than the sample from the first group.
+\item \strong{Cohen's U3}
+\item \strong{Overlap}
+\cr\cr
+For unequal group sizes, it is recommended to use the rank based CLES.
+}
+}
+\examples{
+cles(mpg ~ am, data = mtcars)
+
+cles(mpg ~ am, data = mtcars, rank = TRUE)
+
+}
+\references{
+\itemize{
+\item Cohen, J. (1977). Statistical power analysis for the behavioral sciences.
+New York: Routledge.
+\item Reiser, B., & Faraggi, D. (1999). Confidence intervals for the overlapping
+coefficient: the normal equal variance case. Journal of the Royal Statistical
+Society, 48(3), 413-418.
+\item Ruscio, J. (2008). A probability-based measure of effect size: robustness
+to base rates and other factors. Psychological methods, 13(1), 19–30.
+}
 }
 \seealso{
 \code{\link[=d_to_cles]{d_to_cles()}} \code{\link[=sd_pooled]{sd_pooled()}}

@@ -198,7 +198,7 @@ interpret(d, rules = "sawilowsky2009")
 # Common Language Effect Sizes
 d_to_cles(1.48)
 # Or:
-print(d, append_CL = TRUE)
+print(d, append_CLES = TRUE)
 }
 
 }

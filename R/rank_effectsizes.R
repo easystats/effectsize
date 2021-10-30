@@ -85,14 +85,14 @@
 #' # =========================
 #'
 #' # Two Independent Samples ----------
-#' (rbs <- rank_biserial(mpg ~ am, data = mtcars))
+#' (rb <- rank_biserial(mpg ~ am, data = mtcars))
 #' # Same as:
 #' # rank_biserial("mpg", "am", data = mtcars)
 #' # rank_biserial(mtcars$mpg[mtcars$am=="0"], mtcars$mpg[mtcars$am=="1"])
 #'
 #' # More options:
 #' rank_biserial(mpg ~ am, data = mtcars, mu = -5)
-#' print(rbs, append_CL = TRUE)
+#' print(rb, append_CLES = TRUE)
 #'
 #'
 #' # One Sample ----------
@@ -105,13 +105,13 @@
 #' # Paired Samples ----------
 #' dat <- data.frame(Cond1 = c(1.83, 0.5, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.3),
 #'                   Cond2 = c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29))
-#' (rbs <- rank_biserial(Pair(Cond1, Cond2) ~ 1, data = dat, paired = TRUE))
+#' (rb <- rank_biserial(Pair(Cond1, Cond2) ~ 1, data = dat, paired = TRUE))
 #'
 #' # same as:
 #' # rank_biserial(dat$Cond1, dat$Cond2, paired = TRUE)
 #'
 #' interpret_rank_biserial(0.78)
-#' interpret(rbs, rules = "funder2019")
+#' interpret(rb, rules = "funder2019")
 #'
 #'
 #' # Rank Epsilon Squared
@@ -215,7 +215,6 @@ rank_biserial <- function(x,
   if (is.numeric(ci)) {
     # if (requireNamespace("boot", quietly = TRUE)) {
     #   out <- cbind(out, .rbs_ci_boot(
-    #     x,
     #     y,
     #     mu = mu,
     #     paired = paired,

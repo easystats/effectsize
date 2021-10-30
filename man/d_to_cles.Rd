@@ -4,17 +4,17 @@
 \alias{d_to_cles}
 \alias{convert_d_to_common_language}
 \alias{d_to_common_language}
-\alias{rbs_to_cles}
-\alias{rbs_to_common_language}
-\alias{convert_rbs_to_common_language}
+\alias{rb_to_cles}
+\alias{rb_to_common_language}
+\alias{convert_rb_to_common_language}
 \title{Convert Standardized Mean Difference to Common Language Effect Sizes}
 \usage{
 d_to_cles(d)
 
-rbs_to_cles(rbs)
+rb_to_cles(rb)
 }
 \arguments{
-\item{d, rbs}{A numeric value of Cohen's d / rank-biserial correlation \emph{or}
+\item{d, rb}{A numeric value of Cohen's d / rank-biserial correlation \emph{or}
 the output from \code{\link[=cohens_d]{cohens_d()}} / \code{\link[=rank_biserial]{rank_biserial()}}.}
 }
 \value{
@@ -27,14 +27,14 @@ Convert Standardized Mean Difference to Common Language Effect Sizes
 }
 \details{
 This function use the following formulae for Cohen's \emph{d}:
+\deqn{Pr(superiority) = \Phi(d/\sqrt{2})}{Pr(superiority) = pnorm(d / sqrt(2))}
+\cr
 \deqn{Cohen's U_3 = \Phi(d)}{U3 = pnorm(d)}
 \cr
 \deqn{Overlap = 2 \times \Phi(-|d|/2)}{Overlap = 2 * pnorm(-abs(d) / 2)}
 \cr
-\deqn{Pr(superiority) = \Phi(d/\sqrt{2})}{Pr(superiority) = pnorm(d / sqrt(2))}
-\cr
 And the following for the rank-biserial correlation:
-\deqn{Pr(superiority) = (r_{rbs} + 1)/2}{Pr(superiority) = (rbs + 1)/2}
+\deqn{Pr(superiority) = (r_{rb} + 1)/2}{Pr(superiority) = (rb + 1)/2}
 }
 \note{
 These calculations assume that the populations have equal variance and are

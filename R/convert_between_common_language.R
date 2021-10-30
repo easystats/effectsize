@@ -1,18 +1,18 @@
 #' Convert Standardized Mean Difference to Common Language Effect Sizes
 #'
-#' @param d,rbs A numeric value of Cohen's d / rank-biserial correlation *or*
+#' @param d,rb A numeric value of Cohen's d / rank-biserial correlation *or*
 #'   the output from [cohens_d()] / [rank_biserial()].
 #'
 #' @details
 #' This function use the following formulae for Cohen's *d*:
+#' \deqn{Pr(superiority) = \Phi(d/\sqrt{2})}{Pr(superiority) = pnorm(d / sqrt(2))}
+#' \cr
 #' \deqn{Cohen's U_3 = \Phi(d)}{U3 = pnorm(d)}
 #' \cr
 #' \deqn{Overlap = 2 \times \Phi(-|d|/2)}{Overlap = 2 * pnorm(-abs(d) / 2)}
 #' \cr
-#' \deqn{Pr(superiority) = \Phi(d/\sqrt{2})}{Pr(superiority) = pnorm(d / sqrt(2))}
-#' \cr
 #' And the following for the rank-biserial correlation:
-#' \deqn{Pr(superiority) = (r_{rbs} + 1)/2}{Pr(superiority) = (rbs + 1)/2}
+#' \deqn{Pr(superiority) = (r_{rb} + 1)/2}{Pr(superiority) = (rb + 1)/2}
 #'
 #' @return A list of `Cohen's U3`, `Overlap`, `Probability of superiority`, a
 #'   numeric vector of `Probability of superiority`, or a data frame, depending
@@ -46,9 +46,10 @@ d_to_cles <- function(d) {
 #' @export
 d_to_cles.numeric <- function(d) {
   list(
+    "Probability of superiority" = stats::pnorm(d / sqrt(2)),
     "Cohen's U3" = stats::pnorm(d),
-    Overlap = 2 * stats::pnorm(-abs(d) / 2),
-    "Probability of superiority" = stats::pnorm(d / sqrt(2))
+    Overlap = 2 * stats::pnorm(-abs(d) / 2)
+
   )
 }
 
@@ -72,11 +73,11 @@ d_to_cles.effectsize_difference <- function(d) {
     out <- out[c("Parameter", "Coefficient", "CI", "CI_low", "CI_high")]
 
     if (d[[1]] > 0) {
-      out[2, 4:5] <- out[2, 5:4]
+      out[3, 4:5] <- out[3, 5:4]
     }
 
     if (sign(d$CI_low) != sign(d$CI_high)) {
-      out$CI_high[2] <- 1
+      out$CI_high[3] <- 1
     }
   } else {
     out <- out[c("Parameter", "Coefficient")]
@@ -88,33 +89,33 @@ d_to_cles.effectsize_difference <- function(d) {
 
 
 #' @export
-#' @aliases rbs_to_common_language convert_rbs_to_common_language
+#' @aliases rb_to_common_language convert_rb_to_common_language
 #' @rdname d_to_cles
-rbs_to_cles <- function(rbs) {
-  UseMethod("rbs_to_cles")
+rb_to_cles <- function(rb) {
+  UseMethod("rb_to_cles")
 }
 
 #' @export
-rbs_to_cles.numeric <- function(rbs) {
-  (rbs + 1)/2
+rb_to_cles.numeric <- function(rb) {
+  (rb + 1)/2
 }
 
 #' @export
-rbs_to_cles.effectsize_difference <- function(rbs) {
-  if (!any(colnames(rbs) == "r_rank_biserial") ||
-      attr(rbs, "paired")) {
+rb_to_cles.effectsize_difference <- function(rb) {
+  if (!any(colnames(rb) == "r_rank_biserial") ||
+      attr(rb, "paired")) {
     stop("Common language effect size only applicable to 2-sample rank-biserial correlation.")
   }
 
-  out <- lapply(rbs[,colnames(rbs) %in% c("r_rank_biserial", "CI_low", "CI_high")],
-                rbs_to_cles)
+  out <- lapply(rb[,colnames(rb) %in% c("r_rank_biserial", "CI_low", "CI_high")],
+                rb_to_cles)
   out <- as.data.frame(out)
   out$Parameter <- "Probability of superiority"
   rownames(out) <- NULL
   colnames(out)[1] <- "Coefficient"
 
-  if ("CI" %in% colnames(rbs)) {
-    out$CI <- rbs$CI
+  if ("CI" %in% colnames(rb)) {
+    out$CI <- rb$CI
     out <- out[c("Parameter", "Coefficient", "CI", "CI_low", "CI_high")]
   } else {
     out <- out[c("Parameter", "Coefficient")]
@@ -130,11 +131,11 @@ rbs_to_cles.effectsize_difference <- function(rbs) {
 convert_d_to_common_language <- d_to_cles
 
 #' @export
-convert_rbs_to_common_language <- rbs_to_cles
+convert_rb_to_common_language <- rb_to_cles
 
 #' @export
 d_to_common_language <- d_to_cles
 
 #' @export
-rbs_to_common_language <- rbs_to_cles
+rb_to_common_language <- rb_to_cles
 
