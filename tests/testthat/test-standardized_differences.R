@@ -150,4 +150,29 @@ if (require("testthat") && require("effectsize")) {
     expect_error(d <- cohens_d(y, f), regexp = NA)
     expect_true(attr(d, "pooled_sd"))
   })
+
+  test_that("CLES", {
+    x <- rnorm(1000)
+    y <- rnorm(1000, mean = 0.2)
+
+    d <- cohens_d(x, y)
+    tt <- t.test(x,y, var.equal = TRUE)
+    expect_equal(CLES <- d_to_cles(d), cles(x, y))
+    expect_equal(cles(tt), CLES)
+
+    rb <- rank_biserial(x, y)
+    w <- wilcox.test(x, y)
+    expect_equal(CLES <- rb_to_cles(rb), cles(x, y, rank = TRUE))
+    expect_equal(cles(w, rank = TRUE), CLES)
+
+    x <- 1:3
+    y <- c(1,1:3)
+    CLES <- cles(x, y)
+    # CV from https://rpsychologist.com/cohend/
+    expect_equal(CLES$Coefficient, c(0.5719, 0.6012, 0.8979), tolerance = 0.001)
+
+    # Should be close~
+    expect_equal(cles(x, y, rank = TRUE)$Coefficient, CLES$Coefficient[1], tolerance = 0.02)
+
+  })
 }
