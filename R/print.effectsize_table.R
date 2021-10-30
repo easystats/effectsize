@@ -123,7 +123,7 @@ print.equivalence_test_effectsize <- function(x, digits = 2, ...) {
 
 #' @export
 #' @rdname print.effectsize_table
-#' @param append_CL Should the Common Language Effect Sizes be printed as well?
+#' @param append_CLES Should the Common Language Effect Sizes be printed as well?
 #'   Only applicable to Cohen's *d*, Hedges' *g* for independent samples of
 #'   equal variance (pooled sd) or for the rank-biserial correlation for
 #'   independent samples (See [d_to_cles()])

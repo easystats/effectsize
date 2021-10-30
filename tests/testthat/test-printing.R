@@ -33,7 +33,7 @@ if (require("testthat") && require("effectsize")) {
     d <- cohens_d(1:3, c(1, 1:3))
     expect_output(print(d), regexp = "Cohen")
     expect_output(print(d), regexp = " pooled", fixed = TRUE)
-    expect_output(print(d, append_CL = TRUE), regexp = "U3")
+    expect_output(print(d, append_CLES = TRUE), regexp = "U3")
 
     d <- cohens_d(1:3, c(1, 1:3), pooled_sd = FALSE)
     expect_output(print(d), regexp = "un-pooled")
