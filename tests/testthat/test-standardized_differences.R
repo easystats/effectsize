@@ -152,8 +152,8 @@ if (require("testthat") && require("effectsize")) {
   })
 
   test_that("CLES", {
-    x <- rnorm(1000)
-    y <- rnorm(1000, mean = 0.2)
+    x <<- rnorm(1000)
+    y <<- rnorm(1000, mean = 0.2)
 
     d <- cohens_d(x, y)
     tt <- t.test(x,y, var.equal = TRUE)

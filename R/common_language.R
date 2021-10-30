@@ -47,17 +47,32 @@ cles <- function(x,
                  verbose = TRUE,
                  rank = FALSE,
                  ...) {
-  cl <- match.call()
-  cl$paired <- FALSE
-
   if (rank) {
-    cl[[1]] <- as.name("rank_biserial")
-    rb_to_cles(eval(cl))
+    rb <- rank_biserial(
+      x = x,
+      y = y,
+      data = data,
+      paired = FALSE,
+      mu = mu,
+      ci = ci,
+      alternative = alternative,
+      verbose = verbose,
+      ...
+    )
+    rb_to_cles(rb)
   } else {
-    cl$pooled_sd <- TRUE
-    cl[[1]] <- as.name("cohens_d")
-
-    d_to_cles(eval(cl))
+    d <- cohens_d(
+      x = x,
+      y = y,
+      data = data,
+      paired = FALSE, pooled_sd = TRUE,
+      mu = mu,
+      ci = ci,
+      alternative = alternative,
+      verbose = verbose,
+      ...
+    )
+    d_to_cles(d)
   }
 }
 
