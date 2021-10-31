@@ -73,11 +73,13 @@ cles <- function(x,
       verbose = verbose,
       ...
     )
-    rbind(
+    out <- rbind(
       rb_to_cles(rb),
       .rank_U3(x, y, ci = ci, alternative = alternative),
       .rank_overlap(x, y, ci = ci, alternative = alternative)
     )
+    attr(out, "table_footer") <- c("\n- Rank based CLES", "cyan")
+    out
   } else {
     d <- cohens_d(
       x = x,
