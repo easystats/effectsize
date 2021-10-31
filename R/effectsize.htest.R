@@ -9,13 +9,19 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   if (grepl("t-test", model$method)) {
     # t-test ----
-    if (is.null(dots$alternative)) dots$alternative <- model$alternative
-    if (is.null(dots$ci)) dots$ci <- attr(model$conf.int,"conf.level")
-    if (is.null(dots$mu)) dots$mu <- model$null.value
+    if (is.null(type)) type <- "d"
+
+    dots$alternative <- model$alternative
+    dots$ci <- attr(model$conf.int,"conf.level")
+    dots$mu <- model$null.value
 
     if (approx) {
       if (verbose) {
         warning("Unable to retrieve data from htest object. Using t_to_d() approximation.")
+      }
+
+      if (type == "cles") {
+        stop("Unable to retrieve data from htest object. Cannot compute CLES.")
       }
 
       f <- t_to_d
@@ -29,12 +35,12 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
         data[[2]] <- factor(data[[2]])
       }
 
-      if (is.null(type)) type <- "d"
       f <- switch(tolower(type),
         d = ,
         cohens_d = cohens_d,
         g = ,
-        hedges_g = hedges_g
+        hedges_g = hedges_g,
+        cles = cles
       )
 
       args <- list(
@@ -44,6 +50,13 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
         pooled_sd = !grepl("Welch", model$method),
         verbose = verbose
       )
+
+      if (type == "cles") {
+        if (args$paired || !args$pooled_sd) {
+          stop("Common language effect size only applicable to 2-sample Cohen's d with pooled SD.")
+        }
+        args$pooled_sd <- args$paired <- NULL
+      }
     }
     out <- do.call(f, c(args, dots))
     attr(out, "approximate") <- approx
@@ -151,23 +164,40 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     return(out)
   } else if (grepl("Wilcoxon", model$method)) {
     # Wilcoxon ----
-    if (is.null(dots$alternative)) dots$alternative <- model$alternative
-    if (is.null(dots$ci)) dots$ci <- attr(model$conf.int,"conf.level")
-    if (is.null(dots$mu)) dots$mu <- model$null.value
+    if (is.null(type)) type <- "d"
+
+    dots$alternative <- model$alternative
+    dots$ci <- attr(model$conf.int,"conf.level")
+    dots$mu <- model$null.value
 
     if (approx) {
       stop("Unable to retrieve data from htest object.",
-        "\nTry using 'rank_biserial()' directly.",
+        "\nTry using",ifelse(type=="cles", "'rank_biserial()'", "'cles()'")," directly.",
         call. = FALSE
       )
     }
 
-    f <- rank_biserial
+    f <- switch(tolower(type),
+                r = ,
+                rb = ,
+                rank_biserial = rank_biserial,
+                cles = cles
+    )
+
     args <- list(
       x = data[[1]],
       y = if (ncol(data) == 2) data[[2]],
       paired = grepl("signed rank", model$method, fixed = TRUE)
     )
+
+    if (type == "cles") {
+      if (args$paired) {
+        stop("Common language effect size only applicable to 2-sample rank-biserial correlation.")
+      }
+      args$paired <- NULL
+      args$rank <- TRUE
+    }
+
     out <- do.call(f, c(args, dots))
     return(out)
   } else if (grepl("Kruskal-Wallis", model$method)) {

@@ -58,9 +58,21 @@ cles <- function(x,
                  verbose = TRUE,
                  rank = FALSE,
                  ...) {
+  if (inherits(x, "htest")) {
+    if (!grepl("(t-test|Wilcoxon)", x$method)) {
+      stop("'x' is not a t-test or a Wilcoxon-test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "cles", verbose = verbose, ...))
+  } else if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
+      stop("'x' is not a t-test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "cles", ci = ci, verbose = verbose, ...))
+  }
+
   data <- .get_data_2_samples(x, y = y, data = data, verbose = verbose)
-  x <- data[["x"]]
-  y <- data[["y"]]
+  x <- na.omit(data[["x"]])
+  y <- na.omit(data[["y"]])
 
   if (rank) {
     rb <- rank_biserial(
