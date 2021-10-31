@@ -18,8 +18,8 @@ rb_to_cles(rb)
 the output from \code{\link[=cohens_d]{cohens_d()}} / \code{\link[=rank_biserial]{rank_biserial()}}.}
 }
 \value{
-A list of \verb{Cohen's U3}, \code{Overlap}, \verb{Probability of superiority}, a
-numeric vector of \verb{Probability of superiority}, or a data frame, depending
+A list of \verb{Cohen's U3}, \code{Overlap}, \code{Pr(superiority)}, a
+numeric vector of \code{Pr(superiority)}, or a data frame, depending
 on the input.
 }
 \description{

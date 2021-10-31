@@ -10,8 +10,9 @@
 #' - **Probability of superiority** is the probability that, when sampling an
 #'   observation from each of the groups at random, that the observation from
 #'   the second group will be larger than the sample from the first group.
-#' - **Cohen's U3**
-#' - **Overlap**
+#' - **Cohen's U3** is the proportion of the second group that is smaller than
+#'   the median of the first group.
+#' - **Overlap** is the proportion overlap between the two distributions.
 #' \cr\cr
 #' For unequal group sizes, it is recommended to use the rank based CLES.
 #'
@@ -47,11 +48,14 @@ cles <- function(x,
                  verbose = TRUE,
                  rank = FALSE,
                  ...) {
+  data <- .get_data_2_samples(x, y = y, data = data, verbose = verbose)
+  x <- data[["x"]]
+  y <- data[["y"]]
+
   if (rank) {
     rb <- rank_biserial(
       x = x,
       y = y,
-      data = data,
       paired = FALSE,
       mu = mu,
       ci = ci,
@@ -59,12 +63,15 @@ cles <- function(x,
       verbose = verbose,
       ...
     )
-    rb_to_cles(rb)
+    rbind(
+      rb_to_cles(rb),
+      .rank_U3(x, y, ci = ci, alternative = alternative),
+      .rank_overlap(x, y, ci = ci, alternative = alternative)
+    )
   } else {
     d <- cohens_d(
       x = x,
       y = y,
-      data = data,
       paired = FALSE, pooled_sd = TRUE,
       mu = mu,
       ci = ci,
@@ -79,3 +86,161 @@ cles <- function(x,
 #' @export
 #' @rdname cles
 common_language <- cles
+
+#' @export
+#' @rdname cles
+cohens_u3 <- function(x,
+                      y = NULL,
+                      data = NULL,
+                      mu = 0,
+                      ci = 0.95,
+                      alternative = "two.sided",
+                      verbose = TRUE,
+                      rank = FALSE,
+                      ...) {
+  .cles_which(
+    "u3",
+    x,
+    y = y,
+    data = data,
+    mu = mu,
+    ci = ci,
+    alternative = alternative,
+    verbose = verbose,
+    rank = rank,
+    ...
+  )
+}
+
+#' @export
+#' @rdname cles
+p_superiority <- function(x,
+                          y = NULL,
+                          data = NULL,
+                          mu = 0,
+                          ci = 0.95,
+                          alternative = "two.sided",
+                          verbose = TRUE,
+                          rank = FALSE,
+                          ...) {
+  .cles_which(
+    "p",
+    x,
+    y = y,
+    data = data,
+    mu = mu,
+    ci = ci,
+    alternative = alternative,
+    verbose = verbose,
+    rank = rank,
+    ...
+  )
+}
+
+#' @export
+#' @rdname cles
+p_overlap <- function(x,
+                          y = NULL,
+                          data = NULL,
+                          mu = 0,
+                          ci = 0.95,
+                          alternative = "two.sided",
+                          verbose = TRUE,
+                          rank = FALSE,
+                          ...) {
+  .cles_which(
+    "ovl",
+    x,
+    y = y,
+    data = data,
+    mu = mu,
+    ci = ci,
+    alternative = alternative,
+    verbose = verbose,
+    rank = rank,
+    ...
+  )
+}
+
+# Utils -------------------------------------------------------------------
+
+#' @keywords internal
+.rank_U3 <- function(x, y, ci = 0.95, alternative = "two.sided") {
+  k <- sum(y < median(x))
+  N <- length(y)
+
+  suppressWarnings(
+    prop <- prop.test(k, N,
+                      conf.level = if (is.null(ci)) 0.95 else ci,
+                      alternative = alternative)
+  )
+  out <- as.data.frame(parameters::model_parameters(prop))
+  out$Proportion <- k/N
+
+  out$Parameter <- "Cohen's U3"
+  out <- out[,c("Parameter", "Proportion", "CI", "CI_low", "CI_high")]
+  colnames(out)[2] <- "Coefficient"
+  if (is.null(ci)) out[3:5] <- NULL
+  out
+}
+
+#' @keywords internal
+.rank_overlap <- function(x, y, ci = 0.95, alternative = "two.sided") {
+  if (rank_biserial(x, y)[[1]] < 0) {
+    k <- sum(x > min(y)) + sum(y < max(x))
+  } else {
+    k <- sum(y > min(x)) + sum(x < max(y))
+  }
+  N <- length(c(x,y))
+
+  suppressWarnings(
+    prop <- prop.test(k, N,
+                      conf.level = if (is.null(ci)) 0.95 else ci,
+                      alternative = alternative)
+  )
+  out <- as.data.frame(parameters::model_parameters(prop))
+  out$Proportion <- k/N
+
+  out$Parameter <- "Overlap"
+  out <- out[,c("Parameter", "Proportion", "CI", "CI_low", "CI_high")]
+  colnames(out)[2] <- "Coefficient"
+  if (is.null(ci)) out[3:5] <- NULL
+  out
+}
+
+#' @keywords internal
+.cles_which <- function(type,
+                        x,
+                        y = NULL,
+                        data = NULL,
+                        mu = 0,
+                        ci = 0.95,
+                        alternative = "two.sided",
+                        verbose = TRUE,
+                        rank = FALSE,
+                        ...) {
+  CLES <- cles(
+    x,
+    y = y,
+    data = data,
+    mu = mu,
+    ci = ci,
+    alternative = alternative,
+    verbose = verbose,
+    rank = rank,
+    ...
+  )
+
+  if (type == "p")  {
+    out <- CLES[1, ]
+    colnames(out)[2] <- "p_superiority"
+  } else if (type == "u3") {
+    out <- CLES[2, ]
+    colnames(out)[2] <- "Cohens_U3"
+  } else if (type == "ovl") {
+    out <- CLES[3, ]
+    colnames(out)[2] <- "overlap"
+  }
+  out[[1]] <- NULL
+  out
+}

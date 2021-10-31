@@ -14,8 +14,8 @@
 #' And the following for the rank-biserial correlation:
 #' \deqn{Pr(superiority) = (r_{rb} + 1)/2}{Pr(superiority) = (rb + 1)/2}
 #'
-#' @return A list of `Cohen's U3`, `Overlap`, `Probability of superiority`, a
-#'   numeric vector of `Probability of superiority`, or a data frame, depending
+#' @return A list of `Cohen's U3`, `Overlap`, `Pr(superiority)`, a
+#'   numeric vector of `Pr(superiority)`, or a data frame, depending
 #'   on the input.
 #'
 #' @note
@@ -46,7 +46,7 @@ d_to_cles <- function(d) {
 #' @export
 d_to_cles.numeric <- function(d) {
   list(
-    "Probability of superiority" = stats::pnorm(d / sqrt(2)),
+    "Pr(superiority)" = stats::pnorm(d / sqrt(2)),
     "Cohen's U3" = stats::pnorm(d),
     Overlap = 2 * stats::pnorm(-abs(d) / 2)
 
@@ -110,7 +110,7 @@ rb_to_cles.effectsize_difference <- function(rb) {
   out <- lapply(rb[,colnames(rb) %in% c("r_rank_biserial", "CI_low", "CI_high")],
                 rb_to_cles)
   out <- as.data.frame(out)
-  out$Parameter <- "Probability of superiority"
+  out$Parameter <- "Pr(superiority)"
   rownames(out) <- NULL
   colnames(out)[1] <- "Coefficient"
 

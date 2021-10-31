@@ -3,6 +3,9 @@
 \name{cles}
 \alias{cles}
 \alias{common_language}
+\alias{cohens_u3}
+\alias{p_superiority}
+\alias{p_overlap}
 \title{Estimate Common Language Effect Sizes (CLES)}
 \usage{
 cles(
@@ -18,6 +21,42 @@ cles(
 )
 
 common_language(
+  x,
+  y = NULL,
+  data = NULL,
+  mu = 0,
+  ci = 0.95,
+  alternative = "two.sided",
+  verbose = TRUE,
+  rank = FALSE,
+  ...
+)
+
+cohens_u3(
+  x,
+  y = NULL,
+  data = NULL,
+  mu = 0,
+  ci = 0.95,
+  alternative = "two.sided",
+  verbose = TRUE,
+  rank = FALSE,
+  ...
+)
+
+p_superiority(
+  x,
+  y = NULL,
+  data = NULL,
+  mu = 0,
+  ci = 0.95,
+  alternative = "two.sided",
+  verbose = TRUE,
+  rank = FALSE,
+  ...
+)
+
+p_overlap(
   x,
   y = NULL,
   data = NULL,
@@ -68,8 +107,9 @@ terms:
 \item \strong{Probability of superiority} is the probability that, when sampling an
 observation from each of the groups at random, that the observation from
 the second group will be larger than the sample from the first group.
-\item \strong{Cohen's U3}
-\item \strong{Overlap}
+\item \strong{Cohen's U3} is the proportion of the second group that is smaller than
+the median of the first group.
+\item \strong{Overlap} is the proportion overlap between the two distributions.
 \cr\cr
 For unequal group sizes, it is recommended to use the rank based CLES.
 }
