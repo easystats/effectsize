@@ -164,7 +164,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     return(out)
   } else if (grepl("Wilcoxon", model$method)) {
     # Wilcoxon ----
-    if (is.null(type)) type <- "d"
+    if (is.null(type)) type <- "rb"
 
     dots$alternative <- model$alternative
     dots$ci <- attr(model$conf.int,"conf.level")
