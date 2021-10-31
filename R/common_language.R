@@ -199,9 +199,9 @@ p_overlap <- function(x,
 #' @keywords internal
 .rank_overlap <- function(x, y, ci = 0.95, alternative = "two.sided") {
   if (rank_biserial(x, y)[[1]] < 0) {
-    k <- sum(x > min(y)) + sum(y < max(x))
+    k <- sum(x >= min(y)) + sum(y <= max(x))
   } else {
-    k <- sum(y > min(x)) + sum(x < max(y))
+    k <- sum(y >= min(x)) + sum(x <= max(y))
   }
   N <- length(c(x,y))
 
