@@ -90,16 +90,6 @@ cles(mpg ~ am, data = mtcars)
 
 cles(mpg ~ am, data = mtcars, rank = TRUE)
 
-## Individual CLES
-A <- c(0.80, 0.83, 1.89, 1.04, 1.45, 1.38, 1.91, 1.64, 0.73, 1.46)
-B <- c(1.15, 0.88, 0.90, 0.74, 1.21)
-
-p_superiority(A, B)
-
-cohens_u3(A, B, rank = TRUE)
-
-p_overlap(A, B)
-
 }
 \references{
 \itemize{
