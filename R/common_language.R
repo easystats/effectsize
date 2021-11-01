@@ -12,9 +12,18 @@
 #'   the second group will be larger than the sample from the first group.
 #' - **Cohen's U3** is the proportion of the second group that is smaller than
 #'   the median of the first group.
-#' - **Overlap** is the proportion overlap between the two distributions.
-#' \cr\cr
-#' For unequal group sizes, it is recommended to use the rank based CLES.
+#' - **Overlap** (OVL) is the proportion overlap between the two distributions.
+#'
+#' For unequal group sizes, it is recommended to use the rank based CLES (`rank
+#' = TRUE`).
+#'
+#' @section Confidence Intervals (CIs):
+#' For parametric (`rank = FALSE`) CLES, the CIs are transformed CIs for Cohen's
+#' *d* ([`d_to_cles()`]). For non-parametric (`rank = TRUE`) CLES, the CI of
+#' *Pr(superiority)* is a transformed CI of the rank-biserial correlation
+#' ([`rb_to_cles()`]), while for Cohen's *U3* and the Overlap coefficient the
+#' confidence intervals are based on the proportion's confidence intervals
+#' returned by [`stats::prop.test()`], which give a good close approximation.
 #'
 #' @return A data frame containing the common language effect sizes (and
 #'   optionally their CIs).
@@ -111,80 +120,80 @@ cles <- function(x,
 #' @rdname cles
 common_language <- cles
 
-#' @export
-#' @rdname cles
-cohens_u3 <- function(x,
-                      y = NULL,
-                      data = NULL,
-                      mu = 0,
-                      ci = 0.95,
-                      alternative = "two.sided",
-                      verbose = TRUE,
-                      rank = FALSE,
-                      ...) {
-  .cles_which(
-    "u3",
-    x,
-    y = y,
-    data = data,
-    mu = mu,
-    ci = ci,
-    alternative = alternative,
-    verbose = verbose,
-    rank = rank,
-    ...
-  )
-}
+# #' @export
+# #' @rdname cles
+# cohens_u3 <- function(x,
+#                       y = NULL,
+#                       data = NULL,
+#                       mu = 0,
+#                       ci = 0.95,
+#                       alternative = "two.sided",
+#                       verbose = TRUE,
+#                       rank = FALSE,
+#                       ...) {
+#   .cles_which(
+#     "u3",
+#     x,
+#     y = y,
+#     data = data,
+#     mu = mu,
+#     ci = ci,
+#     alternative = alternative,
+#     verbose = verbose,
+#     rank = rank,
+#     ...
+#   )
+# }
 
-#' @export
-#' @rdname cles
-p_superiority <- function(x,
-                          y = NULL,
-                          data = NULL,
-                          mu = 0,
-                          ci = 0.95,
-                          alternative = "two.sided",
-                          verbose = TRUE,
-                          rank = FALSE,
-                          ...) {
-  .cles_which(
-    "p",
-    x,
-    y = y,
-    data = data,
-    mu = mu,
-    ci = ci,
-    alternative = alternative,
-    verbose = verbose,
-    rank = rank,
-    ...
-  )
-}
+# #' @export
+# #' @rdname cles
+# p_superiority <- function(x,
+#                           y = NULL,
+#                           data = NULL,
+#                           mu = 0,
+#                           ci = 0.95,
+#                           alternative = "two.sided",
+#                           verbose = TRUE,
+#                           rank = FALSE,
+#                           ...) {
+#   .cles_which(
+#     "p",
+#     x,
+#     y = y,
+#     data = data,
+#     mu = mu,
+#     ci = ci,
+#     alternative = alternative,
+#     verbose = verbose,
+#     rank = rank,
+#     ...
+#   )
+# }
 
-#' @export
-#' @rdname cles
-p_overlap <- function(x,
-                          y = NULL,
-                          data = NULL,
-                          mu = 0,
-                          ci = 0.95,
-                          alternative = "two.sided",
-                          verbose = TRUE,
-                          rank = FALSE,
-                          ...) {
-  .cles_which(
-    "ovl",
-    x,
-    y = y,
-    data = data,
-    mu = mu,
-    ci = ci,
-    alternative = alternative,
-    verbose = verbose,
-    rank = rank,
-    ...
-  )
-}
+# #' @export
+# #' @rdname cles
+# p_overlap <- function(x,
+#                           y = NULL,
+#                           data = NULL,
+#                           mu = 0,
+#                           ci = 0.95,
+#                           alternative = "two.sided",
+#                           verbose = TRUE,
+#                           rank = FALSE,
+#                           ...) {
+#   .cles_which(
+#     "ovl",
+#     x,
+#     y = y,
+#     data = data,
+#     mu = mu,
+#     ci = ci,
+#     alternative = alternative,
+#     verbose = verbose,
+#     rank = rank,
+#     ...
+#   )
+# }
 
 # Utils -------------------------------------------------------------------
 
@@ -232,39 +241,39 @@ p_overlap <- function(x,
   out
 }
 
-#' @keywords internal
-.cles_which <- function(type,
-                        x,
-                        y = NULL,
-                        data = NULL,
-                        mu = 0,
-                        ci = 0.95,
-                        alternative = "two.sided",
-                        verbose = TRUE,
-                        rank = FALSE,
-                        ...) {
-  CLES <- cles(
-    x,
-    y = y,
-    data = data,
-    mu = mu,
-    ci = ci,
-    alternative = alternative,
-    verbose = verbose,
-    rank = rank,
-    ...
-  )
-
-  if (type == "p")  {
-    out <- CLES[1, ]
-    colnames(out)[2] <- "p_superiority"
-  } else if (type == "u3") {
-    out <- CLES[2, ]
-    colnames(out)[2] <- "Cohens_U3"
-  } else if (type == "ovl") {
-    out <- CLES[3, ]
-    colnames(out)[2] <- "overlap"
-  }
-  out[[1]] <- NULL
-  out
-}
+# #' @keywords internal
+# .cles_which <- function(type,
+#                         x,
+#                         y = NULL,
+#                         data = NULL,
+#                         mu = 0,
+#                         ci = 0.95,
+#                         alternative = "two.sided",
+#                         verbose = TRUE,
+#                         rank = FALSE,
+#                         ...) {
+#   CLES <- cles(
+#     x,
+#     y = y,
+#     data = data,
+#     mu = mu,
+#     ci = ci,
+#     alternative = alternative,
+#     verbose = verbose,
+#     rank = rank,
+#     ...
+#   )
+#
+#   if (type == "p")  {
+#     out <- CLES[1, ]
+#     colnames(out)[2] <- "p_superiority"
+#   } else if (type == "u3") {
+#     out <- CLES[2, ]
+#     colnames(out)[2] <- "Cohens_U3"
+#   } else if (type == "ovl") {
+#     out <- CLES[3, ]
+#     colnames(out)[2] <- "overlap"
+#   }
+#   out[[1]] <- NULL
+#   out
+# }

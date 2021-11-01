@@ -3,9 +3,6 @@
 \name{cles}
 \alias{cles}
 \alias{common_language}
-\alias{cohens_u3}
-\alias{p_superiority}
-\alias{p_overlap}
 \title{Estimate Common Language Effect Sizes (CLES)}
 \usage{
 cles(
@@ -21,42 +18,6 @@ cles(
 )
 
 common_language(
-  x,
-  y = NULL,
-  data = NULL,
-  mu = 0,
-  ci = 0.95,
-  alternative = "two.sided",
-  verbose = TRUE,
-  rank = FALSE,
-  ...
-)
-
-cohens_u3(
-  x,
-  y = NULL,
-  data = NULL,
-  mu = 0,
-  ci = 0.95,
-  alternative = "two.sided",
-  verbose = TRUE,
-  rank = FALSE,
-  ...
-)
-
-p_superiority(
-  x,
-  y = NULL,
-  data = NULL,
-  mu = 0,
-  ci = 0.95,
-  alternative = "two.sided",
-  verbose = TRUE,
-  rank = FALSE,
-  ...
-)
-
-p_overlap(
   x,
   y = NULL,
   data = NULL,
@@ -109,11 +70,21 @@ observation from each of the groups at random, that the observation from
 the second group will be larger than the sample from the first group.
 \item \strong{Cohen's U3} is the proportion of the second group that is smaller than
 the median of the first group.
-\item \strong{Overlap} is the proportion overlap between the two distributions.
-\cr\cr
-For unequal group sizes, it is recommended to use the rank based CLES.
+\item \strong{Overlap} (OVL) is the proportion overlap between the two distributions.
 }
+
+For unequal group sizes, it is recommended to use the rank based CLES (\code{rank = TRUE}).
 }
+\section{Confidence Intervals (CIs)}{
+
+For parametric (\code{rank = FALSE}) CLES, the CIs are transformed CIs for Cohen's
+\emph{d} (\code{\link[=d_to_cles]{d_to_cles()}}). For non-parametric (\code{rank = TRUE}) CLES, the CI of
+\emph{Pr(superiority)} is a transformed CI of the rank-biserial correlation
+(\code{\link[=rb_to_cles]{rb_to_cles()}}), while for Cohen's \emph{U3} and the Overlap coefficient the
+confidence intervals are based on the proportion's confidence intervals
+returned by \code{\link[stats:prop.test]{stats::prop.test()}}, which give a good close approximation.
+}
+
 \examples{
 cles(mpg ~ am, data = mtcars)
 
