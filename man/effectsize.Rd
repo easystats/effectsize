@@ -56,7 +56,7 @@ input model. See details.
 }
 \item For an object of class \code{BFBayesFactor}, using \code{\link[bayestestR:describe_posterior]{bayestestR::describe_posterior()}},
 \itemize{
-\item A \strong{t-test} returns \emph{Cohen's d}.
+\item A \strong{t-test} depending on \code{type}: "cohens_d"\verb{(default) or}"cles"`.
 \item A \strong{correlation test} returns \emph{r}.
 \item A \strong{contingency table test}, depending on \code{type}: \code{"cramers_v"} (default), \code{"phi"}, \code{"cohens_w"}, \code{"pearsons_c"}, \code{"cohens_h"}, \code{"oddsratio"}, or \code{"riskratio"}.
 \item A \strong{proportion test} returns \emph{p}.

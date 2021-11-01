@@ -47,16 +47,6 @@
 #'
 #' cles(mpg ~ am, data = mtcars, rank = TRUE)
 #'
-#' ## Individual CLES
-#' A <- c(0.80, 0.83, 1.89, 1.04, 1.45, 1.38, 1.91, 1.64, 0.73, 1.46)
-#' B <- c(1.15, 0.88, 0.90, 0.74, 1.21)
-#'
-#' p_superiority(A, B)
-#'
-#' cohens_u3(A, B, rank = TRUE)
-#'
-#' p_overlap(A, B)
-#'
 #' @export
 cles <- function(x,
                  y = NULL,
@@ -73,7 +63,7 @@ cles <- function(x,
     }
     return(effectsize(x, type = "cles", verbose = verbose, ...))
   } else if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
+    if (!inherits(x@numerator[[1]], c("BFindepSample"))) {
       stop("'x' is not a t-test!", call. = FALSE)
     }
     return(effectsize(x, type = "cles", ci = ci, verbose = verbose, ...))

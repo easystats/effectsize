@@ -20,7 +20,7 @@
 #'   - A **Friedman test** returns *Kendall's W*.
 #'   (Where applicable, `ci` and `alternative` are taken from the `htest` if not otherwise provided.)
 #' - For an object of class `BFBayesFactor`, using [bayestestR::describe_posterior()],
-#'   - A **t-test** returns *Cohen's d*.
+#'   - A **t-test** depending on `type`: "cohens_d"` (default) or `"cles"`.
 #'   - A **correlation test** returns *r*.
 #'   - A **contingency table test**, depending on `type`: `"cramers_v"` (default), `"phi"`, `"cohens_w"`, `"pearsons_c"`, `"cohens_h"`, `"oddsratio"`, or `"riskratio"`.
 #'   - A **proportion test** returns *p*.
