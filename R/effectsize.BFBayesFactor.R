@@ -68,10 +68,12 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
     }
   } else if (inherits(model@numerator[[1]], "BFcorrelation")) {
     # Corr ----
+    type <- "r"
     rho <- insight::get_parameters(model)[["rho"]]
     res <- data.frame(rho = rho)
   } else if (inherits(model@numerator[[1]], "BFproportion")) {
     # Prop ----
+    type <- "p"
     res <- insight::get_parameters(model)
     p0 <- model@denominator@identifier[["p0"]]
     xtra_footer <- list(c(sprintf("\n- Against the null: p = %s.", p0), "cyan"))
