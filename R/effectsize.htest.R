@@ -195,7 +195,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
         stop("Common language effect size only applicable to 2-sample rank-biserial correlation.")
       }
       args$paired <- NULL
-      args$rank <- TRUE
+      args$parametric <- FALSE
     }
 
     out <- do.call(f, c(args, dots))

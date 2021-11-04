@@ -161,10 +161,11 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(CLES <- d_to_cles(d), cles(x, y))
     expect_equal(cles(tt), CLES, ignore_attr = TRUE)
 
-    rb <- rank_biserial(x, y)
+    rb <- rank_biserial(x, y, ci = NULL)
     w <- wilcox.test(x, y)
-    expect_equal(rb_to_cles(rb), (CLES <- cles(x, y, rank = TRUE))[1,])
-    expect_equal(cles(w, rank = TRUE), CLES)
+    CLES <- cles(x, y, parametric = FALSE, ci = NULL)
+    expect_equal(rb_to_cles(rb), CLES[1,], ignore_attr = TRUE)
+    expect_equal(cles(w, parametric = FALSE)[,1:2], CLES, ignore_attr = TRUE)
 
     x <- 1:3
     y <- c(1,1:3)

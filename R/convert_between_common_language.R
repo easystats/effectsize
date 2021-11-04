@@ -122,7 +122,7 @@ rb_to_cles.effectsize_difference <- function(rb) {
   }
 
   class(out) <- c("effectsize_table", class(out))
-  attr(out, "table_footer") <- c("\n- Rank based CLES", "cyan")
+  attr(out, "table_footer") <- c("\n- Non-parametric CLES", "cyan")
   out
 }
 
