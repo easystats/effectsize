@@ -3,6 +3,9 @@
 \name{cles}
 \alias{cles}
 \alias{common_language}
+\alias{cohens_u3}
+\alias{p_superiority}
+\alias{p_overlap}
 \title{Estimate Common Language Effect Sizes (CLES)}
 \usage{
 cles(
@@ -12,8 +15,9 @@ cles(
   mu = 0,
   ci = 0.95,
   alternative = "two.sided",
+  parametric = TRUE,
   verbose = TRUE,
-  rank = FALSE,
+  iterations = 200,
   ...
 )
 
@@ -24,10 +28,17 @@ common_language(
   mu = 0,
   ci = 0.95,
   alternative = "two.sided",
+  parametric = TRUE,
   verbose = TRUE,
-  rank = FALSE,
+  iterations = 200,
   ...
 )
+
+cohens_u3(...)
+
+p_superiority(...)
+
+p_overlap(...)
 }
 \arguments{
 \item{x}{A formula, a numeric vector, or a character name of one in \code{data}.}
@@ -47,10 +58,13 @@ Controls the type of CI returned: \code{"two.sided"} (default, two-sided CI),
 \code{"greater"} or \code{"less"} (one-sided CI). Partial matching is allowed (e.g.,
 \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in \link{effectsize_CIs}.}
 
+\item{parametric}{Use parametric estimation (see \code{\link[=cohens_d]{cohens_d()}}) or
+non-parametric estimation (see \code{\link[=rank_biserial]{rank_biserial()}}).}
+
 \item{verbose}{Toggle warnings and messages on or off.}
 
-\item{rank}{Use non-parametric rank-based estimation (see \code{\link[=rank_biserial]{rank_biserial()}})
-instead of parametric estimation (see \code{\link[=cohens_d]{cohens_d()}}).}
+\item{iterations}{The number of bootstrap replicates for computing confidence
+intervals. Only applies when \code{ci} is not \code{NULL} and \code{parametric = FALSE}.}
 
 \item{...}{Arguments passed to or from other methods.}
 }
@@ -59,7 +73,8 @@ A data frame containing the common language effect sizes (and
 optionally their CIs).
 }
 \description{
-Estimate Common Language Effect Sizes (CLES)
+\code{cohens_u3()}, \code{p_superiority()}, and \code{p_overlap()} give only one of the
+CLESs.
 }
 \details{
 These measures of effect size present group differences in probabilistic
@@ -70,25 +85,34 @@ observation from each of the groups at random, that the observation from
 the second group will be larger than the sample from the first group.
 \item \strong{Cohen's U3} is the proportion of the second group that is smaller than
 the median of the first group.
-\item \strong{Overlap} (OVL) is the proportion overlap between the two distributions.
+\item \strong{Overlap} (OVL) is the proportional overlap between the distributions.
+(When \code{parametric = FALSE}, \code{\link[bayestestR:overlap]{bayestestR::overlap()}} is used.)
 }
 
-For unequal group sizes, it is recommended to use the rank based CLES (\code{rank = TRUE}).
+For unequal group sizes, it is recommended to use the non-parametric based
+CLES (\code{parametric = FALSE}).
 }
 \section{Confidence Intervals (CIs)}{
 
-For parametric (\code{rank = FALSE}) CLES, the CIs are transformed CIs for Cohen's
-\emph{d} (\code{\link[=d_to_cles]{d_to_cles()}}). For non-parametric (\code{rank = TRUE}) CLES, the CI of
+For parametric CLES, the CIs are transformed CIs for Cohen's \emph{d}
+(\code{\link[=d_to_cles]{d_to_cles()}}). For non-parametric (\code{parametric = FALSE}) CLES, the CI of
 \emph{Pr(superiority)} is a transformed CI of the rank-biserial correlation
 (\code{\link[=rb_to_cles]{rb_to_cles()}}), while for Cohen's \emph{U3} and the Overlap coefficient the
-confidence intervals are based on the proportion's confidence intervals
-returned by \code{\link[stats:prop.test]{stats::prop.test()}}, which give a good close approximation.
+confidence intervals are bootstrapped (requires the \code{boot} package).
 }
 
 \examples{
 cles(mpg ~ am, data = mtcars)
 
-cles(mpg ~ am, data = mtcars, rank = TRUE)
+cles(mpg ~ am, data = mtcars, parametric = FALSE)
+
+
+## Individual CLES
+p_superiority(extra ~ group, data = sleep)
+
+cohens_u3(extra ~ group, data = sleep, parametric = FALSE)
+
+p_overlap(extra ~ group, data = sleep)
 
 }
 \references{
