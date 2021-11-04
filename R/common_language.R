@@ -50,15 +50,17 @@
 #' @examples
 #' cles(mpg ~ am, data = mtcars)
 #'
+#' set.seed(4)
 #' cles(mpg ~ am, data = mtcars, parametric = FALSE)
 #'
-#'
+#' \dontrun{
 #' ## Individual CLES
 #' p_superiority(extra ~ group, data = sleep)
 #'
 #' cohens_u3(extra ~ group, data = sleep, parametric = FALSE)
 #'
 #' p_overlap(extra ~ group, data = sleep)
+#' }
 #'
 #' @export
 cles <- function(x,
