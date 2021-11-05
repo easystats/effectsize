@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">effectsize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.2</span>
       </span>
     </div>
 
@@ -109,7 +109,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">2</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="co"># S3 method for effectsize_difference</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">2</span>, append_CL <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">2</span>, append_CLES <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
 
     <div id="ref-sections">
     <div id="arguments">
@@ -125,10 +125,11 @@ to return scientific notation. Control the number of digits by adding the
 value as suffix, e.g. <code>digits = "scientific4"</code> to have scientific
 notation with 4 decimal places, or <code>digits = "signif5"</code> for 5
 significant figures (see also <code><a href="https://rdrr.io/r/base/Round.html" class="external-link">signif()</a></code>).</p></dd>
-<dt>append_CL</dt>
+<dt>append_CLES</dt>
 <dd><p>Should the Common Language Effect Sizes be printed as well?
 Only applicable to Cohen's <em>d</em>, Hedges' <em>g</em> for independent samples of
-equal variance (pooled sd) (See <code><a href="d_to_common_language.html">d_to_common_language()</a></code>)</p></dd>
+equal variance (pooled sd) or for the rank-biserial correlation for
+independent samples (See <code><a href="d_to_cles.html">d_to_cles()</a></code>)</p></dd>
 </dl></div>
     </div>
 
