@@ -85,13 +85,14 @@
 #' # =========================
 #'
 #' # Two Independent Samples ----------
-#' rank_biserial(mpg ~ am, data = mtcars)
+#' (rb <- rank_biserial(mpg ~ am, data = mtcars))
 #' # Same as:
 #' # rank_biserial("mpg", "am", data = mtcars)
 #' # rank_biserial(mtcars$mpg[mtcars$am=="0"], mtcars$mpg[mtcars$am=="1"])
 #'
 #' # More options:
 #' rank_biserial(mpg ~ am, data = mtcars, mu = -5)
+#' print(rb, append_CLES = TRUE)
 #'
 #'
 #' # One Sample ----------
@@ -104,13 +105,13 @@
 #' # Paired Samples ----------
 #' dat <- data.frame(Cond1 = c(1.83, 0.5, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.3),
 #'                   Cond2 = c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29))
-#' (rbs <- rank_biserial(Pair(Cond1, Cond2) ~ 1, data = dat, paired = TRUE))
+#' (rb <- rank_biserial(Pair(Cond1, Cond2) ~ 1, data = dat, paired = TRUE))
 #'
 #' # same as:
 #' # rank_biserial(dat$Cond1, dat$Cond2, paired = TRUE)
 #'
 #' interpret_rank_biserial(0.78)
-#' interpret(rbs, rules = "funder2019")
+#' interpret(rb, rules = "funder2019")
 #'
 #'
 #' # Rank Epsilon Squared
@@ -171,12 +172,7 @@ rank_biserial <- function(x,
     if (!grepl("Wilcoxon", x$method)) {
       stop("'x' is not a Wilcoxon-test!", call. = FALSE)
     }
-    cl <- match.call()
-    return(effectsize(
-      x, ci = cl$ci,
-      mu = cl$mu, alternative = cl$alternative,
-      verbose = verbose
-    ))
+    return(effectsize(x, verbose = verbose, type = "rb"))
   }
 
   if (!missing(iterations) && verbose) {
@@ -187,7 +183,7 @@ rank_biserial <- function(x,
   }
 
   ## Prep data
-  out <- .deal_with_cohens_d_arguments(x, y, data)
+  out <- .get_data_2_samples(x, y, data)
   x <- out$x
   y <- out$y
 
@@ -214,7 +210,6 @@ rank_biserial <- function(x,
   if (is.numeric(ci)) {
     # if (requireNamespace("boot", quietly = TRUE)) {
     #   out <- cbind(out, .rbs_ci_boot(
-    #     x,
     #     y,
     #     mu = mu,
     #     paired = paired,
@@ -331,7 +326,7 @@ rank_epsilon_squared <- function(x,
   }
 
   ## pep data
-  data <- .rank_anova_xg(x, groups, data)
+  data <- .get_data_multi_group(x, groups, data)
   data <- stats::na.omit(data)
 
   ## compute
@@ -380,7 +375,7 @@ kendalls_w <- function(x,
   }
 
   ## prep data
-  data <- .kendalls_w_data(x, groups, blocks, data)
+  data <- .get_data_nested_groups(x, groups, blocks, data)
   data <- stats::na.omit(data)
 
   ## compute
@@ -409,7 +404,7 @@ kendalls_w <- function(x,
 
 # rank_eta_squared <- function(x, g, data = NULL, ci = 0.95, iterations = 200) {
 #
-#   data <- .rank_anova_xg(x, g, data)
+#   data <- .get_data_multi_group(x, g, data)
 #   data <- stats::na.omit(data)
 #   x <- data$x
 #   g <- data$g
@@ -594,92 +589,6 @@ kendalls_w <- function(x,
     CI_high = if (alternative == "greater") 1 else bCI[2]
   )
 }
-
-## data ----
-
-
-#' @keywords internal
-#' @importFrom stats model.frame
-.rank_anova_xg <- function(x, groups, data) {
-  if (inherits(frm <- x, "formula")) {
-    mf <- stats::model.frame(formula = frm, data = data)
-
-    if (length(frm) != 3 | ncol(mf) != 2) {
-      stop("Formula must have the form of 'outcome ~ group'.", call. = FALSE)
-    }
-
-    x <- mf[[1]]
-    groups <- factor(mf[[2]])
-  } else if (inherits(x, "list")) {
-    groups <- rep(seq_along(x), sapply(x, length))
-    x <- unsplit(x, groups)
-  } else if (is.character(x)) {
-    x <- data[[x]]
-    groups <- data[[groups]]
-  } else if (length(x) != length(groups)) {
-    stop("x and g must be of the same length.", call. = FALSE)
-  }
-
-  data.frame(x, groups)
-}
-
-#' @keywords internal
-#' @importFrom stats model.frame reshape
-.kendalls_w_data <- function(x, groups, blocks, data = NULL) {
-  if (inherits(frm <- x, "formula")) {
-    if ((length(frm) != 3L) ||
-      (length(frm[[3L]]) != 3L) ||
-      (frm[[3L]][[1L]] != as.name("|"))) {
-      stop("Formula must have the 'x ~ groups | blocks'.", call. = FALSE)
-    }
-
-    frm[[3L]][[1L]] <- as.name("+")
-
-    mf <- stats::model.frame(formula = frm, data = data)
-
-    if (ncol(mf) != 3) {
-      stop("Formula must have only two terms on the RHS.", call. = FALSE)
-    }
-
-    x <- mf[[1]]
-    groups <- mf[[2]]
-    blocks <- mf[[3]]
-  } else if (inherits(x, c("table", "matrix", "array", "data.frame"))) {
-    data <- data.frame(
-      x = c(x),
-      groups = rep(factor(seq_len(ncol(x))),
-        each = nrow(x)
-      ),
-      blocks = rep(
-        factor(seq_len(nrow(x))),
-        ncol(x)
-      )
-    )
-
-    x <- data[[1]]
-    groups <- data[[2]]
-    blocks <- data[[3]]
-  } else if (is.character(x)) {
-    x <- data[[x]]
-    groups <- data[[groups]]
-    blocks <- data[[blocks]]
-  } else if (length(x) != length(groups) || length(x) != length(blocks)) {
-    stop("x, groups and blocks must be of the same length.", call. = FALSE)
-  }
-
-  data <- data.frame(x, groups, blocks, stringsAsFactors = FALSE)
-
-  data <- stats::reshape(
-    data,
-    direction = "wide",
-    v.names = "x",
-    timevar = "groups",
-    idvar = "blocks"
-  )
-
-  as.matrix(data[, -1])
-}
-
 
 # Utils -------------------------------------------------------------------
 

@@ -89,7 +89,7 @@ magnitude of experimental effect. Journal of educational psychology, 74(2), 166.
 }
 \seealso{
 Other convert between effect sizes: 
-\code{\link{d_to_common_language}()},
+\code{\link{d_to_cles}()},
 \code{\link{eta2_to_f2}()},
 \code{\link{odds_to_probs}()},
 \code{\link{oddsratio_to_riskratio}()}

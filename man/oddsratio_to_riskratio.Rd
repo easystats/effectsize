@@ -47,7 +47,7 @@ f7450.
 }
 \seealso{
 Other convert between effect sizes: 
-\code{\link{d_to_common_language}()},
+\code{\link{d_to_cles}()},
 \code{\link{d_to_r}()},
 \code{\link{eta2_to_f2}()},
 \code{\link{odds_to_probs}()}

@@ -16,7 +16,7 @@
 
 \method{format}{effectsize_table}(x, digits = 2, ...)
 
-\method{print}{effectsize_difference}(x, digits = 2, append_CL = FALSE, ...)
+\method{print}{effectsize_difference}(x, digits = 2, append_CLES = FALSE, ...)
 }
 \arguments{
 \item{x}{Object to print.}
@@ -30,9 +30,10 @@ value as suffix, e.g. \code{digits = "scientific4"} to have scientific
 notation with 4 decimal places, or \code{digits = "signif5"} for 5
 significant figures (see also \code{\link[=signif]{signif()}}).}
 
-\item{append_CL}{Should the Common Language Effect Sizes be printed as well?
+\item{append_CLES}{Should the Common Language Effect Sizes be printed as well?
 Only applicable to Cohen's \emph{d}, Hedges' \emph{g} for independent samples of
-equal variance (pooled sd) (See \code{\link[=d_to_common_language]{d_to_common_language()}})}
+equal variance (pooled sd) or for the rank-biserial correlation for
+independent samples (See \code{\link[=d_to_cles]{d_to_cles()}})}
 }
 \description{
 Printing, formatting and plotting methods for \code{effectsize} tables.
