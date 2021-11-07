@@ -1,11 +1,12 @@
 
-# effectsize <img src='man/figures/logo.png' align="right" height="139" />
+# effectsize <img src="man/figures/logo.png" align="right" width="120" />
 
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.02815/status.svg)](https://doi.org/10.21105/joss.02815)
 [![downloads](http://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize)
-[![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize)](https://cranlogs.r-pkg.org/)
+[![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize)](https://cran.r-project.org/package=effectsize)
+[![status](https://tinyverse.netlify.com/badge/effectsize)](https://CRAN.R-project.org/package=effectsize)
 
-***Size does matter***
+***Significant is just not enough\!***
 
 The goal of this package is to provide utilities to work with indices of
 effect size and standardized parameters, allowing computation and
@@ -14,7 +15,8 @@ conversion of indices such as Cohen’s *d*, *r*, odds-ratios, etc.
 ## Installation
 
 [![CRAN](http://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize)
-[![R-universe](https://img.shields.io/badge/R--universe%20%F0%9F%9A%80-easystats-brightgreen)](https://easystats.r-universe.dev/)
+[![effectsize status
+badge](https://easystats.r-universe.dev/badges/effectsize)](https://easystats.r-universe.dev)
 [![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg)](https://github.com/easystats/effectsize/actions)
 [![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg)](https://github.com/easystats/effectsize/actions)
 [![Codecov test
@@ -27,7 +29,7 @@ CRAN:
 install.packages("effectsize")
 ```
 
-Or you can install the latest development version `0.4.99` from
+Or you can install the latest development version `0.5.0.2` from
 [*R-universe*](https://easystats.r-universe.dev):
 
 ``` r

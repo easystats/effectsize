@@ -45,6 +45,9 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
     colnames(res) <- colnames(f(data, ci = NULL))
   } else if (inherits(model@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
     # t-test ----
+    if (is.null(type)) type <- "d"
+    type <- c("cohens_d" = "d", d = "d", "cles" = "cles")[type]
+
     samps <- as.data.frame(BayesFactor::posterior(model, iterations = 4000, progress = FALSE))
 
     paired <- inherits(model@numerator[[1]], "BFoneSample")
@@ -57,13 +60,20 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
     }
 
     res <- data.frame(Cohens_d = D)
-    xtra_class <- "effectsize_difference"
+    if (type == "d") {
+      xtra_class <- "effectsize_difference"
+    } else if (type == "cles") {
+      res <- data.frame(d_to_cles(res$Cohens_d), check.names = FALSE)
+      xtra_class <- NULL
+    }
   } else if (inherits(model@numerator[[1]], "BFcorrelation")) {
     # Corr ----
+    type <- "r"
     rho <- insight::get_parameters(model)[["rho"]]
     res <- data.frame(rho = rho)
   } else if (inherits(model@numerator[[1]], "BFproportion")) {
     # Prop ----
+    type <- "p"
     res <- insight::get_parameters(model)
     p0 <- model@denominator@identifier[["p0"]]
     xtra_footer <- list(c(sprintf("\n- Against the null: p = %s.", p0), "cyan"))
@@ -73,8 +83,12 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
 
   # Clean up
   out <- bayestestR::describe_posterior(res, test = test, ...)
-  colnames(out)[2] <- out$Parameter
-  out$Parameter <- NULL
+  if (type == "cles") {
+    colnames(out)[2] <-  "Coefficient"
+  } else {
+    colnames(out)[2] <- out$Parameter
+    out$Parameter <- NULL
+  }
 
   class(out) <- c(xtra_class, "effectsize_table", "see_effectsize_table", class(out))
 

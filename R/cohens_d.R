@@ -44,7 +44,7 @@
 #' @return A data frame with the effect size ( `Cohens_d`, `Hedges_g`,
 #'   `Glass_delta`) and their CIs (`CI_low` and `CI_high`).
 #'
-#' @seealso [d_to_common_language()] [sd_pooled()]
+#' @seealso [d_to_cles()] [sd_pooled()]
 #' @family effect size indices
 #'
 #' @examples
@@ -102,9 +102,9 @@
 #' interpret(d, rules = "sawilowsky2009")
 #'
 #' # Common Language Effect Sizes
-#' d_to_common_language(1.48)
+#' d_to_cles(1.48)
 #' # Or:
-#' print(d, append_CL = TRUE)
+#' print(d, append_CLES = TRUE)
 #' }
 #'
 #' @references
@@ -137,13 +137,6 @@ cohens_d <- function(x,
                      alternative = "two.sided",
                      verbose = TRUE,
                      ...) {
-  if (inherits(x, "htest")) {
-    cl <- match.call()
-    alternative <- cl$alternative
-    mu <- cl$mu
-    ci <- cl$ci
-  }
-
   .effect_size_difference(
     x,
     y = y,
@@ -154,7 +147,8 @@ cohens_d <- function(x,
     mu = mu,
     paired = paired,
     ci = ci,
-    verbose = verbose
+    verbose = verbose,
+    ...
   )
 }
 
@@ -177,13 +171,6 @@ hedges_g <- function(x,
     )
   }
 
-  if (inherits(x, "htest")) {
-    cl <- match.call()
-    alternative <- cl$alternative
-    mu <- cl$mu
-    ci <- cl$ci
-  }
-
   .effect_size_difference(
     x,
     y = y,
@@ -194,7 +181,8 @@ hedges_g <- function(x,
     mu = mu,
     paired = paired,
     ci = ci,
-    verbose = verbose
+    verbose = verbose,
+    ...
   )
 }
 
@@ -215,13 +203,6 @@ glass_delta <- function(x,
     )
   }
 
-  if (inherits(x, "htest")) {
-    cl <- match.call()
-    alternative <- cl$alternative
-    mu <- cl$mu
-    ci <- cl$ci
-  }
-
   .effect_size_difference(
     x,
     y = y,
@@ -230,7 +211,10 @@ glass_delta <- function(x,
     mu = mu,
     type = "delta",
     ci = ci,
-    verbose = verbose
+    verbose = verbose,
+    pooled_sd = NULL,
+    paired = FALSE,
+    ...
   )
 }
 
@@ -253,17 +237,17 @@ glass_delta <- function(x,
     if (!grepl("t-test", x$method)) {
       stop("'x' is not a t-test!", call. = FALSE)
     }
-    return(effectsize(x, type = type, ci = ci, alternative = alternative, mu = mu, verbose = verbose))
+    return(effectsize(x, type = type, verbose = verbose, ...))
   } else if (type != "delta" && inherits(x, "BFBayesFactor")) {
     if (!inherits(x@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
       stop("'x' is not a t-test!", call. = FALSE)
     }
-    return(effectsize(x, ci = ci, verbose = verbose))
+    return(effectsize(x, ci = ci, verbose = verbose, ...))
   }
 
 
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
-  out <- .deal_with_cohens_d_arguments(x, y, data, verbose)
+  out <- .get_data_2_samples(x, y, data, verbose)
   x <- out$x
   y <- out$y
 
@@ -372,99 +356,4 @@ glass_delta <- function(x,
   attr(out, "approximate") <- FALSE
   attr(out, "alternative") <- alternative
   return(out)
-}
-
-
-
-
-
-
-# Utils -------------------------------------------------------------------
-
-
-
-#' @keywords internal
-#' @importFrom stats terms
-#' @importFrom stats delete.response
-.deal_with_cohens_d_arguments <- function(x, y = NULL, data = NULL, verbose = TRUE) {
-
-  # Sanity checks
-  if (((is.character(x) && length(x) == 1) ||
-    (is.character(y) && length(y) == 1)) &&
-    is.null(data)) {
-    stop("Please provide data argument.")
-  }
-
-  ## Pull columns ----
-
-  ### Formula ----
-  if (inherits(x, "formula")) {
-    if (length(x) != 3) {
-      stop("Formula must be two sided.", call. = FALSE)
-    }
-
-    mf <- stats::model.frame(formula = x, data = data)
-
-    x <- mf[[1]]
-    if (ncol(mf) == 1) {
-      y <- NULL
-    } else if (ncol(mf) == 2) {
-      y <- mf[[2]]
-    } else {
-      stop("Formula must have only one term on the RHS.", call. = FALSE)
-    }
-
-    if (!is.null(y) && !is.factor(y)) y <- factor(y)
-  }
-
-  ### Character ----
-  if (is.character(x)) {
-    if (!x %in% names(data)) {
-      stop("Column ", x, " missing from data.", call. = FALSE)
-    }
-    x <- data[[x]]
-  }
-
-  if (is.character(y) && length(y) == 1) {
-    if (!y %in% names(data)) {
-      stop("Column ", y, " missing from data.", call. = FALSE)
-    }
-    y <- data[[y]]
-  }
-
-  ## Validate x,y ----
-  if (!is.numeric(x)) {
-    stop("Cannot compute effect size for a non-numeric vector.", call. = FALSE)
-  } else if (inherits(x, "Pair")) {
-    x <- -apply(x, 1, diff)
-  }
-
-  # If y is a factor
-  if (!is.null(y)) {
-    if (!is.numeric(y)) {
-      if (length(unique(y)) > 2) {
-        stop("Grouping variable y has more that 2 levels.",
-          call. = FALSE
-        )
-      }
-      if (ifelse(inherits(x, "Pair"), nrow(x), length(x)) != length(y)) {
-        stop("Grouping variable must be the same length.", call. = FALSE)
-      }
-
-      data <- split(x, y)
-      data <- Filter(length, data)
-      x <- data[[1]]
-      y <- data[[2]]
-    } else {
-      # Only relevant when y is not a factor
-      if (verbose && length(unique(y)) == 2) {
-        warning(
-          "'y' is numeric but has only 2 unique values. If this is a grouping variable, convert it to a factor.",
-          call. = FALSE
-        )
-      }
-    }
-  }
-
-  list(x = x, y = y)
 }

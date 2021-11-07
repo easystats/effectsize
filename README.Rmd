@@ -13,7 +13,8 @@ csl: vignettes/apa.csl
 editor_options: 
   chunk_output_type: console
 ---
-# effectsize <img src='man/figures/logo.png' align="right" height="139" />
+
+# effectsize <img src="man/figures/logo.png" align="right" width="120" />
 
 ```{r setup, echo = FALSE, warning=FALSE, message=FALSE}
 library(effectsize)
@@ -31,7 +32,7 @@ set.seed(111)
 
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.02815/status.svg)](https://doi.org/10.21105/joss.02815)
 [![downloads](http://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize)
-[![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize)](https://cran.r-project.org/package=effectsize)
+[![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize)](https://cran.r-project.org/package=effectsize) [![status](https://tinyverse.netlify.com/badge/effectsize)](https://CRAN.R-project.org/package=effectsize)
 
 
 ***Significant is just not enough!***

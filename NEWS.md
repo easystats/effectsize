@@ -4,6 +4,11 @@
 
 - `pearsons_c()` effect size column name changed to `Pearsons_c` for consistency. 
 
+## New features
+
+- `cles()` for estimating common language effect sizes.
+- `rb_to_cles()` for converting rank-biserial correlation to Probability of superiority.
+
 ## Changes
 
 - `effectsize()` for `BayesFactor` objects returns the same standardized output as for `htest`.

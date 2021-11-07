@@ -45,18 +45,18 @@ input model. See details.
 \itemize{
 \item For an object of class \code{htest}, data is extracted via \code{\link[insight:get_data]{insight::get_data()}}, and passed to the relevant function according to:
 \itemize{
-\item A \strong{t-test} depending on \code{type}: \code{"cohens_d"} (default), \code{"hedges_g"}.
+\item A \strong{t-test} depending on \code{type}: \code{"cohens_d"} (default), \code{"hedges_g"}, or \code{"cles"}.
 \item A \strong{Chi-squared tests of independence or goodness-of-fit}, depending on \code{type}: \code{"cramers_v"} (default), \code{"phi"}, \code{"cohens_w"}, \code{"pearsons_c"}, \code{"cohens_h"}, \code{"oddsratio"}, or \code{"riskratio"}.
 \item A \strong{One-way ANOVA test}, depending on \code{type}: \code{"eta"} (default), \code{"omega"} or \code{"epsilon"} -squared, \code{"f"}, or \code{"f2"}.
 \item A \strong{McNemar test} returns \emph{Cohen's g}.
-\item A \strong{Wilcoxon test} returns \emph{rank biserial correlation}.
+\item A \strong{Wilcoxon test} depending on \code{type}: returns "\code{rank_biserial}" correlation (default) or \code{"cles"}.
 \item A \strong{Kruskal-Wallis test} returns \emph{rank Epsilon squared}.
 \item A \strong{Friedman test} returns \emph{Kendall's W}.
 (Where applicable, \code{ci} and \code{alternative} are taken from the \code{htest} if not otherwise provided.)
 }
 \item For an object of class \code{BFBayesFactor}, using \code{\link[bayestestR:describe_posterior]{bayestestR::describe_posterior()}},
 \itemize{
-\item A \strong{t-test} returns \emph{Cohen's d}.
+\item A \strong{t-test} depending on \code{type}: "cohens_d"\verb{(default) or}"cles"`.
 \item A \strong{correlation test} returns \emph{r}.
 \item A \strong{contingency table test}, depending on \code{type}: \code{"cramers_v"} (default), \code{"phi"}, \code{"cohens_w"}, \code{"pearsons_c"}, \code{"cohens_h"}, \code{"oddsratio"}, or \code{"riskratio"}.
 \item A \strong{proportion test} returns \emph{p}.
@@ -86,6 +86,7 @@ effectsize(Aov, type = "omega")
 
 Wt <- wilcox.test(1:10, 7:20, mu = -3, alternative = "less")
 effectsize(Wt)
+effectsize(Wt, type = "cles")
 
 ## Bayesian Hypothesis Testing
 ## ---------------------------
@@ -120,6 +121,7 @@ effectsize(anova_table, type = "epsilon")
 }
 \seealso{
 Other effect size indices: 
+\code{\link{cles}()},
 \code{\link{cohens_d}()},
 \code{\link{eta_squared}()},
 \code{\link{phi}()},

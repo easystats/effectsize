@@ -217,6 +217,7 @@ Other standardize:
 \code{\link{standardize_info}()}
 
 Other effect size indices: 
+\code{\link{cles}()},
 \code{\link{cohens_d}()},
 \code{\link{effectsize.BFBayesFactor}()},
 \code{\link{eta_squared}()},
