@@ -474,15 +474,14 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     ES <- pmax(0, out[[ncol(out)]])
     f <- (ES / out$df) / ((1 - ES) / df_error)
 
-    out <- cbind(
-      out,
-      # This really is a generic F_to_R2
+    CI_tab <- # This really is a generic F_to_R2
       F_to_eta2(f,
                 out$df,
                 df_error,
                 ci = ci, alternative = alternative
       )[-1]
-    )
+
+    out[c("CI", "CI_low", "CI_high")] <- CI_tab[c("CI", "CI_low", "CI_high")]
   } else {
     alternative <- NULL
   }
@@ -494,7 +493,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     "Eta2", "Eta2_partial", "Eta2_generalized",
     "Omega2", "Omega2_partial",
     "Epsilon2", "Epsilon2_partial",
-    "CI", "CI_low", "CI_high"
+    if (!is.null(ci)) c("CI", "CI_low", "CI_high")
   ), drop = FALSE]
   rownames(out) <- NULL
 
@@ -616,15 +615,14 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     ES <- pmax(0, out[[ncol(out)]])
     f <- (ES / out$df) / ((1 - ES) / df_residuals)
 
-    out <- cbind(
-      out,
-      # This really is a generic F_to_R2
+    CI_tab <- # This really is a generic F_to_R2
       F_to_eta2(f,
                 out$df,
                 df_residuals,
                 ci = ci, alternative = alternative
       )[-1]
-    )
+
+    out[c("CI", "CI_low", "CI_high")] <- CI_tab[c("CI", "CI_low", "CI_high")]
   } else {
     alternative <- NULL
   }
@@ -637,7 +635,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     "Eta2", "Eta2_generalized", "Eta2_partial",
     "Omega2", "Omega2_partial",
     "Epsilon2", "Epsilon2_partial",
-    "CI", "CI_low", "CI_high"
+    if (!is.null(ci)) c("CI", "CI_low", "CI_high")
   ), drop = FALSE]
   rownames(out) <- NULL
 
@@ -701,21 +699,12 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   if (!include_intercept)
     aov_table <- aov_table[aov_table$Parameter != "(Intercept)", , drop = FALSE]
 
-  out <- cbind(aov_table,
-               es_fun(aov_table[["F"]],
-                      aov_table[["df"]],
-                      aov_table[["df_error"]],
-                      ci = ci, alternative = alternative
-               ))
+  ES_tab <- es_fun(aov_table[["F"]],
+                   aov_table[["df"]],
+                   aov_table[["df_error"]],
+                   ci = ci, alternative = alternative)
 
-  # Clean up output ---
-  out <- out[, colnames(out) %in% c(
-    "Parameter",
-    "Eta2", "Eta2_partial", "Eta2_generalized",
-    "Omega2", "Omega2_partial",
-    "Epsilon2", "Epsilon2_partial",
-    "CI", "CI_low", "CI_high"
-  ), drop = FALSE]
+  out <- cbind(Parameter = aov_table[["Parameter"]], ES_tab)
   rownames(out) <- NULL
 
   # Set attributes ---
@@ -938,7 +927,33 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
                                        generalized = FALSE,
                                        ci = 0.95, alternative = "greater",
                                        verbose = TRUE,
+                                       by_response = TRUE,
                                        ...) {
+  if (by_response && "Response" %in% colnames(model)) {
+    out <- split(model, model[["Response"]])
+    out <- lapply(out, .anova_es.parameters_model,
+                  type = type, partial = partial, generalized = generalized,
+                  ci = ci, alternative = alternative,
+                  verbose = verbose,
+                  by_response = FALSE,
+                  ...)
+    saved_attr <- attributes(out[[1]])
+    out <- mapply(out, names(out),
+                  FUN = function(x, nm) cbind(Response = nm, x),
+                  SIMPLIFY = FALSE)
+    out <- do.call(rbind, out)
+
+    # Set attributes ---
+    attr(out, "partial") <- saved_attr$partial
+    attr(out, "generalized") <- saved_attr$generalized
+    attr(out, "ci") <- saved_attr$ci
+    attr(out, "alternative") <- saved_attr$alternative
+    attr(out, "anova_type") <- attr(model, "anova_type")
+    attr(out, "approximate") <- saved_attr$approximate
+    return(out)
+  }
+
+
   if ("Sum_Squares" %in% colnames(model) && "Residuals" %in% model[["Parameter"]]) {
     if ("Group" %in% colnames(model)) {
       DVs <- unlist(insight::find_predictors(.get_object(model)))
