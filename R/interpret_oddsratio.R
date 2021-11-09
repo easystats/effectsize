@@ -32,7 +32,7 @@
 #'
 #' - Chen, H., Cohen, P., & Chen, S. (2010). How big is a big odds ratio?
 #' Interpreting the magnitudes of odds ratios in epidemiological studies.
-#' Communications in Statistics—Simulation and Computation, 39(4), 860-864.
+#' Communications in Statistics-Simulation and Computation, 39(4), 860-864.
 #'
 #' - Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003).
 #' Effect-size indices for dichotomized outcomes in meta-analysis. Psychological
