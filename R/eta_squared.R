@@ -913,6 +913,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 
   attr(out, "anova_type") <- tryCatch(attr(parameters::model_parameters(model, verbose = FALSE, effects = "fixed"), "anova_type"),
                                       error = function(...) 1)
+  attr(out, "approximate") <- TRUE
   out
 }
 
@@ -954,6 +955,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   }
 
 
+  approximate <- FALSE
   if ("Sum_Squares" %in% colnames(model) && "Residuals" %in% model[["Parameter"]]) {
     if ("Group" %in% colnames(model)) {
       DVs <- unlist(insight::find_predictors(.get_object(model)))
@@ -978,8 +980,10 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
       ci = ci, alternative = alternative,
       verbose = verbose, ...
     )
+    approximate <- TRUE
   }
   attr(out, "anova_type") <- attr(model, "anova_type")
+  attr(out, "approximate") <- approximate
   out
 }
 
@@ -1058,7 +1062,18 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 
   model <- lmerTest::as_lmerModLmerTest(model)
   model <- stats::anova(model)
-  .anova_es.anova(model, type = type, partial = partial, generalized = generalized, ci = ci, alternative = alternative, ...)
+  out <-
+    .anova_es.anova(
+      model,
+      type = type,
+      partial = partial,
+      generalized = generalized,
+      ci = ci,
+      alternative = alternative,
+      ...
+    )
+  attr(out, "approximate") <- TRUE
+  out
 }
 
 #' @keywords internal
@@ -1093,6 +1108,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     )
 
   attr(out, "anova_type") <- 3
+  attr(out, "approximate") <- TRUE
   out
 }
 
@@ -1247,6 +1263,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     ...
   )
   attr(out, "anova_type") <- 2
+  attr(out, "approximate") <- FALSE
   out
 }
 

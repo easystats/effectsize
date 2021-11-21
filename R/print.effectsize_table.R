@@ -10,6 +10,8 @@
 print.effectsize_table <- function(x, digits = 2, ...) {
   x_orig <- x
 
+  footer <- attr(x, "table_footer")
+
   if (!is.null(alt <- attr(x, "alternative")) && alt != "two.sided") {
     ci_footer <- sprintf(
       "\n- One-sided CIs: %s bound fixed at (%s).",
@@ -17,9 +19,14 @@ print.effectsize_table <- function(x, digits = 2, ...) {
       as.character(if (alt == "less") x$CI_low[1] else x$CI_high[1])
     )
 
-    attr(x, "table_footer") <-
-      c(attr(x, "table_footer"), list(c(ci_footer, "cyan")))
+    footer <- c(footer, list(c(ci_footer, "cyan")))
   }
+
+  # if (isTRUE(attr(x, "approximate"))) {
+  #   footer <- c(footer, list(c("\n- Effect size is approximated.", "cyan")))
+  # }
+
+  attr(x, "table_footer") <- footer
 
   x <- format(x, digits = digits)
 
