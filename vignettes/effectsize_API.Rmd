@@ -230,5 +230,11 @@ For this option, you will need:
 
 And... that's it!
 
+# Supporting Standardized Parameters
+
+
+*API for `standardize_parameters()` coming soon.*
+
+
 # References
 
