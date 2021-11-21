@@ -199,9 +199,9 @@ print.effectsize_anova <- function(x, digits = 2, ...) {
   obs <- attr(x, "generalized")
   if (is.character(obs) || isTRUE(obs)) {
     if (isTRUE(obs)) {
-      footer <- "\n- Observed variabels: All"
+      footer <- "\n- Observed variables: All"
     } else {
-      footer <- paste0("\n- Observed variabels: ", paste0(obs, collapse = ", "))
+      footer <- paste0("\n- Observed variables: ", paste0(obs, collapse = ", "))
     }
     footer <- list(c(footer, "cyan"))
   }
