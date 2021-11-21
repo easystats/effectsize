@@ -1189,6 +1189,31 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   out
 }
 
+#' @keywords internal
+.anova_es.mixed <- function(model,
+                            verbose = TRUE,
+                            include_intercept = FALSE,
+                            ...) {
+  if (verbose && include_intercept) {
+    warning("Cannot estimate (Intercept) effect size for `mixed` model.", call. = FALSE)
+  }
+
+  aov_tab <- as.data.frame(anova(model))
+
+  if (!"F" %in% colnames(aov_tab)) {
+    stop("Cannot estimate approx effect size for `mixed` type model - no F-statistic found.", call. = FALSE)
+  }
+
+  aov_tab$Parameter <- rownames(aov_tab)
+  aov_tab$df <- aov_tab[["num Df"]]
+  aov_tab$df_error <- aov_tab[["den Df"]]
+  aov_tab <- aov_tab[, c("Parameter", "df", "df_error", "F")]
+
+  out <- .es_aov_table(aov_tab, verbose = verbose, ...)
+
+  attr(out, "anova_type") <- attr(model, "type")
+  out
+}
 
 
 #' @keywords internal
