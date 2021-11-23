@@ -195,17 +195,11 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   colnm <- c("Component", "Response", "Group", "Parameter", head(.col_2_scale, -2), "CI", "CI_low", "CI_high")
   pars <- pars[, colnm[colnm %in% colnames(pars)]]
 
-  if (!is.null(coefficient_name) && coefficient_name == "Odds Ratio") {
-    colnames(pars)[colnames(pars) == "Coefficient"] <- "Odds_ratio"
-  }
-  if (!is.null(coefficient_name) && coefficient_name == "Risk Ratio") {
-    colnames(pars)[colnames(pars) == "Coefficient"] <- "Risk_ratio"
-  }
-  if (!is.null(coefficient_name) && coefficient_name == "IRR") {
-    colnames(pars)[colnames(pars) == "Coefficient"] <- "IRR"
+  if (!is.null(coefficient_name)) {
+    colnames(pars)[colnames(pars) == "Coefficient"] <- coefficient_name <- gsub(" ", "_", coefficient_name)
   }
 
-  i <- colnames(pars) %in% c("Coefficient", "Median", "Mean", "MAP", "Odds_ratio", "IRR")
+  i <- colnames(pars) %in% c("Coefficient", "Median", "Mean", "MAP", coefficient_name)
   colnames(pars)[i] <- paste0("Std_", colnames(pars)[i])
 
   ## SE attribute?
