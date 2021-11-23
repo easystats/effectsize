@@ -25,6 +25,11 @@
 #' @importFrom parameters parameters_type
 #' @export
 standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseudo = FALSE, ...) {
+  UseMethod("standardize_info")
+}
+
+#' @export
+standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, include_pseudo = FALSE, ...) {
   params <- if (inherits(model, c("glmmTMB", "MixMod"))) {
     insight::find_parameters(model, effects = "fixed", component = "conditional", flatten = TRUE, ...)
   } else {

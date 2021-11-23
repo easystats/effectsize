@@ -221,19 +221,22 @@ omega_squared(mod)
 
 # Supporting Model Re-Fitting with Standardized Data
 
-Although you can make your own `standardize.my_class()` function, DIY-style (possibly using `datawizard::standardize.data.frame()` or `datawizard::standardize.numeric()`), you can also let `effectsize::standardize()` handle all the heavy lifting for you. 
+`effectsize::standardize.default()` should support your model if you have methods for:
 
-For this option, you will need:
-
-1. `insight` support.
+1. `{insight}` functions.
 2. An `update()` method that can take the model and a data frame via the `data = ` argument.
 
-And... that's it!
+Or you can make your own `standardize.my_class()` function, DIY-style (possibly using `datawizard::standardize.data.frame()` or `datawizard::standardize.numeric()`). This function should return a fiffed model of the same class as the input model.
 
 # Supporting Standardized Parameters
 
+`standardize_parameters.default()` should support your model if it is already supported by `{parameters}` and `{insight}`.
 
-*API for `standardize_parameters()` coming soon.*
+- For `method = "refit"`, to have `effectsize::standardize()` support (see above).
+- For the post-hoc methods, you will need to have a method for `standardize_info()` (or use the default method).
+
+
+Or you can make your own `standardize_parameters.my_class()` and/or `standardize_info.my_class()` functions.
 
 
 # References
