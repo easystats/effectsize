@@ -76,12 +76,15 @@ standardize.default <- function(x,
       "\nAs an alternative: you may standardize your data (and adjust your priors), and re-fit the model.",
       call. = FALSE
     )
-  } else if (m_info$is_bayesian) {
+  }
+
+  if (m_info$is_bayesian) {
     warning("Standardizing variables without adjusting priors may lead to bogus results unless priors are auto-scaled.",
       call. = FALSE, immediate. = TRUE
     )
   }
 
+  #  =-=-=-= Z the RESPONSE? =-=-=-=
   # for models with specific scale of the response value (e.g. count models
   # with positive integers, or beta with ratio between 0 and 1), we need to
   # make sure that the original response value will be restored after
@@ -94,8 +97,8 @@ standardize.default <- function(x,
     resp <- NULL
   }
 
-  # Do not standardize weighting-variable, because negative weights will
-  # cause errors in "update()"
+  #  =-=-=-= DO NOT Z WEIGHTING-VARIABLE =-=-=-=
+  # because negative weights will cause errors in "update()"
   weight_variable <- insight::find_weights(x)
 
   if (!is.null(weight_variable) && !weight_variable %in% colnames(data) && "(weights)" %in% colnames(data)) {
@@ -104,10 +107,11 @@ standardize.default <- function(x,
     weight_variable <- c(weight_variable, "(weights)")
   }
 
-  # don't standardize random effects
+  #  =-=-=-= DO NOT Z RANDOM-EFFECTS =-=-=-=
   random_group_factor <- insight::find_random(x, flatten = TRUE, split_nested = TRUE)
 
-  # standardize data
+
+  #  =-=-=-= WHICH YES, WHICH NO? SUMMARY =-=-=-=
   dont_standardize <- c(resp, weight_variable, random_group_factor)
   do_standardize <- setdiff(colnames(data), dont_standardize)
 
@@ -124,48 +128,47 @@ standardize.default <- function(x,
   }
 
 
-  if (length(do_standardize)) {
-    w <- insight::get_weights(x, na_rm = TRUE)
-
-    data_std <- datawizard::standardize(data[do_standardize],
-      robust = robust,
-      two_sd = two_sd,
-      weights = if (weights) w else NULL,
-      verbose = verbose
-    )
-
-    if (!.no_response_standardize(m_info) && include_response && two_sd) {
-      # if two_sd, it must not affect the response!
-      data_std[resp] <- datawizard::standardize(data[resp],
-        robust = robust,
-        two_sd = FALSE,
-        weights = if (weights) w else NULL,
-        verbose = verbose
-      )
-      dont_standardize <- setdiff(dont_standardize, resp)
-    }
-  } else {
+  if (!length(do_standardize)) {
     warning("No variables could be standardized.", call. = FALSE)
     return(x)
   }
 
+  #  =-=-=-= STANDARDIZE! =-=-=-=
+  w <- insight::get_weights(x, na_rm = TRUE)
 
+  data_std <- datawizard::standardize(data[do_standardize],
+                                      robust = robust,
+                                      two_sd = two_sd,
+                                      weights = if (weights) w,
+                                      verbose = verbose)
+
+  # if two_sd, it must not affect the response!
+  if (!.no_response_standardize(m_info) && include_response && two_sd) {
+    data_std[resp] <- datawizard::standardize(data[resp],
+                                              robust = robust,
+                                              two_sd = FALSE,
+                                              weights = if (weights) w,
+                                              verbose = verbose)
+
+    dont_standardize <- setdiff(dont_standardize, resp)
+  }
+
+
+  #  =-=-=-= FIX LOG-SQRT VARIABLES! =-=-=-=
   # if we standardize log-terms, standardization will fail (because log of
   # negative value is NaN). Do some back-transformation here
 
   log_terms <- .log_terms(x, data_std)
   if (length(log_terms) > 0) {
-    data_std[log_terms] <- lapply(data_std[log_terms], function(i) {
-      i - min(i, na.rm = TRUE) + 1
-    })
+    data_std[log_terms] <- lapply(data_std[log_terms],
+                                  function(i) i - min(i, na.rm = TRUE) + 1)
   }
 
   # same for sqrt
   sqrt_terms <- .sqrt_terms(x, data_std)
   if (length(sqrt_terms) > 0) {
-    data_std[sqrt_terms] <- lapply(data_std[sqrt_terms], function(i) {
-      i - min(i, na.rm = TRUE)
-    })
+    data_std[sqrt_terms] <- lapply(data_std[sqrt_terms],
+                                   function(i) i - min(i, na.rm = TRUE))
   }
 
   if (verbose && (length(log_terms) > 0 || length(sqrt_terms) > 0)) {
@@ -173,15 +176,13 @@ standardize.default <- function(x,
   }
 
 
-  # restore data that should not be standardized
-
+  #  =-=-=-= ADD BACK VARIABLES THAT WHERE NOT Z =-=-=-=
   if (length(dont_standardize)) {
     remaining_columns <- intersect(colnames(data), dont_standardize)
     data_std <- cbind(data[, remaining_columns, drop = FALSE], data_std)
   }
 
-  # update model with standardized data
-
+  #  =-=-=-= UPDATE MODEL WITH STANDARDIZED DATA =-=-=-=
   tryCatch({
     if (inherits(x, "brmsfit")) {
       text <- utils::capture.output(model_std <- stats::update(x, newdata = data_std))
