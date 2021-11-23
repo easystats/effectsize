@@ -89,12 +89,22 @@ standardize.default <- function(x,
   # with positive integers, or beta with ratio between 0 and 1), we need to
   # make sure that the original response value will be restored after
   # standardizing, as these models also require a non-standardized response.
-  if (!include_response || .no_response_standardize(m_info)) {
+
+  include_response <- include_response || .safe_to_standardize_response(m_info)
+
+  # If there's an offset, don't standardize offset OR response (?)
+  os <- NULL
+  # os <- insight::find_offset(x)
+  # if (include_response && length(os)) {
+    # if (verbose) warning("Offset detected - response will not be standardized.", call. = FALSE)
+  #   include_response <- FALSE
+  # }
+
+  resp <- NULL
+  if (!include_response) {
     resp <- unique(c(insight::find_response(x), insight::find_response(x, combine = FALSE)))
   } else if (include_response && two_sd) {
     resp <- unique(c(insight::find_response(x), insight::find_response(x, combine = FALSE)))
-  } else {
-    resp <- NULL
   }
 
   #  =-=-=-= DO NOT Z WEIGHTING-VARIABLE =-=-=-=
@@ -112,7 +122,7 @@ standardize.default <- function(x,
 
 
   #  =-=-=-= WHICH YES, WHICH NO? SUMMARY =-=-=-=
-  dont_standardize <- c(resp, weight_variable, random_group_factor)
+  dont_standardize <- c(resp, weight_variable, random_group_factor, os)
   do_standardize <- setdiff(colnames(data), dont_standardize)
 
   # can't std data$var variables
@@ -143,7 +153,7 @@ standardize.default <- function(x,
                                       verbose = verbose)
 
   # if two_sd, it must not affect the response!
-  if (!.no_response_standardize(m_info) && include_response && two_sd) {
+  if (include_response && two_sd) {
     data_std[resp] <- datawizard::standardize(data[resp],
                                               robust = robust,
                                               two_sd = FALSE,
@@ -416,17 +426,17 @@ standardize.wbgee <- standardize.wbm
 
 
 #' @keywords internal
-.no_response_standardize <- function(info, verbose = TRUE) {
+.safe_to_standardize_response <- function(info, verbose = TRUE) {
   if (is.null(info)) {
     if (verbose) {
       warning("Unable to varify if response should not be standardized.\nResponse will be standardized.",
         immediate. = TRUE, call. = FALSE
       )
     }
-    return(FALSE)
+    return(TRUE)
   }
   # check if model has a response variable that should not be standardized.
-  !info$is_linear || info$is_censored || info$family == "inverse.gaussian"
+  !(!info$is_linear || info$is_censored || info$family == "inverse.gaussian")
 
   ## TODO alternative would be to keep the below line for checking if no std possible
   ##      and then treat response for "Gamma()" or "inverse.gaussian" similar to log-terms
