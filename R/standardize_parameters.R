@@ -166,12 +166,13 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   method <- match.arg(method, c("refit", "posthoc", "smart", "basic", "classic", "pseudo"))
 
   m_info <- insight::model_info(model)
-  include_response <- include_response && !.no_response_standardize(m_info, verbose = verbose)
+  include_response <- include_response && .safe_to_standardize_response(m_info, verbose = verbose)
 
   if (method == "refit") {
-    model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose, include_response = include_response)
+    model <- standardize(model,
+                         robust = robust, two_sd = two_sd, include_response = include_response,
+                         verbose = verbose, m_info = m_info)
   }
-  mi <- insight::model_info(model)
 
   # need model_parameters to return the parameters, not the terms
   if (inherits(model, "aov")) class(model) <- class(model)[class(model) != "aov"]
@@ -248,7 +249,7 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   if (is.null(model)) model <- attr(pars, "object")
 
   m_info <- insight::model_info(model)
-  include_response <- include_response && !.no_response_standardize(m_info, verbose = verbose)
+  include_response <- include_response && .safe_to_standardize_response(m_info, verbose = verbose)
 
   if (is.null(exponentiate <- attr(pars, "exponentiate"))) exponentiate <- FALSE
   pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, exponentiate, include_response, verbose)
@@ -295,16 +296,15 @@ standardize_parameters.bootstrap_model <-
     model <- attr(pars, "original_model")
 
     m_info <- insight::model_info(model)
-    include_response <- include_response && !.no_response_standardize(m_info, verbose = verbose)
+    include_response <- include_response && .safe_to_standardize_response(m_info, verbose = verbose)
 
     if (method == "refit") {
       stop("The 'refit' method is not supported for bootstrapped models.")
       ## But it would look something like this:
-      # model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose)
+      # model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose, m_info = m_info)
       # model <- parameters::bootstrap_model(model, iterations = 1000, verbose = verbose)
       # return(model)
     }
-    mi <- insight::model_info(model)
 
     # need model_parameters to return the parameters, not the terms
     if (inherits(model, "aov")) class(model) <- class(model)[class(model) != "aov"]
@@ -467,11 +467,11 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   object_name <- deparse(substitute(model), width.cutoff = 500)
 
   m_info <- insight::model_info(model)
-  include_response <- include_response && !.no_response_standardize(m_info, verbose = verbose)
+  include_response <- include_response && .safe_to_standardize_response(m_info, verbose = verbose)
 
   if (method == "refit") {
     model <- standardize(model, robust = robust, two_sd = two_sd, include_response = include_response,
-                         verbose = verbose)
+                         verbose = verbose, m_info = m_info)
   }
 
   pars <- insight::get_parameters(model)

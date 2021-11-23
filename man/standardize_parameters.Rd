@@ -151,6 +151,10 @@ with respect to the predictors (while the outcome remains as-is,
 unstandardized) - maintaining the interpretability of the coefficients (e.g.,
 in a binomial model: the exponent of the standardized parameter is the OR of
 a change of 1 SD in the predictor, etc.)
+
+If a model is fit with an \code{\link[stats:offset]{stats::offset()}}, the offset \emph{and} the response
+variable will not be standardized. This is done to ensure that the fixed
+relationship between offset and response remains the same.
 }
 
 \section{Dealing with Factors}{

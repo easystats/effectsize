@@ -14,12 +14,12 @@
 #'
 #' @param x A statistical model.
 #' @param weights If `TRUE` (default), a weighted-standardization is carried out.
-#' @param include_response For a model, if `TRUE` (default), the response value
-#'   will also be standardized. If `FALSE`, only the predictors will be
-#'   standardized. Note that for certain models (logistic regression, count
-#'   models, ...), the response value will never be standardized, to make
+#' @param include_response If `TRUE` (default), the response value will also be
+#'   standardized. If `FALSE`, only the predictors will be standardized. Note
+#'   that for certain models (logistic regression, count models, models with
+#'   offsets...), the response value will not be standardized, to make
 #'   re-fitting the model work. (For `mediate` models, only applies to the y
-#'   model; m model's response will always be standardized.)
+#'   model; m model's response will always be standardized when possible).
 #' @inheritParams datawizard::standardize
 #'
 #' @return A statistical model fitted on standardized data
@@ -32,6 +32,10 @@
 #' unstandardized) - maintaining the interpretability of the coefficients (e.g.,
 #' in a binomial model: the exponent of the standardized parameter is the OR of
 #' a change of 1 SD in the predictor, etc.)
+#'
+#' If a model is fit with an [stats::offset()], the offset *and* the response
+#' variable will not be standardized. This is done to ensure that the fixed
+#' relationship between offset and response remains the same.
 #'
 #' # Dealing with Factors
 #' `standardize(model)` or `standardize_parameters(model, method = "refit")` do
@@ -50,6 +54,7 @@
 #' values, such as `log()` and `sqrt()`, the releven variables are shifted (post
 #' standardization) by `Z - min(Z) + 1` or `Z - min(Z)` (respectively).
 #'
+#'
 #' @family standardize
 #' @examples
 #' model <- lm(Infant.Mortality ~ Education * Fertility, data = swiss)
@@ -61,6 +66,7 @@
 #' @importFrom utils capture.output
 #' @export
 #' @aliases standardize_models
+#' @aliases standardize.models
 standardize.default <- function(x,
                                 robust = FALSE,
                                 two_sd = FALSE,
@@ -68,7 +74,10 @@ standardize.default <- function(x,
                                 verbose = TRUE,
                                 include_response = TRUE,
                                 ...) {
-  m_info <- insight::model_info(x)
+  if (is.null(m_info <- list(...)[["m_info"]])){
+    m_info <- insight::model_info(x)
+  }
+
   data <- insight::get_data(x)
 
   if (insight::is_multivariate(x) && inherits(x, "brmsfit")) {
@@ -92,13 +101,12 @@ standardize.default <- function(x,
 
   include_response <- include_response || .safe_to_standardize_response(m_info)
 
-  # If there's an offset, don't standardize offset OR response (?)
-  os <- NULL
-  # os <- insight::find_offset(x)
-  # if (include_response && length(os)) {
-    # if (verbose) warning("Offset detected - response will not be standardized.", call. = FALSE)
-  #   include_response <- FALSE
-  # }
+  # If there's an offset, don't standardize offset OR response
+  os <- insight::find_offset(x)
+  if (include_response && length(os)) {
+    if (verbose) warning("Offset detected - response will not be standardized.", call. = FALSE)
+    include_response <- FALSE
+  }
 
   resp <- NULL
   if (!include_response) {
