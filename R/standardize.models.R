@@ -99,7 +99,7 @@ standardize.default <- function(x,
   # make sure that the original response value will be restored after
   # standardizing, as these models also require a non-standardized response.
 
-  include_response <- include_response || .safe_to_standardize_response(m_info)
+  include_response <- include_response && .safe_to_standardize_response(m_info)
 
   # If there's an offset, don't standardize offset OR response
   os <- insight::find_offset(x)
@@ -143,6 +143,7 @@ standardize.default <- function(x,
       call. = FALSE
     )
     do_standardize <- setdiff(do_standardize, doller_vars)
+    dont_standardize <- c(dont_standardize, doller_vars)
   }
 
 
@@ -189,7 +190,7 @@ standardize.default <- function(x,
                                    function(i) i - min(i, na.rm = TRUE))
   }
 
-  if (verbose && (length(log_terms) > 0 || length(sqrt_terms) > 0)) {
+  if (verbose && length(c(log_terms, sqrt_terms))) {
     message("Formula contains log- or sqrt-terms. See help(\"standardize\") for how such terms are standardized.")
   }
 
@@ -260,7 +261,7 @@ standardize.coxph <- function(x,
   # use a different approach that only retrieves predictors that should
   # be standardized.
 
-  pred <- insight::find_predictors(x, flatten = TRUE)
+  pred <- insight::find_predictors(x, flatten = TRUE, verbose = FALSE)
   data <- insight::get_data(x)
 
   # if we standardize log-terms, standardization will fail (because log of
