@@ -177,15 +177,16 @@ if (require("testthat") && require("effectsize")) {
   test_that("variables evaluated in the environment", {
     m <- lm(mtcars$mpg ~ mtcars$cyl + am, data = mtcars)
     w <- capture_warnings(standardize(m))
-    expect_match(w[1], "mtcars$mpg", fixed = TRUE)
+    expect_true(any(grepl("mtcars$mpg", w, fixed = TRUE)))
+
 
     skip_if(packageVersion("base") == package_version(3.4))
     ## Note:
     # No idea why this is suddenly not giving a warning on older R versions.
     m <- lm(mtcars$mpg ~ mtcars$cyl + mtcars$am, data = mtcars)
     warns <- capture_warnings(standardize(m))
-    expect_true(grepl("mtcars$mpg", warns[1], fixed = TRUE))
-    expect_true(grepl("No variables", warns[2], fixed = TRUE))
+    expect_true(any(grepl("mtcars$mpg", warns, fixed = TRUE)))
+    expect_true(any(grepl("No variables", warns, fixed = TRUE)))
   })
 
 
