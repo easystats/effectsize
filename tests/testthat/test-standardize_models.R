@@ -222,4 +222,17 @@ if (require("testthat") && require("effectsize")) {
       tolerance = 0.1
     )
   })
+
+  # Offsets -----------------------------------------------------------------
+
+  test_that("offsets", {
+    m <- lm(mpg ~ hp + offset(wt), data = mtcars)
+
+    expect_warning(mz <- standardize(m))
+
+    par1 <- parameters::model_parameters(mz)
+    par2 <- standardize_parameters(m, method = "basic", include_response = FALSE)
+
+    expect_equal(par2$Std_Coefficient[2], par1$Coefficient[2])
+  })
 }
