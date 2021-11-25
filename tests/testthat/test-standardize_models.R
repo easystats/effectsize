@@ -228,11 +228,16 @@ if (require("testthat") && require("effectsize")) {
   test_that("offsets", {
     m <- lm(mpg ~ hp + offset(wt), data = mtcars)
 
-    expect_warning(mz <- standardize(m))
+    expect_warning(mz1 <- standardize(m))
+    expect_warning(mz2 <- standardize(m, two_sd = TRUE))
+    expect_equal(c(1, 2) * coef(mz1), coef(mz2))
+
+
+    m <- glm(cyl ~ hp + offset(wt), family = poisson(), data = mtcars)
+    expect_warning(mz <- standardize(m), regexp = NA)
 
     par1 <- parameters::model_parameters(mz)
-    par2 <- standardize_parameters(m, method = "basic", include_response = FALSE)
-
-    expect_equal(par2$Std_Coefficient[2], par1$Coefficient[2])
+    par2 <- standardize_parameters(m, method = "basic")
+    expect_equal(par2[2,2], par1[2,2], tolerance = 0.05)
   })
 }

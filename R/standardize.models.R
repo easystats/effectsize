@@ -15,11 +15,14 @@
 #' @param x A statistical model.
 #' @param weights If `TRUE` (default), a weighted-standardization is carried out.
 #' @param include_response If `TRUE` (default), the response value will also be
-#'   standardized. If `FALSE`, only the predictors will be standardized. Note
-#'   that for certain models (logistic regression, count models, models with
-#'   offsets...), the response value will not be standardized, to make
-#'   re-fitting the model work. (For `mediate` models, only applies to the y
-#'   model; m model's response will always be standardized when possible).
+#'   standardized. If `FALSE`, only the predictors will be standardized.
+#'   - Note that for GLMs and models with non-linear link functions, the
+#'   response value will not be standardized, to make re-fitting the model work.
+#'   - If the model contains an [stats::offset()], the offset variable(s) will
+#'   be standardized only if the response is standardized. If `two_sd = TRUE`,
+#'   offsets are standardized by one-sd (similar to the response).
+#'   - (For `mediate` models, the `include_response` refers to the outcome in
+#'   the y model; m model's response will always be standardized when possible).
 #' @inheritParams datawizard::standardize
 #'
 #' @return A statistical model fitted on standardized data
@@ -32,10 +35,6 @@
 #' unstandardized) - maintaining the interpretability of the coefficients (e.g.,
 #' in a binomial model: the exponent of the standardized parameter is the OR of
 #' a change of 1 SD in the predictor, etc.)
-#'
-#' If a model is fit with an [stats::offset()], the offset *and* the response
-#' variable will not be standardized. This is done to ensure that the fixed
-#' relationship between offset and response remains the same.
 #'
 #' # Dealing with Factors
 #' `standardize(model)` or `standardize_parameters(model, method = "refit")` do
@@ -101,18 +100,30 @@ standardize.default <- function(x,
 
   include_response <- include_response && .safe_to_standardize_response(m_info)
 
-  # If there's an offset, don't standardize offset OR response
-  os <- insight::find_offset(x)
-  if (include_response && length(os)) {
-    if (verbose) warning("Offset detected - response will not be standardized.", call. = FALSE)
-    include_response <- FALSE
-  }
-
   resp <- NULL
   if (!include_response) {
     resp <- unique(c(insight::find_response(x), insight::find_response(x, combine = FALSE)))
   } else if (include_response && two_sd) {
     resp <- unique(c(insight::find_response(x), insight::find_response(x, combine = FALSE)))
+  }
+
+  # If there's an offset, don't standardize offset OR response
+  offsets <- insight::find_offset(x)
+  if (length(offsets)) {
+    if (include_response) {
+      if (verbose) {
+        warning("Offset detected and will be standardized.", call. = FALSE)
+      }
+
+      if (two_sd) {
+        # Treat offsets like responses - only standardize by 1 SD
+        resp <- c(resp, offsets)
+        offsets <- NULL
+      }
+    } else if (!include_response) {
+      # Don't standardize offsets if not standardizing the response
+      offsets <- NULL
+    }
   }
 
   #  =-=-=-= DO NOT Z WEIGHTING-VARIABLE =-=-=-=
@@ -130,7 +141,7 @@ standardize.default <- function(x,
 
 
   #  =-=-=-= WHICH YES, WHICH NO? SUMMARY =-=-=-=
-  dont_standardize <- c(resp, weight_variable, random_group_factor, os)
+  dont_standardize <- c(resp, weight_variable, random_group_factor)
   do_standardize <- setdiff(colnames(data), dont_standardize)
 
   # can't std data$var variables

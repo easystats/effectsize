@@ -35,11 +35,16 @@ outcome) (Gelman, 2008).}
 \item{verbose}{Toggle warnings and messages on or off.}
 
 \item{include_response}{If \code{TRUE} (default), the response value will also be
-standardized. If \code{FALSE}, only the predictors will be standardized. Note
-that for certain models (logistic regression, count models, models with
-offsets...), the response value will not be standardized, to make
-re-fitting the model work. (For \code{mediate} models, only applies to the y
-model; m model's response will always be standardized when possible).}
+standardized. If \code{FALSE}, only the predictors will be standardized.
+\itemize{
+\item Note that for GLMs and models with non-linear link functions, the
+response value will not be standardized, to make re-fitting the model work.
+\item If the model contains an \code{\link[stats:offset]{stats::offset()}}, the offset variable(s) will
+be standardized only if the response is standardized. If \code{two_sd = TRUE},
+offsets are standardized by one-sd (similar to the response).
+\item (For \code{mediate} models, the \code{include_response} refers to the outcome in
+the y model; m model's response will always be standardized when possible).
+}}
 
 \item{...}{Arguments passed to or from other methods.}
 }
@@ -65,10 +70,6 @@ with respect to the predictors (while the outcome remains as-is,
 unstandardized) - maintaining the interpretability of the coefficients (e.g.,
 in a binomial model: the exponent of the standardized parameter is the OR of
 a change of 1 SD in the predictor, etc.)
-
-If a model is fit with an \code{\link[stats:offset]{stats::offset()}}, the offset \emph{and} the response
-variable will not be standardized. This is done to ensure that the fixed
-relationship between offset and response remains the same.
 }
 
 \section{Dealing with Factors}{
