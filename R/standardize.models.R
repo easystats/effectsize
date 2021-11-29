@@ -254,60 +254,6 @@ standardize.mlm <- function(x,
   )
 }
 
-
-#' @export
-standardize.coxph <- function(x,
-                              robust = FALSE,
-                              two_sd = FALSE,
-                              weights = TRUE,
-                              verbose = TRUE,
-                              ...) {
-
-
-  # for some models, the DV cannot be standardized when using
-  # "update()", so we only standardize model predictors
-  #
-  # survival models have some strange format for the response variable,
-  # so we don't use the default standardize function here, but
-  # use a different approach that only retrieves predictors that should
-  # be standardized.
-
-  pred <- insight::find_predictors(x, flatten = TRUE, verbose = FALSE)
-  data <- insight::get_data(x)
-
-  # if we standardize log-terms, standardization will fail (because log of
-  # negative value is NaN)
-
-  log_terms <- .log_terms(x)
-  if (length(log_terms)) pred <- setdiff(pred, log_terms)
-
-  weight_variable <- insight::find_weights(x)
-  if (length(weight_variable)) pred <- setdiff(pred, weight_variable)
-
-  # standardize data, if we have anything left to standardize
-
-  if (length(pred)) {
-    w <- insight::get_weights(x, na_rm = TRUE)
-
-    data_std <- datawizard::standardize(data[pred],
-      robust = robust,
-      two_sd = two_sd,
-      weights = if (weights) w else NULL,
-      verbose = verbose
-    )
-    data[pred] <- data_std
-  }
-
-  text <- utils::capture.output(model_std <- stats::update(x, data = data))
-
-  model_std
-}
-
-
-#' @export
-standardize.coxme <- standardize.coxph
-
-
 #' @export
 #' @importFrom utils capture.output
 #' @importFrom insight get_data
@@ -449,19 +395,29 @@ standardize.wbgee <- standardize.wbm
 .safe_to_standardize_response <- function(info, verbose = TRUE) {
   if (is.null(info)) {
     if (verbose) {
-      warning("Unable to varify if response should not be standardized.\nResponse will be standardized.",
-        immediate. = TRUE, call. = FALSE
-      )
+      warning("Unable to varify if response should not be standardized.",
+              "\nResponse will be standardized.",
+              immediate. = TRUE, call. = FALSE)
     }
     return(TRUE)
   }
+
   # check if model has a response variable that should not be standardized.
-  !(!info$is_linear || info$is_censored || info$family == "inverse.gaussian")
+  info$is_linear &&
+    !info$family == "inverse.gaussian" &&
+    !info$is_survival &&
+    !info$is_censored
 
-  ## TODO alternative would be to keep the below line for checking if no std possible
-  ##      and then treat response for "Gamma()" or "inverse.gaussian" similar to log-terms
-
-  # info$is_count | info$is_ordinal | info$is_multinomial | info$is_beta | info$is_censored | info$is_binomial | info$is_survival
+  # # alternative would be to keep something like:
+  # !info$is_count &&
+  #   !info$is_ordinal &&
+  #   !info$is_multinomial &&
+  #   !info$is_beta &&
+  #   !info$is_censored &&
+  #   !info$is_binomial &&
+  #   !info$is_survival
+  # # And then treating response for "Gamma()" or "inverse.gaussian" similar to
+  # # log-terms...
 }
 
 #' @keywords internal
