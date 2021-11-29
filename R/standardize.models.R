@@ -93,10 +93,10 @@ standardize.default <- function(x,
   }
 
   #  =-=-=-= Z the RESPONSE? =-=-=-=
-  # for models with specific scale of the response value (e.g. count models
-  # with positive integers, or beta with ratio between 0 and 1), we need to
-  # make sure that the original response value will be restored after
-  # standardizing, as these models also require a non-standardized response.
+  # Some models have special responses that should not be standardized. This
+  # includes:
+  # - generalized linear models (counts, binomial, etc...)
+  # - Survival models
 
   include_response <- include_response && .safe_to_standardize_response(m_info)
 
