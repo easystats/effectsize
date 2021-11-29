@@ -233,11 +233,34 @@ Or you can make your own `standardize.my_class()` function, DIY-style (possibly 
 `standardize_parameters.default()` should support your model if it is already supported by `{parameters}` and `{insight}`.
 
 - For `method = "refit"`, to have `effectsize::standardize()` support (see above).
-- For the post-hoc methods, you will need to have a method for `standardize_info()` (or use the default method).
-
+- For the post-hoc methods, you will need to have a method for `standardize_info()` (or use the default method). See next section.
 
 Or you can make your own `standardize_parameters.my_class()` and/or `standardize_info.my_class()` functions.
 
+## Extracting Post-Hoc Standardization Information (`standardize_info`)
+
+The `standardize_info()` function computes the standardized units needed for standardization; In order to standardize some slope $b_{xi}$, we need to multiply it by a scaling factor:
+
+$$b^*_{xi} = \frac{\text{Deviation}_{xi}}{\text{Deviation}_{y}}\times b_{xi}$$
+
+These "deviations" are univariate scaling factors of the response and the specific parameter (usin its corresponding feature in the design matrix). Most often these are a single standard deviation (*SD*), but depending on the `robust` and `two_sd` arguments, these can be also be two *MAD*s, etc.
+
+Let's look at an example:
+
+```{r}
+m <- lm(mpg ~ factor(cyl) * am, data = mtcars)
+
+standardize_info(m)
+```
+
+- The first 4 columns (`Parameter`, `Type`, `Link`, `Secondary_Parameter`) are taken from `parameters::parameters_type()`.  
+- The `EffectSize_Type` column is not used here, but is used in the the `{report}` package.  
+- `Deviation_Response_Basic` and `Deviation_Response_Smart` correspond to the $\text{Deviation}_{y}$ scalar using two different methods of post-hoc standardization (see `standardize_parameters()` docs for more details).  
+    - Note then when the response is not standardized (either due to `standardize_parameters(include_response = FALSE)` or because the model uses a non-continuous response), both methods are fixed at **1** (i.e., no standardization with respect to the outcome).  
+- `Deviation_Basic` and `Deviation_Smart` correspond to the $\text{Deviation}_{xi}$ scaler using two different methods of post-hoc standardization.
+
+This information is then used by the `standardize_parameters()` to standardize the parameters.
+    
 
 # References
 
