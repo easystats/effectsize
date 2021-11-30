@@ -7,11 +7,11 @@
 #' @inheritParams stats::chisq.test
 #' @param ci Confidence Interval (CI) level
 #' @param alternative a character string specifying the alternative hypothesis;
-#'   Controls the type of CI returned: `"two.sided"` (two-sided CI; default for
-#'   Cramer's *V*, phi (\eqn{\phi}), and Cohen's *w*), `"greater"` (default for
-#'   OR, RR, Cohen's *h* and Cohen's *g*) or `"less"` (one-sided CI). Partial
-#'   matching is allowed (e.g., `"g"`, `"l"`, `"two"`...). See *One-Sided CIs*
-#'   in [effectsize_CIs].
+#'   Controls the type of CI returned: `"greater"` (two-sided CI; default for
+#'   Cramer's *V*, phi (\eqn{\phi}), and Cohen's *w*), `"two.sided"` (default
+#'   for OR, RR, Cohen's *h* and Cohen's *g*) or `"less"` (one-sided CI).
+#'   Partial matching is allowed (e.g., `"g"`, `"l"`, `"two"`...). See
+#'   *One-Sided CIs* in [effectsize_CIs].
 #' @param adjust Should the effect size be bias-corrected? Defaults to `FALSE`.
 #' @param ... Arguments passed to [stats::chisq.test()], such as `p`. Ignored
 #'   for `cohens_g()`.

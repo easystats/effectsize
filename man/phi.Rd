@@ -44,11 +44,11 @@ cohens_g(x, y = NULL, ci = 0.95, alternative = "two.sided", ...)
 \item{ci}{Confidence Interval (CI) level}
 
 \item{alternative}{a character string specifying the alternative hypothesis;
-Controls the type of CI returned: \code{"two.sided"} (two-sided CI; default for
-Cramer's \emph{V}, phi (\eqn{\phi}), and Cohen's \emph{w}), \code{"greater"} (default for
-OR, RR, Cohen's \emph{h} and Cohen's \emph{g}) or \code{"less"} (one-sided CI). Partial
-matching is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs}
-in \link{effectsize_CIs}.}
+Controls the type of CI returned: \code{"greater"} (two-sided CI; default for
+Cramer's \emph{V}, phi (\eqn{\phi}), and Cohen's \emph{w}), \code{"two.sided"} (default
+for OR, RR, Cohen's \emph{h} and Cohen's \emph{g}) or \code{"less"} (one-sided CI).
+Partial matching is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See
+\emph{One-Sided CIs} in \link{effectsize_CIs}.}
 
 \item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
 
