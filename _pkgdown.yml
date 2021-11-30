@@ -17,16 +17,6 @@ template:
     primary: "#4caf50"
 
 
-navbar:
-  structure:
-    right: [twitter, github]
-  components:
-    twitter:
-      icon: fa-twitter
-      href: http://twitter.com/easystats4u
-      aria-label: Twitter
-
-
 reference:
 - title: "Indices of Effect Size"
   contents:
@@ -94,7 +84,13 @@ reference:
   - effectsize_deprecated
 
 navbar:
-  type: default
+  structure:
+    right: [twitter, github]
+  components:
+    twitter:
+      icon: fa-twitter
+      href: http://twitter.com/easystats4u
+      aria-label: Twitter
   left:
   - icon: fa-home fa-lg
     href: index.html
