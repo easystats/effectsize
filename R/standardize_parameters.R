@@ -184,6 +184,11 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   coefficient_name <- attr(pars, "coefficient_name")
 
   if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
+    if (m_info$is_multivariate) {
+      # TODO FIX
+      stop('Cannot post-hoc standardize multivariate models. Try using method "refit" instead.')
+    }
+
     pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, exponentiate, include_response, verbose)
 
     method <- attr(pars, "std_method")
