@@ -5,10 +5,27 @@ authors:
     href: https://dominiquemakowski.github.io/
   Daniel Lüdecke:
     href: https://github.com/strengejacke
+  Indrajeet Patil:
+    href: https://sites.google.com/site/indrajeetspatilmorality/
+  Brenton M. Wiernik:
+    href: https://wiernik.org/
+
 
 template:
-  params:
-    bootswatch: cosmo
+  bootstrap: 5
+  bslib:
+    primary: "#4caf50"
+
+
+navbar:
+  structure:
+    right: [twitter, github]
+  components:
+    twitter:
+      icon: fa-twitter
+      href: http://twitter.com/easystats4u
+      aria-label: Twitter
+
 
 reference:
 - title: "Indices of Effect Size"
