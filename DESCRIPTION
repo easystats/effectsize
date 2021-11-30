@@ -55,7 +55,7 @@ Imports:
     insight (>= 0.14.3),
     parameters (>= 0.15.0.1),
     performance (>= 0.8.0),
-    datawizard (>= 0.2.0),
+    datawizard (>= 0.2.1.9001),
     stats,
     utils
 Suggests:
@@ -86,7 +86,8 @@ Suggests:
     testthat,
     tidymodels
 Remotes:
-    easystats/parameters
+    easystats/parameters,
+    easystats/datawizard
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
