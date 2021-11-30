@@ -98,8 +98,8 @@ they are computed in effectsize."><meta property="og:image" content="/logo.png">
 they are computed in <em>effectsize</em>.</p>
     </div>
 
+    <div id="ref-usage">Usage,NULL</div>
 
-    <div id="ref-sections">
     <div id="confidence-compatibility-intervals-cis-">
     <h2>Confidence (Compatibility) Intervals (CIs)</h2>
     
@@ -195,31 +195,31 @@ the bounds for an equivalence test with \(\alpha\) = .05. However, be aware
 that this interval does not give 95% coverage for the underlying effect size
 parameter value. For that, construct a 95% 2-sided CI.</p><div class="sourceCode r"><pre><code><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"hardlyworking"</span><span class="op">)</span>
 <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">n_comps</span> <span class="op">+</span> <span class="va">age</span>, data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">)</span>
-<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span> <span class="co"># default, ci = 0.95, alternative = "greater"</span></code></pre><p></p></div><pre><code><span class="co">## # Effect Size for ANOVA (Type I)</span>
+<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span> <span class="co"># default, ci = 0.95, alternative = "greater"</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## # Effect Size for ANOVA (Type I)</span>
 <span class="co">## </span>
 <span class="co">## Parameter | Eta2 (partial) |       95% CI</span>
 <span class="co">## -----------------------------------------</span>
 <span class="co">## n_comps   |           0.21 | [0.16, 1.00]</span>
 <span class="co">## age       |           0.10 | [0.06, 1.00]</span>
 <span class="co">## </span>
-<span class="co">## - One-sided CIs: upper bound fixed at (1).</span></code></pre><p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">fit</span>, alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span> <span class="co"># Test is eta is smaller than some value</span></code></pre><p></p></div><pre><code><span class="co">## # Effect Size for ANOVA (Type I)</span>
+<span class="co">## - One-sided CIs: upper bound fixed at (1).</span></code></pre></div><p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">fit</span>, alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span> <span class="co"># Test is eta is smaller than some value</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## # Effect Size for ANOVA (Type I)</span>
 <span class="co">## </span>
 <span class="co">## Parameter | Eta2 (partial) |       95% CI</span>
 <span class="co">## -----------------------------------------</span>
 <span class="co">## n_comps   |           0.21 | [0.00, 0.26]</span>
 <span class="co">## age       |           0.10 | [0.00, 0.14]</span>
 <span class="co">## </span>
-<span class="co">## - One-sided CIs: lower bound fixed at (0).</span></code></pre><p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">fit</span>, alternative <span class="op">=</span> <span class="st">"two.sided"</span><span class="op">)</span> <span class="co"># 2-sided bounds for alpha = .05</span></code></pre><p></p></div><pre><code><span class="co">## # Effect Size for ANOVA (Type I)</span>
+<span class="co">## - One-sided CIs: lower bound fixed at (0).</span></code></pre></div><p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">fit</span>, alternative <span class="op">=</span> <span class="st">"two.sided"</span><span class="op">)</span> <span class="co"># 2-sided bounds for alpha = .05</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## # Effect Size for ANOVA (Type I)</span>
 <span class="co">## </span>
 <span class="co">## Parameter | Eta2 (partial) |       95% CI</span>
 <span class="co">## -----------------------------------------</span>
 <span class="co">## n_comps   |           0.21 | [0.15, 0.27]</span>
-<span class="co">## age       |           0.10 | [0.06, 0.15]</span></code></pre><p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">fit</span>, ci <span class="op">=</span> <span class="fl">0.9</span>, alternative <span class="op">=</span> <span class="st">"two.sided"</span><span class="op">)</span> <span class="co"># both 1-sided bounds for alpha = .05</span></code></pre><p></p></div><pre><code><span class="co">## # Effect Size for ANOVA (Type I)</span>
+<span class="co">## age       |           0.10 | [0.06, 0.15]</span></code></pre></div><p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">fit</span>, ci <span class="op">=</span> <span class="fl">0.9</span>, alternative <span class="op">=</span> <span class="st">"two.sided"</span><span class="op">)</span> <span class="co"># both 1-sided bounds for alpha = .05</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## # Effect Size for ANOVA (Type I)</span>
 <span class="co">## </span>
 <span class="co">## Parameter | Eta2 (partial) |       90% CI</span>
 <span class="co">## -----------------------------------------</span>
 <span class="co">## n_comps   |           0.21 | [0.16, 0.26]</span>
-<span class="co">## age       |           0.10 | [0.06, 0.14]</span></code></pre>
+<span class="co">## age       |           0.10 | [0.06, 0.14]</span></code></pre></div>
 
     </div>
     <div id="ci-does-not-contain-the-estimate">
@@ -229,9 +229,9 @@ parameter value. For that, construct a 95% 2-sided CI.</p><div class="sourceCode
 <p>For very large sample sizes or effect sizes, the width of the CI can be
 smaller than the tolerance of the optimizer, resulting in CIs of width 0.
 This can also result in the estimated CIs excluding the point estimate.</p>
-<p>For example:</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/t_to_r.html">t_to_d</a></span><span class="op">(</span><span class="fl">80</span>, df_error <span class="op">=</span> <span class="fl">4555555</span><span class="op">)</span></code></pre><p></p></div><pre><code><span class="co">## d    |       95% CI</span>
+<p>For example:</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/t_to_r.html">t_to_d</a></span><span class="op">(</span><span class="fl">80</span>, df_error <span class="op">=</span> <span class="fl">4555555</span><span class="op">)</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## d    |       95% CI</span>
 <span class="co">## -------------------</span>
-<span class="co">## 0.07 | [0.08, 0.08]</span></code></pre>
+<span class="co">## 0.07 | [0.08, 0.08]</span></code></pre></div>
 
 <p>In these cases, consider an alternative optimizer, or an alternative method
 for computing CIs, such as the bootstrap.</p>
@@ -258,7 +258,6 @@ doi: <a href="https://doi.org/10.1037/1082-989x.9.2.164" class="external-link">1
 Confidence distribution, the frequentist distribution estimator of a parameter: A review.
 <em>International Statistical Review, 81</em>(1), 3–-39.
 doi: <a href="https://doi.org/10.1111/insr.12000" class="external-link">10.1111/insr.12000</a></p>
-    </div>
     </div>
 
   </div>

@@ -98,7 +98,7 @@ Cohen's w and Pearson's C for contingency tables or goodness of fit."><meta prop
 Cohen's <em>w</em> and Pearson's <em>C</em> for contingency tables or goodness of fit.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">chisq_to_phi</span><span class="op">(</span>
+    <div id="ref-usage">Usage,<div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">chisq_to_phi</span><span class="op">(</span>
   <span class="va">chisq</span>,
   <span class="va">n</span>,
   <span class="va">nrow</span>,
@@ -141,9 +141,8 @@ Cohen's <em>w</em> and Pearson's <em>C</em> for contingency tables or goodness o
   <span class="va">...</span>
 <span class="op">)</span>
 
-<span class="fu">phi_to_chisq</span><span class="op">(</span><span class="va">phi</span>, <span class="va">n</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+<span class="fu">phi_to_chisq</span><span class="op">(</span><span class="va">phi</span>, <span class="va">n</span>, <span class="va">...</span><span class="op">)</span></code></pre></div></div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>chisq</dt>
@@ -245,11 +244,10 @@ Journal of the Korean Statistical Society, 42(3), 323-328.</p></li>
 <code><a href="F_to_eta2.html">F_to_eta2</a>()</code>,
 <code><a href="t_to_r.html">t_to_d</a>()</code></p></div>
     </div>
-    </div>
 
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">contingency_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">762</span>, <span class="fl">327</span>, <span class="fl">468</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>, <span class="fl">239</span>, <span class="fl">477</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>, <span class="fl">239</span>, <span class="fl">477</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">contingency_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">762</span>, <span class="fl">327</span>, <span class="fl">468</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>, <span class="fl">239</span>, <span class="fl">477</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>, <span class="fl">239</span>, <span class="fl">477</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># chisq.test(contingency_table)</span></span>
 <span class="r-in"><span class="co">#&gt;</span></span>
