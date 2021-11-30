@@ -6,9 +6,10 @@ articles:
   anovaES: anovaES.html
   bayesian_models: bayesian_models.html
   convert: convert.html
+  effectsize_API: effectsize_API.html
   from_test_statistics: from_test_statistics.html
   interpret: interpret.html
   simple_htests: simple_htests.html
   standardize_parameters: standardize_parameters.html
-last_built: 2021-11-30T07:52Z
+last_built: 2021-11-30T11:50Z
 

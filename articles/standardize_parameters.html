@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,6 +63,9 @@
     <a class="dropdown-item" href="../reference/effectsize_CIs.html">Confidence Intervals</a>
     <a class="dropdown-item" href="../articles/bayesian_models.html">For Bayesian Models</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../articles/effectsize_API.html">Extending effectsize</a>
 </li>
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-conversion">Conversion</a>
@@ -439,28 +442,24 @@ standardization**, described below
 <p>Linear mixed models (LMM/HLM/MLM) offer an additional conundrum to standardization - how does one even calculate the SDs of the various predictors? Or of the response - is it the deviations within each group? Or perhaps between them?</p>
 <p>The solution: standardize according to level of the predictor <span class="citation">(Hoffman 2015, 342)</span>! Level 1 parameters are standardized according to variance <em>within</em> groups, while level 2 parameters are standardized according to variance <em>between</em> groups. The resulting standardized coefficient are also called <em>pseudo</em>-standardized coefficients.[^Note that like method <code>"basic"</code>, these are based on the model matrix.]</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">lme4</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">am</span> <span class="op">+</span> <span class="va">vs</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">cyl</span><span class="op">)</span>, <span class="va">mtcars</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">lme4</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">Reaction</span> <span class="op">~</span> <span class="va">Days</span> <span class="op">+</span> <span class="op">(</span><span class="va">Days</span><span class="op">|</span><span class="va">Subject</span><span class="op">)</span>, data <span class="op">=</span> <span class="fu">lme4</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/lme4/man/sleepstudy.html" class="external-link">sleepstudy</a></span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span>, method <span class="op">=</span> <span class="st">"pseudo"</span>, ci_method <span class="op">=</span> <span class="st">"satterthwaite"</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Standardization method: pseudo
 &gt; 
-&gt; Parameter   | Coefficient (std.) |         95% CI
-&gt; -------------------------------------------------
-&gt; (Intercept) |               0.00 | [ 0.00,  0.00]
-&gt; cyl         |              -0.74 | [-1.25, -0.23]
-&gt; amAutomatic |               0.47 | [-0.01,  0.95]
-&gt; vs          |               0.20 | [-0.50,  0.90]</code></pre>
+&gt; Parameter   | Coefficient (std.) |       95% CI
+&gt; -----------------------------------------------
+&gt; (Intercept) |               0.00 | [0.00, 0.00]
+&gt; Days        |               0.68 | [0.47, 0.89]</code></pre>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># compare to:</span>
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span>, method <span class="op">=</span> <span class="st">"basic"</span>, ci_method <span class="op">=</span> <span class="st">"satterthwaite"</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Standardization method: basic
 &gt; 
-&gt; Parameter   | Coefficient (std.) |         95% CI
-&gt; -------------------------------------------------
-&gt; (Intercept) |               0.00 | [ 0.00,  0.00]
-&gt; cyl         |              -0.63 | [-1.07, -0.20]
-&gt; amAutomatic |               0.25 | [-0.01,  0.51]
-&gt; vs          |               0.11 | [-0.27,  0.48]</code></pre>
+&gt; Parameter   | Coefficient (std.) |       95% CI
+&gt; -----------------------------------------------
+&gt; (Intercept) |               0.00 | [0.00, 0.00]
+&gt; Days        |               0.54 | [0.37, 0.70]</code></pre>
 </div>
 <div class="section level2">
 <h2 id="standardizing-parameters-in-generalized-linear-models">Standardizing Parameters In Generalized Linear Models<a class="anchor" aria-label="anchor" href="#standardizing-parameters-in-generalized-linear-models"></a>
@@ -475,12 +474,12 @@ standardization**, described below
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod_b</span>, method <span class="op">=</span> <span class="st">"refit"</span>, two_sd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Standardization method: refit
 &gt; 
-&gt; Parameter    | Coefficient (std.) |         95% CI
-&gt; --------------------------------------------------
-&gt; (Intercept)  |              -0.91 | [-3.32,  1.33]
-&gt; mpg          |               4.46 | [ 0.30, 10.54]
-&gt; factor(cyl)6 |               0.73 | [-2.04,  3.66]
-&gt; factor(cyl)8 |               0.70 | [-3.13,  4.78]
+&gt; Parameter                      | Coefficient (std.) |         95% CI
+&gt; --------------------------------------------------------------------
+&gt; (Intercept)                    |              -0.91 | [-3.32,  1.33]
+&gt; mpg                            |               4.46 | [ 0.30, 10.54]
+&gt; factor(cyl)-0.0524939042876197 |               0.73 | [-2.04,  3.66]
+&gt; factor(cyl)0.507441074780324   |               0.70 | [-3.13,  4.78]
 &gt; 
 &gt; - Scaled by two SD(s) from the mean.
 &gt; (Response is unstandardized)</code></pre>
@@ -497,12 +496,12 @@ standardization**, described below
 <code class="sourceCode R"><span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod_b</span>, method <span class="op">=</span> <span class="st">"refit"</span>, two_sd <span class="op">=</span> <span class="cn">TRUE</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; # Standardization method: refit
 &gt; 
-&gt; Parameter    | Odds Ratio (std.) |           95% CI
-&gt; ---------------------------------------------------
-&gt; (Intercept)  |              0.40 | [0.04,     3.76]
-&gt; mpg          |             86.40 | [1.36, 37955.41]
-&gt; factor(cyl)6 |              2.08 | [0.13,    39.04]
-&gt; factor(cyl)8 |              2.02 | [0.04,   119.12]
+&gt; Parameter                      | Odds Ratio (std.) |           95% CI
+&gt; ---------------------------------------------------------------------
+&gt; (Intercept)                    |              0.40 | [0.04,     3.76]
+&gt; mpg                            |             86.40 | [1.36, 37955.41]
+&gt; factor(cyl)-0.0524939042876197 |              2.08 | [0.13,    39.04]
+&gt; factor(cyl)0.507441074780324   |              2.02 | [0.04,   119.12]
 &gt; 
 &gt; - Scaled by two SD(s) from the mean.
 &gt; (Response is unstandardized)</code></pre>

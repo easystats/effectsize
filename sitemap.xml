@@ -28,6 +28,9 @@
     <loc>/articles/convert.html</loc>
   </url>
   <url>
+    <loc>/articles/effectsize_API.html</loc>
+  </url>
+  <url>
     <loc>/articles/from_test_statistics.html</loc>
   </url>
   <url>
@@ -71,6 +74,9 @@
   </url>
   <url>
     <loc>/reference/effectsize.html</loc>
+  </url>
+  <url>
+    <loc>/reference/effectsize_API.html</loc>
   </url>
   <url>
     <loc>/reference/effectsize_CIs.html</loc>

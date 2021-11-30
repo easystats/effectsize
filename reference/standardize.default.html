@@ -30,7 +30,7 @@ median and the MAD instead of the mean and the SD."><meta property="og:image" co
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,6 +59,9 @@ median and the MAD instead of the mean and the SD."><meta property="og:image" co
     <a class="dropdown-item" href="../reference/effectsize_CIs.html">Confidence Intervals</a>
     <a class="dropdown-item" href="../articles/bayesian_models.html">For Bayesian Models</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../articles/effectsize_API.html">Extending effectsize</a>
 </li>
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-conversion">Conversion</a>
@@ -145,12 +148,15 @@ outcome) (Gelman, 2008).</p></dd>
 <dt>verbose</dt>
 <dd><p>Toggle warnings and messages on or off.</p></dd>
 <dt>include_response</dt>
-<dd><p>For a model, if <code>TRUE</code> (default), the response value
-will also be standardized. If <code>FALSE</code>, only the predictors will be
-standardized. Note that for certain models (logistic regression, count
-models, ...), the response value will never be standardized, to make
-re-fitting the model work. (For <code>mediate</code> models, only applies to the y
-model; m model's response will always be standardized.)</p></dd>
+<dd><p>If <code>TRUE</code> (default), the response value will also be
+standardized. If <code>FALSE</code>, only the predictors will be standardized.</p><ul><li><p>Note that for GLMs and models with non-linear link functions, the
+response value will not be standardized, to make re-fitting the model work.</p></li>
+<li><p>If the model contains an <code><a href="https://rdrr.io/r/stats/offset.html" class="external-link">stats::offset()</a></code>, the offset variable(s) will
+be standardized only if the response is standardized. If <code>two_sd = TRUE</code>,
+offsets are standardized by one-sd (similar to the response).</p></li>
+<li><p>(For <code>mediate</code> models, the <code>include_response</code> refers to the outcome in
+the y model; m model's response will always be standardized when possible).</p></li>
+</ul></dd>
 <dt>...</dt>
 <dd><p>Arguments passed to or from other methods.</p></dd>
 </dl></div>
