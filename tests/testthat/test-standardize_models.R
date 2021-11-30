@@ -10,6 +10,14 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(coef(m0), coef(model))
   })
 
+  test_that("standardize, mlm", {
+    m <- lm(cbind(mpg, hp) ~ cyl + am, data = mtcars)
+    m2 <- lm(scale(cbind(mpg, hp)) ~ scale(cyl) + scale(am), data = mtcars)
+
+    mz <- standardize(m)
+    expect_equal(coef(mz), coef(m2), ignore_attr = TRUE)
+  })
+
   test_that("standardize | errors", {
     my_lm_external_formula <- function(.dat, predicted, predictor){
       my_formula <- as.formula(paste0(predicted, "~", predictor))

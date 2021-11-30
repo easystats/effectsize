@@ -432,8 +432,8 @@ standardize_parameters.model_fit <-
     }
   )
 
-  if (length(i_missing) ||
-    any(to_complete <- apply(pars[, colnames(pars) %in% .col_2_scale], 1, anyNA))) {
+  to_complete <- apply(pars[, colnames(pars) %in% .col_2_scale], 1, anyNA)
+  if (length(i_missing) || any(to_complete)) {
     i_missing <- union(i_missing, which(to_complete))
 
     pars[i_missing, colnames(pars) %in% .col_2_scale] <-

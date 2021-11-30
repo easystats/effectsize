@@ -240,20 +240,6 @@ standardize.default <- function(x,
 
 # exceptions, models that cannot use the default-method --------------------
 
-
-#' @export
-standardize.mlm <- function(x,
-                            robust = FALSE,
-                            two_sd = FALSE,
-                            weights = TRUE,
-                            verbose = TRUE,
-                            ...) {
-  standardize.default(x,
-    robust = robust, two_sd = two_sd, weights = weights, verbose = verbose,
-    include_response = FALSE, ...
-  )
-}
-
 #' @export
 #' @importFrom utils capture.output
 #' @importFrom insight get_data
