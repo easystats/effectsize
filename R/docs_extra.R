@@ -141,3 +141,12 @@
 #' @rdname effectsize_CIs
 #' @name effectsize_CIs
 NULL
+
+
+#' `effectsize` API
+#'
+#' Read the [*Support functions for model extensions*](https://easystats.github.io/effectsize/articles/effectsize_API.html) vignette.
+#'
+#' @rdname effectsize_API
+#' @name effectsize_API
+NULL

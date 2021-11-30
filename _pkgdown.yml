@@ -73,12 +73,15 @@ reference:
   contents:
   - sd_pooled
   - is_effectsize_name
-  - effectsize_CIs
   - format_standardize
   - print.effectsize_table
 - subtitle: "Datasets"
   contents:
   - hardlyworking
+- subtitle: "Extra Docs"
+  contents:
+  - effectsize_CIs
+  - effectsize_API
 - subtitle: "Deprecated functions"
   contents:
   - effectsize_deprecated
@@ -110,6 +113,8 @@ navbar:
         href: reference/effectsize_CIs.html
       - text: "For Bayesian Models"
         href: articles/bayesian_models.html
+  - text: "Extending effectsize"
+    href: articles/effectsize_API.html
   - text: "Conversion"
     menu:
       - text: "Between d, r, OR"

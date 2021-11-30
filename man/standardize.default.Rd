@@ -2,7 +2,8 @@
 % Please edit documentation in R/standardize.models.R
 \name{standardize.default}
 \alias{standardize.default}
-\alias{standardize-models}
+\alias{standardize_models}
+\alias{standardize.models}
 \title{Re-fit a model with standardized data}
 \usage{
 \method{standardize}{default}(
@@ -33,12 +34,17 @@ outcome) (Gelman, 2008).}
 
 \item{verbose}{Toggle warnings and messages on or off.}
 
-\item{include_response}{For a model, if \code{TRUE} (default), the response value
-will also be standardized. If \code{FALSE}, only the predictors will be
-standardized. Note that for certain models (logistic regression, count
-models, ...), the response value will never be standardized, to make
-re-fitting the model work. (For \code{mediate} models, only applies to the y
-model; m model's response will always be standardized.)}
+\item{include_response}{If \code{TRUE} (default), the response value will also be
+standardized. If \code{FALSE}, only the predictors will be standardized.
+\itemize{
+\item Note that for GLMs and models with non-linear link functions, the
+response value will not be standardized, to make re-fitting the model work.
+\item If the model contains an \code{\link[stats:offset]{stats::offset()}}, the offset variable(s) will
+be standardized only if the response is standardized. If \code{two_sd = TRUE},
+offsets are standardized by one-sd (similar to the response).
+\item (For \code{mediate} models, the \code{include_response} refers to the outcome in
+the y model; m model's response will always be standardized when possible).
+}}
 
 \item{...}{Arguments passed to or from other methods.}
 }

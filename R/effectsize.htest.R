@@ -115,7 +115,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     return(out)
   } else if (grepl("One-way", model$method)) {
     # one way anove ----
-    if (approx <- grepl("not assuming", model$method, fixed = TRUE) && verbose) {
+    if ((approx <- grepl("not assuming", model$method, fixed = TRUE)) && verbose) {
       warning("`var.equal = FALSE` - effect size is an approximation.", call. = FALSE)
     }
 

@@ -2,14 +2,12 @@ if (require("testthat") && require("effectsize")) {
 
   # anova() -----------------------------------------------------------------
   test_that("anova()", {
-    m <- matrix(c(3, 1, 1),
-      nrow = 1,
-      dimnames = list(
-        "Term",
-        c("F value", "NumDF", "DenDF")
-      )
+    m <- structure(
+      c(3, 1, 1),
+      .Dim = c(1L, 3L),
+      .Dimnames = list("Term", c("F value", "NumDF", "DenDF")),
+      class = "anova"
     )
-    class(m) <- "anova"
 
     expect_error(eta_squared(m), regexp = NA)
     expect_equal(

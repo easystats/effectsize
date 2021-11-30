@@ -1,0 +1,271 @@
+---
+title: "Support functions for model extensions"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    fig_width: 10.08
+    fig_height: 6
+tags: [r, effect size, ANOVA, standardization, standardized coefficients]
+vignette: >
+  \usepackage[utf8]{inputenc}
+  %\VignetteIndexEntry{Support functions for model extensions}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+bibliography: bibliography.bib
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(comment = ">",
+                      warning = FALSE,
+                      message = FALSE)
+options(digits = 2)
+options(knitr.kable.NA = '')
+
+
+pkgs <- c("effectsize")
+if (!all(sapply(pkgs, requireNamespace, quietly = TRUE))) {
+  knitr::opts_chunk$set(eval = FALSE)
+}
+
+set.seed(333)
+```
+
+```{r}
+library(effectsize)
+```
+
+# Supporting ANOVA Effect Sizes
+
+To add support for you model, create a new `.anova_es()` method function. This functions should generally do 3 things:
+
+1. Build a data frame with all the required information.
+2. Pass the data frame to one of the 3 functions.
+3. Set some attributes to the output.
+
+## Simple ANOVA tables
+
+The input data frame must have these columns:
+- `Parameter` (char) - The name of the parameter or, more often, the term.
+- `Sum_Squares` (num) - The sum of squares.
+- `df` (num) - The degrees of freedom associated with the `Sum_Squares`.
+- `Mean_Square_residuals` (num; *optional*) - if *not* present, is calculated as `Sum_Squares / df`.
+(Any other column is ignored.)
+
+And exactly *1* row Where `Parameter` is `Residual`.
+
+Optionally, one of the rows can have a `(Intercept)` value for `Parameter`.
+
+An example of a minimally valid data frame:
+
+```{r}
+min_aov <- data.frame(
+  Parameter = c("(Intercept)", "A", "B", "Residuals"),
+  Sum_Squares = c(30, 40, 10, 100),
+  df = c(1, 1, 2, 50)
+)
+```
+
+Pass the data frame to `.es_aov_simple()`:
+
+```{r}
+.es_aov_simple(
+  min_aov,
+  type = "eta", partial = TRUE, generalized = FALSE,
+  include_intercept = FALSE,
+  ci = 0.95, alternative = "greater",
+  verbose = TRUE
+)
+```
+
+The output is a data frame with the columns: `Parameter`, the effect size, and (optionally) `CI` + `CI_low` + `CI_high`,
+
+And with the following attributes: `partial`, `generalized`, `ci`, `alternative`, `anova_type` (`NA` or `NULL`), `approximate`.
+
+You can then set the `anova_type` attribute to {1, 2, 3, or `NA`} and return the output.
+
+## ANOVA Tables with Multiple Error Strata
+
+(e.g., `aovlist` models.)
+
+The input data frame must have these columns:
+
+- `Group` (char) - The strata
+- `Parameter` (char)
+- `Sum_Squares` (num)
+- `df` (num)
+- `Mean_Square_residuals` (num; *optional*)
+
+And exactly *1* row ***per `Group`*** Where `Parameter` is `Residual`.
+
+Optionally, one of the rows can have a `(Intercept)` value for `Parameter`.
+
+An example of a minimally valid data frame:
+
+```{r}
+min_aovlist <- data.frame(
+  Group = c("S", "S", "S:A", "S:A"),
+  Parameter = c("(Intercept)", "Residuals", "A", "Residuals"),
+  Sum_Squares = c(34, 21, 34, 400),
+  df = c(1, 12, 4, 30)
+)
+```
+
+Pass the data frame to `.es_aov_strata()`, along with a list of predictors (including the stratifying variables) to the `DV_names` argument:
+
+```{r}
+.es_aov_strata(
+  min_aovlist, DV_names = c("S", "A"),
+  type = "omega", partial = TRUE, generalized = FALSE,
+  ci = 0.95, alternative = "greater",
+  verbose = TRUE,
+  include_intercept = TRUE
+)
+```
+
+The output is a data frame with the columns: `Group`, `Parameter`, the effect size, and (optionally) `CI` + `CI_low` + `CI_high`,
+
+And with the following attributes: `partial`, `generalized`, `ci`, `alternative`, `approximate`.
+
+You can then set the `anova_type` attribute to {1, 2, 3, or `NA`} and return the output.
+
+
+## Approximate Effect sizes
+
+When *sums of squares* cannot be extracted, we can still get *approximate* effect sizes based on the `F_to_eta2()` family of functions.
+
+The input data frame must have these columns:
+
+- `Parameter` (char)
+- `F` (num) - The *F* test statistic.
+- `df` (num) - effect degrees of freedom.
+- (Can also have a `t` col instead, in which case `df` is set to 1, and `F` is `t^2`).
+- `df_error` (num) - error degrees of freedom.
+
+Optionally, one of the rows can have `(Intercept)` as the `Parameter`.
+
+An example of a minimally valid data frame:
+
+```{r}
+min_anova <- data.frame(
+  Parameter = c("(Intercept)", "A", "B"),
+  F = c(4, 7, 0.7),
+  df = c(1, 1, 2),
+  df_error = 34
+)
+```
+
+Pass the table to `.es_aov_table()`:
+
+```{r}
+.es_aov_table(
+  min_anova,
+  type = "eta", partial = TRUE, generalized = FALSE,
+  include_intercept = FALSE,
+  ci = 0.95, alternative = "greater",
+  verbose = TRUE
+)
+```
+
+The output is a data frame with the columns: `Parameter`, the effect size, and (optionally) `CI` + `CI_low` + `CI_high`,
+
+And with the following attributes: `partial`, `generalized`, `ci`, `alternative`, `approximate`.
+
+You can then set the `anova_type` attribute to {1, 2, 3, or `NA`} and return the output, and optionally the `approximate` attribute, and return the output.
+
+## *Example*
+
+Let's fit a simple linear model and change its class:
+
+```{r}
+mod <- lm(mpg ~ factor(cyl) + am, mtcars)
+
+class(mod) <- "superMODEL"
+```
+
+We now need a new `.anova_es.superMODEL` function:
+
+```{r}
+.anova_es.superMODEL <- function(model, ...) {
+  # Get ANOVA table
+  anov <- suppressWarnings(stats:::anova.lm(model))
+  anov <- as.data.frame(anov)
+  
+  # Clean up
+  anov[["Parameter"]] <- rownames(anov)
+  colnames(anov)[2:1] <- c("Sum_Squares", "df")
+  
+  # Pass
+  out <- .es_aov_simple(anov, ...)
+  
+  # Set attribute
+  attr(out, "anova_type") <- 1
+  
+  out
+}
+```
+
+And... that's it! Our new `superMODEL` class of models is fully supported!
+
+```{r}
+eta_squared(mod)
+
+eta_squared(mod, partial = FALSE)
+
+omega_squared(mod)
+
+# Etc...
+```
+
+
+# Supporting Model Re-Fitting with Standardized Data
+
+`effectsize::standardize.default()` should support your model if you have methods for:
+
+1. `{insight}` functions.
+2. An `update()` method that can take the model and a data frame via the `data = ` argument.
+
+Or you can make your own `standardize.my_class()` function, DIY-style (possibly using `datawizard::standardize.data.frame()` or `datawizard::standardize.numeric()`). This function should return a fiffed model of the same class as the input model.
+
+# Supporting Standardized Parameters
+
+`standardize_parameters.default()` offers a few methods of parameter standardization:
+
+- For `method = "refit"` all you need is to have `effectsize::standardize()` support (see above) as well as `parameters::model_parameters()`.  
+- ***API for post-hoc methods coming soon...***  
+
+<!-- `standardize_parameters.default()` should support your model if it is already supported by `{parameters}` and `{insight}`. -->
+
+<!-- - For `method = "refit"`, to have `effectsize::standardize()` support (see above). -->
+<!-- - For the post-hoc methods, you will need to have a method for `standardize_info()` (or use the default method). See next section. -->
+
+<!-- Or you can make your own `standardize_parameters.my_class()` and/or `standardize_info.my_class()` functions. -->
+
+<!-- ## Extracting Post-Hoc Standardization Information (`standardize_info`) -->
+
+<!-- The `standardize_info()` function computes the standardized units needed for standardization; In order to standardize some slope $b_{xi}$, we need to multiply it by a scaling factor: -->
+
+<!-- $$b^*_{xi} = \frac{\text{Deviation}_{xi}}{\text{Deviation}_{y}}\times b_{xi}$$ -->
+
+<!-- These "deviations" are univariate scaling factors of the response and the specific parameter (usin its corresponding feature in the design matrix). Most often these are a single standard deviation (*SD*), but depending on the `robust` and `two_sd` arguments, these can be also be two *MAD*s, etc. -->
+
+<!-- Let's look at an example: -->
+
+<!-- ```{r} -->
+<!-- m <- lm(mpg ~ factor(cyl) * am, data = mtcars) -->
+
+<!-- standardize_info(m) -->
+<!-- ``` -->
+
+<!-- - The first 4 columns (`Parameter`, `Type`, `Link`, `Secondary_Parameter`) are taken from `parameters::parameters_type()`.   -->
+<!-- - The `EffectSize_Type` column is not used here, but is used in the the `{report}` package.   -->
+<!-- - `Deviation_Response_Basic` and `Deviation_Response_Smart` correspond to the $\text{Deviation}_{y}$ scalar using two different methods of post-hoc standardization (see `standardize_parameters()` docs for more details).   -->
+<!--     - Note then when the response is not standardized (either due to `standardize_parameters(include_response = FALSE)` or because the model uses a non-continuous response), both methods are fixed at **1** (i.e., no standardization with respect to the outcome).   -->
+<!-- - `Deviation_Basic` and `Deviation_Smart` correspond to the $\text{Deviation}_{xi}$ scaler using two different methods of post-hoc standardization. -->
+
+<!-- This information is then used by the `standardize_parameters()` to standardize the parameters. -->
+    
+
+# References
+

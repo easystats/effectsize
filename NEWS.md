@@ -1,4 +1,4 @@
-# effectsize 0.5.0.1
+# effectsize 0.5.0.9
 
 ## Breaking Changes
 
@@ -6,6 +6,7 @@
 
 ## New features
 
+- `eta_squared()` family now supports `afex::mixed()` models.
 - `cles()` for estimating common language effect sizes.
 - `rb_to_cles()` for converting rank-biserial correlation to Probability of superiority.
 
@@ -15,7 +16,9 @@
 
 ## Bug fixes
 
-- `eta_squared()`: fixed a bug that caused `afex_aov` models with more than 2 within-subject factros to return incorrect effect sizes for the lower level factors ( #389 ).
+- `standardize()` for multivariate models standardizes the (multivariate) response.
+- `standardize()` for models with offsets standardizes offset variables according to `include_response` and `two_sd` ( #396 ).
+- `eta_squared()`: fixed a bug that caused `afex_aov` models with more than 2 within-subject factors to return incorrect effect sizes for the lower level factors ( #389 ).
 
 # effectsize 0.5.0
 

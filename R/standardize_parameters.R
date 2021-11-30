@@ -166,12 +166,13 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   method <- match.arg(method, c("refit", "posthoc", "smart", "basic", "classic", "pseudo"))
 
   m_info <- insight::model_info(model)
-  include_response <- include_response && !.no_response_standardize(m_info, verbose = verbose)
+  include_response <- include_response && .safe_to_standardize_response(m_info, verbose = verbose)
 
   if (method == "refit") {
-    model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose, include_response = include_response)
+    model <- standardize(model,
+                         robust = robust, two_sd = two_sd, include_response = include_response,
+                         verbose = verbose, m_info = m_info)
   }
-  mi <- insight::model_info(model)
 
   # need model_parameters to return the parameters, not the terms
   if (inherits(model, "aov")) class(model) <- class(model)[class(model) != "aov"]
@@ -183,6 +184,11 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   coefficient_name <- attr(pars, "coefficient_name")
 
   if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
+    if (m_info$is_multivariate) {
+      # TODO FIX
+      stop('Cannot post-hoc standardize multivariate models. Try using method "refit" instead.')
+    }
+
     pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, exponentiate, include_response, verbose)
 
     method <- attr(pars, "std_method")
@@ -194,17 +200,11 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   colnm <- c("Component", "Response", "Group", "Parameter", head(.col_2_scale, -2), "CI", "CI_low", "CI_high")
   pars <- pars[, colnm[colnm %in% colnames(pars)]]
 
-  if (!is.null(coefficient_name) && coefficient_name == "Odds Ratio") {
-    colnames(pars)[colnames(pars) == "Coefficient"] <- "Odds_ratio"
-  }
-  if (!is.null(coefficient_name) && coefficient_name == "Risk Ratio") {
-    colnames(pars)[colnames(pars) == "Coefficient"] <- "Risk_ratio"
-  }
-  if (!is.null(coefficient_name) && coefficient_name == "IRR") {
-    colnames(pars)[colnames(pars) == "Coefficient"] <- "IRR"
+  if (!is.null(coefficient_name) && coefficient_name %in% c("Odds Ratio", "Risk Ratio", "IRR")) {
+    colnames(pars)[colnames(pars) == "Coefficient"] <- gsub(" ", "_", coefficient_name)
   }
 
-  i <- colnames(pars) %in% c("Coefficient", "Median", "Mean", "MAP", "Odds_ratio", "IRR")
+  i <- colnames(pars) %in% c("Coefficient", "Median", "Mean", "MAP", c("Odds_Ratio", "Risk_Ratio", "IRR"))
   colnames(pars)[i] <- paste0("Std_", colnames(pars)[i])
 
   ## SE attribute?
@@ -248,7 +248,7 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   if (is.null(model)) model <- attr(pars, "object")
 
   m_info <- insight::model_info(model)
-  include_response <- include_response && !.no_response_standardize(m_info, verbose = verbose)
+  include_response <- include_response && .safe_to_standardize_response(m_info, verbose = verbose)
 
   if (is.null(exponentiate <- attr(pars, "exponentiate"))) exponentiate <- FALSE
   pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, exponentiate, include_response, verbose)
@@ -295,16 +295,15 @@ standardize_parameters.bootstrap_model <-
     model <- attr(pars, "original_model")
 
     m_info <- insight::model_info(model)
-    include_response <- include_response && !.no_response_standardize(m_info, verbose = verbose)
+    include_response <- include_response && .safe_to_standardize_response(m_info, verbose = verbose)
 
     if (method == "refit") {
       stop("The 'refit' method is not supported for bootstrapped models.")
       ## But it would look something like this:
-      # model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose)
+      # model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose, m_info = m_info)
       # model <- parameters::bootstrap_model(model, iterations = 1000, verbose = verbose)
       # return(model)
     }
-    mi <- insight::model_info(model)
 
     # need model_parameters to return the parameters, not the terms
     if (inherits(model, "aov")) class(model) <- class(model)[class(model) != "aov"]
@@ -438,8 +437,8 @@ standardize_parameters.model_fit <-
     }
   )
 
-  if (length(i_missing) ||
-    any(to_complete <- apply(pars[, colnames(pars) %in% .col_2_scale], 1, anyNA))) {
+  to_complete <- apply(pars[, colnames(pars) %in% .col_2_scale], 1, anyNA)
+  if (length(i_missing) || any(to_complete)) {
     i_missing <- union(i_missing, which(to_complete))
 
     pars[i_missing, colnames(pars) %in% .col_2_scale] <-
@@ -467,11 +466,11 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   object_name <- deparse(substitute(model), width.cutoff = 500)
 
   m_info <- insight::model_info(model)
-  include_response <- include_response && !.no_response_standardize(m_info, verbose = verbose)
+  include_response <- include_response && .safe_to_standardize_response(m_info, verbose = verbose)
 
   if (method == "refit") {
     model <- standardize(model, robust = robust, two_sd = two_sd, include_response = include_response,
-                         verbose = verbose)
+                         verbose = verbose, m_info = m_info)
   }
 
   pars <- insight::get_parameters(model)

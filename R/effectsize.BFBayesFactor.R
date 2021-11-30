@@ -55,7 +55,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
       mu <- 0
       D <- samps$delta
     } else {
-      mu <- as.numeric(gsub("Null, mu=", "", model@denominator@shortName))
+      mu <- model@numerator[[1]]@prior$mu
       D <- (samps$mu - mu) / sqrt(samps$sig2)
     }
 
