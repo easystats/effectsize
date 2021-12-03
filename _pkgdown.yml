@@ -64,7 +64,7 @@ reference:
   contents:
   - hardlyworking
 
-- title: "internal"
+- title: internal
   contents:
   - effectsize_CIs
   - effectsize_API
