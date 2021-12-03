@@ -52,22 +52,7 @@ reference:
   - equivalence_test.effectsize_table
   - interpret
   - rules
-  - interpret_cohens_d
-  - interpret_r
-  - interpret_eta_squared
-  - interpret_cohens_g
-  - interpret_kendalls_w
-  - interpret_oddsratio
-  - interpret_r2
-  - interpret_icc
-  - interpret_vif
-  - interpret_gfi
-  - interpret_direction
-  - interpret_p
-  - interpret_bf
-  - interpret_pd
-  - interpret_rope
-  - interpret_ess
+  - starts_with("interpret_")
 
 - title: "Miscellaneous"
   contents:
@@ -78,13 +63,16 @@ reference:
 - subtitle: "Datasets"
   contents:
   - hardlyworking
-- subtitle: "Extra Docs"
+
+- title: "internal"
   contents:
   - effectsize_CIs
   - effectsize_API
-- subtitle: "Deprecated functions"
-  contents:
   - effectsize_deprecated
+
+
+
+
 
 navbar:
   structure:
