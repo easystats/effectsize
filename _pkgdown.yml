@@ -101,6 +101,7 @@ navbar:
         href: reference/effectsize_CIs.html
       - text: "For Bayesian Models"
         href: articles/bayesian_models.html
+      - text: -------
       - text: "Extending effectsize"
         href: articles/effectsize_API.html
   - text: "Conversion"
