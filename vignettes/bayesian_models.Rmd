@@ -28,9 +28,9 @@ if (!all(sapply(pkgs, require, quietly = TRUE, character.only = TRUE))) {
 }
 ```
 
-# Standardized Parameters
+## Standardized Parameters
 
-## Introduction
+### Introduction
 
 Like in OLS / ML or other frequentists methods of model parameter estimation,
 standardizing the parameters of Bayesian (generalized) linear regression models
@@ -44,7 +44,7 @@ goodness of fit and model selection have already been taken care of. (Learn more
 about how to become a Bayesian master with [the `bayestestR`
 package](https://easystats.github.io/bayestestR/).)
 
-## Set up
+### Setup
 
 We will examine the predictive role of overtime (`xtra_hours`), number of
 compliments given to the boss (`n_comps`) and seniority in predicting workers
@@ -104,9 +104,9 @@ does not mean that if you wish to have a higher salary you should work overtime
 go, with one compliment worth almost 3.5 times **more** than a full hours'
 work!)
 
-# Eta<sup>2</sup>
+## Eta<sup>2</sup>
 
-## Introduction
+### Introduction
 
 In classical frequentists models, the computation of $\eta^2$ or $\eta^2_p$ is
 straightforward: based on the right combinations of sums-of-squares (*SS*s), we
@@ -133,7 +133,7 @@ model!** So it is vital to [validate the
 PPD](https://mc-stan.org/docs/2_23/stan-users-guide/meta-models-part.html#meta-models.part)
 before using it to estimate explained variance measures.
 
-## Setup
+### Setup
 
 Let's factorize out data from above:
 

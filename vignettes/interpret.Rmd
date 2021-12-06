@@ -411,7 +411,7 @@ interpret_cohens_g(x, rules = "cohen1988")
 
 - **d >= 0.25** - Large
 
-# Interpretation of other Indices
+## Interpretation of other Indices
 
 `effectsize` also offers functions for interpreting other statistical indices:
 

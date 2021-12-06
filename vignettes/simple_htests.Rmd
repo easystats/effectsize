@@ -40,14 +40,14 @@ library(BayesFactor)
 In most cases, the effect sizes can be automagically extracted from the `htest`
 object via the `effectsize()` function.
 
-# Standardized Differences
+## Standardized Differences
 
 For *t*-tests, it is common to report an effect size representing a standardized
 difference between the two compared samples' means. These measures range from
 $-\infty$ to $+\infty$, with negative values indicating the second group's mean
 is larger (and vice versa).
 
-## Two Independent Samples
+### Two Independent Samples
 
 For two independent samples, the difference between the means is standardized
 based on the pooled standard deviation of both samples (assumed to be equal in
@@ -93,7 +93,7 @@ t.test(mpg ~ am, data = mtcars, var.equal = TRUE, alternative = "less")
 cohens_d(mpg ~ am, data = mtcars, pooled_sd = TRUE, alternative = "less")
 ```
 
-### Common Language Effect Sizes
+#### Common Language Effect Sizes
 
 Related effect sizes are the *common language effect sizes* which present information about group differences in terms of probability.
 
@@ -101,7 +101,7 @@ Related effect sizes are the *common language effect sizes* which present inform
 cles(mpg ~ am, data = mtcars)
 ```
 
-## One Sample and Paired Samples
+### One Sample and Paired Samples
 
 In the case of a one-sample test, the effect size represents the standardized
 distance of the mean of the sample from the null value. For paired-samples, the
@@ -115,7 +115,7 @@ cohens_d(extra ~ group, data = sleep, paired = TRUE)
 hedges_g(extra ~ group, data = sleep, paired = TRUE)
 ```
 
-## For a Bayesian *t*-test
+### For a Bayesian *t*-test
 
 ```{r}
 (BFt <- ttestBF(mtcars$mpg[mtcars$am == 0], mtcars$mpg[mtcars$am == 1]))
@@ -123,7 +123,7 @@ hedges_g(extra ~ group, data = sleep, paired = TRUE)
 effectsize(BFt, test = NULL)
 ```
 
-# One way ANOVA
+## One way ANOVA
 
 For more details, see [ANOVA
 vignette](https://easystats.github.io/effectsize/articles/anovaES.html).
@@ -134,7 +134,7 @@ onew <- oneway.test(mpg ~ gear, data = mtcars, var.equal = TRUE)
 eta_squared(onew)
 ```
 
-# Contingency Tables and Proportions
+## Contingency Tables and Proportions
 
 For contingency tables Cramér's *V*, $\phi$ (Phi, also known as Cohen's *w*) and Pearson's contingency coefficient indicate the strength of association with 0 indicating no association between the variables.
 While Cramér's *V* and Pearson's *C* are capped at 1 (perfect association), $\phi$ can be larger than 1.
@@ -187,7 +187,7 @@ effectsize(BFX, type = "phi", test = NULL)
 effectsize(BFX, type = "pearsons_c", test = NULL)
 ```
 
-## Comparing Two Proportions (2x2 tables)
+### Comparing Two Proportions (2x2 tables)
 
 For $2\times 2$ tables, in addition to Cramér's *V*, $\phi$ and Pearson's *C*, we can also
 compute the Odds-ratio (OR), where each column represents a different group.
@@ -227,7 +227,7 @@ transformation. Negative values indicate smaller proportion in the first group
 cohens_h(RCT)
 ```
 
-## Paired Contingency Tables
+### Paired Contingency Tables
 
 For dependent (paired) contingency tables, Cohen's *g* represents the symmetry
 of the table, ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry).
@@ -250,11 +250,11 @@ mcnemar.test(Performance)
 cohens_g(Performance)
 ```
 
-# Rank Based tests
+## Rank Based tests
 
 Rank based tests get rank based effect sizes!
 
-## Difference in Ranks
+### Difference in Ranks
 
 For two independent samples, the rank-biserial correlation ($r_{rb}$) is a
 measure of relative superiority - i.e., larger values indicate a higher
@@ -301,7 +301,7 @@ wilcox.test(x, y, paired = TRUE) # aka Signed-Rank test
 rank_biserial(x, y, paired = TRUE)
 ```
 
-## Rank One way ANOVA
+### Rank One way ANOVA
 
 The Rank-Epsilon-Squared ($\varepsilon^2$) is a measure of association
 for the rank based one-way ANOVA. Values range between 0 (no relative
@@ -320,7 +320,7 @@ kruskal.test(group_data)
 rank_epsilon_squared(group_data)
 ```
 
-## Rank One way Repeated-Measures ANOVA
+### Rank One way Repeated-Measures ANOVA
 
 For a rank based repeated measures one-way ANOVA, Kendall's *W* is a measure of
 agreement on the effect of condition between various "blocks" (the subjects), or
