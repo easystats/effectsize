@@ -478,7 +478,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
       F_to_eta2(f,
                 out$df,
                 df_error,
-                ci = ci, alternative = alternative
+                ci = ci, alternative = alternative,
+                verbose = verbose
       )[-1]
 
     out[c("CI", "CI_low", "CI_high")] <- CI_tab[c("CI", "CI_low", "CI_high")]
@@ -619,7 +620,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
       F_to_eta2(f,
                 out$df,
                 df_residuals,
-                ci = ci, alternative = alternative
+                ci = ci, alternative = alternative,
+                verbose = verbose
       )[-1]
 
     out[c("CI", "CI_low", "CI_high")] <- CI_tab[c("CI", "CI_low", "CI_high")]
@@ -702,7 +704,8 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   ES_tab <- es_fun(aov_table[["F"]],
                    aov_table[["df"]],
                    aov_table[["df_error"]],
-                   ci = ci, alternative = alternative)
+                   ci = ci, alternative = alternative,
+                   verbose = verbose)
 
   out <- cbind(Parameter = aov_table[["Parameter"]], ES_tab)
   rownames(out) <- NULL

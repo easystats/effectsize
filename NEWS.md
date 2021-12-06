@@ -16,6 +16,7 @@
 
 ## Bug fixes
 
+- `eta_squared()` family no longer fails when CIs fail due to non-finite *F*s / degrees of freedom.  
 - `standardize()` for multivariate models standardizes the (multivariate) response.
 - `standardize()` for models with offsets standardizes offset variables according to `include_response` and `two_sd` ( #396 ).
 - `eta_squared()`: fixed a bug that caused `afex_aov` models with more than 2 within-subject factors to return incorrect effect sizes for the lower level factors ( #389 ).

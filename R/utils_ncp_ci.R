@@ -2,6 +2,10 @@
 #' @keywords internal
 #' @importFrom stats pf qf optim
 .get_ncp_F <- function(f, df, df_error, conf.level = 0.9) {
+  if (!is.finite(f) || !is.finite(df) || !is.finite(df_error)) {
+    return(c(NA, NA))
+  }
+
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)
 
@@ -34,6 +38,11 @@
 #' @importFrom stats qt
 #' @importFrom stats optim
 .get_ncp_t <- function(t, df_error, conf.level = 0.95) {
+  # # Note: these aren't actually needed - all t related functions would fail earlier
+  # if (!is.finite(t) || !is.finite(df_error)) {
+  #   return(c(NA, NA))
+  # }
+
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)
 
@@ -55,6 +64,11 @@
 #' @keywords internals
 #' @importFrom stats pchisq qchisq optim
 .get_ncp_chi <- function(chi, df, conf.level = 0.95) {
+  # # Note: these aren't actually needed - all chisq related functions would fail earlier
+  # if (!is.finite(chi) || !is.finite(df)) {
+  #   return(c(NA, NA))
+  # }
+
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)
 

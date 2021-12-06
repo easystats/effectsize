@@ -374,6 +374,25 @@ if (require("testthat") && require("effectsize")) {
   })
 
 
+  # failed CIs --------------------------------------------------------------
+
+  test_that("failed CIs", {
+    library(testthat)
+
+    model <- aov(wt ~ cyl + Error(gear), data = mtcars)
+
+    expect_warning(eta_squared(model), regexp = "CIs")
+    expect_warning(eta <- eta_squared(model, verbose = FALSE), regexp = NA)
+    expect_equal(nrow(eta), 2L)
+    expect_equal(eta[1, "Eta2_partial"], 1)
+
+    expect_warning(eta_squared(model, partial = FALSE), regexp = "CIs")
+    expect_warning(eta <- eta_squared(model, partial = FALSE, verbose = FALSE), regexp = NA)
+    expect_equal(nrow(eta), 2L)
+    expect_equal(eta[1, "Eta2"], 0.34, tolerance = 0.01)
+  })
+
+
   # Include intercept -------------------------------------------------------
   test_that("include_intercept | car", {
     skip_on_cran()
