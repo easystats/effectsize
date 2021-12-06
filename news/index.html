@@ -38,6 +38,7 @@
     <a class="dropdown-item" href="../articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
     <a class="dropdown-item" href="../reference/effectsize_CIs.html">Confidence Intervals</a>
     <a class="dropdown-item" href="../articles/bayesian_models.html">For Bayesian Models</a>
+    <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../articles/effectsize_API.html">Extending effectsize</a>
   </div>
 </li>
@@ -101,6 +102,8 @@
 <div class="section level3">
 <h3 id="bug-fixes-0-5-0-9">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-5-0-9"></a></h3>
 <ul><li>
+<code><a href="../reference/eta_squared.html">eta_squared()</a></code> family no longer fails when CIs fail due to non-finite <em>F</em>s / degrees of freedom.<br></li>
+<li>
 <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> for multivariate models standardizes the (multivariate) response.</li>
 <li>
 <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> for models with offsets standardizes offset variables according to <code>include_response</code> and <code>two_sd</code> ( <a href="https://github.com/easystats/effectsize/issues/396" class="external-link">#396</a> ).</li>
@@ -445,7 +448,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
 </div>
 
     </footer></div>
