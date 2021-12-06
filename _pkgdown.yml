@@ -14,7 +14,7 @@ authors:
 template:
   bootstrap: 5
   bslib:
-    primary: "#4caf50"
+    primary: "#317033"
 
 
 reference:
