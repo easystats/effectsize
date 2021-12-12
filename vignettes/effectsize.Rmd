@@ -1,11 +1,18 @@
-
 ---
 title: "Effect Sizes: Getting Started"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    fig_width: 10.08
+    fig_height: 6
+tags: [r, effect size, rules of thumb, guidelines, conversion]
 vignette: >
-  %\VignetteIndexEntry{insight}
+  \usepackage[utf8]{inputenc}
+  %\VignetteIndexEntry{effectsize}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+editor_options: 
+  chunk_output_type: console
+bibliography: bibliography.bib
 ---
 
 ```{r, include = FALSE}
