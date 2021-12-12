@@ -17,6 +17,51 @@ template:
     primary: "#317033"
 
 
+
+navbar:
+  structure:
+    left:  [intro, reference, articles, news]
+    right: [twitter, github]
+  components:
+    twitter:
+      icon: fa-twitter
+      href: http://twitter.com/easystats4u
+      aria-label: Twitter
+    reference:
+      text: Features
+      href: reference/index.html
+    articles:
+      text: Articles
+      menu:
+      - text: "Parameter and Model Standardization"
+        href: articles/standardize_parameters.html
+      - text: "ANOVA Effect Sizes"
+        href: articles/anovaES.html
+      - text: "Effect Sizes for Simple Hypothesis Tests"
+        href: articles/simple_htests.html
+      - text: "Confidence Intervals"
+        href: reference/effectsize_CIs.html
+      - text: "For Bayesian Models"
+        href: articles/bayesian_models.html
+      - text: "Conversion"
+        menu:
+        - text: "Between d, r, OR"
+          href: articles/convert.html
+        - text: "From Test Statistics"
+          href: articles/from_test_statistics.html
+      - text: "Interpretation"
+        href: articles/interpret.html
+      - text: -------
+      - text: "Extending effectsize"
+        href: articles/effectsize_API.html
+    news:
+      text: News
+      href: news/index.html
+
+
+
+
+
 reference:
 - title: "Indices of Effect Size"
   contents:
@@ -75,39 +120,3 @@ reference:
 
 
 
-navbar:
-  structure:
-    left:  [intro, reference, articles, news]
-    right: [twitter, github]
-  components:
-    twitter:
-      icon: fa-twitter
-      href: http://twitter.com/easystats4u
-      aria-label: Twitter
-    reference:
-      text: Features
-    articles:
-      text: Articles
-      menu:
-      - text: "Parameter and Model Standardization"
-        href: articles/standardize_parameters.html
-      - text: "ANOVA Effect Sizes"
-        href: articles/anovaES.html
-      - text: "Effect Sizes for Simple Hypothesis Tests"
-        href: articles/simple_htests.html
-      - text: "Confidence Intervals"
-        href: reference/effectsize_CIs.html
-      - text: "For Bayesian Models"
-        href: articles/bayesian_models.html
-      - text: -------
-      - text: "Extending effectsize"
-        href: articles/effectsize_API.html
-      - text: -------
-      - text: "Conversion"
-      - text: "Between d, r, OR"
-        href: articles/convert.html
-      - text: "From Test Statistics"
-        href: articles/from_test_statistics.html
-      - text: -------
-      - text: "Interpretation"
-        href: articles/interpret.html
