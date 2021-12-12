@@ -26,36 +26,38 @@ navbar:
       icon: fa-twitter
       href: http://twitter.com/easystats4u
       aria-label: Twitter
-    left:
-      - text: "Get Started"
-        href: articles/effectsize.html
-      - text: "Features"
-        href: reference/index.html
-      - text: "Effect Sizes"
-        menu:
-        - text: "Parameter and Model Standardization"
-          href: articles/standardize_parameters.html
-        - text: "ANOVA Effect Sizes"
-          href: articles/anovaES.html
-        - text: "Effect Sizes for Simple Hypothesis Tests"
-          href: articles/simple_htests.html
-        - text: "Confidence Intervals"
-          href: reference/effectsize_CIs.html
-        - text: "For Bayesian Models"
-          href: articles/bayesian_models.html
-        - text: -------
-        - text: "Extending effectsize"
-          href: articles/effectsize_API.html
-      - text: "Conversion"
-        menu:
-        - text: "Between d, r, OR"
-          href: articles/convert.html
-        - text: "From Test Statistics"
-          href: articles/from_test_statistics.html
-      - text: "Interpretation"
-        href: articles/interpret.html
-      - text: "News"
-        href: news/index.html
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: "Get Started"
+      href: articles/effectsize.html
+    - text: "Features"
+      href: reference/index.html
+    - text: "Effect Sizes"
+      menu:
+      - text: "Parameter and Model Standardization"
+        href: articles/standardize_parameters.html
+      - text: "ANOVA Effect Sizes"
+        href: articles/anovaES.html
+      - text: "Effect Sizes for Simple Hypothesis Tests"
+        href: articles/simple_htests.html
+      - text: "Confidence Intervals"
+        href: reference/effectsize_CIs.html
+      - text: "For Bayesian Models"
+        href: articles/bayesian_models.html
+      - text: -------
+      - text: "Extending effectsize"
+        href: articles/effectsize_API.html
+    - text: "Conversion"
+      menu:
+      - text: "Between d, r, OR"
+        href: articles/convert.html
+      - text: "From Test Statistics"
+        href: articles/from_test_statistics.html
+    - text: "Interpretation"
+      href: articles/interpret.html
+    - text: "News"
+      href: news/index.html
 
 
 
