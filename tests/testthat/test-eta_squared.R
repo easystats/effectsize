@@ -168,6 +168,12 @@ if (require("testthat") && require("effectsize")) {
     # MANOVA table
     mod <- manova(cbind(mpg, qsec) ~ am_f * cyl_f, data = mtcars)
     expect_equal(nrow(eta_squared(mod)), 3L)
+
+    # Row order
+    fit <- lm(cbind(mpg, disp, hp) ~ factor(cyl), data = mtcars)
+    out <- eta_squared(fit, partial = FALSE, ci = NULL)
+    expect_equal(as.character(out$Response), c("mpg", "disp", "hp"))
+
   })
 
 
