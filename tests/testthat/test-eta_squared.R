@@ -172,7 +172,7 @@ if (require("testthat") && require("effectsize")) {
     # Row order
     fit <- lm(cbind(mpg, disp, hp) ~ factor(cyl), data = mtcars)
     out <- eta_squared(fit, partial = FALSE, ci = NULL)
-    expect_equal(out$Response, c("mpg", "disp", "hp"))
+    expect_equal(as.character(out$Response), c("mpg", "disp", "hp"))
 
   })
 
