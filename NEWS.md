@@ -16,6 +16,7 @@
 
 ## Bug fixes
 
+- `eta_squared()` for MLM return effect sizes in the correct order of the responses.  
 - `eta_squared()` family no longer fails when CIs fail due to non-finite *F*s / degrees of freedom.  
 - `standardize()` for multivariate models standardizes the (multivariate) response.
 - `standardize()` for models with offsets standardizes offset variables according to `include_response` and `two_sd` ( #396 ).

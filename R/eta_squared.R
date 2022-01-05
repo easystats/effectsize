@@ -838,7 +838,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
   anova_type <- attr(params, "anova_type")
 
-  params <- split(params, params$Response)
+  params <- split(params, factor(params$Response, levels = unique(params$Response))) # make sure row order is not changed
   params <- lapply(params, .es_aov_simple,
     type = type,
     partial = partial,
