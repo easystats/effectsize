@@ -207,7 +207,13 @@ if (require("testthat") && require("effectsize")) {
     expect_error(interpret_icc(0.6, "DUPA"))
   })
 
-  test_that("interpret_pf", {
+  test_that("interpret_vif", {
+    expect_equal(interpret_vif(c(1, 5.5, 10)), c("low", "moderate", "high"), ignore_attr = TRUE)
+    expect_equal(interpret_icc(0.6, rules(c(0.5), c("A", "B")))[1], "B")
+    expect_error(interpret_icc(0.6, "DUPA"))
+  })
+
+  test_that("interpret_pd", {
     expect_equal(interpret_pd(c(0.9, 0.99)), c("not significant", "significant"), ignore_attr = TRUE)
     expect_equal(interpret_pd(c(0.9, 0.99), "makowski2019"), c("uncertain", "likely existing"), ignore_attr = TRUE)
     expect_equal(interpret_pd(0.6, rules(c(0.5), c("A", "B")))[1], "B")
