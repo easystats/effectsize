@@ -120,8 +120,9 @@ if (require("lavaan")) {
                  dem60 =~ y1 + y2 + y3
                  dem60 ~ ind60 "
   model <- lavaan::sem(structure, data = PoliticalDemocracy)
-  # interpret(model)  # Not working until new performance is up
+  interpret(model)
 }
+
 }
 \references{
 \itemize{
