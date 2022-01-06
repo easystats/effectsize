@@ -250,11 +250,23 @@ modeling. Guilford publications.</p></li>
 <span class="r-in">                 dem60 =~ y1 + y2 + y3</span>
 <span class="r-in">                 dem60 ~ ind60 "</span></span>
 <span class="r-in">  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">sem</a></span><span class="op">(</span><span class="va">structure</span>, data <span class="op">=</span> <span class="va">PoliticalDemocracy</span><span class="op">)</span></span>
-<span class="r-in">  <span class="co"># interpret(model)  # Not working until new performance is up</span></span>
+<span class="r-in">  <span class="fu"><a href="interpret.html">interpret</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: lavaan</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> This is lavaan 0.6-9</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> lavaan is FREE software! Please report any bugs.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Name      Value Interpretation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    GFI 0.96664122   satisfactory</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   AGFI 0.91243319   satisfactory</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    NFI 0.97486324   satisfactory</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   NNFI 1.00010307   satisfactory</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    CFI 1.00000000   satisfactory</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  RMSEA 0.00000000   satisfactory</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   SRMR 0.02726215   satisfactory</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    RFI 0.95286858   satisfactory</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   PNFI 0.51992706   satisfactory</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   IFI 1.00005373   satisfactory</span>
+<span class="r-in"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
