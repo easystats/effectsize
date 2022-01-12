@@ -58,7 +58,7 @@ Depends:
 Imports:
     bayestestR (>= 0.11.5),
     insight (>= 0.15.0),
-    parameters (>= 0.15.0.3),
+    parameters (>= 0.16.0),
     performance (>= 0.8.0),
     datawizard (>= 0.2.2),
     stats,
@@ -90,8 +90,6 @@ Suggests:
     spelling,
     testthat,
     tidymodels
-Remotes:
-    easystats/parameters
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
