@@ -1,4 +1,4 @@
-# effectsize 0.5.2
+# effectsize 0.6.0
 
 ## Breaking Changes
 
