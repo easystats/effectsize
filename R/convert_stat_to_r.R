@@ -9,7 +9,7 @@
 #' computation is not straightforward (e.g., in liner mixed models, contrasts,
 #' etc.).
 #' \cr
-#' See [Effect Size from Test Statistics vignette.](https://easystats.github.io/effectsize/articles/from_test_statistics.html/)
+#' See [Effect Size from Test Statistics vignette.](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
 #'
 #' @param t,f,z The t, the F or the z statistics.
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate

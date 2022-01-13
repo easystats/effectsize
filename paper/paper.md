@@ -47,7 +47,7 @@ In both theoretical and applied research, it is often of interest to assess the 
 
 # Examples of Features
 
-**effectsize** provides various functions for extracting and estimating effect sizes and their confidence intervals [estimated using the noncentrality parameter method; @steiger2004beyond]. In this article, we provide basic usage examples for estimating some of the most common effect size. A comprehensive overview, including in-depth examples and [a full list of features and functions](https://easystats.github.io/effectsize/reference/index.html/), are accessible via a dedicated website (https://easystats.github.io/effectsize/).
+**effectsize** provides various functions for extracting and estimating effect sizes and their confidence intervals [estimated using the noncentrality parameter method; @steiger2004beyond]. In this article, we provide basic usage examples for estimating some of the most common effect size. A comprehensive overview, including in-depth examples and [a full list of features and functions](https://easystats.github.io/effectsize/reference/index.html), are accessible via a dedicated website (https://easystats.github.io/effectsize/).
 
 ## Indices of Effect Size
 
@@ -125,7 +125,7 @@ standardize_parameters(model, exponentiate = TRUE)
 #> # Standardization method: refit
 ```
 
-`standardize_parameters()` provides several standardization methods, such as robust standardization, or *pseudo*-standardized coefficients for (generalized) linear mixed models [@hoffman2015longitudinal]. A full review of these methods can be found in the [*Parameter and Model Standardization* vignette](https://easystats.github.io/effectsize/articles/standardize_parameters.html/).
+`standardize_parameters()` provides several standardization methods, such as robust standardization, or *pseudo*-standardized coefficients for (generalized) linear mixed models [@hoffman2015longitudinal]. A full review of these methods can be found in the [*Parameter and Model Standardization* vignette](https://easystats.github.io/effectsize/articles/standardize_parameters.html).
 
 ## Effect Sizes for ANOVAs
 
@@ -158,7 +158,7 @@ eta_squared(model, generalized = "Time")
 #> Chick:Time | Diet:Time |               0.03 | [0.00, 0.00]
 ```
 
-**effectsize** also offers $\epsilon^2_p$ (`epsilon_squared()`) and $\omega^2_p$ (`omega_squared()`), which are less biased estimates of the variance explained in the population [@kelley1935unbiased; @olejnik2003generalized]. For more details about the various effect size measures and their applications, see the [*Effect sizes for ANOVAs* vignette](https://easystats.github.io/effectsize/articles/anovaES.html/).
+**effectsize** also offers $\epsilon^2_p$ (`epsilon_squared()`) and $\omega^2_p$ (`omega_squared()`), which are less biased estimates of the variance explained in the population [@kelley1935unbiased; @olejnik2003generalized]. For more details about the various effect size measures and their applications, see the [*Effect sizes for ANOVAs* vignette](https://easystats.github.io/effectsize/articles/anovaES.html).
 
 ## Effect Size Conversion
 
@@ -225,7 +225,7 @@ oddsratio_to_r(34.99)
 
 ## Effect Size Interpretation
 
-Finally, **effectsize** provides convenience functions to apply existing or custom interpretation rules of thumb, such as for instance Cohen's (1988). Although we strongly advocate for the cautious and parsimonious use of such judgment-replacing tools, we provide these functions to allow users and developers to explore and hopefully gain a deeper understanding of the relationship between data values and their interpretation. More information is available in the [*Automated Interpretation of Indices of Effect Size* vignette](https://easystats.github.io/effectsize/articles/interpret.html/).
+Finally, **effectsize** provides convenience functions to apply existing or custom interpretation rules of thumb, such as for instance Cohen's (1988). Although we strongly advocate for the cautious and parsimonious use of such judgment-replacing tools, we provide these functions to allow users and developers to explore and hopefully gain a deeper understanding of the relationship between data values and their interpretation. More information is available in the [*Automated Interpretation of Indices of Effect Size* vignette](https://easystats.github.io/effectsize/articles/interpret.html).
 
 ``` r
 interpret_d(c(0.02, 0.52, 0.86), rules = "cohen1988")

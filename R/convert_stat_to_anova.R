@@ -10,7 +10,7 @@
 #' from `lm` and `aov` models, these functions give exact results. For all other
 #' cases, they return close approximations.
 #' \cr
-#' See [Effect Size from Test Statistics vignette.](https://easystats.github.io/effectsize/articles/from_test_statistics.html/)
+#' See [Effect Size from Test Statistics vignette.](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
 #'
 #' @param t,f The t or the F statistics.
 #' @param df,df_error Degrees of freedom of numerator or of the error estimate

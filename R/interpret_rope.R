@@ -25,7 +25,7 @@
 #' interpret_rope(0, ci = 0.9)
 #' interpret_rope(c(0.005, 0.99), ci = 1)
 #' @references
-#' [BayestestR's reporting guidelines](https://easystats.github.io/bayestestR/articles/guidelines.html/)
+#' [BayestestR's reporting guidelines](https://easystats.github.io/bayestestR/articles/guidelines.html)
 #'
 #' @export
 interpret_rope <- function(rope, ci = 0.9, rules = "default") {

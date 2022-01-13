@@ -31,7 +31,7 @@ if (!all(sapply(pkgs, require, quietly = TRUE, character.only = TRUE))) {
 
 ## Eta<sup>2</sup>
 
-In the context of ANOVA-like tests, it is common to report ANOVA-like effect sizes. Unlike [standardized parameters](https://easystats.github.io/effectsize/articles/standardize_parameters.html/), these effect sizes represent the amount of variance explained by each of the model's terms, where each term can be represented by 1 *or more* parameters.
+In the context of ANOVA-like tests, it is common to report ANOVA-like effect sizes. Unlike [standardized parameters](https://easystats.github.io/effectsize/articles/standardize_parameters.html), these effect sizes represent the amount of variance explained by each of the model's terms, where each term can be represented by 1 *or more* parameters.
 
 For example, in the following case, the parameters for the `treatment` term represent specific contrasts between the factor's levels (treatment groups) - the difference between each level and the reference level (`obk.long == 'control'`).
 
@@ -231,7 +231,7 @@ repeated-measures ANOVA's - cases where the *SS*s are readily available, and so
 the various effect sized presented can easily be estimated. How ever this is not
 always the case.
 
-For example, in linear mixed models (LMM/HLM/MLM), the estimation of all required *SS*s is not straightforward. However, we can still *approximate* these effect sizes (only their partial versions) based on the **test-statistic approximation method** (learn more in the [*Effect Size from Test Statistics* vignette](https://easystats.github.io/effectsize/articles/from_test_statistics.html/)).
+For example, in linear mixed models (LMM/HLM/MLM), the estimation of all required *SS*s is not straightforward. However, we can still *approximate* these effect sizes (only their partial versions) based on the **test-statistic approximation method** (learn more in the [*Effect Size from Test Statistics* vignette](https://easystats.github.io/effectsize/articles/from_test_statistics.html)).
 
 ```{r, eval=require(lmerTest)}
 library(lmerTest)
@@ -252,7 +252,7 @@ epsilon_squared(fit_lmm)
 omega_squared(fit_lmm)
 ```
 
-Another case where *SS*s are not available is when use Bayesian models. `effectsize` has Bayesian solutions for Bayesian models, about which you can read in the [*Effect Sizes for Bayesian Models* vignette](https://easystats.github.io/effectsize/articles/bayesian_models.html/).
+Another case where *SS*s are not available is when use Bayesian models. `effectsize` has Bayesian solutions for Bayesian models, about which you can read in the [*Effect Sizes for Bayesian Models* vignette](https://easystats.github.io/effectsize/articles/bayesian_models.html).
 
 
 # References

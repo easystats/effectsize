@@ -74,7 +74,7 @@ compliments, years), so comparing them is hard when looking at the raw data.
 This is where standardization comes in.
 
 Like with [frequentists
-models](https://easystats.github.io/effectsize/articles/standardize_parameters.html/)
+models](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
 we can choose from the same standardization methods. Let's use the (slow)
 `"refit"` method.
 
