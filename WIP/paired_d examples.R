@@ -32,9 +32,11 @@ ss <- tapply(data_agg$x, data_agg$congruency, sd)
 s <- mean(ss)
 d / s
 
-# type rm (close to type r?)
+# type rm (close to type r?) NOPE
 data_agg <- data_agg[order(data_agg$pno),]
 data_agg <- split(data_agg, data_agg$congruency)
 r <- cor(sapply(data_agg, "[[", "x"))[1,2]
 s <- sqrt(sum(ss^2) - 2 * r * prod(ss))
 (d / s) * sqrt(2 * (1-r))
+
+effsize::cohen.d(data_agg[[1]]$x, data_agg[[2]]$x, paired = TRUE)
