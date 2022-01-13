@@ -92,7 +92,7 @@ Squares are not easily available or their computation is not straightforward
 from \code{lm} and \code{aov} models, these functions give exact results. For all other
 cases, they return close approximations.
 \cr
-See \href{https://easystats.github.io/effectsize/articles/from_test_statistics.html}{Effect Size from Test Statistics vignette.}
+See \href{https://easystats.github.io/effectsize/articles/from_test_statistics.html/}{Effect Size from Test Statistics vignette.}
 }
 \details{
 These functions use the following formulae:

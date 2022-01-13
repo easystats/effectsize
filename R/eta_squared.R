@@ -584,7 +584,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     Sum_Squares_Subjects <- SSS_values$Sum_Squares_residuals
     Mean_Squares_Subjects <- SSS_values$Mean_Square_residuals
 
-    # implemented from https://www.jasonfinley.com/tools/OmegaSquaredQuickRef_JRF_3-31-13.pdf
+    # implemented from https://www.jasonfinley.com/tools/OmegaSquaredQuickRef_JRF_3-31-13.pdf/
     if (!isTRUE(partial)) {
       aov_table$Omega2 <-
         (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /

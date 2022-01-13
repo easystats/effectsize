@@ -1,10 +1,10 @@
 
 # effectsize <img src="man/figures/logo.png" align="right" width="120" />
 
-[![DOI](https://joss.theoj.org/papers/10.21105/joss.02815/status.svg)](https://doi.org/10.21105/joss.02815)
-[![downloads](http://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize)
-[![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize)](https://cran.r-project.org/package=effectsize)
-[![status](https://tinyverse.netlify.com/badge/effectsize)](https://CRAN.R-project.org/package=effectsize)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.02815/status.svg/)](https://doi.org/10.21105/joss.02815/)
+[![downloads](https://cranlogs.r-pkg.org/badges/effectsize/)](https://cran.r-project.org/package=effectsize/)
+[![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize/)](https://cran.r-project.org/package=effectsize/)
+[![status](https://tinyverse.netlify.com/badge/effectsize/)](https://CRAN.R-project.org/package=effectsize/)
 
 ***Significant is just not enough\!***
 
@@ -14,7 +14,7 @@ conversion of indices such as Cohen’s *d*, *r*, odds-ratios, etc.
 
 ## Installation
 
-[![CRAN](http://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize)
+[![CRAN](https://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize)
 [![effectsize status
 badge](https://easystats.r-universe.dev/badges/effectsize)](https://easystats.r-universe.dev)
 [![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg)](https://github.com/easystats/effectsize/actions)

@@ -21,7 +21,7 @@
 #' @examples
 #' interpret_eta_squared(.02)
 #' interpret_eta_squared(c(.5, .02), rules = "cohen1992")
-#' @seealso http://imaging.mrc-cbu.cam.ac.uk/statswiki/FAQ/effectSize
+#' @seealso https://imaging.mrc-cbu.cam.ac.uk/statswiki/FAQ/effectSize/
 #'
 #'
 #' @references

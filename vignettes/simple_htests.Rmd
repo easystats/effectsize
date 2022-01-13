@@ -126,7 +126,7 @@ effectsize(BFt, test = NULL)
 ## One way ANOVA
 
 For more details, see [ANOVA
-vignette](https://easystats.github.io/effectsize/articles/anovaES.html).
+vignette](https://easystats.github.io/effectsize/articles/anovaES.html/).
 
 ```{r, message=FALSE}
 onew <- oneway.test(mpg ~ gear, data = mtcars, var.equal = TRUE)

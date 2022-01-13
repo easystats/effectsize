@@ -88,15 +88,15 @@ if (require(see)) plot(equivalence_test(ds, range = 0.2, rule = "bayes"))
 \itemize{
 \item Campbell, H., & Gustafson, P. (2018). Conditional equivalence testing: An
 alternative remedy for publication bias. PLOS ONE, 13(4), e0195145.
-https://doi.org/10.1371/journal.pone.0195145
+https://doi.org/10.1371/journal.pone.0195145/
 \item Kruschke, J. K. (2014). Doing Bayesian data analysis: A tutorial with R,
 JAGS, and Stan. Academic Press
 \item Kruschke, J. K. (2018). Rejecting or accepting parameter values in Bayesian
 estimation. Advances in Methods and Practices in Psychological Science, 1(2),
-270-280. doi: 10.1177/2515245918771304
+270-280. doi: 10.1177/2515245918771304/
 \item Lakens, D. (2017). Equivalence Tests: A Practical Primer for t Tests,
 Correlations, and Meta-Analyses. Social Psychological and Personality
-Science, 8(4), 355–362. https://doi.org/10.1177/1948550617697177
+Science, 8(4), 355–362. https://doi.org/10.1177/1948550617697177/
 }
 }
 \seealso{

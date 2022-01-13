@@ -54,5 +54,5 @@
 including the grouping variable (e.g., \code{"Subject"}).}
 }
 \description{
-Read the \href{https://easystats.github.io/effectsize/articles/effectsize_API.html}{\emph{Support functions for model extensions}} vignette.
+Read the \href{https://easystats.github.io/effectsize/articles/effectsize_API.html/}{\emph{Support functions for model extensions}} vignette.
 }

@@ -40,7 +40,7 @@ within and between models, variables and studies. Moreover, as it returns
 coefficients expressed in terms of **change of variance** (for instance,
 coefficients expressed in terms of SD of the response variable), it can allow
 for the usage of [effect size interpretation
-guidelines](https://easystats.github.io/effectsize/articles/interpret.html),
+guidelines](https://easystats.github.io/effectsize/articles/interpret.html/),
 such as Cohen's (1988) famous rules of thumb.
 
 However, standardizing a model's parameters should *not* be automatically and
@@ -113,7 +113,7 @@ When looking at the difference between groups as a **slope**, the standardized
 parameter is the difference between the means in $SD_{mpg}$. That is, the
 *slope* between `Manual` and `Automatic` is a change of 1.20 $SD_{mpg}$s.
 
-However, when looking a the difference as a **distance between two populations**, Cohen's d is the distance between the means in units of [**pooled SDs**](https://easystats.github.io/effectsize/reference/sd_pooled.html). That
+However, when looking a the difference as a **distance between two populations**, Cohen's d is the distance between the means in units of [**pooled SDs**](https://easystats.github.io/effectsize/reference/sd_pooled.html/). That
 is, the *distance* between `Manual` and `Automatic` is of 1.48 SDs of *each of
 the groups* (here assumed to be equal).
 
@@ -387,7 +387,7 @@ standardize_parameters(mod_b, method = "refit", two_sd = TRUE, exponentiate = TR
 
 ## Cohen's *f*
 
-Cohen's $f$ (of [ANOVA fame](https://easystats.github.io/effectsize/articles/anovaES.html)) can be used as a measure of effect size in the context of sequential multiple regression (i.e., [**nested models**](https://easystats.github.io/performance/reference/test_performance.html)).
+Cohen's $f$ (of [ANOVA fame](https://easystats.github.io/effectsize/articles/anovaES.html/)) can be used as a measure of effect size in the context of sequential multiple regression (i.e., [**nested models**](https://easystats.github.io/performance/reference/test_performance.html/)).
 That is, when comparing two models, we can examine the ratio between the
 increase in $R^2$ and the unexplained variance:
 
@@ -519,7 +519,7 @@ different (because the 0 corresponds to something different in standardzed and
 non-standardized data). In other words, when it comes to interaction, passing
 standardized data results in a different model, which coefficient have an
 intrinsically different meaning from unstandardized data. And as [for
-now](https://github.com/easystats/effectsize/issues/6), we are unable to
+now](https://github.com/easystats/effectsize/issues/6/), we are unable to
 retrieve one from another. -->
 
 <!-- #### Between continuous -->

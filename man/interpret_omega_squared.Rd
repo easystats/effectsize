@@ -55,5 +55,5 @@ Edition. Sage:London.
 }
 }
 \seealso{
-http://imaging.mrc-cbu.cam.ac.uk/statswiki/FAQ/effectSize
+https://imaging.mrc-cbu.cam.ac.uk/statswiki/FAQ/effectSize/
 }

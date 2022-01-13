@@ -211,7 +211,7 @@ Statistical Methods, 5(1), 2.
 sciences (2nd Ed.). New York: Routledge.
 \item Delacre, M., Lakens, D., Ley, C., Liu, L., & Leys, C. (2021, May 7). Why
 Hedges’ g*s based on the non-pooled standard deviation should be reported
-with Welch's t-test. https://doi.org/10.31234/osf.io/tu6mp
+with Welch's t-test. https://doi.org/10.31234/osf.io/tu6mp/
 \item Hedges, L. V. & Olkin, I. (1985). Statistical methods for
 meta-analysis. Orlando, FL: Academic Press.
 \item Hunter, J. E., & Schmidt, F. L. (2004). Methods of meta-analysis:
