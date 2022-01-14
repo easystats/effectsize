@@ -1,7 +1,7 @@
 
 # effectsize <img src="man/figures/logo.png" align="right" width="120" />
 
-[![DOI](https://joss.theoj.org/papers/10.21105/joss.02815/status.svg/)](https://doi.org/10.21105/joss.02815/)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.02815/status.svg/)](https://doi.org/10.21105/joss.02815)
 [![downloads](https://cranlogs.r-pkg.org/badges/effectsize/)](https://cran.r-project.org/package=effectsize/)
 [![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize/)](https://cran.r-project.org/package=effectsize/)
 [![status](https://tinyverse.netlify.com/badge/effectsize/)](https://CRAN.R-project.org/package=effectsize/)
