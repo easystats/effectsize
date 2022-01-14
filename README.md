@@ -2,11 +2,11 @@
 # effectsize <img src="man/figures/logo.png" align="right" width="120" />
 
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.02815/status.svg/)](https://doi.org/10.21105/joss.02815)
-[![downloads](https://cranlogs.r-pkg.org/badges/effectsize/)](https://cran.r-project.org/package=effectsize/)
-[![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize/)](https://cran.r-project.org/package=effectsize/)
+[![downloads](https://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize/)
+[![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize)](https://cran.r-project.org/package=effectsize/)
 [![status](https://tinyverse.netlify.com/badge/effectsize/)](https://CRAN.R-project.org/package=effectsize/)
 
-***Significant is just not enough\!***
+***Significant is just not enough!***
 
 The goal of this package is to provide utilities to work with indices of
 effect size and standardized parameters, allowing computation and
@@ -14,13 +14,13 @@ conversion of indices such as Cohen’s *d*, *r*, odds-ratios, etc.
 
 ## Installation
 
-[![CRAN](https://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize)
+[![CRAN](https://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize/)
 [![effectsize status
-badge](https://easystats.r-universe.dev/badges/effectsize)](https://easystats.r-universe.dev)
-[![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg)](https://github.com/easystats/effectsize/actions)
-[![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg)](https://github.com/easystats/effectsize/actions)
+badge](https://easystats.r-universe.dev/badges/effectsize/)](https://easystats.r-universe.dev/)
+[![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg/)](https://github.com/easystats/effectsize/actions/)
+[![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg/)](https://github.com/easystats/effectsize/actions/)
 [![Codecov test
-coverage](https://codecov.io/gh/easystats/effectsize/branch/main/graph/badge.svg)](https://codecov.io/gh/easystats/effectsize?branch=main)
+coverage](https://codecov.io/gh/easystats/effectsize/branch/main/graph/badge.svg/)](https://app.codecov.io/gh/easystats/effectsize?branch=main/)
 
 Run the following to install the stable release of **effectsize** from
 CRAN:
@@ -33,45 +33,41 @@ Or you can install the latest development version `0.5.0.2` from
 [*R-universe*](https://easystats.r-universe.dev):
 
 ``` r
-install.packages("effectsize", repos = "https://easystats.r-universe.dev")
+install.packages("effectsize", repos = "https://easystats.r-universe.dev/")
 ```
 
 <!-- Or from *GitHub*: -->
-
 <!-- ```{r, warning=FALSE, message=FALSE, eval=FALSE} -->
-
 <!-- if (!require("remotes")) install.packages("remotes") -->
-
 <!-- remotes::install_github("easystats/effectsize") -->
-
 <!-- ``` -->
 
 ## Documentation
 
-[![Documentation](https://img.shields.io/badge/documentation-effectsize-orange.svg?colorB=E91E63)](https://easystats.github.io/effectsize/)
-[![Blog](https://img.shields.io/badge/blog-easystats-orange.svg?colorB=FF9800)](https://easystats.github.io/blog/posts/)
-[![Features](https://img.shields.io/badge/features-effectsize-orange.svg?colorB=2196F3)](https://easystats.github.io/effectsize/reference/index.html)
+[![Documentation](https://img.shields.io/badge/documentation-effectsize-orange.svg?colorB=E91E63/)](https://easystats.github.io/effectsize/)
+[![Blog](https://img.shields.io/badge/blog-easystats-orange.svg?colorB=FF9800/)](https://easystats.github.io/blog/posts/)
+[![Features](https://img.shields.io/badge/features-effectsize-orange.svg?colorB=2196F3/)](https://easystats.github.io/effectsize/reference/index.html)
 
 Click on the buttons above to access the package
 [**documentation**](https://easystats.github.io/effectsize/) and the
 [**easystats blog**](https://easystats.github.io/blog/posts/), and
 check-out these vignettes:
 
-  - **Effect Sizes**
-      - [**Parameter and Model
+-   **Effect Sizes**
+    -   [**Parameter and Model
         Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
-      - [**ANOVA Effect
+    -   [**ANOVA Effect
         Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
-      - [**Effect Sizes in Bayesian
+    -   [**Effect Sizes in Bayesian
         Models**](https://easystats.github.io/effectsize/articles/bayesian_models.html)  
-      - [**For Simple Hypothesis
+    -   [**For Simple Hypothesis
         Tests**](https://easystats.github.io/effectsize/articles/simple_htests.html)  
-  - **Effect Sizes Conversion**
-      - [**Between Effect
+-   **Effect Sizes Conversion**
+    -   [**Between Effect
         Sizes**](https://easystats.github.io/effectsize/articles/convert.html)
-      - [**Effect Size from Test
+    -   [**Effect Size from Test
         Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
-  - [**Automated Interpretation of Indices of Effect
+-   [**Automated Interpretation of Indices of Effect
     Size**](https://easystats.github.io/effectsize/articles/interpret.html)
 
 # Features
@@ -245,7 +241,7 @@ interpret_cohens_d(d = 0.45, rules = "gignac2016")
 
 In order to cite this package, please use the following citation:
 
-  - Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation
+-   Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation
     of Effect Size Indices and Standardized Parameters. *Journal of Open
     Source Software*, *5*(56), 2815. doi: 10.21105/joss.02815
 
@@ -268,9 +264,9 @@ Corresponding BibTeX entry:
 
 If you have any questions regarding the the functionality of the
 package, you may either contact us via email or also [file an
-issue](https://github.com/easystats/effectsize/issues). Anyone wishing
+issue](https://github.com/easystats/effectsize/issues/). Anyone wishing
 to contribute to the package by adding functions, features, or in
 another way, please follow [this
-guide](https://github.com/easystats/effectsize/blob/main/.github/CONTRIBUTING.md)
+guide](https://github.com/easystats/effectsize/blob/main/.github/CONTRIBUTING.md/)
 and our [code of
-conduct](https://github.com/easystats/effectsize/blob/main/.github/CODE_OF_CONDUCT.md).
+conduct](https://github.com/easystats/effectsize/blob/main/.github/CODE_OF_CONDUCT.md/).
