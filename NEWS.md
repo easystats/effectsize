@@ -1,3 +1,9 @@
+# effectsize 0.6.1
+
+## Bug fixes
+
+- `eta_squared()` now fully support multi-variate `car` ANOVAs (class `Anova.mlm`; #406 ).
+
 # effectsize 0.6.0
 
 ## Breaking Changes
