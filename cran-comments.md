@@ -1,3 +1,5 @@
+All URL issues have been resolved.
+
 ## Test environments
 
 * local installation: R 4.1.1 on Windows
