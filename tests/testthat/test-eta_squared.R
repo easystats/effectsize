@@ -360,22 +360,56 @@ if (require("testthat") && require("effectsize")) {
 
 
   # car ---------------------------------------------------------------------
-  test_that("car MLM", {
+  test_that("car MVM", {
     skip_if_not_installed("afex")
     skip_if_not_installed("car")
-    data(obk.long, package = "afex")
-    model1 <- afex::aov_car(value ~ treatment * gender + Error(id / (phase * hour)),
-      data = obk.long, observed = "gender",
-      include_aov = FALSE
+
+    # Simple ---
+    ds <- data.frame(I = c(116, 96, 120, 110, 116, 126, 86, 80),
+                     II = c(76, 93, 112, 113, 75, 120, 90, 105),
+                     III = c(85, 63, 89, 60, 115, 101, 129, 67),
+                     IV = c(50, 87, 100, 60, 79, 70, 65, 65),
+                     id = 1:8)
+
+    ds_long <- data.frame(
+      id = c(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L,
+             1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L,
+             1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L,
+             1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L),
+      ind_var = c("I", "I", "I", "I", "I", "I", "I", "I",
+                  "II", "II", "II", "II", "II", "II", "II", "II",
+                  "III", "III", "III", "III", "III", "III", "III", "III",
+                  "IV", "IV", "IV", "IV", "IV", "IV", "IV", "IV"),
+      score = c(116, 96, 120, 110, 116, 126, 86, 80,
+                76, 93, 112, 113, 75, 120, 90, 105,
+                85, 63, 89, 60, 115, 101, 129, 67,
+                50, 87, 100, 60, 79, 70, 65, 65)
     )
 
-    ws <- capture_warnings(eta_squared(model1$Anova, partial = FALSE))
-    expect_match(tail(ws, 1), "Currently only supports partial eta", fixed = TRUE)
 
+
+    fit <- lm(cbind(I, II, III, IV) ~ 1, data = ds)
+    in_rep <- data.frame(ind_var = gl(4, 1))
+    A_car <- car::Anova(fit, idata = in_rep, idesign =  ~ ind_var)
+
+    eta_car <- effectsize::eta_squared(A_car, ci = NULL)[[2]]
+
+    eta_afex <- afex::aov_ez('id', 'score', ds_long,
+                             within = 'ind_var',
+                             anova_table = list(es = "pes"))$anova_table$pes
+
+    expect_equal(eta_car, eta_afex)
+
+    # Complex ---
+    data(obk.long, package = "afex")
+
+    mod <- afex::aov_ez("id", "value", obk.long,
+                        between = c("treatment", "gender"),
+                        within = c("phase", "hour"),
+                        observed = "gender")
     expect_equal(
-      eta_squared(model1$Anova, verbose = FALSE)[1:3, ][[2]],
-      c(0.4407468, 0.2678884, 0.3635011),
-      tolerance = 0.01
+      sort(eta_squared(mod$Anova, generalized = "gender")[[2]]),
+      sort(mod$anova_table$ges)
     )
   })
 

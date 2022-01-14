@@ -1016,40 +1016,81 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 }
 
 #' @keywords internal
-.anova_es.Anova.mlm <- function(model,
-                                type = c("eta", "omega", "epsilon"),
-                                partial = TRUE,
-                                generalized = FALSE,
-                                ci = 0.95, alternative = "greater",
-                                verbose = TRUE,
-                                include_intercept = FALSE,
-                                ...) {
-  # ## For the univariate test
-  # model <- summary(mlm1.aov)$univariate.tests
-  # .anova_es.anova(model, type = type,
-  #                 partial = partial,
-  #                 generalized = generalized,
-  #                 ci = ci, alternative = alternative,
-  #                 verbose = verbose,
-  #                 ...)
+.anova_es.Anova.mlm <-
+  function(model,
+           type = c("eta", "omega", "epsilon"),
+           partial = TRUE,
+           generalized = FALSE,
+           ci = 0.95, alternative = "greater",
+           verbose = TRUE,
+           include_intercept = FALSE,
+           ...) {
+    # Faking the model_parameters.aovlist output:
+    suppressWarnings(aov_tab <- summary(model)$univariate.tests)
+    aov_tab <- as.data.frame(unclass(aov_tab))
+    aov_tab$Parameter <- rownames(aov_tab)
+    colnames(aov_tab)[colnames(aov_tab)== "Sum Sq"] <- "Sum_Squares"
+    colnames(aov_tab)[colnames(aov_tab)== "num Df"] <- "df"
+    aov_tab <- aov_tab[c("Parameter", "Sum_Squares","Error SS", "df", "den Df")]
 
-  ## For the multivariate test
-  model <- parameters::model_parameters(model, verbose = verbose, effects = "fixed", ...)
-  anova_type <- attr(model, "anova_type")
+    id <- "Subject"
+    within <- names(model$idata)
+    within <- lapply(within, function(x) c(NA, x))
+    within <- do.call(expand.grid, within)
+    within <- apply(within, 1, na.omit)
+    ns <- sapply(within, length)
+    within <- sapply(within, paste, collapse = ":")
+    within <- within[order(ns)]
+    within <- Filter(function(x) nchar(x) > 0, within)
+    l <- sapply(within, grepl, x = aov_tab$Parameter, simplify = TRUE)
+    l <- apply(l, 1, function(x) if (!any(x)) 0 else max(which(x)))
+    l <- c(NA, within)[l+1]
+    l <- sapply(l, function(x) paste0(na.omit(c(id, x)), collapse = ":"))
+    aov_tab$Group <- l
 
-  if ("df_num" %in% colnames(model))
-    model$df <- model$df_num
-  if (!include_intercept)
-    model <- model[model$Parameter != "(Intercept)", , drop = FALSE]
-  out <- .anova_es.parameters_model(model, type = type,
-                                    partial = partial,
-                                    generalized = generalized,
-                                    ci = ci, alternative = alternative,
-                                    verbose = verbose,
-                                    ...)
-  attr(out, "anova_type") <- anova_type
-  out
-}
+    aov_tab <- split(aov_tab, aov_tab$Group)
+    aov_tab <- lapply(aov_tab, function (x) {
+      x <- x[c(seq_len(nrow(x)), 1), ]
+      x$Sum_Squares[nrow(x)] <- x[["Error SS"]][1]
+      x$df[nrow(x)] <- x[["den Df"]][1]
+      x$Parameter[nrow(x)] <- "Residuals"
+      x
+    })
+    aov_tab <- do.call(rbind, aov_tab)
+    aov_tab[["Error SS"]] <- NULL
+    aov_tab[["den Df"]] <- NULL
+    aov_tab$`F` <- ifelse(aov_tab$Parameter == "Residuals", NA, 1)
+    aov_tab$Mean_Square <- aov_tab$Sum_Squares/aov_tab$df
+
+    DV_names <- c(id, setdiff(unlist(strsplit(model$terms, ":")), "(Intercept)"))
+
+    out <-
+      .es_aov_strata(
+        aov_tab,
+        DV_names = DV_names,
+        type = type,
+        partial = partial,
+        generalized = generalized,
+        ci = ci, alternative = alternative,
+        verbose = verbose,
+        include_intercept = include_intercept
+      )
+    out$Group <- NULL
+
+    # Reorder rows
+    orig_terms <- model$terms
+    if (include_intercept && !"(Intercept)" %in% orig_terms) {
+      orig_terms <- c("(Intercept)", orig_terms)
+    } else if (!include_intercept && "(Intercept)" %in% orig_terms) {
+      orig_terms <- setdiff(orig_terms, "(Intercept)")
+    }
+    out <- out[match(out$Parameter, orig_terms),]
+
+    attr(out, "anova_type") <- as.numeric(as.roman(model$type))
+    attr(out, "approximate") <- FALSE
+    out
+  }
+
 
 #' @keywords internal
 #' @importFrom stats anova
@@ -1129,79 +1170,17 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     generalized <- attr(model$anova_table, "observed")
   }
 
-  # For completely between, covers all
-  if (!inherits(model$Anova, "Anova.mlm")) {
-    out <-
-      .anova_es(
-        model$Anova,
-        type = type,
-        partial = partial,
-        generalized = generalized,
-        ci = ci, alternative = alternative,
-        verbose = FALSE,
-        include_intercept = include_intercept,
-        ...
-      )
-  } else {
-    # Faking the model_parameters.aovlist output:
-    aov_tab <- summary(model$Anova)$univariate.tests
-    aov_tab <- as.data.frame(unclass(aov_tab))
-    aov_tab$Parameter <- rownames(aov_tab)
-    colnames(aov_tab)[colnames(aov_tab)== "Sum Sq"] <- "Sum_Squares"
-    colnames(aov_tab)[colnames(aov_tab)== "num Df"] <- "df"
-    aov_tab <- aov_tab[c("Parameter", "Sum_Squares","Error SS", "df", "den Df")]
-
-    id <- attr(model, "id")
-    within <- names(attr(model, "within"))
-    within <- lapply(within, function(x) c(NA, x))
-    within <- do.call(expand.grid, within)
-    within <- apply(within, 1, na.omit)
-    ns <- sapply(within, length)
-    within <- sapply(within, paste, collapse = ":")
-    within <- within[order(ns)]
-    within <- Filter(function(x) nchar(x) > 0, within)
-    l <- sapply(within, grepl, x = aov_tab$Parameter, simplify = TRUE)
-    l <- apply(l, 1, function(x) if (!any(x)) 0 else max(which(x)))
-    l <- c(NA, within)[l+1]
-    l <- sapply(l, function(x) paste0(na.omit(c(id, x)), collapse = ":"))
-    aov_tab$Group <- l
-
-    aov_tab <- split(aov_tab, aov_tab$Group)
-    aov_tab <- lapply(aov_tab, function (x) {
-      x <- x[c(seq_len(nrow(x)), 1), ]
-      x$Sum_Squares[nrow(x)] <- x[["Error SS"]][1]
-      x$df[nrow(x)] <- x[["den Df"]][1]
-      x$Parameter[nrow(x)] <- "Residuals"
-      x
-    })
-    aov_tab <- do.call(rbind, aov_tab)
-    aov_tab[["Error SS"]] <- NULL
-    aov_tab[["den Df"]] <- NULL
-    aov_tab$`F` <- ifelse(aov_tab$Parameter == "Residuals", NA, 1)
-    aov_tab$Mean_Square <- aov_tab$Sum_Squares/aov_tab$df
-
-    DV_names <- c(id, names(attr(model, "within")), names(attr(model, "between")))
-
-    out <-
-      .es_aov_strata(
-        aov_tab,
-        DV_names = DV_names,
-        type = type,
-        partial = partial,
-        generalized = generalized,
-        ci = ci, alternative = alternative,
-        verbose = verbose,
-        include_intercept = include_intercept
-      )
-    out$Group <- NULL
-  }
-
-  # Reorder rows
-  orig_terms <- rownames(model$anova_table)
-  if (include_intercept && !"(Intercept)" %in% orig_terms) {
-    orig_terms <- c("(Intercept)", orig_terms)
-  }
-  out <- out[match(out$Parameter, orig_terms),]
+  out <-
+    .anova_es(
+      model$Anova,
+      type = type,
+      partial = partial,
+      generalized = generalized,
+      ci = ci, alternative = alternative,
+      verbose = FALSE,
+      include_intercept = include_intercept,
+      ...
+    )
 
   attr(out, "anova_type") <- attr(model, "type", exact = TRUE)
   attr(out, "approximate") <- FALSE
