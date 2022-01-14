@@ -236,10 +236,10 @@ interpret_d(c(0.02, 0.52, 0.86), rules = "cohen1988")
 
 # Licensing and Availability
 
-**effectsize** is licensed under the GNU General Public License (v3.0), with all source code stored at GitHub (https://github.com/easystats/effectsize), and with a corresponding issue tracker for bug reporting and feature enhancements. In the spirit of honest and open science, we encourage requests/tips for fixes, feature updates, as well as general questions and concerns via direct interaction with contributors and developers, by [filing an issue](https://github.com/easystats/effectsize/issues). See the package's [*Contribution Guidelines*](https://github.com/easystats/effectsize/blob/main/.github/CONTRIBUTING.md).
+**effectsize** is licensed under the GNU General Public License (v3.0), with all source code stored at GitHub (https://github.com/easystats/effectsize), and with a corresponding issue tracker for bug reporting and feature enhancements. In the spirit of honest and open science, we encourage requests/tips for fixes, feature updates, as well as general questions and concerns via direct interaction with contributors and developers, by [filing an issue](https://github.com/easystats/effectsize/issues/). See the package's [*Contribution Guidelines*](https://github.com/easystats/effectsize/blob/main/.github/CONTRIBUTING.md/).
 
 # Acknowledgments
 
-**effectsize** is part of the [*easystats*](https://github.com/easystats/easystats) ecosystem, a collaborative project created to facilitate the usage of R for statistical analyses. Thus, we would like to thank the [members of easystats](https://github.com/orgs/easystats/people) as well as the users.
+**effectsize** is part of the [*easystats*](https://github.com/easystats/easystats/) ecosystem, a collaborative project created to facilitate the usage of R for statistical analyses. Thus, we would like to thank the [members of easystats](https://github.com/orgs/easystats/people/) as well as the users.
 
 # References

@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size and Standardized Parameters
-Version: 0.5.0.2
+Version: 0.6.0
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
@@ -56,9 +56,9 @@ BugReports: https://github.com/easystats/effectsize/issues/
 Depends:
     R (>= 3.4)
 Imports:
-    bayestestR (>= 0.10.5),
-    insight (>= 0.14.3),
-    parameters (>= 0.15.0.1),
+    bayestestR (>= 0.11.5),
+    insight (>= 0.15.0),
+    parameters (>= 0.16.0),
     performance (>= 0.8.0),
     datawizard (>= 0.2.2),
     stats,
@@ -90,8 +90,6 @@ Suggests:
     spelling,
     testthat,
     tidymodels
-Remotes:
-    easystats/parameters
 VignetteBuilder: 
     knitr
 Encoding: UTF-8

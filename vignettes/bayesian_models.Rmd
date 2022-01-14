@@ -130,7 +130,7 @@ sampling from the PPD, we can generate a posterior distribution of explained
 variance estimates. But note that **these estimates are conditioned not only on
 the location-parameters of the model, but also on the scale-parameters of the
 model!** So it is vital to [validate the
-PPD](https://mc-stan.org/docs/2_23/stan-users-guide/meta-models-part.html#meta-models.part)
+PPD](https://mc-stan.org/docs/2_23/stan-users-guide/meta-models-part.html#meta-models.part/)
 before using it to estimate explained variance measures.
 
 ### Setup

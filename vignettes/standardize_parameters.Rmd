@@ -519,7 +519,7 @@ different (because the 0 corresponds to something different in standardzed and
 non-standardized data). In other words, when it comes to interaction, passing
 standardized data results in a different model, which coefficient have an
 intrinsically different meaning from unstandardized data. And as [for
-now](https://github.com/easystats/effectsize/issues/6), we are unable to
+now](https://github.com/easystats/effectsize/issues/6/), we are unable to
 retrieve one from another. -->
 
 <!-- #### Between continuous -->

@@ -1,10 +1,16 @@
-# effectsize 0.5.0.9
+# effectsize 0.6.0
 
 ## Breaking Changes
 
 - `pearsons_c()` effect size column name changed to `Pearsons_c` for consistency. 
 
 ## New features
+
+### New API
+
+See [*Support functions for model extensions* vignette](https://easystats.github.io/effectsize/articles/effectsize_API.html).
+
+### Other features
 
 - `eta_squared()` family now supports `afex::mixed()` models.
 - `cles()` for estimating common language effect sizes.
