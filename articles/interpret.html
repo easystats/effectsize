@@ -33,14 +33,14 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../index.html">
@@ -86,7 +86,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="http://twitter.com/easystats4u" aria-label="Twitter">
+  <a class="external-link nav-link" href="https://twitter.com/easystats4u" aria-label="Twitter">
     <span class="fa fa-twitter"></span>
      
   </a>
@@ -103,6 +103,9 @@
     
   </div>
 </nav><div class="container template-article">
+
+
+
 <script src="interpret_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Automated Interpretation of Indices of Effect Size</h1>
@@ -114,22 +117,22 @@
 
     
     
-<div class="section level2">
-<h2 id="why">Why?<a class="anchor" aria-label="anchor" href="#why"></a>
-</h2>
+<div class="section level3">
+<h3 id="why">Why?<a class="anchor" aria-label="anchor" href="#why"></a>
+</h3>
 <p>The metrics used in statistics (indices of fit, model performance, or parameter estimates) can be very abstract. A long experience is required to intuitively <strong><em>feel</em></strong> the meaning of their values. In order to facilitate the understanding of the results they are facing, many scientists use (often implicitly) some set of <strong>rules of thumb</strong>. Some of these rules of thumb have been standardize and validated and subsequently published as guidelines. Understandably then, such rules of thumb are just suggestions and there is nothing universal about them. The interpretation of <strong>any</strong> effect size measures is always going to be relative to the discipline, the specific data, and the aims of the analyst. This is important because what might be considered a small effect in psychology might be large for some other field like public health.</p>
 <p>One of the most famous interpretation grids was proposed by <strong>Cohen (1988)</strong> for a series of widely used indices, such as the correlation <strong>r</strong> (<em>r</em> = .20, small; <em>r</em> = .40, moderate and <em>r</em> = .60, large) or the <strong>standardized difference</strong> (<em>Cohen’s d</em>). However, there is now a clear evidence that Cohen’s guidelines (which he himself later disavowed; Funder, 2019) are much too stringent and not particularly meaningful taken out of context <span class="citation">(Funder and Ozer 2019)</span>. This led to the emergence of a literature discussing and creating new sets of rules of thumb.</p>
 <p>Although <strong>everybody</strong> agrees on the fact that effect size interpretation in a study should be justified with a rationale (and depend on the context, the field, the literature, the hypothesis, etc.), these pre-baked rules can nevertheless be useful to give a rough idea or frame of reference to understand scientific results.</p>
 <p>The package <strong><code>effectsize</code></strong> catalogs such sets of rules of thumb for a variety of indices in a flexible and explicit fashion, helping you understand and report your results in a scientific yet meaningful way. Again, readers should keep in mind that these thresholds, as ubiquitous as they may be, <strong>remain arbitrary</strong>. Thus, their use should be discussed on a case-by-case basis depending on the field, hypotheses, prior results, and so on, to avoid their crystallization, as for the infamous <span class="math inline">\(p &lt; .05\)</span> criterion of hypothesis testing.</p>
 <p>Moreover, some authors suggest the counter-intuitive idea that <em>very large effects</em>, especially in the context of psychological research, is likely to be a “gross overestimate that will rarely be found in a large sample or in a replication” <span class="citation">(Funder and Ozer 2019)</span>. They suggest that smaller effect size are worth taking seriously (as they can be potentially consequential), as well as more believable.</p>
 </div>
-<div class="section level2">
-<h2 id="correlation-r">Correlation <em>r</em><a class="anchor" aria-label="anchor" href="#correlation-r"></a>
-</h2>
-<div class="section level4">
-<h4 id="funder2019evaluating">
+<div class="section level3">
+<h3 id="correlation-r">Correlation <em>r</em><a class="anchor" aria-label="anchor" href="#correlation-r"></a>
+</h3>
+<div class="section level5">
+<h5 id="funder2019evaluating">
 <span class="citation">Funder and Ozer (2019)</span><a class="anchor" aria-label="anchor" href="#funder2019evaluating"></a>
-</h4>
+</h5>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"funder2019"</span><span class="op">)</span></code></pre></div>
 <ul>
@@ -141,10 +144,10 @@
 <li><p><strong>r &gt;= 0.4</strong> - Very large</p></li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="gignac2016effect">
+<div class="section level5">
+<h5 id="gignac2016effect">
 <span class="citation">Gignac and Szodorai (2016)</span><a class="anchor" aria-label="anchor" href="#gignac2016effect"></a>
-</h4>
+</h5>
 <p>Gignac’s rules of thumb are actually one of few interpretation grid justified and based on actual data, in this case on the distribution of effect magnitudes in the literature.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"gignac2016"</span><span class="op">)</span></code></pre></div>
@@ -155,10 +158,10 @@
 <li><p><strong>r &gt;= 0.3</strong> - Large</p></li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="cohen1988statistical">
+<div class="section level5">
+<h5 id="cohen1988statistical">
 <span class="citation">Cohen (1988)</span><a class="anchor" aria-label="anchor" href="#cohen1988statistical"></a>
-</h4>
+</h5>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></code></pre></div>
 <ul>
@@ -168,10 +171,10 @@
 <li><p><strong>r &gt;= 0.5</strong> - Large</p></li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="evans1996straightforward">
+<div class="section level5">
+<h5 id="evans1996straightforward">
 <span class="citation">Evans (1996)</span><a class="anchor" aria-label="anchor" href="#evans1996straightforward"></a>
-</h4>
+</h5>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"evans1996"</span><span class="op">)</span></code></pre></div>
 <ul>
@@ -182,10 +185,10 @@
 <li><p><strong>r &gt;= 0.8</strong> - Very strong</p></li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="lovakov2021empirically">
+<div class="section level5">
+<h5 id="lovakov2021empirically">
 <span class="citation">Lovakov and Agadullina (2021)</span><a class="anchor" aria-label="anchor" href="#lovakov2021empirically"></a>
-</h4>
+</h5>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"lovakov2021"</span><span class="op">)</span></code></pre></div>
 <ul>
@@ -196,14 +199,14 @@
 </ul>
 </div>
 </div>
-<div class="section level2">
-<h2 id="standardized-difference-d-cohens-d">Standardized Difference <em>d</em> (Cohen’s <em>d</em>)<a class="anchor" aria-label="anchor" href="#standardized-difference-d-cohens-d"></a>
-</h2>
+<div class="section level3">
+<h3 id="standardized-difference-d-cohens-d">Standardized Difference <em>d</em> (Cohen’s <em>d</em>)<a class="anchor" aria-label="anchor" href="#standardized-difference-d-cohens-d"></a>
+</h3>
 <p>The standardized difference can be obtained through the standardization of linear model’s parameters or data, in which they can be used as indices of effect size.</p>
-<div class="section level4">
-<h4 id="cohen1988statistical-1">
+<div class="section level5">
+<h5 id="cohen1988statistical-1">
 <span class="citation">Cohen (1988)</span><a class="anchor" aria-label="anchor" href="#cohen1988statistical-1"></a>
-</h4>
+</h5>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></code></pre></div>
 <ul>
@@ -213,10 +216,10 @@
 <li><p><strong>d &gt;= 0.8</strong> - Large</p></li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="sawilowsky2009new">
+<div class="section level5">
+<h5 id="sawilowsky2009new">
 <span class="citation">Sawilowsky (2009)</span><a class="anchor" aria-label="anchor" href="#sawilowsky2009new"></a>
-</h4>
+</h5>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"sawilowsky2009"</span><span class="op">)</span></code></pre></div>
 <ul>
@@ -229,10 +232,10 @@
 <li><p><strong>d &gt;= 2</strong> - Huge</p></li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="gignac2016effect-1">
+<div class="section level5">
+<h5 id="gignac2016effect-1">
 <span class="citation">Gignac and Szodorai (2016)</span><a class="anchor" aria-label="anchor" href="#gignac2016effect-1"></a>
-</h4>
+</h5>
 <p>Gignac’s rules of thumb are actually one of few interpretation grid justified and based on actual data, in this case on the distribution of effect magnitudes in the literature. These is in fact the same grid used for <em>r</em>, based on the conversion of <em>r</em> to <em>d</em>:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"gignac2016"</span><span class="op">)</span></code></pre></div>
@@ -243,10 +246,10 @@
 <li><p><strong>d &gt;= 0.63</strong> - Large</p></li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="lovakov2021empirically-1">
+<div class="section level5">
+<h5 id="lovakov2021empirically-1">
 <span class="citation">Lovakov and Agadullina (2021)</span><a class="anchor" aria-label="anchor" href="#lovakov2021empirically-1"></a>
-</h4>
+</h5>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"lovakov2021"</span><span class="op">)</span></code></pre></div>
 <ul>
@@ -257,15 +260,15 @@
 </ul>
 </div>
 </div>
-<div class="section level2">
-<h2 id="odds-ratio-or">Odds Ratio (OR)<a class="anchor" aria-label="anchor" href="#odds-ratio-or"></a>
-</h2>
+<div class="section level3">
+<h3 id="odds-ratio-or">Odds Ratio (OR)<a class="anchor" aria-label="anchor" href="#odds-ratio-or"></a>
+</h3>
 <p>Odds ratio, and <em>log</em> odds ratio, are often found in epidemiological studies. However, they are also the parameters of <strong><em>logistic</em></strong> regressions, where they can be used as indices of effect size. Note that the (log) odds ratio from logistic regression coefficients are <em>unstandardized</em>, as they depend on the scale of the predictor. In order to apply the following guidelines, make sure you <a href="https://easystats.github.io/effectsize/articles/standardize_parameters.html" class="external-link"><em>standardize</em></a> your predictors!</p>
 <p>Keep in mind that these apply to Odds <em>ratios</em>, so Odds ratio of 10 is as extreme as a Odds ratio of 0.1 (1/10).</p>
-<div class="section level4">
-<h4 id="chen2010big">
+<div class="section level5">
+<h5 id="chen2010big">
 <span class="citation">Chen, Cohen, and Chen (2010)</span><a class="anchor" aria-label="anchor" href="#chen2010big"></a>
-</h4>
+</h5>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_oddsratio.html">interpret_oddsratio</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"chen2010"</span><span class="op">)</span></code></pre></div>
 <ul>
@@ -275,10 +278,10 @@
 <li><p><strong>OR &gt;= 6.71 </strong> - Large</p></li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="cohen1988statistical-2">
+<div class="section level5">
+<h5 id="cohen1988statistical-2">
 <span class="citation">Cohen (1988)</span><a class="anchor" aria-label="anchor" href="#cohen1988statistical-2"></a>
-</h4>
+</h5>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_oddsratio.html">interpret_oddsratio</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></code></pre></div>
 <ul>
@@ -293,16 +296,16 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 \]</span></p>
 </div>
 </div>
-<div class="section level2">
-<h2 id="coefficient-of-determination-r2">Coefficient of determination (R<sup>2</sup>)<a class="anchor" aria-label="anchor" href="#coefficient-of-determination-r2"></a>
-</h2>
 <div class="section level3">
-<h3 id="for-linear-regression">For Linear Regression<a class="anchor" aria-label="anchor" href="#for-linear-regression"></a>
+<h3 id="coefficient-of-determination-r2">Coefficient of determination (R<sup>2</sup>)<a class="anchor" aria-label="anchor" href="#coefficient-of-determination-r2"></a>
 </h3>
 <div class="section level4">
-<h4 id="cohen1988statistical-3">
-<span class="citation">Cohen (1988)</span><a class="anchor" aria-label="anchor" href="#cohen1988statistical-3"></a>
+<h4 id="for-linear-regression">For Linear Regression<a class="anchor" aria-label="anchor" href="#for-linear-regression"></a>
 </h4>
+<div class="section level5">
+<h5 id="cohen1988statistical-3">
+<span class="citation">Cohen (1988)</span><a class="anchor" aria-label="anchor" href="#cohen1988statistical-3"></a>
+</h5>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></code></pre></div>
 <ul>
@@ -312,10 +315,10 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 <li><p><strong>R2 &gt;= 0.26</strong> - Substantial</p></li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="falk1992primer">
+<div class="section level5">
+<h5 id="falk1992primer">
 <span class="citation">Falk and Miller (1992)</span><a class="anchor" aria-label="anchor" href="#falk1992primer"></a>
-</h4>
+</h5>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"falk1992"</span><span class="op">)</span></code></pre></div>
 <ul>
@@ -324,13 +327,13 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 </ul>
 </div>
 </div>
-<div class="section level3">
-<h3 id="for-pls-sem-r-squared-of-latent-variables">For PLS / SEM R-Squared of <em>latent</em> variables<a class="anchor" aria-label="anchor" href="#for-pls-sem-r-squared-of-latent-variables"></a>
-</h3>
 <div class="section level4">
-<h4 id="chin1998partial">
-<span class="citation">Chin and others (1998)</span><a class="anchor" aria-label="anchor" href="#chin1998partial"></a>
+<h4 id="for-pls-sem-r-squared-of-latent-variables">For PLS / SEM R-Squared of <em>latent</em> variables<a class="anchor" aria-label="anchor" href="#for-pls-sem-r-squared-of-latent-variables"></a>
 </h4>
+<div class="section level5">
+<h5 id="chin1998partial">
+<span class="citation">Chin and others (1998)</span><a class="anchor" aria-label="anchor" href="#chin1998partial"></a>
+</h5>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"chin1998"</span><span class="op">)</span></code></pre></div>
 <ul>
@@ -340,10 +343,10 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 <li><p><strong>R2 &gt;= 0.67</strong> - Substantial</p></li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="hair2011pls">
+<div class="section level5">
+<h5 id="hair2011pls">
 <span class="citation">Hair, Ringle, and Sarstedt (2011)</span><a class="anchor" aria-label="anchor" href="#hair2011pls"></a>
-</h4>
+</h5>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"hair2011"</span><span class="op">)</span></code></pre></div>
 <ul>
@@ -355,14 +358,14 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 </div>
 </div>
 </div>
-<div class="section level2">
-<h2 id="omega-eta-epsilon-squared">Omega / Eta / Epsilon Squared<a class="anchor" aria-label="anchor" href="#omega-eta-epsilon-squared"></a>
-</h2>
+<div class="section level3">
+<h3 id="omega-eta-epsilon-squared">Omega / Eta / Epsilon Squared<a class="anchor" aria-label="anchor" href="#omega-eta-epsilon-squared"></a>
+</h3>
 <p>The Omega squared is a measure of effect size used in ANOVAs. It is an estimate of how much variance in the response variables are accounted for by the explanatory variables. Omega squared is widely viewed as a lesser biased alternative to eta-squared, especially when sample sizes are small.</p>
-<div class="section level4">
-<h4 id="field2013discovering">
+<div class="section level5">
+<h5 id="field2013discovering">
 <span class="citation">Field (2013)</span><a class="anchor" aria-label="anchor" href="#field2013discovering"></a>
-</h4>
+</h5>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_omega_squared.html">interpret_omega_squared</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"field2013"</span><span class="op">)</span></code></pre></div>
 <ul>
@@ -372,10 +375,10 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 <li><p><strong>ES &gt;= 0.14 </strong> - Large</p></li>
 </ul>
 </div>
-<div class="section level4">
-<h4 id="cohen1992power">
+<div class="section level5">
+<h5 id="cohen1992power">
 <span class="citation">Cohen (1992)</span><a class="anchor" aria-label="anchor" href="#cohen1992power"></a>
-</h4>
+</h5>
 <p>These are applicable to one-way ANOVAs, or to <em>partial</em> Eta / Omega / Epsilon Squared in a multi-way ANOVA.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_omega_squared.html">interpret_omega_squared</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1992"</span><span class="op">)</span></code></pre></div>
@@ -387,14 +390,14 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 </ul>
 </div>
 </div>
-<div class="section level2">
-<h2 id="kendalls-coefficient-of-concordance">Kendall’s coefficient of concordance<a class="anchor" aria-label="anchor" href="#kendalls-coefficient-of-concordance"></a>
-</h2>
+<div class="section level3">
+<h3 id="kendalls-coefficient-of-concordance">Kendall’s coefficient of concordance<a class="anchor" aria-label="anchor" href="#kendalls-coefficient-of-concordance"></a>
+</h3>
 <p>The interpretation of Kendall’s coefficient of concordance (<em>w</em>) is a measure of effect size used in non-parametric ANOVAs (the Friedman rank sum test). It is an estimate of agreement among multiple raters.</p>
-<div class="section level4">
-<h4 id="landis1977measurement">
+<div class="section level5">
+<h5 id="landis1977measurement">
 <span class="citation">Landis and Koch (1977)</span><a class="anchor" aria-label="anchor" href="#landis1977measurement"></a>
-</h4>
+</h5>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_omega_squared.html">interpret_omega_squared</a></span><span class="op">(</span><span class="va">w</span>, rules <span class="op">=</span> <span class="st">"landis1977"</span><span class="op">)</span></code></pre></div>
 <ul>
@@ -411,14 +414,14 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 </ul>
 </div>
 </div>
-<div class="section level2">
-<h2 id="cohens-g">Cohen’s <em>g</em><a class="anchor" aria-label="anchor" href="#cohens-g"></a>
-</h2>
+<div class="section level3">
+<h3 id="cohens-g">Cohen’s <em>g</em><a class="anchor" aria-label="anchor" href="#cohens-g"></a>
+</h3>
 <p>Cohen’s <em>g</em> is a measure of effect size used for McNemar’s test of agreement in selection - when repeating a multiple chose selection, is the percent of matches (first response is equal to the second response) different than 50%?</p>
-<div class="section level4">
-<h4 id="cohen1988statistical-4">
+<div class="section level5">
+<h5 id="cohen1988statistical-4">
 <span class="citation">Cohen (1988)</span><a class="anchor" aria-label="anchor" href="#cohen1988statistical-4"></a>
-</h4>
+</h5>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_cohens_g.html">interpret_cohens_g</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></code></pre></div>
 <ul>
@@ -429,9 +432,9 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 </ul>
 </div>
 </div>
-<div class="section level2">
-<h2 id="interpretation-of-other-indices">Interpretation of other Indices<a class="anchor" aria-label="anchor" href="#interpretation-of-other-indices"></a>
-</h2>
+<div class="section level3">
+<h3 id="interpretation-of-other-indices">Interpretation of other Indices<a class="anchor" aria-label="anchor" href="#interpretation-of-other-indices"></a>
+</h3>
 <p><code>effectsize</code> also offers functions for interpreting other statistical indices:</p>
 <ul>
 <li><p><code><a href="../reference/interpret_gfi.html">interpret_gfi()</a></code>, <code><a href="../reference/interpret_gfi.html">interpret_agfi()</a></code>, <code><a href="../reference/interpret_gfi.html">interpret_nfi()</a></code>, <code><a href="../reference/interpret_gfi.html">interpret_nnfi()</a></code>, <code><a href="../reference/interpret_gfi.html">interpret_cfi()</a></code>, <code><a href="../reference/interpret_gfi.html">interpret_rmsea()</a></code>, <code><a href="../reference/interpret_gfi.html">interpret_srmr()</a></code>, <code><a href="../reference/interpret_gfi.html">interpret_rfi()</a></code>, <code><a href="../reference/interpret_gfi.html">interpret_ifi()</a></code>, and <code><a href="../reference/interpret_gfi.html">interpret_pnfi()</a></code> for interpretation CFA / SEM goodness of fit.</p></li>
@@ -442,9 +445,9 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 <li><p><code><a href="../reference/interpret_ess.html">interpret_ess()</a></code> and <code><a href="../reference/interpret_ess.html">interpret_rhat()</a></code> for interpretation of Bayesian diagnostic indices.</p></li>
 </ul>
 </div>
-<div class="section level1 unnumbered">
-<h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
-</h1>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <div id="refs" class="references">
 <div id="ref-chen2010big">
 <p>Chen, Henian, Patricia Cohen, and Sophie Chen. 2010. “How Big Is a Big Odds Ratio? Interpreting the Magnitudes of Odds Ratios in Epidemiological Studies.” <em>Communications in Statistics—Simulation and Computation</em> 39 (4): 860–64.</p>
@@ -498,7 +501,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by <a href="https://github.com/mattansb" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>.</p>
+<p>Developed by <a href="https://github.com/mattansb/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke/" class="external-link">Daniel Lüdecke</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

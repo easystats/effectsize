@@ -33,14 +33,14 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../index.html">
@@ -86,7 +86,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="http://twitter.com/easystats4u" aria-label="Twitter">
+  <a class="external-link nav-link" href="https://twitter.com/easystats4u" aria-label="Twitter">
     <span class="fa fa-twitter"></span>
      
   </a>
@@ -103,6 +103,9 @@
     
   </div>
 </nav><div class="container template-article">
+
+
+
 <script src="effectsize_API_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Support functions for model extensions</h1>
@@ -116,18 +119,18 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/" class="external-link">effectsize</a></span><span class="op">)</span></code></pre></div>
-<div class="section level2">
-<h2 id="supporting-anova-effect-sizes">Supporting ANOVA Effect Sizes<a class="anchor" aria-label="anchor" href="#supporting-anova-effect-sizes"></a>
-</h2>
+<div class="section level3">
+<h3 id="supporting-anova-effect-sizes">Supporting ANOVA Effect Sizes<a class="anchor" aria-label="anchor" href="#supporting-anova-effect-sizes"></a>
+</h3>
 <p>To add support for you model, create a new <code>.anova_es()</code> method function. This functions should generally do 3 things:</p>
 <ol style="list-style-type: decimal">
 <li>Build a data frame with all the required information.</li>
 <li>Pass the data frame to one of the 3 functions.</li>
 <li>Set some attributes to the output.</li>
 </ol>
-<div class="section level3">
-<h3 id="simple-anova-tables">Simple ANOVA tables<a class="anchor" aria-label="anchor" href="#simple-anova-tables"></a>
-</h3>
+<div class="section level4">
+<h4 id="simple-anova-tables">Simple ANOVA tables<a class="anchor" aria-label="anchor" href="#simple-anova-tables"></a>
+</h4>
 <p>The input data frame must have these columns: - <code>Parameter</code> (char) - The name of the parameter or, more often, the term. - <code>Sum_Squares</code> (num) - The sum of squares. - <code>df</code> (num) - The degrees of freedom associated with the <code>Sum_Squares</code>. - <code>Mean_Square_residuals</code> (num; <em>optional</em>) - if <em>not</em> present, is calculated as <code>Sum_Squares / df</code>. (Any other column is ignored.)</p>
 <p>And exactly <em>1</em> row Where <code>Parameter</code> is <code>Residual</code>.</p>
 <p>Optionally, one of the rows can have a <code>(Intercept)</code> value for <code>Parameter</code>.</p>
@@ -154,9 +157,9 @@
 <p>And with the following attributes: <code>partial</code>, <code>generalized</code>, <code>ci</code>, <code>alternative</code>, <code>anova_type</code> (<code>NA</code> or <code>NULL</code>), <code>approximate</code>.</p>
 <p>You can then set the <code>anova_type</code> attribute to {1, 2, 3, or <code>NA</code>} and return the output.</p>
 </div>
-<div class="section level3">
-<h3 id="anova-tables-with-multiple-error-strata">ANOVA Tables with Multiple Error Strata<a class="anchor" aria-label="anchor" href="#anova-tables-with-multiple-error-strata"></a>
-</h3>
+<div class="section level4">
+<h4 id="anova-tables-with-multiple-error-strata">ANOVA Tables with Multiple Error Strata<a class="anchor" aria-label="anchor" href="#anova-tables-with-multiple-error-strata"></a>
+</h4>
 <p>(e.g., <code>aovlist</code> models.)</p>
 <p>The input data frame must have these columns:</p>
 <ul>
@@ -197,9 +200,9 @@
 <p>And with the following attributes: <code>partial</code>, <code>generalized</code>, <code>ci</code>, <code>alternative</code>, <code>approximate</code>.</p>
 <p>You can then set the <code>anova_type</code> attribute to {1, 2, 3, or <code>NA</code>} and return the output.</p>
 </div>
-<div class="section level3">
-<h3 id="approximate-effect-sizes">Approximate Effect sizes<a class="anchor" aria-label="anchor" href="#approximate-effect-sizes"></a>
-</h3>
+<div class="section level4">
+<h4 id="approximate-effect-sizes">Approximate Effect sizes<a class="anchor" aria-label="anchor" href="#approximate-effect-sizes"></a>
+</h4>
 <p>When <em>sums of squares</em> cannot be extracted, we can still get <em>approximate</em> effect sizes based on the <code><a href="../reference/F_to_eta2.html">F_to_eta2()</a></code> family of functions.</p>
 <p>The input data frame must have these columns:</p>
 <ul>
@@ -238,10 +241,10 @@
 <p>And with the following attributes: <code>partial</code>, <code>generalized</code>, <code>ci</code>, <code>alternative</code>, <code>approximate</code>.</p>
 <p>You can then set the <code>anova_type</code> attribute to {1, 2, 3, or <code>NA</code>} and return the output, and optionally the <code>approximate</code> attribute, and return the output.</p>
 </div>
-<div class="section level3">
-<h3 id="example">
+<div class="section level4">
+<h4 id="example">
 <em>Example</em><a class="anchor" aria-label="anchor" href="#example"></a>
-</h3>
+</h4>
 <p>Let’s fit a simple linear model and change its class:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op">+</span> <span class="va">am</span>, <span class="va">mtcars</span><span class="op">)</span>
@@ -301,9 +304,9 @@
 <code class="sourceCode R"><span class="co"># Etc...</span></code></pre></div>
 </div>
 </div>
-<div class="section level2">
-<h2 id="supporting-model-re-fitting-with-standardized-data">Supporting Model Re-Fitting with Standardized Data<a class="anchor" aria-label="anchor" href="#supporting-model-re-fitting-with-standardized-data"></a>
-</h2>
+<div class="section level3">
+<h3 id="supporting-model-re-fitting-with-standardized-data">Supporting Model Re-Fitting with Standardized Data<a class="anchor" aria-label="anchor" href="#supporting-model-re-fitting-with-standardized-data"></a>
+</h3>
 <p><code><a href="../reference/standardize.default.html">effectsize::standardize.default()</a></code> should support your model if you have methods for:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -312,9 +315,9 @@
 </ol>
 <p>Or you can make your own <code>standardize.my_class()</code> function, DIY-style (possibly using <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">datawizard::standardize.data.frame()</a></code> or <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">datawizard::standardize.numeric()</a></code>). This function should return a fiffed model of the same class as the input model.</p>
 </div>
-<div class="section level2">
-<h2 id="supporting-standardized-parameters">Supporting Standardized Parameters<a class="anchor" aria-label="anchor" href="#supporting-standardized-parameters"></a>
-</h2>
+<div class="section level3">
+<h3 id="supporting-standardized-parameters">Supporting Standardized Parameters<a class="anchor" aria-label="anchor" href="#supporting-standardized-parameters"></a>
+</h3>
 <p><code>standardize_parameters.default()</code> offers a few methods of parameter standardization:</p>
 <ul>
 <li>For <code>method = "refit"</code> all you need is to have <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">effectsize::standardize()</a></code> support (see above) as well as <code><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">parameters::model_parameters()</a></code>.<br>
@@ -323,9 +326,9 @@
 </ul>
 <!-- `standardize_parameters.default()` should support your model if it is already supported by `{parameters}` and `{insight}`. --><!-- - For `method = "refit"`, to have `effectsize::standardize()` support (see above). --><!-- - For the post-hoc methods, you will need to have a method for `standardize_info()` (or use the default method). See next section. --><!-- Or you can make your own `standardize_parameters.my_class()` and/or `standardize_info.my_class()` functions. --><!-- ## Extracting Post-Hoc Standardization Information (`standardize_info`) --><!-- The `standardize_info()` function computes the standardized units needed for standardization; In order to standardize some slope $b_{xi}$, we need to multiply it by a scaling factor: --><!-- $$b^*_{xi} = \frac{\text{Deviation}_{xi}}{\text{Deviation}_{y}}\times b_{xi}$$ --><!-- These "deviations" are univariate scaling factors of the response and the specific parameter (usin its corresponding feature in the design matrix). Most often these are a single standard deviation (*SD*), but depending on the `robust` and `two_sd` arguments, these can be also be two *MAD*s, etc. --><!-- Let's look at an example: --><!-- ```{r} --><!-- m <- lm(mpg ~ factor(cyl) * am, data = mtcars) --><!-- standardize_info(m) --><!-- ``` --><!-- - The first 4 columns (`Parameter`, `Type`, `Link`, `Secondary_Parameter`) are taken from `parameters::parameters_type()`.   --><!-- - The `EffectSize_Type` column is not used here, but is used in the the `{report}` package.   --><!-- - `Deviation_Response_Basic` and `Deviation_Response_Smart` correspond to the $\text{Deviation}_{y}$ scalar using two different methods of post-hoc standardization (see `standardize_parameters()` docs for more details).   --><!--     - Note then when the response is not standardized (either due to `standardize_parameters(include_response = FALSE)` or because the model uses a non-continuous response), both methods are fixed at **1** (i.e., no standardization with respect to the outcome).   --><!-- - `Deviation_Basic` and `Deviation_Smart` correspond to the $\text{Deviation}_{xi}$ scaler using two different methods of post-hoc standardization. --><!-- This information is then used by the `standardize_parameters()` to standardize the parameters. -->
 </div>
-<div class="section level1">
-<h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
-</h1>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
@@ -335,7 +338,7 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by <a href="https://github.com/mattansb" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>.</p>
+<p>Developed by <a href="https://github.com/mattansb/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke/" class="external-link">Daniel Lüdecke</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

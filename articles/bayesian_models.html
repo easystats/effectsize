@@ -33,14 +33,14 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../index.html">
@@ -86,7 +86,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="http://twitter.com/easystats4u" aria-label="Twitter">
+  <a class="external-link nav-link" href="https://twitter.com/easystats4u" aria-label="Twitter">
     <span class="fa fa-twitter"></span>
      
   </a>
@@ -103,6 +103,9 @@
     
   </div>
 </nav><div class="container template-article">
+
+
+
 <script src="bayesian_models_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Effect Sizes for Bayesian Models</h1>
@@ -114,18 +117,18 @@
 
     
     
-<div class="section level2">
-<h2 id="standardized-parameters">Standardized Parameters<a class="anchor" aria-label="anchor" href="#standardized-parameters"></a>
-</h2>
 <div class="section level3">
-<h3 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+<h3 id="standardized-parameters">Standardized Parameters<a class="anchor" aria-label="anchor" href="#standardized-parameters"></a>
 </h3>
+<div class="section level4">
+<h4 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h4>
 <p>Like in OLS / ML or other frequentists methods of model parameter estimation, standardizing the parameters of Bayesian (generalized) linear regression models can allow for the comparison of so-called “effects” within and between models, variables and studies.</p>
 <p>As with frequentists methods, standardizing parameters should not be the only method of examining the role different predictors play in a particular Bayesian model, and this vignette generally assumes that the issues of model convergence, goodness of fit and model selection have already been taken care of. (Learn more about how to become a Bayesian master with <a href="https://easystats.github.io/bayestestR/" class="external-link">the <code>bayestestR</code> package</a>.)</p>
 </div>
-<div class="section level3">
-<h3 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
-</h3>
+<div class="section level4">
+<h4 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
+</h4>
 <p>We will examine the predictive role of overtime (<code>xtra_hours</code>), number of compliments given to the boss (<code>n_comps</code>) and seniority in predicting workers salaries. Let’s fit the model:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/rstanarm/" class="external-link">rstanarm</a></span><span class="op">)</span>
@@ -192,19 +195,19 @@
 <p>As we can see, working harder (or at least for longer hours) has stronger predictive power than complementing or seniority. (Do note, however, that this does not mean that if you wish to have a higher salary you should work overtime - the raw parameters seem to suggest that complementing your boss is the way to go, with one compliment worth almost 3.5 times <strong>more</strong> than a full hours’ work!)</p>
 </div>
 </div>
-<div class="section level2">
-<h2 id="eta2">Eta<sup>2</sup><a class="anchor" aria-label="anchor" href="#eta2"></a>
-</h2>
 <div class="section level3">
-<h3 id="introduction-1">Introduction<a class="anchor" aria-label="anchor" href="#introduction-1"></a>
+<h3 id="eta2">Eta<sup>2</sup><a class="anchor" aria-label="anchor" href="#eta2"></a>
 </h3>
+<div class="section level4">
+<h4 id="introduction-1">Introduction<a class="anchor" aria-label="anchor" href="#introduction-1"></a>
+</h4>
 <p>In classical frequentists models, the computation of <span class="math inline">\(\eta^2\)</span> or <span class="math inline">\(\eta^2_p\)</span> is straightforward: based on the right combinations of sums-of-squares (<em>SS</em>s), we get the correct proportion of variance accounted for by some predictor term. However such a computation is not as straightforward for Bayesian models, for various reasons (e.g., the model-<em>SS</em> and the residual-<em>SS</em> don’t necessarily sum to the total-<em>SS</em>). Although some have proposed Bayesian methods of estimating explained variance in ANOVA designs <span class="citation">(Marsman et al. 2019)</span>, these are not yet easy to implement with <code>stan</code>-based models.</p>
 <p>An alternative route to obtaining effect sizes of explained variance, is via the use of the <strong><em>posterior predictive distribution</em></strong> (<em>PPD</em>). The PPD is the Bayesian expected distribution of possible unobserved values. Thus, after observing some data, we can estimate not just the expected mean values (the conditional marginal means), but also the full <em>distribution</em> of data around these values <span class="citation">(Gelman et al. 2014, chap. 7)</span>.</p>
-<p>By sampling from the PPD, we can decompose the sample to the various <em>SS</em>s needed for the computation of explained variance measures. By repeatedly sampling from the PPD, we can generate a posterior distribution of explained variance estimates. But note that <strong>these estimates are conditioned not only on the location-parameters of the model, but also on the scale-parameters of the model!</strong> So it is vital to <a href="https://mc-stan.org/docs/2_23/stan-users-guide/meta-models-part.html#meta-models.part" class="external-link">validate the PPD</a> before using it to estimate explained variance measures.</p>
+<p>By sampling from the PPD, we can decompose the sample to the various <em>SS</em>s needed for the computation of explained variance measures. By repeatedly sampling from the PPD, we can generate a posterior distribution of explained variance estimates. But note that <strong>these estimates are conditioned not only on the location-parameters of the model, but also on the scale-parameters of the model!</strong> So it is vital to <a href="https://mc-stan.org/docs/2_23/stan-users-guide/meta-models-part.html#meta-models.part/" class="external-link">validate the PPD</a> before using it to estimate explained variance measures.</p>
 </div>
-<div class="section level3">
-<h3 id="setup-1">Setup<a class="anchor" aria-label="anchor" href="#setup-1"></a>
-</h3>
+<div class="section level4">
+<h4 id="setup-1">Setup<a class="anchor" aria-label="anchor" href="#setup-1"></a>
+</h4>
 <p>Let’s factorize out data from above:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age</span>,
@@ -2288,9 +2291,9 @@
 &gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
 </div>
 </div>
-<div class="section level1 unnumbered">
-<h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
-</h1>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <div id="refs" class="references">
 <div id="ref-gelman2014bayesian">
 <p>Gelman, Andrew, John B Carlin, Hal S Stern, and Donald B Rubin. 2014. “Bayesian Data Analysis (Vol. 2).” <em>Boca Raton, FL: Chapman</em>.</p>
@@ -2308,7 +2311,7 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by <a href="https://github.com/mattansb" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>.</p>
+<p>Developed by <a href="https://github.com/mattansb/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke/" class="external-link">Daniel Lüdecke</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
