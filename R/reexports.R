@@ -3,8 +3,8 @@
 datawizard::adjust
 
 #' @export
-#' @importFrom datawizard change_scale
-datawizard::change_scale
+#' @importFrom datawizard data_rescale
+datawizard::data_rescale
 
 #' @export
 #' @importFrom datawizard normalize

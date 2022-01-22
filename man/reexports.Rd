@@ -5,7 +5,7 @@
 \alias{reexports}
 \alias{equivalence_test}
 \alias{adjust}
-\alias{change_scale}
+\alias{data_rescale}
 \alias{normalize}
 \alias{ranktransform}
 \alias{standardize}
@@ -19,6 +19,6 @@ below to see their documentation.
 \describe{
   \item{bayestestR}{\code{\link[bayestestR]{equivalence_test}}}
 
-  \item{datawizard}{\code{\link[datawizard]{adjust}}, \code{\link[datawizard:data_rescale]{change_scale}}, \code{\link[datawizard]{normalize}}, \code{\link[datawizard]{ranktransform}}, \code{\link[datawizard]{standardize}}, \code{\link[datawizard:standardize]{unstandardize}}}
+  \item{datawizard}{\code{\link[datawizard]{adjust}}, \code{\link[datawizard]{data_rescale}}, \code{\link[datawizard]{normalize}}, \code{\link[datawizard]{ranktransform}}, \code{\link[datawizard]{standardize}}, \code{\link[datawizard:standardize]{unstandardize}}}
 }}
 
