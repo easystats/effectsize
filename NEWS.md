@@ -2,6 +2,7 @@
 
 ## Bug fixes
 
+- `interpret.performance_lavaan()` now works without attaching `effectsize` ( #410 ).  
 - `eta_squared()` now fully support multi-variate `car` ANOVAs (class `Anova.mlm`; #406 ).
 
 # effectsize 0.6.0

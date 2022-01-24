@@ -253,7 +253,7 @@ interpret.performance_lavaan <- function(x, ...) {
   mfits <- intersect(names(x), mfits)
 
   table <- lapply(mfits, function(ind_name) {
-    .interpret_ind <- match.fun(paste0("interpret_", tolower(ind_name)))
+    .interpret_ind <- eval(parse(text = paste0("interpret_", tolower(ind_name))))
     data.frame(
       Name = ind_name,
       Value = x[[ind_name]],
