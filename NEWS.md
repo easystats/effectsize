@@ -1,5 +1,9 @@
 # effectsize 0.6.1
 
+## Breaking Changes
+
+- `adjust()`, `normalize()`, `ranktransform()`, `unstandardize()`, and `change_scale()` are no longer re-exported from `datawizard`.
+
 ## Bug fixes
 
 - `eta_squared()` now fully support multi-variate `car` ANOVAs (class `Anova.mlm`; #406 ).

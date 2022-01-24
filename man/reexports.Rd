@@ -4,12 +4,7 @@
 \name{reexports}
 \alias{reexports}
 \alias{equivalence_test}
-\alias{adjust}
-\alias{data_rescale}
-\alias{normalize}
-\alias{ranktransform}
 \alias{standardize}
-\alias{unstandardize}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -19,6 +14,6 @@ below to see their documentation.
 \describe{
   \item{bayestestR}{\code{\link[bayestestR]{equivalence_test}}}
 
-  \item{datawizard}{\code{\link[datawizard]{adjust}}, \code{\link[datawizard]{data_rescale}}, \code{\link[datawizard]{normalize}}, \code{\link[datawizard]{ranktransform}}, \code{\link[datawizard]{standardize}}, \code{\link[datawizard:standardize]{unstandardize}}}
+  \item{datawizard}{\code{\link[datawizard]{standardize}}}
 }}
 
