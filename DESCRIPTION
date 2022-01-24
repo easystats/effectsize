@@ -60,7 +60,7 @@ Imports:
     insight (>= 0.15.0),
     parameters (>= 0.16.0),
     performance (>= 0.8.0),
-    datawizard (>= 0.2.2),
+    datawizard (>= 0.2.2.9000),
     stats,
     utils
 Suggests:
@@ -90,6 +90,8 @@ Suggests:
     spelling,
     testthat,
     tidymodels
+Remotes:
+    easystats/datawizard
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
