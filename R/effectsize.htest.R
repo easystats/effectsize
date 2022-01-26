@@ -16,12 +16,10 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     dots$mu <- model$null.value
 
     if (approx) {
-      if (verbose) {
-        warning("Unable to retrieve data from htest object. Using t_to_d() approximation.")
-      }
-
       if (type == "cles") {
         stop("Unable to retrieve data from htest object. Cannot compute CLES.")
+      } else if (verbose) {
+        warning("Unable to retrieve data from htest object. Using t_to_d() approximation.")
       }
 
       f <- t_to_d
@@ -172,7 +170,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
     if (approx) {
       stop("Unable to retrieve data from htest object.",
-        "\nTry using",ifelse(type=="cles", "'rank_biserial()'", "'cles()'")," directly.",
+        "\nTry using",ifelse(type=="cles", "'cles()'", "'rank_biserial()'")," directly.",
         call. = FALSE
       )
     }
@@ -180,6 +178,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     f <- switch(tolower(type),
                 r = ,
                 rb = ,
+                rbs = ,
+                r_rank_biserial = ,
                 rank_biserial = rank_biserial,
                 cles = cles
     )

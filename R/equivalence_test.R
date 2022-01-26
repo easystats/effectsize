@@ -1,7 +1,3 @@
-#' @importFrom bayestestR equivalence_test
-#' @export
-bayestestR::equivalence_test
-
 #' @title Test for Practical Equivalence
 #'
 #' @description Perform a **Test for Practical Equivalence** for indices of
