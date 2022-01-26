@@ -84,6 +84,11 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.6.1" id="effectsize-061">effectsize 0.6.1<a class="anchor" aria-label="anchor" href="#effectsize-061"></a></h2>
 <div class="section level3">
+<h3 id="breaking-changes-0-6-1">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-6-1"></a></h3>
+<ul><li>
+<code>adjust()</code>, <code>normalize()</code>, <code>ranktransform()</code>, <code>unstandardize()</code>, and <code>change_scale()</code> are no longer re-exported from <code>datawizard</code>.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="bug-fixes-0-6-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-6-1"></a></h3>
 <ul><li>
 <code><a href="../reference/interpret_gfi.html">interpret.performance_lavaan()</a></code> now works without attaching <code>effectsize</code> ( <a href="https://github.com/easystats/effectsize/issues/410" class="external-link">#410</a> ).<br></li>
@@ -145,7 +150,7 @@
 <code><a href="../reference/effectsize_deprecated.html">interpret_parameters()</a></code> was removed. Use <code><a href="../reference/interpret_r.html">interpret_r()</a></code> instead (with caution!).</li>
 <li>Phi, Cohen’s <em>w</em>, Cramer’s <em>V</em>, ANOVA effect sizes, rank Epsilon squared, Kendall’s <em>W</em> - CIs default to 95% one-sided CIs (<code>alternative = "greater"</code>). (To restore previous behavior, set <code>ci = .9, alternative = "two.sided"</code>.)</li>
 <li>
-<code><a href="https://easystats.github.io/datawizard/reference/adjust.html" class="external-link">adjust()</a></code>, <code><a href="https://easystats.github.io/datawizard/reference/data_rescale.html" class="external-link">change_scale()</a></code>, <code><a href="https://easystats.github.io/datawizard/reference/normalize.html" class="external-link">normalize()</a></code>, <code><a href="https://easystats.github.io/datawizard/reference/ranktransform.html" class="external-link">ranktransform()</a></code>, <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> (data), and <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">unstandardize()</a></code> have moved to the new <a href="https://easystats.github.io/datawizard/" class="external-link"><code>{datawizard}</code></a> package!</li>
+<code>adjust()</code>, <code>change_scale()</code>, <code>normalize()</code>, <code>ranktransform()</code>, <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> (data), and <code>unstandardize()</code> have moved to the new <a href="https://easystats.github.io/datawizard/" class="external-link"><code>{datawizard}</code></a> package!</li>
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-0-5-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-5-0"></a></h3>
@@ -229,7 +234,7 @@
 <ul><li>
 <code><a href="../reference/standardize_parameters.html">standardize_parameters()</a></code> now supports bootstrapped estimates (from <code><a href="https://easystats.github.io/parameters/reference/bootstrap_model.html" class="external-link">parameters::bootstrap_model()</a></code> and <code><a href="https://easystats.github.io/parameters/reference/bootstrap_parameters.html" class="external-link">parameters::bootstrap_parameters()</a></code>).</li>
 <li>
-<code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">unstandardize()</a></code> which will reverse the effects of <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code>.</li>
+<code>unstandardize()</code> which will reverse the effects of <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code>.</li>
 <li>
 <code><a href="../reference/interpret_kendalls_w.html">interpret_kendalls_w()</a></code> to interpret Kendall’s coefficient of concordance.</li>
 <li>
@@ -252,7 +257,7 @@
 <h3 id="new-features-0-4-3">New features<a class="anchor" aria-label="anchor" href="#new-features-0-4-3"></a></h3>
 <ul><li><p><code><a href="../reference/phi.html">cohens_h()</a></code> effect size for comparing two independent proportions.</p></li>
 <li><p><code><a href="../reference/rank_biserial.html">rank_biserial()</a></code>, <code><a href="../reference/rank_biserial.html">cliffs_delta()</a></code>, <code><a href="../reference/rank_biserial.html">rank_epsilon_squared()</a></code> and <code><a href="../reference/rank_biserial.html">kendalls_w()</a></code> functions for effect sizes for rank-based tests.</p></li>
-<li><p><code><a href="https://easystats.github.io/datawizard/reference/adjust.html" class="external-link">adjust()</a></code> gains <code>keep_intercept</code> argument to keep the intercept.</p></li>
+<li><p><code>adjust()</code> gains <code>keep_intercept</code> argument to keep the intercept.</p></li>
 <li><p><code><a href="../reference/eta_squared.html">eta_squared()</a></code> family of functions supports <code>Anova.mlm</code> objects (from the <code>car</code> package).</p></li>
 <li>
 <p><code><a href="../reference/effectsize.html">effectsize()</a></code>:</p>
@@ -264,7 +269,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-4-3">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-4-3"></a></h3>
-<ul><li><p><code><a href="https://easystats.github.io/datawizard/reference/adjust.html" class="external-link">adjust()</a></code> properly works when <code>multilevel = TRUE</code>.</p></li>
+<ul><li><p><code>adjust()</code> properly works when <code>multilevel = TRUE</code>.</p></li>
 <li><p><code><a href="../reference/cohens_d.html">cohens_d()</a></code> family / <code><a href="../reference/sd_pooled.html">sd_pooled()</a></code> now properly fails when given a missing column name.</p></li>
 </ul></div>
 <div class="section level3">
@@ -384,7 +389,7 @@
 <div class="section level3">
 <h3 id="bug-fixes-0-3-2">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-3-2"></a></h3>
 <ul><li><p>Fix minor miss-calculation of Chi-squared for 2*2 table with small samples ( <a href="https://github.com/easystats/effectsize/issues/102" class="external-link">#102</a> ).</p></li>
-<li><p>Fixed miss-calculation of signed rank in <code><a href="https://easystats.github.io/datawizard/reference/ranktransform.html" class="external-link">ranktransform()</a></code> ( <a href="https://github.com/easystats/effectsize/issues/87" class="external-link">#87</a> ).</p></li>
+<li><p>Fixed miss-calculation of signed rank in <code>ranktransform()</code> ( <a href="https://github.com/easystats/effectsize/issues/87" class="external-link">#87</a> ).</p></li>
 <li><p>Fixed bug in <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> for standard objects with non-standard class-attributes (like vectors of class <code>haven_labelled</code> or <code>vctrs_vctr</code>).</p></li>
 <li><p>Fix <code><a href="../reference/effectsize.html">effectsize()</a></code> for one sample <code>t.test(...)</code> ( <a href="https://github.com/easystats/effectsize/issues/95" class="external-link">#95</a> ; thanks to pull request by <a href="https://github.com/mutlusun" class="external-link">@mutlusun</a> )</p></li>
 </ul></div>
