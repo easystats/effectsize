@@ -1,8 +1,6 @@
-# effectsize 0.6.1
+# effectsize 0.6.0.1
 
-## Breaking Changes
-
-- `adjust()`, `normalize()`, `ranktransform()`, `unstandardize()`, and `change_scale()` are no longer re-exported from `datawizard`.
+*This is a patch release.*
 
 ## Bug fixes
 

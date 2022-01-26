@@ -209,8 +209,8 @@ if (require("testthat") && require("effectsize")) {
                    dem60 ~ ind60 "
     model <- lavaan::sem(structure, data = lavaan::PoliticalDemocracy)
     int <- interpret(model)
-    expect_equal(int$Name, c("GFI", "AGFI", "NFI", "NNFI", "CFI", "RMSEA", "SRMR", "RFI", "IFI", "PNFI"))
-    expect_equal(int$Value,c(0.9666, 0.9124, 0.9749, 1.0001, 1, 0, 0.0273, 0.9529, 1.0001, 0.5199), tolerance = 0.001)
+    expect_equal(int$Name, c("GFI", "AGFI", "NFI", "NNFI", "CFI", "RMSEA", "SRMR", "RFI", "PNFI", "IFI"))
+    expect_equal(int$Value,c(0.9666, 0.9124, 0.9749, 1.0001, 1, 0, 0.0273, 0.9529, 0.5199, 1.0001), tolerance = 0.001)
   })
 
   test_that("interpret_icc", {
