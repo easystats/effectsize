@@ -417,7 +417,7 @@ standardize.wbgee <- standardize.wbm
     temp_data_std <- m_data_std
   }
 
-  datawizard::change_scale(val,
+  datawizard::data_rescale(val,
                            to = range(temp_data_std[[cov_nm]]),
                            range = range(temp_data[[cov_nm]])
   )

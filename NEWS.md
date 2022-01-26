@@ -1,5 +1,9 @@
 # effectsize 0.6.1
 
+## Breaking Changes
+
+- `adjust()`, `normalize()`, `ranktransform()`, `unstandardize()`, and `change_scale()` are no longer re-exported from `datawizard`.
+
 ## Bug fixes
 
 - `interpret.performance_lavaan()` now works without attaching `effectsize` ( #410 ).  
