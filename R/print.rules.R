@@ -48,8 +48,8 @@ print.rules <- function(x, ...) {
 print.effectsize_interpret <- function(x, ...) {
   orig_x <- x
 
-  name <- attr(x, "rule_name")
-  attr(x, "rule_name") <- NULL
+  name <- attr(attr(x, "rules"), "rule_name")
+  attr(x, "rules") <- NULL
 
   class(x) <- class(x)[-1]
   print(x, ...)
