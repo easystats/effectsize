@@ -138,7 +138,8 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
     rules <- rules(rules)
   }
 
-  nm <- names(x)
+  if (is.null(name)) name <- "Custom rules"
+  attr(rules, "rule_name") <- name
 
   if (length(x) > 1) {
     out <- sapply(x, .interpret, rules)
@@ -146,15 +147,10 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
     out <- .interpret(x, rules)
   }
 
-  names(out) <- nm
-
-  if (is.null(name)) {
-    attr(out, "rule_name") <- "Custom rules"
-  } else {
-    attr(out, "rule_name") <- name
-  }
+  names(out) <- names(x)
 
   class(out) <- c("effectsize_interpret", class(out))
+  attr(out, "rules") <- rules
   out
 }
 
