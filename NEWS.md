@@ -1,3 +1,7 @@
+# effectsize 0.6.0.2
+
+
+
 # effectsize 0.6.0.1
 
 *This is a patch release.*
