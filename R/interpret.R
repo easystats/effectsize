@@ -10,7 +10,7 @@
 #' @param labels Labels associated with each category. If `NULL`, will try to
 #'   infer it from `values` (if it is a named vector or a list), otherwise, will
 #'   return the breakpoints.
-#' @param name Name of the set of rules (stored as a 'rule_name' attribute).
+#' @param name Name of the set of rules (will be printed).
 #' @param right logical, for threshold-type rules, indicating if the thresholds
 #'   themselves should be included in the interval to the right (lower values)
 #'   or in the interval to the left (higher values).
@@ -196,7 +196,7 @@ interpret.effectsize_table <- function(x, rules, ...) {
     r = interpret_r(value, rules = rules)
   )
 
-  attr(x, "rule_name") <- attr(x$Interpretation, "rule_name")
+  attr(x, "rules") <- attr(x$Interpretation, "rules")
   x
 }
 

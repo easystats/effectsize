@@ -235,13 +235,20 @@ if (require("testthat") && require("effectsize")) {
   # interpret effectsize_table ----
   test_that("interpret effectsize_table", {
     d <- cohens_d(mpg ~ am, data = mtcars)
-
-    expect_error(interpret(d))
-
     d_ <- interpret(d, rules = "cohen1988")
     expect_equal(d_[["Interpretation"]], "large", ignore_attr = TRUE)
     expect_s3_class(d_[["Interpretation"]], "effectsize_interpret")
     expect_output(print(d_), "large")
     expect_output(print(d_), "Interpretation rule: cohen1988")
+
+
+    V <- cramers_v(matrix(c(71, 30, 50, 100), 2))
+    V_ <- interpret(V, rules = "funder2019")
+    expect_equal(V_[["Interpretation"]], "large", ignore_attr = TRUE)
+    expect_s3_class(V_[["Interpretation"]], "effectsize_interpret")
+    expect_output(print(V_), "large")
+    expect_output(print(V_), "Interpretation rule: funder2019")
+
+    expect_error(interpret(d))
   })
 }

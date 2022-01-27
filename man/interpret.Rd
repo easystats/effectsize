@@ -21,7 +21,7 @@ frame of class \code{effectsize_table}.}
 \item{rules}{Set of \code{\link[=rules]{rules()}}. When \code{x} is a data frame, can be a name of an
 established set of rules.}
 
-\item{name}{Name of the set of rules (stored as a 'rule_name' attribute).}
+\item{name}{Name of the set of rules (will be printed).}
 }
 \value{
 \itemize{
