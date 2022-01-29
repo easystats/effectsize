@@ -5,13 +5,17 @@ paired_d <- function(x, group, block, data = NULL,
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
 
   data <- effectsize:::.kendalls_w_data(x, group, block, data, wide = FALSE)
-  data$groups <- factor(data$groups)
-  data$blocks <- factor(data$blocks)
+  if (!is.factor(data$groups)) data$groups <- factor(data$groups)
+  if (!is.factor(data$blocks)) data$blocks <- factor(data$blocks)
+  data <- na.omit(data)
 
   stopifnot(nlevels(data$groups) == 2L)
 
+
   if (type %in% c("a", "z", "t", "av", "rm")) {
     data <- aggregate(data$x, data[-1], mean)
+    xtab <- table(data[-3])
+    data <- data[data$blocks %in% colnames(xtab)[colSums(xtab) %in% 2], ]
   }
 
   if (type %in% c("z", "t")) {
@@ -29,12 +33,9 @@ paired_d <- function(x, group, block, data = NULL,
 paired_d_z_t <- function(data, type,
                          mu = 0, ci = 0.95, alternative = "two.sided") {
   data <- data[order(data$groups),]
-  data <- aggregate(data$x, data[2], function(.x) {
-    if (length(.x) != 2L) return(NA)
-    diff(.x)
-  })
+  data <- aggregate(data$x, data[2], diff)
 
-  out <- cohens_d(data$x, mu = mu, ci = ci, alternative = alternative)
+  out <- cohens_d(-data$x, mu = mu, ci = ci, alternative = alternative)
   colnames(out)[1] <- "d_z"
 
   if (type == "t") {
@@ -47,14 +48,20 @@ paired_d_z_t <- function(data, type,
 }
 
 paired_d_d_a_r <- function(data, type,
-                         mu = 0, ci = 0.95, alternative = "two.sided") {
+                           mu = 0, ci = 0.95, alternative = "two.sided") {
   # Use ANOVA decomp
   mod <- stats::aov(x ~ groups + Error(blocks/groups), data = data)
   pars <- parameters::model_parameters(mod)
 
-  is_d <- (pars$Paramete %in% c("groups", "blocks:groups") & pars$df==1)
-  if (sum(is_d)>1) is_d <- is_d & pars$Group == "blocks:groups"
-  d <- unname(coef(mod[[pars$Group[is_d]]]))
+  # Look in:
+  # d/r = groups
+  # a = blocks:groups
+  is_d <-
+    pars$Paramete == "groups" &
+    pars$df == 1 &
+    pars$Group == "blocks:groups"
+
+  d <- -unname(coef(mod[[pars$Group[is_d]]]))
 
   if (type %in% c("d", "a")) {
     ss <- sum(pars$Sum_Squares[!is_d])
@@ -105,7 +112,7 @@ paired_d_av_rm <- function(data, type,
                            mu = 0, ci = 0.95, alternative = "two.sided") {
   data <- data[order(data[[1]], data[[2]]),]
 
-  d <- diff(tapply(data$x, data$groups, mean))
+  d <- -diff(tapply(data$x, data$groups, mean))
   ss <- tapply(data$x, data$groups, sd)
 
   r <- cor(data$x[data$groups==data$groups[1]],
