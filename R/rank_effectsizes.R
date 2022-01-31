@@ -590,6 +590,7 @@ kendalls_w <- function(x,
   )
 }
 
+
 # Utils -------------------------------------------------------------------
 
 .safe_ranktransform <- function(x, verbose = TRUE, ...) {
