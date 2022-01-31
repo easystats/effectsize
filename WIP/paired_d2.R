@@ -7,6 +7,8 @@ paired_d <- function(x, group, block, data = NULL,
   data <- effectsize:::.kendalls_w_data(x, group, block, data, wide = FALSE)
   if (!is.factor(data$groups)) data$groups <- factor(data$groups)
   if (!is.factor(data$blocks)) data$blocks <- factor(data$blocks)
+  contrasts(data$groups) <- contr.treatment
+  contrasts(data$blocks) <- contr.treatment
   data <- na.omit(data)
 
   stopifnot(nlevels(data$groups) == 2L)
@@ -159,3 +161,11 @@ paired_d_av_rm <- function(data, type,
   attr(out, "alternative") <- alternative
   return(out)
 }
+
+# .sample_within <- function(.data) {
+#   .data |>
+#     tidyr::nest(data = -id) |>
+#     dplyr::slice_sample(prop = 1, replace = TRUE) |>
+#     dplyr::mutate(id = seq_along(id)) |>
+#     tidyr::unnest(cols = data)
+# }

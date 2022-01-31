@@ -9,7 +9,8 @@ dat <- read.table("http://pcl.missouri.edu/exp/effectSizePuzzler.txt", header=TR
 # https://doi.org/10.3389/fpsyg.2013.00863
 # https://journals.sagepub.com/doi/pdf/10.1177/0013164403256358 (CIs)
 
-aggregate(dat$rt, dat['cond'], mean)
+# Are CIs correct?
+# Need to simulate data with a big subject:condition interaction.
 
 #' Single measurement:
 #' d - classic definition
