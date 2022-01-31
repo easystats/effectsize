@@ -118,10 +118,10 @@ case, that would normally be tested with Mann-Whitney's \emph{U} Test (giving
 \strong{Glass'} rank-biserial correlation). See \link[stats:wilcox.test]{stats::wilcox.test}. In both
 cases, the correlation represents the difference between the proportion of
 favorable and unfavorable pairs / signed ranks (Kerby, 2014). Values range
-from \code{-1} indicating that all values of the second sample are smaller than
-the first sample, to \code{+1} indicating that all values of the second sample are
-larger than the first sample. (Cliff's \emph{delta} is an alias to the
-rank-biserial correlation in the two sample case.)
+from \code{-1} (\emph{all} values of the second sample are larger than \emph{all} the values
+of the first sample) to \code{+1} (\emph{all} values of the second sample are smaller
+than \emph{all} the values of the first sample). Cliff's \emph{delta} is an alias to
+the rank-biserial correlation in the two sample case.
 \cr\cr
 The rank epsilon squared is appropriate for non-parametric tests of
 differences between 2 or more samples (a rank based ANOVA). See
@@ -159,13 +159,14 @@ mtcars$cyl <- factor(mtcars$cyl)
 # =========================
 
 # Two Independent Samples ----------
-rank_biserial(mpg ~ am, data = mtcars)
+(rb <- rank_biserial(mpg ~ am, data = mtcars))
 # Same as:
 # rank_biserial("mpg", "am", data = mtcars)
 # rank_biserial(mtcars$mpg[mtcars$am=="0"], mtcars$mpg[mtcars$am=="1"])
 
 # More options:
 rank_biserial(mpg ~ am, data = mtcars, mu = -5)
+print(rb, append_CLES = TRUE)
 
 
 # One Sample ----------
@@ -178,13 +179,13 @@ rank_biserial(wt ~ 1, data = mtcars, mu = 3)
 # Paired Samples ----------
 dat <- data.frame(Cond1 = c(1.83, 0.5, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.3),
                   Cond2 = c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29))
-(rbs <- rank_biserial(Pair(Cond1, Cond2) ~ 1, data = dat, paired = TRUE))
+(rb <- rank_biserial(Pair(Cond1, Cond2) ~ 1, data = dat, paired = TRUE))
 
 # same as:
 # rank_biserial(dat$Cond1, dat$Cond2, paired = TRUE)
 
 interpret_rank_biserial(0.78)
-interpret(rbs, rules = "funder2019")
+interpret(rb, rules = "funder2019")
 
 
 # Rank Epsilon Squared
@@ -226,8 +227,9 @@ revisited. An overview of some recommended measures of effect size.
 }
 \seealso{
 Other effect size indices: 
+\code{\link{cles}()},
 \code{\link{cohens_d}()},
-\code{\link{effectsize}()},
+\code{\link{effectsize.BFBayesFactor}()},
 \code{\link{eta_squared}()},
 \code{\link{phi}()},
 \code{\link{standardize_parameters}()}

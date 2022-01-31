@@ -3,30 +3,69 @@
 #' Performs a standardization of data (z-scoring) using
 #' [`datawizard::standardize()`] and then re-fits the model to the standardized
 #' data.
+#' \cr\cr
+#' Standardization is done by completely refitting the model on the standardized
+#' data. Hence, this approach is equal to standardizing the variables *before*
+#' fitting the model and will return a new model object. This method is
+#' particularly recommended for complex models that include interactions or
+#' transformations (e.g., polynomial or spline terms). The `robust` (default to
+#' `FALSE`) argument enables a robust standardization of data, based on the
+#' `median` and the `MAD` instead of the `mean` and the `SD`.
 #'
 #' @param x A statistical model.
 #' @param weights If `TRUE` (default), a weighted-standardization is carried out.
-#' @param include_response For a model, if `TRUE` (default), the response value
-#'   will also be standardized. If `FALSE`, only the predictors will be
-#'   standardized. Note that for certain models (logistic regression, count
-#'   models, ...), the response value will never be standardized, to make
-#'   re-fitting the model work. (For `mediate` models, only applies to the y
-#'   model; m model's response will always be standardized.)
+#' @param include_response If `TRUE` (default), the response value will also be
+#'   standardized. If `FALSE`, only the predictors will be standardized.
+#'   - Note that for GLMs and models with non-linear link functions, the
+#'   response value will not be standardized, to make re-fitting the model work.
+#'   - If the model contains an [stats::offset()], the offset variable(s) will
+#'   be standardized only if the response is standardized. If `two_sd = TRUE`,
+#'   offsets are standardized by one-sd (similar to the response).
+#'   - (For `mediate` models, the `include_response` refers to the outcome in
+#'   the y model; m model's response will always be standardized when possible).
 #' @inheritParams datawizard::standardize
 #'
 #' @return A statistical model fitted on standardized data
 #'
-#' @inheritSection standardize_parameters Generalized Linear Models
+#' @details
 #'
+#' # Generalized Linear Models
+#' Standardization for generalized linear models (GLM, GLMM, etc) is done only
+#' with respect to the predictors (while the outcome remains as-is,
+#' unstandardized) - maintaining the interpretability of the coefficients (e.g.,
+#' in a binomial model: the exponent of the standardized parameter is the OR of
+#' a change of 1 SD in the predictor, etc.)
+#'
+#' # Dealing with Factors
+#' `standardize(model)` or `standardize_parameters(model, method = "refit")` do
+#' *not* standardized categorical predictors (i.e. factors) / their
+#' dummy-variables, which may be a different behaviour compared to other R
+#' packages (such as \pkg{lm.beta}) or other software packages (like SPSS). To
+#' mimic such behaviours, either use `standardize_parameters(model, method =
+#' "basic")` to obtain post-hoc standardized parameters, or standardize the data
+#' with `datawizard::standardize(data, force = TRUE)` *before* fitting the
+#' model.
+#'
+#' # Transformed Variables
+#' When the model's formula contains transformations (e.g. `y ~ exp(X)`) the
+#' transformation effectively takes place after standardization (e.g.,
+#' `exp(scale(X))`). Since some transformations are undefined for none positive
+#' values, such as `log()` and `sqrt()`, the releven variables are shifted (post
+#' standardization) by `Z - min(Z) + 1` or `Z - min(Z)` (respectively).
+#'
+#'
+#' @family standardize
 #' @examples
 #' model <- lm(Infant.Mortality ~ Education * Fertility, data = swiss)
 #' coef(standardize(model))
+#'
 #' @importFrom stats update
 #' @importFrom insight get_data model_info find_response get_response find_weights get_weights
 #' @importFrom datawizard standardize
 #' @importFrom utils capture.output
 #' @export
-#' @aliases standardize-models
+#' @aliases standardize_models
+#' @aliases standardize.models
 standardize.default <- function(x,
                                 robust = FALSE,
                                 two_sd = FALSE,
@@ -34,7 +73,10 @@ standardize.default <- function(x,
                                 verbose = TRUE,
                                 include_response = TRUE,
                                 ...) {
-  m_info <- insight::model_info(x)
+  if (is.null(m_info <- list(...)[["m_info"]])){
+    m_info <- insight::model_info(x)
+  }
+
   data <- insight::get_data(x)
 
   if (insight::is_multivariate(x) && inherits(x, "brmsfit")) {
@@ -42,26 +84,50 @@ standardize.default <- function(x,
       "\nAs an alternative: you may standardize your data (and adjust your priors), and re-fit the model.",
       call. = FALSE
     )
-  } else if (m_info$is_bayesian) {
+  }
+
+  if (m_info$is_bayesian) {
     warning("Standardizing variables without adjusting priors may lead to bogus results unless priors are auto-scaled.",
       call. = FALSE, immediate. = TRUE
     )
   }
 
-  # for models with specific scale of the response value (e.g. count models
-  # with positive integers, or beta with ratio between 0 and 1), we need to
-  # make sure that the original response value will be restored after
-  # standardizing, as these models also require a non-standardized response.
-  if (!include_response || .no_response_standardize(m_info)) {
+  #  =-=-=-= Z the RESPONSE? =-=-=-=
+  # Some models have special responses that should not be standardized. This
+  # includes:
+  # - generalized linear models (counts, binomial, etc...)
+  # - Survival models
+
+  include_response <- include_response && .safe_to_standardize_response(m_info)
+
+  resp <- NULL
+  if (!include_response) {
     resp <- unique(c(insight::find_response(x), insight::find_response(x, combine = FALSE)))
   } else if (include_response && two_sd) {
     resp <- unique(c(insight::find_response(x), insight::find_response(x, combine = FALSE)))
-  } else {
-    resp <- NULL
   }
 
-  # Do not standardize weighting-variable, because negative weights will
-  # cause errors in "update()"
+  # If there's an offset, don't standardize offset OR response
+  offsets <- insight::find_offset(x)
+  if (length(offsets)) {
+    if (include_response) {
+      if (verbose) {
+        warning("Offset detected and will be standardized.", call. = FALSE)
+      }
+
+      if (two_sd) {
+        # Treat offsets like responses - only standardize by 1 SD
+        resp <- c(resp, offsets)
+        offsets <- NULL
+      }
+    } else if (!include_response) {
+      # Don't standardize offsets if not standardizing the response
+      offsets <- NULL
+    }
+  }
+
+  #  =-=-=-= DO NOT Z WEIGHTING-VARIABLE =-=-=-=
+  # because negative weights will cause errors in "update()"
   weight_variable <- insight::find_weights(x)
 
   if (!is.null(weight_variable) && !weight_variable %in% colnames(data) && "(weights)" %in% colnames(data)) {
@@ -70,10 +136,11 @@ standardize.default <- function(x,
     weight_variable <- c(weight_variable, "(weights)")
   }
 
-  # don't standardize random effects
+  #  =-=-=-= DO NOT Z RANDOM-EFFECTS =-=-=-=
   random_group_factor <- insight::find_random(x, flatten = TRUE, split_nested = TRUE)
 
-  # standardize data
+
+  #  =-=-=-= WHICH YES, WHICH NO? SUMMARY =-=-=-=
   dont_standardize <- c(resp, weight_variable, random_group_factor)
   do_standardize <- setdiff(colnames(data), dont_standardize)
 
@@ -87,76 +154,75 @@ standardize.default <- function(x,
       call. = FALSE
     )
     do_standardize <- setdiff(do_standardize, doller_vars)
+    dont_standardize <- c(dont_standardize, doller_vars)
   }
 
 
-  if (length(do_standardize)) {
-    w <- insight::get_weights(x, na_rm = TRUE)
-
-    data_std <- datawizard::standardize(data[do_standardize],
-      robust = robust,
-      two_sd = two_sd,
-      weights = if (weights) w else NULL,
-      verbose = verbose
-    )
-
-    if (!.no_response_standardize(m_info) && include_response && two_sd) {
-      # if two_sd, it must not affect the response!
-      data_std[resp] <- datawizard::standardize(data[resp],
-        robust = robust,
-        two_sd = FALSE,
-        weights = if (weights) w else NULL,
-        verbose = verbose
-      )
-      dont_standardize <- setdiff(dont_standardize, resp)
-    }
-  } else {
+  if (!length(do_standardize)) {
     warning("No variables could be standardized.", call. = FALSE)
     return(x)
   }
 
+  #  =-=-=-= STANDARDIZE! =-=-=-=
+  w <- insight::get_weights(x, na_rm = TRUE)
 
+  data_std <- datawizard::standardize(data[do_standardize],
+                                      robust = robust,
+                                      two_sd = two_sd,
+                                      weights = if (weights) w,
+                                      verbose = verbose)
+
+  # if two_sd, it must not affect the response!
+  if (include_response && two_sd) {
+    data_std[resp] <- datawizard::standardize(data[resp],
+                                              robust = robust,
+                                              two_sd = FALSE,
+                                              weights = if (weights) w,
+                                              verbose = verbose)
+
+    dont_standardize <- setdiff(dont_standardize, resp)
+  }
+
+
+  #  =-=-=-= FIX LOG-SQRT VARIABLES! =-=-=-=
   # if we standardize log-terms, standardization will fail (because log of
   # negative value is NaN). Do some back-transformation here
 
   log_terms <- .log_terms(x, data_std)
   if (length(log_terms) > 0) {
-    data_std[log_terms] <- lapply(data_std[log_terms], function(i) {
-      i - min(i, na.rm = TRUE) + 1
-    })
+    data_std[log_terms] <- lapply(data_std[log_terms],
+                                  function(i) i - min(i, na.rm = TRUE) + 1)
   }
 
   # same for sqrt
   sqrt_terms <- .sqrt_terms(x, data_std)
   if (length(sqrt_terms) > 0) {
-    data_std[sqrt_terms] <- lapply(data_std[sqrt_terms], function(i) {
-      i - min(i, na.rm = TRUE)
-    })
+    data_std[sqrt_terms] <- lapply(data_std[sqrt_terms],
+                                   function(i) i - min(i, na.rm = TRUE))
   }
 
-  if (verbose && (length(log_terms) > 0 || length(sqrt_terms) > 0)) {
+  if (verbose && length(c(log_terms, sqrt_terms))) {
     message("Formula contains log- or sqrt-terms. See help(\"standardize\") for how such terms are standardized.")
   }
 
 
-  # restore data that should not be standardized
-
+  #  =-=-=-= ADD BACK VARIABLES THAT WHERE NOT Z =-=-=-=
   if (length(dont_standardize)) {
     remaining_columns <- intersect(colnames(data), dont_standardize)
     data_std <- cbind(data[, remaining_columns, drop = FALSE], data_std)
   }
 
-  # update model with standardized data
-
+  #  =-=-=-= UPDATE MODEL WITH STANDARDIZED DATA =-=-=-=
   tryCatch({
     if (inherits(x, "brmsfit")) {
       text <- utils::capture.output(model_std <- stats::update(x, newdata = data_std))
     } else if (inherits(x, "biglm")) {
       text <- utils::capture.output(model_std <- stats::update(x, moredata = data_std))
+    } else if (inherits(x, "mixor")) {
+      data_std <- data_std[order(data_std[, random_group_factor, drop = FALSE]), ]
+      text <- utils::capture.output(model_std <- stats::update(x, data = data_std))
     } else {
-      if (inherits(x, "mixor")) {
-        data_std <- data_std[order(data_std[, random_group_factor, drop = FALSE]), ]
-      }
+      # DEFAULT METHOD
       text <- utils::capture.output(model_std <- stats::update(x, data = data_std))
     }
   }, error = function(er) {
@@ -173,74 +239,6 @@ standardize.default <- function(x,
 
 
 # exceptions, models that cannot use the default-method --------------------
-
-
-#' @export
-standardize.mlm <- function(x,
-                            robust = FALSE,
-                            two_sd = FALSE,
-                            weights = TRUE,
-                            verbose = TRUE,
-                            ...) {
-  standardize.default(x,
-    robust = robust, two_sd = two_sd, weights = weights, verbose = verbose,
-    include_response = FALSE, ...
-  )
-}
-
-
-#' @export
-standardize.coxph <- function(x,
-                              robust = FALSE,
-                              two_sd = FALSE,
-                              weights = TRUE,
-                              verbose = TRUE,
-                              ...) {
-
-
-  # for some models, the DV cannot be standardized when using
-  # "update()", so we only standardize model predictors
-  #
-  # survival models have some strange format for the response variable,
-  # so we don't use the default standardize function here, but
-  # use a different approach that only retrieves predictors that should
-  # be standardized.
-
-  pred <- insight::find_predictors(x, flatten = TRUE)
-  data <- insight::get_data(x)
-
-  # if we standardize log-terms, standardization will fail (because log of
-  # negative value is NaN)
-
-  log_terms <- .log_terms(x)
-  if (length(log_terms)) pred <- setdiff(pred, log_terms)
-
-  weight_variable <- insight::find_weights(x)
-  if (length(weight_variable)) pred <- setdiff(pred, weight_variable)
-
-  # standardize data, if we have anything left to standardize
-
-  if (length(pred)) {
-    w <- insight::get_weights(x, na_rm = TRUE)
-
-    data_std <- datawizard::standardize(data[pred],
-      robust = robust,
-      two_sd = two_sd,
-      weights = if (weights) w else NULL,
-      verbose = verbose
-    )
-    data[pred] <- data_std
-  }
-
-  text <- utils::capture.output(model_std <- stats::update(x, data = data))
-
-  model_std
-}
-
-
-#' @export
-standardize.coxme <- standardize.coxph
-
 
 #' @export
 #' @importFrom utils capture.output
@@ -326,23 +324,6 @@ standardize.mediate <- function(x,
   model_std
 }
 
-#' @keywords internal
-.rescale_fixed_values <- function(val, cov_nm,
-                                  y_data, m_data, y_data_std, m_data_std) {
-  if (cov_nm %in% colnames(y_data)) {
-    temp_data <- y_data
-    temp_data_std <- y_data_std
-  } else {
-    temp_data <- m_data
-    temp_data_std <- m_data_std
-  }
-
-  datawizard::change_scale(val,
-    to = range(temp_data_std[[cov_nm]]),
-    range = range(temp_data[[cov_nm]])
-  )
-}
-
 
 # Cannot ------------------------------------------------------------------
 
@@ -397,20 +378,47 @@ standardize.wbgee <- standardize.wbm
 
 
 #' @keywords internal
-.no_response_standardize <- function(info, verbose = TRUE) {
+.safe_to_standardize_response <- function(info, verbose = TRUE) {
   if (is.null(info)) {
     if (verbose) {
-      warning("Unable to varify if response should not be standardized.\nResponse will be standardized.",
-        immediate. = TRUE, call. = FALSE
-      )
+      warning("Unable to varify if response should not be standardized.",
+              "\nResponse will be standardized.",
+              immediate. = TRUE, call. = FALSE)
     }
-    return(FALSE)
+    return(TRUE)
   }
+
   # check if model has a response variable that should not be standardized.
-  !info$is_linear || info$is_censored || info$family == "inverse.gaussian"
+  info$is_linear &&
+    !info$family == "inverse.gaussian" &&
+    !info$is_survival &&
+    !info$is_censored
 
-  ## TODO alternative would be to keep the below line for checking if no std possible
-  ##      and then treat response for "Gamma()" or "inverse.gaussian" similar to log-terms
+  # # alternative would be to keep something like:
+  # !info$is_count &&
+  #   !info$is_ordinal &&
+  #   !info$is_multinomial &&
+  #   !info$is_beta &&
+  #   !info$is_censored &&
+  #   !info$is_binomial &&
+  #   !info$is_survival
+  # # And then treating response for "Gamma()" or "inverse.gaussian" similar to
+  # # log-terms...
+}
 
-  # info$is_count | info$is_ordinal | info$is_multinomial | info$is_beta | info$is_censored | info$is_binomial | info$is_survival
+#' @keywords internal
+.rescale_fixed_values <- function(val, cov_nm,
+                                  y_data, m_data, y_data_std, m_data_std) {
+  if (cov_nm %in% colnames(y_data)) {
+    temp_data <- y_data
+    temp_data_std <- y_data_std
+  } else {
+    temp_data <- m_data
+    temp_data_std <- m_data_std
+  }
+
+  datawizard::data_rescale(val,
+                           to = range(temp_data_std[[cov_nm]]),
+                           range = range(temp_data[[cov_nm]])
+  )
 }

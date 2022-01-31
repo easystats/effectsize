@@ -5,17 +5,14 @@
 #'
 #' @section Confidence (Compatibility) Intervals (CIs):
 #' Unless stated otherwise, confidence (compatibility) intervals (CIs) are
-#' estimated using the noncentrality parameter method (also called the
-#' "pivot method"). This method finds the noncentrality parameter ("*ncp*") of
-#' a noncentral *t*, *F*, or
-#' \ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}
-#' distribution that places the observed *t*, *F*, or
-#' \ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}
-#' test statistic at the desired probability point of the distribution.
-#' For example, if the observed *t* statistic is 2.0, with 50
-#' degrees of freedom, for which cumulative noncentral *t* distribution is
-#' *t* = 2.0 the .025 quantile (answer: the noncentral *t* distribution with
-#' *ncp* = .04)? After estimating these confidence bounds on the *ncp*, they are
+#' estimated using the noncentrality parameter method (also called the "pivot
+#' method"). This method finds the noncentrality parameter ("*ncp*") of a
+#' noncentral *t*, *F*, or \eqn{\chi^2} distribution that places the observed
+#' *t*, *F*, or \eqn{\chi^2} test statistic at the desired probability point of
+#' the distribution. For example, if the observed *t* statistic is 2.0, with 50
+#' degrees of freedom, for which cumulative noncentral *t* distribution is *t* =
+#' 2.0 the .025 quantile (answer: the noncentral *t* distribution with *ncp* =
+#' .04)? After estimating these confidence bounds on the *ncp*, they are
 #' converted into the effect size metric to obtain a confidence interval for the
 #' effect size (Steiger, 2004).
 #' \cr\cr
@@ -26,10 +23,8 @@
 #' in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
 #' intervals and p values are complementary summaries of parameter uncertainty
 #' given the observed data. A dichotomous hypothesis test could be performed
-#' with either a CI or a p value. The
-#' 100(\ifelse{latex}{\out{$1 - \alpha$}}{\ifelse{html}{\out{1 &minus; &alpha;}}{1 - alpha}})%
-#' confidence interval contains all of the parameter values for which
-#' \ifelse{latex}{\out{$p > \alpha$}}{\ifelse{html}{\out{p > &alpha;}}{p > alpha}}
+#' with either a CI or a p value. The 100 (1 - \eqn{\alpha})% confidence
+#' interval contains all of the parameter values for which *p* > \eqn{\alpha}
 #' for the current data and model. For example, a 95% confidence interval
 #' contains all of the values for which p > .05.
 #' \cr\cr
@@ -37,12 +32,11 @@
 #' (no effect) is true. Rather, it suggests that the observed data together with
 #' the model and its assumptions combined do not provided clear evidence against
 #' a parameter value of 0 (same as with any other value in the interval), with
-#' the level of this evidence defined by the chosen
-#' \ifelse{latex}{\out{$\alpha$}}{\ifelse{html}{\out{&alpha;}}{alpha}} level
-#' (Rafi & Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To infer
-#' no effect, additional judgments about what parameter values are "close
-#' enough" to 0 to be negligible are needed ("equivalence testing"; Bauer &
-#' Kiesser, 1996).
+#' the level of this evidence defined by the chosen \eqn{\alpha} level (Rafi &
+#' Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To infer no
+#' effect, additional judgments about what parameter values are "close enough"
+#' to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
+#' 1996).
 #'
 #' @section One-Sided CIs:
 #' Typically, CIs are constructed as two-tailed intervals, with an equal
@@ -59,35 +53,27 @@
 #' are generally tested using 2-tailed tests and 2-sided CIs.
 #' \cr\cr
 #' Some effect sizes are strictly positive--they do have a minimum value, of 0.
-#' For example,
-#' \ifelse{latex}{\out{$R^2$}}{\ifelse{html}{\out{<i>R</i><sup>2</sup>}}{R^2}},
-#' \ifelse{latex}{\out{$\eta^2$}}{\ifelse{html}{\out{&eta;<sup>2</sup>}}{eta^2}},
-#' and other variance-accounted-for effect sizes, as well as Cramer's *V* and
-#' multiple *R*, range from 0 to 1. These typically involve *F*- or
-#' \ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}-statistics
-#' and are generally tested using *1-tailed* tests which test whether the
-#' estimated effect size is *larger* than the hypothesized null value (e.g., 0).
-#' In order for a CI to yield the same significance decision it must then by a
-#' *1-sided* CI, estimating only a lower bound. This is the default CI computed
-#' by *effectsize* for these effect sizes, where `alternative = "greater"` is
-#' set.
+#' For example, \eqn{R^2}, \eqn{\eta^2}, and other variance-accounted-for effect
+#' sizes, as well as Cramer's *V* and multiple *R*, range from 0 to 1. These
+#' typically involve *F*- or \eqn{\chi^2}-statistics and are generally tested
+#' using *1-tailed* tests which test whether the estimated effect size is
+#' *larger* than the hypothesized null value (e.g., 0). In order for a CI to
+#' yield the same significance decision it must then by a *1-sided* CI,
+#' estimating only a lower bound. This is the default CI computed by
+#' *effectsize* for these effect sizes, where `alternative = "greater"` is set.
 #' \cr\cr
 #' This lower bound interval indicates the smallest effect size that is not
 #' significantly different from the observed effect size. That is, it is the
 #' minimum effect size compatible with the observed data, background model
-#' assumptions, and
-#' \ifelse{latex}{\out{$\alpha$}}{\ifelse{html}{\out{&alpha;}}{alpha}} level.
-#' This type of interval does not indicate a maximum effect size value; anything
-#' up to the maximum possible value of the effect size (e.g., 1) is in the
-#' interval.
+#' assumptions, and \eqn{\alpha} level. This type of interval does not indicate
+#' a maximum effect size value; anything up to the maximum possible value of the
+#' effect size (e.g., 1) is in the interval.
 #' \cr\cr
 #' One-sided CIs can also be used to test against a maximum effect size value
-#' (e.g., is
-#' \ifelse{latex}{\out{$R^2$}}{\ifelse{html}{\out{<i>R</i><sup>2</sup>}}{R^2}}
-#' significantly smaller than a perfect correlation of 1.0?) can by setting
-#' `alternative = "less"`. This estimates a CI with only an *upper* bound;
-#' anything from the minimum possible value of the effect size (e.g., 0) up to
-#' this upper bound is in the interval.
+#' (e.g., is \eqn{R^2} significantly smaller than a perfect correlation of 1.0?)
+#' can by setting `alternative = "less"`. This estimates a CI with only an
+#' *upper* bound; anything from the minimum possible value of the effect size
+#' (e.g., 0) up to this upper bound is in the interval.
 #' \cr\cr
 #' We can also obtain a 2-sided interval by setting `alternative = "two-sided"`.
 #' These intervals can be interpreted in the same way as other 2-sided
@@ -95,15 +81,11 @@
 #' \cr\cr
 #' An alternative approach to aligning significance tests using CIs and 1-tailed
 #' *p* values that can often be found in the literature is to construct a
-#' 2-sided CI at a lower confidence level (e.g., 100(\ifelse{latex}{\out{$1 -
-#' 2\alpha$}}{\ifelse{html}{\out{1 &minus; 2&alpha;}}{1 - 2*alpha}})% =
-#' \ifelse{latex}{\out{$100 - 2 \times 5\% = 90\%$}}{\ifelse{html}{\out{100
-#' &minus; 2 &times; 5&percnt; = 90&percnt;}}{100 - 2*5% = 90%}}). This
-#' estimates the lower bound and upper bound for the above 1-sided intervals
-#' simultaneously. These intervals are commonly reported when conducting
-#' **equivalence tests**. For example, a 90% 2-sided interval gives the bounds
-#' for an equivalence test with \ifelse{latex}{\out{$\alpha =
-#' .05$}}{\ifelse{html}{\out{&alpha; = .05}}{alpha = .05}}. However, be aware
+#' 2-sided CI at a lower confidence level (e.g., 100(1-2\eqn{\alpha})% = 100 -
+#' 2*5% = 90%. This estimates the lower bound and upper bound for the above
+#' 1-sided intervals simultaneously. These intervals are commonly reported when
+#' conducting **equivalence tests**. For example, a 90% 2-sided interval gives
+#' the bounds for an equivalence test with \eqn{\alpha} = .05. However, be aware
 #' that this interval does not give 95% coverage for the underlying effect size
 #' parameter value. For that, construct a 95% 2-sided CI.
 #'
@@ -158,4 +140,13 @@
 #'
 #' @rdname effectsize_CIs
 #' @name effectsize_CIs
+NULL
+
+
+#' `effectsize` API
+#'
+#' Read the [*Support functions for model extensions*](https://easystats.github.io/effectsize/articles/effectsize_API.html) vignette.
+#'
+#' @rdname effectsize_API
+#' @name effectsize_API
 NULL

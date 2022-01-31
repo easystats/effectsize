@@ -10,6 +10,8 @@
 print.effectsize_table <- function(x, digits = 2, ...) {
   x_orig <- x
 
+  footer <- attr(x, "table_footer")
+
   if (!is.null(alt <- attr(x, "alternative")) && alt != "two.sided") {
     ci_footer <- sprintf(
       "\n- One-sided CIs: %s bound fixed at (%s).",
@@ -17,9 +19,14 @@ print.effectsize_table <- function(x, digits = 2, ...) {
       as.character(if (alt == "less") x$CI_low[1] else x$CI_high[1])
     )
 
-    attr(x, "table_footer") <-
-      c(attr(x, "table_footer"), list(c(ci_footer, "cyan")))
+    footer <- c(footer, list(c(ci_footer, "cyan")))
   }
+
+  # if (isTRUE(attr(x, "approximate"))) {
+  #   footer <- c(footer, list(c("\n- Effect size is approximated.", "cyan")))
+  # }
+
+  attr(x, "table_footer") <- footer
 
   x <- format(x, digits = digits)
 
@@ -39,7 +46,7 @@ format.effectsize_table <- function(x, digits = 2, ...) {
   attr(x, "ci_method") <- NULL
 
   out <- insight::format_table(x, digits = digits, ci_digits = digits, preserve_attributes = TRUE, ...)
-  if (!is.null(rule_name <- attr(x, "rule_name", exact = TRUE))) {
+  if (!is.null(rule_name <- attr(attr(x, "rules"), "rule_name", exact = TRUE))) {
     attr(out, "table_footer") <- c(
       attr(out, "table_footer"),
       list(c(paste0("\n(Interpretation rule: ", rule_name, ")"), "blue"))
@@ -123,10 +130,11 @@ print.equivalence_test_effectsize <- function(x, digits = 2, ...) {
 
 #' @export
 #' @rdname print.effectsize_table
-#' @param append_CL Should the Common Language Effect Sizes be printed as well?
+#' @param append_CLES Should the Common Language Effect Sizes be printed as well?
 #'   Only applicable to Cohen's *d*, Hedges' *g* for independent samples of
-#'   equal variance (pooled sd) (See [d_to_common_language()])
-print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
+#'   equal variance (pooled sd) or for the rank-biserial correlation for
+#'   independent samples (See [d_to_cles()])
+print.effectsize_difference <- function(x, digits = 2, append_CLES = FALSE, ...) {
   x_orig <- x
 
   footer <- caption <- subtitle <- NULL
@@ -153,19 +161,18 @@ print.effectsize_difference <- function(x, digits = 2, append_CL = FALSE, ...) {
   print.effectsize_table(x, digits = digits, ...)
 
 
-  if (append_CL) {
-    if (any(colnames(x_orig) %in% c("Cohens_d", "Hedges_g")) &&
-      attr(x_orig, "pooled_sd") &&
-      !attr(x_orig, "paired")) {
-      # Common lang
-      cl <- d_to_common_language(x_orig[[any(colnames(x_orig) %in% c("Cohens_d", "Hedges_g"))]])
-      cl <- lapply(cl, insight::format_value, as_percent = TRUE, digits = digits)
-      cl <- data.frame(cl, check.names = FALSE)
-      cat(insight::export_table(cl,
-        digits = digits,
-        caption = c("\n\n# Common Language Effect Sizes", "blue"), ...
-      ))
+  if (append_CLES) {
+    if ("r_rank_biserial" %in% colnames(x_orig)) {
+      to_cl_coverter <- rb_to_cles
+    } else {
+      to_cl_coverter <- d_to_cles
     }
+
+    tryCatch({
+      CL <- to_cl_coverter(x_orig)
+      attr(CL, "table_caption") <- c("\n\n# Common Language Effect Sizes", "blue")
+      print(CL, digits = digits)
+    }, error = function(...) invisible(NULL))
   }
 
   invisible(x_orig)
@@ -192,9 +199,9 @@ print.effectsize_anova <- function(x, digits = 2, ...) {
   obs <- attr(x, "generalized")
   if (is.character(obs) || isTRUE(obs)) {
     if (isTRUE(obs)) {
-      footer <- "\n- Observed variabels: All"
+      footer <- "\n- Observed variables: All"
     } else {
-      footer <- paste0("\n- Observed variabels: ", paste0(obs, collapse = ", "))
+      footer <- paste0("\n- Observed variables: ", paste0(obs, collapse = ", "))
     }
     footer <- list(c(footer, "cyan"))
   }

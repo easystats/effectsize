@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size and Standardized Parameters
-Version: 0.4.5-4
+Version: 0.6.0.2
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
@@ -23,6 +23,11 @@ Authors@R:
              role = "ctb",
              email = "patilindrajeet.science@gmail.com",
              comment = c(ORCID = "0000-0003-1995-6531", Twitter = "@patilindrajeets")),
+      person(given = "Brenton M.",
+             family = "Wiernik",
+             role = "ctb",
+             email = "brenton@wiernik.org",
+             comment = c(ORCID = "0000-0001-9560-6336", Twitter = "@bmwiernik")),
       person(given = "Ken",
              family = "Kelley",
              role = "ctb"),
@@ -51,16 +56,15 @@ BugReports: https://github.com/easystats/effectsize/issues/
 Depends:
     R (>= 3.4)
 Imports:
-    bayestestR (>= 0.10.5),
-    insight (>= 0.14.3),
-    parameters (>= 0.14.0.2),
-    performance (>= 0.7.3.1),
-    datawizard (>= 0.2.0),
+    bayestestR (>= 0.11.5),
+    insight (>= 0.15.0),
+    parameters (>= 0.16.0),
+    performance (>= 0.8.0),
+    datawizard (>= 0.2.3),
     stats,
     utils
 Suggests:
     correlation (>= 0.6.1),
-    modelbased (>= 0.7.0),
     see (>= 0.6.4),
     afex,
     BayesFactor,
@@ -68,10 +72,8 @@ Suggests:
     brms,
     car,
     covr,
-    dplyr,
     emmeans,
     gamm4,
-    ggplot2,
     knitr,
     lavaan,
     lm.beta,
@@ -80,7 +82,6 @@ Suggests:
     MASS,
     mediation,
     mgcv,
-    MuMIn,
     pscl,
     rmarkdown,
     rms,
@@ -88,16 +89,12 @@ Suggests:
     rstantools,
     spelling,
     testthat,
-    tidymodels,
-    tidyr
+    tidymodels
 VignetteBuilder: 
     knitr
-Remotes:
-    easystats/parameters,
-    easystats/performance
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1.9001
+RoxygenNote: 7.1.2
 Config/testthat/edition: 3
 Config/testthat/parallel: true

@@ -54,13 +54,6 @@ if (require("testthat") && require("effectsize")) {
       effectsize(Xsq2)$Cramers_v
     )
 
-    Xsq3 <- chisq.test(table(mtcars$cyl))
-    expect_equal(effectsize(Xsq3)$Cramers_v, 0.19, tolerance = 0.01)
-    expect_equal(
-      effectsize(Xsq3)$Cramers_v,
-      cramers_v(table(mtcars$cyl))$Cramers_v
-    )
-
     # types
     expect_equal(
       effectsize(Xsq1, type = "phi"),
@@ -88,10 +81,7 @@ if (require("testthat") && require("effectsize")) {
     expected.dfc <<- c(0.165, 0.835)
 
     x <- chisq.test(x = observed.dfc, p = expected.dfc)
-    ref <- cramers_v(x = observed.dfc, p = expected.dfc)
-
-    expect_equal(effectsize(x, type = "v"), ref)
-    expect_equal(cramers_v(x), ref)
+    expect_error(effectsize(x, type = "v"))
   })
 
   test_that("cor.test / other", {
@@ -188,21 +178,12 @@ if (require("testthat") && require("effectsize")) {
   test_that("htest | Get args from htest", {
     tt <- t.test(mtcars$hp, mtcars$mpg, alternative = "l", mu=-3, conf.level = 0.8, var.equal = TRUE)
     expect_equal(cohens_d(tt), cohens_d(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3, ci = 0.8), ignore_attr = TRUE)
-    expect_equal(cohens_d(tt, mu = -4, ci = 0.99, alternative = "t"),
-                 cohens_d(mtcars$hp, mtcars$mpg, mu = -4, ci = 0.99, alternative = "t"),
-                 ignore_attr = TRUE)
 
     suppressWarnings(ww1 <- wilcox.test(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3))
     expect_equal(rank_biserial(ww1), rank_biserial(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3), ignore_attr = TRUE)
-    expect_equal(rank_biserial(ww1, mu = -4, alternative = "t"),
-                 rank_biserial(mtcars$hp, mtcars$mpg, mu = -4, alternative = "t"),
-                 ignore_attr = TRUE)
 
     suppressWarnings(ww2 <- wilcox.test(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3,  conf.int = TRUE, conf.level = 0.8))
     expect_equal(rank_biserial(ww2), rank_biserial(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3, ci = 0.8), ignore_attr = TRUE)
-    expect_equal(rank_biserial(ww2, mu = -4, alternative = "t", ci = 0.99),
-                 rank_biserial(mtcars$hp, mtcars$mpg, mu = -4, alternative = "t", ci = 0.99),
-                 ignore_attr = TRUE)
   })
 
 
@@ -223,16 +204,16 @@ if (require("testthat") && require("effectsize")) {
     set.seed(6)
     data(raceDolls, package = "BayesFactor")
     bf1 <- BayesFactor::contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
-    expect_equal(effectsize(bf1, test = NULL)[[2]], 0.164, tolerance = 0.01)
-    expect_equal(effectsize(bf1, test = NULL, type = "OR")[[2]], 1 / 0.503, tolerance = 0.03)
+    expect_equal(effectsize(bf1)[[1]], 0.164, tolerance = 0.01)
+    expect_equal(effectsize(bf1, type = "OR")[[1]], 1 / 0.503, tolerance = 0.03)
 
     bf2 <- BayesFactor::ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
-    expect_equal(effectsize(bf2, test = NULL)[[2]], 1.30, tolerance = 0.03)
+    expect_equal(effectsize(bf2)[[1]], 1.30, tolerance = 0.03)
 
     bf3 <- BayesFactor::correlationBF(iris$Sepal.Length, iris$Sepal.Width)
-    expect_equal(effectsize(bf3, test = NULL)[[2]], -0.116, tolerance = 0.03)
+    expect_equal(effectsize(bf3)[[1]], -0.116, tolerance = 0.03)
 
     bf4 <- BayesFactor::proportionBF(4, 12, 0.5)
-    expect_equal(effectsize(bf4, test = NULL)[[2]], 0.3911, tolerance = 0.03)
+    expect_equal(effectsize(bf4)[[1]], 0.3911, tolerance = 0.03)
   })
 }

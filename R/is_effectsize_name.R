@@ -52,6 +52,7 @@ es_info <- matrix(c(
   "Cramers_v_adjusted", "Cramer's V (adj.)", "onetail", 0, 1, 0,
   "phi", "Phi", "onetail", 0, NA, 0,
   "phi_adjusted", "Phi (adj.)", "onetail", 0, NA, 0,
+  "Pearsons_c", "Pearson's C", "onetail", 0, 1, 0,
   "Cohens_g", "Cohen's g", "onetail", -0.5, 0.5, 0,
   "Cohens_h", "Cohen's h", "twotail", -pi, pi, 0,
   "Odds_ratio", "Odds ratio", "twotail", 0, Inf, 1,
@@ -85,6 +86,11 @@ es_info <- matrix(c(
   "Std_Median", "Median (std.)", "twotail", -Inf, Inf, 0,
   "Std_Mean", "Mean (std.)", "twotail", -Inf, Inf, 0,
   "Std_MAP", "MAP (std.)", "twotail", -Inf, Inf, 0,
+
+  ## CLES
+  "p_superiority", "Pr(superiority)", "onetail", 0, 1, 0.5,
+  "Cohens_U3", "Cohen's U3", "onetail", 0, 1, 0.5,
+  "overlap", "Overlap", "onetail", 0, 1, 1,
 
   ## Other
   "r", "r", "twotail", -1, 1, 0,

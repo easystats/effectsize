@@ -1,14 +1,65 @@
 authors:
   Mattan S. Ben-Shachar:
-    href: https://github.com/mattansb
+    href: https://github.com/mattansb/
   Dominique Makowski:
     href: https://dominiquemakowski.github.io/
   Daniel Lüdecke:
-    href: https://github.com/strengejacke
+    href: https://github.com/strengejacke/
+  Indrajeet Patil:
+    href: https://sites.google.com/site/indrajeetspatilmorality/
+  Brenton M. Wiernik:
+    href: https://wiernik.org/
+
 
 template:
-  params:
-    bootswatch: cosmo
+  bootstrap: 5
+  bslib:
+    primary: "#317033"
+
+
+
+navbar:
+  structure:
+    right: [twitter, github]
+  components:
+    twitter:
+      icon: fa-twitter
+      href: https://twitter.com/easystats4u
+      aria-label: Twitter
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: "Get Started"
+      href: articles/effectsize.html
+    - text: "Features"
+      href: reference/index.html
+    - text: "Effect Sizes"
+      menu:
+      - text: "Parameter and Model Standardization"
+        href: articles/standardize_parameters.html
+      - text: "ANOVA Effect Sizes"
+        href: articles/anovaES.html
+      - text: "Effect Sizes for Simple Hypothesis Tests"
+        href: articles/simple_htests.html
+      - text: "Confidence Intervals"
+        href: reference/effectsize_CIs.html
+      - text: "For Bayesian Models"
+        href: articles/bayesian_models.html
+      - text: -------
+      - text: "Extending effectsize"
+        href: articles/effectsize_API.html
+    - text: "Conversion"
+      menu:
+      - text: "Between d, r, OR"
+        href: articles/convert.html
+      - text: "From Test Statistics"
+        href: articles/from_test_statistics.html
+    - text: "Interpretation"
+      href: articles/interpret.html
+    - text: "News"
+      href: news/index.html
+
+
 
 reference:
 - title: "Indices of Effect Size"
@@ -18,6 +69,7 @@ reference:
   - phi
   - eta_squared
   - rank_biserial
+  - cles
 
 - title: "Standardization"
   contents:
@@ -33,7 +85,7 @@ reference:
   - chisq_to_phi
 - subtitle: "Between Effect Sizes"
   contents:
-  - d_to_common_language
+  - d_to_cles
   - d_to_r
   - eta2_to_f2
   - odds_to_probs
@@ -44,58 +96,26 @@ reference:
   - equivalence_test.effectsize_table
   - interpret
   - rules
-  - interpret_d
-  - interpret_r
-  - interpret_omega_squared
-  - interpret_kendalls_w
-  - interpret_oddsratio
-  - interpret_r2
-  - interpret_parameters
-  - interpret_gfi
-  - interpret_direction
-  - interpret_p
-  - interpret_bf
-  - interpret_pd
-  - interpret_rope
-  - interpret_ess
-  - interpret_icc
-
+  - starts_with("interpret_")
 
 - title: "Miscellaneous"
   contents:
   - sd_pooled
   - is_effectsize_name
-  - hardlyworking
-  - effectsize_CIs
   - format_standardize
   - print.effectsize_table
+- subtitle: "Datasets"
+  contents:
+  - hardlyworking
+- subtitle: "Extra Docs"
+  contents:
+  - effectsize_CIs
+  - effectsize_API
+- subtitle: "Deprecated functions"
+  contents:
+  - effectsize_deprecated
 
-navbar:
-  type: default
-  left:
-  - icon: fa-home fa-lg
-    href: index.html
-  - text: "News"
-    href: news/index.html
-  - text: "Features"
-    href: reference/index.html
-  - text: "Effect Sizes"
-    menu:
-      - text: "Parameter and Model Standardization"
-        href: articles/standardize_parameters.html
-      - text: "ANOVA Effect Sizes"
-        href: articles/anovaES.html
-      - text: "Effect Sizes for Simple Hypothesis Tests"
-        href: articles/simple_htests.html
-      - text: "Confidence Intervals"
-        href: reference/effectsize_CIs.html
-      - text: "For Bayesian Models"
-        href: articles/bayesian_models.html
-  - text: "Conversion"
-    menu:
-      - text: "Between d, r, OR"
-        href: articles/convert.html
-      - text: "From Test Statistics"
-        href: articles/from_test_statistics.html
-  - text: "Interpretation Guidelines"
-    href: articles/interpret.html
+
+
+
+

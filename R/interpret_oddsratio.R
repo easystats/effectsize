@@ -16,7 +16,7 @@
 #'   - **1.68 <= OR < 3.47** - Small
 #'   - **3.47 <= OR < 6.71** - Medium
 #'   - **OR >= 6.71 ** - Large
-#' - Cohen (1988) (`"cohen1988"`, based on the [oddsratio_to_d()] conversion, see [interpret_d()])
+#' - Cohen (1988) (`"cohen1988"`, based on the [oddsratio_to_d()] conversion, see [interpret_cohens_d()])
 #'   - **OR < 1.44** - Very small
 #'   - **1.44 <= OR < 2.48** - Small
 #'   - **2.48 <= OR < 4.27** - Medium
@@ -32,7 +32,7 @@
 #'
 #' - Chen, H., Cohen, P., & Chen, S. (2010). How big is a big odds ratio?
 #' Interpreting the magnitudes of odds ratios in epidemiological studies.
-#' Communications in Statistics—Simulation and Computation, 39(4), 860-864.
+#' Communications in Statistics-Simulation and Computation, 39(4), 860-864.
 #'
 #' - Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003).
 #' Effect-size indices for dichotomized outcomes in meta-analysis. Psychological
@@ -49,7 +49,7 @@ interpret_oddsratio <- function(OR, rules = "chen2010", log = FALSE, ...) {
 
   if (is.character(rules) && rules == "cohen1988") {
     d <- oddsratio_to_d(OR, log = FALSE)
-    return(interpret_d(abs(d), rules = rules))
+    return(interpret_cohens_d(abs(d), rules = rules))
   }
 
   rules <- .match.rules(

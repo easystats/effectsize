@@ -198,17 +198,14 @@ more info.
 \section{Confidence (Compatibility) Intervals (CIs)}{
 
 Unless stated otherwise, confidence (compatibility) intervals (CIs) are
-estimated using the noncentrality parameter method (also called the
-"pivot method"). This method finds the noncentrality parameter ("\emph{ncp}") of
-a noncentral \emph{t}, \emph{F}, or
-\ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}
-distribution that places the observed \emph{t}, \emph{F}, or
-\ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}
-test statistic at the desired probability point of the distribution.
-For example, if the observed \emph{t} statistic is 2.0, with 50
-degrees of freedom, for which cumulative noncentral \emph{t} distribution is
-\emph{t} = 2.0 the .025 quantile (answer: the noncentral \emph{t} distribution with
-\emph{ncp} = .04)? After estimating these confidence bounds on the \emph{ncp}, they are
+estimated using the noncentrality parameter method (also called the "pivot
+method"). This method finds the noncentrality parameter ("\emph{ncp}") of a
+noncentral \emph{t}, \emph{F}, or \eqn{\chi^2} distribution that places the observed
+\emph{t}, \emph{F}, or \eqn{\chi^2} test statistic at the desired probability point of
+the distribution. For example, if the observed \emph{t} statistic is 2.0, with 50
+degrees of freedom, for which cumulative noncentral \emph{t} distribution is \emph{t} =
+2.0 the .025 quantile (answer: the noncentral \emph{t} distribution with \emph{ncp} =
+.04)? After estimating these confidence bounds on the \emph{ncp}, they are
 converted into the effect size metric to obtain a confidence interval for the
 effect size (Steiger, 2004).
 \cr\cr
@@ -221,10 +218,8 @@ For additional details on estimation and troubleshooting, see \link{effectsize_C
 in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
 intervals and p values are complementary summaries of parameter uncertainty
 given the observed data. A dichotomous hypothesis test could be performed
-with either a CI or a p value. The
-100(\ifelse{latex}{\out{$1 - \alpha$}}{\ifelse{html}{\out{1 &minus; &alpha;}}{1 - alpha}})\%
-confidence interval contains all of the parameter values for which
-\ifelse{latex}{\out{$p > \alpha$}}{\ifelse{html}{\out{p > &alpha;}}{p > alpha}}
+with either a CI or a p value. The 100 (1 - \eqn{\alpha})\% confidence
+interval contains all of the parameter values for which \emph{p} > \eqn{\alpha}
 for the current data and model. For example, a 95\% confidence interval
 contains all of the values for which p > .05.
 \cr\cr
@@ -232,12 +227,11 @@ Note that a confidence interval including 0 \emph{does not} indicate that the nu
 (no effect) is true. Rather, it suggests that the observed data together with
 the model and its assumptions combined do not provided clear evidence against
 a parameter value of 0 (same as with any other value in the interval), with
-the level of this evidence defined by the chosen
-\ifelse{latex}{\out{$\alpha$}}{\ifelse{html}{\out{&alpha;}}{alpha}} level
-(Rafi & Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To infer
-no effect, additional judgments about what parameter values are "close
-enough" to 0 to be negligible are needed ("equivalence testing"; Bauer &
-Kiesser, 1996).
+the level of this evidence defined by the chosen \eqn{\alpha} level (Rafi &
+Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To infer no
+effect, additional judgments about what parameter values are "close enough"
+to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
+1996).
 }
 
 \examples{
@@ -361,8 +355,9 @@ Psychological Methods, 9, 164-182.
 \code{\link[=F_to_eta2]{F_to_eta2()}}
 
 Other effect size indices: 
+\code{\link{cles}()},
 \code{\link{cohens_d}()},
-\code{\link{effectsize}()},
+\code{\link{effectsize.BFBayesFactor}()},
 \code{\link{phi}()},
 \code{\link{rank_biserial}()},
 \code{\link{standardize_parameters}()}

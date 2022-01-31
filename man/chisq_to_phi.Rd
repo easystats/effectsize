@@ -4,6 +4,7 @@
 \alias{chisq_to_phi}
 \alias{chisq_to_cohens_w}
 \alias{chisq_to_cramers_v}
+\alias{chisq_to_pearsons_c}
 \alias{phi_to_chisq}
 \title{Conversion Chi-Squared to Phi or Cramer's V}
 \usage{
@@ -40,6 +41,16 @@ chisq_to_cramers_v(
   ...
 )
 
+chisq_to_pearsons_c(
+  chisq,
+  n,
+  nrow,
+  ncol,
+  ci = 0.95,
+  alternative = "greater",
+  ...
+)
+
 phi_to_chisq(phi, n, ...)
 }
 \arguments{
@@ -65,12 +76,12 @@ is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided 
 \item{phi}{The Phi statistic.}
 }
 \value{
-A data frame with the effect size(s) between 0-1, and confidence
-interval(s). See \code{\link[=cramers_v]{cramers_v()}}.
+A data frame with the effect size(s), and confidence interval(s). See
+\code{\link[=cramers_v]{cramers_v()}}.
 }
 \description{
-Convert between Chi square (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}) and
-Cohen's \emph{w} for contingency tables or goodness of fit.
+Convert between Chi square (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}),
+Cohen's \emph{w} and Pearson's \emph{C} for contingency tables or goodness of fit.
 }
 \details{
 These functions use the following formulae:
@@ -79,6 +90,8 @@ These functions use the following formulae:
 \cr
 \deqn{Cramer's V = \phi / \sqrt{min(nrow,ncol)-1}}{Cramer's V = \phi / sqrt(min(nrow,ncol)-1)}
 \cr
+\deqn{Pearson's C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
+\cr\cr
 For adjusted versions, see Bergsma, 2013.
 }
 \note{
@@ -87,17 +100,14 @@ Cohen's \emph{w} is equivalent to \emph{Phi}.
 \section{Confidence (Compatibility) Intervals (CIs)}{
 
 Unless stated otherwise, confidence (compatibility) intervals (CIs) are
-estimated using the noncentrality parameter method (also called the
-"pivot method"). This method finds the noncentrality parameter ("\emph{ncp}") of
-a noncentral \emph{t}, \emph{F}, or
-\ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}
-distribution that places the observed \emph{t}, \emph{F}, or
-\ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}
-test statistic at the desired probability point of the distribution.
-For example, if the observed \emph{t} statistic is 2.0, with 50
-degrees of freedom, for which cumulative noncentral \emph{t} distribution is
-\emph{t} = 2.0 the .025 quantile (answer: the noncentral \emph{t} distribution with
-\emph{ncp} = .04)? After estimating these confidence bounds on the \emph{ncp}, they are
+estimated using the noncentrality parameter method (also called the "pivot
+method"). This method finds the noncentrality parameter ("\emph{ncp}") of a
+noncentral \emph{t}, \emph{F}, or \eqn{\chi^2} distribution that places the observed
+\emph{t}, \emph{F}, or \eqn{\chi^2} test statistic at the desired probability point of
+the distribution. For example, if the observed \emph{t} statistic is 2.0, with 50
+degrees of freedom, for which cumulative noncentral \emph{t} distribution is \emph{t} =
+2.0 the .025 quantile (answer: the noncentral \emph{t} distribution with \emph{ncp} =
+.04)? After estimating these confidence bounds on the \emph{ncp}, they are
 converted into the effect size metric to obtain a confidence interval for the
 effect size (Steiger, 2004).
 \cr\cr
@@ -110,10 +120,8 @@ For additional details on estimation and troubleshooting, see \link{effectsize_C
 in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
 intervals and p values are complementary summaries of parameter uncertainty
 given the observed data. A dichotomous hypothesis test could be performed
-with either a CI or a p value. The
-100(\ifelse{latex}{\out{$1 - \alpha$}}{\ifelse{html}{\out{1 &minus; &alpha;}}{1 - alpha}})\%
-confidence interval contains all of the parameter values for which
-\ifelse{latex}{\out{$p > \alpha$}}{\ifelse{html}{\out{p > &alpha;}}{p > alpha}}
+with either a CI or a p value. The 100 (1 - \eqn{\alpha})\% confidence
+interval contains all of the parameter values for which \emph{p} > \eqn{\alpha}
 for the current data and model. For example, a 95\% confidence interval
 contains all of the values for which p > .05.
 \cr\cr
@@ -121,23 +129,22 @@ Note that a confidence interval including 0 \emph{does not} indicate that the nu
 (no effect) is true. Rather, it suggests that the observed data together with
 the model and its assumptions combined do not provided clear evidence against
 a parameter value of 0 (same as with any other value in the interval), with
-the level of this evidence defined by the chosen
-\ifelse{latex}{\out{$\alpha$}}{\ifelse{html}{\out{&alpha;}}{alpha}} level
-(Rafi & Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To infer
-no effect, additional judgments about what parameter values are "close
-enough" to 0 to be negligible are needed ("equivalence testing"; Bauer &
-Kiesser, 1996).
+the level of this evidence defined by the chosen \eqn{\alpha} level (Rafi &
+Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To infer no
+effect, additional judgments about what parameter values are "close enough"
+to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
+1996).
 }
 
 \examples{
 contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
 
-chisq.test(contingency_table)
-#
-#         Pearson's Chi-squared test
-#
-# data:  contingency_table
-# X-squared = 41.234, df = 4, p-value = 2.405e-08
+# chisq.test(contingency_table)
+#>
+#>         Pearson's Chi-squared test
+#>
+#> data:  contingency_table
+#> X-squared = 41.234, df = 4, p-value = 2.405e-08
 
 chisq_to_phi(41.234,
   n = sum(contingency_table),
@@ -145,6 +152,11 @@ chisq_to_phi(41.234,
   ncol = ncol(contingency_table)
 )
 chisq_to_cramers_v(41.234,
+  n = sum(contingency_table),
+  nrow = nrow(contingency_table),
+  ncol = ncol(contingency_table)
+)
+chisq_to_pearsons_c(41.234,
   n = sum(contingency_table),
   nrow = nrow(contingency_table),
   ncol = ncol(contingency_table)

@@ -32,7 +32,7 @@ Rules apply to OR as ratios, so OR of 10 is as extreme as a OR of 0.1 (1/10).
 \item \strong{3.47 <= OR < 6.71} - Medium
 \item **OR >= 6.71 ** - Large
 }
-\item Cohen (1988) (\code{"cohen1988"}, based on the \code{\link[=oddsratio_to_d]{oddsratio_to_d()}} conversion, see \code{\link[=interpret_d]{interpret_d()}})
+\item Cohen (1988) (\code{"cohen1988"}, based on the \code{\link[=oddsratio_to_d]{oddsratio_to_d()}} conversion, see \code{\link[=interpret_cohens_d]{interpret_cohens_d()}})
 \itemize{
 \item \strong{OR < 1.44} - Very small
 \item \strong{1.44 <= OR < 2.48} - Small
@@ -53,7 +53,7 @@ interpret_oddsratio(c(5, 2))
 (2nd Ed.). New York: Routledge.
 \item Chen, H., Cohen, P., & Chen, S. (2010). How big is a big odds ratio?
 Interpreting the magnitudes of odds ratios in epidemiological studies.
-Communications in Statistics—Simulation and Computation, 39(4), 860-864.
+Communications in Statistics-Simulation and Computation, 39(4), 860-864.
 \item Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003).
 Effect-size indices for dichotomized outcomes in meta-analysis. Psychological
 methods, 8(4), 448.

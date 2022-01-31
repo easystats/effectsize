@@ -6,26 +6,40 @@ print.rules <- function(x, ...) {
   name <- attr(x, "rule_name")
 
   if (length(x$values) == length(x$labels)) {
-    df <- data.frame(setNames(as.list(x$values), x$labels), check.names = FALSE)
-    df <- cbind("Label " = "Value ", df)
-    cat(insight::export_table(df, caption = c(paste0("# Reference values (", name, ")"), "blue")))
+    title_type <- "Values"
+
+    df <- data.frame(
+      Labels = x$labels,
+      Values = x$values
+    )
+
+    out <- insight::export_table(df, align = "rl", sep = " ~ ")
+
   } else {
+    title_type <- "Thresholds"
+
     if (isTRUE(attr(x, "right"))) {
-      gLeft <- " <= "
-      gRight <- " < "
-    } else {
       gLeft <- " < "
       gRight <- " <= "
+    } else {
+      gLeft <- " <= "
+      gRight <- " < "
     }
-    insight::print_color(paste0("# Reference thresholds (", name, ")\n\n"), "blue")
-    cat(paste0(
-      paste0(head(x$labels, -1), gLeft, x$values,
-        collapse = gRight
-      ),
-      gRight,
-      tail(x$labels, 1)
-    ))
+
+    df <- data.frame(
+      " " = c("", x$values),
+      " " = c("", rep(gLeft, length(x$values))),
+      Label = x$labels,
+      " " = c(rep(gRight, length(x$values)), ""),
+      " " = c(x$values, ""),
+      check.names = FALSE
+    )
+
+    out <- insight::export_table(df, align = "rcccl", sep = " ")
   }
+
+  insight::print_color(sprintf("# Reference %s (%s)\n\n", title_type, name), "blue")
+  cat(out)
   invisible(orig_x)
 }
 
@@ -34,8 +48,8 @@ print.rules <- function(x, ...) {
 print.effectsize_interpret <- function(x, ...) {
   orig_x <- x
 
-  name <- attr(x, "rule_name")
-  attr(x, "rule_name") <- NULL
+  name <- attr(attr(x, "rules"), "rule_name")
+  attr(x, "rules") <- NULL
 
   class(x) <- class(x)[-1]
   print(x, ...)

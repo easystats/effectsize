@@ -2,14 +2,12 @@ if (require("testthat") && require("effectsize")) {
 
   # anova() -----------------------------------------------------------------
   test_that("anova()", {
-    m <- matrix(c(3, 1, 1),
-      nrow = 1,
-      dimnames = list(
-        "Term",
-        c("F value", "NumDF", "DenDF")
-      )
+    m <- structure(
+      c(3, 1, 1),
+      .Dim = c(1L, 3L),
+      .Dimnames = list("Term", c("F value", "NumDF", "DenDF")),
+      class = "anova"
     )
-    class(m) <- "anova"
 
     expect_error(eta_squared(m), regexp = NA)
     expect_equal(
@@ -92,6 +90,7 @@ if (require("testthat") && require("effectsize")) {
 
   # aovlist -----------------------------------------------------------------
   test_that("aovlist", {
+    skip_on_cran()
     df <- iris
     df$Sepal.Big <- ifelse(df$Sepal.Width >= 3, "Yes", "No")
 
@@ -169,6 +168,12 @@ if (require("testthat") && require("effectsize")) {
     # MANOVA table
     mod <- manova(cbind(mpg, qsec) ~ am_f * cyl_f, data = mtcars)
     expect_equal(nrow(eta_squared(mod)), 3L)
+
+    # Row order
+    fit <- lm(cbind(mpg, disp, hp) ~ factor(cyl), data = mtcars)
+    out <- eta_squared(fit, partial = FALSE, ci = NULL)
+    expect_equal(as.character(out$Response), c("mpg", "disp", "hp"))
+
   })
 
 
@@ -327,32 +332,110 @@ if (require("testthat") && require("effectsize")) {
     x <- eta_squared(mod, include_intercept = TRUE)
     a <- anova(mod, es = "pes", intercept = TRUE)
     expect_equal(a$pes, x$Eta2_partial)
+
+    # see issue #389
+    data <- data.frame(subject = c(1L, 2L, 1L, 2L, 1L, 2L, 1L, 2L, 1L,
+                                   2L, 1L, 2L, 1L, 2L, 1L, 2L),
+                       y = c(0.0586978983148275, -0.159870038198774, 0.0125690871484012,
+                             -0.0152529928817782, 0.092433880558952, 0.0359796249184537,
+                             -0.00786545388312909, 0.0340005375703463, 0.165294695432772,
+                             0.0201040753050847, 0.0741924965491503, -0.0345053066539826,
+                             0.0108194665250311, -0.163941830205729, 0.310344189786906,
+                             -0.106627229564326),
+                       A = c("A1", "A1", "A1", "A1", "A1", "A1", "A1", "A1", "A2",
+                             "A2", "A2", "A2", "A2", "A2", "A2", "A2"),
+                       B = c("B1", "B1", "B1", "B1", "B2", "B2", "B2", "B2", "B1",
+                             "B1", "B1", "B1", "B2", "B2", "B2", "B2"),
+                       C = c("C1", "C1", "C2", "C2", "C1", "C1", "C2", "C2", "C1",
+                             "C1", "C2", "C2", "C1", "C1", "C2", "C2"))
+    mod <- afex::aov_ez("subject", "y", data, within = c("A", "B", "C"))
+    tab <- as.data.frame(anova(mod, es = "pes"))
+    res <- eta_squared(mod)
+
+    tab <- tab[order(rownames(tab)),]
+    res <- res[order(res$Parameter),]
+
+    expect_equal(res$Eta2_partial,tab$pes, tolerance = 0.001)
   })
 
 
   # car ---------------------------------------------------------------------
-  test_that("car MLM", {
+  test_that("car MVM", {
     skip_if_not_installed("afex")
     skip_if_not_installed("car")
+
+    # Simple ---
+    ds <- data.frame(I = c(116, 96, 120, 110, 116, 126, 86, 80),
+                     II = c(76, 93, 112, 113, 75, 120, 90, 105),
+                     III = c(85, 63, 89, 60, 115, 101, 129, 67),
+                     IV = c(50, 87, 100, 60, 79, 70, 65, 65),
+                     id = 1:8)
+
+    ds_long <- data.frame(
+      id = c(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L,
+             1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L,
+             1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L,
+             1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L),
+      ind_var = c("I", "I", "I", "I", "I", "I", "I", "I",
+                  "II", "II", "II", "II", "II", "II", "II", "II",
+                  "III", "III", "III", "III", "III", "III", "III", "III",
+                  "IV", "IV", "IV", "IV", "IV", "IV", "IV", "IV"),
+      score = c(116, 96, 120, 110, 116, 126, 86, 80,
+                76, 93, 112, 113, 75, 120, 90, 105,
+                85, 63, 89, 60, 115, 101, 129, 67,
+                50, 87, 100, 60, 79, 70, 65, 65)
+    )
+
+
+
+    fit <- lm(cbind(I, II, III, IV) ~ 1, data = ds)
+    in_rep <- data.frame(ind_var = gl(4, 1))
+    A_car <- car::Anova(fit, idata = in_rep, idesign =  ~ ind_var)
+
+    eta_car <- effectsize::eta_squared(A_car, ci = NULL)[[2]]
+
+    eta_afex <- afex::aov_ez('id', 'score', ds_long,
+                             within = 'ind_var',
+                             anova_table = list(es = "pes"))$anova_table$pes
+
+    expect_equal(eta_car, eta_afex)
+
+    # Complex ---
     data(obk.long, package = "afex")
-    model1 <- afex::aov_car(value ~ treatment * gender + Error(id / (phase * hour)),
-      data = obk.long, observed = "gender",
-      include_aov = FALSE
-    )
 
-    ws <- capture_warnings(eta_squared(model1$Anova, partial = FALSE))
-    expect_match(tail(ws, 1), "Currently only supports partial eta", fixed = TRUE)
-
+    mod <- afex::aov_ez("id", "value", obk.long,
+                        between = c("treatment", "gender"),
+                        within = c("phase", "hour"),
+                        observed = "gender")
     expect_equal(
-      eta_squared(model1$Anova, verbose = FALSE)[1:3, ][[2]],
-      c(0.4407468, 0.2678884, 0.3635011),
-      tolerance = 0.01
+      sort(eta_squared(mod$Anova, generalized = "gender")[[2]]),
+      sort(mod$anova_table$ges)
     )
+  })
+
+
+  # failed CIs --------------------------------------------------------------
+
+  test_that("failed CIs", {
+    library(testthat)
+
+    model <- aov(wt ~ cyl + Error(gear), data = mtcars)
+
+    expect_warning(eta_squared(model), regexp = "CIs")
+    expect_warning(eta <- eta_squared(model, verbose = FALSE), regexp = NA)
+    expect_equal(nrow(eta), 2L)
+    expect_equal(eta[1, "Eta2_partial"], 1)
+
+    expect_warning(eta_squared(model, partial = FALSE), regexp = "CIs")
+    expect_warning(eta <- eta_squared(model, partial = FALSE, verbose = FALSE), regexp = NA)
+    expect_equal(nrow(eta), 2L)
+    expect_equal(eta[1, "Eta2"], 0.34, tolerance = 0.01)
   })
 
 
   # Include intercept -------------------------------------------------------
   test_that("include_intercept | car", {
+    skip_on_cran()
     skip_if_not_installed("car")
 
     m <- lm(mpg ~ factor(cyl) * factor(am), data = mtcars)

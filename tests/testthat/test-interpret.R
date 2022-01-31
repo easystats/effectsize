@@ -47,15 +47,21 @@ if (require("testthat") && require("effectsize")) {
   })
 
 
-  test_that("interpret_d", {
-    expect_equal(interpret_d(0.021)[1], "very small")
-    expect_equal(interpret_d(1.3, "sawilowsky2009")[1], "very large")
-    expect_equal(interpret_d(c(0.45, 0.85), "cohen1988")[1:2], c("small", "large"))
-    expect_equal(interpret_d(c(0.45, 0.85), "lovakov2021")[1:2], c("medium", "large"))
-    expect_equal(interpret_d(0.6, rules(c(0.5), c("A", "B")))[1], "B")
-    expect_error(interpret_d(0.6, "DUPA"))
+  test_that("interpret_cohens_d", {
+    expect_equal(interpret_cohens_d(0.021)[1], "very small")
+    expect_equal(interpret_cohens_d(1.3, "sawilowsky2009")[1], "very large")
+    expect_equal(interpret_cohens_d(c(0.45, 0.85), "cohen1988")[1:2], c("small", "large"))
+    expect_equal(interpret_cohens_d(c(0.45, 0.85), "lovakov2021")[1:2], c("medium", "large"))
+    expect_equal(interpret_cohens_d(0.6, rules(c(0.5), c("A", "B")))[1], "B")
+    expect_error(interpret_cohens_d(0.6, "DUPA"))
   })
 
+  test_that("interpret_cohens_g", {
+    expect_equal(interpret_cohens_g(0.021)[1], "very small")
+    expect_equal(interpret_cohens_g(c(0.10, 0.35), "cohen1988")[1:2], c("small", "large"))
+    expect_equal(interpret_cohens_g(0.6, rules(c(0.5), c("A", "B")))[1], "B")
+    expect_error(interpret_cohens_g(0.6, "DUPA"))
+  })
 
 
   test_that("interpret_rope", {
@@ -193,6 +199,18 @@ if (require("testthat") && require("effectsize")) {
     expect_error(interpret_pnfi(0.6, "DUPA"))
     expect_error(interpret_rmsea(0.6, "DUPA"))
     expect_error(interpret_srmr(0.6, "DUPA"))
+
+    skip_on_cran()
+    skip_if_not_installed("lavaan")
+    skip_if_not_installed("performance", minimum_version = "0.8.0.1")
+
+    structure <- " ind60 =~ x1 + x2 + x3
+                   dem60 =~ y1 + y2 + y3
+                   dem60 ~ ind60 "
+    model <- lavaan::sem(structure, data = lavaan::PoliticalDemocracy)
+    int <- interpret(model)
+    expect_equal(int$Name, c("GFI", "AGFI", "NFI", "NNFI", "CFI", "RMSEA", "SRMR", "RFI", "PNFI", "IFI"))
+    expect_equal(int$Value,c(0.9666, 0.9124, 0.9749, 1.0001, 1, 0, 0.0273, 0.9529, 0.5199, 1.0001), tolerance = 0.001)
   })
 
   test_that("interpret_icc", {
@@ -201,7 +219,13 @@ if (require("testthat") && require("effectsize")) {
     expect_error(interpret_icc(0.6, "DUPA"))
   })
 
-  test_that("interpret_pf", {
+  test_that("interpret_vif", {
+    expect_equal(interpret_vif(c(1, 5.5, 10)), c("low", "moderate", "high"), ignore_attr = TRUE)
+    expect_equal(interpret_icc(0.6, rules(c(0.5), c("A", "B")))[1], "B")
+    expect_error(interpret_icc(0.6, "DUPA"))
+  })
+
+  test_that("interpret_pd", {
     expect_equal(interpret_pd(c(0.9, 0.99)), c("not significant", "significant"), ignore_attr = TRUE)
     expect_equal(interpret_pd(c(0.9, 0.99), "makowski2019"), c("uncertain", "likely existing"), ignore_attr = TRUE)
     expect_equal(interpret_pd(0.6, rules(c(0.5), c("A", "B")))[1], "B")
@@ -211,13 +235,20 @@ if (require("testthat") && require("effectsize")) {
   # interpret effectsize_table ----
   test_that("interpret effectsize_table", {
     d <- cohens_d(mpg ~ am, data = mtcars)
-
-    expect_error(interpret(d))
-
     d_ <- interpret(d, rules = "cohen1988")
     expect_equal(d_[["Interpretation"]], "large", ignore_attr = TRUE)
     expect_s3_class(d_[["Interpretation"]], "effectsize_interpret")
     expect_output(print(d_), "large")
     expect_output(print(d_), "Interpretation rule: cohen1988")
+
+
+    V <- cramers_v(matrix(c(71, 30, 50, 100), 2))
+    V_ <- interpret(V, rules = "funder2019")
+    expect_equal(V_[["Interpretation"]], "large", ignore_attr = TRUE)
+    expect_s3_class(V_[["Interpretation"]], "effectsize_interpret")
+    expect_output(print(V_), "large")
+    expect_output(print(V_), "Interpretation rule: funder2019")
+
+    expect_error(interpret(d))
   })
 }

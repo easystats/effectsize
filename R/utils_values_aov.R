@@ -1,9 +1,8 @@
 #' @keywords internal
-.values_aov <- function(params) {
+.values_aov <- function(params, group = FALSE) {
 
   # number of observations
-  # if ("Group" %in% names(params) && ("Within" %in% params$Group)) {
-  if ("Group" %in% names(params)) {
+  if (isTRUE(group)) {
     lapply(split(params, params$Group), function(.i) {
       N <- sum(.i$df) + 1
       .prepare_values_aov(.i, N)
@@ -17,16 +16,17 @@
 
 #' @keywords internal
 .prepare_values_aov <- function(params, N) {
+  iResid <- params$Parameter == "Residuals"
   # get mean squared of residuals
-  Mean_Square_residuals <- sum(params[params$Parameter == "Residuals", ]$Mean_Square)
+  Mean_Square_residuals <- sum(params[iResid, "Mean_Square"])
   # get sum of squares of residuals
-  Sum_Squares_residuals <- sum(params[params$Parameter == "Residuals", ]$Sum_Squares)
+  Sum_Squares_residuals <- sum(params[iResid, "Sum_Squares"])
   # get total sum of squares
   Sum_Squares_total <- sum(params$Sum_Squares)
   # number of terms in model
   N_terms <- nrow(params) - 1
   # df residuals
-  df_residuals <- sum(params[params$Parameter == "Residuals", ]$df)
+  df_residuals <- sum(params[iResid, "df"])
 
   list(
     "Mean_Square_residuals" = Mean_Square_residuals,

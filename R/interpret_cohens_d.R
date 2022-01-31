@@ -39,9 +39,9 @@
 #'   - **d >= 0.63** - Large
 #'
 #' @examples
-#' interpret_d(.02)
-#' interpret_d(c(.5, .02))
-#' interpret_d(.3, rules = "lovakov2021")
+#' interpret_cohens_d(.02)
+#' interpret_cohens_d(c(.5, .02))
+#' interpret_cohens_d(.3, rules = "lovakov2021")
 #' @references
 #' - Lovakov, A., & Agadullina, E. R. (2021). Empirically Derived Guidelines for
 #' Effect Size Interpretation in Social Psychology. European Journal of Social
@@ -57,7 +57,7 @@
 #' - Sawilowsky, S. S. (2009). New effect size rules of thumb.
 #'
 #' @export
-interpret_d <- function(d, rules = "cohen1988", ...) {
+interpret_cohens_d <- function(d, rules = "cohen1988", ...) {
   if (is.character(rules) && rules == "gignac2016") {
     return(interpret_r(d_to_r(d), rules))
   }
@@ -83,14 +83,14 @@ interpret_d <- function(d, rules = "cohen1988", ...) {
   interpret(abs(d), rules)
 }
 
-#' @rdname interpret_d
+#' @rdname interpret_cohens_d
 #' @export
-interpret_g <- function(g, rules = "cohen1988") {
-  interpret_d(g, rules)
+interpret_hedges_g <- function(g, rules = "cohen1988") {
+  interpret_cohens_d(g, rules)
 }
 
-#' @rdname interpret_d
+#' @rdname interpret_cohens_d
 #' @export
-interpret_delta <- function(delta, rules = "cohen1988") {
-  interpret_d(delta, rules)
+interpret_glass_delta <- function(delta, rules = "cohen1988") {
+  interpret_cohens_d(delta, rules)
 }

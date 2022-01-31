@@ -1,28 +1,33 @@
 #' Effect size for contingency tables
 #'
-#' Compute Cramer's *V*, phi (\eqn{\phi}), Cohen's *w* (an alias of phi), Odds
-#' ratios, Risk ratios, Cohen's *h* and Cohen's *g* for contingency tables or
-#' goodness-of-fit. See details.
+#' Compute Cramer's *V*, phi (\eqn{\phi}), Cohen's *w* (an alias of phi),
+#' Pearson's contingency coefficient, Odds ratios, Risk ratios, Cohen's *h* and
+#' Cohen's *g* for contingency tables or goodness-of-fit. See details.
 #'
 #' @inheritParams stats::chisq.test
 #' @param ci Confidence Interval (CI) level
 #' @param alternative a character string specifying the alternative hypothesis;
-#'   Controls the type of CI returned: `"two.sided"` (two-sided CI; default for
-#'   Cramer's *V*, phi (\eqn{\phi}), and Cohen's *w*), `"greater"` (default for
-#'   OR, RR, Cohen's *h* and Cohen's *g*) or `"less"` (one-sided CI). Partial
-#'   matching is allowed (e.g., `"g"`, `"l"`, `"two"`...). See *One-Sided CIs*
-#'   in [effectsize_CIs].
+#'   Controls the type of CI returned: `"greater"` (two-sided CI; default for
+#'   Cramer's *V*, phi (\eqn{\phi}), and Cohen's *w*), `"two.sided"` (default
+#'   for OR, RR, Cohen's *h* and Cohen's *g*) or `"less"` (one-sided CI).
+#'   Partial matching is allowed (e.g., `"g"`, `"l"`, `"two"`...). See
+#'   *One-Sided CIs* in [effectsize_CIs].
 #' @param adjust Should the effect size be bias-corrected? Defaults to `FALSE`.
 #' @param ... Arguments passed to [stats::chisq.test()], such as `p`. Ignored
 #'   for `cohens_g()`.
 #'
 #' @details
-#' Cramer's *V* and phi (\eqn{\phi}) are effect sizes for tests of independence
-#' in 2D contingency tables, or for goodness-of-fit in 1D tables. For 2-by-2
-#' tables, they are identical, and are equal to the simple correlation between
-#' two dichotomous variables, ranging between  0 (no dependence) and 1 (perfect
-#' dependence). For larger tables, Cramer's *V* should be used, as it is bounded
-#' between 0-1, whereas phi can be larger than 1.
+#' Cramer's *V*, phi (\eqn{\phi}) and Pearson's *C* are effect sizes for tests
+#' of independence in 2D contingency tables. For 2-by-k tables, Cramer's *V* and
+#' phi are identical, and are equal to the simple correlation between two
+#' dichotomous variables, ranging between  0 (no dependence) and 1 (perfect
+#' dependence). For larger tables, Cramer's *V* or Pearson's *C* should be used,
+#' as they are bounded between 0-1, whereas phi can be larger than 1 (upper
+#' bound is `sqrt(min(nrow, ncol) - 1))`).
+#' \cr\cr
+#' For goodness-of-fit in 1D tables Pearson's *C* or phi can be used. Phi has no
+#' upper bound (can be arbitrarily large, depending on the expected
+#' distribution), while Pearson's *C* is bounded between 0-1.
 #' \cr\cr
 #' For 2-by-2 contingency tables, Odds ratios, Risk ratios and Cohen's *h* can
 #' also be estimated. Note that these are computed with each **column**
@@ -45,9 +50,8 @@
 #' Szumilas, 2010).
 #' \cr\cr
 #' See *Confidence (Compatibility) Intervals (CIs)*, *CIs and Significance
-#' Tests*, and *One-Sided CIs* sections for *phi*, Cohen's *w* and Cramer's *V*.
-#' (*Note* that *phi* (and Cohen's *w*) is not bound to (0-1), but instead the
-#' upper bound for is `sqrt(min(nrow, ncol) - 1))`.)
+#' Tests*, and *One-Sided CIs* sections for *phi*, Cohen's *w*, Cramer's *V* and
+#' Pearson's *C*.
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
@@ -77,6 +81,7 @@
 #'
 #' cramers_v(M)
 #'
+#' pearsons_c(M)
 #'
 #'
 #' ## 2-by-2 tables
@@ -119,13 +124,13 @@
 #' @importFrom stats chisq.test
 #' @export
 phi <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "BFBayesFactor")) {
     if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
-    return(effectsize(x, type = "phi", adjust = adjust, ci = ci, alternative = alternative))
+    return(effectsize(x, type = "phi", adjust = adjust, ci = ci, ...))
   }
 
 
@@ -150,13 +155,13 @@ cohens_w <- phi
 #' @importFrom stats chisq.test
 #' @export
 cramers_v <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "BFBayesFactor")) {
     if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
-    return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci, alternative = alternative))
+    return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci, ...))
   }
 
 
@@ -171,6 +176,34 @@ cramers_v <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = 
   }
 
   effectsize(x, type = "cramers_v", adjust = adjust, ci = ci, alternative = alternative)
+}
+
+
+#' @rdname phi
+#' @importFrom stats chisq.test
+#' @export
+pearsons_c <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+
+  if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "pearsons_c", adjust = adjust, ci = ci, ...))
+  }
+
+
+  if (inherits(x, "htest")) {
+    if (!(grepl("Pearson's Chi-squared", x$method) ||
+          grepl("Chi-squared test for given probabilities", x$method))) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
+  } else {
+    x <- suppressWarnings(stats::chisq.test(x, y, ...))
+    x$data.name <- NULL
+  }
+
+  effectsize(x, type = "pearsons_c", adjust = adjust, ci = ci, alternative = alternative)
 }
 
 
@@ -194,7 +227,7 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
     if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
-    return(effectsize(x, type = "or", log = log, ci = ci))
+    return(effectsize(x, type = "or", log = log, ci = ci, ...))
   }
 
   res <- suppressWarnings(stats::chisq.test(x, y, ...))
@@ -270,7 +303,7 @@ riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
     if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
-    return(effectsize(x, type = "rr", log = log, ci = ci))
+    return(effectsize(x, type = "rr", log = log, ci = ci, ...))
   }
 
   res <- suppressWarnings(stats::chisq.test(x, y, ...))
@@ -348,7 +381,7 @@ cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
     if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
-    return(effectsize(x, type = "cohens_h", ci = ci))
+    return(effectsize(x, type = "cohens_h", ci = ci, ...))
   }
 
   res <- suppressWarnings(stats::chisq.test(x, y, ...))

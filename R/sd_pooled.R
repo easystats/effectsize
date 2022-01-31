@@ -67,9 +67,9 @@ mad_pooled <- function(x, y = NULL, data = NULL, constant = 1.4826, verbose = TR
   # Activate here for evaluation of arguments...
 
   # eval_args <- .evaluate_arguments(x, y, data)
-  # out <- .deal_with_cohens_d_arguments(eval_args$x, eval_args$y, eval_args$data)
+  # out <- .get_data_2_samples(eval_args$x, eval_args$y, eval_args$data)
 
-  out <- .deal_with_cohens_d_arguments(x, y, data, verbose)
+  out <- .get_data_2_samples(x, y, data, verbose)
   x <- na.omit(out$x)
   y <- na.omit(out$y)
 

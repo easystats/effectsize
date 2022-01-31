@@ -58,9 +58,9 @@ standardization**, described below
 [@bring1994standardize;@menard2004six;@gelman2008scaling;@schielzeth2010simple;@menard2011standards].
 -->
 
-# Standardizing Parameters of Simple Models
+## Standardizing Parameters of Simple Models
 
-## Standardized Associations
+### Standardized Associations
 
 ```{r}
 library(effectsize)
@@ -76,12 +76,10 @@ of `0.87`, but did you know that for a simple regression this is actually the
 interpretation guidelines (e.g., Cohen's rules of thumb).
 
 ```{r}
-r <- cor.test(attitude$rating, attitude$complaints)
-
-effectsize(r)
+correlation::correlation(attitude, select = c("rating", "complaints"))
 ```
 
-## Standardized Differences
+### Standardized Differences
 
 How does it work in the case of differences, when **factors** are entered and
 differences between a given level and a reference level? You might have heard
@@ -90,6 +88,7 @@ that it is similar to a **Cohen's *d***. Well, let's see.
 ```{r include=FALSE}
 mtcars <- datasets::mtcars
 ```
+
 ```{r}
 # Select portion of data containing the two levels of interest
 mtcars$am <- factor(mtcars$am, labels = c("Manual", "Automatic"))
@@ -150,7 +149,7 @@ glass_delta(mpg ~ am, data = mtcars)
 ***... So note that some standardized differences are different than others!
 :)***
 
-# Standardizing Parameters of Linear Models
+## Standardizing Parameters of Linear Models
 
 As mentioned above, standardization of parameters can also be used to compare
 among parameters within the same model. Essentially, what prevents us from
@@ -167,7 +166,7 @@ predict a worker's salary (in Shmekels) from their age (years), seniority
 Let us explore the different parameter standardization methods provided by
 `effectsize`.
 
-## Standardized Slopes are Not (Always) Correlations
+### Standardized Slopes are Not (Always) Correlations
 
 We saw that in simple linear models, the standardized slope is equal to the
 correlation between the outcome and predictor - does this hold for **multiple
@@ -181,9 +180,12 @@ data("hardlyworking", package = "effectsize")
 
 head(hardlyworking)
 
-correlation::correlation(data = hardlyworking[,1], # the outcome of salary
-                         data2 = hardlyworking[,-1], # the predictors
-                         partial = TRUE) # get partial correlations
+correlation::correlation(
+  hardlyworking,
+  select = "salary",
+  select2 = c("xtra_hours", "n_comps", "age", "seniority"),
+  partial = TRUE # get partial correlations
+) 
 ```
 
 Let's compare these to the standardized slopes:
@@ -214,7 +216,7 @@ Wow, the retrieved correlations coefficients from the regression model are
 **exactly** the same as the partial correlations we estimated above! So these
 "*r*" effect sizes can also be used.
 
-## Methods of Standardizing Parameters
+### Methods of Standardizing Parameters
 
 Let's convert `age` into a 3-level factor:
 
@@ -233,7 +235,7 @@ coefficient. However, it is hard to compare among predictors, as they are on
 different scales. To address this issue, we must have all the predictors on the
 same scale - usually in the arbitrary unit of *standard deviations*.
 
-### **`"refit"`**: Re-fitting the model with standardized data
+#### **`"refit"`**: Re-fitting the model with standardized data
 
 **This method is based on a complete model re-fit with a standardized version of
 data**. Hence, this method is equal to standardizing the variables *before*
@@ -274,7 +276,7 @@ mod_z
 parameters::model_parameters(mod_z)
 ```
 
-### **`"posthoc"`**: Refit without refitting
+#### **`"posthoc"`**: Refit without refitting
 
 Post-hoc standardization of the parameters aims at emulating the results
 obtained by `"refit"` without refitting the model. The coefficients are divided
@@ -291,7 +293,7 @@ give aberrant results when interactions are specified.
 standardize_parameters(mod, method = "posthoc")
 ```
 
-### **`"smart"`**: Standardization of Model's parameters with Adjustment, Reconnaissance and Transformation
+#### **`"smart"`**: Standardization of Model's parameters with Adjustment, Reconnaissance and Transformation
 
 > Experimental
 
@@ -306,7 +308,7 @@ coefficients for effects of factors are similar to a Glass' *delta*.
 standardize_parameters(mod, method = "smart")
 ```
 
-### **`"basic"`**: Raw scaling of the model frame
+#### **`"basic"`**: Raw scaling of the model frame
 
 This method is similar to `method = "posthoc"`, but treats all variables as
 continuous: it scales the coefficient by the standard deviation of model's
@@ -321,7 +323,7 @@ and, such as can be used for reproducibility and replication purposes.
 standardize_parameters(mod, method = "basic")
 ```
 
-## Standardizing Parameters In Mixed Models
+### Standardizing Parameters In Mixed Models
 
 Linear mixed models (LMM/HLM/MLM) offer an additional conundrum to
 standardization - how does one even calculate the SDs of the various predictors?
@@ -336,15 +338,15 @@ are also called *pseudo*-standardized coefficients.[^Note that like method
 `"basic"`, these are based on the model matrix.]
 
 ```{r, eval=knitr::opts_chunk$get("eval") && require(lme4) && require(lmerTest), warning=FALSE}
-m <- lme4::lmer(mpg ~ cyl + am + vs + (1|cyl), mtcars)
+m <- lme4::lmer(Reaction ~ Days + (Days|Subject), data = lme4::sleepstudy)
 
-standardize_parameters(m, method = "pseudo", df_method = "satterthwaite")
+standardize_parameters(m, method = "pseudo", ci_method = "satterthwaite")
 
 # compare to:
-standardize_parameters(m, method = "basic", df_method = "satterthwaite")
+standardize_parameters(m, method = "basic", ci_method = "satterthwaite")
 ```
 
-## Standardizing Parameters In Generalized Linear Models
+### Standardizing Parameters In Generalized Linear Models
 
 Unlike linear (/mixed) models, in generalized linear (/mixed) models (GLMs)
 there is *less* of a need for standardization. Why? Because in many GLMs the
@@ -383,7 +385,7 @@ Or we can directly ask for the coefficients to be exponentiated:
 standardize_parameters(mod_b, method = "refit", two_sd = TRUE, exponentiate = TRUE)
 ```
 
-# Cohen's *f*
+## Cohen's *f*
 
 Cohen's $f$ (of [ANOVA fame](https://easystats.github.io/effectsize/articles/anovaES.html)) can be used as a measure of effect size in the context of sequential multiple regression (i.e., [**nested models**](https://easystats.github.io/performance/reference/test_performance.html)).
 That is, when comparing two models, we can examine the ratio between the
@@ -517,7 +519,7 @@ different (because the 0 corresponds to something different in standardzed and
 non-standardized data). In other words, when it comes to interaction, passing
 standardized data results in a different model, which coefficient have an
 intrinsically different meaning from unstandardized data. And as [for
-now](https://github.com/easystats/effectsize/issues/6), we are unable to
+now](https://github.com/easystats/effectsize/issues/6/), we are unable to
 retrieve one from another. -->
 
 <!-- #### Between continuous -->

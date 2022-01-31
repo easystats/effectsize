@@ -39,13 +39,17 @@ if (require("testthat") && require("effectsize")) {
       phi(xtab)[[1]]
     )
 
+    res <- pearsons_c(xtab)
+    expect_equal(res[[1]], 0.032, tolerance = 0.01)
+
 
     ## 2*2 perfect correlation
     xtab <- rbind(
       c(100, 0),
       c(0, 200)
     )
-    expect_equal(cramers_v(xtab)$Cramers_v, 1)
+    expect_equal(V <- cramers_v(xtab)[[1]], 1)
+    expect_true(pearsons_c(xtab)[[1]] < V) # C is not perfect
 
 
     ## 2*2 0 correlation
@@ -62,35 +66,37 @@ if (require("testthat") && require("effectsize")) {
       c(100, 100, 0)
     )
     expect_error(cramers_v(xtab))
+
+    ## 0
+    xtab <- table(mtcars$am, mtcars$vs)
+    phi3 <- phi(xtab, adjust = TRUE)
+    expect_equal(phi3$phi_adjusted, 0)
+    expect_equal(phi3$CI_low, 0)
+    expect_equal(phi3$CI_high, 1)
   })
 
 
   test_that("goodness of fit", {
-    cv1 <- cramers_v(table(mtcars$cyl), p = c(0.34375, 0.21875, 0.43750))
-    cv2 <- cramers_v(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
-
-    expect_equal(cv1$Cramers_v, 0)
-    expect_true(cv1$Cramers_v < cv2$Cramers_v)
-    expect_true(cv2$CI_low < cv2$CI_high)
+    expect_error(cramers_v(table(mtcars$cyl)))
 
     phi1 <- phi(table(mtcars$cyl), p = c(0.34375, 0.21875, 0.43750))
     phi2 <- phi(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
 
     expect_equal(phi1$phi, 0)
     expect_true(phi1$phi < phi2$phi)
+    expect_true(phi1$CI_low < phi2$CI_low)
     expect_true(phi2$CI_low < phi2$CI_high)
+    expect_equal(phi2$CI_high, Inf)
+
+    C <- pearsons_c(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
+    expect_equal(C[[1]], sqrt(49.289 / (49.289 + sum(table(mtcars$cyl)))), tolerance = 0.001)
+    expect_equal(C$CI_high, 1)
 
     # some weird exeptions...
     df <- subset(mtcars, am == "0")
-    expect_equal(cramers_v(table(df$am, df$cyl))[[1]], 0.45, tolerance = 0.01)
-    expect_equal(cramers_v(table(df$am, df$cyl)), cramers_v(table(df$cyl)))
-    expect_equal(cramers_v(table(df$am, df$cyl)), cramers_v(table(df$cyl, df$am)))
-
-    xtab <- table(mtcars$am, mtcars$vs)
-    V <- cramers_v(xtab, adjust = TRUE)
-    expect_equal(V$Cramers_v_adjusted, 0)
-    expect_equal(V$CI_low, 0)
-    expect_equal(V$CI_high, 1)
+    expect_equal(phi(table(df$am, df$cyl))[[1]], 0.64, tolerance = 0.01)
+    expect_equal(phi(table(df$am, df$cyl)), phi(table(df$cyl)))
+    expect_equal(phi(table(df$am, df$cyl)), phi(table(df$cyl, df$am)))
   })
 
   test_that("oddsratio & riskratio", {

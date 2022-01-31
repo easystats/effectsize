@@ -1,21 +1,28 @@
+All URL issues have been resolved.
+
 ## Test environments
 
-* local R installation, R 4.1.0
-* GitHub Actions (windows): 3.4, oldrel, release, devel
-* Github Actions (macOS): 3.4, oldrel, release, devel
-* GitHub Actions (ubuntu-16.04): 3.4, oldrel, release, devel
-* win-builder (devel)
+* local installation: R 4.1.1 on Windows
+* GitHub Actions
+    - Windows:        devel, release, oldrel
+    - macOS:          devel, release, oldrel
+    - ubuntu-16.04:   devel, release, oldrel, 3.6, 3.5, 3.4
+* win-builder:        release
+
 
 ## R CMD check results
 
 0 errors | 0 warnings | 0 notes
 
+
 ### Known issues
 
-- Failed handshake with shinyapps.io is a false positive.
+- Failed handshake with *shinyapps.io* is a false positive.
 
 
+## revdepcheck results
 
-## Reverse Dependancies 
+We checked 16 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
-- The maintainer of `statsExperssions` has been informed about the imminent failure of tests with this new version.
+ * We saw 0 new problems
+ * We failed to check 0 packages

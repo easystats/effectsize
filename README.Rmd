@@ -13,9 +13,10 @@ csl: vignettes/apa.csl
 editor_options: 
   chunk_output_type: console
 ---
-# effectsize <img src='man/figures/logo.png' align="right" height="139" />
 
-```{r, echo = FALSE, warning=FALSE, message=FALSE}
+# effectsize <img src="man/figures/logo.png" align="right" width="120" />
+
+```{r setup, echo = FALSE, warning=FALSE, message=FALSE}
 library(effectsize)
 
 options(digits=3)
@@ -29,34 +30,35 @@ knitr::opts_chunk$set(
 set.seed(111)
 ```
 
-[![DOI](https://joss.theoj.org/papers/10.21105/joss.02815/status.svg)](https://doi.org/10.21105/joss.02815)
-[![downloads](http://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize)
-[![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize)](https://cranlogs.r-pkg.org/) 
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.02815/status.svg/)](https://doi.org/10.21105/joss.02815)
+[![downloads](https://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize/)
+[![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize)](https://cran.r-project.org/package=effectsize/)
+[![status](https://tinyverse.netlify.com/badge/effectsize/)](https://CRAN.R-project.org/package=effectsize/)
 
 
-***Size does matter***
+***Significant is just not enough!***
 
 The goal of this package is to provide utilities to work with indices of effect size and standardized parameters, allowing computation and conversion of indices such as Cohen's *d*, *r*, odds-ratios, etc.
 
 
 ## Installation
 
-[![CRAN](http://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize)
-[![R-universe](https://img.shields.io/badge/R--universe%20%F0%9F%9A%80-easystats-brightgreen)](https://easystats.r-universe.dev/)
-[![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg)](https://github.com/easystats/effectsize/actions)
-[![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg)](https://github.com/easystats/effectsize/actions)
-[![Codecov test coverage](https://codecov.io/gh/easystats/effectsize/branch/main/graph/badge.svg)](https://codecov.io/gh/easystats/effectsize?branch=main)
+[![CRAN](https://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize/)
+[![effectsize status badge](https://easystats.r-universe.dev/badges/effectsize/)](https://easystats.r-universe.dev/)
+[![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg/)](https://github.com/easystats/effectsize/actions/)
+[![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg/)](https://github.com/easystats/effectsize/actions/)
+[![Codecov test coverage](https://codecov.io/gh/easystats/effectsize/branch/main/graph/badge.svg/)](https://app.codecov.io/gh/easystats/effectsize?branch=main/)
 
 Run the following to install the stable release of **effectsize** from CRAN:
 
-```{r, warning=FALSE, message=FALSE, eval=FALSE}
+```{r install-CRAN, warning=FALSE, message=FALSE, eval=FALSE}
 install.packages("effectsize")
 ```
 
-Or you can install the latest development version ``r packageVersion("effectsize")`` from [*R-universe*](https://easystats.r-universe.dev):
+Or you can install the latest development version ``r available.packages(repos = "https://easystats.r-universe.dev/")["effectsize","Version"]`` from [*R-universe*](https://easystats.r-universe.dev):
 
-```{r, warning=FALSE, message=FALSE, eval=FALSE}
-install.packages("effectsize", repos = "https://easystats.r-universe.dev")
+```{r install-R-universe, warning=FALSE, message=FALSE, eval=FALSE}
+install.packages("effectsize", repos = "https://easystats.r-universe.dev/")
 ```
 
 <!-- Or from *GitHub*: -->
@@ -68,9 +70,9 @@ install.packages("effectsize", repos = "https://easystats.r-universe.dev")
 
 ## Documentation
 
-[![Documentation](https://img.shields.io/badge/documentation-effectsize-orange.svg?colorB=E91E63)](https://easystats.github.io/effectsize/)
-[![Blog](https://img.shields.io/badge/blog-easystats-orange.svg?colorB=FF9800)](https://easystats.github.io/blog/posts/)
-[![Features](https://img.shields.io/badge/features-effectsize-orange.svg?colorB=2196F3)](https://easystats.github.io/effectsize/reference/index.html)
+[![Documentation](https://img.shields.io/badge/documentation-effectsize-orange.svg?colorB=E91E63/)](https://easystats.github.io/effectsize/)
+[![Blog](https://img.shields.io/badge/blog-easystats-orange.svg?colorB=FF9800/)](https://easystats.github.io/blog/posts/)
+[![Features](https://img.shields.io/badge/features-effectsize-orange.svg?colorB=2196F3/)](https://easystats.github.io/effectsize/reference/index.html)
 
 Click on the buttons above to access the package [**documentation**](https://easystats.github.io/effectsize/) and the [**easystats blog**](https://easystats.github.io/blog/posts/), and check-out these vignettes:
 
@@ -90,7 +92,7 @@ Click on the buttons above to access the package [**documentation**](https://eas
 
 This package is focused on indices of effect size. Check out the package website for [**a full list of features and functions** provided by `effectsize`](https://easystats.github.io/effectsize/reference/index.html).
 
-```{r message=FALSE, warning=FALSE}
+```{r load, message=FALSE, warning=FALSE}
 library(effectsize)
 ```
 
@@ -100,7 +102,7 @@ library(effectsize)
 
 The package provides functions to compute indices of effect size.
 
-```{r, warning=FALSE, message=FALSE}
+```{r d, warning=FALSE, message=FALSE}
 cohens_d(mpg ~ am, data = mtcars)
 
 hedges_g(mpg ~ am, data = mtcars)
@@ -112,7 +114,7 @@ glass_delta(mpg ~ am, data = mtcars)
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, ...)
 
-```{r, warning=FALSE, message=FALSE}
+```{r aov, warning=FALSE, message=FALSE}
 model <- aov(mpg ~ factor(gear), data = mtcars)
 
 eta_squared(model)
@@ -129,7 +131,7 @@ And more...
 
 Importantly, `effectsize` also provides [advanced methods](https://easystats.github.io/effectsize/articles/standardize_parameters.html) to compute standardized parameters for regression models.
 
-```{r, warning=FALSE, message=FALSE}
+```{r beta, warning=FALSE, message=FALSE}
 m <- lm(rating ~ complaints + privileges + advance, data = attitude)
 
 standardize_parameters(m)
@@ -137,7 +139,7 @@ standardize_parameters(m)
 
 Also, models can be re-fit with standardized data:
 
-```{r, warning=FALSE, message=FALSE}
+```{r std-model, warning=FALSE, message=FALSE}
 standardize(m)
 ```
 
@@ -145,7 +147,7 @@ standardize(m)
 
 The package also provides ways of converting between different effect sizes.
 
-```{r, warning=FALSE, message=FALSE}
+```{r convert-between, warning=FALSE, message=FALSE}
 d_to_r(d = 0.2)
 
 oddsratio_to_riskratio(2.6, p0 = 0.4)
@@ -153,7 +155,7 @@ oddsratio_to_riskratio(2.6, p0 = 0.4)
 
 And for recovering effect sizes from test statistics.
 
-```{r, warning=FALSE, message=FALSE}
+```{r convert-stat, warning=FALSE, message=FALSE}
 F_to_d(15, df = 1, df_error = 60)
 
 F_to_r(15, df = 1, df_error = 60)
@@ -165,17 +167,17 @@ F_to_eta2(15, df = 1, df_error = 60)
 
 The package allows for an automated interpretation of different indices. 
 
-```{r, warning=FALSE, message=FALSE}
+```{r interp-r, warning=FALSE, message=FALSE}
 interpret_r(r = 0.3)
 ```
 
 Different sets of "rules of thumb" are implemented ([**guidelines are detailed here**](https://easystats.github.io/effectsize/articles/interpret.html)) and can be easily changed.
 
 
-```{r, warning=FALSE, message=FALSE}
-interpret_d(d = 0.45, rules = "cohen1988")
+```{r interp-d, warning=FALSE, message=FALSE}
+interpret_cohens_d(d = 0.45, rules = "cohen1988")
 
-interpret_d(d = 0.45, rules = "gignac2016")
+interpret_cohens_d(d = 0.45, rules = "gignac2016")
 ```
 
 
@@ -204,4 +206,4 @@ Corresponding BibTeX entry:
 
 # Contributing and Support
 
-If you have any questions regarding the the functionality of the package, you may either contact us via email or also [file an issue](https://github.com/easystats/effectsize/issues). Anyone wishing to contribute to the package by adding functions, features, or in another way, please follow [this guide](https://github.com/easystats/effectsize/blob/main/.github/CONTRIBUTING.md) and our [code of conduct](https://github.com/easystats/effectsize/blob/main/.github/CODE_OF_CONDUCT.md).
+If you have any questions regarding the the functionality of the package, you may either contact us via email or also [file an issue](https://github.com/easystats/effectsize/issues/). Anyone wishing to contribute to the package by adding functions, features, or in another way, please follow [this guide](https://github.com/easystats/effectsize/blob/main/.github/CONTRIBUTING.md/) and our [code of conduct](https://github.com/easystats/effectsize/blob/main/.github/CODE_OF_CONDUCT.md/).

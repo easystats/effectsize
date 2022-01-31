@@ -14,14 +14,14 @@
 #' @inheritParams chisq_to_phi
 #' @param ... For `standardize_parameters()`, arguments passed to
 #'   [parameters::model_parameters], such as:
-#' - `ci_method`, `centrality` for Bayesian models...
-#' - `df_method` for Mixed models ...
+#' - `ci_method`, `centrality` for Mixed models and Bayesian models...
 #' - `exponentiate`, ...
 #' - etc.
 #' @param parameters Deprecated.
 #'
 #' @details
-#' ## Methods:
+#'
+#' # Standardization Methods:
 #' - **refit**: This method is based on a complete model re-fit with a
 #' standardized version of the data. Hence, this method is equal to
 #' standardizing the variables before fitting the model. It is the "purest" and
@@ -48,6 +48,12 @@
 #' variables or factors, so the coefficients are still related to changes in
 #' levels. This method is not accurate and tend to give aberrant results when
 #' interactions are specified.
+#' - **basic**: This method is similar to `method = "posthoc"`, but treats all
+#' variables as continuous: it also scales the coefficient by the standard
+#' deviation of model's matrix' parameter of factors levels (transformed to
+#' integers) or binary predictors. Although being inappropriate for these cases,
+#' this method is the one implemented by default in other software packages,
+#' such as [lm.beta::lm.beta()].
 #' - **smart** (Standardization of Model's parameters with Adjustment,
 #' Reconnaissance and Transformation - *experimental*): Similar to `method =
 #' "posthoc"` in that it does not involve model refitting. The difference is
@@ -57,12 +63,6 @@
 #' vs. A will be scaled by the variance of the response at the intercept only.
 #' As a results, the coefficients for effects of factors are similar to a Glass'
 #' delta.
-#' - **basic**: This method is similar to `method = "posthoc"`, but treats all
-#' variables as continuous: it also scales the coefficient by the standard
-#' deviation of model's matrix' parameter of factors levels (transformed to
-#' integers) or binary predictors. Although being inappropriate for these cases,
-#' this method is the one implemented by default in other software packages,
-#' such as [lm.beta::lm.beta()].
 #' - **pseudo** (*for 2-level (G)LMMs only*): In this (post-hoc) method, the
 #' response and the predictor are standardized based on the level of prediction
 #' (levels are detected with [performance::check_heterogeneity_bias()]): Predictors
@@ -73,27 +73,25 @@
 #' level 1 predictors (Hoffman 2015, page 342). A warning is given when a
 #' within-group varialbe is found to have access between-group variance.
 #'
-#' ## Transformed Variables
-#' When the model's formula contains transformations (e.g. `y ~ exp(X)`)
-#' `method = "refit"` might give different results compared to
-#' `method = "basic"` (`"posthoc"` and `"smart"` do not support such
-#' transformations): where `"refit"` standardizes the data prior to the
-#' transformation (e.g. equivalent to `exp(scale(X))`), the `"basic"` method
-#' standardizes the transformed data (e.g. equivalent to `scale(exp(X))`). See
-#' [standardize()] for more details on how different transformations are dealt
-#' with.
+#' # Transformed Variables
+#' When the model's formula contains transformations (e.g. `y ~ exp(X)`) `method
+#' = "refit"` will give different results compared to `method = "basic"`
+#' (`"posthoc"` and `"smart"` do not support such transformations): While
+#' `"refit"` standardizes the data *prior* to the transformation (e.g.
+#' equivalent to `exp(scale(X))`), the `"basic"` method standardizes the
+#' transformed data (e.g. equivalent to `scale(exp(X))`).
+#' \cr\cr
+#' See the *Transformed Variables* section in [standardize.default()] for more
+#' details on how different transformations are dealt with when `method =
+#' "refit"`.
 #'
 #' # Confidence Intervals
-#'
 #' The returned confidence intervals are re-scaled versions of the
 #' unstandardized confidence intervals, and not "true" confidence intervals of
 #' the standardized coefficients (cf. Jones & Waller, 2015).
 #'
-#' # Generalized Linear Models
-#' When standardizing coefficients of a generalized model (GLM, GLMM, etc), only
-#' the predictors are standardized, maintaining the interpretability of the
-#' coefficients (e.g., in a binomial model: the exponent of the standardized
-#' parameter is the OR of a change of 1 SD in the predictor, etc.)
+#' @inheritSection standardize.default Generalized Linear Models
+#' @inheritSection standardize.default Dealing with Factors
 #'
 #' @return A data frame with the standardized parameters (`Std_*`, depending on
 #'   the model type) and their CIs (`CI_low` and `CI_high`). Where applicable,
@@ -102,7 +100,6 @@
 #'
 #' @family standardize
 #' @family effect size indices
-#' @seealso [standardize_info()]
 #'
 #' @examples
 #' library(effectsize)
@@ -128,7 +125,7 @@
 #' \donttest{
 #' if (require("lme4")) {
 #'   m <- lmer(mpg ~ cyl + am + vs + (1 | cyl), mtcars)
-#'   standardize_parameters(m, method = "pseudo", df_method = "satterthwaite")
+#'   standardize_parameters(m, method = "pseudo", ci_method = "satterthwaite")
 #' }
 #'
 #'
@@ -169,12 +166,13 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   method <- match.arg(method, c("refit", "posthoc", "smart", "basic", "classic", "pseudo"))
 
   m_info <- insight::model_info(model)
-  include_response <- include_response && !.no_response_standardize(m_info, verbose = verbose)
+  include_response <- include_response && .safe_to_standardize_response(m_info, verbose = verbose)
 
   if (method == "refit") {
-    model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose, include_response = include_response)
+    model <- standardize(model,
+                         robust = robust, two_sd = two_sd, include_response = include_response,
+                         verbose = verbose, m_info = m_info)
   }
-  mi <- insight::model_info(model)
 
   # need model_parameters to return the parameters, not the terms
   if (inherits(model, "aov")) class(model) <- class(model)[class(model) != "aov"]
@@ -186,6 +184,11 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   coefficient_name <- attr(pars, "coefficient_name")
 
   if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
+    if (m_info$is_multivariate) {
+      # TODO FIX
+      stop('Cannot post-hoc standardize multivariate models. Try using method "refit" instead.')
+    }
+
     pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, exponentiate, include_response, verbose)
 
     method <- attr(pars, "std_method")
@@ -197,17 +200,11 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   colnm <- c("Component", "Response", "Group", "Parameter", head(.col_2_scale, -2), "CI", "CI_low", "CI_high")
   pars <- pars[, colnm[colnm %in% colnames(pars)]]
 
-  if (!is.null(coefficient_name) && coefficient_name == "Odds Ratio") {
-    colnames(pars)[colnames(pars) == "Coefficient"] <- "Odds_ratio"
-  }
-  if (!is.null(coefficient_name) && coefficient_name == "Risk Ratio") {
-    colnames(pars)[colnames(pars) == "Coefficient"] <- "Risk_ratio"
-  }
-  if (!is.null(coefficient_name) && coefficient_name == "IRR") {
-    colnames(pars)[colnames(pars) == "Coefficient"] <- "IRR"
+  if (!is.null(coefficient_name) && coefficient_name %in% c("Odds Ratio", "Risk Ratio", "IRR")) {
+    colnames(pars)[colnames(pars) == "Coefficient"] <- gsub(" ", "_", coefficient_name)
   }
 
-  i <- colnames(pars) %in% c("Coefficient", "Median", "Mean", "MAP", "Odds_ratio", "IRR")
+  i <- colnames(pars) %in% c("Coefficient", "Median", "Mean", "MAP", c("Odds_Ratio", "Risk_Ratio", "IRR"))
   colnames(pars)[i] <- paste0("Std_", colnames(pars)[i])
 
   ## SE attribute?
@@ -251,7 +248,7 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   if (is.null(model)) model <- attr(pars, "object")
 
   m_info <- insight::model_info(model)
-  include_response <- include_response && !.no_response_standardize(m_info, verbose = verbose)
+  include_response <- include_response && .safe_to_standardize_response(m_info, verbose = verbose)
 
   if (is.null(exponentiate <- attr(pars, "exponentiate"))) exponentiate <- FALSE
   pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, exponentiate, include_response, verbose)
@@ -298,16 +295,15 @@ standardize_parameters.bootstrap_model <-
     model <- attr(pars, "original_model")
 
     m_info <- insight::model_info(model)
-    include_response <- include_response && !.no_response_standardize(m_info, verbose = verbose)
+    include_response <- include_response && .safe_to_standardize_response(m_info, verbose = verbose)
 
     if (method == "refit") {
       stop("The 'refit' method is not supported for bootstrapped models.")
       ## But it would look something like this:
-      # model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose)
+      # model <- standardize(model, robust = robust, two_sd = two_sd, verbose = verbose, m_info = m_info)
       # model <- parameters::bootstrap_model(model, iterations = 1000, verbose = verbose)
       # return(model)
     }
-    mi <- insight::model_info(model)
 
     # need model_parameters to return the parameters, not the terms
     if (inherits(model, "aov")) class(model) <- class(model)[class(model) != "aov"]
@@ -441,8 +437,8 @@ standardize_parameters.model_fit <-
     }
   )
 
-  if (length(i_missing) ||
-    any(to_complete <- apply(pars[, colnames(pars) %in% .col_2_scale], 1, anyNA))) {
+  to_complete <- apply(pars[, colnames(pars) %in% .col_2_scale], 1, anyNA)
+  if (length(i_missing) || any(to_complete)) {
     i_missing <- union(i_missing, which(to_complete))
 
     pars[i_missing, colnames(pars) %in% .col_2_scale] <-
@@ -470,11 +466,11 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   object_name <- deparse(substitute(model), width.cutoff = 500)
 
   m_info <- insight::model_info(model)
-  include_response <- include_response && !.no_response_standardize(m_info, verbose = verbose)
+  include_response <- include_response && .safe_to_standardize_response(m_info, verbose = verbose)
 
   if (method == "refit") {
     model <- standardize(model, robust = robust, two_sd = two_sd, include_response = include_response,
-                         verbose = verbose)
+                         verbose = verbose, m_info = m_info)
   }
 
   pars <- insight::get_parameters(model)

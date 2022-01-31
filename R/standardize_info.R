@@ -25,6 +25,11 @@
 #' @importFrom parameters parameters_type
 #' @export
 standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseudo = FALSE, ...) {
+  UseMethod("standardize_info")
+}
+
+#' @export
+standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, include_pseudo = FALSE, ...) {
   params <- if (inherits(model, c("glmmTMB", "MixMod"))) {
     insight::find_parameters(model, effects = "fixed", component = "conditional", flatten = TRUE, ...)
   } else {
@@ -277,11 +282,13 @@ standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseu
     means <- deviations <- rep(NA_real_, length = length(names(model_matrix)))
     for (i in seq_along(names(model_matrix))) {
       var <- names(model_matrix)[i]
-      if (types$Link[types$Parameter == var] == "Difference") {
+      if (any(types$Parameter == var) &&
+          types$Link[types$Parameter == var] == "Difference") {
         parent_var <- types$Variable[types$Parameter == var]
         intercept <- unique(data[[parent_var]])[1]
         response_at_intercept <- response[data[[parent_var]] == intercept]
         weights_at_intercept <- if (length(w)) w[data[[parent_var]] == intercept] else NULL
+
         std_info <- .compute_std_info(
           response = response_at_intercept,
           robust = robust, weights = weights_at_intercept

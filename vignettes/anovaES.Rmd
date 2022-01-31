@@ -29,7 +29,7 @@ if (!all(sapply(pkgs, require, quietly = TRUE, character.only = TRUE))) {
 }
 ```
 
-# Eta<sup>2</sup>
+## Eta<sup>2</sup>
 
 In the context of ANOVA-like tests, it is common to report ANOVA-like effect sizes. Unlike [standardized parameters](https://easystats.github.io/effectsize/articles/standardize_parameters.html), these effect sizes represent the amount of variance explained by each of the model's terms, where each term can be represented by 1 *or more* parameters.
 
@@ -78,7 +78,7 @@ eta_squared(m, partial = FALSE)
 ```
 
 
-## Adding More Terms
+### Adding More Terms
 
 When we add more terms to our model, we can ask two different questions about
 the percent of variance explained by a predictor - how much variance is
@@ -129,7 +129,7 @@ the computation of the effect size].
 
 (Note that in a one-way fixed-effect designs $\eta^2 = \eta^2_p$.)
 
-## Adding Interactions
+### Adding Interactions
 
 Type II and type III treat interaction differently.
 Without going into the weeds here, keep in mind that **when using type III SS, it is important to center all of the predictors**;
@@ -166,9 +166,9 @@ eta_squared(m_afex)
 ```
 
 
-# Other Measures of Effect Size
+## Other Measures of Effect Size
 
-## Unbiased Effect Sizes
+### Unbiased Effect Sizes
 
 These effect sizes are unbiased estimators of the population's $\eta^2$:
 
@@ -189,7 +189,7 @@ Though $\omega^2$ is the more popular choice [@albers2018power], $\epsilon^2$ is
 analogous to adjusted-$R^2$ [@allen2017statistics, p. 382], and has been found
 to be less biased [@carroll1975sampling].
 
-## Generalized Eta<sup>2</sup>
+### Generalized Eta<sup>2</sup>
 
 *Partial* Eta squared aims at estimating the effect size in a design where only
 the term of interest was manipulated, assuming all other terms are have also
@@ -208,7 +208,7 @@ $\eta^2_G$ is useful in repeated-measures designs, as it can estimate what a
 *between-subjects* [@olejnik2003generalized].
 
 
-## Cohen's *f*
+### Cohen's *f*
 
 Finally, we have the forgotten child - Cohen's $f$. Cohen's $f$ is a
 transformation of $\eta^2_p$, and is the ratio between the term-*SS* and the
@@ -224,7 +224,7 @@ analogous to Cohen's $d$ when there are only two groups.
 cohens_f(m_afex)
 ```
 
-# When Sum-of-Squares are Hard to Come By
+## When Sum-of-Squares are Hard to Come By
 
 Until now we've discusses effect sizes in fixed-effect linear model and
 repeated-measures ANOVA's - cases where the *SS*s are readily available, and so

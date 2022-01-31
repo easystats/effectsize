@@ -51,6 +51,7 @@ standardize_info(model, two_sd = TRUE)
 }
 \seealso{
 Other standardize: 
+\code{\link{standardize.default}()},
 \code{\link{standardize_parameters}()}
 }
 \concept{standardize}

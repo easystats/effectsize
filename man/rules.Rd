@@ -17,7 +17,7 @@ critical values).}
 infer it from \code{values} (if it is a named vector or a list), otherwise, will
 return the breakpoints.}
 
-\item{name}{Name of the set of rules (stored as a 'rule_name' attribute).}
+\item{name}{Name of the set of rules (will be printed).}
 
 \item{right}{logical, for threshold-type rules, indicating if the thresholds
 themselves should be included in the interval to the right (lower values)

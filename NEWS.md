@@ -1,13 +1,61 @@
-# effectsize 0.4.5-2
+# effectsize 0.6.0.2
+
+
+
+# effectsize 0.6.0.1
+
+*This is a patch release.*
+
+## Bug fixes
+
+- `interpret.performance_lavaan()` now works without attaching `effectsize` ( #410 ).  
+- `eta_squared()` now fully support multi-variate `car` ANOVAs (class `Anova.mlm`; #406 ).
+
+# effectsize 0.6.0
 
 ## Breaking Changes
 
-- Phi, Cohen's *w*, Cramer's *V*, ANOVA effect sizes, rank Epsilon squared, Kendall's *W* - CIs default to 95% one-sided CIs (`alternative = "greater"`). (To restore previous behavior, set `ci = .9, alternative = "two.sided"`.)
-- `adjust()`, `change_scale()`, `normalize()`, `ranktransform()`, `standardize()` (data), and `unstandardize()` have moved to the new [`{datawizard}`](https://easystats.github.io/datawizard) package!
+- `pearsons_c()` effect size column name changed to `Pearsons_c` for consistency. 
 
 ## New features
 
-- `oddsratio_to_riskratio()` can now convert OR coefficients to RR coefficients from a logistic GLM. 
+### New API
+
+See [*Support functions for model extensions* vignette](https://easystats.github.io/effectsize/articles/effectsize_API.html).
+
+### Other features
+
+- `eta_squared()` family now supports `afex::mixed()` models.
+- `cles()` for estimating common language effect sizes.
+- `rb_to_cles()` for converting rank-biserial correlation to Probability of superiority.
+
+## Changes
+
+- `effectsize()` for `BayesFactor` objects returns the same standardized output as for `htest`.
+
+## Bug fixes
+
+- `eta_squared()` for MLM return effect sizes in the correct order of the responses.  
+- `eta_squared()` family no longer fails when CIs fail due to non-finite *F*s / degrees of freedom.  
+- `standardize()` for multivariate models standardizes the (multivariate) response.
+- `standardize()` for models with offsets standardizes offset variables according to `include_response` and `two_sd` ( #396 ).
+- `eta_squared()`: fixed a bug that caused `afex_aov` models with more than 2 within-subject factors to return incorrect effect sizes for the lower level factors ( #389 ).
+
+# effectsize 0.5.0
+
+## Breaking Changes
+
+- `cramers_v()` correctly does not work with 1-dimentional tables (for goodness-of-fit tests).
+- `interpret_d()`, `interpret_g()`, and `interpret_delta()` are now `interpret_cohens_d()`, `interpret_hedges_g()`, and `interpret_glass_delta()`.
+- `interpret_parameters()` was removed. Use `interpret_r()` instead (with caution!).
+- Phi, Cohen's *w*, Cramer's *V*, ANOVA effect sizes, rank Epsilon squared, Kendall's *W* - CIs default to 95% one-sided CIs (`alternative = "greater"`). (To restore previous behavior, set `ci = .9, alternative = "two.sided"`.)
+- `adjust()`, `change_scale()`, `normalize()`, `ranktransform()`, `standardize()` (data), and `unstandardize()` have moved to the new [`{datawizard}`](https://easystats.github.io/datawizard/) package!
+
+## New features
+
+- `pearsons_c()` (and `chisq_to_pearsons_c()`) for estimating Pearson's contingency coefficient.
+- `interpret_vif()` for interpretation of *variance inflation factors*.
+- `oddsratio_to_riskratio()` can now convert OR coefficients to RR coefficients from a logistic GLM(M). 
 - All effect-size functions gain an `alternative` argument which can be used to make one- or two-sided CIs.
 - `interpret()` now accepts as input the results from `cohens_d()`, `eta_squared()`, `rank_biserial()`, etc.
 - `interpret_pd()` for the interpretation of the [*Probability of Direction*](https://easystats.github.io/bayestestR/reference/p_direction.html).

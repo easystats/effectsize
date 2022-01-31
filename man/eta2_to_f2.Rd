@@ -50,7 +50,7 @@ Psychological Methods, 9, 164-182.
 \code{\link[=eta_squared]{eta_squared()}} for more details.
 
 Other convert between effect sizes: 
-\code{\link{d_to_common_language}()},
+\code{\link{d_to_cles}()},
 \code{\link{d_to_r}()},
 \code{\link{odds_to_probs}()},
 \code{\link{oddsratio_to_riskratio}()}

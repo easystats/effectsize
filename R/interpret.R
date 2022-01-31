@@ -10,7 +10,7 @@
 #' @param labels Labels associated with each category. If `NULL`, will try to
 #'   infer it from `values` (if it is a named vector or a list), otherwise, will
 #'   return the breakpoints.
-#' @param name Name of the set of rules (stored as a 'rule_name' attribute).
+#' @param name Name of the set of rules (will be printed).
 #' @param right logical, for threshold-type rules, indicating if the thresholds
 #'   themselves should be included in the interval to the right (lower values)
 #'   or in the interval to the left (higher values).
@@ -138,19 +138,19 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
     rules <- rules(rules)
   }
 
+  if (is.null(name)) name <- "Custom rules"
+  attr(rules, "rule_name") <- name
+
   if (length(x) > 1) {
     out <- sapply(x, .interpret, rules)
   } else {
     out <- .interpret(x, rules)
   }
 
-  if (is.null(name)) {
-    attr(out, "rule_name") <- "Custom rules"
-  } else {
-    attr(out, "rule_name") <- name
-  }
+  names(out) <- names(x)
 
   class(out) <- c("effectsize_interpret", class(out))
+  attr(out, "rules") <- rules
   out
 }
 
@@ -167,12 +167,13 @@ interpret.effectsize_table <- function(x, rules, ...) {
     Cohens_d = ,
     Hedges_g = ,
     Glass_delta = ,
-    d = interpret_d(value, rules = rules),
+    d = interpret_cohens_d(value, rules = rules),
     # xtab
     Cramers_v = ,
     Cramers_v_adjusted = ,
     phi = ,
     phi_adjusted = interpret_cramers_v(value, rules = rules),
+    Cohens_g = interpret_cohens_g(value, rules = rules),
     Odds_ratio = interpret_oddsratio(value, rules = rules, log = FALSE),
     log_Odds_ratio = interpret_oddsratio(value, rules = rules, log = TRUE),
     # anova
@@ -195,7 +196,7 @@ interpret.effectsize_table <- function(x, rules, ...) {
     r = interpret_r(value, rules = rules)
   )
 
-  attr(x, "rule_name") <- attr(x$Interpretation, "rule_name")
+  attr(x, "rules") <- attr(x$Interpretation, "rules")
   x
 }
 

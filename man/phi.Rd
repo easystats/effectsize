@@ -4,6 +4,7 @@
 \alias{phi}
 \alias{cohens_w}
 \alias{cramers_v}
+\alias{pearsons_c}
 \alias{oddsratio}
 \alias{riskratio}
 \alias{cohens_h}
@@ -15,6 +16,15 @@ phi(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
 cohens_w(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
 
 cramers_v(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
+
+pearsons_c(
+  x,
+  y = NULL,
+  ci = 0.95,
+  alternative = "greater",
+  adjust = FALSE,
+  ...
+)
 
 oddsratio(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...)
 
@@ -34,11 +44,11 @@ cohens_g(x, y = NULL, ci = 0.95, alternative = "two.sided", ...)
 \item{ci}{Confidence Interval (CI) level}
 
 \item{alternative}{a character string specifying the alternative hypothesis;
-Controls the type of CI returned: \code{"two.sided"} (two-sided CI; default for
-Cramer's \emph{V}, phi (\eqn{\phi}), and Cohen's \emph{w}), \code{"greater"} (default for
-OR, RR, Cohen's \emph{h} and Cohen's \emph{g}) or \code{"less"} (one-sided CI). Partial
-matching is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs}
-in \link{effectsize_CIs}.}
+Controls the type of CI returned: \code{"greater"} (two-sided CI; default for
+Cramer's \emph{V}, phi (\eqn{\phi}), and Cohen's \emph{w}), \code{"two.sided"} (default
+for OR, RR, Cohen's \emph{h} and Cohen's \emph{g}) or \code{"less"} (one-sided CI).
+Partial matching is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See
+\emph{One-Sided CIs} in \link{effectsize_CIs}.}
 
 \item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
 
@@ -54,17 +64,22 @@ prefix \code{log_}), \code{Cohens_h}, or \code{Cohens_g}) and its CIs (\code{CI_
 \code{CI_high}).
 }
 \description{
-Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w} (an alias of phi), Odds
-ratios, Risk ratios, Cohen's \emph{h} and Cohen's \emph{g} for contingency tables or
-goodness-of-fit. See details.
+Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w} (an alias of phi),
+Pearson's contingency coefficient, Odds ratios, Risk ratios, Cohen's \emph{h} and
+Cohen's \emph{g} for contingency tables or goodness-of-fit. See details.
 }
 \details{
-Cramer's \emph{V} and phi (\eqn{\phi}) are effect sizes for tests of independence
-in 2D contingency tables, or for goodness-of-fit in 1D tables. For 2-by-2
-tables, they are identical, and are equal to the simple correlation between
-two dichotomous variables, ranging between  0 (no dependence) and 1 (perfect
-dependence). For larger tables, Cramer's \emph{V} should be used, as it is bounded
-between 0-1, whereas phi can be larger than 1.
+Cramer's \emph{V}, phi (\eqn{\phi}) and Pearson's \emph{C} are effect sizes for tests
+of independence in 2D contingency tables. For 2-by-k tables, Cramer's \emph{V} and
+phi are identical, and are equal to the simple correlation between two
+dichotomous variables, ranging between  0 (no dependence) and 1 (perfect
+dependence). For larger tables, Cramer's \emph{V} or Pearson's \emph{C} should be used,
+as they are bounded between 0-1, whereas phi can be larger than 1 (upper
+bound is \verb{sqrt(min(nrow, ncol) - 1))}).
+\cr\cr
+For goodness-of-fit in 1D tables Pearson's \emph{C} or phi can be used. Phi has no
+upper bound (can be arbitrarily large, depending on the expected
+distribution), while Pearson's \emph{C} is bounded between 0-1.
 \cr\cr
 For 2-by-2 contingency tables, Odds ratios, Risk ratios and Cohen's \emph{h} can
 also be estimated. Note that these are computed with each \strong{column}
@@ -87,25 +102,21 @@ estimated using the standard normal parametric method (see Katz et al., 1978;
 Szumilas, 2010).
 \cr\cr
 See \emph{Confidence (Compatibility) Intervals (CIs)}, \emph{CIs and Significance
-Tests}, and \emph{One-Sided CIs} sections for \emph{phi}, Cohen's \emph{w} and Cramer's \emph{V}.
-(\emph{Note} that \emph{phi} (and Cohen's \emph{w}) is not bound to (0-1), but instead the
-upper bound for is \verb{sqrt(min(nrow, ncol) - 1))}.)
+Tests}, and \emph{One-Sided CIs} sections for \emph{phi}, Cohen's \emph{w}, Cramer's \emph{V} and
+Pearson's \emph{C}.
 }
 
 \section{Confidence (Compatibility) Intervals (CIs)}{
 
 Unless stated otherwise, confidence (compatibility) intervals (CIs) are
-estimated using the noncentrality parameter method (also called the
-"pivot method"). This method finds the noncentrality parameter ("\emph{ncp}") of
-a noncentral \emph{t}, \emph{F}, or
-\ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}
-distribution that places the observed \emph{t}, \emph{F}, or
-\ifelse{latex}{\out{$\chi^2$}}{\ifelse{html}{\out{&chi;<sup>2</sup>}}{chi-squared}}
-test statistic at the desired probability point of the distribution.
-For example, if the observed \emph{t} statistic is 2.0, with 50
-degrees of freedom, for which cumulative noncentral \emph{t} distribution is
-\emph{t} = 2.0 the .025 quantile (answer: the noncentral \emph{t} distribution with
-\emph{ncp} = .04)? After estimating these confidence bounds on the \emph{ncp}, they are
+estimated using the noncentrality parameter method (also called the "pivot
+method"). This method finds the noncentrality parameter ("\emph{ncp}") of a
+noncentral \emph{t}, \emph{F}, or \eqn{\chi^2} distribution that places the observed
+\emph{t}, \emph{F}, or \eqn{\chi^2} test statistic at the desired probability point of
+the distribution. For example, if the observed \emph{t} statistic is 2.0, with 50
+degrees of freedom, for which cumulative noncentral \emph{t} distribution is \emph{t} =
+2.0 the .025 quantile (answer: the noncentral \emph{t} distribution with \emph{ncp} =
+.04)? After estimating these confidence bounds on the \emph{ncp}, they are
 converted into the effect size metric to obtain a confidence interval for the
 effect size (Steiger, 2004).
 \cr\cr
@@ -118,10 +129,8 @@ For additional details on estimation and troubleshooting, see \link{effectsize_C
 in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
 intervals and p values are complementary summaries of parameter uncertainty
 given the observed data. A dichotomous hypothesis test could be performed
-with either a CI or a p value. The
-100(\ifelse{latex}{\out{$1 - \alpha$}}{\ifelse{html}{\out{1 &minus; &alpha;}}{1 - alpha}})\%
-confidence interval contains all of the parameter values for which
-\ifelse{latex}{\out{$p > \alpha$}}{\ifelse{html}{\out{p > &alpha;}}{p > alpha}}
+with either a CI or a p value. The 100 (1 - \eqn{\alpha})\% confidence
+interval contains all of the parameter values for which \emph{p} > \eqn{\alpha}
 for the current data and model. For example, a 95\% confidence interval
 contains all of the values for which p > .05.
 \cr\cr
@@ -129,12 +138,11 @@ Note that a confidence interval including 0 \emph{does not} indicate that the nu
 (no effect) is true. Rather, it suggests that the observed data together with
 the model and its assumptions combined do not provided clear evidence against
 a parameter value of 0 (same as with any other value in the interval), with
-the level of this evidence defined by the chosen
-\ifelse{latex}{\out{$\alpha$}}{\ifelse{html}{\out{&alpha;}}{alpha}} level
-(Rafi & Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To infer
-no effect, additional judgments about what parameter values are "close
-enough" to 0 to be negligible are needed ("equivalence testing"; Bauer &
-Kiesser, 1996).
+the level of this evidence defined by the chosen \eqn{\alpha} level (Rafi &
+Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To infer no
+effect, additional judgments about what parameter values are "close enough"
+to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
+1996).
 }
 
 \examples{
@@ -154,6 +162,7 @@ phi(M)
 
 cramers_v(M)
 
+pearsons_c(M)
 
 
 ## 2-by-2 tables
@@ -199,8 +208,9 @@ cohens_g(Performance)
 \code{\link[=chisq_to_phi]{chisq_to_phi()}} for details regarding estimation and CIs.
 
 Other effect size indices: 
+\code{\link{cles}()},
 \code{\link{cohens_d}()},
-\code{\link{effectsize}()},
+\code{\link{effectsize.BFBayesFactor}()},
 \code{\link{eta_squared}()},
 \code{\link{rank_biserial}()},
 \code{\link{standardize_parameters}()}

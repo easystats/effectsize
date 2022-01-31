@@ -10,6 +10,14 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(coef(m0), coef(model))
   })
 
+  test_that("standardize, mlm", {
+    m <- lm(cbind(mpg, hp) ~ cyl + am, data = mtcars)
+    m2 <- lm(scale(cbind(mpg, hp)) ~ scale(cyl) + scale(am), data = mtcars)
+
+    mz <- standardize(m)
+    expect_equal(coef(mz), coef(m2), ignore_attr = TRUE)
+  })
+
   test_that("standardize | errors", {
     my_lm_external_formula <- function(.dat, predicted, predictor){
       my_formula <- as.formula(paste0(predicted, "~", predictor))
@@ -158,6 +166,7 @@ if (require("testthat") && require("effectsize")) {
 
   # don't standardize non-Gaussian response ------------------------------------
   test_that("standardize non-Gaussian response", {
+    skip_on_cran()
     skip_if_not_installed("lme4")
     set.seed(1234)
     data(sleepstudy, package = "lme4")
@@ -175,21 +184,23 @@ if (require("testthat") && require("effectsize")) {
   # variables evaluated in the environment $$$ ------------------------------
   test_that("variables evaluated in the environment", {
     m <- lm(mtcars$mpg ~ mtcars$cyl + am, data = mtcars)
-    w <- testthat::capture_warnings(standardize(m))
-    expect_match(w[1], "mtcars$mpg", fixed = TRUE)
+    w <- capture_warnings(standardize(m))
+    expect_true(any(grepl("mtcars$mpg", w, fixed = TRUE)))
+
 
     skip_if(packageVersion("base") == package_version(3.4))
     ## Note:
     # No idea why this is suddenly not giving a warning on older R versions.
     m <- lm(mtcars$mpg ~ mtcars$cyl + mtcars$am, data = mtcars)
     warns <- capture_warnings(standardize(m))
-    expect_true(grepl("mtcars$mpg", warns[1], fixed = TRUE))
-    expect_true(grepl("No variables", warns[2], fixed = TRUE))
+    expect_true(any(grepl("mtcars$mpg", warns, fixed = TRUE)))
+    expect_true(any(grepl("No variables", warns, fixed = TRUE)))
   })
 
 
   # mediation models --------------------------------------------------------
   test_that("standardize mediation", {
+    skip_on_cran()
     skip_if_not_installed("mediation")
     set.seed(444)
     data(jobs, package = "mediation")
@@ -218,5 +229,23 @@ if (require("testthat") && require("effectsize")) {
       unlist(outz[c("d0", "d1", "z0", "z1", "n0", "n1", "tau.coef")]),
       tolerance = 0.1
     )
+  })
+
+  # Offsets -----------------------------------------------------------------
+
+  test_that("offsets", {
+    m <- lm(mpg ~ hp + offset(wt), data = mtcars)
+
+    expect_warning(mz1 <- standardize(m))
+    expect_warning(mz2 <- standardize(m, two_sd = TRUE))
+    expect_equal(c(1, 2) * coef(mz1), coef(mz2))
+
+
+    m <- glm(cyl ~ hp + offset(wt), family = poisson(), data = mtcars)
+    expect_warning(mz <- standardize(m), regexp = NA)
+
+    par1 <- parameters::model_parameters(mz)
+    par2 <- standardize_parameters(m, method = "basic")
+    expect_equal(par2[2,2], par1[2,2], tolerance = 0.05)
   })
 }
