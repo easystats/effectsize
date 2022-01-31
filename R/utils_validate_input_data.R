@@ -114,7 +114,7 @@
 
 #' @keywords internal
 #' @importFrom stats model.frame reshape
-.get_data_nested_groups <- function(x, groups, blocks, data = NULL) {
+.get_data_nested_groups <- function(x, groups, blocks, data = NULL, wide = TRUE) {
   if (inherits(frm <- x, "formula")) {
     if ((length(frm) != 3L) ||
         (length(frm[[3L]]) != 3L) ||
@@ -157,6 +157,10 @@
   }
 
   data <- data.frame(x, groups, blocks, stringsAsFactors = FALSE)
+
+  if (!wide) {
+    return(data)
+  }
 
   data <- stats::reshape(
     data,

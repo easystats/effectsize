@@ -4,7 +4,7 @@ paired_d <- function(x, group, block, data = NULL,
   type <- match.arg(type)
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
 
-  data <- effectsize:::.kendalls_w_data(x, group, block, data, wide = FALSE)
+  data <- effectsize:::.get_data_nested_groups(x, group, block, data, wide = FALSE)
   if (!is.factor(data$groups)) data$groups <- factor(data$groups)
   if (!is.factor(data$blocks)) data$blocks <- factor(data$blocks)
   contrasts(data$groups) <- contr.treatment
