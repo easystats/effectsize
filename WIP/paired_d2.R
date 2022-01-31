@@ -21,18 +21,18 @@ paired_d <- function(x, group, block, data = NULL,
   }
 
   if (type %in% c("z", "t")) {
-    out <- paired_d_z_t(data, type, mu = mu, ci = ci, alternative = alternative)
+    out <- .paired_d_z_t(data, type, mu = mu, ci = ci, alternative = alternative)
   } else if (type %in% c("av", "rm")) {
-    out <- paired_d_av_rm(data, type, mu = mu, ci = ci, alternative = alternative)
+    out <- .paired_d_av_rm(data, type, mu = mu, ci = ci, alternative = alternative)
   } else if (type %in% c("d", "a", "r")) {
-    out <- paired_d_d_a_r(data, type, mu = mu, ci = ci, alternative = alternative)
+    out <- .paired_d_d_a_r(data, type, mu = mu, ci = ci, alternative = alternative)
   }
 
   attr(out, "paired_type") <- type
   out
 }
 
-paired_d_z_t <- function(data, type,
+.paired_d_z_t <- function(data, type,
                          mu = 0, ci = 0.95, alternative = "two.sided") {
   data <- data[order(data$groups),]
   data <- aggregate(data$x, data[2], diff)
@@ -49,11 +49,11 @@ paired_d_z_t <- function(data, type,
   out
 }
 
-paired_d_d_a_r <- function(data, type,
+.paired_d_d_a_r <- function(data, type,
                            mu = 0, ci = 0.95, alternative = "two.sided") {
   # Use ANOVA decomp
-  mod <- stats::aov(x ~ groups + Error(blocks/groups), data = data)
-  pars <- parameters::model_parameters(mod)
+  mod <- stats::aov(x ~ groups + Error(blocks / groups), data = data)
+  pars <- as.data.frame(parameters::model_parameters(mod))
 
   # Look in:
   # d/r = groups
@@ -63,16 +63,16 @@ paired_d_d_a_r <- function(data, type,
     pars$df == 1 &
     pars$Group == "blocks:groups"
 
-  d <- -unname(coef(mod[[pars$Group[is_d]]]))
+  d <- -unname(coef(mod[["blocks:groups"]]))
 
   if (type %in% c("d", "a")) {
-    ss <- sum(pars$Sum_Squares[!is_d])
-    df <- sum(pars$df[!is_d])
+    ss <- sum(pars[!is_d, "Sum_Squares"])
+    df <- sum(pars[!is_d, "df"])
     s <- sqrt(ss/df)
   } else if (type == "r") {
     is_r <- pars$Group == "Within" & pars$Parameter == "Residuals"
-    ss <- pars$Sum_Squares[is_r]
-    df <- pars$df[is_r]
+    ss <- pars[is_r, "Sum_Squares"]
+    df <- pars[is_r, "df"]
     s <- sqrt(ss/df)
   }
 
@@ -85,13 +85,23 @@ paired_d_d_a_r <- function(data, type,
     out$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
-    ssd <- ((d-mu)/2)^2*insight::n_obs(mod)
-    t <- sign(d) * sqrt(ssd / (ss / df))
-    ts <- effectsize:::.get_ncp_t(t, df, ci.level)
+    is_mse <-
+      pars$Paramete == "Residuals" &
+      pars$Group == "blocks:groups"
 
-    out$CI_low <- 2 * ts[1] / sqrt(df)
-    out$CI_high <- 2 * ts[2] / sqrt(df)
-    ci_method <- list(method = "ncp", distribution = "t")
+    # Delta method to get se
+    beta <- c(d - mu, s)
+    V <- matrix(c(vcov(mod[["blocks:groups"]]) ,0,
+                  0, 2/df), nrow = 2)
+    se <- .deltamethod( ~ x1 / x2, beta, V, ses = TRUE)
+
+    # Critical value
+    tc <- pt(0.5 + ci.level / 2, df = pars[is_mse, "df"])
+
+    out$CI_low <- out[[1]] - tc * se
+    out$CI_high <- out[[1]] + tc * se
+
+    ci_method <- list(method = "delta")
     if (alternative == "less") {
       out$CI_low <- -Inf
     } else if (alternative == "greater") {
@@ -110,7 +120,7 @@ paired_d_d_a_r <- function(data, type,
   return(out)
 }
 
-paired_d_av_rm <- function(data, type,
+.paired_d_av_rm <- function(data, type,
                            mu = 0, ci = 0.95, alternative = "two.sided") {
   data <- data[order(data[[1]], data[[2]]),]
 
@@ -169,3 +179,26 @@ paired_d_av_rm <- function(data, type,
 #     dplyr::mutate(id = seq_along(id)) |>
 #     tidyr::unnest(cols = data)
 # }
+
+
+#' @keywords internal
+.deltamethod <- function (g, mean, cov, ses = TRUE) {
+  cov <- as.matrix(cov)
+  n <- length(mean)
+  if (!is.list(g))
+    g <- list(g)
+  if ((dim(cov)[1] != n) || (dim(cov)[2] != n))
+    stop(paste("Covariances should be a ", n, " by ", n,
+               " matrix"))
+  syms <- paste("x", 1:n, sep = "")
+  for (i in 1:n) assign(syms[i], mean[i])
+  gdashmu <- t(sapply(g, function(form) {
+    as.numeric(attr(eval(stats::deriv(form, syms)), "gradient"))
+  }))
+  new.covar <- gdashmu %*% cov %*% t(gdashmu)
+  if (ses) {
+    new.se <- sqrt(diag(new.covar))
+    new.se
+  }
+  else new.covar
+}

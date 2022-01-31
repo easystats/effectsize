@@ -15,7 +15,6 @@ dat <- read.table("http://pcl.missouri.edu/exp/effectSizePuzzler.txt", header=TR
 #' Single measurement:
 #' d - classic definition
 #' r - standardize by the residual sd (sigma)
-cohens_d(rt ~ cond, data = dat)
 paired_d(rt ~ cond | id, data = dat, type = "d") # 0.2497971
 paired_d(rt ~ cond | id, data = dat, type = "r") # 0.2587388
 
@@ -46,3 +45,29 @@ paired_d(rt ~ congruency | pno, data = stroop, type = "z")
 paired_d(rt ~ congruency | pno, data = stroop, type = "t")
 paired_d(rt ~ congruency | pno, data = stroop, type = "rm")
 paired_d(rt ~ congruency | pno, data = stroop, type = "av")
+
+
+set.seed(1)
+dat <- expand.grid(t = 1:100,
+                   id = letters[1:10],
+                   cond = LETTERS[1:2]) |>
+  as.data.frame() |>
+  dplyr::select(-t) |>
+  dplyr::mutate(
+    dplyr::across(.fns = factor),
+    dplyr::across(.fns = `contrasts<-`, value = contr.sum),
+    rt = model.matrix(~ id * cond) %*%
+      c(0, c(scale(seq(0, 1, length = 9))), 0.9, c(scale(seq(0, 1, length = 9)))) +
+      rnorm(2000, sd = 0.85)
+  )
+
+
+cohens_d(rt ~ cond, data = dat)
+paired_d(rt ~ cond | id, data = dat, type = "d")
+paired_d(rt ~ cond | id, data = dat, type = "r")
+
+paired_d(rt ~ cond | id, data = dat, type = "a")
+paired_d(rt ~ cond | id, data = dat, type = "z")
+paired_d(rt ~ cond | id, data = dat, type = "t")
+paired_d(rt ~ cond | id, data = dat, type = "rm")
+paired_d(rt ~ cond | id, data = dat, type = "av")
