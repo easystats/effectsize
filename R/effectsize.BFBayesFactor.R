@@ -35,15 +35,15 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   }
 
   class(out) <- c(pars$xtra_class, "effectsize_table", "see_effectsize_table", class(out))
-
-  mostattributes(out) <- pars$attr
-
-  attr(out, "ci") <- out$CI
-  attr(out, "ci_method") <- if (!is.null(out$CIs)) list(method = "MCMC")
-  attr(out, "correction") <- NULL
-  attr(out, "pooled_sd") <- NULL
-  attr(out, "approximate") <- FALSE
-  attr(out, "alternative") <- "two.sided"
+  .someattributes(out) <- pars$attr
+  .someattributes(out) <- list(
+    ci = out$CI,
+    # ci_method - inherited from bayestestR
+    correction = NULL,
+    pooled_sd = NULL,
+    approximate = FALSE,
+    alternative = "two.sided"
+  )
   out
 }
 

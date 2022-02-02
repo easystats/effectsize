@@ -347,13 +347,10 @@ glass_delta <- function(x,
   }
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
-  attr(out, "paired") <- paired
-  attr(out, "correction") <- type == "g" # Don't actually need this
-  attr(out, "pooled_sd") <- pooled_sd
-  attr(out, "mu") <- mu
-  attr(out, "ci") <- ci
-  attr(out, "ci_method") <- ci_method
-  attr(out, "approximate") <- FALSE
-  attr(out, "alternative") <- alternative
+  .someattributes(out) <- .nlist(
+    paired, pooled_sd, mu, ci, ci_method, alternative,
+    correction = type == "g",
+    approximate = FALSE
+  )
   return(out)
 }
