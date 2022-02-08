@@ -2,7 +2,7 @@ if (require("testthat") && require("effectsize")) {
   test_that("effectsize table", {
     es <- eta_squared(aov(mpg ~ cyl + gear, mtcars))
     expect_output(print(es), regexp = "Eta2")
-    expect_output(print(es), regexp = "One-sided CIs: upper bound fixed at (1)", fixed = TRUE)
+    expect_output(print(es), regexp = "One-sided CIs: upper bound fixed at [1.00]", fixed = TRUE)
 
     stdz1 <- standardize_parameters(lm(mpg ~ cyl + gear, mtcars))
     stdz2 <- standardize_parameters(lm(mpg ~ cyl + gear, mtcars), method = "basic")
