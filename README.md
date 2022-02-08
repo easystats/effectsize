@@ -126,7 +126,7 @@ eta_squared(model)
 ## ----------------------------------
 ## factor(gear) | 0.43 | [0.18, 1.00]
 ## 
-## - One-sided CIs: upper bound fixed at (1).
+## - One-sided CIs: upper bound fixed at [1.00].
 
 omega_squared(model)
 ## # Effect Size for ANOVA
@@ -135,7 +135,7 @@ omega_squared(model)
 ## ------------------------------------
 ## factor(gear) |   0.38 | [0.14, 1.00]
 ## 
-## - One-sided CIs: upper bound fixed at (1).
+## - One-sided CIs: upper bound fixed at [1.00].
 
 epsilon_squared(model)
 ## # Effect Size for ANOVA
@@ -144,7 +144,7 @@ epsilon_squared(model)
 ## --------------------------------------
 ## factor(gear) |     0.39 | [0.14, 1.00]
 ## 
-## - One-sided CIs: upper bound fixed at (1).
+## - One-sided CIs: upper bound fixed at [1.00].
 ```
 
 And more…
@@ -213,7 +213,7 @@ F_to_eta2(15, df = 1, df_error = 60)
 ## -----------------------------
 ## 0.20           | [0.07, 1.00]
 ## 
-## - One-sided CIs: upper bound fixed at (1).
+## - One-sided CIs: upper bound fixed at [1.00].
 ```
 
 ## Effect Size Interpretation
