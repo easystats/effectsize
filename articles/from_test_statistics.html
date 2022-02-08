@@ -168,7 +168,7 @@
 &gt; 0.79           | [0.49, 1.00]
 &gt; 0.83           | [0.69, 1.00]
 &gt; 
-&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
+&gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <p><strong>They are identical!</strong><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Note that these are &lt;em&gt;partial&lt;/em&gt; percent variance explained, and so their sum can be larger than 1.&lt;/p&gt;"><sup>2</sup></a> (except for the fact that <code><a href="../reference/F_to_eta2.html">F_to_eta2()</a></code> also provides confidence intervals<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Confidence intervals for all indices are estimated using the non-centrality parameter method; These methods search for a the best non-central parameter of the non-central &lt;span class="math inline"&gt;\(F\)&lt;/span&gt;/&lt;span class="math inline"&gt;\(t\)&lt;/span&gt; distribution for the desired tail-probabilities, and then convert these ncps to the corresponding effect sizes.&lt;/p&gt;'><sup>3</sup></a> :)</p>
 <p>In this case we were able to easily obtain the effect size (thanks to <code>afex</code>!), but in other cases it might not be as easy, and using estimates based on test statistic offers a good approximation.</p>
 <p>For example:</p>
@@ -197,7 +197,7 @@
 &gt; 0.26           | [0.04, 1.00]
 &gt; 0.84           | [0.75, 1.00]
 &gt; 
-&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
+&gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <p>We can also use <code><a href="../reference/F_to_eta2.html">t_to_eta2()</a></code> for contrast analysis:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span><span class="va">angle</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -219,7 +219,7 @@
 &gt; 0.81           | [0.66, 1.00]
 &gt; 0.36           | [0.09, 1.00]
 &gt; 
-&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
+&gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 </div>
 <div class="section level4">
 <h4 id="in-linear-mixed-models">In Linear Mixed Models<a class="anchor" aria-label="anchor" href="#in-linear-mixed-models"></a>
@@ -241,7 +241,7 @@
 &gt; -----------------------------
 &gt; 0.73           | [0.51, 1.00]
 &gt; 
-&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
+&gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <p>We can also use <code><a href="../reference/F_to_eta2.html">t_to_eta2()</a></code> for the slope of <code>Days</code> (which in this case gives the same result).</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="va">fit_lmm</span>, effects <span class="op">=</span> <span class="st">"fixed"</span>, ci_method <span class="op">=</span> <span class="st">"satterthwaite"</span><span class="op">)</span></code></pre></div>
@@ -260,7 +260,7 @@
 &gt; -----------------------------
 &gt; 0.73           | [0.51, 1.00]
 &gt; 
-&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
+&gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 </div>
 <div class="section level4">
 <h4 id="bias-corrected-indices">Bias-Corrected Indices<a class="anchor" aria-label="anchor" href="#bias-corrected-indices"></a>
@@ -272,21 +272,21 @@
 &gt; -----------------------------
 &gt; 0.73           | [0.51, 1.00]
 &gt; 
-&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
+&gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/F_to_eta2.html">F_to_epsilon2</a></span><span class="op">(</span><span class="fl">45.8</span>, <span class="fl">1</span>, <span class="fl">17</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Epsilon2 (partial) |       95% CI
 &gt; ---------------------------------
 &gt; 0.71               | [0.48, 1.00]
 &gt; 
-&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
+&gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/F_to_eta2.html">F_to_omega2</a></span><span class="op">(</span><span class="fl">45.8</span>, <span class="fl">1</span>, <span class="fl">17</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Omega2 (partial) |       95% CI
 &gt; -------------------------------
 &gt; 0.70             | [0.47, 1.00]
 &gt; 
-&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
+&gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 </div>
 </div>
 <div class="section level3">

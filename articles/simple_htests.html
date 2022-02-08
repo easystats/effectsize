@@ -213,7 +213,7 @@
 &gt; -1.48     | [-Inf, -0.80]
 &gt; 
 &gt; - Estimated using pooled SD.
-&gt; - One-sided CIs: lower bound fixed at (-Inf).</code></pre>
+&gt; - One-sided CIs: lower bound fixed at [-Inf].</code></pre>
 <div class="section level5">
 <h5 id="common-language-effect-sizes">Common Language Effect Sizes<a class="anchor" aria-label="anchor" href="#common-language-effect-sizes"></a>
 </h5>
@@ -289,7 +289,7 @@
 &gt; -------------------
 &gt; 0.43 | [0.18, 1.00]
 &gt; 
-&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
+&gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 </div>
 <div class="section level3">
 <h3 id="contingency-tables-and-proportions">Contingency Tables and Proportions<a class="anchor" aria-label="anchor" href="#contingency-tables-and-proportions"></a>
@@ -326,21 +326,21 @@
 &gt; -------------------------
 &gt; 0.18       | [0.13, 1.00]
 &gt; 
-&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
+&gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/phi.html">phi</a></span><span class="op">(</span><span class="va">Music</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Phi  |       95% CI
 &gt; -------------------
 &gt; 0.25 | [0.18, 1.41]
 &gt; 
-&gt; - One-sided CIs: upper bound fixed at (1.4142135623731).</code></pre>
+&gt; - One-sided CIs: upper bound fixed at [1.41~].</code></pre>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/phi.html">pearsons_c</a></span><span class="op">(</span><span class="va">Music</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Pearson's C |       95% CI
 &gt; --------------------------
 &gt; 0.24        | [0.18, 1.00]
 &gt; 
-&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
+&gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <p>Pearson’s <em>C</em> and <span class="math inline">\(\phi\)</span> are also applicable to tests of goodness-of-fit, where small values indicate no deviation from the hypothetical probabilities and large values indicate… large deviation from the hypothetical probabilities.</p>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">O</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">89</span>,  <span class="fl">37</span>,  <span class="fl">130</span>, <span class="fl">28</span>,  <span class="fl">2</span><span class="op">)</span> <span class="co"># observed group sizes</span>
@@ -358,14 +358,14 @@
 &gt; --------------------------
 &gt; 0.55        | [0.48, 1.00]
 &gt; 
-&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
+&gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/phi.html">phi</a></span><span class="op">(</span><span class="va">O</span>, p <span class="op">=</span> <span class="va">E</span>, rescale.p <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Phi  |           95% CI
 &gt; -----------------------
 &gt; 0.65 | [0.54,      Inf]
 &gt; 
-&gt; - One-sided CIs: upper bound fixed at (Inf).</code></pre>
+&gt; - One-sided CIs: upper bound fixed at [Inf].</code></pre>
 <p>These can also be extracted from the equivalent Bayesian test:</p>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">BFX</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/contingencyTableBF.html" class="external-link">contingencyTableBF</a></span><span class="op">(</span><span class="va">Music</span>, sampleType <span class="op">=</span> <span class="st">"jointMulti"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -561,7 +561,7 @@
 &gt; ------------------------------
 &gt; 0.06            | [0.01, 1.00]
 &gt; 
-&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
+&gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 </div>
 <div class="section level4">
 <h4 id="rank-one-way-repeated-measures-anova">Rank One way Repeated-Measures ANOVA<a class="anchor" aria-label="anchor" href="#rank-one-way-repeated-measures-anova"></a>
@@ -604,7 +604,7 @@
 &gt; --------------------------
 &gt; 0.80        | [0.76, 1.00]
 &gt; 
-&gt; - One-sided CIs: upper bound fixed at (1).</code></pre>
+&gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 </div>
 </div>
 <div class="section level2">

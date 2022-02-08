@@ -169,7 +169,7 @@
 <span class="co">#&gt; -------------------------</span>
 <span class="co">#&gt; 0.18       | [0.13, 1.00]</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at (1).</span></code></pre></div>
+<span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -240,7 +240,7 @@
 <span class="co">#&gt; Chick:Time |      Time |           0.87 | [0.85, 1.00]</span>
 <span class="co">#&gt; Chick:Time | Diet:Time |           0.22 | [0.11, 1.00]</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at (1).</span>
+<span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span>
 
 <span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span>, generalized <span class="op">=</span> <span class="st">"Time"</span><span class="op">)</span>
 <span class="co">#&gt; # Effect Size for ANOVA (Type I)</span>
@@ -252,7 +252,7 @@
 <span class="co">#&gt; Chick:Time | Diet:Time |               0.03 | [0.00, 1.00]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; - Observed variables: Time</span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at (1).</span></code></pre></div>
+<span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></code></pre></div>
 <p><strong>effectsize</strong> also offers <span class="math inline">\(\epsilon^2_p\)</span> (<code><a href="../reference/eta_squared.html">epsilon_squared()</a></code>) and <span class="math inline">\(\omega^2_p\)</span> (<code><a href="../reference/eta_squared.html">omega_squared()</a></code>), which are less biased estimates of the variance explained in the population <span class="citation">(Kelley 1935; Olejnik and Algina 2003)</span>. For more details about the various effect size measures and their applications, see the <a href="https://easystats.github.io/effectsize/articles/anovaES.html" class="external-link"><em>Effect sizes for ANOVAs</em> vignette</a>.</p>
 </div>
 <div class="section level3">
@@ -270,7 +270,7 @@
 <span class="co">#&gt; 0.82           | [0.66, 1.00]</span>
 <span class="co">#&gt; 0.79           | [0.49, 1.00]</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at (1).</span>
+<span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span>
 
 <span class="fu"><a href="../reference/t_to_r.html">t_to_d</a></span><span class="op">(</span>t <span class="op">=</span> <span class="op">-</span><span class="fl">5.14</span>, df_error <span class="op">=</span> <span class="fl">22</span><span class="op">)</span>
 <span class="co">#&gt; d     |         95% CI</span>
@@ -292,7 +292,7 @@
 <span class="co">#&gt; -------------------</span>
 <span class="co">#&gt; 0.20 | [0.14, 1.00]</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at (1).</span>
+<span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span>
 
 <span class="va">xtab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">762</span>, <span class="fl">327</span>, <span class="fl">468</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>, <span class="fl">239</span>, <span class="fl">477</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>, <span class="fl">239</span>, <span class="fl">477</span><span class="op">)</span><span class="op">)</span>
 <span class="va">Xsq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html" class="external-link">chisq.test</a></span><span class="op">(</span><span class="va">xtab</span><span class="op">)</span>
@@ -301,7 +301,7 @@
 <span class="co">#&gt; -------------------------</span>
 <span class="co">#&gt; 0.07       | [0.05, 1.00]</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at (1).</span></code></pre></div>
+<span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></code></pre></div>
 <p>These functions also power our <em>Effect Sizes From Test Statistics</em> shiny app (<a href="https://easystats4u.shinyapps.io/statistic2effectsize/" class="external-link uri">https://easystats4u.shinyapps.io/statistic2effectsize/</a>).</p>
 </div>
 <div class="section level4">
