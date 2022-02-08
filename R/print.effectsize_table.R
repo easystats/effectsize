@@ -13,10 +13,17 @@ print.effectsize_table <- function(x, digits = 2, ...) {
   footer <- attr(x, "table_footer")
 
   if (!is.null(alt <- attr(x, "alternative")) && alt != "two.sided") {
+    bound <- if (alt == "less") x$CI_low[1] else x$CI_high[1]
+    is_exact <- isTRUE(all.equal(bound, round(bound, digits)))
+    bound_ <- insight::format_value(bound, digists = 2)
+    if (!is_exact) {
+      bound_ <- paste0(bound_, "~")
+    }
+
     ci_footer <- sprintf(
-      "\n- One-sided CIs: %s bound fixed at (%s).",
+      "\n- One-sided CIs: %s bound fixed at [%s].",
       if (alt == "less") "lower" else "upper",
-      as.character(if (alt == "less") x$CI_low[1] else x$CI_high[1])
+      bound_
     )
 
     footer <- c(footer, list(c(ci_footer, "cyan")))
