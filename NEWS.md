@@ -1,6 +1,8 @@
 # effectsize 0.6.0.2
 
+## Bug fixes
 
+- `eta_squared()` works with `car::Manova()` that does not have an i-design. 
 
 # effectsize 0.6.0.1
 

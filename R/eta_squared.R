@@ -1027,6 +1027,19 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
            ...) {
     # Faking the model_parameters.aovlist output:
     suppressWarnings(aov_tab <- summary(model)$univariate.tests)
+    if (is.null(aov_tab)) {
+      aov_tab <- parameters::model_parameters(model)
+      aov_tab$df <- aov_tab$df_num
+      aov_tab$df_num <- NULL
+      out <- .anova_es(aov_tab, type = type,
+                       partial = partial, generalized = generalized,
+                       ci = ci, alternative = alternative,
+                       include_intercept = include_intercept,
+                       verbose = verbose)
+      attr(out, "anova_type") <- as.numeric(as.roman(model$type))
+      attr(out, "approximate") <- FALSE
+      return(out)
+    }
     aov_tab <- as.data.frame(unclass(aov_tab))
     aov_tab$Parameter <- rownames(aov_tab)
     colnames(aov_tab)[colnames(aov_tab)== "Sum Sq"] <- "Sum_Squares"
