@@ -145,7 +145,6 @@ standardize.default <- function(x,
   do_standardize <- setdiff(colnames(data), dont_standardize)
 
   # can't std data$var variables
-  # TODO what about "with"?
   if (any(doller_vars <- grepl("(.*)\\$(.*)", do_standardize))) {
     doller_vars <- colnames(data)[doller_vars]
     warning("Unable to standardize variables evaluated in the environment (i.e., not in `data`).\n",
