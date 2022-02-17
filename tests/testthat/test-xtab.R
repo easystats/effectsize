@@ -118,6 +118,8 @@ if (require("testthat") && require("effectsize")) {
       OR$Odds_ratio
     )
 
+    expect_error(riskratio(RCT, log = TRUE), NA)
+
 
     ## OR
     data("mtcars")

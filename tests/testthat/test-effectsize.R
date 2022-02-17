@@ -216,4 +216,20 @@ if (require("testthat") && require("effectsize")) {
     bf4 <- BayesFactor::proportionBF(4, 12, 0.5)
     expect_equal(effectsize(bf4)[[1]], 0.3911, tolerance = 0.03)
   })
+
+  test_that("effectsize | easycorrelation", {
+    skip_if_not_installed("correlation")
+    r <- correlation::correlation(mtcars)
+    expect_error(effectsize(r), regexp = NA)
+  })
+
+  test_that("effectsize | other", {
+    m <- lm(mpg ~ ., mtcars)
+
+    expect_equal(effectsize(m),
+                 standardize_parameters(m),
+                 ignore_attr = TRUE)
+  })
+
+
 }

@@ -1,30 +1,33 @@
 if (require("testthat") && require("effectsize")) {
   test_that("effectsize table", {
-    es <- eta_squared(aov(mpg ~ cyl + gear, mtcars))
+    es <- eta_squared(a <- aov(mpg ~ cyl + gear, mtcars))
+    e2 <- eta_squared(a, generalized = "gear")
+    e3 <- eta_squared(a, generalized = TRUE)
     expect_output(print(es), regexp = "Eta2")
     expect_output(print(es), regexp = "One-sided CIs: upper bound fixed at [1.00]", fixed = TRUE)
+    expect_output(print(e2), regexp = "Observed variables: gear", fixed = TRUE)
+    expect_output(print(e3), regexp = "Observed variables: All", fixed = TRUE)
 
-    stdz1 <- standardize_parameters(lm(mpg ~ cyl + gear, mtcars))
-    stdz2 <- standardize_parameters(lm(mpg ~ cyl + gear, mtcars), method = "basic")
-    expect_output(print(stdz1), regexp = "refit")
-    expect_output(print(stdz2), regexp = "basic")
+    # Rounded bound
+    RCT <- matrix(c(71, 30, 31, 13, 50, 100, 4, 5, 7), nrow = 3, byrow = TRUE)
+    expect_output(print(phi(RCT)), regexp = "[1.41~]", fixed = TRUE)
   })
 
 
   test_that("std effectsize table", {
-    es <- standardize_parameters(lm(mpg ~ cyl + gear, mtcars))
+    es <- standardize_parameters(mod <- lm(mpg ~ cyl + gear, mtcars))
     expect_output(print(es), regexp = "refit")
 
-    es <- standardize_parameters(lm(mpg ~ cyl + gear, mtcars), method = "basic")
+    es <- standardize_parameters(mod, method = "basic")
     expect_output(print(es), regexp = "basic")
 
-    es <- standardize_parameters(lm(mpg ~ cyl + gear, mtcars), robust = TRUE)
+    es <- standardize_parameters(mod, robust = TRUE)
     expect_output(print(es), regexp = "median")
 
-    es <- standardize_parameters(lm(mpg ~ cyl + gear, mtcars), two_sd = TRUE)
+    es <- standardize_parameters(mod, two_sd = TRUE)
     expect_output(print(es), regexp = "two")
 
-    es <- standardize_parameters(lm(mpg ~ cyl + gear, mtcars), include_response = FALSE)
+    es <- standardize_parameters(mod, include_response = FALSE)
     expect_output(print(es), regexp = "unstandardized")
   })
 
