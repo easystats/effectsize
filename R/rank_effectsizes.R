@@ -610,5 +610,5 @@ kendalls_w <- function(x,
     if (verbose) warning("Only one unique value - rank fixed at 1")
     return(rep(1, length(x)))
   }
-  rank(x, ties.method = "average")
+  datawizard::ranktransform(x, method = "average", ..., verbose = FALSE)
 }
