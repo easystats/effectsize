@@ -291,7 +291,7 @@ if (require("testthat") && require("effectsize")) {
     )
 
 
-    ef <- omega_squared(m, partial = TRUE)
+    ef <- omega_squared(m, partial = TRUE, alternative = "two")
     expect_equal(ef$Omega2_partial,
       c(0.3115, 0.1814, 0.2221, 0.2637, 0.1512, -0.0173, -0.0171),
       tolerance = 0.01
@@ -300,10 +300,10 @@ if (require("testthat") && require("effectsize")) {
       c(0, 0, 0, 0, 0, 0, 0),
       tolerance = 0.01
     )
-    # TODO Why are we getting diferent results on different systems and R releases?
-    # expect_equal(ef$CI_high,
-    #              c(0.5814, 0.5036, 0.5052, 0.4589, 0.3023, 0, 0),
-    #              tolerance = 0.01)
+
+    expect_equal(ef$CI_high,
+                 c(0.626, 0.553, 0.557, 0.518, 0.355, 0, 0),
+                 tolerance = 0.01)
   })
 
 
