@@ -93,5 +93,29 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(W1[[1]], 0.11111111, tolerance = 0.01)
     expect_equal(W1$CI_low, 0.11111111, tolerance = 0.01)
     expect_equal(W1$CI_high, 1, tolerance = 0.01)
+
+    # Ties
+    dat <- data.frame(
+      pno = c(1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 3L, 3L,
+              3L, 3L, 4L, 4L, 4L, 4L, 5L, 5L, 5L, 5L, 6L, 6L, 6L, 6L, 7L, 7L,
+              7L, 7L, 8L, 8L, 8L, 8L, 9L, 9L, 9L, 9L, 10L, 10L, 10L, 10L),
+      condition = c(1L, 1L, 2L, 2L, 1L, 1L, 2L, 2L, 1L,
+                    1L, 2L, 2L, 1L, 1L, 2L, 2L, 1L, 1L, 2L, 2L, 1L, 1L, 2L, 2L,
+                    1L, 1L, 2L, 2L, 1L, 1L, 2L, 2L, 1L, 1L, 2L, 2L, 1L, 1L, 2L,
+                    2L),
+      congruency = c(1L, 2L, 1L, 2L, 1L, 2L, 1L, 2L,
+                     1L, 2L, 1L, 2L, 1L, 2L, 1L, 2L, 1L, 2L, 1L, 2L, 1L, 2L, 1L,
+                     2L, 1L, 2L, 1L, 2L, 1L, 2L, 1L, 2L, 1L, 2L, 1L, 2L, 1L, 2L,
+                     1L, 2L),
+      mrt = c(0.86, 0.86, 0.86, 0.78, 0.56, 0.56, 0.59, 0.66, 0.48,
+              0.5, 0.47, 0.51, 0.48, 0.52, 0.45, 0.47, 0.65, 0.79, 0.7,
+              0.81, 0.58, 0.6, 0.57, 0.6, 0.53, 0.61, 0.47, 0.49, 0.56,
+              0.64, 0.56, 0.6, 0.56, 0.66, 0.59, 0.63, 0.7, 0.92, 0.8,
+              0.96)
+    )
+    dat
+
+    W <- kendalls_w(mrt ~ interaction(condition, congruency) | pno, data = dat)
+    expect_equal(W[[1]], 0.4011, tolerance = 0.01)
   })
 }

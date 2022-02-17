@@ -2,6 +2,7 @@
 
 ## Bug fixes
 
+- `kendalls_w()` now deals with ties.  
 - `eta_squared()` works with `car::Manova()` that does not have an i-design. 
 
 # effectsize 0.6.0.1
