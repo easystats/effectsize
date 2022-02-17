@@ -9,6 +9,9 @@ if (require("testthat") && require("effectsize")) {
     model <- lm(Sepal.Length ~ Petal.Length, data = df)
     es <- standardize_parameters(model)
     expect_equal(es[2, 2], r, tolerance = 0.01)
+
+
+    expect_error(standardize_parameters(model, robust = TRUE), NA)
   })
 
 

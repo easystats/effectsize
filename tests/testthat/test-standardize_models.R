@@ -78,13 +78,14 @@ if (require("testthat") && require("effectsize")) {
   test_that("weights", {
     expect_warning(standardize(mtcars, weights = "xx"))
 
-    m <- lm(mpg ~ am + hp, weights = cyl, mtcars)
+    m <- lm(mpg ~ wt + hp, weights = cyl, mtcars)
 
     sm <- standardize(m, weights = TRUE)
     sm_data <- insight::get_data(sm)
-    sm_data2 <- standardize(mtcars, select = c("mpg", "am", "hp"), weights = "cyl")
-    expect_equal(sm_data[, c("mpg", "am", "hp")], sm_data2[, c("mpg", "am", "hp")])
+    sm_data2 <- standardize(mtcars, select = c("mpg", "wt", "hp"), weights = "cyl")
+    expect_equal(sm_data[, c("mpg", "wt", "hp")], sm_data2[, c("mpg", "wt", "hp")])
 
+    expect_error(standardize(m, weights = TRUE, robust = TRUE), NA)
 
     # no weights in stding
     sm_xw <- standardize(m, weights = FALSE)
