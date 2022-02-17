@@ -192,14 +192,14 @@ parameter value. For that, construct a 95% 2-sided CI.</p><div class="sourceCode
 <span class="co">## n_comps   |           0.21 | [0.16, 1.00]</span>
 <span class="co">## age       |           0.10 | [0.06, 1.00]</span>
 <span class="co">## </span>
-<span class="co">## - One-sided CIs: upper bound fixed at (1).</span></code></pre></div><p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">fit</span>, alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span> <span class="co"># Test is eta is smaller than some value</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## # Effect Size for ANOVA (Type I)</span>
+<span class="co">## - One-sided CIs: upper bound fixed at [1.00].</span></code></pre></div><p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">fit</span>, alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span> <span class="co"># Test is eta is smaller than some value</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## # Effect Size for ANOVA (Type I)</span>
 <span class="co">## </span>
 <span class="co">## Parameter | Eta2 (partial) |       95% CI</span>
 <span class="co">## -----------------------------------------</span>
 <span class="co">## n_comps   |           0.21 | [0.00, 0.26]</span>
 <span class="co">## age       |           0.10 | [0.00, 0.14]</span>
 <span class="co">## </span>
-<span class="co">## - One-sided CIs: lower bound fixed at (0).</span></code></pre></div><p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">fit</span>, alternative <span class="op">=</span> <span class="st">"two.sided"</span><span class="op">)</span> <span class="co"># 2-sided bounds for alpha = .05</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## # Effect Size for ANOVA (Type I)</span>
+<span class="co">## - One-sided CIs: lower bound fixed at [0.00].</span></code></pre></div><p></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">fit</span>, alternative <span class="op">=</span> <span class="st">"two.sided"</span><span class="op">)</span> <span class="co"># 2-sided bounds for alpha = .05</span></code></pre><p></p></div><div class="sourceCode"><pre><code><span class="co">## # Effect Size for ANOVA (Type I)</span>
 <span class="co">## </span>
 <span class="co">## Parameter | Eta2 (partial) |       95% CI</span>
 <span class="co">## -----------------------------------------</span>
