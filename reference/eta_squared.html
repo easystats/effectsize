@@ -434,11 +434,11 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-in"><span class="fu">cohens_f</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Cohen's f (partial) |           95% CI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> am_f       |                1.30 | [0.86,      Inf]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      |                1.38 | [0.90,      Inf]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f |                0.33 | [0.00,      Inf]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Cohen's f (partial) |      95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f       |                1.30 | [0.86, Inf]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      |                1.38 | [0.90, Inf]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f |                0.33 | [0.00, Inf]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [Inf].</span></span>
 <span class="r-in"></span>
@@ -447,9 +447,9 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">model0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am_f</span> <span class="op">+</span> <span class="va">cyl_f</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="co"># no interaction</span></span>
 <span class="r-in"><span class="fu">cohens_f_squared</span><span class="op">(</span><span class="va">model0</span>, model2 <span class="op">=</span> <span class="va">model</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's f2 (partial) |           95% CI | R2_delta</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.11                 | [0.00,      Inf] |     0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's f2 (partial) |      95% CI | R2_delta</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.11                 | [0.00, Inf] |     0.02</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [Inf].</span></span>
 <span class="r-in"></span>
