@@ -106,7 +106,7 @@ eta_squared(fit) # default, ci = 0.95, alternative = "greater"
 ## n_comps   |           0.21 | [0.16, 1.00]
 ## age       |           0.10 | [0.06, 1.00]
 ## 
-## - One-sided CIs: upper bound fixed at (1).
+## - One-sided CIs: upper bound fixed at [1.00].
 }\if{html}{\out{<div class="sourceCode r">}}\preformatted{eta_squared(fit, alternative = "less") # Test is eta is smaller than some value
 }\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
 ## 
@@ -115,7 +115,7 @@ eta_squared(fit) # default, ci = 0.95, alternative = "greater"
 ## n_comps   |           0.21 | [0.00, 0.26]
 ## age       |           0.10 | [0.00, 0.14]
 ## 
-## - One-sided CIs: lower bound fixed at (0).
+## - One-sided CIs: lower bound fixed at [0.00].
 }\if{html}{\out{<div class="sourceCode r">}}\preformatted{eta_squared(fit, alternative = "two.sided") # 2-sided bounds for alpha = .05
 }\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
 ## 
