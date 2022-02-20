@@ -8,8 +8,30 @@
 #'
 #' @export
 print.effectsize_table <- function(x, digits = 2, ...) {
-  x_orig <- x
+  x_fmt <- format(x, digits = digits, ...)
+  cat(insight::export_table(x_fmt, format = NULL, ...))
+  invisible(x)
+}
 
+#' @export
+#' @rdname print.effectsize_table
+print_md.effectsize_table <- function(x, digits = 2, ...) {
+  x_fmt <- format(x, digits = digits, ...)
+  insight::export_table(x_fmt, format = "markdown", ...)
+}
+
+#' @export
+#' @rdname print.effectsize_table
+print_html.effectsize_table <- function(x, digits = 2, ...) {
+  x_fmt <- format(x, digits = digits, ...)
+  insight::export_table(x_fmt, format = "html", ...)
+}
+
+#' @rdname print.effectsize_table
+#' @export
+format.effectsize_table <- function(x, digits = 2, ...) {
+
+  ## Clean footer
   footer <- attr(x, "table_footer")
 
   if (!is.null(alt <- attr(x, "alternative")) && alt != "two.sided") {
@@ -33,18 +55,13 @@ print.effectsize_table <- function(x, digits = 2, ...) {
   #   footer <- c(footer, list(c("\n- Effect size is approximated.", "cyan")))
   # }
 
+  if (!is.null(rule_name <- attr(attr(x, "rules"), "rule_name", exact = TRUE))) {
+    footer <- c(footer, list(c(paste0("\n(Interpretation rule: ", rule_name, ")"), "blue")))
+  }
+
   attr(x, "table_footer") <- footer
 
-  x <- format(x, digits = digits)
-
-  cat(insight::export_table(x, digits = digits, ...))
-
-  invisible(x_orig)
-}
-
-#' @rdname print.effectsize_table
-#' @export
-format.effectsize_table <- function(x, digits = 2, ...) {
+  ## Clean column names
   i <- is_effectsize_name(colnames(x))
   labs <- get_effectsize_label(colnames(x))
   colnames(x)[i] <- labs[i]
@@ -52,23 +69,45 @@ format.effectsize_table <- function(x, digits = 2, ...) {
   attr(x, "ci") <- NULL
   attr(x, "ci_method") <- NULL
 
-  out <- insight::format_table(x, digits = digits, ci_digits = digits, preserve_attributes = TRUE, ...)
-  if (!is.null(rule_name <- attr(attr(x, "rules"), "rule_name", exact = TRUE))) {
-    attr(out, "table_footer") <- c(
-      attr(out, "table_footer"),
-      list(c(paste0("\n(Interpretation rule: ", rule_name, ")"), "blue"))
-    )
-  }
-  out
+  insight::format_table(x, digits = digits, ci_digits = digits,
+                        preserve_attributes = TRUE, ...)
 }
 
 
-# Print Methods --------------------------------------------------------
+# Print -------------------------------------------------------------------
 
 #' @export
-print.effectsize_std_params <- function(x, digits = 2, ...) {
+#' @rdname print.effectsize_table
+#' @param append_CLES Should the Common Language Effect Sizes be printed as well?
+#'   Only applicable to Cohen's *d*, Hedges' *g* for independent samples of
+#'   equal variance (pooled sd) or for the rank-biserial correlation for
+#'   independent samples (See [d_to_cles()])
+print.effectsize_difference <- function(x, digits = 2, append_CLES = FALSE, ...) {
   x_orig <- x
 
+  print.effectsize_table(x, digits = digits, ...)
+
+  if (append_CLES) {
+    if ("r_rank_biserial" %in% colnames(x_orig)) {
+      to_cl_coverter <- rb_to_cles
+    } else {
+      to_cl_coverter <- d_to_cles
+    }
+
+    tryCatch({
+      CL <- to_cl_coverter(x_orig)
+      attr(CL, "table_caption") <- c("\n\n# Common Language Effect Sizes", "blue")
+      print(CL, digits = digits)
+    }, error = function(...) invisible(NULL))
+  }
+
+  invisible(x_orig)
+}
+
+# Format ------------------------------------------------------------------
+
+#' @export
+format.effectsize_std_params <- function(x, digits = 2, ...) {
   footer <- caption <- subtitle <- NULL
 
   caption <- c(sprintf("# Standardization method: %s", attr(x, "std_method")), "blue")
@@ -97,15 +136,12 @@ print.effectsize_std_params <- function(x, digits = 2, ...) {
   attr(x, "table_footer") <- footer
   attr(x, "table_caption") <- caption
   attr(x, "table_subtitle") <- subtitle
-  print.effectsize_table(x, digits = digits, ...)
-  invisible(x_orig)
+  format.effectsize_table(x, digits = digits, ...)
 }
 
 
 #' @export
-print.equivalence_test_effectsize <- function(x, digits = 2, ...) {
-  x_orig <- x
-
+format.equivalence_test_effectsize <- function(x, digits = 2, ...) {
   caption <- footer <- subtitle <- NULL
 
   ## Title (caption)
@@ -131,19 +167,11 @@ print.equivalence_test_effectsize <- function(x, digits = 2, ...) {
   attr(x, "table_footer") <- footer
   attr(x, "table_caption") <- caption
   attr(x, "table_subtitle") <- subtitle
-  print.effectsize_table(x, digits = digits, ...)
-  invisible(x_orig)
+  format.effectsize_table(x, digits = digits, ...)
 }
 
 #' @export
-#' @rdname print.effectsize_table
-#' @param append_CLES Should the Common Language Effect Sizes be printed as well?
-#'   Only applicable to Cohen's *d*, Hedges' *g* for independent samples of
-#'   equal variance (pooled sd) or for the rank-biserial correlation for
-#'   independent samples (See [d_to_cles()])
-print.effectsize_difference <- function(x, digits = 2, append_CLES = FALSE, ...) {
-  x_orig <- x
-
+format.effectsize_difference <- function(x, digits = 2, ...) {
   footer <- caption <- subtitle <- NULL
 
   ## Add footer
@@ -165,32 +193,12 @@ print.effectsize_difference <- function(x, digits = 2, append_CLES = FALSE, ...)
   attr(x, "table_footer") <- footer
   attr(x, "table_caption") <- caption
   attr(x, "table_subtitle") <- subtitle
-  print.effectsize_table(x, digits = digits, ...)
-
-
-  if (append_CLES) {
-    if ("r_rank_biserial" %in% colnames(x_orig)) {
-      to_cl_coverter <- rb_to_cles
-    } else {
-      to_cl_coverter <- d_to_cles
-    }
-
-    tryCatch({
-      CL <- to_cl_coverter(x_orig)
-      attr(CL, "table_caption") <- c("\n\n# Common Language Effect Sizes", "blue")
-      print(CL, digits = digits)
-    }, error = function(...) invisible(NULL))
-  }
-
-  invisible(x_orig)
+  format.effectsize_table(x, digits = digits, ...)
 }
-
 
 #' @export
 #' @importFrom utils as.roman
-print.effectsize_anova <- function(x, digits = 2, ...) {
-  x_orig <- x
-
+format.effectsize_anova <- function(x, digits = 2, ...) {
   footer <- caption <- subtitle <- NULL
 
   ## Title (caption)
@@ -216,12 +224,8 @@ print.effectsize_anova <- function(x, digits = 2, ...) {
   attr(x, "table_footer") <- footer
   attr(x, "table_caption") <- caption
   attr(x, "table_subtitle") <- subtitle
-  print.effectsize_table(x, digits = digits, ...)
-  invisible(x_orig)
+  format.effectsize_table(x, digits = digits, ...)
 }
-
-
-# Format Methods --------------------------------------------------------
 
 #' @export
 format.equivalence_test_effectsize <- function(x, digits = 2, ...) {

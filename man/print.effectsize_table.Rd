@@ -4,6 +4,8 @@
 \alias{plot.effectsize_table}
 \alias{plot.equivalence_test_effectsize}
 \alias{print.effectsize_table}
+\alias{print_md.effectsize_table}
+\alias{print_html.effectsize_table}
 \alias{format.effectsize_table}
 \alias{print.effectsize_difference}
 \title{Methods for \code{effectsize} tables}
@@ -13,6 +15,10 @@
 \method{plot}{equivalence_test_effectsize}(x, ...)
 
 \method{print}{effectsize_table}(x, digits = 2, ...)
+
+\method{print_md}{effectsize_table}(x, digits = 2, ...)
+
+\method{print_html}{effectsize_table}(x, digits = 2, ...)
 
 \method{format}{effectsize_table}(x, digits = 2, ...)
 

@@ -5,6 +5,8 @@
 \alias{reexports}
 \alias{equivalence_test}
 \alias{standardize}
+\alias{print_html}
+\alias{print_md}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -15,5 +17,7 @@ below to see their documentation.
   \item{bayestestR}{\code{\link[bayestestR]{equivalence_test}}}
 
   \item{datawizard}{\code{\link[datawizard]{standardize}}}
+
+  \item{insight}{\code{\link[insight:display]{print_html}}, \code{\link[insight:display]{print_md}}}
 }}
 
