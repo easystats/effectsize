@@ -5,6 +5,7 @@
 \alias{reexports}
 \alias{equivalence_test}
 \alias{standardize}
+\alias{display}
 \alias{print_html}
 \alias{print_md}
 \title{Objects exported from other packages}
@@ -18,6 +19,6 @@ below to see their documentation.
 
   \item{datawizard}{\code{\link[datawizard]{standardize}}}
 
-  \item{insight}{\code{\link[insight:display]{print_html}}, \code{\link[insight:display]{print_md}}}
+  \item{insight}{\code{\link[insight]{display}}, \code{\link[insight:display]{print_html}}, \code{\link[insight:display]{print_md}}}
 }}
 

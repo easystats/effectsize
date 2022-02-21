@@ -6,6 +6,13 @@ bayestestR::equivalence_test
 #' @importFrom datawizard standardize
 datawizard::standardize
 
+
+# Printing ----------------------------------------------------------------
+
+#' @export
+#' @importFrom insight display
+insight::display
+
 #' @export
 #' @importFrom insight print_html
 insight::print_html

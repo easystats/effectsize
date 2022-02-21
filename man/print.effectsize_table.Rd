@@ -2,7 +2,6 @@
 % Please edit documentation in R/plot.R, R/print.effectsize_table.R
 \name{plot.effectsize_table}
 \alias{plot.effectsize_table}
-\alias{plot.equivalence_test_effectsize}
 \alias{print.effectsize_table}
 \alias{print_md.effectsize_table}
 \alias{print_html.effectsize_table}
@@ -11,8 +10,6 @@
 \title{Methods for \code{effectsize} tables}
 \usage{
 \method{plot}{effectsize_table}(x, ...)
-
-\method{plot}{equivalence_test_effectsize}(x, ...)
 
 \method{print}{effectsize_table}(x, digits = 2, ...)
 
@@ -43,4 +40,7 @@ independent samples (See \code{\link[=d_to_cles]{d_to_cles()}})}
 }
 \description{
 Printing, formatting and plotting methods for \code{effectsize} tables.
+}
+\seealso{
+\code{\link[insight:display]{insight::display()}}
 }

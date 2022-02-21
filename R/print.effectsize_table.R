@@ -6,6 +6,8 @@
 #' @inheritParams insight::format_value
 #' @param ... Arguments passed to or from other functions.
 #'
+#' @seealso [insight::display()]
+#'
 #' @export
 print.effectsize_table <- function(x, digits = 2, ...) {
   x_fmt <- format(x, digits = digits, ...)
@@ -107,70 +109,6 @@ print.effectsize_difference <- function(x, digits = 2, append_CLES = FALSE, ...)
 # Format ------------------------------------------------------------------
 
 #' @export
-format.effectsize_std_params <- function(x, digits = 2, ...) {
-  footer <- caption <- subtitle <- NULL
-
-  caption <- c(sprintf("# Standardization method: %s", attr(x, "std_method")), "blue")
-
-  # robust / two_sd
-  if (attr(x, "two_sd") || attr(x, "robust")) {
-    footer <- sprintf(
-      "\n- Scaled by %s %s.\n",
-      ifelse(attr(x, "two_sd"), "two", "one"),
-      ifelse(attr(x, "robust"), "MAD(s) from the median", "SD(s) from the mean")
-    )
-    footer <- c(footer, "cyan")
-  }
-
-  # include_response
-  if (!attr(x, "include_response")) {
-    msg <- "(Response is unstandardized)\n"
-    if (length(footer)) {
-      footer[1] <- paste0(footer[1], msg)
-    } else {
-      footer <- paste0("\n", msg)
-      footer <- c(footer, "cyan")
-    }
-  }
-
-  attr(x, "table_footer") <- footer
-  attr(x, "table_caption") <- caption
-  attr(x, "table_subtitle") <- subtitle
-  format.effectsize_table(x, digits = digits, ...)
-}
-
-
-#' @export
-format.equivalence_test_effectsize <- function(x, digits = 2, ...) {
-  caption <- footer <- subtitle <- NULL
-
-  ## Title (caption)
-  if (attr(x, "rule", exact = TRUE) == "cet") {
-    caption <- "# Conditional Test for Practical Equivalence\n"
-  } else {
-    caption <- "# Test for Practical Equivalence\n"
-  }
-  caption <- c(caption, "blue")
-
-
-  ## Rope range
-  .rope <- attr(x, "rope", exact = TRUE)
-  subtitle <- sprintf("\tROPE: [%.*f %.*f]", digits, .rope[1], digits, .rope[2])
-
-
-  ## ROPE_Equivalence
-  if (attr(x, "rule", exact = TRUE) == "bayes") {
-    footer <- c("\n(Using Bayesian guidlines)", "green")
-  }
-
-
-  attr(x, "table_footer") <- footer
-  attr(x, "table_caption") <- caption
-  attr(x, "table_subtitle") <- subtitle
-  format.effectsize_table(x, digits = digits, ...)
-}
-
-#' @export
 format.effectsize_difference <- function(x, digits = 2, ...) {
   footer <- caption <- subtitle <- NULL
 
@@ -228,7 +166,66 @@ format.effectsize_anova <- function(x, digits = 2, ...) {
 }
 
 #' @export
+format.effectsize_std_params <- function(x, digits = 2, ...) {
+  footer <- caption <- subtitle <- NULL
+
+  caption <- c(sprintf("# Standardization method: %s", attr(x, "std_method")), "blue")
+
+  # robust / two_sd
+  if (attr(x, "two_sd") || attr(x, "robust")) {
+    footer <- sprintf(
+      "\n- Scaled by %s %s.\n",
+      ifelse(attr(x, "two_sd"), "two", "one"),
+      ifelse(attr(x, "robust"), "MAD(s) from the median", "SD(s) from the mean")
+    )
+    footer <- c(footer, "cyan")
+  }
+
+  # include_response
+  if (!attr(x, "include_response")) {
+    msg <- "(Response is unstandardized)\n"
+    if (length(footer)) {
+      footer[1] <- paste0(footer[1], msg)
+    } else {
+      footer <- paste0("\n", msg)
+      footer <- c(footer, "cyan")
+    }
+  }
+
+  attr(x, "table_footer") <- footer
+  attr(x, "table_caption") <- caption
+  attr(x, "table_subtitle") <- subtitle
+  format.effectsize_table(x, digits = digits, ...)
+}
+
+#' @export
 format.equivalence_test_effectsize <- function(x, digits = 2, ...) {
   colnames(x)[colnames(x) == "ROPE_Equivalence"] <- "H0"
+
+  caption <- footer <- subtitle <- NULL
+
+  ## Title (caption)
+  if (attr(x, "rule", exact = TRUE) == "cet") {
+    caption <- "# Conditional Test for Practical Equivalence\n"
+  } else {
+    caption <- "# Test for Practical Equivalence\n"
+  }
+  caption <- c(caption, "blue")
+
+
+  ## Rope range
+  .rope <- attr(x, "rope", exact = TRUE)
+  subtitle <- sprintf("\tROPE: [%.*f %.*f]", digits, .rope[1], digits, .rope[2])
+
+
+  ## ROPE_Equivalence
+  if (attr(x, "rule", exact = TRUE) == "bayes") {
+    footer <- c("\n(Using Bayesian guidlines)", "green")
+  }
+
+
+  attr(x, "table_footer") <- footer
+  attr(x, "table_caption") <- caption
+  attr(x, "table_subtitle") <- subtitle
   format.effectsize_table(x, digits = digits, ...)
 }

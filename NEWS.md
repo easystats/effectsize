@@ -1,9 +1,13 @@
-# effectsize 0.6.0.2
+# effectsize 0.6.0.3
 
 ## Bug fixes
 
 - `kendalls_w()` now deals with ties.  
 - `eta_squared()` works with `car::Manova()` that does not have an i-design. 
+
+## New features
+
+- Support for `insight`'s `display`, `print_md` and `print_html` for all `{effectsize}` outputs.
 
 # effectsize 0.6.0.1
 
