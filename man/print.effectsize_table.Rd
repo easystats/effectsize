@@ -17,7 +17,7 @@
 
 \method{print_html}{effectsize_table}(x, digits = 2, ...)
 
-\method{format}{effectsize_table}(x, digits = 2, ...)
+\method{format}{effectsize_table}(x, digits = 2, output = c("text", "markdown", "html"), ...)
 
 \method{print}{effectsize_difference}(x, digits = 2, append_CLES = FALSE, ...)
 }

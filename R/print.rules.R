@@ -38,7 +38,7 @@ print.rules <- function(x, ...) {
     out <- insight::export_table(df, align = "rcccl", sep = " ")
   }
 
-  insight::print_color(sprintf("# Reference %s (%s)\n\n", title_type, name), "blue")
+  insight::print_color(sprintf("# Reference %s (%s)\n\n", title_type, name), .pcl["interpret"])
   cat(out)
   invisible(orig_x)
 }
@@ -54,7 +54,7 @@ print.effectsize_interpret <- function(x, ...) {
   class(x) <- class(x)[-1]
   print(x, ...)
 
-  insight::print_color(paste0("(Rules: ", name, ")\n"), "blue")
+  insight::print_color(paste0("(Rules: ", name, ")\n"), .pcl["interpret"])
 
   invisible(orig_x)
 }

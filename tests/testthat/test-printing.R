@@ -100,13 +100,16 @@ if (require("testthat") && require("effectsize")) {
 
     ## Robust / two_sd / include_response
     es <- standardize_parameters(mod, robust = TRUE)
-    expect_output(print(es), regexp = "median")
+    expect_output(print(es), regexp = "one MAD from the median")
 
     es <- standardize_parameters(mod, two_sd = TRUE)
     expect_output(print(es), regexp = "two")
 
     es <- standardize_parameters(mod, include_response = FALSE)
     expect_output(print(es), regexp = "unstandardized")
+
+    es <- standardize_parameters(mod, include_response = FALSE, two_sd = TRUE, robust = TRUE)
+    expect_output(print(es), regexp = "two MADs from the median")
 
     # ES Name
     expect_output(print(es), regexp = "Coefficient (std.)", fixed = TRUE)
@@ -128,7 +131,7 @@ if (require("testthat") && require("effectsize")) {
     expect_output(print(equtest2), regexp = "Conditional")
 
     equtest3 <- equivalence_test(d, rule = "bayes")
-    expect_output(print(equtest3), regexp = "(Using Bayesian guidlines)", fixed = TRUE)
+    expect_output(print(equtest3), regexp = "Using Bayesian guidlines", fixed = TRUE)
   })
 
   # Rules -----------
