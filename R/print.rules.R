@@ -40,7 +40,7 @@ print_html.rules <- function(x, digits = "signif2", ...) {
 format.rules <- function(x, digits = "signif2", output = "text", ...) {
   name <- attr(x, "rule_name")
 
-  V <- insight::format_value(x$values, ...)
+  V <- insight::format_value(x$values, digits = digits, ...)
   V <- insight::format_value(V, width = max(nchar(V)), ...)
   L <- x$labels
 
@@ -71,7 +71,9 @@ format.rules <- function(x, digits = "signif2", output = "text", ...) {
   }
 
   if (output == "text") {
-    colnames(out)[c(1,3)] <- " "
+    if (length(L) != length(V)) {
+      colnames(out)[c(1,3)] <- " "
+    }
     caption <- c(sprintf("# Reference %s (%s)", title_type, name),
                  .pcl["interpret"])
   } else {
