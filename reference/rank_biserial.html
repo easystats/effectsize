@@ -14,7 +14,7 @@ Kendall's W effect sizes for non-parametric (rank sum) tests."><meta property="o
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -297,13 +297,14 @@ revisited. An overview of some recommended measures of effect size.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -0.66             | [-0.84, -0.36]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Common Language Effect Sizes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ## Common Language Effect Sizes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameter       | Coefficient |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pr(superiority) |        0.17 | [0.08, 0.32]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Non-parametric CLES</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- cyan</span></span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># One Sample ----------</span></span>
@@ -331,14 +332,14 @@ revisited. An overview of some recommended measures of effect size.</p></li>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="interpret_r.html">interpret_rank_biserial</a></span><span class="op">(</span><span class="fl">0.78</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "very large"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: funder2019)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: funder2019)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span class="fu"><a href="interpret.html">interpret</a></span><span class="op">(</span><span class="va">rb</span>, rules <span class="op">=</span> <span class="st">"funder2019"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> r (rank biserial) |       95% CI | Interpretation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.78              | [0.30, 0.94] |     very large</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Interpretation rule: funder2019)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Interpretation rule: funder2019</span></span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Rank Epsilon Squared</span></span>
@@ -367,7 +368,7 @@ revisited. An overview of some recommended measures of effect size.</p></li>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="interpret_kendalls_w.html">interpret_kendalls_w</a></span><span class="op">(</span><span class="fl">0.11</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "slight agreement"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Rules: landis1977)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: landis1977)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span class="fu"><a href="interpret.html">interpret</a></span><span class="op">(</span><span class="va">W</span>, rules <span class="op">=</span> <span class="st">"landis1977"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Kendall's W |       95% CI |   Interpretation</span>
@@ -375,7 +376,7 @@ revisited. An overview of some recommended measures of effect size.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.11        | [0.11, 1.00] | slight agreement</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(Interpretation rule: landis1977)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Interpretation rule: landis1977</span></span>
 <span class="r-in"><span class="co"># }</span></span>
 <span class="r-in"></span>
 </code></pre></div>

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -119,27 +119,27 @@ or in the interval to the left (higher values).</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">rules</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"significant"</span>, <span class="st">"not significant"</span><span class="op">)</span>, right <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Reference Thresholds (Custom rules)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;"># Reference Thresholds (Custom rules)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Label            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           significant   &lt; 0.05</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.05 &lt;= not significant       </span>
 <span class="r-in"><span class="fu">rules</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.8</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Reference Values (Custom rules)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;"># Reference Values (Custom rules)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Labels ~ Values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  small ~ 0.20  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> medium ~ 0.50  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  large ~ 0.80  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  small ~ 0.2   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> medium ~ 0.5   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  large ~ 0.8   </span>
 <span class="r-in"><span class="fu">rules</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"small"</span> <span class="op">=</span> <span class="fl">0.2</span>, <span class="st">"medium"</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"Cohen's Rules"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Reference Values (Cohen's Rules)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;"># Reference Values (Cohen's Rules)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Labels ~ Values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  small ~ 0.20  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> medium ~ 0.50  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  small ~ 0.2   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> medium ~ 0.5   </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

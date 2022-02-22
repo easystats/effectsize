@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -341,7 +341,7 @@ standardization**, described below
 &gt; age_g(35,45] |               0.11 | [-0.05,  0.27]
 &gt; seniority    |               0.12 | [ 0.07,  0.18]
 &gt; 
-&gt; - Scaled by one MAD(s) from the median.</code></pre>
+&gt; - Scaled by one MAD from the median.</code></pre>
 <p>Note that since <code>age_g</code> is a factor, it is not numerically standardized, and so it standardized parameter is still not directly comparable to those of numeric variables. To address this, we can set <code>two_sd = TRUE</code>, thereby scaling parameters on 2 SDs (or MADs) of the predictors <span class="citation">(Gelman 2008)</span>.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod</span>, method <span class="op">=</span> <span class="st">"refit"</span>, two_sd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
@@ -356,7 +356,7 @@ standardization**, described below
 &gt; age_g(35,45] |               0.10 | [-0.04, 0.23]
 &gt; seniority    |               0.16 | [ 0.09, 0.24]
 &gt; 
-&gt; - Scaled by two SD(s) from the mean.</code></pre>
+&gt; - Scaled by two SDs from the mean.</code></pre>
 <p><code>effectsize</code> also comes with a helper function that returns the re-fit model, without summarizing it, which can then be used as the original model would:</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod_z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize</a></span><span class="op">(</span><span class="va">mod</span>, two_sd <span class="op">=</span> <span class="cn">FALSE</span>, robust <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
@@ -485,8 +485,8 @@ standardization**, described below
 &gt; factor(cyl)-0.0524939042876197 |               0.73 | [-2.04,  3.66]
 &gt; factor(cyl)0.507441074780324   |               0.70 | [-3.13,  4.78]
 &gt; 
-&gt; - Scaled by two SD(s) from the mean.
-&gt; (Response is unstandardized)</code></pre>
+&gt; - Scaled by two SDs from the mean.
+&gt; - Response is unstandardized.</code></pre>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># standardize_parameters(mod_b, method = "posthoc", two_sd = TRUE)</span>
 <span class="co"># standardize_parameters(mod_b, method = "basic")</span></code></pre></div>
@@ -507,8 +507,8 @@ standardization**, described below
 &gt; factor(cyl)-0.0524939042876197 |              2.08 | [0.13,    39.04]
 &gt; factor(cyl)0.507441074780324   |              2.02 | [0.04,   119.12]
 &gt; 
-&gt; - Scaled by two SD(s) from the mean.
-&gt; (Response is unstandardized)</code></pre>
+&gt; - Scaled by two SDs from the mean.
+&gt; - Response is unstandardized.</code></pre>
 </div>
 </div>
 <div class="section level3">
