@@ -30,6 +30,8 @@ print_html.effectsize_table <- function(x, digits = 2, ...) {
 }
 
 #' @rdname print.effectsize_table
+#' @param output Which output is the formatting intended for? Affects how title
+#'   and footers are formatted.
 #' @export
 format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown", "html"), ...) {
   output <- match.arg(output)
