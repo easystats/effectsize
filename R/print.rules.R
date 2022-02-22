@@ -1,46 +1,88 @@
-#' @importFrom utils head tail
 #' @export
-print.rules <- function(x, ...) {
-  orig_x <- x
-
-  name <- attr(x, "rule_name")
+print.rules <- function(x, digits = "signif2", ...) {
+  x_fmt <- format(x, digits = digits, ...)
 
   if (length(x$values) == length(x$labels)) {
+    cat(insight::export_table(x_fmt, align = "rl", format = NULL, sep = " ~ ", ...))
+  } else {
+    cat(insight::export_table(x_fmt, align = "rcl", format = NULL, sep = " ", ...))
+  }
+  invisible(x)
+}
+
+
+#' @export
+print_md.rules <- function(x, digits = "signif2", ...) {
+  x_fmt <- format(x, digits = digits, output = "markdown", ...)
+
+  if (length(x$values) == length(x$labels)) {
+    insight::export_table(x_fmt, align = "rl", format = "markdown", ...)
+  } else {
+    insight::export_table(x_fmt, align = "rcl", format = "markdown", ...)
+  }
+}
+
+
+#' @export
+print_html.rules <- function(x, digits = "signif2", ...) {
+  x_fmt <- format(x, digits = digits, output = "html", ...)
+
+  if (length(x$values) == length(x$labels)) {
+    insight::export_table(x_fmt, align = "rl", format = "html", ...)
+  } else {
+    insight::export_table(x_fmt, align = "rcl", format = "html", ...)
+  }
+}
+
+
+
+#' @export
+format.rules <- function(x, digits = "signif2", output = "text", ...) {
+  name <- attr(x, "rule_name")
+
+  V <- insight::format_value(x$values, digits = digits, ...)
+  V <- insight::format_value(V, width = max(nchar(V)), ...)
+  L <- x$labels
+
+  if (length(V) == length(L)) {
     title_type <- "Values"
 
-    df <- data.frame(
-      Labels = x$labels,
-      Values = x$values
+    out <- data.frame(
+      Labels = L,
+      Values = V
     )
-
-    out <- insight::export_table(df, align = "rl", sep = " ~ ")
-
   } else {
     title_type <- "Thresholds"
 
     if (isTRUE(attr(x, "right"))) {
-      gLeft <- " < "
-      gRight <- " <= "
+      gLeft <- " <"
+      gRight <- "<= "
     } else {
-      gLeft <- " <= "
-      gRight <- " < "
+      gLeft <- " <="
+      gRight <- "< "
     }
 
-    df <- data.frame(
-      " " = c("", x$values),
-      " " = c("", rep(gLeft, length(x$values))),
-      Label = x$labels,
-      " " = c(rep(gRight, length(x$values)), ""),
-      " " = c(x$values, ""),
+    out <- data.frame(
+      Lower = paste0(c("", V), c("", rep(gLeft, length(V)))),
+      Label = L,
+      Upper = paste0(c(rep(gRight, length(V)), ""), c(V, "")),
       check.names = FALSE
     )
-
-    out <- insight::export_table(df, align = "rcccl", sep = " ")
   }
 
-  insight::print_color(sprintf("# Reference %s (%s)\n\n", title_type, name), "blue")
-  cat(out)
-  invisible(orig_x)
+  if (output == "text") {
+    if (length(L) != length(V)) {
+      colnames(out)[c(1,3)] <- " "
+    }
+    caption <- c(sprintf("# Reference %s (%s)", title_type, name),
+                 .pcl["interpret"])
+  } else {
+    caption <- sprintf("Reference %s (%s)", title_type, name)
+  }
+
+  attr(out, "table_caption") <- caption
+
+  out
 }
 
 
@@ -54,7 +96,7 @@ print.effectsize_interpret <- function(x, ...) {
   class(x) <- class(x)[-1]
   print(x, ...)
 
-  insight::print_color(paste0("(Rules: ", name, ")\n"), "blue")
+  insight::print_color(paste0("(Rules: ", name, ")\n"), .pcl["interpret"])
 
   invisible(orig_x)
 }

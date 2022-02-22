@@ -2,19 +2,22 @@
 % Please edit documentation in R/plot.R, R/print.effectsize_table.R
 \name{plot.effectsize_table}
 \alias{plot.effectsize_table}
-\alias{plot.equivalence_test_effectsize}
 \alias{print.effectsize_table}
+\alias{print_md.effectsize_table}
+\alias{print_html.effectsize_table}
 \alias{format.effectsize_table}
 \alias{print.effectsize_difference}
 \title{Methods for \code{effectsize} tables}
 \usage{
 \method{plot}{effectsize_table}(x, ...)
 
-\method{plot}{equivalence_test_effectsize}(x, ...)
-
 \method{print}{effectsize_table}(x, digits = 2, ...)
 
-\method{format}{effectsize_table}(x, digits = 2, ...)
+\method{print_md}{effectsize_table}(x, digits = 2, ...)
+
+\method{print_html}{effectsize_table}(x, digits = 2, ...)
+
+\method{format}{effectsize_table}(x, digits = 2, output = c("text", "markdown", "html"), ...)
 
 \method{print}{effectsize_difference}(x, digits = 2, append_CLES = FALSE, ...)
 }
@@ -30,6 +33,9 @@ value as suffix, e.g. \code{digits = "scientific4"} to have scientific
 notation with 4 decimal places, or \code{digits = "signif5"} for 5
 significant figures (see also \code{\link[=signif]{signif()}}).}
 
+\item{output}{Which output is the formatting intended for? Affects how title
+and footers are formatted.}
+
 \item{append_CLES}{Should the Common Language Effect Sizes be printed as well?
 Only applicable to Cohen's \emph{d}, Hedges' \emph{g} for independent samples of
 equal variance (pooled sd) or for the rank-biserial correlation for
@@ -37,4 +43,7 @@ independent samples (See \code{\link[=d_to_cles]{d_to_cles()}})}
 }
 \description{
 Printing, formatting and plotting methods for \code{effectsize} tables.
+}
+\seealso{
+\code{\link[insight:display]{insight::display()}}
 }

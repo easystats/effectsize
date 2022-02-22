@@ -6,45 +6,89 @@
 #' @inheritParams insight::format_value
 #' @param ... Arguments passed to or from other functions.
 #'
+#' @seealso [insight::display()]
+#'
 #' @export
 print.effectsize_table <- function(x, digits = 2, ...) {
-  x_orig <- x
+  x_fmt <- format(x, digits = digits, output = "text", ...)
+  cat(insight::export_table(x_fmt, format = NULL, ...))
+  invisible(x)
+}
 
+#' @export
+#' @rdname print.effectsize_table
+print_md.effectsize_table <- function(x, digits = 2, ...) {
+  x_fmt <- format(x, digits = digits, output = "markdown", ...)
+  insight::export_table(x_fmt, format = "markdown", ...)
+}
+
+#' @export
+#' @rdname print.effectsize_table
+print_html.effectsize_table <- function(x, digits = 2, ...) {
+  x_fmt <- format(x, digits = digits, output = "html", ...)
+  insight::export_table(x_fmt, format = "html", ...)
+}
+
+#' @rdname print.effectsize_table
+#' @param output Which output is the formatting intended for? Affects how title
+#'   and footers are formatted.
+#' @export
+format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown", "html"), ...) {
+  output <- match.arg(output)
+
+  ## Clean footer
   footer <- attr(x, "table_footer")
 
   if (!is.null(alt <- attr(x, "alternative")) && alt != "two.sided") {
     bound <- if (alt == "less") x$CI_low[1] else x$CI_high[1]
-    is_exact <- isTRUE(all.equal(bound, round(bound, digits)))
-    bound_ <- insight::format_value(bound, digists = 2)
-    if (!is_exact) {
+    bound_ <- insight::format_value(bound, digits = digits)
+    if (!is.character(digits) &&
+        !isTRUE(all.equal(bound, as.numeric(bound_)))) {
       bound_ <- paste0(bound_, "~")
     }
 
-    ci_footer <- sprintf(
-      "\n- One-sided CIs: %s bound fixed at [%s].",
-      if (alt == "less") "lower" else "upper",
-      bound_
-    )
+    side <- if (alt == "less") "lower" else "upper"
 
-    footer <- c(footer, list(c(ci_footer, "cyan")))
+    ci_footer <- sprintf("One-sided CIs: %s bound fixed at [%s].",
+                         side, bound_)
+    footer <- c(footer, ci_footer)
   }
 
   # if (isTRUE(attr(x, "approximate"))) {
-  #   footer <- c(footer, list(c("\n- Effect size is approximated.", "cyan")))
+  #   approx_footer <- "Effect size is approximated."
+  #   footer <- c(footer, approx_footer)
   # }
 
+  if (!is.null(rule_name <- attr(attr(x, "rules"), "rule_name", exact = TRUE))) {
+    rule_footer <- sprintf("Interpretation rule: %s", rule_name)
+    footer <- c(footer, rule_footer)
+  }
+
+  if (output == "text" && !is.null(footer)) {
+    footer <- lapply(footer, function(ftr) {
+      c(paste0("\n- ", ftr), .pcl["footer"])
+    })
+  }
   attr(x, "table_footer") <- footer
 
-  x <- format(x, digits = digits)
 
-  cat(insight::export_table(x, digits = digits, ...))
+  ## Clean caption
+  caption <- attr(x, "table_caption")
+  if (output == "text" && !is.null(caption)) {
+    caption <- c(paste0("# ", caption), .pcl["title"])
+  }
+  attr(x, "table_caption") <- caption
 
-  invisible(x_orig)
-}
 
-#' @rdname print.effectsize_table
-#' @export
-format.effectsize_table <- function(x, digits = 2, ...) {
+  ## Clean subtitle
+  subtitle <- attr(x, "table_subtitle")
+  if (output == "text" && !is.null(subtitle)) {
+    subtitle <- c(paste0("\n", subtitle), .pcl["subtitle"])
+  }
+  attr(x, "table_subtitle") <- subtitle
+
+
+  ## Clean column names
   i <- is_effectsize_name(colnames(x))
   labs <- get_effectsize_label(colnames(x))
   colnames(x)[i] <- labs[i]
@@ -52,88 +96,12 @@ format.effectsize_table <- function(x, digits = 2, ...) {
   attr(x, "ci") <- NULL
   attr(x, "ci_method") <- NULL
 
-  out <- insight::format_table(x, digits = digits, ci_digits = digits, preserve_attributes = TRUE, ...)
-  if (!is.null(rule_name <- attr(attr(x, "rules"), "rule_name", exact = TRUE))) {
-    attr(out, "table_footer") <- c(
-      attr(out, "table_footer"),
-      list(c(paste0("\n(Interpretation rule: ", rule_name, ")"), "blue"))
-    )
-  }
-  out
+  insight::format_table(x, digits = digits, ci_digits = digits,
+                        preserve_attributes = TRUE, ...)
 }
 
 
-# Print Methods --------------------------------------------------------
-
-#' @export
-print.effectsize_std_params <- function(x, digits = 2, ...) {
-  x_orig <- x
-
-  footer <- caption <- subtitle <- NULL
-
-  caption <- c(sprintf("# Standardization method: %s", attr(x, "std_method")), "blue")
-
-  # robust / two_sd
-  if (attr(x, "two_sd") || attr(x, "robust")) {
-    footer <- sprintf(
-      "\n- Scaled by %s %s.\n",
-      ifelse(attr(x, "two_sd"), "two", "one"),
-      ifelse(attr(x, "robust"), "MAD(s) from the median", "SD(s) from the mean")
-    )
-    footer <- c(footer, "cyan")
-  }
-
-  # include_response
-  if (!attr(x, "include_response")) {
-    msg <- "(Response is unstandardized)\n"
-    if (length(footer)) {
-      footer[1] <- paste0(footer[1], msg)
-    } else {
-      footer <- paste0("\n", msg)
-      footer <- c(footer, "cyan")
-    }
-  }
-
-  attr(x, "table_footer") <- footer
-  attr(x, "table_caption") <- caption
-  attr(x, "table_subtitle") <- subtitle
-  print.effectsize_table(x, digits = digits, ...)
-  invisible(x_orig)
-}
-
-
-#' @export
-print.equivalence_test_effectsize <- function(x, digits = 2, ...) {
-  x_orig <- x
-
-  caption <- footer <- subtitle <- NULL
-
-  ## Title (caption)
-  if (attr(x, "rule", exact = TRUE) == "cet") {
-    caption <- "# Conditional Test for Practical Equivalence\n"
-  } else {
-    caption <- "# Test for Practical Equivalence\n"
-  }
-  caption <- c(caption, "blue")
-
-
-  ## Rope range
-  .rope <- attr(x, "rope", exact = TRUE)
-  subtitle <- sprintf("\tROPE: [%.*f %.*f]", digits, .rope[1], digits, .rope[2])
-
-
-  ## ROPE_Equivalence
-  if (attr(x, "rule", exact = TRUE) == "bayes") {
-    footer <- c("\n(Using Bayesian guidlines)", "green")
-  }
-
-
-  attr(x, "table_footer") <- footer
-  attr(x, "table_caption") <- caption
-  attr(x, "table_subtitle") <- subtitle
-  print.effectsize_table(x, digits = digits, ...)
-  invisible(x_orig)
-}
+# Print -------------------------------------------------------------------
 
 #' @export
 #' @rdname print.effectsize_table
@@ -144,29 +112,7 @@ print.equivalence_test_effectsize <- function(x, digits = 2, ...) {
 print.effectsize_difference <- function(x, digits = 2, append_CLES = FALSE, ...) {
   x_orig <- x
 
-  footer <- caption <- subtitle <- NULL
-
-  ## Add footer
-  mu <- attr(x, "mu")
-  if (mu != 0) {
-    mu <- sprintf("\n- Deviation from a difference of %s.", mu)
-    footer <- c(footer, list(c(mu, "cyan")))
-  }
-
-  if (!is.null(sd_type <- attr(x, "pooled_sd", exact = TRUE))) {
-    sd_type <- sprintf(
-      "\n- Estimated using %s.",
-      ifelse(sd_type, "pooled SD", "un-pooled SD")
-    )
-
-    footer <- c(footer, list(c(sd_type, "cyan")))
-  }
-
-  attr(x, "table_footer") <- footer
-  attr(x, "table_caption") <- caption
-  attr(x, "table_subtitle") <- subtitle
   print.effectsize_table(x, digits = digits, ...)
-
 
   if (append_CLES) {
     if ("r_rank_biserial" %in% colnames(x_orig)) {
@@ -176,8 +122,8 @@ print.effectsize_difference <- function(x, digits = 2, append_CLES = FALSE, ...)
     }
 
     tryCatch({
+      insight::print_color("\n\n## Common Language Effect Sizes:\n", .pcl["subtitle"])
       CL <- to_cl_coverter(x_orig)
-      attr(CL, "table_caption") <- c("\n\n# Common Language Effect Sizes", "blue")
       print(CL, digits = digits)
     }, error = function(...) invisible(NULL))
   }
@@ -185,46 +131,126 @@ print.effectsize_difference <- function(x, digits = 2, append_CLES = FALSE, ...)
   invisible(x_orig)
 }
 
+# Format ------------------------------------------------------------------
 
 #' @export
-#' @importFrom utils as.roman
-print.effectsize_anova <- function(x, digits = 2, ...) {
-  x_orig <- x
+format.effectsize_difference <- function(x, digits = 2, ...) {
+  caption <- subtitle <- footer <- NULL
 
-  footer <- caption <- subtitle <- NULL
-
-  ## Title (caption)
-  anova_type <- attr(x, "anova_type", exact = TRUE)
-  if (is.null(anova_type) || is.na(anova_type)) {
-    caption <- "# Effect Size for ANOVA"
-  } else {
-    caption <- paste0("# Effect Size for ANOVA (Type ", utils::as.roman(anova_type), ")")
+  ## Add footer
+  mu <- attr(x, "mu")
+  if (mu != 0) {
+    mu_footer <- sprintf("Deviation from a difference of %s.", mu)
+    footer <- c(footer, mu_footer)
   }
-  caption <- c(caption, "blue")
 
-  ## Footer
-  obs <- attr(x, "generalized")
-  if (is.character(obs) || isTRUE(obs)) {
-    if (isTRUE(obs)) {
-      footer <- "\n- Observed variables: All"
-    } else {
-      footer <- paste0("\n- Observed variables: ", paste0(obs, collapse = ", "))
-    }
-    footer <- list(c(footer, "cyan"))
+  if (!is.null(sd_type <- attr(x, "pooled_sd", exact = TRUE))) {
+    sd_type <- sprintf("Estimated using %spooled SD.",
+                       ifelse(sd_type, "", "un-"))
+
+    footer <- c(footer, sd_type)
   }
 
   attr(x, "table_footer") <- footer
   attr(x, "table_caption") <- caption
   attr(x, "table_subtitle") <- subtitle
-  print.effectsize_table(x, digits = digits, ...)
-  invisible(x_orig)
+  format.effectsize_table(x, digits = digits, ...)
 }
 
+#' @export
+#' @importFrom utils as.roman
+format.effectsize_anova <- function(x, digits = 2, ...) {
+  footer <- caption <- subtitle <- NULL
 
-# Format Methods --------------------------------------------------------
+  ## Title (caption)
+  anova_type <- attr(x, "anova_type", exact = TRUE)
+  if (is.null(anova_type) || is.na(anova_type)) {
+    type <- ""
+  } else {
+    type <- sprintf(" (Type %s)", utils::as.roman(anova_type))
+  }
+  caption <- sprintf("Effect Size for ANOVA%s", type)
+
+  ## Footer
+  obs <- attr(x, "generalized")
+  if (is.character(obs) || isTRUE(obs)) {
+    if (isTRUE(obs)) {
+      obs <- "All"
+    } else {
+      obs <- paste0(obs, collapse = ", ")
+    }
+    gen_footer <- sprintf("Observed variables: %s", obs)
+    footer <- c(footer, gen_footer)
+  }
+
+  attr(x, "table_footer") <- footer
+  attr(x, "table_caption") <- caption
+  attr(x, "table_subtitle") <- subtitle
+  format.effectsize_table(x, digits = digits, ...)
+}
+
+#' @export
+format.effectsize_std_params <- function(x, digits = 2, ...) {
+  footer <- caption <- subtitle <- NULL
+
+  caption <- sprintf("Standardization method: %s", attr(x, "std_method"))
+
+  # robust / two_sd
+  if (attr(x, "two_sd") || attr(x, "robust")) {
+    footer <- sprintf("Scaled by %s %s%s from the %s.",
+                      ifelse(attr(x, "two_sd"), "two", "one"),
+                      ifelse(attr(x, "robust"), "MAD", "SD"),
+                      ifelse(attr(x, "two_sd"), "s", ""),
+                      ifelse(attr(x, "robust"), "median", "mean"))
+  }
+
+  # include_response
+  if (!attr(x, "include_response")) {
+    resp_footer <- "Response is unstandardized."
+    footer <- c(footer, resp_footer)
+  }
+
+  attr(x, "table_footer") <- footer
+  attr(x, "table_caption") <- caption
+  attr(x, "table_subtitle") <- subtitle
+  format.effectsize_table(x, digits = digits, ...)
+}
 
 #' @export
 format.equivalence_test_effectsize <- function(x, digits = 2, ...) {
   colnames(x)[colnames(x) == "ROPE_Equivalence"] <- "H0"
+
+  caption <- footer <- subtitle <- NULL
+
+  ## Title (caption)
+  if (attr(x, "rule", exact = TRUE) == "cet") {
+    rule <- "Conditional "
+  } else {
+    rule <- ""
+  }
+  caption <- sprintf("%sTest for Practical Equivalence", rule)
+
+
+  ## Rope range
+  .rope <- attr(x, "rope", exact = TRUE)
+  .rope <- insight::format_value(.rope, digits = digits)
+  subtitle <- sprintf("ROPE: [%s, %s]", .rope[1], .rope[2])
+
+
+  ## ROPE_Equivalence
+  if (attr(x, "rule", exact = TRUE) == "bayes") {
+    footer <- "Using Bayesian guidlines"
+  }
+
+  attr(x, "table_footer") <- footer
+  attr(x, "table_caption") <- caption
+  attr(x, "table_subtitle") <- subtitle
   format.effectsize_table(x, digits = digits, ...)
 }
+
+
+# Colors ------------------------------------------------------------------
+
+.pcl <- c(title = "blue", subtitle = "blue", footer = "cyan", interpret = "italic")
+
+# "red", "yellow", "green", "blue", "violet","cyan", "grey", "bold", "italic"
