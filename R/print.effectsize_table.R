@@ -41,9 +41,12 @@ format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown"
 
   if (!is.null(alt <- attr(x, "alternative")) && alt != "two.sided") {
     bound <- if (alt == "less") x$CI_low[1] else x$CI_high[1]
-    is_exact <- isTRUE(all.equal(bound, round(bound, digits)))
-    bound_ <- insight::format_value(bound, digists = 2)
-    if (!is_exact) bound_ <- paste0(bound_, "~")
+    bound_ <- insight::format_value(bound, digits = digits)
+    if (!is.character(digits) &&
+        !isTRUE(all.equal(bound, as.numeric(bound_)))) {
+      bound_ <- paste0(bound_, "~")
+    }
+
     side <- if (alt == "less") "lower" else "upper"
 
     ci_footer <- sprintf("One-sided CIs: %s bound fixed at [%s].",
@@ -230,7 +233,8 @@ format.equivalence_test_effectsize <- function(x, digits = 2, ...) {
 
   ## Rope range
   .rope <- attr(x, "rope", exact = TRUE)
-  subtitle <- sprintf("ROPE: [%.*f %.*f]", digits, .rope[1], digits, .rope[2])
+  .rope <- insight::format_value(.rope, digits = digits)
+  subtitle <- sprintf("ROPE: [%s, %s]", .rope[1], .rope[2])
 
 
   ## ROPE_Equivalence

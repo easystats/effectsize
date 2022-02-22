@@ -5,6 +5,8 @@ if (require("testthat") && require("effectsize")) {
     d <- cohens_d(1:4, c(1, 1:5))
     expect_output(print(d), "[-1.37, 1.16]", fixed = TRUE)
     expect_output(print(d, digits = 4), "[-1.3730, 1.1595]", fixed = TRUE)
+    expect_output(print(d, digits = "signif4"), "[-1.373, 1.16]", fixed = TRUE)
+    expect_output(print(d, digits = "scientific4"), "[-1.3730e+00, 1.1595e+00]", fixed = TRUE)
 
     ## alternative + rounded bound
     RCT <- matrix(c(71, 30, 31, 13, 50, 100, 4, 5, 7), nrow = 3, byrow = TRUE)
@@ -13,8 +15,12 @@ if (require("testthat") && require("effectsize")) {
     fh <- phi(RCT)
 
     expect_output(print(V1), regexp = "[1.00]", fixed = TRUE)
+    expect_output(print(V1, digits = "signif4"), regexp = "[1]", fixed = TRUE)
+    expect_output(print(V1, digits = "scientific2"), regexp = "[1.00e+00]", fixed = TRUE)
     expect_error(expect_output(print(V2), regexp = "fixed"))
     expect_output(print(fh), regexp = "[1.41~]", fixed = TRUE)
+    expect_output(print(fh, digits = "signif4"), regexp = "[1.414]", fixed = TRUE)
+    expect_output(print(fh, digits = "scientific2"), regexp = "[1.41e+00]", fixed = TRUE)
 
 
     ## Column name
@@ -125,7 +131,7 @@ if (require("testthat") && require("effectsize")) {
     d <- cohens_d(1:3, c(1, 1:3))
 
     equtest <- equivalence_test(d)
-    expect_output(print(equtest), regexp = "ROPE: [-0.10 0.10]", fixed = TRUE)
+    expect_output(print(equtest), regexp = "ROPE: [-0.10, 0.10]", fixed = TRUE)
 
     equtest2 <- equivalence_test(d, rule = "cet")
     expect_output(print(equtest2), regexp = "Conditional")
@@ -136,15 +142,23 @@ if (require("testthat") && require("effectsize")) {
 
   # Rules -----------
   test_that("rules", {
+    skip_on_cran()
     r1 <- rules(1:3, letters[1:4], name = "XX")
     expect_output(print(r1), regexp = "Thresholds")
     expect_output(print(r1), regexp = "<=")
     expect_output(print(r1), regexp = "XX")
+    expect_output(print(r1), regexp = "1 <   b   <= 2")
+    expect_output(print(r1, digits = "scientific1"),
+                  regexp = "2.0e+00 <   c   <= 3.0e+00", fixed = TRUE)
 
 
-    r2 <- rules(1:3, letters[1:3], name = "YY")
+    r2 <- rules(c(1, 2, 3.1), letters[1:3], name = "YY")
     expect_output(print(r2), regexp = "Values")
     expect_output(print(r2), regexp = "YY")
+    expect_output(print(r2), regexp = "b ~ 2")
+    expect_output(print(r2), regexp = "c ~ 3.1")
+    expect_output(print(r2, digits = "signif3"), regexp = "c ~ 3.1")
+    expect_output(print(r2, digits = "scientific1"), regexp = "a ~ 1.0e+00", fixed = TRUE)
 
 
     expect_output(print(interpret(0, r1)), '"a"')
