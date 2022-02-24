@@ -179,8 +179,7 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   pars <- parameters::model_parameters(model, ci = ci, standardize = NULL, effects = "fixed", ...)
 
   # should post hoc exponentiate?
-  dots <- list(...)
-  exponentiate <- "exponentiate" %in% names(dots) && dots$exponentiate
+  exponentiate <- isTRUE(match.call()[["exponentiate"]])
   coefficient_name <- attr(pars, "coefficient_name")
 
   if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
