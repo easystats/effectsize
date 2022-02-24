@@ -85,7 +85,7 @@ cles <- function(x,
     return(effectsize(x, type = "cles", ci = ci, verbose = verbose, ...))
   }
 
-  data <- .get_data_2_samples(x, y = y, data = data, verbose = verbose)
+  data <- .get_data_2_samples(x, y, data, verbose, ...)
   x <- na.omit(data[["x"]])
   y <- na.omit(data[["y"]])
 
