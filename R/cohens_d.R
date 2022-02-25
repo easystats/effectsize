@@ -138,9 +138,8 @@ cohens_d <- function(x,
                      alternative = "two.sided",
                      verbose = TRUE,
                      ...) {
-  if (!is.null(var.equal <- match.call()[["var.equal"]])) {
-    pooled_sd <- eval(var.equal)
-  }
+  var.equal <- eval(match.call()[["var.equal"]], envir = parent.frame())
+  if (!is.null(var.equal)) pooled_sd <- var.equal
 
   .effect_size_difference(
     x,
@@ -169,9 +168,8 @@ hedges_g <- function(x,
                      alternative = "two.sided",
                      verbose = TRUE,
                      ...) {
-  if (!is.null(var.equal <- match.call()[["var.equal"]])) {
-    pooled_sd <- eval(var.equal)
-  }
+  var.equal <- eval(match.call()[["var.equal"]], envir = parent.frame())
+  if (!is.null(var.equal)) pooled_sd <- var.equal
 
   .effect_size_difference(
     x,
