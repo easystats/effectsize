@@ -105,7 +105,7 @@
 
 #' @keywords internal
 #' @importFrom stats reshape
-.get_data_nested_groups <- function(x, groups, blocks, data = NULL, ...) {
+.get_data_nested_groups <- function(x, groups, blocks, data = NULL, wide = TRUE, ...) {
 
   if (inherits(x, "formula")) {
     if ((length(x) != 3L) ||
@@ -151,15 +151,18 @@
 
   data <- data.frame(x, groups, blocks, stringsAsFactors = FALSE)
 
-  data <- stats::reshape(
-    data,
-    direction = "wide",
-    v.names = "x",
-    timevar = "groups",
-    idvar = "blocks"
-  )
+  if (wide) {
+    data <- stats::reshape(
+      data,
+      direction = "wide",
+      v.names = "x",
+      timevar = "groups",
+      idvar = "blocks"
+    )
 
-  as.matrix(data[, -1])
+    data <- as.matrix(data[, -1])
+  }
+  data
 }
 
 
