@@ -1,7 +1,5 @@
 
 #' @keywords internal
-#' @importFrom stats terms
-#' @importFrom stats delete.response
 .get_data_2_samples <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
 
   # Sanity checks
@@ -19,7 +17,7 @@
       stop("Formula must be two sided.", call. = FALSE)
     }
 
-    mf <- stats::model.frame(formula = x, data = data, ...)
+    mf <- .resolve_formula(x, data, ...)
 
     x <- mf[[1]]
     if (ncol(mf) == 1) {
@@ -88,10 +86,9 @@
 
 
 #' @keywords internal
-#' @importFrom stats model.frame
-.get_data_multi_group <- function(x, groups, data, ...) {
+.get_data_multi_group <- function(x, groups, data = NULL, ...) {
   if (inherits(frm <- x, "formula")) {
-    mf <- stats::model.frame(formula = frm, data = data, ...)
+    mf <- .resolve_formula(x, data, ...)
 
     if (length(frm) != 3 | ncol(mf) != 2) {
       stop("Formula must have the form of 'outcome ~ group'.", call. = FALSE)
@@ -113,7 +110,7 @@
 }
 
 #' @keywords internal
-#' @importFrom stats model.frame reshape
+#' @importFrom stats reshape
 .get_data_nested_groups <- function(x, groups, blocks, data = NULL, ...) {
   if (inherits(frm <- x, "formula")) {
     if ((length(frm) != 3L) ||
@@ -124,7 +121,7 @@
 
     frm[[3L]][[1L]] <- as.name("+")
 
-    mf <- stats::model.frame(formula = frm, data = data, ...)
+    mf <- .resolve_formula(x, data, ...)
 
     if (ncol(mf) != 3) {
       stop("Formula must have only two terms on the RHS.", call. = FALSE)
@@ -168,3 +165,15 @@
 
   as.matrix(data[, -1])
 }
+
+
+#' @keywords internal
+#' @importFrom stats model.frame
+.resolve_formula <- function(formula, data, subset, na.action, ...) {
+  cl <- match.call(expand.dots = FALSE)
+  cl[[1L]] <- quote(stats::model.frame)
+  cl$... <- NULL
+  eval(cl, envir = parent.frame())
+}
+
+
