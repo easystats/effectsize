@@ -547,6 +547,7 @@ kendalls_w <- function(x,
 #   out
 # }
 
+#' @importFrom utils tail
 #' @keywords internal
 .repsilon_ci <- function(data, ci, alternative, iterations) {
   stopifnot(length(ci) == 1, ci < 1, ci > 0)
@@ -577,6 +578,7 @@ kendalls_w <- function(x,
   )
 }
 
+#' @importFrom utils tail
 #' @keywords internal
 .kendalls_w_ci <- function(data, ci, alternative, iterations) {
   stopifnot(length(ci) == 1, ci < 1, ci > 0)

@@ -160,6 +160,7 @@ standardize_parameters <- function(model, method = "refit", ci = 0.95, robust = 
 
 #' @importFrom parameters model_parameters
 #' @importFrom insight model_info
+#' @importFrom utils utils
 #' @export
 standardize_parameters.default <- function(model, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, include_response = TRUE, verbose = TRUE, ...) {
   object_name <- deparse(substitute(model), width.cutoff = 500)

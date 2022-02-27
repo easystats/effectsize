@@ -147,6 +147,7 @@ p_overlap <- function(...) {
 
 # Utils -------------------------------------------------------------------
 
+#' @importFrom utils tail
 #' @keywords internal
 .np_U3_OVL <- function(x, y, ci = 0.95, alternative = "two.sided", iterations) {
   .get_np_U3_OVL <- function(data, i = seq_len(nrow(data))) {
