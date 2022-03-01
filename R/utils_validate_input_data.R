@@ -6,19 +6,22 @@
   if (inherits(x, "formula")) {
     # Validate:
     if (length(x) != 3L) {
-      stop("Formula must be two sided.", call. = FALSE)
+      stop("Formula must have one of the following forms:",
+           "\n\ty ~ group,\n\ty ~ 1,\n\tPair(x,y) ~ 1", call. = FALSE)
     }
 
     # Pull columns
     mf <- .resolve_formula(x, data, ...)
+
+    if (ncol(mf) > 2L) {
+      stop("Formula must have only one term on the RHS.", call. = FALSE)
+    }
 
     x <- mf[[1]]
     y <- NULL
     if (ncol(mf) == 2L) {
       y <- mf[[2]]
       if (!is.factor(y)) y <- factor(y)
-    } else {
-      stop("Formula must have only one term on the RHS.", call. = FALSE)
     }
   } else {
     # Test if they are they are column names
@@ -67,11 +70,15 @@
 #' @keywords internal
 .get_data_multi_group <- function(x, groups, data = NULL, ...) {
 
-  if (inherits(frm <- x, "formula")) {
+  if (inherits(x, "formula")) {
+    if (length(x) != 3) {
+      stop("Formula must have the form of 'outcome ~ group'.", call. = FALSE)
+    }
+
     mf <- .resolve_formula(x, data, ...)
 
-    if (length(frm) != 3 | ncol(mf) != 2) {
-      stop("Formula must have the form of 'outcome ~ group'.", call. = FALSE)
+    if (ncol(mf) != 2L) {
+      stop("Formula must have only one term on the RHS.", call. = FALSE)
     }
 
     x <- mf[[1]]
@@ -105,64 +112,60 @@
 
 #' @keywords internal
 #' @importFrom stats reshape
-.get_data_nested_groups <- function(x, groups, blocks, data = NULL, wide = TRUE, ...) {
+.get_data_nested_groups <- function(x, groups = NULL, blocks = NULL, data = NULL, wide = TRUE, ...) {
 
   if (inherits(x, "formula")) {
-    if ((length(x) != 3L) ||
-        (length(x[[3L]]) != 3L) ||
-        (x[[3L]][[1L]] != as.name("|"))) {
+    if (length(x) != 3L ||
+        x[[3L]][[1L]] != as.name("|")) {
       stop("Formula must have the 'x ~ groups | blocks'.", call. = FALSE)
     }
 
     x[[3L]][[1L]] <- as.name("+")
 
-    mf <- .resolve_formula(x, data, ...)
+    x <- .resolve_formula(x, data, ...)
 
-    if (ncol(mf) != 3) {
-      stop("Formula must have only two terms on the RHS.", call. = FALSE)
+    if (ncol(x) != 3L) {
+      stop("Formula must have only two term on the RHS.", call. = FALSE)
     }
-
-    x <- mf[[1]]
-    groups <- mf[[2]]
-    blocks <- mf[[3]]
-  } else if (inherits(x, c("table", "matrix", "array", "data.frame"))) {
-    data <- data.frame(
-      x = c(x),
-      groups = rep(factor(seq_len(ncol(x))), each = nrow(x)),
-      blocks = rep(factor(seq_len(nrow(x))), ncol(x))
-    )
-
-    x <- data[[1]]
-    groups <- data[[2]]
-    blocks <- data[[3]]
-  } else {
-    # If they are column names
+  } else if (inherits(x, "data.frame")) {
+    x <- as.matrix(x)
+  } else if (!inherits(x, c("table", "matrix", "array"))) {
     x <- .resolve_char(x, data)
     groups <- .resolve_char(groups, data)
     blocks <- .resolve_char(blocks, data)
+
+    if (length(x) != length(groups) || length(x) != length(blocks)) {
+      stop("x, groups and blocks must be of the same length.", call. = FALSE)
+    }
+
+    x <- data.frame(x, groups, blocks)
   }
 
-  if (length(x) != length(groups) || length(x) != length(blocks)) {
-    stop("x, groups and blocks must be of the same length.", call. = FALSE)
+
+  if (inherits(x, c("matrix", "array"))) {
+    x <- as.table(x)
   }
 
-  if (!is.factor(groups)) groups <- factor(groups)
-  if (!is.factor(blocks)) blocks <- factor(blocks)
+  if (inherits(x, c("table"))) {
+    x <- as.data.frame(x)[,c(3, 2, 1)]
+  }
 
-  data <- data.frame(x, groups, blocks, stringsAsFactors = FALSE)
+  colnames(x) <- c("x", "groups", "blocks")
 
+  if (!is.numeric(x$x)) {
+    stop("Cannot compute effect size for a non-numeric vector.", call. = FALSE)
+  }
+  if (!is.factor(x$groups)) x$groups <- factor(x$groups)
+  if (!is.factor(x$blocks)) x$blocks <- factor(x$blocks)
+
+  # By this point, the data is in long format
   if (wide) {
-    data <- stats::reshape(
-      data,
-      direction = "wide",
-      v.names = "x",
-      timevar = "groups",
-      idvar = "blocks"
-    )
-
-    data <- as.matrix(data[, -1])
+    x <- datawizard::data_to_wide(x,
+                                  values_from = "x",
+                                  colnames_from = "groups")
+    x <- x[,-1]
   }
-  data
+  x
 }
 
 
@@ -187,7 +190,7 @@
     if (is.null(data)) {
       stop("Please provide data argument.", call. = FALSE)
     } else if (!nm %in% names(data)) {
-      stop("Column ", x, " missing from data.", call. = FALSE)
+      stop("Column ", nm, " missing from data.", call. = FALSE)
     }
 
     return(data[[nm]])

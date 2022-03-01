@@ -99,7 +99,7 @@ if (require("testthat") && require("effectsize")) {
   })
 
   test_that("hedges_g (and other bias correction things", {
-    x <- hedges_g(wt ~ am, data = mtcars, poop = 1)
+    x <- hedges_g(wt ~ am, data = mtcars)
     expect_equal(colnames(x)[1], "Hedges_g")
     expect_equal(x[[1]], 1.844, tolerance = 0.001)
     expect_equal(x$CI_low, 1.004, tolerance = 0.001)
