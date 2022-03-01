@@ -174,7 +174,9 @@
 #' @importFrom stats model.frame
 .resolve_formula <- function(formula, data, subset, na.action, ...) {
   cl <- match.call(expand.dots = FALSE)
-  cl[[1L]] <- quote(stats::model.frame)
+  cl[[1]] <- quote(stats::model.frame)
+  if ("subset" %in% names(cl))
+    cl$subset <- substitute(subset)
   cl$... <- NULL
   eval(cl, envir = parent.frame())
 }
