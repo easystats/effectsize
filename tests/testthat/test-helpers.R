@@ -9,6 +9,28 @@ if (require("testthat") && require("effectsize")) {
     expect_error(cohens_d(mpg ~ cyl, data = mtcars))
     expect_error(cohens_d(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)), regexp = NA)
 
+    d1 <- cohens_d(mpg ~ cyl, data = mtcars,
+                   subset = cyl < 8)
+
+    x <- mtcars$cyl < 8
+    d2 <- cohens_d(mpg ~ cyl, data = mtcars,
+                   subset = x)
+
+    x <- mtcars$cyl
+    d3 <- cohens_d(mpg ~ cyl, data = mtcars,
+                   subset = x < 8)
+
+    d4 <- cohens_d(mpg ~ cyl, data = mtcars,
+                   subset =
+                     c(TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE,
+                       TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE,
+                       TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE,
+                       FALSE, TRUE))
+
+    expect_equal(d1, d2)
+    expect_equal(d1, d3)
+    expect_equal(d1, d4)
+
     expect_error(rank_biserial(mpg ~ cyl, data = mtcars))
     expect_error(rank_biserial(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)), regexp = NA)
 
