@@ -85,7 +85,7 @@ cles <- function(x,
     return(effectsize(x, type = "cles", ci = ci, verbose = verbose, ...))
   }
 
-  data <- .get_data_2_samples(x, y = y, data = data, verbose = verbose)
+  data <- .get_data_2_samples(x, y, data, verbose, ...)
   x <- na.omit(data[["x"]])
   y <- na.omit(data[["y"]])
 
@@ -147,6 +147,7 @@ p_overlap <- function(...) {
 
 # Utils -------------------------------------------------------------------
 
+#' @importFrom utils tail
 #' @keywords internal
 .np_U3_OVL <- function(x, y, ci = 0.95, alternative = "two.sided", iterations) {
   .get_np_U3_OVL <- function(data, i = seq_len(nrow(data))) {

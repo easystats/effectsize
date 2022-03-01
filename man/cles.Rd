@@ -66,7 +66,8 @@ non-parametric estimation (see \code{\link[=rank_biserial]{rank_biserial()}}).}
 \item{iterations}{The number of bootstrap replicates for computing confidence
 intervals. Only applies when \code{ci} is not \code{NULL} and \code{parametric = FALSE}.}
 
-\item{...}{Arguments passed to or from other methods.}
+\item{...}{Arguments passed to or from other methods. When \code{x} is a formula,
+these can be \code{subset} and \code{na.action}.}
 }
 \value{
 A data frame containing the common language effect sizes (and

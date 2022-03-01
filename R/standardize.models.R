@@ -73,9 +73,8 @@ standardize.default <- function(x,
                                 verbose = TRUE,
                                 include_response = TRUE,
                                 ...) {
-  if (is.null(m_info <- list(...)[["m_info"]])){
-    m_info <- insight::model_info(x)
-  }
+  m_info <- eval(match.call()[["m_info"]], envir = parent.frame())
+  if (is.null(m_info)) m_info <- insight::model_info(x)
 
   data <- insight::get_data(x)
 

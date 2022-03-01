@@ -58,27 +58,18 @@ if (require("testthat") && require("effectsize")) {
   test_that("kendalls_w", {
     skip_if_not_installed("boot")
     skip_if_not_installed("base", minimum_version = "3.6.0")
-    M1 <- structure(
-      c(5.4, 5.85, 5.2, 5.5, 5.7, 5.6, 5.55, 5.75, 5.5),
-      .Dim = c(3L, 3L),
-      .Dimnames = list(
-        c("1", "2", "3"),
-        c("Round Out", "Narrow Angle", "Wide Angle")
-      )
-    )
+    M1 <- cbind("Round Out" = c(5.4, 5.85, 5.2),
+                "Narrow Angle" = c(5.5, 5.7, 5.6),
+                "Wide Angle" = c(5.55, 5.75, 5.5))
 
-    M2 <- structure(
-      list(
-        id = c(1L, 1L, 1L, 2L, 2L, 2L, 3L, 3L, 3L),
-        name = c(
-          "Round Out", "Narrow Angle", "Wide Angle",
-          "Round Out", "Narrow Angle", "Wide Angle",
-          "Round Out", "Narrow Angle", "Wide Angle"
-        ),
-        value = c(5.4, 5.5, 5.55, 5.85, 5.7, 5.75, 5.2, 5.6, 5.5)
+    M2 <- data.frame(
+      id = c(1L, 1L, 1L, 2L, 2L, 2L, 3L, 3L, 3L),
+      name = c(
+        "Round Out", "Narrow Angle", "Wide Angle",
+        "Round Out", "Narrow Angle", "Wide Angle",
+        "Round Out", "Narrow Angle", "Wide Angle"
       ),
-      row.names = c(NA, -9L),
-      class = c("tbl_df", "tbl", "data.frame")
+      value = c(5.4, 5.5, 5.55, 5.85, 5.7, 5.75, 5.2, 5.6, 5.5)
     )
 
     set.seed(1)

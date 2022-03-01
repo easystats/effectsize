@@ -123,8 +123,8 @@ if (require("testthat") && require("effectsize")) {
       )
     )
 
-    a1 <- eta_squared(model2, partial = F)
-    a2 <- eta_squared(model$aov, partial = F)
+    a1 <- eta_squared(model2, partial = FALSE)
+    a2 <- eta_squared(model$aov, partial = FALSE)
 
     rownames(a1) <- a1$Parameter
     rownames(a2) <- a2$Parameter

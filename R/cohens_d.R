@@ -25,7 +25,8 @@
 #' @param paired If `TRUE`, the values of `x` and `y` are considered as paired.
 #'   This produces an effect size that is equivalent to the one-sample effect
 #'   size on `x - y`.
-#' @param iterations,correction deprecated.
+#' @param ... Arguments passed to or from other methods. When `x` is a formula,
+#'   these can be `subset` and `na.action`.
 #' @inheritParams chisq_to_phi
 #' @inheritParams eta_squared
 #' @inheritParams stats::t.test
@@ -137,6 +138,9 @@ cohens_d <- function(x,
                      alternative = "two.sided",
                      verbose = TRUE,
                      ...) {
+  var.equal <- eval(match.call()[["var.equal"]], envir = parent.frame())
+  if (!is.null(var.equal)) pooled_sd <- var.equal
+
   .effect_size_difference(
     x,
     y = y,
@@ -163,13 +167,9 @@ hedges_g <- function(x,
                      ci = 0.95,
                      alternative = "two.sided",
                      verbose = TRUE,
-                     ...,
-                     correction) {
-  if (!missing(correction)) {
-    warning("`correction` argument is deprecated. *Exact* bias correction method is used.",
-            call. = FALSE, immediate. = TRUE
-    )
-  }
+                     ...) {
+  var.equal <- eval(match.call()[["var.equal"]], envir = parent.frame())
+  if (!is.null(var.equal)) pooled_sd <- var.equal
 
   .effect_size_difference(
     x,
@@ -195,13 +195,7 @@ glass_delta <- function(x,
                         ci = 0.95,
                         alternative = "two.sided",
                         verbose = TRUE,
-                        ...,
-                        iterations) {
-  if (!missing(iterations)) {
-    warning("`iterations` argument is deprecated. Parametric CIs are estimated.",
-      call. = FALSE, immediate. = TRUE
-    )
-  }
+                        ...) {
 
   .effect_size_difference(
     x,
@@ -247,7 +241,7 @@ glass_delta <- function(x,
 
 
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
-  out <- .get_data_2_samples(x, y, data, verbose)
+  out <- .get_data_2_samples(x, y, data, verbose, ...)
   x <- out$x
   y <- out$y
 

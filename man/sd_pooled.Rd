@@ -5,9 +5,9 @@
 \alias{mad_pooled}
 \title{Pooled Standard Deviation}
 \usage{
-sd_pooled(x, y = NULL, data = NULL, verbose = TRUE)
+sd_pooled(x, y = NULL, data = NULL, verbose = TRUE, ...)
 
-mad_pooled(x, y = NULL, data = NULL, constant = 1.4826, verbose = TRUE)
+mad_pooled(x, y = NULL, data = NULL, constant = 1.4826, verbose = TRUE, ...)
 }
 \arguments{
 \item{x}{A formula, a numeric vector, or a character name of one in \code{data}.}
@@ -18,6 +18,9 @@ character  name of one in \code{data}. Ignored if \code{x} is a formula.}
 \item{data}{An optional data frame containing the variables.}
 
 \item{verbose}{Toggle warnings and messages on or off.}
+
+\item{...}{Arguments passed to or from other methods. When \code{x} is a formula,
+these can be \code{subset} and \code{na.action}.}
 
 \item{constant}{scale factor.}
 }

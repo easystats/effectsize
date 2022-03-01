@@ -183,7 +183,7 @@ rank_biserial <- function(x,
   }
 
   ## Prep data
-  out <- .get_data_2_samples(x, y, data)
+  out <- .get_data_2_samples(x, y, data, verbose, ...)
   x <- out$x
   y <- out$y
 
@@ -326,7 +326,7 @@ rank_epsilon_squared <- function(x,
   }
 
   ## pep data
-  data <- .get_data_multi_group(x, groups, data)
+  data <- .get_data_multi_group(x, groups, data, ...)
   data <- stats::na.omit(data)
 
   ## compute
@@ -375,7 +375,7 @@ kendalls_w <- function(x,
   }
 
   ## prep data
-  data <- .get_data_nested_groups(x, groups, blocks, data)
+  data <- .get_data_nested_groups(x, groups, blocks, data, ...)
   data <- stats::na.omit(data)
 
   ## compute
@@ -547,6 +547,7 @@ kendalls_w <- function(x,
 #   out
 # }
 
+#' @importFrom utils tail
 #' @keywords internal
 .repsilon_ci <- function(data, ci, alternative, iterations) {
   stopifnot(length(ci) == 1, ci < 1, ci > 0)
@@ -577,6 +578,7 @@ kendalls_w <- function(x,
   )
 }
 
+#' @importFrom utils tail
 #' @keywords internal
 .kendalls_w_ci <- function(data, ci, alternative, iterations) {
   stopifnot(length(ci) == 1, ci < 1, ci > 0)

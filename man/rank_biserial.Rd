@@ -89,7 +89,8 @@ size on \code{x - y}.}
 
 \item{verbose}{Toggle warnings and messages on or off.}
 
-\item{...}{Arguments passed to or from other methods.}
+\item{...}{Arguments passed to or from other methods. When \code{x} is a formula,
+these can be \code{subset} and \code{na.action}.}
 
 \item{iterations}{The number of bootstrap replicates for computing confidence
 intervals. Only applies when \code{ci} is not \code{NULL}. (Deprecated for

@@ -21,7 +21,7 @@
 #' @seealso [cohens_d()]
 #'
 #' @export
-sd_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE) {
+sd_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
 
   # This actually works, you must see if you want to keep this code. If you do,
   # following will work:
@@ -43,15 +43,15 @@ sd_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE) {
   # else
   #   y <- y1
 
-  .sd_pooled(x, y, data, robust = FALSE, verbose = verbose)
+  .sd_pooled(x, y, data, robust = FALSE, verbose = verbose, ...)
 }
 
 
 
 #' @rdname sd_pooled
 #' @export
-mad_pooled <- function(x, y = NULL, data = NULL, constant = 1.4826, verbose = TRUE) {
-  .sd_pooled(x, y, data, robust = TRUE, verbose = verbose, constant = constant)
+mad_pooled <- function(x, y = NULL, data = NULL, constant = 1.4826, verbose = TRUE, ...) {
+  .sd_pooled(x, y, data, robust = TRUE, verbose = verbose, constant = constant, ...)
 }
 
 
@@ -62,14 +62,14 @@ mad_pooled <- function(x, y = NULL, data = NULL, constant = 1.4826, verbose = TR
 
 
 #' @importFrom stats mad sd as.formula ave
-.sd_pooled <- function(x, y = NULL, data = NULL, robust = FALSE, verbose = TRUE, constant = 1) {
+.sd_pooled <- function(x, y = NULL, data = NULL, robust = FALSE, verbose = TRUE, constant = 1, ...) {
 
   # Activate here for evaluation of arguments...
 
   # eval_args <- .evaluate_arguments(x, y, data)
-  # out <- .get_data_2_samples(eval_args$x, eval_args$y, eval_args$data)
+  # out <- .get_data_2_samples(eval_args$x, eval_args$y, eval_args$data, verbose, ...)
 
-  out <- .get_data_2_samples(x, y, data, verbose)
+  out <- .get_data_2_samples(x, y, data, verbose, ...)
   x <- na.omit(out$x)
   y <- na.omit(out$y)
 

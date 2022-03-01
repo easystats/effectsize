@@ -160,6 +160,7 @@ standardize_parameters <- function(model, method = "refit", ci = 0.95, robust = 
 
 #' @importFrom parameters model_parameters
 #' @importFrom insight model_info
+#' @importFrom utils head
 #' @export
 standardize_parameters.default <- function(model, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, include_response = TRUE, verbose = TRUE, ...) {
   object_name <- deparse(substitute(model), width.cutoff = 500)
@@ -179,8 +180,7 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   pars <- parameters::model_parameters(model, ci = ci, standardize = NULL, effects = "fixed", ...)
 
   # should post hoc exponentiate?
-  dots <- list(...)
-  exponentiate <- "exponentiate" %in% names(dots) && dots$exponentiate
+  exponentiate <- isTRUE(eval(match.call()[["exponentiate"]], envir = parent.frame()))
   coefficient_name <- attr(pars, "coefficient_name")
 
   if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
