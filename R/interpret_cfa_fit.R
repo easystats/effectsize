@@ -260,7 +260,8 @@ interpret.performance_lavaan <- function(x, ...) {
       Name = ind_name,
       Value = x[[ind_name]],
       Threshold = rules$values,
-      Interpretation = interp
+      Interpretation = interp,
+      stringsAsFactors = FALSE
     )
   })
 
