@@ -5,7 +5,8 @@ if (require("testthat") && require("effectsize")) {
     x <<- 1:10
     y <<- c(1, 1:9)
     model <- t.test(x, y)
-    expect_equal(effectsize(model), cohens_d(x, y, pooled_sd = FALSE), ignore_attr = TRUE)
+    expect_equal(effectsize(model), d <- cohens_d(x, y, pooled_sd = FALSE), ignore_attr = TRUE)
+    expect_equal(cohens_d(model), d, ignore_attr = TRUE)
     expect_equal(effectsize(model, type = "g"), hedges_g(x, y, pooled_sd = FALSE), ignore_attr = TRUE)
 
     model <- t.test(x, y, alternative = "less", conf.level = 0.8)
@@ -55,26 +56,28 @@ if (require("testthat") && require("effectsize")) {
     )
 
     # types
-    expect_equal(
-      effectsize(Xsq1, type = "phi"),
-      phi(contingency_table)
-    )
-    expect_equal(
-      effectsize(Xsq1, type = "w"),
-      cohens_w(contingency_table)
-    )
+    expect_equal(effectsize(Xsq1, type = "phi"), phi <- phi(contingency_table))
+    expect_equal(phi(Xsq1), phi)
+
+    expect_equal(effectsize(Xsq1, type = "w"), w <- cohens_w(contingency_table))
+    expect_equal(cohens_w(Xsq1), w)
 
     expect_error(effectsize(Xsq1, type = "riskratio"))
+    expect_error(riskratio(Xsq1))
+
     contingency_table22 <- contingency_table[1:2, 1:2]
     Xsq4 <- chisq.test(contingency_table22)
-    expect_equal(
-      effectsize(Xsq4, type = "oddsratio"),
-      oddsratio(contingency_table22)
-    )
-    expect_equal(
-      effectsize(Xsq4, type = "riskratio"),
-      riskratio(contingency_table22)
-    )
+    expect_equal(effectsize(Xsq4, type = "oddsratio"), or <- oddsratio(contingency_table22))
+    expect_equal(oddsratio(Xsq4), or)
+
+    expect_equal(effectsize(Xsq4, type = "riskratio"), rr <- riskratio(contingency_table22))
+    expect_equal(riskratio(Xsq4), rr)
+
+    expect_equal(effectsize(Xsq4, type = "pearsons_c"), pc <- pearsons_c(contingency_table22))
+    expect_equal(pearsons_c(Xsq4), pc)
+
+    expect_equal(effectsize(Xsq4, type = "h"), h <- cohens_h(contingency_table22))
+    expect_equal(cohens_h(Xsq4), h)
 
     # goodness of fit
     observed.dfc <<- c(119, 61)
@@ -98,8 +101,9 @@ if (require("testthat") && require("effectsize")) {
     m <- aov(mpg ~ cyl, mtcars)
 
     expect_equal(eta_squared(m, partial = FALSE)[, -1], effectsize(onew),
-      tolerance = 0.03, ignore_attr = TRUE
-    )
+      tolerance = 0.03, ignore_attr = TRUE)
+    expect_equal(eta_squared(m, partial = FALSE)[, -1], eta_squared(onew),
+                 tolerance = 0.03, ignore_attr = TRUE)
     expect_equal(omega_squared(m, partial = FALSE)[, -1], effectsize(onew, type = "omega"),
       tolerance = 0.03, ignore_attr = TRUE
     )
@@ -115,64 +119,55 @@ if (require("testthat") && require("effectsize")) {
     )
 
     model <- mcnemar.test(Performance)
-    expect_equal(effectsize(model), cohens_g(Performance), ignore_attr = TRUE)
+    expect_equal(effectsize(model), g <- cohens_g(Performance), ignore_attr = TRUE)
+    expect_equal(cohens_g(model), g, ignore_attr = TRUE)
 
     model <- mcnemar.test(mtcars$cyl, mtcars$gear)
     expect_equal(effectsize(model), cohens_g(mtcars$cyl, mtcars$gear), ignore_attr = TRUE)
   })
 
-  test_that("htest | wrappers", {
-    x <<- 1:10
-    y <<- c(1, 1:9)
-    Ts <- t.test(x, y)
-    expect_equal(cohens_d(Ts), cohens_d(x, y, pooled_sd = FALSE),
-      ignore_attr = TRUE, tolerance = 0.01
-    )
-    expect_equal(hedges_g(Ts), hedges_g(x, y, pooled_sd = FALSE),
-      ignore_attr = TRUE, tolerance = 0.01
-    )
+  test_that("htest | rank", {
+    ww <- wilcox.test(mtcars$hp, mtcars$mpg)
+    expect_equal(effectsize(ww), rbs <- rank_biserial(mtcars$hp, mtcars$mpg), ignore_attr = TRUE)
+    expect_equal(rank_biserial(ww), rbs, ignore_attr = TRUE)
 
-    M <<- as.table(rbind(c(762, 327, 468), c(484, 239, 477)))
-    Xsq <- chisq.test(M)
-    expect_equal(phi(Xsq), phi(M), tolerance = 0.01)
-    expect_equal(cramers_v(Xsq), cramers_v(M), tolerance = 0.01)
+    RoundingTimes <-
+      matrix(c(5.40, 5.50, 5.55,
+               5.85, 5.70, 5.75,
+               5.20, 5.60, 5.50,
+               5.55, 5.50, 5.40,
+               5.90, 5.85, 5.70,
+               5.45, 5.55, 5.60,
+               5.40, 5.40, 5.35,
+               5.45, 5.50, 5.35,
+               5.25, 5.15, 5.00,
+               5.85, 5.80, 5.70,
+               5.25, 5.20, 5.10,
+               5.65, 5.55, 5.45,
+               5.60, 5.35, 5.45,
+               5.05, 5.00, 4.95,
+               5.50, 5.50, 5.40,
+               5.45, 5.55, 5.50,
+               5.55, 5.55, 5.35,
+               5.45, 5.50, 5.55,
+               5.50, 5.45, 5.25,
+               5.65, 5.60, 5.40,
+               5.70, 5.65, 5.55,
+               6.30, 6.30, 6.25),
+             nrow = 22,
+             byrow = TRUE,
+             dimnames = list(1 : 22,
+                             c("Round Out", "Narrow Angle", "Wide Angle")))
+    ft <- friedman.test(RoundingTimes)
+    expect_equal(effectsize(ft)[[1]], W <- kendalls_w(RoundingTimes)[[1]], ignore_attr = TRUE)
+    expect_equal(kendalls_w(ft)[[1]], W, ignore_attr = TRUE)
 
-    M <<- as.table(rbind(c(762, 327), c(484, 239)))
-    Xsq <- chisq.test(M)
-    expect_equal(oddsratio(Xsq), oddsratio(M), tolerance = 0.01)
-    expect_equal(riskratio(Xsq), riskratio(M), tolerance = 0.01)
-
-
-    OWA <- oneway.test(mpg ~ factor(cyl), data = mtcars, var.equal = TRUE)
-    m <- lm(mpg ~ factor(cyl), data = mtcars)
-    expect_equal(eta_squared(OWA), eta_squared(m, verbose = FALSE)[, -1],
-      ignore_attr = TRUE, tolerance = 0.01
-    )
-    expect_equal(omega_squared(OWA), omega_squared(m, verbose = FALSE)[, -1],
-      ignore_attr = TRUE, tolerance = 0.01
-    )
-    expect_equal(epsilon_squared(OWA), epsilon_squared(m, verbose = FALSE)[, -1],
-      ignore_attr = TRUE, tolerance = 0.01
-    )
-    expect_equal(cohens_f(OWA), cohens_f(m, verbose = FALSE)[, -1],
-      ignore_attr = TRUE, tolerance = 0.01
-    )
-    expect_equal(cohens_f_squared(OWA), cohens_f_squared(m, verbose = FALSE)[, -1],
-      ignore_attr = TRUE, tolerance = 0.01
-    )
-
-    Performance <<- rbind(
-      c(794, 86),
-      c(150, 570)
-    )
-    Mc <- mcnemar.test(Performance)
-    expect_equal(cohens_g(Mc), cohens_g(Performance), tolerance = 0.01)
-
-    H <- effectsize(chisq.test(Performance), type = "h")
-    expect_equal(H, cohens_h(Performance), tolerance = 0.01)
-    expect_equal(H[[1]], 1.580585, tolerance = 0.01)
-    expect_equal(H$CI_low, 1.480959, tolerance = 0.01)
-    expect_equal(H$CI_high, 1.68021, tolerance = 0.01)
+    X <- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
+    Y <- c(3.8, 2.7, 4.0, 2.4)      # with obstructive airway disease
+    Z <- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
+    kt <- kruskal.test(list(X, Y, Z))
+    expect_equal(effectsize(kt)[[1]], E <- rank_epsilon_squared(list(x, y, z))[[1]], ignore_attr = TRUE)
+    expect_equal(rank_epsilon_squared(kt)[[1]], E, ignore_attr = TRUE)
   })
 
   test_that("htest | Get args from htest", {

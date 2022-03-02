@@ -259,10 +259,10 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   .fail_if_approx(approx, "rank_epsilon_squared")
 
 
-  if (inherits(data, "list")) {
-    out <- rank_epsilon_squared(data, ...)
-  } else { # data frame
+  if (inherits(data, "data.frame")) {
     out <- rank_epsilon_squared(data[[1]], data[[2]], ...)
+  } else { # data frame
+    out <- rank_epsilon_squared(data, ...)
   }
   out
 }
