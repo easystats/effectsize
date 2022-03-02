@@ -5,7 +5,11 @@ if (require("testthat") && require("effectsize")) {
     skip_if_not_installed("bayestestR")
     skip_if_not_installed("car")
 
-    fit_bayes <- rstanarm::stan_glm(mpg ~ factor(cyl) * wt + qsec,
+    set.seed(444)
+    data("mtcars")
+    mtcars$cyl <- factor(mtcars$cyl)
+
+    fit_bayes <- rstanarm::stan_glm(mpg ~ cyl * wt + qsec,
       data = mtcars,
       family = gaussian(),
       refresh = 0
@@ -13,22 +17,12 @@ if (require("testthat") && require("effectsize")) {
 
 
     # PARTIAL, type = 3 -------------------------------------------------------
-    es_tab <- eta_squared(
-      car::Anova(
-        lm(mpg ~ factor(cyl) * wt + qsec,
-          data = mtcars
-        ),
-        type = 3
-      ),
-      partial = TRUE
-    )
+    mod <- lm(mpg ~ cyl * wt + qsec, data = mtcars)
+    a <- car::Anova(mod, type = 3)
+    es_tab <- eta_squared(a, partial = TRUE)
 
-    expect_warning(
-      es_post <- eta_squared_posterior(fit_bayes,
-        ss_function = car::Anova, type = 3
-      ),
-      regexp = "bogus"
-    )
+    es_post <- eta_squared_posterior(fit_bayes,
+                                     ss_function = car::Anova, type = 3)
     expect_equal(colnames(es_post), es_tab$Parameter)
 
     # this is a very soft test...
@@ -38,23 +32,11 @@ if (require("testthat") && require("effectsize")) {
 
 
     # non-PARTIAL, type = 3 ---------------------------------------------------
-    es_tab <- eta_squared(
-      car::Anova(
-        lm(mpg ~ factor(cyl) * wt + qsec,
-          data = mtcars
-        ),
-        type = 3
-      ),
-      partial = FALSE
-    )
+    es_tab <- eta_squared(a, partial = FALSE)
 
-    expect_warning(
-      es_post <- eta_squared_posterior(fit_bayes,
-        partial = FALSE,
-        ss_function = car::Anova, type = 3
-      ),
-      regexp = "bogus"
-    )
+    es_post <- eta_squared_posterior(fit_bayes,
+                                     partial = FALSE,
+                                     ss_function = car::Anova, type = 3)
     expect_equal(colnames(es_post), es_tab$Parameter)
 
     # this is a very soft test...
