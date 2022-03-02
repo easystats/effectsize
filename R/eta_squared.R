@@ -893,6 +893,10 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     return(res)
   }
 
+  if (!any(F.nm %in% colnames(model)) || !any(df.nm %in% colnames(model))) {
+    stop(insight::format_message("ANOVA table does not have F values or degrees of freedom - cannot compute effect size."))
+  }
+
   # Clean up table ---
   par_table <- data.frame(
     Parameter = rownames(model),
