@@ -105,7 +105,7 @@ if (require("testthat") && require("effectsize")) {
     df <- iris
     df$Sepal.Big <- ifelse(df$Sepal.Width >= 3, "Yes", "No")
 
-    model <- aov(Sepal.Length ~ Sepal.Big + Error(Species), data = df)
+    model <<- aov(Sepal.Length ~ Sepal.Big + Error(Species), data = df)
 
     res <- eta_squared(model, partial = TRUE)
     expect_true(all(c("Group", "Parameter") %in% colnames(res)))
