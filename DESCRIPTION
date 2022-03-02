@@ -59,7 +59,7 @@ Imports:
     bayestestR (>= 0.11.5),
     insight (>= 0.16.0.1),
     parameters (>= 0.16.0),
-    performance (>= 0.8.0),
+    performance (>= 0.8.0.1),
     datawizard (>= 0.2.3),
     stats,
     utils
@@ -91,7 +91,8 @@ Suggests:
     testthat,
     tidymodels
 Remotes:
-    easystats/insight
+    easystats/insight,
+    easystats/performance
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
