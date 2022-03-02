@@ -14,6 +14,17 @@ if (require("testthat") && require("effectsize")) {
     expect_error(standardize_parameters(model, robust = TRUE), NA)
   })
 
+  # Robust ------------------------------------------------------------------
+  test_that("Robust post hoc", {
+    model <- lm(mpg ~ hp, weights = gear, data = mtcars)
+    expect_error(standardize_parameters(model, method = "basic", robust = TRUE), NA)
+    expect_error(standardize_parameters(model, method = "basic", robust = TRUE, two_sd = TRUE), NA)
+
+    model <- lm(mpg ~ hp, data = mtcars)
+    expect_error(standardize_parameters(model, method = "basic", robust = TRUE), NA)
+    expect_error(standardize_parameters(model, method = "basic", robust = TRUE, two_sd = TRUE), NA)
+  })
+
 
   # model_parameters -------------------------------
   test_that("standardize_parameters (model_parameters)", {
