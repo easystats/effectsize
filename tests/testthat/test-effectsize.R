@@ -127,7 +127,7 @@ if (require("testthat") && require("effectsize")) {
   })
 
   test_that("htest | rank", {
-    ww <- wilcox.test(mtcars$hp, mtcars$mpg)
+    suppressWarnings(ww <- wilcox.test(mtcars$hp, mtcars$mpg))
     expect_equal(effectsize(ww), rbs <- rank_biserial(mtcars$hp, mtcars$mpg), ignore_attr = TRUE)
     expect_equal(rank_biserial(ww), rbs, ignore_attr = TRUE)
 
@@ -162,11 +162,11 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(effectsize(ft)[[1]], W <- kendalls_w(RoundingTimes)[[1]], ignore_attr = TRUE)
     expect_equal(kendalls_w(ft)[[1]], W, ignore_attr = TRUE)
 
-    X <- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
-    Y <- c(3.8, 2.7, 4.0, 2.4)      # with obstructive airway disease
-    Z <- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
+    X <<- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
+    Y <<- c(3.8, 2.7, 4.0, 2.4)      # with obstructive airway disease
+    Z <<- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
     kt <- kruskal.test(list(X, Y, Z))
-    expect_equal(effectsize(kt)[[1]], E <- rank_epsilon_squared(list(x, y, z))[[1]], ignore_attr = TRUE)
+    expect_equal(effectsize(kt)[[1]], E <- rank_epsilon_squared(list(X, Y, Z))[[1]], ignore_attr = TRUE)
     expect_equal(rank_epsilon_squared(kt)[[1]], E, ignore_attr = TRUE)
   })
 
