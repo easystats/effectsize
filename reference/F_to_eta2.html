@@ -293,52 +293,28 @@ Psychological Methods, 9, 164-182.</p></li>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://afex.singmann.science/" class="external-link">"afex"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">md_12.1</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_ez</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"rt"</span>, <span class="va">md_12.1</span>,</span>
-<span class="r-in">    within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"angle"</span>, <span class="st">"noise"</span><span class="op">)</span>,</span>
-<span class="r-in">    anova_table <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>correction <span class="op">=</span> <span class="st">"none"</span>, es <span class="op">=</span> <span class="st">"pes"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: afex</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: lme4</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: Matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ************</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Welcome to afex. For support visit: http://afex.singmann.science/</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> - Functions for ANOVAs: aov_car(), aov_ez(), and aov_4()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> - Methods for calculating p-values with mixed(): 'S', 'KR', 'LRT', and 'PB'</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> - 'afex_aov' and 'mixed' objects can be passed to emmeans() for follow-up tests</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> - NEWS: emmeans() for ANOVA models now uses model = 'multivariate' as default.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> - Get and set global package options with: afex_options()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> - Set orthogonal sum-to-zero contrasts globally: set_sum_contrasts()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> - For example analyses see: browseVignettes("afex")</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ************</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘afex’</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:lme4’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     lmer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Anova Table (Type 3 tests)</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">am</span><span class="op">)</span>, <span class="va">mtcars</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Response: rt</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        Effect    df     MSE         F  pes p.value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       angle 2, 18 3560.00 40.72 *** .819   &lt;.001</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       noise  1, 9 8460.00 33.77 *** .790   &lt;.001</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 angle:noise 2, 18 1160.00 45.31 *** .834   &lt;.001</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Response: mpg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        Df Sum Sq Mean Sq F value    Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> factor(cyl)             2 824.78  412.39 44.8517 3.725e-09 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> factor(am)              1  36.77   36.77  3.9988   0.05608 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> factor(cyl):factor(am)  2  25.44   12.72  1.3832   0.26861    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals              26 239.06    9.19                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘+’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span class="co"># compare to:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span class="op">(</span><span class="va">etas</span> <span class="op">&lt;-</span> <span class="fu">F_to_eta2</span><span class="op">(</span></span>
-<span class="r-in">  f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">40.72</span>, <span class="fl">33.77</span>, <span class="fl">45.31</span><span class="op">)</span>,</span>
+<span class="r-in">  f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">44.85</span>, <span class="fl">3.99</span>, <span class="fl">1.38</span><span class="op">)</span>,</span>
 <span class="r-in">  df <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,</span>
-<span class="r-in">  df_error <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">9</span>, <span class="fl">18</span><span class="op">)</span></span>
+<span class="r-in">  df_error <span class="op">=</span> <span class="fl">26</span></span>
 <span class="r-in"><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eta2 (partial) |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.82           | [0.66, 1.00]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.79           | [0.49, 1.00]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.83           | [0.69, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.78           | [0.63, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.13           | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.10           | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"></span>
@@ -346,46 +322,61 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: see</span>
 <span class="r-plt img"><img src="F_to_eta2-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
+<span class="r-in"><span class="co"># Compare to:</span></span>
+<span class="r-in"><span class="fu"><a href="eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter              | Eta2 (partial) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> factor(cyl)            |           0.78 | [0.63, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> factor(am)             |           0.13 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> factor(cyl):factor(am) |           0.10 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/runehaubo/lmerTestR" class="external-link">"lmerTest"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span> <span class="co"># for the df_error</span></span>
-<span class="r-in">  <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lmerTest/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">ID</span><span class="op">)</span>, <span class="va">sleep</span><span class="op">)</span></span>
-<span class="r-in">  <span class="co"># anova(fit)</span></span>
-<span class="r-in">  <span class="co"># #&gt; Type III Analysis of Variance Table with Satterthwaite's method</span></span>
-<span class="r-in">  <span class="co"># #&gt;       Sum Sq Mean Sq NumDF DenDF F value   Pr(&gt;F)</span></span>
-<span class="r-in">  <span class="co"># #&gt; group 12.482  12.482     1     9  16.501 0.002833 **</span></span>
-<span class="r-in">  <span class="co"># #&gt; ---</span></span>
-<span class="r-in">  <span class="co"># #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span class="r-in"><span class="co"># \donttest{</span></span>
+<span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">lmerTest</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lmerTest/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">ID</span><span class="op">)</span>, <span class="va">sleep</span><span class="op">)</span></span>
+<span class="r-in"><span class="co"># anova(fit)</span></span>
+<span class="r-in"><span class="co"># #&gt; Type III Analysis of Variance Table with Satterthwaite's method</span></span>
+<span class="r-in"><span class="co"># #&gt;       Sum Sq Mean Sq NumDF DenDF F value   Pr(&gt;F)</span></span>
+<span class="r-in"><span class="co"># #&gt; group 12.482  12.482     1     9  16.501 0.002833 **</span></span>
+<span class="r-in"><span class="co"># #&gt; ---</span></span>
+<span class="r-in"><span class="co"># #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span class="r-in"></span>
-<span class="r-in">  <span class="fu">F_to_eta2</span><span class="op">(</span><span class="fl">16.501</span>, <span class="fl">1</span>, <span class="fl">9</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">F_to_omega2</span><span class="op">(</span><span class="fl">16.501</span>, <span class="fl">1</span>, <span class="fl">9</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">F_to_epsilon2</span><span class="op">(</span><span class="fl">16.501</span>, <span class="fl">1</span>, <span class="fl">9</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">F_to_f</span><span class="op">(</span><span class="fl">16.501</span>, <span class="fl">1</span>, <span class="fl">9</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: lmerTest</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘lmerTest’</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:lme4’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     lmer</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:stats’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     step</span>
+<span class="r-in"><span class="fu">F_to_eta2</span><span class="op">(</span><span class="fl">16.501</span>, <span class="fl">1</span>, <span class="fl">9</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Eta2 (partial) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.65           | [0.25, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
+<span class="r-in"><span class="fu">F_to_omega2</span><span class="op">(</span><span class="fl">16.501</span>, <span class="fl">1</span>, <span class="fl">9</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Omega2 (partial) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.58             | [0.17, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
+<span class="r-in"><span class="fu">F_to_epsilon2</span><span class="op">(</span><span class="fl">16.501</span>, <span class="fl">1</span>, <span class="fl">9</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Epsilon2 (partial) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.61               | [0.20, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
+<span class="r-in"><span class="fu">F_to_f</span><span class="op">(</span><span class="fl">16.501</span>, <span class="fl">1</span>, <span class="fl">9</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's f (partial) |      95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1.35                | [0.57, Inf]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [Inf].</span></span>
+<span class="r-in"><span class="co"># }</span></span>
 <span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span class="co">#' @examplesIf require(lmerTest)</span></span>
+<span class="r-in"><span class="co"># \donttest{</span></span>
 <span class="r-in"><span class="co">## Use with emmeans based contrasts</span></span>
 <span class="r-in"><span class="co">## --------------------------------</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rvlenth/emmeans" class="external-link">emmeans</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">warp.lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">wool</span> <span class="op">*</span> <span class="va">tension</span>, data <span class="op">=</span> <span class="va">warpbreaks</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">warp.lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">wool</span> <span class="op">*</span> <span class="va">tension</span>, data <span class="op">=</span> <span class="va">warpbreaks</span><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in">  <span class="va">jt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/joint_tests.html" class="external-link">joint_tests</a></span><span class="op">(</span><span class="va">warp.lm</span>, by <span class="op">=</span> <span class="st">"wool"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">F_to_eta2</span><span class="op">(</span><span class="va">jt</span><span class="op">$</span><span class="va">F.ratio</span>, <span class="va">jt</span><span class="op">$</span><span class="va">df1</span>, <span class="va">jt</span><span class="op">$</span><span class="va">df2</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: emmeans</span>
+<span class="r-in"><span class="va">jt</span> <span class="op">&lt;-</span> <span class="fu">emmeans</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/joint_tests.html" class="external-link">joint_tests</a></span><span class="op">(</span><span class="va">warp.lm</span>, by <span class="op">=</span> <span class="st">"wool"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">F_to_eta2</span><span class="op">(</span><span class="va">jt</span><span class="op">$</span><span class="va">F.ratio</span>, <span class="va">jt</span><span class="op">$</span><span class="va">df1</span>, <span class="va">jt</span><span class="op">$</span><span class="va">df2</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eta2 (partial) |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.30           | [0.12, 1.00]</span>

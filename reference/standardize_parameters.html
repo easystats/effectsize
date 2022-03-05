@@ -368,12 +368,11 @@ model.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Response is unstandardized.</span></span>
 <span class="r-in"><span class="co"># }</span></span>
 <span class="r-in"></span>
+<span class="r-in"></span>
 <span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/lme4/lme4/" class="external-link">"lme4"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">am</span> <span class="op">+</span> <span class="va">vs</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">cyl</span><span class="op">)</span>, <span class="va">mtcars</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">standardize_parameters</span><span class="op">(</span><span class="va">m</span>, method <span class="op">=</span> <span class="st">"pseudo"</span>, ci_method <span class="op">=</span> <span class="st">"satterthwaite"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">lme4</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">am</span> <span class="op">+</span> <span class="va">vs</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">cyl</span><span class="op">)</span>, <span class="va">mtcars</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> boundary (singular) fit: see help('isSingular')</span>
+<span class="r-in"><span class="fu">standardize_parameters</span><span class="op">(</span><span class="va">m</span>, method <span class="op">=</span> <span class="st">"pseudo"</span>, ci_method <span class="op">=</span> <span class="st">"satterthwaite"</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following within-group terms have between-group variance:</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> 	am, vs</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> This can inflate standardized within-group parameters associated with</span>
@@ -387,19 +386,15 @@ model.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cyl         |              -0.74 | [-1.25, -0.23]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> am          |               0.47 | [-0.01,  0.95]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> vs          |               0.20 | [-0.50,  0.90]</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://mc-stan.org/rstanarm/" class="external-link">"rstanarm"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html" class="external-link">stan_glm</a></span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">critical</span> <span class="op">+</span> <span class="va">privileges</span>, data <span class="op">=</span> <span class="va">attitude</span>, refresh <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">standardize_posteriors</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"refit"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">standardize_posteriors</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"posthoc"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">standardize_posteriors</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"smart"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">standardize_posteriors</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="op">}</span></span>
 <span class="r-in"><span class="co"># }</span></span>
 <span class="r-in"></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">stanarm</span><span class="fu">::</span><span class="fu">stan_glm</span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">critical</span> <span class="op">+</span> <span class="va">privileges</span>, data <span class="op">=</span> <span class="va">attitude</span>, refresh <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">standardize_posteriors</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"refit"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">standardize_posteriors</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"posthoc"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">standardize_posteriors</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"smart"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">standardize_posteriors</span><span class="op">(</span><span class="va">model</span>, method <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

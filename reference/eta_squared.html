@@ -371,8 +371,7 @@ Psychological Methods, 9, 164-182.</p></li>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">mtcars</span><span class="op">$</span><span class="va">am_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span></span>
 <span class="r-in"></span>
@@ -454,7 +453,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [Inf].</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Interpretation of effect sizes</span></span>
-<span class="r-in"><span class="co">## -------------------------------------</span></span>
+<span class="r-in"><span class="co">## ------------------------------</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="interpret_omega_squared.html">interpret_omega_squared</a></span><span class="op">(</span><span class="fl">0.10</span>, rules <span class="op">=</span> <span class="st">"field2013"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "medium"</span>
@@ -481,17 +480,16 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Interpretation rule: cohen1992</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># Recommended: Type-3 effect sizes + effects coding</span></span>
-<span class="r-in"><span class="co"># -------------------------------------------------</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/" class="external-link">car</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">contr.sum</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">contr.sum</span></span>
 <span class="r-in"></span>
-<span class="r-in">  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am_f</span> <span class="op">*</span> <span class="va">cyl_f</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">model_anova</span> <span class="op">&lt;-</span> <span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span class="co"># Recommended: Type-2 or -3 effect sizes + effects coding</span></span>
+<span class="r-in"><span class="co"># -------------------------------------------------------</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">contr.sum</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">contr.sum</span></span>
 <span class="r-in"></span>
-<span class="r-in">  <span class="fu">eta_squared</span><span class="op">(</span><span class="va">model_anova</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am_f</span> <span class="op">*</span> <span class="va">cyl_f</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">model_anova</span> <span class="op">&lt;-</span> <span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="fu">eta_squared</span><span class="op">(</span><span class="va">model_anova</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Type 3 ANOVAs only give sensible and informative results when covariates are</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   mean-centered and factors are coded with orthogonal contrasts (such as those</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   produced by 'contr.sum', 'contr.poly', or 'contr.helmert', but *not* by the</span>
@@ -507,21 +505,54 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># afex takes care of both type-3 effects and effects coding:</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="http://afex.singmann.science/" class="external-link">afex</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">obk.long</span>, package <span class="op">=</span> <span class="st">"afex"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_car</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">Error</a></span><span class="op">(</span><span class="va">id</span> <span class="op">/</span> <span class="op">(</span><span class="va">phase</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">    data <span class="op">=</span> <span class="va">obk.long</span>, observed <span class="op">=</span> <span class="st">"gender"</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in">  <span class="fu">eta_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">epsilon_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">omega_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">eta_squared</span><span class="op">(</span><span class="va">model</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">epsilon_squared</span><span class="op">(</span><span class="va">model</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">omega_squared</span><span class="op">(</span><span class="va">model</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">eta_squared</span><span class="op">(</span><span class="va">model</span>, generalized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># observed vars are pulled from the afex model.</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">obk.long</span>, package <span class="op">=</span> <span class="st">"afex"</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_car</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">Error</a></span><span class="op">(</span><span class="va">id</span> <span class="op">/</span> <span class="op">(</span><span class="va">phase</span><span class="op">)</span><span class="op">)</span>,</span>
+<span class="r-in">                       data <span class="op">=</span> <span class="va">obk.long</span>, observed <span class="op">=</span> <span class="st">"gender"</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>More than one observation per cell, aggregating the data using mean (i.e, fun_aggregate = mean)!</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Contrasts set to contr.sum for the following variables: treatment, gender</span>
+<span class="r-in"><span class="fu">eta_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type III)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter              | Eta2 (partial) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> treatment              |           0.44 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gender                 |           0.27 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:gender       |           0.36 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> phase                  |           0.62 | [0.35, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:phase        |           0.49 | [0.14, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gender:phase           |           0.03 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:gender:phase |           0.11 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
+<span class="r-in"><span class="fu">epsilon_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type III)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter              | Epsilon2 (partial) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> treatment              |               0.33 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gender                 |               0.19 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:gender       |               0.24 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> phase                  |               0.58 | [0.30, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:phase        |               0.39 | [0.02, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gender:phase           |              -0.07 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:gender:phase |              -0.06 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
+<span class="r-in"><span class="fu">omega_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type III)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter              | Omega2 (partial) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> treatment              |             0.31 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gender                 |             0.18 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:gender       |             0.22 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> phase                  |             0.26 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:phase        |             0.15 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gender:phase           |            -0.02 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:gender:phase |            -0.02 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
+<span class="r-in"><span class="fu">eta_squared</span><span class="op">(</span><span class="va">model</span>, generalized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># observed vars are pulled from the afex model.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type III)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameter              | Eta2 (generalized) |       95% CI</span>
@@ -537,15 +568,11 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Observed variables: gender</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
 <span class="r-in"><span class="co">## Approx. effect sizes for mixed models</span></span>
 <span class="r-in"><span class="co">## -------------------------------------</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/runehaubo/lmerTestR" class="external-link">lmerTest</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lmerTest/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am_f</span> <span class="op">*</span> <span class="va">cyl_f</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">vs</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">omega_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">lme4</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am_f</span> <span class="op">*</span> <span class="va">cyl_f</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">vs</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> boundary (singular) fit: see help('isSingular')</span>
+<span class="r-in"><span class="fu">omega_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type III)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Omega2 (partial) |       95% CI</span>
@@ -556,35 +583,26 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
 <span class="r-in"><span class="co">## Bayesian Models (PPD)</span></span>
 <span class="r-in"><span class="co">## ---------------------</span></span>
 <span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/rstanarm/" class="external-link">rstanarm</a></span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/bayestestR/" class="external-link">bayestestR</a></span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/" class="external-link">car</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">fit_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html" class="external-link">stan_glm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op">*</span> <span class="va">wt</span> <span class="op">+</span> <span class="va">qsec</span>,</span>
-<span class="r-in">    data <span class="op">=</span> <span class="va">mtcars</span>,</span>
-<span class="r-in">    family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">gaussian</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">    refresh <span class="op">=</span> <span class="fl">0</span></span>
-<span class="r-in">  <span class="op">)</span></span>
+<span class="r-in"><span class="va">fit_bayes</span> <span class="op">&lt;-</span> <span class="fu">rstanarm</span><span class="fu">::</span><span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html" class="external-link">stan_glm</a></span><span class="op">(</span></span>
+<span class="r-in">  <span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op">*</span> <span class="va">wt</span> <span class="op">+</span> <span class="va">qsec</span>,</span>
+<span class="r-in">  data <span class="op">=</span> <span class="va">mtcars</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">gaussian</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span class="r-in">  refresh <span class="op">=</span> <span class="fl">0</span></span>
+<span class="r-in"><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in">  <span class="va">es</span> <span class="op">&lt;-</span> <span class="fu">eta_squared_posterior</span><span class="op">(</span><span class="va">fit_bayes</span>,</span>
-<span class="r-in">    ss_function <span class="op">=</span> <span class="fu">car</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span>, type <span class="op">=</span> <span class="fl">3</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in">  <span class="fu">bayestestR</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html" class="external-link">describe_posterior</a></span><span class="op">(</span><span class="va">es</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">es</span> <span class="op">&lt;-</span> <span class="fu">eta_squared_posterior</span><span class="op">(</span><span class="va">fit_bayes</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span class="r-in">                            ss_function <span class="op">=</span> <span class="fu">car</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">bayestestR</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html" class="external-link">describe_posterior</a></span><span class="op">(</span><span class="va">es</span>, test <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"></span>
-<span class="r-in">  <span class="co"># compare to:</span></span>
-<span class="r-in">  <span class="va">fit_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op">*</span> <span class="va">wt</span> <span class="op">+</span> <span class="va">qsec</span>,</span>
-<span class="r-in">    data <span class="op">=</span> <span class="va">mtcars</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in">  <span class="va">aov_table</span> <span class="op">&lt;-</span> <span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">fit_freq</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">eta_squared</span><span class="op">(</span><span class="va">aov_table</span><span class="op">)</span></span>
+<span class="r-in"><span class="co"># compare to:</span></span>
+<span class="r-in"><span class="va">fit_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op">*</span> <span class="va">wt</span> <span class="op">+</span> <span class="va">qsec</span>,</span>
+<span class="r-in">               data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">aov_table</span> <span class="op">&lt;-</span> <span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">fit_freq</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">eta_squared</span><span class="op">(</span><span class="va">aov_table</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
