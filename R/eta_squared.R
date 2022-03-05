@@ -96,7 +96,6 @@
 #' @family effect size indices
 #'
 #' @examples
-#' \donttest{
 #' data(mtcars)
 #' mtcars$am_f <- factor(mtcars$am)
 #' mtcars$cyl_f <- factor(mtcars$cyl)
@@ -125,7 +124,7 @@
 #' interpret_epsilon_squared(0.10, rules = "cohen1992")
 #'
 #' interpret(eta2, rules = "cohen1992")
-#' }
+#'
 #'
 #' @examplesIf require("car") && require("afex")
 #' # Recommended: Type-2 or -3 effect sizes + effects coding

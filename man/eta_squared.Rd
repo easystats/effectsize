@@ -235,7 +235,6 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 }
 
 \examples{
-\donttest{
 data(mtcars)
 mtcars$am_f <- factor(mtcars$am)
 mtcars$cyl_f <- factor(mtcars$cyl)
@@ -264,7 +263,7 @@ interpret_eta_squared(0.10, rules = "cohen1992")
 interpret_epsilon_squared(0.10, rules = "cohen1992")
 
 interpret(eta2, rules = "cohen1992")
-}
+
 
 \dontshow{if (require("car") && require("afex")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Recommended: Type-2 or -3 effect sizes + effects coding
