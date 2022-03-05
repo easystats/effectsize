@@ -45,6 +45,11 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
     # would need to also get the binomial model matrix...
   }
 
+  # Sanity Check for glmmTMB with dispersion
+  if (length(params) != nrow(types)) {
+    types <- types[types$Parameter %in% params, ]
+  }
+
   out <- data.frame(
     Parameter = params,
     Type = types$Type,
