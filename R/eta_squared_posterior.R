@@ -79,8 +79,13 @@ eta_squared_posterior.stanreg <- function(model,
     temp_fit <- stats::lm(f, temp_dat)
 
     # compute effect size
-    ANOVA <- ss_function(temp_fit, ...)
-    es <- eta_squared(ANOVA, ci = NULL, partial = partial, generalized = generalized)
+    if (isTRUE(verbose)) {
+      ANOVA <- ss_function(temp_fit, ...)
+    } else {
+      ANOVA <- suppressWarnings(ss_function(temp_fit, ...))
+    }
+
+    es <- eta_squared(ANOVA, ci = NULL, partial = partial, generalized = generalized, verbose = verbose)
 
     es <- stats::setNames(
       es[[if (partial) "Eta2_partial" else "Eta2"]],

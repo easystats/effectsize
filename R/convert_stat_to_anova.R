@@ -54,49 +54,45 @@
 #' @family effect size from test statistic
 #'
 #' @examples
-#' \donttest{
-#' if (require("afex")) {
-#'   data(md_12.1)
-#'   aov_ez("id", "rt", md_12.1,
-#'     within = c("angle", "noise"),
-#'     anova_table = list(correction = "none", es = "pes")
-#'   )
-#' }
-#' # compare to:
+#' mod <- aov(mpg ~ factor(cyl) * factor(am), mtcars)
+#' anova(mod)
 #' (etas <- F_to_eta2(
-#'   f = c(40.72, 33.77, 45.31),
+#'   f = c(44.85, 3.99, 1.38),
 #'   df = c(2, 1, 2),
-#'   df_error = c(18, 9, 18)
+#'   df_error = 26
 #' ))
 #'
 #' if (require(see)) plot(etas)
 #'
+#' # Compare to:
+#' eta_squared(mod)
 #'
-#' if (require("lmerTest")) { # for the df_error
-#'   fit <- lmer(extra ~ group + (1 | ID), sleep)
-#'   # anova(fit)
-#'   # #> Type III Analysis of Variance Table with Satterthwaite's method
-#'   # #>       Sum Sq Mean Sq NumDF DenDF F value   Pr(>F)
-#'   # #> group 12.482  12.482     1     9  16.501 0.002833 **
-#'   # #> ---
-#'   # #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#' @examplesIf require(lmerTest)
+#' \donttest{
+#' fit <- lmerTest::lmer(extra ~ group + (1 | ID), sleep)
+#' # anova(fit)
+#' # #> Type III Analysis of Variance Table with Satterthwaite's method
+#' # #>       Sum Sq Mean Sq NumDF DenDF F value   Pr(>F)
+#' # #> group 12.482  12.482     1     9  16.501 0.002833 **
+#' # #> ---
+#' # #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #'
-#'   F_to_eta2(16.501, 1, 9)
-#'   F_to_omega2(16.501, 1, 9)
-#'   F_to_epsilon2(16.501, 1, 9)
-#'   F_to_f(16.501, 1, 9)
+#' F_to_eta2(16.501, 1, 9)
+#' F_to_omega2(16.501, 1, 9)
+#' F_to_epsilon2(16.501, 1, 9)
+#' F_to_f(16.501, 1, 9)
 #' }
 #'
-#'
+#' #' @examplesIf require(lmerTest)
+#' \donttest{
 #' ## Use with emmeans based contrasts
 #' ## --------------------------------
-#' if (require(emmeans)) {
-#'   warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
+#' warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
 #'
-#'   jt <- joint_tests(warp.lm, by = "wool")
-#'   F_to_eta2(jt$F.ratio, jt$df1, jt$df2)
+#' jt <- emmeans::joint_tests(warp.lm, by = "wool")
+#' F_to_eta2(jt$F.ratio, jt$df1, jt$df2)
 #' }
-#' }
+#'
 #' @references
 #' - Albers, C., & Lakens, D. (2018). When power analyses based on pilot data
 #' are biased: Inaccurate effect size estimators and follow-up bias. Journal of

@@ -135,7 +135,7 @@ before using it to estimate explained variance measures.
 
 ### Setup
 
-Let's factorize out data from above:
+Let's factorize our data from above:
 
 ```{r}
 hardlyworking$age_f <- cut(hardlyworking$age,
@@ -173,12 +173,15 @@ pes_posterior <- eta_squared_posterior(modAOV,
   draws = 500, # how many samples from the PPD?
   partial = TRUE, # partial eta squared
   # type 3 SS
-  ss_function = car::Anova, type = 3
+  ss_function = car::Anova, type = 3, 
+  verbose = FALSE
 )
 
 head(pes_posterior)
 
-bayestestR::describe_posterior(pes_posterior, rope_range = c(0, 0.1), test = "rope")
+bayestestR::describe_posterior(pes_posterior, 
+  rope_range = c(0, 0.1), test = "rope"
+)
 ```
 
 Compare to:

@@ -78,13 +78,14 @@
 #' interpret_ifi(c(.5, .99))
 #' interpret_pnfi(c(.5, .99))
 #'
+#' @examplesIf require("lavaan")
+#' \donttest{
 #' # Structural Equation Models (SEM)
-#' if (require("lavaan")) {
-#'   structure <- " ind60 =~ x1 + x2 + x3
-#'                  dem60 =~ y1 + y2 + y3
-#'                  dem60 ~ ind60 "
-#'   model <- lavaan::sem(structure, data = lavaan::PoliticalDemocracy)
-#'   interpret(model)
+#' structure <- " ind60 =~ x1 + x2 + x3
+#'                dem60 =~ y1 + y2 + y3
+#'                dem60 ~ ind60 "
+#' model <- lavaan::sem(structure, data = lavaan::PoliticalDemocracy)
+#' interpret(model)
 #' }
 #'
 #' @references

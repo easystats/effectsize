@@ -122,22 +122,21 @@
 #' standardize_parameters(model, method = "basic", exponentiate = TRUE)
 #' }
 #'
+#'
+#' @examplesIf require("lme4")
 #' \donttest{
-#' if (require("lme4")) {
-#'   m <- lmer(mpg ~ cyl + am + vs + (1 | cyl), mtcars)
-#'   standardize_parameters(m, method = "pseudo", ci_method = "satterthwaite")
+#' m <- lme4::lmer(mpg ~ cyl + am + vs + (1 | cyl), mtcars)
+#' standardize_parameters(m, method = "pseudo", ci_method = "satterthwaite")
 #' }
 #'
 #'
+#' @examplesIf require("rstanarm")
 #' \dontrun{
-#' if (require("rstanarm")) {
-#'   model <- stan_glm(rating ~ critical + privileges, data = attitude, refresh = 0)
-#'   standardize_posteriors(model, method = "refit")
-#'   standardize_posteriors(model, method = "posthoc")
-#'   standardize_posteriors(model, method = "smart")
-#'   head(standardize_posteriors(model, method = "basic"))
-#' }
-#' }
+#' model <- stanarm::stan_glm(rating ~ critical + privileges, data = attitude, refresh = 0)
+#' standardize_posteriors(model, method = "refit")
+#' standardize_posteriors(model, method = "posthoc")
+#' standardize_posteriors(model, method = "smart")
+#' head(standardize_posteriors(model, method = "basic"))
 #' }
 #'
 #' @references
