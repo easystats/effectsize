@@ -118,77 +118,63 @@
 #' cohens_f_squared(model0, model2 = model)
 #'
 #' ## Interpretation of effect sizes
-#' ## -------------------------------------
+#' ## ------------------------------
 #'
 #' interpret_omega_squared(0.10, rules = "field2013")
 #' interpret_eta_squared(0.10, rules = "cohen1992")
 #' interpret_epsilon_squared(0.10, rules = "cohen1992")
 #'
 #' interpret(eta2, rules = "cohen1992")
-#'
-#' # Recommended: Type-3 effect sizes + effects coding
-#' # -------------------------------------------------
-#' if (require(car, quietly = TRUE)) {
-#'   contrasts(mtcars$am_f) <- contr.sum
-#'   contrasts(mtcars$cyl_f) <- contr.sum
-#'
-#'   model <- aov(mpg ~ am_f * cyl_f, data = mtcars)
-#'   model_anova <- car::Anova(model, type = 3)
-#'
-#'   eta_squared(model_anova)
 #' }
+#'
+#' @examplesIf require("car") && require("afex")
+#' # Recommended: Type-2 or -3 effect sizes + effects coding
+#' # -------------------------------------------------------
+#' contrasts(mtcars$am_f) <- contr.sum
+#' contrasts(mtcars$cyl_f) <- contr.sum
+#'
+#' model <- aov(mpg ~ am_f * cyl_f, data = mtcars)
+#' model_anova <- car::Anova(model, type = 3)
+#'
+#' eta_squared(model_anova)
 #'
 #' # afex takes care of both type-3 effects and effects coding:
-#' if (require(afex)) {
-#'   data(obk.long, package = "afex")
-#'   model <- aov_car(value ~ treatment * gender + Error(id / (phase)),
-#'     data = obk.long, observed = "gender"
-#'   )
-#'   eta_squared(model)
-#'   epsilon_squared(model)
-#'   omega_squared(model)
-#'   eta_squared(model, partial = FALSE)
-#'   epsilon_squared(model, partial = FALSE)
-#'   omega_squared(model, partial = FALSE)
-#'   eta_squared(model, generalized = TRUE) # observed vars are pulled from the afex model.
-#' }
+#' data(obk.long, package = "afex")
+#' model <- afex::aov_car(value ~ treatment * gender + Error(id / (phase)),
+#'                        data = obk.long, observed = "gender")
+#' eta_squared(model)
+#' epsilon_squared(model)
+#' omega_squared(model)
+#' eta_squared(model, generalized = TRUE) # observed vars are pulled from the afex model.
 #'
 #'
-#'
+#' @examplesIf require("lmerTest") && require("lme4")
 #' ## Approx. effect sizes for mixed models
 #' ## -------------------------------------
-#' if (require(lmerTest, quietly = TRUE)) {
-#'   model <- lmer(mpg ~ am_f * cyl_f + (1 | vs), data = mtcars)
-#'   omega_squared(model)
-#' }
+#' model <- lme4::lmer(mpg ~ am_f * cyl_f + (1 | vs), data = mtcars)
+#' omega_squared(model)
 #'
 #'
-#'
-#'
+#' @examplesIf require(rstanarm) && require(bayestestR) && require(car)
 #' ## Bayesian Models (PPD)
 #' ## ---------------------
 #' \dontrun{
-#' if (require(rstanarm) && require(bayestestR) && require(car)) {
-#'   fit_bayes <- stan_glm(mpg ~ factor(cyl) * wt + qsec,
-#'     data = mtcars,
-#'     family = gaussian(),
-#'     refresh = 0
-#'   )
+#' fit_bayes <- rstanarm::stan_glm(
+#'   mpg ~ factor(cyl) * wt + qsec,
+#'   data = mtcars, family = gaussian(),
+#'   refresh = 0
+#' )
 #'
-#'   es <- eta_squared_posterior(fit_bayes,
-#'     ss_function = car::Anova, type = 3
-#'   )
-#'   bayestestR::describe_posterior(es)
+#' es <- eta_squared_posterior(fit_bayes, verbose = FALSE,
+#'                             ss_function = car::Anova, type = 3)
+#' bayestestR::describe_posterior(es, test = NULL)
 #'
 #'
-#'   # compare to:
-#'   fit_freq <- lm(mpg ~ factor(cyl) * wt + qsec,
-#'     data = mtcars
-#'   )
-#'   aov_table <- car::Anova(fit_freq, type = 3)
-#'   eta_squared(aov_table)
-#' }
-#' }
+#' # compare to:
+#' fit_freq <- lm(mpg ~ factor(cyl) * wt + qsec,
+#'                data = mtcars)
+#' aov_table <- car::Anova(fit_freq, type = 3)
+#' eta_squared(aov_table)
 #' }
 #'
 #' @return A data frame containing the effect size values and their confidence
