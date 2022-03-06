@@ -155,8 +155,8 @@ And fit our model:
 
 ```{r}
 # use (special) effects coding
-contrasts(hardlyworking$age_f) <- bayestestR::contr.bayes
-contrasts(hardlyworking$comps_f) <- bayestestR::contr.bayes
+contrasts(hardlyworking$age_f) <- bayestestR::contr.orthonorm
+contrasts(hardlyworking$comps_f) <- bayestestR::contr.orthonorm
 
 modAOV <- stan_glm(salary ~ age_f * comps_f,
   data = hardlyworking, family = gaussian(),
