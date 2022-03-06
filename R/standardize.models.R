@@ -247,7 +247,8 @@ standardize.default <- function(x,
     capture.output(model_std <- eval(substitute(update_expr)))
   }
 
-  on.exit(add = FALSE)
+  on.exit() # undo previous on.exit()
+
   model_std
 }
 
