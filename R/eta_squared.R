@@ -859,9 +859,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
                             verbose = TRUE,
                             include_intercept = FALSE,
                             ...) {
-  F.nm <- c("F value", "approx F", "F-value")
-  df.nm <- c("NumDF", "num Df", "numDF", "npar")
-  df_error.nm <- c("DenDF", "den Df", "denDF", "df_error")
+  F.nm <- c("F value", "approx F", "F-value", "F")
+  df.nm <- c("NumDF", "num Df", "numDF", "npar", "Df")
+  df_error.nm <- c("DenDF", "den Df", "denDF", "df_error", "Df.res")
 
   # If there is no df_error *or* is there IS a residuals row...
   if (!any(df_error.nm %in% colnames(model))) {
