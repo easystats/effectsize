@@ -283,24 +283,6 @@ standardize.brmsfit <- function(x,
 
 #' @importFrom stats update
 #' @export
-standardize.biglm <- function(x,
-                                robust = FALSE,
-                                two_sd = FALSE,
-                                weights = TRUE,
-                                verbose = TRUE,
-                                include_response = TRUE,
-                                ...) {
-  .standardize_models(x,
-                      robust = robust, two_sd = two_sd,
-                      weights = weights,
-                      verbose = verbose,
-                      include_response = include_response,
-                      update_expr = stats::update(x, moredata = data_std),
-                      ...)
-}
-
-#' @importFrom stats update
-#' @export
 standardize.mixor <- function(x,
                               robust = FALSE,
                               two_sd = FALSE,
@@ -415,7 +397,7 @@ standardize.wbm <- function(x,
                             weights = TRUE,
                             verbose = TRUE,
                             ...) {
-  stop(paste0("Standardization of parameters not possible for models of class '", class(x)[1], "'."), call. = FALSE)
+  .update_failed(class(x))
 }
 
 #' @export
@@ -429,6 +411,9 @@ standardize.bcplm <- standardize.wbm
 
 #' @export
 standardize.wbgee <- standardize.wbm
+
+#' @export
+standardize.biglm <- standardize.wbm
 
 
 
@@ -505,8 +490,14 @@ standardize.wbgee <- standardize.wbm
 
 
 #' @keywords internal
-.update_failed <- function(...) {
-  stop("Unable to refit the model with standardized data.\n",
+.update_failed <- function(class = NULL, ...) {
+  if (is.null(class)) {
+    msg1 <- "Unable to refit the model with standardized data.\n"
+  } else {
+    msg1 <- sprintf("Standardization of parameters not possible for models of class '%s'.\n", class)
+  }
+
+  stop(msg1,
        "Try instead to standardize the data (standardize(data)) and refit the model manually.",
        call. = FALSE)
 }
