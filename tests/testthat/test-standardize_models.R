@@ -25,9 +25,12 @@ if (require("testthat") && require("effectsize")) {
     }
 
     m <- my_lm_external_formula(mtcars, "mpg", "am")
-
     expect_error(standardize(m), "Try instead to standardize the data", fixed = TRUE)
+    # This SHOULD work...
 
+    skip_if_not_installed("biglm")
+    mod <- biglm::biglm(mpg ~ hp, mtcars)
+    expect_error(standardize(mod), "not possible")
   })
 
 
@@ -249,4 +252,19 @@ if (require("testthat") && require("effectsize")) {
     par2 <- standardize_parameters(m, method = "basic")
     expect_equal(par2[2,2], par1[2,2], tolerance = 0.05)
   })
+
+
+  # BRMS --------------------------------------------------------------------
+
+  test_that("brms", {
+    skip_on_cran()
+    skip_if_not_installed("brms")
+
+    mod <- brms::brm(mpg ~ hp, data = mtcars,
+                     refresh = 0, chains = 1)
+
+    expect_error(standardize(mod), regexp = NA)
+  })
+
+
 }

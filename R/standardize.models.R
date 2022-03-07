@@ -414,7 +414,7 @@ standardize.wbgee <- standardize.wbm
 
 #' @export
 standardize.biglm <- standardize.wbm
-
+# biglm doesn't regit the model to new data - it ADDs MORE data to the model.
 
 
 
