@@ -25,8 +25,9 @@ if (require("testthat") && require("effectsize")) {
     }
 
     m <- my_lm_external_formula(mtcars, "mpg", "am")
-    expect_error(standardize(m), "Try instead to standardize the data", fixed = TRUE)
-    # This SHOULD work...
+    ers <- capture_error(standardize(m))
+    expect_match(as.character(ers), "Try instead to standardize the data",
+                 fixed = TRUE)
 
     skip_if_not_installed("biglm")
     mod <- biglm::biglm(mpg ~ hp, mtcars)
@@ -265,6 +266,4 @@ if (require("testthat") && require("effectsize")) {
 
     expect_error(standardize(mod), regexp = NA)
   })
-
-
 }
