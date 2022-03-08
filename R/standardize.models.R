@@ -69,6 +69,7 @@ standardize.default <- function(x,
                                 verbose = TRUE,
                                 include_response = TRUE,
                                 ...) {
+  data_std <- NULL # needed to avoid note
   .standardize_models(x,
                      robust = robust, two_sd = two_sd,
                      weights = weights,
@@ -265,6 +266,7 @@ standardize.brmsfit <- function(x,
                                 verbose = TRUE,
                                 include_response = TRUE,
                                 ...) {
+  data_std <- NULL # needed to avoid note
   if (insight::is_multivariate(x)) {
     stop("multivariate brmsfit models not supported.",
          "\nAs an alternative: you may standardize your data (and adjust your priors), and re-fit the model.",
@@ -290,6 +292,7 @@ standardize.mixor <- function(x,
                               verbose = TRUE,
                               include_response = TRUE,
                               ...) {
+  data_std <- random_group_factor <- NULL # needed to avoid note
   .standardize_models(x,
                       robust = robust, two_sd = two_sd,
                       weights = weights,
@@ -391,12 +394,7 @@ standardize.mediate <- function(x,
 
 
 #' @export
-standardize.wbm <- function(x,
-                            robust = FALSE,
-                            two_sd = FALSE,
-                            weights = TRUE,
-                            verbose = TRUE,
-                            ...) {
+standardize.wbm <- function(x, ...) {
   .update_failed(class(x))
 }
 
