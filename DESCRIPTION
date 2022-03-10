@@ -60,7 +60,7 @@ Imports:
     insight (>= 0.16.0.1),
     parameters (>= 0.16.0),
     performance (>= 0.8.0.1),
-    datawizard (>= 0.2.3),
+    datawizard (>= 0.3.0.9006),
     stats,
     utils
 Suggests:
@@ -93,7 +93,8 @@ Suggests:
     tidymodels
 Remotes:
     easystats/insight,
-    easystats/performance
+    easystats/performance,
+    easystats/datawizard
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
