@@ -2,7 +2,9 @@
 % Please edit documentation in R/standardize_parameters.R
 \name{standardize_parameters}
 \alias{standardize_parameters}
+\alias{standardise_parameters}
 \alias{standardize_posteriors}
+\alias{standardise_posteriors}
 \title{Parameters standardization}
 \usage{
 standardize_parameters(

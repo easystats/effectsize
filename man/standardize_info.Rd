@@ -2,6 +2,7 @@
 % Please edit documentation in R/standardize_info.R
 \name{standardize_info}
 \alias{standardize_info}
+\alias{standardise_info}
 \title{Get Standardization Information}
 \usage{
 standardize_info(
