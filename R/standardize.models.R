@@ -59,10 +59,6 @@
 #' model <- lm(Infant.Mortality ~ Education * Fertility, data = swiss)
 #' coef(standardize(model))
 #'
-#' @importFrom stats update
-#' @importFrom insight get_data model_info find_response get_response find_weights get_weights
-#' @importFrom datawizard standardize
-#' @importFrom utils capture.output
 #' @export
 #' @aliases standardize_models
 #' @aliases standardize.models
@@ -73,25 +69,43 @@ standardize.default <- function(x,
                                 verbose = TRUE,
                                 include_response = TRUE,
                                 ...) {
+  data_std <- NULL # needed to avoid note
+  .standardize_models(x,
+                     robust = robust, two_sd = two_sd,
+                     weights = weights,
+                     verbose = verbose,
+                     include_response = include_response,
+                     update_expr = stats::update(x, data = data_std),
+                     ...)
+}
+
+
+#' @importFrom stats update
+#' @importFrom insight get_data model_info find_response get_response find_weights get_weights
+#' @importFrom datawizard standardize
+#' @importFrom utils capture.output
+.standardize_models <- function(x,
+                                robust = FALSE,
+                                two_sd = FALSE,
+                                weights = TRUE,
+                                verbose = TRUE,
+                                include_response = TRUE,
+                                update_expr,
+                                ...) {
   m_info <- eval(match.call()[["m_info"]], envir = parent.frame())
   if (is.null(m_info)) m_info <- insight::model_info(x)
 
   data <- insight::get_data(x)
 
-  if (insight::is_multivariate(x) && inherits(x, "brmsfit")) {
-    stop("multivariate brmsfit models not supported.",
-      "\nAs an alternative: you may standardize your data (and adjust your priors), and re-fit the model.",
-      call. = FALSE
-    )
-  }
-
   if (m_info$is_bayesian) {
     warning("Standardizing variables without adjusting priors may lead to bogus results unless priors are auto-scaled.",
-      call. = FALSE, immediate. = TRUE
+            call. = FALSE, immediate. = TRUE
     )
   }
 
-  #  =-=-=-= Z the RESPONSE? =-=-=-=
+
+
+  ## ---- Z the RESPONSE? ----
   # Some models have special responses that should not be standardized. This
   # includes:
   # - generalized linear models (counts, binomial, etc...)
@@ -125,7 +139,11 @@ standardize.default <- function(x,
     }
   }
 
-  #  =-=-=-= DO NOT Z WEIGHTING-VARIABLE =-=-=-=
+
+
+  ## ---- DO NOT Z: ----
+
+  # 1. WEIGHTS:
   # because negative weights will cause errors in "update()"
   weight_variable <- insight::find_weights(x)
 
@@ -135,11 +153,13 @@ standardize.default <- function(x,
     weight_variable <- c(weight_variable, "(weights)")
   }
 
-  #  =-=-=-= DO NOT Z RANDOM-EFFECTS =-=-=-=
+  # 2. RANDOM-GROUPS:
   random_group_factor <- insight::find_random(x, flatten = TRUE, split_nested = TRUE)
 
 
-  #  =-=-=-= WHICH YES, WHICH NO? SUMMARY =-=-=-=
+
+
+  ## ---- SUMMARY: TO Z OR NOT TO Z? ----
   dont_standardize <- c(resp, weight_variable, random_group_factor)
   do_standardize <- setdiff(colnames(data), dont_standardize)
 
@@ -161,7 +181,10 @@ standardize.default <- function(x,
     return(x)
   }
 
-  #  =-=-=-= STANDARDIZE! =-=-=-=
+
+
+
+  ## ---- STANDARDIZE! ----
   w <- insight::get_weights(x, na_rm = TRUE)
 
   data_std <- datawizard::standardize(data[do_standardize],
@@ -181,8 +204,7 @@ standardize.default <- function(x,
     dont_standardize <- setdiff(dont_standardize, resp)
   }
 
-
-  #  =-=-=-= FIX LOG-SQRT VARIABLES! =-=-=-=
+  # FIX LOG-SQRT VARS:
   # if we standardize log-terms, standardization will fail (because log of
   # negative value is NaN). Do some back-transformation here
 
@@ -204,39 +226,84 @@ standardize.default <- function(x,
   }
 
 
-  #  =-=-=-= ADD BACK VARIABLES THAT WHERE NOT Z =-=-=-=
+
+
+
+  ## ---- ADD BACK VARS THAT WHERE NOT Z ----
   if (length(dont_standardize)) {
     remaining_columns <- intersect(colnames(data), dont_standardize)
     data_std <- cbind(data[, remaining_columns, drop = FALSE], data_std)
   }
 
-  #  =-=-=-= UPDATE MODEL WITH STANDARDIZED DATA =-=-=-=
-  tryCatch({
-    if (inherits(x, "brmsfit")) {
-      text <- utils::capture.output(model_std <- stats::update(x, newdata = data_std))
-    } else if (inherits(x, "biglm")) {
-      text <- utils::capture.output(model_std <- stats::update(x, moredata = data_std))
-    } else if (inherits(x, "mixor")) {
-      data_std <- data_std[order(data_std[, random_group_factor, drop = FALSE]), ]
-      text <- utils::capture.output(model_std <- stats::update(x, data = data_std))
-    } else {
-      # DEFAULT METHOD
-      text <- utils::capture.output(model_std <- stats::update(x, data = data_std))
-    }
-  }, error = function(er) {
-    stop("Unable to refit the model with standardized data.\n",
-         "Failed with the following error:\n\"", er, "\b\"\n\n",
-         "Try instead to standardize the data (standardize(data)) and refit the model manually.",
-         call. = FALSE)
-  })
+
+
+
+
+  ## ---- UPDATE MODEL WITH Z DATA ----
+  on.exit(.update_failed())
+
+  if (isTRUE(verbose)) {
+     model_std <- eval(substitute(update_expr))
+  } else {
+    capture.output(model_std <- eval(substitute(update_expr)))
+  }
+
+  on.exit() # undo previous on.exit()
 
   model_std
 }
 
 
+# Special methods ---------------------------------------------------------
 
 
-# exceptions, models that cannot use the default-method --------------------
+#' @importFrom stats update
+#' @export
+standardize.brmsfit <- function(x,
+                                robust = FALSE,
+                                two_sd = FALSE,
+                                weights = TRUE,
+                                verbose = TRUE,
+                                include_response = TRUE,
+                                ...) {
+  data_std <- NULL # needed to avoid note
+  if (insight::is_multivariate(x)) {
+    stop("multivariate brmsfit models not supported.",
+         "\nAs an alternative: you may standardize your data (and adjust your priors), and re-fit the model.",
+         call. = FALSE
+    )
+  }
+
+  .standardize_models(x,
+                      robust = robust, two_sd = two_sd,
+                      weights = weights,
+                      verbose = verbose,
+                      include_response = include_response,
+                      update_expr = stats::update(x, newdata = data_std),
+                      ...)
+}
+
+#' @importFrom stats update
+#' @export
+standardize.mixor <- function(x,
+                              robust = FALSE,
+                              two_sd = FALSE,
+                              weights = TRUE,
+                              verbose = TRUE,
+                              include_response = TRUE,
+                              ...) {
+  data_std <- random_group_factor <- NULL # needed to avoid note
+  .standardize_models(x,
+                      robust = robust, two_sd = two_sd,
+                      weights = weights,
+                      verbose = verbose,
+                      include_response = include_response,
+                      update_expr = {
+                        data_std <- data_std[order(data_std[, random_group_factor, drop = FALSE]), ]
+                        stats::update(x, data = data_std)
+                      },
+                      ...)
+}
 
 #' @export
 #' @importFrom utils capture.output
@@ -327,13 +394,8 @@ standardize.mediate <- function(x,
 
 
 #' @export
-standardize.wbm <- function(x,
-                            robust = FALSE,
-                            two_sd = FALSE,
-                            weights = TRUE,
-                            verbose = TRUE,
-                            ...) {
-  stop(paste0("Standardization of parameters not possible for models of class '", class(x)[1], "'."), call. = FALSE)
+standardize.wbm <- function(x, ...) {
+  .update_failed(class(x))
 }
 
 #' @export
@@ -348,6 +410,9 @@ standardize.bcplm <- standardize.wbm
 #' @export
 standardize.wbgee <- standardize.wbm
 
+#' @export
+standardize.biglm <- standardize.wbm
+# biglm doesn't regit the model to new data - it ADDs MORE data to the model.
 
 
 
@@ -419,4 +484,18 @@ standardize.wbgee <- standardize.wbm
                            to = range(temp_data_std[[cov_nm]]),
                            range = range(temp_data[[cov_nm]])
   )
+}
+
+
+#' @keywords internal
+.update_failed <- function(class = NULL, ...) {
+  if (is.null(class)) {
+    msg1 <- "Unable to refit the model with standardized data.\n"
+  } else {
+    msg1 <- sprintf("Standardization of parameters not possible for models of class '%s'.\n", class)
+  }
+
+  stop(msg1,
+       "Try instead to standardize the data (standardize(data)) and refit the model manually.",
+       call. = FALSE)
 }

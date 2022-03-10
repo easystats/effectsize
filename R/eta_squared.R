@@ -859,9 +859,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
                             verbose = TRUE,
                             include_intercept = FALSE,
                             ...) {
-  F.nm <- c("F value", "approx F", "F-value")
-  df.nm <- c("NumDF", "num Df", "numDF", "npar")
-  df_error.nm <- c("DenDF", "den Df", "denDF", "df_error")
+  F.nm <- c("F value", "approx F", "F-value", "F")
+  df.nm <- c("NumDF", "num Df", "numDF", "npar", "Df")
+  df_error.nm <- c("DenDF", "den Df", "denDF", "df_error", "Df.res")
 
   # If there is no df_error *or* is there IS a residuals row...
   if (!any(df_error.nm %in% colnames(model))) {
@@ -882,12 +882,20 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     stop(insight::format_message("ANOVA table does not have F values or degrees of freedom - cannot compute effect size."))
   }
 
+  Fi <- F.nm[F.nm %in% colnames(model)]
+  dfi <- df.nm[df.nm %in% colnames(model)]
+  df_errori <- df_error.nm[df_error.nm %in% colnames(model)]
+
+  if (length(dfi) > 1L) {
+    dfi <- dfi[1] # For MANOVA this should not use the MV-df
+  }
+
   # Clean up table ---
   par_table <- data.frame(
     Parameter = rownames(model),
-    F = model[,F.nm[F.nm %in% colnames(model)]],
-    df = model[,df.nm[df.nm %in% colnames(model)]],
-    df_error = model[,df_error.nm[df_error.nm %in% colnames(model)]]
+    F = model[,Fi],
+    df = model[,dfi],
+    df_error = model[,df_errori]
   )
   par_table <- par_table[!par_table[["Parameter"]] %in% "Residuals",]
 

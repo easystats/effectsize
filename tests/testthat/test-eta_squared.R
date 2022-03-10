@@ -7,7 +7,6 @@ if (require("testthat") && require("effectsize")) {
 
     mod1 <- mod
     mod1$DenDF <- mod1$Df[nrow(mod1)]
-    mod1$NumDF <- mod1$Df
     mod1 <- mod1[-nrow(mod1),]
 
     expect_error(eta_squared(mod1), regexp = NA)
@@ -580,7 +579,9 @@ if (require("testthat") && require("effectsize")) {
   test_that("ets_squared | tidymodels", {
     skip_on_cran()
     skip_if_not_installed("tidymodels")
-    require("tidymodels", quietly = TRUE)
+    suppressPackageStartupMessages(require("tidymodels",
+                                           quietly = TRUE,
+                                           warn.conflicts = FALSE))
 
     set.seed(123)
     mod_lm <-
