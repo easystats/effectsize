@@ -23,10 +23,14 @@
 #' standardize_info(model, robust = TRUE)
 #' standardize_info(model, two_sd = TRUE)
 #' @importFrom parameters parameters_type
+#' @aliases standardise_info
 #' @export
 standardize_info <- function(model, robust = FALSE, two_sd = FALSE, include_pseudo = FALSE, ...) {
   UseMethod("standardize_info")
 }
+
+#' @export
+standardise_info <- standardize_info
 
 #' @export
 standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, include_pseudo = FALSE, ...) {

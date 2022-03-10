@@ -146,6 +146,7 @@
 #' - Gelman, A. (2008). Scaling regression inputs by dividing by two standard deviations. Statistics in medicine, 27(15), 2865-2873.
 #'
 #' @export
+#' @aliases standardise_parameters
 standardize_parameters <- function(model, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, include_response = TRUE, verbose = TRUE, parameters, ...) {
   if (!missing(parameters)) {
     warning(
@@ -156,6 +157,9 @@ standardize_parameters <- function(model, method = "refit", ci = 0.95, robust = 
 
   UseMethod("standardize_parameters")
 }
+
+#' @export
+standardise_parameters <- standardize_parameters
 
 #' @importFrom parameters model_parameters
 #' @importFrom insight model_info
@@ -460,6 +464,7 @@ standardize_parameters.model_fit <-
 
 #' @rdname standardize_parameters
 #' @export
+#' @aliases standardise_posteriors
 standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_sd = FALSE, include_response = TRUE, verbose = TRUE, ...) {
   object_name <- deparse(substitute(model), width.cutoff = 500)
 
@@ -491,6 +496,8 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
   return(pars)
 }
 
+#' @export
+standardise_posteriors <- standardize_posteriors
 
 
 #' @keywords internal

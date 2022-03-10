@@ -62,6 +62,8 @@
 #' @export
 #' @aliases standardize_models
 #' @aliases standardize.models
+#' @aliases standardise.models
+#' @aliases standardise.default
 standardize.default <- function(x,
                                 robust = FALSE,
                                 two_sd = FALSE,

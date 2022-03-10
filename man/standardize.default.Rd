@@ -4,6 +4,8 @@
 \alias{standardize.default}
 \alias{standardize_models}
 \alias{standardize.models}
+\alias{standardise.models}
+\alias{standardise.default}
 \title{Re-fit a model with standardized data}
 \usage{
 \method{standardize}{default}(

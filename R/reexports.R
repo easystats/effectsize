@@ -6,6 +6,10 @@ bayestestR::equivalence_test
 #' @importFrom datawizard standardize
 datawizard::standardize
 
+#' @export
+#' @importFrom datawizard standardise
+datawizard::standardise
+
 
 # Printing ----------------------------------------------------------------
 
