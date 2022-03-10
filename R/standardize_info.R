@@ -476,7 +476,7 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
         X <- tapply(model_matrix[[i]], id, mean)
         Deviation_Response_Pseudo[i] <- sd_y_between
       }
-      Deviation_Pseudo[i] <- f * .sd(X, w)
+      Deviation_Pseudo[i] <- f * datawizard::weighted_sd(X, w)
 
       ## smart way?
       ## DONT USE: see correspondence with between Mattan and Eran BC
