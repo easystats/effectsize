@@ -54,8 +54,8 @@ if (require("testthat") && require("effectsize")) {
 
     # -- GLMMs --
     skip_if_not_installed("lme4")
-    m <- lme4::glmer(am ~ factor(cyl) + (1|gear), data = mtcars,
-                     family = binomial())
+    m <<- lme4::glmer(am ~ factor(cyl) + (1|gear), data = mtcars,
+                      family = binomial())
     w <- capture_warnings(RR <- oddsratio_to_riskratio(m))
     expect_match(w[1],"p0")
     expect_match(w[2],"CIs")
