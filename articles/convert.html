@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -131,22 +131,22 @@
   names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Group"</span>, <span class="st">"Outcome"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <pre><code>&gt;    Group Outcome
-&gt; 1      0  -0.942
-&gt; 2      0  -0.485
+&gt; 1      0  -1.280
+&gt; 2      0  -0.597
 &gt; 3      0  -0.100
-&gt; 4      0   0.285
-&gt; 5      0   0.742
-&gt; 6      1  -0.742
-&gt; 7      1  -0.285
+&gt; 4      0   0.397
+&gt; 5      0   1.080
+&gt; 6      1  -1.080
+&gt; 7      1  -0.397
 &gt; 8      1   0.100
-&gt; 9      1   0.485
-&gt; 10     1   0.942</code></pre>
+&gt; 9      1   0.597
+&gt; 10     1   1.280</code></pre>
 <p>We can compute Cohen’s <em>d</em> between the two groups:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">Outcome</span> <span class="op">~</span> <span class="va">Group</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Cohen's d |        95% CI
 &gt; -------------------------
-&gt; -0.31     | [-1.54, 0.95]
+&gt; -0.22     | [-1.46, 1.03]
 &gt; 
 &gt; - Estimated using pooled SD.</code></pre>
 <p>But we can also treat the 2-level <code>group</code> variable as a numeric variable, and compute Pearson’s <em>r</em>:</p>
@@ -156,7 +156,7 @@
 &gt; 
 &gt; Parameter1 | Parameter2 |     r |        95% CI |  t(8) |      p
 &gt; ----------------------------------------------------------------
-&gt; Group.0    |    Outcome | -0.17 | [-0.72, 0.52] | -0.48 | &gt; .999
+&gt; Group.0    |    Outcome | -0.12 | [-0.70, 0.55] | -0.35 | &gt; .999
 &gt; 
 &gt; p-value adjustment method: Holm (1979)
 &gt; Observations: 10</code></pre>
