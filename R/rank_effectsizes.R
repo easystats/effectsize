@@ -484,7 +484,7 @@ kendalls_w <- function(x,
   m <- nrow(rankings) # judges
   R <- colSums(rankings)
 
-  if (!all(has_tie <- apply(rankings, 1, function(x) length(x) == length(unique(x))))) {
+  if (!all(has_tie <- apply(rankings, 1, function(x) length(x) == insight::n_unique(x)))) {
     # there are ties
     have_ties <- rankings[!has_tie, , drop = FALSE]
     Ti <- apply(have_ties, 1, function(r) {
@@ -608,7 +608,7 @@ kendalls_w <- function(x,
 # Utils -------------------------------------------------------------------
 
 .safe_ranktransform <- function(x, verbose = TRUE, ...) {
-  if (length(unique(x)) == 1) {
+  if (insight::n_unique(x) == 1) {
     if (verbose) warning("Only one unique value - rank fixed at 1")
     return(rep(1, length(x)))
   }

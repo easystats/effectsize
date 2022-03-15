@@ -166,7 +166,7 @@ standardise_parameters <- standardize_parameters
 #' @importFrom utils head
 #' @export
 standardize_parameters.default <- function(model, method = "refit", ci = 0.95, robust = FALSE, two_sd = FALSE, include_response = TRUE, verbose = TRUE, ...) {
-  object_name <- deparse(substitute(model), width.cutoff = 500)
+  object_name <- insight::safe_deparse(substitute(model))
   method <- match.arg(method, c("refit", "posthoc", "smart", "basic", "classic", "pseudo"))
 
   m_info <- insight::model_info(model)
@@ -290,7 +290,7 @@ standardize_parameters.bootstrap_model <-
            include_response = TRUE,
            verbose = TRUE,
            ...) {
-    object_name <- deparse(substitute(model), width.cutoff = 500)
+    object_name <- insight::safe_deparse(substitute(model))
     method <- match.arg(method, c("refit", "posthoc", "smart", "basic", "classic", "pseudo"))
 
     pars <- model
@@ -466,7 +466,7 @@ standardize_parameters.model_fit <-
 #' @export
 #' @aliases standardise_posteriors
 standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_sd = FALSE, include_response = TRUE, verbose = TRUE, ...) {
-  object_name <- deparse(substitute(model), width.cutoff = 500)
+  object_name <- insight::safe_deparse(substitute(model))
 
   m_info <- insight::model_info(model)
   include_response <- include_response && .safe_to_standardize_response(m_info, verbose = verbose)
