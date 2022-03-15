@@ -333,7 +333,7 @@ if (require("testthat") && require("effectsize")) {
 
     ## Correctly identify within and between terms
     dev_resp <- standardize_info(m, include_pseudo = TRUE)$Deviation_Response_Pseudo
-    expect_equal(length(unique(dev_resp[c(2, 4, 5, 6)])), 1)
+    expect_equal(insight::n_unique(dev_resp[c(2, 4, 5, 6)]), 1)
     expect_true(dev_resp[2] != dev_resp[3])
 
 

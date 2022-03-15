@@ -42,7 +42,7 @@
   # y should be NULL, numeric, or a factor:
   if (!is.null(y)) {
     if (!is.numeric(y)) {
-      if (length(unique(y)) != 2L) {
+      if (insight::n_unique(y) != 2) {
         stop("Grouping variable y must have exactly 2 levels.", call. = FALSE)
       }
 
@@ -55,7 +55,7 @@
       y <- data[[2]]
     }
 
-    if (verbose && length(unique(y)) == 2) {
+    if (verbose && insight::n_unique(y) == 2) {
       warning("'y' is numeric but has only 2 unique values.",
               "\nIf this is a grouping variable, convert it to a factor.",
               call. = FALSE)
