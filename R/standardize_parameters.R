@@ -169,7 +169,7 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
   object_name <- insight::safe_deparse(substitute(model))
   method <- match.arg(method, c("refit", "posthoc", "smart", "basic", "classic", "pseudo"))
 
-  m_info <- insight::model_info(model)
+  m_info <- .get_model_info(model, ...)
   include_response <- include_response && .safe_to_standardize_response(m_info, verbose = verbose)
 
   if (method == "refit") {
@@ -191,7 +191,8 @@ standardize_parameters.default <- function(model, method = "refit", ci = 0.95, r
       stop('Cannot post-hoc standardize multivariate models. Try using method "refit" instead.')
     }
 
-    pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, exponentiate, include_response, verbose)
+    pars <- .standardize_parameters_posthoc(pars, method, model, m_info, robust, two_sd, exponentiate,
+                                            include_response, verbose)
 
     method <- attr(pars, "std_method")
     robust <- attr(pars, "robust")
@@ -249,11 +250,11 @@ standardize_parameters.parameters_model <- function(model, method = "refit", ci 
   model <- .get_object(pars)
   if (is.null(model)) model <- attr(pars, "object")
 
-  m_info <- insight::model_info(model)
+  m_info <- .get_model_info(model, ...)
   include_response <- include_response && .safe_to_standardize_response(m_info, verbose = verbose)
 
   if (is.null(exponentiate <- attr(pars, "exponentiate"))) exponentiate <- FALSE
-  pars <- .standardize_parameters_posthoc(pars, method, model, robust, two_sd, exponentiate, include_response, verbose)
+  pars <- .standardize_parameters_posthoc(pars, method, model, m_info, robust, two_sd, exponentiate, include_response, verbose)
   method <- attr(pars, "std_method")
   robust <- attr(pars, "robust")
 
@@ -296,7 +297,7 @@ standardize_parameters.bootstrap_model <-
     pars <- model
     model <- attr(pars, "original_model")
 
-    m_info <- insight::model_info(model)
+    m_info <- .get_model_info(model, ...)
     include_response <- include_response && .safe_to_standardize_response(m_info, verbose = verbose)
 
     if (method == "refit") {
@@ -312,7 +313,7 @@ standardize_parameters.bootstrap_model <-
 
 
     if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
-      pars <- .standardize_posteriors_posthoc(pars, method, model, robust, two_sd, include_response, verbose)
+      pars <- .standardize_posteriors_posthoc(pars, method, model, m_info, robust, two_sd, include_response, verbose)
 
       method <- attr(pars, "std_method")
       robust <- attr(pars, "robust")
@@ -383,11 +384,11 @@ standardize_parameters.model_fit <-
 
 #' @keywords internal
 #' @importFrom insight model_info find_random
-.standardize_parameters_posthoc <- function(pars, method, model, robust, two_sd, exponentiate, include_response, verbose) {
+.standardize_parameters_posthoc <- function(pars, method, model, mi, robust, two_sd, exponentiate, include_response, verbose) {
   # Sanity Check for "pseudo"
-  method <- .should_pseudo(method, model)
+  method <- .should_pseudo(method, model, mi)
 
-  method <- .cant_smart_or_posthoc(method, model, pars$Parameter)
+  method <- .cant_smart_or_posthoc(method, model, mi, pars$Parameter)
 
   if (robust && method == "pseudo") {
     warning("'robust' standardization not available for 'pseudo' method.",
@@ -398,7 +399,8 @@ standardize_parameters.model_fit <-
 
 
   ## Get scaling factors
-  deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo", two_sd = two_sd)
+  deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo", two_sd = two_sd,
+                                 model_info = mi)
   i_missing <- setdiff(seq_len(nrow(pars)), seq_len(nrow(deviations)))
   unstd <- pars
   if (length(i_missing)) {
@@ -468,7 +470,7 @@ standardize_parameters.model_fit <-
 standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_sd = FALSE, include_response = TRUE, verbose = TRUE, ...) {
   object_name <- insight::safe_deparse(substitute(model))
 
-  m_info <- insight::model_info(model)
+  m_info <- .get_model_info(model, ...)
   include_response <- include_response && .safe_to_standardize_response(m_info, verbose = verbose)
 
   if (method == "refit") {
@@ -480,7 +482,7 @@ standardize_posteriors <- function(model, method = "refit", robust = FALSE, two_
 
 
   if (method %in% c("posthoc", "smart", "basic", "classic", "pseudo")) {
-    pars <- .standardize_posteriors_posthoc(pars, method, model, robust, two_sd, include_response, verbose)
+    pars <- .standardize_posteriors_posthoc(pars, method, model, m_info, robust, two_sd, include_response, verbose)
 
     method <- attr(pars, "std_method")
     robust <- attr(pars, "robust")
@@ -501,12 +503,12 @@ standardise_posteriors <- standardize_posteriors
 
 
 #' @keywords internal
-#' @importFrom insight model_info find_random
-.standardize_posteriors_posthoc <- function(pars, method, model, robust, two_sd, include_response, verbose) {
+#' @importFrom insight find_random
+.standardize_posteriors_posthoc <- function(pars, method, model, mi, robust, two_sd, include_response, verbose) {
   # Sanity Check for "pseudo"
   method <- .should_pseudo(method, model)
 
-  method <- .cant_smart_or_posthoc(method, model, pars$Parameter)
+  method <- .cant_smart_or_posthoc(method, model, mi, pars$Parameter)
 
   if (robust && method == "pseudo") {
     warning("'robust' standardization not available for 'pseudo' method.",
@@ -516,7 +518,8 @@ standardise_posteriors <- standardize_posteriors
   }
 
   ## Get scaling factors
-  deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo", two_sd = two_sd)
+  deviations <- standardize_info(model, robust = robust, include_pseudo = method == "pseudo", two_sd = two_sd,
+                                 model_info = mi)
   i <- match(deviations$Parameter, colnames(pars))
   pars <- pars[, i]
 
@@ -558,11 +561,11 @@ standardise_posteriors <- standardize_posteriors
 
 
 #' @keywords internal
-.cant_smart_or_posthoc <- function(method, model, params) {
+.cant_smart_or_posthoc <- function(method, model, mi, params) {
   if (method %in% c("smart", "posthoc")) {
     cant_posthocsmart <- FALSE
 
-    if (insight::model_info(model)$is_linear) {
+    if (mi$is_linear) {
       if (!colnames(model.frame(model))[1] == insight::find_response(model)) {
         can_posthocsmart <- TRUE
       }
@@ -588,9 +591,9 @@ standardise_posteriors <- standardize_posteriors
 
 
 #' @keywords internal
-.should_pseudo <- function(method, model) {
+.should_pseudo <- function(method, model, mi) {
   if (method == "pseudo" &&
-      !(insight::model_info(model)$is_mixed &&
+      !(mi$is_mixed &&
         length(insight::find_random(model)$random) == 1)) {
     warning(
       "'pseudo' method only available for 2-level (G)LMMs.\n",
