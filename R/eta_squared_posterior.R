@@ -19,7 +19,7 @@ eta_squared_posterior <- function(model,
 
 #' @export
 #' @importFrom stats lm setNames
-#' @importFrom insight model_info find_formula get_predictors find_response check_if_installed
+#' @importFrom insight find_formula get_predictors find_response check_if_installed
 eta_squared_posterior.stanreg <- function(model,
                                           partial = TRUE,
                                           generalized = FALSE,
@@ -29,12 +29,12 @@ eta_squared_posterior.stanreg <- function(model,
                                           ...) {
   insight::check_if_installed("rstantools")
 
-  mo_inf <- insight::model_info(model)
-  if (!mo_inf$is_linear || mo_inf$is_multivariate) {
+  mi <- .get_model_info(model, ...)
+  if (!mi$is_linear || mi$is_multivariate) {
     stop("Computation of Eta Squared is only applicable to univariate linear models.")
   }
 
-  if (partial && mo_inf$is_mixed) {
+  if (partial && mi$is_mixed) {
     if (verbose) {
       warning("Bayesian Partial Eta Squared not supported for mixed models.\n",
               "Returning Eta Squared instead.")
@@ -44,7 +44,7 @@ eta_squared_posterior.stanreg <- function(model,
     # Too hard right now.
   }
 
-  if ((isTRUE(generalized) || is.character(generalized)) && mo_inf$is_mixed) {
+  if ((isTRUE(generalized) || is.character(generalized)) && mi$is_mixed) {
     if (verbose) {
       warning("Bayesian Generalized Eta Squared not supported for mixed models.\n",
               "Returning Eta Squared instead.")

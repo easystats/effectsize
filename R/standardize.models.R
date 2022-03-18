@@ -83,7 +83,7 @@ standardize.default <- function(x,
 
 
 #' @importFrom stats update
-#' @importFrom insight get_data model_info find_response get_response find_weights get_weights
+#' @importFrom insight get_data find_response get_response find_weights get_weights
 #' @importFrom datawizard standardize
 #' @importFrom utils capture.output
 .standardize_models <- function(x,
@@ -94,9 +94,7 @@ standardize.default <- function(x,
                                 include_response = TRUE,
                                 update_expr,
                                 ...) {
-  m_info <- eval(match.call()[["m_info"]], envir = parent.frame())
-  if (is.null(m_info)) m_info <- insight::model_info(x)
-
+  m_info <- .get_model_info(x, ...)
   data <- insight::get_data(x)
 
   if (m_info$is_bayesian) {

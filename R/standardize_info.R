@@ -34,6 +34,8 @@ standardise_info <- standardize_info
 
 #' @export
 standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, include_pseudo = FALSE, ...) {
+  mi <- .get_model_info(model, ...)
+
   params <- if (inherits(model, c("glmmTMB", "MixMod"))) {
     insight::find_parameters(model, effects = "fixed", component = "conditional", flatten = TRUE, ...)
   } else {
@@ -44,7 +46,7 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
   data <- insight::get_data(model)
 
   # Sanity Check for ZI
-  if (insight::model_info(model)$is_zero_inflated) {
+  if (mi$is_zero_inflated) {
     warning("Non-refit parameter standardization is ignoring the zero-inflation component.", call. = FALSE)
     # would need to also get the binomial model matrix...
   }
@@ -75,14 +77,14 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
   # Response - Basic
   out <- merge(
     out,
-    .std_info_response_basic(model, params, robust = robust),
+    .std_info_response_basic(model, mi, params, robust = robust),
     by = "Parameter", all = TRUE
   )
 
   # Response - Smart
   out <- merge(
     out,
-    .std_info_response_smart(model, data, model_matrix, types, robust = robust),
+    .std_info_response_smart(model, mi, data, model_matrix, types, robust = robust),
     by = "Parameter", all = TRUE
   )
 
@@ -108,12 +110,12 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
 
   # Pseudo (for LMM)
   if (include_pseudo &&
-    insight::model_info(model)$is_mixed &&
-    length(insight::find_random(model)$random) == 1) {
+      mi$is_mixed &&
+      length(insight::find_random(model)$random) == 1) {
     out <- merge(
       out,
       .std_info_pseudo(
-        model,
+        model, mi,
         params,
         model_matrix,
         types = types$Type,
@@ -281,8 +283,7 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
 # Response ------------------------------------------------------------
 
 #' @keywords internal
-.std_info_response_smart <- function(model, data, model_matrix, types, robust = FALSE, ...) {
-  info <- insight::model_info(model)
+.std_info_response_smart <- function(model, info, data, model_matrix, types, robust = FALSE, ...) {
   w <- insight::get_weights(model, na_rm = TRUE)
 
   if (info$is_linear) {
@@ -328,8 +329,7 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
 
 #' @importFrom stats model.frame
 #' @keywords internal
-.std_info_response_basic <- function(model, params, robust = FALSE, ...) {
-  info <- insight::model_info(model)
+.std_info_response_basic <- function(model, info, params, robust = FALSE, ...) {
   w <- insight::get_weights(model, na_rm = TRUE)
 
   # response <- insight::get_response(model)
@@ -360,16 +360,18 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
 
 # Pseudo (GLMM) -----------------------------------------------------------
 
-#' @importFrom insight clean_names get_random model_info find_formula get_variance get_data check_if_installed
+#' @importFrom insight clean_names get_random find_formula get_variance get_data check_if_installed
 #' @importFrom performance check_heterogeneity_bias
 #' @importFrom datawizard demean
 #' @importFrom stats as.formula sd
 .std_info_pseudo <- function(model,
+                             mi,
                              params,
                              model_matrix,
                              types,
                              robust = FALSE,
-                             two_sd = FALSE) {
+                             two_sd = FALSE,
+                             ...) {
   if (robust) {
     warning("'robust' standardization not available for 'pseudo' method.",
       call. = FALSE
@@ -437,7 +439,7 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
 
   ## Get 2 types of Deviation_Response_Pseudo
   sd_y_within <- sd_y_between <- 1
-  if (insight::model_info(model)$is_linear) {
+  if (mi$is_linear) {
     insight::check_if_installed("lme4")
 
     rand_name <- insight::find_random(model)$random
