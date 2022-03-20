@@ -3,6 +3,7 @@
 #' @param r Value or vector of correlation coefficient.
 #' @param rules Can be `"funder2019"` (default), `"gignac2016"`, `"cohen1988"`,
 #'   `"evans1996"`, `"lovakov2021"` or a custom set of [rules()].
+#' @param ... Not directly used.
 #'
 #' @note As \eqn{\phi}{\phi} can be larger than 1 - it is recommended to compute
 #'   and interpret Cramer's *V* instead.
@@ -66,7 +67,7 @@
 #' sciences. Thomson Brooks/Cole Publishing Co.
 #'
 #' @export
-interpret_r <- function(r, rules = "funder2019") {
+interpret_r <- function(r, rules = "funder2019", ...) {
   rules <- .match.rules(
     rules,
     list(

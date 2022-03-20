@@ -7,19 +7,21 @@
 \alias{interpret_rank_biserial}
 \title{Interpret correlation coefficient}
 \usage{
-interpret_r(r, rules = "funder2019")
+interpret_r(r, rules = "funder2019", ...)
 
-interpret_phi(r, rules = "funder2019")
+interpret_phi(r, rules = "funder2019", ...)
 
-interpret_cramers_v(r, rules = "funder2019")
+interpret_cramers_v(r, rules = "funder2019", ...)
 
-interpret_rank_biserial(r, rules = "funder2019")
+interpret_rank_biserial(r, rules = "funder2019", ...)
 }
 \arguments{
 \item{r}{Value or vector of correlation coefficient.}
 
 \item{rules}{Can be \code{"funder2019"} (default), \code{"gignac2016"}, \code{"cohen1988"},
 \code{"evans1996"}, \code{"lovakov2021"} or a custom set of \code{\link[=rules]{rules()}}.}
+
+\item{...}{Not directly used.}
 }
 \description{
 Interpret correlation coefficient
