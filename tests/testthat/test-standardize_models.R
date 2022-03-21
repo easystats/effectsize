@@ -168,6 +168,16 @@ if (require("testthat") && require("effectsize")) {
     )
   })
 
+  # subset ------------------
+  test_that("fail with subset", {
+    data("mtcars")
+
+    mod1 <- lm(mpg ~ hp, data = mtcars,
+               subset = cyl > 4)
+
+    expect_error(standardise(mod1), regexp = "subset")
+  })
+
 
   # don't standardize non-Gaussian response ------------------------------------
   test_that("standardize non-Gaussian response", {
