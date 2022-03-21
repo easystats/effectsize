@@ -44,6 +44,7 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
   types <- parameters::parameters_type(model)
   model_matrix <- as.data.frame(stats::model.matrix(model))
   data <- insight::get_data(model)
+  wgts <- insight::get_weights(model, na_rm = TRUE)
 
   # Sanity Check for ZI
   if (mi$is_zero_inflated) {
@@ -77,21 +78,21 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
   # Response - Basic
   out <- merge(
     out,
-    .std_info_response_basic(model, mi, params, robust = robust),
+    .std_info_response_basic(model, mi, params, robust = robust, w = wgts),
     by = "Parameter", all = TRUE
   )
 
   # Response - Smart
   out <- merge(
     out,
-    .std_info_response_smart(model, mi, data, model_matrix, types, robust = robust),
+    .std_info_response_smart(model, mi, data, model_matrix, types, robust = robust, w = wgts),
     by = "Parameter", all = TRUE
   )
 
   # Basic
   out <- merge(
     out,
-    .std_info_predictors_basic(model, model_matrix, types, robust = robust, two_sd = two_sd),
+    .std_info_predictors_basic(model, model_matrix, types, robust = robust, two_sd = two_sd, w = wgts),
     by = "Parameter", all = TRUE
   )
 
@@ -103,7 +104,8 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
       params,
       types,
       robust = robust,
-      two_sd = two_sd
+      two_sd = two_sd,
+      w = wgts
     ),
     by = "Parameter", all = TRUE
   )
@@ -118,6 +120,7 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
         model, mi,
         params,
         model_matrix,
+        data,
         types = types$Type,
         robust = robust,
         two_sd = two_sd
@@ -158,9 +161,8 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
                                        types,
                                        robust = FALSE,
                                        two_sd = FALSE,
+                                       w = NULL,
                                        ...) {
-  w <- insight::get_weights(model, na_rm = TRUE)
-
   # Get deviations for all parameters
   means <- deviations <- rep(NA_real_, times = length(params))
   for (i in seq_along(params)) {
@@ -249,9 +251,8 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
                                        types,
                                        robust = FALSE,
                                        two_sd = FALSE,
+                                       w = NULL,
                                        ...) {
-  w <- insight::get_weights(model, na_rm = TRUE)
-
   # Get deviations for all parameters
   means <- deviations <- rep(NA_real_, length = length(names(model_matrix)))
   for (i in seq_along(names(model_matrix))) {
@@ -283,9 +284,7 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
 # Response ------------------------------------------------------------
 
 #' @keywords internal
-.std_info_response_smart <- function(model, info, data, model_matrix, types, robust = FALSE, ...) {
-  w <- insight::get_weights(model, na_rm = TRUE)
-
+.std_info_response_smart <- function(model, info, data, model_matrix, types, robust = FALSE, w = NULL,...) {
   if (info$is_linear) {
     # response <- insight::get_response(model)
     response <- model.frame(model)[[1]]
@@ -329,9 +328,7 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
 
 #' @importFrom stats model.frame
 #' @keywords internal
-.std_info_response_basic <- function(model, info, params, robust = FALSE, ...) {
-  w <- insight::get_weights(model, na_rm = TRUE)
-
+.std_info_response_basic <- function(model, info, params, robust = FALSE, w = NULL, ...) {
   # response <- insight::get_response(model)
   response <- stats::model.frame(model)[[1]]
 
@@ -368,6 +365,7 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
                              mi,
                              params,
                              model_matrix,
+                             data,
                              types,
                              robust = FALSE,
                              two_sd = FALSE,
@@ -451,7 +449,7 @@ standardize_info.default <- function(model, robust = FALSE, two_sd = FALSE, incl
     m0 <- suppressWarnings(suppressMessages(
       lme4::lmer(stats::as.formula(frm),
         weights = w,
-        data = insight::get_data(model)
+        data = data
       )
     ))
     m0v <- insight::get_variance(m0)
