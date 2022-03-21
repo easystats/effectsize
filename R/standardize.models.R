@@ -97,6 +97,10 @@ standardize.default <- function(x,
   m_info <- .get_model_info(x, ...)
   data <- insight::get_data(x)
 
+  if (isTRUE(attr(data, "is_subset"))) {
+    stop("Cannot standardize a model fit with a 'subset = '.", call. = FALSE)
+  }
+
   if (m_info$is_bayesian) {
     warning("Standardizing variables without adjusting priors may lead to bogus results unless priors are auto-scaled.",
             call. = FALSE, immediate. = TRUE
