@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -135,7 +135,7 @@
 <p>The conversion of the <span class="math inline">\(F\)</span>- or <span class="math inline">\(t\)</span>-statistic is based on <span class="citation">Friedman (1982)</span>.</p>
 <p>Let’s look at an example:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://afex.singmann.science/" class="external-link">afex</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://afex.singmann.science/" class="external-link">afex</a></span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">md_12.1</span><span class="op">)</span>
 
@@ -252,7 +252,7 @@
 &gt; (Intercept) |      251.41 | 6.82 | [237.01, 265.80] |    36.84 | &lt; .001
 &gt; Days        |       10.47 | 1.55 | [  7.21,  13.73] |     6.77 | &lt; .001</code></pre>
 <pre><code>&gt; 
-&gt; Uncertainty intervals (equal-tailed) and p values (two-tailed) computed using a
+&gt; Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed using a
 &gt;   Wald t-distribution with Satterthwaite approximation.</code></pre>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/F_to_eta2.html">t_to_eta2</a></span><span class="op">(</span><span class="fl">6.77</span>, df_error <span class="op">=</span> <span class="fl">17</span><span class="op">)</span></code></pre></div>
@@ -305,7 +305,7 @@
 &gt; (Intercept) |      251.41 | 6.82 | [237.01, 265.80] |    36.84 | &lt; .001
 &gt; Days        |       10.47 | 1.55 | [  7.21,  13.73] |     6.77 | &lt; .001</code></pre>
 <pre><code>&gt; 
-&gt; Uncertainty intervals (equal-tailed) and p values (two-tailed) computed using a
+&gt; Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed using a
 &gt;   Wald t-distribution with Satterthwaite approximation.</code></pre>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/t_to_r.html">t_to_r</a></span><span class="op">(</span><span class="fl">6.77</span>, df_error <span class="op">=</span> <span class="fl">17</span><span class="op">)</span></code></pre></div>
@@ -323,7 +323,7 @@
 &gt; complaints  |        0.75 |  0.10 | [ 0.55,  0.96] |  7.46 | &lt; .001
 &gt; critical    |    1.91e-03 |  0.14 | [-0.28,  0.28] |  0.01 | 0.989</code></pre>
 <pre><code>&gt; 
-&gt; Uncertainty intervals (equal-tailed) and p values (two-tailed) computed using a
+&gt; Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed using a
 &gt;   Wald t-distribution approximation.</code></pre>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/t_to_r.html">t_to_r</a></span><span class="op">(</span>
@@ -470,7 +470,7 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by <a href="https://github.com/mattansb/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke/" class="external-link">Daniel Lüdecke</a>.</p>
+<p>Developed by <a href="https://github.com/mattansb/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke/" class="external-link">Daniel Lüdecke</a>, <a href="https://sites.google.com/site/indrajeetspatilmorality/" class="external-link">Indrajeet Patil</a>, <a href="https://wiernik.org/" class="external-link">Brenton M. Wiernik</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

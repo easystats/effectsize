@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -137,7 +137,7 @@
 &gt; treatment [A] |        1.97 | 0.54 | [0.89, 3.05] |  3.64 | &lt; .001
 &gt; treatment [B] |        2.09 | 0.47 | [1.15, 3.03] |  4.42 | &lt; .001</code></pre>
 <pre><code>&gt; 
-&gt; Uncertainty intervals (equal-tailed) and p values (two-tailed) computed using a
+&gt; Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed using a
 &gt;   Wald t-distribution approximation.</code></pre>
 <p>But we can also ask about the overall effect of <code>treatment</code> - how much of the variation in our dependent variable <code>value</code> can be predicted by (or explained by) the variation between the <code>treatment</code> groups. Such a question can be answered with an ANOVA test:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -276,7 +276,7 @@
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <p>If all of this type-III-effects-coding seems like a hassle, you can use the <code>afex</code> package, which takes care of all of this behind the scenes:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://afex.singmann.science/" class="external-link">afex</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://afex.singmann.science/" class="external-link">afex</a></span><span class="op">)</span>
 <span class="va">m_afex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_car</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">Error</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Contrasts set to contr.sum for the following variables: treatment, gender</code></pre>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
@@ -445,7 +445,7 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by <a href="https://github.com/mattansb/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke/" class="external-link">Daniel Lüdecke</a>.</p>
+<p>Developed by <a href="https://github.com/mattansb/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke/" class="external-link">Daniel Lüdecke</a>, <a href="https://sites.google.com/site/indrajeetspatilmorality/" class="external-link">Indrajeet Patil</a>, <a href="https://wiernik.org/" class="external-link">Brenton M. Wiernik</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

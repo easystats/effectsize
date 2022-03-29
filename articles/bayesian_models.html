@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -158,7 +158,7 @@
 &gt; n_comps     |  2962.41 | [2712.00,  3220.75] | 1.000 | 4405.00 |      Normal (0 +- 3755.71)
 &gt; seniority   |   442.16 | [ 228.84,   637.99] | 1.000 | 4023.00 |      Normal (0 +- 2702.93)</code></pre>
 <pre><code>&gt; 
-&gt; Uncertainty intervals (highest-density) and p values (two-tailed) computed
+&gt; Uncertainty intervals (highest-density) and p-values (two-tailed) computed
 &gt;   using a MCMC distribution approximation.</code></pre>
 <p>Looking at the un-standardized (“raw”) parameters, it looks like all predictors positively predict workers’ salaries, but which has the highest predictive power? Unfortunately, the predictors are not on the same scale (hours, compliments, years), so comparing them is hard when looking at the raw data. This is where standardization comes in.</p>
 <p>Like with <a href="https://easystats.github.io/effectsize/articles/standardize_parameters.html" class="external-link">frequentists models</a> we can choose from the same standardization methods. Let’s use the (slow) <code>"refit"</code> method.</p>
@@ -168,13 +168,6 @@
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod</span>, method <span class="op">=</span> <span class="st">"refit"</span>, ci <span class="op">=</span> <span class="fl">0.89</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Warning: Standardizing variables without adjusting priors may lead to bogus
 &gt; results unless priors are auto-scaled.</code></pre>
-<pre><code>&gt; Warning: Following variable(s) were not found: Group, Response, Function
-
-&gt; Warning: Following variable(s) were not found: Group, Response, Function
-
-&gt; Warning: Following variable(s) were not found: Group, Response, Function
-
-&gt; Warning: Following variable(s) were not found: Group, Response, Function</code></pre>
 <pre><code>&gt; # Standardization method: refit
 &gt; 
 &gt; Parameter   | Median (std.) |        89% CI
@@ -184,20 +177,13 @@
 &gt; n_comps     |          0.39 | [ 0.37, 0.42]
 &gt; seniority   |          0.08 | [ 0.05, 0.11]</code></pre>
 <p>Note that the central tendency of the posterior distribution is still the <em>median</em> - the median of the standardized posterior distribution. We can easily change this, of the type of credible interval used:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/" class="external-link">effectsize</a></span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod</span>,
   method <span class="op">=</span> <span class="st">"basic"</span>, ci <span class="op">=</span> <span class="fl">0.89</span>,
   centrality <span class="op">=</span> <span class="st">"MAP"</span>, ci_method <span class="op">=</span> <span class="st">"eti"</span>
 <span class="op">)</span></code></pre></div>
-<pre><code>&gt; Warning: Following variable(s) were not found: Group, Response, Function
-
-&gt; Warning: Following variable(s) were not found: Group, Response, Function
-
-&gt; Warning: Following variable(s) were not found: Group, Response, Function
-
-&gt; Warning: Following variable(s) were not found: Group, Response, Function</code></pre>
 <pre><code>&gt; # Standardization method: basic
 &gt; 
 &gt; Parameter   | MAP (std.) |       89% CI
@@ -223,7 +209,7 @@
 <h4 id="setup-1">Setup<a class="anchor" aria-label="anchor" href="#setup-1"></a>
 </h4>
 <p>Let’s factorize our data from above:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age</span>,
   breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">35</span>, <span class="fl">45</span><span class="op">)</span>, right <span class="op">=</span> <span class="cn">FALSE</span>,
   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Young"</span>, <span class="st">"Less_young"</span><span class="op">)</span>
@@ -240,7 +226,7 @@
 &gt;   Young        124   188   114
 &gt;   Less_young    13    34    27</code></pre>
 <p>And fit our model:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># use (special) effects coding</span>
 <span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">age_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">bayestestR</span><span class="fu">::</span><span class="va"><a href="https://easystats.github.io/bayestestR/reference/contr.orthonorm.html" class="external-link">contr.orthonorm</a></span>
 <span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html" class="external-link">contrasts</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">comps_f</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">bayestestR</span><span class="fu">::</span><span class="va"><a href="https://easystats.github.io/bayestestR/reference/contr.orthonorm.html" class="external-link">contr.orthonorm</a></span>
@@ -250,7 +236,7 @@
   refresh <span class="op">=</span> <span class="fl">0</span>
 <span class="op">)</span></code></pre></div>
 <p>We can use <code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> to get the posterior distribution of <span class="math inline">\(eta^2\)</span> or <span class="math inline">\(eta^2_p\)</span> for each effect. Like an ANOVA table, we must make sure to use the right effects-coding and <em>SS</em>-type:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pes_posterior</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eta_squared.html">eta_squared_posterior</a></span><span class="op">(</span><span class="va">modAOV</span>,
   draws <span class="op">=</span> <span class="fl">500</span>, <span class="co"># how many samples from the PPD?</span>
   partial <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># partial eta squared</span>
@@ -267,7 +253,7 @@
 &gt; 4 0.0044   0.185       0.03981
 &gt; 5 0.0500   0.076       0.00204
 &gt; 6 0.0822   0.072       0.00066</code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">bayestestR</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html" class="external-link">describe_posterior</a></span><span class="op">(</span><span class="va">pes_posterior</span>, 
   rope_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span><span class="op">)</span>, test <span class="op">=</span> <span class="st">"rope"</span>
 <span class="op">)</span></code></pre></div>
@@ -279,7 +265,7 @@
 &gt; comps_f       |   0.13 | [0.06, 0.21] | [0.00, 0.10] |    17.86%
 &gt; age_f:comps_f |   0.01 | [0.00, 0.04] | [0.00, 0.10] |      100%</code></pre>
 <p>Compare to:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">modAOV_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">age_f</span> <span class="op">*</span> <span class="va">comps_f</span>,
   data <span class="op">=</span> <span class="va">hardlyworking</span>
 <span class="op">)</span>
@@ -320,7 +306,7 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by <a href="https://github.com/mattansb/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke/" class="external-link">Daniel Lüdecke</a>.</p>
+<p>Developed by <a href="https://github.com/mattansb/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke/" class="external-link">Daniel Lüdecke</a>, <a href="https://sites.google.com/site/indrajeetspatilmorality/" class="external-link">Indrajeet Patil</a>, <a href="https://wiernik.org/" class="external-link">Brenton M. Wiernik</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
