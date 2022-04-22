@@ -183,8 +183,8 @@ r \approx \frac{d}{\sqrt{d^2 + 4}}
 &gt; am          |        5.28 |     1.08 | [ 3.07,  7.48] |  4.89 | &lt; .001
 &gt; hp          |       -0.06 | 7.86e-03 | [-0.07, -0.04] | -7.50 | &lt; .001</code></pre>
 <pre><code>&gt; 
-&gt; Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed using a
-&gt;   Wald t-distribution approximation.</code></pre>
+&gt; Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed
+&gt;   using a Wald t-distribution approximation.</code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># A couple of ways to get partial-d:</span>
 <span class="fl">5.28</span> <span class="op">/</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stanreg-methods.html" class="external-link">sigma</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></code></pre></div>
@@ -244,8 +244,8 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 &gt; (Intercept) |     0.41 | 0.91 | [-1.39, 2.43] |  0.44 | 0.657
 &gt; Group [1]   |    -0.81 | 1.29 | [-3.54, 1.70] | -0.63 | 0.530</code></pre>
 <pre><code>&gt; 
-&gt; Uncertainty intervals (profile-likelihood) and p-values (two-tailed) computed
-&gt;   using a Wald z-distribution approximation.</code></pre>
+&gt; Uncertainty intervals (profile-likelihood) and p-values (two-tailed)
+&gt;   computed using a Wald z-distribution approximation.</code></pre>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Convert log(OR) (the coefficient) to d</span>
 <span class="fu"><a href="../reference/d_to_r.html">oddsratio_to_d</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.81</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>

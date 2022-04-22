@@ -235,7 +235,7 @@ a change of 1 SD in the predictor, etc.)</p>
     <div class="section level2">
     <h2 id="dealing-with-factors">Dealing with Factors<a class="anchor" aria-label="anchor" href="#dealing-with-factors"></a></h2>
     <p><code>standardize(model)</code> or <code>standardize_parameters(model, method = "refit")</code> do
-<em>not</em> standardized categorical predictors (i.e. factors) / their
+<em>not</em> standardize categorical predictors (i.e. factors) / their
 dummy-variables, which may be a different behaviour compared to other R
 packages (such as <span class="pkg">lm.beta</span>) or other software packages (like SPSS). To
 mimic such behaviours, either use <code>standardize_parameters(model, method = "basic")</code> to obtain post-hoc standardized parameters, or standardize the data

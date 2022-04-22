@@ -153,12 +153,12 @@
 <span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="va">mod</span>, test <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Parameter   |   Median |              95% CI |  Rhat |     ESS |                      Prior
 &gt; -------------------------------------------------------------------------------------------
-&gt; (Intercept) | 10016.89 | [9190.41, 10871.71] | 1.000 | 5288.00 | Normal (20000 +- 15495.02)
-&gt; xtra_hours  |  1235.83 | [1175.83,  1292.33] | 1.000 | 4032.00 |      Normal (0 +- 1587.80)
-&gt; n_comps     |  2962.41 | [2712.00,  3220.75] | 1.000 | 4405.00 |      Normal (0 +- 3755.71)
-&gt; seniority   |   442.16 | [ 228.84,   637.99] | 1.000 | 4023.00 |      Normal (0 +- 2702.93)</code></pre>
+&gt; (Intercept) | 10026.65 | [9184.21, 10841.02] | 1.000 | 5451.00 | Normal (20000 +- 15495.02)
+&gt; xtra_hours  |  1236.55 | [1178.39,  1293.04] | 1.000 | 4474.00 |      Normal (0 +- 1587.80)
+&gt; n_comps     |  2961.54 | [2707.53,  3211.94] | 0.999 | 5124.00 |      Normal (0 +- 3755.71)
+&gt; seniority   |   441.07 | [ 245.75,   639.29] | 1.000 | 4270.00 |      Normal (0 +- 2702.93)</code></pre>
 <pre><code>&gt; 
-&gt; Uncertainty intervals (highest-density) and p-values (two-tailed) computed
+&gt; Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed
 &gt;   using a MCMC distribution approximation.</code></pre>
 <p>Looking at the un-standardized (“raw”) parameters, it looks like all predictors positively predict workers’ salaries, but which has the highest predictive power? Unfortunately, the predictors are not on the same scale (hours, compliments, years), so comparing them is hard when looking at the raw data. This is where standardization comes in.</p>
 <p>Like with <a href="https://easystats.github.io/effectsize/articles/standardize_parameters.html" class="external-link">frequentists models</a> we can choose from the same standardization methods. Let’s use the (slow) <code>"refit"</code> method.</p>
@@ -167,7 +167,7 @@
 
 <span class="fu"><a href="../reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">mod</span>, method <span class="op">=</span> <span class="st">"refit"</span>, ci <span class="op">=</span> <span class="fl">0.89</span><span class="op">)</span></code></pre></div>
 <pre><code>&gt; Warning: Standardizing variables without adjusting priors may lead to bogus
-&gt; results unless priors are auto-scaled.</code></pre>
+&gt;   results unless priors are auto-scaled.</code></pre>
 <pre><code>&gt; # Standardization method: refit
 &gt; 
 &gt; Parameter   | Median (std.) |        89% CI
@@ -189,9 +189,9 @@
 &gt; Parameter   | MAP (std.) |       89% CI
 &gt; ---------------------------------------
 &gt; (Intercept) |       0.00 | [0.00, 0.00]
-&gt; xtra_hours  |       0.78 | [0.75, 0.81]
+&gt; xtra_hours  |       0.77 | [0.75, 0.81]
 &gt; n_comps     |       0.40 | [0.37, 0.42]
-&gt; seniority   |       0.08 | [0.05, 0.11]</code></pre>
+&gt; seniority   |       0.09 | [0.05, 0.11]</code></pre>
 <p>As we can see, working harder (or at least for longer hours) has stronger predictive power than complementing or seniority. (Do note, however, that this does not mean that if you wish to have a higher salary you should work overtime - the raw parameters seem to suggest that complementing your boss is the way to go, with one compliment worth almost 3.5 times <strong>more</strong> than a full hours’ work!)</p>
 </div>
 </div>
@@ -246,13 +246,13 @@
 <span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pes_posterior</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt;    age_f comps_f age_f:comps_f
-&gt; 1 0.0070   0.139       0.00435
-&gt; 2 0.0096   0.111       0.01402
-&gt; 3 0.0402   0.136       0.00965
-&gt; 4 0.0044   0.185       0.03981
-&gt; 5 0.0500   0.076       0.00204
-&gt; 6 0.0822   0.072       0.00066</code></pre>
+<pre><code>&gt;   age_f comps_f age_f:comps_f
+&gt; 1 0.020   0.190        0.0103
+&gt; 2 0.029   0.088        0.0101
+&gt; 3 0.053   0.086        0.0037
+&gt; 4 0.028   0.082        0.0118
+&gt; 5 0.022   0.067        0.0048
+&gt; 6 0.037   0.072        0.0020</code></pre>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">bayestestR</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html" class="external-link">describe_posterior</a></span><span class="op">(</span><span class="va">pes_posterior</span>, 
   rope_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span><span class="op">)</span>, test <span class="op">=</span> <span class="st">"rope"</span>
@@ -261,9 +261,9 @@
 &gt; 
 &gt; Parameter     | Median |       95% CI |         ROPE | % in ROPE
 &gt; ----------------------------------------------------------------
-&gt; age_f         |   0.03 | [0.00, 0.07] | [0.00, 0.10] |      100%
-&gt; comps_f       |   0.13 | [0.06, 0.21] | [0.00, 0.10] |    17.86%
-&gt; age_f:comps_f |   0.01 | [0.00, 0.04] | [0.00, 0.10] |      100%</code></pre>
+&gt; age_f         |   0.03 | [0.00, 0.08] | [0.00, 0.10] |      100%
+&gt; comps_f       |   0.13 | [0.07, 0.22] | [0.00, 0.10] |    17.51%
+&gt; age_f:comps_f |   0.01 | [0.00, 0.05] | [0.00, 0.10] |      100%</code></pre>
 <p>Compare to:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">modAOV_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">age_f</span> <span class="op">*</span> <span class="va">comps_f</span>,
@@ -271,10 +271,10 @@
 <span class="op">)</span>
 
 <span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">modAOV_f</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Type 3 ANOVAs only give sensible and informative results when covariates are
-&gt;   mean-centered and factors are coded with orthogonal contrasts (such as those
-&gt;   produced by 'contr.sum', 'contr.poly', or 'contr.helmert', but *not* by the
-&gt;   default 'contr.treatment').</code></pre>
+<pre><code>&gt; Type 3 ANOVAs only give sensible and informative results when covariates
+&gt;   are mean-centered and factors are coded with orthogonal contrasts (such
+&gt;   as those produced by 'contr.sum', 'contr.poly', or 'contr.helmert', but
+&gt;   *not* by the default 'contr.treatment').</code></pre>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
 &gt; Parameter     | Eta2 (partial) |       95% CI

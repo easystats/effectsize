@@ -137,8 +137,8 @@
 &gt; treatment [A] |        1.97 | 0.54 | [0.89, 3.05] |  3.64 | &lt; .001
 &gt; treatment [B] |        2.09 | 0.47 | [1.15, 3.03] |  4.42 | &lt; .001</code></pre>
 <pre><code>&gt; 
-&gt; Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed using a
-&gt;   Wald t-distribution approximation.</code></pre>
+&gt; Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed
+&gt;   using a Wald t-distribution approximation.</code></pre>
 <p>But we can also ask about the overall effect of <code>treatment</code> - how much of the variation in our dependent variable <code>value</code> can be predicted by (or explained by) the variation between the <code>treatment</code> groups. Such a question can be answered with an ANOVA test:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -246,10 +246,10 @@
 <span class="op">)</span>
 
 <span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">m_interaction1</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Type 3 ANOVAs only give sensible and informative results when covariates are
-&gt;   mean-centered and factors are coded with orthogonal contrasts (such as those
-&gt;   produced by 'contr.sum', 'contr.poly', or 'contr.helmert', but *not* by the
-&gt;   default 'contr.treatment').</code></pre>
+<pre><code>&gt; Type 3 ANOVAs only give sensible and informative results when covariates
+&gt;   are mean-centered and factors are coded with orthogonal contrasts (such
+&gt;   as those produced by 'contr.sum', 'contr.poly', or 'contr.helmert', but
+&gt;   *not* by the default 'contr.treatment').</code></pre>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
 &gt; Parameter        | Eta2 (partial) |       95% CI
@@ -261,10 +261,10 @@
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">m_interaction2</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>&gt; Type 3 ANOVAs only give sensible and informative results when covariates are
-&gt;   mean-centered and factors are coded with orthogonal contrasts (such as those
-&gt;   produced by 'contr.sum', 'contr.poly', or 'contr.helmert', but *not* by the
-&gt;   default 'contr.treatment').</code></pre>
+<pre><code>&gt; Type 3 ANOVAs only give sensible and informative results when covariates
+&gt;   are mean-centered and factors are coded with orthogonal contrasts (such
+&gt;   as those produced by 'contr.sum', 'contr.poly', or 'contr.helmert', but
+&gt;   *not* by the default 'contr.treatment').</code></pre>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
 &gt; Parameter        | Eta2 (partial) |       95% CI
