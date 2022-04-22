@@ -21,7 +21,7 @@ effectsize(model, ...)
 
 \item{type}{The effect size of interest. See details.}
 
-\item{verbose}{Toggle off warnings.}
+\item{verbose}{Toggle warnings and messages on or off.}
 
 \item{test}{The indices of effect existence to compute. Character (vector) or
 list with one or more of these options: \code{"p_direction"} (or \code{"pd"}),

@@ -76,7 +76,7 @@ a change of 1 SD in the predictor, etc.)
 
 \section{Dealing with Factors}{
 \code{standardize(model)} or \code{standardize_parameters(model, method = "refit")} do
-\emph{not} standardized categorical predictors (i.e. factors) / their
+\emph{not} standardize categorical predictors (i.e. factors) / their
 dummy-variables, which may be a different behaviour compared to other R
 packages (such as \pkg{lm.beta}) or other software packages (like SPSS). To
 mimic such behaviours, either use \code{standardize_parameters(model, method = "basic")} to obtain post-hoc standardized parameters, or standardize the data

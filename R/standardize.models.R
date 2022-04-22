@@ -38,7 +38,7 @@
 #'
 #' # Dealing with Factors
 #' `standardize(model)` or `standardize_parameters(model, method = "refit")` do
-#' *not* standardized categorical predictors (i.e. factors) / their
+#' *not* standardize categorical predictors (i.e. factors) / their
 #' dummy-variables, which may be a different behaviour compared to other R
 #' packages (such as \pkg{lm.beta}) or other software packages (like SPSS). To
 #' mimic such behaviours, either use `standardize_parameters(model, method =
@@ -102,7 +102,7 @@ standardize.default <- function(x,
   }
 
   if (m_info$is_bayesian) {
-    warning("Standardizing variables without adjusting priors may lead to bogus results unless priors are auto-scaled.",
+    warning(insight::format_message("Standardizing variables without adjusting priors may lead to bogus results unless priors are auto-scaled."),
             call. = FALSE, immediate. = TRUE
     )
   }
@@ -170,9 +170,10 @@ standardize.default <- function(x,
   # can't std data$var variables
   if (any(doller_vars <- grepl("(.*)\\$(.*)", do_standardize))) {
     doller_vars <- colnames(data)[doller_vars]
-    warning("Unable to standardize variables evaluated in the environment (i.e., not in `data`).\n",
-      "The following variables will not be standardizd:\n\t",
-      paste0(doller_vars, collapse = ", "),
+    warning(insight::format_message(
+      "Unable to standardize variables evaluated in the environment (i.e., not in `data`).",
+      "The following variables will not be standardizd:",
+      paste0(doller_vars, collapse = ", ")),
       call. = FALSE
     )
     do_standardize <- setdiff(do_standardize, doller_vars)
@@ -226,7 +227,7 @@ standardize.default <- function(x,
   }
 
   if (verbose && length(c(log_terms, sqrt_terms))) {
-    message("Formula contains log- or sqrt-terms. See help(\"standardize\") for how such terms are standardized.")
+    message(insight::format_message("Formula contains log- or sqrt-terms. See help(\"standardize\") for how such terms are standardized."))
   }
 
 
@@ -249,7 +250,7 @@ standardize.default <- function(x,
   if (isTRUE(verbose)) {
      model_std <- eval(substitute(update_expr))
   } else {
-    capture.output(model_std <- eval(substitute(update_expr)))
+    utils::capture.output(model_std <- eval(substitute(update_expr)))
   }
 
   on.exit() # undo previous on.exit()
@@ -272,9 +273,10 @@ standardize.brmsfit <- function(x,
                                 ...) {
   data_std <- NULL # needed to avoid note
   if (insight::is_multivariate(x)) {
-    stop("multivariate brmsfit models not supported.",
-         "\nAs an alternative: you may standardize your data (and adjust your priors), and re-fit the model.",
-         call. = FALSE
+    stop(insight::format_message(
+      "multivariate brmsfit models not supported.",
+      "As an alternative: you may standardize your data (and adjust your priors), and re-fit the model."),
+      call. = FALSE
     )
   }
 
@@ -356,7 +358,7 @@ standardize.mediate <- function(x,
         y_data_std = y_data_std, m_data_std = m_data_std
       )
     )
-    if (verbose) message("covariates' values have been rescaled to their standardized scales.")
+    if (verbose) message(insight::format_message("Covariates' values have been rescaled to their standardized scales."))
   }
 
   # if (is.numeric(y_data[[x$treat]]) || is.numeric(m_data[[x$treat]])) {
@@ -375,8 +377,9 @@ standardize.mediate <- function(x,
   # }
 
   if (verbose && !all(c(control.value, treat.value) %in% c(0, 1))) {
-    warning("control and treat values are not 0 and 1, and have not been re-scaled.",
-      "\nInterpret results with caution.",
+    warning(insight::format_message(
+      "Control and treat values are not 0 and 1, and have not been re-scaled.",
+      "Interpret results with caution."),
       call. = FALSE
     )
   }
@@ -448,9 +451,10 @@ standardize.biglm <- standardize.wbm
 .safe_to_standardize_response <- function(info, verbose = TRUE) {
   if (is.null(info)) {
     if (verbose) {
-      warning("Unable to varify if response should not be standardized.",
-              "\nResponse will be standardized.",
-              immediate. = TRUE, call. = FALSE)
+      warning(insight::format_message(
+        "Unable to verify if response should not be standardized.",
+        "Response will be standardized."),
+        immediate. = TRUE, call. = FALSE)
     }
     return(TRUE)
   }
@@ -494,12 +498,13 @@ standardize.biglm <- standardize.wbm
 #' @keywords internal
 .update_failed <- function(class = NULL, ...) {
   if (is.null(class)) {
-    msg1 <- "Unable to refit the model with standardized data.\n"
+    msg1 <- "Unable to refit the model with standardized data."
   } else {
-    msg1 <- sprintf("Standardization of parameters not possible for models of class '%s'.\n", class)
+    msg1 <- sprintf("Standardization of parameters not possible for models of class '%s'.", class)
   }
 
-  stop(msg1,
-       "Try instead to standardize the data (standardize(data)) and refit the model manually.",
-       call. = FALSE)
+  stop(insight::format_message(
+    msg1,
+    "Try instead to standardize the data (standardize(data)) and refit the model manually."),
+    call. = FALSE)
 }
