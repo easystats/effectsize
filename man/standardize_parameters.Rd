@@ -137,7 +137,7 @@ When the model's formula contains transformations (e.g. \code{y ~ exp(X)}) \code
 equivalent to \code{exp(scale(X))}), the \code{"basic"} method standardizes the
 transformed data (e.g. equivalent to \code{scale(exp(X))}).
 \cr\cr
-See the \emph{Transformed Variables} section in \code{\link[=standardize.default]{standardize.default()}} for more
+See the \emph{Transformed Variables} section in \code{\link[datawizard:standardize.default]{datawizard::standardize.default()}} for more
 details on how different transformations are dealt with when \code{method = "refit"}.
 }
 
@@ -148,21 +148,25 @@ the standardized coefficients (cf. Jones & Waller, 2015).
 }
 
 \section{Generalized Linear Models}{
+
 Standardization for generalized linear models (GLM, GLMM, etc) is done only
 with respect to the predictors (while the outcome remains as-is,
 unstandardized) - maintaining the interpretability of the coefficients (e.g.,
 in a binomial model: the exponent of the standardized parameter is the OR of
 a change of 1 SD in the predictor, etc.)
+
 }
 
 \section{Dealing with Factors}{
+
 \code{standardize(model)} or \code{standardize_parameters(model, method = "refit")} do
 \emph{not} standardize categorical predictors (i.e. factors) / their
 dummy-variables, which may be a different behaviour compared to other R
-packages (such as \pkg{lm.beta}) or other software packages (like SPSS). To
+packages (such as \strong{lm.beta}) or other software packages (like SPSS). To
 mimic such behaviours, either use \code{standardize_parameters(model, method = "basic")} to obtain post-hoc standardized parameters, or standardize the data
-with \code{datawizard::standardize(data, force = TRUE)} \emph{before} fitting the
+with \code{standardize(data, force = TRUE)} \emph{before} fitting the
 model.
+
 }
 
 \examples{
@@ -214,7 +218,6 @@ head(standardize_posteriors(model, method = "basic"))
 }
 \seealso{
 Other standardize: 
-\code{\link{standardize.default}()},
 \code{\link{standardize_info}()}
 
 Other effect size indices: 

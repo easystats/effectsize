@@ -10,7 +10,7 @@
 #'   standardized. If `FALSE`, only the predictors will be standardized. For
 #'   GLMs the response value will never be standardized (see *Generalized Linear
 #'   Models* section).
-#' @inheritParams standardize.default
+#' @inheritParams datawizard::standardize.default
 #' @inheritParams chisq_to_phi
 #' @param ... For `standardize_parameters()`, arguments passed to
 #'   [parameters::model_parameters], such as:
@@ -81,7 +81,7 @@
 #' equivalent to `exp(scale(X))`), the `"basic"` method standardizes the
 #' transformed data (e.g. equivalent to `scale(exp(X))`).
 #' \cr\cr
-#' See the *Transformed Variables* section in [standardize.default()] for more
+#' See the *Transformed Variables* section in [datawizard::standardize.default()] for more
 #' details on how different transformations are dealt with when `method =
 #' "refit"`.
 #'
@@ -90,8 +90,8 @@
 #' unstandardized confidence intervals, and not "true" confidence intervals of
 #' the standardized coefficients (cf. Jones & Waller, 2015).
 #'
-#' @inheritSection standardize.default Generalized Linear Models
-#' @inheritSection standardize.default Dealing with Factors
+#' @inheritSection datawizard::standardize.default Generalized Linear Models
+#' @inheritSection datawizard::standardize.default Dealing with Factors
 #'
 #' @return A data frame with the standardized parameters (`Std_*`, depending on
 #'   the model type) and their CIs (`CI_low` and `CI_high`). Where applicable,

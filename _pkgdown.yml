@@ -73,7 +73,6 @@ reference:
 
 - title: "Standardization"
   contents:
-  - standardize.default
   - standardize_parameters
   - standardize_info
 

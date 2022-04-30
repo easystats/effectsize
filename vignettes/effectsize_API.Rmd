@@ -219,21 +219,21 @@ omega_squared(mod)
 ```
 
 
-## Supporting Model Re-Fitting with Standardized Data
+<!-- ## Supporting Model Re-Fitting with Standardized Data -->
 
-`effectsize::standardize.default()` should support your model if you have methods for:
+<!-- `effectsize::standardize.default()` should support your model if you have methods for: -->
 
-1. `{insight}` functions.
-2. An `update()` method that can take the model and a data frame via the `data = ` argument.
+<!-- 1. `{insight}` functions. -->
+<!-- 2. An `update()` method that can take the model and a data frame via the `data = ` argument. -->
 
-Or you can make your own `standardize.my_class()` function, DIY-style (possibly using `datawizard::standardize.data.frame()` or `datawizard::standardize.numeric()`). This function should return a fiffed model of the same class as the input model.
+<!-- Or you can make your own `standardize.my_class()` function, DIY-style (possibly using `datawizard::standardize.data.frame()` or `datawizard::standardize.numeric()`). This function should return a fiffed model of the same class as the input model. -->
 
-## Supporting Standardized Parameters
+<!-- ## Supporting Standardized Parameters -->
 
-`standardize_parameters.default()` offers a few methods of parameter standardization:
+<!-- `standardize_parameters.default()` offers a few methods of parameter standardization: -->
 
-- For `method = "refit"` all you need is to have `effectsize::standardize()` support (see above) as well as `parameters::model_parameters()`.  
-- ***API for post-hoc methods coming soon...***  
+<!-- - For `method = "refit"` all you need is to have `effectsize::standardize()` support (see above) as well as `parameters::model_parameters()`.   -->
+<!-- - ***API for post-hoc methods coming soon...***   -->
 
 <!-- `standardize_parameters.default()` should support your model if it is already supported by `{parameters}` and `{insight}`. -->
 

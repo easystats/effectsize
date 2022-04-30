@@ -60,7 +60,7 @@ Imports:
     insight (>= 0.16.0.16),
     parameters (>= 0.17.0.3),
     performance (>= 0.8.0.8),
-    datawizard (>= 0.3.0.9006),
+    datawizard (>= 0.4.0.16),
     stats,
     utils
 Suggests:
@@ -95,7 +95,7 @@ Remotes:
     easystats/insight,
     easystats/performance,
     easystats/parameters,
-    easystats/datawizard,
+    easystats/datawizard@standardize_default,
     easystats/bayestestR
 VignetteBuilder: 
     knitr

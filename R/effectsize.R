@@ -6,7 +6,7 @@
 #' @param model An object of class `htest`, or a statistical model. See details.
 #' @param type The effect size of interest. See details.
 #' @param ... Arguments passed to or from other methods. See details.
-#' @inheritParams standardize.default
+#' @inheritParams datawizard::standardize.default
 #'
 #' @details
 #'
