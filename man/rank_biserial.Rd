@@ -232,7 +232,6 @@ Other effect size indices:
 \code{\link{cohens_d}()},
 \code{\link{effectsize.BFBayesFactor}()},
 \code{\link{eta_squared}()},
-\code{\link{phi}()},
-\code{\link{standardize_parameters}()}
+\code{\link{phi}()}
 }
 \concept{effect size indices}

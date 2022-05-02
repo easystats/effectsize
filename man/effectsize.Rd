@@ -21,7 +21,7 @@ effectsize(model, ...)
 
 \item{type}{The effect size of interest. See details.}
 
-\item{verbose}{Toggle off warnings.}
+\item{verbose}{Toggle warnings and messages on or off.}
 
 \item{test}{The indices of effect existence to compute. Character (vector) or
 list with one or more of these options: \code{"p_direction"} (or \code{"pd"}),
@@ -125,7 +125,6 @@ Other effect size indices:
 \code{\link{cohens_d}()},
 \code{\link{eta_squared}()},
 \code{\link{phi}()},
-\code{\link{rank_biserial}()},
-\code{\link{standardize_parameters}()}
+\code{\link{rank_biserial}()}
 }
 \concept{effect size indices}
