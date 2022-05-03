@@ -93,7 +93,7 @@ is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided 
 
 \item{...}{Arguments passed to or from other methods.
 \itemize{
-\item Can be \code{include_intercept = TRUE} to include the effect size for the intercept.
+\item Can be \code{include_intercept = TRUE} to include the effect size for the intercept (when it is included in the ANOVA table).
 \item For Bayesian models, arguments passed to \code{ss_function}.
 }}
 
@@ -344,7 +344,6 @@ Other effect size indices:
 \code{\link{cohens_d}()},
 \code{\link{effectsize.BFBayesFactor}()},
 \code{\link{phi}()},
-\code{\link{rank_biserial}()},
-\code{\link{standardize_parameters}()}
+\code{\link{rank_biserial}()}
 }
 \concept{effect size indices}
