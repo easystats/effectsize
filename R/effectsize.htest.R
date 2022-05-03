@@ -110,13 +110,19 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   if (is.null(type)) {
     if (nr == 1 || nc == 1) {
-      type <- "cohens_w"
+      type <- "r" # TODONAME
     } else {
       type <- "cramers_v"
     }
   }
 
-  if (grepl("(c|v|w|phi)$", tolower(type))) {
+  if (grepl("(c|v|w|phi)$", tolower(type)) || tolower(type) == "r") { # TODONAME
+    if (tolower(type) == "r") { # TODONAME
+      p <- Exp
+    } else {
+      p <- NULL
+    }
+
     f <- switch(tolower(type),
                 v = ,
                 cramers_v = chisq_to_cramers_v,
@@ -124,7 +130,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
                 cohens_w = chisq_to_cohens_w,
                 phi = chisq_to_phi,
                 c = ,
-                pearsons_c = chisq_to_pearsons_c
+                pearsons_c = chisq_to_pearsons_c,
+                r = chisq_to_correlation # TODONAME
     )
 
     out <- f(
@@ -132,6 +139,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       n = sum(Obs),
       nrow = nr,
       ncol = nc,
+      p = p,
       ...
     )
   } else {

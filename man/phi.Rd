@@ -4,6 +4,7 @@
 \alias{phi}
 \alias{cohens_w}
 \alias{cramers_v}
+\alias{chisq_correlation}
 \alias{pearsons_c}
 \alias{oddsratio}
 \alias{riskratio}
@@ -16,6 +17,8 @@ phi(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
 cohens_w(x, y = NULL, ci = 0.95, alternative = "greater", ...)
 
 cramers_v(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
+
+chisq_correlation(x, y = NULL, ci = 0.95, alternative = "greater", ...)
 
 pearsons_c(
   x,
@@ -52,21 +55,22 @@ Partial matching is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See
 
 \item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
 
-\item{...}{Arguments passed to \code{\link[stats:chisq.test]{stats::chisq.test()}}, such as \code{p}. Ignored
-for \code{cohens_g()}.}
+\item{...}{Arguments passed to \code{\link[stats:chisq.test]{stats::chisq.test()}}, such as \code{p} for
+goodness-of-fit. Ignored for \code{cohens_g()}.}
 
 \item{log}{Take in or output the log of the ratio (such as in logistic models).}
 }
 \value{
 A data frame with the effect size (\code{Cramers_v}, \code{phi} (possibly with
-the suffix \verb{_adjusted}), \code{Odds_ratio}, \code{Risk_ratio} (possibly with the
-prefix \code{log_}), \code{Cohens_h}, or \code{Cohens_g}) and its CIs (\code{CI_low} and
-\code{CI_high}).
+the suffix \verb{_adjusted}), \code{Cohens_w}, \code{r} TODONAME, \code{Odds_ratio},
+\code{Risk_ratio} (possibly with the prefix \code{log_}), \code{Cohens_h}, or \code{Cohens_g})
+and its CIs (\code{CI_low} and \code{CI_high}).
 }
 \description{
-Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w}, Pearson's contingency
-coefficient, Odds ratios, Risk ratios, Cohen's \emph{h} and Cohen's \emph{g} for
-contingency tables or goodness-of-fit. See details.
+Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w}, correlation coefficient
+\emph{r} TODONAME, Pearson's contingency coefficient, Odds ratios, Risk ratios,
+Cohen's \emph{h} and Cohen's \emph{g} for contingency tables or goodness-of-fit. See
+details.
 }
 \details{
 Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w}, and Pearson's \emph{C} are effect
@@ -78,9 +82,11 @@ Pearson's \emph{C} should be used, as they are bounded between 0-1. Cohen's \emp
 can also be used, but since it is not bounded at 1 (can be larger) its
 interpretation is more difficult.
 \cr\cr
-For goodness-of-fit in 1D tables Pearson's \emph{C} or Cohen's \emph{w} can be used.
-Cohen's \emph{w} has no upper bound (can be arbitrarily large, depending on the
-expected distribution), while Pearson's \emph{C} is bounded between 0-1.
+For goodness-of-fit in 1D tables correlation coefficient \emph{r} TODONAME,
+Pearson's \emph{C} or Cohen's \emph{w} can be used. Cohen's \emph{w} has no upper bound (can
+be arbitrarily large, depending on the expected distribution). \emph{r} TODONAME
+is an adjusted Cohen's \emph{w}, accounting for the expected distribution, making
+it bounded between 0-1. Pearson's \emph{C} is also bounded between 0-1.
 \cr\cr
 For 2-by-2 contingency tables, Odds ratios, Risk ratios and Cohen's \emph{h} can
 also be estimated. Note that these are computed with each \strong{column}
@@ -103,8 +109,8 @@ estimated using the standard normal parametric method (see Katz et al., 1978;
 Szumilas, 2010).
 \cr\cr
 See \emph{Confidence (Compatibility) Intervals (CIs)}, \emph{CIs and Significance
-Tests}, and \emph{One-Sided CIs} sections for \emph{phi}, Cohen's \emph{w}, Cramer's \emph{V} and
-Pearson's \emph{C}.
+Tests}, and \emph{One-Sided CIs} sections for \emph{phi}, Cohen's \emph{w}, Cramer's \emph{V},
+Pearson's \emph{C}, and correlation coefficient \emph{r} TODONAME.
 }
 
 \section{Confidence (Compatibility) Intervals (CIs)}{
@@ -191,17 +197,20 @@ pearsons_c(M)
 ## Goodness of fit
 ## ---------------
 
-# Larsson, 2009
-Smoking_ASD <- as.table(c(TD = 17, ASD = 640))
+Smoking_ASD <- as.table(c(ASD = 17, ASP = 11, TD = 640))
+
+chisq_correlation(Smoking_ASD) #TODONAME
 
 cohens_w(Smoking_ASD)
 
 pearsons_c(Smoking_ASD)
 
 # Use custom expected values:
-cohens_w(Smoking_ASD, p = c(0.015, 0.985))
+chisq_correlation(Smoking_ASD, p = c(0.015, 0.010, 0.975)) #TODONAME
 
-pearsons_c(Smoking_ASD, p = c(0.015, 0.985))
+cohens_w(Smoking_ASD, p = c(0.015, 0.010, 0.975))
+
+pearsons_c(Smoking_ASD, p = c(0.015, 0.010, 0.975))
 
 
 
@@ -225,6 +234,11 @@ cohens_g(Performance)
 \item Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 \item Katz, D. J. S. M., Baptista, J., Azen, S. P., & Pike, M. C. (1978). Obtaining confidence intervals for the risk ratio in cohort studies. Biometrics, 469-474.
 \item Szumilas, M. (2010). Explaining odds ratios. Journal of the Canadian academy of child and adolescent psychiatry, 19(3), 227.
+\item Johnston, J. E., Berry, K. J., & Mielke Jr, P. W. (2006). Measures of
+effect size for chi-squared and likelihood-ratio goodness-of-fit tests.
+Perceptual and motor skills, 103(2), 412-414.
+\item Rosenberg, M. S. (2010). A generalized formula for converting chi-square
+tests to effect sizes for meta-analysis. PloS one, 5(4), e10059.
 }
 }
 \seealso{

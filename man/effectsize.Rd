@@ -47,7 +47,7 @@ input model. See details.
 \itemize{
 \item A \strong{t-test} depending on \code{type}: \code{"cohens_d"} (default), \code{"hedges_g"}, or \code{"cles"}.
 \item A \strong{Chi-squared tests of independence}, depending on \code{type}: \code{"cramers_v"} (default), \code{"phi"}, \code{"cohens_w"}, \code{"pearsons_c"}, \code{"cohens_h"}, \code{"oddsratio"}, or \code{"riskratio"}.
-\item A \strong{Chi-squared tests of goodness-of-fit}, depending on \code{type}: \code{"cohens_w"} (default), \code{"pearsons_c"}
+\item A \strong{Chi-squared tests of goodness-of-fit}, depending on \code{type}: \code{"r"} TODONAME (default) \code{"cohens_w"}, \code{"pearsons_c"}
 \item A \strong{One-way ANOVA test}, depending on \code{type}: \code{"eta"} (default), \code{"omega"} or \code{"epsilon"} -squared, \code{"f"}, or \code{"f2"}.
 \item A \strong{McNemar test} returns \emph{Cohen's g}.
 \item A \strong{Wilcoxon test} depending on \code{type}: returns "\code{rank_biserial}" correlation (default) or \code{"cles"}.

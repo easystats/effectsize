@@ -1,8 +1,9 @@
 #' Effect size for contingency tables
 #'
-#' Compute Cramer's *V*, phi (\eqn{\phi}), Cohen's *w*, Pearson's contingency
-#' coefficient, Odds ratios, Risk ratios, Cohen's *h* and Cohen's *g* for
-#' contingency tables or goodness-of-fit. See details.
+#' Compute Cramer's *V*, phi (\eqn{\phi}), Cohen's *w*, correlation coefficient
+#' *r* TODONAME, Pearson's contingency coefficient, Odds ratios, Risk ratios,
+#' Cohen's *h* and Cohen's *g* for contingency tables or goodness-of-fit. See
+#' details.
 #'
 #' @inheritParams stats::chisq.test
 #' @param ci Confidence Interval (CI) level
@@ -13,8 +14,8 @@
 #'   Partial matching is allowed (e.g., `"g"`, `"l"`, `"two"`...). See
 #'   *One-Sided CIs* in [effectsize_CIs].
 #' @param adjust Should the effect size be bias-corrected? Defaults to `FALSE`.
-#' @param ... Arguments passed to [stats::chisq.test()], such as `p`. Ignored
-#'   for `cohens_g()`.
+#' @param ... Arguments passed to [stats::chisq.test()], such as `p` for
+#'   goodness-of-fit. Ignored for `cohens_g()`.
 #'
 #' @details
 #' Cramer's *V*, phi (\eqn{\phi}), Cohen's *w*, and Pearson's *C* are effect
@@ -26,9 +27,11 @@
 #' can also be used, but since it is not bounded at 1 (can be larger) its
 #' interpretation is more difficult.
 #' \cr\cr
-#' For goodness-of-fit in 1D tables Pearson's *C* or Cohen's *w* can be used.
-#' Cohen's *w* has no upper bound (can be arbitrarily large, depending on the
-#' expected distribution), while Pearson's *C* is bounded between 0-1.
+#' For goodness-of-fit in 1D tables correlation coefficient *r* TODONAME,
+#' Pearson's *C* or Cohen's *w* can be used. Cohen's *w* has no upper bound (can
+#' be arbitrarily large, depending on the expected distribution). *r* TODONAME
+#' is an adjusted Cohen's *w*, accounting for the expected distribution, making
+#' it bounded between 0-1. Pearson's *C* is also bounded between 0-1.
 #' \cr\cr
 #' For 2-by-2 contingency tables, Odds ratios, Risk ratios and Cohen's *h* can
 #' also be estimated. Note that these are computed with each **column**
@@ -51,16 +54,16 @@
 #' Szumilas, 2010).
 #' \cr\cr
 #' See *Confidence (Compatibility) Intervals (CIs)*, *CIs and Significance
-#' Tests*, and *One-Sided CIs* sections for *phi*, Cohen's *w*, Cramer's *V* and
-#' Pearson's *C*.
+#' Tests*, and *One-Sided CIs* sections for *phi*, Cohen's *w*, Cramer's *V*,
+#' Pearson's *C*, and correlation coefficient *r* TODONAME.
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #'
 #' @return A data frame with the effect size (`Cramers_v`, `phi` (possibly with
-#'   the suffix `_adjusted`), `Odds_ratio`, `Risk_ratio` (possibly with the
-#'   prefix `log_`), `Cohens_h`, or `Cohens_g`) and its CIs (`CI_low` and
-#'   `CI_high`).
+#'   the suffix `_adjusted`), `Cohens_w`, `r` TODONAME, `Odds_ratio`,
+#'   `Risk_ratio` (possibly with the prefix `log_`), `Cohens_h`, or `Cohens_g`)
+#'   and its CIs (`CI_low` and `CI_high`).
 #'
 #' @seealso [chisq_to_phi()] for details regarding estimation and CIs.
 #' @family effect size indices
@@ -110,17 +113,20 @@
 #' ## Goodness of fit
 #' ## ---------------
 #'
-#' # Larsson, 2009
-#' Smoking_ASD <- as.table(c(TD = 17, ASD = 640))
+#' Smoking_ASD <- as.table(c(ASD = 17, ASP = 11, TD = 640))
+#'
+#' chisq_correlation(Smoking_ASD) #TODONAME
 #'
 #' cohens_w(Smoking_ASD)
 #'
 #' pearsons_c(Smoking_ASD)
 #'
 #' # Use custom expected values:
-#' cohens_w(Smoking_ASD, p = c(0.015, 0.985))
+#' chisq_correlation(Smoking_ASD, p = c(0.015, 0.010, 0.975)) #TODONAME
 #'
-#' pearsons_c(Smoking_ASD, p = c(0.015, 0.985))
+#' cohens_w(Smoking_ASD, p = c(0.015, 0.010, 0.975))
+#'
+#' pearsons_c(Smoking_ASD, p = c(0.015, 0.010, 0.975))
 #'
 #'
 #'
@@ -143,7 +149,11 @@
 #' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 #' - Katz, D. J. S. M., Baptista, J., Azen, S. P., & Pike, M. C. (1978). Obtaining confidence intervals for the risk ratio in cohort studies. Biometrics, 469-474.
 #' - Szumilas, M. (2010). Explaining odds ratios. Journal of the Canadian academy of child and adolescent psychiatry, 19(3), 227.
-#'
+#' - Johnston, J. E., Berry, K. J., & Mielke Jr, P. W. (2006). Measures of
+#' effect size for chi-squared and likelihood-ratio goodness-of-fit tests.
+#' Perceptual and motor skills, 103(2), 412-414.
+#' - Rosenberg, M. S. (2010). A generalized formula for converting chi-square
+#' tests to effect sizes for meta-analysis. PloS one, 5(4), e10059.
 #' @importFrom stats chisq.test
 #' @export
 phi <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
@@ -223,6 +233,30 @@ cramers_v <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = 
   effectsize(x, type = "cramers_v", adjust = adjust, ci = ci, alternative = alternative)
 }
 
+
+#' @rdname phi
+#' @export
+chisq_correlation <- function(x, y = NULL, ci = 0.95, alternative = "greater", ...) {
+  # TODONAME
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+
+  if (inherits(x, "BFBayesFactor")) {
+    stop("Correlation coefficiant is only applicable to goodness of fit tests.")
+  }
+
+
+  if (inherits(x, "htest")) {
+    if (!(grepl("Pearson's Chi-squared", x$method) ||
+          grepl("Chi-squared test for given probabilities", x$method))) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
+  } else {
+    x <- suppressWarnings(stats::chisq.test(x, y, ...))
+    x$data.name <- NULL
+  }
+  # TODONAME
+  effectsize(x, type = "r", ci = ci, alternative = alternative)
+}
 
 #' @rdname phi
 #' @importFrom stats chisq.test
