@@ -35,8 +35,6 @@ navbar:
       href: reference/index.html
     - text: "Effect Sizes"
       menu:
-      - text: "Parameter and Model Standardization"
-        href: articles/standardize_parameters.html
       - text: "ANOVA Effect Sizes"
         href: articles/anovaES.html
       - text: "Effect Sizes for Simple Hypothesis Tests"
@@ -70,11 +68,6 @@ reference:
   - eta_squared
   - rank_biserial
   - cles
-
-- title: "Standardization"
-  contents:
-  - standardize_parameters
-  - standardize_info
 
 - title: "Effect Size Conversion"
 - subtitle: "From Test Statistics"

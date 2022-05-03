@@ -62,7 +62,7 @@ input model. See details.
 \item A \strong{proportion test} returns \emph{p}.
 }
 \item Objects of class \code{anova}, \code{aov}, or \code{aovlist}, depending on \code{type}: \code{"eta"} (default), \code{"omega"} or \code{"epsilon"} -squared, \code{"f"}, or \code{"f2"}.
-\item Other objects are passed to \code{\link[=standardize_parameters]{standardize_parameters()}}.
+\item Other objects are passed to \code{\link[parameters:standardize_parameters]{parameters::standardize_parameters()}}.
 }
 
 \strong{For statistical models it is recommended to directly use the listed
