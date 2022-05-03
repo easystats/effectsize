@@ -6,7 +6,7 @@
 #' @param model An object of class `htest`, or a statistical model. See details.
 #' @param type The effect size of interest. See details.
 #' @param ... Arguments passed to or from other methods. See details.
-#' @inheritParams standardize.default
+#' @inheritParams datawizard::standardize.default
 #'
 #' @details
 #'
@@ -25,7 +25,7 @@
 #'   - A **contingency table test**, depending on `type`: `"cramers_v"` (default), `"phi"`, `"cohens_w"`, `"pearsons_c"`, `"cohens_h"`, `"oddsratio"`, or `"riskratio"`.
 #'   - A **proportion test** returns *p*.
 #' - Objects of class `anova`, `aov`, or `aovlist`, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.
-#' - Other objects are passed to [standardize_parameters()].
+#' - Other objects are passed to [parameters::standardize_parameters()].
 #'
 #' **For statistical models it is recommended to directly use the listed
 #' functions, for the full range of options they provide.**
@@ -149,5 +149,5 @@ effectsize.easycorrelation <- function(model, ...) {
 #' @export
 effectsize.default <- function(model, ...) {
   # message("Using standardize_parameters().")
-  standardize_parameters(model, ...)
+  parameters::standardize_parameters(model, ...)
 }

@@ -1,5 +1,10 @@
 # effectsize 0.6.0.3
 
+## Breaking Changes
+
+- `standardize_parameters()`, `standardize_posteriors()`, & `standardize_info()` have been moved to the `parameters` package.  
+- `standardize()` (for models) has been moved to the `datawizard` package.
+
 ## Bug fixes
 
 - `kendalls_w()` now deals with ties.  

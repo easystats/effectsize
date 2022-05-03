@@ -4,7 +4,7 @@
 #'
 #' @param x A standardized numeric vector.
 #' @param reference The reference vector from which to compute the mean and SD.
-#' @inheritParams standardize.default
+#' @inheritParams datawizard::standardize.default
 #' @inheritParams insight::format_value
 #' @param ... Other arguments to pass to \code{\link[insight:format_value]{insight::format_value()}} such as \code{digits}, etc.
 #'

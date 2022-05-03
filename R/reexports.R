@@ -10,6 +10,20 @@ datawizard::standardize
 #' @importFrom datawizard standardise
 datawizard::standardise
 
+#' @export
+#' @importFrom parameters standardize_parameters
+parameters::standardize_parameters
+
+#' @export
+#' @importFrom parameters standardize_posteriors
+parameters::standardize_posteriors
+
+
+#' @export
+#' @importFrom parameters standardize_info
+parameters::standardize_info
+
+
 
 # Printing ----------------------------------------------------------------
 

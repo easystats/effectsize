@@ -212,7 +212,6 @@ Other effect size indices:
 \code{\link{cohens_d}()},
 \code{\link{effectsize.BFBayesFactor}()},
 \code{\link{eta_squared}()},
-\code{\link{rank_biserial}()},
-\code{\link{standardize_parameters}()}
+\code{\link{rank_biserial}()}
 }
 \concept{effect size indices}
