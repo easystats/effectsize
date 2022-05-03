@@ -21,7 +21,7 @@
 #' @param verbose Toggle warnings and messages on or off.
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods.
-#'   - Can be `include_intercept = TRUE` to include the effect size for the intercept.
+#'   - Can be `include_intercept = TRUE` to include the effect size for the intercept (when it is included in the ANOVA table).
 #'   - For Bayesian models, arguments passed to `ss_function`.
 #'
 #' @return
@@ -375,6 +375,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 
   # Include intercept? ---
   if (include_intercept) {
+    if (verbose && !"(Intercept)" %in% aov_table$Parameter) {
+      message(insight::format_message("Could not find Sum-of-Squares for the (Intercept) in the ANOVA table."))
+    }
     values <- .values_aov(aov_table[aov_table$Parameter != "(Intercept)", ])
   } else {
     aov_table <- aov_table[aov_table$Parameter != "(Intercept)", ]
@@ -520,6 +523,9 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 
   # Include intercept? ---
   if (include_intercept) {
+    if (verbose && !"(Intercept)" %in% aov_table$Parameter) {
+      message(insight::format_message("Could not find Sum-of-Squares for the (Intercept) in the ANOVA table."))
+    }
     values <- .values_aov(aov_table[aov_table$Parameter != "(Intercept)", ], group = TRUE)
   } else {
     aov_table <- aov_table[aov_table$Parameter != "(Intercept)", ]
@@ -683,8 +689,14 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 
 
   # include_intercept? ---
-  if (!include_intercept)
+  if (include_intercept) {
+    if (verbose && !"(Intercept)" %in% aov_table$Parameter) {
+      message(insight::format_message("Could not find F statistic for the (Intercept) in the ANOVA table."))
+    }
+  } else {
     aov_table <- aov_table[aov_table$Parameter != "(Intercept)", , drop = FALSE]
+  }
+
 
   ES_tab <- es_fun(aov_table[["F"]],
                    aov_table[["df"]],
