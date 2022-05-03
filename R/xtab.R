@@ -1,8 +1,8 @@
 #' Effect size for contingency tables
 #'
-#' Compute Cramer's *V*, phi (\eqn{\phi}), Cohen's *w* (an alias of phi),
-#' Pearson's contingency coefficient, Odds ratios, Risk ratios, Cohen's *h* and
-#' Cohen's *g* for contingency tables or goodness-of-fit. See details.
+#' Compute Cramer's *V*, phi (\eqn{\phi}), Cohen's *w*, Pearson's contingency
+#' coefficient, Odds ratios, Risk ratios, Cohen's *h* and Cohen's *g* for
+#' contingency tables or goodness-of-fit. See details.
 #'
 #' @inheritParams stats::chisq.test
 #' @param ci Confidence Interval (CI) level
@@ -17,22 +17,23 @@
 #'   for `cohens_g()`.
 #'
 #' @details
-#' Cramer's *V*, phi (\eqn{\phi}) and Pearson's *C* are effect sizes for tests
-#' of independence in 2D contingency tables. For 2-by-k tables, Cramer's *V* and
-#' phi are identical, and are equal to the simple correlation between two
-#' dichotomous variables, ranging between  0 (no dependence) and 1 (perfect
-#' dependence). For larger tables, Cramer's *V* or Pearson's *C* should be used,
-#' as they are bounded between 0-1, whereas phi can be larger than 1 (upper
-#' bound is `sqrt(min(nrow, ncol) - 1))`).
+#' Cramer's *V*, phi (\eqn{\phi}), Cohen's *w*, and Pearson's *C* are effect
+#' sizes for tests of independence in 2D contingency tables. For 2-by-2 tables,
+#' Cramer's *V*, phi and Cohen's *w* are identical, and are equal to the simple
+#' correlation between two dichotomous variables, ranging between  0 (no
+#' dependence) and 1 (perfect dependence). For larger tables, Cramer's *V* or
+#' Pearson's *C* should be used, as they are bounded between 0-1. Cohen's *w*
+#' can also be used, but since it is not bounded at 1 (can be larger) its
+#' interpretation is more difficult.
 #' \cr\cr
-#' For goodness-of-fit in 1D tables Pearson's *C* or phi can be used. Phi has no
-#' upper bound (can be arbitrarily large, depending on the expected
-#' distribution), while Pearson's *C* is bounded between 0-1.
+#' For goodness-of-fit in 1D tables Pearson's *C* or Cohen's *w* can be used.
+#' Cohen's *w* has no upper bound (can be arbitrarily large, depending on the
+#' expected distribution), while Pearson's *C* is bounded between 0-1.
 #' \cr\cr
 #' For 2-by-2 contingency tables, Odds ratios, Risk ratios and Cohen's *h* can
 #' also be estimated. Note that these are computed with each **column**
-#' representing the different groups, and the first column representing the
-#' treatment group and the second column baseline (or control). Effects are
+#' representing the different groups, and the *first* column representing the
+#' treatment group and the *second* column baseline (or control). Effects are
 #' given as `treatment / control`. If you wish you use rows as groups you must
 #' pass a transposed table, or switch the `x` and `y` arguments.
 #' \cr\cr
@@ -65,24 +66,6 @@
 #' @family effect size indices
 #'
 #' @examples
-#' M <-
-#'   matrix(c(150, 100, 165,
-#'            130, 50, 65,
-#'            35, 10, 2,
-#'            55, 40, 25), nrow = 4,
-#'          dimnames = list(
-#'            Music = c("Pop", "Rock", "Jazz", "Classic"),
-#'            Study = c("Psych", "Econ", "Law")))
-#' M
-#'
-#' # Note that Phi is not bound to [0-1], but instead
-#' # the upper bound for phi is sqrt(min(nrow, ncol) - 1)
-#' phi(M)
-#'
-#' cramers_v(M)
-#'
-#' pearsons_c(M)
-#'
 #'
 #' ## 2-by-2 tables
 #' ## -------------
@@ -94,12 +77,52 @@
 #'            Group = c("Treatment", "Control")))
 #' RCT # note groups are COLUMNS
 #'
+#' phi(RCT)
+#' pearsons_c(RCT)
+#'
 #' oddsratio(RCT)
 #' oddsratio(RCT, alternative = "greater")
 #'
 #' riskratio(RCT)
 #'
 #' cohens_h(RCT)
+#'
+#' ## Larger tables
+#' ## -------------
+#'
+#' M <-
+#'   matrix(c(150, 100, 165,
+#'            130, 50, 65,
+#'            35, 10, 2,
+#'            55, 40, 25), nrow = 4,
+#'          dimnames = list(
+#'            Music = c("Pop", "Rock", "Jazz", "Classic"),
+#'            Study = c("Psych", "Econ", "Law")))
+#' M
+#'
+#' cohens_w(M)
+#'
+#' cramers_v(M)
+#'
+#' pearsons_c(M)
+#'
+#'
+#' ## Goodness of fit
+#' ## ---------------
+#'
+#' # Larsson, 2009
+#' Smoking_ASD <- as.table(c(TD = 17, ASD = 640))
+#'
+#' cohens_w(Smoking_ASD)
+#'
+#' pearsons_c(Smoking_ASD)
+#'
+#' # Use custom expected values:
+#' cohens_w(Smoking_ASD, p = c(0.015, 0.985))
+#'
+#' pearsons_c(Smoking_ASD, p = c(0.015, 0.985))
+#'
+#'
 #'
 #'
 #'
@@ -149,7 +172,29 @@ phi <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE,
 
 #' @rdname phi
 #' @export
-cohens_w <- phi
+cohens_w <- function(x, y = NULL, ci = 0.95, alternative = "greater", ...) {
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+
+  if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "phi", ci = ci, ...))
+  }
+
+
+  if (inherits(x, "htest")) {
+    if (!(grepl("Pearson's Chi-squared", x$method) ||
+          grepl("Chi-squared test for given probabilities", x$method))) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
+  } else {
+    x <- suppressWarnings(stats::chisq.test(x, y, ...))
+    x$data.name <- NULL
+  }
+
+  effectsize(x, type = "cohens_w", ci = ci, alternative = alternative)
+}
 
 #' @rdname phi
 #' @importFrom stats chisq.test

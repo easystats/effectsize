@@ -11,8 +11,8 @@
 chisq_to_phi(
   chisq,
   n,
-  nrow,
-  ncol,
+  nrow = 2,
+  ncol = 2,
   ci = 0.95,
   alternative = "greater",
   adjust = FALSE,
@@ -26,7 +26,6 @@ chisq_to_cohens_w(
   ncol,
   ci = 0.95,
   alternative = "greater",
-  adjust = FALSE,
   ...
 )
 
@@ -146,7 +145,7 @@ contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 2
 #> data:  contingency_table
 #> X-squared = 41.234, df = 4, p-value = 2.405e-08
 
-chisq_to_phi(41.234,
+chisq_to_cohens_w(41.234,
   n = sum(contingency_table),
   nrow = nrow(contingency_table),
   ncol = ncol(contingency_table)
@@ -161,6 +160,7 @@ chisq_to_pearsons_c(41.234,
   nrow = nrow(contingency_table),
   ncol = ncol(contingency_table)
 )
+
 }
 \references{
 \itemize{

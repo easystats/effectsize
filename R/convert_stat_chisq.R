@@ -46,7 +46,7 @@
 #' #> data:  contingency_table
 #' #> X-squared = 41.234, df = 4, p-value = 2.405e-08
 #'
-#' chisq_to_phi(41.234,
+#' chisq_to_cohens_w(41.234,
 #'   n = sum(contingency_table),
 #'   nrow = nrow(contingency_table),
 #'   ncol = ncol(contingency_table)
@@ -61,6 +61,7 @@
 #'   nrow = nrow(contingency_table),
 #'   ncol = ncol(contingency_table)
 #' )
+#'
 #' @references
 #' - Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and
 #' calculation of confidence intervals that are based on central and noncentral
@@ -70,17 +71,24 @@
 #' Journal of the Korean Statistical Society, 42(3), 323-328.
 #'
 #' @export
-chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
+chisq_to_phi <- function(chisq, n, nrow = 2, ncol = 2, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+
+  cl <- match.call()
+  dont_stop <- eval(cl[["dont_stop"]], envir = parent.frame())
+  if (is.null(dont_stop)) dont_stop <- FALSE
+
+  if (!dont_stop && (nrow != 2 || ncol != 2)) {
+    stop("Phi is not appropriate for non-2x2 tables.")
+  }
+
   if (adjust || is.numeric(ci)) {
     is_goodness <- ncol == 1 || nrow == 1
 
     if (is_goodness) {
       df <- pmax(nrow - 1, ncol - 1)
-      max_upper <- Inf
     } else {
       df <- (nrow - 1) * (ncol - 1)
-      max_upper <- sqrt((pmin(nrow, ncol) - 1))
     }
   }
 
@@ -105,15 +113,17 @@ chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater
     ))
 
     res$CI_low <-
-      chisq_to_phi(chisqs[, 1], n, nrow, ncol, ci = NULL, adjust = adjust)[[1]]
+      chisq_to_phi(chisqs[, 1], n, nrow, ncol, ci = NULL, adjust = adjust,
+                   dont_stop = dont_stop)[[1]]
     res$CI_high <-
-      chisq_to_phi(chisqs[, 2], n, nrow, ncol, ci = NULL, adjust = adjust)[[1]]
+      chisq_to_phi(chisqs[, 2], n, nrow, ncol, ci = NULL, adjust = adjust,
+                   dont_stop = dont_stop)[[1]]
 
     ci_method <- list(method = "ncp", distribution = "chisq")
     if (alternative == "less") {
       res$CI_low <- 0
     } else if (alternative == "greater") {
-      res$CI_high <- max_upper
+      res$CI_high <- 1
     }
   } else {
     alternative <- NULL
@@ -130,8 +140,31 @@ chisq_to_phi <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater
 
 #' @rdname chisq_to_phi
 #' @export
-chisq_to_cohens_w <- chisq_to_phi
+chisq_to_cohens_w <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater", ...) {
 
+  res <- chisq_to_phi(chisq, n, nrow, ncol, ci = ci, alternative = alternative, adjust = FALSE, dont_stop = TRUE)
+  colnames(res)[1] <- "Cohens_w"
+
+  max_value <- Inf
+
+  if (!missing(nrow) && !missing(ncol)) {
+    if (ncol == 2 && nrow == 2) {
+      max_value <- 1
+    } else if (ncol > 2 || nrow > 2) {
+      max_value <- sqrt((pmin(ncol, nrow) - 1))
+    } else if (ncol == 1 || nrow == 1) {
+      max_value <- Inf # really is sqrt(chisqMax/N)
+    }
+  }
+
+  if ("CI" %in% colnames(res))
+    if ((alternative <- attr(res, "alternative")) == "less") {
+      res$CI_low <- 0
+    } else if (alternative == "greater") {
+      res$CI_high <- max_value
+    }
+  return(res)
+}
 
 #' @rdname chisq_to_phi
 #' @export
@@ -150,7 +183,8 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "g
 
   phi_2_V <- sqrt((pmin(k, l) - 1))
 
-  res <- chisq_to_phi(chisq, n, nrow, ncol, ci = ci, alternative = alternative, adjust = adjust)
+  res <- chisq_to_phi(chisq, n, nrow, ncol, ci = ci, alternative = alternative, adjust = adjust,
+                      dont_stop = TRUE)
   res[grepl("^(phi|CI_)", colnames(res))] <- res[grepl("^(phi|CI_)", colnames(res))] / phi_2_V
   colnames(res)[1] <- gsub("phi", "Cramers_v", colnames(res)[1])
 
@@ -168,7 +202,7 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "g
 #' @export
 chisq_to_pearsons_c <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater", ...) {
 
-  res <- chisq_to_phi(chisq, n, nrow, ncol, ci = ci, alternative = alternative, adjust = FALSE)
+  res <- chisq_to_phi(chisq, n, nrow, ncol, ci = ci, alternative = alternative, adjust = FALSE, dont_stop = TRUE)
   res[grepl("^(phi|CI_)", colnames(res))] <- lapply(res[grepl("^(phi|CI_)", colnames(res))], function(phi) sqrt(1/(1/phi^2 + 1)))
   colnames(res)[1] <- "Pearsons_c"
 
