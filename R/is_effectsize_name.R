@@ -54,6 +54,7 @@ es_info <- matrix(c(
   "phi_adjusted", "Phi (adj.)", "onetail", 0, 1, 0,
   "Pearsons_c", "Pearson's C", "onetail", 0, 1, 0,
   "Cohens_w", "Cohen's w", "onetail", 0, Inf, 0,
+  "normalized_chi", "Norm. Chi", "onetail", 0, 1, 0,
   "Cohens_g", "Cohen's g", "onetail", -0.5, 0.5, 0,
   "Cohens_h", "Cohen's h", "twotail", -pi, pi, 0,
   "Odds_ratio", "Odds ratio", "twotail", 0, Inf, 1,

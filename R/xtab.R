@@ -1,7 +1,7 @@
 #' Effect size for contingency tables
 #'
-#' Compute Cramer's *V*, phi (\eqn{\phi}), Cohen's *w*, correlation coefficient
-#' *r* TODONAME, Pearson's contingency coefficient, Odds ratios, Risk ratios,
+#' Compute Cramer's *V*, phi (\eqn{\phi}), Cohen's *w*, normalized Chi
+#' (\eqn{\Chi}), Pearson's contingency coefficient, Odds ratios, Risk ratios,
 #' Cohen's *h* and Cohen's *g* for contingency tables or goodness-of-fit. See
 #' details.
 #'
@@ -27,11 +27,11 @@
 #' can also be used, but since it is not bounded at 1 (can be larger) its
 #' interpretation is more difficult.
 #' \cr\cr
-#' For goodness-of-fit in 1D tables correlation coefficient *r* TODONAME,
-#' Pearson's *C* or Cohen's *w* can be used. Cohen's *w* has no upper bound (can
-#' be arbitrarily large, depending on the expected distribution). *r* TODONAME
-#' is an adjusted Cohen's *w*, accounting for the expected distribution, making
-#' it bounded between 0-1. Pearson's *C* is also bounded between 0-1.
+#' For goodness-of-fit in 1D tables Cohen's *W*, normalized Chi (\eqn{\chi}) or
+#' Pearson's *C* can be used. Cohen's *w* has no upper bound (can be arbitrarily
+#' large, depending on the expected distribution). Normalized Chi is an adjusted
+#' Cohen's *w*, accounting for the expected distribution, making it bounded
+#' between 0-1. Pearson's *C* is also bounded between 0-1.
 #' \cr\cr
 #' For 2-by-2 contingency tables, Odds ratios, Risk ratios and Cohen's *h* can
 #' also be estimated. Note that these are computed with each **column**
@@ -55,13 +55,13 @@
 #' \cr\cr
 #' See *Confidence (Compatibility) Intervals (CIs)*, *CIs and Significance
 #' Tests*, and *One-Sided CIs* sections for *phi*, Cohen's *w*, Cramer's *V*,
-#' Pearson's *C*, and correlation coefficient *r* TODONAME.
+#' Pearson's *C*, and normalized Chi.
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #'
 #' @return A data frame with the effect size (`Cramers_v`, `phi` (possibly with
-#'   the suffix `_adjusted`), `Cohens_w`, `r` TODONAME, `Odds_ratio`,
+#'   the suffix `_adjusted`), `Cohens_w`, `normalized_chi`, `Odds_ratio`,
 #'   `Risk_ratio` (possibly with the prefix `log_`), `Cohens_h`, or `Cohens_g`)
 #'   and its CIs (`CI_low` and `CI_high`).
 #'
@@ -115,14 +115,14 @@
 #'
 #' Smoking_ASD <- as.table(c(ASD = 17, ASP = 11, TD = 640))
 #'
-#' chisq_correlation(Smoking_ASD) #TODONAME
+#' normalized_chi(Smoking_ASD)
 #'
 #' cohens_w(Smoking_ASD)
 #'
 #' pearsons_c(Smoking_ASD)
 #'
 #' # Use custom expected values:
-#' chisq_correlation(Smoking_ASD, p = c(0.015, 0.010, 0.975)) #TODONAME
+#' normalized_chi(Smoking_ASD, p = c(0.015, 0.010, 0.975))
 #'
 #' cohens_w(Smoking_ASD, p = c(0.015, 0.010, 0.975))
 #'
@@ -236,12 +236,11 @@ cramers_v <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = 
 
 #' @rdname phi
 #' @export
-chisq_correlation <- function(x, y = NULL, ci = 0.95, alternative = "greater", ...) {
-  # TODONAME
+normalized_chi <- function(x, y = NULL, ci = 0.95, alternative = "greater", ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "BFBayesFactor")) {
-    stop("Correlation coefficiant is only applicable to goodness of fit tests.")
+    stop("Normalized Chi is only applicable to goodness of fit tests.")
   }
 
 
@@ -254,8 +253,8 @@ chisq_correlation <- function(x, y = NULL, ci = 0.95, alternative = "greater", .
     x <- suppressWarnings(stats::chisq.test(x, y, ...))
     x$data.name <- NULL
   }
-  # TODONAME
-  effectsize(x, type = "r", ci = ci, alternative = alternative)
+
+  effectsize(x, type = "normalized_chi", ci = ci, alternative = alternative)
 }
 
 #' @rdname phi

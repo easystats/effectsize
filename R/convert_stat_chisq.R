@@ -1,13 +1,12 @@
 #' Conversion Chi-Squared to Phi or Cramer's V
 #'
 #' Convert between Chi square (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}),
-#' Cohen's *w*, Pearson's *C* and correlation coefficient TODONAME for
-#' contingency tables or goodness of fit.
+#' Cohen's *w*, normalized Chi (\eqn{\Chi}) and Pearson's *C* for contingency
+#' tables or goodness of fit.
 #'
 #' @param chisq The Chi-squared statistic.
 #' @param n Total sample size.
-#' @param nrow,ncol The number of rows/columns in the contingency table (ignored
-#'   for Phi when `adjust=FALSE` and `CI=NULL`).
+#' @param nrow,ncol The number of rows/columns in the contingency table.
 #' @param ci Confidence Interval (CI) level
 #' @param alternative a character string specifying the alternative hypothesis;
 #'   Controls the type of CI returned: `"greater"` (default) or `"less"`
@@ -28,8 +27,8 @@
 #' \cr
 #' \deqn{Pearson's C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
 #' \cr
-#' \deqn{r = \sqrt{\chi^2 / (N \times \frac{q - 1}{q}}}{r = sqrt(\chi^2 / (N * (1-q)/q))}
-#' Where `q` is the smallest expected probabilities. TODONAME
+#' \deqn{\Chi_{Normalized} = w \times \sqrt{\frac{q}{1-q}}}{Chi (Normalized) = w * sqrt(q/(1-q))}
+#' Where `q` is the smallest of the expected probabilities.
 #' \cr\cr
 #' For adjusted versions of *phi* and *V*, see Bergsma, 2013.
 #'
@@ -66,7 +65,7 @@
 #' #> data:  Smoking_ASD
 #' #> X-squared = 7.8521, df = 2, p-value = 0.01972
 #'
-#' chisq_to_correlation( #TODONAME
+#' chisq_to_normalized(
 #'   7.8521,
 #'   n = sum(Smoking_ASD),
 #'   nrow = 1,
@@ -167,6 +166,10 @@ chisq_to_cohens_w <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "gr
   max_value <- Inf
 
   if (!missing(nrow) && !missing(ncol)) {
+
+  }
+
+  if ("CI" %in% colnames(res)) {
     if (ncol == 2 && nrow == 2) {
       max_value <- 1
     } else if (ncol == 1 || nrow == 1) {
@@ -174,14 +177,14 @@ chisq_to_cohens_w <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "gr
     } else if (ncol > 2 || nrow > 2) {
       max_value <- sqrt((pmin(ncol, nrow) - 1))
     }
-  }
 
-  if ("CI" %in% colnames(res))
     if ((alternative <- attr(res, "alternative")) == "less") {
       res$CI_low <- 0
     } else if (alternative == "greater") {
       res$CI_high <- max_value
     }
+  }
+
   return(res)
 }
 
@@ -219,18 +222,25 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "g
 
 #' @rdname chisq_to_phi
 #' @export
-#' @param p Vector of expected values. See [stats::chisq.test()]. If none
-#'   provided, uniform expected values assumed.
-chisq_to_correlation <- function(chisq, n, nrow, ncol, p = NULL,
-                                 ci = 0.95, alternative = "greater", ...) {
-  # TODONAME
-  if (!1 %in% c(nrow, ncol)) {
-    stop("Correlation coefficiant is only applicable to goodness of fit tests.")
+#' @param p Vector of expected values. See [stats::chisq.test()].
+chisq_to_normalized <- function(chisq, n, nrow, ncol, p,
+                                ci = 0.95, alternative = "greater", ...) {
+  if (is.numeric(ci) || (!missing(nrow) && !missing(ncol))) {
+    # This means that the user passed ncol/nrow
+    if (ncol == 2 && nrow == 2) {
+      return(chisq_to_phi(chisq, n, nrow, ncol, ci = ci, alternative = alternative))
+    } else if ((nrow != 1 && ncol > 2) || (ncol != 1 && nrow > 2)) {
+      return(chisq_to_cramers_v(chisq, n, nrow, ncol, ci = ci, alternative = alternative))
+    }
   }
 
-  if (is.null(p)) {
-    p <- rep(1, pmax(nrow, ncol))
-  }
+  # if (!1 %in% c(nrow, ncol)) {
+  #   stop("Correlation coefficiant is only applicable to goodness of fit tests.")
+  # }
+
+  # if (is.null(p)) {
+  #   p <- rep(1, pmax(nrow, ncol))
+  # }
 
   if (!length(p) %in% c(ncol, nrow)) stop("Length of `p` must match number of rows/columns.")
   p <- p / sum(p)
@@ -239,7 +249,7 @@ chisq_to_correlation <- function(chisq, n, nrow, ncol, p = NULL,
   N <- n * (1 - q) / q
 
   res <- chisq_to_phi(chisq, N, nrow, ncol, ci = ci, alternative = alternative, adjust = FALSE, dont_stop = TRUE)
-  colnames(res)[1] <- "r" # TODONAME
+  colnames(res)[1] <- "normalized_chi"
 
   if ("CI" %in% colnames(res))
     if ((alternative <- attr(res, "alternative")) == "less") {

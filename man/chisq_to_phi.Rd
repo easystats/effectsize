@@ -4,7 +4,7 @@
 \alias{chisq_to_phi}
 \alias{chisq_to_cohens_w}
 \alias{chisq_to_cramers_v}
-\alias{chisq_to_correlation}
+\alias{chisq_to_normalized}
 \alias{chisq_to_pearsons_c}
 \alias{phi_to_chisq}
 \title{Conversion Chi-Squared to Phi or Cramer's V}
@@ -41,12 +41,12 @@ chisq_to_cramers_v(
   ...
 )
 
-chisq_to_correlation(
+chisq_to_normalized(
   chisq,
   n,
   nrow,
   ncol,
-  p = NULL,
+  p,
   ci = 0.95,
   alternative = "greater",
   ...
@@ -69,8 +69,7 @@ phi_to_chisq(phi, n, ...)
 
 \item{n}{Total sample size.}
 
-\item{nrow, ncol}{The number of rows/columns in the contingency table (ignored
-for Phi when \code{adjust=FALSE} and \code{CI=NULL}).}
+\item{nrow, ncol}{The number of rows/columns in the contingency table.}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -84,8 +83,7 @@ is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided 
 
 \item{...}{Arguments passed to or from other methods.}
 
-\item{p}{Vector of expected values. See \code{\link[stats:chisq.test]{stats::chisq.test()}}. If none
-provided, uniform expected values assumed.}
+\item{p}{Vector of expected values. See \code{\link[stats:chisq.test]{stats::chisq.test()}}.}
 
 \item{phi}{The Phi statistic.}
 }
@@ -95,8 +93,8 @@ A data frame with the effect size(s), and confidence interval(s). See
 }
 \description{
 Convert between Chi square (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}),
-Cohen's \emph{w}, Pearson's \emph{C} and correlation coefficient TODONAME for
-contingency tables or goodness of fit.
+Cohen's \emph{w}, normalized Chi (\eqn{\Chi}) and Pearson's \emph{C} for contingency
+tables or goodness of fit.
 }
 \details{
 These functions use the following formulae:
@@ -107,8 +105,8 @@ These functions use the following formulae:
 \cr
 \deqn{Pearson's C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
 \cr
-\deqn{r = \sqrt{\chi^2 / (N \times \frac{q - 1}{q}}}{r = sqrt(\chi^2 / (N * (1-q)/q))}
-Where \code{q} is the smallest expected probabilities. TODONAME
+\deqn{\Chi_{Normalized} = w \times \sqrt{\frac{q}{1-q}}}{Chi (Normalized) = w * sqrt(q/(1-q))}
+Where \code{q} is the smallest of the expected probabilities.
 \cr\cr
 For adjusted versions of \emph{phi} and \emph{V}, see Bergsma, 2013.
 }
@@ -179,7 +177,7 @@ Smoking_ASD <- as.table(c(ASD = 17, ASP = 11, TD = 640))
 #> data:  Smoking_ASD
 #> X-squared = 7.8521, df = 2, p-value = 0.01972
 
-chisq_to_correlation( #TODONAME
+chisq_to_normalized(
   7.8521,
   n = sum(Smoking_ASD),
   nrow = 1,

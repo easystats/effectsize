@@ -4,7 +4,7 @@
 \alias{phi}
 \alias{cohens_w}
 \alias{cramers_v}
-\alias{chisq_correlation}
+\alias{normalized_chi}
 \alias{pearsons_c}
 \alias{oddsratio}
 \alias{riskratio}
@@ -18,7 +18,7 @@ cohens_w(x, y = NULL, ci = 0.95, alternative = "greater", ...)
 
 cramers_v(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
 
-chisq_correlation(x, y = NULL, ci = 0.95, alternative = "greater", ...)
+normalized_chi(x, y = NULL, ci = 0.95, alternative = "greater", ...)
 
 pearsons_c(
   x,
@@ -62,13 +62,13 @@ goodness-of-fit. Ignored for \code{cohens_g()}.}
 }
 \value{
 A data frame with the effect size (\code{Cramers_v}, \code{phi} (possibly with
-the suffix \verb{_adjusted}), \code{Cohens_w}, \code{r} TODONAME, \code{Odds_ratio},
+the suffix \verb{_adjusted}), \code{Cohens_w}, \code{normalized_chi}, \code{Odds_ratio},
 \code{Risk_ratio} (possibly with the prefix \code{log_}), \code{Cohens_h}, or \code{Cohens_g})
 and its CIs (\code{CI_low} and \code{CI_high}).
 }
 \description{
-Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w}, correlation coefficient
-\emph{r} TODONAME, Pearson's contingency coefficient, Odds ratios, Risk ratios,
+Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w}, normalized Chi
+(\eqn{\Chi}), Pearson's contingency coefficient, Odds ratios, Risk ratios,
 Cohen's \emph{h} and Cohen's \emph{g} for contingency tables or goodness-of-fit. See
 details.
 }
@@ -82,11 +82,11 @@ Pearson's \emph{C} should be used, as they are bounded between 0-1. Cohen's \emp
 can also be used, but since it is not bounded at 1 (can be larger) its
 interpretation is more difficult.
 \cr\cr
-For goodness-of-fit in 1D tables correlation coefficient \emph{r} TODONAME,
-Pearson's \emph{C} or Cohen's \emph{w} can be used. Cohen's \emph{w} has no upper bound (can
-be arbitrarily large, depending on the expected distribution). \emph{r} TODONAME
-is an adjusted Cohen's \emph{w}, accounting for the expected distribution, making
-it bounded between 0-1. Pearson's \emph{C} is also bounded between 0-1.
+For goodness-of-fit in 1D tables Cohen's \emph{W}, normalized Chi (\eqn{\chi}) or
+Pearson's \emph{C} can be used. Cohen's \emph{w} has no upper bound (can be arbitrarily
+large, depending on the expected distribution). Normalized Chi is an adjusted
+Cohen's \emph{w}, accounting for the expected distribution, making it bounded
+between 0-1. Pearson's \emph{C} is also bounded between 0-1.
 \cr\cr
 For 2-by-2 contingency tables, Odds ratios, Risk ratios and Cohen's \emph{h} can
 also be estimated. Note that these are computed with each \strong{column}
@@ -110,7 +110,7 @@ Szumilas, 2010).
 \cr\cr
 See \emph{Confidence (Compatibility) Intervals (CIs)}, \emph{CIs and Significance
 Tests}, and \emph{One-Sided CIs} sections for \emph{phi}, Cohen's \emph{w}, Cramer's \emph{V},
-Pearson's \emph{C}, and correlation coefficient \emph{r} TODONAME.
+Pearson's \emph{C}, and normalized Chi.
 }
 
 \section{Confidence (Compatibility) Intervals (CIs)}{
@@ -199,14 +199,14 @@ pearsons_c(M)
 
 Smoking_ASD <- as.table(c(ASD = 17, ASP = 11, TD = 640))
 
-chisq_correlation(Smoking_ASD) #TODONAME
+normalized_chi(Smoking_ASD)
 
 cohens_w(Smoking_ASD)
 
 pearsons_c(Smoking_ASD)
 
 # Use custom expected values:
-chisq_correlation(Smoking_ASD, p = c(0.015, 0.010, 0.975)) #TODONAME
+normalized_chi(Smoking_ASD, p = c(0.015, 0.010, 0.975))
 
 cohens_w(Smoking_ASD, p = c(0.015, 0.010, 0.975))
 
