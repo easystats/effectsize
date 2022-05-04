@@ -272,7 +272,7 @@ model!** So it is vital to [validate the
 PPD](https://mc-stan.org/docs/2_23/stan-users-guide/meta-models-part.html#meta-models.part/)
 before using it to estimate explained variance measures.
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, eval=TRUE}
 if (eval_bayes <- knitr::opts_chunk$get("eval")) {
   bayes_pkgs <- c("rstanarm", "bayestestR", "car")
   eval_bayes <- all(sapply(bayes_pkgs, require, quietly = TRUE, character.only = TRUE))  
