@@ -12,21 +12,21 @@ if (require("testthat") && require("effectsize")) {
     RCT <- matrix(c(71, 30, 31, 13, 50, 100, 4, 5, 7), nrow = 3, byrow = TRUE)
     V1 <- cramers_v(RCT)
     V2 <- cramers_v(RCT, alternative = "two")
-    fh <- phi(RCT)
+    w <- cohens_w(RCT)
 
     expect_output(print(V1), regexp = "[1.00]", fixed = TRUE)
     expect_output(print(V1, digits = "signif4"), regexp = "[1]", fixed = TRUE)
     expect_output(print(V1, digits = "scientific2"), regexp = "[1.00e+00]", fixed = TRUE)
     expect_error(expect_output(print(V2), regexp = "fixed"))
-    expect_output(print(fh), regexp = "[1.41~]", fixed = TRUE)
-    expect_output(print(fh, digits = "signif4"), regexp = "[1.414]", fixed = TRUE)
-    expect_output(print(fh, digits = "scientific2"), regexp = "[1.41e+00]", fixed = TRUE)
+    expect_output(print(w), regexp = "[1.41~]", fixed = TRUE)
+    expect_output(print(w, digits = "signif4"), regexp = "[1.414]", fixed = TRUE)
+    expect_output(print(w, digits = "scientific2"), regexp = "[1.41e+00]", fixed = TRUE)
 
 
     ## Column name
     expect_output(print(d), "Cohen's d")
     expect_output(print(V1), "Cramer's V")
-    expect_output(print(fh), "Phi")
+    expect_output(print(w), "Cohen's w")
 
 
     ## Interpretation
@@ -38,9 +38,9 @@ if (require("testthat") && require("effectsize")) {
     expect_output(print(V1_), regexp = "funder2019")
     expect_output(print(V1_), regexp = "Interpretation")
 
-    fh_ <- interpret(fh, rules = "funder2019")
-    expect_output(print(fh_), regexp = "funder2019")
-    expect_output(print(fh_), regexp = "Interpretation")
+    w_ <- interpret(w, rules = "funder2019")
+    expect_output(print(w_), regexp = "funder2019")
+    expect_output(print(w_), regexp = "Interpretation")
 
     ## md / html
     skip_if_not_installed("gt")
