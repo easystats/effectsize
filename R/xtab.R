@@ -1,7 +1,7 @@
 #' Effect size for contingency tables
 #'
 #' Compute Cramer's *V*, phi (\eqn{\phi}), Cohen's *w*, normalized Chi
-#' (\eqn{\Chi}), Pearson's contingency coefficient, Odds ratios, Risk ratios,
+#' (\eqn{\chi}), Pearson's contingency coefficient, Odds ratios, Risk ratios,
 #' Cohen's *h* and Cohen's *g* for contingency tables or goodness-of-fit. See
 #' details.
 #'

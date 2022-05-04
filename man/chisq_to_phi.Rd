@@ -93,7 +93,7 @@ A data frame with the effect size(s), and confidence interval(s). See
 }
 \description{
 Convert between Chi square (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}),
-Cohen's \emph{w}, normalized Chi (\eqn{\Chi}) and Pearson's \emph{C} for contingency
+Cohen's \emph{w}, normalized Chi (\eqn{\chi}) and Pearson's \emph{C} for contingency
 tables or goodness of fit.
 }
 \details{
@@ -105,7 +105,7 @@ These functions use the following formulae:
 \cr
 \deqn{Pearson's C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
 \cr
-\deqn{\Chi_{Normalized} = w \times \sqrt{\frac{q}{1-q}}}{Chi (Normalized) = w * sqrt(q/(1-q))}
+\deqn{\chi_{Normalized} = w \times \sqrt{\frac{q}{1-q}}}{Chi (Normalized) = w * sqrt(q/(1-q))}
 Where \code{q} is the smallest of the expected probabilities.
 \cr\cr
 For adjusted versions of \emph{phi} and \emph{V}, see Bergsma, 2013.

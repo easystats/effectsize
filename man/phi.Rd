@@ -68,7 +68,7 @@ and its CIs (\code{CI_low} and \code{CI_high}).
 }
 \description{
 Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w}, normalized Chi
-(\eqn{\Chi}), Pearson's contingency coefficient, Odds ratios, Risk ratios,
+(\eqn{\chi}), Pearson's contingency coefficient, Odds ratios, Risk ratios,
 Cohen's \emph{h} and Cohen's \emph{g} for contingency tables or goodness-of-fit. See
 details.
 }

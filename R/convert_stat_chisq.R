@@ -1,7 +1,7 @@
 #' Conversion Chi-Squared to Phi or Cramer's V
 #'
 #' Convert between Chi square (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}),
-#' Cohen's *w*, normalized Chi (\eqn{\Chi}) and Pearson's *C* for contingency
+#' Cohen's *w*, normalized Chi (\eqn{\chi}) and Pearson's *C* for contingency
 #' tables or goodness of fit.
 #'
 #' @param chisq The Chi-squared statistic.
@@ -27,7 +27,7 @@
 #' \cr
 #' \deqn{Pearson's C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
 #' \cr
-#' \deqn{\Chi_{Normalized} = w \times \sqrt{\frac{q}{1-q}}}{Chi (Normalized) = w * sqrt(q/(1-q))}
+#' \deqn{\chi_{Normalized} = w \times \sqrt{\frac{q}{1-q}}}{Chi (Normalized) = w * sqrt(q/(1-q))}
 #' Where `q` is the smallest of the expected probabilities.
 #' \cr\cr
 #' For adjusted versions of *phi* and *V*, see Bergsma, 2013.
