@@ -94,37 +94,37 @@ if (require("testthat") && require("effectsize")) {
     expect_output(print(e4), regexp = "(Type III)", fixed = TRUE)
   })
 
-  test_that("print | effectsize_std_params", {
-    mod <- lm(mpg ~ cyl + gear, mtcars)
-
-    ## Methods
-    es <- standardize_parameters(mod)
-    expect_output(print(es), regexp = "refit")
-
-    es <- standardize_parameters(mod, method = "basic")
-    expect_output(print(es), regexp = "basic")
-
-    ## Robust / two_sd / include_response
-    es <- standardize_parameters(mod, robust = TRUE)
-    expect_output(print(es), regexp = "one MAD from the median")
-
-    es <- standardize_parameters(mod, two_sd = TRUE)
-    expect_output(print(es), regexp = "two")
-
-    es <- standardize_parameters(mod, include_response = FALSE)
-    expect_output(print(es), regexp = "unstandardized")
-
-    es <- standardize_parameters(mod, include_response = FALSE, two_sd = TRUE, robust = TRUE)
-    expect_output(print(es), regexp = "two MADs from the median")
-
-    # ES Name
-    expect_output(print(es), regexp = "Coefficient (std.)", fixed = TRUE)
-
-    mod <- glm(am ~ mpg, binomial(), mtcars)
-    es <- standardize_parameters(mod, exp = TRUE)
-    expect_output(print(es), regexp = "Odds Ratio (std.)", fixed = TRUE)
-    expect_output(print(es), regexp = "unstandardized")
-  })
+  # test_that("print | effectsize_std_params", {
+  #   mod <- lm(mpg ~ cyl + gear, mtcars)
+  #
+  #   ## Methods
+  #   es <- standardize_parameters(mod)
+  #   expect_output(print(es), regexp = "refit")
+  #
+  #   es <- standardize_parameters(mod, method = "basic")
+  #   expect_output(print(es), regexp = "basic")
+  #
+  #   ## Robust / two_sd / include_response
+  #   es <- standardize_parameters(mod, robust = TRUE)
+  #   expect_output(print(es), regexp = "one MAD from the median")
+  #
+  #   es <- standardize_parameters(mod, two_sd = TRUE)
+  #   expect_output(print(es), regexp = "two")
+  #
+  #   es <- standardize_parameters(mod, include_response = FALSE)
+  #   expect_output(print(es), regexp = "unstandardized")
+  #
+  #   es <- standardize_parameters(mod, include_response = FALSE, two_sd = TRUE, robust = TRUE)
+  #   expect_output(print(es), regexp = "two MADs from the median")
+  #
+  #   # ES Name
+  #   expect_output(print(es), regexp = "Coefficient (std.)", fixed = TRUE)
+  #
+  #   mod <- glm(am ~ mpg, binomial(), mtcars)
+  #   es <- standardize_parameters(mod, exp = TRUE)
+  #   expect_output(print(es), regexp = "Odds Ratio (std.)", fixed = TRUE)
+  #   expect_output(print(es), regexp = "unstandardized")
+  # })
 
 
   test_that("print | equivalence_test_effectsize", {

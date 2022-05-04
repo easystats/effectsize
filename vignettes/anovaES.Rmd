@@ -31,7 +31,7 @@ if (!all(sapply(pkgs, require, quietly = TRUE, character.only = TRUE))) {
 
 ## Eta<sup>2</sup>
 
-In the context of ANOVA-like tests, it is common to report ANOVA-like effect sizes. Unlike [standardized parameters](https://easystats.github.io/effectsize/articles/standardize_parameters.html), these effect sizes represent the amount of variance explained by each of the model's terms, where each term can be represented by 1 *or more* parameters.
+In the context of ANOVA-like tests, it is common to report ANOVA-like effect sizes. These effect sizes represent the amount of variance explained by each of the model's terms, where each term can be represented by 1 *or more* parameters.
 
 For example, in the following case, the parameters for the `treatment` term represent specific contrasts between the factor's levels (treatment groups) - the difference between each level and the reference level (`obk.long == 'control'`).
 

@@ -228,7 +228,7 @@ if (require("testthat") && require("effectsize")) {
     m <- lm(mpg ~ ., mtcars)
 
     expect_equal(effectsize(m),
-                 standardize_parameters(m),
+                 parameters::standardize_parameters(m),
                  ignore_attr = TRUE)
   })
 
