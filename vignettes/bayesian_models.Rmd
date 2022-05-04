@@ -28,6 +28,11 @@ if (!all(sapply(pkgs, require, quietly = TRUE, character.only = TRUE))) {
 }
 ```
 
+```{r}
+library(effectsize)
+```
+
+
 <!-- ## Standardized Parameters -->
 
 <!-- ### Introduction -->
