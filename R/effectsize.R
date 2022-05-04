@@ -43,7 +43,7 @@
 #' contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
 #' Xsq <- chisq.test(contingency_table)
 #' effectsize(Xsq)
-#' effectsize(Xsq, type = "phi")
+#' effectsize(Xsq, type = "cohens_w")
 #'
 #' Tt <- t.test(1:10, y = c(7:20), alternative = "less")
 #' effectsize(Tt)
