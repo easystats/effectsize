@@ -118,7 +118,7 @@ cles <- function(x,
                  ci = ci, alternative = alternative,
                  iterations = iterations)
     )
-    attr(out, "table_footer") <- c("\n- Non-parametric CLES", "cyan")
+    attr(out, "table_footer") <- "Non-parametric CLES"
     out
   }
 }
