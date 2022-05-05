@@ -22,9 +22,6 @@
     <loc>/articles/anovaES.html</loc>
   </url>
   <url>
-    <loc>/articles/bayesian_models.html</loc>
-  </url>
-  <url>
     <loc>/articles/convert.html</loc>
   </url>
   <url>
@@ -44,9 +41,6 @@
   </url>
   <url>
     <loc>/articles/simple_htests.html</loc>
-  </url>
-  <url>
-    <loc>/articles/standardize_parameters.html</loc>
   </url>
   <url>
     <loc>/authors.html</loc>
@@ -185,15 +179,6 @@
   </url>
   <url>
     <loc>/reference/sd_pooled.html</loc>
-  </url>
-  <url>
-    <loc>/reference/standardize.default.html</loc>
-  </url>
-  <url>
-    <loc>/reference/standardize_info.html</loc>
-  </url>
-  <url>
-    <loc>/reference/standardize_parameters.html</loc>
   </url>
   <url>
     <loc>/reference/t_to_r.html</loc>

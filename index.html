@@ -65,11 +65,9 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-effect-sizes">Effect Sizes</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-effect-sizes">
-    <a class="dropdown-item" href="articles/standardize_parameters.html">Parameter and Model Standardization</a>
     <a class="dropdown-item" href="articles/anovaES.html">ANOVA Effect Sizes</a>
     <a class="dropdown-item" href="articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
     <a class="dropdown-item" href="reference/effectsize_CIs.html">Confidence Intervals</a>
-    <a class="dropdown-item" href="articles/bayesian_models.html">For Bayesian Models</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="articles/effectsize_API.html">Extending effectsize</a>
   </div>
@@ -130,11 +128,7 @@
 <p>Or you can install the latest development version <code>0.6.0.3</code> from <a href="https://easystats.r-universe.dev" class="external-link"><em>R-universe</em></a>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"effectsize"</span>, repos <span class="op">=</span> <span class="st">"https://easystats.r-universe.dev/"</span><span class="op">)</span></code></pre></div>
-<!-- Or from *GitHub*: -->
-<!-- ```{r, warning=FALSE, message=FALSE, eval=FALSE} -->
-<!-- if (!require("remotes")) install.packages("remotes") -->
-<!-- remotes::install_github("easystats/effectsize") -->
-<!-- ``` -->
+<!-- Or from *GitHub*: --><!-- ```{r, warning=FALSE, message=FALSE, eval=FALSE} --><!-- if (!require("remotes")) install.packages("remotes") --><!-- remotes::install_github("easystats/effectsize") --><!-- ``` -->
 </div>
 <div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
@@ -143,8 +137,7 @@
 <p>Click on the buttons above to access the package <a href="https://easystats.github.io/effectsize/" class="external-link"><strong>documentation</strong></a> and the <a href="https://easystats.github.io/blog/posts/" class="external-link"><strong>easystats blog</strong></a>, and check-out these vignettes:</p>
 <ul>
 <li>
-<strong>Effect Sizes</strong>
-<ul>
+<strong>Effect Sizes</strong><ul>
 <li><a href="https://easystats.github.io/effectsize/articles/standardize_parameters.html" class="external-link"><strong>Parameter and Model Standardization</strong></a></li>
 <li><a href="https://easystats.github.io/effectsize/articles/anovaES.html" class="external-link"><strong>ANOVA Effect Sizes</strong></a></li>
 <li>
@@ -156,8 +149,7 @@
 </ul>
 </li>
 <li>
-<strong>Effect Sizes Conversion</strong>
-<ul>
+<strong>Effect Sizes Conversion</strong><ul>
 <li><a href="https://easystats.github.io/effectsize/articles/convert.html" class="external-link"><strong>Between Effect Sizes</strong></a></li>
 <li><a href="https://easystats.github.io/effectsize/articles/from_test_statistics.html" class="external-link"><strong>Effect Size from Test Statistics</strong></a></li>
 </ul>
@@ -241,7 +233,7 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">complaints</span> <span class="op">+</span> <span class="va">privileges</span> <span class="op">+</span> <span class="va">advance</span>, data <span class="op">=</span> <span class="va">attitude</span><span class="op">)</span>
 
-<span class="fu"><a href="reference/standardize_parameters.html">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
+<span class="fu"><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html" class="external-link">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
 <span class="co">## # Standardization method: refit</span>
 <span class="co">## </span>
 <span class="co">## Parameter   | Coefficient (std.) |        95% CI</span>
@@ -312,9 +304,7 @@
 <h3 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h3>
 <p>In order to cite this package, please use the following citation:</p>
-<ul>
-<li>Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation of Effect Size Indices and Standardized Parameters. <em>Journal of Open Source Software</em>, <em>5</em>(56), 2815. doi: 10.21105/joss.02815</li>
-</ul>
+<ul><li>Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation of Effect Size Indices and Standardized Parameters. <em>Journal of Open Source Software</em>, <em>5</em>(56), 2815. doi: 10.21105/joss.02815</li></ul>
 <p>Corresponding BibTeX entry:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="op">@</span>Article{,</span>
 <span id="cb12-2"><a href="#cb12-2"></a>  title =<span class="st"> </span>{{e}ffectsize<span class="op">:</span><span class="st"> </span>Estimation of Effect Size Indices and Standardized Parameters},</span>
@@ -406,7 +396,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
 </div>
 
     </footer>

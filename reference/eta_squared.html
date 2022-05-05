@@ -49,11 +49,9 @@ details."><meta property="og:image" content="/logo.png"><!-- mathjax --><script 
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-effect-sizes">Effect Sizes</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-effect-sizes">
-    <a class="dropdown-item" href="../articles/standardize_parameters.html">Parameter and Model Standardization</a>
     <a class="dropdown-item" href="../articles/anovaES.html">ANOVA Effect Sizes</a>
     <a class="dropdown-item" href="../articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
     <a class="dropdown-item" href="../reference/effectsize_CIs.html">Confidence Intervals</a>
-    <a class="dropdown-item" href="../articles/bayesian_models.html">For Bayesian Models</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../articles/effectsize_API.html">Extending effectsize</a>
   </div>
@@ -197,7 +195,7 @@ is allowed (e.g., <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). Se
 <dt>verbose</dt>
 <dd><p>Toggle warnings and messages on or off.</p></dd>
 <dt>...</dt>
-<dd><p>Arguments passed to or from other methods.</p><ul><li><p>Can be <code>include_intercept = TRUE</code> to include the effect size for the intercept.</p></li>
+<dd><p>Arguments passed to or from other methods.</p><ul><li><p>Can be <code>include_intercept = TRUE</code> to include the effect size for the intercept (when it is included in the ANOVA table).</p></li>
 <li><p>For Bayesian models, arguments passed to <code>ss_function</code>.</p></li>
 </ul></dd>
 <dt>squared</dt>
@@ -365,8 +363,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <code><a href="cohens_d.html">cohens_d</a>()</code>,
 <code><a href="effectsize.html">effectsize.BFBayesFactor</a>()</code>,
 <code><a href="phi.html">phi</a>()</code>,
-<code><a href="rank_biserial.html">rank_biserial</a>()</code>,
-<code><a href="standardize_parameters.html">standardize_parameters</a>()</code></p></div>
+<code><a href="rank_biserial.html">rank_biserial</a>()</code></p></div>
     </div>
 
     <div class="section level2">
@@ -615,7 +612,7 @@ Psychological Methods, 9, 164-182.</p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
 </div>
 
     </footer></div>

@@ -33,11 +33,9 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-effect-sizes">Effect Sizes</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-effect-sizes">
-    <a class="dropdown-item" href="../articles/standardize_parameters.html">Parameter and Model Standardization</a>
     <a class="dropdown-item" href="../articles/anovaES.html">ANOVA Effect Sizes</a>
     <a class="dropdown-item" href="../articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
     <a class="dropdown-item" href="../reference/effectsize_CIs.html">Confidence Intervals</a>
-    <a class="dropdown-item" href="../articles/bayesian_models.html">For Bayesian Models</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../articles/effectsize_API.html">Extending effectsize</a>
   </div>
@@ -103,7 +101,7 @@
         <dd>Effect size for differences</dd>
       </dl><dl><dt>
           
-          <code><a href="phi.html">phi()</a></code> <code><a href="phi.html">cohens_w()</a></code> <code><a href="phi.html">cramers_v()</a></code> <code><a href="phi.html">pearsons_c()</a></code> <code><a href="phi.html">oddsratio()</a></code> <code><a href="phi.html">riskratio()</a></code> <code><a href="phi.html">cohens_h()</a></code> <code><a href="phi.html">cohens_g()</a></code> 
+          <code><a href="phi.html">phi()</a></code> <code><a href="phi.html">cohens_w()</a></code> <code><a href="phi.html">cramers_v()</a></code> <code><a href="phi.html">normalized_chi()</a></code> <code><a href="phi.html">pearsons_c()</a></code> <code><a href="phi.html">oddsratio()</a></code> <code><a href="phi.html">riskratio()</a></code> <code><a href="phi.html">cohens_h()</a></code> <code><a href="phi.html">cohens_g()</a></code> 
         </dt>
         <dd>Effect size for contingency tables</dd>
       </dl><dl><dt>
@@ -121,32 +119,6 @@
           <code><a href="cles.html">cles()</a></code> <code><a href="cles.html">common_language()</a></code> <code><a href="cles.html">cohens_u3()</a></code> <code><a href="cles.html">p_superiority()</a></code> <code><a href="cles.html">p_overlap()</a></code> 
         </dt>
         <dd>Estimate Common Language Effect Sizes (CLES)</dd>
-      </dl></div><div class="section level2">
-      <h2 id="standardization">Standardization<a class="anchor" aria-label="anchor" href="#standardization"></a></h2>
-      
-      
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="standardize.default.html">standardize(<i>&lt;default&gt;</i>)</a></code> 
-        </dt>
-        <dd>Re-fit a model with standardized data</dd>
-      </dl><dl><dt>
-          
-          <code><a href="standardize_parameters.html">standardize_parameters()</a></code> <code><a href="standardize_parameters.html">standardize_posteriors()</a></code> 
-        </dt>
-        <dd>Parameters standardization</dd>
-      </dl><dl><dt>
-          
-          <code><a href="standardize_info.html">standardize_info()</a></code> 
-        </dt>
-        <dd>Get Standardization Information</dd>
       </dl></div><div class="section level2">
       <h2 id="effect-size-conversion">Effect Size Conversion<a class="anchor" aria-label="anchor" href="#effect-size-conversion"></a></h2>
       
@@ -178,7 +150,7 @@
 or association (<strong>partial</strong> r)</dd>
       </dl><dl><dt>
           
-          <code><a href="chisq_to_phi.html">chisq_to_phi()</a></code> <code><a href="chisq_to_phi.html">chisq_to_cohens_w()</a></code> <code><a href="chisq_to_phi.html">chisq_to_cramers_v()</a></code> <code><a href="chisq_to_phi.html">chisq_to_pearsons_c()</a></code> <code><a href="chisq_to_phi.html">phi_to_chisq()</a></code> 
+          <code><a href="chisq_to_phi.html">chisq_to_phi()</a></code> <code><a href="chisq_to_phi.html">chisq_to_cohens_w()</a></code> <code><a href="chisq_to_phi.html">chisq_to_cramers_v()</a></code> <code><a href="chisq_to_phi.html">chisq_to_normalized()</a></code> <code><a href="chisq_to_phi.html">chisq_to_pearsons_c()</a></code> <code><a href="chisq_to_phi.html">phi_to_chisq()</a></code> 
         </dt>
         <dd>Conversion Chi-Squared to Phi or Cramer's V</dd>
       </dl></div><div class="section level2">
@@ -422,7 +394,7 @@ or association (<strong>partial</strong> r)</dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
 </div>
 
     </footer></div>

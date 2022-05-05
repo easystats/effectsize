@@ -57,11 +57,9 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-effect-sizes">Effect Sizes</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-effect-sizes">
-    <a class="dropdown-item" href="../articles/standardize_parameters.html">Parameter and Model Standardization</a>
     <a class="dropdown-item" href="../articles/anovaES.html">ANOVA Effect Sizes</a>
     <a class="dropdown-item" href="../articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
     <a class="dropdown-item" href="../reference/effectsize_CIs.html">Confidence Intervals</a>
-    <a class="dropdown-item" href="../articles/bayesian_models.html">For Bayesian Models</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../articles/effectsize_API.html">Extending effectsize</a>
   </div>
@@ -302,29 +300,35 @@
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Etc...</span></code></pre></div>
+<!-- ## Supporting Model Re-Fitting with Standardized Data -->
+<!-- `effectsize::standardize.default()` should support your model if you have methods for: -->
+<!-- 1. `{insight}` functions. -->
+<!-- 2. An `update()` method that can take the model and a data frame via the `data = ` argument. -->
+<!-- Or you can make your own `standardize.my_class()` function, DIY-style (possibly using `datawizard::standardize.data.frame()` or `datawizard::standardize.numeric()`). This function should return a fiffed model of the same class as the input model. -->
+<!-- ## Supporting Standardized Parameters -->
+<!-- `standardize_parameters.default()` offers a few methods of parameter standardization: -->
+<!-- - For `method = "refit"` all you need is to have `effectsize::standardize()` support (see above) as well as `parameters::model_parameters()`.   -->
+<!-- - ***API for post-hoc methods coming soon...***   -->
+<!-- `standardize_parameters.default()` should support your model if it is already supported by `{parameters}` and `{insight}`. -->
+<!-- - For `method = "refit"`, to have `effectsize::standardize()` support (see above). -->
+<!-- - For the post-hoc methods, you will need to have a method for `standardize_info()` (or use the default method). See next section. -->
+<!-- Or you can make your own `standardize_parameters.my_class()` and/or `standardize_info.my_class()` functions. -->
+<!-- ## Extracting Post-Hoc Standardization Information (`standardize_info`) -->
+<!-- The `standardize_info()` function computes the standardized units needed for standardization; In order to standardize some slope $b_{xi}$, we need to multiply it by a scaling factor: -->
+<!-- $$b^*_{xi} = \frac{\text{Deviation}_{xi}}{\text{Deviation}_{y}}\times b_{xi}$$ -->
+<!-- These "deviations" are univariate scaling factors of the response and the specific parameter (usin its corresponding feature in the design matrix). Most often these are a single standard deviation (*SD*), but depending on the `robust` and `two_sd` arguments, these can be also be two *MAD*s, etc. -->
+<!-- Let's look at an example: -->
+<!-- ```{r} -->
+<!-- m <- lm(mpg ~ factor(cyl) * am, data = mtcars) -->
+<!-- standardize_info(m) -->
+<!-- ``` -->
+<!-- - The first 4 columns (`Parameter`, `Type`, `Link`, `Secondary_Parameter`) are taken from `parameters::parameters_type()`.   -->
+<!-- - The `EffectSize_Type` column is not used here, but is used in the the `{report}` package.   -->
+<!-- - `Deviation_Response_Basic` and `Deviation_Response_Smart` correspond to the $\text{Deviation}_{y}$ scalar using two different methods of post-hoc standardization (see `standardize_parameters()` docs for more details).   -->
+<!--     - Note then when the response is not standardized (either due to `standardize_parameters(include_response = FALSE)` or because the model uses a non-continuous response), both methods are fixed at **1** (i.e., no standardization with respect to the outcome).   -->
+<!-- - `Deviation_Basic` and `Deviation_Smart` correspond to the $\text{Deviation}_{xi}$ scaler using two different methods of post-hoc standardization. -->
+<!-- This information is then used by the `standardize_parameters()` to standardize the parameters. -->
 </div>
-</div>
-<div class="section level3">
-<h3 id="supporting-model-re-fitting-with-standardized-data">Supporting Model Re-Fitting with Standardized Data<a class="anchor" aria-label="anchor" href="#supporting-model-re-fitting-with-standardized-data"></a>
-</h3>
-<p><code><a href="../reference/standardize.default.html">effectsize::standardize.default()</a></code> should support your model if you have methods for:</p>
-<ol style="list-style-type: decimal">
-<li>
-<a href="https://easystats.github.io/insight/" class="external-link">insight</a> functions.</li>
-<li>An <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code> method that can take the model and a data frame via the <code>data =</code> argument.</li>
-</ol>
-<p>Or you can make your own <code>standardize.my_class()</code> function, DIY-style (possibly using <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">datawizard::standardize.data.frame()</a></code> or <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">datawizard::standardize.numeric()</a></code>). This function should return a fiffed model of the same class as the input model.</p>
-</div>
-<div class="section level3">
-<h3 id="supporting-standardized-parameters">Supporting Standardized Parameters<a class="anchor" aria-label="anchor" href="#supporting-standardized-parameters"></a>
-</h3>
-<p><code>standardize_parameters.default()</code> offers a few methods of parameter standardization:</p>
-<ul>
-<li>For <code>method = "refit"</code> all you need is to have <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">effectsize::standardize()</a></code> support (see above) as well as <code><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">parameters::model_parameters()</a></code>.<br>
-</li>
-<li><strong><em>API for post-hoc methods coming soon…</em></strong></li>
-</ul>
-<!-- `standardize_parameters.default()` should support your model if it is already supported by `{parameters}` and `{insight}`. --><!-- - For `method = "refit"`, to have `effectsize::standardize()` support (see above). --><!-- - For the post-hoc methods, you will need to have a method for `standardize_info()` (or use the default method). See next section. --><!-- Or you can make your own `standardize_parameters.my_class()` and/or `standardize_info.my_class()` functions. --><!-- ## Extracting Post-Hoc Standardization Information (`standardize_info`) --><!-- The `standardize_info()` function computes the standardized units needed for standardization; In order to standardize some slope $b_{xi}$, we need to multiply it by a scaling factor: --><!-- $$b^*_{xi} = \frac{\text{Deviation}_{xi}}{\text{Deviation}_{y}}\times b_{xi}$$ --><!-- These "deviations" are univariate scaling factors of the response and the specific parameter (usin its corresponding feature in the design matrix). Most often these are a single standard deviation (*SD*), but depending on the `robust` and `two_sd` arguments, these can be also be two *MAD*s, etc. --><!-- Let's look at an example: --><!-- ```{r} --><!-- m <- lm(mpg ~ factor(cyl) * am, data = mtcars) --><!-- standardize_info(m) --><!-- ``` --><!-- - The first 4 columns (`Parameter`, `Type`, `Link`, `Secondary_Parameter`) are taken from `parameters::parameters_type()`.   --><!-- - The `EffectSize_Type` column is not used here, but is used in the the `{report}` package.   --><!-- - `Deviation_Response_Basic` and `Deviation_Response_Smart` correspond to the $\text{Deviation}_{y}$ scalar using two different methods of post-hoc standardization (see `standardize_parameters()` docs for more details).   --><!--     - Note then when the response is not standardized (either due to `standardize_parameters(include_response = FALSE)` or because the model uses a non-continuous response), both methods are fixed at **1** (i.e., no standardization with respect to the outcome).   --><!-- - `Deviation_Basic` and `Deviation_Smart` correspond to the $\text{Deviation}_{xi}$ scaler using two different methods of post-hoc standardization. --><!-- This information is then used by the `standardize_parameters()` to standardize the parameters. -->
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
@@ -343,7 +347,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
 </div>
 
     </footer>

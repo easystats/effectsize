@@ -35,11 +35,9 @@ input model. See details."><meta property="og:image" content="/logo.png"><!-- ma
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-effect-sizes">Effect Sizes</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-effect-sizes">
-    <a class="dropdown-item" href="../articles/standardize_parameters.html">Parameter and Model Standardization</a>
     <a class="dropdown-item" href="../articles/anovaES.html">ANOVA Effect Sizes</a>
     <a class="dropdown-item" href="../articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
     <a class="dropdown-item" href="../reference/effectsize_CIs.html">Confidence Intervals</a>
-    <a class="dropdown-item" href="../articles/bayesian_models.html">For Bayesian Models</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../articles/effectsize_API.html">Extending effectsize</a>
   </div>
@@ -131,7 +129,8 @@ CIs (<code>CI_low</code> and <code>CI_high</code>).</p>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     
 <ul><li><p>For an object of class <code>htest</code>, data is extracted via <code><a href="https://easystats.github.io/insight/reference/get_data.html" class="external-link">insight::get_data()</a></code>, and passed to the relevant function according to:</p><ul><li><p>A <strong>t-test</strong> depending on <code>type</code>: <code>"cohens_d"</code> (default), <code>"hedges_g"</code>, or <code>"cles"</code>.</p></li>
-<li><p>A <strong>Chi-squared tests of independence or goodness-of-fit</strong>, depending on <code>type</code>: <code>"cramers_v"</code> (default), <code>"phi"</code>, <code>"cohens_w"</code>, <code>"pearsons_c"</code>, <code>"cohens_h"</code>, <code>"oddsratio"</code>, or <code>"riskratio"</code>.</p></li>
+<li><p>A <strong>Chi-squared tests of independence</strong>, depending on <code>type</code>: <code>"cramers_v"</code> (default), <code>"phi"</code>, <code>"cohens_w"</code>, <code>"pearsons_c"</code>, <code>"cohens_h"</code>, <code>"oddsratio"</code>, or <code>"riskratio"</code>.</p></li>
+<li><p>A <strong>Chi-squared tests of goodness-of-fit</strong>, depending on <code>type</code>: <code>"normalized_chi"</code> (default) <code>"cohens_w"</code>, <code>"pearsons_c"</code></p></li>
 <li><p>A <strong>One-way ANOVA test</strong>, depending on <code>type</code>: <code>"eta"</code> (default), <code>"omega"</code> or <code>"epsilon"</code> -squared, <code>"f"</code>, or <code>"f2"</code>.</p></li>
 <li><p>A <strong>McNemar test</strong> returns <em>Cohen's g</em>.</p></li>
 <li><p>A <strong>Wilcoxon test</strong> depending on <code>type</code>: returns "<code>rank_biserial</code>" correlation (default) or <code>"cles"</code>.</p></li>
@@ -145,7 +144,7 @@ CIs (<code>CI_low</code> and <code>CI_high</code>).</p>
 <li><p>A <strong>proportion test</strong> returns <em>p</em>.</p></li>
 </ul></li>
 <li><p>Objects of class <code>anova</code>, <code>aov</code>, or <code>aovlist</code>, depending on <code>type</code>: <code>"eta"</code> (default), <code>"omega"</code> or <code>"epsilon"</code> -squared, <code>"f"</code>, or <code>"f2"</code>.</p></li>
-<li><p>Other objects are passed to <code><a href="standardize_parameters.html">standardize_parameters()</a></code>.</p></li>
+<li><p>Other objects are passed to <code><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html" class="external-link">parameters::standardize_parameters()</a></code>.</p></li>
 </ul><p><strong>For statistical models it is recommended to directly use the listed
 functions, for the full range of options they provide.</strong></p>
     </div>
@@ -156,8 +155,7 @@ functions, for the full range of options they provide.</strong></p>
 <code><a href="cohens_d.html">cohens_d</a>()</code>,
 <code><a href="eta_squared.html">eta_squared</a>()</code>,
 <code><a href="phi.html">phi</a>()</code>,
-<code><a href="rank_biserial.html">rank_biserial</a>()</code>,
-<code><a href="standardize_parameters.html">standardize_parameters</a>()</code></p></div>
+<code><a href="rank_biserial.html">rank_biserial</a>()</code></p></div>
     </div>
 
     <div class="section level2">
@@ -173,10 +171,10 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.07       | [0.05, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
-<span class="r-in"><span class="fu">effectsize</span><span class="op">(</span><span class="va">Xsq</span>, type <span class="op">=</span> <span class="st">"phi"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Phi  |       95% CI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.10 | [0.07, 1.41]</span>
+<span class="r-in"><span class="fu">effectsize</span><span class="op">(</span><span class="va">Xsq</span>, type <span class="op">=</span> <span class="st">"cohens_w"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's w |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.10      | [0.07, 1.41]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.41~].</span></span>
 <span class="r-in"></span>
@@ -219,9 +217,7 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's U3      |        0.00 | [0.00, 0.13]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Overlap         |        0.85 | [0.00, 1.11]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Non-parametric CLES</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- cyan</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Bayesian Hypothesis Testing</span></span>
 <span class="r-in"><span class="co">## ---------------------------</span></span>
@@ -307,7 +303,7 @@ functions, for the full range of options they provide.</strong></p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
 </div>
 
     </footer></div>

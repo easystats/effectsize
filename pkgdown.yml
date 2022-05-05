@@ -1,16 +1,14 @@
 pandoc: 2.7.3
-pkgdown: 2.0.2.9000
-pkgdown_sha: bb864aa6edf4e03038ada3e9224871dff50a6f5e
+pkgdown: 2.0.3.9000
+pkgdown_sha: 9dee019f9983b86585a77a3b1a1459b9f0390fe6
 articles:
   additional: additional.html
   anovaES: anovaES.html
-  bayesian_models: bayesian_models.html
   convert: convert.html
   effectsize: effectsize.html
   effectsize_API: effectsize_API.html
   from_test_statistics: from_test_statistics.html
   interpret: interpret.html
   simple_htests: simple_htests.html
-  standardize_parameters: standardize_parameters.html
-last_built: 2022-04-22T07:15Z
+last_built: 2022-05-05T07:40Z
 
