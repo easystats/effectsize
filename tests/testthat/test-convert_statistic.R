@@ -16,13 +16,13 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(res, cramers_v(xtab), ignore_attr = TRUE)
 
 
-    res <- chisq_to_phi(
+    res <- chisq_to_cohens_w(
       chisq$statistic,
       n = sum(xtab),
       nrow = nrow(xtab),
       ncol = ncol(xtab)
     )
-    expect_equal(res, phi(xtab), ignore_attr = TRUE)
+    expect_equal(res, cohens_w(xtab), ignore_attr = TRUE)
   })
 
   test_that("r", {

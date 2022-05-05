@@ -134,72 +134,36 @@ onew <- oneway.test(mpg ~ gear, data = mtcars, var.equal = TRUE)
 eta_squared(onew)
 ```
 
-## Contingency Tables and Proportions
+## Contingency Tables
 
-For contingency tables Cramér's *V*, $\phi$ (Phi, also known as Cohen's *w*) and Pearson's contingency coefficient indicate the strength of association with 0 indicating no association between the variables.
-While Cramér's *V* and Pearson's *C* are capped at 1 (perfect association), $\phi$ can be larger than 1.
+### 2-by-2 Tables
 
-```{r}
-(Music <- matrix(
-  c(
-    150, 130, 35, 55,
-    100, 50, 10, 40,
-    165, 65, 2, 25
-  ),
-  byrow = TRUE, nrow = 3,
-  dimnames = list(
-    Study = c("Psych", "Econ", "Law"),
-    Music = c("Pop", "Rock", "Jazz", "Classic")
-  )
-))
-
-chisq.test(Music)
-
-cramers_v(Music)
-
-phi(Music)
-
-pearsons_c(Music)
-```
-
-Pearson's *C* and $\phi$ are also applicable to tests of goodness-of-fit, where small values indicate no deviation from the hypothetical probabilities and large values indicate... large deviation from the hypothetical probabilities.
+For 2-by-2 contingency tables, $\phi$ (Phi) is homologous (though directionless) to the bi-serial correlation between the two dichotomous variables, with 0 representing to association, and 1 representing a perfect association. A "cousin" effect size is Pearson's contingency coefficient.
 
 ```{r}
-O <- c(89,  37,  130, 28,  2) # observed group sizes
-E <- c(.40, .20, .20, .15, .05) # expected group freq
+MPG_Gear <- table(mtcars$mpg < 20, mtcars$vs)
 
-chisq.test(O, p = E, rescale.p = TRUE)
+phi(MPG_Gear)
 
-pearsons_c(O, p = E, rescale.p = TRUE)
+# Same as:
+cor(mtcars$mpg < 20, mtcars$vs)
 
-phi(O, p = E, rescale.p = TRUE)
+
+
+pearsons_c(MPG_Gear)
 ```
 
-These can also be extracted from the equivalent Bayesian test:
+(Cramer's *V* or Cohen's *w* can also be used, but for 2-by-2 tables, they are equivalent to $\phi$.)
 
-```{r}
-(BFX <- contingencyTableBF(Music, sampleType = "jointMulti"))
-
-effectsize(BFX, type = "cramers_v", test = NULL)
-
-effectsize(BFX, type = "phi", test = NULL)
-
-effectsize(BFX, type = "pearsons_c", test = NULL)
-```
-
-### Comparing Two Proportions (2x2 tables)
-
-For $2\times 2$ tables, in addition to Cramér's *V*, $\phi$ and Pearson's *C*, we can also
-compute the Odds-ratio (OR), where each column represents a different group.
+In addition to $\phi$ and Pearson's *C*, we can also
+compute the Odds-ratio (OR), where each column represents a different *group*.
 Values larger than 1 indicate that the odds are higher in the first group (and
 vice versa).
 
 ```{r}
 (RCT <- matrix(
-  c(
-    71, 30,
-    50, 100
-  ),
+  c(71, 30,
+    50, 100),
   nrow = 2, byrow = TRUE,
   dimnames = list(
     Diagnosis = c("Sick", "Recovered"),
@@ -227,6 +191,69 @@ transformation. Negative values indicate smaller proportion in the first group
 cohens_h(RCT)
 ```
 
+### Larger Tables
+
+For larger contingency tables Cramér's *V*, Cohen's *w* and Pearson's *C* can be used.
+While Cramér's *V* and Pearson's *C* are capped at 1 (perfect association), Cohen's *w* can be larger than 1
+(for all three, 0 indicates no association between the variables).
+
+```{r}
+(Music <- matrix(
+  c(150, 130, 35, 55,
+    100, 50, 10, 40,
+    165, 65, 2, 25),
+  byrow = TRUE, nrow = 3,
+  dimnames = list(
+    Study = c("Psych", "Econ", "Law"),
+    Music = c("Pop", "Rock", "Jazz", "Classic")
+  )
+))
+
+chisq.test(Music)
+
+cramers_v(Music)
+
+cohens_w(Music)
+
+pearsons_c(Music)
+```
+
+These can also be extracted from the equivalent Bayesian test:
+
+```{r}
+(BFX <- contingencyTableBF(Music, sampleType = "jointMulti"))
+
+effectsize(BFX, type = "cramers_v", test = NULL)
+
+effectsize(BFX, type = "cohens_w", test = NULL)
+
+effectsize(BFX, type = "pearsons_c", test = NULL)
+```
+
+### Goodness-of-Fit
+
+Cohen's *w* and Pearson's *C* are also applicable to tests of goodness-of-fit, 
+where small values indicate no deviation from the hypothetical probabilities and large values indicate... large deviation from the hypothetical probabilities.
+
+```{r}
+O <- c(89,  37,  130, 28,  2) # observed group sizes
+E <- c(.40, .20, .20, .15, .05) # expected group freq
+
+chisq.test(O, p = E)
+
+pearsons_c(O, p = E)
+
+cohens_w(O, p = E)
+```
+
+However, Cohen's *w* does not account for the distribution of expected probabilities, 
+and as such may be seen is an inflated effect size, and since it can be larger than 1 it is also harder to interpret. 
+For these reasons, we recommend the Normalized $\chi$ (Chi), which adjusted Cohen's *w* to account for the expected distribution of probabilities, making it range between 0 (observed distribution matches the expected distribution perfectly) and 1 (the observed distribution is maximally different than the expected one).
+
+```{r}
+normalized_chi(O, p = E)
+```
+
 ### Paired Contingency Tables
 
 For dependent (paired) contingency tables, Cohen's *g* represents the symmetry
@@ -234,10 +261,8 @@ of the table, ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry).
 
 ```{r}
 (Performance <- matrix(
-  c(
-    794, 86,
-    150, 570
-  ),
+  c(794, 86,
+    150, 570),
   nrow = 2, byrow = TRUE,
   dimnames = list(
     "1st Survey" = c("Approve", "Disapprove"),

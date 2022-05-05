@@ -94,42 +94,55 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   dots <- list(...)
 
-  if (is.null(type)) type <- "cramers_v"
+  Obs <- model$observed
+  Exp <- model$expected
 
-  if (grepl("(c|v|w|phi)$", tolower(type))) {
+  if (!is.null(dim(Exp))) {
+    if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
+      stop("Cannot have empty rows/columns in the contingency tables.", call. = FALSE)
+    }
+    nr <- nrow(Obs)
+    nc <- ncol(Obs)
+  } else {
+    nr <- length(Obs)
+    nc <- 1
+  }
+
+  if (is.null(type)) {
+    if (nr == 1 || nc == 1) {
+      type <- "normalized_chi"
+    } else {
+      type <- "cramers_v"
+    }
+  }
+
+  if (grepl("(c|v|w|phi)$", tolower(type)) || tolower(type) %in% c("normalized_chi", "chi")) {
+    if (tolower(type) %in% c("normalized_chi", "chi")) {
+      p <- Exp
+    } else {
+      p <- NULL
+    }
+
     f <- switch(tolower(type),
                 v = ,
                 cramers_v = chisq_to_cramers_v,
                 w = ,
-                cohens_w = ,
+                cohens_w = chisq_to_cohens_w,
                 phi = chisq_to_phi,
                 c = ,
-                pearsons_c = chisq_to_pearsons_c
+                pearsons_c = chisq_to_pearsons_c,
+                chi = ,
+                normalized_chi = chisq_to_normalized
     )
-
-    Obs <- model$observed
-    Exp <- model$expected
-
-    if (!is.null(dim(Exp))) {
-      if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
-        stop("Cannot have empty rows/columns in the contingency tables.", call. = FALSE)
-      }
-      nr <- nrow(Obs)
-      nc <- ncol(Obs)
-    } else {
-      nr <- length(Obs)
-      nc <- 1
-    }
 
     out <- f(
       chisq = .chisq(Obs, Exp),
       n = sum(Obs),
       nrow = nr,
       ncol = nc,
+      p = p,
       ...
     )
-    attr(out, "approximate") <- FALSE
-    return(out)
   } else {
     f <- switch(tolower(type),
                 or = ,
@@ -139,9 +152,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
                 h = ,
                 cohens_h = cohens_h
     )
+
+    out <- f(x = model$observed, ...)
   }
 
-  out <- f(x = model$observed, ...)
+  attr(out, "approximate") <- FALSE
   out
 }
 

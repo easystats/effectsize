@@ -77,10 +77,8 @@ install.packages("effectsize", repos = "https://easystats.r-universe.dev/")
 Click on the buttons above to access the package [**documentation**](https://easystats.github.io/effectsize/) and the [**easystats blog**](https://easystats.github.io/blog/posts/), and check-out these vignettes:
 
 - **Effect Sizes**  
-  - [**Parameter and Model Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
-  - [**ANOVA Effect Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
-  - [**Effect Sizes in Bayesian Models**](https://easystats.github.io/effectsize/articles/bayesian_models.html)  
   - [**For Simple Hypothesis Tests**](https://easystats.github.io/effectsize/articles/simple_htests.html)  
+  - [**ANOVA Effect Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
 - **Effect Sizes Conversion**    
   - [**Between Effect Sizes**](https://easystats.github.io/effectsize/articles/convert.html)
   - [**Effect Size from Test Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)

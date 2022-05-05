@@ -234,9 +234,7 @@ However, they are also the parameters of ***logistic*** regressions, where they
 can be used as indices of effect size. Note that the (log) odds ratio from
 logistic regression coefficients are *unstandardized*, as they depend on the
 scale of the predictor. In order to apply the following guidelines, make sure
-you
-[*standardize*](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
-your predictors!
+you *standardize* your predictors!
 
 Keep in mind that these apply to Odds *ratios*, so Odds ratio of 10 is as
 extreme as a Odds ratio of 0.1 (1/10).

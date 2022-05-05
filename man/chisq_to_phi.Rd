@@ -4,6 +4,7 @@
 \alias{chisq_to_phi}
 \alias{chisq_to_cohens_w}
 \alias{chisq_to_cramers_v}
+\alias{chisq_to_normalized}
 \alias{chisq_to_pearsons_c}
 \alias{phi_to_chisq}
 \title{Conversion Chi-Squared to Phi or Cramer's V}
@@ -11,8 +12,8 @@
 chisq_to_phi(
   chisq,
   n,
-  nrow,
-  ncol,
+  nrow = 2,
+  ncol = 2,
   ci = 0.95,
   alternative = "greater",
   adjust = FALSE,
@@ -26,7 +27,6 @@ chisq_to_cohens_w(
   ncol,
   ci = 0.95,
   alternative = "greater",
-  adjust = FALSE,
   ...
 )
 
@@ -38,6 +38,17 @@ chisq_to_cramers_v(
   ci = 0.95,
   alternative = "greater",
   adjust = FALSE,
+  ...
+)
+
+chisq_to_normalized(
+  chisq,
+  n,
+  nrow,
+  ncol,
+  p,
+  ci = 0.95,
+  alternative = "greater",
   ...
 )
 
@@ -58,8 +69,7 @@ phi_to_chisq(phi, n, ...)
 
 \item{n}{Total sample size.}
 
-\item{nrow, ncol}{The number of rows/columns in the contingency table (ignored
-for Phi when \code{adjust=FALSE} and \code{CI=NULL}).}
+\item{nrow, ncol}{The number of rows/columns in the contingency table.}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -73,6 +83,8 @@ is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided 
 
 \item{...}{Arguments passed to or from other methods.}
 
+\item{p}{Vector of expected values. See \code{\link[stats:chisq.test]{stats::chisq.test()}}.}
+
 \item{phi}{The Phi statistic.}
 }
 \value{
@@ -81,7 +93,8 @@ A data frame with the effect size(s), and confidence interval(s). See
 }
 \description{
 Convert between Chi square (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}),
-Cohen's \emph{w} and Pearson's \emph{C} for contingency tables or goodness of fit.
+Cohen's \emph{w}, normalized Chi (\eqn{\chi}) and Pearson's \emph{C} for contingency
+tables or goodness of fit.
 }
 \details{
 These functions use the following formulae:
@@ -91,11 +104,11 @@ These functions use the following formulae:
 \deqn{Cramer's V = \phi / \sqrt{min(nrow,ncol)-1}}{Cramer's V = \phi / sqrt(min(nrow,ncol)-1)}
 \cr
 \deqn{Pearson's C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
+\cr
+\deqn{\chi_{Normalized} = w \times \sqrt{\frac{q}{1-q}}}{Chi (Normalized) = w * sqrt(q/(1-q))}
+Where \code{q} is the smallest of the expected probabilities.
 \cr\cr
-For adjusted versions, see Bergsma, 2013.
-}
-\note{
-Cohen's \emph{w} is equivalent to \emph{Phi}.
+For adjusted versions of \emph{phi} and \emph{V}, see Bergsma, 2013.
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
 
@@ -146,21 +159,32 @@ contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 2
 #> data:  contingency_table
 #> X-squared = 41.234, df = 4, p-value = 2.405e-08
 
-chisq_to_phi(41.234,
+chisq_to_cohens_w(41.234,
   n = sum(contingency_table),
   nrow = nrow(contingency_table),
   ncol = ncol(contingency_table)
 )
-chisq_to_cramers_v(41.234,
-  n = sum(contingency_table),
-  nrow = nrow(contingency_table),
-  ncol = ncol(contingency_table)
+
+
+
+
+Smoking_ASD <- as.table(c(ASD = 17, ASP = 11, TD = 640))
+
+# chisq.test(Smoking_ASD, p = c(0.015, 0.010, 0.975))
+#>
+#> 	Chi-squared test for given probabilities
+#>
+#> data:  Smoking_ASD
+#> X-squared = 7.8521, df = 2, p-value = 0.01972
+
+chisq_to_normalized(
+  7.8521,
+  n = sum(Smoking_ASD),
+  nrow = 1,
+  ncol = 3,
+  p = c(0.015, 0.010, 0.975)
 )
-chisq_to_pearsons_c(41.234,
-  n = sum(contingency_table),
-  nrow = nrow(contingency_table),
-  ncol = ncol(contingency_table)
-)
+
 }
 \references{
 \itemize{
@@ -169,6 +193,11 @@ calculation of confidence intervals that are based on central and noncentral
 distributions. Educational and Psychological Measurement, 61(4), 532-574.
 \item Bergsma, W. (2013). A bias-correction for Cramer's V and Tschuprow's T.
 Journal of the Korean Statistical Society, 42(3), 323-328.
+\item Johnston, J. E., Berry, K. J., & Mielke Jr, P. W. (2006). Measures of
+effect size for chi-squared and likelihood-ratio goodness-of-fit tests.
+Perceptual and motor skills, 103(2), 412-414.
+\item Rosenberg, M. S. (2010). A generalized formula for converting chi-square
+tests to effect sizes for meta-analysis. PloS one, 5(4), e10059.
 }
 }
 \seealso{

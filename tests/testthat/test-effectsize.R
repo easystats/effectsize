@@ -56,9 +56,8 @@ if (require("testthat") && require("effectsize")) {
     )
 
     # types
-    expect_equal(effectsize(Xsq1, type = "phi"), phi <- phi(contingency_table))
-    expect_equal(phi(Xsq1), phi)
-
+    expect_error(effectsize(Xsq1, type = "phi"))
+    expect_equal(effectsize(Xsq1), cramers_v(contingency_table))
     expect_equal(effectsize(Xsq1, type = "w"), w <- cohens_w(contingency_table))
     expect_equal(cohens_w(Xsq1), w)
 
@@ -67,6 +66,9 @@ if (require("testthat") && require("effectsize")) {
 
     contingency_table22 <- contingency_table[1:2, 1:2]
     Xsq4 <- chisq.test(contingency_table22)
+    expect_equal(effectsize(Xsq4, type = "phi"), ph <- phi(contingency_table22))
+    expect_equal(phi(Xsq4), ph)
+
     expect_equal(effectsize(Xsq4, type = "oddsratio"), or <- oddsratio(contingency_table22))
     expect_equal(oddsratio(Xsq4), or)
 
@@ -85,6 +87,10 @@ if (require("testthat") && require("effectsize")) {
 
     x <- chisq.test(x = observed.dfc, p = expected.dfc)
     expect_error(effectsize(x, type = "v"))
+    expect_error(effectsize(x, type = "phi"))
+    expect_equal(effectsize(x), effectsize(x, type = "chi"))
+    expect_equal(effectsize(x, type = "chi"), nchi <- normalized_chi(observed.dfc, p = expected.dfc))
+    expect_equal(normalized_chi(x), nchi)
   })
 
   test_that("cor.test / other", {
@@ -222,7 +228,7 @@ if (require("testthat") && require("effectsize")) {
     m <- lm(mpg ~ ., mtcars)
 
     expect_equal(effectsize(m),
-                 standardize_parameters(m),
+                 parameters::standardize_parameters(m),
                  ignore_attr = TRUE)
   })
 

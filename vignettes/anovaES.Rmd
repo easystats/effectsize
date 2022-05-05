@@ -31,7 +31,7 @@ if (!all(sapply(pkgs, require, quietly = TRUE, character.only = TRUE))) {
 
 ## Eta<sup>2</sup>
 
-In the context of ANOVA-like tests, it is common to report ANOVA-like effect sizes. Unlike [standardized parameters](https://easystats.github.io/effectsize/articles/standardize_parameters.html), these effect sizes represent the amount of variance explained by each of the model's terms, where each term can be represented by 1 *or more* parameters.
+In the context of ANOVA-like tests, it is common to report ANOVA-like effect sizes. These effect sizes represent the amount of variance explained by each of the model's terms, where each term can be represented by 1 *or more* parameters.
 
 For example, in the following case, the parameters for the `treatment` term represent specific contrasts between the factor's levels (treatment groups) - the difference between each level and the reference level (`obk.long == 'control'`).
 
@@ -254,5 +254,67 @@ omega_squared(fit_lmm)
 
 Another case where *SS*s are not available is when use Bayesian models. `effectsize` has Bayesian solutions for Bayesian models, about which you can read in the [*Effect Sizes for Bayesian Models* vignette](https://easystats.github.io/effectsize/articles/bayesian_models.html).
 
+## For Bayesian Models
+
+An alternative route to obtaining effect sizes of explained variance, is via the
+use of the ***posterior predictive distribution*** (*PPD*). The PPD is the
+Bayesian expected distribution of possible unobserved values. Thus, after
+observing some data, we can estimate not just the expected mean values (the
+conditional marginal means), but also the full *distribution* of data around
+these values [@gelman2014bayesian, chapter 7].
+
+By sampling from the PPD, we can decompose the sample to the various *SS*s
+needed for the computation of explained variance measures. By repeatedly
+sampling from the PPD, we can generate a posterior distribution of explained
+variance estimates. But note that **these estimates are conditioned not only on
+the location-parameters of the model, but also on the scale-parameters of the
+model!** So it is vital to [validate the
+PPD](https://mc-stan.org/docs/2_23/stan-users-guide/meta-models-part.html#meta-models.part/)
+before using it to estimate explained variance measures.
+
+```{r, echo = FALSE, eval=TRUE}
+if (eval_bayes <- knitr::opts_chunk$get("eval")) {
+  bayes_pkgs <- c("rstanarm", "bayestestR", "car")
+  eval_bayes <- all(sapply(bayes_pkgs, require, quietly = TRUE, character.only = TRUE))  
+}
+```
+
+Let's fit our model:
+
+```{r, eval = eval_bayes}
+library(rstanarm)
+
+m_bayes <- stan_glm(value ~ gender + phase + treatment, 
+                    data = obk.long, family = gaussian(),
+                    refresh = 0)
+```
+
+We can use `eta_squared_posterior()` to get the posterior distribution of
+$eta^2$ or $eta^2_p$ for each effect. Like an ANOVA table, we must make sure to
+use the right effects-coding and *SS*-type:
+
+```{r, eval = eval_bayes}
+pes_posterior <- eta_squared_posterior(m_bayes,
+  draws = 500, # how many samples from the PPD?
+  partial = TRUE, # partial eta squared
+  # type 3 SS
+  ss_function = car::Anova, type = 3, 
+  verbose = FALSE
+)
+
+head(pes_posterior)
+
+bayestestR::describe_posterior(pes_posterior, 
+  rope_range = c(0, 0.1), test = "rope"
+)
+```
+
+Compare to:
+
+```{r, eval = eval_bayes}
+m_ML <- lm(value ~ gender + phase + treatment, data = obk.long)
+
+eta_squared(car::Anova(m_ML, type = 3))
+```
 
 # References

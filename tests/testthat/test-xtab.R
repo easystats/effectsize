@@ -11,6 +11,8 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(res$CI_low, 0.051, tolerance = 0.01)
     expect_equal(res$CI_high, 1)
 
+    expect_error(phi(contingency_table))
+
 
     ## Size does not affect estimate
     xtab <- rbind(
@@ -25,8 +27,8 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(cv1$Cramers_v, cv2$Cramers_v)
 
     # Upper bound of phi is the ratio between phi / V and sqrt(min(K,L)-1)
-    expect_equal(phi(xtab, alternative = "greater")$CI_high, sqrt(2))
-    expect_equal(phi(xtab)[[1]] / cramers_v(xtab)[[1]], sqrt(2))
+    expect_equal(cohens_w(xtab, alternative = "greater")$CI_high, sqrt(2))
+    expect_equal(cohens_w(xtab)[[1]] / cramers_v(xtab)[[1]], sqrt(2))
 
     ## 2*2 tables return phi and cramers_v
     xtab <- rbind(
@@ -79,14 +81,20 @@ if (require("testthat") && require("effectsize")) {
   test_that("goodness of fit", {
     expect_error(cramers_v(table(mtcars$cyl)))
 
-    phi1 <- phi(table(mtcars$cyl), p = c(0.34375, 0.21875, 0.43750))
-    phi2 <- phi(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
+    w1 <- cohens_w(table(mtcars$cyl), p = c(0.34375, 0.21875, 0.43750))
+    w2 <- cohens_w(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
 
-    expect_equal(phi1$phi, 0)
-    expect_true(phi1$phi < phi2$phi)
-    expect_true(phi1$CI_low < phi2$CI_low)
-    expect_true(phi2$CI_low < phi2$CI_high)
-    expect_equal(phi2$CI_high, Inf)
+    nchi1 <- normalized_chi(table(mtcars$cyl), p = c(0.34375, 0.21875, 0.43750))
+    nchi2 <- normalized_chi(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
+
+    expect_equal(w1[[1]], 0)
+    expect_true(w1[[1]] < w2[[1]])
+    expect_true(nchi1[[1]] < nchi2[[1]])
+    expect_true(nchi2[[1]] < w2[[1]])
+    expect_equal(w2[[1]] * sqrt(0.1/0.9), nchi2[[1]])
+    expect_true(w1$CI_low < w2$CI_low)
+    expect_true(w2$CI_low < w2$CI_high)
+    expect_equal(w2$CI_high, Inf)
 
     C <- pearsons_c(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
     expect_equal(C[[1]], sqrt(49.289 / (49.289 + sum(table(mtcars$cyl)))), tolerance = 0.001)
@@ -94,9 +102,9 @@ if (require("testthat") && require("effectsize")) {
 
     # some weird exeptions...
     df <- subset(mtcars, am == "0")
-    expect_equal(phi(table(df$am, df$cyl))[[1]], 0.64, tolerance = 0.01)
-    expect_equal(phi(table(df$am, df$cyl)), phi(table(df$cyl)))
-    expect_equal(phi(table(df$am, df$cyl)), phi(table(df$cyl, df$am)))
+    expect_equal(cohens_w(table(df$am, df$cyl))[[1]], 0.64, tolerance = 0.01)
+    expect_equal(cohens_w(table(df$am, df$cyl)), cohens_w(table(df$cyl)))
+    expect_equal(cohens_w(table(df$am, df$cyl)), cohens_w(table(df$cyl, df$am)))
   })
 
   test_that("oddsratio & riskratio", {

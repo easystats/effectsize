@@ -4,6 +4,8 @@
 
 - `standardize_parameters()`, `standardize_posteriors()`, & `standardize_info()` have been moved to the `parameters` package.  
 - `standardize()` (for models) has been moved to the `datawizard` package.
+- `phi()` only works for 2x2 tables.
+- `cramers_v()` only works for 2D tables.
 
 ## Bug fixes
 
@@ -12,6 +14,8 @@
 
 ## New features
 
+- `normalized_chi()` gives an adjusted Cohen's *w* for goodness of fit.
+- `cohens_w()` is now a fully-fledged function for x-tables and goodness-of-fit effect size (not just an alias for `phi()`).
 - Support for `insight`'s `display`, `print_md` and `print_html` for all `{effectsize}` outputs.
 
 # effectsize 0.6.0.1
