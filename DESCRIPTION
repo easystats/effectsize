@@ -56,10 +56,10 @@ BugReports: https://github.com/easystats/effectsize/issues/
 Depends:
     R (>= 3.4)
 Imports:
-    bayestestR (>= 0.11.5.1),
-    insight (>= 0.16.0.16),
-    parameters (>= 0.17.0.10),
-    performance (>= 0.8.0.8),
+    bayestestR (>= 0.12.1),
+    insight (>= 0.17.0),
+    parameters (>= 0.17.0.11),
+    performance (>= 0.9.0),
     datawizard (>= 0.4.0.17),
     stats,
     utils
@@ -92,11 +92,8 @@ Suggests:
     testthat,
     tidymodels
 Remotes:
-    easystats/insight,
-    easystats/performance,
     easystats/parameters,
-    easystats/datawizard,
-    easystats/bayestestR
+    easystats/datawizard
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
