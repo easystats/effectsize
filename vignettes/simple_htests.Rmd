@@ -138,7 +138,7 @@ eta_squared(onew)
 
 ### 2-by-2 Tables
 
-For 2-by-2 contingency tables, $\phi$ (Phi) is homologous (though directionless) to the bi-serial correlation between the two dichotomous variables, with 0 representing to association, and 1 representing a perfect association. A "cousin" effect size is Pearson's contingency coefficient.
+For 2-by-2 contingency tables, $\phi$ (Phi) is homologous (though directionless) to the bi-serial correlation between the two dichotomous variables, with 0 representing no association, and 1 representing a perfect association. A "cousin" effect size is Pearson's contingency coefficient.
 
 ```{r}
 MPG_Gear <- table(mtcars$mpg < 20, mtcars$vs)
