@@ -88,6 +88,14 @@ large, depending on the expected distribution). Normalized Chi is an adjusted
 Cohen's \emph{w}, accounting for the expected distribution, making it bounded
 between 0-1. Pearson's \emph{C} is also bounded between 0-1.
 \cr\cr
+To summarize, for correlation-like effect sizes, we recommend:
+\itemize{
+\item For a 2x2 table, use \code{phi()}
+\item For larger tables, use \code{cramers_v()}
+\item For goodness-of-fit, use \code{normalized_chi()}
+}
+
+\cr\cr
 For 2-by-2 contingency tables, Odds ratios, Risk ratios and Cohen's \emph{h} can
 also be estimated. Note that these are computed with each \strong{column}
 representing the different groups, and the \emph{first} column representing the

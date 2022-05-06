@@ -33,6 +33,13 @@
 #' Cohen's *w*, accounting for the expected distribution, making it bounded
 #' between 0-1. Pearson's *C* is also bounded between 0-1.
 #' \cr\cr
+#' To summarize, for correlation-like effect sizes, we recommend:
+#'
+#' - For a 2x2 table, use `phi()`
+#' - For larger tables, use `cramers_v()`
+#' - For goodness-of-fit, use `normalized_chi()`
+#'
+#' \cr\cr
 #' For 2-by-2 contingency tables, Odds ratios, Risk ratios and Cohen's *h* can
 #' also be estimated. Note that these are computed with each **column**
 #' representing the different groups, and the *first* column representing the
