@@ -6,7 +6,7 @@
 [![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize)](https://cran.r-project.org/package=effectsize/)
 [![status](https://tinyverse.netlify.com/badge/effectsize/)](https://CRAN.R-project.org/package=effectsize/)
 
-***Significant is just not enough\!***
+***Significant is just not enough!***
 
 The goal of this package is to provide utilities to work with indices of
 effect size and standardized parameters, allowing computation and
@@ -29,7 +29,7 @@ CRAN:
 install.packages("effectsize")
 ```
 
-Or you can install the latest development version `0.6.0.3` from
+Or you can install the latest development version `0.6.0.7` from
 [*R-universe*](https://easystats.r-universe.dev):
 
 ``` r
@@ -37,13 +37,9 @@ install.packages("effectsize", repos = "https://easystats.r-universe.dev/")
 ```
 
 <!-- Or from *GitHub*: -->
-
 <!-- ```{r, warning=FALSE, message=FALSE, eval=FALSE} -->
-
 <!-- if (!require("remotes")) install.packages("remotes") -->
-
 <!-- remotes::install_github("easystats/effectsize") -->
-
 <!-- ``` -->
 
 ## Documentation
@@ -57,21 +53,17 @@ Click on the buttons above to access the package
 [**easystats blog**](https://easystats.github.io/blog/posts/), and
 check-out these vignettes:
 
-  - **Effect Sizes**
-      - [**Parameter and Model
-        Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
-      - [**ANOVA Effect
-        Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
-      - [**Effect Sizes in Bayesian
-        Models**](https://easystats.github.io/effectsize/articles/bayesian_models.html)  
-      - [**For Simple Hypothesis
+-   **Effect Sizes**
+    -   [**For Simple Hypothesis
         Tests**](https://easystats.github.io/effectsize/articles/simple_htests.html)  
-  - **Effect Sizes Conversion**
-      - [**Between Effect
+    -   [**ANOVA Effect
+        Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
+-   **Effect Sizes Conversion**
+    -   [**Between Effect
         Sizes**](https://easystats.github.io/effectsize/articles/convert.html)
-      - [**Effect Size from Test
+    -   [**Effect Size from Test
         Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
-  - [**Automated Interpretation of Indices of Effect
+-   [**Automated Interpretation of Indices of Effect
     Size**](https://easystats.github.io/effectsize/articles/interpret.html)
 
 # Features
@@ -149,38 +141,16 @@ epsilon_squared(model)
 
 And more…
 
-### Regression Models (Standardized Parameters)
-
-Importantly, `effectsize` also provides [advanced
-methods](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
-to compute standardized parameters for regression models.
-
-``` r
-m <- lm(rating ~ complaints + privileges + advance, data = attitude)
-
-standardize_parameters(m)
-## # Standardization method: refit
-## 
-## Parameter   | Coefficient (std.) |        95% CI
-## ------------------------------------------------
-## (Intercept) |          -9.57e-16 | [-0.22, 0.22]
-## complaints  |               0.85 | [ 0.58, 1.13]
-## privileges  |              -0.04 | [-0.33, 0.24]
-## advance     |              -0.02 | [-0.26, 0.22]
-```
-
-Also, models can be re-fit with standardized data:
-
-``` r
-standardize(m)
-## 
-## Call:
-## lm(formula = rating ~ complaints + privileges + advance, data = data_std)
-## 
-## Coefficients:
-## (Intercept)   complaints   privileges      advance  
-##   -9.57e-16     8.55e-01    -4.35e-02    -2.19e-02
-```
+<!-- ### Regression Models (Standardized Parameters) -->
+<!-- Importantly, `effectsize` also provides [advanced methods](https://easystats.github.io/effectsize/articles/standardize_parameters.html) to compute standardized parameters for regression models. -->
+<!-- ```{r beta, warning=FALSE, message=FALSE} -->
+<!-- m <- lm(rating ~ complaints + privileges + advance, data = attitude) -->
+<!-- standardize_parameters(m) -->
+<!-- ``` -->
+<!-- Also, models can be re-fit with standardized data: -->
+<!-- ```{r std-model, warning=FALSE, message=FALSE} -->
+<!-- standardize(m) -->
+<!-- ``` -->
 
 ## Effect Size Conversion
 
@@ -245,7 +215,7 @@ interpret_cohens_d(d = 0.45, rules = "gignac2016")
 
 In order to cite this package, please use the following citation:
 
-  - Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation
+-   Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation
     of Effect Size Indices and Standardized Parameters. *Journal of Open
     Source Software*, *5*(56), 2815. doi: 10.21105/joss.02815
 
