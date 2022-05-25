@@ -96,10 +96,14 @@ An alternative approach to aligning significance tests using CIs and 1-tailed
 conducting \strong{equivalence tests}. For example, a 90\% 2-sided interval gives
 the bounds for an equivalence test with \eqn{\alpha} = .05. However, be aware
 that this interval does not give 95\% coverage for the underlying effect size
-parameter value. For that, construct a 95\% 2-sided CI.\if{html}{\out{<div class="sourceCode r">}}\preformatted{data("hardlyworking")
+parameter value. For that, construct a 95\% 2-sided CI.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{data("hardlyworking")
 fit <- lm(salary ~ n_comps + age, data = hardlyworking)
 eta_squared(fit) # default, ci = 0.95, alternative = "greater"
-}\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # Effect Size for ANOVA (Type I)
 ## 
 ## Parameter | Eta2 (partial) |       95\% CI
 ## -----------------------------------------
@@ -107,8 +111,12 @@ eta_squared(fit) # default, ci = 0.95, alternative = "greater"
 ## age       |           0.10 | [0.06, 1.00]
 ## 
 ## - One-sided CIs: upper bound fixed at [1.00].
-}\if{html}{\out{<div class="sourceCode r">}}\preformatted{eta_squared(fit, alternative = "less") # Test is eta is smaller than some value
-}\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{eta_squared(fit, alternative = "less") # Test is eta is smaller than some value
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # Effect Size for ANOVA (Type I)
 ## 
 ## Parameter | Eta2 (partial) |       95\% CI
 ## -----------------------------------------
@@ -116,21 +124,29 @@ eta_squared(fit) # default, ci = 0.95, alternative = "greater"
 ## age       |           0.10 | [0.00, 0.14]
 ## 
 ## - One-sided CIs: lower bound fixed at [0.00].
-}\if{html}{\out{<div class="sourceCode r">}}\preformatted{eta_squared(fit, alternative = "two.sided") # 2-sided bounds for alpha = .05
-}\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{eta_squared(fit, alternative = "two.sided") # 2-sided bounds for alpha = .05
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # Effect Size for ANOVA (Type I)
 ## 
 ## Parameter | Eta2 (partial) |       95\% CI
 ## -----------------------------------------
 ## n_comps   |           0.21 | [0.15, 0.27]
 ## age       |           0.10 | [0.06, 0.15]
-}\if{html}{\out{<div class="sourceCode r">}}\preformatted{eta_squared(fit, ci = 0.9, alternative = "two.sided") # both 1-sided bounds for alpha = .05
-}\if{html}{\out{</div>}}\preformatted{## # Effect Size for ANOVA (Type I)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{eta_squared(fit, ci = 0.9, alternative = "two.sided") # both 1-sided bounds for alpha = .05
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # Effect Size for ANOVA (Type I)
 ## 
 ## Parameter | Eta2 (partial) |       90\% CI
 ## -----------------------------------------
 ## n_comps   |           0.21 | [0.16, 0.26]
 ## age       |           0.10 | [0.06, 0.14]
-}
+}\if{html}{\out{</div>}}
 }
 
 \section{CI Does Not Contain the Estimate}{
@@ -139,11 +155,15 @@ For very large sample sizes or effect sizes, the width of the CI can be
 smaller than the tolerance of the optimizer, resulting in CIs of width 0.
 This can also result in the estimated CIs excluding the point estimate.
 
-For example:\if{html}{\out{<div class="sourceCode r">}}\preformatted{t_to_d(80, df_error = 4555555)
-}\if{html}{\out{</div>}}\preformatted{## d    |       95\% CI
+For example:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{t_to_d(80, df_error = 4555555)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## d    |       95\% CI
 ## -------------------
 ## 0.07 | [0.08, 0.08]
-}
+}\if{html}{\out{</div>}}
 
 In these cases, consider an alternative optimizer, or an alternative method
 for computing CIs, such as the bootstrap.
