@@ -26,27 +26,26 @@
 #' Pearson's *C* should be used, as they are bounded between 0-1. Cohen's *w*
 #' can also be used, but since it is not bounded at 1 (can be larger) its
 #' interpretation is more difficult.
-#' \cr\cr
+#' \cr \cr
 #' For goodness-of-fit in 1D tables Cohen's *W*, normalized Chi (\eqn{\chi}) or
 #' Pearson's *C* can be used. Cohen's *w* has no upper bound (can be arbitrarily
 #' large, depending on the expected distribution). Normalized Chi is an adjusted
 #' Cohen's *w*, accounting for the expected distribution, making it bounded
 #' between 0-1. Pearson's *C* is also bounded between 0-1.
-#' \cr\cr
+#' \cr \cr
 #' To summarize, for correlation-like effect sizes, we recommend:
 #'
 #' - For a 2x2 table, use `phi()`
 #' - For larger tables, use `cramers_v()`
 #' - For goodness-of-fit, use `normalized_chi()`
-#'
-#' \cr\cr
+#' \cr \cr
 #' For 2-by-2 contingency tables, Odds ratios, Risk ratios and Cohen's *h* can
 #' also be estimated. Note that these are computed with each **column**
 #' representing the different groups, and the *first* column representing the
 #' treatment group and the *second* column baseline (or control). Effects are
 #' given as `treatment / control`. If you wish you use rows as groups you must
 #' pass a transposed table, or switch the `x` and `y` arguments.
-#' \cr\cr
+#' \cr \cr
 #' Cohen's *g* is an effect size for dependent (paired) contingency tables
 #' ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry) (see
 #' [stats::mcnemar.test()]).
@@ -55,13 +54,13 @@
 #' For Cohen's *g*, confidence intervals are based on the proportion (\eqn{P = g
 #' + 0.5}) confidence intervals returned by [stats::prop.test()] (minus 0.5),
 #' which give a good close approximation.
-#' \cr\cr
+#' \cr \cr
 #' For Odds ratios, Risk ratios and Cohen's *h*, confidence intervals are
 #' estimated using the standard normal parametric method (see Katz et al., 1978;
 #' Szumilas, 2010).
-#' \cr\cr
-#' See *Confidence (Compatibility) Intervals (CIs)*, *CIs and Significance
-#' Tests*, and *One-Sided CIs* sections for *phi*, Cohen's *w*, Cramer's *V*,
+#' \cr \cr
+#' See *Confidence (Compatibility) Intervals (CIs)*, *CIs and Significance Tests*,
+#' and *One-Sided CIs* sections for *phi*, Cohen's *w*, Cramer's *V*,
 #' Pearson's *C*, and normalized Chi.
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
