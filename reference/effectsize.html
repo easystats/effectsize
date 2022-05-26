@@ -12,7 +12,7 @@ input model. See details."><meta property="og:image" content="/logo.png"><!-- ma
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -259,15 +259,15 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-in"><span class="fu">effectsize</span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Standardization method: refit</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter                        | Coefficient (std.) |         95% CI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)                      |           1.14e-03 | [-0.53,  0.53]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> factor(cyl)-0.104987808575239    |              -0.20 | [-0.79,  0.38]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> factor(cyl)1.01488214956065      |              -0.32 | [-1.06,  0.42]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> wt                               |              -0.90 | [-1.33, -0.46]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> hp                               |              -0.25 | [-0.52,  0.01]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> factor(cyl)-0.104987808575239:wt |               0.37 | [-0.63,  1.36]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> factor(cyl)1.01488214956065:wt   |               0.54 | [ 0.03,  1.06]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter                        | Std. Coef. |         95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)                      |   1.14e-03 | [-0.53,  0.53]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> factor(cyl)-0.104987808575239    |      -0.20 | [-0.79,  0.38]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> factor(cyl)1.01488214956065      |      -0.32 | [-1.06,  0.42]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> wt                               |      -0.90 | [-1.33, -0.46]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> hp                               |      -0.25 | [-0.52,  0.01]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> factor(cyl)-0.104987808575239:wt |       0.37 | [-0.63,  1.36]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> factor(cyl)1.01488214956065:wt   |       0.54 | [ 0.03,  1.06]</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">anova_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">effectsize</span><span class="op">(</span><span class="va">anova_table</span><span class="op">)</span></span>

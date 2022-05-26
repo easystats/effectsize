@@ -41,7 +41,7 @@
     
     <a class="navbar-brand me-2" href="index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -125,7 +125,7 @@
 <p>Run the following to install the stable release of <strong>effectsize</strong> from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"effectsize"</span><span class="op">)</span></code></pre></div>
-<p>Or you can install the latest development version <code>0.6.0.3</code> from <a href="https://easystats.r-universe.dev" class="external-link"><em>R-universe</em></a>:</p>
+<p>Or you can install the latest development version <code>0.6.0.7</code> from <a href="https://easystats.r-universe.dev" class="external-link"><em>R-universe</em></a>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"effectsize"</span>, repos <span class="op">=</span> <span class="st">"https://easystats.r-universe.dev/"</span><span class="op">)</span></code></pre></div>
 <!-- Or from *GitHub*: --><!-- ```{r, warning=FALSE, message=FALSE, eval=FALSE} --><!-- if (!require("remotes")) install.packages("remotes") --><!-- remotes::install_github("easystats/effectsize") --><!-- ``` -->
@@ -138,14 +138,10 @@
 <ul>
 <li>
 <strong>Effect Sizes</strong><ul>
-<li><a href="https://easystats.github.io/effectsize/articles/standardize_parameters.html" class="external-link"><strong>Parameter and Model Standardization</strong></a></li>
-<li><a href="https://easystats.github.io/effectsize/articles/anovaES.html" class="external-link"><strong>ANOVA Effect Sizes</strong></a></li>
-<li>
-<a href="https://easystats.github.io/effectsize/articles/bayesian_models.html" class="external-link"><strong>Effect Sizes in Bayesian Models</strong></a><br>
-</li>
 <li>
 <a href="https://easystats.github.io/effectsize/articles/simple_htests.html" class="external-link"><strong>For Simple Hypothesis Tests</strong></a><br>
 </li>
+<li><a href="https://easystats.github.io/effectsize/articles/anovaES.html" class="external-link"><strong>ANOVA Effect Sizes</strong></a></li>
 </ul>
 </li>
 <li>
@@ -225,47 +221,21 @@
 <span class="co">## </span>
 <span class="co">## - One-sided CIs: upper bound fixed at [1.00].</span></code></pre></div>
 <p>And more…</p>
-</div>
-<div class="section level3">
-<h3 id="regression-models-standardized-parameters">Regression Models (Standardized Parameters)<a class="anchor" aria-label="anchor" href="#regression-models-standardized-parameters"></a>
-</h3>
-<p>Importantly, <code>effectsize</code> also provides <a href="https://easystats.github.io/effectsize/articles/standardize_parameters.html" class="external-link">advanced methods</a> to compute standardized parameters for regression models.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">complaints</span> <span class="op">+</span> <span class="va">privileges</span> <span class="op">+</span> <span class="va">advance</span>, data <span class="op">=</span> <span class="va">attitude</span><span class="op">)</span>
-
-<span class="fu"><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html" class="external-link">standardize_parameters</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
-<span class="co">## # Standardization method: refit</span>
-<span class="co">## </span>
-<span class="co">## Parameter   | Coefficient (std.) |        95% CI</span>
-<span class="co">## ------------------------------------------------</span>
-<span class="co">## (Intercept) |          -9.57e-16 | [-0.22, 0.22]</span>
-<span class="co">## complaints  |               0.85 | [ 0.58, 1.13]</span>
-<span class="co">## privileges  |              -0.04 | [-0.33, 0.24]</span>
-<span class="co">## advance     |              -0.02 | [-0.26, 0.22]</span></code></pre></div>
-<p>Also, models can be re-fit with standardized data:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
-<span class="co">## </span>
-<span class="co">## Call:</span>
-<span class="co">## lm(formula = rating ~ complaints + privileges + advance, data = data_std)</span>
-<span class="co">## </span>
-<span class="co">## Coefficients:</span>
-<span class="co">## (Intercept)   complaints   privileges      advance  </span>
-<span class="co">##   -9.57e-16     8.55e-01    -4.35e-02    -2.19e-02</span></code></pre></div>
+<!-- ### Regression Models (Standardized Parameters) --><!-- Importantly, `effectsize` also provides [advanced methods](https://easystats.github.io/effectsize/articles/standardize_parameters.html) to compute standardized parameters for regression models. --><!-- ```{r beta, warning=FALSE, message=FALSE} --><!-- m <- lm(rating ~ complaints + privileges + advance, data = attitude) --><!-- standardize_parameters(m) --><!-- ``` --><!-- Also, models can be re-fit with standardized data: --><!-- ```{r std-model, warning=FALSE, message=FALSE} --><!-- standardize(m) --><!-- ``` -->
 </div>
 </div>
 <div class="section level2">
 <h2 id="effect-size-conversion">Effect Size Conversion<a class="anchor" aria-label="anchor" href="#effect-size-conversion"></a>
 </h2>
 <p>The package also provides ways of converting between different effect sizes.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/d_to_r.html">d_to_r</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>
 <span class="co">## [1] 0.0995</span>
 
 <span class="fu"><a href="reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio</a></span><span class="op">(</span><span class="fl">2.6</span>, p0 <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span>
 <span class="co">## [1] 1.59</span></code></pre></div>
 <p>And for recovering effect sizes from test statistics.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/t_to_r.html">F_to_d</a></span><span class="op">(</span><span class="fl">15</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>
 <span class="co">## d    |       95% CI</span>
 <span class="co">## -------------------</span>
@@ -287,12 +257,12 @@
 <h2 id="effect-size-interpretation">Effect Size Interpretation<a class="anchor" aria-label="anchor" href="#effect-size-interpretation"></a>
 </h2>
 <p>The package allows for an automated interpretation of different indices.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/interpret_r.html">interpret_r</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span>
 <span class="co">## [1] "large"</span>
 <span class="co">## (Rules: funder2019)</span></code></pre></div>
 <p>Different sets of “rules of thumb” are implemented (<a href="https://easystats.github.io/effectsize/articles/interpret.html" class="external-link"><strong>guidelines are detailed here</strong></a>) and can be easily changed.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.45</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span>
 <span class="co">## [1] "small"</span>
 <span class="co">## (Rules: cohen1988)</span>
@@ -306,18 +276,18 @@
 <p>In order to cite this package, please use the following citation:</p>
 <ul><li>Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation of Effect Size Indices and Standardized Parameters. <em>Journal of Open Source Software</em>, <em>5</em>(56), 2815. doi: 10.21105/joss.02815</li></ul>
 <p>Corresponding BibTeX entry:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="op">@</span>Article{,</span>
-<span id="cb12-2"><a href="#cb12-2"></a>  title =<span class="st"> </span>{{e}ffectsize<span class="op">:</span><span class="st"> </span>Estimation of Effect Size Indices and Standardized Parameters},</span>
-<span id="cb12-3"><a href="#cb12-3"></a>  author =<span class="st"> </span>{Mattan S. Ben<span class="op">-</span>Shachar and Daniel Lüdecke and Dominique Makowski},</span>
-<span id="cb12-4"><a href="#cb12-4"></a>  year =<span class="st"> </span>{<span class="dv">2020</span>},</span>
-<span id="cb12-5"><a href="#cb12-5"></a>  journal =<span class="st"> </span>{Journal of Open Source Software},</span>
-<span id="cb12-6"><a href="#cb12-6"></a>  volume =<span class="st"> </span>{<span class="dv">5</span>},</span>
-<span id="cb12-7"><a href="#cb12-7"></a>  number =<span class="st"> </span>{<span class="dv">56</span>},</span>
-<span id="cb12-8"><a href="#cb12-8"></a>  pages =<span class="st"> </span>{<span class="dv">2815</span>},</span>
-<span id="cb12-9"><a href="#cb12-9"></a>  publisher =<span class="st"> </span>{The Open Journal},</span>
-<span id="cb12-10"><a href="#cb12-10"></a>  doi =<span class="st"> </span>{<span class="fl">10.21105</span><span class="op">/</span>joss<span class="fl">.02815</span>},</span>
-<span id="cb12-11"><a href="#cb12-11"></a>  url =<span class="st"> </span>{https<span class="op">:</span><span class="er">//</span>doi.org<span class="op">/</span><span class="fl">10.21105</span><span class="op">/</span>joss<span class="fl">.02815</span>}</span>
-<span id="cb12-12"><a href="#cb12-12"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="op">@</span>Article{,</span>
+<span id="cb10-2"><a href="#cb10-2"></a>  title =<span class="st"> </span>{{e}ffectsize<span class="op">:</span><span class="st"> </span>Estimation of Effect Size Indices and Standardized Parameters},</span>
+<span id="cb10-3"><a href="#cb10-3"></a>  author =<span class="st"> </span>{Mattan S. Ben<span class="op">-</span>Shachar and Daniel Lüdecke and Dominique Makowski},</span>
+<span id="cb10-4"><a href="#cb10-4"></a>  year =<span class="st"> </span>{<span class="dv">2020</span>},</span>
+<span id="cb10-5"><a href="#cb10-5"></a>  journal =<span class="st"> </span>{Journal of Open Source Software},</span>
+<span id="cb10-6"><a href="#cb10-6"></a>  volume =<span class="st"> </span>{<span class="dv">5</span>},</span>
+<span id="cb10-7"><a href="#cb10-7"></a>  number =<span class="st"> </span>{<span class="dv">56</span>},</span>
+<span id="cb10-8"><a href="#cb10-8"></a>  pages =<span class="st"> </span>{<span class="dv">2815</span>},</span>
+<span id="cb10-9"><a href="#cb10-9"></a>  publisher =<span class="st"> </span>{The Open Journal},</span>
+<span id="cb10-10"><a href="#cb10-10"></a>  doi =<span class="st"> </span>{<span class="fl">10.21105</span><span class="op">/</span>joss<span class="fl">.02815</span>},</span>
+<span id="cb10-11"><a href="#cb10-11"></a>  url =<span class="st"> </span>{https<span class="op">:</span><span class="er">//</span>doi.org<span class="op">/</span><span class="fl">10.21105</span><span class="op">/</span>joss<span class="fl">.02815</span>}</span>
+<span id="cb10-12"><a href="#cb10-12"></a>}</span></code></pre></div>
 </div>
 </div>
 </div>
