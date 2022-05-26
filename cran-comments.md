@@ -18,6 +18,7 @@ All URL issues have been resolved.
 ### Known issues
 
 - Failed handshake with *shinyapps.io* is a false positive.
+- Unavailable DOI link are false positives.
 
 
 ## revdepcheck results
