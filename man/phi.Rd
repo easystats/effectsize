@@ -81,35 +81,42 @@ dependence) and 1 (perfect dependence). For larger tables, Cramer's \emph{V} or
 Pearson's \emph{C} should be used, as they are bounded between 0-1. Cohen's \emph{w}
 can also be used, but since it is not bounded at 1 (can be larger) its
 interpretation is more difficult.
-\cr\cr
+\cr \cr
 For goodness-of-fit in 1D tables Cohen's \emph{W}, normalized Chi (\eqn{\chi}) or
 Pearson's \emph{C} can be used. Cohen's \emph{w} has no upper bound (can be arbitrarily
 large, depending on the expected distribution). Normalized Chi is an adjusted
 Cohen's \emph{w}, accounting for the expected distribution, making it bounded
 between 0-1. Pearson's \emph{C} is also bounded between 0-1.
-\cr\cr
+\cr \cr
+To summarize, for correlation-like effect sizes, we recommend:
+\itemize{
+\item For a 2x2 table, use \code{phi()}
+\item For larger tables, use \code{cramers_v()}
+\item For goodness-of-fit, use \code{normalized_chi()}
+\cr \cr
 For 2-by-2 contingency tables, Odds ratios, Risk ratios and Cohen's \emph{h} can
 also be estimated. Note that these are computed with each \strong{column}
 representing the different groups, and the \emph{first} column representing the
 treatment group and the \emph{second} column baseline (or control). Effects are
 given as \code{treatment / control}. If you wish you use rows as groups you must
 pass a transposed table, or switch the \code{x} and \code{y} arguments.
-\cr\cr
+\cr \cr
 Cohen's \emph{g} is an effect size for dependent (paired) contingency tables
 ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry) (see
 \code{\link[stats:mcnemar.test]{stats::mcnemar.test()}}).
+}
 }
 \section{Confidence Intervals for Cohen's g, OR, RR and Cohen's h}{
 For Cohen's \emph{g}, confidence intervals are based on the proportion (\eqn{P = g
 + 0.5}) confidence intervals returned by \code{\link[stats:prop.test]{stats::prop.test()}} (minus 0.5),
 which give a good close approximation.
-\cr\cr
+\cr \cr
 For Odds ratios, Risk ratios and Cohen's \emph{h}, confidence intervals are
 estimated using the standard normal parametric method (see Katz et al., 1978;
 Szumilas, 2010).
-\cr\cr
-See \emph{Confidence (Compatibility) Intervals (CIs)}, \emph{CIs and Significance
-Tests}, and \emph{One-Sided CIs} sections for \emph{phi}, Cohen's \emph{w}, Cramer's \emph{V},
+\cr \cr
+See \emph{Confidence (Compatibility) Intervals (CIs)}, \emph{CIs and Significance Tests},
+and \emph{One-Sided CIs} sections for \emph{phi}, Cohen's \emph{w}, Cramer's \emph{V},
 Pearson's \emph{C}, and normalized Chi.
 }
 

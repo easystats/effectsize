@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size and Standardized Parameters
-Version: 0.6.0.7
+Version: 0.7.0
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
@@ -56,11 +56,11 @@ BugReports: https://github.com/easystats/effectsize/issues/
 Depends:
     R (>= 3.4)
 Imports:
-    bayestestR (>= 0.11.5.1),
-    insight (>= 0.16.0.16),
-    parameters (>= 0.17.0.10),
-    performance (>= 0.8.0.8),
-    datawizard (>= 0.4.0.17),
+    bayestestR (>= 0.12.1),
+    insight (>= 0.17.0),
+    parameters (>= 0.18.0),
+    performance (>= 0.9.0),
+    datawizard (>= 0.4.1),
     stats,
     utils
 Suggests:
@@ -91,17 +91,11 @@ Suggests:
     spelling,
     testthat,
     tidymodels
-Remotes:
-    easystats/insight,
-    easystats/performance,
-    easystats/parameters,
-    easystats/datawizard,
-    easystats/bayestestR
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Config/testthat/edition: 3
 Config/testthat/parallel: true

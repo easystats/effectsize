@@ -252,7 +252,7 @@ epsilon_squared(fit_lmm)
 omega_squared(fit_lmm)
 ```
 
-Another case where *SS*s are not available is when use Bayesian models. `effectsize` has Bayesian solutions for Bayesian models, about which you can read in the [*Effect Sizes for Bayesian Models* vignette](https://easystats.github.io/effectsize/articles/bayesian_models.html).
+Another case where *SS*s are not available is when using Bayesian models...
 
 ## For Bayesian Models
 

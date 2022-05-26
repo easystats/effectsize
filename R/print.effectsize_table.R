@@ -190,33 +190,6 @@ format.effectsize_anova <- function(x, digits = 2, ...) {
 }
 
 #' @export
-format.effectsize_std_params <- function(x, digits = 2, ...) {
-  footer <- caption <- subtitle <- NULL
-
-  caption <- sprintf("Standardization method: %s", attr(x, "std_method"))
-
-  # robust / two_sd
-  if (attr(x, "two_sd") || attr(x, "robust")) {
-    footer <- sprintf("Scaled by %s %s%s from the %s.",
-                      ifelse(attr(x, "two_sd"), "two", "one"),
-                      ifelse(attr(x, "robust"), "MAD", "SD"),
-                      ifelse(attr(x, "two_sd"), "s", ""),
-                      ifelse(attr(x, "robust"), "median", "mean"))
-  }
-
-  # include_response
-  if (!attr(x, "include_response")) {
-    resp_footer <- "Response is unstandardized."
-    footer <- c(footer, resp_footer)
-  }
-
-  attr(x, "table_footer") <- footer
-  attr(x, "table_caption") <- caption
-  attr(x, "table_subtitle") <- subtitle
-  format.effectsize_table(x, digits = digits, ...)
-}
-
-#' @export
 format.equivalence_test_effectsize <- function(x, digits = 2, ...) {
   colnames(x)[colnames(x) == "ROPE_Equivalence"] <- "H0"
 

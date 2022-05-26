@@ -6,7 +6,7 @@ All URL issues have been resolved.
 * GitHub Actions
     - Windows:        devel, release, oldrel
     - macOS:          devel, release, oldrel
-    - ubuntu-16.04:   devel, release, oldrel, 3.6, 3.5, 3.4
+    - ubuntu-16.04:   devel, release, oldrel, 4.0, 3.6, 3.5, 3.4
 * win-builder:        release
 
 
@@ -18,11 +18,12 @@ All URL issues have been resolved.
 ### Known issues
 
 - Failed handshake with *shinyapps.io* is a false positive.
+- Unavailable DOI link are false positives.
 
 
 ## revdepcheck results
 
-We checked 16 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 17 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
  * We saw 0 new problems
  * We failed to check 0 packages

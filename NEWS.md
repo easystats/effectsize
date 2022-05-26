@@ -1,22 +1,22 @@
-# effectsize 0.6.0.3
+# effectsize 0.7.0
 
 ## Breaking Changes
 
-- `standardize_parameters()`, `standardize_posteriors()`, & `standardize_info()` have been moved to the `parameters` package.  
-- `standardize()` (for models) has been moved to the `datawizard` package.
-- `phi()` only works for 2x2 tables.
-- `cramers_v()` only works for 2D tables.
-
-## Bug fixes
-
-- `kendalls_w()` now deals with ties.  
-- `eta_squared()` works with `car::Manova()` that does not have an i-design. 
+- **`standardize_parameters()`, `standardize_posteriors()`, & `standardize_info()` have been moved to the `parameters` package.**  
+- **`standardize()` (for models) has been moved to the `datawizard` package.**  
+- `phi()` only works for 2x2 tables.  
+- `cramers_v()` only works for 2D tables.  
 
 ## New features
 
 - `normalized_chi()` gives an adjusted Cohen's *w* for goodness of fit.
 - `cohens_w()` is now a fully-fledged function for x-tables and goodness-of-fit effect size (not just an alias for `phi()`).
 - Support for `insight`'s `display`, `print_md` and `print_html` for all `{effectsize}` outputs.
+
+## Bug fixes
+
+- `kendalls_w()` now deals with ties.  
+- `eta_squared()` works with `car::Manova()` that does not have an i-design. 
 
 # effectsize 0.6.0.1
 
