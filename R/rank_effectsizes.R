@@ -487,16 +487,22 @@ kendalls_w <- function(x,
   if (!all(has_tie <- apply(rankings, 1, function(x) length(x) == insight::n_unique(x)))) {
     # there are ties
     have_ties <- rankings[!has_tie, , drop = FALSE]
-    Ti <- apply(have_ties, 1, function(r) {
-      ti <- apply(outer(unique(r), r, FUN = "=="), 1, sum)
-      sum(ti^3 - ti)
-    })
+
+    Ti <- numeric(nrow(have_ties))
+    for (j in seq_len(nrow(have_ties))) {
+      gs <- have_ties[j,][duplicated(have_ties[j,])]
+      for (g in seq_along(gs)) {
+        .t <- sum(have_ties[j,] == gs[g])
+        Ti[j] <- (.t^3 - .t) + Ti[j]
+      }
+    }
 
     W <- (12 * sum(R^2) - 3 * (m^2) * n * ((n + 1)^2)) /
-      ((m^2) * n * (n^2 - 1) - m * sum(Ti))
+      ((m^2) * (n^3 - n) - m * sum(Ti))
   } else {
     S <- var(R) * (n - 1)
-    W <- (12 * S) / (m^2 * (n^3 - n))
+    W <- (12 * S) /
+      (m^2 * (n^3 - n))
   }
   W
 }
