@@ -484,21 +484,18 @@ kendalls_w <- function(x,
   m <- nrow(rankings) # judges
   R <- colSums(rankings)
 
-  if (!all(has_tie <- apply(rankings, 1, function(x) length(x) == insight::n_unique(x)))) {
-    # there are ties
-    have_ties <- rankings[!has_tie, , drop = FALSE]
-
-    Ti <- numeric(nrow(have_ties))
-    for (j in seq_len(nrow(have_ties))) {
-      gs <- have_ties[j,][duplicated(have_ties[j,])]
-      for (g in seq_along(gs)) {
-        .t <- sum(have_ties[j,] == gs[g])
-        Ti[j] <- (.t^3 - .t) + Ti[j]
-      }
+  no_ties <- apply(rankings, 1, function(x) length(x) == insight::n_unique(x))
+  if (!all(no_ties)) {
+    Tj <- 0
+    for (i in seq_len(m)) {
+      rater <- table(rankings[i, ])
+      ties <- rater[rater > 1]
+      l <- as.numeric(ties)
+      Tj <- Tj + sum(l^3 - l)
     }
 
     W <- (12 * sum(R^2) - 3 * (m^2) * n * ((n + 1)^2)) /
-      ((m^2) * (n^3 - n) - m * sum(Ti))
+      (m^2 * (n^3 - n) - m * Tj)
   } else {
     S <- var(R) * (n - 1)
     W <- (12 * S) /
