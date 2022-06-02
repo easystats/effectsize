@@ -490,6 +490,16 @@ kendalls_w <- function(x,
 
   no_ties <- apply(rankings, 1, function(x) length(x) == insight::n_unique(x))
   if (!all(no_ties)) {
+    if (verbose) {
+      warning(
+        sprintf("%d block(s) contain ties%s.",
+                sum(!no_ties),
+                ifelse(any(apply(as.data.frame(rankings)[!no_ties, ], 1, insight::n_unique) == 1),
+                       ", some containing only 1 unique ranking", "")),
+        call. = FALSE
+      )
+    }
+
     Tj <- 0
     for (i in seq_len(m)) {
       rater <- table(rankings[i, ])
@@ -616,8 +626,6 @@ kendalls_w <- function(x,
 
 .safe_ranktransform <- function(x, verbose = TRUE, ...) {
   if (insight::n_unique(x) == 1) {
-    # if (verbose) warning("Only one unique value - rank fixed at 1", call. = FALSE)
-    # return(rep(1, length(x)))
     return(rep(mean(seq_along(x)), length(x)))
   }
   datawizard::ranktransform(x, method = "average", ..., verbose = FALSE)
