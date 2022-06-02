@@ -18,6 +18,7 @@ paired_d <- function(x, group, block, data = NULL,
     data <- aggregate(data$x, data[-1], mean)
     xtab <- table(data[-3])
     data <- data[data$blocks %in% colnames(xtab)[colSums(xtab) %in% 2], ]
+    colnames(data)[3] <- "x"
   }
 
   if (type %in% c("z", "t")) {
