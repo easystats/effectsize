@@ -11,13 +11,15 @@
 #'   `rank_epsilon_squared()`) or `DV ~ groups | blocks` (for `kendalls_w()`;
 #'   See details for the `blocks` and `groups` terminology used here).
 #'   - A list of vectors (for `rank_epsilon_squared()`).
-#'   - A matrix of `blocks x groups` (for `kendalls_w()`). See details for the
-#'   `blocks` and `groups` terminology used here.
+#'   - A matrix of `blocks x groups` (for `kendalls_w()`) (or `groups x blocks`
+#'   if `blocks_on_rows = FALSE`). See details for the `blocks` and `groups`
+#'   terminology used here.
 #' @param y An optional numeric vector of data values to compare to `x`, or a
 #'   character name of one in `data`. Ignored if `x` is not a vector.
 #' @param groups,blocks A factor vector giving the group / block for the
 #'   corresponding elements of `x`, or a character name of one in `data`.
 #'   Ignored if `x` is not a vector.
+#' @param blocks_on_rows Are blocks on rows (`TRUE`) or columns (`FALSE`).
 #' @param mu a number indicating the value around which (a-)symmetry (for
 #'   one-sample or paired samples) or shift (for independent samples) is to be
 #'   estimated. See [stats::wilcox.test].
@@ -360,6 +362,7 @@ kendalls_w <- function(x,
                        groups,
                        blocks,
                        data = NULL,
+                       blocks_on_rows = TRUE,
                        ci = 0.95,
                        alternative = "greater",
                        iterations = 200,
@@ -375,6 +378,7 @@ kendalls_w <- function(x,
   }
 
   ## prep data
+  if (is.matrix(x) && !blocks_on_rows) x <- t(x)
   data <- .get_data_nested_groups(x, groups, blocks, data, ...)
   data <- stats::na.omit(data)
 
@@ -612,8 +616,9 @@ kendalls_w <- function(x,
 
 .safe_ranktransform <- function(x, verbose = TRUE, ...) {
   if (insight::n_unique(x) == 1) {
-    if (verbose) warning("Only one unique value - rank fixed at 1")
-    return(rep(1, length(x)))
+    # if (verbose) warning("Only one unique value - rank fixed at 1", call. = FALSE)
+    # return(rep(1, length(x)))
+    return(rep(mean(seq_along(x)), length(x)))
   }
   datawizard::ranktransform(x, method = "average", ..., verbose = FALSE)
 }

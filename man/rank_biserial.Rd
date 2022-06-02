@@ -46,6 +46,7 @@ kendalls_w(
   groups,
   blocks,
   data = NULL,
+  blocks_on_rows = TRUE,
   ci = 0.95,
   alternative = "greater",
   iterations = 200,
@@ -61,8 +62,9 @@ kendalls_w(
 \code{rank_epsilon_squared()}) or \code{DV ~ groups | blocks} (for \code{kendalls_w()};
 See details for the \code{blocks} and \code{groups} terminology used here).
 \item A list of vectors (for \code{rank_epsilon_squared()}).
-\item A matrix of \verb{blocks x groups} (for \code{kendalls_w()}). See details for the
-\code{blocks} and \code{groups} terminology used here.
+\item A matrix of \verb{blocks x groups} (for \code{kendalls_w()}) (or \verb{groups x blocks}
+if \code{blocks_on_rows = FALSE}). See details for the \code{blocks} and \code{groups}
+terminology used here.
 }}
 
 \item{y}{An optional numeric vector of data values to compare to \code{x}, or a
@@ -99,6 +101,8 @@ intervals. Only applies when \code{ci} is not \code{NULL}. (Deprecated for
 \item{groups, blocks}{A factor vector giving the group / block for the
 corresponding elements of \code{x}, or a character name of one in \code{data}.
 Ignored if \code{x} is not a vector.}
+
+\item{blocks_on_rows}{Are blocks on rows (\code{TRUE}) or columns (\code{FALSE}).}
 }
 \value{
 A data frame with the effect size (\code{r_rank_biserial},

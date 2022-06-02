@@ -1,3 +1,9 @@
+# effectsize 0.7.0.9
+
+## Bug fixes
+
+- `kendalls_w()` now deals correctly with singular ties (#448).  
+
 # effectsize 0.7.0
 
 ## Breaking Changes

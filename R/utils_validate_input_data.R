@@ -162,6 +162,7 @@
   if (wide) {
     x <- datawizard::data_to_wide(x,
                                   values_from = "x",
+                                  rows_from = "blocks",
                                   colnames_from = "groups")
     x <- x[,-1]
   }
