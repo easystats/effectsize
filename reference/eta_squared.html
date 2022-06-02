@@ -173,54 +173,34 @@ details.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>model</dt>
-<dd><p>A model, ANOVA object, or the result of <code><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">parameters::model_parameters</a></code>.</p></dd>
-<dt>partial</dt>
-<dd><p>If <code>TRUE</code>, return partial indices.</p></dd>
-<dt>generalized</dt>
-<dd><p>If TRUE, returns generalized Eta Squared, assuming all
-variables are manipulated. Can also be a character vector of observed
-(non-manipulated) variables, in which case generalized Eta Squared is
-calculated taking these observed variables into account. For <code>afex_aov</code>
-model, when <code>generalized = TRUE</code>, the observed variables are extracted
-automatically from the fitted model, if they were provided then.</p></dd>
-<dt>ci</dt>
-<dd><p>Confidence Interval (CI) level</p></dd>
-<dt>alternative</dt>
-<dd><p>a character string specifying the alternative hypothesis;
-Controls the type of CI returned: <code>"greater"</code> (default) or <code>"less"</code>
-(one-sided CI), or <code>"two.sided"</code> (default, two-sided CI). Partial matching
-is allowed (e.g., <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em> in
-<a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
-<dt>verbose</dt>
-<dd><p>Toggle warnings and messages on or off.</p></dd>
-<dt>...</dt>
-<dd><p>Arguments passed to or from other methods.</p><ul><li><p>Can be <code>include_intercept = TRUE</code> to include the effect size for the intercept (when it is included in the ANOVA table).</p></li>
-<li><p>For Bayesian models, arguments passed to <code>ss_function</code>.</p></li>
-</ul></dd>
-<dt>squared</dt>
-<dd><p>Return Cohen's <em>f</em> or Cohen's <em>f</em>-squared?</p></dd>
-<dt>model2</dt>
-<dd><p>Optional second model for Cohen's f (/squared). If specified,
-returns the effect size for R-squared-change between the two models.</p></dd>
-<dt>ss_function</dt>
-<dd><p>For Bayesian models, the function used to extract
-sum-of-squares. Uses <code><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova()</a></code> by default, but can also be <code><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">car::Anova()</a></code>
-for simple linear models.</p></dd>
-<dt>draws</dt>
-<dd><p>For Bayesian models, an integer indicating the number of draws
-from the posterior predictive distribution to return. Larger numbers take
-longer to run, but provide estimates that are more stable.</p></dd>
-</dl></div>
+    <p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+    </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A data frame with the effect size(s) between 0-1 (<code>Eta2</code>, <code>Epsilon2</code>,
+    
+
+<p>A data frame with the effect size(s) between 0-1 (<code>Eta2</code>, <code>Epsilon2</code>,
 <code>Omega2</code>, <code>Cohens_f</code> or <code>Cohens_f2</code>, possibly with the <code>partial</code> or
 <code>generalized</code> suffix), and their CIs (<code>CI_low</code> and <code>CI_high</code>).
-<br><br>For <code>eta_squared_posterior()</code>, a data frame containing the ppd of the Eta
+<br><br></p>
+
+
+<p>For <code>eta_squared_posterior()</code>, a data frame containing the ppd of the Eta
 squared for each fixed effect, which can then be passed to
-<code><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html" class="external-link">bayestestR::describe_posterior()</a></code> for summary stats.
-A data frame containing the effect size values and their confidence
+<code><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html" class="external-link">bayestestR::describe_posterior()</a></code> for summary stats.</p>
+
+
+<p>A data frame containing the effect size values and their confidence
 intervals.</p>
     </div>
     <div class="section level2">
