@@ -108,5 +108,19 @@ if (require("testthat") && require("effectsize")) {
 
     W <- kendalls_w(mrt ~ interaction(condition, congruency) | pno, data = dat)
     expect_equal(W[[1]], 0.4011, tolerance = 0.01)
+
+
+
+    # singular ties
+    m <- rbind(
+      c(1, 2, 3, 4),
+      c(7, 7, 7, 7), # THIS
+      c(2, 3, 1, 4)
+    )
+
+    expect_warning(kendalls_w(m, ci = NULL), "contain ties")
+    expect_warning(W <- kendalls_w(m, ci = NULL), "unique ranking")
+    expect_equal(W[[1]], 0.4666667, tolerance = 0.001)
+    expect_equal(kendalls_w(t(m), blocks_on_rows = FALSE, ci = NULL, verbose = FALSE)[[1]], W[[1]])
   })
 }
