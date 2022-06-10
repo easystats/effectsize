@@ -104,7 +104,8 @@
 
 
 
-<script src="effectsize_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Effect Sizes: Getting Started</h1>
             
@@ -118,12 +119,12 @@
 <div class="section level2">
 <h2 id="aims-of-the-package">Aims of the Package<a class="anchor" aria-label="anchor" href="#aims-of-the-package"></a>
 </h2>
-<p>In both theoretical and applied research, it is often of interest to assess the strength of an observed association. This is typically done to allow the judgment of the magnitude of an effect <span class="citation">(especially when units of measurement are not meaningful, e.g., in the use of estimated latent variables; Bollen 1989)</span>, to facilitate comparing between predictors’ importance within a given model, or both. Though some indices of effect size, such as the correlation coefficient (itself a standardized covariance coefficient) are readily available, other measures are often harder to obtain. <strong>effectsize</strong> is an R package <span class="citation">(R Core Team 2020)</span> that fills this important gap, providing utilities for easily estimating a wide variety of standardized effect sizes (i.e., effect sizes that are not tied to the units of measurement of the variables of interest) and their confidence intervals (CIs), from a variety of statistical models. <strong>effectsize</strong> provides easy-to-use functions, with full documentation and explanation of the various effect sizes offered, and is also used by developers of other R packages as the back-end for effect size computation, such as <strong>parameters</strong> <span class="citation">(Lüdecke et al. 2020)</span>, <strong>ggstatsplot</strong> <span class="citation">(Patil 2018)</span>, <strong>gtsummary</strong> <span class="citation">(Sjoberg et al. 2020)</span> and more.</p>
+<p>In both theoretical and applied research, it is often of interest to assess the strength of an observed association. This is typically done to allow the judgment of the magnitude of an effect [especially when units of measurement are not meaningful, e.g., in the use of estimated latent variables; <span class="citation">Bollen (1989)</span>], to facilitate comparing between predictors’ importance within a given model, or both. Though some indices of effect size, such as the correlation coefficient (itself a standardized covariance coefficient) are readily available, other measures are often harder to obtain. <strong>effectsize</strong> is an R package <span class="citation">(R Core Team 2020)</span> that fills this important gap, providing utilities for easily estimating a wide variety of standardized effect sizes (i.e., effect sizes that are not tied to the units of measurement of the variables of interest) and their confidence intervals (CIs), from a variety of statistical models. <strong>effectsize</strong> provides easy-to-use functions, with full documentation and explanation of the various effect sizes offered, and is also used by developers of other R packages as the back-end for effect size computation, such as <strong>parameters</strong> <span class="citation">(Lüdecke et al. 2020)</span>, <strong>ggstatsplot</strong> <span class="citation">(Patil 2018)</span>, <strong>gtsummary</strong> <span class="citation">(Sjoberg et al. 2020)</span> and more.</p>
 </div>
 <div class="section level2">
 <h2 id="comparison-to-other-packages">Comparison to Other Packages<a class="anchor" aria-label="anchor" href="#comparison-to-other-packages"></a>
 </h2>
-<p><strong>effectsize</strong>’s functionality is in part comparable to packages like <strong>lm.beta</strong> <span class="citation">(Behrendt 2014)</span>, <strong>MOTE</strong> <span class="citation">(Buchanan et al. 2019)</span>, and <strong>MBESS</strong> <span class="citation">(Kelley 2020)</span>. Yet, there are some notable differences, e.g.:</p>
+<p><strong>effectsize</strong>’s functionality is in part comparable to packages like <strong>lm.beta</strong> <span class="citation">(Behrendt 2014)</span>, <strong>MOTE</strong> <span class="citation">(Buchanan et al. 2019)</span>, and <strong>MBESS</strong> <span class="citation">(K. Kelley 2020)</span>. Yet, there are some notable differences, e.g.:</p>
 <!-- - **lm.beta** provides standardized regression coefficients for linear models, based on post-hoc model matrix standardization. However, the functionality is available only for a limited number of models (models inheriting from the `lm` class), whereas **effectsize** provides support for many types of models, including (generalized) linear mixed models, Bayesian models, and more. Additionally, in additional to post-hoc model matrix standardization, **effectsize** offers other methods of standardization (see below).   -->
 <ul>
 <li>Both <strong>MOTE</strong> and <strong>MBESS</strong> provide functions for computing effect sizes such as Cohen’s <em>d</em> and effect sizes for ANOVAs <span class="citation">(Cohen 1988)</span>, and their confidence intervals. However, both require manual input of <em>F</em>- or <em>t</em>-statistics, <em>degrees of freedom</em>, and <em>sums of squares</em> for the computation the effect sizes, whereas <strong>effectsize</strong> can automatically extract this information from the provided models, thus allowing for better ease-of-use as well as reducing any potential for error.<br><!-- - Finally, in **base R**, the function `scale()` can be used to standardize vectors, matrices and data frame, which can be used to standardize data prior to model fitting. The coefficients of a linear model fit on such data are in effect standardized regression coefficients. **effectsize** expands an this, allowing for robust standardization (using the median and the MAD, instead of the mean and SD), post-hoc parameter standardization, and more. -->
@@ -133,7 +134,7 @@
 <div class="section level2">
 <h2 id="examples-of-features">Examples of Features<a class="anchor" aria-label="anchor" href="#examples-of-features"></a>
 </h2>
-<p><strong>effectsize</strong> provides various functions for extracting and estimating effect sizes and their confidence intervals <span class="citation">(estimated using the noncentrality parameter method; Steiger 2004)</span>. In this article, we provide basic usage examples for estimating some of the most common effect size. A comprehensive overview, including in-depth examples and <a href="https://easystats.github.io/effectsize/reference/index.html" class="external-link">a full list of features and functions</a>, are accessible via a dedicated website (<a href="https://easystats.github.io/effectsize/" class="external-link uri">https://easystats.github.io/effectsize/</a>).</p>
+<p><strong>effectsize</strong> provides various functions for extracting and estimating effect sizes and their confidence intervals [estimated using the noncentrality parameter method; <span class="citation">Steiger (2004)</span>]. In this article, we provide basic usage examples for estimating some of the most common effect size. A comprehensive overview, including in-depth examples and <a href="https://easystats.github.io/effectsize/reference/index.html" class="external-link">a full list of features and functions</a>, are accessible via a dedicated website (<a href="https://easystats.github.io/effectsize/" class="external-link uri">https://easystats.github.io/effectsize/</a>).</p>
 <div class="section level3">
 <h3 id="indices-of-effect-size">Indices of Effect Size<a class="anchor" aria-label="anchor" href="#indices-of-effect-size"></a>
 </h3>
@@ -221,7 +222,7 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; - Observed variables: Time</span>
 <span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></code></pre></div>
-<p><strong>effectsize</strong> also offers <span class="math inline">\(\epsilon^2_p\)</span> (<code><a href="../reference/eta_squared.html">epsilon_squared()</a></code>) and <span class="math inline">\(\omega^2_p\)</span> (<code><a href="../reference/eta_squared.html">omega_squared()</a></code>), which are less biased estimates of the variance explained in the population <span class="citation">(Kelley 1935; Olejnik and Algina 2003)</span>. For more details about the various effect size measures and their applications, see the <a href="https://easystats.github.io/effectsize/articles/anovaES.html" class="external-link"><em>Effect sizes for ANOVAs</em> vignette</a>.</p>
+<p><strong>effectsize</strong> also offers <span class="math inline">\(\epsilon^2_p\)</span> (<code><a href="../reference/eta_squared.html">epsilon_squared()</a></code>) and <span class="math inline">\(\omega^2_p\)</span> (<code><a href="../reference/eta_squared.html">omega_squared()</a></code>), which are less biased estimates of the variance explained in the population <span class="citation">(T. L. Kelley 1935; Olejnik and Algina 2003)</span>. For more details about the various effect size measures and their applications, see the <a href="https://easystats.github.io/effectsize/articles/anovaES.html" class="external-link"><em>Effect sizes for ANOVAs</em> vignette</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="effect-size-conversion">Effect Size Conversion<a class="anchor" aria-label="anchor" href="#effect-size-conversion"></a>
@@ -275,7 +276,7 @@
 <div class="section level4">
 <h4 id="between-effect-sizes">Between Effect Sizes<a class="anchor" aria-label="anchor" href="#between-effect-sizes"></a>
 </h4>
-<p>For comparisons between different types of designs and analyses, it is useful to be able to convert between different types of effect sizes <span class="citation">(<em>d</em>, <em>r</em>, Odds ratios and Risk ratios; Borenstein et al. 2009; Grant 2014)</span>.</p>
+<p>For comparisons between different types of designs and analyses, it is useful to be able to convert between different types of effect sizes [<em>d</em>, <em>r</em>, Odds ratios and Risk ratios; <span class="citation">Borenstein et al. (2009)</span>; <span class="citation">Grant (2014)</span>].</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/d_to_r.html">r_to_d</a></span><span class="op">(</span><span class="fl">0.7</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1.960392</span>
@@ -311,59 +312,59 @@
 <p><strong>effectsize</strong> is part of the <a href="https://github.com/easystats/easystats/" class="external-link"><em>easystats</em></a> ecosystem, a collaborative project created to facilitate the usage of R for statistical analyses. Thus, we would like to thank the <a href="https://github.com/orgs/easystats/people/" class="external-link">members of easystats</a> as well as the users.</p>
 </div>
 <div class="section level2">
-<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references">
-<div id="ref-behrendt2014lmbeta">
-<p>Behrendt, Stefan. 2014. <em>lm.beta: Add Standardized Regression Coefficients to Lm-Objects</em>. <a href="https://CRAN.R-project.org/package=lm.beta/" class="external-link">https://CRAN.R-project.org/package=lm.beta/</a>.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-behrendt2014lmbeta" class="csl-entry">
+Behrendt, Stefan. 2014. <em><span class="nocase">l</span>m.beta: Add Standardized Regression Coefficients to Lm-Objects</em>. <a href="https://CRAN.R-project.org/package=lm.beta/" class="external-link">https://CRAN.R-project.org/package=lm.beta/</a>.
 </div>
-<div id="ref-bollen1989structural">
-<p>Bollen, Kenneth A. 1989. <em>Structural Equations with Latent Variables</em>. New York: John Wiley &amp; Sons. <a href="https://doi.org/10.1002/9781118619179" class="external-link">https://doi.org/10.1002/9781118619179</a>.</p>
+<div id="ref-bollen1989structural" class="csl-entry">
+Bollen, Kenneth A. 1989. <em>Structural Equations with Latent Variables</em>. New York: John Wiley &amp; Sons. <a href="https://doi.org/10.1002/9781118619179" class="external-link">https://doi.org/10.1002/9781118619179</a>.
 </div>
-<div id="ref-borenstein2009converting">
-<p>Borenstein, Michael, Larry V Hedges, JPT Higgins, and Hannah R Rothstein. 2009. “Converting Among Effect Sizes.” <em>Introduction to Meta-Analysis</em>, 45–49.</p>
+<div id="ref-borenstein2009converting" class="csl-entry">
+Borenstein, Michael, Larry V Hedges, JPT Higgins, and Hannah R Rothstein. 2009. <span>“Converting Among Effect Sizes.”</span> <em>Introduction to Meta-Analysis</em>, 45–49.
 </div>
-<div id="ref-buchanan2019MOTE">
-<p>Buchanan, Erin M., Amber Gillenwaters, John E. Scofield, and K. D. Valentine. 2019. <em>MOTE: Measure of the Effect: Package to Assist in Effect Size Calculations and Their Confidence Intervals</em>. <a href="https://github.com/doomlab/MOTE/" class="external-link">https://github.com/doomlab/MOTE/</a>.</p>
+<div id="ref-buchanan2019MOTE" class="csl-entry">
+Buchanan, Erin M., Amber Gillenwaters, John E. Scofield, and K. D. Valentine. 2019. <em><span class="nocase">MOTE: Measure of the Effect</span>: Package to Assist in Effect Size Calculations and Their Confidence Intervals</em>. <a href="https://github.com/doomlab/MOTE/" class="external-link">https://github.com/doomlab/MOTE/</a>.
 </div>
-<div id="ref-cohen1988statistical">
-<p>Cohen, J. 1988. <em>Statistical Power Analysis for the Behavioral Sciences, 2nd Ed.</em> New York: Routledge.</p>
+<div id="ref-cohen1988statistical" class="csl-entry">
+Cohen, J. 1988. <em>Statistical Power Analysis for the Behavioral Sciences, 2nd Ed.</em> New York: Routledge.
 </div>
-<div id="ref-cramer1946mathematical">
-<p>Cramér, Harald. 1946. <em>Mathematical Methods of Statistics</em>. Princeton: Princeton University Press.</p>
+<div id="ref-cramer1946mathematical" class="csl-entry">
+Cramér, Harald. 1946. <em>Mathematical Methods of Statistics</em>. Princeton: Princeton University Press.
 </div>
-<div id="ref-friedman1982simplified">
-<p>Friedman, Herbert. 1982. “Simplified Determinations of Statistical Power, Magnitude of Effect and Research Sample Sizes.” <em>Educational and Psychological Measurement</em> 42 (2): 521–26.</p>
+<div id="ref-friedman1982simplified" class="csl-entry">
+Friedman, Herbert. 1982. <span>“Simplified Determinations of Statistical Power, Magnitude of Effect and Research Sample Sizes.”</span> <em>Educational and Psychological Measurement</em> 42 (2): 521–26.
 </div>
-<div id="ref-grant2014converting">
-<p>Grant, Robert L. 2014. “Converting an Odds Ratio to a Range of Plausible Relative Risks for Better Communication of Research Findings.” <em>Bmj</em> 348: f7450.</p>
+<div id="ref-grant2014converting" class="csl-entry">
+Grant, Robert L. 2014. <span>“Converting an Odds Ratio to a Range of Plausible Relative Risks for Better Communication of Research Findings.”</span> <em>Bmj</em> 348: f7450.
 </div>
-<div id="ref-hedges1985statistical">
-<p>Hedges, L, and I Olkin. 1985. <em>Statistical Methods for Meta-Analysis</em>. San Diego: Academic Press.</p>
+<div id="ref-hedges1985statistical" class="csl-entry">
+Hedges, L, and I Olkin. 1985. <em>Statistical Methods for Meta-Analysis</em>. San Diego: Academic Press.
 </div>
-<div id="ref-kelley2020MBESS">
-<p>Kelley, Ken. 2020. <em>MBESS: The Mbess R Package</em>. <a href="https://CRAN.R-project.org/package=MBESS/" class="external-link">https://CRAN.R-project.org/package=MBESS/</a>.</p>
+<div id="ref-kelley2020MBESS" class="csl-entry">
+Kelley, Ken. 2020. <em>MBESS: The MBESS <span>R</span> Package</em>. <a href="https://CRAN.R-project.org/package=MBESS/" class="external-link">https://CRAN.R-project.org/package=MBESS/</a>.
 </div>
-<div id="ref-kelley1935unbiased">
-<p>Kelley, Truman L. 1935. “An Unbiased Correlation Ratio Measure.” <em>Proceedings of the National Academy of Sciences of the United States of America</em> 21 (9): 554–59. <a href="https://doi.org/10.1073/pnas.21.9.554" class="external-link">https://doi.org/10.1073/pnas.21.9.554</a>.</p>
+<div id="ref-kelley1935unbiased" class="csl-entry">
+Kelley, Truman L. 1935. <span>“An Unbiased Correlation Ratio Measure.”</span> <em>Proceedings of the National Academy of Sciences of the United States of America</em> 21 (9): 554–59. <a href="https://doi.org/10.1073/pnas.21.9.554" class="external-link">https://doi.org/10.1073/pnas.21.9.554</a>.
 </div>
-<div id="ref-ludecke2020extracting">
-<p>Lüdecke, Daniel, Mattan S Ben-Shachar, Indrajeet Patil, and Dominique Makowski. 2020. “Extracting, Computing and Exploring the Parameters of Statistical Models Using R.” <em>Journal of Open Source Software</em> 5 (53): 2445. <a href="https://doi.org/10.21105/joss.02445" class="external-link">https://doi.org/10.21105/joss.02445</a>.</p>
+<div id="ref-ludecke2020extracting" class="csl-entry">
+Lüdecke, Daniel, Mattan S Ben-Shachar, Indrajeet Patil, and Dominique Makowski. 2020. <span>“Extracting, Computing and Exploring the Parameters of Statistical Models Using <span>R</span>.”</span> <em>Journal of Open Source Software</em> 5 (53): 2445. <a href="https://doi.org/10.21105/joss.02445" class="external-link">https://doi.org/10.21105/joss.02445</a>.
 </div>
-<div id="ref-olejnik2003generalized">
-<p>Olejnik, Stephen, and James Algina. 2003. “Generalized Eta and Omega Squared Statistics: Measures of Effect Size for Some Common Research Designs.” <em>Psychological Methods</em> 8 (4): 434.</p>
+<div id="ref-olejnik2003generalized" class="csl-entry">
+Olejnik, Stephen, and James Algina. 2003. <span>“Generalized Eta and Omega Squared Statistics: Measures of Effect Size for Some Common Research Designs.”</span> <em>Psychological Methods</em> 8 (4): 434.
 </div>
-<div id="ref-patil2020ggstatsplot">
-<p>Patil, Indrajeet. 2018. “ggstatsplot: ’Ggplot2’ Based Plots with Statistical Details.” <em>CRAN</em>. <a href="https://doi.org/10.5281/zenodo.2074621" class="external-link">https://doi.org/10.5281/zenodo.2074621</a>.</p>
+<div id="ref-patil2020ggstatsplot" class="csl-entry">
+Patil, Indrajeet. 2018. <span>“<span class="nocase">ggstatsplot</span>: ’Ggplot2’ Based Plots with Statistical Details.”</span> <em>CRAN</em>. <a href="https://doi.org/10.5281/zenodo.2074621" class="external-link">https://doi.org/10.5281/zenodo.2074621</a>.
 </div>
-<div id="ref-rcore">
-<p>R Core Team. 2020. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="external-link">https://www.R-project.org/</a>.</p>
+<div id="ref-rcore" class="csl-entry">
+R Core Team. 2020. <em><span>R</span>: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="external-link">https://www.R-project.org/</a>.
 </div>
-<div id="ref-sjoberg2020gtsummary">
-<p>Sjoberg, Daniel D., Michael Curry, Margie Hannum, Karissa Whiting, and Emily C. Zabor. 2020. <em>gtsummary: Presentation-Ready Data Summary and Analytic Result Tables</em>. <a href="https://CRAN.R-project.org/package=gtsummary/" class="external-link">https://CRAN.R-project.org/package=gtsummary/</a>.</p>
+<div id="ref-sjoberg2020gtsummary" class="csl-entry">
+Sjoberg, Daniel D., Michael Curry, Margie Hannum, Karissa Whiting, and Emily C. Zabor. 2020. <em><span class="nocase">g</span>tsummary: Presentation-Ready Data Summary and Analytic Result Tables</em>. <a href="https://CRAN.R-project.org/package=gtsummary/" class="external-link">https://CRAN.R-project.org/package=gtsummary/</a>.
 </div>
-<div id="ref-steiger2004beyond">
-<p>Steiger, James H. 2004. “Beyond the F Test: Effect Size Confidence Intervals and Tests of Close Fit in the Analysis of Variance and Contrast Analysis.” <em>Psychological Methods</em> 9 (2): 164–82. <a href="https://doi.org/10.1037/1082-989X.9.2.164" class="external-link">https://doi.org/10.1037/1082-989X.9.2.164</a>.</p>
+<div id="ref-steiger2004beyond" class="csl-entry">
+Steiger, James H. 2004. <span>“Beyond the <span>F</span> Test: Effect Size Confidence Intervals and Tests of Close Fit in the Analysis of Variance and Contrast Analysis.”</span> <em>Psychological Methods</em> 9 (2): 164–82. <a href="https://doi.org/10.1037/1082-989X.9.2.164" class="external-link">https://doi.org/10.1037/1082-989X.9.2.164</a>.
 </div>
 </div>
 </div>
@@ -380,7 +381,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer>

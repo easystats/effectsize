@@ -1,6 +1,6 @@
-pandoc: 2.7.3
-pkgdown: 2.0.3.9000
-pkgdown_sha: 6849d7aed9d3149638fa6db651e62bf951c70921
+pandoc: 2.14.2
+pkgdown: 2.0.3
+pkgdown_sha: ~
 articles:
   additional: additional.html
   anovaES: anovaES.html
@@ -10,5 +10,5 @@ articles:
   from_test_statistics: from_test_statistics.html
   interpret: interpret.html
   simple_htests: simple_htests.html
-last_built: 2022-06-02T10:57Z
+last_built: 2022-06-10T17:12Z
 

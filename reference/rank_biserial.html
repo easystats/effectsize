@@ -142,24 +142,57 @@ Kendall's <em>W</em> effect sizes for non-parametric (rank sum) tests.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-    </div>
+    <dl><dt>x</dt>
+<dd><p>Can be one of:</p><ul><li><p>A numeric vector, or a character name of one in <code>data</code>.</p></li>
+<li><p>A formula in to form of <code>DV ~ groups</code> (for <code>rank_biserial()</code> and
+<code>rank_epsilon_squared()</code>) or <code>DV ~ groups | blocks</code> (for <code>kendalls_w()</code>;
+See details for the <code>blocks</code> and <code>groups</code> terminology used here).</p></li>
+<li><p>A list of vectors (for <code>rank_epsilon_squared()</code>).</p></li>
+<li><p>A matrix of <code>blocks x groups</code> (for <code>kendalls_w()</code>) (or <code>groups x blocks</code>
+if <code>blocks_on_rows = FALSE</code>). See details for the <code>blocks</code> and <code>groups</code>
+terminology used here.</p></li>
+</ul></dd>
+<dt>y</dt>
+<dd><p>An optional numeric vector of data values to compare to <code>x</code>, or a
+character name of one in <code>data</code>. Ignored if <code>x</code> is not a vector.</p></dd>
+<dt>data</dt>
+<dd><p>An optional data frame containing the variables.</p></dd>
+<dt>mu</dt>
+<dd><p>a number indicating the value around which (a-)symmetry (for
+one-sample or paired samples) or shift (for independent samples) is to be
+estimated. See <a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">stats::wilcox.test</a>.</p></dd>
+<dt>ci</dt>
+<dd><p>Confidence Interval (CI) level</p></dd>
+<dt>alternative</dt>
+<dd><p>a character string specifying the alternative hypothesis;
+Controls the type of CI returned: <code>"two.sided"</code> (two-sided CI; default for
+rank-biserial correlation and Cliff's <em>delta</em>), <code>"greater"</code> (default for
+rank epsilon squared and Kendall's <em>W</em>) or <code>"less"</code> (one-sided CI). Partial
+matching is allowed (e.g., <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em>
+in <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
+<dt>paired</dt>
+<dd><p>If <code>TRUE</code>, the values of <code>x</code> and <code>y</code> are considered as paired.
+This produces an effect size that is equivalent to the one-sample effect
+size on <code>x - y</code>.</p></dd>
+<dt>verbose</dt>
+<dd><p>Toggle warnings and messages on or off.</p></dd>
+<dt>...</dt>
+<dd><p>Arguments passed to or from other methods. When <code>x</code> is a formula,
+these can be <code>subset</code> and <code>na.action</code>.</p></dd>
+<dt>iterations</dt>
+<dd><p>The number of bootstrap replicates for computing confidence
+intervals. Only applies when <code>ci</code> is not <code>NULL</code>. (Deprecated for
+<code>rank_biserial()</code>).</p></dd>
+<dt>groups, blocks</dt>
+<dd><p>A factor vector giving the group / block for the
+corresponding elements of <code>x</code>, or a character name of one in <code>data</code>.
+Ignored if <code>x</code> is not a vector.</p></dd>
+<dt>blocks_on_rows</dt>
+<dd><p>Are blocks on rows (<code>TRUE</code>) or columns (<code>FALSE</code>).</p></dd>
+</dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    
-
-<p>A data frame with the effect size (<code>r_rank_biserial</code>,
+    <p>A data frame with the effect size (<code>r_rank_biserial</code>,
 <code>rank_epsilon_squared</code> or <code>Kendalls_W</code>) and its CI (<code>CI_low</code> and
 <code>CI_high</code>).</p>
     </div>
@@ -357,7 +390,7 @@ revisited. An overview of some recommended measures of effect size.</p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer></div>

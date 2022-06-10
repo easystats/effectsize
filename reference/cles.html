@@ -124,22 +124,38 @@ CLESs.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-    </div>
+    <dl><dt>x</dt>
+<dd><p>A formula, a numeric vector, or a character name of one in <code>data</code>.</p></dd>
+<dt>y</dt>
+<dd><p>A numeric vector, a grouping (character / factor) vector, a or a
+character  name of one in <code>data</code>. Ignored if <code>x</code> is a formula.</p></dd>
+<dt>data</dt>
+<dd><p>An optional data frame containing the variables.</p></dd>
+<dt>mu</dt>
+<dd><p>a number indicating the true value of the mean (or
+    difference in means if you are performing a two sample test).</p></dd>
+<dt>ci</dt>
+<dd><p>Confidence Interval (CI) level</p></dd>
+<dt>alternative</dt>
+<dd><p>a character string specifying the alternative hypothesis;
+Controls the type of CI returned: <code>"two.sided"</code> (default, two-sided CI),
+<code>"greater"</code> or <code>"less"</code> (one-sided CI). Partial matching is allowed (e.g.,
+<code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em> in <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
+<dt>parametric</dt>
+<dd><p>Use parametric estimation (see <code><a href="cohens_d.html">cohens_d()</a></code>) or
+non-parametric estimation (see <code><a href="rank_biserial.html">rank_biserial()</a></code>).</p></dd>
+<dt>verbose</dt>
+<dd><p>Toggle warnings and messages on or off.</p></dd>
+<dt>iterations</dt>
+<dd><p>The number of bootstrap replicates for computing confidence
+intervals. Only applies when <code>ci</code> is not <code>NULL</code> and <code>parametric = FALSE</code>.</p></dd>
+<dt>...</dt>
+<dd><p>Arguments passed to or from other methods. When <code>x</code> is a formula,
+these can be <code>subset</code> and <code>na.action</code>.</p></dd>
+</dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    
-
-<p>A data frame containing the common language effect sizes (and
+    <p>A data frame containing the common language effect sizes (and
 optionally their CIs).</p>
     </div>
     <div class="section level2">
@@ -226,7 +242,7 @@ to base rates and other factors. Psychological methods, 13(1), 19–30.</p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer></div>

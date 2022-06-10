@@ -104,7 +104,8 @@
 
 
 
-<script src="interpret_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Automated Interpretation of Indices of Effect Size</h1>
             
@@ -158,7 +159,7 @@
 </div>
 <div class="section level5">
 <h5 id="cohen1988statistical">
-<span class="citation">Cohen (1988)</span><a class="anchor" aria-label="anchor" href="#cohen1988statistical"></a>
+<span class="citation">J. Cohen (1988)</span><a class="anchor" aria-label="anchor" href="#cohen1988statistical"></a>
 </h5>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_r.html">interpret_r</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></code></pre></div>
@@ -203,7 +204,7 @@
 <p>The standardized difference can be obtained through the standardization of linear model’s parameters or data, in which they can be used as indices of effect size.</p>
 <div class="section level5">
 <h5 id="cohen1988statistical-1">
-<span class="citation">Cohen (1988)</span><a class="anchor" aria-label="anchor" href="#cohen1988statistical-1"></a>
+<span class="citation">J. Cohen (1988)</span><a class="anchor" aria-label="anchor" href="#cohen1988statistical-1"></a>
 </h5>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></code></pre></div>
@@ -278,7 +279,7 @@
 </div>
 <div class="section level5">
 <h5 id="cohen1988statistical-2">
-<span class="citation">Cohen (1988)</span><a class="anchor" aria-label="anchor" href="#cohen1988statistical-2"></a>
+<span class="citation">J. Cohen (1988)</span><a class="anchor" aria-label="anchor" href="#cohen1988statistical-2"></a>
 </h5>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_oddsratio.html">interpret_oddsratio</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></code></pre></div>
@@ -288,7 +289,7 @@
 <li><p><strong>2.48 &lt;= OR &lt; 4.27</strong> - Medium</p></li>
 <li><p><strong>OR &gt;= 4.27 </strong> - Large</p></li>
 </ul>
-<p>This converts (log) odds ratio to standardized difference <em>d</em> using the following formula <span class="citation">(Cohen 1988; Sánchez-Meca, Marı́n-Martı́nez, and Chacón-Moscoso 2003)</span>:</p>
+<p>This converts (log) odds ratio to standardized difference <em>d</em> using the following formula <span class="citation">(J. Cohen 1988; Sánchez-Meca, Marı́n-Martı́nez, and Chacón-Moscoso 2003)</span>:</p>
 <p><span class="math display">\[
 d = log(OR) \times \frac{\sqrt{3}}{\pi}
 \]</span></p>
@@ -302,7 +303,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 </h4>
 <div class="section level5">
 <h5 id="cohen1988statistical-3">
-<span class="citation">Cohen (1988)</span><a class="anchor" aria-label="anchor" href="#cohen1988statistical-3"></a>
+<span class="citation">J. Cohen (1988)</span><a class="anchor" aria-label="anchor" href="#cohen1988statistical-3"></a>
 </h5>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></code></pre></div>
@@ -330,7 +331,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 </h4>
 <div class="section level5">
 <h5 id="chin1998partial">
-<span class="citation">Chin and others (1998)</span><a class="anchor" aria-label="anchor" href="#chin1998partial"></a>
+<span class="citation">Chin et al. (1998)</span><a class="anchor" aria-label="anchor" href="#chin1998partial"></a>
 </h5>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_r2.html">interpret_r2</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"chin1998"</span><span class="op">)</span></code></pre></div>
@@ -375,7 +376,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 </div>
 <div class="section level5">
 <h5 id="cohen1992power">
-<span class="citation">Cohen (1992)</span><a class="anchor" aria-label="anchor" href="#cohen1992power"></a>
+<span class="citation">Jacob Cohen (1992)</span><a class="anchor" aria-label="anchor" href="#cohen1992power"></a>
 </h5>
 <p>These are applicable to one-way ANOVAs, or to <em>partial</em> Eta / Omega / Epsilon Squared in a multi-way ANOVA.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
@@ -418,7 +419,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 <p>Cohen’s <em>g</em> is a measure of effect size used for McNemar’s test of agreement in selection - when repeating a multiple chose selection, is the percent of matches (first response is equal to the second response) different than 50%?</p>
 <div class="section level5">
 <h5 id="cohen1988statistical-4">
-<span class="citation">Cohen (1988)</span><a class="anchor" aria-label="anchor" href="#cohen1988statistical-4"></a>
+<span class="citation">J. Cohen (1988)</span><a class="anchor" aria-label="anchor" href="#cohen1988statistical-4"></a>
 </h5>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/interpret_cohens_g.html">interpret_cohens_g</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></code></pre></div>
@@ -444,50 +445,50 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 </ul>
 </div>
 <div class="section level2">
-<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references">
-<div id="ref-chen2010big">
-<p>Chen, Henian, Patricia Cohen, and Sophie Chen. 2010. “How Big Is a Big Odds Ratio? Interpreting the Magnitudes of Odds Ratios in Epidemiological Studies.” <em>Communications in Statistics—Simulation and Computation</em> 39 (4): 860–64.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-chen2010big" class="csl-entry">
+Chen, Henian, Patricia Cohen, and Sophie Chen. 2010. <span>“How Big Is a Big Odds Ratio? Interpreting the Magnitudes of Odds Ratios in Epidemiological Studies.”</span> <em>Communications in Statistics—Simulation and Computation<span></span></em> 39 (4): 860–64.
 </div>
-<div id="ref-chin1998partial">
-<p>Chin, Wynne W, and others. 1998. “The Partial Least Squares Approach to Structural Equation Modeling.” <em>Modern Methods for Business Research</em> 295 (2): 295–336.</p>
+<div id="ref-chin1998partial" class="csl-entry">
+Chin, Wynne W et al. 1998. <span>“The Partial Least Squares Approach to Structural Equation Modeling.”</span> <em>Modern Methods for Business Research</em> 295 (2): 295–336.
 </div>
-<div id="ref-cohen1988statistical">
-<p>Cohen, J. 1988. <em>Statistical Power Analysis for the Behavioral Sciences, 2nd Ed.</em> New York: Routledge.</p>
+<div id="ref-cohen1988statistical" class="csl-entry">
+Cohen, J. 1988. <em>Statistical Power Analysis for the Behavioral Sciences, 2nd Ed.</em> New York: Routledge.
 </div>
-<div id="ref-cohen1992power">
-<p>Cohen, Jacob. 1992. “A Power Primer.” <em>Psychological Bulletin</em> 112 (1): 155.</p>
+<div id="ref-cohen1992power" class="csl-entry">
+Cohen, Jacob. 1992. <span>“A Power Primer.”</span> <em>Psychological Bulletin</em> 112 (1): 155.
 </div>
-<div id="ref-evans1996straightforward">
-<p>Evans, James D. 1996. <em>Straightforward Statistics for the Behavioral Sciences.</em> Thomson Brooks/Cole Publishing Co.</p>
+<div id="ref-evans1996straightforward" class="csl-entry">
+Evans, James D. 1996. <em>Straightforward Statistics for the Behavioral Sciences.</em> Thomson Brooks/Cole Publishing Co.
 </div>
-<div id="ref-falk1992primer">
-<p>Falk, R Frank, and Nancy B Miller. 1992. <em>A Primer for Soft Modeling.</em> University of Akron Press.</p>
+<div id="ref-falk1992primer" class="csl-entry">
+Falk, R Frank, and Nancy B Miller. 1992. <em>A Primer for Soft Modeling.</em> University of Akron Press.
 </div>
-<div id="ref-field2013discovering">
-<p>Field, Andy. 2013. <em>Discovering Statistics Using Ibm Spss Statistics</em>. sage.</p>
+<div id="ref-field2013discovering" class="csl-entry">
+Field, Andy. 2013. <em>Discovering Statistics Using IBM SPSS Statistics</em>. sage.
 </div>
-<div id="ref-funder2019evaluating">
-<p>Funder, David C, and Daniel J Ozer. 2019. “Evaluating Effect Size in Psychological Research: Sense and Nonsense.” <em>Advances in Methods and Practices in Psychological Science</em>, 2515245919847202.</p>
+<div id="ref-funder2019evaluating" class="csl-entry">
+Funder, David C, and Daniel J Ozer. 2019. <span>“Evaluating Effect Size in Psychological Research: Sense and Nonsense.”</span> <em>Advances in Methods and Practices in Psychological Science</em>, 2515245919847202.
 </div>
-<div id="ref-gignac2016effect">
-<p>Gignac, Gilles E, and Eva T Szodorai. 2016. “Effect Size Guidelines for Individual Differences Researchers.” <em>Personality and Individual Differences</em> 102: 74–78.</p>
+<div id="ref-gignac2016effect" class="csl-entry">
+Gignac, Gilles E, and Eva T Szodorai. 2016. <span>“Effect Size Guidelines for Individual Differences Researchers.”</span> <em>Personality and Individual Differences</em> 102: 74–78.
 </div>
-<div id="ref-hair2011pls">
-<p>Hair, Joe F, Christian M Ringle, and Marko Sarstedt. 2011. “PLS-Sem: Indeed a Silver Bullet.” <em>Journal of Marketing Theory and Practice</em> 19 (2): 139–52.</p>
+<div id="ref-hair2011pls" class="csl-entry">
+Hair, Joe F, Christian M Ringle, and Marko Sarstedt. 2011. <span>“PLS-SEM: Indeed a Silver Bullet.”</span> <em>Journal of Marketing Theory and Practice</em> 19 (2): 139–52.
 </div>
-<div id="ref-landis1977measurement">
-<p>Landis, J Richard, and Gary G Koch. 1977. “The Measurement of Observer Agreement for Categorical Data.” <em>Biometrics</em>, 159–74.</p>
+<div id="ref-landis1977measurement" class="csl-entry">
+Landis, J Richard, and Gary G Koch. 1977. <span>“The Measurement of Observer Agreement for Categorical Data.”</span> <em>Biometrics</em>, 159–74.
 </div>
-<div id="ref-lovakov2021empirically">
-<p>Lovakov, Andrey, and Elena R Agadullina. 2021. “Empirically Derived Guidelines for Effect Size Interpretation in Social Psychology.” <em>European Journal of Social Psychology</em>.</p>
+<div id="ref-lovakov2021empirically" class="csl-entry">
+Lovakov, Andrey, and Elena R Agadullina. 2021. <span>“Empirically Derived Guidelines for Effect Size Interpretation in Social Psychology.”</span> <em>European Journal of Social Psychology</em>.
 </div>
-<div id="ref-sawilowsky2009new">
-<p>Sawilowsky, Shlomo S. 2009. “New Effect Size Rules of Thumb.”</p>
+<div id="ref-sanchez2003effect" class="csl-entry">
+Sánchez-Meca, Julio, Fulgencio Marı́n-Martı́nez, and Salvador Chacón-Moscoso. 2003. <span>“Effect-Size Indices for Dichotomized Outcomes in Meta-Analysis.”</span> <em>Psychological Methods</em> 8 (4): 448.
 </div>
-<div id="ref-sanchez2003effect">
-<p>Sánchez-Meca, Julio, Fulgencio Marı́n-Martı́nez, and Salvador Chacón-Moscoso. 2003. “Effect-Size Indices for Dichotomized Outcomes in Meta-Analysis.” <em>Psychological Methods</em> 8 (4): 448.</p>
+<div id="ref-sawilowsky2009new" class="csl-entry">
+Sawilowsky, Shlomo S. 2009. <span>“New Effect Size Rules of Thumb.”</span>
 </div>
 </div>
 </div>
@@ -504,7 +505,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer>
