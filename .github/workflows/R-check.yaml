@@ -56,9 +56,9 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: |
-              any::rcmdcheck
-              lme4=?ignore-before-r=4.0.0
-              emmeans=?ignore-before-r=3.6.0
+            any::rcmdcheck
+            lme4=?ignore-before-r=4.0.0
+            emmeans=?ignore-before-r=3.6.0
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
