@@ -1,5 +1,3 @@
-testthat::skip_if_not(getRversion() > "3.4")
-
 if (require("testthat") && require("effectsize")) {
   test_that("oddsratio_to_d", {
     expect_equal(oddsratio_to_d(0.2), -0.887, tolerance = 0.01)
