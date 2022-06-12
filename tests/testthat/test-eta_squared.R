@@ -1,5 +1,3 @@
-testthat::skip_if_not(getRversion() > "3.6")
-
 if (require("testthat") && require("effectsize")) {
 
   # anova() -----------------------------------------------------------------
