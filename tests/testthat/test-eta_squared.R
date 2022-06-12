@@ -578,17 +578,11 @@ if (require("testthat") && require("effectsize")) {
   ## tidymodels -------------------
   test_that("ets_squared | tidymodels", {
     skip_on_cran()
-    skip_if_not_installed("tidymodels")
-    suppressPackageStartupMessages(require("tidymodels",
-                                           quietly = TRUE,
-                                           warn.conflicts = FALSE))
+    skip_if_not_installed("parsnip")
 
     set.seed(123)
-    mod_lm <-
-      linear_reg() %>%
-      set_engine("lm") %>%
-      set_mode("regression") %>%
-      fit(mpg ~ am + vs, data = mtcars)
+    mod_lm <- parsnip::linear_reg(engine = "lm", mode = "regression")
+    mod_lm <- parsnip::fit(mod_lm, mpg ~ am + vs, data = mtcars)
 
     set.seed(123)
     tidy_lm <- eta_squared(mod_lm)

@@ -68,29 +68,22 @@ Suggests:
     see (>= 0.6.9),
     afex,
     BayesFactor,
-    biglm,
     boot,
     brms,
     car,
-    covr,
     emmeans,
-    gamm4,
     knitr,
     lavaan,
-    lm.beta,
     lme4,
     lmerTest,
     MASS,
-    mediation,
     mgcv,
-    pscl,
+    parsnip,
     rmarkdown,
     rms,
     rstanarm,
     rstantools,
-    spelling,
-    testthat,
-    tidymodels
+    testthat (>= 3.1.0)
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
