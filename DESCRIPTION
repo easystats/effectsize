@@ -72,7 +72,6 @@ Suggests:
     boot,
     brms,
     car,
-    covr,
     emmeans,
     gamm4,
     knitr,
