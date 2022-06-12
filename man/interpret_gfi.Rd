@@ -130,11 +130,11 @@ interpret(model)
 \item Awang, Z. (2012). A handbook on SEM. Structural equation modeling.
 \item Byrne, B. M. (1994). Structural equation modeling with EQS and EQS/Windows.
 Thousand Oaks, CA: Sage Publications.
-\item Tucker, L. R., \& Lewis, C. (1973). The reliability coefficient for maximum
+\item Tucker, L. R., and Lewis, C. (1973). The reliability coefficient for maximum
 likelihood factor analysis. Psychometrika, 38, 1-10.
-\item Schumacker, R. E., \& Lomax, R. G. (2004). A beginner's guide to structural
+\item Schumacker, R. E., and Lomax, R. G. (2004). A beginner's guide to structural
 equation modeling, Second edition. Mahwah, NJ: Lawrence Erlbaum Associates.
-\item Fan, X., B. Thompson, \& L. Wang (1999). Effects of sample size, estimation
+\item Fan, X., B. Thompson, and L. Wang (1999). Effects of sample size, estimation
 method, and model specification on structural equation modeling fit indexes.
 Structural Equation Modeling, 6, 56-83.
 \item Kline, R. B. (2015). Principles and practice of structural equation
