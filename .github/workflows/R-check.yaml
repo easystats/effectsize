@@ -57,8 +57,8 @@ jobs:
         with:
           extra-packages: |
               any::rcmdcheck
-              lme4=?ignore-before-r=3.6.0
-              emmeans=?ignore-before-r=3.5.0
+              lme4=?ignore-before-r=4.0.0
+              emmeans=?ignore-before-r=3.6.0
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
