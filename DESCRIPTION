@@ -78,6 +78,7 @@ Suggests:
     lmerTest,
     MASS,
     mgcv,
+    parsnip,
     rmarkdown,
     rms,
     rstanarm,
