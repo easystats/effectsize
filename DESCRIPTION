@@ -88,8 +88,7 @@ Suggests:
     rstanarm,
     rstantools,
     spelling,
-    testthat (>= 3.1.0),
-    tidymodels
+    testthat (>= 3.1.0)
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
