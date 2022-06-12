@@ -29,7 +29,6 @@ jobs:
           - {os: macOS-latest, r: '4.0.0'}
           - {os: macOS-latest, r: '3.6.0'}
           - {os: macOS-latest, r: '3.5.0'}
-          - {os: macOS-latest, r: '3.4.0'}
 
           - {os: windows-latest, r: 'devel'}
           - {os: windows-latest, r: 'release'}
@@ -60,7 +59,6 @@ jobs:
           extra-packages: |
             any::rcmdcheck
             lme4=?ignore-before-r=3.6.0
-            emmeans=?ignore-before-r=3.5.0
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
