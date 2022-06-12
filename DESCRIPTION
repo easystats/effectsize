@@ -83,7 +83,6 @@ Suggests:
     rms,
     rstanarm,
     rstantools,
-    spelling,
     testthat (>= 3.1.0)
 VignetteBuilder: 
     knitr
