@@ -470,6 +470,7 @@ if (require("testthat") && require("effectsize")) {
   test_that("afex | mixed()", {
     skip_if_not_installed("afex")
     skip_if_not_installed("lmerTest")
+    skip_if(getRversion() <= "3.6")
 
     data(md_15.1, package = "afex")
     # random intercept plus random slope
