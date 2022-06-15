@@ -2,7 +2,7 @@
 
 ## Breaking Changes
 
-`effectsize` now requires minimal *`R`* version of `3.4`.
+`effectsize` now requires minimal *`R`* version of `3.5`.
 
 ## Bug fixes
 
