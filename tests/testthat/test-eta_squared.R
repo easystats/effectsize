@@ -610,6 +610,7 @@ if (require("testthat") && require("effectsize")) {
   test_that("ets_squared | rms", {
     skip_on_cran()
     skip_if_not_installed("rms")
+    data("mtcars")
 
     b <- rms::ols(mpg ~ cyl + am, data = mtcars)
     expect_error(out <- eta_squared(b), regexp = NA)
