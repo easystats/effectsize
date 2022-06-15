@@ -615,6 +615,8 @@ if (require("testthat") && require("effectsize")) {
     expect_output(print(out), "Type II")
 
     skip_if_not_installed("car")
+    skip_if(getRversion() <= "3.6" &&
+              Sys.info()["sysname"] == "Darwin")
     b_lm <- car::Anova(lm(mpg ~ cyl + am, data = mtcars), type = 2)
     out_lm <- eta_squared(b_lm)
     expect_equal(out[1:2, ], out_lm, ignore_attr = TRUE)
