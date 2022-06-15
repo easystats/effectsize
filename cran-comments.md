@@ -6,7 +6,7 @@ All URL issues have been resolved.
 * GitHub Actions
     - Windows:        devel, release, oldrel
     - macOS:          devel, release, oldrel
-    - ubuntu-16.04:   devel, release, oldrel, 4.0, 3.6, 3.5, 3.4
+    - ubuntu-16.04:   devel, release, oldrel, 4.0, 3.6, 3.5
 * win-builder:        release
 
 

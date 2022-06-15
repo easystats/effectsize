@@ -1,5 +1,9 @@
 # effectsize 0.7.0.9
 
+## Breaking Changes
+
+`effectsize` now requires minimal *`R`* version of `3.5`.
+
 ## Bug fixes
 
 - `kendalls_w()` now deals correctly with singular ties (#448).  
