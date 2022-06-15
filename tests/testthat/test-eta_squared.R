@@ -568,7 +568,6 @@ if (require("testthat") && require("effectsize")) {
     m <- lme4::lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
     mtest <- lmerTest::lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
 
-    t15.4a <- afex::mixed(iq ~ timecat + (1 + time | id), data = md_15.1)
     expect_equal(
       eta_squared(m),
       eta_squared(mtest)
@@ -580,6 +579,7 @@ if (require("testthat") && require("effectsize")) {
   test_that("ets_squared | tidymodels", {
     skip_on_cran()
     skip_if_not_installed("parsnip")
+    skip_if(getRversion() <= "3.6")
 
     set.seed(123)
     mod_lm <- parsnip::linear_reg(engine = "lm", mode = "regression")
