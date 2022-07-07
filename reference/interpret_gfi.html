@@ -89,31 +89,31 @@ equation modelling, such as RMSEA, CFI, NFI, IFI, etc.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">interpret_gfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
-
-<span class="fu">interpret_agfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
-
-<span class="fu">interpret_nfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"byrne1994"</span><span class="op">)</span>
-
-<span class="fu">interpret_nnfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"byrne1994"</span><span class="op">)</span>
-
-<span class="fu">interpret_cfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
-
-<span class="fu">interpret_rmsea</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
-
-<span class="fu">interpret_srmr</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
-
-<span class="fu">interpret_rfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
-
-<span class="fu">interpret_ifi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
-
-<span class="fu">interpret_pnfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
-
-<span class="co"># S3 method for lavaan</span>
-<span class="fu"><a href="interpret.html">interpret</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for performance_lavaan</span>
-<span class="fu"><a href="interpret.html">interpret</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">interpret_gfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">interpret_agfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">interpret_nfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"byrne1994"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">interpret_nnfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"byrne1994"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">interpret_cfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">interpret_rmsea</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">interpret_srmr</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">interpret_rfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">interpret_ifi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">interpret_pnfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for lavaan</span></span>
+<span><span class="fu"><a href="interpret.html">interpret</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for performance_lavaan</span></span>
+<span><span class="fu"><a href="interpret.html">interpret</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -206,54 +206,54 @@ modeling. Guilford publications.</p></li>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">interpret_gfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">interpret_gfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">interpret_agfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">interpret_agfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">interpret_nfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">interpret_nfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: byrne1994)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">interpret_nnfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">interpret_nnfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: byrne1994)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">interpret_cfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">interpret_cfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">interpret_rmsea</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.07</span>, <span class="fl">.04</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">interpret_rmsea</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.07</span>, <span class="fl">.04</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">interpret_srmr</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">interpret_srmr</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor" "poor"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">interpret_rfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">interpret_rfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">interpret_ifi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">interpret_ifi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">interpret_pnfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">interpret_pnfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="co"># Structural Equation Models (SEM)</span></span>
-<span class="r-in"><span class="va">structure</span> <span class="op">&lt;-</span> <span class="st">" ind60 =~ x1 + x2 + x3</span>
-<span class="r-in">               dem60 =~ y1 + y2 + y3</span>
-<span class="r-in">               dem60 ~ ind60 "</span></span>
-<span class="r-in"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">sem</a></span><span class="op">(</span><span class="va">structure</span>, data <span class="op">=</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/lavaan/man/PoliticalDemocracy.html" class="external-link">PoliticalDemocracy</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="interpret.html">interpret</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co"># Structural Equation Models (SEM)</span></span></span>
+<span class="r-in"><span><span class="va">structure</span> <span class="op">&lt;-</span> <span class="st">" ind60 =~ x1 + x2 + x3</span></span></span>
+<span class="r-in"><span><span class="st">               dem60 =~ y1 + y2 + y3</span></span></span>
+<span class="r-in"><span><span class="st">               dem60 ~ ind60 "</span></span></span>
+<span class="r-in"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">sem</a></span><span class="op">(</span><span class="va">structure</span>, data <span class="op">=</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/lavaan/man/PoliticalDemocracy.html" class="external-link">PoliticalDemocracy</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="interpret.html">interpret</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Name      Value Threshold Interpretation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    GFI 0.96664122      0.95   satisfactory</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   AGFI 0.91243319      0.90   satisfactory</span>
@@ -265,7 +265,7 @@ modeling. Guilford publications.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8    RFI 0.95286858      0.90   satisfactory</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   PNFI 0.51992706      0.50   satisfactory</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10   IFI 1.00005373      0.90   satisfactory</span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -277,7 +277,7 @@ modeling. Guilford publications.</p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

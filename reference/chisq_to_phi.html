@@ -92,60 +92,60 @@ tables or goodness of fit.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">chisq_to_phi</span><span class="op">(</span>
-  <span class="va">chisq</span>,
-  <span class="va">n</span>,
-  nrow <span class="op">=</span> <span class="fl">2</span>,
-  ncol <span class="op">=</span> <span class="fl">2</span>,
-  ci <span class="op">=</span> <span class="fl">0.95</span>,
-  alternative <span class="op">=</span> <span class="st">"greater"</span>,
-  adjust <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="fu">chisq_to_cohens_w</span><span class="op">(</span>
-  <span class="va">chisq</span>,
-  <span class="va">n</span>,
-  <span class="va">nrow</span>,
-  <span class="va">ncol</span>,
-  ci <span class="op">=</span> <span class="fl">0.95</span>,
-  alternative <span class="op">=</span> <span class="st">"greater"</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="fu">chisq_to_cramers_v</span><span class="op">(</span>
-  <span class="va">chisq</span>,
-  <span class="va">n</span>,
-  <span class="va">nrow</span>,
-  <span class="va">ncol</span>,
-  ci <span class="op">=</span> <span class="fl">0.95</span>,
-  alternative <span class="op">=</span> <span class="st">"greater"</span>,
-  adjust <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="fu">chisq_to_normalized</span><span class="op">(</span>
-  <span class="va">chisq</span>,
-  <span class="va">n</span>,
-  <span class="va">nrow</span>,
-  <span class="va">ncol</span>,
-  <span class="va">p</span>,
-  ci <span class="op">=</span> <span class="fl">0.95</span>,
-  alternative <span class="op">=</span> <span class="st">"greater"</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="fu">chisq_to_pearsons_c</span><span class="op">(</span>
-  <span class="va">chisq</span>,
-  <span class="va">n</span>,
-  <span class="va">nrow</span>,
-  <span class="va">ncol</span>,
-  ci <span class="op">=</span> <span class="fl">0.95</span>,
-  alternative <span class="op">=</span> <span class="st">"greater"</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="fu">phi_to_chisq</span><span class="op">(</span><span class="va">phi</span>, <span class="va">n</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">chisq_to_phi</span><span class="op">(</span></span>
+<span>  <span class="va">chisq</span>,</span>
+<span>  <span class="va">n</span>,</span>
+<span>  nrow <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  ncol <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  ci <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
+<span>  adjust <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">chisq_to_cohens_w</span><span class="op">(</span></span>
+<span>  <span class="va">chisq</span>,</span>
+<span>  <span class="va">n</span>,</span>
+<span>  <span class="va">nrow</span>,</span>
+<span>  <span class="va">ncol</span>,</span>
+<span>  ci <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">chisq_to_cramers_v</span><span class="op">(</span></span>
+<span>  <span class="va">chisq</span>,</span>
+<span>  <span class="va">n</span>,</span>
+<span>  <span class="va">nrow</span>,</span>
+<span>  <span class="va">ncol</span>,</span>
+<span>  ci <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
+<span>  adjust <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">chisq_to_normalized</span><span class="op">(</span></span>
+<span>  <span class="va">chisq</span>,</span>
+<span>  <span class="va">n</span>,</span>
+<span>  <span class="va">nrow</span>,</span>
+<span>  <span class="va">ncol</span>,</span>
+<span>  <span class="va">p</span>,</span>
+<span>  ci <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">chisq_to_pearsons_c</span><span class="op">(</span></span>
+<span>  <span class="va">chisq</span>,</span>
+<span>  <span class="va">n</span>,</span>
+<span>  <span class="va">nrow</span>,</span>
+<span>  <span class="va">ncol</span>,</span>
+<span>  ci <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">phi_to_chisq</span><span class="op">(</span><span class="va">phi</span>, <span class="va">n</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -276,52 +276,52 @@ tests to effect sizes for meta-analysis. PloS one, 5(4), e10059.</p></li>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">contingency_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">762</span>, <span class="fl">327</span>, <span class="fl">468</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>, <span class="fl">239</span>, <span class="fl">477</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>, <span class="fl">239</span>, <span class="fl">477</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># chisq.test(contingency_table)</span></span>
-<span class="r-in"><span class="co">#&gt;</span></span>
-<span class="r-in"><span class="co">#&gt;         Pearson's Chi-squared test</span></span>
-<span class="r-in"><span class="co">#&gt;</span></span>
-<span class="r-in"><span class="co">#&gt; data:  contingency_table</span></span>
-<span class="r-in"><span class="co">#&gt; X-squared = 41.234, df = 4, p-value = 2.405e-08</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">chisq_to_cohens_w</span><span class="op">(</span><span class="fl">41.234</span>,</span>
-<span class="r-in">  n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">contingency_table</span><span class="op">)</span>,</span>
-<span class="r-in">  nrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">contingency_table</span><span class="op">)</span>,</span>
-<span class="r-in">  ncol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">contingency_table</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">contingency_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">762</span>, <span class="fl">327</span>, <span class="fl">468</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>, <span class="fl">239</span>, <span class="fl">477</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>, <span class="fl">239</span>, <span class="fl">477</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># chisq.test(contingency_table)</span></span></span>
+<span class="r-in"><span><span class="co">#&gt;</span></span></span>
+<span class="r-in"><span><span class="co">#&gt;         Pearson's Chi-squared test</span></span></span>
+<span class="r-in"><span><span class="co">#&gt;</span></span></span>
+<span class="r-in"><span><span class="co">#&gt; data:  contingency_table</span></span></span>
+<span class="r-in"><span><span class="co">#&gt; X-squared = 41.234, df = 4, p-value = 2.405e-08</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">chisq_to_cohens_w</span><span class="op">(</span><span class="fl">41.234</span>,</span></span>
+<span class="r-in"><span>  n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">contingency_table</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  nrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">contingency_table</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  ncol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">contingency_table</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's w |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.10      | [0.07, 1.41]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.41~].</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">Smoking_ASD</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>ASD <span class="op">=</span> <span class="fl">17</span>, ASP <span class="op">=</span> <span class="fl">11</span>, TD <span class="op">=</span> <span class="fl">640</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># chisq.test(Smoking_ASD, p = c(0.015, 0.010, 0.975))</span></span>
-<span class="r-in"><span class="co">#&gt;</span></span>
-<span class="r-in"><span class="co">#&gt;   Chi-squared test for given probabilities</span></span>
-<span class="r-in"><span class="co">#&gt;</span></span>
-<span class="r-in"><span class="co">#&gt; data:  Smoking_ASD</span></span>
-<span class="r-in"><span class="co">#&gt; X-squared = 7.8521, df = 2, p-value = 0.01972</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">chisq_to_normalized</span><span class="op">(</span></span>
-<span class="r-in">  <span class="fl">7.8521</span>,</span>
-<span class="r-in">  n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">Smoking_ASD</span><span class="op">)</span>,</span>
-<span class="r-in">  nrow <span class="op">=</span> <span class="fl">1</span>,</span>
-<span class="r-in">  ncol <span class="op">=</span> <span class="fl">3</span>,</span>
-<span class="r-in">  p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.015</span>, <span class="fl">0.010</span>, <span class="fl">0.975</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">Smoking_ASD</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>ASD <span class="op">=</span> <span class="fl">17</span>, ASP <span class="op">=</span> <span class="fl">11</span>, TD <span class="op">=</span> <span class="fl">640</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># chisq.test(Smoking_ASD, p = c(0.015, 0.010, 0.975))</span></span></span>
+<span class="r-in"><span><span class="co">#&gt;</span></span></span>
+<span class="r-in"><span><span class="co">#&gt;   Chi-squared test for given probabilities</span></span></span>
+<span class="r-in"><span><span class="co">#&gt;</span></span></span>
+<span class="r-in"><span><span class="co">#&gt; data:  Smoking_ASD</span></span></span>
+<span class="r-in"><span><span class="co">#&gt; X-squared = 7.8521, df = 2, p-value = 0.01972</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">chisq_to_normalized</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">7.8521</span>,</span></span>
+<span class="r-in"><span>  n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">Smoking_ASD</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  nrow <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  ncol <span class="op">=</span> <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>  p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.015</span>, <span class="fl">0.010</span>, <span class="fl">0.975</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Norm. Chi |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.01      | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Adjusted for non-uniform expected probabilities.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -333,7 +333,7 @@ tests to effect sizes for meta-analysis. PloS one, 5(4), e10059.</p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

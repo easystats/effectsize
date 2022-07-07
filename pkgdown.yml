@@ -1,5 +1,5 @@
 pandoc: 2.14.2
-pkgdown: 2.0.4
+pkgdown: 2.0.5
 pkgdown_sha: ~
 articles:
   additional: additional.html
@@ -10,5 +10,5 @@ articles:
   from_test_statistics: from_test_statistics.html
   interpret: interpret.html
   simple_htests: simple_htests.html
-last_built: 2022-06-15T11:47Z
+last_built: 2022-07-07T11:56Z
 

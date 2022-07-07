@@ -124,10 +124,10 @@
 <p><a href="https://cran.r-project.org/package=effectsize/" class="external-link"><img src="https://www.r-pkg.org/badges/version/effectsize" alt="CRAN"></a> <a href="https://easystats.r-universe.dev/" class="external-link"><img src="https://easystats.r-universe.dev/badges/effectsize/" alt="effectsize status badge"></a> <a href="https://github.com/easystats/effectsize/actions/" class="external-link"><img src="https://github.com/easystats/effectsize/workflows/R-check/badge.svg/" alt="R-check"></a> <a href="https://github.com/easystats/effectsize/actions/" class="external-link"><img src="https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg/" alt="pkgdown"></a> <a href="https://app.codecov.io/gh/easystats/effectsize?branch=main/" class="external-link"><img src="https://codecov.io/gh/easystats/effectsize/branch/main/graph/badge.svg/" alt="Codecov test coverage"></a></p>
 <p>Run the following to install the stable release of <strong>effectsize</strong> from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"effectsize"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"effectsize"</span><span class="op">)</span></span></code></pre></div>
 <p>Or you can install the latest development version <code>0.6.0.7</code> from <a href="https://easystats.r-universe.dev" class="external-link"><em>R-universe</em></a>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"effectsize"</span>, repos <span class="op">=</span> <span class="st">"https://easystats.r-universe.dev/"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"effectsize"</span>, repos <span class="op">=</span> <span class="st">"https://easystats.r-universe.dev/"</span><span class="op">)</span></span></code></pre></div>
 <!-- Or from *GitHub*: --><!-- ```{r, warning=FALSE, message=FALSE, eval=FALSE} --><!-- if (!require("remotes")) install.packages("remotes") --><!-- remotes::install_github("easystats/effectsize") --><!-- ``` -->
 </div>
 <div class="section level2">
@@ -159,7 +159,7 @@
 </h1>
 <p>This package is focused on indices of effect size. Check out the package website for <a href="https://easystats.github.io/effectsize/reference/index.html" class="external-link"><strong>a full list of features and functions</strong> provided by <code>effectsize</code></a>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/" class="external-link">effectsize</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/" class="external-link">effectsize</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="effect-size-computation">Effect Size Computation<a class="anchor" aria-label="anchor" href="#effect-size-computation"></a>
 </h2>
@@ -168,58 +168,58 @@
 </h3>
 <p>The package provides functions to compute indices of effect size.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
-<span class="co">## Cohen's d |         95% CI</span>
-<span class="co">## --------------------------</span>
-<span class="co">## -1.48     | [-2.27, -0.67]</span>
-<span class="co">## </span>
-<span class="co">## - Estimated using pooled SD.</span>
-
-<span class="fu"><a href="reference/cohens_d.html">hedges_g</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
-<span class="co">## Hedges' g |         95% CI</span>
-<span class="co">## --------------------------</span>
-<span class="co">## -1.44     | [-2.21, -0.65]</span>
-<span class="co">## </span>
-<span class="co">## - Estimated using pooled SD.</span>
-
-<span class="fu"><a href="reference/cohens_d.html">glass_delta</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
-<span class="co">## Glass' delta |         95% CI</span>
-<span class="co">## -----------------------------</span>
-<span class="co">## -1.17        | [-1.93, -0.39]</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<span><span class="co">## Cohen's d |         95% CI</span></span>
+<span><span class="co">## --------------------------</span></span>
+<span><span class="co">## -1.48     | [-2.27, -0.67]</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## - Estimated using pooled SD.</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/cohens_d.html">hedges_g</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<span><span class="co">## Hedges' g |         95% CI</span></span>
+<span><span class="co">## --------------------------</span></span>
+<span><span class="co">## -1.44     | [-2.21, -0.65]</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## - Estimated using pooled SD.</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/cohens_d.html">glass_delta</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<span><span class="co">## Glass' delta |         95% CI</span></span>
+<span><span class="co">## -----------------------------</span></span>
+<span><span class="co">## -1.17        | [-1.93, -0.39]</span></span></code></pre></div>
 <p><code>effectsize</code> also provides effect sizes for <em>contingency tables</em>, <em>rank tests</em>, and more…</p>
 </div>
 <div class="section level3">
 <h3 id="anovas-eta2-omega2-">ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)<a class="anchor" aria-label="anchor" href="#anovas-eta2-omega2-"></a>
 </h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
-
-<span class="fu"><a href="reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-<span class="co">## # Effect Size for ANOVA</span>
-<span class="co">## </span>
-<span class="co">## Parameter    | Eta2 |       95% CI</span>
-<span class="co">## ----------------------------------</span>
-<span class="co">## factor(gear) | 0.43 | [0.18, 1.00]</span>
-<span class="co">## </span>
-<span class="co">## - One-sided CIs: upper bound fixed at [1.00].</span>
-
-<span class="fu"><a href="reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-<span class="co">## # Effect Size for ANOVA</span>
-<span class="co">## </span>
-<span class="co">## Parameter    | Omega2 |       95% CI</span>
-<span class="co">## ------------------------------------</span>
-<span class="co">## factor(gear) |   0.38 | [0.14, 1.00]</span>
-<span class="co">## </span>
-<span class="co">## - One-sided CIs: upper bound fixed at [1.00].</span>
-
-<span class="fu"><a href="reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-<span class="co">## # Effect Size for ANOVA</span>
-<span class="co">## </span>
-<span class="co">## Parameter    | Epsilon2 |       95% CI</span>
-<span class="co">## --------------------------------------</span>
-<span class="co">## factor(gear) |     0.39 | [0.14, 1.00]</span>
-<span class="co">## </span>
-<span class="co">## - One-sided CIs: upper bound fixed at [1.00].</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span><span class="co">## # Effect Size for ANOVA</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Parameter    | Eta2 |       95% CI</span></span>
+<span><span class="co">## ----------------------------------</span></span>
+<span><span class="co">## factor(gear) | 0.43 | [0.18, 1.00]</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## - One-sided CIs: upper bound fixed at [1.00].</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span><span class="co">## # Effect Size for ANOVA</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Parameter    | Omega2 |       95% CI</span></span>
+<span><span class="co">## ------------------------------------</span></span>
+<span><span class="co">## factor(gear) |   0.38 | [0.14, 1.00]</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## - One-sided CIs: upper bound fixed at [1.00].</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span><span class="co">## # Effect Size for ANOVA</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Parameter    | Epsilon2 |       95% CI</span></span>
+<span><span class="co">## --------------------------------------</span></span>
+<span><span class="co">## factor(gear) |     0.39 | [0.14, 1.00]</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## - One-sided CIs: upper bound fixed at [1.00].</span></span></code></pre></div>
 <p>And more…</p>
 <!-- ### Regression Models (Standardized Parameters) --><!-- Importantly, `effectsize` also provides [advanced methods](https://easystats.github.io/effectsize/articles/standardize_parameters.html) to compute standardized parameters for regression models. --><!-- ```{r beta, warning=FALSE, message=FALSE} --><!-- m <- lm(rating ~ complaints + privileges + advance, data = attitude) --><!-- standardize_parameters(m) --><!-- ``` --><!-- Also, models can be re-fit with standardized data: --><!-- ```{r std-model, warning=FALSE, message=FALSE} --><!-- standardize(m) --><!-- ``` -->
 </div>
@@ -229,47 +229,47 @@
 </h2>
 <p>The package also provides ways of converting between different effect sizes.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/d_to_r.html">d_to_r</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>
-<span class="co">## [1] 0.0995</span>
-
-<span class="fu"><a href="reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio</a></span><span class="op">(</span><span class="fl">2.6</span>, p0 <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span>
-<span class="co">## [1] 1.59</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/d_to_r.html">d_to_r</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span>
+<span><span class="co">## [1] 0.0995</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio</a></span><span class="op">(</span><span class="fl">2.6</span>, p0 <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span></span>
+<span><span class="co">## [1] 1.59</span></span></code></pre></div>
 <p>And for recovering effect sizes from test statistics.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/t_to_r.html">F_to_d</a></span><span class="op">(</span><span class="fl">15</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>
-<span class="co">## d    |       95% CI</span>
-<span class="co">## -------------------</span>
-<span class="co">## 1.00 | [0.46, 1.53]</span>
-
-<span class="fu"><a href="reference/t_to_r.html">F_to_r</a></span><span class="op">(</span><span class="fl">15</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>
-<span class="co">## r    |       95% CI</span>
-<span class="co">## -------------------</span>
-<span class="co">## 0.45 | [0.22, 0.61]</span>
-
-<span class="fu"><a href="reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span><span class="fl">15</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>
-<span class="co">## Eta2 (partial) |       95% CI</span>
-<span class="co">## -----------------------------</span>
-<span class="co">## 0.20           | [0.07, 1.00]</span>
-<span class="co">## </span>
-<span class="co">## - One-sided CIs: upper bound fixed at [1.00].</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/t_to_r.html">F_to_d</a></span><span class="op">(</span><span class="fl">15</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">60</span><span class="op">)</span></span>
+<span><span class="co">## d    |       95% CI</span></span>
+<span><span class="co">## -------------------</span></span>
+<span><span class="co">## 1.00 | [0.46, 1.53]</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/t_to_r.html">F_to_r</a></span><span class="op">(</span><span class="fl">15</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">60</span><span class="op">)</span></span>
+<span><span class="co">## r    |       95% CI</span></span>
+<span><span class="co">## -------------------</span></span>
+<span><span class="co">## 0.45 | [0.22, 0.61]</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span><span class="fl">15</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">60</span><span class="op">)</span></span>
+<span><span class="co">## Eta2 (partial) |       95% CI</span></span>
+<span><span class="co">## -----------------------------</span></span>
+<span><span class="co">## 0.20           | [0.07, 1.00]</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## - One-sided CIs: upper bound fixed at [1.00].</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="effect-size-interpretation">Effect Size Interpretation<a class="anchor" aria-label="anchor" href="#effect-size-interpretation"></a>
 </h2>
 <p>The package allows for an automated interpretation of different indices.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/interpret_r.html">interpret_r</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span>
-<span class="co">## [1] "large"</span>
-<span class="co">## (Rules: funder2019)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/interpret_r.html">interpret_r</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span>
+<span><span class="co">## [1] "large"</span></span>
+<span><span class="co">## (Rules: funder2019)</span></span></code></pre></div>
 <p>Different sets of “rules of thumb” are implemented (<a href="https://easystats.github.io/effectsize/articles/interpret.html" class="external-link"><strong>guidelines are detailed here</strong></a>) and can be easily changed.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.45</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span>
-<span class="co">## [1] "small"</span>
-<span class="co">## (Rules: cohen1988)</span>
-
-<span class="fu"><a href="reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.45</span>, rules <span class="op">=</span> <span class="st">"gignac2016"</span><span class="op">)</span>
-<span class="co">## [1] "moderate"</span>
-<span class="co">## (Rules: gignac2016)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.45</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></span>
+<span><span class="co">## [1] "small"</span></span>
+<span><span class="co">## (Rules: cohen1988)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.45</span>, rules <span class="op">=</span> <span class="st">"gignac2016"</span><span class="op">)</span></span>
+<span><span class="co">## [1] "moderate"</span></span>
+<span><span class="co">## (Rules: gignac2016)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h3>
@@ -366,7 +366,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer>

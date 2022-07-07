@@ -143,30 +143,30 @@
 </h4>
 <p><strong>effectsize</strong> provides functions for estimating the common indices of standardized differences such as Cohen’s <em>d</em> (<code><a href="../reference/cohens_d.html">cohens_d()</a></code>), Hedges’ <em>g</em> (<code><a href="../reference/cohens_d.html">hedges_g()</a></code>) for both paired and independent samples <span class="citation">(Cohen 1988; Hedges and Olkin 1985)</span>, and Glass’ <span class="math inline">\(\Delta\)</span> (<code><a href="../reference/cohens_d.html">glass_delta()</a></code>) for independent samples with different variances <span class="citation">(Hedges and Olkin 1985)</span>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/" class="external-link">effectsize</a></span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>
-<span class="co">#&gt; Cohen's d |         95% CI</span>
-<span class="co">#&gt; --------------------------</span>
-<span class="co">#&gt; -1.48     | [-2.27, -0.67]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - Estimated using pooled SD.</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/" class="external-link">effectsize</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Cohen's d |         95% CI</span></span>
+<span><span class="co">#&gt; --------------------------</span></span>
+<span><span class="co">#&gt; -1.48     | [-2.27, -0.67]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - Estimated using pooled SD.</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="contingency-tables">Contingency Tables<a class="anchor" aria-label="anchor" href="#contingency-tables"></a>
 </h4>
 <p>Pearson’s <span class="math inline">\(\phi\)</span> (<code><a href="../reference/phi.html">phi()</a></code>) and Cramér’s <em>V</em> (<code><a href="../reference/phi.html">cramers_v()</a></code>) can be used to estimate the strength of association between two categorical variables <span class="citation">(Cramér 1946)</span>, while Cohen’s <em>g</em> (<code><a href="../reference/phi.html">cohens_g()</a></code>) estimates the deviance between paired categorical variables <span class="citation">(Cohen 1988)</span>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">150</span>, <span class="fl">130</span>, <span class="fl">35</span>, <span class="fl">55</span><span class="op">)</span>,
-           <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">50</span>,  <span class="fl">10</span>, <span class="fl">40</span><span class="op">)</span>,
-           <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">165</span>, <span class="fl">65</span>,  <span class="fl">2</span>,  <span class="fl">25</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/phi.html">cramers_v</a></span><span class="op">(</span><span class="va">M</span><span class="op">)</span>
-<span class="co">#&gt; Cramer's V |       95% CI</span>
-<span class="co">#&gt; -------------------------</span>
-<span class="co">#&gt; 0.18       | [0.13, 1.00]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">150</span>, <span class="fl">130</span>, <span class="fl">35</span>, <span class="fl">55</span><span class="op">)</span>,</span>
+<span>           <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">50</span>,  <span class="fl">10</span>, <span class="fl">40</span><span class="op">)</span>,</span>
+<span>           <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">165</span>, <span class="fl">65</span>,  <span class="fl">2</span>,  <span class="fl">25</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/phi.html">cramers_v</a></span><span class="op">(</span><span class="va">M</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Cramer's V |       95% CI</span></span>
+<span><span class="co">#&gt; -------------------------</span></span>
+<span><span class="co">#&gt; 0.18       | [0.13, 1.00]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></span></code></pre></div>
 <!-- ## Parameter and Model Standardization -->
 <!-- Standardizing parameters (i.e., coefficients) can allow for their comparison within and between models, variables and studies. To this end, two functions are available: `standardize()`, which returns an updated model, re-fit with standardized data, and `standardize_parameters()`, which returns a table of standardized coefficients from a provided model [for a list of supported models, see the *insight* package; @luedecke2019insight]. -->
 <!-- ```{r} -->
@@ -190,38 +190,38 @@
 </h3>
 <p>Unlike standardized parameters, the effect sizes reported in the context of ANOVAs (analysis of variance) or ANOVA-like tables represent the amount of variance explained by each of the model’s terms, where each term can be represented by one or more parameters. <code><a href="../reference/eta_squared.html">eta_squared()</a></code> can produce such popular effect sizes as Eta-squared (<span class="math inline">\(\eta^2\)</span>), its partial version (<span class="math inline">\(\eta^2_p\)</span>), as well as the generalized <span class="math inline">\(\eta^2_G\)</span> <span class="citation">(Cohen 1988; Olejnik and Algina 2003)</span>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>contrasts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'contr.sum'</span>, <span class="st">'contr.poly'</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ChickWeight"</span><span class="op">)</span>
-<span class="co"># keep only complete cases and convert `Time` to a factor</span>
-<span class="va">ChickWeight</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">ChickWeight</span>, <span class="fu"><a href="https://rdrr.io/r/stats/ave.html" class="external-link">ave</a></span><span class="op">(</span><span class="va">weight</span>, <span class="va">Chick</span>, FUN <span class="op">=</span> <span class="va">length</span><span class="op">)</span> <span class="op">==</span> <span class="fl">12</span><span class="op">)</span>
-<span class="va">ChickWeight</span><span class="op">$</span><span class="va">Time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">ChickWeight</span><span class="op">$</span><span class="va">Time</span><span class="op">)</span>
-
-<span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">weight</span> <span class="op">~</span> <span class="va">Diet</span> <span class="op">*</span> <span class="va">Time</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">Error</a></span><span class="op">(</span><span class="va">Chick</span> <span class="op">/</span> <span class="va">Time</span><span class="op">)</span>,
-             data <span class="op">=</span> <span class="va">ChickWeight</span><span class="op">)</span> 
-
-<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span>, partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; # Effect Size for ANOVA (Type I)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Group      | Parameter | Eta2 (partial) |       95% CI</span>
-<span class="co">#&gt; ------------------------------------------------------</span>
-<span class="co">#&gt; Chick      |      Diet |           0.27 | [0.06, 1.00]</span>
-<span class="co">#&gt; Chick:Time |      Time |           0.87 | [0.85, 1.00]</span>
-<span class="co">#&gt; Chick:Time | Diet:Time |           0.22 | [0.11, 1.00]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span>
-
-<span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span>, generalized <span class="op">=</span> <span class="st">"Time"</span><span class="op">)</span>
-<span class="co">#&gt; # Effect Size for ANOVA (Type I)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Group      | Parameter | Eta2 (generalized) |       95% CI</span>
-<span class="co">#&gt; ----------------------------------------------------------</span>
-<span class="co">#&gt; Chick      |      Diet |               0.04 | [0.00, 1.00]</span>
-<span class="co">#&gt; Chick:Time |      Time |               0.74 | [0.71, 1.00]</span>
-<span class="co">#&gt; Chick:Time | Diet:Time |               0.03 | [0.00, 1.00]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - Observed variables: Time</span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>contrasts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'contr.sum'</span>, <span class="st">'contr.poly'</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ChickWeight"</span><span class="op">)</span></span>
+<span><span class="co"># keep only complete cases and convert `Time` to a factor</span></span>
+<span><span class="va">ChickWeight</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">ChickWeight</span>, <span class="fu"><a href="https://rdrr.io/r/stats/ave.html" class="external-link">ave</a></span><span class="op">(</span><span class="va">weight</span>, <span class="va">Chick</span>, FUN <span class="op">=</span> <span class="va">length</span><span class="op">)</span> <span class="op">==</span> <span class="fl">12</span><span class="op">)</span></span>
+<span><span class="va">ChickWeight</span><span class="op">$</span><span class="va">Time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">ChickWeight</span><span class="op">$</span><span class="va">Time</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">weight</span> <span class="op">~</span> <span class="va">Diet</span> <span class="op">*</span> <span class="va">Time</span> <span class="op">+</span> <span class="fu">Error</span><span class="op">(</span><span class="va">Chick</span> <span class="op">/</span> <span class="va">Time</span><span class="op">)</span>,</span>
+<span>             data <span class="op">=</span> <span class="va">ChickWeight</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span>, partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # Effect Size for ANOVA (Type I)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Group      | Parameter | Eta2 (partial) |       95% CI</span></span>
+<span><span class="co">#&gt; ------------------------------------------------------</span></span>
+<span><span class="co">#&gt; Chick      |      Diet |           0.27 | [0.06, 1.00]</span></span>
+<span><span class="co">#&gt; Chick:Time |      Time |           0.87 | [0.85, 1.00]</span></span>
+<span><span class="co">#&gt; Chick:Time | Diet:Time |           0.22 | [0.11, 1.00]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span>, generalized <span class="op">=</span> <span class="st">"Time"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # Effect Size for ANOVA (Type I)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Group      | Parameter | Eta2 (generalized) |       95% CI</span></span>
+<span><span class="co">#&gt; ----------------------------------------------------------</span></span>
+<span><span class="co">#&gt; Chick      |      Diet |               0.04 | [0.00, 1.00]</span></span>
+<span><span class="co">#&gt; Chick:Time |      Time |               0.74 | [0.71, 1.00]</span></span>
+<span><span class="co">#&gt; Chick:Time | Diet:Time |               0.03 | [0.00, 1.00]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - Observed variables: Time</span></span>
+<span><span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></span></code></pre></div>
 <p><strong>effectsize</strong> also offers <span class="math inline">\(\epsilon^2_p\)</span> (<code><a href="../reference/eta_squared.html">epsilon_squared()</a></code>) and <span class="math inline">\(\omega^2_p\)</span> (<code><a href="../reference/eta_squared.html">omega_squared()</a></code>), which are less biased estimates of the variance explained in the population <span class="citation">(T. L. Kelley 1935; Olejnik and Algina 2003)</span>. For more details about the various effect size measures and their applications, see the <a href="https://easystats.github.io/effectsize/articles/anovaES.html" class="external-link"><em>Effect sizes for ANOVAs</em> vignette</a>.</p>
 </div>
 <div class="section level3">
@@ -232,45 +232,45 @@
 </h4>
 <p>In many real world applications there are no straightforward ways of obtaining standardized effect sizes. However, it is possible to get approximations of most of the effect size indices (<em>d</em>, <em>r</em>, <span class="math inline">\(\eta^2_p\)</span>…) with the use of test statistics <span class="citation">(Friedman 1982)</span>. These conversions are based on the idea that test statistics are a function of effect size and sample size (or more often of degrees of freedom). Thus it is possible to reverse-engineer indices of effect size from test statistics (<em>F</em>, <em>t</em>, <span class="math inline">\(\chi^2\)</span>, and <em>z</em>).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span>f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">40.72</span>, <span class="fl">33.77</span><span class="op">)</span>,
-          df <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, df_error <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Eta2 (partial) |       95% CI</span>
-<span class="co">#&gt; -----------------------------</span>
-<span class="co">#&gt; 0.82           | [0.66, 1.00]</span>
-<span class="co">#&gt; 0.79           | [0.49, 1.00]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span>
-
-<span class="fu"><a href="../reference/t_to_r.html">t_to_d</a></span><span class="op">(</span>t <span class="op">=</span> <span class="op">-</span><span class="fl">5.14</span>, df_error <span class="op">=</span> <span class="fl">22</span><span class="op">)</span>
-<span class="co">#&gt; d     |         95% CI</span>
-<span class="co">#&gt; ----------------------</span>
-<span class="co">#&gt; -2.19 | [-3.23, -1.12]</span>
-
-<span class="fu"><a href="../reference/t_to_r.html">t_to_r</a></span><span class="op">(</span>t <span class="op">=</span> <span class="op">-</span><span class="fl">5.14</span>, df_error <span class="op">=</span> <span class="fl">22</span><span class="op">)</span>
-<span class="co">#&gt; r     |         95% CI</span>
-<span class="co">#&gt; ----------------------</span>
-<span class="co">#&gt; -0.74 | [-0.85, -0.49]</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span>f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">40.72</span>, <span class="fl">33.77</span><span class="op">)</span>,</span>
+<span>          df <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, df_error <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Eta2 (partial) |       95% CI</span></span>
+<span><span class="co">#&gt; -----------------------------</span></span>
+<span><span class="co">#&gt; 0.82           | [0.66, 1.00]</span></span>
+<span><span class="co">#&gt; 0.79           | [0.49, 1.00]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/t_to_r.html">t_to_d</a></span><span class="op">(</span>t <span class="op">=</span> <span class="op">-</span><span class="fl">5.14</span>, df_error <span class="op">=</span> <span class="fl">22</span><span class="op">)</span></span>
+<span><span class="co">#&gt; d     |         95% CI</span></span>
+<span><span class="co">#&gt; ----------------------</span></span>
+<span><span class="co">#&gt; -2.19 | [-3.23, -1.12]</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/t_to_r.html">t_to_r</a></span><span class="op">(</span>t <span class="op">=</span> <span class="op">-</span><span class="fl">5.14</span>, df_error <span class="op">=</span> <span class="fl">22</span><span class="op">)</span></span>
+<span><span class="co">#&gt; r     |         95% CI</span></span>
+<span><span class="co">#&gt; ----------------------</span></span>
+<span><span class="co">#&gt; -0.74 | [-0.85, -0.49]</span></span></code></pre></div>
 <p>These functions also power the <code><a href="../reference/effectsize.html">effectsize()</a></code> convenience function for estimating effect sizes from R’s <code>htest</code>-type objects. For example:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">hardlyworking</span>, package <span class="op">=</span> <span class="st">"effectsize"</span><span class="op">)</span>
-
-<span class="va">aov1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/oneway.test.html" class="external-link">oneway.test</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">n_comps</span>, 
-                    data <span class="op">=</span> <span class="va">hardlyworking</span>, var.equal <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">aov1</span><span class="op">)</span>
-<span class="co">#&gt; Eta2 |       95% CI</span>
-<span class="co">#&gt; -------------------</span>
-<span class="co">#&gt; 0.20 | [0.14, 1.00]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span>
-
-<span class="va">xtab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">762</span>, <span class="fl">327</span>, <span class="fl">468</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>, <span class="fl">239</span>, <span class="fl">477</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>, <span class="fl">239</span>, <span class="fl">477</span><span class="op">)</span><span class="op">)</span>
-<span class="va">Xsq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html" class="external-link">chisq.test</a></span><span class="op">(</span><span class="va">xtab</span><span class="op">)</span>
-<span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">Xsq</span><span class="op">)</span>
-<span class="co">#&gt; Cramer's V |       95% CI</span>
-<span class="co">#&gt; -------------------------</span>
-<span class="co">#&gt; 0.07       | [0.05, 1.00]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">hardlyworking</span>, package <span class="op">=</span> <span class="st">"effectsize"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">aov1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/oneway.test.html" class="external-link">oneway.test</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">n_comps</span>, </span>
+<span>                    data <span class="op">=</span> <span class="va">hardlyworking</span>, var.equal <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">aov1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Eta2 |       95% CI</span></span>
+<span><span class="co">#&gt; -------------------</span></span>
+<span><span class="co">#&gt; 0.20 | [0.14, 1.00]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></span>
+<span></span>
+<span><span class="va">xtab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">762</span>, <span class="fl">327</span>, <span class="fl">468</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>, <span class="fl">239</span>, <span class="fl">477</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>, <span class="fl">239</span>, <span class="fl">477</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">Xsq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html" class="external-link">chisq.test</a></span><span class="op">(</span><span class="va">xtab</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">Xsq</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Cramer's V |       95% CI</span></span>
+<span><span class="co">#&gt; -------------------------</span></span>
+<span><span class="co">#&gt; 0.07       | [0.05, 1.00]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></span></code></pre></div>
 <p>These functions also power our <em>Effect Sizes From Test Statistics</em> shiny app (<a href="https://easystats4u.shinyapps.io/statistic2effectsize/" class="external-link uri">https://easystats4u.shinyapps.io/statistic2effectsize/</a>).</p>
 </div>
 <div class="section level4">
@@ -278,17 +278,17 @@
 </h4>
 <p>For comparisons between different types of designs and analyses, it is useful to be able to convert between different types of effect sizes [<em>d</em>, <em>r</em>, Odds ratios and Risk ratios; <span class="citation">Borenstein et al. (2009)</span>; <span class="citation">Grant (2014)</span>].</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/d_to_r.html">r_to_d</a></span><span class="op">(</span><span class="fl">0.7</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.960392</span>
-
-<span class="fu"><a href="../reference/d_to_r.html">d_to_oddsratio</a></span><span class="op">(</span><span class="fl">1.96</span><span class="op">)</span>
-<span class="co">#&gt; [1] 34.98946</span>
-
-<span class="fu"><a href="../reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio</a></span><span class="op">(</span><span class="fl">34.99</span>, p0 <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span>
-<span class="co">#&gt; [1] 2.397232</span>
-
-<span class="fu"><a href="../reference/d_to_r.html">oddsratio_to_r</a></span><span class="op">(</span><span class="fl">34.99</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.6999301</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/d_to_r.html">r_to_d</a></span><span class="op">(</span><span class="fl">0.7</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1.960392</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/d_to_r.html">d_to_oddsratio</a></span><span class="op">(</span><span class="fl">1.96</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 34.98946</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio</a></span><span class="op">(</span><span class="fl">34.99</span>, p0 <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2.397232</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/d_to_r.html">oddsratio_to_r</a></span><span class="op">(</span><span class="fl">34.99</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.6999301</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -296,9 +296,9 @@
 </h3>
 <p>Finally, <strong>effectsize</strong> provides convenience functions to apply existing or custom interpretation rules of thumb, such as for instance Cohen’s (1988). Although we strongly advocate for the cautious and parsimonious use of such judgment-replacing tools, we provide these functions to allow users and developers to explore and hopefully gain a deeper understanding of the relationship between data values and their interpretation. More information is available in the <a href="https://easystats.github.io/effectsize/articles/interpret.html" class="external-link"><em>Automated Interpretation of Indices of Effect Size</em> vignette</a>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.02</span>, <span class="fl">0.52</span>, <span class="fl">0.86</span><span class="op">)</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "very small" "medium"     "large"     </span>
-<span class="co">#&gt; (Rules: cohen1988)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.02</span>, <span class="fl">0.52</span>, <span class="fl">0.86</span><span class="op">)</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "very small" "medium"     "large"     </span></span>
+<span><span class="co">#&gt; (Rules: cohen1988)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -381,7 +381,7 @@ Steiger, James H. 2004. <span>“Beyond the <span>F</span> Test: Effect Size Con
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer>

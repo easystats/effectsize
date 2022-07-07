@@ -117,7 +117,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/" class="external-link">effectsize</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/" class="external-link">effectsize</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="supporting-anova-effect-sizes">Supporting ANOVA Effect Sizes<a class="anchor" aria-label="anchor" href="#supporting-anova-effect-sizes"></a>
 </h3>
@@ -135,20 +135,20 @@
 <p>Optionally, one of the rows can have a <code>(Intercept)</code> value for <code>Parameter</code>.</p>
 <p>An example of a minimally valid data frame:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">min_aov</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
-  Parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"(Intercept)"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"Residuals"</span><span class="op">)</span>,
-  Sum_Squares <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">10</span>, <span class="fl">100</span><span class="op">)</span>,
-  df <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">50</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">min_aov</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  Parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"(Intercept)"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"Residuals"</span><span class="op">)</span>,</span>
+<span>  Sum_Squares <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">10</span>, <span class="fl">100</span><span class="op">)</span>,</span>
+<span>  df <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">50</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Pass the data frame to <code><a href="../reference/effectsize_API.html">.es_aov_simple()</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/effectsize_API.html">.es_aov_simple</a></span><span class="op">(</span>
-  <span class="va">min_aov</span>,
-  type <span class="op">=</span> <span class="st">"eta"</span>, partial <span class="op">=</span> <span class="cn">TRUE</span>, generalized <span class="op">=</span> <span class="cn">FALSE</span>,
-  include_intercept <span class="op">=</span> <span class="cn">FALSE</span>,
-  ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"greater"</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize_API.html">.es_aov_simple</a></span><span class="op">(</span></span>
+<span>  <span class="va">min_aov</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"eta"</span>, partial <span class="op">=</span> <span class="cn">TRUE</span>, generalized <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  include_intercept <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt;   Parameter Eta2_partial   CI CI_low CI_high
 &gt; 1         A        0.286 0.95   0.12       1
 &gt; 2         B        0.091 0.95   0.00       1</code></pre>
@@ -177,21 +177,21 @@
 <p>Optionally, one of the rows can have a <code>(Intercept)</code> value for <code>Parameter</code>.</p>
 <p>An example of a minimally valid data frame:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">min_aovlist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
-  Group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"S"</span>, <span class="st">"S"</span>, <span class="st">"S:A"</span>, <span class="st">"S:A"</span><span class="op">)</span>,
-  Parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"(Intercept)"</span>, <span class="st">"Residuals"</span>, <span class="st">"A"</span>, <span class="st">"Residuals"</span><span class="op">)</span>,
-  Sum_Squares <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">34</span>, <span class="fl">21</span>, <span class="fl">34</span>, <span class="fl">400</span><span class="op">)</span>,
-  df <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">12</span>, <span class="fl">4</span>, <span class="fl">30</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">min_aovlist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  Group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"S"</span>, <span class="st">"S"</span>, <span class="st">"S:A"</span>, <span class="st">"S:A"</span><span class="op">)</span>,</span>
+<span>  Parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"(Intercept)"</span>, <span class="st">"Residuals"</span>, <span class="st">"A"</span>, <span class="st">"Residuals"</span><span class="op">)</span>,</span>
+<span>  Sum_Squares <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">34</span>, <span class="fl">21</span>, <span class="fl">34</span>, <span class="fl">400</span><span class="op">)</span>,</span>
+<span>  df <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">12</span>, <span class="fl">4</span>, <span class="fl">30</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Pass the data frame to <code><a href="../reference/effectsize_API.html">.es_aov_strata()</a></code>, along with a list of predictors (including the stratifying variables) to the <code>DV_names</code> argument:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/effectsize_API.html">.es_aov_strata</a></span><span class="op">(</span>
-  <span class="va">min_aovlist</span>, DV_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"S"</span>, <span class="st">"A"</span><span class="op">)</span>,
-  type <span class="op">=</span> <span class="st">"omega"</span>, partial <span class="op">=</span> <span class="cn">TRUE</span>, generalized <span class="op">=</span> <span class="cn">FALSE</span>,
-  ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"greater"</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>,
-  include_intercept <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize_API.html">.es_aov_strata</a></span><span class="op">(</span></span>
+<span>  <span class="va">min_aovlist</span>, DV_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"S"</span>, <span class="st">"A"</span><span class="op">)</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"omega"</span>, partial <span class="op">=</span> <span class="cn">TRUE</span>, generalized <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  include_intercept <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt;   Group   Parameter Omega2_partial   CI CI_low CI_high
 &gt; 1     S (Intercept)          0.568 0.95   0.21       1
 &gt; 2   S:A           A         -0.042 0.95   0.00       1</code></pre>
@@ -218,21 +218,21 @@
 <p>Optionally, one of the rows can have <code>(Intercept)</code> as the <code>Parameter</code>.</p>
 <p>An example of a minimally valid data frame:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">min_anova</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
-  Parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"(Intercept)"</span>, <span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,
-  F <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">0.7</span><span class="op">)</span>,
-  df <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,
-  df_error <span class="op">=</span> <span class="fl">34</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">min_anova</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  Parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"(Intercept)"</span>, <span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,</span>
+<span>  F <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">0.7</span><span class="op">)</span>,</span>
+<span>  df <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  df_error <span class="op">=</span> <span class="fl">34</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Pass the table to <code><a href="../reference/effectsize_API.html">.es_aov_table()</a></code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/effectsize_API.html">.es_aov_table</a></span><span class="op">(</span>
-  <span class="va">min_anova</span>,
-  type <span class="op">=</span> <span class="st">"eta"</span>, partial <span class="op">=</span> <span class="cn">TRUE</span>, generalized <span class="op">=</span> <span class="cn">FALSE</span>,
-  include_intercept <span class="op">=</span> <span class="cn">FALSE</span>,
-  ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"greater"</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize_API.html">.es_aov_table</a></span><span class="op">(</span></span>
+<span>  <span class="va">min_anova</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"eta"</span>, partial <span class="op">=</span> <span class="cn">TRUE</span>, generalized <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  include_intercept <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt;   Parameter Eta2_partial   CI CI_low CI_high
 &gt; 1         A         0.17 0.95  0.023       1
 &gt; 2         B         0.04 0.95  0.000       1</code></pre>
@@ -246,31 +246,31 @@
 </h4>
 <p>Let’s fit a simple linear model and change its class:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op">+</span> <span class="va">am</span>, <span class="va">mtcars</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"superMODEL"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op">+</span> <span class="va">am</span>, <span class="va">mtcars</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"superMODEL"</span></span></code></pre></div>
 <p>We now need a new <code>.anova_es.superMODEL</code> function:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">.anova_es.superMODEL</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-  <span class="co"># Get ANOVA table</span>
-  <span class="va">anov</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu">stats</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/r/stats/anova.lm.html" class="external-link">anova.lm</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">anov</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">anov</span><span class="op">)</span>
-  
-  <span class="co"># Clean up</span>
-  <span class="va">anov</span><span class="op">[[</span><span class="st">"Parameter"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">anov</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">anov</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sum_Squares"</span>, <span class="st">"df"</span><span class="op">)</span>
-  
-  <span class="co"># Pass</span>
-  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/effectsize_API.html">.es_aov_simple</a></span><span class="op">(</span><span class="va">anov</span>, <span class="va">...</span><span class="op">)</span>
-  
-  <span class="co"># Set attribute</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">out</span>, <span class="st">"anova_type"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">1</span>
-  
-  <span class="va">out</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">.anova_es.superMODEL</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Get ANOVA table</span></span>
+<span>  <span class="va">anov</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu">stats</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/r/stats/anova.lm.html" class="external-link">anova.lm</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">anov</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">anov</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Clean up</span></span>
+<span>  <span class="va">anov</span><span class="op">[[</span><span class="st">"Parameter"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">anov</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">anov</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sum_Squares"</span>, <span class="st">"df"</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Pass</span></span>
+<span>  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/effectsize_API.html">.es_aov_simple</a></span><span class="op">(</span><span class="va">anov</span>, <span class="va">...</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Set attribute</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">out</span>, <span class="st">"anova_type"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span>  </span>
+<span>  <span class="va">out</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>And… that’s it! Our new <code>superMODEL</code> class of models is fully supported!</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type I)
 &gt; 
 &gt; Parameter   | Eta2 (partial) |       95% CI
@@ -280,7 +280,7 @@
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">mod</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">mod</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type I)
 &gt; 
 &gt; Parameter   | Eta2 |       95% CI
@@ -290,7 +290,7 @@
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type I)
 &gt; 
 &gt; Parameter   | Omega2 (partial) |       95% CI
@@ -300,7 +300,7 @@
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Etc...</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Etc...</span></span></code></pre></div>
 <!-- ## Supporting Model Re-Fitting with Standardized Data -->
 <!-- `effectsize::standardize.default()` should support your model if you have methods for: -->
 <!-- 1. `{insight}` functions. -->
@@ -348,7 +348,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer>
