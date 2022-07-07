@@ -263,7 +263,7 @@ glass_delta <- function(x,
     n <- length(x)
     s <- stats::sd(x - y)
 
-    hn <- 1 / (n - 1)
+    hn <- 1 / n
     se <- s / sqrt(n)
     df <- n - 1
 
