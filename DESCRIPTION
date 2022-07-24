@@ -66,7 +66,9 @@ Imports:
 Remotes: 
     easystats/datawizard, 
     easystats/parameters, 
-    easystats/performance
+    easystats/performance,
+    easystats/correlation,
+    easystats/bayestestR
 Suggests:
     correlation (>= 0.8.1),
     see (>= 0.7.1),
