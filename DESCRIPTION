@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size and Standardized Parameters
-Version: 0.7.0
+Version: 0.7.0.1
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
@@ -57,15 +57,19 @@ Depends:
     R (>= 3.5)
 Imports:
     bayestestR (>= 0.12.1),
-    insight (>= 0.17.0),
-    parameters (>= 0.18.0),
+    insight (>= 0.18.0),
+    parameters (>= 0.18.1),
     performance (>= 0.9.0),
-    datawizard (>= 0.4.1.6),
+    datawizard (>= 0.4.1.10),
     stats,
     utils
+Remotes: 
+    easystats/datawizard, 
+    easystats/parameters, 
+    easystats/performance
 Suggests:
-    correlation (>= 0.8.0),
-    see (>= 0.6.9),
+    correlation (>= 0.8.1),
+    see (>= 0.7.1),
     afex,
     BayesFactor,
     boot,
