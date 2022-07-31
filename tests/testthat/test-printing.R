@@ -1,5 +1,4 @@
 if (require("testthat") && require("effectsize")) {
-
   test_that("print | effectsize table", {
     ## digits
     d <- cohens_d(1:4, c(1, 1:5))
@@ -149,7 +148,8 @@ if (require("testthat") && require("effectsize")) {
     expect_output(print(r1), regexp = "XX")
     expect_output(print(r1), regexp = "1 <   b   <= 2")
     expect_output(print(r1, digits = "scientific1"),
-                  regexp = "2.0e+00 <   c   <= 3.0e+00", fixed = TRUE)
+      regexp = "2.0e+00 <   c   <= 3.0e+00", fixed = TRUE
+    )
 
 
     r2 <- rules(c(1, 2, 3.1), letters[1:3], name = "YY")
@@ -162,6 +162,6 @@ if (require("testthat") && require("effectsize")) {
 
 
     expect_output(print(interpret(0, r1)), '"a"')
-    expect_output(print(interpret(0, r1)), 'XX')
+    expect_output(print(interpret(0, r1)), "XX")
   })
 }

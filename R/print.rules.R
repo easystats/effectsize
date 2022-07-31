@@ -72,10 +72,12 @@ format.rules <- function(x, digits = "signif2", output = "text", ...) {
 
   if (output == "text") {
     if (length(L) != length(V)) {
-      colnames(out)[c(1,3)] <- " "
+      colnames(out)[c(1, 3)] <- " "
     }
-    caption <- c(sprintf("# Reference %s (%s)", title_type, name),
-                 .pcl["interpret"])
+    caption <- c(
+      sprintf("# Reference %s (%s)", title_type, name),
+      .pcl["interpret"]
+    )
   } else {
     caption <- sprintf("Reference %s (%s)", title_type, name)
   }

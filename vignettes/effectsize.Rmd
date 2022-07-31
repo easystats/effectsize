@@ -55,9 +55,11 @@ cohens_d(mpg ~ am, data = mtcars)
 Pearson's $\phi$ (`phi()`) and Cramér's *V* (`cramers_v()`) can be used to estimate the strength of association between two categorical variables [@cramer1946mathematical], while Cohen's *g* (`cohens_g()`) estimates the deviance between paired categorical variables [@cohen1988statistical].
 
 ```{r}
-M <- rbind(c(150, 130, 35, 55),
-           c(100, 50,  10, 40),
-           c(165, 65,  2,  25))
+M <- rbind(
+  c(150, 130, 35, 55),
+  c(100, 50, 10, 40),
+  c(165, 65, 2, 25)
+)
 
 cramers_v(M)
 ```
@@ -92,7 +94,7 @@ cramers_v(M)
 Unlike standardized parameters, the effect sizes reported in the context of ANOVAs (analysis of variance) or ANOVA-like tables represent the amount of variance explained by each of the model's terms, where each term can be represented by one or more parameters. `eta_squared()` can produce such popular effect sizes as Eta-squared ($\eta^2$), its partial version ($\eta^2_p$), as well as the generalized $\eta^2_G$ [@cohen1988statistical; @olejnik2003generalized]:
 
 ```{r}
-options(contrasts = c('contr.sum', 'contr.poly'))
+options(contrasts = c("contr.sum", "contr.poly"))
 
 data("ChickWeight")
 # keep only complete cases and convert `Time` to a factor
@@ -100,7 +102,8 @@ ChickWeight <- subset(ChickWeight, ave(weight, Chick, FUN = length) == 12)
 ChickWeight$Time <- factor(ChickWeight$Time)
 
 model <- aov(weight ~ Diet * Time + Error(Chick / Time),
-             data = ChickWeight) 
+  data = ChickWeight
+)
 
 eta_squared(model, partial = TRUE)
 
@@ -116,8 +119,10 @@ eta_squared(model, generalized = "Time")
 In many real world applications there are no straightforward ways of obtaining standardized effect sizes. However, it is possible to get approximations of most of the effect size indices (*d*, *r*, $\eta^2_p$...) with the use of test statistics [@friedman1982simplified]. These conversions are based on the idea that test statistics are a function of effect size and sample size (or more often of degrees of freedom). Thus it is possible to reverse-engineer indices of effect size from test statistics (*F*, *t*, $\chi^2$, and *z*). 
 
 ```{r}
-F_to_eta2(f = c(40.72, 33.77),
-          df = c(2, 1), df_error = c(18, 9))
+F_to_eta2(
+  f = c(40.72, 33.77),
+  df = c(2, 1), df_error = c(18, 9)
+)
 
 t_to_d(t = -5.14, df_error = 22)
 
@@ -129,8 +134,9 @@ These functions also power the `effectsize()` convenience function for estimatin
 ```{r}
 data(hardlyworking, package = "effectsize")
 
-aov1 <- oneway.test(salary ~ n_comps, 
-                    data = hardlyworking, var.equal = TRUE)
+aov1 <- oneway.test(salary ~ n_comps,
+  data = hardlyworking, var.equal = TRUE
+)
 effectsize(aov1)
 
 xtab <- rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477))

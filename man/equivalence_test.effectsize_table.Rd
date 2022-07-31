@@ -67,8 +67,10 @@ model <- aov(mpg ~ hp + am * factor(cyl), data = mtcars)
 es <- eta_squared(model, ci = 0.9, alternative = "two.sided")
 equivalence_test(es, range = 0.30) # TOST
 
-RCT <- matrix(c(71, 101,
-                50, 100), nrow = 2)
+RCT <- matrix(c(
+  71, 101,
+  50, 100
+), nrow = 2)
 OR <- oddsratio(RCT, alternative = "greater")
 equivalence_test(OR, range = 1)
 

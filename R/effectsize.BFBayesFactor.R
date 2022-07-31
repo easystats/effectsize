@@ -28,7 +28,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   # Clean up
   out <- bayestestR::describe_posterior(pars$res, test = test, ...)
   if (isTRUE(type == "cles")) {
-    colnames(out)[2] <-  "Coefficient"
+    colnames(out)[2] <- "Coefficient"
   } else {
     colnames(out)[2] <- out$Parameter
     out$Parameter <- NULL
@@ -52,19 +52,19 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   if (is.null(type)) type <- "cramers_v"
 
   f <- switch(tolower(type),
-              v = ,
-              cramers_v = cramers_v,
-              w = ,
-              cohens_w = cohens_w,
-              phi = phi,
-              c = ,
-              pearsons_c = pearsons_c,
-              h = ,
-              cohens_h = cohens_h,
-              or = ,
-              oddsratio = oddsratio,
-              rr = ,
-              riskratio = riskratio
+    v = ,
+    cramers_v = cramers_v,
+    w = ,
+    cohens_w = cohens_w,
+    phi = phi,
+    c = ,
+    pearsons_c = pearsons_c,
+    h = ,
+    cohens_h = cohens_h,
+    or = ,
+    oddsratio = oddsratio,
+    rr = ,
+    riskratio = riskratio
   )
   data <- insight::get_data(model)
   posts <- insight::get_parameters(model)
@@ -76,9 +76,11 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   res <- data.frame(ES)
   colnames(res) <- colnames(f(data, ci = NULL))
 
-  list(res = res,
-       attr = NULL,
-       xtra_class = NULL)
+  list(
+    res = res,
+    attr = NULL,
+    xtra_class = NULL
+  )
 }
 
 
@@ -106,9 +108,11 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
     xtra_class <- NULL
   }
 
-  list(res = res,
-       attr = list(mu = mu, paired = paired),
-       xtra_class = xtra_class)
+  list(
+    res = res,
+    attr = list(mu = mu, paired = paired),
+    xtra_class = xtra_class
+  )
 }
 
 
@@ -117,9 +121,11 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   rho <- insight::get_parameters(model)[["rho"]]
   res <- data.frame(rho = rho)
 
-  list(res = res,
-       attr = NULL,
-       xtra_class = NULL)
+  list(
+    res = res,
+    attr = NULL,
+    xtra_class = NULL
+  )
 }
 
 
@@ -130,7 +136,9 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   p0 <- model@denominator@identifier[["p0"]]
   xtra_footer <- list(c(sprintf("\n- Against the null: p = %s.", p0), "cyan"))
 
-  list(res = res,
-       attr = list(xtra_footer = xtra_footer),
-       xtra_class = NULL)
+  list(
+    res = res,
+    attr = list(xtra_footer = xtra_footer),
+    xtra_class = NULL
+  )
 }

@@ -22,7 +22,8 @@ if (require("testthat") && require("effectsize")) {
     es_tab <- eta_squared(a, partial = TRUE)
 
     es_post <- eta_squared_posterior(fit_bayes,
-                                     ss_function = car::Anova, type = 3)
+      ss_function = car::Anova, type = 3
+    )
     expect_equal(colnames(es_post), es_tab$Parameter)
 
     # this is a very soft test...
@@ -35,8 +36,9 @@ if (require("testthat") && require("effectsize")) {
     es_tab <- eta_squared(a, partial = FALSE)
 
     es_post <- eta_squared_posterior(fit_bayes,
-                                     partial = FALSE,
-                                     ss_function = car::Anova, type = 3)
+      partial = FALSE,
+      ss_function = car::Anova, type = 3
+    )
     expect_equal(colnames(es_post), es_tab$Parameter)
 
     # this is a very soft test...

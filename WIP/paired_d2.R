@@ -33,8 +33,8 @@ paired_d <- function(x, group, block, data = NULL,
 }
 
 .paired_d_z_t <- function(data, type,
-                         mu = 0, ci = 0.95, alternative = "two.sided") {
-  data <- data[order(data$groups),]
+                          mu = 0, ci = 0.95, alternative = "two.sided") {
+  data <- data[order(data$groups), ]
   data <- aggregate(data$x, data[2], diff)
 
   out <- cohens_d(-data$x, mu = mu, ci = ci, alternative = alternative)
@@ -50,7 +50,7 @@ paired_d <- function(x, group, block, data = NULL,
 }
 
 .paired_d_d_a_r <- function(data, type,
-                           mu = 0, ci = 0.95, alternative = "two.sided") {
+                            mu = 0, ci = 0.95, alternative = "two.sided") {
   # Use ANOVA decomp
   mod <- stats::aov(x ~ groups + Error(blocks / groups), data = data)
   pars <- as.data.frame(parameters::model_parameters(mod))
@@ -60,23 +60,23 @@ paired_d <- function(x, group, block, data = NULL,
   # a = blocks:groups
   is_d <-
     pars$Paramete == "groups" &
-    pars$df == 1 &
-    pars$Group == "blocks:groups"
+      pars$df == 1 &
+      pars$Group == "blocks:groups"
 
   d <- -unname(coef(mod[["blocks:groups"]]))
 
   if (type %in% c("d", "a")) {
     ss <- sum(pars[!is_d, "Sum_Squares"])
     df <- sum(pars[!is_d, "df"])
-    s <- sqrt(ss/df)
+    s <- sqrt(ss / df)
   } else if (type == "r") {
     is_r <- pars$Group == "Within" & pars$Parameter == "Residuals"
     ss <- pars[is_r, "Sum_Squares"]
     df <- pars[is_r, "df"]
-    s <- sqrt(ss/df)
+    s <- sqrt(ss / df)
   }
 
-  out <- data.frame(d = (d - mu)/s)
+  out <- data.frame(d = (d - mu) / s)
   if (type != "d") names(out) <- paste0("d_", type)
 
   if (!is.null(ci)) {
@@ -87,13 +87,15 @@ paired_d <- function(x, group, block, data = NULL,
 
     is_mse <-
       pars$Paramete == "Residuals" &
-      pars$Group == "blocks:groups"
+        pars$Group == "blocks:groups"
 
     # Delta method to get se
     beta <- c(d - mu, s)
-    V <- matrix(c(vcov(mod[["blocks:groups"]]) ,0,
-                  0, 2/df), nrow = 2)
-    se <- .deltamethod( ~ x1 / x2, beta, V, ses = TRUE)
+    V <- matrix(c(
+      vcov(mod[["blocks:groups"]]), 0,
+      0, 2 / df
+    ), nrow = 2)
+    se <- .deltamethod(~ x1 / x2, beta, V, ses = TRUE)
 
     # Critical value
     tc <- pt(0.5 + ci.level / 2, df = pars[is_mse, "df"])
@@ -121,19 +123,23 @@ paired_d <- function(x, group, block, data = NULL,
 }
 
 .paired_d_av_rm <- function(data, type,
-                           mu = 0, ci = 0.95, alternative = "two.sided") {
-  data <- data[order(data[[1]], data[[2]]),]
+                            mu = 0, ci = 0.95, alternative = "two.sided") {
+  data <- data[order(data[[1]], data[[2]]), ]
 
   d <- -diff(tapply(data$x, data$groups, mean))
   ss <- tapply(data$x, data$groups, sd)
 
-  r <- cor(data$x[data$groups==data$groups[1]],
-           data$x[data$groups!=data$groups[1]])
-  co <- cov(data$x[data$groups==data$groups[1]],
-            data$x[data$groups!=data$groups[1]])
-  n <- nrow(data)/2
+  r <- cor(
+    data$x[data$groups == data$groups[1]],
+    data$x[data$groups != data$groups[1]]
+  )
+  co <- cov(
+    data$x[data$groups == data$groups[1]],
+    data$x[data$groups != data$groups[1]]
+  )
+  n <- nrow(data) / 2
 
-  Sdiff <- sqrt(sum(ss^2) -2*co)
+  Sdiff <- sqrt(sum(ss^2) - 2 * co)
 
   if (type == "av") {
     out <- data.frame(d_av = (d - mu) / mean(ss))
@@ -148,8 +154,8 @@ paired_d <- function(x, group, block, data = NULL,
     out$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
-    tc <- qt(0.5+ci.level/2, df = n-1, lower.tail = TRUE)
-    se <- sqrt((2*Sdiff^2)/(n * sum(ss)))
+    tc <- qt(0.5 + ci.level / 2, df = n - 1, lower.tail = TRUE)
+    se <- sqrt((2 * Sdiff^2) / (n * sum(ss)))
 
     out$CI_low <- out[[1]] - tc * se
     out$CI_high <- out[[1]] + tc * se
@@ -182,14 +188,18 @@ paired_d <- function(x, group, block, data = NULL,
 
 
 #' @keywords internal
-.deltamethod <- function (g, mean, cov, ses = TRUE) {
+.deltamethod <- function(g, mean, cov, ses = TRUE) {
   cov <- as.matrix(cov)
   n <- length(mean)
-  if (!is.list(g))
+  if (!is.list(g)) {
     g <- list(g)
-  if ((dim(cov)[1] != n) || (dim(cov)[2] != n))
-    stop(paste("Covariances should be a ", n, " by ", n,
-               " matrix"))
+  }
+  if ((dim(cov)[1] != n) || (dim(cov)[2] != n)) {
+    stop(paste(
+      "Covariances should be a ", n, " by ", n,
+      " matrix"
+    ))
+  }
   syms <- paste("x", 1:n, sep = "")
   for (i in 1:n) assign(syms[i], mean[i])
   gdashmu <- t(sapply(g, function(form) {
@@ -199,6 +209,7 @@ paired_d <- function(x, group, block, data = NULL,
   if (ses) {
     new.se <- sqrt(diag(new.covar))
     new.se
+  } else {
+    new.covar
   }
-  else new.covar
 }

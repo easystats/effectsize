@@ -7,13 +7,15 @@
 }
 
 #' @keywords internal
-.nlist <- function (...) {
+.nlist <- function(...) {
   m <- match.call()
   dots <- list(...)
   no_names <- is.null(names(dots))
   has_name <- if (no_names) FALSE else nzchar(names(dots))
 
-  if (all(has_name)) return(dots)
+  if (all(has_name)) {
+    return(dots)
+  }
 
   nms <- as.character(m)[-1]
   if (no_names) {
@@ -46,8 +48,8 @@
       }
     )
     if (is.null(model) ||
-        # prevent self reference
-        inherits(model, "parameters_model")) {
+      # prevent self reference
+      inherits(model, "parameters_model")) {
       model <- tryCatch(
         {
           get(obj_name, envir = globalenv())

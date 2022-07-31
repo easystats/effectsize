@@ -22,11 +22,11 @@ interpret_vif <- function(vif, rules = "default") {
     rules,
     list(
       default = rules(c(5, 10),
-                      c("low", "moderate", "high"),
-                      name = "default", right = FALSE)
+        c("low", "moderate", "high"),
+        name = "default", right = FALSE
+      )
     )
   )
 
   interpret(vif, rules)
 }
-

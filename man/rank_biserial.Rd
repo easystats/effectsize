@@ -182,8 +182,10 @@ rank_biserial(wt ~ 1, data = mtcars, mu = 3)
 
 
 # Paired Samples ----------
-dat <- data.frame(Cond1 = c(1.83, 0.5, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.3),
-                  Cond2 = c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29))
+dat <- data.frame(
+  Cond1 = c(1.83, 0.5, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.3),
+  Cond2 = c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
+)
 (rb <- rank_biserial(Pair(Cond1, Cond2) ~ 1, data = dat, paired = TRUE))
 
 # same as:
@@ -202,9 +204,11 @@ rank_epsilon_squared(mpg ~ cyl, data = mtcars)
 
 # Kendall's W
 # ===========
-dat <- data.frame(cond = c("A", "B", "A", "B", "A", "B"),
-                  ID = c("L", "L", "M", "M", "H", "H"),
-                  y = c(44.56, 28.22, 24, 28.78, 24.56, 18.78))
+dat <- data.frame(
+  cond = c("A", "B", "A", "B", "A", "B"),
+  ID = c("L", "L", "M", "M", "H", "H"),
+  y = c(44.56, 28.22, 24, 28.78, 24.56, 18.78)
+)
 (W <- kendalls_w(y ~ cond | ID, data = dat, verbose = FALSE))
 
 interpret_kendalls_w(0.11)

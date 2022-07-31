@@ -19,7 +19,6 @@
 #' @importFrom insight format_value
 #' @export
 format_standardize <- function(x, reference = x, robust = FALSE, digits = 1, protect_integers = TRUE, ...) {
-
   # Check if robust info stored in attributes
   if ("robust" %in% names(attributes(reference))) {
     robust <- attributes(reference)$robust

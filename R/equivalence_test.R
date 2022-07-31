@@ -61,8 +61,10 @@
 #' es <- eta_squared(model, ci = 0.9, alternative = "two.sided")
 #' equivalence_test(es, range = 0.30) # TOST
 #'
-#' RCT <- matrix(c(71, 101,
-#'                 50, 100), nrow = 2)
+#' RCT <- matrix(c(
+#'   71, 101,
+#'   50, 100
+#' ), nrow = 2)
 #' OR <- oddsratio(RCT, alternative = "greater")
 #' equivalence_test(OR, range = 1)
 #'
@@ -92,7 +94,7 @@ equivalence_test.effectsize_table <- function(x,
   }
 
   # Validate range ---
-  x_es_info <- es_info[get_effectsize_name(colnames(x)),]
+  x_es_info <- es_info[get_effectsize_name(colnames(x)), ]
 
   if (length(range) == 1) {
     alt <- attr(x, "alternative", exact = TRUE)

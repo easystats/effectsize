@@ -79,11 +79,16 @@
 #' ## 2-by-2 tables
 #' ## -------------
 #' RCT <-
-#'   matrix(c(71, 30,
-#'            50, 100), nrow = 2, byrow = TRUE,
-#'          dimnames = list(
-#'            Diagnosis = c("Sick", "Recovered"),
-#'            Group = c("Treatment", "Control")))
+#'   matrix(c(
+#'     71, 30,
+#'     50, 100
+#'   ),
+#'   nrow = 2, byrow = TRUE,
+#'   dimnames = list(
+#'     Diagnosis = c("Sick", "Recovered"),
+#'     Group = c("Treatment", "Control")
+#'   )
+#'   )
 #' RCT # note groups are COLUMNS
 #'
 #' phi(RCT)
@@ -100,13 +105,18 @@
 #' ## -------------
 #'
 #' M <-
-#'   matrix(c(150, 100, 165,
-#'            130, 50, 65,
-#'            35, 10, 2,
-#'            55, 40, 25), nrow = 4,
-#'          dimnames = list(
-#'            Music = c("Pop", "Rock", "Jazz", "Classic"),
-#'            Study = c("Psych", "Econ", "Law")))
+#'   matrix(c(
+#'     150, 100, 165,
+#'     130, 50, 65,
+#'     35, 10, 2,
+#'     55, 40, 25
+#'   ),
+#'   nrow = 4,
+#'   dimnames = list(
+#'     Music = c("Pop", "Rock", "Jazz", "Classic"),
+#'     Study = c("Psych", "Econ", "Law")
+#'   )
+#'   )
 #' M
 #'
 #' cohens_w(M)
@@ -140,13 +150,18 @@
 #'
 #' ## Dependent (Paired) Contingency Tables
 #' ## -------------------------------------
-#
+#' #
 #' Performance <-
-#'   matrix(c(794, 150,
-#'            86, 570), nrow = 2,
-#'          dimnames = list(
-#'            "1st Survey" = c("Approve", "Disapprove"),
-#'            "2nd Survey" = c("Approve", "Disapprove")))
+#'   matrix(c(
+#'     794, 150,
+#'     86, 570
+#'   ),
+#'   nrow = 2,
+#'   dimnames = list(
+#'     "1st Survey" = c("Approve", "Disapprove"),
+#'     "2nd Survey" = c("Approve", "Disapprove")
+#'   )
+#'   )
 #' Performance
 #'
 #' cohens_g(Performance)
@@ -201,7 +216,7 @@ cohens_w <- function(x, y = NULL, ci = 0.95, alternative = "greater", ...) {
 
   if (inherits(x, "htest")) {
     if (!(grepl("Pearson's Chi-squared", x$method) ||
-          grepl("Chi-squared test for given probabilities", x$method))) {
+      grepl("Chi-squared test for given probabilities", x$method))) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
   } else {
@@ -252,7 +267,7 @@ normalized_chi <- function(x, y = NULL, ci = 0.95, alternative = "greater", ...)
 
   if (inherits(x, "htest")) {
     if (!(grepl("Pearson's Chi-squared", x$method) ||
-          grepl("Chi-squared test for given probabilities", x$method))) {
+      grepl("Chi-squared test for given probabilities", x$method))) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
   } else {
@@ -279,7 +294,7 @@ pearsons_c <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust =
 
   if (inherits(x, "htest")) {
     if (!(grepl("Pearson's Chi-squared", x$method) ||
-          grepl("Chi-squared test for given probabilities", x$method))) {
+      grepl("Chi-squared test for given probabilities", x$method))) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
   } else {
