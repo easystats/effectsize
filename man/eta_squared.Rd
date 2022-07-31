@@ -264,7 +264,6 @@ interpret_epsilon_squared(0.10, rules = "cohen1992")
 
 interpret(eta2, rules = "cohen1992")
 
-
 \dontshow{if (require("car") && require("afex")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Recommended: Type-2 or -3 effect sizes + effects coding
 # -------------------------------------------------------
@@ -279,19 +278,18 @@ eta_squared(model_anova)
 # afex takes care of both type-3 effects and effects coding:
 data(obk.long, package = "afex")
 model <- afex::aov_car(value ~ treatment * gender + Error(id / (phase)),
-                       data = obk.long, observed = "gender")
+  data = obk.long, observed = "gender"
+)
 eta_squared(model)
 epsilon_squared(model)
 omega_squared(model)
 eta_squared(model, generalized = TRUE) # observed vars are pulled from the afex model.
-
 \dontshow{\}) # examplesIf}
 \dontshow{if (require("lmerTest") && require("lme4")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Approx. effect sizes for mixed models
 ## -------------------------------------
 model <- lme4::lmer(mpg ~ am_f * cyl_f + (1 | vs), data = mtcars)
 omega_squared(model)
-
 \dontshow{\}) # examplesIf}
 \dontshow{if (require(rstanarm) && require(bayestestR) && require(car)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Bayesian Models (PPD)
@@ -303,14 +301,17 @@ fit_bayes <- rstanarm::stan_glm(
   refresh = 0
 )
 
-es <- eta_squared_posterior(fit_bayes, verbose = FALSE,
-                            ss_function = car::Anova, type = 3)
+es <- eta_squared_posterior(fit_bayes,
+  verbose = FALSE,
+  ss_function = car::Anova, type = 3
+)
 bayestestR::describe_posterior(es, test = NULL)
 
 
 # compare to:
 fit_freq <- lm(mpg ~ factor(cyl) * wt + qsec,
-               data = mtcars)
+  data = mtcars
+)
 aov_table <- car::Anova(fit_freq, type = 3)
 eta_squared(aov_table)
 }

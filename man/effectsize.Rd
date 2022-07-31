@@ -104,9 +104,10 @@ if (require(BayesFactor)) {
   effectsize(bf_xtab)
   effectsize(bf_xtab, type = "oddsratio")
 
-  bf_ttest <- ttestBF(sleep$extra[sleep$group==1],
-                      sleep$extra[sleep$group==2],
-                      paired = TRUE, mu = -1)
+  bf_ttest <- ttestBF(sleep$extra[sleep$group == 1],
+    sleep$extra[sleep$group == 2],
+    paired = TRUE, mu = -1
+  )
   effectsize(bf_ttest)
 }
 }
