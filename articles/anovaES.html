@@ -440,16 +440,17 @@
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/rstanarm/" class="external-link">rstanarm</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">m_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html" class="external-link">stan_glm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">phase</span> <span class="op">+</span> <span class="va">treatment</span>, </span>
-<span>                    data <span class="op">=</span> <span class="va">obk.long</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">gaussian</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                    refresh <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">m_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html" class="external-link">stan_glm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">phase</span> <span class="op">+</span> <span class="va">treatment</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">obk.long</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">gaussian</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  refresh <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>We can use <code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> to get the posterior distribution of <span class="math inline">\(eta^2\)</span> or <span class="math inline">\(eta^2_p\)</span> for each effect. Like an ANOVA table, we must make sure to use the right effects-coding and <em>SS</em>-type:</p>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pes_posterior</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eta_squared.html">eta_squared_posterior</a></span><span class="op">(</span><span class="va">m_bayes</span>,</span>
 <span>  draws <span class="op">=</span> <span class="fl">500</span>, <span class="co"># how many samples from the PPD?</span></span>
 <span>  partial <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># partial eta squared</span></span>
 <span>  <span class="co"># type 3 SS</span></span>
-<span>  ss_function <span class="op">=</span> <span class="fu">car</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span>, type <span class="op">=</span> <span class="fl">3</span>, </span>
+<span>  ss_function <span class="op">=</span> <span class="fu">car</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span>, type <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -462,7 +463,7 @@
 &gt; 5  0.014 0.1156     0.406
 &gt; 6  0.025 0.0097     0.364</code></pre>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">bayestestR</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html" class="external-link">describe_posterior</a></span><span class="op">(</span><span class="va">pes_posterior</span>, </span>
+<code class="sourceCode R"><span><span class="fu">bayestestR</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html" class="external-link">describe_posterior</a></span><span class="op">(</span><span class="va">pes_posterior</span>,</span>
 <span>  rope_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span><span class="op">)</span>, test <span class="op">=</span> <span class="st">"rope"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Summary of Posterior Distribution

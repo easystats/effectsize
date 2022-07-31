@@ -321,8 +321,10 @@
 <p>In addition to <span class="math inline">\(\phi\)</span> and Pearson’s <em>C</em>, we can also compute the Odds-ratio (OR), where each column represents a different <em>group</em>. Values larger than 1 indicate that the odds are higher in the first group (and vice versa).</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">RCT</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">71</span>, <span class="fl">30</span>,</span>
-<span>    <span class="fl">50</span>, <span class="fl">100</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fl">71</span>, <span class="fl">30</span>,</span>
+<span>    <span class="fl">50</span>, <span class="fl">100</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    Diagnosis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sick"</span>, <span class="st">"Recovered"</span><span class="op">)</span>,</span>
@@ -364,9 +366,11 @@
 <p>For larger contingency tables Cramér’s <em>V</em>, Cohen’s <em>w</em> and Pearson’s <em>C</em> can be used. While Cramér’s <em>V</em> and Pearson’s <em>C</em> are capped at 1 (perfect association), Cohen’s <em>w</em> can be larger than 1 (for all three, 0 indicates no association between the variables).</p>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">Music</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">150</span>, <span class="fl">130</span>, <span class="fl">35</span>, <span class="fl">55</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fl">150</span>, <span class="fl">130</span>, <span class="fl">35</span>, <span class="fl">55</span>,</span>
 <span>    <span class="fl">100</span>, <span class="fl">50</span>, <span class="fl">10</span>, <span class="fl">40</span>,</span>
-<span>    <span class="fl">165</span>, <span class="fl">65</span>, <span class="fl">2</span>, <span class="fl">25</span><span class="op">)</span>,</span>
+<span>    <span class="fl">165</span>, <span class="fl">65</span>, <span class="fl">2</span>, <span class="fl">25</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  byrow <span class="op">=</span> <span class="cn">TRUE</span>, nrow <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    Study <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Psych"</span>, <span class="st">"Econ"</span>, <span class="st">"Law"</span><span class="op">)</span>,</span>
@@ -438,7 +442,7 @@
 </h4>
 <p>Cohen’s <em>w</em> and Pearson’s <em>C</em> are also applicable to tests of goodness-of-fit, where small values indicate no deviation from the hypothetical probabilities and large values indicate… large deviation from the hypothetical probabilities.</p>
 <div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">O</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">89</span>,  <span class="fl">37</span>,  <span class="fl">130</span>, <span class="fl">28</span>,  <span class="fl">2</span><span class="op">)</span> <span class="co"># observed group sizes</span></span>
+<code class="sourceCode R"><span><span class="va">O</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">89</span>, <span class="fl">37</span>, <span class="fl">130</span>, <span class="fl">28</span>, <span class="fl">2</span><span class="op">)</span> <span class="co"># observed group sizes</span></span>
 <span><span class="va">E</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.40</span>, <span class="fl">.20</span>, <span class="fl">.20</span>, <span class="fl">.15</span>, <span class="fl">.05</span><span class="op">)</span> <span class="co"># expected group freq</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html" class="external-link">chisq.test</a></span><span class="op">(</span><span class="va">O</span>, p <span class="op">=</span> <span class="va">E</span><span class="op">)</span></span></code></pre></div>
@@ -477,8 +481,10 @@
 <p>For dependent (paired) contingency tables, Cohen’s <em>g</em> represents the symmetry of the table, ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry).</p>
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">Performance</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">794</span>, <span class="fl">86</span>,</span>
-<span>    <span class="fl">150</span>, <span class="fl">570</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fl">794</span>, <span class="fl">86</span>,</span>
+<span>    <span class="fl">150</span>, <span class="fl">570</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="st">"1st Survey"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Approve"</span>, <span class="st">"Disapprove"</span><span class="op">)</span>,</span>
@@ -602,13 +608,15 @@
 <div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Subjects are COLUMNS</span></span>
 <span><span class="op">(</span><span class="va">ReactionTimes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">398</span>, <span class="fl">338</span>, <span class="fl">520</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fl">398</span>, <span class="fl">338</span>, <span class="fl">520</span>,</span>
 <span>    <span class="fl">325</span>, <span class="fl">388</span>, <span class="fl">555</span>,</span>
 <span>    <span class="fl">393</span>, <span class="fl">363</span>, <span class="fl">561</span>,</span>
 <span>    <span class="fl">367</span>, <span class="fl">433</span>, <span class="fl">470</span>,</span>
 <span>    <span class="fl">286</span>, <span class="fl">492</span>, <span class="fl">536</span>,</span>
 <span>    <span class="fl">362</span>, <span class="fl">475</span>, <span class="fl">496</span>,</span>
-<span>    <span class="fl">253</span>, <span class="fl">334</span>, <span class="fl">610</span><span class="op">)</span>,</span>
+<span>    <span class="fl">253</span>, <span class="fl">334</span>, <span class="fl">610</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  nrow <span class="op">=</span> <span class="fl">7</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Subject"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span>,</span>

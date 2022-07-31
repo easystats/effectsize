@@ -186,7 +186,8 @@
 <p>Pass the data frame to <code><a href="../reference/effectsize_API.html">.es_aov_strata()</a></code>, along with a list of predictors (including the stratifying variables) to the <code>DV_names</code> argument:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize_API.html">.es_aov_strata</a></span><span class="op">(</span></span>
-<span>  <span class="va">min_aovlist</span>, DV_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"S"</span>, <span class="st">"A"</span><span class="op">)</span>,</span>
+<span>  <span class="va">min_aovlist</span>,</span>
+<span>  DV_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"S"</span>, <span class="st">"A"</span><span class="op">)</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"omega"</span>, partial <span class="op">=</span> <span class="cn">TRUE</span>, generalized <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -255,17 +256,17 @@
 <span>  <span class="co"># Get ANOVA table</span></span>
 <span>  <span class="va">anov</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu">stats</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/r/stats/anova.lm.html" class="external-link">anova.lm</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="va">anov</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">anov</span><span class="op">)</span></span>
-<span>  </span>
+<span></span>
 <span>  <span class="co"># Clean up</span></span>
 <span>  <span class="va">anov</span><span class="op">[[</span><span class="st">"Parameter"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">anov</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">anov</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sum_Squares"</span>, <span class="st">"df"</span><span class="op">)</span></span>
-<span>  </span>
+<span></span>
 <span>  <span class="co"># Pass</span></span>
 <span>  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/effectsize_API.html">.es_aov_simple</a></span><span class="op">(</span><span class="va">anov</span>, <span class="va">...</span><span class="op">)</span></span>
-<span>  </span>
+<span></span>
 <span>  <span class="co"># Set attribute</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">out</span>, <span class="st">"anova_type"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
-<span>  </span>
+<span></span>
 <span>  <span class="va">out</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>And… that’s it! Our new <code>superMODEL</code> class of models is fully supported!</p>
