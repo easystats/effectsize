@@ -60,20 +60,20 @@ es_info <- matrix(c(
   "Odds_ratio", "Odds ratio", "twotail", 0, Inf, 1,
   "log_Odds_ratio", "log(Odds ratio)", "twotail", -Inf, Inf, 0,
   "Risk_ratio", "Risk ratio", "twotail", 0, Inf, 1,
-  "log_Risk_ratio", "log(Risk ratio)", "twotail",  -Inf, Inf, 0,
+  "log_Risk_ratio", "log(Risk ratio)", "twotail", -Inf, Inf, 0,
 
   ## ANOVA
   "Eta2", "Eta2", "onetail", 0, 1, 0,
-  "Eta2_partial", "Eta2 (partial)", "onetail",  0, 1, 0,
-  "Eta2_generalized", "Eta2 (generalized)", "onetail",  0, 1, 0,
-  "Epsilon2", "Epsilon2", "onetail",  0, 1, 0,
-  "Epsilon2_partial", "Epsilon2 (partial)", "onetail",  0, 1, 0,
-  "Omega2", "Omega2", "onetail",  0, 1, 0,
-  "Omega2_partial", "Omega2 (partial)", "onetail",  0, 1, 0,
-  "Cohens_f", "Cohen's f", "onetail",  0, Inf, 0,
-  "Cohens_f_partial", "Cohen's f (partial)", "onetail",  0, Inf, 0,
-  "Cohens_f2", "Cohen's f2", "onetail",  0, Inf, 0,
-  "Cohens_f2_partial", "Cohen's f2 (partial)", "onetail",  0, Inf, 0,
+  "Eta2_partial", "Eta2 (partial)", "onetail", 0, 1, 0,
+  "Eta2_generalized", "Eta2 (generalized)", "onetail", 0, 1, 0,
+  "Epsilon2", "Epsilon2", "onetail", 0, 1, 0,
+  "Epsilon2_partial", "Epsilon2 (partial)", "onetail", 0, 1, 0,
+  "Omega2", "Omega2", "onetail", 0, 1, 0,
+  "Omega2_partial", "Omega2 (partial)", "onetail", 0, 1, 0,
+  "Cohens_f", "Cohen's f", "onetail", 0, Inf, 0,
+  "Cohens_f_partial", "Cohen's f (partial)", "onetail", 0, Inf, 0,
+  "Cohens_f2", "Cohen's f2", "onetail", 0, Inf, 0,
+  "Cohens_f2_partial", "Cohen's f2 (partial)", "onetail", 0, Inf, 0,
 
   ## Rank
   "r_rank_biserial", "r (rank biserial)", "twotail", -1, 1, 0,
@@ -96,7 +96,7 @@ es_info <- matrix(c(
 
   ## Other
   "r", "r", "twotail", -1, 1, 0,
-  "d", "d", "twotail", -Inf, Inf,  0
+  "d", "d", "twotail", -Inf, Inf, 0
 ),
 ncol = 6, byrow = TRUE,
 dimnames = list(NULL, c("name", "label", "direction", "lb", "ub", "null"))

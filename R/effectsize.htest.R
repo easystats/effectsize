@@ -17,9 +17,12 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   } else if (grepl("Friedman", model$method)) {
     .effectsize_friedman.test(model, type = type, verbose = verbose, ...)
   } else {
-    if (verbose) warning("This 'htest' method is not (yet?) supported.\n",
-                         "Returning 'parameters::model_parameters(model)'.",
-                         call. = FALSE)
+    if (verbose) {
+      warning("This 'htest' method is not (yet?) supported.\n",
+        "Returning 'parameters::model_parameters(model)'.",
+        call. = FALSE
+      )
+    }
     parameters::model_parameters(model, verbose = verbose, ...)
   }
 }
@@ -35,7 +38,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   if (is.null(type)) type <- "d"
 
   dots$alternative <- model$alternative
-  dots$ci <- attr(model$conf.int,"conf.level")
+  dots$ci <- attr(model$conf.int, "conf.level")
   dots$mu <- model$null.value
 
   if (type == "cles") {
@@ -59,11 +62,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     }
 
     f <- switch(tolower(type),
-                d = ,
-                cohens_d = cohens_d,
-                g = ,
-                hedges_g = hedges_g,
-                cles = cles
+      d = ,
+      cohens_d = cohens_d,
+      g = ,
+      hedges_g = hedges_g,
+      cles = cles
     )
 
     args <- list(
@@ -124,15 +127,15 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     }
 
     f <- switch(tolower(type),
-                v = ,
-                cramers_v = chisq_to_cramers_v,
-                w = ,
-                cohens_w = chisq_to_cohens_w,
-                phi = chisq_to_phi,
-                c = ,
-                pearsons_c = chisq_to_pearsons_c,
-                chi = ,
-                normalized_chi = chisq_to_normalized
+      v = ,
+      cramers_v = chisq_to_cramers_v,
+      w = ,
+      cohens_w = chisq_to_cohens_w,
+      phi = chisq_to_phi,
+      c = ,
+      pearsons_c = chisq_to_pearsons_c,
+      chi = ,
+      normalized_chi = chisq_to_normalized
     )
 
     out <- f(
@@ -145,12 +148,12 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     )
   } else {
     f <- switch(tolower(type),
-                or = ,
-                oddsratio = oddsratio,
-                rr = ,
-                riskratio = riskratio,
-                h = ,
-                cohens_h = cohens_h
+      or = ,
+      oddsratio = oddsratio,
+      rr = ,
+      riskratio = riskratio,
+      h = ,
+      cohens_h = cohens_h
     )
 
     out <- f(x = model$observed, ...)
@@ -175,20 +178,20 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   if (is.null(type)) type <- "eta"
 
   f <- switch(tolower(type),
-              eta = ,
-              eta2 = ,
-              eta_squared = F_to_eta2,
-              epsilon = ,
-              epsilon2 = ,
-              epsilon_squared = F_to_epsilon2,
-              omega = ,
-              omega2 = ,
-              omega_squared = F_to_omega2,
-              f = ,
-              cohens_f = F_to_f,
-              f2 = ,
-              f_squared = ,
-              cohens_f2 = F_to_f2
+    eta = ,
+    eta2 = ,
+    eta_squared = F_to_eta2,
+    epsilon = ,
+    epsilon2 = ,
+    epsilon_squared = F_to_epsilon2,
+    omega = ,
+    omega2 = ,
+    omega_squared = F_to_omega2,
+    f = ,
+    cohens_f = F_to_f,
+    f2 = ,
+    f_squared = ,
+    cohens_f2 = F_to_f2
   )
 
   out <- f(
@@ -231,18 +234,18 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   if (is.null(type)) type <- "rb"
 
   dots$alternative <- model$alternative
-  dots$ci <- attr(model$conf.int,"conf.level")
+  dots$ci <- attr(model$conf.int, "conf.level")
   dots$mu <- model$null.value
 
-  .fail_if_approx(approx, ifelse(type=="cles", "cles", "rank_biserial"))
+  .fail_if_approx(approx, ifelse(type == "cles", "cles", "rank_biserial"))
 
   f <- switch(tolower(type),
-              r = ,
-              rb = ,
-              rbs = ,
-              r_rank_biserial = ,
-              rank_biserial = rank_biserial,
-              cles = cles
+    r = ,
+    rb = ,
+    rbs = ,
+    r_rank_biserial = ,
+    rank_biserial = rank_biserial,
+    cles = cles
   )
 
   args <- list(
@@ -276,7 +279,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   if (inherits(data, "data.frame")) {
     out <- rank_epsilon_squared(data[[1]], data[[2]], ...)
-  } else { # data frame
+  } else {
+    # data frame
     out <- rank_epsilon_squared(data, ...)
   }
   out
@@ -313,8 +317,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 .fail_if_approx <- function(approx, esf_name) {
   if (approx) {
     stop("Unable to retrieve data from htest object.",
-         "\nTry using '", esf_name, "()' directly.",
-         call. = FALSE
+      "\nTry using '", esf_name, "()' directly.",
+      call. = FALSE
     )
   }
   invisible(NULL)

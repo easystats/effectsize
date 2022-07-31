@@ -91,7 +91,7 @@ if (require("testthat") && require("effectsize")) {
     expect_true(w1[[1]] < w2[[1]])
     expect_true(nchi1[[1]] < nchi2[[1]])
     expect_true(nchi2[[1]] < w2[[1]])
-    expect_equal(w2[[1]] * sqrt(0.1/0.9), nchi2[[1]])
+    expect_equal(w2[[1]] * sqrt(0.1 / 0.9), nchi2[[1]])
     expect_true(w1$CI_low < w2$CI_low)
     expect_true(w2$CI_low < w2$CI_high)
     expect_equal(w2$CI_high, Inf)
@@ -152,7 +152,6 @@ if (require("testthat") && require("effectsize")) {
 
 
   test_that("Cohen's g", {
-
     # From mcnemar.test
     Performance <-
       matrix(c(794, 86, 150, 570),

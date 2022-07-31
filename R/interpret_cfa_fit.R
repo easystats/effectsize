@@ -248,9 +248,11 @@ interpret.lavaan <- function(x, ...) {
 #' @rdname interpret_gfi
 #' @export
 interpret.performance_lavaan <- function(x, ...) {
-  mfits <- c("GFI", "AGFI", "NFI", "NNFI",
-             "CFI", "RMSEA", "SRMR", "RFI",
-             "IFI", "PNFI")
+  mfits <- c(
+    "GFI", "AGFI", "NFI", "NNFI",
+    "CFI", "RMSEA", "SRMR", "RFI",
+    "IFI", "PNFI"
+  )
   mfits <- intersect(names(x), mfits)
 
   table <- lapply(mfits, function(ind_name) {

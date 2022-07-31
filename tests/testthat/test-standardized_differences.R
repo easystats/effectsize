@@ -1,6 +1,5 @@
 if (require("testthat") && require("effectsize")) {
   test_that("cohens_d errors and warnings", {
-
     # Direction ---------------------------------------------------------------
     rez_t <- t.test(iris$Sepal.Length, iris$Sepal.Width)
     rez_d <- cohens_d(iris$Sepal.Length, iris$Sepal.Width)
@@ -157,7 +156,7 @@ if (require("testthat") && require("effectsize")) {
     y <<- rnorm(500, mean = 0.2)
 
     d <- cohens_d(x, y)
-    tt <- t.test(x,y, var.equal = TRUE)
+    tt <- t.test(x, y, var.equal = TRUE)
     expect_equal(CLES <- d_to_cles(d), cles(x, y))
     expect_equal(cles(tt), CLES, ignore_attr = TRUE)
     expect_error(cohens_u3(x, y), NA)
@@ -167,20 +166,22 @@ if (require("testthat") && require("effectsize")) {
     rb <- rank_biserial(x, y, ci = NULL)
     w <- wilcox.test(x, y)
     CLES <- cles(x, y, parametric = FALSE, ci = NULL)
-    expect_equal(rb_to_cles(rb), CLES[1,], ignore_attr = TRUE)
-    expect_equal(cles(w, parametric = FALSE)[,1:2], CLES, ignore_attr = TRUE)
+    expect_equal(rb_to_cles(rb), CLES[1, ], ignore_attr = TRUE)
+    expect_equal(cles(w, parametric = FALSE)[, 1:2], CLES, ignore_attr = TRUE)
     expect_error(cohens_u3(x, y, parametric = FALSE), NA)
     expect_error(p_overlap(x, y, parametric = FALSE), NA)
     expect_error(p_superiority(x, y, parametric = FALSE), NA)
 
     x <- 1:3
-    y <- c(1,1:3)
+    y <- c(1, 1:3)
     CLES <- cles(x, y)
     # CV from https://rpsychologist.com/cohend/
     expect_equal(CLES$Coefficient, c(0.5719, 0.6012, 0.8979), tolerance = 0.001)
 
     # Should be close~
     expect_equal(cles(x, y, parametric = FALSE, ci = NULL)$Coefficient[1],
-                 CLES$Coefficient[1], tolerance = 0.02)
+      CLES$Coefficient[1],
+      tolerance = 0.02
+    )
   })
 }

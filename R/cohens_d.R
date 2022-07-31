@@ -196,7 +196,6 @@ glass_delta <- function(x,
                         alternative = "two.sided",
                         verbose = TRUE,
                         ...) {
-
   .effect_size_difference(
     x,
     y = y,

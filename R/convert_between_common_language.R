@@ -49,20 +49,21 @@ d_to_cles.numeric <- function(d) {
     "Pr(superiority)" = stats::pnorm(d / sqrt(2)),
     "Cohen's U3" = stats::pnorm(d),
     Overlap = 2 * stats::pnorm(-abs(d) / 2)
-
   )
 }
 
 #' @export
 d_to_cles.effectsize_difference <- function(d) {
   if (!any(colnames(d) %in% c("Cohens_d", "Hedges_g")) ||
-      attr(d, "paired") ||
-      !attr(d, "pooled_sd")) {
+    attr(d, "paired") ||
+    !attr(d, "pooled_sd")) {
     stop("Common language effect size only applicable to 2-sample Cohen's d with pooled SD.")
   }
 
-  out <- lapply(d[,colnames(d) %in% c("Cohens_d", "Hedges_g", "CI_low", "CI_high")],
-                function(x) unlist(d_to_cles(x)))
+  out <- lapply(
+    d[, colnames(d) %in% c("Cohens_d", "Hedges_g", "CI_low", "CI_high")],
+    function(x) unlist(d_to_cles(x))
+  )
   out <- as.data.frame(out)
   out$Parameter <- rownames(out)
   rownames(out) <- NULL
@@ -97,18 +98,20 @@ rb_to_cles <- function(rb) {
 
 #' @export
 rb_to_cles.numeric <- function(rb) {
-  (rb + 1)/2
+  (rb + 1) / 2
 }
 
 #' @export
 rb_to_cles.effectsize_difference <- function(rb) {
   if (!any(colnames(rb) == "r_rank_biserial") ||
-      attr(rb, "paired")) {
+    attr(rb, "paired")) {
     stop("Common language effect size only applicable to 2-sample rank-biserial correlation.")
   }
 
-  out <- lapply(rb[,colnames(rb) %in% c("r_rank_biserial", "CI_low", "CI_high")],
-                rb_to_cles)
+  out <- lapply(
+    rb[, colnames(rb) %in% c("r_rank_biserial", "CI_low", "CI_high")],
+    rb_to_cles
+  )
   out <- as.data.frame(out)
   out$Parameter <- "Pr(superiority)"
   rownames(out) <- NULL
@@ -139,4 +142,3 @@ d_to_common_language <- d_to_cles
 
 #' @export
 rb_to_common_language <- rb_to_cles
-

@@ -115,8 +115,9 @@ cles <- function(x,
     out <- rbind(
       rb_to_cles(rb),
       .np_U3_OVL(x, y,
-                 ci = ci, alternative = alternative,
-                 iterations = iterations)
+        ci = ci, alternative = alternative,
+        iterations = iterations
+      )
     )
     attr(out, "table_footer") <- "Non-parametric CLES"
     out
@@ -153,12 +154,14 @@ p_overlap <- function(...) {
   .get_np_U3_OVL <- function(data, i = seq_len(nrow(data))) {
     data <- data[i, ]
 
-    c(U3 = sum(data[data$g == "y", "r"] < median(data[data$g == "x", "r"])) /
+    c(
+      U3 = sum(data[data$g == "y", "r"] < median(data[data$g == "x", "r"])) /
         nrow(data[data$g == "y", ]),
       OVL = bayestestR::overlap(
         data[data$g == "x", "r"],
         data[data$g == "y", "r"]
-      ))
+      )
+    )
   }
 
   d <- data.frame(
@@ -182,8 +185,10 @@ p_overlap <- function(...) {
         R = iterations
       )
 
-      bCI <- list(boot::boot.ci(R, conf = ci.level, type = "perc", 1)$percent,
-                  boot::boot.ci(R, conf = ci.level, type = "perc", 2)$percent)
+      bCI <- list(
+        boot::boot.ci(R, conf = ci.level, type = "perc", 1)$percent,
+        boot::boot.ci(R, conf = ci.level, type = "perc", 2)$percent
+      )
       bCI <- lapply(bCI, function(.bci) tail(as.vector(.bci), 2))
       bCI <- matrix(unlist(bCI), 2, byrow = TRUE, dimnames = list(NULL, c("CI_low", "CI_high")))
       bCI <- cbind(CI = ci, as.data.frame(bCI))
@@ -193,7 +198,7 @@ p_overlap <- function(...) {
     } else {
       bCI <- data.frame(
         CI = NA, CI_low = NA, CI_high = NA
-      )[c(1,1),]
+      )[c(1, 1), ]
     }
     out <- cbind(out, bCI)
   }
@@ -223,7 +228,7 @@ p_overlap <- function(...) {
     ...
   )
 
-  if (type == "p")  {
+  if (type == "p") {
     out <- CLES[1, ]
     colnames(out)[2] <- "p_superiority"
   } else if (type == "u3") {

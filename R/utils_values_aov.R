@@ -1,6 +1,5 @@
 #' @keywords internal
 .values_aov <- function(params, group = FALSE) {
-
   # number of observations
   if (isTRUE(group)) {
     lapply(split(params, params$Group), function(.i) {

@@ -22,7 +22,6 @@
 #'
 #' @export
 sd_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
-
   # This actually works, you must see if you want to keep this code. If you do,
   # following will work:
   # sd_pooled(mpg, hp, data = mtcars)
@@ -63,7 +62,6 @@ mad_pooled <- function(x, y = NULL, data = NULL, constant = 1.4826, verbose = TR
 
 #' @importFrom stats mad sd as.formula ave
 .sd_pooled <- function(x, y = NULL, data = NULL, robust = FALSE, verbose = TRUE, constant = 1, ...) {
-
   # Activate here for evaluation of arguments...
 
   # eval_args <- .evaluate_arguments(x, y, data)

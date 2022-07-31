@@ -21,8 +21,10 @@
 #' riskratio_to_oddsratio(RR, p0 = p0)
 #' oddsratio_to_riskratio(OR, p0 = p0)
 #'
-#' m <- glm(am ~ factor(cyl), data = mtcars,
-#'          family = binomial())
+#' m <- glm(am ~ factor(cyl),
+#'   data = mtcars,
+#'   family = binomial()
+#' )
 #' oddsratio_to_riskratio(m)
 #' @references
 #'
@@ -61,25 +63,29 @@ oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, ...) {
     if (!log) p0 <- log(p0)
     p0 <- plogis(p0)
 
-    warning("'p0' not provided.",
-            "RR is relative to the intercept (p0 = ",
-            insight::format_value(p0),
-            ") - make sure your intercept is meaningful.")
+    warning(
+      "'p0' not provided.",
+      "RR is relative to the intercept (p0 = ",
+      insight::format_value(p0),
+      ") - make sure your intercept is meaningful."
+    )
   }
 
-  RR[,colnames(RR) %in% c("Coefficient", "CI_low", "CI_high")] <-
-    lapply(RR[,colnames(RR) %in% c("Coefficient", "CI_low", "CI_high")],
-           oddsratio_to_riskratio, p0 = p0, log = log)
+  RR[, colnames(RR) %in% c("Coefficient", "CI_low", "CI_high")] <-
+    lapply(RR[, colnames(RR) %in% c("Coefficient", "CI_low", "CI_high")],
+      oddsratio_to_riskratio,
+      p0 = p0, log = log
+    )
 
   if (any(c("CI_low", "CI_high") %in% colnames(RR))) {
     warning("CIs are back-transformed from the logit scale.")
   }
 
-  RR[RR$Parameter=="(Intercept)", "Coefficient"] <- p0
-  RR[RR$Parameter=="(Intercept)", c("CI_low", "CI_high")] <- NA
+  RR[RR$Parameter == "(Intercept)", "Coefficient"] <- p0
+  RR[RR$Parameter == "(Intercept)", c("CI_low", "CI_high")] <- NA
 
   if (!used_intercept) {
-    RR[RR$Parameter=="(Intercept)", "Parameter"] <- "(p0)"
+    RR[RR$Parameter == "(Intercept)", "Parameter"] <- "(p0)"
   }
 
   attr(RR, "coefficient_name") <- if (log) "Log-RR" else "Risk Ratio"
@@ -98,4 +104,3 @@ riskratio_to_oddsratio <- function(RR, p0, log = FALSE) {
   if (log) OR <- log(OR)
   return(OR)
 }
-

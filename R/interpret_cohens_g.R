@@ -36,7 +36,8 @@ interpret_cohens_g <- function(g, rules = "cohen1988", ...) {
     rules,
     list(
       cohen1988 = rules(c(0.05, 0.15, 0.25), c("very small", "small", "medium", "large"),
-        name = "cohen1988", right = FALSE)
+        name = "cohen1988", right = FALSE
+      )
     )
   )
 

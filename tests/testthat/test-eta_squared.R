@@ -1,5 +1,4 @@
 if (require("testthat") && require("effectsize")) {
-
   # anova() -----------------------------------------------------------------
   test_that("anova()", {
     # Make minimal ANOVA table
@@ -7,7 +6,7 @@ if (require("testthat") && require("effectsize")) {
 
     mod1 <- mod
     mod1$DenDF <- mod1$Df[nrow(mod1)]
-    mod1 <- mod1[-nrow(mod1),]
+    mod1 <- mod1[-nrow(mod1), ]
 
     expect_error(eta_squared(mod1), regexp = NA)
     expect_equal(
@@ -93,8 +92,10 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(et1$CI_low, et2$CI_low)
 
     ### parameters:
-    expect_equal(eta_squared(parameters::model_parameters(m)),
-                 eta_squared(m))
+    expect_equal(
+      eta_squared(parameters::model_parameters(m)),
+      eta_squared(m)
+    )
   })
 
 
@@ -110,23 +111,31 @@ if (require("testthat") && require("effectsize")) {
     expect_true(all(c("Group", "Parameter") %in% colnames(res)))
     expect_equal(res$Eta2_partial, c(0.4472423, 0.1217329), tolerance = 0.001)
     expect_equal(eta_squared(model, partial = FALSE)$Eta2,
-                 c(0.27671136, 0.04641607), tolerance = 0.001)
+      c(0.27671136, 0.04641607),
+      tolerance = 0.001
+    )
 
     res <- omega_squared(model, partial = TRUE)
     expect_true(all(c("Group", "Parameter") %in% colnames(res)))
     expect_equal(res$Omega2_partial, c(-0.06795358, 0.04141846), tolerance = 0.001)
     expect_equal(omega_squared(model, partial = FALSE)$Omega2,
-                 c(-0.04864626, 0.03287821), tolerance = 0.001)
+      c(-0.04864626, 0.03287821),
+      tolerance = 0.001
+    )
 
     res <- epsilon_squared(model, partial = TRUE)
     expect_true(all(c("Group", "Parameter") %in% colnames(res)))
     expect_equal(res$Epsilon2_partial, c(-0.1055154, 0.1157174), tolerance = 0.001)
     expect_equal(epsilon_squared(model, partial = FALSE)$Epsilon2,
-                 c(-0.06528301, 0.04412238), tolerance = 0.001)
+      c(-0.06528301, 0.04412238),
+      tolerance = 0.001
+    )
 
 
-    expect_equal(eta_squared(parameters::model_parameters(model)),
-                 eta_squared(model))
+    expect_equal(
+      eta_squared(parameters::model_parameters(model)),
+      eta_squared(model)
+    )
 
 
     skip_if_not_installed("afex")
@@ -197,7 +206,6 @@ if (require("testthat") && require("effectsize")) {
     fit <- lm(cbind(mpg, disp, hp) ~ factor(cyl), data = mtcars)
     out <- eta_squared(fit, partial = FALSE, ci = NULL)
     expect_equal(as.character(out$Response), c("mpg", "disp", "hp"))
-
   })
 
 
@@ -326,8 +334,9 @@ if (require("testthat") && require("effectsize")) {
     )
 
     expect_equal(ef$CI_high,
-                 c(0.626, 0.553, 0.557, 0.518, 0.355, 0, 0),
-                 tolerance = 0.01)
+      c(0.626, 0.553, 0.557, 0.518, 0.355, 0, 0),
+      tolerance = 0.01
+    )
   })
 
 
@@ -423,9 +432,9 @@ if (require("testthat") && require("effectsize")) {
     data(obk.long, package = "afex")
 
     mod <- afex::aov_ez("id", "value", obk.long,
-                        between = c("treatment", "gender"),
-                        within = c("phase", "hour"),
-                        observed = "gender"
+      between = c("treatment", "gender"),
+      within = c("phase", "hour"),
+      observed = "gender"
     )
 
     x <- eta_squared(mod, generalized = TRUE)
@@ -442,28 +451,40 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(a$pes, x$Eta2_partial)
 
     # see issue #389
-    data <- data.frame(subject = c(1L, 2L, 1L, 2L, 1L, 2L, 1L, 2L, 1L,
-                                   2L, 1L, 2L, 1L, 2L, 1L, 2L),
-                       y = c(0.0586978983148275, -0.159870038198774, 0.0125690871484012,
-                             -0.0152529928817782, 0.092433880558952, 0.0359796249184537,
-                             -0.00786545388312909, 0.0340005375703463, 0.165294695432772,
-                             0.0201040753050847, 0.0741924965491503, -0.0345053066539826,
-                             0.0108194665250311, -0.163941830205729, 0.310344189786906,
-                             -0.106627229564326),
-                       A = c("A1", "A1", "A1", "A1", "A1", "A1", "A1", "A1", "A2",
-                             "A2", "A2", "A2", "A2", "A2", "A2", "A2"),
-                       B = c("B1", "B1", "B1", "B1", "B2", "B2", "B2", "B2", "B1",
-                             "B1", "B1", "B1", "B2", "B2", "B2", "B2"),
-                       C = c("C1", "C1", "C2", "C2", "C1", "C1", "C2", "C2", "C1",
-                             "C1", "C2", "C2", "C1", "C1", "C2", "C2"))
+    data <- data.frame(
+      subject = c(
+        1L, 2L, 1L, 2L, 1L, 2L, 1L, 2L, 1L,
+        2L, 1L, 2L, 1L, 2L, 1L, 2L
+      ),
+      y = c(
+        0.0586978983148275, -0.159870038198774, 0.0125690871484012,
+        -0.0152529928817782, 0.092433880558952, 0.0359796249184537,
+        -0.00786545388312909, 0.0340005375703463, 0.165294695432772,
+        0.0201040753050847, 0.0741924965491503, -0.0345053066539826,
+        0.0108194665250311, -0.163941830205729, 0.310344189786906,
+        -0.106627229564326
+      ),
+      A = c(
+        "A1", "A1", "A1", "A1", "A1", "A1", "A1", "A1", "A2",
+        "A2", "A2", "A2", "A2", "A2", "A2", "A2"
+      ),
+      B = c(
+        "B1", "B1", "B1", "B1", "B2", "B2", "B2", "B2", "B1",
+        "B1", "B1", "B1", "B2", "B2", "B2", "B2"
+      ),
+      C = c(
+        "C1", "C1", "C2", "C2", "C1", "C1", "C2", "C2", "C1",
+        "C1", "C2", "C2", "C1", "C1", "C2", "C2"
+      )
+    )
     mod <- afex::aov_ez("subject", "y", data, within = c("A", "B", "C"))
     tab <- as.data.frame(anova(mod, es = "pes"))
     res <- eta_squared(mod)
 
-    tab <- tab[order(rownames(tab)),]
-    res <- res[order(res$Parameter),]
+    tab <- tab[order(rownames(tab)), ]
+    res <- res[order(res$Parameter), ]
 
-    expect_equal(res$Eta2_partial,tab$pes, tolerance = 0.001)
+    expect_equal(res$Eta2_partial, tab$pes, tolerance = 0.001)
   })
 
 
@@ -488,38 +509,47 @@ if (require("testthat") && require("effectsize")) {
     skip_if_not_installed("car")
 
     # Simple ---
-    ds <- data.frame(I = c(116, 96, 120, 110, 116, 126, 86, 80),
-                     II = c(76, 93, 112, 113, 75, 120, 90, 105),
-                     III = c(85, 63, 89, 60, 115, 101, 129, 67),
-                     IV = c(50, 87, 100, 60, 79, 70, 65, 65),
-                     id = 1:8)
+    ds <- data.frame(
+      I = c(116, 96, 120, 110, 116, 126, 86, 80),
+      II = c(76, 93, 112, 113, 75, 120, 90, 105),
+      III = c(85, 63, 89, 60, 115, 101, 129, 67),
+      IV = c(50, 87, 100, 60, 79, 70, 65, 65),
+      id = 1:8
+    )
 
     ds_long <- data.frame(
-      id = c(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L,
-             1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L,
-             1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L,
-             1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L),
-      ind_var = c("I", "I", "I", "I", "I", "I", "I", "I",
-                  "II", "II", "II", "II", "II", "II", "II", "II",
-                  "III", "III", "III", "III", "III", "III", "III", "III",
-                  "IV", "IV", "IV", "IV", "IV", "IV", "IV", "IV"),
-      score = c(116, 96, 120, 110, 116, 126, 86, 80,
-                76, 93, 112, 113, 75, 120, 90, 105,
-                85, 63, 89, 60, 115, 101, 129, 67,
-                50, 87, 100, 60, 79, 70, 65, 65)
+      id = c(
+        1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L,
+        1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L,
+        1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L,
+        1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L
+      ),
+      ind_var = c(
+        "I", "I", "I", "I", "I", "I", "I", "I",
+        "II", "II", "II", "II", "II", "II", "II", "II",
+        "III", "III", "III", "III", "III", "III", "III", "III",
+        "IV", "IV", "IV", "IV", "IV", "IV", "IV", "IV"
+      ),
+      score = c(
+        116, 96, 120, 110, 116, 126, 86, 80,
+        76, 93, 112, 113, 75, 120, 90, 105,
+        85, 63, 89, 60, 115, 101, 129, 67,
+        50, 87, 100, 60, 79, 70, 65, 65
+      )
     )
 
 
 
     fit <- lm(cbind(I, II, III, IV) ~ 1, data = ds)
     in_rep <- data.frame(ind_var = gl(4, 1))
-    A_car <- car::Anova(fit, idata = in_rep, idesign =  ~ ind_var)
+    A_car <- car::Anova(fit, idata = in_rep, idesign = ~ind_var)
 
     eta_car <- effectsize::eta_squared(A_car, ci = NULL)[[2]]
 
-    eta_afex <- afex::aov_ez('id', 'score', ds_long,
-                             within = 'ind_var',
-                             anova_table = list(es = "pes"))$anova_table$pes
+    eta_afex <- afex::aov_ez("id", "score", ds_long,
+      within = "ind_var",
+      anova_table = list(es = "pes")
+    )$anova_table$pes
 
     expect_equal(eta_car, eta_afex)
 
@@ -527,9 +557,10 @@ if (require("testthat") && require("effectsize")) {
     data(obk.long, package = "afex")
 
     mod <- afex::aov_ez("id", "value", obk.long,
-                        between = c("treatment", "gender"),
-                        within = c("phase", "hour"),
-                        observed = "gender")
+      between = c("treatment", "gender"),
+      within = c("phase", "hour"),
+      observed = "gender"
+    )
     expect_equal(
       sort(eta_squared(mod$Anova, generalized = "gender")[[2]]),
       sort(mod$anova_table$ges)
@@ -554,7 +585,6 @@ if (require("testthat") && require("effectsize")) {
       eta_squared(manova(mod))[[2]][2:3],
       eta_squared(Manova)[[2]][2:3]
     )
-
   })
 
   ## merMod --------------------
@@ -618,7 +648,7 @@ if (require("testthat") && require("effectsize")) {
 
     skip_if_not_installed("car")
     skip_if(getRversion() <= "3.6" &&
-              Sys.info()["sysname"] == "Darwin")
+      Sys.info()["sysname"] == "Darwin")
     b_lm <- car::Anova(lm(mpg ~ cyl + am, data = mtcars), type = 2)
     out_lm <- eta_squared(b_lm)
     expect_equal(out[1:2, ], out_lm, ignore_attr = TRUE)

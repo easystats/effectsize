@@ -2,7 +2,7 @@ library(effectsize)
 
 source("WIP/paired_d2.R")
 
-dat <- read.table("http://pcl.missouri.edu/exp/effectSizePuzzler.txt", header=TRUE)
+dat <- read.table("http://pcl.missouri.edu/exp/effectSizePuzzler.txt", header = TRUE)
 
 # From http://jakewestfall.org/blog/index.php/2016/03/25/five-different-cohens-d-statistics-for-within-subject-designs/
 # More types:
@@ -48,9 +48,11 @@ paired_d(rt ~ congruency | pno, data = stroop, type = "av")
 
 
 set.seed(1)
-dat <- expand.grid(t = 1:100,
-                   id = letters[1:10],
-                   cond = LETTERS[1:2]) |>
+dat <- expand.grid(
+  t = 1:100,
+  id = letters[1:10],
+  cond = LETTERS[1:2]
+) |>
   as.data.frame() |>
   dplyr::select(-t) |>
   dplyr::mutate(

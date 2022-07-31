@@ -210,7 +210,7 @@ if (require("testthat") && require("effectsize")) {
     model <- lavaan::sem(structure, data = lavaan::PoliticalDemocracy)
     int <- interpret(model)
     expect_equal(int$Name, c("GFI", "AGFI", "NFI", "NNFI", "CFI", "RMSEA", "SRMR", "RFI", "PNFI", "IFI"))
-    expect_equal(int$Value,c(0.9666, 0.9124, 0.9749, 1.0001, 1, 0, 0.0273, 0.9529, 0.5199, 1.0001), tolerance = 0.001)
+    expect_equal(int$Value, c(0.9666, 0.9124, 0.9749, 1.0001, 1, 0, 0.0273, 0.9529, 0.5199, 1.0001), tolerance = 0.001)
 
     int2 <- interpret(performance::model_performance(model))
     expect_equal(int, int2)
