@@ -1,3 +1,9 @@
+url: https://easystats.github.io/effectsize/
+
+template:
+  bootstrap: 5
+  package: easystatstemplate
+
 authors:
   Mattan S. Ben-Shachar:
     href: https://github.com/mattansb/
@@ -9,53 +15,6 @@ authors:
     href: https://sites.google.com/site/indrajeetspatilmorality/
   Brenton M. Wiernik:
     href: https://wiernik.org/
-
-
-template:
-  bootstrap: 5
-  bslib:
-    primary: "#317033"
-
-
-
-navbar:
-  structure:
-    right: [twitter, github]
-  components:
-    twitter:
-      icon: fa-twitter
-      href: https://twitter.com/easystats4u
-      aria-label: Twitter
-  left:
-    - icon: fa-home fa-lg
-      href: index.html
-    - text: "Get Started"
-      href: articles/effectsize.html
-    - text: "Features"
-      href: reference/index.html
-    - text: "Effect Sizes"
-      menu:
-      - text: "ANOVA Effect Sizes"
-        href: articles/anovaES.html
-      - text: "Effect Sizes for Simple Hypothesis Tests"
-        href: articles/simple_htests.html
-      - text: "Confidence Intervals"
-        href: reference/effectsize_CIs.html
-      - text: -------
-      - text: "Extending effectsize"
-        href: articles/effectsize_API.html
-    - text: "Conversion"
-      menu:
-      - text: "Between d, r, OR"
-        href: articles/convert.html
-      - text: "From Test Statistics"
-        href: articles/from_test_statistics.html
-    - text: "Interpretation"
-      href: articles/interpret.html
-    - text: "News"
-      href: news/index.html
-
-
 
 reference:
 - title: "Indices of Effect Size"
@@ -106,6 +65,35 @@ reference:
   - effectsize_deprecated
 
 
-
+# Keep articles organized
+navbar:
+  left:
+    - icon: fa fa-file-code
+      text: Reference
+      href: reference/index.html
+    - text: "Get Started"
+      href: articles/effectsize.html
+    - text: "Effect sizes"
+      menu:
+      - text: "ANOVA Effect Sizes"
+        href: articles/anovaES.html
+      - text: "Effect Sizes for Simple Hypothesis Tests"
+        href: articles/simple_htests.html
+      - text: "Confidence Intervals"
+        href: reference/effectsize_CIs.html
+      - text: -------
+      - text: "Extending effectsize"
+        href: articles/effectsize_API.html
+    - text: "Conversion"
+      menu:
+      - text: "Between d, r, OR"
+        href: articles/convert.html
+      - text: "From Test Statistics"
+        href: articles/from_test_statistics.html
+    - text: "Interpretation"
+      href: articles/interpret.html
+    - icon: fa fa-newspaper
+      text: News
+      href: news/index.html
 
 
