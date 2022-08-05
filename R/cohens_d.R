@@ -196,7 +196,6 @@ glass_delta <- function(x,
                         alternative = "two.sided",
                         verbose = TRUE,
                         ...) {
-
   .effect_size_difference(
     x,
     y = y,
@@ -263,7 +262,7 @@ glass_delta <- function(x,
     n <- length(x)
     s <- stats::sd(x - y)
 
-    hn <- 1 / (n - 1)
+    hn <- 1 / n
     se <- s / sqrt(n)
     df <- n - 1
 

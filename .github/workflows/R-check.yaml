@@ -25,10 +25,12 @@ jobs:
           #- {os: macOS-latest,   r: 'devel'}
           - {os: macOS-latest,   r: 'release'}
           - {os: macOS-latest,   r: 'oldrel-1'}
+          - {os: macOS-latest,   r: '4.0.0'}
+          - {os: macOS-latest,   r: '3.6.0'}
+          - {os: macOS-latest,   r: '3.5.0'}
 
           - {os: windows-latest, r: 'devel'}
           - {os: windows-latest, r: 'release'}
-          - {os: windows-latest, r: 'oldrel-1'}
 
           - {os: ubuntu-18.04,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-18.04,   r: 'release'}
@@ -37,6 +39,8 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
+      _R_CHECK_CRAN_INCOMING_: false
+      _R_CHECK_FORCE_SUGGESTS_: false
 
     steps:
       - uses: actions/checkout@v2
@@ -51,7 +55,9 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
+          extra-packages: |
+            any::rcmdcheck
+            lme4=?ignore-before-r=3.6.0
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2

@@ -131,11 +131,15 @@ chisq_to_phi <- function(chisq, n, nrow = 2, ncol = 2, ci = 0.95, alternative = 
     ))
 
     res$CI_low <-
-      chisq_to_phi(chisqs[, 1], n, nrow, ncol, ci = NULL, adjust = adjust,
-                   dont_stop = dont_stop)[[1]]
+      chisq_to_phi(chisqs[, 1], n, nrow, ncol,
+        ci = NULL, adjust = adjust,
+        dont_stop = dont_stop
+      )[[1]]
     res$CI_high <-
-      chisq_to_phi(chisqs[, 2], n, nrow, ncol, ci = NULL, adjust = adjust,
-                   dont_stop = dont_stop)[[1]]
+      chisq_to_phi(chisqs[, 2], n, nrow, ncol,
+        ci = NULL, adjust = adjust,
+        dont_stop = dont_stop
+      )[[1]]
 
     ci_method <- list(method = "ncp", distribution = "chisq")
     if (alternative == "less") {
@@ -159,7 +163,6 @@ chisq_to_phi <- function(chisq, n, nrow = 2, ncol = 2, ci = 0.95, alternative = 
 #' @rdname chisq_to_phi
 #' @export
 chisq_to_cohens_w <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater", ...) {
-
   res <- chisq_to_phi(chisq, n, nrow, ncol, ci = ci, alternative = alternative, adjust = FALSE, dont_stop = TRUE)
   colnames(res)[1] <- "Cohens_w"
 
@@ -205,17 +208,20 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "g
 
   phi_2_V <- sqrt((pmin(k, l) - 1))
 
-  res <- chisq_to_phi(chisq, n, nrow, ncol, ci = ci, alternative = alternative, adjust = adjust,
-                      dont_stop = TRUE)
+  res <- chisq_to_phi(chisq, n, nrow, ncol,
+    ci = ci, alternative = alternative, adjust = adjust,
+    dont_stop = TRUE
+  )
   res[grepl("^(phi|CI_)", colnames(res))] <- res[grepl("^(phi|CI_)", colnames(res))] / phi_2_V
   colnames(res)[1] <- gsub("phi", "Cramers_v", colnames(res)[1])
 
-  if ("CI" %in% colnames(res))
+  if ("CI" %in% colnames(res)) {
     if ((alternative <- attr(res, "alternative")) == "less") {
       res$CI_low <- 0
     } else if (alternative == "greater") {
       res$CI_high <- 1
     }
+  }
   return(res)
 }
 
@@ -251,33 +257,35 @@ chisq_to_normalized <- function(chisq, n, nrow, ncol, p,
   res <- chisq_to_phi(chisq, N, nrow, ncol, ci = ci, alternative = alternative, adjust = FALSE, dont_stop = TRUE)
   colnames(res)[1] <- "normalized_chi"
 
-  if ("CI" %in% colnames(res))
+  if ("CI" %in% colnames(res)) {
     if ((alternative <- attr(res, "alternative")) == "less") {
       res$CI_low <- 0
     } else if (alternative == "greater") {
       res$CI_high <- 1
     }
+  }
 
   is_uniform <- length(unique(p)) > 1L
-  attr(res, "table_footer") <- if (!is_uniform || max(ncol,nrow) > 2)
+  attr(res, "table_footer") <- if (!is_uniform || max(ncol, nrow) > 2) {
     sprintf("Adjusted for %suniform expected probabilities.", if (is_uniform) "non-" else "")
+  }
   return(res)
 }
 
 #' @rdname chisq_to_phi
 #' @export
 chisq_to_pearsons_c <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater", ...) {
-
   res <- chisq_to_phi(chisq, n, nrow, ncol, ci = ci, alternative = alternative, adjust = FALSE, dont_stop = TRUE)
-  res[grepl("^(phi|CI_)", colnames(res))] <- lapply(res[grepl("^(phi|CI_)", colnames(res))], function(phi) sqrt(1/(1/phi^2 + 1)))
+  res[grepl("^(phi|CI_)", colnames(res))] <- lapply(res[grepl("^(phi|CI_)", colnames(res))], function(phi) sqrt(1 / (1 / phi^2 + 1)))
   colnames(res)[1] <- "Pearsons_c"
 
-  if ("CI" %in% colnames(res))
+  if ("CI" %in% colnames(res)) {
     if ((alternative <- attr(res, "alternative")) == "less") {
       res$CI_low <- 0
     } else if (alternative == "greater") {
       res$CI_high <- 1
     }
+  }
   return(res)
 }
 

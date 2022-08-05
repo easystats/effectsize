@@ -43,14 +43,16 @@ format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown"
     bound <- if (alt == "less") x$CI_low[1] else x$CI_high[1]
     bound_ <- insight::format_value(bound, digits = digits)
     if (!is.character(digits) &&
-        !isTRUE(all.equal(bound, as.numeric(bound_)))) {
+      !isTRUE(all.equal(bound, as.numeric(bound_)))) {
       bound_ <- paste0(bound_, "~")
     }
 
     side <- if (alt == "less") "lower" else "upper"
 
-    ci_footer <- sprintf("One-sided CIs: %s bound fixed at [%s].",
-                         side, bound_)
+    ci_footer <- sprintf(
+      "One-sided CIs: %s bound fixed at [%s].",
+      side, bound_
+    )
     footer <- c(footer, ci_footer)
   }
 
@@ -96,8 +98,10 @@ format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown"
   attr(x, "ci") <- NULL
   attr(x, "ci_method") <- NULL
 
-  insight::format_table(x, digits = digits, ci_digits = digits,
-                        preserve_attributes = TRUE, ...)
+  insight::format_table(x,
+    digits = digits, ci_digits = digits,
+    preserve_attributes = TRUE, ...
+  )
 }
 
 
@@ -121,11 +125,14 @@ print.effectsize_difference <- function(x, digits = 2, append_CLES = FALSE, ...)
       to_cl_coverter <- d_to_cles
     }
 
-    tryCatch({
-      insight::print_color("\n\n## Common Language Effect Sizes:\n", .pcl["subtitle"])
-      CL <- to_cl_coverter(x_orig)
-      print(CL, digits = digits)
-    }, error = function(...) invisible(NULL))
+    tryCatch(
+      {
+        insight::print_color("\n\n## Common Language Effect Sizes:\n", .pcl["subtitle"])
+        CL <- to_cl_coverter(x_orig)
+        print(CL, digits = digits)
+      },
+      error = function(...) invisible(NULL)
+    )
   }
 
   invisible(x_orig)
@@ -145,8 +152,10 @@ format.effectsize_difference <- function(x, digits = 2, ...) {
   }
 
   if (!is.null(sd_type <- attr(x, "pooled_sd", exact = TRUE))) {
-    sd_type <- sprintf("Estimated using %spooled SD.",
-                       ifelse(sd_type, "", "un-"))
+    sd_type <- sprintf(
+      "Estimated using %spooled SD.",
+      ifelse(sd_type, "", "un-")
+    )
 
     footer <- c(footer, sd_type)
   }

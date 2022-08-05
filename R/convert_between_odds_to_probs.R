@@ -88,7 +88,6 @@ probs_to_odds.data.frame <- function(probs, log = FALSE, select = NULL, exclude 
 
 #' @keywords internal
 .odds_to_probs_df <- function(odds = NULL, probs = NULL, log = FALSE, select = NULL, exclude = NULL, ...) {
-
   # If vector
   if (!is.null(odds)) {
     df <- odds

@@ -75,7 +75,7 @@
 #' *upper* bound; anything from the minimum possible value of the effect size
 #' (e.g., 0) up to this upper bound is in the interval.
 #' \cr\cr
-#' We can also obtain a 2-sided interval by setting `alternative = "two-sided"`.
+#' We can also obtain a 2-sided interval by setting `alternative = "two.sided"`.
 #' These intervals can be interpreted in the same way as other 2-sided
 #' intervals, such as those for *r*, *d*, or *g*.
 #' \cr\cr

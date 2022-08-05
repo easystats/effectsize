@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size and Standardized Parameters
-Version: 0.7.0
+Version: 0.7.0.1
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
@@ -54,48 +54,47 @@ License: GPL-3
 URL: https://easystats.github.io/effectsize/
 BugReports: https://github.com/easystats/effectsize/issues/
 Depends:
-    R (>= 3.4)
+    R (>= 3.5)
 Imports:
     bayestestR (>= 0.12.1),
-    insight (>= 0.17.0),
-    parameters (>= 0.18.0),
+    insight (>= 0.18.0),
+    parameters (>= 0.18.1),
     performance (>= 0.9.0),
-    datawizard (>= 0.4.1),
+    datawizard (>= 0.4.1.10),
     stats,
     utils
+Remotes: 
+    easystats/datawizard, 
+    easystats/parameters, 
+    easystats/performance,
+    easystats/correlation,
+    easystats/bayestestR
 Suggests:
-    correlation (>= 0.8.0),
-    see (>= 0.6.9),
+    correlation (>= 0.8.1),
+    see (>= 0.7.1),
     afex,
     BayesFactor,
-    biglm,
     boot,
     brms,
     car,
-    covr,
     emmeans,
-    gamm4,
     knitr,
     lavaan,
-    lm.beta,
     lme4,
     lmerTest,
     MASS,
-    mediation,
     mgcv,
-    pscl,
+    parsnip,
     rmarkdown,
     rms,
     rstanarm,
     rstantools,
-    spelling,
-    testthat,
-    tidymodels
+    testthat (>= 3.1.0)
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 Config/testthat/edition: 3
 Config/testthat/parallel: true

@@ -1,13 +1,13 @@
 
 #' @keywords internal
 .get_data_2_samples <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
-
-
   if (inherits(x, "formula")) {
     # Validate:
     if (length(x) != 3L) {
       stop("Formula must have one of the following forms:",
-           "\n\ty ~ group,\n\ty ~ 1,\n\tPair(x,y) ~ 1", call. = FALSE)
+        "\n\ty ~ group,\n\ty ~ 1,\n\tPair(x,y) ~ 1",
+        call. = FALSE
+      )
     }
 
     # Pull columns
@@ -57,8 +57,9 @@
 
     if (verbose && insight::n_unique(y) == 2) {
       warning("'y' is numeric but has only 2 unique values.",
-              "\nIf this is a grouping variable, convert it to a factor.",
-              call. = FALSE)
+        "\nIf this is a grouping variable, convert it to a factor.",
+        call. = FALSE
+      )
     }
   }
 
@@ -69,7 +70,6 @@
 
 #' @keywords internal
 .get_data_multi_group <- function(x, groups, data = NULL, ...) {
-
   if (inherits(x, "formula")) {
     if (length(x) != 3) {
       stop("Formula must have the form of 'outcome ~ group'.", call. = FALSE)
@@ -113,10 +113,9 @@
 #' @keywords internal
 #' @importFrom stats reshape
 .get_data_nested_groups <- function(x, groups = NULL, blocks = NULL, data = NULL, wide = TRUE, ...) {
-
   if (inherits(x, "formula")) {
     if (length(x) != 3L ||
-        x[[3L]][[1L]] != as.name("|")) {
+      x[[3L]][[1L]] != as.name("|")) {
       stop("Formula must have the 'x ~ groups | blocks'.", call. = FALSE)
     }
 
@@ -147,7 +146,7 @@
   }
 
   if (inherits(x, c("table"))) {
-    x <- as.data.frame(x)[,c(3, 2, 1)]
+    x <- as.data.frame(x)[, c(3, 2, 1)]
   }
 
   colnames(x) <- c("x", "groups", "blocks")
@@ -161,10 +160,11 @@
   # By this point, the data is in long format
   if (wide) {
     x <- datawizard::data_to_wide(x,
-                                  values_from = "x",
-                                  rows_from = "blocks",
-                                  colnames_from = "groups")
-    x <- x[,-1]
+      values_from = "x",
+      id_cols = "blocks",
+      names_from = "groups"
+    )
+    x <- x[, -1]
   }
   x
 }
@@ -179,15 +179,16 @@
 .resolve_formula <- function(formula, data, subset, na.action, ...) {
   cl <- match.call(expand.dots = FALSE)
   cl[[1]] <- quote(stats::model.frame)
-  if ("subset" %in% names(cl))
+  if ("subset" %in% names(cl)) {
     cl$subset <- substitute(subset)
+  }
   cl$... <- NULL
   eval(cl, envir = parent.frame())
 }
 
 #' @keywords internal
 .resolve_char <- function(nm, data) {
-  if (is.character(nm)  && length(nm) == 1L) {
+  if (is.character(nm) && length(nm) == 1L) {
     if (is.null(data)) {
       stop("Please provide data argument.", call. = FALSE)
     } else if (!nm %in% names(data)) {

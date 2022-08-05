@@ -36,8 +36,10 @@ p1 <- 0.7
 riskratio_to_oddsratio(RR, p0 = p0)
 oddsratio_to_riskratio(OR, p0 = p0)
 
-m <- glm(am ~ factor(cyl), data = mtcars,
-         family = binomial())
+m <- glm(am ~ factor(cyl),
+  data = mtcars,
+  family = binomial()
+)
 oddsratio_to_riskratio(m)
 }
 \references{

@@ -84,7 +84,7 @@ can by setting \code{alternative = "less"}. This estimates a CI with only an
 \emph{upper} bound; anything from the minimum possible value of the effect size
 (e.g., 0) up to this upper bound is in the interval.
 \cr\cr
-We can also obtain a 2-sided interval by setting \code{alternative = "two-sided"}.
+We can also obtain a 2-sided interval by setting \code{alternative = "two.sided"}.
 These intervals can be interpreted in the same way as other 2-sided
 intervals, such as those for \emph{r}, \emph{d}, or \emph{g}.
 \cr\cr
@@ -101,51 +101,37 @@ parameter value. For that, construct a 95\% 2-sided CI.
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{data("hardlyworking")
 fit <- lm(salary ~ n_comps + age, data = hardlyworking)
 eta_squared(fit) # default, ci = 0.95, alternative = "greater"
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # Effect Size for ANOVA (Type I)
-## 
-## Parameter | Eta2 (partial) |       95\% CI
-## -----------------------------------------
-## n_comps   |           0.21 | [0.16, 1.00]
-## age       |           0.10 | [0.06, 1.00]
-## 
-## - One-sided CIs: upper bound fixed at [1.00].
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{eta_squared(fit, alternative = "less") # Test is eta is smaller than some value
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # Effect Size for ANOVA (Type I)
-## 
-## Parameter | Eta2 (partial) |       95\% CI
-## -----------------------------------------
-## n_comps   |           0.21 | [0.00, 0.26]
-## age       |           0.10 | [0.00, 0.14]
-## 
-## - One-sided CIs: lower bound fixed at [0.00].
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{eta_squared(fit, alternative = "two.sided") # 2-sided bounds for alpha = .05
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # Effect Size for ANOVA (Type I)
-## 
-## Parameter | Eta2 (partial) |       95\% CI
-## -----------------------------------------
-## n_comps   |           0.21 | [0.15, 0.27]
-## age       |           0.10 | [0.06, 0.15]
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{eta_squared(fit, ci = 0.9, alternative = "two.sided") # both 1-sided bounds for alpha = .05
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## # Effect Size for ANOVA (Type I)
-## 
-## Parameter | Eta2 (partial) |       90\% CI
-## -----------------------------------------
-## n_comps   |           0.21 | [0.16, 0.26]
-## age       |           0.10 | [0.06, 0.14]
+#> # Effect Size for ANOVA (Type I)
+#> 
+#> Parameter | Eta2 (partial) |       95\% CI
+#> -----------------------------------------
+#> n_comps   |           0.21 | [0.16, 1.00]
+#> age       |           0.10 | [0.06, 1.00]
+#> 
+#> - One-sided CIs: upper bound fixed at [1.00].
+eta_squared(fit, alternative = "less") # Test is eta is smaller than some value
+#> # Effect Size for ANOVA (Type I)
+#> 
+#> Parameter | Eta2 (partial) |       95\% CI
+#> -----------------------------------------
+#> n_comps   |           0.21 | [0.00, 0.26]
+#> age       |           0.10 | [0.00, 0.14]
+#> 
+#> - One-sided CIs: lower bound fixed at [0.00].
+eta_squared(fit, alternative = "two.sided") # 2-sided bounds for alpha = .05
+#> # Effect Size for ANOVA (Type I)
+#> 
+#> Parameter | Eta2 (partial) |       95\% CI
+#> -----------------------------------------
+#> n_comps   |           0.21 | [0.15, 0.27]
+#> age       |           0.10 | [0.06, 0.15]
+eta_squared(fit, ci = 0.9, alternative = "two.sided") # both 1-sided bounds for alpha = .05
+#> # Effect Size for ANOVA (Type I)
+#> 
+#> Parameter | Eta2 (partial) |       90\% CI
+#> -----------------------------------------
+#> n_comps   |           0.21 | [0.16, 0.26]
+#> age       |           0.10 | [0.06, 0.14]
 }\if{html}{\out{</div>}}
 }
 
@@ -158,11 +144,9 @@ This can also result in the estimated CIs excluding the point estimate.
 For example:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{t_to_d(80, df_error = 4555555)
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{## d    |       95\% CI
-## -------------------
-## 0.07 | [0.08, 0.08]
+#> d    |       95\% CI
+#> -------------------
+#> 0.07 | [0.08, 0.08]
 }\if{html}{\out{</div>}}
 
 In these cases, consider an alternative optimizer, or an alternative method

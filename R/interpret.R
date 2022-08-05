@@ -95,7 +95,7 @@ is.rules <- function(x) inherits(x, "rules")
 #' @inheritParams rules
 #'
 #' @return
-#' - For numeric input: A character vector of interpertations.
+#' - For numeric input: A character vector of interpretations.
 #' - For data frames: the `x` input with an additional `Interpretation` column.
 #'
 #' @seealso rules

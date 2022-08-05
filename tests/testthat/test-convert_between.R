@@ -33,12 +33,14 @@ if (require("testthat") && require("effectsize")) {
     # -- GLMs --
     data(mtcars)
 
-    m <<- glm(am ~ factor(cyl), data = mtcars,
-              family = binomial())
+    m <<- glm(am ~ factor(cyl),
+      data = mtcars,
+      family = binomial()
+    )
 
     w <- capture_warnings(RR <- oddsratio_to_riskratio(m, ci_method = "wald"))
-    expect_match(w[1],"p0")
-    expect_match(w[2],"CIs")
+    expect_match(w[1], "p0")
+    expect_match(w[2], "CIs")
     expect_true("(Intercept)" %in% RR$Parameter)
     expect_false("(p0)" %in% RR$Parameter)
     # these values confirmed from emmeans
@@ -54,11 +56,13 @@ if (require("testthat") && require("effectsize")) {
 
     # -- GLMMs --
     skip_if_not_installed("lme4")
-    m <<- lme4::glmer(am ~ factor(cyl) + (1|gear), data = mtcars,
-                      family = binomial())
+    m <<- lme4::glmer(am ~ factor(cyl) + (1 | gear),
+      data = mtcars,
+      family = binomial()
+    )
     w <- capture_warnings(RR <- oddsratio_to_riskratio(m))
-    expect_match(w[1],"p0")
-    expect_match(w[2],"CIs")
+    expect_match(w[1], "p0")
+    expect_match(w[2], "CIs")
     expect_true("(Intercept)" %in% RR$Parameter)
     expect_false("(p0)" %in% RR$Parameter)
     # these values confirmed from emmeans
@@ -93,10 +97,10 @@ if (require("testthat") && require("effectsize")) {
   })
 
   test_that("between anova", {
-    expect_equal(eta2_to_f2(0.25), 1/3)
+    expect_equal(eta2_to_f2(0.25), 1 / 3)
     expect_equal(eta2_to_f(0.25), sqrt(eta2_to_f2(0.25)))
 
-    expect_equal(f2_to_eta2(1/3), 0.25)
-    expect_equal(f_to_eta2(1/sqrt(3)), f2_to_eta2(1/3))
+    expect_equal(f2_to_eta2(1 / 3), 0.25)
+    expect_equal(f_to_eta2(1 / sqrt(3)), f2_to_eta2(1 / 3))
   })
 }

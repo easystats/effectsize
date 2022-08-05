@@ -94,13 +94,13 @@
 #' - Byrne, B. M. (1994). Structural equation modeling with EQS and EQS/Windows.
 #' Thousand Oaks, CA: Sage Publications.
 #'
-#' - Tucker, L. R., \& Lewis, C. (1973). The reliability coefficient for maximum
+#' - Tucker, L. R., and Lewis, C. (1973). The reliability coefficient for maximum
 #' likelihood factor analysis. Psychometrika, 38, 1-10.
 #'
-#' - Schumacker, R. E., \& Lomax, R. G. (2004). A beginner's guide to structural
+#' - Schumacker, R. E., and Lomax, R. G. (2004). A beginner's guide to structural
 #' equation modeling, Second edition. Mahwah, NJ: Lawrence Erlbaum Associates.
 #'
-#' - Fan, X., B. Thompson, \& L. Wang (1999). Effects of sample size, estimation
+#' - Fan, X., B. Thompson, and L. Wang (1999). Effects of sample size, estimation
 #' method, and model specification on structural equation modeling fit indexes.
 #' Structural Equation Modeling, 6, 56-83.
 #'
@@ -248,9 +248,11 @@ interpret.lavaan <- function(x, ...) {
 #' @rdname interpret_gfi
 #' @export
 interpret.performance_lavaan <- function(x, ...) {
-  mfits <- c("GFI", "AGFI", "NFI", "NNFI",
-             "CFI", "RMSEA", "SRMR", "RFI",
-             "IFI", "PNFI")
+  mfits <- c(
+    "GFI", "AGFI", "NFI", "NNFI",
+    "CFI", "RMSEA", "SRMR", "RFI",
+    "IFI", "PNFI"
+  )
   mfits <- intersect(names(x), mfits)
 
   table <- lapply(mfits, function(ind_name) {

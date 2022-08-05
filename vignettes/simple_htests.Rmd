@@ -162,8 +162,10 @@ vice versa).
 
 ```{r}
 (RCT <- matrix(
-  c(71, 30,
-    50, 100),
+  c(
+    71, 30,
+    50, 100
+  ),
   nrow = 2, byrow = TRUE,
   dimnames = list(
     Diagnosis = c("Sick", "Recovered"),
@@ -199,9 +201,11 @@ While Cramér's *V* and Pearson's *C* are capped at 1 (perfect association), Coh
 
 ```{r}
 (Music <- matrix(
-  c(150, 130, 35, 55,
+  c(
+    150, 130, 35, 55,
     100, 50, 10, 40,
-    165, 65, 2, 25),
+    165, 65, 2, 25
+  ),
   byrow = TRUE, nrow = 3,
   dimnames = list(
     Study = c("Psych", "Econ", "Law"),
@@ -236,7 +240,7 @@ Cohen's *w* and Pearson's *C* are also applicable to tests of goodness-of-fit,
 where small values indicate no deviation from the hypothetical probabilities and large values indicate... large deviation from the hypothetical probabilities.
 
 ```{r}
-O <- c(89,  37,  130, 28,  2) # observed group sizes
+O <- c(89, 37, 130, 28, 2) # observed group sizes
 E <- c(.40, .20, .20, .15, .05) # expected group freq
 
 chisq.test(O, p = E)
@@ -261,8 +265,10 @@ of the table, ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry).
 
 ```{r}
 (Performance <- matrix(
-  c(794, 86,
-    150, 570),
+  c(
+    794, 86,
+    150, 570
+  ),
   nrow = 2, byrow = TRUE,
   dimnames = list(
     "1st Survey" = c("Approve", "Disapprove"),
@@ -355,13 +361,15 @@ observations (or "groups") between "raters" ("blocks").
 ```{r}
 # Subjects are COLUMNS
 (ReactionTimes <- matrix(
-  c(398, 338, 520,
+  c(
+    398, 338, 520,
     325, 388, 555,
     393, 363, 561,
     367, 433, 470,
     286, 492, 536,
     362, 475, 496,
-    253, 334, 610),
+    253, 334, 610
+  ),
   nrow = 7, byrow = TRUE,
   dimnames = list(
     paste0("Subject", 1:7),

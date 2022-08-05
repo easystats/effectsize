@@ -36,8 +36,10 @@ eta_squared_posterior.stanreg <- function(model,
 
   if (partial && mi$is_mixed) {
     if (verbose) {
-      warning("Bayesian Partial Eta Squared not supported for mixed models.\n",
-              "Returning Eta Squared instead.")
+      warning(
+        "Bayesian Partial Eta Squared not supported for mixed models.\n",
+        "Returning Eta Squared instead."
+      )
     }
     partial <- FALSE
     # would need to account for random effects if present.
@@ -46,8 +48,10 @@ eta_squared_posterior.stanreg <- function(model,
 
   if ((isTRUE(generalized) || is.character(generalized)) && mi$is_mixed) {
     if (verbose) {
-      warning("Bayesian Generalized Eta Squared not supported for mixed models.\n",
-              "Returning Eta Squared instead.")
+      warning(
+        "Bayesian Generalized Eta Squared not supported for mixed models.\n",
+        "Returning Eta Squared instead."
+      )
     }
     generalized <- FALSE
   }
