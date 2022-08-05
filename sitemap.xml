@@ -1,186 +1,186 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://easystats.github.io/effectsize/404.html</loc>
   </url>
   <url>
-    <loc>/CODE_OF_CONDUCT.html</loc>
+    <loc>https://easystats.github.io/effectsize/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>/CONTRIBUTING.html</loc>
+    <loc>https://easystats.github.io/effectsize/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://easystats.github.io/effectsize/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/PULL_REQUEST_TEMPLATE.html</loc>
+    <loc>https://easystats.github.io/effectsize/PULL_REQUEST_TEMPLATE.html</loc>
   </url>
   <url>
-    <loc>/articles/additional.html</loc>
+    <loc>https://easystats.github.io/effectsize/articles/additional.html</loc>
   </url>
   <url>
-    <loc>/articles/anovaES.html</loc>
+    <loc>https://easystats.github.io/effectsize/articles/anovaES.html</loc>
   </url>
   <url>
-    <loc>/articles/convert.html</loc>
+    <loc>https://easystats.github.io/effectsize/articles/convert.html</loc>
   </url>
   <url>
-    <loc>/articles/effectsize.html</loc>
+    <loc>https://easystats.github.io/effectsize/articles/effectsize.html</loc>
   </url>
   <url>
-    <loc>/articles/effectsize_API.html</loc>
+    <loc>https://easystats.github.io/effectsize/articles/effectsize_API.html</loc>
   </url>
   <url>
-    <loc>/articles/from_test_statistics.html</loc>
+    <loc>https://easystats.github.io/effectsize/articles/from_test_statistics.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://easystats.github.io/effectsize/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/interpret.html</loc>
+    <loc>https://easystats.github.io/effectsize/articles/interpret.html</loc>
   </url>
   <url>
-    <loc>/articles/simple_htests.html</loc>
+    <loc>https://easystats.github.io/effectsize/articles/simple_htests.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://easystats.github.io/effectsize/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://easystats.github.io/effectsize/index.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://easystats.github.io/effectsize/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/F_to_eta2.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/F_to_eta2.html</loc>
   </url>
   <url>
-    <loc>/reference/chisq_to_phi.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/chisq_to_phi.html</loc>
   </url>
   <url>
-    <loc>/reference/cles.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/cles.html</loc>
   </url>
   <url>
-    <loc>/reference/cohens_d.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/cohens_d.html</loc>
   </url>
   <url>
-    <loc>/reference/d_to_cles.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/d_to_cles.html</loc>
   </url>
   <url>
-    <loc>/reference/d_to_r.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/d_to_r.html</loc>
   </url>
   <url>
-    <loc>/reference/effectsize.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/effectsize.html</loc>
   </url>
   <url>
-    <loc>/reference/effectsize_API.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/effectsize_API.html</loc>
   </url>
   <url>
-    <loc>/reference/effectsize_CIs.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/effectsize_CIs.html</loc>
   </url>
   <url>
-    <loc>/reference/effectsize_deprecated.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/effectsize_deprecated.html</loc>
   </url>
   <url>
-    <loc>/reference/equivalence_test.effectsize_table.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/equivalence_test.effectsize_table.html</loc>
   </url>
   <url>
-    <loc>/reference/es_info.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/es_info.html</loc>
   </url>
   <url>
-    <loc>/reference/eta2_to_f2.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/eta2_to_f2.html</loc>
   </url>
   <url>
-    <loc>/reference/eta_squared.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/eta_squared.html</loc>
   </url>
   <url>
-    <loc>/reference/format_standardize.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/format_standardize.html</loc>
   </url>
   <url>
-    <loc>/reference/hardlyworking.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/hardlyworking.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/interpret.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret_bf.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/interpret_bf.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret_cohens_d.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/interpret_cohens_d.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret_cohens_g.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/interpret_cohens_g.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret_direction.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/interpret_direction.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret_ess.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/interpret_ess.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret_gfi.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/interpret_gfi.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret_icc.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/interpret_icc.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret_kendalls_w.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/interpret_kendalls_w.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret_oddsratio.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/interpret_oddsratio.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret_omega_squared.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/interpret_omega_squared.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret_p.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/interpret_p.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret_pd.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/interpret_pd.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret_r.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/interpret_r.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret_r2.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/interpret_r2.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret_rope.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/interpret_rope.html</loc>
   </url>
   <url>
-    <loc>/reference/interpret_vif.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/interpret_vif.html</loc>
   </url>
   <url>
-    <loc>/reference/is_effectsize_name.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/is_effectsize_name.html</loc>
   </url>
   <url>
-    <loc>/reference/odds_to_probs.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/odds_to_probs.html</loc>
   </url>
   <url>
-    <loc>/reference/oddsratio_to_riskratio.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/oddsratio_to_riskratio.html</loc>
   </url>
   <url>
-    <loc>/reference/phi.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/phi.html</loc>
   </url>
   <url>
-    <loc>/reference/print.effectsize_table.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/print.effectsize_table.html</loc>
   </url>
   <url>
-    <loc>/reference/rank_biserial.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/rank_biserial.html</loc>
   </url>
   <url>
-    <loc>/reference/reexports.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/reexports.html</loc>
   </url>
   <url>
-    <loc>/reference/rules.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/rules.html</loc>
   </url>
   <url>
-    <loc>/reference/sd_pooled.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/sd_pooled.html</loc>
   </url>
   <url>
-    <loc>/reference/t_to_r.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/t_to_r.html</loc>
   </url>
 </urlset>
