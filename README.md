@@ -1,5 +1,5 @@
 
-# effectsize <img src="man/figures/logo.png" align="right" width="120" />
+# effectsize: Indices of Effect Size and Standardized Parameters <img src="man/figures/logo.png" align="right" width="120" />
 
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.02815/status.svg/)](https://doi.org/10.21105/joss.02815)
 [![downloads](https://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize/)
@@ -29,7 +29,7 @@ CRAN:
 install.packages("effectsize")
 ```
 
-Or you can install the latest development version `0.6.0.7` from
+Or you can install the latest development version `0.7.0.1` from
 [*R-universe*](https://easystats.r-universe.dev):
 
 ``` r
@@ -53,18 +53,18 @@ Click on the buttons above to access the package
 [**easystats blog**](https://easystats.github.io/blog/posts/), and
 check-out these vignettes:
 
--   **Effect Sizes**
-    -   [**For Simple Hypothesis
-        Tests**](https://easystats.github.io/effectsize/articles/simple_htests.html)  
-    -   [**ANOVA Effect
-        Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
--   **Effect Sizes Conversion**
-    -   [**Between Effect
-        Sizes**](https://easystats.github.io/effectsize/articles/convert.html)
-    -   [**Effect Size from Test
-        Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
--   [**Automated Interpretation of Indices of Effect
-    Size**](https://easystats.github.io/effectsize/articles/interpret.html)
+- **Effect Sizes**
+  - [**For Simple Hypothesis
+    Tests**](https://easystats.github.io/effectsize/articles/simple_htests.html)  
+  - [**ANOVA Effect
+    Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
+- **Effect Sizes Conversion**
+  - [**Between Effect
+    Sizes**](https://easystats.github.io/effectsize/articles/convert.html)
+  - [**Effect Size from Test
+    Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
+- [**Automated Interpretation of Indices of Effect
+  Size**](https://easystats.github.io/effectsize/articles/interpret.html)
 
 # Features
 
@@ -215,9 +215,9 @@ interpret_cohens_d(d = 0.45, rules = "gignac2016")
 
 In order to cite this package, please use the following citation:
 
--   Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation
-    of Effect Size Indices and Standardized Parameters. *Journal of Open
-    Source Software*, *5*(56), 2815. doi: 10.21105/joss.02815
+- Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation of
+  Effect Size Indices and Standardized Parameters. *Journal of Open
+  Source Software*, *5*(56), 2815. doi: 10.21105/joss.02815
 
 Corresponding BibTeX entry:
 
