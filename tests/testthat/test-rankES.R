@@ -116,7 +116,7 @@ if (require("testthat") && require("effectsize")) {
     )
     dat
 
-    W <- kendalls_w(mrt ~ interaction(condition, congruency) | pno, data = dat)
+    W <- kendalls_w(mrt ~ interaction(condition, congruency) | pno, data = dat, verbose = FALSE)
     expect_equal(W[[1]], 0.4011, tolerance = 0.01)
 
 
