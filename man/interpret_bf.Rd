@@ -71,9 +71,6 @@ Press, Oxford.
 \item Raftery, A. E. (1995). Bayesian model selection in social research.
 Sociological methodology, 25, 111-164.
 \item Jarosz, A. F., & Wiley, J. (2014). What are the odds? A practical guide to
-computing and reporting Bayes factors. The Journal of Problem Solving, 7(1),
-}
-\enumerate{
-\item 
+computing and reporting Bayes factors. The Journal of Problem Solving, 7(1), 2.
 }
 }
