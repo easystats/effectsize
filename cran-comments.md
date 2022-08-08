@@ -2,11 +2,11 @@ All URL issues have been resolved.
 
 ## Test environments
 
-* local installation: R 4.1.1 on Windows
+* local installation: R 4.2.1 on Windows
 * GitHub Actions
     - Windows:        devel, release, oldrel
-    - macOS:          devel, release, oldrel
-    - ubuntu-16.04:   devel, release, oldrel, 4.0, 3.6, 3.5
+    - macOS:          devel, release, oldrel, 4.0, 3.6, 3.5
+    - ubuntu-18.04:   devel, release, oldrel
 * win-builder:        release
 
 
@@ -23,7 +23,7 @@ All URL issues have been resolved.
 
 ## revdepcheck results
 
-We checked 17 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 16 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
  * We saw 0 new problems
  * We failed to check 0 packages
