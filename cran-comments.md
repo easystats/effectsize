@@ -1,4 +1,5 @@
 All URL issues have been resolved.
+DOI issues are a false positive.
 
 ## Test environments
 
