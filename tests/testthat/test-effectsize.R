@@ -171,8 +171,9 @@ if (require("testthat") && require("effectsize")) {
       )
       )
     ft <- friedman.test(RoundingTimes)
-    expect_equal(effectsize(ft)[[1]], W <- kendalls_w(RoundingTimes)[[1]], ignore_attr = TRUE)
-    expect_equal(kendalls_w(ft)[[1]], W, ignore_attr = TRUE)
+    W <- kendalls_w(RoundingTimes, verbose = FALSE, ci = NULL)
+    expect_equal(effectsize(ft, verbose = FALSE, ci = NULL), W, ignore_attr = TRUE)
+    expect_equal(kendalls_w(ft, verbose = FALSE, ci = NULL), W, ignore_attr = TRUE)
 
     X <<- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
     Y <<- c(3.8, 2.7, 4.0, 2.4) # with obstructive airway disease

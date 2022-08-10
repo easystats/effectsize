@@ -39,8 +39,7 @@
 #' Sociological methodology, 25, 111-164.
 #'
 #' - Jarosz, A. F., & Wiley, J. (2014). What are the odds? A practical guide to
-#' computing and reporting Bayes factors. The Journal of Problem Solving, 7(1),
-#' 2.
+#' computing and reporting Bayes factors. The Journal of Problem Solving, 7(1), 2.
 #'
 #' @export
 interpret_bf <- function(bf,

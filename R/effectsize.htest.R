@@ -54,7 +54,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     args <- list(
       t = unname(model$statistic),
       df_error = unname(model$parameter),
-      paired = !grepl("Two", model$method)
+      paired = !grepl("Two", model$method),
+      verbose = verbose
     )
   } else {
     if (grepl(" by ", model$data.name, fixed = TRUE)) {
@@ -144,6 +145,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       nrow = nr,
       ncol = nc,
       p = p,
+      verbose = verbose,
       ...
     )
   } else {
@@ -198,6 +200,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     f = model$statistic,
     df = model$parameter[1],
     df_error = model$parameter[2],
+    verbose = verbose,
     ...
   )
   colnames(out)[1] <- sub("_partial", "", colnames(out)[1])
@@ -216,9 +219,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   .fail_if_approx(approx, "cohens_g")
 
   if (inherits(data, "table")) {
-    out <- cohens_g(data, ...)
+    out <- cohens_g(data, verbose = verbose, ...)
   } else {
-    out <- cohens_g(data[[1]], data[[2]], ...)
+    out <- cohens_g(data[[1]], data[[2]], verbose = verbose, ...)
   }
   out
 }
@@ -251,7 +254,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   args <- list(
     x = data[[1]],
     y = if (ncol(data) == 2) data[[2]],
-    paired = grepl("signed rank", model$method, fixed = TRUE)
+    paired = grepl("signed rank", model$method, fixed = TRUE),
+    verbose = verbose
   )
 
   if (type == "cles") {
@@ -278,10 +282,10 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
 
   if (inherits(data, "data.frame")) {
-    out <- rank_epsilon_squared(data[[1]], data[[2]], ...)
+    out <- rank_epsilon_squared(data[[1]], data[[2]], verbose = verbose, ...)
   } else {
     # data frame
-    out <- rank_epsilon_squared(data, ...)
+    out <- rank_epsilon_squared(data, verbose = verbose, ...)
   }
   out
 }
@@ -300,7 +304,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     data <- as.data.frame(data)[c("Freq", "Var2", "Var1")]
   }
 
-  out <- kendalls_w(data[[1]], data[[2]], data[[3]], ...)
+  out <- kendalls_w(data[[1]], data[[2]], data[[3]], verbose = verbose, ...)
   out
 }
 

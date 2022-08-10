@@ -111,8 +111,6 @@
 #' epsilon_squared(model)
 #' cohens_f(model)
 #'
-#' if (require(see)) plot(eta2)
-#'
 #' model0 <- aov(mpg ~ am_f + cyl_f, data = mtcars) # no interaction
 #' cohens_f_squared(model0, model2 = model)
 #'
@@ -125,7 +123,10 @@
 #'
 #' interpret(eta2, rules = "cohen1992")
 #'
-#' @examplesIf require("car") && require("afex")
+#' @examplesIf require("see") && FALSE
+#' plot(eta2) # Requires the {see} package
+#'
+#' @examplesIf require("car")
 #' # Recommended: Type-2 or -3 effect sizes + effects coding
 #' # -------------------------------------------------------
 #' contrasts(mtcars$am_f) <- contr.sum
@@ -134,28 +135,27 @@
 #' model <- aov(mpg ~ am_f * cyl_f, data = mtcars)
 #' model_anova <- car::Anova(model, type = 3)
 #'
-#' eta_squared(model_anova)
+#' epsilon_squared(model_anova)
 #'
+#' @examplesIf require("car") && require("afex")
 #' # afex takes care of both type-3 effects and effects coding:
 #' data(obk.long, package = "afex")
 #' model <- afex::aov_car(value ~ treatment * gender + Error(id / (phase)),
 #'   data = obk.long, observed = "gender"
 #' )
-#' eta_squared(model)
-#' epsilon_squared(model)
+#'
 #' omega_squared(model)
 #' eta_squared(model, generalized = TRUE) # observed vars are pulled from the afex model.
 #'
-#' @examplesIf require("lmerTest") && require("lme4")
+#' @examplesIf require("lmerTest") && require("lme4") && FALSE
 #' ## Approx. effect sizes for mixed models
 #' ## -------------------------------------
 #' model <- lme4::lmer(mpg ~ am_f * cyl_f + (1 | vs), data = mtcars)
 #' omega_squared(model)
 #'
-#' @examplesIf require(rstanarm) && require(bayestestR) && require(car)
+#' @examplesIf require(rstanarm) && require(bayestestR) && require(car) && FALSE
 #' ## Bayesian Models (PPD)
 #' ## ---------------------
-#' \dontrun{
 #' fit_bayes <- rstanarm::stan_glm(
 #'   mpg ~ factor(cyl) * wt + qsec,
 #'   data = mtcars, family = gaussian(),
@@ -175,7 +175,6 @@
 #' )
 #' aov_table <- car::Anova(fit_freq, type = 3)
 #' eta_squared(aov_table)
-#' }
 #'
 #' @return A data frame containing the effect size values and their confidence
 #'   intervals.

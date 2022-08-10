@@ -250,8 +250,6 @@ omega_squared(model)
 epsilon_squared(model)
 cohens_f(model)
 
-if (require(see)) plot(eta2)
-
 model0 <- aov(mpg ~ am_f + cyl_f, data = mtcars) # no interaction
 cohens_f_squared(model0, model2 = model)
 
@@ -264,7 +262,10 @@ interpret_epsilon_squared(0.10, rules = "cohen1992")
 
 interpret(eta2, rules = "cohen1992")
 
-\dontshow{if (require("car") && require("afex")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require("see") && FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+plot(eta2) # Requires the {see} package
+\dontshow{\}) # examplesIf}
+\dontshow{if (require("car")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Recommended: Type-2 or -3 effect sizes + effects coding
 # -------------------------------------------------------
 contrasts(mtcars$am_f) <- contr.sum
@@ -273,28 +274,27 @@ contrasts(mtcars$cyl_f) <- contr.sum
 model <- aov(mpg ~ am_f * cyl_f, data = mtcars)
 model_anova <- car::Anova(model, type = 3)
 
-eta_squared(model_anova)
-
+epsilon_squared(model_anova)
+\dontshow{\}) # examplesIf}
+\dontshow{if (require("car") && require("afex")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # afex takes care of both type-3 effects and effects coding:
 data(obk.long, package = "afex")
 model <- afex::aov_car(value ~ treatment * gender + Error(id / (phase)),
   data = obk.long, observed = "gender"
 )
-eta_squared(model)
-epsilon_squared(model)
+
 omega_squared(model)
 eta_squared(model, generalized = TRUE) # observed vars are pulled from the afex model.
 \dontshow{\}) # examplesIf}
-\dontshow{if (require("lmerTest") && require("lme4")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require("lmerTest") && require("lme4") && FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Approx. effect sizes for mixed models
 ## -------------------------------------
 model <- lme4::lmer(mpg ~ am_f * cyl_f + (1 | vs), data = mtcars)
 omega_squared(model)
 \dontshow{\}) # examplesIf}
-\dontshow{if (require(rstanarm) && require(bayestestR) && require(car)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require(rstanarm) && require(bayestestR) && require(car) && FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Bayesian Models (PPD)
 ## ---------------------
-\dontrun{
 fit_bayes <- rstanarm::stan_glm(
   mpg ~ factor(cyl) * wt + qsec,
   data = mtcars, family = gaussian(),
@@ -314,7 +314,6 @@ fit_freq <- lm(mpg ~ factor(cyl) * wt + qsec,
 )
 aov_table <- car::Anova(fit_freq, type = 3)
 eta_squared(aov_table)
-}
 \dontshow{\}) # examplesIf}
 }
 \references{

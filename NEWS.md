@@ -1,10 +1,4 @@
-# effectsize 0.7.1.9990
-
-## Bug fixes
-
-- `cohens_d()` for paired / one sample now gives more accurate CIs (was off by a factor of `(N - 1) / N`; #457)
-
-# effectsize 0.7.0.9
+# effectsize 0.7.0.5
 
 ## Breaking Changes
 
@@ -12,6 +6,7 @@
 
 ## Bug fixes
 
+- `cohens_d()` for paired / one sample now gives more accurate CIs (was off by a factor of `(N - 1) / N`; #457)
 - `kendalls_w()` now deals correctly with singular ties (#448).  
 
 # effectsize 0.7.0
