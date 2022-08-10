@@ -10,7 +10,7 @@ articles:
   from_test_statistics: from_test_statistics.html
   interpret: interpret.html
   simple_htests: simple_htests.html
-last_built: 2022-08-07T09:58Z
+last_built: 2022-08-10T09:39Z
 urls:
   reference: https://easystats.github.io/effectsize/reference
   article: https://easystats.github.io/effectsize/articles
