@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.2/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.2.0/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.2.0/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.2/font.css" rel="stylesheet">
 <link href="../deps/JetBrains_Mono-0.4.2/font.css" rel="stylesheet">
 <link href="../deps/Roboto_Slab-0.4.2/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.5</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,7 +92,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown--easystats">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown--easystats" aria-label="easystats">
     <span class="fab fa fab fa-r-project"></span>
      
     easystats
@@ -144,19 +144,28 @@
 
     
     
-<p>This vignette provides a short review of effect sizes for common hypothesis tests (in <strong><code>R</code></strong> these are usually achieved with various <code>*.test()</code> functions).</p>
+<p>This vignette provides a short review of effect sizes for common
+hypothesis tests (in <strong><code>R</code></strong> these are usually
+achieved with various <code>*.test()</code> functions).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/">effectsize</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://richarddmorey.github.io/BayesFactor/" class="external-link">BayesFactor</a></span><span class="op">)</span></span></code></pre></div>
-<p>In most cases, the effect sizes can be automagically extracted from the <code>htest</code> object via the <code><a href="../reference/effectsize.html">effectsize()</a></code> function.</p>
+<p>In most cases, the effect sizes can be automagically extracted from
+the <code>htest</code> object via the <code><a href="../reference/effectsize.html">effectsize()</a></code>
+function.</p>
 <div class="section level3">
 <h3 id="standardized-differences">Standardized Differences<a class="anchor" aria-label="anchor" href="#standardized-differences"></a>
 </h3>
-<p>For <em>t</em>-tests, it is common to report an effect size representing a standardized difference between the two compared samples’ means. These measures range from <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(+\infty\)</span>, with negative values indicating the second group’s mean is larger (and vice versa).</p>
+<p>For <em>t</em>-tests, it is common to report an effect size
+representing a standardized difference between the two compared samples’
+means. These measures range from <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(+\infty\)</span>, with negative values indicating
+the second group’s mean is larger (and vice versa).</p>
 <div class="section level4">
 <h4 id="two-independent-samples">Two Independent Samples<a class="anchor" aria-label="anchor" href="#two-independent-samples"></a>
 </h4>
-<p>For two independent samples, the difference between the means is standardized based on the pooled standard deviation of both samples (assumed to be equal in the population):</p>
+<p>For two independent samples, the difference between the means is
+standardized based on the pooled standard deviation of both samples
+(assumed to be equal in the population):</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span>, var.equal <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; 
@@ -177,7 +186,8 @@
 &gt; -1.48     | [-2.27, -0.67]
 &gt; 
 &gt; - Estimated using pooled SD.</code></pre>
-<p>Hedges’ <em>g</em> provides a bias correction for small sample sizes (<span class="math inline">\(N &lt; 20\)</span>).</p>
+<p>Hedges’ <em>g</em> provides a bias correction for small sample sizes
+(<span class="math inline">\(N &lt; 20\)</span>).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/cohens_d.html">hedges_g</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Hedges' g |         95% CI
@@ -185,7 +195,8 @@
 &gt; -1.44     | [-2.21, -0.65]
 &gt; 
 &gt; - Estimated using pooled SD.</code></pre>
-<p>If variances cannot be assumed to be equal, it is possible to get estimates that are not based on the pooled standard deviation:</p>
+<p>If variances cannot be assumed to be equal, it is possible to get
+estimates that are not based on the pooled standard deviation:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span>, var.equal <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; 
@@ -213,13 +224,18 @@
 &gt; -1.35     | [-2.17, -0.51]
 &gt; 
 &gt; - Estimated using un-pooled SD.</code></pre>
-<p>In cases where the differences between the variances are substantial, it is also common to standardize the difference based only on the standard deviation of one of the groups (usually the “control” group); this effect size is known as Glass’ <span class="math inline">\(\Delta\)</span> (delta) (Note that the standard deviation is taken from the <em>second</em> sample).</p>
+<p>In cases where the differences between the variances are substantial,
+it is also common to standardize the difference based only on the
+standard deviation of one of the groups (usually the “control” group);
+this effect size is known as Glass’ <span class="math inline">\(\Delta\)</span> (delta) (Note that the standard
+deviation is taken from the <em>second</em> sample).</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/cohens_d.html">glass_delta</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Glass' delta |         95% CI
 &gt; -----------------------------
 &gt; -1.17        | [-1.93, -0.39]</code></pre>
-<p>For a one-sided hypothesis, it is also possible to construct one-sided confidence intervals:</p>
+<p>For a one-sided hypothesis, it is also possible to construct
+one-sided confidence intervals:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span>, var.equal <span class="op">=</span> <span class="cn">TRUE</span>, alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; 
@@ -244,7 +260,9 @@
 <div class="section level5">
 <h5 id="common-language-effect-sizes">Common Language Effect Sizes<a class="anchor" aria-label="anchor" href="#common-language-effect-sizes"></a>
 </h5>
-<p>Related effect sizes are the <em>common language effect sizes</em> which present information about group differences in terms of probability.</p>
+<p>Related effect sizes are the <em>common language effect sizes</em>
+which present information about group differences in terms of
+probability.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/cles.html">cles</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Parameter       | Coefficient |       95% CI
@@ -257,7 +275,9 @@
 <div class="section level4">
 <h4 id="one-sample-and-paired-samples">One Sample and Paired Samples<a class="anchor" aria-label="anchor" href="#one-sample-and-paired-samples"></a>
 </h4>
-<p>In the case of a one-sample test, the effect size represents the standardized distance of the mean of the sample from the null value. For paired-samples, the difference between the paired samples is used:</p>
+<p>In the case of a one-sample test, the effect size represents the
+standardized distance of the mean of the sample from the null value. For
+paired-samples, the difference between the paired samples is used:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">sleep</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; 
@@ -305,7 +325,8 @@
 <div class="section level3">
 <h3 id="one-way-anova">One way ANOVA<a class="anchor" aria-label="anchor" href="#one-way-anova"></a>
 </h3>
-<p>For more details, see <a href="https://easystats.github.io/effectsize/articles/anovaES.html">ANOVA vignette</a>.</p>
+<p>For more details, see <a href="https://easystats.github.io/effectsize/articles/anovaES.html">ANOVA
+vignette</a>.</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">onew</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/oneway.test.html" class="external-link">oneway.test</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">gear</span>, data <span class="op">=</span> <span class="va">mtcars</span>, var.equal <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
@@ -324,7 +345,11 @@
 <div class="section level4">
 <h4 id="by-2-tables">2-by-2 Tables<a class="anchor" aria-label="anchor" href="#by-2-tables"></a>
 </h4>
-<p>For 2-by-2 contingency tables, <span class="math inline">\(\phi\)</span> (Phi) is homologous (though directionless) to the bi-serial correlation between the two dichotomous variables, with 0 representing no association, and 1 representing a perfect association. A “cousin” effect size is Pearson’s contingency coefficient.</p>
+<p>For 2-by-2 contingency tables, <span class="math inline">\(\phi\)</span> (Phi) is homologous (though
+directionless) to the bi-serial correlation between the two dichotomous
+variables, with 0 representing no association, and 1 representing a
+perfect association. A “cousin” effect size is Pearson’s contingency
+coefficient.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">MPG_Gear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span> <span class="op">&lt;</span> <span class="fl">20</span>, <span class="va">mtcars</span><span class="op">$</span><span class="va">vs</span><span class="op">)</span></span>
 <span></span>
@@ -345,8 +370,13 @@
 &gt; 0.53        | [0.31, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<p>(Cramer’s <em>V</em> or Cohen’s <em>w</em> can also be used, but for 2-by-2 tables, they are equivalent to <span class="math inline">\(\phi\)</span>.)</p>
-<p>In addition to <span class="math inline">\(\phi\)</span> and Pearson’s <em>C</em>, we can also compute the Odds-ratio (OR), where each column represents a different <em>group</em>. Values larger than 1 indicate that the odds are higher in the first group (and vice versa).</p>
+<p>(Cramer’s <em>V</em> or Cohen’s <em>w</em> can also be used, but for
+2-by-2 tables, they are equivalent to <span class="math inline">\(\phi\)</span>.)</p>
+<p>In addition to <span class="math inline">\(\phi\)</span> and
+Pearson’s <em>C</em>, we can also compute the Odds-ratio (OR), where
+each column represents a different <em>group</em>. Values larger than 1
+indicate that the odds are higher in the first group (and vice
+versa).</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">RCT</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -375,13 +405,17 @@
 <pre><code>&gt; Odds ratio |       95% CI
 &gt; -------------------------
 &gt; 4.73       | [2.74, 8.17]</code></pre>
-<p>We can also compute the Risk-ratio (RR), which is the ratio between the proportions of the two groups - a measure which some claim is more intuitive.</p>
+<p>We can also compute the Risk-ratio (RR), which is the ratio between
+the proportions of the two groups - a measure which some claim is more
+intuitive.</p>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">riskratio</a></span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Risk ratio |       95% CI
 &gt; -------------------------
 &gt; 2.54       | [1.87, 3.45]</code></pre>
-<p>Additionally, Cohen’s <em>h</em> can also be computed, which uses the <em>arcsin</em> transformation. Negative values indicate smaller proportion in the first group (and vice versa).</p>
+<p>Additionally, Cohen’s <em>h</em> can also be computed, which uses the
+<em>arcsin</em> transformation. Negative values indicate smaller
+proportion in the first group (and vice versa).</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">cohens_h</a></span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's h |       95% CI
@@ -391,7 +425,11 @@
 <div class="section level4">
 <h4 id="larger-tables">Larger Tables<a class="anchor" aria-label="anchor" href="#larger-tables"></a>
 </h4>
-<p>For larger contingency tables Cramér’s <em>V</em>, Cohen’s <em>w</em> and Pearson’s <em>C</em> can be used. While Cramér’s <em>V</em> and Pearson’s <em>C</em> are capped at 1 (perfect association), Cohen’s <em>w</em> can be larger than 1 (for all three, 0 indicates no association between the variables).</p>
+<p>For larger contingency tables Cramér’s <em>V</em>, Cohen’s <em>w</em>
+and Pearson’s <em>C</em> can be used. While Cramér’s <em>V</em> and
+Pearson’s <em>C</em> are capped at 1 (perfect association), Cohen’s
+<em>w</em> can be larger than 1 (for all three, 0 indicates no
+association between the variables).</p>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">Music</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -468,7 +506,10 @@
 <div class="section level4">
 <h4 id="goodness-of-fit">Goodness-of-Fit<a class="anchor" aria-label="anchor" href="#goodness-of-fit"></a>
 </h4>
-<p>Cohen’s <em>w</em> and Pearson’s <em>C</em> are also applicable to tests of goodness-of-fit, where small values indicate no deviation from the hypothetical probabilities and large values indicate… large deviation from the hypothetical probabilities.</p>
+<p>Cohen’s <em>w</em> and Pearson’s <em>C</em> are also applicable to
+tests of goodness-of-fit, where small values indicate no deviation from
+the hypothetical probabilities and large values indicate… large
+deviation from the hypothetical probabilities.</p>
 <div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">O</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">89</span>, <span class="fl">37</span>, <span class="fl">130</span>, <span class="fl">28</span>, <span class="fl">2</span><span class="op">)</span> <span class="co"># observed group sizes</span></span>
 <span><span class="va">E</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.40</span>, <span class="fl">.20</span>, <span class="fl">.20</span>, <span class="fl">.15</span>, <span class="fl">.05</span><span class="op">)</span> <span class="co"># expected group freq</span></span>
@@ -493,7 +534,14 @@
 &gt; 0.65      | [0.54, Inf]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [Inf].</code></pre>
-<p>However, Cohen’s <em>w</em> does not account for the distribution of expected probabilities, and as such may be seen is an inflated effect size, and since it can be larger than 1 it is also harder to interpret. For these reasons, we recommend the Normalized <span class="math inline">\(\chi\)</span> (Chi), which adjusted Cohen’s <em>w</em> to account for the expected distribution of probabilities, making it range between 0 (observed distribution matches the expected distribution perfectly) and 1 (the observed distribution is maximally different than the expected one).</p>
+<p>However, Cohen’s <em>w</em> does not account for the distribution of
+expected probabilities, and as such may be seen is an inflated effect
+size, and since it can be larger than 1 it is also harder to interpret.
+For these reasons, we recommend the Normalized <span class="math inline">\(\chi\)</span> (Chi), which adjusted Cohen’s
+<em>w</em> to account for the expected distribution of probabilities,
+making it range between 0 (observed distribution matches the expected
+distribution perfectly) and 1 (the observed distribution is maximally
+different than the expected one).</p>
 <div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">normalized_chi</a></span><span class="op">(</span><span class="va">O</span>, p <span class="op">=</span> <span class="va">E</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Norm. Chi |       95% CI
@@ -506,7 +554,9 @@
 <div class="section level4">
 <h4 id="paired-contingency-tables">Paired Contingency Tables<a class="anchor" aria-label="anchor" href="#paired-contingency-tables"></a>
 </h4>
-<p>For dependent (paired) contingency tables, Cohen’s <em>g</em> represents the symmetry of the table, ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry).</p>
+<p>For dependent (paired) contingency tables, Cohen’s <em>g</em>
+represents the symmetry of the table, ranging between 0 (perfect
+symmetry) and 0.5 (perfect asymmetry).</p>
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">Performance</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -544,7 +594,12 @@
 <div class="section level4">
 <h4 id="difference-in-ranks">Difference in Ranks<a class="anchor" aria-label="anchor" href="#difference-in-ranks"></a>
 </h4>
-<p>For two independent samples, the rank-biserial correlation (<span class="math inline">\(r_{rb}\)</span>) is a measure of relative superiority - i.e., larger values indicate a higher probability of a randomly selected observation from <em>X</em> being larger than randomly selected observation from <em>Y</em>. A value of <span class="math inline">\((-1)\)</span> indicates that all observations in the second group are larger than the first, and a value of <span class="math inline">\((+1)\)</span> indicates that all observations in the first group are larger than the second.</p>
+<p>For two independent samples, the rank-biserial correlation (<span class="math inline">\(r_{rb}\)</span>) is a measure of relative
+superiority - i.e., larger values indicate a higher probability of a
+randomly selected observation from <em>X</em> being larger than randomly
+selected observation from <em>Y</em>. A value of <span class="math inline">\((-1)\)</span> indicates that all observations in
+the second group are larger than the first, and a value of <span class="math inline">\((+1)\)</span> indicates that all observations in
+the first group are larger than the second.</p>
 <div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">48</span>, <span class="fl">48</span>, <span class="fl">77</span>, <span class="fl">86</span>, <span class="fl">85</span>, <span class="fl">85</span><span class="op">)</span></span>
 <span><span class="va">B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">14</span>, <span class="fl">34</span>, <span class="fl">34</span>, <span class="fl">77</span><span class="op">)</span></span>
@@ -569,7 +624,12 @@
 &gt; Pr(superiority) |        0.85 | [0.49, 0.98]
 &gt; Cohen's U3      |        0.93 | [0.49, 1.00]
 &gt; Overlap         |        0.47 | [0.15, 1.00]</code></pre>
-<p>For one sample, <span class="math inline">\(r_{rb}\)</span> measures the symmetry around <span class="math inline">\(\mu\)</span> (mu; the null value), with 0 indicating perfect symmetry, <span class="math inline">\((-1)\)</span> indicates that all observations fall below <span class="math inline">\(\mu\)</span>, and <span class="math inline">\((+1)\)</span> indicates that all observations fall above <span class="math inline">\(\mu\)</span>. For paired samples the difference between the paired samples is used:</p>
+<p>For one sample, <span class="math inline">\(r_{rb}\)</span> measures
+the symmetry around <span class="math inline">\(\mu\)</span> (mu; the
+null value), with 0 indicating perfect symmetry, <span class="math inline">\((-1)\)</span> indicates that all observations fall
+below <span class="math inline">\(\mu\)</span>, and <span class="math inline">\((+1)\)</span> indicates that all observations fall
+above <span class="math inline">\(\mu\)</span>. For paired samples the
+difference between the paired samples is used:</p>
 <div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.15</span>, <span class="fl">0.88</span>, <span class="fl">0.90</span>, <span class="fl">0.74</span>, <span class="fl">1.21</span>, <span class="fl">1.36</span>, <span class="fl">0.89</span><span class="op">)</span></span>
 <span></span>
@@ -607,7 +667,10 @@
 <div class="section level4">
 <h4 id="rank-one-way-anova">Rank One way ANOVA<a class="anchor" aria-label="anchor" href="#rank-one-way-anova"></a>
 </h4>
-<p>The Rank-Epsilon-Squared (<span class="math inline">\(\varepsilon^2\)</span>) is a measure of association for the rank based one-way ANOVA. Values range between 0 (no relative superiority between any of the groups) to 1 (complete separation - with no overlap in ranks between the groups).</p>
+<p>The Rank-Epsilon-Squared (<span class="math inline">\(\varepsilon^2\)</span>) is a measure of
+association for the rank based one-way ANOVA. Values range between 0 (no
+relative superiority between any of the groups) to 1 (complete
+separation - with no overlap in ranks between the groups).</p>
 <div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">group_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  g1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.9</span>, <span class="fl">3.0</span>, <span class="fl">2.5</span>, <span class="fl">2.6</span>, <span class="fl">3.2</span><span class="op">)</span>, <span class="co"># normal subjects</span></span>
@@ -632,7 +695,11 @@
 <div class="section level4">
 <h4 id="rank-one-way-repeated-measures-anova">Rank One way Repeated-Measures ANOVA<a class="anchor" aria-label="anchor" href="#rank-one-way-repeated-measures-anova"></a>
 </h4>
-<p>For a rank based repeated measures one-way ANOVA, Kendall’s <em>W</em> is a measure of agreement on the effect of condition between various “blocks” (the subjects), or more often conceptualized as a measure of reliability of the rating / scores of observations (or “groups”) between “raters” (“blocks”).</p>
+<p>For a rank based repeated measures one-way ANOVA, Kendall’s
+<em>W</em> is a measure of agreement on the effect of condition between
+various “blocks” (the subjects), or more often conceptualized as a
+measure of reliability of the rating / scores of observations (or
+“groups”) between “raters” (“blocks”).</p>
 <div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Subjects are COLUMNS</span></span>
 <span><span class="op">(</span><span class="va">ReactionTimes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>

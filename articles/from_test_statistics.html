@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.2/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.2.0/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.2.0/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.2/font.css" rel="stylesheet">
 <link href="../deps/JetBrains_Mono-0.4.2/font.css" rel="stylesheet">
 <link href="../deps/Roboto_Slab-0.4.2/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.5</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,7 +92,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown--easystats">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown--easystats" aria-label="easystats">
     <span class="fab fa fab fa-r-project"></span>
      
     easystats
@@ -147,8 +147,21 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>In many real world applications there are no straightforward ways of obtaining standardized effect sizes. However, it is possible to get approximations of most of the effect size indices (<span class="math inline">\(d\)</span>, <span class="math inline">\(r\)</span>, <span class="math inline">\(\eta^2_p\)</span>…) with the use of test statistics. These conversions are based on the idea that <strong>test statistics are a function of effect size and sample size</strong>. Thus information about samples size (or more often of degrees of freedom) is used to reverse-engineer indices of effect size from test statistics. This idea and these functions also power our <a href="https://easystats4u.shinyapps.io/statistic2effectsize/" class="external-link"><strong><em>Effect Sizes From Test Statistics</em></strong> <em>shiny app</em></a>.</p>
-<p>The measures discussed here are, in one way or another, <strong><em>signal to noise ratios</em></strong>, with the “noise” representing the unaccounted variance in the outcome variable<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Note that for generalized linear models (Poisson, Logistic…), where the outcome is never on an arbitrary scale, estimates themselves &lt;strong&gt;are&lt;/strong&gt; indices of effect size! Thus this vignette is relevant only to general linear models.&lt;/p&gt;"><sup>1</sup></a>.</p>
+<p>In many real world applications there are no straightforward ways of
+obtaining standardized effect sizes. However, it is possible to get
+approximations of most of the effect size indices (<span class="math inline">\(d\)</span>, <span class="math inline">\(r\)</span>, <span class="math inline">\(\eta^2_p\)</span>…) with the use of test
+statistics. These conversions are based on the idea that <strong>test
+statistics are a function of effect size and sample size</strong>. Thus
+information about samples size (or more often of degrees of freedom) is
+used to reverse-engineer indices of effect size from test statistics.
+This idea and these functions also power our <a href="https://easystats4u.shinyapps.io/statistic2effectsize/" class="external-link"><strong><em>Effect
+Sizes From Test Statistics</em></strong> <em>shiny app</em></a>.</p>
+<p>The measures discussed here are, in one way or another,
+<strong><em>signal to noise ratios</em></strong>, with the “noise”
+representing the unaccounted variance in the outcome variable<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Note that for generalized linear models (Poisson,
+Logistic…), where the outcome is never on an arbitrary scale, estimates
+themselves &lt;strong&gt;are&lt;/strong&gt; indices of effect size! Thus this
+vignette is relevant only to general linear models.&lt;/p&gt;"><sup>1</sup></a>.</p>
 <p>The indices are:</p>
 <ul>
 <li><p>Percent variance explained (<span class="math inline">\(\eta^2_p\)</span>, <span class="math inline">\(\omega^2_p\)</span>, <span class="math inline">\(\epsilon^2_p\)</span>).</p></li>
@@ -158,8 +171,12 @@
 <div class="section level3">
 <h3 id="partial-percent-variance-explained">(Partial) Percent Variance Explained<a class="anchor" aria-label="anchor" href="#partial-percent-variance-explained"></a>
 </h3>
-<p>These measures represent the ratio of <span class="math inline">\(Signal^2 / (Signal^2 + Noise^2)\)</span>, with the “noise” having all other “signals” partial-ed out (be they of other fixed or random effects). The most popular of these indices is <span class="math inline">\(\eta^2_p\)</span> (Eta; which is equivalent to <span class="math inline">\(R^2\)</span>).</p>
-<p>The conversion of the <span class="math inline">\(F\)</span>- or <span class="math inline">\(t\)</span>-statistic is based on <span class="citation">Friedman (1982)</span>.</p>
+<p>These measures represent the ratio of <span class="math inline">\(Signal^2 / (Signal^2 + Noise^2)\)</span>, with the
+“noise” having all other “signals” partial-ed out (be they of other
+fixed or random effects). The most popular of these indices is <span class="math inline">\(\eta^2_p\)</span> (Eta; which is equivalent to
+<span class="math inline">\(R^2\)</span>).</p>
+<p>The conversion of the <span class="math inline">\(F\)</span>- or
+<span class="math inline">\(t\)</span>-statistic is based on <span class="citation">Friedman (1982)</span>.</p>
 <p>Let’s look at an example:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://afex.singmann.science/" class="external-link">afex</a></span><span class="op">)</span></span>
@@ -180,7 +197,9 @@
 &gt; 3 angle:noise 2, 18 1160.00 45.31 *** .834   &lt;.001
 &gt; ---
 &gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1</code></pre>
-<p>Let’s compare the <span class="math inline">\(\eta^2_p\)</span> (the <code>pes</code> column) obtained here with ones recovered from <code><a href="../reference/F_to_eta2.html">F_to_eta2()</a></code>:</p>
+<p>Let’s compare the <span class="math inline">\(\eta^2_p\)</span> (the
+<code>pes</code> column) obtained here with ones recovered from
+<code><a href="../reference/F_to_eta2.html">F_to_eta2()</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/">effectsize</a></span><span class="op">)</span></span>
 <span></span>
@@ -196,8 +215,16 @@
 &gt; 0.83           | [0.69, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<p><strong>They are identical!</strong><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Note that these are &lt;em&gt;partial&lt;/em&gt; percent variance explained, and so their sum can be larger than 1.&lt;/p&gt;"><sup>2</sup></a> (except for the fact that <code><a href="../reference/F_to_eta2.html">F_to_eta2()</a></code> also provides confidence intervals<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Confidence intervals for all indices are estimated using the non-centrality parameter method; These methods search for a the best non-central parameter of the non-central &lt;span class="math inline"&gt;\(F\)&lt;/span&gt;/&lt;span class="math inline"&gt;\(t\)&lt;/span&gt; distribution for the desired tail-probabilities, and then convert these ncps to the corresponding effect sizes.&lt;/p&gt;'><sup>3</sup></a> :)</p>
-<p>In this case we were able to easily obtain the effect size (thanks to <code>afex</code>!), but in other cases it might not be as easy, and using estimates based on test statistic offers a good approximation.</p>
+<p><strong>They are identical!</strong><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Note that these are &lt;em&gt;partial&lt;/em&gt; percent variance
+explained, and so their sum can be larger than 1.&lt;/p&gt;"><sup>2</sup></a> (except for the fact
+that <code><a href="../reference/F_to_eta2.html">F_to_eta2()</a></code> also provides confidence intervals<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Confidence intervals for all indices are estimated using
+the non-centrality parameter method; These methods search for a the best
+non-central parameter of the non-central &lt;span class="math inline"&gt;\(F\)&lt;/span&gt;/&lt;span class="math inline"&gt;\(t\)&lt;/span&gt;
+distribution for the desired tail-probabilities, and then convert these
+ncps to the corresponding effect sizes.&lt;/p&gt;'><sup>3</sup></a> :)</p>
+<p>In this case we were able to easily obtain the effect size (thanks to
+<code>afex</code>!), but in other cases it might not be as easy, and
+using estimates based on test statistic offers a good approximation.</p>
 <p>For example:</p>
 <div class="section level4">
 <h4 id="in-simple-effect-and-contrast-analysis">In Simple Effect and Contrast Analysis<a class="anchor" aria-label="anchor" href="#in-simple-effect-and-contrast-analysis"></a>
@@ -269,7 +296,8 @@
 &gt; 0.73           | [0.51, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<p>We can also use <code><a href="../reference/F_to_eta2.html">t_to_eta2()</a></code> for the slope of <code>Days</code> (which in this case gives the same result).</p>
+<p>We can also use <code><a href="../reference/F_to_eta2.html">t_to_eta2()</a></code> for the slope of
+<code>Days</code> (which in this case gives the same result).</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="va">fit_lmm</span>, effects <span class="op">=</span> <span class="st">"fixed"</span>, ci_method <span class="op">=</span> <span class="st">"satterthwaite"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Fixed Effects
@@ -292,7 +320,13 @@
 <div class="section level4">
 <h4 id="bias-corrected-indices">Bias-Corrected Indices<a class="anchor" aria-label="anchor" href="#bias-corrected-indices"></a>
 </h4>
-<p>Alongside <span class="math inline">\(\eta^2_p\)</span> there are also the less biased <span class="math inline">\(\omega_p^2\)</span> (Omega) and <span class="math inline">\(\epsilon^2_p\)</span> (Epsilon; sometimes called <span class="math inline">\(\text{Adj. }\eta^2_p\)</span>, which is equivalent to <span class="math inline">\(R^2_{adj}\)</span>; <span class="citation">Albers and Lakens (2018)</span>, <span class="citation">Mordkoff (2019)</span>).</p>
+<p>Alongside <span class="math inline">\(\eta^2_p\)</span> there are
+also the less biased <span class="math inline">\(\omega_p^2\)</span>
+(Omega) and <span class="math inline">\(\epsilon^2_p\)</span> (Epsilon;
+sometimes called <span class="math inline">\(\text{Adj.
+}\eta^2_p\)</span>, which is equivalent to <span class="math inline">\(R^2_{adj}\)</span>; <span class="citation">Albers
+and Lakens (2018)</span>, <span class="citation">Mordkoff
+(2019)</span>).</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span><span class="fl">45.8</span>, <span class="fl">1</span>, <span class="fl">17</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Eta2 (partial) |       95% CI
@@ -319,7 +353,13 @@
 <div class="section level3">
 <h3 id="measure-of-association">Measure of Association<a class="anchor" aria-label="anchor" href="#measure-of-association"></a>
 </h3>
-<p>Similar to <span class="math inline">\(\eta^2_p\)</span>, <span class="math inline">\(r\)</span> is a signal to noise ratio, and is in fact equal to <span class="math inline">\(\sqrt{\eta^2_p}\)</span> (so it’s really a <em>partial</em> <span class="math inline">\(r\)</span>). It is often used instead of <span class="math inline">\(\eta^2_p\)</span> when discussing the <em>strength</em> of association (but I suspect people use it instead of <span class="math inline">\(\eta^2_p\)</span> because it gives a bigger number, which looks better).</p>
+<p>Similar to <span class="math inline">\(\eta^2_p\)</span>, <span class="math inline">\(r\)</span> is a signal to noise ratio, and is in
+fact equal to <span class="math inline">\(\sqrt{\eta^2_p}\)</span> (so
+it’s really a <em>partial</em> <span class="math inline">\(r\)</span>).
+It is often used instead of <span class="math inline">\(\eta^2_p\)</span> when discussing the
+<em>strength</em> of association (but I suspect people use it instead of
+<span class="math inline">\(\eta^2_p\)</span> because it gives a bigger
+number, which looks better).</p>
 <div class="section level4">
 <h4 id="for-slopes">For Slopes<a class="anchor" aria-label="anchor" href="#for-slopes"></a>
 </h4>
@@ -339,7 +379,8 @@
 <pre><code>&gt; r    |       95% CI
 &gt; -------------------
 &gt; 0.85 | [0.67, 0.92]</code></pre>
-<p>In a fixed-effect linear model, this returns the <strong>partial</strong> correlation. Compare:</p>
+<p>In a fixed-effect linear model, this returns the
+<strong>partial</strong> correlation. Compare:</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">complaints</span> <span class="op">+</span> <span class="va">critical</span>, data <span class="op">=</span> <span class="va">attitude</span><span class="op">)</span></span>
 <span></span>
@@ -372,7 +413,9 @@
 <div class="section level4">
 <h4 id="in-contrast-analysis">In Contrast Analysis<a class="anchor" aria-label="anchor" href="#in-contrast-analysis"></a>
 </h4>
-<p>This measure is also sometimes used in contrast analysis, where it is called the point bi-serial correlation - <span class="math inline">\(r_{pb}\)</span> <span class="citation">(Cohen et al. 1965; Rosnow, Rosenthal, and Rubin 2000)</span>:</p>
+<p>This measure is also sometimes used in contrast analysis, where it is
+called the point bi-serial correlation - <span class="math inline">\(r_{pb}\)</span> <span class="citation">(Cohen et
+al. 1965; Rosnow, Rosenthal, and Rubin 2000)</span>:</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span><span class="va">angle</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt;  contrast estimate   SE df t.ratio p.value
@@ -397,7 +440,11 @@
 <div class="section level3">
 <h3 id="measures-of-difference">Measures of Difference<a class="anchor" aria-label="anchor" href="#measures-of-difference"></a>
 </h3>
-<p>These indices represent <span class="math inline">\(Signal/Noise\)</span> with the “signal” representing the difference between two means. This is akin to Cohen’s <span class="math inline">\(d\)</span>, and is a close approximation when comparing two groups of equal size <span class="citation">(Wolf 1986; Rosnow, Rosenthal, and Rubin 2000)</span>.</p>
+<p>These indices represent <span class="math inline">\(Signal/Noise\)</span> with the “signal”
+representing the difference between two means. This is akin to Cohen’s
+<span class="math inline">\(d\)</span>, and is a close approximation
+when comparing two groups of equal size <span class="citation">(Wolf
+1986; Rosnow, Rosenthal, and Rubin 2000)</span>.</p>
 <p>These can be useful in contrast analyses.</p>
 <div class="section level4">
 <h4 id="between-subject-contrasts">Between-Subject Contrasts<a class="anchor" aria-label="anchor" href="#between-subject-contrasts"></a>
@@ -423,7 +470,10 @@
 &gt; 0.71 | [ 0.14, 1.27]
 &gt; 1.04 | [ 0.45, 1.62]
 &gt; 0.34 | [-0.22, 0.89]</code></pre>
-<p>However, these are merely approximations of a <em>true</em> Cohen’s <em>d</em>. It is advised to directly estimate Cohen’s <em>d</em>, whenever possible. For example, here with <code><a href="https://rdrr.io/pkg/emmeans/man/eff_size.html" class="external-link">emmeans::eff_size()</a></code>:</p>
+<p>However, these are merely approximations of a <em>true</em> Cohen’s
+<em>d</em>. It is advised to directly estimate Cohen’s <em>d</em>,
+whenever possible. For example, here with
+<code><a href="https://rdrr.io/pkg/emmeans/man/eff_size.html" class="external-link">emmeans::eff_size()</a></code>:</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/eff_size.html" class="external-link">eff_size</a></span><span class="op">(</span><span class="va">em_tension</span>, sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sigma.html" class="external-link">sigma</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>, edf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/df.residual.html" class="external-link">df.residual</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt;  contrast effect.size   SE df lower.CL upper.CL
@@ -457,7 +507,8 @@
 &gt; -1.34 | [-1.97, -0.70]
 &gt; -1.39 | [-2.03, -0.74]
 &gt; -0.75 | [-1.27, -0.22]</code></pre>
-<p>(Note set <code>paired = TRUE</code> to not over estimate the size of the effect; <span class="citation">Rosenthal (1991)</span>; <span class="citation">Rosnow, Rosenthal, and Rubin (2000)</span>)</p>
+<p>(Note set <code>paired = TRUE</code> to not over estimate the size of
+the effect; <span class="citation">Rosenthal (1991)</span>; <span class="citation">Rosnow, Rosenthal, and Rubin (2000)</span>)</p>
 </div>
 </div>
 </div>
@@ -466,25 +517,39 @@
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-albers2018power" class="csl-entry">
-Albers, Casper, and Daniël Lakens. 2018. <span>“When Power Analyses Based on Pilot Data Are Biased: Inaccurate Effect Size Estimators and Follow-up Bias.”</span> <em>Journal of Experimental Social Psychology</em> 74: 187–95.
+Albers, Casper, and Daniël Lakens. 2018. <span>“When Power Analyses
+Based on Pilot Data Are Biased: Inaccurate Effect Size Estimators and
+Follow-up Bias.”</span> <em>Journal of Experimental Social
+Psychology</em> 74: 187–95.
 </div>
 <div id="ref-cohen1965some" class="csl-entry">
-Cohen, Jacob et al. 1965. <span>“Some Statistical Issues in Psychological Research.”</span> <em>Handbook of Clinical Psychology</em>, 95–121.
+Cohen, Jacob et al. 1965. <span>“Some Statistical Issues in
+Psychological Research.”</span> <em>Handbook of Clinical
+Psychology</em>, 95–121.
 </div>
 <div id="ref-friedman1982simplified" class="csl-entry">
-Friedman, Herbert. 1982. <span>“Simplified Determinations of Statistical Power, Magnitude of Effect and Research Sample Sizes.”</span> <em>Educational and Psychological Measurement</em> 42 (2): 521–26.
+Friedman, Herbert. 1982. <span>“Simplified Determinations of Statistical
+Power, Magnitude of Effect and Research Sample Sizes.”</span>
+<em>Educational and Psychological Measurement</em> 42 (2): 521–26.
 </div>
 <div id="ref-mordkoff2019simple" class="csl-entry">
-Mordkoff, J Toby. 2019. <span>“A Simple Method for Removing Bias from a Popular Measure of Standardized Effect Size: Adjusted Partial Eta Squared.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 2 (3): 228–32.
+Mordkoff, J Toby. 2019. <span>“A Simple Method for Removing Bias from a
+Popular Measure of Standardized Effect Size: Adjusted Partial Eta
+Squared.”</span> <em>Advances in Methods and Practices in Psychological
+Science</em> 2 (3): 228–32.
 </div>
 <div id="ref-rosenthal1991meta" class="csl-entry">
-Rosenthal, Robert. 1991. <span>“Meta-Analytic Procedures for Social Sciences.”</span> <em>Newbury Park, CA: Sage</em> 10: 9781412984997.
+Rosenthal, Robert. 1991. <span>“Meta-Analytic Procedures for Social
+Sciences.”</span> <em>Newbury Park, CA: Sage</em> 10: 9781412984997.
 </div>
 <div id="ref-rosnow2000contrasts" class="csl-entry">
-Rosnow, Ralph L, Robert Rosenthal, and Donald B Rubin. 2000. <span>“Contrasts and Correlations in Effect-Size Estimation.”</span> <em>Psychological Science</em> 11 (6): 446–53.
+Rosnow, Ralph L, Robert Rosenthal, and Donald B Rubin. 2000.
+<span>“Contrasts and Correlations in Effect-Size Estimation.”</span>
+<em>Psychological Science</em> 11 (6): 446–53.
 </div>
 <div id="ref-wolf1986meta" class="csl-entry">
-Wolf, Fredric M. 1986. <em>Meta-Analysis: Quantitative Methods for Research Synthesis</em>. Vol. 59. Sage.
+Wolf, Fredric M. 1986. <em>Meta-Analysis: Quantitative Methods for
+Research Synthesis</em>. Vol. 59. Sage.
 </div>
 </div>
 </div>

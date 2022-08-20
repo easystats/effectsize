@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.2/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.2.0/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.2.0/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.2/font.css" rel="stylesheet">
 <link href="../deps/JetBrains_Mono-0.4.2/font.css" rel="stylesheet">
 <link href="../deps/Roboto_Slab-0.4.2/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.5</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,7 +92,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown--easystats">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown--easystats" aria-label="easystats">
     <span class="fab fa fab fa-r-project"></span>
      
     easystats
@@ -147,8 +147,14 @@
 <div class="section level3">
 <h3 id="eta2">Eta<sup>2</sup><a class="anchor" aria-label="anchor" href="#eta2"></a>
 </h3>
-<p>In the context of ANOVA-like tests, it is common to report ANOVA-like effect sizes. These effect sizes represent the amount of variance explained by each of the model’s terms, where each term can be represented by 1 <em>or more</em> parameters.</p>
-<p>For example, in the following case, the parameters for the <code>treatment</code> term represent specific contrasts between the factor’s levels (treatment groups) - the difference between each level and the reference level (<code>obk.long == 'control'</code>).</p>
+<p>In the context of ANOVA-like tests, it is common to report ANOVA-like
+effect sizes. These effect sizes represent the amount of variance
+explained by each of the model’s terms, where each term can be
+represented by 1 <em>or more</em> parameters.</p>
+<p>For example, in the following case, the parameters for the
+<code>treatment</code> term represent specific contrasts between the
+factor’s levels (treatment groups) - the difference between each level
+and the reference level (<code>obk.long == 'control'</code>).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">obk.long</span>, package <span class="op">=</span> <span class="st">"afex"</span><span class="op">)</span></span>
 <span><span class="co"># modify the data slightly for the demonstration:</span></span>
@@ -166,7 +172,11 @@
 <pre><code>&gt; 
 &gt; Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed
 &gt;   using a Wald t-distribution approximation.</code></pre>
-<p>But we can also ask about the overall effect of <code>treatment</code> - how much of the variation in our dependent variable <code>value</code> can be predicted by (or explained by) the variation between the <code>treatment</code> groups. Such a question can be answered with an ANOVA test:</p>
+<p>But we can also ask about the overall effect of
+<code>treatment</code> - how much of the variation in our dependent
+variable <code>value</code> can be predicted by (or explained by) the
+variation between the <code>treatment</code> groups. Such a question can
+be answered with an ANOVA test:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Parameter | Sum_Squares | df | Mean_Square |     F |      p
@@ -175,14 +185,19 @@
 &gt; Residuals |      250.96 | 77 |        3.26 |       |       
 &gt; 
 &gt; Anova Table (Type 1 tests)</code></pre>
-<p>As we can see, the variance in <code>value</code> (the <em>sums-of-squares</em>, or <em>SS</em>) has been split into pieces:</p>
+<p>As we can see, the variance in <code>value</code> (the
+<em>sums-of-squares</em>, or <em>SS</em>) has been split into
+pieces:</p>
 <ul>
 <li>The part associated with <code>treatment</code>.</li>
 <li>The unexplained part (The Residual-<em>SS</em>).</li>
 </ul>
-<p>We can now ask what is the percent of the total variance in <code>value</code> that is associated with <code>treatment</code>. This measure is called Eta-squared (written as <span class="math inline">\(\eta^2\)</span>):</p>
+<p>We can now ask what is the percent of the total variance in
+<code>value</code> that is associated with <code>treatment</code>. This
+measure is called Eta-squared (written as <span class="math inline">\(\eta^2\)</span>):</p>
 <p><span class="math display">\[
-\eta^2 = \frac{SS_{effect}}{SS_{total}} = \frac{72.23}{72.23 + 250.96} = 0.22
+\eta^2 = \frac{SS_{effect}}{SS_{total}} = \frac{72.23}{72.23 + 250.96} =
+0.22
 \]</span></p>
 <p>and can be accessed via the <code><a href="../reference/eta_squared.html">eta_squared()</a></code> function:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -199,10 +214,18 @@
 <div class="section level4">
 <h4 id="adding-more-terms">Adding More Terms<a class="anchor" aria-label="anchor" href="#adding-more-terms"></a>
 </h4>
-<p>When we add more terms to our model, we can ask two different questions about the percent of variance explained by a predictor - how much variance is accounted by the predictor in <em>total</em>, and how much is accounted when <em>controlling</em> for any other predictors. The latter questions is answered by the <em>partial</em>-Eta squared (<span class="math inline">\(\eta^2_p\)</span>), which is the percent of the <strong>partial</strong> variance (after accounting for other predictors in the model) associated with a term:</p>
+<p>When we add more terms to our model, we can ask two different
+questions about the percent of variance explained by a predictor - how
+much variance is accounted by the predictor in <em>total</em>, and how
+much is accounted when <em>controlling</em> for any other predictors.
+The latter questions is answered by the <em>partial</em>-Eta squared
+(<span class="math inline">\(\eta^2_p\)</span>), which is the percent of
+the <strong>partial</strong> variance (after accounting for other
+predictors in the model) associated with a term:</p>
 <p><span class="math display">\[
 \eta^2_p = \frac{SS_{effect}}{SS_{effect} + SS_{error}}
-\]</span> which can also be accessed via the <code><a href="../reference/eta_squared.html">eta_squared()</a></code> function:</p>
+\]</span> which can also be accessed via the <code><a href="../reference/eta_squared.html">eta_squared()</a></code>
+function:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">phase</span> <span class="op">+</span> <span class="va">treatment</span>, data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span></span>
 <span></span>
@@ -227,8 +250,19 @@
 &gt; treatment |           0.26 | [0.12, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<p><em>(<code>phase</code> is a repeated-measures variable, but for simplicity it is not modeled as such.)</em></p>
-<p>In the calculation above, the <em>SS</em>s were computed sequentially - that is the <em>SS</em> for <code>phase</code> is computed after controlling for <code>gender</code>, and the <em>SS</em> for <code>treatment</code> is computed after controlling for both <code>gender</code> and <code>phase</code>. This method of sequential <em>SS</em> is called also <em>type-I</em> test. If this is what you want, that’s great - however in many fields (and other statistical programs) it is common to use “simultaneous” sums of squares (<em>type-II</em> or <em>type-III</em> tests), where each <em>SS</em> is computed controlling for all other predictors, regardless of order. This can be done with <code>car::Anova(type = ...)</code>:</p>
+<p><em>(<code>phase</code> is a repeated-measures variable, but for
+simplicity it is not modeled as such.)</em></p>
+<p>In the calculation above, the <em>SS</em>s were computed sequentially
+- that is the <em>SS</em> for <code>phase</code> is computed after
+controlling for <code>gender</code>, and the <em>SS</em> for
+<code>treatment</code> is computed after controlling for both
+<code>gender</code> and <code>phase</code>. This method of sequential
+<em>SS</em> is called also <em>type-I</em> test. If this is what you
+want, that’s great - however in many fields (and other statistical
+programs) it is common to use “simultaneous” sums of squares
+(<em>type-II</em> or <em>type-III</em> tests), where each <em>SS</em> is
+computed controlling for all other predictors, regardless of order. This
+can be done with <code>car::Anova(type = ...)</code>:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">m</span>, type <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type II)
@@ -251,13 +285,34 @@
 &gt; treatment |           0.26 | [0.12, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<p><span class="math inline">\(\eta^2_p\)</span> will always be larger than <span class="math inline">\(\eta^2\)</span>. The idea is to simulate the effect size in a design where only the term of interest was manipulated. This terminology assumes some causal relationship between the predictor and the outcome, which reflects the experimental world from which these analyses and measures hail; However, <span class="math inline">\(\eta^2_p\)</span> can also simply be seen as a <strong>signal-to-noise- ratio</strong>, as it only uses the term’s <em>SS</em> and the error-term’s <em>SS</em>.[^in repeated-measure designs the term-specific residual-<em>SS</em> is used for the computation of the effect size].</p>
+<p><span class="math inline">\(\eta^2_p\)</span> will always be larger
+than <span class="math inline">\(\eta^2\)</span>. The idea is to
+simulate the effect size in a design where only the term of interest was
+manipulated. This terminology assumes some causal relationship between
+the predictor and the outcome, which reflects the experimental world
+from which these analyses and measures hail; However, <span class="math inline">\(\eta^2_p\)</span> can also simply be seen as a
+<strong>signal-to-noise- ratio</strong>, as it only uses the term’s
+<em>SS</em> and the error-term’s <em>SS</em>.[^in repeated-measure
+designs the term-specific residual-<em>SS</em> is used for the
+computation of the effect size].</p>
 <p>(Note that in a one-way fixed-effect designs <span class="math inline">\(\eta^2 = \eta^2_p\)</span>.)</p>
 </div>
 <div class="section level4">
 <h4 id="adding-interactions">Adding Interactions<a class="anchor" aria-label="anchor" href="#adding-interactions"></a>
 </h4>
-<p>Type II and type III treat interaction differently. Without going into the weeds here, keep in mind that <strong>when using type III SS, it is important to center all of the predictors</strong>; for numeric variables this can be done by mean-centering the predictors; for factors this can be done by using orthogonal coding (such as <code>contr.sum</code> for <em>effects-coding</em>) for the dummy variables (and <em>NOT</em> treatment coding, which is the default in R). This unfortunately makes parameter interpretation harder, but <em>only</em> when this is does do the <em>SS</em>s associated with each lower-order term (or lower-order interaction) represent the <strong><em>SS</em></strong> of the <strong>main effect</strong> (with treatment coding they represent the <em>SS</em> of the simple effects).</p>
+<p>Type II and type III treat interaction differently. Without going
+into the weeds here, keep in mind that <strong>when using type III SS,
+it is important to center all of the predictors</strong>; for numeric
+variables this can be done by mean-centering the predictors; for factors
+this can be done by using orthogonal coding (such as
+<code>contr.sum</code> for <em>effects-coding</em>) for the dummy
+variables (and <em>NOT</em> treatment coding, which is the default in
+R). This unfortunately makes parameter interpretation harder, but
+<em>only</em> when this is does do the <em>SS</em>s associated with each
+lower-order term (or lower-order interaction) represent the
+<strong><em>SS</em></strong> of the <strong>main effect</strong> (with
+treatment coding they represent the <em>SS</em> of the simple
+effects).</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># compare</span></span>
 <span><span class="va">m_interaction1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span>, data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span></span>
@@ -301,7 +356,9 @@
 &gt; treatment:gender |           0.20 | [0.07, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<p>If all of this type-III-effects-coding seems like a hassle, you can use the <code>afex</code> package, which takes care of all of this behind the scenes:</p>
+<p>If all of this type-III-effects-coding seems like a hassle, you can
+use the <code>afex</code> package, which takes care of all of this
+behind the scenes:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://afex.singmann.science/" class="external-link">afex</a></span><span class="op">)</span></span>
 <span><span class="va">m_afex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_car</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span> <span class="op">+</span> <span class="fu">Error</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span></span></code></pre></div>
@@ -330,7 +387,8 @@
 <li>
 <strong>Omega Squared</strong> (<span class="math inline">\(\omega^2\)</span>)</li>
 <li>
-<strong>Epsilon Squared</strong> (<span class="math inline">\(\epsilon^2\)</span>), also referred to as <em>Adjusted Eta Squared</em>.</li>
+<strong>Epsilon Squared</strong> (<span class="math inline">\(\epsilon^2\)</span>), also referred to as
+<em>Adjusted Eta Squared</em>.</li>
 </ul>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></span></code></pre></div>
@@ -354,12 +412,24 @@
 &gt; treatment:gender |               0.18 | [0.06, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<p>Both <span class="math inline">\(\omega^2\)</span> and <span class="math inline">\(\epsilon^2\)</span> (and their partial counterparts, <span class="math inline">\(\omega^2_p\)</span> &amp; <span class="math inline">\(\epsilon^2_p\)</span>) are unbiased estimators of the population’s <span class="math inline">\(\eta^2\)</span> (or <span class="math inline">\(\eta^2_p\)</span>, respectively), which is especially important is small samples. Though <span class="math inline">\(\omega^2\)</span> is the more popular choice <span class="citation">(Albers and Lakens 2018)</span>, <span class="math inline">\(\epsilon^2\)</span> is analogous to adjusted-<span class="math inline">\(R^2\)</span> <span class="citation">(Allen 2017, 382)</span>, and has been found to be less biased <span class="citation">(Carroll and Nordholm 1975)</span>.</p>
+<p>Both <span class="math inline">\(\omega^2\)</span> and <span class="math inline">\(\epsilon^2\)</span> (and their partial
+counterparts, <span class="math inline">\(\omega^2_p\)</span> &amp;
+<span class="math inline">\(\epsilon^2_p\)</span>) are unbiased
+estimators of the population’s <span class="math inline">\(\eta^2\)</span> (or <span class="math inline">\(\eta^2_p\)</span>, respectively), which is
+especially important is small samples. Though <span class="math inline">\(\omega^2\)</span> is the more popular choice <span class="citation">(Albers and Lakens 2018)</span>, <span class="math inline">\(\epsilon^2\)</span> is analogous to adjusted-<span class="math inline">\(R^2\)</span> <span class="citation">(Allen 2017,
+382)</span>, and has been found to be less biased <span class="citation">(Carroll and Nordholm 1975)</span>.</p>
 </div>
 <div class="section level4">
 <h4 id="generalized-eta2">Generalized Eta<sup>2</sup><a class="anchor" aria-label="anchor" href="#generalized-eta2"></a>
 </h4>
-<p><em>Partial</em> Eta squared aims at estimating the effect size in a design where only the term of interest was manipulated, assuming all other terms are have also manipulated. However, not all predictors are always manipulated - some can only be observed. For such cases, we can use <em>generalized</em> Eta squared (<span class="math inline">\(\eta^2_G\)</span>), which like <span class="math inline">\(\eta^2_p\)</span> estimating the effect size in a design where only the term of interest was manipulated, accounting for the fact that some terms cannot be manipulated (and so their variance would be present in such a design).</p>
+<p><em>Partial</em> Eta squared aims at estimating the effect size in a
+design where only the term of interest was manipulated, assuming all
+other terms are have also manipulated. However, not all predictors are
+always manipulated - some can only be observed. For such cases, we can
+use <em>generalized</em> Eta squared (<span class="math inline">\(\eta^2_G\)</span>), which like <span class="math inline">\(\eta^2_p\)</span> estimating the effect size in a
+design where only the term of interest was manipulated, accounting for
+the fact that some terms cannot be manipulated (and so their variance
+would be present in such a design).</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m_afex</span>, generalized <span class="op">=</span> <span class="st">"gender"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
@@ -372,14 +442,22 @@
 &gt; 
 &gt; - Observed variables: gender
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<p><span class="math inline">\(\eta^2_G\)</span> is useful in repeated-measures designs, as it can estimate what a <em>within-subject</em> effect size would have been had that predictor been manipulated <em>between-subjects</em> <span class="citation">(Olejnik and Algina 2003)</span>.</p>
+<p><span class="math inline">\(\eta^2_G\)</span> is useful in
+repeated-measures designs, as it can estimate what a
+<em>within-subject</em> effect size would have been had that predictor
+been manipulated <em>between-subjects</em> <span class="citation">(Olejnik and Algina 2003)</span>.</p>
 </div>
 <div class="section level4">
 <h4 id="cohens-f">Cohen’s <em>f</em><a class="anchor" aria-label="anchor" href="#cohens-f"></a>
 </h4>
-<p>Finally, we have the forgotten child - Cohen’s <span class="math inline">\(f\)</span>. Cohen’s <span class="math inline">\(f\)</span> is a transformation of <span class="math inline">\(\eta^2_p\)</span>, and is the ratio between the term-<em>SS</em> and the error-<em>SS</em>.</p>
-<p><span class="math display">\[\text{Cohen's} f_p = \sqrt{\frac{\eta^2_p}{1-\eta^2_p}} = \sqrt{\frac{SS_{effect}}{SS_{error}}}\]</span></p>
-<p>It can take on values between zero, when the population means are all equal, and an indefinitely large number as the means are further and further apart. It is analogous to Cohen’s <span class="math inline">\(d\)</span> when there are only two groups.</p>
+<p>Finally, we have the forgotten child - Cohen’s <span class="math inline">\(f\)</span>. Cohen’s <span class="math inline">\(f\)</span> is a transformation of <span class="math inline">\(\eta^2_p\)</span>, and is the ratio between the
+term-<em>SS</em> and the error-<em>SS</em>.</p>
+<p><span class="math display">\[\text{Cohen's} f_p =
+\sqrt{\frac{\eta^2_p}{1-\eta^2_p}} =
+\sqrt{\frac{SS_{effect}}{SS_{error}}}\]</span></p>
+<p>It can take on values between zero, when the population means are all
+equal, and an indefinitely large number as the means are further and
+further apart. It is analogous to Cohen’s <span class="math inline">\(d\)</span> when there are only two groups.</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">cohens_f</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
@@ -396,8 +474,16 @@
 <div class="section level3">
 <h3 id="when-sum-of-squares-are-hard-to-come-by">When Sum-of-Squares are Hard to Come By<a class="anchor" aria-label="anchor" href="#when-sum-of-squares-are-hard-to-come-by"></a>
 </h3>
-<p>Until now we’ve discusses effect sizes in fixed-effect linear model and repeated-measures ANOVA’s - cases where the <em>SS</em>s are readily available, and so the various effect sized presented can easily be estimated. How ever this is not always the case.</p>
-<p>For example, in linear mixed models (LMM/HLM/MLM), the estimation of all required <em>SS</em>s is not straightforward. However, we can still <em>approximate</em> these effect sizes (only their partial versions) based on the <strong>test-statistic approximation method</strong> (learn more in the <a href="https://easystats.github.io/effectsize/articles/from_test_statistics.html"><em>Effect Size from Test Statistics</em> vignette</a>).</p>
+<p>Until now we’ve discusses effect sizes in fixed-effect linear model
+and repeated-measures ANOVA’s - cases where the <em>SS</em>s are readily
+available, and so the various effect sized presented can easily be
+estimated. How ever this is not always the case.</p>
+<p>For example, in linear mixed models (LMM/HLM/MLM), the estimation of
+all required <em>SS</em>s is not straightforward. However, we can still
+<em>approximate</em> these effect sizes (only their partial versions)
+based on the <strong>test-statistic approximation method</strong> (learn
+more in the <a href="https://easystats.github.io/effectsize/articles/from_test_statistics.html"><em>Effect
+Size from Test Statistics</em> vignette</a>).</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/runehaubo/lmerTestR" class="external-link">lmerTest</a></span><span class="op">)</span></span>
 <span></span>
@@ -444,13 +530,27 @@
 &gt; Days      |             0.70 | [0.47, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<p>Another case where <em>SS</em>s are not available is when using Bayesian models…</p>
+<p>Another case where <em>SS</em>s are not available is when using
+Bayesian models…</p>
 </div>
 <div class="section level3">
 <h3 id="for-bayesian-models">For Bayesian Models<a class="anchor" aria-label="anchor" href="#for-bayesian-models"></a>
 </h3>
-<p>An alternative route to obtaining effect sizes of explained variance, is via the use of the <strong><em>posterior predictive distribution</em></strong> (<em>PPD</em>). The PPD is the Bayesian expected distribution of possible unobserved values. Thus, after observing some data, we can estimate not just the expected mean values (the conditional marginal means), but also the full <em>distribution</em> of data around these values <span class="citation">(Gelman et al. 2014, chap. 7)</span>.</p>
-<p>By sampling from the PPD, we can decompose the sample to the various <em>SS</em>s needed for the computation of explained variance measures. By repeatedly sampling from the PPD, we can generate a posterior distribution of explained variance estimates. But note that <strong>these estimates are conditioned not only on the location-parameters of the model, but also on the scale-parameters of the model!</strong> So it is vital to <a href="https://mc-stan.org/docs/2_23/stan-users-guide/meta-models-part.html#meta-models.part/" class="external-link">validate the PPD</a> before using it to estimate explained variance measures.</p>
+<p>An alternative route to obtaining effect sizes of explained variance,
+is via the use of the <strong><em>posterior predictive
+distribution</em></strong> (<em>PPD</em>). The PPD is the Bayesian
+expected distribution of possible unobserved values. Thus, after
+observing some data, we can estimate not just the expected mean values
+(the conditional marginal means), but also the full
+<em>distribution</em> of data around these values <span class="citation">(Gelman et al. 2014, chap. 7)</span>.</p>
+<p>By sampling from the PPD, we can decompose the sample to the various
+<em>SS</em>s needed for the computation of explained variance measures.
+By repeatedly sampling from the PPD, we can generate a posterior
+distribution of explained variance estimates. But note that
+<strong>these estimates are conditioned not only on the
+location-parameters of the model, but also on the scale-parameters of
+the model!</strong> So it is vital to <a href="https://mc-stan.org/docs/2_23/stan-users-guide/meta-models-part.html#meta-models.part/" class="external-link">validate
+the PPD</a> before using it to estimate explained variance measures.</p>
 <pre><code>&gt; This is rstanarm version 2.21.3</code></pre>
 <pre><code>&gt; - See https://mc-stan.org/rstanarm/articles/priors for changes to default priors!</code></pre>
 <pre><code>&gt; - Default priors may change, so it's safest to specify priors, even if equivalent to the defaults.</code></pre>
@@ -472,7 +572,10 @@
 <span>  data <span class="op">=</span> <span class="va">obk.long</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">gaussian</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  refresh <span class="op">=</span> <span class="fl">0</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>We can use <code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> to get the posterior distribution of <span class="math inline">\(eta^2\)</span> or <span class="math inline">\(eta^2_p\)</span> for each effect. Like an ANOVA table, we must make sure to use the right effects-coding and <em>SS</em>-type:</p>
+<p>We can use <code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> to get the posterior
+distribution of <span class="math inline">\(eta^2\)</span> or <span class="math inline">\(eta^2_p\)</span> for each effect. Like an ANOVA
+table, we must make sure to use the right effects-coding and
+<em>SS</em>-type:</p>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pes_posterior</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eta_squared.html">eta_squared_posterior</a></span><span class="op">(</span><span class="va">m_bayes</span>,</span>
 <span>  draws <span class="op">=</span> <span class="fl">500</span>, <span class="co"># how many samples from the PPD?</span></span>
@@ -521,19 +624,30 @@
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-albers2018power" class="csl-entry">
-Albers, Casper, and Daniël Lakens. 2018. <span>“When Power Analyses Based on Pilot Data Are Biased: Inaccurate Effect Size Estimators and Follow-up Bias.”</span> <em>Journal of Experimental Social Psychology</em> 74: 187–95.
+Albers, Casper, and Daniël Lakens. 2018. <span>“When Power Analyses
+Based on Pilot Data Are Biased: Inaccurate Effect Size Estimators and
+Follow-up Bias.”</span> <em>Journal of Experimental Social
+Psychology</em> 74: 187–95.
 </div>
 <div id="ref-allen2017statistics" class="csl-entry">
-Allen, Rory. 2017. <em>Statistics and Experimental Design for Psychologists: A Model Comparison Approach</em>. World Scientific Publishing Company.
+Allen, Rory. 2017. <em>Statistics and Experimental Design for
+Psychologists: A Model Comparison Approach</em>. World Scientific
+Publishing Company.
 </div>
 <div id="ref-carroll1975sampling" class="csl-entry">
-Carroll, Robert M, and Lena A Nordholm. 1975. <span>“Sampling Characteristics of Kelley’s Epsilon and Hays’ Omega.”</span> <em>Educational and Psychological Measurement</em> 35 (3): 541–54.
+Carroll, Robert M, and Lena A Nordholm. 1975. <span>“Sampling
+Characteristics of Kelley’s Epsilon and Hays’ Omega.”</span>
+<em>Educational and Psychological Measurement</em> 35 (3): 541–54.
 </div>
 <div id="ref-gelman2014bayesian" class="csl-entry">
-Gelman, Andrew, John B Carlin, Hal S Stern, and Donald B Rubin. 2014. <span>“Bayesian Data Analysis (Vol. 2).”</span> <em>Boca Raton, FL: Chapman</em>.
+Gelman, Andrew, John B Carlin, Hal S Stern, and Donald B Rubin. 2014.
+<span>“Bayesian Data Analysis (Vol. 2).”</span> <em>Boca Raton, FL:
+Chapman</em>.
 </div>
 <div id="ref-olejnik2003generalized" class="csl-entry">
-Olejnik, Stephen, and James Algina. 2003. <span>“Generalized Eta and Omega Squared Statistics: Measures of Effect Size for Some Common Research Designs.”</span> <em>Psychological Methods</em> 8 (4): 434.
+Olejnik, Stephen, and James Algina. 2003. <span>“Generalized Eta and
+Omega Squared Statistics: Measures of Effect Size for Some Common
+Research Designs.”</span> <em>Psychological Methods</em> 8 (4): 434.
 </div>
 </div>
 </div>

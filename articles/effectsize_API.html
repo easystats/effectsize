@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.2/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.2.0/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.2.0/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.2/font.css" rel="stylesheet">
 <link href="../deps/JetBrains_Mono-0.4.2/font.css" rel="stylesheet">
 <link href="../deps/Roboto_Slab-0.4.2/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.5</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,7 +92,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown--easystats">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown--easystats" aria-label="easystats">
     <span class="fab fa fab fa-r-project"></span>
      
     easystats
@@ -149,7 +149,8 @@
 <div class="section level3">
 <h3 id="supporting-anova-effect-sizes">Supporting ANOVA Effect Sizes<a class="anchor" aria-label="anchor" href="#supporting-anova-effect-sizes"></a>
 </h3>
-<p>To add support for you model, create a new <code>.anova_es()</code> method function. This functions should generally do 3 things:</p>
+<p>To add support for you model, create a new <code>.anova_es()</code>
+method function. This functions should generally do 3 things:</p>
 <ol style="list-style-type: decimal">
 <li>Build a data frame with all the required information.</li>
 <li>Pass the data frame to one of the 3 functions.</li>
@@ -158,9 +159,17 @@
 <div class="section level4">
 <h4 id="simple-anova-tables">Simple ANOVA tables<a class="anchor" aria-label="anchor" href="#simple-anova-tables"></a>
 </h4>
-<p>The input data frame must have these columns: - <code>Parameter</code> (char) - The name of the parameter or, more often, the term. - <code>Sum_Squares</code> (num) - The sum of squares. - <code>df</code> (num) - The degrees of freedom associated with the <code>Sum_Squares</code>. - <code>Mean_Square_residuals</code> (num; <em>optional</em>) - if <em>not</em> present, is calculated as <code>Sum_Squares / df</code>. (Any other column is ignored.)</p>
-<p>And exactly <em>1</em> row Where <code>Parameter</code> is <code>Residual</code>.</p>
-<p>Optionally, one of the rows can have a <code>(Intercept)</code> value for <code>Parameter</code>.</p>
+<p>The input data frame must have these columns: -
+<code>Parameter</code> (char) - The name of the parameter or, more
+often, the term. - <code>Sum_Squares</code> (num) - The sum of squares.
+- <code>df</code> (num) - The degrees of freedom associated with the
+<code>Sum_Squares</code>. - <code>Mean_Square_residuals</code> (num;
+<em>optional</em>) - if <em>not</em> present, is calculated as
+<code>Sum_Squares / df</code>. (Any other column is ignored.)</p>
+<p>And exactly <em>1</em> row Where <code>Parameter</code> is
+<code>Residual</code>.</p>
+<p>Optionally, one of the rows can have a <code>(Intercept)</code> value
+for <code>Parameter</code>.</p>
 <p>An example of a minimally valid data frame:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">min_aov</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -180,9 +189,15 @@
 <pre><code>&gt;   Parameter Eta2_partial   CI CI_low CI_high
 &gt; 1         A        0.286 0.95   0.12       1
 &gt; 2         B        0.091 0.95   0.00       1</code></pre>
-<p>The output is a data frame with the columns: <code>Parameter</code>, the effect size, and (optionally) <code>CI</code> + <code>CI_low</code> + <code>CI_high</code>,</p>
-<p>And with the following attributes: <code>partial</code>, <code>generalized</code>, <code>ci</code>, <code>alternative</code>, <code>anova_type</code> (<code>NA</code> or <code>NULL</code>), <code>approximate</code>.</p>
-<p>You can then set the <code>anova_type</code> attribute to {1, 2, 3, or <code>NA</code>} and return the output.</p>
+<p>The output is a data frame with the columns: <code>Parameter</code>,
+the effect size, and (optionally) <code>CI</code> + <code>CI_low</code>
++ <code>CI_high</code>,</p>
+<p>And with the following attributes: <code>partial</code>,
+<code>generalized</code>, <code>ci</code>, <code>alternative</code>,
+<code>anova_type</code> (<code>NA</code> or <code>NULL</code>),
+<code>approximate</code>.</p>
+<p>You can then set the <code>anova_type</code> attribute to {1, 2, 3,
+or <code>NA</code>} and return the output.</p>
 </div>
 <div class="section level4">
 <h4 id="anova-tables-with-multiple-error-strata">ANOVA Tables with Multiple Error Strata<a class="anchor" aria-label="anchor" href="#anova-tables-with-multiple-error-strata"></a>
@@ -201,8 +216,11 @@
 <li>
 <code>Mean_Square_residuals</code> (num; <em>optional</em>)</li>
 </ul>
-<p>And exactly <em>1</em> row <strong><em>per <code>Group</code></em></strong> Where <code>Parameter</code> is <code>Residual</code>.</p>
-<p>Optionally, one of the rows can have a <code>(Intercept)</code> value for <code>Parameter</code>.</p>
+<p>And exactly <em>1</em> row <strong><em>per
+<code>Group</code></em></strong> Where <code>Parameter</code> is
+<code>Residual</code>.</p>
+<p>Optionally, one of the rows can have a <code>(Intercept)</code> value
+for <code>Parameter</code>.</p>
 <p>An example of a minimally valid data frame:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">min_aovlist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -211,7 +229,9 @@
 <span>  Sum_Squares <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">34</span>, <span class="fl">21</span>, <span class="fl">34</span>, <span class="fl">400</span><span class="op">)</span>,</span>
 <span>  df <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">12</span>, <span class="fl">4</span>, <span class="fl">30</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>Pass the data frame to <code><a href="../reference/effectsize_API.html">.es_aov_strata()</a></code>, along with a list of predictors (including the stratifying variables) to the <code>DV_names</code> argument:</p>
+<p>Pass the data frame to <code><a href="../reference/effectsize_API.html">.es_aov_strata()</a></code>, along with a
+list of predictors (including the stratifying variables) to the
+<code>DV_names</code> argument:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize_API.html">.es_aov_strata</a></span><span class="op">(</span></span>
 <span>  <span class="va">min_aovlist</span>,</span>
@@ -224,14 +244,21 @@
 <pre><code>&gt;   Group   Parameter Omega2_partial   CI CI_low CI_high
 &gt; 1     S (Intercept)          0.568 0.95   0.21       1
 &gt; 2   S:A           A         -0.042 0.95   0.00       1</code></pre>
-<p>The output is a data frame with the columns: <code>Group</code>, <code>Parameter</code>, the effect size, and (optionally) <code>CI</code> + <code>CI_low</code> + <code>CI_high</code>,</p>
-<p>And with the following attributes: <code>partial</code>, <code>generalized</code>, <code>ci</code>, <code>alternative</code>, <code>approximate</code>.</p>
-<p>You can then set the <code>anova_type</code> attribute to {1, 2, 3, or <code>NA</code>} and return the output.</p>
+<p>The output is a data frame with the columns: <code>Group</code>,
+<code>Parameter</code>, the effect size, and (optionally)
+<code>CI</code> + <code>CI_low</code> + <code>CI_high</code>,</p>
+<p>And with the following attributes: <code>partial</code>,
+<code>generalized</code>, <code>ci</code>, <code>alternative</code>,
+<code>approximate</code>.</p>
+<p>You can then set the <code>anova_type</code> attribute to {1, 2, 3,
+or <code>NA</code>} and return the output.</p>
 </div>
 <div class="section level4">
 <h4 id="approximate-effect-sizes">Approximate Effect sizes<a class="anchor" aria-label="anchor" href="#approximate-effect-sizes"></a>
 </h4>
-<p>When <em>sums of squares</em> cannot be extracted, we can still get <em>approximate</em> effect sizes based on the <code><a href="../reference/F_to_eta2.html">F_to_eta2()</a></code> family of functions.</p>
+<p>When <em>sums of squares</em> cannot be extracted, we can still get
+<em>approximate</em> effect sizes based on the <code><a href="../reference/F_to_eta2.html">F_to_eta2()</a></code>
+family of functions.</p>
 <p>The input data frame must have these columns:</p>
 <ul>
 <li>
@@ -240,11 +267,14 @@
 <code>F</code> (num) - The <em>F</em> test statistic.</li>
 <li>
 <code>df</code> (num) - effect degrees of freedom.</li>
-<li>(Can also have a <code>t</code> col instead, in which case <code>df</code> is set to 1, and <code>F</code> is <code>t^2</code>).</li>
+<li>(Can also have a <code>t</code> col instead, in which case
+<code>df</code> is set to 1, and <code>F</code> is
+<code>t^2</code>).</li>
 <li>
 <code>df_error</code> (num) - error degrees of freedom.</li>
 </ul>
-<p>Optionally, one of the rows can have <code>(Intercept)</code> as the <code>Parameter</code>.</p>
+<p>Optionally, one of the rows can have <code>(Intercept)</code> as the
+<code>Parameter</code>.</p>
 <p>An example of a minimally valid data frame:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">min_anova</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -265,9 +295,15 @@
 <pre><code>&gt;   Parameter Eta2_partial   CI CI_low CI_high
 &gt; 1         A         0.17 0.95  0.023       1
 &gt; 2         B         0.04 0.95  0.000       1</code></pre>
-<p>The output is a data frame with the columns: <code>Parameter</code>, the effect size, and (optionally) <code>CI</code> + <code>CI_low</code> + <code>CI_high</code>,</p>
-<p>And with the following attributes: <code>partial</code>, <code>generalized</code>, <code>ci</code>, <code>alternative</code>, <code>approximate</code>.</p>
-<p>You can then set the <code>anova_type</code> attribute to {1, 2, 3, or <code>NA</code>} and return the output, and optionally the <code>approximate</code> attribute, and return the output.</p>
+<p>The output is a data frame with the columns: <code>Parameter</code>,
+the effect size, and (optionally) <code>CI</code> + <code>CI_low</code>
++ <code>CI_high</code>,</p>
+<p>And with the following attributes: <code>partial</code>,
+<code>generalized</code>, <code>ci</code>, <code>alternative</code>,
+<code>approximate</code>.</p>
+<p>You can then set the <code>anova_type</code> attribute to {1, 2, 3,
+or <code>NA</code>} and return the output, and optionally the
+<code>approximate</code> attribute, and return the output.</p>
 </div>
 <div class="section level4">
 <h4 id="example">
@@ -297,7 +333,8 @@
 <span></span>
 <span>  <span class="va">out</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>And… that’s it! Our new <code>superMODEL</code> class of models is fully supported!</p>
+<p>And… that’s it! Our new <code>superMODEL</code> class of models is
+fully supported!</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type I)

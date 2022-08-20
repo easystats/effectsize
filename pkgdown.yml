@@ -1,4 +1,4 @@
-pandoc: 2.14.2
+pandoc: 2.19.1
 pkgdown: 2.0.6.9000
 pkgdown_sha: 956f076f661eb2de9413f64ea24a580cf444466d
 articles:
@@ -10,7 +10,7 @@ articles:
   from_test_statistics: from_test_statistics.html
   interpret: interpret.html
   simple_htests: simple_htests.html
-last_built: 2022-08-10T09:45Z
+last_built: 2022-08-20T09:07Z
 urls:
   reference: https://easystats.github.io/effectsize/reference
   article: https://easystats.github.io/effectsize/articles
