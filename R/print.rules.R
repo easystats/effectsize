@@ -12,18 +12,6 @@ print.rules <- function(x, digits = "signif2", ...) {
 
 
 #' @export
-print_md.rules <- function(x, digits = "signif2", ...) {
-  x_fmt <- format(x, digits = digits, output = "markdown", ...)
-
-  if (length(x$values) == length(x$labels)) {
-    insight::export_table(x_fmt, align = "rl", format = "markdown", ...)
-  } else {
-    insight::export_table(x_fmt, align = "rcl", format = "markdown", ...)
-  }
-}
-
-
-#' @export
 print_html.rules <- function(x, digits = "signif2", ...) {
   x_fmt <- format(x, digits = digits, output = "html", ...)
 
@@ -34,6 +22,48 @@ print_html.rules <- function(x, digits = "signif2", ...) {
   }
 }
 
+
+#' @export
+print_md.rules <- function(x, digits = "signif2", value_name = NULL, title = NULL, ...) {
+  name <- attr(x, "rule_name")
+  V <- insight::format_value(x$values, digits = digits)
+  labs <- x$labels
+  if (is.null(value_name)) value_name <- "x"
+
+  if (length(V) == length(labs)) {
+    out <- paste0("\n- **",
+                  value_name, " ~= ", V, "**",
+                  " -> ", labs)
+  } else {
+    is_right <- isTRUE(attr(x, "right"))
+    if (is_right) {
+      R <- " <= "
+      L <- " < "
+    } else {
+      R <- " < "
+      L <- " <= "
+    }
+    R <- c("", rep(R, length(labs)-1))
+    L <- c(rep(L, length(labs)-1), "")
+
+
+    out <- paste0("\n- **",
+                  c("", V),
+                  R, value_name, L,
+                  c(V, ""), "**",
+                  " ~ ", labs)
+  }
+
+  if (is.null(title)) {
+    header <- sprintf('\n\n`"%s"`:', name)
+  } else {
+    header <- sprintf('\n\n%s (`"%s"`):', title, name)
+  }
+
+  cat(header, out)
+
+  invisible(x)
+}
 
 
 #' @export

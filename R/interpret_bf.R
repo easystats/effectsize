@@ -12,20 +12,12 @@
 #' @section Rules:
 #'
 #' Rules apply to BF as ratios, so BF of 10 is as extreme as a BF of 0.1 (1/10).
+#' A BF of 1 always indicates no evidence.
 #'
-#' - Jeffreys (1961) (`"jeffreys1961"`; default)
-#'   - **BF = 1** - No evidence
-#'   - **1 < BF <= 3** - Anecdotal
-#'   - **3 < BF <= 10** - Moderate
-#'   - **10 < BF <= 30** - Strong
-#'   - **30 < BF <= 100** - Very strong
-#'   - **BF > 100** - Extreme.
-#' - Raftery (1995) (`"raftery1995"`)
-#'   - **BF = 1** - No evidence
-#'   - **1 < BF <= 3** - Weak
-#'   - **3 < BF <= 20** - Positive
-#'   - **20 < BF <= 150** - Strong
-#'   - **BF > 150** - Very strong
+#' ```{r, echo = FALSE, results='asis'}
+#' insight::print_md(.rules_bf$jeffreys1961, value_name = "BF", title = "Jeffreys (1961)")
+#' insight::print_md(.rules_bf$raftery1995, value_name = "BF", title = "Raftery (1995)")
+#' ```
 #'
 #'
 #' @examples
@@ -62,14 +54,7 @@ interpret_bf <- function(bf,
 
   rules <- .match.rules(
     rules,
-    list(
-      jeffreys1961 = rules(c(3, 10, 30, 100), c("anecdotal", "moderate", "strong", "very strong", "extreme"),
-        name = "jeffreys1961"
-      ),
-      raftery1995 = rules(c(3, 20, 150), c("weak", "positive", "strong", "very strong"),
-        name = "raftery1995"
-      )
-    )
+    .rules_bf
   )
 
   interpretation <- interpret(bf, rules)
@@ -90,3 +75,20 @@ interpret_bf <- function(bf,
 
   interpretation
 }
+
+
+#' @keywords internal
+.rules_bf <- list(
+  jeffreys1961 =
+    rules(
+      c(3, 10, 30, 100),
+      c("anecdotal", "moderate", "strong", "very strong", "extreme"),
+      name = "jeffreys1961"
+    ),
+  raftery1995 =
+    rules(
+      c(3, 20, 150),
+      c("weak", "positive", "strong", "very strong"),
+      name = "raftery1995"
+    )
+)

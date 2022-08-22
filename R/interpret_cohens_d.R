@@ -14,29 +14,15 @@
 #' Rules apply to equally to positive and negative *d* (i.e., they are given as
 #' absolute values).
 #'
-#' - Cohen (1988) (`"cohen1988"`; default)
-#'   - **d < 0.2** - Very small
-#'   - **0.2 <= d < 0.5** - Small
-#'   - **0.5 <= d < 0.8** - Medium
-#'   - **d >= 0.8** - Large
-#' - Sawilowsky (2009) (`"sawilowsky2009"`)
-#'   - **d < 0.1** - Tiny
-#'   - **0.1 <= d < 0.2** - Very small
-#'   - **0.2 <= d < 0.5** - Small
-#'   - **0.5 <= d < 0.8** - Medium
-#'   - **0.8 <= d < 1.2** - Large
-#'   - **1.2 <= d < 2** - Very large
-#'   - **d >= 2** - Huge
-#' - Lovakov & Agadullina (2021) (`"lovakov2021"`)
-#'   - **d < 0.15** - Very small
-#'   - **0.15 <= d < 0.36** - Small
-#'   - **0.36 <= d < 0.65** - Medium
-#'   - **d >= 0.65** - Large
-#' - Gignac & Szodorai (2016) (`"gignac2016"`, based on the [d_to_r()] conversion, see [interpret_r()])
-#'   - **d < 0.2** - Very small
-#'   - **0.2 <= d < 0.41** - Small
-#'   - **0.41 <= d < 0.63** - Moderate
-#'   - **d >= 0.63** - Large
+#'
+#' ```{r, echo = FALSE, results='asis'}
+#' insight::print_md(.rules_cohens_d$cohen1988, value_name = "d", title = "Cohen (1988)")
+#' insight::print_md(.rules_cohens_d$sawilowsky2009, value_name = "d", title = "Sawilowsky (2009)")
+#' insight::print_md(.rules_cohens_d$lovakov2021, value_name = "d", title = "Lovakov & Agadullina (2021)")
+#' insight::print_md(.rules_cohens_d$gignac2016, value_name = "d", title = "Gignac & Szodorai (2016)")
+#' ```
+#'
+#' (`"gignac2016"` is based on the [d_to_r()] conversion, see [interpret_r()].)
 #'
 #' @examples
 #' interpret_cohens_d(.02)
@@ -64,20 +50,7 @@ interpret_cohens_d <- function(d, rules = "cohen1988", ...) {
 
   rules <- .match.rules(
     rules,
-    list(
-      cohen1988 = rules(c(0.2, 0.5, 0.8), c("very small", "small", "medium", "large"),
-        name = "cohen1988", right = FALSE
-      ),
-      sawilowsky2009 = rules(c(0.1, 0.2, 0.5, 0.8, 1.2, 2),
-        c("tiny", "very small", "small", "medium", "large", "very large", "huge"),
-        name = "sawilowsky2009", right = FALSE
-      ),
-      lovakov2021 = rules(c(0.15, 0.36, 0.65),
-        c("very small", "small", "medium", "large"),
-        name = "lovakov2021", right = FALSE
-      ),
-      gignac2016 = NA # added for the correct error msg
-    )
+    .rules_cohens_d
   )
 
   interpret(abs(d), rules)
@@ -94,3 +67,40 @@ interpret_hedges_g <- function(g, rules = "cohen1988") {
 interpret_glass_delta <- function(delta, rules = "cohen1988") {
   interpret_cohens_d(delta, rules)
 }
+
+
+#' @keywords internal
+.rules_cohens_d <- list(
+  cohen1988 = rules(
+    c(0.2, 0.5, 0.8),
+    c("very small", "small", "medium", "large"),
+    name = "cohen1988",
+    right = FALSE
+  ),
+  sawilowsky2009 = rules(
+    c(0.1, 0.2, 0.5, 0.8, 1.2, 2),
+    c(
+      "tiny",
+      "very small",
+      "small",
+      "medium",
+      "large",
+      "very large",
+      "huge"
+    ),
+    name = "sawilowsky2009",
+    right = FALSE
+  ),
+  lovakov2021 = rules(
+    c(0.15, 0.36, 0.65),
+    c("very small", "small", "medium", "large"),
+    name = "lovakov2021",
+    right = FALSE
+  ),
+  gignac2016 = rules(
+    r_to_d(c(0.1, 0.2, 0.3)),
+    c("very small", "small", "moderate", "large"),
+    name = "gignac2016",
+    right = FALSE
+  )
+)
