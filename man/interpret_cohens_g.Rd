@@ -28,14 +28,13 @@ to their area of inquiry.}" - Cohen, 1988, page 147.
 
 Rules apply to equally to positive and negative \emph{g} (i.e., they are given as
 absolute values).
+
+Cohen (1988) (\code{"cohen1988"}):
 \itemize{
-\item Cohen (1988) (\code{"cohen1988"}; default)
-\itemize{
-\item \strong{d < 0.05} - Very small
-\item \strong{0.05 <= d < 0.15} - Small
-\item \strong{0.15 <= d < 0.25} - Medium
-\item \strong{d >= 0.25} - Large
-}
+\item \strong{g <= 0.05} ~ very small
+\item \strong{0.05 < g <= 0.15} ~ small
+\item \strong{0.15 < g <= 0.25} ~ medium
+\item \strong{0.25 < g} ~ large
 }
 }
 

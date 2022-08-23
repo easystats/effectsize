@@ -16,15 +16,14 @@ Interpret Kendall's coefficient of concordance
 }
 \section{Rules}{
 
+
+Landis & Koch (1977) (\code{"landis1977"}):
 \itemize{
-\item Landis & Koch (1977) (\code{"landis1977"}; default)
-\itemize{
-\item \strong{0.00 <= w < 0.20} - Slight agreement
-\item \strong{0.20 <= w < 0.40} - Fair agreement
-\item \strong{0.40 <= w < 0.60} - Moderate agreement
-\item \strong{0.60 <= w < 0.80} - Substantial agreement
-\item \strong{w >= 0.80}        - Almost perfect agreement
-}
+\item \strong{w <= 0.2} ~ slight agreement
+\item \strong{0.2 < w <= 0.4} ~ fair agreement
+\item \strong{0.4 < w <= 0.6} ~ moderate agreement
+\item \strong{0.6 < w <= 0.8} ~ substantial agreement
+\item \strong{0.8 < w} ~ almost perfect agreement
 }
 }
 

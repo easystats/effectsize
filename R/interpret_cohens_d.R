@@ -44,10 +44,6 @@
 #'
 #' @export
 interpret_cohens_d <- function(d, rules = "cohen1988", ...) {
-  if (is.character(rules) && rules == "gignac2016") {
-    return(interpret_r(d_to_r(d), rules))
-  }
-
   rules <- .match.rules(
     rules,
     .rules_cohens_d

@@ -22,27 +22,26 @@ Interpretation of Bayesian diagnostic indices, such as Effective Sample Size (ES
 \section{Rules}{
 
 \subsection{ESS}{
+
+Bürkner (2017) (\code{"burkner2017"}):
 \itemize{
-\item Bürkner, P. C. (2017) (\code{"burkner2017"}; default)
-\itemize{
-\item \strong{ESS < 1000} - Insufficient
-\item \strong{ESS >= 1000} - Sufficient
-}
+\item \strong{ESS <= 1000} ~ insufficient
+\item \strong{1000 < ESS} ~ sufficient
 }
 }
 
 \subsection{Rhat}{
+
+Vehtari et al. (2019) (\code{"vehtari2019"}):
 \itemize{
-\item Vehtari et al. (2019) (\code{"vehtari2019"}; default)
-\itemize{
-\item \strong{Rhat < 1.01} - Converged
-\item \strong{Rhat >= 1.01} - Failed
+\item \strong{Rhat < 1.01} ~ converged
+\item \strong{1.01 <= Rhat} ~ failed
 }
-\item Gelman & Rubin (1992) (\code{"gelman1992"})
+
+Gelman & Rubin (1992) (\code{"gelman1992"}):
 \itemize{
-\item \strong{Rhat < 1.1} - Converged
-\item \strong{Rhat >= 1.1} - Failed
-}
+\item \strong{Rhat < 1.10} ~ converged
+\item \strong{1.10 <= Rhat} ~ failed
 }
 }
 }

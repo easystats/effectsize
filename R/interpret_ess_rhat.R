@@ -9,18 +9,23 @@
 #' @section Rules:
 #'
 #' ## ESS
-#' - Bürkner, P. C. (2017) (`"burkner2017"`; default)
-#'   - **ESS < 1000** - Insufficient
-#'   - **ESS >= 1000** - Sufficient
+#'
+#' ```{r, echo = FALSE, results='asis'}
+#' insight::print_md(.rules_ess$burkner2017, value_name = "ESS", title = "Bürkner (2017)")
+#' ```
 #'
 #' ## Rhat
-#' - Vehtari et al. (2019) (`"vehtari2019"`; default)
-#'   - **Rhat < 1.01** - Converged
-#'   - **Rhat >= 1.01** - Failed
-#' - Gelman & Rubin (1992) (`"gelman1992"`)
-#'   - **Rhat < 1.1** - Converged
-#'   - **Rhat >= 1.1** - Failed
 #'
+#' ```{r, echo = FALSE, results='asis'}
+#' insight::print_md(.rules_rhat$vehtari2019,
+#'                   digits = 2,
+#'                   value_name = "Rhat",
+#'                   title = "Vehtari et al. (2019)")
+#' insight::print_md(.rules_rhat$gelman1992,
+#'                   digits = 2,
+#'                   value_name = "Rhat",
+#'                   title = "Gelman & Rubin (1992)")
+#' ```
 #'
 #' @examples
 #' interpret_ess(1001)
@@ -42,9 +47,7 @@
 interpret_ess <- function(ess, rules = "burkner2017") {
   rules <- .match.rules(
     rules,
-    list(
-      burkner2017 = rules(c(1000), c("insufficient", "sufficient"), name = "burkner2017", right = FALSE)
-    )
+    .rules_ess
   )
 
   interpret(abs(ess), rules)
@@ -57,11 +60,22 @@ interpret_ess <- function(ess, rules = "burkner2017") {
 interpret_rhat <- function(rhat, rules = "vehtari2019") {
   rules <- .match.rules(
     rules,
-    list(
-      vehtari2019 = rules(c(1.01), c("converged", "failed"), name = "vehtari2019"),
-      gelman1992 = rules(c(1.1), c("converged", "failed"), name = "gelman1992")
-    )
+    .rules_rhat
   )
 
   interpret(abs(rhat), rules)
 }
+
+
+# Rules -------------------------------------------------------------------
+
+#' @keywords internal
+.rules_rhat <- list(
+  vehtari2019 = rules(c(1.01), c("converged", "failed"), name = "vehtari2019"),
+  gelman1992 = rules(c(1.1), c("converged", "failed"), name = "gelman1992")
+)
+
+#' @keywords internal
+.rules_ess <- list(
+  burkner2017 = rules(c(1000), c("insufficient", "sufficient"), name = "burkner2017", right = FALSE)
+)

@@ -18,14 +18,13 @@ The value of an ICC lies between 0 to 1, with 0 indicating no reliability among 
 }
 \section{Rules}{
 
+
+Koo (2016) (\code{"koo2016"}):
 \itemize{
-\item Koo (2016) (\code{"koo2016"}; default)
-\itemize{
-\item \strong{ICC < 0.50} - Poor reliability
-\item \strong{0.5 <= ICC < 0.75} - Moderate reliability
-\item \strong{0.75 <= ICC < 0.9} - Good reliability
-\item **ICC >= 0.9 ** - Excellent reliability
-}
+\item \strong{ICC <= 0.5} ~ poor
+\item \strong{0.5 < ICC <= 0.75} ~ moderate
+\item \strong{0.75 < ICC <= 0.9} ~ good
+\item \strong{0.9 < ICC} ~ excellent
 }
 }
 

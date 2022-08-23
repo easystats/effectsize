@@ -8,11 +8,9 @@
 #'
 #' @section Rules:
 #'
-#' - Koo (2016) (`"koo2016"`; default)
-#'   - **ICC < 0.50** - Poor reliability
-#'   - **0.5 <= ICC < 0.75** - Moderate reliability
-#'   - **0.75 <= ICC < 0.9** - Good reliability
-#'   - **ICC >= 0.9 ** - Excellent reliability
+#' ```{r, echo = FALSE, results='asis'}
+#' insight::print_md(.rules_icc$koo2016, value_name = "ICC", title = "Koo (2016)")
+#' ```
 #'
 #' @examples
 #' interpret_icc(0.6)
@@ -24,13 +22,16 @@
 interpret_icc <- function(icc, rules = "koo2016", ...) {
   rules <- .match.rules(
     rules,
-    list(
-      koo2016 = rules(c(0.5, 0.75, 0.9),
-        c("poor", "moderate", "good", "excellent"),
-        name = "koo2016", right = FALSE
-      )
-    )
+    .rules_icc
   )
 
   interpret(icc, rules)
 }
+
+#' @keywords internal
+.rules_icc <- list(koo2016 = rules(
+  c(0.5, 0.75, 0.9),
+  c("poor", "moderate", "good", "excellent"),
+  name = "koo2016",
+  right = FALSE
+))
