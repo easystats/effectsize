@@ -101,7 +101,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   Obs <- model$observed
   Exp <- model$expected
 
-  if (!is.null(dim(Exp))) {
+  if (!is.null(dim(Exp)) && length(dim(Exp)) == 2) {
     if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
       stop("Cannot have empty rows/columns in the contingency tables.", call. = FALSE)
     }
