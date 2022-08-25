@@ -18,6 +18,9 @@
 #'   goodness-of-fit. Ignored for `cohens_g()`.
 #'
 #' @details
+#'
+#' ## Correlation-like Effect Sizes
+#'
 #' Cramer's *V*, phi (\eqn{\phi}), Cohen's *w*, and Pearson's *C* are effect
 #' sizes for tests of independence in 2D contingency tables. For 2-by-2 tables,
 #' Cramer's *V*, phi and Cohen's *w* are identical, and are equal to the simple
@@ -38,17 +41,22 @@
 #' - For a 2x2 table, use `phi()`
 #' - For larger tables, use `cramers_v()`
 #' - For goodness-of-fit, use `normalized_chi()`
-#' \cr \cr
+#'
+#' ## Other Effect Sizes for 2-by-2 xtabs
+#'
 #' For 2-by-2 contingency tables, Odds ratios, Risk ratios and Cohen's *h* can
 #' also be estimated. Note that these are computed with each **column**
 #' representing the different groups, and the *first* column representing the
 #' treatment group and the *second* column baseline (or control). Effects are
 #' given as `treatment / control`. If you wish you use rows as groups you must
 #' pass a transposed table, or switch the `x` and `y` arguments.
-#' \cr \cr
-#' Cohen's *g* is an effect size for dependent (paired) contingency tables
-#' ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry) (see
-#' [stats::mcnemar.test()]).
+#'
+#' ## Effect Sizes for Paired xtabs
+#'
+#' Cohen's *g* is an effect size of asymmetry (or marginal heterogeneity) for
+#' dependent (paired) contingency tables ranging between 0 (perfect symmetry)
+#' and 0.5 (perfect asymmetry) (see [stats::mcnemar.test()]). (Note this is not
+#' *not* a measure of (dis)agreement between the pairs, but of (a)symmetry.)
 #'
 #' # Confidence Intervals for Cohen's g, OR, RR and Cohen's h
 #' For Cohen's *g*, confidence intervals are based on the proportion (\eqn{P = g
