@@ -51,7 +51,7 @@ interpret_bf <- function(bf,
   if (log) bf <- exp(bf)
 
   if (any(bf < 0, na.rm = TRUE)) {
-    warning("Negative BFs detected. These are not possible. Ignoring.")
+    warning("Negative BFs detected. These are not possible. Ignoring.", call. = FALSE)
     bf[bf < 0] <- NA
   }
 

@@ -31,7 +31,7 @@ eta_squared_posterior.stanreg <- function(model,
 
   mi <- .get_model_info(model, ...)
   if (!mi$is_linear || mi$is_multivariate) {
-    stop("Computation of Eta Squared is only applicable to univariate linear models.")
+    stop("Computation of Eta Squared is only applicable to univariate linear models.", call. = FALSE)
   }
 
   if (partial && mi$is_mixed) {

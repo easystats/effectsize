@@ -111,11 +111,11 @@ equivalence_test.effectsize_table <- function(x,
 
   if (range[1] < x_es_info$lb) {
     range[1] <- x_es_info$lb
-    warning("Lower bound set to ", range[1], ".", immediate. = FALSE)
+    warning("Lower bound set to ", range[1], ".", immediate. = FALSE, call. = FALSE)
   }
   if (range[2] > x_es_info$ub) {
     range[2] <- x_es_info$ub
-    warning("Upper bound set to ", range[2], ".", immediate. = FALSE)
+    warning("Upper bound set to ", range[2], ".", immediate. = FALSE, call. = FALSE)
   }
 
   # Test ---

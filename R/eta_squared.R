@@ -370,7 +370,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   }
 
   if (!"Residuals" %in% aov_table$Parameter) {
-    stop(insight::format_message("No residuals data found - cannot compute effect size."))
+    stop(insight::format_message("No residuals data found - cannot compute effect size."), call. = FALSE)
   }
 
 
@@ -518,7 +518,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   }
 
   if (!"Residuals" %in% aov_table$Parameter) {
-    stop(insight::format_message("No residuals data found - cannot compute effect size."))
+    stop(insight::format_message("No residuals data found - cannot compute effect size."), call. = FALSE)
   }
 
 
@@ -688,7 +688,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
       aov_table[["F"]] <- aov_table[["t"]]^2
       aov_table[["df"]] <- 1
     } else {
-      stop(insight::format_message("ANOVA table does not have F values - cannot compute effect size."))
+      stop(insight::format_message("ANOVA table does not have F values - cannot compute effect size."), call. = FALSE)
     }
   }
 
@@ -897,7 +897,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   }
 
   if (!any(F.nm %in% colnames(model)) || !any(df.nm %in% colnames(model))) {
-    stop(insight::format_message("ANOVA table does not have F values or degrees of freedom - cannot compute effect size."))
+    stop(insight::format_message("ANOVA table does not have F values or degrees of freedom - cannot compute effect size."), call. = FALSE)
   }
 
   Fi <- F.nm[F.nm %in% colnames(model)]

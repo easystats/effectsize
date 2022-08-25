@@ -97,7 +97,7 @@ chisq_to_phi <- function(chisq, n, nrow = 2, ncol = 2, ci = 0.95, alternative = 
   if (is.null(dont_stop)) dont_stop <- FALSE
 
   if (!dont_stop && (nrow != 2 || ncol != 2)) {
-    stop("Phi is not appropriate for non-2x2 tables.")
+    stop("Phi is not appropriate for non-2x2 tables.", call. = FALSE)
   }
 
   if (adjust || is.numeric(ci)) {
@@ -241,14 +241,14 @@ chisq_to_normalized <- function(chisq, n, nrow, ncol, p,
   }
 
   # if (!1 %in% c(nrow, ncol)) {
-  #   stop("Correlation coefficiant is only applicable to goodness of fit tests.")
+  #   stop("Correlation coefficiant is only applicable to goodness of fit tests.", call. = FALSE)
   # }
 
   # if (is.null(p)) {
   #   p <- rep(1, pmax(nrow, ncol))
   # }
 
-  if (!length(p) %in% c(ncol, nrow)) stop("Length of `p` must match number of rows/columns.")
+  if (!length(p) %in% c(ncol, nrow)) stop("Length of `p` must match number of rows/columns.", call. = FALSE)
   p <- p / sum(p)
 
   q <- min(p)

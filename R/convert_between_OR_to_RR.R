@@ -50,7 +50,7 @@ oddsratio_to_riskratio.numeric <- function(OR, p0, log = FALSE, ...) {
 #' @export
 oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, ...) {
   mi <- .get_model_info(OR, ...)
-  if (!mi$is_binomial || !mi$is_logit) stop("Model must a binomial model with logit-link (logistic regression)")
+  if (!mi$is_binomial || !mi$is_logit) stop("Model must a binomial model with logit-link (logistic regression)", call. = FALSE)
 
   RR <- parameters::model_parameters(OR, exponentiate = !log, effects = "fixed", ...)
   RR$SE <- NULL
@@ -78,7 +78,7 @@ oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, ...) {
     )
 
   if (any(c("CI_low", "CI_high") %in% colnames(RR))) {
-    warning("CIs are back-transformed from the logit scale.")
+    warning("CIs are back-transformed from the logit scale.", call. = FALSE)
   }
 
   RR[RR$Parameter == "(Intercept)", "Coefficient"] <- p0

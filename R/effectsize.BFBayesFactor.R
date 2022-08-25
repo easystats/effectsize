@@ -22,7 +22,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   } else if (inherits(model@numerator[[1]], "BFproportion")) {
     pars <- .effectsize_proportionBF(model, type = type, verbose = verbose)
   } else {
-    stop("No effect size for this type of 'BayesFactor' object.")
+    stop("No effect size for this type of 'BayesFactor' object.", call. = FALSE)
   }
 
   # Clean up

@@ -57,7 +57,7 @@ d_to_cles.effectsize_difference <- function(d) {
   if (!any(colnames(d) %in% c("Cohens_d", "Hedges_g")) ||
     attr(d, "paired") ||
     !attr(d, "pooled_sd")) {
-    stop("Common language effect size only applicable to 2-sample Cohen's d with pooled SD.")
+    stop("Common language effect size only applicable to 2-sample Cohen's d with pooled SD.", call. = FALSE)
   }
 
   out <- lapply(
@@ -105,7 +105,7 @@ rb_to_cles.numeric <- function(rb) {
 rb_to_cles.effectsize_difference <- function(rb) {
   if (!any(colnames(rb) == "r_rank_biserial") ||
     attr(rb, "paired")) {
-    stop("Common language effect size only applicable to 2-sample rank-biserial correlation.")
+    stop("Common language effect size only applicable to 2-sample rank-biserial correlation.", call. = FALSE)
   }
 
   out <- lapply(
