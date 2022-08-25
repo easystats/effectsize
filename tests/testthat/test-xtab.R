@@ -105,6 +105,18 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(cohens_w(table(df$am, df$cyl))[[1]], 0.64, tolerance = 0.01)
     expect_equal(cohens_w(table(df$am, df$cyl)), cohens_w(table(df$cyl)))
     expect_equal(cohens_w(table(df$am, df$cyl)), cohens_w(table(df$cyl, df$am)))
+
+    # p is a table
+    O <- as.table(c(10, 20, 30, 40))
+    E_vec <- c(11, 13, 44, 23)
+    E_tab <- as.table(E_vec)
+
+    expect_equal(cohens_w(O, p = E_vec, rescale.p = TRUE),
+                 cohens_w(O, p = E_tab, rescale.p = TRUE))
+    expect_equal(normalized_chi(O, p = E_vec, rescale.p = TRUE),
+                 normalized_chi(O, p = E_tab, rescale.p = TRUE))
+    expect_equal(pearsons_c(O, p = E_vec, rescale.p = TRUE),
+                 pearsons_c(O, p = E_tab, rescale.p = TRUE))
   })
 
   test_that("oddsratio & riskratio", {

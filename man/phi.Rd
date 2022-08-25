@@ -73,6 +73,8 @@ Cohen's \emph{h} and Cohen's \emph{g} for contingency tables or goodness-of-fit.
 details.
 }
 \details{
+\subsection{Correlation-like Effect Sizes}{
+
 Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w}, and Pearson's \emph{C} are effect
 sizes for tests of independence in 2D contingency tables. For 2-by-2 tables,
 Cramer's \emph{V}, phi and Cohen's \emph{w} are identical, and are equal to the simple
@@ -93,17 +95,25 @@ To summarize, for correlation-like effect sizes, we recommend:
 \item For a 2x2 table, use \code{phi()}
 \item For larger tables, use \code{cramers_v()}
 \item For goodness-of-fit, use \code{normalized_chi()}
-\cr \cr
+}
+}
+
+\subsection{Other Effect Sizes for 2-by-2 xtabs}{
+
 For 2-by-2 contingency tables, Odds ratios, Risk ratios and Cohen's \emph{h} can
 also be estimated. Note that these are computed with each \strong{column}
 representing the different groups, and the \emph{first} column representing the
 treatment group and the \emph{second} column baseline (or control). Effects are
 given as \code{treatment / control}. If you wish you use rows as groups you must
 pass a transposed table, or switch the \code{x} and \code{y} arguments.
-\cr \cr
-Cohen's \emph{g} is an effect size for dependent (paired) contingency tables
-ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry) (see
-\code{\link[stats:mcnemar.test]{stats::mcnemar.test()}}).
+}
+
+\subsection{Effect Sizes for Paired xtabs}{
+
+Cohen's \emph{g} is an effect size of asymmetry (or marginal heterogeneity) for
+dependent (paired) contingency tables ranging between 0 (perfect symmetry)
+and 0.5 (perfect asymmetry) (see \code{\link[stats:mcnemar.test]{stats::mcnemar.test()}}). (Note this is not
+\emph{not} a measure of (dis)agreement between the pairs, but of (a)symmetry.)
 }
 }
 \section{Confidence Intervals for Cohen's g, OR, RR and Cohen's h}{
