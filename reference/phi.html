@@ -16,7 +16,7 @@ details."><meta property="og:image" content="https://easystats.github.io/effects
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.5</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9999</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -192,7 +192,12 @@ and its CIs (<code>CI_low</code> and <code>CI_high</code>).</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Cramer's <em>V</em>, phi (\(\phi\)), Cohen's <em>w</em>, and Pearson's <em>C</em> are effect
+    
+<div class="section">
+<h3 id="correlation-like-effect-sizes">Correlation-like Effect Sizes<a class="anchor" aria-label="anchor" href="#correlation-like-effect-sizes"></a></h3>
+
+
+<p>Cramer's <em>V</em>, phi (\(\phi\)), Cohen's <em>w</em>, and Pearson's <em>C</em> are effect
 sizes for tests of independence in 2D contingency tables. For 2-by-2 tables,
 Cramer's <em>V</em>, phi and Cohen's <em>w</em> are identical, and are equal to the simple
 correlation between two dichotomous variables, ranging between  0 (no
@@ -209,19 +214,32 @@ between 0-1. Pearson's <em>C</em> is also bounded between 0-1.
 <br><br>
 To summarize, for correlation-like effect sizes, we recommend:</p><ul><li><p>For a 2x2 table, use <code>phi()</code></p></li>
 <li><p>For larger tables, use <code>cramers_v()</code></p></li>
-<li><p>For goodness-of-fit, use <code>normalized_chi()</code>
-<br><br>
-For 2-by-2 contingency tables, Odds ratios, Risk ratios and Cohen's <em>h</em> can
+<li><p>For goodness-of-fit, use <code>normalized_chi()</code></p></li>
+</ul></div>
+
+<div class="section">
+<h3 id="other-effect-sizes-for-by-xtabs">Other Effect Sizes for 2-by-2 xtabs<a class="anchor" aria-label="anchor" href="#other-effect-sizes-for-by-xtabs"></a></h3>
+
+
+<p>For 2-by-2 contingency tables, Odds ratios, Risk ratios and Cohen's <em>h</em> can
 also be estimated. Note that these are computed with each <strong>column</strong>
 representing the different groups, and the <em>first</em> column representing the
 treatment group and the <em>second</em> column baseline (or control). Effects are
 given as <code>treatment / control</code>. If you wish you use rows as groups you must
-pass a transposed table, or switch the <code>x</code> and <code>y</code> arguments.
-<br><br>
-Cohen's <em>g</em> is an effect size for dependent (paired) contingency tables
-ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry) (see
-<code><a href="https://rdrr.io/r/stats/mcnemar.test.html" class="external-link">stats::mcnemar.test()</a></code>).</p></li>
-</ul></div>
+pass a transposed table, or switch the <code>x</code> and <code>y</code> arguments.</p>
+</div>
+
+<div class="section">
+<h3 id="effect-sizes-for-paired-xtabs">Effect Sizes for Paired xtabs<a class="anchor" aria-label="anchor" href="#effect-sizes-for-paired-xtabs"></a></h3>
+
+
+<p>Cohen's <em>g</em> is an effect size of asymmetry (or marginal heterogeneity) for
+dependent (paired) contingency tables ranging between 0 (perfect symmetry)
+and 0.5 (perfect asymmetry) (see <code><a href="https://rdrr.io/r/stats/mcnemar.test.html" class="external-link">stats::mcnemar.test()</a></code>). (Note this is not
+<em>not</em> a measure of (dis)agreement between the pairs, but of (a)symmetry.)</p>
+</div>
+
+    </div>
     <div class="section level2">
     <h2 id="confidence-intervals-for-cohen-s-g-or-rr-and-cohen-s-h">Confidence Intervals for Cohen's g, OR, RR and Cohen's h<a class="anchor" aria-label="anchor" href="#confidence-intervals-for-cohen-s-g-or-rr-and-cohen-s-h"></a></h2>
     <p>For Cohen's <em>g</em>, confidence intervals are based on the proportion (\(P = g
