@@ -1,3 +1,10 @@
+
+# effectsize 0.7.0.9999
+
+## Bug fixes
+
+- Effect sizes for goodness-of-fit now work when passing a `p` that is a table.
+
 # effectsize 0.7.0.5
 
 ## Breaking Changes
