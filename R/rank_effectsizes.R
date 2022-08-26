@@ -226,7 +226,7 @@ rank_biserial <- function(x,
     #   ci_method <- list(method = "bootstrap", iterations = iterations)
     # } else {
     #   ci <- NULL
-    #   warning("For CIs, the 'boot' package must be installed.")
+    #   warning("For CIs, the 'boot' package must be installed.", call. = FALSE)
     # }
 
     # Parametric method
@@ -428,7 +428,7 @@ kendalls_w <- function(x,
 #   out <- data.frame(rank_eta_squared = E)
 #
 #   if (is.numeric(ci)) {
-#     warning("Nope. Not yet.")
+#     warning("Nope. Not yet.", call. = FALSE)
 #     out$CI <- ci
 #     out$CI_low <- 0
 #     out$CI_high <- 1

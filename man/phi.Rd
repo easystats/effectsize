@@ -174,15 +174,16 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 ## 2-by-2 tables
 ## -------------
 RCT <-
-  matrix(c(
-    71, 30,
-    50, 100
-  ),
-  nrow = 2, byrow = TRUE,
-  dimnames = list(
-    Diagnosis = c("Sick", "Recovered"),
-    Group = c("Treatment", "Control")
-  )
+  matrix(
+    c(
+      71, 30,
+      50, 100
+    ),
+    nrow = 2, byrow = TRUE,
+    dimnames = list(
+      Diagnosis = c("Sick", "Recovered"),
+      Group = c("Treatment", "Control")
+    )
   )
 RCT # note groups are COLUMNS
 
@@ -200,17 +201,18 @@ cohens_h(RCT)
 ## -------------
 
 M <-
-  matrix(c(
-    150, 100, 165,
-    130, 50, 65,
-    35, 10, 2,
-    55, 40, 25
-  ),
-  nrow = 4,
-  dimnames = list(
-    Music = c("Pop", "Rock", "Jazz", "Classic"),
-    Study = c("Psych", "Econ", "Law")
-  )
+  matrix(
+    c(
+      150, 100, 165,
+      130, 50, 65,
+      35, 10, 2,
+      55, 40, 25
+    ),
+    nrow = 4,
+    dimnames = list(
+      Music = c("Pop", "Rock", "Jazz", "Classic"),
+      Study = c("Psych", "Econ", "Law")
+    )
   )
 M
 
@@ -247,15 +249,16 @@ pearsons_c(Smoking_ASD, p = c(0.015, 0.010, 0.975))
 ## -------------------------------------
 #
 Performance <-
-  matrix(c(
-    794, 150,
-    86, 570
-  ),
-  nrow = 2,
-  dimnames = list(
-    "1st Survey" = c("Approve", "Disapprove"),
-    "2nd Survey" = c("Approve", "Disapprove")
-  )
+  matrix(
+    c(
+      794, 150,
+      86, 570
+    ),
+    nrow = 2,
+    dimnames = list(
+      "1st Survey" = c("Approve", "Disapprove"),
+      "2nd Survey" = c("Approve", "Disapprove")
+    )
   )
 Performance
 

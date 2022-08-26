@@ -229,7 +229,7 @@ t_to_f2 <- function(t, df_error, ci = 0.95, alternative = "greater", squared = T
     eta2 = data.frame(Eta2_partial = (f * df) / (f * df + df_error)),
     epsilon2 = data.frame(Epsilon2_partial = ((f - 1) * df) / (f * df + df_error)),
     omega2 = data.frame(Omega2_partial = ((f - 1) * df) / (f * df + df_error + 1)),
-    stop("'es' must be 'eta2', 'epsilon2', or 'omega2'.")
+    stop("'es' must be 'eta2', 'epsilon2', or 'omega2'.", call. = FALSE)
   )
 
   ci_method <- NULL

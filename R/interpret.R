@@ -38,14 +38,14 @@ rules <- function(values, labels = NULL, name = NULL, right = TRUE) {
 
   # Sanity checks
   if (length(labels) < length(values)) {
-    stop("There cannot be less labels than reference values!")
+    stop("There cannot be less labels than reference values!", call. = FALSE)
   } else if (length(labels) > length(values) + 1) {
-    stop("Too many labels for the number of reference values!")
+    stop("Too many labels for the number of reference values!", call. = FALSE)
   }
 
   if (length(values) == length(labels) - 1) {
     if (is.unsorted(values)) {
-      stop("Reference values must be sorted.")
+      stop("Reference values must be sorted.", call. = FALSE)
     }
   } else {
     right <- NULL
@@ -157,7 +157,7 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
 #' @rdname interpret
 #' @export
 interpret.effectsize_table <- function(x, rules, ...) {
-  if (missing(rules)) stop("You MUST specify the rules of interpretation!")
+  if (missing(rules)) stop("You MUST specify the rules of interpretation!", call. = FALSE)
 
   es_name <- colnames(x)[is_effectsize_name(colnames(x))]
   value <- x[[es_name]]

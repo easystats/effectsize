@@ -87,15 +87,16 @@
 #' ## 2-by-2 tables
 #' ## -------------
 #' RCT <-
-#'   matrix(c(
-#'     71, 30,
-#'     50, 100
-#'   ),
-#'   nrow = 2, byrow = TRUE,
-#'   dimnames = list(
-#'     Diagnosis = c("Sick", "Recovered"),
-#'     Group = c("Treatment", "Control")
-#'   )
+#'   matrix(
+#'     c(
+#'       71, 30,
+#'       50, 100
+#'     ),
+#'     nrow = 2, byrow = TRUE,
+#'     dimnames = list(
+#'       Diagnosis = c("Sick", "Recovered"),
+#'       Group = c("Treatment", "Control")
+#'     )
 #'   )
 #' RCT # note groups are COLUMNS
 #'
@@ -113,17 +114,18 @@
 #' ## -------------
 #'
 #' M <-
-#'   matrix(c(
-#'     150, 100, 165,
-#'     130, 50, 65,
-#'     35, 10, 2,
-#'     55, 40, 25
-#'   ),
-#'   nrow = 4,
-#'   dimnames = list(
-#'     Music = c("Pop", "Rock", "Jazz", "Classic"),
-#'     Study = c("Psych", "Econ", "Law")
-#'   )
+#'   matrix(
+#'     c(
+#'       150, 100, 165,
+#'       130, 50, 65,
+#'       35, 10, 2,
+#'       55, 40, 25
+#'     ),
+#'     nrow = 4,
+#'     dimnames = list(
+#'       Music = c("Pop", "Rock", "Jazz", "Classic"),
+#'       Study = c("Psych", "Econ", "Law")
+#'     )
 #'   )
 #' M
 #'
@@ -160,15 +162,16 @@
 #' ## -------------------------------------
 #' #
 #' Performance <-
-#'   matrix(c(
-#'     794, 150,
-#'     86, 570
-#'   ),
-#'   nrow = 2,
-#'   dimnames = list(
-#'     "1st Survey" = c("Approve", "Disapprove"),
-#'     "2nd Survey" = c("Approve", "Disapprove")
-#'   )
+#'   matrix(
+#'     c(
+#'       794, 150,
+#'       86, 570
+#'     ),
+#'     nrow = 2,
+#'     dimnames = list(
+#'       "1st Survey" = c("Approve", "Disapprove"),
+#'       "2nd Survey" = c("Approve", "Disapprove")
+#'     )
 #'   )
 #' Performance
 #'
@@ -269,7 +272,7 @@ normalized_chi <- function(x, y = NULL, ci = 0.95, alternative = "greater", ...)
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "BFBayesFactor")) {
-    stop("Normalized Chi is only applicable to goodness of fit tests.")
+    stop("Normalized Chi is only applicable to goodness of fit tests.", call. = FALSE)
   }
 
 
@@ -558,21 +561,21 @@ cohens_g <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
 
   if (!is.matrix(x)) {
     if (is.null(y)) {
-      stop("if 'x' is not a matrix, 'y' must be given")
+      stop("if 'x' is not a matrix, 'y' must be given", call. = FALSE)
     }
     if (length(x) != length(y)) {
-      stop("'x' and 'y' must have the same length")
+      stop("'x' and 'y' must have the same length", call. = FALSE)
     }
     OK <- stats::complete.cases(x, y)
     x <- as.factor(x[OK])
     y <- as.factor(y[OK])
     if ((nlevels(x) < 2) || (nlevels(y) != nlevels(x))) {
-      stop("'x' and 'y' must have the same number of levels (minimum 2)")
+      stop("'x' and 'y' must have the same number of levels (minimum 2)", call. = FALSE)
     }
     x <- table(x, y)
   } else {
     if ((nrow(x) < 2) || (ncol(x) != nrow(x))) {
-      stop("'x' must be square with at least two rows and columns")
+      stop("'x' must be square with at least two rows and columns", call. = FALSE)
     }
   }
 

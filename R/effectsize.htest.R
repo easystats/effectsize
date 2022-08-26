@@ -18,7 +18,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     .effectsize_friedman.test(model, type = type, verbose = verbose, ...)
   } else {
     if (verbose) {
-      warning("This 'htest' method is not (yet?) supported.\n",
+      warning("This 'htest' method is not (yet?, call. = FALSE) supported.\n",
         "Returning 'parameters::model_parameters(model)'.",
         call. = FALSE
       )
@@ -47,7 +47,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   if (approx) {
     if (verbose) {
-      warning("Unable to retrieve data from htest object. Using t_to_d() approximation.")
+      warning("Unable to retrieve data from htest object. Using t_to_d() approximation.", call. = FALSE)
     }
 
     f <- t_to_d
@@ -80,7 +80,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
     if (type == "cles") {
       if (args$paired || !args$pooled_sd) {
-        stop("Common language effect size only applicable to 2-sample Cohen's d with pooled SD.")
+        stop("Common language effect size only applicable to 2-sample Cohen's d with pooled SD.", call. = FALSE)
       }
       args$pooled_sd <- args$paired <- NULL
     }
@@ -260,7 +260,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   if (type == "cles") {
     if (args$paired) {
-      stop("Common language effect size only applicable to 2-sample rank-biserial correlation.")
+      stop("Common language effect size only applicable to 2-sample rank-biserial correlation.", call. = FALSE)
     }
     args$paired <- NULL
     args$parametric <- FALSE

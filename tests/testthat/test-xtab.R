@@ -111,12 +111,18 @@ if (require("testthat") && require("effectsize")) {
     E_vec <- c(11, 13, 44, 23)
     E_tab <- as.table(E_vec)
 
-    expect_equal(cohens_w(O, p = E_vec, rescale.p = TRUE),
-                 cohens_w(O, p = E_tab, rescale.p = TRUE))
-    expect_equal(normalized_chi(O, p = E_vec, rescale.p = TRUE),
-                 normalized_chi(O, p = E_tab, rescale.p = TRUE))
-    expect_equal(pearsons_c(O, p = E_vec, rescale.p = TRUE),
-                 pearsons_c(O, p = E_tab, rescale.p = TRUE))
+    expect_equal(
+      cohens_w(O, p = E_vec, rescale.p = TRUE),
+      cohens_w(O, p = E_tab, rescale.p = TRUE)
+    )
+    expect_equal(
+      normalized_chi(O, p = E_vec, rescale.p = TRUE),
+      normalized_chi(O, p = E_tab, rescale.p = TRUE)
+    )
+    expect_equal(
+      pearsons_c(O, p = E_vec, rescale.p = TRUE),
+      pearsons_c(O, p = E_tab, rescale.p = TRUE)
+    )
   })
 
   test_that("oddsratio & riskratio", {
@@ -189,12 +195,13 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(g$CI_high, 0.399, tolerance = 0.01)
 
 
-    M <- matrix(c(
-      794, 86, 150,
-      570, 794, 86,
-      150, 570, 15
-    ),
-    nrow = 3
+    M <- matrix(
+      c(
+        794, 86, 150,
+        570, 794, 86,
+        150, 570, 15
+      ),
+      nrow = 3
     )
     g <- cohens_g(M)
     expect_equal(g$Cohens_g, 0.300, tolerance = 0.01)
