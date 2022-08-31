@@ -14,12 +14,12 @@ if (require("testthat") && require("effectsize")) {
       F_to_eta2(mod1[["F value"]], mod1$Df, mod1$DenDF),
       ignore_attr = TRUE
     )
-    expect_warning(eta_squared(mod1, partial = FALSE))
-    expect_warning(eta_squared(mod1, generalized = TRUE))
+    expect_warning(eta_squared(mod1, partial = FALSE), "partial")
+    expect_warning(eta_squared(mod1, generalized = TRUE), "generalized")
 
     mod2 <- mod1
     mod2$`F value` <- NULL
-    expect_error(eta_squared(mod2))
+    expect_error(eta_squared(mod2), "does not")
   })
 
   # aov ---------------------------------------------------------------------

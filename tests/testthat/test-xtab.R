@@ -11,7 +11,7 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(res$CI_low, 0.051, tolerance = 0.01)
     expect_equal(res$CI_high, 1)
 
-    expect_error(phi(contingency_table))
+    expect_error(phi(contingency_table), "appropriate")
 
 
     ## Size does not affect estimate
@@ -67,7 +67,7 @@ if (require("testthat") && require("effectsize")) {
       c(50, 50, 0),
       c(100, 100, 0)
     )
-    expect_error(cramers_v(xtab))
+    expect_error(cramers_v(xtab), "empty")
 
     ## 0
     xtab <- table(mtcars$am, mtcars$vs)
@@ -79,7 +79,7 @@ if (require("testthat") && require("effectsize")) {
 
 
   test_that("goodness of fit", {
-    expect_error(cramers_v(table(mtcars$cyl)))
+    expect_error(cramers_v(table(mtcars$cyl)), "goodness")
 
     w1 <- cohens_w(table(mtcars$cyl), p = c(0.34375, 0.21875, 0.43750))
     w2 <- cohens_w(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
@@ -149,7 +149,7 @@ if (require("testthat") && require("effectsize")) {
 
     ## OR
     data("mtcars")
-    expect_error(oddsratio(mtcars$am, mtcars$cyl))
+    expect_error(oddsratio(mtcars$am, mtcars$cyl), "only")
 
     m <- glm(am ~ I(cyl > 4), data = mtcars, family = binomial())
     log_or <- oddsratio(mtcars$am, mtcars$cyl > 4, log = TRUE)

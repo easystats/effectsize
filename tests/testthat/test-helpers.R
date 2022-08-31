@@ -6,7 +6,7 @@ if (require("testthat") && require("effectsize")) {
   })
 
   test_that("validate data from formula", {
-    expect_error(cohens_d(mpg ~ cyl, data = mtcars))
+    expect_error(cohens_d(mpg ~ cyl, data = mtcars), "exactly")
     expect_error(cohens_d(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)), regexp = NA)
 
     d1 <- cohens_d(mpg ~ cyl,
@@ -41,13 +41,13 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(d1, d3)
     expect_equal(d1, d4)
 
-    expect_error(rank_biserial(mpg ~ cyl, data = mtcars))
+    expect_error(rank_biserial(mpg ~ cyl, data = mtcars), "exactly")
     expect_error(rank_biserial(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)), regexp = NA)
 
-    expect_error(sd_pooled(mpg ~ cyl, data = mtcars))
+    expect_error(sd_pooled(mpg ~ cyl, data = mtcars), "exactly")
     expect_error(sd_pooled(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)), regexp = NA)
 
-    expect_error(cles(mpg ~ cyl, data = mtcars))
+    expect_error(cles(mpg ~ cyl, data = mtcars), "exactly")
     expect_error(cles(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)), regexp = NA)
 
     d <- expand.grid(id = 1:30, g = 1:4)
