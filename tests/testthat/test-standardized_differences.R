@@ -34,14 +34,14 @@ if (require("testthat") && require("effectsize")) {
     expect_error(cohens_d(df$a ~ df$c), regexp = NA)
     expect_equal(cohens_d("exp_a", "c", data = df), cohens_d(exp(a) ~ c, data = df))
 
-    expect_error(cohens_d(a ~ b, data = df))
-    expect_error(cohens_d(a ~ d, data = df))
-    expect_error(cohens_d("a", "d", data = df))
-    expect_error(cohens_d("c", "c", data = df))
-    expect_error(cohens_d(a2, df$c))
-    expect_error(cohens_d("a", "aa", data = df))
+    expect_error(cohens_d(a ~ b, data = df), "exactly")
+    expect_error(cohens_d(a ~ d, data = df), "exactly")
+    expect_error(cohens_d("a", "d", data = df), "exactly")
+    expect_error(cohens_d("c", "c", data = df), "non-numeric")
+    expect_error(cohens_d(a2, df$c), "length")
+    expect_error(cohens_d("a", "aa", data = df), "missing")
 
-    expect_warning(cohens_d("b", "e", data = df))
+    expect_warning(cohens_d("b", "e", data = df), "convert")
   })
 
   test_that("cohens d - grouping character vector", {
@@ -107,8 +107,8 @@ if (require("testthat") && require("effectsize")) {
 
   test_that("glass_delta", {
     # must be 2 samples
-    expect_error(glass_delta(1:10))
-    expect_error(glass_delta(wt, data = mtcars))
+    expect_error(glass_delta(1:10), "two")
+    expect_error(glass_delta("wt", data = mtcars), "two")
 
     x <- glass_delta(wt ~ am, data = mtcars)
     expect_equal(colnames(x)[1], "Glass_delta")

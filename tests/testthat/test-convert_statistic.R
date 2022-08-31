@@ -37,7 +37,7 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(res3$r, -res1$estimate, tolerance = 0.01, ignore_attr = TRUE)
     expect_equal(res3$CI_low, -res1$conf.int[2], tolerance = 0.02, ignore_attr = TRUE)
     expect_equal(res3$CI_high, -res1$conf.int[1], tolerance = 0.02, ignore_attr = TRUE)
-    expect_error(F_to_r(3, 2, 3))
+    expect_error(F_to_r(3, 2, 3), "df")
 
     res4 <- z_to_r(res1$statistic, res1$parameter)
     expect_equal(res4$r, res1$estimate, tolerance = 0.01, ignore_attr = TRUE)
@@ -60,7 +60,7 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(res$d, 0.970, tolerance = 0.01)
     expect_equal(res$CI_low, 0.464, tolerance = 0.01)
     expect_equal(res$CI_high, 1.469, tolerance = 0.01)
-    expect_error(F_to_d(16, 2, 68))
+    expect_error(F_to_d(16, 2, 68), "df")
 
     res <- z_to_d(4, 68)
     expect_equal(res$d, 0.970, tolerance = 0.01)
@@ -68,9 +68,9 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(res$CI_high, 1.446, tolerance = 0.01)
 
     # depr arg
-    expect_warning(F_to_d(4^2, 1, 68, pooled = TRUE))
-    expect_warning(t_to_d(4, 68, pooled = TRUE))
-    expect_warning(z_to_d(4, 68, pooled = TRUE))
+    expect_warning(F_to_d(4^2, 1, 68, pooled = TRUE), "deprecated")
+    expect_warning(t_to_d(4, 68, pooled = TRUE), "deprecated")
+    expect_warning(z_to_d(4, 68, pooled = TRUE), "deprecated")
   })
 
   test_that("eta2", {

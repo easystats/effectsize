@@ -28,7 +28,7 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(interpret_r(0.7, "evans1996")[1], "strong")
     expect_equal(interpret_r(c(0.5, -0.08), "cohen1988")[1:2], c("large", "very small"))
     expect_equal(interpret_r(0.6, rules(c(0.5), c("A", "B")))[1], "B")
-    expect_error(interpret_r(0.6, "DUPA"))
+    expect_error(interpret_r(0.6, "DUPA"), "must be")
   })
 
 
@@ -38,7 +38,7 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(interpret_p(0.08)[1], "not significant")
     expect_equal(interpret_p(c(0.01, 0.08))[1:2], c("significant", "not significant"))
     expect_equal(interpret_p(0.6, rules(c(0.5), c("A", "B")))[1], "B")
-    expect_error(interpret_p(0.6, "DUPA"))
+    expect_error(interpret_p(0.6, "DUPA"), "must be")
   })
 
 
@@ -53,14 +53,14 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(interpret_cohens_d(c(0.45, 0.85), "cohen1988")[1:2], c("small", "large"))
     expect_equal(interpret_cohens_d(c(0.45, 0.85), "lovakov2021")[1:2], c("medium", "large"))
     expect_equal(interpret_cohens_d(0.6, rules(c(0.5), c("A", "B")))[1], "B")
-    expect_error(interpret_cohens_d(0.6, "DUPA"))
+    expect_error(interpret_cohens_d(0.6, "DUPA"), "must be")
   })
 
   test_that("interpret_cohens_g", {
     expect_equal(interpret_cohens_g(0.021)[1], "very small")
     expect_equal(interpret_cohens_g(c(0.10, 0.35), "cohen1988")[1:2], c("small", "large"))
     expect_equal(interpret_cohens_g(0.6, rules(c(0.5), c("A", "B")))[1], "B")
-    expect_error(interpret_cohens_g(0.6, "DUPA"))
+    expect_error(interpret_cohens_g(0.6, "DUPA"), "must be")
   })
 
 
@@ -69,7 +69,7 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(interpret_rope(c(0.50, 1), ci = 0.9)[1:2], c("undecided", "negligible"))
     expect_equal(interpret_rope(c(0.98, 0.991), ci = 1)[1:2], c("probably negligible", "negligible"))
     expect_equal(interpret_rope(0.6, , rules(c(0.5), c("A", "B")))[1], "B")
-    expect_error(interpret_rope(0.6, , "DUPA"))
+    expect_error(interpret_rope(0.6, , "DUPA"), "must be")
   })
 
 
@@ -78,7 +78,7 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(interpret_oddsratio(c(1, 3))[1:2], c("very small", "small"))
     expect_equal(interpret_oddsratio(c(1, 3), "cohen1988")[1:2], c("very small", "medium"))
     expect_equal(interpret_oddsratio(0.6, rules(c(0.5), c("A", "B")))[1], "B")
-    expect_error(interpret_oddsratio(0.6, "DUPA"))
+    expect_error(interpret_oddsratio(0.6, "DUPA"), "must be")
   })
 
 
@@ -88,12 +88,12 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(interpret_r2(c(0.1, 0.4), "chin1998")[1:2], c("very weak", "moderate"))
     expect_equal(interpret_r2(c(0.1, 0.4), "hair2011")[1:2], c("very weak", "weak"))
     expect_equal(interpret_r2(0.6, rules(c(0.5), c("A", "B")))[1], "B")
-    expect_error(interpret_r2(0.6, "DUPA"))
+    expect_error(interpret_r2(0.6, "DUPA"), "must be")
   })
 
 
   test_that("interpret_bf", {
-    expect_warning(interpret_bf(-2))
+    expect_warning(interpret_bf(-2), "Negative")
     expect_equal(interpret_bf(1)[1], "no evidence against or in favour of")
     expect_equal(
       interpret_bf(c(0.8, 3.5), "jeffreys1961")[1:2],
@@ -104,7 +104,7 @@ if (require("testthat") && require("effectsize")) {
       c("weak evidence against", "positive evidence in favour of")
     )
     expect_equal(interpret_bf(2, rules(c(0.5), c("A", "B")))[1], "B evidence in favour of")
-    expect_error(interpret_bf(2, "DUPA"))
+    expect_error(interpret_bf(2, "DUPA"), "must be")
 
     skip_on_cran() # just in case there are changes in insight
     bf <- c(10^seq(-4, 4), NA)
@@ -126,7 +126,7 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(interpret_omega_squared(0.1)[1], "medium")
     expect_equal(interpret_omega_squared(c(0.1, 0.25))[1:2], c("medium", "large"))
     expect_equal(interpret_omega_squared(0.6, rules(c(0.5), c("A", "B")))[1], "B")
-    expect_error(interpret_omega_squared(0.6, "DUPA"))
+    expect_error(interpret_omega_squared(0.6, "DUPA"), "must be")
 
     # these should be same
     expect_equal(interpret_eta_squared(0.1)[1], interpret_omega_squared(0.1)[1])
@@ -144,7 +144,7 @@ if (require("testthat") && require("effectsize")) {
     )
     expect_equal(interpret_kendalls_w(0.9)[1], "almost perfect agreement")
     expect_equal(interpret_kendalls_w(0.6, rules(c(0.5), c("A", "B")))[1], "B")
-    expect_error(interpret_kendalls_w(0.6, "DUPA"))
+    expect_error(interpret_kendalls_w(0.6, "DUPA"), "must be")
   })
 
 
@@ -153,7 +153,7 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(interpret_rhat(c(1, 1.02))[1:2], c("converged", "failed"))
     expect_equal(interpret_rhat(c(1, 1.02), "gelman1992")[1:2], c("converged", "converged"))
     expect_equal(interpret_rhat(0.6, rules(c(0.5), c("A", "B")))[1], "B")
-    expect_error(interpret_rhat(0.6, "DUPA"))
+    expect_error(interpret_rhat(0.6, "DUPA"), "must be")
   })
 
 
@@ -161,7 +161,7 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(interpret_ess(1000)[1], "sufficient")
     expect_equal(interpret_ess(c(1000, 800))[1:2], c("sufficient", "insufficient"))
     expect_equal(interpret_ess(0.6, rules(c(0.5), c("A", "B")))[1], "B")
-    expect_error(interpret_ess(0.6, "DUPA"))
+    expect_error(interpret_ess(0.6, "DUPA"), "must be")
   })
 
 
@@ -189,16 +189,16 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(interpret_rmsea(0.6, cr), "B", ignore_attr = TRUE)
     expect_equal(interpret_srmr(0.6, cr), "B", ignore_attr = TRUE)
 
-    expect_error(interpret_gfi(0.6, "DUPA"))
-    expect_error(interpret_agfi(0.6, "DUPA"))
-    expect_error(interpret_nfi(0.6, "DUPA"))
-    expect_error(interpret_nnfi(0.6, "DUPA"))
-    expect_error(interpret_cfi(0.6, "DUPA"))
-    expect_error(interpret_rfi(0.6, "DUPA"))
-    expect_error(interpret_ifi(0.6, "DUPA"))
-    expect_error(interpret_pnfi(0.6, "DUPA"))
-    expect_error(interpret_rmsea(0.6, "DUPA"))
-    expect_error(interpret_srmr(0.6, "DUPA"))
+    expect_error(interpret_gfi(0.6, "DUPA"), "must be")
+    expect_error(interpret_agfi(0.6, "DUPA"), "must be")
+    expect_error(interpret_nfi(0.6, "DUPA"), "must be")
+    expect_error(interpret_nnfi(0.6, "DUPA"), "must be")
+    expect_error(interpret_cfi(0.6, "DUPA"), "must be")
+    expect_error(interpret_rfi(0.6, "DUPA"), "must be")
+    expect_error(interpret_ifi(0.6, "DUPA"), "must be")
+    expect_error(interpret_pnfi(0.6, "DUPA"), "must be")
+    expect_error(interpret_rmsea(0.6, "DUPA"), "must be")
+    expect_error(interpret_srmr(0.6, "DUPA"), "must be")
 
     skip_on_cran()
     skip_if_not_installed("lavaan")
@@ -219,20 +219,20 @@ if (require("testthat") && require("effectsize")) {
   test_that("interpret_icc", {
     expect_equal(interpret_icc(c(0.45, 0.55, 0.8, 0.95)), c("poor", "moderate", "good", "excellent"), ignore_attr = TRUE)
     expect_equal(interpret_icc(0.6, rules(c(0.5), c("A", "B")))[1], "B")
-    expect_error(interpret_icc(0.6, "DUPA"))
+    expect_error(interpret_icc(0.6, "DUPA"), "must be")
   })
 
   test_that("interpret_vif", {
     expect_equal(interpret_vif(c(1, 5.5, 10)), c("low", "moderate", "high"), ignore_attr = TRUE)
     expect_equal(interpret_icc(0.6, rules(c(0.5), c("A", "B")))[1], "B")
-    expect_error(interpret_icc(0.6, "DUPA"))
+    expect_error(interpret_icc(0.6, "DUPA"), "must be")
   })
 
   test_that("interpret_pd", {
     expect_equal(interpret_pd(c(0.9, 0.99)), c("not significant", "significant"), ignore_attr = TRUE)
     expect_equal(interpret_pd(c(0.9, 0.99), "makowski2019"), c("uncertain", "likely existing"), ignore_attr = TRUE)
     expect_equal(interpret_pd(0.6, rules(c(0.5), c("A", "B")))[1], "B")
-    expect_error(interpret_pd(0.6, "DUPA"))
+    expect_error(interpret_pd(0.6, "DUPA"), "must be")
   })
 
   # interpret effectsize_table ----
@@ -252,6 +252,6 @@ if (require("testthat") && require("effectsize")) {
     expect_output(print(V_), "large")
     expect_output(print(V_), "Interpretation rule: funder2019")
 
-    expect_error(interpret(d))
+    expect_error(interpret(d), "MUST specify")
   })
 }

@@ -22,7 +22,7 @@ if (require("testthat") && require("effectsize")) {
 
     df <- data.frame(DV = c(x, y), g = rep(1:2, each = 10))
     model <- t.test(DV ~ g, data = df, var.equal = TRUE, mu = 3)
-    expect_warning(effectsize(model))
+    expect_warning(effectsize(model), "data")
 
     ## Auto convert y to factor
     Ts <- t.test(mtcars$mpg ~ mtcars$vs)
@@ -85,8 +85,8 @@ if (require("testthat") && require("effectsize")) {
     expected.dfc <<- c(0.165, 0.835)
 
     x <- chisq.test(x = observed.dfc, p = expected.dfc)
-    expect_error(effectsize(x, type = "v"))
-    expect_error(effectsize(x, type = "phi"))
+    expect_error(effectsize(x, type = "v"), "goodness")
+    expect_error(effectsize(x, type = "phi"), "appropriate")
     expect_equal(effectsize(x), effectsize(x, type = "chi"))
     expect_equal(effectsize(x, type = "chi"), nchi <- normalized_chi(observed.dfc, p = expected.dfc))
     expect_equal(normalized_chi(x), nchi)
@@ -94,12 +94,12 @@ if (require("testthat") && require("effectsize")) {
 
   test_that("cor.test / other", {
     r_ <- cor.test(iris$Sepal.Width, iris$Sepal.Length)
-    expect_warning(effectsize(r_))
+    expect_warning(effectsize(r_), "parameters")
   })
 
   test_that("one way", {
     onew <- oneway.test(mpg ~ cyl, mtcars)
-    expect_warning(effectsize(onew))
+    expect_warning(effectsize(onew), "var")
 
 
     onew <- oneway.test(mpg ~ cyl, mtcars, var.equal = TRUE)
