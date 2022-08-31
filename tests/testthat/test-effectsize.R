@@ -55,13 +55,13 @@ if (require("testthat") && require("effectsize")) {
     )
 
     # types
-    expect_error(effectsize(Xsq1, type = "phi"))
+    expect_error(effectsize(Xsq1, type = "phi"), "appropriate")
     expect_equal(effectsize(Xsq1), cramers_v(contingency_table))
     expect_equal(effectsize(Xsq1, type = "w"), w <- cohens_w(contingency_table))
     expect_equal(cohens_w(Xsq1), w)
 
-    expect_error(effectsize(Xsq1, type = "riskratio"))
-    expect_error(riskratio(Xsq1))
+    expect_error(effectsize(Xsq1, type = "riskratio"), "only")
+    expect_error(riskratio(Xsq1), "only")
 
     contingency_table22 <- contingency_table[1:2, 1:2]
     Xsq4 <- chisq.test(contingency_table22)

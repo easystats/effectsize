@@ -9,8 +9,8 @@ if (require("testthat") && require("effectsize")) {
       interpret(c(0.01, 0.005, 0.08), rules_grid)[1:3],
       c("very significant", "very significant", "not significant")
     )
-    expect_error(interpret_r(0.6, rules(c(0.5), c("A", "B", "C"))))
-    expect_error(interpret_r(0.6, rules(c(0.5, 0.2, 0.7), c("A", "B", "C", "D"))))
+    expect_error(rules(c(0.5), c("A", "B", "C")), "Too many")
+    expect_error(rules(c(0.5, 0.2, 0.7), c("A", "B", "C", "D")), "sorted")
 
 
     r1 <- rules(c(0, 1), labels = c("some", "few", "many"))
