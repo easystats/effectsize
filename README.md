@@ -5,6 +5,7 @@
 [![downloads](https://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize/)
 [![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize)](https://cran.r-project.org/package=effectsize/)
 [![status](https://tinyverse.netlify.com/badge/effectsize/)](https://CRAN.R-project.org/package=effectsize/)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
 ***Significant is just not enough!***
 
@@ -17,7 +18,7 @@ conversion of indices such as Cohen’s *d*, *r*, odds-ratios, etc.
 [![CRAN](https://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize/)
 [![effectsize status
 badge](https://easystats.r-universe.dev/badges/effectsize/)](https://easystats.r-universe.dev/)
-[![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg/)](https://github.com/easystats/effectsize/actions/)
+[![R-CMD-check](https://github.com/easystats/effectsize/workflows/R-CMD-check/badge.svg?branch=main)](https://github.com/easystats/effectsize/actions)
 [![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg/)](https://github.com/easystats/effectsize/actions/)
 [![Codecov test
 coverage](https://codecov.io/gh/easystats/effectsize/branch/main/graph/badge.svg/)](https://app.codecov.io/gh/easystats/effectsize?branch=main/)
@@ -29,7 +30,7 @@ CRAN:
 install.packages("effectsize")
 ```
 
-Or you can install the latest development version `0.7.0.1` from
+Or you can install the latest development version `0.7.0.9999` from
 [*R-universe*](https://easystats.r-universe.dev):
 
 ``` r

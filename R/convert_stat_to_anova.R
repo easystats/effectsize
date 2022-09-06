@@ -83,7 +83,7 @@
 #' F_to_f(16.501, 1, 9)
 #' }
 #'
-#' #' @examplesIf require(lmerTest)
+#' #' @examplesIf require(emmeans)
 #' \donttest{
 #' ## Use with emmeans based contrasts
 #' ## --------------------------------
