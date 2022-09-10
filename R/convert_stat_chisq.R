@@ -4,6 +4,8 @@
 #' Cohen's *w*, Fei (*פ*) and Pearson's *C* for contingency tables or
 #' goodness of fit.
 #'
+#' @encoding UTF-8
+#'
 #' @param chisq The Chi-squared statistic.
 #' @param n Total sample size.
 #' @param nrow,ncol The number of rows/columns in the contingency table.
