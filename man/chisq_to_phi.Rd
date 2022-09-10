@@ -4,7 +4,7 @@
 \alias{chisq_to_phi}
 \alias{chisq_to_cohens_w}
 \alias{chisq_to_cramers_v}
-\alias{chisq_to_normalized}
+\alias{chisq_to_fei}
 \alias{chisq_to_pearsons_c}
 \alias{phi_to_chisq}
 \title{Conversion Chi-Squared to Phi or Cramer's V}
@@ -41,16 +41,7 @@ chisq_to_cramers_v(
   ...
 )
 
-chisq_to_normalized(
-  chisq,
-  n,
-  nrow,
-  ncol,
-  p,
-  ci = 0.95,
-  alternative = "greater",
-  ...
-)
+chisq_to_fei(chisq, n, nrow, ncol, p, ci = 0.95, alternative = "greater", ...)
 
 chisq_to_pearsons_c(
   chisq,
@@ -93,19 +84,19 @@ A data frame with the effect size(s), and confidence interval(s). See
 }
 \description{
 Convert between Chi square (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}),
-Cohen's \emph{w}, normalized Chi (\eqn{\chi}) and Pearson's \emph{C} for contingency
-tables or goodness of fit.
+Cohen's \emph{w}, Fei (\eqn{פ}) and Pearson's \emph{C} for contingency tables or
+goodness of fit.
 }
 \details{
 These functions use the following formulae:
 \cr
-\deqn{\phi = \sqrt{\chi^2 / n}}{phi = sqrt(\chi^2 / n)}
+\deqn{\phi = w = \sqrt{\chi^2 / n}}{phi = w = sqrt(\chi^2 / n)}
 \cr
-\deqn{Cramer's V = \phi / \sqrt{min(nrow,ncol)-1}}{Cramer's V = \phi / sqrt(min(nrow,ncol)-1)}
+\deqn{\text{Cramer's }V = \phi / \sqrt{min(nrow,ncol)-1}}{Cramer's V = \phi / sqrt(min(nrow,ncol)-1)}
 \cr
-\deqn{Pearson's C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
+\deqn{\text{Pearson's }C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
 \cr
-\deqn{\chi_{Normalized} = w \times \sqrt{\frac{q}{1-q}}}{Chi (Normalized) = w * sqrt(q/(1-q))}
+\deqn{פ = w \times \sqrt{\frac{q}{1-q}}}{Fei = w * sqrt(q/(1-q))}
 Where \code{q} is the smallest of the expected probabilities.
 \cr\cr
 For adjusted versions of \emph{phi} and \emph{V}, see Bergsma, 2013.
@@ -177,7 +168,7 @@ Smoking_ASD <- as.table(c(ASD = 17, ASP = 11, TD = 640))
 #> data:  Smoking_ASD
 #> X-squared = 7.8521, df = 2, p-value = 0.01972
 
-chisq_to_normalized(
+chisq_to_fei(
   7.8521,
   n = sum(Smoking_ASD),
   nrow = 1,

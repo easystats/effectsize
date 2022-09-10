@@ -114,14 +114,14 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   if (is.null(type)) {
     if (nr == 1 || nc == 1) {
-      type <- "normalized_chi"
+      type <- "fei"
     } else {
       type <- "cramers_v"
     }
   }
 
-  if (grepl("(c|v|w|phi)$", tolower(type)) || tolower(type) %in% c("normalized_chi", "chi")) {
-    if (tolower(type) %in% c("normalized_chi", "chi")) {
+  if (grepl("(c|v|w|phi|fei)$", tolower(type))) {
+    if (tolower(type) == "fei") {
       p <- Exp
     } else {
       p <- NULL
@@ -136,7 +136,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       c = ,
       pearsons_c = chisq_to_pearsons_c,
       chi = ,
-      normalized_chi = chisq_to_normalized
+      normalized_chi = ,
+      fei = chisq_to_fei
     )
 
     out <- f(

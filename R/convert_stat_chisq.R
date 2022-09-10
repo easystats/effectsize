@@ -1,8 +1,8 @@
 #' Conversion Chi-Squared to Phi or Cramer's V
 #'
 #' Convert between Chi square (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}),
-#' Cohen's *w*, normalized Chi (\eqn{\chi}) and Pearson's *C* for contingency
-#' tables or goodness of fit.
+#' Cohen's *w*, Fei (\eqn{פ}) and Pearson's *C* for contingency tables or
+#' goodness of fit.
 #'
 #' @param chisq The Chi-squared statistic.
 #' @param n Total sample size.
@@ -21,13 +21,13 @@
 #'
 #' @details These functions use the following formulae:
 #' \cr
-#' \deqn{\phi = \sqrt{\chi^2 / n}}{phi = sqrt(\chi^2 / n)}
+#' \deqn{\phi = w = \sqrt{\chi^2 / n}}{phi = w = sqrt(\chi^2 / n)}
 #' \cr
-#' \deqn{Cramer's V = \phi / \sqrt{min(nrow,ncol)-1}}{Cramer's V = \phi / sqrt(min(nrow,ncol)-1)}
+#' \deqn{\text{Cramer's }V = \phi / \sqrt{min(nrow,ncol)-1}}{Cramer's V = \phi / sqrt(min(nrow,ncol)-1)}
 #' \cr
-#' \deqn{Pearson's C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
+#' \deqn{\text{Pearson's }C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
 #' \cr
-#' \deqn{\chi_{Normalized} = w \times \sqrt{\frac{q}{1-q}}}{Chi (Normalized) = w * sqrt(q/(1-q))}
+#' \deqn{פ = w \times \sqrt{\frac{q}{1-q}}}{Fei = w * sqrt(q/(1-q))}
 #' Where `q` is the smallest of the expected probabilities.
 #' \cr\cr
 #' For adjusted versions of *phi* and *V*, see Bergsma, 2013.
@@ -65,7 +65,7 @@
 #' #> data:  Smoking_ASD
 #' #> X-squared = 7.8521, df = 2, p-value = 0.01972
 #'
-#' chisq_to_normalized(
+#' chisq_to_fei(
 #'   7.8521,
 #'   n = sum(Smoking_ASD),
 #'   nrow = 1,
@@ -229,7 +229,7 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "g
 #' @rdname chisq_to_phi
 #' @export
 #' @param p Vector of expected values. See [stats::chisq.test()].
-chisq_to_normalized <- function(chisq, n, nrow, ncol, p,
+chisq_to_fei <- function(chisq, n, nrow, ncol, p,
                                 ci = 0.95, alternative = "greater", ...) {
   if (is.numeric(ci) || (!missing(nrow) && !missing(ncol))) {
     # This means that the user passed ncol/nrow
@@ -255,7 +255,7 @@ chisq_to_normalized <- function(chisq, n, nrow, ncol, p,
   N <- n * (1 - q) / q
 
   res <- chisq_to_phi(chisq, N, nrow, ncol, ci = ci, alternative = alternative, adjust = FALSE, dont_stop = TRUE)
-  colnames(res)[1] <- "normalized_chi"
+  colnames(res)[1] <- "Fei"
 
   if ("CI" %in% colnames(res)) {
     if ((alternative <- attr(res, "alternative")) == "less") {

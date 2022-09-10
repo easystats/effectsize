@@ -88,8 +88,8 @@ if (require("testthat") && require("effectsize")) {
     expect_error(effectsize(x, type = "v"), "goodness")
     expect_error(effectsize(x, type = "phi"), "appropriate")
     expect_equal(effectsize(x), effectsize(x, type = "chi"))
-    expect_equal(effectsize(x, type = "chi"), nchi <- normalized_chi(observed.dfc, p = expected.dfc))
-    expect_equal(normalized_chi(x), nchi)
+    expect_equal(effectsize(x, type = "fei"), Fei <- fei(observed.dfc, p = expected.dfc))
+    expect_equal(fei(x), Fei)
   })
 
   test_that("cor.test / other", {

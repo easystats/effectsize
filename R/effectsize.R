@@ -13,7 +13,7 @@
 #' - For an object of class `htest`, data is extracted via [insight::get_data()], and passed to the relevant function according to:
 #'   - A **t-test** depending on `type`: `"cohens_d"` (default), `"hedges_g"`, or `"cles"`.
 #'   - A **Chi-squared tests of independence**, depending on `type`: `"cramers_v"` (default), `"phi"`, `"cohens_w"`, `"pearsons_c"`, `"cohens_h"`, `"oddsratio"`, or `"riskratio"`.
-#'   - A **Chi-squared tests of goodness-of-fit**, depending on `type`: `"normalized_chi"` (default) `"cohens_w"`, `"pearsons_c"`
+#'   - A **Chi-squared tests of goodness-of-fit**, depending on `type`: `"fei"` (default) `"cohens_w"`, `"pearsons_c"`
 #'   - A **One-way ANOVA test**, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.
 #'   - A **McNemar test** returns *Cohen's g*.
 #'   - A **Wilcoxon test** depending on `type`: returns "`rank_biserial`" correlation (default) or `"cles"`.
