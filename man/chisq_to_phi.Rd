@@ -84,7 +84,7 @@ A data frame with the effect size(s), and confidence interval(s). See
 }
 \description{
 Convert between Chi square (\eqn{\chi^2}), phi (\eqn{\phi}), Cramer's V,
-Cohen's \emph{w}, Fei (\eqn{XXX}) and Pearson's \emph{C} for contingency tables or
+Cohen's \emph{w}, Fei (\emph{פ}) and Pearson's \emph{C} for contingency tables or
 goodness of fit.
 }
 \details{
