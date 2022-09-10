@@ -302,7 +302,7 @@ pearsons_c <- function(x, y = NULL, p = rep(1/length(x), length(x)),
     if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
-    return(effectsize(x, type = "pearsons_c", adjust = adjust, ci = ci, ...))
+    return(effectsize(x, type = "pearsons_c", ci = ci, ...))
   }
 
 
@@ -316,7 +316,7 @@ pearsons_c <- function(x, y = NULL, p = rep(1/length(x), length(x)),
     x$data.name <- NULL
   }
 
-  effectsize(x, type = "pearsons_c", adjust = adjust, ci = ci, alternative = alternative)
+  effectsize(x, type = "pearsons_c", ci = ci, alternative = alternative)
 }
 
 
