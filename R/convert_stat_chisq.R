@@ -25,10 +25,10 @@
 #' \cr
 #' \deqn{\text{Cramer's }V = \phi / \sqrt{min(nrow,ncol)-1}}{Cramer's V = \phi / sqrt(min(nrow,ncol)-1)}
 #' \cr
-#' \deqn{\text{Pearson's }C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
+#' \deqn{פ = w / \sqrt{\frac{1}{min(p_E)}-1}}{Fei = w / sqrt(1/min(p_E) - 1))}
+#' Where `p_E` are the expected probabilities.
 #' \cr
-#' \deqn{פ = w \times \sqrt{\frac{q}{1-q}}}{Fei = w * sqrt(q/(1-q))}
-#' Where `q` is the smallest of the expected probabilities.
+#' \deqn{\text{Pearson's }C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
 #' \cr\cr
 #' For adjusted versions of *phi* and *V*, see Bergsma, 2013.
 #'
