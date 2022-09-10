@@ -252,7 +252,7 @@ cohens_w(O, p = E)
 
 However, Cohen's *w* does not account for the distribution of expected probabilities, 
 and as such may be seen is an inflated effect size, and since it can be larger than 1 it is also harder to interpret. 
-For these reasons, we recommend the $XXX$ (Fei) coefficient, which adjusted Cohen's *w* to account for the expected distribution of probabilities, making it range between 0 (observed distribution matches the expected distribution perfectly) and 1 (the observed distribution is maximally different than the expected one).
+For these reasons, we recommend the $פ$ (Fei) coefficient, which adjusted Cohen's *w* to account for the expected distribution of probabilities, making it range between 0 (observed distribution matches the expected distribution perfectly) and 1 (the observed distribution is maximally different than the expected one).
 
 ```{r}
 fei(O, p = E)
