@@ -1,7 +1,7 @@
 #' Conversion Chi-Squared to Phi or Cramer's V
 #'
 #' Convert between Chi square (\eqn{\chi^2}), phi (\eqn{\phi}), Cramer's V,
-#' Cohen's *w*, Fei (\eqn{פ}) and Pearson's *C* for contingency tables or
+#' Cohen's *w*, Fei (\eqn{XXX}) and Pearson's *C* for contingency tables or
 #' goodness of fit.
 #'
 #' @param chisq The Chi-squared statistic.
@@ -25,7 +25,7 @@
 #' \cr
 #' \deqn{\text{Cramer's }V = \phi / \sqrt{min(nrow,ncol)-1}}{Cramer's V = \phi / sqrt(min(nrow,ncol)-1)}
 #' \cr
-#' \deqn{פ = w / \sqrt{\frac{1}{min(p_E)}-1}}{Fei = w / sqrt(1/min(p_E) - 1))}
+#' \deqn{XXX = w / \sqrt{\frac{1}{min(p_E)}-1}}{Fei = w / sqrt(1/min(p_E) - 1))}
 #' Where `p_E` are the expected probabilities.
 #' \cr
 #' \deqn{\text{Pearson's }C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}

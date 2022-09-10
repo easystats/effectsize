@@ -84,7 +84,7 @@ A data frame with the effect size(s), and confidence interval(s). See
 }
 \description{
 Convert between Chi square (\eqn{\chi^2}), phi (\eqn{\phi}), Cramer's V,
-Cohen's \emph{w}, Fei (\eqn{פ}) and Pearson's \emph{C} for contingency tables or
+Cohen's \emph{w}, Fei (\eqn{XXX}) and Pearson's \emph{C} for contingency tables or
 goodness of fit.
 }
 \details{
@@ -94,7 +94,7 @@ These functions use the following formulae:
 \cr
 \deqn{\text{Cramer's }V = \phi / \sqrt{min(nrow,ncol)-1}}{Cramer's V = \phi / sqrt(min(nrow,ncol)-1)}
 \cr
-\deqn{פ = w / \sqrt{\frac{1}{min(p_E)}-1}}{Fei = w / sqrt(1/min(p_E) - 1))}
+\deqn{XXX = w / \sqrt{\frac{1}{min(p_E)}-1}}{Fei = w / sqrt(1/min(p_E) - 1))}
 Where \code{p_E} are the expected probabilities.
 \cr
 \deqn{\text{Pearson's }C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}

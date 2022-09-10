@@ -1,6 +1,6 @@
 #' Effect size for contingency tables
 #'
-#' Compute Cramer's *V*, phi (\eqn{\phi}), Cohen's *w*, Fei (\eqn{פ}), Pearson's
+#' Compute Cramer's *V*, phi (\eqn{\phi}), Cohen's *w*, Fei (\eqn{XXX}), Pearson's
 #' contingency coefficient, Odds ratios, Risk ratios, Cohen's *h* and Cohen's
 #' *g* for contingency tables or goodness-of-fit. See details.
 #'
@@ -29,7 +29,7 @@
 #' can also be used, but since it is not bounded at 1 (can be larger) its
 #' interpretation is more difficult.
 #' \cr \cr
-#' For goodness-of-fit in 1D tables Cohen's *W*, Fei (\eqn{פ}) or Pearson's *C*
+#' For goodness-of-fit in 1D tables Cohen's *W*, Fei (\eqn{XXX}) or Pearson's *C*
 #' can be used. Cohen's *w* has no upper bound (can be arbitrarily large,
 #' depending on the expected distribution). Fei is an adjusted Cohen's *w*,
 #' accounting for the expected distribution, making it bounded between 0-1.
