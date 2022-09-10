@@ -2,8 +2,8 @@
 % Please edit documentation in R/xtab.R
 \name{phi}
 \alias{phi}
-\alias{cohens_w}
 \alias{cramers_v}
+\alias{cohens_w}
 \alias{fei}
 \alias{pearsons_c}
 \alias{oddsratio}
@@ -14,18 +14,31 @@
 \usage{
 phi(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
 
-cohens_w(x, y = NULL, ci = 0.95, alternative = "greater", ...)
-
 cramers_v(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
 
-fei(x, y = NULL, ci = 0.95, alternative = "greater", ...)
+cohens_w(
+  x,
+  y = NULL,
+  p = rep(1/length(x), length(x)),
+  ci = 0.95,
+  alternative = "greater",
+  ...
+)
+
+fei(
+  x,
+  p = rep(1/length(x), length(x)),
+  ci = 0.95,
+  alternative = "greater",
+  ...
+)
 
 pearsons_c(
   x,
   y = NULL,
+  p = rep(1/length(x), length(x)),
   ci = 0.95,
   alternative = "greater",
-  adjust = FALSE,
   ...
 )
 
@@ -55,8 +68,11 @@ Partial matching is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See
 
 \item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
 
-\item{...}{Arguments passed to \code{\link[stats:chisq.test]{stats::chisq.test()}}, such as \code{p} for
-goodness-of-fit. Ignored for \code{cohens_g()}.}
+\item{...}{For goodness-of-fit effect sizes, can pass \code{rescale.p} (see
+\code{\link[stats:chisq.test]{stats::chisq.test()}}). Else, ignored.}
+
+\item{p}{a vector of probabilities of the same length as \code{x}.
+    An error is given if any entry of \code{p} is negative.}
 
 \item{log}{Take in or output the log of the ratio (such as in logistic models).}
 }

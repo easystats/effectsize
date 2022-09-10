@@ -13,8 +13,8 @@
 #'   Partial matching is allowed (e.g., `"g"`, `"l"`, `"two"`...). See
 #'   *One-Sided CIs* in [effectsize_CIs].
 #' @param adjust Should the effect size be bias-corrected? Defaults to `FALSE`.
-#' @param ... Arguments passed to [stats::chisq.test()], such as `p` for
-#'   goodness-of-fit. Ignored for `cohens_g()`.
+#' @param ... For goodness-of-fit effect sizes, can pass `rescale.p` (see
+#'   [stats::chisq.test()]). Else, ignored.
 #'
 #' @details
 #'
@@ -204,37 +204,11 @@ phi <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE,
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
   } else {
-    x <- suppressWarnings(stats::chisq.test(x, y, ...))
+    x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
   }
 
   effectsize(x, type = "phi", adjust = adjust, ci = ci, alternative = alternative)
-}
-
-#' @rdname phi
-#' @export
-cohens_w <- function(x, y = NULL, ci = 0.95, alternative = "greater", ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
-
-  if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
-    return(effectsize(x, type = "phi", ci = ci, ...))
-  }
-
-
-  if (inherits(x, "htest")) {
-    if (!(grepl("Pearson's Chi-squared", x$method) ||
-      grepl("Chi-squared test for given probabilities", x$method))) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
-  } else {
-    x <- suppressWarnings(stats::chisq.test(x, y, ...))
-    x$data.name <- NULL
-  }
-
-  effectsize(x, type = "cohens_w", ci = ci, alternative = alternative)
 }
 
 #' @rdname phi
@@ -253,21 +227,50 @@ cramers_v <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = 
 
   if (inherits(x, "htest")) {
     if (!(grepl("Pearson's Chi-squared", x$method) ||
-      grepl("Chi-squared test for given probabilities", x$method))) {
+          grepl("Chi-squared test for given probabilities", x$method))) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
   } else {
-    x <- suppressWarnings(stats::chisq.test(x, y, ...))
+    x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
   }
 
   effectsize(x, type = "cramers_v", adjust = adjust, ci = ci, alternative = alternative)
 }
 
+#' @rdname phi
+#' @importFrom stats chisq.test
+#' @export
+cohens_w <- function(x, y = NULL, p = rep(1/length(x), length(x)),
+                     ci = 0.95, alternative = "greater", ...) {
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+
+  if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "phi", ci = ci, ...))
+  }
+
+
+  if (inherits(x, "htest")) {
+    if (!(grepl("Pearson's Chi-squared", x$method) ||
+      grepl("Chi-squared test for given probabilities", x$method))) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
+  } else {
+    x <- suppressWarnings(stats::chisq.test(x, y, p = p, ...))
+    x$data.name <- NULL
+  }
+
+  effectsize(x, type = "cohens_w", ci = ci, alternative = alternative)
+}
+
 
 #' @rdname phi
+#' @importFrom stats chisq.test
 #' @export
-fei <- function(x, y = NULL, ci = 0.95, alternative = "greater", ...) {
+fei <- function(x, p = rep(1/length(x), length(x)), ci = 0.95, alternative = "greater", ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "BFBayesFactor")) {
@@ -281,7 +284,7 @@ fei <- function(x, y = NULL, ci = 0.95, alternative = "greater", ...) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
   } else {
-    x <- suppressWarnings(stats::chisq.test(x, y, ...))
+    x <- suppressWarnings(stats::chisq.test(x, y = NULL, p = p, ...))
     x$data.name <- NULL
   }
 
@@ -291,7 +294,8 @@ fei <- function(x, y = NULL, ci = 0.95, alternative = "greater", ...) {
 #' @rdname phi
 #' @importFrom stats chisq.test
 #' @export
-pearsons_c <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
+pearsons_c <- function(x, y = NULL, p = rep(1/length(x), length(x)),
+                     ci = 0.95, alternative = "greater", ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "BFBayesFactor")) {
@@ -308,7 +312,7 @@ pearsons_c <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust =
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
   } else {
-    x <- suppressWarnings(stats::chisq.test(x, y, ...))
+    x <- suppressWarnings(stats::chisq.test(x, y, p = p, ...))
     x$data.name <- NULL
   }
 
@@ -339,7 +343,7 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
     return(effectsize(x, type = "or", log = log, ci = ci, ...))
   }
 
-  res <- suppressWarnings(stats::chisq.test(x, y, ...))
+  res <- suppressWarnings(stats::chisq.test(x, y))
   Obs <- res$observed
 
   if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
@@ -415,7 +419,7 @@ riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
     return(effectsize(x, type = "rr", log = log, ci = ci, ...))
   }
 
-  res <- suppressWarnings(stats::chisq.test(x, y, ...))
+  res <- suppressWarnings(stats::chisq.test(x, y))
   Obs <- res$observed
 
   if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
@@ -493,7 +497,7 @@ cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
     return(effectsize(x, type = "cohens_h", ci = ci, ...))
   }
 
-  res <- suppressWarnings(stats::chisq.test(x, y, ...))
+  res <- suppressWarnings(stats::chisq.test(x, y))
   Obs <- res$observed
 
   if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
