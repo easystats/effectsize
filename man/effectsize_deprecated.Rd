@@ -6,6 +6,8 @@
 \alias{interpret_g}
 \alias{interpret_delta}
 \alias{interpret_parameters}
+\alias{normalized_chi}
+\alias{chisq_to_normalized}
 \title{Deprecated functions}
 \usage{
 interpret_d(...)
@@ -15,6 +17,10 @@ interpret_g(...)
 interpret_delta(...)
 
 interpret_parameters(...)
+
+normalized_chi(...)
+
+chisq_to_normalized(...)
 }
 \arguments{
 \item{...}{Arguments to the deprecated function.}
@@ -28,5 +34,7 @@ Deprecated functions
 \item \code{interpret_g} is now \code{\link{interpret_hedges_g}}.
 \item \code{interpret_delta} is now \code{\link{interpret_glass_delta}}.
 \item \code{interpret_parameters} for \emph{standardized parameters} was incorrect. Use \code{\link{interpret_r}} instead.
+\item \code{normalized_chi} is now \code{\link{fei}}.
+\item \code{chisq_to_normalized} is now \code{\link{chisq_to_fei}}.
 }
 }

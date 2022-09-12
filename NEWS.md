@@ -1,5 +1,8 @@
-
 # effectsize 0.7.0.9999
+
+## Breaking Changes
+
+- `normalized_chi()` has been renamed `fei()`.
 
 ## Bug fixes
 

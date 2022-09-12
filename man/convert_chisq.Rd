@@ -4,10 +4,10 @@
 \alias{chisq_to_phi}
 \alias{chisq_to_cohens_w}
 \alias{chisq_to_cramers_v}
-\alias{chisq_to_normalized}
+\alias{chisq_to_fei}
 \alias{chisq_to_pearsons_c}
 \alias{phi_to_chisq}
-\title{Conversion Chi-Squared to Phi or Cramer's V}
+\title{Convert chi-square to correlation-like effect sizes (phi, V, Fei, C)}
 \usage{
 chisq_to_phi(
   chisq,
@@ -41,16 +41,7 @@ chisq_to_cramers_v(
   ...
 )
 
-chisq_to_normalized(
-  chisq,
-  n,
-  nrow,
-  ncol,
-  p,
-  ci = 0.95,
-  alternative = "greater",
-  ...
-)
+chisq_to_fei(chisq, n, nrow, ncol, p, ci = 0.95, alternative = "greater", ...)
 
 chisq_to_pearsons_c(
   chisq,
@@ -65,7 +56,7 @@ chisq_to_pearsons_c(
 phi_to_chisq(phi, n, ...)
 }
 \arguments{
-\item{chisq}{The Chi-squared statistic.}
+\item{chisq}{The \eqn{\chi^2} (chi-square) statistic.}
 
 \item{n}{Total sample size.}
 
@@ -85,30 +76,37 @@ is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided 
 
 \item{p}{Vector of expected values. See \code{\link[stats:chisq.test]{stats::chisq.test()}}.}
 
-\item{phi}{The Phi statistic.}
+\item{phi}{The \eqn{\phi} (phi) statistic.}
 }
 \value{
 A data frame with the effect size(s), and confidence interval(s). See
 \code{\link[=cramers_v]{cramers_v()}}.
 }
 \description{
-Convert between Chi square (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}),
-Cohen's \emph{w}, normalized Chi (\eqn{\chi}) and Pearson's \emph{C} for contingency
-tables or goodness of fit.
+Convert between \eqn{\chi^2} (chi-square), \eqn{\phi} (phi), Cramer's \eqn{V},
+Cohen's \eqn{w}, \ifelse{latex}{\eqn{Fei}}{פ (Fei)} and Pearson's \eqn{C}
+for contingency tables or goodness of fit.
 }
 \details{
-These functions use the following formulae:
-\cr
-\deqn{\phi = \sqrt{\chi^2 / n}}{phi = sqrt(\chi^2 / n)}
-\cr
-\deqn{Cramer's V = \phi / \sqrt{min(nrow,ncol)-1}}{Cramer's V = \phi / sqrt(min(nrow,ncol)-1)}
-\cr
-\deqn{Pearson's C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
-\cr
-\deqn{\chi_{Normalized} = w \times \sqrt{\frac{q}{1-q}}}{Chi (Normalized) = w * sqrt(q/(1-q))}
-Where \code{q} is the smallest of the expected probabilities.
-\cr\cr
-For adjusted versions of \emph{phi} and \emph{V}, see Bergsma, 2013.
+These functions use the following formulas:
+
+\deqn{\phi = w = \sqrt{\chi^2 / n}}{phi = w = sqrt(\frac{\chi^2}{n})}
+\ifelse{latex}{
+\deqn{\textrm{Cramer's } V = \phi / \sqrt{\min(\textit{nrow}, \textit{ncol}) - 1}}
+}{
+\deqn{\textrm{Cramer's } V = \phi / \sqrt{\min(\textit{nrow}, \textit{ncol }) - 1}}{Cramer's V = \phi / sqrt(min(nrow, ncol) - 1)}
+}
+
+\ifelse{latex}{
+\deqn{\textit{Fei} = \phi / \sqrt{[1 / \min(p_E)] - 1}}
+}{
+\deqn{פ = \phi / \sqrt{[1 / \min(p_E)] - 1}}{פ = w / sqrt(1 / min(p_E) - 1))}
+}
+Where \eqn{p_E} are the expected probabilities.
+
+\deqn{\textrm{Pearson's } C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
+
+For adjusted versions of \eqn{\phi} and \eqn{V}, see Bergsma, 2013.
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
 
@@ -177,7 +175,7 @@ Smoking_ASD <- as.table(c(ASD = 17, ASP = 11, TD = 640))
 #> data:  Smoking_ASD
 #> X-squared = 7.8521, df = 2, p-value = 0.01972
 
-chisq_to_normalized(
+chisq_to_fei(
   7.8521,
   n = sum(Smoking_ASD),
   nrow = 1,

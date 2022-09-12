@@ -7,6 +7,8 @@
 #' - `interpret_g` is now [`interpret_hedges_g`].
 #' - `interpret_delta` is now [`interpret_glass_delta`].
 #' - `interpret_parameters` for *standardized parameters* was incorrect. Use [`interpret_r`] instead.
+#' - `normalized_chi` is now [`fei`].
+#' - `chisq_to_normalized` is now [`chisq_to_fei`].
 #'
 #' @rdname effectsize_deprecated
 #' @name effectsize_deprecated
@@ -40,3 +42,19 @@ interpret_parameters <- function(...) {
   .Deprecated("interpret_r")
   interpret_r(...)
 }
+
+#' @rdname effectsize_deprecated
+#' @export
+normalized_chi <- function(...) {
+  .Deprecated("fei")
+  fei(...)
+}
+
+#' @rdname effectsize_deprecated
+#' @export
+chisq_to_normalized <- function(...) {
+  .Deprecated("chisq_to_fei")
+  chisq_to_fei(...)
+}
+
+
