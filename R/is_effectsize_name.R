@@ -47,6 +47,7 @@ es_info <- matrix(
     "Cohens_d", "Cohen's d", "twotail", -Inf, Inf, 0,
     "Hedges_g", "Hedges' g", "twotail", -Inf, Inf, 0,
     "Glass_delta", "Glass' delta", "twotail", -Inf, Inf, 0,
+    "Mahalanobis_D", "Mahalanobis' D", "onetail", 0, Inf, 0,
 
     ## xtab
     "Cramers_v", "Cramer's V", "onetail", 0, 1, 0,

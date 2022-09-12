@@ -3,11 +3,14 @@
 \name{sd_pooled}
 \alias{sd_pooled}
 \alias{mad_pooled}
+\alias{cov_pooled}
 \title{Pooled Standard Deviation}
 \usage{
 sd_pooled(x, y = NULL, data = NULL, verbose = TRUE, ...)
 
 mad_pooled(x, y = NULL, data = NULL, constant = 1.4826, verbose = TRUE, ...)
+
+cov_pooled(x, y = NULL, data = NULL, verbose = TRUE, ...)
 }
 \arguments{
 \item{x}{A formula, a numeric vector, or a character name of one in \code{data}.}
@@ -25,7 +28,7 @@ these can be \code{subset} and \code{na.action}.}
 \item{constant}{scale factor.}
 }
 \value{
-Numeric, the pooled standard deviation.
+Numeric, the pooled standard deviation. For \code{cov_pooled()} a matrix.
 }
 \description{
 The Pooled Standard Deviation is a weighted average of standard deviations
@@ -41,7 +44,11 @@ The robust version is calculated as:
 \examples{
 sd_pooled(mpg ~ am, data = mtcars)
 mad_pooled(mtcars$mpg, factor(mtcars$am))
+
+cov_pooled(mpg + hp + cyl ~ am, data = mtcars)
+
+
 }
 \seealso{
-\code{\link[=cohens_d]{cohens_d()}}
+\code{\link[=cohens_d]{cohens_d()}}, \code{\link[=mahalanobis_D]{mahalanobis_D()}}
 }

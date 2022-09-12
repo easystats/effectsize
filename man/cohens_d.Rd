@@ -222,6 +222,7 @@ Other effect size indices:
 \code{\link{cles}()},
 \code{\link{effectsize.BFBayesFactor}()},
 \code{\link{eta_squared}()},
+\code{\link{mahalanobis_D}()},
 \code{\link{phi}()},
 \code{\link{rank_biserial}()}
 }

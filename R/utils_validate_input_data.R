@@ -170,6 +170,38 @@
 }
 
 
+.get_data_multivariate <- function(x, y, data = data, ...) {
+  if (inherits(x, "formula")) {
+    if (length(x) != 3L || length(x[[3]]) != 1L) {
+      stop("Formula must have the form of 'DV1 + ... + DVk ~ group', with exactly one term on the RHS.", call. = FALSE)
+    }
+
+    data <- model.frame(formula = reformulate(as.character(x)[3:2]),
+                        data = data)
+
+    data <- split(data[,-1, drop = FALSE], f = data[[1]])
+    if (length(data) != 2) {
+      stop("~ group must have 2 levels exactly.", call. = FALSE)
+    }
+    x <- data[[1]]
+    y <- data[[2]]
+  }
+
+  if (!(is.data.frame(x) && is.data.frame(y))) {
+    stop("x,y or data must be data.frames.", call. = FALSE)
+  }
+
+  if (!all(colnames(x) == colnames(y))) {
+    stop("x,y must have the same variables (in the same order)", call. = FALSE)
+  }
+
+  if (!all(c(sapply(x, is.numeric), sapply(y, is.numeric)))) {
+    stop("All DVs must be numeric.", call. = FALSE)
+  }
+
+  .nlist(x, y)
+}
+
 
 # Helpers -----------------------------------------------------------------
 
