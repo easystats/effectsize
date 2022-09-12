@@ -1,6 +1,10 @@
 
 # effectsize 0.7.0.9999
 
+## New features
+
+- `mahalanobis_D()` for multivariate standardized differences.
+
 ## Bug fixes
 
 - Effect sizes for goodness-of-fit now work when passing a `p` that is a table.
