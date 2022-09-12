@@ -83,9 +83,10 @@ the suffix \verb{_adjusted}), \code{Cohens_w}, \code{Fei}, \code{Odds_ratio}, \c
 (\code{CI_low} and \code{CI_high}).
 }
 \description{
-Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w}, Fei (\eqn{XXX}), Pearson's
-contingency coefficient, Odds ratios, Risk ratios, Cohen's \emph{h} and Cohen's
-\emph{g} for contingency tables or goodness-of-fit. See details.
+Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w},
+\ifelse{latex}{\eqn{Fei}}{פ (Fei)}, Pearson's contingency coefficient, Odds
+ratios, Risk ratios, Cohen's \emph{h} and Cohen's \emph{g} for contingency tables or
+goodness-of-fit. See details.
 }
 \details{
 \subsection{Correlation-like Effect Sizes}{
@@ -99,11 +100,11 @@ Pearson's \emph{C} should be used, as they are bounded between 0-1. Cohen's \emp
 can also be used, but since it is not bounded at 1 (can be larger) its
 interpretation is more difficult.
 \cr \cr
-For goodness-of-fit in 1D tables Cohen's \emph{W}, Fei (\eqn{XXX}) or Pearson's \emph{C}
-can be used. Cohen's \emph{w} has no upper bound (can be arbitrarily large,
-depending on the expected distribution). Fei is an adjusted Cohen's \emph{w},
-accounting for the expected distribution, making it bounded between 0-1.
-Pearson's \emph{C} is also bounded between 0-1.
+For goodness-of-fit in 1D tables Cohen's \emph{W}, \ifelse{latex}{\eqn{Fei}}{פ (Fei)}
+or Pearson's \emph{C} can be used. Cohen's \emph{w} has no upper bound (can be
+arbitrarily large, depending on the expected distribution). \emph{Fei} is an
+adjusted Cohen's \emph{w}, accounting for the expected distribution, making it
+bounded between 0-1. Pearson's \emph{C} is also bounded between 0-1.
 \cr \cr
 To summarize, for correlation-like effect sizes, we recommend:
 \itemize{
