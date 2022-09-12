@@ -537,16 +537,16 @@ deviation from the hypothetical probabilities.</p>
 <p>However, Cohen’s <em>w</em> does not account for the distribution of
 expected probabilities, and as such may be seen is an inflated effect
 size, and since it can be larger than 1 it is also harder to interpret.
-For these reasons, we recommend the Normalized <span class="math inline">\(\chi\)</span> (Chi), which adjusted Cohen’s
-<em>w</em> to account for the expected distribution of probabilities,
-making it range between 0 (observed distribution matches the expected
-distribution perfectly) and 1 (the observed distribution is maximally
-different than the expected one).</p>
+For these reasons, we recommend the <span class="math inline">\(פ\)</span> (Fei) coefficient, which adjusted
+Cohen’s <em>w</em> to account for the expected distribution of
+probabilities, making it range between 0 (observed distribution matches
+the expected distribution perfectly) and 1 (the observed distribution is
+maximally different than the expected one).</p>
 <div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">normalized_chi</a></span><span class="op">(</span><span class="va">O</span>, p <span class="op">=</span> <span class="va">E</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; Norm. Chi |       95% CI
-&gt; ------------------------
-&gt; 0.15      | [0.13, 1.00]
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">fei</a></span><span class="op">(</span><span class="va">O</span>, p <span class="op">=</span> <span class="va">E</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; Fei  |       95% CI
+&gt; -------------------
+&gt; 0.15 | [0.13, 1.00]
 &gt; 
 &gt; - Adjusted for non-uniform expected probabilities.
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>

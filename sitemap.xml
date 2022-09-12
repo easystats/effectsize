@@ -58,13 +58,13 @@
     <loc>https://easystats.github.io/effectsize/reference/F_to_eta2.html</loc>
   </url>
   <url>
-    <loc>https://easystats.github.io/effectsize/reference/chisq_to_phi.html</loc>
-  </url>
-  <url>
     <loc>https://easystats.github.io/effectsize/reference/cles.html</loc>
   </url>
   <url>
     <loc>https://easystats.github.io/effectsize/reference/cohens_d.html</loc>
+  </url>
+  <url>
+    <loc>https://easystats.github.io/effectsize/reference/convert_chisq.html</loc>
   </url>
   <url>
     <loc>https://easystats.github.io/effectsize/reference/d_to_cles.html</loc>

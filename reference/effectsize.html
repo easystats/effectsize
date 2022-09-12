@@ -163,7 +163,7 @@ CIs (<code>CI_low</code> and <code>CI_high</code>).</p>
     
 <ul><li><p>For an object of class <code>htest</code>, data is extracted via <code><a href="https://easystats.github.io/insight/reference/get_data.html" class="external-link">insight::get_data()</a></code>, and passed to the relevant function according to:</p><ul><li><p>A <strong>t-test</strong> depending on <code>type</code>: <code>"cohens_d"</code> (default), <code>"hedges_g"</code>, or <code>"cles"</code>.</p></li>
 <li><p>A <strong>Chi-squared tests of independence</strong>, depending on <code>type</code>: <code>"cramers_v"</code> (default), <code>"phi"</code>, <code>"cohens_w"</code>, <code>"pearsons_c"</code>, <code>"cohens_h"</code>, <code>"oddsratio"</code>, or <code>"riskratio"</code>.</p></li>
-<li><p>A <strong>Chi-squared tests of goodness-of-fit</strong>, depending on <code>type</code>: <code>"normalized_chi"</code> (default) <code>"cohens_w"</code>, <code>"pearsons_c"</code></p></li>
+<li><p>A <strong>Chi-squared tests of goodness-of-fit</strong>, depending on <code>type</code>: <code>"fei"</code> (default) <code>"cohens_w"</code>, <code>"pearsons_c"</code></p></li>
 <li><p>A <strong>One-way ANOVA test</strong>, depending on <code>type</code>: <code>"eta"</code> (default), <code>"omega"</code> or <code>"epsilon"</code> -squared, <code>"f"</code>, or <code>"f2"</code>.</p></li>
 <li><p>A <strong>McNemar test</strong> returns <em>Cohen's g</em>.</p></li>
 <li><p>A <strong>Wilcoxon test</strong> depending on <code>type</code>: returns "<code>rank_biserial</code>" correlation (default) or <code>"cles"</code>.</p></li>

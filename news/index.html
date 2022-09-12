@@ -104,6 +104,11 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.7.0.9999" id="effectsize-0709999">effectsize 0.7.0.9999<a class="anchor" aria-label="anchor" href="#effectsize-0709999"></a></h2>
 <div class="section level3">
+<h3 id="breaking-changes-0-7-0-9999">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-7-0-9999"></a></h3>
+<ul><li>
+<code><a href="../reference/effectsize_deprecated.html">normalized_chi()</a></code> has been renamed <code><a href="../reference/phi.html">fei()</a></code>.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="bug-fixes-0-7-0-9999">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-7-0-9999"></a></h3>
 <ul><li>Effect sizes for goodness-of-fit now work when passing a <code>p</code> that is a table.</li>
 </ul></div>
@@ -138,7 +143,7 @@
 <div class="section level3">
 <h3 id="new-features-0-7-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-7-0"></a></h3>
 <ul><li>
-<code><a href="../reference/phi.html">normalized_chi()</a></code> gives an adjusted Cohen’s <em>w</em> for goodness of fit.</li>
+<code><a href="../reference/effectsize_deprecated.html">normalized_chi()</a></code> gives an adjusted Cohen’s <em>w</em> for goodness of fit.</li>
 <li>
 <code><a href="../reference/phi.html">cohens_w()</a></code> is now a fully-fledged function for x-tables and goodness-of-fit effect size (not just an alias for <code><a href="../reference/phi.html">phi()</a></code>).</li>
 <li>Support for <code>insight</code>’s <code>display</code>, <code>print_md</code> and <code>print_html</code> for all <a href="https://easystats.github.io/effectsize/">effectsize</a> outputs.</li>
@@ -221,7 +226,7 @@
 <div class="section level3">
 <h3 id="new-features-0-5-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-5-0"></a></h3>
 <ul><li>
-<code><a href="../reference/phi.html">pearsons_c()</a></code> (and <code><a href="../reference/chisq_to_phi.html">chisq_to_pearsons_c()</a></code>) for estimating Pearson’s contingency coefficient.</li>
+<code><a href="../reference/phi.html">pearsons_c()</a></code> (and <code><a href="../reference/convert_chisq.html">chisq_to_pearsons_c()</a></code>) for estimating Pearson’s contingency coefficient.</li>
 <li>
 <code><a href="../reference/interpret_vif.html">interpret_vif()</a></code> for interpretation of <em>variance inflation factors</em>.</li>
 <li>
@@ -483,7 +488,7 @@
 <li><p>Effectsize for differences have CI methods, and return a data frame.</p></li>
 <li><p>Effectsize for ANOVA all have CI methods, and none are based on bootstrapping.</p></li>
 <li><p>New effect sizes for contingency tables (<code><a href="../reference/phi.html">phi()</a></code> and <code><a href="../reference/phi.html">cramers_v()</a></code>).</p></li>
-<li><p><code><a href="../reference/chisq_to_phi.html">chisq_to_phi()</a></code> / <code><a href="../reference/phi.html">cramers_v()</a></code> functions now support CIs (via the ncp method), and return a data frame.</p></li>
+<li><p><code><a href="../reference/convert_chisq.html">chisq_to_phi()</a></code> / <code><a href="../reference/phi.html">cramers_v()</a></code> functions now support CIs (via the ncp method), and return a data frame.</p></li>
 <li><p><code><a href="../reference/F_to_eta2.html">F_to_eta2()</a></code> family of functions now support CIs (via the ncp method), and return a data frame.</p></li>
 <li><p><code><a href="../reference/t_to_r.html">t_to_d()</a></code> and <code><a href="../reference/t_to_r.html">t_to_r()</a></code> now support CIs (via the ncp method), and return a data frame.</p></li>
 <li><p><code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> for model-objects has a default-method, which usually accepts all models. Exception for model-objects that do not work will be added if missing.</p></li>
