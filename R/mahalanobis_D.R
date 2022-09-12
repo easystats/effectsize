@@ -3,12 +3,11 @@
 #' Compute effect size indices for standardized difference between two normal
 #' multivariate distributions. *D* is computed as:
 #' \cr\cr
-#' \deqn{D = \sqrt{(\bar{X}_1-\bar{X}_2)^T \Sigma_p^{-1} (\bar{X}_1-\bar{X}_2)}=\sqrt{d^T R_p^{-1} d}}
+#' \deqn{D = \sqrt{(\bar{X}_1-\bar{X}_2)^T \Sigma_p^{-1} (\bar{X}_1-\bar{X}_2)}}
 #' \cr\cr
-#' Where \eqn{\bar{X}_i} are the column means, \eqn{\Sigma_p} is the *pooled*
-#' covariance matrix, \eqn{d} is a vector of the univariate Cohen's ds and
-#' \eqn{R_p} is the standardized *pooled* covariance matrix (the correlation
-#' matrix).
+#' Where \eqn{\bar{X}_i} are the column means and \eqn{\Sigma_p} is the *pooled*
+#' covariance matrix. When there is only one variate, this formula reduces to
+#' Cohen's *d*.
 #'
 #' @inheritParams cohens_d
 #' @param x A data frame or a formula in the form of `DV1 + DV2 + ... DVk ~ group`
@@ -90,24 +89,17 @@ mahalanobis_D <- function(x, y = NULL, data = NULL,
   }
 
   # d
-  d <- mapply(cohens_d,
-              x = x,
-              y = y,
-              mu = mu,
-              MoreArgs = list(ci = NULL),
-              SIMPLIFY = FALSE)
-  d <- sapply(d, "[[", 1)
+  d <- mapply(FUN = function(x, y, mu) mean(x) - mean(y) - mu,
+              x = x, y = y, mu = mu,
+              SIMPLIFY = TRUE)
 
   # cor
   if (!pooled_cov) {
     warning("Non-pooled cov not supported.", call. = FALSE)
   }
   COV <- cov_pooled(x, y, verbose = verbose)
-  R <- stats::cov2cor(COV)
-  n1 <- nrow(x)
-  n2 <- nrow(y)
 
-  out <- data.frame(Mahalanobis_D = sqrt(t(d) %*% solve(R) %*% d))
+  out <- data.frame(Mahalanobis_D = sqrt(t(d) %*% solve(COV) %*% d))
 
   ci_method <- NULL
   if (is.numeric(ci)) {
@@ -117,6 +109,8 @@ mahalanobis_D <- function(x, y = NULL, data = NULL,
     out$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
+    n1 <- nrow(x)
+    n2 <- nrow(y)
     hn <- (n1 * n2) / (n1 + n2)
     p <- ncol(x)
     df <- (n1 + n2 - p - 1)

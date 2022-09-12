@@ -49,12 +49,11 @@ A data frame with the \code{Mahalanobis_D} and potentially its CI
 Compute effect size indices for standardized difference between two normal
 multivariate distributions. \emph{D} is computed as:
 \cr\cr
-\deqn{D = \sqrt{(\bar{X}_1-\bar{X}_2)^T \Sigma_p^{-1} (\bar{X}_1-\bar{X}_2)}=\sqrt{d^T R_p^{-1} d}}
+\deqn{D = \sqrt{(\bar{X}_1-\bar{X}_2)^T \Sigma_p^{-1} (\bar{X}_1-\bar{X}_2)}}
 \cr\cr
-Where \eqn{\bar{X}_i} are the column means, \eqn{\Sigma_p} is the \emph{pooled}
-covariance matrix, \eqn{d} is a vector of the univariate Cohen's ds and
-\eqn{R_p} is the standardized \emph{pooled} covariance matrix (the correlation
-matrix).
+Where \eqn{\bar{X}_i} are the column means and \eqn{\Sigma_p} is the \emph{pooled}
+covariance matrix. When there is only one variate, this formula reduces to
+Cohen's \emph{d}.
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
 
