@@ -84,14 +84,14 @@ if (require("testthat") && require("effectsize")) {
     w1 <- cohens_w(table(mtcars$cyl), p = c(0.34375, 0.21875, 0.43750))
     w2 <- cohens_w(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
 
-    nchi1 <- normalized_chi(table(mtcars$cyl), p = c(0.34375, 0.21875, 0.43750))
-    nchi2 <- normalized_chi(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
+    Fei1 <- fei(table(mtcars$cyl), p = c(0.34375, 0.21875, 0.43750))
+    Fei2 <- fei(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
 
     expect_equal(w1[[1]], 0)
     expect_true(w1[[1]] < w2[[1]])
-    expect_true(nchi1[[1]] < nchi2[[1]])
-    expect_true(nchi2[[1]] < w2[[1]])
-    expect_equal(w2[[1]] * sqrt(0.1 / 0.9), nchi2[[1]])
+    expect_true(Fei1[[1]] < Fei2[[1]])
+    expect_true(Fei2[[1]] < w2[[1]])
+    expect_equal(w2[[1]] * sqrt(0.1 / 0.9), Fei2[[1]])
     expect_true(w1$CI_low < w2$CI_low)
     expect_true(w2$CI_low < w2$CI_high)
     expect_equal(w2$CI_high, Inf)
@@ -116,8 +116,8 @@ if (require("testthat") && require("effectsize")) {
       cohens_w(O, p = E_tab, rescale.p = TRUE)
     )
     expect_equal(
-      normalized_chi(O, p = E_vec, rescale.p = TRUE),
-      normalized_chi(O, p = E_tab, rescale.p = TRUE)
+      fei(O, p = E_vec, rescale.p = TRUE),
+      fei(O, p = E_tab, rescale.p = TRUE)
     )
     expect_equal(
       pearsons_c(O, p = E_vec, rescale.p = TRUE),

@@ -1,10 +1,13 @@
-#' Conversion Chi-Squared to Phi or Cramer's V
+#' Convert chi-square to correlation-like effect sizes (phi, V, Fei, C)
 #'
-#' Convert between Chi square (\eqn{\chi^2}), Cramer's V, phi (\eqn{\phi}),
-#' Cohen's *w*, normalized Chi (\eqn{\chi}) and Pearson's *C* for contingency
-#' tables or goodness of fit.
+#' Convert between \eqn{\chi^2} (chi-square), \eqn{\phi} (phi), Cramer's \eqn{V},
+#' Cohen's \eqn{w}, \ifelse{latex}{\eqn{Fei}}{פ (Fei)} and Pearson's \eqn{C}
+#' for contingency tables or goodness of fit.
 #'
-#' @param chisq The Chi-squared statistic.
+#' @name chisq_to_phi
+#' @rdname convert_chisq
+#'
+#' @param chisq The \eqn{\chi^2} (chi-square) statistic.
 #' @param n Total sample size.
 #' @param nrow,ncol The number of rows/columns in the contingency table.
 #' @param ci Confidence Interval (CI) level
@@ -19,18 +22,25 @@
 #' @return A data frame with the effect size(s), and confidence interval(s). See
 #'   [cramers_v()].
 #'
-#' @details These functions use the following formulae:
-#' \cr
-#' \deqn{\phi = \sqrt{\chi^2 / n}}{phi = sqrt(\chi^2 / n)}
-#' \cr
-#' \deqn{Cramer's V = \phi / \sqrt{min(nrow,ncol)-1}}{Cramer's V = \phi / sqrt(min(nrow,ncol)-1)}
-#' \cr
-#' \deqn{Pearson's C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
-#' \cr
-#' \deqn{\chi_{Normalized} = w \times \sqrt{\frac{q}{1-q}}}{Chi (Normalized) = w * sqrt(q/(1-q))}
-#' Where `q` is the smallest of the expected probabilities.
-#' \cr\cr
-#' For adjusted versions of *phi* and *V*, see Bergsma, 2013.
+#' @details These functions use the following formulas:
+#'
+#' \deqn{\phi = w = \sqrt{\chi^2 / n}}{phi = w = sqrt(\frac{\chi^2}{n})}
+#' \ifelse{latex}{
+#' \deqn{\textrm{Cramer's } V = \phi / \sqrt{\min(\textit{nrow}, \textit{ncol}) - 1}}
+#' }{
+#' \deqn{\textrm{Cramer's } V = \phi / \sqrt{\min(\textit{nrow}, \textit{ncol }) - 1}}{Cramer's V = \phi / sqrt(min(nrow, ncol) - 1)}
+#' }
+#'
+#' \ifelse{latex}{
+#' \deqn{\textit{Fei} = \phi / \sqrt{[1 / \min(p_E)] - 1}}
+#' }{
+#' \deqn{פ = \phi / \sqrt{[1 / \min(p_E)] - 1}}{פ = w / sqrt(1 / min(p_E) - 1))}
+#' }
+#' Where \eqn{p_E} are the expected probabilities.
+#'
+#' \deqn{\textrm{Pearson's } C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
+#'
+#' For adjusted versions of \eqn{\phi} and \eqn{V}, see Bergsma, 2013.
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
@@ -65,7 +75,7 @@
 #' #> data:  Smoking_ASD
 #' #> X-squared = 7.8521, df = 2, p-value = 0.01972
 #'
-#' chisq_to_normalized(
+#' chisq_to_fei(
 #'   7.8521,
 #'   n = sum(Smoking_ASD),
 #'   nrow = 1,
@@ -160,7 +170,7 @@ chisq_to_phi <- function(chisq, n, nrow = 2, ncol = 2, ci = 0.95, alternative = 
 }
 
 
-#' @rdname chisq_to_phi
+#' @rdname convert_chisq
 #' @export
 chisq_to_cohens_w <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater", ...) {
   res <- chisq_to_phi(chisq, n, nrow, ncol, ci = ci, alternative = alternative, adjust = FALSE, dont_stop = TRUE)
@@ -191,7 +201,7 @@ chisq_to_cohens_w <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "gr
   return(res)
 }
 
-#' @rdname chisq_to_phi
+#' @rdname convert_chisq
 #' @export
 chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
   if (ncol == 1 || nrow == 1) {
@@ -226,10 +236,10 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "g
 }
 
 
-#' @rdname chisq_to_phi
+#' @rdname convert_chisq
 #' @export
 #' @param p Vector of expected values. See [stats::chisq.test()].
-chisq_to_normalized <- function(chisq, n, nrow, ncol, p,
+chisq_to_fei <- function(chisq, n, nrow, ncol, p,
                                 ci = 0.95, alternative = "greater", ...) {
   if (is.numeric(ci) || (!missing(nrow) && !missing(ncol))) {
     # This means that the user passed ncol/nrow
@@ -255,7 +265,7 @@ chisq_to_normalized <- function(chisq, n, nrow, ncol, p,
   N <- n * (1 - q) / q
 
   res <- chisq_to_phi(chisq, N, nrow, ncol, ci = ci, alternative = alternative, adjust = FALSE, dont_stop = TRUE)
-  colnames(res)[1] <- "normalized_chi"
+  colnames(res)[1] <- "Fei"
 
   if ("CI" %in% colnames(res)) {
     if ((alternative <- attr(res, "alternative")) == "less") {
@@ -272,7 +282,7 @@ chisq_to_normalized <- function(chisq, n, nrow, ncol, p,
   return(res)
 }
 
-#' @rdname chisq_to_phi
+#' @rdname convert_chisq
 #' @export
 chisq_to_pearsons_c <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater", ...) {
   res <- chisq_to_phi(chisq, n, nrow, ncol, ci = ci, alternative = alternative, adjust = FALSE, dont_stop = TRUE)
@@ -292,8 +302,8 @@ chisq_to_pearsons_c <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "
 
 # Reverse -----------------------------------------------------------------
 
-#' @rdname chisq_to_phi
-#' @param phi The Phi statistic.
+#' @rdname convert_chisq
+#' @param phi The \eqn{\phi} (phi) statistic.
 #' @export
 phi_to_chisq <- function(phi, n, ...) {
   n * (phi^2)

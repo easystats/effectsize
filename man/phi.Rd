@@ -2,9 +2,9 @@
 % Please edit documentation in R/xtab.R
 \name{phi}
 \alias{phi}
-\alias{cohens_w}
 \alias{cramers_v}
-\alias{normalized_chi}
+\alias{cohens_w}
+\alias{fei}
 \alias{pearsons_c}
 \alias{oddsratio}
 \alias{riskratio}
@@ -14,18 +14,31 @@
 \usage{
 phi(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
 
-cohens_w(x, y = NULL, ci = 0.95, alternative = "greater", ...)
-
 cramers_v(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
 
-normalized_chi(x, y = NULL, ci = 0.95, alternative = "greater", ...)
+cohens_w(
+  x,
+  y = NULL,
+  p = rep(1/length(x), length(x)),
+  ci = 0.95,
+  alternative = "greater",
+  ...
+)
+
+fei(
+  x,
+  p = rep(1/length(x), length(x)),
+  ci = 0.95,
+  alternative = "greater",
+  ...
+)
 
 pearsons_c(
   x,
   y = NULL,
+  p = rep(1/length(x), length(x)),
   ci = 0.95,
   alternative = "greater",
-  adjust = FALSE,
   ...
 )
 
@@ -55,22 +68,25 @@ Partial matching is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See
 
 \item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
 
-\item{...}{Arguments passed to \code{\link[stats:chisq.test]{stats::chisq.test()}}, such as \code{p} for
-goodness-of-fit. Ignored for \code{cohens_g()}.}
+\item{...}{For goodness-of-fit effect sizes, can pass \code{rescale.p} (see
+\code{\link[stats:chisq.test]{stats::chisq.test()}}). Else, ignored.}
+
+\item{p}{a vector of probabilities of the same length as \code{x}.
+    An error is given if any entry of \code{p} is negative.}
 
 \item{log}{Take in or output the log of the ratio (such as in logistic models).}
 }
 \value{
 A data frame with the effect size (\code{Cramers_v}, \code{phi} (possibly with
-the suffix \verb{_adjusted}), \code{Cohens_w}, \code{normalized_chi}, \code{Odds_ratio},
-\code{Risk_ratio} (possibly with the prefix \code{log_}), \code{Cohens_h}, or \code{Cohens_g})
-and its CIs (\code{CI_low} and \code{CI_high}).
+the suffix \verb{_adjusted}), \code{Cohens_w}, \code{Fei}, \code{Odds_ratio}, \code{Risk_ratio}
+(possibly with the prefix \code{log_}), \code{Cohens_h}, or \code{Cohens_g}) and its CIs
+(\code{CI_low} and \code{CI_high}).
 }
 \description{
-Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w}, normalized Chi
-(\eqn{\chi}), Pearson's contingency coefficient, Odds ratios, Risk ratios,
-Cohen's \emph{h} and Cohen's \emph{g} for contingency tables or goodness-of-fit. See
-details.
+Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w},
+\ifelse{latex}{\eqn{Fei}}{פ (Fei)}, Pearson's contingency coefficient, Odds
+ratios, Risk ratios, Cohen's \emph{h} and Cohen's \emph{g} for contingency tables or
+goodness-of-fit. See details.
 }
 \details{
 \subsection{Correlation-like Effect Sizes}{
@@ -84,17 +100,17 @@ Pearson's \emph{C} should be used, as they are bounded between 0-1. Cohen's \emp
 can also be used, but since it is not bounded at 1 (can be larger) its
 interpretation is more difficult.
 \cr \cr
-For goodness-of-fit in 1D tables Cohen's \emph{W}, normalized Chi (\eqn{\chi}) or
-Pearson's \emph{C} can be used. Cohen's \emph{w} has no upper bound (can be arbitrarily
-large, depending on the expected distribution). Normalized Chi is an adjusted
-Cohen's \emph{w}, accounting for the expected distribution, making it bounded
-between 0-1. Pearson's \emph{C} is also bounded between 0-1.
+For goodness-of-fit in 1D tables Cohen's \emph{W}, \ifelse{latex}{\eqn{Fei}}{פ (Fei)}
+or Pearson's \emph{C} can be used. Cohen's \emph{w} has no upper bound (can be
+arbitrarily large, depending on the expected distribution). \emph{Fei} is an
+adjusted Cohen's \emph{w}, accounting for the expected distribution, making it
+bounded between 0-1. Pearson's \emph{C} is also bounded between 0-1.
 \cr \cr
 To summarize, for correlation-like effect sizes, we recommend:
 \itemize{
 \item For a 2x2 table, use \code{phi()}
 \item For larger tables, use \code{cramers_v()}
-\item For goodness-of-fit, use \code{normalized_chi()}
+\item For goodness-of-fit, use \code{fei()}
 }
 }
 
@@ -127,7 +143,7 @@ Szumilas, 2010).
 \cr \cr
 See \emph{Confidence (Compatibility) Intervals (CIs)}, \emph{CIs and Significance Tests},
 and \emph{One-Sided CIs} sections for \emph{phi}, Cohen's \emph{w}, Cramer's \emph{V},
-Pearson's \emph{C}, and normalized Chi.
+Pearson's \emph{C}, and \emph{Fei}.
 }
 
 \section{Confidence (Compatibility) Intervals (CIs)}{
@@ -228,14 +244,14 @@ pearsons_c(M)
 
 Smoking_ASD <- as.table(c(ASD = 17, ASP = 11, TD = 640))
 
-normalized_chi(Smoking_ASD)
+fei(Smoking_ASD)
 
 cohens_w(Smoking_ASD)
 
 pearsons_c(Smoking_ASD)
 
 # Use custom expected values:
-normalized_chi(Smoking_ASD, p = c(0.015, 0.010, 0.975))
+fei(Smoking_ASD, p = c(0.015, 0.010, 0.975))
 
 cohens_w(Smoking_ASD, p = c(0.015, 0.010, 0.975))
 

@@ -1,9 +1,9 @@
 #' Effect size for contingency tables
 #'
-#' Compute Cramer's *V*, phi (\eqn{\phi}), Cohen's *w*, normalized Chi
-#' (\eqn{\chi}), Pearson's contingency coefficient, Odds ratios, Risk ratios,
-#' Cohen's *h* and Cohen's *g* for contingency tables or goodness-of-fit. See
-#' details.
+#' Compute Cramer's *V*, phi (\eqn{\phi}), Cohen's *w*,
+#' \ifelse{latex}{\eqn{Fei}}{פ (Fei)}, Pearson's contingency coefficient, Odds
+#' ratios, Risk ratios, Cohen's *h* and Cohen's *g* for contingency tables or
+#' goodness-of-fit. See details.
 #'
 #' @inheritParams stats::chisq.test
 #' @param ci Confidence Interval (CI) level
@@ -14,8 +14,8 @@
 #'   Partial matching is allowed (e.g., `"g"`, `"l"`, `"two"`...). See
 #'   *One-Sided CIs* in [effectsize_CIs].
 #' @param adjust Should the effect size be bias-corrected? Defaults to `FALSE`.
-#' @param ... Arguments passed to [stats::chisq.test()], such as `p` for
-#'   goodness-of-fit. Ignored for `cohens_g()`.
+#' @param ... For goodness-of-fit effect sizes, can pass `rescale.p` (see
+#'   [stats::chisq.test()]). Else, ignored.
 #'
 #' @details
 #'
@@ -30,17 +30,17 @@
 #' can also be used, but since it is not bounded at 1 (can be larger) its
 #' interpretation is more difficult.
 #' \cr \cr
-#' For goodness-of-fit in 1D tables Cohen's *W*, normalized Chi (\eqn{\chi}) or
-#' Pearson's *C* can be used. Cohen's *w* has no upper bound (can be arbitrarily
-#' large, depending on the expected distribution). Normalized Chi is an adjusted
-#' Cohen's *w*, accounting for the expected distribution, making it bounded
-#' between 0-1. Pearson's *C* is also bounded between 0-1.
+#' For goodness-of-fit in 1D tables Cohen's *W*, \ifelse{latex}{\eqn{Fei}}{פ (Fei)}
+#' or Pearson's *C* can be used. Cohen's *w* has no upper bound (can be
+#' arbitrarily large, depending on the expected distribution). *Fei* is an
+#' adjusted Cohen's *w*, accounting for the expected distribution, making it
+#' bounded between 0-1. Pearson's *C* is also bounded between 0-1.
 #' \cr \cr
 #' To summarize, for correlation-like effect sizes, we recommend:
 #'
 #' - For a 2x2 table, use `phi()`
 #' - For larger tables, use `cramers_v()`
-#' - For goodness-of-fit, use `normalized_chi()`
+#' - For goodness-of-fit, use `fei()`
 #'
 #' ## Other Effect Sizes for 2-by-2 xtabs
 #'
@@ -69,15 +69,15 @@
 #' \cr \cr
 #' See *Confidence (Compatibility) Intervals (CIs)*, *CIs and Significance Tests*,
 #' and *One-Sided CIs* sections for *phi*, Cohen's *w*, Cramer's *V*,
-#' Pearson's *C*, and normalized Chi.
+#' Pearson's *C*, and *Fei*.
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #'
 #' @return A data frame with the effect size (`Cramers_v`, `phi` (possibly with
-#'   the suffix `_adjusted`), `Cohens_w`, `normalized_chi`, `Odds_ratio`,
-#'   `Risk_ratio` (possibly with the prefix `log_`), `Cohens_h`, or `Cohens_g`)
-#'   and its CIs (`CI_low` and `CI_high`).
+#'   the suffix `_adjusted`), `Cohens_w`, `Fei`, `Odds_ratio`, `Risk_ratio`
+#'   (possibly with the prefix `log_`), `Cohens_h`, or `Cohens_g`) and its CIs
+#'   (`CI_low` and `CI_high`).
 #'
 #' @seealso [chisq_to_phi()] for details regarding estimation and CIs.
 #' @family effect size indices
@@ -141,14 +141,14 @@
 #'
 #' Smoking_ASD <- as.table(c(ASD = 17, ASP = 11, TD = 640))
 #'
-#' normalized_chi(Smoking_ASD)
+#' fei(Smoking_ASD)
 #'
 #' cohens_w(Smoking_ASD)
 #'
 #' pearsons_c(Smoking_ASD)
 #'
 #' # Use custom expected values:
-#' normalized_chi(Smoking_ASD, p = c(0.015, 0.010, 0.975))
+#' fei(Smoking_ASD, p = c(0.015, 0.010, 0.975))
 #'
 #' cohens_w(Smoking_ASD, p = c(0.015, 0.010, 0.975))
 #'
@@ -205,37 +205,11 @@ phi <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE,
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
   } else {
-    x <- suppressWarnings(stats::chisq.test(x, y, ...))
+    x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
   }
 
   effectsize(x, type = "phi", adjust = adjust, ci = ci, alternative = alternative)
-}
-
-#' @rdname phi
-#' @export
-cohens_w <- function(x, y = NULL, ci = 0.95, alternative = "greater", ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
-
-  if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
-    return(effectsize(x, type = "phi", ci = ci, ...))
-  }
-
-
-  if (inherits(x, "htest")) {
-    if (!(grepl("Pearson's Chi-squared", x$method) ||
-      grepl("Chi-squared test for given probabilities", x$method))) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
-  } else {
-    x <- suppressWarnings(stats::chisq.test(x, y, ...))
-    x$data.name <- NULL
-  }
-
-  effectsize(x, type = "cohens_w", ci = ci, alternative = alternative)
 }
 
 #' @rdname phi
@@ -254,52 +228,29 @@ cramers_v <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = 
 
   if (inherits(x, "htest")) {
     if (!(grepl("Pearson's Chi-squared", x$method) ||
-      grepl("Chi-squared test for given probabilities", x$method))) {
+          grepl("Chi-squared test for given probabilities", x$method))) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
   } else {
-    x <- suppressWarnings(stats::chisq.test(x, y, ...))
+    x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
   }
 
   effectsize(x, type = "cramers_v", adjust = adjust, ci = ci, alternative = alternative)
 }
 
-
-#' @rdname phi
-#' @export
-normalized_chi <- function(x, y = NULL, ci = 0.95, alternative = "greater", ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
-
-  if (inherits(x, "BFBayesFactor")) {
-    stop("Normalized Chi is only applicable to goodness of fit tests.", call. = FALSE)
-  }
-
-
-  if (inherits(x, "htest")) {
-    if (!(grepl("Pearson's Chi-squared", x$method) ||
-      grepl("Chi-squared test for given probabilities", x$method))) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
-  } else {
-    x <- suppressWarnings(stats::chisq.test(x, y, ...))
-    x$data.name <- NULL
-  }
-
-  effectsize(x, type = "normalized_chi", ci = ci, alternative = alternative)
-}
-
 #' @rdname phi
 #' @importFrom stats chisq.test
 #' @export
-pearsons_c <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
+cohens_w <- function(x, y = NULL, p = rep(1/length(x), length(x)),
+                     ci = 0.95, alternative = "greater", ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "BFBayesFactor")) {
     if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
-    return(effectsize(x, type = "pearsons_c", adjust = adjust, ci = ci, ...))
+    return(effectsize(x, type = "phi", ci = ci, ...))
   }
 
 
@@ -309,11 +260,64 @@ pearsons_c <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust =
       stop("'x' is not a Chi-squared test!", call. = FALSE)
     }
   } else {
-    x <- suppressWarnings(stats::chisq.test(x, y, ...))
+    x <- suppressWarnings(stats::chisq.test(x, y, p = p, ...))
     x$data.name <- NULL
   }
 
-  effectsize(x, type = "pearsons_c", adjust = adjust, ci = ci, alternative = alternative)
+  effectsize(x, type = "cohens_w", ci = ci, alternative = alternative)
+}
+
+
+#' @rdname phi
+#' @importFrom stats chisq.test
+#' @export
+fei <- function(x, p = rep(1/length(x), length(x)), ci = 0.95, alternative = "greater", ...) {
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+
+  if (inherits(x, "BFBayesFactor")) {
+    stop("Fei is only applicable to goodness of fit tests.", call. = FALSE)
+  }
+
+
+  if (inherits(x, "htest")) {
+    if (!(grepl("Pearson's Chi-squared", x$method) ||
+      grepl("Chi-squared test for given probabilities", x$method))) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
+  } else {
+    x <- suppressWarnings(stats::chisq.test(x, y = NULL, p = p, ...))
+    x$data.name <- NULL
+  }
+
+  effectsize(x, type = "fei", ci = ci, alternative = alternative)
+}
+
+#' @rdname phi
+#' @importFrom stats chisq.test
+#' @export
+pearsons_c <- function(x, y = NULL, p = rep(1/length(x), length(x)),
+                     ci = 0.95, alternative = "greater", ...) {
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+
+  if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "pearsons_c", ci = ci, ...))
+  }
+
+
+  if (inherits(x, "htest")) {
+    if (!(grepl("Pearson's Chi-squared", x$method) ||
+      grepl("Chi-squared test for given probabilities", x$method))) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
+  } else {
+    x <- suppressWarnings(stats::chisq.test(x, y, p = p, ...))
+    x$data.name <- NULL
+  }
+
+  effectsize(x, type = "pearsons_c", ci = ci, alternative = alternative)
 }
 
 
@@ -340,7 +344,7 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
     return(effectsize(x, type = "or", log = log, ci = ci, ...))
   }
 
-  res <- suppressWarnings(stats::chisq.test(x, y, ...))
+  res <- suppressWarnings(stats::chisq.test(x, y))
   Obs <- res$observed
 
   if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
@@ -416,7 +420,7 @@ riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
     return(effectsize(x, type = "rr", log = log, ci = ci, ...))
   }
 
-  res <- suppressWarnings(stats::chisq.test(x, y, ...))
+  res <- suppressWarnings(stats::chisq.test(x, y))
   Obs <- res$observed
 
   if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
@@ -494,7 +498,7 @@ cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
     return(effectsize(x, type = "cohens_h", ci = ci, ...))
   }
 
-  res <- suppressWarnings(stats::chisq.test(x, y, ...))
+  res <- suppressWarnings(stats::chisq.test(x, y))
   Obs <- res$observed
 
   if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
