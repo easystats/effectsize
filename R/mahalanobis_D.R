@@ -63,6 +63,8 @@ mahalanobis_D <- function(x, y = NULL, data = NULL,
                           alternative = "two.sided",
                           verbose = TRUE,
                           ...) {
+  # TODO add one sample case DV1 + DV2 ~ 1
+  # TODO add paired samples case DV1 + DV2 ~ 1 | ID
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
   data <- .get_data_multivariate(x, y, data, verbose = verbose)
   x <- data[["x"]]
