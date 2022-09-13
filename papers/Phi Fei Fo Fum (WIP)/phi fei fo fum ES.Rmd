@@ -1,25 +1,37 @@
 ---
 title: "Phi, Fei, Fo, Fum: Correlation Effect Sizes for Chi-squared Tests"
-output: pdf_document
+output: 
+  pdf_document:
+    latex_engine: xelatex
+bibliography: paper.bib
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Intro
+# Introduction
 
-Blah blah blah effect sizes are important.
+<!-- Blah blah blah effect sizes are important. -->
 
-We review here some ESs and (re)introduce a new one - along side R code from the {effectsize} package to implement and use these.
+We review here the most common effect sizes for analysis of categorical variables, and (re)introduce a new one ($פ$ - Fei) - alongside R code from the *effectsize* package [@benshachar2020effectsize] which implements these.
 
 # Tests Of Independance
 
-What these tests are
+The $\chi^2$ test of independance between two categorical variables examines if the frequency distribution of one of the variables is dependent on the other. 
+
+Formally, the test examines how likely the observed conditional frequencies (cell frequencies) are under the null, by examining the degree of deviation of the observed cell frequencies from the expected ones under the null.
+
+For example... <!-- use a real world example -->
 
 ## Phi
 
-Show that it is a correlation coefficient between two binary variables.
+The $\phi$ (*phi*) coefficient uses the $\chi^2$ test statistic to compute the effect size:
+
+$$
+\phi = \sqrt{\frac{\chi^2}{N}}
+$$
+<!-- Proof that this is the same as a correlation between two binay vars -->
 
 Use proof by $\chi^2_{max}$.
 
