@@ -342,7 +342,9 @@ Psychological Methods, 9, 164-182.
 Other effect size indices: 
 \code{\link{cles}()},
 \code{\link{cohens_d}()},
+\code{\link{cohens_g}()},
 \code{\link{effectsize.BFBayesFactor}()},
+\code{\link{oddsratio}()},
 \code{\link{phi}()},
 \code{\link{rank_biserial}()}
 }
