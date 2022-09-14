@@ -401,7 +401,7 @@ versa).</p>
 &gt; data:  RCT
 &gt; X-squared = 32, df = 1, p-value = 2e-08</code></pre>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">oddsratio</a></span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/oddsratio.html">oddsratio</a></span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Odds ratio |       95% CI
 &gt; -------------------------
 &gt; 4.73       | [2.74, 8.17]</code></pre>
@@ -409,7 +409,7 @@ versa).</p>
 the proportions of the two groups - a measure which some claim is more
 intuitive.</p>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">riskratio</a></span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/oddsratio.html">riskratio</a></span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Risk ratio |       95% CI
 &gt; -------------------------
 &gt; 2.54       | [1.87, 3.45]</code></pre>
@@ -417,7 +417,7 @@ intuitive.</p>
 <em>arcsin</em> transformation. Negative values indicate smaller
 proportion in the first group (and vice versa).</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">cohens_h</a></span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/oddsratio.html">cohens_h</a></span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's h |       95% CI
 &gt; ------------------------
 &gt; 0.74      | [0.50, 0.99]</code></pre>
@@ -581,7 +581,7 @@ symmetry) and 0.5 (perfect asymmetry).</p>
 &gt; data:  Performance
 &gt; McNemar's chi-squared = 17, df = 1, p-value = 4e-05</code></pre>
 <div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">cohens_g</a></span><span class="op">(</span><span class="va">Performance</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/cohens_g.html">cohens_g</a></span><span class="op">(</span><span class="va">Performance</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's g |       95% CI
 &gt; ------------------------
 &gt; 0.14      | [0.07, 0.19]</code></pre>
@@ -685,7 +685,7 @@ separation - with no overlap in ranks between the groups).</p>
 &gt; data:  group_data
 &gt; Kruskal-Wallis chi-squared = 0.8, df = 2, p-value = 0.7</code></pre>
 <div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/rank_biserial.html">rank_epsilon_squared</a></span><span class="op">(</span><span class="va">group_data</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rank_epsilon_squared.html">rank_epsilon_squared</a></span><span class="op">(</span><span class="va">group_data</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Epsilon2 (rank) |       95% CI
 &gt; ------------------------------
 &gt; 0.06            | [0.01, 1.00]
@@ -734,7 +734,7 @@ measure of reliability of the rating / scores of observations (or
 &gt; data:  ReactionTimes
 &gt; Friedman chi-squared = 11, df = 2, p-value = 0.004</code></pre>
 <div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/rank_biserial.html">kendalls_w</a></span><span class="op">(</span><span class="va">ReactionTimes</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rank_epsilon_squared.html">kendalls_w</a></span><span class="op">(</span><span class="va">ReactionTimes</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Kendall's W |       95% CI
 &gt; --------------------------
 &gt; 0.80        | [0.76, 1.00]
