@@ -84,7 +84,7 @@
 #' }
 #'
 #' #' @examplesIf require(emmeans)
-#' \donttest{
+#' if (require(emmeans)) {
 #' ## Use with emmeans based contrasts
 #' ## --------------------------------
 #' warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)

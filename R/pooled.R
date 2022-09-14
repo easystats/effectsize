@@ -58,6 +58,7 @@ mad_pooled <- function(x, y = NULL, data = NULL, constant = 1.4826, verbose = TR
 }
 
 #' @rdname sd_pooled
+#' @importFrom stats cov
 #' @export
 cov_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
   data <- .get_data_multivariate(x, y, data = data, verbose = verbose)
@@ -67,8 +68,8 @@ cov_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
   n1 <- nrow(x)
   n2 <- nrow(y)
 
-  S1 <- cov(x)
-  S2 <- cov(y)
+  S1 <- stats::cov(x)
+  S2 <- stats::cov(y)
   (S1 * (n1 - 1) + S2 * (n2 - 1)) / (n1 + n2 - 2)
 }
 

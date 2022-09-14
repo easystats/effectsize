@@ -486,6 +486,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     if (!is.null(ci)) c("CI", "CI_low", "CI_high")
   ), drop = FALSE]
   rownames(out) <- NULL
+  out$Parameter <- as.character(out$Parameter)
 
   # Set attributes ---
   attr(out, "partial") <- partial
@@ -632,6 +633,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     if (!is.null(ci)) c("CI", "CI_low", "CI_high")
   ), drop = FALSE]
   rownames(out) <- NULL
+  out$Parameter <- as.character(out$Parameter)
 
   attr(out, "partial") <- partial
   attr(out, "generalized") <- generalized
@@ -712,6 +714,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 
   out <- cbind(Parameter = aov_table[["Parameter"]], ES_tab)
   rownames(out) <- NULL
+  out$Parameter <- as.character(out$Parameter)
 
   # Set attributes ---
   attr(out, "partial") <- TRUE
@@ -856,6 +859,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   })
   out <- do.call("rbind", params)
   rownames(out) <- NULL
+  out$Response <- as.character(out$Response)
 
   attr(out, "partial") <- attr(params[[1]], "partial")
   attr(out, "generalized") <- attr(params[[1]], "generalized")
@@ -964,6 +968,7 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
       SIMPLIFY = FALSE
     )
     out <- do.call(rbind, out)
+    out$Parameter <- as.character(out$Parameter)
 
     # Set attributes ---
     attr(out, "partial") <- saved_attr$partial

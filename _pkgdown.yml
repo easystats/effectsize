@@ -9,11 +9,18 @@ reference:
   contents:
   - effectsize
   - cohens_d
-  - phi
   - eta_squared
-  - rank_biserial
   - cles
   - mahalanobis_d
+- subtitle: "For Contingency Tables"
+  contents:
+  - phi
+  - oddsratio
+  - cohens_g
+- subtitle: "Rank Based"
+  contents:
+  - rank_biserial
+  - rank_epsilon_squared
 
 - title: "Effect Size Conversion"
 - subtitle: "From Test Statistics"

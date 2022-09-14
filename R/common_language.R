@@ -114,9 +114,9 @@ cles <- function(x,
     )
     out <- rbind(
       rb_to_cles(rb),
-      .np_U3_OVL(x, y,
+      .np_U3_OVL(x, y, mu = mu,
         ci = ci, alternative = alternative,
-        iterations = iterations
+        iterations = iterations, ...
       )
     )
     attr(out, "table_footer") <- "Non-parametric CLES"
@@ -150,63 +150,72 @@ p_overlap <- function(...) {
 
 #' @importFrom utils tail
 #' @keywords internal
-.np_U3_OVL <- function(x, y, ci = 0.95, alternative = "two.sided", iterations) {
-  .get_np_U3_OVL <- function(data, i = seq_len(nrow(data))) {
-    data <- data[i, ]
+.np_U3_OVL <-
+  function(x, y,
+           cles_type = c("u3", "ovl"),
+           ci = 0.95,
+           mu = 0,
+           alternative = "two.sided",
+           iterations = 200) {
+    if (!any(cles_type %in% c("u3", "ovl"))) return(NULL)
 
-    c(
-      U3 = sum(data[data$g == "y", "r"] < median(data[data$g == "x", "r"])) /
-        nrow(data[data$g == "y", ]),
-      OVL = bayestestR::overlap(
-        data[data$g == "x", "r"],
-        data[data$g == "y", "r"]
-      )
+    .get_np_U3_OVL <- function(data, i = seq_len(nrow(data))) {
+      data <- data[i, ]
+      x <- data[data$g == "x", "r"] - mu
+      y <- data[data$g == "y", "r"]
+
+      val <- c()
+      if ("u3" %in% cles_type) val <- c(val, U3 = sum(y < median(x)) / length(y))
+      if ("ovl" %in% cles_type) val <- c(val, OVL = bayestestR::overlap(x, y))
+      val
+    }
+
+    d <- data.frame(
+      r = c(x, y),
+      g = rep(c("x", "y"), c(length(x), length(y)))
     )
-  }
 
-  d <- data.frame(
-    r = c(x, y),
-    g = rep(c("x", "y"), c(length(x), length(y)))
-  )
+    out <- data.frame(
+      Parameter = c("Cohen's U3", "Overlap")[c("u3", "ovl") %in% cles_type],
+      Coefficient = .get_np_U3_OVL(d)
+    )
 
-  out <- data.frame(
-    Parameter = c("Cohen's U3", "Overlap"),
-    Coefficient = .get_np_U3_OVL(d)
-  )
-
-  if (is.numeric(ci)) {
-    if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
-      stopifnot(length(ci) == 1, ci < 1, ci > 0)
-      ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
-
-      R <- boot::boot(
-        data = d,
-        statistic = .get_np_U3_OVL,
-        R = iterations
-      )
-
-      bCI <- list(
-        boot::boot.ci(R, conf = ci.level, type = "perc", 1)$percent,
-        boot::boot.ci(R, conf = ci.level, type = "perc", 2)$percent
-      )
-      bCI <- lapply(bCI, function(.bci) tail(as.vector(.bci), 2))
-      bCI <- matrix(unlist(bCI), 2, byrow = TRUE, dimnames = list(NULL, c("CI_low", "CI_high")))
-      bCI <- cbind(CI = ci, as.data.frame(bCI))
-
-      if (alternative == "less") bCI$CI_low <- 0
-      if (alternative == "greater") bCI$CI_high <- 1
-    } else {
+    if (is.numeric(ci)) {
       bCI <- data.frame(
         CI = NA, CI_low = NA, CI_high = NA
-      )[c(1, 1), ]
+      )[rep(1, length(cles_type)), ]
+
+      if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
+        stopifnot(length(ci) == 1, ci < 1, ci > 0)
+        ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+
+        R <- boot::boot(
+          data = d,
+          statistic = .get_np_U3_OVL,
+          R = iterations
+        )
+
+        bCI <- lapply(seq_along(cles_type), boot::boot.ci,
+                      boot.out = R,
+                      conf = ci,
+                      type = "perc")
+        bCI <- lapply(bCI, "[[", "percent")
+        bCI <- lapply(bCI, as.vector)
+        bCI <- lapply(bCI, utils::tail, 2)
+        bCI <- matrix(unlist(bCI), ncol = 2, byrow = TRUE,
+                      dimnames = list(NULL, c("CI_low", "CI_high")))
+        bCI <- cbind(CI = ci, as.data.frame(bCI))
+
+        if (alternative == "less") bCI$CI_low <- 0
+        if (alternative == "greater") bCI$CI_high <- 1
+      }
+      out <- cbind(out, bCI)
     }
-    out <- cbind(out, bCI)
+    out
   }
-  out
-}
 
 #' @keywords internal
-.cles_which <- function(type,
+.cles_which <- function(cles_type,
                         x,
                         y = NULL,
                         data = NULL,
@@ -225,17 +234,19 @@ p_overlap <- function(...) {
     alternative = alternative,
     verbose = verbose,
     parametric = parametric,
+    cles_type = cles_type,
     ...
   )
 
-  if (type == "p") {
-    out <- CLES[1, ]
+
+  if (cles_type == "p") {
+    out <- CLES[grepl("Pr", CLES$Parameter), ]
     colnames(out)[2] <- "p_superiority"
-  } else if (type == "u3") {
-    out <- CLES[2, ]
+  } else if (cles_type == "u3") {
+    out <- CLES[grepl("U3", CLES$Parameter), ]
     colnames(out)[2] <- "Cohens_U3"
-  } else if (type == "ovl") {
-    out <- CLES[3, ]
+  } else if (cles_type == "ovl") {
+    out <- CLES[grepl("Ov", CLES$Parameter), ]
     colnames(out)[2] <- "overlap"
   }
   out[[1]] <- NULL
