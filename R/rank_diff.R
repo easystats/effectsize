@@ -110,8 +110,7 @@ rank_biserial <- function(x,
                           alternative = "two.sided",
                           paired = FALSE,
                           verbose = TRUE,
-                          ...,
-                          iterations) {
+                          ...) {
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
 
   if (inherits(x, "htest")) {
@@ -119,13 +118,6 @@ rank_biserial <- function(x,
       stop("'x' is not a Wilcoxon-test!", call. = FALSE)
     }
     return(effectsize(x, verbose = verbose, type = "rb"))
-  }
-
-  if (!missing(iterations) && verbose) {
-    warning(
-      "'iterations' argument is deprecated. CIs are estimated using a parametric normal approximation.",
-      immediate. = TRUE
-    )
   }
 
   ## Prep data

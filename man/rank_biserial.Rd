@@ -14,8 +14,7 @@ rank_biserial(
   alternative = "two.sided",
   paired = FALSE,
   verbose = TRUE,
-  ...,
-  iterations
+  ...
 )
 
 cliffs_delta(

@@ -73,6 +73,7 @@
 #' mahalanobis_d(mpg + hp + cyl ~ 1, data = mtcars,
 #'               mu = c(mpg = 15, hp = 5, cyl = 3))
 #'
+#' @importFrom stats cov
 #' @export
 mahalanobis_d <- function(x, y = NULL, data = NULL,
                           pooled_cov = TRUE, mu = 0,
@@ -117,7 +118,7 @@ mahalanobis_d <- function(x, y = NULL, data = NULL,
   if (is.null(y)) {
     d <- colMeans(x) - mu
 
-    COV <- cov(x)
+    COV <- stats::cov(x)
 
     n <- nrow(x)
     p <- ncol(x)

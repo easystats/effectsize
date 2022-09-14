@@ -4,6 +4,7 @@
 #' *W* effect sizes for non-parametric (rank sum) one-way ANOVAs.
 #'
 #' @inheritParams phi
+#' @inheritParams rank_biserial
 #' @param x Can be one of:
 #'   - A numeric vector, or a character name of one in `data`.
 #'   - A list of vectors (for `rank_epsilon_squared()`).

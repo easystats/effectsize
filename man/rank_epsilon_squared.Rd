@@ -48,6 +48,8 @@ terminology used here.
 corresponding elements of \code{x}, or a character name of one in \code{data}.
 Ignored if \code{x} is not a vector.}
 
+\item{data}{An optional data frame containing the variables.}
+
 \item{ci}{Confidence Interval (CI) level}
 
 \item{alternative}{a character string specifying the alternative hypothesis;
@@ -63,6 +65,8 @@ intervals. Only applies when \code{ci} is not \code{NULL}.}
 \code{\link[stats:chisq.test]{stats::chisq.test()}}). Else, ignored.}
 
 \item{blocks_on_rows}{Are blocks on rows (\code{TRUE}) or columns (\code{FALSE}).}
+
+\item{verbose}{Toggle warnings and messages on or off.}
 }
 \value{
 A data frame with the effect size \code{(}rank_epsilon_squared\code{or}Kendalls_W\verb{) and its CI (}CI_low\code{and}CI_high`).

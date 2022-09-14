@@ -169,15 +169,16 @@
   x
 }
 
-
+#' @keywords internal
+#' @importFrom stats na.pass reformulate
 .get_data_multivariate <- function(x, y, data = data, ...) {
   if (inherits(x, "formula")) {
     if (length(x) != 3L || length(x[[3]]) != 1L) {
       stop("Formula must have the form of 'DV1 + ... + DVk ~ group', with exactly one term on the RHS.", call. = FALSE)
     }
 
-    data <- model.frame(formula = reformulate(as.character(x)[3:2]),
-                        data = data, na.action = na.pass)
+    data <- model.frame(formula = stats::reformulate(as.character(x)[3:2]),
+                        data = data, na.action = stats::na.pass)
 
     if (x[[3]] == 1) {
       # Then it is one sampled
