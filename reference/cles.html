@@ -146,13 +146,11 @@ CLESs.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>x</dt>
-<dd><p>A formula, a numeric vector, or a character name of one in <code>data</code>.</p></dd>
-
-
-<dt>y</dt>
-<dd><p>A numeric vector, a grouping (character / factor) vector, a or a
-character  name of one in <code>data</code>. Ignored if <code>x</code> is a formula.</p></dd>
+    <dl><dt>x, y</dt>
+<dd><p>A numeric vector, or a character name of one in <code>data</code>.
+Any missing values (<code>NA</code>s) are dropped from the resulting vector.
+<code>x</code> can also be a formula (see <code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">stats::t.test()</a></code>), in which case <code>y</code> is
+ignored.</p></dd>
 
 
 <dt>data</dt>
@@ -242,6 +240,7 @@ to base rates and other factors. Psychological methods, 13(1), 19–30.</p></li>
 <code><a href="cohens_d.html">cohens_d</a>()</code>,
 <code><a href="effectsize.html">effectsize.BFBayesFactor</a>()</code>,
 <code><a href="eta_squared.html">eta_squared</a>()</code>,
+<code><a href="mahalanobis_D.html">mahalanobis_d</a>()</code>,
 <code><a href="phi.html">phi</a>()</code>,
 <code><a href="rank_biserial.html">rank_biserial</a>()</code></p></div>
     </div>

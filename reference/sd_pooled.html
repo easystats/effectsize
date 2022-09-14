@@ -102,7 +102,7 @@ common deviation among the groups, around each of their respective means."><meta
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Pooled Standard Deviation</h1>
-      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/R/sd_pooled.R" class="external-link"><code>R/sd_pooled.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/R/pooled.R" class="external-link"><code>R/pooled.R</code></a></small>
       <div class="d-none name"><code>sd_pooled.Rd</code></div>
     </div>
 
@@ -116,18 +116,18 @@ common deviation among the groups, around each of their respective means.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sd_pooled</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, data <span class="op">=</span> <span class="cn">NULL</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">mad_pooled</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, data <span class="op">=</span> <span class="cn">NULL</span>, constant <span class="op">=</span> <span class="fl">1.4826</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">mad_pooled</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, data <span class="op">=</span> <span class="cn">NULL</span>, constant <span class="op">=</span> <span class="fl">1.4826</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">cov_pooled</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, data <span class="op">=</span> <span class="cn">NULL</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>x</dt>
-<dd><p>A formula, a numeric vector, or a character name of one in <code>data</code>.</p></dd>
-
-
-<dt>y</dt>
-<dd><p>A numeric vector, a grouping (character / factor) vector, a or a
-character  name of one in <code>data</code>. Ignored if <code>x</code> is a formula.</p></dd>
+    <dl><dt>x, y</dt>
+<dd><p>A numeric vector, or a character name of one in <code>data</code>.
+Any missing values (<code>NA</code>s) are dropped from the resulting vector.
+<code>x</code> can also be a formula (see <code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">stats::t.test()</a></code>), in which case <code>y</code> is
+ignored.</p></dd>
 
 
 <dt>data</dt>
@@ -151,7 +151,7 @@ these can be <code>subset</code> and <code>na.action</code>.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>Numeric, the pooled standard deviation.</p>
+<p>Numeric, the pooled standard deviation. For <code>cov_pooled()</code> a matrix.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -162,7 +162,7 @@ $$1.4826 \times Median(|\left\{x - Median_x,\,y - Median_y\right\}|)$$</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="cohens_d.html">cohens_d()</a></code></p></div>
+    <div class="dont-index"><p><code><a href="cohens_d.html">cohens_d()</a></code>, <code><a href="mahalanobis_D.html">mahalanobis_d()</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -171,6 +171,14 @@ $$1.4826 \times Median(|\left\{x - Median_x,\,y - Median_y\right\}|)$$</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4.902029</span>
 <span class="r-in"><span><span class="fu">mad_pooled</span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span>, <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 6.704213</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">cov_pooled</span><span class="op">(</span><span class="va">mpg</span> <span class="op">+</span> <span class="va">hp</span> <span class="op">+</span> <span class="va">cyl</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             mpg         hp       cyl</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mpg   24.029887 -269.13174 -5.991498</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> hp  -269.131741 4570.24588 89.247233</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl   -5.991498   89.24723  2.395682</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
