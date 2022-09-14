@@ -126,7 +126,7 @@ Other effect size indices:
 \code{\link{cles}()},
 \code{\link{cohens_d}()},
 \code{\link{eta_squared}()},
-\code{\link{mahalanobis_D}()},
+\code{\link{mahalanobis_d}()},
 \code{\link{phi}()},
 \code{\link{rank_biserial}()}
 }

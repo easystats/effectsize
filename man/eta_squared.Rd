@@ -343,7 +343,7 @@ Other effect size indices:
 \code{\link{cles}()},
 \code{\link{cohens_d}()},
 \code{\link{effectsize.BFBayesFactor}()},
-\code{\link{mahalanobis_D}()},
+\code{\link{mahalanobis_d}()},
 \code{\link{phi}()},
 \code{\link{rank_biserial}()}
 }

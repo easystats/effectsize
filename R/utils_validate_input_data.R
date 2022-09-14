@@ -185,9 +185,17 @@
     }
     x <- data[[1]]
     y <- data[[2]]
+
+    if (ncol(x) == 1L && is.matrix(x[[1]])){
+      x <- x[[1]]
+      y <- y[[1]]
+    }
   }
 
-  if (!(is.data.frame(x) && is.data.frame(y))) {
+  if (is.matrix(x) || is.matrix(y)) {
+    x <- as.data.frame(x)
+    y <- as.data.frame(y)
+  } else if (!(is.data.frame(x) && is.data.frame(y))) {
     stop("x,y or data must be data.frames.", call. = FALSE)
   }
 

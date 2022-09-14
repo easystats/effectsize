@@ -44,10 +44,10 @@ glass_delta(
 )
 }
 \arguments{
-\item{x}{A formula, a numeric vector, or a character name of one in \code{data}.}
-
-\item{y}{A numeric vector, a grouping (character / factor) vector, a or a
-character  name of one in \code{data}. Ignored if \code{x} is a formula.}
+\item{x, y}{A numeric vector, or a character name of one in \code{data}.
+Any missing values (\code{NA}s) are dropped from the resulting vector.
+\code{x} can also be a formula (see \code{\link[stats:t.test]{stats::t.test()}}), in which case \code{y} is
+ignored.}
 
 \item{data}{An optional data frame containing the variables.}
 
@@ -222,7 +222,7 @@ Other effect size indices:
 \code{\link{cles}()},
 \code{\link{effectsize.BFBayesFactor}()},
 \code{\link{eta_squared}()},
-\code{\link{mahalanobis_D}()},
+\code{\link{mahalanobis_d}()},
 \code{\link{phi}()},
 \code{\link{rank_biserial}()}
 }

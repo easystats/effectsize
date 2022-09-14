@@ -6,7 +6,7 @@
 
 ## New features
 
-- `mahalanobis_D()` for multivariate standardized differences.
+- `mahalanobis_d()` for multivariate standardized differences.
 
 ## Bug fixes
 

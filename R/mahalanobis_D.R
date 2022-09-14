@@ -1,7 +1,8 @@
 #' Compute Mahalanobis' D (multivariate Cohen's d)
 #'
 #' Compute effect size indices for standardized difference between two normal
-#' multivariate distributions. *D* is computed as:
+#' multivariate distributions. This is the standardized effect size for
+#' Hotelling's two sample \enq{T^2} test. *D* is computed as:
 #' \cr\cr
 #' \deqn{D = \sqrt{(\bar{X}_1-\bar{X}_2)^T \Sigma_p^{-1} (\bar{X}_1-\bar{X}_2)}}
 #' \cr\cr
@@ -10,9 +11,9 @@
 #' Cohen's *d*.
 #'
 #' @inheritParams cohens_d
-#' @param x A data frame or a formula in the form of `DV1 + DV2 + ... DVk ~ group`
-#' @param y A data frame with the same number, order and names of columns as
-#'   `x`. Ignored if `x` is a formula.
+#' @param x,y A data frame or matrix. Any incomplete observations (with `NA`
+#'   values) are dropped. `x` can also be a formula in the form of `DV1 + DV2 ~
+#'   group` or `cbind(DV1, DV2) ~ group`, in which case `y` is ignored.
 #' @param pooled_cov Should equal covariance be assumed? Currently only
 #'   `pooled_cov = TRUE` is supported.
 #' @param mu A named list/vector of the true difference in means for each
@@ -39,25 +40,25 @@
 #' mtcars_am1 <- subset(mtcars, am == 1,
 #'                      select = c(mpg, hp, cyl))
 #'
-#' mahalanobis_D(mtcars_am0, mtcars_am1)
+#' mahalanobis_d(mtcars_am0, mtcars_am1)
 #'
 #' # Or
-#' mahalanobis_D(mpg + hp + cyl ~ am, data = mtcars)
+#' mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars)
 #'
-#' mahalanobis_D(mpg + hp + cyl ~ am, data = mtcars, alternative = "greater")
+#' mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars, alternative = "greater")
 #'
 #' # Different mu:
-#' mahalanobis_D(mpg + hp + cyl ~ am, data = mtcars,
+#' mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars,
 #'               mu = c(mpg = -4, hp = 15, cyl = 0))
 #'
 #'
 #' # D is a multivariate d, so when only 1 variate is provided:
-#' mahalanobis_D(hp ~ am, data = mtcars)
+#' mahalanobis_d(hp ~ am, data = mtcars)
 #'
 #' cohens_d(hp ~ am, data = mtcars)
 #'
 #' @export
-mahalanobis_D <- function(x, y = NULL, data = NULL,
+mahalanobis_d <- function(x, y = NULL, data = NULL,
                           pooled_cov = TRUE, mu = 0,
                           ci = 0.95,
                           alternative = "two.sided",
@@ -69,6 +70,12 @@ mahalanobis_D <- function(x, y = NULL, data = NULL,
   data <- .get_data_multivariate(x, y, data, verbose = verbose)
   x <- data[["x"]]
   y <- data[["y"]]
+  if (verbose && (anyNA(x) || anyNA(y))) {
+    warning("Missing values detected. NAs dropped.", call. = FALSE)
+  }
+  x <- na.omit(x)
+  y <- na.omit(y)
+
 
   # deal with mu
   if (is.vector(mu)) {

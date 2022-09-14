@@ -22,7 +22,7 @@
 #' cov_pooled(mpg + hp + cyl ~ am, data = mtcars)
 #'
 #'
-#' @seealso [cohens_d()], [mahalanobis_D()]
+#' @seealso [cohens_d()], [mahalanobis_d()]
 #'
 #' @export
 sd_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
@@ -61,8 +61,8 @@ mad_pooled <- function(x, y = NULL, data = NULL, constant = 1.4826, verbose = TR
 #' @export
 cov_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
   data <- .get_data_multivariate(x, y, data = data, verbose = verbose)
-  x <- data[["x"]]
-  y <- data[["y"]]
+  x <- na.omit(data[["x"]])
+  y <- na.omit(data[["y"]])
 
   n1 <- nrow(x)
   n2 <- nrow(y)
@@ -71,6 +71,12 @@ cov_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
   S2 <- cov(y)
   (S1 * (n1 - 1) + S2 * (n2 - 1)) / (n1 + n2 - 2)
 }
+
+# cor_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
+#   stats::cov2cor(
+#     cov_pooled(x, y = y, data = data, verbose = verbose, ...)
+#   )
+# }
 
 
 # Utils -------------------------------------------------------------------
