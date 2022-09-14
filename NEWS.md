@@ -10,6 +10,7 @@
 
 ## Bug fixes
 
+- `cles()` now respects `mu` argument for all effect sizes.
 - Effect sizes for goodness-of-fit now work when passing a `p` that is a table.
 
 # effectsize 0.7.0.5

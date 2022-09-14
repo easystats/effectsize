@@ -172,6 +172,15 @@ if (require("testthat") && require("effectsize")) {
     expect_error(p_overlap(x, y, parametric = FALSE), NA)
     expect_error(p_superiority(x, y, parametric = FALSE), NA)
 
+    # Mu?
+    CLES0 <- cles(x, y, ci = NULL)
+    CLES1 <- cles(x, y, mu = 0.2, ci = NULL)
+    expect_true(all(CLES0[[2]] > CLES1[[2]]))
+    expect_equal(cles(x, y, mu = 0.2, ci = NULL),
+                 cles(x, y, mu = 0.2, ci = NULL, parametric = FALSE),
+                 tolerance = 0.05,
+                 ignore_attr = TRUE)
+
     x <- 1:3
     y <- c(1, 1:3)
     CLES <- cles(x, y)
