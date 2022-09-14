@@ -12,6 +12,7 @@ reference:
   - eta_squared
   - rank_biserial
   - cles
+  - mahalanobis_d
 - subtitle: "For Contingency Tables"
   contents:
   - phi

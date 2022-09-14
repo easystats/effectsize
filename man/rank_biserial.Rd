@@ -241,7 +241,6 @@ Other effect size indices:
 \code{\link{cohens_g}()},
 \code{\link{effectsize.BFBayesFactor}()},
 \code{\link{eta_squared}()},
-\code{\link{oddsratio}()},
 \code{\link{phi}()}
 }
 \concept{effect size indices}

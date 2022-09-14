@@ -5,7 +5,7 @@
 \alias{es_info}
 \title{List of effect size names}
 \format{
-An object of class \code{data.frame} with 42 rows and 6 columns.
+An object of class \code{data.frame} with 43 rows and 6 columns.
 }
 \usage{
 es_info

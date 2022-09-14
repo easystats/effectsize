@@ -170,6 +170,65 @@
 }
 
 
+.get_data_multivariate <- function(x, y, data = data, ...) {
+  if (inherits(x, "formula")) {
+    if (length(x) != 3L || length(x[[3]]) != 1L) {
+      stop("Formula must have the form of 'DV1 + ... + DVk ~ group', with exactly one term on the RHS.", call. = FALSE)
+    }
+
+    data <- model.frame(formula = reformulate(as.character(x)[3:2]),
+                        data = data, na.action = na.pass)
+
+    if (x[[3]] == 1) {
+      # Then it is one sampled
+      x <- data
+    } else {
+      data <- split(data[,-1, drop = FALSE], f = data[[1]])
+      if (length(data) != 2) {
+        stop("~ group must have 2 levels exactly.", call. = FALSE)
+      }
+      x <- data[[1]]
+      y <- data[[2]]
+    }
+
+    if (ncol(x) == 1L && is.matrix(x[[1]])){
+      x <- x[[1]]
+      y <- y[[1]]
+    }
+  }
+
+  # x should be a data frame or matrix
+  if (is.matrix(x)) {
+    x <- as.data.frame(x)
+  } else if (!is.data.frame(x)) {
+    stop("x must be a data frame.", call. = FALSE)
+  }
+
+  if (!all(sapply(x, is.numeric))) {
+    stop("All DVs must be numeric.", call. = FALSE)
+  }
+
+
+  # y should be null, a data frame or matrix
+  if (!is.null(y)) {
+    if (is.matrix(y)) {
+      y <- as.data.frame(y)
+    } else if (!is.data.frame(y)) {
+      stop("y must be a data frame.", call. = FALSE)
+    }
+
+    if (!all(sapply(y, is.numeric))) {
+      stop("All DVs must be numeric.", call. = FALSE)
+    }
+
+    if (!all(colnames(x) == colnames(y))) {
+      stop("x,y must have the same variables (in the same order)", call. = FALSE)
+    }
+  }
+
+  .nlist(x, y)
+}
+
 
 # Helpers -----------------------------------------------------------------
 
