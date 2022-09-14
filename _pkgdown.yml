@@ -15,7 +15,7 @@ reference:
 - subtitle: "For Contingency Tables"
   contents:
   - phi
-  - oddsration
+  - oddsratio
   - cohens_g
 - subtitle: "Rank Based"
   contents:
