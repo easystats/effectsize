@@ -87,3 +87,16 @@ test_that("mahalanobis_d | mu types", {
   mu <- c(mpg = 3, hp = -14)
   expect_error(mahalanobis_d(mtcars[,c("mpg", "hp")], mu = mu), regexp = NA)
 })
+
+
+test_that("mahalanobis_d | rotation", {
+  set.seed(1235)
+  m <- matrix(rnorm(1000, mean = 0.2), 200, 5)
+  m2 <- m %*% solve(matrix(runif(25), 5, 5))
+
+  expect_equal(D <- mahalanobis_d(m), mahalanobis_d(m2))
+
+  PCA <- princomp(m)
+  PCs <- sweep(PCA$scores, 2, PCA$center)
+  expect_equal(mahalanobis_d(PCs), D, tolerance = 0.01)
+})
