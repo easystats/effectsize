@@ -62,3 +62,11 @@
   }
   model
 }
+
+
+.safe_ranktransform <- function(x, verbose = TRUE, ...) {
+  if (insight::n_unique(x) == 1) {
+    return(rep(mean(seq_along(x)), length(x)))
+  }
+  datawizard::ranktransform(x, method = "average", ..., verbose = FALSE)
+}

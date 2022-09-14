@@ -137,7 +137,10 @@ Other effect size indices:
 \code{\link{cohens_g}()},
 \code{\link{effectsize.BFBayesFactor}()},
 \code{\link{eta_squared}()},
+\code{\link{mahalanobis_d}()},
+\code{\link{oddsratio}()},
 \code{\link{phi}()},
-\code{\link{rank_biserial}()}
+\code{\link{rank_biserial}()},
+\code{\link{rank_epsilon_squared}()}
 }
 \concept{effect size indices}

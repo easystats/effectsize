@@ -10,7 +10,6 @@ reference:
   - effectsize
   - cohens_d
   - eta_squared
-  - rank_biserial
   - cles
   - mahalanobis_d
 - subtitle: "For Contingency Tables"
@@ -18,6 +17,10 @@ reference:
   - phi
   - oddsration
   - cohens_g
+- subtitle: "Rank Based"
+  contents:
+  - rank_biserial
+  - rank_epsilon_squared
 
 - title: "Effect Size Conversion"
 - subtitle: "From Test Statistics"
