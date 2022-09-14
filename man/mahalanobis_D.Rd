@@ -18,7 +18,8 @@ mahalanobis_d(
 }
 \arguments{
 \item{x, y}{A data frame or matrix. Any incomplete observations (with \code{NA}
-values) are dropped. \code{x} can also be a formula in the form of \code{DV1 + DV2 ~ group} or \code{cbind(DV1, DV2) ~ group}, in which case \code{y} is ignored.}
+values) are dropped. \code{x} can also be a formula (see details) in which case
+\code{y} is ignored.}
 
 \item{data}{An optional data frame containing the variables.}
 
@@ -45,14 +46,23 @@ A data frame with the \code{Mahalanobis_D} and potentially its CI
 }
 \description{
 Compute effect size indices for standardized difference between two normal
-multivariate distributions. This is the standardized effect size for
-Hotelling's two sample \enq{T^2} test. \emph{D} is computed as:
+multivariate distributions or between one multivariate distribution and a
+defined point. This is the standardized effect size for Hotelling's \eqn{T^2}
+test. \emph{D} is computed as:
 \cr\cr
-\deqn{D = \sqrt{(\bar{X}_1-\bar{X}_2)^T \Sigma_p^{-1} (\bar{X}_1-\bar{X}_2)}}
+\deqn{D = \sqrt{(\bar{X}_1-\bar{X}_2-\mu)^T \Sigma_p^{-1} (\bar{X}_1-\bar{X}_2-\mu)}}
 \cr\cr
-Where \eqn{\bar{X}_i} are the column means and \eqn{\Sigma_p} is the \emph{pooled}
-covariance matrix. When there is only one variate, this formula reduces to
-Cohen's \emph{d}.
+Where \eqn{\bar{X}_i} are the column means, \eqn{\Sigma_p} is the \emph{pooled}
+covariance matrix, and \eqn{\mu} is a vector of the null differences for each
+variable. When there is only one variate, this formula reduces to Cohen's
+\emph{d}.
+}
+\details{
+To specify a \code{x} as a formula:
+\itemize{
+\item Two sample case: \code{DV1 + DV2 ~ group} or \code{cbind(DV1, DV2) ~ group}
+\item One sample case: \code{DV1 + DV2 ~ 1} or \code{cbind(DV1, DV2) ~ 1}
+}
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
 
@@ -94,6 +104,7 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 }
 
 \examples{
+## Two samples --------------
 mtcars_am0 <- subset(mtcars, am == 0,
                      select = c(mpg, hp, cyl))
 mtcars_am1 <- subset(mtcars, am == 1,
@@ -115,6 +126,14 @@ mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars,
 mahalanobis_d(hp ~ am, data = mtcars)
 
 cohens_d(hp ~ am, data = mtcars)
+
+
+# One sample ---------------------------
+mahalanobis_d(mtcars[,c("mpg", "hp", "cyl")])
+
+# Or
+mahalanobis_d(mpg + hp + cyl ~ 1, data = mtcars,
+              mu = c(mpg = 15, hp = 5, cyl = 3))
 
 }
 \references{

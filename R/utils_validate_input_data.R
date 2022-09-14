@@ -177,14 +177,19 @@
     }
 
     data <- model.frame(formula = reformulate(as.character(x)[3:2]),
-                        data = data)
+                        data = data, na.action = na.pass)
 
-    data <- split(data[,-1, drop = FALSE], f = data[[1]])
-    if (length(data) != 2) {
-      stop("~ group must have 2 levels exactly.", call. = FALSE)
+    if (x[[3]] == 1) {
+      # Then it is one sampled
+      x <- data
+    } else {
+      data <- split(data[,-1, drop = FALSE], f = data[[1]])
+      if (length(data) != 2) {
+        stop("~ group must have 2 levels exactly.", call. = FALSE)
+      }
+      x <- data[[1]]
+      y <- data[[2]]
     }
-    x <- data[[1]]
-    y <- data[[2]]
 
     if (ncol(x) == 1L && is.matrix(x[[1]])){
       x <- x[[1]]
@@ -192,19 +197,33 @@
     }
   }
 
-  if (is.matrix(x) || is.matrix(y)) {
+  # x should be a data frame or matrix
+  if (is.matrix(x)) {
     x <- as.data.frame(x)
-    y <- as.data.frame(y)
-  } else if (!(is.data.frame(x) && is.data.frame(y))) {
-    stop("x,y or data must be data.frames.", call. = FALSE)
+  } else if (!is.data.frame(x)) {
+    stop("x must be a data frame.", call. = FALSE)
   }
 
-  if (!all(colnames(x) == colnames(y))) {
-    stop("x,y must have the same variables (in the same order)", call. = FALSE)
-  }
-
-  if (!all(c(sapply(x, is.numeric), sapply(y, is.numeric)))) {
+  if (!all(sapply(x, is.numeric))) {
     stop("All DVs must be numeric.", call. = FALSE)
+  }
+
+
+  # y should be null, a data frame or matrix
+  if (!is.null(y)) {
+    if (is.matrix(y)) {
+      y <- as.data.frame(y)
+    } else if (!is.data.frame(y)) {
+      stop("y must be a data frame.", call. = FALSE)
+    }
+
+    if (!all(sapply(y, is.numeric))) {
+      stop("All DVs must be numeric.", call. = FALSE)
+    }
+
+    if (!all(colnames(x) == colnames(y))) {
+      stop("x,y must have the same variables (in the same order)", call. = FALSE)
+    }
   }
 
   .nlist(x, y)
