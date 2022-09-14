@@ -48,7 +48,7 @@ A data frame with the \code{Mahalanobis_D} and potentially its CI
 Compute effect size indices for standardized difference between two normal
 multivariate distributions or between one multivariate distribution and a
 defined point. This is the standardized effect size for Hotelling's \eqn{T^2}
-test. \emph{D} is computed as:
+test (e.g., \code{DescTools::HotellingsT2Test()}). \emph{D} is computed as:
 \cr\cr
 \deqn{D = \sqrt{(\bar{X}_1-\bar{X}_2-\mu)^T \Sigma_p^{-1} (\bar{X}_1-\bar{X}_2-\mu)}}
 \cr\cr
