@@ -24,38 +24,38 @@
 #'
 #' @seealso [cohens_d()], [mahalanobis_d()]
 #'
+#' @importFrom stats ave sd
 #' @export
 sd_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
-  # This actually works, you must see if you want to keep this code. If you do,
-  # following will work:
-  # sd_pooled(mpg, hp, data = mtcars)
-  # sd_pooled(x, y) # called from a different function, like cohens_d()
+  data <- .get_data_2_samples(x, y, data, verbose, ...)
+  x <- na.omit(data$x)
+  y <- na.omit(data$y)
 
-  # needs modification in in ".sd_pooled()" as well...
-
-  # x1 <- try(expr = eval(x), silent = TRUE)
-  # y1 <- try(expr = eval(y), silent = TRUE)
-  #
-  # if (inherits(x1, "try-error"))
-  #   x <- deparse(substitute(x), width.cutoff = 500)
-  # else
-  #   x <- x1
-  #
-  # if (inherits(y1, "try-error"))
-  #   y <- deparse(substitute(y), width.cutoff = 500)
-  # else
-  #   y <- y1
-
-  .sd_pooled(x, y, data, robust = FALSE, verbose = verbose, ...)
+  V <- cov_pooled(data.frame(x = x),
+                  data.frame(x = y))
+  c(sqrt(V))
 }
 
 
 
 #' @rdname sd_pooled
+#' @importFrom stats ave mad median
 #' @export
 mad_pooled <- function(x, y = NULL, data = NULL, constant = 1.4826, verbose = TRUE, ...) {
-  .sd_pooled(x, y, data, robust = TRUE, verbose = verbose, constant = constant, ...)
+  data <- .get_data_2_samples(x, y, data, verbose, ...)
+  x <- na.omit(data$x)
+  y <- na.omit(data$y)
+
+  n1 <- length(x)
+  n2 <- length(y)
+
+  Y <- c(x, y)
+  G <- rep(1:2, times = c(n1, n2))
+  Yc <- Y - stats::ave(Y, factor(G), FUN = stats::median)
+
+  stats::mad(Yc, center = 0, constant = constant)
 }
+
 
 #' @rdname sd_pooled
 #' @importFrom stats cov
@@ -68,80 +68,12 @@ cov_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
   n1 <- nrow(x)
   n2 <- nrow(y)
 
-  S1 <- stats::cov(x)
-  S2 <- stats::cov(y)
-  (S1 * (n1 - 1) + S2 * (n2 - 1)) / (n1 + n2 - 2)
+  Y <- rbind(x, y)
+  G <- rep(1:2, times = c(n1, n2))
+  Yc <- lapply(Y, function(.y) .y - stats::ave(.y, factor(G), FUN = mean))
+  Yc <- as.data.frame(Yc)
+
+  stats::cov(Yc) * (n1 + n2 - 1) / (n1 + n2 - 2)
 }
 
-# cor_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
-#   stats::cov2cor(
-#     cov_pooled(x, y = y, data = data, verbose = verbose, ...)
-#   )
-# }
-
-
-# Utils -------------------------------------------------------------------
-
-
-
-#' @importFrom stats mad sd as.formula ave
-.sd_pooled <- function(x, y = NULL, data = NULL, robust = FALSE, verbose = TRUE, constant = 1, ...) {
-  # Activate here for evaluation of arguments...
-
-  # eval_args <- .evaluate_arguments(x, y, data)
-  # out <- .get_data_2_samples(eval_args$x, eval_args$y, eval_args$data, verbose, ...)
-
-  out <- .get_data_2_samples(x, y, data, verbose, ...)
-  x <- na.omit(out$x)
-  y <- na.omit(out$y)
-
-  if (robust) {
-    f <- constant
-    center <- stats::median
-    div <- stats::mad
-  } else {
-    n1 <- length(x)
-    n2 <- length(y)
-
-    f <- sqrt(c(n1 + n2 - 1) / c(n1 + n2 - 2))
-    center <- mean
-    div <- stats::sd
-  }
-
-  div(c(
-    x - stats::ave(x, FUN = center),
-    y - stats::ave(y, FUN = center)
-  )) * f
-}
-
-# .evaluate_arguments <- function(x, y, data) {
-#   eval_x <- .evaluate_argument(x)
-#   if (!is.null(eval_x$variable)) x <- eval_x$variable
-#   if (!is.null(eval_x$data) && is.null(data)) data <- get(eval_x$data)
-#
-#   eval_y <- .evaluate_argument(y)
-#   if (!is.null(eval_y$variable)) y <- eval_y$variable
-#   if (!is.null(eval_y$data) && is.null(data)) data <- get(eval_y$data)
-#
-#   list(x = x, y = y, data = data)
-# }
-
-
-# .evaluate_argument <- function(arg) {
-#   data_frame <- NULL
-#   if (!is.null(arg)) {
-#     if (is.numeric(arg) && length(arg) > 1) {
-#       # do nothiung
-#     } else if (arg == "NULL") {
-#       arg <- NULL
-#     } else if (grepl("~", arg, fixed = TRUE)) {
-#       arg <- stats::as.formula(arg)
-#     } else if (grepl("\"", arg, fixed = TRUE)) {
-#       arg <- gsub("\"", "", arg, fixed = TRUE)
-#     } else if (grepl("$", arg, fixed = TRUE)) {
-#       data_frame <- gsub("(.*)\\$(.*)", "\\1", arg)
-#       arg <- gsub("(.*)\\$(.*)", "\\2", arg)
-#     }
-#   }
-#   list(variable = arg, data = data_frame)
-# }
+# TODO Add com_pooled?
