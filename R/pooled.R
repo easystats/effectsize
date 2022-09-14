@@ -13,12 +13,16 @@
 #' The robust version is calculated as:
 #' \deqn{1.4826 \times Median(|\left\{x - Median_x,\,y - Median_y\right\}|)}{mad(c(x - median(x), y - median(y)), constant = 1.4826)}
 #'
-#' @return Numeric, the pooled standard deviation.
+#' @return Numeric, the pooled standard deviation. For `cov_pooled()` a matrix.
 #'
 #' @examples
 #' sd_pooled(mpg ~ am, data = mtcars)
 #' mad_pooled(mtcars$mpg, factor(mtcars$am))
-#' @seealso [cohens_d()]
+#'
+#' cov_pooled(mpg + hp + cyl ~ am, data = mtcars)
+#'
+#'
+#' @seealso [cohens_d()], [mahalanobis_d()]
 #'
 #' @export
 sd_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
@@ -53,10 +57,29 @@ mad_pooled <- function(x, y = NULL, data = NULL, constant = 1.4826, verbose = TR
   .sd_pooled(x, y, data, robust = TRUE, verbose = verbose, constant = constant, ...)
 }
 
+#' @rdname sd_pooled
+#' @export
+cov_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
+  data <- .get_data_multivariate(x, y, data = data, verbose = verbose)
+  x <- na.omit(data[["x"]])
+  y <- na.omit(data[["y"]])
+
+  n1 <- nrow(x)
+  n2 <- nrow(y)
+
+  S1 <- cov(x)
+  S2 <- cov(y)
+  (S1 * (n1 - 1) + S2 * (n2 - 1)) / (n1 + n2 - 2)
+}
+
+# cor_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
+#   stats::cov2cor(
+#     cov_pooled(x, y = y, data = data, verbose = verbose, ...)
+#   )
+# }
 
 
-
-
+# Utils -------------------------------------------------------------------
 
 
 

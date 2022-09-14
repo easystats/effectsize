@@ -13,6 +13,7 @@ reference:
   - eta_squared
   - rank_biserial
   - cles
+  - mahalanobis_d
 
 - title: "Effect Size Conversion"
 - subtitle: "From Test Statistics"

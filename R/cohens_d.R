@@ -12,9 +12,10 @@
 #' significantly different between the populations, as it uses only the *second*
 #' group's standard deviation.
 #'
-#' @param x A formula, a numeric vector, or a character name of one in `data`.
-#' @param y A numeric vector, a grouping (character / factor) vector, a or a
-#'   character  name of one in `data`. Ignored if `x` is a formula.
+#' @param x,y A numeric vector, or a character name of one in `data`.
+#'   Any missing values (`NA`s) are dropped from the resulting vector.
+#'   `x` can also be a formula (see [`stats::t.test()`]), in which case `y` is
+#'   ignored.
 #' @param alternative a character string specifying the alternative hypothesis;
 #'   Controls the type of CI returned: `"two.sided"` (default, two-sided CI),
 #'   `"greater"` or `"less"` (one-sided CI). Partial matching is allowed (e.g.,

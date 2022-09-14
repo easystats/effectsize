@@ -4,6 +4,10 @@
 
 - `normalized_chi()` has been renamed `fei()`.
 
+## New features
+
+- `mahalanobis_d()` for multivariate standardized differences.
+
 ## Bug fixes
 
 - Effect sizes for goodness-of-fit now work when passing a `p` that is a table.

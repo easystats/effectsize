@@ -147,7 +147,7 @@ format.effectsize_difference <- function(x, digits = 2, ...) {
   ## Add footer
   mu <- attr(x, "mu")
   if (mu != 0) {
-    mu_footer <- sprintf("Deviation from a difference of %s.", mu)
+    mu_footer <- sprintf("Deviation from a difference of %g.", mu)
     footer <- c(footer, mu_footer)
   }
 
