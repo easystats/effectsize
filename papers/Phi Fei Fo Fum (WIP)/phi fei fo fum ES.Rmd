@@ -1,0 +1,81 @@
+---
+title: "Phi, Fei, Fo, Fum: Correlation Effect Sizes for Chi-squared Tests"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+bibliography: paper.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+<!-- Blah blah blah effect sizes are important. -->
+
+We review here the most common effect sizes for analysis of categorical variables, and (re)introduce a new one ($פ$ - Fei) - alongside R code from the *effectsize* package [@benshachar2020effectsize] which implements these.
+
+# Tests Of Independance
+
+The $\chi^2$ test of independance between two categorical variables examines if the frequency distribution of one of the variables is dependent on the other. 
+
+Formally, the test examines how likely the observed conditional frequencies (cell frequencies) are under the null, by examining the degree of deviation of the observed cell frequencies from the expected ones under the null.
+
+For example... <!-- use a real world example -->
+
+## Phi
+
+The $\phi$ (*phi*) coefficient uses the $\chi^2$ test statistic to compute the effect size:
+
+$$
+\phi = \sqrt{\frac{\chi^2}{N}}
+$$
+<!-- Proof that this is the same as a correlation between two binay vars -->
+
+Use proof by $\chi^2_{max}$.
+
+It being a correlation means that it 
+1. Is bounded on bottom
+2. Bounded on top
+3. Easy to interpret like any correlation.
+
+These are *ideal* properties.
+
+## Cramer's *v*
+
+For larger tables, using $\sqrt{\chi^2/N}$ can be larger than 1.
+
+So N is not longer the $\chi^2_{max}$. Instead it is... {proof}.
+
+Also ranges [0-1] etc.
+
+## Also...
+
+These can be used for confusion matrices - show that Matthew's correlation coefficient is equal to Phi.
+
+# Goodness of Fit
+
+What these tests are...
+
+Just like phi and v, we want to quantify the deviation from the expected values that is bounded and can be interpreted easily. 
+
+## Cohen's *w*
+
+This is actually computationally equivalent to Phi.
+
+But when using non uniform expected values it can be larger than 1 {proof}, again meaning that N is not the $\chi^2_{max}$.
+
+## Fei
+
+We present here a semi-new effect size, Fei.
+
+- Johnston et al (2006) presented a similar effect size, that did not take the root square.
+
+- Rosenberg (2010) showed a similar effect size so the 2 class case.
+
+# Summary
+
+
+
+# References
