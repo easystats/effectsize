@@ -68,7 +68,7 @@ cov_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
   n2 <- nrow(y)
 
   S1 <- cov(x)
-  S2 <- cov(x)
+  S2 <- cov(y)
   (S1 * (n1 - 1) + S2 * (n2 - 1)) / (n1 + n2 - 2)
 }
 
