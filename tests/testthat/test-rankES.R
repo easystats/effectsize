@@ -34,7 +34,7 @@ if (require("testthat") && require("effectsize")) {
 
   test_that("rank_epsilon_squared", {
     skip_if_not_installed("boot")
-    skip_if_not_installed("base", minimum_version = "3.6.0")
+    skip_if_not_installed("base", minimum_version = "3.6.1")
     x1 <- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
     x2 <- c(3.8, 2.7, 4.0, 2.4) # with obstructive airway disease
     x3 <- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
@@ -57,7 +57,7 @@ if (require("testthat") && require("effectsize")) {
 
   test_that("kendalls_w", {
     skip_if_not_installed("boot")
-    skip_if_not_installed("base", minimum_version = "3.6.0")
+    skip_if_not_installed("base", minimum_version = "3.6.1")
     M1 <- cbind(
       "Round Out" = c(5.4, 5.85, 5.2),
       "Narrow Angle" = c(5.5, 5.7, 5.6),
