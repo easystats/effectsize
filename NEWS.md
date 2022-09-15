@@ -2,6 +2,7 @@
 
 ## Breaking Changes
 
+- `{effectsize}` now requires *`R >= 3.6`*
 - `normalized_chi()` has been renamed `fei()`.
 
 ## New features
