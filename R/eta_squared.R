@@ -1,4 +1,4 @@
-#' Effect size for ANOVA
+#' \eqn{\eta^2} and Other Effect Size for ANOVA
 #'
 #' Functions to compute effect size measures for ANOVAs, such as Eta-
 #' (\eqn{\eta}), Omega- (\eqn{\omega}) and Epsilon- (\eqn{\epsilon}) squared,

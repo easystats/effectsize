@@ -1,4 +1,4 @@
-#' Pooled Standard Deviation
+#' Pooled Indices of (Co)Deviation
 #'
 #' The Pooled Standard Deviation is a weighted average of standard deviations
 #' for two or more groups, *assumed to have equal variance*. It represents the

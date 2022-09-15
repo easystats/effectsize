@@ -1,4 +1,4 @@
-#' Compute Mahalanobis' D (multivariate Cohen's d)
+#' Mahalanobis' *D* (a multivariate Cohen's *d*)
 #'
 #' Compute effect size indices for standardized difference between two normal
 #' multivariate distributions or between one multivariate distribution and a

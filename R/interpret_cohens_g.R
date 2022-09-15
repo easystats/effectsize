@@ -1,4 +1,4 @@
-#' Interpret Cohen's g
+#' Interpret Cohen's *g*
 #'
 #'
 #' @param g Value or vector of effect size values.

@@ -1,4 +1,4 @@
-#' Convert between Odds ratios and Risk ratios
+#' Convert Between Odds Ratios and Risk Ratios
 #'
 #' @param OR,RR Risk ratio of `p1/p0` or Odds ratio of `odds(p1)/odds(p0)`,
 #'   possibly log-ed. `OR` can also be a logistic regression model.

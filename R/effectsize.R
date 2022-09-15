@@ -1,4 +1,4 @@
-#' Effect Size
+#' Effect Sizes
 #'
 #' This function tries to return the best effect-size measure for the provided
 #' input model. See details.

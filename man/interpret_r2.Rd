@@ -2,18 +2,18 @@
 % Please edit documentation in R/interpret_r2.R
 \name{interpret_r2}
 \alias{interpret_r2}
-\title{Interpret coefficient of determination (R2)}
+\title{Interpret Coefficient of Determination (\eqn{R^2})}
 \usage{
 interpret_r2(r2, rules = "cohen1988")
 }
 \arguments{
-\item{r2}{Value or vector of R2 values.}
+\item{r2}{Value or vector of \eqn{R^2} values.}
 
 \item{rules}{Can be \code{"cohen1988"} (default), \code{"falk1992"}, \code{"chin1998"},
 \code{"hair2011"}, or custom set of \code{\link[=rules]{rules()}}].}
 }
 \description{
-Interpret coefficient of determination (R2)
+Interpret Coefficient of Determination (\eqn{R^2})
 }
 \section{Rules}{
 

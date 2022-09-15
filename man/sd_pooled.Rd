@@ -4,7 +4,7 @@
 \alias{sd_pooled}
 \alias{mad_pooled}
 \alias{cov_pooled}
-\title{Pooled Standard Deviation}
+\title{Pooled Indices of (Co)Deviation}
 \usage{
 sd_pooled(x, y = NULL, data = NULL, verbose = TRUE, ...)
 

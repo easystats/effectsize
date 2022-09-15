@@ -1,7 +1,8 @@
-#' Effect size for (rank sum) differences
+#' Standardized Rank Based Differences
 #'
 #' Compute the rank-biserial correlation (\eqn{r_{rb}}{r_rb}) and Cliff's *delta*
-#' (\eqn{\delta}) effect sizes for non-parametric (rank sum) differences.
+#' (\eqn{\delta}) effect sizes for non-parametric (rank sum) differences. Pair
+#' with any reported [`stats::wilcox.test()`].
 #'
 #' @inheritParams cohens_d
 #' @param mu a number indicating the value around which (a-)symmetry (for

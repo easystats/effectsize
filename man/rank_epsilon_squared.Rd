@@ -3,7 +3,7 @@
 \name{rank_epsilon_squared}
 \alias{rank_epsilon_squared}
 \alias{kendalls_w}
-\title{Effect size for (rank sum) one-way ANOVAs}
+\title{Effect Size for Rank Based ANOVA}
 \usage{
 rank_epsilon_squared(
   x,

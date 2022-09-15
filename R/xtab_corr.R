@@ -1,8 +1,9 @@
-#' Correlation effect size for contingency tables
+#' \eqn{\phi} and Other Contingency Tables Correlations
 #'
 #' Compute Cramer's *V*, phi (\eqn{\phi}), Cohen's *w*,
 #' \ifelse{latex}{\eqn{Fei}}{פ (Fei)}, Pearson's contingency coefficient for
-#' contingency tables or goodness-of-fit. See details.
+#' contingency tables or goodness-of-fit. Pair with any reported
+#' [`stats::chisq.test()`].
 #'
 #' @inheritParams stats::chisq.test
 #' @param ci Confidence Interval (CI) level

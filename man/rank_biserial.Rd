@@ -3,7 +3,7 @@
 \name{rank_biserial}
 \alias{rank_biserial}
 \alias{cliffs_delta}
-\title{Effect size for (rank sum) differences}
+\title{Standardized Rank Based Differences}
 \usage{
 rank_biserial(
   x,
@@ -62,7 +62,8 @@ A data frame with the effect size \code{r_rank_biserial} and its CI
 }
 \description{
 Compute the rank-biserial correlation (\eqn{r_{rb}}{r_rb}) and Cliff's \emph{delta}
-(\eqn{\delta}) effect sizes for non-parametric (rank sum) differences.
+(\eqn{\delta}) effect sizes for non-parametric (rank sum) differences. Pair
+with any reported \code{\link[stats:wilcox.test]{stats::wilcox.test()}}.
 }
 \details{
 The rank-biserial correlation is appropriate for non-parametric tests of

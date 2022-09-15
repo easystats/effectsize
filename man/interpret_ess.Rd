@@ -3,7 +3,7 @@
 \name{interpret_ess}
 \alias{interpret_ess}
 \alias{interpret_rhat}
-\title{Interpret Bayesian diagnostic indices}
+\title{Interpret Bayesian Diagnostic Indices}
 \usage{
 interpret_ess(ess, rules = "burkner2017")
 

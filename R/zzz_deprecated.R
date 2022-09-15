@@ -1,4 +1,4 @@
-#' Deprecated functions
+#' Deprecated / Defunct Functions
 #'
 #' @param ... Arguments to the deprecated function.
 #'

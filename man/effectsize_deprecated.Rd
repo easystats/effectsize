@@ -8,7 +8,7 @@
 \alias{interpret_parameters}
 \alias{normalized_chi}
 \alias{chisq_to_normalized}
-\title{Deprecated functions}
+\title{Deprecated / Defunct Functions}
 \usage{
 interpret_d(...)
 
@@ -26,7 +26,7 @@ chisq_to_normalized(...)
 \item{...}{Arguments to the deprecated function.}
 }
 \description{
-Deprecated functions
+Deprecated / Defunct Functions
 }
 \details{
 \itemize{

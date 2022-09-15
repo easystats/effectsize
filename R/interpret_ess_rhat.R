@@ -1,4 +1,4 @@
-#' Interpret Bayesian diagnostic indices
+#' Interpret Bayesian Diagnostic Indices
 #'
 #' Interpretation of Bayesian diagnostic indices, such as Effective Sample Size (ESS) and Rhat.
 #'

@@ -4,7 +4,7 @@
 \alias{interpret_omega_squared}
 \alias{interpret_eta_squared}
 \alias{interpret_epsilon_squared}
-\title{Interpret ANOVA effect size}
+\title{Interpret ANOVA Effect Sizes}
 \usage{
 interpret_omega_squared(es, rules = "field2013", ...)
 
@@ -20,7 +20,7 @@ interpret_epsilon_squared(es, rules = "field2013", ...)
 \item{...}{Not used for now.}
 }
 \description{
-Interpret ANOVA effect size
+Interpret ANOVA Effect Sizes
 }
 \section{Rules}{
 

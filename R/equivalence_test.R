@@ -1,4 +1,4 @@
-#' @title Test for Practical Equivalence
+#' @title Test Effect Size for Practical Equivalence to the Null
 #'
 #' @description Perform a **Test for Practical Equivalence** for indices of
 #'   effect size.

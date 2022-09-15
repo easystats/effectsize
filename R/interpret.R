@@ -1,7 +1,7 @@
 # Rules ---------------------------------------------------------------
 
 
-#' Interpretation Grid
+#' Create an Interpretation Grid
 #'
 #' Create a container for interpretation rules of thumb. Usually used in conjunction with [interpret].
 #'
@@ -83,7 +83,7 @@ is.rules <- function(x) inherits(x, "rules")
 
 
 
-#' Generic function for interpretation
+#' Generic Function for Interpretation
 #'
 #' Interpret a value based on a set of rules. See [rules()].
 #'

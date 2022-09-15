@@ -1,4 +1,4 @@
-#' Effect Sizes for Paired Contingency Tables
+#' Effect Size for Paired Contingency Tables
 #'
 #' Cohen's *g* is an effect size of asymmetry (or marginal heterogeneity) for
 #' dependent (paired) contingency tables ranging between 0 (perfect symmetry)

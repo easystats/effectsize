@@ -1,4 +1,4 @@
-#' Convert chi-square to correlation-like effect sizes (phi, V, Fei, C)
+#' Convert \eqn{\chi^2} to \eqn{\phi} and Other Correlation-like Effect Sizes
 #'
 #' Convert between \eqn{\chi^2} (chi-square), \eqn{\phi} (phi), Cramer's \eqn{V},
 #' Cohen's \eqn{w}, \ifelse{latex}{\eqn{Fei}}{פ (Fei)} and Pearson's \eqn{C}

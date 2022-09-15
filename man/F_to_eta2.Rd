@@ -13,8 +13,7 @@
 \alias{t_to_f}
 \alias{F_to_f2}
 \alias{t_to_f2}
-\title{Convert test statistics (F, t) to indices of \strong{partial} variance explained
-(\strong{partial} Eta / Omega / Epsilon squared and Cohen's f)}
+\title{Convert \emph{F} and \emph{t} Statistics to \strong{partial}-\eqn{\eta^2} and Other ANOVA Effect Sizes}
 \usage{
 F_to_eta2(f, df, df_error, ci = 0.95, alternative = "greater", ...)
 

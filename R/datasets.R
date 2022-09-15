@@ -1,4 +1,4 @@
-#' Workers' salary and other information
+#' Workers' Salary and Other Information
 #'
 #' A sample (simulated) dataset, used in tests and some examples.
 #'

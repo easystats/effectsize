@@ -1,4 +1,4 @@
-#' Interpret direction
+#' Interpret Direction
 #'
 #' @param x Numeric value.
 #'

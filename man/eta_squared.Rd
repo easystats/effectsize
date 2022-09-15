@@ -7,7 +7,7 @@
 \alias{cohens_f}
 \alias{cohens_f_squared}
 \alias{eta_squared_posterior}
-\title{Effect size for ANOVA}
+\title{\eqn{\eta^2} and Other Effect Size for ANOVA}
 \usage{
 eta_squared(
   model,

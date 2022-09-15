@@ -7,7 +7,7 @@
 \alias{print_html.effectsize_table}
 \alias{format.effectsize_table}
 \alias{print.effectsize_difference}
-\title{Methods for \code{effectsize} tables}
+\title{Methods for \code{{effectsize}} Tables}
 \usage{
 \method{plot}{effectsize_table}(x, ...)
 

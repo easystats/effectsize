@@ -4,7 +4,7 @@
 \alias{is_effectsize_name}
 \alias{get_effectsize_name}
 \alias{get_effectsize_label}
-\title{Checks if character is of a supported effect size}
+\title{Checks for a Valid Effect Size Name}
 \usage{
 is_effectsize_name(x, ignore_case = TRUE)
 

@@ -1,5 +1,7 @@
-#' Odds ratios, Risk ratios, Cohen's *h* for 2-by-2 contingency tables
+#' Odds Ratios, Risk Ratios and Cohen's *h* for 2-by-2 Contingency Tables
 #'
+#' Report with any [`stats::chisq.test()`] or [`stats::fisher.test()`].
+#' \cr\cr
 #' Note that these are computed with each **column** representing the different
 #' groups, and the *first* column representing the treatment group and the
 #' *second* column baseline (or control). Effects are given as `treatment /

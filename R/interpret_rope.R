@@ -1,6 +1,6 @@
-#' Interpret Bayesian diagnostic indices
+#' Interpret Bayesian Posterior Percentage in ROPE.
 #'
-#' Interpretation of Bayesian indices of percentage in ROPE.
+#' Interpretation of
 #'
 #' @param rope Value or vector of percentages in ROPE.
 #' @param ci The Credible Interval (CI) probability, corresponding to the proportion of HDI, that was used. Can be `1` in the case of "full ROPE".

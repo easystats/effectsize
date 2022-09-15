@@ -1,4 +1,4 @@
-#' Interpret p-values
+#' Interpret *p*-Values
 #'
 #' @param p Value or vector of p-values.
 #' @param rules Can be `"default"`, `"rss"` (for *Redefine statistical

@@ -3,7 +3,7 @@
 \docType{data}
 \name{hardlyworking}
 \alias{hardlyworking}
-\title{Workers' salary and other information}
+\title{Workers' Salary and Other Information}
 \format{
 A data frame with 500 rows and 5 variables:
 \describe{

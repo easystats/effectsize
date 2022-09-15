@@ -2,7 +2,7 @@
 % Please edit documentation in R/equivalence_test.R
 \name{equivalence_test.effectsize_table}
 \alias{equivalence_test.effectsize_table}
-\title{Test for Practical Equivalence}
+\title{Test Effect Size for Practical Equivalence to the Null}
 \usage{
 \method{equivalence_test}{effectsize_table}(
   x,

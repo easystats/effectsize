@@ -1,4 +1,4 @@
-#' Interpret standardized differences
+#' Interpret Standardized Differences
 #'
 #' Interpretation of standardized differences using different sets of rules of
 #' thumb.

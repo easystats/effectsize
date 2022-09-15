@@ -7,7 +7,7 @@
 \alias{rb_to_cles}
 \alias{rb_to_common_language}
 \alias{convert_rb_to_common_language}
-\title{Convert Standardized Mean Difference to Common Language Effect Sizes}
+\title{Convert Standardized Differences to Common Language Effect Sizes}
 \usage{
 d_to_cles(d)
 
@@ -23,7 +23,7 @@ numeric vector of \code{Pr(superiority)}, or a data frame, depending
 on the input.
 }
 \description{
-Convert Standardized Mean Difference to Common Language Effect Sizes
+Convert Standardized Differences to Common Language Effect Sizes
 }
 \details{
 This function use the following formulae for Cohen's \emph{d}:

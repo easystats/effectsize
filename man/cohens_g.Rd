@@ -2,7 +2,7 @@
 % Please edit documentation in R/cohens_g.R
 \name{cohens_g}
 \alias{cohens_g}
-\title{Effect Sizes for Paired Contingency Tables}
+\title{Effect Size for Paired Contingency Tables}
 \usage{
 cohens_g(x, y = NULL, ci = 0.95, alternative = "two.sided", ...)
 }

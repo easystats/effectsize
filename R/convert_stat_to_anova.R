@@ -1,5 +1,4 @@
-#' Convert test statistics (F, t) to indices of **partial** variance explained
-#' (**partial** Eta / Omega / Epsilon squared and Cohen's f)
+#' Convert *F* and *t* Statistics to **partial**-\eqn{\eta^2} and Other ANOVA Effect Sizes
 #'
 #' These functions are convenience functions to convert F and t test statistics
 #' to **partial** Eta- (\eqn{\eta}), Omega- (\eqn{\omega}) Epsilon-

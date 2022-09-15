@@ -1,4 +1,4 @@
-#' Interpret Kendall's coefficient of concordance
+#' Interpret Kendall's Coefficient of Concordance *W*
 #'
 #' @param w Value or vector of Kendall's coefficient of concordance.
 #' @param rules Can be `"landis1977"` (default) or a custom set of [rules()].

@@ -4,7 +4,7 @@
 \alias{interpret_cohens_d}
 \alias{interpret_hedges_g}
 \alias{interpret_glass_delta}
-\title{Interpret standardized differences}
+\title{Interpret Standardized Differences}
 \usage{
 interpret_cohens_d(d, rules = "cohen1988", ...)
 

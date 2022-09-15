@@ -2,7 +2,7 @@
 % Please edit documentation in R/interpret_cohens_g.R
 \name{interpret_cohens_g}
 \alias{interpret_cohens_g}
-\title{Interpret Cohen's g}
+\title{Interpret Cohen's \emph{g}}
 \usage{
 interpret_cohens_g(g, rules = "cohen1988", ...)
 }
@@ -14,7 +14,7 @@ interpret_cohens_g(g, rules = "cohen1988", ...)
 \item{...}{Not directly used.}
 }
 \description{
-Interpret Cohen's g
+Interpret Cohen's \emph{g}
 }
 \note{
 "\emph{Since \strong{g} is so transparently clear a unit, it is expected that

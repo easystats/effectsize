@@ -1,4 +1,4 @@
-#' Checks if character is of a supported effect size
+#' Checks for a Valid Effect Size Name
 #'
 #' For use by other functions and packages.
 #'

@@ -1,4 +1,4 @@
-#' Convert between *d*, *r* and *Odds ratio*
+#' Convert Between *d*, *r*, and Odds Ratio
 #'
 #' Enables a conversion between different indices of effect size, such as
 #' standardized difference (Cohen's d), correlation r or (log) odds ratios.

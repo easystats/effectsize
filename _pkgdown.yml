@@ -4,31 +4,58 @@ template:
   bootstrap: 5
   package: easystatstemplate
 
+
+
+
+
 reference:
 - title: "Indices of Effect Size"
   contents:
   - effectsize
+
+- subtitle: "Standardized differences"
+  desc: >
+    Effect sizes for comparing two groups
+  contents:
   - cohens_d
-  - eta_squared
-  - cles
   - mahalanobis_d
-- subtitle: "For Contingency Tables"
+  - rank_biserial
+  - cles
+
+- subtitle: "For contingency tables"
+  desc: >
+    Effect sizes for categorical outcomes
   contents:
   - phi
   - oddsratio
   - cohens_g
-- subtitle: "Rank Based"
+
+- subtitle: "Comparing multiple groups"
+  desc: >
+    Effect sizes for ANOVA
   contents:
-  - rank_biserial
+  - eta_squared
   - rank_epsilon_squared
 
-- title: "Effect Size Conversion"
+
+
+
+
+
+- title: "Effect Size Conversion / Extraction"
+
 - subtitle: "From Test Statistics"
+  desc: >
+    Extract approximate effect sizes from their commonly associated test statistics
   contents:
   - F_to_eta2
   - t_to_r
   - chisq_to_phi
+
+
 - subtitle: "Between Effect Sizes"
+  desc: >
+    Approximate effect sizes by converting between other related effect sizes
   contents:
   - d_to_cles
   - d_to_r
@@ -36,12 +63,21 @@ reference:
   - odds_to_probs
   - oddsratio_to_riskratio
 
+
+
+
+
 - title: "Interpretation"
   contents:
   - equivalence_test.effectsize_table
   - interpret
   - rules
   - starts_with("interpret_")
+
+
+
+
+
 
 - title: "Miscellaneous"
   contents:
@@ -59,6 +95,12 @@ reference:
 - subtitle: "Deprecated functions"
   contents:
   - effectsize_deprecated
+
+
+
+
+
+
 
 
 # Keep articles organized

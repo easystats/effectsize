@@ -1,4 +1,4 @@
-#' Convert between Odds and Probabilities
+#' Convert Between Odds and Probabilities
 #'
 #' @param odds The *Odds* (or `log(odds)` when `log = TRUE`) to convert.
 #' @param probs Probability values to convert.

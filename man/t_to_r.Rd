@@ -7,8 +7,7 @@
 \alias{t_to_r}
 \alias{z_to_r}
 \alias{F_to_r}
-\title{Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d)
-or association (\strong{partial} r)}
+\title{Convert \emph{t}, \emph{z}, and \emph{F} to Cohen's \emph{d} or \strong{partial}-\emph{r}}
 \usage{
 t_to_d(
   t,

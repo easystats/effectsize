@@ -2,7 +2,7 @@
 % Please edit documentation in R/format_standardize.R
 \name{format_standardize}
 \alias{format_standardize}
-\title{Transform a standardized vector into character}
+\title{Format a Standardized Vector}
 \usage{
 format_standardize(
   x,

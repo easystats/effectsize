@@ -4,7 +4,7 @@
 \alias{interpret}
 \alias{interpret.numeric}
 \alias{interpret.effectsize_table}
-\title{Generic function for interpretation}
+\title{Generic Function for Interpretation}
 \usage{
 interpret(x, ...)
 

@@ -3,7 +3,7 @@
 \name{rules}
 \alias{rules}
 \alias{is.rules}
-\title{Interpretation Grid}
+\title{Create an Interpretation Grid}
 \usage{
 rules(values, labels = NULL, name = NULL, right = TRUE)
 

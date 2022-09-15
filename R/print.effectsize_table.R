@@ -1,4 +1,4 @@
-#' Methods for `effectsize` tables
+#' Methods for `{effectsize}` Tables
 #'
 #' Printing, formatting and plotting methods for `effectsize` tables.
 #'

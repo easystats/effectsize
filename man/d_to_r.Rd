@@ -17,7 +17,7 @@
 \alias{convert_logoddsratio_to_r}
 \alias{r_to_oddsratio}
 \alias{convert_r_to_oddsratio}
-\title{Convert between \emph{d}, \emph{r} and \emph{Odds ratio}}
+\title{Convert Between \emph{d}, \emph{r}, and Odds Ratio}
 \usage{
 d_to_r(d, ...)
 

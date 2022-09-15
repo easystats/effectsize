@@ -6,7 +6,7 @@
 \alias{effectsize}
 \alias{effectsize.aov}
 \alias{effectsize.htest}
-\title{Effect Size}
+\title{Effect Sizes}
 \usage{
 \method{effectsize}{BFBayesFactor}(model, type = NULL, verbose = TRUE, test = NULL, ...)
 

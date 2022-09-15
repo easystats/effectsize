@@ -1,4 +1,4 @@
-#' Effect size for (rank sum) one-way ANOVAs
+#' Effect Size for Rank Based ANOVA
 #'
 #' Compute rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}), and Kendall's
 #' *W* effect sizes for non-parametric (rank sum) one-way ANOVAs.

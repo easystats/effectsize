@@ -1,4 +1,4 @@
-#' Transform a standardized vector into character
+#' Format a Standardized Vector
 #'
 #' Transform a standardized vector into character, e.g., `c("-1 SD", "Mean", "+1 SD")`.
 #'

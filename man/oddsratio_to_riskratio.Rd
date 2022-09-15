@@ -3,7 +3,7 @@
 \name{oddsratio_to_riskratio}
 \alias{oddsratio_to_riskratio}
 \alias{riskratio_to_oddsratio}
-\title{Convert between Odds ratios and Risk ratios}
+\title{Convert Between Odds Ratios and Risk Ratios}
 \usage{
 oddsratio_to_riskratio(OR, p0, log = FALSE, ...)
 
@@ -24,7 +24,7 @@ Converted index, or if \code{OR} is a logistic regression model, a
 parameter table with the converted indices.
 }
 \description{
-Convert between Odds ratios and Risk ratios
+Convert Between Odds Ratios and Risk Ratios
 }
 \examples{
 p0 <- 0.4

@@ -6,7 +6,7 @@
 \alias{cohens_w}
 \alias{fei}
 \alias{pearsons_c}
-\title{Correlation effect size for contingency tables}
+\title{\eqn{\phi} and Other Contingency Tables Correlations}
 \usage{
 phi(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
 
@@ -69,7 +69,8 @@ the suffix \verb{_adjusted}), \code{Cohens_w}, \code{Fei}) and its CIs (\code{CI
 \description{
 Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w},
 \ifelse{latex}{\eqn{Fei}}{פ (Fei)}, Pearson's contingency coefficient for
-contingency tables or goodness-of-fit. See details.
+contingency tables or goodness-of-fit. Pair with any reported
+\code{\link[stats:chisq.test]{stats::chisq.test()}}.
 }
 \details{
 Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w}, and Pearson's \emph{C} are effect

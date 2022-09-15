@@ -1,4 +1,4 @@
-#' Interpret ANOVA effect size
+#' Interpret ANOVA Effect Sizes
 #'
 #' @param es Value or vector of eta / omega / epsilon squared values.
 #' @param rules Can be `"field2013"` (default), `"cohen1992"` or custom set of [rules()].

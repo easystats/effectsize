@@ -1,5 +1,7 @@
-#' Estimate Common Language Effect Sizes (CLES)
+#' Common Language Effect Sizes (CLES)
 #'
+#' Pair with any reported [`stats::t.test()`] or [`stats::wilcox.test()`].
+#' \cr\cr
 #' `cohens_u3()`, `p_superiority()`, and `p_overlap()` give only one of the
 #' CLESs.
 #'

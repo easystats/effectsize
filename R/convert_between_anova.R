@@ -1,4 +1,4 @@
-#' Convert between ANOVA effect sizes
+#' Convert Between ANOVA Effect Sizes
 #'
 #' @param es Any measure of variance explained such as Eta-, Epsilon-, Omega-,
 #'   or R-Squared, partial or otherwise. See details.

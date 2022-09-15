@@ -4,7 +4,7 @@
 \alias{cohens_d}
 \alias{hedges_g}
 \alias{glass_delta}
-\title{Effect size for differences}
+\title{Cohen's \emph{d} and Other Standardized Differences}
 \usage{
 cohens_d(
   x,
@@ -80,7 +80,7 @@ A data frame with the effect size ( \code{Cohens_d}, \code{Hedges_g},
 \description{
 Compute effect size indices for standardized differences: Cohen's \emph{d},
 Hedges' \emph{g} and Glass’s \emph{delta} (\eqn{\Delta}). (This function returns the
-\strong{population} estimate.)
+\strong{population} estimate.) Pair with any reported \code{\link[stats:t.test]{stats::t.test()}}.
 \cr\cr
 Both Cohen's \emph{d} and Hedges' \emph{g} are the estimated the standardized
 difference between the means of two populations. Hedges' \emph{g} provides a bias

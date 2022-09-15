@@ -1,4 +1,4 @@
-#' Convert Standardized Mean Difference to Common Language Effect Sizes
+#' Convert Standardized Differences to Common Language Effect Sizes
 #'
 #' @param d,rb A numeric value of Cohen's d / rank-biserial correlation *or*
 #'   the output from [cohens_d()] / [rank_biserial()].

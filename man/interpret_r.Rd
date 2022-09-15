@@ -5,7 +5,7 @@
 \alias{interpret_phi}
 \alias{interpret_cramers_v}
 \alias{interpret_rank_biserial}
-\title{Interpret correlation coefficient}
+\title{Interpret Correlation Coefficient}
 \usage{
 interpret_r(r, rules = "funder2019", ...)
 
@@ -24,7 +24,7 @@ interpret_rank_biserial(r, rules = "funder2019", ...)
 \item{...}{Not directly used.}
 }
 \description{
-Interpret correlation coefficient
+Interpret Correlation Coefficient
 }
 \note{
 As \eqn{\phi}{\phi} can be larger than 1 - it is recommended to compute

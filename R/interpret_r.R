@@ -1,4 +1,4 @@
-#' Interpret correlation coefficient
+#' Interpret Correlation Coefficient
 #'
 #' @param r Value or vector of correlation coefficient.
 #' @param rules Can be `"funder2019"` (default), `"gignac2016"`, `"cohen1988"`,

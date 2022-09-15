@@ -1,7 +1,6 @@
 # t -----------------------------------------------------------------------
 
-#' Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d)
-#' or association (**partial** r)
+#' Convert *t*, *z*, and *F* to Cohen's *d* or **partial**-*r*
 #'
 #' These functions are convenience functions to convert t, z and F test
 #' statistics to Cohen's d and **partial** r. These are useful in cases where

@@ -4,7 +4,7 @@
 \alias{oddsratio}
 \alias{riskratio}
 \alias{cohens_h}
-\title{Odds ratios, Risk ratios, Cohen's \emph{h} for 2-by-2 contingency tables}
+\title{Odds Ratios, Risk Ratios and Cohen's \emph{h} for 2-by-2 Contingency Tables}
 \usage{
 oddsratio(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...)
 
@@ -37,6 +37,8 @@ A data frame with the effect size (\code{Odds_ratio}, \code{Risk_ratio}
 \code{CI_high}).
 }
 \description{
+Report with any \code{\link[stats:chisq.test]{stats::chisq.test()}} or \code{\link[stats:fisher.test]{stats::fisher.test()}}.
+\cr\cr
 Note that these are computed with each \strong{column} representing the different
 groups, and the \emph{first} column representing the treatment group and the
 \emph{second} column baseline (or control). Effects are given as \code{treatment / control}. If you wish you use rows as groups you must pass a transposed

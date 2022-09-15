@@ -2,7 +2,7 @@
 % Please edit documentation in R/interpret_oddsratio.R
 \name{interpret_oddsratio}
 \alias{interpret_oddsratio}
-\title{Interpret Odds ratio}
+\title{Interpret Odds Ratio}
 \usage{
 interpret_oddsratio(OR, rules = "chen2010", log = FALSE, ...)
 }
@@ -18,7 +18,7 @@ of \code{\link[=rules]{rules()}}.}
 \item{...}{Currently not used.}
 }
 \description{
-Interpret Odds ratio
+Interpret Odds Ratio
 }
 \section{Rules}{
 

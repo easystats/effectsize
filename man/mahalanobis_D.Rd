@@ -2,7 +2,7 @@
 % Please edit documentation in R/mahalanobis_D.R
 \name{mahalanobis_d}
 \alias{mahalanobis_d}
-\title{Compute Mahalanobis' D (multivariate Cohen's d)}
+\title{Mahalanobis' \emph{D} (a multivariate Cohen's \emph{d})}
 \usage{
 mahalanobis_d(
   x,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/interpret_p.R
 \name{interpret_p}
 \alias{interpret_p}
-\title{Interpret p-values}
+\title{Interpret \emph{p}-Values}
 \usage{
 interpret_p(p, rules = "default")
 }
@@ -13,7 +13,7 @@ interpret_p(p, rules = "default")
 significance} rules) or custom set of \code{\link[=rules]{rules()}}.}
 }
 \description{
-Interpret p-values
+Interpret \emph{p}-Values
 }
 \section{Rules}{
 

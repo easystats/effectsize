@@ -6,7 +6,7 @@
 \alias{cohens_u3}
 \alias{p_superiority}
 \alias{p_overlap}
-\title{Estimate Common Language Effect Sizes (CLES)}
+\title{Common Language Effect Sizes (CLES)}
 \usage{
 cles(
   x,
@@ -74,6 +74,8 @@ A data frame containing the common language effect sizes (and
 optionally their CIs).
 }
 \description{
+Pair with any reported \code{\link[stats:t.test]{stats::t.test()}} or \code{\link[stats:wilcox.test]{stats::wilcox.test()}}.
+\cr\cr
 \code{cohens_u3()}, \code{p_superiority()}, and \code{p_overlap()} give only one of the
 CLESs.
 }

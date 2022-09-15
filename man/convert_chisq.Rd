@@ -7,7 +7,7 @@
 \alias{chisq_to_fei}
 \alias{chisq_to_pearsons_c}
 \alias{phi_to_chisq}
-\title{Convert chi-square to correlation-like effect sizes (phi, V, Fei, C)}
+\title{Convert \eqn{\chi^2} to \eqn{\phi} and Other Correlation-like Effect Sizes}
 \usage{
 chisq_to_phi(
   chisq,
