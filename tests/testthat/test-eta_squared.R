@@ -491,7 +491,7 @@ if (require("testthat") && require("effectsize")) {
   test_that("afex | mixed()", {
     skip_if_not_installed("afex")
     skip_if_not_installed("lmerTest")
-    skip_if(getRversion() <= "3.6")
+    skip_if_not_installed("base", minimum_version = "3.6.1")
 
     data(md_15.1, package = "afex")
     # random intercept plus random slope
@@ -609,7 +609,7 @@ if (require("testthat") && require("effectsize")) {
   test_that("ets_squared | tidymodels", {
     skip_on_cran()
     skip_if_not_installed("parsnip")
-    skip_if(getRversion() <= "3.6")
+    skip_if_not_installed("base", minimum_version = "3.6.1")
 
     set.seed(123)
     mod_lm <- parsnip::linear_reg(engine = "lm", mode = "regression")
@@ -647,7 +647,7 @@ if (require("testthat") && require("effectsize")) {
     expect_output(print(out), "Type II")
 
     skip_if_not_installed("car")
-    skip_if(getRversion() <= "3.6")
+    skip_if_not_installed("base", minimum_version = "3.6.1")
     b_lm <- car::Anova(lm(mpg ~ cyl + am, data = mtcars), type = 2)
     out_lm <- eta_squared(b_lm)
     expect_equal(out[1:2, ], out_lm, ignore_attr = TRUE)
