@@ -6,9 +6,9 @@
 \alias{d_to_cles}
 \alias{rb_to_cles}
 \alias{rb_to_p_superiority}
-\alias{d_to_U2}
-\alias{d_to_U1}
-\alias{d_to_U3}
+\alias{d_to_u2}
+\alias{d_to_u1}
+\alias{d_to_u3}
 \alias{d_to_overlap}
 \title{Convert Standardized Differences to Common Language Effect Sizes}
 \usage{
@@ -16,11 +16,11 @@ d_to_p_superiority(d)
 
 rb_to_p_superiority(rb)
 
-d_to_U2(d)
+d_to_u2(d)
 
-d_to_U1(d)
+d_to_u1(d)
 
-d_to_U3(d)
+d_to_u3(d)
 
 d_to_overlap(d)
 }

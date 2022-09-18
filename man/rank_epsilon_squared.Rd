@@ -150,13 +150,13 @@ interpret(W, rules = "landis1977")
 \code{\link[=rank_biserial]{rank_biserial()}} for more rank based effect sizes
 
 Other effect size indices: 
-\code{\link{cles}()},
 \code{\link{cohens_d}()},
 \code{\link{cohens_g}()},
 \code{\link{effectsize.BFBayesFactor}()},
 \code{\link{eta_squared}()},
 \code{\link{mahalanobis_d}()},
 \code{\link{oddsratio}()},
+\code{\link{p_superiority}()},
 \code{\link{phi}()},
 \code{\link{rank_biserial}()}
 }

@@ -20,7 +20,7 @@ reference:
   - cohens_d
   - mahalanobis_d
   - rank_biserial
-  - cles
+  - p_superiority
 
 - subtitle: "For contingency tables"
   desc: >

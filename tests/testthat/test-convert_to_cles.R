@@ -3,32 +3,32 @@
 test_that("d/rbs_to_cles | numeric", {
   # Null ----------------------
   expect_equal(d_to_overlap(0), 1)
-  expect_equal(d_to_U1(0), 0)
+  expect_equal(d_to_u1(0), 0)
 
   expect_equal(d_to_p_superiority(0), 0.5)
   expect_equal(rb_to_p_superiority(0), 0.5)
-  expect_equal(d_to_U3(0), 0.5)
-  expect_equal(d_to_U2(0), 0.5)
+  expect_equal(d_to_u3(0), 0.5)
+  expect_equal(d_to_u2(0), 0.5)
 
 
   # +ive -----------------------
   expect_true(d_to_overlap(1) < 1)
-  expect_true(d_to_U1(1) > 0)
+  expect_true(d_to_u1(1) > 0)
 
   expect_true(d_to_p_superiority(1) > 0.5)
   expect_true(rb_to_p_superiority(1) > 0.5)
-  expect_true(d_to_U3(1) > 0.5)
-  expect_true(d_to_U2(1) > 0.5)
+  expect_true(d_to_u3(1) > 0.5)
+  expect_true(d_to_u2(1) > 0.5)
 
 
   # -ive -----------------------
   expect_true(d_to_overlap(-1) < 1)
-  expect_true(d_to_U1(-1) > 0)
+  expect_true(d_to_u1(-1) > 0)
 
   expect_true(d_to_p_superiority(-1) < 0.5)
   expect_true(rb_to_p_superiority(-1) < 0.5)
-  expect_true(d_to_U3(-1) < 0.5)
-  expect_true(d_to_U2(-1) > 0.5)
+  expect_true(d_to_u3(-1) < 0.5)
+  expect_true(d_to_u2(-1) > 0.5)
 })
 
 test_that("d_to_cles | from Cohens d", {
@@ -36,10 +36,10 @@ test_that("d_to_cles | from Cohens d", {
   d2 <- cohens_d(1:4, 1:3)
 
   expect_equal(d_to_p_superiority(d1)[[1]], 1 - d_to_p_superiority(d2)[[1]])
-  expect_equal(d_to_U3(d1)[[1]], 1 - d_to_U3(d2)[[1]])
+  expect_equal(d_to_u3(d1)[[1]], 1 - d_to_u3(d2)[[1]])
 
-  expect_equal(d_to_U1(d1), d_to_U1(d2), tolerance = 0.001)
-  expect_equal(d_to_U2(d1), d_to_U2(d2), tolerance = 0.001)
+  expect_equal(d_to_u1(d1), d_to_u1(d2), tolerance = 0.001)
+  expect_equal(d_to_u2(d1), d_to_u2(d2), tolerance = 0.001)
   expect_equal(d_to_overlap(d1), d_to_overlap(d2), tolerance = 0.001)
 })
 
@@ -58,9 +58,9 @@ test_that("d_to_cles | from Cohens d | one sided | negative d", {
   expect_output(print(p2), "upper")
 
   # U3 -----------
-  u30 <- d_to_U3(d0)
-  u31 <- d_to_U3(d1)
-  u32 <- d_to_U3(d2)
+  u30 <- d_to_u3(d0)
+  u31 <- d_to_u3(d1)
+  u32 <- d_to_u3(d2)
   expect_equal(u31$CI_high, u30$CI_high)
   expect_equal(u32$CI_low, u30$CI_low)
   expect_output(print(p1), "lower")
@@ -69,9 +69,9 @@ test_that("d_to_cles | from Cohens d | one sided | negative d", {
 
 
   # U1 -----------
-  u10 <- d_to_U1(d0)
-  u11 <- d_to_U1(d1)
-  u12 <- d_to_U1(d2)
+  u10 <- d_to_u1(d0)
+  u11 <- d_to_u1(d1)
+  u12 <- d_to_u1(d2)
   expect_equal(u31$CI_high, u30$CI_high)
   expect_equal(u32$CI_low, u30$CI_low)
   expect_output(print(p1), "lower")
@@ -79,9 +79,9 @@ test_that("d_to_cles | from Cohens d | one sided | negative d", {
 
 
   # U2 -----------
-  u20 <- d_to_U2(d0)
-  u21 <- d_to_U2(d1)
-  u22 <- d_to_U2(d2)
+  u20 <- d_to_u2(d0)
+  u21 <- d_to_u2(d1)
+  u22 <- d_to_u2(d2)
   expect_equal(u22$CI_high, u20$CI_high)
   expect_equal(u21$CI_low, u20$CI_low)
   expect_output(print(u21), "upper")

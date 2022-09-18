@@ -9,7 +9,7 @@
 #' - `interpret_parameters` for *standardized parameters* was incorrect. Use [`interpret_r`] instead.
 #' - `normalized_chi` is now [`fei`].
 #' - `chisq_to_normalized` is now [`chisq_to_fei`].
-#' - `d_to_cles` and `rb_to_cles` are now one of the available functions for CLES conversion, e.g. [`d_to_U1`].
+#' - `d_to_cles` and `rb_to_cles` are now one of the available functions for CLES conversion, e.g. [`d_to_u1`].
 #'
 #' @rdname effectsize_deprecated
 #' @name effectsize_deprecated
@@ -80,3 +80,11 @@ convert_rb_to_common_language <- rb_to_cles
 
 #' @export
 rb_to_common_language <- rb_to_cles
+
+#' @export
+cles <- function(...) {
+  .Defunct(NULL, msg = 'See help("p_superiority") for the available functions.')
+}
+
+#' @export
+common_language <- cles

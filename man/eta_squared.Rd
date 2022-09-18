@@ -340,12 +340,12 @@ Psychological Methods, 9, 164-182.
 \code{\link[=F_to_eta2]{F_to_eta2()}}
 
 Other effect size indices: 
-\code{\link{cles}()},
 \code{\link{cohens_d}()},
 \code{\link{cohens_g}()},
 \code{\link{effectsize.BFBayesFactor}()},
 \code{\link{mahalanobis_d}()},
 \code{\link{oddsratio}()},
+\code{\link{p_superiority}()},
 \code{\link{phi}()},
 \code{\link{rank_biserial}()},
 \code{\link{rank_epsilon_squared}()}

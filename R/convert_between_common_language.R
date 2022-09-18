@@ -75,13 +75,13 @@ rb_to_p_superiority.numeric <- function(rb) {
 
 #' @export
 #' @rdname diff_to_cles
-d_to_U2 <- function(d) {
-  UseMethod("d_to_U2")
+d_to_u2 <- function(d) {
+  UseMethod("d_to_u2")
 }
 
 #' @export
 #' @importFrom stats pnorm
-d_to_U2.numeric <- function(d) {
+d_to_u2.numeric <- function(d) {
   stats::pnorm(abs(d)/2)
 }
 
@@ -89,13 +89,13 @@ d_to_U2.numeric <- function(d) {
 
 #' @export
 #' @rdname diff_to_cles
-d_to_U1 <- function(d) {
-  UseMethod("d_to_U1")
+d_to_u1 <- function(d) {
+  UseMethod("d_to_u1")
 }
 
 #' @export
-d_to_U1.numeric <- function(d) {
-  P <- d_to_U2(d)
+d_to_u1.numeric <- function(d) {
+  P <- d_to_u2(d)
   (2 * P - 1) / P
 }
 
@@ -103,13 +103,13 @@ d_to_U1.numeric <- function(d) {
 
 #' @export
 #' @rdname diff_to_cles
-d_to_U3 <- function(d) {
-  UseMethod("d_to_U3")
+d_to_u3 <- function(d) {
+  UseMethod("d_to_u3")
 }
 
 #' @export
 #' @importFrom stats pnorm
-d_to_U3.numeric <- function(d) {
+d_to_u3.numeric <- function(d) {
   stats::pnorm(d)
 }
 
@@ -139,8 +139,8 @@ d_to_p_superiority.effectsize_difference <- function(d) {
 }
 
 #' @export
-d_to_U1.effectsize_difference <- function(d) {
-  out <- .cohens_d_to_cles(d, converter = d_to_U1)
+d_to_u1.effectsize_difference <- function(d) {
+  out <- .cohens_d_to_cles(d, converter = d_to_u1)
   colnames(out)[1] <- "Cohens_U1"
 
   if ("CI" %in% colnames(out)) {
@@ -162,8 +162,8 @@ d_to_U1.effectsize_difference <- function(d) {
 }
 
 #' @export
-d_to_U2.effectsize_difference <- function(d) {
-  out <- .cohens_d_to_cles(d, converter = d_to_U2)
+d_to_u2.effectsize_difference <- function(d) {
+  out <- .cohens_d_to_cles(d, converter = d_to_u2)
   colnames(out)[1] <- "Cohens_U2"
 
   if ("CI" %in% colnames(out)) {
@@ -185,8 +185,8 @@ d_to_U2.effectsize_difference <- function(d) {
 }
 
 #' @export
-d_to_U3.effectsize_difference <- function(d) {
-  out <- .cohens_d_to_cles(d, converter = d_to_U3)
+d_to_u3.effectsize_difference <- function(d) {
+  out <- .cohens_d_to_cles(d, converter = d_to_u3)
   colnames(out)[1] <- "Cohens_U3"
   out
 }
@@ -230,6 +230,8 @@ d_to_overlap.effectsize_difference <- function(d) {
   out[cols_to_convert] <- lapply(d[cols_to_convert], converter)
   out <- as.data.frame(out)
   class(out) <- c("effectsize_table", class(out))
+  # TODO
+  # class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
   out
 }
 
@@ -246,14 +248,14 @@ rb_to_p_superiority.effectsize_difference <- function(rb) {
     stop("Common language effect size only applicable to 2-sample rank-biserial correlation.", call. = FALSE)
   }
 
-  out <- lapply(
-    rb[, colnames(rb) %in% c("r_rank_biserial", "CI_low", "CI_high")],
-    rb_to_p_superiority
-  )
-  out <- as.data.frame(out)
-  colnames(out)[1] <- "Pr(superiority)"
+  cols_to_conv <- colnames(rb) %in% c("r_rank_biserial", "CI_low", "CI_high")
+  out <- rb
+  out[cols_to_conv] <- lapply(out[cols_to_conv], rb_to_p_superiority)
+  colnames(out)[1] <- "p_superiority"
 
   class(out) <- c("effectsize_table", class(out))
+  # TODO
+  # class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
   attr(out, "table_footer") <- "Non-parametric CLES"
   out
 }

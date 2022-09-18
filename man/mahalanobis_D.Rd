@@ -147,12 +147,12 @@ mahalanobis_d(mpg + hp + cyl ~ 1, data = mtcars,
 \code{\link[=cohens_d]{cohens_d()}}, \code{\link[=cov_pooled]{cov_pooled()}}, \code{\link[stats:mahalanobis]{stats::mahalanobis()}}
 
 Other effect size indices: 
-\code{\link{cles}()},
 \code{\link{cohens_d}()},
 \code{\link{cohens_g}()},
 \code{\link{effectsize.BFBayesFactor}()},
 \code{\link{eta_squared}()},
 \code{\link{oddsratio}()},
+\code{\link{p_superiority}()},
 \code{\link{phi}()},
 \code{\link{rank_biserial}()},
 \code{\link{rank_epsilon_squared}()}
