@@ -44,14 +44,13 @@ groups, and the \emph{first} column representing the treatment group and the
 \emph{second} column baseline (or control). Effects are given as \code{treatment / control}. If you wish you use rows as groups you must pass a transposed
 table, or switch the \code{x} and \code{y} arguments.
 }
-\section{Confidence Intervals for OR, RR and Cohen's \emph{h}}{
+\section{Confidence (Compatibility) Intervals (CIs)}{
 For Odds ratios, Risk ratios and Cohen's \emph{h}, confidence intervals are
 estimated using the standard normal parametric method (see Katz et al., 1978;
 Szumilas, 2010).
 }
 
 \section{CIs and Significance Tests}{
-
 "Confidence intervals on measures of effect size convey all the information
 in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
 intervals and p values are complementary summaries of parameter uncertainty

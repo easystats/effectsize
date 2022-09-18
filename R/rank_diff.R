@@ -29,7 +29,7 @@
 #' would have been given had no ties occurred. This results in an effect size of
 #' reduced magnitude. A correction has been applied for Kendall's *W*.
 #'
-#' # Confidence Intervals
+#' # Confidence (Compatibility) Intervals (CIs)
 #' Confidence intervals for the rank-biserial correlation (and Cliff's *delta*)
 #' are estimated using the normal approximation (via Fisher's transformation).
 #'

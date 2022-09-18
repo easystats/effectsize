@@ -3,7 +3,7 @@
 #' More information regarding Confidence (Compatibiity) Intervals and how
 #' they are computed in *effectsize*.
 #'
-#' @section Confidence (Compatibility) Intervals (CIs):
+#' # Confidence (Compatibility) Intervals (CIs)
 #' Unless stated otherwise, confidence (compatibility) intervals (CIs) are
 #' estimated using the noncentrality parameter method (also called the "pivot
 #' method"). This method finds the noncentrality parameter ("*ncp*") of a
@@ -18,7 +18,7 @@
 #' \cr\cr
 #' For additional details on estimation and troubleshooting, see [effectsize_CIs].
 #'
-#' @section CIs and Significance Tests:
+#' # CIs and Significance Tests
 #' "Confidence intervals on measures of effect size convey all the information
 #' in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
 #' intervals and p values are complementary summaries of parameter uncertainty
@@ -38,7 +38,7 @@
 #' to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 #' 1996).
 #'
-#' @section One-Sided CIs:
+#' # One-Sided CIs
 #' Typically, CIs are constructed as two-tailed intervals, with an equal
 #' proportion of the cumulative probability distribution above and below the
 #' interval. CIs can also be constructed as *one-sided* intervals,
@@ -98,7 +98,7 @@
 #' eta_squared(fit, ci = 0.9, alternative = "two.sided") # both 1-sided bounds for alpha = .05
 #' ```
 #'
-#' @section CI Does Not Contain the Estimate:
+#' # CI Does Not Contain the Estimate
 #' For very large sample sizes or effect sizes, the width of the CI can be
 #' smaller than the tolerance of the optimizer, resulting in CIs of width 0.
 #' This can also result in the estimated CIs excluding the point estimate.

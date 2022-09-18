@@ -96,7 +96,6 @@ To summarize, for correlation-like effect sizes, we recommend:
 }
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
-
 Unless stated otherwise, confidence (compatibility) intervals (CIs) are
 estimated using the noncentrality parameter method (also called the "pivot
 method"). This method finds the noncentrality parameter ("\emph{ncp}") of a
@@ -113,7 +112,6 @@ For additional details on estimation and troubleshooting, see \link{effectsize_C
 }
 
 \section{CIs and Significance Tests}{
-
 "Confidence intervals on measures of effect size convey all the information
 in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
 intervals and p values are complementary summaries of parameter uncertainty

@@ -89,13 +89,12 @@ measure is also common as a measure of reliability of the rankings of the
 from 0 to 1, with larger values indicating larger differences between groups
 / higher agreement between raters.
 }
-\section{Confidence Intervals}{
+\section{Confidence (Compatibility) Intervals (CIs)}{
 Confidence intervals for rank Epsilon squared, and Kendall's \emph{W} are
 estimated using the bootstrap method (using the \code{{boot}} package).
 }
 
 \section{CIs and Significance Tests}{
-
 "Confidence intervals on measures of effect size convey all the information
 in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
 intervals and p values are complementary summaries of parameter uncertainty

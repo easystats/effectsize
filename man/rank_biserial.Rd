@@ -85,13 +85,12 @@ would have been given had no ties occurred. This results in an effect size of
 reduced magnitude. A correction has been applied for Kendall's \emph{W}.
 }
 
-\section{Confidence Intervals}{
+\section{Confidence (Compatibility) Intervals (CIs)}{
 Confidence intervals for the rank-biserial correlation (and Cliff's \emph{delta})
 are estimated using the normal approximation (via Fisher's transformation).
 }
 
 \section{CIs and Significance Tests}{
-
 "Confidence intervals on measures of effect size convey all the information
 in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
 intervals and p values are complementary summaries of parameter uncertainty

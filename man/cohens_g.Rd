@@ -34,14 +34,13 @@ dependent (paired) contingency tables ranging between 0 (perfect symmetry)
 and 0.5 (perfect asymmetry) (see \code{\link[stats:mcnemar.test]{stats::mcnemar.test()}}). (Note this is not
 \emph{not} a measure of (dis)agreement between the pairs, but of (a)symmetry.)
 }
-\section{Confidence Intervals for Cohen's \emph{g}}{
+\section{Confidence (Compatibility) Intervals (CIs)}{
 Confidence intervals are based on the proportion (\eqn{P = g + 0.5})
 confidence intervals returned by \code{\link[stats:prop.test]{stats::prop.test()}} (minus 0.5), which give
 a good close approximation.
 }
 
 \section{CIs and Significance Tests}{
-
 "Confidence intervals on measures of effect size convey all the information
 in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
 intervals and p values are complementary summaries of parameter uncertainty

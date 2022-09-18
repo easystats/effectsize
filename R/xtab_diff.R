@@ -20,7 +20,7 @@
 #'
 #' @details
 #'
-#' # Confidence Intervals for OR, RR and Cohen's *h*
+#' # Confidence (Compatibility) Intervals (CIs)
 #' For Odds ratios, Risk ratios and Cohen's *h*, confidence intervals are
 #' estimated using the standard normal parametric method (see Katz et al., 1978;
 #' Szumilas, 2010).

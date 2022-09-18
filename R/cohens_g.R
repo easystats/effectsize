@@ -16,7 +16,7 @@
 #'
 #' @details
 #'
-#' # Confidence Intervals for Cohen's *g*
+#' # Confidence (Compatibility) Intervals (CIs)
 #' Confidence intervals are based on the proportion (\eqn{P = g + 0.5})
 #' confidence intervals returned by [stats::prop.test()] (minus 0.5), which give
 #' a good close approximation.

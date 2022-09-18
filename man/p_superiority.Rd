@@ -142,8 +142,7 @@ are not.
 If \code{mu} is not 0, the effect size represents the difference between the
 first \emph{shifted sample} (by \code{mu}) and the second sample.
 }
-\section{Confidence Intervals (CIs)}{
-
+\section{Confidence (Compatibility) Intervals (CIs)}{
 For parametric CLES, the CIs are transformed CIs for Cohen's \emph{d} (see
 \code{\link[=d_to_u3]{d_to_u3()}}). For non-parametric (\code{parametric = FALSE}) CLES, the CI of
 \emph{Pr(superiority)} is a transformed CI of the rank-biserial correlation
@@ -152,7 +151,6 @@ bootstrapped (requires the \code{boot} package).
 }
 
 \section{CIs and Significance Tests}{
-
 "Confidence intervals on measures of effect size convey all the information
 in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
 intervals and p values are complementary summaries of parameter uncertainty

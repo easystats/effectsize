@@ -35,7 +35,7 @@
 #' the difference between the groups, \eqn{U_1} and probability of superiority
 #' are not.
 #'
-#' @section Confidence Intervals (CIs):
+#' # Confidence (Compatibility) Intervals (CIs)
 #' For parametric CLES, the CIs are transformed CIs for Cohen's *d* (see
 #' [`d_to_u3()`]). For non-parametric (`parametric = FALSE`) CLES, the CI of
 #' *Pr(superiority)* is a transformed CI of the rank-biserial correlation

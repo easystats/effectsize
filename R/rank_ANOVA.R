@@ -37,7 +37,7 @@
 #' from 0 to 1, with larger values indicating larger differences between groups
 #' / higher agreement between raters.
 #'
-#' # Confidence Intervals
+#' # Confidence (Compatibility) Intervals (CIs)
 #' Confidence intervals for rank Epsilon squared, and Kendall's *W* are
 #' estimated using the bootstrap method (using the `{boot}` package).
 #'
