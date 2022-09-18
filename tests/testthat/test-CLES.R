@@ -96,9 +96,3 @@ test_that("CLES | errors", {
   expect_error(p_overlap(1:3), "two")
 })
 
-
-test_that("CLES | effectsize", {
-  skip("TODO! doy...")
-  w <- wilcox.test(x, y)
-  tt <- t.test(x, y, var.equal = TRUE)
-})

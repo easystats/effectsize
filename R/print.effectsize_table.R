@@ -139,7 +139,7 @@ print.effectsize_difference <- function(x, digits = 2, append_CLES = NULL, ...) 
 
 
     foos <- lapply(paste0("d_to_", append_CLES), match.fun)
-    cles <- lapply(foos, function(f) f(d))
+    cles <- lapply(foos, function(f) f(x_orig))
     names(cles) <- sapply(cles, function(x) colnames(x)[1])
     cles <- lapply(cles, function(x) {colnames(x)[1] <- "CLES"; x})
 
