@@ -11,17 +11,17 @@
 #' @details
 #'
 #' - For an object of class `htest`, data is extracted via [insight::get_data()], and passed to the relevant function according to:
-#'   - A **t-test** depending on `type`: `"cohens_d"` (default), `"hedges_g"`, or `"cles"`.
+#'   - A **t-test** depending on `type`: `"cohens_d"` (default), `"hedges_g"`, or one of `"p_superiority"`, `"u1"`, `"u2"`, `"u3"`, `"overlap"`.
 #'   - A **Chi-squared tests of independence**, depending on `type`: `"cramers_v"` (default), `"phi"`, `"cohens_w"`, `"pearsons_c"`, `"cohens_h"`, `"oddsratio"`, or `"riskratio"`.
 #'   - A **Chi-squared tests of goodness-of-fit**, depending on `type`: `"fei"` (default) `"cohens_w"`, `"pearsons_c"`
 #'   - A **One-way ANOVA test**, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.
 #'   - A **McNemar test** returns *Cohen's g*.
-#'   - A **Wilcoxon test** depending on `type`: returns "`rank_biserial`" correlation (default) or `"cles"`.
+#'   - A **Wilcoxon test** depending on `type`: returns "`rank_biserial`" correlation (default) or one of `"p_superiority"`, `"u2"`, `"u3"`, `"overlap"`.
 #'   - A **Kruskal-Wallis test** returns *rank Epsilon squared*.
 #'   - A **Friedman test** returns *Kendall's W*.
 #'   (Where applicable, `ci` and `alternative` are taken from the `htest` if not otherwise provided.)
 #' - For an object of class `BFBayesFactor`, using [bayestestR::describe_posterior()],
-#'   - A **t-test** depending on `type`: "cohens_d"` (default) or `"cles"`.
+#'   - A **t-test** depending on `type`: "cohens_d"` (default) or one of `"p_superiority"`, `"u1"`, `"u2"`, `"u3"`, `"overlap"`.
 #'   - A **correlation test** returns *r*.
 #'   - A **contingency table test**, depending on `type`: `"cramers_v"` (default), `"phi"`, `"cohens_w"`, `"pearsons_c"`, `"cohens_h"`, `"oddsratio"`, or `"riskratio"`.
 #'   - A **proportion test** returns *p*.

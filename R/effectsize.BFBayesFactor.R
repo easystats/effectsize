@@ -86,8 +86,9 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
 
 #' @keywords internal
 .effectsize_ttestBF <- function(model, type = NULL, verbose = TRUE) {
-  if (is.null(type)) type <- "d"
-  type <- c("cohens_d" = "d", d = "d", "cles" = "cles")[type]
+  if (is.null(type) || tolower(type) == "cohens_d") {
+    type <- "d"
+  }
 
   samps <- as.data.frame(BayesFactor::posterior(model, iterations = 4000, progress = FALSE))
 
@@ -101,10 +102,17 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   }
 
   res <- data.frame(Cohens_d = D)
+
   if (type == "d") {
     xtra_class <- "effectsize_difference"
-  } else if (type == "cles") {
-    res <- data.frame(d_to_cles(res$Cohens_d), check.names = FALSE)
+  } else if (tolower(type) %in% c("p_superiority", "u1", "u2", "u3", "overlap")) {
+    if (paired) stop("CLES only applicable to two independent samples.")
+
+    converter <- match.fun(paste0("d_to_", tolower(type)))
+    if (grepl("^(u|U)", type)) type <- paste0("Cohens_", toupper(type))
+
+    res <- data.frame(converter(res$Cohens_d), check.names = FALSE)
+    colnames(res) <- type
     xtra_class <- NULL
   }
 

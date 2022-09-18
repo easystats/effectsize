@@ -139,7 +139,7 @@ cohens_u1 <- function(x,
   if (is.null(y)) stop("cohens_u3 only applicable to two sample case.")
 
   if (!parametric) {
-    stop("Cohen's U1 only available for parametric estimation.")
+    stop("Cohen's U1 only available for parametric estimation.", call. = FALSE)
   }
 
   d <- cohens_d(
