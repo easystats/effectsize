@@ -112,7 +112,7 @@ format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown"
 #' @param append_CLES Should the Common Language Effect Sizes be printed as well?
 #'   Only applicable to Cohen's *d*, Hedges' *g* for independent samples of
 #'   equal variance (pooled sd) or for the rank-biserial correlation for
-#'   independent samples (See [d_to_cles()])
+#'   independent samples (See [d_to_cles])
 print.effectsize_difference <- function(x, digits = 2, append_CLES = FALSE, ...) {
   x_orig <- x
 

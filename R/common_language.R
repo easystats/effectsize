@@ -61,7 +61,7 @@
 #' - Ruscio, J. (2008). A probability-based measure of effect size: robustness
 #' to base rates and other factors. Psychological methods, 13(1), 19–30.
 #'
-#' @seealso [d_to_cles()] [sd_pooled()]
+#' @seealso [d_to_cles] [sd_pooled()]
 #' @family effect size indices
 #'
 #' @examples

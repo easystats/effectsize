@@ -364,7 +364,11 @@ rank_biserial(A, B)
 Here too we have a *common language effect size*:
 
 ```{r}
-cles(A, B, rank = TRUE)
+p_superiority(A, B, parametric = FALSE)
+
+cohens_u3(A, B, parametric = FALSE)
+
+# and more...
 ```
 
 For one sample, $r_{rb}$ measures the symmetry around $\mu$ (mu; the null

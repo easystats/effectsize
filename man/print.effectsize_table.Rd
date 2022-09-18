@@ -39,7 +39,7 @@ and footers are formatted.}
 \item{append_CLES}{Should the Common Language Effect Sizes be printed as well?
 Only applicable to Cohen's \emph{d}, Hedges' \emph{g} for independent samples of
 equal variance (pooled sd) or for the rank-biserial correlation for
-independent samples (See \code{\link[=d_to_cles]{d_to_cles()}})}
+independent samples (See \link{d_to_cles})}
 }
 \description{
 Printing, formatting and plotting methods for \code{effectsize} tables.

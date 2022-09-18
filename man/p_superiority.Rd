@@ -195,7 +195,7 @@ to base rates and other factors. Psychological methods, 13(1), 19–30.
 }
 }
 \seealso{
-\code{\link[=d_to_cles]{d_to_cles()}} \code{\link[=sd_pooled]{sd_pooled()}}
+\link{d_to_cles} \code{\link[=sd_pooled]{sd_pooled()}}
 
 Other effect size indices: 
 \code{\link{cohens_d}()},

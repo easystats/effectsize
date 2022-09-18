@@ -193,7 +193,7 @@ interpret_glass_delta(-1.48, rules = "gignac2016")
 interpret(d, rules = "sawilowsky2009")
 
 # Common Language Effect Sizes
-d_to_cles(1.48)
+d_to_u3(1.48)
 # Or:
 print(d, append_CLES = TRUE)
 }
@@ -216,7 +216,7 @@ Correcting error and bias in research findings. Sage.
 }
 }
 \seealso{
-\code{\link[=d_to_cles]{d_to_cles()}} \code{\link[=sd_pooled]{sd_pooled()}}
+\code{\link[=cohens_u3]{cohens_u3()}} \code{\link[=d_to_p_superiority]{d_to_p_superiority()}} \code{\link[=sd_pooled]{sd_pooled()}}
 
 Other effect size indices: 
 \code{\link{cohens_g}()},
