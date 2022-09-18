@@ -57,11 +57,11 @@ reference:
   desc: >
     Approximate effect sizes by converting between other related effect sizes
   contents:
-  - d_to_cles
   - d_to_r
+  - d_to_u3
   - eta2_to_f2
-  - odds_to_probs
   - oddsratio_to_riskratio
+  - odds_to_probs
 
 
 

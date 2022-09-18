@@ -42,7 +42,7 @@
 #' ([`rb_to_p_superiority()`]), while for all others, confidence intervals are
 #' bootstrapped (requires the `boot` package).
 #'
-#' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
+#' @inheritSection effectsize_CIs CIs and Significance Tests
 #'
 #' @return A data frame containing the common language effect sizes (and
 #'   optionally their CIs).

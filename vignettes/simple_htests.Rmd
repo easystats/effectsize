@@ -144,6 +144,7 @@ ggplot2::ggplot() +
   ggplot2::stat_function(ggplot2::aes(fill = "1"), size = 1, geom = "area", 
                          color = "black", outline.type = "full", 
                 fun = dnorm, args = list(mean = mu[2], sd = sigma), xlim = c(xlim[1], mu[1])) +
+  ggplot2::geom_vline(ggplot2::aes(xintercept = mu[1]), linetype = "dashed") + 
   ggplot2::annotate("text", x = mu[1]-2, y = -seg_u2$y, label = "U3") + 
   # U2
   ggplot2::geom_vline(ggplot2::aes(xintercept = mean(mu))) + 
