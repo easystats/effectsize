@@ -347,7 +347,7 @@ p_overlap <- function(x,
 # Utils -------------------------------------------------------------------
 
 #' @keywords internal
-#' @import stats quantile optim
+#' @importFrom stats quantile optim
 .cohens_u2_non_parametric <- function(..., mu, alternative) {
   U2_np <- function(data, i = seq_len(nrow(data))) {
     data <- data[i, ]
