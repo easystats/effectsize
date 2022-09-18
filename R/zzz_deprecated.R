@@ -69,15 +69,19 @@ rb_to_cles <- function(...) {
   rb_to_p_superiority(...)
 }
 
+#' @rdname effectsize_deprecated
 #' @export
 convert_d_to_common_language <- d_to_cles
 
+#' @rdname effectsize_deprecated
 #' @export
 d_to_common_language <- d_to_cles
 
+#' @rdname effectsize_deprecated
 #' @export
 convert_rb_to_common_language <- rb_to_cles
 
+#' @rdname effectsize_deprecated
 #' @export
 rb_to_common_language <- rb_to_cles
 
@@ -86,5 +90,6 @@ cles <- function(...) {
   .Defunct(NULL, msg = 'See help("p_superiority") for the available functions.')
 }
 
+#' @rdname effectsize_deprecated
 #' @export
 common_language <- cles
