@@ -277,22 +277,27 @@ first <em>shifted sample</em> (by <code>mu</code>) and the second sample.</p>
 bootstrapped (requires the <code>boot</code> package).</p>
     </div>
     <div class="section level2">
-    <h2 id="confidence-compatibility-intervals-cis-">Confidence (Compatibility) Intervals (CIs)<a class="anchor" aria-label="anchor" href="#confidence-compatibility-intervals-cis-"></a></h2>
+    <h2 id="cis-and-significance-tests">CIs and Significance Tests<a class="anchor" aria-label="anchor" href="#cis-and-significance-tests"></a></h2>
     
 
-<p>Unless stated otherwise, confidence (compatibility) intervals (CIs) are
-estimated using the noncentrality parameter method (also called the "pivot
-method"). This method finds the noncentrality parameter ("<em>ncp</em>") of a
-noncentral <em>t</em>, <em>F</em>, or \(\chi^2\) distribution that places the observed
-<em>t</em>, <em>F</em>, or \(\chi^2\) test statistic at the desired probability point of
-the distribution. For example, if the observed <em>t</em> statistic is 2.0, with 50
-degrees of freedom, for which cumulative noncentral <em>t</em> distribution is <em>t</em> =
-2.0 the .025 quantile (answer: the noncentral <em>t</em> distribution with <em>ncp</em> =
-.04)? After estimating these confidence bounds on the <em>ncp</em>, they are
-converted into the effect size metric to obtain a confidence interval for the
-effect size (Steiger, 2004).
+<p>"Confidence intervals on measures of effect size convey all the information
+in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
+intervals and p values are complementary summaries of parameter uncertainty
+given the observed data. A dichotomous hypothesis test could be performed
+with either a CI or a p value. The 100 (1 - \(\alpha\))% confidence
+interval contains all of the parameter values for which <em>p</em> &gt; \(\alpha\)
+for the current data and model. For example, a 95% confidence interval
+contains all of the values for which p &gt; .05.
 <br><br>
-For additional details on estimation and troubleshooting, see <a href="effectsize_CIs.html">effectsize_CIs</a>.</p>
+Note that a confidence interval including 0 <em>does not</em> indicate that the null
+(no effect) is true. Rather, it suggests that the observed data together with
+the model and its assumptions combined do not provided clear evidence against
+a parameter value of 0 (same as with any other value in the interval), with
+the level of this evidence defined by the chosen \(\alpha\) level (Rafi &amp;
+Greenland, 2020; Schweder &amp; Hjort, 2016; Xie &amp; Singh, 2013). To infer no
+effect, additional judgments about what parameter values are "close enough"
+to 0 to be negligible are needed ("equivalence testing"; Bauer &amp; Kiesser,
+1996).</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
