@@ -347,6 +347,7 @@ p_overlap <- function(x,
 # Utils -------------------------------------------------------------------
 
 #' @keywords internal
+#' @import stats quantile optim
 .cohens_u2_non_parametric <- function(..., mu, alternative) {
   U2_np <- function(data, i = seq_len(nrow(data))) {
     data <- data[i, ]
@@ -354,8 +355,8 @@ p_overlap <- function(x,
     y <- data[data$g == "y", "r"]
 
     .foo <- function(p) {
-      min(abs(quantile(x, probs = c(p, 1 - p)) -
-                quantile(y, probs = c(1 - p, p))))
+      min(abs(stats::quantile(x, probs = c(p, 1 - p)) -
+                stats::quantile(y, probs = c(1 - p, p))))
     }
 
     stats::optim(par = 0.5, fn = .foo,

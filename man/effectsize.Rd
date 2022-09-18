@@ -87,7 +87,7 @@ effectsize(Aov, type = "omega")
 
 Wt <- wilcox.test(1:10, 7:20, mu = -3, alternative = "less")
 effectsize(Wt)
-effectsize(Wt, type = "cles")
+effectsize(Wt, type = "u2")
 
 ## Bayesian Hypothesis Testing
 ## ---------------------------
