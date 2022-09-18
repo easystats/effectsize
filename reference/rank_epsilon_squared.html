@@ -212,15 +212,13 @@ from 0 to 1, with larger values indicating larger differences between groups
 / higher agreement between raters.</p>
     </div>
     <div class="section level2">
-    <h2 id="confidence-intervals">Confidence Intervals<a class="anchor" aria-label="anchor" href="#confidence-intervals"></a></h2>
+    <h2 id="confidence-compatibility-intervals-cis-">Confidence (Compatibility) Intervals (CIs)<a class="anchor" aria-label="anchor" href="#confidence-compatibility-intervals-cis-"></a></h2>
     <p>Confidence intervals for rank Epsilon squared, and Kendall's <em>W</em> are
 estimated using the bootstrap method (using the <code>{boot}</code> package).</p>
     </div>
     <div class="section level2">
     <h2 id="cis-and-significance-tests">CIs and Significance Tests<a class="anchor" aria-label="anchor" href="#cis-and-significance-tests"></a></h2>
-    
-
-<p>"Confidence intervals on measures of effect size convey all the information
+    <p>"Confidence intervals on measures of effect size convey all the information
 in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
 intervals and p values are complementary summaries of parameter uncertainty
 given the observed data. A dichotomous hypothesis test could be performed
@@ -269,7 +267,7 @@ reduced magnitude. A correction has been applied for Kendall's <em>W</em>.</p>
 <span class="r-in"><span><span class="fu">rank_epsilon_squared</span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Epsilon2 (rank) |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.83            | [0.79, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.83            | [0.78, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
 <span class="r-in"><span></span></span>
