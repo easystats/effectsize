@@ -109,30 +109,47 @@ format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown"
 
 #' @export
 #' @rdname print.effectsize_table
-#' @param append_CLES Should the Common Language Effect Sizes be printed as well?
-#'   Only applicable to Cohen's *d*, Hedges' *g* for independent samples of
-#'   equal variance (pooled sd) or for the rank-biserial correlation for
-#'   independent samples (See [d_to_cles])
-print.effectsize_difference <- function(x, digits = 2, append_CLES = FALSE, ...) {
+#' @param append_CLES Which Common Language Effect Sizes should be printed as
+#'   well? Only applicable to Cohen's *d*, Hedges' *g* for independent samples
+#'   of equal variance (pooled sd) or for the rank-biserial correlation for
+#'   independent samples (See [d_to_cles]).
+print.effectsize_difference <- function(x, digits = 2, append_CLES = NULL, ...) {
   x_orig <- x
 
   print.effectsize_table(x, digits = digits, ...)
 
-  if (append_CLES) {
-    if ("r_rank_biserial" %in% colnames(x_orig)) {
-      to_cl_coverter <- rb_to_cles
-    } else {
-      to_cl_coverter <- d_to_cles
+  if (is.logical(append_CLES) || is.character(append_CLES)) {
+    if (isTRUE(append_CLES)) {
+      append_CLES <- c("p_superiority", "u1", "u2", "u3", "overlap")
     }
 
-    tryCatch(
-      {
-        insight::print_color("\n\n## Common Language Effect Sizes:\n", .pcl["subtitle"])
-        CL <- to_cl_coverter(x_orig)
-        print(CL, digits = digits)
-      },
-      error = function(...) invisible(NULL)
-    )
+    if (colnames(x_orig)[1] == "r_rank_biserial") {
+      append_CLES <- setdiff(append_CLES, "u1")
+    } else if (colnames(x_orig)[1] %in% c("Cohens_d", "Hedges_g")) {
+      if (!isTRUE(attr(x_orig, "pooled_sd"))) {
+        stop("CLES only applicable to pooled-sd Cohen's d / Hedge's g.")
+      }
+    } else {
+      stop("CLES not applicable for this effect size.")
+    }
+
+    if (isTRUE(attr(x_orig, "paired"))) {
+      stop("CLES only applicable to independent samples.")
+    }
+
+
+    foos <- lapply(paste0("d_to_", append_CLES), match.fun)
+    cles <- lapply(foos, function(f) f(d))
+    names(cles) <- sapply(cles, function(x) colnames(x)[1])
+    cles <- lapply(cles, function(x) {colnames(x)[1] <- "CLES"; x})
+
+    cles_tab <- do.call(rbind, cles)
+    cles_tab$Name <- get_effectsize_label(names(cles))
+
+    cles_tab <- cles_tab[c(ncol(cles_tab), seq_len(ncol(cles_tab)-1))]
+
+    insight::print_color("\n\n## Common Language Effect Sizes:\n", .pcl["subtitle"])
+    print(cles_tab)
   }
 
   invisible(x_orig)

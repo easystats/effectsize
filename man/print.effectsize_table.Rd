@@ -19,7 +19,7 @@
 
 \method{format}{effectsize_table}(x, digits = 2, output = c("text", "markdown", "html"), ...)
 
-\method{print}{effectsize_difference}(x, digits = 2, append_CLES = FALSE, ...)
+\method{print}{effectsize_difference}(x, digits = 2, append_CLES = NULL, ...)
 }
 \arguments{
 \item{x}{Object to print.}
@@ -36,10 +36,10 @@ significant figures (see also \code{\link[=signif]{signif()}}).}
 \item{output}{Which output is the formatting intended for? Affects how title
 and footers are formatted.}
 
-\item{append_CLES}{Should the Common Language Effect Sizes be printed as well?
-Only applicable to Cohen's \emph{d}, Hedges' \emph{g} for independent samples of
-equal variance (pooled sd) or for the rank-biserial correlation for
-independent samples (See \link{d_to_cles})}
+\item{append_CLES}{Which Common Language Effect Sizes should be printed as
+well? Only applicable to Cohen's \emph{d}, Hedges' \emph{g} for independent samples
+of equal variance (pooled sd) or for the rank-biserial correlation for
+independent samples (See \link{d_to_cles}).}
 }
 \description{
 Printing, formatting and plotting methods for \code{effectsize} tables.
