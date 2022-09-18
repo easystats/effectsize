@@ -142,6 +142,15 @@ are not.
 If \code{mu} is not 0, the effect size represents the difference between the
 first \emph{shifted sample} (by \code{mu}) and the second sample.
 }
+\section{Confidence Intervals (CIs)}{
+
+For parametric CLES, the CIs are transformed CIs for Cohen's \emph{d} (see
+\code{\link[=d_to_u3]{d_to_u3()}}). For non-parametric (\code{parametric = FALSE}) CLES, the CI of
+\emph{Pr(superiority)} is a transformed CI of the rank-biserial correlation
+(\code{\link[=rb_to_p_superiority]{rb_to_p_superiority()}}), while for all others, confidence intervals are
+bootstrapped (requires the \code{boot} package).
+}
+
 \section{Confidence (Compatibility) Intervals (CIs)}{
 
 Unless stated otherwise, confidence (compatibility) intervals (CIs) are
