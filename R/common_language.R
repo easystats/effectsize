@@ -89,6 +89,18 @@ p_superiority <- function(x,
                           parametric = TRUE,
                           verbose = TRUE,
                           ...) {
+  if (inherits(x, "htest")) {
+    if (!grepl("(t-test|Wilcoxon)", x$method)) {
+      stop("'x' is not a t-test or a Wilcoxon-test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "p_superiority", verbose = verbose, ...))
+  } else if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], c("BFindepSample"))) {
+      stop("'x' is not a t-test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "p_superiority", ci = ci, verbose = verbose, ...))
+  }
+
   data <- .get_data_2_samples(x, y, data, verbose, ...)
   x <- na.omit(data[["x"]])
   y <- na.omit(data[["y"]])
@@ -133,6 +145,19 @@ cohens_u1 <- function(x,
                       verbose = TRUE,
                       iterations = 200,
                       ...) {
+  if (inherits(x, "htest")) {
+    if (!grepl("(t-test|Wilcoxon)", x$method)) {
+      stop("'x' is not a t-test or a Wilcoxon-test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "u1", verbose = verbose, ...))
+  } else if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], c("BFindepSample"))) {
+      stop("'x' is not a t-test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "u1", ci = ci, verbose = verbose, ...))
+  }
+
+
   data <- .get_data_2_samples(x, y, data, verbose, ...)
   x <- na.omit(data[["x"]])
   y <- na.omit(data[["y"]])
@@ -170,6 +195,19 @@ cohens_u2 <- function(x,
                       verbose = TRUE,
                       iterations = 200,
                       ...) {
+  if (inherits(x, "htest")) {
+    if (!grepl("(t-test|Wilcoxon)", x$method)) {
+      stop("'x' is not a t-test or a Wilcoxon-test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "u2", verbose = verbose, ...))
+  } else if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], c("BFindepSample"))) {
+      stop("'x' is not a t-test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "u2", ci = ci, verbose = verbose, ...))
+  }
+
+
   data <- .get_data_2_samples(x, y, data, verbose, ...)
   x <- na.omit(data[["x"]])
   y <- na.omit(data[["y"]])
@@ -210,6 +248,19 @@ cohens_u3 <- function(x,
                       verbose = TRUE,
                       iterations = 200,
                       ...) {
+  if (inherits(x, "htest")) {
+    if (!grepl("(t-test|Wilcoxon)", x$method)) {
+      stop("'x' is not a t-test or a Wilcoxon-test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "u3", verbose = verbose, ...))
+  } else if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], c("BFindepSample"))) {
+      stop("'x' is not a t-test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "u3", ci = ci, verbose = verbose, ...))
+  }
+
+
   data <- .get_data_2_samples(x, y, data, verbose, ...)
   x <- na.omit(data[["x"]])
   y <- na.omit(data[["y"]])
@@ -249,6 +300,19 @@ p_overlap <- function(x,
                       verbose = TRUE,
                       iterations = 200,
                       ...) {
+  if (inherits(x, "htest")) {
+    if (!grepl("(t-test|Wilcoxon)", x$method)) {
+      stop("'x' is not a t-test or a Wilcoxon-test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "overlap", verbose = verbose, ...))
+  } else if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], c("BFindepSample"))) {
+      stop("'x' is not a t-test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "overlap", ci = ci, verbose = verbose, ...))
+  }
+
+
   data <- .get_data_2_samples(x, y, data, verbose, ...)
   x <- na.omit(data[["x"]])
   y <- na.omit(data[["y"]])
