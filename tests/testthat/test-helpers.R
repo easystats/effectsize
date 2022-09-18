@@ -47,8 +47,8 @@ if (require("testthat") && require("effectsize")) {
     expect_error(sd_pooled(mpg ~ cyl, data = mtcars), "exactly")
     expect_error(sd_pooled(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)), regexp = NA)
 
-    expect_error(cles(mpg ~ cyl, data = mtcars), "exactly")
-    expect_error(cles(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)), regexp = NA)
+    expect_error(cohens_u1(mpg ~ cyl, data = mtcars), "exactly")
+    expect_error(cohens_u1(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)), regexp = NA)
 
     d <- expand.grid(id = 1:30, g = 1:4)
     d$y <- rnorm(nrow(d)) + d$g

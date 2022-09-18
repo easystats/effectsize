@@ -4,14 +4,16 @@
 
 - `{effectsize}` now requires *`R >= 3.6`*
 - `normalized_chi()` has been renamed `fei()`.
+- `cles`, `d_to_cles` and `rb_to_cles` are deprecated in favor of their respective effect size functions.
 
 ## New features
 
+- `cohens_u1()`, `cohens_u2()`, `d_to_u1()`, and `d_to_u2()` added for Cohen's U1 and U2
 - `mahalanobis_d()` for multivariate standardized differences.
 
 ## Bug fixes
 
-- `cles()` now respects `mu` argument for all effect sizes.
+- Common-language effect sizes now respects `mu` argument for all effect sizes.
 - `mad_pooled()` not returns correct value (previously was inflated by a factor of 1.4826).
 - Effect sizes for goodness-of-fit now work when passing a `p` that is a table.
 

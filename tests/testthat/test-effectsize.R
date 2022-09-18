@@ -7,6 +7,12 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(effectsize(model), d <- cohens_d(x, y, pooled_sd = FALSE), ignore_attr = TRUE)
     expect_equal(cohens_d(model), d, ignore_attr = TRUE)
     expect_equal(effectsize(model, type = "g"), hedges_g(x, y, pooled_sd = FALSE), ignore_attr = TRUE)
+    expect_error(effectsize(model, type = "u1"), "applicable")
+
+    model <- t.test(x, y, var.equal = TRUE)
+    expect_equal(effectsize(model, type = "u1"), cohens_u1(x, y), ignore_attr = TRUE)
+    expect_equal(effectsize(model, type = "u2"), cohens_u2(x, y), ignore_attr = TRUE)
+    expect_equal(effectsize(model, type = "u3"), cohens_u3(x, y), ignore_attr = TRUE)
 
     model <- t.test(x, y, alternative = "less", conf.level = 0.8)
     expect_equal(effectsize(model), cohens_d(x, y, pooled_sd = FALSE, alternative = "less", ci = 0.8), ignore_attr = TRUE)
@@ -134,9 +140,16 @@ if (require("testthat") && require("effectsize")) {
   })
 
   test_that("htest | rank", {
-    suppressWarnings(ww <- wilcox.test(mtcars$hp, mtcars$mpg))
-    expect_equal(effectsize(ww), rbs <- rank_biserial(mtcars$hp, mtcars$mpg), ignore_attr = TRUE)
+    suppressWarnings(ww <- wilcox.test(mtcars$hp, mtcars$mpg + 80))
+    expect_equal(effectsize(ww), rbs <- rank_biserial(mtcars$hp, mtcars$mpg + 80), ignore_attr = TRUE)
     expect_equal(rank_biserial(ww), rbs, ignore_attr = TRUE)
+    expect_equal(effectsize(ww, type = "u2", ci = NULL)[[1]],
+                 cohens_u2(mtcars$hp, mtcars$mpg + 80, parametric = FALSE, ci = NULL)[[1]],
+                 tolerance = 0.001)
+    expect_equal(effectsize(ww, type = "overlap")[[1]],
+                 p_overlap(mtcars$hp, mtcars$mpg + 80, parametric = FALSE, ci = NULL)[[1]],
+                 tolerance = 0.001)
+
 
     RoundingTimes <-
       matrix(
@@ -218,6 +231,11 @@ if (require("testthat") && require("effectsize")) {
 
     bf2 <- BayesFactor::ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
     expect_equal(effectsize(bf2)[[1]], 1.30, tolerance = 0.03)
+    expect_equal(effectsize(bf2, type = "u1")[[1]], 0.65, tolerance = 0.05)
+    expect_equal(effectsize(bf2, type = "u2")[[1]], 0.74, tolerance = 0.05)
+    expect_equal(effectsize(bf2, type = "u3")[[1]], 0.9, tolerance = 0.05)
+    expect_equal(effectsize(bf2, type = "overlap")[[1]], 0.52, tolerance = 0.05)
+    expect_equal(effectsize(bf2, type = "p_superiority")[[1]], 0.8, tolerance = 0.05)
 
     bf3 <- BayesFactor::correlationBF(iris$Sepal.Length, iris$Sepal.Width)
     expect_equal(effectsize(bf3)[[1]], -0.116, tolerance = 0.03)

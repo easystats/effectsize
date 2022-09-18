@@ -35,13 +35,14 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   dots <- list(...)
 
-  if (is.null(type)) type <- "d"
+  if (is.null(type) || tolower(type) == "cohens_d") type <- "d"
+  if (tolower(type) == "hedges_g") type <- "g"
 
   dots$alternative <- model$alternative
   dots$ci <- attr(model$conf.int, "conf.level")
   dots$mu <- model$null.value
 
-  if (type == "cles") {
+  if (!type %in% c("d", "g")) {
     .fail_if_approx(approx, "cles")
   }
 
@@ -62,14 +63,6 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       data[[2]] <- factor(data[[2]])
     }
 
-    f <- switch(tolower(type),
-      d = ,
-      cohens_d = cohens_d,
-      g = ,
-      hedges_g = hedges_g,
-      cles = cles
-    )
-
     args <- list(
       x = data[[1]],
       y = if (ncol(data) == 2) data[[2]],
@@ -78,13 +71,25 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       verbose = verbose
     )
 
-    if (type == "cles") {
-      if (args$paired || !args$pooled_sd) {
+    if (type %in% c("d", "g")) {
+      f <- switch(tolower(type),
+                  d = cohens_d,
+                  g = hedges_g)
+    } else {
+      if (!args$pooled_sd || args$paired) {
         stop("Common language effect size only applicable to 2-sample Cohen's d with pooled SD.", call. = FALSE)
       }
       args$pooled_sd <- args$paired <- NULL
+
+      type <- c("p_superiority" = "p_superiority",
+                "u1" = "cohens_u1",
+                "u2" = "cohens_u2",
+                "u3" = "cohens_u3",
+                "overlap" = "p_overlap")[type]
+      f <- match.fun(type)
     }
   }
+
   out <- do.call(f, c(args, dots))
   attr(out, "approximate") <- approx
   out
@@ -235,21 +240,21 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   dots <- list(...)
 
-  if (is.null(type)) type <- "rb"
+  if (is.null(type) || tolower(type) == "rank_biserial") type <- "rb"
 
   dots$alternative <- model$alternative
   dots$ci <- attr(model$conf.int, "conf.level")
   dots$mu <- model$null.value
 
-  .fail_if_approx(approx, ifelse(type == "cles", "cles", "rank_biserial"))
+  .fail_if_approx(approx, ifelse(type == "rb", "rank_biserial", "cles"))
 
   f <- switch(tolower(type),
-    r = ,
-    rb = ,
-    rbs = ,
-    r_rank_biserial = ,
-    rank_biserial = rank_biserial,
-    cles = cles
+    rb = rank_biserial,
+    u1 = cohens_u1,
+    u2 = cohens_u2,
+    u3 = cohens_u3,
+    overlap = p_overlap,
+    p_superiority = p_superiority
   )
 
   args <- list(
@@ -259,7 +264,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     verbose = verbose
   )
 
-  if (type == "cles") {
+  if (tolower(type) != "rb") {
     if (args$paired) {
       stop("Common language effect size only applicable to 2-sample rank-biserial correlation.", call. = FALSE)
     }

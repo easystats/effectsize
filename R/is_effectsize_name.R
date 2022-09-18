@@ -92,8 +92,10 @@ es_info <- matrix(
     "Std_MAP", "MAP (std.)", "twotail", -Inf, Inf, 0,
 
     ## CLES
-    "p_superiority", "Pr(superiority)", "onetail", 0, 1, 0.5,
-    "Cohens_U3", "Cohen's U3", "onetail", 0, 1, 0.5,
+    "p_superiority", "Pr(superiority)", "twotail", 0, 1, 0.5,
+    "Cohens_U1", "Cohen's U1", "onetail", 0, 1, 0,
+    "Cohens_U2", "Cohen's U2", "onetail", 0.5, 1, 0.5,
+    "Cohens_U3", "Cohen's U3", "twotail", 0, 1, 0.5,
     "overlap", "Overlap", "onetail", 0, 1, 1,
 
     ## Other
