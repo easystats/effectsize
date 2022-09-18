@@ -110,16 +110,19 @@
 </li>
 <li>
 <code><a href="../reference/effectsize_deprecated.html">normalized_chi()</a></code> has been renamed <code><a href="../reference/phi.html">fei()</a></code>.</li>
+<li>
+<code>cles</code>, <code>d_to_cles</code> and <code>rb_to_cles</code> are deprecated in favor of their respective effect size functions.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-0-7-0-9999">New features<a class="anchor" aria-label="anchor" href="#new-features-0-7-0-9999"></a></h3>
 <ul><li>
+<code><a href="../reference/p_superiority.html">cohens_u1()</a></code>, <code><a href="../reference/p_superiority.html">cohens_u2()</a></code>, <code><a href="../reference/diff_to_cles.html">d_to_u1()</a></code>, and <code><a href="../reference/diff_to_cles.html">d_to_u2()</a></code> added for Cohen’s U1 and U2</li>
+<li>
 <code><a href="../reference/mahalanobis_D.html">mahalanobis_d()</a></code> for multivariate standardized differences.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-7-0-9999">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-7-0-9999"></a></h3>
-<ul><li>
-<code><a href="../reference/cles.html">cles()</a></code> now respects <code>mu</code> argument for all effect sizes.</li>
+<ul><li>Common-language effect sizes now respects <code>mu</code> argument for all effect sizes.</li>
 <li>
 <code><a href="../reference/sd_pooled.html">mad_pooled()</a></code> not returns correct value (previously was inflated by a factor of 1.4826).</li>
 <li>Effect sizes for goodness-of-fit now work when passing a <code>p</code> that is a table.</li>
@@ -197,9 +200,9 @@
 <ul><li>
 <code><a href="../reference/eta_squared.html">eta_squared()</a></code> family now supports <code><a href="https://rdrr.io/pkg/afex/man/mixed.html" class="external-link">afex::mixed()</a></code> models.</li>
 <li>
-<code><a href="../reference/cles.html">cles()</a></code> for estimating common language effect sizes.</li>
+<code><a href="../reference/p_superiority.html">cles()</a></code> for estimating common language effect sizes.</li>
 <li>
-<code><a href="../reference/d_to_cles.html">rb_to_cles()</a></code> for converting rank-biserial correlation to Probability of superiority.</li>
+<code><a href="../reference/diff_to_cles.html">rb_to_cles()</a></code> for converting rank-biserial correlation to Probability of superiority.</li>
 </ul></div>
 </div>
 <div class="section level3">
@@ -443,7 +446,7 @@
 <div class="section level3">
 <h3 id="new-features-0-3-3">New features<a class="anchor" aria-label="anchor" href="#new-features-0-3-3"></a></h3>
 <ul><li><p><code>standardize_parameters(method = "pseudo")</code> returns pseudo-standardized coefficients for (G)LMM models.</p></li>
-<li><p><code><a href="../reference/d_to_cles.html">d_to_common_language()</a></code> for common language measures of standardized differences (a-la Cohen’s d).</p></li>
+<li><p><code><a href="../reference/effectsize_deprecated.html">d_to_common_language()</a></code> for common language measures of standardized differences (a-la Cohen’s d).</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="changes-0-3-3">Changes<a class="anchor" aria-label="anchor" href="#changes-0-3-3"></a></h3>

@@ -302,14 +302,14 @@ Correcting error and bias in research findings. Sage.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="d_to_cles.html">d_to_cles()</a></code> <code><a href="sd_pooled.html">sd_pooled()</a></code></p>
+    <div class="dont-index"><p><code><a href="p_superiority.html">cohens_u3()</a></code> <code><a href="diff_to_cles.html">d_to_p_superiority()</a></code> <code><a href="sd_pooled.html">sd_pooled()</a></code></p>
 <p>Other effect size indices: 
-<code><a href="cles.html">cles</a>()</code>,
 <code><a href="cohens_g.html">cohens_g</a>()</code>,
 <code><a href="effectsize.html">effectsize.BFBayesFactor</a>()</code>,
 <code><a href="eta_squared.html">eta_squared</a>()</code>,
 <code><a href="mahalanobis_D.html">mahalanobis_d</a>()</code>,
 <code><a href="oddsratio.html">oddsratio</a>()</code>,
+<code><a href="p_superiority.html">p_superiority</a>()</code>,
 <code><a href="phi.html">phi</a>()</code>,
 <code><a href="rank_biserial.html">rank_biserial</a>()</code>,
 <code><a href="rank_epsilon_squared.html">rank_epsilon_squared</a>()</code></p></div>
@@ -437,16 +437,8 @@ Correcting error and bias in research findings. Sage.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Interpretation rule: sawilowsky2009</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Common Language Effect Sizes</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="d_to_cles.html">d_to_cles</a></span><span class="op">(</span><span class="fl">1.48</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`Pr(superiority)`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.852339</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`Cohen's U3`</span>
+<span class="r-in"><span><span class="fu"><a href="diff_to_cles.html">d_to_u3</a></span><span class="op">(</span><span class="fl">1.48</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9305634</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $Overlap</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4593</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># Or:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">d</span>, append_CLES <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's d |         95% CI</span>
@@ -456,11 +448,13 @@ Correcting error and bias in research findings. Sage.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Estimated using pooled SD.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ## Common Language Effect Sizes:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter       | Coefficient |       95% CI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(superiority) |        0.15 | [0.05, 0.32]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's U3      |        0.07 | [0.01, 0.25]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Overlap         |        0.46 | [0.26, 0.74]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Name            | CLES |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(superiority) | 0.15 | [0.05, 0.32]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's U1      | 0.70 | [0.42, 0.85]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's U2      | 0.77 | [0.63, 0.87]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's U3      | 0.07 | [0.01, 0.25]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Overlap         | 0.46 | [0.26, 0.74]</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

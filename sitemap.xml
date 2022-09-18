@@ -58,9 +58,6 @@
     <loc>https://easystats.github.io/effectsize/reference/F_to_eta2.html</loc>
   </url>
   <url>
-    <loc>https://easystats.github.io/effectsize/reference/cles.html</loc>
-  </url>
-  <url>
     <loc>https://easystats.github.io/effectsize/reference/cohens_d.html</loc>
   </url>
   <url>
@@ -70,10 +67,10 @@
     <loc>https://easystats.github.io/effectsize/reference/convert_chisq.html</loc>
   </url>
   <url>
-    <loc>https://easystats.github.io/effectsize/reference/d_to_cles.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/d_to_r.html</loc>
   </url>
   <url>
-    <loc>https://easystats.github.io/effectsize/reference/d_to_r.html</loc>
+    <loc>https://easystats.github.io/effectsize/reference/diff_to_cles.html</loc>
   </url>
   <url>
     <loc>https://easystats.github.io/effectsize/reference/effectsize.html</loc>
@@ -173,6 +170,9 @@
   </url>
   <url>
     <loc>https://easystats.github.io/effectsize/reference/oddsratio_to_riskratio.html</loc>
+  </url>
+  <url>
+    <loc>https://easystats.github.io/effectsize/reference/p_superiority.html</loc>
   </url>
   <url>
     <loc>https://easystats.github.io/effectsize/reference/phi.html</loc>

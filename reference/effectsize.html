@@ -161,17 +161,17 @@ CIs (<code>CI_low</code> and <code>CI_high</code>).</p>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     
-<ul><li><p>For an object of class <code>htest</code>, data is extracted via <code><a href="https://easystats.github.io/insight/reference/get_data.html" class="external-link">insight::get_data()</a></code>, and passed to the relevant function according to:</p><ul><li><p>A <strong>t-test</strong> depending on <code>type</code>: <code>"cohens_d"</code> (default), <code>"hedges_g"</code>, or <code>"cles"</code>.</p></li>
+<ul><li><p>For an object of class <code>htest</code>, data is extracted via <code><a href="https://easystats.github.io/insight/reference/get_data.html" class="external-link">insight::get_data()</a></code>, and passed to the relevant function according to:</p><ul><li><p>A <strong>t-test</strong> depending on <code>type</code>: <code>"cohens_d"</code> (default), <code>"hedges_g"</code>, or one of <code>"p_superiority"</code>, <code>"u1"</code>, <code>"u2"</code>, <code>"u3"</code>, <code>"overlap"</code>.</p></li>
 <li><p>A <strong>Chi-squared tests of independence</strong>, depending on <code>type</code>: <code>"cramers_v"</code> (default), <code>"phi"</code>, <code>"cohens_w"</code>, <code>"pearsons_c"</code>, <code>"cohens_h"</code>, <code>"oddsratio"</code>, or <code>"riskratio"</code>.</p></li>
 <li><p>A <strong>Chi-squared tests of goodness-of-fit</strong>, depending on <code>type</code>: <code>"fei"</code> (default) <code>"cohens_w"</code>, <code>"pearsons_c"</code></p></li>
 <li><p>A <strong>One-way ANOVA test</strong>, depending on <code>type</code>: <code>"eta"</code> (default), <code>"omega"</code> or <code>"epsilon"</code> -squared, <code>"f"</code>, or <code>"f2"</code>.</p></li>
 <li><p>A <strong>McNemar test</strong> returns <em>Cohen's g</em>.</p></li>
-<li><p>A <strong>Wilcoxon test</strong> depending on <code>type</code>: returns "<code>rank_biserial</code>" correlation (default) or <code>"cles"</code>.</p></li>
+<li><p>A <strong>Wilcoxon test</strong> depending on <code>type</code>: returns "<code>rank_biserial</code>" correlation (default) or one of <code>"p_superiority"</code>, <code>"u2"</code>, <code>"u3"</code>, <code>"overlap"</code>.</p></li>
 <li><p>A <strong>Kruskal-Wallis test</strong> returns <em>rank Epsilon squared</em>.</p></li>
 <li><p>A <strong>Friedman test</strong> returns <em>Kendall's W</em>.
 (Where applicable, <code>ci</code> and <code>alternative</code> are taken from the <code>htest</code> if not otherwise provided.)</p></li>
 </ul></li>
-<li><p>For an object of class <code>BFBayesFactor</code>, using <code><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html" class="external-link">bayestestR::describe_posterior()</a></code>,</p><ul><li><p>A <strong>t-test</strong> depending on <code>type</code>: "cohens_d"<code>(default) or</code>"cles"`.</p></li>
+<li><p>For an object of class <code>BFBayesFactor</code>, using <code><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html" class="external-link">bayestestR::describe_posterior()</a></code>,</p><ul><li><p>A <strong>t-test</strong> depending on <code>type</code>: "cohens_d"<code>(default) or one of</code>"p_superiority"<code>, </code>"u1"<code>, </code>"u2"<code>, </code>"u3"<code>, </code>"overlap"`.</p></li>
 <li><p>A <strong>correlation test</strong> returns <em>r</em>.</p></li>
 <li><p>A <strong>contingency table test</strong>, depending on <code>type</code>: <code>"cramers_v"</code> (default), <code>"phi"</code>, <code>"cohens_w"</code>, <code>"pearsons_c"</code>, <code>"cohens_h"</code>, <code>"oddsratio"</code>, or <code>"riskratio"</code>.</p></li>
 <li><p>A <strong>proportion test</strong> returns <em>p</em>.</p></li>
@@ -184,12 +184,12 @@ functions, for the full range of options they provide.</strong></p>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other effect size indices: 
-<code><a href="cles.html">cles</a>()</code>,
 <code><a href="cohens_d.html">cohens_d</a>()</code>,
 <code><a href="cohens_g.html">cohens_g</a>()</code>,
 <code><a href="eta_squared.html">eta_squared</a>()</code>,
 <code><a href="mahalanobis_D.html">mahalanobis_d</a>()</code>,
 <code><a href="oddsratio.html">oddsratio</a>()</code>,
+<code><a href="p_superiority.html">p_superiority</a>()</code>,
 <code><a href="phi.html">phi</a>()</code>,
 <code><a href="rank_biserial.html">rank_biserial</a>()</code>,
 <code><a href="rank_epsilon_squared.html">rank_epsilon_squared</a>()</code></p></div>
@@ -247,12 +247,10 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Deviation from a difference of -3.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: lower bound fixed at [-1.00].</span>
-<span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">Wt</span>, type <span class="op">=</span> <span class="st">"cles"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter       | Coefficient |       95% CI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pr(superiority) |        0.18 | [0.00, 0.32]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's U3      |        0.14 | [0.00, 0.46]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Overlap         |        0.83 | [0.00, 1.00]</span>
+<span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">Wt</span>, type <span class="op">=</span> <span class="st">"u2"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's U2 |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.73       | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Non-parametric CLES</span>
 <span class="r-in"><span></span></span>
@@ -286,7 +284,7 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ************</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's d |        95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.32     | [-0.99, 0.32]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.33     | [-1.00, 0.32]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Deviation from a difference of -1.</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
