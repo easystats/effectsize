@@ -36,5 +36,6 @@ Deprecated / Defunct Functions
 \item \code{interpret_parameters} for \emph{standardized parameters} was incorrect. Use \code{\link{interpret_r}} instead.
 \item \code{normalized_chi} is now \code{\link{fei}}.
 \item \code{chisq_to_normalized} is now \code{\link{chisq_to_fei}}.
+\item \code{d_to_cles} and \code{rb_to_cles} are now one of the available functions for CLES conversion, e.g. \code{\link{d_to_U1}}.
 }
 }

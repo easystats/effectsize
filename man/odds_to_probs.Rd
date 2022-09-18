@@ -49,8 +49,8 @@ probs_to_odds(0.95, log = TRUE)
 \code{\link[stats:Logistic]{stats::plogis()}}
 
 Other convert between effect sizes: 
-\code{\link{d_to_cles}()},
 \code{\link{d_to_r}()},
+\code{\link{diff_to_cles}},
 \code{\link{eta2_to_f2}()},
 \code{\link{oddsratio_to_riskratio}()}
 }
