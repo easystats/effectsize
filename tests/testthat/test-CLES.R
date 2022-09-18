@@ -14,6 +14,15 @@ test_that("CLES", {
   expect_equal(cohens_u1(x, y)[[1]], 1/3, tolerance = 0.00001)
 })
 
+test_that("CLES | direaction", {
+  expect_equal(d_to_u1(1), d_to_u1(-1))
+  expect_equal(d_to_u2(1), d_to_u2(-1))
+  expect_equal(d_to_overlap(1), d_to_overlap(-1))
+
+  expect_equal(d_to_p_superiority(1), 1 - d_to_p_superiority(-1))
+  expect_equal(d_to_u3(1), 1 - d_to_u3(-1))
+})
+
 
 test_that("CLES vs converters", {
   set.seed(3)
