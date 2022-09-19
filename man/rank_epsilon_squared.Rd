@@ -83,9 +83,9 @@ A data frame with the effect size and its CI.
 }
 \description{
 Compute rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}) or rank eta
-squared (\eqn{\Eta^2}) (to accompany \code{\link[stats:kruskal.test]{stats::kruskal.test()}}), and Kendall's
-\emph{W} (to accompany \code{\link[stats:friedman.test]{stats::friedman.test()}}) effect sizes for non-parametric
-(rank sum) one-way ANOVAs.
+squared (\eqn{\Eta^2}{E^2}) (to accompany \code{\link[stats:kruskal.test]{stats::kruskal.test()}}), and
+Kendall's \emph{W} (to accompany \code{\link[stats:friedman.test]{stats::friedman.test()}}) effect sizes for
+non-parametric (rank sum) one-way ANOVAs.
 }
 \details{
 The rank epsilon squared and rank eta squared are appropriate for
