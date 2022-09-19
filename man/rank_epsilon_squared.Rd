@@ -2,10 +2,21 @@
 % Please edit documentation in R/rank_ANOVA.R
 \name{rank_epsilon_squared}
 \alias{rank_epsilon_squared}
+\alias{rank_eta_squared}
 \alias{kendalls_w}
 \title{Effect Size for Rank Based ANOVA}
 \usage{
 rank_epsilon_squared(
+  x,
+  groups,
+  data = NULL,
+  ci = 0.95,
+  alternative = "greater",
+  iterations = 200,
+  ...
+)
+
+rank_eta_squared(
   x,
   groups,
   data = NULL,
@@ -32,13 +43,13 @@ kendalls_w(
 \item{x}{Can be one of:
 \itemize{
 \item A numeric vector, or a character name of one in \code{data}.
-\item A list of vectors (for \code{rank_epsilon_squared()}).
+\item A list of vectors (for \code{rank_eta/epsilon_squared()}).
 \item A matrix of \verb{blocks x groups} (for \code{kendalls_w()}) (or \verb{groups x blocks}
 if \code{blocks_on_rows = FALSE}). See details for the \code{blocks} and \code{groups}
 terminology used here.
 \item A formula in the form of:
 \itemize{
-\item \code{DV ~ groups} for \code{rank_epsilon_squared()}.
+\item \code{DV ~ groups} for \code{rank_eta/epsilon_squared()}.
 \item \code{DV ~ groups | blocks} for \code{kendalls_w()} (See details for the
 \code{blocks} and \code{groups} terminology used here).
 }
@@ -53,35 +64,34 @@ Ignored if \code{x} is not a vector.}
 \item{ci}{Confidence Interval (CI) level}
 
 \item{alternative}{a character string specifying the alternative hypothesis;
-Controls the type of CI returned: \code{"greater"} (one-sided CI; default),
-\code{"two.sided"} (two-sided CI) or \code{"less"} (one-sided CI). Partial matching
-is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in
-\link{effectsize_CIs}.}
+Controls the type of CI returned: \code{"two.sided"} (default, two-sided CI),
+\code{"greater"} or \code{"less"} (one-sided CI). Partial matching is allowed (e.g.,
+\code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in \link{effectsize_CIs}.}
 
 \item{iterations}{The number of bootstrap replicates for computing confidence
 intervals. Only applies when \code{ci} is not \code{NULL}.}
 
-\item{...}{For goodness-of-fit effect sizes, can pass \code{rescale.p} (see
-\code{\link[stats:chisq.test]{stats::chisq.test()}}). Else, ignored.}
+\item{...}{Arguments passed to or from other methods. When \code{x} is a formula,
+these can be \code{subset} and \code{na.action}.}
 
 \item{blocks_on_rows}{Are blocks on rows (\code{TRUE}) or columns (\code{FALSE}).}
 
 \item{verbose}{Toggle warnings and messages on or off.}
 }
 \value{
-A data frame with the effect size \code{(}rank_epsilon_squared\code{or}Kendalls_W\verb{) and its CI (}CI_low\code{and}CI_high`).
+A data frame with the effect size and its CI.
 }
 \description{
-Compute rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}) (to accompany
-\code{\link[stats:kruskal.test]{stats::kruskal.test()}}), and Kendall's \emph{W} (to accompany
-\code{\link[stats:friedman.test]{stats::friedman.test()}}) effect sizes for non-parametric (rank sum) one-way
-ANOVAs.
+Compute rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}) or rank eta
+squared (\eqn{\Eta^2}) (to accompany \code{\link[stats:kruskal.test]{stats::kruskal.test()}}), and Kendall's
+\emph{W} (to accompany \code{\link[stats:friedman.test]{stats::friedman.test()}}) effect sizes for non-parametric
+(rank sum) one-way ANOVAs.
 }
 \details{
-The rank epsilon squared is appropriate for non-parametric tests of
-differences between 2 or more samples (a rank based ANOVA). See
-\link[stats:kruskal.test]{stats::kruskal.test}. Values range from 0 to 1, with larger values
-indicating larger differences between groups.
+The rank epsilon squared and rank eta squared are appropriate for
+non-parametric tests of differences between 2 or more samples (a rank based
+ANOVA). See \link[stats:kruskal.test]{stats::kruskal.test}. Values range from 0 to 1, with larger
+values indicating larger differences between groups.
 \cr\cr
 Kendall's \emph{W} is appropriate for non-parametric tests of differences between
 2 or more dependent samples (a rank based rmANOVA), where each \code{group} (e.g.,
@@ -139,8 +149,10 @@ reduced magnitude. A correction has been applied for Kendall's \emph{W}.
 
 \examples{
 \donttest{
-# Rank Epsilon Squared
-# ====================
+# Rank Eta/Epsilon Squared
+# ========================
+
+rank_eta_squared(mpg ~ cyl, data = mtcars)
 
 rank_epsilon_squared(mpg ~ cyl, data = mtcars)
 
