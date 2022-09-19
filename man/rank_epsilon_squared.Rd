@@ -72,8 +72,10 @@ intervals. Only applies when \code{ci} is not \code{NULL}.}
 A data frame with the effect size \code{(}rank_epsilon_squared\code{or}Kendalls_W\verb{) and its CI (}CI_low\code{and}CI_high`).
 }
 \description{
-Compute rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}), and Kendall's
-\emph{W} effect sizes for non-parametric (rank sum) one-way ANOVAs.
+Compute rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}) (to accompany
+\code{\link[stats:kruskal.test]{stats::kruskal.test()}}), and Kendall's \emph{W} (to accompany
+\code{\link[stats:friedman.test]{stats::friedman.test()}}) effect sizes for non-parametric (rank sum) one-way
+ANOVAs.
 }
 \details{
 The rank epsilon squared is appropriate for non-parametric tests of
@@ -113,6 +115,20 @@ Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To infer no
 effect, additional judgments about what parameter values are "close enough"
 to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 1996).
+}
+
+\section{Bootstrapped CIs}{
+Some effect sizes are directionless--they do have a minimum value that would
+be interpreted as "no effect", but they cannot cross it. For example, a null
+value of \link[=kendalls_w]{Kendall's W} is 0, indicating no difference between
+groups, but it can never have a negative value. Same goes for
+\link[=cohens_u2]{U2} and \link[=p_overlap]{Overlap}: the null value of \eqn{U_2} is
+0.5, but it can never be smaller than 0.5; am \emph{Overlap} of 1 means "full
+overlap" (no difference), but it cannot be larger than 1.
+\cr\cr
+When bootstrapping CIs for such effect sizes, the bounds of the CIs will
+never cross (and often will never cover) the null. Therefore, these CIs
+should not be used for statistical inference.
 }
 
 \section{Ties}{

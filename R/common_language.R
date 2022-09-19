@@ -40,9 +40,10 @@
 #' [`d_to_u3()`]). For non-parametric (`parametric = FALSE`) CLES, the CI of
 #' *Pr(superiority)* is a transformed CI of the rank-biserial correlation
 #' ([`rb_to_p_superiority()`]), while for all others, confidence intervals are
-#' bootstrapped (requires the `boot` package).
+#' estimated using the bootstrap method (using the `{boot}` package).
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection effectsize_CIs Bootstrapped CIs
 #'
 #' @return A data frame containing the common language effect sizes (and
 #'   optionally their CIs).

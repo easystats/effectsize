@@ -147,7 +147,7 @@ For parametric CLES, the CIs are transformed CIs for Cohen's \emph{d} (see
 \code{\link[=d_to_u3]{d_to_u3()}}). For non-parametric (\code{parametric = FALSE}) CLES, the CI of
 \emph{Pr(superiority)} is a transformed CI of the rank-biserial correlation
 (\code{\link[=rb_to_p_superiority]{rb_to_p_superiority()}}), while for all others, confidence intervals are
-bootstrapped (requires the \code{boot} package).
+estimated using the bootstrap method (using the \code{{boot}} package).
 }
 
 \section{CIs and Significance Tests}{
@@ -169,6 +169,20 @@ Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To infer no
 effect, additional judgments about what parameter values are "close enough"
 to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 1996).
+}
+
+\section{Bootstrapped CIs}{
+Some effect sizes are directionless--they do have a minimum value that would
+be interpreted as "no effect", but they cannot cross it. For example, a null
+value of \link[=kendalls_w]{Kendall's W} is 0, indicating no difference between
+groups, but it can never have a negative value. Same goes for
+\link[=cohens_u2]{U2} and \link[=p_overlap]{Overlap}: the null value of \eqn{U_2} is
+0.5, but it can never be smaller than 0.5; am \emph{Overlap} of 1 means "full
+overlap" (no difference), but it cannot be larger than 1.
+\cr\cr
+When bootstrapping CIs for such effect sizes, the bounds of the CIs will
+never cross (and often will never cover) the null. Therefore, these CIs
+should not be used for statistical inference.
 }
 
 \examples{

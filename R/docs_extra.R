@@ -38,6 +38,19 @@
 #' to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 #' 1996).
 #'
+#' # Bootstrapped CIs
+#' Some effect sizes are directionless--they do have a minimum value that would
+#' be interpreted as "no effect", but they cannot cross it. For example, a null
+#' value of [Kendall's W][kendalls_w()] is 0, indicating no difference between
+#' groups, but it can never have a negative value. Same goes for
+#' [U2][cohens_u2()] and [Overlap][p_overlap()]: the null value of \eqn{U_2} is
+#' 0.5, but it can never be smaller than 0.5; am *Overlap* of 1 means "full
+#' overlap" (no difference), but it cannot be larger than 1.
+#' \cr\cr
+#' When bootstrapping CIs for such effect sizes, the bounds of the CIs will
+#' never cross (and often will never cover) the null. Therefore, these CIs
+#' should not be used for statistical inference.
+#'
 #' # One-Sided CIs
 #' Typically, CIs are constructed as two-tailed intervals, with an equal
 #' proportion of the cumulative probability distribution above and below the

@@ -1,7 +1,9 @@
 #' Effect Size for Rank Based ANOVA
 #'
-#' Compute rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}), and Kendall's
-#' *W* effect sizes for non-parametric (rank sum) one-way ANOVAs.
+#' Compute rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}) (to accompany
+#' [stats::kruskal.test()]), and Kendall's *W* (to accompany
+#' [stats::friedman.test()]) effect sizes for non-parametric (rank sum) one-way
+#' ANOVAs.
 #'
 #' @inheritParams phi
 #' @inheritParams rank_biserial
@@ -42,6 +44,7 @@
 #' estimated using the bootstrap method (using the `{boot}` package).
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection effectsize_CIs Bootstrapped CIs
 #' @inheritSection rank_biserial Ties
 #'
 #'
