@@ -82,10 +82,10 @@ these can be \code{subset} and \code{na.action}.}
 A data frame with the effect size and its CI.
 }
 \description{
-Compute rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}) or rank eta
-squared (\eqn{\Eta^2}{H^2}) (to accompany \code{\link[stats:kruskal.test]{stats::kruskal.test()}}), and
-Kendall's \emph{W} (to accompany \code{\link[stats:friedman.test]{stats::friedman.test()}}) effect sizes for
-non-parametric (rank sum) one-way ANOVAs.
+Compute rank epsilon squared (\eqn{E^2_R}) or rank eta squared
+(\eqn{\eta^2_H}) (to accompany \code{\link[stats:kruskal.test]{stats::kruskal.test()}}), and Kendall's \emph{W}
+(to accompany \code{\link[stats:friedman.test]{stats::friedman.test()}}) effect sizes for non-parametric (rank
+sum) one-way ANOVAs.
 }
 \details{
 The rank epsilon squared and rank eta squared are appropriate for
@@ -102,7 +102,7 @@ from 0 to 1, with larger values indicating larger differences between groups
 / higher agreement between raters.
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
-Confidence intervals for rank Epsilon squared, and Kendall's \emph{W} are
+Confidence intervals for \eqn{E^2_R}, \eqn{\eta^2_H}, and Kendall's \emph{W} are
 estimated using the bootstrap method (using the \code{{boot}} package).
 }
 
@@ -175,6 +175,9 @@ interpret(W, rules = "landis1977")
 \references{
 \itemize{
 \item Kendall, M.G. (1948) Rank correlation methods. London: Griffin.
+\item Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates
+revisited. An overview of some recommended measures of effect size. Trends in
+sport sciences, 1(21), 19-25.
 }
 }
 \seealso{

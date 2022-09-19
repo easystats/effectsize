@@ -262,6 +262,13 @@ cliffs_delta <- function(x,
 #' @export
 #' @rdname rank_biserial
 vd_a <- function(...) {
+  if (inherits(x, "htest")) {
+    if (!grepl("Wilcoxon", x$method)) {
+      stop("'x' is not a Wilcoxon-test!", call. = FALSE)
+    }
+    return(effectsize(x, verbose = verbose, type = "vda"))
+  }
+
   cl <- match.call()
   cl[[1]] <- quote(cliffs_delta)
   out <- eval.parent(cl)

@@ -51,7 +51,7 @@ input model. See details.
 \item A \strong{One-way ANOVA test}, depending on \code{type}: \code{"eta"} (default), \code{"omega"} or \code{"epsilon"} -squared, \code{"f"}, or \code{"f2"}.
 \item A \strong{McNemar test} returns \emph{Cohen's g}.
 \item A \strong{Wilcoxon test} depending on \code{type}: returns "\code{rank_biserial}" correlation (default) or one of \code{"p_superiority"}, \code{"u2"}, \code{"u3"}, \code{"overlap"}.
-\item A \strong{Kruskal-Wallis test} returns \emph{rank Epsilon squared}.
+\item A \strong{Kruskal-Wallis test} depending on \code{type}: \code{"epsilon"} (default) or \code{"eta"}.
 \item A \strong{Friedman test} returns \emph{Kendall's W}.
 (Where applicable, \code{ci} and \code{alternative} are taken from the \code{htest} if not otherwise provided.)
 }

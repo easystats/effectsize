@@ -17,7 +17,7 @@
 #'   - A **One-way ANOVA test**, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.
 #'   - A **McNemar test** returns *Cohen's g*.
 #'   - A **Wilcoxon test** depending on `type`: returns "`rank_biserial`" correlation (default) or one of `"p_superiority"`, `"u2"`, `"u3"`, `"overlap"`.
-#'   - A **Kruskal-Wallis test** returns *rank Epsilon squared*.
+#'   - A **Kruskal-Wallis test** depending on `type`: `"epsilon"` (default) or `"eta"`.
 #'   - A **Friedman test** returns *Kendall's W*.
 #'   (Where applicable, `ci` and `alternative` are taken from the `htest` if not otherwise provided.)
 #' - For an object of class `BFBayesFactor`, using [bayestestR::describe_posterior()],

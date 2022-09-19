@@ -1,9 +1,9 @@
 #' Effect Size for Rank Based ANOVA
 #'
-#' Compute rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}) or rank eta
-#' squared (\eqn{\Eta^2}{H^2}) (to accompany [stats::kruskal.test()]), and
-#' Kendall's *W* (to accompany [stats::friedman.test()]) effect sizes for
-#' non-parametric (rank sum) one-way ANOVAs.
+#' Compute rank epsilon squared (\eqn{E^2_R}) or rank eta squared
+#' (\eqn{\eta^2_H}) (to accompany [stats::kruskal.test()]), and Kendall's *W*
+#' (to accompany [stats::friedman.test()]) effect sizes for non-parametric (rank
+#' sum) one-way ANOVAs.
 #'
 #' @inheritParams rank_biserial
 #' @param x Can be one of:
@@ -39,7 +39,7 @@
 #' / higher agreement between raters.
 #'
 #' # Confidence (Compatibility) Intervals (CIs)
-#' Confidence intervals for rank Epsilon squared, and Kendall's *W* are
+#' Confidence intervals for \eqn{E^2_R}, \eqn{\eta^2_H}, and Kendall's *W* are
 #' estimated using the bootstrap method (using the `{boot}` package).
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
@@ -79,6 +79,10 @@
 #' @references
 #' - Kendall, M.G. (1948) Rank correlation methods. London: Griffin.
 #'
+#' - Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates
+#' revisited. An overview of some recommended measures of effect size. Trends in
+#' sport sciences, 1(21), 19-25.
+#'
 #' @export
 #' @importFrom stats na.omit
 #' @importFrom insight check_if_installed
@@ -95,7 +99,7 @@ rank_epsilon_squared <- function(x,
     if (!grepl("Kruskal-Wallis", x$method)) {
       stop("'x' is not a Kruskal-Wallis-test!", call. = FALSE)
     }
-    return(effectsize(x, ci = ci, iterations = iterations, alternative = alternative))
+    return(effectsize(x, type = "epsilon", ci = ci, iterations = iterations, alternative = alternative))
   }
 
   ## pep data
@@ -141,6 +145,13 @@ rank_eta_squared <- function(x,
                              iterations = 200,
                              ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+
+  if (inherits(x, "htest")) {
+    if (!grepl("Kruskal-Wallis", x$method)) {
+      stop("'x' is not a Kruskal-Wallis-test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "eta", ci = ci, iterations = iterations, alternative = alternative))
+  }
 
   ## pep data
   data <- .get_data_multi_group(x, groups, data, ...)
