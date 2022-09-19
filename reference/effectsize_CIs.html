@@ -148,6 +148,20 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer &amp; Kiesser,
 1996).</p>
     </div>
     <div class="section level2">
+    <h2 id="bootstrapped-cis">Bootstrapped CIs<a class="anchor" aria-label="anchor" href="#bootstrapped-cis"></a></h2>
+    <p>Some effect sizes are directionless--they do have a minimum value that would
+be interpreted as "no effect", but they cannot cross it. For example, a null
+value of <a href="rank_epsilon_squared.html">Kendall's W</a> is 0, indicating no difference between
+groups, but it can never have a negative value. Same goes for
+<a href="p_superiority.html">U2</a> and <a href="p_superiority.html">Overlap</a>: the null value of \(U_2\) is
+0.5, but it can never be smaller than 0.5; am <em>Overlap</em> of 1 means "full
+overlap" (no difference), but it cannot be larger than 1.
+<br><br>
+When bootstrapping CIs for such effect sizes, the bounds of the CIs will
+never cross (and often will never cover) the null. Therefore, these CIs
+should not be used for statistical inference.</p>
+    </div>
+    <div class="section level2">
     <h2 id="one-sided-cis">One-Sided CIs<a class="anchor" aria-label="anchor" href="#one-sided-cis"></a></h2>
     <p>Typically, CIs are constructed as two-tailed intervals, with an equal
 proportion of the cumulative probability distribution above and below the
