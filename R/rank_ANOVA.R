@@ -1,7 +1,7 @@
 #' Effect Size for Rank Based ANOVA
 #'
 #' Compute rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}) or rank eta
-#' squared (\eqn{\Eta^2}{E^2}) (to accompany [stats::kruskal.test()]), and
+#' squared (\eqn{\Eta^2}{H^2}) (to accompany [stats::kruskal.test()]), and
 #' Kendall's *W* (to accompany [stats::friedman.test()]) effect sizes for
 #' non-parametric (rank sum) one-way ANOVAs.
 #'
