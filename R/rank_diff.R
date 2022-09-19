@@ -1,8 +1,10 @@
-#' Standardized Rank Based Differences
+#' Dominance Effect Sizes for Rank Based Differences
 #'
-#' Compute the rank-biserial correlation (\eqn{r_{rb}}{r_rb}) and Cliff's *delta*
-#' (\eqn{\delta}) effect sizes for non-parametric (rank sum) differences. Pair
-#' with any reported [`stats::wilcox.test()`].
+#' Compute the rank-biserial correlation (\eqn{r_{rb}}{r_rb}), Cliff's *delta*
+#' (\eqn{\delta}) and Vargha and Delaney's *A* effect sizes for non-parametric
+#' (rank sum) differences. These effect sizes of dominance are closely related
+#' to the [Common Language Effect Sizes][cohens_u3]. Pair with any reported
+#' [`stats::wilcox.test()`].
 #'
 #' @inheritParams cohens_d
 #' @param mu a number indicating the value around which (a-)symmetry (for
@@ -19,10 +21,17 @@
 #' **Glass'** rank-biserial correlation). See [stats::wilcox.test]. In both
 #' cases, the correlation represents the difference between the proportion of
 #' favorable and unfavorable pairs / signed ranks (Kerby, 2014). Values range
-#' from `-1` (*all* values of the second sample are larger than *all* the values
-#' of the first sample) to `+1` (*all* values of the second sample are smaller
-#' than *all* the values of the first sample). Cliff's *delta* is an alias to
-#' the rank-biserial correlation in the two sample case.
+#' from `-1` complete dominance of the second sample (*all* values of the second
+#' sample are larger than *all* the values of the first sample) to `+1` complete
+#' dominance of the fist sample (*all* values of the second sample are smaller
+#' than *all* the values of the first sample).
+#' \cr\cr
+#' Cliff's *delta* is an alias to the rank-biserial correlation in the two sample case.
+#' \cr\cr
+#' Vargha and Delaney's *A* is related to Cliff's *delta*, such that
+#' \eqn{A = (\delta + 1) / 2}. It ranges from 0 (second group dominates the
+#' first) to 1 (first group dominates the second), with 0.5 indicating no
+#' difference between the groups.
 #'
 #' # Ties
 #' When tied values occur, they are each given the average of the ranks that
@@ -58,6 +67,9 @@
 #' print(rb, append_CLES = TRUE)
 #'
 #'
+#' vd_a(mpg ~ am, data = mtcars)
+#'
+#'
 #' # One Sample ----------
 #' rank_biserial(wt ~ 1, data = mtcars, mu = 3)
 #' # same as:
@@ -87,8 +99,6 @@
 #' Implications for short-cut item analysis. Journal of Educational Measurement,
 #' 2(1), 91-95.
 #'
-#' - Kendall, M.G. (1948) Rank correlation methods. London: Griffin.
-#'
 #' - Kerby, D. S. (2014). The simple difference formula: An approach to teaching
 #' nonparametric correlation. Comprehensive Psychology, 3, 11-IT.
 #'
@@ -100,6 +110,10 @@
 #'
 #' - Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates
 #' revisited. An overview of some recommended measures of effect size.
+#'
+#' - Vargha, A., & Delaney, H. D. (2000). A critique and improvement of the CL
+#' common language effect size statistics of McGraw and Wong. Journal of
+#' Educational and Behavioral Statistics, 25(2), 101-132.
 #'
 #' @export
 #' @importFrom stats na.omit complete.cases
@@ -231,18 +245,33 @@ cliffs_delta <- function(x,
                          alternative = "two.sided",
                          verbose = TRUE,
                          ...) {
-  rank_biserial(
-    x, y,
-    data = data,
-    mu = mu,
-    paired = FALSE,
-    ci = ci,
-    alternative = alternative,
-    verbose = verbose,
-    ...
-  )
+  cl <- match.call()
+  data <- .get_data_2_samples(x, y, data, verbose, ...)
+  x <- data$x
+  y <- data$y
+  if (is.null(y) || isTRUE(eval.parent(cl$paired))) {
+    stop("This effect size is only applicable for two independent samples.", call. = FALSE)
+  }
+
+  cl[[1]] <- quote(rank_biserial)
+  cl$x <- x
+  cl$y <- y
+  eval.parent(cl)
 }
 
+#' @export
+#' @rdname rank_biserial
+vd_a <- function(...) {
+  cl <- match.call()
+  cl[[1]] <- quote(cliffs_delta)
+  out <- eval.parent(cl)
+
+  to_conv <- colnames(out) %in% c("r_rank_biserial", "CI_low", "CI_high")
+  out[to_conv] <- lapply(out[to_conv], function(x) (x + 1)/ 2)
+  colnames(out)[1] <- "VDs_A"
+  out
+}
+formals(vd_a) <- formals(cliffs_delta) # this is dirty!
 
 
 # Utils -------------------------------------------------------------------

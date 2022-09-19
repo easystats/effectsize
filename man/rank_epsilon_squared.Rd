@@ -159,7 +159,11 @@ interpret_kendalls_w(0.11)
 interpret(W, rules = "landis1977")
 }
 
-
+}
+\references{
+\itemize{
+\item Kendall, M.G. (1948) Rank correlation methods. London: Griffin.
+}
 }
 \seealso{
 \code{\link[=rank_biserial]{rank_biserial()}} for more rank based effect sizes

@@ -76,6 +76,8 @@
 #' interpret(W, rules = "landis1977")
 #' }
 #'
+#' @references
+#' - Kendall, M.G. (1948) Rank correlation methods. London: Griffin.
 #'
 #' @export
 #' @importFrom stats na.omit
