@@ -410,6 +410,139 @@ kendalls_w <- function(x,
   return(out)
 }
 
+#' @rdname rank_biserial
+#' @export
+
+wmw_odds <- function(x,
+                  y = NULL,
+                  mu = 0,
+                  ci = 0.95,
+                  alternative = "two.sided",
+                  paired = FALSE,
+                  ci_method = "normal",
+                  ...,
+                  iterations) {
+
+
+  alternative <- match.arg(alternative)
+  if(!missing(mu) && ((length(mu) > 1L) || !is.finite(mu)))
+    stop("'mu' must be a single number")
+
+    if(!((length(ci) == 1L)
+         && is.finite(ci)
+         && (ci > 0)
+         && (ci < 1)))
+      stop("'ci' must be a single number between 0 and 1")
+  ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+  alpha <- 1 - ci.level
+
+  if(!is.numeric(x)) stop("'x' must be numeric")
+  if(!is.null(y)) {
+    if(!is.numeric(y)) stop("'y' must be numeric")
+
+    if(paired) {
+      if(length(x) != length(y))
+        stop("'x' and 'y' must have the same length")
+      OK <- complete.cases(x, y)
+      x <- x[OK] - y[OK]
+      y <- NULL
+    }
+    else {
+      x <- x[is.finite(x)]
+      y <- y[is.finite(y)]
+    }
+  } else {
+
+    if(paired)
+      stop("'y' is missing for paired test")
+    x <- x[is.finite(x)]
+  }
+
+  if(length(x) < 1L)
+    stop("not enough (finite) 'x' observations")
+  CORRECTION <- 0
+  if(is.null(y)) { ##------------------ 1-sample/paired case -------------------
+    x <- x - mu
+
+    n_x = as.double(length(x))
+    n_a <- sum(x > 0) + 0.5*sum(x == 0)
+
+    cstat = n_a / n_x
+    if(cstat == 0 || cstat == 1){
+      stop("Odds ratio cannot be estimated. No overlap with zero so concordance is 100%!")
+    }
+    odds = probs_to_odds(cstat)
+
+    if(ci_method == "normal"){
+      # Wilson interval for binomial prob
+      # Then converted to odds
+      zstar <- qnorm(1-alpha/2)
+      zstar2 = zstar^2
+      p1 <- cstat + 0.5 * zstar2/n_x
+      p2 <- zstar * sqrt((cstat * (1 - cstat) + 0.25 * zstar2/n_x)/n_x)
+      p3 <- 1 + zstar2/n_x
+      lcl <- (p1 - p2)/p3
+      ucl <- (p1 + p2)/p3
+      interval <- probs_to_odds(c(lcl,ucl))
+    }
+
+
+  } else { ##------------------------ 2-sample case -------------------------
+    if(length(y) < 1L)
+      stop("not enough 'y' observations")
+    r <- rank(c(x - mu, y))
+    n_x <- as.double(length(x))
+    n_y <- as.double(length(y))
+
+    # Get Mann-Whitney U
+    Ustat <-  sum(r[seq_along(x)]) - n_x * (n_x + 1) / 2
+    # Calc c-index
+    cstat = Ustat / (n_x * n_y)
+    if(cstat == 0 || cstat == 1){
+      stop("Odds ratio cannot be estimated. No overlap between groups so concordance is 100%!")
+    }
+    odds = probs_to_odds(cstat)
+
+    if(ci_method == "normal"){
+      response = c(y,x)
+      group = c(rep("x",length(x)),rep("y",length(y)))
+      crosstab = as.matrix(table(response, group))
+      N = sum(crosstab)
+      p = crosstab/N
+      Rt = p[, 2:1]
+      Rs = .rs_mat(p)
+      Rd = .rd_mat(p)
+      Rs = Rs + (1 - 0.5) * Rt
+      Rd = Rd + 0.5 * Rt
+      Pc = sum(p * Rs)
+      Pd = sum(p * Rd)
+      odds2 = (Pc/Pd)
+      # Not to self: checks calcs from above match matrix calcs
+      if(round(odds2,7) != round(odds,7)){
+        stop("Matrix broken; likely bug in code.")
+      }
+      SEodds = 2/Pd * (sum(p * (odds * Rd - Rs)^2)/N)^0.5
+      SElnodds = SEodds/odds
+      interval = exp(qnorm(c(alpha/2, 1 - alpha/2), mean = log(odds),
+                           sd = SElnodds))
+
+    }
+  }
+  out = data.frame(odds = odds)
+  out$CI = ci
+  out$CI_low = if (alternative == "less") 0 else interval[1]
+  out$CI_high = if (alternative == "greater") Inf else interval[2]
+
+  class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
+  attr(out, "paired") <- paired
+  attr(out, "mu") <- mu
+  attr(out, "ci") <- ci
+  attr(out, "ci_method") <- ci_method
+  attr(out, "approximate") <- FALSE
+  attr(out, "alternative") <- alternative
+  return(out)
+}
+
 # rank_eta_squared <- function(x, g, data = NULL, ci = 0.95, iterations = 200) {
 #
 #   data <- .get_data_multi_group(x, g, data)
@@ -636,4 +769,59 @@ kendalls_w <- function(x,
     return(rep(mean(seq_along(x)), length(x)))
   }
   datawizard::ranktransform(x, method = "average", ..., verbose = FALSE)
+}
+
+.rd_mat = function(p) {
+
+  nc = nrow(p) # Number of categories
+  ng = ncol(p) # Number of groups
+  minc = nc - 1
+
+  Rd = matrix(0, nrow = nc, ncol = ng)
+
+  for (c in 1:nc) {
+    pc = c+1
+    if(pc <= nc){
+      for (i in pc:nc) {
+        Rd[c, 2] = Rd[c, 2] + p[i, 1]
+      }
+    }
+
+    if(c-1 >=1){
+      for (j in 1:(c-1)) {
+        Rd[c, 1] = Rd[c, 1] + p[j, 2]
+      }
+    }
+
+  }
+
+  return(Rd)
+}
+
+.rs_mat = function(p) {
+
+  nc = nrow(p) # Number of categories
+  ng = ncol(p) # Number of groups
+  minc = nc - 1
+
+  Rs = matrix(0, nrow = nc, ncol = ng)
+
+  for (c in 1:nc) {
+    pc = c+1
+    if(pc <= nc){
+      for (i in pc:nc) {
+
+        Rs[c, 1] = Rs[c, 1] + p[i, 2]
+      }
+    }
+
+    if(c-1 >=1){
+      for (j in 1:(c-1)) {
+        Rs[c, 2] = Rs[c, 2] + p[j, 1]
+      }
+    }
+
+  }
+
+  return(Rs)
 }

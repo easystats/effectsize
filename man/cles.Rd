@@ -41,7 +41,12 @@ p_superiority(...)
 p_overlap(...)
 }
 \arguments{
-\item{x, y}{A numeric vector, or a character name of one in \code{data}.
+\item{x}{A numeric vector, or a character name of one in \code{data}.
+Any missing values (\code{NA}s) are dropped from the resulting vector.
+\code{x} can also be a formula (see \code{\link[stats:t.test]{stats::t.test()}}), in which case \code{y} is
+ignored.}
+
+\item{y}{A numeric vector, or a character name of one in \code{data}.
 Any missing values (\code{NA}s) are dropped from the resulting vector.
 \code{x} can also be a formula (see \code{\link[stats:t.test]{stats::t.test()}}), in which case \code{y} is
 ignored.}

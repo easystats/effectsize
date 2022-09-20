@@ -1,0 +1,106 @@
+---
+title: "WMWOdds"
+subtitle: "Validating effectsize with the genodds R package"
+author: "Aaron R. Caldwell"
+format: pdf
+---
+
+```{r}
+library(genodds)
+library(testthat)
+```
+
+
+# Sleep Dataset
+
+```{r}
+y1 = subset(sleep, group == 1)$extra
+x1 = subset(sleep, group == 2)$extra
+
+my = wmw_odds(x = x1,
+         y = y1)
+
+other = genodds(response = sleep$extra,
+        group = sleep$group)
+
+
+test_that("sleep data",
+          {
+            expect_equal(my$odds,other$results$`All data`$odds)
+            expect_equal(my$CI_low, other$results$`All data`$conf.int[1])
+            expect_equal(my$CI_high, other$results$`All data`$conf.int[2])
+          })
+```
+
+## Reversed
+
+```{r}
+y1 = subset(sleep, group == 2)$extra
+x1 = subset(sleep, group == 1)$extra
+
+my = wmw_odds(x = x1,
+         y = y1)
+
+other = genodds(response = sleep$extra,
+        group = sleep$group)
+
+# Inverse
+odds = 1/my$odds
+high_ci = 1/my$CI_low
+low_ci = 1/my$CI_high
+
+test_that("sleep data",
+          {
+            expect_equal(odds,other$results$`All data`$odds)
+            expect_equal(low_ci, other$results$`All data`$conf.int[1])
+            expect_equal(high_ci, other$results$`All data`$conf.int[2])
+          })
+```
+
+
+# Iris: 1
+
+```{r}
+y1 = subset(iris, Species == "virginica")$Petal.Width
+x1 = subset(iris, Species == "versicolor")$Petal.Width
+lenx1 = length(x1)
+leny1 = length(y1)
+
+my = wmw_odds(x = x1,
+         y = y1)
+
+other = genodds(response = c(y1,x1),
+        group = c(rep("x",lenx1),rep("y",leny1)))
+
+
+test_that("iris data",
+          {
+            expect_equal(my$odds,other$results$`All data`$odds)
+            expect_equal(my$CI_low, other$results$`All data`$conf.int[1])
+            expect_equal(my$CI_high, other$results$`All data`$conf.int[2])
+          })
+```
+
+## Reversed
+
+```{r}
+y1 = subset(iris, Species == "virginica")$Petal.Width
+x1 = subset(iris, Species == "versicolor")$Petal.Width
+lenx1 = length(x1)
+leny1 = length(y1)
+
+my = wmw_odds(x = x1,
+         y = y1)
+
+other = genodds(response = c(y1,x1),
+        group = c(rep("x",lenx1),rep("y",leny1)))
+
+
+test_that("iris data",
+          {
+            expect_equal(my$odds,other$results$`All data`$odds)
+            expect_equal(my$CI_low, other$results$`All data`$conf.int[1])
+            expect_equal(my$CI_high, other$results$`All data`$conf.int[2])
+          })
+```
+

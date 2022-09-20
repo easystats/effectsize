@@ -5,6 +5,7 @@
 \alias{cliffs_delta}
 \alias{rank_epsilon_squared}
 \alias{kendalls_w}
+\alias{wmw_odds}
 \title{Effect size for non-parametric (rank sum) tests}
 \usage{
 rank_biserial(
@@ -52,6 +53,18 @@ kendalls_w(
   iterations = 200,
   verbose = TRUE,
   ...
+)
+
+wmw_odds(
+  x,
+  y = NULL,
+  mu = 0,
+  ci = 0.95,
+  alternative = "two.sided",
+  paired = FALSE,
+  ci_method = "normal",
+  ...,
+  iterations
 )
 }
 \arguments{
