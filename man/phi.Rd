@@ -45,13 +45,14 @@ pearsons_c(
 \item{y}{a numeric vector; ignored if \code{x} is a matrix.  If
     \code{x} is a factor, \code{y} should be a factor of the same length.}
 
-\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
+\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE};
+For small samples and large tables, it is advisable to set to \code{TRUE}.}
 
 \item{ci}{Confidence Interval (CI) level}
 
 \item{alternative}{a character string specifying the alternative hypothesis;
-Controls the type of CI returned: \code{"greater"} (one-sided CI; default),
-\code{"two.sided"} (two-sided CI) or \code{"less"} (one-sided CI). Partial matching
+Controls the type of CI returned: \code{"greater"} (default) or \code{"less"}
+(one-sided CI), or \code{"two.sided"} (default, two-sided CI). Partial matching
 is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in
 \link{effectsize_CIs}.}
 

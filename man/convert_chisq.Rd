@@ -62,7 +62,8 @@ phi_to_chisq(phi, n, ...)
 
 \item{nrow, ncol}{The number of rows/columns in the contingency table.}
 
-\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
+\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE};
+For small samples and large tables, it is advisable to set to \code{TRUE}.}
 
 \item{ci}{Confidence Interval (CI) level}
 

@@ -6,13 +6,7 @@
 #' [`stats::chisq.test()`].
 #'
 #' @inheritParams stats::chisq.test
-#' @param ci Confidence Interval (CI) level
-#' @param alternative a character string specifying the alternative hypothesis;
-#'   Controls the type of CI returned: `"greater"` (one-sided CI; default),
-#'   `"two.sided"` (two-sided CI) or `"less"` (one-sided CI). Partial matching
-#'   is allowed (e.g., `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in
-#'   [effectsize_CIs].
-#' @param adjust Should the effect size be bias-corrected? Defaults to `FALSE`.
+#' @inheritParams chisq_to_phi
 #' @param ... For goodness-of-fit effect sizes, can pass `rescale.p` (see
 #'   [stats::chisq.test()]). Else, ignored.
 #'
