@@ -111,7 +111,10 @@
 #'
 #' @importFrom stats chisq.test
 #' @export
-phi <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
+phi <- function(x, y = NULL,
+                adjust = FALSE,
+                ci = 0.95, alternative = "greater",
+                ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "BFBayesFactor")) {
@@ -138,7 +141,10 @@ phi <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE,
 #' @rdname phi
 #' @importFrom stats chisq.test
 #' @export
-cramers_v <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
+cramers_v <- function(x, y = NULL,
+                      adjust = FALSE,
+                      ci = 0.95, alternative = "greater",
+                      ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "BFBayesFactor")) {
@@ -166,7 +172,8 @@ cramers_v <- function(x, y = NULL, ci = 0.95, alternative = "greater", adjust = 
 #' @importFrom stats chisq.test
 #' @export
 cohens_w <- function(x, y = NULL, p = rep(1/length(x), length(x)),
-                     ci = 0.95, alternative = "greater", ...) {
+                     ci = 0.95, alternative = "greater",
+                     ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "BFBayesFactor")) {
@@ -194,7 +201,9 @@ cohens_w <- function(x, y = NULL, p = rep(1/length(x), length(x)),
 #' @rdname phi
 #' @importFrom stats chisq.test
 #' @export
-fei <- function(x, p = rep(1/length(x), length(x)), ci = 0.95, alternative = "greater", ...) {
+fei <- function(x, p = rep(1/length(x), length(x)),
+                ci = 0.95, alternative = "greater",
+                ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "BFBayesFactor")) {
@@ -219,7 +228,8 @@ fei <- function(x, p = rep(1/length(x), length(x)), ci = 0.95, alternative = "gr
 #' @importFrom stats chisq.test
 #' @export
 pearsons_c <- function(x, y = NULL, p = rep(1/length(x), length(x)),
-                     ci = 0.95, alternative = "greater", ...) {
+                     ci = 0.95, alternative = "greater",
+                     ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "BFBayesFactor")) {

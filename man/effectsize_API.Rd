@@ -12,10 +12,10 @@
   type = c("eta", "omega", "epsilon"),
   partial = TRUE,
   generalized = FALSE,
+  include_intercept = FALSE,
   ci = 0.95,
   alternative = "greater",
-  verbose = TRUE,
-  include_intercept = FALSE
+  verbose = TRUE
 )
 
 .es_aov_strata(
@@ -24,10 +24,10 @@
   type = c("eta", "omega", "epsilon"),
   partial = TRUE,
   generalized = FALSE,
+  include_intercept = FALSE,
   ci = 0.95,
   alternative = "greater",
-  verbose = TRUE,
-  include_intercept = FALSE
+  verbose = TRUE
 )
 
 .es_aov_table(
@@ -35,10 +35,10 @@
   type = c("eta", "omega", "epsilon"),
   partial = TRUE,
   generalized = FALSE,
+  include_intercept = FALSE,
   ci = 0.95,
   alternative = "greater",
-  verbose = TRUE,
-  include_intercept = FALSE
+  verbose = TRUE
 )
 }
 \arguments{

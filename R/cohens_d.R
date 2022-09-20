@@ -129,29 +129,18 @@
 #'
 #' @importFrom stats var model.frame
 #' @export
-cohens_d <- function(x,
-                     y = NULL,
-                     data = NULL,
-                     pooled_sd = TRUE,
-                     mu = 0,
-                     paired = FALSE,
-                     ci = 0.95,
-                     alternative = "two.sided",
-                     verbose = TRUE,
-                     ...) {
+cohens_d <- function(x, y = NULL, data = NULL,
+                     pooled_sd = TRUE, mu = 0, paired = FALSE,
+                     ci = 0.95, alternative = "two.sided",
+                     verbose = TRUE, ...) {
   var.equal <- eval(match.call()[["var.equal"]], envir = parent.frame())
   if (!is.null(var.equal)) pooled_sd <- var.equal
 
   .effect_size_difference(
-    x,
-    y = y,
-    data = data,
+    x, y = y, data = data,
     type = "d",
-    pooled_sd = pooled_sd,
-    alternative = alternative,
-    mu = mu,
-    paired = paired,
-    ci = ci,
+    pooled_sd = pooled_sd, mu = mu, paired = paired,
+    ci = ci, alternative = alternative,
     verbose = verbose,
     ...
   )
@@ -159,29 +148,18 @@ cohens_d <- function(x,
 
 #' @rdname cohens_d
 #' @export
-hedges_g <- function(x,
-                     y = NULL,
-                     data = NULL,
-                     pooled_sd = TRUE,
-                     mu = 0,
-                     paired = FALSE,
-                     ci = 0.95,
-                     alternative = "two.sided",
-                     verbose = TRUE,
-                     ...) {
+hedges_g <- function(x, y = NULL, data = NULL,
+                     pooled_sd = TRUE, mu = 0, paired = FALSE,
+                     ci = 0.95, alternative = "two.sided",
+                     verbose = TRUE, ...) {
   var.equal <- eval(match.call()[["var.equal"]], envir = parent.frame())
   if (!is.null(var.equal)) pooled_sd <- var.equal
 
   .effect_size_difference(
-    x,
-    y = y,
-    data = data,
+    x, y = y, data = data,
     type = "g",
-    pooled_sd = pooled_sd,
-    alternative = alternative,
-    mu = mu,
-    paired = paired,
-    ci = ci,
+    pooled_sd = pooled_sd, mu = mu, paired = paired,
+    ci = ci, alternative = alternative,
     verbose = verbose,
     ...
   )
@@ -189,25 +167,17 @@ hedges_g <- function(x,
 
 #' @rdname cohens_d
 #' @export
-glass_delta <- function(x,
-                        y = NULL,
-                        data = NULL,
+glass_delta <- function(x, y = NULL, data = NULL,
                         mu = 0,
-                        ci = 0.95,
-                        alternative = "two.sided",
-                        verbose = TRUE,
-                        ...) {
+                        ci = 0.95, alternative = "two.sided",
+                        verbose = TRUE, ...) {
   .effect_size_difference(
-    x,
-    y = y,
-    data = data,
-    alternative = alternative,
-    mu = mu,
+    x, y = y, data = data,
     type = "delta",
-    ci = ci,
+    mu = mu,
+    ci = ci, alternative = alternative,
     verbose = verbose,
-    pooled_sd = NULL,
-    paired = FALSE,
+    pooled_sd = NULL, paired = FALSE,
     ...
   )
 }
@@ -216,17 +186,12 @@ glass_delta <- function(x,
 
 #' @importFrom stats sd na.omit complete.cases
 #' @keywords internal
-.effect_size_difference <- function(x,
-                                    y = NULL,
-                                    data = NULL,
-                                    type = "d",
-                                    mu = 0,
-                                    alternative = "two.sided",
-                                    pooled_sd = TRUE,
-                                    paired = FALSE,
-                                    ci = 0.95,
-                                    verbose = TRUE,
-                                    ...) {
+.effect_size_difference <-
+  function(x, y = NULL, data = NULL,
+           type = "d",
+           mu = 0, pooled_sd = TRUE, paired = FALSE,
+           ci = 0.95, alternative = "two.sided",
+           verbose = TRUE, ...) {
   if (type != "delta" && inherits(x, "htest")) {
     if (!grepl("t-test", x$method)) {
       stop("'x' is not a t-test!", call. = FALSE)

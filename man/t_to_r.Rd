@@ -9,17 +9,9 @@
 \alias{F_to_r}
 \title{Convert \emph{t}, \emph{z}, and \emph{F} to Cohen's \emph{d} or \strong{partial}-\emph{r}}
 \usage{
-t_to_d(
-  t,
-  df_error,
-  paired = FALSE,
-  ci = 0.95,
-  alternative = "two.sided",
-  pooled,
-  ...
-)
+t_to_d(t, df_error, paired = FALSE, ci = 0.95, alternative = "two.sided", ...)
 
-z_to_d(z, n, paired = FALSE, ci = 0.95, alternative = "two.sided", pooled, ...)
+z_to_d(z, n, paired = FALSE, ci = 0.95, alternative = "two.sided", ...)
 
 F_to_d(
   f,
@@ -49,8 +41,6 @@ difference between dependent means?}
 Controls the type of CI returned: \code{"two.sided"} (default, two-sided CI),
 \code{"greater"} or \code{"less"} (one-sided CI). Partial matching is allowed (e.g.,
 \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in \link{effectsize_CIs}.}
-
-\item{pooled}{Deprecated. Use \code{paired}.}
 
 \item{...}{Arguments passed to or from other methods.}
 

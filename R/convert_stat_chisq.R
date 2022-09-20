@@ -99,7 +99,10 @@
 #' tests to effect sizes for meta-analysis. PloS one, 5(4), e10059.
 #'
 #' @export
-chisq_to_phi <- function(chisq, n, nrow = 2, ncol = 2, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
+chisq_to_phi <- function(chisq, n, nrow = 2, ncol = 2,
+                         adjust = FALSE,
+                         ci = 0.95, alternative = "greater",
+                         ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   cl <- match.call()
@@ -171,8 +174,13 @@ chisq_to_phi <- function(chisq, n, nrow = 2, ncol = 2, ci = 0.95, alternative = 
 
 #' @rdname convert_chisq
 #' @export
-chisq_to_cohens_w <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater", ...) {
-  res <- chisq_to_phi(chisq, n, nrow, ncol, ci = ci, alternative = alternative, adjust = FALSE, dont_stop = TRUE)
+chisq_to_cohens_w <- function(chisq, n, nrow, ncol,
+                              ci = 0.95, alternative = "greater",
+                              ...) {
+  res <- chisq_to_phi(chisq, n, nrow, ncol,
+                      adjust = FALSE,
+                      ci = ci, alternative = alternative,
+                      dont_stop = TRUE)
   colnames(res)[1] <- "Cohens_w"
 
   max_value <- Inf
@@ -202,7 +210,10 @@ chisq_to_cohens_w <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "gr
 
 #' @rdname convert_chisq
 #' @export
-chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater", adjust = FALSE, ...) {
+chisq_to_cramers_v <- function(chisq, n, nrow, ncol,
+                               adjust = FALSE,
+                               ci = 0.95, alternative = "greater",
+                               ...) {
   if (ncol == 1 || nrow == 1) {
     stop("Cramer's V not applicable to goodness-of-fit tests.", call. = FALSE)
   }
@@ -218,9 +229,9 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "g
   phi_2_V <- sqrt((pmin(k, l) - 1))
 
   res <- chisq_to_phi(chisq, n, nrow, ncol,
-    ci = ci, alternative = alternative, adjust = adjust,
-    dont_stop = TRUE
-  )
+                      adjust = adjust,
+                      ci = ci, alternative = alternative,
+                      dont_stop = TRUE)
   res[grepl("^(phi|CI_)", colnames(res))] <- res[grepl("^(phi|CI_)", colnames(res))] / phi_2_V
   colnames(res)[1] <- gsub("phi", "Cramers_v", colnames(res)[1])
 
@@ -239,7 +250,8 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "g
 #' @export
 #' @param p Vector of expected values. See [stats::chisq.test()].
 chisq_to_fei <- function(chisq, n, nrow, ncol, p,
-                                ci = 0.95, alternative = "greater", ...) {
+                         ci = 0.95, alternative = "greater",
+                         ...) {
   if (is.numeric(ci) || (!missing(nrow) && !missing(ncol))) {
     # This means that the user passed ncol/nrow
     if (ncol == 2 && nrow == 2) {
@@ -263,7 +275,10 @@ chisq_to_fei <- function(chisq, n, nrow, ncol, p,
   q <- min(p)
   N <- n * (1 - q) / q
 
-  res <- chisq_to_phi(chisq, N, nrow, ncol, ci = ci, alternative = alternative, adjust = FALSE, dont_stop = TRUE)
+  res <- chisq_to_phi(chisq, N, nrow, ncol,
+                      adjust = FALSE,
+                      ci = ci, alternative = alternative,
+                      dont_stop = TRUE)
   colnames(res)[1] <- "Fei"
 
   if ("CI" %in% colnames(res)) {
@@ -283,8 +298,13 @@ chisq_to_fei <- function(chisq, n, nrow, ncol, p,
 
 #' @rdname convert_chisq
 #' @export
-chisq_to_pearsons_c <- function(chisq, n, nrow, ncol, ci = 0.95, alternative = "greater", ...) {
-  res <- chisq_to_phi(chisq, n, nrow, ncol, ci = ci, alternative = alternative, adjust = FALSE, dont_stop = TRUE)
+chisq_to_pearsons_c <- function(chisq, n, nrow, ncol,
+                                ci = 0.95, alternative = "greater",
+                                ...) {
+  res <- chisq_to_phi(chisq, n, nrow, ncol,
+                      adjust = FALSE,
+                      ci = ci, alternative = alternative,
+                      dont_stop = TRUE)
   res[grepl("^(phi|CI_)", colnames(res))] <- lapply(res[grepl("^(phi|CI_)", colnames(res))], function(phi) sqrt(1 / (1 / phi^2 + 1)))
   colnames(res)[1] <- "Pearsons_c"
 

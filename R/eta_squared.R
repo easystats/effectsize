@@ -204,11 +204,9 @@
 #'
 #' @export
 eta_squared <- function(model,
-                        partial = TRUE,
-                        generalized = FALSE,
+                        partial = TRUE, generalized = FALSE,
                         ci = 0.95, alternative = "greater",
-                        verbose = TRUE,
-                        ...) {
+                        verbose = TRUE, ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
   out <- .anova_es(
     model,
@@ -230,8 +228,7 @@ eta_squared <- function(model,
 omega_squared <- function(model,
                           partial = TRUE,
                           ci = 0.95, alternative = "greater",
-                          verbose = TRUE,
-                          ...) {
+                          verbose = TRUE, ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
   out <- .anova_es(model, type = "omega", partial = partial, ci = ci, alternative = alternative, verbose = verbose, ...)
   class(out) <- unique(c("effectsize_anova", "effectsize_table", "see_effectsize_table", class(out)))
@@ -245,8 +242,7 @@ omega_squared <- function(model,
 epsilon_squared <- function(model,
                             partial = TRUE,
                             ci = 0.95, alternative = "greater",
-                            verbose = TRUE,
-                            ...) {
+                            verbose = TRUE, ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
   out <- .anova_es(model, type = "epsilon", partial = partial, ci = ci, alternative = alternative, verbose = verbose, ...)
   class(out) <- unique(c("effectsize_anova", "effectsize_table", "see_effectsize_table", class(out)))
@@ -260,12 +256,16 @@ epsilon_squared <- function(model,
 #' @param model2 Optional second model for Cohen's f (/squared). If specified,
 #'   returns the effect size for R-squared-change between the two models.
 #' @export
-cohens_f <- function(model, partial = TRUE, ci = 0.95, alternative = "greater", squared = FALSE,
-                     verbose = TRUE,
-                     model2 = NULL, ...) {
+cohens_f <- function(model,
+                     partial = TRUE, squared = FALSE, model2 = NULL,
+                     ci = 0.95, alternative = "greater",
+                     verbose = TRUE, ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
   if (!is.null(model2)) {
-    return(.cohens_f_delta(model, model2, ci = ci, alternative = alternative, squared = squared, verbose = verbose))
+    return(.cohens_f_delta(model, model2,
+                           squared = squared,
+                           ci = ci, alternative = alternative,
+                           verbose = verbose))
   }
 
   res <- eta_squared(model,
@@ -304,24 +304,25 @@ cohens_f <- function(model, partial = TRUE, ci = 0.95, alternative = "greater", 
 
 #' @rdname eta_squared
 #' @export
-cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "greater", squared = TRUE,
-                             verbose = TRUE,
-                             model2 = NULL, ...) {
+cohens_f_squared <- function(model,
+                             partial = TRUE, squared = TRUE, model2 = NULL,
+                             ci = 0.95, alternative = "greater",
+                             verbose = TRUE, ...) {
   cohens_f(
     model,
-    partial = partial,
+    partial = partial, squared = squared, model2 = model2,
     ci = ci, alternative = alternative,
-    squared = squared,
-    verbose = verbose,
-    model2 = model2,
-    ...
+    verbose = verbose, ...
   )
 }
 
 
 #' @keywords internal
 #' @importFrom insight model_info
-.cohens_f_delta <- function(model, model2, ci = 0.95, alternative = "greater", squared = FALSE, verbose = TRUE) {
+.cohens_f_delta <- function(model, model2,
+                            squared = FALSE,
+                            ci = 0.95, alternative = "greater",
+                            verbose = TRUE) {
   # check
   if (!inherits(model, "lm") ||
     !inherits(model2, "lm") ||
@@ -356,11 +357,10 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 #' @export
 .es_aov_simple <- function(aov_table,
                            type = c("eta", "omega", "epsilon"),
-                           partial = TRUE,
-                           generalized = FALSE,
+                           partial = TRUE, generalized = FALSE,
+                           include_intercept = FALSE,
                            ci = 0.95, alternative = "greater",
-                           verbose = TRUE,
-                           include_intercept = FALSE) {
+                           verbose = TRUE) {
   type <- match.arg(type)
   aov_table <- as.data.frame(aov_table)
 
@@ -504,11 +504,10 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 #' @export
 .es_aov_strata <- function(aov_table, DV_names,
                            type = c("eta", "omega", "epsilon"),
-                           partial = TRUE,
-                           generalized = FALSE,
+                           partial = TRUE, generalized = FALSE,
+                           include_intercept = FALSE,
                            ci = 0.95, alternative = "greater",
-                           verbose = TRUE,
-                           include_intercept = FALSE) {
+                           verbose = TRUE) {
   type <- match.arg(type)
   aov_table <- as.data.frame(aov_table)
 
@@ -645,11 +644,10 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
 #' @export
 .es_aov_table <- function(aov_table,
                           type = c("eta", "omega", "epsilon"),
-                          partial = TRUE,
-                          generalized = FALSE,
+                          partial = TRUE, generalized = FALSE,
+                          include_intercept = FALSE,
                           ci = 0.95, alternative = "greater",
-                          verbose = TRUE,
-                          include_intercept = FALSE) {
+                          verbose = TRUE) {
   aov_table <- as.data.frame(aov_table)
 
   # Get correct function ---

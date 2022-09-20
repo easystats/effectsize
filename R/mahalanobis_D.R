@@ -77,10 +77,8 @@
 #' @export
 mahalanobis_d <- function(x, y = NULL, data = NULL,
                           pooled_cov = TRUE, mu = 0,
-                          ci = 0.95,
-                          alternative = "two.sided",
-                          verbose = TRUE,
-                          ...) {
+                          ci = 0.95, alternative = "two.sided",
+                          verbose = TRUE, ...) {
   # TODO add one sample case DV1 + DV2 ~ 1
   # TODO add paired samples case DV1 + DV2 ~ 1 | ID
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))

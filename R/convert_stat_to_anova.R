@@ -123,26 +123,44 @@
 #' Psychological Methods, 9, 164-182.
 #'
 #' @export
-F_to_eta2 <- function(f, df, df_error, ci = 0.95, alternative = "greater", ...) {
-  .F_to_pve(f, df, df_error, ci = ci, alternative = alternative, es = "eta2", ...)
+F_to_eta2 <- function(f, df, df_error,
+                      ci = 0.95, alternative = "greater",
+                      ...) {
+  .F_to_pve(f, df, df_error,
+            es = "eta2",
+            ci = ci, alternative = alternative,
+            ...)
 }
 
 #' @rdname F_to_eta2
 #' @export
-t_to_eta2 <- function(t, df_error, ci = 0.95, alternative = "greater", ...) {
-  F_to_eta2(t^2, 1, df_error, ci = ci, alternative = alternative, ...)
+t_to_eta2 <- function(t, df_error,
+                      ci = 0.95, alternative = "greater",
+                      ...) {
+  F_to_eta2(t^2, 1, df_error,
+            ci = ci, alternative = alternative,
+            ...)
 }
 
 #' @rdname F_to_eta2
 #' @export
-F_to_epsilon2 <- function(f, df, df_error, ci = 0.95, alternative = "greater", ...) {
-  .F_to_pve(f, df, df_error, ci = ci, alternative = alternative, es = "epsilon2", ...)
+F_to_epsilon2 <- function(f, df, df_error,
+                          ci = 0.95, alternative = "greater",
+                          ...) {
+  .F_to_pve(f, df, df_error,
+            es = "epsilon2",
+            ci = ci, alternative = alternative,
+            ...)
 }
 
 #' @rdname F_to_eta2
 #' @export
-t_to_epsilon2 <- function(t, df_error, ci = 0.95, alternative = "greater", ...) {
-  F_to_epsilon2(t^2, 1, df_error, ci = ci, alternative = alternative, ...)
+t_to_epsilon2 <- function(t, df_error,
+                          ci = 0.95, alternative = "greater",
+                          ...) {
+  F_to_epsilon2(t^2, 1, df_error,
+                ci = ci, alternative = alternative,
+                ...)
 }
 
 #' @rdname F_to_eta2
@@ -155,22 +173,35 @@ t_to_eta2_adj <- t_to_epsilon2
 
 #' @rdname F_to_eta2
 #' @export
-F_to_omega2 <- function(f, df, df_error, ci = 0.95, alternative = "greater", ...) {
-  .F_to_pve(f, df, df_error, ci = ci, alternative = alternative, es = "omega2", ...)
+F_to_omega2 <- function(f, df, df_error,
+                        ci = 0.95, alternative = "greater",
+                        ...) {
+  .F_to_pve(f, df, df_error,
+            es = "omega2",
+            ci = ci, alternative = alternative,
+            ...)
 }
 
 #' @rdname F_to_eta2
 #' @export
-t_to_omega2 <- function(t, df_error, ci = 0.95, alternative = "greater", ...) {
-  F_to_omega2(t^2, 1, df_error, ci = ci, alternative = alternative, ...)
+t_to_omega2 <- function(t, df_error,
+                        ci = 0.95, alternative = "greater", ...) {
+  F_to_omega2(t^2, 1, df_error,
+              ci = ci, alternative = alternative,
+              ...)
 }
 
 
 #' @rdname F_to_eta2
 #' @param squared Return Cohen's *f* or Cohen's *f*-squared?
 #' @export
-F_to_f <- function(f, df, df_error, ci = 0.95, alternative = "greater", squared = FALSE, ...) {
-  res_eta <- F_to_eta2(f, df, df_error, ci = ci, alternative = alternative, ...)
+F_to_f <- function(f, df, df_error,
+                   squared = FALSE,
+                   ci = 0.95, alternative = "greater",
+                   ...) {
+  res_eta <- F_to_eta2(f, df, df_error,
+                       ci = ci, alternative = alternative,
+                       ...)
 
   res <- data.frame(
     Cohens_f2_partial =
@@ -202,25 +233,43 @@ F_to_f <- function(f, df, df_error, ci = 0.95, alternative = "greater", squared 
 
 #' @rdname F_to_eta2
 #' @export
-t_to_f <- function(t, df_error, ci = 0.95, alternative = "greater", squared = FALSE, ...) {
-  F_to_f(t^2, 1, df_error, ci = ci, alternative = alternative, squared = squared, ...)
+t_to_f <- function(t, df_error,
+                   squared = FALSE,
+                   ci = 0.95, alternative = "greater",
+                   ...) {
+  F_to_f(t^2, 1, df_error,
+         squared = squared,
+         ci = ci, alternative = alternative, ...)
 }
 
 #' @rdname F_to_eta2
 #' @export
-F_to_f2 <- function(f, df, df_error, ci = 0.95, alternative = "greater", squared = TRUE, ...) {
-  F_to_f(f, df = df, df_error = df_error, ci = ci, alternative = alternative, squared = squared, ...)
+F_to_f2 <- function(f, df, df_error,
+                    squared = TRUE,
+                    ci = 0.95, alternative = "greater",
+                    ...) {
+  F_to_f(f, df, df_error,
+         squared = squared,
+         ci = ci, alternative = alternative, ...)
 }
 
 #' @rdname F_to_eta2
 #' @export
-t_to_f2 <- function(t, df_error, ci = 0.95, alternative = "greater", squared = TRUE, ...) {
-  F_to_f(t^2, 1, df_error, ci = ci, alternative = alternative, squared = squared, ...)
+t_to_f2 <- function(t, df_error,
+                    squared = TRUE,
+                    ci = 0.95, alternative = "greater",
+                    ...) {
+  F_to_f(t^2, 1, df_error,
+         squared = squared,
+         ci = ci, alternative = alternative,
+         ...)
 }
 
 
 #' @keywords internal
-.F_to_pve <- function(f, df, df_error, ci = 0.95, alternative = "greater", es = "eta2",
+.F_to_pve <- function(f, df, df_error,
+                      es = "eta2",
+                      ci = 0.95, alternative = "greater",
                       verbose = TRUE, ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 

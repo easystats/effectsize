@@ -26,7 +26,8 @@
 #'
 #' @importFrom stats ave sd
 #' @export
-sd_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
+sd_pooled <- function(x, y = NULL, data = NULL,
+                      verbose = TRUE, ...) {
   data <- .get_data_2_samples(x, y, data, verbose, ...)
   x <- na.omit(data$x)
   y <- na.omit(data$y)
@@ -41,7 +42,9 @@ sd_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
 #' @rdname sd_pooled
 #' @importFrom stats ave mad median
 #' @export
-mad_pooled <- function(x, y = NULL, data = NULL, constant = 1.4826, verbose = TRUE, ...) {
+mad_pooled <- function(x, y = NULL, data = NULL,
+                       constant = 1.4826,
+                       verbose = TRUE, ...) {
   data <- .get_data_2_samples(x, y, data, verbose, ...)
   x <- na.omit(data$x)
   y <- na.omit(data$y)
@@ -60,7 +63,8 @@ mad_pooled <- function(x, y = NULL, data = NULL, constant = 1.4826, verbose = TR
 #' @rdname sd_pooled
 #' @importFrom stats cov
 #' @export
-cov_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
+cov_pooled <- function(x, y = NULL, data = NULL,
+                       verbose = TRUE, ...) {
   data <- .get_data_multivariate(x, y, data = data, verbose = verbose)
   x <- na.omit(data[["x"]])
   y <- na.omit(data[["y"]])

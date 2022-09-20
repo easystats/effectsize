@@ -40,22 +40,22 @@ epsilon_squared(
 cohens_f(
   model,
   partial = TRUE,
+  squared = FALSE,
+  model2 = NULL,
   ci = 0.95,
   alternative = "greater",
-  squared = FALSE,
   verbose = TRUE,
-  model2 = NULL,
   ...
 )
 
 cohens_f_squared(
   model,
   partial = TRUE,
+  squared = TRUE,
+  model2 = NULL,
   ci = 0.95,
   alternative = "greater",
-  squared = TRUE,
   verbose = TRUE,
-  model2 = NULL,
   ...
 )
 

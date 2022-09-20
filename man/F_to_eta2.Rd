@@ -35,25 +35,25 @@ F_to_f(
   f,
   df,
   df_error,
+  squared = FALSE,
   ci = 0.95,
   alternative = "greater",
-  squared = FALSE,
   ...
 )
 
-t_to_f(t, df_error, ci = 0.95, alternative = "greater", squared = FALSE, ...)
+t_to_f(t, df_error, squared = FALSE, ci = 0.95, alternative = "greater", ...)
 
 F_to_f2(
   f,
   df,
   df_error,
+  squared = TRUE,
   ci = 0.95,
   alternative = "greater",
-  squared = TRUE,
   ...
 )
 
-t_to_f2(t, df_error, ci = 0.95, alternative = "greater", squared = TRUE, ...)
+t_to_f2(t, df_error, squared = TRUE, ci = 0.95, alternative = "greater", ...)
 }
 \arguments{
 \item{df, df_error}{Degrees of freedom of numerator or of the error estimate

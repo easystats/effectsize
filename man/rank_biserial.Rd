@@ -10,9 +10,9 @@ rank_biserial(
   y = NULL,
   data = NULL,
   mu = 0,
+  paired = FALSE,
   ci = 0.95,
   alternative = "two.sided",
-  paired = FALSE,
   verbose = TRUE,
   ...
 )
@@ -40,16 +40,16 @@ ignored.}
 one-sample or paired samples) or shift (for independent samples) is to be
 estimated. See \link[stats:wilcox.test]{stats::wilcox.test}.}
 
+\item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
+This produces an effect size that is equivalent to the one-sample effect
+size on \code{x - y}.}
+
 \item{ci}{Confidence Interval (CI) level}
 
 \item{alternative}{a character string specifying the alternative hypothesis;
 Controls the type of CI returned: \code{"two.sided"} (default, two-sided CI),
 \code{"greater"} or \code{"less"} (one-sided CI). Partial matching is allowed (e.g.,
 \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in \link{effectsize_CIs}.}
-
-\item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
-This produces an effect size that is equivalent to the one-sample effect
-size on \code{x - y}.}
 
 \item{verbose}{Toggle warnings and messages on or off.}
 

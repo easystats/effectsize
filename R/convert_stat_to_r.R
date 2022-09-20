@@ -20,7 +20,6 @@
 #'   Controls the type of CI returned: `"two.sided"` (default, two-sided CI),
 #'   `"greater"` or `"less"` (one-sided CI). Partial matching is allowed (e.g.,
 #'   `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in [effectsize_CIs].
-#' @param pooled Deprecated. Use `paired`.
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods.
 #'
@@ -99,7 +98,9 @@
 #' distributions. Educational and Psychological Measurement, 61(4), 532-574.
 #'
 #' @export
-t_to_r <- function(t, df_error, ci = 0.95, alternative = "two.sided", ...) {
+t_to_r <- function(t, df_error,
+                   ci = 0.95, alternative = "two.sided",
+                   ...) {
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
 
   res <- data.frame(r = t / sqrt(t^2 + df_error))
@@ -142,7 +143,9 @@ t_to_r <- function(t, df_error, ci = 0.95, alternative = "two.sided", ...) {
 #' @rdname t_to_r
 #' @importFrom stats qnorm
 #' @export
-z_to_r <- function(z, n, ci = 0.95, alternative = "two.sided", ...) {
+z_to_r <- function(z, n,
+                   ci = 0.95, alternative = "two.sided",
+                   ...) {
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
 
   res <- data.frame(r = z / sqrt(z^2 + n))
@@ -183,9 +186,13 @@ z_to_r <- function(z, n, ci = 0.95, alternative = "two.sided", ...) {
 
 #' @rdname t_to_r
 #' @export
-F_to_r <- function(f, df, df_error, ci = 0.95, alternative = "two.sided", ...) {
+F_to_r <- function(f, df, df_error,
+                   ci = 0.95, alternative = "two.sided",
+                   ...) {
   if (df > 1) {
     stop("Cannot convert F with more than 1 df to r.", call. = FALSE)
   }
-  t_to_r(sqrt(f), df_error, ci = ci, alternative = alternative, ...)
+  t_to_r(sqrt(f), df_error,
+         ci = ci, alternative = alternative,
+         ...)
 }

@@ -88,15 +88,10 @@
 #'
 #' @export
 #' @aliases cles
-p_superiority <- function(x,
-                          y = NULL,
-                          data = NULL,
-                          mu = 0,
-                          ci = 0.95,
-                          alternative = "two.sided",
-                          parametric = TRUE,
-                          verbose = TRUE,
-                          ...) {
+p_superiority <- function(x, y = NULL, data = NULL,
+                          mu = 0, parametric = TRUE,
+                          ci = 0.95, alternative = "two.sided",
+                          verbose = TRUE, ...) {
   if (inherits(x, "htest")) {
     if (!grepl("(t-test|Wilcoxon)", x$method)) {
       stop("'x' is not a t-test or a Wilcoxon-test!", call. = FALSE)
@@ -143,16 +138,10 @@ p_superiority <- function(x,
 
 #' @export
 #' @rdname p_superiority
-cohens_u1 <- function(x,
-                      y = NULL,
-                      data = NULL,
-                      mu = 0,
-                      ci = 0.95,
-                      alternative = "two.sided",
-                      parametric = TRUE,
-                      verbose = TRUE,
-                      iterations = 200,
-                      ...) {
+cohens_u1 <- function(x, y = NULL, data = NULL,
+                      mu = 0, parametric = TRUE,
+                      ci = 0.95, alternative = "two.sided", iterations = 200,
+                      verbose = TRUE, ...) {
   if (inherits(x, "htest")) {
     if (!grepl("(t-test|Wilcoxon)", x$method)) {
       stop("'x' is not a t-test or a Wilcoxon-test!", call. = FALSE)
@@ -193,16 +182,10 @@ cohens_u1 <- function(x,
 
 #' @export
 #' @rdname p_superiority
-cohens_u2 <- function(x,
-                      y = NULL,
-                      data = NULL,
-                      mu = 0,
-                      ci = 0.95,
-                      alternative = "two.sided",
-                      parametric = TRUE,
-                      verbose = TRUE,
-                      iterations = 200,
-                      ...) {
+cohens_u2 <- function(x, y = NULL, data = NULL,
+                      mu = 0, parametric = TRUE,
+                      ci = 0.95, alternative = "two.sided", iterations = 200,
+                      verbose = TRUE, ...) {
   if (inherits(x, "htest")) {
     if (!grepl("(t-test|Wilcoxon)", x$method)) {
       stop("'x' is not a t-test or a Wilcoxon-test!", call. = FALSE)
@@ -246,16 +229,10 @@ cohens_u2 <- function(x,
 
 #' @export
 #' @rdname p_superiority
-cohens_u3 <- function(x,
-                      y = NULL,
-                      data = NULL,
-                      mu = 0,
-                      ci = 0.95,
-                      alternative = "two.sided",
-                      parametric = TRUE,
-                      verbose = TRUE,
-                      iterations = 200,
-                      ...) {
+cohens_u3 <- function(x, y = NULL, data = NULL,
+                      mu = 0, parametric = TRUE,
+                      ci = 0.95, alternative = "two.sided", iterations = 200,
+                      verbose = TRUE, ...) {
   if (inherits(x, "htest")) {
     if (!grepl("(t-test|Wilcoxon)", x$method)) {
       stop("'x' is not a t-test or a Wilcoxon-test!", call. = FALSE)
@@ -298,16 +275,10 @@ cohens_u3 <- function(x,
 
 #' @export
 #' @rdname p_superiority
-p_overlap <- function(x,
-                      y = NULL,
-                      data = NULL,
-                      mu = 0,
-                      ci = 0.95,
-                      alternative = "two.sided",
-                      parametric = TRUE,
-                      verbose = TRUE,
-                      iterations = 200,
-                      ...) {
+p_overlap <- function(x, y = NULL, data = NULL,
+                      mu = 0, parametric = TRUE,
+                      ci = 0.95, alternative = "two.sided", iterations = 200,
+                      verbose = TRUE, ...) {
   if (inherits(x, "htest")) {
     if (!grepl("(t-test|Wilcoxon)", x$method)) {
       stop("'x' is not a t-test or a Wilcoxon-test!", call. = FALSE)
@@ -350,14 +321,10 @@ p_overlap <- function(x,
 
 #' @export
 #' @rdname p_superiority
-vd_a <- function(x,
-                 y = NULL,
-                 data = NULL,
+vd_a <- function(x, y = NULL, data = NULL,
                  mu = 0,
-                 ci = 0.95,
-                 alternative = "two.sided",
-                 verbose = TRUE,
-                 ...) {
+                 ci = 0.95, alternative = "two.sided",
+                 verbose = TRUE, ...) {
   cl <- match.call()
   cl[[1]] <- quote(p_superiority)
   cl$parametric <- FALSE
