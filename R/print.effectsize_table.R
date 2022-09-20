@@ -18,14 +18,14 @@ print.effectsize_table <- function(x, digits = 2, use_symbols = getOption("es.us
 
 #' @export
 #' @rdname print.effectsize_table
-print_md.effectsize_table <- function(x, digits = 2, ...) {
+print_md.effectsize_table <- function(x, digits = 2, use_symbols = getOption("es.use_symbols", FALSE), ...) {
   x_fmt <- format(x, digits = digits, output = "markdown", ...)
   insight::export_table(x_fmt, format = "markdown", ...)
 }
 
 #' @export
 #' @rdname print.effectsize_table
-print_html.effectsize_table <- function(x, digits = 2, ...) {
+print_html.effectsize_table <- function(x, digits = 2, use_symbols = getOption("es.use_symbols", FALSE),  ...) {
   x_fmt <- format(x, digits = digits, output = "html", ...)
   insight::export_table(x_fmt, format = "html", ...)
 }
@@ -34,7 +34,7 @@ print_html.effectsize_table <- function(x, digits = 2, ...) {
 #' @param output Which output is the formatting intended for? Affects how title
 #'   and footers are formatted.
 #' @export
-format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown", "html"), use_symbols = FALSE, ...) {
+format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown", "html"), use_symbols = getOption("es.use_symbols", FALSE), ...) {
   output <- match.arg(output)
 
   ## Clean footer
@@ -150,7 +150,7 @@ print.effectsize_difference <- function(x, digits = 2, append_CLES = NULL, ...) 
     }
 
     insight::print_color("\n\n## Common Language Effect Sizes:\n", .pcl["subtitle"])
-    print(cles_tab)
+    print(cles_tab, digits = digits, ...)
   }
 
   invisible(x_orig)

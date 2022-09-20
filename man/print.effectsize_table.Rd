@@ -13,15 +13,20 @@
 
 \method{print}{effectsize_table}(x, digits = 2, use_symbols = getOption("es.use_symbols", FALSE), ...)
 
-\method{print_md}{effectsize_table}(x, digits = 2, ...)
+\method{print_md}{effectsize_table}(x, digits = 2, use_symbols = getOption("es.use_symbols", FALSE), ...)
 
-\method{print_html}{effectsize_table}(x, digits = 2, ...)
+\method{print_html}{effectsize_table}(
+  x,
+  digits = 2,
+  use_symbols = getOption("es.use_symbols", FALSE),
+  ...
+)
 
 \method{format}{effectsize_table}(
   x,
   digits = 2,
   output = c("text", "markdown", "html"),
-  use_symbols = FALSE,
+  use_symbols = getOption("es.use_symbols", FALSE),
   ...
 )
 
