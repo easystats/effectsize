@@ -149,7 +149,7 @@ print.effectsize_difference <- function(x, digits = 2, append_CLES = NULL, ...) 
     }
 
     insight::print_color("\n\n## Common Language Effect Sizes:\n", .pcl["subtitle"])
-    print(cles_tab)
+    print(cles_tab, digits = digits)
   }
 
   invisible(x_orig)
