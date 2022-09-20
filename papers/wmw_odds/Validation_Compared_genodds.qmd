@@ -1,6 +1,6 @@
 ---
-title: "WMWOdds"
-subtitle: "Validating effectsize with the genodds R package"
+title: "wmw_odds function Valdiation"
+subtitle: "Comparing to known values and to genodds package"
 author: "Aaron R. Caldwell"
 format: pdf
 ---
@@ -8,6 +8,7 @@ format: pdf
 ```{r}
 library(genodds)
 library(testthat)
+library(effectsize)
 ```
 
 
@@ -57,6 +58,7 @@ test_that("sleep data",
           })
 ```
 
+\newpage
 
 # Iris: 1
 
@@ -81,11 +83,38 @@ test_that("iris data",
           })
 ```
 
+\newpage
+
 ## Reversed
 
 ```{r}
 y1 = subset(iris, Species == "virginica")$Petal.Width
 x1 = subset(iris, Species == "versicolor")$Petal.Width
+lenx1 = length(x1)
+leny1 = length(y1)
+
+my = wmw_odds(x = y1,
+         y = x1)
+
+other = genodds(response = c(y1,x1),
+        group = c(rep("y",lenx1),rep("x",leny1)))
+
+
+test_that("iris data",
+          {
+            expect_equal(my$odds,other$results$`All data`$odds)
+            expect_equal(my$CI_low, other$results$`All data`$conf.int[1])
+            expect_equal(my$CI_high, other$results$`All data`$conf.int[2])
+          })
+```
+
+
+
+# Iris: 2
+
+```{r}
+y1 = subset(iris, Species == "virginica")$Petal.Length
+x1 = subset(iris, Species == "versicolor")$Petal.Length
 lenx1 = length(x1)
 leny1 = length(y1)
 
@@ -102,5 +131,61 @@ test_that("iris data",
             expect_equal(my$CI_low, other$results$`All data`$conf.int[1])
             expect_equal(my$CI_high, other$results$`All data`$conf.int[2])
           })
+```
+
+\newpage
+
+## Reversed
+
+```{r}
+y1 = subset(iris, Species == "virginica")$Petal.Length
+x1 = subset(iris, Species == "versicolor")$Petal.Length
+lenx1 = length(x1)
+leny1 = length(y1)
+
+my = wmw_odds(x = y1,
+         y = x1)
+
+other = genodds(response = c(y1,x1),
+        group = c(rep("y",lenx1),rep("x",leny1)))
+
+
+test_that("iris data",
+          {
+            expect_equal(my$odds,other$results$`All data`$odds)
+            expect_equal(my$CI_low, other$results$`All data`$conf.int[1])
+            expect_equal(my$CI_high, other$results$`All data`$conf.int[2])
+          })
+```
+
+\newpage
+
+# One sample
+
+```{r}
+
+
+test_that("One sample/paired",{
+  
+
+  vec = c(0, rep(1, 9))
+  
+  odds = wmw_odds(x = vec)
+  expect_equal(odds_to_probs(as.numeric(odds$odds)),
+               .95)
+  
+    vec = c(rep(0,100))
+  
+  odds = wmw_odds(x = vec)
+  expect_equal(odds_to_probs(as.numeric(odds$odds)),
+               .5)
+  
+  vec = c(1,1,rep(0,98))
+  
+  odds = wmw_odds(x = vec)
+  expect_equal(odds_to_probs(as.numeric(odds$odds)),
+               0.51)
+}
+)
 ```
 
