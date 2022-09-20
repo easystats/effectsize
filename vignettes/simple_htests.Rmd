@@ -123,40 +123,40 @@ cohens_u2(mpg ~ am, data = mtcars)
 cohens_u3(mpg ~ am, data = mtcars)
 ```
 
-```{r, eval = requireNamespace("ggplot2"), echo=FALSE}
-mu <- tapply(mtcars$mpg, mtcars$am, mean)
-sigma <- sd_pooled(mtcars$mpg, factor(mtcars$am))
+<!-- ```{r, eval = requireNamespace("ggplot2"), echo=FALSE} -->
+<!-- mu <- tapply(mtcars$mpg, mtcars$am, mean) -->
+<!-- sigma <- sd_pooled(mtcars$mpg, factor(mtcars$am)) -->
 
-xlim <- sort(mu) + c(-4, 4) * sigma
+<!-- xlim <- sort(mu) + c(-4, 4) * sigma -->
 
-seg_u2 <- data.frame(x = mean(mu),
-                     xend = xlim,
-                     y = -exp(-5),
-                     yend = -exp(-5),
-                     color = c("0", "1"))
+<!-- seg_u2 <- data.frame(x = mean(mu), -->
+<!--                      xend = xlim, -->
+<!--                      y = -exp(-5), -->
+<!--                      yend = -exp(-5), -->
+<!--                      color = c("0", "1")) -->
 
-ggplot2::ggplot() + 
-  ggplot2::stat_function(ggplot2::aes(fill = "0"), size = 1, geom = "area", alpha = 0.6,
-                fun = dnorm, args = list(mean = mu[1], sd = sigma), xlim = xlim) + 
-  ggplot2::stat_function(ggplot2::aes(fill = "1"), size = 1, geom = "area", alpha = 0.6,
-                fun = dnorm, args = list(mean = mu[2], sd = sigma), xlim = xlim) +
-  # U3
-  ggplot2::stat_function(ggplot2::aes(fill = "1"), size = 1, geom = "area", 
-                         color = "black", outline.type = "full", 
-                fun = dnorm, args = list(mean = mu[2], sd = sigma), xlim = c(xlim[1], mu[1])) +
-  ggplot2::geom_vline(ggplot2::aes(xintercept = mu[1]), linetype = "dashed") + 
-  ggplot2::annotate("text", x = mu[1]-2, y = -seg_u2$y, label = "U3") + 
-  # U2
-  ggplot2::geom_vline(ggplot2::aes(xintercept = mean(mu))) + 
-  ggplot2::geom_segment(ggplot2::aes(x = x, xend = xend, y = y, yend = yend, color = color), data = seg_u2, 
-                        arrow = ggplot2::arrow(),
-                        size = 0.4) + 
-  see::scale_color_material(aesthetics = c("color", "fill"), name = "am") + 
-  ggplot2::annotate("text", x = mu[2], y = 1.4*seg_u2$y, label = "U2 for am=1", hjust = "left") + 
-  ggplot2::annotate("text", x = mu[1], y = 1.4*seg_u2$y, label = "U2 for am=0", hjust = "right") + 
-  ggplot2::theme_bw()
+<!-- ggplot2::ggplot() +  -->
+<!--   ggplot2::stat_function(ggplot2::aes(fill = "0"), size = 1, geom = "area", alpha = 0.6, -->
+<!--                 fun = dnorm, args = list(mean = mu[1], sd = sigma), xlim = xlim) +  -->
+<!--   ggplot2::stat_function(ggplot2::aes(fill = "1"), size = 1, geom = "area", alpha = 0.6, -->
+<!--                 fun = dnorm, args = list(mean = mu[2], sd = sigma), xlim = xlim) + -->
+<!--   # U3 -->
+<!--   ggplot2::stat_function(ggplot2::aes(fill = "1"), size = 1, geom = "area",  -->
+<!--                          color = "black", outline.type = "full",  -->
+<!--                 fun = dnorm, args = list(mean = mu[2], sd = sigma), xlim = c(xlim[1], mu[1])) + -->
+<!--   ggplot2::geom_vline(ggplot2::aes(xintercept = mu[1]), linetype = "dashed") +  -->
+<!--   ggplot2::annotate("text", x = mu[1]-2, y = -seg_u2$y, label = "U3") +  -->
+<!--   # U2 -->
+<!--   ggplot2::geom_vline(ggplot2::aes(xintercept = mean(mu))) +  -->
+<!--   ggplot2::geom_segment(ggplot2::aes(x = x, xend = xend, y = y, yend = yend, color = color), data = seg_u2,  -->
+<!--                         arrow = ggplot2::arrow(), -->
+<!--                         size = 0.4) +  -->
+<!--   see::scale_color_material(aesthetics = c("color", "fill"), name = "am") +  -->
+<!--   ggplot2::annotate("text", x = mu[2], y = 1.4*seg_u2$y, label = "U2 for am=1", hjust = "left") +  -->
+<!--   ggplot2::annotate("text", x = mu[1], y = 1.4*seg_u2$y, label = "U2 for am=0", hjust = "right") +  -->
+<!--   ggplot2::theme_bw() -->
 
-```
+<!-- ``` -->
 
 
 ### One Sample and Paired Samples

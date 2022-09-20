@@ -21,7 +21,7 @@ options(knitr.kable.NA = "")
 knitr::opts_chunk$set(comment = ">")
 options(digits = 3)
 
-pkgs <- c("effectsize", "ggplot2", "correlation", "parameters", "bayestestR")
+pkgs <- c("effectsize", "correlation", "parameters", "bayestestR")
 if (!all(sapply(pkgs, require, quietly = TRUE, character.only = TRUE))) {
   knitr::opts_chunk$set(eval = FALSE)
 }

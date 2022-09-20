@@ -16,11 +16,7 @@
 #' @param n The number of observations (the sample size).
 #' @param paired Should the estimate account for the t-value being testing the
 #'   difference between dependent means?
-#' @param alternative a character string specifying the alternative hypothesis;
-#'   Controls the type of CI returned: `"two.sided"` (default, two-sided CI),
-#'   `"greater"` or `"less"` (one-sided CI). Partial matching is allowed (e.g.,
-#'   `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in [effectsize_CIs].
-#' @inheritParams chisq_to_phi
+#' @inheritParams cohens_d
 #' @param ... Arguments passed to or from other methods.
 #'
 #'
