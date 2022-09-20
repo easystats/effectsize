@@ -254,9 +254,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     u2 = cohens_u2,
     u3 = cohens_u3,
     overlap = p_overlap,
+    vda = ,
     p_superiority = p_superiority,
-    a = ,
-    vda = vd_a
   )
 
   args <- list(

@@ -3,7 +3,6 @@
 \name{rank_biserial}
 \alias{rank_biserial}
 \alias{cliffs_delta}
-\alias{vd_a}
 \title{Dominance Effect Sizes for Rank Based Differences}
 \usage{
 rank_biserial(
@@ -19,17 +18,6 @@ rank_biserial(
 )
 
 cliffs_delta(
-  x,
-  y = NULL,
-  data = NULL,
-  mu = 0,
-  ci = 0.95,
-  alternative = "two.sided",
-  verbose = TRUE,
-  ...
-)
-
-vd_a(
   x,
   y = NULL,
   data = NULL,
@@ -73,8 +61,8 @@ A data frame with the effect size \code{r_rank_biserial} and its CI
 (\code{CI_low} and \code{CI_high}).
 }
 \description{
-Compute the rank-biserial correlation (\eqn{r_{rb}}{r_rb}), Cliff's \emph{delta}
-(\eqn{\delta}) and Vargha and Delaney's \emph{A} effect sizes for non-parametric
+Compute the rank-biserial correlation (\eqn{r_{rb}}{r_rb}) and Cliff's \emph{delta}
+(\eqn{\delta}) effect sizes for non-parametric
 (rank sum) differences. These effect sizes of dominance are closely related
 to the \link[=cohens_u3]{Common Language Effect Sizes}. Pair with any reported
 \code{\link[stats:wilcox.test]{stats::wilcox.test()}}.
@@ -94,11 +82,6 @@ dominance of the fist sample (\emph{all} values of the second sample are smaller
 than \emph{all} the values of the first sample).
 \cr\cr
 Cliff's \emph{delta} is an alias to the rank-biserial correlation in the two sample case.
-\cr\cr
-Vargha and Delaney's \emph{A} is related to Cliff's \emph{delta}, such that
-\eqn{A = (\delta + 1) / 2}. It ranges from 0 (second group dominates the
-first) to 1 (first group dominates the second), with 0.5 indicating no
-difference between the groups.
 }
 \section{Ties}{
 When tied values occur, they are each given the average of the ranks that
@@ -149,9 +132,6 @@ rank_biserial(mpg ~ am, data = mtcars, mu = -5)
 print(rb, append_CLES = TRUE)
 
 
-vd_a(mpg ~ am, data = mtcars)
-
-
 # One Sample ----------
 rank_biserial(wt ~ 1, data = mtcars, mu = 3)
 # same as:
@@ -189,9 +169,6 @@ behavioral sciences. John Wiley & Sons Inc.
 questions. Psychological bulletin, 114(3), 494.
 \item Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates
 revisited. An overview of some recommended measures of effect size.
-\item Vargha, A., & Delaney, H. D. (2000). A critique and improvement of the CL
-common language effect size statistics of McGraw and Wong. Journal of
-Educational and Behavioral Statistics, 25(2), 101-132.
 }
 }
 \seealso{

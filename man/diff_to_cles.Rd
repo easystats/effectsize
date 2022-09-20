@@ -6,6 +6,7 @@
 \alias{d_to_cles}
 \alias{rb_to_cles}
 \alias{rb_to_p_superiority}
+\alias{rb_to_vda}
 \alias{d_to_u2}
 \alias{d_to_u1}
 \alias{d_to_u3}
@@ -15,6 +16,8 @@
 d_to_p_superiority(d)
 
 rb_to_p_superiority(rb)
+
+rb_to_vda(rb)
 
 d_to_u2(d)
 
@@ -52,8 +55,11 @@ And the following for the rank-biserial correlation:
 \deqn{Pr(superiority) = (r_{rb} + 1)/2}{Pr(superiority) = (rb + 1)/2}
 }
 \note{
-These calculations assume that the populations have equal variance and are
-normally distributed.
+For \emph{d}, these calculations assume that the populations have equal variance
+and are normally distributed.
+
+Vargha and Delaney's \emph{A} is an alias for the non-parametric \emph{probability of
+superiority}.
 }
 \references{
 \itemize{

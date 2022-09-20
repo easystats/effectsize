@@ -1,7 +1,7 @@
 #' Dominance Effect Sizes for Rank Based Differences
 #'
-#' Compute the rank-biserial correlation (\eqn{r_{rb}}{r_rb}), Cliff's *delta*
-#' (\eqn{\delta}) and Vargha and Delaney's *A* effect sizes for non-parametric
+#' Compute the rank-biserial correlation (\eqn{r_{rb}}{r_rb}) and Cliff's *delta*
+#' (\eqn{\delta}) effect sizes for non-parametric
 #' (rank sum) differences. These effect sizes of dominance are closely related
 #' to the [Common Language Effect Sizes][cohens_u3]. Pair with any reported
 #' [`stats::wilcox.test()`].
@@ -27,11 +27,6 @@
 #' than *all* the values of the first sample).
 #' \cr\cr
 #' Cliff's *delta* is an alias to the rank-biserial correlation in the two sample case.
-#' \cr\cr
-#' Vargha and Delaney's *A* is related to Cliff's *delta*, such that
-#' \eqn{A = (\delta + 1) / 2}. It ranges from 0 (second group dominates the
-#' first) to 1 (first group dominates the second), with 0.5 indicating no
-#' difference between the groups.
 #'
 #' # Ties
 #' When tied values occur, they are each given the average of the ranks that
@@ -65,9 +60,6 @@
 #' # More options:
 #' rank_biserial(mpg ~ am, data = mtcars, mu = -5)
 #' print(rb, append_CLES = TRUE)
-#'
-#'
-#' vd_a(mpg ~ am, data = mtcars)
 #'
 #'
 #' # One Sample ----------
@@ -111,9 +103,6 @@
 #' - Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates
 #' revisited. An overview of some recommended measures of effect size.
 #'
-#' - Vargha, A., & Delaney, H. D. (2000). A critique and improvement of the CL
-#' common language effect size statistics of McGraw and Wong. Journal of
-#' Educational and Behavioral Statistics, 25(2), 101-132.
 #'
 #' @export
 #' @importFrom stats na.omit complete.cases
@@ -258,27 +247,6 @@ cliffs_delta <- function(x,
   cl$y <- y
   eval.parent(cl)
 }
-
-#' @export
-#' @rdname rank_biserial
-vd_a <- function(...) {
-  if (inherits(x, "htest")) {
-    if (!grepl("Wilcoxon", x$method)) {
-      stop("'x' is not a Wilcoxon-test!", call. = FALSE)
-    }
-    return(effectsize(x, verbose = verbose, type = "vda"))
-  }
-
-  cl <- match.call()
-  cl[[1]] <- quote(cliffs_delta)
-  out <- eval.parent(cl)
-
-  to_conv <- colnames(out) %in% c("r_rank_biserial", "CI_low", "CI_high")
-  out[to_conv] <- lapply(out[to_conv], function(x) (x + 1)/ 2)
-  colnames(out)[1] <- "VDs_A"
-  out
-}
-formals(vd_a) <- formals(cliffs_delta) # this is dirty!
 
 
 # Utils -------------------------------------------------------------------

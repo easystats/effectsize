@@ -7,6 +7,7 @@
 \alias{cohens_u2}
 \alias{cohens_u3}
 \alias{p_overlap}
+\alias{vd_a}
 \title{Cohen's \emph{U}s and Other Common Language Effect Sizes (CLES)}
 \usage{
 p_superiority(
@@ -72,6 +73,17 @@ p_overlap(
   iterations = 200,
   ...
 )
+
+vd_a(
+  x,
+  y = NULL,
+  data = NULL,
+  mu = 0,
+  ci = 0.95,
+  alternative = "two.sided",
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x, y}{A numeric vector, or a character name of one in \code{data}.
@@ -107,11 +119,11 @@ A data frame containing the common language effect sizes (and
 optionally their CIs).
 }
 \description{
-Cohen's \eqn{U_1}, \eqn{U_2}, and \eqn{U_3}, probability of superiority, and
-proportion of overlap are CLESs. These are effect sizes that represent
-differences between two (independent) distributions in probabilistic terms
-(See details). Pair with any reported \code{\link[stats:t.test]{stats::t.test()}} or
-\code{\link[stats:wilcox.test]{stats::wilcox.test()}}.
+Cohen's \eqn{U_1}, \eqn{U_2}, and \eqn{U_3}, probability of superiority,
+Vargha and Delaney's \emph{A}, and proportion of overlap are CLESs. These are
+effect sizes that represent differences between two (independent)
+distributions in probabilistic terms (See details). Pair with any reported
+\code{\link[stats:t.test]{stats::t.test()}} or \code{\link[stats:wilcox.test]{stats::wilcox.test()}}.
 }
 \details{
 These measures of effect size present group differences in probabilistic
@@ -133,6 +145,9 @@ smaller than the median of the first group.
 The parametric version of these effects assumes normality of both populations
 and homoscedasticity. If those are not met, the non parametric versions
 should be used.
+
+Vargha and Delaney's \emph{A} is an alias for the non-parametric \emph{probability of
+superiority}.
 
 Where \eqn{U_1}, \eqn{U_2}, and \emph{Overlap} are agnostic to the direction of
 the difference between the groups, \eqn{U_1} and probability of superiority
@@ -209,6 +224,9 @@ coefficient: the normal equal variance case. Journal of the Royal Statistical
 Society, 48(3), 413-418.
 \item Ruscio, J. (2008). A probability-based measure of effect size: robustness
 to base rates and other factors. Psychological methods, 13(1), 19–30.
+\item Vargha, A., & Delaney, H. D. (2000). A critique and improvement of the CL
+common language effect size statistics of McGraw and Wong. Journal of
+Educational and Behavioral Statistics, 25(2), 101-132.
 }
 }
 \seealso{

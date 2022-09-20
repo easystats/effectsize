@@ -23,8 +23,11 @@
 #'   on the input.
 #'
 #' @note
-#' These calculations assume that the populations have equal variance and are
-#' normally distributed.
+#' For *d*, these calculations assume that the populations have equal variance
+#' and are normally distributed.
+#'
+#' Vargha and Delaney's *A* is an alias for the non-parametric *probability of
+#' superiority*.
 #'
 #' @seealso See [cohens_u3] for descriptions of the effect sizes (also,
 #'   [cohens_d()], [rank_biserial()]).
@@ -70,6 +73,10 @@ rb_to_p_superiority <- function(rb) {
 rb_to_p_superiority.numeric <- function(rb) {
   (rb + 1) / 2
 }
+
+#' @export
+#' @rdname diff_to_cles
+rb_to_vda <- rb_to_p_superiority
 
 # U2 ----------------------------------------------------------------------
 

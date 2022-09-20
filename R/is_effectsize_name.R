@@ -83,7 +83,6 @@ es_info <- matrix(
 
     ## Rank
     "r_rank_biserial", "r (rank biserial)", "twotail", -1, 1, 0,
-    "VDs_A", "Vargha & Delaney's A", "twotail", 0, 1, 0.5,
     "Kendalls_W", "Kendall's W", "onetail", 0, 1, 0,
     "rank_epsilon_squared", "Epsilon2 (rank)", "onetail", 0, 1, 0,
     "rank_eta_squared", "Eta2 (rank)", "onetail", 0, 1, 0,
