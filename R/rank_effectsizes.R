@@ -864,3 +864,12 @@ wmw_odds <- function(x,
   cstat = n_a / n_x
 }
 
+boot_cstat <- function(.data, .i, mu, sample = 1) {
+  if(sample == 1){
+    .cstat_1(.data[.i, ], mu = mu) # sample rows
+  }
+
+  else{
+    .cstat_2(.data[.i, ], mu = mu) # sample rows
+  }
+}
