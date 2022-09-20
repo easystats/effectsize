@@ -18,7 +18,7 @@ stats::wilcox.test()."><meta property="og:image" content="https://easystats.gith
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.9</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.9.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -125,9 +125,9 @@ to the <a href="p_superiority.html">Common Language Effect Sizes</a>. Pair with 
 <span>  y <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  mu <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  paired <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  ci <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
-<span>  paired <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
@@ -163,6 +163,12 @@ one-sample or paired samples) or shift (for independent samples) is to be
 estimated. See <a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">stats::wilcox.test</a>.</p></dd>
 
 
+<dt>paired</dt>
+<dd><p>If <code>TRUE</code>, the values of <code>x</code> and <code>y</code> are considered as paired.
+This produces an effect size that is equivalent to the one-sample effect
+size on <code>x - y</code>.</p></dd>
+
+
 <dt>ci</dt>
 <dd><p>Confidence Interval (CI) level</p></dd>
 
@@ -172,12 +178,6 @@ estimated. See <a href="https://rdrr.io/r/stats/wilcox.test.html" class="externa
 Controls the type of CI returned: <code>"two.sided"</code> (default, two-sided CI),
 <code>"greater"</code> or <code>"less"</code> (one-sided CI). Partial matching is allowed (e.g.,
 <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em> in <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
-
-
-<dt>paired</dt>
-<dd><p>If <code>TRUE</code>, the values of <code>x</code> and <code>y</code> are considered as paired.
-This produces an effect size that is equivalent to the one-sample effect
-size on <code>x - y</code>.</p></dd>
 
 
 <dt>verbose</dt>

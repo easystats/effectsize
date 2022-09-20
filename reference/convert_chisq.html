@@ -14,7 +14,7 @@ for contingency tables or goodness of fit."><meta property="og:image" content="h
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.9</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.9.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -119,9 +119,9 @@ for contingency tables or goodness of fit.</p>
 <span>  <span class="va">n</span>,</span>
 <span>  nrow <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  adjust <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  ci <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
-<span>  adjust <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -140,9 +140,9 @@ for contingency tables or goodness of fit.</p>
 <span>  <span class="va">n</span>,</span>
 <span>  <span class="va">nrow</span>,</span>
 <span>  <span class="va">ncol</span>,</span>
+<span>  adjust <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  ci <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
-<span>  adjust <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -175,6 +175,10 @@ for contingency tables or goodness of fit.</p>
 <dd><p>The number of rows/columns in the contingency table.</p></dd>
 
 
+<dt>adjust</dt>
+<dd><p>Should the effect size be bias-corrected? Defaults to <code>FALSE</code>.</p></dd>
+
+
 <dt>ci</dt>
 <dd><p>Confidence Interval (CI) level</p></dd>
 
@@ -185,10 +189,6 @@ Controls the type of CI returned: <code>"greater"</code> (default) or <code>"les
 (one-sided CI), or <code>"two.sided"</code> (default, two-sided CI). Partial matching
 is allowed (e.g., <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em> in
 <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
-
-
-<dt>adjust</dt>
-<dd><p>Should the effect size be bias-corrected? Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt>...</dt>
