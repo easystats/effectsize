@@ -475,9 +475,9 @@ wmw_odds <- function(x,
     n_a <- sum(x > 0) + 0.5*sum(x == 0)
 
     cstat = n_a / n_x
-    if(cstat == 0 || cstat == 1){
-      stop("Odds ratio cannot be estimated. No overlap with zero so concordance is 100%!")
-    }
+    #if(cstat == 0 || cstat == 1){
+    #  stop("Odds ratio cannot be estimated. No overlap with zero/null.")
+    #}
     odds = probs_to_odds(cstat)
 
     if(ci_method == "normal"){
@@ -497,37 +497,45 @@ wmw_odds <- function(x,
   } else { ##------------------------ 2-sample case -------------------------
     if(length(y) < 1L)
       stop("not enough 'y' observations")
-    r <- rank(c(x - mu, y))
-    n_x <- as.double(length(x))
-    n_y <- as.double(length(y))
+    #r <- rank(c(x - mu, y))
+    #n_x <- as.double(length(x))
+    #n_y <- as.double(length(y))
+    x = x - mu
 
     # Get Mann-Whitney U
-    Ustat <-  sum(r[seq_along(x)]) - n_x * (n_x + 1) / 2
+    #Ustat <-  sum(r[seq_along(x)]) - n_x * (n_x + 1) / 2
     # Calc c-index
-    cstat = Ustat / (n_x * n_y)
-    if(cstat == 0 || cstat == 1){
-      stop("Odds ratio cannot be estimated. No overlap between groups so concordance is 100%!")
-    }
-    odds = probs_to_odds(cstat)
+    #cstat = Ustat / (n_x * n_y)
+    #if(cstat == 0 || cstat == 1){
+    #  stop("Odds ratio cannot be estimated. No overlap between groups so concordance is 0% or 100%!")
+    #}
+    response = c(y,x)
+    group = c(rep(1,length(y)),rep(2,length(x)))
+    crosstab = as.matrix(table(response, group))
+    N = sum(crosstab)
+    p = crosstab/N
+    Rt = p[, 2:1]
+    Rs = .rs_mat(p)
+    Rd = .rd_mat(p)
+    Rs = Rs + (1 - 0.5) * Rt
+    Rd = Rd + 0.5 * Rt
+    Pc = sum(p * Rs)
+    Pd = sum(p * Rd)
+
+    odds = (Pc/Pd)
+
+    #if(odds == 0 || odds == Inf){
+    #  stop("Odds ratio cannot be estimated. No overlap between groups.")
+    #}
+
 
     if(ci_method == "normal"){
-      response = c(y,x)
-      group = c(rep("x",length(x)),rep("y",length(y)))
-      crosstab = as.matrix(table(response, group))
-      N = sum(crosstab)
-      p = crosstab/N
-      Rt = p[, 2:1]
-      Rs = .rs_mat(p)
-      Rd = .rd_mat(p)
-      Rs = Rs + (1 - 0.5) * Rt
-      Rd = Rd + 0.5 * Rt
-      Pc = sum(p * Rs)
-      Pd = sum(p * Rd)
-      odds2 = (Pc/Pd)
+
+      #odds2 = (Pc/Pd)
       # Not to self: checks calcs from above match matrix calcs
-      if(round(odds2,7) != round(odds,7)){
-        stop("Matrix broken; likely bug in code.")
-      }
+      #if(round(odds2,7) != round(odds,7)){
+      #  stop("Matrix broken; likely bug in code.")
+      #}
       SEodds = 2/Pd * (sum(p * (odds * Rd - Rs)^2)/N)^0.5
       SElnodds = SEodds/odds
       interval = exp(qnorm(c(alpha/2, 1 - alpha/2), mean = log(odds),

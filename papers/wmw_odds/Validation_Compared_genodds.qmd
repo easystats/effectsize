@@ -3,6 +3,8 @@ title: "wmw_odds function Valdiation"
 subtitle: "Comparing to known values and to genodds package"
 author: "Aaron R. Caldwell"
 format: pdf
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r}
