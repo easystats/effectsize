@@ -435,10 +435,17 @@ wmw_odds <- function(x,
       stop("'ci' must be a single number between 0 and 1")
   ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
   alpha <- 1 - ci.level
-
-  if(!is.numeric(x)) stop("'x' must be numeric")
+  if(is.ordered(x)){
+    x = as.numeric(x)
+  }
+  if(!is.numeric(x)) {
+    stop("'x' must be numeric or ordered factor")
+  }
   if(!is.null(y)) {
-    if(!is.numeric(y)) stop("'y' must be numeric")
+    if(is.ordered(y)){
+      y = as.numeric(y)
+    }
+    if(!is.numeric(y)) stop("'y' must be numeric or ordered factor")
 
     if(paired) {
       if(length(x) != length(y))
