@@ -83,6 +83,14 @@ This package is focused on indices of effect size. Check out the package website
 library(effectsize)
 ```
 
+> **Tip:**
+>
+> **Instead of `library(effectsize)`, use `library(easystats)`.**
+> **This will make all features of the  easystats-ecosystem available.**
+>
+> **To stay updated, use `easystats::install_latest()`.**
+
+
 ## Effect Size Computation
 
 ### Standardized Differences (Cohen's *d*, Hedges' *g*, Glass' *delta*)
