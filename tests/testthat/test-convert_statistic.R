@@ -66,11 +66,6 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(res$d, 0.970, tolerance = 0.01)
     expect_equal(res$CI_low, 0.494, tolerance = 0.01)
     expect_equal(res$CI_high, 1.446, tolerance = 0.01)
-
-    # depr arg
-    expect_warning(F_to_d(4^2, 1, 68, pooled = TRUE), "deprecated")
-    expect_warning(t_to_d(4, 68, pooled = TRUE), "deprecated")
-    expect_warning(z_to_d(4, 68, pooled = TRUE), "deprecated")
   })
 
   test_that("eta2", {
