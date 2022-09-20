@@ -127,7 +127,6 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
   attr(res, "ci_method") <- ci_method
-  attr(res, "log") <- log
   attr(res, "approximate") <- FALSE
   attr(res, "alternative") <- alternative
   return(res)
@@ -205,7 +204,6 @@ riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
   attr(res, "ci_method") <- ci_method
-  attr(res, "log") <- log
   attr(res, "approximate") <- FALSE
   attr(res, "alternative") <- alternative
   return(res)

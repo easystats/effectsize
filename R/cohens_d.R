@@ -343,7 +343,6 @@ glass_delta <- function(x,
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
   .someattributes(out) <- .nlist(
     paired, pooled_sd, mu, ci, ci_method, alternative,
-    correction = type == "g",
     approximate = FALSE
   )
   return(out)

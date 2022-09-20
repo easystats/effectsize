@@ -489,7 +489,6 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   out$Parameter <- as.character(out$Parameter)
 
   # Set attributes ---
-  attr(out, "partial") <- partial
   attr(out, "generalized") <- generalized
   attr(out, "ci") <- ci
   attr(out, "anova_type") <- anova_type
@@ -635,7 +634,6 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   rownames(out) <- NULL
   out$Parameter <- as.character(out$Parameter)
 
-  attr(out, "partial") <- partial
   attr(out, "generalized") <- generalized
   attr(out, "ci") <- ci
   attr(out, "approximate") <- FALSE
@@ -717,7 +715,6 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   out$Parameter <- as.character(out$Parameter)
 
   # Set attributes ---
-  attr(out, "partial") <- TRUE
   attr(out, "generalized") <- FALSE
   attr(out, "ci") <- if ("CI" %in% colnames(out)) ci
   attr(out, "alternative") <- if (!is.null(attr(out, "ci"))) alternative
@@ -861,7 +858,6 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
   rownames(out) <- NULL
   out$Response <- as.character(out$Response)
 
-  attr(out, "partial") <- attr(params[[1]], "partial")
   attr(out, "generalized") <- attr(params[[1]], "generalized")
   attr(out, "ci") <- attr(params[[1]], "ci", exact = TRUE)
   attr(out, "anova_type") <- anova_type
@@ -971,7 +967,6 @@ cohens_f_squared <- function(model, partial = TRUE, ci = 0.95, alternative = "gr
     out$Parameter <- as.character(out$Parameter)
 
     # Set attributes ---
-    attr(out, "partial") <- saved_attr$partial
     attr(out, "generalized") <- saved_attr$generalized
     attr(out, "ci") <- saved_attr$ci
     attr(out, "alternative") <- saved_attr$alternative
