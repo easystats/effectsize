@@ -20,7 +20,7 @@
     },
     control = list(abstol = 1e-09)
   ))
-  f_ncp <- sort(ncp$par) / df
+  f_ncp <- sort(ncp$par)
 
   if (f <= stats::qf(probs[1], df, df_error)) {
     f_ncp[2] <- 0

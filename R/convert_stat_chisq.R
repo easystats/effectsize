@@ -164,7 +164,6 @@ chisq_to_phi <- function(chisq, n, nrow = 2, ncol = 2, ci = 0.95, alternative = 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
   attr(res, "ci_method") <- ci_method
-  attr(res, "adjust") <- adjust
   attr(res, "alternative") <- alternative
   return(res)
 }

@@ -155,7 +155,7 @@ mahalanobis_d <- function(x, y = NULL, data = NULL,
 
     f <- ff * out[[1]]^2
 
-    fs <- .get_ncp_F(f, p, df, ci.level) * p
+    fs <- .get_ncp_F(f, p, df, ci.level)
 
     out$CI_low <- sqrt(fs[1] / hn)
     out$CI_high <- sqrt(fs[2] / hn)

@@ -83,7 +83,7 @@ Pass the data frame to `.es_aov_simple()`:
 
 The output is a data frame with the columns: `Parameter`, the effect size, and (optionally) `CI` + `CI_low` + `CI_high`,
 
-And with the following attributes: `partial`, `generalized`, `ci`, `alternative`, `anova_type` (`NA` or `NULL`), `approximate`.
+And with the following attributes: `generalized`, `ci`, `alternative`, `anova_type` (`NA` or `NULL`), `approximate`.
 
 You can then set the `anova_type` attribute to {1, 2, 3, or `NA`} and return the output.
 
@@ -129,7 +129,7 @@ Pass the data frame to `.es_aov_strata()`, along with a list of predictors (incl
 
 The output is a data frame with the columns: `Group`, `Parameter`, the effect size, and (optionally) `CI` + `CI_low` + `CI_high`,
 
-And with the following attributes: `partial`, `generalized`, `ci`, `alternative`, `approximate`.
+And with the following attributes: `generalized`, `ci`, `alternative`, `approximate`.
 
 You can then set the `anova_type` attribute to {1, 2, 3, or `NA`} and return the output.
 
@@ -173,7 +173,7 @@ Pass the table to `.es_aov_table()`:
 
 The output is a data frame with the columns: `Parameter`, the effect size, and (optionally) `CI` + `CI_low` + `CI_high`,
 
-And with the following attributes: `partial`, `generalized`, `ci`, `alternative`, `approximate`.
+And with the following attributes: `generalized`, `ci`, `alternative`, `approximate`.
 
 You can then set the `anova_type` attribute to {1, 2, 3, or `NA`} and return the output, and optionally the `approximate` attribute, and return the output.
 

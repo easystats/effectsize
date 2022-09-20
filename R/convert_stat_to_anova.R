@@ -239,7 +239,7 @@ t_to_f2 <- function(t, df_error, ci = 0.95, alternative = "greater", squared = T
 
     # based on MBESS::ci.R2
     f <- pmax(0, (res[[1]] / df) / ((1 - res[[1]]) / df_error))
-    fs <- t(mapply(.get_ncp_F, f, df, df_error, ci.level))
+    fs <- t(mapply(.get_ncp_F, f, df, df_error, ci.level)) / df
 
     if (isTRUE(verbose) && anyNA(fs)) {
       warning("Some CIs could not be estimated due to non-finite F, df, or df_error values.", call. = FALSE)

@@ -38,9 +38,6 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   .someattributes(out) <- pars$attr
   .someattributes(out) <- list(
     ci = out$CI,
-    # ci_method - inherited from bayestestR
-    correction = NULL,
-    pooled_sd = NULL,
     approximate = FALSE,
     alternative = "two.sided"
   )
@@ -118,7 +115,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
 
   list(
     res = res,
-    attr = list(mu = mu, paired = paired),
+    attr = list(mu = mu, paired = paired, pooled_sd = TRUE),
     xtra_class = xtra_class
   )
 }
