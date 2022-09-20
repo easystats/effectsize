@@ -48,8 +48,6 @@ Controls the type of CI returned: \code{"two.sided"} (default, two-sided CI),
 
 \item{df, df_error}{Degrees of freedom of numerator or of the error estimate
 (i.e., the residuals).}
-
-\item{pooled}{Deprecated. Use \code{paired}.}
 }
 \value{
 A data frame with the effect size(s)(\code{r} or \code{d}), and their CIs

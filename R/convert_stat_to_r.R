@@ -20,7 +20,6 @@
 #'   Controls the type of CI returned: `"two.sided"` (default, two-sided CI),
 #'   `"greater"` or `"less"` (one-sided CI). Partial matching is allowed (e.g.,
 #'   `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in [effectsize_CIs].
-#' @param pooled Deprecated. Use `paired`.
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods.
 #'
