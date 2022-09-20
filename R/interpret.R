@@ -163,23 +163,33 @@ interpret.effectsize_table <- function(x, rules, ...) {
   value <- x[[es_name]]
 
   x$Interpretation <- switch(es_name,
-    # std diff
+    ## std diff
     Cohens_d = ,
     Hedges_g = ,
     Glass_delta = ,
-    d = interpret_cohens_d(value, rules = rules),
-    # xtab
+    Mahalanobis_D = interpret_cohens_d(value, rules = rules),
+
+    ## xtab cor
     Cramers_v = ,
     Cramers_v_adjusted = ,
-    normalized_chi = ,
-    fei = ,
-    Cohens_w = ,
     phi = ,
-    phi_adjusted = interpret_cramers_v(value, rules = rules),
-    Cohens_g = interpret_cohens_g(value, rules = rules),
+    phi_adjusted = ,
+    Pearsons_c = ,
+    Cohens_w = ,
+    fei = interpret_cramers_v(value, rules = rules),
+
+    ## xtab 2x2
+    Cohens_h = interpret_cohens_d(value, rules = rules),
     Odds_ratio = interpret_oddsratio(value, rules = rules, log = FALSE),
     log_Odds_ratio = interpret_oddsratio(value, rules = rules, log = TRUE),
-    # anova
+    # TODO:
+    # Risk_ratio = ,
+    # log_Risk_ratio = ,
+
+    ## xtab dep
+    Cohens_g = interpret_cohens_g(value, rules = rules),
+
+    ## anova
     Eta2 = ,
     Eta2_partial = ,
     Eta2_generalized = ,
@@ -191,12 +201,19 @@ interpret.effectsize_table <- function(x, rules, ...) {
     Cohens_f_partial = interpret_omega_squared(f_to_eta2(value), rules = rules),
     Cohens_f2 = ,
     Cohens_f2_partial = interpret_omega_squared(f2_to_eta2(value), rules = rules),
-    # rank
+
+    ## Rank
+    r_rank_biserial = interpret_r(value, rules = rules),
+    VDs_A = interpret_r(value * 2 - 1, rules = rules),
     Kendalls_W = interpret_kendalls_w(value, rules = rules),
-    r_rank_biserial = ,
     rank_epsilon_squared = ,
-    # corr
-    r = interpret_r(value, rules = rules)
+    rank_eta_squared = interpret_omega_squared(value, rules = rules),
+
+    # TODO: add cles as a transformation of d?
+
+    ## other
+    r = interpret_r(value, rules = rules),
+    d = interpret_cohens_d(value, rules = rules)
   )
 
   attr(x, "rules") <- attr(x$Interpretation, "rules")

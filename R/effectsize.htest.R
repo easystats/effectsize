@@ -254,7 +254,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     u2 = cohens_u2,
     u3 = cohens_u3,
     overlap = p_overlap,
-    p_superiority = p_superiority
+    vda = ,
+    p_superiority = p_superiority,
   )
 
   args <- list(
@@ -284,14 +285,20 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   dots <- list(...)
 
+  if (is.null(type)) type <- "epsilon"
+
   .fail_if_approx(approx, "rank_epsilon_squared")
 
+  f <- switch (type,
+    epsilon = rank_epsilon_squared,
+    eta = rank_eta_squared
+  )
 
   if (inherits(data, "data.frame")) {
-    out <- rank_epsilon_squared(data[[1]], data[[2]], verbose = verbose, ...)
+    out <- f(data[[1]], data[[2]], verbose = verbose, ...)
   } else {
     # data frame
-    out <- rank_epsilon_squared(data, verbose = verbose, ...)
+    out <- f(data, verbose = verbose, ...)
   }
   out
 }

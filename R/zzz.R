@@ -1,11 +1,9 @@
-#
 # .onLoad <- function(libname, pkgname) {
 #   op <- options()
 #   op.es <- list(
-#     es.ci.mag = 0.95,
-#     es.ci.diff = 0.95,
-#     es.alt.mag = "greater",
-#     es.alt.diff = "two.sided"
+#     es.digits = 2,
+#     es.ci = c(0.95, 0.95),
+#     es.alt = c("two.sided", "greater")
 #   )
 #
 #   toset <- !names(op.es) %in% names(op)

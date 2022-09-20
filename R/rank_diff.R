@@ -1,8 +1,10 @@
-#' Standardized Rank Based Differences
+#' Dominance Effect Sizes for Rank Based Differences
 #'
 #' Compute the rank-biserial correlation (\eqn{r_{rb}}{r_rb}) and Cliff's *delta*
-#' (\eqn{\delta}) effect sizes for non-parametric (rank sum) differences. Pair
-#' with any reported [`stats::wilcox.test()`].
+#' (\eqn{\delta}) effect sizes for non-parametric
+#' (rank sum) differences. These effect sizes of dominance are closely related
+#' to the [Common Language Effect Sizes][cohens_u3]. Pair with any reported
+#' [`stats::wilcox.test()`].
 #'
 #' @inheritParams cohens_d
 #' @param mu a number indicating the value around which (a-)symmetry (for
@@ -19,10 +21,12 @@
 #' **Glass'** rank-biserial correlation). See [stats::wilcox.test]. In both
 #' cases, the correlation represents the difference between the proportion of
 #' favorable and unfavorable pairs / signed ranks (Kerby, 2014). Values range
-#' from `-1` (*all* values of the second sample are larger than *all* the values
-#' of the first sample) to `+1` (*all* values of the second sample are smaller
-#' than *all* the values of the first sample). Cliff's *delta* is an alias to
-#' the rank-biserial correlation in the two sample case.
+#' from `-1` complete dominance of the second sample (*all* values of the second
+#' sample are larger than *all* the values of the first sample) to `+1` complete
+#' dominance of the fist sample (*all* values of the second sample are smaller
+#' than *all* the values of the first sample).
+#' \cr\cr
+#' Cliff's *delta* is an alias to the rank-biserial correlation in the two sample case.
 #'
 #' # Ties
 #' When tied values occur, they are each given the average of the ranks that
@@ -87,8 +91,6 @@
 #' Implications for short-cut item analysis. Journal of Educational Measurement,
 #' 2(1), 91-95.
 #'
-#' - Kendall, M.G. (1948) Rank correlation methods. London: Griffin.
-#'
 #' - Kerby, D. S. (2014). The simple difference formula: An approach to teaching
 #' nonparametric correlation. Comprehensive Psychology, 3, 11-IT.
 #'
@@ -100,6 +102,7 @@
 #'
 #' - Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates
 #' revisited. An overview of some recommended measures of effect size.
+#'
 #'
 #' @export
 #' @importFrom stats na.omit complete.cases
@@ -231,18 +234,19 @@ cliffs_delta <- function(x,
                          alternative = "two.sided",
                          verbose = TRUE,
                          ...) {
-  rank_biserial(
-    x, y,
-    data = data,
-    mu = mu,
-    paired = FALSE,
-    ci = ci,
-    alternative = alternative,
-    verbose = verbose,
-    ...
-  )
-}
+  cl <- match.call()
+  data <- .get_data_2_samples(x, y, data, verbose, ...)
+  x <- data$x
+  y <- data$y
+  if (is.null(y) || isTRUE(eval.parent(cl$paired))) {
+    stop("This effect size is only applicable for two independent samples.", call. = FALSE)
+  }
 
+  cl[[1]] <- quote(rank_biserial)
+  cl$x <- x
+  cl$y <- y
+  eval.parent(cl)
+}
 
 
 # Utils -------------------------------------------------------------------

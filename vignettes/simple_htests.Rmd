@@ -396,7 +396,7 @@ rank_biserial(x, y, paired = TRUE)
 
 ### Rank One way ANOVA
 
-The Rank-Epsilon-Squared ($\varepsilon^2$) is a measure of association
+The Rank-Epsilon-Squared ($E^2_R$) and Rank-Eta-Squared ($\eta^2_H$) are measures of association
 for the rank based one-way ANOVA. Values range between 0 (no relative
 superiority between any of the groups) to 1 (complete separation - with no
 overlap in ranks between the groups).
@@ -411,6 +411,8 @@ group_data <- list(
 kruskal.test(group_data)
 
 rank_epsilon_squared(group_data)
+
+rank_eta_squared(group_data)
 ```
 
 ### Rank One way Repeated-Measures ANOVA

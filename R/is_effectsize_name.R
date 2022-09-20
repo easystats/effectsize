@@ -49,7 +49,7 @@ es_info <- matrix(
     "Glass_delta", "Glass' delta", "twotail", -Inf, Inf, 0,
     "Mahalanobis_D", "Mahalanobis' D", "onetail", 0, Inf, 0,
 
-    ## xtab
+    ## xtab cor
     "Cramers_v", "Cramer's V", "onetail", 0, 1, 0,
     "Cramers_v_adjusted", "Cramer's V (adj.)", "onetail", 0, 1, 0,
     "phi", "Phi", "onetail", 0, 1, 0,
@@ -57,12 +57,16 @@ es_info <- matrix(
     "Pearsons_c", "Pearson's C", "onetail", 0, 1, 0,
     "Cohens_w", "Cohen's w", "onetail", 0, Inf, 0,
     "Fei", "Fei", "onetail", 0, 1, 0,
-    "Cohens_g", "Cohen's g", "onetail", -0.5, 0.5, 0,
+
+    ## xtab 2x2
     "Cohens_h", "Cohen's h", "twotail", -pi, pi, 0,
     "Odds_ratio", "Odds ratio", "twotail", 0, Inf, 1,
     "log_Odds_ratio", "log(Odds ratio)", "twotail", -Inf, Inf, 0,
     "Risk_ratio", "Risk ratio", "twotail", 0, Inf, 1,
     "log_Risk_ratio", "log(Risk ratio)", "twotail", -Inf, Inf, 0,
+
+    ## xtab dep
+    "Cohens_g", "Cohen's g", "onetail", -0.5, 0.5, 0,
 
     ## ANOVA
     "Eta2", "Eta2", "onetail", 0, 1, 0,
@@ -81,15 +85,7 @@ es_info <- matrix(
     "r_rank_biserial", "r (rank biserial)", "twotail", -1, 1, 0,
     "Kendalls_W", "Kendall's W", "onetail", 0, 1, 0,
     "rank_epsilon_squared", "Epsilon2 (rank)", "onetail", 0, 1, 0,
-
-    ## Std Coefficient
-    "Std_Coefficient", "Coefficient (std.)", "twotail", -Inf, Inf, 0,
-    "Std_Odds_ratio", "Odds Ratio (std.)", "twotail", 0, Inf, 1,
-    "Std_Risk_ratio", "Risk Ratio (std.)", "twotail", 0, Inf, 1,
-    "Std_IRR", "IRR (std.)", "twotail", 0, Inf, 1,
-    "Std_Median", "Median (std.)", "twotail", -Inf, Inf, 0,
-    "Std_Mean", "Mean (std.)", "twotail", -Inf, Inf, 0,
-    "Std_MAP", "MAP (std.)", "twotail", -Inf, Inf, 0,
+    "rank_eta_squared", "Eta2 (rank)", "onetail", 0, 1, 0,
 
     ## CLES
     "p_superiority", "Pr(superiority)", "twotail", 0, 1, 0.5,
@@ -100,7 +96,16 @@ es_info <- matrix(
 
     ## Other
     "r", "r", "twotail", -1, 1, 0,
-    "d", "d", "twotail", -Inf, Inf, 0
+    "d", "d", "twotail", -Inf, Inf, 0,
+
+    ## Std Coefficient
+    "Std_Coefficient", "Coefficient (std.)", "twotail", -Inf, Inf, 0,
+    "Std_Odds_ratio", "Odds Ratio (std.)", "twotail", 0, Inf, 1,
+    "Std_Risk_ratio", "Risk Ratio (std.)", "twotail", 0, Inf, 1,
+    "Std_IRR", "IRR (std.)", "twotail", 0, Inf, 1,
+    "Std_Median", "Median (std.)", "twotail", -Inf, Inf, 0,
+    "Std_Mean", "Mean (std.)", "twotail", -Inf, Inf, 0,
+    "Std_MAP", "MAP (std.)", "twotail", -Inf, Inf, 0
   ),
   ncol = 6, byrow = TRUE,
   dimnames = list(NULL, c("name", "label", "direction", "lb", "ub", "null"))

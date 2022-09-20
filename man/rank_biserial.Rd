@@ -3,7 +3,7 @@
 \name{rank_biserial}
 \alias{rank_biserial}
 \alias{cliffs_delta}
-\title{Standardized Rank Based Differences}
+\title{Dominance Effect Sizes for Rank Based Differences}
 \usage{
 rank_biserial(
   x,
@@ -62,8 +62,10 @@ A data frame with the effect size \code{r_rank_biserial} and its CI
 }
 \description{
 Compute the rank-biserial correlation (\eqn{r_{rb}}{r_rb}) and Cliff's \emph{delta}
-(\eqn{\delta}) effect sizes for non-parametric (rank sum) differences. Pair
-with any reported \code{\link[stats:wilcox.test]{stats::wilcox.test()}}.
+(\eqn{\delta}) effect sizes for non-parametric
+(rank sum) differences. These effect sizes of dominance are closely related
+to the \link[=cohens_u3]{Common Language Effect Sizes}. Pair with any reported
+\code{\link[stats:wilcox.test]{stats::wilcox.test()}}.
 }
 \details{
 The rank-biserial correlation is appropriate for non-parametric tests of
@@ -74,10 +76,12 @@ case, that would normally be tested with Mann-Whitney's \emph{U} Test (giving
 \strong{Glass'} rank-biserial correlation). See \link[stats:wilcox.test]{stats::wilcox.test}. In both
 cases, the correlation represents the difference between the proportion of
 favorable and unfavorable pairs / signed ranks (Kerby, 2014). Values range
-from \code{-1} (\emph{all} values of the second sample are larger than \emph{all} the values
-of the first sample) to \code{+1} (\emph{all} values of the second sample are smaller
-than \emph{all} the values of the first sample). Cliff's \emph{delta} is an alias to
-the rank-biserial correlation in the two sample case.
+from \code{-1} complete dominance of the second sample (\emph{all} values of the second
+sample are larger than \emph{all} the values of the first sample) to \code{+1} complete
+dominance of the fist sample (\emph{all} values of the second sample are smaller
+than \emph{all} the values of the first sample).
+\cr\cr
+Cliff's \emph{delta} is an alias to the rank-biserial correlation in the two sample case.
 }
 \section{Ties}{
 When tied values occur, they are each given the average of the ranks that
@@ -157,7 +161,6 @@ interpret(rb, rules = "funder2019")
 \item Glass, G. V. (1965). A ranking variable analogue of biserial correlation:
 Implications for short-cut item analysis. Journal of Educational Measurement,
 2(1), 91-95.
-\item Kendall, M.G. (1948) Rank correlation methods. London: Griffin.
 \item Kerby, D. S. (2014). The simple difference formula: An approach to teaching
 nonparametric correlation. Comprehensive Psychology, 3, 11-IT.
 \item King, B. M., & Minium, E. W. (2008). Statistical reasoning in the

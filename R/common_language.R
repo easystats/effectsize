@@ -1,10 +1,10 @@
 #' Cohen's *U*s and Other Common Language Effect Sizes (CLES)
 #'
-#' Cohen's \eqn{U_1}, \eqn{U_2}, and \eqn{U_3}, probability of superiority, and
-#' proportion of overlap are CLESs. These are effect sizes that represent
-#' differences between two (independent) distributions in probabilistic terms
-#' (See details). Pair with any reported [`stats::t.test()`] or
-#' [`stats::wilcox.test()`].
+#' Cohen's \eqn{U_1}, \eqn{U_2}, and \eqn{U_3}, probability of superiority,
+#' Vargha and Delaney's *A*, and proportion of overlap are CLESs. These are
+#' effect sizes that represent differences between two (independent)
+#' distributions in probabilistic terms (See details). Pair with any reported
+#' [`stats::t.test()`] or [`stats::wilcox.test()`].
 #'
 #' @inheritParams cohens_d
 #' @param parametric Use parametric estimation (see [cohens_d()]) or
@@ -30,6 +30,9 @@
 #' The parametric version of these effects assumes normality of both populations
 #' and homoscedasticity. If those are not met, the non parametric versions
 #' should be used.
+#'
+#' Vargha and Delaney's *A* is an alias for the non-parametric *probability of
+#' superiority*.
 #'
 #' Where \eqn{U_1}, \eqn{U_2}, and *Overlap* are agnostic to the direction of
 #' the difference between the groups, \eqn{U_1} and probability of superiority
@@ -61,6 +64,10 @@
 #'
 #' - Ruscio, J. (2008). A probability-based measure of effect size: robustness
 #' to base rates and other factors. Psychological methods, 13(1), 19–30.
+#'
+#' - Vargha, A., & Delaney, H. D. (2000). A critique and improvement of the CL
+#' common language effect size statistics of McGraw and Wong. Journal of
+#' Educational and Behavioral Statistics, 25(2), 101-132.
 #'
 #' @seealso [d_to_cles] [sd_pooled()]
 #' @family effect size indices
@@ -341,7 +348,21 @@ p_overlap <- function(x,
   out
 }
 
-
+#' @export
+#' @rdname p_superiority
+vd_a <- function(x,
+                 y = NULL,
+                 data = NULL,
+                 mu = 0,
+                 ci = 0.95,
+                 alternative = "two.sided",
+                 verbose = TRUE,
+                 ...) {
+  cl <- match.call()
+  cl[[1]] <- quote(p_superiority)
+  cl$parametric <- FALSE
+  eval.parent(cl)
+}
 
 
 

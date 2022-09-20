@@ -8,6 +8,8 @@
 
 ## New features
 
+- `vd_a()` and `rb_to_vda()` for Vargha and Delaney's *A* dominance effect size (aliases for `p_superiority(parametric = FALSE)` and `rb_to_p_superiority()`).
+- `rank_eta_squared()` for one-way rank ANOVA.
 - `cohens_u1()`, `cohens_u2()`, `d_to_u1()`, and `d_to_u2()` added for Cohen's U1 and U2
 - `mahalanobis_d()` for multivariate standardized differences.
 
