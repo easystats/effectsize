@@ -469,10 +469,10 @@ wmw_odds <- function(x,
     stop("not enough (finite) 'x' observations")
   CORRECTION <- 0
   if(is.null(y)) { ##------------------ 1-sample/paired case -------------------
-    x <- x - mu
+    z <- x - mu
 
     n_x = as.double(length(x))
-    n_a <- sum(x > 0) + 0.5*sum(x == 0)
+    n_a <- sum(z > 0) + 0.5*sum(z == 0)
 
     cstat = n_a / n_x
     #if(cstat == 0 || cstat == 1){
@@ -500,7 +500,7 @@ wmw_odds <- function(x,
     #r <- rank(c(x - mu, y))
     #n_x <- as.double(length(x))
     #n_y <- as.double(length(y))
-    x = x - mu
+    x2 = x - mu
 
     # Get Mann-Whitney U
     #Ustat <-  sum(r[seq_along(x)]) - n_x * (n_x + 1) / 2
@@ -509,7 +509,7 @@ wmw_odds <- function(x,
     #if(cstat == 0 || cstat == 1){
     #  stop("Odds ratio cannot be estimated. No overlap between groups so concordance is 0% or 100%!")
     #}
-    response = c(y,x)
+    response = c(y,x2)
     group = c(rep(1,length(y)),rep(2,length(x)))
     crosstab = as.matrix(table(response, group))
     N = sum(crosstab)
@@ -840,3 +840,27 @@ wmw_odds <- function(x,
 
   return(Rs)
 }
+
+.cstat_2 = function(data, mu = 0){
+  x = subset(data, group == "x")$response
+  y = subset(data, group == "y")$response
+  r <- rank(c(x - mu, y))
+  n_x <- as.double(length(x))
+  n_y <- as.double(length(y))
+
+
+  # Get Mann-Whitney U
+  Ustat <-  sum(r[seq_along(x)]) - n_x * (n_x + 1) / 2
+  # Calc c-index
+  cstat = Ustat / (n_x * n_y)
+  return(cstat)
+}
+
+.cstat_1 = function(x, mu = 0){
+  z <- x - mu
+  n_x = as.double(length(x))
+  n_a <- sum(z > 0) + 0.5*sum(z == 0)
+
+  cstat = n_a / n_x
+}
+
