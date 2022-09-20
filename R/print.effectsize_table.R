@@ -4,13 +4,14 @@
 #'
 #' @param x Object to print.
 #' @inheritParams insight::format_value
+#' @inheritParams is_effectsize_name
 #' @param ... Arguments passed to or from other functions.
 #'
 #' @seealso [insight::display()]
 #'
 #' @export
-print.effectsize_table <- function(x, digits = 2, ...) {
-  x_fmt <- format(x, digits = digits, output = "text", ...)
+print.effectsize_table <- function(x, digits = 2, use_symbols = getOption("es.use_symbols", FALSE), ...) {
+  x_fmt <- format(x, digits = digits, output = "text", use_symbols = use_symbols, ...)
   cat(insight::export_table(x_fmt, format = NULL, ...))
   invisible(x)
 }
@@ -33,7 +34,7 @@ print_html.effectsize_table <- function(x, digits = 2, ...) {
 #' @param output Which output is the formatting intended for? Affects how title
 #'   and footers are formatted.
 #' @export
-format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown", "html"), ...) {
+format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown", "html"), use_symbols = FALSE, ...) {
   output <- match.arg(output)
 
   ## Clean footer
@@ -92,7 +93,7 @@ format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown"
 
   ## Clean column names
   i <- is_effectsize_name(colnames(x))
-  labs <- get_effectsize_label(colnames(x))
+  labs <- get_effectsize_label(colnames(x), use_symbols = use_symbols)
   colnames(x)[i] <- labs[i]
 
   attr(x, "ci") <- NULL

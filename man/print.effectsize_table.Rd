@@ -11,13 +11,19 @@
 \usage{
 \method{plot}{effectsize_table}(x, ...)
 
-\method{print}{effectsize_table}(x, digits = 2, ...)
+\method{print}{effectsize_table}(x, digits = 2, use_symbols = getOption("es.use_symbols", FALSE), ...)
 
 \method{print_md}{effectsize_table}(x, digits = 2, ...)
 
 \method{print_html}{effectsize_table}(x, digits = 2, ...)
 
-\method{format}{effectsize_table}(x, digits = 2, output = c("text", "markdown", "html"), ...)
+\method{format}{effectsize_table}(
+  x,
+  digits = 2,
+  output = c("text", "markdown", "html"),
+  use_symbols = FALSE,
+  ...
+)
 
 \method{print}{effectsize_difference}(x, digits = 2, append_CLES = NULL, ...)
 }
@@ -32,6 +38,9 @@ to return scientific notation. Control the number of digits by adding the
 value as suffix, e.g. \code{digits = "scientific4"} to have scientific
 notation with 4 decimal places, or \code{digits = "signif5"} for 5
 significant figures (see also \code{\link[=signif]{signif()}}).}
+
+\item{use_symbols}{Should a unicode symbol be returned instead of a ascii
+text label?}
 
 \item{output}{Which output is the formatting intended for? Affects how title
 and footers are formatted.}
