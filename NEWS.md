@@ -19,6 +19,7 @@
 
 - Common-language effect sizes now respects `mu` argument for all effect sizes.
 - `mad_pooled()` not returns correct value (previously was inflated by a factor of 1.4826).
+- `pearsons_c()` and `chisq_to_pearsons_c()` lose the `adjust` argument which applied an irrelevant adjustment to the effect size.
 - Effect sizes for goodness-of-fit now work when passing a `p` that is a table.
 
 # effectsize 0.7.0.5
