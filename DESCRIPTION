@@ -72,7 +72,6 @@ Suggests:
     brms,
     car,
     emmeans,
-    ggplot2,
     knitr,
     lavaan,
     lme4,
