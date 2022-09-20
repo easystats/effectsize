@@ -1,15 +1,9 @@
 #' @rdname t_to_r
 #' @export
-t_to_d <- function(t, df_error, paired = FALSE, ci = 0.95, alternative = "two.sided", pooled, ...) {
+t_to_d <- function(t, df_error,
+                   paired = FALSE,
+                   ci = 0.95, alternative = "two.sided", ...) {
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
-
-  if (!missing(pooled)) {
-    paired <- pooled
-    warning(
-      "Argument 'pooled' is deprecated, use 'paired' instead. Setting paired <- pooled.",
-      call. = FALSE
-    )
-  }
 
   # Will be 1 if TRUE, and 2 if FALSE
   paired <- 2 - paired
@@ -57,16 +51,11 @@ t_to_d <- function(t, df_error, paired = FALSE, ci = 0.95, alternative = "two.si
 #' @rdname t_to_r
 #' @importFrom stats qnorm
 #' @export
-z_to_d <- function(z, n, paired = FALSE, ci = 0.95, alternative = "two.sided", pooled, ...) {
+z_to_d <- function(z, n,
+                   paired = FALSE,
+                   ci = 0.95, alternative = "two.sided",
+                   ...) {
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
-
-  if (!missing(pooled)) {
-    paired <- pooled
-    warning(
-      "Argument 'pooled' is deprecated, use 'paired' instead. Setting paired <- pooled.",
-      call. = FALSE
-    )
-  }
 
   # Will be 1 if TRUE, and 2 if FALSE
   paired <- 2 - paired
@@ -113,9 +102,15 @@ z_to_d <- function(z, n, paired = FALSE, ci = 0.95, alternative = "two.sided", p
 
 #' @rdname t_to_r
 #' @export
-F_to_d <- function(f, df, df_error, paired = FALSE, ci = 0.95, alternative = "two.sided", ...) {
+F_to_d <- function(f, df, df_error,
+                   paired = FALSE,
+                   ci = 0.95, alternative = "two.sided",
+                   ...) {
   if (df > 1) {
     stop("Cannot convert F with more than 1 df to (partial) r.", call. = FALSE)
   }
-  t_to_d(sqrt(f), df_error, paired = paired, ci = ci, alternative = alternative, ...)
+  t_to_d(sqrt(f), df_error,
+         paired = paired,
+         ci = ci, alternative = alternative,
+         ...)
 }

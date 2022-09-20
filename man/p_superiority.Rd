@@ -15,9 +15,9 @@ p_superiority(
   y = NULL,
   data = NULL,
   mu = 0,
+  parametric = TRUE,
   ci = 0.95,
   alternative = "two.sided",
-  parametric = TRUE,
   verbose = TRUE,
   ...
 )
@@ -27,11 +27,11 @@ cohens_u1(
   y = NULL,
   data = NULL,
   mu = 0,
+  parametric = TRUE,
   ci = 0.95,
   alternative = "two.sided",
-  parametric = TRUE,
-  verbose = TRUE,
   iterations = 200,
+  verbose = TRUE,
   ...
 )
 
@@ -40,11 +40,11 @@ cohens_u2(
   y = NULL,
   data = NULL,
   mu = 0,
+  parametric = TRUE,
   ci = 0.95,
   alternative = "two.sided",
-  parametric = TRUE,
-  verbose = TRUE,
   iterations = 200,
+  verbose = TRUE,
   ...
 )
 
@@ -53,11 +53,11 @@ cohens_u3(
   y = NULL,
   data = NULL,
   mu = 0,
+  parametric = TRUE,
   ci = 0.95,
   alternative = "two.sided",
-  parametric = TRUE,
-  verbose = TRUE,
   iterations = 200,
+  verbose = TRUE,
   ...
 )
 
@@ -66,11 +66,11 @@ p_overlap(
   y = NULL,
   data = NULL,
   mu = 0,
+  parametric = TRUE,
   ci = 0.95,
   alternative = "two.sided",
-  parametric = TRUE,
-  verbose = TRUE,
   iterations = 200,
+  verbose = TRUE,
   ...
 )
 
@@ -96,15 +96,15 @@ ignored.}
 \item{mu}{a number indicating the true value of the mean (or
     difference in means if you are performing a two sample test).}
 
+\item{parametric}{Use parametric estimation (see \code{\link[=cohens_d]{cohens_d()}}) or
+non-parametric estimation (see \code{\link[=rank_biserial]{rank_biserial()}}). See details.}
+
 \item{ci}{Confidence Interval (CI) level}
 
 \item{alternative}{a character string specifying the alternative hypothesis;
 Controls the type of CI returned: \code{"two.sided"} (default, two-sided CI),
 \code{"greater"} or \code{"less"} (one-sided CI). Partial matching is allowed (e.g.,
 \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in \link{effectsize_CIs}.}
-
-\item{parametric}{Use parametric estimation (see \code{\link[=cohens_d]{cohens_d()}}) or
-non-parametric estimation (see \code{\link[=rank_biserial]{rank_biserial()}}). See details.}
 
 \item{verbose}{Toggle warnings and messages on or off.}
 

@@ -106,15 +106,10 @@
 #'
 #' @export
 #' @importFrom stats na.omit complete.cases
-rank_biserial <- function(x,
-                          y = NULL,
-                          data = NULL,
-                          mu = 0,
-                          ci = 0.95,
-                          alternative = "two.sided",
-                          paired = FALSE,
-                          verbose = TRUE,
-                          ...) {
+rank_biserial <- function(x, y = NULL, data = NULL,
+                          mu = 0, paired = FALSE,
+                          ci = 0.95, alternative = "two.sided",
+                          verbose = TRUE, ...) {
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
 
   if (inherits(x, "htest")) {
@@ -226,14 +221,10 @@ rank_biserial <- function(x,
 
 #' @export
 #' @rdname rank_biserial
-cliffs_delta <- function(x,
-                         y = NULL,
-                         data = NULL,
+cliffs_delta <- function(x, y = NULL, data = NULL,
                          mu = 0,
-                         ci = 0.95,
-                         alternative = "two.sided",
-                         verbose = TRUE,
-                         ...) {
+                         ci = 0.95, alternative = "two.sided",
+                         verbose = TRUE, ...) {
   cl <- match.call()
   data <- .get_data_2_samples(x, y, data, verbose, ...)
   x <- data$x

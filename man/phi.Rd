@@ -8,9 +8,9 @@
 \alias{pearsons_c}
 \title{\eqn{\phi} and Other Contingency Tables Correlations}
 \usage{
-phi(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
+phi(x, y = NULL, adjust = FALSE, ci = 0.95, alternative = "greater", ...)
 
-cramers_v(x, y = NULL, ci = 0.95, alternative = "greater", adjust = FALSE, ...)
+cramers_v(x, y = NULL, adjust = FALSE, ci = 0.95, alternative = "greater", ...)
 
 cohens_w(
   x,
@@ -45,6 +45,8 @@ pearsons_c(
 \item{y}{a numeric vector; ignored if \code{x} is a matrix.  If
     \code{x} is a factor, \code{y} should be a factor of the same length.}
 
+\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
+
 \item{ci}{Confidence Interval (CI) level}
 
 \item{alternative}{a character string specifying the alternative hypothesis;
@@ -52,8 +54,6 @@ Controls the type of CI returned: \code{"greater"} (one-sided CI; default),
 \code{"two.sided"} (two-sided CI) or \code{"less"} (one-sided CI). Partial matching
 is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in
 \link{effectsize_CIs}.}
-
-\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
 
 \item{...}{For goodness-of-fit effect sizes, can pass \code{rescale.p} (see
 \code{\link[stats:chisq.test]{stats::chisq.test()}}). Else, ignored.}

@@ -14,9 +14,9 @@ chisq_to_phi(
   n,
   nrow = 2,
   ncol = 2,
+  adjust = FALSE,
   ci = 0.95,
   alternative = "greater",
-  adjust = FALSE,
   ...
 )
 
@@ -35,9 +35,9 @@ chisq_to_cramers_v(
   n,
   nrow,
   ncol,
+  adjust = FALSE,
   ci = 0.95,
   alternative = "greater",
-  adjust = FALSE,
   ...
 )
 
@@ -62,6 +62,8 @@ phi_to_chisq(phi, n, ...)
 
 \item{nrow, ncol}{The number of rows/columns in the contingency table.}
 
+\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
+
 \item{ci}{Confidence Interval (CI) level}
 
 \item{alternative}{a character string specifying the alternative hypothesis;
@@ -69,8 +71,6 @@ Controls the type of CI returned: \code{"greater"} (default) or \code{"less"}
 (one-sided CI), or \code{"two.sided"} (default, two-sided CI). Partial matching
 is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in
 \link{effectsize_CIs}.}
-
-\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE}.}
 
 \item{...}{Arguments passed to or from other methods.}
 

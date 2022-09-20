@@ -45,7 +45,9 @@
 #'
 #' @export
 #' @importFrom stats complete.cases prop.test
-cohens_g <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
+cohens_g <- function(x, y = NULL,
+                     ci = 0.95, alternative = "two.sided",
+                     ...) {
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
 
   if (inherits(x, "htest")) {

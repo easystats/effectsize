@@ -86,11 +86,8 @@
 #' @export
 #' @importFrom stats na.omit
 #' @importFrom insight check_if_installed
-rank_epsilon_squared <- function(x,
-                                 groups,
-                                 data = NULL,
-                                 ci = 0.95,
-                                 alternative = "greater",
+rank_epsilon_squared <- function(x, groups, data = NULL,
+                                 ci = 0.95, alternative = "greater",
                                  iterations = 200,
                                  ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
@@ -137,11 +134,8 @@ rank_epsilon_squared <- function(x,
 #' @rdname rank_epsilon_squared
 #' @importFrom stats na.omit
 #' @importFrom insight check_if_installed
-rank_eta_squared <- function(x,
-                             groups,
-                             data = NULL,
-                             ci = 0.95,
-                             alternative = "greater",
+rank_eta_squared <- function(x, groups, data = NULL,
+                             ci = 0.95, alternative = "greater",
                              iterations = 200,
                              ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
@@ -192,16 +186,11 @@ rank_eta_squared <- function(x,
 #' @export
 #' @importFrom stats na.omit
 #' @importFrom insight check_if_installed
-kendalls_w <- function(x,
-                       groups,
-                       blocks,
-                       data = NULL,
+kendalls_w <- function(x, groups, blocks, data = NULL,
                        blocks_on_rows = TRUE,
-                       ci = 0.95,
-                       alternative = "greater",
+                       ci = 0.95, alternative = "greater",
                        iterations = 200,
-                       verbose = TRUE,
-                       ...) {
+                       verbose = TRUE, ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "htest")) {
