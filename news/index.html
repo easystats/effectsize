@@ -130,6 +130,8 @@
 <ul><li>Common-language effect sizes now respects <code>mu</code> argument for all effect sizes.</li>
 <li>
 <code><a href="../reference/sd_pooled.html">mad_pooled()</a></code> not returns correct value (previously was inflated by a factor of 1.4826).</li>
+<li>
+<code><a href="../reference/phi.html">pearsons_c()</a></code> and <code><a href="../reference/convert_chisq.html">chisq_to_pearsons_c()</a></code> lose the <code>adjust</code> argument which applied an irrelevant adjustment to the effect size.</li>
 <li>Effect sizes for goodness-of-fit now work when passing a <code>p</code> that is a table.</li>
 </ul></div>
 </div>
