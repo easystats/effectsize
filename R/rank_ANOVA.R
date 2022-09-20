@@ -323,13 +323,10 @@ kendalls_w <- function(x,
       )
     }
 
-    Tj <- 0
-    for (i in seq_len(m)) {
-      rater <- table(rankings[i, ])
-      ties <- rater[rater > 1]
-      l <- as.numeric(ties)
-      Tj <- Tj + sum(l^3 - l)
-    }
+    Tj <- sum(apply(rankings, 1, function(.r) {
+      TTi <- table(.r)
+      sum(TTi ^ 3 - TTi)
+    }))
 
     W <- (12 * sum(R^2) - 3 * (m^2) * n * ((n + 1)^2)) /
       (m^2 * (n^3 - n) - m * Tj)
