@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.99991</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -711,10 +711,11 @@ difference between the paired samples is used:</p>
 <div class="section level4">
 <h4 id="rank-one-way-anova">Rank One way ANOVA<a class="anchor" aria-label="anchor" href="#rank-one-way-anova"></a>
 </h4>
-<p>The Rank-Epsilon-Squared (<span class="math inline">\(\varepsilon^2\)</span>) is a measure of
-association for the rank based one-way ANOVA. Values range between 0 (no
-relative superiority between any of the groups) to 1 (complete
-separation - with no overlap in ranks between the groups).</p>
+<p>The Rank-Epsilon-Squared (<span class="math inline">\(E^2_R\)</span>)
+and Rank-Eta-Squared (<span class="math inline">\(\eta^2_H\)</span>) are
+measures of association for the rank based one-way ANOVA. Values range
+between 0 (no relative superiority between any of the groups) to 1
+(complete separation - with no overlap in ranks between the groups).</p>
 <div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">group_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  g1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.9</span>, <span class="fl">3.0</span>, <span class="fl">2.5</span>, <span class="fl">2.6</span>, <span class="fl">3.2</span><span class="op">)</span>, <span class="co"># normal subjects</span></span>
@@ -735,6 +736,13 @@ separation - with no overlap in ranks between the groups).</p>
 &gt; 0.06            | [0.02, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rank_epsilon_squared.html">rank_eta_squared</a></span><span class="op">(</span><span class="va">group_data</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; Eta2 (rank) |       95% CI
+&gt; --------------------------
+&gt; 0.13        | [0.08, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 </div>
 <div class="section level4">
 <h4 id="rank-one-way-repeated-measures-anova">Rank One way Repeated-Measures ANOVA<a class="anchor" aria-label="anchor" href="#rank-one-way-repeated-measures-anova"></a>
@@ -744,7 +752,7 @@ separation - with no overlap in ranks between the groups).</p>
 various “blocks” (the subjects), or more often conceptualized as a
 measure of reliability of the rating / scores of observations (or
 “groups”) between “raters” (“blocks”).</p>
-<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Subjects are COLUMNS</span></span>
 <span><span class="op">(</span><span class="va">ReactionTimes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -770,14 +778,14 @@ measure of reliability of the rating / scores of observations (or
 &gt; Subject5       286     492         536
 &gt; Subject6       362     475         496
 &gt; Subject7       253     334         610</code></pre>
-<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/friedman.test.html" class="external-link">friedman.test</a></span><span class="op">(</span><span class="va">ReactionTimes</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; 
 &gt;   Friedman rank sum test
 &gt; 
 &gt; data:  ReactionTimes
 &gt; Friedman chi-squared = 11, df = 2, p-value = 0.004</code></pre>
-<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rank_epsilon_squared.html">kendalls_w</a></span><span class="op">(</span><span class="va">ReactionTimes</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Kendall's W |       95% CI
 &gt; --------------------------
