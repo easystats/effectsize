@@ -43,11 +43,11 @@ Convert Standardized Differences to Common Language Effect Sizes
 This function use the following formulae for Cohen's \emph{d}:
 \deqn{Pr(superiority) = \Phi(d/\sqrt{2})}{Pr(superiority) = pnorm(d / sqrt(2))}
 \cr
-\deqn{\text{Cohen's }U_3 = \Phi(d)}{U3 = pnorm(d)}
+\deqn{\textrm{Cohen's } U_3 = \Phi(d)}{U3 = pnorm(d)}
 \cr
-\deqn{\text{Cohen's }U_2 = \Phi(|d|/2)}{U2 = pnorm(abs(d)/2)}
+\deqn{\textrm{Cohen's } U_2 = \Phi(|d|/2)}{U2 = pnorm(abs(d)/2)}
 \cr
-\deqn{\text{Cohen's }U_1 = (2\times U_2 - 1)/U_2}{U1 = (2 * U2 - 1) / U2}
+\deqn{\textrm{Cohen's } U_1 = (2\times U_2 - 1)/U_2}{U1 = (2 * U2 - 1) / U2}
 \cr
 \deqn{Overlap = 2 \times \Phi(-|d|/2)}{Overlap = 2 * pnorm(-abs(d) / 2)}
 \cr

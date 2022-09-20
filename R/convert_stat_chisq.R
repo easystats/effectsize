@@ -29,7 +29,7 @@
 #' \ifelse{latex}{
 #' \deqn{\textrm{Cramer's } V = \phi / \sqrt{\min(\textit{nrow}, \textit{ncol}) - 1}}
 #' }{
-#' \deqn{\textrm{Cramer's } V = \phi / \sqrt{\min(\textit{nrow}, \textit{ncol }) - 1}}{Cramer's V = \phi / sqrt(min(nrow, ncol) - 1)}
+#' \deqn{\textrm{Cramer's } V = \phi / \sqrt{\min(\textit{nrow}, \textit{ncol}) - 1}}{Cramer's V = \phi / sqrt(min(nrow, ncol) - 1)}
 #' }
 #'
 #' \ifelse{latex}{
