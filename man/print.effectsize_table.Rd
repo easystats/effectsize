@@ -44,8 +44,8 @@ value as suffix, e.g. \code{digits = "scientific4"} to have scientific
 notation with 4 decimal places, or \code{digits = "signif5"} for 5
 significant figures (see also \code{\link[=signif]{signif()}}).}
 
-\item{use_symbols}{Should a unicode symbol be returned instead of a ascii
-text label?}
+\item{use_symbols}{Should proper symbols be printed (\code{TRUE}) instead of
+transliterated effect size names (\code{FALSE}). See \link{effectsize_options}.}
 
 \item{output}{Which output is the formatting intended for? Affects how title
 and footers are formatted.}

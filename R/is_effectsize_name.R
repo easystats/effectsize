@@ -4,8 +4,8 @@
 #'
 #' @param x A character, or a vector.
 #' @param ignore_case Should case of input be ignored?
-#' @param use_symbols Should a unicode symbol be returned instead of a ascii
-#'   text label?
+#' @param use_symbols Should proper symbols be printed (`TRUE`) instead of
+#'   transliterated effect size names (`FALSE`). See [effectsize_options].
 #' @export
 is_effectsize_name <- function(x, ignore_case = TRUE) {
   x_comp <- es_info$name

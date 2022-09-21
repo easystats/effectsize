@@ -3,8 +3,8 @@
 ## Breaking Changes
 
 - `{effectsize}` now requires *`R >= 3.6`*
-- Some function arguments have been rearranged to be more consistent across functions:
-(`phi()`, `cramers_v()`, `p_superiority()`, `cohens_u3()`, `p_overlap()`, `rank_biserial()`, `cohens_f/_squared()`, `chisq_to_phi()`, `chisq_to_cramers_v()`, `F/t_to_f/2()`, `.es_aov_*`).
+- The order of some function arguments have been rearranged to be more consistent across functions:
+(`phi()`, `cramers_v()`, `p_superiority()`, `cohens_u3()`, `p_overlap()`, `rank_biserial()`, `cohens_f/_squared()`, `chisq_to_phi()`, `chisq_to_cramers_v()`, `F/t_to_f/2()`, `.es_aov_*()`).
 - `normalized_chi()` has been renamed `fei()`.
 - `cles`, `d_to_cles` and `rb_to_cles` are deprecated in favor of their respective effect size functions.
 

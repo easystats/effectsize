@@ -21,8 +21,8 @@ get_effectsize_label(
 
 \item{ignore_case}{Should case of input be ignored?}
 
-\item{use_symbols}{Should a unicode symbol be returned instead of a ascii
-text label?}
+\item{use_symbols}{Should proper symbols be printed (\code{TRUE}) instead of
+transliterated effect size names (\code{FALSE}). See \link{effectsize_options}.}
 }
 \description{
 For use by other functions and packages.

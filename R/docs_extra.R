@@ -171,3 +171,18 @@ NULL
 #' @rdname effectsize_API
 #' @name effectsize_API
 NULL
+
+
+
+#' `effectsize` options
+#'
+#' Currently, the following global options are supported:
+#' - `es.use_symbols` [logical]: Should proper symbols be printed (`TRUE`) instead of transliterated effect size names (`FALSE`; default).
+#'
+#' @rdname effectsize_options
+#' @name effectsize_options
+NULL
+
+
+
+
