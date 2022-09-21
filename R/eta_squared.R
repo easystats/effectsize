@@ -977,7 +977,7 @@ cohens_f_squared <- function(model,
   approximate <- FALSE
   if ("Sum_Squares" %in% colnames(model) && "Residuals" %in% model[["Parameter"]]) {
     if ("Group" %in% colnames(model)) {
-      DVs <- unlist(insight::find_predictors(.get_object(model)))
+      DVs <- unlist(insight::find_predictors(.get_object_from_params(model)))
       out <- .es_aov_strata(
         model,
         DV_names = DVs,
@@ -1302,4 +1302,77 @@ cohens_f_squared <- function(model,
     verbose = verbose,
     ...
   )
+}
+
+
+
+# Utils -------------------------------------------------------------------
+
+#' @keywords internal
+.values_aov <- function(params, group = FALSE) {
+  # number of observations
+  if (isTRUE(group)) {
+    lapply(split(params, params$Group), function(.i) {
+      N <- sum(.i$df) + 1
+      .prepare_values_aov(.i, N)
+    })
+  } else {
+    N <- sum(params$df) + 1
+    .prepare_values_aov(params, N)
+  }
+}
+
+
+#' @keywords internal
+.prepare_values_aov <- function(params, N) {
+  iResid <- params$Parameter == "Residuals"
+  # get mean squared of residuals
+  Mean_Square_residuals <- sum(params[iResid, "Mean_Square"])
+  # get sum of squares of residuals
+  Sum_Squares_residuals <- sum(params[iResid, "Sum_Squares"])
+  # get total sum of squares
+  Sum_Squares_total <- sum(params$Sum_Squares)
+  # number of terms in model
+  N_terms <- nrow(params) - 1
+  # df residuals
+  df_residuals <- sum(params[iResid, "df"])
+
+  list(
+    "Mean_Square_residuals" = Mean_Square_residuals,
+    "Sum_Squares_residuals" = Sum_Squares_residuals,
+    "Sum_Squares_total" = Sum_Squares_total,
+    "n_terms" = N_terms,
+    "n" = N,
+    "df_residuals" = df_residuals
+  )
+}
+
+
+#' @keywords internal
+.get_object_from_params <- function(x, attribute_name = "object_name") {
+  obj_name <- attr(x, attribute_name, exact = TRUE)
+  model <- NULL
+  if (!is.null(obj_name)) {
+    model <- tryCatch(
+      {
+        get(obj_name, envir = parent.frame())
+      },
+      error = function(e) {
+        NULL
+      }
+    )
+    if (is.null(model) ||
+        # prevent self reference
+        inherits(model, "parameters_model")) {
+      model <- tryCatch(
+        {
+          get(obj_name, envir = globalenv())
+        },
+        error = function(e) {
+          NULL
+        }
+      )
+    }
+  }
+  model
 }
