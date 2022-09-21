@@ -149,7 +149,9 @@ hypothesis tests (in <strong><code>R</code></strong> these are usually
 achieved with various <code>*.test()</code> functions).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/">effectsize</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://richarddmorey.github.io/BayesFactor/" class="external-link">BayesFactor</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://richarddmorey.github.io/BayesFactor/" class="external-link">BayesFactor</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>es.use_symbols <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># get nice symbols when printing! (On Windows, requires `R &gt;= 4.2.0`)</span></span></code></pre></div>
 <p>In most cases, the effect sizes can be automagically extracted from
 the <code>htest</code> object via the <code><a href="../reference/effectsize.html">effectsize()</a></code>
 function.</p>
@@ -231,9 +233,9 @@ this effect size is known as Glass’ <span class="math inline">\(\Delta\)</span
 deviation is taken from the <em>second</em> sample).</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/cohens_d.html">glass_delta</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; Glass' delta |         95% CI
-&gt; -----------------------------
-&gt; -1.17        | [-1.93, -0.39]</code></pre>
+<pre><code>&gt; Glass' Δ |         95% CI
+&gt; -------------------------
+&gt; -1.17    | [-1.93, -0.39]</code></pre>
 <p>For a one-sided hypothesis, it is also possible to construct
 one-sided confidence intervals:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
@@ -399,7 +401,7 @@ vignette</a>.</p>
 <span><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">onew</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA
 &gt; 
-&gt; Eta2 |       95% CI
+&gt; η²   |       95% CI
 &gt; -------------------
 &gt; 0.43 | [0.18, 1.00]
 &gt; 
@@ -420,7 +422,7 @@ coefficient.</p>
 <code class="sourceCode R"><span><span class="va">MPG_Gear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span> <span class="op">&lt;</span> <span class="fl">20</span>, <span class="va">mtcars</span><span class="op">$</span><span class="va">vs</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/phi.html">phi</a></span><span class="op">(</span><span class="va">MPG_Gear</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; Phi  |       95% CI
+<pre><code>&gt; ϕ    |       95% CI
 &gt; -------------------
 &gt; 0.62 | [0.33, 1.00]
 &gt; 
@@ -610,8 +612,8 @@ the expected distribution perfectly) and 1 (the observed distribution is
 maximally different than the expected one).</p>
 <div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">fei</a></span><span class="op">(</span><span class="va">O</span>, p <span class="op">=</span> <span class="va">E</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; Fei  |       95% CI
-&gt; -------------------
+<pre><code>&gt; פ‎    |       95% CI
+&gt; --------------------
 &gt; 0.15 | [0.13, 1.00]
 &gt; 
 &gt; - Adjusted for non-uniform expected probabilities.
@@ -762,16 +764,16 @@ between 0 (no relative superiority between any of the groups) to 1
 &gt; Kruskal-Wallis chi-squared = 0.8, df = 2, p-value = 0.7</code></pre>
 <div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rank_epsilon_squared.html">rank_epsilon_squared</a></span><span class="op">(</span><span class="va">group_data</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; Epsilon2 (rank) |       95% CI
-&gt; ------------------------------
-&gt; 0.06            | [0.02, 1.00]
+<pre><code>&gt; ε²(R) |       95% CI
+&gt; --------------------
+&gt; 0.06  | [0.02, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rank_epsilon_squared.html">rank_eta_squared</a></span><span class="op">(</span><span class="va">group_data</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; Eta2 (rank) |       95% CI
-&gt; --------------------------
-&gt; 0.13        | [0.08, 1.00]
+<pre><code>&gt; η²(H) |       95% CI
+&gt; --------------------
+&gt; 0.13  | [0.08, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 </div>

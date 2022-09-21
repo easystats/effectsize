@@ -153,7 +153,7 @@
 <p>Run the following to install the stable release of <strong>effectsize</strong> from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"effectsize"</span><span class="op">)</span></span></code></pre></div>
-<p>Or you can install the latest development version <code>0.7.0.99991</code> from <a href="https://easystats.r-universe.dev" class="external-link"><em>R-universe</em></a>:</p>
+<p>Or you can install the latest development version <code>0.7.9.1</code> from <a href="https://easystats.r-universe.dev" class="external-link"><em>R-universe</em></a>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"effectsize"</span>, repos <span class="op">=</span> <span class="st">"https://easystats.r-universe.dev/"</span><span class="op">)</span></span></code></pre></div>
 <!-- Or from *GitHub*: -->
@@ -193,7 +193,8 @@
 </h1>
 <p>This package is focused on indices of effect size. Check out the package website for <a href="https://easystats.github.io/effectsize/reference/index.html"><strong>a full list of features and functions</strong> provided by <code>effectsize</code></a>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/">effectsize</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/">effectsize</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>es.use_symbols <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># get nice symbols when printing!</span></span></code></pre></div>
 <blockquote>
 <p><strong>Tip:</strong></p>
 <p><strong>Instead of <code><a href="https://easystats.github.io/effectsize/">library(effectsize)</a></code>, use <code><a href="https://easystats.github.io/easystats/" class="external-link">library(easystats)</a></code>.</strong> <strong>This will make all features of the easystats-ecosystem available.</strong></p>
@@ -222,9 +223,9 @@
 <span><span class="co">## - Estimated using pooled SD.</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/cohens_d.html">glass_delta</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
-<span><span class="co">## Glass' delta |         95% CI</span></span>
-<span><span class="co">## -----------------------------</span></span>
-<span><span class="co">## -1.17        | [-1.93, -0.39]</span></span></code></pre></div>
+<span><span class="co">## Glass' Δ |         95% CI</span></span>
+<span><span class="co">## -------------------------</span></span>
+<span><span class="co">## -1.17    | [-1.93, -0.39]</span></span></code></pre></div>
 <p><code>effectsize</code> also provides effect sizes for <em>contingency tables</em>, <em>rank tests</em>, and more…</p>
 </div>
 <div class="section level3">
@@ -236,7 +237,7 @@
 <span><span class="fu"><a href="reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
 <span><span class="co">## # Effect Size for ANOVA</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Parameter    | Eta2 |       95% CI</span></span>
+<span><span class="co">## Parameter    |   η² |       95% CI</span></span>
 <span><span class="co">## ----------------------------------</span></span>
 <span><span class="co">## factor(gear) | 0.43 | [0.18, 1.00]</span></span>
 <span><span class="co">## </span></span>
@@ -245,18 +246,18 @@
 <span><span class="fu"><a href="reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
 <span><span class="co">## # Effect Size for ANOVA</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Parameter    | Omega2 |       95% CI</span></span>
-<span><span class="co">## ------------------------------------</span></span>
-<span><span class="co">## factor(gear) |   0.38 | [0.14, 1.00]</span></span>
+<span><span class="co">## Parameter    |   ω² |       95% CI</span></span>
+<span><span class="co">## ----------------------------------</span></span>
+<span><span class="co">## factor(gear) | 0.38 | [0.14, 1.00]</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## - One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
 <span><span class="co">## # Effect Size for ANOVA</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Parameter    | Epsilon2 |       95% CI</span></span>
-<span><span class="co">## --------------------------------------</span></span>
-<span><span class="co">## factor(gear) |     0.39 | [0.14, 1.00]</span></span>
+<span><span class="co">## Parameter    |   ϵ² |       95% CI</span></span>
+<span><span class="co">## ----------------------------------</span></span>
+<span><span class="co">## factor(gear) | 0.39 | [0.14, 1.00]</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## - One-sided CIs: upper bound fixed at [1.00].</span></span></code></pre></div>
 <p>And more…</p>
@@ -295,9 +296,9 @@
 <span><span class="co">## 0.45 | [0.22, 0.61]</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span><span class="fl">15</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">60</span><span class="op">)</span></span>
-<span><span class="co">## Eta2 (partial) |       95% CI</span></span>
-<span><span class="co">## -----------------------------</span></span>
-<span><span class="co">## 0.20           | [0.07, 1.00]</span></span>
+<span><span class="co">## η² (partial) |       95% CI</span></span>
+<span><span class="co">## ---------------------------</span></span>
+<span><span class="co">## 0.20         | [0.07, 1.00]</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## - One-sided CIs: upper bound fixed at [1.00].</span></span></code></pre></div>
 </div>

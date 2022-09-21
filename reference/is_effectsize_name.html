@@ -112,7 +112,11 @@
 <span></span>
 <span><span class="fu">get_effectsize_name</span><span class="op">(</span><span class="va">x</span>, ignore_case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">get_effectsize_label</span><span class="op">(</span><span class="va">x</span>, ignore_case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">get_effectsize_label</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  ignore_case <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  use_symbols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"es.use_symbols"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -123,6 +127,11 @@
 
 <dt>ignore_case</dt>
 <dd><p>Should case of input be ignored?</p></dd>
+
+
+<dt>use_symbols</dt>
+<dd><p>Should proper symbols be printed (<code>TRUE</code>) instead of
+transliterated effect size names (<code>FALSE</code>). See <a href="effectsize_options.html">effectsize_options</a>.</p></dd>
 
 </dl></div>
 
