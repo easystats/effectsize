@@ -129,7 +129,6 @@ rownames(es_info) <- es_info$name
 
 
 #' @keywords internal
-#' @importFrom utils packageVersion
 .resolve_use_symbols <- function(use_symbols) {
   use_symbols &&
     !(
