@@ -35,6 +35,8 @@ functions).
 ```{r}
 library(effectsize)
 library(BayesFactor)
+
+options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, requires `R >= 4.2.0`)
 ```
 
 In most cases, the effect sizes can be automagically extracted from the `htest`

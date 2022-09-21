@@ -81,6 +81,7 @@ This package is focused on indices of effect size. Check out the package website
 
 ```{r load, message=FALSE, warning=FALSE}
 library(effectsize)
+options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, requires `R >= 4.2.0`)
 ```
 
 > **Tip:**

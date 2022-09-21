@@ -102,13 +102,21 @@
 #' that this interval does not give 95% coverage for the underlying effect size
 #' parameter value. For that, construct a 95% 2-sided CI.
 #'
+#' ```{r, echo = FALSE}
+#' op <- options(es.use_symbols = FALSE)
+#' ```
+#'
 #' ```{r}
 #' data("hardlyworking")
-#' fit <- lm(salary ~ n_comps + age, data = hardlyworking)
+#' fit <- lm(salary ~ n_comps, data = hardlyworking)
 #' eta_squared(fit) # default, ci = 0.95, alternative = "greater"
 #' eta_squared(fit, alternative = "less") # Test is eta is smaller than some value
 #' eta_squared(fit, alternative = "two.sided") # 2-sided bounds for alpha = .05
 #' eta_squared(fit, ci = 0.9, alternative = "two.sided") # both 1-sided bounds for alpha = .05
+#' ```
+#'
+#' ```{r, echo = FALSE}
+#' options(op)
 #' ```
 #'
 #' # CI Does Not Contain the Estimate
@@ -163,3 +171,18 @@ NULL
 #' @rdname effectsize_API
 #' @name effectsize_API
 NULL
+
+
+
+#' `effectsize` options
+#'
+#' Currently, the following global options are supported:
+#' - `es.use_symbols` [logical]: Should proper symbols be printed (`TRUE`) instead of transliterated effect size names (`FALSE`; default).
+#'
+#' @rdname effectsize_options
+#' @name effectsize_options
+NULL
+
+
+
+

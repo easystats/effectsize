@@ -92,6 +92,7 @@ reference:
   contents:
   - effectsize_CIs
   - effectsize_API
+  - effectsize_options
 - subtitle: "Deprecated functions"
   contents:
   - effectsize_deprecated

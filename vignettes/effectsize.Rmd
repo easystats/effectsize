@@ -46,6 +46,7 @@ In both theoretical and applied research, it is often of interest to assess the 
 
 ```{r}
 library(effectsize)
+options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, requires `R >= 4.2.0`)
 
 cohens_d(mpg ~ am, data = mtcars)
 ```

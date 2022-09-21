@@ -3,13 +3,14 @@
 ## Breaking Changes
 
 - `{effectsize}` now requires *`R >= 3.6`*
-- Some function arguments have been rearranged to be more consistent across functions:
-(`phi()`, `cramers_v()`, `p_superiority()`, `cohens_u3()`, `p_overlap()`, `rank_biserial()`, `cohens_f/_squared()`, `chisq_to_phi()`, `chisq_to_cramers_v()`, `F/t_to_f/2()`, `.es_aov_*`).
+- The order of some function arguments have been rearranged to be more consistent across functions:
+(`phi()`, `cramers_v()`, `p_superiority()`, `cohens_u3()`, `p_overlap()`, `rank_biserial()`, `cohens_f/_squared()`, `chisq_to_phi()`, `chisq_to_cramers_v()`, `F/t_to_f/2()`, `.es_aov_*()`).
 - `normalized_chi()` has been renamed `fei()`.
 - `cles`, `d_to_cles` and `rb_to_cles` are deprecated in favor of their respective effect size functions.
 
 ## New features
 
+- Set `options(es.use_symbols = TRUE)` to print proper symbols instead of transliterated effect size names. (On Windows, requires `R >= 4.2.0`)
 - `vd_a()` and `rb_to_vda()` for Vargha and Delaney's *A* dominance effect size (aliases for `p_superiority(parametric = FALSE)` and `rb_to_p_superiority()`).
 - `rank_eta_squared()` for one-way rank ANOVA.
 - `cohens_u1()`, `cohens_u2()`, `d_to_u1()`, and `d_to_u2()` added for Cohen's U1 and U2
