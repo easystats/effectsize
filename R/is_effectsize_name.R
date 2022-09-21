@@ -132,6 +132,8 @@ rownames(es_info) <- es_info$name
 #' @importFrom utils packageVersion
 .resolve_use_symbols <- function(use_symbols) {
   use_symbols &&
-    utils::packageVersion("base") >= package_version("4.2") &&
-    Sys.info()["sysname"] != "windows"
+    !(
+      (Sys.info()["sysname"] == "windows" || grepl("^mingw", R.version$os)) &&
+        getRversion() < "4.2"
+    )
 }
