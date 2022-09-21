@@ -420,8 +420,7 @@ wmw_odds <- function(x,
                   alternative = "two.sided",
                   paired = FALSE,
                   ci_method = "normal",
-                  ...,
-                  iterations) {
+                  iterations = 200) {
 
 
   alternative <- match.arg(alternative)
@@ -435,6 +434,17 @@ wmw_odds <- function(x,
       stop("'ci' must be a single number between 0 and 1")
   ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
   alpha <- 1 - ci.level
+
+
+  if (!is.numeric(ci)) {
+    ci <- NULL
+    ci_method <- NULL
+  }
+  if (is.null(ci)) {
+    alternative <- NULL
+    interval = c(NA,NA)
+  }
+
   if(is.ordered(x)){
     x = as.numeric(x)
   }
@@ -491,6 +501,23 @@ wmw_odds <- function(x,
       lcl <- (p1 - p2)/p3
       ucl <- (p1 + p2)/p3
       interval <- probs_to_odds(c(lcl,ucl))
+    } else if(ci_method == "percent"){
+
+      if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
+        interval <-  .wmw_odds_ci(
+          data = z,
+          ci = ci.level,
+          alternative = alternative,
+          iterations = iterations,
+          mu = mu,
+          sample = 1
+        )
+
+        ci_method <- list(method = "percentile bootstrap", iterations = iterations)
+      } else {
+        ci <- NULL
+      }
+
     }
 
 
@@ -528,7 +555,8 @@ wmw_odds <- function(x,
     #  stop("Odds ratio cannot be estimated. No overlap between groups.")
     #}
 
-
+    ### ----- ci: normal approx ----
+    ### bootstrap removed
     if(ci_method == "normal"){
 
       #odds2 = (Pc/Pd)
@@ -541,10 +569,31 @@ wmw_odds <- function(x,
       interval = exp(qnorm(c(alpha/2, 1 - alpha/2), mean = log(odds),
                            sd = SElnodds))
 
+    }else {
+      ci <- NULL
+    } #else if(ci_method == "percent"){
+#
+      #if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
+      #  data2 = data.frame(
+      #    response = c(x,y),
+      #    group = c(rep("x", length(x)), rep("y", length(y)))
+      #  )
+      #  interval <-  .wmw_odds_ci(
+      #    data = data2,
+      #    ci = ci.level,
+      #    alternative = alternative,
+      #    iterations = iterations,
+      #    mu = mu,
+      #    sample = 2
+      #  )
+#
+      #  ci_method <- list(method = "percentile bootstrap", iterations = iterations)
+      #}
+
     }
   }
   out = data.frame(odds = odds)
-  out$CI = ci
+  out$CI = ci.level
   out$CI_low = if (alternative == "less") 0 else interval[1]
   out$CI_high = if (alternative == "greater") Inf else interval[2]
 
@@ -841,35 +890,4 @@ wmw_odds <- function(x,
   return(Rs)
 }
 
-.cstat_2 = function(data, mu = 0){
-  x = subset(data, group == "x")$response
-  y = subset(data, group == "y")$response
-  r <- rank(c(x - mu, y))
-  n_x <- as.double(length(x))
-  n_y <- as.double(length(y))
 
-
-  # Get Mann-Whitney U
-  Ustat <-  sum(r[seq_along(x)]) - n_x * (n_x + 1) / 2
-  # Calc c-index
-  cstat = Ustat / (n_x * n_y)
-  return(cstat)
-}
-
-.cstat_1 = function(x, mu = 0){
-  z <- x - mu
-  n_x = as.double(length(x))
-  n_a <- sum(z > 0) + 0.5*sum(z == 0)
-
-  cstat = n_a / n_x
-}
-
-boot_cstat <- function(.data, .i, mu, sample = 1) {
-  if(sample == 1){
-    .cstat_1(.data[.i, ], mu = mu) # sample rows
-  }
-
-  else{
-    .cstat_2(.data[.i, ], mu = mu) # sample rows
-  }
-}
