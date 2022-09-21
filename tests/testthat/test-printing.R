@@ -165,3 +165,14 @@ if (require("testthat") && require("effectsize")) {
     expect_output(print(interpret(0, r1)), "XX")
   })
 }
+
+
+test_that("printing symbols works as expected", {
+  skip_if_not(packageVersion("base") >= package_version("4.2") &&
+                Sys.info()["sysname"] != "windows")
+
+  RCT <- matrix(c(71, 50, 30, 100), nrow = 2L)
+  P <- phi(RCT)
+
+  expect_output(print(P, use_symbols = TRUE), "\u03D5")
+})

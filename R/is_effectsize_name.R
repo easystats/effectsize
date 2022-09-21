@@ -28,6 +28,7 @@ get_effectsize_name <- function(x, ignore_case = TRUE) {
 #' @rdname is_effectsize_name
 get_effectsize_label <- function(x, ignore_case = TRUE, use_symbols = getOption("es.use_symbols", FALSE)) {
   x_comp <- es_info$name
+  use_symbols <- .resolve_use_symbols(use_symbols)
 
   if (ignore_case) {
     x <- tolower(x)
