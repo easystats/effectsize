@@ -107,7 +107,7 @@ Where \eqn{p_E} are the expected probabilities.
 
 \deqn{\textrm{Pearson's } C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
 
-For adjusted versions of \eqn{\phi} and \eqn{V}, see Bergsma, 2013.
+For bias-adjusted versions of \eqn{\phi} and \eqn{V}, see \href{https://en.wikipedia.org/wiki/Cram\%C3\%A9r\%27s_V#Bias_correction}{Bergsma, 2013}.
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
 Unless stated otherwise, confidence (compatibility) intervals (CIs) are

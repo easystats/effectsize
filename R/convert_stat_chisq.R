@@ -41,7 +41,7 @@
 #'
 #' \deqn{\textrm{Pearson's } C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
 #'
-#' For adjusted versions of \eqn{\phi} and \eqn{V}, see Bergsma, 2013.
+#' For bias-adjusted versions of \eqn{\phi} and \eqn{V}, see [Bergsma, 2013](https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_V#Bias_correction).
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
