@@ -1,5 +1,3 @@
-# library(testthat)
-
 test_that("mahalanobis_d | two sample | vs cohens_d", {
   set.seed(456)
   x <- data.frame(A = bayestestR::distribution_normal(1000, sd = 2),

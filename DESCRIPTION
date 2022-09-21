@@ -83,7 +83,8 @@ Suggests:
     rms,
     rstanarm,
     rstantools,
-    testthat (>= 3.1.0)
+    testthat (>= 3.1.0),
+    withr
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
