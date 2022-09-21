@@ -73,7 +73,7 @@ and can be accessed via the `eta_squared()` function:
 
 ```{r}
 library(effectsize)
-options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, requires `R >= 4.2.0`)
+options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, requires R >= 4.2.0)
  
 
 eta_squared(m, partial = FALSE)

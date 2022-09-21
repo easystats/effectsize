@@ -75,7 +75,7 @@ website for [**a full list of features and functions** provided by
 
 ``` r
 library(effectsize)
-options(es.use_symbols = TRUE) # get nice symbols when printing!
+options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, requires R >= 4.2.0)
 ```
 
 > **Tip:**
