@@ -418,9 +418,7 @@ wmw_odds <- function(x,
                   mu = 0,
                   ci = 0.95,
                   alternative = "two.sided",
-                  paired = FALSE,
-                  ci_method = "normal",
-                  iterations = 200) {
+                  paired = FALSE) {
 
 
   alternative <- match.arg(alternative)
@@ -442,7 +440,9 @@ wmw_odds <- function(x,
   }
   if (is.null(ci)) {
     alternative <- NULL
-    interval = c(NA,NA)
+    #interval = c(NA,NA)
+  } else {
+    ci_method <- list(method = "normal")
   }
 
   if(is.ordered(x)){
@@ -501,24 +501,9 @@ wmw_odds <- function(x,
       lcl <- (p1 - p2)/p3
       ucl <- (p1 + p2)/p3
       interval <- probs_to_odds(c(lcl,ucl))
-    } else if(ci_method == "percent"){
-
-      if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
-        interval <-  .wmw_odds_ci(
-          data = z,
-          ci = ci.level,
-          alternative = alternative,
-          iterations = iterations,
-          mu = mu,
-          sample = 1
-        )
-
-        ci_method <- list(method = "percentile bootstrap", iterations = iterations)
-      } else {
-        ci <- NULL
-      }
-
     }
+
+
 
 
   } else { ##------------------------ 2-sample case -------------------------
@@ -569,8 +554,6 @@ wmw_odds <- function(x,
       interval = exp(qnorm(c(alpha/2, 1 - alpha/2), mean = log(odds),
                            sd = SElnodds))
 
-    }else {
-      ci <- NULL
     } #else if(ci_method == "percent"){
 #
       #if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
@@ -590,12 +573,14 @@ wmw_odds <- function(x,
       #  ci_method <- list(method = "percentile bootstrap", iterations = iterations)
       #}
 
-    }
+
   }
   out = data.frame(odds = odds)
-  out$CI = ci.level
-  out$CI_low = if (alternative == "less") 0 else interval[1]
-  out$CI_high = if (alternative == "greater") Inf else interval[2]
+  if(!is.null(ci_method)){
+    out$CI = ci.level
+    out$CI_low = if (alternative == "less") 0 else interval[1]
+    out$CI_high = if (alternative == "greater") Inf else interval[2]
+  }
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
   attr(out, "paired") <- paired
