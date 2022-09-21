@@ -70,11 +70,3 @@
   }
   datawizard::ranktransform(x, method = "average", ..., verbose = FALSE)
 }
-
-#' @keywords internal
-#' @importFrom utils packageVersion
-.resolve_use_symbols <- function(use_symbols) {
-  use_symbols &&
-    utils::packageVersion("base") >= package_version("4.2") &&
-    Sys.info()["sysname"] != "windows"
-}

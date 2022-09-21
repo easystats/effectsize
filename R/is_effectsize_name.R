@@ -39,6 +39,10 @@ get_effectsize_label <- function(x, ignore_case = TRUE, use_symbols = getOption(
   es_info[idx, ifelse(use_symbols, "symbol", "label")]
 }
 
+
+# es_info -----------------------------------------------------------------
+
+
 #' List of effect size names
 #'
 #' Can always add more info here if need be...
@@ -119,3 +123,15 @@ es_info$ub <- as.numeric(es_info$ub)
 es_info$null <- as.numeric(es_info$null)
 es_info$symbol[is.na(es_info$symbol)] <- es_info$label[is.na(es_info$symbol)]
 rownames(es_info) <- es_info$name
+
+
+# Utils -------------------------------------------------------------------
+
+
+#' @keywords internal
+#' @importFrom utils packageVersion
+.resolve_use_symbols <- function(use_symbols) {
+  use_symbols &&
+    utils::packageVersion("base") >= package_version("4.2") &&
+    Sys.info()["sysname"] != "windows"
+}

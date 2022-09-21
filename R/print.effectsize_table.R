@@ -11,7 +11,6 @@
 #'
 #' @export
 print.effectsize_table <- function(x, digits = 2, use_symbols = getOption("es.use_symbols", FALSE), ...) {
-  use_symbols <- .resolve_use_symbols(use_symbols)
   x_fmt <- format(x, digits = digits, output = "text", use_symbols = use_symbols, ...)
   cat(insight::export_table(x_fmt, format = NULL, ...))
   invisible(x)
@@ -20,7 +19,6 @@ print.effectsize_table <- function(x, digits = 2, use_symbols = getOption("es.us
 #' @export
 #' @rdname print.effectsize_table
 print_md.effectsize_table <- function(x, digits = 2, use_symbols = getOption("es.use_symbols", FALSE), ...) {
-  use_symbols <- .resolve_use_symbols(use_symbols)
   x_fmt <- format(x, digits = digits, output = "markdown", ...)
   insight::export_table(x_fmt, format = "markdown", ...)
 }
@@ -28,7 +26,6 @@ print_md.effectsize_table <- function(x, digits = 2, use_symbols = getOption("es
 #' @export
 #' @rdname print.effectsize_table
 print_html.effectsize_table <- function(x, digits = 2, use_symbols = getOption("es.use_symbols", FALSE),  ...) {
-  use_symbols <- .resolve_use_symbols(use_symbols)
   x_fmt <- format(x, digits = digits, output = "html", ...)
   insight::export_table(x_fmt, format = "html", ...)
 }
@@ -39,7 +36,6 @@ print_html.effectsize_table <- function(x, digits = 2, use_symbols = getOption("
 #' @export
 format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown", "html"), use_symbols = getOption("es.use_symbols", FALSE), ...) {
   output <- match.arg(output)
-  use_symbols <- .resolve_use_symbols(use_symbols)
 
   ## Clean footer
   footer <- attr(x, "table_footer")
