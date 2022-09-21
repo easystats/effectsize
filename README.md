@@ -30,7 +30,7 @@ CRAN:
 install.packages("effectsize")
 ```
 
-Or you can install the latest development version `0.7.0.99991` from
+Or you can install the latest development version `0.7.9.1` from
 [*R-universe*](https://easystats.r-universe.dev):
 
 ``` r
@@ -75,6 +75,7 @@ website for [**a full list of features and functions** provided by
 
 ``` r
 library(effectsize)
+options(es.use_symbols = TRUE) # get nice symbols when printing!
 ```
 
 > **Tip:**
@@ -106,9 +107,9 @@ hedges_g(mpg ~ am, data = mtcars)
 ## - Estimated using pooled SD.
 
 glass_delta(mpg ~ am, data = mtcars)
-## Glass' delta |         95% CI
-## -----------------------------
-## -1.17        | [-1.93, -0.39]
+## Glass' Δ |         95% CI
+## -------------------------
+## -1.17    | [-1.93, -0.39]
 ```
 
 `effectsize` also provides effect sizes for *contingency tables*, *rank
@@ -122,7 +123,7 @@ model <- aov(mpg ~ factor(gear), data = mtcars)
 eta_squared(model)
 ## # Effect Size for ANOVA
 ## 
-## Parameter    | Eta2 |       95% CI
+## Parameter    |   η² |       95% CI
 ## ----------------------------------
 ## factor(gear) | 0.43 | [0.18, 1.00]
 ## 
@@ -131,18 +132,18 @@ eta_squared(model)
 omega_squared(model)
 ## # Effect Size for ANOVA
 ## 
-## Parameter    | Omega2 |       95% CI
-## ------------------------------------
-## factor(gear) |   0.38 | [0.14, 1.00]
+## Parameter    |   ω² |       95% CI
+## ----------------------------------
+## factor(gear) | 0.38 | [0.14, 1.00]
 ## 
 ## - One-sided CIs: upper bound fixed at [1.00].
 
 epsilon_squared(model)
 ## # Effect Size for ANOVA
 ## 
-## Parameter    | Epsilon2 |       95% CI
-## --------------------------------------
-## factor(gear) |     0.39 | [0.14, 1.00]
+## Parameter    |   ϵ² |       95% CI
+## ----------------------------------
+## factor(gear) | 0.39 | [0.14, 1.00]
 ## 
 ## - One-sided CIs: upper bound fixed at [1.00].
 ```
@@ -187,9 +188,9 @@ F_to_r(15, df = 1, df_error = 60)
 ## 0.45 | [0.22, 0.61]
 
 F_to_eta2(15, df = 1, df_error = 60)
-## Eta2 (partial) |       95% CI
-## -----------------------------
-## 0.20           | [0.07, 1.00]
+## η² (partial) |       95% CI
+## ---------------------------
+## 0.20         | [0.07, 1.00]
 ## 
 ## - One-sided CIs: upper bound fixed at [1.00].
 ```

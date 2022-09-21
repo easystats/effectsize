@@ -90,6 +90,7 @@ recovered from `F_to_eta2()`:
 
 ```{r}
 library(effectsize)
+options(es.use_symbols = TRUE) # get nice symbols when printing!
 
 F_to_eta2(
   f = c(40.72, 33.77, 45.31),

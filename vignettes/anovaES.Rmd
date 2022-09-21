@@ -73,6 +73,8 @@ and can be accessed via the `eta_squared()` function:
 
 ```{r}
 library(effectsize)
+options(es.use_symbols = TRUE) # get nice symbols when printing!
+
 
 eta_squared(m, partial = FALSE)
 ```
