@@ -168,8 +168,9 @@ if (require("testthat") && require("effectsize")) {
 
 
 test_that("printing symbols works as expected", {
-  skip_if_not(packageVersion("base") >= package_version("4.2") &&
-                Sys.info()["sysname"] != "windows")
+  skip_if(getRversion() < 4.2 &&
+            (Sys.info()["sysname"] == "windows" ||
+               grepl("^mingw", R.version$os)))
 
   RCT <- matrix(c(71, 50, 30, 100), nrow = 2L)
   P <- phi(RCT)
