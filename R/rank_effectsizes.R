@@ -108,7 +108,6 @@
 #' # Two Independent Samples ----------
 #' (rb <- rank_biserial(mpg ~ am, data = mtcars))
 #' # Same as:
-#' # rank_biserial("mpg", "am", data = mtcars)
 #' # rank_biserial(mtcars$mpg[mtcars$am=="0"], mtcars$mpg[mtcars$am=="1"])
 #'
 #' # More options:
@@ -156,6 +155,36 @@
 #' interpret_kendalls_w(0.11)
 #' interpret(W, rules = "landis1977")
 #' }
+#'
+#' # WMW Odds
+#' # =========================
+#'
+#' # Two Independent Samples ----------
+#' (wmw <- wmw_odds(mpg ~ am, data = mtcars))
+#' # Same as:
+#' # wmw_odds(mtcars$mpg[mtcars$am=="0"], mtcars$mpg[mtcars$am=="1"])
+#'
+#' # More options:
+#' wmw_odds(mpg ~ am, data = mtcars, mu = -5)
+#'
+#' # One Sample ----------
+#' wmw_odds(wt ~ 1, data = mtcars, mu = 3)
+#' # same as:
+#' # wmw_odds("wt", data = mtcars, mu = 3)
+#' # wmw_odds(mtcars$wt, mu = 3)
+#'
+#'
+#' # Paired Samples ----------
+#' dat <- data.frame(
+#'   Cond1 = c(1.83, 0.5, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.3),
+#'   Cond2 = c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
+#' )
+#' (wmw <- wmwm_odds(Pair(Cond1, Cond2) ~ 1, data = dat, paired = TRUE))
+#'
+#' # same as:
+#' # wmw_odds(dat$Cond1, dat$Cond2, paired = TRUE)
+#' # wmw_odds("Cond1", "Cond2", data = dat, paired = TRUE)
+#'
 #'
 #' @references
 #' - Cureton, E. E. (1956). Rank-biserial correlation. Psychometrika, 21(3),
@@ -441,11 +470,14 @@ kendalls_w <- function(x,
 #' @export
 
 wmw_odds <- function(x,
-                  y = NULL,
-                  mu = 0,
-                  ci = 0.95,
-                  alternative = "two.sided",
-                  paired = FALSE) {
+                     y = NULL,
+                     data = NULL,
+                     mu = 0,
+                     ci = 0.95,
+                     alternative = "two.sided",
+                     paired = FALSE,
+                     verbose = TRUE,
+                     ...) {
 
 
   alternative <- match.arg(alternative)
@@ -472,6 +504,11 @@ wmw_odds <- function(x,
     ci_method <- list(method = "normal")
   }
 
+  ## Prep data
+  out <- .get_data_2_samples(x, y, data, verbose, ...)
+  x <- out$x
+  y <- out$y
+
   if(is.ordered(x)){
     x = as.numeric(x)
   }
@@ -497,8 +534,6 @@ wmw_odds <- function(x,
     }
   } else {
 
-    if(paired)
-      stop("'y' is missing for paired test")
     x <- x[is.finite(x)]
   }
 
