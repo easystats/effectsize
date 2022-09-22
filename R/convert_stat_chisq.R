@@ -328,3 +328,60 @@ chisq_to_pearsons_c <- function(chisq, n, nrow, ncol,
 phi_to_chisq <- function(phi, n, ...) {
   n * (phi^2)
 }
+
+
+# Utils  ------------------------------------------------------------------
+
+.chisq_to_generic_phi <- function(chisq, n, nrow, ncol,
+                                  ci = 0.95, alternative = "greater",
+                                  ...) {
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+
+  cl <- match.call()
+  dont_stop <- eval(cl[["dont_stop"]], envir = parent.frame())
+  if (is.null(dont_stop)) dont_stop <- FALSE
+
+  if (!dont_stop && (nrow != 2 || ncol != 2)) {
+    stop("Phi is not appropriate for non-2x2 tables.", call. = FALSE)
+  }
+
+  if (is.numeric(ci)) {
+    is_goodness <- ncol == 1 || nrow == 1
+
+    if (is_goodness) {
+      df <- pmax(nrow - 1, ncol - 1)
+    } else {
+      df <- (nrow - 1) * (ncol - 1)
+    }
+  }
+
+  res <- data.frame(phi = sqrt(chisq / n))
+
+  if (is.numeric(ci)) {
+    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+    res$CI <- ci
+    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+
+    chisqs <- t(mapply(
+      .get_ncp_chi,
+      chisq, df, ci.level
+    ))
+
+    res$CI_low <- .chisq_to_generic_phi(chisqs[, 1], n, nrow, ncol, ci = NULL)[[1]]
+    res$CI_high <- .chisq_to_generic_phi(chisqs[, 2], n, nrow, ncol, ci = NULL)[[1]]
+
+    ci_method <- list(method = "ncp", distribution = "chisq")
+    if (alternative == "less") {
+      res$CI_low <- 0
+    }
+  } else {
+    ci_method <- NULL
+    alternative <- NULL
+  }
+
+  class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
+  attr(res, "ci") <- ci
+  attr(res, "ci_method") <- ci_method
+  attr(res, "alternative") <- alternative
+  return(res)
+}
