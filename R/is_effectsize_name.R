@@ -59,6 +59,7 @@ es_info <- matrix(
     ## xtab cor
     "Cramers_v", "Cramer's V", NA, "onetail", 0, 1, 0,
     "Cramers_v_adjusted", "Cramer's V (adj.)", NA, "onetail", 0, 1, 0,
+    "Tschuprows_t", "Tschuprow's T", NA, "onetail", 0, 1, 0,
     "phi", "Phi", "\u03D5", "onetail", 0, 1, 0,
     "phi_adjusted", "Phi (adj.)", "\u03D5 (adj.)", "onetail", 0, 1, 0,
     "Pearsons_c", "Pearson's C", NA, "onetail", 0, 1, 0,

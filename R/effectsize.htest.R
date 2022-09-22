@@ -125,7 +125,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     }
   }
 
-  if (grepl("(c|v|w|phi|fei)$", tolower(type))) {
+  if (grepl("(c|v|t|w|phi|fei)$", tolower(type))) {
     if (tolower(type) == "fei") {
       p <- Exp
     } else {
@@ -135,6 +135,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     f <- switch(tolower(type),
       v = ,
       cramers_v = chisq_to_cramers_v,
+      t = ,
+      tschuprows_t = chisq_to_tschuprows_t,
       w = ,
       cohens_w = chisq_to_cohens_w,
       phi = chisq_to_phi,

@@ -4,6 +4,7 @@
 \alias{chisq_to_phi}
 \alias{chisq_to_cohens_w}
 \alias{chisq_to_cramers_v}
+\alias{chisq_to_tschuprows_t}
 \alias{chisq_to_fei}
 \alias{chisq_to_pearsons_c}
 \alias{phi_to_chisq}
@@ -31,6 +32,17 @@ chisq_to_cohens_w(
 )
 
 chisq_to_cramers_v(
+  chisq,
+  n,
+  nrow,
+  ncol,
+  adjust = FALSE,
+  ci = 0.95,
+  alternative = "greater",
+  ...
+)
+
+chisq_to_tschuprows_t(
   chisq,
   n,
   nrow,
@@ -84,9 +96,10 @@ A data frame with the effect size(s), and confidence interval(s). See
 \code{\link[=cramers_v]{cramers_v()}}.
 }
 \description{
-Convert between \eqn{\chi^2} (chi-square), \eqn{\phi} (phi), Cramer's \eqn{V},
-Cohen's \eqn{w}, \ifelse{latex}{\eqn{Fei}}{פ (Fei)} and Pearson's \eqn{C}
-for contingency tables or goodness of fit.
+Convert between \eqn{\chi^2} (chi-square), \eqn{\phi} (phi), Cramer's
+\eqn{V}, Tschuprow's \eqn{T}, Cohen's \eqn{w},
+\ifelse{latex}{\eqn{Fei}}{פ (Fei)} and Pearson's \eqn{C} for contingency
+tables or goodness of fit.
 }
 \details{
 These functions use the following formulas:
@@ -96,6 +109,12 @@ These functions use the following formulas:
 \deqn{\textrm{Cramer's } V = \phi / \sqrt{\min(\textit{nrow}, \textit{ncol}) - 1}}
 }{
 \deqn{\textrm{Cramer's } V = \phi / \sqrt{\min(\textit{nrow}, \textit{ncol}) - 1}}{Cramer's V = \phi / sqrt(min(nrow, ncol) - 1)}
+}
+
+\ifelse{latex}{
+\deqn{\textrm{Tschuprow's } T = \phi / \sqrt[4]{(\textit{nrow} - 1) \times (\textit{ncol} - 1)}}
+}{
+\deqn{\textrm{Tschuprow's } T = \phi / \sqrt[4]{(\textit{nrow} - 1) \times (\textit{ncol} - 1)}}{Tschuprow's T = \phi / sqrt(sqrt((nrow-1) * (ncol-1)))}
 }
 
 \ifelse{latex}{

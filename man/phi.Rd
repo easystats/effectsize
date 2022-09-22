@@ -3,6 +3,7 @@
 \name{phi}
 \alias{phi}
 \alias{cramers_v}
+\alias{tschuprows_t}
 \alias{cohens_w}
 \alias{fei}
 \alias{pearsons_c}
@@ -11,6 +12,8 @@
 phi(x, y = NULL, adjust = FALSE, ci = 0.95, alternative = "greater", ...)
 
 cramers_v(x, y = NULL, adjust = FALSE, ci = 0.95, alternative = "greater", ...)
+
+tschuprows_t(x, y = NULL, ci = 0.95, alternative = "greater", ...)
 
 cohens_w(
   x,
@@ -68,20 +71,26 @@ the suffix \verb{_adjusted}), \code{Cohens_w}, \code{Fei}) and its CIs (\code{CI
 \code{CI_high}).
 }
 \description{
-Compute Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w},
+Compute phi (\eqn{\phi}), Cramer's \emph{V}, Tschuprow's \emph{T}, Cohen's \emph{w},
 \ifelse{latex}{\eqn{Fei}}{פ (Fei)}, Pearson's contingency coefficient for
 contingency tables or goodness-of-fit. Pair with any reported
 \code{\link[stats:chisq.test]{stats::chisq.test()}}.
 }
 \details{
-Cramer's \emph{V}, phi (\eqn{\phi}), Cohen's \emph{w}, and Pearson's \emph{C} are effect
-sizes for tests of independence in 2D contingency tables. For 2-by-2 tables,
-Cramer's \emph{V}, phi and Cohen's \emph{w} are identical, and are equal to the simple
-correlation between two dichotomous variables, ranging between  0 (no
-dependence) and 1 (perfect dependence). For larger tables, Cramer's \emph{V} or
-Pearson's \emph{C} should be used, as they are bounded between 0-1. Cohen's \emph{w}
-can also be used, but since it is not bounded at 1 (can be larger) its
-interpretation is more difficult.
+phi (\eqn{\phi}), Cramer's \emph{V}, Tschuprow's \emph{T}, Cohen's \emph{w}, and Pearson's
+\emph{C} are effect sizes for tests of independence in 2D contingency tables. For
+2-by-2 tables, phi, Cramer's \emph{V}, Tschuprow's \emph{T}, and Cohen's \emph{w} are
+identical, and are equal to the simple correlation between two dichotomous
+variables, ranging between  0 (no dependence) and 1 (perfect dependence).
+\cr\cr
+For larger tables, Cramer's \emph{V}, Tschuprow's \emph{T} or Pearson's \emph{C} should be
+used, as they are bounded between 0-1. (Cohen's \emph{w} can also be used, but
+since it is not bounded at 1 (can be larger) its interpretation is more
+difficult.) For square table, Cramer's \emph{V} and Tschuprow's \emph{T} give the same
+results, but for non-square tables Tschuprow's \emph{T} is more conservative:
+while \emph{V} will be 1 if either columns are fully dependent on rows (for each
+column, there is only one non-0 cell) \emph{or} rows are fully dependent on
+columns, \emph{T} will only be 1 if both are true.
 \cr \cr
 For goodness-of-fit in 1D tables Cohen's \emph{W}, \ifelse{latex}{\eqn{Fei}}{פ (Fei)}
 or Pearson's \emph{C} can be used. Cohen's \emph{w} has no upper bound (can be
