@@ -61,10 +61,7 @@ wmw_odds(
   mu = 0,
   ci = 0.95,
   alternative = "two.sided",
-  paired = FALSE,
-  ci_method = "normal",
-  ...,
-  iterations
+  paired = FALSE
 )
 }
 \arguments{
@@ -124,8 +121,8 @@ A data frame with the effect size (\code{r_rank_biserial},
 }
 \description{
 Compute the rank-biserial correlation (\eqn{r_{rb}}{r_rb}), Cliff's \emph{delta}
-(\eqn{\delta}), rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}), and
-Kendall's \emph{W} effect sizes for non-parametric (rank sum) tests.
+(\eqn{\delta}), rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}),
+Kendall's \emph{W}, and Wilcoxon-Mann-Whitney Odds Ratio effect sizes for non-parametric (rank sum) tests.
 }
 \details{
 The rank-biserial correlation is appropriate for non-parametric tests of
@@ -153,6 +150,21 @@ measure is also common as a measure of reliability of the rankings of the
 \code{groups} between raters (\code{blocks}). See \link[stats:friedman.test]{stats::friedman.test}. Values range
 from 0 to 1, with larger values indicating larger differences between groups
 / higher agreement between raters.
+\cr\cr
+Wilcoxon-Mann-Whitney odds (WMWodds) is an extension of Agresti's generalized
+odds ratio, but accounts for ties (see below). In the two sample case, the
+WMWodds statistic represents the odds that if a pair of observations are
+randomly selected from two groups, the outcome in one group is higher than
+the other (minus mu). In the one-sample (or paired) case, it is the odds of
+single observation being greater than the mu parameter (default is zero).
+The odds can be converted to a non-parametric version of the probability of
+superiority (also referred to as the concordance probability) using the
+\code{odds_to_probs} function.
+
+Like the rank-biserial
+correlation, it is an appropriate effect size to accompany a non-parametric
+tests of rank differences (i.e., any result derived from the
+\link[stats:wilcox.test]{stats::wilcox.test} fucntion).
 \subsection{Ties}{
 
 When tied values occur, they are each given the average of the ranks that
@@ -163,6 +175,9 @@ reduced magnitude. A correction has been applied for Kendall's \emph{W}.
 \section{Confidence Intervals}{
 Confidence intervals for the rank-biserial correlation (and Cliff's \emph{delta})
 are estimated using the normal approximation (via Fisher's transformation).
+Confidence intervals for the WMWodds are estimated using a normal approximation
+(Agresti's method for two-sample, and Wilson's score interval method
+for the one-sample case).
 Confidence intervals for rank Epsilon squared, and Kendall's \emph{W} are
 estimated using the bootstrap method (using the \code{{boot}} package).
 }
@@ -245,6 +260,12 @@ behavioral sciences. John Wiley & Sons Inc.
 questions. Psychological bulletin, 114(3), 494.
 \item Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates
 revisited. An overview of some recommended measures of effect size.
+\item O’Brien, R. G., & Castelloe, J. (2006, March). Exploiting the link between
+the Wilcoxon-Mann-Whitney test and a simple odds statistic.
+In Proceedings of the Thirty-first Annual SAS Users Group International
+Conference (pp. 209-31). Cary, NC: SAS Institute.
+\item Agresti, A. (1980). Generalized odds ratios for ordinal data.
+Biometrics, 59-67.
 }
 }
 \seealso{

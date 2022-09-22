@@ -1,8 +1,8 @@
 #' Effect size for non-parametric (rank sum) tests
 #'
 #' Compute the rank-biserial correlation (\eqn{r_{rb}}{r_rb}), Cliff's *delta*
-#' (\eqn{\delta}), rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}), and
-#' Kendall's *W* effect sizes for non-parametric (rank sum) tests.
+#' (\eqn{\delta}), rank epsilon squared (\eqn{\varepsilon^2}{\epsilon^2}),
+#' Kendall's *W*, and Wilcoxon-Mann-Whitney Odds Ratio effect sizes for non-parametric (rank sum) tests.
 #'
 #' @inheritParams cohens_d
 #' @param x Can be one of:
@@ -59,6 +59,22 @@
 #' `groups` between raters (`blocks`). See [stats::friedman.test]. Values range
 #' from 0 to 1, with larger values indicating larger differences between groups
 #' / higher agreement between raters.
+#'\cr\cr
+#' Wilcoxon-Mann-Whitney odds (WMWodds) is an extension of Agresti's generalized
+#' odds ratio, but accounts for ties (see below). In the two sample case, the
+#' WMWodds statistic represents the odds that if a pair of observations are
+#' randomly selected from two groups, the outcome in one group is higher than
+#' the other (minus mu). In the one-sample (or paired) case, it is the odds of
+#' single observation being greater than the mu parameter (default is zero).
+#' The odds can be converted to a non-parametric version of the probability of
+#' superiority (also referred to as the concordance probability) using the
+#' `odds_to_probs` function.
+#'
+#' Like the rank-biserial
+#' correlation, it is an appropriate effect size to accompany a non-parametric
+#' tests of rank differences (i.e., any result derived from the
+#' [stats::wilcox.test] fucntion).
+#'
 #'
 #' ## Ties
 #' When tied values occur, they are each given the average of the ranks that
@@ -68,6 +84,9 @@
 #' # Confidence Intervals
 #' Confidence intervals for the rank-biserial correlation (and Cliff's *delta*)
 #' are estimated using the normal approximation (via Fisher's transformation).
+#' Confidence intervals for the WMWodds are estimated using a normal approximation
+#' (Agresti's method for two-sample, and Wilson's score interval method
+#' for the one-sample case).
 #' Confidence intervals for rank Epsilon squared, and Kendall's *W* are
 #' estimated using the bootstrap method (using the `{boot}` package).
 #'
@@ -159,6 +178,14 @@
 #'
 #' - Tomczak, M., & Tomczak, E. (2014). The need to report effect size estimates
 #' revisited. An overview of some recommended measures of effect size.
+#'
+#' - O’Brien, R. G., & Castelloe, J. (2006, March). Exploiting the link between
+#' the Wilcoxon-Mann-Whitney test and a simple odds statistic.
+#' In Proceedings of the Thirty-first Annual SAS Users Group International
+#' Conference (pp. 209-31). Cary, NC: SAS Institute.
+#'
+#' - Agresti, A. (1980). Generalized odds ratios for ordinal data.
+#' Biometrics, 59-67.
 #'
 #' @export
 #' @importFrom stats na.omit complete.cases
