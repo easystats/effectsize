@@ -13,6 +13,7 @@ if (require("testthat") && require("effectsize")) {
 
     expect_error(phi(contingency_table), "appropriate")
 
+    expect_equal(tschuprows_t(contingency_table), res, ignore_attr = TRUE)
 
     ## Size does not affect estimate
     xtab <- rbind(
@@ -29,6 +30,15 @@ if (require("testthat") && require("effectsize")) {
     # Upper bound of phi is the ratio between phi / V and sqrt(min(K,L)-1)
     expect_equal(cohens_w(xtab, alternative = "greater")$CI_high, sqrt(2))
     expect_equal(cohens_w(xtab)[[1]] / cramers_v(xtab)[[1]], sqrt(2))
+
+    # Tschuprows_t with non-square tables
+    xtab <- rbind(
+      c(9, 0, 1),
+      c(0, 1, 0)
+    )
+    expect_equal(cramers_v(xtab)[[1]], 1)
+    expect_true(tschuprows_t(xtab)[[1]] < cramers_v(xtab)[[1]])
+
 
     ## 2*2 tables return phi and cramers_v
     xtab <- rbind(

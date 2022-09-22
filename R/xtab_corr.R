@@ -1,6 +1,6 @@
 #' \eqn{\phi} and Other Contingency Tables Correlations
 #'
-#' Compute Cramer's *V*, phi (\eqn{\phi}), Cohen's *w*,
+#' Compute phi (\eqn{\phi}), Cramer's *V*, Tschuprow's *T*, Cohen's *w*,
 #' \ifelse{latex}{\eqn{Fei}}{פ (Fei)}, Pearson's contingency coefficient for
 #' contingency tables or goodness-of-fit. Pair with any reported
 #' [`stats::chisq.test()`].
@@ -12,14 +12,20 @@
 #'
 #' @details
 #'
-#' Cramer's *V*, phi (\eqn{\phi}), Cohen's *w*, and Pearson's *C* are effect
-#' sizes for tests of independence in 2D contingency tables. For 2-by-2 tables,
-#' Cramer's *V*, phi and Cohen's *w* are identical, and are equal to the simple
-#' correlation between two dichotomous variables, ranging between  0 (no
-#' dependence) and 1 (perfect dependence). For larger tables, Cramer's *V* or
-#' Pearson's *C* should be used, as they are bounded between 0-1. Cohen's *w*
-#' can also be used, but since it is not bounded at 1 (can be larger) its
-#' interpretation is more difficult.
+#' phi (\eqn{\phi}), Cramer's *V*, Tschuprow's *T*, Cohen's *w*, and Pearson's
+#' *C* are effect sizes for tests of independence in 2D contingency tables. For
+#' 2-by-2 tables, phi, Cramer's *V*, Tschuprow's *T*, and Cohen's *w* are
+#' identical, and are equal to the simple correlation between two dichotomous
+#' variables, ranging between  0 (no dependence) and 1 (perfect dependence).
+#' \cr\cr
+#' For larger tables, Cramer's *V*, Tschuprow's *T* or Pearson's *C* should be
+#' used, as they are bounded between 0-1. (Cohen's *w* can also be used, but
+#' since it is not bounded at 1 (can be larger) its interpretation is more
+#' difficult.) For square table, Cramer's *V* and Tschuprow's *T* give the same
+#' results, but for non-square tables Tschuprow's *T* is more conservative:
+#' while *V* will be 1 if either columns are fully dependent on rows (for each
+#' column, there is only one non-0 cell) *or* rows are fully dependent on
+#' columns, *T* will only be 1 if both are true.
 #' \cr \cr
 #' For goodness-of-fit in 1D tables Cohen's *W*, \ifelse{latex}{\eqn{Fei}}{פ (Fei)}
 #' or Pearson's *C* can be used. Cohen's *w* has no upper bound (can be
@@ -160,6 +166,36 @@ cramers_v <- function(x, y = NULL,
   }
 
   effectsize(x, type = "cramers_v", adjust = adjust, ci = ci, alternative = alternative)
+}
+
+
+#' @rdname phi
+#' @importFrom stats chisq.test
+#' @export
+tschuprows_t <- function(x, y = NULL,
+                         ci = 0.95, alternative = "greater",
+                         ...) {
+  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+
+  if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
+    return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci, ...))
+  }
+
+
+  if (inherits(x, "htest")) {
+    if (!(grepl("Pearson's Chi-squared", x$method) ||
+          grepl("Chi-squared test for given probabilities", x$method))) {
+      stop("'x' is not a Chi-squared test!", call. = FALSE)
+    }
+  } else {
+    x <- suppressWarnings(stats::chisq.test(x, y))
+    x$data.name <- NULL
+  }
+
+  effectsize(x, type = "tschuprows_t", ci = ci, alternative = alternative)
 }
 
 #' @rdname phi

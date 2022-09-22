@@ -1,8 +1,9 @@
 #' Convert \eqn{\chi^2} to \eqn{\phi} and Other Correlation-like Effect Sizes
 #'
-#' Convert between \eqn{\chi^2} (chi-square), \eqn{\phi} (phi), Cramer's \eqn{V},
-#' Cohen's \eqn{w}, \ifelse{latex}{\eqn{Fei}}{פ (Fei)} and Pearson's \eqn{C}
-#' for contingency tables or goodness of fit.
+#' Convert between \eqn{\chi^2} (chi-square), \eqn{\phi} (phi), Cramer's
+#' \eqn{V}, Tschuprow's \eqn{T}, Cohen's \eqn{w},
+#' \ifelse{latex}{\eqn{Fei}}{פ (Fei)} and Pearson's \eqn{C} for contingency
+#' tables or goodness of fit.
 #'
 #' @name chisq_to_phi
 #' @rdname convert_chisq
@@ -30,6 +31,12 @@
 #' \deqn{\textrm{Cramer's } V = \phi / \sqrt{\min(\textit{nrow}, \textit{ncol}) - 1}}
 #' }{
 #' \deqn{\textrm{Cramer's } V = \phi / \sqrt{\min(\textit{nrow}, \textit{ncol}) - 1}}{Cramer's V = \phi / sqrt(min(nrow, ncol) - 1)}
+#' }
+#'
+#' \ifelse{latex}{
+#' \deqn{\textrm{Tschuprow's } T = \phi / \sqrt[4]{(\textit{nrow} - 1) \times (\textit{ncol} - 1)}}
+#' }{
+#' \deqn{\textrm{Tschuprow's } T = \phi / \sqrt[4]{(\textit{nrow} - 1) \times (\textit{ncol} - 1)}}{Tschuprow's T = \phi / sqrt(sqrt((nrow-1) * (ncol-1)))}
 #' }
 #'
 #' \ifelse{latex}{
@@ -177,6 +184,32 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol,
   res[grepl("^(phi|CI_)", colnames(res))] <-
     lapply(res[grepl("^(phi|CI_)", colnames(res))], "/", y = div)
   colnames(res)[1] <- gsub("phi", "Cramers_v", colnames(res)[1])
+
+  if ("CI" %in% colnames(res) && attr(res, "alternative") == "greater") {
+    res$CI_high <- 1
+  }
+  return(res)
+}
+
+#' @rdname convert_chisq
+#' @export
+chisq_to_tschuprows_t <- function(chisq, n, nrow, ncol,
+                                  adjust = FALSE,
+                                  ci = 0.95, alternative = "greater",
+                                  ...) {
+  if (nrow == 1 || ncol == 1) {
+    stop("Tschuprow's T not applicable to goodness-of-fit tests.", call. = FALSE)
+  }
+
+  res <- .chisq_to_generic_phi(chisq, n, nrow, ncol,
+                               ci = ci, alternative = alternative,
+                               ...)
+
+  # Convert
+  div <- sqrt(sqrt((nrow - 1) * (ncol - 1)))
+  res[grepl("^(phi|CI_)", colnames(res))] <-
+    lapply(res[grepl("^(phi|CI_)", colnames(res))], "/", y = div)
+  colnames(res)[1] <- "Tschuprows_t"
 
   if ("CI" %in% colnames(res) && attr(res, "alternative") == "greater") {
     res$CI_high <- 1
