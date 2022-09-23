@@ -25,7 +25,7 @@
 #'   - A **correlation test** returns *r*.
 #'   - A **contingency table test**, depending on `type`: `"cramers_v"` (default), `"phi"`, `"cohens_w"`, `"pearsons_c"`, `"cohens_h"`, `"oddsratio"`, or `"riskratio"`.
 #'   - A **proportion test** returns *p*.
-#' - Objects of class `anova`, `aov`, or `aovlist`, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.
+#' - Objects of class `anova`, `aov`, `aovlist` or `afex_aov`, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.
 #' - Other objects are passed to [parameters::standardize_parameters()].
 #'
 #' **For statistical models it is recommended to directly use the listed

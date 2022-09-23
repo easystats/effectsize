@@ -22,8 +22,8 @@
 #'   that does not overlap.
 #' - **Cohen's \eqn{U_2}** is the proportion of one of the groups that exceeds
 #'   *the same proportion* in the other group.
-#' - **Cohen's \eqn{U_3}** is the proportion of the larger second group that is
-#'   smaller than the median of the first group.
+#' - **Cohen's \eqn{U_3}** is the proportion of the second group that is smaller
+#'   than the median of the first group.
 #' - **Overlap** (OVL) is the proportional overlap between the distributions.
 #'   (When `parametric = FALSE`, [bayestestR::overlap()] is used.)
 #'
@@ -35,7 +35,7 @@
 #' superiority*.
 #'
 #' Where \eqn{U_1}, \eqn{U_2}, and *Overlap* are agnostic to the direction of
-#' the difference between the groups, \eqn{U_1} and probability of superiority
+#' the difference between the groups, \eqn{U_3} and probability of superiority
 #' are not.
 #'
 #' # Confidence (Compatibility) Intervals (CIs)

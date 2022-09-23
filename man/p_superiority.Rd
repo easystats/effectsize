@@ -136,8 +136,8 @@ the second group will be larger than the sample from the first group.
 that does not overlap.
 \item \strong{Cohen's \eqn{U_2}} is the proportion of one of the groups that exceeds
 \emph{the same proportion} in the other group.
-\item \strong{Cohen's \eqn{U_3}} is the proportion of the larger second group that is
-smaller than the median of the first group.
+\item \strong{Cohen's \eqn{U_3}} is the proportion of the second group that is smaller
+than the median of the first group.
 \item \strong{Overlap} (OVL) is the proportional overlap between the distributions.
 (When \code{parametric = FALSE}, \code{\link[bayestestR:overlap]{bayestestR::overlap()}} is used.)
 }
@@ -150,7 +150,7 @@ Vargha and Delaney's \emph{A} is an alias for the non-parametric \emph{probabili
 superiority}.
 
 Where \eqn{U_1}, \eqn{U_2}, and \emph{Overlap} are agnostic to the direction of
-the difference between the groups, \eqn{U_1} and probability of superiority
+the difference between the groups, \eqn{U_3} and probability of superiority
 are not.
 }
 \note{
