@@ -310,6 +310,21 @@ Here too we have a *common language effect size*:
 cles(A, B, rank = TRUE)
 ```
 
+Or, we can present the difference between ordinal ranks as the odds of scoring
+higher in one group than another. This is called a "generalized odds ratio", or 
+the Wilcoxon-Mann-Whitney, $WMW_{odds}$, odds (hence the `wmw_odds` function)^[For greater detail, please read the SAS support paper by O'Brien and Castelloe https://support.sas.com/resources/papers/proceedings/proceedings/sugi31/209-31.pdf]. 
+Like the  rank-biserial correlation, it is a measure of relative superiority - i.e., 
+larger values indicate a higher probability of a randomly selected observation 
+from *X* being larger than randomly selected observation from *Y*. A value of 1
+indicates complete equivalence between groups (i.e., odds are equal). A value of
+$(0)$ indicates that all observations in the second group are larger than the 
+first, and a value of $(Inf)$ indicates that all observations in the first group 
+are larger than the second.
+
+```{r}
+wmw_odds(A, B)
+```
+
 For one sample, $r_{rb}$ measures the symmetry around $\mu$ (mu; the null
 value), with 0 indicating perfect symmetry, $(-1)$ indicates that all
 observations fall below $\mu$, and $(+1)$ indicates that all observations fall
@@ -330,6 +345,22 @@ y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
 wilcox.test(x, y, paired = TRUE) # aka Signed-Rank test
 
 rank_biserial(x, y, paired = TRUE)
+```
+
+Similarly, $WMW_{odds}$  also measures the symmetry around $\mu$, with 1 
+indicating perfect symmetry, $(0)$ indicates that all
+observations fall below $\mu$, and $(Inf)$ indicates that all observations fall
+above $\mu$.
+
+```{r}
+x <- c(1.15, 0.88, 0.90, 0.74, 1.21, 1.36, 0.89)
+
+wmw_odds(x, mu = 1)
+
+x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
+y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
+
+wmw_odds(x, y, paired = TRUE)
 ```
 
 ### Rank One way ANOVA

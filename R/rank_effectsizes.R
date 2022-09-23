@@ -68,12 +68,9 @@
 #' single observation being greater than the mu parameter (default is zero).
 #' The odds can be converted to a non-parametric version of the probability of
 #' superiority (also referred to as the concordance probability) using the
-#' `odds_to_probs` function.
-#'
-#' Like the rank-biserial
-#' correlation, it is an appropriate effect size to accompany a non-parametric
-#' tests of rank differences (i.e., any result derived from the
-#' [stats::wilcox.test] fucntion).
+#' `odds_to_probs` function. Like the rank-biserial  correlation, it is an
+#' appropriate effect size to accompany a non-parametric tests of rank
+#' differences (i.e., any result derived from the [stats::wilcox.test] function).
 #'
 #'
 #' ## Ties
@@ -86,7 +83,7 @@
 #' are estimated using the normal approximation (via Fisher's transformation).
 #' Confidence intervals for the WMWodds are estimated using a normal approximation
 #' (Agresti's method for two-sample, and Wilson's score interval method
-#' for the one-sample case).
+#' for the one-sample/paired case).
 #' Confidence intervals for rank Epsilon squared, and Kendall's *W* are
 #' estimated using the bootstrap method (using the `{boot}` package).
 #'
@@ -483,23 +480,24 @@ wmw_odds <- function(x,
   alternative <- match.arg(alternative)
   if(!missing(mu) && ((length(mu) > 1L) || !is.finite(mu)))
     stop("'mu' must be a single number")
-
+  if (!is.numeric(ci)) {
+    ci <- NULL
+    ci_method <- NULL
+  }
+  if(is.numeric(ci)){
     if(!((length(ci) == 1L)
          && is.finite(ci)
          && (ci > 0)
          && (ci < 1)))
       stop("'ci' must be a single number between 0 and 1")
-  ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
-  alpha <- 1 - ci.level
-
-
-  if (!is.numeric(ci)) {
-    ci <- NULL
-    ci_method <- NULL
+    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+    alpha <- 1 - ci.level
   }
+
   if (is.null(ci)) {
     alternative <- NULL
     #interval = c(NA,NA)
+
   } else {
     ci_method <- list(method = "normal")
   }
@@ -552,7 +550,8 @@ wmw_odds <- function(x,
     #}
     odds = probs_to_odds(cstat)
 
-    if(ci_method == "normal"){
+
+    if(is.numeric(ci)){
       # Wilson interval for binomial prob
       # Then converted to odds
       zstar <- qnorm(1-alpha/2)
@@ -604,7 +603,7 @@ wmw_odds <- function(x,
 
     ### ----- ci: normal approx ----
     ### bootstrap removed
-    if(ci_method == "normal"){
+    if(is.numeric(ci)){
 
       #odds2 = (Pc/Pd)
       # Not to self: checks calcs from above match matrix calcs

@@ -134,3 +134,37 @@ if (require("testthat") && require("effectsize")) {
     expect_equal(kendalls_w(t(m), blocks_on_rows = FALSE, ci = NULL, verbose = FALSE)[[1]], W[[1]])
   })
 }
+
+test_that("wmw_odds", {
+  x1 = subset(sleep, group == 1)$extra
+  y1 = subset(sleep, group == 2)$extra
+
+  wmw1 = wmw_odds(x = x1,
+                y = y1)
+  wmw2 = wmw_odds(extra ~ group, data = sleep)
+
+  expect_equal(wmw1, wmw2)
+  expect_equal(wmw1[[1]], 0.34, tolerance = 0.01)
+  expect_equal(wmw1$CI_low, 0.1118928, tolerance = 0.01)
+  expect_equal(wmw1$CI_high, 1.047046, tolerance = 0.01)
+
+
+  A <- c(48, 48, 77, 86, 85, 85, 16)
+  B <- c(14, 34, 34, 77)
+  expect_equal(wmw_odds(A, B)[[1]], 4.09, tolerance = 0.01)
+
+  x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
+  y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
+  df <- data.frame(
+    outcome = c(x, y),
+    g = factor(rep(0:1, each = 9))
+  )
+  expect_equal(
+    wmw_odds(outcome ~ g, data = df, ci = NULL),
+    wmw_odds(df$outcome ~ df$g, ci = NULL)
+  )
+  expect_equal(
+    wmw_odds(outcome ~ g, data = df, ci = NULL),
+    wmw_odds("outcome", "g", data = df, ci = NULL)
+  )
+})
