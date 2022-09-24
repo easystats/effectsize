@@ -1,10 +1,10 @@
 #' Cohen's *U*s and Other Common Language Effect Sizes (CLES)
 #'
 #' Cohen's \eqn{U_1}, \eqn{U_2}, and \eqn{U_3}, probability of superiority,
-#' Vargha and Delaney's *A*, and proportion of overlap are CLESs. These are
-#' effect sizes that represent differences between two (independent)
-#' distributions in probabilistic terms (See details). Pair with any reported
-#' [`stats::t.test()`] or [`stats::wilcox.test()`].
+#' proportion of overlap, Wilcoxon-Mann-Whitney odds, and Vargha and Delaney's
+#' *A* are CLESs. These are effect sizes that represent differences between two
+#' (independent) distributions in probabilistic terms (See details). Pair with
+#' any reported [`stats::t.test()`] or [`stats::wilcox.test()`].
 #'
 #' @inheritParams cohens_d
 #' @param parametric Use parametric estimation (see [cohens_d()]) or
@@ -33,8 +33,9 @@
 #' and homoscedasticity. If those are not met, the non parametric versions
 #' should be used.
 #'
-#' Vargha and Delaney's *A* is an alias for the non-parametric *probability of
-#' superiority*.
+#' Vargha and Delaney's *A* is an alias for the non-parametric
+#' *probability of superiority*, and Wilcoxon-Mann-Whitney odds are the *odds*
+#' of non-parametric superiority.
 #'
 #' Where \eqn{U_1}, \eqn{U_2}, and *Overlap* are agnostic to the direction of
 #' the difference between the groups, \eqn{U_3} and probability of superiority
@@ -341,6 +342,21 @@ vd_a <- function(x, y = NULL, data = NULL,
   cl$parametric <- FALSE
   eval.parent(cl)
 }
+
+
+#' @export
+#' @rdname p_superiority
+wmw_odds <- function(x, y = NULL, data = NULL,
+                     mu = 0, paired = FALSE,
+                     ci = 0.95, alternative = "two.sided",
+                     verbose = TRUE, ...) {
+  cl <- match.call()
+  cl[[1]] <- quote(rank_biserial)
+  out <- eval.parent(cl)
+
+  rb_to_wmw_odds(out)
+}
+
 
 
 

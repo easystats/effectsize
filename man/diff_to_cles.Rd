@@ -11,6 +11,7 @@
 \alias{d_to_u1}
 \alias{d_to_u3}
 \alias{d_to_overlap}
+\alias{rb_to_wmw_odds}
 \title{Convert Standardized Differences to Common Language Effect Sizes}
 \usage{
 d_to_p_superiority(d)
@@ -26,6 +27,8 @@ d_to_u1(d)
 d_to_u3(d)
 
 d_to_overlap(d)
+
+rb_to_wmw_odds(rb)
 }
 \arguments{
 \item{d, rb}{A numeric vector of Cohen's d / rank-biserial correlation \emph{or}
@@ -53,6 +56,8 @@ This function use the following formulae for Cohen's \emph{d}:
 \cr
 And the following for the rank-biserial correlation:
 \deqn{Pr(superiority) = (r_{rb} + 1)/2}{Pr(superiority) = (rb + 1)/2}
+\cr
+\eqn{WMW_{Odds} = Pr(superiority) / (1 - Pr(superiority))}
 }
 \note{
 For \emph{d}, these calculations assume that the populations have equal variance

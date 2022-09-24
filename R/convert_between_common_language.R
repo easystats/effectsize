@@ -17,6 +17,8 @@
 #' \cr
 #' And the following for the rank-biserial correlation:
 #' \deqn{Pr(superiority) = (r_{rb} + 1)/2}{Pr(superiority) = (rb + 1)/2}
+#' \cr
+#' \eqn{WMW_{Odds} = Pr(superiority) / (1 - Pr(superiority))}
 #'
 #' @return A list of `Cohen's U3`, `Overlap`, `Pr(superiority)`, a
 #'   numeric vector of `Pr(superiority)`, or a data frame, depending
@@ -134,6 +136,40 @@ d_to_overlap <- function(d) {
 d_to_overlap.numeric <- function(d) {
   2 * stats::pnorm(-abs(d) / 2)
 }
+
+
+# wmw_odds ----------------------------------------------------------------
+
+#' @export
+#' @rdname diff_to_cles
+rb_to_wmw_odds <- function(rb) {
+  UseMethod("rb_to_wmw_odds")
+}
+
+#' @export
+rb_to_wmw_odds.numeric <- function(rb) {
+  probs_to_odds(rb_to_p_superiority(rb))
+}
+
+
+#' @export
+rb_to_wmw_odds.effectsize_difference <- function(rb) {
+  if (!any(colnames(rb) == "r_rank_biserial")) {
+    stop("Common language effect size only applicable rank-biserial correlation.", call. = FALSE)
+  }
+
+  cols_to_conv <- colnames(rb) %in% c("r_rank_biserial", "CI_low", "CI_high")
+  out <- rb
+  out[cols_to_conv] <- lapply(out[cols_to_conv], rb_to_wmw_odds)
+  colnames(out)[1] <- "WMW_odds"
+
+  class(out) <- c("effectsize_table", class(out))
+  # TODO
+  # class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
+  attr(out, "table_footer") <- "Non-parametric CLES"
+  out
+}
+
 
 
 # From Cohen's d ----------------------------------------------------------
