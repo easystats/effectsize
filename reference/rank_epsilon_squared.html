@@ -124,6 +124,7 @@ sum) one-way ANOVAs.</p>
 <span>  ci <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
 <span>  iterations <span class="op">=</span> <span class="fl">200</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -134,6 +135,7 @@ sum) one-way ANOVAs.</p>
 <span>  ci <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
 <span>  iterations <span class="op">=</span> <span class="fl">200</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -154,7 +156,7 @@ sum) one-way ANOVAs.</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
-<dd><p>Can be one of:</p><ul><li><p>A numeric vector, or a character name of one in <code>data</code>.</p></li>
+<dd><p>Can be one of:</p><ul><li><p>A numeric or ordered vector, or a character name of one in <code>data</code>.</p></li>
 <li><p>A list of vectors (for <code>rank_eta/epsilon_squared()</code>).</p></li>
 <li><p>A matrix of <code>blocks x groups</code> (for <code>kendalls_w()</code>) (or <code>groups x blocks</code>
 if <code>blocks_on_rows = FALSE</code>). See details for the <code>blocks</code> and <code>groups</code>
@@ -192,6 +194,10 @@ Controls the type of CI returned: <code>"two.sided"</code> (default, two-sided C
 intervals. Only applies when <code>ci</code> is not <code>NULL</code>.</p></dd>
 
 
+<dt>verbose</dt>
+<dd><p>Toggle warnings and messages on or off.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Arguments passed to or from other methods. When <code>x</code> is a formula,
 these can be <code>subset</code> and <code>na.action</code>.</p></dd>
@@ -199,10 +205,6 @@ these can be <code>subset</code> and <code>na.action</code>.</p></dd>
 
 <dt>blocks_on_rows</dt>
 <dd><p>Are blocks on rows (<code>TRUE</code>) or columns (<code>FALSE</code>).</p></dd>
-
-
-<dt>verbose</dt>
-<dd><p>Toggle warnings and messages on or off.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -304,7 +306,7 @@ sport sciences, 1(21), 19-25.</p></li>
 <span class="r-in"><span><span class="fu">rank_eta_squared</span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eta2 (rank) |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.82        | [0.78, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.82        | [0.76, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
 <span class="r-in"><span></span></span>

@@ -125,6 +125,7 @@ distributions in probabilistic terms (See details). Pair with any reported
 <span>  y <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  mu <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  paired <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  parametric <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  ci <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
@@ -214,6 +215,12 @@ ignored.</p></dd>
     difference in means if you are performing a two sample test).</p></dd>
 
 
+<dt>paired</dt>
+<dd><p>If <code>TRUE</code>, the values of <code>x</code> and <code>y</code> are considered as paired.
+This produces an effect size that is equivalent to the one-sample effect
+size on <code>x - y</code>.</p></dd>
+
+
 <dt>parametric</dt>
 <dd><p>Use parametric estimation (see <code><a href="cohens_d.html">cohens_d()</a></code>) or
 non-parametric estimation (see <code><a href="rank_biserial.html">rank_biserial()</a></code>). See details.</p></dd>
@@ -256,7 +263,9 @@ optionally their CIs).</p>
     <p>These measures of effect size present group differences in probabilistic
 terms:</p><ul><li><p><strong>Probability of superiority</strong> is the probability that, when sampling an
 observation from each of the groups at random, that the observation from
-the second group will be larger than the sample from the first group.</p></li>
+the second group will be larger than the sample from the first group. For
+the one-sample (or paired) case, it is the probability that the sample (or
+difference) is larger than <em>mu</em>.</p></li>
 <li><p><strong>Cohen's \(U_1\)</strong> is the proportion of the total of both distributions
 that does not overlap.</p></li>
 <li><p><strong>Cohen's \(U_2\)</strong> is the proportion of one of the groups that exceeds
@@ -338,7 +347,7 @@ Educational and Behavioral Statistics, 25(2), 101-132.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><a href="diff_to_cles.html">d_to_cles</a> <code><a href="sd_pooled.html">sd_pooled()</a></code></p>
+    <div class="dont-index"><p><code><a href="diff_to_cles.html">d_to_cles()</a></code> <code><a href="sd_pooled.html">sd_pooled()</a></code></p>
 <p>Other effect size indices: 
 <code><a href="cohens_d.html">cohens_d</a>()</code>,
 <code><a href="cohens_g.html">cohens_g</a>()</code>,
