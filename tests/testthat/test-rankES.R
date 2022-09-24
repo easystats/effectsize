@@ -52,6 +52,10 @@ test_that("rank_epsilon_squared", {
     rank_epsilon_squared(x ~ g, ci = NULL),
     rank_epsilon_squared(x, g, ci = NULL)
   )
+
+  g[1] <- NA
+  expect_warning(E1 <- rank_epsilon_squared(x, g, ci = NULL), "dropped")
+  expect_equal(E1, rank_epsilon_squared(x[-1], g[-1], ci = NULL))
 })
 
 
@@ -132,4 +136,9 @@ test_that("kendalls_w", {
   expect_warning(W <- kendalls_w(m, ci = NULL), "unique ranking")
   expect_equal(W[[1]], 0.4666667, tolerance = 0.001)
   expect_equal(kendalls_w(t(m), blocks_on_rows = FALSE, ci = NULL, verbose = FALSE)[[1]], W[[1]])
+
+  m[1,1] <- NA
+  warns <- capture_warnings(W1 <- kendalls_w(m, ci = NULL))
+  expect_match(warns[1], "dropped")
+  expect_equal(W1, kendalls_w(m[,-1], ci = NULL, verbose = FALSE))
 })

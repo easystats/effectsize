@@ -64,7 +64,8 @@ test_that("mahalanobis_d | inputs", {
 
   mtcars$mpg[1] <- NA
   expect_warning(mahalanobis_d(mtcars[,c("mpg", "hp")]), regexp = "dropped")
-  expect_warning(mahalanobis_d(mpg + hp ~ 1, data = mtcars), regexp = "dropped")
+  expect_warning(D1 <- mahalanobis_d(mpg + hp ~ 1, data = mtcars), regexp = "dropped")
+  expect_equal(D1, mahalanobis_d(mpg + hp ~ 1, data = mtcars[-1,]))
 })
 
 
