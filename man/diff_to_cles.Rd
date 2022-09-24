@@ -73,7 +73,7 @@ to base rates and other factors. Psychological methods, 13(1), 19–30.
 }
 }
 \seealso{
-See \link{cohens_u3} for descriptions of the effect sizes (also,
+See \code{\link[=cohens_u3]{cohens_u3()}} for descriptions of the effect sizes (also,
 \code{\link[=cohens_d]{cohens_d()}}, \code{\link[=rank_biserial]{rank_biserial()}}).
 
 Other convert between effect sizes: 

@@ -17,7 +17,7 @@
 #'
 #'
 #'
-#' @seealso interpret
+#' @seealso [interpret()]
 #'
 #' @examples
 #' rules(c(0.05), c("significant", "not significant"), right = FALSE)
@@ -98,7 +98,7 @@ is.rules <- function(x) inherits(x, "rules")
 #' - For numeric input: A character vector of interpretations.
 #' - For data frames: the `x` input with an additional `Interpretation` column.
 #'
-#' @seealso rules
+#' @seealso [rules()]
 #' @examples
 #' rules_grid <- rules(c(0.01, 0.05), c("very significant", "significant", "not significant"))
 #' interpret(0.001, rules_grid)

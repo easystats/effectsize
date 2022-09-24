@@ -103,7 +103,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   if (type == "d") {
     xtra_class <- "effectsize_difference"
   } else if (tolower(type) %in% c("p_superiority", "u1", "u2", "u3", "overlap")) {
-    if (paired) stop("CLES only applicable to two independent samples.")
+    if (paired) stop("CLES only applicable to two independent samples.", call. = FALSE)
 
     converter <- match.fun(paste0("d_to_", tolower(type)))
     if (grepl("^(u|U)", type)) type <- paste0("Cohens_", toupper(type))

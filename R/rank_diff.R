@@ -7,6 +7,10 @@
 #' [`stats::wilcox.test()`].
 #'
 #' @inheritParams cohens_d
+#' @param x,y A numeric or ordered vector, or a character name of one in `data`.
+#'   Any missing values (`NA`s) are dropped from the resulting vector. `x` can
+#'   also be a formula (see [`stats::wilcox.test()`]), in which case `y` is
+#'   ignored.
 #' @param mu a number indicating the value around which (a-)symmetry (for
 #'   one-sample or paired samples) or shift (for independent samples) is to be
 #'   estimated. See [stats::wilcox.test].
@@ -105,7 +109,6 @@
 #'
 #'
 #' @export
-#' @importFrom stats na.omit complete.cases
 rank_biserial <- function(x, y = NULL, data = NULL,
                           mu = 0, paired = FALSE,
                           ci = 0.95, alternative = "two.sided",
@@ -120,22 +123,15 @@ rank_biserial <- function(x, y = NULL, data = NULL,
   }
 
   ## Prep data
-  out <- .get_data_2_samples(x, y, data, verbose, ...)
+  out <- .get_data_2_samples(x, y, data, paired = paired,
+                             allow_ordered = TRUE,
+                             verbose = verbose, ...)
   x <- out$x
   y <- out$y
 
   if (is.null(y)) {
     y <- rep(0, length.out = length(x))
     paired <- TRUE
-  }
-
-  if (paired) {
-    oo <- stats::complete.cases(x, y)
-    x <- x[oo]
-    y <- y[oo]
-  } else {
-    x <- stats::na.omit(x)
-    y <- stats::na.omit(y)
   }
 
   ## Compute
@@ -145,22 +141,6 @@ rank_biserial <- function(x, y = NULL, data = NULL,
   ## CI
   ci_method <- NULL
   if (is.numeric(ci)) {
-    # if (requireNamespace("boot", quietly = TRUE)) {
-    #   out <- cbind(out, .rbs_ci_boot(
-    #     y,
-    #     mu = mu,
-    #     paired = paired,
-    #     ci = ci,
-    #     iterations = iterations
-    #   ))
-    #
-    #   ci_method <- list(method = "bootstrap", iterations = iterations)
-    # } else {
-    #   ci <- NULL
-    #   warning("For CIs, the 'boot' package must be installed.", call. = FALSE)
-    # }
-
-    # Parametric method
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
     out$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
@@ -226,7 +206,9 @@ cliffs_delta <- function(x, y = NULL, data = NULL,
                          ci = 0.95, alternative = "two.sided",
                          verbose = TRUE, ...) {
   cl <- match.call()
-  data <- .get_data_2_samples(x, y, data, verbose, ...)
+  data <- .get_data_2_samples(x, y, data, verbose = verbose,
+                              allow_ordered = TRUE,
+                              ...)
   x <- data$x
   y <- data$y
   if (is.null(y) || isTRUE(eval.parent(cl$paired))) {
@@ -269,47 +251,3 @@ cliffs_delta <- function(x, y = NULL, data = NULL,
   f_ <- U2 / S
   return(u_ - f_)
 }
-
-# #' @keywords internal
-# #' @importFrom bayestestR ci
-# .rbs_ci_boot <- function(x,
-#                          y,
-#                          mu = 0,
-#                          paired = FALSE,
-#                          ci = 0.95,
-#                          iterations = 200) {
-#   stopifnot(length(ci) == 1, ci < 1, ci > 0)
-#
-#   if (paired) {
-#     data <- data.frame(x, y)
-#     boot_rbs <- function(.data, .i) {
-#       .data <- .data[.i, ]
-#       .x <- .data$x
-#       .y <- .data$y
-#       .r_rbs(.x, .y, mu = mu, paired = TRUE, verbose = FALSE)
-#     }
-#   } else {
-#     data <- data.frame(
-#       i = seq_along(c(x, y))
-#     )
-#
-#     boot_rbs <- function(.data, .i) {
-#       .x <- sample(x, replace = TRUE)
-#       .y <- sample(y, replace = TRUE)
-#
-#       .r_rbs(.x, .y, mu = mu, paired = FALSE, verbose = FALSE)
-#     }
-#   }
-#
-#   R <- boot::boot(
-#     data = data,
-#     statistic = boot_rbs,
-#     R = iterations
-#   )
-#
-#   out <- as.data.frame(
-#     bayestestR::ci(na.omit(R$t), ci = ci, verbose = FALSE)
-#   )
-#   out$CI <- ci
-#   out
-# }

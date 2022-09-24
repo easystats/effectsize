@@ -28,9 +28,9 @@
 #' @export
 sd_pooled <- function(x, y = NULL, data = NULL,
                       verbose = TRUE, ...) {
-  data <- .get_data_2_samples(x, y, data, verbose, ...)
-  x <- na.omit(data$x)
-  y <- na.omit(data$y)
+  data <- .get_data_2_samples(x, y, data, verbose = verbose, ...)
+  x <- data[["x"]]
+  y <- data[["y"]]
 
   V <- cov_pooled(data.frame(x = x),
                   data.frame(x = y))
@@ -45,9 +45,9 @@ sd_pooled <- function(x, y = NULL, data = NULL,
 mad_pooled <- function(x, y = NULL, data = NULL,
                        constant = 1.4826,
                        verbose = TRUE, ...) {
-  data <- .get_data_2_samples(x, y, data, verbose, ...)
-  x <- na.omit(data$x)
-  y <- na.omit(data$y)
+  data <- .get_data_2_samples(x, y, data, verbose = verbose, ...)
+  x <- data[["x"]]
+  y <- data[["y"]]
 
   n1 <- length(x)
   n2 <- length(y)
@@ -66,8 +66,8 @@ mad_pooled <- function(x, y = NULL, data = NULL,
 cov_pooled <- function(x, y = NULL, data = NULL,
                        verbose = TRUE, ...) {
   data <- .get_data_multivariate(x, y, data = data, verbose = verbose)
-  x <- na.omit(data[["x"]])
-  y <- na.omit(data[["y"]])
+  x <- data[["x"]]
+  y <- data[["y"]]
 
   n1 <- nrow(x)
   n2 <- nrow(y)

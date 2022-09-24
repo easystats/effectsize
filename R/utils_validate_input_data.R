@@ -1,6 +1,9 @@
 
 #' @keywords internal
-.get_data_2_samples <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
+#' @importFrom stats na.omit complete.cases
+.get_data_2_samples <- function(x, y = NULL, data = NULL,
+                                paired = FALSE, allow_ordered = FALSE,
+                                verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
     # Validate:
     if (length(x) != 3L) {
@@ -29,6 +32,18 @@
     y <- .resolve_char(y, data)
   }
 
+
+  # If x is ordered and allowed to be...
+  if (allow_ordered && is.ordered(x)) {
+    if (is.ordered(y)) {
+      if (!isTRUE(all.equal(levels(y),levels(x)))) {
+        stop("x and y are ordered, but do not have the same levels.", call. = FALSE)
+      }
+      y <- as.numeric(y)
+    }
+
+    x <- as.numeric(x)
+  }
 
   # x should be a numeric vector or a Pair:
   if (!is.numeric(x)) {
@@ -63,13 +78,29 @@
     }
   }
 
+  if (verbose && (anyNA(x) || anyNA(y))) {
+    warning("Missing values detected. NAs dropped.", call. = FALSE)
+  }
+
+  if (paired && !is.null(y)) {
+    o <- stats::complete.cases(x, y)
+    x <- x[o]
+    y <- y[o]
+  } else {
+    x <- stats::na.omit(x)
+    y <- stats::na.omit(y)
+  }
+
+
   list(x = x, y = y)
 }
 
 
 
 #' @keywords internal
-.get_data_multi_group <- function(x, groups, data = NULL, ...) {
+.get_data_multi_group <- function(x, groups, data = NULL,
+                                  allow_ordered = FALSE,
+                                  verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
     if (length(x) != 3) {
       stop("Formula must have the form of 'outcome ~ group'.", call. = FALSE)
@@ -94,6 +125,9 @@
   }
 
   # x should be a numeric vector or a Pair:
+  if (allow_ordered && is.ordered(x)) {
+    x <- as.numeric(x)
+  }
   if (!is.numeric(x)) {
     stop("Cannot compute effect size for a non-numeric vector.", call. = FALSE)
   }
@@ -107,12 +141,18 @@
     stop("groups cannot be numeric.", call. = FALSE)
   }
 
-  data.frame(x, groups)
+  out <- data.frame(x, groups)
+  if (verbose && anyNA(out)) {
+    warning("Missing values detected. NAs dropped.", call. = FALSE)
+  }
+  stats::na.omit(out)
 }
 
 #' @keywords internal
 #' @importFrom stats reshape
-.get_data_nested_groups <- function(x, groups = NULL, blocks = NULL, data = NULL, wide = TRUE, ...) {
+.get_data_nested_groups <- function(x, groups = NULL, blocks = NULL, data = NULL,
+                                    wide = TRUE, allow_ordered = FALSE,
+                                    verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
     if (length(x) != 3L ||
       x[[3L]][[1L]] != as.name("|")) {
@@ -151,11 +191,20 @@
 
   colnames(x) <- c("x", "groups", "blocks")
 
+  if (allow_ordered && is.ordered(x$x)) {
+    x$x <- as.numeric(x$x)
+  }
   if (!is.numeric(x$x)) {
     stop("Cannot compute effect size for a non-numeric vector.", call. = FALSE)
   }
   if (!is.factor(x$groups)) x$groups <- factor(x$groups)
   if (!is.factor(x$blocks)) x$blocks <- factor(x$blocks)
+
+
+  if (verbose && anyNA(x)) {
+    warning("Missing values detected. NAs dropped.", call. = FALSE)
+  }
+  x <- stats::na.omit(x)
 
   # By this point, the data is in long format
   if (wide) {
@@ -171,7 +220,8 @@
 
 #' @keywords internal
 #' @importFrom stats na.pass reformulate
-.get_data_multivariate <- function(x, y, data = data, ...) {
+.get_data_multivariate <- function(x, y = NULL, data = NULL,
+                                   verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
     if (length(x) != 3L || length(x[[3]]) != 1L) {
       stop("Formula must have the form of 'DV1 + ... + DVk ~ group', with exactly one term on the RHS.", call. = FALSE)
@@ -227,6 +277,12 @@
     }
   }
 
+  if (verbose && (anyNA(x) || anyNA(y))) {
+    warning("Missing values detected. NAs dropped.", call. = FALSE)
+  }
+  x <- stats::na.omit(x)
+  y <- stats::na.omit(y)
+
   .nlist(x, y)
 }
 
@@ -235,7 +291,7 @@
 
 
 #' @keywords internal
-#' @importFrom stats model.frame
+#' @importFrom stats model.frame na.pass
 .resolve_formula <- function(formula, data, subset, na.action, ...) {
   cl <- match.call(expand.dots = FALSE)
   cl[[1]] <- quote(stats::model.frame)
@@ -243,7 +299,8 @@
     cl$subset <- substitute(subset)
   }
   cl$... <- NULL
-  eval(cl, envir = parent.frame())
+  cl$na.action <- stats::na.pass
+  eval.parent(cl)
 }
 
 #' @keywords internal

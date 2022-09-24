@@ -9,7 +9,6 @@ paired_d <- function(x, group, block, data = NULL,
   if (!is.factor(data$blocks)) data$blocks <- factor(data$blocks)
   contrasts(data$groups) <- contr.treatment
   contrasts(data$blocks) <- contr.treatment
-  data <- na.omit(data)
 
   stopifnot(nlevels(data$groups) == 2L)
 
@@ -198,7 +197,7 @@ paired_d <- function(x, group, block, data = NULL,
     stop(paste(
       "Covariances should be a ", n, " by ", n,
       " matrix"
-    ))
+    ), call. = FALSE)
   }
   syms <- paste("x", 1:n, sep = "")
   for (i in 1:n) assign(syms[i], mean[i])

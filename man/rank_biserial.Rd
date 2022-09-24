@@ -29,9 +29,9 @@ cliffs_delta(
 )
 }
 \arguments{
-\item{x, y}{A numeric vector, or a character name of one in \code{data}.
-Any missing values (\code{NA}s) are dropped from the resulting vector.
-\code{x} can also be a formula (see \code{\link[stats:t.test]{stats::t.test()}}), in which case \code{y} is
+\item{x, y}{A numeric or ordered vector, or a character name of one in \code{data}.
+Any missing values (\code{NA}s) are dropped from the resulting vector. \code{x} can
+also be a formula (see \code{\link[stats:wilcox.test]{stats::wilcox.test()}}), in which case \code{y} is
 ignored.}
 
 \item{data}{An optional data frame containing the variables.}

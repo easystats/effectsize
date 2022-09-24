@@ -32,6 +32,22 @@ test_that("rank_biserial", {
 })
 
 
+test_that("rank_biserial | ordered", {
+  x <- rep(ordered(1:5), each = 3)
+  x1 <- x[1:5]
+  x2 <- x[6:15]
+
+  expect_equal(rank_biserial(x1, x2),
+               rank_biserial(as.numeric(x1), as.numeric(x2)))
+
+
+  x1 <- ordered(as.numeric(x1))
+  x2 <- ordered(as.numeric(x2))
+  expect_error(rank_biserial(x1, x2), "levels")
+
+})
+
+
 test_that("rank_epsilon_squared", {
   skip_if_not_installed("boot")
   skip_if_not_installed("base", minimum_version = "3.6.1")
@@ -52,6 +68,10 @@ test_that("rank_epsilon_squared", {
     rank_epsilon_squared(x ~ g, ci = NULL),
     rank_epsilon_squared(x, g, ci = NULL)
   )
+
+  g[1] <- NA
+  expect_warning(E1 <- rank_epsilon_squared(x, g, ci = NULL), "dropped")
+  expect_equal(E1, rank_epsilon_squared(x[-1], g[-1], ci = NULL))
 })
 
 
@@ -132,4 +152,9 @@ test_that("kendalls_w", {
   expect_warning(W <- kendalls_w(m, ci = NULL), "unique ranking")
   expect_equal(W[[1]], 0.4666667, tolerance = 0.001)
   expect_equal(kendalls_w(t(m), blocks_on_rows = FALSE, ci = NULL, verbose = FALSE)[[1]], W[[1]])
+
+  m[1,1] <- NA
+  warns <- capture_warnings(W1 <- kendalls_w(m, ci = NULL))
+  expect_match(warns[1], "dropped")
+  expect_equal(W1, kendalls_w(m[,-1], ci = NULL, verbose = FALSE))
 })

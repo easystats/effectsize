@@ -85,11 +85,6 @@ mahalanobis_d <- function(x, y = NULL, data = NULL,
   data <- .get_data_multivariate(x, y, data, verbose = verbose)
   x <- data[["x"]]
   y <- data[["y"]]
-  if (verbose && (anyNA(x) || anyNA(y))) {
-    warning("Missing values detected. NAs dropped.", call. = FALSE)
-  }
-  x <- na.omit(x)
-  y <- na.omit(y)
 
 
   # deal with mu

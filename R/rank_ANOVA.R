@@ -7,7 +7,7 @@
 #'
 #' @inheritParams rank_biserial
 #' @param x Can be one of:
-#'   - A numeric vector, or a character name of one in `data`.
+#'   - A numeric or ordered vector, or a character name of one in `data`.
 #'   - A list of vectors (for `rank_eta/epsilon_squared()`).
 #'   - A matrix of `blocks x groups` (for `kendalls_w()`) (or `groups x blocks`
 #'   if `blocks_on_rows = FALSE`). See details for the `blocks` and `groups`
@@ -84,12 +84,11 @@
 #' sport sciences, 1(21), 19-25.
 #'
 #' @export
-#' @importFrom stats na.omit
 #' @importFrom insight check_if_installed
 rank_epsilon_squared <- function(x, groups, data = NULL,
                                  ci = 0.95, alternative = "greater",
                                  iterations = 200,
-                                 ...) {
+                                 verbose = TRUE, ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "htest")) {
@@ -100,8 +99,9 @@ rank_epsilon_squared <- function(x, groups, data = NULL,
   }
 
   ## pep data
-  data <- .get_data_multi_group(x, groups, data, ...)
-  data <- stats::na.omit(data)
+  data <- .get_data_multi_group(x, groups, data,
+                                allow_ordered = TRUE,
+                                verbose = verbose, ...)
 
   ## compute
   out <- data.frame(rank_epsilon_squared = .repsilon(data))
@@ -132,12 +132,11 @@ rank_epsilon_squared <- function(x, groups, data = NULL,
 
 #' @export
 #' @rdname rank_epsilon_squared
-#' @importFrom stats na.omit
 #' @importFrom insight check_if_installed
 rank_eta_squared <- function(x, groups, data = NULL,
                              ci = 0.95, alternative = "greater",
                              iterations = 200,
-                             ...) {
+                             verbose = TRUE, ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "htest")) {
@@ -148,8 +147,9 @@ rank_eta_squared <- function(x, groups, data = NULL,
   }
 
   ## pep data
-  data <- .get_data_multi_group(x, groups, data, ...)
-  data <- stats::na.omit(data)
+  data <- .get_data_multi_group(x, groups, data,
+                                allow_ordered = TRUE,
+                                verbose = verbose, ...)
 
   out <- data.frame(rank_eta_squared = .reta(data))
 
@@ -202,8 +202,10 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
 
   ## prep data
   if (is.matrix(x) && !blocks_on_rows) x <- t(x)
-  data <- .get_data_nested_groups(x, groups, blocks, data, ...)
-  data <- stats::na.omit(data)
+  data <- .get_data_nested_groups(x, groups, blocks, data,
+                                  allow_ordered = TRUE,
+                                  verbose = verbose, ...)
+  data <- stats::na.omit(data) # wide data - drop non complete cases
 
   ## compute
   W <- .kendalls_w(data, verbose = verbose)
@@ -231,34 +233,6 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
   attr(out, "alternative") <- alternative
   return(out)
 }
-
-# rank_eta_squared <- function(x, g, data = NULL, ci = 0.95, iterations = 200) {
-#
-#   data <- .get_data_multi_group(x, g, data)
-#   data <- stats::na.omit(data)
-#   x <- data$x
-#   g <- data$g
-#
-#   model <- stats::kruskal.test(x, g)
-#
-#   H <- unname(model$statistic)
-#   k <- length(unique(g)) # model$parameter + 1
-#   n <- length(g)
-#
-#   E <- (H - k + 1) / (n - k)
-#
-#   out <- data.frame(rank_eta_squared = E)
-#
-#   if (is.numeric(ci)) {
-#     warning("Nope. Not yet.", call. = FALSE)
-#     out$CI <- ci
-#     out$CI_low <- 0
-#     out$CI_high <- 1
-#   }
-#
-#   class(out) <- c("effectsize_table", class(out))
-#   return(out)
-# }
 
 # Utils -------------------------------------------------------------------
 

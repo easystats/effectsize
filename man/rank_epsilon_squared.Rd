@@ -13,6 +13,7 @@ rank_epsilon_squared(
   ci = 0.95,
   alternative = "greater",
   iterations = 200,
+  verbose = TRUE,
   ...
 )
 
@@ -23,6 +24,7 @@ rank_eta_squared(
   ci = 0.95,
   alternative = "greater",
   iterations = 200,
+  verbose = TRUE,
   ...
 )
 
@@ -42,7 +44,7 @@ kendalls_w(
 \arguments{
 \item{x}{Can be one of:
 \itemize{
-\item A numeric vector, or a character name of one in \code{data}.
+\item A numeric or ordered vector, or a character name of one in \code{data}.
 \item A list of vectors (for \code{rank_eta/epsilon_squared()}).
 \item A matrix of \verb{blocks x groups} (for \code{kendalls_w()}) (or \verb{groups x blocks}
 if \code{blocks_on_rows = FALSE}). See details for the \code{blocks} and \code{groups}
@@ -71,12 +73,12 @@ Controls the type of CI returned: \code{"two.sided"} (default, two-sided CI),
 \item{iterations}{The number of bootstrap replicates for computing confidence
 intervals. Only applies when \code{ci} is not \code{NULL}.}
 
+\item{verbose}{Toggle warnings and messages on or off.}
+
 \item{...}{Arguments passed to or from other methods. When \code{x} is a formula,
 these can be \code{subset} and \code{na.action}.}
 
 \item{blocks_on_rows}{Are blocks on rows (\code{TRUE}) or columns (\code{FALSE}).}
-
-\item{verbose}{Toggle warnings and messages on or off.}
 }
 \value{
 A data frame with the effect size and its CI.

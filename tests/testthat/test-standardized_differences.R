@@ -134,10 +134,13 @@ test_that("fixed values", {
 })
 
 test_that("Missing values", {
-  x <- c(1, 2, NA, 3)
-  y <- c(1, 1, 2, 3)
-  expect_equal(cohens_d(x, y)[[1]], 0.2564946, tolerance = 0.01) # indep
-  expect_equal(cohens_d(x, y, paired = TRUE)[[1]], 0.5773503, tolerance = 0.01) # paired
+  x <- c(1, NA, 2, 3, 4)
+  y <- c(1,  2, 3, 4, 5)
+
+  expect_warning(d1 <- cohens_d(x, y), "dropped")
+  expect_warning(d2 <- cohens_d(x, y, paired = TRUE), "dropped")
+  expect_equal(d1, cohens_d(1:4, 1:5), tolerance = 0.01) # indep
+  expect_equal(d2, cohens_d(1:4, c(1, 3:5), paired = TRUE), tolerance = 0.01) # paired
 
   # no length problems
   expect_error(cohens_d(mtcars$mpg - 23), regexp = NA)

@@ -15,6 +15,7 @@ p_superiority(
   y = NULL,
   data = NULL,
   mu = 0,
+  paired = FALSE,
   parametric = TRUE,
   ci = 0.95,
   alternative = "two.sided",
@@ -96,6 +97,10 @@ ignored.}
 \item{mu}{a number indicating the true value of the mean (or
     difference in means if you are performing a two sample test).}
 
+\item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
+This produces an effect size that is equivalent to the one-sample effect
+size on \code{x - y}.}
+
 \item{parametric}{Use parametric estimation (see \code{\link[=cohens_d]{cohens_d()}}) or
 non-parametric estimation (see \code{\link[=rank_biserial]{rank_biserial()}}). See details.}
 
@@ -131,7 +136,9 @@ terms:
 \itemize{
 \item \strong{Probability of superiority} is the probability that, when sampling an
 observation from each of the groups at random, that the observation from
-the second group will be larger than the sample from the first group.
+the second group will be larger than the sample from the first group. For
+the one-sample (or paired) case, it is the probability that the sample (or
+difference) is larger than \emph{mu}.
 \item \strong{Cohen's \eqn{U_1}} is the proportion of the total of both distributions
 that does not overlap.
 \item \strong{Cohen's \eqn{U_2}} is the proportion of one of the groups that exceeds
@@ -230,7 +237,7 @@ Educational and Behavioral Statistics, 25(2), 101-132.
 }
 }
 \seealso{
-\link{d_to_cles} \code{\link[=sd_pooled]{sd_pooled()}}
+\code{\link[=d_to_cles]{d_to_cles()}} \code{\link[=sd_pooled]{sd_pooled()}}
 
 Other effect size indices: 
 \code{\link{cohens_d}()},

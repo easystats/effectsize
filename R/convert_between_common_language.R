@@ -29,7 +29,7 @@
 #' Vargha and Delaney's *A* is an alias for the non-parametric *probability of
 #' superiority*.
 #'
-#' @seealso See [cohens_u3] for descriptions of the effect sizes (also,
+#' @seealso See [cohens_u3()] for descriptions of the effect sizes (also,
 #'   [cohens_d()], [rank_biserial()]).
 #' @family convert between effect sizes
 #'
@@ -140,7 +140,7 @@ d_to_overlap.numeric <- function(d) {
 
 #' @export
 d_to_p_superiority.effectsize_difference <- function(d) {
-  out <- .cohens_d_to_cles(d, converter = d_to_p_superiority)
+  out <- .cohens_d_to_cles(d, converter = d_to_p_superiority, allow_paired = TRUE)
   colnames(out)[1] <- "p_superiority"
   out
 }
@@ -224,10 +224,10 @@ d_to_overlap.effectsize_difference <- function(d) {
 ## Main ----------------
 
 #' @keywords internal
-.cohens_d_to_cles <- function(d, converter) {
+.cohens_d_to_cles <- function(d, converter, allow_paired = FALSE) {
   if (!any(colnames(d) %in% c("Cohens_d", "Hedges_g")) ||
-      attr(d, "paired") ||
-      !attr(d, "pooled_sd")) {
+      (isTRUE(attr(d, "paired")) && !allow_paired) ||
+       (!isTRUE(attr(d, "paired")) && !isTRUE(attr(d, "pooled_sd")))) {
     stop("Common language effect size only applicable to 2-sample Cohen's d with pooled SD.", call. = FALSE)
   }
 
@@ -250,9 +250,8 @@ d_to_overlap.effectsize_difference <- function(d) {
 
 #' @export
 rb_to_p_superiority.effectsize_difference <- function(rb) {
-  if (!any(colnames(rb) == "r_rank_biserial") ||
-    attr(rb, "paired")) {
-    stop("Common language effect size only applicable to 2-sample rank-biserial correlation.", call. = FALSE)
+  if (!any(colnames(rb) == "r_rank_biserial")) {
+    stop("Common language effect size only applicable rank-biserial correlation.", call. = FALSE)
   }
 
   cols_to_conv <- colnames(rb) %in% c("r_rank_biserial", "CI_low", "CI_high")

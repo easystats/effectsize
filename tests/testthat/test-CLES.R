@@ -89,7 +89,7 @@ test_that("CLES | par vs non-par", {
 test_that("CLES | errors", {
   expect_error(cohens_u1(1:3, 1:4, parametric = FALSE), "parametric")
 
-  expect_error(p_superiority(1:3), "two")
+  expect_error(p_superiority(1:3), NA)
   expect_error(cohens_u1(1:3), "two")
   expect_error(cohens_u2(1:3), "two")
   expect_error(cohens_u3(1:3), "two")
