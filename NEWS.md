@@ -10,6 +10,7 @@
 
 ## New features
 
+- `p_superiority()` now supports paired and one-sample cases.
 - Set `options(es.use_symbols = TRUE)` to print proper symbols instead of transliterated effect size names. (On Windows, requires `R >= 4.2.0`)
 - `tschuprows_t()` and `chisq_to_tschuprows_t()` for computing Tschuprow's *T* - a relative of Cramer's *V*.
 - `vd_a()` and `rb_to_vda()` for Vargha and Delaney's *A* dominance effect size (aliases for `p_superiority(parametric = FALSE)` and `rb_to_p_superiority()`).

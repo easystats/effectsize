@@ -17,7 +17,9 @@
 #' terms:
 #' - **Probability of superiority** is the probability that, when sampling an
 #'   observation from each of the groups at random, that the observation from
-#'   the second group will be larger than the sample from the first group.
+#'   the second group will be larger than the sample from the first group. For
+#'   the one-sample (or paired) case, it is the probability that the sample (or
+#'   difference) is larger than *mu*.
 #' - **Cohen's \eqn{U_1}** is the proportion of the total of both distributions
 #'   that does not overlap.
 #' - **Cohen's \eqn{U_2}** is the proportion of one of the groups that exceeds
@@ -69,7 +71,7 @@
 #' common language effect size statistics of McGraw and Wong. Journal of
 #' Educational and Behavioral Statistics, 25(2), 101-132.
 #'
-#' @seealso [d_to_cles] [sd_pooled()]
+#' @seealso [d_to_cles()] [sd_pooled()]
 #' @family effect size indices
 #'
 #' @examples
@@ -89,7 +91,7 @@
 #' @export
 #' @aliases cles
 p_superiority <- function(x, y = NULL, data = NULL,
-                          mu = 0, parametric = TRUE,
+                          mu = 0, paired = FALSE, parametric = TRUE,
                           ci = 0.95, alternative = "two.sided",
                           verbose = TRUE, ...) {
   if (inherits(x, "htest")) {
@@ -104,16 +106,15 @@ p_superiority <- function(x, y = NULL, data = NULL,
     return(effectsize(x, type = "p_superiority", ci = ci, verbose = verbose, ...))
   }
 
-  data <- .get_data_2_samples(x, y, data, verbose = verbose, ...)
+  data <- .get_data_2_samples(x, y, data, paired = paired, verbose = verbose, ...)
   x <- data[["x"]]
   y <- data[["y"]]
-  if (is.null(y)) stop("p_superiority only applicable to two sample case.")
 
   if (parametric) {
     d <- cohens_d(
       x = x,
       y = y,
-      paired = FALSE, pooled_sd = TRUE,
+      paired = paired, pooled_sd = TRUE,
       mu = mu,
       ci = ci,
       alternative = alternative,
@@ -125,7 +126,7 @@ p_superiority <- function(x, y = NULL, data = NULL,
     rb <- rank_biserial(
       x = x,
       y = y,
-      paired = FALSE,
+      paired = paired,
       mu = mu,
       ci = ci,
       alternative = alternative,

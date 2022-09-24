@@ -60,5 +60,5 @@ interpret(oddsratio(X), rules = "chen2010")
 interpret(cramers_v(X), "lovakov2021")
 }
 \seealso{
-rules
+\code{\link[=rules]{rules()}}
 }
