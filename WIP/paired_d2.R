@@ -9,7 +9,6 @@ paired_d <- function(x, group, block, data = NULL,
   if (!is.factor(data$blocks)) data$blocks <- factor(data$blocks)
   contrasts(data$groups) <- contr.treatment
   contrasts(data$blocks) <- contr.treatment
-  data <- na.omit(data)
 
   stopifnot(nlevels(data$groups) == 2L)
 

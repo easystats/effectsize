@@ -104,9 +104,9 @@ p_superiority <- function(x, y = NULL, data = NULL,
     return(effectsize(x, type = "p_superiority", ci = ci, verbose = verbose, ...))
   }
 
-  data <- .get_data_2_samples(x, y, data, verbose, ...)
-  x <- na.omit(data[["x"]])
-  y <- na.omit(data[["y"]])
+  data <- .get_data_2_samples(x, y, data, verbose = verbose, ...)
+  x <- data[["x"]]
+  y <- data[["y"]]
   if (is.null(y)) stop("p_superiority only applicable to two sample case.")
 
   if (parametric) {
@@ -155,9 +155,9 @@ cohens_u1 <- function(x, y = NULL, data = NULL,
   }
 
 
-  data <- .get_data_2_samples(x, y, data, verbose, ...)
-  x <- na.omit(data[["x"]])
-  y <- na.omit(data[["y"]])
+  data <- .get_data_2_samples(x, y, data, verbose = verbose, ...)
+  x <- data[["x"]]
+  y <- data[["y"]]
   if (is.null(y)) stop("cohens_u3 only applicable to two sample case.")
 
   if (!parametric) {
@@ -199,9 +199,9 @@ cohens_u2 <- function(x, y = NULL, data = NULL,
   }
 
 
-  data <- .get_data_2_samples(x, y, data, verbose, ...)
-  x <- na.omit(data[["x"]])
-  y <- na.omit(data[["y"]])
+  data <- .get_data_2_samples(x, y, data, verbose = verbose, ...)
+  x <- data[["x"]]
+  y <- data[["y"]]
   if (is.null(y)) stop("cohens_u3 only applicable to two sample case.")
 
   if (parametric) {
@@ -246,9 +246,9 @@ cohens_u3 <- function(x, y = NULL, data = NULL,
   }
 
 
-  data <- .get_data_2_samples(x, y, data, verbose, ...)
-  x <- na.omit(data[["x"]])
-  y <- na.omit(data[["y"]])
+  data <- .get_data_2_samples(x, y, data, verbose = verbose, ...)
+  x <- data[["x"]]
+  y <- data[["y"]]
   if (is.null(y)) stop("cohens_u3 only applicable to two sample case.")
 
   if (parametric) {
@@ -292,9 +292,9 @@ p_overlap <- function(x, y = NULL, data = NULL,
   }
 
 
-  data <- .get_data_2_samples(x, y, data, verbose, ...)
-  x <- na.omit(data[["x"]])
-  y <- na.omit(data[["y"]])
+  data <- .get_data_2_samples(x, y, data, verbose = verbose, ...)
+  x <- data[["x"]]
+  y <- data[["y"]]
   if (is.null(y)) stop("Overlap only applicable to two sample case.")
 
   if (parametric) {

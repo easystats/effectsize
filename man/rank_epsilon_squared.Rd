@@ -13,6 +13,7 @@ rank_epsilon_squared(
   ci = 0.95,
   alternative = "greater",
   iterations = 200,
+  verbose = TRUE,
   ...
 )
 
@@ -23,6 +24,7 @@ rank_eta_squared(
   ci = 0.95,
   alternative = "greater",
   iterations = 200,
+  verbose = TRUE,
   ...
 )
 
@@ -71,12 +73,12 @@ Controls the type of CI returned: \code{"two.sided"} (default, two-sided CI),
 \item{iterations}{The number of bootstrap replicates for computing confidence
 intervals. Only applies when \code{ci} is not \code{NULL}.}
 
+\item{verbose}{Toggle warnings and messages on or off.}
+
 \item{...}{Arguments passed to or from other methods. When \code{x} is a formula,
 these can be \code{subset} and \code{na.action}.}
 
 \item{blocks_on_rows}{Are blocks on rows (\code{TRUE}) or columns (\code{FALSE}).}
-
-\item{verbose}{Toggle warnings and messages on or off.}
 }
 \value{
 A data frame with the effect size and its CI.

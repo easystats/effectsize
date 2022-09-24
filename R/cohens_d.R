@@ -133,7 +133,7 @@ cohens_d <- function(x, y = NULL, data = NULL,
                      pooled_sd = TRUE, mu = 0, paired = FALSE,
                      ci = 0.95, alternative = "two.sided",
                      verbose = TRUE, ...) {
-  var.equal <- eval(match.call()[["var.equal"]], envir = parent.frame())
+  var.equal <- eval.parent(match.call()[["var.equal"]])
   if (!is.null(var.equal)) pooled_sd <- var.equal
 
   .effect_size_difference(
@@ -152,7 +152,7 @@ hedges_g <- function(x, y = NULL, data = NULL,
                      pooled_sd = TRUE, mu = 0, paired = FALSE,
                      ci = 0.95, alternative = "two.sided",
                      verbose = TRUE, ...) {
-  var.equal <- eval(match.call()[["var.equal"]], envir = parent.frame())
+  var.equal <- eval.parent(match.call()[["var.equal"]])
   if (!is.null(var.equal)) pooled_sd <- var.equal
 
   .effect_size_difference(
@@ -184,7 +184,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
 
 
-#' @importFrom stats sd na.omit complete.cases
+#' @importFrom stats sd
 #' @keywords internal
 .effect_size_difference <-
   function(x, y = NULL, data = NULL,
@@ -206,9 +206,9 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
 
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
-  out <- .get_data_2_samples(x, y, data, verbose, ...)
-  x <- out$x
-  y <- out$y
+  out <- .get_data_2_samples(x, y, data, paired = paired, verbose = verbose, ...)
+  x <- out[["x"]]
+  y <- out[["y"]]
 
   if (is.null(y)) {
     if (type == "delta") {
@@ -220,10 +220,6 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
   # Compute index
   if (paired) {
-    o <- stats::complete.cases(x, y)
-    x <- x[o]
-    y <- y[o]
-
     d <- mean(x - y)
     n <- length(x)
     s <- stats::sd(x - y)
@@ -234,9 +230,6 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
     pooled_sd <- NULL
   } else {
-    x <- stats::na.omit(x)
-    y <- stats::na.omit(y)
-
     d <- mean(x) - mean(y)
 
     s1 <- stats::sd(x)
