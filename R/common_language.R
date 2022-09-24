@@ -158,7 +158,7 @@ cohens_u1 <- function(x, y = NULL, data = NULL,
   }
 
 
-  data <- .get_data_2_samples(x, y, data, paired = paired,
+  data <- .get_data_2_samples(x, y, data,
                               allow_ordered = !parametric,
                               verbose = verbose, ...)
   x <- data[["x"]]
@@ -204,7 +204,7 @@ cohens_u2 <- function(x, y = NULL, data = NULL,
   }
 
 
-  data <- .get_data_2_samples(x, y, data, paired = paired,
+  data <- .get_data_2_samples(x, y, data,
                               allow_ordered = !parametric,
                               verbose = verbose, ...)
   x <- data[["x"]]
@@ -253,7 +253,7 @@ cohens_u3 <- function(x, y = NULL, data = NULL,
   }
 
 
-  data <- .get_data_2_samples(x, y, data, paired = paired,
+  data <- .get_data_2_samples(x, y, data,
                               allow_ordered = !parametric,
                               verbose = verbose, ...)
   x <- data[["x"]]
@@ -301,7 +301,7 @@ p_overlap <- function(x, y = NULL, data = NULL,
   }
 
 
-  data <- .get_data_2_samples(x, y, data, paired = paired,
+  data <- .get_data_2_samples(x, y, data,
                               allow_ordered = !parametric,
                               verbose = verbose, ...)
   x <- data[["x"]]
