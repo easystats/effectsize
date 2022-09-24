@@ -7,6 +7,10 @@
 #' [`stats::wilcox.test()`].
 #'
 #' @inheritParams cohens_d
+#' @param x,y A numeric or ordered vector, or a character name of one in `data`.
+#'   Any missing values (`NA`s) are dropped from the resulting vector. `x` can
+#'   also be a formula (see [`stats::wilcox.test()`]), in which case `y` is
+#'   ignored.
 #' @param mu a number indicating the value around which (a-)symmetry (for
 #'   one-sample or paired samples) or shift (for independent samples) is to be
 #'   estimated. See [stats::wilcox.test].
@@ -119,7 +123,9 @@ rank_biserial <- function(x, y = NULL, data = NULL,
   }
 
   ## Prep data
-  out <- .get_data_2_samples(x, y, data, paired = paired, verbose = verbose, ...)
+  out <- .get_data_2_samples(x, y, data, paired = paired,
+                             allow_ordered = TRUE,
+                             verbose = verbose, ...)
   x <- out$x
   y <- out$y
 
@@ -200,7 +206,9 @@ cliffs_delta <- function(x, y = NULL, data = NULL,
                          ci = 0.95, alternative = "two.sided",
                          verbose = TRUE, ...) {
   cl <- match.call()
-  data <- .get_data_2_samples(x, y, data, verbose = verbose, ...)
+  data <- .get_data_2_samples(x, y, data, verbose = verbose,
+                              allow_ordered = TRUE,
+                              ...)
   x <- data$x
   y <- data$y
   if (is.null(y) || isTRUE(eval.parent(cl$paired))) {

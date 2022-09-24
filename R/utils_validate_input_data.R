@@ -2,7 +2,7 @@
 #' @keywords internal
 #' @importFrom stats na.omit complete.cases
 .get_data_2_samples <- function(x, y = NULL, data = NULL,
-                                paired = FALSE,
+                                paired = FALSE, allow_ordered = FALSE,
                                 verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
     # Validate:
@@ -32,6 +32,18 @@
     y <- .resolve_char(y, data)
   }
 
+
+  # If x is ordered and allowed to be...
+  if (allow_ordered && is.ordered(x)) {
+    if (is.ordered(y)) {
+      if (!isTRUE(all.equal(levels(y),levels(x)))) {
+        stop("x and y are ordered, but do not have the same levels.", call. = FALSE)
+      }
+      y <- as.numeric(y)
+    }
+
+    x <- as.numeric(x)
+  }
 
   # x should be a numeric vector or a Pair:
   if (!is.numeric(x)) {
@@ -87,6 +99,7 @@
 
 #' @keywords internal
 .get_data_multi_group <- function(x, groups, data = NULL,
+                                  allow_ordered = FALSE,
                                   verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
     if (length(x) != 3) {
@@ -112,6 +125,9 @@
   }
 
   # x should be a numeric vector or a Pair:
+  if (allow_ordered && is.ordered(x)) {
+    x <- as.numeric(x)
+  }
   if (!is.numeric(x)) {
     stop("Cannot compute effect size for a non-numeric vector.", call. = FALSE)
   }
@@ -135,7 +151,7 @@
 #' @keywords internal
 #' @importFrom stats reshape
 .get_data_nested_groups <- function(x, groups = NULL, blocks = NULL, data = NULL,
-                                    wide = TRUE,
+                                    wide = TRUE, allow_ordered = FALSE,
                                     verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
     if (length(x) != 3L ||
@@ -175,6 +191,9 @@
 
   colnames(x) <- c("x", "groups", "blocks")
 
+  if (allow_ordered && is.ordered(x$x)) {
+    x$x <- as.numeric(x$x)
+  }
   if (!is.numeric(x$x)) {
     stop("Cannot compute effect size for a non-numeric vector.", call. = FALSE)
   }

@@ -32,6 +32,22 @@ test_that("rank_biserial", {
 })
 
 
+test_that("rank_biserial | ordered", {
+  x <- rep(ordered(1:5), each = 3)
+  x1 <- x[1:5]
+  x2 <- x[6:15]
+
+  expect_equal(rank_biserial(x1, x2),
+               rank_biserial(as.numeric(x1), as.numeric(x2)))
+
+
+  x1 <- ordered(as.numeric(x1))
+  x2 <- ordered(as.numeric(x2))
+  expect_error(rank_biserial(x1, x2), "levels")
+
+})
+
+
 test_that("rank_epsilon_squared", {
   skip_if_not_installed("boot")
   skip_if_not_installed("base", minimum_version = "3.6.1")

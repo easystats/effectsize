@@ -7,7 +7,7 @@
 #'
 #' @inheritParams rank_biserial
 #' @param x Can be one of:
-#'   - A numeric vector, or a character name of one in `data`.
+#'   - A numeric or ordered vector, or a character name of one in `data`.
 #'   - A list of vectors (for `rank_eta/epsilon_squared()`).
 #'   - A matrix of `blocks x groups` (for `kendalls_w()`) (or `groups x blocks`
 #'   if `blocks_on_rows = FALSE`). See details for the `blocks` and `groups`
@@ -100,6 +100,7 @@ rank_epsilon_squared <- function(x, groups, data = NULL,
 
   ## pep data
   data <- .get_data_multi_group(x, groups, data,
+                                allow_ordered = TRUE,
                                 verbose = verbose, ...)
 
   ## compute
@@ -147,6 +148,7 @@ rank_eta_squared <- function(x, groups, data = NULL,
 
   ## pep data
   data <- .get_data_multi_group(x, groups, data,
+                                allow_ordered = TRUE,
                                 verbose = verbose, ...)
 
   out <- data.frame(rank_eta_squared = .reta(data))
@@ -201,6 +203,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
   ## prep data
   if (is.matrix(x) && !blocks_on_rows) x <- t(x)
   data <- .get_data_nested_groups(x, groups, blocks, data,
+                                  allow_ordered = TRUE,
                                   verbose = verbose, ...)
   data <- stats::na.omit(data) # wide data - drop non complete cases
 

@@ -44,7 +44,7 @@ kendalls_w(
 \arguments{
 \item{x}{Can be one of:
 \itemize{
-\item A numeric vector, or a character name of one in \code{data}.
+\item A numeric or ordered vector, or a character name of one in \code{data}.
 \item A list of vectors (for \code{rank_eta/epsilon_squared()}).
 \item A matrix of \verb{blocks x groups} (for \code{kendalls_w()}) (or \verb{groups x blocks}
 if \code{blocks_on_rows = FALSE}). See details for the \code{blocks} and \code{groups}

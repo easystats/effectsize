@@ -106,7 +106,9 @@ p_superiority <- function(x, y = NULL, data = NULL,
     return(effectsize(x, type = "p_superiority", ci = ci, verbose = verbose, ...))
   }
 
-  data <- .get_data_2_samples(x, y, data, paired = paired, verbose = verbose, ...)
+  data <- .get_data_2_samples(x, y, data, paired = paired,
+                              allow_ordered = !parametric,
+                              verbose = verbose, ...)
   x <- data[["x"]]
   y <- data[["y"]]
 
@@ -156,10 +158,12 @@ cohens_u1 <- function(x, y = NULL, data = NULL,
   }
 
 
-  data <- .get_data_2_samples(x, y, data, verbose = verbose, ...)
+  data <- .get_data_2_samples(x, y, data, paired = paired,
+                              allow_ordered = !parametric,
+                              verbose = verbose, ...)
   x <- data[["x"]]
   y <- data[["y"]]
-  if (is.null(y)) stop("cohens_u3 only applicable to two sample case.")
+  if (is.null(y)) stop("cohens_u3 only applicable to two sample case.", call. = FALSE)
 
   if (!parametric) {
     stop("Cohen's U1 only available for parametric estimation.", call. = FALSE)
@@ -200,10 +204,12 @@ cohens_u2 <- function(x, y = NULL, data = NULL,
   }
 
 
-  data <- .get_data_2_samples(x, y, data, verbose = verbose, ...)
+  data <- .get_data_2_samples(x, y, data, paired = paired,
+                              allow_ordered = !parametric,
+                              verbose = verbose, ...)
   x <- data[["x"]]
   y <- data[["y"]]
-  if (is.null(y)) stop("cohens_u3 only applicable to two sample case.")
+  if (is.null(y)) stop("cohens_u3 only applicable to two sample case.", call. = FALSE)
 
   if (parametric) {
     d <- cohens_d(
@@ -247,10 +253,12 @@ cohens_u3 <- function(x, y = NULL, data = NULL,
   }
 
 
-  data <- .get_data_2_samples(x, y, data, verbose = verbose, ...)
+  data <- .get_data_2_samples(x, y, data, paired = paired,
+                              allow_ordered = !parametric,
+                              verbose = verbose, ...)
   x <- data[["x"]]
   y <- data[["y"]]
-  if (is.null(y)) stop("cohens_u3 only applicable to two sample case.")
+  if (is.null(y)) stop("cohens_u3 only applicable to two sample case.", call. = FALSE)
 
   if (parametric) {
     d <- cohens_d(
@@ -293,10 +301,12 @@ p_overlap <- function(x, y = NULL, data = NULL,
   }
 
 
-  data <- .get_data_2_samples(x, y, data, verbose = verbose, ...)
+  data <- .get_data_2_samples(x, y, data, paired = paired,
+                              allow_ordered = !parametric,
+                              verbose = verbose, ...)
   x <- data[["x"]]
   y <- data[["y"]]
-  if (is.null(y)) stop("Overlap only applicable to two sample case.")
+  if (is.null(y)) stop("Overlap only applicable to two sample case.", call. = FALSE)
 
   if (parametric) {
     d <- cohens_d(

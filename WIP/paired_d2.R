@@ -197,7 +197,7 @@ paired_d <- function(x, group, block, data = NULL,
     stop(paste(
       "Covariances should be a ", n, " by ", n,
       " matrix"
-    ))
+    ), call. = FALSE)
   }
   syms <- paste("x", 1:n, sep = "")
   for (i in 1:n) assign(syms[i], mean[i])

@@ -120,17 +120,9 @@ print.effectsize_difference <- function(x, digits = 2, append_CLES = NULL, ...) 
   print.effectsize_table(x, digits = digits, ...)
 
   if (is.logical(append_CLES) || is.character(append_CLES)) {
-    if (isTRUE(attr(x_orig, "paired"))) {
-      stop("CLES only applicable to independent samples.")
-    }
-
     if (colnames(x_orig)[1] == "r_rank_biserial") {
       cles_tab <- rb_to_p_superiority(x_orig)
     } else if (colnames(x_orig)[1] %in% c("Cohens_d", "Hedges_g")) {
-      if (!isTRUE(attr(x_orig, "pooled_sd"))) {
-        stop("CLES only applicable to pooled-sd Cohen's d / Hedge's g.")
-      }
-
       if (isTRUE(append_CLES)) {
         append_CLES <- c("p_superiority", "u1", "u2", "u3", "overlap")
       }
@@ -146,7 +138,7 @@ print.effectsize_difference <- function(x, digits = 2, append_CLES = NULL, ...) 
       cles_tab <- cles_tab[c(ncol(cles_tab), seq_len(ncol(cles_tab)-1))]
 
     } else {
-      stop("CLES not applicable for this effect size.")
+      stop("CLES not applicable for this effect size.", call. = FALSE)
     }
 
     insight::print_color("\n\n## Common Language Effect Sizes:\n", .pcl["subtitle"])
