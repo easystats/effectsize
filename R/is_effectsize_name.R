@@ -97,6 +97,7 @@ es_info <- matrix(
 
     ## CLES
     "p_superiority", "Pr(superiority)", NA, "twotail", 0, 1, 0.5,
+    "WMW_odds", "WMW Odds", NA, "twotail", 0, Inf, 1,
     "Cohens_U1", "Cohen's U1", NA,  "onetail", 0, 1, 0,
     "Cohens_U2", "Cohen's U2", NA,  "onetail", 0.5, 1, 0.5,
     "Cohens_U3", "Cohen's U3", NA,  "twotail", 0, 1, 0.5,

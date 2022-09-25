@@ -8,6 +8,7 @@
 \alias{cohens_u3}
 \alias{p_overlap}
 \alias{vd_a}
+\alias{wmw_odds}
 \title{Cohen's \emph{U}s and Other Common Language Effect Sizes (CLES)}
 \usage{
 p_superiority(
@@ -85,6 +86,18 @@ vd_a(
   verbose = TRUE,
   ...
 )
+
+wmw_odds(
+  x,
+  y = NULL,
+  data = NULL,
+  mu = 0,
+  paired = FALSE,
+  ci = 0.95,
+  alternative = "two.sided",
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x, y}{A numeric vector, or a character name of one in \code{data}.
@@ -125,10 +138,10 @@ optionally their CIs).
 }
 \description{
 Cohen's \eqn{U_1}, \eqn{U_2}, and \eqn{U_3}, probability of superiority,
-Vargha and Delaney's \emph{A}, and proportion of overlap are CLESs. These are
-effect sizes that represent differences between two (independent)
-distributions in probabilistic terms (See details). Pair with any reported
-\code{\link[stats:t.test]{stats::t.test()}} or \code{\link[stats:wilcox.test]{stats::wilcox.test()}}.
+proportion of overlap, Wilcoxon-Mann-Whitney odds, and Vargha and Delaney's
+\emph{A} are CLESs. These are effect sizes that represent differences between two
+(independent) distributions in probabilistic terms (See details). Pair with
+any reported \code{\link[stats:t.test]{stats::t.test()}} or \code{\link[stats:wilcox.test]{stats::wilcox.test()}}.
 }
 \details{
 These measures of effect size present group differences in probabilistic
@@ -138,7 +151,8 @@ terms:
 observation from each of the groups at random, that the observation from
 the second group will be larger than the sample from the first group. For
 the one-sample (or paired) case, it is the probability that the sample (or
-difference) is larger than \emph{mu}.
+difference) is larger than \emph{mu}. (Vargha and Delaney's \emph{A} is an alias for
+the non-parametric \emph{probability of superiority}.)
 \item \strong{Cohen's \eqn{U_1}} is the proportion of the total of both distributions
 that does not overlap.
 \item \strong{Cohen's \eqn{U_2}} is the proportion of one of the groups that exceeds
@@ -149,16 +163,19 @@ than the median of the first group.
 (When \code{parametric = FALSE}, \code{\link[bayestestR:overlap]{bayestestR::overlap()}} is used.)
 }
 
-The parametric version of these effects assumes normality of both populations
-and homoscedasticity. If those are not met, the non parametric versions
-should be used.
-
-Vargha and Delaney's \emph{A} is an alias for the non-parametric \emph{probability of
-superiority}.
+Wilcoxon-Mann-Whitney odds are the \emph{odds} of
+non-parametric superiority (via \code{\link[=probs_to_odds]{probs_to_odds()}}), that is the odds that,
+when sampling an observation from each of the groups at random, that the
+observation from the second group will be larger than the sample from the
+first group.
 
 Where \eqn{U_1}, \eqn{U_2}, and \emph{Overlap} are agnostic to the direction of
 the difference between the groups, \eqn{U_3} and probability of superiority
 are not.
+
+The parametric version of these effects assumes normality of both populations
+and homoscedasticity. If those are not met, the non parametric versions
+should be used.
 }
 \note{
 If \code{mu} is not 0, the effect size represents the difference between the
@@ -212,6 +229,8 @@ cohens_u2(mpg ~ am, data = mtcars)
 
 p_superiority(mpg ~ am, data = mtcars, parametric = FALSE)
 
+wmw_odds(mpg ~ am, data = mtcars)
+
 x <- c(1.83, 0.5, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.3)
 y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
 
@@ -234,6 +253,12 @@ to base rates and other factors. Psychological methods, 13(1), 19–30.
 \item Vargha, A., & Delaney, H. D. (2000). A critique and improvement of the CL
 common language effect size statistics of McGraw and Wong. Journal of
 Educational and Behavioral Statistics, 25(2), 101-132.
+\item O’Brien, R. G., & Castelloe, J. (2006, March). Exploiting the link between
+the Wilcoxon-Mann-Whitney test and a simple odds statistic.
+In Proceedings of the Thirty-first Annual SAS Users Group International
+Conference (pp. 209-31). Cary, NC: SAS Institute.
+\item Agresti, A. (1980). Generalized odds ratios for ordinal data.
+Biometrics, 59-67.
 }
 }
 \seealso{

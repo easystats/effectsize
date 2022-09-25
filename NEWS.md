@@ -10,14 +10,17 @@
 
 ## New features
 
-- Rank based effect sizes now accept ordered (`ordered()`) outcomes.
-- `p_superiority()` now supports paired and one-sample cases.
+
 - Set `options(es.use_symbols = TRUE)` to print proper symbols instead of transliterated effect size names. (On Windows, requires `R >= 4.2.0`)
 - `tschuprows_t()` and `chisq_to_tschuprows_t()` for computing Tschuprow's *T* - a relative of Cramer's *V*.
-- `vd_a()` and `rb_to_vda()` for Vargha and Delaney's *A* dominance effect size (aliases for `p_superiority(parametric = FALSE)` and `rb_to_p_superiority()`).
-- `rank_eta_squared()` for one-way rank ANOVA.
-- `cohens_u1()`, `cohens_u2()`, `d_to_u1()`, and `d_to_u2()` added for Cohen's U1 and U2
 - `mahalanobis_d()` for multivariate standardized differences.
+- Rank based effect sizes now accept ordered (`ordered()`) outcomes.
+- `rank_eta_squared()` for one-way rank ANOVA.
+- For Common Language Effect Sizes:
+    - `wmw_odds()` and `rb_to_wmw_odds` for the Wilcoxon-Mann-Whitney odds (thanks @arcaldwell49! #479).
+    - `p_superiority()` now supports paired and one-sample cases.
+    - `vd_a()` and `rb_to_vda()` for Vargha and Delaney's *A* dominance effect size (aliases for `p_superiority(parametric = FALSE)` and `rb_to_p_superiority()`).
+    - `cohens_u1()`, `cohens_u2()`, `d_to_u1()`, and `d_to_u2()` added for Cohen's U1 and U2.
 
 ## Bug fixes
 

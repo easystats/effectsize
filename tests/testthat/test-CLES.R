@@ -86,6 +86,15 @@ test_that("CLES | par vs non-par", {
                tolerance = 0.1, ignore_attr = TRUE)
 })
 
+test_that("CLES | WMW", {
+  rbs <- rank_biserial(mpg ~ am, data = mtcars)
+
+  expect_equal(rb_to_wmw_odds(rbs), WMW <- wmw_odds(mpg ~ am, data = mtcars))
+  expect_equal(WMW[[1]], probs_to_odds(rb_to_p_superiority(rbs[[1]])))
+
+  expect_error(wmw_odds(cyl ~ 1, mu = 6, data = mtcars), NA)
+})
+
 test_that("CLES | errors", {
   expect_error(cohens_u1(1:3, 1:4, parametric = FALSE), "parametric")
 
