@@ -105,3 +105,39 @@ test_that("CLES | errors", {
   expect_error(p_overlap(1:3), "two")
 })
 
+
+test_that("CLES | htest - t-test", {
+  x <<- 1:4
+  y <<- c(1, 1:3)
+  Tt <- t.test(x, y, var.equal = TRUE)
+
+  expect_equal(e <- p_superiority(Tt), p_superiority(x, y), ignore_attr = TRUE)
+  expect_equal(effectsize(Tt, type = "p_superiority"), e)
+
+  expect_equal(e <- cohens_u1(Tt), cohens_u1(x, y), ignore_attr = TRUE)
+  expect_equal(effectsize(Tt, type = "u1"), e)
+
+  expect_equal(e <- cohens_u2(Tt), cohens_u2(x, y), ignore_attr = TRUE)
+  expect_equal(effectsize(Tt, type = "u2"), e)
+
+  expect_equal(e <- cohens_u3(Tt), cohens_u3(x, y), ignore_attr = TRUE)
+  expect_equal(effectsize(Tt, type = "u3"), e)
+
+  expect_equal(e <- p_overlap(Tt), p_overlap(x, y), ignore_attr = TRUE)
+  expect_equal(effectsize(Tt, type = "overlap"), e)
+})
+
+
+test_that("CLES | htest - Wilcox", {
+  x <<- 1:4
+  y <<- c(1, 1:3)
+  Wt <- suppressWarnings(wilcox.test(x, y, var.equal = TRUE))
+
+  expect_equal(e <- p_superiority(Wt), p_superiority(x, y, parametric = FALSE), ignore_attr = TRUE)
+  expect_equal(effectsize(Wt, type = "p_superiority"), e)
+
+  expect_error(effectsize(Wt, type = "u1"), "parametric")
+
+  expect_equal(e <- cohens_u3(Wt), cohens_u3(x, y, parametric = FALSE), ignore_attr = TRUE)
+  expect_equal(effectsize(Wt, type = "u3"), e)
+})

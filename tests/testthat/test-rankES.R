@@ -75,6 +75,19 @@ test_that("rank_epsilon_squared", {
 })
 
 
+test_that("rank_eta_squared", {
+  skip_if_not_installed("boot")
+  skip_if_not_installed("base", minimum_version = "3.6.1")
+
+  set.seed(1)
+  data("mtcars")
+  E <- rank_eta_squared(mpg ~ cyl, data = mtcars)
+
+  expect_equal(E[[1]], 0.82, tolerance = 0.01)
+  expect_equal(E$CI_low, 0.78, tolerance = 0.01)
+  expect_equal(E$CI_high, 1)
+})
+
 test_that("kendalls_w", {
   skip_if_not_installed("boot")
   skip_if_not_installed("base", minimum_version = "3.6.1")

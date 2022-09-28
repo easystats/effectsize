@@ -91,10 +91,7 @@ rank_epsilon_squared <- function(x, groups, data = NULL,
                                  verbose = TRUE, ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
-  if (inherits(x, "htest")) {
-    if (!grepl("Kruskal-Wallis", x$method)) {
-      stop("'x' is not a Kruskal-Wallis-test!", call. = FALSE)
-    }
+  if (.is_htest_of_type(x, "Kruskal-Wallis", "Kruskal-Wallis-test")) {
     return(effectsize(x, type = "epsilon", ci = ci, iterations = iterations, alternative = alternative))
   }
 
@@ -139,10 +136,7 @@ rank_eta_squared <- function(x, groups, data = NULL,
                              verbose = TRUE, ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
-  if (inherits(x, "htest")) {
-    if (!grepl("Kruskal-Wallis", x$method)) {
-      stop("'x' is not a Kruskal-Wallis-test!", call. = FALSE)
-    }
+  if (.is_htest_of_type(x, "Kruskal-Wallis", "Kruskal-Wallis-test")) {
     return(effectsize(x, type = "eta", ci = ci, iterations = iterations, alternative = alternative))
   }
 
@@ -193,10 +187,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
                        verbose = TRUE, ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
-  if (inherits(x, "htest")) {
-    if (!grepl("Friedman", x$method)) {
-      stop("'x' is not a Friedman-test!", call. = FALSE)
-    }
+  if (.is_htest_of_type(x, "Friedman", "Friedman-test")) {
     return(effectsize(x, ci = ci, iterations = iterations, verbose = verbose, alternative = alternative))
   }
 

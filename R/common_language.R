@@ -108,15 +108,9 @@ p_superiority <- function(x, y = NULL, data = NULL,
                           mu = 0, paired = FALSE, parametric = TRUE,
                           ci = 0.95, alternative = "two.sided",
                           verbose = TRUE, ...) {
-  if (inherits(x, "htest")) {
-    if (!grepl("(t-test|Wilcoxon)", x$method)) {
-      stop("'x' is not a t-test or a Wilcoxon-test!", call. = FALSE)
-    }
+  if (.is_htest_of_type(x, "(t-test|Wilcoxon)", "t-test or a Wilcoxon-test")) {
     return(effectsize(x, type = "p_superiority", verbose = verbose, ...))
-  } else if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], c("BFindepSample"))) {
-      stop("'x' is not a t-test!", call. = FALSE)
-    }
+  } else if (.is_BF_of_type(x, c("BFindepSample", "BFoneSample"), "t-test")) {
     return(effectsize(x, type = "p_superiority", ci = ci, verbose = verbose, ...))
   }
 
@@ -159,15 +153,9 @@ cohens_u1 <- function(x, y = NULL, data = NULL,
                       mu = 0, parametric = TRUE,
                       ci = 0.95, alternative = "two.sided", iterations = 200,
                       verbose = TRUE, ...) {
-  if (inherits(x, "htest")) {
-    if (!grepl("(t-test|Wilcoxon)", x$method)) {
-      stop("'x' is not a t-test or a Wilcoxon-test!", call. = FALSE)
-    }
+  if (.is_htest_of_type(x, "(t-test|Wilcoxon)", "t-test or a Wilcoxon-test")) {
     return(effectsize(x, type = "u1", verbose = verbose, ...))
-  } else if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], c("BFindepSample"))) {
-      stop("'x' is not a t-test!", call. = FALSE)
-    }
+  } else if (.is_BF_of_type(x, "BFindepSample", "t-test")) {
     return(effectsize(x, type = "u1", ci = ci, verbose = verbose, ...))
   }
 
@@ -205,15 +193,9 @@ cohens_u2 <- function(x, y = NULL, data = NULL,
                       mu = 0, parametric = TRUE,
                       ci = 0.95, alternative = "two.sided", iterations = 200,
                       verbose = TRUE, ...) {
-  if (inherits(x, "htest")) {
-    if (!grepl("(t-test|Wilcoxon)", x$method)) {
-      stop("'x' is not a t-test or a Wilcoxon-test!", call. = FALSE)
-    }
+  if (.is_htest_of_type(x, "(t-test|Wilcoxon)", "t-test or a Wilcoxon-test")) {
     return(effectsize(x, type = "u2", verbose = verbose, ...))
-  } else if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], c("BFindepSample"))) {
-      stop("'x' is not a t-test!", call. = FALSE)
-    }
+  } else if (.is_BF_of_type(x, "BFindepSample", "t-test")) {
     return(effectsize(x, type = "u2", ci = ci, verbose = verbose, ...))
   }
 
@@ -254,15 +236,9 @@ cohens_u3 <- function(x, y = NULL, data = NULL,
                       mu = 0, parametric = TRUE,
                       ci = 0.95, alternative = "two.sided", iterations = 200,
                       verbose = TRUE, ...) {
-  if (inherits(x, "htest")) {
-    if (!grepl("(t-test|Wilcoxon)", x$method)) {
-      stop("'x' is not a t-test or a Wilcoxon-test!", call. = FALSE)
-    }
+  if (.is_htest_of_type(x, "(t-test|Wilcoxon)", "t-test or a Wilcoxon-test")) {
     return(effectsize(x, type = "u3", verbose = verbose, ...))
-  } else if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], c("BFindepSample"))) {
-      stop("'x' is not a t-test!", call. = FALSE)
-    }
+  } else if (.is_BF_of_type(x, "BFindepSample", "t-test")) {
     return(effectsize(x, type = "u3", ci = ci, verbose = verbose, ...))
   }
 
@@ -302,15 +278,9 @@ p_overlap <- function(x, y = NULL, data = NULL,
                       mu = 0, parametric = TRUE,
                       ci = 0.95, alternative = "two.sided", iterations = 200,
                       verbose = TRUE, ...) {
-  if (inherits(x, "htest")) {
-    if (!grepl("(t-test|Wilcoxon)", x$method)) {
-      stop("'x' is not a t-test or a Wilcoxon-test!", call. = FALSE)
-    }
+  if (.is_htest_of_type(x, "(t-test|Wilcoxon)", "t-test or a Wilcoxon-test")) {
     return(effectsize(x, type = "overlap", verbose = verbose, ...))
-  } else if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], c("BFindepSample"))) {
-      stop("'x' is not a t-test!", call. = FALSE)
-    }
+  } else if (.is_BF_of_type(x, "BFindepSample", "t-test")) {
     return(effectsize(x, type = "overlap", ci = ci, verbose = verbose, ...))
   }
 
