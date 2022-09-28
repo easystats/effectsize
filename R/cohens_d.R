@@ -186,22 +186,17 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
 #' @importFrom stats sd
 #' @keywords internal
-.effect_size_difference <-
-  function(x, y = NULL, data = NULL,
-           type = "d",
-           mu = 0, pooled_sd = TRUE, paired = FALSE,
-           ci = 0.95, alternative = "two.sided",
-           verbose = TRUE, ...) {
-  if (type != "delta" && inherits(x, "htest")) {
-    if (!grepl("t-test", x$method)) {
-      stop("'x' is not a t-test!", call. = FALSE)
+.effect_size_difference <- function(x, y = NULL, data = NULL,
+                                    type = "d",
+                                    mu = 0, pooled_sd = TRUE, paired = FALSE,
+                                    ci = 0.95, alternative = "two.sided",
+                                    verbose = TRUE, ...) {
+  if (type != "delta") {
+    if (.is_htest_of_type(x, "t-test")) {
+      return(effectsize(x, type = type, verbose = verbose, ...))
+    } else if (.is_BF_of_type(x, c("BFoneSample", "BFindepSample"), "t-squared")) {
+      return(effectsize(x, ci = ci, verbose = verbose, ...))
     }
-    return(effectsize(x, type = type, verbose = verbose, ...))
-  } else if (type != "delta" && inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
-      stop("'x' is not a t-test!", call. = FALSE)
-    }
-    return(effectsize(x, ci = ci, verbose = verbose, ...))
   }
 
 

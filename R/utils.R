@@ -44,3 +44,27 @@
   datawizard::ranktransform(x, method = "average", ..., verbose = FALSE)
 }
 
+
+#' @keywords internal
+.is_BF_of_type <- function(x, type, msg = type) {
+  if (inherits(x, "BFBayesFactor")) {
+    if (!inherits(x@numerator[[1]], type)) {
+      stop("'x' is not a ", msg,"!", call. = FALSE)
+    }
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
+}
+
+#' @keywords internal
+.is_htest_of_type <- function(x, pattern, msg) {
+  if (inherits(x, "htest")) {
+    if (!grepl(pattern, x$method)) {
+      stop("'x' is not a ", msg,"!", call. = FALSE)
+    }
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
+}

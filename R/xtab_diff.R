@@ -61,19 +61,13 @@
 oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...) {
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
 
-  if (inherits(x, "htest")) {
-    if (grepl("Pearson's Chi-squared", x$method) ||
-        grepl("Chi-squared test for given probabilities", x$method)) {
-      return(effectsize(x, type = "or", log = log, ci = ci, alternative = alternative))
-    } else if (grepl("Fisher's Exact", x$method)) {
+  if (.is_htest_of_type(x, "(Pearson's Chi-squared|Fisher's Exact)", "Chi-squared-test or Fisher's Exact test")) {
+    if (grepl("Fisher's Exact", x$method)) {
       return(effectsize(x, alternative = alternative, ...))
     } else {
-      stop("'x' is not a Chi-squared / Fisher's Exact test!", call. = FALSE)
+      return(effectsize(x, type = "or", log = log, ci = ci, alternative = alternative))
     }
-  } else if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
+  } else if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "or", log = log, ci = ci, ...))
   }
 
@@ -138,16 +132,9 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
 riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...) {
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
 
-  if (inherits(x, "htest")) {
-    if (!(grepl("Pearson's Chi-squared", x$method) ||
-          grepl("Chi-squared test for given probabilities", x$method))) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
+  if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
     return(effectsize(x, type = "rr", log = log, ci = ci, alternative = alternative))
-  } else if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
+  } else if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "rr", log = log, ci = ci, ...))
   }
 
@@ -215,16 +202,9 @@ riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
 cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
 
-  if (inherits(x, "htest")) {
-    if (!(grepl("Pearson's Chi-squared", x$method) ||
-          grepl("Chi-squared test for given probabilities", x$method))) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
+  if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
     return(effectsize(x, type = "cohens_h", ci = ci, alternative = alternative))
-  } else if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
+  } else if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "cohens_h", ci = ci, ...))
   }
 

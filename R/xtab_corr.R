@@ -117,20 +117,9 @@ phi <- function(x, y = NULL,
                 ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
-  if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
+  if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "phi", adjust = adjust, ci = ci, ...))
-  }
-
-
-  if (inherits(x, "htest")) {
-    if (!(grepl("Pearson's Chi-squared", x$method) ||
-      grepl("Chi-squared test for given probabilities", x$method))) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
-  } else {
+  } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
     x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
   }
@@ -147,20 +136,9 @@ cramers_v <- function(x, y = NULL,
                       ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
-  if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
+  if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci, ...))
-  }
-
-
-  if (inherits(x, "htest")) {
-    if (!(grepl("Pearson's Chi-squared", x$method) ||
-          grepl("Chi-squared test for given probabilities", x$method))) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
-  } else {
+  } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
     x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
   }
@@ -177,20 +155,9 @@ tschuprows_t <- function(x, y = NULL,
                          ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
-  if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
+  if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci, ...))
-  }
-
-
-  if (inherits(x, "htest")) {
-    if (!(grepl("Pearson's Chi-squared", x$method) ||
-          grepl("Chi-squared test for given probabilities", x$method))) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
-  } else {
+  } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
     x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
   }
@@ -206,20 +173,10 @@ cohens_w <- function(x, y = NULL, p = rep(1/length(x), length(x)),
                      ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
-  if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
+  if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "phi", ci = ci, ...))
-  }
-
-
-  if (inherits(x, "htest")) {
-    if (!(grepl("Pearson's Chi-squared", x$method) ||
-      grepl("Chi-squared test for given probabilities", x$method))) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
-  } else {
+  } else if (!.is_htest_of_type(x, "(Pearson's Chi-squared|Chi-squared test for given probabilities)",
+                                "Chi-squared-test")) {
     x <- suppressWarnings(stats::chisq.test(x, y, p = p, ...))
     x$data.name <- NULL
   }
@@ -238,15 +195,7 @@ fei <- function(x, p = rep(1/length(x), length(x)),
 
   if (inherits(x, "BFBayesFactor")) {
     stop("Fei is only applicable to goodness of fit tests.", call. = FALSE)
-  }
-
-
-  if (inherits(x, "htest")) {
-    if (!(grepl("Pearson's Chi-squared", x$method) ||
-      grepl("Chi-squared test for given probabilities", x$method))) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
-  } else {
+  } else if (!.is_htest_of_type(x, "Chi-squared test for given probabilities", "Chi-squared-test")) {
     x <- suppressWarnings(stats::chisq.test(x, y = NULL, p = p, ...))
     x$data.name <- NULL
   }
@@ -262,20 +211,10 @@ pearsons_c <- function(x, y = NULL, p = rep(1/length(x), length(x)),
                      ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
-  if (inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], "BFcontingencyTable")) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
+  if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "pearsons_c", ci = ci, ...))
-  }
-
-
-  if (inherits(x, "htest")) {
-    if (!(grepl("Pearson's Chi-squared", x$method) ||
-      grepl("Chi-squared test for given probabilities", x$method))) {
-      stop("'x' is not a Chi-squared test!", call. = FALSE)
-    }
-  } else {
+  } else if (!.is_htest_of_type(x, "(Pearson's Chi-squared|Chi-squared test for given probabilities)",
+                                "Chi-squared-test")) {
     x <- suppressWarnings(stats::chisq.test(x, y, p = p, ...))
     x$data.name <- NULL
   }

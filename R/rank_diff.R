@@ -115,10 +115,7 @@ rank_biserial <- function(x, y = NULL, data = NULL,
                           verbose = TRUE, ...) {
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
 
-  if (inherits(x, "htest")) {
-    if (!grepl("Wilcoxon", x$method)) {
-      stop("'x' is not a Wilcoxon-test!", call. = FALSE)
-    }
+  if (.is_htest_of_type(x, "Wilcoxon", "Wilcoxon-test")) {
     return(effectsize(x, verbose = verbose, type = "rb"))
   }
 

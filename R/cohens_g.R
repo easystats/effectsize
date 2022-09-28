@@ -50,10 +50,7 @@ cohens_g <- function(x, y = NULL,
                      ...) {
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
 
-  if (inherits(x, "htest")) {
-    if (!grepl("McNemar", x$method)) {
-      stop("'x' is not a McNemar test!", call. = FALSE)
-    }
+  if (.is_htest_of_type(x, "McNemar")) {
     return(effectsize(x, ci = ci, alternative = alternative))
   }
 
