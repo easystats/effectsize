@@ -107,8 +107,8 @@ test_that("CLES | errors", {
 
 
 test_that("CLES | htest - t-test", {
-  x <- 1:4
-  y <- c(1, 1:3)
+  x <<- 1:4
+  y <<- c(1, 1:3)
   Tt <- t.test(x, y, var.equal = TRUE)
 
   expect_equal(e <- p_superiority(Tt), p_superiority(x, y), ignore_attr = TRUE)
@@ -129,8 +129,8 @@ test_that("CLES | htest - t-test", {
 
 
 test_that("CLES | htest - Wilcox", {
-  x <- 1:4
-  y <- c(1, 1:3)
+  x <<- 1:4
+  y <<- c(1, 1:3)
   Wt <- suppressWarnings(wilcox.test(x, y, var.equal = TRUE))
 
   expect_equal(e <- p_superiority(Wt), p_superiority(x, y, parametric = FALSE), ignore_attr = TRUE)
