@@ -115,7 +115,7 @@ hedges_g(extra ~ group, data = sleep, paired = TRUE)
 A Bayesian estimate of Cohen's *d* can also be provided based on `BayesFactor`'s
 version of a *t*-test via the `effectsize()` function:
 
-```{r, eval = requireNamespace("BayesFactor", quietly = TRUE)}
+```{r, eval = requireNamespace("BayesFactor", quietly = TRUE), message=FALSE}
 library(BayesFactor)
 BFt <- ttestBF(formula = mpg ~ am, data = mtcars)
 
