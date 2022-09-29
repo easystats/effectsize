@@ -128,7 +128,7 @@ navbar:
     - text: "Conversion"
       menu:
       - text: "Between d, r, OR"
-        href: articles/convert.html
+        href: articles/convert_r_d_OR.html
       - text: "From Test Statistics"
         href: articles/from_test_statistics.html
     - text: "Interpretation"
