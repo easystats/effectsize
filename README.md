@@ -30,7 +30,7 @@ CRAN:
 install.packages("effectsize")
 ```
 
-Or you can install the latest development version `0.7.9.1` from
+Or you can install the latest development version `0.7.9.1999` from
 [*R-universe*](https://easystats.r-universe.dev):
 
 ``` r
@@ -55,8 +55,10 @@ Click on the buttons above to access the package
 check-out these vignettes:
 
 -   **Effect Sizes**
-    -   [**For Simple Hypothesis
-        Tests**](https://easystats.github.io/effectsize/articles/simple_htests.html)  
+    -   [**Standardized
+        Differences**](https://easystats.github.io/effectsize/articles/standardized_differences.html)  
+    -   [**For Contingency
+        Tables**](https://easystats.github.io/effectsize/articles/xtabs.html)  
     -   [**ANOVA Effect
         Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
 -   **Effect Sizes Conversion**
@@ -87,9 +89,9 @@ options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, re
 
 ## Effect Size Computation
 
-### Standardized Differences (Cohen’s *d*, Hedges’ *g*, Glass’ *delta*)
-
 The package provides functions to compute indices of effect size.
+
+### Standardized Differences (Cohen’s *d*, Hedges’ *g*, Glass’ *delta*)
 
 ``` r
 cohens_d(mpg ~ am, data = mtcars)
@@ -112,8 +114,36 @@ glass_delta(mpg ~ am, data = mtcars)
 ## -1.17    | [-1.93, -0.39]
 ```
 
-`effectsize` also provides effect sizes for *contingency tables*, *rank
-tests*, and more…
+`effectsize` also provides effect sizes for *rank tests*, *common
+language effect sizes* and more…
+
+### Contingency Tables
+
+``` r
+# Dependence 
+phi(mtcars$am, mtcars$vs)
+## ϕ    |       95% CI
+## -------------------
+## 0.17 | [0.00, 1.00]
+## 
+## - One-sided CIs: upper bound fixed at [1.00].
+
+cramers_v(mtcars$am, mtcars$cyl)
+## Cramer's V |       95% CI
+## -------------------------
+## 0.52       | [0.18, 1.00]
+## 
+## - One-sided CIs: upper bound fixed at [1.00].
+
+# Goodness-of-fit
+fei(table(mtcars$cyl), p = c(0.1, 0.3, 0.6))
+## פ‎    |       95% CI
+## --------------------
+## 0.27 | [0.17, 1.00]
+## 
+## - Adjusted for non-uniform expected probabilities.
+## - One-sided CIs: upper bound fixed at [1.00].
+```
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)
 
@@ -141,7 +171,7 @@ omega_squared(model)
 epsilon_squared(model)
 ## # Effect Size for ANOVA
 ## 
-## Parameter    |   ϵ² |       95% CI
+## Parameter    |   ε² |       95% CI
 ## ----------------------------------
 ## factor(gear) | 0.39 | [0.14, 1.00]
 ## 

@@ -66,7 +66,8 @@ install.packages("effectsize", repos = "https://easystats.r-universe.dev/")
 Click on the buttons above to access the package [**documentation**](https://easystats.github.io/effectsize/) and the [**easystats blog**](https://easystats.github.io/blog/posts/), and check-out these vignettes:
 
 - **Effect Sizes**  
-  - [**For Simple Hypothesis Tests**](https://easystats.github.io/effectsize/articles/simple_htests.html)  
+  - [**Standardized Differences**](https://easystats.github.io/effectsize/articles/standardized_differences.html)  
+  - [**For Contingency Tables**](https://easystats.github.io/effectsize/articles/xtabs.html)  
   - [**ANOVA Effect Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
 - **Effect Sizes Conversion**    
   - [**Between Effect Sizes**](https://easystats.github.io/effectsize/articles/convert.html)
@@ -94,9 +95,9 @@ options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, re
 
 ## Effect Size Computation
 
-### Standardized Differences (Cohen's *d*, Hedges' *g*, Glass' *delta*)
-
 The package provides functions to compute indices of effect size.
+
+### Standardized Differences (Cohen's *d*, Hedges' *g*, Glass' *delta*)
 
 ```{r d, warning=FALSE, message=FALSE}
 cohens_d(mpg ~ am, data = mtcars)
@@ -106,7 +107,19 @@ hedges_g(mpg ~ am, data = mtcars)
 glass_delta(mpg ~ am, data = mtcars)
 ```
 
-`effectsize` also provides effect sizes for *contingency tables*, *rank tests*, and more...
+`effectsize` also provides effect sizes for *rank tests*, *common language effect sizes* and more...
+
+### Contingency Tables
+
+```{r}
+# Dependence 
+phi(mtcars$am, mtcars$vs)
+
+cramers_v(mtcars$am, mtcars$cyl)
+
+# Goodness-of-fit
+fei(table(mtcars$cyl), p = c(0.1, 0.3, 0.6))
+```
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, ...)
 
