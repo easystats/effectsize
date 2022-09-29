@@ -1,5 +1,5 @@
 ---
-title: "Effect sizes for ANOVAs"
+title: "Effect Sizes for ANOVAs"
 output: 
   rmarkdown::html_vignette:
     toc: true
@@ -8,7 +8,7 @@ output:
 tags: [r, effect size, ANOVA]
 vignette: >
   \usepackage[utf8]{inputenc}
-  %\VignetteIndexEntry{Effect sizes for ANOVAs}
+  %\VignetteIndexEntry{Effect Sizes for ANOVAs}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   chunk_output_type: console

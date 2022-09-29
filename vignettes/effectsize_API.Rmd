@@ -1,5 +1,5 @@
 ---
-title: "Support functions for model extensions"
+title: "Support Functions for Model Extensions"
 output: 
   rmarkdown::html_vignette:
     toc: true

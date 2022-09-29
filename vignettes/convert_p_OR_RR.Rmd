@@ -1,5 +1,5 @@
 ---
-title: "Converting between r, d, and Odds Ratios"
+title: "Converting Between Probabilities, Odds (Ratios), and Risk Ratios"
 output: 
   rmarkdown::html_vignette:
     toc: true
@@ -8,7 +8,7 @@ output:
 tags: [r, effect size, rules of thumb, guidelines, conversion]
 vignette: >
   \usepackage[utf8]{inputenc}
-  %\VignetteIndexEntry{Converting between r, d, and Odds Ratios}
+  %\VignetteIndexEntry{Converting Between Probabilities, Odds (Ratios), and Risk Ratios}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   chunk_output_type: console
