@@ -23,10 +23,8 @@ options(digits = 2)
 knitr::opts_chunk$set(comment = ">", warning = FALSE)
 
 set.seed(1)
-pkgs <- c("effectsize", "parameters", "car", "afex")
-if (!all(sapply(pkgs, require, quietly = TRUE, character.only = TRUE))) {
-  knitr::opts_chunk$set(eval = FALSE)
-}
+pkgs <- c("effectsize", "afex")
+knitr::opts_chunk$set(eval = all(sapply(pkgs, requireNamespace, quietly = TRUE)))
 ```
 
 ## Eta<sup>2</sup>
@@ -114,7 +112,7 @@ is common to use "simultaneous" sums of squares (*type-II* or *type-III* tests),
 where each *SS* is computed controlling for all other predictors, regardless of
 order. This can be done with `car::Anova(type = ...)`:
 
-```{r}
+```{r, eval=requireNamespace("car", quietly = TRUE)}
 eta_squared(car::Anova(m, type = 2), partial = FALSE)
 
 eta_squared(car::Anova(m, type = 3)) # partial = TRUE by default
@@ -140,7 +138,7 @@ for factors this can be done by using orthogonal coding (such as `contr.sum` for
 This unfortunately makes parameter interpretation harder, but *only* when this is does do the *SS*s associated with each lower-order term (or lower-order interaction) represent the ***SS*** of the **main effect** (with treatment coding they represent the *SS* of the simple effects).
 
 
-```{r}
+```{r, eval=requireNamespace("car", quietly = TRUE)}
 # compare
 m_interaction1 <- lm(value ~ treatment * gender, data = obk.long)
 
@@ -275,10 +273,8 @@ PPD](https://mc-stan.org/docs/2_23/stan-users-guide/meta-models-part.html#meta-m
 before using it to estimate explained variance measures.
 
 ```{r, echo = FALSE, eval=TRUE}
-if (eval_bayes <- knitr::opts_chunk$get("eval")) {
-  bayes_pkgs <- c("rstanarm", "bayestestR", "car")
-  eval_bayes <- all(sapply(bayes_pkgs, require, quietly = TRUE, character.only = TRUE))
-}
+bayes_pkgs <- c("rstanarm", "bayestestR", "car")
+eval_bayes <- all(sapply(bayes_pkgs, requireNamespace, quietly = TRUE))
 ```
 
 Let's fit our model:

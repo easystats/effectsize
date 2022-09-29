@@ -20,11 +20,6 @@ library(knitr)
 options(knitr.kable.NA = "")
 knitr::opts_chunk$set(comment = ">")
 options(digits = 3)
-
-pkgs <- c("effectsize", "correlation", "parameters", "bayestestR")
-if (!all(sapply(pkgs, require, quietly = TRUE, character.only = TRUE))) {
-  knitr::opts_chunk$set(eval = FALSE)
-}
 ```
 
 The `effectsize` package contains function to convert among indices of effect
@@ -49,6 +44,8 @@ Manually, we can compute $\frac{13}{13+4}=0.765$. Or we can
 Odds of 13:4 can be expressed as $(13/4):(4/4)=3.25:1$, which we can convert:
 
 ```{r}
+library(effectsize)
+
 odds_to_probs(13/4)
 
 # or
