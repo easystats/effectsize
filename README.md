@@ -63,7 +63,9 @@ check-out these vignettes:
         Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
 -   **Effect Sizes Conversion**
     -   [**Between Effect
-        Sizes**](https://easystats.github.io/effectsize/articles/convert.html)
+        Sizes**](https://easystats.github.io/effectsize/articles/convert_r_d_OR.html)  
+    -   [**Between Probabilities and Odds and Risk
+        Ratios**](https://easystats.github.io/effectsize/articles/convert_p_OR_RR.html)  
     -   [**Effect Size from Test
         Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
 -   [**Automated Interpretation of Indices of Effect
