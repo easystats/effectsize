@@ -114,10 +114,12 @@ navbar:
       href: articles/effectsize.html
     - text: "Effect sizes"
       menu:
+      - text: "Standardized Differences"
+        href: articles/standardized_differences.html
+      - text: "Contingency Tables"
+        href: articles/xtabs.html
       - text: "ANOVA Effect Sizes"
         href: articles/anovaES.html
-      - text: "Effect Sizes for Simple Hypothesis Tests"
-        href: articles/simple_htests.html
       - text: "Confidence Intervals"
         href: reference/effectsize_CIs.html
       - text: -------
