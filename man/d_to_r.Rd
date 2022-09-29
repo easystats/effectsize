@@ -54,12 +54,16 @@ Enables a conversion between different indices of effect size, such as
 standardized difference (Cohen's d), correlation r or (log) odds ratios.
 }
 \details{
-Conversions between \emph{d} and \emph{OR} or \emph{r} is done through these formulae.
+Conversions between \emph{d} and \emph{OR} is done through these formulae:
+\itemize{
+\item \eqn{d = \frac{\log(OR)\times\sqrt{3}}{\pi}}{d = log(OR) * sqrt(3) / pi}
+\item \eqn{log(OR) = d * \frac{\pi}{\sqrt(3)}}{log(OR) = d * pi / sqrt(3)}
+}
+
+Converting between \emph{d} and \emph{r} is done through these formulae:
 \itemize{
 \item \eqn{d = \frac{2 * r}{\sqrt{1 - r^2}}}{d = 2 * r / sqrt(1 - r^2)}
 \item \eqn{r = \frac{d}{\sqrt{d^2 + 4}}}{r = d / sqrt(d^2 + 4)}
-\item \eqn{d = \frac{\log(OR)\times\sqrt{3}}{\pi}}{d = log(OR) * sqrt(3) / pi}
-\item \eqn{log(OR) = d * \frac{\pi}{\sqrt(3)}}{log(OR) = d * pi / sqrt(3)}
 }
 
 The conversion from \emph{d} to \emph{r} assumes equally sized groups. The resulting
