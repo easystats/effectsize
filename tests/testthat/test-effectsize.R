@@ -1,3 +1,4 @@
+# library(testthat)
 # htest -------------------------------------------------------------------
 test_that("t-test", {
   x <<- 1:10
@@ -53,15 +54,15 @@ test_that("Chisq-test", {
   Xsq1 <- chisq.test(contingency_table)
   Xsq2 <- chisq.test(contingency_table / 10)
 
-  expect_equal(effectsize(Xsq1)$Cramers_v, 0.073, tolerance = 0.01)
+  expect_equal(effectsize(Xsq1, adjust = FALSE)[[1]], 0.073, tolerance = 0.01)
   expect_equal(
-    effectsize(Xsq1)$Cramers_v,
-    effectsize(Xsq2)$Cramers_v
+    effectsize(Xsq1, adjust = FALSE)[[1]],
+    effectsize(Xsq2, adjust = FALSE)[[1]]
   )
 
   # types
   expect_error(effectsize(Xsq1, type = "phi"), "appropriate")
-  expect_equal(effectsize(Xsq1), cramers_v(contingency_table, adjust = FALSE))
+  expect_equal(effectsize(Xsq1), cramers_v(contingency_table))
   expect_equal(effectsize(Xsq1, type = "w"), w <- cohens_w(contingency_table))
   expect_equal(cohens_w(Xsq1), w)
 

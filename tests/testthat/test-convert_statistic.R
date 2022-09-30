@@ -1,3 +1,5 @@
+# library(testthat)
+
 test_that("xtab", {
   xtab <- as.table(rbind(
     c(762, 327, 468),
@@ -12,7 +14,7 @@ test_that("xtab", {
     nrow = nrow(xtab),
     ncol = ncol(xtab)
   )
-  expect_equal(res, cramers_v(xtab, adjust = FALSE), ignore_attr = TRUE)
+  expect_equal(res, cramers_v(xtab), ignore_attr = TRUE)
 
 
   res <- chisq_to_cohens_w(
@@ -94,3 +96,4 @@ test_that("eta2", {
   expect_equal(F_to_f(4, 3, 123), F_to_f2(4, 3, 123, squared = FALSE))
   expect_equal(F_to_f2(4, 3, 123), F_to_f(4, 3, 123, squared = TRUE))
 })
+
