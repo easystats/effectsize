@@ -50,6 +50,8 @@ print(data, digits = 3)
 We can compute Cohen's *d* between the two groups:
 
 ```{r}
+library(effectsize)
+
 cohens_d(Outcome ~ Group, data = data)
 ```
 
