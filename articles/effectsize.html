@@ -375,9 +375,9 @@ objects. For example:</p>
 <span><span class="va">xtab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">762</span>, <span class="fl">327</span>, <span class="fl">468</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>, <span class="fl">239</span>, <span class="fl">477</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>, <span class="fl">239</span>, <span class="fl">477</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">Xsq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html" class="external-link">chisq.test</a></span><span class="op">(</span><span class="va">xtab</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">Xsq</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Cramer's V |       95% CI</span></span>
-<span><span class="co">#&gt; -------------------------</span></span>
-<span><span class="co">#&gt; 0.07       | [0.05, 1.00]</span></span>
+<span><span class="co">#&gt; Cramer's V (adj.) |       95% CI</span></span>
+<span><span class="co">#&gt; --------------------------------</span></span>
+<span><span class="co">#&gt; 0.07              | [0.05, 1.00]</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></span></code></pre></div>
 <p>These functions also power our <em>Effect Sizes From Test
