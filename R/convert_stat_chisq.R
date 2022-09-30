@@ -18,7 +18,7 @@
 #'   is allowed (e.g., `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in
 #'   [effectsize_CIs].
 #' @param adjust Should the effect size be bias-corrected? Defaults to `TRUE`;
-#'   For small samples and large tables, it is advisable to keep it `TRUE`.
+#'   Advisable for small samples and large tables.
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @return A data frame with the effect size(s), and confidence interval(s). See
@@ -108,7 +108,7 @@
 #'
 #' @export
 chisq_to_phi <- function(chisq, n, nrow = 2, ncol = 2,
-                         adjust = FALSE,
+                         adjust = TRUE,
                          ci = 0.95, alternative = "greater",
                          ...) {
 
@@ -157,7 +157,7 @@ chisq_to_cohens_w <- function(chisq, n, nrow, ncol,
 #' @rdname convert_chisq
 #' @export
 chisq_to_cramers_v <- function(chisq, n, nrow, ncol,
-                               adjust = FALSE,
+                               adjust = TRUE,
                                ci = 0.95, alternative = "greater",
                                ...) {
   if (nrow == 1 || ncol == 1) {
@@ -194,7 +194,6 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol,
 #' @rdname convert_chisq
 #' @export
 chisq_to_tschuprows_t <- function(chisq, n, nrow, ncol,
-                                  adjust = FALSE,
                                   ci = 0.95, alternative = "greater",
                                   ...) {
   if (nrow == 1 || ncol == 1) {

@@ -8,10 +8,9 @@
 - `normalized_chi()` has been renamed `fei()`.
 - `cles`, `d_to_cles` and `rb_to_cles` are deprecated in favor of their respective effect size functions.
 
-## Changes to defaults
+## Changes
 
-- Small sample bias correction is applied by default for `phi()` and `cramers_v()`. 
-  To restore previous behaviour, set `adjust = FALSE`.
+- `phi()` and `cramers_v()` (and `chisq_to_phi/cramers_v()`) now apply the small sample bias correction by default. To restore previous behavior, set `adjust = FALSE`.
 
 ## New features
 

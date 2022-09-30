@@ -49,7 +49,7 @@ pearsons_c(
     \code{x} is a factor, \code{y} should be a factor of the same length.}
 
 \item{adjust}{Should the effect size be bias-corrected? Defaults to \code{TRUE};
-For small samples and large tables, it is advisable to keep it \code{TRUE}.}
+Advisable for small samples and large tables.}
 
 \item{ci}{Confidence Interval (CI) level}
 

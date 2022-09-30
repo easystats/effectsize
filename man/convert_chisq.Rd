@@ -15,7 +15,7 @@ chisq_to_phi(
   n,
   nrow = 2,
   ncol = 2,
-  adjust = FALSE,
+  adjust = TRUE,
   ci = 0.95,
   alternative = "greater",
   ...
@@ -36,7 +36,7 @@ chisq_to_cramers_v(
   n,
   nrow,
   ncol,
-  adjust = FALSE,
+  adjust = TRUE,
   ci = 0.95,
   alternative = "greater",
   ...
@@ -47,7 +47,6 @@ chisq_to_tschuprows_t(
   n,
   nrow,
   ncol,
-  adjust = FALSE,
   ci = 0.95,
   alternative = "greater",
   ...
@@ -75,7 +74,7 @@ phi_to_chisq(phi, n, ...)
 \item{nrow, ncol}{The number of rows/columns in the contingency table.}
 
 \item{adjust}{Should the effect size be bias-corrected? Defaults to \code{TRUE};
-For small samples and large tables, it is advisable to keep it \code{TRUE}.}
+Advisable for small samples and large tables.}
 
 \item{ci}{Confidence Interval (CI) level}
 

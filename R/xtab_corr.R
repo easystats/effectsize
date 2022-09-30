@@ -156,7 +156,7 @@ tschuprows_t <- function(x, y = NULL,
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
-    return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci, ...))
+    return(effectsize(x, type = "tschuprows_t", ci = ci, ...))
   } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
     x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
