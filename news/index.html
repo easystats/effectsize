@@ -115,6 +115,10 @@
 <code>cles</code>, <code>d_to_cles</code> and <code>rb_to_cles</code> are deprecated in favor of their respective effect size functions.</li>
 </ul></div>
 <div class="section level3">
+<h3 id="changes-to-defaults-0-7-0-9999">Changes to defaults<a class="anchor" aria-label="anchor" href="#changes-to-defaults-0-7-0-9999"></a></h3>
+<ul><li>Small sample bias correction is applied by default for <code><a href="../reference/phi.html">phi()</a></code> and <code><a href="../reference/phi.html">cramers_v()</a></code>. To restore previous behaviour, set <code>adjust = FALSE</code>.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="new-features-0-7-0-9999">New features<a class="anchor" aria-label="anchor" href="#new-features-0-7-0-9999"></a></h3>
 <ul><li>Set <code>options(es.use_symbols = TRUE)</code> to print proper symbols instead of transliterated effect size names. (On Windows, requires <code>R &gt;= 4.2.0</code>)</li>
 <li>

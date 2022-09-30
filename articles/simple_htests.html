@@ -422,9 +422,9 @@ coefficient.</p>
 <code class="sourceCode R"><span><span class="va">MPG_Gear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span> <span class="op">&lt;</span> <span class="fl">20</span>, <span class="va">mtcars</span><span class="op">$</span><span class="va">vs</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/phi.html">phi</a></span><span class="op">(</span><span class="va">MPG_Gear</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; ϕ    |       95% CI
-&gt; -------------------
-&gt; 0.62 | [0.33, 1.00]
+<pre><code>&gt; ϕ (adj.) |       95% CI
+&gt; -----------------------
+&gt; 0.59     | [0.27, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
@@ -525,9 +525,9 @@ association between the variables).</p>
 &gt; X-squared = 52, df = 6, p-value = 2e-09</code></pre>
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">cramers_v</a></span><span class="op">(</span><span class="va">Music</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; Cramer's V |       95% CI
-&gt; -------------------------
-&gt; 0.18       | [0.13, 1.00]
+<pre><code>&gt; Cramer's V (adj.) |       95% CI
+&gt; --------------------------------
+&gt; 0.17              | [0.11, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
@@ -557,9 +557,9 @@ association between the variables).</p>
 &gt; Bayes factor type: BFcontingencyTable, joint multinomial</code></pre>
 <div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFX</span>, type <span class="op">=</span> <span class="st">"cramers_v"</span>, test <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; Cramer's V |       95% CI
-&gt; -------------------------
-&gt; 0.18       | [0.14, 0.22]</code></pre>
+<pre><code>&gt; Cramer's V (adj.) |       95% CI
+&gt; --------------------------------
+&gt; 0.17              | [0.12, 0.21]</code></pre>
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFX</span>, type <span class="op">=</span> <span class="st">"cohens_w"</span>, test <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's w |       95% CI
