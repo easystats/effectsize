@@ -1,0 +1,309 @@
+---
+title: "Standardized Differences"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    fig_width: 10.08
+    fig_height: 6
+tags: [r, effect size, rules of thumb, guidelines, conversion]
+vignette: >
+  \usepackage[utf8]{inputenc}
+  %\VignetteIndexEntry{Standardized Differences}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+bibliography: bibliography.bib
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+options(knitr.kable.NA = "")
+knitr::opts_chunk$set(comment = ">")
+options(digits = 3)
+
+set.seed(7)
+```
+
+This vignette provides a review of effect sizes for comparisons of groups, which
+are typically achieved with the `t.test()` and `wilcox.test()` functions.
+
+```{r}
+library(effectsize)
+options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, requires R >= 4.2.0)
+```
+
+# Standardized Differences
+
+For *t*-tests, it is common to report an effect size representing a standardized
+difference between the two compared samples' means. These measures range from
+$-\infty$ to $+\infty$, with negative values indicating the second group's mean
+is larger (and vice versa).
+
+## Two Independent Samples
+
+For two independent samples, the difference between the means is standardized
+based on the pooled standard deviation of both samples (assumed to be equal in
+the population):
+
+```{r}
+t.test(mpg ~ am, data = mtcars, var.equal = TRUE)
+
+cohens_d(mpg ~ am, data = mtcars)
+```
+
+Hedges' *g* provides a bias correction for small sample sizes ($N < 20$).
+
+```{r}
+hedges_g(mpg ~ am, data = mtcars)
+```
+
+If variances cannot be assumed to be equal, it is possible to get estimates that
+are not based on the pooled standard deviation:
+
+```{r}
+t.test(mpg ~ am, data = mtcars, var.equal = FALSE)
+
+cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)
+
+hedges_g(mpg ~ am, data = mtcars, pooled_sd = FALSE)
+```
+
+In cases where the differences between the variances are substantial, it is also
+common to standardize the difference based only on the standard deviation of one
+of the groups (usually the "control" group); this effect size is known as Glass'
+$\Delta$ (delta) (Note that the standard deviation is taken from the *second* sample).
+
+```{r}
+glass_delta(mpg ~ am, data = mtcars)
+```
+
+For a one-sided hypothesis, it is also possible to construct one-sided confidence intervals:
+
+```{r}
+t.test(mpg ~ am, data = mtcars, var.equal = TRUE, alternative = "less")
+
+cohens_d(mpg ~ am, data = mtcars, pooled_sd = TRUE, alternative = "less")
+```
+
+## One Sample
+
+In the case of a one-sample test, the effect size represents the standardized
+distance of the mean of the sample from the null value.
+
+```{r}
+t.test(mtcars$wt, mu = 2.7)
+
+cohens_d(mtcars$wt, mu = 2.7)
+
+hedges_g(mtcars$wt, mu = 2.7)
+```
+
+## Paired Samples
+
+For paired-samples, the difference is standardized by the variation in the differences. This effect size, known as Cohen's $d_z$, represents the difference in terms of its homogeneity (a small but stable difference will have a large $d_z$).
+
+```{r}
+t.test(extra ~ group, data = sleep, paired = TRUE)
+
+cohens_d(extra ~ group, data = sleep, paired = TRUE)
+
+hedges_g(extra ~ group, data = sleep, paired = TRUE)
+```
+
+## For a Bayesian *t*-test
+
+A Bayesian estimate of Cohen's *d* can also be provided based on `BayesFactor`'s
+version of a *t*-test via the `effectsize()` function:
+
+```{r, eval = requireNamespace("BayesFactor", quietly = TRUE), message=FALSE}
+library(BayesFactor)
+BFt <- ttestBF(formula = mpg ~ am, data = mtcars)
+
+effectsize(BFt, type = "d")
+```
+
+## (Multivariate) Standardized Distances
+
+When examining multivariate differences (e.g., with Hotelling's $T^2$ test), Mahalanobis' *D* can be used as the multivariate equivalent for Cohen's *d*. Unlike Cohen's *d* which is a measure of standardized *differences*, Mahalanobis' *D* is a measure of standardized *distances*. As such, it cannot be negative, and ranges from 0 (no distance between the multivariate distributions) to $+\infty$.
+
+```{r}
+mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars)
+```
+
+# Dominance Effect Sizes
+
+The rank-biserial correlation ($r_{rb}$) is a measure of dominance: larger
+values indicate that more of *X* is larger than more of *Y*, with a value of
+$(-1)$ indicates that *all* observations in the second group are larger than the
+first, and a value of $(+1)$ indicates that *all* observations in the first
+group are larger than the second.
+
+These effect sizes should be reported with the Wilcoxon (Mann-Whitney) test or
+the signed-rank test (both available in `wilcox.test()`).
+
+## Two Independent Samples
+
+```{r, warning=FALSE}
+A <- c(48, 48, 77, 86, 85, 85)
+B <- c(14, 34, 34, 77)
+
+wilcox.test(A, B) # aka Mann–Whitney U test
+
+rank_biserial(A, B)
+```
+
+## One Sample
+
+For one sample, $r_{rb}$ measures the symmetry around $\mu$ (mu; the null
+value), with 0 indicating perfect symmetry, $(-1)$ indicates that all
+observations fall below $\mu$, and $(+1)$ indicates that all observations fall
+above $\mu$.
+
+```{r}
+x <- c(1.15, 0.88, 0.90, 0.74, 1.21, 1.36, 0.89)
+
+wilcox.test(x, mu = 1) # aka Signed-Rank test
+
+rank_biserial(x, mu = 1)
+```
+
+## Paired Samples
+
+For paired samples, $r_{rb}$ measures the symmetry of the (paired) *differences*
+around $\mu$ as for the one sample case.
+
+```{r}
+x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
+y <- c(0.88, 0.65, 0.60, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
+
+wilcox.test(x, y, paired = TRUE) # aka Signed-Rank test
+
+rank_biserial(x, y, paired = TRUE)
+```
+
+
+# Common Language Effect Sizes
+
+Related effect sizes are the *common language effect sizes* which present information about group differences in terms of probability.
+
+## Two Independent Samples
+
+### Measures of (Non)Overlap
+
+These measures indicate the degree two independent distributions overlap: Cohen's $U_1$ is the proportion of the total of both distributions that does not overlap, while *Overlap (OVL)* is the proportional overlap between the distributions.
+
+```{r}
+cohens_u1(mpg ~ am, data = mtcars)
+
+p_overlap(mpg ~ am, data = mtcars)
+```
+
+Note the by default, these functions return the parametric versions of these effect sizes: these assume equal normal variance in both populations. When these assumptions are not met, the values produced will be biased in unknown ways. In such cases, we should use the non-parametric versions ($U_1$ is not defined):
+
+```{r}
+p_overlap(mpg ~ am, data = mtcars, parametric = FALSE)
+```
+
+### Probabilistic Measures
+
+*Probability of superiority* is the probability that, when sampling an observation from each of the groups at random, that the observation from the second group will be larger than the sample from the first group.  
+
+```{r}
+p_superiority(mpg ~ am, data = mtcars)
+```
+
+Here, this indicates that if we were to randomly draw a sample from `am==0` and from `am==1`, 15% of the time, the first will have a larger `mpg` values than the second.
+
+Cohen's $U_2$ is the proportion of one of the groups that exceeds the same proportion in the other group, and Cohen's $U_3$ is the proportion of the second group that is smaller than the median of the first group.
+
+```{r}
+cohens_u2(mpg ~ am, data = mtcars)
+
+cohens_u3(mpg ~ am, data = mtcars)
+```
+
+<!-- ```{r, eval = requireNamespace("ggplot2"), echo=FALSE} -->
+<!-- mu <- tapply(mtcars$mpg, mtcars$am, mean) -->
+<!-- sigma <- sd_pooled(mtcars$mpg, factor(mtcars$am)) -->
+
+<!-- xlim <- sort(mu) + c(-4, 4) * sigma -->
+
+<!-- seg_u2 <- data.frame(x = mean(mu), -->
+<!--                      xend = xlim, -->
+<!--                      y = -exp(-5), -->
+<!--                      yend = -exp(-5), -->
+<!--                      color = c("0", "1")) -->
+
+<!-- ggplot2::ggplot() +  -->
+<!--   ggplot2::stat_function(ggplot2::aes(fill = "0"), size = 1, geom = "area", alpha = 0.6, -->
+<!--                 fun = dnorm, args = list(mean = mu[1], sd = sigma), xlim = xlim) +  -->
+<!--   ggplot2::stat_function(ggplot2::aes(fill = "1"), size = 1, geom = "area", alpha = 0.6, -->
+<!--                 fun = dnorm, args = list(mean = mu[2], sd = sigma), xlim = xlim) + -->
+<!--   # U3 -->
+<!--   ggplot2::stat_function(ggplot2::aes(fill = "1"), size = 1, geom = "area",  -->
+<!--                          color = "black", outline.type = "full",  -->
+<!--                 fun = dnorm, args = list(mean = mu[2], sd = sigma), xlim = c(xlim[1], mu[1])) + -->
+<!--   ggplot2::geom_vline(ggplot2::aes(xintercept = mu[1]), linetype = "dashed") +  -->
+<!--   ggplot2::annotate("text", x = mu[1]-2, y = -seg_u2$y, label = "U3") +  -->
+<!--   # U2 -->
+<!--   ggplot2::geom_vline(ggplot2::aes(xintercept = mean(mu))) +  -->
+<!--   ggplot2::geom_segment(ggplot2::aes(x = x, xend = xend, y = y, yend = yend, color = color), data = seg_u2,  -->
+<!--                         arrow = ggplot2::arrow(), -->
+<!--                         size = 0.4) +  -->
+<!--   see::scale_color_material(aesthetics = c("color", "fill"), name = "am") +  -->
+<!--   ggplot2::annotate("text", x = mu[2], y = 1.4*seg_u2$y, label = "U2 for am=1", hjust = "left") +  -->
+<!--   ggplot2::annotate("text", x = mu[1], y = 1.4*seg_u2$y, label = "U2 for am=0", hjust = "right") +  -->
+<!--   ggplot2::theme_bw() -->
+
+<!-- ``` -->
+
+Here too we have a non-parametric versions when the assumptions of equal variance of normal populations:
+
+```{r}
+p_superiority(mpg ~ am, data = mtcars, parametric = FALSE)
+
+cohens_u2(mpg ~ am, data = mtcars, parametric = FALSE)
+
+cohens_u3(mpg ~ am, data = mtcars, parametric = FALSE)
+```
+
+## One Sample and Paired Samples
+
+For one sample, *probability of superiority* is the probability that, when sampling an observation at random, it will be larger than $\mu$.
+
+```{r}
+p_superiority(mtcars$wt, mu = 2.75)
+
+p_superiority(mtcars$wt, mu = 2.75, parametric = FALSE)
+```
+
+For paired samples, *probability of superiority* is the probability that, when sampling an observation at random, its *difference* will be larger than $\mu$.
+
+```{r}
+p_superiority(extra ~ group, data = sleep, 
+              paired = TRUE, mu = -1)
+
+p_superiority(extra ~ group, data = sleep, 
+              paired = TRUE, mu = -1, 
+              parametric = FALSE)
+```
+
+## For a Bayesian *t*-test
+
+A Bayesian estimate of (the parametric version of) these effect sizes can also
+be provided based on `BayesFactor`'s version of a *t*-test via the
+`effectsize()` function:
+
+```{r, eval = requireNamespace("BayesFactor", quietly = TRUE)}
+effectsize(BFt, type = "p_superiority")
+
+effectsize(BFt, type = "u1")
+
+effectsize(BFt, type = "u2")
+
+effectsize(BFt, type = "u3")
+
+effectsize(BFt, type = "overlap")
+```
+
+# References

@@ -1,5 +1,5 @@
 ---
-title: "Support functions for model extensions"
+title: "Support Functions for Model Extensions"
 output: 
   rmarkdown::html_vignette:
     toc: true
@@ -24,12 +24,6 @@ knitr::opts_chunk$set(
 )
 options(digits = 2)
 options(knitr.kable.NA = "")
-
-
-pkgs <- c("effectsize")
-if (!all(sapply(pkgs, requireNamespace, quietly = TRUE))) {
-  knitr::opts_chunk$set(eval = FALSE)
-}
 
 set.seed(333)
 ```

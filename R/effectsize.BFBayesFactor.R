@@ -51,6 +51,8 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   f <- switch(tolower(type),
     v = ,
     cramers_v = cramers_v,
+    t = ,
+    tschuprows_t = tschuprows_t,
     w = ,
     cohens_w = cohens_w,
     phi = phi,

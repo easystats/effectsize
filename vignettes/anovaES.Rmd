@@ -1,5 +1,5 @@
 ---
-title: "Effect sizes for ANOVAs"
+title: "Effect Sizes for ANOVAs"
 output: 
   rmarkdown::html_vignette:
     toc: true
@@ -8,7 +8,7 @@ output:
 tags: [r, effect size, ANOVA]
 vignette: >
   \usepackage[utf8]{inputenc}
-  %\VignetteIndexEntry{Effect sizes for ANOVAs}
+  %\VignetteIndexEntry{Effect Sizes for ANOVAs}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   chunk_output_type: console
@@ -23,10 +23,8 @@ options(digits = 2)
 knitr::opts_chunk$set(comment = ">", warning = FALSE)
 
 set.seed(1)
-pkgs <- c("effectsize", "parameters", "car", "afex")
-if (!all(sapply(pkgs, require, quietly = TRUE, character.only = TRUE))) {
-  knitr::opts_chunk$set(eval = FALSE)
-}
+pkgs <- c("effectsize", "afex")
+knitr::opts_chunk$set(eval = all(sapply(pkgs, requireNamespace, quietly = TRUE)))
 ```
 
 ## Eta<sup>2</sup>
@@ -114,7 +112,7 @@ is common to use "simultaneous" sums of squares (*type-II* or *type-III* tests),
 where each *SS* is computed controlling for all other predictors, regardless of
 order. This can be done with `car::Anova(type = ...)`:
 
-```{r}
+```{r, eval=requireNamespace("car", quietly = TRUE)}
 eta_squared(car::Anova(m, type = 2), partial = FALSE)
 
 eta_squared(car::Anova(m, type = 3)) # partial = TRUE by default
@@ -140,7 +138,7 @@ for factors this can be done by using orthogonal coding (such as `contr.sum` for
 This unfortunately makes parameter interpretation harder, but *only* when this is does do the *SS*s associated with each lower-order term (or lower-order interaction) represent the ***SS*** of the **main effect** (with treatment coding they represent the *SS* of the simple effects).
 
 
-```{r}
+```{r, eval=requireNamespace("car", quietly = TRUE)}
 # compare
 m_interaction1 <- lm(value ~ treatment * gender, data = obk.long)
 
@@ -275,10 +273,8 @@ PPD](https://mc-stan.org/docs/2_23/stan-users-guide/meta-models-part.html#meta-m
 before using it to estimate explained variance measures.
 
 ```{r, echo = FALSE, eval=TRUE}
-if (eval_bayes <- knitr::opts_chunk$get("eval")) {
-  bayes_pkgs <- c("rstanarm", "bayestestR", "car")
-  eval_bayes <- all(sapply(bayes_pkgs, require, quietly = TRUE, character.only = TRUE))
-}
+bayes_pkgs <- c("rstanarm", "bayestestR", "car")
+eval_bayes <- all(sapply(bayes_pkgs, requireNamespace, quietly = TRUE))
 ```
 
 Let's fit our model:
@@ -318,6 +314,61 @@ Compare to:
 m_ML <- lm(value ~ gender + phase + treatment, data = obk.long)
 
 eta_squared(car::Anova(m_ML, type = 3))
+```
+
+# For Ordinal Outcomes
+
+When our outcome is not a numeric variable, the effect sizes described above
+cannot be used - measured based on sum-of-squares are ill suited for such
+outcomes. Instead, we must use effect sizes for *ordinal* ANOVAs.
+
+In `R`, there are two functions for running *ordinal* one way ANOVAs:
+`kruskal.test()` for differences between independent groups, and
+`friedman.test()` for differences between dependent groups.
+
+For the one-way ordinal ANOVA, the Rank-Epsilon-Squared ($E^2_R$) and
+Rank-Eta-Squared ($\eta^2_H$) are measures of association similar to their
+non-rank counterparts: values range between 0 (no relative superiority between
+any of the groups) to 1 (complete separation - with no overlap in ranks between
+the groups).
+
+```{r}
+group_data <- list(
+  g1 = c(2.9, 3.0, 2.5, 2.6, 3.2), # normal subjects
+  g2 = c(3.8, 2.7, 4.0, 2.4), # with obstructive airway disease
+  g3 = c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
+)
+
+kruskal.test(group_data)
+
+rank_epsilon_squared(group_data)
+
+rank_eta_squared(group_data)
+```
+
+For an ordinal repeated measures one-way ANOVA, Kendall's *W* is a measure of
+agreement on the effect of condition between various "blocks" (the subjects), or
+more often conceptualized as a measure of reliability of the rating / scores of
+observations (or "groups") between "raters" ("blocks").
+
+```{r}
+# Subjects are COLUMNS
+(ReactionTimes <- matrix(
+  c(398, 338, 520,
+    325, 388, 555,
+    393, 363, 561,
+    367, 433, 470,
+    286, 492, 536,
+    362, 475, 496,
+    253, 334, 610),
+  nrow = 7, byrow = TRUE,
+  dimnames = list(paste0("Subject", 1:7),
+                  c("Congruent", "Neutral", "Incongruent"))
+))
+
+friedman.test(ReactionTimes)
+
+kendalls_w(ReactionTimes)
 ```
 
 # References

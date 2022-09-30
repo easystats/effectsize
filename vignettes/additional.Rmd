@@ -5,7 +5,7 @@ output:
   rmarkdown::html_vignette:
     toc: false
 vignette: >
-  %\VignetteIndexEntry{additional vignettes}
+  %\VignetteIndexEntry{Additional Vignettes}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
