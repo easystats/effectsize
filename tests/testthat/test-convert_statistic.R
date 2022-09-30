@@ -12,7 +12,7 @@ test_that("xtab", {
     nrow = nrow(xtab),
     ncol = ncol(xtab)
   )
-  expect_equal(res, cramers_v(xtab), ignore_attr = TRUE)
+  expect_equal(res, cramers_v(xtab, adjust = FALSE), ignore_attr = TRUE)
 
 
   res <- chisq_to_cohens_w(
