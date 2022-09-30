@@ -33,8 +33,9 @@ input model. See details."><meta property="og:image" content="https://easystats.
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-effect-sizes">Effect sizes</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-effect-sizes">
+    <a class="dropdown-item" href="../articles/standardized_differences.html">Standardized Differences</a>
+    <a class="dropdown-item" href="../articles/xtabs.html">Contingency Tables</a>
     <a class="dropdown-item" href="../articles/anovaES.html">ANOVA Effect Sizes</a>
-    <a class="dropdown-item" href="../articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
     <a class="dropdown-item" href="../reference/effectsize_CIs.html">Confidence Intervals</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../articles/effectsize_API.html">Extending effectsize</a>
@@ -43,7 +44,8 @@ input model. See details."><meta property="og:image" content="https://easystats.
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-conversion">Conversion</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-conversion">
-    <a class="dropdown-item" href="../articles/convert.html">Between d, r, OR</a>
+    <a class="dropdown-item" href="../articles/convert_r_d_OR.html">Between d, r, OR</a>
+    <a class="dropdown-item" href="../articles/convert_p_OR_RR.html">Between p, OR, RR</a>
     <a class="dropdown-item" href="../articles/from_test_statistics.html">From Test Statistics</a>
   </div>
 </li>
@@ -173,7 +175,7 @@ CIs (<code>CI_low</code> and <code>CI_high</code>).</p>
 </ul></li>
 <li><p>For an object of class <code>BFBayesFactor</code>, using <code><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html" class="external-link">bayestestR::describe_posterior()</a></code>,</p><ul><li><p>A <strong>t-test</strong> depending on <code>type</code>: <code>"cohens_d"</code> (default) or one of <code>"p_superiority"</code>, <code>"u1"</code>, <code>"u2"</code>, <code>"u3"</code>, <code>"overlap"</code>.</p></li>
 <li><p>A <strong>correlation test</strong> returns <em>r</em>.</p></li>
-<li><p>A <strong>contingency table test</strong>, depending on <code>type</code>: <code>"cramers_v"</code> (default), <code>"phi"</code>, <code>"cohens_w"</code>, <code>"pearsons_c"</code>, <code>"cohens_h"</code>, <code>"oddsratio"</code>, or <code>"riskratio"</code>.</p></li>
+<li><p>A <strong>contingency table test</strong>, depending on <code>type</code>: <code>"cramers_v"</code> (default), <code>"phi"</code>, <code>"tschuprows_t"</code>, <code>"cohens_w"</code>, <code>"pearsons_c"</code>, <code>"cohens_h"</code>, <code>"oddsratio"</code>, or <code>"riskratio"</code>.</p></li>
 <li><p>A <strong>proportion test</strong> returns <em>p</em>.</p></li>
 </ul></li>
 <li><p>Objects of class <code>anova</code>, <code>aov</code>, <code>aovlist</code> or <code>afex_aov</code>, depending on <code>type</code>: <code>"eta"</code> (default), <code>"omega"</code> or <code>"epsilon"</code> -squared, <code>"f"</code>, or <code>"f2"</code>.</p></li>
@@ -253,7 +255,7 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Missing values detected. NAs dropped.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's U2 |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.73       | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.73       | [0.00, 0.91]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Non-parametric CLES</span>
 <span class="r-in"><span></span></span>
@@ -287,7 +289,7 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ************</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's d |        95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.32     | [-0.98, 0.32]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.32     | [-1.02, 0.31]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Deviation from a difference of -1.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Estimated using pooled SD.</span>

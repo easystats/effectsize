@@ -25,7 +25,10 @@
     <loc>https://easystats.github.io/effectsize/articles/anovaES.html</loc>
   </url>
   <url>
-    <loc>https://easystats.github.io/effectsize/articles/convert.html</loc>
+    <loc>https://easystats.github.io/effectsize/articles/convert_p_OR_RR.html</loc>
+  </url>
+  <url>
+    <loc>https://easystats.github.io/effectsize/articles/convert_r_d_OR.html</loc>
   </url>
   <url>
     <loc>https://easystats.github.io/effectsize/articles/effectsize.html</loc>
@@ -43,7 +46,10 @@
     <loc>https://easystats.github.io/effectsize/articles/interpret.html</loc>
   </url>
   <url>
-    <loc>https://easystats.github.io/effectsize/articles/simple_htests.html</loc>
+    <loc>https://easystats.github.io/effectsize/articles/standardized_differences.html</loc>
+  </url>
+  <url>
+    <loc>https://easystats.github.io/effectsize/articles/xtabs.html</loc>
   </url>
   <url>
     <loc>https://easystats.github.io/effectsize/authors.html</loc>

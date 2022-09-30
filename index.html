@@ -71,8 +71,9 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-effect-sizes">Effect sizes</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-effect-sizes">
+    <a class="dropdown-item" href="articles/standardized_differences.html">Standardized Differences</a>
+    <a class="dropdown-item" href="articles/xtabs.html">Contingency Tables</a>
     <a class="dropdown-item" href="articles/anovaES.html">ANOVA Effect Sizes</a>
-    <a class="dropdown-item" href="articles/simple_htests.html">Effect Sizes for Simple Hypothesis Tests</a>
     <a class="dropdown-item" href="reference/effectsize_CIs.html">Confidence Intervals</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="articles/effectsize_API.html">Extending effectsize</a>
@@ -81,7 +82,8 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-conversion">Conversion</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-conversion">
-    <a class="dropdown-item" href="articles/convert.html">Between d, r, OR</a>
+    <a class="dropdown-item" href="articles/convert_r_d_OR.html">Between d, r, OR</a>
+    <a class="dropdown-item" href="articles/convert_p_OR_RR.html">Between p, OR, RR</a>
     <a class="dropdown-item" href="articles/from_test_statistics.html">From Test Statistics</a>
   </div>
 </li>
@@ -155,7 +157,7 @@
 <p>Run the following to install the stable release of <strong>effectsize</strong> from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"effectsize"</span><span class="op">)</span></span></code></pre></div>
-<p>Or you can install the latest development version <code>0.7.9.1</code> from <a href="https://easystats.r-universe.dev" class="external-link"><em>R-universe</em></a>:</p>
+<p>Or you can install the latest development version <code>0.7.9.1999</code> from <a href="https://easystats.r-universe.dev" class="external-link"><em>R-universe</em></a>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"effectsize"</span>, repos <span class="op">=</span> <span class="st">"https://easystats.r-universe.dev/"</span><span class="op">)</span></span></code></pre></div>
 <!-- Or from *GitHub*: -->
@@ -174,7 +176,10 @@
 <strong>Effect Sizes</strong>
 <ul>
 <li>
-<a href="https://easystats.github.io/effectsize/articles/simple_htests.html"><strong>For Simple Hypothesis Tests</strong></a><br>
+<a href="https://easystats.github.io/effectsize/articles/standardized_differences.html"><strong>Standardized Differences</strong></a><br>
+</li>
+<li>
+<a href="https://easystats.github.io/effectsize/articles/xtabs.html"><strong>For Contingency Tables</strong></a><br>
 </li>
 <li><a href="https://easystats.github.io/effectsize/articles/anovaES.html"><strong>ANOVA Effect Sizes</strong></a></li>
 </ul>
@@ -182,7 +187,12 @@
 <li>
 <strong>Effect Sizes Conversion</strong>
 <ul>
-<li><a href="https://easystats.github.io/effectsize/articles/convert.html"><strong>Between Effect Sizes</strong></a></li>
+<li>
+<a href="https://easystats.github.io/effectsize/articles/convert_r_d_OR.html"><strong>Between Effect Sizes</strong></a><br>
+</li>
+<li>
+<a href="https://easystats.github.io/effectsize/articles/convert_p_OR_RR.html"><strong>Between Probabilities and Odds and Risk Ratios</strong></a><br>
+</li>
 <li><a href="https://easystats.github.io/effectsize/articles/from_test_statistics.html"><strong>Effect Size from Test Statistics</strong></a></li>
 </ul>
 </li>
@@ -205,10 +215,10 @@
 <div class="section level2">
 <h2 id="effect-size-computation">Effect Size Computation<a class="anchor" aria-label="anchor" href="#effect-size-computation"></a>
 </h2>
+<p>The package provides functions to compute indices of effect size.</p>
 <div class="section level3">
 <h3 id="standardized-differences-cohens-d-hedges-g-glass-delta">Standardized Differences (Cohen’s <em>d</em>, Hedges’ <em>g</em>, Glass’ <em>delta</em>)<a class="anchor" aria-label="anchor" href="#standardized-differences-cohens-d-hedges-g-glass-delta"></a>
 </h3>
-<p>The package provides functions to compute indices of effect size.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
 <span><span class="co">## Cohen's d |         95% CI</span></span>
@@ -228,12 +238,40 @@
 <span><span class="co">## Glass' Δ |         95% CI</span></span>
 <span><span class="co">## -------------------------</span></span>
 <span><span class="co">## -1.17    | [-1.93, -0.39]</span></span></code></pre></div>
-<p><code>effectsize</code> also provides effect sizes for <em>contingency tables</em>, <em>rank tests</em>, and more…</p>
+<p><code>effectsize</code> also provides effect sizes for <em>rank tests</em>, <em>common language effect sizes</em> and more…</p>
+</div>
+<div class="section level3">
+<h3 id="contingency-tables">Contingency Tables<a class="anchor" aria-label="anchor" href="#contingency-tables"></a>
+</h3>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Dependence </span></span>
+<span><span class="fu"><a href="reference/phi.html">phi</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span>, <span class="va">mtcars</span><span class="op">$</span><span class="va">vs</span><span class="op">)</span></span>
+<span><span class="co">## ϕ    |       95% CI</span></span>
+<span><span class="co">## -------------------</span></span>
+<span><span class="co">## 0.17 | [0.00, 1.00]</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## - One-sided CIs: upper bound fixed at [1.00].</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/phi.html">cramers_v</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span>, <span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span></span>
+<span><span class="co">## Cramer's V |       95% CI</span></span>
+<span><span class="co">## -------------------------</span></span>
+<span><span class="co">## 0.52       | [0.18, 1.00]</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## - One-sided CIs: upper bound fixed at [1.00].</span></span>
+<span></span>
+<span><span class="co"># Goodness-of-fit</span></span>
+<span><span class="fu"><a href="reference/phi.html">fei</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span>, p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.6</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">## פ‎    |       95% CI</span></span>
+<span><span class="co">## --------------------</span></span>
+<span><span class="co">## 0.27 | [0.17, 1.00]</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## - Adjusted for non-uniform expected probabilities.</span></span>
+<span><span class="co">## - One-sided CIs: upper bound fixed at [1.00].</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="anovas-eta2-omega2-">ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)<a class="anchor" aria-label="anchor" href="#anovas-eta2-omega2-"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
@@ -257,7 +295,7 @@
 <span><span class="fu"><a href="reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
 <span><span class="co">## # Effect Size for ANOVA</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Parameter    |   ϵ² |       95% CI</span></span>
+<span><span class="co">## Parameter    |   ε² |       95% CI</span></span>
 <span><span class="co">## ----------------------------------</span></span>
 <span><span class="co">## factor(gear) | 0.39 | [0.14, 1.00]</span></span>
 <span><span class="co">## </span></span>
@@ -279,14 +317,14 @@
 <h2 id="effect-size-conversion">Effect Size Conversion<a class="anchor" aria-label="anchor" href="#effect-size-conversion"></a>
 </h2>
 <p>The package also provides ways of converting between different effect sizes.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/d_to_r.html">d_to_r</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span>
 <span><span class="co">## [1] 0.0995</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio</a></span><span class="op">(</span><span class="fl">2.6</span>, p0 <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span></span>
 <span><span class="co">## [1] 1.59</span></span></code></pre></div>
 <p>And for recovering effect sizes from test statistics.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/t_to_r.html">F_to_d</a></span><span class="op">(</span><span class="fl">15</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">60</span><span class="op">)</span></span>
 <span><span class="co">## d    |       95% CI</span></span>
 <span><span class="co">## -------------------</span></span>
@@ -308,12 +346,12 @@
 <h2 id="effect-size-interpretation">Effect Size Interpretation<a class="anchor" aria-label="anchor" href="#effect-size-interpretation"></a>
 </h2>
 <p>The package allows for an automated interpretation of different indices.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/interpret_r.html">interpret_r</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span>
 <span><span class="co">## [1] "large"</span></span>
 <span><span class="co">## (Rules: funder2019)</span></span></code></pre></div>
 <p>Different sets of “rules of thumb” are implemented (<a href="https://easystats.github.io/effectsize/articles/interpret.html"><strong>guidelines are detailed here</strong></a>) and can be easily changed.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span>d <span class="op">=</span> <span class="fl">0.45</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></span>
 <span><span class="co">## [1] "small"</span></span>
 <span><span class="co">## (Rules: cohen1988)</span></span>
@@ -329,18 +367,18 @@
 <li>Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation of Effect Size Indices and Standardized Parameters. <em>Journal of Open Source Software</em>, <em>5</em>(56), 2815. doi: 10.21105/joss.02815</li>
 </ul>
 <p>Corresponding BibTeX entry:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="sc">@</span>Article{,</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  title <span class="ot">=</span> {{e}ffectsize<span class="sc">:</span> Estimation of Effect Size Indices and Standardized Parameters},</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  author <span class="ot">=</span> {Mattan S. Ben<span class="sc">-</span>Shachar and Daniel Lüdecke and Dominique Makowski},</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  year <span class="ot">=</span> {<span class="dv">2020</span>},</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  journal <span class="ot">=</span> {Journal of Open Source Software},</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  volume <span class="ot">=</span> {<span class="dv">5</span>},</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  number <span class="ot">=</span> {<span class="dv">56</span>},</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  pages <span class="ot">=</span> {<span class="dv">2815</span>},</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  publisher <span class="ot">=</span> {The Open Journal},</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  doi <span class="ot">=</span> {<span class="fl">10.21105</span><span class="sc">/</span>joss<span class="fl">.02815</span>},</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>doi.org<span class="sc">/</span><span class="fl">10.21105</span><span class="sc">/</span>joss<span class="fl">.02815</span>}</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="sc">@</span>Article{,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  title <span class="ot">=</span> {{e}ffectsize<span class="sc">:</span> Estimation of Effect Size Indices and Standardized Parameters},</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  author <span class="ot">=</span> {Mattan S. Ben<span class="sc">-</span>Shachar and Daniel Lüdecke and Dominique Makowski},</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  year <span class="ot">=</span> {<span class="dv">2020</span>},</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  journal <span class="ot">=</span> {Journal of Open Source Software},</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  volume <span class="ot">=</span> {<span class="dv">5</span>},</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  number <span class="ot">=</span> {<span class="dv">56</span>},</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  pages <span class="ot">=</span> {<span class="dv">2815</span>},</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  publisher <span class="ot">=</span> {The Open Journal},</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  doi <span class="ot">=</span> {<span class="fl">10.21105</span><span class="sc">/</span>joss<span class="fl">.02815</span>},</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>doi.org<span class="sc">/</span><span class="fl">10.21105</span><span class="sc">/</span>joss<span class="fl">.02815</span>}</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div>
 </div>

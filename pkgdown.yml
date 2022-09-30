@@ -4,13 +4,15 @@ pkgdown_sha: 956f076f661eb2de9413f64ea24a580cf444466d
 articles:
   additional: additional.html
   anovaES: anovaES.html
-  convert: convert.html
+  convert_p_OR_RR: convert_p_OR_RR.html
+  convert_r_d_OR: convert_r_d_OR.html
   effectsize: effectsize.html
   effectsize_API: effectsize_API.html
   from_test_statistics: from_test_statistics.html
   interpret: interpret.html
-  simple_htests: simple_htests.html
-last_built: 2022-09-30T14:40Z
+  standardized_differences: standardized_differences.html
+  xtabs: xtabs.html
+last_built: 2022-09-30T15:17Z
 urls:
   reference: https://easystats.github.io/effectsize/reference
   article: https://easystats.github.io/effectsize/articles
