@@ -17,8 +17,8 @@
 #'   (one-sided CI), or `"two.sided"` (default, two-sided CI). Partial matching
 #'   is allowed (e.g., `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in
 #'   [effectsize_CIs].
-#' @param adjust Should the effect size be bias-corrected? Defaults to `FALSE`;
-#'   For small samples and large tables, it is advisable to set to `TRUE`.
+#' @param adjust Should the effect size be bias-corrected? Defaults to `TRUE`;
+#'   For small samples and large tables, it is advisable to keep it `TRUE`.
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @return A data frame with the effect size(s), and confidence interval(s). See

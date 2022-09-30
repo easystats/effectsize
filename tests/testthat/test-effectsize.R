@@ -61,7 +61,7 @@ test_that("Chisq-test", {
 
   # types
   expect_error(effectsize(Xsq1, type = "phi"), "appropriate")
-  expect_equal(effectsize(Xsq1), cramers_v(contingency_table))
+  expect_equal(effectsize(Xsq1), cramers_v(contingency_table, adjust = FALSE))
   expect_equal(effectsize(Xsq1, type = "w"), w <- cohens_w(contingency_table))
   expect_equal(cohens_w(Xsq1), w)
 
@@ -70,8 +70,8 @@ test_that("Chisq-test", {
 
   contingency_table22 <- contingency_table[1:2, 1:2]
   Xsq4 <- chisq.test(contingency_table22)
-  expect_equal(effectsize(Xsq4, type = "phi"), ph <- phi(contingency_table22))
-  expect_equal(phi(Xsq4), ph)
+  expect_equal(effectsize(Xsq4, type = "phi", adjust = FALSE), ph <- phi(contingency_table22, adjust = FALSE))
+  expect_equal(phi(Xsq4, adjust = FALSE), ph)
 
   expect_equal(effectsize(Xsq4, type = "oddsratio"), or <- oddsratio(contingency_table22))
   expect_equal(oddsratio(Xsq4), or)
@@ -225,7 +225,7 @@ test_that("BayesFactor", {
   set.seed(6)
   data(raceDolls, package = "BayesFactor")
   bf1 <- BayesFactor::contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
-  expect_equal(effectsize(bf1)[[1]], 0.164, tolerance = 0.01)
+  expect_equal(effectsize(bf1)[[1]], 0.143, tolerance = 0.01)
   expect_equal(effectsize(bf1, type = "OR")[[1]], 1 / 0.503, tolerance = 0.03)
 
   bf2 <- BayesFactor::ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])

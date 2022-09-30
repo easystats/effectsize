@@ -112,7 +112,7 @@
 #' @importFrom stats chisq.test
 #' @export
 phi <- function(x, y = NULL,
-                adjust = FALSE,
+                adjust = TRUE,
                 ci = 0.95, alternative = "greater",
                 ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
@@ -131,7 +131,7 @@ phi <- function(x, y = NULL,
 #' @importFrom stats chisq.test
 #' @export
 cramers_v <- function(x, y = NULL,
-                      adjust = FALSE,
+                      adjust = TRUE,
                       ci = 0.95, alternative = "greater",
                       ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))

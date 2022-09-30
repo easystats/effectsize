@@ -9,9 +9,9 @@
 \alias{pearsons_c}
 \title{\eqn{\phi} and Other Contingency Tables Correlations}
 \usage{
-phi(x, y = NULL, adjust = FALSE, ci = 0.95, alternative = "greater", ...)
+phi(x, y = NULL, adjust = TRUE, ci = 0.95, alternative = "greater", ...)
 
-cramers_v(x, y = NULL, adjust = FALSE, ci = 0.95, alternative = "greater", ...)
+cramers_v(x, y = NULL, adjust = TRUE, ci = 0.95, alternative = "greater", ...)
 
 tschuprows_t(x, y = NULL, ci = 0.95, alternative = "greater", ...)
 
@@ -48,8 +48,8 @@ pearsons_c(
 \item{y}{a numeric vector; ignored if \code{x} is a matrix.  If
     \code{x} is a factor, \code{y} should be a factor of the same length.}
 
-\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{FALSE};
-For small samples and large tables, it is advisable to set to \code{TRUE}.}
+\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{TRUE};
+For small samples and large tables, it is advisable to keep it \code{TRUE}.}
 
 \item{ci}{Confidence Interval (CI) level}
 
