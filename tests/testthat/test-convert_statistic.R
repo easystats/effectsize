@@ -96,4 +96,3 @@ test_that("eta2", {
   expect_equal(F_to_f(4, 3, 123), F_to_f2(4, 3, 123, squared = FALSE))
   expect_equal(F_to_f2(4, 3, 123), F_to_f(4, 3, 123, squared = TRUE))
 })
-

@@ -73,19 +73,22 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
     if (type %in% c("d", "g")) {
       f <- switch(tolower(type),
-                  d = cohens_d,
-                  g = hedges_g)
+        d = cohens_d,
+        g = hedges_g
+      )
     } else {
       if (!args$pooled_sd || args$paired) {
         stop("Common language effect size only applicable to 2-sample Cohen's d with pooled SD.", call. = FALSE)
       }
       args$pooled_sd <- args$paired <- NULL
 
-      type <- c("p_superiority" = "p_superiority",
-                "u1" = "cohens_u1",
-                "u2" = "cohens_u2",
-                "u3" = "cohens_u3",
-                "overlap" = "p_overlap")[type]
+      type <- c(
+        "p_superiority" = "p_superiority",
+        "u1" = "cohens_u1",
+        "u2" = "cohens_u2",
+        "u3" = "cohens_u3",
+        "overlap" = "p_overlap"
+      )[type]
       f <- match.fun(type)
     }
   }
@@ -291,7 +294,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   .fail_if_approx(approx, "rank_epsilon_squared")
 
-  f <- switch (type,
+  f <- switch(type,
     epsilon = rank_epsilon_squared,
     eta = rank_eta_squared
   )

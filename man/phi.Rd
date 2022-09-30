@@ -146,10 +146,14 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 
 ## 2-by-2 tables
 ## -------------
-RCT <- matrix(c(71, 50,
-                30, 100), nrow = 2)
-dimnames(RCT) <- list(Diagnosis = c("Sick", "Recovered"),
-                      Group = c("Treatment", "Control"))
+RCT <- matrix(c(
+  71, 50,
+  30, 100
+), nrow = 2)
+dimnames(RCT) <- list(
+  Diagnosis = c("Sick", "Recovered"),
+  Group = c("Treatment", "Control")
+)
 RCT # note groups are COLUMNS
 
 phi(RCT)
@@ -159,12 +163,16 @@ pearsons_c(RCT)
 
 ## Larger tables
 ## -------------
-M <- matrix(c(150, 100, 165,
-              130, 50, 65,
-              35, 10, 2,
-              55, 40, 25), nrow = 4)
-dimnames(M) <- list(Music = c("Pop", "Rock", "Jazz", "Classic"),
-                    Study = c("Psych", "Econ", "Law"))
+M <- matrix(c(
+  150, 100, 165,
+  130, 50, 65,
+  35, 10, 2,
+  55, 40, 25
+), nrow = 4)
+dimnames(M) <- list(
+  Music = c("Pop", "Rock", "Jazz", "Classic"),
+  Study = c("Psych", "Econ", "Law")
+)
 M
 
 cramers_v(M)
@@ -191,7 +199,6 @@ fei(Smoking_ASD, p = c(0.015, 0.010, 0.975))
 cohens_w(Smoking_ASD, p = c(0.015, 0.010, 0.975))
 
 pearsons_c(Smoking_ASD, p = c(0.015, 0.010, 0.975))
-
 
 }
 \references{

@@ -8,5 +8,5 @@ test_that("sd_pooled", {
   x <- 1:5
   y <- 1:5
   expect_equal(mad_pooled(x, y), mad(c(x, y)))
-  expect_equal(sd_pooled(x, y), sd(c(x, y)) * sqrt(9/8))
+  expect_equal(sd_pooled(x, y), sd(c(x, y)) * sqrt(9 / 8))
 })

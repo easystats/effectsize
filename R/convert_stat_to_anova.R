@@ -84,12 +84,12 @@
 #'
 #' #' @examplesIf require(emmeans)
 #' if (require(emmeans)) {
-#' ## Use with emmeans based contrasts
-#' ## --------------------------------
-#' warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
+#'   ## Use with emmeans based contrasts
+#'   ## --------------------------------
+#'   warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
 #'
-#' jt <- emmeans::joint_tests(warp.lm, by = "wool")
-#' F_to_eta2(jt$F.ratio, jt$df1, jt$df2)
+#'   jt <- emmeans::joint_tests(warp.lm, by = "wool")
+#'   F_to_eta2(jt$F.ratio, jt$df1, jt$df2)
 #' }
 #'
 #' @references
@@ -127,9 +127,10 @@ F_to_eta2 <- function(f, df, df_error,
                       ci = 0.95, alternative = "greater",
                       ...) {
   .F_to_pve(f, df, df_error,
-            es = "eta2",
-            ci = ci, alternative = alternative,
-            ...)
+    es = "eta2",
+    ci = ci, alternative = alternative,
+    ...
+  )
 }
 
 #' @rdname F_to_eta2
@@ -138,8 +139,9 @@ t_to_eta2 <- function(t, df_error,
                       ci = 0.95, alternative = "greater",
                       ...) {
   F_to_eta2(t^2, 1, df_error,
-            ci = ci, alternative = alternative,
-            ...)
+    ci = ci, alternative = alternative,
+    ...
+  )
 }
 
 #' @rdname F_to_eta2
@@ -148,9 +150,10 @@ F_to_epsilon2 <- function(f, df, df_error,
                           ci = 0.95, alternative = "greater",
                           ...) {
   .F_to_pve(f, df, df_error,
-            es = "epsilon2",
-            ci = ci, alternative = alternative,
-            ...)
+    es = "epsilon2",
+    ci = ci, alternative = alternative,
+    ...
+  )
 }
 
 #' @rdname F_to_eta2
@@ -159,8 +162,9 @@ t_to_epsilon2 <- function(t, df_error,
                           ci = 0.95, alternative = "greater",
                           ...) {
   F_to_epsilon2(t^2, 1, df_error,
-                ci = ci, alternative = alternative,
-                ...)
+    ci = ci, alternative = alternative,
+    ...
+  )
 }
 
 #' @rdname F_to_eta2
@@ -177,9 +181,10 @@ F_to_omega2 <- function(f, df, df_error,
                         ci = 0.95, alternative = "greater",
                         ...) {
   .F_to_pve(f, df, df_error,
-            es = "omega2",
-            ci = ci, alternative = alternative,
-            ...)
+    es = "omega2",
+    ci = ci, alternative = alternative,
+    ...
+  )
 }
 
 #' @rdname F_to_eta2
@@ -187,8 +192,9 @@ F_to_omega2 <- function(f, df, df_error,
 t_to_omega2 <- function(t, df_error,
                         ci = 0.95, alternative = "greater", ...) {
   F_to_omega2(t^2, 1, df_error,
-              ci = ci, alternative = alternative,
-              ...)
+    ci = ci, alternative = alternative,
+    ...
+  )
 }
 
 
@@ -200,8 +206,9 @@ F_to_f <- function(f, df, df_error,
                    ci = 0.95, alternative = "greater",
                    ...) {
   res_eta <- F_to_eta2(f, df, df_error,
-                       ci = ci, alternative = alternative,
-                       ...)
+    ci = ci, alternative = alternative,
+    ...
+  )
 
   res <- data.frame(
     Cohens_f2_partial =
@@ -238,8 +245,9 @@ t_to_f <- function(t, df_error,
                    ci = 0.95, alternative = "greater",
                    ...) {
   F_to_f(t^2, 1, df_error,
-         squared = squared,
-         ci = ci, alternative = alternative, ...)
+    squared = squared,
+    ci = ci, alternative = alternative, ...
+  )
 }
 
 #' @rdname F_to_eta2
@@ -249,8 +257,9 @@ F_to_f2 <- function(f, df, df_error,
                     ci = 0.95, alternative = "greater",
                     ...) {
   F_to_f(f, df, df_error,
-         squared = squared,
-         ci = ci, alternative = alternative, ...)
+    squared = squared,
+    ci = ci, alternative = alternative, ...
+  )
 }
 
 #' @rdname F_to_eta2
@@ -260,9 +269,10 @@ t_to_f2 <- function(t, df_error,
                     ci = 0.95, alternative = "greater",
                     ...) {
   F_to_f(t^2, 1, df_error,
-         squared = squared,
-         ci = ci, alternative = alternative,
-         ...)
+    squared = squared,
+    ci = ci, alternative = alternative,
+    ...
+  )
 }
 
 

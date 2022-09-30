@@ -35,10 +35,14 @@
 #' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 #'
 #' @examples
-#' Performance <- matrix(c(794, 150,
-#'                         86, 570), nrow = 2)
-#' dimnames(Performance) <- list("1st Survey" = c("Approve", "Disapprove"),
-#'                               "2nd Survey" = c("Approve", "Disapprove"))
+#' Performance <- matrix(c(
+#'   794, 150,
+#'   86, 570
+#' ), nrow = 2)
+#' dimnames(Performance) <- list(
+#'   "1st Survey" = c("Approve", "Disapprove"),
+#'   "2nd Survey" = c("Approve", "Disapprove")
+#' )
 #' Performance
 #'
 #' cohens_g(Performance)
@@ -93,10 +97,10 @@ cohens_g <- function(x, y = NULL,
     k <- P * n
 
     res <- stats::prop.test(k, n,
-                            p = 0.5,
-                            alternative = alternative,
-                            conf.level = ci,
-                            correct = FALSE
+      p = 0.5,
+      alternative = alternative,
+      conf.level = ci,
+      correct = FALSE
     )
 
     out$CI <- ci

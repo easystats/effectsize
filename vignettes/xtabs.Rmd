@@ -60,8 +60,10 @@ For larger contingency tables, Cramér's *V*, Tschuprow's *T*, Cohen's *w*, and 
 Both Cramér's *V* and Tschuprow's *T* are true measures of correlation: they range from 0 to 1, with 0 indicating complete independence between the nominal variables, and 1 indicating complete dependence. For square tables, they are equal, however for non-square tables $T < V$; While Cramér's *V* defines complete dependence as "it is possible to know exactly the value of the columns from the rows *or* know exactly the value of the rows from the columns", Tschuprow's *T* required both to be true to achieve complete dependence - something that is not possible for non-square tables. For example:
 
 ```{r, echo=FALSE}
-food <- matrix(c(47, 0, 0,
-                 0, 12, 21), nrow = 2, byrow = TRUE)
+food <- matrix(c(
+  47, 0, 0,
+  0, 12, 21
+), nrow = 2, byrow = TRUE)
 dimnames(food) <- list(c("Vegan", "Not-Vegan"), c("Soy", "Milk", "Meat"))
 food
 ```
@@ -85,12 +87,17 @@ variables).
 
 ```{r}
 Music <- matrix(
-  c(151, 130, 12, 7,
+  c(
+    151, 130, 12, 7,
     77, 6, 111, 4,
-    0, 4, 2, 165),
-  byrow = TRUE, nrow = 3)
-dimnames(Music) <- list(c("Psych", "Econ", "Law"),
-                        c("Pop", "Rock", "Jazz", "Classic"))
+    0, 4, 2, 165
+  ),
+  byrow = TRUE, nrow = 3
+)
+dimnames(Music) <- list(
+  c("Psych", "Econ", "Law"),
+  c("Pop", "Rock", "Jazz", "Classic")
+)
 Music
 
 
@@ -157,7 +164,7 @@ fei(O, p = E)
 # Observed perfectly matches Expected
 (O1 <- c(E * 286))
 
-fei(O1, p = E) 
+fei(O1, p = E)
 
 
 # Observed deviates maximally from Expected:
@@ -175,11 +182,16 @@ higher in the first group (and vice versa).
 
 ```{r}
 RCT <- matrix(
-  c(71, 30,
-    50, 100),
-  nrow = 2, byrow = TRUE)
-dimnames(RCT) <- list(c("Sick", "Recovered"),
-                      c("Treatment", "Control"))
+  c(
+    71, 30,
+    50, 100
+  ),
+  nrow = 2, byrow = TRUE
+)
+dimnames(RCT) <- list(
+  c("Sick", "Recovered"),
+  c("Treatment", "Control")
+)
 RCT
 
 chisq.test(RCT) # or fisher.test(RCT)
@@ -224,11 +236,16 @@ of the table, ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry).
 
 ```{r}
 Performance <- matrix(
-  c(794, 86,
-    150, 570),
-  nrow = 2, byrow = TRUE)
-dimnames(Performance) <- list(c("Approve", "Disapprove"),
-                              c("Approve", "Disapprove"))
+  c(
+    794, 86,
+    150, 570
+  ),
+  nrow = 2, byrow = TRUE
+)
+dimnames(Performance) <- list(
+  c("Approve", "Disapprove"),
+  c("Approve", "Disapprove")
+)
 Performance
 
 mcnemar.test(Performance)

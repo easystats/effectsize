@@ -33,8 +33,8 @@ test_that("t-test", {
   ## Auto convert y to factor
   Ts <- t.test(mtcars$mpg ~ mtcars$vs)
   expect_equal(effectsize(Ts, verbose = FALSE),
-               cohens_d(mtcars$mpg, factor(mtcars$vs), pooled_sd = FALSE),
-               ignore_attr = TRUE
+    cohens_d(mtcars$mpg, factor(mtcars$vs), pooled_sd = FALSE),
+    ignore_attr = TRUE
   )
 
 
@@ -42,8 +42,8 @@ test_that("t-test", {
   z <<- mtcars$wt
   model <- t.test(z, mu = 3, var.equal = TRUE)
   expect_equal(effectsize(model),
-               cohens_d(z, mu = 3),
-               ignore_attr = TRUE
+    cohens_d(z, mu = 3),
+    ignore_attr = TRUE
   )
 })
 
@@ -112,16 +112,16 @@ test_that("one way", {
   m <- aov(mpg ~ cyl, mtcars)
 
   expect_equal(eta_squared(m, partial = FALSE)[, -1], effectsize(onew),
-               tolerance = 0.03, ignore_attr = TRUE
+    tolerance = 0.03, ignore_attr = TRUE
   )
   expect_equal(eta_squared(m, partial = FALSE)[, -1], eta_squared(onew),
-               tolerance = 0.03, ignore_attr = TRUE
+    tolerance = 0.03, ignore_attr = TRUE
   )
   expect_equal(omega_squared(m, partial = FALSE)[, -1], effectsize(onew, type = "omega"),
-               tolerance = 0.03, ignore_attr = TRUE
+    tolerance = 0.03, ignore_attr = TRUE
   )
   expect_equal(cohens_f(m, partial = FALSE)[, -1], effectsize(onew, type = "f"),
-               tolerance = 0.03, ignore_attr = TRUE
+    tolerance = 0.03, ignore_attr = TRUE
   )
 })
 
@@ -144,11 +144,13 @@ test_that("htest | rank", {
   expect_equal(effectsize(ww), rbs <- rank_biserial(mtcars$hp, mtcars$mpg + 80), ignore_attr = TRUE)
   expect_equal(rank_biserial(ww), rbs, ignore_attr = TRUE)
   expect_equal(effectsize(ww, type = "u2", ci = NULL)[[1]],
-               cohens_u2(mtcars$hp, mtcars$mpg + 80, parametric = FALSE, ci = NULL)[[1]],
-               tolerance = 0.001)
+    cohens_u2(mtcars$hp, mtcars$mpg + 80, parametric = FALSE, ci = NULL)[[1]],
+    tolerance = 0.001
+  )
   expect_equal(effectsize(ww, type = "overlap")[[1]],
-               p_overlap(mtcars$hp, mtcars$mpg + 80, parametric = FALSE, ci = NULL)[[1]],
-               tolerance = 0.001)
+    p_overlap(mtcars$hp, mtcars$mpg + 80, parametric = FALSE, ci = NULL)[[1]],
+    tolerance = 0.001
+  )
 
 
   RoundingTimes <-
@@ -254,7 +256,7 @@ test_that("effectsize | other", {
   m <- lm(mpg ~ ., mtcars)
 
   expect_equal(effectsize(m),
-               parameters::standardize_parameters(m),
-               ignore_attr = TRUE
+    parameters::standardize_parameters(m),
+    ignore_attr = TRUE
   )
 })

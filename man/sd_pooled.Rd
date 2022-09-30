@@ -47,7 +47,6 @@ mad_pooled(mtcars$mpg, factor(mtcars$am))
 
 cov_pooled(mpg + hp + cyl ~ am, data = mtcars)
 
-
 }
 \seealso{
 \code{\link[=cohens_d]{cohens_d()}}, \code{\link[=mahalanobis_d]{mahalanobis_d()}}

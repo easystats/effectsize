@@ -72,7 +72,7 @@ and can be accessed via the `eta_squared()` function:
 ```{r}
 library(effectsize)
 options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, requires R >= 4.2.0)
- 
+
 
 eta_squared(m, partial = FALSE)
 ```
@@ -354,16 +354,20 @@ observations (or "groups") between "raters" ("blocks").
 ```{r}
 # Subjects are COLUMNS
 (ReactionTimes <- matrix(
-  c(398, 338, 520,
+  c(
+    398, 338, 520,
     325, 388, 555,
     393, 363, 561,
     367, 433, 470,
     286, 492, 536,
     362, 475, 496,
-    253, 334, 610),
+    253, 334, 610
+  ),
   nrow = 7, byrow = TRUE,
-  dimnames = list(paste0("Subject", 1:7),
-                  c("Congruent", "Neutral", "Incongruent"))
+  dimnames = list(
+    paste0("Subject", 1:7),
+    c("Congruent", "Neutral", "Incongruent")
+  )
 ))
 
 friedman.test(ReactionTimes)

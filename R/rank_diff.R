@@ -120,9 +120,11 @@ rank_biserial <- function(x, y = NULL, data = NULL,
   }
 
   ## Prep data
-  out <- .get_data_2_samples(x, y, data, paired = paired,
-                             allow_ordered = TRUE,
-                             verbose = verbose, ...)
+  out <- .get_data_2_samples(x, y, data,
+    paired = paired,
+    allow_ordered = TRUE,
+    verbose = verbose, ...
+  )
   x <- out$x
   y <- out$y
 
@@ -203,9 +205,11 @@ cliffs_delta <- function(x, y = NULL, data = NULL,
                          ci = 0.95, alternative = "two.sided",
                          verbose = TRUE, ...) {
   cl <- match.call()
-  data <- .get_data_2_samples(x, y, data, verbose = verbose,
-                              allow_ordered = TRUE,
-                              ...)
+  data <- .get_data_2_samples(x, y, data,
+    verbose = verbose,
+    allow_ordered = TRUE,
+    ...
+  )
   x <- data$x
   y <- data$y
   if (is.null(y) || isTRUE(eval.parent(cl$paired))) {

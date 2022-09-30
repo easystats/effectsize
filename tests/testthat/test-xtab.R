@@ -165,16 +165,16 @@ test_that("oddsratio & riskratio", {
   log_or <- oddsratio(mtcars$am, mtcars$cyl > 4, log = TRUE)
 
   expect_equal(coef(m)[2], log_or$log_Odds_ratio,
-               ignore_attr = TRUE
+    ignore_attr = TRUE
   )
 
   expect_equal(log_or, oddsratio(mtcars$cyl > 4, mtcars$am, log = TRUE))
 
   skip_if_not_installed("MASS")
   expect_equal(confint(m)[2, ],
-               unlist(log_or[c("CI_low", "CI_high")]),
-               tolerance = 0.1, # different methods, give slightly different values
-               ignore_attr = TRUE
+    unlist(log_or[c("CI_low", "CI_high")]),
+    tolerance = 0.1, # different methods, give slightly different values
+    ignore_attr = TRUE
   )
 })
 
@@ -183,11 +183,11 @@ test_that("Cohen's g", {
   # From mcnemar.test
   Performance <-
     matrix(c(794, 86, 150, 570),
-           nrow = 2,
-           dimnames = list(
-             "1st Survey" = c("Approve", "Disapprove"),
-             "2nd Survey" = c("Approve", "Disapprove")
-           )
+      nrow = 2,
+      dimnames = list(
+        "1st Survey" = c("Approve", "Disapprove"),
+        "2nd Survey" = c("Approve", "Disapprove")
+      )
     )
   g <- cohens_g(Performance)
   expect_equal(g$Cohens_g, 0.136, tolerance = 0.01)

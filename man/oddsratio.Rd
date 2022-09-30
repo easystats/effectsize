@@ -72,10 +72,14 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 }
 
 \examples{
-RCT <- matrix(c(71, 50,
-                30, 100), nrow = 2)
-dimnames(RCT) <- list(Diagnosis = c("Sick", "Recovered"),
-                      Group = c("Treatment", "Control"))
+RCT <- matrix(c(
+  71, 50,
+  30, 100
+), nrow = 2)
+dimnames(RCT) <- list(
+  Diagnosis = c("Sick", "Recovered"),
+  Group = c("Treatment", "Control")
+)
 RCT # note groups are COLUMNS
 
 oddsratio(RCT)
@@ -84,8 +88,6 @@ oddsratio(RCT, alternative = "greater")
 riskratio(RCT)
 
 cohens_h(RCT)
-
-
 
 }
 \references{

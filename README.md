@@ -54,22 +54,22 @@ Click on the buttons above to access the package
 [**easystats blog**](https://easystats.github.io/blog/posts/), and
 check-out these vignettes:
 
--   **Effect Sizes**
-    -   [**Standardized
-        Differences**](https://easystats.github.io/effectsize/articles/standardized_differences.html)  
-    -   [**For Contingency
-        Tables**](https://easystats.github.io/effectsize/articles/xtabs.html)  
-    -   [**ANOVA Effect
-        Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
--   **Effect Sizes Conversion**
-    -   [**Between Effect
-        Sizes**](https://easystats.github.io/effectsize/articles/convert_r_d_OR.html)  
-    -   [**Between Probabilities and Odds and Risk
-        Ratios**](https://easystats.github.io/effectsize/articles/convert_p_OR_RR.html)  
-    -   [**Effect Size from Test
-        Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
--   [**Automated Interpretation of Indices of Effect
-    Size**](https://easystats.github.io/effectsize/articles/interpret.html)
+- **Effect Sizes**
+  - [**Standardized
+    Differences**](https://easystats.github.io/effectsize/articles/standardized_differences.html)  
+  - [**For Contingency
+    Tables**](https://easystats.github.io/effectsize/articles/xtabs.html)  
+  - [**ANOVA Effect
+    Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
+- **Effect Sizes Conversion**
+  - [**Between Effect
+    Sizes**](https://easystats.github.io/effectsize/articles/convert_r_d_OR.html)  
+  - [**Between Probabilities and Odds and Risk
+    Ratios**](https://easystats.github.io/effectsize/articles/convert_p_OR_RR.html)  
+  - [**Effect Size from Test
+    Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
+- [**Automated Interpretation of Indices of Effect
+  Size**](https://easystats.github.io/effectsize/articles/interpret.html)
 
 # Features
 
@@ -122,25 +122,25 @@ language effect sizes* and more…
 ### Contingency Tables
 
 ``` r
-# Dependence 
+# Dependence
 phi(mtcars$am, mtcars$vs)
-## ϕ    |       95% CI
-## -------------------
-## 0.17 | [0.00, 1.00]
+## ϕ (adj.) |       95% CI
+## -----------------------
+## 0.00     | [0.00, 1.00]
 ## 
 ## - One-sided CIs: upper bound fixed at [1.00].
 
 cramers_v(mtcars$am, mtcars$cyl)
-## Cramer's V |       95% CI
-## -------------------------
-## 0.52       | [0.18, 1.00]
+## Cramer's V (adj.) |       95% CI
+## --------------------------------
+## 0.46              | [0.00, 1.00]
 ## 
 ## - One-sided CIs: upper bound fixed at [1.00].
 
 # Goodness-of-fit
 fei(table(mtcars$cyl), p = c(0.1, 0.3, 0.6))
 ## פ‎    |       95% CI
-## --------------------
+## -------------------
 ## 0.27 | [0.17, 1.00]
 ## 
 ## - Adjusted for non-uniform expected probabilities.
@@ -256,9 +256,9 @@ interpret_cohens_d(d = 0.45, rules = "gignac2016")
 
 In order to cite this package, please use the following citation:
 
--   Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation
-    of Effect Size Indices and Standardized Parameters. *Journal of Open
-    Source Software*, *5*(56), 2815. doi: 10.21105/joss.02815
+- Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation of
+  Effect Size Indices and Standardized Parameters. *Journal of Open
+  Source Software*, *5*(56), 2815. doi: 10.21105/joss.02815
 
 Corresponding BibTeX entry:
 

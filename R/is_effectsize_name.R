@@ -98,23 +98,23 @@ es_info <- matrix(
     ## CLES
     "p_superiority", "Pr(superiority)", NA, "twotail", 0, 1, 0.5,
     "WMW_odds", "WMW Odds", NA, "twotail", 0, Inf, 1,
-    "Cohens_U1", "Cohen's U1", NA,  "onetail", 0, 1, 0,
-    "Cohens_U2", "Cohen's U2", NA,  "onetail", 0.5, 1, 0.5,
-    "Cohens_U3", "Cohen's U3", NA,  "twotail", 0, 1, 0.5,
-    "overlap", "Overlap", NA,  "onetail", 0, 1, 1,
+    "Cohens_U1", "Cohen's U1", NA, "onetail", 0, 1, 0,
+    "Cohens_U2", "Cohen's U2", NA, "onetail", 0.5, 1, 0.5,
+    "Cohens_U3", "Cohen's U3", NA, "twotail", 0, 1, 0.5,
+    "overlap", "Overlap", NA, "onetail", 0, 1, 1,
 
     ## Other
-    "r", "r", NA,  "twotail", -1, 1, 0,
-    "d", "d", NA,  "twotail", -Inf, Inf, 0,
+    "r", "r", NA, "twotail", -1, 1, 0,
+    "d", "d", NA, "twotail", -Inf, Inf, 0,
 
     ## Std Coefficient
-    "Std_Coefficient", "Coefficient (std.)", NA,  "twotail", -Inf, Inf, 0,
-    "Std_Odds_ratio", "Odds Ratio (std.)", NA,  "twotail", 0, Inf, 1,
-    "Std_Risk_ratio", "Risk Ratio (std.)", NA,  "twotail", 0, Inf, 1,
-    "Std_IRR", "IRR (std.)", "twotail", NA,  0, Inf, 1,
-    "Std_Median", "Median (std.)", NA,  "twotail", -Inf, Inf, 0,
-    "Std_Mean", "Mean (std.)", NA,  "twotail", -Inf, Inf, 0,
-    "Std_MAP", "MAP (std.)", NA,  "twotail", -Inf, Inf, 0
+    "Std_Coefficient", "Coefficient (std.)", NA, "twotail", -Inf, Inf, 0,
+    "Std_Odds_ratio", "Odds Ratio (std.)", NA, "twotail", 0, Inf, 1,
+    "Std_Risk_ratio", "Risk Ratio (std.)", NA, "twotail", 0, Inf, 1,
+    "Std_IRR", "IRR (std.)", "twotail", NA, 0, Inf, 1,
+    "Std_Median", "Median (std.)", NA, "twotail", -Inf, Inf, 0,
+    "Std_Mean", "Mean (std.)", NA, "twotail", -Inf, Inf, 0,
+    "Std_MAP", "MAP (std.)", NA, "twotail", -Inf, Inf, 0
   ),
   ncol = 7, byrow = TRUE,
   dimnames = list(NULL, c("name", "label", "symbol", "direction", "lb", "ub", "null"))

@@ -53,10 +53,14 @@
 #'
 #' ## 2-by-2 tables
 #' ## -------------
-#' RCT <- matrix(c(71, 50,
-#'                 30, 100), nrow = 2)
-#' dimnames(RCT) <- list(Diagnosis = c("Sick", "Recovered"),
-#'                       Group = c("Treatment", "Control"))
+#' RCT <- matrix(c(
+#'   71, 50,
+#'   30, 100
+#' ), nrow = 2)
+#' dimnames(RCT) <- list(
+#'   Diagnosis = c("Sick", "Recovered"),
+#'   Group = c("Treatment", "Control")
+#' )
 #' RCT # note groups are COLUMNS
 #'
 #' phi(RCT)
@@ -66,12 +70,16 @@
 #'
 #' ## Larger tables
 #' ## -------------
-#' M <- matrix(c(150, 100, 165,
-#'               130, 50, 65,
-#'               35, 10, 2,
-#'               55, 40, 25), nrow = 4)
-#' dimnames(M) <- list(Music = c("Pop", "Rock", "Jazz", "Classic"),
-#'                     Study = c("Psych", "Econ", "Law"))
+#' M <- matrix(c(
+#'   150, 100, 165,
+#'   130, 50, 65,
+#'   35, 10, 2,
+#'   55, 40, 25
+#' ), nrow = 4)
+#' dimnames(M) <- list(
+#'   Music = c("Pop", "Rock", "Jazz", "Classic"),
+#'   Study = c("Psych", "Econ", "Law")
+#' )
 #' M
 #'
 #' cramers_v(M)
@@ -98,7 +106,6 @@
 #' cohens_w(Smoking_ASD, p = c(0.015, 0.010, 0.975))
 #'
 #' pearsons_c(Smoking_ASD, p = c(0.015, 0.010, 0.975))
-#'
 #'
 #' @references
 #' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
@@ -168,15 +175,17 @@ tschuprows_t <- function(x, y = NULL,
 #' @rdname phi
 #' @importFrom stats chisq.test
 #' @export
-cohens_w <- function(x, y = NULL, p = rep(1/length(x), length(x)),
+cohens_w <- function(x, y = NULL, p = rep(1 / length(x), length(x)),
                      ci = 0.95, alternative = "greater",
                      ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "phi", ci = ci, ...))
-  } else if (!.is_htest_of_type(x, "(Pearson's Chi-squared|Chi-squared test for given probabilities)",
-                                "Chi-squared-test")) {
+  } else if (!.is_htest_of_type(
+    x, "(Pearson's Chi-squared|Chi-squared test for given probabilities)",
+    "Chi-squared-test"
+  )) {
     x <- suppressWarnings(stats::chisq.test(x, y, p = p, ...))
     x$data.name <- NULL
   }
@@ -188,7 +197,7 @@ cohens_w <- function(x, y = NULL, p = rep(1/length(x), length(x)),
 #' @rdname phi
 #' @importFrom stats chisq.test
 #' @export
-fei <- function(x, p = rep(1/length(x), length(x)),
+fei <- function(x, p = rep(1 / length(x), length(x)),
                 ci = 0.95, alternative = "greater",
                 ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
@@ -206,19 +215,20 @@ fei <- function(x, p = rep(1/length(x), length(x)),
 #' @rdname phi
 #' @importFrom stats chisq.test
 #' @export
-pearsons_c <- function(x, y = NULL, p = rep(1/length(x), length(x)),
-                     ci = 0.95, alternative = "greater",
-                     ...) {
+pearsons_c <- function(x, y = NULL, p = rep(1 / length(x), length(x)),
+                       ci = 0.95, alternative = "greater",
+                       ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "pearsons_c", ci = ci, ...))
-  } else if (!.is_htest_of_type(x, "(Pearson's Chi-squared|Chi-squared test for given probabilities)",
-                                "Chi-squared-test")) {
+  } else if (!.is_htest_of_type(
+    x, "(Pearson's Chi-squared|Chi-squared test for given probabilities)",
+    "Chi-squared-test"
+  )) {
     x <- suppressWarnings(stats::chisq.test(x, y, p = p, ...))
     x$data.name <- NULL
   }
 
   effectsize(x, type = "pearsons_c", ci = ci, alternative = alternative)
 }
-

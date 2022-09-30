@@ -189,12 +189,12 @@ F_to_f(16.501, 1, 9)
 
 #' @examplesIf require(emmeans)
 if (require(emmeans)) {
-## Use with emmeans based contrasts
-## --------------------------------
-warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
+  ## Use with emmeans based contrasts
+  ## --------------------------------
+  warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
 
-jt <- emmeans::joint_tests(warp.lm, by = "wool")
-F_to_eta2(jt$F.ratio, jt$df1, jt$df2)
+  jt <- emmeans::joint_tests(warp.lm, by = "wool")
+  F_to_eta2(jt$F.ratio, jt$df1, jt$df2)
 }
 \dontshow{\}) # examplesIf}
 }

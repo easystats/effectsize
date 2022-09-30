@@ -96,5 +96,3 @@ test_that("d_to_cles | from Cohens d | one sided | negative d", {
   expect_output(print(OVL1), "lower")
   expect_output(print(OVL2), "upper")
 })
-
-

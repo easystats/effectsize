@@ -62,10 +62,14 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 }
 
 \examples{
-Performance <- matrix(c(794, 150,
-                        86, 570), nrow = 2)
-dimnames(Performance) <- list("1st Survey" = c("Approve", "Disapprove"),
-                              "2nd Survey" = c("Approve", "Disapprove"))
+Performance <- matrix(c(
+  794, 150,
+  86, 570
+), nrow = 2)
+dimnames(Performance) <- list(
+  "1st Survey" = c("Approve", "Disapprove"),
+  "2nd Survey" = c("Approve", "Disapprove")
+)
 Performance
 
 cohens_g(Performance)
