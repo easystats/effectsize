@@ -8,8 +8,11 @@
 - `normalized_chi()` has been renamed `fei()`.
 - `cles`, `d_to_cles` and `rb_to_cles` are deprecated in favor of their respective effect size functions.
 
-## New features
+## Changes
 
+- `phi()` and `cramers_v()` (and `chisq_to_phi/cramers_v()`) now apply the small sample bias correction by default. To restore previous behavior, set `adjust = FALSE`.
+
+## New features
 
 - Set `options(es.use_symbols = TRUE)` to print proper symbols instead of transliterated effect size names. (On Windows, requires `R >= 4.2.0`)
 - `tschuprows_t()` and `chisq_to_tschuprows_t()` for computing Tschuprow's *T* - a relative of Cramer's *V*.

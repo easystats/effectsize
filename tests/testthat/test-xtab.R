@@ -5,7 +5,7 @@ test_that("contingency table", {
     c(484, 239, 477),
     c(484, 239, 477)
   ))
-  res <- cramers_v(contingency_table)
+  res <- cramers_v(contingency_table, adjust = FALSE)
 
   expect_equal(res$Cramers_v, 0.072, tolerance = 0.01)
   expect_equal(res$CI_low, 0.051, tolerance = 0.01)
@@ -22,22 +22,22 @@ test_that("contingency table", {
     c(480, 240, 480)
   )
 
-  cv1 <- cramers_v(xtab)
-  cv2 <- cramers_v(xtab / 2)
+  cv1 <- cramers_v(xtab, adjust = FALSE)
+  cv2 <- cramers_v(xtab / 2, adjust = FALSE)
 
   expect_equal(cv1$Cramers_v, cv2$Cramers_v)
 
   # Upper bound of phi is the ratio between phi / V and sqrt(min(K,L)-1)
   expect_equal(cohens_w(xtab, alternative = "greater")$CI_high, sqrt(2))
-  expect_equal(cohens_w(xtab)[[1]] / cramers_v(xtab)[[1]], sqrt(2))
+  expect_equal(cohens_w(xtab)[[1]] / cramers_v(xtab, adjust = FALSE)[[1]], sqrt(2))
 
   # Tschuprows_t with non-square tables
   xtab <- rbind(
     c(9, 0, 1),
     c(0, 1, 0)
   )
-  expect_equal(cramers_v(xtab)[[1]], 1)
-  expect_true(tschuprows_t(xtab)[[1]] < cramers_v(xtab)[[1]])
+  expect_equal(cramers_v(xtab, adjust = FALSE)[[1]], 1)
+  expect_true(tschuprows_t(xtab)[[1]] < cramers_v(xtab, adjust = FALSE)[[1]])
 
 
   ## 2*2 tables return phi and cramers_v
@@ -47,8 +47,8 @@ test_that("contingency table", {
   )
 
   expect_equal(
-    cramers_v(xtab)[[1]],
-    phi(xtab)[[1]]
+    cramers_v(xtab, adjust = FALSE)[[1]],
+    phi(xtab, adjust = FALSE)[[1]]
   )
 
   res <- pearsons_c(xtab)
@@ -60,7 +60,7 @@ test_that("contingency table", {
     c(100, 0),
     c(0, 200)
   )
-  expect_equal(V <- cramers_v(xtab)[[1]], 1)
+  expect_equal(V <- cramers_v(xtab, adjust = FALSE)[[1]], 1)
   expect_true(pearsons_c(xtab)[[1]] < V) # C is not perfect
 
 
@@ -69,7 +69,7 @@ test_that("contingency table", {
     c(50, 50),
     c(100, 100)
   )
-  expect_equal(cramers_v(xtab)$Cramers_v, 0)
+  expect_equal(cramers_v(xtab, adjust = FALSE)$Cramers_v, 0)
 
 
   ## Empty rows/columns
@@ -77,7 +77,7 @@ test_that("contingency table", {
     c(50, 50, 0),
     c(100, 100, 0)
   )
-  expect_error(cramers_v(xtab), "empty")
+  expect_error(cramers_v(xtab, adjust = FALSE), "empty")
 
   ## 0
   xtab <- table(mtcars$am, mtcars$vs)
