@@ -233,8 +233,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
               cohens_w = chisq_to_cohens_w,
               c = ,
               pearsons_c = chisq_to_pearsons_c,
-              fei = chisq_to_fei
-  )
+              fei = chisq_to_fei,
+              stop("The selected effect size is not supported for goodness-of-fit tests.", call. = FALSE))
 
   out <- f(
     chisq = .chisq(Obs, Exp),
