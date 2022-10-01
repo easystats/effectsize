@@ -71,7 +71,7 @@ knowing if the food is vegan or not will not always let you know what food
 product it is.
 
 ```{r}
-cramers_v(food)
+cramers_v(food, adjust = FALSE)
 
 tschuprows_t(food)
 ```
