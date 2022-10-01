@@ -214,10 +214,10 @@ possible for non-square tables. For example:</p>
 or not, but knowing if the food is vegan or not will not always let you
 know what food product it is.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">cramers_v</a></span><span class="op">(</span><span class="va">food</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; Cramer's V (adj.) |       95% CI
-&gt; --------------------------------
-&gt; 0.99              | [0.80, 1.00]
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">cramers_v</a></span><span class="op">(</span><span class="va">food</span>, adjust <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; Cramer's V |       95% CI
+&gt; -------------------------
+&gt; 1.00       | [0.81, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
