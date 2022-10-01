@@ -14,7 +14,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   }
 
   if (inherits(model@numerator[[1]], "BFcontingencyTable")) {
-    pars <- .effectsize_contingencyTableBF(model, type = type, verbose = verbose)
+    pars <- .effectsize_contingencyTableBF(model, type = type, verbose = verbose, ...)
   } else if (inherits(model@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
     pars <- .effectsize_ttestBF(model, type = type, verbose = verbose)
   } else if (inherits(model@numerator[[1]], "BFcorrelation")) {
@@ -45,7 +45,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
 }
 
 #' @keywords internal
-.effectsize_contingencyTableBF <- function(model, type = NULL, verbose = TRUE) {
+.effectsize_contingencyTableBF <- function(model, type = NULL, verbose = TRUE, ...) {
   if (is.null(type)) type <- "cramers_v"
 
   f <- switch(tolower(type),
@@ -69,11 +69,12 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   posts <- insight::get_parameters(model)
 
   ES <- apply(posts, 1, function(a) {
-    f(matrix(a, nrow = nrow(data)), ci = NULL)[[1]]
+    M <- matrix(a, nrow = nrow(data))
+    f(M, ci = NULL, ...)[[1]]
   })
 
   res <- data.frame(ES)
-  colnames(res) <- colnames(f(data, ci = NULL))
+  colnames(res) <- colnames(f(data, ci = NULL, ...))
 
   list(
     res = res,
@@ -105,7 +106,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   if (type == "d") {
     xtra_class <- "effectsize_difference"
   } else if (tolower(type) %in% c("p_superiority", "u1", "u2", "u3", "overlap")) {
-    if (paired) stop("CLES only applicable to two independent samples.", call. = FALSE)
+    if (paired && type != "p_superiority") stop("CLES only applicable to two independent samples.", call. = FALSE)
 
     converter <- match.fun(paste0("d_to_", tolower(type)))
     if (grepl("^(u|U)", type)) type <- paste0("Cohens_", toupper(type))
@@ -122,6 +123,9 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   )
 }
 
+
+# Others ------------------------------------------------------------------
+# Wrappers
 
 #' @keywords internal
 .effectsize_correlationBF <- function(model, type = NULL, verbose = TRUE) {

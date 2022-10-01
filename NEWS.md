@@ -15,6 +15,7 @@
 ## New features
 
 - Set `options(es.use_symbols = TRUE)` to print proper symbols instead of transliterated effect size names. (On Windows, requires `R >= 4.2.0`)
+- `effectsize()` supports `fisher.test()`.
 - `tschuprows_t()` and `chisq_to_tschuprows_t()` for computing Tschuprow's *T* - a relative of Cramer's *V*.
 - `mahalanobis_d()` for multivariate standardized differences.
 - Rank based effect sizes now accept ordered (`ordered()`) outcomes.
