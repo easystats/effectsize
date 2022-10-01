@@ -122,9 +122,13 @@ chisq_to_phi <- function(chisq, n, nrow = 2, ncol = 2,
 
   if (adjust) {
     res <- .adjust_phi(res, n, nrow, ncol)
+  }
 
-    if ("CI" %in% colnames(res) && attr(res, "alternative") == "greater") {
+  if ("CI" %in% colnames(res)) {
+    if (attr(res, "alternative") == "greater") {
       res$CI_high <- 1
+    } else {
+      res$CI_high <- pmin(res$CI_high, 1)
     }
   }
 
@@ -143,11 +147,17 @@ chisq_to_cohens_w <- function(chisq, n, nrow, ncol,
                                ...)
   colnames(res)[1] <- "Cohens_w"
 
-  if ("CI" %in% colnames(res) && attr(res, "alternative") == "greater") {
+  if ("CI" %in% colnames(res)) {
     if (ncol > 2 && nrow > 2) {
-      res$CI_high <- sqrt((pmin(ncol, nrow) - 1))
+      max_possible <- sqrt((pmin(ncol, nrow) - 1))
     } else if (ncol == 1 || nrow == 1) {
-      res$CI_high <- Inf # really is chisqMax, but can't compute it without p
+      max_possible <- Inf # really is chisqMax, but can't compute it without p
+    }
+
+    if (attr(res, "alternative") == "greater") {
+      res$CI_high <- max_possible
+    } else {
+      res$CI_high <- pmin(res$CI_high, max_possible)
     }
   }
 
@@ -185,8 +195,12 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol,
     lapply(res[grepl("^(phi|CI_)", colnames(res))], "/", y = div)
   colnames(res)[1] <- gsub("phi", "Cramers_v", colnames(res)[1])
 
-  if ("CI" %in% colnames(res) && attr(res, "alternative") == "greater") {
-    res$CI_high <- 1
+  if ("CI" %in% colnames(res)) {
+    if (attr(res, "alternative") == "greater") {
+      res$CI_high <- 1
+    } else {
+      res$CI_high <- pmin(res$CI_high, 1)
+    }
   }
   return(res)
 }
@@ -210,8 +224,12 @@ chisq_to_tschuprows_t <- function(chisq, n, nrow, ncol,
     lapply(res[grepl("^(phi|CI_)", colnames(res))], "/", y = div)
   colnames(res)[1] <- "Tschuprows_t"
 
-  if ("CI" %in% colnames(res) && attr(res, "alternative") == "greater") {
-    res$CI_high <- 1
+  if ("CI" %in% colnames(res)) {
+    if (attr(res, "alternative") == "greater") {
+      res$CI_high <- 1
+    } else {
+      res$CI_high <- pmin(res$CI_high, 1)
+    }
   }
   return(res)
 }
@@ -242,6 +260,14 @@ chisq_to_fei <- function(chisq, n, nrow, ncol, p,
                                ci = ci, alternative = alternative,
                                ...)
   colnames(res)[1] <- "Fei"
+
+  if ("CI" %in% colnames(res)) {
+    if (attr(res, "alternative") == "greater") {
+      res$CI_high <- 1
+    } else {
+      res$CI_high <- pmin(res$CI_high, 1)
+    }
+  }
 
   is_uniform <- insight::n_unique(p) > 1L
   if (!is_uniform || max(ncol, nrow) > 2) {
