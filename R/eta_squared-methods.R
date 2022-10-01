@@ -16,12 +16,12 @@
 
   params <- split(params, factor(params$Response, levels = unique(params$Response))) # make sure row order is not changed
   params <- lapply(params, .es_aov_simple,
-                   type = type,
-                   partial = partial,
-                   generalized = generalized,
-                   ci = ci, alternative = alternative,
-                   verbose = verbose,
-                   ...
+    type = type,
+    partial = partial,
+    generalized = generalized,
+    ci = ci, alternative = alternative,
+    verbose = verbose,
+    ...
   )
 
   params <- lapply(names(params), function(nm) {
@@ -59,16 +59,16 @@
   if (by_response && "Response" %in% colnames(model)) {
     out <- split(model, model[["Response"]])
     out <- lapply(out, .anova_es.parameters_model,
-                  type = type, partial = partial, generalized = generalized,
-                  ci = ci, alternative = alternative,
-                  verbose = verbose,
-                  by_response = FALSE,
-                  ...
+      type = type, partial = partial, generalized = generalized,
+      ci = ci, alternative = alternative,
+      verbose = verbose,
+      by_response = FALSE,
+      ...
     )
     saved_attr <- attributes(out[[1]])
     out <- mapply(out, names(out),
-                  FUN = function(x, nm) cbind(Response = nm, x),
-                  SIMPLIFY = FALSE
+      FUN = function(x, nm) cbind(Response = nm, x),
+      SIMPLIFY = FALSE
     )
     out <- do.call(rbind, out)
     out$Parameter <- as.character(out$Parameter)
@@ -156,11 +156,11 @@
       aov_tab$df <- aov_tab$df_num
       aov_tab$df_num <- NULL
       out <- .anova_es(aov_tab,
-                       type = type,
-                       partial = partial, generalized = generalized,
-                       ci = ci, alternative = alternative,
-                       include_intercept = include_intercept,
-                       verbose = verbose
+        type = type,
+        partial = partial, generalized = generalized,
+        ci = ci, alternative = alternative,
+        include_intercept = include_intercept,
+        verbose = verbose
       )
       attr(out, "anova_type") <- as.numeric(as.roman(model$type))
       attr(out, "approximate") <- FALSE
@@ -427,8 +427,8 @@
       }
     )
     if (is.null(model) ||
-        # prevent self reference
-        inherits(model, "parameters_model")) {
+      # prevent self reference
+      inherits(model, "parameters_model")) {
       model <- tryCatch(
         {
           get(obj_name, envir = globalenv())
@@ -441,4 +441,3 @@
   }
   model
 }
-

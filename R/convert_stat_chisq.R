@@ -111,14 +111,14 @@ chisq_to_phi <- function(chisq, n, nrow = 2, ncol = 2,
                          adjust = TRUE,
                          ci = 0.95, alternative = "greater",
                          ...) {
-
   if ((!missing(nrow) && nrow != 2) || (!missing(ncol) && ncol != 2)) {
     stop("Phi is not appropriate for non-2x2 tables.", call. = FALSE)
   }
 
   res <- .chisq_to_generic_phi(chisq, n, nrow, ncol,
-                               ci = ci, alternative = alternative,
-                               ...)
+    ci = ci, alternative = alternative,
+    ...
+  )
 
   if (adjust) {
     res <- .adjust_phi(res, n, nrow, ncol)
@@ -141,10 +141,10 @@ chisq_to_phi <- function(chisq, n, nrow = 2, ncol = 2,
 chisq_to_cohens_w <- function(chisq, n, nrow, ncol,
                               ci = 0.95, alternative = "greater",
                               ...) {
-
   res <- .chisq_to_generic_phi(chisq, n, nrow, ncol,
-                               ci = ci, alternative = alternative,
-                               ...)
+    ci = ci, alternative = alternative,
+    ...
+  )
   colnames(res)[1] <- "Cohens_w"
 
   if ("CI" %in% colnames(res)) {
@@ -175,8 +175,9 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol,
   }
 
   res <- .chisq_to_generic_phi(chisq, n, nrow, ncol,
-                               ci = ci, alternative = alternative,
-                               ...)
+    ci = ci, alternative = alternative,
+    ...
+  )
   # Adjust
   if (adjust) {
     k <- nrow - ((nrow - 1)^2) / (n - 1)
@@ -215,8 +216,9 @@ chisq_to_tschuprows_t <- function(chisq, n, nrow, ncol,
   }
 
   res <- .chisq_to_generic_phi(chisq, n, nrow, ncol,
-                               ci = ci, alternative = alternative,
-                               ...)
+    ci = ci, alternative = alternative,
+    ...
+  )
 
   # Convert
   div <- sqrt(sqrt((nrow - 1) * (ncol - 1)))
@@ -257,8 +259,9 @@ chisq_to_fei <- function(chisq, n, nrow, ncol, p,
   N <- n * (1 - q) / q
 
   res <- .chisq_to_generic_phi(chisq, N, nrow, ncol,
-                               ci = ci, alternative = alternative,
-                               ...)
+    ci = ci, alternative = alternative,
+    ...
+  )
   colnames(res)[1] <- "Fei"
 
   if ("CI" %in% colnames(res)) {
@@ -283,8 +286,9 @@ chisq_to_pearsons_c <- function(chisq, n, nrow, ncol,
                                 ci = 0.95, alternative = "greater",
                                 ...) {
   res <- .chisq_to_generic_phi(chisq, n, nrow, ncol,
-                               ci = ci, alternative = alternative,
-                               ...)
+    ci = ci, alternative = alternative,
+    ...
+  )
 
   to_convert <- grepl("^(phi|CI_)", colnames(res))
   res[to_convert] <- lapply(res[to_convert], function(phi) sqrt(1 / (1 / phi^2 + 1)))

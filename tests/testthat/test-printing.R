@@ -148,7 +148,7 @@ test_that("rules", {
   expect_output(print(r1), regexp = "XX")
   expect_output(print(r1), regexp = "1 <   b   <= 2")
   expect_output(print(r1, digits = "scientific1"),
-                regexp = "2.0e+00 <   c   <= 3.0e+00", fixed = TRUE
+    regexp = "2.0e+00 <   c   <= 3.0e+00", fixed = TRUE
   )
 
 
@@ -169,8 +169,8 @@ test_that("rules", {
 
 test_that("printing symbols works as expected", {
   skip_if(getRversion() < 4.2 &&
-            (Sys.info()["sysname"] == "windows" ||
-               grepl("^mingw", R.version$os)))
+    (Sys.info()["sysname"] == "windows" ||
+      grepl("^mingw", R.version$os)))
 
   RCT <- matrix(c(71, 50, 30, 100), nrow = 2L)
   P <- phi(RCT)

@@ -137,7 +137,8 @@ cohens_d <- function(x, y = NULL, data = NULL,
   if (!is.null(var.equal)) pooled_sd <- var.equal
 
   .effect_size_difference(
-    x, y = y, data = data,
+    x,
+    y = y, data = data,
     type = "d",
     pooled_sd = pooled_sd, mu = mu, paired = paired,
     ci = ci, alternative = alternative,
@@ -156,7 +157,8 @@ hedges_g <- function(x, y = NULL, data = NULL,
   if (!is.null(var.equal)) pooled_sd <- var.equal
 
   .effect_size_difference(
-    x, y = y, data = data,
+    x,
+    y = y, data = data,
     type = "g",
     pooled_sd = pooled_sd, mu = mu, paired = paired,
     ci = ci, alternative = alternative,
@@ -172,7 +174,8 @@ glass_delta <- function(x, y = NULL, data = NULL,
                         ci = 0.95, alternative = "two.sided",
                         verbose = TRUE, ...) {
   .effect_size_difference(
-    x, y = y, data = data,
+    x,
+    y = y, data = data,
     type = "delta",
     mu = mu,
     ci = ci, alternative = alternative,

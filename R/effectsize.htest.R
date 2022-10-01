@@ -7,10 +7,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     .effectsize_chisq.test_dep(model, type = type, verbose = verbose, ...)
   } else if (grepl("Chi-squared test for given probabilities", model$method)) {
     .effectsize_chisq.test_gof(model, type = type, verbose = verbose, ...)
-
   } else if (grepl("Fisher's Exact", model$method)) {
     .effectsize_fisher.test(model, type = type, verbose = verbose, ...)
-
   } else if (grepl("One-way", model$method)) {
     .effectsize_oneway.test(model, type = type, verbose = verbose, ...)
   } else if (grepl("McNemar", model$method)) {
@@ -78,19 +76,22 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
     if (type %in% c("d", "g")) {
       f <- switch(tolower(type),
-                  d = cohens_d,
-                  g = hedges_g)
+        d = cohens_d,
+        g = hedges_g
+      )
     } else {
       if (!args$pooled_sd || args$paired) {
         stop("Common language effect size only applicable to 2-sample Cohen's d with pooled SD.", call. = FALSE)
       }
       args$pooled_sd <- args$paired <- NULL
 
-      type <- c("p_superiority" = "p_superiority",
-                "u1" = "cohens_u1",
-                "u2" = "cohens_u2",
-                "u3" = "cohens_u3",
-                "overlap" = "p_overlap")[type]
+      type <- c(
+        "p_superiority" = "p_superiority",
+        "u1" = "cohens_u1",
+        "u2" = "cohens_u2",
+        "u3" = "cohens_u3",
+        "overlap" = "p_overlap"
+      )[type]
       f <- match.fun(type)
     }
   }
@@ -175,9 +176,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
     class(out) <- c("effectsize_table", "see_effectsize_table", "data.frame")
     .someattributes(out) <-
-      .nlist(ci = out$CI, ci_method,
-             approximate = FALSE,
-             alternative = model[["alternative"]])
+      .nlist(
+        ci = out$CI, ci_method,
+        approximate = FALSE,
+        alternative = model[["alternative"]]
+      )
     return(out)
   }
 
@@ -185,21 +188,21 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   .fail_if_approx(is.null(data), type)
 
   f <- switch(tolower(type),
-              v = ,
-              cramers_v = cramers_v,
-              t = ,
-              tschuprows_t = tschuprows_t,
-              w = ,
-              cohens_w = cohens_w,
-              phi = phi,
-              c = ,
-              pearsons_c = pearsons_c,
-              or = ,
-              oddsratio = oddsratio,
-              rr = ,
-              riskratio = riskratio,
-              h = ,
-              cohens_h = cohens_h
+    v = ,
+    cramers_v = cramers_v,
+    t = ,
+    tschuprows_t = tschuprows_t,
+    w = ,
+    cohens_w = cohens_w,
+    phi = phi,
+    c = ,
+    pearsons_c = pearsons_c,
+    or = ,
+    oddsratio = oddsratio,
+    rr = ,
+    riskratio = riskratio,
+    h = ,
+    cohens_h = cohens_h
   )
 
   if (is.table(data)) {
@@ -210,7 +213,6 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   attr(out, "approximate") <- FALSE
   out
-
 }
 
 #' @keywords internal
@@ -229,12 +231,13 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   if (is.null(type)) type <- "fei"
 
   f <- switch(tolower(type),
-              w = ,
-              cohens_w = chisq_to_cohens_w,
-              c = ,
-              pearsons_c = chisq_to_pearsons_c,
-              fei = chisq_to_fei,
-              stop("The selected effect size is not supported for goodness-of-fit tests.", call. = FALSE))
+    w = ,
+    cohens_w = chisq_to_cohens_w,
+    c = ,
+    pearsons_c = chisq_to_pearsons_c,
+    fei = chisq_to_fei,
+    stop("The selected effect size is not supported for goodness-of-fit tests.", call. = FALSE)
+  )
 
   out <- f(
     chisq = .chisq(Obs, Exp),
@@ -368,7 +371,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   .fail_if_approx(approx, "rank_epsilon_squared")
 
-  f <- switch (type,
+  f <- switch(type,
     epsilon = rank_epsilon_squared,
     eta = rank_eta_squared
   )

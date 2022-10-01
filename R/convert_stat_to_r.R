@@ -189,6 +189,7 @@ F_to_r <- function(f, df, df_error,
     stop("Cannot convert F with more than 1 df to r.", call. = FALSE)
   }
   t_to_r(sqrt(f), df_error,
-         ci = ci, alternative = alternative,
-         ...)
+    ci = ci, alternative = alternative,
+    ...
+  )
 }

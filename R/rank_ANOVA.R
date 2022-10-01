@@ -97,8 +97,9 @@ rank_epsilon_squared <- function(x, groups, data = NULL,
 
   ## pep data
   data <- .get_data_multi_group(x, groups, data,
-                                allow_ordered = TRUE,
-                                verbose = verbose, ...)
+    allow_ordered = TRUE,
+    verbose = verbose, ...
+  )
 
   ## compute
   out <- data.frame(rank_epsilon_squared = .repsilon(data))
@@ -106,8 +107,10 @@ rank_epsilon_squared <- function(x, groups, data = NULL,
   ## CI
   if (is.numeric(ci)) {
     if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
-      out <- cbind(out, .boot_two_group_es(data, .repsilon, iterations,
-                                           ci, alternative, c(0, 1)))
+      out <- cbind(out, .boot_two_group_es(
+        data, .repsilon, iterations,
+        ci, alternative, c(0, 1)
+      ))
       ci_method <- list(method = "percentile bootstrap", iterations = iterations)
     } else {
       ci <- NULL
@@ -142,16 +145,19 @@ rank_eta_squared <- function(x, groups, data = NULL,
 
   ## pep data
   data <- .get_data_multi_group(x, groups, data,
-                                allow_ordered = TRUE,
-                                verbose = verbose, ...)
+    allow_ordered = TRUE,
+    verbose = verbose, ...
+  )
 
   out <- data.frame(rank_eta_squared = .reta(data))
 
   ## CI
   if (is.numeric(ci)) {
     if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
-      out <- cbind(out, .boot_two_group_es(data, .reta, iterations,
-                                           ci, alternative, c(0, 1)))
+      out <- cbind(out, .boot_two_group_es(
+        data, .reta, iterations,
+        ci, alternative, c(0, 1)
+      ))
       ci_method <- list(method = "percentile bootstrap", iterations = iterations)
     } else {
       ci <- NULL
@@ -194,8 +200,9 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
   ## prep data
   if (is.matrix(x) && !blocks_on_rows) x <- t(x)
   data <- .get_data_nested_groups(x, groups, blocks, data,
-                                  allow_ordered = TRUE,
-                                  verbose = verbose, ...)
+    allow_ordered = TRUE,
+    verbose = verbose, ...
+  )
   data <- stats::na.omit(data) # wide data - drop non complete cases
 
   ## compute
@@ -249,7 +256,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
   n <- nrow(data)
   E <- model$statistic
 
-  (E - k + 1)/(n - k)
+  (E - k + 1) / (n - k)
 }
 
 
@@ -270,7 +277,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
           "%d block(s) contain ties%s.",
           sum(!no_ties),
           ifelse(any(apply(as.data.frame(rankings)[!no_ties, ], 1, insight::n_unique) == 1),
-                 ", some containing only 1 unique ranking", ""
+            ", some containing only 1 unique ranking", ""
           )
         ),
         call. = FALSE
@@ -279,7 +286,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
 
     Tj <- sum(apply(rankings, 1, function(.r) {
       TTi <- table(.r)
-      sum(TTi ^ 3 - TTi)
+      sum(TTi^3 - TTi)
     }))
 
     W <- (12 * sum(R^2) - 3 * (m^2) * n * ((n + 1)^2)) /
@@ -304,8 +311,9 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
   boot_fun <- function(.data, .i) {
     split(.data$x, .data$groups) <-
       lapply(split(.data$x, .data$groups),
-             sample,
-             replace = TRUE)
+        sample,
+        replace = TRUE
+      )
     foo_es(.data)
   }
 

@@ -41,10 +41,14 @@
 #' - Szumilas, M. (2010). Explaining odds ratios. Journal of the Canadian academy of child and adolescent psychiatry, 19(3), 227.
 #'
 #' @examples
-#' RCT <- matrix(c(71, 50,
-#'                 30, 100), nrow = 2)
-#' dimnames(RCT) <- list(Diagnosis = c("Sick", "Recovered"),
-#'                       Group = c("Treatment", "Control"))
+#' RCT <- matrix(c(
+#'   71, 50,
+#'   30, 100
+#' ), nrow = 2)
+#' dimnames(RCT) <- list(
+#'   Diagnosis = c("Sick", "Recovered"),
+#'   Group = c("Treatment", "Control")
+#' )
 #' RCT # note groups are COLUMNS
 #'
 #' oddsratio(RCT)
@@ -53,8 +57,6 @@
 #' riskratio(RCT)
 #'
 #' cohens_h(RCT)
-#'
-#'
 #'
 #' @export
 #' @importFrom stats chisq.test qnorm

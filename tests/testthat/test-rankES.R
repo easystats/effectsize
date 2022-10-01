@@ -37,14 +37,15 @@ test_that("rank_biserial | ordered", {
   x1 <- x[1:5]
   x2 <- x[6:15]
 
-  expect_equal(rank_biserial(x1, x2),
-               rank_biserial(as.numeric(x1), as.numeric(x2)))
+  expect_equal(
+    rank_biserial(x1, x2),
+    rank_biserial(as.numeric(x1), as.numeric(x2))
+  )
 
 
   x1 <- ordered(as.numeric(x1))
   x2 <- ordered(as.numeric(x2))
   expect_error(rank_biserial(x1, x2), "levels")
-
 })
 
 
@@ -166,8 +167,8 @@ test_that("kendalls_w", {
   expect_equal(W[[1]], 0.4666667, tolerance = 0.001)
   expect_equal(kendalls_w(t(m), blocks_on_rows = FALSE, ci = NULL, verbose = FALSE)[[1]], W[[1]])
 
-  m[1,1] <- NA
+  m[1, 1] <- NA
   warns <- capture_warnings(W1 <- kendalls_w(m, ci = NULL))
   expect_match(warns[1], "dropped")
-  expect_equal(W1, kendalls_w(m[,-1], ci = NULL, verbose = FALSE))
+  expect_equal(W1, kendalls_w(m[, -1], ci = NULL, verbose = FALSE))
 })

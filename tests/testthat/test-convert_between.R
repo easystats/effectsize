@@ -33,8 +33,8 @@ test_that("oddsratio_to_RR", {
   data(mtcars)
 
   m <<- glm(am ~ factor(cyl),
-            data = mtcars,
-            family = binomial()
+    data = mtcars,
+    family = binomial()
   )
 
   w <- capture_warnings(RR <- oddsratio_to_riskratio(m, ci_method = "wald"))
@@ -56,8 +56,8 @@ test_that("oddsratio_to_RR", {
   # -- GLMMs --
   skip_if_not_installed("lme4")
   m <<- lme4::glmer(am ~ factor(cyl) + (1 | gear),
-                    data = mtcars,
-                    family = binomial()
+    data = mtcars,
+    family = binomial()
   )
   w <- capture_warnings(RR <- oddsratio_to_riskratio(m))
   expect_match(w[1], "p0")

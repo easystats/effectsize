@@ -8,10 +8,10 @@ test_that("CLES", {
   expect_equal(cohens_u3(x, y)[[1]], 0.6012, tolerance = 0.001)
   expect_equal(p_overlap(x, y)[[1]], 0.8979, tolerance = 0.001)
 
-  x <- c(-1,0,1)
-  y <- x + 2*qnorm(0.6)
+  x <- c(-1, 0, 1)
+  y <- x + 2 * qnorm(0.6)
   expect_equal(cohens_u2(x, y)[[1]], 0.6, tolerance = 0.00001)
-  expect_equal(cohens_u1(x, y)[[1]], 1/3, tolerance = 0.00001)
+  expect_equal(cohens_u1(x, y)[[1]], 1 / 3, tolerance = 0.00001)
 })
 
 test_that("CLES | direaction", {
@@ -73,17 +73,21 @@ test_that("CLES | par vs non-par", {
   y <<- rnorm(500, mean = 0.2)
 
   expect_equal(p_superiority(x, y), p_superiority(x, y, parametric = FALSE),
-               tolerance = 0.1, ignore_attr = TRUE)
+    tolerance = 0.1, ignore_attr = TRUE
+  )
 
   expect_equal(cohens_u2(x, y), cohens_u2(x, y, parametric = FALSE),
-               tolerance = 0.1, ignore_attr = TRUE)
+    tolerance = 0.1, ignore_attr = TRUE
+  )
 
   skip_on_cran()
   expect_equal(cohens_u3(x, y), cohens_u3(x, y, parametric = FALSE),
-               tolerance = 0.1, ignore_attr = TRUE)
+    tolerance = 0.1, ignore_attr = TRUE
+  )
 
   expect_equal(p_overlap(x, y), p_overlap(x, y, parametric = FALSE),
-               tolerance = 0.1, ignore_attr = TRUE)
+    tolerance = 0.1, ignore_attr = TRUE
+  )
 })
 
 test_that("CLES | WMW", {

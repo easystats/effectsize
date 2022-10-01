@@ -114,9 +114,11 @@ p_superiority <- function(x, y = NULL, data = NULL,
     return(effectsize(x, type = "p_superiority", ci = ci, verbose = verbose, ...))
   }
 
-  data <- .get_data_2_samples(x, y, data, paired = paired,
-                              allow_ordered = !parametric,
-                              verbose = verbose, ...)
+  data <- .get_data_2_samples(x, y, data,
+    paired = paired,
+    allow_ordered = !parametric,
+    verbose = verbose, ...
+  )
   x <- data[["x"]]
   y <- data[["y"]]
 
@@ -161,8 +163,9 @@ cohens_u1 <- function(x, y = NULL, data = NULL,
 
 
   data <- .get_data_2_samples(x, y, data,
-                              allow_ordered = !parametric,
-                              verbose = verbose, ...)
+    allow_ordered = !parametric,
+    verbose = verbose, ...
+  )
   x <- data[["x"]]
   y <- data[["y"]]
   if (is.null(y)) stop("cohens_u3 only applicable to two sample case.", call. = FALSE)
@@ -201,8 +204,9 @@ cohens_u2 <- function(x, y = NULL, data = NULL,
 
 
   data <- .get_data_2_samples(x, y, data,
-                              allow_ordered = !parametric,
-                              verbose = verbose, ...)
+    allow_ordered = !parametric,
+    verbose = verbose, ...
+  )
   x <- data[["x"]]
   y <- data[["y"]]
   if (is.null(y)) stop("cohens_u3 only applicable to two sample case.", call. = FALSE)
@@ -221,7 +225,8 @@ cohens_u2 <- function(x, y = NULL, data = NULL,
     out <- d_to_u2(d)
   } else {
     out <- .cohens_u2_non_parametric(
-      x, y, ci = ci,
+      x, y,
+      ci = ci,
       mu = mu, alternative = alternative,
       iterations = iterations
     )
@@ -244,8 +249,9 @@ cohens_u3 <- function(x, y = NULL, data = NULL,
 
 
   data <- .get_data_2_samples(x, y, data,
-                              allow_ordered = !parametric,
-                              verbose = verbose, ...)
+    allow_ordered = !parametric,
+    verbose = verbose, ...
+  )
   x <- data[["x"]]
   y <- data[["y"]]
   if (is.null(y)) stop("cohens_u3 only applicable to two sample case.", call. = FALSE)
@@ -264,7 +270,8 @@ cohens_u3 <- function(x, y = NULL, data = NULL,
     out <- d_to_u3(d)
   } else {
     out <- .cohens_u3_non_parametric(
-      x, y, ci = ci,
+      x, y,
+      ci = ci,
       mu = mu, alternative = alternative,
       iterations = iterations
     )
@@ -286,8 +293,9 @@ p_overlap <- function(x, y = NULL, data = NULL,
 
 
   data <- .get_data_2_samples(x, y, data,
-                              allow_ordered = !parametric,
-                              verbose = verbose, ...)
+    allow_ordered = !parametric,
+    verbose = verbose, ...
+  )
   x <- data[["x"]]
   y <- data[["y"]]
   if (is.null(y)) stop("Overlap only applicable to two sample case.", call. = FALSE)
@@ -306,7 +314,8 @@ p_overlap <- function(x, y = NULL, data = NULL,
     out <- d_to_overlap(d)
   } else {
     out <- .overlap_non_parametric(
-      x, y, ci = ci,
+      x, y,
+      ci = ci,
       mu = mu, alternative = alternative,
       iterations = iterations
     )
@@ -355,13 +364,15 @@ wmw_odds <- function(x, y = NULL, data = NULL,
 
     .foo <- function(p) {
       min(abs(stats::quantile(x, probs = c(p, 1 - p)) -
-                stats::quantile(y, probs = c(1 - p, p))))
+        stats::quantile(y, probs = c(1 - p, p))))
     }
 
-    stats::optim(par = 0.5, fn = .foo,
-                 method = "L-BFGS-B",
-                 lower = 0.5, upper = 1,
-                 control = list(pgtol = 1e-09))$par
+    stats::optim(
+      par = 0.5, fn = .foo,
+      method = "L-BFGS-B",
+      lower = 0.5, upper = 1,
+      control = list(pgtol = 1e-09)
+    )$par
   }
 
   out <- .cles_non_parametric(..., est = U2_np)
@@ -428,7 +439,6 @@ wmw_odds <- function(x, y = NULL, data = NULL,
            mu = 0,
            alternative = "two.sided",
            iterations = 200) {
-
     d <- data.frame(
       r = c(x, y),
       g = rep(c("x", "y"), c(length(x), length(y)))
@@ -464,7 +474,9 @@ wmw_odds <- function(x, y = NULL, data = NULL,
     class(out) <- c("effectsize_table", class(out))
     # TODO
     # class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
-    .someattributes(out) <- .nlist(mu, ci, ci_method, alternative, approximate = TRUE,
-                                   table_footer = "Non-parametric CLES")
+    .someattributes(out) <- .nlist(mu, ci, ci_method, alternative,
+      approximate = TRUE,
+      table_footer = "Non-parametric CLES"
+    )
     return(out)
   }

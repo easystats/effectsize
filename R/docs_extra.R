@@ -182,7 +182,3 @@ NULL
 #' @rdname effectsize_options
 #' @name effectsize_options
 NULL
-
-
-
-
