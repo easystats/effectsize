@@ -5,9 +5,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     .effectsize_t.test(model, type = type, verbose = verbose, ...)
   } else if (grepl("Pearson's Chi-squared", model$method)) {
     .effectsize_chisq.test_dep(model, type = type, verbose = verbose, ...)
-
   } else if (grepl("Chi-squared test for given probabilities", model$method)) {
     .effectsize_chisq.test_gof(model, type = type, verbose = verbose, ...)
+
+  } else if (grepl("Fisher's Exact", model$method)) {
+    .effectsize_fisher.test(model, type = type, verbose = verbose, ...)
 
   } else if (grepl("One-way", model$method)) {
     .effectsize_oneway.test(model, type = type, verbose = verbose, ...)
@@ -153,6 +155,62 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   attr(out, "approximate") <- FALSE
   out
+}
+
+#' @keywords internal
+.effectsize_fisher.test <- function(model, type = NULL, verbose = TRUE, ...) {
+  if (is.null(type)) type <- "cramers_v"
+
+  # If OR - return OR
+  if (tolower(type) %in% c("or", "oddsratio")) {
+    out <- data.frame(Odds_ratio = unname(model[["estimate"]]))
+    ci_method <- NULL
+
+    if (!is.null(ci <- model[["conf.int"]])) {
+      out$CI <- attr(ci, "conf.level")
+      out$CI_low <- ci[1]
+      out$CI_high <- ci[2]
+      ci_method <- list("normal")
+    }
+
+    class(out) <- c("effectsize_table", "see_effectsize_table", "data.frame")
+    .someattributes(out) <-
+      .nlist(ci = out$CI, ci_method,
+             approximate = FALSE,
+             alternative = model[["alternative"]])
+    return(out)
+  }
+
+  data <- insight::get_data(model)
+  .fail_if_approx(is.null(data), type)
+
+  f <- switch(tolower(type),
+              v = ,
+              cramers_v = cramers_v,
+              t = ,
+              tschuprows_t = tschuprows_t,
+              w = ,
+              cohens_w = cohens_w,
+              phi = phi,
+              c = ,
+              pearsons_c = pearsons_c,
+              or = ,
+              oddsratio = oddsratio,
+              rr = ,
+              riskratio = riskratio,
+              h = ,
+              cohens_h = cohens_h
+  )
+
+  if (is.table(data)) {
+    out <- f(data, ...)
+  } else {
+    out <- f(data[[1]], data[[2]], ...)
+  }
+
+  attr(out, "approximate") <- FALSE
+  out
+
 }
 
 #' @keywords internal
@@ -341,7 +399,6 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   out <- kendalls_w(data[[1]], data[[2]], data[[3]], verbose = verbose, ...)
   out
 }
-
 
 # Utils -------------------------------------------------------------------
 
