@@ -25,7 +25,7 @@ print_md.effectsize_table <- function(x, digits = 2, use_symbols = getOption("es
 
 #' @export
 #' @rdname print.effectsize_table
-print_html.effectsize_table <- function(x, digits = 2, use_symbols = getOption("es.use_symbols", FALSE),  ...) {
+print_html.effectsize_table <- function(x, digits = 2, use_symbols = getOption("es.use_symbols", FALSE), ...) {
   x_fmt <- format(x, digits = digits, output = "html", ...)
   insight::export_table(x_fmt, format = "html", ...)
 }
@@ -130,13 +130,15 @@ print.effectsize_difference <- function(x, digits = 2, append_CLES = NULL, ...) 
       foos <- lapply(paste0("d_to_", append_CLES), match.fun)
       cles <- lapply(foos, function(f) f(x_orig))
       names(cles) <- sapply(cles, function(x) colnames(x)[1])
-      cles <- lapply(cles, function(x) {colnames(x)[1] <- "CLES"; x})
+      cles <- lapply(cles, function(x) {
+        colnames(x)[1] <- "CLES"
+        x
+      })
 
       cles_tab <- do.call(rbind, cles)
       cles_tab$Name <- get_effectsize_label(names(cles))
 
-      cles_tab <- cles_tab[c(ncol(cles_tab), seq_len(ncol(cles_tab)-1))]
-
+      cles_tab <- cles_tab[c(ncol(cles_tab), seq_len(ncol(cles_tab) - 1))]
     } else {
       stop("CLES not applicable for this effect size.", call. = FALSE)
     }

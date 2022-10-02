@@ -146,53 +146,44 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 
 ## 2-by-2 tables
 ## -------------
-RCT <- matrix(c(71, 50,
-                30, 100), nrow = 2)
-dimnames(RCT) <- list(Diagnosis = c("Sick", "Recovered"),
-                      Group = c("Treatment", "Control"))
-RCT # note groups are COLUMNS
+data("RCT_table")
+RCT_table # note groups are COLUMNS
 
-phi(RCT)
-pearsons_c(RCT)
+phi(RCT_table)
+pearsons_c(RCT_table)
 
 
 
 ## Larger tables
 ## -------------
-M <- matrix(c(150, 100, 165,
-              130, 50, 65,
-              35, 10, 2,
-              55, 40, 25), nrow = 4)
-dimnames(M) <- list(Music = c("Pop", "Rock", "Jazz", "Classic"),
-                    Study = c("Psych", "Econ", "Law"))
-M
+data("Music_preferences")
+Music_preferences
 
-cramers_v(M)
+cramers_v(Music_preferences)
 
-cohens_w(M)
+cohens_w(Music_preferences)
 
-pearsons_c(M)
+pearsons_c(Music_preferences)
 
 
 
 ## Goodness of fit
 ## ---------------
-Smoking_ASD <- as.table(c(ASD = 17, ASP = 11, TD = 640))
+data("Smoking_FASD")
+Smoking_FASD
 
-fei(Smoking_ASD)
+fei(Smoking_FASD)
 
-cohens_w(Smoking_ASD)
+cohens_w(Smoking_FASD)
 
-pearsons_c(Smoking_ASD)
+pearsons_c(Smoking_FASD)
 
 # Use custom expected values:
-fei(Smoking_ASD, p = c(0.015, 0.010, 0.975))
+fei(Smoking_FASD, p = c(0.015, 0.010, 0.975))
 
-cohens_w(Smoking_ASD, p = c(0.015, 0.010, 0.975))
+cohens_w(Smoking_FASD, p = c(0.015, 0.010, 0.975))
 
-pearsons_c(Smoking_ASD, p = c(0.015, 0.010, 0.975))
-
-
+pearsons_c(Smoking_FASD, p = c(0.015, 0.010, 0.975))
 }
 \references{
 \itemize{

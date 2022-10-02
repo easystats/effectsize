@@ -91,7 +91,7 @@ d_to_u2 <- function(d) {
 #' @export
 #' @importFrom stats pnorm
 d_to_u2.numeric <- function(d) {
-  stats::pnorm(abs(d)/2)
+  stats::pnorm(abs(d) / 2)
 }
 
 # U1 ----------------------------------------------------------------------
@@ -262,8 +262,8 @@ d_to_overlap.effectsize_difference <- function(d) {
 #' @keywords internal
 .cohens_d_to_cles <- function(d, converter, allow_paired = FALSE) {
   if (!any(colnames(d) %in% c("Cohens_d", "Hedges_g")) ||
-      (isTRUE(attr(d, "paired")) && !allow_paired) ||
-       (!isTRUE(attr(d, "paired")) && !isTRUE(attr(d, "pooled_sd")))) {
+    (isTRUE(attr(d, "paired")) && !allow_paired) ||
+    (!isTRUE(attr(d, "paired")) && !isTRUE(attr(d, "pooled_sd")))) {
     stop("Common language effect size only applicable to 2-sample Cohen's d with pooled SD.", call. = FALSE)
   }
 
@@ -301,4 +301,3 @@ rb_to_p_superiority.effectsize_difference <- function(rb) {
   attr(out, "table_footer") <- "Non-parametric CLES"
   out
 }
-

@@ -104,9 +104,11 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 \examples{
 ## Two samples --------------
 mtcars_am0 <- subset(mtcars, am == 0,
-                     select = c(mpg, hp, cyl))
+  select = c(mpg, hp, cyl)
+)
 mtcars_am1 <- subset(mtcars, am == 1,
-                     select = c(mpg, hp, cyl))
+  select = c(mpg, hp, cyl)
+)
 
 mahalanobis_d(mtcars_am0, mtcars_am1)
 
@@ -116,8 +118,10 @@ mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars)
 mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars, alternative = "greater")
 
 # Different mu:
-mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars,
-              mu = c(mpg = -4, hp = 15, cyl = 0))
+mahalanobis_d(mpg + hp + cyl ~ am,
+  data = mtcars,
+  mu = c(mpg = -4, hp = 15, cyl = 0)
+)
 
 
 # D is a multivariate d, so when only 1 variate is provided:
@@ -127,11 +131,13 @@ cohens_d(hp ~ am, data = mtcars)
 
 
 # One sample ---------------------------
-mahalanobis_d(mtcars[,c("mpg", "hp", "cyl")])
+mahalanobis_d(mtcars[, c("mpg", "hp", "cyl")])
 
 # Or
-mahalanobis_d(mpg + hp + cyl ~ 1, data = mtcars,
-              mu = c(mpg = 15, hp = 5, cyl = 3))
+mahalanobis_d(mpg + hp + cyl ~ 1,
+  data = mtcars,
+  mu = c(mpg = 15, hp = 5, cyl = 3)
+)
 
 }
 \references{

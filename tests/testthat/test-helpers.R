@@ -10,31 +10,31 @@ test_that("validate data from formula", {
   expect_error(cohens_d(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)), regexp = NA)
 
   d1 <- cohens_d(mpg ~ cyl,
-                 data = mtcars,
-                 subset = cyl < 8
+    data = mtcars,
+    subset = cyl < 8
   )
 
   x <- mtcars$cyl < 8
   d2 <- cohens_d(mpg ~ cyl,
-                 data = mtcars,
-                 subset = x
+    data = mtcars,
+    subset = x
   )
 
   x <- mtcars$cyl
   d3 <- cohens_d(mpg ~ cyl,
-                 data = mtcars,
-                 subset = x < 8
+    data = mtcars,
+    subset = x < 8
   )
 
   d4 <- cohens_d(mpg ~ cyl,
-                 data = mtcars,
-                 subset =
-                   c(
-                     TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE,
-                     TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE,
-                     TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE,
-                     FALSE, TRUE
-                   )
+    data = mtcars,
+    subset =
+      c(
+        TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE,
+        TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE,
+        TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE,
+        FALSE, TRUE
+      )
   )
 
   expect_equal(d1, d2)

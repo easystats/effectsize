@@ -10,9 +10,9 @@ test_that("eta_squared_posterior", {
   mtcars$cyl <- factor(mtcars$cyl)
 
   fit_bayes <- rstanarm::stan_glm(mpg ~ cyl * wt + qsec,
-                                  data = mtcars,
-                                  family = gaussian(),
-                                  refresh = 0
+    data = mtcars,
+    family = gaussian(),
+    refresh = 0
   )
 
 
@@ -22,7 +22,7 @@ test_that("eta_squared_posterior", {
   es_tab <- eta_squared(a, partial = TRUE)
 
   es_post <- eta_squared_posterior(fit_bayes,
-                                   ss_function = car::Anova, type = 3
+    ss_function = car::Anova, type = 3
   )
   expect_equal(colnames(es_post), es_tab$Parameter)
 
@@ -36,8 +36,8 @@ test_that("eta_squared_posterior", {
   es_tab <- eta_squared(a, partial = FALSE)
 
   es_post <- eta_squared_posterior(fit_bayes,
-                                   partial = FALSE,
-                                   ss_function = car::Anova, type = 3
+    partial = FALSE,
+    ss_function = car::Anova, type = 3
   )
   expect_equal(colnames(es_post), es_tab$Parameter)
 

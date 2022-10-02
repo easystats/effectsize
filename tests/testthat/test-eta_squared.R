@@ -31,50 +31,50 @@ test_that("aov", {
 
   # eta
   expect_equal(eta_squared(fit, partial = FALSE)$Eta2,
-               c(0.618, 0.046, 0.000),
-               tolerance = 0.01
+    c(0.618, 0.046, 0.000),
+    tolerance = 0.01
   )
   expect_equal(eta_squared(fit, partial = TRUE)$Eta2_partial,
-               c(0.649, 0.121, 0.001),
-               tolerance = 0.01
+    c(0.649, 0.121, 0.001),
+    tolerance = 0.01
   )
 
   # omega
   expect_equal(omega_squared(fit, partial = FALSE)$Omega2,
-               c(0.612, 0.043, -0.004),
-               tolerance = 0.01
+    c(0.612, 0.043, -0.004),
+    tolerance = 0.01
   )
   expect_equal(omega_squared(fit, partial = TRUE)$Omega2_partial,
-               c(0.638, 0.112, -0.012),
-               tolerance = 0.01
+    c(0.638, 0.112, -0.012),
+    tolerance = 0.01
   )
 
   # epsilon
   expect_equal(epsilon_squared(fit, partial = FALSE)$Epsilon2,
-               c(0.614, 0.044, -0.004),
-               tolerance = 0.001
+    c(0.614, 0.044, -0.004),
+    tolerance = 0.001
   )
   expect_equal(epsilon_squared(fit, partial = TRUE)$Epsilon2_partial,
-               c(0.644, 0.115, -0.012),
-               tolerance = 0.01
+    c(0.644, 0.115, -0.012),
+    tolerance = 0.01
   )
 
   # Cohen's f/f2
   expect_equal(cohens_f_squared(fit, partial = FALSE)$Cohens_f2,
-               c(1.623, 0.049, 0.000),
-               tolerance = 0.001
+    c(1.623, 0.049, 0.000),
+    tolerance = 0.001
   )
   expect_equal(cohens_f_squared(fit, partial = TRUE)$Cohens_f2_partial,
-               c(1.850, 0.139, 0.001),
-               tolerance = 0.001
+    c(1.850, 0.139, 0.001),
+    tolerance = 0.001
   )
   expect_equal(cohens_f(fit, partial = FALSE)$Cohens_f,
-               c(1.273, 0.220, 0.021),
-               tolerance = 0.01
+    c(1.273, 0.220, 0.021),
+    tolerance = 0.01
   )
   expect_equal(cohens_f(fit, partial = TRUE)$Cohens_f_partial,
-               c(1.360, 0.373, 0.036),
-               tolerance = 0.001
+    c(1.360, 0.373, 0.036),
+    tolerance = 0.001
   )
   expect_equal(cohens_f(fit, squared = TRUE), cohens_f_squared(fit))
   expect_equal(cohens_f_squared(fit, squared = FALSE), cohens_f(fit))
@@ -111,24 +111,24 @@ test_that("aovlist", {
   expect_true(all(c("Group", "Parameter") %in% colnames(res)))
   expect_equal(res$Eta2_partial, c(0.4472423, 0.1217329), tolerance = 0.001)
   expect_equal(eta_squared(model, partial = FALSE)$Eta2,
-               c(0.27671136, 0.04641607),
-               tolerance = 0.001
+    c(0.27671136, 0.04641607),
+    tolerance = 0.001
   )
 
   res <- omega_squared(model, partial = TRUE)
   expect_true(all(c("Group", "Parameter") %in% colnames(res)))
   expect_equal(res$Omega2_partial, c(-0.06795358, 0.04141846), tolerance = 0.001)
   expect_equal(omega_squared(model, partial = FALSE)$Omega2,
-               c(-0.04864626, 0.03287821),
-               tolerance = 0.001
+    c(-0.04864626, 0.03287821),
+    tolerance = 0.001
   )
 
   res <- epsilon_squared(model, partial = TRUE)
   expect_true(all(c("Group", "Parameter") %in% colnames(res)))
   expect_equal(res$Epsilon2_partial, c(-0.1055154, 0.1157174), tolerance = 0.001)
   expect_equal(epsilon_squared(model, partial = FALSE)$Epsilon2,
-               c(-0.06528301, 0.04412238),
-               tolerance = 0.001
+    c(-0.06528301, 0.04412238),
+    tolerance = 0.001
   )
 
 
@@ -142,18 +142,18 @@ test_that("aovlist", {
   # non-partial Eta2 should be the same for aov and aovlist
   data(obk.long, package = "afex")
   model <- afex::aov_car(value ~ treatment * gender + Error(id / (phase * hour)),
-                         data = obk.long, observed = "gender",
-                         include_aov = TRUE
+    data = obk.long, observed = "gender",
+    include_aov = TRUE
   )
 
   model2 <- aov(value ~ treatment * gender * phase * hour,
-                data = model$data$long,
-                contrasts = list(
-                  treatment = contr.sum,
-                  gender = contr.sum,
-                  phase = contr.sum,
-                  hour = contr.sum
-                )
+    data = model$data$long,
+    contrasts = list(
+      treatment = contr.sum,
+      gender = contr.sum,
+      phase = contr.sum,
+      hour = contr.sum
+    )
   )
 
   a1 <- eta_squared(model2, partial = FALSE)
@@ -237,8 +237,8 @@ test_that("generalized | between", {
   data(obk.long, package = "afex")
   m <- suppressWarnings(
     afex::aov_car(value ~ treatment * gender + Error(id),
-                  data = obk.long, observed = "gender",
-                  include_aov = TRUE
+      data = obk.long, observed = "gender",
+      include_aov = TRUE
     )
   )
 
@@ -270,40 +270,40 @@ test_that("generalized | within-mixed", {
 
   # estimate mixed ANOVA on the full design:
   m <- afex::aov_car(value ~ treatment * gender + Error(id / (phase * hour)),
-                     data = obk.long, observed = "gender",
-                     include_aov = TRUE
+    data = obk.long, observed = "gender",
+    include_aov = TRUE
   )
 
 
   ef <- eta_squared(m$aov, generalized = "gender")
   af <- anova(m, es = "ges", observed = "gender")
   expect_equal(ef$Eta2_generalized,
-               c(
-                 0.211, 0.083, 0.186, 0.193, 0.099,
-                 0.002, 0.015, 0.132, 0.001, 0.004,
-                 0.011, 0.016, 0.008, 0.01, 0.02
-               ),
-               tolerance = 0.05
+    c(
+      0.211, 0.083, 0.186, 0.193, 0.099,
+      0.002, 0.015, 0.132, 0.001, 0.004,
+      0.011, 0.016, 0.008, 0.01, 0.02
+    ),
+    tolerance = 0.05
   )
   expect_equal(ef$Eta2_generalized,
-               af$ges,
-               tolerance = 0.1
+    af$ges,
+    tolerance = 0.1
   )
 
 
   ef <- eta_squared(m$aov, generalized = TRUE)
   af <- anova(m, es = "ges", observed = NULL)
   expect_equal(ef$Eta2_generalized,
-               c(
-                 0.286, 0.111, 0.218, 0.264, 0.142,
-                 0.004, 0.021, 0.185, 0.002, 0.005,
-                 0.016, 0.023, 0.013, 0.014, 0.029
-               ),
-               tolerance = 0.05
+    c(
+      0.286, 0.111, 0.218, 0.264, 0.142,
+      0.004, 0.021, 0.185, 0.002, 0.005,
+      0.016, 0.023, 0.013, 0.014, 0.029
+    ),
+    tolerance = 0.05
   )
   expect_equal(ef$Eta2_generalized,
-               af$ges,
-               tolerance = 0.1
+    af$ges,
+    tolerance = 0.1
   )
 })
 
@@ -317,25 +317,25 @@ test_that("omega", {
 
   m <- suppressWarnings(
     afex::aov_car(value ~ treatment * gender + Error(id / (phase)),
-                  data = obk.long, observed = "gender",
-                  include_aov = TRUE
+      data = obk.long, observed = "gender",
+      include_aov = TRUE
     )
   )
 
 
   ef <- omega_squared(m, partial = TRUE, alternative = "two")
   expect_equal(ef$Omega2_partial,
-               c(0.3115, 0.1814, 0.2221, 0.2637, 0.1512, -0.0173, -0.0171),
-               tolerance = 0.01
+    c(0.3115, 0.1814, 0.2221, 0.2637, 0.1512, -0.0173, -0.0171),
+    tolerance = 0.01
   )
   expect_equal(ef$CI_low,
-               c(0, 0, 0, 0, 0, 0, 0),
-               tolerance = 0.01
+    c(0, 0, 0, 0, 0, 0, 0),
+    tolerance = 0.01
   )
 
   expect_equal(ef$CI_high,
-               c(0.626, 0.553, 0.557, 0.518, 0.355, 0, 0),
-               tolerance = 0.01
+    c(0.626, 0.553, 0.557, 0.518, 0.355, 0, 0),
+    tolerance = 0.01
   )
 })
 
@@ -398,8 +398,8 @@ test_that("include_intercept | afex", {
 
   suppressWarnings(suppressMessages(
     a <- afex::aov_car(value ~ treatment * gender + Error(id),
-                       include_aov = TRUE,
-                       data = obk.long
+      include_aov = TRUE,
+      data = obk.long
     )
   ))
 
@@ -430,9 +430,9 @@ test_that("afex | within-mixed", {
   data(obk.long, package = "afex")
 
   mod <- afex::aov_ez("id", "value", obk.long,
-                      between = c("treatment", "gender"),
-                      within = c("phase", "hour"),
-                      observed = "gender"
+    between = c("treatment", "gender"),
+    within = c("phase", "hour"),
+    observed = "gender"
   )
 
   x <- eta_squared(mod, generalized = TRUE)
@@ -545,8 +545,8 @@ test_that("car MVM", {
   eta_car <- effectsize::eta_squared(A_car, ci = NULL)[[2]]
 
   eta_afex <- afex::aov_ez("id", "score", ds_long,
-                           within = "ind_var",
-                           anova_table = list(es = "pes")
+    within = "ind_var",
+    anova_table = list(es = "pes")
   )$anova_table$pes
 
   expect_equal(eta_car, eta_afex)
@@ -555,9 +555,9 @@ test_that("car MVM", {
   data(obk.long, package = "afex")
 
   mod <- afex::aov_ez("id", "value", obk.long,
-                      between = c("treatment", "gender"),
-                      within = c("phase", "hour"),
-                      observed = "gender"
+    between = c("treatment", "gender"),
+    within = c("phase", "hour"),
+    observed = "gender"
   )
   expect_equal(
     sort(eta_squared(mod$Anova, generalized = "gender")[[2]]),

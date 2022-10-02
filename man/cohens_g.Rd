@@ -62,13 +62,22 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 }
 
 \examples{
-Performance <- matrix(c(794, 150,
-                        86, 570), nrow = 2)
-dimnames(Performance) <- list("1st Survey" = c("Approve", "Disapprove"),
-                              "2nd Survey" = c("Approve", "Disapprove"))
-Performance
 
-cohens_g(Performance)
+data("screening_test")
+
+phi(screening_test$Diagnosis, screening_test$Test1)
+
+phi(screening_test$Diagnosis, screening_test$Test2)
+
+# Both tests seem comparable - but are the tests actually different?
+
+(tests <- table(Test1 = screening_test$Test1, Test2 = screening_test$Test2))
+
+mcnemar.test(tests)
+
+cohens_g(tests)
+
+# Test 2 gives a negative result more than test 1!
 
 }
 \references{

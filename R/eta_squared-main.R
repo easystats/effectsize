@@ -263,9 +263,10 @@ cohens_f <- function(model,
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
   if (!is.null(model2)) {
     return(.cohens_f_delta(model, model2,
-                           squared = squared,
-                           ci = ci, alternative = alternative,
-                           verbose = verbose))
+      squared = squared,
+      ci = ci, alternative = alternative,
+      verbose = verbose
+    ))
   }
 
   res <- eta_squared(model,
@@ -841,13 +842,13 @@ cohens_f_squared <- function(model,
   if (!any(df_error.nm %in% colnames(model))) {
     # Pass to AOV method
     res <- .anova_es.aov(model,
-                         partial = partial,
-                         type = type,
-                         generalized = generalized,
-                         ci = ci, alternative = alternative,
-                         verbose = verbose,
-                         include_intercept = include_intercept,
-                         ...
+      partial = partial,
+      type = type,
+      generalized = generalized,
+      ci = ci, alternative = alternative,
+      verbose = verbose,
+      include_intercept = include_intercept,
+      ...
     )
     return(res)
   }
@@ -886,7 +887,7 @@ cohens_f_squared <- function(model,
     )
 
   attr(out, "anova_type") <- tryCatch(attr(parameters::model_parameters(model, verbose = FALSE, effects = "fixed"), "anova_type"),
-                                      error = function(...) 1
+    error = function(...) 1
   )
   attr(out, "approximate") <- TRUE
   out
@@ -935,4 +936,3 @@ cohens_f_squared <- function(model,
     "df_residuals" = df_residuals
   )
 }
-

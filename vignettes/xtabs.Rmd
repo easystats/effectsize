@@ -60,10 +60,8 @@ For larger contingency tables, Cramér's *V*, Tschuprow's *T*, Cohen's *w*, and 
 Both Cramér's *V* and Tschuprow's *T* are true measures of correlation: they range from 0 to 1, with 0 indicating complete independence between the nominal variables, and 1 indicating complete dependence. For square tables, they are equal, however for non-square tables $T < V$; While Cramér's *V* defines complete dependence as "it is possible to know exactly the value of the columns from the rows *or* know exactly the value of the rows from the columns", Tschuprow's *T* required both to be true to achieve complete dependence - something that is not possible for non-square tables. For example:
 
 ```{r, echo=FALSE}
-food <- matrix(c(47, 0, 0,
-                 0, 12, 21), nrow = 2, byrow = TRUE)
-dimnames(food) <- list(c("Vegan", "Not-Vegan"), c("Soy", "Milk", "Meat"))
-food
+data("food_class")
+food_class
 ```
 
 In this case, if you know the food product, you know if it is vegan or not, but
@@ -71,9 +69,9 @@ knowing if the food is vegan or not will not always let you know what food
 product it is.
 
 ```{r}
-cramers_v(food, adjust = FALSE)
+cramers_v(food_class, adjust = FALSE)
 
-tschuprows_t(food)
+tschuprows_t(food_class)
 ```
 
 
@@ -84,25 +82,19 @@ variables).
 
 
 ```{r}
-Music <- matrix(
-  c(151, 130, 12, 7,
-    77, 6, 111, 4,
-    0, 4, 2, 165),
-  byrow = TRUE, nrow = 3)
-dimnames(Music) <- list(c("Psych", "Econ", "Law"),
-                        c("Pop", "Rock", "Jazz", "Classic"))
-Music
+data("Music_preferences2")
+Music_preferences2
 
 
-chisq.test(Music)
+chisq.test(Music_preferences2)
 
-cramers_v(Music)
+cramers_v(Music_preferences2)
 
-tschuprows_t(Music)
+tschuprows_t(Music_preferences2)
 
-pearsons_c(Music)
+pearsons_c(Music_preferences2)
 
-cohens_w(Music) # > 1
+cohens_w(Music_preferences2) # > 1
 ```
 
 (Cramer's *V*, Tschuprow's *T*, and Cohen's *w* can also be used for 2-by-2 tables, but there they are equivalent to $\phi$.)
@@ -119,7 +111,7 @@ BFX <- contingencyTableBF(MPG_Gear, sampleType = "jointMulti")
 effectsize(BFX, type = "phi") # for 2 * 2
 
 
-BFX <- contingencyTableBF(Music, sampleType = "jointMulti")
+BFX <- contingencyTableBF(Music_preferences2, sampleType = "jointMulti")
 
 effectsize(BFX, type = "cramers_v")
 
@@ -174,24 +166,19 @@ represents a different *group*. Values larger than 1 indicate that the odds are
 higher in the first group (and vice versa).
 
 ```{r}
-RCT <- matrix(
-  c(71, 30,
-    50, 100),
-  nrow = 2, byrow = TRUE)
-dimnames(RCT) <- list(c("Sick", "Recovered"),
-                      c("Treatment", "Control"))
-RCT
+data("RCT_table")
+RCT_table
 
-chisq.test(RCT) # or fisher.test(RCT)
+chisq.test(RCT_table) # or fisher.test(RCT_table)
 
-oddsratio(RCT)
+oddsratio(RCT_table)
 ```
 
 We can also compute the Risk-ratio (RR), which is the ratio between the
 proportions of the two groups - a measure which some claim is more intuitive.
 
 ```{r}
-riskratio(RCT)
+riskratio(RCT_table)
 ```
 
 Additionally, Cohen's *h* can also be computed, which uses the *arcsin*
@@ -199,7 +186,7 @@ transformation. Negative values indicate smaller proportion in the first group
 (and vice versa).
 
 ```{r}
-cohens_h(RCT)
+cohens_h(RCT_table)
 ```
 
 ## For a Bayesian $\chi^2$-test
@@ -208,7 +195,7 @@ A Bayesian estimate of these effect sizes can also be provided based on
 `BayesFactor`'s version of a $\chi^2$-test via the `effectsize()` function:
 
 ```{r, eval = requireNamespace("BayesFactor", quietly = TRUE)}
-BFX <- contingencyTableBF(RCT, sampleType = "jointMulti")
+BFX <- contingencyTableBF(RCT_table, sampleType = "jointMulti")
 
 effectsize(BFX, type = "or")
 
@@ -222,18 +209,27 @@ effectsize(BFX, type = "cohens_h")
 For dependent (paired) contingency tables, Cohen's *g* represents the symmetry
 of the table, ranging between 0 (perfect symmetry) and 0.5 (perfect asymmetry).
 
+For example, these two tests seem to be equally predictive of the disease they are screening:
+
 ```{r}
-Performance <- matrix(
-  c(794, 86,
-    150, 570),
-  nrow = 2, byrow = TRUE)
-dimnames(Performance) <- list(c("Approve", "Disapprove"),
-                              c("Approve", "Disapprove"))
-Performance
+data("screening_test")
 
-mcnemar.test(Performance)
+phi(screening_test$Diagnosis, screening_test$Test1)
 
-cohens_g(Performance)
+phi(screening_test$Diagnosis, screening_test$Test2)
 ```
+
+Does this mean they give the same number of positive/negative results?
+
+```{r}
+tests <- table(Test1 = screening_test$Test1, Test2 = screening_test$Test2)
+tests
+
+mcnemar.test(tests)
+
+cohens_g(tests)
+```
+
+Test 1 gives more positive results than test 2!
 
 # References

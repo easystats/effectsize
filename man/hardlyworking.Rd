@@ -12,6 +12,7 @@ A data frame with 500 rows and 5 variables:
 \item{n_comps}{Number of compliments given to the boss (observed over the last week)}
 \item{age}{Age in years}
 \item{seniority}{How many years with the company}
+\item{is_senior}{Has this person been working here for more than 4 years?}
 }
 }
 \description{

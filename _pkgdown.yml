@@ -88,6 +88,12 @@ reference:
 - subtitle: "Datasets"
   contents:
   - hardlyworking
+  - screening_test
+  - RCT_table
+  - Music_preferences
+  - Music_preferences2
+  - Smoking_FASD
+  - food_class
 - subtitle: "Extra Docs"
   contents:
   - effectsize_CIs

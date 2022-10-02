@@ -36,7 +36,7 @@
   # If x is ordered and allowed to be...
   if (allow_ordered && is.ordered(x)) {
     if (is.ordered(y)) {
-      if (!isTRUE(all.equal(levels(y),levels(x)))) {
+      if (!isTRUE(all.equal(levels(y), levels(x)))) {
         stop("x and y are ordered, but do not have the same levels.", call. = FALSE)
       }
       y <- as.numeric(y)
@@ -227,14 +227,16 @@
       stop("Formula must have the form of 'DV1 + ... + DVk ~ group', with exactly one term on the RHS.", call. = FALSE)
     }
 
-    data <- model.frame(formula = stats::reformulate(as.character(x)[3:2]),
-                        data = data, na.action = stats::na.pass)
+    data <- model.frame(
+      formula = stats::reformulate(as.character(x)[3:2]),
+      data = data, na.action = stats::na.pass
+    )
 
     if (x[[3]] == 1) {
       # Then it is one sampled
       x <- data
     } else {
-      data <- split(data[,-1, drop = FALSE], f = data[[1]])
+      data <- split(data[, -1, drop = FALSE], f = data[[1]])
       if (length(data) != 2) {
         stop("~ group must have 2 levels exactly.", call. = FALSE)
       }
@@ -242,7 +244,7 @@
       y <- data[[2]]
     }
 
-    if (ncol(x) == 1L && is.matrix(x[[1]])){
+    if (ncol(x) == 1L && is.matrix(x[[1]])) {
       x <- x[[1]]
       y <- y[[1]]
     }

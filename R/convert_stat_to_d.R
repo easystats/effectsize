@@ -110,7 +110,8 @@ F_to_d <- function(f, df, df_error,
     stop("Cannot convert F with more than 1 df to (partial) r.", call. = FALSE)
   }
   t_to_d(sqrt(f), df_error,
-         paired = paired,
-         ci = ci, alternative = alternative,
-         ...)
+    paired = paired,
+    ci = ci, alternative = alternative,
+    ...
+  )
 }

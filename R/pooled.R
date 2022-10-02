@@ -21,7 +21,6 @@
 #'
 #' cov_pooled(mpg + hp + cyl ~ am, data = mtcars)
 #'
-#'
 #' @seealso [cohens_d()], [mahalanobis_d()]
 #'
 #' @importFrom stats ave sd
@@ -32,8 +31,10 @@ sd_pooled <- function(x, y = NULL, data = NULL,
   x <- data[["x"]]
   y <- data[["y"]]
 
-  V <- cov_pooled(data.frame(x = x),
-                  data.frame(x = y))
+  V <- cov_pooled(
+    data.frame(x = x),
+    data.frame(x = y)
+  )
   c(sqrt(V))
 }
 
