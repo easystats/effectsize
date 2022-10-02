@@ -40,8 +40,8 @@
 #'
 #' ## Hypothesis Testing
 #' ## ------------------
-#' contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
-#' Xsq <- chisq.test(contingency_table)
+#' data("Music_preferences")
+#' Xsq <- chisq.test(Music_preferences)
 #' effectsize(Xsq)
 #' effectsize(Xsq, type = "cohens_w")
 #'

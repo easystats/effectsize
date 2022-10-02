@@ -56,36 +56,38 @@
 #' @family effect size from test statistic
 #'
 #' @examples
-#' contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
 #'
-#' # chisq.test(contingency_table)
-#' #>
-#' #>         Pearson's Chi-squared test
-#' #>
-#' #> data:  contingency_table
-#' #> X-squared = 41.234, df = 4, p-value = 2.405e-08
+#' data("Music_preferences")
 #'
-#' chisq_to_cohens_w(41.234,
-#'   n = sum(contingency_table),
-#'   nrow = nrow(contingency_table),
-#'   ncol = ncol(contingency_table)
+#' # chisq.test(Music_preferences)
+#' #>
+#' #> 	Pearson's Chi-squared test
+#' #>
+#' #> data:  Music_preferences
+#' #> X-squared = 95.508, df = 6, p-value < 2.2e-16
+#' #>
+#'
+#' chisq_to_cohens_w(95.508,
+#'   n = sum(Music_preferences),
+#'   nrow = nrow(Music_preferences),
+#'   ncol = ncol(Music_preferences)
 #' )
 #'
 #'
 #'
 #'
-#' Smoking_ASD <- as.table(c(ASD = 17, ASP = 11, TD = 640))
+#' data("Smoking_FASD")
 #'
-#' # chisq.test(Smoking_ASD, p = c(0.015, 0.010, 0.975))
+#' # chisq.test(Smoking_FASD, p = c(0.015, 0.010, 0.975))
 #' #>
 #' #> 	Chi-squared test for given probabilities
 #' #>
-#' #> data:  Smoking_ASD
+#' #> data:  Smoking_FASD
 #' #> X-squared = 7.8521, df = 2, p-value = 0.01972
 #'
 #' chisq_to_fei(
 #'   7.8521,
-#'   n = sum(Smoking_ASD),
+#'   n = sum(Smoking_FASD),
 #'   nrow = 1,
 #'   ncol = 3,
 #'   p = c(0.015, 0.010, 0.975)

@@ -35,13 +35,22 @@
 #' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 #'
 #' @examples
-#' Performance <- matrix(c(794, 150,
-#'                         86, 570), nrow = 2)
-#' dimnames(Performance) <- list("1st Survey" = c("Approve", "Disapprove"),
-#'                               "2nd Survey" = c("Approve", "Disapprove"))
-#' Performance
 #'
-#' cohens_g(Performance)
+#' data("Test_results")
+#'
+#' phi(Test_results$Diagnosis, Test_results$Test1)
+#'
+#' phi(Test_results$Diagnosis, Test_results$Test2)
+#'
+#' # Both tests seem comparable - but are the tests actually different?
+#'
+#' (tests <- table(Test1 = Test_results$Test1, Test2 = Test_results$Test2))
+#'
+#' mcnemar.test(tests)
+#'
+#' cohens_g(tests)
+#'
+#' # Test 2 gives a negative result more than test 1!
 #'
 #' @export
 #' @importFrom stats complete.cases prop.test
@@ -93,10 +102,10 @@ cohens_g <- function(x, y = NULL,
     k <- P * n
 
     res <- stats::prop.test(k, n,
-                            p = 0.5,
-                            alternative = alternative,
-                            conf.level = ci,
-                            correct = FALSE
+      p = 0.5,
+      alternative = alternative,
+      conf.level = ci,
+      correct = FALSE
     )
 
     out$CI <- ci
