@@ -63,15 +63,15 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 
 \examples{
 
-data("Test_results")
+data("screening_test")
 
-phi(Test_results$Diagnosis, Test_results$Test1)
+phi(screening_test$Diagnosis, screening_test$Test1)
 
-phi(Test_results$Diagnosis, Test_results$Test2)
+phi(screening_test$Diagnosis, screening_test$Test2)
 
 # Both tests seem comparable - but are the tests actually different?
 
-(tests <- table(Test1 = Test_results$Test1, Test2 = Test_results$Test2))
+(tests <- table(Test1 = screening_test$Test1, Test2 = screening_test$Test2))
 
 mcnemar.test(tests)
 

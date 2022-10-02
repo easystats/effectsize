@@ -1,27 +1,27 @@
-# Test_results ------------------------------------------------------------
+# screening_test ------------------------------------------------------------
 
 set.seed(12324)
-Test_results <- matrix(c(
+screening_test <- matrix(c(
   794, 150,
   86, 570
 ), nrow = 2)
-dimnames(Test_results) <- list(
+dimnames(screening_test) <- list(
   Test1 = c('"Neg"', '"Pos"'),
   Test2 = c('"Neg"', '"Pos"')
 )
 
-Test_results <- as.data.frame(as.table(Test_results))
-Test_results <- data.frame(
+screening_test <- as.data.frame(as.table(screening_test))
+screening_test <- data.frame(
   Diagnosis = NA,
-  Test1 = rep(Test_results[[1]], times = Test_results$Freq),
-  Test2 = rep(Test_results[[2]], times = Test_results$Freq)
+  Test1 = rep(screening_test[[1]], times = screening_test$Freq),
+  Test2 = rep(screening_test[[2]], times = screening_test$Freq)
 )
 i <- sample(1600, size = 800)
-Test_results$Diagnosis[i] <- Test_results$Test1[i]
-Test_results$Diagnosis[-i] <- Test_results$Test2[-i]
-Test_results$Diagnosis <- factor(Test_results$Diagnosis, labels = c("Neg", "Pos"))
+screening_test$Diagnosis[i] <- screening_test$Test1[i]
+screening_test$Diagnosis[-i] <- screening_test$Test2[-i]
+screening_test$Diagnosis <- factor(screening_test$Diagnosis, labels = c("Neg", "Pos"))
 
-save(Test_results, file = "data/Test_results.rdata")
+save(screening_test, file = "data/screening_test.rdata")
 
 
 

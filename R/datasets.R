@@ -30,7 +30,7 @@ NULL
 #'
 #' @docType data
 #'
-#' @name Test_results
+#' @name screening_test
 #'
 #' @keywords data
 #'
