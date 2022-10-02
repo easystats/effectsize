@@ -131,7 +131,6 @@ p_superiority <- function(x, y = NULL, data = NULL,
       ci = ci,
       alternative = alternative,
       verbose = verbose,
-      ...
     )
     d_to_p_superiority(d)
   } else {
@@ -182,7 +181,6 @@ cohens_u1 <- function(x, y = NULL, data = NULL,
     ci = ci,
     alternative = alternative,
     verbose = verbose,
-    ...
   )
   out <- d_to_u1(d)
 
@@ -220,7 +218,6 @@ cohens_u2 <- function(x, y = NULL, data = NULL,
       ci = ci,
       alternative = alternative,
       verbose = verbose,
-      ...
     )
     out <- d_to_u2(d)
   } else {
@@ -265,7 +262,6 @@ cohens_u3 <- function(x, y = NULL, data = NULL,
       ci = ci,
       alternative = alternative,
       verbose = verbose,
-      ...
     )
     out <- d_to_u3(d)
   } else {
@@ -309,7 +305,6 @@ p_overlap <- function(x, y = NULL, data = NULL,
       ci = ci,
       alternative = alternative,
       verbose = verbose,
-      ...
     )
     out <- d_to_overlap(d)
   } else {

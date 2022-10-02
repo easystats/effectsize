@@ -44,6 +44,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   dots$alternative <- model$alternative
   dots$ci <- attr(model$conf.int, "conf.level")
   dots$mu <- model$null.value
+  dots$paired <- !grepl("Two", model$method)
+  dots$verbose <- verbose
 
   if (!type %in% c("d", "g")) {
     .fail_if_approx(approx, "cles")
@@ -57,9 +59,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     f <- t_to_d
     args <- list(
       t = unname(model$statistic),
-      df_error = unname(model$parameter),
-      paired = !grepl("Two", model$method),
-      verbose = verbose
+      df_error = unname(model$parameter)
     )
   } else {
     if (grepl(" by ", model$data.name, fixed = TRUE)) {
@@ -69,9 +69,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     args <- list(
       x = data[[1]],
       y = if (ncol(data) == 2) data[[2]],
-      paired = !grepl("Two", model$method),
-      pooled_sd = !grepl("Welch", model$method),
-      verbose = verbose
+      pooled_sd = !grepl("Welch", model$method)
     )
 
     if (type %in% c("d", "g")) {
@@ -80,19 +78,18 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
         g = hedges_g
       )
     } else {
-      if (!args$pooled_sd || args$paired) {
-        stop("Common language effect size only applicable to 2-sample Cohen's d with pooled SD.", call. = FALSE)
+      if (!dots$paired && !args$pooled_sd) {
+        stop("Common language effect size only applicable to Cohen's d with pooled SD.", call. = FALSE)
       }
-      args$pooled_sd <- args$paired <- NULL
 
-      type <- c(
-        "p_superiority" = "p_superiority",
-        "u1" = "cohens_u1",
-        "u2" = "cohens_u2",
-        "u3" = "cohens_u3",
-        "overlap" = "p_overlap"
-      )[type]
-      f <- match.fun(type)
+      f <- switch(tolower(type),
+        u1 = cohens_u1,
+        u2 = cohens_u2,
+        u3 = cohens_u3,
+        vda = ,
+        p_superiority = p_superiority,
+        overlap = p_overlap
+      )
     }
   }
 
@@ -184,6 +181,10 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     return(out)
   }
 
+  dots <- list(...)
+  if (!is.null(model[["conf.int"]])) dots$ci <- attr(model[["conf.int"]], "conf.level")
+  if (!is.null(model[["alternative"]])) dots$alternative <- model[["alternative"]]
+
   data <- insight::get_data(model)
   .fail_if_approx(is.null(data), type)
 
@@ -206,13 +207,12 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   )
 
   if (is.table(data)) {
-    out <- f(data, ...)
+    args <- list(x = data)
   } else {
-    out <- f(data[[1]], data[[2]], ...)
+    args <- list(x = data[[1]], y = data[[2]])
   }
 
-  attr(out, "approximate") <- FALSE
-  out
+  do.call(f, c(args, dots))
 }
 
 #' @keywords internal
@@ -327,8 +327,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   dots$alternative <- model$alternative
   dots$ci <- attr(model$conf.int, "conf.level")
   dots$mu <- model$null.value
+  dots$paired <- grepl("signed rank", model$method, fixed = TRUE)
 
-  .fail_if_approx(approx, ifelse(type == "rb", "rank_biserial", "cles"))
+  .fail_if_approx(approx, type)
 
   f <- switch(tolower(type),
     rb = rank_biserial,
@@ -338,20 +339,19 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     overlap = p_overlap,
     vda = ,
     p_superiority = p_superiority,
+    wmw_odds = wmw_odds
   )
 
   args <- list(
     x = data[[1]],
     y = if (ncol(data) == 2) data[[2]],
-    paired = grepl("signed rank", model$method, fixed = TRUE),
     verbose = verbose
   )
 
   if (tolower(type) != "rb") {
-    if (args$paired) {
+    if (dots$paired) {
       stop("Common language effect size only applicable to 2-sample rank-biserial correlation.", call. = FALSE)
     }
-    args$paired <- NULL
     args$parametric <- FALSE
   }
 
