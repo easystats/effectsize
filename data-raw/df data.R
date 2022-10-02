@@ -1,6 +1,7 @@
+# styler: off
+
 # Test_results ------------------------------------------------------------
 
-# styler: off
 set.seed(12324)
 Test_results <- matrix(c(
   794, 150,
@@ -23,7 +24,6 @@ Test_results$Diagnosis[-i] <- Test_results$Test2[-i]
 Test_results$Diagnosis <- factor(Test_results$Diagnosis, labels = c("Neg", "Pos"))
 
 save(Test_results, file = "data/Test_results.rdata")
-# styler: on
 
 
 # Hardly ------------------------------------------------------------------
@@ -248,3 +248,4 @@ hardlyworking <- data.frame(
 hardlyworking$is_senior <- hardlyworking$seniority > 4
 
 save(hardlyworking, file = "data/hardlyworking.rdata")
+# styler: on
