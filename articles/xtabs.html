@@ -214,14 +214,14 @@ possible for non-square tables. For example:</p>
 or not, but knowing if the food is vegan or not will not always let you
 know what food product it is.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">cramers_v</a></span><span class="op">(</span><span class="va">food</span>, adjust <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">cramers_v</a></span><span class="op">(</span><span class="va">food_class</span>, adjust <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cramer's V |       95% CI
 &gt; -------------------------
 &gt; 1.00       | [0.81, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">tschuprows_t</a></span><span class="op">(</span><span class="va">food</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">tschuprows_t</a></span><span class="op">(</span><span class="va">food_class</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Tschuprow's T |       95% CI
 &gt; ----------------------------
 &gt; 0.84          | [0.68, 1.00]
@@ -232,48 +232,42 @@ correlation, but are two types of normalized <span class="math inline">\(\chi^2\
 is capped at 1, Cohen’s <em>w</em> can be larger than 1 (for both, 0
 indicates no association between the variables).</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Music</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">151</span>, <span class="fl">130</span>, <span class="fl">12</span>, <span class="fl">7</span>,</span>
-<span>    <span class="fl">77</span>, <span class="fl">6</span>, <span class="fl">111</span>, <span class="fl">4</span>,</span>
-<span>    <span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">165</span><span class="op">)</span>,</span>
-<span>  byrow <span class="op">=</span> <span class="cn">TRUE</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">Music</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Psych"</span>, <span class="st">"Econ"</span>, <span class="st">"Law"</span><span class="op">)</span>,</span>
-<span>                        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Pop"</span>, <span class="st">"Rock"</span>, <span class="st">"Jazz"</span>, <span class="st">"Classic"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">Music</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"Music_preferences2"</span><span class="op">)</span></span>
+<span><span class="va">Music_preferences2</span></span></code></pre></div>
 <pre><code>&gt;       Pop Rock Jazz Classic
 &gt; Psych 151  130   12       7
 &gt; Econ   77    6  111       4
 &gt; Law     0    4    2     165</code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html" class="external-link">chisq.test</a></span><span class="op">(</span><span class="va">Music</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html" class="external-link">chisq.test</a></span><span class="op">(</span><span class="va">Music_preferences2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; 
 &gt;   Pearson's Chi-squared test
 &gt; 
-&gt; data:  Music
+&gt; data:  Music_preferences2
 &gt; X-squared = 854, df = 6, p-value &lt;2e-16</code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">cramers_v</a></span><span class="op">(</span><span class="va">Music</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">cramers_v</a></span><span class="op">(</span><span class="va">Music_preferences2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cramer's V (adj.) |       95% CI
 &gt; --------------------------------
 &gt; 0.80              | [0.75, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">tschuprows_t</a></span><span class="op">(</span><span class="va">Music</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">tschuprows_t</a></span><span class="op">(</span><span class="va">Music_preferences2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Tschuprow's T |       95% CI
 &gt; ----------------------------
 &gt; 0.72          | [0.68, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">pearsons_c</a></span><span class="op">(</span><span class="va">Music</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">pearsons_c</a></span><span class="op">(</span><span class="va">Music_preferences2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Pearson's C |       95% CI
 &gt; --------------------------
 &gt; 0.75        | [0.73, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">cohens_w</a></span><span class="op">(</span><span class="va">Music</span><span class="op">)</span> <span class="co"># &gt; 1</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">cohens_w</a></span><span class="op">(</span><span class="va">Music_preferences2</span><span class="op">)</span> <span class="co"># &gt; 1</span></span></code></pre></div>
 <pre><code>&gt; Cohen's w |       95% CI
 &gt; ------------------------
 &gt; 1.13      | [1.06, 1.41]
@@ -298,7 +292,7 @@ on <code>BayesFactor</code>’s version of a <span class="math inline">\(\chi^2\
 &gt; -----------------------
 &gt; 0.53     | [0.17, 0.76]</code></pre>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">BFX</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/contingencyTableBF.html" class="external-link">contingencyTableBF</a></span><span class="op">(</span><span class="va">Music</span>, sampleType <span class="op">=</span> <span class="st">"jointMulti"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">BFX</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/contingencyTableBF.html" class="external-link">contingencyTableBF</a></span><span class="op">(</span><span class="va">Music_preferences2</span>, sampleType <span class="op">=</span> <span class="st">"jointMulti"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFX</span>, type <span class="op">=</span> <span class="st">"cramers_v"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Warning in sqrt((pmin(k, l) - 1)): NaNs produced
@@ -6015,25 +6009,21 @@ each column represents a different <em>group</em>. Values larger than 1
 indicate that the odds are higher in the first group (and vice
 versa).</p>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">RCT</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">71</span>, <span class="fl">30</span>,</span>
-<span>    <span class="fl">50</span>, <span class="fl">100</span><span class="op">)</span>,</span>
-<span>  nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sick"</span>, <span class="st">"Recovered"</span><span class="op">)</span>,</span>
-<span>                      <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="st">"Control"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">RCT</span></span></code></pre></div>
-<pre><code>&gt;           Treatment Control
-&gt; Sick             71      30
-&gt; Recovered        50     100</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"RCT_table"</span><span class="op">)</span></span>
+<span><span class="va">RCT_table</span></span></code></pre></div>
+<pre><code>&gt;            Group
+&gt; Diagnosis   Treatment Control
+&gt;   Sick             71      30
+&gt;   Recovered        50     100</code></pre>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html" class="external-link">chisq.test</a></span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span> <span class="co"># or fisher.test(RCT)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html" class="external-link">chisq.test</a></span><span class="op">(</span><span class="va">RCT_table</span><span class="op">)</span> <span class="co"># or fisher.test(RCT_table)</span></span></code></pre></div>
 <pre><code>&gt; 
 &gt;   Pearson's Chi-squared test with Yates' continuity correction
 &gt; 
-&gt; data:  RCT
+&gt; data:  RCT_table
 &gt; X-squared = 32, df = 1, p-value = 2e-08</code></pre>
 <div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/oddsratio.html">oddsratio</a></span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/oddsratio.html">oddsratio</a></span><span class="op">(</span><span class="va">RCT_table</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Odds ratio |       95% CI
 &gt; -------------------------
 &gt; 4.73       | [2.74, 8.17]</code></pre>
@@ -6041,7 +6031,7 @@ versa).</p>
 the proportions of the two groups - a measure which some claim is more
 intuitive.</p>
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/oddsratio.html">riskratio</a></span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/oddsratio.html">riskratio</a></span><span class="op">(</span><span class="va">RCT_table</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Risk ratio |       95% CI
 &gt; -------------------------
 &gt; 2.54       | [1.87, 3.45]</code></pre>
@@ -6049,7 +6039,7 @@ intuitive.</p>
 <em>arcsin</em> transformation. Negative values indicate smaller
 proportion in the first group (and vice versa).</p>
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/oddsratio.html">cohens_h</a></span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/oddsratio.html">cohens_h</a></span><span class="op">(</span><span class="va">RCT_table</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's h |       95% CI
 &gt; ------------------------
 &gt; 0.74      | [0.50, 0.99]</code></pre>
@@ -6060,7 +6050,7 @@ proportion in the first group (and vice versa).</p>
 on <code>BayesFactor</code>’s version of a <span class="math inline">\(\chi^2\)</span>-test via the
 <code><a href="../reference/effectsize.html">effectsize()</a></code> function:</p>
 <div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">BFX</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/contingencyTableBF.html" class="external-link">contingencyTableBF</a></span><span class="op">(</span><span class="va">RCT</span>, sampleType <span class="op">=</span> <span class="st">"jointMulti"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">BFX</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/contingencyTableBF.html" class="external-link">contingencyTableBF</a></span><span class="op">(</span><span class="va">RCT_table</span>, sampleType <span class="op">=</span> <span class="st">"jointMulti"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFX</span>, type <span class="op">=</span> <span class="st">"or"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Odds ratio |       95% CI
@@ -6084,29 +6074,46 @@ on <code>BayesFactor</code>’s version of a <span class="math inline">\(\chi^2\
 <p>For dependent (paired) contingency tables, Cohen’s <em>g</em>
 represents the symmetry of the table, ranging between 0 (perfect
 symmetry) and 0.5 (perfect asymmetry).</p>
+<p>For example, these two tests seem to be equally predictive of the
+disease they are screening:</p>
 <div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Performance</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">794</span>, <span class="fl">86</span>,</span>
-<span>    <span class="fl">150</span>, <span class="fl">570</span><span class="op">)</span>,</span>
-<span>  nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">Performance</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Approve"</span>, <span class="st">"Disapprove"</span><span class="op">)</span>,</span>
-<span>                              <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Approve"</span>, <span class="st">"Disapprove"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">Performance</span></span></code></pre></div>
-<pre><code>&gt;            Approve Disapprove
-&gt; Approve        794         86
-&gt; Disapprove     150        570</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"screening_test"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/phi.html">phi</a></span><span class="op">(</span><span class="va">screening_test</span><span class="op">$</span><span class="va">Diagnosis</span>, <span class="va">screening_test</span><span class="op">$</span><span class="va">Test1</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; ϕ (adj.) |       95% CI
+&gt; -----------------------
+&gt; 0.85     | [0.81, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/mcnemar.test.html" class="external-link">mcnemar.test</a></span><span class="op">(</span><span class="va">Performance</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">phi</a></span><span class="op">(</span><span class="va">screening_test</span><span class="op">$</span><span class="va">Diagnosis</span>, <span class="va">screening_test</span><span class="op">$</span><span class="va">Test2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; ϕ (adj.) |       95% CI
+&gt; -----------------------
+&gt; 0.85     | [0.81, 1.00]
+&gt; 
+&gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
+<p>Does this mean they give the same number of positive/negative
+results?</p>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tests</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span>Test1 <span class="op">=</span> <span class="va">screening_test</span><span class="op">$</span><span class="va">Test1</span>, Test2 <span class="op">=</span> <span class="va">screening_test</span><span class="op">$</span><span class="va">Test2</span><span class="op">)</span></span>
+<span><span class="va">tests</span></span></code></pre></div>
+<pre><code>&gt;        Test2
+&gt; Test1   "Neg" "Pos"
+&gt;   "Neg"   794    86
+&gt;   "Pos"   150   570</code></pre>
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/mcnemar.test.html" class="external-link">mcnemar.test</a></span><span class="op">(</span><span class="va">tests</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; 
 &gt;   McNemar's Chi-squared test with continuity correction
 &gt; 
-&gt; data:  Performance
+&gt; data:  tests
 &gt; McNemar's chi-squared = 17, df = 1, p-value = 4e-05</code></pre>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/cohens_g.html">cohens_g</a></span><span class="op">(</span><span class="va">Performance</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/cohens_g.html">cohens_g</a></span><span class="op">(</span><span class="va">tests</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's g |       95% CI
 &gt; ------------------------
 &gt; 0.14      | [0.07, 0.19]</code></pre>
+<p>Test 1 gives more positive results than test 2!</p>
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>

@@ -225,38 +225,33 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer &amp; Kiesser,
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">RCT</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">71</span>, <span class="fl">50</span>,</span></span>
-<span class="r-in"><span>                <span class="fl">30</span>, <span class="fl">100</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Diagnosis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sick"</span>, <span class="st">"Recovered"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                      Group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="st">"Control"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">RCT</span> <span class="co"># note groups are COLUMNS</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"RCT_table"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">RCT_table</span> <span class="co"># note groups are COLUMNS</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            Group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Diagnosis   Treatment Control</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sick             71      30</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Recovered        50     100</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">oddsratio</span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">oddsratio</span><span class="op">(</span><span class="va">RCT_table</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Odds ratio |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4.73       | [2.74, 8.17]</span>
-<span class="r-in"><span><span class="fu">oddsratio</span><span class="op">(</span><span class="va">RCT</span>, alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">oddsratio</span><span class="op">(</span><span class="va">RCT_table</span>, alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Odds ratio |      95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4.73       | [3.00, Inf]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [Inf].</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">riskratio</span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">riskratio</span><span class="op">(</span><span class="va">RCT_table</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Risk ratio |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2.54       | [1.87, 3.45]</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">cohens_h</span><span class="op">(</span><span class="va">RCT</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cohens_h</span><span class="op">(</span><span class="va">RCT_table</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's h |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.74      | [0.50, 0.99]</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

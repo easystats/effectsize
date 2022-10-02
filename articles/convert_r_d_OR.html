@@ -156,45 +156,36 @@ any comparison between different types of statistical analyses.</p>
 standardized association between two continuous measures, and <em>d</em>
 values (such as Cohen’s <em>d</em>), a measure of standardized
 differences between two groups / conditions.</p>
-<p>Let’s simulate some data:</p>
+<p>Let’s looks at some (simulated) data:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">bayestestR</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/simulate_correlation.html" class="external-link">simulate_difference</a></span><span class="op">(</span></span>
-<span>  n <span class="op">=</span> <span class="fl">10</span>,</span>
-<span>  d <span class="op">=</span> <span class="fl">0.2</span>,</span>
-<span>  names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Group"</span>, <span class="st">"Outcome"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt;    Group Outcome
-&gt; 1      0  -1.280
-&gt; 2      0  -0.597
-&gt; 3      0  -0.100
-&gt; 4      0   0.397
-&gt; 5      0   1.080
-&gt; 6      1  -1.080
-&gt; 7      1  -0.397
-&gt; 8      1   0.100
-&gt; 9      1   0.597
-&gt; 10     1   1.280</code></pre>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/">effectsize</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"hardlyworking"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt;   salary xtra_hours n_comps age seniority is_senior
+&gt; 1  19745       4.16       1  32         3     FALSE
+&gt; 2  11302       1.62       0  34         3     FALSE
+&gt; 3  20636       1.19       3  33         5      TRUE
+&gt; 4  23047       7.19       1  35         3     FALSE
+&gt; 5  27342      11.26       0  33         4     FALSE
+&gt; 6  25657       3.63       2  30         5      TRUE</code></pre>
 <p>We can compute Cohen’s <em>d</em> between the two groups:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/">effectsize</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">Outcome</span> <span class="op">~</span> <span class="va">Group</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; Cohen's d |        95% CI
-&gt; -------------------------
-&gt; -0.22     | [-1.46, 1.03]
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">is_senior</span>, data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; Cohen's d |         95% CI
+&gt; --------------------------
+&gt; -0.72     | [-0.90, -0.53]
 &gt; 
 &gt; - Estimated using pooled SD.</code></pre>
-<p>But we can also treat the 2-level <code>group</code> variable as a
-numeric variable, and compute Pearson’s <em>r</em>:</p>
+<p>But we can also treat the 2-level <code>is_senior</code> variable as
+a numeric variable, and compute Pearson’s <em>r</em>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/cor_test.html" class="external-link">cor_test</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"Outcome"</span>, <span class="st">"Group"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; Parameter1 | Parameter2 |    r |        95% CI | t(8) |     p
-&gt; -------------------------------------------------------------
-&gt; Outcome    |      Group | 0.12 | [-0.55, 0.70] | 0.35 | 0.736
+<code class="sourceCode R"><span><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/cor_test.html" class="external-link">cor_test</a></span><span class="op">(</span><span class="va">hardlyworking</span>, <span class="st">"salary"</span>, <span class="st">"is_senior"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; Parameter1 | Parameter2 |    r |       95% CI | t(498) |         p
+&gt; ------------------------------------------------------------------
+&gt; salary     |  is_senior | 0.34 | [0.26, 0.41] |   7.95 | &lt; .001***
 &gt; 
-&gt; Observations: 10</code></pre>
-<p>But what if we only have summary statistics? Say, we only have <span class="math inline">\(d=-0.22\)</span> and we want to know what the
+&gt; Observations: 500</code></pre>
+<p>But what if we only have summary statistics? Say, we only have <span class="math inline">\(d=-0.72\)</span> and we want to know what the
 <em>r</em> would have been? We can approximate <em>r</em> using the
 following formula <span class="citation">(Borenstein et al.
 2009)</span>:</p>
@@ -203,10 +194,10 @@ r \approx \frac{d}{\sqrt{d^2 + 4}}
 \]</span> And indeed, if we use <code><a href="../reference/d_to_r.html">d_to_r()</a></code>, we get a pretty
 decent approximation:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/d_to_r.html">d_to_r</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.22</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; [1] -0.109</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/d_to_r.html">d_to_r</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.72</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; [1] -0.339</code></pre>
 <p>(Which also works in the other way, with <code>r_to_d(0.12)</code>
-gives 0.242)</p>
+gives 0.723)</p>
 <p>As we can see, these are rough approximations, but they can be useful
 when we don’t have the raw data on hand.</p>
 <div class="section level3">
@@ -217,45 +208,47 @@ partial-<em>d</em> value (that is, the standardized difference between
 two groups / conditions, with variance from other predictors partilled
 out). For example:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span> <span class="op">+</span> <span class="va">hp</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">is_senior</span> <span class="op">+</span> <span class="va">xtra_hours</span>, data <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; Parameter   | Coefficient |       SE |         95% CI | t(29) |      p
-&gt; ----------------------------------------------------------------------
-&gt; (Intercept) |       26.58 |     1.43 | [23.67, 29.50] | 18.65 | &lt; .001
-&gt; am          |        5.28 |     1.08 | [ 3.07,  7.48] |  4.89 | &lt; .001
-&gt; hp          |       -0.06 | 7.86e-03 | [-0.07, -0.04] | -7.50 | &lt; .001</code></pre>
+<pre><code>&gt; Parameter     | Coefficient |     SE |               95% CI | t(497) |      p
+&gt; -----------------------------------------------------------------------------
+&gt; (Intercept)   |    14258.87 | 238.71 | [13789.86, 14727.87] |  59.73 | &lt; .001
+&gt; is seniorTRUE |     1683.65 | 316.85 | [ 1061.12,  2306.17] |   5.31 | &lt; .001
+&gt; xtra hours    |     1257.75 |  40.33 | [ 1178.51,  1336.99] |  31.19 | &lt; .001</code></pre>
 <pre><code>&gt; 
 &gt; Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed
 &gt;   using a Wald t-distribution approximation.</code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># A couple of ways to get partial-d:</span></span>
-<span><span class="fl">5.28</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/stats/sigma.html" class="external-link">sigma</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; [1] 1.81</code></pre>
+<span><span class="fl">1683.65</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/stats/sigma.html" class="external-link">sigma</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; [1] 0.495</code></pre>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/t_to_r.html">t_to_d</a></span><span class="op">(</span><span class="fl">4.89</span>, df_error <span class="op">=</span> <span class="fl">29</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-<pre><code>&gt; [1] 1.82</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/t_to_r.html">t_to_d</a></span><span class="op">(</span><span class="fl">5.31</span>, df_error <span class="op">=</span> <span class="fl">497</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<pre><code>&gt; [1] 0.476</code></pre>
 <p>We can convert these semi-<em>d</em> values to <em>r</em> values, but
 in this case these represent the <em>partial</em> correlation:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/t_to_r.html">t_to_r</a></span><span class="op">(</span><span class="fl">4.89</span>, df_error <span class="op">=</span> <span class="fl">29</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/t_to_r.html">t_to_r</a></span><span class="op">(</span><span class="fl">5.31</span>, df_error <span class="op">=</span> <span class="fl">497</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; r    |       95% CI
 &gt; -------------------
-&gt; 0.67 | [0.43, 0.80]</code></pre>
+&gt; 0.23 | [0.15, 0.31]</code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html" class="external-link">correlation</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mpg"</span>, <span class="st">"am"</span>, <span class="st">"hp"</span><span class="op">)</span><span class="op">]</span>, partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html" class="external-link">correlation</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"salary"</span>, <span class="st">"xtra_hours"</span>, <span class="st">"is_senior"</span><span class="op">)</span><span class="op">]</span>, </span>
+<span>                         include_factors <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                         partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span></span></code></pre></div>
 <pre><code>&gt; # Correlation Matrix (pearson-method)
 &gt; 
-&gt; Parameter1 | Parameter2 |    r |       95% CI | t(30) |         p
-&gt; -----------------------------------------------------------------
-&gt; mpg        |         am | 0.67 | [0.42, 0.83] |  4.97 | &lt; .001***
+&gt; Parameter1 | Parameter2 |    r |       95% CI | t(498) |         p
+&gt; ------------------------------------------------------------------
+&gt; salary     |  is_senior | 0.23 | [0.15, 0.31] |   5.32 | &lt; .001***
 &gt; 
 &gt; p-value adjustment method: Holm (1979)
-&gt; Observations: 32</code></pre>
+&gt; Observations: 500</code></pre>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># all close to:</span></span>
-<span><span class="fu"><a href="../reference/d_to_r.html">d_to_r</a></span><span class="op">(</span><span class="fl">1.81</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; [1] 0.671</code></pre>
+<span><span class="fu"><a href="../reference/d_to_r.html">d_to_r</a></span><span class="op">(</span><span class="fl">0.47</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; [1] 0.229</code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -283,22 +276,22 @@ function.</p>
 <p>Let’s give it a try:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># 1. Set a threshold</span></span>
-<span><span class="va">thresh</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span><span class="va">thresh</span> <span class="op">&lt;-</span> <span class="fl">22500</span></span>
 <span></span>
 <span><span class="co"># 2. dichotomize the outcome</span></span>
-<span><span class="va">data</span><span class="op">$</span><span class="va">Outcome_binom</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">$</span><span class="va">Outcome</span> <span class="op">&lt;</span> <span class="va">thresh</span></span>
+<span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">salary_high</span> <span class="op">&lt;-</span> <span class="va">hardlyworking</span><span class="op">$</span><span class="va">salary</span> <span class="op">&lt;</span> <span class="va">thresh</span></span>
 <span></span>
 <span><span class="co"># 3. Fit a logistic regression:</span></span>
-<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">Outcome_binom</span> <span class="op">~</span> <span class="va">Group</span>,</span>
-<span>  data <span class="op">=</span> <span class="va">data</span>,</span>
+<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">salary_high</span> <span class="op">~</span> <span class="va">is_senior</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">hardlyworking</span>,</span>
 <span>  family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">binomial</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; Parameter   | Log-Odds |   SE |        95% CI |     z |     p
-&gt; -------------------------------------------------------------
-&gt; (Intercept) |     0.41 | 0.91 | [-1.39, 2.43] |  0.44 | 0.657
-&gt; Group [1]   |    -0.81 | 1.29 | [-3.54, 1.70] | -0.63 | 0.530</code></pre>
+<pre><code>&gt; Parameter     | Log-Odds |   SE |         95% CI |     z |      p
+&gt; -----------------------------------------------------------------
+&gt; (Intercept)   |     1.55 | 0.16 | [ 1.25,  1.87] |  9.86 | &lt; .001
+&gt; is seniorTRUE |    -1.22 | 0.21 | [-1.63, -0.82] | -5.86 | &lt; .001</code></pre>
 <pre><code>&gt; 
 &gt; Uncertainty intervals (profile-likelihood) and p-values (two-tailed)
 &gt;   computed using a Wald z-distribution approximation.</code></pre>
@@ -307,8 +300,8 @@ function.</p>
 &gt;   to interpret coefficients as ratios.</code></pre>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Convert log(OR) (the coefficient) to d</span></span>
-<span><span class="fu"><a href="../reference/d_to_r.html">oddsratio_to_d</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.81</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; [1] -0.447</code></pre>
+<span><span class="fu"><a href="../reference/d_to_r.html">oddsratio_to_d</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.22</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; [1] -0.673</code></pre>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>

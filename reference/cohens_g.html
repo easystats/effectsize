@@ -209,20 +209,45 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer &amp; Kiesser,
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">Performance</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">794</span>, <span class="fl">150</span>,</span></span>
-<span class="r-in"><span>                        <span class="fl">86</span>, <span class="fl">570</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">Performance</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"1st Survey"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Approve"</span>, <span class="st">"Disapprove"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                              <span class="st">"2nd Survey"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Approve"</span>, <span class="st">"Disapprove"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">Performance</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             2nd Survey</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1st Survey   Approve Disapprove</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Approve        794         86</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Disapprove     150        570</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"screening_test"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">cohens_g</span><span class="op">(</span><span class="va">Performance</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="phi.html">phi</a></span><span class="op">(</span><span class="va">screening_test</span><span class="op">$</span><span class="va">Diagnosis</span>, <span class="va">screening_test</span><span class="op">$</span><span class="va">Test1</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Phi (adj.) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.85       | [0.81, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="phi.html">phi</a></span><span class="op">(</span><span class="va">screening_test</span><span class="op">$</span><span class="va">Diagnosis</span>, <span class="va">screening_test</span><span class="op">$</span><span class="va">Test2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Phi (adj.) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.85       | [0.81, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Both tests seem comparable - but are the tests actually different?</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">tests</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span>Test1 <span class="op">=</span> <span class="va">screening_test</span><span class="op">$</span><span class="va">Test1</span>, Test2 <span class="op">=</span> <span class="va">screening_test</span><span class="op">$</span><span class="va">Test2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        Test2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Test1   "Neg" "Pos"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "Neg"   794    86</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "Pos"   150   570</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/mcnemar.test.html" class="external-link">mcnemar.test</a></span><span class="op">(</span><span class="va">tests</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	McNemar's Chi-squared test with continuity correction</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data:  tests</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> McNemar's chi-squared = 16.818, df = 1, p-value = 4.115e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">cohens_g</span><span class="op">(</span><span class="va">tests</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's g |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.14      | [0.07, 0.19]</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Test 2 gives a negative result more than test 1!</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

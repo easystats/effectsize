@@ -64,6 +64,18 @@
     <loc>https://easystats.github.io/effectsize/reference/F_to_eta2.html</loc>
   </url>
   <url>
+    <loc>https://easystats.github.io/effectsize/reference/Music_preferences.html</loc>
+  </url>
+  <url>
+    <loc>https://easystats.github.io/effectsize/reference/Music_preferences2.html</loc>
+  </url>
+  <url>
+    <loc>https://easystats.github.io/effectsize/reference/RCT_table.html</loc>
+  </url>
+  <url>
+    <loc>https://easystats.github.io/effectsize/reference/Smoking_FASD.html</loc>
+  </url>
+  <url>
     <loc>https://easystats.github.io/effectsize/reference/cohens_d.html</loc>
   </url>
   <url>
@@ -104,6 +116,9 @@
   </url>
   <url>
     <loc>https://easystats.github.io/effectsize/reference/eta_squared.html</loc>
+  </url>
+  <url>
+    <loc>https://easystats.github.io/effectsize/reference/food_class.html</loc>
   </url>
   <url>
     <loc>https://easystats.github.io/effectsize/reference/format_standardize.html</loc>
@@ -200,6 +215,9 @@
   </url>
   <url>
     <loc>https://easystats.github.io/effectsize/reference/rules.html</loc>
+  </url>
+  <url>
+    <loc>https://easystats.github.io/effectsize/reference/screening_test.html</loc>
   </url>
   <url>
     <loc>https://easystats.github.io/effectsize/reference/sd_pooled.html</loc>
