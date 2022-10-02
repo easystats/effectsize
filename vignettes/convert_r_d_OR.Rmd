@@ -32,38 +32,29 @@ The most basic conversion is between *r* values, a measure of standardized
 association between two continuous measures, and *d* values (such as Cohen's
 *d*), a measure of standardized differences between two groups / conditions.
 
-Let's simulate some data:
+Let's looks at some (simulated) data:
 
 ```{r}
-set.seed(1)
-data <- bayestestR::simulate_difference(
-  n = 10,
-  d = 0.2,
-  names = c("Group", "Outcome")
-)
-```
-
-```{r, echo=FALSE}
-print(data, digits = 3)
+library(effectsize)
+data("hardlyworking")
+head(hardlyworking)
 ```
 
 We can compute Cohen's *d* between the two groups:
 
 ```{r}
-library(effectsize)
-
-cohens_d(Outcome ~ Group, data = data)
+cohens_d(salary ~ is_senior, data = hardlyworking)
 ```
 
-But we can also treat the 2-level `group` variable as a numeric variable, and
+But we can also treat the 2-level `is_senior` variable as a numeric variable, and
 compute Pearson's *r*:
 
 ```{r, warning=FALSE, eval=requireNamespace("correlation", quietly = TRUE)}
-correlation::cor_test(data, "Outcome", "Group")
+correlation::cor_test(hardlyworking, "salary", "is_senior")
 ```
 
 But what if we only have summary statistics?
-Say, we only have $d=-0.22$ and we want to know what the *r* would
+Say, we only have $d=-0.72$ and we want to know what the *r* would
 have been? We can approximate *r* using the following formula
 [@borenstein2009converting]:
 
@@ -73,11 +64,11 @@ $$
 And indeed, if we use `d_to_r()`, we get a pretty decent approximation:
 
 ```{r}
-d_to_r(-0.22)
+d_to_r(-0.72)
 ```
 
 (Which also works in the other way, with `r_to_d(0.12)` gives 
-`r round(r_to_d(0.12),3)`)
+`r round(r_to_d(0.34),3)`)
 
 As we can see, these are rough approximations, but they can be useful when we
 don't have the raw data on hand.
@@ -89,25 +80,27 @@ value (that is, the standardized difference between two groups / conditions,
 with variance from other predictors partilled out). For example:
 
 ```{r}
-fit <- lm(mpg ~ am + hp, data = mtcars)
+fit <- lm(salary ~ is_senior + xtra_hours, data = hardlyworking)
 
 parameters::model_parameters(fit)
 
 # A couple of ways to get partial-d:
-5.28 / sigma(fit)
-t_to_d(4.89, df_error = 29)[[1]]
+1683.65 / sigma(fit)
+t_to_d(5.31, df_error = 497)[[1]]
 ```
 
 We can convert these semi-*d* values to *r* values, but in this case these
 represent the *partial* correlation:
 
 ```{r, eval=requireNamespace("correlation", quietly = TRUE)}
-t_to_r(4.89, df_error = 29)
+t_to_r(5.31, df_error = 497)
 
-correlation::correlation(mtcars[, c("mpg", "am", "hp")], partial = TRUE)[1, ]
+correlation::correlation(hardlyworking[, c("salary", "xtra_hours", "is_senior")], 
+                         include_factors = TRUE,
+                         partial = TRUE)[2, ]
 
 # all close to:
-d_to_r(1.81)
+d_to_r(0.47)
 ```
 
 # Converting Between *OR* and *d*
@@ -137,21 +130,21 @@ Let's give it a try:
 
 ```{r}
 # 1. Set a threshold
-thresh <- 0
+thresh <- 22500
 
 # 2. dichotomize the outcome
-data$Outcome_binom <- data$Outcome < thresh
+hardlyworking$salary_high <- hardlyworking$salary < thresh
 
 # 3. Fit a logistic regression:
-fit <- glm(Outcome_binom ~ Group,
-  data = data,
+fit <- glm(salary_high ~ is_senior,
+  data = hardlyworking,
   family = binomial()
 )
 
 parameters::model_parameters(fit)
 
 # Convert log(OR) (the coefficient) to d
-oddsratio_to_d(-0.81, log = TRUE)
+oddsratio_to_d(-1.22, log = TRUE)
 ```
 
 # References

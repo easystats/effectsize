@@ -30,8 +30,31 @@ Music_preferences <- as.table(Music_preferences)
 
 save(Music_preferences, file = "data/Music_preferences.rdata")
 
+
+
+Music_preferences2 <- matrix(
+  c(151, 130, 12, 7,
+    77, 6, 111, 4,
+    0, 4, 2, 165),
+  byrow = TRUE, nrow = 3)
+dimnames(Music_preferences2) <- list(c("Psych", "Econ", "Law"),
+                                     c("Pop", "Rock", "Jazz", "Classic"))
+Music_preferences2 <- as.table(Music_preferences2)
+
+save(Music_preferences2, file = "data/Music_preferences2.rdata")
+
 # FASD ---------------------------------------------------------------------
 
 Smoking_FASD <- as.table(c(FAS = 17, PFAS = 11, TD = 640))
 
 save(Smoking_FASD, file = "data/Smoking_FASD.rdata")
+
+
+# Food --------------------------------------------------------------------
+
+food_class <- matrix(c(47, 0, 0,
+                       0, 12, 21), nrow = 2, byrow = TRUE)
+dimnames(food_class) <- list(c("Vegan", "Not-Vegan"), c("Soy", "Milk", "Meat"))
+food_class <- as.table(food_class)
+
+save(food_class, file = "data/food_class.rdata")

@@ -244,5 +244,6 @@ hardlyworking <- data.frame(
   )
 )
 
+hardlyworking$is_senior <- hardlyworking$seniority > 4
 
 save(hardlyworking, file = "data/hardlyworking.rdata")
