@@ -26,6 +26,7 @@
     - `p_superiority()` now supports paired and one-sample cases.
     - `vd_a()` and `rb_to_vda()` for Vargha and Delaney's *A* dominance effect size (aliases for `p_superiority(parametric = FALSE)` and `rb_to_p_superiority()`).
     - `cohens_u1()`, `cohens_u2()`, `d_to_u1()`, and `d_to_u2()` added for Cohen's U1 and U2.
+    - new effect size: `semipartialR2`
 
 ## Bug fixes
 
