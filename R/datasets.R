@@ -76,6 +76,20 @@ NULL
 NULL
 
 
+#' Music Preference by College Major
+#'
+#' Fictional data, with more extreme preferences than [Music_preferences]
+#'
+#' @docType data
+#'
+#' @name Music_preferences2
+#'
+#' @keywords data
+#'
+#' @format A 4-by-3 table, with a *column* for each major and a *row* for each type of music.
+#'
+NULL
+
 #' Frequency of FASD for Smoking Mothers
 #'
 #' Fictional data.
@@ -87,5 +101,20 @@ NULL
 #' @keywords data
 #'
 #' @format A 1-by-3 table, with a *column* for each diagnosis.
+#'
+NULL
+
+
+#' Classification of Foods
+#'
+#' Fictional data.
+#'
+#' @docType data
+#'
+#' @name food_class
+#'
+#' @keywords data
+#'
+#' @format A 2-by-3 table.
 #'
 NULL
