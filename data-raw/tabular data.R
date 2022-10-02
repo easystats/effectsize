@@ -1,4 +1,4 @@
-
+# styler: off
 # RCT ---------------------------------------------------------------------
 
 RCT_table <- matrix(c(
@@ -65,3 +65,4 @@ dimnames(food_class) <- list(c("Vegan", "Not-Vegan"), c("Soy", "Milk", "Meat"))
 food_class <- as.table(food_class)
 
 save(food_class, file = "data/food_class.rdata")
+# styler: on

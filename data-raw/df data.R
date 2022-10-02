@@ -24,7 +24,6 @@ screening_test$Diagnosis <- factor(screening_test$Diagnosis, labels = c("Neg", "
 save(screening_test, file = "data/screening_test.rdata")
 
 
-
 # Hardly ------------------------------------------------------------------
 
 hardlyworking <- data.frame(
@@ -247,3 +246,4 @@ hardlyworking <- data.frame(
 hardlyworking$is_senior <- hardlyworking$seniority > 4
 
 save(hardlyworking, file = "data/hardlyworking.rdata")
+# styler: on
