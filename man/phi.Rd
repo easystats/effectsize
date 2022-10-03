@@ -19,6 +19,7 @@ cohens_w(
   x,
   y = NULL,
   p = rep(1/length(x), length(x)),
+  rescale.p = TRUE,
   ci = 0.95,
   alternative = "greater",
   ...
@@ -27,6 +28,7 @@ cohens_w(
 fei(
   x,
   p = rep(1/length(x), length(x)),
+  rescale.p = TRUE,
   ci = 0.95,
   alternative = "greater",
   ...
@@ -36,6 +38,7 @@ pearsons_c(
   x,
   y = NULL,
   p = rep(1/length(x), length(x)),
+  rescale.p = TRUE,
   ci = 0.95,
   alternative = "greater",
   ...
@@ -59,11 +62,14 @@ Controls the type of CI returned: \code{"greater"} (default) or \code{"less"}
 is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in
 \link{effectsize_CIs}.}
 
-\item{...}{For goodness-of-fit effect sizes, can pass \code{rescale.p} (see
-\code{\link[stats:chisq.test]{stats::chisq.test()}}). Else, ignored.}
+\item{...}{Ignored.}
 
 \item{p}{a vector of probabilities of the same length as \code{x}.
     An error is given if any entry of \code{p} is negative.}
+
+\item{rescale.p}{a logical scalar; if TRUE then \code{p} is rescaled
+    (if necessary) to sum to 1.  If \code{rescale.p} is FALSE, and
+    \code{p} does not sum to 1, an error is given.}
 }
 \value{
 A data frame with the effect size (\code{Cramers_v}, \code{phi} (possibly with
