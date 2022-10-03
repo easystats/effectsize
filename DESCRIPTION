@@ -1,6 +1,6 @@
 Type: Package
 Package: effectsize
-Title: Indices of Effect Size and Standardized Parameters
+Title: Indices of Effect Size
 Version: 0.7.9.2999
 Authors@R: 
     c(person(given = "Mattan S.",
@@ -45,11 +45,10 @@ Authors@R:
              email = "jkarreth@ursinus.edu",
              comment = c(ORCID = "0000-0003-4586-7153")))
 Maintainer: Mattan S. Ben-Shachar <matanshm@post.bgu.ac.il>
-Description: Provide utilities to work with indices of effect size and
-    standardized parameters for a wide variety of models (see list of
-    supported models using the function 'insight::supported_models()'),
-    allowing computation of and conversion between indices such as Cohen's
-    d, r, odds, etc.
+Description: Provide utilities to work with indices of effect size for a wide 
+    variety of models and hypothesis tests (see list of supported models using 
+    the function 'insight::supported_models()'), allowing computation of and 
+    conversion between indices such as Cohen's d, r, odds, etc.
     References: Ben-Shachar et al. (2020) <doi:10.21105/joss.02815>.
 License: GPL-3
 URL: https://easystats.github.io/effectsize/
