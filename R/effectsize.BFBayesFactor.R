@@ -3,7 +3,7 @@
 #' @inheritParams bayestestR::describe_posterior
 #' @importFrom insight get_data get_parameters check_if_installed
 #' @importFrom bayestestR describe_posterior
-effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = NULL, ...) {
+effectsize.BFBayesFactor <- function(model, type = NULL, ci = 0.95, test = NULL, verbose = TRUE, ...) {
   insight::check_if_installed("BayesFactor")
 
   if (length(model) > 1) {
@@ -26,7 +26,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   }
 
   # Clean up
-  out <- bayestestR::describe_posterior(pars$res, test = test, ...)
+  out <- bayestestR::describe_posterior(pars$res, ci = ci, test = test, ...)
   if (isTRUE(type == "cles")) {
     colnames(out)[2] <- "Coefficient"
   } else {
@@ -45,7 +45,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
 }
 
 #' @keywords internal
-.effectsize_contingencyTableBF <- function(model, type = NULL, verbose = TRUE, ...) {
+.effectsize_contingencyTableBF <- function(model, type = NULL, verbose = TRUE, adjust = TRUE, ...) {
   if (is.null(type)) type <- "cramers_v"
 
   f <- switch(tolower(type),
@@ -74,7 +74,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   })
 
   res <- data.frame(ES)
-  colnames(res) <- colnames(f(data, ci = NULL, ...))
+  colnames(res) <- colnames(f(data, ci = NULL, adjust = TRUE))
 
   list(
     res = res,

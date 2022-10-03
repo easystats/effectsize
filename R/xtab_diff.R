@@ -57,13 +57,9 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
 
   if (.is_htest_of_type(x, "(Pearson's Chi-squared|Fisher's Exact)", "Chi-squared-test or Fisher's Exact test")) {
-    if (grepl("Fisher's Exact", x$method)) {
-      return(effectsize(x, alternative = alternative, ...))
-    } else {
-      return(effectsize(x, type = "or", log = log, ci = ci, alternative = alternative))
-    }
+    return(effectsize(x, type = "or", log = log, ci = ci, alternative = alternative))
   } else if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
-    return(effectsize(x, type = "or", log = log, ci = ci, ...))
+    return(effectsize(x, type = "or", log = log, ci = ci))
   }
 
   res <- suppressWarnings(stats::chisq.test(x, y))

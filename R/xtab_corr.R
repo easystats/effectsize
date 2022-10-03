@@ -109,7 +109,7 @@ phi <- function(x, y = NULL,
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
-    return(effectsize(x, type = "phi", adjust = adjust, ci = ci, ...))
+    return(effectsize(x, type = "phi", adjust = adjust, ci = ci))
   } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
     x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
@@ -128,7 +128,7 @@ cramers_v <- function(x, y = NULL,
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
-    return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci, ...))
+    return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci))
   } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
     x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
@@ -147,7 +147,7 @@ tschuprows_t <- function(x, y = NULL,
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
-    return(effectsize(x, type = "tschuprows_t", ci = ci, ...))
+    return(effectsize(x, type = "tschuprows_t", ci = ci))
   } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
     x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
@@ -165,7 +165,7 @@ cohens_w <- function(x, y = NULL, p = rep(1 / length(x), length(x)),
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
-    return(effectsize(x, type = "phi", ci = ci, ...))
+    return(effectsize(x, type = "cohens_w", ci = ci))
   } else if (!.is_htest_of_type(
     x, "(Pearson's Chi-squared|Chi-squared test for given probabilities)",
     "Chi-squared-test"
@@ -205,7 +205,7 @@ pearsons_c <- function(x, y = NULL, p = rep(1 / length(x), length(x)),
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
-    return(effectsize(x, type = "pearsons_c", ci = ci, ...))
+    return(effectsize(x, type = "pearsons_c", ci = ci))
   } else if (!.is_htest_of_type(
     x, "(Pearson's Chi-squared|Chi-squared test for given probabilities)",
     "Chi-squared-test"
