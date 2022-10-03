@@ -47,6 +47,41 @@ test_that("t-test", {
   )
 })
 
+test_that("t-test | CLES", {
+  x <<- 1:4
+  y <<- c(1, 1:3)
+  Tt <- t.test(x, y, var.equal = TRUE)
+
+  expect_equal(e <- p_superiority(Tt), p_superiority(x, y), ignore_attr = TRUE)
+  expect_equal(effectsize(Tt, type = "p_superiority"), e)
+
+  expect_equal(e <- cohens_u1(Tt), cohens_u1(x, y), ignore_attr = TRUE)
+  expect_equal(effectsize(Tt, type = "u1"), e)
+
+  expect_equal(e <- cohens_u2(Tt), cohens_u2(x, y), ignore_attr = TRUE)
+  expect_equal(effectsize(Tt, type = "u2"), e)
+
+  expect_equal(e <- cohens_u3(Tt), cohens_u3(x, y), ignore_attr = TRUE)
+  expect_equal(effectsize(Tt, type = "u3"), e)
+
+  expect_equal(e <- p_overlap(Tt), p_overlap(x, y), ignore_attr = TRUE)
+  expect_equal(effectsize(Tt, type = "overlap"), e)
+})
+
+test_that("Wilcox | CLES", {
+  x <<- 1:4
+  y <<- c(1, 1:3)
+  Wt <- suppressWarnings(wilcox.test(x, y, var.equal = TRUE))
+
+  expect_equal(e <- p_superiority(Wt), p_superiority(x, y, parametric = FALSE), ignore_attr = TRUE)
+  expect_equal(effectsize(Wt, type = "p_superiority"), e)
+
+  expect_error(effectsize(Wt, type = "u1"), "parametric")
+
+  expect_equal(e <- cohens_u3(Wt), cohens_u3(x, y, parametric = FALSE), ignore_attr = TRUE)
+  expect_equal(effectsize(Wt, type = "u3"), e)
+})
+
 test_that("Chisq-test", {
   contingency_table <-
     as.table(rbind(c(760, 330, 470), c(480, 240, 480), c(480, 240, 480)))
