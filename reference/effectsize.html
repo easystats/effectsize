@@ -114,7 +114,7 @@ input model. See details.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for BFBayesFactor</span></span>
-<span><span class="fu">effectsize</span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="cn">NULL</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, test <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">effectsize</span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="cn">NULL</span>, ci <span class="op">=</span> <span class="fl">0.95</span>, test <span class="op">=</span> <span class="cn">NULL</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">effectsize</span><span class="op">(</span><span class="va">model</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -135,8 +135,9 @@ input model. See details.</p>
 <dd><p>The effect size of interest. See details.</p></dd>
 
 
-<dt>verbose</dt>
-<dd><p>Toggle warnings and messages on or off.</p></dd>
+<dt>ci</dt>
+<dd><p>Value or vector of probability of the CI (between 0 and 1)
+to be estimated. Default to <code>.95</code> (<code>95%</code>).</p></dd>
 
 
 <dt>test</dt>
@@ -147,6 +148,10 @@ list with one or more of these options: <code>"p_direction"</code> (or <code>"pd
 For each "test", the corresponding <span class="pkg">bayestestR</span> function is called
 (e.g. <code><a href="https://easystats.github.io/bayestestR/reference/rope.html" class="external-link">rope()</a></code> or <code><a href="https://easystats.github.io/bayestestR/reference/p_direction.html" class="external-link">p_direction()</a></code>) and its results
 included in the summary output.</p></dd>
+
+
+<dt>verbose</dt>
+<dd><p>Toggle warnings and messages on or off.</p></dd>
 
 
 <dt>...</dt>
@@ -289,7 +294,7 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ************</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's d |        95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.32     | [-1.02, 0.31]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.33     | [-0.99, 0.31]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Deviation from a difference of -1.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Estimated using pooled SD.</span>

@@ -129,6 +129,7 @@ contingency tables or goodness-of-fit. Pair with any reported
 <span>  <span class="va">x</span>,</span>
 <span>  y <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  rescale.p <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  ci <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -137,6 +138,7 @@ contingency tables or goodness-of-fit. Pair with any reported
 <span><span class="fu">fei</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  rescale.p <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  ci <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -146,6 +148,7 @@ contingency tables or goodness-of-fit. Pair with any reported
 <span>  <span class="va">x</span>,</span>
 <span>  y <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  rescale.p <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  ci <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -182,13 +185,18 @@ is allowed (e.g., <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). Se
 
 
 <dt>...</dt>
-<dd><p>For goodness-of-fit effect sizes, can pass <code>rescale.p</code> (see
-<code><a href="https://rdrr.io/r/stats/chisq.test.html" class="external-link">stats::chisq.test()</a></code>). Else, ignored.</p></dd>
+<dd><p>Ignored.</p></dd>
 
 
 <dt>p</dt>
 <dd><p>a vector of probabilities of the same length as <code>x</code>.
     An error is given if any entry of <code>p</code> is negative.</p></dd>
+
+
+<dt>rescale.p</dt>
+<dd><p>a logical scalar; if TRUE then <code>p</code> is rescaled
+    (if necessary) to sum to 1.  If <code>rescale.p</code> is FALSE, and
+    <code>p</code> does not sum to 1, an error is given.</p></dd>
 
 </dl></div>
     <div class="section level2">
