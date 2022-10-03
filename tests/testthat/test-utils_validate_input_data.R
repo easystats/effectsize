@@ -127,7 +127,6 @@ test_that(".get_data_multi_group", {
                rank_epsilon_squared("exp_a", "c", data = df))
 
   expect_error(rank_epsilon_squared("c", "c", data = df), "non-numeric")
-  expect_error(rank_epsilon_squared(a2, df$c), "length")
   expect_error(rank_epsilon_squared("a", "aa", data = df), "missing")
 
   df[1,] <- NA
