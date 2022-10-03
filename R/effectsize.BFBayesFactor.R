@@ -70,11 +70,11 @@ effectsize.BFBayesFactor <- function(model, type = NULL, ci = 0.95, test = NULL,
 
   ES <- apply(posts, 1, function(a) {
     M <- matrix(a, nrow = nrow(data))
-    f(M, ci = NULL, ...)[[1]]
+    f(M, ci = NULL, adjust = adjust)[[1]]
   })
 
   res <- data.frame(ES)
-  colnames(res) <- colnames(f(data, ci = NULL, adjust = TRUE))
+  colnames(res) <- colnames(f(data, ci = NULL, adjust = adjust))
 
   list(
     res = res,
