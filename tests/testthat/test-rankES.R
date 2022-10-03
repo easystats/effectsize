@@ -15,20 +15,6 @@ test_that("rank_biserial", {
   A <- c(48, 48, 77, 86, 85, 85, 16)
   B <- c(14, 34, 34, 77)
   expect_equal(rank_biserial(A, B)[[1]], 0.6071429, tolerance = 0.01)
-
-
-  df <- data.frame(
-    outcome = c(x, y),
-    g = factor(rep(0:1, each = 9))
-  )
-  expect_equal(
-    rank_biserial(outcome ~ g, data = df, ci = NULL),
-    rank_biserial(df$outcome ~ df$g, ci = NULL)
-  )
-  expect_equal(
-    rank_biserial(outcome ~ g, data = df, ci = NULL),
-    rank_biserial("outcome", "g", data = df, ci = NULL)
-  )
 })
 
 
@@ -41,7 +27,6 @@ test_that("rank_biserial | ordered", {
     rank_biserial(x1, x2),
     rank_biserial(as.numeric(x1), as.numeric(x2))
   )
-
 
   x1 <- ordered(as.numeric(x1))
   x2 <- ordered(as.numeric(x2))
@@ -64,15 +49,6 @@ test_that("rank_epsilon_squared", {
   expect_equal(E[[1]], 0.05934066, tolerance = 0.01)
   expect_equal(E$CI_low, 0.01726463, tolerance = 0.01)
   expect_equal(E$CI_high, 1)
-
-  expect_equal(
-    rank_epsilon_squared(x ~ g, ci = NULL),
-    rank_epsilon_squared(x, g, ci = NULL)
-  )
-
-  g[1] <- NA
-  expect_warning(E1 <- rank_epsilon_squared(x, g, ci = NULL), "dropped")
-  expect_equal(E1, rank_epsilon_squared(x[-1], g[-1], ci = NULL))
 })
 
 
@@ -98,25 +74,8 @@ test_that("kendalls_w", {
     "Wide Angle" = c(5.55, 5.75, 5.5)
   )
 
-  M2 <- data.frame(
-    id = c(1L, 1L, 1L, 2L, 2L, 2L, 3L, 3L, 3L),
-    name = c(
-      "Round Out", "Narrow Angle", "Wide Angle",
-      "Round Out", "Narrow Angle", "Wide Angle",
-      "Round Out", "Narrow Angle", "Wide Angle"
-    ),
-    value = c(5.4, 5.5, 5.55, 5.85, 5.7, 5.75, 5.2, 5.6, 5.5)
-  )
-
   set.seed(1)
   W1 <- kendalls_w(M1)
-  W2 <- kendalls_w(value ~ name | id, data = M2, ci = NULL)
-  W3 <- kendalls_w(M2$value, M2$name, M2$id, ci = NULL)
-  W4 <- kendalls_w(M2$value ~ M2$name | M2$id, ci = NULL)
-
-  expect_equal(W1[[1]], W2[[1]])
-  expect_equal(W1[[1]], W3[[1]])
-  expect_equal(W1[[1]], W4[[1]])
   expect_equal(W1[[1]], 0.11111111, tolerance = 0.01)
   expect_equal(W1$CI_low, 0.11111111, tolerance = 0.01)
   expect_equal(W1$CI_high, 1, tolerance = 0.01)
