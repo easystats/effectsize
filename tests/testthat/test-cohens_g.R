@@ -2,11 +2,11 @@ test_that("Cohen's g", {
   # From mcnemar.test
   Performance <-
     matrix(c(794, 86, 150, 570),
-           nrow = 2,
-           dimnames = list(
-             "1st Survey" = c("Approve", "Disapprove"),
-             "2nd Survey" = c("Approve", "Disapprove")
-           )
+      nrow = 2,
+      dimnames = list(
+        "1st Survey" = c("Approve", "Disapprove"),
+        "2nd Survey" = c("Approve", "Disapprove")
+      )
     )
   g <- cohens_g(Performance)
   expect_equal(g$Cohens_g, 0.136, tolerance = 0.01)

@@ -13,7 +13,7 @@ test_that(".get_data_2_samples", {
   expect_error(d2 <- cohens_d("a", "c", data = df), regexp = NA)
   expect_error(d3 <- cohens_d(df$a ~ df$c), regexp = NA)
   expect_error(d4 <- cohens_d(df$a, df$c), regexp = NA)
-  expect_error(d5 <- cohens_d(df$a[df$c=="a"], df$a[df$c=="b"]), regexp = NA)
+  expect_error(d5 <- cohens_d(df$a[df$c == "a"], df$a[df$c == "b"]), regexp = NA)
   expect_equal(d1, d2)
   expect_equal(d1, d3)
   expect_equal(d1, d4)
@@ -23,8 +23,10 @@ test_that(".get_data_2_samples", {
   expect_error(cohens_d(a2, df$b), regexp = NA)
   expect_error(cohens_d(b ~ e, data = df), regexp = NA)
 
-  expect_equal(cohens_d(exp(a) ~ c, data = df),
-               cohens_d("exp_a", "c", data = df))
+  expect_equal(
+    cohens_d(exp(a) ~ c, data = df),
+    cohens_d("exp_a", "c", data = df)
+  )
 
 
   expect_error(cohens_d(a ~ b, data = df), "exactly")
@@ -114,7 +116,7 @@ test_that(".get_data_multi_group", {
   expect_error(d2 <- rank_epsilon_squared("a", "c", data = df), regexp = NA)
   expect_error(d3 <- rank_epsilon_squared(df$a ~ df$c), regexp = NA)
   expect_error(d4 <- rank_epsilon_squared(df$a, df$c), regexp = NA)
-  L <- list(df$a[df$c=="a"], df$a[df$c=="b"], df$a[df$c=="c"])
+  L <- list(df$a[df$c == "a"], df$a[df$c == "b"], df$a[df$c == "c"])
   expect_error(d5 <- rank_epsilon_squared(L), regexp = NA)
   expect_equal(d1, d2)
   expect_equal(d1, d3)
@@ -123,13 +125,15 @@ test_that(".get_data_multi_group", {
 
   expect_error(rank_epsilon_squared(b ~ e, data = df), regexp = NA)
 
-  expect_equal(rank_epsilon_squared(exp(a) ~ c, data = df),
-               rank_epsilon_squared("exp_a", "c", data = df))
+  expect_equal(
+    rank_epsilon_squared(exp(a) ~ c, data = df),
+    rank_epsilon_squared("exp_a", "c", data = df)
+  )
 
   expect_error(rank_epsilon_squared("c", "c", data = df), "non-numeric")
   expect_error(rank_epsilon_squared("a", "aa", data = df), "missing")
 
-  df[1,] <- NA
+  df[1, ] <- NA
   expect_warning(E1 <- rank_epsilon_squared(a ~ c, data = df, ci = NULL), "dropped")
   expect_equal(E1, rank_epsilon_squared(df$a[-1], df$c[-1], ci = NULL))
 })
@@ -182,4 +186,3 @@ test_that(".get_data_nested_groups | subset", {
     kendalls_w(y ~ g | id, data = subset(d, g < 4), ci = NULL)
   )
 })
-
