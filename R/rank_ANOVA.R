@@ -49,8 +49,8 @@
 #'
 #' @return A data frame with the effect size and its CI.
 #'
-#' @family effect size indices
-#' @seealso [rank_biserial()] for more rank based effect sizes
+#' @family rank-based effect sizes
+#' @family effect sizes for ANOVAs
 #'
 #' @examples
 #' \donttest{

@@ -54,6 +54,7 @@
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #'
 #' @family effect size from test statistic
+#' @seealso [phi()] for more details.
 #'
 #' @examples
 #'

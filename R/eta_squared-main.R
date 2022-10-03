@@ -93,7 +93,7 @@
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #'
 #' @seealso [F_to_eta2()]
-#' @family effect size indices
+#' @family effect sizes for ANOVAs
 #'
 #' @examples
 #' data(mtcars)

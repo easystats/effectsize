@@ -48,6 +48,8 @@ relative risks for better communication of research findings. Bmj, 348,
 f7450.
 }
 \seealso{
+\code{\link[=oddsratio]{oddsratio()}} and \code{\link[=riskratio]{riskratio()}}
+
 Other convert between effect sizes: 
 \code{\link{d_to_r}()},
 \code{\link{diff_to_cles}},

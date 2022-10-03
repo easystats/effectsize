@@ -183,17 +183,12 @@ sport sciences, 1(21), 19-25.
 }
 }
 \seealso{
-\code{\link[=rank_biserial]{rank_biserial()}} for more rank based effect sizes
-
-Other effect size indices: 
-\code{\link{cohens_d}()},
-\code{\link{cohens_g}()},
-\code{\link{effectsize.BFBayesFactor}()},
-\code{\link{eta_squared}()},
-\code{\link{mahalanobis_d}()},
-\code{\link{oddsratio}()},
+Other rank-based effect sizes: 
 \code{\link{p_superiority}()},
-\code{\link{phi}()},
 \code{\link{rank_biserial}()}
+
+Other effect sizes for ANOVAs: 
+\code{\link{eta_squared}()}
 }
-\concept{effect size indices}
+\concept{effect sizes for ANOVAs}
+\concept{rank-based effect sizes}

@@ -33,8 +33,8 @@
 #' @return A data frame with the `Mahalanobis_D` and potentially its CI
 #'   (`CI_low` and `CI_high`).
 #'
-#' @seealso [cohens_d()], [cov_pooled()], [stats::mahalanobis()]
-#' @family effect size indices
+#' @seealso [stats::mahalanobis()], [cov_pooled()]
+#' @family standardized differences
 #'
 #' @references
 #' - Del Giudice, M. (2017). Heterogeneity coefficients for Mahalanobis' D as a multivariate effect size. Multivariate Behavioral Research, 52(2), 216-221.

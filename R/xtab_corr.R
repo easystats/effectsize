@@ -46,7 +46,7 @@
 #'   `CI_high`).
 #'
 #' @seealso [chisq_to_phi()] for details regarding estimation and CIs.
-#' @family effect size indices
+#' @family effect sizes for contingency table
 #'
 #' @examples
 #'

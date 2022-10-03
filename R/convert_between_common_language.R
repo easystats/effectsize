@@ -31,7 +31,7 @@
 #' Vargha and Delaney's *A* is an alias for the non-parametric *probability of
 #' superiority*.
 #'
-#' @seealso See [cohens_u3()] for descriptions of the effect sizes (also,
+#' @seealso [cohens_u3()] for descriptions of the effect sizes (also,
 #'   [cohens_d()], [rank_biserial()]).
 #' @family convert between effect sizes
 #'

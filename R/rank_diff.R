@@ -47,7 +47,8 @@
 #'   (`CI_low` and `CI_high`).
 #'
 #' @family effect size indices
-#' @seealso [rank_epsilon_squared()] for more rank based effect sizes
+#' @family standardized differences
+#' @family rank-based effect sizes
 #'
 #' @examples
 #' \donttest{

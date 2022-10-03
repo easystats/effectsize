@@ -83,8 +83,9 @@
 #' - Agresti, A. (1980). Generalized odds ratios for ordinal data.
 #' Biometrics, 59-67.
 #'
-#' @seealso [d_to_cles()] [sd_pooled()]
-#' @family effect size indices
+#' @seealso [sd_pooled()]
+#' @family standardized differences
+#' @family rank-based effect sizes
 #'
 #' @examples
 #' cohens_u2(mpg ~ am, data = mtcars)

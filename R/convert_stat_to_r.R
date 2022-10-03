@@ -45,6 +45,7 @@
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #'
 #' @family effect size from test statistic
+#' @seealso [cohens_d()]
 #'
 #' @examples
 #' ## t Tests

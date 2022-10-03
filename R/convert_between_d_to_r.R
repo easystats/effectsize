@@ -10,6 +10,7 @@
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @family convert between effect sizes
+#' @seealso [cohens_d()]
 #'
 #' @examples
 #' r_to_d(0.5)

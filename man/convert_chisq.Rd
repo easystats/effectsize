@@ -218,6 +218,8 @@ tests to effect sizes for meta-analysis. PloS one, 5(4), e10059.
 }
 }
 \seealso{
+\code{\link[=phi]{phi()}} for more details.
+
 Other effect size from test statistic: 
 \code{\link{F_to_eta2}()},
 \code{\link{t_to_d}()}

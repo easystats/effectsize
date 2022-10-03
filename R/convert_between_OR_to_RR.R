@@ -10,6 +10,7 @@
 #'   parameter table with the converted indices.
 #'
 #' @family convert between effect sizes
+#' @seealso [oddsratio()] and [riskratio()]
 #'
 #' @examples
 #' p0 <- 0.4

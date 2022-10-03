@@ -31,8 +31,7 @@
 #'   (possibly with the prefix `log_`), `Cohens_h`) and its CIs (`CI_low` and
 #'   `CI_high`).
 #'
-#' @seealso [phi()] and friends for other effect sizes for contingency tables.
-#' @family effect size indices
+#' @family effect sizes for contingency table
 #'
 #'
 #' @references

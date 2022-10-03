@@ -148,17 +148,11 @@ mahalanobis_d(mpg + hp + cyl ~ 1,
 }
 }
 \seealso{
-\code{\link[=cohens_d]{cohens_d()}}, \code{\link[=cov_pooled]{cov_pooled()}}, \code{\link[stats:mahalanobis]{stats::mahalanobis()}}
+\code{\link[stats:mahalanobis]{stats::mahalanobis()}}, \code{\link[=cov_pooled]{cov_pooled()}}
 
-Other effect size indices: 
+Other standardized differences: 
 \code{\link{cohens_d}()},
-\code{\link{cohens_g}()},
-\code{\link{effectsize.BFBayesFactor}()},
-\code{\link{eta_squared}()},
-\code{\link{oddsratio}()},
 \code{\link{p_superiority}()},
-\code{\link{phi}()},
-\code{\link{rank_biserial}()},
-\code{\link{rank_epsilon_squared}()}
+\code{\link{rank_biserial}()}
 }
-\concept{effect size indices}
+\concept{standardized differences}
