@@ -59,7 +59,7 @@ For larger contingency tables, Cramér's *V*, Tschuprow's *T*, Cohen's *w*, and 
 
 Both Cramér's *V* and Tschuprow's *T* are true measures of correlation: they range from 0 to 1, with 0 indicating complete independence between the nominal variables, and 1 indicating complete dependence. For square tables, they are equal, however for non-square tables $T < V$; While Cramér's *V* defines complete dependence as "it is possible to know exactly the value of the columns from the rows *or* know exactly the value of the rows from the columns", Tschuprow's *T* required both to be true to achieve complete dependence - something that is not possible for non-square tables. For example:
 
-```{r, echo=FALSE}
+```{r}
 data("food_class")
 food_class
 ```

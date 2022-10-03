@@ -6,8 +6,27 @@
 \title{Music Preference by College Major}
 \format{
 A 4-by-3 table, with a \emph{column} for each major and a \emph{row} for each type of music.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{data("Music_preferences")
+Music_preferences
+#>         Psych Econ Law
+#> Pop       150   50   2
+#> Rock      100   65  55
+#> Jazz      165   35  40
+#> Classic   130   10  25
+}\if{html}{\out{</div>}}
 }
 \description{
 Fictional data.
 }
+\seealso{
+Other effect size datasets: 
+\code{\link{Music_preferences2}},
+\code{\link{RCT_table}},
+\code{\link{Smoking_FASD}},
+\code{\link{food_class}},
+\code{\link{hardlyworking}},
+\code{\link{screening_test}}
+}
+\concept{effect size datasets}
 \keyword{data}
