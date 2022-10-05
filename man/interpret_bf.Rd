@@ -63,6 +63,8 @@ Rules apply to BF as ratios, so BF of 10 is as extreme as a BF of 0.1 (1/10).
 \examples{
 interpret_bf(1)
 interpret_bf(c(5, 2))
+
+
 }
 \references{
 \itemize{
@@ -74,3 +76,4 @@ Sociological methodology, 25, 111-164.
 computing and reporting Bayes factors. The Journal of Problem Solving, 7(1), 2.
 }
 }
+\keyword{interpreters}

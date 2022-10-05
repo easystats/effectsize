@@ -46,6 +46,7 @@
 #' - Hair, J. F., Ringle, C. M., & Sarstedt, M. (2011). PLS-SEM: Indeed a silver
 #' bullet. Journal of Marketing theory and Practice, 19(2), 139-152.
 #'
+#' @keywords interpreters
 #' @export
 interpret_r2 <- function(r2, rules = "cohen1988") {
   rules <- .match.rules(

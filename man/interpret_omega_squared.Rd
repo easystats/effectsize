@@ -57,3 +57,4 @@ Edition. Sage:London.
 \seealso{
 https://imaging.mrc-cbu.cam.ac.uk/statswiki/FAQ/effectSize/
 }
+\keyword{interpreters}

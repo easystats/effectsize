@@ -37,9 +37,12 @@ reference:
   - eta_squared
   - rank_epsilon_squared
 
-
-
-
+- subtitle:
+  desc: >
+    Functions from other packages relating to parameter standardization
+  contents:
+  - parameters::standardize_parameters
+  - datawizard::standardize_models
 
 
 - title: "Effect Size Conversion / Extraction"
@@ -52,7 +55,6 @@ reference:
   - t_to_r
   - chisq_to_phi
 
-
 - subtitle: "Between Effect Sizes"
   desc: >
     Approximate effect sizes by converting between other related effect sizes
@@ -64,19 +66,12 @@ reference:
   - odds_to_probs
 
 
-
-
-
 - title: "Interpretation"
   contents:
   - equivalence_test.effectsize_table
   - interpret
   - rules
-  - starts_with("interpret_")
-
-
-
-
+  - has_keyword("interpreters")
 
 
 - title: "Miscellaneous"
@@ -96,12 +91,14 @@ reference:
   - food_class
 - subtitle: "Extra Docs"
   contents:
-  - effectsize_CIs
   - effectsize_API
   - effectsize_options
-- subtitle: "Deprecated functions"
+
+
+- title: internal
   contents:
   - effectsize_deprecated
+  - effectsize_CIs
 
 
 
@@ -126,6 +123,8 @@ navbar:
         href: articles/xtabs.html
       - text: "ANOVA Effect Sizes"
         href: articles/anovaES.html
+      - text: "Standardized Parameters"
+      - href: https://easystats.github.io/parameters/articles/standardize_parameters_effsize.html
       - text: "Confidence Intervals"
         href: reference/effectsize_CIs.html
       - text: -------

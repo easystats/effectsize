@@ -38,3 +38,4 @@ interpret_icc(c(0.4, 0.8))
 \item Koo, T. K., and Li, M. Y. (2016). A guideline of selecting and reporting intraclass correlation coefficients for reliability research. Journal of chiropractic medicine, 15(2), 155-163.
 }
 }
+\keyword{interpreters}

@@ -34,3 +34,4 @@ Interpret Kendall's Coefficient of Concordance \emph{W}
 for categorical data. Biometrics, 33:159-74.
 }
 }
+\keyword{interpreters}

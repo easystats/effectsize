@@ -50,3 +50,4 @@ interpret_cohens_g(c(.3, .15))
 (2nd Ed.). New York: Routledge.
 }
 }
+\keyword{interpreters}
