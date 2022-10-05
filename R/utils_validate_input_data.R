@@ -96,6 +96,19 @@
 }
 
 
+#' @keywords internal
+.get_data_xtabs <- function(x, y = NULL, p = NULL) {
+  # TODO dont rely on chisq.test
+  res <- suppressWarnings(stats::chisq.test(x,
+    y = y,
+    p = p,
+    correct = FALSE,
+    rescale.p = TRUE,
+    simulate.p.value = FALSE
+  ))
+
+  res[c("observed", "expected")]
+}
 
 #' @keywords internal
 .get_data_multi_group <- function(x, groups, data = NULL,

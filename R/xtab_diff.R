@@ -61,7 +61,7 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
     return(effectsize(x, type = "or", log = log, ci = ci))
   }
 
-  res <- suppressWarnings(stats::chisq.test(x, y))
+  res <- .get_data_xtabs(x, y)
   Obs <- res$observed
 
   if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
@@ -128,7 +128,7 @@ riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
     return(effectsize(x, type = "rr", log = log, ci = ci, ...))
   }
 
-  res <- suppressWarnings(stats::chisq.test(x, y))
+  res <- .get_data_xtabs(x, y)
   Obs <- res$observed
 
   if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
@@ -198,7 +198,7 @@ cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
     return(effectsize(x, type = "cohens_h", ci = ci, ...))
   }
 
-  res <- suppressWarnings(stats::chisq.test(x, y))
+  res <- .get_data_xtabs(x, y)
   Obs <- res$observed
 
   if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {

@@ -158,8 +158,7 @@ tschuprows_t <- function(x, y = NULL,
 #' @rdname phi
 #' @importFrom stats chisq.test
 #' @export
-cohens_w <- function(x, y = NULL, p = rep(1 / length(x), length(x)),
-                     rescale.p = TRUE,
+cohens_w <- function(x, y = NULL, p = rep(1, length(x)),
                      ci = 0.95, alternative = "greater",
                      ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
@@ -170,7 +169,7 @@ cohens_w <- function(x, y = NULL, p = rep(1 / length(x), length(x)),
     x, "(Pearson's Chi-squared|Chi-squared test for given probabilities)",
     "Chi-squared-test"
   )) {
-    x <- suppressWarnings(stats::chisq.test(x, y, p = p, rescale.p = rescale.p))
+    x <- suppressWarnings(stats::chisq.test(x, y, p = p, rescale.p = TRUE))
     x$data.name <- NULL
   }
 
@@ -181,8 +180,7 @@ cohens_w <- function(x, y = NULL, p = rep(1 / length(x), length(x)),
 #' @rdname phi
 #' @importFrom stats chisq.test
 #' @export
-fei <- function(x, p = rep(1 / length(x), length(x)),
-                rescale.p = TRUE,
+fei <- function(x, p = rep(1, length(x)),
                 ci = 0.95, alternative = "greater",
                 ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
@@ -190,7 +188,7 @@ fei <- function(x, p = rep(1 / length(x), length(x)),
   if (inherits(x, "BFBayesFactor")) {
     stop("Fei is only applicable to goodness of fit tests.", call. = FALSE)
   } else if (!.is_htest_of_type(x, "Chi-squared test for given probabilities", "Chi-squared-test")) {
-    x <- suppressWarnings(stats::chisq.test(x, y = NULL, p = p, rescale.p = rescale.p))
+    x <- suppressWarnings(stats::chisq.test(x, y = NULL, p = p, rescale.p = TRUE))
     x$data.name <- NULL
   }
 
@@ -200,8 +198,7 @@ fei <- function(x, p = rep(1 / length(x), length(x)),
 #' @rdname phi
 #' @importFrom stats chisq.test
 #' @export
-pearsons_c <- function(x, y = NULL, p = rep(1 / length(x), length(x)),
-                       rescale.p = TRUE,
+pearsons_c <- function(x, y = NULL, p = rep(1, length(x)),
                        ci = 0.95, alternative = "greater",
                        ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
@@ -212,7 +209,7 @@ pearsons_c <- function(x, y = NULL, p = rep(1 / length(x), length(x)),
     x, "(Pearson's Chi-squared|Chi-squared test for given probabilities)",
     "Chi-squared-test"
   )) {
-    x <- suppressWarnings(stats::chisq.test(x, y, p = p, rescale.p = rescale.p))
+    x <- suppressWarnings(stats::chisq.test(x, y, p = p, rescale.p = TRUE))
     x$data.name <- NULL
   }
 

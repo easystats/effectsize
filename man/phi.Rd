@@ -18,27 +18,18 @@ tschuprows_t(x, y = NULL, ci = 0.95, alternative = "greater", ...)
 cohens_w(
   x,
   y = NULL,
-  p = rep(1/length(x), length(x)),
-  rescale.p = TRUE,
+  p = rep(1, length(x)),
   ci = 0.95,
   alternative = "greater",
   ...
 )
 
-fei(
-  x,
-  p = rep(1/length(x), length(x)),
-  rescale.p = TRUE,
-  ci = 0.95,
-  alternative = "greater",
-  ...
-)
+fei(x, p = rep(1, length(x)), ci = 0.95, alternative = "greater", ...)
 
 pearsons_c(
   x,
   y = NULL,
-  p = rep(1/length(x), length(x)),
-  rescale.p = TRUE,
+  p = rep(1, length(x)),
   ci = 0.95,
   alternative = "greater",
   ...
@@ -66,10 +57,6 @@ is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided 
 
 \item{p}{a vector of probabilities of the same length as \code{x}.
     An error is given if any entry of \code{p} is negative.}
-
-\item{rescale.p}{a logical scalar; if TRUE then \code{p} is rescaled
-    (if necessary) to sum to 1.  If \code{rescale.p} is FALSE, and
-    \code{p} does not sum to 1, an error is given.}
 }
 \value{
 A data frame with the effect size (\code{Cramers_v}, \code{phi} (possibly with
