@@ -31,6 +31,8 @@
 #' @examples
 #' interpret_bf(1)
 #' interpret_bf(c(5, 2))
+#'
+#'
 #' @references
 #' - Jeffreys, H. (1961), Theory of Probability, 3rd ed., Oxford University
 #' Press, Oxford.
@@ -41,6 +43,7 @@
 #' - Jarosz, A. F., & Wiley, J. (2014). What are the odds? A practical guide to
 #' computing and reporting Bayes factors. The Journal of Problem Solving, 7(1), 2.
 #'
+#' @keywords interpreters
 #' @export
 interpret_bf <- function(bf,
                          rules = "jeffreys1961",

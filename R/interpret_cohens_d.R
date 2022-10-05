@@ -56,6 +56,7 @@
 #'
 #' - Sawilowsky, S. S. (2009). New effect size rules of thumb.
 #'
+#' @keywords interpreters
 #' @export
 interpret_cohens_d <- function(d, rules = "cohen1988", ...) {
   if (is.character(rules) && rules == "gignac2016") {

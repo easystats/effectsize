@@ -16,8 +16,8 @@
 #' - Landis, J. R., & Koch G. G. (1977). The measurement of observer agreement
 #' for categorical data. Biometrics, 33:159-74.
 #'
+#' @keywords interpreters
 #' @export
-#'
 interpret_kendalls_w <- function(w, rules = "landis1977") {
   rules <- .match.rules(
     rules,

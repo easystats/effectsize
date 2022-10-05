@@ -20,6 +20,7 @@
 #' @references
 #' - Koo, T. K., and Li, M. Y. (2016). A guideline of selecting and reporting intraclass correlation coefficients for reliability research. Journal of chiropractic medicine, 15(2), 155-163.
 #'
+#' @keywords interpreters
 #' @export
 interpret_icc <- function(icc, rules = "koo2016", ...) {
   rules <- .match.rules(

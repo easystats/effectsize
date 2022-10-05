@@ -70,3 +70,4 @@ equation modeling. Modern methods for business research, 295(2), 295-336.
 bullet. Journal of Marketing theory and Practice, 19(2), 139-152.
 }
 }
+\keyword{interpreters}

@@ -37,6 +37,12 @@ reference:
   - eta_squared
   - rank_epsilon_squared
 
+- subtitle:
+  desc: >
+    Functions from other packages relating to parameter standardization
+  contents:
+  - parameters::standardize_parameters
+  - datawizard::standardize_models
 
 
 
@@ -72,7 +78,7 @@ reference:
   - equivalence_test.effectsize_table
   - interpret
   - rules
-  - starts_with("interpret_")
+  - has_keyword("interpreters")
 
 
 

@@ -31,3 +31,4 @@ Interpret VIF index of multicollinearity.
 interpret_vif(c(1.4, 30.4))
 
 }
+\keyword{interpreters}

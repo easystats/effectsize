@@ -38,6 +38,7 @@
 #' Effect-size indices for dichotomized outcomes in meta-analysis. Psychological
 #' methods, 8(4), 448.
 #'
+#' @keywords interpreters
 #' @export
 interpret_oddsratio <- function(OR, rules = "chen2010", log = FALSE, ...) {
   if (log) {

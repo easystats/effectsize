@@ -45,3 +45,4 @@ interpret_pd(c(.96, .99), rules = "makowski2019")
 \item Makowski, D., Ben-Shachar, M. S., Chen, S. H., and Lüdecke, D. (2019). Indices of effect existence and significance in the Bayesian framework. Frontiers in psychology, 10, 2767.
 }
 }
+\keyword{interpreters}

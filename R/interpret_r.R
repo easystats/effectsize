@@ -66,6 +66,7 @@
 #' - Evans, J. D. (1996). Straightforward statistics for the behavioral
 #' sciences. Thomson Brooks/Cole Publishing Co.
 #'
+#' @keywords interpreters
 #' @export
 interpret_r <- function(r, rules = "funder2019", ...) {
   rules <- .match.rules(
