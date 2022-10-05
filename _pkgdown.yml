@@ -37,7 +37,7 @@ reference:
   - eta_squared
   - rank_epsilon_squared
 
-- subtitle:
+- subtitle: "Standardized parameters"
   desc: >
     Functions from other packages relating to parameter standardization
   contents:
@@ -124,7 +124,7 @@ navbar:
       - text: "ANOVA Effect Sizes"
         href: articles/anovaES.html
       - text: "Standardized Parameters"
-      - href: https://easystats.github.io/parameters/articles/standardize_parameters_effsize.html
+        href: https://easystats.github.io/parameters/articles/standardize_parameters_effsize.html
       - text: "Confidence Intervals"
         href: reference/effectsize_CIs.html
       - text: -------
