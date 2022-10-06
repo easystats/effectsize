@@ -43,6 +43,7 @@ reference:
   contents:
   - parameters::standardize_parameters
   - datawizard::standardize_models
+  - parameters::standardize_info
 
 
 - title: "Effect Size Conversion / Extraction"
