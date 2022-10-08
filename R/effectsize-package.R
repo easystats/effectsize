@@ -21,7 +21,7 @@
 #' See [`vignette("effectsize", package = "effectsize")`](https://easystats.github.io/effectsize/articles/effectsize.html) for more details,
 #' or [`vignette(package = "effectsize")`](https://easystats.github.io/effectsize/articles/) for a full list of vignettes.
 #'
-#' References: Ben-Shachar et al. (2020) <doi:10.21105/joss.02815>.
+#' References: Ben-Shachar et al. (2020) \doi{10.21105/joss.02815}.
 #'
 #' @docType package
 #' @aliases effectsize-package

@@ -23,7 +23,7 @@ many more.
 See \href{https://easystats.github.io/effectsize/articles/effectsize.html}{\code{vignette("effectsize", package = "effectsize")}} for more details,
 or \href{https://easystats.github.io/effectsize/articles/}{\code{vignette(package = "effectsize")}} for a full list of vignettes.
 
-References: Ben-Shachar et al. (2020) \url{doi:10.21105/joss.02815}.
+References: Ben-Shachar et al. (2020) \doi{10.21105/joss.02815}.
 }
 \details{
 \code{effectsize}
