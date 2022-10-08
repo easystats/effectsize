@@ -32,7 +32,6 @@
 #' interpret_bf(1)
 #' interpret_bf(c(5, 2))
 #'
-#'
 #' @references
 #' - Jeffreys, H. (1961), Theory of Probability, 3rd ed., Oxford University
 #' Press, Oxford.
