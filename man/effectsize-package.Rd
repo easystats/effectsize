@@ -37,7 +37,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Mattan S. Ben-Shachar \email{matanshm@post.bgu.ac.il} (\href{https://orcid.org/0000-0002-4287-4801}{ORCID}) (@mattansb)
+\strong{Maintainer}: Mattan S. Ben-Shachar \email{mattansb@msbstats.info} (\href{https://orcid.org/0000-0002-4287-4801}{ORCID}) (@mattansb)
 
 Authors:
 \itemize{

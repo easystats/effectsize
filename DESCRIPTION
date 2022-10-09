@@ -6,7 +6,7 @@ Authors@R:
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
              role = c("aut", "cre"),
-             email = "matanshm@post.bgu.ac.il",
+             email = "mattansb@msbstats.info",
              comment = c(ORCID = "0000-0002-4287-4801", Twitter = "@mattansb")),
       person(given = "Dominique",
              family = "Makowski",
