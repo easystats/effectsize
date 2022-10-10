@@ -307,14 +307,19 @@
 
 #' @keywords internal
 #' @importFrom stats model.frame na.pass
-.resolve_formula <- function(formula, data, subset, na.action, ...) {
+.resolve_formula <- function(formula, data, subset, na.action = stats::na.pass, ...) {
   cl <- match.call(expand.dots = FALSE)
   cl[[1]] <- quote(stats::model.frame)
+
+  if (!"na.action" %in% names(cl)) {
+    cl$na.action <- quote(stats::na.pass)
+  }
+
   if ("subset" %in% names(cl)) {
     cl$subset <- substitute(subset)
   }
+
   cl$... <- NULL
-  cl$na.action <- stats::na.pass
   eval.parent(cl)
 }
 
