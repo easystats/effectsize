@@ -44,7 +44,7 @@ Run the following to install the stable release of **effectsize** from CRAN:
 install.packages("effectsize")
 ```
 
-Or you can install the latest development version ``r available.packages(repos = "https://easystats.r-universe.dev/")["effectsize","Version"]`` from [*R-universe*](https://easystats.r-universe.dev):
+Or you can install the latest development version from [*R-universe*](https://easystats.r-universe.dev):
 
 ```{r install-R-universe, warning=FALSE, message=FALSE, eval=FALSE}
 install.packages("effectsize", repos = "https://easystats.r-universe.dev/")

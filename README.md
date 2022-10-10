@@ -30,7 +30,7 @@ CRAN:
 install.packages("effectsize")
 ```
 
-Or you can install the latest development version `0.7.9.2999` from
+Or you can install the latest development version from
 [*R-universe*](https://easystats.r-universe.dev):
 
 ``` r
