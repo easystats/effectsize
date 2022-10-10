@@ -334,7 +334,7 @@
   aov_tab <- as.data.frame(model[["anova_table"]])
 
   if (!"F" %in% colnames(aov_tab)) {
-    stop("Cannot estimate approx effect size for `mixed` type model - no F-statistic found.", call. = FALSE)
+    insight::format_error("Cannot estimate approx effect size for `mixed` type model - no F-statistic found.")
   }
 
   if (verbose && include_intercept) {
