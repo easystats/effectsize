@@ -48,6 +48,7 @@ references.bib
 hextools
 ^paper/.
 ^WIP/.
+^dev/.
 # Flip these two to no build vignettes:
 # ^vignettes/(?!additional).*
 ^vignettes/additional

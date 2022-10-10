@@ -64,7 +64,6 @@ Rules apply to BF as ratios, so BF of 10 is as extreme as a BF of 0.1 (1/10).
 interpret_bf(1)
 interpret_bf(c(5, 2))
 
-
 }
 \references{
 \itemize{

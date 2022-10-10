@@ -20,10 +20,10 @@ and their confidence intervals (CIs), from a variety of statistical models
 and hypothesis tests, such as \code{\link[=cohens_d]{cohens_d()}}, \code{\link[=phi]{phi()}}, \code{\link[=eta_squared]{eta_squared()}}, and
 many more.
 
-See \code{vignette("effectsize", package = "effectsize")} for more details,
-or \code{vignette(package = "effectsize")} for a full list of vignettes.
+See \href{https://easystats.github.io/effectsize/articles/effectsize.html}{\code{vignette("effectsize", package = "effectsize")}} for more details,
+or \href{https://easystats.github.io/effectsize/articles/}{\code{vignette(package = "effectsize")}} for a full list of vignettes.
 
-References: Ben-Shachar et al. (2020) \url{doi:10.21105/joss.02815}.
+References: Ben-Shachar et al. (2020) \doi{10.21105/joss.02815}.
 }
 \details{
 \code{effectsize}
@@ -37,7 +37,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Mattan S. Ben-Shachar \email{matanshm@post.bgu.ac.il} (\href{https://orcid.org/0000-0002-4287-4801}{ORCID}) (@mattansb)
+\strong{Maintainer}: Mattan S. Ben-Shachar \email{mattansb@msbstats.info} (\href{https://orcid.org/0000-0002-4287-4801}{ORCID}) (@mattansb)
 
 Authors:
 \itemize{
