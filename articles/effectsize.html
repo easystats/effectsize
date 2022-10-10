@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.9.2999</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,6 +65,7 @@
     <a class="dropdown-item" href="../articles/xtabs.html">Contingency Tables</a>
     <a class="dropdown-item" href="../articles/anovaES.html">ANOVA Effect Sizes</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/parameters/articles/standardize_parameters_effsize.html">Standardized Parameters</a>
+    <a class="external-link dropdown-item" href="https://easystats.github.io/correlation/articles/index.html">Correlation Vignettes</a>
     <a class="dropdown-item" href="../reference/effectsize_CIs.html">Confidence Intervals</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../articles/effectsize_API.html">Extending effectsize</a>
@@ -252,23 +253,67 @@ between paired categorical variables <span class="citation">(Cohen
 <span><span class="co">#&gt; 0.17              | [0.11, 1.00]</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></span></code></pre></div>
-<!-- ## Parameter and Model Standardization -->
-<!-- Standardizing parameters (i.e., coefficients) can allow for their comparison within and between models, variables and studies. To this end, two functions are available: `standardize()`, which returns an updated model, re-fit with standardized data, and `standardize_parameters()`, which returns a table of standardized coefficients from a provided model [for a list of supported models, see the *insight* package; @luedecke2019insight]. -->
-<!-- ```{r} -->
-<!-- model <- lm(mpg ~ cyl * am,  -->
-<!--             data = mtcars) -->
-<!-- standardize(model) -->
-<!-- standardize_parameters(model) -->
-<!-- ``` -->
-<!-- Standardized parameters can also be produced for generalized linear models (GLMs; where only the predictors are standardized): -->
-<!-- ```{r} -->
-<!-- model <- glm(am ~ cyl + hp, -->
-<!--              family = "binomial", -->
-<!--              data = mtcars) -->
-<!-- standardize_parameters(model, exponentiate = TRUE) -->
-<!-- ``` -->
-<!-- `standardize_parameters()` provides several standardization methods, such as robust standardization, or *pseudo*-standardized coefficients for (generalized) linear mixed models [@hoffman2015longitudinal]. A full review of these methods can be found in the [*Parameter and Model Standardization* vignette](https://easystats.github.io/effectsize/articles/standardize_parameters.html). -->
 </div>
+</div>
+<div class="section level3">
+<h3 id="parameter-and-model-standardization">Parameter and Model Standardization<a class="anchor" aria-label="anchor" href="#parameter-and-model-standardization"></a>
+</h3>
+<blockquote>
+<p>Note: this functionality has been moved to the
+<code>parameters</code> and <code>datawizard</code> packages.</p>
+</blockquote>
+<p>Standardizing parameters (i.e., coefficients) can allow for their
+comparison within and between models, variables and studies. To this
+end, two functions are available: <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code>, which
+returns an updated model, re-fit with standardized data, and
+<code><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html" class="external-link">standardize_parameters()</a></code>, which returns a table of
+standardized coefficients from a provided model [for a list of supported
+models, see the <em>insight</em> package; <span class="citation">Lüdecke, Waggoner, and Makowski (2019)</span>].</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">*</span> <span class="va">am</span>,</span>
+<span>            data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">datawizard</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = mpg ~ cyl * am, data = data_std)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)          cyl           am       cyl:am  </span></span>
+<span><span class="co">#&gt;     -0.0977      -0.7426       0.1739      -0.1930</span></span>
+<span></span>
+<span><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html" class="external-link">standardize_parameters</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # Standardization method: refit</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Parameter   | Std. Coef. |         95% CI</span></span>
+<span><span class="co">#&gt; -----------------------------------------</span></span>
+<span><span class="co">#&gt; (Intercept) |      -0.10 | [-0.30,  0.11]</span></span>
+<span><span class="co">#&gt; cyl         |      -0.74 | [-0.95, -0.53]</span></span>
+<span><span class="co">#&gt; am          |       0.17 | [-0.04,  0.39]</span></span>
+<span><span class="co">#&gt; cyl:am      |      -0.19 | [-0.41,  0.02]</span></span></code></pre></div>
+<p>Standardized parameters can also be produced for generalized linear
+models (GLMs; where only the predictors are standardized):</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">am</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">hp</span>,</span>
+<span>             family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
+<span>             data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html" class="external-link">standardize_parameters</a></span><span class="op">(</span><span class="va">model</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # Standardization method: refit</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Parameter   | Std_Odds_Ratio |        95% CI</span></span>
+<span><span class="co">#&gt; --------------------------------------------</span></span>
+<span><span class="co">#&gt; (Intercept) |           0.53 | [0.18,  1.32]</span></span>
+<span><span class="co">#&gt; cyl         |           0.05 | [0.00,  0.29]</span></span>
+<span><span class="co">#&gt; hp          |           6.70 | [1.32, 61.54]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; - Response is unstandardized.</span></span></code></pre></div>
+<p><code><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html" class="external-link">standardize_parameters()</a></code> provides several
+standardization methods, such as robust standardization, or
+<em>pseudo</em>-standardized coefficients for (generalized) linear mixed
+models <span class="citation">(Hoffman 2015)</span>. A full review of
+these methods can be found in the <a href="https://easystats.github.io/parameters/articles/standardize_parameters_effsize.html" class="external-link"><em>Parameter
+and Model Standardization</em> vignette</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="effect-sizes-for-anovas">Effect Sizes for ANOVAs<a class="anchor" aria-label="anchor" href="#effect-sizes-for-anovas"></a>
@@ -281,7 +326,7 @@ each term can be represented by one or more parameters.
 Eta-squared (<span class="math inline">\(\eta^2\)</span>), its partial
 version (<span class="math inline">\(\eta^2_p\)</span>), as well as the
 generalized <span class="math inline">\(\eta^2_G\)</span> <span class="citation">(Cohen 1988; Olejnik and Algina 2003)</span>:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>contrasts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"contr.sum"</span>, <span class="st">"contr.poly"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ChickWeight"</span><span class="op">)</span></span>
@@ -338,7 +383,7 @@ conversions are based on the idea that test statistics are a function of
 effect size and sample size (or more often of degrees of freedom). Thus
 it is possible to reverse-engineer indices of effect size from test
 statistics (<em>F</em>, <em>t</em>, <span class="math inline">\(\chi^2\)</span>, and <em>z</em>).</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span></span>
 <span>  f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">40.72</span>, <span class="fl">33.77</span><span class="op">)</span>,</span>
 <span>  df <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, df_error <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">9</span><span class="op">)</span></span>
@@ -362,7 +407,7 @@ statistics (<em>F</em>, <em>t</em>, <span class="math inline">\(\chi^2\)</span>,
 <p>These functions also power the <code><a href="../reference/effectsize.html">effectsize()</a></code> convenience
 function for estimating effect sizes from R’s <code>htest</code>-type
 objects. For example:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">hardlyworking</span>, package <span class="op">=</span> <span class="st">"effectsize"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">aov1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/oneway.test.html" class="external-link">oneway.test</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">n_comps</span>,</span>
@@ -392,7 +437,7 @@ Statistics</em> shiny app (<a href="https://easystats4u.shinyapps.io/statistic2e
 <p>For comparisons between different types of designs and analyses, it
 is useful to be able to convert between different types of effect sizes
 [<em>d</em>, <em>r</em>, Odds ratios and Risk ratios; <span class="citation">Borenstein et al. (2009)</span>; <span class="citation">Grant (2014)</span>].</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/d_to_r.html">r_to_d</a></span><span class="op">(</span><span class="fl">0.7</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1.960392</span></span>
 <span></span>
@@ -417,7 +462,7 @@ functions to allow users and developers to explore and hopefully gain a
 deeper understanding of the relationship between data values and their
 interpretation. More information is available in the <a href="https://easystats.github.io/effectsize/articles/interpret.html"><em>Automated
 Interpretation of Indices of Effect Size</em> vignette</a>.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.02</span>, <span class="fl">0.52</span>, <span class="fl">0.86</span><span class="op">)</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "very small" "medium"     "large"     </span></span>
 <span><span class="co">#&gt; (Rules: cohen1988)</span></span></code></pre></div>
@@ -488,6 +533,10 @@ Findings.”</span> <em>Bmj</em> 348: f7450.
 Hedges, L, and I Olkin. 1985. <em>Statistical Methods for
 Meta-Analysis</em>. San Diego: Academic Press.
 </div>
+<div id="ref-hoffman2015longitudinal" class="csl-entry">
+Hoffman, Lesa. 2015. <em>Longitudinal Analysis: Modeling Within-Person
+Fluctuation and Change</em>. Routledge.
+</div>
 <div id="ref-kelley2020MBESS" class="csl-entry">
 Kelley, Ken. 2020. <em>MBESS: The MBESS <span>R</span> Package</em>. <a href="https://CRAN.R-project.org/package=MBESS/" class="external-link">https://CRAN.R-project.org/package=MBESS/</a>.
 </div>
@@ -501,6 +550,12 @@ Lüdecke, Daniel, Mattan S Ben-Shachar, Indrajeet Patil, and Dominique
 Makowski. 2020. <span>“Extracting, Computing and Exploring the
 Parameters of Statistical Models Using <span>R</span>.”</span>
 <em>Journal of Open Source Software</em> 5 (53): 2445. <a href="https://doi.org/10.21105/joss.02445" class="external-link">https://doi.org/10.21105/joss.02445</a>.
+</div>
+<div id="ref-luedecke2019insight" class="csl-entry">
+Lüdecke, Daniel, Philip Waggoner, and Dominique Makowski. 2019.
+<span>“<span class="nocase">i</span>nsight: A Unified Interface to
+Access Information from Model Objects in <span>R</span>.”</span>
+<em>Journal of Open Source Software</em> 4 (38): 1412. <a href="https://doi.org/10.21105/joss.01412" class="external-link">https://doi.org/10.21105/joss.01412</a>.
 </div>
 <div id="ref-olejnik2003generalized" class="csl-entry">
 Olejnik, Stephen, and James Algina. 2003. <span>“Generalized Eta and

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.9.2999</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,6 +35,7 @@
     <a class="dropdown-item" href="../articles/xtabs.html">Contingency Tables</a>
     <a class="dropdown-item" href="../articles/anovaES.html">ANOVA Effect Sizes</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/parameters/articles/standardize_parameters_effsize.html">Standardized Parameters</a>
+    <a class="external-link dropdown-item" href="https://easystats.github.io/correlation/articles/index.html">Correlation Vignettes</a>
     <a class="dropdown-item" href="../reference/effectsize_CIs.html">Confidence Intervals</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../articles/effectsize_API.html">Extending effectsize</a>
@@ -224,7 +225,28 @@
         </dt>
         <dd>Get Standardization Information (from parameters)</dd>
       </dl></div><div class="section level2">
-      <h2 id="effect-size-conversion-extraction">Effect Size Conversion / Extraction<a class="anchor" aria-label="anchor" href="#effect-size-conversion-extraction"></a></h2>
+      
+      <h3 id="correlations">Correlations<a class="anchor" aria-label="anchor" href="#correlations"></a></h3>
+      <p class="section-desc"></p><p>Correlations are a standardized effect size of association</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="https://easystats.github.io/correlation/reference/correlation.html" class="external-link">correlation()</a></code> 
+        </dt>
+        <dd>Correlation Analysis (from correlation)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="https://easystats.github.io/correlation/reference/cor_test.html" class="external-link">cor_test()</a></code> 
+        </dt>
+        <dd>Correlation test (from correlation)</dd>
+      </dl></div><div class="section level2">
+      <h2 id="effect-size-conversion">Effect Size Conversion<a class="anchor" aria-label="anchor" href="#effect-size-conversion"></a></h2>
       
       
 
@@ -242,14 +264,14 @@
 
       <dl><dt>
           
-          <code><a href="F_to_eta2.html">F_to_eta2()</a></code> <code><a href="F_to_eta2.html">t_to_eta2()</a></code> <code><a href="F_to_eta2.html">F_to_epsilon2()</a></code> <code><a href="F_to_eta2.html">t_to_epsilon2()</a></code> <code><a href="F_to_eta2.html">F_to_eta2_adj()</a></code> <code><a href="F_to_eta2.html">t_to_eta2_adj()</a></code> <code><a href="F_to_eta2.html">F_to_omega2()</a></code> <code><a href="F_to_eta2.html">t_to_omega2()</a></code> <code><a href="F_to_eta2.html">F_to_f()</a></code> <code><a href="F_to_eta2.html">t_to_f()</a></code> <code><a href="F_to_eta2.html">F_to_f2()</a></code> <code><a href="F_to_eta2.html">t_to_f2()</a></code> 
-        </dt>
-        <dd>Convert <em>F</em> and <em>t</em> Statistics to <strong>partial</strong>-\(\eta^2\) and Other ANOVA Effect Sizes</dd>
-      </dl><dl><dt>
-          
           <code><a href="t_to_r.html">t_to_d()</a></code> <code><a href="t_to_r.html">z_to_d()</a></code> <code><a href="t_to_r.html">F_to_d()</a></code> <code><a href="t_to_r.html">t_to_r()</a></code> <code><a href="t_to_r.html">z_to_r()</a></code> <code><a href="t_to_r.html">F_to_r()</a></code> 
         </dt>
         <dd>Convert <em>t</em>, <em>z</em>, and <em>F</em> to Cohen's <em>d</em> or <strong>partial</strong>-<em>r</em></dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_to_eta2.html">F_to_eta2()</a></code> <code><a href="F_to_eta2.html">t_to_eta2()</a></code> <code><a href="F_to_eta2.html">F_to_epsilon2()</a></code> <code><a href="F_to_eta2.html">t_to_epsilon2()</a></code> <code><a href="F_to_eta2.html">F_to_eta2_adj()</a></code> <code><a href="F_to_eta2.html">t_to_eta2_adj()</a></code> <code><a href="F_to_eta2.html">F_to_omega2()</a></code> <code><a href="F_to_eta2.html">t_to_omega2()</a></code> <code><a href="F_to_eta2.html">F_to_f()</a></code> <code><a href="F_to_eta2.html">t_to_f()</a></code> <code><a href="F_to_eta2.html">F_to_f2()</a></code> <code><a href="F_to_eta2.html">t_to_f2()</a></code> 
+        </dt>
+        <dd>Convert <em>F</em> and <em>t</em> Statistics to <strong>partial</strong>-\(\eta^2\) and Other ANOVA Effect Sizes</dd>
       </dl><dl><dt>
           
           <code><a href="convert_chisq.html">chisq_to_phi()</a></code> <code><a href="convert_chisq.html">chisq_to_cohens_w()</a></code> <code><a href="convert_chisq.html">chisq_to_cramers_v()</a></code> <code><a href="convert_chisq.html">chisq_to_tschuprows_t()</a></code> <code><a href="convert_chisq.html">chisq_to_fei()</a></code> <code><a href="convert_chisq.html">chisq_to_pearsons_c()</a></code> <code><a href="convert_chisq.html">phi_to_chisq()</a></code> 
@@ -273,6 +295,11 @@
         <dd>Convert Between <em>d</em>, <em>r</em>, and Odds Ratio</dd>
       </dl><dl><dt>
           
+          <code><a href="oddsratio_to_riskratio.html">oddsratio_to_riskratio()</a></code> <code><a href="oddsratio_to_riskratio.html">riskratio_to_oddsratio()</a></code> 
+        </dt>
+        <dd>Convert Between Odds Ratios and Risk Ratios</dd>
+      </dl><dl><dt>
+          
           <code><a href="diff_to_cles.html">d_to_p_superiority()</a></code> <code><a href="diff_to_cles.html">rb_to_p_superiority()</a></code> <code><a href="diff_to_cles.html">rb_to_vda()</a></code> <code><a href="diff_to_cles.html">d_to_u2()</a></code> <code><a href="diff_to_cles.html">d_to_u1()</a></code> <code><a href="diff_to_cles.html">d_to_u3()</a></code> <code><a href="diff_to_cles.html">d_to_overlap()</a></code> <code><a href="diff_to_cles.html">rb_to_wmw_odds()</a></code> 
         </dt>
         <dd>Convert Standardized Differences to Common Language Effect Sizes</dd>
@@ -281,11 +308,6 @@
           <code><a href="eta2_to_f2.html">eta2_to_f2()</a></code> <code><a href="eta2_to_f2.html">eta2_to_f()</a></code> <code><a href="eta2_to_f2.html">f2_to_eta2()</a></code> <code><a href="eta2_to_f2.html">f_to_eta2()</a></code> 
         </dt>
         <dd>Convert Between ANOVA Effect Sizes</dd>
-      </dl><dl><dt>
-          
-          <code><a href="oddsratio_to_riskratio.html">oddsratio_to_riskratio()</a></code> <code><a href="oddsratio_to_riskratio.html">riskratio_to_oddsratio()</a></code> 
-        </dt>
-        <dd>Convert Between Odds Ratios and Risk Ratios</dd>
       </dl><dl><dt>
           
           <code><a href="odds_to_probs.html">odds_to_probs()</a></code> <code><a href="odds_to_probs.html">probs_to_odds()</a></code> 

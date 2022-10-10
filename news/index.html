@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.9.2999</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,6 +35,7 @@
     <a class="dropdown-item" href="../articles/xtabs.html">Contingency Tables</a>
     <a class="dropdown-item" href="../articles/anovaES.html">ANOVA Effect Sizes</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/parameters/articles/standardize_parameters_effsize.html">Standardized Parameters</a>
+    <a class="external-link dropdown-item" href="https://easystats.github.io/correlation/articles/index.html">Correlation Vignettes</a>
     <a class="dropdown-item" href="../reference/effectsize_CIs.html">Confidence Intervals</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../articles/effectsize_API.html">Extending effectsize</a>
@@ -105,9 +106,9 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.7.0.9999" id="effectsize-0709999">effectsize 0.7.0.9999<a class="anchor" aria-label="anchor" href="#effectsize-0709999"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.8.0" id="effectsize-080">effectsize 0.8.0<a class="anchor" aria-label="anchor" href="#effectsize-080"></a></h2><p class="text-muted">CRAN release: 2022-10-09</p>
 <div class="section level3">
-<h3 id="breaking-changes-0-7-0-9999">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-7-0-9999"></a></h3>
+<h3 id="breaking-changes-0-8-0">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-8-0"></a></h3>
 <ul><li>
 <a href="https://easystats.github.io/effectsize/">effectsize</a> now requires <em><code>R &gt;= 3.6</code></em>
 </li>
@@ -120,12 +121,12 @@
 <code>cles</code>, <code>d_to_cles</code> and <code>rb_to_cles</code> are deprecated in favor of their respective effect size functions.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="changes-0-7-0-9999">Changes<a class="anchor" aria-label="anchor" href="#changes-0-7-0-9999"></a></h3>
+<h3 id="changes-0-8-0">Changes<a class="anchor" aria-label="anchor" href="#changes-0-8-0"></a></h3>
 <ul><li>
 <code><a href="../reference/phi.html">phi()</a></code> and <code><a href="../reference/phi.html">cramers_v()</a></code> (and <code>chisq_to_phi/cramers_v()</code>) now apply the small sample bias correction by default. To restore previous behavior, set <code>adjust = FALSE</code>.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-features-0-7-0-9999">New features<a class="anchor" aria-label="anchor" href="#new-features-0-7-0-9999"></a></h3>
+<h3 id="new-features-0-8-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-8-0"></a></h3>
 <ul><li>Set <code>options(es.use_symbols = TRUE)</code> to print proper symbols instead of transliterated effect size names. (On Windows, requires <code>R &gt;= 4.2.0</code>)</li>
 <li>
 <code><a href="../reference/effectsize.html">effectsize()</a></code> supports <code><a href="https://rdrr.io/r/stats/fisher.test.html" class="external-link">fisher.test()</a></code>.</li>
@@ -149,7 +150,7 @@
 </ul></li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-0-7-0-9999">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-7-0-9999"></a></h3>
+<h3 id="bug-fixes-0-8-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-8-0"></a></h3>
 <ul><li>Common-language effect sizes now respects <code>mu</code> argument for all effect sizes.</li>
 <li>
 <code><a href="../reference/sd_pooled.html">mad_pooled()</a></code> not returns correct value (previously was inflated by a factor of 1.4826).</li>
