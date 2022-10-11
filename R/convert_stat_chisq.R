@@ -141,7 +141,7 @@ chisq_to_phi <- function(chisq, n, nrow = 2, ncol = 2,
 
 #' @rdname convert_chisq
 #' @export
-chisq_to_cohens_w <- function(chisq, n, nrow, ncol,
+chisq_to_cohens_w <- function(chisq, n, nrow, ncol, p,
                               ci = 0.95, alternative = "greater",
                               ...) {
   res <- .chisq_to_generic_phi(chisq, n, nrow, ncol,
@@ -154,7 +154,12 @@ chisq_to_cohens_w <- function(chisq, n, nrow, ncol,
     if (ncol > 2 && nrow > 2) {
       max_possible <- sqrt((pmin(ncol, nrow) - 1))
     } else if (ncol == 1 || nrow == 1) {
-      max_possible <- Inf # really is chisqMax, but can't compute it without p
+      if (missing(p)) {
+        max_possible <- Inf # really is chisqMax, but can't compute it without p
+      } else {
+        q <- min(p / sum(p))
+        max_possible <- sqrt((1 - q) / q)
+      }
     }
 
     if (attr(res, "alternative") == "greater") {
