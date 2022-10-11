@@ -240,10 +240,7 @@
       stop("Formula must have the form of 'DV1 + ... + DVk ~ group', with exactly one term on the RHS.", call. = FALSE)
     }
 
-    data <- model.frame(
-      formula = stats::reformulate(as.character(x)[3:2]),
-      data = data, na.action = stats::na.pass
-    )
+    data <- .resolve_formula(stats::reformulate(as.character(x)[3:2]), data, ...)
 
     if (x[[3]] == 1) {
       # Then it is one sampled
