@@ -7,10 +7,9 @@
   rule <- pmatch(rules, names(choices))
 
   if (!is.character(rules) || length(rules) != 1 || is.na(rule)) {
-    stop("'rules' must be ",
+    insight::format_error("'rules' must be ",
       paste0("'", names(choices), "'", collapse = ", "),
-      " or an object of type 'rules'.",
-      call. = FALSE
+      " or an object of type 'rules'."
     )
   }
 

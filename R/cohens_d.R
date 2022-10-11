@@ -210,7 +210,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
   if (is.null(y)) {
     if (type == "delta") {
-      stop("For Glass' Delta, please provide data from two samples.", call. = FALSE)
+      insight::format_error("For Glass' Delta, please provide data from two samples.")
     }
     y <- rep(0, length.out = length(x))
     paired <- TRUE

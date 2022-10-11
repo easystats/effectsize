@@ -99,18 +99,18 @@ mahalanobis_d <- function(x, y = NULL, data = NULL,
       mu <- rep(mu, length.out = ncol(x))
       names(mu) <- colnames(x)
     } else if (length(mu) != ncol(x) || is.null(names(mu))) {
-      stop("mu must be of length 1 or a named vector/list of length ncol(x).", call. = FALSE)
+      insight::format_error("mu must be of length 1 or a named vector/list of length ncol(x).")
     }
 
     mu <- as.list(mu)
   }
 
   if (!is.list(mu)) {
-    stop("mu must be of length 1 or a named vector/list of length ncol(x).", call. = FALSE)
+    insight::format_error("mu must be of length 1 or a named vector/list of length ncol(x).")
   } else if (!all(names(mu) == colnames(x))) {
-    stop("x,y must have the same variables (in the same order)", call. = FALSE)
+    insight::format_error("x,y must have the same variables (in the same order)")
   } else if (!all(lengths(mu) == 1L) || !all(sapply(mu, is.numeric))) {
-    stop("Each element of mu must be a numeric vector of length 1.", call. = FALSE)
+    insight::format_error("Each element of mu must be a numeric vector of length 1.")
   }
   mu <- unlist(mu)
 
@@ -129,7 +129,7 @@ mahalanobis_d <- function(x, y = NULL, data = NULL,
     d <- colMeans(x) - colMeans(y) - mu
 
     if (!pooled_cov) {
-      warning("Non-pooled cov not supported.", call. = FALSE)
+      insight::format_warning("Non-pooled cov not supported.")
     }
     COV <- cov_pooled(x, y, verbose = verbose)
 

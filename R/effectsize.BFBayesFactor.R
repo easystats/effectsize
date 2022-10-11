@@ -8,7 +8,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, ci = 0.95, test = NULL,
 
   if (length(model) > 1) {
     if (verbose) {
-      warning("Multiple models detected. Using first only.", call. = FALSE)
+      insight::format_warning("Multiple models detected. Using first only.")
     }
     model <- model[1]
   }
@@ -22,7 +22,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, ci = 0.95, test = NULL,
   } else if (inherits(model@numerator[[1]], "BFproportion")) {
     pars <- .effectsize_proportionBF(model, type = type, verbose = verbose)
   } else {
-    stop("No effect size for this type of 'BayesFactor' object.", call. = FALSE)
+    insight::format_error("No effect size for this type of 'BayesFactor' object.")
   }
 
   # Clean up
@@ -106,7 +106,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, ci = 0.95, test = NULL,
   if (type == "d") {
     xtra_class <- "effectsize_difference"
   } else if (tolower(type) %in% c("p_superiority", "u1", "u2", "u3", "overlap")) {
-    if (paired && type != "p_superiority") stop("CLES only applicable to two independent samples.", call. = FALSE)
+    if (paired && type != "p_superiority") insight::format_error("CLES only applicable to two independent samples.")
 
     converter <- match.fun(paste0("d_to_", tolower(type)))
     if (grepl("^(u|U)", type)) type <- paste0("Cohens_", toupper(type))

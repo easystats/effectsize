@@ -187,7 +187,7 @@ F_to_r <- function(f, df, df_error,
                    ci = 0.95, alternative = "two.sided",
                    ...) {
   if (df > 1) {
-    stop("Cannot convert F with more than 1 df to r.", call. = FALSE)
+    insight::format_error("Cannot convert F with more than 1 df to r.")
   }
   t_to_r(sqrt(f), df_error,
     ci = ci, alternative = alternative,

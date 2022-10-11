@@ -84,7 +84,7 @@ equivalence_test.effectsize_table <- function(x,
   rule <- match.arg(rule)
 
   if (!all(c("CI", "CI_low", "CI_high") %in% colnames(x))) {
-    stop("CI values missing from effect size table.", call. = FALSE)
+    insight::format_error("CI values missing from effect size table.")
   }
 
   if (any(range == "default")) {
@@ -109,11 +109,11 @@ equivalence_test.effectsize_table <- function(x,
 
   if (range[1] < x_es_info$lb) {
     range[1] <- x_es_info$lb
-    warning("Lower bound set to ", range[1], ".", immediate. = FALSE, call. = FALSE)
+    insight::format_warning("Lower bound set to ", range[1], ".")
   }
   if (range[2] > x_es_info$ub) {
     range[2] <- x_es_info$ub
-    warning("Upper bound set to ", range[2], ".", immediate. = FALSE, call. = FALSE)
+    insight::format_warning("Upper bound set to ", range[2], ".")
   }
 
   # Test ---

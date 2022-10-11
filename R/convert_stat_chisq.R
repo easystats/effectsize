@@ -115,7 +115,7 @@ chisq_to_phi <- function(chisq, n, nrow = 2, ncol = 2,
                          ci = 0.95, alternative = "greater",
                          ...) {
   if ((!missing(nrow) && nrow != 2) || (!missing(ncol) && ncol != 2)) {
-    stop("Phi is not appropriate for non-2x2 tables.", call. = FALSE)
+    insight::format_error("Phi is not appropriate for non-2x2 tables.")
   }
 
   res <- .chisq_to_generic_phi(chisq, n, nrow, ncol,
@@ -174,7 +174,7 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol,
                                ci = 0.95, alternative = "greater",
                                ...) {
   if (nrow == 1 || ncol == 1) {
-    stop("Cramer's V not applicable to goodness-of-fit tests.", call. = FALSE)
+    insight::format_error("Cramer's V not applicable to goodness-of-fit tests.")
   }
 
   res <- .chisq_to_generic_phi(chisq, n, nrow, ncol,
@@ -215,7 +215,7 @@ chisq_to_tschuprows_t <- function(chisq, n, nrow, ncol,
                                   ci = 0.95, alternative = "greater",
                                   ...) {
   if (nrow == 1 || ncol == 1) {
-    stop("Tschuprow's T not applicable to goodness-of-fit tests.", call. = FALSE)
+    insight::format_error("Tschuprow's T not applicable to goodness-of-fit tests.")
   }
 
   res <- .chisq_to_generic_phi(chisq, n, nrow, ncol,
@@ -248,11 +248,11 @@ chisq_to_fei <- function(chisq, n, nrow, ncol, p,
                          ...) {
   if (!missing(nrow) && !missing(ncol)) {
     if (!1 %in% c(nrow, ncol)) {
-      stop("Fei is only applicable to goodness of fit tests.", call. = FALSE)
+      insight::format_error("Fei is only applicable to goodness of fit tests.")
     }
 
     if (!length(p) %in% c(ncol, nrow)) {
-      stop("Length of `p` must match number of rows/columns.", call. = FALSE)
+      insight::format_error("Length of `p` must match number of rows/columns.")
     }
   }
 

@@ -125,7 +125,7 @@
                             verbose = TRUE,
                             ...) {
   if (!grepl("One-way", model$method)) {
-    stop("'model' is not a one-way test!", call. = FALSE)
+    insight::format_error("'model' is not a one-way test!")
   }
 
   if (verbose && (partial || isTRUE(generalized) || is.character(generalized))) {
@@ -338,7 +338,7 @@
   }
 
   if (verbose && include_intercept) {
-    warning("Cannot estimate (Intercept) effect size for `mixed` model.", call. = FALSE)
+    insight::format_warning("Cannot estimate (Intercept) effect size for `mixed` model.")
   }
 
   aov_tab$Parameter <- rownames(aov_tab)

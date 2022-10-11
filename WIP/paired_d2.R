@@ -194,10 +194,10 @@ paired_d <- function(x, group, block, data = NULL,
     g <- list(g)
   }
   if ((dim(cov)[1] != n) || (dim(cov)[2] != n)) {
-    stop(paste(
+    insight::format_error(
       "Covariances should be a ", n, " by ", n,
-      " matrix"
-    ), call. = FALSE)
+      " matrix."
+    )
   }
   syms <- paste("x", 1:n, sep = "")
   for (i in 1:n) assign(syms[i], mean[i])

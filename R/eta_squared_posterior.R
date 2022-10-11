@@ -31,14 +31,14 @@ eta_squared_posterior.stanreg <- function(model,
 
   mi <- .get_model_info(model, ...)
   if (!mi$is_linear || mi$is_multivariate) {
-    stop("Computation of Eta Squared is only applicable to univariate linear models.", call. = FALSE)
+    insight::format_error("Computation of Eta Squared is only applicable to univariate linear models.")
   }
 
   if (mi$is_mixed) {
     if (partial) {
       if (verbose) {
-        warning(
-          "Bayesian Partial Eta Squared not supported for mixed models.\n",
+        insight::format_warning(
+          "Bayesian Partial Eta Squared not supported for mixed models.",
           "Returning Eta Squared instead."
         )
       }
@@ -49,8 +49,8 @@ eta_squared_posterior.stanreg <- function(model,
 
     if (isTRUE(generalized) || is.character(generalized)) {
       if (verbose) {
-        warning(
-          "Bayesian Generalized Eta Squared not supported for mixed models.\n",
+        insight::format_warning(
+          "Bayesian Generalized Eta Squared not supported for mixed models.",
           "Returning Eta Squared instead."
         )
       }

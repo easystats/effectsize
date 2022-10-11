@@ -107,7 +107,7 @@ F_to_d <- function(f, df, df_error,
                    ci = 0.95, alternative = "two.sided",
                    ...) {
   if (df > 1) {
-    stop("Cannot convert F with more than 1 df to (partial) r.", call. = FALSE)
+    insight::format_error("Cannot convert F with more than 1 df to (partial) r.")
   }
   t_to_d(sqrt(f), df_error,
     paired = paired,
