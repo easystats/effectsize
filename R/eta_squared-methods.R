@@ -131,8 +131,10 @@
   if (verbose && (partial || isTRUE(generalized) || is.character(generalized))) {
     txt_type <- ifelse(isTRUE(generalized) || is.character(generalized), "generalized", "partial")
     insight::format_alert(
-      "For one-way between subjects designs, ", txt_type, " ", type, " squared is equivalent to ", type, " squared.\n",
-      "Returning ", type, " squared."
+      sprintf(
+        "For one-way between subjects designs, %s %s squared is equivalent to %s squared. Returning %s squared.",
+        txt_type, type, type, type
+      )
     )
   }
 

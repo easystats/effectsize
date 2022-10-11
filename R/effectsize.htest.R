@@ -261,7 +261,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   dots <- list(...)
 
   if ((approx <- grepl("not assuming", model$method, fixed = TRUE)) && verbose) {
-    insight::format_warning("`var.equal = FALSE` - effect size is an approximation.")
+    insight::format_warning("`var.equal = FALSE` - effect size is an {.b approximation.}")
   }
 
   if (is.null(type)) type <- "eta"

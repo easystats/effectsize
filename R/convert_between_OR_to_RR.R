@@ -66,9 +66,7 @@ oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, ...) {
 
     insight::format_warning(
       "'p0' not provided.",
-      "RR is relative to the intercept (p0 = ",
-      insight::format_value(p0),
-      ") - make sure your intercept is meaningful."
+      sprintf("RR is relative to the intercept (p0 = %s) - make sure your intercept is meaningful.", insight::format_value(p0))
     )
   }
 

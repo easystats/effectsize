@@ -396,8 +396,10 @@ cohens_f_squared <- function(model,
     if (verbose) {
       txt_type <- ifelse(isTRUE(generalized) || is.character(generalized), "generalized", "partial")
       insight::format_alert(
-        "For one-way between subjects designs, ", txt_type, " ", type, " squared is equivalent to ", type, " squared.\n",
-        "Returning ", type, " squared."
+        sprintf(
+          "For one-way between subjects designs, %s %s squared is equivalent to %s squared. Returning %s squared.",
+          txt_type, type, type, type
+        )
       )
     }
     partial <- FALSE
@@ -414,7 +416,7 @@ cohens_f_squared <- function(model,
         for (o in generalized) {
           oi <- grepl(paste0("\\b", o, "\\b"), aov_table$Parameter)
 
-          if (!any(oi)) insight::format_error("Observed variable not in data: ", o)
+          if (!any(oi)) insight::format_error(sprintf("Observed variable not in data: %s", o))
 
           obs <- obs | oi
         }
@@ -550,7 +552,7 @@ cohens_f_squared <- function(model,
         for (o in generalized) {
           oi <- grepl(paste0("\\b", o, "\\b"), aov_table$Parameter)
 
-          if (!any(oi)) insight::format_error("Observed variable not in data: ", o)
+          if (!any(oi)) insight::format_error(sprintf("Observed variable not in data: %s", o))
 
           obs <- obs | oi
         }
@@ -662,16 +664,13 @@ cohens_f_squared <- function(model,
   if (verbose) {
     if (!isTRUE(partial)) {
       insight::format_warning(
-        "Currently only supports partial ",
-        type,
-        " squared for this class of objects."
+        sprintf("Currently only supports partial %s squared for this class of objects.", type)
       )
     }
 
     if (isTRUE(generalized) || is.character(generalized)) {
       insight::format_warning(
-        "generalized ", type, " squared ",
-        "is not supported for this class of object."
+        sprintf("Generalized %s squared is not supported for this class of object.", type)
       )
     }
   }

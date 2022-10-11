@@ -49,7 +49,7 @@
 .is_BF_of_type <- function(x, type, msg = type) {
   if (inherits(x, "BFBayesFactor")) {
     if (!inherits(x@numerator[[1]], type)) {
-      insight::format_error("'x' is not a ", msg, "!")
+      insight::format_error(sprintf("'x' is not a %s!", msg))
     }
     return(TRUE)
   } else {
@@ -61,7 +61,7 @@
 .is_htest_of_type <- function(x, pattern, msg) {
   if (inherits(x, "htest")) {
     if (!grepl(pattern, x$method)) {
-      insight::format_error("'x' is not a ", msg, "!")
+      insight::format_error(sprintf("'x' is not a %s!", msg))
     }
     return(TRUE)
   } else {

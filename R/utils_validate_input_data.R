@@ -326,7 +326,7 @@
     }
 
     if (!nm %in% names(data)) {
-      insight::format_error("Column ", nm, " missing from data.")
+      insight::format_error(sprintf("Column %s missing from data.", nm))
     }
 
     return(data[[nm]])

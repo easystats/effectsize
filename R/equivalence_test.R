@@ -109,11 +109,11 @@ equivalence_test.effectsize_table <- function(x,
 
   if (range[1] < x_es_info$lb) {
     range[1] <- x_es_info$lb
-    insight::format_warning("Lower bound set to ", range[1], ".")
+    insight::format_warning(sprintf("Lower bound set to %s.", insight::format_value(range[1])))
   }
   if (range[2] > x_es_info$ub) {
     range[2] <- x_es_info$ub
-    insight::format_warning("Upper bound set to ", range[2], ".")
+    insight::format_warning(sprintf("Upper bound set to %s.", insight::format_value(range[2])))
   }
 
   # Test ---
