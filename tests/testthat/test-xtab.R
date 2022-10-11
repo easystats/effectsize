@@ -105,7 +105,7 @@ test_that("goodness of fit", {
   expect_equal(w2[[1]] * sqrt(0.1 / 0.9), Fei2[[1]])
   expect_true(w1$CI_low < w2$CI_low)
   expect_true(w2$CI_low < w2$CI_high)
-  expect_equal(w2$CI_high, sqrt(0.9/0.1))
+  expect_equal(w2$CI_high, sqrt(0.9 / 0.1))
 
   C <- pearsons_c(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
   expect_equal(C[[1]], sqrt(49.289 / (49.289 + sum(table(mtcars$cyl)))), tolerance = 0.001)
@@ -178,4 +178,3 @@ test_that("oddsratio & riskratio", {
     ignore_attr = TRUE
   )
 })
-

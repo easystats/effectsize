@@ -21,7 +21,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     .effectsize_friedman.test(model, type = type, verbose = verbose, ...)
   } else {
     if (verbose) {
-      insight::format_warning("This 'htest' method is not (yet?) supported.",
+      insight::format_warning(
+        "This 'htest' method is not (yet?) supported.",
         "Returning 'parameters::model_parameters(model)'."
       )
     }
@@ -413,8 +414,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 #' @keywords internal
 .fail_if_approx <- function(approx, esf_name) {
   if (approx) {
-    insight::format_error("Unable to retrieve data from htest object.",
-      "Try using '", esf_name, "()' directly."
+    insight::format_error(
+      "Unable to retrieve data from htest object.",
+      sprintf("Try using '%s()' directly.", esf_name)
     )
   }
   invisible(NULL)

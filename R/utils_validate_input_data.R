@@ -7,7 +7,8 @@
   if (inherits(x, "formula")) {
     # Validate:
     if (length(x) != 3L) {
-      insight::format_error("Formula must have one of the following forms:",
+      insight::format_error(
+        "Formula must have one of the following forms:",
         "\n\ty ~ group,\n\ty ~ 1,\n\tPair(x,y) ~ 1"
       )
     }
@@ -70,7 +71,8 @@
     }
 
     if (verbose && insight::n_unique(y) == 2) {
-      insight::format_warning("'y' is numeric but has only 2 unique values.",
+      insight::format_warning(
+        "'y' is numeric but has only 2 unique values.",
         "If this is a grouping variable, convert it to a factor."
       )
     }
