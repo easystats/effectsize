@@ -197,7 +197,7 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol,
   # Convert
   res[grepl("^(phi|CI_)", colnames(res))] <-
     lapply(res[grepl("^(phi|CI_)", colnames(res))], "/", y = div)
-  colnames(res)[1] <- gsub("phi", "Cramers_v", colnames(res)[1])
+  colnames(res)[1] <- gsub("phi", "Cramers_v", colnames(res)[1], fixed = TRUE)
 
   if ("CI" %in% colnames(res)) {
     if (attr(res, "alternative") == "greater") {
