@@ -75,7 +75,7 @@ eta_squared_posterior.stanreg <- function(model,
 
   ## 3. Compute effect size...
   if (verbose) {
-    message("Simulating effect size... This can take a while...")
+    insight::format_alert("Simulating effect size... This can take a while...")
   }
   res <- apply(ppd, 1, function(r) {
     # sampled outcome + predictors
