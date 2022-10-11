@@ -240,10 +240,7 @@
       stop("Formula must have the form of 'DV1 + ... + DVk ~ group', with exactly one term on the RHS.", call. = FALSE)
     }
 
-    data <- model.frame(
-      formula = stats::reformulate(as.character(x)[3:2]),
-      data = data, na.action = stats::na.pass
-    )
+    data <- .resolve_formula(stats::reformulate(as.character(x)[3:2]), data, ...)
 
     if (x[[3]] == 1) {
       # Then it is one sampled
@@ -307,14 +304,19 @@
 
 #' @keywords internal
 #' @importFrom stats model.frame na.pass
-.resolve_formula <- function(formula, data, subset, na.action, ...) {
+.resolve_formula <- function(formula, data, subset, na.action = stats::na.pass, ...) {
   cl <- match.call(expand.dots = FALSE)
   cl[[1]] <- quote(stats::model.frame)
+
+  if (!"na.action" %in% names(cl)) {
+    cl$na.action <- quote(stats::na.pass)
+  }
+
   if ("subset" %in% names(cl)) {
     cl$subset <- substitute(subset)
   }
+
   cl$... <- NULL
-  cl$na.action <- stats::na.pass
   eval.parent(cl)
 }
 

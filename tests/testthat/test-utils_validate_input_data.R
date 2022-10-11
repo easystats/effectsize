@@ -57,6 +57,13 @@ test_that(".get_data_2_samples", {
   expect_true(attr(d, "pooled_sd"))
 })
 
+test_that(".get_data_2_samples | na.action", {
+  data("mtcars")
+  mtcars$mpg[1] <- NA
+  expect_warning(d1 <- cohens_d(mpg ~ am, data = mtcars), "dropped")
+  expect_warning(d2 <- cohens_d(mpg ~ am, data = mtcars, na.action = na.omit), NA)
+})
+
 test_that(".get_data_2_samples | subset", {
   expect_error(cohens_d(mpg ~ cyl, data = mtcars), "exactly")
   expect_error(cohens_d(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)), regexp = NA)
@@ -185,4 +192,35 @@ test_that(".get_data_nested_groups | subset", {
     kendalls_w(y ~ g | id, data = d, subset = g < 4, ci = NULL),
     kendalls_w(y ~ g | id, data = subset(d, g < 4), ci = NULL)
   )
+})
+
+
+test_that(".get_data_multivariate", {
+  data("mtcars")
+  D <- mahalanobis_d(mtcars[, c("mpg", "hp")])
+  expect_equal(mahalanobis_d(cbind(mpg, hp) ~ 1, data = mtcars), D)
+  expect_equal(mahalanobis_d(mpg + hp ~ 1, data = mtcars), D)
+
+  D <- mahalanobis_d(
+    mtcars[mtcars$am == 0, c("mpg", "hp")],
+    mtcars[mtcars$am == 1, c("mpg", "hp")]
+  )
+  expect_equal(mahalanobis_d(cbind(mpg, hp) ~ am, data = mtcars), D)
+  expect_equal(mahalanobis_d(mpg + hp ~ am, data = mtcars), D)
+})
+
+test_that(".get_data_multivariate | subset", {
+  data("mtcars")
+  D1 <- mahalanobis_d(mpg + hp ~ am, data = mtcars, subset = hp > 100)
+  D2 <- mahalanobis_d(mpg + hp ~ am, data = subset(mtcars, hp > 100))
+  expect_equal(D1, D2)
+})
+
+test_that(".get_data_multivariate | na.action", {
+  data("mtcars")
+  mtcars$mpg[1] <- NA
+  expect_warning(mahalanobis_d(mtcars[, c("mpg", "hp")]), regexp = "dropped")
+  expect_warning(mahalanobis_d(mpg + hp ~ 1, data = mtcars, na.action = na.omit), regexp = NA)
+  expect_warning(D1 <- mahalanobis_d(mpg + hp ~ 1, data = mtcars), regexp = "dropped")
+  expect_equal(D1, mahalanobis_d(mpg + hp ~ 1, data = mtcars[-1, ]))
 })

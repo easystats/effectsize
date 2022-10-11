@@ -62,27 +62,6 @@ test_that("mahalanobis_d | one sample | vs cohens_d", {
 })
 
 
-test_that("mahalanobis_d | inputs", {
-  data("mtcars")
-
-  D <- mahalanobis_d(mtcars[, c("mpg", "hp")])
-  expect_equal(mahalanobis_d(cbind(mpg, hp) ~ 1, data = mtcars), D)
-  expect_equal(mahalanobis_d(mpg + hp ~ 1, data = mtcars), D)
-
-  D <- mahalanobis_d(
-    mtcars[mtcars$am == 0, c("mpg", "hp")],
-    mtcars[mtcars$am == 1, c("mpg", "hp")]
-  )
-  expect_equal(mahalanobis_d(cbind(mpg, hp) ~ am, data = mtcars), D)
-  expect_equal(mahalanobis_d(mpg + hp ~ am, data = mtcars), D)
-
-  mtcars$mpg[1] <- NA
-  expect_warning(mahalanobis_d(mtcars[, c("mpg", "hp")]), regexp = "dropped")
-  expect_warning(D1 <- mahalanobis_d(mpg + hp ~ 1, data = mtcars), regexp = "dropped")
-  expect_equal(D1, mahalanobis_d(mpg + hp ~ 1, data = mtcars[-1, ]))
-})
-
-
 test_that("mahalanobis_d | mu types", {
   mu <- 0
   expect_error(D1 <- mahalanobis_d(mtcars[, c("mpg", "hp")], mu = mu), regexp = NA)

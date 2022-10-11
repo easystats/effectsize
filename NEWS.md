@@ -1,3 +1,9 @@
+# effectsize 0.8.0.0001
+
+## Bug fixes
+
+- When using formula input to effect size function, `na.action` arguments are respected (#517)
+
 # effectsize 0.8.0
 
 ## Breaking Changes

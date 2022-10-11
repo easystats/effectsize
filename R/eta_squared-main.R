@@ -378,7 +378,7 @@ cohens_f_squared <- function(model,
   # Include intercept? ---
   if (include_intercept) {
     if (verbose && !"(Intercept)" %in% aov_table$Parameter) {
-      message(insight::format_message("Could not find Sum-of-Squares for the (Intercept) in the ANOVA table."))
+      warning(insight::format_message("Could not find Sum-of-Squares for the (Intercept) in the ANOVA table."), call. = FALSE)
     }
     values <- .values_aov(aov_table[aov_table$Parameter != "(Intercept)", ])
   } else {
@@ -525,7 +525,7 @@ cohens_f_squared <- function(model,
   # Include intercept? ---
   if (include_intercept) {
     if (verbose && !"(Intercept)" %in% aov_table$Parameter) {
-      message(insight::format_message("Could not find Sum-of-Squares for the (Intercept) in the ANOVA table."))
+      warning(insight::format_message("Could not find Sum-of-Squares for the (Intercept) in the ANOVA table."), call. = FALSE)
     }
     values <- .values_aov(aov_table[aov_table$Parameter != "(Intercept)", ], group = TRUE)
   } else {
@@ -695,7 +695,7 @@ cohens_f_squared <- function(model,
   # include_intercept? ---
   if (include_intercept) {
     if (verbose && !"(Intercept)" %in% aov_table$Parameter) {
-      message(insight::format_message("Could not find F statistic for the (Intercept) in the ANOVA table."))
+      warning(insight::format_message("Could not find F statistic for the (Intercept) in the ANOVA table."), call. = FALSE)
     }
   } else {
     aov_table <- aov_table[aov_table$Parameter != "(Intercept)", , drop = FALSE]
