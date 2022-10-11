@@ -82,8 +82,8 @@ variables).
 
 
 ```{r}
-data("Music_preferences")
-Music_preferences
+data("Music_preferences2")
+Music_preferences2
 
 
 chisq.test(Music_preferences2)
