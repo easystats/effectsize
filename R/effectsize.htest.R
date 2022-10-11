@@ -53,7 +53,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   if (approx) {
     if (verbose) {
-      warning("Unable to retrieve data from htest object. Using t_to_d() approximation.", call. = FALSE)
+      warning(insight::format_message("Unable to retrieve data from htest object. Returning an approximate effect size using t_to_d()."),
+        call. = FALSE
+      )
     }
 
     f <- t_to_d

@@ -224,6 +224,3 @@ test_that(".get_data_multivariate | na.action", {
   expect_warning(D1 <- mahalanobis_d(mpg + hp ~ 1, data = mtcars), regexp = "dropped")
   expect_equal(D1, mahalanobis_d(mpg + hp ~ 1, data = mtcars[-1, ]))
 })
-
-
-
