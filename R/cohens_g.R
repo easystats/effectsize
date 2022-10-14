@@ -65,21 +65,21 @@ cohens_g <- function(x, y = NULL,
 
   if (!is.matrix(x)) {
     if (is.null(y)) {
-      stop("if 'x' is not a matrix, 'y' must be given", call. = FALSE)
+      insight::format_error("if 'x' is not a matrix, 'y' must be given")
     }
     if (length(x) != length(y)) {
-      stop("'x' and 'y' must have the same length", call. = FALSE)
+      insight::format_error("'x' and 'y' must have the same length")
     }
     OK <- stats::complete.cases(x, y)
     x <- as.factor(x[OK])
     y <- as.factor(y[OK])
     if ((nlevels(x) < 2) || (nlevels(y) != nlevels(x))) {
-      stop("'x' and 'y' must have the same number of levels (minimum 2)", call. = FALSE)
+      insight::format_error("'x' and 'y' must have the same number of levels (minimum 2)")
     }
     x <- table(x, y)
   } else {
     if ((nrow(x) < 2) || (ncol(x) != nrow(x))) {
-      stop("'x' must be square with at least two rows and columns", call. = FALSE)
+      insight::format_error("'x' must be square with at least two rows and columns")
     }
   }
 

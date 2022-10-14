@@ -65,11 +65,11 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
   Obs <- res$observed
 
   if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
-    stop("Cannot have empty rows/columns in the contingency tables.", call. = FALSE)
+    insight::format_error("Cannot have empty rows/columns in the contingency tables.")
   }
 
   if (nrow(Obs) != 2 || ncol(Obs) != 2) {
-    stop("Odds ratio only available for 2-by-2 contingency tables", call. = FALSE)
+    insight::format_error("Odds ratio only available for 2-by-2 contingency tables")
   }
 
   OR <- (Obs[1, 1] / Obs[2, 1]) /
@@ -132,11 +132,11 @@ riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
   Obs <- res$observed
 
   if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
-    stop("Cannot have empty rows/columns in the contingency tables.", call. = FALSE)
+    insight::format_error("Cannot have empty rows/columns in the contingency tables.")
   }
 
   if (nrow(Obs) != 2 || ncol(Obs) != 2) {
-    stop("Risk ratio only available for 2-by-2 contingency tables", call. = FALSE)
+    insight::format_error("Risk ratio only available for 2-by-2 contingency tables")
   }
 
   n1 <- sum(Obs[, 1])
@@ -202,11 +202,11 @@ cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   Obs <- res$observed
 
   if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
-    stop("Cannot have empty rows/columns in the contingency tables.", call. = FALSE)
+    insight::format_error("Cannot have empty rows/columns in the contingency tables.")
   }
 
   if (nrow(Obs) != 2 || ncol(Obs) != 2) {
-    stop("Cohen's h only available for 2-by-2 contingency tables", call. = FALSE)
+    insight::format_error("Cohen's h only available for 2-by-2 contingency tables")
   }
 
   n1 <- sum(Obs[, 1])

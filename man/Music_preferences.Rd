@@ -9,11 +9,10 @@ A 4-by-3 table, with a \emph{column} for each major and a \emph{row} for each ty
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{data("Music_preferences")
 Music_preferences
-#>         Psych Econ Law
-#> Pop       150   50   2
-#> Rock      100   65  55
-#> Jazz      165   35  40
-#> Classic   130   10  25
+#>       Pop Rock Jazz Classic
+#> Psych 150  100  165     130
+#> Econ   50   65   35      10
+#> Law     2   55   40      25
 }\if{html}{\out{</div>}}
 }
 \description{

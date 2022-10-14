@@ -39,11 +39,12 @@ reference:
 
 - subtitle: "Standardized parameters"
   desc: >
-    Functions from other packages relating to parameter standardization
+    Functions from other packages relating to parameter standardization and perdictor dominance
   contents:
   - parameters::standardize_parameters
   - datawizard::standardize_models
   - parameters::standardize_info
+  - parameters::dominance_analysis
 
 - subtitle: "Correlations"
   desc: >

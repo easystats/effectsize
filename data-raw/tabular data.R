@@ -26,7 +26,7 @@ dimnames(Music_preferences) <- list(
   c("Pop", "Rock", "Jazz", "Classic"),
   c("Psych", "Econ", "Law")
 )
-Music_preferences <- as.table(Music_preferences)
+Music_preferences <- as.table(t(Music_preferences))
 
 save(Music_preferences, file = "data/Music_preferences.rdata")
 

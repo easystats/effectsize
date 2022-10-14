@@ -168,10 +168,10 @@ cohens_u1 <- function(x, y = NULL, data = NULL,
   )
   x <- data[["x"]]
   y <- data[["y"]]
-  if (is.null(y)) stop("cohens_u3 only applicable to two sample case.", call. = FALSE)
+  if (is.null(y)) insight::format_error("cohens_u3 only applicable to two sample case.")
 
   if (!parametric) {
-    stop("Cohen's U1 only available for parametric estimation.", call. = FALSE)
+    insight::format_error("Cohen's U1 only available for parametric estimation.")
   }
 
   d <- cohens_d(
@@ -208,7 +208,7 @@ cohens_u2 <- function(x, y = NULL, data = NULL,
   )
   x <- data[["x"]]
   y <- data[["y"]]
-  if (is.null(y)) stop("cohens_u3 only applicable to two sample case.", call. = FALSE)
+  if (is.null(y)) insight::format_error("cohens_u3 only applicable to two sample case.")
 
   if (parametric) {
     d <- cohens_d(
@@ -252,7 +252,7 @@ cohens_u3 <- function(x, y = NULL, data = NULL,
   )
   x <- data[["x"]]
   y <- data[["y"]]
-  if (is.null(y)) stop("cohens_u3 only applicable to two sample case.", call. = FALSE)
+  if (is.null(y)) insight::format_error("cohens_u3 only applicable to two sample case.")
 
   if (parametric) {
     d <- cohens_d(
@@ -295,7 +295,7 @@ p_overlap <- function(x, y = NULL, data = NULL,
   )
   x <- data[["x"]]
   y <- data[["y"]]
-  if (is.null(y)) stop("Overlap only applicable to two sample case.", call. = FALSE)
+  if (is.null(y)) insight::format_error("Overlap only applicable to two sample case.")
 
   if (parametric) {
     d <- cohens_d(

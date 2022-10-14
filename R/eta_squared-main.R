@@ -329,9 +329,7 @@ cohens_f_squared <- function(model,
     !inherits(model2, "lm") ||
     !insight::model_info(model)$is_linear ||
     !insight::model_info(model2)$is_linear) {
-    stop("Cohen's f for R2-change only supported for fixed effect linear models.",
-      call. = FALSE
-    )
+    insight::format_error("Cohen's f for R2-change only supported for fixed effect linear models.")
   }
 
   # Anova
@@ -371,14 +369,14 @@ cohens_f_squared <- function(model,
   }
 
   if (!"Residuals" %in% aov_table$Parameter) {
-    stop(insight::format_message("No residuals data found - cannot compute effect size."), call. = FALSE)
+    insight::format_error("No residuals data found - cannot compute effect size.")
   }
 
 
   # Include intercept? ---
   if (include_intercept) {
     if (verbose && !"(Intercept)" %in% aov_table$Parameter) {
-      warning(insight::format_message("Could not find Sum-of-Squares for the (Intercept) in the ANOVA table."), call. = FALSE)
+      insight::format_warning("Could not find Sum-of-Squares for the (Intercept) in the ANOVA table.")
     }
     values <- .values_aov(aov_table[aov_table$Parameter != "(Intercept)", ])
   } else {
@@ -397,9 +395,11 @@ cohens_f_squared <- function(model,
     (partial || isTRUE(generalized) || is.character(generalized))) {
     if (verbose) {
       txt_type <- ifelse(isTRUE(generalized) || is.character(generalized), "generalized", "partial")
-      message(
-        "For one-way between subjects designs, ", txt_type, " ", type, " squared is equivalent to ", type, " squared.\n",
-        "Returning ", type, " squared."
+      insight::format_alert(
+        sprintf(
+          "For one-way between subjects designs, %s %s squared is equivalent to %s squared. Returning %s squared.",
+          txt_type, type, type, type
+        )
       )
     }
     partial <- FALSE
@@ -416,7 +416,7 @@ cohens_f_squared <- function(model,
         for (o in generalized) {
           oi <- grepl(paste0("\\b", o, "\\b"), aov_table$Parameter)
 
-          if (!any(oi)) stop("Observed variable not in data: ", o, call. = FALSE)
+          if (!any(oi)) insight::format_error(sprintf("Observed variable not in data: %s", o))
 
           obs <- obs | oi
         }
@@ -518,14 +518,14 @@ cohens_f_squared <- function(model,
   }
 
   if (!"Residuals" %in% aov_table$Parameter) {
-    stop(insight::format_message("No residuals data found - cannot compute effect size."), call. = FALSE)
+    insight::format_error("No residuals data found - cannot compute effect size.")
   }
 
 
   # Include intercept? ---
   if (include_intercept) {
     if (verbose && !"(Intercept)" %in% aov_table$Parameter) {
-      warning(insight::format_message("Could not find Sum-of-Squares for the (Intercept) in the ANOVA table."), call. = FALSE)
+      insight::format_warning("Could not find Sum-of-Squares for the (Intercept) in the ANOVA table.")
     }
     values <- .values_aov(aov_table[aov_table$Parameter != "(Intercept)", ], group = TRUE)
   } else {
@@ -552,7 +552,7 @@ cohens_f_squared <- function(model,
         for (o in generalized) {
           oi <- grepl(paste0("\\b", o, "\\b"), aov_table$Parameter)
 
-          if (!any(oi)) stop("Observed variable not in data: ", o, call. = FALSE)
+          if (!any(oi)) insight::format_error(sprintf("Observed variable not in data: %s", o))
 
           obs <- obs | oi
         }
@@ -663,19 +663,14 @@ cohens_f_squared <- function(model,
   # Non-Partial / Generalized -> BAD ---
   if (verbose) {
     if (!isTRUE(partial)) {
-      warning(
-        "Currently only supports partial ",
-        type,
-        " squared for this class of objects.",
-        call. = FALSE
+      insight::format_warning(
+        sprintf("Currently only supports partial %s squared for this class of objects.", type)
       )
     }
 
     if (isTRUE(generalized) || is.character(generalized)) {
-      warning(
-        "generalized ", type, " squared ",
-        "is not supported for this class of object.",
-        call. = FALSE
+      insight::format_warning(
+        sprintf("Generalized %s squared is not supported for this class of object.", type)
       )
     }
   }
@@ -687,7 +682,7 @@ cohens_f_squared <- function(model,
       aov_table[["F"]] <- aov_table[["t"]]^2
       aov_table[["df"]] <- 1
     } else {
-      stop(insight::format_message("ANOVA table does not have F values - cannot compute effect size."), call. = FALSE)
+      insight::format_error("ANOVA table does not have F values - cannot compute effect size.")
     }
   }
 
@@ -695,7 +690,7 @@ cohens_f_squared <- function(model,
   # include_intercept? ---
   if (include_intercept) {
     if (verbose && !"(Intercept)" %in% aov_table$Parameter) {
-      warning(insight::format_message("Could not find F statistic for the (Intercept) in the ANOVA table."), call. = FALSE)
+      insight::format_warning("Could not find F statistic for the (Intercept) in the ANOVA table.")
     }
   } else {
     aov_table <- aov_table[aov_table$Parameter != "(Intercept)", , drop = FALSE]
@@ -854,7 +849,7 @@ cohens_f_squared <- function(model,
   }
 
   if (!any(F.nm %in% colnames(model)) || !any(df.nm %in% colnames(model))) {
-    stop(insight::format_message("ANOVA table does not have F values or degrees of freedom - cannot compute effect size."), call. = FALSE)
+    insight::format_error("ANOVA table does not have F values or degrees of freedom - cannot compute effect size.")
   }
 
   Fi <- F.nm[F.nm %in% colnames(model)]

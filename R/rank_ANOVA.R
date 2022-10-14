@@ -272,15 +272,14 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
   no_ties <- apply(rankings, 1, function(x) length(x) == insight::n_unique(x))
   if (!all(no_ties)) {
     if (verbose) {
-      warning(
+      insight::format_warning(
         sprintf(
           "%d block(s) contain ties%s.",
           sum(!no_ties),
           ifelse(any(apply(as.data.frame(rankings)[!no_ties, ], 1, insight::n_unique) == 1),
             ", some containing only 1 unique ranking", ""
           )
-        ),
-        call. = FALSE
+        )
       )
     }
 

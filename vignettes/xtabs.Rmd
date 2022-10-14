@@ -41,7 +41,7 @@ For 2-by-2 contingency tables, $\phi$ (Phi) is homologous (though directionless)
 ```{r}
 (MPG_Gear <- table(mtcars$mpg < 20, mtcars$vs))
 
-phi(MPG_Gear)
+phi(MPG_Gear, adjust = FALSE)
 
 # Same as:
 cor(mtcars$mpg < 20, mtcars$vs)

@@ -1,5 +1,9 @@
 # effectsize 0.8.0.0001
 
+## Changes
+
+- cohens_w() has an exact upper bound when used as an effect size for goodness-of-fit.
+
 ## Bug fixes
 
 - When using formula input to effect size function, `na.action` arguments are respected (#517)

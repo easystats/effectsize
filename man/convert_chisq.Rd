@@ -26,6 +26,7 @@ chisq_to_cohens_w(
   n,
   nrow,
   ncol,
+  p,
   ci = 0.95,
   alternative = "greater",
   ...
