@@ -196,7 +196,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
                                     verbose = TRUE, ...) {
   if (type != "delta") {
     if (.is_htest_of_type(x, "t-test")) {
-      return(effectsize(x, type = type, verbose = verbose, ...))
+      return(effectsize(x, type = type, verbose = verbose, data = data, ...))
     } else if (.is_BF_of_type(x, c("BFoneSample", "BFindepSample"), "t-squared")) {
       return(effectsize(x, ci = ci, verbose = verbose, ...))
     }
