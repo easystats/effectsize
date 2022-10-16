@@ -25,6 +25,10 @@ A data frame with the effect size.
 Compute the semi-partial correlation squared (also known as the delta
 R2), for a \code{lm} model.
 }
+\details{
+For other, non-lm models, as well as more verbose info / options,
+please see the documentation for \code{\link[parameters:dominance_analysis]{parameters::dominance_analysis()}}.
+}
 \examples{
 m <- lm(mpg ~ cyl + disp + hp * drat, data = mtcars)
 semipartialR2(m)

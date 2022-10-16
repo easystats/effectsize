@@ -3,6 +3,9 @@
 #' Compute the semi-partial correlation squared (also known as the delta
 #' R2), for a `lm` model.
 #'
+#' @details For other, non-lm models, as well as more verbose info / options,
+#' please see the documentation for [parameters::dominance_analysis()].
+#'
 #' @param model An `lm` model.
 #' @param ... Arguments passed to `lm`.
 #'   these can be `subset` and `na.action`.
@@ -28,10 +31,8 @@ semipartialR2 <- function(model, ...) {
     list.parameters[-x]
   })
 
-  formulas0 <- lapply(list.parameters.all, function(x) {
-    paste0(x, collapse = " + ")
-  })
-  formulas <- lapply(formulas0, function(x) {
+  formulas <- lapply(list.parameters.all, function(x) {
+    x <- paste0(x, collapse = " + ")
     paste(response, "~", x)
   })
   list.models <- lapply(formulas, stats::lm, data = data, ...)
