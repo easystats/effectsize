@@ -7,9 +7,9 @@
   if (inherits(x, "formula")) {
     # Validate:
     if (length(x) != 3L) {
-      stop("Formula must have one of the following forms:",
-        "\n\ty ~ group,\n\ty ~ 1,\n\tPair(x,y) ~ 1",
-        call. = FALSE
+      insight::format_error(
+        "Formula must have one of the following forms:",
+        "\n\ty ~ group,\n\ty ~ 1,\n\tPair(x,y) ~ 1"
       )
     }
 
@@ -17,7 +17,7 @@
     mf <- .resolve_formula(x, data, ...)
 
     if (ncol(mf) > 2L) {
-      stop("Formula must have only one term on the RHS.", call. = FALSE)
+      insight::format_error("Formula must have only one term on the RHS.")
     }
 
     x <- mf[[1]]
@@ -37,7 +37,7 @@
   if (allow_ordered && is.ordered(x)) {
     if (is.ordered(y)) {
       if (!isTRUE(all.equal(levels(y), levels(x)))) {
-        stop("x and y are ordered, but do not have the same levels.", call. = FALSE)
+        insight::format_error("x and y are ordered, but do not have the same levels.")
       }
       y <- as.numeric(y)
     }
@@ -47,7 +47,7 @@
 
   # x should be a numeric vector or a Pair:
   if (!is.numeric(x)) {
-    stop("Cannot compute effect size for a non-numeric vector.", call. = FALSE)
+    insight::format_error("Cannot compute effect size for a non-numeric vector.")
   } else if (inherits(x, "Pair")) {
     x <- x[, 1] - x[, 2]
     y <- NULL
@@ -58,11 +58,11 @@
   if (!is.null(y)) {
     if (!is.numeric(y)) {
       if (insight::n_unique(y) != 2) {
-        stop("Grouping variable y must have exactly 2 levels.", call. = FALSE)
+        insight::format_error("Grouping variable y must have exactly 2 levels.")
       }
 
       if (length(x) != length(y)) {
-        stop("Grouping variable must be the same length.", call. = FALSE)
+        insight::format_error("Grouping variable must be the same length.")
       }
 
       data <- Filter(length, split(x, y))
@@ -71,15 +71,15 @@
     }
 
     if (verbose && insight::n_unique(y) == 2) {
-      warning("'y' is numeric but has only 2 unique values.",
-        "\nIf this is a grouping variable, convert it to a factor.",
-        call. = FALSE
+      insight::format_warning(
+        "'y' is numeric but has only 2 unique values.",
+        "If this is a grouping variable, convert it to a factor."
       )
     }
   }
 
   if (verbose && (anyNA(x) || anyNA(y))) {
-    warning("Missing values detected. NAs dropped.", call. = FALSE)
+    insight::format_warning("Missing values detected. NAs dropped.")
   }
 
   if (paired && !is.null(y)) {
@@ -96,6 +96,19 @@
 }
 
 
+#' @keywords internal
+.get_data_xtabs <- function(x, y = NULL, p = NULL) {
+  # TODO dont rely on chisq.test
+  res <- suppressWarnings(stats::chisq.test(x,
+    y = y,
+    p = p,
+    correct = FALSE,
+    rescale.p = TRUE,
+    simulate.p.value = FALSE
+  ))
+
+  res[c("observed", "expected")]
+}
 
 #' @keywords internal
 .get_data_multi_group <- function(x, groups, data = NULL,
@@ -103,13 +116,13 @@
                                   verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
     if (length(x) != 3) {
-      stop("Formula must have the form of 'outcome ~ group'.", call. = FALSE)
+      insight::format_error("Formula must have the form of 'outcome ~ group'.")
     }
 
     mf <- .resolve_formula(x, data, ...)
 
     if (ncol(mf) != 2L) {
-      stop("Formula must have only one term on the RHS.", call. = FALSE)
+      insight::format_error("Formula must have only one term on the RHS.")
     }
 
     x <- mf[[1]]
@@ -129,21 +142,21 @@
     x <- as.numeric(x)
   }
   if (!is.numeric(x)) {
-    stop("Cannot compute effect size for a non-numeric vector.", call. = FALSE)
+    insight::format_error("Cannot compute effect size for a non-numeric vector.")
   }
 
   # groups should be not numeric
   if (length(x) != length(groups)) {
-    stop("x and groups must be of the same length.", call. = FALSE)
+    insight::format_error("x and groups must be of the same length.")
   }
 
   if (is.numeric(groups)) {
-    stop("groups cannot be numeric.", call. = FALSE)
+    insight::format_error("groups cannot be numeric.")
   }
 
   out <- data.frame(x, groups)
   if (verbose && anyNA(out)) {
-    warning("Missing values detected. NAs dropped.", call. = FALSE)
+    insight::format_warning("Missing values detected. NAs dropped.")
   }
   stats::na.omit(out)
 }
@@ -156,7 +169,7 @@
   if (inherits(x, "formula")) {
     if (length(x) != 3L ||
       x[[3L]][[1L]] != as.name("|")) {
-      stop("Formula must have the 'x ~ groups | blocks'.", call. = FALSE)
+      insight::format_error("Formula must have the 'x ~ groups | blocks'.")
     }
 
     x[[3L]][[1L]] <- as.name("+")
@@ -164,7 +177,7 @@
     x <- .resolve_formula(x, data, ...)
 
     if (ncol(x) != 3L) {
-      stop("Formula must have only two term on the RHS.", call. = FALSE)
+      insight::format_error("Formula must have only two term on the RHS.")
     }
   } else if (inherits(x, "data.frame")) {
     x <- as.matrix(x)
@@ -174,7 +187,7 @@
     blocks <- .resolve_char(blocks, data)
 
     if (length(x) != length(groups) || length(x) != length(blocks)) {
-      stop("x, groups and blocks must be of the same length.", call. = FALSE)
+      insight::format_error("x, groups and blocks must be of the same length.")
     }
 
     x <- data.frame(x, groups, blocks)
@@ -195,14 +208,14 @@
     x$x <- as.numeric(x$x)
   }
   if (!is.numeric(x$x)) {
-    stop("Cannot compute effect size for a non-numeric vector.", call. = FALSE)
+    insight::format_error("Cannot compute effect size for a non-numeric vector.")
   }
   if (!is.factor(x$groups)) x$groups <- factor(x$groups)
   if (!is.factor(x$blocks)) x$blocks <- factor(x$blocks)
 
 
   if (verbose && anyNA(x)) {
-    warning("Missing values detected. NAs dropped.", call. = FALSE)
+    insight::format_warning("Missing values detected. NAs dropped.")
   }
   x <- stats::na.omit(x)
 
@@ -224,13 +237,10 @@
                                    verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
     if (length(x) != 3L || length(x[[3]]) != 1L) {
-      stop("Formula must have the form of 'DV1 + ... + DVk ~ group', with exactly one term on the RHS.", call. = FALSE)
+      insight::format_error("Formula must have the form of 'DV1 + ... + DVk ~ group', with exactly one term on the RHS.")
     }
 
-    data <- model.frame(
-      formula = stats::reformulate(as.character(x)[3:2]),
-      data = data, na.action = stats::na.pass
-    )
+    data <- .resolve_formula(stats::reformulate(as.character(x)[3:2]), data, ...)
 
     if (x[[3]] == 1) {
       # Then it is one sampled
@@ -238,7 +248,7 @@
     } else {
       data <- split(data[, -1, drop = FALSE], f = data[[1]])
       if (length(data) != 2) {
-        stop("~ group must have 2 levels exactly.", call. = FALSE)
+        insight::format_error("~ group must have 2 levels exactly.")
       }
       x <- data[[1]]
       y <- data[[2]]
@@ -254,11 +264,11 @@
   if (is.matrix(x)) {
     x <- as.data.frame(x)
   } else if (!is.data.frame(x)) {
-    stop("x must be a data frame.", call. = FALSE)
+    insight::format_error("x must be a data frame.")
   }
 
   if (!all(sapply(x, is.numeric))) {
-    stop("All DVs must be numeric.", call. = FALSE)
+    insight::format_error("All DVs must be numeric.")
   }
 
 
@@ -267,20 +277,20 @@
     if (is.matrix(y)) {
       y <- as.data.frame(y)
     } else if (!is.data.frame(y)) {
-      stop("y must be a data frame.", call. = FALSE)
+      insight::format_error("y must be a data frame.")
     }
 
     if (!all(sapply(y, is.numeric))) {
-      stop("All DVs must be numeric.", call. = FALSE)
+      insight::format_error("All DVs must be numeric.")
     }
 
     if (!all(colnames(x) == colnames(y))) {
-      stop("x,y must have the same variables (in the same order)", call. = FALSE)
+      insight::format_error("x,y must have the same variables (in the same order).")
     }
   }
 
   if (verbose && (anyNA(x) || anyNA(y))) {
-    warning("Missing values detected. NAs dropped.", call. = FALSE)
+    insight::format_warning("Missing values detected. NAs dropped.")
   }
   x <- stats::na.omit(x)
   y <- stats::na.omit(y)
@@ -294,14 +304,19 @@
 
 #' @keywords internal
 #' @importFrom stats model.frame na.pass
-.resolve_formula <- function(formula, data, subset, na.action, ...) {
+.resolve_formula <- function(formula, data, subset, na.action = stats::na.pass, ...) {
   cl <- match.call(expand.dots = FALSE)
   cl[[1]] <- quote(stats::model.frame)
+
+  if (!"na.action" %in% names(cl)) {
+    cl$na.action <- quote(stats::na.pass)
+  }
+
   if ("subset" %in% names(cl)) {
     cl$subset <- substitute(subset)
   }
+
   cl$... <- NULL
-  cl$na.action <- stats::na.pass
   eval.parent(cl)
 }
 
@@ -309,9 +324,11 @@
 .resolve_char <- function(nm, data) {
   if (is.character(nm) && length(nm) == 1L) {
     if (is.null(data)) {
-      stop("Please provide data argument.", call. = FALSE)
-    } else if (!nm %in% names(data)) {
-      stop("Column ", nm, " missing from data.", call. = FALSE)
+      insight::format_error("Please provide data argument.")
+    }
+
+    if (!nm %in% names(data)) {
+      insight::format_error(sprintf("Column %s missing from data.", nm))
     }
 
     return(data[[nm]])

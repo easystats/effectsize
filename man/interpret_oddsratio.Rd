@@ -59,3 +59,4 @@ Effect-size indices for dichotomized outcomes in meta-analysis. Psychological
 methods, 8(4), 448.
 }
 }
+\keyword{interpreters}

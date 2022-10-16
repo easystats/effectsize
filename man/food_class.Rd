@@ -6,8 +6,25 @@
 \title{Classification of Foods}
 \format{
 A 2-by-3 table.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{data("food_class")
+food_class
+#>           Soy Milk Meat
+#> Vegan      47    0    0
+#> Not-Vegan   0   12   21
+}\if{html}{\out{</div>}}
 }
 \description{
 Fictional data.
 }
+\seealso{
+Other effect size datasets: 
+\code{\link{Music_preferences2}},
+\code{\link{Music_preferences}},
+\code{\link{RCT_table}},
+\code{\link{Smoking_FASD}},
+\code{\link{hardlyworking}},
+\code{\link{screening_test}}
+}
+\concept{effect size datasets}
 \keyword{data}

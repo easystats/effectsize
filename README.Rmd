@@ -2,7 +2,7 @@
 output: github_document
 ---
 
-# effectsize: Indices of Effect Size and Standardized Parameters <img src="man/figures/logo.png" align="right" width="120" />
+# effectsize: Indices of Effect Size <img src="man/figures/logo.png" align="right" width="120" />
 
 ```{r setup, echo = FALSE, warning=FALSE, message=FALSE}
 library(effectsize)
@@ -44,7 +44,7 @@ Run the following to install the stable release of **effectsize** from CRAN:
 install.packages("effectsize")
 ```
 
-Or you can install the latest development version ``r available.packages(repos = "https://easystats.r-universe.dev/")["effectsize","Version"]`` from [*R-universe*](https://easystats.r-universe.dev):
+Or you can install the latest development version from [*R-universe*](https://easystats.r-universe.dev):
 
 ```{r install-R-universe, warning=FALSE, message=FALSE, eval=FALSE}
 install.packages("effectsize", repos = "https://easystats.r-universe.dev/")

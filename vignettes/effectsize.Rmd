@@ -65,30 +65,32 @@ M <- rbind(
 cramers_v(M)
 ```
 
-<!-- ## Parameter and Model Standardization -->
+## Parameter and Model Standardization
 
-<!-- Standardizing parameters (i.e., coefficients) can allow for their comparison within and between models, variables and studies. To this end, two functions are available: `standardize()`, which returns an updated model, re-fit with standardized data, and `standardize_parameters()`, which returns a table of standardized coefficients from a provided model [for a list of supported models, see the *insight* package; @luedecke2019insight]. -->
+> Note: this functionality has been moved to the `parameters` and `datawizard` packages.
 
-<!-- ```{r} -->
-<!-- model <- lm(mpg ~ cyl * am,  -->
-<!--             data = mtcars) -->
+Standardizing parameters (i.e., coefficients) can allow for their comparison within and between models, variables and studies. To this end, two functions are available: `standardize()`, which returns an updated model, re-fit with standardized data, and `standardize_parameters()`, which returns a table of standardized coefficients from a provided model [for a list of supported models, see the *insight* package; @luedecke2019insight].
 
-<!-- standardize(model) -->
+```{r}
+model <- lm(mpg ~ cyl * am,
+            data = mtcars)
 
-<!-- standardize_parameters(model) -->
-<!-- ``` -->
+datawizard::standardize(model)
 
-<!-- Standardized parameters can also be produced for generalized linear models (GLMs; where only the predictors are standardized): -->
+parameters::standardize_parameters(model)
+```
 
-<!-- ```{r} -->
-<!-- model <- glm(am ~ cyl + hp, -->
-<!--              family = "binomial", -->
-<!--              data = mtcars) -->
+Standardized parameters can also be produced for generalized linear models (GLMs; where only the predictors are standardized):
 
-<!-- standardize_parameters(model, exponentiate = TRUE) -->
-<!-- ``` -->
+```{r}
+model <- glm(am ~ cyl + hp,
+             family = "binomial",
+             data = mtcars)
 
-<!-- `standardize_parameters()` provides several standardization methods, such as robust standardization, or *pseudo*-standardized coefficients for (generalized) linear mixed models [@hoffman2015longitudinal]. A full review of these methods can be found in the [*Parameter and Model Standardization* vignette](https://easystats.github.io/effectsize/articles/standardize_parameters.html). -->
+parameters::standardize_parameters(model, exponentiate = TRUE)
+```
+
+`standardize_parameters()` provides several standardization methods, such as robust standardization, or *pseudo*-standardized coefficients for (generalized) linear mixed models [@hoffman2015longitudinal]. A full review of these methods can be found in the [*Parameter and Model Standardization* vignette](https://easystats.github.io/parameters/articles/standardize_parameters_effsize.html).
 
 ## Effect Sizes for ANOVAs
 

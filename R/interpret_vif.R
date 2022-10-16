@@ -16,6 +16,7 @@
 #'
 #' interpret_vif(c(1.4, 30.4))
 #'
+#' @keywords interpreters
 #' @export
 interpret_vif <- function(vif, rules = "default") {
   rules <- .match.rules(

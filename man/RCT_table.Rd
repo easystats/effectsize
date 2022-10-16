@@ -6,8 +6,26 @@
 \title{Fictional Results from a Workers' Randomized Control Trial}
 \format{
 A 2-by-2 table, with a \emph{column} for each group and a \emph{row} for the diagnosis.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{data("RCT_table")
+RCT_table
+#>            Group
+#> Diagnosis   Treatment Control
+#>   Sick             71      30
+#>   Recovered        50     100
+}\if{html}{\out{</div>}}
 }
 \description{
 Fictional Results from a Workers' Randomized Control Trial
 }
+\seealso{
+Other effect size datasets: 
+\code{\link{Music_preferences2}},
+\code{\link{Music_preferences}},
+\code{\link{Smoking_FASD}},
+\code{\link{food_class}},
+\code{\link{hardlyworking}},
+\code{\link{screening_test}}
+}
+\concept{effect size datasets}
 \keyword{data}

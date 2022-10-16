@@ -38,6 +38,8 @@
 #'   - Vehtari, A., Gelman, A., Simpson, D., Carpenter, B., & Bürkner, P. C.
 #'   (2019). Rank-normalization, folding, and localization: An improved Rhat for
 #'   assessing convergence of MCMC. arXiv preprint arXiv:1903.08008.
+#'
+#' @keywords interpreters
 #' @export
 interpret_ess <- function(ess, rules = "burkner2017") {
   rules <- .match.rules(

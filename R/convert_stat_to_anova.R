@@ -287,7 +287,7 @@ t_to_f2 <- function(t, df_error,
     eta2 = data.frame(Eta2_partial = (f * df) / (f * df + df_error)),
     epsilon2 = data.frame(Epsilon2_partial = ((f - 1) * df) / (f * df + df_error)),
     omega2 = data.frame(Omega2_partial = ((f - 1) * df) / (f * df + df_error + 1)),
-    stop("'es' must be 'eta2', 'epsilon2', or 'omega2'.", call. = FALSE)
+    insight::format_error("'es' must be 'eta2', 'epsilon2', or 'omega2'.")
   )
 
   ci_method <- NULL
@@ -301,7 +301,7 @@ t_to_f2 <- function(t, df_error,
     fs <- t(mapply(.get_ncp_F, f, df, df_error, ci.level)) / df
 
     if (isTRUE(verbose) && anyNA(fs)) {
-      warning("Some CIs could not be estimated due to non-finite F, df, or df_error values.", call. = FALSE)
+      insight::format_warning("Some CIs could not be estimated due to non-finite F, df, or df_error values.")
     }
 
     # This really is a generic F_to_R2

@@ -1,5 +1,5 @@
 
-# effectsize: Indices of Effect Size and Standardized Parameters <img src="man/figures/logo.png" align="right" width="120" />
+# effectsize: Indices of Effect Size <img src="man/figures/logo.png" align="right" width="120" />
 
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.02815/status.svg/)](https://doi.org/10.21105/joss.02815)
 [![downloads](https://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize/)
@@ -30,7 +30,7 @@ CRAN:
 install.packages("effectsize")
 ```
 
-Or you can install the latest development version `0.7.9.1999` from
+Or you can install the latest development version from
 [*R-universe*](https://easystats.r-universe.dev):
 
 ``` r
@@ -124,23 +124,23 @@ language effect sizes* and more…
 ``` r
 # Dependence 
 phi(mtcars$am, mtcars$vs)
-## ϕ    |       95% CI
-## -------------------
-## 0.17 | [0.00, 1.00]
+## ϕ (adj.) |       95% CI
+## -----------------------
+## 0.00     | [0.00, 1.00]
 ## 
 ## - One-sided CIs: upper bound fixed at [1.00].
 
 cramers_v(mtcars$am, mtcars$cyl)
-## Cramer's V |       95% CI
-## -------------------------
-## 0.52       | [0.18, 1.00]
+## Cramer's V (adj.) |       95% CI
+## --------------------------------
+## 0.46              | [0.00, 1.00]
 ## 
 ## - One-sided CIs: upper bound fixed at [1.00].
 
 # Goodness-of-fit
 fei(table(mtcars$cyl), p = c(0.1, 0.3, 0.6))
 ## פ‎    |       95% CI
-## --------------------
+## -------------------
 ## 0.27 | [0.17, 1.00]
 ## 
 ## - Adjusted for non-uniform expected probabilities.

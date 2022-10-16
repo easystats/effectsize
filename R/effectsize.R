@@ -34,7 +34,7 @@
 #' @return A data frame with the effect size (depending on input) and and its
 #'   CIs (`CI_low` and `CI_high`).
 #'
-#' @family effect size indices
+#' @seealso `vignette(package = "effectsize")`
 #'
 #' @examples
 #'

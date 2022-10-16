@@ -1,12 +1,12 @@
 Type: Package
 Package: effectsize
-Title: Indices of Effect Size and Standardized Parameters
-Version: 0.7.9.2999
+Title: Indices of Effect Size
+Version: 0.8.0.0001
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
              role = c("aut", "cre"),
-             email = "matanshm@post.bgu.ac.il",
+             email = "mattansb@msbstats.info",
              comment = c(ORCID = "0000-0002-4287-4801", Twitter = "@mattansb")),
       person(given = "Dominique",
              family = "Makowski",
@@ -44,12 +44,11 @@ Authors@R:
              role = "rev",
              email = "jkarreth@ursinus.edu",
              comment = c(ORCID = "0000-0003-4586-7153")))
-Maintainer: Mattan S. Ben-Shachar <matanshm@post.bgu.ac.il>
-Description: Provide utilities to work with indices of effect size and
-    standardized parameters for a wide variety of models (see list of
-    supported models using the function 'insight::supported_models()'),
-    allowing computation of and conversion between indices such as Cohen's
-    d, r, odds, etc.
+Maintainer: Mattan S. Ben-Shachar <mattansb@msbstats.info>
+Description: Provide utilities to work with indices of effect size for a wide 
+    variety of models and hypothesis tests (see list of supported models using 
+    the function 'insight::supported_models()'), allowing computation of and 
+    conversion between indices such as Cohen's d, r, odds, etc.
     References: Ben-Shachar et al. (2020) <doi:10.21105/joss.02815>.
 License: GPL-3
 URL: https://easystats.github.io/effectsize/
@@ -59,14 +58,14 @@ Depends:
 Imports:
     bayestestR (>= 0.13.0),
     insight (>= 0.18.4),
-    parameters (>= 0.18.2),
-    performance (>= 0.9.2),
-    datawizard (>= 0.6.1),
+    parameters (>= 0.19.0),
+    performance (>= 0.10.0),
+    datawizard (>= 0.6.2),
     stats,
     utils
 Suggests:
-    correlation (>= 0.8.1),
-    see (>= 0.7.1),
+    correlation (>= 0.8.2),
+    see (>= 0.7.3),
     afex,
     BayesFactor,
     boot,

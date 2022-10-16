@@ -1,3 +1,4 @@
+# library(testthat)
 
 test_that("contingency table", {
   contingency_table <- as.table(rbind(
@@ -104,7 +105,7 @@ test_that("goodness of fit", {
   expect_equal(w2[[1]] * sqrt(0.1 / 0.9), Fei2[[1]])
   expect_true(w1$CI_low < w2$CI_low)
   expect_true(w2$CI_low < w2$CI_high)
-  expect_equal(w2$CI_high, Inf)
+  expect_equal(w2$CI_high, sqrt(0.9 / 0.1))
 
   C <- pearsons_c(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
   expect_equal(C[[1]], sqrt(49.289 / (49.289 + sum(table(mtcars$cyl)))), tolerance = 0.001)
@@ -176,45 +177,4 @@ test_that("oddsratio & riskratio", {
     tolerance = 0.1, # different methods, give slightly different values
     ignore_attr = TRUE
   )
-})
-
-
-test_that("Cohen's g", {
-  # From mcnemar.test
-  Performance <-
-    matrix(c(794, 86, 150, 570),
-      nrow = 2,
-      dimnames = list(
-        "1st Survey" = c("Approve", "Disapprove"),
-        "2nd Survey" = c("Approve", "Disapprove")
-      )
-    )
-  g <- cohens_g(Performance)
-  expect_equal(g$Cohens_g, 0.136, tolerance = 0.01)
-  expect_equal(g$CI_low, 0.072, tolerance = 0.01)
-  expect_equal(g$CI_high, 0.194, tolerance = 0.01)
-
-
-  AndersonRainBarrel <- matrix(c(
-    9L, 17L,
-    5L, 15L
-  ), nrow = 2)
-  g <- cohens_g(AndersonRainBarrel)
-  expect_equal(g$Cohens_g, 0.273, tolerance = 0.01)
-  expect_equal(g$CI_low, 0.066, tolerance = 0.01)
-  expect_equal(g$CI_high, 0.399, tolerance = 0.01)
-
-
-  M <- matrix(
-    c(
-      794, 86, 150,
-      570, 794, 86,
-      150, 570, 15
-    ),
-    nrow = 3
-  )
-  g <- cohens_g(M)
-  expect_equal(g$Cohens_g, 0.300, tolerance = 0.01)
-  expect_equal(g$CI_low, 0.280, tolerance = 0.01)
-  expect_equal(g$CI_high, 0.319, tolerance = 0.01)
 })

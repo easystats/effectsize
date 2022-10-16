@@ -7,8 +7,7 @@
 #'
 #' @inheritParams stats::chisq.test
 #' @inheritParams chisq_to_phi
-#' @param ... For goodness-of-fit effect sizes, can pass `rescale.p` (see
-#'   [stats::chisq.test()]). Else, ignored.
+#' @param ... Ignored.
 #'
 #' @details
 #'
@@ -47,7 +46,7 @@
 #'   `CI_high`).
 #'
 #' @seealso [chisq_to_phi()] for details regarding estimation and CIs.
-#' @family effect size indices
+#' @family effect sizes for contingency table
 #'
 #' @examples
 #'
@@ -109,7 +108,7 @@ phi <- function(x, y = NULL,
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
-    return(effectsize(x, type = "phi", adjust = adjust, ci = ci, ...))
+    return(effectsize(x, type = "phi", adjust = adjust, ci = ci))
   } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
     x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
@@ -128,7 +127,7 @@ cramers_v <- function(x, y = NULL,
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
-    return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci, ...))
+    return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci))
   } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
     x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
@@ -147,7 +146,7 @@ tschuprows_t <- function(x, y = NULL,
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
-    return(effectsize(x, type = "tschuprows_t", ci = ci, ...))
+    return(effectsize(x, type = "tschuprows_t", ci = ci))
   } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
     x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
@@ -159,18 +158,18 @@ tschuprows_t <- function(x, y = NULL,
 #' @rdname phi
 #' @importFrom stats chisq.test
 #' @export
-cohens_w <- function(x, y = NULL, p = rep(1 / length(x), length(x)),
+cohens_w <- function(x, y = NULL, p = rep(1, length(x)),
                      ci = 0.95, alternative = "greater",
                      ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
-    return(effectsize(x, type = "phi", ci = ci, ...))
+    return(effectsize(x, type = "cohens_w", ci = ci))
   } else if (!.is_htest_of_type(
     x, "(Pearson's Chi-squared|Chi-squared test for given probabilities)",
     "Chi-squared-test"
   )) {
-    x <- suppressWarnings(stats::chisq.test(x, y, p = p, ...))
+    x <- suppressWarnings(stats::chisq.test(x, y, p = p, rescale.p = TRUE))
     x$data.name <- NULL
   }
 
@@ -181,15 +180,15 @@ cohens_w <- function(x, y = NULL, p = rep(1 / length(x), length(x)),
 #' @rdname phi
 #' @importFrom stats chisq.test
 #' @export
-fei <- function(x, p = rep(1 / length(x), length(x)),
+fei <- function(x, p = rep(1, length(x)),
                 ci = 0.95, alternative = "greater",
                 ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (inherits(x, "BFBayesFactor")) {
-    stop("Fei is only applicable to goodness of fit tests.", call. = FALSE)
+    insight::format_error("Fei is only applicable to goodness of fit tests.")
   } else if (!.is_htest_of_type(x, "Chi-squared test for given probabilities", "Chi-squared-test")) {
-    x <- suppressWarnings(stats::chisq.test(x, y = NULL, p = p, ...))
+    x <- suppressWarnings(stats::chisq.test(x, y = NULL, p = p, rescale.p = TRUE))
     x$data.name <- NULL
   }
 
@@ -199,18 +198,18 @@ fei <- function(x, p = rep(1 / length(x), length(x)),
 #' @rdname phi
 #' @importFrom stats chisq.test
 #' @export
-pearsons_c <- function(x, y = NULL, p = rep(1 / length(x), length(x)),
+pearsons_c <- function(x, y = NULL, p = rep(1, length(x)),
                        ci = 0.95, alternative = "greater",
                        ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
-    return(effectsize(x, type = "pearsons_c", ci = ci, ...))
+    return(effectsize(x, type = "pearsons_c", ci = ci))
   } else if (!.is_htest_of_type(
     x, "(Pearson's Chi-squared|Chi-squared test for given probabilities)",
     "Chi-squared-test"
   )) {
-    x <- suppressWarnings(stats::chisq.test(x, y, p = p, ...))
+    x <- suppressWarnings(stats::chisq.test(x, y, p = p, rescale.p = TRUE))
     x$data.name <- NULL
   }
 

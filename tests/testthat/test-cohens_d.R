@@ -12,53 +12,6 @@ test_that("cohens_d errors and warnings", {
   d3 <- cohens_d(iris$Sepal.Length, iris$Sepal.Width, ci = 0.90, alternative = "g")
   expect_equal(d1$CI_high, d2$CI_high)
   expect_equal(d1$CI_low, d3$CI_low)
-
-
-  # Errors and warnings -----------------------------------------------------
-  df <- data.frame(
-    a = 1:10,
-    b = 2:11,
-    c = rep(letters[1:2], each = 5),
-    d = c("a", "b", "b", "c", "c", "b", "c", "a", "a", "b"),
-    e = rep(0:1, each = 5)
-  )
-  df$exp_a <- exp(df$a)
-  a2 <- 1:11
-
-  expect_error(cohens_d(a ~ c, data = df), regexp = NA)
-  expect_error(cohens_d("a", "c", data = df), regexp = NA)
-  expect_error(cohens_d("a", "b", data = df), regexp = NA)
-  expect_error(cohens_d(a2, df$b), regexp = NA)
-  expect_error(cohens_d(b ~ e, data = df), regexp = NA)
-
-  expect_error(cohens_d(df$a ~ df$c), regexp = NA)
-  expect_equal(cohens_d("exp_a", "c", data = df), cohens_d(exp(a) ~ c, data = df))
-
-  expect_error(cohens_d(a ~ b, data = df), "exactly")
-  expect_error(cohens_d(a ~ d, data = df), "exactly")
-  expect_error(cohens_d("a", "d", data = df), "exactly")
-  expect_error(cohens_d("c", "c", data = df), "non-numeric")
-  expect_error(cohens_d(a2, df$c), "length")
-  expect_error(cohens_d("a", "aa", data = df), "missing")
-
-  expect_warning(cohens_d("b", "e", data = df), "convert")
-})
-
-test_that("cohens d - grouping character vector", {
-  dat <- data.frame(
-    g = rep(c("treatment", "control"), each = 100),
-    y = c(rnorm(n = 200))
-  )
-
-  d <- cohens_d(dat$y, factor(dat$g), ci = NULL)[[1]]
-  expect_equal(cohens_d(dat$y, dat$g, ci = NULL)[[1]], d)
-  expect_equal(cohens_d(y ~ g, data = dat, ci = NULL)[[1]], d)
-  expect_equal(cohens_d(y ~ factor(g), data = dat, ci = NULL)[[1]], d)
-  expect_equal(cohens_d(dat$y ~ dat$g, ci = NULL)[[1]], d)
-  expect_equal(cohens_d(dat$y ~ factor(dat$g), ci = NULL)[[1]], d)
-  expect_equal(cohens_d("y", "g", data = dat, ci = NULL)[[1]], d)
-  expect_equal(cohens_d("y", dat$g, data = dat, ci = NULL)[[1]], d)
-  expect_equal(cohens_d(dat$y, "g", data = dat, ci = NULL)[[1]], d)
 })
 
 test_that("cohens_d - mu", {
@@ -131,24 +84,4 @@ test_that("fixed values", {
 
   expect_equal(cohens_d(x1, x2)[[1]], -sqrt(0.9), tolerance = 1e-2)
   expect_equal(glass_delta(x2, x1, ci = NULL)[[1]], 1.5, tolerance = 1e-2)
-})
-
-test_that("Missing values", {
-  x <- c(1, NA, 2, 3, 4)
-  y <- c(1, 2, 3, 4, 5)
-
-  expect_warning(d1 <- cohens_d(x, y), "dropped")
-  expect_warning(d2 <- cohens_d(x, y, paired = TRUE), "dropped")
-  expect_equal(d1, cohens_d(1:4, 1:5), tolerance = 0.01) # indep
-  expect_equal(d2, cohens_d(1:4, c(1, 3:5), paired = TRUE), tolerance = 0.01) # paired
-
-  # no length problems
-  expect_error(cohens_d(mtcars$mpg - 23), regexp = NA)
-
-  # Missing factor levels: the actual levels in the data are 3rd and 4th
-  f <- factor(letters[1:2], levels = c("d", "e", "a", "b"))
-  f <- rep(f, each = 5)
-  y <- c(2, 4, 3, 5, 1, 7, 9, 8, 6, 1)
-  expect_error(d <- cohens_d(y, f), regexp = NA)
-  expect_true(attr(d, "pooled_sd"))
 })

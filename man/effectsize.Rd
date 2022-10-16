@@ -8,7 +8,7 @@
 \alias{effectsize.htest}
 \title{Effect Sizes}
 \usage{
-\method{effectsize}{BFBayesFactor}(model, type = NULL, verbose = TRUE, test = NULL, ...)
+\method{effectsize}{BFBayesFactor}(model, type = NULL, ci = 0.95, test = NULL, verbose = TRUE, ...)
 
 effectsize(model, ...)
 
@@ -21,7 +21,8 @@ effectsize(model, ...)
 
 \item{type}{The effect size of interest. See details.}
 
-\item{verbose}{Toggle warnings and messages on or off.}
+\item{ci}{Value or vector of probability of the CI (between 0 and 1)
+to be estimated. Default to \code{.95} (\verb{95\%}).}
 
 \item{test}{The indices of effect existence to compute. Character (vector) or
 list with one or more of these options: \code{"p_direction"} (or \code{"pd"}),
@@ -30,6 +31,8 @@ list with one or more of these options: \code{"p_direction"} (or \code{"pd"}),
 For each "test", the corresponding \pkg{bayestestR} function is called
 (e.g. \code{\link[bayestestR:rope]{rope()}} or \code{\link[bayestestR:p_direction]{p_direction()}}) and its results
 included in the summary output.}
+
+\item{verbose}{Toggle warnings and messages on or off.}
 
 \item{...}{Arguments passed to or from other methods. See details.}
 }
@@ -122,15 +125,5 @@ effectsize(anova_table)
 effectsize(anova_table, type = "epsilon")
 }
 \seealso{
-Other effect size indices: 
-\code{\link{cohens_d}()},
-\code{\link{cohens_g}()},
-\code{\link{eta_squared}()},
-\code{\link{mahalanobis_d}()},
-\code{\link{oddsratio}()},
-\code{\link{p_superiority}()},
-\code{\link{phi}()},
-\code{\link{rank_biserial}()},
-\code{\link{rank_epsilon_squared}()}
+\code{vignette(package = "effectsize")}
 }
-\concept{effect size indices}

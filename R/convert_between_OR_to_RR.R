@@ -10,6 +10,7 @@
 #'   parameter table with the converted indices.
 #'
 #' @family convert between effect sizes
+#' @seealso [oddsratio()] and [riskratio()]
 #'
 #' @examples
 #' p0 <- 0.4
@@ -50,7 +51,7 @@ oddsratio_to_riskratio.numeric <- function(OR, p0, log = FALSE, ...) {
 #' @export
 oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, ...) {
   mi <- .get_model_info(OR, ...)
-  if (!mi$is_binomial || !mi$is_logit) stop("Model must a binomial model with logit-link (logistic regression)", call. = FALSE)
+  if (!mi$is_binomial || !mi$is_logit) insight::format_error("Model must a binomial model with logit-link (logistic regression).")
 
   RR <- parameters::model_parameters(OR, exponentiate = !log, effects = "fixed", ...)
   RR$SE <- NULL
@@ -63,11 +64,9 @@ oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, ...) {
     if (!log) p0 <- log(p0)
     p0 <- plogis(p0)
 
-    warning(
+    insight::format_warning(
       "'p0' not provided.",
-      "RR is relative to the intercept (p0 = ",
-      insight::format_value(p0),
-      ") - make sure your intercept is meaningful."
+      sprintf("RR is relative to the intercept (p0 = %s) - make sure your intercept is meaningful.", insight::format_value(p0))
     )
   }
 
@@ -78,7 +77,7 @@ oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, ...) {
     )
 
   if (any(c("CI_low", "CI_high") %in% colnames(RR))) {
-    warning("CIs are back-transformed from the logit scale.", call. = FALSE)
+    insight::format_warning("CIs are back-transformed from the logit scale.")
   }
 
   RR[RR$Parameter == "(Intercept)", "Coefficient"] <- p0

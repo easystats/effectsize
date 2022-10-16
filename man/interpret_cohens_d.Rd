@@ -82,3 +82,4 @@ individual differences researchers. Personality and individual differences,
 \item Sawilowsky, S. S. (2009). New effect size rules of thumb.
 }
 }
+\keyword{interpreters}

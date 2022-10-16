@@ -47,7 +47,8 @@
 #'   (`CI_low` and `CI_high`).
 #'
 #' @family effect size indices
-#' @seealso [rank_epsilon_squared()] for more rank based effect sizes
+#' @family standardized differences
+#' @family rank-based effect sizes
 #'
 #' @examples
 #' \donttest{
@@ -213,7 +214,7 @@ cliffs_delta <- function(x, y = NULL, data = NULL,
   x <- data$x
   y <- data$y
   if (is.null(y) || isTRUE(eval.parent(cl$paired))) {
-    stop("This effect size is only applicable for two independent samples.", call. = FALSE)
+    insight::format_error("This effect size is only applicable for two independent samples.")
   }
 
   cl[[1]] <- quote(rank_biserial)

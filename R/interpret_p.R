@@ -20,6 +20,8 @@
 #' @examples
 #' interpret_p(c(.5, .02, 0.001))
 #' interpret_p(c(.5, .02, 0.001), rules = "rss")
+#'
+#' @keywords interpreters
 #' @export
 interpret_p <- function(p, rules = "default") {
   rules <- .match.rules(

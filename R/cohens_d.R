@@ -46,8 +46,8 @@
 #' @return A data frame with the effect size ( `Cohens_d`, `Hedges_g`,
 #'   `Glass_delta`) and their CIs (`CI_low` and `CI_high`).
 #'
-#' @seealso [cohens_u3()] [d_to_p_superiority()] [sd_pooled()]
-#' @family effect size indices
+#' @family standardized differences
+#' @seealso [sd_pooled()], [t_to_d()], [r_to_d()]
 #'
 #' @examples
 #' \donttest{
@@ -210,7 +210,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
   if (is.null(y)) {
     if (type == "delta") {
-      stop("For Glass' Delta, please provide data from two samples.", call. = FALSE)
+      insight::format_error("For Glass' Delta, please provide data from two samples.")
     }
     y <- rep(0, length.out = length(x))
     paired <- TRUE

@@ -140,7 +140,7 @@ print.effectsize_difference <- function(x, digits = 2, append_CLES = NULL, ...) 
 
       cles_tab <- cles_tab[c(ncol(cles_tab), seq_len(ncol(cles_tab) - 1))]
     } else {
-      stop("CLES not applicable for this effect size.", call. = FALSE)
+      insight::format_error("CLES not applicable for this effect size.")
     }
 
     insight::print_color("\n\n## Common Language Effect Sizes:\n", .pcl["subtitle"])

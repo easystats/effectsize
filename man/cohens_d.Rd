@@ -214,17 +214,11 @@ Correcting error and bias in research findings. Sage.
 }
 }
 \seealso{
-\code{\link[=cohens_u3]{cohens_u3()}} \code{\link[=d_to_p_superiority]{d_to_p_superiority()}} \code{\link[=sd_pooled]{sd_pooled()}}
+\code{\link[=sd_pooled]{sd_pooled()}}, \code{\link[=t_to_d]{t_to_d()}}, \code{\link[=r_to_d]{r_to_d()}}
 
-Other effect size indices: 
-\code{\link{cohens_g}()},
-\code{\link{effectsize.BFBayesFactor}()},
-\code{\link{eta_squared}()},
+Other standardized differences: 
 \code{\link{mahalanobis_d}()},
-\code{\link{oddsratio}()},
 \code{\link{p_superiority}()},
-\code{\link{phi}()},
-\code{\link{rank_biserial}()},
-\code{\link{rank_epsilon_squared}()}
+\code{\link{rank_biserial}()}
 }
-\concept{effect size indices}
+\concept{standardized differences}
