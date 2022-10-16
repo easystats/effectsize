@@ -494,7 +494,10 @@ test_that("afex | mixed()", {
 
   data(md_15.1, package = "afex")
   # random intercept plus random slope
-  t15.4a <- afex::mixed(iq ~ timecat + (1 + time | id), data = md_15.1)
+  t15.4a <- afex::mixed(iq ~ timecat + (1 + time | id),
+    data = md_15.1,
+    method = "S"
+  )
   expect_equal(
     eta_squared(t15.4a),
     eta_squared(t15.4a$full_model)
