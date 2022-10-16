@@ -33,21 +33,13 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 #' @keywords internal
 .effectsize_t.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
+  data <- insight::get_data(model)
+  approx <- is.null(data)
+
   dots <- list(...)
 
   if (is.null(type) || tolower(type) == "cohens_d") type <- "d"
   if (tolower(type) == "hedges_g") type <- "g"
-
-  if (is.null(dots$data)) {
-    data <- insight::get_data(model)
-  } else {
-    vars <- insight::get_parameters(model)$Parameter
-    vars <- unlist(strsplit(vars, " "))
-    vars <- vars[!vars %in% "by"]
-    data <- dots$data[, c(vars)]
-    }
-
-  approx <- is.null(data)
 
   dots$alternative <- model$alternative
   dots$ci <- attr(model$conf.int, "conf.level")
