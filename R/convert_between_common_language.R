@@ -31,7 +31,7 @@
 #' Vargha and Delaney's *A* is an alias for the non-parametric *probability of
 #' superiority*.
 #'
-#' @seealso See [cohens_u3()] for descriptions of the effect sizes (also,
+#' @seealso [cohens_u3()] for descriptions of the effect sizes (also,
 #'   [cohens_d()], [rank_biserial()]).
 #' @family convert between effect sizes
 #'
@@ -155,7 +155,7 @@ rb_to_wmw_odds.numeric <- function(rb) {
 #' @export
 rb_to_wmw_odds.effectsize_difference <- function(rb) {
   if (!any(colnames(rb) == "r_rank_biserial")) {
-    stop("Common language effect size only applicable rank-biserial correlation.", call. = FALSE)
+    insight::format_error("Common language effect size only applicable rank-biserial correlation.")
   }
 
   cols_to_conv <- colnames(rb) %in% c("r_rank_biserial", "CI_low", "CI_high")
@@ -264,7 +264,7 @@ d_to_overlap.effectsize_difference <- function(d) {
   if (!any(colnames(d) %in% c("Cohens_d", "Hedges_g")) ||
     (isTRUE(attr(d, "paired")) && !allow_paired) ||
     (!isTRUE(attr(d, "paired")) && !isTRUE(attr(d, "pooled_sd")))) {
-    stop("Common language effect size only applicable to 2-sample Cohen's d with pooled SD.", call. = FALSE)
+    insight::format_error("Common language effect size only applicable to 2-sample Cohen's d with pooled SD.")
   }
 
   cols_to_convert <- colnames(d) %in% c("Cohens_d", "Hedges_g", "CI_low", "CI_high")
@@ -287,7 +287,7 @@ d_to_overlap.effectsize_difference <- function(d) {
 #' @export
 rb_to_p_superiority.effectsize_difference <- function(rb) {
   if (!any(colnames(rb) == "r_rank_biserial")) {
-    stop("Common language effect size only applicable rank-biserial correlation.", call. = FALSE)
+    insight::format_error("Common language effect size only applicable rank-biserial correlation.")
   }
 
   cols_to_conv <- colnames(rb) %in% c("r_rank_biserial", "CI_low", "CI_high")

@@ -107,6 +107,8 @@
 #' - Kline, R. B. (2015). Principles and practice of structural equation
 #' modeling. Guilford publications.
 #'
+#'
+#' @keywords interpreters
 #' @export
 interpret_gfi <- function(x, rules = "default") {
   rules <- .match.rules(

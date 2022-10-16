@@ -18,24 +18,18 @@ tschuprows_t(x, y = NULL, ci = 0.95, alternative = "greater", ...)
 cohens_w(
   x,
   y = NULL,
-  p = rep(1/length(x), length(x)),
+  p = rep(1, length(x)),
   ci = 0.95,
   alternative = "greater",
   ...
 )
 
-fei(
-  x,
-  p = rep(1/length(x), length(x)),
-  ci = 0.95,
-  alternative = "greater",
-  ...
-)
+fei(x, p = rep(1, length(x)), ci = 0.95, alternative = "greater", ...)
 
 pearsons_c(
   x,
   y = NULL,
-  p = rep(1/length(x), length(x)),
+  p = rep(1, length(x)),
   ci = 0.95,
   alternative = "greater",
   ...
@@ -59,8 +53,7 @@ Controls the type of CI returned: \code{"greater"} (default) or \code{"less"}
 is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in
 \link{effectsize_CIs}.}
 
-\item{...}{For goodness-of-fit effect sizes, can pass \code{rescale.p} (see
-\code{\link[stats:chisq.test]{stats::chisq.test()}}). Else, ignored.}
+\item{...}{Ignored.}
 
 \item{p}{a vector of probabilities of the same length as \code{x}.
     An error is given if any entry of \code{p} is negative.}
@@ -198,15 +191,8 @@ tests to effect sizes for meta-analysis. PloS one, 5(4), e10059.
 \seealso{
 \code{\link[=chisq_to_phi]{chisq_to_phi()}} for details regarding estimation and CIs.
 
-Other effect size indices: 
-\code{\link{cohens_d}()},
+Other effect sizes for contingency table: 
 \code{\link{cohens_g}()},
-\code{\link{effectsize.BFBayesFactor}()},
-\code{\link{eta_squared}()},
-\code{\link{mahalanobis_d}()},
-\code{\link{oddsratio}()},
-\code{\link{p_superiority}()},
-\code{\link{rank_biserial}()},
-\code{\link{rank_epsilon_squared}()}
+\code{\link{oddsratio}()}
 }
-\concept{effect size indices}
+\concept{effect sizes for contingency table}

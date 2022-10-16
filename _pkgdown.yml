@@ -37,34 +37,42 @@ reference:
   - eta_squared
   - rank_epsilon_squared
 
+- subtitle: "Standardized parameters"
+  desc: >
+    Functions from other packages relating to parameter standardization and perdictor dominance
+  contents:
+  - parameters::standardize_parameters
+  - datawizard::standardize_models
+  - parameters::standardize_info
+  - parameters::dominance_analysis
+
+- subtitle: "Correlations"
+  desc: >
+    Correlations are a standardized effect size of association
+  contents:
+  - correlation::correlation
+  - correlation::cor_test
 
 
-
-
-
-- title: "Effect Size Conversion / Extraction"
+- title: "Effect Size Conversion"
 
 - subtitle: "From Test Statistics"
   desc: >
     Extract approximate effect sizes from their commonly associated test statistics
   contents:
-  - F_to_eta2
   - t_to_r
+  - F_to_eta2
   - chisq_to_phi
-
 
 - subtitle: "Between Effect Sizes"
   desc: >
     Approximate effect sizes by converting between other related effect sizes
   contents:
   - d_to_r
+  - oddsratio_to_riskratio
   - d_to_u3
   - eta2_to_f2
-  - oddsratio_to_riskratio
   - odds_to_probs
-
-
-
 
 
 - title: "Interpretation"
@@ -72,11 +80,7 @@ reference:
   - equivalence_test.effectsize_table
   - interpret
   - rules
-  - starts_with("interpret_")
-
-
-
-
+  - has_keyword("interpreters")
 
 
 - title: "Miscellaneous"
@@ -96,12 +100,14 @@ reference:
   - food_class
 - subtitle: "Extra Docs"
   contents:
-  - effectsize_CIs
   - effectsize_API
   - effectsize_options
-- subtitle: "Deprecated functions"
+
+
+- title: internal
   contents:
   - effectsize_deprecated
+  - effectsize_CIs
 
 
 
@@ -126,6 +132,10 @@ navbar:
         href: articles/xtabs.html
       - text: "ANOVA Effect Sizes"
         href: articles/anovaES.html
+      - text: "Standardized Parameters"
+        href: https://easystats.github.io/parameters/articles/standardize_parameters_effsize.html
+      - text: "Correlation Vignettes"
+        href: https://easystats.github.io/correlation/articles/index.html
       - text: "Confidence Intervals"
         href: reference/effectsize_CIs.html
       - text: -------

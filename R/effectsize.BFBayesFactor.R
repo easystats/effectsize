@@ -3,12 +3,12 @@
 #' @inheritParams bayestestR::describe_posterior
 #' @importFrom insight get_data get_parameters check_if_installed
 #' @importFrom bayestestR describe_posterior
-effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = NULL, ...) {
+effectsize.BFBayesFactor <- function(model, type = NULL, ci = 0.95, test = NULL, verbose = TRUE, ...) {
   insight::check_if_installed("BayesFactor")
 
   if (length(model) > 1) {
     if (verbose) {
-      warning("Multiple models detected. Using first only.", call. = FALSE)
+      insight::format_warning("Multiple models detected. Using first only.")
     }
     model <- model[1]
   }
@@ -22,11 +22,11 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   } else if (inherits(model@numerator[[1]], "BFproportion")) {
     pars <- .effectsize_proportionBF(model, type = type, verbose = verbose)
   } else {
-    stop("No effect size for this type of 'BayesFactor' object.", call. = FALSE)
+    insight::format_error("No effect size for this type of 'BayesFactor' object.")
   }
 
   # Clean up
-  out <- bayestestR::describe_posterior(pars$res, test = test, ...)
+  out <- bayestestR::describe_posterior(pars$res, ci = ci, test = test, ...)
   if (isTRUE(type == "cles")) {
     colnames(out)[2] <- "Coefficient"
   } else {
@@ -45,7 +45,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
 }
 
 #' @keywords internal
-.effectsize_contingencyTableBF <- function(model, type = NULL, verbose = TRUE, ...) {
+.effectsize_contingencyTableBF <- function(model, type = NULL, verbose = TRUE, adjust = TRUE, ...) {
   if (is.null(type)) type <- "cramers_v"
 
   f <- switch(tolower(type),
@@ -70,11 +70,11 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
 
   ES <- apply(posts, 1, function(a) {
     M <- matrix(a, nrow = nrow(data))
-    f(M, ci = NULL, ...)[[1]]
+    f(M, ci = NULL, adjust = adjust)[[1]]
   })
 
   res <- data.frame(ES)
-  colnames(res) <- colnames(f(data, ci = NULL, ...))
+  colnames(res) <- colnames(f(data, ci = NULL, adjust = adjust))
 
   list(
     res = res,
@@ -106,7 +106,7 @@ effectsize.BFBayesFactor <- function(model, type = NULL, verbose = TRUE, test = 
   if (type == "d") {
     xtra_class <- "effectsize_difference"
   } else if (tolower(type) %in% c("p_superiority", "u1", "u2", "u3", "overlap")) {
-    if (paired && type != "p_superiority") stop("CLES only applicable to two independent samples.", call. = FALSE)
+    if (paired && type != "p_superiority") insight::format_error("CLES only applicable to two independent samples.")
 
     converter <- match.fun(paste0("d_to_", tolower(type)))
     if (grepl("^(u|U)", type)) type <- paste0("Cohens_", toupper(type))

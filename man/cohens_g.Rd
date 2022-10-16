@@ -86,17 +86,8 @@ cohens_g(tests)
 }
 }
 \seealso{
-\code{\link[=phi]{phi()}} and friends for other effect sizes for contingency tables.
-
-Other effect size indices: 
-\code{\link{cohens_d}()},
-\code{\link{effectsize.BFBayesFactor}()},
-\code{\link{eta_squared}()},
-\code{\link{mahalanobis_d}()},
+Other effect sizes for contingency table: 
 \code{\link{oddsratio}()},
-\code{\link{p_superiority}()},
-\code{\link{phi}()},
-\code{\link{rank_biserial}()},
-\code{\link{rank_epsilon_squared}()}
+\code{\link{phi}()}
 }
-\concept{effect size indices}
+\concept{effect sizes for contingency table}

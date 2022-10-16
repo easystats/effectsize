@@ -262,17 +262,16 @@ Biometrics, 59-67.
 }
 }
 \seealso{
-\code{\link[=d_to_cles]{d_to_cles()}} \code{\link[=sd_pooled]{sd_pooled()}}
+\code{\link[=sd_pooled]{sd_pooled()}}
 
-Other effect size indices: 
+Other standardized differences: 
 \code{\link{cohens_d}()},
-\code{\link{cohens_g}()},
-\code{\link{effectsize.BFBayesFactor}()},
-\code{\link{eta_squared}()},
 \code{\link{mahalanobis_d}()},
-\code{\link{oddsratio}()},
-\code{\link{phi}()},
+\code{\link{rank_biserial}()}
+
+Other rank-based effect sizes: 
 \code{\link{rank_biserial}()},
 \code{\link{rank_epsilon_squared}()}
 }
-\concept{effect size indices}
+\concept{rank-based effect sizes}
+\concept{standardized differences}

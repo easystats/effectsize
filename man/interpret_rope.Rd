@@ -46,3 +46,4 @@ interpret_rope(c(0.005, 0.99), ci = 1)
 \references{
 \href{https://easystats.github.io/bayestestR/articles/guidelines.html}{BayestestR's reporting guidelines}
 }
+\keyword{interpreters}

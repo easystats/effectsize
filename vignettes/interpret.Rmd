@@ -67,6 +67,8 @@ more believable.
 
 ## Correlation *r*
 
+There can be used to interpret not only Pearson's correlation coefficient, but also Spearman's, $\phi$ (phi), Cramer's *V* and Tschuprow's *T*. Although Cohen's *w* and Pearson's *C* are _not_ a correlation coefficients, they are often also interpreted as such.
+
 #### @funder2019evaluating
 
 ```r

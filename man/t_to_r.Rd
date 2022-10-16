@@ -164,6 +164,8 @@ distributions. Educational and Psychological Measurement, 61(4), 532-574.
 }
 }
 \seealso{
+\code{\link[=cohens_d]{cohens_d()}}
+
 Other effect size from test statistic: 
 \code{\link{F_to_eta2}()},
 \code{\link{chisq_to_phi}()}

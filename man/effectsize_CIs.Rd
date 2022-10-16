@@ -112,8 +112,8 @@ parameter value. For that, construct a 95\% 2-sided CI.
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{data("hardlyworking")
 fit <- lm(salary ~ n_comps, data = hardlyworking)
 eta_squared(fit) # default, ci = 0.95, alternative = "greater"
-#> For one-way between subjects designs, partial eta squared is equivalent to eta squared.
-#> Returning eta squared.
+#> For one-way between subjects designs, partial eta squared is equivalent
+#>   to eta squared. Returning eta squared.
 #> # Effect Size for ANOVA
 #> 
 #> Parameter | Eta2 |       95\% CI
@@ -122,8 +122,8 @@ eta_squared(fit) # default, ci = 0.95, alternative = "greater"
 #> 
 #> - One-sided CIs: upper bound fixed at [1.00].
 eta_squared(fit, alternative = "less") # Test is eta is smaller than some value
-#> For one-way between subjects designs, partial eta squared is equivalent to eta squared.
-#> Returning eta squared.
+#> For one-way between subjects designs, partial eta squared is equivalent
+#>   to eta squared. Returning eta squared.
 #> # Effect Size for ANOVA
 #> 
 #> Parameter | Eta2 |       95\% CI
@@ -132,16 +132,16 @@ eta_squared(fit, alternative = "less") # Test is eta is smaller than some value
 #> 
 #> - One-sided CIs: lower bound fixed at [0.00].
 eta_squared(fit, alternative = "two.sided") # 2-sided bounds for alpha = .05
-#> For one-way between subjects designs, partial eta squared is equivalent to eta squared.
-#> Returning eta squared.
+#> For one-way between subjects designs, partial eta squared is equivalent
+#>   to eta squared. Returning eta squared.
 #> # Effect Size for ANOVA
 #> 
 #> Parameter | Eta2 |       95\% CI
 #> -------------------------------
 #> n_comps   | 0.19 | [0.14, 0.25]
 eta_squared(fit, ci = 0.9, alternative = "two.sided") # both 1-sided bounds for alpha = .05
-#> For one-way between subjects designs, partial eta squared is equivalent to eta squared.
-#> Returning eta squared.
+#> For one-way between subjects designs, partial eta squared is equivalent
+#>   to eta squared. Returning eta squared.
 #> # Effect Size for ANOVA
 #> 
 #> Parameter | Eta2 |       90\% CI

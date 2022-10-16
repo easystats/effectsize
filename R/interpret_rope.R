@@ -27,6 +27,7 @@
 #' @references
 #' [BayestestR's reporting guidelines](https://easystats.github.io/bayestestR/articles/guidelines.html)
 #'
+#' @keywords interpreters
 #' @export
 interpret_rope <- function(rope, ci = 0.9, rules = "default") {
   if (ci < 1) {

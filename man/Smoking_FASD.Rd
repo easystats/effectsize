@@ -6,8 +6,24 @@
 \title{Frequency of FASD for Smoking Mothers}
 \format{
 A 1-by-3 table, with a \emph{column} for each diagnosis.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{data("Smoking_FASD")
+Smoking_FASD
+#>  FAS PFAS   TD 
+#>   17   11  640
+}\if{html}{\out{</div>}}
 }
 \description{
 Fictional data.
 }
+\seealso{
+Other effect size datasets: 
+\code{\link{Music_preferences2}},
+\code{\link{Music_preferences}},
+\code{\link{RCT_table}},
+\code{\link{food_class}},
+\code{\link{hardlyworking}},
+\code{\link{screening_test}}
+}
+\concept{effect size datasets}
 \keyword{data}

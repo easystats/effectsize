@@ -35,9 +35,11 @@ Interpret \emph{p}-Values
 \examples{
 interpret_p(c(.5, .02, 0.001))
 interpret_p(c(.5, .02, 0.001), rules = "rss")
+
 }
 \references{
 \itemize{
 \item Benjamin, D. J., Berger, J. O., Johannesson, M., Nosek, B. A., Wagenmakers, E. J., Berk, R., ... & Cesarini, D. (2018). Redefine statistical significance. Nature Human Behaviour, 2(1), 6-10.
 }
 }
+\keyword{interpreters}

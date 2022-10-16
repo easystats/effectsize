@@ -1,3 +1,4 @@
+# library(testthat)
 
 # anova() -----------------------------------------------------------------
 test_that("anova()", {
@@ -15,7 +16,7 @@ test_that("anova()", {
     ignore_attr = TRUE
   )
   expect_warning(eta_squared(mod1, partial = FALSE), "partial")
-  expect_warning(eta_squared(mod1, generalized = TRUE), "generalized")
+  expect_warning(eta_squared(mod1, generalized = TRUE), "Generalized")
 
   mod2 <- mod1
   mod2$`F value` <- NULL

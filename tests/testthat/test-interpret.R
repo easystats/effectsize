@@ -1,3 +1,5 @@
+# library(testthat)
+
 # interpret generic ----
 test_that("interpret generic", {
   rules_grid <- rules(c(0.01, 0.05), c("very significant", "significant", "not significant"))
@@ -251,5 +253,5 @@ test_that("interpret effectsize_table", {
   expect_output(print(V_), "large")
   expect_output(print(V_), "Interpretation rule: funder2019")
 
-  expect_error(interpret(d), "MUST specify")
+  expect_error(interpret(d), "must specify")
 })

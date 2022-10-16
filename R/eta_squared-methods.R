@@ -125,14 +125,16 @@
                             verbose = TRUE,
                             ...) {
   if (!grepl("One-way", model$method)) {
-    stop("'model' is not a one-way test!", call. = FALSE)
+    insight::format_error("'model' is not a one-way test!")
   }
 
   if (verbose && (partial || isTRUE(generalized) || is.character(generalized))) {
     txt_type <- ifelse(isTRUE(generalized) || is.character(generalized), "generalized", "partial")
-    message(
-      "For one-way between subjects designs, ", txt_type, " ", type, " squared is equivalent to ", type, " squared.\n",
-      "Returning ", type, " squared."
+    insight::format_alert(
+      sprintf(
+        "For one-way between subjects designs, %s %s squared is equivalent to %s squared. Returning %s squared.",
+        txt_type, type, type, type
+      )
     )
   }
 
@@ -334,11 +336,11 @@
   aov_tab <- as.data.frame(model[["anova_table"]])
 
   if (!"F" %in% colnames(aov_tab)) {
-    stop("Cannot estimate approx effect size for `mixed` type model - no F-statistic found.", call. = FALSE)
+    insight::format_error("Cannot estimate approx effect size for `mixed` type model - no F-statistic found.")
   }
 
   if (verbose && include_intercept) {
-    warning("Cannot estimate (Intercept) effect size for `mixed` model.", call. = FALSE)
+    insight::format_warning("Cannot estimate (Intercept) effect size for `mixed` model.")
   }
 
   aov_tab$Parameter <- rownames(aov_tab)

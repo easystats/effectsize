@@ -30,6 +30,7 @@
 #'
 #' - Cohen, J. (1992). A power primer. Psychological bulletin, 112(1), 155.
 #'
+#' @keywords interpreters
 #' @export
 interpret_omega_squared <- function(es, rules = "field2013", ...) {
   rules <- .match.rules(

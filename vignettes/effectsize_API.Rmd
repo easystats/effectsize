@@ -8,7 +8,7 @@ output:
 tags: [r, effect size, ANOVA, standardization, standardized coefficients]
 vignette: >
   \usepackage[utf8]{inputenc}
-  %\VignetteIndexEntry{Support functions for model extensions}
+  %\VignetteIndexEntry{Support Functions for Model Extensions}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   chunk_output_type: console

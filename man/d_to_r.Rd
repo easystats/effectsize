@@ -92,6 +92,8 @@ magnitude of experimental effect. Journal of educational psychology, 74(2), 166.
 }
 }
 \seealso{
+\code{\link[=cohens_d]{cohens_d()}}
+
 Other convert between effect sizes: 
 \code{\link{diff_to_cles}},
 \code{\link{eta2_to_f2}()},
