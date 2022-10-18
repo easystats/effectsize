@@ -26,7 +26,7 @@ details."><meta property="og:image" content="https://easystats.github.io/effects
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.1</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.1.09999</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -311,11 +311,7 @@ which to choose?
 <br><br>
 Though Omega is the more popular choice (Albers and Lakens, 2018), Epsilon is
 analogous to adjusted R2 (Allen, 2017, p. 382), and has been found to be less
-biased (Carroll &amp; Nordholm, 1975).
-<br><br>
-(Note that for Omega- and Epsilon-squared it is possible to compute a
-negative number; even though this doesn't make any practical sense, it is
-recommended to report the negative number and not a 0.)</p>
+biased (Carroll &amp; Nordholm, 1975).</p>
 </div>
 
 <div class="section">
@@ -561,8 +557,8 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> treatment:gender       |             0.22 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> phase                  |             0.26 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> treatment:phase        |             0.15 | [0.00, 1.00]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gender:phase           |            -0.02 | [0.00, 1.00]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:gender:phase |            -0.02 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gender:phase           |             0.00 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:gender:phase |             0.00 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
 <span class="r-in"><span><span class="fu">eta_squared</span><span class="op">(</span><span class="va">model</span>, generalized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># observed vars are pulled from the afex model.</span></span></span>

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.1</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.1.09999</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,6 +105,16 @@
       <small>Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.8.1.09999" id="effectsize-08109999">effectsize 0.8.1.09999<a class="anchor" aria-label="anchor" href="#effectsize-08109999"></a></h2>
+<div class="section level3">
+<h3 id="breaking-changes-0-8-1-09999">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-8-1-09999"></a></h3>
+<ul><li>
+<code><a href="../reference/eta_squared.html">omega_squared()</a></code> and <code><a href="../reference/eta_squared.html">epsilon_squared()</a></code> (and <code><a href="../reference/F_to_eta2.html">F_to_omega2()</a></code> and <code><a href="../reference/F_to_eta2.html">F_to_epsilon2()</a></code>) always return non-negative estimates (previously estimates were negative when the observed effect size is very small).<br></li>
+<li>
+<code><a href="../reference/rank_epsilon_squared.html">rank_eta_squared()</a></code> always returns a non-negative estimate (previously estimates were negative when the observed effect size is very small).</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.1" id="effectsize-081">effectsize 0.8.1<a class="anchor" aria-label="anchor" href="#effectsize-081"></a></h2><p class="text-muted">CRAN release: 2022-10-18</p>
 <div class="section level3">
