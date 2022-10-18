@@ -164,10 +164,6 @@ which to choose?
 Though Omega is the more popular choice (Albers and Lakens, 2018), Epsilon is
 analogous to adjusted R2 (Allen, 2017, p. 382), and has been found to be less
 biased (Carroll & Nordholm, 1975).
-\cr\cr
-(Note that for Omega- and Epsilon-squared it is possible to compute a
-negative number; even though this doesn't make any practical sense, it is
-recommended to report the negative number and not a 0.)
 }
 
 \subsection{Cohen's f}{
