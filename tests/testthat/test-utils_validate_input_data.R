@@ -1,3 +1,5 @@
+# library(testthat)
+
 test_that(".get_data_2_samples", {
   df <- data.frame(
     a = 1:10,
@@ -119,22 +121,22 @@ test_that(".get_data_multi_group", {
   )
   df$exp_a <- exp(df$a)
 
-  expect_error(d1 <- rank_epsilon_squared(a ~ c, data = df), regexp = NA)
-  expect_error(d2 <- rank_epsilon_squared("a", "c", data = df), regexp = NA)
-  expect_error(d3 <- rank_epsilon_squared(df$a ~ df$c), regexp = NA)
-  expect_error(d4 <- rank_epsilon_squared(df$a, df$c), regexp = NA)
-  L <- list(df$a[df$c == "a"], df$a[df$c == "b"], df$a[df$c == "c"])
-  expect_error(d5 <- rank_epsilon_squared(L), regexp = NA)
-  expect_equal(d1, d2)
-  expect_equal(d1, d3)
-  expect_equal(d1, d4)
-  expect_equal(d1, d5)
+  expect_error(d1 <- rank_epsilon_squared(a ~ c, data = df, ci = NULL), regexp = NA)
+  expect_error(d2 <- rank_epsilon_squared("a", "c", data = df, ci = NULL), regexp = NA)
+  expect_error(d3 <- rank_epsilon_squared(df$a ~ df$c, ci = NULL), regexp = NA)
+  expect_error(d4 <- rank_epsilon_squared(df$a, df$c, ci = NULL), regexp = NA)
+  L <- split(df$a, df$c)
+  expect_error(d5 <- rank_epsilon_squared(L, ci = NULL), regexp = NA)
+  expect_equal(d1, d2, tolerance = 0.01)
+  expect_equal(d1, d3, tolerance = 0.01)
+  expect_equal(d1, d4, tolerance = 0.01)
+  expect_equal(d1, d5, tolerance = 0.01)
 
   expect_error(rank_epsilon_squared(b ~ e, data = df), regexp = NA)
 
   expect_equal(
-    rank_epsilon_squared(exp(a) ~ c, data = df),
-    rank_epsilon_squared("exp_a", "c", data = df)
+    rank_epsilon_squared(exp(a) ~ c, data = df, ci = NULL),
+    rank_epsilon_squared("exp_a", "c", data = df, ci = NULL)
   )
 
   expect_error(rank_epsilon_squared("c", "c", data = df), "non-numeric")
