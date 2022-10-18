@@ -19,10 +19,7 @@
 #'
 #' @return A data frame with the effect size(s) between 0-1 (`Eta2_partial`,
 #'   `Epsilon2_partial`, `Omega2_partial`, `Cohens_f_partial` or
-#'   `Cohens_f2_partial`), and their CIs (`CI_low` and `CI_high`). (Note that
-#'   for \eqn{\omega_p^2}{Omega2p} and \eqn{\epsilon_p^2}{Epsilon2p} it is possible to compute a
-#'   negative number; even though this doesn't make any practical sense, it is
-#'   recommended to report the negative number and not a 0).
+#'   `Cohens_f2_partial`), and their CIs (`CI_low` and `CI_high`).
 #'
 #' @details These functions use the following formulae:
 #' \cr
@@ -285,8 +282,8 @@ t_to_f2 <- function(t, df_error,
 
   res <- switch(tolower(es),
     eta2 = data.frame(Eta2_partial = (f * df) / (f * df + df_error)),
-    epsilon2 = data.frame(Epsilon2_partial = ((f - 1) * df) / (f * df + df_error)),
-    omega2 = data.frame(Omega2_partial = ((f - 1) * df) / (f * df + df_error + 1)),
+    epsilon2 = data.frame(Epsilon2_partial = pmax(0,((f - 1) * df) / (f * df + df_error))),
+    omega2 = data.frame(Omega2_partial = pmax(0,((f - 1) * df) / (f * df + df_error + 1))),
     insight::format_error("'es' must be 'eta2', 'epsilon2', or 'omega2'.")
   )
 

@@ -256,7 +256,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
   n <- nrow(data)
   E <- model$statistic
 
-  (E - k + 1) / (n - k)
+  pmax(0, (E - k + 1) / (n - k))
 }
 
 
