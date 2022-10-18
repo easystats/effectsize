@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0.0001</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -367,6 +367,8 @@ use the <code>afex</code> package, which takes care of all of this
 behind the scenes:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://afex.singmann.science/" class="external-link">afex</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; Loading required package: lme4</code></pre>
+<pre><code>&gt; Loading required package: Matrix</code></pre>
 <pre><code>&gt; ************
 &gt; Welcome to afex. For support visit: http://afex.singmann.science/</code></pre>
 <pre><code>&gt; - Functions for ANOVAs: aov_car(), aov_ez(), and aov_4()
@@ -385,10 +387,10 @@ behind the scenes:</p>
 <pre><code>&gt; The following object is masked from 'package:lme4':
 &gt; 
 &gt;     lmer</code></pre>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m_afex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_car</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span> <span class="op">+</span> <span class="fu">Error</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Contrasts set to contr.sum for the following variables: treatment, gender</code></pre>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
@@ -415,7 +417,7 @@ behind the scenes:</p>
 <strong>Epsilon Squared</strong> (<span class="math inline">\(\epsilon^2\)</span>), also referred to as
 <em>Adjusted Eta Squared</em>.</li>
 </ul>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
@@ -426,7 +428,7 @@ behind the scenes:</p>
 &gt; treatment:gender |         0.17 | [0.05, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
@@ -455,7 +457,7 @@ use <em>generalized</em> Eta squared (<span class="math inline">\(\eta^2_G\)</sp
 design where only the term of interest was manipulated, accounting for
 the fact that some terms cannot be manipulated (and so their variance
 would be present in such a design).</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m_afex</span>, generalized <span class="op">=</span> <span class="st">"gender"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
@@ -483,7 +485,7 @@ term-<em>SS</em> and the error-<em>SS</em>.</p>
 <p>It can take on values between zero, when the population means are all
 equal, and an indefinitely large number as the means are further and
 further apart. It is analogous to Cohen’s <span class="math inline">\(d\)</span> when there are only two groups.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">cohens_f</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
@@ -509,10 +511,18 @@ all required <em>SS</em>s is not straightforward. However, we can still
 based on the <strong>test-statistic approximation method</strong> (learn
 more in the <a href="https://easystats.github.io/effectsize/articles/from_test_statistics.html"><em>Effect
 Size from Test Statistics</em> vignette</a>).</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/runehaubo/lmerTestR" class="external-link">lmerTest</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">fit_lmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lmerTest/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">Reaction</span> <span class="op">~</span> <span class="va">Days</span> <span class="op">+</span> <span class="op">(</span><span class="va">Days</span> <span class="op">|</span> <span class="va">Subject</span><span class="op">)</span>, <span class="va">sleepstudy</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/runehaubo/lmerTestR" class="external-link">lmerTest</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; 
+&gt; Attaching package: 'lmerTest'</code></pre>
+<pre><code>&gt; The following object is masked from 'package:lme4':
+&gt; 
+&gt;     lmer</code></pre>
+<pre><code>&gt; The following object is masked from 'package:stats':
+&gt; 
+&gt;     step</code></pre>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fit_lmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lmerTest/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">Reaction</span> <span class="op">~</span> <span class="va">Days</span> <span class="op">+</span> <span class="op">(</span><span class="va">Days</span> <span class="op">|</span> <span class="va">Subject</span><span class="op">)</span>, <span class="va">sleepstudy</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span> <span class="co"># note the type-3 errors</span></span></code></pre></div>
 <pre><code>&gt; Type III Analysis of Variance Table with Satterthwaite's method
@@ -520,7 +530,7 @@ Size from Test Statistics</em> vignette</a>).</p>
 &gt; Days  30031   30031     1    17    45.9 3.3e-06 ***
 &gt; ---
 &gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span><span class="fl">45.8</span>, df <span class="op">=</span> <span class="fl">1</span>, df_error <span class="op">=</span> <span class="fl">17</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; η² (partial) |       95% CI
 &gt; ---------------------------
@@ -528,7 +538,7 @@ Size from Test Statistics</em> vignette</a>).</p>
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <p>Or directly with `eta_squared() and co.:</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
@@ -537,7 +547,7 @@ Size from Test Statistics</em> vignette</a>).</p>
 &gt; Days      |         0.73 | [0.51, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">epsilon_squared</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
@@ -546,7 +556,7 @@ Size from Test Statistics</em> vignette</a>).</p>
 &gt; Days      |         0.71 | [0.48, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">fit_lmm</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
 &gt; 
@@ -577,7 +587,7 @@ location-parameters of the model, but also on the scale-parameters of
 the model!</strong> So it is vital to <a href="https://mc-stan.org/docs/2_23/stan-users-guide/meta-models-part.html#meta-models.part/" class="external-link">validate
 the PPD</a> before using it to estimate explained variance measures.</p>
 <p>Let’s fit our model:</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/rstanarm/" class="external-link">rstanarm</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Loading required package: Rcpp</code></pre>
 <pre><code>&gt; This is rstanarm version 2.21.3</code></pre>
@@ -585,7 +595,7 @@ the PPD</a> before using it to estimate explained variance measures.</p>
 <pre><code>&gt; - Default priors may change, so it's safest to specify priors, even if equivalent to the defaults.</code></pre>
 <pre><code>&gt; - For execution on a local, multicore CPU with excess RAM we recommend calling</code></pre>
 <pre><code>&gt;   options(mc.cores = parallel::detectCores())</code></pre>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html" class="external-link">stan_glm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">phase</span> <span class="op">+</span> <span class="va">treatment</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">obk.long</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">gaussian</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  refresh <span class="op">=</span> <span class="fl">0</span></span>
@@ -594,7 +604,7 @@ the PPD</a> before using it to estimate explained variance measures.</p>
 distribution of <span class="math inline">\(eta^2\)</span> or <span class="math inline">\(eta^2_p\)</span> for each effect. Like an ANOVA
 table, we must make sure to use the right effects-coding and
 <em>SS</em>-type:</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pes_posterior</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eta_squared.html">eta_squared_posterior</a></span><span class="op">(</span><span class="va">m_bayes</span>,</span>
 <span>  draws <span class="op">=</span> <span class="fl">500</span>, <span class="co"># how many samples from the PPD?</span></span>
 <span>  partial <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># partial eta squared</span></span>
@@ -611,7 +621,7 @@ table, we must make sure to use the right effects-coding and
 &gt; 4  0.149 0.1023     0.392
 &gt; 5  0.014 0.1156     0.406
 &gt; 6  0.025 0.0097     0.364</code></pre>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bayestestR</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html" class="external-link">describe_posterior</a></span><span class="op">(</span><span class="va">pes_posterior</span>,</span>
 <span>  rope_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span><span class="op">)</span>, test <span class="op">=</span> <span class="st">"rope"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -623,7 +633,7 @@ table, we must make sure to use the right effects-coding and
 &gt; phase     |   0.05 | [0.00, 0.20] | [0.00, 0.10] |    83.54%
 &gt; treatment |   0.26 | [0.04, 0.47] | [0.00, 0.10] |     7.17%</code></pre>
 <p>Compare to:</p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m_ML</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">phase</span> <span class="op">+</span> <span class="va">treatment</span>, data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">Anova</a></span><span class="op">(</span><span class="va">m_ML</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -652,7 +662,7 @@ for differences between dependent groups.</p>
 similar to their non-rank counterparts: values range between 0 (no
 relative superiority between any of the groups) to 1 (complete
 separation - with no overlap in ranks between the groups).</p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">group_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  g1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.9</span>, <span class="fl">3.0</span>, <span class="fl">2.5</span>, <span class="fl">2.6</span>, <span class="fl">3.2</span><span class="op">)</span>, <span class="co"># normal subjects</span></span>
 <span>  g2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.8</span>, <span class="fl">2.7</span>, <span class="fl">4.0</span>, <span class="fl">2.4</span><span class="op">)</span>, <span class="co"># with obstructive airway disease</span></span>
@@ -665,14 +675,14 @@ separation - with no overlap in ranks between the groups).</p>
 &gt; 
 &gt; data:  group_data
 &gt; Kruskal-Wallis chi-squared = 0.8, df = 2, p-value = 0.7</code></pre>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rank_epsilon_squared.html">rank_epsilon_squared</a></span><span class="op">(</span><span class="va">group_data</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; ε²(R) |       95% CI
 &gt; --------------------
 &gt; 0.06  | [0.02, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rank_epsilon_squared.html">rank_eta_squared</a></span><span class="op">(</span><span class="va">group_data</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; η²(H) |       95% CI
 &gt; --------------------
@@ -684,7 +694,7 @@ is a measure of agreement on the effect of condition between various
 “blocks” (the subjects), or more often conceptualized as a measure of
 reliability of the rating / scores of observations (or “groups”) between
 “raters” (“blocks”).</p>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Subjects are COLUMNS</span></span>
 <span><span class="op">(</span><span class="va">ReactionTimes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">398</span>, <span class="fl">338</span>, <span class="fl">520</span>,</span>
@@ -706,14 +716,14 @@ reliability of the rating / scores of observations (or “groups”) between
 &gt; Subject5       286     492         536
 &gt; Subject6       362     475         496
 &gt; Subject7       253     334         610</code></pre>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/friedman.test.html" class="external-link">friedman.test</a></span><span class="op">(</span><span class="va">ReactionTimes</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; 
 &gt;   Friedman rank sum test
 &gt; 
 &gt; data:  ReactionTimes
 &gt; Friedman chi-squared = 11, df = 2, p-value = 0.004</code></pre>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rank_epsilon_squared.html">kendalls_w</a></span><span class="op">(</span><span class="va">ReactionTimes</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Kendall's W |       95% CI
 &gt; --------------------------
