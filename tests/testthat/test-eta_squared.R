@@ -42,21 +42,21 @@ test_that("aov", {
 
   # omega
   expect_equal(omega_squared(fit, partial = FALSE)$Omega2,
-    c(0.612, 0.043, -0.004),
+    c(0.612, 0.043, 0),
     tolerance = 0.01
   )
   expect_equal(omega_squared(fit, partial = TRUE)$Omega2_partial,
-    c(0.638, 0.112, -0.012),
+    c(0.638, 0.112, 0),
     tolerance = 0.01
   )
 
   # epsilon
   expect_equal(epsilon_squared(fit, partial = FALSE)$Epsilon2,
-    c(0.614, 0.044, -0.004),
+    c(0.614, 0.044, 0),
     tolerance = 0.001
   )
   expect_equal(epsilon_squared(fit, partial = TRUE)$Epsilon2_partial,
-    c(0.644, 0.115, -0.012),
+    c(0.644, 0.115, 0),
     tolerance = 0.01
   )
 
@@ -118,17 +118,17 @@ test_that("aovlist", {
 
   res <- omega_squared(model, partial = TRUE)
   expect_true(all(c("Group", "Parameter") %in% colnames(res)))
-  expect_equal(res$Omega2_partial, c(-0.06795358, 0.04141846), tolerance = 0.001)
+  expect_equal(res$Omega2_partial, c(0, 0.04141846), tolerance = 0.001)
   expect_equal(omega_squared(model, partial = FALSE)$Omega2,
-    c(-0.04864626, 0.03287821),
+    c(0, 0.03287821),
     tolerance = 0.001
   )
 
   res <- epsilon_squared(model, partial = TRUE)
   expect_true(all(c("Group", "Parameter") %in% colnames(res)))
-  expect_equal(res$Epsilon2_partial, c(-0.1055154, 0.1157174), tolerance = 0.001)
+  expect_equal(res$Epsilon2_partial, c(0, 0.1157174), tolerance = 0.001)
   expect_equal(epsilon_squared(model, partial = FALSE)$Epsilon2,
-    c(-0.06528301, 0.04412238),
+    c(0, 0.04412238),
     tolerance = 0.001
   )
 
@@ -326,7 +326,7 @@ test_that("omega", {
 
   ef <- omega_squared(m, partial = TRUE, alternative = "two")
   expect_equal(ef$Omega2_partial,
-    c(0.3115, 0.1814, 0.2221, 0.2637, 0.1512, -0.0173, -0.0171),
+    c(0.3115, 0.1814, 0.2221, 0.2637, 0.1512, 0, 0),
     tolerance = 0.01
   )
   expect_equal(ef$CI_low,
@@ -494,7 +494,10 @@ test_that("afex | mixed()", {
 
   data(md_15.1, package = "afex")
   # random intercept plus random slope
-  t15.4a <- afex::mixed(iq ~ timecat + (1 + time | id), data = md_15.1)
+  t15.4a <- afex::mixed(iq ~ timecat + (1 + time | id),
+    data = md_15.1,
+    method = "S"
+  )
   expect_equal(
     eta_squared(t15.4a),
     eta_squared(t15.4a$full_model)

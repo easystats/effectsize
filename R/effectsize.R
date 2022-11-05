@@ -56,29 +56,6 @@
 #' effectsize(Wt)
 #' effectsize(Wt, type = "u2")
 #'
-#' ## Bayesian Hypothesis Testing
-#' ## ---------------------------
-#' \donttest{
-#' if (require(BayesFactor)) {
-#'   bf_prop <- proportionBF(3, 7, p = 0.3)
-#'   effectsize(bf_prop)
-#'
-#'   bf_corr <- correlationBF(attitude$rating, attitude$complaints)
-#'   effectsize(bf_corr)
-#'
-#'   data(raceDolls)
-#'   bf_xtab <- contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
-#'   effectsize(bf_xtab)
-#'   effectsize(bf_xtab, type = "oddsratio")
-#'
-#'   bf_ttest <- ttestBF(sleep$extra[sleep$group == 1],
-#'     sleep$extra[sleep$group == 2],
-#'     paired = TRUE, mu = -1
-#'   )
-#'   effectsize(bf_ttest)
-#' }
-#' }
-#'
 #' ## Models and Anova Tables
 #' ## -----------------------
 #' fit <- lm(mpg ~ factor(cyl) * wt + hp, data = mtcars)
@@ -87,6 +64,29 @@
 #' anova_table <- anova(fit)
 #' effectsize(anova_table)
 #' effectsize(anova_table, type = "epsilon")
+#'
+#' @examplesIf requireNamespace("BayesFactor", quietly = TRUE)
+#' ## Bayesian Hypothesis Testing
+#' ## ---------------------------
+#' \donttest{
+#' bf_prop <- BayesFactor::proportionBF(3, 7, p = 0.3)
+#' effectsize(bf_prop)
+#'
+#' bf_corr <- BayesFactor::correlationBF(attitude$rating, attitude$complaints)
+#' effectsize(bf_corr)
+#'
+#' data(RCT_table)
+#' bf_xtab <- BayesFactor::contingencyTableBF(RCT_table, sampleType = "poisson", fixedMargin = "cols")
+#' effectsize(bf_xtab)
+#' effectsize(bf_xtab, type = "oddsratio")
+#'
+#' bf_ttest <- BayesFactor::ttestBF(sleep$extra[sleep$group == 1],
+#'   sleep$extra[sleep$group == 2],
+#'   paired = TRUE, mu = -1
+#' )
+#' effectsize(bf_ttest)
+#' }
+#'
 #' @export
 effectsize <- function(model, ...) {
   UseMethod("effectsize")
