@@ -27,9 +27,6 @@ DOI issues are a false positive.
 
 We checked 18 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 1 new problems
+ * We saw 0 new problems
  * We failed to check 0 packages
 
-### New problems
-
-* statsExpressions - 1 new error. Package maintainer has been informed.

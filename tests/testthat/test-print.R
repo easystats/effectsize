@@ -1,3 +1,4 @@
+# library(testthat)
 
 test_that("print | effectsize table", {
   ## digits
@@ -168,9 +169,7 @@ test_that("rules", {
 
 
 test_that("printing symbols works as expected", {
-  skip_if(getRversion() < 4.2 &&
-    (Sys.info()["sysname"] == "windows" ||
-      grepl("^mingw", R.version$os)))
+  skip_if_not(l10n_info()[["UTF-8"]])
 
   RCT <- matrix(c(71, 50, 30, 100), nrow = 2L)
   P <- phi(RCT)

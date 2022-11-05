@@ -63,10 +63,6 @@
 #' Though Omega is the more popular choice (Albers and Lakens, 2018), Epsilon is
 #' analogous to adjusted R2 (Allen, 2017, p. 382), and has been found to be less
 #' biased (Carroll & Nordholm, 1975).
-#' \cr\cr
-#' (Note that for Omega- and Epsilon-squared it is possible to compute a
-#' negative number; even though this doesn't make any practical sense, it is
-#' recommended to report the negative number and not a 0.)
 #'
 #' ## Cohen's f
 #' Cohen's f can take on values between zero, when the population means are all
@@ -439,20 +435,24 @@ cohens_f_squared <- function(model,
       aov_table$Omega2 <-
         (aov_table$Sum_Squares - aov_table$df * values$Mean_Square_residuals) /
           (values$Sum_Squares_total + values$Mean_Square_residuals)
+      aov_table$Omega2 <- pmax(0, aov_table$Omega2)
     } else {
       aov_table$Omega2_partial <-
         (aov_table$Sum_Squares - aov_table$df * values$Mean_Square_residuals) /
           (aov_table$Sum_Squares + (values$n - aov_table$df) * values$Mean_Square_residuals)
+      aov_table$Omega2_partial <- pmax(0, aov_table$Omega2_partial)
     }
   } else if (type == "epsilon") {
     if (!isTRUE(partial)) {
       aov_table$Epsilon2 <-
         (aov_table$Sum_Squares - aov_table$df * values$Mean_Square_residuals) /
           values$Sum_Squares_total
+      aov_table$Epsilon2 <- pmax(0, aov_table$Epsilon2)
     } else {
       aov_table$Epsilon2_partial <-
         (aov_table$Sum_Squares - aov_table$df * values$Mean_Square_residuals) /
           (aov_table$Sum_Squares + values$Sum_Squares_residuals)
+      aov_table$Epsilon2_partial <- pmax(0, aov_table$Epsilon2_partial)
     }
   }
 
@@ -581,21 +581,25 @@ cohens_f_squared <- function(model,
       aov_table$Omega2 <-
         (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /
           (Sum_Squares_total + Mean_Squares_Subjects)
+      aov_table$Omega2 <- pmax(0, aov_table$Omega2)
     } else {
       aov_table$Omega2_partial <-
         (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /
           (aov_table$Sum_Squares + is_within * Sum_Squares_residuals +
             Sum_Squares_Subjects + Mean_Squares_Subjects)
+      aov_table$Omega2_partial <- pmax(0, aov_table$Omega2_partial)
     }
   } else if (type == "epsilon") {
     if (!isTRUE(partial)) {
       aov_table$Epsilon2 <-
         (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /
           Sum_Squares_total
+      aov_table$Epsilon2 <- pmax(0, aov_table$Epsilon2)
     } else {
       aov_table$Epsilon2_partial <-
         (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /
           (aov_table$Sum_Squares + Sum_Squares_residuals)
+      aov_table$Epsilon2_partial <- pmax(0, aov_table$Epsilon2_partial)
     }
   }
 

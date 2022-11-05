@@ -1,4 +1,11 @@
-# effectsize 0.8.0.0001
+# effectsize 0.8.2
+
+## Breaking Changes
+
+- `omega_squared()` and `epsilon_squared()` (and `F_to_omega2()` and `F_to_epsilon2()`) always return non-negative estimates (previously estimates were negative when the observed effect size is very small).  
+- `rank_eta_squared()` always returns a non-negative estimate (previously estimates were negative when the observed effect size is very small).
+
+# effectsize 0.8.1
 
 ## Changes
 
