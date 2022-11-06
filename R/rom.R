@@ -67,8 +67,6 @@ rom <- function(x,
       stop("'ci' must be a single number between 0 and 1")
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
     alpha <- 1 - ci.level
-  } else{
-    stop("'ci' must be a single number between 0 and 1")
   }
 
   if(is.null(data) & is.null(y)){
@@ -168,26 +166,26 @@ rom <- function(x,
   }
 
   SE <- sqrt(log_val$var_rom)
-
-  # Normal approx ------
-  interval <- exp(log_val$log_rom + c(-1, 1) * qnorm(1 - alpha / 2) * SE)
-
-  # Central t method ------
-  #interval <- exp(log_val$log_rom + c(-1, 1) * qt(1 - alpha / 2,df1) * SE)
-
-  interval = switch(alternative,
-                    "two.sided" = interval,
-                    "less" = c(-Inf,interval[2]),
-                    "greater" = c(interval[1],+Inf))
-
   rom = exp(log_val$log_rom)
 
   out = data.frame(Means_Ratio = rom)
-  out$ci = ci
 
-  out$CI_low <- interval[1]
-  out$CI_high <- interval[2]
-  ci_method <- list(method = "normal", distribution = "log-normal")
+  if(is.numeric(ci)){
+    # Normal approx ------
+    interval <- exp(log_val$log_rom + c(-1, 1) * qnorm(1 - alpha / 2) * SE)
+
+    # Central t method ------
+    #interval <- exp(log_val$log_rom + c(-1, 1) * qt(1 - alpha / 2,df1) * SE)
+
+    interval = switch(alternative,
+                      "two.sided" = interval,
+                      "less" = c(-Inf,interval[2]),
+                      "greater" = c(interval[1],+Inf))
+    out$ci = ci
+    out$CI_low <- interval[1]
+    out$CI_high <- interval[2]
+    ci_method <- list(method = "normal", distribution = "log-normal")
+  }
 
   class(out) <- c("effectsize_difference",
                   "effectsize_table",
