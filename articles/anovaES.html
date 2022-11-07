@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.00001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -207,7 +207,7 @@ measure is called Eta-squared (written as <span class="math inline">\(\eta^2\)</
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/">effectsize</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>es.use_symbols <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># get nice symbols when printing! (On Windows, requires R &gt;= 4.2.0)</span></span>
-<span> </span>
+<span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type I)
@@ -697,16 +697,20 @@ reliability of the rating / scores of observations (or “groups”) between
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Subjects are COLUMNS</span></span>
 <span><span class="op">(</span><span class="va">ReactionTimes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">398</span>, <span class="fl">338</span>, <span class="fl">520</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fl">398</span>, <span class="fl">338</span>, <span class="fl">520</span>,</span>
 <span>    <span class="fl">325</span>, <span class="fl">388</span>, <span class="fl">555</span>,</span>
 <span>    <span class="fl">393</span>, <span class="fl">363</span>, <span class="fl">561</span>,</span>
 <span>    <span class="fl">367</span>, <span class="fl">433</span>, <span class="fl">470</span>,</span>
 <span>    <span class="fl">286</span>, <span class="fl">492</span>, <span class="fl">536</span>,</span>
 <span>    <span class="fl">362</span>, <span class="fl">475</span>, <span class="fl">496</span>,</span>
-<span>    <span class="fl">253</span>, <span class="fl">334</span>, <span class="fl">610</span><span class="op">)</span>,</span>
+<span>    <span class="fl">253</span>, <span class="fl">334</span>, <span class="fl">610</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  nrow <span class="op">=</span> <span class="fl">7</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Subject"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span>,</span>
-<span>                  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Congruent"</span>, <span class="st">"Neutral"</span>, <span class="st">"Incongruent"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Subject"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Congruent"</span>, <span class="st">"Neutral"</span>, <span class="st">"Incongruent"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt;          Congruent Neutral Incongruent
 &gt; Subject1       398     338         520

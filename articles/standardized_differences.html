@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.00001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -356,6 +356,24 @@ ranges from 0 (no distance between the multivariate distributions) to
 &gt; -----------------------------
 &gt; 2.14           | [1.07, 2.90]</code></pre>
 </div>
+<div class="section level3">
+<h3 id="means-ratio">Means Ratio<a class="anchor" aria-label="anchor" href="#means-ratio"></a>
+</h3>
+<p>Instead of the <em>difference</em> between means, we can also look at
+the <em>ratio</em> between means. This effect size is only applicable to
+<strong>ratio scale</strong> outcomes (variables with an absolute
+zero).</p>
+<p>Lucky for us, miles-per-gallon is on a ratio scale!</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/means_ratio.html">means_ratio</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; Means Ratio (adj.) |       95% CI
+&gt; ---------------------------------
+&gt; 0.70               | [0.59, 0.83]</code></pre>
+<p>Values range between <span class="math inline">\(0\)</span> and <span class="math inline">\(\infty\)</span>, with values smaller than 1
+indicating that the second mean is larger than the first, values larger
+than 1 indicating that the second mean is smaller than the first, and
+values of 1 indicating that the means are equal.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="dominance-effect-sizes">Dominance Effect Sizes<a class="anchor" aria-label="anchor" href="#dominance-effect-sizes"></a>
@@ -373,7 +391,7 @@ than the second.</p>
 <div class="section level3">
 <h3 id="two-independent-samples-1">Two Independent Samples<a class="anchor" aria-label="anchor" href="#two-independent-samples-1"></a>
 </h3>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">48</span>, <span class="fl">48</span>, <span class="fl">77</span>, <span class="fl">86</span>, <span class="fl">85</span>, <span class="fl">85</span><span class="op">)</span></span>
 <span><span class="va">B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">14</span>, <span class="fl">34</span>, <span class="fl">34</span>, <span class="fl">77</span><span class="op">)</span></span>
 <span></span>
@@ -384,7 +402,7 @@ than the second.</p>
 &gt; data:  A and B
 &gt; W = 22, p-value = 0.05
 &gt; alternative hypothesis: true location shift is not equal to 0</code></pre>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rank_biserial.html">rank_biserial</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; r (rank biserial) |       95% CI
 &gt; --------------------------------
@@ -398,7 +416,7 @@ the symmetry around <span class="math inline">\(\mu\)</span> (mu; the
 null value), with 0 indicating perfect symmetry, <span class="math inline">\((-1)\)</span> indicates that all observations fall
 below <span class="math inline">\(\mu\)</span>, and <span class="math inline">\((+1)\)</span> indicates that all observations fall
 above <span class="math inline">\(\mu\)</span>.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.15</span>, <span class="fl">0.88</span>, <span class="fl">0.90</span>, <span class="fl">0.74</span>, <span class="fl">1.21</span>, <span class="fl">1.36</span>, <span class="fl">0.89</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">wilcox.test</a></span><span class="op">(</span><span class="va">x</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># aka Signed-Rank test</span></span></code></pre></div>
@@ -408,7 +426,7 @@ above <span class="math inline">\(\mu\)</span>.</p>
 &gt; data:  x
 &gt; V = 16, p-value = 0.8
 &gt; alternative hypothesis: true location is not equal to 1</code></pre>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rank_biserial.html">rank_biserial</a></span><span class="op">(</span><span class="va">x</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; r (rank biserial) |        95% CI
 &gt; ---------------------------------
@@ -421,7 +439,7 @@ above <span class="math inline">\(\mu\)</span>.</p>
 </h3>
 <p>For paired samples, <span class="math inline">\(r_{rb}\)</span>
 measures the symmetry of the (paired) <em>differences</em> around <span class="math inline">\(\mu\)</span> as for the one sample case.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.83</span>, <span class="fl">0.50</span>, <span class="fl">1.62</span>, <span class="fl">2.48</span>, <span class="fl">1.68</span>, <span class="fl">1.88</span>, <span class="fl">1.55</span>, <span class="fl">3.06</span>, <span class="fl">1.30</span><span class="op">)</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.88</span>, <span class="fl">0.65</span>, <span class="fl">0.60</span>, <span class="fl">2.05</span>, <span class="fl">1.06</span>, <span class="fl">1.29</span>, <span class="fl">1.06</span>, <span class="fl">3.14</span>, <span class="fl">1.29</span><span class="op">)</span></span>
 <span></span>
@@ -432,7 +450,7 @@ measures the symmetry of the (paired) <em>differences</em> around <span class="m
 &gt; data:  x and y
 &gt; V = 40, p-value = 0.04
 &gt; alternative hypothesis: true location shift is not equal to 0</code></pre>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rank_biserial.html">rank_biserial</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; r (rank biserial) |       95% CI
 &gt; --------------------------------
@@ -456,12 +474,12 @@ overlap: Cohen’s <span class="math inline">\(U_1\)</span> is the
 proportion of the total of both distributions that does not overlap,
 while <em>Overlap (OVL)</em> is the proportional overlap between the
 distributions.</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">cohens_u1</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's U1 |       95% CI
 &gt; -------------------------
 &gt; 0.70       | [0.42, 0.85]</code></pre>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">p_overlap</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Overlap |       95% CI
 &gt; ----------------------
@@ -472,7 +490,7 @@ populations. When these assumptions are not met, the values produced
 will be biased in unknown ways. In such cases, we should use the
 non-parametric versions (<span class="math inline">\(U_1\)</span> is not
 defined):</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">p_overlap</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span>, parametric <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Overlap |       95% CI
 &gt; ----------------------
@@ -487,7 +505,7 @@ defined):</p>
 sampling an observation from each of the groups at random, that the
 observation from the second group will be larger than the sample from
 the first group.</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">p_superiority</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Pr(superiority) |       95% CI
 &gt; ------------------------------
@@ -500,12 +518,12 @@ one of the groups that exceeds the same proportion in the other group,
 and Cohen’s <span class="math inline">\(U_3\)</span> is the proportion
 of the second group that is smaller than the median of the first
 group.</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">cohens_u2</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's U2 |       95% CI
 &gt; -------------------------
 &gt; 0.77       | [0.63, 0.87]</code></pre>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">cohens_u3</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's U3 |       95% CI
 &gt; -------------------------
@@ -542,21 +560,21 @@ group.</p>
 <!-- ``` -->
 <p>Here too we have a non-parametric versions when the assumptions of
 equal variance of normal populations:</p>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">p_superiority</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span>, parametric <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Pr(superiority) |       95% CI
 &gt; ------------------------------
 &gt; 0.17            | [0.08, 0.32]
 &gt; 
 &gt; - Non-parametric CLES</code></pre>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">cohens_u2</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span>, parametric <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's U2 |       95% CI
 &gt; -------------------------
 &gt; 0.80       | [0.50, 1.00]
 &gt; 
 &gt; - Non-parametric CLES</code></pre>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">cohens_u3</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span>, parametric <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's U3 |       95% CI
 &gt; -------------------------
@@ -571,12 +589,12 @@ equal variance of normal populations:</p>
 <p>For one sample, <em>probability of superiority</em> is the
 probability that, when sampling an observation at random, it will be
 larger than <span class="math inline">\(\mu\)</span>.</p>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">p_superiority</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">wt</span>, mu <span class="op">=</span> <span class="fl">2.75</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Pr(superiority) |       95% CI
 &gt; ------------------------------
 &gt; 0.63            | [0.53, 0.72]</code></pre>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">p_superiority</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">wt</span>, mu <span class="op">=</span> <span class="fl">2.75</span>, parametric <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Pr(superiority) |       95% CI
 &gt; ------------------------------
@@ -586,16 +604,20 @@ larger than <span class="math inline">\(\mu\)</span>.</p>
 <p>For paired samples, <em>probability of superiority</em> is the
 probability that, when sampling an observation at random, its
 <em>difference</em> will be larger than <span class="math inline">\(\mu\)</span>.</p>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">p_superiority</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">sleep</span>, </span>
-<span>              paired <span class="op">=</span> <span class="cn">TRUE</span>, mu <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">p_superiority</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">sleep</span>,</span>
+<span>  paired <span class="op">=</span> <span class="cn">TRUE</span>, mu <span class="op">=</span> <span class="op">-</span><span class="fl">1</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Pr(superiority) |       95% CI
 &gt; ------------------------------
 &gt; 0.37            | [0.22, 0.56]</code></pre>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">p_superiority</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">sleep</span>, </span>
-<span>              paired <span class="op">=</span> <span class="cn">TRUE</span>, mu <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, </span>
-<span>              parametric <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">p_superiority</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">sleep</span>,</span>
+<span>  paired <span class="op">=</span> <span class="cn">TRUE</span>, mu <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
+<span>  parametric <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Pr(superiority) |       95% CI
 &gt; ------------------------------
 &gt; 0.19            | [0.06, 0.49]
@@ -608,27 +630,27 @@ probability that, when sampling an observation at random, its
 <p>A Bayesian estimate of (the parametric version of) these effect sizes
 can also be provided based on <code>BayesFactor</code>’s version of a
 <em>t</em>-test via the <code><a href="../reference/effectsize.html">effectsize()</a></code> function:</p>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFt</span>, type <span class="op">=</span> <span class="st">"p_superiority"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Pr(superiority) |       95% CI
 &gt; ------------------------------
 &gt; 0.18            | [0.07, 0.36]</code></pre>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFt</span>, type <span class="op">=</span> <span class="st">"u1"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's U1 |       95% CI
 &gt; -------------------------
 &gt; 0.65       | [0.32, 0.83]</code></pre>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFt</span>, type <span class="op">=</span> <span class="st">"u2"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's U2 |       95% CI
 &gt; -------------------------
 &gt; 0.74       | [0.60, 0.85]</code></pre>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFt</span>, type <span class="op">=</span> <span class="st">"u3"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's U3 |       95% CI
 &gt; -------------------------
 &gt; 0.10       | [0.02, 0.31]</code></pre>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFt</span>, type <span class="op">=</span> <span class="st">"overlap"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Overlap |       95% CI
 &gt; ----------------------

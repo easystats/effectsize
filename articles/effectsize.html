@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.00001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -271,7 +271,8 @@ standardized coefficients from a provided model [for a list of supported
 models, see the <em>insight</em> package; <span class="citation">Lüdecke, Waggoner, and Makowski (2019)</span>].</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">*</span> <span class="va">am</span>,</span>
-<span>            data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<span>  data <span class="op">=</span> <span class="va">mtcars</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">datawizard</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -295,8 +296,9 @@ models, see the <em>insight</em> package; <span class="citation">Lüdecke, Waggo
 models (GLMs; where only the predictors are standardized):</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">am</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">hp</span>,</span>
-<span>             family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
-<span>             data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">mtcars</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html" class="external-link">standardize_parameters</a></span><span class="op">(</span><span class="va">model</span>, exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # Standardization method: refit</span></span>

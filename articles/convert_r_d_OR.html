@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.00001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -236,9 +236,10 @@ in this case these represent the <em>partial</em> correlation:</p>
 &gt; -------------------
 &gt; 0.23 | [0.15, 0.31]</code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html" class="external-link">correlation</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"salary"</span>, <span class="st">"xtra_hours"</span>, <span class="st">"is_senior"</span><span class="op">)</span><span class="op">]</span>, </span>
-<span>                         include_factors <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                         partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html" class="external-link">correlation</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"salary"</span>, <span class="st">"xtra_hours"</span>, <span class="st">"is_senior"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>  include_factors <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  partial <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span></span></code></pre></div>
 <pre><code>&gt; # Correlation Matrix (pearson-method)
 &gt; 
 &gt; Parameter1 | Parameter2 |    r |       95% CI | t(498) |         p
