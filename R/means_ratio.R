@@ -73,8 +73,8 @@ means_ratio <- function(x, y = NULL, data = NULL,
     paired = paired,
     ...
   )
-  x <- out$x
-  y <- out$y
+  x <- out[["x"]]
+  y <- out[["y"]]
 
   if (is.null(y)) {
     stop("Only one sample provided. y or data must be provided.", call. = FALSE)
@@ -131,36 +131,36 @@ means_ratio <- function(x, y = NULL, data = NULL,
   }
 
   if (adjust) {
-    out <- data.frame(log_Means_ratio_adjusted = log_val$log_rom)
+    out <- data.frame(log_Means_ratio_adjusted = log_val[["log_rom"]])
   } else {
-    out <- data.frame(log_Means_ratio = log_val$log_rom)
+    out <- data.frame(log_Means_ratio = log_val[["log_rom"]])
   }
 
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
 
     # Add cis
-    out$CI <- ci
+    out[["CI"]] <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
     alpha <- 1 - ci.level
 
-    SE <- sqrt(log_val$var_rom)
+    SE <- sqrt(log_val[["var_rom"]])
 
     # Normal approx
-    interval <- log_val$log_rom + c(-1, 1) * stats::qnorm(alpha / 2, lower.tail = FALSE) * SE
+    interval <- log_val[["log_rom"]] + c(-1, 1) * stats::qnorm(alpha / 2, lower.tail = FALSE) * SE
 
     ci_method <- list(method = "normal")
 
     # Central t method
-    # interval <- exp(log_val$log_rom + c(-1, 1) * stats::qt(alpha / 2, df1, lower.tail = FALSE) * SE)
+    # interval <- exp(log_val[["log_rom"]] + c(-1, 1) * stats::qt(alpha / 2, df1, lower.tail = FALSE) * SE)
 
-    out$CI_low <- interval[1]
-    out$CI_high <- interval[2]
+    out[["CI_low"]] <- interval[1]
+    out[["CI_high"]] <- interval[2]
 
     if (alternative == "less") {
-      out$CI_low <- 0
+      out[["CI_low"]] <- 0
     } else if (alternative == "greater") {
-      out$CI_high <- Inf
+      out[["CI_high"]] <- Inf
     }
   } else {
     ci_method <- alternative <- NULL
