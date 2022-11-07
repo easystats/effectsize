@@ -43,11 +43,16 @@
 #' means_ratio(3 * x, 3 * y)
 #'
 #' @references
-#' Lajeunesse, M. J. (2011). On the meta‐analysis of response ratios for studies with correlated and multi‐group designs. Ecology, 92(11), 2049-2055 .https://doi.org/10.1890/11-0423.1
+#' Lajeunesse, M. J. (2011). On the meta‐analysis of response ratios for studies
+#' with correlated and multi‐group designs. Ecology, 92(11), 2049-2055.
+#' \doi{10.1890/11-0423.1}
 #'
-#' Lajeunesse, M. J. (2015). Bias and correction for the log response ratio in ecological meta‐analysis. Ecology, 96(8), 2056-2063. https://doi.org/10.1890/14-2402.1
+#' Lajeunesse, M. J. (2015). Bias and correction for the log response ratio in
+#' ecological meta‐analysis. Ecology, 96(8), 2056-2063. \doi{10.1890/14-2402.1}
 #'
-#' Hedges, L. V., Gurevitch, J., & Curtis, P. S. (1999). The meta-analysis of response ratios in experimental ecology. Ecology, 80(4), 1150–1156. https://doi.org/10.1890/0012-9658(1999)080[1150:TMAORR]2.0.CO;2
+#' Hedges, L. V., Gurevitch, J., & Curtis, P. S. (1999). The meta-analysis of
+#' response ratios in experimental ecology. Ecology, 80(4), 1150–1156.
+#' \doi{10.1890/0012-9658(1999)080[1150:TMAORR]2.0.CO;2}
 #'
 #' @export
 means_ratio <- function(x, y = NULL, data = NULL,
