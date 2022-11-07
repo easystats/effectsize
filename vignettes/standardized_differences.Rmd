@@ -130,6 +130,18 @@ When examining multivariate differences (e.g., with Hotelling's $T^2$ test), Mah
 mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars)
 ```
 
+## Means Ratio
+
+Instead of the *difference* between means, we can also look at the *ratio* between means. This effect size is onlt applicable to **ratio scale** outcomes (variables with an absolute zero).
+
+Lucky for us, miles-per-gallon is on a ratio scale!
+
+```{r}
+means_ratio(mpg ~ am, data = mtcars)
+```
+
+Values range between $0$ and $\infty$, with values smaller than 1 indicating that the second mean is larger than the first, values larger than 1 indicating that the second mean is smaller than the first, and values of 1 indicating that the means are equal.
+
 # Dominance Effect Sizes
 
 The rank-biserial correlation ($r_{rb}$) is a measure of dominance: larger
