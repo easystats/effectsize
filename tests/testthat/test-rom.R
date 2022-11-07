@@ -19,7 +19,7 @@ test_that("means_ratio", {
 
 test_that("means_ratio - adjusted", {
   x <- means_ratio(wt ~ am, data = mtcars, adjust = TRUE)
-  expect_equal(colnames(x)[1], "Means_Ratio")
+  expect_equal(colnames(x)[1], "Means_ratio_adjusted")
   expect_equal(x[[1]], 1.56, tolerance = 0.001)
   expect_equal(x$CI_low, 1.32, tolerance = 0.001)
   expect_equal(x$CI_high, 1.845, tolerance = 0.001)
@@ -29,7 +29,7 @@ test_that("means_ratio - adjusted", {
     y = subset(mtcars, am == 0)$wt,
     adjust = TRUE
   )
-  expect_equal(colnames(x)[1], "Means_Ratio")
+  expect_equal(colnames(x)[1], "Means_ratio_adjusted")
   expect_equal(x[[1]], 1 / 1.56, tolerance = 0.001)
   expect_equal(x$CI_high, 1 / 1.320838, tolerance = 0.001)
   expect_equal(x$CI_low, 1 / 1.844883, tolerance = 0.001)
@@ -37,7 +37,7 @@ test_that("means_ratio - adjusted", {
 
 test_that("means_ratio - not adjusted", {
   x <- means_ratio(wt ~ am, data = mtcars, adjust = FALSE)
-  expect_equal(colnames(x)[1], "Means_Ratio")
+  expect_equal(colnames(x)[1], "Means_ratio")
   expect_equal(x[[1]], 1.564, tolerance = 0.001)
   expect_equal(x$CI_low, 1.323, tolerance = 0.001)
   expect_equal(x$CI_high, 1.848, tolerance = 0.001)
@@ -52,7 +52,7 @@ test_that("means_ratio paired - adjusted", {
     data = sleep,
     adjust = TRUE, paired = TRUE
   )
-  expect_equal(colnames(x)[1], "Means_Ratio")
+  expect_equal(colnames(x)[1], "Means_ratio_adjusted")
   expect_equal(x[[1]], 0.752, tolerance = 0.001)
   expect_equal(x$CI_low, 0.652, tolerance = 0.001)
   expect_equal(x$CI_high, 0.867, tolerance = 0.001)
@@ -65,7 +65,7 @@ test_that("means_ratio paired - not adjusted", {
     data = sleep,
     adjust = FALSE, paired = TRUE
   )
-  expect_equal(colnames(x)[1], "Means_Ratio")
+  expect_equal(colnames(x)[1], "Means_ratio")
   expect_equal(x[[1]], 0.75, tolerance = 0.001)
   expect_equal(x$CI_low, .651, tolerance = 0.001)
   expect_equal(x$CI_high, 0.865, tolerance = 0.001)
