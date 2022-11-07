@@ -15,6 +15,22 @@ test_that("means_ratio", {
   d3 <- means_ratio(iris$Sepal.Length, iris$Sepal.Width, ci = 0.90, alternative = "g")
   expect_equal(d1$CI_high, d2$CI_high)
   expect_equal(d1$CI_low, d3$CI_low)
+
+  x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
+  y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
+  rom1 <- means_ratio(x, y)
+  rom2 <- means_ratio(y, x)
+  expect_equal(rom1[[1]], 1/rom2[[1]], tolerance = 0.01)
+  expect_equal(rom1$CI_high, 1/rom2$CI_low, tolerance = 0.01)
+  expect_equal(rom1$CI_low, 1/rom2$CI_high, tolerance = 0.01)
+
+  rom1 <- means_ratio(x, y, log = TRUE)
+  rom2 <- means_ratio(y, x, log = TRUE)
+  expect_equal(rom1[[1]], -rom2[[1]], tolerance = 0.01)
+  expect_equal(rom1$CI_high, -rom2$CI_low, tolerance = 0.05)
+  expect_equal(rom1$CI_low, -rom2$CI_high, tolerance = 0.05)
+
+  expect_error(means_ratio(rep(0, 4), 1:4), regexp = "zero")
 })
 
 test_that("means_ratio - adjusted", {
@@ -81,3 +97,4 @@ test_that("means_ratio paired - not adjusted", {
   expect_equal(x$CI_low, .651, tolerance = 0.001)
   expect_equal(x$CI_high, 0.865, tolerance = 0.001)
 })
+

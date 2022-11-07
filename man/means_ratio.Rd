@@ -18,12 +18,7 @@ means_ratio(
 )
 }
 \arguments{
-\item{x}{A numeric vector, or a character name of one in \code{data}.
-Any missing values (\code{NA}s) are dropped from the resulting vector.
-\code{x} can also be a formula (see \code{\link[stats:t.test]{stats::t.test()}}), in which case \code{y} is
-ignored.}
-
-\item{y}{A numeric vector, or a character name of one in \code{data}.
+\item{x, y}{A numeric vector, or a character name of one in \code{data}.
 Any missing values (\code{NA}s) are dropped from the resulting vector.
 \code{x} can also be a formula (see \code{\link[stats:t.test]{stats::t.test()}}), in which case \code{y} is
 ignored.}
@@ -42,14 +37,14 @@ Normally distributed and useful for meta-analysis.}
 \item{ci}{Confidence Interval (CI) level}
 
 \item{alternative}{a character string specifying the alternative hypothesis;
-Controls the type of CI returned: \code{"greater"} (default) or \code{"less"}
-(one-sided CI), or \code{"two.sided"} (default, two-sided CI). Partial matching
-is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in
-\link{effectsize_CIs}.}
+Controls the type of CI returned: \code{"two.sided"} (default, two-sided CI),
+\code{"greater"} or \code{"less"} (one-sided CI). Partial matching is allowed (e.g.,
+\code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in \link{effectsize_CIs}.}
 
 \item{verbose}{Toggle warnings and messages on or off.}
 
-\item{...}{Arguments passed to or from other methods.}
+\item{...}{Arguments passed to or from other methods. When \code{x} is a formula,
+these can be \code{subset} and \code{na.action}.}
 }
 \value{
 A data frame with the effect size (\code{Means_ratio} or
