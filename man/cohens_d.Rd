@@ -218,6 +218,7 @@ Correcting error and bias in research findings. Sage.
 
 Other standardized differences: 
 \code{\link{mahalanobis_d}()},
+\code{\link{means_ratio}()},
 \code{\link{p_superiority}()},
 \code{\link{rank_biserial}()}
 }

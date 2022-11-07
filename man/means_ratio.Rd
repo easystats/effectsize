@@ -101,3 +101,11 @@ Lajeunesse, M. J. (2015). Bias and correction for the log response ratio in ecol
 
 Hedges, L. V., Gurevitch, J., & Curtis, P. S. (1999). The meta-analysis of response ratios in experimental ecology. Ecology, 80(4), 1150–1156. https://doi.org/10.1890/0012-9658(1999)080\link{1150:TMAORR}2.0.CO;2
 }
+\seealso{
+Other standardized differences: 
+\code{\link{cohens_d}()},
+\code{\link{mahalanobis_d}()},
+\code{\link{p_superiority}()},
+\code{\link{rank_biserial}()}
+}
+\concept{standardized differences}

@@ -28,6 +28,7 @@
 #'
 #' @return A data frame with the effect size (`Means_Ratio`) and their CIs (`CI_low` and `CI_high`).
 #'
+#' @family standardized differences
 #'
 #' @note The bias corrected response ratio reported from this function is derived from Lajeunesse (2015).
 #'
