@@ -292,12 +292,16 @@ p_superiority(mtcars$wt, mu = 2.75, parametric = FALSE)
 For paired samples, *probability of superiority* is the probability that, when sampling an observation at random, its *difference* will be larger than $\mu$.
 
 ```{r}
-p_superiority(extra ~ group, data = sleep, 
-              paired = TRUE, mu = -1)
+p_superiority(extra ~ group,
+  data = sleep,
+  paired = TRUE, mu = -1
+)
 
-p_superiority(extra ~ group, data = sleep, 
-              paired = TRUE, mu = -1, 
-              parametric = FALSE)
+p_superiority(extra ~ group,
+  data = sleep,
+  paired = TRUE, mu = -1,
+  parametric = FALSE
+)
 ```
 
 ## For a Bayesian *t*-test

@@ -35,7 +35,7 @@
 #'   derived from Lajeunesse (2015).
 #'
 #' @examples
-#' x <- c(1.83,  0.50,  1.62,  2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
+#' x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
 #' y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
 #' means_ratio(x, y)
 #'
@@ -161,7 +161,8 @@ means_ratio <- function(x, y = NULL, data = NULL,
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
   .someattributes(out) <- .nlist(
-    paired, ci, ci_method, alternative, mu = 0,
+    paired, ci, ci_method, alternative,
+    mu = 0,
     approximate = TRUE
   )
   return(out)
@@ -180,7 +181,6 @@ means_ratio <- function(x, y = NULL, data = NULL,
                          n2 = n1,
                          r = NULL,
                          adjust = TRUE) {
-
   if (isTRUE(paired)) {
     yi <- log(m1 / m2)
     vi <-
