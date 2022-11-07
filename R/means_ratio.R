@@ -45,7 +45,7 @@
 #' @importFrom stats var model.frame
 #' @export
 
-rom <- function(x,
+means_ratio <- function(x,
                 y = NULL,
                 data = NULL,
                 ci = 0.95,
