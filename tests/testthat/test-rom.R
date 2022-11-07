@@ -20,9 +20,9 @@ test_that("means_ratio", {
   y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
   rom1 <- means_ratio(x, y)
   rom2 <- means_ratio(y, x)
-  expect_equal(rom1[[1]], 1/rom2[[1]], tolerance = 0.01)
-  expect_equal(rom1$CI_high, 1/rom2$CI_low, tolerance = 0.01)
-  expect_equal(rom1$CI_low, 1/rom2$CI_high, tolerance = 0.01)
+  expect_equal(rom1[[1]], 1 / rom2[[1]], tolerance = 0.01)
+  expect_equal(rom1$CI_high, 1 / rom2$CI_low, tolerance = 0.01)
+  expect_equal(rom1$CI_low, 1 / rom2$CI_high, tolerance = 0.01)
 
   rom1 <- means_ratio(x, y, log = TRUE)
   rom2 <- means_ratio(y, x, log = TRUE)
@@ -97,4 +97,3 @@ test_that("means_ratio paired - not adjusted", {
   expect_equal(x$CI_low, .651, tolerance = 0.001)
   expect_equal(x$CI_high, 0.865, tolerance = 0.001)
 })
-
