@@ -1,3 +1,10 @@
+# effectsize 0.8.2.00001
+
+## New features
+
+- `means_ratio()` for computing ratios of two means for ratio-scales outcomes (thanks to @arcaldwell49!)
+
+
 # effectsize 0.8.2
 
 ## Breaking Changes
