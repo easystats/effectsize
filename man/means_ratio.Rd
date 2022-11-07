@@ -8,11 +8,11 @@ means_ratio(
   x,
   y = NULL,
   data = NULL,
-  ci = 0.95,
-  alternative = c("two.sided", "less", "greater"),
   paired = FALSE,
-  verbose = TRUE,
   adjust = TRUE,
+  ci = 0.95,
+  alternative = "two.sided",
+  verbose = TRUE,
   ...
 )
 }
@@ -24,6 +24,12 @@ ignored.}
 
 \item{data}{An optional data frame containing the variables.}
 
+\item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
+The correlation between these variables will affect the CIs.}
+
+\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{TRUE};
+Advisable for small samples.}
+
 \item{ci}{Confidence Interval (CI) level}
 
 \item{alternative}{a character string specifying the alternative hypothesis;
@@ -32,41 +38,35 @@ Controls the type of CI returned: \code{"greater"} (default) or \code{"less"}
 is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in
 \link{effectsize_CIs}.}
 
-\item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
-The correlation between these variables will affect the CIs.}
-
 \item{verbose}{Toggle warnings and messages on or off.}
-
-\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{TRUE};
-Advisable for small samples.}
 
 \item{...}{Arguments passed to or from other methods.}
 }
 \value{
-A data frame with the effect size ( \code{Means_Ratio}) and their CIs (\code{CI_low} and \code{CI_high}).
+A data frame with the effect size (\code{Means_Ratio}) and their CIs (\code{CI_low} and \code{CI_high}).
 }
 \description{
-Computes ratio of two means, which is also known as the "response ratio" (RR)
-and referred to as the Means_Ratio in the output of this function.
-Pair with any reported \code{\link[stats:t.test]{stats::t.test()}}.
+Computes the ratio of two means (also known as the "response ratio"; RR) of
+\strong{variables on a ratio scale} (with an absolute 0). Pair with any reported
+\code{\link[stats:t.test]{stats::t.test()}}.
 }
 \details{
-Unlike other effect sizes, there is no difference between groups
-(equality of means) when the response ratio is equal to 1.
-The log is taken of the ratio of means,
-which makes this outcome measure symmetric around 0 and
-yields a corresponding sampling distribution that is closer to normality.
-Hence, this measure cannot be computed when the means have opposite signs.
-The response ratio is only meant to be used for ratio scale measurements,
-where both means are positive.
-
-Unlike other functions in \code{effectsize}, the response ratio confidence intervals
-a calculated using the methods described by Lajeunesse (2011 & 2015) using the
-log-ratio standard error assuming a normal distribution.
+The Means Ratio ranges from 0 to \eqn{\infty}, with values smaller than 1
+indicating that the second mean is larger than the first, values larger than
+1 indicating that the second mean is smaller than the first, and values of 1
+indicating that the means are equal.
 }
 \note{
 The bias corrected response ratio reported from this function is derived from Lajeunesse (2015).
 }
+\section{Confidence (Compatibility) Intervals (CIs)}{
+Confidence intervals are estimated as described by Lajeunesse (2011 & 2015)
+using the log-ratio standard error assuming a normal distribution. By this
+method, the log is taken of the ratio of means, which makes this outcome
+measure symmetric around 0 and yields a corresponding sampling distribution
+that is closer to normality.
+}
+
 \section{CIs and Significance Tests}{
 "Confidence intervals on measures of effect size convey all the information
 in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
