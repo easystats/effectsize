@@ -8,6 +8,8 @@
 #'   The correlation between these variables will affect the CIs.
 #' @param adjust Should the effect size be bias-corrected? Defaults to `TRUE`;
 #'   Advisable for small samples.
+#' @param log Should the log-ratio be returned? Defaults to `FALSE`.
+#'  Normally distributed and useful for meta-analysis.
 #' @inheritParams chisq_to_phi
 #' @inheritParams cohens_d
 #'
@@ -39,7 +41,7 @@
 #' y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
 #' means_ratio(x, y)
 #'
-#' # The ratio is scale invariant, making is a standardized effect size
+#' # The ratio is scale invariant, making it a standardized effect size
 #' means_ratio(3 * x, 3 * y)
 #'
 #' @references
@@ -57,6 +59,7 @@
 #' @export
 means_ratio <- function(x, y = NULL, data = NULL,
                         paired = FALSE, adjust = TRUE,
+                        log = FALSE,
                         ci = 0.95, alternative = "two.sided",
                         verbose = TRUE, ...) {
   alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
@@ -75,7 +78,7 @@ means_ratio <- function(x, y = NULL, data = NULL,
     stop("Only one sample provided. y or data must be provided.")
   }
 
-  if (any(x <= 0) || any(y <= 0)) {
+  if (any(x < 0) || any(y < 0)) {
     stop("x,y must be non-negative (on a ratio scale).")
   }
 
@@ -87,6 +90,10 @@ means_ratio <- function(x, y = NULL, data = NULL,
     sd1 <- stats::sd(x)
     m2 <- mean(y)
     sd2 <- stats::sd(y)
+
+    if(m1 <= 0 || m2 <=0){
+      stop("Means less than or equal zero. Unable to calculate means ratio.")
+    }
 
     df1 <- n <- length(x)
     r <- stats::cor(x, y)
@@ -112,6 +119,10 @@ means_ratio <- function(x, y = NULL, data = NULL,
     sd2 <- stats::sd(y)
     n2 <- length(y)
 
+    if(m1 <= 0 || m2 <=0){
+      stop("Means less than or equal zero. Unable to calculate means ratio.")
+    }
+
     df1 <- n1 + n2 - 2
 
     # Calc log RR
@@ -127,13 +138,20 @@ means_ratio <- function(x, y = NULL, data = NULL,
     )
   }
 
+  if(log == FALSE){
   if (adjust) {
     out <- data.frame(Means_ratio_adjusted = exp(log_val$log_rom))
   } else {
     out <- data.frame(Means_ratio = exp(log_val$log_rom))
   }
-
-
+  }
+  if(log == TRUE){
+    if (adjust) {
+      out <- data.frame(log_Means_ratio_adjusted = (log_val$log_rom))
+    } else {
+      out <- data.frame(log_Means_ratio = (log_val$log_rom))
+    }
+  }
 
   if (is.numeric(ci)) {
     stopifnot(length(ci) == 1, ci < 1, ci > 0)
@@ -146,7 +164,12 @@ means_ratio <- function(x, y = NULL, data = NULL,
     SE <- sqrt(log_val$var_rom)
 
     # Normal approx
-    interval <- exp(log_val$log_rom + c(-1, 1) * stats::qnorm(alpha / 2, lower.tail = FALSE) * SE)
+    if(log == FALSE){
+      interval <- exp(log_val$log_rom + c(-1, 1) * stats::qnorm(alpha / 2, lower.tail = FALSE) * SE)
+    } else {
+      interval <- (log_val$log_rom + c(-1, 1) * stats::qnorm(alpha / 2, lower.tail = FALSE) * SE)
+    }
+
     ci_method <- list(method = "normal")
 
     # Central t method

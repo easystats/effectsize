@@ -132,7 +132,7 @@ mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars)
 
 ## Means Ratio
 
-Instead of the *difference* between means, we can also look at the *ratio* between means. This effect size is onlt applicable to **ratio scale** outcomes (variables with an absolute zero).
+Instead of the *difference* between means, we can also look at the *ratio* between means. This effect size is only applicable to **ratio scale** outcomes (variables with an absolute zero).
 
 Lucky for us, miles-per-gallon is on a ratio scale!
 

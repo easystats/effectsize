@@ -10,6 +10,7 @@ means_ratio(
   data = NULL,
   paired = FALSE,
   adjust = TRUE,
+  log = FALSE,
   ci = 0.95,
   alternative = "two.sided",
   verbose = TRUE,
@@ -17,7 +18,12 @@ means_ratio(
 )
 }
 \arguments{
-\item{x, y}{A numeric vector, or a character name of one in \code{data}.
+\item{x}{A numeric vector, or a character name of one in \code{data}.
+Any missing values (\code{NA}s) are dropped from the resulting vector.
+\code{x} can also be a formula (see \code{\link[stats:t.test]{stats::t.test()}}), in which case \code{y} is
+ignored.}
+
+\item{y}{A numeric vector, or a character name of one in \code{data}.
 Any missing values (\code{NA}s) are dropped from the resulting vector.
 \code{x} can also be a formula (see \code{\link[stats:t.test]{stats::t.test()}}), in which case \code{y} is
 ignored.}
@@ -29,6 +35,9 @@ The correlation between these variables will affect the CIs.}
 
 \item{adjust}{Should the effect size be bias-corrected? Defaults to \code{TRUE};
 Advisable for small samples.}
+
+\item{log}{Should the log-ratio be returned? Defaults to \code{FALSE}.
+Normally distributed and useful for meta-analysis.}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -95,7 +104,7 @@ x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
 y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
 means_ratio(x, y)
 
-# The ratio is scale invariant, making is a standardized effect size
+# The ratio is scale invariant, making it a standardized effect size
 means_ratio(3 * x, 3 * y)
 
 }

@@ -33,6 +33,17 @@ test_that("means_ratio - adjusted", {
   expect_equal(x[[1]], 1 / 1.56, tolerance = 0.001)
   expect_equal(x$CI_high, 1 / 1.320838, tolerance = 0.001)
   expect_equal(x$CI_low, 1 / 1.844883, tolerance = 0.001)
+
+  x2 <- means_ratio(
+    x = subset(mtcars, am == 1)$wt,
+    y = subset(mtcars, am == 0)$wt,
+    adjust = TRUE,
+    log = TRUE
+  )
+
+  expect_equal(x2[[1]], log(1 / 1.561023), tolerance = 0.001)
+  expect_equal(x2$CI_high, log(1 / 1.320838), tolerance = 0.001)
+  expect_equal(x2$CI_low, log(1 / 1.844883), tolerance = 0.001)
 })
 
 test_that("means_ratio - not adjusted", {
