@@ -113,7 +113,7 @@ glass_delta(mpg ~ am, data = mtcars)
 ### Contingency Tables
 
 ```{r}
-# Dependence 
+# Dependence
 phi(mtcars$am, mtcars$vs)
 
 cramers_v(mtcars$am, mtcars$cyl)

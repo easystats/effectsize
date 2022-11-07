@@ -152,6 +152,7 @@ mahalanobis_d(mpg + hp + cyl ~ 1,
 
 Other standardized differences: 
 \code{\link{cohens_d}()},
+\code{\link{means_ratio}()},
 \code{\link{p_superiority}()},
 \code{\link{rank_biserial}()}
 }

@@ -73,7 +73,8 @@ Standardizing parameters (i.e., coefficients) can allow for their comparison wit
 
 ```{r}
 model <- lm(mpg ~ cyl * am,
-            data = mtcars)
+  data = mtcars
+)
 
 datawizard::standardize(model)
 
@@ -84,8 +85,9 @@ Standardized parameters can also be produced for generalized linear models (GLMs
 
 ```{r}
 model <- glm(am ~ cyl + hp,
-             family = "binomial",
-             data = mtcars)
+  family = "binomial",
+  data = mtcars
+)
 
 parameters::standardize_parameters(model, exponentiate = TRUE)
 ```

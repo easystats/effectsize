@@ -53,6 +53,7 @@ Other contributors:
   \item David Stanley [contributor]
   \item Jessica Burnett \email{jburnett@usgs.gov} (\href{https://orcid.org/0000-0002-0896-5099}{ORCID}) [reviewer]
   \item Johannes Karreth \email{jkarreth@ursinus.edu} (\href{https://orcid.org/0000-0003-4586-7153}{ORCID}) [reviewer]
+  \item Aaron Caldwell \email{arcaldwell49@gmail.com} (\href{https://orcid.org/0000-0002-4541-6283}{ORCID}) [contributor]
 }
 
 }

@@ -95,9 +95,10 @@ represent the *partial* correlation:
 ```{r, eval=requireNamespace("correlation", quietly = TRUE)}
 t_to_r(5.31, df_error = 497)
 
-correlation::correlation(hardlyworking[, c("salary", "xtra_hours", "is_senior")], 
-                         include_factors = TRUE,
-                         partial = TRUE)[2, ]
+correlation::correlation(hardlyworking[, c("salary", "xtra_hours", "is_senior")],
+  include_factors = TRUE,
+  partial = TRUE
+)[2, ]
 
 # all close to:
 d_to_r(0.47)
