@@ -42,6 +42,8 @@ test_that("means_ratio - not adjusted", {
 
 test_that("means_ratio paired - adjusted", {
   data(sleep)
+  expect_error(means_ratio(extra ~ group, data = sleep), "negative")
+
   sleep$y <- sleep$extra + 4
   x <- means_ratio(y ~ group, data = sleep,
            adjust = TRUE, paired = TRUE)
