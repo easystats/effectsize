@@ -5,6 +5,8 @@ es_info <- tibble::tribble(
   "Hedges_g", "Hedges' g", NA, "twotail", -Inf, Inf, 0,
   "Glass_delta", "Glass' delta", "Glass' \u0394", "twotail", -Inf, Inf, 0,
   "Mahalanobis_D", "Mahalanobis' D", NA, "onetail", 0, Inf, 0,
+  "Means_ratio", "Means Ratio", NA, "twotail", 0, Inf, 1,
+  "Means_ratio_adjusted", "Means Ratio (adj.)", NA, "twotail", 0, Inf, 1,
 
   ## xtab cor
   "Cramers_v", "Cramer's V", NA, "onetail", 0, 1, 0,
@@ -70,4 +72,4 @@ es_info <- tibble::tribble(
 es_info <- as.data.frame(es_info)
 es_info[is.na(es_info[["symbol"]]), "symbol"] <- es_info[is.na(es_info[["symbol"]]), "label"]
 rownames(es_info) <- es_info[["name"]]
-usethis::use_data(es_info, internal = TRUE)
+usethis::use_data(es_info, internal = TRUE, overwrite = TRUE)

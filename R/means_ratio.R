@@ -26,11 +26,13 @@
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #'
-#' @return A data frame with the effect size (`Means_Ratio`) and their CIs (`CI_low` and `CI_high`).
+#' @return A data frame with the effect size (`Means_ratio` or
+#'   `Means_ratio_adjusted`) and their CIs (`CI_low` and `CI_high`).
 #'
 #' @family standardized differences
 #'
-#' @note The bias corrected response ratio reported from this function is derived from Lajeunesse (2015).
+#' @note The bias corrected response ratio reported from this function is
+#'   derived from Lajeunesse (2015).
 #'
 #' @examples
 #' x <- c(1.83,  0.50,  1.62,  2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
@@ -107,7 +109,7 @@ means_ratio <- function(x, y = NULL, data = NULL,
 
     df1 <- n1 + n2 - 2
 
-    ## Calc log RR -----
+    # Calc log RR
     log_val <- .logrom_calc(
       paired = FALSE,
       m1 = m1,
@@ -120,7 +122,12 @@ means_ratio <- function(x, y = NULL, data = NULL,
     )
   }
 
-  out <- data.frame(Means_Ratio = exp(log_val$log_rom))
+  if (adjust) {
+    out <- data.frame(Means_ratio_adjusted = exp(log_val$log_rom))
+  } else {
+    out <- data.frame(Means_ratio = exp(log_val$log_rom))
+  }
+
 
 
   if (is.numeric(ci)) {
@@ -133,11 +140,11 @@ means_ratio <- function(x, y = NULL, data = NULL,
 
     SE <- sqrt(log_val$var_rom)
 
-    # Normal approx ------
+    # Normal approx
     interval <- exp(log_val$log_rom + c(-1, 1) * stats::qnorm(alpha / 2, lower.tail = FALSE) * SE)
     ci_method <- list(method = "normal")
 
-    # Central t method ------
+    # Central t method
     # interval <- exp(log_val$log_rom + c(-1, 1) * stats::qt(alpha / 2, df1, lower.tail = FALSE) * SE)
 
     out$CI_low <- interval[1]

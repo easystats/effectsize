@@ -43,7 +43,8 @@ is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided 
 \item{...}{Arguments passed to or from other methods.}
 }
 \value{
-A data frame with the effect size (\code{Means_Ratio}) and their CIs (\code{CI_low} and \code{CI_high}).
+A data frame with the effect size (\code{Means_ratio} or
+\code{Means_ratio_adjusted}) and their CIs (\code{CI_low} and \code{CI_high}).
 }
 \description{
 Computes the ratio of two means (also known as the "response ratio"; RR) of
@@ -57,7 +58,8 @@ indicating that the second mean is larger than the first, values larger than
 indicating that the means are equal.
 }
 \note{
-The bias corrected response ratio reported from this function is derived from Lajeunesse (2015).
+The bias corrected response ratio reported from this function is
+derived from Lajeunesse (2015).
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
 Confidence intervals are estimated as described by Lajeunesse (2011 & 2015)
