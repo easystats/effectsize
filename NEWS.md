@@ -1,8 +1,12 @@
-# effectsize 0.8.2.00001
+# effectsize 0.8.2.00002
 
 ## New features
 
 - `means_ratio()` for computing ratios of two means for ratio-scales outcomes (thanks to @arcaldwell49!)
+
+## Bug fixes
+
+- Solved integer overflow errors in `rank_biserial()` ( #476 )
 
 
 # effectsize 0.8.2

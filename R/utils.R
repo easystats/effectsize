@@ -68,3 +68,17 @@
     return(FALSE)
   }
 }
+
+
+
+#' @keywords internal
+.test_ci <- function(ci) {
+  if (is.null(ci)) return(FALSE)
+  if (!is.numeric(ci) ||
+      length(ci) != 1L ||
+      ci < 0 ||
+      ci > 1) {
+    stop("ci must be a single numeric value between (0, 1)", call. = FALSE)
+  }
+  return(TRUE)
+}

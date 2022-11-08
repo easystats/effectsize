@@ -280,7 +280,7 @@ cohens_f <- function(model,
     colnames(res)[colnames(res) == "Eta2"] <- "Cohens_f2"
   }
 
-  if (is.numeric(ci)) {
+  if (!is.null(ci)) {
     res$CI_low <- res$CI_low / (1 - res$CI_low)
     res$CI_high <- res$CI_high / (1 - res$CI_high)
   }
@@ -459,7 +459,7 @@ cohens_f_squared <- function(model,
   out <- aov_table
 
   # Add CIs ---
-  if (is.numeric(ci)) {
+  if (!is.null(ci)) {
     # based on MBESS::ci.R2
     ES <- pmax(0, out[[ncol(out)]])
     f <- (ES / out$df) / ((1 - ES) / df_error)

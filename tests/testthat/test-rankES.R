@@ -1,3 +1,4 @@
+# library(testthat)
 
 test_that("rank_biserial", {
   x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
@@ -15,6 +16,12 @@ test_that("rank_biserial", {
   A <- c(48, 48, 77, 86, 85, 85, 16)
   B <- c(14, 34, 34, 77)
   expect_equal(rank_biserial(A, B)[[1]], 0.6071429, tolerance = 0.01)
+
+  n <- floor(sqrt(.Machine$integer.max) + 1)
+  x <- rnorm(n)
+  y <- rnorm(n) + 0.2
+
+  expect_error(rank_biserial(x, y), NA)
 })
 
 

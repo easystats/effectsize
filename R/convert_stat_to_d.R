@@ -11,8 +11,7 @@ t_to_d <- function(t, df_error,
   res <- data.frame(d = paired * t / sqrt(df_error))
 
   ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     res$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
@@ -63,8 +62,7 @@ z_to_d <- function(z, n,
   res <- data.frame(d = paired * z / sqrt(n))
 
   ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     res$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
