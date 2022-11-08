@@ -78,8 +78,7 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
   res <- data.frame(Odds_ratio = OR)
 
   ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     res$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
@@ -148,8 +147,7 @@ riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
   res <- data.frame(Risk_ratio = RR)
 
   ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     res$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
@@ -218,8 +216,7 @@ cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   out <- data.frame(Cohens_h = H)
 
   ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     out$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 

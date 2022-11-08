@@ -443,9 +443,8 @@ wmw_odds <- function(x, y = NULL, data = NULL,
     out <- data.frame(ES = est(d))
 
     ci_method <- NULL
-    if (is.numeric(ci)) {
+    if (.test_ci(ci)) {
       if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
-        stopifnot(length(ci) == 1, ci < 1, ci > 0)
 
         ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 

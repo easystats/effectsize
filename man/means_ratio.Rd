@@ -98,6 +98,10 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
 y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
 means_ratio(x, y)
+means_ratio(x, y, adjust = FALSE)
+
+means_ratio(x, y, log = TRUE)
+
 
 # The ratio is scale invariant, making it a standardized effect size
 means_ratio(3 * x, 3 * y)

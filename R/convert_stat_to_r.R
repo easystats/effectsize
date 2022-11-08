@@ -103,8 +103,7 @@ t_to_r <- function(t, df_error,
   res <- data.frame(r = t / sqrt(t^2 + df_error))
 
   ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     res$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
@@ -148,8 +147,7 @@ z_to_r <- function(z, n,
   res <- data.frame(r = z / sqrt(z^2 + n))
 
   ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     res$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 

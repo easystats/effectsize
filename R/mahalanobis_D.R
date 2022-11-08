@@ -145,9 +145,7 @@ mahalanobis_d <- function(x, y = NULL, data = NULL,
   out <- data.frame(Mahalanobis_D = sqrt(t(d) %*% solve(COV) %*% d))
 
   ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
-
+  if (.test_ci(ci)) {
     # Add cis
     out$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1

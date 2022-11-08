@@ -130,7 +130,7 @@ rank_biserial <- function(x, y = NULL, data = NULL,
   y <- out$y
 
   if (is.null(y)) {
-    y <- rep(0, length.out = length(x))
+    y <- 0
     paired <- TRUE
   }
 
@@ -140,8 +140,7 @@ rank_biserial <- function(x, y = NULL, data = NULL,
 
   ## CI
   ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     out$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
@@ -241,7 +240,7 @@ cliffs_delta <- function(x, y = NULL, data = NULL,
   } else {
     Ry <- .safe_ranktransform(c(x - mu, y), verbose = verbose)
 
-    n1 <- length(x)
+    n1 <- as.double(length(x)) # see https://github.com/easystats/effectsize/issues/476
     n2 <- length(y)
     S <- (n1 * n2)
 

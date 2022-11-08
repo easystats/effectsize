@@ -78,9 +78,7 @@ paired_d <- function(x, group, block, data = NULL,
   out <- data.frame(d = (d - mu) / s)
   if (type != "d") names(out) <- paste0("d_", type)
 
-  if (!is.null(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
-
+  if (.test_ci(ci)) {
     out$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
@@ -147,9 +145,7 @@ paired_d <- function(x, group, block, data = NULL,
   }
 
 
-  if (!is.null(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
-
+  if (.test_ci(ci)) {
     out$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 

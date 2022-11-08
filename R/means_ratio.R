@@ -136,9 +136,7 @@ means_ratio <- function(x, y = NULL, data = NULL,
     out <- data.frame(log_Means_ratio = log_val[["log_rom"]])
   }
 
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
-
+  if (.test_ci(ci)) {
     # Add cis
     out[["CI"]] <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
