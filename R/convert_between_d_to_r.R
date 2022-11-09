@@ -166,11 +166,11 @@ convert_r_to_oddsratio <- r_to_oddsratio
 
 #' @keywords internal
 .get_rd_h <- function(n1, n2) {
-  if (missing(n) || missing(n2)) {
+  if (missing(n1) || missing(n2)) {
     h <- 4
   } else {
-    m <- n + n2 - 2
-    h <- m / n + m / n2
+    m <- n1 + n2 - 2
+    h <- m / n1 + m / n2
   }
 
   h
