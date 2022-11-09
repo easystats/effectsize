@@ -34,8 +34,9 @@
 #' - \eqn{r = \frac{d}{\sqrt{d^2 + h}}}{r = d / sqrt(d^2 + h)}
 #'
 #' Where \eqn{h = \frac{n_1 + n_2 - 2}{n_1} + \frac{n_1 + n_2 - 2}{n_2}}{h = (n1 + n2 - 2) / n1 + (n1 + n2 - 2) / n2}.
-#' When groups are of equal size, *h* reduces to 4. The resulting *r* is also
-#' called the binomial effect size display (BESD; Rosenthal et al., 1982).
+#' When groups are of equal size, *h* reduces to approximately 4. The resulting
+#' *r* is also called the binomial effect size display (BESD; Rosenthal et al.,
+#' 1982).
 #'
 #' @references
 #' - Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003).

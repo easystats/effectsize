@@ -69,8 +69,9 @@ Converting between \emph{d} and \emph{r} is done through these formulae:
 }
 
 Where \eqn{h = \frac{n_1 + n_2 - 2}{n_1} + \frac{n_1 + n_2 - 2}{n_2}}{h = (n1 + n2 - 2) / n1 + (n1 + n2 - 2) / n2}.
-When groups are of equal size, \emph{h} reduces to 4. The resulting \emph{r} is also
-called the binomial effect size display (BESD; Rosenthal et al., 1982).
+When groups are of equal size, \emph{h} reduces to approximately 4. The resulting
+\emph{r} is also called the binomial effect size display (BESD; Rosenthal et al.,
+1982).
 }
 \examples{
 r_to_d(0.5)
