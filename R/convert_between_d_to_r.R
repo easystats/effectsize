@@ -1,10 +1,11 @@
 #' Convert Between *d*, *r*, and Odds Ratio
 #'
 #' Enables a conversion between different indices of effect size, such as
-#' standardized difference (Cohen's d), correlation r or (log) odds ratios.
+#' standardized difference (Cohen's d), (point-biserial) correlation r or (log) odds ratios.
 #'
 #' @param d Standardized difference value (Cohen's d).
 #' @param r Correlation coefficient r.
+#' @param n,n2 Group sample sizes. If either is missing, groups are assumed to be of equal size.
 #' @param OR *Odds ratio* values in vector or data frame.
 #' @param log Take in or output the log of the ratio (such as in logistic models).
 #' @param ... Arguments passed to or from other methods.
@@ -29,12 +30,12 @@
 #' - \eqn{log(OR) = d * \frac{\pi}{\sqrt(3)}}{log(OR) = d * pi / sqrt(3)}
 #'
 #' Converting between *d* and *r* is done through these formulae:
-#' - \eqn{d = \frac{2 * r}{\sqrt{1 - r^2}}}{d = 2 * r / sqrt(1 - r^2)}
-#' - \eqn{r = \frac{d}{\sqrt{d^2 + 4}}}{r = d / sqrt(d^2 + 4)}
+#' - \eqn{d = \frac{\sqrt{h} * r}{\sqrt{1 - r^2}}}{d = sqrt(h) * r / sqrt(1 - r^2)}
+#' - \eqn{r = \frac{d}{\sqrt{d^2 + h}}}{r = d / sqrt(d^2 + h)}
 #'
-#' The conversion from *d* to *r* assumes equally sized groups. The resulting
-#' *r* is also called the binomial effect size display (BESD; Rosenthal et al.,
-#' 1982).
+#' Where \eqn{h = \frac{n_1 + n_2 - 2}{n_1} + \frac{n_1 + n_2 - 2}{n_2}}{h = (n1 + n2 - 2) / n1 + (n1 + n2 - 2) / n2}.
+#' When groups are of equal size, *h* reduces to 4. The resulting *r* is also
+#' called the binomial effect size display (BESD; Rosenthal et al., 1982).
 #'
 #' @references
 #' - Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003).
@@ -49,8 +50,9 @@
 #'
 #' @export
 #' @aliases convert_d_to_r
-d_to_r <- function(d, ...) {
-  d / (sqrt(d^2 + 4))
+d_to_r <- function(d, n, n2, ...) {
+  h <- .get_rd_h(n, n2)
+  d / (sqrt(d^2 + h))
 }
 
 #' @export
@@ -64,8 +66,9 @@ convert_d_to_r <- d_to_r
 #' @rdname d_to_r
 #' @aliases convert_r_to_d
 #' @export
-r_to_d <- function(r, ...) {
-  2 * r / sqrt(1 - r^2)
+r_to_d <- function(r, n, n2, ...) {
+  h <- .get_rd_h(n, n2)
+  sqrt(h) * r / sqrt(1 - r^2)
 }
 
 #' @export
@@ -129,8 +132,8 @@ convert_d_to_oddsratio <- d_to_oddsratio
 #' @rdname d_to_r
 #' @aliases convert_oddsratio_to_r
 #' @export
-oddsratio_to_r <- function(OR, log = FALSE, ...) {
-  d_to_r(oddsratio_to_d(OR, log = log))
+oddsratio_to_r <- function(OR, log = FALSE, n, n2, ...) {
+  d_to_r(oddsratio_to_d(OR, log = log), n, n2)
 }
 
 #' @export
@@ -151,9 +154,24 @@ convert_logoddsratio_to_r <- logoddsratio_to_r
 #' @rdname d_to_r
 #' @aliases convert_r_to_oddsratio
 #' @export
-r_to_oddsratio <- function(r, log = FALSE, ...) {
-  d_to_oddsratio(r_to_d(r), log = log)
+r_to_oddsratio <- function(r, log = FALSE, n, n2, ...) {
+  d_to_oddsratio(r_to_d(r), log = log, n, n2)
 }
 
 #' @export
 convert_r_to_oddsratio <- r_to_oddsratio
+
+
+# Utils -------------------------------------------------------------------
+
+#' @keywords internal
+.get_rd_h <- function(n, n2) {
+  if (missing(n) || missing(n2)) {
+    h <- 4
+  } else {
+    m <- n + n2 - 2
+    h <- m / n + m / n2
+  }
+
+  h
+}

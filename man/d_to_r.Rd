@@ -19,9 +19,9 @@
 \alias{convert_r_to_oddsratio}
 \title{Convert Between \emph{d}, \emph{r}, and Odds Ratio}
 \usage{
-d_to_r(d, ...)
+d_to_r(d, n, n2, ...)
 
-r_to_d(r, ...)
+r_to_d(r, n, n2, ...)
 
 oddsratio_to_d(OR, log = FALSE, ...)
 
@@ -29,14 +29,16 @@ logoddsratio_to_d(OR, log = TRUE, ...)
 
 d_to_oddsratio(d, log = FALSE, ...)
 
-oddsratio_to_r(OR, log = FALSE, ...)
+oddsratio_to_r(OR, log = FALSE, n, n2, ...)
 
 logoddsratio_to_r(OR, log = TRUE, ...)
 
-r_to_oddsratio(r, log = FALSE, ...)
+r_to_oddsratio(r, log = FALSE, n, n2, ...)
 }
 \arguments{
 \item{d}{Standardized difference value (Cohen's d).}
+
+\item{n, n2}{Group sample sizes. If either is missing, groups are assumed to be of equal size.}
 
 \item{...}{Arguments passed to or from other methods.}
 
@@ -51,7 +53,7 @@ Converted index.
 }
 \description{
 Enables a conversion between different indices of effect size, such as
-standardized difference (Cohen's d), correlation r or (log) odds ratios.
+standardized difference (Cohen's d), (point-biserial) correlation r or (log) odds ratios.
 }
 \details{
 Conversions between \emph{d} and \emph{OR} is done through these formulae:
@@ -62,13 +64,13 @@ Conversions between \emph{d} and \emph{OR} is done through these formulae:
 
 Converting between \emph{d} and \emph{r} is done through these formulae:
 \itemize{
-\item \eqn{d = \frac{2 * r}{\sqrt{1 - r^2}}}{d = 2 * r / sqrt(1 - r^2)}
-\item \eqn{r = \frac{d}{\sqrt{d^2 + 4}}}{r = d / sqrt(d^2 + 4)}
+\item \eqn{d = \frac{\sqrt{h} * r}{\sqrt{1 - r^2}}}{d = sqrt(h) * r / sqrt(1 - r^2)}
+\item \eqn{r = \frac{d}{\sqrt{d^2 + h}}}{r = d / sqrt(d^2 + h)}
 }
 
-The conversion from \emph{d} to \emph{r} assumes equally sized groups. The resulting
-\emph{r} is also called the binomial effect size display (BESD; Rosenthal et al.,
-1982).
+Where \eqn{h = \frac{n_1 + n_2 - 2}{n_1} + \frac{n_1 + n_2 - 2}{n_2}}{h = (n1 + n2 - 2) / n1 + (n1 + n2 - 2) / n2}.
+When groups are of equal size, \emph{h} reduces to 4. The resulting \emph{r} is also
+called the binomial effect size display (BESD; Rosenthal et al., 1982).
 }
 \examples{
 r_to_d(0.5)

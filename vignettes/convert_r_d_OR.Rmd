@@ -46,8 +46,7 @@ We can compute Cohen's *d* between the two groups:
 cohens_d(salary ~ is_senior, data = hardlyworking)
 ```
 
-But we can also treat the 2-level `is_senior` variable as a numeric variable, and
-compute Pearson's *r*:
+But we can also compute a point-biserial correlation, which is Pearson's *r* when treating the 2-level `is_senior` variable as a numeric binary variable:
 
 ```{r, warning=FALSE, eval=requireNamespace("correlation", quietly = TRUE)}
 correlation::cor_test(hardlyworking, "salary", "is_senior")

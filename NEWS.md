@@ -1,8 +1,9 @@
-# effectsize 0.8.2.00002
+# effectsize 0.8.2.00003
 
 ## New features
 
 - `means_ratio()` for computing ratios of two means for ratio-scales outcomes (thanks to @arcaldwell49!)
+- `r_to_d()` family of functions gain arguments for specifying group size ( #534 )
 
 ## Bug fixes
 
