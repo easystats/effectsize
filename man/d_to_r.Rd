@@ -19,9 +19,9 @@
 \alias{convert_r_to_oddsratio}
 \title{Convert Between \emph{d}, \emph{r}, and Odds Ratio}
 \usage{
-d_to_r(d, n, n2, ...)
+d_to_r(d, n1, n2, ...)
 
-r_to_d(r, n, n2, ...)
+r_to_d(r, n1, n2, ...)
 
 oddsratio_to_d(OR, log = FALSE, ...)
 
@@ -29,16 +29,16 @@ logoddsratio_to_d(OR, log = TRUE, ...)
 
 d_to_oddsratio(d, log = FALSE, ...)
 
-oddsratio_to_r(OR, log = FALSE, n, n2, ...)
+oddsratio_to_r(OR, log = FALSE, n1, n2, ...)
 
 logoddsratio_to_r(OR, log = TRUE, ...)
 
-r_to_oddsratio(r, log = FALSE, n, n2, ...)
+r_to_oddsratio(r, log = FALSE, n1, n2, ...)
 }
 \arguments{
 \item{d}{Standardized difference value (Cohen's d).}
 
-\item{n, n2}{Group sample sizes. If either is missing, groups are assumed to be of equal size.}
+\item{n1, n2}{Group sample sizes. If either is missing, groups are assumed to be of equal size.}
 
 \item{...}{Arguments passed to or from other methods.}
 

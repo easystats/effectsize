@@ -5,7 +5,7 @@
 #'
 #' @param d Standardized difference value (Cohen's d).
 #' @param r Correlation coefficient r.
-#' @param n,n2 Group sample sizes. If either is missing, groups are assumed to be of equal size.
+#' @param n1,n2 Group sample sizes. If either is missing, groups are assumed to be of equal size.
 #' @param OR *Odds ratio* values in vector or data frame.
 #' @param log Take in or output the log of the ratio (such as in logistic models).
 #' @param ... Arguments passed to or from other methods.
@@ -50,8 +50,8 @@
 #'
 #' @export
 #' @aliases convert_d_to_r
-d_to_r <- function(d, n, n2, ...) {
-  h <- .get_rd_h(n, n2)
+d_to_r <- function(d, n1, n2, ...) {
+  h <- .get_rd_h(n1, n2)
   d / (sqrt(d^2 + h))
 }
 
@@ -66,8 +66,8 @@ convert_d_to_r <- d_to_r
 #' @rdname d_to_r
 #' @aliases convert_r_to_d
 #' @export
-r_to_d <- function(r, n, n2, ...) {
-  h <- .get_rd_h(n, n2)
+r_to_d <- function(r, n1, n2, ...) {
+  h <- .get_rd_h(n1, n2)
   sqrt(h) * r / sqrt(1 - r^2)
 }
 
@@ -132,8 +132,8 @@ convert_d_to_oddsratio <- d_to_oddsratio
 #' @rdname d_to_r
 #' @aliases convert_oddsratio_to_r
 #' @export
-oddsratio_to_r <- function(OR, log = FALSE, n, n2, ...) {
-  d_to_r(oddsratio_to_d(OR, log = log), n, n2)
+oddsratio_to_r <- function(OR, log = FALSE, n1, n2, ...) {
+  d_to_r(oddsratio_to_d(OR, log = log), n1, n2)
 }
 
 #' @export
@@ -154,8 +154,8 @@ convert_logoddsratio_to_r <- logoddsratio_to_r
 #' @rdname d_to_r
 #' @aliases convert_r_to_oddsratio
 #' @export
-r_to_oddsratio <- function(r, log = FALSE, n, n2, ...) {
-  d_to_oddsratio(r_to_d(r), log = log, n, n2)
+r_to_oddsratio <- function(r, log = FALSE, n1, n2, ...) {
+  d_to_oddsratio(r_to_d(r), log = log, n1, n2)
 }
 
 #' @export
@@ -165,7 +165,7 @@ convert_r_to_oddsratio <- r_to_oddsratio
 # Utils -------------------------------------------------------------------
 
 #' @keywords internal
-.get_rd_h <- function(n, n2) {
+.get_rd_h <- function(n1, n2) {
   if (missing(n) || missing(n2)) {
     h <- 4
   } else {
