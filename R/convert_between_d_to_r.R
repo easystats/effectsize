@@ -174,6 +174,8 @@ convert_r_to_oddsratio <- r_to_oddsratio
   if (missing(n1) || missing(n2)) {
     h <- 4
   } else {
+    if (missing(n1)) n1 <- n2
+    if (missing(n2)) n2 <- n1
     m <- n1 + n2 - 2
     h <- m / n1 + m / n2
   }
