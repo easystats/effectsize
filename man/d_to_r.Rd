@@ -19,9 +19,9 @@
 \alias{convert_r_to_oddsratio}
 \title{Convert Between \emph{d}, \emph{r}, and Odds Ratio}
 \usage{
-d_to_r(d, ...)
+d_to_r(d, n1, n2, ...)
 
-r_to_d(r, ...)
+r_to_d(r, n1, n2, ...)
 
 oddsratio_to_d(OR, log = FALSE, ...)
 
@@ -29,14 +29,16 @@ logoddsratio_to_d(OR, log = TRUE, ...)
 
 d_to_oddsratio(d, log = FALSE, ...)
 
-oddsratio_to_r(OR, log = FALSE, ...)
+oddsratio_to_r(OR, log = FALSE, n1, n2, ...)
 
 logoddsratio_to_r(OR, log = TRUE, ...)
 
-r_to_oddsratio(r, log = FALSE, ...)
+r_to_oddsratio(r, log = FALSE, n1, n2, ...)
 }
 \arguments{
 \item{d}{Standardized difference value (Cohen's d).}
+
+\item{n1, n2}{Group sample sizes. If either is missing, groups are assumed to be of equal size.}
 
 \item{...}{Arguments passed to or from other methods.}
 
@@ -51,7 +53,7 @@ Converted index.
 }
 \description{
 Enables a conversion between different indices of effect size, such as
-standardized difference (Cohen's d), correlation r or (log) odds ratios.
+standardized difference (Cohen's d), (point-biserial) correlation r or (log) odds ratios.
 }
 \details{
 Conversions between \emph{d} and \emph{OR} is done through these formulae:
@@ -62,11 +64,12 @@ Conversions between \emph{d} and \emph{OR} is done through these formulae:
 
 Converting between \emph{d} and \emph{r} is done through these formulae:
 \itemize{
-\item \eqn{d = \frac{2 * r}{\sqrt{1 - r^2}}}{d = 2 * r / sqrt(1 - r^2)}
-\item \eqn{r = \frac{d}{\sqrt{d^2 + 4}}}{r = d / sqrt(d^2 + 4)}
+\item \eqn{d = \frac{\sqrt{h} * r}{\sqrt{1 - r^2}}}{d = sqrt(h) * r / sqrt(1 - r^2)}
+\item \eqn{r = \frac{d}{\sqrt{d^2 + h}}}{r = d / sqrt(d^2 + h)}
 }
 
-The conversion from \emph{d} to \emph{r} assumes equally sized groups. The resulting
+Where \eqn{h = \frac{n_1 + n_2 - 2}{n_1} + \frac{n_1 + n_2 - 2}{n_2}}{h = (n1 + n2 - 2) / n1 + (n1 + n2 - 2) / n2}.
+When groups are of equal size, \emph{h} reduces to approximately 4. The resulting
 \emph{r} is also called the binomial effect size display (BESD; Rosenthal et al.,
 1982).
 }
@@ -82,13 +85,16 @@ oddsratio_to_d(1.813799, log = TRUE)
 }
 \references{
 \itemize{
+\item Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R.
+(2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
+\item Jacobs, P., & Viechtbauer, W. (2017). Estimation of the biserial
+correlation and its sampling variance for use in meta‐analysis. Research
+synthesis methods, 8(2), 161-180. \doi{10.1002/jrsm.1218}
+\item Rosenthal, R., & Rubin, D. B. (1982). A simple, general purpose display of
+magnitude of experimental effect. Journal of educational psychology, 74(2), 166.
 \item Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003).
 Effect-size indices for dichotomized outcomes in meta-analysis. Psychological
 methods, 8(4), 448.
-\item Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R.
-(2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
-\item Rosenthal, R., & Rubin, D. B. (1982). A simple, general purpose display of
-magnitude of experimental effect. Journal of educational psychology, 74(2), 166.
 }
 }
 \seealso{
