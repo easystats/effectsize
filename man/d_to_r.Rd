@@ -85,13 +85,16 @@ oddsratio_to_d(1.813799, log = TRUE)
 }
 \references{
 \itemize{
+\item Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R.
+(2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
+\item Jacobs, P., & Viechtbauer, W. (2017). Estimation of the biserial
+correlation and its sampling variance for use in meta‐analysis. Research
+synthesis methods, 8(2), 161-180. \doi{10.1002/jrsm.1218}
+\item Rosenthal, R., & Rubin, D. B. (1982). A simple, general purpose display of
+magnitude of experimental effect. Journal of educational psychology, 74(2), 166.
 \item Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003).
 Effect-size indices for dichotomized outcomes in meta-analysis. Psychological
 methods, 8(4), 448.
-\item Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R.
-(2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
-\item Rosenthal, R., & Rubin, D. B. (1982). A simple, general purpose display of
-magnitude of experimental effect. Journal of educational psychology, 74(2), 166.
 }
 }
 \seealso{
