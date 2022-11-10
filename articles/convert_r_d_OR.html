@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.00002</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.00003</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -178,8 +178,9 @@ differences between two groups / conditions.</p>
 &gt; -0.72     | [-0.90, -0.53]
 &gt; 
 &gt; - Estimated using pooled SD.</code></pre>
-<p>But we can also treat the 2-level <code>is_senior</code> variable as
-a numeric variable, and compute Pearson’s <em>r</em>:</p>
+<p>But we can also compute a point-biserial correlation, which is
+Pearson’s <em>r</em> when treating the 2-level <code>is_senior</code>
+variable as a numeric binary variable:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/cor_test.html" class="external-link">cor_test</a></span><span class="op">(</span><span class="va">hardlyworking</span>, <span class="st">"salary"</span>, <span class="st">"is_senior"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Parameter1 | Parameter2 |    r |       95% CI | t(498) |         p
