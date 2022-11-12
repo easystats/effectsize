@@ -93,8 +93,7 @@ cohens_g <- function(x, y = NULL,
   out <- data.frame(Cohens_g = g)
 
   ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     out$CI <- ci
 
     n <- sum(b) + sum(c)

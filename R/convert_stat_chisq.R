@@ -328,7 +328,7 @@ phi_to_chisq <- function(phi, n, ...) {
                                   ...) {
   alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
 
-  if (is.numeric(ci)) {
+  if (ci_numeric <- .test_ci(ci)) {
     is_goodness <- ncol == 1 || nrow == 1
 
     if (is_goodness) {
@@ -340,8 +340,7 @@ phi_to_chisq <- function(phi, n, ...) {
 
   res <- data.frame(phi = sqrt(chisq / den))
 
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (ci_numeric) {
     res$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 

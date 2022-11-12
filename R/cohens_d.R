@@ -119,7 +119,7 @@
 #'
 #' - Delacre, M., Lakens, D., Ley, C., Liu, L., & Leys, C. (2021, May 7). Why
 #' Hedges’ g*s based on the non-pooled standard deviation should be reported
-#' with Welch's t-test. https://doi.org/10.31234/osf.io/tu6mp
+#' with Welch's t-test. \doi{10.31234/osf.io/tu6mp}
 #'
 #' - Hedges, L. V. & Olkin, I. (1985). Statistical methods for
 #' meta-analysis. Orlando, FL: Academic Press.
@@ -212,7 +212,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
     if (type == "delta") {
       insight::format_error("For Glass' Delta, please provide data from two samples.")
     }
-    y <- rep(0, length.out = length(x))
+    y <- 0
     paired <- TRUE
   }
 
@@ -266,9 +266,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
   colnames(out) <- types[type]
 
   ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
-
+  if (.test_ci(ci)) {
     # Add cis
     out$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1

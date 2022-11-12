@@ -105,19 +105,17 @@ rank_epsilon_squared <- function(x, groups, data = NULL,
   out <- data.frame(rank_epsilon_squared = .repsilon(data))
 
   ## CI
-  if (is.numeric(ci)) {
-    if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
-      out <- cbind(out, .boot_two_group_es(
-        data, .repsilon, iterations,
-        ci, alternative, c(0, 1)
-      ))
-      ci_method <- list(method = "percentile bootstrap", iterations = iterations)
-    } else {
-      ci <- NULL
-    }
+  if (.test_ci(ci) && insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
+    out <- cbind(out, .boot_two_group_es(
+      data, .repsilon, iterations,
+      ci, alternative, c(0, 1)
+    ))
+    ci_method <- list(method = "percentile bootstrap", iterations = iterations)
+  } else {
+    ci <- NULL
   }
 
-  if (!is.numeric(ci)) {
+  if (is.null(ci)) {
     alternative <- NULL
     ci_method <- NULL
   }
@@ -152,19 +150,17 @@ rank_eta_squared <- function(x, groups, data = NULL,
   out <- data.frame(rank_eta_squared = .reta(data))
 
   ## CI
-  if (is.numeric(ci)) {
-    if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
-      out <- cbind(out, .boot_two_group_es(
-        data, .reta, iterations,
-        ci, alternative, c(0, 1)
-      ))
-      ci_method <- list(method = "percentile bootstrap", iterations = iterations)
-    } else {
-      ci <- NULL
-    }
+  if (.test_ci(ci) && insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
+    out <- cbind(out, .boot_two_group_es(
+      data, .reta, iterations,
+      ci, alternative, c(0, 1)
+    ))
+    ci_method <- list(method = "percentile bootstrap", iterations = iterations)
+  } else {
+    ci <- NULL
   }
 
-  if (!is.numeric(ci)) {
+  if (is.null(ci)) {
     alternative <- NULL
     ci_method <- NULL
   }
@@ -210,16 +206,15 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
   out <- data.frame(Kendalls_W = W)
 
   ## CI
-  if (is.numeric(ci)) {
-    if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
-      out <- cbind(out, .kendalls_w_ci(data, ci, alternative, iterations))
-      ci_method <- list(method = "percentile bootstrap", iterations = iterations)
-    } else {
-      ci <- NULL
-    }
+  if (.test_ci(ci) && insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
+    out <- cbind(out, .kendalls_w_ci(data, ci, alternative, iterations))
+    ci_method <- list(method = "percentile bootstrap", iterations = iterations)
+  } else {
+    ci <- NULL
   }
 
-  if (!is.numeric(ci)) {
+
+  if (is.null(ci)) {
     alternative <- NULL
     ci_method <- NULL
   }
@@ -304,7 +299,6 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
 #' @keywords internal
 .boot_two_group_es <- function(data, foo_es, iterations,
                                ci, alternative, lim) {
-  stopifnot(length(ci) == 1, ci < 1, ci > 0)
   ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
   boot_fun <- function(.data, .i) {
@@ -335,7 +329,6 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
 #' @importFrom utils tail
 #' @keywords internal
 .kendalls_w_ci <- function(data, ci, alternative, iterations) {
-  stopifnot(length(ci) == 1, ci < 1, ci > 0)
   ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 
   boot_w <- function(.data, .i) {

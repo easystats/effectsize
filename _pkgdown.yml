@@ -21,6 +21,7 @@ reference:
   - mahalanobis_d
   - rank_biserial
   - p_superiority
+  - means_ratio
 
 - subtitle: "For contingency tables"
   desc: >

@@ -1,3 +1,5 @@
+# library(testthat)
+
 test_that("oddsratio_to_d", {
   expect_equal(oddsratio_to_d(0.2), -0.887, tolerance = 0.01)
   expect_equal(oddsratio_to_d(-1.45, log = TRUE), -0.7994, tolerance = 0.01)
@@ -12,6 +14,14 @@ test_that("d_to_r", {
 
   expect_equal(oddsratio_to_r(d_to_oddsratio(r_to_d(0.5))), 0.5, tolerance = 0.001)
   expect_equal(oddsratio_to_d(r_to_oddsratio(d_to_r(1), log = TRUE), log = TRUE), 1, tolerance = 0.001)
+
+  r <- cor(mtcars$hp, -mtcars$am)
+  d <- cohens_d(hp ~ am, data = mtcars, ci = NULL)[[1]]
+  n <- table(mtcars$am)
+  expect_true(r_to_d(r) > d)
+  expect_true(d_to_r(d) < r)
+  expect_equal(r_to_d(r, n[1], n[2]), d, ignore_attr = TRUE)
+  expect_equal(d_to_r(d, n[1], n[2]), r, ignore_attr = TRUE)
 })
 
 test_that("oddsratio_to_RR", {
@@ -102,3 +112,4 @@ test_that("between anova", {
   expect_equal(f2_to_eta2(1 / 3), 0.25)
   expect_equal(f_to_eta2(1 / sqrt(3)), f2_to_eta2(1 / 3))
 })
+

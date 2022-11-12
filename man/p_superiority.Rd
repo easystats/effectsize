@@ -267,6 +267,7 @@ Biometrics, 59-67.
 Other standardized differences: 
 \code{\link{cohens_d}()},
 \code{\link{mahalanobis_d}()},
+\code{\link{means_ratio}()},
 \code{\link{rank_biserial}()}
 
 Other rank-based effect sizes: 

@@ -175,6 +175,7 @@ revisited. An overview of some recommended measures of effect size.
 Other standardized differences: 
 \code{\link{cohens_d}()},
 \code{\link{mahalanobis_d}()},
+\code{\link{means_ratio}()},
 \code{\link{p_superiority}()}
 
 Other rank-based effect sizes: 

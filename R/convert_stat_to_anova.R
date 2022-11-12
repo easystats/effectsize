@@ -213,7 +213,7 @@ F_to_f <- function(f, df, df_error,
   )
 
   ci_method <- NULL
-  if (is.numeric(ci)) {
+  if (!is.null(ci)) {
     res$CI <- res_eta$CI
     res$CI_low <- res_eta$CI_low / (1 - res_eta$CI_low)
     res$CI_high <- res_eta$CI_high / (1 - res_eta$CI_high)
@@ -230,7 +230,7 @@ F_to_f <- function(f, df, df_error,
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
   attr(res, "ci_method") <- ci_method
-  attr(res, "alternative") <- if (is.numeric(ci)) alternative
+  attr(res, "alternative") <- if (!is.null(ci)) alternative
   return(res)
 }
 
@@ -288,8 +288,7 @@ t_to_f2 <- function(t, df_error,
   )
 
   ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     res$CI <- ci
     ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
 

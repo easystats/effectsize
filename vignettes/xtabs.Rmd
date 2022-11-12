@@ -149,7 +149,7 @@ fei(O, p = E)
 # Observed perfectly matches Expected
 (O1 <- c(E * 286))
 
-fei(O1, p = E) 
+fei(O1, p = E)
 
 
 # Observed deviates maximally from Expected:
