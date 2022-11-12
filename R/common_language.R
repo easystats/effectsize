@@ -440,8 +440,7 @@ wmw_odds <- function(x, y = NULL, data = NULL,
     out <- data.frame(ES = est(d))
 
     if (.test_ci(ci) &&
-        insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
-
+      insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
       ci.level <- .adjust_ci(ci, alternative)
 
       out$CI <- ci
