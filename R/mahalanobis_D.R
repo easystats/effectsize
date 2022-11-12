@@ -87,7 +87,7 @@ mahalanobis_d <- function(x, y = NULL, data = NULL,
                           verbose = TRUE, ...) {
   # TODO add one sample case DV1 + DV2 ~ 1
   # TODO add paired samples case DV1 + DV2 ~ 1 | ID
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- .match.alt(alternative)
   data <- .get_data_multivariate(x, y, data, verbose = verbose, ...)
   x <- data[["x"]]
   y <- data[["y"]]
@@ -144,11 +144,10 @@ mahalanobis_d <- function(x, y = NULL, data = NULL,
 
   out <- data.frame(Mahalanobis_D = sqrt(t(d) %*% solve(COV) %*% d))
 
-  ci_method <- NULL
   if (.test_ci(ci)) {
     # Add cis
     out$CI <- ci
-    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+    ci.level <- .adjust_ci(ci, alternative)
 
     f <- ff * out[[1]]^2
 
@@ -157,13 +156,9 @@ mahalanobis_d <- function(x, y = NULL, data = NULL,
     out$CI_low <- sqrt(fs[1] / hn)
     out$CI_high <- sqrt(fs[2] / hn)
     ci_method <- list(method = "ncp", distribution = "F")
-    if (alternative == "less") {
-      out$CI_low <- 0
-    } else if (alternative == "greater") {
-      out$CI_high <- Inf
-    }
+    out <- .limit_ci(out, alternative, 0, Inf)
   } else {
-    alternative <- NULL
+    ci_method <- alternative <- NULL
   }
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))

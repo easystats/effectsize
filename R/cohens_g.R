@@ -56,7 +56,7 @@
 cohens_g <- function(x, y = NULL,
                      ci = 0.95, alternative = "two.sided",
                      ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- .match.alt(alternative)
 
   if (.is_htest_of_type(x, "McNemar")) {
     return(effectsize(x, ci = ci, alternative = alternative))
@@ -92,7 +92,6 @@ cohens_g <- function(x, y = NULL,
 
   out <- data.frame(Cohens_g = g)
 
-  ci_method <- NULL
   if (.test_ci(ci)) {
     out$CI <- ci
 
@@ -111,6 +110,8 @@ cohens_g <- function(x, y = NULL,
     out$CI_high <- res$conf.int[2] - 0.5
 
     ci_method <- list(method = "binomial")
+  } else {
+    ci_method <- alternative <- NULL
   }
 
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))

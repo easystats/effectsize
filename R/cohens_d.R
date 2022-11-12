@@ -133,7 +133,7 @@ cohens_d <- function(x, y = NULL, data = NULL,
                      pooled_sd = TRUE, mu = 0, paired = FALSE,
                      ci = 0.95, alternative = "two.sided",
                      verbose = TRUE, ...) {
-  var.equal <- eval.parent(match.call()[["var.equal"]])
+  var.equal <- eval.parent(match.call()[["var.equal"]]) # alist()
   if (!is.null(var.equal)) pooled_sd <- var.equal
 
   .effect_size_difference(
@@ -203,7 +203,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
   }
 
 
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- .match.alt(alternative)
   out <- .get_data_2_samples(x, y, data, paired = paired, verbose = verbose, ...)
   x <- out[["x"]]
   y <- out[["y"]]
@@ -265,11 +265,10 @@ glass_delta <- function(x, y = NULL, data = NULL,
   types <- c("d" = "Cohens_d", "g" = "Hedges_g", "delta" = "Glass_delta")
   colnames(out) <- types[type]
 
-  ci_method <- NULL
   if (.test_ci(ci)) {
     # Add cis
     out$CI <- ci
-    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+    ci.level <- .adjust_ci(ci, alternative)
 
     t <- (d - mu) / se
     ts <- .get_ncp_t(t, df, ci.level)
@@ -277,13 +276,9 @@ glass_delta <- function(x, y = NULL, data = NULL,
     out$CI_low <- ts[1] * sqrt(hn)
     out$CI_high <- ts[2] * sqrt(hn)
     ci_method <- list(method = "ncp", distribution = "t")
-    if (alternative == "less") {
-      out$CI_low <- -Inf
-    } else if (alternative == "greater") {
-      out$CI_high <- Inf
-    }
+    out <- .limit_ci(out, alternative, -Inf, Inf)
   } else {
-    alternative <- NULL
+    ci_method <- alternative <- NULL
   }
 
 

@@ -70,6 +70,7 @@
 }
 
 
+# CI Utils ----------------------------------------------------------------
 
 #' @keywords internal
 .test_ci <- function(ci) {
@@ -81,4 +82,29 @@
     stop("ci must be a single numeric value between (0, 1)", call. = FALSE)
   }
   return(TRUE)
+}
+
+#' @keywords internal
+.adjust_ci <- function(ci, alternative) {
+  if (alternative == "two.sided") return(ci)
+
+  2 * ci - 1
+}
+
+#' @keywords internal
+.limit_ci <- function(out, alternative, lb, ub) {
+  if (alternative == "two.sided") return(out)
+
+  if (alternative == "less") {
+    out$CI_low <- lb
+  } else if (alternative == "greater") {
+    out$CI_high <- ub
+  }
+
+  out
+}
+
+#' @keywords internal
+.match.alt <- function(alternative) {
+  match.arg(alternative, c("two.sided", "less", "greater"))
 }

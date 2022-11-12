@@ -105,7 +105,7 @@ phi <- function(x, y = NULL,
                 adjust = TRUE,
                 ci = 0.95, alternative = "greater",
                 ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+  alternative <- .match.alt(alternative)
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "phi", adjust = adjust, ci = ci))
@@ -124,7 +124,7 @@ cramers_v <- function(x, y = NULL,
                       adjust = TRUE,
                       ci = 0.95, alternative = "greater",
                       ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+  alternative <- .match.alt(alternative)
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci))
@@ -143,7 +143,7 @@ cramers_v <- function(x, y = NULL,
 tschuprows_t <- function(x, y = NULL,
                          ci = 0.95, alternative = "greater",
                          ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+  alternative <- .match.alt(alternative)
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "tschuprows_t", ci = ci))
@@ -161,7 +161,7 @@ tschuprows_t <- function(x, y = NULL,
 cohens_w <- function(x, y = NULL, p = rep(1, length(x)),
                      ci = 0.95, alternative = "greater",
                      ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+  alternative <- .match.alt(alternative)
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "cohens_w", ci = ci))
@@ -183,7 +183,7 @@ cohens_w <- function(x, y = NULL, p = rep(1, length(x)),
 fei <- function(x, p = rep(1, length(x)),
                 ci = 0.95, alternative = "greater",
                 ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+  alternative <- .match.alt(alternative)
 
   if (inherits(x, "BFBayesFactor")) {
     insight::format_error("Fei is only applicable to goodness of fit tests.")
@@ -201,7 +201,7 @@ fei <- function(x, p = rep(1, length(x)),
 pearsons_c <- function(x, y = NULL, p = rep(1, length(x)),
                        ci = 0.95, alternative = "greater",
                        ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+  alternative <- .match.alt(alternative)
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "pearsons_c", ci = ci))
