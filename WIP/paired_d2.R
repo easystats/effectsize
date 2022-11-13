@@ -2,7 +2,7 @@ paired_d <- function(x, group, block, data = NULL,
                      mu = 0, ci = 0.95, alternative = "two.sided",
                      type = c("d", "a", "r", "z", "t", "av", "rm")) {
   type <- match.arg(type)
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- .match.alt(alternative)
 
   data <- effectsize:::.kendalls_w_data(x, group, block, data, wide = FALSE)
   if (!is.factor(data$groups)) data$groups <- factor(data$groups)
@@ -80,7 +80,7 @@ paired_d <- function(x, group, block, data = NULL,
 
   if (.test_ci(ci)) {
     out$CI <- ci
-    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+    ci.level <- .adjust_ci(ci, alternative)
 
     is_mse <-
       pars$Paramete == "Residuals" &
@@ -101,11 +101,7 @@ paired_d <- function(x, group, block, data = NULL,
     out$CI_high <- out[[1]] + tc * se
 
     ci_method <- list(method = "delta")
-    if (alternative == "less") {
-      out$CI_low <- -Inf
-    } else if (alternative == "greater") {
-      out$CI_high <- Inf
-    }
+    out <- .limit_ci(out, alternative, -Inf, Inf)
   } else {
     ci_method <- alternative <- NULL
   }
@@ -147,7 +143,7 @@ paired_d <- function(x, group, block, data = NULL,
 
   if (.test_ci(ci)) {
     out$CI <- ci
-    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+    ci.level <- .adjust_ci(ci, alternative)
 
     tc <- qt(0.5 + ci.level / 2, df = n - 1, lower.tail = TRUE)
     se <- sqrt((2 * Sdiff^2) / (n * sum(ss)))
@@ -155,11 +151,7 @@ paired_d <- function(x, group, block, data = NULL,
     out$CI_low <- out[[1]] - tc * se
     out$CI_high <- out[[1]] + tc * se
     ci_method <- list(method = "normal")
-    if (alternative == "less") {
-      out$CI_low <- -Inf
-    } else if (alternative == "greater") {
-      out$CI_high <- Inf
-    }
+    out <- .limit_ci(out, alternative, -Inf, Inf)
   } else {
     ci_method <- alternative <- NULL
   }

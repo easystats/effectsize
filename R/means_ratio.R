@@ -64,7 +64,7 @@ means_ratio <- function(x, y = NULL, data = NULL,
                         paired = FALSE, adjust = TRUE, log = FALSE,
                         ci = 0.95, alternative = "two.sided",
                         verbose = TRUE, ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- .match.alt(alternative)
 
   ## Prep data
   out <- .get_data_2_samples(
@@ -139,7 +139,7 @@ means_ratio <- function(x, y = NULL, data = NULL,
   if (.test_ci(ci)) {
     # Add cis
     out[["CI"]] <- ci
-    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+    ci.level <- .adjust_ci(ci, alternative)
     alpha <- 1 - ci.level
 
     SE <- sqrt(log_val[["var_rom"]])
@@ -154,12 +154,7 @@ means_ratio <- function(x, y = NULL, data = NULL,
 
     out[["CI_low"]] <- interval[1]
     out[["CI_high"]] <- interval[2]
-
-    if (alternative == "less") {
-      out[["CI_low"]] <- 0
-    } else if (alternative == "greater") {
-      out[["CI_high"]] <- Inf
-    }
+    out <- .limit_ci(out, alternative, 0, Inf)
   } else {
     ci_method <- alternative <- NULL
   }

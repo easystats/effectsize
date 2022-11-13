@@ -278,7 +278,7 @@ t_to_f2 <- function(t, df_error,
                       es = "eta2",
                       ci = 0.95, alternative = "greater",
                       verbose = TRUE, ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+  alternative <- .match.alt(alternative)
 
   res <- switch(tolower(es),
     eta2 = data.frame(Eta2_partial = (f * df) / (f * df + df_error)),
@@ -287,10 +287,9 @@ t_to_f2 <- function(t, df_error,
     insight::format_error("'es' must be 'eta2', 'epsilon2', or 'omega2'.")
   )
 
-  ci_method <- NULL
   if (.test_ci(ci)) {
     res$CI <- ci
-    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+    ci.level <- .adjust_ci(ci, alternative)
 
     # based on MBESS::ci.R2
     f <- pmax(0, (res[[1]] / df) / ((1 - res[[1]]) / df_error))
@@ -305,13 +304,9 @@ t_to_f2 <- function(t, df_error,
     res$CI_high <- F_to_eta2(fs[, 2], df, df_error, ci = NULL)[[1]]
 
     ci_method <- list(method = "ncp", distribution = "F")
-    if (alternative == "less") {
-      res$CI_low <- 0
-    } else if (alternative == "greater") {
-      res$CI_high <- 1
-    }
+    res <- .limit_ci(res, alternative, 0, 1)
   } else {
-    alternative <- NULL
+    ci_method <- alternative <- NULL
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
