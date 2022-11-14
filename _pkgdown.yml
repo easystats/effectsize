@@ -40,12 +40,13 @@ reference:
 
 - subtitle: "Standardized parameters"
   desc: >
-    Functions from other packages relating to parameter standardization and perdictor dominance
+    Functions (e.g., from other packages) relating to parameter standardization and predictor dominance
   contents:
   - parameters::standardize_parameters
   - datawizard::standardize_models
   - parameters::standardize_info
   - parameters::dominance_analysis
+  - semipartialR2
 
 - subtitle: "Correlations"
   desc: >
