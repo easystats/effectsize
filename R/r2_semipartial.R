@@ -47,10 +47,11 @@ r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
     idx <- attr(mm, "assign")
     idx_sub <- idx[idx > 0]
   } else {
-    out <- data.frame(Parameter = colnames(mm))
+    Parameter <- colnames(mm)
+    out <- data.frame(Parameter = Parameter)
     out <- subset(out, Parameter != "(Intercept)")
     idx <- seq.int(ncol(mm))
-    idx_sub <- idx[colnames(mm)!="(Intercept)"]
+    idx_sub <- idx[Parameter!="(Intercept)"]
   }
 
   tot_mod <- if (attr(mterms,"intercept") == 1) {

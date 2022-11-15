@@ -19,8 +19,8 @@ r2_semipartial(
 
 \item{ci}{Confidence interval, defaults to 95\%.}
 
-\item{alternative}{Alternative for the confidence interval.
-One of “two.sided”, “less”, or “greater” (default).}
+\item{alternative}{Alternative hypothesis for the confidence
+interval. One of “two.sided”, “less”, or “greater” (default).}
 
 \item{...}{Arguments passed to or from other methods.}
 }
