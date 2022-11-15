@@ -11,8 +11,8 @@
 #' @param model An `lm` model.
 #' @param type Type, either "term", or "parameters".
 #' @param ci Confidence interval, defaults to 95%.
-#' @param alternative Alternative for the confidence interval.
-#'   One of “two.sided”, “less”, or “greater” (default).
+#' @param alternative Alternative hypothesis for the confidence
+#'   interval. One of “two.sided”, “less”, or “greater” (default).
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @return A data frame with the effect size.
@@ -83,13 +83,13 @@ r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
     out <- cbind(out, effectsize::F_to_eta2(F_stat, sub_df_model, df_res, ci = ci, alternative = alternative)[,2:4])
   }
 
-  class(out) <- c("semipartial_r2", "effectsize_table", class(out))
+  class(out) <- c("r2_semipartial", "effectsize_table", class(out))
 
   out
 }
 
 #' @export
-print.semipartial_r2 <- function(x, ...) {
+print.r2_semipartial <- function(x, ...) {
   names(x)[2] <- "R2 (semi-partial)"
   print(insight::format_table(x))
 }
