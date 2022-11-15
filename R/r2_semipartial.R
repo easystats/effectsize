@@ -71,17 +71,25 @@ r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
   sub_r2 <- lapply(sub_mods, performance::r2)
   sub_r2 <- sapply(sub_r2, "[[", 1)
 
-  out$semipartial_r2 <- unname(tot_r2 - sub_r2)
+  out$r2_semipartial <- unname(tot_r2 - sub_r2)
 
   if (!is.null(ci)) {
     tot_df_model <- insight::get_df(model, type = "model")
     sub_df_model <- tot_df_model - sapply(sub_mods, insight::get_df, type = "model")
     df_res <- stats::df.residual(model)
 
-    F_stat <- (out$semipartial_r2 / (1 - out$semipartial_r2)) * (df_res / sub_df_model)
+    F_stat <- (out$r2_semipartial / (1 - out$r2_semipartial)) * (df_res / sub_df_model)
 
     out <- cbind(out, effectsize::F_to_eta2(F_stat, sub_df_model, df_res, ci = ci, alternative = alternative)[,2:4])
   }
 
+  class(out) <- c("semipartial_r2", "effectsize_table", class(out))
+
   out
+}
+
+#' @export
+print.semipartial_r2 <- function(x, ...) {
+  names(x)[2] <- "R2 (semi-partial)"
+  print(insight::format_table(x))
 }
