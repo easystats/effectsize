@@ -4,6 +4,7 @@
 
 - `means_ratio()` for computing ratios of two means for ratio-scales outcomes (thanks to @arcaldwell49!)
 - `r_to_d()` family of functions gain arguments for specifying group size ( #534 )
+- new effect size: `r2_semipartial`
 
 ## Bug fixes
 
@@ -56,7 +57,6 @@
     - `p_superiority()` now supports paired and one-sample cases.
     - `vd_a()` and `rb_to_vda()` for Vargha and Delaney's *A* dominance effect size (aliases for `p_superiority(parametric = FALSE)` and `rb_to_p_superiority()`).
     - `cohens_u1()`, `cohens_u2()`, `d_to_u1()`, and `d_to_u2()` added for Cohen's U1 and U2.
-    - new effect size: `semipartialR2`
 
 ## Bug fixes
 
