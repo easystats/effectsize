@@ -148,10 +148,12 @@ significance</em> rules) or custom set of <code><a href="rules.html">rules()</a>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">interpret_p</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.02</span>, <span class="fl">0.001</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "not significant" "significant"     "significant"    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Rules: default)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">interpret_p</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.02</span>, <span class="fl">0.001</span><span class="op">)</span>, rules <span class="op">=</span> <span class="st">"rss"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "not significant" "suggestive"      "significant"    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Rules: rss)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: rss)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

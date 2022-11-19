@@ -417,7 +417,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-in"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am_f</span> <span class="op">*</span> <span class="va">cyl_f</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">eta2</span> <span class="op">&lt;-</span> <span class="fu">eta_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Effect Size for ANOVA (Type I)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Eta2 (partial) |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------------</span>
@@ -425,11 +425,11 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      |           0.66 | [0.45, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f |           0.10 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># More types:</span></span></span>
 <span class="r-in"><span><span class="fu">eta_squared</span><span class="op">(</span><span class="va">model</span>, partial <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Effect Size for ANOVA (Type I)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Eta2 |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------</span>
@@ -437,9 +437,9 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      | 0.41 | [0.14, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f | 0.02 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"><span><span class="fu">eta_squared</span><span class="op">(</span><span class="va">model</span>, generalized <span class="op">=</span> <span class="st">"cyl_f"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Effect Size for ANOVA (Type I)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Eta2 (generalized) |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------</span>
@@ -447,10 +447,10 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      |               0.63 | [0.42, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f |               0.04 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Observed variables: cyl_f</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Observed variables: cyl_f</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"><span><span class="fu">omega_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Effect Size for ANOVA (Type I)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Omega2 (partial) |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------</span>
@@ -458,9 +458,9 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      |             0.60 | [0.37, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f |             0.02 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"><span><span class="fu">epsilon_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Effect Size for ANOVA (Type I)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Epsilon2 (partial) |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------</span>
@@ -468,9 +468,9 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      |               0.63 | [0.41, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f |               0.03 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"><span><span class="fu">cohens_f</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Effect Size for ANOVA (Type I)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Cohen's f (partial) |      95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------</span>
@@ -478,7 +478,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      |                1.38 | [0.90, Inf]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f |                0.33 | [0.00, Inf]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [Inf].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [Inf].</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">model0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am_f</span> <span class="op">+</span> <span class="va">cyl_f</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="co"># no interaction</span></span></span>
 <span class="r-in"><span><span class="fu">cohens_f_squared</span><span class="op">(</span><span class="va">model0</span>, model2 <span class="op">=</span> <span class="va">model</span><span class="op">)</span></span></span>
@@ -486,23 +486,26 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.11                 | [0.00, Inf] |     0.02</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [Inf].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [Inf].</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Interpretation of effect sizes</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="interpret_omega_squared.html">interpret_omega_squared</a></span><span class="op">(</span><span class="fl">0.10</span>, rules <span class="op">=</span> <span class="st">"field2013"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "medium"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Rules: field2013)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: field2013)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="interpret_omega_squared.html">interpret_eta_squared</a></span><span class="op">(</span><span class="fl">0.10</span>, rules <span class="op">=</span> <span class="st">"cohen1992"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "small"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Rules: cohen1992)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: cohen1992)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="interpret_omega_squared.html">interpret_epsilon_squared</a></span><span class="op">(</span><span class="fl">0.10</span>, rules <span class="op">=</span> <span class="st">"cohen1992"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "small"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Rules: cohen1992)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: cohen1992)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="interpret.html">interpret</a></span><span class="op">(</span><span class="va">eta2</span>, rules <span class="op">=</span> <span class="st">"cohen1992"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Effect Size for ANOVA (Type I)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Eta2 (partial) |       95% CI | Interpretation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------------</span>
@@ -510,8 +513,8 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      |           0.66 | [0.45, 1.00] |          large</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f |           0.10 | [0.00, 1.00] |          small</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Interpretation rule: cohen1992</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Interpretation rule: cohen1992</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># require("see") &amp;&amp; FALSE</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">eta2</span><span class="op">)</span> <span class="co"># Requires the {see} package</span></span></span>
@@ -529,7 +532,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   are mean-centered and factors are coded with orthogonal contrasts (such</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   as those produced by `contr.sum`, `contr.poly`, or `contr.helmert`, but</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   *not* by the default `contr.treatment`).</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Effect Size for ANOVA (Type III)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type III)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameter  | Epsilon2 (partial) |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------</span>
@@ -537,7 +540,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cyl_f      |               0.60 | [0.38, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> am_f:cyl_f |               0.03 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"><span><span class="co"># afex takes care of both type-3 effects and effects coding:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">obk.long</span>, package <span class="op">=</span> <span class="st">"afex"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_car</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span> <span class="op">+</span> <span class="fu">Error</span><span class="op">(</span><span class="va">id</span> <span class="op">/</span> <span class="op">(</span><span class="va">phase</span><span class="op">)</span><span class="op">)</span>,</span></span>
@@ -548,7 +551,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Contrasts set to contr.sum for the following variables: treatment, gender</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">omega_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Effect Size for ANOVA (Type III)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type III)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameter              | Omega2 (partial) |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------------------</span>
@@ -560,9 +563,9 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gender:phase           |             0.00 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> treatment:gender:phase |             0.00 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"><span><span class="fu">eta_squared</span><span class="op">(</span><span class="va">model</span>, generalized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># observed vars are pulled from the afex model.</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Effect Size for ANOVA (Type III)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type III)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameter              | Eta2 (generalized) |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------------</span>
@@ -574,8 +577,8 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gender:phase           |           4.25e-03 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> treatment:gender:phase |               0.02 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Observed variables: gender</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Observed variables: gender</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># require("lmerTest") &amp;&amp; require("lme4") &amp;&amp; FALSE</span></span></span>
 <span class="r-in"><span><span class="co">## Approx. effect sizes for mixed models</span></span></span>
 <span class="r-in"><span><span class="co">## -------------------------------------</span></span></span>

@@ -234,34 +234,44 @@ modeling. Guilford publications.</p></li>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">interpret_gfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Rules: default)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">interpret_agfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Rules: default)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">interpret_nfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Rules: byrne1994)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: byrne1994)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">interpret_nnfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Rules: byrne1994)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: byrne1994)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">interpret_cfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Rules: default)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">interpret_rmsea</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.07</span>, <span class="fl">.04</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Rules: default)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">interpret_srmr</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor" "poor"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Rules: default)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">interpret_rfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Rules: default)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">interpret_ifi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Rules: default)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">interpret_pnfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Rules: default)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># Structural Equation Models (SEM)</span></span></span>

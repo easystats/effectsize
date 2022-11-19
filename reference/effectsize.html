@@ -207,13 +207,13 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.23              | [0.18, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">Xsq</span>, type <span class="op">=</span> <span class="st">"cohens_w"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's w |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.34      | [0.27, 1.41]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.41~].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.41~].</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">Tt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span><span class="op">:</span><span class="fl">20</span><span class="op">)</span>, alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">Tt</span><span class="op">)</span></span></span>
@@ -222,8 +222,8 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -2.19     | [-Inf, -1.32]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Estimated using un-pooled SD.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: lower bound fixed at [-Inf].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Estimated using un-pooled SD.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: lower bound fixed at [-Inf].</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">Aov</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/oneway.test.html" class="external-link">oneway.test</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">sleep</span>, var.equal <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">Aov</span><span class="op">)</span></span></span>
@@ -231,13 +231,13 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.16 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">Aov</span>, type <span class="op">=</span> <span class="st">"omega"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Omega2 |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.11   | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">Wt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">wilcox.test</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">7</span><span class="op">:</span><span class="fl">20</span>, mu <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot compute exact p-value with ties</span>
@@ -247,21 +247,21 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -0.65             | [-1.00, -0.36]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Deviation from a difference of -3.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: lower bound fixed at [-1.00].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Deviation from a difference of -3.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: lower bound fixed at [-1.00].</span></span>
 <span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">Wt</span>, type <span class="op">=</span> <span class="st">"u2"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Missing values detected. NAs dropped.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's U2 |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.73       | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Non-parametric CLES</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Non-parametric CLES</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Models and Anova Tables</span></span></span>
 <span class="r-in"><span><span class="co">## -----------------------</span></span></span>
 <span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op">*</span> <span class="va">wt</span> <span class="op">+</span> <span class="va">hp</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Standardization method: refit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Standardization method: refit</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameter                        | Std. Coef. |         95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------------------------</span>
@@ -275,7 +275,7 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">anova_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">anova_table</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Effect Size for ANOVA (Type I)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameter      | Eta2 (partial) |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------</span>
@@ -284,9 +284,9 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> hp             |           0.14 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> factor(cyl):wt |           0.16 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">anova_table</span>, type <span class="op">=</span> <span class="st">"epsilon"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Effect Size for ANOVA (Type I)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameter      | Epsilon2 (partial) |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------------</span>
@@ -295,7 +295,7 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> hp             |               0.11 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> factor(cyl):wt |               0.09 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: upper bound fixed at [1.00].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Bayesian Hypothesis Testing</span></span></span>
 <span class="r-in"><span><span class="co">## ---------------------------</span></span></span>
@@ -304,13 +304,13 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">bf_prop</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> p     |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.356 | [0.15, 0.65]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.358 | [0.15, 0.64]</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">bf_corr</span> <span class="op">&lt;-</span> <span class="fu">BayesFactor</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/correlationBF.html" class="external-link">correlationBF</a></span><span class="op">(</span><span class="va">attitude</span><span class="op">$</span><span class="va">rating</span>, <span class="va">attitude</span><span class="op">$</span><span class="va">complaints</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">bf_corr</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rho  |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.76 | [0.56, 0.87]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.76 | [0.46, 0.87]</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">RCT_table</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">bf_xtab</span> <span class="op">&lt;-</span> <span class="fu">BayesFactor</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/contingencyTableBF.html" class="external-link">contingencyTableBF</a></span><span class="op">(</span><span class="va">RCT_table</span>, sampleType <span class="op">=</span> <span class="st">"poisson"</span>, fixedMargin <span class="op">=</span> <span class="st">"cols"</span><span class="op">)</span></span></span>
@@ -321,7 +321,7 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">bf_xtab</span>, type <span class="op">=</span> <span class="st">"oddsratio"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Odds ratio |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4.65       | [2.75, 8.01]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4.67       | [2.77, 8.12]</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">bf_ttest</span> <span class="op">&lt;-</span> <span class="fu">BayesFactor</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html" class="external-link">ttestBF</a></span><span class="op">(</span><span class="va">sleep</span><span class="op">$</span><span class="va">extra</span><span class="op">[</span><span class="va">sleep</span><span class="op">$</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>  <span class="va">sleep</span><span class="op">$</span><span class="va">extra</span><span class="op">[</span><span class="va">sleep</span><span class="op">$</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span>,</span></span>
@@ -330,10 +330,10 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">bf_ttest</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's d |        95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.33     | [-1.01, 0.32]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.32     | [-0.99, 0.33]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Deviation from a difference of -1.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Estimated using pooled SD.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Deviation from a difference of -1.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Estimated using pooled SD.</span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

@@ -323,7 +323,7 @@ Correcting error and bias in research findings. Sage.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -1.48     | [-2.27, -0.67]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Estimated using pooled SD.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Estimated using pooled SD.</span></span>
 <span class="r-in"><span><span class="co"># Same as:</span></span></span>
 <span class="r-in"><span><span class="co"># cohens_d("mpg", "am", data = mtcars)</span></span></span>
 <span class="r-in"><span><span class="co"># cohens_d(mtcars$mpg[mtcars$am=="0"], mtcars$mpg[mtcars$am=="1"])</span></span></span>
@@ -334,27 +334,27 @@ Correcting error and bias in research findings. Sage.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -1.41     | [-2.26, -0.53]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Estimated using un-pooled SD.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Estimated using un-pooled SD.</span></span>
 <span class="r-in"><span><span class="fu">cohens_d</span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span>, mu <span class="op">=</span> <span class="op">-</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's d |        95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -0.46     | [-1.17, 0.26]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Deviation from a difference of -5.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Estimated using pooled SD.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Deviation from a difference of -5.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Estimated using pooled SD.</span></span>
 <span class="r-in"><span><span class="fu">cohens_d</span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span>, alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's d |        95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -1.48     | [-Inf, -0.80]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Estimated using pooled SD.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - One-sided CIs: lower bound fixed at [-Inf].</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Estimated using pooled SD.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: lower bound fixed at [-Inf].</span></span>
 <span class="r-in"><span><span class="fu">hedges_g</span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hedges' g |         95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -1.44     | [-2.21, -0.65]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Estimated using pooled SD.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Estimated using pooled SD.</span></span>
 <span class="r-in"><span><span class="fu">glass_delta</span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Glass' delta |         95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------</span>
@@ -378,13 +378,13 @@ Correcting error and bias in research findings. Sage.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.22      | [-0.13, 0.57]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Deviation from a difference of 3.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Deviation from a difference of 3.</span></span>
 <span class="r-in"><span><span class="fu">hedges_g</span><span class="op">(</span><span class="va">wt</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">mtcars</span>, mu <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hedges' g |        95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.22      | [-0.13, 0.56]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Deviation from a difference of 3.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Deviation from a difference of 3.</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Paired Samples ----------</span></span></span>
@@ -405,7 +405,7 @@ Correcting error and bias in research findings. Sage.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -0.47     | [-1.12, 0.20]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Deviation from a difference of -1.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Deviation from a difference of -1.</span></span>
 <span class="r-in"><span><span class="fu">hedges_g</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">sleep</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hedges' g |         95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------</span>
@@ -415,21 +415,24 @@ Correcting error and bias in research findings. Sage.</p></li>
 <span class="r-in"><span><span class="co"># Interpretation -----------------------</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.48</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "large"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Rules: cohen1988)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: cohen1988)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="interpret_cohens_d.html">interpret_hedges_g</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.48</span>, rules <span class="op">=</span> <span class="st">"sawilowsky2009"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "very large"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Rules: sawilowsky2009)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: sawilowsky2009)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="interpret_cohens_d.html">interpret_glass_delta</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.48</span>, rules <span class="op">=</span> <span class="st">"gignac2016"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "large"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Rules: gignac2016)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: gignac2016)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># Or:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="interpret.html">interpret</a></span><span class="op">(</span><span class="va">d</span>, rules <span class="op">=</span> <span class="st">"sawilowsky2009"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's d |         95% CI | Interpretation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -1.48     | [-2.27, -0.67] |     very large</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Estimated using pooled SD.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Interpretation rule: sawilowsky2009</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Estimated using pooled SD.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Interpretation rule: sawilowsky2009</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Common Language Effect Sizes</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="diff_to_cles.html">d_to_u3</a></span><span class="op">(</span><span class="fl">1.48</span><span class="op">)</span></span></span>
@@ -440,7 +443,7 @@ Correcting error and bias in research findings. Sage.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -1.48     | [-2.27, -0.67]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Estimated using pooled SD.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Estimated using pooled SD.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ## Common Language Effect Sizes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Name            | CLES |       95% CI</span>
