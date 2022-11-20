@@ -59,20 +59,20 @@
 #' t_to_r(t = res$statistic, res$parameter)
 #' t_to_r(t = res$statistic, res$parameter, alternative = "greater")
 #'
-#' \donttest{
+#' @examplesIf require(correlation)
 #' ## Linear Regression
 #' model <- lm(rating ~ complaints + critical, data = attitude)
 #' (param_tab <- parameters::model_parameters(model))
 #'
 #' (rs <- t_to_r(param_tab$t[2:3], param_tab$df_error[2:3]))
 #'
-#' if (require(see)) plot(rs)
-#'
 #' # How does this compare to actual partial correlations?
-#' if (require("correlation")) {
-#'   correlation::correlation(attitude[, c(1, 2, 6)], partial = TRUE)[1:2, c(2, 3, 7, 8)]
-#' }
-#' }
+#' correlation::correlation(attitude,
+#'   select = "rating",
+#'   select2 = c("complaints", "critical"),
+#'   partial = TRUE
+#' )
+#'
 #'
 #' @references
 #' - Friedman, H. (1982). Simplified determinations of statistical power,

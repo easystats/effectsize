@@ -194,7 +194,11 @@ t_to_r(
 to:
 
 ```{r, eval=require(correlation, quietly = TRUE)}
-correlation::correlation(attitude[, c(1, 2, 6)], partial = TRUE)[1:2, c(2, 3, 7, 8)]
+correlation::correlation(attitude,
+ select = "rating",
+ select2 = c("complaints", "critical"),
+ partial = TRUE
+)
 ```
 
 ### In Contrast Analysis
