@@ -375,8 +375,7 @@ wmw_odds <- function(x, y = NULL, data = NULL,
   colnames(out)[1] <- "Cohens_U2"
 
   if ("CI" %in% colnames(out)) {
-    if (alternative == "less") out$CI_low <- 0
-    if (alternative == "greater") out$CI_high <- 1
+    out <- .limit_ci(out, alternative, 0, 1)
   }
 
   out
@@ -395,8 +394,7 @@ wmw_odds <- function(x, y = NULL, data = NULL,
   colnames(out)[1] <- "Cohens_U3"
 
   if ("CI" %in% colnames(out)) {
-    if (alternative == "less") out$CI_low <- 0
-    if (alternative == "greater") out$CI_high <- 1
+    out <- .limit_ci(out, alternative, 0, 1)
   }
 
   out
@@ -415,8 +413,7 @@ wmw_odds <- function(x, y = NULL, data = NULL,
   colnames(out)[1] <- "Overlap"
 
   if ("CI" %in% colnames(out)) {
-    if (alternative == "less") out$CI_low <- 0
-    if (alternative == "greater") out$CI_high <- 1
+    out <- .limit_ci(out, alternative, 0, 1)
   }
 
   out
@@ -442,29 +439,25 @@ wmw_odds <- function(x, y = NULL, data = NULL,
 
     out <- data.frame(ES = est(d))
 
-    ci_method <- NULL
-    if (is.numeric(ci)) {
-      if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
-        stopifnot(length(ci) == 1, ci < 1, ci > 0)
+    if (.test_ci(ci) &&
+      insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
+      ci.level <- .adjust_ci(ci, alternative)
 
-        ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+      out$CI <- ci
 
-        out$CI <- ci
+      R <- boot::boot(
+        data = d,
+        statistic = est,
+        R = iterations
+      )
 
-        R <- boot::boot(
-          data = d,
-          statistic = est,
-          R = iterations
-        )
-
-        bCI <- boot::boot.ci(R, conf = ci, type = "perc")[["percent"]]
-        bCI <- utils::tail(as.vector(bCI), 2)
-        out$CI_low <- bCI[1]
-        out$CI_high <- bCI[2]
-        ci_method <- list(method = "percentile bootstrap", iterations = iterations)
-      } else {
-        alternative <- NULL
-      }
+      bCI <- boot::boot.ci(R, conf = ci, type = "perc")[["percent"]]
+      bCI <- utils::tail(as.vector(bCI), 2)
+      out$CI_low <- bCI[1]
+      out$CI_high <- bCI[2]
+      ci_method <- list(method = "percentile bootstrap", iterations = iterations)
+    } else {
+      ci_method <- alternative <- ci <- NULL
     }
 
     class(out) <- c("effectsize_table", class(out))

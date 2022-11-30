@@ -53,7 +53,7 @@
 #' @export
 #' @importFrom stats chisq.test qnorm
 oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- .match.alt(alternative)
 
   if (.is_htest_of_type(x, "(Pearson's Chi-squared|Fisher's Exact)", "Chi-squared-test or Fisher's Exact test")) {
     return(effectsize(x, type = "or", log = log, ci = ci, alternative = alternative))
@@ -77,11 +77,9 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
 
   res <- data.frame(Odds_ratio = OR)
 
-  ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     res$CI <- ci
-    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+    ci.level <- .adjust_ci(ci, alternative)
 
     alpha <- 1 - ci.level
 
@@ -93,13 +91,9 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
     res$CI_high <- confs[2]
 
     ci_method <- list(method = "normal")
-    if (alternative == "less") {
-      res$CI_low <- 0
-    } else if (alternative == "greater") {
-      res$CI_high <- Inf
-    }
+    res <- .limit_ci(res, alternative, 0, Inf)
   } else {
-    alternative <- NULL
+    ci_method <- alternative <- NULL
   }
 
   if (log) {
@@ -120,7 +114,7 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
 #' @export
 #' @importFrom stats chisq.test qnorm
 riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- .match.alt(alternative)
 
   if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
     return(effectsize(x, type = "rr", log = log, ci = ci, alternative = alternative))
@@ -147,11 +141,9 @@ riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
 
   res <- data.frame(Risk_ratio = RR)
 
-  ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     res$CI <- ci
-    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+    ci.level <- .adjust_ci(ci, alternative)
 
     alpha <- 1 - ci.level
 
@@ -163,13 +155,9 @@ riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
     res$CI_high <- confs[2]
 
     ci_method <- list(method = "normal")
-    if (alternative == "less") {
-      res$CI_low <- 0
-    } else if (alternative == "greater") {
-      res$CI_high <- Inf
-    }
+    res <- .limit_ci(res, alternative, 0, Inf)
   } else {
-    alternative <- NULL
+    ci_method <- alternative <- NULL
   }
 
   if (log) {
@@ -190,7 +178,7 @@ riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
 #' @export
 #' @importFrom stats qnorm
 cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- .match.alt(alternative)
 
   if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
     return(effectsize(x, type = "cohens_h", ci = ci, alternative = alternative))
@@ -217,11 +205,9 @@ cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
 
   out <- data.frame(Cohens_h = H)
 
-  ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     out$CI <- ci
-    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+    ci.level <- .adjust_ci(ci, alternative)
 
     alpha <- 1 - ci.level
 
@@ -231,13 +217,9 @@ cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
     out$CI_high <- H + Zc * (2 * se_arcsin)
 
     ci_method <- list(method = "normal")
-    if (alternative == "less") {
-      out$CI_low <- -pi
-    } else if (alternative == "greater") {
-      out$CI_high <- pi
-    }
+    out <- .limit_ci(out, alternative, -pi, pi)
   } else {
-    alternative <- NULL
+    ci_method <- alternative <- NULL
   }
 
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))

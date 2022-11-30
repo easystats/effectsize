@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size
-Version: 0.8.2
+Version: 0.8.2.00003
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
@@ -43,7 +43,12 @@ Authors@R:
              family = "Karreth",
              role = "rev",
              email = "jkarreth@ursinus.edu",
-             comment = c(ORCID = "0000-0003-4586-7153")))
+             comment = c(ORCID = "0000-0003-4586-7153")),
+      person(given = "Aaron",
+             family = "Caldwell",
+             role = "ctb",
+             email = "arcaldwell49@gmail.com",
+             comment = c(ORCID = "0000-0002-4541-6283")))
 Maintainer: Mattan S. Ben-Shachar <mattansb@msbstats.info>
 Description: Provide utilities to work with indices of effect size for a wide 
     variety of models and hypothesis tests (see list of supported models using 

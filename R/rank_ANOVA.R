@@ -89,7 +89,7 @@ rank_epsilon_squared <- function(x, groups, data = NULL,
                                  ci = 0.95, alternative = "greater",
                                  iterations = 200,
                                  verbose = TRUE, ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+  alternative <- .match.alt(alternative)
 
   if (.is_htest_of_type(x, "Kruskal-Wallis", "Kruskal-Wallis-test")) {
     return(effectsize(x, type = "epsilon", ci = ci, iterations = iterations, alternative = alternative))
@@ -105,21 +105,14 @@ rank_epsilon_squared <- function(x, groups, data = NULL,
   out <- data.frame(rank_epsilon_squared = .repsilon(data))
 
   ## CI
-  if (is.numeric(ci)) {
-    if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
-      out <- cbind(out, .boot_two_group_es(
-        data, .repsilon, iterations,
-        ci, alternative, c(0, 1)
-      ))
-      ci_method <- list(method = "percentile bootstrap", iterations = iterations)
-    } else {
-      ci <- NULL
-    }
-  }
-
-  if (!is.numeric(ci)) {
-    alternative <- NULL
-    ci_method <- NULL
+  if (.test_ci(ci) && insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
+    out <- cbind(out, .boot_two_group_es(
+      data, .repsilon, iterations,
+      ci, alternative
+    ))
+    ci_method <- list(method = "percentile bootstrap", iterations = iterations)
+  } else {
+    ci_method <- alternative <- ci <- NULL
   }
 
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
@@ -137,7 +130,7 @@ rank_eta_squared <- function(x, groups, data = NULL,
                              ci = 0.95, alternative = "greater",
                              iterations = 200,
                              verbose = TRUE, ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+  alternative <- .match.alt(alternative)
 
   if (.is_htest_of_type(x, "Kruskal-Wallis", "Kruskal-Wallis-test")) {
     return(effectsize(x, type = "eta", ci = ci, iterations = iterations, alternative = alternative))
@@ -152,21 +145,14 @@ rank_eta_squared <- function(x, groups, data = NULL,
   out <- data.frame(rank_eta_squared = .reta(data))
 
   ## CI
-  if (is.numeric(ci)) {
-    if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
-      out <- cbind(out, .boot_two_group_es(
-        data, .reta, iterations,
-        ci, alternative, c(0, 1)
-      ))
-      ci_method <- list(method = "percentile bootstrap", iterations = iterations)
-    } else {
-      ci <- NULL
-    }
-  }
-
-  if (!is.numeric(ci)) {
-    alternative <- NULL
-    ci_method <- NULL
+  if (.test_ci(ci) && insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
+    out <- cbind(out, .boot_two_group_es(
+      data, .reta, iterations,
+      ci, alternative
+    ))
+    ci_method <- list(method = "percentile bootstrap", iterations = iterations)
+  } else {
+    ci_method <- alternative <- ci <- NULL
   }
 
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
@@ -191,7 +177,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
                        ci = 0.95, alternative = "greater",
                        iterations = 200,
                        verbose = TRUE, ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+  alternative <- .match.alt(alternative)
 
   if (.is_htest_of_type(x, "Friedman", "Friedman-test")) {
     return(effectsize(x, ci = ci, iterations = iterations, verbose = verbose, alternative = alternative))
@@ -210,18 +196,11 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
   out <- data.frame(Kendalls_W = W)
 
   ## CI
-  if (is.numeric(ci)) {
-    if (insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
-      out <- cbind(out, .kendalls_w_ci(data, ci, alternative, iterations))
-      ci_method <- list(method = "percentile bootstrap", iterations = iterations)
-    } else {
-      ci <- NULL
-    }
-  }
-
-  if (!is.numeric(ci)) {
-    alternative <- NULL
-    ci_method <- NULL
+  if (.test_ci(ci) && insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
+    out <- cbind(out, .kendalls_w_ci(data, ci, alternative, iterations))
+    ci_method <- list(method = "percentile bootstrap", iterations = iterations)
+  } else {
+    ci_method <- alternative <- ci <- NULL
   }
 
   class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
@@ -304,8 +283,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
 #' @keywords internal
 .boot_two_group_es <- function(data, foo_es, iterations,
                                ci, alternative, lim) {
-  stopifnot(length(ci) == 1, ci < 1, ci > 0)
-  ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+  ci.level <- .adjust_ci(ci, alternative)
 
   boot_fun <- function(.data, .i) {
     split(.data$x, .data$groups) <-
@@ -325,18 +303,18 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
   bCI <- boot::boot.ci(R, conf = ci.level, type = "perc")$percent
   bCI <- tail(as.vector(bCI), 2)
 
-  data.frame(
+  out <- data.frame(
     CI = ci,
-    CI_low = if (alternative == "less") lim[1] else bCI[1],
-    CI_high = if (alternative == "greater") lim[2] else bCI[2]
+    CI_low = bCI[1],
+    CI_high = bCI[2]
   )
+  .limit_ci(out, alternative, 0, 1)
 }
 
 #' @importFrom utils tail
 #' @keywords internal
 .kendalls_w_ci <- function(data, ci, alternative, iterations) {
-  stopifnot(length(ci) == 1, ci < 1, ci > 0)
-  ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+  ci.level <- .adjust_ci(ci, alternative)
 
   boot_w <- function(.data, .i) {
     .kendalls_w(.data[.i, ], verbose = FALSE) # sample rows
@@ -351,9 +329,10 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
   bCI <- boot::boot.ci(R, conf = ci.level, type = "perc")$percent
   bCI <- tail(as.vector(bCI), 2)
 
-  data.frame(
+  out <- data.frame(
     CI = ci,
-    CI_low = if (alternative == "less") 0 else bCI[1],
-    CI_high = if (alternative == "greater") 1 else bCI[2]
+    CI_low = bCI[1],
+    CI_high = bCI[2]
   )
+  .limit_ci(out, alternative, 0, 1)
 }

@@ -46,7 +46,7 @@ Odds of 13:4 can be expressed as $(13/4):(4/4)=3.25:1$, which we can convert:
 ```{r}
 library(effectsize)
 
-odds_to_probs(13/4)
+odds_to_probs(13 / 4)
 
 # or
 odds_to_probs(3.25)

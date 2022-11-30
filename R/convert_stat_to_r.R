@@ -59,20 +59,20 @@
 #' t_to_r(t = res$statistic, res$parameter)
 #' t_to_r(t = res$statistic, res$parameter, alternative = "greater")
 #'
-#' \donttest{
+#' @examplesIf require(correlation)
 #' ## Linear Regression
 #' model <- lm(rating ~ complaints + critical, data = attitude)
 #' (param_tab <- parameters::model_parameters(model))
 #'
 #' (rs <- t_to_r(param_tab$t[2:3], param_tab$df_error[2:3]))
 #'
-#' if (require(see)) plot(rs)
-#'
 #' # How does this compare to actual partial correlations?
-#' if (require("correlation")) {
-#'   correlation::correlation(attitude[, c(1, 2, 6)], partial = TRUE)[1:2, c(2, 3, 7, 8)]
-#' }
-#' }
+#' correlation::correlation(attitude,
+#'   select = "rating",
+#'   select2 = c("complaints", "critical"),
+#'   partial = TRUE
+#' )
+#'
 #'
 #' @references
 #' - Friedman, H. (1982). Simplified determinations of statistical power,
@@ -98,15 +98,13 @@
 t_to_r <- function(t, df_error,
                    ci = 0.95, alternative = "two.sided",
                    ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- .match.alt(alternative)
 
   res <- data.frame(r = t / sqrt(t^2 + df_error))
 
-  ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     res$CI <- ci
-    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+    ci.level <- .adjust_ci(ci, alternative)
 
     ts <- t(mapply(
       .get_ncp_t,
@@ -117,13 +115,9 @@ t_to_r <- function(t, df_error,
     res$CI_high <- ts[, 2] / sqrt(ts[, 2]^2 + df_error)
 
     ci_method <- list(method = "ncp", distribution = "t")
-    if (alternative == "less") {
-      res$CI_low <- -1
-    } else if (alternative == "greater") {
-      res$CI_high <- 1
-    }
+    res <- .limit_ci(res, alternative, -1, 1)
   } else {
-    alternative <- NULL
+    ci_method <- alternative <- NULL
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
@@ -143,15 +137,13 @@ t_to_r <- function(t, df_error,
 z_to_r <- function(z, n,
                    ci = 0.95, alternative = "two.sided",
                    ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- .match.alt(alternative)
 
   res <- data.frame(r = z / sqrt(z^2 + n))
 
-  ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     res$CI <- ci
-    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+    ci.level <- .adjust_ci(ci, alternative)
 
     alpha <- 1 - ci.level
     probs <- c(alpha / 2, 1 - alpha / 2)
@@ -163,13 +155,9 @@ z_to_r <- function(z, n,
     res$CI_high <- zs[, 2] / sqrt(zs[, 2]^2 + n)
 
     ci_method <- list(method = "normal")
-    if (alternative == "less") {
-      res$CI_low <- -1
-    } else if (alternative == "greater") {
-      res$CI_high <- 1
-    }
+    res <- .limit_ci(res, alternative, -1, 1)
   } else {
-    alternative <- NULL
+    ci_method <- alternative <- NULL
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))

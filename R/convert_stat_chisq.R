@@ -302,8 +302,8 @@ chisq_to_pearsons_c <- function(chisq, n, nrow, ncol,
   res[to_convert] <- lapply(res[to_convert], function(phi) sqrt(1 / (1 / phi^2 + 1)))
   colnames(res)[1] <- "Pearsons_c"
 
-  if ("CI" %in% colnames(res) && alternative == "greater") {
-    res$CI_high <- 1
+  if ("CI" %in% colnames(res)) {
+    res <- .limit_ci(res, alternative, 0, 1)
   }
 
   return(res)
@@ -326,9 +326,9 @@ phi_to_chisq <- function(phi, n, ...) {
 .chisq_to_generic_phi <- function(chisq, den, nrow, ncol,
                                   ci = NULL, alternative = "greater",
                                   ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+  alternative <- .match.alt(alternative)
 
-  if (is.numeric(ci)) {
+  if (ci_numeric <- .test_ci(ci)) {
     is_goodness <- ncol == 1 || nrow == 1
 
     if (is_goodness) {
@@ -340,10 +340,9 @@ phi_to_chisq <- function(phi, n, ...) {
 
   res <- data.frame(phi = sqrt(chisq / den))
 
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (ci_numeric) {
     res$CI <- ci
-    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+    ci.level <- .adjust_ci(ci, alternative)
 
     chisqs <- t(mapply(
       .get_ncp_chi,
@@ -354,14 +353,9 @@ phi_to_chisq <- function(phi, n, ...) {
     res$CI_high <- .chisq_to_generic_phi(chisqs[, 2], den, nrow, ncol)[[1]]
 
     ci_method <- list(method = "ncp", distribution = "chisq")
-    if (alternative == "less") {
-      res$CI_low <- 0
-    } else if (alternative == "greater") {
-      res$CI_high <- 1
-    }
+    res <- .limit_ci(res, alternative, 0, 1)
   } else {
-    ci_method <- NULL
-    alternative <- NULL
+    ci_method <- alternative <- NULL
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))

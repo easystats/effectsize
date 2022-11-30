@@ -114,7 +114,7 @@ rank_biserial <- function(x, y = NULL, data = NULL,
                           mu = 0, paired = FALSE,
                           ci = 0.95, alternative = "two.sided",
                           verbose = TRUE, ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+  alternative <- .match.alt(alternative)
 
   if (.is_htest_of_type(x, "Wilcoxon", "Wilcoxon-test")) {
     return(effectsize(x, verbose = verbose, type = "rb"))
@@ -130,7 +130,7 @@ rank_biserial <- function(x, y = NULL, data = NULL,
   y <- out$y
 
   if (is.null(y)) {
-    y <- rep(0, length.out = length(x))
+    y <- 0
     paired <- TRUE
   }
 
@@ -139,11 +139,9 @@ rank_biserial <- function(x, y = NULL, data = NULL,
   out <- data.frame(r_rank_biserial = r_rbs)
 
   ## CI
-  ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     out$CI <- ci
-    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+    ci.level <- .adjust_ci(ci, alternative)
 
     alpha <- 1 - ci.level
 
@@ -180,13 +178,9 @@ rank_biserial <- function(x, y = NULL, data = NULL,
     out$CI_low <- confint[1]
     out$CI_high <- confint[2]
     ci_method <- list(method = "normal")
-    if (alternative == "less") {
-      out$CI_low <- -1
-    } else if (alternative == "greater") {
-      out$CI_high <- 1
-    }
+    out <- .limit_ci(out, alternative, -1, 1)
   } else {
-    alternative <- NULL
+    ci_method <- alternative <- NULL
   }
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
@@ -241,7 +235,7 @@ cliffs_delta <- function(x, y = NULL, data = NULL,
   } else {
     Ry <- .safe_ranktransform(c(x - mu, y), verbose = verbose)
 
-    n1 <- length(x)
+    n1 <- as.double(length(x)) # see https://github.com/easystats/effectsize/issues/476
     n2 <- length(y)
     S <- (n1 * n2)
 

@@ -203,7 +203,7 @@ eta_squared <- function(model,
                         partial = TRUE, generalized = FALSE,
                         ci = 0.95, alternative = "greater",
                         verbose = TRUE, ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+  alternative <- .match.alt(alternative)
   out <- .anova_es(
     model,
     type = "eta",
@@ -225,7 +225,7 @@ omega_squared <- function(model,
                           partial = TRUE,
                           ci = 0.95, alternative = "greater",
                           verbose = TRUE, ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+  alternative <- .match.alt(alternative)
   out <- .anova_es(model, type = "omega", partial = partial, ci = ci, alternative = alternative, verbose = verbose, ...)
   class(out) <- unique(c("effectsize_anova", "effectsize_table", "see_effectsize_table", class(out)))
   if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
@@ -239,7 +239,7 @@ epsilon_squared <- function(model,
                             partial = TRUE,
                             ci = 0.95, alternative = "greater",
                             verbose = TRUE, ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+  alternative <- .match.alt(alternative)
   out <- .anova_es(model, type = "epsilon", partial = partial, ci = ci, alternative = alternative, verbose = verbose, ...)
   class(out) <- unique(c("effectsize_anova", "effectsize_table", "see_effectsize_table", class(out)))
   if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
@@ -256,7 +256,7 @@ cohens_f <- function(model,
                      partial = TRUE, squared = FALSE, model2 = NULL,
                      ci = 0.95, alternative = "greater",
                      verbose = TRUE, ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+  alternative <- .match.alt(alternative)
   if (!is.null(model2)) {
     return(.cohens_f_delta(model, model2,
       squared = squared,
@@ -280,7 +280,7 @@ cohens_f <- function(model,
     colnames(res)[colnames(res) == "Eta2"] <- "Cohens_f2"
   }
 
-  if (is.numeric(ci)) {
+  if (!is.null(ci)) {
     res$CI_low <- res$CI_low / (1 - res$CI_low)
     res$CI_high <- res$CI_high / (1 - res$CI_high)
   }
@@ -459,7 +459,7 @@ cohens_f_squared <- function(model,
   out <- aov_table
 
   # Add CIs ---
-  if (is.numeric(ci)) {
+  if (!is.null(ci)) {
     # based on MBESS::ci.R2
     ES <- pmax(0, out[[ncol(out)]])
     f <- (ES / out$df) / ((1 - ES) / df_error)
