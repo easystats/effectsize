@@ -14,7 +14,7 @@
 #' This is similar to the last column of the "Conditional Dominance Statistics"
 #' section of the [parameters::dominance_analysis()] output. For each term, the
 #' model is refit *without* the columns on the [model
-#' matrix][stats::model.matrix] the correspond to that term. The \eqn{R^2} of
+#' matrix][stats::model.matrix] that corresponds to that term. The \eqn{R^2} of
 #' this *sub*-model is then subtracted from the \eqn{R^2} of the *full* model to
 #' yield the \eqn{\Delta R^2}. (For `type = "parameters"`, this is done for each
 #' column in the model matrix.)
@@ -25,8 +25,6 @@
 #'
 #' For other, non-`lm()` models, as well as more verbose information and
 #' options, please see the documentation for [parameters::dominance_analysis()].
-#'
-#' Note that unlike
 #'
 #' # Confidence (Compatibility) Intervals (CIs)
 #' Confidence intervals are based on the normal approximation as provided by
