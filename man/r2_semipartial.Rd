@@ -2,7 +2,7 @@
 % Please edit documentation in R/r2_semipartial.R
 \name{r2_semipartial}
 \alias{r2_semipartial}
-\title{Semi-Partial Correlation Squared (aka Delta R2)}
+\title{Semi-Partial Squared Correlation (\eqn{\Delta R^2})}
 \usage{
 r2_semipartial(
   model,
@@ -15,12 +15,15 @@ r2_semipartial(
 \arguments{
 \item{model}{An \code{lm} model.}
 
-\item{type}{Type, either "term", or "parameters".}
+\item{type}{Type, either \code{"terms"}, or \code{"parameters"}.}
 
-\item{ci}{Confidence interval, defaults to 95\%.}
+\item{ci}{Confidence Interval (CI) level}
 
-\item{alternative}{Alternative hypothesis for the confidence
-interval. One of “two.sided”, “less”, or “greater” (default).}
+\item{alternative}{a character string specifying the alternative hypothesis;
+Controls the type of CI returned: \code{"greater"} (default) or \code{"less"}
+(one-sided CI), or \code{"two.sided"} (default, two-sided CI). Partial matching
+is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in
+\link{effectsize_CIs}.}
 
 \item{...}{Arguments passed to or from other methods.}
 }
@@ -28,17 +31,68 @@ interval. One of “two.sided”, “less”, or “greater” (default).}
 A data frame with the effect size.
 }
 \description{
-Compute the semi-partial correlation squared (also known as the delta
-R2), for an \code{lm} model.
+Compute the semi-partial squared correlation (also known as \eqn{\Delta
+R^2}). Currently, only \code{lm()} models are supported.
 }
 \details{
-This is similar to the last column of the "Conditional Dominance
-Statistics" section of the \code{\link[parameters:dominance_analysis]{parameters::dominance_analysis()}} output.
-For other, non-lm models, as well as more verbose info / options,
-please see the documentation for \code{\link[parameters:dominance_analysis]{parameters::dominance_analysis()}}.
+This is similar to the last column of the "Conditional Dominance Statistics"
+section of the \code{\link[parameters:dominance_analysis]{parameters::dominance_analysis()}} output. For each term, the
+model is refit \emph{without} the columns on the \link[stats:model.matrix]{model matrix} the correspond to that term. The \eqn{R^2} of
+this \emph{sub}-model is then subtracted from the \eqn{R^2} of the \emph{full} model to
+yield the \eqn{\Delta R^2}. (For \code{type = "parameters"}, this is done for each
+column in the model matrix.)
+
+\strong{Note} that this is unlike \code{\link[parameters:dominance_analysis]{parameters::dominance_analysis()}}, where term
+deletion is done via the formula interface, and therefore may lead to
+different results.
+
+For other, non-\code{lm()} models, as well as more verbose information and
+options, please see the documentation for \code{\link[parameters:dominance_analysis]{parameters::dominance_analysis()}}.
+
+Note that unlike
 }
+\section{Confidence (Compatibility) Intervals (CIs)}{
+Confidence intervals are based on the normal approximation as provided by
+Alf and Graf (1999).
+}
+
+\section{CIs and Significance Tests}{
+"Confidence intervals on measures of effect size convey all the information
+in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
+intervals and p values are complementary summaries of parameter uncertainty
+given the observed data. A dichotomous hypothesis test could be performed
+with either a CI or a p value. The 100 (1 - \eqn{\alpha})\% confidence
+interval contains all of the parameter values for which \emph{p} > \eqn{\alpha}
+for the current data and model. For example, a 95\% confidence interval
+contains all of the values for which p > .05.
+\cr\cr
+Note that a confidence interval including 0 \emph{does not} indicate that the null
+(no effect) is true. Rather, it suggests that the observed data together with
+the model and its assumptions combined do not provided clear evidence against
+a parameter value of 0 (same as with any other value in the interval), with
+the level of this evidence defined by the chosen \eqn{\alpha} level (Rafi &
+Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To infer no
+effect, additional judgments about what parameter values are "close enough"
+to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
+1996).
+}
+
 \examples{
-m <- lm(mpg ~ factor(cyl) + disp + hp * drat, data = mtcars)
+data("hardlyworking")
+
+m <- lm(salary ~ factor(n_comps) + xtra_hours * seniority, data = hardlyworking)
+
 r2_semipartial(m)
+
+r2_semipartial(m, type = "parameters")
+
 }
-\concept{effect size correlation}
+\references{
+Alf Jr, E. F., & Graf, R. G. (1999). Asymptotic confidence limits for the
+difference between two squared multiple correlations: A simplified approach.
+Psychological Methods, 4(1), 70. \doi{10.1037/1082-989X.4.1.70}
+}
+\seealso{
+\code{\link[=eta_squared]{eta_squared()}}, \code{\link[parameters:dominance_analysis]{parameters::dominance_analysis()}} and
+\code{\link[parameters:standardize_parameters]{parameters::standardise_parameters()}}.
+}

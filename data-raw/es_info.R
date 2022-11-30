@@ -60,6 +60,7 @@ es_info <- tibble::tribble(
   ## Other
   "r", "r", NA, "twotail", -1, 1, 0,
   "d", "d", NA, "twotail", -Inf, Inf, 0,
+  "r2_semipartial", "R2 (semi-partial)", "\u0394R\u00b2", "onetail", 0, 1, 0,
 
   ## Std Coefficient
   "Std_Coefficient", "Coefficient (std.)", NA, "twotail", -Inf, Inf, 0,
