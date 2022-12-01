@@ -88,9 +88,11 @@ r2_semipartial(m, type = "parameters")
 
 }
 \references{
-Alf Jr, E. F., & Graf, R. G. (1999). Asymptotic confidence limits for the
+\itemize{
+\item Alf Jr, E. F., & Graf, R. G. (1999). Asymptotic confidence limits for the
 difference between two squared multiple correlations: A simplified approach.
-Psychological Methods, 4(1), 70. \doi{10.1037/1082-989X.4.1.70}
+\emph{Psychological Methods, 4}(1), 70-75. \doi{10.1037/1082-989X.4.1.70}
+}
 }
 \seealso{
 \code{\link[=eta_squared]{eta_squared()}}, \code{\link[=cohens_f]{cohens_f()}} for comparing two models,

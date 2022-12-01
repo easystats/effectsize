@@ -39,9 +39,9 @@
 #'   [parameters::standardize_parameters()].
 #'
 #' @references
-#' Alf Jr, E. F., & Graf, R. G. (1999). Asymptotic confidence limits for the
-#' difference between two squared multiple correlations: A simplified approach.
-#' Psychological Methods, 4(1), 70. \doi{10.1037/1082-989X.4.1.70}
+#' - Alf Jr, E. F., & Graf, R. G. (1999). Asymptotic confidence limits for the
+#'   difference between two squared multiple correlations: A simplified approach.
+#'   *Psychological Methods, 4*(1), 70-75. \doi{10.1037/1082-989X.4.1.70}
 #'
 #' @examples
 #' data("hardlyworking")
@@ -66,11 +66,10 @@ r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
   type <- match.arg(type)
   alternative <- .match.alt(alternative)
 
-  mf <- stats::model.frame(model)
-  mm <- stats::model.matrix(model)
+  y <- stats::model.frame(model)[[1]]
+  mm <- insight::get_modelmatrix(model)
   mterms <- stats::terms(model)
-
-  y <- mf[[1]]
+  has_incpt <- insight::has_intercept(model)
 
   if (type == "terms") {
     out <- data.frame(Term = attr(mterms, "term.labels"))
@@ -84,25 +83,18 @@ r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
     idx_sub <- idx[Parameter != "(Intercept)"]
   }
 
-  tot_mod <- if (attr(mterms, "intercept") == 1) {
-    stats::lm(y ~ 1 + mm)
-  } else {
-    stats::lm(y ~ 0 + mm)
-  }
+  tot_mod <- stats::lm(stats::reformulate("mm", response = "y", intercept = has_incpt))
 
   sub_mods <- lapply(unique(idx_sub), function(.i) {
-    if (attr(mterms, "intercept") == 1) {
-      stats::lm(y ~ 1 + mm[, .i != idx])
-    } else {
-      stats::lm(y ~ 0 + mm[, .i != idx])
-    }
+    f <- stats::reformulate("mm[, .i != idx]", response = "y", intercept = has_incpt)
+    stats::lm(f)
   })
 
   tot_r2 <- performance::r2(model)[[1]]
   sub_r2 <- lapply(sub_mods, performance::r2)
   sub_r2 <- sapply(sub_r2, "[[", 1)
 
-  out$r2_semipartial <- unname(tot_r2 - sub_r2)
+  out$r2_semipartial <- as.vector(tot_r2 - sub_r2)
 
   if (.test_ci(ci)) {
     out$CI <- ci
@@ -111,8 +103,7 @@ r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
     zc <- stats::qnorm(alpha / 2, lower.tail = FALSE)
 
     N <- insight::n_obs(model)
-    SE <- unname(.delta_r2_SE(sub_r2, tot_r2, N))
-
+    SE <- .delta_r2_SE(sub_r2, tot_r2, N)
 
     out$CI_low <- pmax(out$r2_semipartial - zc * SE, 0)
     out$CI_high <- pmin(out$r2_semipartial + zc * SE, 1)
@@ -129,7 +120,6 @@ r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
   attr(out, "approximate") <- FALSE
   attr(out, "alternative") <- alternative
   return(out)
-  out
 }
 
 
@@ -154,5 +144,5 @@ r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
   Vr <- .delta_r2_V(R2r, N)
   COVfr <- .delta_r2_COV(R2r, R2f, N)
 
-  sqrt(Vf + Vr - 2 * COVfr)
+  as.vector(sqrt(Vf + Vr - 2 * COVfr))
 }
