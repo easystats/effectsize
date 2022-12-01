@@ -19,7 +19,7 @@
 #' This is similar to the last column of the "Conditional Dominance Statistics"
 #' section of the [parameters::dominance_analysis()] output. For each term, the
 #' model is refit *without* the columns on the [model
-#' matrix][stats::model.matrix] that correspond to that term. The \eqn{R^2} of
+#' matrix][stats::model.matrix] that corresponds to that term. The \eqn{R^2} of
 #' this *sub*-model is then subtracted from the \eqn{R^2} of the *full* model to
 #' yield the \eqn{\Delta R^2}. (For `type = "parameters"`, this is done for each
 #' column in the model matrix.)
