@@ -42,7 +42,7 @@ supported.
 \details{
 This is similar to the last column of the "Conditional Dominance Statistics"
 section of the \code{\link[parameters:dominance_analysis]{parameters::dominance_analysis()}} output. For each term, the
-model is refit \emph{without} the columns on the \link[stats:model.matrix]{model matrix} that corresponds to that term. The \eqn{R^2} of
+model is refit \emph{without} the columns on the \link[stats:model.matrix]{model matrix} that correspond to that term. The \eqn{R^2} of
 this \emph{sub}-model is then subtracted from the \eqn{R^2} of the \emph{full} model to
 yield the \eqn{\Delta R^2}. (For \code{type = "parameters"}, this is done for each
 column in the model matrix.)
