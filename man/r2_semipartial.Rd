@@ -4,7 +4,7 @@
 \alias{r2_semipartial}
 \alias{r2_delta}
 \alias{r2_part}
-\title{Semi-Partial Correlation Squared (\eqn{\Delta R^2})}
+\title{Semi-Partial (Part) Correlation Squared (\eqn{\Delta R^2})}
 \usage{
 r2_semipartial(
   model,
@@ -33,11 +33,8 @@ is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided 
 A data frame with the effect size.
 }
 \description{
-Compute the semi-partial correlation squared (also known as the part
-correlation squared, or \eqn{\Delta R^2}). Currently, only \code{lm()} models are
-supported.
-\cr\cr
-(\code{r2_delta()} and \code{r2_part()} are aliases.)
+Compute the semi-partial (part) correlation squared (also known as
+\eqn{\Delta R^2}). Currently, only \code{lm()} models are supported.
 }
 \details{
 This is similar to the last column of the "Conditional Dominance Statistics"
@@ -78,98 +75,6 @@ Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To infer no
 effect, additional judgments about what parameter values are "close enough"
 to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 1996).
-}
-
-\section{One-Sided CIs}{
-Typically, CIs are constructed as two-tailed intervals, with an equal
-proportion of the cumulative probability distribution above and below the
-interval. CIs can also be constructed as \emph{one-sided} intervals,
-giving only a lower bound or upper bound. This is analogous to computing a
-1-tailed \emph{p} value or conducting a 1-tailed hypothesis test.
-\cr\cr
-Significance tests conducted using CIs (whether a value is inside the interval)
-and using \emph{p} values (whether p < alpha for that value) are only guaranteed
-to agree when both are constructed using the same number of sides/tails.
-\cr\cr
-Most effect sizes are not bounded by zero (e.g., \emph{r}, \emph{d}, \emph{g}), and as such
-are generally tested using 2-tailed tests and 2-sided CIs.
-\cr\cr
-Some effect sizes are strictly positive--they do have a minimum value, of 0.
-For example, \eqn{R^2}, \eqn{\eta^2}, \eqn{sr^2}, and other variance-accounted-for effect
-sizes, as well as Cramer's \emph{V} and multiple \emph{R}, range from 0 to 1. These
-typically involve \emph{F}- or \eqn{\chi^2}-statistics and are generally tested
-using \emph{1-tailed} tests which test whether the estimated effect size is
-\emph{larger} than the hypothesized null value (e.g., 0). In order for a CI to
-yield the same significance decision it must then by a \emph{1-sided} CI,
-estimating only a lower bound. This is the default CI computed by
-\emph{effectsize} for these effect sizes, where \code{alternative = "greater"} is set.
-\cr\cr
-This lower bound interval indicates the smallest effect size that is not
-significantly different from the observed effect size. That is, it is the
-minimum effect size compatible with the observed data, background model
-assumptions, and \eqn{\alpha} level. This type of interval does not indicate
-a maximum effect size value; anything up to the maximum possible value of the
-effect size (e.g., 1) is in the interval.
-\cr\cr
-One-sided CIs can also be used to test against a maximum effect size value
-(e.g., is \eqn{R^2} significantly smaller than a perfect correlation of 1.0?)
-by setting \code{alternative = "less"}. This estimates a CI with only an
-\emph{upper} bound; anything from the minimum possible value of the effect size
-(e.g., 0) up to this upper bound is in the interval.
-\cr\cr
-We can also obtain a 2-sided interval by setting \code{alternative = "two.sided"}.
-These intervals can be interpreted in the same way as other 2-sided
-intervals, such as those for \emph{r}, \emph{d}, or \emph{g}.
-\cr\cr
-An alternative approach to aligning significance tests using CIs and 1-tailed
-\emph{p} values that can often be found in the literature is to construct a
-2-sided CI at a lower confidence level (e.g., 100(1-2\eqn{\alpha})\% = 100 -
-2*5\% = 90\%. This estimates the lower bound and upper bound for the above
-1-sided intervals simultaneously. These intervals are commonly reported when
-conducting \strong{equivalence tests}. For example, a 90\% 2-sided interval gives
-the bounds for an equivalence test with \eqn{\alpha} = .05. However, be aware
-that this interval does not give 95\% coverage for the underlying effect size
-parameter value. For that, construct a 95\% 2-sided CI.
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{data("hardlyworking")
-fit <- lm(salary ~ n_comps, data = hardlyworking)
-eta_squared(fit) # default, ci = 0.95, alternative = "greater"
-#> For one-way between subjects designs, partial eta squared is equivalent
-#>   to eta squared. Returning eta squared.
-#> # Effect Size for ANOVA
-#> 
-#> Parameter | Eta2 |       95\% CI
-#> -------------------------------
-#> n_comps   | 0.19 | [0.14, 1.00]
-#> 
-#> - One-sided CIs: upper bound fixed at [1.00].
-eta_squared(fit, alternative = "less") # Test is eta is smaller than some value
-#> For one-way between subjects designs, partial eta squared is equivalent
-#>   to eta squared. Returning eta squared.
-#> # Effect Size for ANOVA
-#> 
-#> Parameter | Eta2 |       95\% CI
-#> -------------------------------
-#> n_comps   | 0.19 | [0.00, 0.24]
-#> 
-#> - One-sided CIs: lower bound fixed at [0.00].
-eta_squared(fit, alternative = "two.sided") # 2-sided bounds for alpha = .05
-#> For one-way between subjects designs, partial eta squared is equivalent
-#>   to eta squared. Returning eta squared.
-#> # Effect Size for ANOVA
-#> 
-#> Parameter | Eta2 |       95\% CI
-#> -------------------------------
-#> n_comps   | 0.19 | [0.14, 0.25]
-eta_squared(fit, ci = 0.9, alternative = "two.sided") # both 1-sided bounds for alpha = .05
-#> For one-way between subjects designs, partial eta squared is equivalent
-#>   to eta squared. Returning eta squared.
-#> # Effect Size for ANOVA
-#> 
-#> Parameter | Eta2 |       90\% CI
-#> -------------------------------
-#> n_comps   | 0.19 | [0.14, 0.24]
-}\if{html}{\out{</div>}}
 }
 
 \examples{

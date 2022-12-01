@@ -1,10 +1,7 @@
-#' Semi-Partial Correlation Squared (\eqn{\Delta R^2})
+#' Semi-Partial (Part) Correlation Squared (\eqn{\Delta R^2})
 #'
-#' Compute the semi-partial correlation squared (also known as the part
-#' correlation squared, or \eqn{\Delta R^2}). Currently, only `lm()` models are
-#' supported.
-#' \cr\cr
-#' (`r2_delta()` and `r2_part()` are aliases.)
+#' Compute the semi-partial (part) correlation squared (also known as
+#' \eqn{\Delta R^2}). Currently, only `lm()` models are supported.
 #'
 #' @aliases r2_delta r2_part
 #'
@@ -36,7 +33,6 @@
 #' Alf and Graf (1999).
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
-#' @inheritSection effectsize_CIs One-Sided CIs
 #'
 #' @seealso [eta_squared()], [cohens_f()] for comparing two models,
 #'   [parameters::dominance_analysis()] and
@@ -62,12 +58,6 @@ r2_semipartial <- function(model, type = c("terms", "parameters"),
                            ...) {
   UseMethod("r2_semipartial")
 }
-
-#' @export
-r2_part <- r2_semipartial
-
-#' @export
-r2_delta <- r2_semipartial
 
 #' @export
 r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
