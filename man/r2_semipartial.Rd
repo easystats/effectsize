@@ -2,7 +2,9 @@
 % Please edit documentation in R/r2_semipartial.R
 \name{r2_semipartial}
 \alias{r2_semipartial}
-\title{Semi-Partial Squared Correlation (\eqn{\Delta R^2})}
+\alias{r2_delta}
+\alias{r2_part}
+\title{Semi-Partial Correlation Squared (\eqn{\Delta R^2})}
 \usage{
 r2_semipartial(
   model,
@@ -31,13 +33,16 @@ is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided 
 A data frame with the effect size.
 }
 \description{
-Compute the semi-partial squared correlation (also known as \eqn{\Delta
-R^2}). Currently, only \code{lm()} models are supported.
+Compute the semi-partial correlation squared (also known as the part
+correlation squared, or \eqn{\Delta R^2}). Currently, only \code{lm()} models are
+supported.
+\cr\cr
+(\code{r2_delta()} and \code{r2_part()} are aliases.)
 }
 \details{
 This is similar to the last column of the "Conditional Dominance Statistics"
 section of the \code{\link[parameters:dominance_analysis]{parameters::dominance_analysis()}} output. For each term, the
-model is refit \emph{without} the columns on the \link[stats:model.matrix]{model matrix} the correspond to that term. The \eqn{R^2} of
+model is refit \emph{without} the columns on the \link[stats:model.matrix]{model matrix} that correspond to that term. The \eqn{R^2} of
 this \emph{sub}-model is then subtracted from the \eqn{R^2} of the \emph{full} model to
 yield the \eqn{\Delta R^2}. (For \code{type = "parameters"}, this is done for each
 column in the model matrix.)
@@ -48,8 +53,6 @@ different results.
 
 For other, non-\code{lm()} models, as well as more verbose information and
 options, please see the documentation for \code{\link[parameters:dominance_analysis]{parameters::dominance_analysis()}}.
-
-Note that unlike
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
 Confidence intervals are based on the normal approximation as provided by
@@ -93,6 +96,7 @@ difference between two squared multiple correlations: A simplified approach.
 Psychological Methods, 4(1), 70. \doi{10.1037/1082-989X.4.1.70}
 }
 \seealso{
-\code{\link[=eta_squared]{eta_squared()}}, \code{\link[parameters:dominance_analysis]{parameters::dominance_analysis()}} and
-\code{\link[parameters:standardize_parameters]{parameters::standardise_parameters()}}.
+\code{\link[=eta_squared]{eta_squared()}}, \code{\link[=cohens_f]{cohens_f()}} for comparing two models,
+\code{\link[parameters:dominance_analysis]{parameters::dominance_analysis()}} and
+\code{\link[parameters:standardize_parameters]{parameters::standardize_parameters()}}.
 }

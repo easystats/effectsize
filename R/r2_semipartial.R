@@ -1,7 +1,12 @@
-#' Semi-Partial Squared Correlation (\eqn{\Delta R^2})
+#' Semi-Partial Correlation Squared (\eqn{\Delta R^2})
 #'
-#' Compute the semi-partial squared correlation (also known as \eqn{\Delta
-#' R^2}). Currently, only `lm()` models are supported.
+#' Compute the semi-partial correlation squared (also known as the part
+#' correlation squared, or \eqn{\Delta R^2}). Currently, only `lm()` models are
+#' supported.
+#' \cr\cr
+#' (`r2_delta()` and `r2_part()` are aliases.)
+#'
+#' @aliases r2_delta r2_part
 #'
 #' @param model An `lm` model.
 #' @param type Type, either `"terms"`, or `"parameters"`.
@@ -14,7 +19,7 @@
 #' This is similar to the last column of the "Conditional Dominance Statistics"
 #' section of the [parameters::dominance_analysis()] output. For each term, the
 #' model is refit *without* the columns on the [model
-#' matrix][stats::model.matrix] the correspond to that term. The \eqn{R^2} of
+#' matrix][stats::model.matrix] that correspond to that term. The \eqn{R^2} of
 #' this *sub*-model is then subtracted from the \eqn{R^2} of the *full* model to
 #' yield the \eqn{\Delta R^2}. (For `type = "parameters"`, this is done for each
 #' column in the model matrix.)
@@ -26,16 +31,15 @@
 #' For other, non-`lm()` models, as well as more verbose information and
 #' options, please see the documentation for [parameters::dominance_analysis()].
 #'
-#' Note that unlike
-#'
 #' # Confidence (Compatibility) Intervals (CIs)
 #' Confidence intervals are based on the normal approximation as provided by
 #' Alf and Graf (1999).
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #'
-#' @seealso [eta_squared()], [parameters::dominance_analysis()] and
-#'   [parameters::standardise_parameters()].
+#' @seealso [eta_squared()], [cohens_f()] for comparing two models,
+#'   [parameters::dominance_analysis()] and
+#'   [parameters::standardize_parameters()].
 #'
 #' @references
 #' Alf Jr, E. F., & Graf, R. G. (1999). Asymptotic confidence limits for the
@@ -59,6 +63,12 @@ r2_semipartial <- function(model, type = c("terms", "parameters"),
 }
 
 #' @export
+r2_part <- r2_semipartial
+
+#' @export
+r2_delta <- r2_semipartial
+
+#' @export
 r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
                               ci = 0.95, alternative = "greater",
                               ...) {
@@ -72,7 +82,7 @@ r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
   y <- mf[[1]]
 
   if (type == "terms") {
-    out <- data.frame(Term = attr(mterms,"term.labels"))
+    out <- data.frame(Term = attr(mterms, "term.labels"))
     idx <- attr(mm, "assign")
     idx_sub <- idx[idx > 0]
   } else {
@@ -80,20 +90,20 @@ r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
     out <- data.frame(Parameter = Parameter)
     out <- subset(out, Parameter != "(Intercept)")
     idx <- seq.int(ncol(mm))
-    idx_sub <- idx[Parameter!="(Intercept)"]
+    idx_sub <- idx[Parameter != "(Intercept)"]
   }
 
-  tot_mod <- if (attr(mterms,"intercept") == 1) {
+  tot_mod <- if (attr(mterms, "intercept") == 1) {
     stats::lm(y ~ 1 + mm)
   } else {
     stats::lm(y ~ 0 + mm)
   }
 
   sub_mods <- lapply(unique(idx_sub), function(.i) {
-    if (attr(mterms,"intercept") == 1) {
-      stats::lm(y ~ 1 + mm[,.i!=idx])
+    if (attr(mterms, "intercept") == 1) {
+      stats::lm(y ~ 1 + mm[, .i != idx])
     } else {
-      stats::lm(y ~ 0 + mm[,.i!=idx])
+      stats::lm(y ~ 0 + mm[, .i != idx])
     }
   })
 
@@ -136,7 +146,7 @@ r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
 
 #' @keywords internal
 .delta_r2_V <- function(R2, N) {
-  (4 * R2 * ((1 - R2) ^ 2)) / N
+  (4 * R2 * ((1 - R2)^2)) / N
 }
 
 #' @keywords internal

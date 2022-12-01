@@ -142,7 +142,6 @@ correlation::correlation(attitude,
   select2 = c("complaints", "critical"),
   partial = TRUE
 )
-
 \dontshow{\}) # examplesIf}
 }
 \references{
