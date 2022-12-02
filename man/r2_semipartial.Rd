@@ -86,6 +86,17 @@ r2_semipartial(m)
 
 r2_semipartial(m, type = "parameters")
 
+
+npk.aov <- lm(yield ~ N + P + K, npk)
+
+# When predictors are orthogonal, eta_squared(partial = FALSE) gives the same
+# effect size:
+performance::check_collinearity(npk.aov)
+
+eta_squared(npk.aov, partial = FALSE)
+
+r2_semipartial(npk.aov)
+
 }
 \references{
 \itemize{
