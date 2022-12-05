@@ -45,15 +45,16 @@ Authors:
   \item Daniel Lüdecke \email{d.luedecke@uke.de} (\href{https://orcid.org/0000-0002-8895-3206}{ORCID}) (@strengejacke)
   \item Indrajeet Patil \email{patilindrajeet.science@gmail.com} (\href{https://orcid.org/0000-0003-1995-6531}{ORCID}) (@patilindrajeets)
   \item Brenton M. Wiernik \email{brenton@wiernik.org} (\href{https://orcid.org/0000-0001-9560-6336}{ORCID}) (@bmwiernik)
+  \item Rémi Thériault \email{remi.theriault@mail.mcgill.ca} (\href{https://orcid.org/0000-0003-4315-6788}{ORCID}) (@rempsyc)
 }
 
 Other contributors:
 \itemize{
   \item Ken Kelley [contributor]
   \item David Stanley [contributor]
+  \item Aaron Caldwell \email{arcaldwell49@gmail.com} (\href{https://orcid.org/0000-0002-4541-6283}{ORCID}) [contributor]
   \item Jessica Burnett \email{jburnett@usgs.gov} (\href{https://orcid.org/0000-0002-0896-5099}{ORCID}) [reviewer]
   \item Johannes Karreth \email{jkarreth@ursinus.edu} (\href{https://orcid.org/0000-0003-4586-7153}{ORCID}) [reviewer]
-  \item Aaron Caldwell \email{arcaldwell49@gmail.com} (\href{https://orcid.org/0000-0002-4541-6283}{ORCID}) [contributor]
 }
 
 }
