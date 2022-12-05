@@ -73,7 +73,7 @@ Most effect sizes are not bounded by zero (e.g., \emph{r}, \emph{d}, \emph{g}), 
 are generally tested using 2-tailed tests and 2-sided CIs.
 \cr\cr
 Some effect sizes are strictly positive--they do have a minimum value, of 0.
-For example, \eqn{R^2}, \eqn{\eta^2}, and other variance-accounted-for effect
+For example, \eqn{R^2}, \eqn{\eta^2}, \eqn{sr^2}, and other variance-accounted-for effect
 sizes, as well as Cramer's \emph{V} and multiple \emph{R}, range from 0 to 1. These
 typically involve \emph{F}- or \eqn{\chi^2}-statistics and are generally tested
 using \emph{1-tailed} tests which test whether the estimated effect size is
@@ -91,7 +91,7 @@ effect size (e.g., 1) is in the interval.
 \cr\cr
 One-sided CIs can also be used to test against a maximum effect size value
 (e.g., is \eqn{R^2} significantly smaller than a perfect correlation of 1.0?)
-can by setting \code{alternative = "less"}. This estimates a CI with only an
+by setting \code{alternative = "less"}. This estimates a CI with only an
 \emph{upper} bound; anything from the minimum possible value of the effect size
 (e.g., 0) up to this upper bound is in the interval.
 \cr\cr

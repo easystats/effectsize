@@ -42,6 +42,7 @@ reference:
       - datawizard::standardize_models
       - parameters::standardize_info
       - parameters::dominance_analysis
+      - r2_semipartial
 
   - subtitle: "Correlations"
     desc: >

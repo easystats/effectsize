@@ -73,7 +73,6 @@
 #'   partial = TRUE
 #' )
 #'
-#'
 #' @references
 #' - Friedman, H. (1982). Simplified determinations of statistical power,
 #' magnitude of effect and research sample sizes. Educational and Psychological
