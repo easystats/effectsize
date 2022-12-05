@@ -54,17 +54,6 @@
 #'
 #'
 #'
-#' # Compare to `dominance_analysis()`
-#' # ---------------------------------
-#' m_full <- lm(salary ~ ., data = hardlyworking)
-#'
-#' r2_semipartial(m_full)
-#'
-#' # Compare to last column of "Conditional Dominance Statistics":
-#' parameters::dominance_analysis(m_full)
-#'
-#'
-#'
 #' # Compare to `eta_squared()`
 #' # --------------------------
 #' npk.aov <- lm(yield ~ N + P + K, npk)
@@ -76,6 +65,20 @@
 #' eta_squared(npk.aov, partial = FALSE)
 #'
 #' r2_semipartial(npk.aov)
+#'
+#'
+#'
+#' @examplesIf interactive()
+#' # Compare to `dominance_analysis()`
+#' # ---------------------------------
+#' m_full <- lm(salary ~ ., data = hardlyworking)
+#'
+#' r2_semipartial(m_full)
+#'
+#' # Compare to last column of "Conditional Dominance Statistics":
+#' parameters::dominance_analysis(m_full)
+#'
+#'
 #'
 #' @export
 r2_semipartial <- function(model, type = c("terms", "parameters"),
