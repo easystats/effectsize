@@ -14,8 +14,8 @@ test_that("r2_semipartial basic", {
 
   # Alternative -------------------------------------------------------------
   expect_equal(r2_semipartial(m, alternative = "greater")[c(4, 5)],
-    data.frame(CI_low = rep(0, 5), CI_high = 1),
-    ignore_attr = TRUE
+    data.frame(CI_low = c(0, 0.0004, 0, 0, 0), CI_high = 1),
+    ignore_attr = TRUE, tolerance = 0.01
   )
 
   expect_equal(r2_semipartial(m, alternative = "less")[c(4, 5)],
@@ -44,3 +44,4 @@ test_that("r2_semipartial basic", {
   expect_equal(r2_semipartial(mf)[2, 2], R2f - R2r1, ignore_attr = TRUE)
   expect_equal(r2_semipartial(mf)[1, 2], R2f - R2r2, ignore_attr = TRUE)
 })
+

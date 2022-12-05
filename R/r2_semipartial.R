@@ -29,8 +29,14 @@
 #' options, please see the documentation for [parameters::dominance_analysis()].
 #'
 #' # Confidence (Compatibility) Intervals (CIs)
-#' Confidence intervals are based on the normal approximation as provided by
-#' Alf and Graf (1999).
+#' Confidence intervals are based on the normal approximation as provided by Alf
+#' and Graf (1999). An adjustment to the lower bound of the CI is used, to
+#' improve the coverage properties of the CIs, according to Algina et al (2008):
+#' If the *F* test associated with the \eqn{sr^2} is significant (at `1-ci`
+#' level), but the lower bound of the CI is 0, it is set to a small value
+#' (arbitrarily to a 10th of the estimated \eqn{sr^2}); if the *F* test is not
+#' significant, the lower bound is set to 0. (Additionally, lower and upper
+#' bound are "fixed" so that they cannot be smaller than 0 or larger than 1.)
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #'
@@ -42,6 +48,9 @@
 #' - Alf Jr, E. F., & Graf, R. G. (1999). Asymptotic confidence limits for the
 #'   difference between two squared multiple correlations: A simplified approach.
 #'   *Psychological Methods, 4*(1), 70-75. \doi{10.1037/1082-989X.4.1.70}
+#' - Algina, J., Keselman, H. J., & Penfield, R. D. (2008). Confidence intervals
+#'   for the squared multiple semipartial correlation coefficient. *Journal of
+#'   Modern Applied Statistical Methods, 7*(1), 2-10. \doi{10.22237/jmasm/1209614460}
 #'
 #' @examples
 #' data("hardlyworking")
@@ -137,6 +146,23 @@ r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
     out$CI_high <- pmin(out$r2_semipartial + zc * SE, 1)
 
     ci_method <- list(method = "normal")
+
+    # Fix lower bound according to sig
+    p_comps <- sapply(sub_mods, function(.mod) {
+      anova(tot_mod, .mod)[2, "Pr(>F)"]
+    })
+
+    is_sig <- p_comps < (1 - ci)
+    lb_is_zero <- out$CI_low == 0
+
+    if (any(!is_sig)) {
+      out$CI_low[!is_sig] <- 0
+    }
+
+    if (any(is_sig & lb_is_zero)) {
+      out$CI_low[is_sig & lb_is_zero] <- out[is_sig & lb_is_zero, 2] * 0.01
+    }
+
     out <- .limit_ci(out, alternative, 0, 1)
   } else {
     ci_method <- alternative <- NULL

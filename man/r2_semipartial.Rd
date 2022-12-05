@@ -52,8 +52,14 @@ For other, non-\code{lm()} models, as well as more verbose information and
 options, please see the documentation for \code{\link[parameters:dominance_analysis]{parameters::dominance_analysis()}}.
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
-Confidence intervals are based on the normal approximation as provided by
-Alf and Graf (1999).
+Confidence intervals are based on the normal approximation as provided by Alf
+and Graf (1999). An adjustment to the lower bound of the CI is used, to
+improve the coverage properties of the CIs, according to Algina et al (2008):
+If the \emph{F} test associated with the \eqn{sr^2} is significant (at \code{1-ci}
+level), but the lower bound of the CI is 0, it is set to a small value
+(arbitrarily to a 10th of the estimated \eqn{sr^2}); if the \emph{F} test is not
+significant, the lower bound is set to 0. (Additionally, lower and upper
+bound are "fixed" so that they cannot be smaller than 0 or larger than 1.)
 }
 
 \section{CIs and Significance Tests}{
@@ -120,6 +126,9 @@ parameters::dominance_analysis(m_full)
 \item Alf Jr, E. F., & Graf, R. G. (1999). Asymptotic confidence limits for the
 difference between two squared multiple correlations: A simplified approach.
 \emph{Psychological Methods, 4}(1), 70-75. \doi{10.1037/1082-989X.4.1.70}
+\item Algina, J., Keselman, H. J., & Penfield, R. D. (2008). Confidence intervals
+for the squared multiple semipartial correlation coefficient. \emph{Journal of
+Modern Applied Statistical Methods, 7}(1), 2-10. \doi{10.22237/jmasm/1209614460}
 }
 }
 \seealso{
