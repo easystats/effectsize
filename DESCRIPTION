@@ -43,7 +43,7 @@ Authors@R:
              family = "Caldwell",
              role = "ctb",
              email = "arcaldwell49@gmail.com",
-             comment = c(ORCID = "0000-0002-4541-6283"))
+             comment = c(ORCID = "0000-0002-4541-6283")),
       person(given = "Jessica",
              family = "Burnett",
              role = "rev",
