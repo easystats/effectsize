@@ -63,8 +63,7 @@
 #' # Compare to:
 #' eta_squared(mod)
 #'
-#' @examplesIf require(lmerTest)
-#' \donttest{
+#' @examplesIf require(lmerTest) && interactive()
 #' fit <- lmerTest::lmer(extra ~ group + (1 | ID), sleep)
 #' # anova(fit)
 #' # #> Type III Analysis of Variance Table with Satterthwaite's method
@@ -77,17 +76,14 @@
 #' F_to_omega2(16.501, 1, 9)
 #' F_to_epsilon2(16.501, 1, 9)
 #' F_to_f(16.501, 1, 9)
-#' }
 #'
-#' #' @examplesIf require(emmeans)
-#' if (require(emmeans)) {
-#'   ## Use with emmeans based contrasts
-#'   ## --------------------------------
-#'   warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
+#' @examplesIf require(emmeans)
+#' ## Use with emmeans based contrasts
+#' ## --------------------------------
+#' warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
 #'
-#'   jt <- emmeans::joint_tests(warp.lm, by = "wool")
-#'   F_to_eta2(jt$F.ratio, jt$df1, jt$df2)
-#' }
+#' jt <- emmeans::joint_tests(warp.lm, by = "wool")
+#' F_to_eta2(jt$F.ratio, jt$df1, jt$df2)
 #'
 #' @references
 #' - Albers, C., & Lakens, D. (2018). When power analyses based on pilot data

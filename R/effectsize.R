@@ -65,10 +65,9 @@
 #' effectsize(anova_table)
 #' effectsize(anova_table, type = "epsilon")
 #'
-#' @examplesIf requireNamespace("BayesFactor", quietly = TRUE)
+#' @examplesIf requireNamespace("BayesFactor", quietly = TRUE) && interactive()
 #' ## Bayesian Hypothesis Testing
 #' ## ---------------------------
-#' \donttest{
 #' bf_prop <- BayesFactor::proportionBF(3, 7, p = 0.3)
 #' effectsize(bf_prop)
 #'
@@ -85,7 +84,6 @@
 #'   paired = TRUE, mu = -1
 #' )
 #' effectsize(bf_ttest)
-#' }
 #'
 #' @export
 effectsize <- function(model, ...) {

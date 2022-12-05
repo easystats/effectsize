@@ -256,7 +256,7 @@ interpret_epsilon_squared(0.10, rules = "cohen1992")
 
 interpret(eta2, rules = "cohen1992")
 
-\dontshow{if (require("see") && FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require("see") && interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 plot(eta2) # Requires the {see} package
 \dontshow{\}) # examplesIf}
 \dontshow{if (require("car")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
@@ -286,7 +286,7 @@ eta_squared(model, generalized = TRUE) # observed vars are pulled from the afex 
 model <- lme4::lmer(mpg ~ am_f * cyl_f + (1 | vs), data = mtcars)
 omega_squared(model)
 \dontshow{\}) # examplesIf}
-\dontshow{if (require(rstanarm) && require(bayestestR) && require(car) && FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require(rstanarm) && require(bayestestR) && require(car) && interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Bayesian Models (PPD)
 ## ---------------------
 fit_bayes <- rstanarm::stan_glm(

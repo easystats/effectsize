@@ -114,15 +114,15 @@ interpret_rfi(c(.5, .99))
 interpret_ifi(c(.5, .99))
 interpret_pnfi(c(.5, .99))
 
-\dontshow{if (require("lavaan")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-\donttest{
+\dontshow{if (require("lavaan") && interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Structural Equation Models (SEM)
 structure <- " ind60 =~ x1 + x2 + x3
                dem60 =~ y1 + y2 + y3
                dem60 ~ ind60 "
+
 model <- lavaan::sem(structure, data = lavaan::PoliticalDemocracy)
+
 interpret(model)
-}
 \dontshow{\}) # examplesIf}
 }
 \references{
