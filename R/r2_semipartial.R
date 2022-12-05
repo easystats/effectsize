@@ -53,10 +53,24 @@
 #' r2_semipartial(m, type = "parameters")
 #'
 #'
+#'
+#' # Compare to `dominance_analysis()`
+#' # ---------------------------------
+#' m_full <- lm(salary ~ ., data = hardlyworking)
+#'
+#' r2_semipartial(m_full)
+#'
+#' # Compare to last column of "Conditional Dominance Statistics":
+#' parameters::dominance_analysis(m_full)
+#'
+#'
+#'
+#' # Compare to `eta_squared()`
+#' # --------------------------
 #' npk.aov <- lm(yield ~ N + P + K, npk)
 #'
-#' # When predictors are orthogonal, eta_squared(partial = FALSE) gives the same
-#' # effect size:
+#' # When predictors are orthogonal,
+#' # eta_squared(partial = FALSE) gives the same effect size:
 #' performance::check_collinearity(npk.aov)
 #'
 #' eta_squared(npk.aov, partial = FALSE)
