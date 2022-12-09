@@ -78,15 +78,15 @@
 #' interpret_ifi(c(.5, .99))
 #' interpret_pnfi(c(.5, .99))
 #'
-#' @examplesIf require("lavaan")
-#' \donttest{
+#' @examplesIf require("lavaan") && interactive()
 #' # Structural Equation Models (SEM)
 #' structure <- " ind60 =~ x1 + x2 + x3
 #'                dem60 =~ y1 + y2 + y3
 #'                dem60 ~ ind60 "
+#'
 #' model <- lavaan::sem(structure, data = lavaan::PoliticalDemocracy)
+#'
 #' interpret(model)
-#' }
 #'
 #' @references
 #' - Awang, Z. (2012). A handbook on SEM. Structural equation modeling.

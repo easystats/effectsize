@@ -56,7 +56,6 @@
 #'
 #' @examples
 #' \donttest{
-#'
 #' data("hardlyworking")
 #' model <- aov(salary ~ age + factor(n_comps) * cut(seniority, 3), data = hardlyworking)
 #' es <- eta_squared(model, ci = 0.9, alternative = "two.sided")

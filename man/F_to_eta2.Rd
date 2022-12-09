@@ -168,8 +168,7 @@ if (require(see)) plot(etas)
 # Compare to:
 eta_squared(mod)
 
-\dontshow{if (require(lmerTest)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-\donttest{
+\dontshow{if (require(lmerTest) && interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 fit <- lmerTest::lmer(extra ~ group + (1 | ID), sleep)
 # anova(fit)
 # #> Type III Analysis of Variance Table with Satterthwaite's method
@@ -182,17 +181,14 @@ F_to_eta2(16.501, 1, 9)
 F_to_omega2(16.501, 1, 9)
 F_to_epsilon2(16.501, 1, 9)
 F_to_f(16.501, 1, 9)
-}
+\dontshow{\}) # examplesIf}
+\dontshow{if (require(emmeans)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+## Use with emmeans based contrasts
+## --------------------------------
+warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
 
-#' @examplesIf require(emmeans)
-if (require(emmeans)) {
-  ## Use with emmeans based contrasts
-  ## --------------------------------
-  warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
-
-  jt <- emmeans::joint_tests(warp.lm, by = "wool")
-  F_to_eta2(jt$F.ratio, jt$df1, jt$df2)
-}
+jt <- emmeans::joint_tests(warp.lm, by = "wool")
+F_to_eta2(jt$F.ratio, jt$df1, jt$df2)
 \dontshow{\}) # examplesIf}
 }
 \references{

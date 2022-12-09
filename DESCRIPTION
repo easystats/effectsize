@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size
-Version: 0.8.2.00003
+Version: 0.8.2.00004
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
@@ -28,12 +28,22 @@ Authors@R:
              role = "aut",
              email = "brenton@wiernik.org",
              comment = c(ORCID = "0000-0001-9560-6336", Twitter = "@bmwiernik")),
+      person(given = "Rémi", 
+             family = "Thériault",
+             role = "aut", 
+             email = "remi.theriault@mail.mcgill.ca",
+             comment = c(ORCID = "0000-0003-4315-6788", Twitter = "@rempsyc")),
       person(given = "Ken",
              family = "Kelley",
              role = "ctb"),
       person(given = "David",
              family = "Stanley",
              role = "ctb"),
+      person(given = "Aaron",
+             family = "Caldwell",
+             role = "ctb",
+             email = "arcaldwell49@gmail.com",
+             comment = c(ORCID = "0000-0002-4541-6283")),
       person(given = "Jessica",
              family = "Burnett",
              role = "rev",
@@ -43,12 +53,7 @@ Authors@R:
              family = "Karreth",
              role = "rev",
              email = "jkarreth@ursinus.edu",
-             comment = c(ORCID = "0000-0003-4586-7153")),
-      person(given = "Aaron",
-             family = "Caldwell",
-             role = "ctb",
-             email = "arcaldwell49@gmail.com",
-             comment = c(ORCID = "0000-0002-4541-6283")))
+             comment = c(ORCID = "0000-0003-4586-7153")))
 Maintainer: Mattan S. Ben-Shachar <mattansb@msbstats.info>
 Description: Provide utilities to work with indices of effect size for a wide 
     variety of models and hypothesis tests (see list of supported models using 
@@ -94,7 +99,7 @@ VignetteBuilder:
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1.9000
+RoxygenNote: 7.2.1
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Config/Needs/website:

@@ -119,7 +119,7 @@
 #'
 #' interpret(eta2, rules = "cohen1992")
 #'
-#' @examplesIf require("see") && FALSE
+#' @examplesIf require("see") && interactive()
 #' plot(eta2) # Requires the {see} package
 #'
 #' @examplesIf require("car")
@@ -149,7 +149,7 @@
 #' model <- lme4::lmer(mpg ~ am_f * cyl_f + (1 | vs), data = mtcars)
 #' omega_squared(model)
 #'
-#' @examplesIf require(rstanarm) && require(bayestestR) && require(car) && FALSE
+#' @examplesIf require(rstanarm) && require(bayestestR) && require(car) && interactive()
 #' ## Bayesian Models (PPD)
 #' ## ---------------------
 #' fit_bayes <- rstanarm::stan_glm(

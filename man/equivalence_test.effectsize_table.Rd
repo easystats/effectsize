@@ -62,7 +62,6 @@ the function used to make the effect size table (\code{cohens_d}, \code{eta_squa
 }
 \examples{
 \donttest{
-
 data("hardlyworking")
 model <- aov(salary ~ age + factor(n_comps) * cut(seniority, 3), data = hardlyworking)
 es <- eta_squared(model, ci = 0.9, alternative = "two.sided")
