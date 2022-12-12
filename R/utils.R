@@ -81,7 +81,7 @@
     length(ci) != 1L ||
     ci < 0 ||
     ci > 1) {
-    stop("ci must be a single numeric value between (0, 1)", call. = FALSE)
+    insight::format_error("ci must be a single numeric value between (0, 1)")
   }
   return(TRUE)
 }

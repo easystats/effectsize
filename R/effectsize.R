@@ -148,6 +148,6 @@ effectsize.easycorrelation <- function(model, ...) {
 
 #' @export
 effectsize.default <- function(model, ...) {
-  # message("Using standardize_parameters().")
+  # message(insight::format_message("Using standardize_parameters()."))
   parameters::standardize_parameters(model, ...)
 }

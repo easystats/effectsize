@@ -77,11 +77,11 @@ means_ratio <- function(x, y = NULL, data = NULL,
   y <- out[["y"]]
 
   if (is.null(y)) {
-    stop("Only one sample provided. y or data must be provided.", call. = FALSE)
+    insight::format_error("Only one sample provided. y or data must be provided.")
   }
 
   if (any(x < 0) || any(y < 0)) {
-    stop("x,y must be non-negative (on a ratio scale).", call. = FALSE)
+    insight::format_error("x,y must be non-negative (on a ratio scale).")
   }
 
   # Get summary stats
@@ -91,7 +91,7 @@ means_ratio <- function(x, y = NULL, data = NULL,
   sd2 <- stats::sd(y)
 
   if (isTRUE(all.equal(m1, 0)) || isTRUE(all.equal(m2, 0))) {
-    stop("Mean(s) equal to equal zero. Unable to calculate means ratio.", call. = FALSE)
+    insight::format_error("Mean(s) equal to equal zero. Unable to calculate means ratio.")
   }
 
 
