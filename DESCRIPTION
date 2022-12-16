@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size
-Version: 0.8.2.00004
+Version: 0.8.2.00005
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
@@ -106,3 +106,4 @@ Config/Needs/website:
     rstudio/bslib,
     r-lib/pkgdown,
     easystats/easystatstemplate
+Remotes: easystats/insight@revise_get_data, easystats/parameters, easystats/performance
