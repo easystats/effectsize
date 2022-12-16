@@ -143,11 +143,10 @@ eta_squared_posterior.brmsfit <- eta_squared_posterior.stanreg
 #'     length(factors_centered) && !all(factors_centered)) {
 #'     non_centered <- !c(numerics_centered, factors_centered)
 #'     non_centered <- names(non_centered)[non_centered]
-#'     warning(
+#'     insight::format_warning(
 #'       "Not all variables are centered:\n ",
 #'       paste(non_centered, collapse = ", "),
-#'       "\n Results might be bogus if involved in interactions...",
-#'       call. = FALSE
+#'       "\n Results might be bogus if involved in interactions..."
 #'     )
 #'   }
 #'
