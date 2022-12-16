@@ -32,22 +32,23 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
 #' @keywords internal
 .effectsize_t.test <- function(model, type = NULL, verbose = TRUE, ...) {
+
   # Get data?
+  data <- insight::get_data(model)
+
   dots <- list(...)
 
-  if (is.null(type) || tolower(type) == "cohens_d") type <- "d"
-  if (tolower(type) == "hedges_g") type <- "g"
-
-  if (is.null(dots$data)) {
-    data <- insight::get_data(model)
-  } else {
+  if (is.null(data) && !is.null(dots$data)) {
     vars <- insight::get_parameters(model)$Parameter
     vars <- unlist(strsplit(vars, " "))
     vars <- vars[!vars %in% "by"]
-    data <- dots$data[, c(vars)]
+    data <- dots$data[, vars]
   }
 
   approx <- is.null(data)
+
+  if (is.null(type) || tolower(type) == "cohens_d") type <- "d"
+  if (tolower(type) == "hedges_g") type <- "g"
 
   dots$alternative <- model$alternative
   dots$ci <- attr(model$conf.int, "conf.level")
@@ -326,9 +327,17 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 .effectsize_wilcox.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
   data <- insight::get_data(model)
-  approx <- is.null(data)
 
   dots <- list(...)
+
+  if (is.null(data) && !is.null(dots$data)) {
+    vars <- insight::get_parameters(model)$Parameter
+    vars <- unlist(strsplit(vars, " "))
+    vars <- vars[!vars %in% "by"]
+    data <- dots$data[, c(vars)]
+  }
+
+  approx <- is.null(data)
 
   if (is.null(type) || tolower(type) == "rank_biserial") type <- "rb"
 
@@ -369,11 +378,20 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
 #' @keywords internal
 .effectsize_kruskal.test <- function(model, type = NULL, verbose = TRUE, ...) {
+
   # Get data?
   data <- insight::get_data(model)
-  approx <- is.null(data)
 
   dots <- list(...)
+
+  if (is.null(data) && !is.null(dots$data)) {
+    vars <- insight::get_parameters(model)$Parameter
+    vars <- unlist(strsplit(vars, " "))
+    vars <- vars[!vars %in% "by"]
+    data <- dots$data[, vars]
+  }
+
+  approx <- is.null(data)
 
   if (is.null(type)) type <- "epsilon"
 
@@ -397,9 +415,17 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 .effectsize_friedman.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
   data <- insight::get_data(model)
-  approx <- is.null(data)
 
   dots <- list(...)
+
+  if (is.null(data) && !is.null(dots$data)) {
+    vars <- insight::get_parameters(model)$Parameter
+    vars <- unlist(strsplit(vars, " "))
+    vars <- vars[!vars %in% "and"]
+    data <- dots$data[, vars]
+  }
+
+  approx <- is.null(data)
 
   .fail_if_approx(approx, "kendalls_w")
 
