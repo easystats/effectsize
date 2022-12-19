@@ -75,8 +75,6 @@
 #'
 #' r2_semipartial(npk.aov)
 #'
-#'
-#'
 #' @examplesIf interactive()
 #' # Compare to `dominance_analysis()`
 #' # ---------------------------------
@@ -86,8 +84,6 @@
 #'
 #' # Compare to last column of "Conditional Dominance Statistics":
 #' parameters::dominance_analysis(m_full)
-#'
-#'
 #'
 #' @export
 r2_semipartial <- function(model, type = c("terms", "parameters"),

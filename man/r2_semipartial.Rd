@@ -106,8 +106,6 @@ eta_squared(npk.aov, partial = FALSE)
 
 r2_semipartial(npk.aov)
 
-
-
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Compare to `dominance_analysis()`
 # ---------------------------------
@@ -117,8 +115,6 @@ r2_semipartial(m_full)
 
 # Compare to last column of "Conditional Dominance Statistics":
 parameters::dominance_analysis(m_full)
-
-
 \dontshow{\}) # examplesIf}
 }
 \references{

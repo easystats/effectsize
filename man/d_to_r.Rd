@@ -29,11 +29,11 @@ logoddsratio_to_d(OR, log = TRUE, ...)
 
 d_to_oddsratio(d, log = FALSE, ...)
 
-oddsratio_to_r(OR, log = FALSE, n1, n2, ...)
+oddsratio_to_r(OR, n1, n2, log = FALSE, ...)
 
 logoddsratio_to_r(OR, log = TRUE, ...)
 
-r_to_oddsratio(r, log = FALSE, n1, n2, ...)
+r_to_oddsratio(r, n1, n2, log = FALSE, ...)
 }
 \arguments{
 \item{d}{Standardized difference value (Cohen's d).}

@@ -131,7 +131,7 @@ p_superiority <- function(x, y = NULL, data = NULL,
       mu = mu,
       ci = ci,
       alternative = alternative,
-      verbose = verbose,
+      verbose = verbose
     )
     d_to_p_superiority(d)
   } else {
@@ -181,7 +181,7 @@ cohens_u1 <- function(x, y = NULL, data = NULL,
     mu = mu,
     ci = ci,
     alternative = alternative,
-    verbose = verbose,
+    verbose = verbose
   )
   out <- d_to_u1(d)
 
@@ -218,7 +218,7 @@ cohens_u2 <- function(x, y = NULL, data = NULL,
       mu = mu,
       ci = ci,
       alternative = alternative,
-      verbose = verbose,
+      verbose = verbose
     )
     out <- d_to_u2(d)
   } else {
@@ -262,7 +262,7 @@ cohens_u3 <- function(x, y = NULL, data = NULL,
       mu = mu,
       ci = ci,
       alternative = alternative,
-      verbose = verbose,
+      verbose = verbose
     )
     out <- d_to_u3(d)
   } else {
@@ -305,7 +305,7 @@ p_overlap <- function(x, y = NULL, data = NULL,
       mu = mu,
       ci = ci,
       alternative = alternative,
-      verbose = verbose,
+      verbose = verbose
     )
     out <- d_to_overlap(d)
   } else {
@@ -360,7 +360,7 @@ wmw_odds <- function(x, y = NULL, data = NULL,
 
     .foo <- function(p) {
       min(abs(stats::quantile(x, probs = c(p, 1 - p)) -
-        stats::quantile(y, probs = c(1 - p, p))))
+                stats::quantile(y, probs = c(1 - p, p))))
     }
 
     stats::optim(
@@ -440,7 +440,7 @@ wmw_odds <- function(x, y = NULL, data = NULL,
     out <- data.frame(ES = est(d))
 
     if (.test_ci(ci) &&
-      insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
+        insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
       ci.level <- .adjust_ci(ci, alternative)
 
       out$CI <- ci
@@ -464,8 +464,8 @@ wmw_odds <- function(x, y = NULL, data = NULL,
     # TODO
     # class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
     .someattributes(out) <- .nlist(mu, ci, ci_method, alternative,
-      approximate = TRUE,
-      table_footer = "Non-parametric CLES"
+                                   approximate = TRUE,
+                                   table_footer = "Non-parametric CLES"
     )
     return(out)
   }
