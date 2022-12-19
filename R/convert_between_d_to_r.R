@@ -137,7 +137,7 @@ convert_d_to_oddsratio <- d_to_oddsratio
 #' @rdname d_to_r
 #' @aliases convert_oddsratio_to_r
 #' @export
-oddsratio_to_r <- function(OR, log = FALSE, n1, n2, ...) {
+oddsratio_to_r <- function(OR, n1, n2, log = FALSE, ...) {
   d_to_r(oddsratio_to_d(OR, log = log), n1, n2)
 }
 
@@ -159,7 +159,7 @@ convert_logoddsratio_to_r <- logoddsratio_to_r
 #' @rdname d_to_r
 #' @aliases convert_r_to_oddsratio
 #' @export
-r_to_oddsratio <- function(r, log = FALSE, n1, n2, ...) {
+r_to_oddsratio <- function(r, n1, n2, log = FALSE, ...) {
   d_to_oddsratio(r_to_d(r), log = log, n1, n2)
 }
 
