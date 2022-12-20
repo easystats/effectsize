@@ -44,4 +44,3 @@ test_that("r2_semipartial basic", {
   expect_equal(r2_semipartial(mf)[2, 2], R2f - R2r1, ignore_attr = TRUE)
   expect_equal(r2_semipartial(mf)[1, 2], R2f - R2r2, ignore_attr = TRUE)
 })
-
