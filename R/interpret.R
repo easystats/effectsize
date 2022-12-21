@@ -176,6 +176,7 @@ interpret.effectsize_table <- function(x, rules, ...) {
     phi_adjusted = ,
     Pearsons_c = ,
     Cohens_w = ,
+    Tschuprows_t = ,
     fei = interpret_cramers_v(value, rules = rules),
 
     ## xtab 2x2
