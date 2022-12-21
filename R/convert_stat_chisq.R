@@ -151,15 +151,15 @@ chisq_to_cohens_w <- function(chisq, n, nrow, ncol, p,
   colnames(res)[1] <- "Cohens_w"
 
   if ("CI" %in% colnames(res)) {
-    if (ncol > 2 && nrow > 2) {
-      max_possible <- sqrt((pmin(ncol, nrow) - 1))
-    } else if (ncol == 1 || nrow == 1) {
+    if (ncol == 1 || nrow == 1) {
       if (missing(p)) {
         max_possible <- Inf # really is chisqMax, but can't compute it without p
       } else {
         q <- min(p / sum(p))
         max_possible <- sqrt((1 - q) / q)
       }
+    } else {
+      max_possible <- sqrt((pmin(ncol, nrow) - 1))
     }
 
     if (attr(res, "alternative") == "greater") {

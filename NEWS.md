@@ -8,6 +8,7 @@
 
 ## Bug fixes
 
+- Fixed error in `cohens_w()` for 2-by-X tables.  
 - Solved integer overflow errors in `rank_biserial()` ( #476 )
 
 
