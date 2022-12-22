@@ -434,7 +434,8 @@ wmw_odds <- function(x, y = NULL, data = NULL,
            iterations = 200) {
     d <- data.frame(
       r = c(x, y),
-      g = rep(c("x", "y"), c(length(x), length(y)))
+      g = rep(c("x", "y"), c(length(x), length(y))),
+      stringsAsFactors = TRUE
     )
 
     out <- data.frame(ES = est(d))
