@@ -359,8 +359,8 @@ wmw_odds <- function(x, y = NULL, data = NULL,
     y <- data[data$g == "y", "r"]
 
     .foo <- function(p) {
-      min(abs(stats::quantile(x, probs = c(p, 1 - p)) -
-        stats::quantile(y, probs = c(1 - p, p))))
+      diff <- stats::quantile(x, probs = c(p, 1 - p)) - stats::quantile(y, probs = c(1 - p, p))
+      min(abs(diff))
     }
 
     stats::optim(
