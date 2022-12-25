@@ -51,7 +51,9 @@ oddsratio_to_riskratio.numeric <- function(OR, p0, log = FALSE, ...) {
 #' @export
 oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, ...) {
   mi <- .get_model_info(OR, ...)
-  if (!mi$is_binomial || !mi$is_logit) insight::format_error("Model must a binomial model with logit-link (logistic regression).")
+  if (!mi$is_binomial || !mi$is_logit) {
+    insight::format_error("Model must be a binomial model with a logit-link (logistic regression).")
+  }
 
   RR <- parameters::model_parameters(OR, exponentiate = !log, effects = "fixed", ...)
   RR$SE <- NULL

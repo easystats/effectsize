@@ -134,8 +134,7 @@ effectsize.easycorrelation <- function(model, ...) {
   r_cols <- 1:which(colnames(model) == r_name)
   if (!is.null(attr(model, "ci"))) {
     model$CI <- attr(model, "ci")
-    CI_cols <- c("CI", "CI_low", "CI_high")
-    CI_cols <- sapply(CI_cols, function(ici) which(colnames(model) == ici))
+    CI_cols <- match(c("CI", "CI_low", "CI_high"), colnames(model))
     r_cols <- c(r_cols, CI_cols)
   }
 
