@@ -17,7 +17,7 @@ library(effectsize)
 
 <!-- Blah blah blah effect sizes are important. -->
 
-We review here the most common effect sizes for analysis of categorical variables, and introduce a new one -- $פ$ (Fei)  --alongside R code from the `{effectsize}` package [@benshachar2020effectsize] which implements these.
+We review here the most common effect sizes for analysis of categorical variables, and introduce a new one -- $פ$ (Fei)  --alongside R code from the *effectsize* package [@benshachar2020effectsize] which implements these.
 
 # Tests Of Independance
 
@@ -43,11 +43,9 @@ Where $p_{O_i}$ are the *observed* cell probabilities and $p_{E_i}$ are the prob
 
 For example... <!-- use a real world example -->
 
-<!-- How about using Titanic dataset and checking if survival status and sex were independent of each other -->
-
 ## Phi
 
-For a 2-by-2 contingency table analysis, the $\phi$ (*phi*) coefficient is a correlation-like measure of effect size indicating the strength of association between the two binary variables. One way to compute this effect size is to re-code the binary variables as dummy (0,1) variables, and computing the (absolute) Pearson correlation between them:
+For 2-by-2 contingency tables, the $\phi$ (*phi*) coefficient is a correlation-like measure of effect size indicating the strength of association between the two binary variables. One way to compute this effect size is to re-code the binary variables as dummy (0,1) variables, and computing the (absolute) Pearson correlation between them:
 
 $$
 \phi = |r_{AB}|
@@ -57,8 +55,7 @@ Another way to compute $\phi$ is by using the $\chi^2$ statistic:
 $$
 \phi = \sqrt{\frac{\chi^2}{N}} = \sqrt{\sum{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}}
 $$
-
-This value ranges between 0 (no association) and 1 (complete dependence), and its values can be interpreted the same as Person's correlation coefficient.
+This value ranges between 0 (not association) and 1 (complete dependence), and its values can be interpreted the same as any Person's correlation coefficient.
 
 ```{r}
 library(effectsize)
@@ -76,17 +73,19 @@ tidyr::uncount(as.data.frame(RCT_table), weights = Freq) |>
   correlation()
 ```
 
-## Cramér's *V*
 
-These properties do not hold when the contingency table is larger than 2-by-2: $\sqrt{\chi^2/N}$ can be larger than 1.
 
-Cramér showed [@cramer1999mathematical] that while for 2-by-2 the maximal possible value of $\chi^2$ is $N$, for larger tables the maximal possible value for $\chi^2$ is $N\times (\text{min}(k,l)-1)$. Therefore, he suggested the $V$ effect size (also sometimes known as Cramér's phi and denoted as $\phi_{c}$):
+## Cramer's *v*
+
+These properties do not hold when the contigency table is larger than 2-by-2: $\sqrt{\chi^2/N}$ can be larger than 1.
+
+Cramer showed (REF?) that while for 2-by-2 the maximal possible value of $\chi^2$ is $N$, for larger tables the maximal possible value for $\chi^2$ is $N\times (\text{min}(k,l)-1)$. He therefor suggested the $v$ effect size:
 
 $$
 \text{Cramer's } V = \sqrt{\frac{\chi^2}{N(\text{min}(k,l)-1)}}
 $$
 
-*V* is 1 when the columns are completely dependent on the rows, or the row are completely dependent on the columns.
+This is 1 when the columns are completely dependent on the rows, or the row are completely dependent on the columns.
 
 ```{r}
 data("Music_preferences")
@@ -96,7 +95,7 @@ Music_preferences
 cramers_v(Music_preferences, adjust = FALSE)
 ```
 
-Tschuprow (REF) devised an alternative value, at <value>, which is 1 only when the columns are completely dependent on the rows *and* the row are completely dependent on the columns, which is only possible when the contingency table is a square.
+Tschuprow (REF) devised an alternative value, at <value>, which is only 1 when the columns are completely dependent on the rows **and** the row are completely dependent on the columns, which is only possible when the xtab is square.
 
 ```{r}
 tschuprows_t(Music_preferences)
@@ -133,7 +132,7 @@ p_E <- c(0.5, 0.5)
 cohens_w(O, p = p_E)
 ```
 
-Unfortunately, *w* has an upper bound of 1 only when the variable is binomial (two categories) and the expected distribution is uniform ($p_{\text{class 1}} = p_{\text{class 2}} = 0.5$). If the distribution is none uniform (Rosenberg, 2010) or if there are more than 2 classes (Johnston et al., 2006), then $\chi^2_\text{max} > N$, and so *w* can be larger than 1.
+Unfortunately, *w* has an uppoer bound of 1 only when the variable is binomial (two categories) and the expected distribution is uniform ($p_{\text{class 1}} = p_{\text{class 2}} = 0.5$). If the distribution is none uniform (Rosenberg, 2010) or if there are more than 2 classes (Johnston et al., 2006), then $\chi^2_\text{max} > N$, and so *w* can be larger than 1.
 
 ```{r}
 O <- c(90, 10)
@@ -146,9 +145,10 @@ p_E <- c(.25, .25, .25, .25)
 cohens_w(O, p = p_E)
 ```
 
+
 ## Fei
 
-We present here a new effect size, $פ$ (Fei) which normalizes goodness-of-fit $\chi^2$ by the proper $\chi^2_\text{max}$ for non-uniform and/or mulinomial variables.
+We present here a new effect size, $פ$ (Fei) which normalizes GoF $\chi^2$ by the propper $\chi^2_\text{max}$ for none-uniform and/or mulinomial variables.
 
 The largest deviation from the expected probability would be if all observations are in the cell with the smallest expected probability.
 
@@ -188,7 +188,7 @@ $$
 \sqrt{\frac{\chi^2}{N \times (\frac{1}{\text{min}(p_E)} - 1)}}
 $$
 
-We call this effect size $פ$, which represents the voiceless bilabial fricative in the Hebrew language, keeping in line with $\phi$ (which in modern Greek marks the same sound) and $V$ (which in English mark a voiced bilabial fricative) ($W$ being derived from the letter V in modern Latin alphabet).
+We call this effect size $פ$, which can represent the voiceless bilabial fricative in the Hebrew language, keeping in line with $\phi$ (which in modern Greek marks the same sound) and $V$ (which in English mark a voiced bilabial fricative) ($W$ being derived from the letter V in modern Latin alphabet).
 
 This will be 0 when the observed distribution matches the expected one perfectly, and will be 1 when the observed values are all of the same class - the one with the smallest expected probability.
 
