@@ -1,4 +1,3 @@
-
 test_that("format_standardize", {
   expect_equal(
     format_standardize(c(-1, 0, 1), digits = 0),
