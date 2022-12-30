@@ -182,7 +182,7 @@ $$
 \end{split}
 $$
 
-And so an effect size can be derived as:
+And so an effect size can be derived as: 
 
 $$
 \sqrt{\frac{\chi^2}{N \times (\frac{1}{\text{min}(p_E)} - 1)}}
