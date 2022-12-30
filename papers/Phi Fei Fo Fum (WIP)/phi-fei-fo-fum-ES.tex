@@ -1,0 +1,549 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Phi, Fei, Fo, Fum: Correlation Effect Sizes for Chi-squared Tests},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Phi, Fei, Fo, Fum: Correlation Effect Sizes for Chi-squared
+Tests}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+We review here the most common effect sizes for analysis of categorical
+variables, and introduce a new one -- \(פ\) (Fei) --alongside R code
+from the \texttt{\{effectsize\}} package (Ben-Shachar, Lüdecke, and
+Makowski 2020) which implements these.
+
+\hypertarget{tests-of-independance}{%
+\section{Tests Of Independance}\label{tests-of-independance}}
+
+The \(\chi^2\) test of independence between two categorical variables
+examines if the frequency distribution of one of the variables is
+dependent on the other.
+
+Formally, the test examines how likely the observed conditional
+frequencies (cell frequencies) are under the null hypotheses of
+independence, by examining the degree of deviation of the observed cell
+frequencies from the frequencies expected if the variables were indeed
+independent.
+
+The test statistic for these tests is the \(\chi^2\), which is computed
+as:
+
+\[
+\chi^2 = \sum{\frac{(O_i-E_i)^2}{E_i}}
+\]
+
+Where \(O_i\) are the \emph{observed} frequencies and \(E_i\) are the
+frequencies \emph{expected} under independence.
+
+Instead of the deviations between the observed and expected frequencies,
+we can write \(\chi^2\) in terms of observed and expected cell
+probabilities and the total sample size \(N\):
+
+\[
+\chi^2 = N\sum{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}
+\]
+
+Where \(p_{O_i}\) are the \emph{observed} cell probabilities and
+\(p_{E_i}\) are the probabilities \emph{expected} under independence.
+
+For example\ldots{}
+
+\hypertarget{phi}{%
+\subsection{Phi}\label{phi}}
+
+For a 2-by-2 contingency table analysis, the \(\phi\) (\emph{phi})
+coefficient is a correlation-like measure of effect size indicating the
+strength of association between the two binary variables. One way to
+compute this effect size is to re-code the binary variables as dummy
+(0,1) variables, and computing the (absolute) Pearson correlation
+between them:
+
+\[
+\phi = |r_{AB}|
+\]
+
+Another way to compute \(\phi\) is by using the \(\chi^2\) statistic:
+
+\[
+\phi = \sqrt{\frac{\chi^2}{N}} = \sqrt{\sum{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}}
+\]
+
+This value ranges between 0 (no association) and 1 (complete
+dependence), and its values can be interpreted the same as Person's
+correlation coefficient.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(effectsize)}
+\FunctionTok{library}\NormalTok{(correlation)}
+
+\FunctionTok{data}\NormalTok{(}\StringTok{"RCT\_table"}\NormalTok{)}
+
+\NormalTok{RCT\_table}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            Group
+## Diagnosis   Treatment Control
+##   Sick             71      30
+##   Recovered        50     100
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{phi}\NormalTok{(RCT\_table, }\AttributeTok{adjust =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Phi  |       95% CI
+## -------------------
+## 0.36 | [0.26, 1.00]
+## 
+## - One-sided CIs: upper bound fixed at [1.00].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tidyr}\SpecialCharTok{::}\FunctionTok{uncount}\NormalTok{(}\FunctionTok{as.data.frame}\NormalTok{(RCT\_table), }\AttributeTok{weights =}\NormalTok{ Freq) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{transform}\NormalTok{(}\AttributeTok{Diagnosis =}\NormalTok{ Diagnosis }\SpecialCharTok{==} \StringTok{"Sick"}\NormalTok{,}
+            \AttributeTok{Group =}\NormalTok{ Group }\SpecialCharTok{==} \StringTok{"Treatment"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{correlation}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # Correlation Matrix (pearson-method)
+## 
+## Parameter1 | Parameter2 |    r |       95% CI | t(249) |         p
+## ------------------------------------------------------------------
+## Diagnosis  |      Group | 0.36 | [0.25, 0.47] |   6.14 | < .001***
+## 
+## p-value adjustment method: Holm (1979)
+## Observations: 251
+\end{verbatim}
+
+\hypertarget{cramuxe9rs-v}{%
+\subsection{\texorpdfstring{Cramér's
+\emph{V}}{Cramér's V}}\label{cramuxe9rs-v}}
+
+These properties do not hold when the contingency table is larger than
+2-by-2: \(\sqrt{\chi^2/N}\) can be larger than 1.
+
+Cramér showed (Cramér 1999) that while for 2-by-2 the maximal possible
+value of \(\chi^2\) is \(N\), for larger tables the maximal possible
+value for \(\chi^2\) is \(N\times (\text{min}(k,l)-1)\). Therefore, he
+suggested the \(V\) effect size (also sometimes known as Cramér's phi
+and denoted as \(\phi_{c}\)):
+
+\[
+\text{Cramer's } V = \sqrt{\frac{\chi^2}{N(\text{min}(k,l)-1)}}
+\]
+
+\emph{V} is 1 when the columns are completely dependent on the rows, or
+the row are completely dependent on the columns.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{data}\NormalTok{(}\StringTok{"Music\_preferences"}\NormalTok{)}
+
+\NormalTok{Music\_preferences}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       Pop Rock Jazz Classic
+## Psych 150  100  165     130
+## Econ   50   65   35      10
+## Law     2   55   40      25
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cramers\_v}\NormalTok{(Music\_preferences, }\AttributeTok{adjust =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Cramer's V |       95% CI
+## -------------------------
+## 0.24       | [0.19, 1.00]
+## 
+## - One-sided CIs: upper bound fixed at [1.00].
+\end{verbatim}
+
+Tschuprow (Tschuprow 1939) devised an alternative value, at , which is 1
+only when the columns are completely dependent on the rows \emph{and}
+the row are completely dependent on the columns, which is only possible
+when the contingency table is a square.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tschuprows\_t}\NormalTok{(Music\_preferences)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Tschuprow's T |       95% CI
+## ----------------------------
+## 0.22          | [0.17, 1.00]
+## 
+## - One-sided CIs: upper bound fixed at [1.00].
+\end{verbatim}
+
+We can generalize both \(\phi\), \(V\), and \(T\) to:
+
+\[
+\sqrt{\frac{\chi^2}{\chi^2_{\text{max}}}}
+\]
+
+\hypertarget{also}{%
+\subsection{Also\ldots{}}\label{also}}
+
+These can be used for confusion matrices\ldots{}
+
+\hypertarget{goodness-of-fit}{%
+\section{Goodness of Fit}\label{goodness-of-fit}}
+
+These tests compare an observed distribution of a multinomial variable
+to an expected distribution, using the same \(\chi^2\) statistic. Here
+too we can compute an effect size as
+\(\sqrt{\frac{\chi^2}{\chi^2_{\text{max}}}}\), all we need to find is
+\(\chi^2_{\text{max}}\).
+
+\hypertarget{cohens-w}{%
+\subsection{\texorpdfstring{Cohen's
+\emph{w}}{Cohen's w}}\label{cohens-w}}
+
+Cohen (REF) defined an effect size -- \emph{w} -- for the goodness of
+fit test:
+
+\[
+\text{Cohen's } w = \sqrt{\sum{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}} = \sqrt{\frac{\chi^2}{N}}
+\]
+
+Thus \(\chi^2_\text{max} = N\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{O }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{90}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{p\_E }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+
+\FunctionTok{cohens\_w}\NormalTok{(O, }\AttributeTok{p =}\NormalTok{ p\_E)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Cohen's w |       95% CI
+## ------------------------
+## 0.80      | [0.64, 1.00]
+## 
+## - One-sided CIs: upper bound fixed at [1.00].
+\end{verbatim}
+
+Unfortunately, \emph{w} has an upper bound of 1 only when the variable
+is binomial (two categories) and the expected distribution is uniform
+(\(p_{\text{class 1}} = p_{\text{class 2}} = 0.5\)). If the distribution
+is none uniform (Rosenberg, 2010) or if there are more than 2 classes
+(Johnston et al., 2006), then \(\chi^2_\text{max} > N\), and so \emph{w}
+can be larger than 1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{O }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{90}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{p\_E }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.35}\NormalTok{, }\FloatTok{0.65}\NormalTok{)}
+\FunctionTok{cohens\_w}\NormalTok{(O, }\AttributeTok{p =}\NormalTok{ p\_E)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Cohen's w |       95% CI
+## ------------------------
+## 1.15      | [0.99, 1.36]
+## 
+## - One-sided CIs: upper bound fixed at [1.36~].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{O }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{p\_E }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(.}\DecValTok{25}\NormalTok{, .}\DecValTok{25}\NormalTok{, .}\DecValTok{25}\NormalTok{, .}\DecValTok{25}\NormalTok{)}
+\FunctionTok{cohens\_w}\NormalTok{(O, }\AttributeTok{p =}\NormalTok{ p\_E)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Cohen's w |       95% CI
+## ------------------------
+## 1.05      | [0.88, 1.73]
+## 
+## - One-sided CIs: upper bound fixed at [1.73~].
+\end{verbatim}
+
+\hypertarget{fei}{%
+\subsection{Fei}\label{fei}}
+
+We present here a new effect size, \(פ\) (Fei) which normalizes
+goodness-of-fit \(\chi^2\) by the proper \(\chi^2_\text{max}\) for
+non-uniform and/or mulinomial variables.
+
+The largest deviation from the expected probability would be if all
+observations are in the cell with the smallest expected probability.
+
+\[
+p_{O} = 
+\begin{cases}
+1 & \text{if } p_i = \text{min}(p) \\
+0 & \text{else}
+\end{cases}
+\]
+
+Since \(\chi^2 = N \sum{\frac{(p_{E_i}-p_{O_i})^2}{p_{E_i}}}\)
+
+We can find \(\frac{(E_i-O_i)^2}{E_i}\) for each of these values:
+
+\[
+\frac{(p_{E}-p_{O})^2}{p_{E}} = 
+\begin{cases}
+\frac{(p_i-1)^2}{p_i} & \text{if } p_{E} = \text{min}(p_{E}) \\
+\frac{(p_i-0)^2}{p_i} = p_i & \text{else}
+\end{cases}
+\]
+
+Since \(\sum{p_i}=1\), therefor the \(\chi^2\) which is the sum of the
+expression above as:
+
+\[
+\begin{split}
+\chi^2_\text{max} & = N \times (1 - \text{min}(p_E) + \frac{(\text{min}(p_E)-1)^2}{\text{min}(p_E)}) \\
+ & = N \times \frac{1-\text{min}(p_E)}{\text{min}(p_E)} \\
+ & = N \times (\frac{1}{\text{min}(p_E)} - 1)
+\end{split}
+\]
+
+And so an effect size can be derived as:
+
+\[
+\sqrt{\frac{\chi^2}{N \times (\frac{1}{\text{min}(p_E)} - 1)}}
+\]
+
+We call this effect size \(פ\), which represents the voiceless bilabial
+fricative in the Hebrew language, keeping in line with \(\phi\) (which
+in modern Greek marks the same sound) and \(V\) (which in English mark a
+voiced bilabial fricative) (\(W\) being derived from the letter V in
+modern Latin alphabet).
+
+This will be 0 when the observed distribution matches the expected one
+perfectly, and will be 1 when the observed values are all of the same
+class - the one with the smallest expected probability.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{O }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{90}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{p\_E }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.35}\NormalTok{, }\FloatTok{0.65}\NormalTok{)}
+\FunctionTok{fei}\NormalTok{(O, }\AttributeTok{p =}\NormalTok{ p\_E)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Fei  |       95% CI
+## -------------------
+## 0.85 | [0.73, 1.00]
+## 
+## - One-sided CIs: upper bound fixed at [1.00].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{O }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{p\_E }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(.}\DecValTok{25}\NormalTok{, .}\DecValTok{25}\NormalTok{, .}\DecValTok{25}\NormalTok{, .}\DecValTok{25}\NormalTok{)}
+\FunctionTok{fei}\NormalTok{(O, }\AttributeTok{p =}\NormalTok{ p\_E)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Fei  |       95% CI
+## -------------------
+## 0.60 | [0.51, 1.00]
+## 
+## - Adjusted for uniform expected probabilities.
+## - One-sided CIs: upper bound fixed at [1.00].
+\end{verbatim}
+
+When there are only 2 cells with uniform expected probabilities (50\%),
+this expression reduces to \(N\) and \(פ = w\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{O }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{90}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{p\_E }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+
+\FunctionTok{fei}\NormalTok{(O, }\AttributeTok{p =}\NormalTok{ p\_E)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Fei  |       95% CI
+## -------------------
+## 0.80 | [0.64, 1.00]
+## 
+## - Adjusted for uniform expected probabilities.
+## - One-sided CIs: upper bound fixed at [1.00].
+\end{verbatim}
+
+\hypertarget{summary}{%
+\section{Summary}\label{summary}}
+
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-benshachar2020effectsize}{}}%
+Ben-Shachar, Mattan S., Daniel Lüdecke, and Dominique Makowski. 2020.
+{``{e}ffectsize: Estimation of Effect Size Indices and Standardized
+Parameters.''} \emph{Journal of Open Source Software} 5 (56): 2815.
+\url{https://doi.org/10.21105/joss.02815}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-cramer1999mathematical}{}}%
+Cramér, Harald. 1999. \emph{Mathematical Methods of Statistics}. Vol.
+43. Princeton University Press.
+
+\leavevmode\vadjust pre{\hypertarget{ref-tschuprow1939principles}{}}%
+Tschuprow, Aleksandr Aleksandrovich. 1939. \emph{Principles of the
+Mathematical Theory of Correlation}. Hodge.
+
+\end{CSLReferences}
+
+\end{document}

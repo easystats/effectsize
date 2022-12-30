@@ -2,6 +2,7 @@
 title: "Phi, Fei, Fo, Fum: Correlation Effect Sizes for Chi-squared Tests"
 output: 
   pdf_document:
+    keep_tex: true
     latex_engine: xelatex
 bibliography: paper.bib
 ---
@@ -52,6 +53,7 @@ For a 2-by-2 contingency table analysis, the $\phi$ (*phi*) coefficient is a cor
 $$
 \phi = |r_{AB}|
 $$
+
 Another way to compute $\phi$ is by using the $\chi^2$ statistic:
 
 $$
@@ -96,7 +98,7 @@ Music_preferences
 cramers_v(Music_preferences, adjust = FALSE)
 ```
 
-Tschuprow (REF) devised an alternative value, at <value>, which is 1 only when the columns are completely dependent on the rows *and* the row are completely dependent on the columns, which is only possible when the contingency table is a square.
+Tschuprow [@tschuprow1939principles] devised an alternative value, at <value>, which is 1 only when the columns are completely dependent on the rows *and* the row are completely dependent on the columns, which is only possible when the contingency table is a square.
 
 ```{r}
 tschuprows_t(Music_preferences)
