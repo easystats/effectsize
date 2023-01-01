@@ -121,12 +121,11 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
-  pdftitle={Phi, Fei, Fo, Fum: Correlation Effect Sizes for Chi-squared Tests},
+  pdftitle={Phi, Fei, Fo, Fum: Effect Sizes for Chi-squared Tests},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
-\title{Phi, Fei, Fo, Fum: Correlation Effect Sizes for Chi-squared
-Tests}
+\title{Phi, Fei, Fo, Fum: Effect Sizes for Chi-squared Tests}
 \author{}
 \date{\vspace{-2.5em}}
 
@@ -138,54 +137,79 @@ Tests}
 
 We review here the most common effect sizes for analysis of categorical
 variables, and introduce a new one -- \(פ\) (Fei) --alongside R code
-from the \texttt{\{effectsize\}} package (Ben-Shachar, Lüdecke, and
-Makowski 2020) which implements these.
+from the \texttt{\{effectsize\}} package (Ben-Shachar, Lüdecke, \&
+Makowski, 2020) which implements these.
 
 \hypertarget{tests-of-independance}{%
 \section{Tests Of Independance}\label{tests-of-independance}}
 
 The \(\chi^2\) test of independence between two categorical variables
 examines if the frequency distribution of one of the variables is
-dependent on the other.
-
-Formally, the test examines how likely the observed conditional
-frequencies (cell frequencies) are under the null hypotheses of
-independence, by examining the degree of deviation of the observed cell
-frequencies from the frequencies expected if the variables were indeed
-independent.
-
-The test statistic for these tests is the \(\chi^2\), which is computed
-as:
+dependent on the other. Formally, the test examines how likely the
+observed conditional frequencies (cell frequencies) are under the null
+hypotheses of independence. This is done by examining the degree the
+observed cell frequencies deviate from the frequencies that would be
+expected if the variables were indeed independent. The test statistic
+for these tests is the \(\chi^2\), which is computed as:
 
 \[
-\chi^2 = \sum{\frac{(O_i-E_i)^2}{E_i}}
+\chi^2 = \sum_{i=1}^{l\times k}{\frac{(O_i-E_i)^2}{E_i}}
 \]
 
 Where \(O_i\) are the \emph{observed} frequencies and \(E_i\) are the
-frequencies \emph{expected} under independence.
+frequencies \emph{expected} under independence, and \(l\) and \(k\) are
+the number of rows and columns of the contingency table.
 
 Instead of the deviations between the observed and expected frequencies,
 we can write \(\chi^2\) in terms of observed and expected cell
-probabilities and the total sample size \(N\):
+\emph{probabilities} and the total sample size \(N\) (since \(p=k/N\)):
 
 \[
-\chi^2 = N\sum{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}
+\chi^2 = N\times\sum_{i=1}^{l\times k}{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}
 \]
 
 Where \(p_{O_i}\) are the \emph{observed} cell probabilities and
 \(p_{E_i}\) are the probabilities \emph{expected} under independence.
 
-For example\ldots{}
+For example, which might ask of the probability of survival of the
+sinking of the Titanic is dependant on the sex of the passenger:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(Titanic\_xtab }\OtherTok{\textless{}{-}} \FunctionTok{as.table}\NormalTok{(}\FunctionTok{apply}\NormalTok{(Titanic, }\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{), sum)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Survived
+## Sex        No  Yes
+##   Male   1364  367
+##   Female  126  344
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{chisq.test}\NormalTok{(Titanic\_xtab)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's Chi-squared test with Yates' continuity correction
+## 
+## data:  Titanic_xtab
+## X-squared = 454.5, df = 1, p-value < 2.2e-16
+\end{verbatim}
 
 \hypertarget{phi}{%
 \subsection{Phi}\label{phi}}
 
-For a 2-by-2 contingency table analysis, the \(\phi\) (\emph{phi})
-coefficient is a correlation-like measure of effect size indicating the
-strength of association between the two binary variables. One way to
-compute this effect size is to re-code the binary variables as dummy
-(0,1) variables, and computing the (absolute) Pearson correlation
-between them:
+For a 2-by-2 contingency table analysis, like the one used above, the
+\(\phi\) (\emph{phi}) coefficient is a correlation-like measure of
+effect size indicating the strength of association between the two
+binary variables. One way to compute this effect size is to re-code the
+binary variables as dummy (0,1) variables, and computing the (absolute)
+Pearson correlation between them:
 
 \[
 \phi = |r_{AB}|
@@ -194,7 +218,7 @@ between them:
 Another way to compute \(\phi\) is by using the \(\chi^2\) statistic:
 
 \[
-\phi = \sqrt{\frac{\chi^2}{N}} = \sqrt{\sum{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}}
+\phi = \sqrt{\frac{\chi^2}{N}} = \sqrt{\sum_{i=1}^{l\times k}{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}}
 \]
 
 This value ranges between 0 (no association) and 1 (complete
@@ -206,38 +230,23 @@ correlation coefficient.
 \FunctionTok{library}\NormalTok{(effectsize)}
 \FunctionTok{library}\NormalTok{(correlation)}
 
-\FunctionTok{data}\NormalTok{(}\StringTok{"RCT\_table"}\NormalTok{)}
-
-\NormalTok{RCT\_table}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##            Group
-## Diagnosis   Treatment Control
-##   Sick             71      30
-##   Recovered        50     100
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{phi}\NormalTok{(RCT\_table, }\AttributeTok{adjust =} \ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{phi}\NormalTok{(Titanic\_xtab, }\AttributeTok{adjust =} \ConstantTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## Phi  |       95% CI
 ## -------------------
-## 0.36 | [0.26, 1.00]
+## 0.46 | [0.42, 1.00]
 ## 
 ## - One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{tidyr}\SpecialCharTok{::}\FunctionTok{uncount}\NormalTok{(}\FunctionTok{as.data.frame}\NormalTok{(RCT\_table), }\AttributeTok{weights =}\NormalTok{ Freq) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{transform}\NormalTok{(}\AttributeTok{Diagnosis =}\NormalTok{ Diagnosis }\SpecialCharTok{==} \StringTok{"Sick"}\NormalTok{,}
-            \AttributeTok{Group =}\NormalTok{ Group }\SpecialCharTok{==} \StringTok{"Treatment"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+\NormalTok{tidyr}\SpecialCharTok{::}\FunctionTok{uncount}\NormalTok{(}\FunctionTok{as.data.frame}\NormalTok{(Titanic\_xtab), }\AttributeTok{weights =}\NormalTok{ Freq) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{transform}\NormalTok{(}\AttributeTok{Survived =}\NormalTok{ Survived }\SpecialCharTok{==} \StringTok{"Yes"}\NormalTok{,}
+            \AttributeTok{Sex =}\NormalTok{ Sex }\SpecialCharTok{==} \StringTok{"Male"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{correlation}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -245,12 +254,12 @@ correlation coefficient.
 \begin{verbatim}
 ## # Correlation Matrix (pearson-method)
 ## 
-## Parameter1 | Parameter2 |    r |       95% CI | t(249) |         p
-## ------------------------------------------------------------------
-## Diagnosis  |      Group | 0.36 | [0.25, 0.47] |   6.14 | < .001***
+## Parameter1 | Parameter2 |     r |         95% CI | t(2199) |         p
+## ----------------------------------------------------------------------
+## Sex        |   Survived | -0.46 | [-0.49, -0.42] |  -24.00 | < .001***
 ## 
 ## p-value adjustment method: Holm (1979)
-## Observations: 251
+## Observations: 2201
 \end{verbatim}
 
 \hypertarget{cramuxe9rs-v}{%
@@ -260,7 +269,7 @@ correlation coefficient.
 These properties do not hold when the contingency table is larger than
 2-by-2: \(\sqrt{\chi^2/N}\) can be larger than 1.
 
-Cramér showed (Cramér 1999) that while for 2-by-2 the maximal possible
+Cramér showed (Cramér, 1999) that while for 2-by-2 the maximal possible
 value of \(\chi^2\) is \(N\), for larger tables the maximal possible
 value for \(\chi^2\) is \(N\times (\text{min}(k,l)-1)\). Therefore, he
 suggested the \(V\) effect size (also sometimes known as Cramér's phi
@@ -275,62 +284,54 @@ the row are completely dependent on the columns.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{data}\NormalTok{(}\StringTok{"Music\_preferences"}\NormalTok{)}
-
-\NormalTok{Music\_preferences}
+\NormalTok{(Titanic\_xtab2 }\OtherTok{\textless{}{-}} \FunctionTok{as.table}\NormalTok{(}\FunctionTok{apply}\NormalTok{(Titanic, }\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{), sum)))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##       Pop Rock Jazz Classic
-## Psych 150  100  165     130
-## Econ   50   65   35      10
-## Law     2   55   40      25
+##       Survived
+## Class   No Yes
+##   1st  122 203
+##   2nd  167 118
+##   3rd  528 178
+##   Crew 673 212
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{cramers\_v}\NormalTok{(Music\_preferences, }\AttributeTok{adjust =} \ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{cramers\_v}\NormalTok{(Titanic\_xtab2, }\AttributeTok{adjust =} \ConstantTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## Cramer's V |       95% CI
 ## -------------------------
-## 0.24       | [0.19, 1.00]
+## 0.29       | [0.26, 1.00]
 ## 
 ## - One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
-Tschuprow (Tschuprow 1939) devised an alternative value, at , which is 1
-only when the columns are completely dependent on the rows \emph{and}
+Tschuprow (Tschuprow, 1939) devised an alternative value, at , which is
+1 only when the columns are completely dependent on the rows \emph{and}
 the row are completely dependent on the columns, which is only possible
 when the contingency table is a square.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{tschuprows\_t}\NormalTok{(Music\_preferences)}
+\FunctionTok{tschuprows\_t}\NormalTok{(Titanic\_xtab2)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## Tschuprow's T |       95% CI
 ## ----------------------------
-## 0.22          | [0.17, 1.00]
+## 0.22          | [0.20, 1.00]
 ## 
 ## - One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
 We can generalize both \(\phi\), \(V\), and \(T\) to:
-
-\[
-\sqrt{\frac{\chi^2}{\chi^2_{\text{max}}}}
-\]
-
-\hypertarget{also}{%
-\subsection{Also\ldots{}}\label{also}}
-
-These can be used for confusion matrices\ldots{}
+\(\sqrt{\frac{\chi^2}{\chi^2_{\text{max}}}}\).
 
 \hypertarget{goodness-of-fit}{%
 \section{Goodness of Fit}\label{goodness-of-fit}}
@@ -349,34 +350,44 @@ Cohen (REF) defined an effect size -- \emph{w} -- for the goodness of
 fit test:
 
 \[
-\text{Cohen's } w = \sqrt{\sum{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}} = \sqrt{\frac{\chi^2}{N}}
+\text{Cohen's } w = \sqrt{\sum_{i=1}^{k}{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}} = \sqrt{\frac{\chi^2}{N}}
 \]
 
 Thus \(\chi^2_\text{max} = N\).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{O }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{90}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{(Titanic\_freq }\OtherTok{\textless{}{-}} \FunctionTok{as.table}\NormalTok{(}\FunctionTok{apply}\NormalTok{(Titanic, }\DecValTok{2}\NormalTok{, sum)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Male Female 
+##   1731    470
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{p\_E }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
 
-\FunctionTok{cohens\_w}\NormalTok{(O, }\AttributeTok{p =}\NormalTok{ p\_E)}
+\FunctionTok{cohens\_w}\NormalTok{(Titanic\_freq, }\AttributeTok{p =}\NormalTok{ p\_E)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## Cohen's w |       95% CI
 ## ------------------------
-## 0.80      | [0.64, 1.00]
+## 0.57      | [0.54, 1.00]
 ## 
 ## - One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
-Unfortunately, \emph{w} has an upper bound of 1 only when the variable
-is binomial (two categories) and the expected distribution is uniform
-(\(p_{\text{class 1}} = p_{\text{class 2}} = 0.5\)). If the distribution
-is none uniform (Rosenberg, 2010) or if there are more than 2 classes
-(Johnston et al., 2006), then \(\chi^2_\text{max} > N\), and so \emph{w}
-can be larger than 1.
+Unfortunately, \emph{w} has an upper bound of 1 \emph{only} when the
+variable is binomial (has two categories) and the expected distribution
+is uniform (\(p = 1 - p = 0.5\)). If the distribution is none uniform
+(Rosenberg, 2010) or if there are more than 2 classes (Johnston, Berry,
+\& Mielke Jr, 2006), then \(\chi^2_\text{max} > N\), and so \emph{w} can
+be larger than 1.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -417,31 +428,32 @@ We present here a new effect size, \(פ\) (Fei) which normalizes
 goodness-of-fit \(\chi^2\) by the proper \(\chi^2_\text{max}\) for
 non-uniform and/or mulinomial variables.
 
-The largest deviation from the expected probability would be if all
-observations are in the cell with the smallest expected probability.
+The largest deviation from the expected probability distribution would
+occur when all observations are in the cell with the smallest expected
+probability. That is:
 
 \[
 p_{O} = 
 \begin{cases}
-1 & \text{if } p_i = \text{min}(p) \\
-0 & \text{else}
+1, & \text{if } p_i = \text{min}(p) \\
+0, & \text{Otherwise}
 \end{cases}
 \]
 
-Since \(\chi^2 = N \sum{\frac{(p_{E_i}-p_{O_i})^2}{p_{E_i}}}\)
-
-We can find \(\frac{(E_i-O_i)^2}{E_i}\) for each of these values:
+Since
+\(\chi^2 = N \times\sum_{i=1}^{k}{\frac{(p_{E_i}-p_{O_i})^2}{p_{E_i}}}\),
+we can find \(\frac{(E_i-O_i)^2}{E_i}\) for each of these values:
 
 \[
 \frac{(p_{E}-p_{O})^2}{p_{E}} = 
 \begin{cases}
-\frac{(p_i-1)^2}{p_i} & \text{if } p_{E} = \text{min}(p_{E}) \\
-\frac{(p_i-0)^2}{p_i} = p_i & \text{else}
+\frac{(p_i-1)^2}{p_i}, & \text{if } p_{E} = \text{min}(p_{E}) \\
+p_i = \frac{(p_i-0)^2}{p_i}, & \text{Otherwise}
 \end{cases}
 \]
 
-Since \(\sum{p_i}=1\), therefor the \(\chi^2\) which is the sum of the
-expression above as:
+Since \(\sum_{i=1}^{k}{p_i}=1\), therefor the \(\chi^2\) which is the
+sum of the expression above as:
 
 \[
 \begin{split}
@@ -460,12 +472,11 @@ And so an effect size can be derived as:
 We call this effect size \(פ\), which represents the voiceless bilabial
 fricative in the Hebrew language, keeping in line with \(\phi\) (which
 in modern Greek marks the same sound) and \(V\) (which in English mark a
-voiced bilabial fricative) (\(W\) being derived from the letter V in
-modern Latin alphabet).
-
-This will be 0 when the observed distribution matches the expected one
-perfectly, and will be 1 when the observed values are all of the same
-class - the one with the smallest expected probability.
+voiced bilabial fricative; \(W\) being derived from the letter V in
+modern Latin alphabet). \(פ\) will be 0 when the observed distribution
+matches the expected one perfectly, and will be 1 when the observed
+values are all of the same class - the one with the smallest expected
+probability.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -480,6 +491,7 @@ class - the one with the smallest expected probability.
 ## -------------------
 ## 0.85 | [0.73, 1.00]
 ## 
+## - Adjusted for uniform expected probabilities.
 ## - One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
@@ -496,7 +508,7 @@ class - the one with the smallest expected probability.
 ## -------------------
 ## 0.60 | [0.51, 1.00]
 ## 
-## - Adjusted for uniform expected probabilities.
+## - Adjusted for non-uniform expected probabilities.
 ## - One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
@@ -517,12 +529,27 @@ this expression reduces to \(N\) and \(פ = w\).
 ## -------------------
 ## 0.80 | [0.64, 1.00]
 ## 
-## - Adjusted for uniform expected probabilities.
+## - One-sided CIs: upper bound fixed at [1.00].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cohens\_w}\NormalTok{(O, }\AttributeTok{p =}\NormalTok{ p\_E)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Cohen's w |       95% CI
+## ------------------------
+## 0.80      | [0.64, 1.00]
+## 
 ## - One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
 \hypertarget{summary}{%
 \section{Summary}\label{summary}}
+
+We fill the missing effect size for all cases of a \(\chi^2\) test.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
@@ -531,18 +558,28 @@ this expression reduces to \(N\) and \(פ = w\).
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
 \leavevmode\vadjust pre{\hypertarget{ref-benshachar2020effectsize}{}}%
-Ben-Shachar, Mattan S., Daniel Lüdecke, and Dominique Makowski. 2020.
-{``{e}ffectsize: Estimation of Effect Size Indices and Standardized
-Parameters.''} \emph{Journal of Open Source Software} 5 (56): 2815.
-\url{https://doi.org/10.21105/joss.02815}.
+Ben-Shachar, M. S., Lüdecke, D., \& Makowski, D. (2020). {e}ffectsize:
+Estimation of effect size indices and standardized parameters.
+\emph{Journal of Open Source Software}, \emph{5}(56), 2815.
+\url{https://doi.org/10.21105/joss.02815}
 
 \leavevmode\vadjust pre{\hypertarget{ref-cramer1999mathematical}{}}%
-Cramér, Harald. 1999. \emph{Mathematical Methods of Statistics}. Vol.
-43. Princeton University Press.
+Cramér, H. (1999). \emph{Mathematical methods of statistics} (Vol. 43).
+Princeton University Press.
+
+\leavevmode\vadjust pre{\hypertarget{ref-johnston2006measures}{}}%
+Johnston, J. E., Berry, K. J., \& Mielke Jr, P. W. (2006). Measures of
+effect size for chi-squared and likelihood-ratio goodness-of-fit tests.
+\emph{Perceptual and Motor Skills}, \emph{103}(2), 412--414.
+
+\leavevmode\vadjust pre{\hypertarget{ref-rosenberg2010generalized}{}}%
+Rosenberg, M. S. (2010). A generalized formula for converting chi-square
+tests to effect sizes for meta-analysis. \emph{PloS One}, \emph{5}(4),
+e10059.
 
 \leavevmode\vadjust pre{\hypertarget{ref-tschuprow1939principles}{}}%
-Tschuprow, Aleksandr Aleksandrovich. 1939. \emph{Principles of the
-Mathematical Theory of Correlation}. Hodge.
+Tschuprow, A. A. (1939). \emph{Principles of the mathematical theory of
+correlation}. Hodge.
 
 \end{CSLReferences}
 
