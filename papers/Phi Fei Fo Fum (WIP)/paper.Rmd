@@ -101,8 +101,8 @@ tidyr::uncount(as.data.frame(Titanic_xtab), weights = Freq) |>
 ## Cramér's *V*
 
 These properties do not hold when the contingency table is larger than 2-by-2: $\sqrt{\chi^2/N}$ can be larger than 1.
-
-Cramér showed [@cramer1999mathematical] that while for 2-by-2 the maximal possible value of $\chi^2$ is $N$, for larger tables the maximal possible value for $\chi^2$ is $N\times (\text{min}(k,l)-1)$. Therefore, he suggested the $V$ effect size (also sometimes known as Cramér's phi and denoted as $\phi_{c}$):
+Cramér showed [@cramer1999mathematical] that while for 2-by-2 the maximal possible value of $\chi^2$ is $N$, for larger tables the maximal possible value for $\chi^2$ is $N\times (\text{min}(k,l)-1)$.
+Therefore, he suggested the $V$ effect size (also sometimes known as Cramér's phi and denoted as $\phi_{c}$):
 
 $$
 \text{Cramer's } V = \sqrt{\frac{\chi^2}{N(\text{min}(k,l)-1)}}

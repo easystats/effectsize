@@ -136,9 +136,10 @@
 \section{Introduction}\label{introduction}}
 
 We review here the most common effect sizes for analysis of categorical
-variables, and introduce a new one -- \(פ\) (Fei) --alongside R code
-from the \texttt{\{effectsize\}} package (Ben-Shachar, Lüdecke, \&
-Makowski, 2020) which implements these.
+variables, and introduce a new one -- \(פ\) (Fei) --alongside the
+\texttt{\{effectsize\}} package (Ben-Shachar, Lüdecke, \& Makowski,
+2020) in R programming language (R Core Team, 2023), which implements
+these measures.
 
 \hypertarget{tests-of-independance}{%
 \section{Tests Of Independance}\label{tests-of-independance}}
@@ -267,20 +268,19 @@ correlation coefficient.
 \emph{V}}{Cramér's V}}\label{cramuxe9rs-v}}
 
 These properties do not hold when the contingency table is larger than
-2-by-2: \(\sqrt{\chi^2/N}\) can be larger than 1.
-
-Cramér showed (Cramér, 1999) that while for 2-by-2 the maximal possible
-value of \(\chi^2\) is \(N\), for larger tables the maximal possible
-value for \(\chi^2\) is \(N\times (\text{min}(k,l)-1)\). Therefore, he
-suggested the \(V\) effect size (also sometimes known as Cramér's phi
-and denoted as \(\phi_{c}\)):
+2-by-2: \(\sqrt{\chi^2/N}\) can be larger than 1. Cramér showed (Cramér,
+1999) that while for 2-by-2 the maximal possible value of \(\chi^2\) is
+\(N\), for larger tables the maximal possible value for \(\chi^2\) is
+\(N\times (\text{min}(k,l)-1)\). Therefore, he suggested the \(V\)
+effect size (also sometimes known as Cramér's phi and denoted as
+\(\phi_{c}\)):
 
 \[
 \text{Cramer's } V = \sqrt{\frac{\chi^2}{N(\text{min}(k,l)-1)}}
 \]
 
-\emph{V} is 1 when the columns are completely dependent on the rows, or
-the row are completely dependent on the columns.
+\(V\) is 1 when the columns are completely dependent on the rows, or the
+row are completely dependent on the columns.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -346,14 +346,14 @@ too we can compute an effect size as
 \subsection{\texorpdfstring{Cohen's
 \emph{w}}{Cohen's w}}\label{cohens-w}}
 
-Cohen (REF) defined an effect size -- \emph{w} -- for the goodness of
-fit test:
+Cohen (Cohen, 2013) defined an effect size -- \emph{w} -- for the
+goodness of fit test:
 
 \[
 \text{Cohen's } w = \sqrt{\sum_{i=1}^{k}{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}} = \sqrt{\frac{\chi^2}{N}}
 \]
 
-Thus \(\chi^2_\text{max} = N\).
+Thus, \(\chi^2_\text{max} = N\).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -563,6 +563,10 @@ Estimation of effect size indices and standardized parameters.
 \emph{Journal of Open Source Software}, \emph{5}(56), 2815.
 \url{https://doi.org/10.21105/joss.02815}
 
+\leavevmode\vadjust pre{\hypertarget{ref-cohen2013statistical}{}}%
+Cohen, J. (2013). \emph{Statistical power analysis for the behavioral
+sciences}. Routledge.
+
 \leavevmode\vadjust pre{\hypertarget{ref-cramer1999mathematical}{}}%
 Cramér, H. (1999). \emph{Mathematical methods of statistics} (Vol. 43).
 Princeton University Press.
@@ -571,6 +575,10 @@ Princeton University Press.
 Johnston, J. E., Berry, K. J., \& Mielke Jr, P. W. (2006). Measures of
 effect size for chi-squared and likelihood-ratio goodness-of-fit tests.
 \emph{Perceptual and Motor Skills}, \emph{103}(2), 412--414.
+
+\leavevmode\vadjust pre{\hypertarget{ref-base2023}{}}%
+R Core Team. (2023). \emph{R: A language and environment for statistical
+computing}. Retrieved from \url{https://www.R-project.org/}
 
 \leavevmode\vadjust pre{\hypertarget{ref-rosenberg2010generalized}{}}%
 Rosenberg, M. S. (2010). A generalized formula for converting chi-square
