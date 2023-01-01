@@ -37,9 +37,11 @@ library(effectsize)
 
 <!-- Blah blah blah effect sizes are important. -->
 
-We review here the most common effect sizes for analysis of categorical variables, and introduce a new one -- $פ$ (Fei)  --alongside R code from the `{effectsize}` package [@benshachar2020effectsize] which implements these.
+We review here the most common effect sizes for analysis of categorical variables, and introduce a new one -- $פ$ (Fei)  --alongside the `{effectsize}` package [@benshachar2020effectsize] in R programming language [@base2023], which implements these measures.
 
 # Tests Of Independance
+
+<!-- Should we discuss differences between effect sizes for paired versus unpaired designs?  -->
 
 The $\chi^2$ test of independence between two categorical variables examines if the frequency distribution of one of the variables is dependent on the other. 
 Formally, the test examines how likely the observed conditional frequencies (cell frequencies) are under the null hypotheses of independence.
@@ -106,7 +108,7 @@ $$
 \text{Cramer's } V = \sqrt{\frac{\chi^2}{N(\text{min}(k,l)-1)}}
 $$
 
-*V* is 1 when the columns are completely dependent on the rows, or the row are completely dependent on the columns.
+$V$ is 1 when the columns are completely dependent on the rows, or the row are completely dependent on the columns.
 
 ```{r}
 (Titanic_xtab2 <- as.table(apply(Titanic, c(1, 4), sum)))
@@ -132,13 +134,13 @@ These tests compare an observed distribution of a multinomial variable to an exp
 
 ## Cohen's *w*
 
-Cohen (REF) defined an effect size -- *w* -- for the goodness of fit test:
+Cohen [@cohen2013statistical] defined an effect size -- *w* -- for the goodness of fit test:
 
 $$
 \text{Cohen's } w = \sqrt{\sum_{i=1}^{k}{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}} = \sqrt{\frac{\chi^2}{N}}
 $$
 
-Thus $\chi^2_\text{max} = N$.
+Thus, $\chi^2_\text{max} = N$.
 
 ```{r}
 (Titanic_freq <- as.table(apply(Titanic, 2, sum)))
