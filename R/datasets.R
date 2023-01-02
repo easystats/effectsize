@@ -1,5 +1,3 @@
-
-
 # Data frames -------------------------------------------------------------
 
 #' Workers' Salary and Other Information

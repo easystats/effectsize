@@ -148,7 +148,7 @@ test_that("one way", {
   expect_equal(eta_squared(m, partial = FALSE)[, -1], effectsize(onew),
     tolerance = 0.03, ignore_attr = TRUE
   )
-  expect_equal(eta_squared(m, partial = FALSE)[, -1], eta_squared(onew),
+  expect_equal(eta_squared(m, partial = FALSE)[, -1], eta_squared(onew, verbose = FALSE),
     tolerance = 0.03, ignore_attr = TRUE
   )
   expect_equal(omega_squared(m, partial = FALSE)[, -1], effectsize(onew, type = "omega"),
