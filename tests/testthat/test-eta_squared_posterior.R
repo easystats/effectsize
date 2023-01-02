@@ -1,4 +1,3 @@
-
 test_that("eta_squared_posterior", {
   skip_on_cran()
   skip_if_not_installed("rstanarm")

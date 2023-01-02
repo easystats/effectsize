@@ -1,4 +1,3 @@
-
 test_that("cohens_d errors and warnings", {
   # Direction ---------------------------------------------------------------
   rez_t <- t.test(iris$Sepal.Length, iris$Sepal.Width)

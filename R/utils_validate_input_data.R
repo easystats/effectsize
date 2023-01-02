@@ -1,4 +1,3 @@
-
 #' @keywords internal
 #' @importFrom stats na.omit complete.cases
 .get_data_2_samples <- function(x, y = NULL, data = NULL,

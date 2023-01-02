@@ -1,4 +1,3 @@
-
 #' @keywords internal
 #' @importFrom stats pf qf optim
 .get_ncp_F <- function(f, df, df_error, conf.level = 0.9) {
