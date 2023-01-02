@@ -19,10 +19,11 @@ test_that("eta_squared_posterior", {
   # PARTIAL, type = 3 -------------------------------------------------------
   mod <- lm(mpg ~ cyl * wt + qsec, data = mtcars)
   a <- car::Anova(mod, type = 3)
-  es_tab <- eta_squared(a, partial = TRUE)
+  es_tab <- eta_squared(a, partial = TRUE, verbose = FALSE)
 
   es_post <- eta_squared_posterior(fit_bayes,
-    ss_function = car::Anova, type = 3
+    ss_function = car::Anova, type = 3,
+    verbose = FALSE
   )
   expect_equal(colnames(es_post), es_tab$Parameter)
 
@@ -33,11 +34,12 @@ test_that("eta_squared_posterior", {
 
 
   # non-PARTIAL, type = 3 ---------------------------------------------------
-  es_tab <- eta_squared(a, partial = FALSE)
+  es_tab <- eta_squared(a, partial = FALSE, verbose = FALSE)
 
   es_post <- eta_squared_posterior(fit_bayes,
     partial = FALSE,
-    ss_function = car::Anova, type = 3
+    ss_function = car::Anova, type = 3,
+    verbose = FALSE
   )
   expect_equal(colnames(es_post), es_tab$Parameter)
 
