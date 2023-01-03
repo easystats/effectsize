@@ -15,11 +15,11 @@ affiliations:
 - index: 2
   name: Center for Humans and Machines, Max Planck Institute for Human Development, Berlin, Germany  
 
-
 output: 
   pdf_document:
     keep_tex: true
     latex_engine: xelatex
+
 bibliography: paper.bib
 csl: apa.csl
 ---
@@ -35,13 +35,14 @@ library(effectsize)
 
 # Introduction
 
-<!-- Blah blah blah effect sizes are important. -->
+In both theoretical and applied research, it is often of interest to assess the strength of an observed association. Beyond their use in interpreting the results from a given study, they can be aggregated in meta-analyses<!-- (ref?)-->. We review here the most common effect sizes for analyses of categorical variables that use the $\chi^2$ (chi-suqare) statistic, and introduce a new one -- $פ$ (Fei)  --alongside the `{effectsize}` package [@benshachar2020effectsize] in the R programming language [@base2023], which implements these measures and their confidence intervals.
 
-We review here the most common effect sizes for analysis of categorical variables, and introduce a new one -- $פ$ (Fei)  --alongside the `{effectsize}` package [@benshachar2020effectsize] in R programming language [@base2023], which implements these measures.
+<!-- MSB: This actually might just be the abstract? -->
 
 # Tests Of Independance
 
-<!-- Should we discuss differences between effect sizes for paired versus unpaired designs?  -->
+<!-- Indra: Should we discuss differences between effect sizes for paired versus unpaired designs?  -->
+<!-- MSB: Hmmm... I'm not too familiar with paired tests - Are you talking about McNemar's test (and Cohen's g effect size)? -->
 
 The $\chi^2$ test of independence between two categorical variables examines if the frequency distribution of one of the variables is dependent on the other. 
 Formally, the test examines how likely the observed conditional frequencies (cell frequencies) are under the null hypotheses of independence.
@@ -229,6 +230,5 @@ cohens_w(O, p = p_E)
 # Summary
 
 We fill the missing effect size for all cases of a $\chi^2$ test.
-
 
 # References
