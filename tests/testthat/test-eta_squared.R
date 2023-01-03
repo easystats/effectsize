@@ -635,7 +635,7 @@ test_that("ets_squared | gam", {
   skip_if_not_installed("mgcv")
 
   set.seed(2) ## simulate some data...
-  dat <- mgcv::gamSim(1, n = 400, dist = "normal", scale = 2)
+  dat <- mgcv::gamSim(1, n = 400, dist = "normal", scale = 2, verbose = FALSE)
   b <- mgcv::gam(y ~ x0 + s(x1) + s(x2) + t2(x1, x2) + s(x3), data = dat)
 
   expect_error(out <- eta_squared(b), regexp = NA)
