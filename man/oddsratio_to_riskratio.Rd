@@ -5,9 +5,9 @@
 \alias{riskratio_to_oddsratio}
 \title{Convert Between Odds Ratios and Risk Ratios}
 \usage{
-oddsratio_to_riskratio(OR, p0, log = FALSE, ...)
+oddsratio_to_riskratio(OR, p0, log = FALSE, verbose = TRUE, ...)
 
-riskratio_to_oddsratio(RR, p0, log = FALSE)
+riskratio_to_oddsratio(RR, p0, log = FALSE, verbose = TRUE, ...)
 }
 \arguments{
 \item{OR, RR}{Risk ratio of \code{p1/p0} or Odds ratio of \code{odds(p1)/odds(p0)},
@@ -16,6 +16,8 @@ possibly log-ed. \code{OR} can also be a logistic regression model.}
 \item{p0}{Baseline risk}
 
 \item{log}{Take in or output the log of the ratio (such as in logistic models).}
+
+\item{verbose}{Toggle warnings and messages on or off.}
 
 \item{...}{Arguments passed to and from other methods.}
 }
@@ -40,7 +42,7 @@ m <- glm(am ~ factor(cyl),
   data = mtcars,
   family = binomial()
 )
-oddsratio_to_riskratio(m)
+oddsratio_to_riskratio(m, verbose = FALSE) # RR is relative to the intercept if p0 not provided
 }
 \references{
 Grant, R. L. (2014). Converting an odds ratio to a range of plausible
