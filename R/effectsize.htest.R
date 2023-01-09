@@ -72,6 +72,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       pooled_sd = !grepl("Welch", model$method)
     )
 
+    if (!isTRUE(dots$paired)) {
+      args$x <- na.omit(args$x)
+      args$y <- na.omit(args$y)
+    }
+
     if (type %in% c("d", "g")) {
       f <- switch(tolower(type),
         d = cohens_d,
@@ -347,6 +352,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     y = if (ncol(data) == 2) data[[2]],
     verbose = verbose
   )
+
+  if (!isTRUE(dots$paired)) {
+    args$x <- na.omit(args$x)
+    args$y <- na.omit(args$y)
+  }
 
   if (tolower(type) != "rb") {
     if (dots$paired) {
