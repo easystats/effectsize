@@ -5,6 +5,7 @@
 #' @param p0 Baseline risk
 #' @param ... Arguments passed to and from other methods.
 #' @inheritParams oddsratio_to_d
+#' @inheritParams cohens_d
 #'
 #' @return Converted index, or if `OR` is a logistic regression model, a
 #'   parameter table with the converted indices.
@@ -26,7 +27,7 @@
 #'   data = mtcars,
 #'   family = binomial()
 #' )
-#' oddsratio_to_riskratio(m)
+#' oddsratio_to_riskratio(m, verbose = FALSE) # RR is relative to the intercept if p0 not provided
 #' @references
 #'
 #' Grant, R. L. (2014). Converting an odds ratio to a range of plausible
@@ -34,12 +35,12 @@
 #' f7450.
 #'
 #' @export
-oddsratio_to_riskratio <- function(OR, p0, log = FALSE, ...) {
+oddsratio_to_riskratio <- function(OR, p0, log = FALSE, verbose = TRUE, ...) {
   UseMethod("oddsratio_to_riskratio")
 }
 
 #' @export
-oddsratio_to_riskratio.numeric <- function(OR, p0, log = FALSE, ...) {
+oddsratio_to_riskratio.numeric <- function(OR, p0, log = FALSE, verbose = TRUE, ...) {
   if (log) OR <- exp(OR)
 
   RR <- OR / (1 - p0 + (p0 * OR))
@@ -49,7 +50,7 @@ oddsratio_to_riskratio.numeric <- function(OR, p0, log = FALSE, ...) {
 }
 
 #' @export
-oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, ...) {
+oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, verbose = TRUE, ...) {
   mi <- .get_model_info(OR, ...)
   if (!mi$is_binomial || !mi$is_logit) {
     insight::format_error("Model must be a binomial model with a logit-link (logistic regression).")
@@ -66,10 +67,12 @@ oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, ...) {
     if (!log) p0 <- log(p0)
     p0 <- plogis(p0)
 
-    insight::format_warning(
-      "'p0' not provided.",
-      sprintf("RR is relative to the intercept (p0 = %s) - make sure your intercept is meaningful.", insight::format_value(p0))
-    )
+    if (verbose) {
+      insight::format_warning(
+        "'p0' not provided.",
+        sprintf("RR is relative to the intercept (p0 = %s) - make sure your intercept is meaningful.", insight::format_value(p0))
+      )
+    }
   }
 
   RR[, colnames(RR) %in% c("Coefficient", "CI_low", "CI_high")] <-
@@ -78,7 +81,7 @@ oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, ...) {
       p0 = p0, log = log
     )
 
-  if (any(c("CI_low", "CI_high") %in% colnames(RR))) {
+  if (verbose && any(c("CI_low", "CI_high") %in% colnames(RR))) {
     insight::format_warning("CIs are back-transformed from the logit scale.")
   }
 
@@ -97,7 +100,7 @@ oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, ...) {
 
 #' @rdname oddsratio_to_riskratio
 #' @export
-riskratio_to_oddsratio <- function(RR, p0, log = FALSE) {
+riskratio_to_oddsratio <- function(RR, p0, log = FALSE, verbose = TRUE, ...) {
   if (log) RR <- exp(RR)
 
   OR <- RR * (1 - p0) / (1 - RR * p0)

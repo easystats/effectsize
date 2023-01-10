@@ -273,7 +273,7 @@ epsilon_squared(model_anova)
 \dontshow{if (require("car") && require("afex")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # afex takes care of both type-3 effects and effects coding:
 data(obk.long, package = "afex")
-model <- afex::aov_car(value ~ treatment * gender + Error(id / (phase)),
+model <- afex::aov_car(value ~ gender + Error(id / (phase * hour)),
   data = obk.long, observed = "gender"
 )
 
