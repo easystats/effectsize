@@ -136,7 +136,7 @@
 #' @examplesIf require("car") && require("afex")
 #' # afex takes care of both type-3 effects and effects coding:
 #' data(obk.long, package = "afex")
-#' model <- afex::aov_car(value ~ treatment * gender + Error(id / (phase)),
+#' model <- afex::aov_car(value ~ gender + Error(id / (phase * hour)),
 #'   data = obk.long, observed = "gender"
 #' )
 #'

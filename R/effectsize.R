@@ -52,14 +52,14 @@
 #' effectsize(Aov)
 #' effectsize(Aov, type = "omega")
 #'
-#' Wt <- wilcox.test(1:10, 7:20, mu = -3, alternative = "less")
+#' Wt <- wilcox.test(1:10, 7:20, mu = -3, alternative = "less", exact = FALSE)
 #' effectsize(Wt)
 #' effectsize(Wt, type = "u2")
 #'
 #' ## Models and Anova Tables
 #' ## -----------------------
 #' fit <- lm(mpg ~ factor(cyl) * wt + hp, data = mtcars)
-#' effectsize(fit)
+#' effectsize(fit, method = "basic")
 #'
 #' anova_table <- anova(fit)
 #' effectsize(anova_table)
