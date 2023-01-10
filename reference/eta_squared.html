@@ -543,39 +543,37 @@ Psychological Methods, 9, 164-182.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"><span><span class="co"># afex takes care of both type-3 effects and effects coding:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">obk.long</span>, package <span class="op">=</span> <span class="st">"afex"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_car</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span> <span class="op">*</span> <span class="va">gender</span> <span class="op">+</span> <span class="fu">Error</span><span class="op">(</span><span class="va">id</span> <span class="op">/</span> <span class="op">(</span><span class="va">phase</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">afex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/afex/man/aov_car.html" class="external-link">aov_car</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">gender</span> <span class="op">+</span> <span class="fu">Error</span><span class="op">(</span><span class="va">id</span> <span class="op">/</span> <span class="op">(</span><span class="va">phase</span> <span class="op">*</span> <span class="va">hour</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  data <span class="op">=</span> <span class="va">obk.long</span>, observed <span class="op">=</span> <span class="st">"gender"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>More than one observation per design cell, aggregating data using `fun_aggregate = mean`.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> To turn off this warning, pass `fun_aggregate = mean` explicitly.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Contrasts set to contr.sum for the following variables: treatment, gender</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Contrasts set to contr.sum for the following variables: gender</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">omega_squared</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type III)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter              | Omega2 (partial) |       95% CI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> treatment              |             0.31 | [0.00, 1.00]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gender                 |             0.18 | [0.00, 1.00]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:gender       |             0.22 | [0.00, 1.00]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> phase                  |             0.26 | [0.00, 1.00]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:phase        |             0.15 | [0.00, 1.00]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gender:phase           |             0.00 | [0.00, 1.00]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:gender:phase |             0.00 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter         | Omega2 (partial) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gender            |             0.00 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> phase             |             0.16 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gender:phase      |             0.00 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> hour              |             0.13 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gender:hour       |             0.00 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> phase:hour        |         3.73e-03 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gender:phase:hour |             0.00 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"><span><span class="fu">eta_squared</span><span class="op">(</span><span class="va">model</span>, generalized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># observed vars are pulled from the afex model.</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type III)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter              | Eta2 (generalized) |       95% CI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> treatment              |               0.25 | [0.00, 1.00]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gender                 |               0.16 | [0.00, 1.00]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:gender       |               0.24 | [0.00, 1.00]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> phase                  |               0.20 | [0.00, 1.00]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:phase        |               0.13 | [0.00, 1.00]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gender:phase           |           4.25e-03 | [0.00, 1.00]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> treatment:gender:phase |               0.02 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter         | Eta2 (generalized) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gender            |               0.03 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> phase             |               0.15 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gender:phase      |           7.39e-34 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> hour              |               0.10 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gender:hour       |           2.36e-03 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> phase:hour        |               0.01 | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gender:phase:hour |           6.54e-03 | [0.00, 1.00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Observed variables: gender</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>

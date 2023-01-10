@@ -112,9 +112,9 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">oddsratio_to_riskratio</span><span class="op">(</span><span class="va">OR</span>, <span class="va">p0</span>, log <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">oddsratio_to_riskratio</span><span class="op">(</span><span class="va">OR</span>, <span class="va">p0</span>, log <span class="op">=</span> <span class="cn">FALSE</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">riskratio_to_oddsratio</span><span class="op">(</span><span class="va">RR</span>, <span class="va">p0</span>, log <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">riskratio_to_oddsratio</span><span class="op">(</span><span class="va">RR</span>, <span class="va">p0</span>, log <span class="op">=</span> <span class="cn">FALSE</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -130,6 +130,10 @@ possibly log-ed. <code>OR</code> can also be a logistic regression model.</p></d
 
 <dt>log</dt>
 <dd><p>Take in or output the log of the ratio (such as in logistic models).</p></dd>
+
+
+<dt>verbose</dt>
+<dd><p>Toggle warnings and messages on or off.</p></dd>
 
 
 <dt>...</dt>
@@ -178,11 +182,7 @@ f7450.</p>
 <span class="r-in"><span>  data <span class="op">=</span> <span class="va">mtcars</span>,</span></span>
 <span class="r-in"><span>  family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">binomial</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">oddsratio_to_riskratio</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'p0' not provided.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   RR is relative to the intercept (p0 = 0.73) - make sure your intercept</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   is meaningful.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CIs are back-transformed from the logit scale.</span>
+<span class="r-in"><span><span class="fu">oddsratio_to_riskratio</span><span class="op">(</span><span class="va">m</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># RR is relative to the intercept if p0 not provided</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameter   | Risk Ratio |       95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) |       0.73 |             </span>
