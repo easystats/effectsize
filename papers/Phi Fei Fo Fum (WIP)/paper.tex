@@ -15,6 +15,7 @@
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+  \setmainfont[]{Times New Roman}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -138,15 +139,15 @@
 In both theoretical and applied research, it is often of interest to
 assess the strength of an observed association. Beyond their use in
 interpreting the results from a given study, they can be aggregated in
-meta-analyses. We review here the most common effect sizes for analyses
-of categorical variables that use the \(\chi^2\) (chi-suqare) statistic,
-and introduce a new one -- \(פ\) (Fei) --alongside the
-\texttt{\{effectsize\}} package (Ben-Shachar, Lüdecke, \& Makowski,
+meta-analyses (Lakens, 2013). We review here the most common effect
+sizes for analyses of categorical variables that use the \(\chi^2\)
+(chi-square) statistic, and introduce a new one---פ (Fei)---alongside
+the \texttt{\{effectsize\}} package (Ben-Shachar, Lüdecke, \& Makowski,
 2020) in the R programming language (R Core Team, 2023), which
 implements these measures and their confidence intervals.
 
-\hypertarget{tests-of-independance}{%
-\section{Tests Of Independance}\label{tests-of-independance}}
+\hypertarget{tests-of-independence}{%
+\section{Tests of Independence}\label{tests-of-independence}}
 
 The \(\chi^2\) test of independence between two categorical variables
 examines if the frequency distribution of one of the variables is
@@ -203,7 +204,7 @@ sinking of the Titanic is dependant on the sex of the passenger:
 ##  Pearson's Chi-squared test with Yates' continuity correction
 ## 
 ## data:  Titanic_xtab
-## X-squared = 454.5, df = 1, p-value < 2.2e-16
+## X-squared = 454.5, df = 1, p-value < 0.00000000000000022
 \end{verbatim}
 
 \hypertarget{phi}{%
@@ -213,7 +214,7 @@ For a 2-by-2 contingency table analysis, like the one used above, the
 \(\phi\) (\emph{phi}) coefficient is a correlation-like measure of
 effect size indicating the strength of association between the two
 binary variables. One way to compute this effect size is to re-code the
-binary variables as dummy (0,1) variables, and computing the (absolute)
+binary variables as dummy (0, 1) variables, and computing the (absolute)
 Pearson correlation between them:
 
 \[
@@ -317,7 +318,7 @@ row are completely dependent on the columns.
 
 Tschuprow (Tschuprow, 1939) devised an alternative value, at , which is
 1 only when the columns are completely dependent on the rows \emph{and}
-the row are completely dependent on the columns, which is only possible
+the rows are completely dependent on the columns, which is only possible
 when the contingency table is a square.
 
 \begin{Shaded}
@@ -350,8 +351,8 @@ too we can compute an effect size as
 \subsection{\texorpdfstring{Cohen's
 \emph{w}}{Cohen's w}}\label{cohens-w}}
 
-Cohen (Cohen, 2013) defined an effect size -- \emph{w} -- for the
-goodness of fit test:
+Cohen (Cohen, 2013) defined an effect size---\emph{w}---for the goodness
+of fit test:
 
 \[
 \text{Cohen's } w = \sqrt{\sum_{i=1}^{k}{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}} = \sqrt{\frac{\chi^2}{N}}
@@ -428,9 +429,9 @@ be larger than 1.
 \hypertarget{fei}{%
 \subsection{Fei}\label{fei}}
 
-We present here a new effect size, \(פ\) (Fei) which normalizes
+We present here a new effect size, פ (Fei), which normalizes
 goodness-of-fit \(\chi^2\) by the proper \(\chi^2_\text{max}\) for
-non-uniform and/or mulinomial variables.
+non-uniform and/or multinomial variables.
 
 The largest deviation from the expected probability distribution would
 occur when all observations are in the cell with the smallest expected
@@ -456,8 +457,8 @@ p_i = \frac{(p_i-0)^2}{p_i}, & \text{Otherwise}
 \end{cases}
 \]
 
-Since \(\sum_{i=1}^{k}{p_i}=1\), therefor the \(\chi^2\) which is the
-sum of the expression above as:
+Since \(\sum_{i=1}^{k}{p_i}=1\), the \(\chi^2\), which is the sum of the
+expression above, can be retrieved as:
 
 \[
 \begin{split}
@@ -473,13 +474,13 @@ And so an effect size can be derived as:
 \sqrt{\frac{\chi^2}{N \times (\frac{1}{\text{min}(p_E)} - 1)}}
 \]
 
-We call this effect size \(פ\), which represents the voiceless bilabial
-fricative in the Hebrew language, keeping in line with \(\phi\) (which
-in modern Greek marks the same sound) and \(V\) (which in English mark a
-voiced bilabial fricative; \(W\) being derived from the letter V in
-modern Latin alphabet). \(פ\) will be 0 when the observed distribution
+We call this effect size פ (Fei), which represents the voiceless
+bilabial fricative in the Hebrew language, keeping in line with \(\phi\)
+(which in modern Greek marks the same sound) and \(V\) (which in English
+marks a voiced bilabial fricative; \(W\) being derived from the letter V
+in modern Latin alphabet). פ will be 0 when the observed distribution
 matches the expected one perfectly, and will be 1 when the observed
-values are all of the same class - the one with the smallest expected
+values are all of the same class---the one with the smallest expected
 probability.
 
 \begin{Shaded}
@@ -517,7 +518,7 @@ probability.
 \end{verbatim}
 
 When there are only 2 cells with uniform expected probabilities (50\%),
-this expression reduces to \(N\) and \(פ = w\).
+this expression reduces to \(N\) and פ \(= w\).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -579,6 +580,12 @@ Princeton University Press.
 Johnston, J. E., Berry, K. J., \& Mielke Jr, P. W. (2006). Measures of
 effect size for chi-squared and likelihood-ratio goodness-of-fit tests.
 \emph{Perceptual and Motor Skills}, \emph{103}(2), 412--414.
+
+\leavevmode\vadjust pre{\hypertarget{ref-lakens2013calculating}{}}%
+Lakens, D. (2013). Calculating and reporting effect sizes to facilitate
+cumulative science: A practical primer for \emph{t}-tests and ANOVAs.
+\emph{Frontiers in Psychology}, \emph{4}.
+\url{https://doi.org/10.3389/fpsyg.2013.00863}
 
 \leavevmode\vadjust pre{\hypertarget{ref-base2023}{}}%
 R Core Team. (2023). \emph{R: A language and environment for statistical

@@ -19,6 +19,7 @@ output:
   pdf_document:
     keep_tex: true
     latex_engine: xelatex
+mainfont: Times New Roman
 
 bibliography: paper.bib
 csl: apa.csl
@@ -35,11 +36,13 @@ library(effectsize)
 
 # Introduction
 
-In both theoretical and applied research, it is often of interest to assess the strength of an observed association. Beyond their use in interpreting the results from a given study, they can be aggregated in meta-analyses<!-- (ref?)-->. We review here the most common effect sizes for analyses of categorical variables that use the $\chi^2$ (chi-suqare) statistic, and introduce a new one -- $פ$ (Fei)  --alongside the `{effectsize}` package [@benshachar2020effectsize] in the R programming language [@base2023], which implements these measures and their confidence intervals.
+In both theoretical and applied research, it is often of interest to assess the strength of an observed association. Beyond their use in interpreting the results from a given study, they can be aggregated in meta-analyses [@lakens2013calculating]. We review here the most common effect sizes for analyses of categorical variables that use the $\chi^2$ (chi-square) statistic, and introduce a new one---`r "\U05E4"` (Fei)---alongside the `{effectsize}` package [@benshachar2020effectsize] in the R programming language [@base2023], which implements these measures and their confidence intervals.
 
-<!-- MSB: This actually might just be the abstract? -->
+<!-- RT: Seems like the special character פ is not supported in the resulting PDF. It's unicode counterpart, "\U05E4", works in the R console, but unfortunately not in the PDF conversion either. According to Chat GPT, this is because the default font (Computer Modern) does not support Hebrew characters, so I changed the font to Times New Roman (for now) and that seems to work (with the unicode). -->
 
-# Tests Of Independance
+<!-- MSB: This actually might just be the abstract? RT: Perhaps, but based on other papers in that journal, we also need a separate intro. -->
+
+# Tests of Independence
 
 <!-- Indra: Should we discuss differences between effect sizes for paired versus unpaired designs?  -->
 <!-- MSB: Hmmm... I'm not too familiar with paired tests - Are you talking about McNemar's test (and Cohen's g effect size)? -->
@@ -73,7 +76,7 @@ chisq.test(Titanic_xtab)
 
 ## Phi
 
-For a 2-by-2 contingency table analysis, like the one used above, the $\phi$ (*phi*) coefficient is a correlation-like measure of effect size indicating the strength of association between the two binary variables. One way to compute this effect size is to re-code the binary variables as dummy (0,1) variables, and computing the (absolute) Pearson correlation between them:
+For a 2-by-2 contingency table analysis, like the one used above, the $\phi$ (*phi*) coefficient is a correlation-like measure of effect size indicating the strength of association between the two binary variables. One way to compute this effect size is to re-code the binary variables as dummy (0, 1) variables, and computing the (absolute) Pearson correlation between them:
 
 $$
 \phi = |r_{AB}|
@@ -117,7 +120,7 @@ $V$ is 1 when the columns are completely dependent on the rows, or the row are c
 cramers_v(Titanic_xtab2, adjust = FALSE)
 ```
 
-Tschuprow [@tschuprow1939principles] devised an alternative value, at <value>, which is 1 only when the columns are completely dependent on the rows *and* the row are completely dependent on the columns, which is only possible when the contingency table is a square.
+Tschuprow [@tschuprow1939principles] devised an alternative value, at <value><!-- doesn't render -->, which is 1 only when the columns are completely dependent on the rows *and* the rows are completely dependent on the columns, which is only possible when the contingency table is a square.
 
 ```{r}
 tschuprows_t(Titanic_xtab2)
@@ -135,7 +138,7 @@ These tests compare an observed distribution of a multinomial variable to an exp
 
 ## Cohen's *w*
 
-Cohen [@cohen2013statistical] defined an effect size -- *w* -- for the goodness of fit test:
+Cohen [@cohen2013statistical] defined an effect size---*w*---for the goodness of fit test:
 
 $$
 \text{Cohen's } w = \sqrt{\sum_{i=1}^{k}{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}} = \sqrt{\frac{\chi^2}{N}}
@@ -165,7 +168,7 @@ cohens_w(O, p = p_E)
 
 ## Fei
 
-We present here a new effect size, $פ$ (Fei) which normalizes goodness-of-fit $\chi^2$ by the proper $\chi^2_\text{max}$ for non-uniform and/or mulinomial variables.
+We present here a new effect size, `r "\U05E4"` (Fei), which normalizes goodness-of-fit $\chi^2$ by the proper $\chi^2_\text{max}$ for non-uniform and/or multinomial variables.
 
 The largest deviation from the expected probability distribution would occur when all observations are in the cell with the smallest expected probability. That is:
 
@@ -188,7 +191,8 @@ p_i = \frac{(p_i-0)^2}{p_i}, & \text{Otherwise}
 \end{cases}
 $$
 
-Since $\sum_{i=1}^{k}{p_i}=1$, therefor the $\chi^2$ which is the sum of the expression above as:
+Since $\sum_{i=1}^{k}{p_i}=1$, the $\chi^2$, which is the sum of the expression above, can be retrieved as:
+<!-- I'm having a hard time understanding this sentence... I attempted to rewrite it for clarity but please check I have not altered the original meaning. -->
 
 $$
 \begin{split}
@@ -204,7 +208,7 @@ $$
 \sqrt{\frac{\chi^2}{N \times (\frac{1}{\text{min}(p_E)} - 1)}}
 $$
 
-We call this effect size $פ$, which represents the voiceless bilabial fricative in the Hebrew language, keeping in line with $\phi$ (which in modern Greek marks the same sound) and $V$ (which in English mark a voiced bilabial fricative; $W$ being derived from the letter V in modern Latin alphabet). $פ$ will be 0 when the observed distribution matches the expected one perfectly, and will be 1 when the observed values are all of the same class - the one with the smallest expected probability.
+We call this effect size `r "\U05E4"` (Fei), which represents the voiceless bilabial fricative in the Hebrew language, keeping in line with $\phi$ (which in modern Greek marks the same sound) and $V$ (which in English marks a voiced bilabial fricative; $W$ being derived from the letter V in modern Latin alphabet). `r "\U05E4"` will be 0 when the observed distribution matches the expected one perfectly, and will be 1 when the observed values are all of the same class---the one with the smallest expected probability.
 
 ```{r}
 O <- c(90, 10)
@@ -217,7 +221,7 @@ p_E <- c(.25, .25, .25, .25)
 fei(O, p = p_E)
 ```
 
-When there are only 2 cells with uniform expected probabilities (50%), this expression reduces to $N$ and $פ = w$.
+When there are only 2 cells with uniform expected probabilities (50%), this expression reduces to $N$ and `r "\U05E4"` $= w$.
 
 ```{r}
 O <- c(90, 10)
