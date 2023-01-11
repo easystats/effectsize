@@ -172,7 +172,7 @@ test_that("oddsratio & riskratio", {
   expect_equal(log_or, oddsratio(mtcars$cyl > 4, mtcars$am, log = TRUE))
 
   skip_if_not_installed("MASS")
-  expect_equal(confint(m)[2, ],
+  expect_equal(suppressMessages(confint(m)[2, ]),
     unlist(log_or[c("CI_low", "CI_high")]),
     tolerance = 0.1, # different methods, give slightly different values
     ignore_attr = TRUE

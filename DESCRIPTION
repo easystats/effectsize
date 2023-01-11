@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size
-Version: 0.8.2.00005
+Version: 0.8.2.6
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
@@ -82,6 +82,7 @@ Suggests:
     brms,
     car,
     emmeans,
+    gt,
     knitr,
     lavaan,
     lme4,

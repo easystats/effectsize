@@ -191,29 +191,38 @@ p_{O} =
 \end{cases}
 $$
 
-Since $\chi^2 = N \times\sum_{i=1}^{k}{\frac{(p_{E_i}-p_{O_i})^2}{p_{E_i}}}$, 
-we can find $\frac{(E_i-O_i)^2}{E_i}$ for each of these values:
+We can find $\frac{(E_i-O_i)^2}{E_i}$ for each of these values:
 
 $$
 \frac{(p_{E}-p_{O})^2}{p_{E}} = 
 \begin{cases}
-\frac{(p_i-1)^2}{p_i}, & \text{if } p_{E} = \text{min}(p_{E}) \\
-p_i = \frac{(p_i-0)^2}{p_i}, & \text{Otherwise}
+\frac{(p_i-1)^2}{p_i} = \frac{(1-p_i)^2}{p_i}, & \text{if } p_{E} = \text{min}(p_{E}) \\
+\frac{(p_i-0)^2}{p_i} = p_i, & \text{Otherwise}
 \end{cases}
 $$
 
-Since $\sum_{i=1}^{k}{p_i}=1$, the $\chi^2$, which is the sum of the expression above, can be retrieved as:
-<!-- I'm having a hard time understanding this sentence... I attempted to rewrite it for clarity but please check I have not altered the original meaning. -->
+Therefore, 
+
+<!-- MSB: How's this? -->
 
 $$
 \begin{split}
-\chi^2_\text{max} & = N \times (1 - \text{min}(p_E) + \frac{(\text{min}(p_E)-1)^2}{\text{min}(p_E)}) \\
- & = N \times \frac{1-\text{min}(p_E)}{\text{min}(p_E)} \\
- & = N \times (\frac{1}{\text{min}(p_E)} - 1)
+\sum_{i=1}^{k}{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}} & = \sum_{i=1}^{k}{p_{E_i}} - \text{min}(p_{E}) + \frac{(1-\text{min}(p_{E}))^2}{\text{min}(p_{E})} \\
+& = 1 - \text{min}(p_E) + \frac{(1-\text{min}(p_E))^2}{\text{min}(p_E)} \\
+& = \frac{1-\text{min}(p_E)}{\text{min}(p_E)} \\
+& = \frac{1}{\text{min}(p_E)} - 1
 \end{split}
 $$
 
-And so an effect size can be derived as: 
+And so, 
+
+$$
+\begin{split}
+\chi^2_\text{max} & = N \times \sum_{i=1}^{k}{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}} \\
+ & = N \times (\frac{1}{\text{min}(p_E)} - 1)
+\end{split}
+$$
+Finally, an effect size can be derived as: 
 
 $$
 \sqrt{\frac{\chi^2}{N \times (\frac{1}{\text{min}(p_E)} - 1)}}
