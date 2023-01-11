@@ -65,11 +65,11 @@ the function used to make the effect size table (\code{cohens_d}, \code{eta_squa
 data("hardlyworking")
 model <- aov(salary ~ age + factor(n_comps) * cut(seniority, 3), data = hardlyworking)
 es <- eta_squared(model, ci = 0.9, alternative = "two.sided")
-equivalence_test(es, range = 0.15) # TOST
+equivalence_test(es, range = c(0, 0.15)) # TOST
 
 data("RCT_table")
 OR <- oddsratio(RCT_table, alternative = "greater")
-equivalence_test(OR, range = 1)
+equivalence_test(OR, range = c(0, 1))
 
 ds <- t_to_d(
   t = c(0.45, -0.65, 7, -2.2, 2.25),
