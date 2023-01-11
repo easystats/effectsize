@@ -133,18 +133,62 @@
 \begin{document}
 \maketitle
 
+\hypertarget{abstract}{%
+\section{Abstract}\label{abstract}}
+
+In both theoretical and applied research, it is often of interest to
+assess the strength of an observed association. Existing guidelines also
+frequently recommend going beyond null-hypothesis significance testing
+and to report effect sizes and their confidence intervals. As such,
+measures of effect sizes are increasingly reported, valued, and
+understood. Beyond their value in shaping the interpretation of the
+results from a given study, reporting effect sizes is critical for
+meta-analyses, which rely on their aggregation. We here review the most
+common effect sizes for analyses of categorical variables that use the
+\(\chi^2\) (chi-square) statistic, and introduce a new effect size---פ
+(Fei). We demonstrate the implementation of these measures and their
+confidence intervals via the \texttt{\{effectsize\}} package
+(Ben-Shachar, Lüdecke, \& Makowski, 2020) in the R programming language.
+
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-In both theoretical and applied research, it is often of interest to
-assess the strength of an observed association. Beyond their use in
-interpreting the results from a given study, they can be aggregated in
-meta-analyses (Lakens, 2013). We review here the most common effect
+Over the last two decades, there has been growing concerns about the
+so-called replication crisis in psychology and other fields (Camerer et
+al., 2018; Open Science Collaboration, 2015). As a result, the
+scientific community has paid increasing attention to the issue of
+replicability in science, as well as to to good research and statistical
+practices.
+
+In this context, many have highlighted the limitations of
+null-hypothesis significance testing and called for more modern
+approaches to statistics (Cumming, 2014). One such recommendation coming
+for example from the New Statistics movement is to report effect sizes
+and their corresponding confidence intervals, and to increasingly rely
+on meta-analyses to increase confidence in those estimations. These
+recommendations are meant to complement (or even replace, according to
+some) null-hypothesis significance testing and would help transition
+toward a ``cumulative quantitative discipline''.
+
+These so-called ``New Statistics'' are synergistic because effect sizes
+are not only useful for interpreting study results in themselves, but
+also because they are necessary for meta-analyses, which aggregate
+effect sizes and their confidence intervals to create a summary effect
+size of its own (Lakens, 2013).
+
+Unfortunately, popular software do not always offer the necessary
+implementations of the specialized effect sizes necessary for a given
+research design. In this paper, we review the most commonly used effect
 sizes for analyses of categorical variables that use the \(\chi^2\)
-(chi-square) statistic, and introduce a new one---פ (Fei)---alongside
-the \texttt{\{effectsize\}} package (Ben-Shachar, Lüdecke, \& Makowski,
-2020) in the R programming language (R Core Team, 2023), which
-implements these measures and their confidence intervals.
+(chi-square) statistic, and introduce a new effect size---פ (Fei).
+
+Importantly, we offer researchers an applied walk-through on how to use
+these effect sizes in practice thanks to the \texttt{\{effectsize\}}
+package (Ben-Shachar et al., 2020) in the R programming language (R Core
+Team, 2023), which implements these measures and their confidence
+intervals. We cover in turn tests of independence (phi, Cramér's
+\emph{V}) and tests of goodness of fit (Cohen's \emph{w} and a new
+proposed effect size, Fei).
 
 \hypertarget{tests-of-independence}{%
 \section{Tests of Independence}\label{tests-of-independence}}
@@ -554,7 +598,14 @@ this expression reduces to \(N\) and פ \(= w\).
 \hypertarget{summary}{%
 \section{Summary}\label{summary}}
 
-We fill the missing effect size for all cases of a \(\chi^2\) test.
+Effect sizes are essential to interpret the magnitude of observed
+effects, they are frequently required in scientific journals, and they
+are are necessary for a cumulative quantitative science relying on
+meta-analyses. In this paper, we have covered the mathematics and
+implementation in R of four different effect sizes for analyses of
+categorical variables that specifically use the \(\chi^2\) (chi-square)
+statistic. Furthermore, with our proposal of the effect size פ (Fei), we
+fill the missing effect size for all cases of a \(\chi^2\) test.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
@@ -568,6 +619,13 @@ Estimation of effect size indices and standardized parameters.
 \emph{Journal of Open Source Software}, \emph{5}(56), 2815.
 \url{https://doi.org/10.21105/joss.02815}
 
+\leavevmode\vadjust pre{\hypertarget{ref-camerer2018evaluating}{}}%
+Camerer, C. F., Dreber, A., Holzmeister, F., Ho, T.-H., Huber, J.,
+Johannesson, M., \ldots{} Wu, H. (2018). Evaluating the replicability of
+social science experiments in nature and science between 2010 and 2015.
+\emph{Nature Human Behaviour}, \emph{2}, 637--644.
+\url{https://doi.org/10.1038/s41562-018-0399-z}
+
 \leavevmode\vadjust pre{\hypertarget{ref-cohen2013statistical}{}}%
 Cohen, J. (2013). \emph{Statistical power analysis for the behavioral
 sciences}. Routledge.
@@ -575,6 +633,11 @@ sciences}. Routledge.
 \leavevmode\vadjust pre{\hypertarget{ref-cramer1999mathematical}{}}%
 Cramér, H. (1999). \emph{Mathematical methods of statistics} (Vol. 43).
 Princeton University Press.
+
+\leavevmode\vadjust pre{\hypertarget{ref-cumming2014new}{}}%
+Cumming, G. (2014). The new statistics: Why and how. \emph{Psychological
+Science}, \emph{25}(1), 7--29.
+\url{https://doi.org/10.1177/0956797613504966}
 
 \leavevmode\vadjust pre{\hypertarget{ref-johnston2006measures}{}}%
 Johnston, J. E., Berry, K. J., \& Mielke Jr, P. W. (2006). Measures of
@@ -584,8 +647,13 @@ effect size for chi-squared and likelihood-ratio goodness-of-fit tests.
 \leavevmode\vadjust pre{\hypertarget{ref-lakens2013calculating}{}}%
 Lakens, D. (2013). Calculating and reporting effect sizes to facilitate
 cumulative science: A practical primer for \emph{t}-tests and ANOVAs.
-\emph{Frontiers in Psychology}, \emph{4}.
+\emph{Frontiers in Psychology}, \emph{4}, 863.
 \url{https://doi.org/10.3389/fpsyg.2013.00863}
+
+\leavevmode\vadjust pre{\hypertarget{ref-OSC2015estimating}{}}%
+Open Science Collaboration. (2015). Estimating the reproducibility of
+psychological science. \emph{Science}, \emph{349}, aac4716.
+\url{https://doi.org/10.1126/science.aac4716}
 
 \leavevmode\vadjust pre{\hypertarget{ref-base2023}{}}%
 R Core Team. (2023). \emph{R: A language and environment for statistical
