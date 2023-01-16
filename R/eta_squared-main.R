@@ -772,8 +772,10 @@ cohens_f_squared <- function(model,
   }
 
   if (!any(F.nm %in% colnames(model)) || !any(df.nm %in% colnames(model))) {
-    insight::format_error("ANOVA table does not have F values or degrees of freedom,",
-                          "cannot compute effect size.")
+    insight::format_error(
+      "ANOVA table does not have F values or degrees of freedom,",
+      "cannot compute effect size."
+    )
   }
 
   Fi <- F.nm[F.nm %in% colnames(model)]

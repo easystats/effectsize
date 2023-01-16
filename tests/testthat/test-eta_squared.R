@@ -509,8 +509,8 @@ test_that("afex | mixed()", {
 
   # Intercept
   data("Machines", package = "MEMSS")
-  suppressMessages(m1 <- afex::mixed(score ~ Machine + (Machine|Worker), data=Machines, method = "KR"))
-  suppressMessages(m2 <- afex::mixed(score ~ Machine + (Machine|Worker), data=Machines, test_intercept  = TRUE, method = "KR"))
+  suppressMessages(m1 <- afex::mixed(score ~ Machine + (Machine | Worker), data = Machines, method = "KR"))
+  suppressMessages(m2 <- afex::mixed(score ~ Machine + (Machine | Worker), data = Machines, test_intercept = TRUE, method = "KR"))
 
   expect_warning(a1a <- eta_squared(m1, include_intercept = TRUE), regexp = "Intercept")
   expect_warning(a1b <- eta_squared(m1, include_intercept = FALSE), regexp = NA)
@@ -521,7 +521,7 @@ test_that("afex | mixed()", {
   expect_warning(a2b <- eta_squared(m2, include_intercept = FALSE), regexp = NA)
   expect_equal(nrow(a2a), 2L)
   expect_equal(nrow(a2b), 1L)
-  expect_equal(a1a, a2a[2,], ignore_attr = TRUE)
+  expect_equal(a1a, a2a[2, ], ignore_attr = TRUE)
 })
 
 
@@ -608,16 +608,17 @@ test_that("Anova.mlm Manova", {
     eta_squared(Manova)[[2]][2:3]
   )
 
-  Anova <- car::Anova(mod, idesign = ~ g, idata = data.frame(g = factor(1:3)))
+  Anova <- car::Anova(mod, idesign = ~g, idata = data.frame(g = factor(1:3)))
   mtcars$id <- factor(1:32)
   mtcars_long <- datawizard::reshape_longer(mtcars,
-                                            select = c("mpg", "qsec", "disp"), names_to = "g")
+    select = c("mpg", "qsec", "disp"), names_to = "g"
+  )
   a1 <- aov(value ~ am_f * cyl_f * g + Error(id / g), data = mtcars_long)
 
   A1 <- eta_squared(Anova)
   A2 <- eta_squared(a1)
   expect_equal(A1$Parameter, A2$Parameter)
-  expect_equal(A1[c(2:4, 6:7),], A2[c(2:4, 6:7),-1], ignore_attr = TRUE)
+  expect_equal(A1[c(2:4, 6:7), ], A2[c(2:4, 6:7), -1], ignore_attr = TRUE)
 })
 
 ## merMod --------------------
