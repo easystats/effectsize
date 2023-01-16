@@ -75,11 +75,11 @@
       aov_tab$df <- aov_tab$df_num
       aov_tab$df_num <- NULL
       out <- .anova_es(aov_tab,
-                       type = type,
-                       partial = partial, generalized = generalized,
-                       ci = ci, alternative = alternative,
-                       include_intercept = include_intercept,
-                       verbose = verbose
+        type = type,
+        partial = partial, generalized = generalized,
+        ci = ci, alternative = alternative,
+        include_intercept = include_intercept,
+        verbose = verbose
       )
       attr(out, "anova_type") <- as.numeric(as.roman(model$type))
       attr(out, "approximate") <- FALSE
@@ -173,16 +173,16 @@
   if (by_response && "Response" %in% colnames(model)) {
     out <- split(model, model[["Response"]])
     out <- lapply(out, .anova_es.parameters_model,
-                  type = type, partial = partial, generalized = generalized,
-                  ci = ci, alternative = alternative,
-                  verbose = verbose,
-                  by_response = FALSE,
-                  ...
+      type = type, partial = partial, generalized = generalized,
+      ci = ci, alternative = alternative,
+      verbose = verbose,
+      by_response = FALSE,
+      ...
     )
     saved_attr <- attributes(out[[1]])
     out <- mapply(out, names(out),
-                  FUN = function(x, nm) cbind(Response = nm, x),
-                  SIMPLIFY = FALSE
+      FUN = function(x, nm) cbind(Response = nm, x),
+      SIMPLIFY = FALSE
     )
     out <- do.call(rbind, out)
     out$Parameter <- as.character(out$Parameter)
@@ -236,12 +236,12 @@
 #' @importFrom stats aov
 #' @importFrom utils packageVersion
 .anova_es.maov <- function(model,
-                          type = c("eta", "omega", "epsilon"),
-                          partial = TRUE,
-                          generalized = FALSE,
-                          ci = 0.95, alternative = "greater",
-                          verbose = TRUE,
-                          ...) {
+                           type = c("eta", "omega", "epsilon"),
+                           partial = TRUE,
+                           generalized = FALSE,
+                           ci = 0.95, alternative = "greater",
+                           verbose = TRUE,
+                           ...) {
   params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
   anova_type <- attr(params, "anova_type")
 
