@@ -609,7 +609,15 @@ test_that("Anova.mlm Manova", {
   )
 
   Anova <- car::Anova(mod, idesign = ~ g, idata = data.frame(g = factor(1:3)))
-  eta_squared(Anova)
+  mtcars$id <- factor(1:32)
+  mtcars_long <- datawizard::reshape_longer(mtcars,
+                                            select = c("mpg", "qsec", "disp"), names_to = "g")
+  a1 <- aov(value ~ am_f * cyl_f * g + Error(id / g), data = mtcars_long)
+
+  A1 <- eta_squared(Anova)
+  A2 <- eta_squared(a1)
+  expect_equal(A1$Parameter, A2$Parameter)
+  expect_equal(A1[c(2:4, 6:7),], A2[c(2:4, 6:7),-1], ignore_attr = TRUE)
 })
 
 ## merMod --------------------
