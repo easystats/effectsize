@@ -1,144 +1,61 @@
-# Specific models ---------------------------------------------------------
+# Specific tables ---------------------------------------------------------
 
 #' @keywords internal
-#' @importFrom stats aov
-#' @importFrom utils packageVersion
-.anova_es.mlm <- function(model,
-                          type = c("eta", "omega", "epsilon"),
-                          partial = TRUE,
-                          generalized = FALSE,
-                          ci = 0.95, alternative = "greater",
-                          verbose = TRUE,
-                          ...) {
-  model <- stats::aov(model)
-  params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
-  anova_type <- attr(params, "anova_type")
+.anova_es.afex_aov <- function(model,
+                               type = c("eta", "omega", "epsilon"),
+                               partial = TRUE,
+                               generalized = FALSE,
+                               ci = 0.95, alternative = "greater",
+                               verbose = TRUE,
+                               include_intercept = FALSE,
+                               ...) {
+  type <- match.arg(type)
+  if (type == "eta" && isTRUE(generalized) && length(attr(model$anova_table, "observed"))) {
+    generalized <- attr(model$anova_table, "observed")
+  }
 
-  params <- split(params, factor(params$Response, levels = unique(params$Response))) # make sure row order is not changed
-  params <- lapply(params, .es_aov_simple,
-    type = type,
-    partial = partial,
-    generalized = generalized,
-    ci = ci, alternative = alternative,
-    verbose = verbose,
-    ...
-  )
-
-  params <- lapply(names(params), function(nm) {
-    cbind(Response = nm, params[[nm]])
-  })
-  out <- do.call("rbind", params)
-  rownames(out) <- NULL
-  out$Response <- as.character(out$Response)
-
-  attr(out, "generalized") <- attr(params[[1]], "generalized")
-  attr(out, "ci") <- attr(params[[1]], "ci", exact = TRUE)
-  attr(out, "anova_type") <- anova_type
-  attr(out, "approximate") <- FALSE
-  attr(out, "alternative") <- if (is.numeric(attr(out, "ci"))) alternative
-  out
-}
-
-.anova_es.maov <- .anova_es.mlm
-
-
-
-#' @keywords internal
-.anova_es.anova.lme <- .anova_es.anova
-
-#' @importFrom stats na.omit
-#' @keywords internal
-.anova_es.parameters_model <- function(model,
-                                       type = c("eta", "omega", "epsilon"),
-                                       partial = TRUE,
-                                       generalized = FALSE,
-                                       ci = 0.95, alternative = "greater",
-                                       verbose = TRUE,
-                                       by_response = TRUE,
-                                       ...) {
-  if (by_response && "Response" %in% colnames(model)) {
-    out <- split(model, model[["Response"]])
-    out <- lapply(out, .anova_es.parameters_model,
-      type = type, partial = partial, generalized = generalized,
+  out <-
+    .anova_es(
+      model$Anova,
+      type = type,
+      partial = partial,
+      generalized = generalized,
       ci = ci, alternative = alternative,
-      verbose = verbose,
-      by_response = FALSE,
+      verbose = FALSE,
+      include_intercept = include_intercept,
       ...
     )
-    saved_attr <- attributes(out[[1]])
-    out <- mapply(out, names(out),
-      FUN = function(x, nm) cbind(Response = nm, x),
-      SIMPLIFY = FALSE
-    )
-    out <- do.call(rbind, out)
-    out$Parameter <- as.character(out$Parameter)
 
-    # Set attributes ---
-    attr(out, "generalized") <- saved_attr$generalized
-    attr(out, "ci") <- saved_attr$ci
-    attr(out, "alternative") <- saved_attr$alternative
-    attr(out, "anova_type") <- attr(model, "anova_type")
-    attr(out, "approximate") <- saved_attr$approximate
-    return(out)
-  }
-
-
-  approximate <- FALSE
-  if ("Sum_Squares" %in% colnames(model) && "Residuals" %in% model[["Parameter"]]) {
-    if ("Group" %in% colnames(model)) {
-      DVs <- unlist(insight::find_predictors(.get_object_from_params(model)))
-      out <- .es_aov_strata(
-        model,
-        DV_names = DVs,
-        type = type, partial = partial, generalized = generalized,
-        ci = ci, alternative = alternative,
-        verbose = verbose, ...
-      )
-    } else {
-      out <- .es_aov_simple(
-        model,
-        type = type, partial = partial, generalized = generalized,
-        ci = ci, alternative = alternative,
-        verbose = verbose, ...
-      )
-    }
-  } else {
-    out <- .es_aov_table(
-      model,
-      type = type, partial = partial, generalized = generalized,
-      ci = ci, alternative = alternative,
-      verbose = verbose, ...
-    )
-    approximate <- TRUE
-  }
-  attr(out, "anova_type") <- attr(model, "anova_type")
-  attr(out, "approximate") <- approximate
+  attr(out, "anova_type") <- attr(model, "type", exact = TRUE)
+  attr(out, "approximate") <- FALSE
   out
 }
 
 #' @keywords internal
-.anova_es.htest <- function(model,
-                            type = c("eta", "omega", "epsilon"),
-                            partial = TRUE,
-                            generalized = FALSE,
-                            ci = 0.95, alternative = "greater",
+.anova_es.mixed <- function(model,
                             verbose = TRUE,
+                            include_intercept = FALSE,
                             ...) {
-  if (!grepl("One-way", model$method)) {
-    insight::format_error("'model' is not a one-way test!")
+  aov_tab <- as.data.frame(model[["anova_table"]])
+
+  if (!"F" %in% colnames(aov_tab)) {
+    insight::format_error("Cannot estimate approx effect size for `mixed` type model - no F-statistic found.")
   }
 
-  if (verbose && (partial || isTRUE(generalized) || is.character(generalized))) {
-    txt_type <- ifelse(isTRUE(generalized) || is.character(generalized), "generalized", "partial")
-    insight::format_alert(
-      sprintf(
-        "For one-way between subjects designs, %s %s squared is equivalent to %s squared. Returning %s squared.",
-        txt_type, type, type, type
-      )
-    )
+  if (verbose && include_intercept) {
+    insight::format_warning("Cannot estimate (Intercept) effect size for `mixed` model.")
   }
 
-  effectsize(model, type = type, ci = ci, alternative = alternative, verbose = verbose, ...)
+  aov_tab$Parameter <- rownames(aov_tab)
+  aov_tab$df <- aov_tab[["num Df"]]
+  aov_tab$df_error <- aov_tab[["den Df"]]
+  aov_tab <- aov_tab[, c("Parameter", "df", "df_error", "F")]
+
+  out <- .es_aov_table(aov_tab, verbose = verbose, ...)
+
+  attr(out, "anova_type") <- attr(model, "type")
+  attr(out, "approximate") <- TRUE
+  out
 }
 
 #' @keywords internal
@@ -158,11 +75,11 @@
       aov_tab$df <- aov_tab$df_num
       aov_tab$df_num <- NULL
       out <- .anova_es(aov_tab,
-        type = type,
-        partial = partial, generalized = generalized,
-        ci = ci, alternative = alternative,
-        include_intercept = include_intercept,
-        verbose = verbose
+                       type = type,
+                       partial = partial, generalized = generalized,
+                       ci = ci, alternative = alternative,
+                       include_intercept = include_intercept,
+                       verbose = verbose
       )
       attr(out, "anova_type") <- as.numeric(as.roman(model$type))
       attr(out, "approximate") <- FALSE
@@ -232,6 +149,150 @@
     out
   }
 
+#' @importFrom stats na.omit
+#' @keywords internal
+.anova_es.parameters_model <- function(model,
+                                       type = c("eta", "omega", "epsilon"),
+                                       partial = TRUE,
+                                       generalized = FALSE,
+                                       ci = 0.95, alternative = "greater",
+                                       verbose = TRUE,
+                                       by_response = TRUE,
+                                       ...) {
+  if (by_response && "Response" %in% colnames(model)) {
+    out <- split(model, model[["Response"]])
+    out <- lapply(out, .anova_es.parameters_model,
+                  type = type, partial = partial, generalized = generalized,
+                  ci = ci, alternative = alternative,
+                  verbose = verbose,
+                  by_response = FALSE,
+                  ...
+    )
+    saved_attr <- attributes(out[[1]])
+    out <- mapply(out, names(out),
+                  FUN = function(x, nm) cbind(Response = nm, x),
+                  SIMPLIFY = FALSE
+    )
+    out <- do.call(rbind, out)
+    out$Parameter <- as.character(out$Parameter)
+
+    # Set attributes ---
+    attr(out, "generalized") <- saved_attr$generalized
+    attr(out, "ci") <- saved_attr$ci
+    attr(out, "alternative") <- saved_attr$alternative
+    attr(out, "anova_type") <- attr(model, "anova_type")
+    attr(out, "approximate") <- saved_attr$approximate
+    return(out)
+  }
+
+
+  approximate <- FALSE
+  if ("Sum_Squares" %in% colnames(model) && "Residuals" %in% model[["Parameter"]]) {
+    if ("Group" %in% colnames(model)) {
+      DVs <- unlist(insight::find_predictors(.get_object_from_params(model)))
+      out <- .es_aov_strata(
+        model,
+        DV_names = DVs,
+        type = type, partial = partial, generalized = generalized,
+        ci = ci, alternative = alternative,
+        verbose = verbose, ...
+      )
+    } else {
+      out <- .es_aov_simple(
+        model,
+        type = type, partial = partial, generalized = generalized,
+        ci = ci, alternative = alternative,
+        verbose = verbose, ...
+      )
+    }
+  } else {
+    out <- .es_aov_table(
+      model,
+      type = type, partial = partial, generalized = generalized,
+      ci = ci, alternative = alternative,
+      verbose = verbose, ...
+    )
+    approximate <- TRUE
+  }
+  attr(out, "anova_type") <- attr(model, "anova_type")
+  attr(out, "approximate") <- approximate
+  out
+}
+
+# Specific models ---------------------------------------------------------
+
+#' @keywords internal
+#' @importFrom stats aov
+#' @importFrom utils packageVersion
+.anova_es.mlm <- function(model,
+                          type = c("eta", "omega", "epsilon"),
+                          partial = TRUE,
+                          generalized = FALSE,
+                          ci = 0.95, alternative = "greater",
+                          verbose = TRUE,
+                          ...) {
+  model <- stats::aov(model)
+  params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
+  anova_type <- attr(params, "anova_type")
+
+  params <- split(params, factor(params$Response, levels = unique(params$Response))) # make sure row order is not changed
+  params <- lapply(params, .es_aov_simple,
+    type = type,
+    partial = partial,
+    generalized = generalized,
+    ci = ci, alternative = alternative,
+    verbose = verbose,
+    ...
+  )
+
+  params <- lapply(names(params), function(nm) {
+    cbind(Response = nm, params[[nm]])
+  })
+  out <- do.call("rbind", params)
+  rownames(out) <- NULL
+  out$Response <- as.character(out$Response)
+
+  attr(out, "generalized") <- attr(params[[1]], "generalized")
+  attr(out, "ci") <- attr(params[[1]], "ci", exact = TRUE)
+  attr(out, "anova_type") <- anova_type
+  attr(out, "approximate") <- FALSE
+  attr(out, "alternative") <- if (is.numeric(attr(out, "ci"))) alternative
+  out
+}
+
+.anova_es.maov <- .anova_es.mlm
+
+
+
+#' @keywords internal
+.anova_es.anova.lme <- .anova_es.anova
+
+
+#' @keywords internal
+.anova_es.htest <- function(model,
+                            type = c("eta", "omega", "epsilon"),
+                            partial = TRUE,
+                            generalized = FALSE,
+                            ci = 0.95, alternative = "greater",
+                            verbose = TRUE,
+                            ...) {
+  if (!grepl("One-way", model$method)) {
+    insight::format_error("'model' is not a one-way test!")
+  }
+
+  if (verbose && (partial || isTRUE(generalized) || is.character(generalized))) {
+    txt_type <- ifelse(isTRUE(generalized) || is.character(generalized), "generalized", "partial")
+    insight::format_alert(
+      sprintf(
+        "For one-way between subjects designs, %s %s squared is equivalent to %s squared. Returning %s squared.",
+        txt_type, type, type, type
+      )
+    )
+  }
+
+  effectsize(model, type = type, ci = ci, alternative = alternative, verbose = verbose, ...)
+}
+
 
 #' @keywords internal
 #' @importFrom stats anova
@@ -293,64 +354,6 @@
     )
 
   attr(out, "anova_type") <- 3
-  attr(out, "approximate") <- TRUE
-  out
-}
-
-#' @keywords internal
-.anova_es.afex_aov <- function(model,
-                               type = c("eta", "omega", "epsilon"),
-                               partial = TRUE,
-                               generalized = FALSE,
-                               ci = 0.95, alternative = "greater",
-                               verbose = TRUE,
-                               include_intercept = FALSE,
-                               ...) {
-  type <- match.arg(type)
-  if (type == "eta" && isTRUE(generalized) && length(attr(model$anova_table, "observed"))) {
-    generalized <- attr(model$anova_table, "observed")
-  }
-
-  out <-
-    .anova_es(
-      model$Anova,
-      type = type,
-      partial = partial,
-      generalized = generalized,
-      ci = ci, alternative = alternative,
-      verbose = FALSE,
-      include_intercept = include_intercept,
-      ...
-    )
-
-  attr(out, "anova_type") <- attr(model, "type", exact = TRUE)
-  attr(out, "approximate") <- FALSE
-  out
-}
-
-#' @keywords internal
-.anova_es.mixed <- function(model,
-                            verbose = TRUE,
-                            include_intercept = FALSE,
-                            ...) {
-  aov_tab <- as.data.frame(model[["anova_table"]])
-
-  if (!"F" %in% colnames(aov_tab)) {
-    insight::format_error("Cannot estimate approx effect size for `mixed` type model - no F-statistic found.")
-  }
-
-  if (verbose && include_intercept) {
-    insight::format_warning("Cannot estimate (Intercept) effect size for `mixed` model.")
-  }
-
-  aov_tab$Parameter <- rownames(aov_tab)
-  aov_tab$df <- aov_tab[["num Df"]]
-  aov_tab$df_error <- aov_tab[["den Df"]]
-  aov_tab <- aov_tab[, c("Parameter", "df", "df_error", "F")]
-
-  out <- .es_aov_table(aov_tab, verbose = verbose, ...)
-
-  attr(out, "anova_type") <- attr(model, "type")
   attr(out, "approximate") <- TRUE
   out
 }

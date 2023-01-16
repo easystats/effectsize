@@ -757,6 +757,74 @@ cohens_f_squared <- function(model,
 }
 
 #' @keywords internal
+.anova_es.anova <- function(model,
+                            type = c("eta", "omega", "epsilon"),
+                            partial = TRUE,
+                            generalized = FALSE,
+                            ci = 0.95, alternative = "greater",
+                            verbose = TRUE,
+                            include_intercept = FALSE,
+                            ...) {
+  F.nm <- c("F value", "approx F", "F-value", "F")
+  df.nm <- c("NumDF", "num Df", "numDF", "npar", "Df")
+  df_error.nm <- c("DenDF", "den Df", "denDF", "df_error", "Df.res")
+
+  # If there is no df_error *or* is there IS a residuals row...
+  if (!any(df_error.nm %in% colnames(model))) {
+    # Pass to AOV method
+    res <- .anova_es.aov(model,
+                         partial = partial,
+                         type = type,
+                         generalized = generalized,
+                         ci = ci, alternative = alternative,
+                         verbose = verbose,
+                         include_intercept = include_intercept,
+                         ...
+    )
+    return(res)
+  }
+
+  if (!any(F.nm %in% colnames(model)) || !any(df.nm %in% colnames(model))) {
+    insight::format_error("ANOVA table does not have F values or degrees of freedom - cannot compute effect size.")
+  }
+
+  Fi <- F.nm[F.nm %in% colnames(model)]
+  dfi <- df.nm[df.nm %in% colnames(model)]
+  df_errori <- df_error.nm[df_error.nm %in% colnames(model)]
+
+  if (length(dfi) > 1L) {
+    dfi <- dfi[1] # For MANOVA this should not use the MV-df
+  }
+
+  # Clean up table ---
+  par_table <- data.frame(
+    Parameter = rownames(model),
+    F = model[, Fi],
+    df = model[, dfi],
+    df_error = model[, df_errori]
+  )
+  par_table <- par_table[!par_table[["Parameter"]] %in% "Residuals", ]
+
+  out <-
+    .es_aov_table(
+      par_table,
+      type = type,
+      partial = partial,
+      generalized = generalized,
+      ci = ci,
+      alternative = alternative,
+      verbose = verbose,
+      include_intercept = include_intercept
+    )
+
+  attr(out, "anova_type") <- tryCatch(attr(parameters::model_parameters(model, verbose = FALSE, effects = "fixed"), "anova_type"),
+                                      error = function(...) 1
+  )
+  attr(out, "approximate") <- TRUE
+  out
+}
+
+#' @keywords internal
 #' @importFrom parameters model_parameters
 #' @importFrom stats anova
 .anova_es.aov <- function(model,
@@ -823,76 +891,6 @@ cohens_f_squared <- function(model,
   attr(out, "anova_type") <- anova_type
   out
 }
-
-#' @keywords internal
-.anova_es.anova <- function(model,
-                            type = c("eta", "omega", "epsilon"),
-                            partial = TRUE,
-                            generalized = FALSE,
-                            ci = 0.95, alternative = "greater",
-                            verbose = TRUE,
-                            include_intercept = FALSE,
-                            ...) {
-  F.nm <- c("F value", "approx F", "F-value", "F")
-  df.nm <- c("NumDF", "num Df", "numDF", "npar", "Df")
-  df_error.nm <- c("DenDF", "den Df", "denDF", "df_error", "Df.res")
-
-  # If there is no df_error *or* is there IS a residuals row...
-  if (!any(df_error.nm %in% colnames(model))) {
-    # Pass to AOV method
-    res <- .anova_es.aov(model,
-      partial = partial,
-      type = type,
-      generalized = generalized,
-      ci = ci, alternative = alternative,
-      verbose = verbose,
-      include_intercept = include_intercept,
-      ...
-    )
-    return(res)
-  }
-
-  if (!any(F.nm %in% colnames(model)) || !any(df.nm %in% colnames(model))) {
-    insight::format_error("ANOVA table does not have F values or degrees of freedom - cannot compute effect size.")
-  }
-
-  Fi <- F.nm[F.nm %in% colnames(model)]
-  dfi <- df.nm[df.nm %in% colnames(model)]
-  df_errori <- df_error.nm[df_error.nm %in% colnames(model)]
-
-  if (length(dfi) > 1L) {
-    dfi <- dfi[1] # For MANOVA this should not use the MV-df
-  }
-
-  # Clean up table ---
-  par_table <- data.frame(
-    Parameter = rownames(model),
-    F = model[, Fi],
-    df = model[, dfi],
-    df_error = model[, df_errori]
-  )
-  par_table <- par_table[!par_table[["Parameter"]] %in% "Residuals", ]
-
-  out <-
-    .es_aov_table(
-      par_table,
-      type = type,
-      partial = partial,
-      generalized = generalized,
-      ci = ci,
-      alternative = alternative,
-      verbose = verbose,
-      include_intercept = include_intercept
-    )
-
-  attr(out, "anova_type") <- tryCatch(attr(parameters::model_parameters(model, verbose = FALSE, effects = "fixed"), "anova_type"),
-    error = function(...) 1
-  )
-  attr(out, "approximate") <- TRUE
-  out
-}
-
-
 
 
 # Utils -------------------------------------------------------------------
