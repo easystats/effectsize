@@ -149,6 +149,17 @@
     out
   }
 
+#' @keywords internal
+.anova_es.manova <- function(model, ...) {
+  stop("Should return the same as Anova.mlm")
+}
+
+
+#' @keywords internal
+.anova_es.anova.lme <- .anova_es.anova
+
+
+
 #' @importFrom stats na.omit
 #' @keywords internal
 .anova_es.parameters_model <- function(model,
@@ -224,14 +235,13 @@
 #' @keywords internal
 #' @importFrom stats aov
 #' @importFrom utils packageVersion
-.anova_es.mlm <- function(model,
+.anova_es.maov <- function(model,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,
                           generalized = FALSE,
                           ci = 0.95, alternative = "greater",
                           verbose = TRUE,
                           ...) {
-  model <- stats::aov(model)
   params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
   anova_type <- attr(params, "anova_type")
 
@@ -260,12 +270,10 @@
   out
 }
 
-.anova_es.maov <- .anova_es.mlm
-
-
-
 #' @keywords internal
-.anova_es.anova.lme <- .anova_es.anova
+.anova_es.mlm <- function(model, ...) {
+  .anova_es.maov(stats::aov(model), ...)
+}
 
 
 #' @keywords internal

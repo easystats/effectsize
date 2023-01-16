@@ -834,20 +834,20 @@ cohens_f_squared <- function(model,
                           ci = 0.95, alternative = "greater",
                           verbose = TRUE,
                           ...) {
-  if (!inherits(model, c("Gam", "anova"))) {
-    print("I AM HERE")
-    # Pass to ANOVA table method
-    res <- .anova_es.anova(
-      stats::anova(model),
-      type = type,
-      partial = partial,
-      generalized = generalized,
-      ci = ci, alternative = alternative,
-      verbose = verbose,
-      ...
-    )
-    return(res)
-  }
+  # if (!inherits(model, c("Gam", "anova"))) {
+  #   print("I AM HERE")
+  #   # Pass to ANOVA table method
+  #   res <- .anova_es.anova(
+  #     stats::anova(model),
+  #     type = type,
+  #     partial = partial,
+  #     generalized = generalized,
+  #     ci = ci, alternative = alternative,
+  #     verbose = verbose,
+  #     ...
+  #   )
+  #   return(res)
+  # }
 
   params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
   out <- .es_aov_simple(as.data.frame(params),
@@ -859,11 +859,12 @@ cohens_f_squared <- function(model,
   out
 }
 
-.anova_es.lm <- .anova_es.aov
+#' @keywords internal
+.anova_es.lm <- function(model, ...) {
+  .anova_es.aov(stats::aov(model), ...)
+}
 
-.anova_es.glm <- .anova_es.aov
-
-.anova_es.manova <- .anova_es.aov
+.anova_es.glm <- .anova_es.lm
 
 #' @keywords internal
 #' @importFrom parameters model_parameters
