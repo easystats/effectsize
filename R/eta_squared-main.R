@@ -773,13 +773,13 @@ cohens_f_squared <- function(model,
   if (!any(df_error.nm %in% colnames(model))) {
     # Pass to AOV method
     res <- .anova_es.aov(model,
-                         partial = partial,
-                         type = type,
-                         generalized = generalized,
-                         ci = ci, alternative = alternative,
-                         verbose = verbose,
-                         include_intercept = include_intercept,
-                         ...
+      partial = partial,
+      type = type,
+      generalized = generalized,
+      ci = ci, alternative = alternative,
+      verbose = verbose,
+      include_intercept = include_intercept,
+      ...
     )
     return(res)
   }
@@ -818,7 +818,7 @@ cohens_f_squared <- function(model,
     )
 
   attr(out, "anova_type") <- tryCatch(attr(parameters::model_parameters(model, verbose = FALSE, effects = "fixed"), "anova_type"),
-                                      error = function(...) 1
+    error = function(...) 1
   )
   attr(out, "approximate") <- TRUE
   out
@@ -835,6 +835,7 @@ cohens_f_squared <- function(model,
                           verbose = TRUE,
                           ...) {
   if (!inherits(model, c("Gam", "anova"))) {
+    print("I AM HERE")
     # Pass to ANOVA table method
     res <- .anova_es.anova(
       stats::anova(model),
@@ -849,7 +850,11 @@ cohens_f_squared <- function(model,
   }
 
   params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
-  out <- .es_aov_simple(as.data.frame(params), type, partial, generalized, ci, alternative, verbose = verbose, ...)
+  out <- .es_aov_simple(as.data.frame(params),
+    type = type,
+    partial = partial, generalized = generalized,
+    ci = ci, alternative = alternative, verbose = verbose, ...
+  )
   if (is.null(attr(out, "anova_type"))) attr(out, "anova_type") <- attr(params, "anova_type")
   out
 }
