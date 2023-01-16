@@ -506,6 +506,22 @@ test_that("afex | mixed()", {
     eta_squared(t15.4a),
     eta_squared(t15.4a$full_model)
   )
+
+  # Intercept
+  data("Machines", package = "MEMSS")
+  suppressMessages(m1 <- afex::mixed(score ~ Machine + (Machine|Worker), data=Machines, method = "KR"))
+  suppressMessages(m2 <- afex::mixed(score ~ Machine + (Machine|Worker), data=Machines, test_intercept  = TRUE, method = "KR"))
+
+  expect_warning(a1a <- eta_squared(m1, include_intercept = TRUE), regexp = "Intercept")
+  expect_warning(a1b <- eta_squared(m1, include_intercept = FALSE), regexp = NA)
+  expect_equal(a1a, a1b)
+  expect_equal(nrow(a1a), 1L)
+
+  expect_warning(a2a <- eta_squared(m2, include_intercept = TRUE), regexp = NA)
+  expect_warning(a2b <- eta_squared(m2, include_intercept = FALSE), regexp = NA)
+  expect_equal(nrow(a2a), 2L)
+  expect_equal(nrow(a2b), 1L)
+  expect_equal(a1a, a2a[2,], ignore_attr = TRUE)
 })
 
 
@@ -581,7 +597,7 @@ test_that("Anova.mlm Manova", {
   mtcars$am_f <- factor(mtcars$am)
   mtcars$cyl_f <- factor(mtcars$cyl)
 
-  mod <- lm(cbind(mpg, qsec) ~ am_f * cyl_f, data = mtcars)
+  mod <- lm(cbind(mpg, qsec, disp) ~ am_f * cyl_f, data = mtcars)
 
   Manova <- car::Manova(mod)
 
@@ -591,6 +607,9 @@ test_that("Anova.mlm Manova", {
     eta_squared(manova(mod))[[2]][2:3],
     eta_squared(Manova)[[2]][2:3]
   )
+
+  Anova <- car::Anova(mod, idesign = ~ g, idata = data.frame(g = factor(1:3)))
+  eta_squared(Anova)
 })
 
 ## merMod --------------------

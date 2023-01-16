@@ -736,24 +736,11 @@ cohens_f_squared <- function(model,
     UseMethod(".anova_es")
   }
 
+
 #' @keywords internal
 #' @importFrom stats anova
-.anova_es.default <- function(model,
-                              type = c("eta", "omega", "epsilon"),
-                              partial = TRUE,
-                              generalized = FALSE,
-                              ci = 0.95, alternative = "greater",
-                              verbose = TRUE,
-                              ...) {
-  .anova_es.anova(
-    stats::anova(model),
-    type = type,
-    partial = partial,
-    generalized = generalized,
-    ci = ci,
-    alternative = alternative,
-    verbose = verbose
-  )
+.anova_es.default <- function(model, ...) {
+  .anova_es.anova(stats::anova(model), ...)
 }
 
 #' @keywords internal
@@ -785,7 +772,8 @@ cohens_f_squared <- function(model,
   }
 
   if (!any(F.nm %in% colnames(model)) || !any(df.nm %in% colnames(model))) {
-    insight::format_error("ANOVA table does not have F values or degrees of freedom - cannot compute effect size.")
+    insight::format_error("ANOVA table does not have F values or degrees of freedom,",
+                          "cannot compute effect size.")
   }
 
   Fi <- F.nm[F.nm %in% colnames(model)]
@@ -801,7 +789,8 @@ cohens_f_squared <- function(model,
     Parameter = rownames(model),
     F = model[, Fi],
     df = model[, dfi],
-    df_error = model[, df_errori]
+    df_error = model[, df_errori],
+    stringsAsFactors = FALSE
   )
   par_table <- par_table[!par_table[["Parameter"]] %in% "Residuals", ]
 
