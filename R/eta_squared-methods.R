@@ -69,8 +69,9 @@
            verbose = TRUE,
            include_intercept = FALSE,
            ...) {
-    # Faking the model_parameters.aovlist output:
     suppressWarnings(aov_tab <- summary(model)$univariate.tests)
+
+    # if there are univariate.tests, will return a global effect size
     if (is.null(aov_tab)) {
       aov_tab <- parameters::model_parameters(model)
       aov_tab$df <- aov_tab$df_num
@@ -86,6 +87,8 @@
       attr(out, "approximate") <- FALSE
       return(out)
     }
+
+    # Faking the model_parameters.aovlist output:
     aov_tab <- as.data.frame(unclass(aov_tab))
     aov_tab$Parameter <- rownames(aov_tab)
     colnames(aov_tab)[colnames(aov_tab) == "Sum Sq"] <- "Sum_Squares"
@@ -152,6 +155,13 @@
 
 #' @keywords internal
 .anova_es.manova <- function(model, ...) {
+  # pars <- parameters::model_parameters(model)
+  # pars$df_error <- pars[pars$Parameter == "Residuals", "df"]
+  # pars <- pars[pars$Parameter != "Residuals", ]
+  # out <- .anova_es(pars, ...)
+  # attr(out, "anova_type") <- attr(pars, "anova_type")
+  # attr(out, "approximate") <- TRUE
+  # return(out)
   stop("Should return the same as Anova.mlm")
 }
 
