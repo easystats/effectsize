@@ -117,4 +117,3 @@ test_that("between anova", {
   expect_equal(f2_to_eta2(1 / 3), 0.25)
   expect_equal(f_to_eta2(1 / sqrt(3)), f2_to_eta2(1 / 3))
 })
-
