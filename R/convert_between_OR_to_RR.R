@@ -62,7 +62,8 @@ oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, verbose = TRUE, 
   RR$df_error <- NULL
   RR$p <- NULL
 
-  if (used_intercept <- missing(p0)) {
+  used_intercept <- missing(p0)
+  if (used_intercept) {
     p0 <- RR[["Coefficient"]][RR$Parameter == "(Intercept)"]
     if (!log) p0 <- log(p0)
     p0 <- plogis(p0)
@@ -70,7 +71,10 @@ oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, verbose = TRUE, 
     if (verbose) {
       insight::format_warning(
         "'p0' not provided.",
-        sprintf("RR is relative to the intercept (p0 = %s) - make sure your intercept is meaningful.", insight::format_value(p0))
+        sprintf(
+          "RR is relative to the intercept (p0 = %s) - make sure your intercept is meaningful.",
+          insight::format_value(p0)
+        )
       )
     }
   }
