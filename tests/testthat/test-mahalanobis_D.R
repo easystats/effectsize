@@ -92,4 +92,3 @@ test_that("mahalanobis_d | rotation", {
   PCs <- sweep(PCA$scores, 2, PCA$center)
   expect_equal(mahalanobis_d(PCs), D, tolerance = 0.01)
 })
-
