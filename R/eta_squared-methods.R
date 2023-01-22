@@ -73,6 +73,9 @@
 
     # if there are univariate.tests, will return a global effect size
     if (is.null(aov_tab)) {
+      # TODO this should be the method for manova,
+      # so this should be copied there, and here happsed to:
+      # .anova_es.manova
       aov_tab <- parameters::model_parameters(model)
       aov_tab$df <- aov_tab$df_num
       aov_tab$df_num <- NULL

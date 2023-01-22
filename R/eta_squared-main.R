@@ -756,7 +756,7 @@ cohens_f_squared <- function(model,
   df.nm <- c("NumDF", "num Df", "numDF", "npar", "Df")
   df_error.nm <- c("DenDF", "den Df", "denDF", "df_error", "Df.res")
 
-  # If there is no df_error *or* is there IS a residuals row...
+  # If there is no df_error *or* if there IS a residuals row...
   if (!any(df_error.nm %in% colnames(model))) {
     # Pass to AOV method
     res <- .anova_es.aov(model,
@@ -826,7 +826,6 @@ cohens_f_squared <- function(model,
                           verbose = TRUE,
                           ...) {
   # if (!inherits(model, c("Gam", "anova"))) {
-  #   print("I AM HERE")
   #   # Pass to ANOVA table method
   #   res <- .anova_es.anova(
   #     stats::anova(model),
@@ -840,6 +839,8 @@ cohens_f_squared <- function(model,
   #   return(res)
   # }
 
+  # TODO this should be in .anova_es.anvoa
+  # TODO the aoc method should convert to an anova table, then pass to anova
   params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
   out <- .es_aov_simple(as.data.frame(params),
     type = type,
