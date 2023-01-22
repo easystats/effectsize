@@ -159,7 +159,7 @@ the signed-rank test (both available in `wilcox.test()`).
 A <- c(48, 48, 77, 86, 85, 85)
 B <- c(14, 34, 34, 77)
 
-wilcox.test(A, B) # aka Mann–Whitney U test
+wilcox.test(A, B, exact = FALSE) # aka Mann–Whitney U test
 
 rank_biserial(A, B)
 ```

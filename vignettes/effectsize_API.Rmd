@@ -203,6 +203,12 @@ We now need a new `.anova_es.superMODEL` function:
 }
 ```
 
+```{r, echo=FALSE}
+# This is for: https://github.com/easystats/easystats/issues/348
+.anova_es.superMODEL <<- .anova_es.superMODEL
+```
+
+
 And... that's it! Our new `superMODEL` class of models is fully supported!
 
 ```{r}
