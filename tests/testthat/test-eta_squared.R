@@ -2,8 +2,10 @@
 
 test_that("alternative = NULL", {
   m <- aov(mpg ~ factor(cyl) + hp, mtcars)
-  expect_equal(eta_squared(m),
-               eta_squared(m, alternative = NULL))
+  expect_equal(
+    eta_squared(m),
+    eta_squared(m, alternative = NULL)
+  )
 })
 
 # anova() -----------------------------------------------------------------
