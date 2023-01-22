@@ -75,14 +75,15 @@ oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, verbose = TRUE, 
     }
   }
 
-  RR[, colnames(RR) %in% c("Coefficient", "CI_low", "CI_high")] <-
-    lapply(RR[, colnames(RR) %in% c("Coefficient", "CI_low", "CI_high")],
+  trans_cols <- colnames(RR) %in% c("Coefficient", "CI_low", "CI_high")
+  RR[, trans_cols] <-
+    lapply(RR[, trans_cols, drop = FALSE],
       oddsratio_to_riskratio,
       p0 = p0, log = log
     )
 
   if (verbose && any(c("CI_low", "CI_high") %in% colnames(RR))) {
-    insight::format_warning("CIs are back-transformed from the logit scale.")
+    insight::format_alert("CIs are back-transformed from the logit scale.")
   }
 
   RR[RR$Parameter == "(Intercept)", "Coefficient"] <- p0

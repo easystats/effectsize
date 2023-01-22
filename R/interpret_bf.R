@@ -53,7 +53,7 @@ interpret_bf <- function(bf,
   if (log) bf <- exp(bf)
 
   if (any(bf < 0, na.rm = TRUE)) {
-    insight::format_warning("Negative BFs detected. These are not possible. Ignoring.")
+    insight::format_warning("Negative BFs detected. These are not possible, and are {.i ignored}.")
     bf[bf < 0] <- NA
   }
 
