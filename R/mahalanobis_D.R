@@ -55,7 +55,7 @@
 #' # Or
 #' mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars)
 #'
-#' mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars, alternative = "greater")
+#' mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars, alternative = "two.sided")
 #'
 #' # Different mu:
 #' mahalanobis_d(mpg + hp + cyl ~ am,
@@ -83,11 +83,11 @@
 #' @export
 mahalanobis_d <- function(x, y = NULL, data = NULL,
                           pooled_cov = TRUE, mu = 0,
-                          ci = 0.95, alternative = "two.sided",
+                          ci = 0.95, alternative = "greater",
                           verbose = TRUE, ...) {
   # TODO add one sample case DV1 + DV2 ~ 1
   # TODO add paired samples case DV1 + DV2 ~ 1 | ID
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
   data <- .get_data_multivariate(x, y, data, verbose = verbose, ...)
   x <- data[["x"]]
   y <- data[["y"]]
