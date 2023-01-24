@@ -29,7 +29,7 @@ Interpret ANOVA Effect Sizes
 \itemize{
 \item \strong{ES < 0.01} - Very small
 \item \strong{0.01 <= ES < 0.06} - Small
-\item \strong{0.16 <= ES < 0.14} - Medium
+\item \strong{0.06 <= ES < 0.14} - Medium
 \item **ES >= 0.14 ** - Large
 }
 \item Cohen (1992) (\code{"cohen1992"}) applicable to one-way anova, or to \emph{partial}
