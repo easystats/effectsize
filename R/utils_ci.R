@@ -1,3 +1,5 @@
+# NCP -------------------------
+
 #' @keywords internal
 #' @importFrom stats pf qf optim
 .get_ncp_F <- function(f, df, df_error, conf.level = 0.9) {
@@ -92,4 +94,58 @@
   }
 
   chi_ncp
+}
+
+# Validators --------------------------------------
+
+
+#' @keywords internal
+.test_ci <- function(ci) {
+  if (is.null(ci)) {
+    return(FALSE)
+  }
+  if (!is.numeric(ci) ||
+    length(ci) != 1L ||
+    ci < 0 ||
+    ci > 1) {
+    insight::format_error("ci must be a single numeric value between (0, 1)")
+  }
+  return(TRUE)
+}
+
+#' @keywords internal
+.adjust_ci <- function(ci, alternative) {
+  if (alternative == "two.sided") {
+    return(ci)
+  }
+
+  2 * ci - 1
+}
+
+#' @keywords internal
+.limit_ci <- function(out, alternative, lb, ub) {
+  if (alternative == "two.sided") {
+    return(out)
+  }
+
+  if (alternative == "less") {
+    out$CI_low <- lb
+  } else if (alternative == "greater") {
+    out$CI_high <- ub
+  }
+
+  out
+}
+
+#' @keywords internal
+.match.alt <- function(alternative, two.sided = TRUE) {
+  if (is.null(alternative)) {
+    if (two.sided) {
+      return("two.sided")
+    } else {
+      return("greater")
+    }
+  }
+
+  match.arg(alternative, c("two.sided", "less", "greater"))
 }

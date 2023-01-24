@@ -1,5 +1,9 @@
 # effectsize 0.8.2.xxx
 
+## Changes
+
+- `mahalanobis_d()` now defaults to one-sided CIs.
+
 ## New features
 
 - `means_ratio()` for computing ratios of two means for ratio-scales outcomes (thanks to @arcaldwell49!)
@@ -23,7 +27,7 @@
 
 ## Changes
 
-- cohens_w() has an exact upper bound when used as an effect size for goodness-of-fit.
+- `cohens_w()` has an exact upper bound when used as an effect size for goodness-of-fit.
 
 ## Bug fixes
 
