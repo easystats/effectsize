@@ -22,6 +22,11 @@ knitr::opts_chunk$set(comment = ">")
 options(digits = 3)
 
 set.seed(7)
+
+.eval_if_requireNamespace <- function(...) {
+  pkgs <- c(...)
+  knitr::opts_chunk$get("eval") && all(sapply(pkgs, requireNamespace, quietly = TRUE))
+}
 ```
 
 This vignette provides a review of effect sizes for 1- and 2-D contingency
@@ -104,7 +109,7 @@ cohens_w(Music_preferences2) # > 1
 A Bayesian estimate of these effect sizes can also be provided based on
 `BayesFactor`'s version of a $\chi^2$-test via the `effectsize()` function:
 
-```{r, eval = requireNamespace("BayesFactor", quietly = TRUE), message=FALSE}
+```{r, eval = .eval_if_requireNamespace("BayesFactor"), message=FALSE}
 library(BayesFactor)
 BFX <- contingencyTableBF(MPG_Gear, sampleType = "jointMulti")
 
@@ -194,7 +199,7 @@ cohens_h(RCT_table)
 A Bayesian estimate of these effect sizes can also be provided based on
 `BayesFactor`'s version of a $\chi^2$-test via the `effectsize()` function:
 
-```{r, eval = requireNamespace("BayesFactor", quietly = TRUE)}
+```{r, eval = .eval_if_requireNamespace("BayesFactor")}
 BFX <- contingencyTableBF(RCT_table, sampleType = "jointMulti")
 
 effectsize(BFX, type = "or")
