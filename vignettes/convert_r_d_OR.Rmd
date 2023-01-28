@@ -20,6 +20,11 @@ library(knitr)
 options(knitr.kable.NA = "")
 knitr::opts_chunk$set(comment = ">")
 options(digits = 3)
+
+.eval_if_requireNamespace <- function(...) {
+  pkgs <- c(...)
+  knitr::opts_chunk$get("eval") && all(sapply(pkgs, requireNamespace, quietly = TRUE))
+}
 ```
 
 The `effectsize` package contains function to convert among indices of effect
@@ -48,7 +53,7 @@ cohens_d(salary ~ is_senior, data = hardlyworking)
 
 But we can also compute a point-biserial correlation, which is Pearson's *r* when treating the 2-level `is_senior` variable as a numeric binary variable:
 
-```{r, warning=FALSE, eval=requireNamespace("correlation", quietly = TRUE)}
+```{r, warning=FALSE, eval=.eval_if_requireNamespace("correlation")}
 correlation::cor_test(hardlyworking, "salary", "is_senior")
 ```
 
@@ -91,7 +96,7 @@ t_to_d(5.31, df_error = 497)[[1]]
 We can convert these semi-*d* values to *r* values, but in this case these
 represent the *partial* correlation:
 
-```{r, eval=requireNamespace("correlation", quietly = TRUE)}
+```{r, eval=.eval_if_requireNamespace("correlation")}
 t_to_r(5.31, df_error = 497)
 
 correlation::correlation(hardlyworking[, c("salary", "xtra_hours", "is_senior")],

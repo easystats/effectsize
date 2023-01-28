@@ -24,6 +24,11 @@ options(digits = 2)
 options(knitr.kable.NA = "")
 
 set.seed(747)
+
+.eval_if_requireNamespace <- function(...) {
+  pkgs <- c(...)
+  knitr::opts_chunk$get("eval") && all(sapply(pkgs, requireNamespace, quietly = TRUE))
+}
 ```
 
 # Introduction
@@ -63,7 +68,7 @@ The conversion of the $F$- or $t$-statistic is based on
 
 Let's look at an example:
 
-```{r, eval = requireNamespace("afex", quietly = TRUE), message=FALSE}
+```{r, eval = .eval_if_requireNamespace("afex"), message=FALSE}
 library(afex)
 
 data(md_12.1)
@@ -105,7 +110,7 @@ For example:
 
 ### In Simple Effect and Contrast Analysis
 
-```{r, eval = requireNamespace("afex", quietly = TRUE) && requireNamespace("emmeans", quietly = TRUE)}
+```{r, eval = .eval_if_requireNamespace("afex", "emmeans")}
 library(emmeans)
 
 joint_tests(aov_fit, by = "noise")
@@ -119,7 +124,7 @@ F_to_eta2(
 
 We can also use `t_to_eta2()` for contrast analysis:
 
-```{r, eval = requireNamespace("afex", quietly = TRUE) && requireNamespace("emmeans", quietly = TRUE)}
+```{r, eval = .eval_if_requireNamespace("afex", "emmeans")}
 pairs(emmeans(aov_fit, ~angle))
 
 t_to_eta2(
@@ -130,7 +135,7 @@ t_to_eta2(
 
 ### In Linear Mixed Models
 
-```{r, eval = requireNamespace("lmerTest", quietly = TRUE), message=FALSE}
+```{r, eval = .eval_if_requireNamespace("lmerTest"), message=FALSE}
 library(lmerTest)
 
 fit_lmm <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
@@ -143,7 +148,7 @@ F_to_eta2(45.8, 1, 17)
 We can also use `t_to_eta2()` for the slope of `Days` (which in this case gives
 the same result).
 
-```{r, eval = requireNamespace("lmerTest", quietly = TRUE)}
+```{r, eval = .eval_if_requireNamespace("lmerTest")}
 parameters::model_parameters(fit_lmm, effects = "fixed", ci_method = "satterthwaite")
 
 t_to_eta2(6.77, df_error = 17)
@@ -171,7 +176,7 @@ better).
 
 ### For Slopes
 
-```{r, eval = requireNamespace("lmerTest", quietly = TRUE)}
+```{r, eval = .eval_if_requireNamespace("lmerTest")}
 parameters::model_parameters(fit_lmm, effects = "fixed", ci_method = "satterthwaite")
 
 t_to_r(6.77, df_error = 17)
@@ -193,7 +198,7 @@ t_to_r(
 
 to:
 
-```{r, eval=require(correlation, quietly = TRUE)}
+```{r, eval=.eval_if_requireNamespace(correlation)}
 correlation::correlation(attitude,
   select = "rating",
   select2 = c("complaints", "critical"),
@@ -206,7 +211,7 @@ correlation::correlation(attitude,
 This measure is also sometimes used in contrast analysis, where it is called the
 point bi-serial correlation - $r_{pb}$ [@cohen1965some; @rosnow2000contrasts]:
 
-```{r, eval = requireNamespace("afex", quietly = TRUE) && requireNamespace("emmeans", quietly = TRUE)}
+```{r, eval = .eval_if_requireNamespace("afex", "emmeans")}
 pairs(emmeans(aov_fit, ~angle))
 
 t_to_r(
@@ -226,7 +231,7 @@ These can be useful in contrast analyses.
 
 ### Between-Subject Contrasts
 
-```{r, eval = requireNamespace("emmeans", quietly = TRUE)}
+```{r, eval = .eval_if_requireNamespace("emmeans")}
 m <- lm(breaks ~ tension, data = warpbreaks)
 
 em_tension <- emmeans(m, ~tension)
@@ -242,13 +247,13 @@ However, these are merely approximations of a *true* Cohen's *d*. It is advised
 to directly estimate Cohen's *d*, whenever possible. For example, here with
 `emmeans::eff_size()`:
 
-```{r, eval = requireNamespace("emmeans", quietly = TRUE)}
+```{r, eval = .eval_if_requireNamespace("emmeans")}
 eff_size(em_tension, sigma = sigma(m), edf = df.residual(m))
 ```
 
 ### Within-Subject Contrasts
 
-```{r, eval = requireNamespace("afex", quietly = TRUE) && requireNamespace("emmeans", quietly = TRUE)}
+```{r, eval = .eval_if_requireNamespace("afex", "emmeans")}
 pairs(emmeans(aov_fit, ~angle))
 
 t_to_d(
