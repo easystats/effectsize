@@ -198,7 +198,7 @@ t_to_r(
 
 to:
 
-```{r, eval=.eval_if_requireNamespace(correlation)}
+```{r, eval=.eval_if_requireNamespace("correlation")}
 correlation::correlation(attitude,
   select = "rating",
   select2 = c("complaints", "critical"),
