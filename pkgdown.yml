@@ -1,4 +1,4 @@
-pandoc: '3.0'
+pandoc: 3.0.1
 pkgdown: 2.0.7.9000
 pkgdown_sha: c354aa7e5ea1f9936692494c28c89e5bdd31fc68
 articles:
@@ -12,7 +12,7 @@ articles:
   interpret: interpret.html
   standardized_differences: standardized_differences.html
   xtabs: xtabs.html
-last_built: 2023-01-22T11:53Z
+last_built: 2023-01-28T18:01Z
 urls:
   reference: https://easystats.github.io/effectsize/reference
   article: https://easystats.github.io/effectsize/articles
