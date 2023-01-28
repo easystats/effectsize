@@ -1,4 +1,4 @@
-# effectsize 0.8.2.xxx
+# effectsize 0.8.3
 
 ## Changes
 
