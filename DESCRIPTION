@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size
-Version: 0.8.2.00005
+Version: 0.8.3
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
@@ -67,21 +67,22 @@ Depends:
     R (>= 3.6)
 Imports:
     bayestestR (>= 0.13.0),
-    insight (>= 0.18.4),
-    parameters (>= 0.19.0),
-    performance (>= 0.10.0),
-    datawizard (>= 0.6.2),
+    insight (>= 0.18.8),
+    parameters (>= 0.20.2),
+    performance (>= 0.10.2),
+    datawizard (>= 0.6.5),
     stats,
     utils
 Suggests:
-    correlation (>= 0.8.2),
-    see (>= 0.7.3),
+    correlation (>= 0.8.3),
+    see (>= 0.7.4),
     afex,
     BayesFactor,
     boot,
     brms,
     car,
     emmeans,
+    gt,
     knitr,
     lavaan,
     lme4,
@@ -99,9 +100,8 @@ VignetteBuilder:
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.2.3.9000
 Config/testthat/edition: 3
-Config/testthat/parallel: true
 Config/Needs/website:
     rstudio/bslib,
     r-lib/pkgdown,

@@ -108,26 +108,29 @@ probs_to_odds.data.frame <- function(probs, log = FALSE, select = NULL, exclude 
 
   # Keep subset
   if (!is.null(select) && select %in% names(df)) {
-    to_keep <- as.data.frame(df[!names(df) %in% c(select)])
-    df <- df[names(df) %in% c(select)]
+    select <- as.vector(select)
+    to_keep <- as.data.frame(df[!names(df) %in% select])
+    df <- df[names(df) %in% select]
   } else {
     to_keep <- NULL
   }
 
   # Remove exceptions
   if (!is.null(exclude) && exclude %in% names(df)) {
+    exclude <- as.vector(exclude)
     if (is.null(to_keep)) {
       to_keep <- as.data.frame(df[exclude])
     } else {
       to_keep <- cbind(to_keep, as.data.frame(df[exclude]))
     }
 
-    df <- df[!names(df) %in% c(exclude)]
+    df <- df[!names(df) %in% exclude]
   }
 
   # Remove non-numerics
-  dfother <- df[!sapply(df, is.numeric, simplify = TRUE)]
-  dfnum <- df[sapply(df, is.numeric, simplify = TRUE)]
+  is_num <- vapply(df, is.numeric, logical(1))
+  dfother <- df[!is_num]
+  dfnum <- df[is_num]
 
   # Tranform
   if (!is.null(odds)) {
@@ -144,7 +147,7 @@ probs_to_odds.data.frame <- function(probs, log = FALSE, select = NULL, exclude 
   }
 
   # Add exceptions
-  if (!is.null(select) | !is.null(exclude) && exists("to_keep")) {
+  if (!is.null(select) || !is.null(exclude) && exists("to_keep")) {
     df <- cbind(df, to_keep)
   }
 

@@ -1,4 +1,3 @@
-
 test_that("plot methods", {
   skip_if_not_installed("see")
   skip_if_not_installed("ggplot2")

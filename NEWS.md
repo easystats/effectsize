@@ -1,4 +1,8 @@
-# effectsize 0.8.2.xxx
+# effectsize 0.8.3
+
+## Changes
+
+- `mahalanobis_d()` now defaults to one-sided CIs.
 
 ## New features
 
@@ -23,7 +27,7 @@
 
 ## Changes
 
-- cohens_w() has an exact upper bound when used as an effect size for goodness-of-fit.
+- `cohens_w()` has an exact upper bound when used as an effect size for goodness-of-fit.
 
 ## Bug fixes
 

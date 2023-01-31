@@ -359,8 +359,8 @@ wmw_odds <- function(x, y = NULL, data = NULL,
     y <- data[data$g == "y", "r"]
 
     .foo <- function(p) {
-      min(abs(stats::quantile(x, probs = c(p, 1 - p)) -
-                stats::quantile(y, probs = c(1 - p, p))))
+      diff <- stats::quantile(x, probs = c(p, 1 - p)) - stats::quantile(y, probs = c(1 - p, p))
+      min(abs(diff))
     }
 
     stats::optim(
@@ -434,13 +434,14 @@ wmw_odds <- function(x, y = NULL, data = NULL,
            iterations = 200) {
     d <- data.frame(
       r = c(x, y),
-      g = rep(c("x", "y"), c(length(x), length(y)))
+      g = rep(c("x", "y"), c(length(x), length(y))),
+      stringsAsFactors = TRUE
     )
 
     out <- data.frame(ES = est(d))
 
     if (.test_ci(ci) &&
-        insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
+      insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
       ci.level <- .adjust_ci(ci, alternative)
 
       out$CI <- ci
@@ -463,9 +464,10 @@ wmw_odds <- function(x, y = NULL, data = NULL,
     class(out) <- c("effectsize_table", class(out))
     # TODO
     # class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
-    .someattributes(out) <- .nlist(mu, ci, ci_method, alternative,
-                                   approximate = TRUE,
-                                   table_footer = "Non-parametric CLES"
+    .someattributes(out) <- .nlist(
+      mu, ci, ci_method, alternative,
+      approximate = TRUE,
+      table_footer = "Non-parametric CLES"
     )
     return(out)
   }

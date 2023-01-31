@@ -53,13 +53,16 @@ interpret_bf <- function(bf,
   if (log) bf <- exp(bf)
 
   if (any(bf < 0, na.rm = TRUE)) {
-    insight::format_warning("Negative BFs detected. These are not possible. Ignoring.")
+    insight::format_warning("Negative BFs detected. These are not possible, and are {.i ignored}.")
     bf[bf < 0] <- NA
   }
 
   orig_bf <- bf
 
-  dir <- ifelse(bf < 1, "against", ifelse(bf > 1, "in favour of", "against or in favour of"))
+  dir <- rep("against or in favour of", length.out = length(bf))
+  dir <- replace(dir, is.na(bf), NA_character_)
+  dir <- replace(dir, bf < 1, "against")
+  dir <- replace(dir, bf > 1, "in favour of")
   bf <- exp(abs(log(bf)))
 
   rules <- .match.rules(
@@ -82,7 +85,13 @@ interpret_bf <- function(bf,
 
   # Add value if asked for
   if (include_value) {
-    interpretation[] <- paste0(interpretation, " (", insight::format_bf(orig_bf, protect_ratio = protect_ratio, exact = exact), ")")
+    interpretation[] <-
+      paste0(
+        interpretation,
+        " (",
+        insight::format_bf(orig_bf, protect_ratio = protect_ratio, exact = exact),
+        ")"
+      )
   }
 
   # Add direction

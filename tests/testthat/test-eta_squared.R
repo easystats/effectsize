@@ -1,5 +1,13 @@
 # library(testthat)
 
+test_that("alternative = NULL", {
+  m <- aov(mpg ~ factor(cyl) + hp, mtcars)
+  expect_equal(
+    eta_squared(m),
+    eta_squared(m, alternative = NULL)
+  )
+})
+
 # anova() -----------------------------------------------------------------
 test_that("anova()", {
   # Make minimal ANOVA table
@@ -142,10 +150,12 @@ test_that("aovlist", {
   skip_if_not_installed("afex")
   # non-partial Eta2 should be the same for aov and aovlist
   data(obk.long, package = "afex")
-  model <- afex::aov_car(value ~ treatment * gender + Error(id / (phase * hour)),
-    data = obk.long, observed = "gender",
-    include_aov = TRUE
-  )
+  suppressMessages({
+    model <- afex::aov_car(value ~ treatment * gender + Error(id / (phase * hour)),
+      data = obk.long, observed = "gender",
+      include_aov = TRUE
+    )
+  })
 
   model2 <- aov(value ~ treatment * gender * phase * hour,
     data = model$data$long,
@@ -236,12 +246,12 @@ test_that("generalized | between", {
   skip_if_not_installed("car")
 
   data(obk.long, package = "afex")
-  m <- suppressWarnings(
-    afex::aov_car(value ~ treatment * gender + Error(id),
+  suppressMessages(suppressWarnings(
+    m <- afex::aov_car(value ~ treatment * gender + Error(id),
       data = obk.long, observed = "gender",
       include_aov = TRUE
     )
-  )
+  ))
 
   Aov <- car::Anova(m$aov, type = 3)
 
@@ -270,9 +280,11 @@ test_that("generalized | within-mixed", {
   data(obk.long, package = "afex")
 
   # estimate mixed ANOVA on the full design:
-  m <- afex::aov_car(value ~ treatment * gender + Error(id / (phase * hour)),
-    data = obk.long, observed = "gender",
-    include_aov = TRUE
+  suppressMessages(
+    m <- afex::aov_car(value ~ treatment * gender + Error(id / (phase * hour)),
+      data = obk.long, observed = "gender",
+      include_aov = TRUE
+    )
   )
 
 
@@ -316,12 +328,12 @@ test_that("omega", {
   # cross validated with MOTE
   data(obk.long, package = "afex")
 
-  m <- suppressWarnings(
-    afex::aov_car(value ~ treatment * gender + Error(id / (phase)),
+  suppressMessages(suppressWarnings(
+    m <- afex::aov_car(value ~ treatment * gender + Error(id / (phase)),
       data = obk.long, observed = "gender",
       include_aov = TRUE
     )
-  )
+  ))
 
 
   ef <- omega_squared(m, partial = TRUE, alternative = "two")
@@ -430,11 +442,11 @@ test_that("afex | within-mixed", {
 
   data(obk.long, package = "afex")
 
-  mod <- afex::aov_ez("id", "value", obk.long,
+  suppressMessages(mod <- afex::aov_ez("id", "value", obk.long,
     between = c("treatment", "gender"),
     within = c("phase", "hour"),
     observed = "gender"
-  )
+  ))
 
   x <- eta_squared(mod, generalized = TRUE)
   a <- anova(mod, observed = "gender")
@@ -476,7 +488,7 @@ test_that("afex | within-mixed", {
       "C1", "C2", "C2", "C1", "C1", "C2", "C2"
     )
   )
-  mod <- afex::aov_ez("subject", "y", data, within = c("A", "B", "C"))
+  suppressMessages(mod <- afex::aov_ez("subject", "y", data, within = c("A", "B", "C")))
   tab <- as.data.frame(anova(mod, es = "pes"))
   res <- eta_squared(mod)
 
@@ -494,10 +506,10 @@ test_that("afex | mixed()", {
 
   data(md_15.1, package = "afex")
   # random intercept plus random slope
-  t15.4a <- afex::mixed(iq ~ timecat + (1 + time | id),
+  suppressMessages(t15.4a <- afex::mixed(iq ~ timecat + (1 + time | id),
     data = md_15.1,
     method = "S"
-  )
+  ))
   expect_equal(
     eta_squared(t15.4a),
     eta_squared(t15.4a$full_model)
@@ -544,7 +556,7 @@ test_that("car MVM", {
 
   fit <- lm(cbind(I, II, III, IV) ~ 1, data = ds)
   in_rep <- data.frame(ind_var = gl(4, 1))
-  A_car <- car::Anova(fit, idata = in_rep, idesign = ~ind_var)
+  suppressMessages(A_car <- car::Anova(fit, idata = in_rep, idesign = ~ind_var))
 
   eta_car <- effectsize::eta_squared(A_car, ci = NULL)[[2]]
 
@@ -558,11 +570,11 @@ test_that("car MVM", {
   # Complex ---
   data(obk.long, package = "afex")
 
-  mod <- afex::aov_ez("id", "value", obk.long,
+  suppressMessages(mod <- afex::aov_ez("id", "value", obk.long,
     between = c("treatment", "gender"),
     within = c("phase", "hour"),
     observed = "gender"
-  )
+  ))
   expect_equal(
     sort(eta_squared(mod$Anova, generalized = "gender")[[2]]),
     sort(mod$anova_table$ges)
@@ -631,7 +643,7 @@ test_that("ets_squared | gam", {
   skip_if_not_installed("mgcv")
 
   set.seed(2) ## simulate some data...
-  dat <- mgcv::gamSim(1, n = 400, dist = "normal", scale = 2)
+  dat <- mgcv::gamSim(1, n = 400, dist = "normal", scale = 2, verbose = FALSE)
   b <- mgcv::gam(y ~ x0 + s(x1) + s(x2) + t2(x1, x2) + s(x3), data = dat)
 
   expect_error(out <- eta_squared(b), regexp = NA)

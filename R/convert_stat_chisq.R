@@ -280,7 +280,7 @@ chisq_to_fei <- function(chisq, n, nrow, ncol, p,
     }
   }
 
-  is_uniform <- insight::n_unique(p) > 1L
+  is_uniform <- insight::n_unique(p) == 1L
   if (!is_uniform || max(ncol, nrow) > 2) {
     attr(res, "table_footer") <-
       sprintf("Adjusted for %suniform expected probabilities.", if (is_uniform) "non-" else "")
@@ -326,7 +326,7 @@ phi_to_chisq <- function(phi, n, ...) {
 .chisq_to_generic_phi <- function(chisq, den, nrow, ncol,
                                   ci = NULL, alternative = "greater",
                                   ...) {
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
 
   if (ci_numeric <- .test_ci(ci)) {
     is_goodness <- ncol == 1 || nrow == 1

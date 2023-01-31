@@ -52,14 +52,14 @@
 #' effectsize(Aov)
 #' effectsize(Aov, type = "omega")
 #'
-#' Wt <- wilcox.test(1:10, 7:20, mu = -3, alternative = "less")
+#' Wt <- wilcox.test(1:10, 7:20, mu = -3, alternative = "less", exact = FALSE)
 #' effectsize(Wt)
 #' effectsize(Wt, type = "u2")
 #'
 #' ## Models and Anova Tables
 #' ## -----------------------
 #' fit <- lm(mpg ~ factor(cyl) * wt + hp, data = mtcars)
-#' effectsize(fit)
+#' effectsize(fit, method = "basic")
 #'
 #' anova_table <- anova(fit)
 #' effectsize(anova_table)
@@ -134,8 +134,7 @@ effectsize.easycorrelation <- function(model, ...) {
   r_cols <- 1:which(colnames(model) == r_name)
   if (!is.null(attr(model, "ci"))) {
     model$CI <- attr(model, "ci")
-    CI_cols <- c("CI", "CI_low", "CI_high")
-    CI_cols <- sapply(CI_cols, function(ici) which(colnames(model) == ici))
+    CI_cols <- match(c("CI", "CI_low", "CI_high"), colnames(model))
     r_cols <- c(r_cols, CI_cols)
   }
 

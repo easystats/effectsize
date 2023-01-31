@@ -89,7 +89,7 @@ rank_epsilon_squared <- function(x, groups, data = NULL,
                                  ci = 0.95, alternative = "greater",
                                  iterations = 200,
                                  verbose = TRUE, ...) {
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
 
   if (.is_htest_of_type(x, "Kruskal-Wallis", "Kruskal-Wallis-test")) {
     return(effectsize(x, type = "epsilon", ci = ci, iterations = iterations, alternative = alternative))
@@ -130,7 +130,7 @@ rank_eta_squared <- function(x, groups, data = NULL,
                              ci = 0.95, alternative = "greater",
                              iterations = 200,
                              verbose = TRUE, ...) {
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
 
   if (.is_htest_of_type(x, "Kruskal-Wallis", "Kruskal-Wallis-test")) {
     return(effectsize(x, type = "eta", ci = ci, iterations = iterations, alternative = alternative))
@@ -177,7 +177,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
                        ci = 0.95, alternative = "greater",
                        iterations = 200,
                        verbose = TRUE, ...) {
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
 
   if (.is_htest_of_type(x, "Friedman", "Friedman-test")) {
     return(effectsize(x, ci = ci, iterations = iterations, verbose = verbose, alternative = alternative))
