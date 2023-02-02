@@ -309,7 +309,7 @@ nnt <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   }
 
   out <- arr(x, y = t, ci = ci, alternative = alternative2, ...)
-  out[[1]] <- 1/out[[1]]
+  out[[1]] <- 1 / out[[1]]
   colnames(out)[1] <- "NNT"
 
   if ("CI" %in% colnames(out)) {
