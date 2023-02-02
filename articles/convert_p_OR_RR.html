@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.1</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -191,16 +191,18 @@ odds, when all other variables are fixed at 0.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="converting-odds-ratios-to-risk-ratios">Converting Odds ratios to Risk Ratios<a class="anchor" aria-label="anchor" href="#converting-odds-ratios-to-risk-ratios"></a>
+<h2 id="converting-between-odds-ratios-risk-ratios-and-absolute-risk-reduction">Converting Between Odds Ratios, Risk Ratios and Absolute Risk
+Reduction<a class="anchor" aria-label="anchor" href="#converting-between-odds-ratios-risk-ratios-and-absolute-risk-reduction"></a>
 </h2>
 <p>Odds ratio, although popular, are not very intuitive in their
 interpretations. We don’t often think about the chances of catching a
 disease in terms of <em>odds</em>, instead we instead tend to think in
 terms of <em>probability</em> or some event - or the <em>risk</em>.
 Talking about <em>risks</em> we can also talk about the <em>change in
-risk</em>, knows as the <em>risk ratio</em> (<em>RR</em>).</p>
+risk</em>, either as a <em>risk ratio</em> (<em>RR</em>), or a(n
+<em>absolute) risk reduction</em> (ARR).</p>
 <p>For example, if we find that for individual suffering from a
-migraine, for every bowl of brussels sprouts they eat, they’re odds of
+migraine, for every bowl of brussels sprouts they eat, their odds of
 reducing the migraine increase by an <span class="math inline">\(OR =
 3.5\)</span> over a period of an hour. So, should people eat brussels
 sprouts to effectively reduce pain? Well, hard to say… Maybe if we look
@@ -219,18 +221,26 @@ brussels sprouts). If it the base-rate risk is, say, 85%, we get a
 <code class="sourceCode R"><span><span class="va">OR</span> <span class="op">&lt;-</span> <span class="fl">3.5</span></span>
 <span><span class="va">baserate</span> <span class="op">&lt;-</span> <span class="fl">0.85</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio</a></span><span class="op">(</span><span class="va">OR</span>, <span class="va">baserate</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">(</span><span class="va">RR</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio</a></span><span class="op">(</span><span class="va">OR</span>, <span class="va">baserate</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; [1] 1.12</code></pre>
 <p>That is - for every bowl of brussels sprouts, we increase the chances
 of reducing the migraine by a mere 12%! Is if worth it? Depends on you
 affinity to brussels sprouts…</p>
+<p>Similiarly, we can look at ARR, which can be converted via</p>
+<p><span class="math display">\[
+ARR = RR \times p0 - p0
+\]</span></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/oddsratio_to_riskratio.html">riskratio_to_arr</a></span><span class="op">(</span><span class="va">RR</span>, <span class="va">baserate</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; [1] 0.102</code></pre>
+<p>Or directly:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/oddsratio_to_riskratio.html">oddsratio_to_arr</a></span><span class="op">(</span><span class="va">OR</span>, <span class="va">baserate</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; [1] 0.102</code></pre>
 <p>Note that the base-rate risk is crucial here. If instead of 85% it
 was only 4%, then the <em>RR</em> would be:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">OR</span> <span class="op">&lt;-</span> <span class="fl">3.5</span></span>
-<span><span class="va">baserate</span> <span class="op">&lt;-</span> <span class="fl">0.04</span></span>
-<span></span>
-<span><span class="fu"><a href="../reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio</a></span><span class="op">(</span><span class="va">OR</span>, <span class="va">baserate</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio</a></span><span class="op">(</span><span class="va">OR</span>, <span class="fl">0.04</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; [1] 3.18</code></pre>
 <p>That is - for every bowl of brussels sprouts, we increase the chances
 of reducing the migraine by a whopping 318%! Is if worth it? I guess

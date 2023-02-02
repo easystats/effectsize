@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.1</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -420,17 +420,24 @@ versa).</p>
 &gt; -------------------------
 &gt; 4.73       | [2.74, 8.17]</code></pre>
 <p>We can also compute the Risk-ratio (RR), which is the ratio between
-the proportions of the two groups - a measure which some claim is more
+the proportions of the two groups, and the Absolute Risk Reduction
+(ARR), which is the <em>difference</em> between the proportions of the
+two groups - both are measures which some claim to be more
 intuitive.</p>
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/oddsratio.html">riskratio</a></span><span class="op">(</span><span class="va">RCT_table</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Risk ratio |       95% CI
 &gt; -------------------------
 &gt; 2.54       | [1.87, 3.45]</code></pre>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/oddsratio.html">arr</a></span><span class="op">(</span><span class="va">RCT_table</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; ARR  |       95% CI
+&gt; -------------------
+&gt; 0.36 | [0.24, 0.47]</code></pre>
 <p>Additionally, Cohen’s <em>h</em> can also be computed, which uses the
 <em>arcsin</em> transformation. Negative values indicate smaller
 proportion in the first group (and vice versa).</p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/oddsratio.html">cohens_h</a></span><span class="op">(</span><span class="va">RCT_table</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's h |       95% CI
 &gt; ------------------------
@@ -441,19 +448,19 @@ proportion in the first group (and vice versa).</p>
 <p>A Bayesian estimate of these effect sizes can also be provided based
 on <code>BayesFactor</code>’s version of a <span class="math inline">\(\chi^2\)</span>-test via the
 <code><a href="../reference/effectsize.html">effectsize()</a></code> function:</p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">BFX</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/contingencyTableBF.html" class="external-link">contingencyTableBF</a></span><span class="op">(</span><span class="va">RCT_table</span>, sampleType <span class="op">=</span> <span class="st">"jointMulti"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFX</span>, type <span class="op">=</span> <span class="st">"or"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Odds ratio |       95% CI
 &gt; -------------------------
 &gt; 4.63       | [2.71, 8.08]</code></pre>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFX</span>, type <span class="op">=</span> <span class="st">"rr"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Risk ratio |       95% CI
 &gt; -------------------------
 &gt; 2.48       | [1.82, 3.59]</code></pre>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFX</span>, type <span class="op">=</span> <span class="st">"cohens_h"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's h |       95% CI
 &gt; ------------------------
@@ -468,7 +475,7 @@ represents the symmetry of the table, ranging between 0 (perfect
 symmetry) and 0.5 (perfect asymmetry).</p>
 <p>For example, these two tests seem to be equally predictive of the
 disease they are screening:</p>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"screening_test"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/phi.html">phi</a></span><span class="op">(</span><span class="va">screening_test</span><span class="op">$</span><span class="va">Diagnosis</span>, <span class="va">screening_test</span><span class="op">$</span><span class="va">Test1</span><span class="op">)</span></span></code></pre></div>
@@ -477,7 +484,7 @@ disease they are screening:</p>
 &gt; 0.85     | [0.81, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">phi</a></span><span class="op">(</span><span class="va">screening_test</span><span class="op">$</span><span class="va">Diagnosis</span>, <span class="va">screening_test</span><span class="op">$</span><span class="va">Test2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; ϕ (adj.) |       95% CI
 &gt; -----------------------
@@ -486,21 +493,21 @@ disease they are screening:</p>
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <p>Does this mean they give the same number of positive/negative
 results?</p>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tests</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span>Test1 <span class="op">=</span> <span class="va">screening_test</span><span class="op">$</span><span class="va">Test1</span>, Test2 <span class="op">=</span> <span class="va">screening_test</span><span class="op">$</span><span class="va">Test2</span><span class="op">)</span></span>
 <span><span class="va">tests</span></span></code></pre></div>
 <pre><code>&gt;        Test2
 &gt; Test1   "Neg" "Pos"
 &gt;   "Neg"   794    86
 &gt;   "Pos"   150   570</code></pre>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/mcnemar.test.html" class="external-link">mcnemar.test</a></span><span class="op">(</span><span class="va">tests</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; 
 &gt;   McNemar's Chi-squared test with continuity correction
 &gt; 
 &gt; data:  tests
 &gt; McNemar's chi-squared = 17, df = 1, p-value = 4e-05</code></pre>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/cohens_g.html">cohens_g</a></span><span class="op">(</span><span class="va">tests</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's g |       95% CI
 &gt; ------------------------

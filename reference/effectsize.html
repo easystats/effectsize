@@ -12,7 +12,7 @@ input model. See details."><meta property="og:image" content="https://easystats.
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.1</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -171,7 +171,7 @@ CIs (<code>CI_low</code> and <code>CI_high</code>).</p>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     
 <ul><li><p>For an object of class <code>htest</code>, data is extracted via <code><a href="https://easystats.github.io/insight/reference/get_data.html" class="external-link">insight::get_data()</a></code>, and passed to the relevant function according to:</p><ul><li><p>A <strong>t-test</strong> depending on <code>type</code>: <code>"cohens_d"</code> (default), <code>"hedges_g"</code>, or one of <code>"p_superiority"</code>, <code>"u1"</code>, <code>"u2"</code>, <code>"u3"</code>, <code>"overlap"</code>.</p></li>
-<li><p>A <strong>Chi-squared tests of independence</strong> or <strong>Fisher's Exact Test</strong>, depending on <code>type</code>: <code>"cramers_v"</code> (default), <code>"tschuprows_t"</code>, <code>"phi"</code>, <code>"cohens_w"</code>, <code>"pearsons_c"</code>, <code>"cohens_h"</code>, <code>"oddsratio"</code>, or <code>"riskratio"</code>.</p></li>
+<li><p>A <strong>Chi-squared tests of independence</strong> or <strong>Fisher's Exact Test</strong>, depending on <code>type</code>: <code>"cramers_v"</code> (default), <code>"tschuprows_t"</code>, <code>"phi"</code>, <code>"cohens_w"</code>, <code>"pearsons_c"</code>, <code>"cohens_h"</code>, <code>"oddsratio"</code>, <code>"riskratio"</code>, <code>"arr"</code>, or <code>"nnt"</code>.</p></li>
 <li><p>A <strong>Chi-squared tests of goodness-of-fit</strong>, depending on <code>type</code>: <code>"fei"</code> (default) <code>"cohens_w"</code>, <code>"pearsons_c"</code></p></li>
 <li><p>A <strong>One-way ANOVA test</strong>, depending on <code>type</code>: <code>"eta"</code> (default), <code>"omega"</code> or <code>"epsilon"</code> -squared, <code>"f"</code>, or <code>"f2"</code>.</p></li>
 <li><p>A <strong>McNemar test</strong> returns <em>Cohen's g</em>.</p></li>
@@ -182,7 +182,7 @@ CIs (<code>CI_low</code> and <code>CI_high</code>).</p>
 </ul></li>
 <li><p>For an object of class <code>BFBayesFactor</code>, using <code><a href="https://easystats.github.io/bayestestR/reference/describe_posterior.html" class="external-link">bayestestR::describe_posterior()</a></code>,</p><ul><li><p>A <strong>t-test</strong> depending on <code>type</code>: <code>"cohens_d"</code> (default) or one of <code>"p_superiority"</code>, <code>"u1"</code>, <code>"u2"</code>, <code>"u3"</code>, <code>"overlap"</code>.</p></li>
 <li><p>A <strong>correlation test</strong> returns <em>r</em>.</p></li>
-<li><p>A <strong>contingency table test</strong>, depending on <code>type</code>: <code>"cramers_v"</code> (default), <code>"phi"</code>, <code>"tschuprows_t"</code>, <code>"cohens_w"</code>, <code>"pearsons_c"</code>, <code>"cohens_h"</code>, <code>"oddsratio"</code>, or <code>"riskratio"</code>.</p></li>
+<li><p>A <strong>contingency table test</strong>, depending on <code>type</code>: <code>"cramers_v"</code> (default), <code>"phi"</code>, <code>"tschuprows_t"</code>, <code>"cohens_w"</code>, <code>"pearsons_c"</code>, <code>"cohens_h"</code>, <code>"oddsratio"</code>, or <code>"riskratio"</code>, <code>"arr"</code>, or <code>"nnt"</code>.</p></li>
 <li><p>A <strong>proportion test</strong> returns <em>p</em>.</p></li>
 </ul></li>
 <li><p>Objects of class <code>anova</code>, <code>aov</code>, <code>aovlist</code> or <code>afex_aov</code>, depending on <code>type</code>: <code>"eta"</code> (default), <code>"omega"</code> or <code>"epsilon"</code> -squared, <code>"f"</code>, or <code>"f2"</code>.</p></li>
@@ -306,6 +306,7 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-in"><span><span class="va">bf_xtab</span> <span class="op">&lt;-</span> <span class="fu">BayesFactor</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/contingencyTableBF.html" class="external-link">contingencyTableBF</a></span><span class="op">(</span><span class="va">RCT_table</span>, sampleType <span class="op">=</span> <span class="st">"poisson"</span>, fixedMargin <span class="op">=</span> <span class="st">"cols"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">bf_xtab</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">bf_xtab</span>, type <span class="op">=</span> <span class="st">"oddsratio"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">bf_xtab</span>, type <span class="op">=</span> <span class="st">"arr"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">bf_ttest</span> <span class="op">&lt;-</span> <span class="fu">BayesFactor</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html" class="external-link">ttestBF</a></span><span class="op">(</span><span class="va">sleep</span><span class="op">$</span><span class="va">extra</span><span class="op">[</span><span class="va">sleep</span><span class="op">$</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>  <span class="va">sleep</span><span class="op">$</span><span class="va">extra</span><span class="op">[</span><span class="va">sleep</span><span class="op">$</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span>,</span></span>
