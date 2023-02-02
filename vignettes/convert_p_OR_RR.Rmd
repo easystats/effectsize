@@ -67,16 +67,16 @@ OR = \frac{Odds_1}{Odds_2} = \frac{\frac{p_1}{1-p_1}}{\frac{p_2}{1-p_2}}
 $$
 The intercept, however, *does* represent the (log) odds, when all other variables are fixed at 0.
 
-# Converting Odds ratios to Risk Ratios
+# Converting Between Odds Ratios, Risk Ratios and Absolute Risk Reduction
 
 Odds ratio, although popular, are not very intuitive in their interpretations.
 We don't often think about the chances of catching a disease in terms of *odds*,
 instead we instead tend to think in terms of *probability* or some event - or
 the *risk*. Talking about *risks* we can also talk about the *change in risk*,
-knows as the *risk ratio* (*RR*).
+either as a *risk ratio* (*RR*), or a(n *absolute) risk reduction* (ARR).
 
 For example, if we find that for individual suffering from a migraine, for every
-bowl of brussels sprouts they eat, they're odds of reducing the migraine
+bowl of brussels sprouts they eat, their odds of reducing the migraine
 increase by an $OR = 3.5$ over a period of an hour. So, should people eat
 brussels sprouts to effectively reduce pain? Well, hard to say... Maybe if we
 look at *RR* we'll get a clue.
@@ -97,21 +97,33 @@ hour without eating any brussels sprouts). If it the base-rate risk is, say,
 OR <- 3.5
 baserate <- 0.85
 
-oddsratio_to_riskratio(OR, baserate)
+(RR <- oddsratio_to_riskratio(OR, baserate))
 ```
 
 That is - for every bowl of brussels sprouts, we increase the chances of
 reducing the migraine by a mere 12%! Is if worth it? Depends on you affinity to
 brussels sprouts...
 
+Similiarly, we can look at ARR, which can be converted via
+
+$$
+ARR = RR \times p0 - p0
+$$
+```{r}
+riskratio_to_arr(RR, baserate)
+```
+
+Or directly:
+
+```{r}
+oddsratio_to_arr(OR, baserate)
+```
+
 Note that the base-rate risk is crucial here. If instead of 85% it was only 4%,
 then the *RR* would be:
 
 ```{r}
-OR <- 3.5
-baserate <- 0.04
-
-oddsratio_to_riskratio(OR, baserate)
+oddsratio_to_riskratio(OR, 0.04)
 ```
 
 That is - for every bowl of brussels sprouts, we increase the chances of
