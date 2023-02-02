@@ -153,7 +153,9 @@ arr_to_oddsratio <- function(ARR, p0, log = FALSE, verbose = TRUE, ...) {
 
 #' @rdname oddsratio_to_riskratio
 #' @export
-arr_to_nnt <- function(x) {1/x}
+arr_to_nnt <- function(x) {
+  1 / x
+}
 
 #' @rdname oddsratio_to_riskratio
 #' @export
