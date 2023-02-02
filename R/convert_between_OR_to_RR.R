@@ -1,7 +1,9 @@
 #' Convert Between Odds Ratios and Risk Ratios
 #'
-#' @param OR,RR Risk ratio of `p1/p0` or Odds ratio of `odds(p1)/odds(p0)`,
-#'   possibly log-ed. `OR` can also be a logistic regression model.
+#' @param OR,RR,ARR Risk ratio of `p1/p0` Odds ratio of `odds(p1)/odds(p0)`
+#'   (possibly log-ed), or Absolute Risk Reduction or `p1 - p0`. `OR` can also
+#'   be a logistic regression model.
+#' @param x Absolute Risk Reduction or Number Needed to Treat.
 #' @param p0 Baseline risk
 #' @param ... Arguments passed to and from other methods.
 #' @inheritParams oddsratio_to_d
@@ -11,7 +13,7 @@
 #'   parameter table with the converted indices.
 #'
 #' @family convert between effect sizes
-#' @seealso [oddsratio()] and [riskratio()]
+#' @seealso [oddsratio()], [riskratio()], [arr()], and [nnt()].
 #'
 #' @examples
 #' p0 <- 0.4
@@ -19,15 +21,20 @@
 #'
 #' (OR <- probs_to_odds(p1) / probs_to_odds(p0))
 #' (RR <- p1 / p0)
+#' (ARR <- p1 - p0)
+#' (NNT <- arr_to_nnt(ARR))
 #'
 #' riskratio_to_oddsratio(RR, p0 = p0)
 #' oddsratio_to_riskratio(OR, p0 = p0)
+#' riskratio_to_arr(RR, p0 = p0)
+#' arr_to_oddsratio(nnt_to_arr(NNT), p0 = p0)
 #'
 #' m <- glm(am ~ factor(cyl),
 #'   data = mtcars,
 #'   family = binomial()
 #' )
 #' oddsratio_to_riskratio(m, verbose = FALSE) # RR is relative to the intercept if p0 not provided
+#'
 #' @references
 #'
 #' Grant, R. L. (2014). Converting an odds ratio to a range of plausible
@@ -113,3 +120,41 @@ riskratio_to_oddsratio <- function(RR, p0, log = FALSE, verbose = TRUE, ...) {
   if (log) OR <- log(OR)
   return(OR)
 }
+
+#' @rdname oddsratio_to_riskratio
+#' @export
+riskratio_to_arr <- function(RR, p0, log = FALSE, verbose = TRUE, ...) {
+  if (log) RR <- exp(RR)
+  RR * p0 - p0
+}
+
+#' @rdname oddsratio_to_riskratio
+#' @export
+oddsratio_to_arr <- function(OR, p0, log = FALSE, verbose = TRUE, ...) {
+  if (log) OR <- exp(OR)
+  RR <- oddsratio_to_riskratio(OR, p0, log = FALSE, verbose = verbose)
+  riskratio_to_arr(RR, p0, verbose = verbose)
+}
+
+#' @rdname oddsratio_to_riskratio
+#' @export
+arr_to_riskratio <- function(ARR, p0, log = FALSE, verbose = TRUE, ...) {
+  RR <- ARR / p0 + 1
+  if (log) RR <- log(RR)
+  RR
+}
+
+#' @rdname oddsratio_to_riskratio
+#' @export
+arr_to_oddsratio <- function(ARR, p0, log = FALSE, verbose = TRUE, ...) {
+  RR <- arr_to_riskratio(ARR, p0, log = log, verbose = verbose)
+  riskratio_to_oddsratio(RR, p0, log = log, verbose = verbose)
+}
+
+#' @rdname oddsratio_to_riskratio
+#' @export
+arr_to_nnt <- function(x) {1/x}
+
+#' @rdname oddsratio_to_riskratio
+#' @export
+nnt_to_arr <- arr_to_nnt
