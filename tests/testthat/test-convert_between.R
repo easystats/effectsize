@@ -31,13 +31,24 @@ test_that("oddsratio_to_RR", {
 
   OR <- probs_to_odds(p1) / probs_to_odds(p0)
   RR <- p1 / p0
+  ARR <- p1 - p0
+  NNT <- 1 / ARR
+
+  expect_equal(nnt_to_arr(NNT), ARR)
+  expect_equal(arr_to_nnt(ARR), NNT)
 
   expect_equal(riskratio_to_oddsratio(RR, p0 = p0), OR)
   expect_equal(oddsratio_to_riskratio(OR, p0 = p0), RR)
   expect_equal(oddsratio_to_riskratio(1 / OR, p0 = p1), 1 / RR)
+  expect_equal(riskratio_to_arr(RR, p0 = p0), ARR)
+  expect_equal(oddsratio_to_arr(OR, p0 = p0), ARR)
+  expect_equal(arr_to_oddsratio(ARR, p0 = p0), OR)
+  expect_equal(arr_to_riskratio(ARR, p0 = p0), RR)
 
   expect_equal(riskratio_to_oddsratio(log(RR), p0 = p0, log = TRUE), log(OR))
   expect_equal(oddsratio_to_riskratio(log(OR), p0 = p0, log = TRUE), log(RR))
+  expect_equal(arr_to_oddsratio(ARR, p0 = p0, log = TRUE), log(OR))
+  expect_equal(oddsratio_to_arr(log(OR), p0 = p0, log = TRUE), ARR)
 
   # -- GLMs --
   data(mtcars)
