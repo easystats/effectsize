@@ -139,7 +139,7 @@ test_that("cor.test / other", {
 
 test_that("one way", {
   onew <- oneway.test(mpg ~ cyl, mtcars)
-  expect_warning(effectsize(onew), "var")
+  expect_message(effectsize(onew), "var")
 
 
   onew <- oneway.test(mpg ~ cyl, mtcars, var.equal = TRUE)

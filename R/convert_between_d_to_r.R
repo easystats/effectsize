@@ -43,7 +43,7 @@
 #' (2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
 #'
 #' - Jacobs, P., & Viechtbauer, W. (2017). Estimation of the biserial
-#' correlation and its sampling variance for use in meta‐analysis. Research
+#' correlation and its sampling variance for use in meta-analysis. Research
 #' synthesis methods, 8(2), 161-180. \doi{10.1002/jrsm.1218}
 #'
 #' - Rosenthal, R., & Rubin, D. B. (1982). A simple, general purpose display of

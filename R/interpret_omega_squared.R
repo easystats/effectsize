@@ -9,7 +9,7 @@
 #' - Field (2013) (`"field2013"`; default)
 #'   - **ES < 0.01** - Very small
 #'   - **0.01 <= ES < 0.06** - Small
-#'   - **0.16 <= ES < 0.14** - Medium
+#'   - **0.06 <= ES < 0.14** - Medium
 #'   - **ES >= 0.14 ** - Large
 #' - Cohen (1992) (`"cohen1992"`) applicable to one-way anova, or to *partial*
 #' eta / omega / epsilon squared in multi-way anova.

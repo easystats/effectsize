@@ -326,7 +326,7 @@ phi_to_chisq <- function(phi, n, ...) {
 .chisq_to_generic_phi <- function(chisq, den, nrow, ncol,
                                   ci = NULL, alternative = "greater",
                                   ...) {
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
 
   if (ci_numeric <- .test_ci(ci)) {
     is_goodness <- ncol == 1 || nrow == 1

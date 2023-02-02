@@ -11,7 +11,7 @@ mahalanobis_d(
   pooled_cov = TRUE,
   mu = 0,
   ci = 0.95,
-  alternative = "two.sided",
+  alternative = "greater",
   verbose = TRUE,
   ...
 )
@@ -115,7 +115,7 @@ mahalanobis_d(mtcars_am0, mtcars_am1)
 # Or
 mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars)
 
-mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars, alternative = "greater")
+mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars, alternative = "two.sided")
 
 # Different mu:
 mahalanobis_d(mpg + hp + cyl ~ am,

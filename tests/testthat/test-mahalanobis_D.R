@@ -12,7 +12,7 @@ test_that("mahalanobis_d | two sample | vs cohens_d", {
   y <- within(x, {
     B <- B + 15
   })
-  D <- mahalanobis_d(x, y)
+  D <- mahalanobis_d(x, y, alternative = "two")
   d <- cohens_d(-x$B, -y$B)
   expect_equal(D[[1]], d[[1]], tolerance = 0.01)
   expect_equal(D[[3]], d[[3]], tolerance = 0.1)
@@ -45,7 +45,7 @@ test_that("mahalanobis_d | one sample | vs cohens_d", {
 
 
   # Simple:
-  D <- mahalanobis_d(x)
+  D <- mahalanobis_d(x, alternative = "two")
   d <- cohens_d(x$B)
   expect_equal(D[[1]], d[[1]], tolerance = 0.01)
   expect_equal(D[[3]], d[[3]], tolerance = 0.1)

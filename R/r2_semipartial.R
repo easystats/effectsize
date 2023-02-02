@@ -97,7 +97,7 @@ r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
                               ci = 0.95, alternative = "greater",
                               ...) {
   type <- match.arg(type)
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
 
   y <- stats::model.frame(model)[[1]]
   mm <- insight::get_modelmatrix(model)
