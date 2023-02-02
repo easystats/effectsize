@@ -1,3 +1,10 @@
+# effectsize 0.8.3.xxxx
+
+## New features
+
+- `arr()` and `nnt()` for Absolute Risk Reduction or Number Needed to Treat.
+
+
 # effectsize 0.8.3
 
 ## Changes

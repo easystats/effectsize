@@ -125,7 +125,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   if (is.null(type)) type <- "cramers_v"
 
-  if (grepl("(c|v|t|w|phi)$", tolower(type))) {
+  if (grepl("^[nn](c|v|t|w|phi)$", tolower(type))) {
     f <- switch(tolower(type),
       v = ,
       cramers_v = chisq_to_cramers_v,
@@ -153,7 +153,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       rr = ,
       riskratio = riskratio,
       h = ,
-      cohens_h = cohens_h
+      cohens_h = cohens_h,
+      arr = arr,
+      nnt = nnt
     )
 
     out <- f(x = model$observed, ...)
