@@ -4,13 +4,19 @@
 \alias{oddsratio}
 \alias{riskratio}
 \alias{cohens_h}
-\title{Odds Ratios, Risk Ratios and Cohen's \emph{h} for 2-by-2 Contingency Tables}
+\alias{arr}
+\alias{nnt}
+\title{Odds Ratios, Risk Ratios and Other Effect Sizes for 2-by-2 Contingency Tables}
 \usage{
 oddsratio(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...)
 
 riskratio(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...)
 
 cohens_h(x, y = NULL, ci = 0.95, alternative = "two.sided", ...)
+
+arr(x, y = NULL, ci = 0.95, alternative = "two.sided", ...)
+
+nnt(x, y = NULL, ci = 0.95, alternative = "two.sided", ...)
 }
 \arguments{
 \item{x}{a numeric vector or matrix. \code{x} and \code{y} can also
@@ -33,11 +39,13 @@ allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs
 }
 \value{
 A data frame with the effect size (\code{Odds_ratio}, \code{Risk_ratio}
-(possibly with the prefix \code{log_}), \code{Cohens_h}) and its CIs (\code{CI_low} and
-\code{CI_high}).
+(possibly with the prefix \code{log_}), \code{Cohens_h}, \code{ARR}, \code{NNT}) and its CIs
+(\code{CI_low} and \code{CI_high}).
 }
 \description{
-Report with any \code{\link[stats:chisq.test]{stats::chisq.test()}} or \code{\link[stats:fisher.test]{stats::fisher.test()}}.
+Compute Odds Ratios, Risk Ratios, Cohen's \emph{h}, Absolute Risk Reduction or
+Number Needed to Treat. Report with any \code{\link[stats:chisq.test]{stats::chisq.test()}} or
+\code{\link[stats:fisher.test]{stats::fisher.test()}}.
 \cr\cr
 Note that these are computed with each \strong{column} representing the different
 groups, and the \emph{first} column representing the treatment group and the
@@ -45,9 +53,8 @@ groups, and the \emph{first} column representing the treatment group and the
 table, or switch the \code{x} and \code{y} arguments.
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
-For Odds ratios, Risk ratios and Cohen's \emph{h}, confidence intervals are
-estimated using the standard normal parametric method (see Katz et al., 1978;
-Szumilas, 2010).
+Confidence intervals are estimated using the standard normal parametric
+method (see Katz et al., 1978; Szumilas, 2010).
 }
 
 \section{CIs and Significance Tests}{
@@ -81,6 +88,10 @@ oddsratio(RCT_table, alternative = "greater")
 riskratio(RCT_table)
 
 cohens_h(RCT_table)
+
+arr(RCT_table)
+
+nnt(RCT_table)
 
 }
 \references{

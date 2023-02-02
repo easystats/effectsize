@@ -144,7 +144,17 @@ test_that("oddsratio & riskratio", {
   )
   OR <- oddsratio(RCT)
   RR <- riskratio(RCT)
+  ARR <- arr(RCT)
+  NNT <- nnt(RCT)
   p0 <- RCT[1, 2] / sum(RCT[, 2])
+
+  expect_lt(NNT$CI_low, NNT$CI_high)
+  expect_lt(NNT$CI_high, 0)
+
+  NNT_0 <- nnt(RCT / 9.8)
+  expect_lt(NNT_0$CI_low, NNT_0$CI_high)
+  expect_lt(NNT_0$CI_low, 0)
+  expect_gt(NNT_0$CI_high, 0)
 
   expect_equal(
     oddsratio_to_riskratio(OR$Odds_ratio, p0),
@@ -153,6 +163,10 @@ test_that("oddsratio & riskratio", {
   expect_equal(
     riskratio_to_oddsratio(RR$Risk_ratio, p0),
     OR$Odds_ratio
+  )
+  expect_equal(
+    oddsratio_to_arr(OR$Odds_ratio, p0),
+    ARR$ARR
   )
 
   expect_error(riskratio(RCT, log = TRUE), NA)
