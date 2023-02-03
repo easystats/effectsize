@@ -214,7 +214,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     rr = ,
     riskratio = riskratio,
     h = ,
-    cohens_h = cohens_h
+    cohens_h = cohens_h,
+    arr = arr,
+    nnt = nnt
   )
 
   if (is.table(data)) {

@@ -133,6 +133,16 @@ test_that("Chisq-test", {
 })
 
 test_that("cor.test / other", {
+  data("RCT_table")
+  fish <- fisher.test(RCT_table)
+  Xsq <- chisq.test(RCT_table)
+
+  expect_equal(effectsize(fish),
+               effectsize(Xsq, alternative = "two"))
+})
+
+
+test_that("cor.test / other", {
   r_ <- cor.test(iris$Sepal.Width, iris$Sepal.Length)
   expect_warning(effectsize(r_), "parameters")
 })
