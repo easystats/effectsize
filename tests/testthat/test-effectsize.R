@@ -137,8 +137,10 @@ test_that("cor.test / other", {
   fish <- fisher.test(RCT_table)
   Xsq <- chisq.test(RCT_table)
 
-  expect_equal(effectsize(fish),
-               effectsize(Xsq, alternative = "two"))
+  expect_equal(
+    effectsize(fish),
+    effectsize(Xsq, alternative = "two")
+  )
 })
 
 
