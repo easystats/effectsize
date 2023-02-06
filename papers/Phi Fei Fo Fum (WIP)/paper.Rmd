@@ -11,6 +11,12 @@ authors:
 - affiliation: 3
   name: Rémi Thériault
   orcid: 0000-0003-4315-6788
+- affiliation: 4
+  name: Brenton M. Wiernik
+  orcid: to add
+- affiliation: 5
+  name: Daniel Lüdecke 
+  orcid: to add
 
 affiliations:
 - index: 1
