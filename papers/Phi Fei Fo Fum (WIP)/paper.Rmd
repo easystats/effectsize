@@ -97,7 +97,7 @@ chisq.test(Titanic_xtab)
 
 ## Phi
 
-For a 2-by-2 contingency table analysis, like the one used above, the $\phi$ (*phi*) coefficient is a correlation-like measure of effect size indicating the strength of association between the two binary variables. One way to compute this effect size is to re-code the binary variables as dummy (0, 1) variables, and computing the (absolute) Pearson correlation between them:
+For a 2-by-2 contingency table analysis, like the one used above, the $\phi$ (*phi*) coefficient is a correlation-like measure of effect size indicating the strength of association between the two binary variables. One way to compute this effect size is to re-code the binary variables as dummy (0, 1) variables, and computing the Pearson correlation between them:
 
 $$
 \phi = |r_{AB}|
