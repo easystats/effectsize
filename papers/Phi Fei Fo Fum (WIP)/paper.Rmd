@@ -63,6 +63,8 @@ Unfortunately, popular software do not always offer the necessary implementation
 
 Importantly, we offer researchers an applied walkthrough on how to use these effect sizes in practice thanks to the `{effectsize}` package [@benshachar2020effectsize] in the R programming language [@base2023], which implements these measures and their confidence intervals. We cover in turn tests of independence (*φ*/phi, Cramér’s *V*) and tests of goodness of fit (Cohen’s *w* and a new proposed effect size, `r "\U05E4"`/Fei).
 
+<!-- BW: I think we need a short section here on effect sizes in general and describing Cohen's d and Pearson r and why they are inadequate for categorical data. Also commenting on odds/risk ratios and why we might not like them (hard to interpret, not bounded 0-1). Basically say that we want effect sizes appropriate for categorical data that are in a correlation like metric. -->
+
 # Tests of Independence
 
 <!-- Indra: Should we discuss differences between effect sizes for paired versus unpaired designs?  -->
@@ -125,7 +127,7 @@ tidyr::uncount(as.data.frame(Titanic_xtab), weights = Freq) |>
 
 ## Cramér's *V*
 
-These properties do not hold when the contingency table is larger than 2-by-2: $\sqrt{\chi^2/N}$ can be larger than 1.
+When the contingency table is larger than 2-by-2, using $\sqrt{\chi^2/N}$ can produce values larger than 1, and so loses its interpretability as a correlation like effect size.
 Cramér showed [@cramer1999mathematical] that while for 2-by-2 the maximal possible value of $\chi^2$ is $N$, for larger tables the maximal possible value for $\chi^2$ is $N\times (\text{min}(k,l)-1)$.
 Therefore, he suggested the $V$ effect size (also sometimes known as Cramér's phi and denoted as $\phi_{c}$):
 
@@ -141,17 +143,33 @@ $V$ is 1 when the columns are completely dependent on the rows, or the row are c
 cramers_v(Titanic_xtab2, adjust = FALSE)
 ```
 
-Tschuprow [@tschuprow1939principles] devised an alternative value, at <value><!-- doesn't render -->, which is 1 only when the columns are completely dependent on the rows *and* the rows are completely dependent on the columns, which is only possible when the contingency table is a square.
+Tschuprow [@tschuprow1939principles] devised an alternative value, at 
+
+$$
+\text{Tschuprow's } t = \sqrt{\frac{\chi^2}{N\sqrt{(k-1)(l-1)}}}
+$$
+
+which is 1 only when the columns are completely dependent on the rows *and* the rows are completely dependent on the columns, which is only possible when the contingency table is a square.
+
+For example, in the following table, each row is dependent on the column value;
+that is, if we know if the food is a soy, milk or meat product, we also know if the food is vegan or not. However, the columns are *not* fully dependent on the rows: knowing the food is vegan tells us the food is soy based, however knowing it is not vegan does not allow us to classify the food - it can be either a milk product or a meat product.
 
 ```{r}
-tschuprows_t(Titanic_xtab2)
+data("food_class")
+food_class
+```
+Accordingly, in such a table, Cramer's *V* will be 1, but Tschuprow's *t* will not be:
+
+```{r}
+cramers_v(food_class, adjust = FALSE)
+
+tschuprows_t(food_class)
 ```
 
 We can generalize both $\phi$, $V$, and $T$ to: $\sqrt{\frac{\chi^2}{\chi^2_{\text{max}}}}$.
 
-<!-- ## Also... -->
-
-<!-- These can be used for confusion matrices... <!-- show that Matthew's correlation coefficient is equal to Phi. -->
+These coefficients can also be used for confusion matrices in the context of assessing machine learning algorithms classification abilities.
+In fact, a popular metric is the Matthews correlation coefficient (MCC) for binary classifiers, which is often presented in terms of true and false positives and negatives, is nothing more that $\phi$ [@chicco2020advantages].
 
 # Goodness of Fit
 
