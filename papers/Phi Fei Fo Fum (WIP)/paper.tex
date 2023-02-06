@@ -146,9 +146,10 @@ results from a given study, reporting effect sizes is critical for
 meta-analyses, which rely on their aggregation. We here review the most
 common effect sizes for analyses of categorical variables that use the
 \(\chi^2\) (chi-square) statistic, and introduce a new effect size---פ
-(Fei). We demonstrate the implementation of these measures and their
-confidence intervals via the \texttt{\{effectsize\}} package
-(Ben-Shachar, Lüdecke, \& Makowski, 2020) in the R programming language.
+(Fei, pronounced /fej/ or ``fay''). We demonstrate the implementation of
+these measures and their confidence intervals via the
+\texttt{\{effectsize\}} package (Ben-Shachar, Lüdecke, \& Makowski,
+2020) in the R programming language.
 
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
@@ -174,28 +175,32 @@ These so-called ``New Statistics'' are synergistic because effect sizes
 are not only useful for interpreting study results in themselves, but
 also because they are necessary for meta-analyses, which aggregate
 effect sizes and their confidence intervals to create a summary effect
-size of its own (Lakens, 2013).
+size of its own Wiernik \& Dahlke (2020).
 
 Unfortunately, popular software do not always offer the necessary
 implementations of the specialized effect sizes necessary for a given
 research design. In this paper, we review the most commonly used effect
 sizes for analyses of categorical variables that use the \(\chi^2\)
-(chi-square) statistic, and introduce a new effect size---פ (Fei).
+(chi-square) test statistic, and introduce a new effect size---פ (Fei,
+pronounced /fej/ or ``fay'').
 
-Importantly, we offer researchers an applied walk-through on how to use
+Importantly, we offer researchers an applied walkthrough on how to use
 these effect sizes in practice thanks to the \texttt{\{effectsize\}}
 package (Ben-Shachar et al., 2020) in the R programming language (R Core
 Team, 2023), which implements these measures and their confidence
-intervals. We cover in turn tests of independence (phi, Cramér's
-\emph{V}) and tests of goodness of fit (Cohen's \emph{w} and a new
-proposed effect size, Fei).
+intervals. We cover in turn tests of independence (\emph{φ}/phi,
+Cramér's \emph{V}) and tests of goodness of fit (Cohen's \emph{w} and a
+new proposed effect size, פ/Fei).
 
 \hypertarget{tests-of-independence}{%
 \section{Tests of Independence}\label{tests-of-independence}}
 
 The \(\chi^2\) test of independence between two categorical variables
 examines if the frequency distribution of one of the variables is
-dependent on the other. Formally, the test examines how likely the
+dependent on the other. That is, are the two variables correlated such
+that, for example, members of group 1 on variable X are more likely to
+be members of group A on variable Y, rather than evenly spread across Y
+variable groups A and B. Formally, the test examines how likely the
 observed conditional frequencies (cell frequencies) are under the null
 hypotheses of independence. This is done by examining the degree the
 observed cell frequencies deviate from the frequencies that would be
@@ -248,7 +253,7 @@ sinking of the Titanic is dependant on the sex of the passenger:
 ##  Pearson's Chi-squared test with Yates' continuity correction
 ## 
 ## data:  Titanic_xtab
-## X-squared = 454.5, df = 1, p-value < 0.00000000000000022
+## X-squared = 454.5, df = 1, p-value < 2.2e-16
 \end{verbatim}
 
 \hypertarget{phi}{%
@@ -258,8 +263,8 @@ For a 2-by-2 contingency table analysis, like the one used above, the
 \(\phi\) (\emph{phi}) coefficient is a correlation-like measure of
 effect size indicating the strength of association between the two
 binary variables. One way to compute this effect size is to re-code the
-binary variables as dummy (0, 1) variables, and computing the (absolute)
-Pearson correlation between them:
+binary variables as dummy (0, 1) variables, and computing the Pearson
+correlation between them:
 
 \[
 \phi = |r_{AB}|
@@ -316,13 +321,14 @@ correlation coefficient.
 \subsection{\texorpdfstring{Cramér's
 \emph{V}}{Cramér's V}}\label{cramuxe9rs-v}}
 
-These properties do not hold when the contingency table is larger than
-2-by-2: \(\sqrt{\chi^2/N}\) can be larger than 1. Cramér showed (Cramér,
-1999) that while for 2-by-2 the maximal possible value of \(\chi^2\) is
-\(N\), for larger tables the maximal possible value for \(\chi^2\) is
-\(N\times (\text{min}(k,l)-1)\). Therefore, he suggested the \(V\)
-effect size (also sometimes known as Cramér's phi and denoted as
-\(\phi_{c}\)):
+When the contingency table is larger than 2-by-2, using
+\(\sqrt{\chi^2/N}\) can produce values larger than 1, and so loses its
+interpretability as a correlation like effect size. Cramér showed
+(Cramér, 1999) that while for 2-by-2 the maximal possible value of
+\(\chi^2\) is \(N\), for larger tables the maximal possible value for
+\(\chi^2\) is \(N\times (\text{min}(k,l)-1)\). Therefore, he suggested
+the \(V\) effect size (also sometimes known as Cramér's phi and denoted
+as \(\phi_{c}\)):
 
 \[
 \text{Cramer's } V = \sqrt{\frac{\chi^2}{N(\text{min}(k,l)-1)}}
@@ -360,27 +366,77 @@ row are completely dependent on the columns.
 ## - One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
-Tschuprow (Tschuprow, 1939) devised an alternative value, at , which is
-1 only when the columns are completely dependent on the rows \emph{and}
-the rows are completely dependent on the columns, which is only possible
-when the contingency table is a square.
+Tschuprow (Tschuprow, 1939) devised an alternative value, at
+
+\[
+\text{Tschuprow's } t = \sqrt{\frac{\chi^2}{N\sqrt{(k-1)(l-1)}}}
+\]
+
+which is 1 only when the columns are completely dependent on the rows
+\emph{and} the rows are completely dependent on the columns, which is
+only possible when the contingency table is a square.
+
+For example, in the following table, each row is dependent on the column
+value; that is, if we know if the food is a soy, milk or meat product,
+we also know if the food is vegan or not. However, the columns are
+\emph{not} fully dependent on the rows: knowing the food is vegan tells
+us the food is soy based, however knowing it is not vegan does not allow
+us to classify the food - it can be either a milk product or a meat
+product.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{tschuprows\_t}\NormalTok{(Titanic\_xtab2)}
+\FunctionTok{data}\NormalTok{(}\StringTok{"food\_class"}\NormalTok{)}
+\NormalTok{food\_class}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           Soy Milk Meat
+## Vegan      47    0    0
+## Not-Vegan   0   12   21
+\end{verbatim}
+
+Accordingly, in such a table, Cramer's \emph{V} will be 1, but
+Tschuprow's \emph{t} will not be:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cramers\_v}\NormalTok{(food\_class, }\AttributeTok{adjust =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Cramer's V |       95% CI
+## -------------------------
+## 1.00       | [0.81, 1.00]
+## 
+## - One-sided CIs: upper bound fixed at [1.00].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tschuprows\_t}\NormalTok{(food\_class)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## Tschuprow's T |       95% CI
 ## ----------------------------
-## 0.22          | [0.20, 1.00]
+## 0.84          | [0.68, 1.00]
 ## 
 ## - One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
 We can generalize both \(\phi\), \(V\), and \(T\) to:
 \(\sqrt{\frac{\chi^2}{\chi^2_{\text{max}}}}\).
+
+These coefficients can also be used for confusion matrices in the
+context of assessing machine learning algorithms classification
+abilities. In fact, a popular metric is the Matthews correlation
+coefficient (MCC) for binary classifiers, which is often presented in
+terms of true and false positives and negatives, is nothing more that
+\(\phi\) (Chicco \& Jurman, 2020).
 
 \hypertarget{goodness-of-fit}{%
 \section{Goodness of Fit}\label{goodness-of-fit}}
@@ -473,9 +529,9 @@ be larger than 1.
 \hypertarget{fei}{%
 \subsection{Fei}\label{fei}}
 
-We present here a new effect size, פ (Fei), which normalizes
-goodness-of-fit \(\chi^2\) by the proper \(\chi^2_\text{max}\) for
-non-uniform and/or multinomial variables.
+We present here a new effect size, פ (Fei, pronounced /fej/ or ``fay''),
+which normalizes goodness-of-fit \(\chi^2\) by the proper
+\(\chi^2_\text{max}\) for non-uniform and/or multinomial variables.
 
 The largest deviation from the expected probability distribution would
 occur when all observations are in the cell with the smallest expected
@@ -631,6 +687,11 @@ social science experiments in nature and science between 2010 and 2015.
 \emph{Nature Human Behaviour}, \emph{2}, 637--644.
 \url{https://doi.org/10.1038/s41562-018-0399-z}
 
+\leavevmode\vadjust pre{\hypertarget{ref-chicco2020advantages}{}}%
+Chicco, D., \& Jurman, G. (2020). The advantages of the matthews
+correlation coefficient (MCC) over F1 score and accuracy in binary
+classification evaluation. \emph{BMC Genomics}, \emph{21}, 1--13.
+
 \leavevmode\vadjust pre{\hypertarget{ref-cohen2013statistical}{}}%
 Cohen, J. (2013). \emph{Statistical power analysis for the behavioral
 sciences}. Routledge.
@@ -644,16 +705,16 @@ Cumming, G. (2014). The new statistics: Why and how. \emph{Psychological
 Science}, \emph{25}(1), 7--29.
 \url{https://doi.org/10.1177/0956797613504966}
 
+\leavevmode\vadjust pre{\hypertarget{ref-degeest2010impact}{}}%
+DeGeest, D. S., \& Schmidt, F. L. (2010). The impact of research
+synthesis methods on industrial--organizational psychology: The road
+from pessimism to optimism about cumulative knowledge. \emph{Research
+Synthesis Methods}, \emph{1}(3-4), 185--197.
+
 \leavevmode\vadjust pre{\hypertarget{ref-johnston2006measures}{}}%
 Johnston, J. E., Berry, K. J., \& Mielke Jr, P. W. (2006). Measures of
 effect size for chi-squared and likelihood-ratio goodness-of-fit tests.
 \emph{Perceptual and Motor Skills}, \emph{103}(2), 412--414.
-
-\leavevmode\vadjust pre{\hypertarget{ref-lakens2013calculating}{}}%
-Lakens, D. (2013). Calculating and reporting effect sizes to facilitate
-cumulative science: A practical primer for \emph{t}-tests and ANOVAs.
-\emph{Frontiers in Psychology}, \emph{4}, 863.
-\url{https://doi.org/10.3389/fpsyg.2013.00863}
 
 \leavevmode\vadjust pre{\hypertarget{ref-OSC2015estimating}{}}%
 Open Science Collaboration. (2015). Estimating the reproducibility of
@@ -672,6 +733,12 @@ e10059.
 \leavevmode\vadjust pre{\hypertarget{ref-tschuprow1939principles}{}}%
 Tschuprow, A. A. (1939). \emph{Principles of the mathematical theory of
 correlation}. Hodge.
+
+\leavevmode\vadjust pre{\hypertarget{ref-wiernik2020unbiased}{}}%
+Wiernik, B. M., \& Dahlke, J. A. (2020). Obtaining unbiased results in
+meta-analysis: The importance of correcting for statistical artifacts.
+\emph{Advances in Methods and Practices in Psychological Science},
+\emph{3}(1), 94--123.
 
 \end{CSLReferences}
 
