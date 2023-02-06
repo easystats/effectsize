@@ -179,7 +179,7 @@ cohens_w(O, p = p_E)
 
 ## Fei
 
-We present here a new effect size, `r "\U05E4"` (Fei), which normalizes goodness-of-fit $\chi^2$ by the proper $\chi^2_\text{max}$ for non-uniform and/or multinomial variables.
+We present here a new effect size, `r "\U05E4"` (Fei, pronounced /fej/ or "fay"), which normalizes goodness-of-fit $\chi^2$ by the proper $\chi^2_\text{max}$ for non-uniform and/or multinomial variables.
 
 The largest deviation from the expected probability distribution would occur when all observations are in the cell with the smallest expected probability. That is:
 
