@@ -58,7 +58,7 @@ Importantly, we offer researchers an applied walkthrough on how to use these eff
 <!-- Indra: Should we discuss differences between effect sizes for paired versus unpaired designs?  -->
 <!-- MSB: Hmmm... I'm not too familiar with paired tests - Are you talking about McNemar's test (and Cohen's g effect size)? -->
 
-The $\chi^2$ test of independence between two categorical variables examines if the frequency distribution of one of the variables is dependent on the other. 
+The $\chi^2$ test of independence between two categorical variables examines if the frequency distribution of one of the variables is dependent on the other. That is, are the two variables correlated such that, for example, members of group 1 on variable X are more likely to be members of group A on variable Y, rather than evenly spread across Y variable groups A and B. 
 Formally, the test examines how likely the observed conditional frequencies (cell frequencies) are under the null hypotheses of independence.
 This is done by examining the degree the observed cell frequencies deviate from the frequencies that would be expected if the variables were indeed independent. 
 The test statistic for these tests is the $\chi^2$, which is computed as:
