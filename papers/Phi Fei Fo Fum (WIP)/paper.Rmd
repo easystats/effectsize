@@ -49,7 +49,7 @@ In this context, many have highlighted the limitations of null-hypothesis signif
 
 These so-called "New Statistics" are synergistic because effect sizes are not only useful for interpreting study results in themselves, but also because they are necessary for meta-analyses, which aggregate effect sizes and their confidence intervals to create a summary effect size of its own [@degeest2010impact, @wiernik2020unbiased].
 
-Unfortunately, popular software do not always offer the necessary implementations of the specialized effect sizes necessary for a given research design. In this paper, we review the most commonly used effect sizes for analyses of categorical variables that use the $\chi^2$ (chi-square) statistic, and introduce a new effect size---`r "\U05E4"` (Fei).
+Unfortunately, popular software do not always offer the necessary implementations of the specialized effect sizes necessary for a given research design. In this paper, we review the most commonly used effect sizes for analyses of categorical variables that use the $\chi^2$ (chi-square) test statistic, and introduce a new effect size---`r "\U05E4"` (Fei, pronounced /fej/ or "fay").
 
 Importantly, we offer researchers an applied walk-through on how to use these effect sizes in practice thanks to the `{effectsize}` package [@benshachar2020effectsize] in the R programming language [@base2023], which implements these measures and their confidence intervals. We cover in turn tests of independence (phi, Cramér’s *V*) and tests of goodness of fit (Cohen’s *w* and a new proposed effect size, Fei).
 
