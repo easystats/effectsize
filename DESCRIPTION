@@ -87,7 +87,6 @@ Suggests:
     lavaan,
     lme4,
     lmerTest,
-    MASS,
     mgcv,
     parsnip,
     rmarkdown,
