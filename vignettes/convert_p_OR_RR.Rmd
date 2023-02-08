@@ -104,7 +104,7 @@ That is - for every bowl of brussels sprouts, we increase the chances of
 reducing the migraine by a mere 12%! Is if worth it? Depends on you affinity to
 brussels sprouts...
 
-Similiarly, we can look at ARR, which can be converted via
+Similarly, we can look at ARR, which can be converted via
 
 $$
 ARR = RR \times p0 - p0
