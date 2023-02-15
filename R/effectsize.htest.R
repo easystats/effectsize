@@ -76,8 +76,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     )
 
     if (!isTRUE(dots$paired)) {
-      args$x <- na.omit(args$x)
-      args$y <- na.omit(args$y)
+      args$x <- stats::na.omit(args$x)
+      args$y <- stats::na.omit(args$y)
     }
 
     if (type %in% c("d", "g")) {
