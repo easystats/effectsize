@@ -76,17 +76,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     )
 
     if (!isTRUE(dots$paired)) {
-      # need to preserve factor class
-      is_factor <- is.factor(args$y)
       # remove incomplete cases, not only missing values.
       # else, lengths of groups differ, see #563
-      complete <- stats::na.omit(cbind(args$x, args$y))
+      complete <- stats::na.omit(data.frame(args$x, args$y))
       args$x <- complete[, 1]
       args$y <- complete[, 2]
-      # restore factor
-      if (is_factor) {
-        args$y <- as.factor(args$y)
-      }
     }
 
     if (type %in% c("d", "g")) {
