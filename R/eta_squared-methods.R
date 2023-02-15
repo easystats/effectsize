@@ -146,7 +146,7 @@
            include_intercept = FALSE,
            ...) {
     # Faking the model_parameters.aovlist output:
-    suppressWarnings(aov_tab <- summary(model)$univariate.tests)
+    suppressWarnings(aov_tab <- summary(model)$univariate.tests) # nolint
     if (is.null(aov_tab)) {
       aov_tab <- parameters::model_parameters(model)
       aov_tab$df <- aov_tab$df_num
@@ -173,7 +173,7 @@
     within <- lapply(within, function(x) c(NA, x))
     within <- do.call(expand.grid, within)
     within <- apply(within, 1, na.omit)
-    ns <- sapply(within, length)
+    ns <- sapply(within, length) # nolint
     within <- sapply(within, paste, collapse = ":")
     within <- within[order(ns)]
     within <- Filter(function(x) nchar(x) > 0, within)

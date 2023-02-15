@@ -164,7 +164,7 @@ means_ratio <- function(x, y = NULL, data = NULL,
     if (!is.null(ci)) {
       out[c("CI_low", "CI_high")] <- exp(out[c("CI_low", "CI_high")])
     }
-    colnames(out)[1] <- gsub("log_", "", colnames(out)[1])
+    colnames(out)[1] <- gsub("log_", "", colnames(out)[1], fixed = TRUE)
   }
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))

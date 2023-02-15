@@ -128,7 +128,7 @@
     groups <- mf[[2]]
     if (!is.factor(groups)) groups <- factor(groups)
   } else if (inherits(x, "list")) {
-    groups <- rep(letters[seq_along(x)], sapply(x, length))
+    groups <- rep(letters[seq_along(x)], sapply(x, length)) # nolint
     x <- unsplit(x, groups)
   } else {
     # If they are column names
