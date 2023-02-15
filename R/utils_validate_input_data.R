@@ -98,7 +98,8 @@
 #' @keywords internal
 .get_data_xtabs <- function(x, y = NULL, p = NULL) {
   # TODO dont rely on chisq.test
-  res <- suppressWarnings(stats::chisq.test(x,
+  res <- suppressWarnings(stats::chisq.test(
+    x,
     y = y,
     p = p,
     correct = FALSE,
@@ -197,7 +198,7 @@
     x <- as.table(x)
   }
 
-  if (inherits(x, c("table"))) {
+  if (inherits(x, "table")) {
     x <- as.data.frame(x)[, c(3, 2, 1)]
   }
 
@@ -266,7 +267,7 @@
     insight::format_error("x must be a data frame.")
   }
 
-  if (!all(sapply(x, is.numeric))) {
+  if (!all(vapply(x, is.numeric, TRUE))) {
     insight::format_error("All DVs must be numeric.")
   }
 
@@ -279,7 +280,7 @@
       insight::format_error("y must be a data frame.")
     }
 
-    if (!all(sapply(y, is.numeric))) {
+    if (!all(vapply(y, is.numeric, TRUE))) {
       insight::format_error("All DVs must be numeric.")
     }
 
