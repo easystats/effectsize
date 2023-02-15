@@ -43,7 +43,6 @@ t_to_d <- function(t, df_error,
 
 
 #' @rdname t_to_r
-#' @importFrom stats qnorm
 #' @export
 z_to_d <- function(z, n,
                    paired = FALSE,

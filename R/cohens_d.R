@@ -127,7 +127,6 @@
 #' - Hunter, J. E., & Schmidt, F. L. (2004). Methods of meta-analysis:
 #' Correcting error and bias in research findings. Sage.
 #'
-#' @importFrom stats var model.frame
 #' @export
 cohens_d <- function(x, y = NULL, data = NULL,
                      pooled_sd = TRUE, mu = 0, paired = FALSE,
@@ -187,7 +186,6 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
 
 
-#' @importFrom stats sd
 #' @keywords internal
 .effect_size_difference <- function(x, y = NULL, data = NULL,
                                     type = "d",

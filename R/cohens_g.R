@@ -52,7 +52,6 @@
 #' # Test 2 gives a negative result more than test 1!
 #'
 #' @export
-#' @importFrom stats complete.cases prop.test
 cohens_g <- function(x, y = NULL,
                      ci = 0.95, alternative = "two.sided",
                      ...) {
