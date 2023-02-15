@@ -177,9 +177,7 @@ means_ratio <- function(x, y = NULL, data = NULL,
 }
 
 
-#' @importFrom stats sd
 #' @keywords internal
-
 .logrom_calc <- function(paired = FALSE,
                          m1,
                          sd1,

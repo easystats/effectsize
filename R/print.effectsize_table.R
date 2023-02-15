@@ -179,7 +179,6 @@ format.effectsize_difference <- function(x, digits = 2, ...) {
 }
 
 #' @export
-#' @importFrom utils as.roman
 format.effectsize_anova <- function(x, digits = 2, ...) {
   footer <- caption <- subtitle <- NULL
 
@@ -198,7 +197,7 @@ format.effectsize_anova <- function(x, digits = 2, ...) {
     if (isTRUE(obs)) {
       obs <- "All"
     } else {
-      obs <- paste0(obs, collapse = ", ")
+      obs <- toString(obs)
     }
     gen_footer <- sprintf("Observed variables: %s", obs)
     footer <- c(footer, gen_footer)

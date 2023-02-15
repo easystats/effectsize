@@ -23,10 +23,8 @@
 #'
 #' @seealso [cohens_d()], [mahalanobis_d()]
 #'
-#' @importFrom stats ave sd
 #' @export
-sd_pooled <- function(x, y = NULL, data = NULL,
-                      verbose = TRUE, ...) {
+sd_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
   data <- .get_data_2_samples(x, y, data, verbose = verbose, ...)
   x <- data[["x"]]
   y <- data[["y"]]
@@ -35,13 +33,12 @@ sd_pooled <- function(x, y = NULL, data = NULL,
     data.frame(x = x),
     data.frame(x = y)
   )
-  c(sqrt(V))
+  sqrt(V)
 }
 
 
 
 #' @rdname sd_pooled
-#' @importFrom stats ave mad median
 #' @export
 mad_pooled <- function(x, y = NULL, data = NULL,
                        constant = 1.4826,
@@ -62,7 +59,6 @@ mad_pooled <- function(x, y = NULL, data = NULL,
 
 
 #' @rdname sd_pooled
-#' @importFrom stats cov
 #' @export
 cov_pooled <- function(x, y = NULL, data = NULL,
                        verbose = TRUE, ...) {

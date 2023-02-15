@@ -1,8 +1,6 @@
 #' @export
 #' @rdname effectsize
 #' @inheritParams bayestestR::describe_posterior
-#' @importFrom insight get_data get_parameters check_if_installed
-#' @importFrom bayestestR describe_posterior
 effectsize.BFBayesFactor <- function(model, type = NULL, ci = 0.95, test = NULL, verbose = TRUE, ...) {
   insight::check_if_installed("BayesFactor")
 

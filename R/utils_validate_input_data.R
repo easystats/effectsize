@@ -1,5 +1,4 @@
 #' @keywords internal
-#' @importFrom stats na.omit complete.cases
 .get_data_2_samples <- function(x, y = NULL, data = NULL,
                                 paired = FALSE, allow_ordered = FALSE,
                                 verbose = TRUE, ...) {
@@ -162,7 +161,6 @@
 }
 
 #' @keywords internal
-#' @importFrom stats reshape
 .get_data_nested_groups <- function(x, groups = NULL, blocks = NULL, data = NULL,
                                     wide = TRUE, allow_ordered = FALSE,
                                     verbose = TRUE, ...) {
@@ -232,7 +230,6 @@
 }
 
 #' @keywords internal
-#' @importFrom stats na.pass reformulate
 .get_data_multivariate <- function(x, y = NULL, data = NULL,
                                    verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
@@ -303,7 +300,6 @@
 
 
 #' @keywords internal
-#' @importFrom stats model.frame na.pass
 .resolve_formula <- function(formula, data, subset, na.action = stats::na.pass, ...) {
   cl <- match.call(expand.dots = FALSE)
   cl[[1]] <- quote(stats::model.frame)

@@ -15,8 +15,6 @@
 #'
 #' format_standardize(standardize(mtcars$wt), digits = 1)
 #' format_standardize(standardize(mtcars$wt, robust = TRUE), digits = 1)
-#' @importFrom stats median mad sd
-#' @importFrom insight format_value
 #' @export
 format_standardize <- function(x, reference = x, robust = FALSE, digits = 1, protect_integers = TRUE, ...) {
   # Check if robust info stored in attributes
@@ -59,7 +57,7 @@ format_standardize <- function(x, reference = x, robust = FALSE, digits = 1, pro
   L <- insight::format_value(x, digits = digits, ...)
 
   # Complete
-  L[!grepl("-", L)] <- paste0("+", L[!grepl("-", L)])
+  L[!grepl("-", L, fixed = TRUE)] <- paste0("+", L[!grepl("-", L, fixed = TRUE)])
   L <- paste(L, deviation_name)
   L[x == 0] <- central_name
 

@@ -221,7 +221,6 @@ cliffs_delta <- function(x, y = NULL, data = NULL,
 # Utils -------------------------------------------------------------------
 
 #' @keywords internal
-#' @importFrom stats na.omit
 .r_rbs <- function(x, y, mu, paired, verbose = FALSE) {
   if (paired) {
     Ry <- .safe_ranktransform((x - y) - mu, sign = TRUE, verbose = verbose)

@@ -315,7 +315,6 @@ cohens_f_squared <- function(model,
 
 
 #' @keywords internal
-#' @importFrom insight model_info
 .cohens_f_delta <- function(model, model2,
                             squared = FALSE,
                             ci = 0.95, alternative = "greater",
@@ -757,8 +756,6 @@ cohens_f_squared <- function(model,
 }
 
 #' @keywords internal
-#' @importFrom parameters model_parameters
-#' @importFrom stats anova
 .anova_es.aov <- function(model,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,
