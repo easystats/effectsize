@@ -736,7 +736,6 @@ cohens_f_squared <- function(model,
   }
 
 #' @keywords internal
-#' @importFrom stats anova
 .anova_es.default <- function(model,
                               type = c("eta", "omega", "epsilon"),
                               partial = TRUE,
@@ -790,8 +789,6 @@ cohens_f_squared <- function(model,
 .anova_es.manova <- .anova_es.aov
 
 #' @keywords internal
-#' @importFrom parameters model_parameters
-#' @importFrom insight find_predictors
 .anova_es.aovlist <- function(model,
                               type = c("eta", "omega", "epsilon"),
                               partial = TRUE,

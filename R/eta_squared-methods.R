@@ -1,8 +1,6 @@
 # Specific models ---------------------------------------------------------
 
 #' @keywords internal
-#' @importFrom stats aov
-#' @importFrom utils packageVersion
 .anova_es.mlm <- function(model,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,
@@ -46,7 +44,6 @@
 #' @keywords internal
 .anova_es.anova.lme <- .anova_es.anova
 
-#' @importFrom stats na.omit
 #' @keywords internal
 .anova_es.parameters_model <- function(model,
                                        type = c("eta", "omega", "epsilon"),
@@ -66,10 +63,7 @@
       ...
     )
     saved_attr <- attributes(out[[1]])
-    out <- mapply(out, names(out),
-      FUN = function(x, nm) cbind(Response = nm, x),
-      SIMPLIFY = FALSE
-    )
+    out <- Map(function(x, nm) cbind(Response = nm, x), out, names(out))
     out <- do.call(rbind, out)
     out$Parameter <- as.character(out$Parameter)
 
@@ -124,7 +118,7 @@
                             ci = 0.95, alternative = "greater",
                             verbose = TRUE,
                             ...) {
-  if (!grepl("One-way", model$method)) {
+  if (!grepl("One-way", model$method, fixed = TRUE)) {
     insight::format_error("'model' is not a one-way test!")
   }
 
@@ -203,7 +197,7 @@
     aov_tab$`F` <- ifelse(aov_tab$Parameter == "Residuals", NA, 1)
     aov_tab$Mean_Square <- aov_tab$Sum_Squares / aov_tab$df
 
-    DV_names <- c(id, setdiff(unlist(strsplit(model$terms, ":")), "(Intercept)"))
+    DV_names <- c(id, setdiff(unlist(strsplit(model$terms, ":", fixed = TRUE)), "(Intercept)"))
 
     out <-
       .es_aov_strata(
