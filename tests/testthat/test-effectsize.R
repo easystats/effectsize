@@ -306,3 +306,16 @@ test_that("effectsize | other", {
     ignore_attr = TRUE
   )
 })
+
+# see 563
+test_that("effectsize | t-test, unequal group length", {
+  data(iris)
+  x <- iris[iris$Species != "versicolor", ]
+  x$Species <- as.character(x$Species)
+  x$Species[97:100] <- NA
+
+  out <- t.test(x$Sepal.Length ~ x$Species, var.equal = TRUE)
+  eff <- effectsize(out)
+
+  expect_equal(eff$Cohens_d, -3.120058, ignore_attr = TRUE, tolerance = 1e-3)
+})
