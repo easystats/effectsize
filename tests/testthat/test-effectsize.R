@@ -316,6 +316,9 @@ test_that("effectsize | t-test, unequal group length", {
 
   out <- t.test(x$Sepal.Length ~ x$Species, var.equal = TRUE)
   eff <- effectsize(out)
-
   expect_equal(eff$Cohens_d, -3.120058, ignore_attr = TRUE, tolerance = 1e-3)
+
+  out2 <- t.test(Sepal.Length ~ Species, data = x, var.equal = TRUE)
+  eff2 <- effectsize(out2, verbose = FALSE)
+  expect_equal(eff$Cohens_d, eff2$d, ignore_attr = TRUE, tolerance = 1e-1)
 })
