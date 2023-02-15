@@ -228,8 +228,6 @@
 
 
 #' @keywords internal
-#' @importFrom stats anova
-#' @importFrom insight check_if_installed
 .anova_es.merMod <- function(model,
                              type = c("eta", "omega", "epsilon"),
                              partial = TRUE,
@@ -256,7 +254,6 @@
 }
 
 #' @keywords internal
-#' @importFrom stats anova
 .anova_es.gam <- function(model,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,
@@ -351,7 +348,6 @@
 
 
 #' @keywords internal
-#' @importFrom stats anova
 .anova_es.rms <- function(model,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,
