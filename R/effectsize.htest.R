@@ -76,8 +76,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     )
 
     if (!isTRUE(dots$paired)) {
-      args$x <- stats::na.omit(args$x)
-      args$y <- stats::na.omit(args$y)
+      # remove incomplete cases, not only missing values.
+      # else, lengths of groups differ, see #563
+      complete <- stats::na.omit(cbind(args$x, args$y))
+      args$x <- complete[, 1]
+      args$y <- complete[, 2]
     }
 
     if (type %in% c("d", "g")) {
