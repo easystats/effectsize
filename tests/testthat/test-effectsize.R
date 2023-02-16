@@ -45,6 +45,13 @@ test_that("t-test", {
     cohens_d(z, mu = 3),
     ignore_attr = TRUE
   )
+
+  ## Missing
+  y <<- rnorm(12)
+  g <<- c(rep(letters[1:2], each = 5), NA, NA)
+  tt <- t.test(y ~ g, var.equal = TRUE)
+
+  expect_equal(effectsize(tt), cohens_d(y ~ g), ignore_attr = TRUE)
 })
 
 test_that("t-test | CLES", {
@@ -305,21 +312,4 @@ test_that("effectsize | other", {
     parameters::standardize_parameters(m),
     ignore_attr = TRUE
   )
-})
-
-# see 563
-test_that("effectsize | t-test, unequal group length", {
-  data(iris)
-  x <- iris[iris$Species != "versicolor", ]
-  x$Species <- as.character(x$Species)
-  x$Species[97:100] <- NA
-  d <<- x
-
-  out <- t.test(d$Sepal.Length ~ d$Species, var.equal = TRUE)
-  eff <- effectsize(out)
-  expect_equal(eff$Cohens_d, -3.120058, ignore_attr = TRUE, tolerance = 1e-3)
-
-  out2 <- t.test(Sepal.Length ~ Species, data = d, var.equal = TRUE)
-  eff2 <- effectsize(out2, verbose = FALSE)
-  expect_equal(eff$Cohens_d, eff2$d, ignore_attr = TRUE, tolerance = 1e-1)
 })
