@@ -264,7 +264,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
     W <- (12 * sum(R^2) - 3 * (m^2) * n * ((n + 1)^2)) /
       (m^2 * (n^3 - n) - m * Tj)
   } else {
-    S <- var(R) * (n - 1)
+    S <- stats::var(R) * (n - 1)
     W <- (12 * S) /
       (m^2 * (n^3 - n))
   }

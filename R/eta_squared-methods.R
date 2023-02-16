@@ -158,7 +158,7 @@
         include_intercept = include_intercept,
         verbose = verbose
       )
-      attr(out, "anova_type") <- as.numeric(as.roman(model$type))
+      attr(out, "anova_type") <- as.numeric(utils::as.roman(model$type))
       attr(out, "approximate") <- FALSE
       return(out)
     }
@@ -172,7 +172,7 @@
     within <- names(model$idata)
     within <- lapply(within, function(x) c(NA, x))
     within <- do.call(expand.grid, within)
-    within <- apply(within, 1, na.omit)
+    within <- apply(within, 1, stats::na.omit)
     ns <- sapply(within, length) # nolint
     within <- sapply(within, paste, collapse = ":")
     within <- within[order(ns)]
@@ -180,7 +180,7 @@
     l <- sapply(within, grepl, x = aov_tab$Parameter, simplify = TRUE)
     l <- apply(l, 1, function(x) if (!any(x)) 0 else max(which(x)))
     l <- c(NA, within)[l + 1]
-    l <- sapply(l, function(x) paste0(na.omit(c(id, x)), collapse = ":"))
+    l <- sapply(l, function(x) paste0(stats::na.omit(c(id, x)), collapse = ":"))
     aov_tab$Group <- l
 
     aov_tab <- split(aov_tab, aov_tab$Group)
@@ -221,7 +221,7 @@
     }
     out <- out[match(out$Parameter, orig_terms), ]
 
-    attr(out, "anova_type") <- as.numeric(as.roman(model$type))
+    attr(out, "anova_type") <- as.numeric(utils::as.roman(model$type))
     attr(out, "approximate") <- FALSE
     out
   }

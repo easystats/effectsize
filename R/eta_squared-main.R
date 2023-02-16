@@ -328,7 +328,7 @@ cohens_f_squared <- function(model,
   }
 
   # Anova
-  ANOVA <- anova(model, model2)
+  ANOVA <- stats::anova(model, model2)
   out <- F_to_f(ANOVA[2, "F"], abs(ANOVA[2, "Df"]), min(ANOVA["Res.Df"]),
     ci = ci, alternative = alternative,
     squared = squared

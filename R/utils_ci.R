@@ -43,10 +43,10 @@
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)
 
-  ncp <- suppressWarnings(optim(
+  ncp <- suppressWarnings(stats::optim(
     par = 1.1 * rep(t, 2),
     fn = function(x) {
-      p <- pt(q = t, df = df_error, ncp = x)
+      p <- stats::pt(q = t, df = df_error, ncp = x)
 
       abs(max(p) - probs[2]) +
         abs(min(p) - probs[1])
