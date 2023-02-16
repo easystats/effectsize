@@ -33,7 +33,7 @@ sd_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
     data.frame(x = x),
     data.frame(x = y)
   )
-  sqrt(V)
+  as.vector(sqrt(V))
 }
 
 
