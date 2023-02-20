@@ -33,7 +33,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 #' @keywords internal
 .effectsize_t.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
-  data <- insight::get_data(model)
+  data <- .get_data_htest_alt(model)
   approx <- is.null(data)
 
   dots <- list(...)
@@ -65,10 +65,6 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       df_error = unname(model$parameter)
     )
   } else {
-    if (grepl(" by ", model$data.name, fixed = TRUE)) {
-      data[[2]] <- factor(data[[2]])
-    }
-
     args <- list(
       x = data[[1]],
       y = if (ncol(data) == 2) data[[2]],
@@ -325,7 +321,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 #' @keywords internal
 .effectsize_wilcox.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
-  data <- insight::get_data(model)
+  data <- .get_data_htest_alt(model)
   approx <- is.null(data)
 
   dots <- list(...)
@@ -417,6 +413,28 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 #' @keywords internal
 .chisq <- function(Obs, Exp) {
   sum(((Obs - Exp)^2) / Exp)
+}
+
+#' @keywords internal
+.get_data_htest_alt <- function(model) {
+  # See https://github.com/easystats/insight/issues/722
+  data <- insight::get_data(model)
+  if (is.null(data)) return(NULL)
+
+  if (grepl("(Two|sum)", model$method)) {
+    if (grepl(" and ", model$data.name, fixed = TRUE)) {
+      data <- datawizard::reshape_longer(data)[,2:1]
+    }
+    data[[2]] <- factor(data[[2]])
+  } else if (grepl("(Paired|signed)", model$method) && ncol(data) == 2) {
+    if (grepl(" by ", model$data.name, fixed = TRUE)) {
+      data <- datawizard::reshape_wider(data,
+                                        values_from = colnames(data)[1],
+                                        names_from = colnames(data)[2])
+    }
+  }
+
+  na.omit(data)
 }
 
 #' @keywords internal
