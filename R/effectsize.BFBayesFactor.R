@@ -63,7 +63,9 @@ effectsize.BFBayesFactor <- function(model, type = NULL, ci = 0.95, test = NULL,
     or = ,
     oddsratio = oddsratio,
     rr = ,
-    riskratio = riskratio
+    riskratio = riskratio,
+    arr = arr,
+    nnt = nnt
   )
   data <- insight::get_data(model)
   posts <- insight::get_parameters(model)

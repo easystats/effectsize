@@ -26,6 +26,8 @@ es_info <- tibble::tribble(
   "log_Odds_ratio", "log(Odds ratio)", NA, "twotail", -Inf, Inf, 0,
   "Risk_ratio", "Risk ratio", NA, "twotail", 0, Inf, 1,
   "log_Risk_ratio", "log(Risk ratio)", NA, "twotail", -Inf, Inf, 0,
+  "ARR", "ARR", NA, "twotail", -1, 1, 0,
+  "NNT", "NNT", NA, "twotail", -Inf, Inf, NaN,
 
   ## xtab dep
   "Cohens_g", "Cohen's g", NA, "onetail", -0.5, 0.5, 0,

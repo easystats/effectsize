@@ -76,8 +76,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     )
 
     if (!isTRUE(dots$paired)) {
-      args$x <- na.omit(args$x)
-      args$y <- na.omit(args$y)
+      args$x <- stats::na.omit(args$x)
+      args$y <- stats::na.omit(args$y)
     }
 
     if (type %in% c("d", "g")) {
@@ -125,7 +125,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   if (is.null(type)) type <- "cramers_v"
 
-  if (grepl("(c|v|t|w|phi)$", tolower(type))) {
+  if (grepl("(c|v|t|w|phi)$", tolower(type)) && tolower(type) != "nnt") {
     f <- switch(tolower(type),
       v = ,
       cramers_v = chisq_to_cramers_v,
@@ -153,7 +153,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       rr = ,
       riskratio = riskratio,
       h = ,
-      cohens_h = cohens_h
+      cohens_h = cohens_h,
+      arr = arr,
+      nnt = nnt
     )
 
     out <- f(x = model$observed, ...)
@@ -212,7 +214,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     rr = ,
     riskratio = riskratio,
     h = ,
-    cohens_h = cohens_h
+    cohens_h = cohens_h,
+    arr = arr,
+    nnt = nnt
   )
 
   if (is.table(data)) {

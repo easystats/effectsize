@@ -1,6 +1,8 @@
-#' Odds Ratios, Risk Ratios and Cohen's *h* for 2-by-2 Contingency Tables
+#' Odds Ratios, Risk Ratios and Other Effect Sizes for 2-by-2 Contingency Tables
 #'
-#' Report with any [`stats::chisq.test()`] or [`stats::fisher.test()`].
+#' Compute Odds Ratios, Risk Ratios, Cohen's *h*, Absolute Risk Reduction or
+#' Number Needed to Treat. Report with any [`stats::chisq.test()`] or
+#' [`stats::fisher.test()`].
 #' \cr\cr
 #' Note that these are computed with each **column** representing the different
 #' groups, and the *first* column representing the treatment group and the
@@ -21,15 +23,14 @@
 #' @details
 #'
 #' # Confidence (Compatibility) Intervals (CIs)
-#' For Odds ratios, Risk ratios and Cohen's *h*, confidence intervals are
-#' estimated using the standard normal parametric method (see Katz et al., 1978;
-#' Szumilas, 2010).
+#' Confidence intervals are estimated using the standard normal parametric
+#' method (see Katz et al., 1978; Szumilas, 2010).
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #'
 #' @return A data frame with the effect size (`Odds_ratio`, `Risk_ratio`
-#'   (possibly with the prefix `log_`), `Cohens_h`) and its CIs (`CI_low` and
-#'   `CI_high`).
+#'   (possibly with the prefix `log_`), `Cohens_h`, `ARR`, `NNT`) and its CIs
+#'   (`CI_low` and `CI_high`).
 #'
 #' @family effect sizes for contingency table
 #'
@@ -49,6 +50,10 @@
 #' riskratio(RCT_table)
 #'
 #' cohens_h(RCT_table)
+#'
+#' arr(RCT_table)
+#'
+#' nnt(RCT_table)
 #'
 #' @export
 #' @importFrom stats chisq.test qnorm
@@ -211,10 +216,10 @@ cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
 
     alpha <- 1 - ci.level
 
-    se_arcsin <- sqrt(0.25 * (1 / n1 + 1 / n2))
+    se_arcsin <- 2 * sqrt(0.25 * (1 / n1 + 1 / n2))
     Zc <- stats::qnorm(alpha / 2, lower.tail = FALSE)
-    out$CI_low <- H - Zc * (2 * se_arcsin)
-    out$CI_high <- H + Zc * (2 * se_arcsin)
+    out$CI_low <- H - Zc * se_arcsin
+    out$CI_high <- H + Zc * se_arcsin
 
     ci_method <- list(method = "normal")
     out <- .limit_ci(out, alternative, -pi, pi)
@@ -226,6 +231,100 @@ cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   attr(out, "ci") <- ci
   attr(out, "ci_method") <- ci_method
   attr(out, "approximate") <- FALSE
+  attr(out, "alternative") <- alternative
+  return(out)
+}
+
+
+#' @rdname oddsratio
+#' @export
+#' @importFrom stats qnorm
+arr <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
+  alternative <- .match.alt(alternative)
+
+  if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
+    return(effectsize(x, type = "arr", ci = ci, alternative = alternative))
+  } else if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
+    return(effectsize(x, type = "arr", ci = ci, ...))
+  }
+
+  res <- .get_data_xtabs(x, y)
+  Obs <- res$observed
+
+  if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
+    insight::format_error("Cannot have empty rows/columns in the contingency tables.")
+  }
+
+  if (nrow(Obs) != 2 || ncol(Obs) != 2) {
+    insight::format_error("This effect size is only available for 2-by-2 contingency tables")
+  }
+
+  n1 <- sum(Obs[, 1])
+  n2 <- sum(Obs[, 2])
+  p1 <- Obs[1, 1] / n1
+  p2 <- Obs[1, 2] / n2
+  ARR <- p1 - p2
+
+  out <- data.frame(ARR)
+
+  if (.test_ci(ci)) {
+    out$CI <- ci
+    ci.level <- .adjust_ci(ci, alternative)
+
+    alpha <- 1 - ci.level
+
+    se <- sqrt(p1 * (1 - p1) / n1 + p2 * (1 - p2) / n2)
+    Zc <- stats::qnorm(alpha / 2, lower.tail = FALSE)
+    out$CI_low <- ARR - Zc * se
+    out$CI_high <- ARR + Zc * se
+
+    ci_method <- list(method = "normal")
+    out <- .limit_ci(out, alternative, -1, 1)
+  } else {
+    ci_method <- alternative <- NULL
+  }
+
+  class(out) <- c("effectsize_table", "see_effectsize_table", class(out))
+  attr(out, "ci") <- ci
+  attr(out, "ci_method") <- ci_method
+  attr(out, "approximate") <- FALSE
+  attr(out, "alternative") <- alternative
+  return(out)
+}
+
+
+#' @rdname oddsratio
+#' @export
+#' @importFrom stats qnorm
+nnt <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
+  alternative <- .match.alt(alternative)
+
+  flip_alt <- c("less" = "greater", "greater" = "less", "two.sided" = "two.sided")
+  alternative2 <- unname(flip_alt[alternative])
+
+  if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
+    return(effectsize(x, type = "nnt", ci = ci, alternative = alternative))
+  } else if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
+    return(effectsize(x, type = "nnt", ci = ci, ...))
+  }
+
+  out <- arr(x, y = t, ci = ci, alternative = alternative2, ...)
+  out[[1]] <- 1 / out[[1]]
+  colnames(out)[1] <- "NNT"
+
+  if ("CI" %in% colnames(out)) {
+    ci_sign <- unlist(sign(out[c("CI_low", "CI_high")]))
+    if (all(ci_sign == 1) || all(ci_sign == -1)) {
+      out[c("CI_low", "CI_high")] <- 1 / out[c("CI_high", "CI_low")]
+    } else {
+      out[c("CI_low", "CI_high")] <- 1 / out[c("CI_low", "CI_high")]
+    }
+
+    out <- .limit_ci(out, alternative, -Inf, Inf)
+  } else {
+    alternative <- NULL
+  }
+
   attr(out, "alternative") <- alternative
   return(out)
 }
