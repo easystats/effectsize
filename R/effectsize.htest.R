@@ -437,7 +437,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     }
   }
 
-  na.omit(data)
+  stats::na.omit(data)
 }
 
 #' @keywords internal
