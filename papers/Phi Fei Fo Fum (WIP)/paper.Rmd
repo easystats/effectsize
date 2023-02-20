@@ -41,7 +41,7 @@ csl: apa.csl
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, comment = "")
 
 library(effectsize)
 # options(es.use_symbols = TRUE)
@@ -122,8 +122,7 @@ library(correlation)
 phi(Titanic_xtab, adjust = FALSE)
 
 tidyr::uncount(as.data.frame(Titanic_xtab), weights = Freq) |>
-  transform(Survived = Survived == "Yes",
-            Sex = Sex == "Male") |> 
+  transform(Survived = Survived == "Yes", Sex = Sex == "Male") |>
   correlation()
 ```
 
