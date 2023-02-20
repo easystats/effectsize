@@ -49,7 +49,7 @@ library(effectsize)
 
 # Abstract
 
-In both theoretical and applied research, it is often of interest to assess the strength of an observed association. Existing guidelines also frequently recommend going beyond null-hypothesis significance testing and to report effect sizes and their confidence intervals. As such, measures of effect sizes are increasingly reported, valued, and understood. Beyond their value in shaping the interpretation of the results from a given study, reporting effect sizes is critical for meta-analyses, which rely on their aggregation. We here review the most common effect sizes for analyses of categorical variables that use the $\chi^2$ (chi-square) statistic, and introduce a new effect size---`r "\U05E4"` (Fei, pronounced /fej/ or "fay"). We demonstrate the implementation of these measures and their confidence intervals via the `{effectsize}` package [@benshachar2020effectsize] in the R programming language.
+In both theoretical and applied research, it is often of interest to assess the strength of an observed association. Existing guidelines also frequently recommend going beyond null-hypothesis significance testing and to report effect sizes and their confidence intervals. As such, measures of effect sizes are increasingly reported, valued, and understood. Beyond their value in shaping the interpretation of the results from a given study, reporting effect sizes is critical for meta-analyses, which rely on their aggregation. We here review the most common effect sizes for analyses of categorical variables that use the $\chi^2$ (chi-square) statistic, and introduce a new effect size---`r "\U05E4"` (Fei, pronounced "fej" or "fay"). We demonstrate the implementation of these measures and their confidence intervals via the `{effectsize}` package [@benshachar2020effectsize] in the R programming language.
 
 # Introduction
 
@@ -89,13 +89,15 @@ $$
 
 Where $p_{O_i}$ are the *observed* cell probabilities and $p_{E_i}$ are the probabilities *expected* under independence.
 
-For example, which might ask of the probability of survival of the sinking of the Titanic is dependant on the sex of the passenger:
+Here is a short example in R to demonstrate whether the probability of survival of the sinking of the Titanic is dependant on the sex of the passenger. The null hypothesis tested here is that the probability of survival is independent of the passenger's sex.
 
 ```{r}
 (Titanic_xtab <- as.table(apply(Titanic, c(2, 4), sum)))
 
 chisq.test(Titanic_xtab)
 ```
+
+The performed $\chi^2$-test is statistically significant, thus we can reject the hypothesis of independence. However, the output includes no effect size. We cannot draw conclusions of the strength of the association between sex and survival.
 
 ## Phi
 
