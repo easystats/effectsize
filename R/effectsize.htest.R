@@ -419,18 +419,21 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 .get_data_htest_alt <- function(model) {
   # See https://github.com/easystats/insight/issues/722
   data <- insight::get_data(model)
-  if (is.null(data)) return(NULL)
+  if (is.null(data)) {
+    return(NULL)
+  }
 
   if (grepl("(Two|sum)", model$method)) {
     if (grepl(" and ", model$data.name, fixed = TRUE)) {
-      data <- datawizard::reshape_longer(data)[,2:1]
+      data <- datawizard::reshape_longer(data)[, 2:1]
     }
     data[[2]] <- factor(data[[2]])
   } else if (grepl("(Paired|signed)", model$method) && ncol(data) == 2) {
     if (grepl(" by ", model$data.name, fixed = TRUE)) {
       data <- datawizard::reshape_wider(data,
-                                        values_from = colnames(data)[1],
-                                        names_from = colnames(data)[2])
+        values_from = colnames(data)[1],
+        names_from = colnames(data)[2]
+      )
     }
   }
 
