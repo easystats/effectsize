@@ -146,8 +146,8 @@ results from a given study, reporting effect sizes is critical for
 meta-analyses, which rely on their aggregation. We here review the most
 common effect sizes for analyses of categorical variables that use the
 \(\chi^2\) (chi-square) statistic, and introduce a new effect size---פ
-(Fei, pronounced /fej/ or ``fay''). We demonstrate the implementation of
-these measures and their confidence intervals via the
+(Fei, pronounced ``fej'' or ``fay''). We demonstrate the implementation
+of these measures and their confidence intervals via the
 \texttt{\{effectsize\}} package (Ben-Shachar, Lüdecke, \& Makowski,
 2020) in the R programming language.
 
@@ -226,8 +226,10 @@ we can write \(\chi^2\) in terms of observed and expected cell
 Where \(p_{O_i}\) are the \emph{observed} cell probabilities and
 \(p_{E_i}\) are the probabilities \emph{expected} under independence.
 
-For example, which might ask of the probability of survival of the
-sinking of the Titanic is dependant on the sex of the passenger:
+Here is a short example in R to demonstrate whether the probability of
+survival of the sinking of the Titanic is dependant on the sex of the
+passenger. The null hypothesis tested here is that the probability of
+survival is independent of the passenger's sex.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -236,10 +238,10 @@ sinking of the Titanic is dependant on the sex of the passenger:
 \end{Shaded}
 
 \begin{verbatim}
-##         Survived
-## Sex        No  Yes
-##   Male   1364  367
-##   Female  126  344
+        Survived
+Sex        No  Yes
+  Male   1364  367
+  Female  126  344
 \end{verbatim}
 
 \begin{Shaded}
@@ -249,12 +251,17 @@ sinking of the Titanic is dependant on the sex of the passenger:
 \end{Shaded}
 
 \begin{verbatim}
-## 
-##  Pearson's Chi-squared test with Yates' continuity correction
-## 
-## data:  Titanic_xtab
-## X-squared = 454.5, df = 1, p-value < 2.2e-16
+
+    Pearson's Chi-squared test with Yates' continuity correction
+
+data:  Titanic_xtab
+X-squared = 454.5, df = 1, p-value < 2.2e-16
 \end{verbatim}
+
+The performed \(\chi^2\)-test is statistically significant, thus we can
+reject the hypothesis of independence. However, the output includes no
+effect size. We cannot draw conclusions of the strength of the
+association between sex and survival.
 
 \hypertarget{phi}{%
 \subsection{Phi}\label{phi}}
@@ -290,31 +297,30 @@ correlation coefficient.
 \end{Shaded}
 
 \begin{verbatim}
-## Phi  |       95% CI
-## -------------------
-## 0.46 | [0.42, 1.00]
-## 
-## - One-sided CIs: upper bound fixed at [1.00].
+Phi  |       95% CI
+-------------------
+0.46 | [0.42, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{tidyr}\SpecialCharTok{::}\FunctionTok{uncount}\NormalTok{(}\FunctionTok{as.data.frame}\NormalTok{(Titanic\_xtab), }\AttributeTok{weights =}\NormalTok{ Freq) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{transform}\NormalTok{(}\AttributeTok{Survived =}\NormalTok{ Survived }\SpecialCharTok{==} \StringTok{"Yes"}\NormalTok{,}
-            \AttributeTok{Sex =}\NormalTok{ Sex }\SpecialCharTok{==} \StringTok{"Male"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{transform}\NormalTok{(}\AttributeTok{Survived =}\NormalTok{ Survived }\SpecialCharTok{==} \StringTok{"Yes"}\NormalTok{, }\AttributeTok{Sex =}\NormalTok{ Sex }\SpecialCharTok{==} \StringTok{"Male"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{correlation}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## # Correlation Matrix (pearson-method)
-## 
-## Parameter1 | Parameter2 |     r |         95% CI | t(2199) |         p
-## ----------------------------------------------------------------------
-## Sex        |   Survived | -0.46 | [-0.49, -0.42] |  -24.00 | < .001***
-## 
-## p-value adjustment method: Holm (1979)
-## Observations: 2201
+# Correlation Matrix (pearson-method)
+
+Parameter1 | Parameter2 |     r |         95% CI | t(2199) |         p
+----------------------------------------------------------------------
+Sex        |   Survived | -0.46 | [-0.49, -0.42] |  -24.00 | < .001***
+
+p-value adjustment method: Holm (1979)
+Observations: 2201
 \end{verbatim}
 
 \hypertarget{cramuxe9rs-v}{%
@@ -344,12 +350,12 @@ row are completely dependent on the columns.
 \end{Shaded}
 
 \begin{verbatim}
-##       Survived
-## Class   No Yes
-##   1st  122 203
-##   2nd  167 118
-##   3rd  528 178
-##   Crew 673 212
+      Survived
+Class   No Yes
+  1st  122 203
+  2nd  167 118
+  3rd  528 178
+  Crew 673 212
 \end{verbatim}
 
 \begin{Shaded}
@@ -359,11 +365,11 @@ row are completely dependent on the columns.
 \end{Shaded}
 
 \begin{verbatim}
-## Cramer's V |       95% CI
-## -------------------------
-## 0.29       | [0.26, 1.00]
-## 
-## - One-sided CIs: upper bound fixed at [1.00].
+Cramer's V |       95% CI
+-------------------------
+0.29       | [0.26, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
 Tschuprow (Tschuprow, 1939) devised an alternative value, at
@@ -392,9 +398,9 @@ product.
 \end{Shaded}
 
 \begin{verbatim}
-##           Soy Milk Meat
-## Vegan      47    0    0
-## Not-Vegan   0   12   21
+          Soy Milk Meat
+Vegan      47    0    0
+Not-Vegan   0   12   21
 \end{verbatim}
 
 Accordingly, in such a table, Cramer's \emph{V} will be 1, but
@@ -407,11 +413,11 @@ Tschuprow's \emph{t} will not be:
 \end{Shaded}
 
 \begin{verbatim}
-## Cramer's V |       95% CI
-## -------------------------
-## 1.00       | [0.81, 1.00]
-## 
-## - One-sided CIs: upper bound fixed at [1.00].
+Cramer's V |       95% CI
+-------------------------
+1.00       | [0.81, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
 \begin{Shaded}
@@ -421,11 +427,11 @@ Tschuprow's \emph{t} will not be:
 \end{Shaded}
 
 \begin{verbatim}
-## Tschuprow's T |       95% CI
-## ----------------------------
-## 0.84          | [0.68, 1.00]
-## 
-## - One-sided CIs: upper bound fixed at [1.00].
+Tschuprow's T |       95% CI
+----------------------------
+0.84          | [0.68, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
 We can generalize both \(\phi\), \(V\), and \(T\) to:
@@ -467,8 +473,8 @@ Thus, \(\chi^2_\text{max} = N\).
 \end{Shaded}
 
 \begin{verbatim}
-##   Male Female 
-##   1731    470
+  Male Female 
+  1731    470 
 \end{verbatim}
 
 \begin{Shaded}
@@ -480,11 +486,11 @@ Thus, \(\chi^2_\text{max} = N\).
 \end{Shaded}
 
 \begin{verbatim}
-## Cohen's w |       95% CI
-## ------------------------
-## 0.57      | [0.54, 1.00]
-## 
-## - One-sided CIs: upper bound fixed at [1.00].
+Cohen's w |       95% CI
+------------------------
+0.57      | [0.54, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
 Unfortunately, \emph{w} has an upper bound of 1 \emph{only} when the
@@ -503,11 +509,11 @@ be larger than 1.
 \end{Shaded}
 
 \begin{verbatim}
-## Cohen's w |       95% CI
-## ------------------------
-## 1.15      | [0.99, 1.36]
-## 
-## - One-sided CIs: upper bound fixed at [1.36~].
+Cohen's w |       95% CI
+------------------------
+1.15      | [0.99, 1.36]
+
+- One-sided CIs: upper bound fixed at [1.36~].
 \end{verbatim}
 
 \begin{Shaded}
@@ -519,11 +525,11 @@ be larger than 1.
 \end{Shaded}
 
 \begin{verbatim}
-## Cohen's w |       95% CI
-## ------------------------
-## 1.05      | [0.88, 1.73]
-## 
-## - One-sided CIs: upper bound fixed at [1.73~].
+Cohen's w |       95% CI
+------------------------
+1.05      | [0.88, 1.73]
+
+- One-sided CIs: upper bound fixed at [1.73~].
 \end{verbatim}
 
 \hypertarget{fei}{%
@@ -597,12 +603,12 @@ probability.
 \end{Shaded}
 
 \begin{verbatim}
-## Fei  |       95% CI
-## -------------------
-## 0.85 | [0.73, 1.00]
-## 
-## - Adjusted for uniform expected probabilities.
-## - One-sided CIs: upper bound fixed at [1.00].
+Fei  |       95% CI
+-------------------
+0.85 | [0.73, 1.00]
+
+- Adjusted for uniform expected probabilities.
+- One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
 \begin{Shaded}
@@ -614,12 +620,12 @@ probability.
 \end{Shaded}
 
 \begin{verbatim}
-## Fei  |       95% CI
-## -------------------
-## 0.60 | [0.51, 1.00]
-## 
-## - Adjusted for non-uniform expected probabilities.
-## - One-sided CIs: upper bound fixed at [1.00].
+Fei  |       95% CI
+-------------------
+0.60 | [0.51, 1.00]
+
+- Adjusted for non-uniform expected probabilities.
+- One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
 When there are only 2 cells with uniform expected probabilities (50\%),
@@ -635,11 +641,11 @@ this expression reduces to \(N\) and פ \(= w\).
 \end{Shaded}
 
 \begin{verbatim}
-## Fei  |       95% CI
-## -------------------
-## 0.80 | [0.64, 1.00]
-## 
-## - One-sided CIs: upper bound fixed at [1.00].
+Fei  |       95% CI
+-------------------
+0.80 | [0.64, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
 \begin{Shaded}
@@ -649,11 +655,11 @@ this expression reduces to \(N\) and פ \(= w\).
 \end{Shaded}
 
 \begin{verbatim}
-## Cohen's w |       95% CI
-## ------------------------
-## 0.80      | [0.64, 1.00]
-## 
-## - One-sided CIs: upper bound fixed at [1.00].
+Cohen's w |       95% CI
+------------------------
+0.80      | [0.64, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
 \hypertarget{summary}{%

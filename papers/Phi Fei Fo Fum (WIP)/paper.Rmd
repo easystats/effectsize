@@ -136,7 +136,7 @@ $$
 \text{Cramer's } V = \sqrt{\frac{\chi^2}{N(\text{min}(k,l)-1)}}
 $$
 
-$V$ is 1 when the columns are completely dependent on the rows, or the row are completely dependent on the columns.
+$V$ is 1 when the columns are completely dependent on the rows, or the rows are completely dependent on the columns.
 
 ```{r}
 (Titanic_xtab2 <- as.table(apply(Titanic, c(1, 4), sum)))
