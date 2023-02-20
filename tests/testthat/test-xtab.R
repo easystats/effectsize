@@ -144,7 +144,17 @@ test_that("oddsratio & riskratio", {
   )
   OR <- oddsratio(RCT)
   RR <- riskratio(RCT)
+  ARR <- arr(RCT)
+  NNT <- nnt(RCT)
   p0 <- RCT[1, 2] / sum(RCT[, 2])
+
+  expect_lt(NNT$CI_low, NNT$CI_high)
+  expect_lt(NNT$CI_high, 0)
+
+  NNT_0 <- nnt(RCT / 9.8)
+  expect_lt(NNT_0$CI_low, NNT_0$CI_high)
+  expect_lt(NNT_0$CI_low, 0)
+  expect_gt(NNT_0$CI_high, 0)
 
   expect_equal(
     oddsratio_to_riskratio(OR$Odds_ratio, p0),
@@ -154,6 +164,10 @@ test_that("oddsratio & riskratio", {
     riskratio_to_oddsratio(RR$Risk_ratio, p0),
     OR$Odds_ratio
   )
+  expect_equal(
+    oddsratio_to_arr(OR$Odds_ratio, p0),
+    ARR$ARR
+  )
 
   expect_error(riskratio(RCT, log = TRUE), NA)
 
@@ -162,19 +176,17 @@ test_that("oddsratio & riskratio", {
   data("mtcars")
   expect_error(oddsratio(mtcars$am, mtcars$cyl), "only")
 
-  m <- glm(am ~ I(cyl > 4), data = mtcars, family = binomial())
-  log_or <- oddsratio(mtcars$am, mtcars$cyl > 4, log = TRUE)
+  mtcars$Ind <- mtcars$cyl > 4
+  # m <- glm(am ~ Ind, data = mtcars, family = binomial())
 
-  expect_equal(coef(m)[2], log_or$log_Odds_ratio,
-    ignore_attr = TRUE
-  )
+  # confirmed by emmeans
+  or <- oddsratio(mtcars$am, mtcars$Ind)
+  expect_equal(or[[1]], 0.1171875, tolerance = 0.001)
+  expect_equal(or$CI_low, 0.02219195, tolerance = 0.001)
+  expect_equal(or$CI_high, 0.6188238, tolerance = 0.001)
 
-  expect_equal(log_or, oddsratio(mtcars$cyl > 4, mtcars$am, log = TRUE))
-
-  skip_if_not_installed("MASS")
-  expect_equal(suppressMessages(confint(m)[2, ]),
-    unlist(log_or[c("CI_low", "CI_high")]),
-    tolerance = 0.1, # different methods, give slightly different values
-    ignore_attr = TRUE
-  )
+  ARR <- arr(mtcars$am, mtcars$Ind)
+  expect_equal(ARR[[1]], -0.4891775, tolerance = 0.001)
+  expect_equal(ARR$CI_low, -0.8092576, tolerance = 0.001)
+  expect_equal(ARR$CI_high, -0.1690974, tolerance = 0.001)
 })
