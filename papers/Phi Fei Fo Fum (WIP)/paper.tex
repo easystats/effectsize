@@ -179,10 +179,10 @@ size of its own Wiernik \& Dahlke (2020).
 
 Unfortunately, popular software do not always offer the necessary
 implementations of the specialized effect sizes necessary for a given
-research design. In this paper, we review the most commonly used effect
-sizes for analyses of categorical variables that use the \(\chi^2\)
-(chi-square) test statistic, and introduce a new effect size---פ (Fei,
-pronounced /fej/ or ``fay'').
+research design and their confidence intervals. In this paper, we review
+the most commonly used effect sizes for analyses of categorical
+variables that use the \(\chi^2\) (chi-square) test statistic, and
+introduce a new effect size---פ (Fei, pronounced /fej/ or ``fay'').
 
 Importantly, we offer researchers an applied walkthrough on how to use
 these effect sizes in practice thanks to the \texttt{\{effectsize\}}
@@ -323,9 +323,16 @@ p-value adjustment method: Holm (1979)
 Observations: 2201
 \end{verbatim}
 
-\hypertarget{cramuxe9rs-v}{%
-\subsection{\texorpdfstring{Cramér's
-\emph{V}}{Cramér's V}}\label{cramuxe9rs-v}}
+Note that \(\phi\) cannot be negative, so will take the \emph{absolute}
+value of Pearson's correlation coefficient. Also note that
+\texttt{\{effectsize\}} gives a \emph{one-sided} confidence interval by
+default, to match the positive direction of the associated \(\chi^2\)
+test at \(\alpha = 0.05\) (that the association is \emph{larger} than 0
+at a 95\% confidence level).
+
+\hypertarget{cramuxe9rs-v-and-tschuprows-t}{%
+\subsection{\texorpdfstring{Cramér's \emph{V} (and Tschuprow's
+\emph{T})}{Cramér's V (and Tschuprow's T)}}\label{cramuxe9rs-v-and-tschuprows-t}}
 
 When the contingency table is larger than 2-by-2, using
 \(\sqrt{\chi^2/N}\) can produce values larger than 1, and so loses its
@@ -341,7 +348,8 @@ as \(\phi_{c}\)):
 \]
 
 \(V\) is 1 when the columns are completely dependent on the rows, or the
-rows are completely dependent on the columns.
+rows are completely dependent on the columns (and 0 when rows and
+columns are completely independent).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -375,7 +383,7 @@ Cramer's V |       95% CI
 Tschuprow (Tschuprow, 1939) devised an alternative value, at
 
 \[
-\text{Tschuprow's } t = \sqrt{\frac{\chi^2}{N\sqrt{(k-1)(l-1)}}}
+\text{Tschuprow's } T = \sqrt{\frac{\chi^2}{N\sqrt{(k-1)(l-1)}}}
 \]
 
 which is 1 only when the columns are completely dependent on the rows
@@ -404,7 +412,7 @@ Not-Vegan   0   12   21
 \end{verbatim}
 
 Accordingly, in such a table, Cramer's \emph{V} will be 1, but
-Tschuprow's \emph{t} will not be:
+Tschuprow's \emph{T} will not be:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -434,15 +442,18 @@ Tschuprow's T |       95% CI
 - One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
-We can generalize both \(\phi\), \(V\), and \(T\) to:
-\(\sqrt{\frac{\chi^2}{\chi^2_{\text{max}}}}\).
+We can generalize \(\phi\), \(V\), and \(T\) to:
+\(\sqrt{\frac{\chi^2}{\chi^2_{\text{max}}}}\). That is, they are express
+a proportional of the sample-\(\chi^2\) to the maximally possible
+\(\chi^2\) given the study design.
 
-These coefficients can also be used for confusion matrices in the
-context of assessing machine learning algorithms classification
-abilities. In fact, a popular metric is the Matthews correlation
-coefficient (MCC) for binary classifiers, which is often presented in
-terms of true and false positives and negatives, is nothing more that
-\(\phi\) (Chicco \& Jurman, 2020).
+These coefficients can also be used for confusion matrices - 2-by-2
+contingency tables used in assessing machine learning algorithms
+classification abilities, comparing true outcome classes with the
+model-predicted outcome class. In fact, a popular metric is the Matthews
+correlation coefficient (MCC) for binary classifiers, which is often
+presented in terms of true and false positives and negatives, is nothing
+more that \(\phi\) (Chicco \& Jurman, 2020).
 
 \hypertarget{goodness-of-fit}{%
 \section{Goodness of Fit}\label{goodness-of-fit}}
@@ -532,6 +543,10 @@ Cohen's w |       95% CI
 - One-sided CIs: upper bound fixed at [1.73~].
 \end{verbatim}
 
+Although Cohen (Cohen, 2013) suggested that \emph{w} can also be used
+for such designs, we believe that this hinders the interpretation of
+\emph{w} since it can be arbitrarily large.
+
 \hypertarget{fei}{%
 \subsection{Fei}\label{fei}}
 
@@ -590,9 +605,11 @@ bilabial fricative in the Hebrew language, keeping in line with \(\phi\)
 (which in modern Greek marks the same sound) and \(V\) (which in English
 marks a voiced bilabial fricative; \(W\) being derived from the letter V
 in modern Latin alphabet). פ will be 0 when the observed distribution
-matches the expected one perfectly, and will be 1 when the observed
-values are all of the same class---the one with the smallest expected
-probability.
+matches the expected one (under the null hypothesis) perfectly, and will
+be 1 when the sample contains \emph{only} one class of
+observations---the one with the smallest expected probability (under the
+null hypothesis). That is, פ only when we observe only the least
+expected class.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -672,7 +689,11 @@ meta-analyses. In this paper, we have covered the mathematics and
 implementation in R of four different effect sizes for analyses of
 categorical variables that specifically use the \(\chi^2\) (chi-square)
 statistic. Furthermore, with our proposal of the effect size פ (Fei), we
-fill the missing effect size for all cases of a \(\chi^2\) test.
+fill the missing effect size for all cases of a \(\chi^2\) test - we now
+have effect sizes that range from 0 to 1, that represent the sample's
+\(\chi^2\) relative to the maximally possible \(\chi^2\) for contingency
+tables that are 2-dimensional 2-by-2 (\(\phi\)) or larger (\(V\) or
+\(T\)), and for 1-dimensional uniform 2-class (\emph{w}) or larger (פ).
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
