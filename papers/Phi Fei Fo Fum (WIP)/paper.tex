@@ -1,40 +1,155 @@
-% Options for packages loaded elsewhere
-\PassOptionsToPackage{unicode}{hyperref}
-\PassOptionsToPackage{hyphens}{url}
-%
-\documentclass[
-]{article}
-\usepackage{amsmath,amssymb}
-\usepackage{lmodern}
-\usepackage{iftex}
-\ifPDFTeX
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provide euro and other symbols
-\else % if luatex or xetex
-  \usepackage{unicode-math}
-  \defaultfontfeatures{Scale=MatchLowercase}
-  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-  \setmainfont[]{Times New Roman}
-\fi
-% Use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
+%  LaTeX support: latex@mdpi.com
+%  In case you need support, please attach all files that are necessary for compiling as well as the log file, and specify the details of your LaTeX setup (which operating system and LaTeX version / tools you are using).
+
+%=================================================================
+\documentclass[mathematics,article,submit,moreauthors,pdftex]{mdpi}
+
+% If you would like to post an early version of this manuscript as a preprint, you may use preprint as the journal and change 'submit' to 'accept'. The document class line would be, e.g., \documentclass[preprints,article,accept,moreauthors,pdftex]{mdpi}. This is especially recommended for submission to arXiv, where line numbers should be removed before posting. For preprints.org, the editorial staff will make this change immediately prior to posting.
+
+%% Some pieces required from the pandoc template
+\setlist[itemize]{leftmargin=*,labelsep=5.8mm}
+\setlist[enumerate]{leftmargin=*,labelsep=4.9mm}
+
+
+%--------------------
+% Class Options:
+%--------------------
+%----------
+% journal
+%----------
+% Choose between the following MDPI journals:
+% acoustics, actuators, addictions, admsci, aerospace, agriculture, agriengineering, agronomy, algorithms, animals, antibiotics, antibodies, antioxidants, applsci, arts, asc, asi, atmosphere, atoms, axioms, batteries, bdcc, behavsci , beverages, bioengineering, biology, biomedicines, biomimetics, biomolecules, biosensors, brainsci , buildings, cancers, carbon , catalysts, cells, ceramics, challenges, chemengineering, chemistry, chemosensors, children, cleantechnol, climate, clockssleep, cmd, coatings, colloids, computation, computers, condensedmatter, cosmetics, cryptography, crystals, dairy, data, dentistry, designs , diagnostics, diseases, diversity, drones, econometrics, economies, education, electrochem, electronics, energies, entropy, environments, epigenomes, est, fermentation, fibers, fire, fishes, fluids, foods, forecasting, forests, fractalfract, futureinternet, futurephys, galaxies, games, gastrointestdisord, gels, genealogy, genes, geohazards, geosciences, geriatrics, hazardousmatters, healthcare, heritage, highthroughput, horticulturae, humanities, hydrology, ijerph, ijfs, ijgi, ijms, ijns, ijtpp, informatics, information, infrastructures, inorganics, insects, instruments, inventions, iot, j, jcdd, jcm, jcp, jcs, jdb, jfb, jfmk, jimaging, jintelligence, jlpea, jmmp, jmse, jnt, jof, joitmc, jpm, jrfm, jsan, land, languages, laws, life, literature, logistics, lubricants, machines, magnetochemistry, make, marinedrugs, materials, mathematics, mca, medicina, medicines, medsci, membranes, metabolites, metals, microarrays, micromachines, microorganisms, minerals, modelling, molbank, molecules, mps, mti, nanomaterials, ncrna, neuroglia, nitrogen, notspecified, nutrients, ohbm, particles, pathogens, pharmaceuticals, pharmaceutics, pharmacy, philosophies, photonics, physics, plants, plasma, polymers, polysaccharides, preprints , proceedings, processes, proteomes, psych, publications, quantumrep, quaternary, qubs, reactions, recycling, religions, remotesensing, reports, resources, risks, robotics, safety, sci, scipharm, sensors, separations, sexes, signals, sinusitis, smartcities, sna, societies, socsci, soilsystems, sports, standards, stats, surfaces, surgeries, sustainability, symmetry, systems, technologies, test, toxics, toxins, tropicalmed, universe, urbansci, vaccines, vehicles, vetsci, vibration, viruses, vision, water, wem, wevj
+
+%---------
+% article
+%---------
+% The default type of manuscript is "article", but can be replaced by:
+% abstract, addendum, article, benchmark, book, bookreview, briefreport, casereport, changes, comment, commentary, communication, conceptpaper, conferenceproceedings, correction, conferencereport, expressionofconcern, extendedabstract, meetingreport, creative, datadescriptor, discussion, editorial, essay, erratum, hypothesis, interestingimages, letter, meetingreport, newbookreceived, obituary, opinion, projectreport, reply, retraction, review, perspective, protocol, shortnote, supfile, technicalnote, viewpoint
+% supfile = supplementary materials
+
+%----------
+% submit
+%----------
+% The class option "submit" will be changed to "accept" by the Editorial Office when the paper is accepted. This will only make changes to the frontpage (e.g., the logo of the journal will get visible), the headings, and the copyright information. Also, line numbering will be removed. Journal info and pagination for accepted papers will also be assigned by the Editorial Office.
+
+%------------------
+% moreauthors
+%------------------
+% If there is only one author the class option oneauthor should be used. Otherwise use the class option moreauthors.
+
+%---------
+% pdftex
+%---------
+% The option pdftex is for use with pdfLaTeX. If eps figures are used, remove the option pdftex and use LaTeX and dvi2pdf.
+
+%=================================================================
+\firstpage{1}
 \makeatletter
-\@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
-}{% if KOMA class
-  \KOMAoptions{parskip=half}}
+\setcounter{page}{\@firstpage}
 \makeatother
-\usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
+\pubvolume{xx}
+\issuenum{1}
+\articlenumber{5}
+\pubyear{2019}
+\copyrightyear{2019}
+%\externaleditor{Academic Editor: name}
+\history{Received: date; Accepted: date; Published: date}
+\updates{yes} % If there is an update available, un-comment this line
+
+%% MDPI internal command: uncomment if new journal that already uses continuous page numbers
+%\continuouspages{yes}
+
+%------------------------------------------------------------------
+% The following line should be uncommented if the LaTeX file is uploaded to arXiv.org
+%\pdfoutput=1
+
+%=================================================================
+% Add packages and commands here. The following packages are loaded in our class file: fontenc, calc, indentfirst, fancyhdr, graphicx, lastpage, ifthen, lineno, float, amsmath, setspace, enumitem, mathpazo, booktabs, titlesec, etoolbox, amsthm, hyphenat, natbib, hyperref, footmisc, geometry, caption, url, mdframed, tabto, soul, multirow, microtype, tikz
+
+%=================================================================
+%% Please use the following mathematics environments: Theorem, Lemma, Corollary, Proposition, Characterization, Property, Problem, Example, ExamplesandDefinitions, Hypothesis, Remark, Definition
+%% For proofs, please use the proof environment (the amsthm package is loaded by the MDPI class).
+
+%=================================================================
+% Full title of the paper (Capitalized)
+\Title{Phi, Fei, Fo, Fum: Effect Sizes for Chi-squared Tests}
+
+% Authors, for the paper (add full first names)
+\Author{}
+
+% Authors, for metadata in PDF
+\AuthorNames{}
+
+% Affiliations / Addresses (Add [1] after \address if there is only one affiliation.)
+\address{%
+}
+% Contact information of the corresponding author
+\corres{Correspondence: mattan-mail}
+
+% Current address and/or shared authorship
+
+
+
+
+
+
+
+
+% The commands \thirdnote{} till \eighthnote{} are available for further notes
+
+% Simple summary
+\simplesumm{The \emph{\{performance\}} package from the \emph{easystats}
+ecosystem makes it easy to diagnose outliers in R and according to
+current best practices thanks to the \texttt{check\_outiers()}
+function.}
+
+% Abstract (Do not insert blank lines, i.e. \\)
+\abstract{In both theoretical and applied research, it is often of
+interest to assess the strength of an observed association. Existing
+guidelines also frequently recommend going beyond null-hypothesis
+significance testing and to report effect sizes and their confidence
+intervals. As such, measures of effect sizes are increasingly reported,
+valued, and understood. Beyond their value in shaping the interpretation
+of the results from a given study, reporting effect sizes is critical
+for meta-analyses, which rely on their aggregation. We here review the
+most common effect sizes for analyses of categorical variables that use
+the \(\chi^2\) (chi-square) statistic, and introduce a new effect
+size---פ (Fei, pronounced /fej/ or ``fay''). We demonstrate the
+implementation of these measures and their confidence intervals via the
+\texttt{\{effectsize\}} package \citep{benshachar2020effectsize} in the
+R programming language.}
+
+% Keywords
+\keyword{R; easystats}
+
+% The fields PACS, MSC, and JEL may be left empty or commented out if not applicable
+%\PACS{J0101}
+%\MSC{}
+%\JEL{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Diversity
+%\LSID{\url{http://}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Applied Sciences:
+%\featuredapplication{Authors are encouraged to provide a concise description of the specific application or a potential application of the work. This section is not mandatory.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Data:
+%\dataset{DOI number or link to the deposited data set in cases where the data set is published or set to be published separately. If the data set is submitted and will be published as a supplement to this paper in the journal Data, this field will be filled by the editors of the journal. In this case, please make sure to submit the data set as a supplement when entering your manuscript into our manuscript editorial system.}
+
+%\datasetlicense{license under which the data set is made available (CC0, CC-BY, CC-BY-SA, CC-BY-NC, etc.)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Toxins
+%\keycontribution{The breakthroughs or highlights of the manuscript. Authors can write one or two sentences to describe the most important part of the paper.}
+
+%\setcounter{secnumdepth}{4}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Pandoc syntax highlighting
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -75,98 +190,35 @@
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\usepackage{graphicx}
-\makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-% Set default figure placement to htbp
-\makeatletter
-\def\fps@figure{htbp}
-\makeatother
-\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+% tightlist command for lists without linebreak
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newlength{\cslentryspacingunit} % times entry-spacing
-\setlength{\cslentryspacingunit}{\parskip}
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1
-  \let\oldpar\par
-  \def\par{\hangindent=\cslhangindent\oldpar}
-  \fi
-  % set entry spacing
-  \setlength{\parskip}{#2\cslentryspacingunit}
- }%
- {}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
-\hypersetup{
-  pdftitle={Phi, Fei, Fo, Fum: Effect Sizes for Chi-squared Tests},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
 
-\title{Phi, Fei, Fo, Fum: Effect Sizes for Chi-squared Tests}
-\author{}
-\date{\vspace{-2.5em}}
+
+
 
 \begin{document}
-\maketitle
 
-\hypertarget{abstract}{%
-\section{Abstract}\label{abstract}}
 
-In both theoretical and applied research, it is often of interest to
-assess the strength of an observed association. Existing guidelines also
-frequently recommend going beyond null-hypothesis significance testing
-and to report effect sizes and their confidence intervals. As such,
-measures of effect sizes are increasingly reported, valued, and
-understood. Beyond their value in shaping the interpretation of the
-results from a given study, reporting effect sizes is critical for
-meta-analyses, which rely on their aggregation. We here review the most
-common effect sizes for analyses of categorical variables that use the
-\(\chi^2\) (chi-square) statistic, and introduce a new effect size---פ
-(Fei, pronounced /fej/ or ``fay''). We demonstrate the implementation of
-these measures and their confidence intervals via the
-\texttt{\{effectsize\}} package (Ben-Shachar, Lüdecke, \& Makowski,
-2020) in the R programming language.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
 Over the last two decades, there has been growing concerns about the
-so-called replication crisis in psychology and other fields (Camerer et
-al., 2018; Open Science Collaboration, 2015). As a result, the
+so-called replication crisis in psychology and other fields
+\citep{OSC2015estimating, camerer2018evaluating}. As a result, the
 scientific community has paid increasing attention to the issue of
 replicability in science, as well as to to good research and statistical
 practices.
 
 In this context, many have highlighted the limitations of
 null-hypothesis significance testing and called for more modern
-approaches to statistics (Cumming, 2014). One such recommendation coming
-for example from the New Statistics movement is to report effect sizes
-and their corresponding confidence intervals, and to increasingly rely
-on meta-analyses to increase confidence in those estimations. These
+approaches to statistics \citep{cumming2014new}. One such recommendation
+coming for example from the New Statistics movement is to report effect
+sizes and their corresponding confidence intervals, and to increasingly
+rely on meta-analyses to increase confidence in those estimations. These
 recommendations are meant to complement (or even replace, according to
 some) null-hypothesis significance testing and would help transition
 toward a ``cumulative quantitative discipline''.
@@ -175,7 +227,7 @@ These so-called ``New Statistics'' are synergistic because effect sizes
 are not only useful for interpreting study results in themselves, but
 also because they are necessary for meta-analyses, which aggregate
 effect sizes and their confidence intervals to create a summary effect
-size of its own Wiernik \& Dahlke (2020).
+size of its own \citep[\citet{wiernik2020unbiased}]{degeest2010impact}.
 
 Unfortunately, popular software do not always offer the necessary
 implementations of the specialized effect sizes necessary for a given
@@ -186,8 +238,8 @@ introduce a new effect size---פ (Fei, pronounced /fej/ or ``fay'').
 
 Importantly, we offer researchers an applied walkthrough on how to use
 these effect sizes in practice thanks to the \texttt{\{effectsize\}}
-package (Ben-Shachar et al., 2020) in the R programming language (R Core
-Team, 2023), which implements these measures and their confidence
+package \citep{benshachar2020effectsize} in the R programming language
+\citep{base2023}, which implements these measures and their confidence
 intervals. We cover in turn tests of independence (\emph{φ}/phi,
 Cramér's \emph{V}) and tests of goodness of fit (Cohen's \emph{w} and a
 new proposed effect size, פ/Fei).
@@ -337,11 +389,11 @@ at a 95\% confidence level).
 When the contingency table is larger than 2-by-2, using
 \(\sqrt{\chi^2/N}\) can produce values larger than 1, and so loses its
 interpretability as a correlation like effect size. Cramér showed
-(Cramér, 1999) that while for 2-by-2 the maximal possible value of
-\(\chi^2\) is \(N\), for larger tables the maximal possible value for
-\(\chi^2\) is \(N\times (\text{min}(k,l)-1)\). Therefore, he suggested
-the \(V\) effect size (also sometimes known as Cramér's phi and denoted
-as \(\phi_{c}\)):
+\citep{cramer1999mathematical} that while for 2-by-2 the maximal
+possible value of \(\chi^2\) is \(N\), for larger tables the maximal
+possible value for \(\chi^2\) is \(N\times (\text{min}(k,l)-1)\).
+Therefore, he suggested the \(V\) effect size (also sometimes known as
+Cramér's phi and denoted as \(\phi_{c}\)):
 
 \[
 \text{Cramer's } V = \sqrt{\frac{\chi^2}{N(\text{min}(k,l)-1)}}
@@ -380,7 +432,8 @@ Cramer's V |       95% CI
 - One-sided CIs: upper bound fixed at [1.00].
 \end{verbatim}
 
-Tschuprow (Tschuprow, 1939) devised an alternative value, at
+Tschuprow \citep{tschuprow1939principles} devised an alternative value,
+at
 
 \[
 \text{Tschuprow's } T = \sqrt{\frac{\chi^2}{N\sqrt{(k-1)(l-1)}}}
@@ -453,7 +506,7 @@ classification abilities, comparing true outcome classes with the
 model-predicted outcome class. In fact, a popular metric is the Matthews
 correlation coefficient (MCC) for binary classifiers, which is often
 presented in terms of true and false positives and negatives, is nothing
-more that \(\phi\) (Chicco \& Jurman, 2020).
+more that \(\phi\) \citep{chicco2020advantages}.
 
 \hypertarget{goodness-of-fit}{%
 \section{Goodness of Fit}\label{goodness-of-fit}}
@@ -468,8 +521,8 @@ too we can compute an effect size as
 \subsection{\texorpdfstring{Cohen's
 \emph{w}}{Cohen's w}}\label{cohens-w}}
 
-Cohen (Cohen, 2013) defined an effect size---\emph{w}---for the goodness
-of fit test:
+Cohen \citep{cohen2013statistical} defined an effect
+size---\emph{w}---for the goodness of fit test:
 
 \[
 \text{Cohen's } w = \sqrt{\sum_{i=1}^{k}{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}} = \sqrt{\frac{\chi^2}{N}}
@@ -507,9 +560,9 @@ Cohen's w |       95% CI
 Unfortunately, \emph{w} has an upper bound of 1 \emph{only} when the
 variable is binomial (has two categories) and the expected distribution
 is uniform (\(p = 1 - p = 0.5\)). If the distribution is none uniform
-(Rosenberg, 2010) or if there are more than 2 classes (Johnston, Berry,
-\& Mielke Jr, 2006), then \(\chi^2_\text{max} > N\), and so \emph{w} can
-be larger than 1.
+\citep{rosenberg2010generalized} or if there are more than 2 classes
+\citep{johnston2006measures}, then \(\chi^2_\text{max} > N\), and so
+\emph{w} can be larger than 1.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -543,9 +596,9 @@ Cohen's w |       95% CI
 - One-sided CIs: upper bound fixed at [1.73~].
 \end{verbatim}
 
-Although Cohen (Cohen, 2013) suggested that \emph{w} can also be used
-for such designs, we believe that this hinders the interpretation of
-\emph{w} since it can be arbitrarily large.
+Although Cohen \citep{cohen2013statistical} suggested that \emph{w} can
+also be used for such designs, we believe that this hinders the
+interpretation of \emph{w} since it can be arbitrarily large.
 
 \hypertarget{fei}{%
 \subsection{Fei}\label{fei}}
@@ -695,78 +748,77 @@ have effect sizes that range from 0 to 1, that represent the sample's
 tables that are 2-dimensional 2-by-2 (\(\phi\)) or larger (\(V\) or
 \(T\)), and for 1-dimensional uniform 2-class (\emph{w}) or larger (פ).
 
-\hypertarget{references}{%
-\section*{References}\label{references}}
-\addcontentsline{toc}{section}{References}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %% optional
+% \supplementary{The following are available online at www.mdpi.com/link, Figure S1: title, Table S1: title, Video S1: title.}
+%
+% % Only for the journal Methods and Protocols:
+% % If you wish to submit a video article, please do so with any other supplementary material.
+% % \supplementary{The following are available at www.mdpi.com/link: Figure S1: title, Table S1: title, Video S1: title. A supporting video article is available at doi: link.}
 
-\hypertarget{refs}{}
-\begin{CSLReferences}{1}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-benshachar2020effectsize}{}}%
-Ben-Shachar, M. S., Lüdecke, D., \& Makowski, D. (2020). {e}ffectsize:
-Estimation of effect size indices and standardized parameters.
-\emph{Journal of Open Source Software}, \emph{5}(56), 2815.
-\url{https://doi.org/10.21105/joss.02815}
+\vspace{6pt}
 
-\leavevmode\vadjust pre{\hypertarget{ref-camerer2018evaluating}{}}%
-Camerer, C. F., Dreber, A., Holzmeister, F., Ho, T.-H., Huber, J.,
-Johannesson, M., \ldots{} Wu, H. (2018). Evaluating the replicability of
-social science experiments in nature and science between 2010 and 2015.
-\emph{Nature Human Behaviour}, \emph{2}, 637--644.
-\url{https://doi.org/10.1038/s41562-018-0399-z}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\acknowledgments{\emph{\{effectsize\}} is part of the collaborative
+\href{https://github.com/easystats/easystats}{\emph{easystats}}
+ecosystem \citep{easystatspackage}. Thus, we thank all
+\href{https://github.com/orgs/easystats/people}{members of easystats},
+contributors, and users alike.}
 
-\leavevmode\vadjust pre{\hypertarget{ref-chicco2020advantages}{}}%
-Chicco, D., \& Jurman, G. (2020). The advantages of the matthews
-correlation coefficient (MCC) over F1 score and accuracy in binary
-classification evaluation. \emph{BMC Genomics}, \emph{21}, 1--13.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\authorcontributions{ToDo}
 
-\leavevmode\vadjust pre{\hypertarget{ref-cohen2013statistical}{}}%
-Cohen, J. (2013). \emph{Statistical power analysis for the behavioral
-sciences}. Routledge.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\conflictsofinterest{The authors declare no conflict of interest.}
 
-\leavevmode\vadjust pre{\hypertarget{ref-cramer1999mathematical}{}}%
-Cramér, H. (1999). \emph{Mathematical methods of statistics} (Vol. 43).
-Princeton University Press.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% optional
+\abbreviations{The following abbreviations are used in this manuscript:\\
 
-\leavevmode\vadjust pre{\hypertarget{ref-cumming2014new}{}}%
-Cumming, G. (2014). The new statistics: Why and how. \emph{Psychological
-Science}, \emph{25}(1), 7--29.
-\url{https://doi.org/10.1177/0956797613504966}
+\noindent
+\begin{tabular}{@{}ll}
+ToDo & ToDo \\
+\end{tabular}}
 
-\leavevmode\vadjust pre{\hypertarget{ref-degeest2010impact}{}}%
-DeGeest, D. S., \& Schmidt, F. L. (2010). The impact of research
-synthesis methods on industrial--organizational psychology: The road
-from pessimism to optimism about cumulative knowledge. \emph{Research
-Synthesis Methods}, \emph{1}(3-4), 185--197.
 
-\leavevmode\vadjust pre{\hypertarget{ref-johnston2006measures}{}}%
-Johnston, J. E., Berry, K. J., \& Mielke Jr, P. W. (2006). Measures of
-effect size for chi-squared and likelihood-ratio goodness-of-fit tests.
-\emph{Perceptual and Motor Skills}, \emph{103}(2), 412--414.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Citations and References in Supplementary files are permitted provided that they also appear in the reference list here.
 
-\leavevmode\vadjust pre{\hypertarget{ref-OSC2015estimating}{}}%
-Open Science Collaboration. (2015). Estimating the reproducibility of
-psychological science. \emph{Science}, \emph{349}, aac4716.
-\url{https://doi.org/10.1126/science.aac4716}
+%=====================================
+% References, variant A: internal bibliography
+%=====================================
+%\reftitle{References}
+%\begin{thebibliography}{999}
+% Reference 1
+%\bibitem[Author1(year)]{ref-journal}
+%Author1, T. The title of the cited article. {\em Journal Abbreviation} {\bf 2008}, {\em 10}, 142--149.
+% Reference 2
+%\bibitem[Author2(year)]{ref-book}
+%Author2, L. The title of the cited contribution. In {\em The Book Title}; Editor1, F., Editor2, A., Eds.; Publishing House: City, Country, 2007; pp. 32--58.
+%\end{thebibliography}
 
-\leavevmode\vadjust pre{\hypertarget{ref-base2023}{}}%
-R Core Team. (2023). \emph{R: A language and environment for statistical
-computing}. Retrieved from \url{https://www.R-project.org/}
+% The following MDPI journals use author-date citation: Arts, Econometrics, Economies, Genealogy, Humanities, IJFS, JRFM, Laws, Religions, Risks, Social Sciences. For those journals, please follow the formatting guidelines on http://www.mdpi.com/authors/references
+% To cite two works by the same author: \citeauthor{ref-journal-1a} (\citeyear{ref-journal-1a}, \citeyear{ref-journal-1b}). This produces: Whittaker (1967, 1975)
+% To cite two works by the same author with specific pages: \citeauthor{ref-journal-3a} (\citeyear{ref-journal-3a}, p. 328; \citeyear{ref-journal-3b}, p.475). This produces: Wong (1999, p. 328; 2000, p. 475)
 
-\leavevmode\vadjust pre{\hypertarget{ref-rosenberg2010generalized}{}}%
-Rosenberg, M. S. (2010). A generalized formula for converting chi-square
-tests to effect sizes for meta-analysis. \emph{PloS One}, \emph{5}(4),
-e10059.
+%=====================================
+% References, variant B: external bibliography
+%=====================================
+\reftitle{References}
+\externalbibliography{yes}
+\bibliography{paper.bib}
 
-\leavevmode\vadjust pre{\hypertarget{ref-tschuprow1939principles}{}}%
-Tschuprow, A. A. (1939). \emph{Principles of the mathematical theory of
-correlation}. Hodge.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% optional
 
-\leavevmode\vadjust pre{\hypertarget{ref-wiernik2020unbiased}{}}%
-Wiernik, B. M., \& Dahlke, J. A. (2020). Obtaining unbiased results in
-meta-analysis: The importance of correcting for statistical artifacts.
-\emph{Advances in Methods and Practices in Psychological Science},
-\emph{3}(1), 94--123.
+%% for journal Sci
+%\reviewreports{\\
+%Reviewer 1 comments and authors’ response\\
+%Reviewer 2 comments and authors’ response\\
+%Reviewer 3 comments and authors’ response
+%}
 
-\end{CSLReferences}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \end{document}

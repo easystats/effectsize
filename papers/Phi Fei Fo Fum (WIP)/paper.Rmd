@@ -1,43 +1,61 @@
 ---
 title: "Phi, Fei, Fo, Fum: Effect Sizes for Chi-squared Tests"
-
 authors:
-- affiliation: 1
-  name: Mattan S. Ben-Shachar
+- name: Mattan S. Ben-Shachar
+  affil: 1, *
   orcid: 0000-0002-4287-4801
-- affiliation: 2
-  name: Indrajeet Patil
+- name: Indrajeet Patil
+  affil: 2
   orcid: 0000-0003-1995-6531
-- affiliation: 3
-  name: Rémi Thériault
+- name: Rémi Thériault
+  affil: 3
   orcid: 0000-0003-4315-6788
-- affiliation: 4
-  name: Brenton M. Wiernik
+- name: Brenton M. Wiernik
+  affil: 4
   orcid: 0000-0001-9560-6336
-- affiliation: 5
-  name: Daniel Lüdecke 
+- name: Daniel Lüdecke 
+  affil: 5
   orcid: 0000-0002-8895-3206
-
 affiliations:
-- index: 1
-  name: Independent researcher
-- index: 2
-  name: Center for Humans and Machines, Max Planck Institute for Human Development, Berlin, Germany  
-- index: 3
-  name: Université du Québec à Montréal, Montréal, Québec
-- index: 4
-  name: Independent researcher
-- index: 5
-  name: address: Institute of Medical Sociology, University Medical Center Hamburg-Eppendorf, Germany
-
-output: 
-  pdf_document:
-    keep_tex: true
-    latex_engine: xelatex
-mainfont: Times New Roman
-
+- num: 1
+  address: Independent researcher
+- num: 2
+  address: Center for Humans and Machines, Max Planck Institute for Human Development, Berlin, Germany  
+- num: 3
+  address: Université du Québec à Montréal, Montréal, Québec
+- num: 4
+  address: Independent researcher
+- num: 5
+  address: Institute of Medical Sociology, University Medical Center Hamburg-Eppendorf, Germany
+journal: "mathematics"
+type: article
+status: submit
 bibliography: paper.bib
-csl: apa.csl
+correspondence: mattan-mail
+simplesummary: |
+  The *{performance}* package from the *easystats* ecosystem makes it easy to 
+  diagnose outliers in R and according to current best practices thanks to the 
+  `check_outiers()` function.
+abstract: |
+  In both theoretical and applied research, it is often of interest to assess the strength of an observed association. Existing guidelines also frequently recommend going beyond null-hypothesis significance testing and to report effect sizes and their confidence intervals. As such, measures of effect sizes are increasingly reported, valued, and understood. Beyond their value in shaping the interpretation of the results from a given study, reporting effect sizes is critical for meta-analyses, which rely on their aggregation. We here review the most common effect sizes for analyses of categorical variables that use the $\chi^2$ (chi-square) statistic, and introduce a new effect size---`r "\U05E4"` (Fei, pronounced /fej/ or "fay"). We demonstrate the implementation of these measures and their confidence intervals via the `{effectsize}` package [@benshachar2020effectsize] in the R programming language.
+keywords: |
+  R; easystats
+acknowledgement: |
+  *{effectsize}* is part of the collaborative 
+  [*easystats*](https://github.com/easystats/easystats) ecosystem 
+  [@easystatspackage]. Thus, we thank all 
+  [members of easystats](https://github.com/orgs/easystats/people), 
+  contributors, and users alike.
+authorcontributions: |
+  ToDo
+funding: |
+  This research received no external funding.
+conflictsofinterest: |
+  The authors declare no conflict of interest.
+abbreviations:
+  - short: ToDo
+    long: ToDo
+output: rticles::mdpi_article
 ---
 
 ```{r setup, include=FALSE}
@@ -46,10 +64,6 @@ knitr::opts_chunk$set(echo = TRUE, comment = "")
 library(effectsize)
 # options(es.use_symbols = TRUE)
 ```
-
-# Abstract
-
-In both theoretical and applied research, it is often of interest to assess the strength of an observed association. Existing guidelines also frequently recommend going beyond null-hypothesis significance testing and to report effect sizes and their confidence intervals. As such, measures of effect sizes are increasingly reported, valued, and understood. Beyond their value in shaping the interpretation of the results from a given study, reporting effect sizes is critical for meta-analyses, which rely on their aggregation. We here review the most common effect sizes for analyses of categorical variables that use the $\chi^2$ (chi-square) statistic, and introduce a new effect size---`r "\U05E4"` (Fei, pronounced /fej/ or "fay"). We demonstrate the implementation of these measures and their confidence intervals via the `{effectsize}` package [@benshachar2020effectsize] in the R programming language.
 
 # Introduction
 
