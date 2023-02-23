@@ -124,7 +124,7 @@
                             ci = 0.95, alternative = "greater",
                             verbose = TRUE,
                             ...) {
-  if (!grepl("One-way", model$method)) {
+  if (!grepl("One-way", model$method, fixed = TRUE)) {
     insight::format_error("'model' is not a one-way test!")
   }
 
@@ -152,7 +152,8 @@
            include_intercept = FALSE,
            ...) {
     # Faking the model_parameters.aovlist output:
-    suppressWarnings(aov_tab <- summary(model)$univariate.tests)
+    aov_tab <- summary(model)$univariate.tests
+    suppressWarnings(aov_tab)
     if (is.null(aov_tab)) {
       aov_tab <- parameters::model_parameters(model)
       aov_tab$df <- aov_tab$df_num
@@ -179,7 +180,7 @@
     within <- lapply(within, function(x) c(NA, x))
     within <- do.call(expand.grid, within)
     within <- apply(within, 1, na.omit)
-    ns <- sapply(within, length)
+    ns <- lengths(within)
     within <- sapply(within, paste, collapse = ":")
     within <- within[order(ns)]
     within <- Filter(function(x) nchar(x) > 0, within)
@@ -203,7 +204,7 @@
     aov_tab$`F` <- ifelse(aov_tab$Parameter == "Residuals", NA, 1)
     aov_tab$Mean_Square <- aov_tab$Sum_Squares / aov_tab$df
 
-    DV_names <- c(id, setdiff(unlist(strsplit(model$terms, ":")), "(Intercept)"))
+    DV_names <- c(id, setdiff(unlist(strsplit(model$terms, ":", fixed = TRUE)), "(Intercept)"))
 
     out <-
       .es_aov_strata(
