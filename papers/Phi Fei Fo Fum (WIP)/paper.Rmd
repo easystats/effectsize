@@ -13,10 +13,10 @@ authors:
   orcid: 0000-0003-4315-6788
 - affiliation: 4
   name: Brenton M. Wiernik
-  orcid: to add
+  orcid: 0000-0001-9560-6336
 - affiliation: 5
   name: Daniel Lüdecke 
-  orcid: to add
+  orcid: 0000-0002-8895-3206
 
 affiliations:
 - index: 1
@@ -28,7 +28,7 @@ affiliations:
 - index: 4
   name: Independent researcher
 - index: 5
-  name: to add
+  name: address: Institute of Medical Sociology, University Medical Center Hamburg-Eppendorf, Germany
 
 output: 
   pdf_document:
