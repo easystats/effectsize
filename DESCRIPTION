@@ -67,7 +67,7 @@ Depends:
     R (>= 3.6)
 Imports:
     bayestestR (>= 0.13.0),
-    insight (>= 0.18.8),
+    insight (>= 0.19.0.2),
     parameters (>= 0.20.2),
     performance (>= 0.10.2),
     datawizard (>= 0.6.5),
@@ -94,6 +94,8 @@ Suggests:
     rstanarm,
     rstantools,
     testthat (>= 3.1.0)
+Remotes:
+    easystats/insight
 VignetteBuilder: 
     knitr
 Encoding: UTF-8

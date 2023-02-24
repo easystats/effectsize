@@ -78,7 +78,7 @@ test_that("t-test | CLES", {
 test_that("Wilcox | CLES", {
   x <<- 1:4
   y <<- c(1, 1:3)
-  Wt <- suppressWarnings(wilcox.test(x, y, var.equal = TRUE))
+  Wt <- suppressWarnings(wilcox.test(x, y))
 
   expect_equal(e <- p_superiority(Wt), p_superiority(x, y, parametric = FALSE), ignore_attr = TRUE)
   expect_equal(effectsize(Wt, type = "p_superiority"), e)
