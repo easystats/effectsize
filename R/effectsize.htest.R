@@ -33,7 +33,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 #' @keywords internal
 .effectsize_t.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
-  data <- .get_data_htest_alt(model)
+  data <- insight::get_data(model)
   approx <- is.null(data)
 
   dots <- list(...)
@@ -65,6 +65,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       df_error = unname(model$parameter)
     )
   } else {
+    if (ncol(data) == 2) {
+      data[[2]] <- factor(data[[2]])
+    }
+    data <- stats::na.omit(data)
+
     args <- list(
       x = data[[1]],
       y = if (ncol(data) == 2) data[[2]],
@@ -321,7 +326,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 #' @keywords internal
 .effectsize_wilcox.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
-  data <- .get_data_htest_alt(model)
+  data <- insight::get_data(model)
   approx <- is.null(data)
 
   dots <- list(...)
@@ -334,6 +339,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   dots$paired <- grepl("signed rank", model$method, fixed = TRUE)
 
   .fail_if_approx(approx, type)
+
+  if (ncol(data) == 2) {
+    data[[2]] <- factor(data[[2]])
+  }
+  data <- stats::na.omit(data)
 
   f <- switch(tolower(type),
     rb = rank_biserial,
@@ -413,21 +423,6 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 #' @keywords internal
 .chisq <- function(Obs, Exp) {
   sum(((Obs - Exp)^2) / Exp)
-}
-
-#' @keywords internal
-.get_data_htest_alt <- function(model) {
-  # See https://github.com/easystats/insight/issues/722
-  data <- insight::get_data(model)
-  if (is.null(data)) {
-    return(NULL)
-  }
-
-  if (ncol(data) == 2) {
-    data[[2]] <- factor(data[[2]])
-  }
-
-  stats::na.omit(data)
 }
 
 #' @keywords internal
