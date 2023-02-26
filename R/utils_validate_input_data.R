@@ -1,5 +1,4 @@
 #' @keywords internal
-#' @importFrom stats na.omit complete.cases
 .get_data_2_samples <- function(x, y = NULL, data = NULL,
                                 paired = FALSE, allow_ordered = FALSE,
                                 verbose = TRUE, ...) {
@@ -98,7 +97,8 @@
 #' @keywords internal
 .get_data_xtabs <- function(x, y = NULL, p = NULL) {
   # TODO dont rely on chisq.test
-  res <- suppressWarnings(stats::chisq.test(x,
+  res <- suppressWarnings(stats::chisq.test(
+    x,
     y = y,
     p = p,
     correct = FALSE,
@@ -128,7 +128,7 @@
     groups <- mf[[2]]
     if (!is.factor(groups)) groups <- factor(groups)
   } else if (inherits(x, "list")) {
-    groups <- rep(letters[seq_along(x)], sapply(x, length))
+    groups <- rep(letters[seq_along(x)], sapply(x, length)) # nolint
     x <- unsplit(x, groups)
   } else {
     # If they are column names
@@ -161,7 +161,6 @@
 }
 
 #' @keywords internal
-#' @importFrom stats reshape
 .get_data_nested_groups <- function(x, groups = NULL, blocks = NULL, data = NULL,
                                     wide = TRUE, allow_ordered = FALSE,
                                     verbose = TRUE, ...) {
@@ -197,7 +196,7 @@
     x <- as.table(x)
   }
 
-  if (inherits(x, c("table"))) {
+  if (inherits(x, "table")) {
     x <- as.data.frame(x)[, c(3, 2, 1)]
   }
 
@@ -231,7 +230,6 @@
 }
 
 #' @keywords internal
-#' @importFrom stats na.pass reformulate
 .get_data_multivariate <- function(x, y = NULL, data = NULL,
                                    verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
@@ -266,7 +264,7 @@
     insight::format_error("x must be a data frame.")
   }
 
-  if (!all(sapply(x, is.numeric))) {
+  if (!all(vapply(x, is.numeric, TRUE))) {
     insight::format_error("All DVs must be numeric.")
   }
 
@@ -279,7 +277,7 @@
       insight::format_error("y must be a data frame.")
     }
 
-    if (!all(sapply(y, is.numeric))) {
+    if (!all(vapply(y, is.numeric, TRUE))) {
       insight::format_error("All DVs must be numeric.")
     }
 
@@ -302,7 +300,6 @@
 
 
 #' @keywords internal
-#' @importFrom stats model.frame na.pass
 .resolve_formula <- function(formula, data, subset, na.action = stats::na.pass, ...) {
   cl <- match.call(expand.dots = FALSE)
   cl[[1]] <- quote(stats::model.frame)

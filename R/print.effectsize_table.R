@@ -40,7 +40,8 @@ format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown"
   ## Clean footer
   footer <- attr(x, "table_footer")
 
-  if (!is.null(alt <- attr(x, "alternative")) && alt != "two.sided") {
+  alt <- attr(x, "alternative")
+  if (!is.null(alt) && alt != "two.sided") {
     bound <- if (alt == "less") x$CI_low[1] else x$CI_high[1]
     bound_ <- insight::format_value(bound, digits = digits)
     if (!is.character(digits) &&
@@ -62,7 +63,8 @@ format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown"
   #   footer <- c(footer, approx_footer)
   # }
 
-  if (!is.null(rule_name <- attr(attr(x, "rules"), "rule_name", exact = TRUE))) {
+  rule_name <- attr(attr(x, "rules"), "rule_name", exact = TRUE)
+  if (!is.null(rule_name)) {
     rule_footer <- sprintf("Interpretation rule: %s", rule_name)
     footer <- c(footer, rule_footer)
   }
@@ -163,7 +165,8 @@ format.effectsize_difference <- function(x, digits = 2, ...) {
     footer <- c(footer, mu_footer)
   }
 
-  if (!is.null(sd_type <- attr(x, "pooled_sd", exact = TRUE))) {
+  sd_type <- attr(x, "pooled_sd", exact = TRUE)
+  if (!is.null(sd_type)) {
     sd_type <- sprintf(
       "Estimated using %spooled SD.",
       ifelse(sd_type, "", "un-")
@@ -179,7 +182,6 @@ format.effectsize_difference <- function(x, digits = 2, ...) {
 }
 
 #' @export
-#' @importFrom utils as.roman
 format.effectsize_anova <- function(x, digits = 2, ...) {
   footer <- caption <- subtitle <- NULL
 
@@ -198,7 +200,7 @@ format.effectsize_anova <- function(x, digits = 2, ...) {
     if (isTRUE(obs)) {
       obs <- "All"
     } else {
-      obs <- paste0(obs, collapse = ", ")
+      obs <- toString(obs)
     }
     gen_footer <- sprintf("Observed variables: %s", obs)
     footer <- c(footer, gen_footer)

@@ -65,20 +65,16 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       df_error = unname(model$parameter)
     )
   } else {
-    if (grepl(" by ", model$data.name, fixed = TRUE)) {
+    if (ncol(data) == 2) {
       data[[2]] <- factor(data[[2]])
     }
+    data <- stats::na.omit(data)
 
     args <- list(
       x = data[[1]],
       y = if (ncol(data) == 2) data[[2]],
       pooled_sd = !grepl("Welch", model$method, fixed = TRUE)
     )
-
-    if (!isTRUE(dots$paired)) {
-      args$x <- stats::na.omit(args$x)
-      args$y <- stats::na.omit(args$y)
-    }
 
     if (type %in% c("d", "g")) {
       f <- switch(tolower(type),
@@ -344,6 +340,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   .fail_if_approx(approx, type)
 
+  if (ncol(data) == 2) {
+    data[[2]] <- factor(data[[2]])
+  }
+  data <- stats::na.omit(data)
+
   f <- switch(tolower(type),
     rb = rank_biserial,
     u1 = cohens_u1,
@@ -360,11 +361,6 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     y = if (ncol(data) == 2) data[[2]],
     verbose = verbose
   )
-
-  if (!isTRUE(dots$paired)) {
-    args$x <- na.omit(args$x)
-    args$y <- na.omit(args$y)
-  }
 
   if (tolower(type) != "rb") {
     if (dots$paired) {

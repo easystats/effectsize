@@ -18,8 +18,6 @@ eta_squared_posterior <- function(model,
 }
 
 #' @export
-#' @importFrom stats lm setNames
-#' @importFrom insight find_formula get_predictors find_response check_if_installed
 eta_squared_posterior.stanreg <- function(model,
                                           partial = TRUE,
                                           generalized = FALSE,
@@ -111,7 +109,6 @@ eta_squared_posterior.brmsfit <- eta_squared_posterior.stanreg
 
 
 #' #' @keywords internal
-#' #' @importFrom stats contrasts
 #' .all_centered <- function(X) {
 #'   numeric <- sapply(X, inherits, what = c("numeric", "integer"))
 #'   numerics <- colnames(X)[numeric]

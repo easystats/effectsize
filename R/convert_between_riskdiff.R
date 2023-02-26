@@ -73,7 +73,7 @@ oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, verbose = TRUE, 
   if (used_intercept) {
     p0 <- RR[["Coefficient"]][RR$Parameter == "(Intercept)"]
     if (!log) p0 <- log(p0)
-    p0 <- plogis(p0)
+    p0 <- stats::plogis(p0)
 
     if (verbose) {
       insight::format_warning(

@@ -31,7 +31,6 @@ convert_odds_to_probs <- odds_to_probs
 
 
 #' @export
-#' @importFrom stats plogis
 odds_to_probs.numeric <- function(odds, log = FALSE, ...) {
   if (log) {
     stats::plogis(odds)
@@ -59,7 +58,6 @@ probs_to_odds <- function(probs, log = FALSE, ...) {
 convert_probs_to_odds <- probs_to_odds
 
 #' @export
-#' @importFrom stats qlogis
 probs_to_odds.numeric <- function(probs, log = FALSE, ...) {
   if (log) {
     stats::qlogis(probs)
