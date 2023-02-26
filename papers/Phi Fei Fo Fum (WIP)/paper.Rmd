@@ -1,32 +1,32 @@
 ---
 title: "Phi, Fei, Fo, Fum: Effect Sizes for Chi-squared Tests"
-authors:
-- name: Mattan S. Ben-Shachar
-  affil: 1, *
-  orcid: 0000-0002-4287-4801
-- name: Indrajeet Patil
-  affil: 2
-  orcid: 0000-0003-1995-6531
-- name: Rémi Thériault
-  affil: 3
-  orcid: 0000-0003-4315-6788
-- name: Brenton M. Wiernik
-  affil: 4
-  orcid: 0000-0001-9560-6336
-- name: Daniel Lüdecke 
-  affil: 5
-  orcid: 0000-0002-8895-3206
-affiliations:
-- num: 1
-  address: Independent researcher
-- num: 2
-  address: Center for Humans and Machines, Max Planck Institute for Human Development, Berlin, Germany  
-- num: 3
-  address: Université du Québec à Montréal, Montréal, Québec
-- num: 4
-  address: Independent researcher
-- num: 5
-  address: Institute of Medical Sociology, University Medical Center Hamburg-Eppendorf, Germany
+author:
+  - name: Mattan S. Ben-Shachar
+    affil: 1, *
+    orcid: 0000-0002-4287-4801
+  - name: Indrajeet Patil
+    affil: 2
+    orcid: 0000-0003-1995-6531
+  - name: Rémi Thériault
+    affil: 3
+    orcid: 0000-0003-4315-6788
+  - name: Brenton M. Wiernik
+    affil: 4
+    orcid: 0000-0001-9560-6336
+  - name: Daniel Lüdecke 
+    affil: 5
+    orcid: 0000-0002-8895-3206
+affiliation:
+  - num: 1
+    address: Independent researcher
+  - num: 2
+    address: Center for Humans and Machines, Max Planck Institute for Human Development, Berlin, Germany  
+  - num: 3
+    address: Department of Psychology, Université du Québec à Montréal, Montréal, Québec, Canada
+  - num: 4
+    address: Independent researcher
+  - num: 5
+    address: Institute of Medical Sociology, University Medical Center Hamburg-Eppendorf, Germany
 journal: "mathematics"
 type: article
 status: submit
@@ -55,7 +55,9 @@ conflictsofinterest: |
 abbreviations:
   - short: ToDo
     long: ToDo
-output: rticles::mdpi_article
+output:
+  rticles::mdpi_article:
+    latex_engine: xelatex
 ---
 
 ```{r setup, include=FALSE}
