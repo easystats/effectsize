@@ -60,7 +60,6 @@ d_to_p_superiority <- function(d) {
 }
 
 #' @export
-#' @importFrom stats pnorm
 d_to_p_superiority.numeric <- function(d) {
   stats::pnorm(d / sqrt(2))
 }
@@ -89,7 +88,6 @@ d_to_u2 <- function(d) {
 }
 
 #' @export
-#' @importFrom stats pnorm
 d_to_u2.numeric <- function(d) {
   stats::pnorm(abs(d) / 2)
 }
@@ -117,7 +115,6 @@ d_to_u3 <- function(d) {
 }
 
 #' @export
-#' @importFrom stats pnorm
 d_to_u3.numeric <- function(d) {
   stats::pnorm(d)
 }
@@ -132,7 +129,6 @@ d_to_overlap <- function(d) {
 }
 
 #' @export
-#' @importFrom stats pnorm
 d_to_overlap.numeric <- function(d) {
   2 * stats::pnorm(-abs(d) / 2)
 }

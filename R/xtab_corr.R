@@ -99,7 +99,6 @@
 #' tests to effect sizes for meta-analysis. PloS one, 5(4), e10059.
 #'
 #'
-#' @importFrom stats chisq.test
 #' @export
 phi <- function(x, y = NULL,
                 adjust = TRUE,
@@ -118,7 +117,6 @@ phi <- function(x, y = NULL,
 }
 
 #' @rdname phi
-#' @importFrom stats chisq.test
 #' @export
 cramers_v <- function(x, y = NULL,
                       adjust = TRUE,
@@ -138,7 +136,6 @@ cramers_v <- function(x, y = NULL,
 
 
 #' @rdname phi
-#' @importFrom stats chisq.test
 #' @export
 tschuprows_t <- function(x, y = NULL,
                          ci = 0.95, alternative = "greater",
@@ -156,7 +153,6 @@ tschuprows_t <- function(x, y = NULL,
 }
 
 #' @rdname phi
-#' @importFrom stats chisq.test
 #' @export
 cohens_w <- function(x, y = NULL, p = rep(1, length(x)),
                      ci = 0.95, alternative = "greater",
@@ -178,7 +174,6 @@ cohens_w <- function(x, y = NULL, p = rep(1, length(x)),
 
 
 #' @rdname phi
-#' @importFrom stats chisq.test
 #' @export
 fei <- function(x, p = rep(1, length(x)),
                 ci = 0.95, alternative = "greater",
@@ -196,7 +191,6 @@ fei <- function(x, p = rep(1, length(x)),
 }
 
 #' @rdname phi
-#' @importFrom stats chisq.test
 #' @export
 pearsons_c <- function(x, y = NULL, p = rep(1, length(x)),
                        ci = 0.95, alternative = "greater",

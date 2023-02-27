@@ -315,7 +315,6 @@ cohens_f_squared <- function(model,
 
 
 #' @keywords internal
-#' @importFrom insight model_info
 .cohens_f_delta <- function(model, model2,
                             squared = FALSE,
                             ci = 0.95, alternative = "greater",
@@ -329,7 +328,7 @@ cohens_f_squared <- function(model,
   }
 
   # Anova
-  ANOVA <- anova(model, model2)
+  ANOVA <- stats::anova(model, model2)
   out <- F_to_f(ANOVA[2, "F"], abs(ANOVA[2, "Df"]), min(ANOVA["Res.Df"]),
     ci = ci, alternative = alternative,
     squared = squared
@@ -737,7 +736,6 @@ cohens_f_squared <- function(model,
   }
 
 #' @keywords internal
-#' @importFrom stats anova
 .anova_es.default <- function(model,
                               type = c("eta", "omega", "epsilon"),
                               partial = TRUE,
@@ -757,8 +755,6 @@ cohens_f_squared <- function(model,
 }
 
 #' @keywords internal
-#' @importFrom parameters model_parameters
-#' @importFrom stats anova
 .anova_es.aov <- function(model,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,
@@ -793,8 +789,6 @@ cohens_f_squared <- function(model,
 .anova_es.manova <- .anova_es.aov
 
 #' @keywords internal
-#' @importFrom parameters model_parameters
-#' @importFrom insight find_predictors
 .anova_es.aovlist <- function(model,
                               type = c("eta", "omega", "epsilon"),
                               partial = TRUE,

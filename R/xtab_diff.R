@@ -56,7 +56,6 @@
 #' nnt(RCT_table)
 #'
 #' @export
-#' @importFrom stats chisq.test qnorm
 oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...) {
   alternative <- .match.alt(alternative)
 
@@ -117,7 +116,6 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
 
 #' @rdname oddsratio
 #' @export
-#' @importFrom stats chisq.test qnorm
 riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...) {
   alternative <- .match.alt(alternative)
 
@@ -181,7 +179,6 @@ riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
 
 #' @rdname oddsratio
 #' @export
-#' @importFrom stats qnorm
 cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   alternative <- .match.alt(alternative)
 
@@ -238,7 +235,6 @@ cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
 
 #' @rdname oddsratio
 #' @export
-#' @importFrom stats qnorm
 arr <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   alternative <- .match.alt(alternative)
 
@@ -295,7 +291,6 @@ arr <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
 
 #' @rdname oddsratio
 #' @export
-#' @importFrom stats qnorm
 nnt <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   alternative <- .match.alt(alternative)
 

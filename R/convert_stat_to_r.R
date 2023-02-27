@@ -131,7 +131,6 @@ t_to_r <- function(t, df_error,
 
 
 #' @rdname t_to_r
-#' @importFrom stats qnorm
 #' @export
 z_to_r <- function(z, n,
                    ci = 0.95, alternative = "two.sided",
