@@ -1,160 +1,141 @@
-This is LuaHBTeX, Version 1.16.0 (MiKTeX 23.1) (format=lualatex 2023.2.25)  25 FEB 2023 17:10
- restricted system commands enabled.
-**paper.tex
-(./paper.tex
-LaTeX2e <2022-11-01> patch level 1
-Lua module: luaotfload 2022-10-03 3.23 Lua based OpenType font support
-Lua module: lualibs 2022-10-04 2.75 ConTeXt Lua standard libraries.
-Lua module: lualibs-extended 2022-10-04 2.75 ConTeXt Lua libraries -- extended c
-ollection.
-luaotfload | conf : Root cache directory is "C:/Users/there/AppData/Local/MiKTeX
-/luatex-cache/generic/names".
-luaotfload | init : Loading fontloader "fontloader-2022-10-03.lua" from kpse-res
-olved path "C:/Users/there/AppData/Local/Programs/MiKTeX/tex/luatex/luaotfload/f
-ontloader-2022-10-03.lua".
-Lua-only attribute luaotfload@noligature = 1
-luaotfload | init : Context OpenType loader version 3.120
-Inserting `luaotfload.node_processor' in `pre_linebreak_filter'.
-Inserting `luaotfload.node_processor' in `hpack_filter'.
-Inserting `luaotfload.glyph_stream' in `glyph_stream_provider'.
-Inserting `luaotfload.define_font' in `define_font'.
-Lua-only attribute luaotfload_color_attribute = 2
-luaotfload | conf : Root cache directory is "C:/Users/there/AppData/Local/MiKTeX
-/luatex-cache/generic/names".
-Inserting `luaotfload.harf.strip_prefix' in `find_opentype_file'.
-Inserting `luaotfload.harf.strip_prefix' in `find_truetype_file'.
-Removing  `luaotfload.glyph_stream' from `glyph_stream_provider'.
-Inserting `luaotfload.harf.glyphstream' in `glyph_stream_provider'.
-Inserting `luaotfload.harf.finalize_vlist' in `post_linebreak_filter'.
-Inserting `luaotfload.harf.finalize_hlist' in `hpack_filter'.
-Inserting `luaotfload.cleanup_files' in `wrapup_run'.
-Inserting `luaotfload.harf.finalize_unicode' in `finish_pdffile'.
-Inserting `luaotfload.glyphinfo' in `glyph_info'.
-Lua-only attribute luaotfload.letterspace_done = 3
-Inserting `luaotfload.aux.set_sscale_dimens' in `luaotfload.patch_font'.
-Inserting `luaotfload.aux.set_font_index' in `luaotfload.patch_font'.
-Inserting `luaotfload.aux.patch_cambria_domh' in `luaotfload.patch_font'.
-Inserting `luaotfload.aux.fixup_fontdata' in `luaotfload.patch_font_unsafe'.
-Inserting `luaotfload.aux.set_capheight' in `luaotfload.patch_font'.
-Inserting `luaotfload.aux.set_xheight' in `luaotfload.patch_font'.
-Inserting `luaotfload.rewrite_fontname' in `luaotfload.patch_font'. L3 programm
-ing layer <2023-02-02>
-Inserting `tracingstacklevels' in `input_level_string'. (./mdpi.cls
-Document Class: mdpi 15/02/2019 MDPI paper class
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/base/article.cls
-Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/base/size10.clo
-File: size10.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
-luaotfload | db : Font names database loaded from C:/Users/there/AppData/Local/M
-iKTeX/luatex-cache/generic/names/luaotfload-names.luc.gz)
-\c@part=\count183
-\c@section=\count184
-\c@subsection=\count185
-\c@subsubsection=\count186
-\c@paragraph=\count187
-\c@subparagraph=\count188
-\c@figure=\count189
-\c@table=\count190
-\abovecaptionskip=\skip48
-\belowcaptionskip=\skip49
-\bibindent=\dimen139
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/base/fontenc.sty
+This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 22.7.30) (preloaded format=xelatex 2023.2.2)  2 MAR 2023 17:34
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**./paper.tex
+(paper.tex
+LaTeX2e <2022-06-01> patch level 5
+L3 programming layer <2022-09-28> (mdpi.cls
+
+LaTeX Warning: You have requested document class `mdpi',
+               but the document class provides `Definitions/mdpi'.
+
+Document Class: Definitions/mdpi 22/12/2022 MDPI paper class
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\size10.clo
+File: size10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count181
+\c@section=\count182
+\c@subsection=\count183
+\c@subsubsection=\count184
+\c@paragraph=\count185
+\c@subparagraph=\count186
+\c@figure=\count187
+\c@table=\count188
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+) (C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 LaTeX Font Info:    Trying to load font information for T1+lmr on input line 11
 2.
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/lm/t1lmr.fd
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/base/inputenc.sty
+)) (C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\inputenc.sty
 Package: inputenc 2021/02/14 v1.3d Input encoding file
 \inpenc@prehook=\toks16
 \inpenc@posthook=\toks17
 
 Package inputenc Warning: inputenc package ignored with utf8 based engines.
 
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/tools/calc.sty
+) (C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count191
-\calc@Bcount=\count192
-\calc@Adimen=\dimen140
-\calc@Bdimen=\dimen141
-\calc@Askip=\skip50
-\calc@Bskip=\skip51
+\calc@Acount=\count189
+\calc@Bcount=\count190
+\calc@Adimen=\dimen139
+\calc@Bdimen=\dimen140
+\calc@Askip=\skip49
+\calc@Bskip=\skip50
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count193
-\calc@Cskip=\skip52
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/tools/indentfirst.sty
+\calc@Ccount=\count191
+\calc@Cskip=\skip51
+)
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\indentfirst.st
+y
 Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/fancyhdr/fancyhdr.sty
+)
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fancyhdr\fancyhdr.st
+y
 Package: fancyhdr 2022/11/09 v4.1 Extensive control of page headers and footers
 
-\f@nch@headwidth=\skip53
-\f@nch@O@elh=\skip54
-\f@nch@O@erh=\skip55
-\f@nch@O@olh=\skip56
-\f@nch@O@orh=\skip57
-\f@nch@O@elf=\skip58
-\f@nch@O@erf=\skip59
-\f@nch@O@olf=\skip60
-\f@nch@O@orf=\skip61
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/graphics/graphicx.sty
+\f@nch@headwidth=\skip52
+\f@nch@O@elh=\skip53
+\f@nch@O@erh=\skip54
+\f@nch@O@olh=\skip55
+\f@nch@O@orh=\skip56
+\f@nch@O@elf=\skip57
+\f@nch@O@erf=\skip58
+\f@nch@O@olf=\skip59
+\f@nch@O@orf=\skip60
+)
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphicx.st
+y
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/graphics/keyval.sty
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks18
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/graphics/graphics.sty
+)
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphics.st
+y
 Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/graphics/trig.sty
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\trig.sty
 Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
 )
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/graphics-cfg/graphics.c
-fg
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\graphic
+s.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
 
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-def\pdftex.
+def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen142
-\Gin@req@width=\dimen143
+\Gin@req@height=\dimen141
+\Gin@req@width=\dimen142
 )
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/epstopdf-pkg/epstopdf.s
-ty
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/epstopdf-pkg\epstopd
+f.sty
 Package: epstopdf 2020-01-24 v2.11 Conversion with epstopdf on the fly (HO)
 
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/generic/infwarerr/infwarerr.s
-ty
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/generic/infwarerr\infwarer
+r.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/grfext/grfext.sty
+) (C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/grfext\grfext.sty
 Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
 
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/generic/kvdefinekeys/kvdefine
-keys.sty
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/generic/kvdefinekeys\kvdef
+inekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
 ))
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/kvoptions/kvoptions.sty
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/kvoptions\kvoptions.
+sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/generic/ltxcmds/ltxcmds.sty
+
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/generic/ltxcmds\ltxcmds.st
+y
 Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
 )
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/kvsetkeys/kvsetkeys.sty
-Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/generic/kvsetkeys\kvsetkey
+s.sty
+Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
 ))
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/generic/pdftexcmds/pdftexcmds
-.sty
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/generic/pdftexcmds\pdftexc
+mds.sty
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
 )
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/generic/iftex/iftex.sty
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/generic/iftex\iftex.sty
 Package: iftex 2022/02/03 v1.0f TeX engine tests
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-\pdftexcmds@toks=\toks19
+Package pdftexcmds Info: \pdfdraftmode not found.
 )
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/epstopdf-pkg/epstopdf-b
-ase.sty
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/epstopdf-pkg\epstopd
+f-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
@@ -163,45 +144,48 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 504.
 
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/00miktex/epstopdf-sys.c
-fg
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/00miktex\epstopdf-sy
+s.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
-))) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/lastpage/lastpage.s
-ty
+)))
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lastpage\lastpage.st
+y
 Package: lastpage 2021/09/03 v1.2n Refers to last page's name (HMM; JPG)
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/base/ifthen.sty
+) (C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\ifthen.sty
 Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/float/float.sty
+) (C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count194
-\float@exts=\toks20
+\c@float@type=\count192
+\float@exts=\toks19
 \float@box=\box51
-\@float@everytoks=\toks21
+\@float@everytoks=\toks20
 \@floatcapt=\box52
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsmath.sty
+) (C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsmath.st
+y
 Package: amsmath 2022/04/08 v2.17n AMS math features
-\@mathmargin=\skip62
+\@mathmargin=\skip61
 For additional information on amsmath, use the `?' option.
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amstext.sty
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amstext.sty
 Package: amstext 2021/08/26 v2.01 AMS text
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsgen.sty
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks22
-\ex@=\dimen144
-)) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsbsy.sty
+\@emptytoks=\toks21
+\ex@=\dimen143
+)) (C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsbsy.st
+y
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen145
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsopn.sty
+\pmbraise@=\dimen144
+) (C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count195
-LaTeX Info: Redefining \frac on input line 236.
-\uproot@=\count196
-\leftroot@=\count197
+\inf@bad=\count193
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count194
+\leftroot@=\count195
 LaTeX Info: Redefining \overline on input line 399.
 LaTeX Info: Redefining \colon on input line 410.
-\classnum@=\count198
-\DOTSCASE@=\count199
+\classnum@=\count196
+\DOTSCASE@=\count197
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
@@ -211,128 +195,141 @@ LaTeX Info: Redefining \big on input line 722.
 LaTeX Info: Redefining \Big on input line 723.
 LaTeX Info: Redefining \bigg on input line 724.
 LaTeX Info: Redefining \Bigg on input line 725.
-\big@size=\dimen146
+\big@size=\dimen145
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
-\macc@depth=\count266
+\macc@depth=\count198
 LaTeX Info: Redefining \bmod on input line 905.
 LaTeX Info: Redefining \pmod on input line 910.
 LaTeX Info: Redefining \smash on input line 940.
 LaTeX Info: Redefining \relbar on input line 970.
 LaTeX Info: Redefining \Relbar on input line 971.
-\c@MaxMatrixCols=\count267
+\c@MaxMatrixCols=\count199
 \dotsspace@=\muskip16
-\c@parentequation=\count268
-\dspbrk@lvl=\count269
-\tag@help=\toks23
-\row@=\count270
-\column@=\count271
-\maxfields@=\count272
-\andhelp@=\toks24
-\eqnshift@=\dimen147
-\alignsep@=\dimen148
-\tagshift@=\dimen149
-\tagwidth@=\dimen150
-\totwidth@=\dimen151
-\lineht@=\dimen152
-\@envbody=\toks25
-\multlinegap=\skip63
-\multlinetaggap=\skip64
-\mathdisplay@stack=\toks26
+\c@parentequation=\count266
+\dspbrk@lvl=\count267
+\tag@help=\toks22
+\row@=\count268
+\column@=\count269
+\maxfields@=\count270
+\andhelp@=\toks23
+\eqnshift@=\dimen146
+\alignsep@=\dimen147
+\tagshift@=\dimen148
+\tagwidth@=\dimen149
+\totwidth@=\dimen150
+\lineht@=\dimen151
+\@envbody=\toks24
+\multlinegap=\skip62
+\multlinetaggap=\skip63
+\mathdisplay@stack=\toks25
 LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/lineno/lineno.sty
-Package: lineno 2023/01/19 line numbers on paragraphs v5.1
-\linenopenalty=\count273
-\output=\toks27
-\linenoprevgraf=\count274
-\linenumbersep=\dimen153
-\linenumberwidth=\dimen154
-\c@linenumber=\count275
-\c@pagewiselinenumber=\count276
-\c@LN@truepage=\count277
-\c@internallinenumber=\count278
-\c@internallinenumbers=\count279
-\quotelinenumbersep=\dimen155
-\bframerule=\dimen156
-\bframesep=\dimen157
-\bframebox=\box55
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count280
 )
-\linenoamsmath@ams@eqpen=\count281
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\amsfonts.st
+y
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lineno\lineno.sty
+Package: lineno 2023/01/19 line numbers on paragraphs v5.1
+Invalid UTF-8 byte or sequence at line 290 replaced by U+FFFD.
+\linenopenalty=\count271
+\output=\toks26
+\linenoprevgraf=\count272
+\linenumbersep=\dimen152
+\linenumberwidth=\dimen153
+\c@linenumber=\count273
+\c@pagewiselinenumber=\count274
+\c@LN@truepage=\count275
+\c@internallinenumber=\count276
+\c@internallinenumbers=\count277
+\quotelinenumbersep=\dimen154
+\bframerule=\dimen155
+\bframesep=\dimen156
+\bframebox=\box55
+
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/etoolbox\etoolbox.st
+y
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count278
+)
+\linenoamsmath@ams@eqpen=\count279
 LaTeX Info: Redefining \\ on input line 3131.
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/setspace/setspace.sty
-Package: setspace 2022/12/04 v6.7b set line spacing
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/enumitem/enumitem.sty
+)
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/setspace\setspace.st
+y
+Package: setspace 2011/12/19 v6.7a set line spacing
+)
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/enumitem\enumitem.st
+y
 Package: enumitem 2019/06/20 v3.9 Customized lists
-\labelindent=\skip65
-\enit@outerparindent=\dimen158
-\enit@toks=\toks28
+\labelindent=\skip64
+\enit@outerparindent=\dimen157
+\enit@toks=\toks27
 \enit@inbox=\box56
-\enit@count@id=\count282
-\enitdp@description=\count283
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/psnfss/mathpazo.sty
+\enit@count@id=\count280
+\enitdp@description=\count281
+) (C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/psnfss\mathpazo.st
+y
 Package: mathpazo 2020/03/25 PSNFSS-v9.3 Palatino w/ Pazo Math (D.Puga, WaS) 
-\symupright=\mathgroup4
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/booktabs/booktabs.sty
+\symupright=\mathgroup6
+)
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/booktabs\booktabs.st
+y
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen159
-\lightrulewidth=\dimen160
-\cmidrulewidth=\dimen161
-\belowrulesep=\dimen162
-\belowbottomsep=\dimen163
-\aboverulesep=\dimen164
-\abovetopsep=\dimen165
-\cmidrulesep=\dimen166
-\cmidrulekern=\dimen167
-\defaultaddspace=\dimen168
-\@cmidla=\count284
-\@cmidlb=\count285
-\@aboverulesep=\dimen169
-\@belowrulesep=\dimen170
-\@thisruleclass=\count286
-\@lastruleclass=\count287
-\@thisrulewidth=\dimen171
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/titlesec/titlesec.sty
+\heavyrulewidth=\dimen158
+\lightrulewidth=\dimen159
+\cmidrulewidth=\dimen160
+\belowrulesep=\dimen161
+\belowbottomsep=\dimen162
+\aboverulesep=\dimen163
+\abovetopsep=\dimen164
+\cmidrulesep=\dimen165
+\cmidrulekern=\dimen166
+\defaultaddspace=\dimen167
+\@cmidla=\count282
+\@cmidlb=\count283
+\@aboverulesep=\dimen168
+\@belowrulesep=\dimen169
+\@thisruleclass=\count284
+\@lastruleclass=\count285
+\@thisrulewidth=\dimen170
+)
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/titlesec\titlesec.st
+y
 Package: titlesec 2021/07/05 v2.14 Sectioning titles
 \ttl@box=\box57
-\beforetitleunit=\skip66
-\aftertitleunit=\skip67
-\ttl@plus=\dimen172
-\ttl@minus=\dimen173
-\ttl@toksa=\toks29
-\titlewidth=\dimen174
-\titlewidthlast=\dimen175
-\titlewidthfirst=\dimen176
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/tabto-ltx/tabto.sty
+\beforetitleunit=\skip65
+\aftertitleunit=\skip66
+\ttl@plus=\dimen171
+\ttl@minus=\dimen172
+\ttl@toksa=\toks28
+\titlewidth=\dimen173
+\titlewidthlast=\dimen174
+\titlewidthfirst=\dimen175
+) (C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tabto-ltx\tabto.st
+y
 Package: tabto 2018/12/28  v 1.4  Another tabbing mechanism
-\CurrentLineWidth=\dimen177
-\TabPrevPos=\dimen178
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty
+\CurrentLineWidth=\dimen176
+\TabPrevPos=\dimen177
+) (C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xcolor\xcolor.sty
 Package: xcolor 2022/06/12 v2.14 LaTeX color extensions (UK)
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/graphics-cfg/color.cfg
+
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\color.c
+fg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 227.
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/colortbl/colortbl.sty
-Package: colortbl 2022/06/20 v1.0f Color table columns (DPC)
-(C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/tools/array.sty
-Package: array 2022/03/10 v2.5f Tabular extension package (FMi)
-\col@sep=\dimen179
-\ar@mcellbox=\box58
-\extrarowheight=\dimen180
-\NC@list=\toks30
-\extratabsurround=\skip68
-\backup@length=\skip69
-\ar@cellbox=\box59
-)
-\everycr=\toks31
-\minrowclearance=\skip70
-\rownum=\count288
-) (C:/Users/there/AppData/Local/Programs/MiKTeX/tex/latex/graphics/mathcolor.lt
-x)
+
+(C:\Users\mail\AppData\Local\Programs\MiKTeX 2.9\tex/latex-dev/graphics\mathcol
+or.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1353.
 Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1357.
 Package xcolor Info: Model `RGB' extended on input line 1369.
@@ -346,16 +343,14 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
 \set@color ->\pdfcolorstack 
                             \@pdfcolorstack push{\current@color }\aftergroup...
 l.1462 \color{black}
-                  
+                     
+Here is how much of TeX's memory you used:
+ 5254 strings out of 410500
+ 76255 string characters out of 2811679
+ 412721 words of memory out of 3000000
+ 26391 multiletter control sequences out of 15000+600000
+ 472257 words of font info for 30 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 70i,0n,76p,263b,91s stack positions out of 10000i,1000n,20000p,200000b,80000s
 
-Here is how much of LuaTeX's memory you used:
- 5170 strings out of 478326
- 100000,1977958 words of node,token memory allocated
- 447 words of node memory still in use:
-   3 hlist, 1 rule, 1 dir, 3 kern, 1 glyph, 4 attribute, 59 glue_spec, 4 attribu
-te_list, 2 if_stack, 1 write nodes
-   avail lists: 2:12,3:2,4:1,7:5,8:2,9:2
- 25039 multiletter control sequences out of 65536+600000
- 16 fonts using 806111 bytes
- 70i,0n,72p,234b,85s stack positions out of 10000i,1000n,20000p,200000b,200000s
-!  ==> Fatal error occurred, no output PDF file produced!
+No pages of output.
