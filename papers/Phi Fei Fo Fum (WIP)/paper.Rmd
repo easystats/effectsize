@@ -56,8 +56,9 @@ abbreviations:
   - short: ToDo
     long: ToDo
 output:
-  rticles::mdpi_article:
-    latex_engine: xelatex
+  word_document:
+    toc: false
+    toc_depth: 3
 ---
 
 ```{r setup, include=FALSE}
