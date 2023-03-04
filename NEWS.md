@@ -7,7 +7,7 @@
 
 ## Changes
 
-- `fei()` gives a more informative error method for invalid for table inputs (#566).
+- `fei()` gives a more informative error method for invalid table inputs (#566).
 
 # effectsize 0.8.3
 
