@@ -10,7 +10,7 @@ test_that("contingency table", {
 
   expect_equal(res$Cramers_v, 0.072, tolerance = 0.01)
   expect_equal(res$CI_low, 0.051, tolerance = 0.01)
-  expect_identical(res$CI_high, 1L)
+  expect_equal(res$CI_high, 1)
 
   expect_error(phi(contingency_table), "appropriate")
 
@@ -26,7 +26,7 @@ test_that("contingency table", {
   cv1 <- cramers_v(xtab, adjust = FALSE)
   cv2 <- cramers_v(xtab / 2, adjust = FALSE)
 
-  expect_identical(cv1$Cramers_v, cv2$Cramers_v)
+  expect_equal(cv1$Cramers_v, cv2$Cramers_v)
 
   # Upper bound of phi is the ratio between phi / V and sqrt(min(K,L)-1)
   expect_equal(cohens_w(xtab, alternative = "greater")$CI_high, sqrt(2), tolerance = 1e-4)
@@ -37,7 +37,7 @@ test_that("contingency table", {
     c(9, 0, 1),
     c(0, 1, 0)
   )
-  expect_identical(cramers_v(xtab, adjust = FALSE)[[1]], 1L)
+  expect_equal(cramers_v(xtab, adjust = FALSE)[[1]], 1)
   expect_lt(tschuprows_t(xtab)[[1]], cramers_v(xtab, adjust = FALSE)[[1]])
 
 
@@ -64,7 +64,7 @@ test_that("contingency table", {
   )
 
   V <- cramers_v(xtab, adjust = FALSE)[[1]]
-  expect_identical(V, 1L)
+  expect_equal(V, 1)
   expect_lt(pearsons_c(xtab)[[1]], V) # C is not perfect
 
 
@@ -86,9 +86,9 @@ test_that("contingency table", {
   ## 0
   xtab <- table(mtcars$am, mtcars$vs)
   phi3 <- phi(xtab, adjust = TRUE)
-  expect_identical(phi3$phi_adjusted, 0L)
-  expect_identical(phi3$CI_low, 0L)
-  expect_identical(phi3$CI_high, 1L)
+  expect_equal(phi3$phi_adjusted, 0)
+  expect_equal(phi3$CI_low, 0)
+  expect_equal(phi3$CI_high, 1)
 })
 
 
@@ -101,7 +101,7 @@ test_that("goodness of fit", {
   Fei1 <- fei(table(mtcars$cyl), p = c(0.34375, 0.21875, 0.43750))
   Fei2 <- fei(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
 
-  expect_identical(w1[[1]], 0L)
+  expect_equal(w1[[1]], 0)
   expect_lt(w1[[1]], w2[[1]])
   expect_lt(Fei1[[1]], Fei2[[1]])
   expect_lt(Fei2[[1]], w2[[1]])
@@ -112,7 +112,7 @@ test_that("goodness of fit", {
 
   C <- pearsons_c(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
   expect_equal(C[[1]], sqrt(49.289 / (49.289 + sum(table(mtcars$cyl)))), tolerance = 0.001)
-  expect_identical(C$CI_high, 1L)
+  expect_equal(C$CI_high, 1)
 
   # some weird exeptions...
   df <- subset(mtcars, am == "0")
