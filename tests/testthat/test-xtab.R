@@ -62,7 +62,7 @@ test_that("contingency table", {
     c(100, 0),
     c(0, 200)
   )
-  
+
   V <- cramers_v(xtab, adjust = FALSE)[[1]]
   expect_identical(V, 1L)
   expect_lt(pearsons_c(xtab)[[1]], V) # C is not perfect
