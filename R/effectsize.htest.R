@@ -121,7 +121,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   if (is.null(type)) type <- "cramers_v"
 
-  if (grepl("(c|v|t|w|phi|fei)$", tolower(type)) && tolower(type) != "nnt") {
+  if (grepl("(c|v|t|w|phi)$", tolower(type)) && tolower(type) != "nnt") {
     f <- switch(tolower(type),
       v = ,
       cramers_v = chisq_to_cramers_v,
@@ -131,8 +131,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       cohens_w = chisq_to_cohens_w,
       phi = chisq_to_phi,
       c = ,
-      pearsons_c = chisq_to_pearsons_c,
-      fei = chisq_to_fei
+      pearsons_c = chisq_to_pearsons_c
     )
 
     out <- f(

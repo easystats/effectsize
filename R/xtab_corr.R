@@ -179,8 +179,9 @@ fei <- function(x, p = rep(1, length(x)),
                 ci = 0.95, alternative = "greater",
                 ...) {
   alternative <- .match.alt(alternative, FALSE)
+  check_1d_table <- dim(x)
 
-  if (inherits(x, "BFBayesFactor")) {
+  if (inherits(x, "BFBayesFactor") || (!is.null(check_1d_table) && check_1d_table[2] > 1)) {
     insight::format_error("Fei is only applicable to goodness of fit tests.")
   } else if (!.is_htest_of_type(x, "Chi-squared test for given probabilities", "Chi-squared-test")) {
     x <- suppressWarnings(stats::chisq.test(x, y = NULL, p = p, rescale.p = TRUE))
