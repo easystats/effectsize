@@ -180,8 +180,9 @@ fei <- function(x, p = rep(1, length(x)),
                 ...) {
   alternative <- .match.alt(alternative, FALSE)
   check_1d_table <- dim(x)
+  is_1d_table <- is.null(check_1d_table) || length(check_1d_table) == 1 || (length(check_1d_table) > 1 && check_1d_table[2] == 1)
 
-  if (inherits(x, "BFBayesFactor") || (!is.null(check_1d_table) && check_1d_table[2] > 1)) {
+  if (inherits(x, "BFBayesFactor") || !is_1d_table) {
     insight::format_error("Fei is only applicable to goodness of fit tests.")
   } else if (!.is_htest_of_type(x, "Chi-squared test for given probabilities", "Chi-squared-test")) {
     x <- suppressWarnings(stats::chisq.test(x, y = NULL, p = p, rescale.p = TRUE))
