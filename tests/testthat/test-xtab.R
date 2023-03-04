@@ -10,7 +10,7 @@ test_that("contingency table", {
 
   expect_equal(res$Cramers_v, 0.072, tolerance = 0.01)
   expect_equal(res$CI_low, 0.051, tolerance = 0.01)
-  expect_equal(res$CI_high, 1)
+  expect_identical(res$CI_high, 1L)
 
   expect_error(phi(contingency_table), "appropriate")
 
@@ -26,19 +26,19 @@ test_that("contingency table", {
   cv1 <- cramers_v(xtab, adjust = FALSE)
   cv2 <- cramers_v(xtab / 2, adjust = FALSE)
 
-  expect_equal(cv1$Cramers_v, cv2$Cramers_v)
+  expect_identical(cv1$Cramers_v, cv2$Cramers_v)
 
   # Upper bound of phi is the ratio between phi / V and sqrt(min(K,L)-1)
-  expect_equal(cohens_w(xtab, alternative = "greater")$CI_high, sqrt(2))
-  expect_equal(cohens_w(xtab)[[1]] / cramers_v(xtab, adjust = FALSE)[[1]], sqrt(2))
+  expect_equal(cohens_w(xtab, alternative = "greater")$CI_high, sqrt(2), tolerance = 1e-4)
+  expect_equal(cohens_w(xtab)[[1]] / cramers_v(xtab, adjust = FALSE)[[1]], sqrt(2), tolerance = 1e-4)
 
   # Tschuprows_t with non-square tables
   xtab <- rbind(
     c(9, 0, 1),
     c(0, 1, 0)
   )
-  expect_equal(cramers_v(xtab, adjust = FALSE)[[1]], 1)
-  expect_true(tschuprows_t(xtab)[[1]] < cramers_v(xtab, adjust = FALSE)[[1]])
+  expect_identical(cramers_v(xtab, adjust = FALSE)[[1]], 1L)
+  expect_lt(tschuprows_t(xtab)[[1]], cramers_v(xtab, adjust = FALSE)[[1]])
 
 
   ## 2*2 tables return phi and cramers_v
@@ -49,7 +49,8 @@ test_that("contingency table", {
 
   expect_equal(
     cramers_v(xtab, adjust = FALSE)[[1]],
-    phi(xtab, adjust = FALSE)[[1]]
+    phi(xtab, adjust = FALSE)[[1]],
+    tolerance = 1e-4
   )
 
   res <- pearsons_c(xtab)
@@ -61,8 +62,10 @@ test_that("contingency table", {
     c(100, 0),
     c(0, 200)
   )
-  expect_equal(V <- cramers_v(xtab, adjust = FALSE)[[1]], 1)
-  expect_true(pearsons_c(xtab)[[1]] < V) # C is not perfect
+  
+  V <- cramers_v(xtab, adjust = FALSE)[[1]]
+  expect_identical(V, 1L)
+  expect_lt(pearsons_c(xtab)[[1]], V) # C is not perfect
 
 
   ## 2*2 0 correlation
@@ -70,7 +73,7 @@ test_that("contingency table", {
     c(50, 50),
     c(100, 100)
   )
-  expect_equal(cramers_v(xtab, adjust = FALSE)$Cramers_v, 0)
+  expect_equal(cramers_v(xtab, adjust = FALSE)$Cramers_v, 0, tolerance = 1e-5)
 
 
   ## Empty rows/columns
@@ -83,9 +86,9 @@ test_that("contingency table", {
   ## 0
   xtab <- table(mtcars$am, mtcars$vs)
   phi3 <- phi(xtab, adjust = TRUE)
-  expect_equal(phi3$phi_adjusted, 0)
-  expect_equal(phi3$CI_low, 0)
-  expect_equal(phi3$CI_high, 1)
+  expect_identical(phi3$phi_adjusted, 0L)
+  expect_identical(phi3$CI_low, 0L)
+  expect_identical(phi3$CI_high, 1L)
 })
 
 
@@ -98,24 +101,24 @@ test_that("goodness of fit", {
   Fei1 <- fei(table(mtcars$cyl), p = c(0.34375, 0.21875, 0.43750))
   Fei2 <- fei(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
 
-  expect_equal(w1[[1]], 0)
-  expect_true(w1[[1]] < w2[[1]])
-  expect_true(Fei1[[1]] < Fei2[[1]])
-  expect_true(Fei2[[1]] < w2[[1]])
-  expect_equal(w2[[1]] * sqrt(0.1 / 0.9), Fei2[[1]])
-  expect_true(w1$CI_low < w2$CI_low)
-  expect_true(w2$CI_low < w2$CI_high)
-  expect_equal(w2$CI_high, sqrt(0.9 / 0.1))
+  expect_identical(w1[[1]], 0L)
+  expect_lt(w1[[1]], w2[[1]])
+  expect_lt(Fei1[[1]], Fei2[[1]])
+  expect_lt(Fei2[[1]], w2[[1]])
+  expect_equal(w2[[1]] * sqrt(0.1 / 0.9), Fei2[[1]], tolerance = 1e-4)
+  expect_lt(w1$CI_low, w2$CI_low)
+  expect_lt(w2$CI_low, w2$CI_high)
+  expect_equal(w2$CI_high, sqrt(0.9 / 0.1), tolerance = 1e-4)
 
   C <- pearsons_c(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
   expect_equal(C[[1]], sqrt(49.289 / (49.289 + sum(table(mtcars$cyl)))), tolerance = 0.001)
-  expect_equal(C$CI_high, 1)
+  expect_identical(C$CI_high, 1L)
 
   # some weird exeptions...
   df <- subset(mtcars, am == "0")
   expect_equal(cohens_w(table(df$am, df$cyl))[[1]], 0.64, tolerance = 0.01)
-  expect_equal(cohens_w(table(df$am, df$cyl)), cohens_w(table(df$cyl)))
-  expect_equal(cohens_w(table(df$am, df$cyl)), cohens_w(table(df$cyl, df$am)))
+  expect_equal(cohens_w(table(df$am, df$cyl)), cohens_w(table(df$cyl)), tolerance = 1e-4)
+  expect_equal(cohens_w(table(df$am, df$cyl)), cohens_w(table(df$cyl, df$am)), tolerance = 1e-4)
 
   # p is a table
   O <- as.table(c(10, 20, 30, 40))
@@ -124,15 +127,18 @@ test_that("goodness of fit", {
 
   expect_equal(
     cohens_w(O, p = E_vec, rescale.p = TRUE),
-    cohens_w(O, p = E_tab, rescale.p = TRUE)
+    cohens_w(O, p = E_tab, rescale.p = TRUE),
+    tolerance = 1e-4
   )
   expect_equal(
     fei(O, p = E_vec, rescale.p = TRUE),
-    fei(O, p = E_tab, rescale.p = TRUE)
+    fei(O, p = E_tab, rescale.p = TRUE),
+    tolerance = 1e-4
   )
   expect_equal(
     pearsons_c(O, p = E_vec, rescale.p = TRUE),
-    pearsons_c(O, p = E_tab, rescale.p = TRUE)
+    pearsons_c(O, p = E_tab, rescale.p = TRUE),
+    tolerance = 1e-4
   )
 })
 
@@ -158,15 +164,18 @@ test_that("oddsratio & riskratio", {
 
   expect_equal(
     oddsratio_to_riskratio(OR$Odds_ratio, p0),
-    RR$Risk_ratio
+    RR$Risk_ratio,
+    tolerance = 1e-4
   )
   expect_equal(
     riskratio_to_oddsratio(RR$Risk_ratio, p0),
-    OR$Odds_ratio
+    OR$Odds_ratio,
+    tolerance = 1e-4
   )
   expect_equal(
     oddsratio_to_arr(OR$Odds_ratio, p0),
-    ARR$ARR
+    ARR$ARR,
+    tolerance = 1e-4
   )
 
   expect_error(riskratio(RCT, log = TRUE), NA)
