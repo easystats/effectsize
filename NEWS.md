@@ -5,6 +5,10 @@
 - `arr()` and `nnt()` for Absolute Risk Reduction or Number Needed to Treat.
 - `oddsratio_to_arr()`, `riskratio_to_arr()`, `nnt_to_arr()` and their inverses.
 
+## Bug fixes
+
+- `fei()` now also works for table inputs (#566).
+
 # effectsize 0.8.3
 
 ## Changes
