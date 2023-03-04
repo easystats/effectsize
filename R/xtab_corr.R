@@ -180,8 +180,8 @@ fei <- function(x, p = rep(1, length(x)),
                 ...) {
   alternative <- .match.alt(alternative, FALSE)
   table_dim <- dim(x)
-  is_1d_table <- is.null(table_dim) ||            # vector
-    length(table_dim) == 1 ||                     # 1D table
+  is_1d_table <- is.null(table_dim) || # vector
+    length(table_dim) == 1 || # 1D table
     (length(table_dim) == 2 && table_dim[2] == 1) # matrix/data frame with 1 column
 
   if (inherits(x, "BFBayesFactor") || !is_1d_table) {
