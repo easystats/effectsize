@@ -192,7 +192,7 @@ test_that("oddsratio & riskratio", {
 })
 
 
-testthat("fei() for 1D tables", {
+test_that("fei() for 1D tables", {
   data(Titanic)
   Titanic_xtab <- as.table(apply(Titanic, c(2, 4), sum))
   expect_error(fei(Titanic_xtab))
