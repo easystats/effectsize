@@ -179,10 +179,10 @@ fei <- function(x, p = rep(1, length(x)),
                 ci = 0.95, alternative = "greater",
                 ...) {
   alternative <- .match.alt(alternative, FALSE)
-  check_1d_table <- dim(x)
-  is_1d_table <- is.null(check_1d_table) ||
-    length(check_1d_table) == 1 ||
-    (length(check_1d_table) > 1 && check_1d_table[2] == 1)
+  table_dim <- dim(x)
+  is_1d_table <- is.null(table_dim) ||
+    length(table_dim) == 1 ||
+    (length(table_dim) > 1 && table_dim[2] == 1)
 
   if (inherits(x, "BFBayesFactor") || !is_1d_table) {
     insight::format_error("Fei is only applicable to goodness of fit tests.")
