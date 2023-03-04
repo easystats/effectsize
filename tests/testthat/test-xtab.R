@@ -190,3 +190,11 @@ test_that("oddsratio & riskratio", {
   expect_equal(ARR$CI_low, -0.8092576, tolerance = 0.001)
   expect_equal(ARR$CI_high, -0.1690974, tolerance = 0.001)
 })
+
+
+testthat("fei() for 1D tables", {
+  data(Titanic)
+  Titanic_xtab <- as.table(apply(Titanic, c(2, 4), sum))
+  expect_error(fei(Titanic_xtab))
+  testthat::expect_no_error(fei(as.matrix(1:10)))
+})
