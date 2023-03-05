@@ -1,3 +1,5 @@
+# styler: off
+
 #' \eqn{\phi} and Other Contingency Tables Correlations
 #'
 #' Compute phi (\eqn{\phi}), Cramer's *V*, Tschuprow's *T*, Cohen's *w*,
@@ -185,6 +187,14 @@ fei <- function(x, p = rep(1, length(x)),
   } else if (!.is_htest_of_type(x, "Chi-squared test for given probabilities", "Chi-squared-test")) {
     x <- suppressWarnings(stats::chisq.test(x, y = NULL, p = p, rescale.p = TRUE))
     x$data.name <- NULL
+
+    table_dim <- dim(x$observed)
+    is_1d_table <- is.null(table_dim) ||            # vector
+      length(table_dim) == 1 ||                     # 1D table
+      (length(table_dim) == 2 && table_dim[2] == 1)
+    if (!is_1d_table) {
+      insight::format_error("Fei is only applicable to goodness of fit tests.")
+    }
   }
 
   effectsize(x, type = "fei", ci = ci, alternative = alternative)
@@ -209,3 +219,6 @@ pearsons_c <- function(x, y = NULL, p = rep(1, length(x)),
 
   effectsize(x, type = "pearsons_c", ci = ci, alternative = alternative)
 }
+
+
+# styler: on
