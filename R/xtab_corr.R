@@ -181,16 +181,20 @@ fei <- function(x, p = rep(1, length(x)),
                 ci = 0.95, alternative = "greater",
                 ...) {
   alternative <- .match.alt(alternative, FALSE)
-  table_dim <- dim(x)
-  is_1d_table <- is.null(table_dim) ||            # vector
-    length(table_dim) == 1 ||                     # 1D table
-    (length(table_dim) == 2 && table_dim[2] == 1) # matrix/data frame with 1 column
 
-  if (inherits(x, "BFBayesFactor") || !is_1d_table) {
+  if (inherits(x, "BFBayesFactor")) {
     insight::format_error("Fei is only applicable to goodness of fit tests.")
   } else if (!.is_htest_of_type(x, "Chi-squared test for given probabilities", "Chi-squared-test")) {
     x <- suppressWarnings(stats::chisq.test(x, y = NULL, p = p, rescale.p = TRUE))
     x$data.name <- NULL
+
+    table_dim <- dim(x$observed)
+    is_1d_table <- is.null(table_dim) ||            # vector
+      length(table_dim) == 1 ||                     # 1D table
+      (length(table_dim) == 2 && table_dim[2] == 1)
+    if (!is_1d_table) {
+      insight::format_error("Fei is only applicable to goodness of fit tests.")
+    }
   }
 
   effectsize(x, type = "fei", ci = ci, alternative = alternative)
