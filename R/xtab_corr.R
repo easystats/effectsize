@@ -191,7 +191,7 @@ fei <- function(x, p = rep(1, length(x)),
     table_dim <- dim(x$observed)
     is_1d_table <- is.null(table_dim) ||            # vector
       length(table_dim) == 1 ||                     # 1D table
-      (length(table_dim) == 2 && table_dim[2] == 1)
+      (length(table_dim) == 2 && any(table_dim == 1))
     if (!is_1d_table) {
       insight::format_error("Fei is only applicable to goodness of fit tests.")
     }
