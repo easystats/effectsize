@@ -12,7 +12,7 @@ articles:
   interpret: interpret.html
   standardized_differences: standardized_differences.html
   xtabs: xtabs.html
-last_built: 2023-02-26T08:43Z
+last_built: 2023-03-05T08:17Z
 urls:
   reference: https://easystats.github.io/effectsize/reference
   article: https://easystats.github.io/effectsize/articles
