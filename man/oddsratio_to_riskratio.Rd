@@ -43,7 +43,8 @@ be a logistic regression model.}
 
 \item{p0}{Baseline risk}
 
-\item{log}{Take in or output the log of the ratio (such as in logistic models).}
+\item{log}{Take in or output the log of the ratio (such as in logistic models),
+e.g. when the desired input or output are log odds ratios instead odds ratios.}
 
 \item{verbose}{Toggle warnings and messages on or off.}
 

@@ -4,6 +4,10 @@
 
 - `arr()` and `nnt()` for Absolute Risk Reduction or Number Needed to Treat.
 - `oddsratio_to_arr()`, `riskratio_to_arr()`, `nnt_to_arr()` and their inverses.
+- Added convenient shortcuts for conversions from or to log odds ratios. E.g.,
+  `logoddsratio_to_r()` or `d_to_logoddsratio()`. These functions just call their
+  `oddsratio` counterpart with `log = TRUE`, but are more explicit and visible
+  to users.
 
 ## Changes
 

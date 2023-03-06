@@ -7,7 +7,8 @@
 #' @param r Correlation coefficient r.
 #' @param n1,n2 Group sample sizes. If either is missing, groups are assumed to be of equal size.
 #' @param OR (logged) *Odds ratio* values in vector or data frame.
-#' @param log Take in or output the log of the ratio (such as in logistic models).
+#' @param log Take in or output the log of the ratio (such as in logistic models),
+#'   e.g. when the desired input or output are log odds ratios instead odds ratios.
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @family convert between effect sizes
