@@ -128,3 +128,37 @@ test_that("between anova", {
   expect_equal(f2_to_eta2(1 / 3), 0.25)
   expect_equal(f_to_eta2(1 / sqrt(3)), f2_to_eta2(1 / 3))
 })
+
+
+test_that("OR and logOR", {
+  expect_equal(
+    oddsratio_to_d(3),
+    logoddsratio_to_d(log(3)),
+    tolerance = 1e-4
+  )
+  expect_equal(
+    log(d_to_oddsratio(3)),
+    d_to_logoddsratio(3),
+    tolerance = 1e-4
+  )
+  expect_equal(
+    oddsratio_to_r(2),
+    logoddsratio_to_r(log(2)),
+    tolerance = 1e-4
+  )
+  expect_equal(
+    log(r_to_oddsratio(0.5)),
+    r_to_logoddsratio(0.5),
+    tolerance = 1e-4
+  )
+  expect_equal(
+    log(arr_to_oddsratio(0.2, p0 = 0.3)),
+    arr_to_logoddsratio(0.2, p0 = 0.3),
+    tolerance = 1e-4
+  )
+  expect_equal(
+    oddsratio_to_arr(2, p0 = 0.3),
+    logoddsratio_to_arr(log(2), p0 = 0.3),
+    tolerance = 1e-4
+  )
+})

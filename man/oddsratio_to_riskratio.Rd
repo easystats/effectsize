@@ -3,10 +3,13 @@
 \name{oddsratio_to_riskratio}
 \alias{oddsratio_to_riskratio}
 \alias{riskratio_to_oddsratio}
+\alias{riskratio_to_logoddsratio}
 \alias{riskratio_to_arr}
 \alias{oddsratio_to_arr}
+\alias{logoddsratio_to_arr}
 \alias{arr_to_riskratio}
 \alias{arr_to_oddsratio}
+\alias{arr_to_logoddsratio}
 \alias{arr_to_nnt}
 \alias{nnt_to_arr}
 \title{Convert Between Odds Ratios and Risk Ratios}
@@ -15,13 +18,19 @@ oddsratio_to_riskratio(OR, p0, log = FALSE, verbose = TRUE, ...)
 
 riskratio_to_oddsratio(RR, p0, log = FALSE, verbose = TRUE, ...)
 
+riskratio_to_logoddsratio(RR, p0, log = TRUE, verbose = TRUE, ...)
+
 riskratio_to_arr(RR, p0, log = FALSE, verbose = TRUE, ...)
 
 oddsratio_to_arr(OR, p0, log = FALSE, verbose = TRUE, ...)
 
+logoddsratio_to_arr(OR, p0, log = TRUE, verbose = TRUE, ...)
+
 arr_to_riskratio(ARR, p0, log = FALSE, verbose = TRUE, ...)
 
 arr_to_oddsratio(ARR, p0, log = FALSE, verbose = TRUE, ...)
+
+arr_to_logoddsratio(ARR, p0, log = TRUE, verbose = TRUE, ...)
 
 arr_to_nnt(x)
 

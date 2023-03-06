@@ -6,7 +6,7 @@
 #' @param d Standardized difference value (Cohen's d).
 #' @param r Correlation coefficient r.
 #' @param n1,n2 Group sample sizes. If either is missing, groups are assumed to be of equal size.
-#' @param OR *Odds ratio* values in vector or data frame.
+#' @param OR (logged) *Odds ratio* values in vector or data frame.
 #' @param log Take in or output the log of the ratio (such as in logistic models).
 #' @param ... Arguments passed to or from other methods.
 #'
@@ -100,7 +100,6 @@ oddsratio_to_d <- function(OR, log = FALSE, ...) {
 convert_oddsratio_to_d <- oddsratio_to_d
 
 
-
 #' @rdname d_to_r
 #' @aliases convert_logoddsratio_to_d
 #' @export
@@ -110,7 +109,6 @@ logoddsratio_to_d <- function(OR, log = TRUE, ...) {
 
 #' @export
 convert_logoddsratio_to_d <- logoddsratio_to_d
-
 
 
 #' @rdname d_to_r
@@ -130,6 +128,17 @@ d_to_oddsratio <- function(d, log = FALSE, ...) {
 convert_d_to_oddsratio <- d_to_oddsratio
 
 
+#' @rdname d_to_r
+#' @aliases convert_d_to_logoddsratio
+#' @export
+d_to_logoddsratio <- function(d, log = TRUE, ...) {
+  d_to_oddsratio(d, log = log, ...)
+}
+
+#' @export
+convert_d_to_logoddsratio <- d_to_logoddsratio
+
+
 
 
 # OR - r ----------------------------------------------------------------
@@ -144,6 +153,7 @@ oddsratio_to_r <- function(OR, n1, n2, log = FALSE, ...) {
 #' @export
 convert_oddsratio_to_r <- oddsratio_to_r
 
+
 #' @rdname d_to_r
 #' @aliases convert_logoddsratio_to_r
 #' @export
@@ -155,9 +165,8 @@ logoddsratio_to_r <- function(OR, log = TRUE, ...) {
 convert_logoddsratio_to_r <- logoddsratio_to_r
 
 
-
 #' @rdname d_to_r
-#' @aliases convert_r_to_oddsratio
+#' @aliases convert_r_to_logoddsratio
 #' @export
 r_to_oddsratio <- function(r, n1, n2, log = FALSE, ...) {
   d_to_oddsratio(r_to_d(r), log = log, n1, n2)
@@ -165,6 +174,18 @@ r_to_oddsratio <- function(r, n1, n2, log = FALSE, ...) {
 
 #' @export
 convert_r_to_oddsratio <- r_to_oddsratio
+
+
+#' @rdname d_to_r
+#' @aliases convert_r_to_oddsratio
+#' @export
+r_to_logoddsratio <- function(r, n1, n2, log = TRUE, ...) {
+  r_to_oddsratio(r, n1, n2, log = log)
+}
+
+#' @export
+convert_r_to_logoddsratio <- r_to_logoddsratio
+
 
 
 # Utils -------------------------------------------------------------------

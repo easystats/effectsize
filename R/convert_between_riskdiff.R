@@ -123,6 +123,12 @@ riskratio_to_oddsratio <- function(RR, p0, log = FALSE, verbose = TRUE, ...) {
 
 #' @rdname oddsratio_to_riskratio
 #' @export
+riskratio_to_logoddsratio <- function(RR, p0, log = TRUE, verbose = TRUE, ...) {
+  riskratio_to_oddsratio(RR = RR, p0 = p0, log = log, verbose = verbose, ...)
+}
+
+#' @rdname oddsratio_to_riskratio
+#' @export
 riskratio_to_arr <- function(RR, p0, log = FALSE, verbose = TRUE, ...) {
   if (log) RR <- exp(RR)
   RR * p0 - p0
@@ -138,6 +144,12 @@ oddsratio_to_arr <- function(OR, p0, log = FALSE, verbose = TRUE, ...) {
 
 #' @rdname oddsratio_to_riskratio
 #' @export
+logoddsratio_to_arr <- function(OR, p0, log = TRUE, verbose = TRUE, ...) {
+  oddsratio_to_arr(OR = OR, p0 = p0, log = log, verbose = verbose, ...)
+}
+
+#' @rdname oddsratio_to_riskratio
+#' @export
 arr_to_riskratio <- function(ARR, p0, log = FALSE, verbose = TRUE, ...) {
   RR <- ARR / p0 + 1
   if (log) RR <- log(RR)
@@ -149,6 +161,12 @@ arr_to_riskratio <- function(ARR, p0, log = FALSE, verbose = TRUE, ...) {
 arr_to_oddsratio <- function(ARR, p0, log = FALSE, verbose = TRUE, ...) {
   RR <- arr_to_riskratio(ARR, p0, log = log, verbose = verbose)
   riskratio_to_oddsratio(RR, p0, log = log, verbose = verbose)
+}
+
+#' @rdname oddsratio_to_riskratio
+#' @export
+arr_to_logoddsratio <- function(ARR, p0, log = TRUE, verbose = TRUE, ...) {
+  arr_to_oddsratio(ARR = ARR, p0 = p0, log = log, verbose = verbose, ...)
 }
 
 #' @rdname oddsratio_to_riskratio

@@ -11,11 +11,15 @@
 \alias{convert_logoddsratio_to_d}
 \alias{d_to_oddsratio}
 \alias{convert_d_to_oddsratio}
+\alias{d_to_logoddsratio}
+\alias{convert_d_to_logoddsratio}
 \alias{oddsratio_to_r}
 \alias{convert_oddsratio_to_r}
 \alias{logoddsratio_to_r}
 \alias{convert_logoddsratio_to_r}
 \alias{r_to_oddsratio}
+\alias{convert_r_to_logoddsratio}
+\alias{r_to_logoddsratio}
 \alias{convert_r_to_oddsratio}
 \title{Convert Between \emph{d}, \emph{r}, and Odds Ratio}
 \usage{
@@ -29,11 +33,15 @@ logoddsratio_to_d(OR, log = TRUE, ...)
 
 d_to_oddsratio(d, log = FALSE, ...)
 
+d_to_logoddsratio(d, log = TRUE, ...)
+
 oddsratio_to_r(OR, n1, n2, log = FALSE, ...)
 
 logoddsratio_to_r(OR, log = TRUE, ...)
 
 r_to_oddsratio(r, n1, n2, log = FALSE, ...)
+
+r_to_logoddsratio(r, n1, n2, log = TRUE, ...)
 }
 \arguments{
 \item{d}{Standardized difference value (Cohen's d).}
@@ -44,7 +52,7 @@ r_to_oddsratio(r, n1, n2, log = FALSE, ...)
 
 \item{r}{Correlation coefficient r.}
 
-\item{OR}{\emph{Odds ratio} values in vector or data frame.}
+\item{OR}{(logged) \emph{Odds ratio} values in vector or data frame.}
 
 \item{log}{Take in or output the log of the ratio (such as in logistic models).}
 }
