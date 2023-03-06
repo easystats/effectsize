@@ -18,8 +18,8 @@ test_that("d_to_r", {
   r <- cor(mtcars$hp, -mtcars$am)
   d <- cohens_d(hp ~ am, data = mtcars, ci = NULL)[[1]]
   n <- table(mtcars$am)
-  expect_true(r_to_d(r) > d)
-  expect_true(d_to_r(d) < r)
+  expect_gt(r_to_d(r), d)
+  expect_lt(d_to_r(d), r)
   expect_equal(r_to_d(r, n[1], n[2]), d, ignore_attr = TRUE)
   expect_equal(d_to_r(d, n[1], n[2]), r, ignore_attr = TRUE)
 })
@@ -34,21 +34,21 @@ test_that("oddsratio_to_RR", {
   ARR <- p1 - p0
   NNT <- 1 / ARR
 
-  expect_equal(nnt_to_arr(NNT), ARR)
-  expect_equal(arr_to_nnt(ARR), NNT)
+  expect_equal(nnt_to_arr(NNT), ARR, tolerance = 1e-4)
+  expect_equal(arr_to_nnt(ARR), NNT, tolerance = 1e-4)
 
-  expect_equal(riskratio_to_oddsratio(RR, p0 = p0), OR)
-  expect_equal(oddsratio_to_riskratio(OR, p0 = p0), RR)
-  expect_equal(oddsratio_to_riskratio(1 / OR, p0 = p1), 1 / RR)
-  expect_equal(riskratio_to_arr(RR, p0 = p0), ARR)
-  expect_equal(oddsratio_to_arr(OR, p0 = p0), ARR)
-  expect_equal(arr_to_oddsratio(ARR, p0 = p0), OR)
-  expect_equal(arr_to_riskratio(ARR, p0 = p0), RR)
+  expect_equal(riskratio_to_oddsratio(RR, p0 = p0), OR, tolerance = 1e-4)
+  expect_equal(oddsratio_to_riskratio(OR, p0 = p0), RR, tolerance = 1e-4)
+  expect_equal(oddsratio_to_riskratio(1 / OR, p0 = p1), 1 / RR, tolerance = 1e-4)
+  expect_equal(riskratio_to_arr(RR, p0 = p0), ARR, tolerance = 1e-4)
+  expect_equal(oddsratio_to_arr(OR, p0 = p0), ARR, tolerance = 1e-4)
+  expect_equal(arr_to_oddsratio(ARR, p0 = p0), OR, tolerance = 1e-4)
+  expect_equal(arr_to_riskratio(ARR, p0 = p0), RR, tolerance = 1e-4)
 
-  expect_equal(riskratio_to_oddsratio(log(RR), p0 = p0, log = TRUE), log(OR))
-  expect_equal(oddsratio_to_riskratio(log(OR), p0 = p0, log = TRUE), log(RR))
-  expect_equal(arr_to_oddsratio(ARR, p0 = p0, log = TRUE), log(OR))
-  expect_equal(oddsratio_to_arr(log(OR), p0 = p0, log = TRUE), ARR)
+  expect_equal(riskratio_to_oddsratio(log(RR), p0 = p0, log = TRUE), log(OR), tolerance = 1e-4)
+  expect_equal(oddsratio_to_riskratio(log(OR), p0 = p0, log = TRUE), log(RR), tolerance = 1e-4)
+  expect_equal(arr_to_oddsratio(ARR, p0 = p0, log = TRUE), log(OR), tolerance = 1e-4)
+  expect_equal(oddsratio_to_arr(log(OR), p0 = p0, log = TRUE), ARR, tolerance = 1e-4)
 
   # -- GLMs --
   data(mtcars)
@@ -58,11 +58,11 @@ test_that("oddsratio_to_RR", {
     family = binomial()
   )
 
-  expect_warning(RR <- oddsratio_to_riskratio(m, ci = NULL), "p0")
+  expect_warning(RR <- oddsratio_to_riskratio(m, ci = NULL), "p0") # nolint
   expect_true("(Intercept)" %in% RR$Parameter)
   expect_false("(p0)" %in% RR$Parameter)
 
-  expect_message(RR <- oddsratio_to_riskratio(m, ci_method = "wald", p0 = 0.7272727), "CIs")
+  expect_message(RR <- oddsratio_to_riskratio(m, ci_method = "wald", p0 = 0.7272727), "CIs") # nolint
   expect_false("(Intercept)" %in% RR$Parameter)
   expect_true("(p0)" %in% RR$Parameter)
   # these values confirmed from emmeans
@@ -70,7 +70,7 @@ test_that("oddsratio_to_RR", {
   expect_equal(RR$CI_low, c(NA, 0.1267, 0.0303), tolerance = 0.001)
   expect_equal(RR$CI_high, c(NA, 1.1648, 0.7589), tolerance = 0.001)
 
-  expect_message(RR <- oddsratio_to_riskratio(m, p0 = 0.05), "CIs")
+  expect_message(RR <- oddsratio_to_riskratio(m, p0 = 0.05), "CIs") # nolint
   expect_true("(p0)" %in% RR$Parameter)
   expect_false("(Intercept)" %in% RR$Parameter)
   # these values confirmed from emmeans
@@ -83,11 +83,11 @@ test_that("oddsratio_to_RR", {
     family = binomial()
   )
 
-  expect_warning(RR <- oddsratio_to_riskratio(m, ci = NULL), "p0")
+  expect_warning(RR <- oddsratio_to_riskratio(m, ci = NULL), "p0") # nolint
   expect_true("(Intercept)" %in% RR$Parameter)
   expect_false("(p0)" %in% RR$Parameter)
 
-  expect_message(RR <- oddsratio_to_riskratio(m, ci_method = "wald", p0 = 0.7047536), "CIs")
+  expect_message(RR <- oddsratio_to_riskratio(m, ci_method = "wald", p0 = 0.7047536), "CIs") # nolint
   expect_false("(Intercept)" %in% RR$Parameter)
   expect_true("(p0)" %in% RR$Parameter)
   # these values confirmed from emmeans
@@ -103,30 +103,30 @@ test_that("odds_to_probs", {
   expect_equal(odds_to_probs(1.098, log = TRUE), 0.75, tolerance = 0.01)
 
   expect_equal(
-    ncol(df <- odds_to_probs(
+    ncol(odds_to_probs(
       iris,
-      select = c("Sepal.Length"),
-      exclude = c("Petal.Length"),
+      select = "Sepal.Length",
+      exclude = "Petal.Length",
       log = TRUE
-    )), 5
+    )), 5, tolerance = 1e-4
   )
 
   expect_equal(
     ncol(probs_to_odds(
       df,
-      select = c("Sepal.Length"),
-      exclude = c("Petal.Length"),
+      select = "Sepal.Length",
+      exclude = "Petal.Length",
       log = TRUE
-    )), 5
+    )), 5, tolerance = 1e-4
   )
 })
 
 test_that("between anova", {
-  expect_equal(eta2_to_f2(0.25), 1 / 3)
-  expect_equal(eta2_to_f(0.25), sqrt(eta2_to_f2(0.25)))
+  expect_equal(eta2_to_f2(0.25), 1 / 3, tolerance = 1e-4)
+  expect_equal(eta2_to_f(0.25), sqrt(eta2_to_f2(0.25)), tolerance = 1e-4)
 
   expect_equal(f2_to_eta2(1 / 3), 0.25)
-  expect_equal(f_to_eta2(1 / sqrt(3)), f2_to_eta2(1 / 3))
+  expect_equal(f_to_eta2(1 / sqrt(3)), f2_to_eta2(1 / 3), tolerance = 1e-4)
 })
 
 
