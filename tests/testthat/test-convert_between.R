@@ -108,7 +108,8 @@ test_that("odds_to_probs", {
       select = "Sepal.Length",
       exclude = "Petal.Length",
       log = TRUE
-    )), 5, tolerance = 1e-4
+    )), 5,
+    tolerance = 1e-4
   )
 
   expect_equal(
@@ -117,7 +118,8 @@ test_that("odds_to_probs", {
       select = "Sepal.Length",
       exclude = "Petal.Length",
       log = TRUE
-    )), 5, tolerance = 1e-4
+    )), 5,
+    tolerance = 1e-4
   )
 })
 
