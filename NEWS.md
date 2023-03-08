@@ -9,6 +9,10 @@
 
 - `fei()` gives a more informative error method for invalid table inputs (#566).
 
+## Bug fixes
+
+- `d_to_r()` correctly treats specifying on `n1`/`n2` as equal group sizes (#571)
+
 # effectsize 0.8.3
 
 ## Changes
