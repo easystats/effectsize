@@ -16,6 +16,10 @@
 
 - `*_to_riskratio()` and `riskratio_to_*()` argument `log` not longer converts RR to/from log(RR).
 
+## Bug fixes
+
+- `d_to_r()` correctly treats specifying only `n1`/`n2` as equal group sizes (#571)
+
 # effectsize 0.8.3
 
 ## Changes

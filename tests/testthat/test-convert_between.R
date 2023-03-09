@@ -22,6 +22,9 @@ test_that("d_to_r", {
   expect_lt(d_to_r(d), r)
   expect_equal(r_to_d(r, n[1], n[2]), d, ignore_attr = TRUE)
   expect_equal(d_to_r(d, n[1], n[2]), r, ignore_attr = TRUE)
+
+  expect_identical(d_to_r(.5, n1 = 10), d_to_r(.5, 10, 10))
+  expect_identical(d_to_r(.5, n2 = 10), d_to_r(.5, 10, 10))
 })
 
 test_that("oddsratio_to_RR", {

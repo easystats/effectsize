@@ -140,7 +140,7 @@ r_to_logoddsratio <- function(r, n1, n2, log = TRUE, ...) {
 
 #' @keywords internal
 .get_rd_h <- function(n1, n2) {
-  if (missing(n1) || missing(n2)) {
+  if (missing(n1) && missing(n2)) {
     h <- 4
   } else {
     if (missing(n1)) n1 <- n2
