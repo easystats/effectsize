@@ -2,25 +2,15 @@
 % Please edit documentation in R/convert_between_d_to_r.R
 \name{d_to_r}
 \alias{d_to_r}
-\alias{convert_d_to_r}
 \alias{r_to_d}
-\alias{convert_r_to_d}
 \alias{oddsratio_to_d}
-\alias{convert_oddsratio_to_d}
 \alias{logoddsratio_to_d}
-\alias{convert_logoddsratio_to_d}
 \alias{d_to_oddsratio}
-\alias{convert_d_to_oddsratio}
 \alias{d_to_logoddsratio}
-\alias{convert_d_to_logoddsratio}
 \alias{oddsratio_to_r}
-\alias{convert_oddsratio_to_r}
 \alias{logoddsratio_to_r}
-\alias{convert_logoddsratio_to_r}
 \alias{r_to_oddsratio}
-\alias{convert_r_to_logoddsratio}
 \alias{r_to_logoddsratio}
-\alias{convert_r_to_oddsratio}
 \title{Convert Between \emph{d}, \emph{r}, and Odds Ratio}
 \usage{
 d_to_r(d, n1, n2, ...)

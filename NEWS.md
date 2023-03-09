@@ -12,6 +12,7 @@
 ## Changes
 
 - `fei()` gives a more informative error method for invalid table inputs (#566).
+- `convert_*()` aliases are deprecated.
 
 # effectsize 0.8.3
 
