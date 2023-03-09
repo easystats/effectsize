@@ -109,13 +109,11 @@ chisq_to_normalized <- function(...) {
   chisq_to_fei(...)
 }
 
-#' @rdname effectsize_deprecated
 #' @export
 d_to_cles <- function(...) {
   .Defunct(NULL, msg = 'See help("d_to_cles") for the available functions.')
 }
 
-#' @rdname effectsize_deprecated
 #' @export
 rb_to_cles <- function(...) {
   .Deprecated("rb_to_p_superiority")

@@ -16,8 +16,6 @@
 \alias{interpret_parameters}
 \alias{normalized_chi}
 \alias{chisq_to_normalized}
-\alias{d_to_cles}
-\alias{rb_to_cles}
 \alias{convert_d_to_common_language}
 \alias{d_to_common_language}
 \alias{convert_rb_to_common_language}
@@ -52,10 +50,6 @@ interpret_parameters(...)
 normalized_chi(...)
 
 chisq_to_normalized(...)
-
-d_to_cles(...)
-
-rb_to_cles(...)
 
 convert_d_to_common_language(...)
 
