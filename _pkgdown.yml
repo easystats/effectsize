@@ -69,6 +69,7 @@ reference:
       - oddsratio_to_riskratio
       - d_to_u3
       - eta2_to_f2
+      - oddsratio_to_odds
       - odds_to_probs
 
   - title: "Interpretation"
