@@ -3,10 +3,9 @@
 #' Enables a conversion between different indices of effect size, such as
 #' standardized difference (Cohen's d), (point-biserial) correlation r or (log) odds ratios.
 #'
-#' @param d Standardized difference value (Cohen's d).
-#' @param r Correlation coefficient r.
+#' @param d,r,OR,logOR Standardized difference value (Cohen's d), correlation
+#'   coefficient (r), Odds ratio, or logged Odds ratio.
 #' @param n1,n2 Group sample sizes. If either is missing, groups are assumed to be of equal size.
-#' @param OR (logged) *Odds ratio* values in vector or data frame.
 #' @param log Take in or output the log of the ratio (such as in logistic models),
 #'   e.g. when the desired input or output are log odds ratios instead odds ratios.
 #' @param ... Arguments passed to or from other methods.
@@ -83,8 +82,8 @@ oddsratio_to_d <- function(OR, log = FALSE, ...) {
 
 #' @rdname d_to_r
 #' @export
-logoddsratio_to_d <- function(OR, log = TRUE, ...) {
-  oddsratio_to_d(OR, log = log, ...)
+logoddsratio_to_d <- function(logOR, log = TRUE, ...) {
+  oddsratio_to_d(logOR, log = log, ...)
 }
 
 #' @rdname d_to_r
@@ -118,8 +117,8 @@ oddsratio_to_r <- function(OR, n1, n2, log = FALSE, ...) {
 
 #' @rdname d_to_r
 #' @export
-logoddsratio_to_r <- function(OR, log = TRUE, ...) {
-  oddsratio_to_r(OR, log = log, ...)
+logoddsratio_to_r <- function(logOR, log = TRUE, ...) {
+  oddsratio_to_r(logOR, log = log, ...)
 }
 
 

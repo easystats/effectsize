@@ -5,8 +5,13 @@
 #'   of `p1 - p0`, or Number-needed-to-treat of `1/(p1 - p0)`. `OR` and `logOR`
 #'   can also be a logistic regression model.
 #' @param p0 Baseline risk
-#' @param log If `TRUE` `OR` is converted to `logOR`. If `FALSE`, `logOR` is
-#'   converted to `OR`.
+#' @param log If:
+#'   - `TRUE`:
+#'       - In `oddsratio_to_*()`, `OR` input is treated as `log(OR)`.
+#'       - In `*_to_oddsratio()`, returned value is `log(OR)`.
+#'   - `FALSE`:
+#'       - In `logoddsratio_to_*()`, `logOR` input is treated as `OR`.
+#'       - In `*_to_logoddsratio()`, returned value is `OR`.
 #' @param ... Arguments passed to and from other methods.
 #' @inheritParams oddsratio_to_d
 #' @inheritParams cohens_d

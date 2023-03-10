@@ -65,8 +65,19 @@ can also be a logistic regression model.}
 
 \item{p0}{Baseline risk}
 
-\item{log}{If \code{TRUE} \code{OR} is converted to \code{logOR}. If \code{FALSE}, \code{logOR} is
-converted to \code{OR}.}
+\item{log}{If:
+\itemize{
+\item \code{TRUE}:
+\itemize{
+\item In \verb{oddsratio_to_*()}, \code{OR} input is treated as \code{log(OR)}.
+\item In \verb{*_to_oddsratio()}, returned value is \code{log(OR)}.
+}
+\item \code{FALSE}:
+\itemize{
+\item In \verb{logoddsratio_to_*()}, \code{logOR} input is treated as \code{OR}.
+\item In \verb{*_to_logoddsratio()}, returned value is \code{OR}.
+}
+}}
 
 \item{verbose}{Toggle warnings and messages on or off.}
 

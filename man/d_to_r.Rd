@@ -19,7 +19,7 @@ r_to_d(r, n1, n2, ...)
 
 oddsratio_to_d(OR, log = FALSE, ...)
 
-logoddsratio_to_d(OR, log = TRUE, ...)
+logoddsratio_to_d(logOR, log = TRUE, ...)
 
 d_to_oddsratio(d, log = FALSE, ...)
 
@@ -27,22 +27,19 @@ d_to_logoddsratio(d, log = TRUE, ...)
 
 oddsratio_to_r(OR, n1, n2, log = FALSE, ...)
 
-logoddsratio_to_r(OR, log = TRUE, ...)
+logoddsratio_to_r(logOR, log = TRUE, ...)
 
 r_to_oddsratio(r, n1, n2, log = FALSE, ...)
 
 r_to_logoddsratio(r, n1, n2, log = TRUE, ...)
 }
 \arguments{
-\item{d}{Standardized difference value (Cohen's d).}
+\item{d, r, OR, logOR}{Standardized difference value (Cohen's d), correlation
+coefficient (r), Odds ratio, or logged Odds ratio.}
 
 \item{n1, n2}{Group sample sizes. If either is missing, groups are assumed to be of equal size.}
 
 \item{...}{Arguments passed to or from other methods.}
-
-\item{r}{Correlation coefficient r.}
-
-\item{OR}{(logged) \emph{Odds ratio} values in vector or data frame.}
 
 \item{log}{Take in or output the log of the ratio (such as in logistic models),
 e.g. when the desired input or output are log odds ratios instead odds ratios.}
