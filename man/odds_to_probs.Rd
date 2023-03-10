@@ -2,10 +2,8 @@
 % Please edit documentation in R/convert_between_odds_to_probs.R
 \name{odds_to_probs}
 \alias{odds_to_probs}
-\alias{convert_odds_to_probs}
 \alias{odds_to_probs.data.frame}
 \alias{probs_to_odds}
-\alias{convert_probs_to_odds}
 \alias{probs_to_odds.data.frame}
 \title{Convert Between Odds and Probabilities}
 \usage{

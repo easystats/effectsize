@@ -33,7 +33,8 @@ Controls the type of CI returned: \code{"two.sided"} (two-sided CI; default),
 allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in
 \link{effectsize_CIs}.}
 
-\item{log}{Take in or output the log of the ratio (such as in logistic models).}
+\item{log}{Take in or output the log of the ratio (such as in logistic models),
+e.g. when the desired input or output are log odds ratios instead odds ratios.}
 
 \item{...}{Ignored}
 }

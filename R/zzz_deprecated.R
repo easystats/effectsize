@@ -2,19 +2,70 @@
 #'
 #' @param ... Arguments to the deprecated function.
 #'
-#' @details
-#' - `interpret_d` is now [`interpret_cohens_d`].
-#' - `interpret_g` is now [`interpret_hedges_g`].
-#' - `interpret_delta` is now [`interpret_glass_delta`].
-#' - `interpret_parameters` for *standardized parameters* was incorrect. Use [`interpret_r`] instead.
-#' - `normalized_chi` is now [`fei`].
-#' - `chisq_to_normalized` is now [`chisq_to_fei`].
-#' - `d_to_cles` and `rb_to_cles` are now one of the available functions for CLES conversion, e.g. [`d_to_u1`].
-#'
 #' @rdname effectsize_deprecated
 #' @name effectsize_deprecated
 NULL
 
+
+# March 2023 --------------------------------------------------------------
+
+#' @rdname effectsize_deprecated
+#' @export
+convert_odds_to_probs <- function(...) {
+  .Deprecated("odds_to_probs")
+  odds_to_probs(...)
+}
+
+#' @rdname effectsize_deprecated
+#' @export
+convert_probs_to_odds <- function(...) {
+  .Deprecated("probs_to_odds")
+  probs_to_odds(...)
+}
+
+#' @rdname effectsize_deprecated
+#' @export
+convert_d_to_r <- function(...) {
+  .Deprecated("d_to_r")
+  d_to_r(...)
+}
+
+#' @rdname effectsize_deprecated
+#' @export
+convert_r_to_d <- function(...) {
+  .Deprecated("r_to_d")
+  r_to_d(...)
+}
+
+#' @rdname effectsize_deprecated
+#' @export
+convert_oddsratio_to_d <- function(...) {
+  .Deprecated("oddsratio_to_d")
+  oddsratio_to_d(...)
+}
+
+#' @rdname effectsize_deprecated
+#' @export
+convert_d_to_oddsratio <- function(...) {
+  .Deprecated("d_to_oddsratio")
+  d_to_oddsratio(...)
+}
+
+#' @rdname effectsize_deprecated
+#' @export
+convert_oddsratio_to_r <- function(...) {
+  .Deprecated("oddsratio_to_r")
+  oddsratio_to_r(...)
+}
+
+#' @rdname effectsize_deprecated
+#' @export
+convert_r_to_oddsratio <- function(...) {
+  .Deprecated("r_to_oddsratio")
+  r_to_oddsratio(...)
+}
+
+# Older -------------------------------------------------------------------
 
 #' @rdname effectsize_deprecated
 #' @export

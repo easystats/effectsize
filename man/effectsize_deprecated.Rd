@@ -2,6 +2,14 @@
 % Please edit documentation in R/zzz_deprecated.R
 \name{effectsize_deprecated}
 \alias{effectsize_deprecated}
+\alias{convert_odds_to_probs}
+\alias{convert_probs_to_odds}
+\alias{convert_d_to_r}
+\alias{convert_r_to_d}
+\alias{convert_oddsratio_to_d}
+\alias{convert_d_to_oddsratio}
+\alias{convert_oddsratio_to_r}
+\alias{convert_r_to_oddsratio}
 \alias{interpret_d}
 \alias{interpret_g}
 \alias{interpret_delta}
@@ -15,6 +23,22 @@
 \alias{common_language}
 \title{Deprecated / Defunct Functions}
 \usage{
+convert_odds_to_probs(...)
+
+convert_probs_to_odds(...)
+
+convert_d_to_r(...)
+
+convert_r_to_d(...)
+
+convert_oddsratio_to_d(...)
+
+convert_d_to_oddsratio(...)
+
+convert_oddsratio_to_r(...)
+
+convert_r_to_oddsratio(...)
+
 interpret_d(...)
 
 interpret_g(...)
@@ -42,15 +66,4 @@ common_language(...)
 }
 \description{
 Deprecated / Defunct Functions
-}
-\details{
-\itemize{
-\item \code{interpret_d} is now \code{\link{interpret_cohens_d}}.
-\item \code{interpret_g} is now \code{\link{interpret_hedges_g}}.
-\item \code{interpret_delta} is now \code{\link{interpret_glass_delta}}.
-\item \code{interpret_parameters} for \emph{standardized parameters} was incorrect. Use \code{\link{interpret_r}} instead.
-\item \code{normalized_chi} is now \code{\link{fei}}.
-\item \code{chisq_to_normalized} is now \code{\link{chisq_to_fei}}.
-\item \code{d_to_cles} and \code{rb_to_cles} are now one of the available functions for CLES conversion, e.g. \code{\link{d_to_u1}}.
-}
 }

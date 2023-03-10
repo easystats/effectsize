@@ -4,10 +4,17 @@
 
 - `arr()` and `nnt()` for Absolute Risk Reduction or Number Needed to Treat.
 - `oddsratio_to_arr()`, `riskratio_to_arr()`, `nnt_to_arr()` and their inverses.
+- `logoddsratio_to_*()` and `*_to_logoddsratio()` have been added as convenient shortcuts for `oddsratio_to_*(log = TRUE)` and `*_to_oddsratio(log = TRUE)`.
+- Added all missing functions to convert between (log) OR, RR, ARR, and NNT.
 
 ## Changes
 
 - `fei()` gives a more informative error method for invalid table inputs (#566).
+- `convert_*()` aliases are deprecated.
+
+## Breaking Changes
+
+- `*_to_riskratio()` and `riskratio_to_*()` argument `log` not longer converts RR to/from log(RR).
 
 ## Bug fixes
 

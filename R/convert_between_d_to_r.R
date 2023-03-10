@@ -3,11 +3,11 @@
 #' Enables a conversion between different indices of effect size, such as
 #' standardized difference (Cohen's d), (point-biserial) correlation r or (log) odds ratios.
 #'
-#' @param d Standardized difference value (Cohen's d).
-#' @param r Correlation coefficient r.
+#' @param d,r,OR,logOR Standardized difference value (Cohen's d), correlation
+#'   coefficient (r), Odds ratio, or logged Odds ratio.
 #' @param n1,n2 Group sample sizes. If either is missing, groups are assumed to be of equal size.
-#' @param OR *Odds ratio* values in vector or data frame.
-#' @param log Take in or output the log of the ratio (such as in logistic models).
+#' @param log Take in or output the log of the ratio (such as in logistic models),
+#'   e.g. when the desired input or output are log odds ratios instead odds ratios.
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @family convert between effect sizes
@@ -54,37 +54,21 @@
 #' methods, 8(4), 448.
 #'
 #' @export
-#' @aliases convert_d_to_r
 d_to_r <- function(d, n1, n2, ...) {
   h <- .get_rd_h(n1, n2)
   d / (sqrt(d^2 + h))
 }
 
-#' @export
-convert_d_to_r <- d_to_r
-
-
-
-
-
-
 #' @rdname d_to_r
-#' @aliases convert_r_to_d
 #' @export
 r_to_d <- function(r, n1, n2, ...) {
   h <- .get_rd_h(n1, n2)
   sqrt(h) * r / sqrt(1 - r^2)
 }
 
-#' @export
-convert_r_to_d <- r_to_d
-
-
-
 # OR - d ----------------------------------------------------------------
 
 #' @rdname d_to_r
-#' @aliases convert_oddsratio_to_d
 #' @export
 oddsratio_to_d <- function(OR, log = FALSE, ...) {
   if (log) {
@@ -96,25 +80,13 @@ oddsratio_to_d <- function(OR, log = FALSE, ...) {
   log_OR * (sqrt(3) / pi)
 }
 
-#' @export
-convert_oddsratio_to_d <- oddsratio_to_d
-
-
-
 #' @rdname d_to_r
-#' @aliases convert_logoddsratio_to_d
 #' @export
-logoddsratio_to_d <- function(OR, log = TRUE, ...) {
-  oddsratio_to_d(OR, log = log, ...)
+logoddsratio_to_d <- function(logOR, log = TRUE, ...) {
+  oddsratio_to_d(logOR, log = log, ...)
 }
 
-#' @export
-convert_logoddsratio_to_d <- logoddsratio_to_d
-
-
-
 #' @rdname d_to_r
-#' @aliases convert_d_to_oddsratio
 #' @export
 d_to_oddsratio <- function(d, log = FALSE, ...) {
   log_OR <- d * pi / sqrt(3)
@@ -126,8 +98,11 @@ d_to_oddsratio <- function(d, log = FALSE, ...) {
   }
 }
 
+#' @rdname d_to_r
 #' @export
-convert_d_to_oddsratio <- d_to_oddsratio
+d_to_logoddsratio <- function(d, log = TRUE, ...) {
+  d_to_oddsratio(d, log = log, ...)
+}
 
 
 
@@ -135,36 +110,29 @@ convert_d_to_oddsratio <- d_to_oddsratio
 # OR - r ----------------------------------------------------------------
 
 #' @rdname d_to_r
-#' @aliases convert_oddsratio_to_r
 #' @export
 oddsratio_to_r <- function(OR, n1, n2, log = FALSE, ...) {
   d_to_r(oddsratio_to_d(OR, log = log), n1, n2)
 }
 
-#' @export
-convert_oddsratio_to_r <- oddsratio_to_r
-
 #' @rdname d_to_r
-#' @aliases convert_logoddsratio_to_r
 #' @export
-logoddsratio_to_r <- function(OR, log = TRUE, ...) {
-  oddsratio_to_r(OR, log = log, ...)
+logoddsratio_to_r <- function(logOR, log = TRUE, ...) {
+  oddsratio_to_r(logOR, log = log, ...)
 }
 
-#' @export
-convert_logoddsratio_to_r <- logoddsratio_to_r
-
-
 
 #' @rdname d_to_r
-#' @aliases convert_r_to_oddsratio
 #' @export
 r_to_oddsratio <- function(r, n1, n2, log = FALSE, ...) {
   d_to_oddsratio(r_to_d(r), log = log, n1, n2)
 }
 
+#' @rdname d_to_r
 #' @export
-convert_r_to_oddsratio <- r_to_oddsratio
+r_to_logoddsratio <- function(r, n1, n2, log = TRUE, ...) {
+  r_to_oddsratio(r, n1, n2, log = log)
+}
 
 
 # Utils -------------------------------------------------------------------
