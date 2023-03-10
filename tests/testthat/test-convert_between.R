@@ -23,8 +23,8 @@ test_that("d_to_r", {
   expect_equal(r_to_d(r, n[1], n[2]), d, ignore_attr = TRUE)
   expect_equal(d_to_r(d, n[1], n[2]), r, ignore_attr = TRUE)
 
-  expect_identical(d_to_r(.5, n1 = 10), d_to_r(.5, 10, 10))
-  expect_identical(d_to_r(.5, n2 = 10), d_to_r(.5, 10, 10))
+  expect_identical(d_to_r(0.5, n1 = 10), d_to_r(0.5, 10, 10))
+  expect_identical(d_to_r(0.5, n2 = 10), d_to_r(0.5, 10, 10))
 })
 
 test_that("oddsratio_to_RR", {
@@ -113,7 +113,7 @@ test_that("odds_to_probs", {
     log = TRUE
   )
 
-  expect_equal(ncol(df), 5)
+  expect_identical(ncol(df), 5)
 
   expect_equal(
     probs_to_odds(df,
