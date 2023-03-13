@@ -194,7 +194,7 @@ interpret.effectsize_table <- function(x, rules, ...) {
     Eta2 = ,
     Eta2_partial = ,
     Eta2_generalized = ,
-    r2_semipartial = interpret_omega_squared(value, rules = rules),
+    r2_semipartial = ,
     Epsilon2 = ,
     Epsilon2_partial = ,
     Omega2 = ,

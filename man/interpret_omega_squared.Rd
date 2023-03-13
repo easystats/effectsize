@@ -3,20 +3,20 @@
 \name{interpret_omega_squared}
 \alias{interpret_omega_squared}
 \alias{interpret_eta_squared}
-\alias{interpret_r2_semipartial}
 \alias{interpret_epsilon_squared}
+\alias{interpret_r2_semipartial}
 \title{Interpret ANOVA Effect Sizes}
 \usage{
 interpret_omega_squared(es, rules = "field2013", ...)
 
 interpret_eta_squared(es, rules = "field2013", ...)
 
-interpret_r2_semipartial(es, rules = "field2013", ...)
-
 interpret_epsilon_squared(es, rules = "field2013", ...)
+
+interpret_r2_semipartial(es, rules = "field2013", ...)
 }
 \arguments{
-\item{es}{Value or vector of eta / semipartial r / omega / epsilon squared values.}
+\item{es}{Value or vector of (partial) eta / omega / epsilon squared or semipartial r sqaured values.}
 
 \item{rules}{Can be \code{"field2013"} (default), \code{"cohen1992"} or custom set of \code{\link[=rules]{rules()}}.}
 
