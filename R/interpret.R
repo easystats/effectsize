@@ -142,9 +142,9 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
   attr(rules, "rule_name") <- name
 
   if (length(x) > 1) {
-    out <- sapply(x, .interpret, rules)
+    out <- vapply(x, .interpret, rules = rules, FUN.VALUE = character(1L))
   } else {
-    out <- .interpret(x, rules)
+    out <- .interpret(x, rules = rules)
   }
 
   names(out) <- names(x)
@@ -225,7 +225,7 @@ interpret.effectsize_table <- function(x, rules, ...) {
 #' @keywords internal
 .interpret <- function(x, rules) {
   if (is.na(x)) {
-    return(NA)
+    return(NA_character_)
   }
 
   if (length(rules$values) == length(rules$labels)) {

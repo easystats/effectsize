@@ -255,3 +255,4 @@ test_that("interpret effectsize_table", {
 
   expect_error(interpret(d), "must specify")
 })
+
