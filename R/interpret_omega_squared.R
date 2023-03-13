@@ -1,6 +1,6 @@
 #' Interpret ANOVA Effect Sizes
 #'
-#' @param es Value or vector of (partial) eta / omega / epsilon squared or semipartial r sqaured values.
+#' @param es Value or vector of (partial) eta / omega / epsilon squared or semipartial r squared values.
 #' @param rules Can be `"field2013"` (default), `"cohen1992"` or custom set of [rules()].
 #' @param ... Not used for now.
 #'

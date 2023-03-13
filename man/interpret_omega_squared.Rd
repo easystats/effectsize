@@ -16,7 +16,7 @@ interpret_epsilon_squared(es, rules = "field2013", ...)
 interpret_r2_semipartial(es, rules = "field2013", ...)
 }
 \arguments{
-\item{es}{Value or vector of (partial) eta / omega / epsilon squared or semipartial r sqaured values.}
+\item{es}{Value or vector of (partial) eta / omega / epsilon squared or semipartial r squared values.}
 
 \item{rules}{Can be \code{"field2013"} (default), \code{"cohen1992"} or custom set of \code{\link[=rules]{rules()}}.}
 
