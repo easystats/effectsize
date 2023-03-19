@@ -121,21 +121,26 @@ standardized difference (Cohen's d), (point-biserial) correlation r or (log) odd
 <span></span>
 <span><span class="fu">oddsratio_to_d</span><span class="op">(</span><span class="va">OR</span>, log <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">logoddsratio_to_d</span><span class="op">(</span><span class="va">OR</span>, log <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">logoddsratio_to_d</span><span class="op">(</span><span class="va">logOR</span>, log <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">d_to_oddsratio</span><span class="op">(</span><span class="va">d</span>, log <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">d_to_logoddsratio</span><span class="op">(</span><span class="va">d</span>, log <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">oddsratio_to_r</span><span class="op">(</span><span class="va">OR</span>, <span class="va">n1</span>, <span class="va">n2</span>, log <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">logoddsratio_to_r</span><span class="op">(</span><span class="va">OR</span>, log <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">logoddsratio_to_r</span><span class="op">(</span><span class="va">logOR</span>, log <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">r_to_oddsratio</span><span class="op">(</span><span class="va">r</span>, <span class="va">n1</span>, <span class="va">n2</span>, log <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">r_to_oddsratio</span><span class="op">(</span><span class="va">r</span>, <span class="va">n1</span>, <span class="va">n2</span>, log <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">r_to_logoddsratio</span><span class="op">(</span><span class="va">r</span>, <span class="va">n1</span>, <span class="va">n2</span>, log <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>d</dt>
-<dd><p>Standardized difference value (Cohen's d).</p></dd>
+    <dl><dt>d, r, OR, logOR</dt>
+<dd><p>Standardized difference value (Cohen's d), correlation
+coefficient (r), Odds ratio, or logged Odds ratio.</p></dd>
 
 
 <dt>n1, n2</dt>
@@ -146,16 +151,9 @@ standardized difference (Cohen's d), (point-biserial) correlation r or (log) odd
 <dd><p>Arguments passed to or from other methods.</p></dd>
 
 
-<dt>r</dt>
-<dd><p>Correlation coefficient r.</p></dd>
-
-
-<dt>OR</dt>
-<dd><p><em>Odds ratio</em> values in vector or data frame.</p></dd>
-
-
 <dt>log</dt>
-<dd><p>Take in or output the log of the ratio (such as in logistic models).</p></dd>
+<dd><p>Take in or output the log of the ratio (such as in logistic models),
+e.g. when the desired input or output are log odds ratios instead odds ratios.</p></dd>
 
 </dl></div>
     <div class="section level2">

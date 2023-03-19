@@ -113,11 +113,21 @@
 <code><a href="../reference/oddsratio.html">arr()</a></code> and <code><a href="../reference/oddsratio.html">nnt()</a></code> for Absolute Risk Reduction or Number Needed to Treat.</li>
 <li>
 <code><a href="../reference/oddsratio_to_riskratio.html">oddsratio_to_arr()</a></code>, <code><a href="../reference/oddsratio_to_riskratio.html">riskratio_to_arr()</a></code>, <code><a href="../reference/oddsratio_to_riskratio.html">nnt_to_arr()</a></code> and their inverses.</li>
+<li>
+<code>logoddsratio_to_*()</code> and <code>*_to_logoddsratio()</code> have been added as convenient shortcuts for <code>oddsratio_to_*(log = TRUE)</code> and <code>*_to_oddsratio(log = TRUE)</code>.</li>
+<li>Added all missing functions to convert between (log) OR, RR, ARR, and NNT.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="changes-development-version">Changes<a class="anchor" aria-label="anchor" href="#changes-development-version"></a></h3>
 <ul><li>
 <code><a href="../reference/phi.html">fei()</a></code> gives a more informative error method for invalid table inputs (<a href="https://github.com/easystats/effectsize/issues/566" class="external-link">#566</a>).</li>
+<li>
+<code>convert_*()</code> aliases are deprecated.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="breaking-changes-development-version">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<ul><li>
+<code>*_to_riskratio()</code> and <code>riskratio_to_*()</code> argument <code>log</code> not longer converts RR to/from log(RR).</li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
@@ -396,7 +406,7 @@
 <div class="section level3">
 <h3 id="new-features-0-4-4-1">New features<a class="anchor" aria-label="anchor" href="#new-features-0-4-4-1"></a></h3>
 <ul><li>
-<code><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html" class="external-link">standardize_parameters()</a></code> + <code>eta_sqaured()</code> support <code>tidymodels</code> (when that the underlying model is supported; <a href="https://github.com/easystats/effectsize/issues/311" class="external-link">#311</a> ).</li>
+<code><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html" class="external-link">standardize_parameters()</a></code> + <code><a href="../reference/eta_squared.html">eta_squared()</a></code> support <code>tidymodels</code> (when that the underlying model is supported; <a href="https://github.com/easystats/effectsize/issues/311" class="external-link">#311</a> ).</li>
 <li>
 <code><a href="../reference/cohens_d.html">cohens_d()</a></code> family now supports <code>Pairs()</code> objects as input.</li>
 <li>
