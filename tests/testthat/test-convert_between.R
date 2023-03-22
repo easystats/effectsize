@@ -113,7 +113,7 @@ test_that("odds_to_probs", {
     log = TRUE
   )
 
-  expect_identical(ncol(df), 5)
+  expect_identical(ncol(df), 5L)
 
   expect_equal(
     probs_to_odds(df,
