@@ -1,5 +1,3 @@
-# library(testthat)
-
 test_that("CLES", {
   x <- 1:3
   y <- c(1, 1:3)

@@ -1,5 +1,3 @@
-# library(testthat)
-
 test_that("contingency table", {
   contingency_table <- as.table(rbind(
     c(762, 327, 468),
@@ -186,7 +184,6 @@ test_that("oddsratio & riskratio", {
   expect_error(oddsratio(mtcars$am, mtcars$cyl), "only")
 
   mtcars$Ind <- mtcars$cyl > 4
-  # m <- glm(am ~ Ind, data = mtcars, family = binomial())
 
   # confirmed by emmeans
   or <- oddsratio(mtcars$am, mtcars$Ind)
