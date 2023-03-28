@@ -1,5 +1,3 @@
-# library(testthat)
-
 test_that("oddsratio_to_d", {
   expect_equal(oddsratio_to_d(0.2), -0.887, tolerance = 0.01)
   expect_equal(oddsratio_to_d(-1.45, log = TRUE), -0.7994, tolerance = 0.01)

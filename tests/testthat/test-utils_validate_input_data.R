@@ -1,5 +1,3 @@
-# library(testthat)
-
 test_that(".get_data_2_samples", {
   df <- data.frame(
     a = 1:10,

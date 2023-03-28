@@ -1,5 +1,3 @@
-# library(testthat)
-
 # interpret generic ----
 test_that("interpret generic", {
   rules_grid <- rules(c(0.01, 0.05), c("very significant", "significant", "not significant"))
