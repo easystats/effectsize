@@ -5,7 +5,7 @@ library(correlation)
 # Table 1
 
 (Titanic_xtab <- as.table(apply(Titanic, c(2, 4), sum)))
-chisq.test(Titanic_xtab)
+chisq.test(Titanic_xtab, correct = FALSE)
 
 
 # Table 2
