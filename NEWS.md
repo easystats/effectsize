@@ -18,6 +18,7 @@
 
 ## Bug fixes
 
+- `riskratio()` returns correct CIs (#584)  
 - `d_to_r()` correctly treats specifying only `n1`/`n2` as equal group sizes (#571)
 
 # effectsize 0.8.3

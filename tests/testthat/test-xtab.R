@@ -176,6 +176,10 @@ test_that("oddsratio & riskratio", {
     tolerance = 1e-4
   )
 
+  # verified with PropCIs::riskscoreci
+  expect_equal(RR$CI_low, 0.2777954, tolerance = 1e-4)
+  expect_equal(RR$CI_high, 0.5567815, tolerance = 1e-4)
+
   expect_error(riskratio(RCT, log = TRUE), NA)
 
 

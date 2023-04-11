@@ -150,7 +150,7 @@ riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
 
     alpha <- 1 - ci.level
 
-    SE_logRR <- sqrt(p1 / ((1 - p1) * n1)) + sqrt(p2 / ((1 - p2) * n2))
+    SE_logRR <- sqrt((1 - p1) / (n1 * p1) + (1 - p2) / (n2 * p2))
     Z_logRR <- stats::qnorm(alpha / 2, lower.tail = FALSE)
     confs <- exp(log(RR) + c(-1, 1) * SE_logRR * Z_logRR)
 
