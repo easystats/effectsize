@@ -50,6 +50,7 @@ Other convert between effect sizes:
 \code{\link{d_to_r}()},
 \code{\link{diff_to_cles}},
 \code{\link{eta2_to_f2}()},
-\code{\link{oddsratio_to_riskratio}()}
+\code{\link{oddsratio_to_riskratio}()},
+\code{\link{v_to_t}()}
 }
 \concept{convert between effect sizes}
