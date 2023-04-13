@@ -56,7 +56,7 @@ t.test(mpg ~ am, data = mtcars, var.equal = TRUE)
 cohens_d(mpg ~ am, data = mtcars)
 ```
 
-Hedges' *g* provides a bias correction for small sample sizes ($N < 20$).
+Hedges' *g* provides a small-sample bias correction (for small sample sizes, $N < 20$).
 
 ```{r}
 hedges_g(mpg ~ am, data = mtcars)

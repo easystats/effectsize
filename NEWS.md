@@ -71,7 +71,7 @@
 
 ## Changes
 
-- `phi()` and `cramers_v()` (and `chisq_to_phi/cramers_v()`) now apply the small sample bias correction by default. To restore previous behavior, set `adjust = FALSE`.
+- `phi()` and `cramers_v()` (and `chisq_to_phi/cramers_v()`) now apply the small-sample bias correction by default. To restore previous behavior, set `adjust = FALSE`.
 
 ## New features
 

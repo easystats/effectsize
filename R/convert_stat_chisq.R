@@ -17,8 +17,8 @@
 #'   (one-sided CI), or `"two.sided"` (default, two-sided CI). Partial matching
 #'   is allowed (e.g., `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in
 #'   [effectsize_CIs].
-#' @param adjust Should the effect size be bias-corrected? Defaults to `TRUE`;
-#'   Advisable for small samples and large tables.
+#' @param adjust Should the effect size be corrected for small-sample bias?
+#'   Defaults to `TRUE`; Advisable for small samples and large tables.
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @return A data frame with the effect size(s), and confidence interval(s). See
@@ -48,7 +48,7 @@
 #'
 #' \deqn{\textrm{Pearson's } C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
 #'
-#' For bias-adjusted versions of \eqn{\phi}, \eqn{V}, and \eqn{T}, see [Bergsma, 2013](https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_V#Bias_correction).
+#' For versions adjusted for small-sample bias of \eqn{\phi}, \eqn{V}, and \eqn{T}, see [Bergsma, 2013](https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_V#Bias_correction).
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
