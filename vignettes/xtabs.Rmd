@@ -76,7 +76,7 @@ product it is.
 ```{r}
 cramers_v(food_class, adjust = FALSE)
 
-tschuprows_t(food_class)
+tschuprows_t(food_class, adjust = FALSE)
 ```
 
 

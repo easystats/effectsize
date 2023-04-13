@@ -48,7 +48,7 @@
 #'
 #' \deqn{\textrm{Pearson's } C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
 #'
-#' For bias-adjusted versions of \eqn{\phi} and \eqn{V}, see [Bergsma, 2013](https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_V#Bias_correction).
+#' For bias-adjusted versions of \eqn{\phi}, \eqn{V}, and \eqn{T}, see [Bergsma, 2013](https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_V#Bias_correction).
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
@@ -217,6 +217,7 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol,
 #' @rdname convert_chisq
 #' @export
 chisq_to_tschuprows_t <- function(chisq, n, nrow, ncol,
+                                  adjust = TRUE,
                                   ci = 0.95, alternative = "greater",
                                   ...) {
   if (nrow == 1 || ncol == 1) {
@@ -228,11 +229,23 @@ chisq_to_tschuprows_t <- function(chisq, n, nrow, ncol,
     ...
   )
 
+  # Adjust
+  if (adjust) {
+    k <- nrow - ((nrow - 1)^2) / (n - 1)
+    l <- ncol - ((ncol - 1)^2) / (n - 1)
+
+    res <- .adjust_phi(res, n, nrow, ncol)
+  } else {
+    k <- nrow
+    l <- ncol
+  }
+
   # Convert
-  div <- sqrt(sqrt((nrow - 1) * (ncol - 1)))
+  div <- sqrt(sqrt((k - 1) * (l - 1)))
+
   res[grepl("^(phi|CI_)", colnames(res))] <-
     lapply(res[grepl("^(phi|CI_)", colnames(res))], "/", y = div)
-  colnames(res)[1] <- "Tschuprows_t"
+  colnames(res)[1] <- gsub("phi", "Tschuprows_t", colnames(res)[1], fixed = TRUE)
 
   if ("CI" %in% colnames(res)) {
     if (attr(res, "alternative") == "greater") {

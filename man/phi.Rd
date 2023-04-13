@@ -13,7 +13,14 @@ phi(x, y = NULL, adjust = TRUE, ci = 0.95, alternative = "greater", ...)
 
 cramers_v(x, y = NULL, adjust = TRUE, ci = 0.95, alternative = "greater", ...)
 
-tschuprows_t(x, y = NULL, ci = 0.95, alternative = "greater", ...)
+tschuprows_t(
+  x,
+  y = NULL,
+  adjust = TRUE,
+  ci = 0.95,
+  alternative = "greater",
+  ...
+)
 
 cohens_w(
   x,
