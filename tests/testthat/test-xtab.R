@@ -209,4 +209,3 @@ test_that("fei() for 1D tables", {
   expect_error(fei(Titanic_xtab))
   testthat::expect_no_error(fei(as.matrix(1:10)))
 })
-

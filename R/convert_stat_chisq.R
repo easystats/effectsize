@@ -358,13 +358,15 @@ phi_to_chisq <- function(phi, n, ...) {
     res$CI <- ci
     ci.level <- .adjust_ci(ci, alternative)
 
-    chisqs <- t(mapply(
+    chisqs <- vapply(chisq,
       .get_ncp_chi,
-      chisq, df, ci.level
-    ))
+      FUN.VALUE = numeric(2),
+      df = df,
+      conf.level = ci.level
+    )
 
-    res$CI_low <- .chisq_to_generic_phi(chisqs[, 1], den, nrow, ncol)[[1]]
-    res$CI_high <- .chisq_to_generic_phi(chisqs[, 2], den, nrow, ncol)[[1]]
+    res$CI_low <- .chisq_to_generic_phi(chisqs[1, ], den, nrow, ncol)[[1]]
+    res$CI_high <- .chisq_to_generic_phi(chisqs[2, ], den, nrow, ncol)[[1]]
 
     ci_method <- list(method = "ncp", distribution = "chisq")
     res <- .limit_ci(res, alternative, 0, 1)
