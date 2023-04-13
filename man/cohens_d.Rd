@@ -83,12 +83,12 @@ Hedges' \emph{g} and Glass’s \emph{delta} (\eqn{\Delta}). (This function retur
 \strong{population} estimate.) Pair with any reported \code{\link[stats:t.test]{stats::t.test()}}.
 \cr\cr
 Both Cohen's \emph{d} and Hedges' \emph{g} are the estimated the standardized
-difference between the means of two populations. Hedges' \emph{g} provides a bias
-correction (using the exact method) to Cohen's \emph{d} for small sample sizes.
-For sample sizes > 20, the results for both statistics are roughly
-equivalent. Glass’s \emph{delta} is appropriate when the standard deviations are
-significantly different between the populations, as it uses only the \emph{second}
-group's standard deviation.
+difference between the means of two populations. Hedges' \emph{g} provides a
+correction for small-sample bias (using the exact method) to Cohen's \emph{d}. For
+sample sizes > 20, the results for both statistics are roughly equivalent.
+Glass’s \emph{delta} is appropriate when the standard deviations are significantly
+different between the populations, as it uses only the \emph{second} group's
+standard deviation.
 }
 \details{
 Set \code{pooled_sd = FALSE} for effect sizes that are to accompany a Welch's

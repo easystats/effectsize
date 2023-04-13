@@ -75,8 +75,8 @@ phi_to_chisq(phi, n, ...)
 
 \item{nrow, ncol}{The number of rows/columns in the contingency table.}
 
-\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{TRUE};
-Advisable for small samples and large tables.}
+\item{adjust}{Should the effect size be corrected for small-sample bias?
+Defaults to \code{TRUE}; Advisable for small samples and large tables.}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -127,7 +127,7 @@ Where \eqn{p_E} are the expected probabilities.
 
 \deqn{\textrm{Pearson's } C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
 
-For bias-adjusted versions of \eqn{\phi}, \eqn{V}, and \eqn{T}, see \href{https://en.wikipedia.org/wiki/Cram\%C3\%A9r\%27s_V#Bias_correction}{Bergsma, 2013}.
+For versions adjusted for small-sample bias of \eqn{\phi}, \eqn{V}, and \eqn{T}, see \href{https://en.wikipedia.org/wiki/Cram\%C3\%A9r\%27s_V#Bias_correction}{Bergsma, 2013}.
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
 Unless stated otherwise, confidence (compatibility) intervals (CIs) are

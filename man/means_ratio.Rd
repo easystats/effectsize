@@ -28,8 +28,8 @@ ignored.}
 \item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
 The correlation between these variables will affect the CIs.}
 
-\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{TRUE};
-Advisable for small samples.}
+\item{adjust}{Should the effect size be adjusted for small-sample bias?
+Defaults to \code{TRUE}; Advisable for small samples.}
 
 \item{log}{Should the log-ratio be returned? Defaults to \code{FALSE}.
 Normally distributed and useful for meta-analysis.}
@@ -62,8 +62,8 @@ indicating that the second mean is larger than the first, values larger than
 indicating that the means are equal.
 }
 \note{
-The bias corrected response ratio reported from this function is
-derived from Lajeunesse (2015).
+The small-sample bias corrected response ratio reported from this
+function is derived from Lajeunesse (2015).
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
 Confidence intervals are estimated as described by Lajeunesse (2011 & 2015)

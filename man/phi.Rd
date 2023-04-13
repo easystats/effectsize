@@ -49,8 +49,8 @@ pearsons_c(
 \item{y}{a numeric vector; ignored if \code{x} is a matrix.  If
     \code{x} is a factor, \code{y} should be a factor of the same length.}
 
-\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{TRUE};
-Advisable for small samples and large tables.}
+\item{adjust}{Should the effect size be corrected for small-sample bias?
+Defaults to \code{TRUE}; Advisable for small samples and large tables.}
 
 \item{ci}{Confidence Interval (CI) level}
 
