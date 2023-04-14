@@ -2,7 +2,8 @@
 
 ## New features
 
-- `v_to_t()` and `w_to_fei()` and their inverses for converting besteen effect sizes of Chi-square tests.
+- `tschuprows_t()` now returns an effect size corrected for small-sample bias. Set `adjust = FALSE` to preserve old behavior.
+- `v_to_t()` and `w_to_fei()` and their inverses for converting between effect sizes of Chi-square tests.
 - `arr()` and `nnt()` for Absolute Risk Reduction or Number Needed to Treat.
 - `oddsratio_to_arr()`, `riskratio_to_arr()`, `nnt_to_arr()` and their inverses.
 - `logoddsratio_to_*()` and `*_to_logoddsratio()` have been added as convenient shortcuts for `oddsratio_to_*(log = TRUE)` and `*_to_oddsratio(log = TRUE)`.
@@ -70,7 +71,7 @@
 
 ## Changes
 
-- `phi()` and `cramers_v()` (and `chisq_to_phi/cramers_v()`) now apply the small sample bias correction by default. To restore previous behavior, set `adjust = FALSE`.
+- `phi()` and `cramers_v()` (and `chisq_to_phi/cramers_v()`) now apply the small-sample bias correction by default. To restore previous behavior, set `adjust = FALSE`.
 
 ## New features
 

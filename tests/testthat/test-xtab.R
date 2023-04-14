@@ -12,7 +12,7 @@ test_that("contingency table", {
 
   expect_error(phi(contingency_table), "appropriate")
 
-  expect_equal(tschuprows_t(contingency_table), res, ignore_attr = TRUE)
+  expect_equal(tschuprows_t(contingency_table, adjust = FALSE), res, ignore_attr = TRUE)
 
   ## Size does not affect estimate
   xtab <- rbind(
@@ -36,7 +36,8 @@ test_that("contingency table", {
     c(0, 1, 0)
   )
   expect_equal(cramers_v(xtab, adjust = FALSE)[[1]], 1, tolerance = 1e-4)
-  expect_lt(tschuprows_t(xtab)[[1]], cramers_v(xtab, adjust = FALSE)[[1]])
+  expect_lt(tschuprows_t(xtab, adjust = FALSE)[[1]], cramers_v(xtab, adjust = FALSE)[[1]])
+  expect_lt(tschuprows_t(xtab)[[1]], cramers_v(xtab)[[1]])
 
 
   ## 2*2 tables return phi and cramers_v

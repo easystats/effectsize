@@ -17,8 +17,8 @@
 #'   (one-sided CI), or `"two.sided"` (default, two-sided CI). Partial matching
 #'   is allowed (e.g., `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in
 #'   [effectsize_CIs].
-#' @param adjust Should the effect size be bias-corrected? Defaults to `TRUE`;
-#'   Advisable for small samples and large tables.
+#' @param adjust Should the effect size be corrected for small-sample bias?
+#'   Defaults to `TRUE`; Advisable for small samples and large tables.
 #' @param ... Arguments passed to or from other methods.
 #'
 #' @return A data frame with the effect size(s), and confidence interval(s). See
@@ -48,7 +48,7 @@
 #'
 #' \deqn{\textrm{Pearson's } C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
 #'
-#' For bias-adjusted versions of \eqn{\phi} and \eqn{V}, see [Bergsma, 2013](https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_V#Bias_correction).
+#' For versions adjusted for small-sample bias of \eqn{\phi}, \eqn{V}, and \eqn{T}, see [Bergsma, 2013](https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_V#Bias_correction).
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
@@ -119,13 +119,10 @@ chisq_to_phi <- function(chisq, n, nrow = 2, ncol = 2,
   }
 
   res <- .chisq_to_generic_phi(chisq, n, nrow, ncol,
+    adjust = adjust,
     ci = ci, alternative = alternative,
     ...
   )
-
-  if (adjust) {
-    res <- .adjust_phi(res, n, nrow, ncol)
-  }
 
   if ("CI" %in% colnames(res)) {
     if (attr(res, "alternative") == "greater") {
@@ -155,8 +152,9 @@ chisq_to_cohens_w <- function(chisq, n, nrow, ncol, p,
       if (missing(p)) {
         max_possible <- Inf # really is chisqMax, but can't compute it without p
       } else {
-        q <- min(p / sum(p))
-        max_possible <- sqrt((1 - q) / q)
+        p <- p / sum(p)
+        q <- min(p)
+        max_possible <- sqrt((1 / q) - 1)
       }
     } else {
       max_possible <- sqrt((pmin(ncol, nrow) - 1))
@@ -183,23 +181,15 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol,
   }
 
   res <- .chisq_to_generic_phi(chisq, n, nrow, ncol,
+    adjust = adjust,
     ci = ci, alternative = alternative,
     ...
   )
-  # Adjust
-  if (adjust) {
-    k <- nrow - ((nrow - 1)^2) / (n - 1)
-    l <- ncol - ((ncol - 1)^2) / (n - 1)
-
-    res <- .adjust_phi(res, n, nrow, ncol)
-  } else {
-    k <- nrow
-    l <- ncol
-  }
-
-  div <- sqrt((pmin(k, l) - 1))
 
   # Convert
+  kl <- .possibly_adjust_k_and_l(nrow, ncol, n, adjust = adjust)
+  div <- sqrt((pmin(kl[["k"]], kl[["l"]]) - 1))
+
   res[grepl("^(phi|CI_)", colnames(res))] <-
     lapply(res[grepl("^(phi|CI_)", colnames(res))], "/", y = div)
   colnames(res)[1] <- gsub("phi", "Cramers_v", colnames(res)[1], fixed = TRUE)
@@ -217,6 +207,7 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol,
 #' @rdname convert_chisq
 #' @export
 chisq_to_tschuprows_t <- function(chisq, n, nrow, ncol,
+                                  adjust = TRUE,
                                   ci = 0.95, alternative = "greater",
                                   ...) {
   if (nrow == 1 || ncol == 1) {
@@ -224,15 +215,18 @@ chisq_to_tschuprows_t <- function(chisq, n, nrow, ncol,
   }
 
   res <- .chisq_to_generic_phi(chisq, n, nrow, ncol,
+    adjust = adjust,
     ci = ci, alternative = alternative,
     ...
   )
 
   # Convert
-  div <- sqrt(sqrt((nrow - 1) * (ncol - 1)))
+  kl <- .possibly_adjust_k_and_l(nrow, ncol, n, adjust = adjust)
+  div <- sqrt(sqrt((kl[["k"]] - 1) * (kl[["l"]] - 1)))
+
   res[grepl("^(phi|CI_)", colnames(res))] <-
     lapply(res[grepl("^(phi|CI_)", colnames(res))], "/", y = div)
-  colnames(res)[1] <- "Tschuprows_t"
+  colnames(res)[1] <- gsub("phi", "Tschuprows_t", colnames(res)[1], fixed = TRUE)
 
   if ("CI" %in% colnames(res)) {
     if (attr(res, "alternative") == "greater") {
@@ -261,15 +255,18 @@ chisq_to_fei <- function(chisq, n, nrow, ncol, p,
     }
   }
 
-  p <- p / sum(p)
-  q <- min(p)
-
-  N <- n * (1 - q) / q
-
-  res <- .chisq_to_generic_phi(chisq, N, nrow, ncol,
+  res <- .chisq_to_generic_phi(chisq, n, nrow, ncol,
     ci = ci, alternative = alternative,
     ...
   )
+
+  # Convert
+  p <- p / sum(p)
+  q <- min(p)
+  div <- sqrt((1 / q) - 1)
+
+  res[grepl("^(phi|CI_)", colnames(res))] <-
+    lapply(res[grepl("^(phi|CI_)", colnames(res))], "/", y = div)
   colnames(res)[1] <- "Fei"
 
   if ("CI" %in% colnames(res)) {
@@ -323,13 +320,14 @@ phi_to_chisq <- function(phi, n, ...) {
 # Utils  ------------------------------------------------------------------
 
 #' @keywords internal
-.chisq_to_generic_phi <- function(chisq, den, nrow, ncol,
+.chisq_to_generic_phi <- function(chisq, n, nrow, ncol,
+                                  adjust = FALSE,
                                   ci = NULL, alternative = "greater",
                                   ...) {
   alternative <- .match.alt(alternative, FALSE)
 
   ci_numeric <- .test_ci(ci)
-  if (ci_numeric) {
+  if (ci_numeric || adjust) {
     is_goodness <- ncol == 1 || nrow == 1
 
     if (is_goodness) {
@@ -339,24 +337,37 @@ phi_to_chisq <- function(phi, n, ...) {
     }
   }
 
-  res <- data.frame(phi = sqrt(chisq / den))
+  res <- data.frame(phi = sqrt(chisq / n))
 
   if (ci_numeric) {
     res$CI <- ci
     ci.level <- .adjust_ci(ci, alternative)
 
-    chisqs <- t(mapply(
+    chisqs <- vapply(chisq,
       .get_ncp_chi,
-      chisq, df, ci.level
-    ))
+      FUN.VALUE = numeric(2),
+      df = df,
+      conf.level = ci.level
+    )
 
-    res$CI_low <- .chisq_to_generic_phi(chisqs[, 1], den, nrow, ncol)[[1]]
-    res$CI_high <- .chisq_to_generic_phi(chisqs[, 2], den, nrow, ncol)[[1]]
+    res$CI_low <- .chisq_to_generic_phi(chisqs[1, ], n, nrow, ncol)[[1]]
+    res$CI_high <- .chisq_to_generic_phi(chisqs[2, ], n, nrow, ncol)[[1]]
 
     ci_method <- list(method = "ncp", distribution = "chisq")
     res <- .limit_ci(res, alternative, 0, 1)
   } else {
     ci_method <- alternative <- NULL
+  }
+
+  if (adjust) {
+    to_convert <- grepl("^(phi|CI_)", colnames(res))
+    E <- df / (n - 1)
+
+    res[to_convert] <- lapply(res[to_convert], function(phi) {
+      sqrt(pmax(0, phi^2 - E))
+    })
+
+    colnames(res)[1] <- "phi_adjusted"
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
@@ -367,16 +378,14 @@ phi_to_chisq <- function(phi, n, ...) {
 }
 
 #' @keywords internal
-.adjust_phi <- function(res, n, nrow, ncol) {
-  to_convert <- grepl("^(phi|CI_)", colnames(res))
+.possibly_adjust_k_and_l <- function(nrow, ncol, n, adjust = FALSE) {
+  k <- nrow
+  l <- ncol
 
-  res[to_convert] <- lapply(res[to_convert], function(phi) {
-    df <- (nrow - 1) * (ncol - 1)
-    E <- df / (n - 1)
-    sqrt(pmax(0, phi^2 - E))
-  })
+  if (adjust) {
+    k <- nrow - ((nrow - 1)^2) / (n - 1)
+    l <- ncol - ((ncol - 1)^2) / (n - 1)
+  }
 
-  colnames(res)[1] <- "phi_adjusted"
-
-  res
+  return(list(k = k, l = l))
 }

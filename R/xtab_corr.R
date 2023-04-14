@@ -140,6 +140,7 @@ cramers_v <- function(x, y = NULL,
 #' @rdname phi
 #' @export
 tschuprows_t <- function(x, y = NULL,
+                         adjust = TRUE,
                          ci = 0.95, alternative = "greater",
                          ...) {
   alternative <- .match.alt(alternative, FALSE)
@@ -151,7 +152,7 @@ tschuprows_t <- function(x, y = NULL,
     x$data.name <- NULL
   }
 
-  effectsize(x, type = "tschuprows_t", ci = ci, alternative = alternative)
+  effectsize(x, type = "tschuprows_t", adjust = adjust, ci = ci, alternative = alternative)
 }
 
 #' @rdname phi

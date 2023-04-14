@@ -25,7 +25,8 @@ set.seed(7)
 
 .eval_if_requireNamespace <- function(...) {
   pkgs <- c(...)
-  knitr::opts_chunk$get("eval") && all(sapply(pkgs, requireNamespace, quietly = TRUE))
+  knitr::opts_chunk$get("eval") &&
+    all(vapply(pkgs, requireNamespace, TRUE, quietly = TRUE))
 }
 ```
 
@@ -76,7 +77,7 @@ product it is.
 ```{r}
 cramers_v(food_class, adjust = FALSE)
 
-tschuprows_t(food_class)
+tschuprows_t(food_class, adjust = FALSE)
 ```
 
 
@@ -152,7 +153,7 @@ For these reasons, we recommend the $פ$ (Fei) coefficient, which is a measure o
 fei(O, p = E)
 
 # Observed perfectly matches Expected
-(O1 <- c(E * 286))
+(O1 <- E * 286)
 
 fei(O1, p = E)
 
