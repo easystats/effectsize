@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.8</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -187,8 +187,8 @@ standardized based on the pooled standard deviation of both samples
 &gt; -1.48     | [-2.27, -0.67]
 &gt; 
 &gt; - Estimated using pooled SD.</code></pre>
-<p>Hedges’ <em>g</em> provides a bias correction for small sample sizes
-(<span class="math inline">\(N &lt; 20\)</span>).</p>
+<p>Hedges’ <em>g</em> provides a small-sample bias correction (for small
+sample sizes, <span class="math inline">\(N &lt; 20\)</span>).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/cohens_d.html">hedges_g</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Hedges' g |         95% CI

@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.8</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -226,7 +226,7 @@ know what food product it is.</p>
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">tschuprows_t</a></span><span class="op">(</span><span class="va">food_class</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">tschuprows_t</a></span><span class="op">(</span><span class="va">food_class</span>, adjust <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Tschuprow's T |       95% CI
 &gt; ----------------------------
 &gt; 0.84          | [0.68, 1.00]
@@ -259,9 +259,9 @@ indicates no association between the variables).</p>
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">tschuprows_t</a></span><span class="op">(</span><span class="va">Music_preferences2</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; Tschuprow's T |       95% CI
-&gt; ----------------------------
-&gt; 0.72          | [0.68, 1.00]
+<pre><code>&gt; Tschuprow's T (adj.) |       95% CI
+&gt; -----------------------------------
+&gt; 0.72                 | [0.68, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
@@ -305,9 +305,9 @@ on <code>BayesFactor</code>’s version of a <span class="math inline">\(\chi^2\
 &gt; 0.78              | [0.75, 0.81]</code></pre>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFX</span>, type <span class="op">=</span> <span class="st">"tschuprows_t"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>&gt; Tschuprow's T |       95% CI
-&gt; ----------------------------
-&gt; 0.71          | [0.68, 0.73]</code></pre>
+<pre><code>&gt; Tschuprow's T (adj.) |       95% CI
+&gt; -----------------------------------
+&gt; 0.71                 | [0.68, 0.73]</code></pre>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFX</span>, type <span class="op">=</span> <span class="st">"cohens_w"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's w |       95% CI
@@ -369,7 +369,7 @@ the expected one).</p>
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Observed perfectly matches Expected</span></span>
-<span><span class="op">(</span><span class="va">O1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">E</span> <span class="op">*</span> <span class="fl">286</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">(</span><span class="va">O1</span> <span class="op">&lt;-</span> <span class="va">E</span> <span class="op">*</span> <span class="fl">286</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; [1] 114.4  57.2  57.2  42.9  14.3</code></pre>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">fei</a></span><span class="op">(</span><span class="va">O1</span>, p <span class="op">=</span> <span class="va">E</span><span class="op">)</span></span></code></pre></div>

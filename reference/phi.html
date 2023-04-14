@@ -16,7 +16,7 @@ stats::chisq.test()."><meta property="og:image" content="https://easystats.githu
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.8</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -125,7 +125,14 @@ contingency tables or goodness-of-fit. Pair with any reported
 <span></span>
 <span><span class="fu">cramers_v</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, adjust <span class="op">=</span> <span class="cn">TRUE</span>, ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"greater"</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">tschuprows_t</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"greater"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">tschuprows_t</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  y <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  adjust <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  ci <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">cohens_w</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
@@ -161,8 +168,8 @@ contingency tables or goodness-of-fit. Pair with any reported
 
 
 <dt>adjust</dt>
-<dd><p>Should the effect size be bias-corrected? Defaults to <code>TRUE</code>;
-Advisable for small samples and large tables.</p></dd>
+<dd><p>Should the effect size be corrected for small-sample bias?
+Defaults to <code>TRUE</code>; Advisable for small samples and large tables.</p></dd>
 
 
 <dt>ci</dt>

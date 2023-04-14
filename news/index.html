@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.8</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,7 +110,9 @@
 <div class="section level3">
 <h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
 <ul><li>
-<code><a href="../reference/v_to_t.html">v_to_t()</a></code> and <code><a href="../reference/v_to_t.html">w_to_fei()</a></code> and their inverses for converting besteen effect sizes of Chi-square tests.</li>
+<code><a href="../reference/phi.html">tschuprows_t()</a></code> now returns an effect size corrected for small-sample bias. Set <code>adjust = FALSE</code> to preserve old behavior.</li>
+<li>
+<code><a href="../reference/v_to_t.html">v_to_t()</a></code> and <code><a href="../reference/v_to_t.html">w_to_fei()</a></code> and their inverses for converting between effect sizes of Chi-square tests.</li>
 <li>
 <code><a href="../reference/oddsratio.html">arr()</a></code> and <code><a href="../reference/oddsratio.html">nnt()</a></code> for Absolute Risk Reduction or Number Needed to Treat.</li>
 <li>
@@ -202,7 +204,7 @@
 <div class="section level3">
 <h3 id="changes-0-8-0">Changes<a class="anchor" aria-label="anchor" href="#changes-0-8-0"></a></h3>
 <ul><li>
-<code><a href="../reference/phi.html">phi()</a></code> and <code><a href="../reference/phi.html">cramers_v()</a></code> (and <code>chisq_to_phi/cramers_v()</code>) now apply the small sample bias correction by default. To restore previous behavior, set <code>adjust = FALSE</code>.</li>
+<code><a href="../reference/phi.html">phi()</a></code> and <code><a href="../reference/phi.html">cramers_v()</a></code> (and <code>chisq_to_phi/cramers_v()</code>) now apply the small-sample bias correction by default. To restore previous behavior, set <code>adjust = FALSE</code>.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-0-8-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-8-0"></a></h3>
