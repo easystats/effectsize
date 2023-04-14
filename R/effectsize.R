@@ -128,7 +128,8 @@ effectsize.aovlist <- effectsize.anova
 
 #' @export
 effectsize.easycorrelation <- function(model, ...) {
-  if (is.null(r_name <- attr(model, "coefficient_name"))) {
+  r_name <- attr(model, "coefficient_name")
+  if (is.null(r_name)) {
     r_name <- "r"
   }
 

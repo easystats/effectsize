@@ -5,12 +5,12 @@
 #' **population** estimate.) Pair with any reported [`stats::t.test()`].
 #' \cr\cr
 #' Both Cohen's *d* and Hedges' *g* are the estimated the standardized
-#' difference between the means of two populations. Hedges' *g* provides a bias
-#' correction (using the exact method) to Cohen's *d* for small sample sizes.
-#' For sample sizes > 20, the results for both statistics are roughly
-#' equivalent. Glass’s *delta* is appropriate when the standard deviations are
-#' significantly different between the populations, as it uses only the *second*
-#' group's standard deviation.
+#' difference between the means of two populations. Hedges' *g* provides a
+#' correction for small-sample bias (using the exact method) to Cohen's *d*. For
+#' sample sizes > 20, the results for both statistics are roughly equivalent.
+#' Glass’s *delta* is appropriate when the standard deviations are significantly
+#' different between the populations, as it uses only the *second* group's
+#' standard deviation.
 #'
 #' @param x,y A numeric vector, or a character name of one in `data`.
 #'   Any missing values (`NA`s) are dropped from the resulting vector.

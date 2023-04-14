@@ -1,5 +1,3 @@
-# library(testthat)
-
 test_that("r2_semipartial basic", {
   # Type terms
   m <- lm(log(mpg) ~ factor(cyl) + disp + hp * drat, data = mtcars)

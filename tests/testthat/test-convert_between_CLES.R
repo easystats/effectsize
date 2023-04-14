@@ -1,5 +1,3 @@
-# library(testthat)
-
 test_that("d/rbs_to_cles | numeric", {
   # Null ----------------------
   expect_equal(d_to_overlap(0), 1)

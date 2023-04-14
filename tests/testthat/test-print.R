@@ -1,5 +1,3 @@
-# library(testthat)
-
 test_that("print | effectsize table", {
   ## digits
   d <- cohens_d(1:4, c(1, 1:5))
@@ -42,7 +40,7 @@ test_that("print | effectsize table", {
   expect_output(print(w_), regexp = "funder2019")
   expect_output(print(w_), regexp = "Interpretation")
 
-  ## md / html
+  ## md or html
   skip_if_not_installed("gt")
   skip_if_not_installed("knitr")
   expect_s3_class(print_html(d), "gt_tbl")
@@ -55,7 +53,7 @@ test_that("print | effectsize_difference", {
   expect_error(expect_output(print(d1), regexp = "Deviation from a difference"))
   expect_output(print(d1), regexp = " pooled", fixed = TRUE)
 
-  ## Un-pooled + mu
+  ## Un-pooled and mu
   d2 <- cohens_d(1:3, c(1, 1:3), pooled_sd = FALSE, mu = -1)
   expect_output(print(d2), regexp = "Deviation from a difference of -1")
   expect_output(print(d2), regexp = "un-pooled", fixed = TRUE)
@@ -65,7 +63,7 @@ test_that("print | effectsize_difference", {
   expect_error(expect_output(print(d3), regexp = "Deviation from a difference"))
   expect_error(expect_output(print(d3), regexp = "pooled"))
 
-  ## paired + mu
+  ## paired and mu
   d4 <- cohens_d(1:5, c(1, 1:4), paired = TRUE, mu = 0.1)
   expect_output(print(d4), regexp = "Deviation from a difference of 0.1")
 
@@ -93,39 +91,6 @@ test_that("print | effectsize_anova", {
   e4 <- eta_squared(A)
   expect_output(print(e4), regexp = "(Type III)", fixed = TRUE)
 })
-
-# test_that("print | effectsize_std_params", {
-#   mod <- lm(mpg ~ cyl + gear, mtcars)
-#
-#   ## Methods
-#   es <- standardize_parameters(mod)
-#   expect_output(print(es), regexp = "refit")
-#
-#   es <- standardize_parameters(mod, method = "basic")
-#   expect_output(print(es), regexp = "basic")
-#
-#   ## Robust / two_sd / include_response
-#   es <- standardize_parameters(mod, robust = TRUE)
-#   expect_output(print(es), regexp = "one MAD from the median")
-#
-#   es <- standardize_parameters(mod, two_sd = TRUE)
-#   expect_output(print(es), regexp = "two")
-#
-#   es <- standardize_parameters(mod, include_response = FALSE)
-#   expect_output(print(es), regexp = "unstandardized")
-#
-#   es <- standardize_parameters(mod, include_response = FALSE, two_sd = TRUE, robust = TRUE)
-#   expect_output(print(es), regexp = "two MADs from the median")
-#
-#   # ES Name
-#   expect_output(print(es), regexp = "Coefficient (std.)", fixed = TRUE)
-#
-#   mod <- glm(am ~ mpg, binomial(), mtcars)
-#   es <- standardize_parameters(mod, exp = TRUE)
-#   expect_output(print(es), regexp = "Odds Ratio (std.)", fixed = TRUE)
-#   expect_output(print(es), regexp = "unstandardized")
-# })
-
 
 test_that("print | equivalence_test_effectsize", {
   d <- cohens_d(1:3, c(1, 1:3))

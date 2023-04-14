@@ -1,5 +1,3 @@
-# library(testthat)
-
 test_that("xtab", {
   xtab <- as.table(rbind(
     c(762, 327, 468),

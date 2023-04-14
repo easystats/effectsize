@@ -2,10 +2,8 @@
 % Please edit documentation in R/convert_between_odds_to_probs.R
 \name{odds_to_probs}
 \alias{odds_to_probs}
-\alias{convert_odds_to_probs}
 \alias{odds_to_probs.data.frame}
 \alias{probs_to_odds}
-\alias{convert_probs_to_odds}
 \alias{probs_to_odds.data.frame}
 \title{Convert Between Odds and Probabilities}
 \usage{
@@ -52,6 +50,7 @@ Other convert between effect sizes:
 \code{\link{d_to_r}()},
 \code{\link{diff_to_cles}},
 \code{\link{eta2_to_f2}()},
-\code{\link{oddsratio_to_riskratio}()}
+\code{\link{oddsratio_to_riskratio}()},
+\code{\link{v_to_t}()}
 }
 \concept{convert between effect sizes}

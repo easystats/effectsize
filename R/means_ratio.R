@@ -6,8 +6,8 @@
 #'
 #' @param paired If `TRUE`, the values of `x` and `y` are considered as paired.
 #'   The correlation between these variables will affect the CIs.
-#' @param adjust Should the effect size be bias-corrected? Defaults to `TRUE`;
-#'   Advisable for small samples.
+#' @param adjust Should the effect size be adjusted for small-sample bias?
+#'   Defaults to `TRUE`; Advisable for small samples.
 #' @param log Should the log-ratio be returned? Defaults to `FALSE`.
 #'  Normally distributed and useful for meta-analysis.
 #' @inheritParams cohens_d
@@ -32,8 +32,8 @@
 #'
 #' @family standardized differences
 #'
-#' @note The bias corrected response ratio reported from this function is
-#'   derived from Lajeunesse (2015).
+#' @note The small-sample bias corrected response ratio reported from this
+#'   function is derived from Lajeunesse (2015).
 #'
 #' @examples
 #' x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
