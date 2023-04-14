@@ -1,5 +1,5 @@
 # library(base)      # 4.2.2
-library(effectsize) # 0.8.3.9
+library(effectsize)  # 0.8.3.9
 library(correlation) # 0.8.3
 # library(tidyr)     # 1.3.0
 

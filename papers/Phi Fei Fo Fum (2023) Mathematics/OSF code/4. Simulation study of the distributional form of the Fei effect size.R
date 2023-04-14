@@ -1,8 +1,8 @@
 # library(base)         # 4.2.2
-library(tidyverse) # 2.0.0
-library(ggdist) # 3.2.1.9000
+library(tidyverse)      # 2.0.0
+library(ggdist)         # 3.2.1.9000
 library(distributional) # 0.3.1
-library(effectsize) # 0.8.3.9
+library(effectsize)     # 0.8.3.9
 # library(see)          # 0.7.4
 # library(pwr)          # 1.3.0
 
