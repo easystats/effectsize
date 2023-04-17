@@ -218,8 +218,8 @@ ggplot(mapping = aes(fill = factor(es))) +
   ) +
   theme_bw(base_size = 12)
 
-ggsave("figure_1.tiff",
-  dpi = 600, compression = "lzw",
+ggsave("figure_1.png",
+  dpi = 600,
   width = 13, height = 13, units = "cm",
   scale = 1.4
 )
