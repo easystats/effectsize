@@ -1,8 +1,10 @@
-paired_d <- function(x, group, block, data = NULL,
-                     mu = 0, ci = 0.95, alternative = "two.sided",
-                     type = c("d", "a", "r", "z", "t", "av", "rm")) {
+cohens_d_rm <- function(x, group, block, data = NULL,
+                        type = c("d", "a", "r", "z", "t", "av", "rm"),
+                        mu = 0,
+                        ci = 0.95, alternative = "two.sided",
+                        verbose = TRUE, ...) {
   type <- match.arg(type)
-  alternative <- .match.alt(alternative)
+  alternative <- effectsize:::.match.alt(alternative)
 
   data <- effectsize:::.get_data_nested_groups(x, group, block, data, wide = FALSE)
   if (!is.factor(data$groups)) data$groups <- factor(data$groups)
@@ -14,6 +16,7 @@ paired_d <- function(x, group, block, data = NULL,
 
 
   if (type %in% c("a", "z", "t", "av", "rm")) {
+    browser()
     data <- aggregate(data$x, data[-1], mean)
     xtab <- table(data[-3])
     data <- data[data$blocks %in% colnames(xtab)[colSums(xtab) %in% 2], ]
@@ -22,7 +25,13 @@ paired_d <- function(x, group, block, data = NULL,
 
   if (type %in% c("z", "t")) {
     out <- .paired_d_z_t(data, type, mu = mu, ci = ci, alternative = alternative)
-  } else if (type %in% c("av", "rm")) {
+    return(out)
+  }
+
+  insight::check_if_installed("emmeans")
+  insight::check_if_installed("nlme")
+
+  if (type %in% c("av", "rm")) {
     out <- .paired_d_av_rm(data, type, mu = mu, ci = ci, alternative = alternative)
   } else if (type %in% c("d", "a", "r")) {
     out <- .paired_d_d_a_r(data, type, mu = mu, ci = ci, alternative = alternative)
@@ -51,66 +60,43 @@ paired_d <- function(x, group, block, data = NULL,
 
 .paired_d_d_a_r <- function(data, type,
                             mu = 0, ci = 0.95, alternative = "two.sided") {
-  # Use ANOVA decomp
-  mod <- stats::aov(x ~ groups + Error(blocks / groups), data = data)
-  pars <- as.data.frame(parameters::model_parameters(mod))
+  # Use nlme decomp
+  contrasts(data$groups) <- stats::contr.sum
+  contrasts(data$blocks) <- stats::contr.sum
 
-  # Look in:
-  # d/r = groups
-  # a = blocks:groups
-  is_d <-
-    pars$Paramete == "groups" &
-      pars$df == 1 &
-      pars$Group == "blocks:groups"
+  mod <- nlme::lme(x ~ groups,
+                    random = ~ groups | blocks,
+                    data = data)
 
-  d <- -unname(coef(mod[["blocks:groups"]]))
-
-  if (type %in% c("d", "a")) {
-    ss <- sum(pars[!is_d, "Sum_Squares"])
-    df <- sum(pars[!is_d, "df"])
-    s <- sqrt(ss / df)
-  } else if (type == "r") {
-    is_r <- pars$Group == "Within" & pars$Parameter == "Residuals"
-    ss <- pars[is_r, "Sum_Squares"]
-    df <- pars[is_r, "df"]
-    s <- sqrt(ss / df)
+  if (type == "r") {
+    s <- sqrt(insight::get_variance_residual(mod))
+    df <- insight::get_df(mod)[1]
+  } else if (type %in% c("d", "a")) {
+    var <- insight::get_variance(mod)
+    s <- sqrt(var[["var.random"]] + var[["var.residual"]])
+    df <- insight::n_obs(mod) - 2
   }
 
-  out <- data.frame(d = (d - mu) / s)
-  if (type != "d") names(out) <- paste0("d_", type)
+  Means <- emmeans::emmeans(mod, ~ groups)
+  Diff <- emmeans::contrast(Means, method = "pairwise", offset = -mu)
+  Effect <- emmeans::eff_size(Diff, sigma = s, edf = df, method = "identity")
 
-  if (.test_ci(ci)) {
-    out$CI <- ci
-    ci.level <- .adjust_ci(ci, alternative)
+  effectsize:::.test_ci(ci)
 
-    is_mse <-
-      pars$Paramete == "Residuals" &
-        pars$Group == "blocks:groups"
+  em_side <- c("two.sided" = 0,
+               "less" = -1,
+               "greater" = +1)[alternative]
 
-    # Delta method to get se
-    beta <- c(d - mu, s)
-    V <- matrix(c(
-      vcov(mod[["blocks:groups"]]), 0,
-      0, 2 / df
-    ), nrow = 2)
-    se <- .deltamethod(~ x1 / x2, beta, V, ses = TRUE)
-
-    # Critical value
-    tc <- pt(0.5 + ci.level / 2, df = pars[is_mse, "df"])
-
-    out$CI_low <- out[[1]] - tc * se
-    out$CI_high <- out[[1]] + tc * se
-
-    ci_method <- list(method = "delta")
-    out <- .limit_ci(out, alternative, -Inf, Inf)
-  } else {
-    ci_method <- alternative <- NULL
-  }
+  out <- summary(Effect, infer = !is.null(ci), level = ci, side = em_side)
+  out <- data.frame(out)
+  out$CI <- ci
+  out <- out[intersect(c("effect.size", "CI", "lower.CL", "upper.CL"), colnames(out))]
+  colnames(out) <- c(paste0("d_", type), "CI", "CI_low", "CI_high")[seq_len(length(out))]
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
   attr(out, "mu") <- mu
   attr(out, "ci") <- ci
-  attr(out, "ci_method") <- ci_method
+  # attr(out, "ci_method") <- ci_method
   attr(out, "approximate") <- FALSE
   attr(out, "alternative") <- alternative
   return(out)
@@ -142,9 +128,9 @@ paired_d <- function(x, group, block, data = NULL,
   }
 
 
-  if (.test_ci(ci)) {
+  if (effectsize:::.test_ci(ci)) {
     out$CI <- ci
-    ci.level <- .adjust_ci(ci, alternative)
+    ci.level <- effectsize:::.adjust_ci(ci, alternative)
 
     tc <- qt(0.5 + ci.level / 2, df = n - 1, lower.tail = TRUE)
     se <- sqrt((2 * Sdiff^2) / (n * sum(ss)))
@@ -152,7 +138,7 @@ paired_d <- function(x, group, block, data = NULL,
     out$CI_low <- out[[1]] - tc * se
     out$CI_high <- out[[1]] + tc * se
     ci_method <- list(method = "normal")
-    out <- .limit_ci(out, alternative, -Inf, Inf)
+    out <- effectsize:::.limit_ci(out, alternative, -Inf, Inf)
   } else {
     ci_method <- alternative <- NULL
   }

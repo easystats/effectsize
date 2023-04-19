@@ -24,11 +24,11 @@ source("WIP/paired_d2.R")
 #' #' t - (incorrect) conversion from t statistic (d_z * sqrt(2))
 #' #' rm - d, but accounts for correlation between repeated measures (not a good name)
 #' #' av - d, but just use average sd (isn't this type a?)
-#' paired_d(rt ~ cond | id, data = dat, type = "a") # 0.8357347
-#' paired_d(rt ~ cond | id, data = dat, type = "z") # 1.353713
-#' paired_d(rt ~ cond | id, data = dat, type = "t") # 1.914439
-#' paired_d(rt ~ cond | id, data = dat, type = "rm")
-#' paired_d(rt ~ cond | id, data = dat, type = "av")
+#' cohens_d_rm(rt ~ cond | id, data = dat, type = "a") # 0.8357347
+#' cohens_d_rm(rt ~ cond | id, data = dat, type = "z") # 1.353713
+#' cohens_d_rm(rt ~ cond | id, data = dat, type = "t") # 1.914439
+#' cohens_d_rm(rt ~ cond | id, data = dat, type = "rm")
+#' cohens_d_rm(rt ~ cond | id, data = dat, type = "av")
 
 
 # Test on other data:
@@ -39,8 +39,8 @@ stroop <- subset(stroop, study == "1" & condition == "control")
 m <- lme4::lmer(rt ~ congruency + (congruency | pno), data = stroop)
 
 cohens_d(rt ~ congruency, data = stroop)
-paired_d(rt ~ congruency | pno, data = stroop, type = "d")
-paired_d(rt ~ congruency | pno, data = stroop, type = "r")
+cohens_d_rm(rt ~ congruency | pno, data = stroop, type = "d")
+cohens_d_rm(rt ~ congruency | pno, data = stroop, type = "r")
 
 emmeans(m, ~ congruency) |>
   eff_size(sigma(m), df.residual(m))
@@ -48,11 +48,11 @@ emmeans(m, ~ congruency) |>
 emmeans(m, ~ congruency) |>
   eff_size(sd(predict(m, re.form = NA) - na.omit(stroop$rt)), df.residual(m))
 
-paired_d(rt ~ congruency | pno, data = stroop, type = "a")
-paired_d(rt ~ congruency | pno, data = stroop, type = "z")
-paired_d(rt ~ congruency | pno, data = stroop, type = "t")
-paired_d(rt ~ congruency | pno, data = stroop, type = "rm")
-paired_d(rt ~ congruency | pno, data = stroop, type = "av")
+cohens_d_rm(rt ~ congruency | pno, data = stroop, type = "a")
+cohens_d_rm(rt ~ congruency | pno, data = stroop, type = "z")
+cohens_d_rm(rt ~ congruency | pno, data = stroop, type = "t")
+cohens_d_rm(rt ~ congruency | pno, data = stroop, type = "rm")
+cohens_d_rm(rt ~ congruency | pno, data = stroop, type = "av")
 
 
 set.seed(1)
