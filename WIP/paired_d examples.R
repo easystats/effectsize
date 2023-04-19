@@ -81,3 +81,27 @@ paired_d(rt ~ cond | id, data = dat, type = "z")
 paired_d(rt ~ cond | id, data = dat, type = "t")
 paired_d(rt ~ cond | id, data = dat, type = "rm")
 paired_d(rt ~ cond | id, data = dat, type = "av")
+
+
+## Is RM just d?
+
+library(effectsize)
+
+data(sleep)
+
+x <- sleep$extra[sleep$group == 1] + rnorm(10, sd = 4)
+y <- sleep$extra[sleep$group == 2]
+
+r <- cor(x, y)
+
+
+cohens_d(x, y, paired = TRUE)[[1]]*sqrt(2*(1-r))
+
+cohens_d(x, y, paired = FALSE)[[1]]
+
+cohens_d_rm(extra ~ group | ID, data = sleep, type = "d")
+
+cohens_d_rm(extra ~ group | ID, data = sleep, type = "rm")
+
+
+
