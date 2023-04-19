@@ -2,67 +2,70 @@
 % Please edit documentation in R/convert_between_d_to_r.R
 \name{d_to_r}
 \alias{d_to_r}
-\alias{convert_d_to_r}
 \alias{r_to_d}
-\alias{convert_r_to_d}
 \alias{oddsratio_to_d}
-\alias{convert_oddsratio_to_d}
 \alias{logoddsratio_to_d}
-\alias{convert_logoddsratio_to_d}
 \alias{d_to_oddsratio}
-\alias{convert_d_to_oddsratio}
+\alias{d_to_logoddsratio}
 \alias{oddsratio_to_r}
-\alias{convert_oddsratio_to_r}
 \alias{logoddsratio_to_r}
-\alias{convert_logoddsratio_to_r}
 \alias{r_to_oddsratio}
-\alias{convert_r_to_oddsratio}
-\title{Convert between \emph{d}, \emph{r} and \emph{Odds ratio}}
+\alias{r_to_logoddsratio}
+\title{Convert Between \emph{d}, \emph{r}, and Odds Ratio}
 \usage{
-d_to_r(d, ...)
+d_to_r(d, n1, n2, ...)
 
-r_to_d(r, ...)
+r_to_d(r, n1, n2, ...)
 
 oddsratio_to_d(OR, log = FALSE, ...)
 
-logoddsratio_to_d(OR, log = TRUE, ...)
+logoddsratio_to_d(logOR, log = TRUE, ...)
 
 d_to_oddsratio(d, log = FALSE, ...)
 
-oddsratio_to_r(OR, log = FALSE, ...)
+d_to_logoddsratio(d, log = TRUE, ...)
 
-logoddsratio_to_r(OR, log = TRUE, ...)
+oddsratio_to_r(OR, n1, n2, log = FALSE, ...)
 
-r_to_oddsratio(r, log = FALSE, ...)
+logoddsratio_to_r(logOR, log = TRUE, ...)
+
+r_to_oddsratio(r, n1, n2, log = FALSE, ...)
+
+r_to_logoddsratio(r, n1, n2, log = TRUE, ...)
 }
 \arguments{
-\item{d}{Standardized difference value (Cohen's d).}
+\item{d, r, OR, logOR}{Standardized difference value (Cohen's d), correlation
+coefficient (r), Odds ratio, or logged Odds ratio.}
+
+\item{n1, n2}{Group sample sizes. If either is missing, groups are assumed to be of equal size.}
 
 \item{...}{Arguments passed to or from other methods.}
 
-\item{r}{Correlation coefficient r.}
-
-\item{OR}{\emph{Odds ratio} values in vector or data frame.}
-
-\item{log}{Take in or output the log of the ratio (such as in logistic models).}
+\item{log}{Take in or output the log of the ratio (such as in logistic models),
+e.g. when the desired input or output are log odds ratios instead odds ratios.}
 }
 \value{
 Converted index.
 }
 \description{
 Enables a conversion between different indices of effect size, such as
-standardized difference (Cohen's d), correlation r or (log) odds ratios.
+standardized difference (Cohen's d), (point-biserial) correlation r or (log) odds ratios.
 }
 \details{
-Conversions between \emph{d} and \emph{OR} or \emph{r} is done through these formulae.
+Conversions between \emph{d} and \emph{OR} is done through these formulae:
 \itemize{
-\item \eqn{d = \frac{2 * r}{\sqrt{1 - r^2}}}{d = 2 * r / sqrt(1 - r^2)}
-\item \eqn{r = \frac{d}{\sqrt{d^2 + 4}}}{r = d / sqrt(d^2 + 4)}
 \item \eqn{d = \frac{\log(OR)\times\sqrt{3}}{\pi}}{d = log(OR) * sqrt(3) / pi}
 \item \eqn{log(OR) = d * \frac{\pi}{\sqrt(3)}}{log(OR) = d * pi / sqrt(3)}
 }
 
-The conversion from \emph{d} to \emph{r} assumes equally sized groups. The resulting
+Converting between \emph{d} and \emph{r} is done through these formulae:
+\itemize{
+\item \eqn{d = \frac{\sqrt{h} * r}{\sqrt{1 - r^2}}}{d = sqrt(h) * r / sqrt(1 - r^2)}
+\item \eqn{r = \frac{d}{\sqrt{d^2 + h}}}{r = d / sqrt(d^2 + h)}
+}
+
+Where \eqn{h = \frac{n_1 + n_2 - 2}{n_1} + \frac{n_1 + n_2 - 2}{n_2}}{h = (n1 + n2 - 2) / n1 + (n1 + n2 - 2) / n2}.
+When groups are of equal size, \emph{h} reduces to approximately 4. The resulting
 \emph{r} is also called the binomial effect size display (BESD; Rosenthal et al.,
 1982).
 }
@@ -78,20 +81,26 @@ oddsratio_to_d(1.813799, log = TRUE)
 }
 \references{
 \itemize{
+\item Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R.
+(2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
+\item Jacobs, P., & Viechtbauer, W. (2017). Estimation of the biserial
+correlation and its sampling variance for use in meta-analysis. Research
+synthesis methods, 8(2), 161-180. \doi{10.1002/jrsm.1218}
+\item Rosenthal, R., & Rubin, D. B. (1982). A simple, general purpose display of
+magnitude of experimental effect. Journal of educational psychology, 74(2), 166.
 \item Sánchez-Meca, J., Marín-Martínez, F., & Chacón-Moscoso, S. (2003).
 Effect-size indices for dichotomized outcomes in meta-analysis. Psychological
 methods, 8(4), 448.
-\item Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R.
-(2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
-\item Rosenthal, R., & Rubin, D. B. (1982). A simple, general purpose display of
-magnitude of experimental effect. Journal of educational psychology, 74(2), 166.
 }
 }
 \seealso{
+\code{\link[=cohens_d]{cohens_d()}}
+
 Other convert between effect sizes: 
-\code{\link{d_to_cles}()},
+\code{\link{diff_to_cles}},
 \code{\link{eta2_to_f2}()},
 \code{\link{odds_to_probs}()},
-\code{\link{oddsratio_to_riskratio}()}
+\code{\link{oddsratio_to_riskratio}()},
+\code{\link{v_to_t}()}
 }
 \concept{convert between effect sizes}

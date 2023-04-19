@@ -3,7 +3,7 @@
 \docType{data}
 \name{hardlyworking}
 \alias{hardlyworking}
-\title{Workers' salary and other information}
+\title{Workers' Salary and Other Information}
 \format{
 A data frame with 500 rows and 5 variables:
 \describe{
@@ -12,9 +12,30 @@ A data frame with 500 rows and 5 variables:
 \item{n_comps}{Number of compliments given to the boss (observed over the last week)}
 \item{age}{Age in years}
 \item{seniority}{How many years with the company}
+\item{is_senior}{Has this person been working here for more than 4 years?}
 }
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{data("hardlyworking")
+head(hardlyworking, n = 5)
+#>     salary xtra_hours n_comps age seniority is_senior
+#> 1 19744.65       4.16       1  32         3     FALSE
+#> 2 11301.95       1.62       0  34         3     FALSE
+#> 3 20635.62       1.19       3  33         5      TRUE
+#> 4 23047.16       7.19       1  35         3     FALSE
+#> 5 27342.15      11.26       0  33         4     FALSE
+}\if{html}{\out{</div>}}
 }
 \description{
 A sample (simulated) dataset, used in tests and some examples.
 }
+\seealso{
+Other effect size datasets: 
+\code{\link{Music_preferences2}},
+\code{\link{Music_preferences}},
+\code{\link{RCT_table}},
+\code{\link{Smoking_FASD}},
+\code{\link{food_class}},
+\code{\link{screening_test}}
+}
+\concept{effect size datasets}
 \keyword{data}

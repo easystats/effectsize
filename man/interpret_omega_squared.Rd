@@ -4,23 +4,26 @@
 \alias{interpret_omega_squared}
 \alias{interpret_eta_squared}
 \alias{interpret_epsilon_squared}
-\title{Interpret ANOVA effect size}
+\alias{interpret_r2_semipartial}
+\title{Interpret ANOVA Effect Sizes}
 \usage{
 interpret_omega_squared(es, rules = "field2013", ...)
 
 interpret_eta_squared(es, rules = "field2013", ...)
 
 interpret_epsilon_squared(es, rules = "field2013", ...)
+
+interpret_r2_semipartial(es, rules = "field2013", ...)
 }
 \arguments{
-\item{es}{Value or vector of eta / omega / epsilon squared values.}
+\item{es}{Value or vector of (partial) eta / omega / epsilon squared or semipartial r squared values.}
 
 \item{rules}{Can be \code{"field2013"} (default), \code{"cohen1992"} or custom set of \code{\link[=rules]{rules()}}.}
 
 \item{...}{Not used for now.}
 }
 \description{
-Interpret ANOVA effect size
+Interpret ANOVA Effect Sizes
 }
 \section{Rules}{
 
@@ -29,7 +32,7 @@ Interpret ANOVA effect size
 \itemize{
 \item \strong{ES < 0.01} - Very small
 \item \strong{0.01 <= ES < 0.06} - Small
-\item \strong{0.16 <= ES < 0.14} - Medium
+\item \strong{0.06 <= ES < 0.14} - Medium
 \item **ES >= 0.14 ** - Large
 }
 \item Cohen (1992) (\code{"cohen1992"}) applicable to one-way anova, or to \emph{partial}
@@ -57,3 +60,4 @@ Edition. Sage:London.
 \seealso{
 https://imaging.mrc-cbu.cam.ac.uk/statswiki/FAQ/effectSize/
 }
+\keyword{interpreters}

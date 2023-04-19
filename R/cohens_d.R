@@ -1,20 +1,21 @@
-#' Effect size for differences
+#' Cohen's *d* and Other Standardized Differences
 #'
 #' Compute effect size indices for standardized differences: Cohen's *d*,
 #' Hedges' *g* and Glass’s *delta* (\eqn{\Delta}). (This function returns the
-#' **population** estimate.)
+#' **population** estimate.) Pair with any reported [`stats::t.test()`].
 #' \cr\cr
 #' Both Cohen's *d* and Hedges' *g* are the estimated the standardized
-#' difference between the means of two populations. Hedges' *g* provides a bias
-#' correction (using the exact method) to Cohen's *d* for small sample sizes.
-#' For sample sizes > 20, the results for both statistics are roughly
-#' equivalent. Glass’s *delta* is appropriate when the standard deviations are
-#' significantly different between the populations, as it uses only the *second*
-#' group's standard deviation.
+#' difference between the means of two populations. Hedges' *g* provides a
+#' correction for small-sample bias (using the exact method) to Cohen's *d*. For
+#' sample sizes > 20, the results for both statistics are roughly equivalent.
+#' Glass’s *delta* is appropriate when the standard deviations are significantly
+#' different between the populations, as it uses only the *second* group's
+#' standard deviation.
 #'
-#' @param x A formula, a numeric vector, or a character name of one in `data`.
-#' @param y A numeric vector, a grouping (character / factor) vector, a or a
-#'   character  name of one in `data`. Ignored if `x` is a formula.
+#' @param x,y A numeric vector, or a character name of one in `data`.
+#'   Any missing values (`NA`s) are dropped from the resulting vector.
+#'   `x` can also be a formula (see [`stats::t.test()`]), in which case `y` is
+#'   ignored.
 #' @param alternative a character string specifying the alternative hypothesis;
 #'   Controls the type of CI returned: `"two.sided"` (default, two-sided CI),
 #'   `"greater"` or `"less"` (one-sided CI). Partial matching is allowed (e.g.,
@@ -25,7 +26,8 @@
 #' @param paired If `TRUE`, the values of `x` and `y` are considered as paired.
 #'   This produces an effect size that is equivalent to the one-sample effect
 #'   size on `x - y`.
-#' @param iterations,correction deprecated.
+#' @param ... Arguments passed to or from other methods. When `x` is a formula,
+#'   these can be `subset` and `na.action`.
 #' @inheritParams chisq_to_phi
 #' @inheritParams eta_squared
 #' @inheritParams stats::t.test
@@ -44,8 +46,8 @@
 #' @return A data frame with the effect size ( `Cohens_d`, `Hedges_g`,
 #'   `Glass_delta`) and their CIs (`CI_low` and `CI_high`).
 #'
-#' @seealso [d_to_cles()] [sd_pooled()]
-#' @family effect size indices
+#' @family standardized differences
+#' @seealso [sd_pooled()], [t_to_d()], [r_to_d()]
 #'
 #' @examples
 #' \donttest{
@@ -102,7 +104,7 @@
 #' interpret(d, rules = "sawilowsky2009")
 #'
 #' # Common Language Effect Sizes
-#' d_to_cles(1.48)
+#' d_to_u3(1.48)
 #' # Or:
 #' print(d, append_CLES = TRUE)
 #' }
@@ -117,7 +119,7 @@
 #'
 #' - Delacre, M., Lakens, D., Ley, C., Liu, L., & Leys, C. (2021, May 7). Why
 #' Hedges’ g*s based on the non-pooled standard deviation should be reported
-#' with Welch's t-test. https://doi.org/10.31234/osf.io/tu6mp
+#' with Welch's t-test. \doi{10.31234/osf.io/tu6mp}
 #'
 #' - Hedges, L. V. & Olkin, I. (1985). Statistical methods for
 #' meta-analysis. Orlando, FL: Academic Press.
@@ -125,28 +127,20 @@
 #' - Hunter, J. E., & Schmidt, F. L. (2004). Methods of meta-analysis:
 #' Correcting error and bias in research findings. Sage.
 #'
-#' @importFrom stats var model.frame
 #' @export
-cohens_d <- function(x,
-                     y = NULL,
-                     data = NULL,
-                     pooled_sd = TRUE,
-                     mu = 0,
-                     paired = FALSE,
-                     ci = 0.95,
-                     alternative = "two.sided",
-                     verbose = TRUE,
-                     ...) {
+cohens_d <- function(x, y = NULL, data = NULL,
+                     pooled_sd = TRUE, mu = 0, paired = FALSE,
+                     ci = 0.95, alternative = "two.sided",
+                     verbose = TRUE, ...) {
+  var.equal <- eval.parent(match.call()[["var.equal"]])
+  if (!is.null(var.equal)) pooled_sd <- var.equal
+
   .effect_size_difference(
     x,
-    y = y,
-    data = data,
+    y = y, data = data,
     type = "d",
-    pooled_sd = pooled_sd,
-    alternative = alternative,
-    mu = mu,
-    paired = paired,
-    ci = ci,
+    pooled_sd = pooled_sd, mu = mu, paired = paired,
+    ci = ci, alternative = alternative,
     verbose = verbose,
     ...
   )
@@ -154,33 +148,19 @@ cohens_d <- function(x,
 
 #' @rdname cohens_d
 #' @export
-hedges_g <- function(x,
-                     y = NULL,
-                     data = NULL,
-                     pooled_sd = TRUE,
-                     mu = 0,
-                     paired = FALSE,
-                     ci = 0.95,
-                     alternative = "two.sided",
-                     verbose = TRUE,
-                     ...,
-                     correction) {
-  if (!missing(correction)) {
-    warning("`correction` argument is deprecated. *Exact* bias correction method is used.",
-            call. = FALSE, immediate. = TRUE
-    )
-  }
+hedges_g <- function(x, y = NULL, data = NULL,
+                     pooled_sd = TRUE, mu = 0, paired = FALSE,
+                     ci = 0.95, alternative = "two.sided",
+                     verbose = TRUE, ...) {
+  var.equal <- eval.parent(match.call()[["var.equal"]])
+  if (!is.null(var.equal)) pooled_sd <- var.equal
 
   .effect_size_difference(
     x,
-    y = y,
-    data = data,
+    y = y, data = data,
     type = "g",
-    pooled_sd = pooled_sd,
-    alternative = alternative,
-    mu = mu,
-    paired = paired,
-    ci = ci,
+    pooled_sd = pooled_sd, mu = mu, paired = paired,
+    ci = ci, alternative = alternative,
     verbose = verbose,
     ...
   )
@@ -188,96 +168,64 @@ hedges_g <- function(x,
 
 #' @rdname cohens_d
 #' @export
-glass_delta <- function(x,
-                        y = NULL,
-                        data = NULL,
+glass_delta <- function(x, y = NULL, data = NULL,
                         mu = 0,
-                        ci = 0.95,
-                        alternative = "two.sided",
-                        verbose = TRUE,
-                        ...,
-                        iterations) {
-  if (!missing(iterations)) {
-    warning("`iterations` argument is deprecated. Parametric CIs are estimated.",
-      call. = FALSE, immediate. = TRUE
-    )
-  }
-
+                        ci = 0.95, alternative = "two.sided",
+                        verbose = TRUE, ...) {
   .effect_size_difference(
     x,
-    y = y,
-    data = data,
-    alternative = alternative,
-    mu = mu,
+    y = y, data = data,
     type = "delta",
-    ci = ci,
+    mu = mu,
+    ci = ci, alternative = alternative,
     verbose = verbose,
-    pooled_sd = NULL,
-    paired = FALSE,
+    pooled_sd = NULL, paired = FALSE,
     ...
   )
 }
 
 
 
-#' @importFrom stats sd na.omit complete.cases
 #' @keywords internal
-.effect_size_difference <- function(x,
-                                    y = NULL,
-                                    data = NULL,
+.effect_size_difference <- function(x, y = NULL, data = NULL,
                                     type = "d",
-                                    mu = 0,
-                                    alternative = "two.sided",
-                                    pooled_sd = TRUE,
-                                    paired = FALSE,
-                                    ci = 0.95,
-                                    verbose = TRUE,
-                                    ...) {
-  if (type != "delta" && inherits(x, "htest")) {
-    if (!grepl("t-test", x$method)) {
-      stop("'x' is not a t-test!", call. = FALSE)
+                                    mu = 0, pooled_sd = TRUE, paired = FALSE,
+                                    ci = 0.95, alternative = "two.sided",
+                                    verbose = TRUE, ...) {
+  if (type != "delta") {
+    if (.is_htest_of_type(x, "t-test")) {
+      return(effectsize(x, type = type, verbose = verbose, ...))
+    } else if (.is_BF_of_type(x, c("BFoneSample", "BFindepSample"), "t-squared")) {
+      return(effectsize(x, ci = ci, verbose = verbose, ...))
     }
-    return(effectsize(x, type = type, verbose = verbose, ...))
-  } else if (type != "delta" && inherits(x, "BFBayesFactor")) {
-    if (!inherits(x@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
-      stop("'x' is not a t-test!", call. = FALSE)
-    }
-    return(effectsize(x, ci = ci, verbose = verbose, ...))
   }
 
 
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
-  out <- .get_data_2_samples(x, y, data, verbose)
-  x <- out$x
-  y <- out$y
+  alternative <- .match.alt(alternative)
+  out <- .get_data_2_samples(x, y, data, paired = paired, verbose = verbose, ...)
+  x <- out[["x"]]
+  y <- out[["y"]]
 
   if (is.null(y)) {
     if (type == "delta") {
-      stop("For Glass' Delta, please provide data from two samples.", call. = FALSE)
+      insight::format_error("For Glass' Delta, please provide data from two samples.")
     }
-    y <- rep(0, length.out = length(x))
+    y <- 0
     paired <- TRUE
   }
 
   # Compute index
   if (paired) {
-    o <- stats::complete.cases(x, y)
-    x <- x[o]
-    y <- y[o]
-
     d <- mean(x - y)
     n <- length(x)
     s <- stats::sd(x - y)
 
-    hn <- 1 / (n - 1)
+    hn <- 1 / n
     se <- s / sqrt(n)
     df <- n - 1
 
     pooled_sd <- NULL
   } else {
-    x <- stats::na.omit(x)
-    y <- stats::na.omit(y)
-
     d <- mean(x) - mean(y)
 
     s1 <- stats::sd(x)
@@ -315,13 +263,10 @@ glass_delta <- function(x,
   types <- c("d" = "Cohens_d", "g" = "Hedges_g", "delta" = "Glass_delta")
   colnames(out) <- types[type]
 
-  ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
-
+  if (.test_ci(ci)) {
     # Add cis
     out$CI <- ci
-    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+    ci.level <- .adjust_ci(ci, alternative)
 
     t <- (d - mu) / se
     ts <- .get_ncp_t(t, df, ci.level)
@@ -329,13 +274,9 @@ glass_delta <- function(x,
     out$CI_low <- ts[1] * sqrt(hn)
     out$CI_high <- ts[2] * sqrt(hn)
     ci_method <- list(method = "ncp", distribution = "t")
-    if (alternative == "less") {
-      out$CI_low <- -Inf
-    } else if (alternative == "greater") {
-      out$CI_high <- Inf
-    }
+    out <- .limit_ci(out, alternative, -Inf, Inf)
   } else {
-    alternative <- NULL
+    ci_method <- alternative <- NULL
   }
 
 
@@ -347,13 +288,9 @@ glass_delta <- function(x,
   }
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
-  attr(out, "paired") <- paired
-  attr(out, "correction") <- type == "g" # Don't actually need this
-  attr(out, "pooled_sd") <- pooled_sd
-  attr(out, "mu") <- mu
-  attr(out, "ci") <- ci
-  attr(out, "ci_method") <- ci_method
-  attr(out, "approximate") <- FALSE
-  attr(out, "alternative") <- alternative
+  .someattributes(out) <- .nlist(
+    paired, pooled_sd, mu, ci, ci_method, alternative,
+    approximate = FALSE
+  )
   return(out)
 }

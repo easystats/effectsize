@@ -1,29 +1,17 @@
 ---
-output: 
-  github_document:
-    toc: false
-    fig_width: 10.08
-    fig_height: 6
-tags: [r, effect size, standardized]
-vignette: >
-  %\VignetteIndexEntry{README}
-  \usepackage[utf8]{inputenc}
-  %\VignetteEngine{knitr::rmarkdown}
-csl: vignettes/apa.csl
-editor_options: 
-  chunk_output_type: console
+output: github_document
 ---
 
-# effectsize <img src="man/figures/logo.png" align="right" width="120" />
+# effectsize: Indices of Effect Size <img src="man/figures/logo.png" align="right" width="120" />
 
 ```{r setup, echo = FALSE, warning=FALSE, message=FALSE}
 library(effectsize)
 
-options(digits=3)
+options(digits = 3)
 
 knitr::opts_chunk$set(
   collapse = TRUE,
-  dpi=450,
+  dpi = 450,
   fig.path = "man/figures/"
 )
 
@@ -34,6 +22,7 @@ set.seed(111)
 [![downloads](https://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize/)
 [![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize)](https://cran.r-project.org/package=effectsize/)
 [![status](https://tinyverse.netlify.com/badge/effectsize/)](https://CRAN.R-project.org/package=effectsize/)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
 
 ***Significant is just not enough!***
@@ -45,7 +34,7 @@ The goal of this package is to provide utilities to work with indices of effect 
 
 [![CRAN](https://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize/)
 [![effectsize status badge](https://easystats.r-universe.dev/badges/effectsize/)](https://easystats.r-universe.dev/)
-[![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg/)](https://github.com/easystats/effectsize/actions/)
+[![R-CMD-check](https://github.com/easystats/effectsize/workflows/R-CMD-check/badge.svg?branch=main)](https://github.com/easystats/effectsize/actions)
 [![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg/)](https://github.com/easystats/effectsize/actions/)
 [![Codecov test coverage](https://codecov.io/gh/easystats/effectsize/branch/main/graph/badge.svg/)](https://app.codecov.io/gh/easystats/effectsize?branch=main/)
 
@@ -55,7 +44,7 @@ Run the following to install the stable release of **effectsize** from CRAN:
 install.packages("effectsize")
 ```
 
-Or you can install the latest development version ``r available.packages(repos = "https://easystats.r-universe.dev/")["effectsize","Version"]`` from [*R-universe*](https://easystats.r-universe.dev):
+Or you can install the latest development version from [*R-universe*](https://easystats.r-universe.dev):
 
 ```{r install-R-universe, warning=FALSE, message=FALSE, eval=FALSE}
 install.packages("effectsize", repos = "https://easystats.r-universe.dev/")
@@ -77,12 +66,12 @@ install.packages("effectsize", repos = "https://easystats.r-universe.dev/")
 Click on the buttons above to access the package [**documentation**](https://easystats.github.io/effectsize/) and the [**easystats blog**](https://easystats.github.io/blog/posts/), and check-out these vignettes:
 
 - **Effect Sizes**  
-  - [**Parameter and Model Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
+  - [**Standardized Differences**](https://easystats.github.io/effectsize/articles/standardized_differences.html)  
+  - [**For Contingency Tables**](https://easystats.github.io/effectsize/articles/xtabs.html)  
   - [**ANOVA Effect Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
-  - [**Effect Sizes in Bayesian Models**](https://easystats.github.io/effectsize/articles/bayesian_models.html)  
-  - [**For Simple Hypothesis Tests**](https://easystats.github.io/effectsize/articles/simple_htests.html)  
 - **Effect Sizes Conversion**    
-  - [**Between Effect Sizes**](https://easystats.github.io/effectsize/articles/convert.html)
+  - [**Between Effect Sizes**](https://easystats.github.io/effectsize/articles/convert_r_d_OR.html)  
+  - [**Between Probabilities and Odds and Risk Ratios**](https://easystats.github.io/effectsize/articles/convert_p_OR_RR.html)  
   - [**Effect Size from Test Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
 - [**Automated Interpretation of Indices of Effect Size**](https://easystats.github.io/effectsize/articles/interpret.html)
 
@@ -94,13 +83,22 @@ This package is focused on indices of effect size. Check out the package website
 
 ```{r load, message=FALSE, warning=FALSE}
 library(effectsize)
+options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, requires R >= 4.2.0)
 ```
+
+> **Tip:**
+>
+> **Instead of `library(effectsize)`, use `library(easystats)`.**
+> **This will make all features of the  easystats-ecosystem available.**
+>
+> **To stay updated, use `easystats::install_latest()`.**
+
 
 ## Effect Size Computation
 
-### Standardized Differences (Cohen's *d*, Hedges' *g*, Glass' *delta*)
-
 The package provides functions to compute indices of effect size.
+
+### Standardized Differences (Cohen's *d*, Hedges' *g*, Glass' *delta*)
 
 ```{r d, warning=FALSE, message=FALSE}
 cohens_d(mpg ~ am, data = mtcars)
@@ -110,7 +108,19 @@ hedges_g(mpg ~ am, data = mtcars)
 glass_delta(mpg ~ am, data = mtcars)
 ```
 
-`effectsize` also provides effect sizes for *contingency tables*, *rank tests*, and more...
+`effectsize` also provides effect sizes for *rank tests*, *common language effect sizes* and more...
+
+### Contingency Tables
+
+```{r}
+# Dependence
+phi(mtcars$am, mtcars$vs)
+
+cramers_v(mtcars$am, mtcars$cyl)
+
+# Goodness-of-fit
+fei(table(mtcars$cyl), p = c(0.1, 0.3, 0.6))
+```
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, ...)
 
@@ -127,21 +137,21 @@ epsilon_squared(model)
 And more...
 
 
-### Regression Models (Standardized Parameters)
+<!-- ### Regression Models (Standardized Parameters) -->
 
-Importantly, `effectsize` also provides [advanced methods](https://easystats.github.io/effectsize/articles/standardize_parameters.html) to compute standardized parameters for regression models.
+<!-- Importantly, `effectsize` also provides [advanced methods](https://easystats.github.io/effectsize/articles/standardize_parameters.html) to compute standardized parameters for regression models. -->
 
-```{r beta, warning=FALSE, message=FALSE}
-m <- lm(rating ~ complaints + privileges + advance, data = attitude)
+<!-- ```{r beta, warning=FALSE, message=FALSE} -->
+<!-- m <- lm(rating ~ complaints + privileges + advance, data = attitude) -->
 
-standardize_parameters(m)
-```
+<!-- standardize_parameters(m) -->
+<!-- ``` -->
 
-Also, models can be re-fit with standardized data:
+<!-- Also, models can be re-fit with standardized data: -->
 
-```{r std-model, warning=FALSE, message=FALSE}
-standardize(m)
-```
+<!-- ```{r std-model, warning=FALSE, message=FALSE} -->
+<!-- standardize(m) -->
+<!-- ``` -->
 
 ## Effect Size Conversion
 

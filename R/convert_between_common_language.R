@@ -1,28 +1,38 @@
-#' Convert Standardized Mean Difference to Common Language Effect Sizes
+#' Convert Standardized Differences to Common Language Effect Sizes
 #'
-#' @param d,rb A numeric value of Cohen's d / rank-biserial correlation *or*
+#' @param d,rb A numeric vector of Cohen's d / rank-biserial correlation *or*
 #'   the output from [cohens_d()] / [rank_biserial()].
 #'
 #' @details
 #' This function use the following formulae for Cohen's *d*:
 #' \deqn{Pr(superiority) = \Phi(d/\sqrt{2})}{Pr(superiority) = pnorm(d / sqrt(2))}
 #' \cr
-#' \deqn{Cohen's U_3 = \Phi(d)}{U3 = pnorm(d)}
+#' \deqn{\textrm{Cohen's } U_3 = \Phi(d)}{U3 = pnorm(d)}
+#' \cr
+#' \deqn{\textrm{Cohen's } U_2 = \Phi(|d|/2)}{U2 = pnorm(abs(d)/2)}
+#' \cr
+#' \deqn{\textrm{Cohen's } U_1 = (2\times U_2 - 1)/U_2}{U1 = (2 * U2 - 1) / U2}
 #' \cr
 #' \deqn{Overlap = 2 \times \Phi(-|d|/2)}{Overlap = 2 * pnorm(-abs(d) / 2)}
 #' \cr
 #' And the following for the rank-biserial correlation:
 #' \deqn{Pr(superiority) = (r_{rb} + 1)/2}{Pr(superiority) = (rb + 1)/2}
+#' \cr
+#' \eqn{WMW_{Odds} = Pr(superiority) / (1 - Pr(superiority))}
 #'
 #' @return A list of `Cohen's U3`, `Overlap`, `Pr(superiority)`, a
 #'   numeric vector of `Pr(superiority)`, or a data frame, depending
 #'   on the input.
 #'
 #' @note
-#' These calculations assume that the populations have equal variance and are
-#' normally distributed.
+#' For *d*, these calculations assume that the populations have equal variance
+#' and are normally distributed.
 #'
-#' @seealso [cohens_d()], [rank_biserial()]
+#' Vargha and Delaney's *A* is an alias for the non-parametric *probability of
+#' superiority*.
+#'
+#' @seealso [cohens_u3()] for descriptions of the effect sizes (also,
+#'   [cohens_d()], [rank_biserial()]).
 #' @family convert between effect sizes
 #'
 #' @references
@@ -36,107 +46,259 @@
 #' - Ruscio, J. (2008). A probability-based measure of effect size: robustness
 #' to base rates and other factors. Psychological methods, 13(1), 19–30.
 #'
+#' @name diff_to_cles
+#' @aliases d_to_cles rb_to_cles
+
+
+
+# p_superiority ------------------------------------------------------
+
 #' @export
-#' @aliases convert_d_to_common_language d_to_common_language
-#' @importFrom stats pnorm
-d_to_cles <- function(d) {
-  UseMethod("d_to_cles")
+#' @rdname diff_to_cles
+d_to_p_superiority <- function(d) {
+  UseMethod("d_to_p_superiority")
 }
 
 #' @export
-d_to_cles.numeric <- function(d) {
-  list(
-    "Pr(superiority)" = stats::pnorm(d / sqrt(2)),
-    "Cohen's U3" = stats::pnorm(d),
-    Overlap = 2 * stats::pnorm(-abs(d) / 2)
-
-  )
+d_to_p_superiority.numeric <- function(d) {
+  stats::pnorm(d / sqrt(2))
 }
 
 #' @export
-d_to_cles.effectsize_difference <- function(d) {
-  if (!any(colnames(d) %in% c("Cohens_d", "Hedges_g")) ||
-      attr(d, "paired") ||
-      !attr(d, "pooled_sd")) {
-    stop("Common language effect size only applicable to 2-sample Cohen's d with pooled SD.")
+#' @rdname diff_to_cles
+rb_to_p_superiority <- function(rb) {
+  UseMethod("rb_to_p_superiority")
+}
+
+#' @export
+rb_to_p_superiority.numeric <- function(rb) {
+  (rb + 1) / 2
+}
+
+#' @export
+#' @rdname diff_to_cles
+rb_to_vda <- rb_to_p_superiority
+
+# U2 ----------------------------------------------------------------------
+
+#' @export
+#' @rdname diff_to_cles
+d_to_u2 <- function(d) {
+  UseMethod("d_to_u2")
+}
+
+#' @export
+d_to_u2.numeric <- function(d) {
+  stats::pnorm(abs(d) / 2)
+}
+
+# U1 ----------------------------------------------------------------------
+
+#' @export
+#' @rdname diff_to_cles
+d_to_u1 <- function(d) {
+  UseMethod("d_to_u1")
+}
+
+#' @export
+d_to_u1.numeric <- function(d) {
+  P <- d_to_u2(d)
+  (2 * P - 1) / P
+}
+
+# U3 ----------------------------------------------------------------------
+
+#' @export
+#' @rdname diff_to_cles
+d_to_u3 <- function(d) {
+  UseMethod("d_to_u3")
+}
+
+#' @export
+d_to_u3.numeric <- function(d) {
+  stats::pnorm(d)
+}
+
+
+# Overlap -----------------------------------------------------------------
+
+#' @export
+#' @rdname diff_to_cles
+d_to_overlap <- function(d) {
+  UseMethod("d_to_overlap")
+}
+
+#' @export
+d_to_overlap.numeric <- function(d) {
+  2 * stats::pnorm(-abs(d) / 2)
+}
+
+
+# wmw_odds ----------------------------------------------------------------
+
+#' @export
+#' @rdname diff_to_cles
+rb_to_wmw_odds <- function(rb) {
+  UseMethod("rb_to_wmw_odds")
+}
+
+#' @export
+rb_to_wmw_odds.numeric <- function(rb) {
+  probs_to_odds(rb_to_p_superiority(rb))
+}
+
+
+#' @export
+rb_to_wmw_odds.effectsize_difference <- function(rb) {
+  if (!any(colnames(rb) == "r_rank_biserial")) {
+    insight::format_error("Common language effect size only applicable rank-biserial correlation.")
   }
 
-  out <- lapply(d[,colnames(d) %in% c("Cohens_d", "Hedges_g", "CI_low", "CI_high")],
-                function(x) unlist(d_to_cles(x)))
-  out <- as.data.frame(out)
-  out$Parameter <- rownames(out)
-  rownames(out) <- NULL
-  colnames(out)[1] <- "Coefficient"
+  cols_to_conv <- colnames(rb) %in% c("r_rank_biserial", "CI_low", "CI_high")
+  out <- rb
+  out[cols_to_conv] <- lapply(out[cols_to_conv], rb_to_wmw_odds)
+  colnames(out)[1] <- "WMW_odds"
 
-  if ("CI" %in% colnames(d)) {
-    out$CI <- d$CI
-    out <- out[c("Parameter", "Coefficient", "CI", "CI_low", "CI_high")]
+  class(out) <- c("effectsize_table", class(out))
+  # TODO
+  # class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
+  attr(out, "table_footer") <- "Non-parametric CLES"
+  out
+}
 
-    if (d[[1]] > 0) {
-      out[3, 4:5] <- out[3, 5:4]
+
+
+# From Cohen's d ----------------------------------------------------------
+
+#' @export
+d_to_p_superiority.effectsize_difference <- function(d) {
+  out <- .cohens_d_to_cles(d, converter = d_to_p_superiority, allow_paired = TRUE)
+  colnames(out)[1] <- "p_superiority"
+  out
+}
+
+#' @export
+d_to_u1.effectsize_difference <- function(d) {
+  out <- .cohens_d_to_cles(d, converter = d_to_u1)
+  colnames(out)[1] <- "Cohens_U1"
+
+  if ("CI" %in% colnames(out)) {
+    if (d$Cohens_d < 0) {
+      out[3:4] <- out[4:3]
+      if (attr(out, "alternative") == "less") {
+        attr(out, "alternative") <- "greater"
+      } else if (attr(out, "alternative") == "greater") {
+        attr(out, "alternative") <- "less"
+      }
     }
 
     if (sign(d$CI_low) != sign(d$CI_high)) {
-      out$CI_high[3] <- 1
+      out$CI_low <- 0
     }
-  } else {
-    out <- out[c("Parameter", "Coefficient")]
   }
 
-  class(out) <- c("effectsize_table", class(out))
   out
 }
 
-
 #' @export
-#' @aliases rb_to_common_language convert_rb_to_common_language
-#' @rdname d_to_cles
-rb_to_cles <- function(rb) {
-  UseMethod("rb_to_cles")
-}
+d_to_u2.effectsize_difference <- function(d) {
+  out <- .cohens_d_to_cles(d, converter = d_to_u2)
+  colnames(out)[1] <- "Cohens_U2"
 
-#' @export
-rb_to_cles.numeric <- function(rb) {
-  (rb + 1)/2
-}
+  if ("CI" %in% colnames(out)) {
+    if (d$Cohens_d < 0) {
+      out[3:4] <- out[4:3]
+      if (attr(out, "alternative") == "less") {
+        attr(out, "alternative") <- "greater"
+      } else if (attr(out, "alternative") == "greater") {
+        attr(out, "alternative") <- "less"
+      }
+    }
 
-#' @export
-rb_to_cles.effectsize_difference <- function(rb) {
-  if (!any(colnames(rb) == "r_rank_biserial") ||
-      attr(rb, "paired")) {
-    stop("Common language effect size only applicable to 2-sample rank-biserial correlation.")
+    if (sign(d$CI_low) != sign(d$CI_high)) {
+      out$CI_low <- 0.5
+    }
   }
 
-  out <- lapply(rb[,colnames(rb) %in% c("r_rank_biserial", "CI_low", "CI_high")],
-                rb_to_cles)
+  out
+}
+
+#' @export
+d_to_u3.effectsize_difference <- function(d) {
+  out <- .cohens_d_to_cles(d, converter = d_to_u3)
+  colnames(out)[1] <- "Cohens_U3"
+  out
+}
+
+#' @export
+d_to_overlap.effectsize_difference <- function(d) {
+  out <- .cohens_d_to_cles(d, converter = d_to_overlap)
+  colnames(out)[1] <- "Overlap"
+
+  if ("CI" %in% colnames(out)) {
+    if (d$Cohens_d > 0) {
+      out[3:4] <- out[4:3]
+      if (attr(out, "alternative") == "less") {
+        attr(out, "alternative") <- "greater"
+      } else if (attr(out, "alternative") == "greater") {
+        attr(out, "alternative") <- "less"
+      }
+    }
+
+    if (sign(d$CI_low) != sign(d$CI_high)) {
+      out$CI_high <- 1
+    }
+  }
+
+  out
+}
+
+## Main ----------------
+
+#' @keywords internal
+.is_cles_applicable <- function(d, allow_paired = FALSE) {
+  !any(colnames(d) %in% c("Cohens_d", "Hedges_g")) ||
+    (isTRUE(attr(d, "paired")) && !allow_paired) ||
+    (!isTRUE(attr(d, "paired")) && !isTRUE(attr(d, "pooled_sd")))
+}
+
+#' @keywords internal
+.cohens_d_to_cles <- function(d, converter, allow_paired = FALSE) {
+  if (.is_cles_applicable(d, allow_paired)) {
+    insight::format_error("Common language effect size only applicable to 2-sample Cohen's d with pooled SD.")
+  }
+
+  cols_to_convert <- colnames(d) %in% c("Cohens_d", "Hedges_g", "CI_low", "CI_high")
+
+  out <- d
+  out[cols_to_convert] <- lapply(d[cols_to_convert], converter)
   out <- as.data.frame(out)
-  out$Parameter <- "Pr(superiority)"
-  rownames(out) <- NULL
-  colnames(out)[1] <- "Coefficient"
-
-  if ("CI" %in% colnames(rb)) {
-    out$CI <- rb$CI
-    out <- out[c("Parameter", "Coefficient", "CI", "CI_low", "CI_high")]
-  } else {
-    out <- out[c("Parameter", "Coefficient")]
-  }
-
   class(out) <- c("effectsize_table", class(out))
-  attr(out, "table_footer") <- c("\n- Non-parametric CLES", "cyan")
+  # TODO
+  # class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
   out
 }
 
-# Aliases -----------------------------------------------------------------
+
+
+
+
+# From r {rbs} ------------------------------------------------------------
 
 #' @export
-convert_d_to_common_language <- d_to_cles
+rb_to_p_superiority.effectsize_difference <- function(rb) {
+  if (!any(colnames(rb) == "r_rank_biserial")) {
+    insight::format_error("Common language effect size only applicable rank-biserial correlation.")
+  }
 
-#' @export
-convert_rb_to_common_language <- rb_to_cles
+  cols_to_conv <- colnames(rb) %in% c("r_rank_biserial", "CI_low", "CI_high")
+  out <- rb
+  out[cols_to_conv] <- lapply(out[cols_to_conv], rb_to_p_superiority)
+  colnames(out)[1] <- "p_superiority"
 
-#' @export
-d_to_common_language <- d_to_cles
-
-#' @export
-rb_to_common_language <- rb_to_cles
-
+  class(out) <- c("effectsize_table", class(out))
+  # TODO
+  # class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
+  attr(out, "table_footer") <- "Non-parametric CLES"
+  out
+}

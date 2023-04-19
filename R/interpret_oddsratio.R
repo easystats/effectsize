@@ -1,4 +1,4 @@
-#' Interpret Odds ratio
+#' Interpret Odds Ratio
 #'
 #' @param OR Value or vector of (log) odds ratio values.
 #' @param rules Can be "`chen2010"` (default), `"cohen1988"` (through
@@ -38,6 +38,7 @@
 #' Effect-size indices for dichotomized outcomes in meta-analysis. Psychological
 #' methods, 8(4), 448.
 #'
+#' @keywords interpreters
 #' @export
 interpret_oddsratio <- function(OR, rules = "chen2010", log = FALSE, ...) {
   if (log) {

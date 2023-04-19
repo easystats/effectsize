@@ -1,5 +1,5 @@
 ---
-title: "Support functions for model extensions"
+title: "Support Functions for Model Extensions"
 output: 
   rmarkdown::html_vignette:
     toc: true
@@ -8,7 +8,7 @@ output:
 tags: [r, effect size, ANOVA, standardization, standardized coefficients]
 vignette: >
   \usepackage[utf8]{inputenc}
-  %\VignetteIndexEntry{Support functions for model extensions}
+  %\VignetteIndexEntry{Support Functions for Model Extensions}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   chunk_output_type: console
@@ -17,17 +17,13 @@ bibliography: bibliography.bib
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 library(knitr)
-knitr::opts_chunk$set(comment = ">",
-                      warning = FALSE,
-                      message = FALSE)
+knitr::opts_chunk$set(
+  comment = ">",
+  warning = FALSE,
+  message = FALSE
+)
 options(digits = 2)
-options(knitr.kable.NA = '')
-
-
-pkgs <- c("effectsize")
-if (!all(sapply(pkgs, requireNamespace, quietly = TRUE))) {
-  knitr::opts_chunk$set(eval = FALSE)
-}
+options(knitr.kable.NA = "")
 
 set.seed(333)
 ```
@@ -81,7 +77,7 @@ Pass the data frame to `.es_aov_simple()`:
 
 The output is a data frame with the columns: `Parameter`, the effect size, and (optionally) `CI` + `CI_low` + `CI_high`,
 
-And with the following attributes: `partial`, `generalized`, `ci`, `alternative`, `anova_type` (`NA` or `NULL`), `approximate`.
+And with the following attributes: `generalized`, `ci`, `alternative`, `anova_type` (`NA` or `NULL`), `approximate`.
 
 You can then set the `anova_type` attribute to {1, 2, 3, or `NA`} and return the output.
 
@@ -116,7 +112,8 @@ Pass the data frame to `.es_aov_strata()`, along with a list of predictors (incl
 
 ```{r}
 .es_aov_strata(
-  min_aovlist, DV_names = c("S", "A"),
+  min_aovlist,
+  DV_names = c("S", "A"),
   type = "omega", partial = TRUE, generalized = FALSE,
   ci = 0.95, alternative = "greater",
   verbose = TRUE,
@@ -126,7 +123,7 @@ Pass the data frame to `.es_aov_strata()`, along with a list of predictors (incl
 
 The output is a data frame with the columns: `Group`, `Parameter`, the effect size, and (optionally) `CI` + `CI_low` + `CI_high`,
 
-And with the following attributes: `partial`, `generalized`, `ci`, `alternative`, `approximate`.
+And with the following attributes: `generalized`, `ci`, `alternative`, `approximate`.
 
 You can then set the `anova_type` attribute to {1, 2, 3, or `NA`} and return the output.
 
@@ -170,7 +167,7 @@ Pass the table to `.es_aov_table()`:
 
 The output is a data frame with the columns: `Parameter`, the effect size, and (optionally) `CI` + `CI_low` + `CI_high`,
 
-And with the following attributes: `partial`, `generalized`, `ci`, `alternative`, `approximate`.
+And with the following attributes: `generalized`, `ci`, `alternative`, `approximate`.
 
 You can then set the `anova_type` attribute to {1, 2, 3, or `NA`} and return the output, and optionally the `approximate` attribute, and return the output.
 
@@ -191,20 +188,26 @@ We now need a new `.anova_es.superMODEL` function:
   # Get ANOVA table
   anov <- suppressWarnings(stats:::anova.lm(model))
   anov <- as.data.frame(anov)
-  
+
   # Clean up
   anov[["Parameter"]] <- rownames(anov)
   colnames(anov)[2:1] <- c("Sum_Squares", "df")
-  
+
   # Pass
   out <- .es_aov_simple(anov, ...)
-  
+
   # Set attribute
   attr(out, "anova_type") <- 1
-  
+
   out
 }
 ```
+
+```{r, echo=FALSE}
+# This is for: https://github.com/easystats/easystats/issues/348
+.anova_es.superMODEL <<- .anova_es.superMODEL
+```
+
 
 And... that's it! Our new `superMODEL` class of models is fully supported!
 
@@ -219,21 +222,21 @@ omega_squared(mod)
 ```
 
 
-## Supporting Model Re-Fitting with Standardized Data
+<!-- ## Supporting Model Re-Fitting with Standardized Data -->
 
-`effectsize::standardize.default()` should support your model if you have methods for:
+<!-- `effectsize::standardize.default()` should support your model if you have methods for: -->
 
-1. `{insight}` functions.
-2. An `update()` method that can take the model and a data frame via the `data = ` argument.
+<!-- 1. `{insight}` functions. -->
+<!-- 2. An `update()` method that can take the model and a data frame via the `data = ` argument. -->
 
-Or you can make your own `standardize.my_class()` function, DIY-style (possibly using `datawizard::standardize.data.frame()` or `datawizard::standardize.numeric()`). This function should return a fiffed model of the same class as the input model.
+<!-- Or you can make your own `standardize.my_class()` function, DIY-style (possibly using `datawizard::standardize.data.frame()` or `datawizard::standardize.numeric()`). This function should return a fiffed model of the same class as the input model. -->
 
-## Supporting Standardized Parameters
+<!-- ## Supporting Standardized Parameters -->
 
-`standardize_parameters.default()` offers a few methods of parameter standardization:
+<!-- `standardize_parameters.default()` offers a few methods of parameter standardization: -->
 
-- For `method = "refit"` all you need is to have `effectsize::standardize()` support (see above) as well as `parameters::model_parameters()`.  
-- ***API for post-hoc methods coming soon...***  
+<!-- - For `method = "refit"` all you need is to have `effectsize::standardize()` support (see above) as well as `parameters::model_parameters()`.   -->
+<!-- - ***API for post-hoc methods coming soon...***   -->
 
 <!-- `standardize_parameters.default()` should support your model if it is already supported by `{parameters}` and `{insight}`. -->
 

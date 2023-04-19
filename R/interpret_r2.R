@@ -1,6 +1,6 @@
-#' Interpret coefficient of determination (R2)
+#' Interpret Coefficient of Determination (\eqn{R^2})
 #'
-#' @param r2 Value or vector of R2 values.
+#' @param r2 Value or vector of \eqn{R^2} values.
 #' @param rules Can be `"cohen1988"` (default), `"falk1992"`, `"chin1998"`,
 #'   `"hair2011"`, or custom set of [rules()]].
 #'
@@ -46,6 +46,7 @@
 #' - Hair, J. F., Ringle, C. M., & Sarstedt, M. (2011). PLS-SEM: Indeed a silver
 #' bullet. Journal of Marketing theory and Practice, 19(2), 139-152.
 #'
+#' @keywords interpreters
 #' @export
 interpret_r2 <- function(r2, rules = "cohen1988") {
   rules <- .match.rules(

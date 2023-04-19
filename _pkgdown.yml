@@ -1,121 +1,144 @@
-authors:
-  Mattan S. Ben-Shachar:
-    href: https://github.com/mattansb/
-  Dominique Makowski:
-    href: https://dominiquemakowski.github.io/
-  Daniel Lüdecke:
-    href: https://github.com/strengejacke/
-  Indrajeet Patil:
-    href: https://sites.google.com/site/indrajeetspatilmorality/
-  Brenton M. Wiernik:
-    href: https://wiernik.org/
-
+url: https://easystats.github.io/effectsize/
 
 template:
   bootstrap: 5
-  bslib:
-    primary: "#317033"
-
-
-
-navbar:
-  structure:
-    right: [twitter, github]
-  components:
-    twitter:
-      icon: fa-twitter
-      href: https://twitter.com/easystats4u
-      aria-label: Twitter
-  left:
-    - icon: fa-home fa-lg
-      href: index.html
-    - text: "Get Started"
-      href: articles/effectsize.html
-    - text: "Features"
-      href: reference/index.html
-    - text: "Effect Sizes"
-      menu:
-      - text: "Parameter and Model Standardization"
-        href: articles/standardize_parameters.html
-      - text: "ANOVA Effect Sizes"
-        href: articles/anovaES.html
-      - text: "Effect Sizes for Simple Hypothesis Tests"
-        href: articles/simple_htests.html
-      - text: "Confidence Intervals"
-        href: reference/effectsize_CIs.html
-      - text: "For Bayesian Models"
-        href: articles/bayesian_models.html
-      - text: -------
-      - text: "Extending effectsize"
-        href: articles/effectsize_API.html
-    - text: "Conversion"
-      menu:
-      - text: "Between d, r, OR"
-        href: articles/convert.html
-      - text: "From Test Statistics"
-        href: articles/from_test_statistics.html
-    - text: "Interpretation"
-      href: articles/interpret.html
-    - text: "News"
-      href: news/index.html
-
-
+  package: easystatstemplate
 
 reference:
-- title: "Indices of Effect Size"
-  contents:
-  - effectsize
-  - cohens_d
-  - phi
-  - eta_squared
-  - rank_biserial
-  - cles
+  - title: "Indices of Effect Size"
+    contents:
+      - effectsize
 
-- title: "Standardization"
-  contents:
-  - standardize.default
-  - standardize_parameters
-  - standardize_info
+  - subtitle: "Standardized differences"
+    desc: >
+      Effect sizes for comparing two groups
+    contents:
+      - cohens_d
+      - mahalanobis_d
+      - rank_biserial
+      - p_superiority
+      - means_ratio
 
-- title: "Effect Size Conversion"
-- subtitle: "From Test Statistics"
-  contents:
-  - F_to_eta2
-  - t_to_r
-  - chisq_to_phi
-- subtitle: "Between Effect Sizes"
-  contents:
-  - d_to_cles
-  - d_to_r
-  - eta2_to_f2
-  - odds_to_probs
-  - oddsratio_to_riskratio
+  - subtitle: "For contingency tables"
+    desc: >
+      Effect sizes for categorical outcomes
+    contents:
+      - phi
+      - oddsratio
+      - cohens_g
 
-- title: "Interpretation"
-  contents:
-  - equivalence_test.effectsize_table
-  - interpret
-  - rules
-  - starts_with("interpret_")
+  - subtitle: "Comparing multiple groups"
+    desc: >
+      Effect sizes for ANOVA
+    contents:
+      - eta_squared
+      - rank_epsilon_squared
 
-- title: "Miscellaneous"
-  contents:
-  - sd_pooled
-  - is_effectsize_name
-  - format_standardize
-  - print.effectsize_table
-- subtitle: "Datasets"
-  contents:
-  - hardlyworking
-- subtitle: "Extra Docs"
-  contents:
-  - effectsize_CIs
-  - effectsize_API
-- subtitle: "Deprecated functions"
-  contents:
-  - effectsize_deprecated
+  - subtitle: "Standardized parameters"
+    desc: >
+      Functions from other packages relating to parameter standardization and perdictor dominance
+    contents:
+      - parameters::standardize_parameters
+      - datawizard::standardize_models
+      - parameters::standardize_info
+      - parameters::dominance_analysis
+      - r2_semipartial
 
+  - subtitle: "Correlations"
+    desc: >
+      Correlations are a standardized effect size of association
+    contents:
+      - correlation::correlation
+      - correlation::cor_test
 
+  - title: "Effect Size Conversion"
 
+  - subtitle: "From Test Statistics"
+    desc: >
+      Extract approximate effect sizes from their commonly associated test statistics
+    contents:
+      - t_to_r
+      - F_to_eta2
+      - chisq_to_phi
 
+  - subtitle: "Between Effect Sizes"
+    desc: >
+      Approximate effect sizes by converting between other related effect sizes
+    contents:
+      - d_to_r
+      - oddsratio_to_riskratio
+      - d_to_u3
+      - eta2_to_f2
+      - odds_to_probs
+      - v_to_t
 
+  - title: "Interpretation"
+    contents:
+      - equivalence_test.effectsize_table
+      - interpret
+      - rules
+      - has_keyword("interpreters")
+
+  - title: "Miscellaneous"
+    contents:
+      - sd_pooled
+      - is_effectsize_name
+      - format_standardize
+      - print.effectsize_table
+  - subtitle: "Datasets"
+    contents:
+      - hardlyworking
+      - screening_test
+      - RCT_table
+      - Music_preferences
+      - Music_preferences2
+      - Smoking_FASD
+      - food_class
+  - subtitle: "Extra Docs"
+    contents:
+      - effectsize_API
+      - effectsize_options
+
+  - title: internal
+    contents:
+      - effectsize_deprecated
+      - effectsize_CIs
+
+# Keep articles organized
+navbar:
+  left:
+    - icon: fa fa-file-code
+      text: Reference
+      href: reference/index.html
+    - text: "Get Started"
+      href: articles/effectsize.html
+    - text: "Effect sizes"
+      menu:
+        - text: "Standardized Differences"
+          href: articles/standardized_differences.html
+        - text: "Contingency Tables"
+          href: articles/xtabs.html
+        - text: "ANOVA Effect Sizes"
+          href: articles/anovaES.html
+        - text: "Standardized Parameters"
+          href: https://easystats.github.io/parameters/articles/standardize_parameters_effsize.html
+        - text: "Correlation Vignettes"
+          href: https://easystats.github.io/correlation/articles/index.html
+        - text: "Confidence Intervals"
+          href: reference/effectsize_CIs.html
+        - text: -------
+        - text: "Extending effectsize"
+          href: articles/effectsize_API.html
+    - text: "Conversion"
+      menu:
+        - text: "Between d, r, OR"
+          href: articles/convert_r_d_OR.html
+        - text: "Between p, OR, RR"
+          href: articles/convert_p_OR_RR.html
+        - text: "From Test Statistics"
+          href: articles/from_test_statistics.html
+    - text: "Interpretation"
+      href: articles/interpret.html
+    - icon: fa fa-newspaper
+      text: News
+      href: news/index.html

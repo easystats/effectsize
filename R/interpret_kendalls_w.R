@@ -1,4 +1,4 @@
-#' Interpret Kendall's coefficient of concordance
+#' Interpret Kendall's Coefficient of Concordance *W*
 #'
 #' @param w Value or vector of Kendall's coefficient of concordance.
 #' @param rules Can be `"landis1977"` (default) or a custom set of [rules()].
@@ -16,8 +16,8 @@
 #' - Landis, J. R., & Koch G. G. (1977). The measurement of observer agreement
 #' for categorical data. Biometrics, 33:159-74.
 #'
+#' @keywords interpreters
 #' @export
-#'
 interpret_kendalls_w <- function(w, rules = "landis1977") {
   rules <- .match.rules(
     rules,

@@ -13,8 +13,7 @@
 \alias{t_to_f}
 \alias{F_to_f2}
 \alias{t_to_f2}
-\title{Convert test statistics (F, t) to indices of \strong{partial} variance explained
-(\strong{partial} Eta / Omega / Epsilon squared and Cohen's f)}
+\title{Convert \emph{F} and \emph{t} Statistics to \strong{partial}-\eqn{\eta^2} and Other ANOVA Effect Sizes}
 \usage{
 F_to_eta2(f, df, df_error, ci = 0.95, alternative = "greater", ...)
 
@@ -36,25 +35,25 @@ F_to_f(
   f,
   df,
   df_error,
+  squared = FALSE,
   ci = 0.95,
   alternative = "greater",
-  squared = FALSE,
   ...
 )
 
-t_to_f(t, df_error, ci = 0.95, alternative = "greater", squared = FALSE, ...)
+t_to_f(t, df_error, squared = FALSE, ci = 0.95, alternative = "greater", ...)
 
 F_to_f2(
   f,
   df,
   df_error,
+  squared = TRUE,
   ci = 0.95,
   alternative = "greater",
-  squared = TRUE,
   ...
 )
 
-t_to_f2(t, df_error, ci = 0.95, alternative = "greater", squared = TRUE, ...)
+t_to_f2(t, df_error, squared = TRUE, ci = 0.95, alternative = "greater", ...)
 }
 \arguments{
 \item{df, df_error}{Degrees of freedom of numerator or of the error estimate
@@ -77,10 +76,7 @@ is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided 
 \value{
 A data frame with the effect size(s) between 0-1 (\code{Eta2_partial},
 \code{Epsilon2_partial}, \code{Omega2_partial}, \code{Cohens_f_partial} or
-\code{Cohens_f2_partial}), and their CIs (\code{CI_low} and \code{CI_high}). (Note that
-for \eqn{\omega_p^2}{Omega2p} and \eqn{\epsilon_p^2}{Epsilon2p} it is possible to compute a
-negative number; even though this doesn't make any practical sense, it is
-recommended to report the negative number and not a 0).
+\code{Cohens_f2_partial}), and their CIs (\code{CI_low} and \code{CI_high}).
 }
 \description{
 These functions are convenience functions to convert F and t test statistics
@@ -122,7 +118,6 @@ designs.
 Adjusted (partial) Eta-squared is an alias for (partial) Epsilon-squared.
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
-
 Unless stated otherwise, confidence (compatibility) intervals (CIs) are
 estimated using the noncentrality parameter method (also called the "pivot
 method"). This method finds the noncentrality parameter ("\emph{ncp}") of a
@@ -139,7 +134,6 @@ For additional details on estimation and troubleshooting, see \link{effectsize_C
 }
 
 \section{CIs and Significance Tests}{
-
 "Confidence intervals on measures of effect size convey all the information
 in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
 intervals and p values are complementary summaries of parameter uncertainty
@@ -161,49 +155,41 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 }
 
 \examples{
-\donttest{
-if (require("afex")) {
-  data(md_12.1)
-  aov_ez("id", "rt", md_12.1,
-    within = c("angle", "noise"),
-    anova_table = list(correction = "none", es = "pes")
-  )
-}
-# compare to:
+mod <- aov(mpg ~ factor(cyl) * factor(am), mtcars)
+anova(mod)
 (etas <- F_to_eta2(
-  f = c(40.72, 33.77, 45.31),
+  f = c(44.85, 3.99, 1.38),
   df = c(2, 1, 2),
-  df_error = c(18, 9, 18)
+  df_error = 26
 ))
 
 if (require(see)) plot(etas)
 
+# Compare to:
+eta_squared(mod)
 
-if (require("lmerTest")) { # for the df_error
-  fit <- lmer(extra ~ group + (1 | ID), sleep)
-  # anova(fit)
-  # #> Type III Analysis of Variance Table with Satterthwaite's method
-  # #>       Sum Sq Mean Sq NumDF DenDF F value   Pr(>F)
-  # #> group 12.482  12.482     1     9  16.501 0.002833 **
-  # #> ---
-  # #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\dontshow{if (require(lmerTest) && interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+fit <- lmerTest::lmer(extra ~ group + (1 | ID), sleep)
+# anova(fit)
+# #> Type III Analysis of Variance Table with Satterthwaite's method
+# #>       Sum Sq Mean Sq NumDF DenDF F value   Pr(>F)
+# #> group 12.482  12.482     1     9  16.501 0.002833 **
+# #> ---
+# #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-  F_to_eta2(16.501, 1, 9)
-  F_to_omega2(16.501, 1, 9)
-  F_to_epsilon2(16.501, 1, 9)
-  F_to_f(16.501, 1, 9)
-}
-
-
+F_to_eta2(16.501, 1, 9)
+F_to_omega2(16.501, 1, 9)
+F_to_epsilon2(16.501, 1, 9)
+F_to_f(16.501, 1, 9)
+\dontshow{\}) # examplesIf}
+\dontshow{if (require(emmeans)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Use with emmeans based contrasts
 ## --------------------------------
-if (require(emmeans)) {
-  warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
+warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
 
-  jt <- joint_tests(warp.lm, by = "wool")
-  F_to_eta2(jt$F.ratio, jt$df1, jt$df2)
-}
-}
+jt <- emmeans::joint_tests(warp.lm, by = "wool")
+F_to_eta2(jt$F.ratio, jt$df1, jt$df2)
+\dontshow{\}) # examplesIf}
 }
 \references{
 \itemize{

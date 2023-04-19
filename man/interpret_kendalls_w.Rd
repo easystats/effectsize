@@ -2,7 +2,7 @@
 % Please edit documentation in R/interpret_kendalls_w.R
 \name{interpret_kendalls_w}
 \alias{interpret_kendalls_w}
-\title{Interpret Kendall's coefficient of concordance}
+\title{Interpret Kendall's Coefficient of Concordance \emph{W}}
 \usage{
 interpret_kendalls_w(w, rules = "landis1977")
 }
@@ -12,7 +12,7 @@ interpret_kendalls_w(w, rules = "landis1977")
 \item{rules}{Can be \code{"landis1977"} (default) or a custom set of \code{\link[=rules]{rules()}}.}
 }
 \description{
-Interpret Kendall's coefficient of concordance
+Interpret Kendall's Coefficient of Concordance \emph{W}
 }
 \section{Rules}{
 
@@ -34,3 +34,4 @@ Interpret Kendall's coefficient of concordance
 for categorical data. Biometrics, 33:159-74.
 }
 }
+\keyword{interpreters}

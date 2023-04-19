@@ -8,7 +8,7 @@ output:
 tags: [r, effect size, rules of thumb, guidelines, conversion]
 vignette: >
   \usepackage[utf8]{inputenc}
-  %\VignetteIndexEntry{effectsize}
+  %\VignetteIndexEntry{Effect Sizes: Getting Started}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   chunk_output_type: console
@@ -30,7 +30,7 @@ In both theoretical and applied research, it is often of interest to assess the 
 
 **effectsize**'s functionality is in part comparable to packages like **lm.beta** [@behrendt2014lmbeta], **MOTE** [@buchanan2019MOTE], and **MBESS** [@kelley2020MBESS]. Yet, there are some notable differences, e.g.:
 
-- **lm.beta** provides standardized regression coefficients for linear models, based on post-hoc model matrix standardization. However, the functionality is available only for a limited number of models (models inheriting from the `lm` class), whereas **effectsize** provides support for many types of models, including (generalized) linear mixed models, Bayesian models, and more. Additionally, in additional to post-hoc model matrix standardization, **effectsize** offers other methods of standardization (see below).  
+<!-- - **lm.beta** provides standardized regression coefficients for linear models, based on post-hoc model matrix standardization. However, the functionality is available only for a limited number of models (models inheriting from the `lm` class), whereas **effectsize** provides support for many types of models, including (generalized) linear mixed models, Bayesian models, and more. Additionally, in additional to post-hoc model matrix standardization, **effectsize** offers other methods of standardization (see below).   -->
 - Both **MOTE** and **MBESS** provide functions for computing effect sizes such as Cohen's *d* and effect sizes for ANOVAs [@cohen1988statistical], and their confidence intervals. However, both require manual input of *F*- or *t*-statistics, *degrees of freedom*, and *sums of squares* for the computation the effect sizes, whereas **effectsize** can automatically extract this information from the provided models, thus allowing for better ease-of-use as well as reducing any potential for error.  
 <!-- - Finally, in **base R**, the function `scale()` can be used to standardize vectors, matrices and data frame, which can be used to standardize data prior to model fitting. The coefficients of a linear model fit on such data are in effect standardized regression coefficients. **effectsize** expands an this, allowing for robust standardization (using the median and the MAD, instead of the mean and SD), post-hoc parameter standardization, and more. -->
 
@@ -46,6 +46,7 @@ In both theoretical and applied research, it is often of interest to assess the 
 
 ```{r}
 library(effectsize)
+options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, requires R >= 4.2.0)
 
 cohens_d(mpg ~ am, data = mtcars)
 ```
@@ -55,44 +56,50 @@ cohens_d(mpg ~ am, data = mtcars)
 Pearson's $\phi$ (`phi()`) and Cramér's *V* (`cramers_v()`) can be used to estimate the strength of association between two categorical variables [@cramer1946mathematical], while Cohen's *g* (`cohens_g()`) estimates the deviance between paired categorical variables [@cohen1988statistical].
 
 ```{r}
-M <- rbind(c(150, 130, 35, 55),
-           c(100, 50,  10, 40),
-           c(165, 65,  2,  25))
+M <- rbind(
+  c(150, 130, 35, 55),
+  c(100, 50, 10, 40),
+  c(165, 65, 2, 25)
+)
 
 cramers_v(M)
 ```
 
 ## Parameter and Model Standardization
 
+> Note: this functionality has been moved to the `parameters` and `datawizard` packages.
+
 Standardizing parameters (i.e., coefficients) can allow for their comparison within and between models, variables and studies. To this end, two functions are available: `standardize()`, which returns an updated model, re-fit with standardized data, and `standardize_parameters()`, which returns a table of standardized coefficients from a provided model [for a list of supported models, see the *insight* package; @luedecke2019insight].
 
 ```{r}
-model <- lm(mpg ~ cyl * am, 
-            data = mtcars)
+model <- lm(mpg ~ cyl * am,
+  data = mtcars
+)
 
-standardize(model)
+datawizard::standardize(model)
 
-standardize_parameters(model)
+parameters::standardize_parameters(model)
 ```
 
 Standardized parameters can also be produced for generalized linear models (GLMs; where only the predictors are standardized):
 
 ```{r}
 model <- glm(am ~ cyl + hp,
-             family = "binomial",
-             data = mtcars)
+  family = "binomial",
+  data = mtcars
+)
 
-standardize_parameters(model, exponentiate = TRUE)
+parameters::standardize_parameters(model, exponentiate = TRUE)
 ```
 
-`standardize_parameters()` provides several standardization methods, such as robust standardization, or *pseudo*-standardized coefficients for (generalized) linear mixed models [@hoffman2015longitudinal]. A full review of these methods can be found in the [*Parameter and Model Standardization* vignette](https://easystats.github.io/effectsize/articles/standardize_parameters.html).
+`standardize_parameters()` provides several standardization methods, such as robust standardization, or *pseudo*-standardized coefficients for (generalized) linear mixed models [@hoffman2015longitudinal]. A full review of these methods can be found in the [*Parameter and Model Standardization* vignette](https://easystats.github.io/parameters/articles/standardize_parameters_effsize.html).
 
 ## Effect Sizes for ANOVAs
 
 Unlike standardized parameters, the effect sizes reported in the context of ANOVAs (analysis of variance) or ANOVA-like tables represent the amount of variance explained by each of the model's terms, where each term can be represented by one or more parameters. `eta_squared()` can produce such popular effect sizes as Eta-squared ($\eta^2$), its partial version ($\eta^2_p$), as well as the generalized $\eta^2_G$ [@cohen1988statistical; @olejnik2003generalized]:
 
 ```{r}
-options(contrasts = c('contr.sum', 'contr.poly'))
+options(contrasts = c("contr.sum", "contr.poly"))
 
 data("ChickWeight")
 # keep only complete cases and convert `Time` to a factor
@@ -100,7 +107,8 @@ ChickWeight <- subset(ChickWeight, ave(weight, Chick, FUN = length) == 12)
 ChickWeight$Time <- factor(ChickWeight$Time)
 
 model <- aov(weight ~ Diet * Time + Error(Chick / Time),
-             data = ChickWeight) 
+  data = ChickWeight
+)
 
 eta_squared(model, partial = TRUE)
 
@@ -116,8 +124,10 @@ eta_squared(model, generalized = "Time")
 In many real world applications there are no straightforward ways of obtaining standardized effect sizes. However, it is possible to get approximations of most of the effect size indices (*d*, *r*, $\eta^2_p$...) with the use of test statistics [@friedman1982simplified]. These conversions are based on the idea that test statistics are a function of effect size and sample size (or more often of degrees of freedom). Thus it is possible to reverse-engineer indices of effect size from test statistics (*F*, *t*, $\chi^2$, and *z*). 
 
 ```{r}
-F_to_eta2(f = c(40.72, 33.77),
-          df = c(2, 1), df_error = c(18, 9))
+F_to_eta2(
+  f = c(40.72, 33.77),
+  df = c(2, 1), df_error = c(18, 9)
+)
 
 t_to_d(t = -5.14, df_error = 22)
 
@@ -129,8 +139,9 @@ These functions also power the `effectsize()` convenience function for estimatin
 ```{r}
 data(hardlyworking, package = "effectsize")
 
-aov1 <- oneway.test(salary ~ n_comps, 
-                    data = hardlyworking, var.equal = TRUE)
+aov1 <- oneway.test(salary ~ n_comps,
+  data = hardlyworking, var.equal = TRUE
+)
 effectsize(aov1)
 
 xtab <- rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477))

@@ -1,0 +1,219 @@
+---
+title: "Phi, Fei, Fo, Fum: Correlation Effect Sizes for Chi-squared Tests"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+bibliography: paper.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(effectsize)
+# options(es.use_symbols = TRUE)
+```
+
+# Introduction
+
+<!-- Blah blah blah effect sizes are important. -->
+
+We review here the most common effect sizes for analysis of categorical variables, and introduce a new one -- $פ$ (Fei)  --alongside R code from the *effectsize* package [@benshachar2020effectsize] which implements these.
+
+# Tests Of Independance
+
+The $\chi^2$ test of independence between two categorical variables examines if the frequency distribution of one of the variables is dependent on the other. 
+
+Formally, the test examines how likely the observed conditional frequencies (cell frequencies) are under the null hypotheses of independence, by examining the degree of deviation of the observed cell frequencies from the frequencies expected if the variables were indeed independent.
+
+The test statistic for these tests is the $\chi^2$, which is computed as:
+
+$$
+\chi^2 = \sum{\frac{(O_i-E_i)^2}{E_i}}
+$$
+
+Where $O_i$ are the *observed* frequencies and $E_i$ are the frequencies *expected* under independence. 
+
+Instead of the deviations between the observed and expected frequencies, we can write $\chi^2$ in terms of observed and expected cell probabilities and the total sample size $N$:
+
+$$
+\chi^2 = N\sum{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}
+$$
+
+Where $p_{O_i}$ are the *observed* cell probabilities and $p_{E_i}$ are the probabilities *expected* under independence.
+
+For example... <!-- use a real world example -->
+
+## Phi
+
+For 2-by-2 contingency tables, the $\phi$ (*phi*) coefficient is a correlation-like measure of effect size indicating the strength of association between the two binary variables. One way to compute this effect size is to re-code the binary variables as dummy (0,1) variables, and computing the (absolute) Pearson correlation between them:
+
+$$
+\phi = |r_{AB}|
+$$
+Another way to compute $\phi$ is by using the $\chi^2$ statistic:
+
+$$
+\phi = \sqrt{\frac{\chi^2}{N}} = \sqrt{\sum{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}}
+$$
+This value ranges between 0 (not association) and 1 (complete dependence), and its values can be interpreted the same as any Person's correlation coefficient.
+
+```{r}
+library(effectsize)
+library(correlation)
+
+data("RCT_table")
+
+RCT_table
+
+phi(RCT_table, adjust = FALSE)
+
+tidyr::uncount(as.data.frame(RCT_table), weights = Freq) |>
+  transform(Diagnosis = Diagnosis == "Sick",
+            Group = Group == "Treatment") |> 
+  correlation()
+```
+
+
+
+## Cramer's *v*
+
+These properties do not hold when the contigency table is larger than 2-by-2: $\sqrt{\chi^2/N}$ can be larger than 1.
+
+Cramer showed (REF?) that while for 2-by-2 the maximal possible value of $\chi^2$ is $N$, for larger tables the maximal possible value for $\chi^2$ is $N\times (\text{min}(k,l)-1)$. He therefor suggested the $v$ effect size:
+
+$$
+\text{Cramer's } V = \sqrt{\frac{\chi^2}{N(\text{min}(k,l)-1)}}
+$$
+
+This is 1 when the columns are completely dependent on the rows, or the row are completely dependent on the columns.
+
+```{r}
+data("Music_preferences")
+
+Music_preferences
+
+cramers_v(Music_preferences, adjust = FALSE)
+```
+
+Tschuprow (REF) devised an alternative value, at <value>, which is only 1 when the columns are completely dependent on the rows **and** the row are completely dependent on the columns, which is only possible when the xtab is square.
+
+```{r}
+tschuprows_t(Music_preferences)
+```
+
+We can generalize both $\phi$, $V$, and $T$ to:
+
+$$
+\sqrt{\frac{\chi^2}{\chi^2_{\text{max}}}}
+$$
+
+## Also...
+
+These can be used for confusion matrices... <!-- show that Matthew's correlation coefficient is equal to Phi. -->
+
+# Goodness of Fit
+
+These tests compare an observed distribution of a multinomial variable to an expected distribution, using the same $\chi^2$ statistic. Here too we can compute an effect size as $\sqrt{\frac{\chi^2}{\chi^2_{\text{max}}}}$, all we need to find is $\chi^2_{\text{max}}$.
+
+## Cohen's *w*
+
+Cohen (REF) defined an effect size -- *w* -- for the goodness of fit test:
+
+$$
+\text{Cohen's } w = \sqrt{\sum{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}} = \sqrt{\frac{\chi^2}{N}}
+$$
+
+Thus $\chi^2_\text{max} = N$.
+
+```{r}
+O <- c(90, 10)
+p_E <- c(0.5, 0.5)
+
+cohens_w(O, p = p_E)
+```
+
+Unfortunately, *w* has an uppoer bound of 1 only when the variable is binomial (two categories) and the expected distribution is uniform ($p_{\text{class 1}} = p_{\text{class 2}} = 0.5$). If the distribution is none uniform (Rosenberg, 2010) or if there are more than 2 classes (Johnston et al., 2006), then $\chi^2_\text{max} > N$, and so *w* can be larger than 1.
+
+```{r}
+O <- c(90, 10)
+p_E <- c(0.35, 0.65)
+cohens_w(O, p = p_E)
+
+
+O <- c(10, 20, 80, 5)
+p_E <- c(.25, .25, .25, .25)
+cohens_w(O, p = p_E)
+```
+
+
+## Fei
+
+We present here a new effect size, $פ$ (Fei) which normalizes GoF $\chi^2$ by the propper $\chi^2_\text{max}$ for none-uniform and/or mulinomial variables.
+
+The largest deviation from the expected probability would be if all observations are in the cell with the smallest expected probability.
+
+$$
+p_{O} = 
+\begin{cases}
+1 & \text{if } p_i = \text{min}(p) \\
+0 & \text{else}
+\end{cases}
+$$
+
+Since $\chi^2 = N \sum{\frac{(p_{E_i}-p_{O_i})^2}{p_{E_i}}}$
+
+We can find $\frac{(E_i-O_i)^2}{E_i}$ for each of these values:
+
+$$
+\frac{(p_{E}-p_{O})^2}{p_{E}} = 
+\begin{cases}
+\frac{(p_i-1)^2}{p_i} & \text{if } p_{E} = \text{min}(p_{E}) \\
+\frac{(p_i-0)^2}{p_i} = p_i & \text{else}
+\end{cases}
+$$
+
+Since $\sum{p_i}=1$, therefor the $\chi^2$ which is the sum of the expression above as:
+
+$$
+\begin{split}
+\chi^2_\text{max} & = N \times (1 - \text{min}(p_E) + \frac{(\text{min}(p_E)-1)^2}{\text{min}(p_E)}) \\
+ & = N \times \frac{1-\text{min}(p_E)}{\text{min}(p_E)} \\
+ & = N \times (\frac{1}{\text{min}(p_E)} - 1)
+\end{split}
+$$
+
+And so an effect size can be derived as:
+
+$$
+\sqrt{\frac{\chi^2}{N \times (\frac{1}{\text{min}(p_E)} - 1)}}
+$$
+
+We call this effect size $פ$, which can represent the voiceless bilabial fricative in the Hebrew language, keeping in line with $\phi$ (which in modern Greek marks the same sound) and $V$ (which in English mark a voiced bilabial fricative) ($W$ being derived from the letter V in modern Latin alphabet).
+
+This will be 0 when the observed distribution matches the expected one perfectly, and will be 1 when the observed values are all of the same class - the one with the smallest expected probability.
+
+```{r}
+O <- c(90, 10)
+p_E <- c(0.35, 0.65)
+fei(O, p = p_E)
+
+
+O <- c(10, 20, 80, 5)
+p_E <- c(.25, .25, .25, .25)
+fei(O, p = p_E)
+```
+
+When there are only 2 cells with uniform expected probabilities (50%), this expression reduces to $N$ and $פ = w$.
+
+```{r}
+O <- c(90, 10)
+p_E <- c(0.5, 0.5)
+
+fei(O, p = p_E)
+```
+
+# Summary
+
+
+
+# References

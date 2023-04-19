@@ -5,7 +5,7 @@
 \alias{eta2_to_f}
 \alias{f2_to_eta2}
 \alias{f_to_eta2}
-\title{Convert between ANOVA effect sizes}
+\title{Convert Between ANOVA Effect Sizes}
 \usage{
 eta2_to_f2(es)
 
@@ -22,7 +22,7 @@ or R-Squared, partial or otherwise. See details.}
 \item{f, f2}{Cohen's \emph{f} or \emph{f}-squared.}
 }
 \description{
-Convert between ANOVA effect sizes
+Convert Between ANOVA Effect Sizes
 }
 \details{
 Any measure of variance explained can be converted to a corresponding Cohen's
@@ -50,9 +50,10 @@ Psychological Methods, 9, 164-182.
 \code{\link[=eta_squared]{eta_squared()}} for more details.
 
 Other convert between effect sizes: 
-\code{\link{d_to_cles}()},
 \code{\link{d_to_r}()},
+\code{\link{diff_to_cles}},
 \code{\link{odds_to_probs}()},
-\code{\link{oddsratio_to_riskratio}()}
+\code{\link{oddsratio_to_riskratio}()},
+\code{\link{v_to_t}()}
 }
 \concept{convert between effect sizes}

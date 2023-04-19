@@ -2,7 +2,7 @@
 % Please edit documentation in R/interpret_rope.R
 \name{interpret_rope}
 \alias{interpret_rope}
-\title{Interpret Bayesian diagnostic indices}
+\title{Interpret Bayesian Posterior Percentage in ROPE.}
 \usage{
 interpret_rope(rope, ci = 0.9, rules = "default")
 }
@@ -14,7 +14,7 @@ interpret_rope(rope, ci = 0.9, rules = "default")
 \item{rules}{A character string (see details) or a custom set of \code{\link[=rules]{rules()}}.}
 }
 \description{
-Interpretation of Bayesian indices of percentage in ROPE.
+Interpretation of
 }
 \section{Rules}{
 
@@ -46,3 +46,4 @@ interpret_rope(c(0.005, 0.99), ci = 1)
 \references{
 \href{https://easystats.github.io/bayestestR/articles/guidelines.html}{BayestestR's reporting guidelines}
 }
+\keyword{interpreters}

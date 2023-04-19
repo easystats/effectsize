@@ -31,7 +31,6 @@ source("WIP/paired_d2.R")
 #' paired_d(rt ~ cond | id, data = dat, type = "av")
 
 
-
 # Test on other data:
 library(emmeans)
 data(stroop, package = "afex")
@@ -57,9 +56,11 @@ paired_d(rt ~ congruency | pno, data = stroop, type = "av")
 
 
 set.seed(1)
-dat <- expand.grid(t = 1:100,
-                   id = letters[1:10],
-                   cond = LETTERS[1:2]) |>
+dat <- expand.grid(
+  t = 1:100,
+  id = letters[1:10],
+  cond = LETTERS[1:2]
+) |>
   as.data.frame() |>
   dplyr::select(-t) |>
   dplyr::mutate(

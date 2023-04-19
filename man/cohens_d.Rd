@@ -4,7 +4,7 @@
 \alias{cohens_d}
 \alias{hedges_g}
 \alias{glass_delta}
-\title{Effect size for differences}
+\title{Cohen's \emph{d} and Other Standardized Differences}
 \usage{
 cohens_d(
   x,
@@ -29,8 +29,7 @@ hedges_g(
   ci = 0.95,
   alternative = "two.sided",
   verbose = TRUE,
-  ...,
-  correction
+  ...
 )
 
 glass_delta(
@@ -41,15 +40,14 @@ glass_delta(
   ci = 0.95,
   alternative = "two.sided",
   verbose = TRUE,
-  ...,
-  iterations
+  ...
 )
 }
 \arguments{
-\item{x}{A formula, a numeric vector, or a character name of one in \code{data}.}
-
-\item{y}{A numeric vector, a grouping (character / factor) vector, a or a
-character  name of one in \code{data}. Ignored if \code{x} is a formula.}
+\item{x, y}{A numeric vector, or a character name of one in \code{data}.
+Any missing values (\code{NA}s) are dropped from the resulting vector.
+\code{x} can also be a formula (see \code{\link[stats:t.test]{stats::t.test()}}), in which case \code{y} is
+ignored.}
 
 \item{data}{An optional data frame containing the variables.}
 
@@ -72,9 +70,8 @@ Controls the type of CI returned: \code{"two.sided"} (default, two-sided CI),
 
 \item{verbose}{Toggle warnings and messages on or off.}
 
-\item{...}{Arguments passed to or from other methods.}
-
-\item{iterations, correction}{deprecated.}
+\item{...}{Arguments passed to or from other methods. When \code{x} is a formula,
+these can be \code{subset} and \code{na.action}.}
 }
 \value{
 A data frame with the effect size ( \code{Cohens_d}, \code{Hedges_g},
@@ -83,15 +80,15 @@ A data frame with the effect size ( \code{Cohens_d}, \code{Hedges_g},
 \description{
 Compute effect size indices for standardized differences: Cohen's \emph{d},
 Hedges' \emph{g} and Glass’s \emph{delta} (\eqn{\Delta}). (This function returns the
-\strong{population} estimate.)
+\strong{population} estimate.) Pair with any reported \code{\link[stats:t.test]{stats::t.test()}}.
 \cr\cr
 Both Cohen's \emph{d} and Hedges' \emph{g} are the estimated the standardized
-difference between the means of two populations. Hedges' \emph{g} provides a bias
-correction (using the exact method) to Cohen's \emph{d} for small sample sizes.
-For sample sizes > 20, the results for both statistics are roughly
-equivalent. Glass’s \emph{delta} is appropriate when the standard deviations are
-significantly different between the populations, as it uses only the \emph{second}
-group's standard deviation.
+difference between the means of two populations. Hedges' \emph{g} provides a
+correction for small-sample bias (using the exact method) to Cohen's \emph{d}. For
+sample sizes > 20, the results for both statistics are roughly equivalent.
+Glass’s \emph{delta} is appropriate when the standard deviations are significantly
+different between the populations, as it uses only the \emph{second} group's
+standard deviation.
 }
 \details{
 Set \code{pooled_sd = FALSE} for effect sizes that are to accompany a Welch's
@@ -103,7 +100,6 @@ Some statistical packages give the sample estimate instead (without
 applying Bessel's correction).
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
-
 Unless stated otherwise, confidence (compatibility) intervals (CIs) are
 estimated using the noncentrality parameter method (also called the "pivot
 method"). This method finds the noncentrality parameter ("\emph{ncp}") of a
@@ -120,7 +116,6 @@ For additional details on estimation and troubleshooting, see \link{effectsize_C
 }
 
 \section{CIs and Significance Tests}{
-
 "Confidence intervals on measures of effect size convey all the information
 in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
 intervals and p values are complementary summaries of parameter uncertainty
@@ -196,7 +191,7 @@ interpret_glass_delta(-1.48, rules = "gignac2016")
 interpret(d, rules = "sawilowsky2009")
 
 # Common Language Effect Sizes
-d_to_cles(1.48)
+d_to_u3(1.48)
 # Or:
 print(d, append_CLES = TRUE)
 }
@@ -211,7 +206,7 @@ Statistical Methods, 5(1), 2.
 sciences (2nd Ed.). New York: Routledge.
 \item Delacre, M., Lakens, D., Ley, C., Liu, L., & Leys, C. (2021, May 7). Why
 Hedges’ g*s based on the non-pooled standard deviation should be reported
-with Welch's t-test. https://doi.org/10.31234/osf.io/tu6mp
+with Welch's t-test. \doi{10.31234/osf.io/tu6mp}
 \item Hedges, L. V. & Olkin, I. (1985). Statistical methods for
 meta-analysis. Orlando, FL: Academic Press.
 \item Hunter, J. E., & Schmidt, F. L. (2004). Methods of meta-analysis:
@@ -219,14 +214,12 @@ Correcting error and bias in research findings. Sage.
 }
 }
 \seealso{
-\code{\link[=d_to_cles]{d_to_cles()}} \code{\link[=sd_pooled]{sd_pooled()}}
+\code{\link[=sd_pooled]{sd_pooled()}}, \code{\link[=t_to_d]{t_to_d()}}, \code{\link[=r_to_d]{r_to_d()}}
 
-Other effect size indices: 
-\code{\link{cles}()},
-\code{\link{effectsize.BFBayesFactor}()},
-\code{\link{eta_squared}()},
-\code{\link{phi}()},
-\code{\link{rank_biserial}()},
-\code{\link{standardize_parameters}()}
+Other standardized differences: 
+\code{\link{mahalanobis_d}()},
+\code{\link{means_ratio}()},
+\code{\link{p_superiority}()},
+\code{\link{rank_biserial}()}
 }
-\concept{effect size indices}
+\concept{standardized differences}

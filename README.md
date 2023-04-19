@@ -1,12 +1,13 @@
 
-# effectsize <img src="man/figures/logo.png" align="right" width="120" />
+# effectsize: Indices of Effect Size <img src="man/figures/logo.png" align="right" width="120" />
 
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.02815/status.svg/)](https://doi.org/10.21105/joss.02815)
 [![downloads](https://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize/)
 [![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize)](https://cran.r-project.org/package=effectsize/)
 [![status](https://tinyverse.netlify.com/badge/effectsize/)](https://CRAN.R-project.org/package=effectsize/)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
-***Significant is just not enough\!***
+***Significant is just not enough!***
 
 The goal of this package is to provide utilities to work with indices of
 effect size and standardized parameters, allowing computation and
@@ -17,7 +18,7 @@ conversion of indices such as Cohen’s *d*, *r*, odds-ratios, etc.
 [![CRAN](https://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize/)
 [![effectsize status
 badge](https://easystats.r-universe.dev/badges/effectsize/)](https://easystats.r-universe.dev/)
-[![R-check](https://github.com/easystats/effectsize/workflows/R-check/badge.svg/)](https://github.com/easystats/effectsize/actions/)
+[![R-CMD-check](https://github.com/easystats/effectsize/workflows/R-CMD-check/badge.svg?branch=main)](https://github.com/easystats/effectsize/actions)
 [![pkgdown](https://github.com/easystats/effectsize/workflows/pkgdown/badge.svg/)](https://github.com/easystats/effectsize/actions/)
 [![Codecov test
 coverage](https://codecov.io/gh/easystats/effectsize/branch/main/graph/badge.svg/)](https://app.codecov.io/gh/easystats/effectsize?branch=main/)
@@ -29,7 +30,7 @@ CRAN:
 install.packages("effectsize")
 ```
 
-Or you can install the latest development version `0.6.0.2` from
+Or you can install the latest development version from
 [*R-universe*](https://easystats.r-universe.dev):
 
 ``` r
@@ -37,13 +38,9 @@ install.packages("effectsize", repos = "https://easystats.r-universe.dev/")
 ```
 
 <!-- Or from *GitHub*: -->
-
 <!-- ```{r, warning=FALSE, message=FALSE, eval=FALSE} -->
-
 <!-- if (!require("remotes")) install.packages("remotes") -->
-
 <!-- remotes::install_github("easystats/effectsize") -->
-
 <!-- ``` -->
 
 ## Documentation
@@ -57,21 +54,21 @@ Click on the buttons above to access the package
 [**easystats blog**](https://easystats.github.io/blog/posts/), and
 check-out these vignettes:
 
-  - **Effect Sizes**
-      - [**Parameter and Model
-        Standardization**](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
-      - [**ANOVA Effect
+-   **Effect Sizes**
+    -   [**Standardized
+        Differences**](https://easystats.github.io/effectsize/articles/standardized_differences.html)  
+    -   [**For Contingency
+        Tables**](https://easystats.github.io/effectsize/articles/xtabs.html)  
+    -   [**ANOVA Effect
         Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
-      - [**Effect Sizes in Bayesian
-        Models**](https://easystats.github.io/effectsize/articles/bayesian_models.html)  
-      - [**For Simple Hypothesis
-        Tests**](https://easystats.github.io/effectsize/articles/simple_htests.html)  
-  - **Effect Sizes Conversion**
-      - [**Between Effect
-        Sizes**](https://easystats.github.io/effectsize/articles/convert.html)
-      - [**Effect Size from Test
+-   **Effect Sizes Conversion**
+    -   [**Between Effect
+        Sizes**](https://easystats.github.io/effectsize/articles/convert_r_d_OR.html)  
+    -   [**Between Probabilities and Odds and Risk
+        Ratios**](https://easystats.github.io/effectsize/articles/convert_p_OR_RR.html)  
+    -   [**Effect Size from Test
         Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
-  - [**Automated Interpretation of Indices of Effect
+-   [**Automated Interpretation of Indices of Effect
     Size**](https://easystats.github.io/effectsize/articles/interpret.html)
 
 # Features
@@ -82,13 +79,21 @@ website for [**a full list of features and functions** provided by
 
 ``` r
 library(effectsize)
+options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, requires R >= 4.2.0)
 ```
+
+> **Tip:**
+>
+> **Instead of `library(effectsize)`, use `library(easystats)`.** **This
+> will make all features of the easystats-ecosystem available.**
+>
+> **To stay updated, use `easystats::install_latest()`.**
 
 ## Effect Size Computation
 
-### Standardized Differences (Cohen’s *d*, Hedges’ *g*, Glass’ *delta*)
-
 The package provides functions to compute indices of effect size.
+
+### Standardized Differences (Cohen’s *d*, Hedges’ *g*, Glass’ *delta*)
 
 ``` r
 cohens_d(mpg ~ am, data = mtcars)
@@ -106,13 +111,41 @@ hedges_g(mpg ~ am, data = mtcars)
 ## - Estimated using pooled SD.
 
 glass_delta(mpg ~ am, data = mtcars)
-## Glass' delta |         95% CI
-## -----------------------------
-## -1.17        | [-1.93, -0.39]
+## Glass' Δ |         95% CI
+## -------------------------
+## -1.17    | [-1.93, -0.39]
 ```
 
-`effectsize` also provides effect sizes for *contingency tables*, *rank
-tests*, and more…
+`effectsize` also provides effect sizes for *rank tests*, *common
+language effect sizes* and more…
+
+### Contingency Tables
+
+``` r
+# Dependence 
+phi(mtcars$am, mtcars$vs)
+## ϕ (adj.) |       95% CI
+## -----------------------
+## 0.00     | [0.00, 1.00]
+## 
+## - One-sided CIs: upper bound fixed at [1.00].
+
+cramers_v(mtcars$am, mtcars$cyl)
+## Cramer's V (adj.) |       95% CI
+## --------------------------------
+## 0.46              | [0.00, 1.00]
+## 
+## - One-sided CIs: upper bound fixed at [1.00].
+
+# Goodness-of-fit
+fei(table(mtcars$cyl), p = c(0.1, 0.3, 0.6))
+## פ‎    |       95% CI
+## -------------------
+## 0.27 | [0.17, 1.00]
+## 
+## - Adjusted for non-uniform expected probabilities.
+## - One-sided CIs: upper bound fixed at [1.00].
+```
 
 ### ANOVAs (Eta<sup>2</sup>, Omega<sup>2</sup>, …)
 
@@ -122,65 +155,43 @@ model <- aov(mpg ~ factor(gear), data = mtcars)
 eta_squared(model)
 ## # Effect Size for ANOVA
 ## 
-## Parameter    | Eta2 |       95% CI
+## Parameter    |   η² |       95% CI
 ## ----------------------------------
 ## factor(gear) | 0.43 | [0.18, 1.00]
 ## 
-## - One-sided CIs: upper bound fixed at (1).
+## - One-sided CIs: upper bound fixed at [1.00].
 
 omega_squared(model)
 ## # Effect Size for ANOVA
 ## 
-## Parameter    | Omega2 |       95% CI
-## ------------------------------------
-## factor(gear) |   0.38 | [0.14, 1.00]
+## Parameter    |   ω² |       95% CI
+## ----------------------------------
+## factor(gear) | 0.38 | [0.14, 1.00]
 ## 
-## - One-sided CIs: upper bound fixed at (1).
+## - One-sided CIs: upper bound fixed at [1.00].
 
 epsilon_squared(model)
 ## # Effect Size for ANOVA
 ## 
-## Parameter    | Epsilon2 |       95% CI
-## --------------------------------------
-## factor(gear) |     0.39 | [0.14, 1.00]
+## Parameter    |   ε² |       95% CI
+## ----------------------------------
+## factor(gear) | 0.39 | [0.14, 1.00]
 ## 
-## - One-sided CIs: upper bound fixed at (1).
+## - One-sided CIs: upper bound fixed at [1.00].
 ```
 
 And more…
 
-### Regression Models (Standardized Parameters)
-
-Importantly, `effectsize` also provides [advanced
-methods](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
-to compute standardized parameters for regression models.
-
-``` r
-m <- lm(rating ~ complaints + privileges + advance, data = attitude)
-
-standardize_parameters(m)
-## # Standardization method: refit
-## 
-## Parameter   | Coefficient (std.) |        95% CI
-## ------------------------------------------------
-## (Intercept) |          -9.57e-16 | [-0.22, 0.22]
-## complaints  |               0.85 | [ 0.58, 1.13]
-## privileges  |              -0.04 | [-0.33, 0.24]
-## advance     |              -0.02 | [-0.26, 0.22]
-```
-
-Also, models can be re-fit with standardized data:
-
-``` r
-standardize(m)
-## 
-## Call:
-## lm(formula = rating ~ complaints + privileges + advance, data = data_std)
-## 
-## Coefficients:
-## (Intercept)   complaints   privileges      advance  
-##   -9.57e-16     8.55e-01    -4.35e-02    -2.19e-02
-```
+<!-- ### Regression Models (Standardized Parameters) -->
+<!-- Importantly, `effectsize` also provides [advanced methods](https://easystats.github.io/effectsize/articles/standardize_parameters.html) to compute standardized parameters for regression models. -->
+<!-- ```{r beta, warning=FALSE, message=FALSE} -->
+<!-- m <- lm(rating ~ complaints + privileges + advance, data = attitude) -->
+<!-- standardize_parameters(m) -->
+<!-- ``` -->
+<!-- Also, models can be re-fit with standardized data: -->
+<!-- ```{r std-model, warning=FALSE, message=FALSE} -->
+<!-- standardize(m) -->
+<!-- ``` -->
 
 ## Effect Size Conversion
 
@@ -209,11 +220,11 @@ F_to_r(15, df = 1, df_error = 60)
 ## 0.45 | [0.22, 0.61]
 
 F_to_eta2(15, df = 1, df_error = 60)
-## Eta2 (partial) |       95% CI
-## -----------------------------
-## 0.20           | [0.07, 1.00]
+## η² (partial) |       95% CI
+## ---------------------------
+## 0.20         | [0.07, 1.00]
 ## 
-## - One-sided CIs: upper bound fixed at (1).
+## - One-sided CIs: upper bound fixed at [1.00].
 ```
 
 ## Effect Size Interpretation
@@ -245,7 +256,7 @@ interpret_cohens_d(d = 0.45, rules = "gignac2016")
 
 In order to cite this package, please use the following citation:
 
-  - Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation
+-   Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation
     of Effect Size Indices and Standardized Parameters. *Journal of Open
     Source Software*, *5*(56), 2815. doi: 10.21105/joss.02815
 

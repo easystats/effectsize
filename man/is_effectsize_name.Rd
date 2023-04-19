@@ -4,18 +4,25 @@
 \alias{is_effectsize_name}
 \alias{get_effectsize_name}
 \alias{get_effectsize_label}
-\title{Checks if character is of a supported effect size}
+\title{Checks for a Valid Effect Size Name}
 \usage{
 is_effectsize_name(x, ignore_case = TRUE)
 
 get_effectsize_name(x, ignore_case = TRUE)
 
-get_effectsize_label(x, ignore_case = TRUE)
+get_effectsize_label(
+  x,
+  ignore_case = TRUE,
+  use_symbols = getOption("es.use_symbols", FALSE)
+)
 }
 \arguments{
 \item{x}{A character, or a vector.}
 
 \item{ignore_case}{Should case of input be ignored?}
+
+\item{use_symbols}{Should proper symbols be printed (\code{TRUE}) instead of
+transliterated effect size names (\code{FALSE}). See \link{effectsize_options}.}
 }
 \description{
 For use by other functions and packages.

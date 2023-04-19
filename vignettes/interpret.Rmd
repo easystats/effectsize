@@ -20,11 +20,6 @@ library(knitr)
 options(knitr.kable.NA = "")
 knitr::opts_chunk$set(comment = ">")
 options(digits = 2)
-
-pkgs <- c("effectsize")
-if (!all(sapply(pkgs, requireNamespace, quietly = TRUE))) {
-  knitr::opts_chunk$set(eval = FALSE)
-}
 ```
 
 ## Why?
@@ -71,6 +66,8 @@ worth taking seriously (as they can be potentially consequential), as well as
 more believable.
 
 ## Correlation *r*
+
+There can be used to interpret not only Pearson's correlation coefficient, but also Spearman's, $\phi$ (phi), Cramer's *V* and Tschuprow's *T*. Although Cohen's *w* and Pearson's *C* are _not_ a correlation coefficients, they are often also interpreted as such.
 
 #### @funder2019evaluating
 
@@ -234,9 +231,7 @@ However, they are also the parameters of ***logistic*** regressions, where they
 can be used as indices of effect size. Note that the (log) odds ratio from
 logistic regression coefficients are *unstandardized*, as they depend on the
 scale of the predictor. In order to apply the following guidelines, make sure
-you
-[*standardize*](https://easystats.github.io/effectsize/articles/standardize_parameters.html)
-your predictors!
+you *standardize* your predictors!
 
 Keep in mind that these apply to Odds *ratios*, so Odds ratio of 10 is as
 extreme as a Odds ratio of 0.1 (1/10).
@@ -351,7 +346,7 @@ interpret_omega_squared(x, rules = "field2013")
 
 - **0.01 <= ES < 0.06** - Small
 
-- **0.16 <= ES < 0.14** - Medium
+- **0.06 <= ES < 0.14** - Medium
 
 - **ES >= 0.14 ** - Large
 

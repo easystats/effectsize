@@ -3,7 +3,7 @@
 \name{interpret_ess}
 \alias{interpret_ess}
 \alias{interpret_rhat}
-\title{Interpret Bayesian diagnostic indices}
+\title{Interpret Bayesian Diagnostic Indices}
 \usage{
 interpret_ess(ess, rules = "burkner2017")
 
@@ -65,3 +65,4 @@ using multiple sequences. Statistical science, 7(4), 457-472.
 assessing convergence of MCMC. arXiv preprint arXiv:1903.08008.
 }
 }
+\keyword{interpreters}

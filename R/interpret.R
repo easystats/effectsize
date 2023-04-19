@@ -1,7 +1,7 @@
 # Rules ---------------------------------------------------------------
 
 
-#' Interpretation Grid
+#' Create an Interpretation Grid
 #'
 #' Create a container for interpretation rules of thumb. Usually used in conjunction with [interpret].
 #'
@@ -17,7 +17,7 @@
 #'
 #'
 #'
-#' @seealso interpret
+#' @seealso [interpret()]
 #'
 #' @examples
 #' rules(c(0.05), c("significant", "not significant"), right = FALSE)
@@ -38,14 +38,14 @@ rules <- function(values, labels = NULL, name = NULL, right = TRUE) {
 
   # Sanity checks
   if (length(labels) < length(values)) {
-    stop("There cannot be less labels than reference values!")
+    insight::format_error("There cannot be less labels than reference values!")
   } else if (length(labels) > length(values) + 1) {
-    stop("Too many labels for the number of reference values!")
+    insight::format_error("Too many labels for the number of reference values!")
   }
 
   if (length(values) == length(labels) - 1) {
     if (is.unsorted(values)) {
-      stop("Reference values must be sorted.")
+      insight::format_error("Reference values must be sorted.")
     }
   } else {
     right <- NULL
@@ -83,7 +83,7 @@ is.rules <- function(x) inherits(x, "rules")
 
 
 
-#' Generic function for interpretation
+#' Generic Function for Interpretation
 #'
 #' Interpret a value based on a set of rules. See [rules()].
 #'
@@ -95,10 +95,10 @@ is.rules <- function(x) inherits(x, "rules")
 #' @inheritParams rules
 #'
 #' @return
-#' - For numeric input: A character vector of interpertations.
+#' - For numeric input: A character vector of interpretations.
 #' - For data frames: the `x` input with an additional `Interpretation` column.
 #'
-#' @seealso rules
+#' @seealso [rules()]
 #' @examples
 #' rules_grid <- rules(c(0.01, 0.05), c("very significant", "significant", "not significant"))
 #' interpret(0.001, rules_grid)
@@ -142,9 +142,9 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
   attr(rules, "rule_name") <- name
 
   if (length(x) > 1) {
-    out <- sapply(x, .interpret, rules)
+    out <- vapply(x, .interpret, rules = rules, FUN.VALUE = character(1L))
   } else {
-    out <- .interpret(x, rules)
+    out <- .interpret(x, rules = rules)
   }
 
   names(out) <- names(x)
@@ -157,29 +157,44 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
 #' @rdname interpret
 #' @export
 interpret.effectsize_table <- function(x, rules, ...) {
-  if (missing(rules)) stop("You MUST specify the rules of interpretation!")
+  if (missing(rules)) insight::format_error("You {.b must} specify the rules of interpretation!")
 
   es_name <- colnames(x)[is_effectsize_name(colnames(x))]
   value <- x[[es_name]]
 
   x$Interpretation <- switch(es_name,
-    # std diff
+    ## std diff
     Cohens_d = ,
     Hedges_g = ,
     Glass_delta = ,
-    d = interpret_cohens_d(value, rules = rules),
-    # xtab
+    Mahalanobis_D = interpret_cohens_d(value, rules = rules),
+
+    ## xtab cor
     Cramers_v = ,
     Cramers_v_adjusted = ,
     phi = ,
-    phi_adjusted = interpret_cramers_v(value, rules = rules),
-    Cohens_g = interpret_cohens_g(value, rules = rules),
+    phi_adjusted = ,
+    Pearsons_c = ,
+    Cohens_w = ,
+    Tschuprows_t = ,
+    fei = interpret_cramers_v(value, rules = rules),
+
+    ## xtab 2x2
+    Cohens_h = interpret_cohens_d(value, rules = rules),
     Odds_ratio = interpret_oddsratio(value, rules = rules, log = FALSE),
     log_Odds_ratio = interpret_oddsratio(value, rules = rules, log = TRUE),
-    # anova
+    # TODO:
+    # Risk_ratio = ,
+    # log_Risk_ratio = ,
+
+    ## xtab dep
+    Cohens_g = interpret_cohens_g(value, rules = rules),
+
+    ## anova
     Eta2 = ,
     Eta2_partial = ,
     Eta2_generalized = ,
+    r2_semipartial = ,
     Epsilon2 = ,
     Epsilon2_partial = ,
     Omega2 = ,
@@ -188,12 +203,19 @@ interpret.effectsize_table <- function(x, rules, ...) {
     Cohens_f_partial = interpret_omega_squared(f_to_eta2(value), rules = rules),
     Cohens_f2 = ,
     Cohens_f2_partial = interpret_omega_squared(f2_to_eta2(value), rules = rules),
-    # rank
+
+    ## Rank
+    r_rank_biserial = interpret_r(value, rules = rules),
+    VDs_A = interpret_r(value * 2 - 1, rules = rules),
     Kendalls_W = interpret_kendalls_w(value, rules = rules),
-    r_rank_biserial = ,
     rank_epsilon_squared = ,
-    # corr
-    r = interpret_r(value, rules = rules)
+    rank_eta_squared = interpret_omega_squared(value, rules = rules),
+
+    # TODO: add cles as a transformation of d?
+
+    ## other
+    r = interpret_r(value, rules = rules),
+    d = interpret_cohens_d(value, rules = rules)
   )
 
   attr(x, "rules") <- attr(x$Interpretation, "rules")
@@ -203,7 +225,7 @@ interpret.effectsize_table <- function(x, rules, ...) {
 #' @keywords internal
 .interpret <- function(x, rules) {
   if (is.na(x)) {
-    return(NA)
+    return(NA_character_)
   }
 
   if (length(rules$values) == length(rules$labels)) {

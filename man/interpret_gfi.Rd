@@ -13,7 +13,7 @@
 \alias{interpret_pnfi}
 \alias{interpret.lavaan}
 \alias{interpret.performance_lavaan}
-\title{Interpret of indices of CFA / SEM goodness of fit}
+\title{Interpret of CFA / SEM Indices of Goodness of Fit}
 \usage{
 interpret_gfi(x, rules = "default")
 
@@ -114,29 +114,31 @@ interpret_rfi(c(.5, .99))
 interpret_ifi(c(.5, .99))
 interpret_pnfi(c(.5, .99))
 
+\dontshow{if (require("lavaan") && interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Structural Equation Models (SEM)
-if (require("lavaan")) {
-  structure <- " ind60 =~ x1 + x2 + x3
-                 dem60 =~ y1 + y2 + y3
-                 dem60 ~ ind60 "
-  model <- lavaan::sem(structure, data = lavaan::PoliticalDemocracy)
-  interpret(model)
-}
+structure <- " ind60 =~ x1 + x2 + x3
+               dem60 =~ y1 + y2 + y3
+               dem60 ~ ind60 "
 
+model <- lavaan::sem(structure, data = lavaan::PoliticalDemocracy)
+
+interpret(model)
+\dontshow{\}) # examplesIf}
 }
 \references{
 \itemize{
 \item Awang, Z. (2012). A handbook on SEM. Structural equation modeling.
 \item Byrne, B. M. (1994). Structural equation modeling with EQS and EQS/Windows.
 Thousand Oaks, CA: Sage Publications.
-\item Tucker, L. R., \& Lewis, C. (1973). The reliability coefficient for maximum
+\item Tucker, L. R., and Lewis, C. (1973). The reliability coefficient for maximum
 likelihood factor analysis. Psychometrika, 38, 1-10.
-\item Schumacker, R. E., \& Lomax, R. G. (2004). A beginner's guide to structural
+\item Schumacker, R. E., and Lomax, R. G. (2004). A beginner's guide to structural
 equation modeling, Second edition. Mahwah, NJ: Lawrence Erlbaum Associates.
-\item Fan, X., B. Thompson, \& L. Wang (1999). Effects of sample size, estimation
+\item Fan, X., B. Thompson, and L. Wang (1999). Effects of sample size, estimation
 method, and model specification on structural equation modeling fit indexes.
 Structural Equation Modeling, 6, 56-83.
 \item Kline, R. B. (2015). Principles and practice of structural equation
 modeling. Guilford publications.
 }
 }
+\keyword{interpreters}

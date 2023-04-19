@@ -6,9 +6,9 @@
 \alias{effectsize}
 \alias{effectsize.aov}
 \alias{effectsize.htest}
-\title{Effect Size}
+\title{Effect Sizes}
 \usage{
-\method{effectsize}{BFBayesFactor}(model, type = NULL, verbose = TRUE, test = NULL, ...)
+\method{effectsize}{BFBayesFactor}(model, type = NULL, ci = 0.95, test = NULL, verbose = TRUE, ...)
 
 effectsize(model, ...)
 
@@ -21,7 +21,8 @@ effectsize(model, ...)
 
 \item{type}{The effect size of interest. See details.}
 
-\item{verbose}{Toggle off warnings.}
+\item{ci}{Value or vector of probability of the CI (between 0 and 1)
+to be estimated. Default to \code{.95} (\verb{95\%}).}
 
 \item{test}{The indices of effect existence to compute. Character (vector) or
 list with one or more of these options: \code{"p_direction"} (or \code{"pd"}),
@@ -30,6 +31,8 @@ list with one or more of these options: \code{"p_direction"} (or \code{"pd"}),
 For each "test", the corresponding \pkg{bayestestR} function is called
 (e.g. \code{\link[bayestestR:rope]{rope()}} or \code{\link[bayestestR:p_direction]{p_direction()}}) and its results
 included in the summary output.}
+
+\item{verbose}{Toggle warnings and messages on or off.}
 
 \item{...}{Arguments passed to or from other methods. See details.}
 }
@@ -45,24 +48,25 @@ input model. See details.
 \itemize{
 \item For an object of class \code{htest}, data is extracted via \code{\link[insight:get_data]{insight::get_data()}}, and passed to the relevant function according to:
 \itemize{
-\item A \strong{t-test} depending on \code{type}: \code{"cohens_d"} (default), \code{"hedges_g"}, or \code{"cles"}.
-\item A \strong{Chi-squared tests of independence or goodness-of-fit}, depending on \code{type}: \code{"cramers_v"} (default), \code{"phi"}, \code{"cohens_w"}, \code{"pearsons_c"}, \code{"cohens_h"}, \code{"oddsratio"}, or \code{"riskratio"}.
+\item A \strong{t-test} depending on \code{type}: \code{"cohens_d"} (default), \code{"hedges_g"}, or one of \code{"p_superiority"}, \code{"u1"}, \code{"u2"}, \code{"u3"}, \code{"overlap"}.
+\item A \strong{Chi-squared tests of independence} or \strong{Fisher's Exact Test}, depending on \code{type}: \code{"cramers_v"} (default), \code{"tschuprows_t"}, \code{"phi"}, \code{"cohens_w"}, \code{"pearsons_c"}, \code{"cohens_h"}, \code{"oddsratio"}, \code{"riskratio"}, \code{"arr"}, or \code{"nnt"}.
+\item A \strong{Chi-squared tests of goodness-of-fit}, depending on \code{type}: \code{"fei"} (default) \code{"cohens_w"}, \code{"pearsons_c"}
 \item A \strong{One-way ANOVA test}, depending on \code{type}: \code{"eta"} (default), \code{"omega"} or \code{"epsilon"} -squared, \code{"f"}, or \code{"f2"}.
 \item A \strong{McNemar test} returns \emph{Cohen's g}.
-\item A \strong{Wilcoxon test} depending on \code{type}: returns "\code{rank_biserial}" correlation (default) or \code{"cles"}.
-\item A \strong{Kruskal-Wallis test} returns \emph{rank Epsilon squared}.
+\item A \strong{Wilcoxon test} depending on \code{type}: returns "\code{rank_biserial}" correlation (default) or one of \code{"p_superiority"}, \code{"vda"}, \code{"u2"}, \code{"u3"}, \code{"overlap"}.
+\item A \strong{Kruskal-Wallis test} depending on \code{type}: \code{"epsilon"} (default) or \code{"eta"}.
 \item A \strong{Friedman test} returns \emph{Kendall's W}.
 (Where applicable, \code{ci} and \code{alternative} are taken from the \code{htest} if not otherwise provided.)
 }
 \item For an object of class \code{BFBayesFactor}, using \code{\link[bayestestR:describe_posterior]{bayestestR::describe_posterior()}},
 \itemize{
-\item A \strong{t-test} depending on \code{type}: "cohens_d"\verb{(default) or}"cles"`.
+\item A \strong{t-test} depending on \code{type}: \code{"cohens_d"} (default) or one of \code{"p_superiority"}, \code{"u1"}, \code{"u2"}, \code{"u3"}, \code{"overlap"}.
 \item A \strong{correlation test} returns \emph{r}.
-\item A \strong{contingency table test}, depending on \code{type}: \code{"cramers_v"} (default), \code{"phi"}, \code{"cohens_w"}, \code{"pearsons_c"}, \code{"cohens_h"}, \code{"oddsratio"}, or \code{"riskratio"}.
+\item A \strong{contingency table test}, depending on \code{type}: \code{"cramers_v"} (default), \code{"phi"}, \code{"tschuprows_t"}, \code{"cohens_w"}, \code{"pearsons_c"}, \code{"cohens_h"}, \code{"oddsratio"}, or \code{"riskratio"}, \code{"arr"}, or \code{"nnt"}.
 \item A \strong{proportion test} returns \emph{p}.
 }
-\item Objects of class \code{anova}, \code{aov}, or \code{aovlist}, depending on \code{type}: \code{"eta"} (default), \code{"omega"} or \code{"epsilon"} -squared, \code{"f"}, or \code{"f2"}.
-\item Other objects are passed to \code{\link[=standardize_parameters]{standardize_parameters()}}.
+\item Objects of class \code{anova}, \code{aov}, \code{aovlist} or \code{afex_aov}, depending on \code{type}: \code{"eta"} (default), \code{"omega"} or \code{"epsilon"} -squared, \code{"f"}, or \code{"f2"}.
+\item Other objects are passed to \code{\link[parameters:standardize_parameters]{parameters::standardize_parameters()}}.
 }
 
 \strong{For statistical models it is recommended to directly use the listed
@@ -72,10 +76,10 @@ functions, for the full range of options they provide.}
 
 ## Hypothesis Testing
 ## ------------------
-contingency_table <- as.table(rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477)))
-Xsq <- chisq.test(contingency_table)
+data("Music_preferences")
+Xsq <- chisq.test(Music_preferences)
 effectsize(Xsq)
-effectsize(Xsq, type = "phi")
+effectsize(Xsq, type = "cohens_w")
 
 Tt <- t.test(1:10, y = c(7:20), alternative = "less")
 effectsize(Tt)
@@ -84,48 +88,41 @@ Aov <- oneway.test(extra ~ group, data = sleep, var.equal = TRUE)
 effectsize(Aov)
 effectsize(Aov, type = "omega")
 
-Wt <- wilcox.test(1:10, 7:20, mu = -3, alternative = "less")
+Wt <- wilcox.test(1:10, 7:20, mu = -3, alternative = "less", exact = FALSE)
 effectsize(Wt)
-effectsize(Wt, type = "cles")
-
-## Bayesian Hypothesis Testing
-## ---------------------------
-\donttest{
-if (require(BayesFactor)) {
-  bf_prop <- proportionBF(3, 7, p = 0.3)
-  effectsize(bf_prop)
-
-  bf_corr <- correlationBF(attitude$rating, attitude$complaints)
-  effectsize(bf_corr)
-
-  data(raceDolls)
-  bf_xtab <- contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
-  effectsize(bf_xtab)
-  effectsize(bf_xtab, type = "oddsratio")
-
-  bf_ttest <- ttestBF(sleep$extra[sleep$group==1],
-                      sleep$extra[sleep$group==2],
-                      paired = TRUE, mu = -1)
-  effectsize(bf_ttest)
-}
-}
+effectsize(Wt, type = "u2")
 
 ## Models and Anova Tables
 ## -----------------------
 fit <- lm(mpg ~ factor(cyl) * wt + hp, data = mtcars)
-effectsize(fit)
+effectsize(fit, method = "basic")
 
 anova_table <- anova(fit)
 effectsize(anova_table)
 effectsize(anova_table, type = "epsilon")
+
+\dontshow{if (requireNamespace("BayesFactor", quietly = TRUE) && interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+## Bayesian Hypothesis Testing
+## ---------------------------
+bf_prop <- BayesFactor::proportionBF(3, 7, p = 0.3)
+effectsize(bf_prop)
+
+bf_corr <- BayesFactor::correlationBF(attitude$rating, attitude$complaints)
+effectsize(bf_corr)
+
+data(RCT_table)
+bf_xtab <- BayesFactor::contingencyTableBF(RCT_table, sampleType = "poisson", fixedMargin = "cols")
+effectsize(bf_xtab)
+effectsize(bf_xtab, type = "oddsratio")
+effectsize(bf_xtab, type = "arr")
+
+bf_ttest <- BayesFactor::ttestBF(sleep$extra[sleep$group == 1],
+  sleep$extra[sleep$group == 2],
+  paired = TRUE, mu = -1
+)
+effectsize(bf_ttest)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
-Other effect size indices: 
-\code{\link{cles}()},
-\code{\link{cohens_d}()},
-\code{\link{eta_squared}()},
-\code{\link{phi}()},
-\code{\link{rank_biserial}()},
-\code{\link{standardize_parameters}()}
+\code{vignette(package = "effectsize")}
 }
-\concept{effect size indices}

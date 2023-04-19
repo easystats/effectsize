@@ -1,4 +1,4 @@
-#' Interpret p-values
+#' Interpret *p*-Values
 #'
 #' @param p Value or vector of p-values.
 #' @param rules Can be `"default"`, `"rss"` (for *Redefine statistical
@@ -20,6 +20,8 @@
 #' @examples
 #' interpret_p(c(.5, .02, 0.001))
 #' interpret_p(c(.5, .02, 0.001), rules = "rss")
+#'
+#' @keywords interpreters
 #' @export
 interpret_p <- function(p, rules = "default") {
   rules <- .match.rules(

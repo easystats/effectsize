@@ -1,5 +1,4 @@
-#' Convert test statistics (F, t) to indices of **partial** variance explained
-#' (**partial** Eta / Omega / Epsilon squared and Cohen's f)
+#' Convert *F* and *t* Statistics to **partial**-\eqn{\eta^2} and Other ANOVA Effect Sizes
 #'
 #' These functions are convenience functions to convert F and t test statistics
 #' to **partial** Eta- (\eqn{\eta}), Omega- (\eqn{\omega}) Epsilon-
@@ -20,10 +19,7 @@
 #'
 #' @return A data frame with the effect size(s) between 0-1 (`Eta2_partial`,
 #'   `Epsilon2_partial`, `Omega2_partial`, `Cohens_f_partial` or
-#'   `Cohens_f2_partial`), and their CIs (`CI_low` and `CI_high`). (Note that
-#'   for \eqn{\omega_p^2}{Omega2p} and \eqn{\epsilon_p^2}{Epsilon2p} it is possible to compute a
-#'   negative number; even though this doesn't make any practical sense, it is
-#'   recommended to report the negative number and not a 0).
+#'   `Cohens_f2_partial`), and their CIs (`CI_low` and `CI_high`).
 #'
 #' @details These functions use the following formulae:
 #' \cr
@@ -54,49 +50,41 @@
 #' @family effect size from test statistic
 #'
 #' @examples
-#' \donttest{
-#' if (require("afex")) {
-#'   data(md_12.1)
-#'   aov_ez("id", "rt", md_12.1,
-#'     within = c("angle", "noise"),
-#'     anova_table = list(correction = "none", es = "pes")
-#'   )
-#' }
-#' # compare to:
+#' mod <- aov(mpg ~ factor(cyl) * factor(am), mtcars)
+#' anova(mod)
 #' (etas <- F_to_eta2(
-#'   f = c(40.72, 33.77, 45.31),
+#'   f = c(44.85, 3.99, 1.38),
 #'   df = c(2, 1, 2),
-#'   df_error = c(18, 9, 18)
+#'   df_error = 26
 #' ))
 #'
 #' if (require(see)) plot(etas)
 #'
+#' # Compare to:
+#' eta_squared(mod)
 #'
-#' if (require("lmerTest")) { # for the df_error
-#'   fit <- lmer(extra ~ group + (1 | ID), sleep)
-#'   # anova(fit)
-#'   # #> Type III Analysis of Variance Table with Satterthwaite's method
-#'   # #>       Sum Sq Mean Sq NumDF DenDF F value   Pr(>F)
-#'   # #> group 12.482  12.482     1     9  16.501 0.002833 **
-#'   # #> ---
-#'   # #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#' @examplesIf require(lmerTest) && interactive()
+#' fit <- lmerTest::lmer(extra ~ group + (1 | ID), sleep)
+#' # anova(fit)
+#' # #> Type III Analysis of Variance Table with Satterthwaite's method
+#' # #>       Sum Sq Mean Sq NumDF DenDF F value   Pr(>F)
+#' # #> group 12.482  12.482     1     9  16.501 0.002833 **
+#' # #> ---
+#' # #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #'
-#'   F_to_eta2(16.501, 1, 9)
-#'   F_to_omega2(16.501, 1, 9)
-#'   F_to_epsilon2(16.501, 1, 9)
-#'   F_to_f(16.501, 1, 9)
-#' }
+#' F_to_eta2(16.501, 1, 9)
+#' F_to_omega2(16.501, 1, 9)
+#' F_to_epsilon2(16.501, 1, 9)
+#' F_to_f(16.501, 1, 9)
 #'
-#'
+#' @examplesIf require(emmeans)
 #' ## Use with emmeans based contrasts
 #' ## --------------------------------
-#' if (require(emmeans)) {
-#'   warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
+#' warp.lm <- lm(breaks ~ wool * tension, data = warpbreaks)
 #'
-#'   jt <- joint_tests(warp.lm, by = "wool")
-#'   F_to_eta2(jt$F.ratio, jt$df1, jt$df2)
-#' }
-#' }
+#' jt <- emmeans::joint_tests(warp.lm, by = "wool")
+#' F_to_eta2(jt$F.ratio, jt$df1, jt$df2)
+#'
 #' @references
 #' - Albers, C., & Lakens, D. (2018). When power analyses based on pilot data
 #' are biased: Inaccurate effect size estimators and follow-up bias. Journal of
@@ -128,26 +116,48 @@
 #' Psychological Methods, 9, 164-182.
 #'
 #' @export
-F_to_eta2 <- function(f, df, df_error, ci = 0.95, alternative = "greater", ...) {
-  .F_to_pve(f, df, df_error, ci = ci, alternative = alternative, es = "eta2", ...)
+F_to_eta2 <- function(f, df, df_error,
+                      ci = 0.95, alternative = "greater",
+                      ...) {
+  .F_to_pve(f, df, df_error,
+    es = "eta2",
+    ci = ci, alternative = alternative,
+    ...
+  )
 }
 
 #' @rdname F_to_eta2
 #' @export
-t_to_eta2 <- function(t, df_error, ci = 0.95, alternative = "greater", ...) {
-  F_to_eta2(t^2, 1, df_error, ci = ci, alternative = alternative, ...)
+t_to_eta2 <- function(t, df_error,
+                      ci = 0.95, alternative = "greater",
+                      ...) {
+  F_to_eta2(t^2, 1, df_error,
+    ci = ci, alternative = alternative,
+    ...
+  )
 }
 
 #' @rdname F_to_eta2
 #' @export
-F_to_epsilon2 <- function(f, df, df_error, ci = 0.95, alternative = "greater", ...) {
-  .F_to_pve(f, df, df_error, ci = ci, alternative = alternative, es = "epsilon2", ...)
+F_to_epsilon2 <- function(f, df, df_error,
+                          ci = 0.95, alternative = "greater",
+                          ...) {
+  .F_to_pve(f, df, df_error,
+    es = "epsilon2",
+    ci = ci, alternative = alternative,
+    ...
+  )
 }
 
 #' @rdname F_to_eta2
 #' @export
-t_to_epsilon2 <- function(t, df_error, ci = 0.95, alternative = "greater", ...) {
-  F_to_epsilon2(t^2, 1, df_error, ci = ci, alternative = alternative, ...)
+t_to_epsilon2 <- function(t, df_error,
+                          ci = 0.95, alternative = "greater",
+                          ...) {
+  F_to_epsilon2(t^2, 1, df_error,
+    ci = ci, alternative = alternative,
+    ...
+  )
 }
 
 #' @rdname F_to_eta2
@@ -160,22 +170,39 @@ t_to_eta2_adj <- t_to_epsilon2
 
 #' @rdname F_to_eta2
 #' @export
-F_to_omega2 <- function(f, df, df_error, ci = 0.95, alternative = "greater", ...) {
-  .F_to_pve(f, df, df_error, ci = ci, alternative = alternative, es = "omega2", ...)
+F_to_omega2 <- function(f, df, df_error,
+                        ci = 0.95, alternative = "greater",
+                        ...) {
+  .F_to_pve(f, df, df_error,
+    es = "omega2",
+    ci = ci, alternative = alternative,
+    ...
+  )
 }
 
 #' @rdname F_to_eta2
 #' @export
-t_to_omega2 <- function(t, df_error, ci = 0.95, alternative = "greater", ...) {
-  F_to_omega2(t^2, 1, df_error, ci = ci, alternative = alternative,...)
+t_to_omega2 <- function(t, df_error,
+                        ci = 0.95, alternative = "greater",
+                        ...) {
+  F_to_omega2(t^2, 1, df_error,
+    ci = ci, alternative = alternative,
+    ...
+  )
 }
 
 
 #' @rdname F_to_eta2
 #' @param squared Return Cohen's *f* or Cohen's *f*-squared?
 #' @export
-F_to_f <- function(f, df, df_error, ci = 0.95, alternative = "greater", squared = FALSE, ...) {
-  res_eta <- F_to_eta2(f, df, df_error, ci = ci, alternative = alternative, ...)
+F_to_f <- function(f, df, df_error,
+                   squared = FALSE,
+                   ci = 0.95, alternative = "greater",
+                   ...) {
+  res_eta <- F_to_eta2(f, df, df_error,
+    ci = ci, alternative = alternative,
+    ...
+  )
 
   res <- data.frame(
     Cohens_f2_partial =
@@ -183,7 +210,7 @@ F_to_f <- function(f, df, df_error, ci = 0.95, alternative = "greater", squared 
   )
 
   ci_method <- NULL
-  if (is.numeric(ci)) {
+  if (!is.null(ci)) {
     res$CI <- res_eta$CI
     res$CI_low <- res_eta$CI_low / (1 - res_eta$CI_low)
     res$CI_high <- res_eta$CI_high / (1 - res_eta$CI_high)
@@ -200,54 +227,73 @@ F_to_f <- function(f, df, df_error, ci = 0.95, alternative = "greater", squared 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
   attr(res, "ci") <- ci
   attr(res, "ci_method") <- ci_method
-  attr(res, "alternative") <- if (is.numeric(ci)) alternative
+  attr(res, "alternative") <- if (!is.null(ci)) alternative
   return(res)
 }
 
 
 #' @rdname F_to_eta2
 #' @export
-t_to_f <- function(t, df_error, ci = 0.95, alternative = "greater", squared = FALSE, ...) {
-  F_to_f(t^2, 1, df_error, ci = ci, alternative = alternative, squared = squared, ...)
+t_to_f <- function(t, df_error,
+                   squared = FALSE,
+                   ci = 0.95, alternative = "greater",
+                   ...) {
+  F_to_f(t^2, 1, df_error,
+    squared = squared,
+    ci = ci, alternative = alternative, ...
+  )
 }
 
 #' @rdname F_to_eta2
 #' @export
-F_to_f2 <- function(f, df, df_error, ci = 0.95, alternative = "greater", squared = TRUE, ...) {
-  F_to_f(f, df = df, df_error = df_error, ci = ci, alternative = alternative, squared = squared, ...)
+F_to_f2 <- function(f, df, df_error,
+                    squared = TRUE,
+                    ci = 0.95, alternative = "greater",
+                    ...) {
+  F_to_f(f, df, df_error,
+    squared = squared,
+    ci = ci, alternative = alternative, ...
+  )
 }
 
 #' @rdname F_to_eta2
 #' @export
-t_to_f2 <- function(t, df_error, ci = 0.95, alternative = "greater", squared = TRUE, ...) {
-  F_to_f(t^2, 1, df_error, ci = ci, alternative = alternative, squared = squared, ...)
+t_to_f2 <- function(t, df_error,
+                    squared = TRUE,
+                    ci = 0.95, alternative = "greater",
+                    ...) {
+  F_to_f(t^2, 1, df_error,
+    squared = squared,
+    ci = ci, alternative = alternative,
+    ...
+  )
 }
 
 
 #' @keywords internal
-.F_to_pve <- function(f, df, df_error, ci = 0.95, alternative = "greater", es = "eta2",
+.F_to_pve <- function(f, df, df_error,
+                      es = "eta2",
+                      ci = 0.95, alternative = "greater",
                       verbose = TRUE, ...) {
-  alternative <- match.arg(alternative, c("greater", "two.sided", "less"))
+  alternative <- .match.alt(alternative, FALSE)
 
   res <- switch(tolower(es),
     eta2 = data.frame(Eta2_partial = (f * df) / (f * df + df_error)),
-    epsilon2 = data.frame(Epsilon2_partial = ((f - 1) * df) / (f * df + df_error)),
-    omega2 = data.frame(Omega2_partial = ((f - 1) * df) / (f * df + df_error + 1)),
-    stop("'es' must be 'eta2', 'epsilon2', or 'omega2'.")
+    epsilon2 = data.frame(Epsilon2_partial = pmax(0, ((f - 1) * df) / (f * df + df_error))),
+    omega2 = data.frame(Omega2_partial = pmax(0, ((f - 1) * df) / (f * df + df_error + 1))),
+    insight::format_error("'es' must be 'eta2', 'epsilon2', or 'omega2'.")
   )
 
-  ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     res$CI <- ci
-    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+    ci.level <- .adjust_ci(ci, alternative)
 
     # based on MBESS::ci.R2
     f <- pmax(0, (res[[1]] / df) / ((1 - res[[1]]) / df_error))
-    fs <- t(mapply(.get_ncp_F, f, df, df_error, ci.level))
+    fs <- t(mapply(.get_ncp_F, f, df, df_error, ci.level)) / df
 
-    if (isTRUE(verbose) && anyNA(fs)){
-      warning("Some CIs could not be estimated due to non-finite F, df, or df_error values.", call. = FALSE)
+    if (isTRUE(verbose) && anyNA(fs)) {
+      insight::format_warning("Some CIs could not be estimated due to non-finite F, df, or df_error values.")
     }
 
     # This really is a generic F_to_R2
@@ -255,13 +301,9 @@ t_to_f2 <- function(t, df_error, ci = 0.95, alternative = "greater", squared = T
     res$CI_high <- F_to_eta2(fs[, 2], df, df_error, ci = NULL)[[1]]
 
     ci_method <- list(method = "ncp", distribution = "F")
-    if (alternative == "less") {
-      res$CI_low <- 0
-    } else if (alternative == "greater") {
-      res$CI_high <- 1
-    }
+    res <- .limit_ci(res, alternative, 0, 1)
   } else {
-    alternative <- NULL
+    ci_method <- alternative <- NULL
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))

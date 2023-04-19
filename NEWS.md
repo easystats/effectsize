@@ -1,6 +1,130 @@
-# effectsize 0.6.0.2
+# effectsize (development version)
 
+## New features
 
+- `tschuprows_t()` now returns an effect size corrected for small-sample bias. Set `adjust = FALSE` to preserve old behavior.
+- `v_to_t()` and `w_to_fei()` and their inverses for converting between effect sizes of Chi-square tests.
+- `arr()` and `nnt()` for Absolute Risk Reduction or Number Needed to Treat.
+- `oddsratio_to_arr()`, `riskratio_to_arr()`, `nnt_to_arr()` and their inverses.
+- `logoddsratio_to_*()` and `*_to_logoddsratio()` have been added as convenient shortcuts for `oddsratio_to_*(log = TRUE)` and `*_to_oddsratio(log = TRUE)`.
+- Added all missing functions to convert between (log) OR, RR, ARR, and NNT.
+
+## Changes
+
+- `fei()` gives a more informative error method for invalid table inputs (#566).
+- `convert_*()` aliases are deprecated.
+
+## Breaking Changes
+
+- `*_to_riskratio()` and `riskratio_to_*()` argument `log` not longer converts RR to/from log(RR).
+
+## Bug fixes
+
+- `riskratio()` returns correct CIs (#584)  
+- `d_to_r()` correctly treats specifying only `n1`/`n2` as equal group sizes (#571)
+
+# effectsize 0.8.3
+
+## Changes
+
+- `mahalanobis_d()` now defaults to one-sided CIs.
+
+## New features
+
+- `means_ratio()` for computing ratios of two means for ratio-scales outcomes (thanks to @arcaldwell49!)
+- `r_to_d()` family of functions gain arguments for specifying group size ( #534 )
+- `r2_semipartial` for semi-partial squared correlations of model terms / parameters.
+
+## Bug fixes
+
+- Fixed error in `cohens_w()` for 2-by-X tables.  
+- Solved integer overflow errors in `rank_biserial()` ( #476 )
+- Fixed issue in `effectsize()` for t-tests when input vectors has unequal amount of missing values.
+
+# effectsize 0.8.2
+
+## Breaking Changes
+
+- `omega_squared()` and `epsilon_squared()` (and `F_to_omega2()` and `F_to_epsilon2()`) always return non-negative estimates (previously estimates were negative when the observed effect size is very small).  
+- `rank_eta_squared()` always returns a non-negative estimate (previously estimates were negative when the observed effect size is very small).
+
+# effectsize 0.8.1
+
+## Changes
+
+- `cohens_w()` has an exact upper bound when used as an effect size for goodness-of-fit.
+
+## Bug fixes
+
+- When using formula input to effect size function, `na.action` arguments are respected (#517)
+
+# effectsize 0.8.0
+
+## Breaking Changes
+
+- `{effectsize}` now requires *`R >= 3.6`*
+- `fei()`, `cohens_w()` and `pearsons_c()` always rescale the `p` input to sum-to-1.
+- The order of some function arguments have been rearranged to be more consistent across functions:
+(`phi()`, `cramers_v()`, `p_superiority()`, `cohens_u3()`, `p_overlap()`, `rank_biserial()`, `cohens_f/_squared()`, `chisq_to_phi()`, `chisq_to_cramers_v()`, `F/t_to_f/2()`, `.es_aov_*()`).
+- `normalized_chi()` has been renamed `fei()`.
+- `cles`, `d_to_cles` and `rb_to_cles` are deprecated in favor of their respective effect size functions.
+
+## Changes
+
+- `phi()` and `cramers_v()` (and `chisq_to_phi/cramers_v()`) now apply the small-sample bias correction by default. To restore previous behavior, set `adjust = FALSE`.
+
+## New features
+
+- Set `options(es.use_symbols = TRUE)` to print proper symbols instead of transliterated effect size names. (On Windows, requires `R >= 4.2.0`)
+- `effectsize()` supports `fisher.test()`.
+- New datasets used in examples and vignettes - see `data(package = "effectsize")`.
+- `tschuprows_t()` and `chisq_to_tschuprows_t()` for computing Tschuprow's *T* - a relative of Cramer's *V*.
+- `mahalanobis_d()` for multivariate standardized differences.
+- Rank based effect sizes now accept ordered (`ordered()`) outcomes.
+- `rank_eta_squared()` for one-way rank ANOVA.
+- For Common Language Effect Sizes:
+    - `wmw_odds()` and `rb_to_wmw_odds` for the Wilcoxon-Mann-Whitney odds (thanks @arcaldwell49! #479).
+    - `p_superiority()` now supports paired and one-sample cases.
+    - `vd_a()` and `rb_to_vda()` for Vargha and Delaney's *A* dominance effect size (aliases for `p_superiority(parametric = FALSE)` and `rb_to_p_superiority()`).
+    - `cohens_u1()`, `cohens_u2()`, `d_to_u1()`, and `d_to_u2()` added for Cohen's U1 and U2.
+
+## Bug fixes
+
+- Common-language effect sizes now respects `mu` argument for all effect sizes.
+- `mad_pooled()` not returns correct value (previously was inflated by a factor of 1.4826).
+- `pearsons_c()` and `chisq_to_pearsons_c()` lose the `adjust` argument which applied an irrelevant adjustment to the effect size.
+- Effect sizes for goodness-of-fit now work when passing a `p` that is a table.
+
+# effectsize 0.7.0.5
+
+## Breaking Changes
+
+`effectsize` now requires minimal *`R`* version of `3.5`.
+
+## Bug fixes
+
+- `cohens_d()` for paired / one sample now gives more accurate CIs (was off by a factor of `(N - 1) / N`; #457)
+- `kendalls_w()` now deals correctly with singular ties (#448).  
+
+# effectsize 0.7.0
+
+## Breaking Changes
+
+- **`standardize_parameters()`, `standardize_posteriors()`, & `standardize_info()` have been moved to the `parameters` package.**  
+- **`standardize()` (for models) has been moved to the `datawizard` package.**  
+- `phi()` only works for 2x2 tables.  
+- `cramers_v()` only works for 2D tables.  
+
+## New features
+
+- `normalized_chi()` gives an adjusted Cohen's *w* for goodness of fit.
+- `cohens_w()` is now a fully-fledged function for x-tables and goodness-of-fit effect size (not just an alias for `phi()`).
+- Support for `insight`'s `display`, `print_md` and `print_html` for all `{effectsize}` outputs.
+
+## Bug fixes
+
+- `kendalls_w()` now deals with ties.  
+- `eta_squared()` works with `car::Manova()` that does not have an i-design. 
 
 # effectsize 0.6.0.1
 
@@ -45,7 +169,7 @@ See [*Support functions for model extensions* vignette](https://easystats.github
 
 ## Breaking Changes
 
-- `cramers_v()` correctly does not work with 1-dimentional tables (for goodness-of-fit tests).
+- `cramers_v()` correctly does not work with 1-dimensional tables (for goodness-of-fit tests).
 - `interpret_d()`, `interpret_g()`, and `interpret_delta()` are now `interpret_cohens_d()`, `interpret_hedges_g()`, and `interpret_glass_delta()`.
 - `interpret_parameters()` was removed. Use `interpret_r()` instead (with caution!).
 - Phi, Cohen's *w*, Cramer's *V*, ANOVA effect sizes, rank Epsilon squared, Kendall's *W* - CIs default to 95% one-sided CIs (`alternative = "greater"`). (To restore previous behavior, set `ci = .9, alternative = "two.sided"`.)
@@ -95,7 +219,7 @@ See [*Support functions for model extensions* vignette](https://easystats.github
 
 ## New features
 
-- `standardize_parameters()` + `eta_sqaured()` support `tidymodels` (when that the underlying model is supported; #311 ).
+- `standardize_parameters()` + `eta_squared()` support `tidymodels` (when that the underlying model is supported; #311 ).
 - `cohens_d()` family now supports `Pairs()` objects as input.
 - `standardize_parameters()` gains the `include_response` argument (default to `TRUE`) ( #309 ).
 

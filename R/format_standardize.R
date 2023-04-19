@@ -1,10 +1,10 @@
-#' Transform a standardized vector into character
+#' Format a Standardized Vector
 #'
 #' Transform a standardized vector into character, e.g., `c("-1 SD", "Mean", "+1 SD")`.
 #'
 #' @param x A standardized numeric vector.
 #' @param reference The reference vector from which to compute the mean and SD.
-#' @inheritParams standardize.default
+#' @inheritParams datawizard::standardize.default
 #' @inheritParams insight::format_value
 #' @param ... Other arguments to pass to \code{\link[insight:format_value]{insight::format_value()}} such as \code{digits}, etc.
 #'
@@ -15,11 +15,8 @@
 #'
 #' format_standardize(standardize(mtcars$wt), digits = 1)
 #' format_standardize(standardize(mtcars$wt, robust = TRUE), digits = 1)
-#' @importFrom stats median mad sd
-#' @importFrom insight format_value
 #' @export
 format_standardize <- function(x, reference = x, robust = FALSE, digits = 1, protect_integers = TRUE, ...) {
-
   # Check if robust info stored in attributes
   if ("robust" %in% names(attributes(reference))) {
     robust <- attributes(reference)$robust
@@ -60,7 +57,7 @@ format_standardize <- function(x, reference = x, robust = FALSE, digits = 1, pro
   L <- insight::format_value(x, digits = digits, ...)
 
   # Complete
-  L[!grepl("-", L)] <- paste0("+", L[!grepl("-", L)])
+  L[!grepl("-", L, fixed = TRUE)] <- paste0("+", L[!grepl("-", L, fixed = TRUE)])
   L <- paste(L, deviation_name)
   L[x == 0] <- central_name
 

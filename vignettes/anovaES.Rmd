@@ -1,5 +1,5 @@
 ---
-title: "Effect sizes for ANOVAs"
+title: "Effect Sizes for ANOVAs"
 output: 
   rmarkdown::html_vignette:
     toc: true
@@ -8,7 +8,7 @@ output:
 tags: [r, effect size, ANOVA]
 vignette: >
   \usepackage[utf8]{inputenc}
-  %\VignetteIndexEntry{Effect sizes for ANOVAs}
+  %\VignetteIndexEntry{Effect Sizes for ANOVAs}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   chunk_output_type: console
@@ -23,15 +23,19 @@ options(digits = 2)
 knitr::opts_chunk$set(comment = ">", warning = FALSE)
 
 set.seed(1)
-pkgs <- c("effectsize", "parameters", "car", "afex")
-if (!all(sapply(pkgs, require, quietly = TRUE, character.only = TRUE))) {
-  knitr::opts_chunk$set(eval = FALSE)
+
+
+.eval_if_requireNamespace <- function(...) {
+  pkgs <- c(...)
+  knitr::opts_chunk$get("eval") && all(sapply(pkgs, requireNamespace, quietly = TRUE))
 }
+
+knitr::opts_chunk$set(eval = .eval_if_requireNamespace("effectsize", "afex"))
 ```
 
 ## Eta<sup>2</sup>
 
-In the context of ANOVA-like tests, it is common to report ANOVA-like effect sizes. Unlike [standardized parameters](https://easystats.github.io/effectsize/articles/standardize_parameters.html), these effect sizes represent the amount of variance explained by each of the model's terms, where each term can be represented by 1 *or more* parameters.
+In the context of ANOVA-like tests, it is common to report ANOVA-like effect sizes. These effect sizes represent the amount of variance explained by each of the model's terms, where each term can be represented by 1 *or more* parameters.
 
 For example, in the following case, the parameters for the `treatment` term represent specific contrasts between the factor's levels (treatment groups) - the difference between each level and the reference level (`obk.long == 'control'`).
 
@@ -73,6 +77,8 @@ and can be accessed via the `eta_squared()` function:
 
 ```{r}
 library(effectsize)
+options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, requires R >= 4.2.0)
+
 
 eta_squared(m, partial = FALSE)
 ```
@@ -112,7 +118,7 @@ is common to use "simultaneous" sums of squares (*type-II* or *type-III* tests),
 where each *SS* is computed controlling for all other predictors, regardless of
 order. This can be done with `car::Anova(type = ...)`:
 
-```{r}
+```{r, eval=.eval_if_requireNamespace("car")}
 eta_squared(car::Anova(m, type = 2), partial = FALSE)
 
 eta_squared(car::Anova(m, type = 3)) # partial = TRUE by default
@@ -138,7 +144,7 @@ for factors this can be done by using orthogonal coding (such as `contr.sum` for
 This unfortunately makes parameter interpretation harder, but *only* when this is does do the *SS*s associated with each lower-order term (or lower-order interaction) represent the ***SS*** of the **main effect** (with treatment coding they represent the *SS* of the simple effects).
 
 
-```{r}
+```{r, eval=.eval_if_requireNamespace("car")}
 # compare
 m_interaction1 <- lm(value ~ treatment * gender, data = obk.long)
 
@@ -233,7 +239,7 @@ always the case.
 
 For example, in linear mixed models (LMM/HLM/MLM), the estimation of all required *SS*s is not straightforward. However, we can still *approximate* these effect sizes (only their partial versions) based on the **test-statistic approximation method** (learn more in the [*Effect Size from Test Statistics* vignette](https://easystats.github.io/effectsize/articles/from_test_statistics.html)).
 
-```{r, eval=require(lmerTest)}
+```{r, eval=.eval_if_requireNamespace("lmerTest", "lme4")}
 library(lmerTest)
 
 fit_lmm <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
@@ -246,13 +252,128 @@ F_to_eta2(45.8, df = 1, df_error = 17)
 Or directly with `eta_squared() and co.:
 
 
-```{r, eval=require(lmerTest)}
+```{r, eval=.eval_if_requireNamespace("lmerTest", "lme4")}
 eta_squared(fit_lmm)
 epsilon_squared(fit_lmm)
 omega_squared(fit_lmm)
 ```
 
-Another case where *SS*s are not available is when use Bayesian models. `effectsize` has Bayesian solutions for Bayesian models, about which you can read in the [*Effect Sizes for Bayesian Models* vignette](https://easystats.github.io/effectsize/articles/bayesian_models.html).
+Another case where *SS*s are not available is when using Bayesian models...
 
+## For Bayesian Models
+
+An alternative route to obtaining effect sizes of explained variance, is via the
+use of the ***posterior predictive distribution*** (*PPD*). The PPD is the
+Bayesian expected distribution of possible unobserved values. Thus, after
+observing some data, we can estimate not just the expected mean values (the
+conditional marginal means), but also the full *distribution* of data around
+these values [@gelman2014bayesian, chapter 7].
+
+By sampling from the PPD, we can decompose the sample to the various *SS*s
+needed for the computation of explained variance measures. By repeatedly
+sampling from the PPD, we can generate a posterior distribution of explained
+variance estimates. But note that **these estimates are conditioned not only on
+the location-parameters of the model, but also on the scale-parameters of the
+model!** So it is vital to [validate the
+PPD](https://mc-stan.org/docs/2_23/stan-users-guide/meta-models-part.html#meta-models.part/)
+before using it to estimate explained variance measures.
+
+Let's fit our model:
+
+```{r, eval = .eval_if_requireNamespace("rstanarm", "bayestestR", "car")}
+library(rstanarm)
+
+m_bayes <- stan_glm(value ~ gender + phase + treatment,
+  data = obk.long, family = gaussian(),
+  refresh = 0
+)
+```
+
+We can use `eta_squared_posterior()` to get the posterior distribution of
+$eta^2$ or $eta^2_p$ for each effect. Like an ANOVA table, we must make sure to
+use the right effects-coding and *SS*-type:
+
+```{r, eval = .eval_if_requireNamespace("rstanarm", "bayestestR", "car")}
+pes_posterior <- eta_squared_posterior(m_bayes,
+  draws = 500, # how many samples from the PPD?
+  partial = TRUE, # partial eta squared
+  # type 3 SS
+  ss_function = car::Anova, type = 3,
+  verbose = FALSE
+)
+
+head(pes_posterior)
+
+bayestestR::describe_posterior(pes_posterior,
+  rope_range = c(0, 0.1), test = "rope"
+)
+```
+
+Compare to:
+
+```{r, eval = .eval_if_requireNamespace("rstanarm", "bayestestR", "car")}
+m_ML <- lm(value ~ gender + phase + treatment, data = obk.long)
+
+eta_squared(car::Anova(m_ML, type = 3))
+```
+
+# For Ordinal Outcomes
+
+When our outcome is not a numeric variable, the effect sizes described above
+cannot be used - measured based on sum-of-squares are ill suited for such
+outcomes. Instead, we must use effect sizes for *ordinal* ANOVAs.
+
+In `R`, there are two functions for running *ordinal* one way ANOVAs:
+`kruskal.test()` for differences between independent groups, and
+`friedman.test()` for differences between dependent groups.
+
+For the one-way ordinal ANOVA, the Rank-Epsilon-Squared ($E^2_R$) and
+Rank-Eta-Squared ($\eta^2_H$) are measures of association similar to their
+non-rank counterparts: values range between 0 (no relative superiority between
+any of the groups) to 1 (complete separation - with no overlap in ranks between
+the groups).
+
+```{r}
+group_data <- list(
+  g1 = c(2.9, 3.0, 2.5, 2.6, 3.2), # normal subjects
+  g2 = c(3.8, 2.7, 4.0, 2.4), # with obstructive airway disease
+  g3 = c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
+)
+
+kruskal.test(group_data)
+
+rank_epsilon_squared(group_data)
+
+rank_eta_squared(group_data)
+```
+
+For an ordinal repeated measures one-way ANOVA, Kendall's *W* is a measure of
+agreement on the effect of condition between various "blocks" (the subjects), or
+more often conceptualized as a measure of reliability of the rating / scores of
+observations (or "groups") between "raters" ("blocks").
+
+```{r}
+# Subjects are COLUMNS
+(ReactionTimes <- matrix(
+  c(
+    398, 338, 520,
+    325, 388, 555,
+    393, 363, 561,
+    367, 433, 470,
+    286, 492, 536,
+    362, 475, 496,
+    253, 334, 610
+  ),
+  nrow = 7, byrow = TRUE,
+  dimnames = list(
+    paste0("Subject", 1:7),
+    c("Congruent", "Neutral", "Incongruent")
+  )
+))
+
+friedman.test(ReactionTimes)
+
+kendalls_w(ReactionTimes)
+```
 
 # References

@@ -1,4 +1,4 @@
-#' Convert between Odds and Probabilities
+#' Convert Between Odds and Probabilities
 #'
 #' @param odds The *Odds* (or `log(odds)` when `log = TRUE`) to convert.
 #' @param probs Probability values to convert.
@@ -21,17 +21,11 @@
 #' probs_to_odds(0.95)
 #' probs_to_odds(0.95, log = TRUE)
 #' @export
-#' @aliases convert_odds_to_probs
 odds_to_probs <- function(odds, log = FALSE, ...) {
   UseMethod("odds_to_probs")
 }
 
 #' @export
-convert_odds_to_probs <- odds_to_probs
-
-
-#' @export
-#' @importFrom stats plogis
 odds_to_probs.numeric <- function(odds, log = FALSE, ...) {
   if (log) {
     stats::plogis(odds)
@@ -49,17 +43,12 @@ odds_to_probs.data.frame <- function(odds, log = FALSE, select = NULL, exclude =
 
 
 #' @rdname odds_to_probs
-#' @aliases convert_probs_to_odds
 #' @export
 probs_to_odds <- function(probs, log = FALSE, ...) {
   UseMethod("probs_to_odds")
 }
 
 #' @export
-convert_probs_to_odds <- probs_to_odds
-
-#' @export
-#' @importFrom stats qlogis
 probs_to_odds.numeric <- function(probs, log = FALSE, ...) {
   if (log) {
     stats::qlogis(probs)
@@ -88,7 +77,6 @@ probs_to_odds.data.frame <- function(probs, log = FALSE, select = NULL, exclude 
 
 #' @keywords internal
 .odds_to_probs_df <- function(odds = NULL, probs = NULL, log = FALSE, select = NULL, exclude = NULL, ...) {
-
   # If vector
   if (!is.null(odds)) {
     df <- odds
@@ -109,26 +97,29 @@ probs_to_odds.data.frame <- function(probs, log = FALSE, select = NULL, exclude 
 
   # Keep subset
   if (!is.null(select) && select %in% names(df)) {
-    to_keep <- as.data.frame(df[!names(df) %in% c(select)])
-    df <- df[names(df) %in% c(select)]
+    select <- as.vector(select)
+    to_keep <- as.data.frame(df[!names(df) %in% select])
+    df <- df[names(df) %in% select]
   } else {
     to_keep <- NULL
   }
 
   # Remove exceptions
   if (!is.null(exclude) && exclude %in% names(df)) {
+    exclude <- as.vector(exclude)
     if (is.null(to_keep)) {
       to_keep <- as.data.frame(df[exclude])
     } else {
       to_keep <- cbind(to_keep, as.data.frame(df[exclude]))
     }
 
-    df <- df[!names(df) %in% c(exclude)]
+    df <- df[!names(df) %in% exclude]
   }
 
   # Remove non-numerics
-  dfother <- df[!sapply(df, is.numeric, simplify = TRUE)]
-  dfnum <- df[sapply(df, is.numeric, simplify = TRUE)]
+  is_num <- vapply(df, is.numeric, logical(1))
+  dfother <- df[!is_num]
+  dfnum <- df[is_num]
 
   # Tranform
   if (!is.null(odds)) {
@@ -145,7 +136,7 @@ probs_to_odds.data.frame <- function(probs, log = FALSE, select = NULL, exclude 
   }
 
   # Add exceptions
-  if (!is.null(select) | !is.null(exclude) && exists("to_keep")) {
+  if (!is.null(select) || !is.null(exclude) && exists("to_keep")) {
     df <- cbind(df, to_keep)
   }
 

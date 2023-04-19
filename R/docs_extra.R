@@ -3,7 +3,7 @@
 #' More information regarding Confidence (Compatibiity) Intervals and how
 #' they are computed in *effectsize*.
 #'
-#' @section Confidence (Compatibility) Intervals (CIs):
+#' # Confidence (Compatibility) Intervals (CIs)
 #' Unless stated otherwise, confidence (compatibility) intervals (CIs) are
 #' estimated using the noncentrality parameter method (also called the "pivot
 #' method"). This method finds the noncentrality parameter ("*ncp*") of a
@@ -18,7 +18,7 @@
 #' \cr\cr
 #' For additional details on estimation and troubleshooting, see [effectsize_CIs].
 #'
-#' @section CIs and Significance Tests:
+#' # CIs and Significance Tests
 #' "Confidence intervals on measures of effect size convey all the information
 #' in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
 #' intervals and p values are complementary summaries of parameter uncertainty
@@ -38,7 +38,20 @@
 #' to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 #' 1996).
 #'
-#' @section One-Sided CIs:
+#' # Bootstrapped CIs
+#' Some effect sizes are directionless--they do have a minimum value that would
+#' be interpreted as "no effect", but they cannot cross it. For example, a null
+#' value of [Kendall's W][kendalls_w()] is 0, indicating no difference between
+#' groups, but it can never have a negative value. Same goes for
+#' [U2][cohens_u2()] and [Overlap][p_overlap()]: the null value of \eqn{U_2} is
+#' 0.5, but it can never be smaller than 0.5; am *Overlap* of 1 means "full
+#' overlap" (no difference), but it cannot be larger than 1.
+#' \cr\cr
+#' When bootstrapping CIs for such effect sizes, the bounds of the CIs will
+#' never cross (and often will never cover) the null. Therefore, these CIs
+#' should not be used for statistical inference.
+#'
+#' # One-Sided CIs
 #' Typically, CIs are constructed as two-tailed intervals, with an equal
 #' proportion of the cumulative probability distribution above and below the
 #' interval. CIs can also be constructed as *one-sided* intervals,
@@ -53,7 +66,7 @@
 #' are generally tested using 2-tailed tests and 2-sided CIs.
 #' \cr\cr
 #' Some effect sizes are strictly positive--they do have a minimum value, of 0.
-#' For example, \eqn{R^2}, \eqn{\eta^2}, and other variance-accounted-for effect
+#' For example, \eqn{R^2}, \eqn{\eta^2}, \eqn{sr^2}, and other variance-accounted-for effect
 #' sizes, as well as Cramer's *V* and multiple *R*, range from 0 to 1. These
 #' typically involve *F*- or \eqn{\chi^2}-statistics and are generally tested
 #' using *1-tailed* tests which test whether the estimated effect size is
@@ -71,11 +84,11 @@
 #' \cr\cr
 #' One-sided CIs can also be used to test against a maximum effect size value
 #' (e.g., is \eqn{R^2} significantly smaller than a perfect correlation of 1.0?)
-#' can by setting `alternative = "less"`. This estimates a CI with only an
+#' by setting `alternative = "less"`. This estimates a CI with only an
 #' *upper* bound; anything from the minimum possible value of the effect size
 #' (e.g., 0) up to this upper bound is in the interval.
 #' \cr\cr
-#' We can also obtain a 2-sided interval by setting `alternative = "two-sided"`.
+#' We can also obtain a 2-sided interval by setting `alternative = "two.sided"`.
 #' These intervals can be interpreted in the same way as other 2-sided
 #' intervals, such as those for *r*, *d*, or *g*.
 #' \cr\cr
@@ -89,16 +102,24 @@
 #' that this interval does not give 95% coverage for the underlying effect size
 #' parameter value. For that, construct a 95% 2-sided CI.
 #'
+#' ```{r, echo = FALSE}
+#' op <- options(es.use_symbols = FALSE)
+#' ```
+#'
 #' ```{r}
 #' data("hardlyworking")
-#' fit <- lm(salary ~ n_comps + age, data = hardlyworking)
+#' fit <- lm(salary ~ n_comps, data = hardlyworking)
 #' eta_squared(fit) # default, ci = 0.95, alternative = "greater"
 #' eta_squared(fit, alternative = "less") # Test is eta is smaller than some value
 #' eta_squared(fit, alternative = "two.sided") # 2-sided bounds for alpha = .05
 #' eta_squared(fit, ci = 0.9, alternative = "two.sided") # both 1-sided bounds for alpha = .05
 #' ```
 #'
-#' @section CI Does Not Contain the Estimate:
+#' ```{r, echo = FALSE}
+#' options(op)
+#' ```
+#'
+#' # CI Does Not Contain the Estimate
 #' For very large sample sizes or effect sizes, the width of the CI can be
 #' smaller than the tolerance of the optimizer, resulting in CIs of width 0.
 #' This can also result in the estimated CIs excluding the point estimate.
@@ -149,4 +170,15 @@ NULL
 #'
 #' @rdname effectsize_API
 #' @name effectsize_API
+NULL
+
+
+
+#' `effectsize` options
+#'
+#' Currently, the following global options are supported:
+#' - `es.use_symbols` [logical]: Should proper symbols be printed (`TRUE`) instead of transliterated effect size names (`FALSE`; default).
+#'
+#' @rdname effectsize_options
+#' @name effectsize_options
 NULL

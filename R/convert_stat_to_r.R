@@ -1,7 +1,6 @@
 # t -----------------------------------------------------------------------
 
-#' Convert test statistics (t, z, F) to effect sizes of differences (Cohen's d)
-#' or association (**partial** r)
+#' Convert *t*, *z*, and *F* to Cohen's *d* or **partial**-*r*
 #'
 #' These functions are convenience functions to convert t, z and F test
 #' statistics to Cohen's d and **partial** r. These are useful in cases where
@@ -17,12 +16,7 @@
 #' @param n The number of observations (the sample size).
 #' @param paired Should the estimate account for the t-value being testing the
 #'   difference between dependent means?
-#' @param alternative a character string specifying the alternative hypothesis;
-#'   Controls the type of CI returned: `"two.sided"` (default, two-sided CI),
-#'   `"greater"` or `"less"` (one-sided CI). Partial matching is allowed (e.g.,
-#'   `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in [effectsize_CIs].
-#' @param pooled Deprecated. Use `paired`.
-#' @inheritParams chisq_to_phi
+#' @inheritParams cohens_d
 #' @param ... Arguments passed to or from other methods.
 #'
 #'
@@ -51,6 +45,7 @@
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #'
 #' @family effect size from test statistic
+#' @seealso [cohens_d()]
 #'
 #' @examples
 #' ## t Tests
@@ -64,20 +59,19 @@
 #' t_to_r(t = res$statistic, res$parameter)
 #' t_to_r(t = res$statistic, res$parameter, alternative = "greater")
 #'
-#' \donttest{
+#' @examplesIf require(correlation)
 #' ## Linear Regression
 #' model <- lm(rating ~ complaints + critical, data = attitude)
 #' (param_tab <- parameters::model_parameters(model))
 #'
 #' (rs <- t_to_r(param_tab$t[2:3], param_tab$df_error[2:3]))
 #'
-#' if (require(see)) plot(rs)
-#'
 #' # How does this compare to actual partial correlations?
-#' if (require("correlation")) {
-#'   correlation::correlation(attitude[, c(1, 2, 6)], partial = TRUE)[1:2, c(2, 3, 7, 8)]
-#' }
-#' }
+#' correlation::correlation(attitude,
+#'   select = "rating",
+#'   select2 = c("complaints", "critical"),
+#'   partial = TRUE
+#' )
 #'
 #' @references
 #' - Friedman, H. (1982). Simplified determinations of statistical power,
@@ -100,16 +94,16 @@
 #' distributions. Educational and Psychological Measurement, 61(4), 532-574.
 #'
 #' @export
-t_to_r <- function(t, df_error, ci = 0.95, alternative = "two.sided", ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+t_to_r <- function(t, df_error,
+                   ci = 0.95, alternative = "two.sided",
+                   ...) {
+  alternative <- .match.alt(alternative)
 
   res <- data.frame(r = t / sqrt(t^2 + df_error))
 
-  ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     res$CI <- ci
-    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+    ci.level <- .adjust_ci(ci, alternative)
 
     ts <- t(mapply(
       .get_ncp_t,
@@ -120,13 +114,9 @@ t_to_r <- function(t, df_error, ci = 0.95, alternative = "two.sided", ...) {
     res$CI_high <- ts[, 2] / sqrt(ts[, 2]^2 + df_error)
 
     ci_method <- list(method = "ncp", distribution = "t")
-    if (alternative == "less") {
-      res$CI_low <- -1
-    } else if (alternative == "greater") {
-      res$CI_high <- 1
-    }
+    res <- .limit_ci(res, alternative, -1, 1)
   } else {
-    alternative <- NULL
+    ci_method <- alternative <- NULL
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
@@ -141,18 +131,17 @@ t_to_r <- function(t, df_error, ci = 0.95, alternative = "two.sided", ...) {
 
 
 #' @rdname t_to_r
-#' @importFrom stats qnorm
 #' @export
-z_to_r <- function(z, n, ci = 0.95, alternative = "two.sided", ...) {
-  alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+z_to_r <- function(z, n,
+                   ci = 0.95, alternative = "two.sided",
+                   ...) {
+  alternative <- .match.alt(alternative)
 
   res <- data.frame(r = z / sqrt(z^2 + n))
 
-  ci_method <- NULL
-  if (is.numeric(ci)) {
-    stopifnot(length(ci) == 1, ci < 1, ci > 0)
+  if (.test_ci(ci)) {
     res$CI <- ci
-    ci.level <- if (alternative == "two.sided") ci else 2 * ci - 1
+    ci.level <- .adjust_ci(ci, alternative)
 
     alpha <- 1 - ci.level
     probs <- c(alpha / 2, 1 - alpha / 2)
@@ -164,13 +153,9 @@ z_to_r <- function(z, n, ci = 0.95, alternative = "two.sided", ...) {
     res$CI_high <- zs[, 2] / sqrt(zs[, 2]^2 + n)
 
     ci_method <- list(method = "normal")
-    if (alternative == "less") {
-      res$CI_low <- -1
-    } else if (alternative == "greater") {
-      res$CI_high <- 1
-    }
+    res <- .limit_ci(res, alternative, -1, 1)
   } else {
-    alternative <- NULL
+    ci_method <- alternative <- NULL
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
@@ -184,9 +169,14 @@ z_to_r <- function(z, n, ci = 0.95, alternative = "two.sided", ...) {
 
 #' @rdname t_to_r
 #' @export
-F_to_r <- function(f, df, df_error, ci = 0.95, alternative = "two.sided", ...) {
+F_to_r <- function(f, df, df_error,
+                   ci = 0.95, alternative = "two.sided",
+                   ...) {
   if (df > 1) {
-    stop("Cannot convert F with more than 1 df to r.")
+    insight::format_error("Cannot convert F with more than 1 df to r.")
   }
-  t_to_r(sqrt(f), df_error, ci = ci, alternative = alternative, ...)
+  t_to_r(sqrt(f), df_error,
+    ci = ci, alternative = alternative,
+    ...
+  )
 }

@@ -1,4 +1,4 @@
-#' Interpret of indices of CFA / SEM goodness of fit
+#' Interpret of CFA / SEM Indices of Goodness of Fit
 #'
 #' Interpretation of indices of fit found in confirmatory analysis or structural
 #' equation modelling, such as RMSEA, CFI, NFI, IFI, etc.
@@ -78,14 +78,15 @@
 #' interpret_ifi(c(.5, .99))
 #' interpret_pnfi(c(.5, .99))
 #'
+#' @examplesIf require("lavaan") && interactive()
 #' # Structural Equation Models (SEM)
-#' if (require("lavaan")) {
-#'   structure <- " ind60 =~ x1 + x2 + x3
-#'                  dem60 =~ y1 + y2 + y3
-#'                  dem60 ~ ind60 "
-#'   model <- lavaan::sem(structure, data = lavaan::PoliticalDemocracy)
-#'   interpret(model)
-#' }
+#' structure <- " ind60 =~ x1 + x2 + x3
+#'                dem60 =~ y1 + y2 + y3
+#'                dem60 ~ ind60 "
+#'
+#' model <- lavaan::sem(structure, data = lavaan::PoliticalDemocracy)
+#'
+#' interpret(model)
 #'
 #' @references
 #' - Awang, Z. (2012). A handbook on SEM. Structural equation modeling.
@@ -93,19 +94,21 @@
 #' - Byrne, B. M. (1994). Structural equation modeling with EQS and EQS/Windows.
 #' Thousand Oaks, CA: Sage Publications.
 #'
-#' - Tucker, L. R., \& Lewis, C. (1973). The reliability coefficient for maximum
+#' - Tucker, L. R., and Lewis, C. (1973). The reliability coefficient for maximum
 #' likelihood factor analysis. Psychometrika, 38, 1-10.
 #'
-#' - Schumacker, R. E., \& Lomax, R. G. (2004). A beginner's guide to structural
+#' - Schumacker, R. E., and Lomax, R. G. (2004). A beginner's guide to structural
 #' equation modeling, Second edition. Mahwah, NJ: Lawrence Erlbaum Associates.
 #'
-#' - Fan, X., B. Thompson, \& L. Wang (1999). Effects of sample size, estimation
+#' - Fan, X., B. Thompson, and L. Wang (1999). Effects of sample size, estimation
 #' method, and model specification on structural equation modeling fit indexes.
 #' Structural Equation Modeling, 6, 56-83.
 #'
 #' - Kline, R. B. (2015). Principles and practice of structural equation
 #' modeling. Guilford publications.
 #'
+#'
+#' @keywords interpreters
 #' @export
 interpret_gfi <- function(x, rules = "default") {
   rules <- .match.rules(
@@ -247,9 +250,11 @@ interpret.lavaan <- function(x, ...) {
 #' @rdname interpret_gfi
 #' @export
 interpret.performance_lavaan <- function(x, ...) {
-  mfits <- c("GFI", "AGFI", "NFI", "NNFI",
-             "CFI", "RMSEA", "SRMR", "RFI",
-             "IFI", "PNFI")
+  mfits <- c(
+    "GFI", "AGFI", "NFI", "NNFI",
+    "CFI", "RMSEA", "SRMR", "RFI",
+    "IFI", "PNFI"
+  )
   mfits <- intersect(names(x), mfits)
 
   table <- lapply(mfits, function(ind_name) {
@@ -260,7 +265,8 @@ interpret.performance_lavaan <- function(x, ...) {
       Name = ind_name,
       Value = x[[ind_name]],
       Threshold = rules$values,
-      Interpretation = interp
+      Interpretation = interp,
+      stringsAsFactors = FALSE
     )
   })
 

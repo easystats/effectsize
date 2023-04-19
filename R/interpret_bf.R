@@ -31,6 +31,7 @@
 #' @examples
 #' interpret_bf(1)
 #' interpret_bf(c(5, 2))
+#'
 #' @references
 #' - Jeffreys, H. (1961), Theory of Probability, 3rd ed., Oxford University
 #' Press, Oxford.
@@ -39,9 +40,9 @@
 #' Sociological methodology, 25, 111-164.
 #'
 #' - Jarosz, A. F., & Wiley, J. (2014). What are the odds? A practical guide to
-#' computing and reporting Bayes factors. The Journal of Problem Solving, 7(1),
-#' 2.
+#' computing and reporting Bayes factors. The Journal of Problem Solving, 7(1), 2.
 #'
+#' @keywords interpreters
 #' @export
 interpret_bf <- function(bf,
                          rules = "jeffreys1961",
@@ -52,13 +53,16 @@ interpret_bf <- function(bf,
   if (log) bf <- exp(bf)
 
   if (any(bf < 0, na.rm = TRUE)) {
-    warning("Negative BFs detected. These are not possible. Ignoring.")
+    insight::format_warning("Negative BFs detected. These are not possible, and are {.i ignored}.")
     bf[bf < 0] <- NA
   }
 
   orig_bf <- bf
 
-  dir <- ifelse(bf < 1, "against", ifelse(bf > 1, "in favour of", "against or in favour of"))
+  dir <- rep("against or in favour of", length.out = length(bf))
+  dir <- replace(dir, is.na(bf), NA_character_)
+  dir <- replace(dir, bf < 1, "against")
+  dir <- replace(dir, bf > 1, "in favour of")
   bf <- exp(abs(log(bf)))
 
   rules <- .match.rules(
@@ -81,7 +85,13 @@ interpret_bf <- function(bf,
 
   # Add value if asked for
   if (include_value) {
-    interpretation[] <- paste0(interpretation, " (", insight::format_bf(orig_bf, protect_ratio = protect_ratio, exact = exact), ")")
+    interpretation[] <-
+      paste0(
+        interpretation,
+        " (",
+        insight::format_bf(orig_bf, protect_ratio = protect_ratio, exact = exact),
+        ")"
+      )
   }
 
   # Add direction

@@ -1,4 +1,4 @@
-#' @title Test for Practical Equivalence
+#' @title Test Effect Size for Practical Equivalence to the Null
 #'
 #' @description Perform a **Test for Practical Equivalence** for indices of
 #'   effect size.
@@ -41,30 +41,29 @@
 #' @references
 #' - Campbell, H., & Gustafson, P. (2018). Conditional equivalence testing: An
 #' alternative remedy for publication bias. PLOS ONE, 13(4), e0195145.
-#' https://doi.org/10.1371/journal.pone.0195145
+#' \doi{10.1371/journal.pone.0195145}
 #'
 #' - Kruschke, J. K. (2014). Doing Bayesian data analysis: A tutorial with R,
 #' JAGS, and Stan. Academic Press
 #'
 #' - Kruschke, J. K. (2018). Rejecting or accepting parameter values in Bayesian
 #' estimation. Advances in Methods and Practices in Psychological Science, 1(2),
-#' 270-280. doi: 10.1177/2515245918771304
+#' 270-280. \doi{10.1177/2515245918771304}
 #'
 #' - Lakens, D. (2017). Equivalence Tests: A Practical Primer for t Tests,
 #' Correlations, and Meta-Analyses. Social Psychological and Personality
-#' Science, 8(4), 355–362. https://doi.org/10.1177/1948550617697177
+#' Science, 8(4), 355–362. \doi{10.1177/1948550617697177}
 #'
 #' @examples
 #' \donttest{
-#'
-#' model <- aov(mpg ~ hp + am * factor(cyl), data = mtcars)
+#' data("hardlyworking")
+#' model <- aov(salary ~ age + factor(n_comps) * cut(seniority, 3), data = hardlyworking)
 #' es <- eta_squared(model, ci = 0.9, alternative = "two.sided")
-#' equivalence_test(es, range = 0.30) # TOST
+#' equivalence_test(es, range = c(0, 0.15)) # TOST
 #'
-#' RCT <- matrix(c(71, 101,
-#'                 50, 100), nrow = 2)
-#' OR <- oddsratio(RCT, alternative = "greater")
-#' equivalence_test(OR, range = 1)
+#' data("RCT_table")
+#' OR <- oddsratio(RCT_table, alternative = "greater")
+#' equivalence_test(OR, range = c(0, 1))
 #'
 #' ds <- t_to_d(
 #'   t = c(0.45, -0.65, 7, -2.2, 2.25),
@@ -84,7 +83,7 @@ equivalence_test.effectsize_table <- function(x,
   rule <- match.arg(rule)
 
   if (!all(c("CI", "CI_low", "CI_high") %in% colnames(x))) {
-    stop("CI values missing from effect size table.", call. = FALSE)
+    insight::format_error("CI values missing from effect size table.")
   }
 
   if (any(range == "default")) {
@@ -92,7 +91,7 @@ equivalence_test.effectsize_table <- function(x,
   }
 
   # Validate range ---
-  x_es_info <- es_info[get_effectsize_name(colnames(x)),]
+  x_es_info <- es_info[get_effectsize_name(colnames(x)), ]
 
   if (length(range) == 1) {
     alt <- attr(x, "alternative", exact = TRUE)
@@ -109,11 +108,11 @@ equivalence_test.effectsize_table <- function(x,
 
   if (range[1] < x_es_info$lb) {
     range[1] <- x_es_info$lb
-    warning("Lower bound set to ", range[1], ".", immediate. = FALSE)
+    insight::format_warning(sprintf("Lower bound set to %s.", insight::format_value(range[1])))
   }
   if (range[2] > x_es_info$ub) {
     range[2] <- x_es_info$ub
-    warning("Upper bound set to ", range[2], ".", immediate. = FALSE)
+    insight::format_warning(sprintf("Upper bound set to %s.", insight::format_value(range[2])))
   }
 
   # Test ---
@@ -136,7 +135,7 @@ equivalence_test.effectsize_table <- function(x,
 
   # x$ROPE_Equivalence[x$CI_low == x$CI_high] <- NA_character_
 
-  class(x) <- c("equivalence_test_effectsize", "see_equivalence_test_effectsize", "data.frame")
+  class(x) <- c("equivalence_test_effectsize", "effectsize_table", "see_equivalence_test_effectsize", "data.frame")
   attr(x, "rope") <- range
   attr(x, "rule") <- rule
   return(x)

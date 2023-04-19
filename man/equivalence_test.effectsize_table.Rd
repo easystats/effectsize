@@ -2,7 +2,7 @@
 % Please edit documentation in R/equivalence_test.R
 \name{equivalence_test.effectsize_table}
 \alias{equivalence_test.effectsize_table}
-\title{Test for Practical Equivalence}
+\title{Test Effect Size for Practical Equivalence to the Null}
 \usage{
 \method{equivalence_test}{effectsize_table}(
   x,
@@ -62,15 +62,14 @@ the function used to make the effect size table (\code{cohens_d}, \code{eta_squa
 }
 \examples{
 \donttest{
-
-model <- aov(mpg ~ hp + am * factor(cyl), data = mtcars)
+data("hardlyworking")
+model <- aov(salary ~ age + factor(n_comps) * cut(seniority, 3), data = hardlyworking)
 es <- eta_squared(model, ci = 0.9, alternative = "two.sided")
-equivalence_test(es, range = 0.30) # TOST
+equivalence_test(es, range = c(0, 0.15)) # TOST
 
-RCT <- matrix(c(71, 101,
-                50, 100), nrow = 2)
-OR <- oddsratio(RCT, alternative = "greater")
-equivalence_test(OR, range = 1)
+data("RCT_table")
+OR <- oddsratio(RCT_table, alternative = "greater")
+equivalence_test(OR, range = c(0, 1))
 
 ds <- t_to_d(
   t = c(0.45, -0.65, 7, -2.2, 2.25),
@@ -88,15 +87,15 @@ if (require(see)) plot(equivalence_test(ds, range = 0.2, rule = "bayes"))
 \itemize{
 \item Campbell, H., & Gustafson, P. (2018). Conditional equivalence testing: An
 alternative remedy for publication bias. PLOS ONE, 13(4), e0195145.
-https://doi.org/10.1371/journal.pone.0195145
+\doi{10.1371/journal.pone.0195145}
 \item Kruschke, J. K. (2014). Doing Bayesian data analysis: A tutorial with R,
 JAGS, and Stan. Academic Press
 \item Kruschke, J. K. (2018). Rejecting or accepting parameter values in Bayesian
 estimation. Advances in Methods and Practices in Psychological Science, 1(2),
-270-280. doi: 10.1177/2515245918771304
+270-280. \doi{10.1177/2515245918771304}
 \item Lakens, D. (2017). Equivalence Tests: A Practical Primer for t Tests,
 Correlations, and Meta-Analyses. Social Psychological and Personality
-Science, 8(4), 355–362. https://doi.org/10.1177/1948550617697177
+Science, 8(4), 355–362. \doi{10.1177/1948550617697177}
 }
 }
 \seealso{
