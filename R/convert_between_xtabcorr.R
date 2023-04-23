@@ -45,17 +45,17 @@
 #'
 #' @export
 v_to_t <- function(v, nrow, ncol) {
-  f.v <- sqrt(pmin(nrow - 1, ncol - 1))
-  f.t <- sqrt(sqrt((nrow - 1) * (ncol - 1)))
-  v * f.v / f.t
+  f_v <- sqrt(pmin(nrow - 1, ncol - 1))
+  f_t <- sqrt(sqrt((nrow - 1) * (ncol - 1)))
+  v * f_v / f_t
 }
 
 #' @export
 #' @rdname v_to_t
 t_to_v <- function(t, nrow, ncol) {
-  f.v <- sqrt(pmin(nrow - 1, ncol - 1))
-  f.t <- sqrt(sqrt((nrow - 1) * (ncol - 1)))
-  t * f.t / f.v
+  f_v <- sqrt(pmin(nrow - 1, ncol - 1))
+  f_t <- sqrt(sqrt((nrow - 1) * (ncol - 1)))
+  t * f_t / f_v
 }
 
 #' @export
