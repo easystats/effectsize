@@ -3,7 +3,7 @@
 ## New features
 
 - `tschuprows_t()` now returns an effect size corrected for small-sample bias. Set `adjust = FALSE` to preserve old behavior.
-- `v_to_t()` and `w_to_fei()` and their inverses for converting between effect sizes of Chi-square tests.
+- `w_to_v()` and others for converting between effect sizes of Chi-square tests.
 - `arr()` and `nnt()` for Absolute Risk Reduction or Number Needed to Treat.
 - `oddsratio_to_arr()`, `riskratio_to_arr()`, `nnt_to_arr()` and their inverses.
 - `logoddsratio_to_*()` and `*_to_logoddsratio()` have been added as convenient shortcuts for `oddsratio_to_*(log = TRUE)` and `*_to_oddsratio(log = TRUE)`.
