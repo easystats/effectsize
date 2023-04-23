@@ -1,0 +1,302 @@
+---
+title: "Phi, Fei, Fo, Fum: Effect Sizes for Chi-squared Tests"
+author:
+  - name: Mattan S. Ben-Shachar
+    affil: 1, *
+    orcid: 0000-0002-4287-4801
+  - name: Indrajeet Patil
+    affil: 2
+    orcid: 0000-0003-1995-6531
+  - name: Rémi Thériault
+    affil: 3
+    orcid: 0000-0003-4315-6788
+  - name: Brenton M. Wiernik
+    affil: 4
+    orcid: 0000-0001-9560-6336
+  - name: Daniel Lüdecke 
+    affil: 5
+    orcid: 0000-0002-8895-3206
+affiliation:
+  - num: 1
+    address: Independent researcher
+  - num: 2
+    address: Center for Humans and Machines, Max Planck Institute for Human Development, Berlin, Germany  
+  - num: 3
+    address: Department of Psychology, Université du Québec à Montréal, Montréal, Québec, Canada
+  - num: 4
+    address: Independent researcher
+  - num: 5
+    address: Institute of Medical Sociology, University Medical Center Hamburg-Eppendorf, Germany
+journal: "mathematics"
+type: article
+status: submit
+bibliography: paper.bib
+correspondence: mattan-mail
+simplesummary: |
+  The *{effectsize}* package from the *easystats* ecosystem makes it easy to 
+  estimate effect sizes in R for common $\chi^2$ tests, including a new effect 
+  size, Fei, for goodness-of-fit tests.
+abstract: |
+  In both theoretical and applied research, it is often of interest to assess the strength of an observed association. Existing guidelines also frequently recommend going beyond null-hypothesis significance testing and to report effect sizes and their confidence intervals. As such, measures of effect sizes are increasingly reported, valued, and understood. Beyond their value in shaping the interpretation of the results from a given study, reporting effect sizes is critical for meta-analyses, which rely on their aggregation. We here review the most common effect sizes for analyses of categorical variables that use the $\chi^2$ (chi-square) statistic, and introduce a new effect size---`r "\U05E4"` (Fei, pronounced /fej/ or "fay"). We demonstrate the implementation of these measures and their confidence intervals via the `{effectsize}` package [@benshachar2020effectsize] in the R programming language.
+keywords: |
+  R; easystats
+acknowledgement: |
+  *{effectsize}* is part of the collaborative 
+  [*easystats*](https://github.com/easystats/easystats) ecosystem 
+  [@easystatspackage]. Thus, we thank all 
+  [members of easystats](https://github.com/orgs/easystats/people), 
+  contributors, and users alike.
+authorcontributions: |
+  ToDo
+funding: |
+  This research received no external funding.
+conflictsofinterest: |
+  The authors declare no conflict of interest.
+abbreviations:
+  - short: ToDo
+    long: ToDo
+output:
+  word_document:
+    toc: false
+    toc_depth: 3
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "")
+
+library(effectsize)
+# options(es.use_symbols = TRUE)
+```
+
+# Introduction
+
+Over the last two decades, there has been growing concerns about the so-called replication crisis in psychology and other fields [@OSC2015estimating; @camerer2018evaluating]. As a result, the scientific community has paid increasing attention to the issue of replicability in science, as well as to to good research and statistical practices.
+
+In this context, many have highlighted the limitations of null-hypothesis significance testing and called for more modern approaches to statistics [@cumming2014new]. One such recommendation coming for example from the "New Statistics" movement is to report effect sizes and their corresponding confidence intervals, and to increasingly rely on meta-analyses to increase confidence in those estimations. These recommendations are meant to complement (or even replace, according to some) null-hypothesis significance testing and would help transition toward a "cumulative quantitative discipline".
+
+These so-called "New Statistics" are synergistic because effect sizes are not only useful for interpreting study results in themselves, but also because they are necessary for meta-analyses, which aggregate effect sizes and their confidence intervals to create a summary effect size of its own [@degeest2010impact, @wiernik2020unbiased].
+
+Unfortunately, popular software do not always offer the necessary implementations of the specialized effect sizes necessary for a given research design and their confidence intervals. In this paper, we review the most commonly used effect sizes for analyses of categorical variables that use the $\chi^2$ (chi-square) test statistic, and introduce a new effect size---`r "\U05E4"` (Fei, pronounced /fej/ or "fay").
+
+Importantly, we offer researchers an applied walkthrough on how to use these effect sizes in practice thanks to the `{effectsize}` package [@benshachar2020effectsize] in the R programming language [@base2023], which implements these measures and their confidence intervals. We cover in turn tests of independence (*φ*/phi, Cramér’s *V*) and tests of goodness of fit (Cohen’s *w* and a new proposed effect size, `r "\U05E4"`/Fei).
+
+<!-- BW: I think we need a short section here on effect sizes in general and describing Cohen's d and Pearson r and why they are inadequate for categorical data. Also commenting on odds/risk ratios and why we might not like them (hard to interpret, not bounded 0-1). Basically say that we want effect sizes appropriate for categorical data that are in a correlation like metric. -->
+
+# Tests of Independence
+
+The $\chi^2$ test of independence between two categorical variables examines if the frequency distribution of one of the variables is dependent on the other. That is, are the two variables correlated such that, for example, members of group 1 on variable X are more likely to be members of group A on variable Y, rather than evenly spread across Y variable groups A and B. 
+Formally, the test examines how likely the observed conditional frequencies (cell frequencies) are under the null hypotheses of independence.
+This is done by examining the degree the observed cell frequencies deviate from the frequencies that would be expected if the variables were indeed independent. 
+The test statistic for these tests is the $\chi^2$, which is computed as:
+
+$$
+\chi^2 = \sum_{i=1}^{l\times k}{\frac{(O_i-E_i)^2}{E_i}}
+$$
+
+Where $O_i$ are the *observed* frequencies and $E_i$ are the frequencies *expected* under independence, and $l$ and $k$ are the number of rows and columns of the contingency table. 
+
+Instead of the deviations between the observed and expected frequencies, we can write $\chi^2$ in terms of observed and expected cell *probabilities* and the total sample size $N$ (since $p=k/N$):
+
+$$
+\chi^2 = N\times\sum_{i=1}^{l\times k}{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}
+$$
+
+Where $p_{O_i}$ are the *observed* cell probabilities and $p_{E_i}$ are the probabilities *expected* under independence.
+
+Here is a short example in R to demonstrate whether the probability of survival of the sinking of the Titanic is dependant on the sex of the passenger. The null hypothesis tested here is that the probability of survival is independent of the passenger's sex.
+
+```{r}
+(Titanic_xtab <- as.table(apply(Titanic, c(2, 4), sum)))
+
+chisq.test(Titanic_xtab)
+```
+
+The performed $\chi^2$-test is statistically significant, thus we can reject the hypothesis of independence. However, the output includes no effect size. We cannot draw conclusions of the strength of the association between sex and survival.
+
+## Phi
+
+For a 2-by-2 contingency table analysis, like the one used above, the $\phi$ (*phi*) coefficient is a correlation-like measure of effect size indicating the strength of association between the two binary variables. One way to compute this effect size is to re-code the binary variables as dummy (0, 1) variables, and computing the Pearson correlation between them:
+
+$$
+\phi = |r_{AB}|
+$$
+
+Another way to compute $\phi$ is by using the $\chi^2$ statistic:
+
+$$
+\phi = \sqrt{\frac{\chi^2}{N}} = \sqrt{\sum_{i=1}^{l\times k}{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}}
+$$
+
+This value ranges between 0 (no association) and 1 (complete dependence), and its values can be interpreted the same as Person's correlation coefficient.
+
+```{r}
+library(effectsize)
+library(correlation)
+
+phi(Titanic_xtab, adjust = FALSE)
+
+tidyr::uncount(as.data.frame(Titanic_xtab), weights = Freq) |>
+  transform(Survived = Survived == "Yes", Sex = Sex == "Male") |>
+  correlation()
+```
+Note that $\phi$ cannot be negative, so will take the *absolute* value of Pearson's correlation coefficient. Also note that `{effectsize}` gives a *one-sided* confidence interval by default, to match the positive direction of the associated $\chi^2$ test at $\alpha = 0.05$ (that the association is *larger* than 0 at a 95% confidence level).
+
+## Cramér's *V* (and Tschuprow's *T*)
+
+When the contingency table is larger than 2-by-2, using $\sqrt{\chi^2/N}$ can produce values larger than 1, and so loses its interpretability as a correlation like effect size.
+Cramér showed [@cramer1999mathematical] that while for 2-by-2 the maximal possible value of $\chi^2$ is $N$, for larger tables the maximal possible value for $\chi^2$ is $N\times (\text{min}(k,l)-1)$.
+Therefore, he suggested the $V$ effect size (also sometimes known as Cramér's phi and denoted as $\phi_{c}$):
+
+$$
+\text{Cramer's } V = \sqrt{\frac{\chi^2}{N(\text{min}(k,l)-1)}}
+$$
+
+$V$ is 1 when the columns are completely dependent on the rows, or the rows are completely dependent on the columns (and 0 when rows and columns are completely independent).
+
+```{r}
+(Titanic_xtab2 <- as.table(apply(Titanic, c(1, 4), sum)))
+
+cramers_v(Titanic_xtab2, adjust = FALSE)
+```
+
+Tschuprow [@tschuprow1939principles] devised an alternative value, at 
+
+$$
+\text{Tschuprow's } T = \sqrt{\frac{\chi^2}{N\sqrt{(k-1)(l-1)}}}
+$$
+
+which is 1 only when the columns are completely dependent on the rows *and* the rows are completely dependent on the columns, which is only possible when the contingency table is a square.
+
+For example, in the following table, each row is dependent on the column value;
+that is, if we know if the food is a soy, milk or meat product, we also know if the food is vegan or not. However, the columns are *not* fully dependent on the rows: knowing the food is vegan tells us the food is soy based, however knowing it is not vegan does not allow us to classify the food - it can be either a milk product or a meat product.
+
+```{r}
+data("food_class")
+food_class
+```
+Accordingly, in such a table, Cramer's *V* will be 1, but Tschuprow's *T* will not be:
+
+```{r}
+cramers_v(food_class, adjust = FALSE)
+
+tschuprows_t(food_class)
+```
+
+We can generalize $\phi$, $V$, and $T$ to: $\sqrt{\frac{\chi^2}{\chi^2_{\text{max}}}}$. That is, they are express a proportional of the sample-$\chi^2$ to the maximally possible $\chi^2$ given the study design.
+
+These coefficients can also be used for confusion matrices - 2-by-2 contingency tables used in assessing machine learning algorithms classification abilities, comparing true outcome classes with the model-predicted outcome class.
+In fact, a popular metric is the Matthews correlation coefficient (MCC) for binary classifiers, which is often presented in terms of true and false positives and negatives, is nothing more that $\phi$ [@chicco2020advantages].
+
+# Goodness of Fit
+
+These tests compare an observed distribution of a multinomial variable to an expected distribution, using the same $\chi^2$ statistic. Here too we can compute an effect size as $\sqrt{\frac{\chi^2}{\chi^2_{\text{max}}}}$, all we need to find is $\chi^2_{\text{max}}$.
+
+## Cohen's *w*
+
+Cohen [@cohen2013statistical] defined an effect size---*w*---for the goodness of fit test:
+
+$$
+\text{Cohen's } w = \sqrt{\sum_{i=1}^{k}{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}}} = \sqrt{\frac{\chi^2}{N}}
+$$
+
+Thus, $\chi^2_\text{max} = N$.
+
+```{r}
+(Titanic_freq <- as.table(apply(Titanic, 2, sum)))
+p_E <- c(0.5, 0.5)
+
+cohens_w(Titanic_freq, p = p_E)
+```
+
+Unfortunately, *w* has an upper bound of 1 *only* when the variable is binomial (has two categories) and the expected distribution is uniform ($p = 1 - p = 0.5$). If the distribution is none uniform [@rosenberg2010generalized] or if there are more than 2 classes [@johnston2006measures], then $\chi^2_\text{max} > N$, and so *w* can be larger than 1.
+
+```{r}
+O <- c(90, 10)
+p_E <- c(0.35, 0.65)
+cohens_w(O, p = p_E)
+
+
+O <- c(10, 20, 80, 5)
+p_E <- c(.25, .25, .25, .25)
+cohens_w(O, p = p_E)
+```
+
+Although Cohen [@cohen2013statistical] suggested that *w* can also be used for such designs, we believe that this hinders the interpretation of *w* since it can be arbitrarily large.
+
+## Fei
+
+We present here a new effect size, `r "\U05E4"` (Fei, pronounced /fej/ or "fay"), which normalizes goodness-of-fit $\chi^2$ by the proper $\chi^2_\text{max}$ for non-uniform and/or multinomial variables.
+
+The largest deviation from the expected probability distribution would occur when all observations are in the cell with the smallest expected probability. That is:
+
+$$
+p_{O} = 
+\begin{cases}
+1, & \text{if } p_i = \text{min}(p) \\
+0, & \text{Otherwise}
+\end{cases}
+$$
+
+We can find $\frac{(E_i-O_i)^2}{E_i}$ for each of these values:
+
+$$
+\frac{(p_{E}-p_{O})^2}{p_{E}} = 
+\begin{cases}
+\frac{(p_i-1)^2}{p_i} = \frac{(1-p_i)^2}{p_i}, & \text{if } p_{E} = \text{min}(p_{E}) \\
+\frac{(p_i-0)^2}{p_i} = p_i, & \text{Otherwise}
+\end{cases}
+$$
+
+Therefore, 
+
+$$
+\begin{split}
+\sum_{i=1}^{k}{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}} & = \sum_{i=1}^{k}{p_{E_i}} - \text{min}(p_{E}) + \frac{(1-\text{min}(p_{E}))^2}{\text{min}(p_{E})} \\
+& = 1 - \text{min}(p_E) + \frac{(1-\text{min}(p_E))^2}{\text{min}(p_E)} \\
+& = \frac{1-\text{min}(p_E)}{\text{min}(p_E)} \\
+& = \frac{1}{\text{min}(p_E)} - 1
+\end{split}
+$$
+
+And so, 
+
+$$
+\begin{split}
+\chi^2_\text{max} & = N \times \sum_{i=1}^{k}{\frac{(p_{O_i}-p_{E_i})^2}{p_{E_i}}} \\
+ & = N \times (\frac{1}{\text{min}(p_E)} - 1)
+\end{split}
+$$
+Finally, an effect size can be derived as: 
+
+$$
+\sqrt{\frac{\chi^2}{N \times (\frac{1}{\text{min}(p_E)} - 1)}}
+$$
+
+We call this effect size `r "\U05E4"` (Fei), which represents the voiceless bilabial fricative in the Hebrew language, keeping in line with $\phi$ (which in modern Greek marks the same sound) and $V$ (which in English marks a voiced bilabial fricative; $W$ being derived from the letter V in modern Latin alphabet). `r "\U05E4"` will be 0 when the observed distribution matches the expected one (under the null hypothesis) perfectly, and will be 1 when the sample contains *only* one class of observations---the one with the smallest expected probability (under the null hypothesis). That is, `r "\U05E4"` only when we observe only the least expected class.
+
+```{r}
+O <- c(90, 10)
+p_E <- c(0.35, 0.65)
+fei(O, p = p_E)
+
+
+O <- c(10, 20, 80, 5)
+p_E <- c(.25, .25, .25, .25)
+fei(O, p = p_E)
+```
+
+When there are only 2 cells with uniform expected probabilities (50%), this expression reduces to $N$ and `r "\U05E4"` $= w$.
+
+```{r}
+O <- c(90, 10)
+p_E <- c(0.5, 0.5)
+
+fei(O, p = p_E)
+cohens_w(O, p = p_E)
+```
+
+# Summary
+
+Effect sizes are essential to interpret the magnitude of observed effects, they are frequently required in scientific journals, and they are are necessary for a cumulative quantitative science relying on meta-analyses. In this paper, we have covered the mathematics and implementation in R of four different effect sizes for analyses of categorical variables that specifically use the $\chi^2$ (chi-square) statistic. Furthermore, with our proposal of the effect size `r "\U05E4"` (Fei), we fill the missing effect size for all cases of a $\chi^2$ test - we now have effect sizes that range from 0 to 1, that represent the sample's $\chi^2$ relative to the maximally possible $\chi^2$ for contingency tables that are 2-dimensional 2-by-2 ($\phi$) or larger ($V$ or $T$), and for 1-dimensional uniform 2-class (*w*) or larger (`r "\U05E4"`\).
+
+# References

@@ -95,17 +95,18 @@
 #' )
 #'
 #' @references
+#' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 #' - Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and
 #' calculation of confidence intervals that are based on central and noncentral
 #' distributions. Educational and Psychological Measurement, 61(4), 532-574.
-#'
+#' - Ben-Shachar, M.S., Patil, I., Thériault, R., Wiernik, B.M., Lüdecke, D.
+#' (2023). Phi, Fei, Fo, Fum: Effect Sizes for Categorical Data That Use the
+#' Chi‑Squared Statistic. Mathematics, 11, 1982. \doi{10.3390/math11091982}
 #' - Bergsma, W. (2013). A bias-correction for Cramer's V and Tschuprow's T.
 #' Journal of the Korean Statistical Society, 42(3), 323-328.
-#'
 #' - Johnston, J. E., Berry, K. J., & Mielke Jr, P. W. (2006). Measures of
 #' effect size for chi-squared and likelihood-ratio goodness-of-fit tests.
 #' Perceptual and motor skills, 103(2), 412-414.
-#'
 #' - Rosenberg, M. S. (2010). A generalized formula for converting chi-square
 #' tests to effect sizes for meta-analysis. PloS one, 5(4), e10059.
 #'

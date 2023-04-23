@@ -38,19 +38,24 @@
 #'
 #' fei(Smoking_FASD, p = c(0.015, 0.010, 0.975))
 #'
+#' @references
+#' - Ben-Shachar, M.S., Patil, I., Thériault, R., Wiernik, B.M., Lüdecke, D.
+#' (2023). Phi, Fei, Fo, Fum: Effect Sizes for Categorical Data That Use the
+#' Chi‑Squared Statistic. Mathematics, 11, 1982. \doi{10.3390/math11091982}
+#'
 #' @export
 v_to_t <- function(v, nrow, ncol) {
-  f.v <- sqrt(pmin(nrow - 1, ncol - 1))
-  f.t <- sqrt(sqrt((nrow - 1) * (ncol - 1)))
-  v * f.v / f.t
+  f_v <- sqrt(pmin(nrow - 1, ncol - 1))
+  f_t <- sqrt(sqrt((nrow - 1) * (ncol - 1)))
+  v * f_v / f_t
 }
 
 #' @export
 #' @rdname v_to_t
 t_to_v <- function(t, nrow, ncol) {
-  f.v <- sqrt(pmin(nrow - 1, ncol - 1))
-  f.t <- sqrt(sqrt((nrow - 1) * (ncol - 1)))
-  t * f.t / f.v
+  f_v <- sqrt(pmin(nrow - 1, ncol - 1))
+  f_t <- sqrt(sqrt((nrow - 1) * (ncol - 1)))
+  t * f_t / f_v
 }
 
 #' @export
