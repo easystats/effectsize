@@ -34,11 +34,11 @@ v_to_t(v, nrow, ncol)
 t_to_v(t, nrow, ncol)
 }
 \arguments{
+\item{w, c, v, t, fei}{Effect size to be converted}
+
 \item{p}{Vector of expected values. See \code{\link[stats:chisq.test]{stats::chisq.test()}}.}
 
 \item{nrow, ncol}{The number of rows/columns in the contingency table.}
-
-\item{v, t, w, fei}{Effect size to be converted}
 }
 \description{
 Enables a conversion between different indices of effect size, such as
@@ -86,7 +86,6 @@ pwr::pwr.chisq.test(
   sig.level = 0.01,
   power = 0.85
 )
-
 \dontshow{\}) # examplesIf}
 }
 \references{
@@ -94,6 +93,7 @@ pwr::pwr.chisq.test(
 \item Ben-Shachar, M.S., Patil, I., Thériault, R., Wiernik, B.M., Lüdecke, D.
 (2023). Phi, Fei, Fo, Fum: Effect Sizes for Categorical Data That Use the
 Chi‑Squared Statistic. Mathematics, 11, 1982. \doi{10.3390/math11091982}
+\item Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 }
 }
 \seealso{

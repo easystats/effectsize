@@ -4,7 +4,7 @@
 #' Cohen's *w* to \ifelse{latex}{\eqn{Fei}}{פ (Fei)}, and Cramer's *V* to
 #' Tschuprow's *T*.
 #'
-#' @param v,t,w,fei Effect size to be converted
+#' @param w,c,v,t,fei Effect size to be converted
 #' @inheritParams chisq_to_tschuprows_t
 #' @inheritParams fei
 #'
@@ -53,11 +53,11 @@
 #'   power = 0.85
 #' )
 #'
-#'
 #' @references
 #' - Ben-Shachar, M.S., Patil, I., Thériault, R., Wiernik, B.M., Lüdecke, D.
 #' (2023). Phi, Fei, Fo, Fum: Effect Sizes for Categorical Data That Use the
 #' Chi‑Squared Statistic. Mathematics, 11, 1982. \doi{10.3390/math11091982}
+#' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 #'
 #' @export
 w_to_fei <- function(w, p) {
@@ -79,7 +79,7 @@ w_to_t <- function(w, nrow, ncol) {
 #' @export
 #' @rdname w_to_fei
 w_to_c <- function(w) {
-  w / sqrt(w ^ 2 + 1)
+  w / sqrt(w^2 + 1)
 }
 
 ## To w -----------------------
@@ -105,7 +105,7 @@ t_to_w <- function(t, nrow, ncol) {
 #' @export
 #' @rdname w_to_fei
 c_to_w <- function(c) {
-  c / sqrt(1 - c ^ 2)
+  c / sqrt(1 - c^2)
 }
 
 ## Other ----------------------

@@ -89,6 +89,7 @@ Suggests:
     lmerTest,
     mgcv,
     parsnip,
+    pwr,
     rmarkdown,
     rms,
     rstanarm,
