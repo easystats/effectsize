@@ -189,10 +189,8 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol,
 
   # Convert
   kl <- .possibly_adjust_k_and_l(nrow, ncol, n, adjust = adjust)
-  div <- sqrt((pmin(kl[["k"]], kl[["l"]]) - 1))
-
-  res[grepl("^(phi|CI_)", colnames(res))] <-
-    lapply(res[grepl("^(phi|CI_)", colnames(res))], "/", y = div)
+  to_convert <- grepl("^(phi|CI_)", colnames(res))
+  res[to_convert] <- lapply(res[to_convert], w_to_v, nrow = kl[["k"]], ncol = kl[["l"]])
   colnames(res)[1] <- gsub("phi", "Cramers_v", colnames(res)[1], fixed = TRUE)
 
   if ("CI" %in% colnames(res)) {
@@ -223,10 +221,8 @@ chisq_to_tschuprows_t <- function(chisq, n, nrow, ncol,
 
   # Convert
   kl <- .possibly_adjust_k_and_l(nrow, ncol, n, adjust = adjust)
-  div <- sqrt(sqrt((kl[["k"]] - 1) * (kl[["l"]] - 1)))
-
-  res[grepl("^(phi|CI_)", colnames(res))] <-
-    lapply(res[grepl("^(phi|CI_)", colnames(res))], "/", y = div)
+  to_convert <- grepl("^(phi|CI_)", colnames(res))
+  res[to_convert] <- lapply(res[to_convert], w_to_t, nrow = kl[["k"]], ncol = kl[["l"]])
   colnames(res)[1] <- gsub("phi", "Tschuprows_t", colnames(res)[1], fixed = TRUE)
 
   if ("CI" %in% colnames(res)) {
@@ -263,11 +259,8 @@ chisq_to_fei <- function(chisq, n, nrow, ncol, p,
 
   # Convert
   p <- p / sum(p)
-  q <- min(p)
-  div <- sqrt((1 / q) - 1)
-
-  res[grepl("^(phi|CI_)", colnames(res))] <-
-    lapply(res[grepl("^(phi|CI_)", colnames(res))], "/", y = div)
+  to_convert <- grepl("^(phi|CI_)", colnames(res))
+  res[to_convert] <- lapply(res[to_convert], w_to_fei, p = p)
   colnames(res)[1] <- "Fei"
 
   if ("CI" %in% colnames(res)) {
@@ -297,7 +290,7 @@ chisq_to_pearsons_c <- function(chisq, n, nrow, ncol,
   )
 
   to_convert <- grepl("^(phi|CI_)", colnames(res))
-  res[to_convert] <- lapply(res[to_convert], function(phi) sqrt(1 / (1 / phi^2 + 1)))
+  res[to_convert] <- lapply(res[to_convert], w_to_c)
   colnames(res)[1] <- "Pearsons_c"
 
   if ("CI" %in% colnames(res)) {
