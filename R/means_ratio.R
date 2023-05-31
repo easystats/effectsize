@@ -26,6 +26,7 @@
 #' that is closer to normality.
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @return A data frame with the effect size (`Means_ratio` or
 #'   `Means_ratio_adjusted`) and their CIs (`CI_low` and `CI_high`).

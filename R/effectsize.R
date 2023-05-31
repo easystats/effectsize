@@ -8,6 +8,8 @@
 #' @param ... Arguments passed to or from other methods. See details.
 #' @inheritParams datawizard::standardize.default
 #'
+#' @inheritSection print.effectsize_table Plotting with `see`
+#'
 #' @details
 #'
 #' - For an object of class `htest`, data is extracted via [insight::get_data()], and passed to the relevant function according to:

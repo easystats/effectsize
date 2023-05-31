@@ -22,6 +22,7 @@
 #' a good close approximation.
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @return A data frame with the effect size (`Cohens_g`, `Risk_ratio`
 #'   (possibly with the prefix `log_`), `Cohens_h`) and its CIs (`CI_low` and

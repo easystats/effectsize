@@ -72,6 +72,11 @@ input model. See details.
 \strong{For statistical models it is recommended to directly use the listed
 functions, for the full range of options they provide.}
 }
+\section{Plotting with \code{see}}{
+
+The \code{see} package contains relevant plotting functions. See the \href{https://easystats.github.io/see/articles/effectsize.html}{plotting vignette in the \code{see} package}.
+}
+
 \examples{
 
 ## Hypothesis Testing

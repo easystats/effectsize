@@ -42,6 +42,7 @@
 #' are estimated using the normal approximation (via Fisher's transformation).
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @return A data frame with the effect size `r_rank_biserial` and its CI
 #'   (`CI_low` and `CI_high`).

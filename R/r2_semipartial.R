@@ -39,6 +39,7 @@
 #' bound are "fixed" so that they cannot be smaller than 0 or larger than 1.)
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @seealso [eta_squared()], [cohens_f()] for comparing two models,
 #'   [parameters::dominance_analysis()] and

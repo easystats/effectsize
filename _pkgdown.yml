@@ -127,6 +127,8 @@ navbar:
         - text: "Confidence Intervals"
           href: reference/effectsize_CIs.html
         - text: -------
+        - text: "Plotting Functions"
+          href: https://easystats.github.io/see/articles/effectsize.html
         - text: "Extending effectsize"
           href: articles/effectsize_API.html
     - text: "Conversion"

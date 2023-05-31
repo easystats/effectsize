@@ -43,6 +43,7 @@
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @return A data frame with the effect size (`Cramers_v`, `phi` (possibly with
 #'   the suffix `_adjusted`), `Cohens_w`, `Fei`) and its CIs (`CI_low` and

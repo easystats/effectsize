@@ -7,6 +7,11 @@
 #' @inheritParams is_effectsize_name
 #' @param ... Arguments passed to or from other functions.
 #'
+#' @section Plotting with `see`:
+#' The `see` package contains relevant plotting functions. See the [plotting
+#' vignette in the `see`
+#' package](https://easystats.github.io/see/articles/effectsize.html).
+#'
 #' @seealso [insight::display()]
 #'
 #' @export

@@ -42,9 +42,10 @@
 #' Confidence intervals for \eqn{E^2_R}, \eqn{\eta^2_H}, and Kendall's *W* are
 #' estimated using the bootstrap method (using the `{boot}` package).
 #'
+#' @inheritSection rank_biserial Ties
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #' @inheritSection effectsize_CIs Bootstrapped CIs
-#' @inheritSection rank_biserial Ties
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #'
 #' @return A data frame with the effect size and its CI.

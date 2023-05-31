@@ -53,6 +53,7 @@
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #' @inheritSection effectsize_CIs Bootstrapped CIs
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @return A data frame containing the common language effect sizes (and
 #'   optionally their CIs).

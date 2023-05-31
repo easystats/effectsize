@@ -27,6 +27,7 @@
 #' method (see Katz et al., 1978; Szumilas, 2010).
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @return A data frame with the effect size (`Odds_ratio`, `Risk_ratio`
 #'   (possibly with the prefix `log_`), `Cohens_h`, `ARR`, `NNT`) and its CIs

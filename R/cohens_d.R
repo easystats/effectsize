@@ -42,6 +42,7 @@
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @return A data frame with the effect size ( `Cohens_d`, `Hedges_g`,
 #'   `Glass_delta`) and their CIs (`CI_low` and `CI_high`).

@@ -60,6 +60,11 @@ the function used to make the effect size table (\code{cohens_d}, \code{eta_squa
 }
 }
 }
+\section{Plotting with \code{see}}{
+
+The \code{see} package contains relevant plotting functions. See the \href{https://easystats.github.io/see/articles/effectsize.html}{plotting vignette in the \code{see} package}.
+}
+
 \examples{
 \donttest{
 data("hardlyworking")

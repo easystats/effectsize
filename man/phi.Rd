@@ -143,6 +143,11 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 1996).
 }
 
+\section{Plotting with \code{see}}{
+
+The \code{see} package contains relevant plotting functions. See the \href{https://easystats.github.io/see/articles/effectsize.html}{plotting vignette in the \code{see} package}.
+}
+
 \examples{
 
 ## 2-by-2 tables

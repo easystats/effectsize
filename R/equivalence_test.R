@@ -34,6 +34,8 @@
 #'   - Else, If the CI is completely within the ROPE - *Accept H0*
 #'   - Else - *Undecided*
 #'
+#' @inheritSection print.effectsize_table Plotting with `see`
+#'
 #' @seealso For more details, see [bayestestR::equivalence_test()].
 #'
 #' @return A data frame with the results of the equivalence test.
