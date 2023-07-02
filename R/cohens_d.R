@@ -5,12 +5,12 @@
 #' **population** estimate.) Pair with any reported [`stats::t.test()`].
 #' \cr\cr
 #' Both Cohen's *d* and Hedges' *g* are the estimated the standardized
-#' difference between the means of two populations. Hedges' *g* provides a bias
-#' correction (using the exact method) to Cohen's *d* for small sample sizes.
-#' For sample sizes > 20, the results for both statistics are roughly
-#' equivalent. Glass’s *delta* is appropriate when the standard deviations are
-#' significantly different between the populations, as it uses only the *second*
-#' group's standard deviation.
+#' difference between the means of two populations. Hedges' *g* provides a
+#' correction for small-sample bias (using the exact method) to Cohen's *d*. For
+#' sample sizes > 20, the results for both statistics are roughly equivalent.
+#' Glass’s *delta* is appropriate when the standard deviations are significantly
+#' different between the populations, as it uses only the *second* group's
+#' standard deviation.
 #'
 #' @param x,y A numeric vector, or a character name of one in `data`.
 #'   Any missing values (`NA`s) are dropped from the resulting vector.
@@ -42,6 +42,7 @@
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @return A data frame with the effect size ( `Cohens_d`, `Hedges_g`,
 #'   `Glass_delta`) and their CIs (`CI_low` and `CI_high`).
@@ -127,7 +128,6 @@
 #' - Hunter, J. E., & Schmidt, F. L. (2004). Methods of meta-analysis:
 #' Correcting error and bias in research findings. Sage.
 #'
-#' @importFrom stats var model.frame
 #' @export
 cohens_d <- function(x, y = NULL, data = NULL,
                      pooled_sd = TRUE, mu = 0, paired = FALSE,
@@ -187,7 +187,6 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
 
 
-#' @importFrom stats sd
 #' @keywords internal
 .effect_size_difference <- function(x, y = NULL, data = NULL,
                                     type = "d",

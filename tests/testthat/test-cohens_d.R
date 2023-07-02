@@ -26,7 +26,6 @@ test_that("cohens_d - mu", {
     ignore_attr = TRUE
   )
 
-  # t.test(x, y, mu = 3.125, var.equal = TRUE)
   d <- cohens_d(x, y, mu = 3.125)
   expect_equal(d[[1]], -0.969, tolerance = 0.01)
   expect_equal(d$CI_low, -1.913, tolerance = 0.01)

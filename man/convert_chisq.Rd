@@ -48,6 +48,7 @@ chisq_to_tschuprows_t(
   n,
   nrow,
   ncol,
+  adjust = TRUE,
   ci = 0.95,
   alternative = "greater",
   ...
@@ -74,8 +75,8 @@ phi_to_chisq(phi, n, ...)
 
 \item{nrow, ncol}{The number of rows/columns in the contingency table.}
 
-\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{TRUE};
-Advisable for small samples and large tables.}
+\item{adjust}{Should the effect size be corrected for small-sample bias?
+Defaults to \code{TRUE}; Advisable for small samples and large tables.}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -126,7 +127,7 @@ Where \eqn{p_E} are the expected probabilities.
 
 \deqn{\textrm{Pearson's } C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
 
-For bias-adjusted versions of \eqn{\phi} and \eqn{V}, see \href{https://en.wikipedia.org/wiki/Cram\%C3\%A9r\%27s_V#Bias_correction}{Bergsma, 2013}.
+For versions adjusted for small-sample bias of \eqn{\phi}, \eqn{V}, and \eqn{T}, see \href{https://en.wikipedia.org/wiki/Cram\%C3\%A9r\%27s_V#Bias_correction}{Bergsma, 2013}.
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
 Unless stated otherwise, confidence (compatibility) intervals (CIs) are
@@ -163,6 +164,11 @@ Greenland, 2020; Schweder & Hjort, 2016; Xie & Singh, 2013). To infer no
 effect, additional judgments about what parameter values are "close enough"
 to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 1996).
+}
+
+\section{Plotting with \code{see}}{
+
+The \code{see} package contains relevant plotting functions. See the \href{https://easystats.github.io/see/articles/effectsize.html}{plotting vignette in the \code{see} package}.
 }
 
 \examples{
@@ -206,9 +212,13 @@ chisq_to_fei(
 }
 \references{
 \itemize{
+\item Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
 \item Cumming, G., & Finch, S. (2001). A primer on the understanding, use, and
 calculation of confidence intervals that are based on central and noncentral
 distributions. Educational and Psychological Measurement, 61(4), 532-574.
+\item Ben-Shachar, M.S., Patil, I., Thériault, R., Wiernik, B.M., Lüdecke, D.
+(2023). Phi, Fei, Fo, Fum: Effect Sizes for Categorical Data That Use the
+Chi‑Squared Statistic. Mathematics, 11, 1982. \doi{10.3390/math11091982}
 \item Bergsma, W. (2013). A bias-correction for Cramer's V and Tschuprow's T.
 Journal of the Korean Statistical Society, 42(3), 323-328.
 \item Johnston, J. E., Berry, K. J., & Mielke Jr, P. W. (2006). Measures of

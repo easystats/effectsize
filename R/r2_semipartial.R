@@ -39,6 +39,7 @@
 #' bound are "fixed" so that they cannot be smaller than 0 or larger than 1.)
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @seealso [eta_squared()], [cohens_f()] for comparing two models,
 #'   [parameters::dominance_analysis()] and
@@ -145,13 +146,13 @@ r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
 
     # Fix lower bound according to sig
     p_comps <- sapply(sub_mods, function(.mod) {
-      anova(tot_mod, .mod)[2, "Pr(>F)"]
+      stats::anova(tot_mod, .mod)[2, "Pr(>F)"]
     })
 
     is_sig <- p_comps < (1 - ci)
     lb_is_zero <- out$CI_low == 0
 
-    if (any(!is_sig)) {
+    if (!all(is_sig)) {
       out$CI_low[!is_sig] <- 0
     }
 

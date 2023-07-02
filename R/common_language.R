@@ -53,6 +53,7 @@
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #' @inheritSection effectsize_CIs Bootstrapped CIs
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @return A data frame containing the common language effect sizes (and
 #'   optionally their CIs).
@@ -351,7 +352,6 @@ wmw_odds <- function(x, y = NULL, data = NULL,
 # Utils -------------------------------------------------------------------
 
 #' @keywords internal
-#' @importFrom stats quantile optim
 .cohens_u2_non_parametric <- function(..., mu, alternative) {
   U2_np <- function(data, i = seq_len(nrow(data))) {
     data <- data[i, ]
@@ -388,7 +388,7 @@ wmw_odds <- function(x, y = NULL, data = NULL,
     x <- data[data$g == "x", "r"] - mu
     y <- data[data$g == "y", "r"]
 
-    sum(y < median(x)) / length(y)
+    sum(y < stats::median(x)) / length(y)
   }
   out <- .cles_non_parametric(..., est = U3_np)
   colnames(out)[1] <- "Cohens_U3"
@@ -423,7 +423,6 @@ wmw_odds <- function(x, y = NULL, data = NULL,
 ## BOOT and stuff ---------------
 
 #' @keywords internal
-#' @importFrom utils tail
 .cles_non_parametric <-
   function(x,
            y,

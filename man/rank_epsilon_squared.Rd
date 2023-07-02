@@ -108,6 +108,12 @@ Confidence intervals for \eqn{E^2_R}, \eqn{\eta^2_H}, and Kendall's \emph{W} are
 estimated using the bootstrap method (using the \code{{boot}} package).
 }
 
+\section{Ties}{
+When tied values occur, they are each given the average of the ranks that
+would have been given had no ties occurred. This results in an effect size of
+reduced magnitude. A correction has been applied for Kendall's \emph{W}.
+}
+
 \section{CIs and Significance Tests}{
 "Confidence intervals on measures of effect size convey all the information
 in a hypothesis test, and more." (Steiger, 2004). Confidence (compatibility)
@@ -143,10 +149,9 @@ never cross (and often will never cover) the null. Therefore, these CIs
 should not be used for statistical inference.
 }
 
-\section{Ties}{
-When tied values occur, they are each given the average of the ranks that
-would have been given had no ties occurred. This results in an effect size of
-reduced magnitude. A correction has been applied for Kendall's \emph{W}.
+\section{Plotting with \code{see}}{
+
+The \code{see} package contains relevant plotting functions. See the \href{https://easystats.github.io/see/articles/effectsize.html}{plotting vignette in the \code{see} package}.
 }
 
 \examples{

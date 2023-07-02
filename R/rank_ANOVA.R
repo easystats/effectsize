@@ -42,9 +42,10 @@
 #' Confidence intervals for \eqn{E^2_R}, \eqn{\eta^2_H}, and Kendall's *W* are
 #' estimated using the bootstrap method (using the `{boot}` package).
 #'
+#' @inheritSection rank_biserial Ties
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #' @inheritSection effectsize_CIs Bootstrapped CIs
-#' @inheritSection rank_biserial Ties
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #'
 #' @return A data frame with the effect size and its CI.
@@ -84,7 +85,6 @@
 #' sport sciences, 1(21), 19-25.
 #'
 #' @export
-#' @importFrom insight check_if_installed
 rank_epsilon_squared <- function(x, groups, data = NULL,
                                  ci = 0.95, alternative = "greater",
                                  iterations = 200,
@@ -125,7 +125,6 @@ rank_epsilon_squared <- function(x, groups, data = NULL,
 
 #' @export
 #' @rdname rank_epsilon_squared
-#' @importFrom insight check_if_installed
 rank_eta_squared <- function(x, groups, data = NULL,
                              ci = 0.95, alternative = "greater",
                              iterations = 200,
@@ -170,8 +169,6 @@ rank_eta_squared <- function(x, groups, data = NULL,
 
 #' @rdname rank_epsilon_squared
 #' @export
-#' @importFrom stats na.omit
-#' @importFrom insight check_if_installed
 kendalls_w <- function(x, groups, blocks, data = NULL,
                        blocks_on_rows = TRUE,
                        ci = 0.95, alternative = "greater",
@@ -216,7 +213,6 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
 ## Get ----
 
 #' @keywords internal
-#' @importFrom stats kruskal.test
 .repsilon <- function(data) {
   model <- suppressWarnings(stats::kruskal.test(data$x, data$groups))
 
@@ -227,7 +223,6 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
 }
 
 #' @keywords internal
-#' @importFrom stats kruskal.test
 .reta <- function(data) {
   model <- suppressWarnings(stats::kruskal.test(data$x, data$groups))
 
@@ -270,7 +265,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
     W <- (12 * sum(R^2) - 3 * (m^2) * n * ((n + 1)^2)) /
       (m^2 * (n^3 - n) - m * Tj)
   } else {
-    S <- var(R) * (n - 1)
+    S <- stats::var(R) * (n - 1)
     W <- (12 * S) /
       (m^2 * (n^3 - n))
   }
@@ -279,7 +274,6 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
 
 ## CI ----
 
-#' @importFrom utils tail
 #' @keywords internal
 .boot_two_group_es <- function(data, foo_es, iterations,
                                ci, alternative, lim) {
@@ -301,7 +295,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
   )
 
   bCI <- boot::boot.ci(R, conf = ci.level, type = "perc")$percent
-  bCI <- tail(as.vector(bCI), 2)
+  bCI <- utils::tail(as.vector(bCI), 2)
 
   out <- data.frame(
     CI = ci,
@@ -311,7 +305,6 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
   .limit_ci(out, alternative, 0, 1)
 }
 
-#' @importFrom utils tail
 #' @keywords internal
 .kendalls_w_ci <- function(data, ci, alternative, iterations) {
   ci.level <- .adjust_ci(ci, alternative)
@@ -327,7 +320,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
   )
 
   bCI <- boot::boot.ci(R, conf = ci.level, type = "perc")$percent
-  bCI <- tail(as.vector(bCI), 2)
+  bCI <- utils::tail(as.vector(bCI), 2)
 
   out <- data.frame(
     CI = ci,

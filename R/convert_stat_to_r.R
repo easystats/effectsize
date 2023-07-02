@@ -43,6 +43,7 @@
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @family effect size from test statistic
 #' @seealso [cohens_d()]
@@ -131,7 +132,6 @@ t_to_r <- function(t, df_error,
 
 
 #' @rdname t_to_r
-#' @importFrom stats qnorm
 #' @export
 z_to_r <- function(z, n,
                    ci = 0.95, alternative = "two.sided",

@@ -58,6 +58,11 @@ independent samples (See \link{d_to_cles}).}
 \description{
 Printing, formatting and plotting methods for \code{effectsize} tables.
 }
+\section{Plotting with \code{see}}{
+
+The \code{see} package contains relevant plotting functions. See the \href{https://easystats.github.io/see/articles/effectsize.html}{plotting vignette in the \code{see} package}.
+}
+
 \seealso{
 \code{\link[insight:display]{insight::display()}}
 }

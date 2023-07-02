@@ -1,6 +1,6 @@
 #' Interpret ANOVA Effect Sizes
 #'
-#' @param es Value or vector of eta / omega / epsilon squared values.
+#' @param es Value or vector of (partial) eta / omega / epsilon squared or semipartial r squared values.
 #' @param rules Can be `"field2013"` (default), `"cohen1992"` or custom set of [rules()].
 #' @param ... Not used for now.
 #'
@@ -54,7 +54,10 @@ interpret_omega_squared <- function(es, rules = "field2013", ...) {
 #' @rdname interpret_omega_squared
 interpret_eta_squared <- interpret_omega_squared
 
-
 #' @export
 #' @rdname interpret_omega_squared
 interpret_epsilon_squared <- interpret_omega_squared
+
+#' @export
+#' @rdname interpret_omega_squared
+interpret_r2_semipartial <- interpret_omega_squared

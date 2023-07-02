@@ -24,6 +24,7 @@
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @details
 #' To specify a `x` as a formula:
@@ -79,7 +80,6 @@
 #'   mu = c(mpg = 15, hp = 5, cyl = 3)
 #' )
 #'
-#' @importFrom stats cov
 #' @export
 mahalanobis_d <- function(x, y = NULL, data = NULL,
                           pooled_cov = TRUE, mu = 0,
@@ -109,7 +109,7 @@ mahalanobis_d <- function(x, y = NULL, data = NULL,
     insight::format_error("mu must be of length 1 or a named vector/list of length ncol(x).")
   } else if (!all(names(mu) == colnames(x))) {
     insight::format_error("x,y must have the same variables (in the same order)")
-  } else if (!all(lengths(mu) == 1L) || !all(sapply(mu, is.numeric))) {
+  } else if (!all(lengths(mu) == 1L) || !all(vapply(mu, is.numeric, TRUE))) {
     insight::format_error("Each element of mu must be a numeric vector of length 1.")
   }
   mu <- unlist(mu)
