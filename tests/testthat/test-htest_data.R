@@ -80,4 +80,21 @@ test_that("edge cases", {
   expect_message(expect_warning(
     effectsize(tt4, data = mtcars), "Unable to retrieve data"
   ))
+
+  # wilcox.test
+  x <- wilcox.test(mpg ~ as.factor(vs), data = mtcars, exact = FALSE)
+  expect_error(effectsize(x), "Unable to retrieve data")
+
+  # friedman.test does not allow formula modifiers, skipping
+
+  # kruskal.test
+  airquality2 <- airquality
+  airquality2$Month <- as.factor(airquality2$Month)
+  airquality2$Ozone <- ifelse(is.na(airquality2$Ozone), 10, airquality2$Ozone)
+  x <- kruskal.test(Ozone ~ as.factor(Month), data = airquality2)
+
+  # Fallback method successful
+  expect_message(expect_error(
+    effectsize(x, data = airquality2), "Unable to retrieve data"
+  ))
 })
