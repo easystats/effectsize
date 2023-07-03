@@ -31,19 +31,31 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 }
 
 #' @keywords internal
-.effectsize_t.test <- function(model, type = NULL, verbose = TRUE, ...) {
+.find_data <- function(data, dots, model, verbose = TRUE) {
+  if (is.null(data) && !is.null(dots$data)) {
+    vars <- insight::get_parameters(model)$Parameter
+    vars <- unlist(strsplit(vars, " ", fixed = TRUE))
+    vars <- vars[!vars %in% c("by", "and")]
+    if (all(vars %in% names(dots$data))) {
+      data <- dots$data[, vars]
+      return(data)
+    } else {
+      if (verbose) {
+        message("To use the `data` argument, consider using modifiers outside the formula.")
+      }
+      NULL
+    }
+  }
+}
 
+#' @keywords internal
+.effectsize_t.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
   data <- insight::get_data(model)
 
   dots <- list(...)
 
-  if (is.null(data) && !is.null(dots$data)) {
-    vars <- insight::get_parameters(model)$Parameter
-    vars <- unlist(strsplit(vars, " "))
-    vars <- vars[!vars %in% "by"]
-    data <- dots$data[, vars]
-  }
+  data <- .find_data(data, dots, model, verbose = verbose)
 
   approx <- is.null(data)
 
@@ -339,12 +351,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   dots <- list(...)
 
-  if (is.null(data) && !is.null(dots$data)) {
-    vars <- insight::get_parameters(model)$Parameter
-    vars <- unlist(strsplit(vars, " "))
-    vars <- vars[!vars %in% "by"]
-    data <- dots$data[, c(vars)]
-  }
+  data <- .find_data(data, dots, model, verbose = verbose)
 
   approx <- is.null(data)
 
@@ -392,18 +399,12 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
 #' @keywords internal
 .effectsize_kruskal.test <- function(model, type = NULL, verbose = TRUE, ...) {
-
   # Get data?
   data <- insight::get_data(model)
 
   dots <- list(...)
 
-  if (is.null(data) && !is.null(dots$data)) {
-    vars <- insight::get_parameters(model)$Parameter
-    vars <- unlist(strsplit(vars, " "))
-    vars <- vars[!vars %in% "by"]
-    data <- dots$data[, vars]
-  }
+  data <- .find_data(data, dots, model, verbose = verbose)
 
   approx <- is.null(data)
 
@@ -432,12 +433,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   dots <- list(...)
 
-  if (is.null(data) && !is.null(dots$data)) {
-    vars <- insight::get_parameters(model)$Parameter
-    vars <- unlist(strsplit(vars, " "))
-    vars <- vars[!vars %in% "and"]
-    data <- dots$data[, vars]
-  }
+  data <- .find_data(data, dots, model, verbose = verbose)
 
   approx <- is.null(data)
 

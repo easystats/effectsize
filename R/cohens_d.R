@@ -133,8 +133,8 @@ cohens_d <- function(x, y = NULL, data = NULL,
                      pooled_sd = TRUE, mu = 0, paired = FALSE,
                      ci = 0.95, alternative = "two.sided",
                      verbose = TRUE, ...) {
-  var.equal <- eval.parent(match.call()[["var.equal"]])
-  if (!is.null(var.equal)) pooled_sd <- var.equal
+  var_equal <- eval.parent(match.call()[["var_equal"]])
+  if (!is.null(var_equal)) pooled_sd <- var_equal
 
   .effect_size_difference(
     x,
@@ -153,8 +153,8 @@ hedges_g <- function(x, y = NULL, data = NULL,
                      pooled_sd = TRUE, mu = 0, paired = FALSE,
                      ci = 0.95, alternative = "two.sided",
                      verbose = TRUE, ...) {
-  var.equal <- eval.parent(match.call()[["var.equal"]])
-  if (!is.null(var.equal)) pooled_sd <- var.equal
+  var_equal <- eval.parent(match.call()[["var_equal"]])
+  if (!is.null(var_equal)) pooled_sd <- var_equal
 
   .effect_size_difference(
     x,
@@ -267,10 +267,10 @@ glass_delta <- function(x, y = NULL, data = NULL,
   if (.test_ci(ci)) {
     # Add cis
     out$CI <- ci
-    ci.level <- .adjust_ci(ci, alternative)
+    ci_level <- .adjust_ci(ci, alternative)
 
     t <- (d - mu) / se
-    ts <- .get_ncp_t(t, df, ci.level)
+    ts <- .get_ncp_t(t, df, ci_level)
 
     out$CI_low <- ts[1] * sqrt(hn)
     out$CI_high <- ts[2] * sqrt(hn)
@@ -282,10 +282,10 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
 
   if (type == "g") {
-    J <- exp(lgamma(df / 2) - log(sqrt(df / 2)) - lgamma((df - 1) / 2)) # exact method
+    j <- exp(lgamma(df / 2) - log(sqrt(df / 2)) - lgamma((df - 1) / 2)) # exact method
 
     out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] <-
-      out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] * J
+      out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] * j
   }
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
