@@ -43,8 +43,10 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       if (verbose) {
         message("To use the `data` argument, consider using modifiers outside the formula.")
       }
-      NULL
+      return(NULL)
     }
+  } else if (!is.null(data)) {
+    data
   }
 }
 
