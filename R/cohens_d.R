@@ -133,8 +133,8 @@ cohens_d <- function(x, y = NULL, data = NULL,
                      pooled_sd = TRUE, mu = 0, paired = FALSE,
                      ci = 0.95, alternative = "two.sided",
                      verbose = TRUE, ...) {
-  var_equal <- eval.parent(match.call()[["var_equal"]])
-  if (!is.null(var_equal)) pooled_sd <- var_equal
+  var.equal <- eval.parent(match.call()[["var.equal"]])
+  if (!is.null(var.equal)) pooled_sd <- var.equal
 
   .effect_size_difference(
     x,
@@ -153,8 +153,8 @@ hedges_g <- function(x, y = NULL, data = NULL,
                      pooled_sd = TRUE, mu = 0, paired = FALSE,
                      ci = 0.95, alternative = "two.sided",
                      verbose = TRUE, ...) {
-  var_equal <- eval.parent(match.call()[["var_equal"]])
-  if (!is.null(var_equal)) pooled_sd <- var_equal
+  var.equal <- eval.parent(match.call()[["var.equal"]])
+  if (!is.null(var.equal)) pooled_sd <- var.equal
 
   .effect_size_difference(
     x,
