@@ -39,7 +39,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       if (grepl("by|and", vars)) {
         vars <- sub("by|and", "~", vars, perl = TRUE)
         vars <- sub("and", "|", vars, fixed = TRUE)
-        if (!grepl("\\|", vars, fixed = TRUE)) {
+        if (!grepl("|", vars, fixed = TRUE)) {
           # because "In Ops.factor(w, t) : ‘|’ not meaningful for factors"
           # When used with the | operator within the formula
           form <- stats::as.formula(vars)
@@ -49,7 +49,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
           data <- dots$data[, vars_split]
         }
       }
-    } else if (grepl("\\$", vars, fixed = TRUE)) {
+    } else if (grepl("$", vars, fixed = TRUE)) {
       vars_cols <- gsub("(\\b\\w+\\$)", paste0(deparse(substitute(dots$data)), "$"), vars)
       columns <- unlist(strsplit(vars_cols, " and ", fixed = TRUE))
       x <- eval(parse(text = columns[1]))
