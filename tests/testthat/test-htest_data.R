@@ -37,27 +37,20 @@ test_that("edge cases", {
   tt1 <- t.test(mpg ~ I(am + cyl == 4), data = mtcars)
   dd1 <- cohens_d(mpg ~ I(am + cyl == 4), data = mtcars, pooled_sd = FALSE)
 
-  # Fallback method successful
-  expect_message(expect_warning(
-    effectsize(tt1, data = mtcars), "Unable to retrieve data"
-  ))
-
-  # expect_equal(effectsize(tt1, data = mtcars)[[1]], dd1[[1]])
-  #> Error in `[.data.frame`(dots$data, , vars) : undefined columns selected
+  expect_warning(effectsize(tt1), "Unable to retrieve data")
+  expect_no_warning(effectsize(tt1, data = mtcars))
+  expect_equal(effectsize(tt1, data = mtcars)[[1]], dd1[[1]])
 
   # Example 2
   dat <- mtcars
   tt2 <- t.test(dat$mpg[dat$am == 1], dat$mpg[dat$am == 0])
   dd2 <- cohens_d(dat$mpg[dat$am == 1], dat$mpg[dat$am == 0], pooled_sd = FALSE)
 
-  # Fallback method successful
   rm("dat")
-  expect_message(expect_warning(
-    effectsize(tt2, data = mtcars), "Unable to retrieve data"
-  ))
+  expect_warning(effectsize(tt2), "Unable to retrieve data")
+  expect_no_warning(effectsize(tt2, data = mtcars))
 
-  # expect_equal(effectsize(tt2, data = mtcars)[[1]], dd2[[1]])
-  #> Error in `[.data.frame`(dots$data, , vars) : undefined columns selected
+  expect_equal(effectsize(tt2, data = mtcars)[[1]], dd2[[1]])
 
   # Example 3
   col_y <- "mpg"
@@ -69,6 +62,11 @@ test_that("edge cases", {
   expect_message(expect_warning(
     effectsize(tt3, data = mtcars), "Unable to retrieve data"
   ))
+  # This one will never work because the col_y object has been removed, which
+  # was specifying which column of mtcars to use, whereas the data argument
+  # can only specify the larger data set, not the specific column to extract.
+  # Therefore in this case it is acceptable to return the warning about
+  # returning an approximate effect size.
 
   # expect_equal(effectsize(tt3, data = mtcars)[[1]], dd3[[1]])
   #> Error in `[.data.frame`(dots$data, , vars) : undefined columns selected
@@ -76,14 +74,13 @@ test_that("edge cases", {
   # Example 4
   tt4 <- t.test(mpg ~ as.factor(am), data = mtcars)
 
-  # Fallback method successful
-  expect_message(expect_warning(
-    effectsize(tt4, data = mtcars), "Unable to retrieve data"
-  ))
+  expect_warning(effectsize(tt4), "Unable to retrieve data")
+  expect_no_warning(effectsize(tt4, data = mtcars))
 
   # wilcox.test
   x <- wilcox.test(mpg ~ as.factor(vs), data = mtcars, exact = FALSE)
   expect_error(effectsize(x), "Unable to retrieve data")
+  expect_no_warning(effectsize(x, data = mtcars))
 
   # friedman.test does not allow formula modifiers, skipping
 
@@ -93,8 +90,14 @@ test_that("edge cases", {
   airquality2$Ozone <- ifelse(is.na(airquality2$Ozone), 10, airquality2$Ozone)
   x <- kruskal.test(Ozone ~ as.factor(Month), data = airquality2)
 
-  # Fallback method successful
-  expect_message(expect_error(
-    effectsize(x, data = airquality2), "Unable to retrieve data"
-  ))
+  expect_error(effectsize(x), "Unable to retrieve data")
+  expect_no_warning(effectsize(x, data = airquality2))
+
+  # Paired t-test
+  x <- t.test(mpg ~ 1, data = mtcars)
+  expect_no_warning(effectsize(x, data = mtcars))
+
+  x <- t.test(Pair(mpg, hp) ~ 1, data = mtcars)
+  expect_no_warning(effectsize(x, data = mtcars))
+
 })

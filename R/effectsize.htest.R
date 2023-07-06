@@ -31,23 +31,47 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 }
 
 #' @keywords internal
-.find_data <- function(data, dots, model, verbose = TRUE) {
+.data_from_formula <- function(data, dots, model, verbose = TRUE) {
   if (is.null(data) && !is.null(dots$data)) {
     vars <- insight::get_parameters(model)$Parameter
-    vars <- unlist(strsplit(vars, " ", fixed = TRUE))
-    vars <- vars[!vars %in% c("by", "and")]
-    if (all(vars %in% names(dots$data))) {
-      data <- dots$data[, vars]
-      return(data)
+    vars_split <-   unlist(strsplit(vars, " by | and "))
+    if (!grepl("\\$|\\[", vars) && length(vars_split) > 1) {
+      if (grepl("by|and", vars)) {
+        vars <- sub("by|and", "~", vars, perl = TRUE)
+        vars <- sub("and", "|", vars, perl = TRUE)
+        if (!grepl("\\|", vars)) {
+          # because "In Ops.factor(w, t) : ‘|’ not meaningful for factors"
+          # When used with the | operator within the formula
+          form <- stats::as.formula(vars)
+          data <- stats::model.frame(form, data = dots$data)
+          data[[2]] <- factor(data[[2]])
+        } else if (all(vars_split %in% names(dots$data))) {
+          data <- dots$data[, vars_split]
+        }
+      }
+    } else if (grepl("\\$", vars)) { #  && FALSE
+      vars_cols <- gsub("(\\b\\w+\\$)", paste0(deparse(substitute(dots$data)), "$"), vars)
+      columns <- unlist(strsplit(vars_cols, " and ", fixed = TRUE))
+      x = eval(parse(text = columns[1]))
+      y = eval(parse(text = columns[2]))
+      # max_length <- max(length(x), length(y))
+      # x <- c(x, rep(NA, max_length - length(x)))
+      # y <- c(y, rep(NA, max_length - length(y)))
+      # data <- data.frame(x, y)
+      data <- list(x, y)
+    } else if (grepl("\\$|\\[", vars)) {
+      obj <- gsub(".*?\\[([^\\[\\]]+)\\].*", "\\1", vars, perl = TRUE)
+      message("Is object '", obj, "' still available in your workspace?")
+    } else if (length(vars_split) == 1) {
+      form <- stats::as.formula(paste0(vars, "~1"))
+      data <- stats::model.frame(form, data = dots$data)
     } else {
       if (verbose) {
         message("To use the `data` argument, consider using modifiers outside the formula.")
       }
-      return(NULL)
     }
-  } else if (!is.null(data)) {
-    data
   }
+  data
 }
 
 #' @keywords internal
@@ -57,7 +81,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   dots <- list(...)
 
-  data <- .find_data(data, dots, model, verbose = verbose)
+  data <- .data_from_formula(data, dots, model, verbose = verbose)
 
   approx <- is.null(data)
 
@@ -88,14 +112,14 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       df_error = unname(model$parameter)
     )
   } else {
-    if (ncol(data) == 2) {
+    if (inherits(data, "data.frame") && ncol(data) == 2) {
       data[[2]] <- factor(data[[2]])
     }
     data <- stats::na.omit(data)
 
     args <- list(
       x = data[[1]],
-      y = if (ncol(data) == 2) data[[2]],
+      y = if (length(data) == 2) data[[2]],
       pooled_sd = !grepl("Welch", model$method, fixed = TRUE)
     )
 
@@ -353,7 +377,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   dots <- list(...)
 
-  data <- .find_data(data, dots, model, verbose = verbose)
+  data <- .data_from_formula(data, dots, model, verbose = verbose)
 
   approx <- is.null(data)
 
@@ -406,7 +430,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   dots <- list(...)
 
-  data <- .find_data(data, dots, model, verbose = verbose)
+  data <- .data_from_formula(data, dots, model, verbose = verbose)
 
   approx <- is.null(data)
 
@@ -435,7 +459,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   dots <- list(...)
 
-  data <- .find_data(data, dots, model, verbose = verbose)
+  data <- .data_from_formula(data, dots, model, verbose = verbose)
 
   approx <- is.null(data)
 
