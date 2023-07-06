@@ -43,9 +43,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
           # because "In Ops.factor(w, t) : ‘|’ not meaningful for factors"
           # When used with the | operator within the formula
           form <- stats::as.formula(vars)
-          data <- stats::model.frame(form, data = dots$data,
-                                     na.action = dots$na.action,
-                                     subset = dots$subset)
+          data <- stats::model.frame(form,
+            data = dots$data,
+            na.action = dots$na.action,
+            subset = dots$subset
+          )
           data[[2]] <- factor(data[[2]])
         } else if (all(vars_split %in% names(dots$data))) {
           data <- dots$data[, vars_split]
@@ -66,9 +68,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       }
     } else if (length(vars_split) == 1) {
       form <- stats::as.formula(paste0(vars, "~1"))
-      data <- stats::model.frame(form, data = dots$data,
-                                 na.action = dots$na.action,
-                                 subset = dots$subset)
+      data <- stats::model.frame(form,
+        data = dots$data,
+        na.action = dots$na.action,
+        subset = dots$subset
+      )
     } else {
       if (verbose) {
         message("To use the `data` argument, consider using modifiers outside the formula.")
