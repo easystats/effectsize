@@ -57,19 +57,10 @@ test_that("edge cases", {
   tt3 <- t.test(mtcars[[col_y]])
   dd3 <- cohens_d(mtcars[[col_y]])
 
-  # Fallback method successful
   rm("col_y")
-  expect_message(expect_warning(
-    effectsize(tt3, data = mtcars), "Unable to retrieve data"
-  ))
-  # This one will never work because the col_y object has been removed, which
-  # was specifying which column of mtcars to use, whereas the data argument
-  # can only specify the larger data set, not the specific column to extract.
-  # Therefore in this case it is acceptable to return the warning about
-  # returning an approximate effect size.
-
-  # expect_equal(effectsize(tt3, data = mtcars)[[1]], dd3[[1]])
-  #> Error in `[.data.frame`(dots$data, , vars) : undefined columns selected
+  expect_warning(effectsize(tt3), "Unable to retrieve data")
+  expect_no_warning(effectsize(tt3, data = mtcars))
+  expect_equal(effectsize(tt3, data = mtcars)[[1]], dd3[[1]])
 
   # Example 4
   tt4 <- t.test(mpg ~ as.factor(am), data = mtcars)

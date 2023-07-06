@@ -49,7 +49,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
           data <- dots$data[, vars_split]
         }
       }
-    } else if (grepl("\\$", vars)) { #  && FALSE
+    } else if (grepl("\\$", vars)) {
       vars_cols <- gsub("(\\b\\w+\\$)", paste0(deparse(substitute(dots$data)), "$"), vars)
       columns <- unlist(strsplit(vars_cols, " and ", fixed = TRUE))
       x = eval(parse(text = columns[1]))
@@ -60,8 +60,12 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       # data <- data.frame(x, y)
       data <- list(x, y)
     } else if (grepl("\\$|\\[", vars)) {
-      obj <- gsub(".*?\\[([^\\[\\]]+)\\].*", "\\1", vars, perl = TRUE)
-      message("Is object '", obj, "' still available in your workspace?")
+      if (length(vars_split) == 1) {
+        data <- dots$data
+      } else {
+        obj <- gsub(".*?\\[([^\\[\\]]+)\\].*", "\\1", vars, perl = TRUE)
+        message("Is object '", obj, "' still available in your workspace?")
+      }
     } else if (length(vars_split) == 1) {
       form <- stats::as.formula(paste0(vars, "~1"))
       data <- stats::model.frame(form, data = dots$data)
@@ -117,11 +121,18 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     }
     data <- stats::na.omit(data)
 
-    args <- list(
-      x = data[[1]],
-      y = if (length(data) == 2) data[[2]],
-      pooled_sd = !grepl("Welch", model$method, fixed = TRUE)
-    )
+    if (!inherits(data, "numeric")) {
+      args <- list(
+        x = data[[1]],
+        y = if (length(data) == 2) data[[2]],
+        pooled_sd = !grepl("Welch", model$method, fixed = TRUE)
+      )
+    } else {
+      args <- list(
+        x = data,
+        pooled_sd = !grepl("Welch", model$method, fixed = TRUE)
+      )
+    }
 
     if (type %in% c("d", "g")) {
       f <- switch(tolower(type),
