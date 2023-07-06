@@ -34,12 +34,12 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 .data_from_formula <- function(data, dots, model, verbose = TRUE) {
   if (is.null(data) && !is.null(dots$data)) {
     vars <- insight::get_parameters(model)$Parameter
-    vars_split <-   unlist(strsplit(vars, " by | and "))
+    vars_split <- unlist(strsplit(vars, " by | and "))
     if (!grepl("\\$|\\[", vars) && length(vars_split) > 1) {
       if (grepl("by|and", vars)) {
         vars <- sub("by|and", "~", vars, perl = TRUE)
-        vars <- sub("and", "|", vars, perl = TRUE)
-        if (!grepl("\\|", vars)) {
+        vars <- sub("and", "|", vars, fixed = TRUE)
+        if (!grepl("\\|", vars, fixed = TRUE)) {
           # because "In Ops.factor(w, t) : ‘|’ not meaningful for factors"
           # When used with the | operator within the formula
           form <- stats::as.formula(vars)
@@ -49,15 +49,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
           data <- dots$data[, vars_split]
         }
       }
-    } else if (grepl("\\$", vars)) {
+    } else if (grepl("\\$", vars, fixed = TRUE)) {
       vars_cols <- gsub("(\\b\\w+\\$)", paste0(deparse(substitute(dots$data)), "$"), vars)
       columns <- unlist(strsplit(vars_cols, " and ", fixed = TRUE))
-      x = eval(parse(text = columns[1]))
-      y = eval(parse(text = columns[2]))
-      # max_length <- max(length(x), length(y))
-      # x <- c(x, rep(NA, max_length - length(x)))
-      # y <- c(y, rep(NA, max_length - length(y)))
-      # data <- data.frame(x, y)
+      x <- eval(parse(text = columns[1]))
+      y <- eval(parse(text = columns[2]))
       data <- list(x, y)
     } else if (grepl("\\$|\\[", vars)) {
       if (length(vars_split) == 1) {

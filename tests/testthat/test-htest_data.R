@@ -39,7 +39,7 @@ test_that("edge cases", {
 
   expect_warning(effectsize(tt1), "Unable to retrieve data")
   expect_no_warning(effectsize(tt1, data = mtcars))
-  expect_equal(effectsize(tt1, data = mtcars)[[1]], dd1[[1]])
+  expect_identical(effectsize(tt1, data = mtcars)[[1]], dd1[[1]])
 
   # Example 2
   dat <- mtcars
@@ -50,7 +50,7 @@ test_that("edge cases", {
   expect_warning(effectsize(tt2), "Unable to retrieve data")
   expect_no_warning(effectsize(tt2, data = mtcars))
 
-  expect_equal(effectsize(tt2, data = mtcars)[[1]], dd2[[1]])
+  expect_identical(effectsize(tt2, data = mtcars)[[1]], dd2[[1]])
 
   # Example 3
   col_y <- "mpg"
@@ -60,7 +60,7 @@ test_that("edge cases", {
   rm("col_y")
   expect_warning(effectsize(tt3), "Unable to retrieve data")
   expect_no_warning(effectsize(tt3, data = mtcars))
-  expect_equal(effectsize(tt3, data = mtcars)[[1]], dd3[[1]])
+  expect_identical(effectsize(tt3, data = mtcars)[[1]], dd3[[1]])
 
   # Example 4
   tt4 <- t.test(mpg ~ as.factor(am), data = mtcars)
@@ -90,5 +90,4 @@ test_that("edge cases", {
 
   x <- t.test(Pair(mpg, hp) ~ 1, data = mtcars)
   expect_no_warning(effectsize(x, data = mtcars))
-
 })
