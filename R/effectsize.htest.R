@@ -35,6 +35,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   if (is.null(data) && !is.null(dots$data)) {
     vars <- insight::get_parameters(model)$Parameter
     vars_split <- unlist(strsplit(vars, " by | and "))
+    other_args <- names(dots) %in% c("na.action", "subset")
     if (!grepl("\\$|\\[", vars) && length(vars_split) > 1) {
       if (grepl("by|and", vars)) {
         vars <- sub("by|and", "~", vars, perl = TRUE)
@@ -50,6 +51,10 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
           )
           data[[2]] <- factor(data[[2]])
         } else if (all(vars_split %in% names(dots$data))) {
+          if (any(other_args)) {
+            args <- paste(names(dots)[other_args], collapse = "' and '")
+            warning("Arguments '", args, "' are ignored for this method.")
+          }
           data <- dots$data[, vars_split]
         }
       }
