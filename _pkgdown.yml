@@ -70,6 +70,7 @@ reference:
       - d_to_u3
       - eta2_to_f2
       - odds_to_probs
+      - v_to_t
 
   - title: "Interpretation"
     contents:
@@ -126,6 +127,8 @@ navbar:
         - text: "Confidence Intervals"
           href: reference/effectsize_CIs.html
         - text: -------
+        - text: "Plotting Functions"
+          href: https://easystats.github.io/see/articles/effectsize.html
         - text: "Extending effectsize"
           href: articles/effectsize_API.html
     - text: "Conversion"

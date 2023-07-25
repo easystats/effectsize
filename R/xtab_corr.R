@@ -1,3 +1,5 @@
+# styler: off
+
 #' \eqn{\phi} and Other Contingency Tables Correlations
 #'
 #' Compute phi (\eqn{\phi}), Cramer's *V*, Tschuprow's *T*, Cohen's *w*,
@@ -30,7 +32,8 @@
 #' or Pearson's *C* can be used. Cohen's *w* has no upper bound (can be
 #' arbitrarily large, depending on the expected distribution). *Fei* is an
 #' adjusted Cohen's *w*, accounting for the expected distribution, making it
-#' bounded between 0-1. Pearson's *C* is also bounded between 0-1.
+#' bounded between 0-1 (Ben-Shachar et al, 2023). Pearson's *C* is also bounded
+#' between 0-1.
 #' \cr \cr
 #' To summarize, for correlation-like effect sizes, we recommend:
 #'
@@ -40,6 +43,7 @@
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @return A data frame with the effect size (`Cramers_v`, `phi` (possibly with
 #'   the suffix `_adjusted`), `Cohens_w`, `Fei`) and its CIs (`CI_low` and
@@ -90,8 +94,12 @@
 #' cohens_w(Smoking_FASD, p = c(0.015, 0.010, 0.975))
 #'
 #' pearsons_c(Smoking_FASD, p = c(0.015, 0.010, 0.975))
+#'
 #' @references
 #' - Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
+#' - Ben-Shachar, M.S., Patil, I., Thériault, R., Wiernik, B.M., Lüdecke, D.
+#' (2023). Phi, Fei, Fo, Fum: Effect Sizes for Categorical Data That Use the
+#' Chi‑Squared Statistic. Mathematics, 11, 1982. \doi{10.3390/math11091982}
 #' - Johnston, J. E., Berry, K. J., & Mielke Jr, P. W. (2006). Measures of
 #' effect size for chi-squared and likelihood-ratio goodness-of-fit tests.
 #' Perceptual and motor skills, 103(2), 412-414.
@@ -99,13 +107,12 @@
 #' tests to effect sizes for meta-analysis. PloS one, 5(4), e10059.
 #'
 #'
-#' @importFrom stats chisq.test
 #' @export
 phi <- function(x, y = NULL,
                 adjust = TRUE,
                 ci = 0.95, alternative = "greater",
                 ...) {
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "phi", adjust = adjust, ci = ci))
@@ -118,13 +125,12 @@ phi <- function(x, y = NULL,
 }
 
 #' @rdname phi
-#' @importFrom stats chisq.test
 #' @export
 cramers_v <- function(x, y = NULL,
                       adjust = TRUE,
                       ci = 0.95, alternative = "greater",
                       ...) {
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci))
@@ -138,12 +144,12 @@ cramers_v <- function(x, y = NULL,
 
 
 #' @rdname phi
-#' @importFrom stats chisq.test
 #' @export
 tschuprows_t <- function(x, y = NULL,
+                         adjust = TRUE,
                          ci = 0.95, alternative = "greater",
                          ...) {
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "tschuprows_t", ci = ci))
@@ -152,16 +158,15 @@ tschuprows_t <- function(x, y = NULL,
     x$data.name <- NULL
   }
 
-  effectsize(x, type = "tschuprows_t", ci = ci, alternative = alternative)
+  effectsize(x, type = "tschuprows_t", adjust = adjust, ci = ci, alternative = alternative)
 }
 
 #' @rdname phi
-#' @importFrom stats chisq.test
 #' @export
 cohens_w <- function(x, y = NULL, p = rep(1, length(x)),
                      ci = 0.95, alternative = "greater",
                      ...) {
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "cohens_w", ci = ci))
@@ -178,30 +183,36 @@ cohens_w <- function(x, y = NULL, p = rep(1, length(x)),
 
 
 #' @rdname phi
-#' @importFrom stats chisq.test
 #' @export
 fei <- function(x, p = rep(1, length(x)),
                 ci = 0.95, alternative = "greater",
                 ...) {
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
 
   if (inherits(x, "BFBayesFactor")) {
     insight::format_error("Fei is only applicable to goodness of fit tests.")
   } else if (!.is_htest_of_type(x, "Chi-squared test for given probabilities", "Chi-squared-test")) {
     x <- suppressWarnings(stats::chisq.test(x, y = NULL, p = p, rescale.p = TRUE))
     x$data.name <- NULL
+
+    table_dim <- dim(x$observed)
+    is_1d_table <- is.null(table_dim) ||            # vector
+      length(table_dim) == 1 ||                     # 1D table
+      (length(table_dim) == 2 && any(table_dim == 1))
+    if (!is_1d_table) {
+      insight::format_error("Fei is only applicable to goodness of fit tests.")
+    }
   }
 
   effectsize(x, type = "fei", ci = ci, alternative = alternative)
 }
 
 #' @rdname phi
-#' @importFrom stats chisq.test
 #' @export
 pearsons_c <- function(x, y = NULL, p = rep(1, length(x)),
                        ci = 0.95, alternative = "greater",
                        ...) {
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "pearsons_c", ci = ci))
@@ -215,3 +226,6 @@ pearsons_c <- function(x, y = NULL, p = rep(1, length(x)),
 
   effectsize(x, type = "pearsons_c", ci = ci, alternative = alternative)
 }
+
+
+# styler: on

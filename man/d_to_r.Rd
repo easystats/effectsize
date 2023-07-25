@@ -2,21 +2,15 @@
 % Please edit documentation in R/convert_between_d_to_r.R
 \name{d_to_r}
 \alias{d_to_r}
-\alias{convert_d_to_r}
 \alias{r_to_d}
-\alias{convert_r_to_d}
 \alias{oddsratio_to_d}
-\alias{convert_oddsratio_to_d}
 \alias{logoddsratio_to_d}
-\alias{convert_logoddsratio_to_d}
 \alias{d_to_oddsratio}
-\alias{convert_d_to_oddsratio}
+\alias{d_to_logoddsratio}
 \alias{oddsratio_to_r}
-\alias{convert_oddsratio_to_r}
 \alias{logoddsratio_to_r}
-\alias{convert_logoddsratio_to_r}
 \alias{r_to_oddsratio}
-\alias{convert_r_to_oddsratio}
+\alias{r_to_logoddsratio}
 \title{Convert Between \emph{d}, \emph{r}, and Odds Ratio}
 \usage{
 d_to_r(d, n1, n2, ...)
@@ -25,28 +19,30 @@ r_to_d(r, n1, n2, ...)
 
 oddsratio_to_d(OR, log = FALSE, ...)
 
-logoddsratio_to_d(OR, log = TRUE, ...)
+logoddsratio_to_d(logOR, log = TRUE, ...)
 
 d_to_oddsratio(d, log = FALSE, ...)
 
+d_to_logoddsratio(d, log = TRUE, ...)
+
 oddsratio_to_r(OR, n1, n2, log = FALSE, ...)
 
-logoddsratio_to_r(OR, log = TRUE, ...)
+logoddsratio_to_r(logOR, log = TRUE, ...)
 
 r_to_oddsratio(r, n1, n2, log = FALSE, ...)
+
+r_to_logoddsratio(r, n1, n2, log = TRUE, ...)
 }
 \arguments{
-\item{d}{Standardized difference value (Cohen's d).}
+\item{d, r, OR, logOR}{Standardized difference value (Cohen's d), correlation
+coefficient (r), Odds ratio, or logged Odds ratio.}
 
 \item{n1, n2}{Group sample sizes. If either is missing, groups are assumed to be of equal size.}
 
 \item{...}{Arguments passed to or from other methods.}
 
-\item{r}{Correlation coefficient r.}
-
-\item{OR}{\emph{Odds ratio} values in vector or data frame.}
-
-\item{log}{Take in or output the log of the ratio (such as in logistic models).}
+\item{log}{Take in or output the log of the ratio (such as in logistic models),
+e.g. when the desired input or output are log odds ratios instead odds ratios.}
 }
 \value{
 Converted index.
@@ -88,7 +84,7 @@ oddsratio_to_d(1.813799, log = TRUE)
 \item Borenstein, M., Hedges, L. V., Higgins, J. P. T., & Rothstein, H. R.
 (2009). Converting among effect sizes. Introduction to meta-analysis, 45-49.
 \item Jacobs, P., & Viechtbauer, W. (2017). Estimation of the biserial
-correlation and its sampling variance for use in meta‐analysis. Research
+correlation and its sampling variance for use in meta-analysis. Research
 synthesis methods, 8(2), 161-180. \doi{10.1002/jrsm.1218}
 \item Rosenthal, R., & Rubin, D. B. (1982). A simple, general purpose display of
 magnitude of experimental effect. Journal of educational psychology, 74(2), 166.
@@ -104,6 +100,7 @@ Other convert between effect sizes:
 \code{\link{diff_to_cles}},
 \code{\link{eta2_to_f2}()},
 \code{\link{odds_to_probs}()},
-\code{\link{oddsratio_to_riskratio}()}
+\code{\link{oddsratio_to_riskratio}()},
+\code{\link{w_to_fei}()}
 }
 \concept{convert between effect sizes}

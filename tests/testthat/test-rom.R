@@ -1,5 +1,3 @@
-# library(testthat)
-
 test_that("means_ratio", {
   # Direction ---------------------------------------------------------------
   rez_t <- t.test(iris$Sepal.Length, iris$Sepal.Width)

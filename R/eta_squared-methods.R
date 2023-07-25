@@ -170,8 +170,6 @@
 #' @keywords internal
 .anova_es.anova.lme <- .anova_es.anova
 
-
-
 #' @importFrom stats na.omit
 #' @keywords internal
 .anova_es.parameters_model <- function(model,
@@ -192,10 +190,7 @@
       ...
     )
     saved_attr <- attributes(out[[1]])
-    out <- mapply(out, names(out),
-      FUN = function(x, nm) cbind(Response = nm, x),
-      SIMPLIFY = FALSE
-    )
+    out <- Map(function(x, nm) cbind(Response = nm, x), out, names(out))
     out <- do.call(rbind, out)
     out$Parameter <- as.character(out$Parameter)
 
@@ -296,7 +291,7 @@
                             ci = 0.95, alternative = "greater",
                             verbose = TRUE,
                             ...) {
-  if (!grepl("One-way", model$method)) {
+  if (!grepl("One-way", model$method, fixed = TRUE)) {
     insight::format_error("'model' is not a one-way test!")
   }
 
@@ -313,10 +308,7 @@
   effectsize(model, type = type, ci = ci, alternative = alternative, verbose = verbose, ...)
 }
 
-
 #' @keywords internal
-#' @importFrom stats anova
-#' @importFrom insight check_if_installed
 .anova_es.merMod <- function(model,
                              type = c("eta", "omega", "epsilon"),
                              partial = TRUE,
@@ -343,7 +335,6 @@
 }
 
 #' @keywords internal
-#' @importFrom stats anova
 .anova_es.gam <- function(model,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,
@@ -355,7 +346,6 @@
 
   p.table <- as.data.frame(model$pTerms.table)
   s.table <- as.data.frame(model$s.table)
-  colnames(s.table)[colnames(s.table) == "Ref.df"] <- "df"
   s.table[setdiff(colnames(p.table), colnames(s.table))] <- NA
   p.table[setdiff(colnames(s.table), colnames(p.table))] <- NA
   tab <- rbind(p.table, s.table)
@@ -380,7 +370,6 @@
 
 
 #' @keywords internal
-#' @importFrom stats anova
 .anova_es.rms <- function(model,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,

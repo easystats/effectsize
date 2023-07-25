@@ -43,6 +43,7 @@
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @note Adjusted (partial) Eta-squared is an alias for (partial) Epsilon-squared.
 #'
@@ -183,7 +184,8 @@ F_to_omega2 <- function(f, df, df_error,
 #' @rdname F_to_eta2
 #' @export
 t_to_omega2 <- function(t, df_error,
-                        ci = 0.95, alternative = "greater", ...) {
+                        ci = 0.95, alternative = "greater",
+                        ...) {
   F_to_omega2(t^2, 1, df_error,
     ci = ci, alternative = alternative,
     ...
@@ -274,7 +276,7 @@ t_to_f2 <- function(t, df_error,
                       es = "eta2",
                       ci = 0.95, alternative = "greater",
                       verbose = TRUE, ...) {
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
 
   res <- switch(tolower(es),
     eta2 = data.frame(Eta2_partial = (f * df) / (f * df + df_error)),

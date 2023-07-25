@@ -1,4 +1,10 @@
-# library(testthat)
+test_that("alternative = NULL", {
+  m <- aov(mpg ~ factor(cyl) + hp, mtcars)
+  expect_equal(
+    eta_squared(m),
+    eta_squared(m, alternative = NULL)
+  )
+})
 
 # anova() -----------------------------------------------------------------
 test_that("anova()", {
@@ -203,7 +209,7 @@ test_that("mlm / anova table", {
 
   # MANOVA table
   mod <- manova(cbind(mpg, qsec) ~ am_f * cyl_f, data = mtcars)
-  expect_equal(nrow(eta_squared(mod)), 3L)
+  expect_identical(nrow(eta_squared(mod)), 3L)
 
   # Row order
   fit <- lm(cbind(mpg, disp, hp) ~ factor(cyl), data = mtcars)
@@ -352,12 +358,12 @@ test_that("failed CIs", {
 
   expect_warning(eta_squared(model), regexp = "CIs")
   expect_warning(eta <- eta_squared(model, verbose = FALSE), regexp = NA)
-  expect_equal(nrow(eta), 2L)
+  expect_identical(nrow(eta), 2L)
   expect_equal(eta[1, "Eta2_partial"], 1)
 
   expect_warning(eta_squared(model, partial = FALSE), regexp = "CIs")
   expect_warning(eta <- eta_squared(model, partial = FALSE, verbose = FALSE), regexp = NA)
-  expect_equal(nrow(eta), 2L)
+  expect_identical(nrow(eta), 2L)
   expect_equal(eta[1, "Eta2"], 0.34, tolerance = 0.01)
 })
 
@@ -372,23 +378,23 @@ test_that("include_intercept | car", {
 
   res0 <- eta_squared(AOV, verbose = FALSE)
   res1 <- eta_squared(AOV, include_intercept = TRUE, verbose = FALSE)
-  expect_equal(nrow(res0), 3)
-  expect_equal(nrow(res1), nrow(res0) + 1)
-  expect_equal(res1[[1]][1], "(Intercept)")
+  expect_identical(nrow(res0), 3L)
+  expect_identical(nrow(res1), nrow(res0) + 1L)
+  expect_identical(res1[[1]][1], "(Intercept)")
   expect_equal(res1[[2]][1], 0.8680899, tolerance = 0.01)
 
   res0 <- epsilon_squared(AOV, verbose = FALSE)
   res1 <- epsilon_squared(AOV, include_intercept = TRUE, verbose = FALSE)
-  expect_equal(nrow(res0), 3)
-  expect_equal(nrow(res1), nrow(res0) + 1)
+  expect_identical(nrow(res0), 3L)
+  expect_identical(nrow(res1), nrow(res0) + 1L)
   expect_equal(res1[[1]][1], "(Intercept)")
 
 
   res0 <- omega_squared(AOV, verbose = FALSE)
   res1 <- omega_squared(AOV, include_intercept = TRUE, verbose = FALSE)
-  expect_equal(nrow(res0), 3)
-  expect_equal(nrow(res1), nrow(res0) + 1)
-  expect_equal(res1[[1]][1], "(Intercept)")
+  expect_identical(nrow(res0), 3L)
+  expect_identical(nrow(res1), nrow(res0) + 1L)
+  expect_identical(res1[[1]][1], "(Intercept)")
 
   # generalized
   res1 <- eta_squared(AOV, generalized = "cyl", include_intercept = TRUE, verbose = FALSE)
@@ -410,14 +416,14 @@ test_that("include_intercept | afex", {
 
   resE0 <- eta_squared(a, verbose = FALSE)
   resA0 <- anova(a, es = "pes")
-  expect_equal(nrow(resE0), 3)
-  expect_equal(nrow(resE0), nrow(resA0))
+  expect_identical(nrow(resE0), 3L)
+  expect_identical(nrow(resE0), nrow(resA0))
 
 
   resE1 <- eta_squared(a, include_intercept = TRUE, verbose = FALSE)
   resA1 <- anova(a, es = "pes", intercept = TRUE)
-  expect_equal(nrow(resE1), nrow(resE0) + 1)
-  expect_equal(nrow(resE1), nrow(resA1))
+  expect_identical(nrow(resE1), nrow(resE0) + 1L)
+  expect_identical(nrow(resE1), nrow(resA1))
 
   skip_if_not_installed("car")
   resE1 <- eta_squared(car::Anova(a$aov, type = 3), include_intercept = TRUE, generalized = "gender", verbose = FALSE)

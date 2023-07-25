@@ -85,6 +85,7 @@ Other convert between effect sizes:
 \code{\link{d_to_r}()},
 \code{\link{eta2_to_f2}()},
 \code{\link{odds_to_probs}()},
-\code{\link{oddsratio_to_riskratio}()}
+\code{\link{oddsratio_to_riskratio}()},
+\code{\link{w_to_fei}()}
 }
 \concept{convert between effect sizes}

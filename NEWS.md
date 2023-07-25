@@ -1,4 +1,33 @@
-# effectsize 0.8.2.xxx
+# effectsize (development version)
+
+## New features
+
+- `tschuprows_t()` now returns an effect size corrected for small-sample bias. Set `adjust = FALSE` to preserve old behavior.
+- `w_to_v()` and others for converting between effect sizes of Chi-square tests.
+- `arr()` and `nnt()` for Absolute Risk Reduction or Number Needed to Treat.
+- `oddsratio_to_arr()`, `riskratio_to_arr()`, `nnt_to_arr()` and their inverses.
+- `logoddsratio_to_*()` and `*_to_logoddsratio()` have been added as convenient shortcuts for `oddsratio_to_*(log = TRUE)` and `*_to_oddsratio(log = TRUE)`.
+- Added all missing functions to convert between (log) OR, RR, ARR, and NNT.
+
+## Changes
+
+- `fei()` gives a more informative error method for invalid table inputs (#566).
+- `convert_*()` aliases are deprecated.
+
+## Breaking Changes
+
+- `*_to_riskratio()` and `riskratio_to_*()` argument `log` not longer converts RR to/from log(RR).
+
+## Bug fixes
+
+- `riskratio()` returns correct CIs (#584)  
+- `d_to_r()` correctly treats specifying only `n1`/`n2` as equal group sizes (#571)
+
+# effectsize 0.8.3
+
+## Changes
+
+- `mahalanobis_d()` now defaults to one-sided CIs.
 
 ## New features
 
@@ -11,7 +40,7 @@
 - ANOVA effect sizes for `afex::mixed()` now return effect sizes for the Intercept where applicable.
 - Fixed error in `cohens_w()` for 2-by-X tables.  
 - Solved integer overflow errors in `rank_biserial()` ( #476 )
-
+- Fixed issue in `effectsize()` for t-tests when input vectors has unequal amount of missing values.
 
 # effectsize 0.8.2
 
@@ -24,7 +53,7 @@
 
 ## Changes
 
-- cohens_w() has an exact upper bound when used as an effect size for goodness-of-fit.
+- `cohens_w()` has an exact upper bound when used as an effect size for goodness-of-fit.
 
 ## Bug fixes
 
@@ -43,7 +72,7 @@
 
 ## Changes
 
-- `phi()` and `cramers_v()` (and `chisq_to_phi/cramers_v()`) now apply the small sample bias correction by default. To restore previous behavior, set `adjust = FALSE`.
+- `phi()` and `cramers_v()` (and `chisq_to_phi/cramers_v()`) now apply the small-sample bias correction by default. To restore previous behavior, set `adjust = FALSE`.
 
 ## New features
 
@@ -191,7 +220,7 @@ See [*Support functions for model extensions* vignette](https://easystats.github
 
 ## New features
 
-- `standardize_parameters()` + `eta_sqaured()` support `tidymodels` (when that the underlying model is supported; #311 ).
+- `standardize_parameters()` + `eta_squared()` support `tidymodels` (when that the underlying model is supported; #311 ).
 - `cohens_d()` family now supports `Pairs()` objects as input.
 - `standardize_parameters()` gains the `include_response` argument (default to `TRUE`) ( #309 ).
 

@@ -13,7 +13,14 @@ phi(x, y = NULL, adjust = TRUE, ci = 0.95, alternative = "greater", ...)
 
 cramers_v(x, y = NULL, adjust = TRUE, ci = 0.95, alternative = "greater", ...)
 
-tschuprows_t(x, y = NULL, ci = 0.95, alternative = "greater", ...)
+tschuprows_t(
+  x,
+  y = NULL,
+  adjust = TRUE,
+  ci = 0.95,
+  alternative = "greater",
+  ...
+)
 
 cohens_w(
   x,
@@ -42,8 +49,8 @@ pearsons_c(
 \item{y}{a numeric vector; ignored if \code{x} is a matrix.  If
     \code{x} is a factor, \code{y} should be a factor of the same length.}
 
-\item{adjust}{Should the effect size be bias-corrected? Defaults to \code{TRUE};
-Advisable for small samples and large tables.}
+\item{adjust}{Should the effect size be corrected for small-sample bias?
+Defaults to \code{TRUE}; Advisable for small samples and large tables.}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -89,7 +96,8 @@ For goodness-of-fit in 1D tables Cohen's \emph{W}, \ifelse{latex}{\eqn{Fei}}{פ 
 or Pearson's \emph{C} can be used. Cohen's \emph{w} has no upper bound (can be
 arbitrarily large, depending on the expected distribution). \emph{Fei} is an
 adjusted Cohen's \emph{w}, accounting for the expected distribution, making it
-bounded between 0-1. Pearson's \emph{C} is also bounded between 0-1.
+bounded between 0-1 (Ben-Shachar et al, 2023). Pearson's \emph{C} is also bounded
+between 0-1.
 \cr \cr
 To summarize, for correlation-like effect sizes, we recommend:
 \itemize{
@@ -135,6 +143,11 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 1996).
 }
 
+\section{Plotting with \code{see}}{
+
+The \code{see} package contains relevant plotting functions. See the \href{https://easystats.github.io/see/articles/effectsize.html}{plotting vignette in the \code{see} package}.
+}
+
 \examples{
 
 ## 2-by-2 tables
@@ -177,10 +190,14 @@ fei(Smoking_FASD, p = c(0.015, 0.010, 0.975))
 cohens_w(Smoking_FASD, p = c(0.015, 0.010, 0.975))
 
 pearsons_c(Smoking_FASD, p = c(0.015, 0.010, 0.975))
+
 }
 \references{
 \itemize{
 \item Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.
+\item Ben-Shachar, M.S., Patil, I., Thériault, R., Wiernik, B.M., Lüdecke, D.
+(2023). Phi, Fei, Fo, Fum: Effect Sizes for Categorical Data That Use the
+Chi‑Squared Statistic. Mathematics, 11, 1982. \doi{10.3390/math11091982}
 \item Johnston, J. E., Berry, K. J., & Mielke Jr, P. W. (2006). Measures of
 effect size for chi-squared and likelihood-ratio goodness-of-fit tests.
 Perceptual and motor skills, 103(2), 412-414.

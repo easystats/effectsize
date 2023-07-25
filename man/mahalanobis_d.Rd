@@ -11,7 +11,7 @@ mahalanobis_d(
   pooled_cov = TRUE,
   mu = 0,
   ci = 0.95,
-  alternative = "two.sided",
+  alternative = "greater",
   verbose = TRUE,
   ...
 )
@@ -101,6 +101,11 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 1996).
 }
 
+\section{Plotting with \code{see}}{
+
+The \code{see} package contains relevant plotting functions. See the \href{https://easystats.github.io/see/articles/effectsize.html}{plotting vignette in the \code{see} package}.
+}
+
 \examples{
 ## Two samples --------------
 mtcars_am0 <- subset(mtcars, am == 0,
@@ -115,7 +120,7 @@ mahalanobis_d(mtcars_am0, mtcars_am1)
 # Or
 mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars)
 
-mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars, alternative = "greater")
+mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars, alternative = "two.sided")
 
 # Different mu:
 mahalanobis_d(mpg + hp + cyl ~ am,

@@ -117,6 +117,11 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 1996).
 }
 
+\section{Plotting with \code{see}}{
+
+The \code{see} package contains relevant plotting functions. See the \href{https://easystats.github.io/see/articles/effectsize.html}{plotting vignette in the \code{see} package}.
+}
+
 \examples{
 ## t Tests
 res <- t.test(1:10, y = c(7:20), var.equal = TRUE)

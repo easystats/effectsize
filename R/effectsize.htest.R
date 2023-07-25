@@ -1,23 +1,23 @@
 #' @export
 #' @rdname effectsize
 effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
-  if (grepl("t-test", model$method)) {
+  if (grepl("t-test", model$method, fixed = TRUE)) {
     .effectsize_t.test(model, type = type, verbose = verbose, ...)
-  } else if (grepl("Pearson's Chi-squared", model$method)) {
+  } else if (grepl("Pearson's Chi-squared", model$method, fixed = TRUE)) {
     .effectsize_chisq.test_dep(model, type = type, verbose = verbose, ...)
-  } else if (grepl("Chi-squared test for given probabilities", model$method)) {
+  } else if (grepl("Chi-squared test for given probabilities", model$method, fixed = TRUE)) {
     .effectsize_chisq.test_gof(model, type = type, verbose = verbose, ...)
-  } else if (grepl("Fisher's Exact", model$method)) {
+  } else if (grepl("Fisher's Exact", model$method, fixed = TRUE)) {
     .effectsize_fisher.test(model, type = type, verbose = verbose, ...)
-  } else if (grepl("One-way", model$method)) {
+  } else if (grepl("One-way", model$method, fixed = TRUE)) {
     .effectsize_oneway.test(model, type = type, verbose = verbose, ...)
-  } else if (grepl("McNemar", model$method)) {
+  } else if (grepl("McNemar", model$method, fixed = TRUE)) {
     .effectsize_mcnemar.test(model, type = type, verbose = verbose, ...)
-  } else if (grepl("Wilcoxon", model$method)) {
+  } else if (grepl("Wilcoxon", model$method, fixed = TRUE)) {
     .effectsize_wilcox.test(model, type = type, verbose = verbose, ...)
-  } else if (grepl("Kruskal-Wallis", model$method)) {
+  } else if (grepl("Kruskal-Wallis", model$method, fixed = TRUE)) {
     .effectsize_kruskal.test(model, type = type, verbose = verbose, ...)
-  } else if (grepl("Friedman", model$method)) {
+  } else if (grepl("Friedman", model$method, fixed = TRUE)) {
     .effectsize_friedman.test(model, type = type, verbose = verbose, ...)
   } else {
     if (verbose) {
@@ -44,7 +44,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   dots$alternative <- model$alternative
   dots$ci <- attr(model$conf.int, "conf.level")
   dots$mu <- model$null.value
-  dots$paired <- !grepl("Two", model$method)
+  dots$paired <- !grepl("Two", model$method, fixed = TRUE)
   dots$verbose <- verbose
 
   if (!type %in% c("d", "g")) {
@@ -53,7 +53,10 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   if (approx) {
     if (verbose) {
-      insight::format_warning("Unable to retrieve data from htest object. Returning an {.b approximate} effect size using t_to_d().")
+      insight::format_warning(
+        "Unable to retrieve data from htest object.",
+        "Returning an {.b approximate} effect size using t_to_d()."
+      )
     }
 
     f <- t_to_d
@@ -62,20 +65,16 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       df_error = unname(model$parameter)
     )
   } else {
-    if (grepl(" by ", model$data.name, fixed = TRUE)) {
+    if (ncol(data) == 2) {
       data[[2]] <- factor(data[[2]])
     }
+    data <- stats::na.omit(data)
 
     args <- list(
       x = data[[1]],
       y = if (ncol(data) == 2) data[[2]],
-      pooled_sd = !grepl("Welch", model$method)
+      pooled_sd = !grepl("Welch", model$method, fixed = TRUE)
     )
-
-    if (!isTRUE(dots$paired)) {
-      args$x <- na.omit(args$x)
-      args$y <- na.omit(args$y)
-    }
 
     if (type %in% c("d", "g")) {
       f <- switch(tolower(type),
@@ -122,7 +121,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   if (is.null(type)) type <- "cramers_v"
 
-  if (grepl("(c|v|t|w|phi)$", tolower(type))) {
+  if (grepl("(c|v|t|w|phi)$", tolower(type)) && tolower(type) != "nnt") {
     f <- switch(tolower(type),
       v = ,
       cramers_v = chisq_to_cramers_v,
@@ -150,7 +149,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       rr = ,
       riskratio = riskratio,
       h = ,
-      cohens_h = cohens_h
+      cohens_h = cohens_h,
+      arr = arr,
+      nnt = nnt
     )
 
     out <- f(x = model$observed, ...)
@@ -169,7 +170,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     out <- data.frame(Odds_ratio = unname(model[["estimate"]]))
     ci_method <- NULL
 
-    if (!is.null(ci <- model[["conf.int"]])) {
+    ci <- model[["conf.int"]]
+    if (!is.null(ci)) {
       out$CI <- attr(ci, "conf.level")
       out$CI_low <- ci[1]
       out$CI_high <- ci[2]
@@ -208,7 +210,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     rr = ,
     riskratio = riskratio,
     h = ,
-    cohens_h = cohens_h
+    cohens_h = cohens_h,
+    arr = arr,
+    nnt = nnt
   )
 
   if (is.table(data)) {
@@ -267,7 +271,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   dots <- list(...)
 
   if ((approx <- grepl("not assuming", model$method, fixed = TRUE)) && verbose) {
-    insight::format_warning("`var.equal = FALSE` - effect size is an {.b approximation.}")
+    insight::format_alert("`var.equal = FALSE` - effect size is an {.b approximation.}")
   }
 
   if (is.null(type)) type <- "eta"
@@ -296,7 +300,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     verbose = verbose,
     ...
   )
-  colnames(out)[1] <- sub("_partial", "", colnames(out)[1])
+  colnames(out)[1] <- sub("_partial", "", colnames(out)[1], fixed = TRUE)
   attr(out, "approximate") <- approx
   out
 }
@@ -336,6 +340,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   .fail_if_approx(approx, type)
 
+  if (ncol(data) == 2) {
+    data[[2]] <- factor(data[[2]])
+  }
+  data <- stats::na.omit(data)
+
   f <- switch(tolower(type),
     rb = rank_biserial,
     u1 = cohens_u1,
@@ -352,11 +361,6 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     y = if (ncol(data) == 2) data[[2]],
     verbose = verbose
   )
-
-  if (!isTRUE(dots$paired)) {
-    args$x <- na.omit(args$x)
-    args$y <- na.omit(args$y)
-  }
 
   if (tolower(type) != "rb") {
     if (dots$paired) {

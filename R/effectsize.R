@@ -8,11 +8,13 @@
 #' @param ... Arguments passed to or from other methods. See details.
 #' @inheritParams datawizard::standardize.default
 #'
+#' @inheritSection print.effectsize_table Plotting with `see`
+#'
 #' @details
 #'
 #' - For an object of class `htest`, data is extracted via [insight::get_data()], and passed to the relevant function according to:
 #'   - A **t-test** depending on `type`: `"cohens_d"` (default), `"hedges_g"`, or one of `"p_superiority"`, `"u1"`, `"u2"`, `"u3"`, `"overlap"`.
-#'   - A **Chi-squared tests of independence** or **Fisher's Exact Test**, depending on `type`: `"cramers_v"` (default), `"tschuprows_t"`, `"phi"`, `"cohens_w"`, `"pearsons_c"`, `"cohens_h"`, `"oddsratio"`, or `"riskratio"`.
+#'   - A **Chi-squared tests of independence** or **Fisher's Exact Test**, depending on `type`: `"cramers_v"` (default), `"tschuprows_t"`, `"phi"`, `"cohens_w"`, `"pearsons_c"`, `"cohens_h"`, `"oddsratio"`, `"riskratio"`, `"arr"`, or `"nnt"`.
 #'   - A **Chi-squared tests of goodness-of-fit**, depending on `type`: `"fei"` (default) `"cohens_w"`, `"pearsons_c"`
 #'   - A **One-way ANOVA test**, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.
 #'   - A **McNemar test** returns *Cohen's g*.
@@ -23,7 +25,7 @@
 #' - For an object of class `BFBayesFactor`, using [bayestestR::describe_posterior()],
 #'   - A **t-test** depending on `type`: `"cohens_d"` (default) or one of `"p_superiority"`, `"u1"`, `"u2"`, `"u3"`, `"overlap"`.
 #'   - A **correlation test** returns *r*.
-#'   - A **contingency table test**, depending on `type`: `"cramers_v"` (default), `"phi"`, `"tschuprows_t"`, `"cohens_w"`, `"pearsons_c"`, `"cohens_h"`, `"oddsratio"`, or `"riskratio"`.
+#'   - A **contingency table test**, depending on `type`: `"cramers_v"` (default), `"phi"`, `"tschuprows_t"`, `"cohens_w"`, `"pearsons_c"`, `"cohens_h"`, `"oddsratio"`, or `"riskratio"`, `"arr"`, or `"nnt"`.
 #'   - A **proportion test** returns *p*.
 #' - Objects of class `anova`, `aov`, `aovlist` or `afex_aov`, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.
 #' - Other objects are passed to [parameters::standardize_parameters()].
@@ -78,6 +80,7 @@
 #' bf_xtab <- BayesFactor::contingencyTableBF(RCT_table, sampleType = "poisson", fixedMargin = "cols")
 #' effectsize(bf_xtab)
 #' effectsize(bf_xtab, type = "oddsratio")
+#' effectsize(bf_xtab, type = "arr")
 #'
 #' bf_ttest <- BayesFactor::ttestBF(sleep$extra[sleep$group == 1],
 #'   sleep$extra[sleep$group == 2],
@@ -127,7 +130,8 @@ effectsize.aovlist <- effectsize.anova
 
 #' @export
 effectsize.easycorrelation <- function(model, ...) {
-  if (is.null(r_name <- attr(model, "coefficient_name"))) {
+  r_name <- attr(model, "coefficient_name")
+  if (is.null(r_name)) {
     r_name <- "r"
   }
 

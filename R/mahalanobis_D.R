@@ -24,6 +24,7 @@
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @details
 #' To specify a `x` as a formula:
@@ -55,7 +56,7 @@
 #' # Or
 #' mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars)
 #'
-#' mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars, alternative = "greater")
+#' mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars, alternative = "two.sided")
 #'
 #' # Different mu:
 #' mahalanobis_d(mpg + hp + cyl ~ am,
@@ -79,15 +80,14 @@
 #'   mu = c(mpg = 15, hp = 5, cyl = 3)
 #' )
 #'
-#' @importFrom stats cov
 #' @export
 mahalanobis_d <- function(x, y = NULL, data = NULL,
                           pooled_cov = TRUE, mu = 0,
-                          ci = 0.95, alternative = "two.sided",
+                          ci = 0.95, alternative = "greater",
                           verbose = TRUE, ...) {
   # TODO add one sample case DV1 + DV2 ~ 1
   # TODO add paired samples case DV1 + DV2 ~ 1 | ID
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
   data <- .get_data_multivariate(x, y, data, verbose = verbose, ...)
   x <- data[["x"]]
   y <- data[["y"]]
@@ -109,7 +109,7 @@ mahalanobis_d <- function(x, y = NULL, data = NULL,
     insight::format_error("mu must be of length 1 or a named vector/list of length ncol(x).")
   } else if (!all(names(mu) == colnames(x))) {
     insight::format_error("x,y must have the same variables (in the same order)")
-  } else if (!all(lengths(mu) == 1L) || !all(sapply(mu, is.numeric))) {
+  } else if (!all(lengths(mu) == 1L) || !all(vapply(mu, is.numeric, TRUE))) {
     insight::format_error("Each element of mu must be a numeric vector of length 1.")
   }
   mu <- unlist(mu)

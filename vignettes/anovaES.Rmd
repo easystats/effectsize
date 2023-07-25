@@ -23,8 +23,14 @@ options(digits = 2)
 knitr::opts_chunk$set(comment = ">", warning = FALSE)
 
 set.seed(1)
-pkgs <- c("effectsize", "afex")
-knitr::opts_chunk$set(eval = all(sapply(pkgs, requireNamespace, quietly = TRUE)))
+
+
+.eval_if_requireNamespace <- function(...) {
+  pkgs <- c(...)
+  knitr::opts_chunk$get("eval") && all(sapply(pkgs, requireNamespace, quietly = TRUE))
+}
+
+knitr::opts_chunk$set(eval = .eval_if_requireNamespace("effectsize", "afex"))
 ```
 
 ## Eta<sup>2</sup>
@@ -112,7 +118,7 @@ is common to use "simultaneous" sums of squares (*type-II* or *type-III* tests),
 where each *SS* is computed controlling for all other predictors, regardless of
 order. This can be done with `car::Anova(type = ...)`:
 
-```{r, eval=requireNamespace("car", quietly = TRUE)}
+```{r, eval=.eval_if_requireNamespace("car")}
 eta_squared(car::Anova(m, type = 2), partial = FALSE)
 
 eta_squared(car::Anova(m, type = 3)) # partial = TRUE by default
@@ -138,7 +144,7 @@ for factors this can be done by using orthogonal coding (such as `contr.sum` for
 This unfortunately makes parameter interpretation harder, but *only* when this is does do the *SS*s associated with each lower-order term (or lower-order interaction) represent the ***SS*** of the **main effect** (with treatment coding they represent the *SS* of the simple effects).
 
 
-```{r, eval=requireNamespace("car", quietly = TRUE)}
+```{r, eval=.eval_if_requireNamespace("car")}
 # compare
 m_interaction1 <- lm(value ~ treatment * gender, data = obk.long)
 
@@ -233,12 +239,7 @@ always the case.
 
 For example, in linear mixed models (LMM/HLM/MLM), the estimation of all required *SS*s is not straightforward. However, we can still *approximate* these effect sizes (only their partial versions) based on the **test-statistic approximation method** (learn more in the [*Effect Size from Test Statistics* vignette](https://easystats.github.io/effectsize/articles/from_test_statistics.html)).
 
-```{r, echo = FALSE, eval=TRUE}
-lmm_pkgs <- c("lmerTest", "lme4")
-eval_lmm <- all(sapply(lmm_pkgs, requireNamespace, quietly = TRUE))
-```
-
-```{r, eval=eval_lmm}
+```{r, eval=.eval_if_requireNamespace("lmerTest", "lme4")}
 library(lmerTest)
 
 fit_lmm <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
@@ -251,7 +252,7 @@ F_to_eta2(45.8, df = 1, df_error = 17)
 Or directly with `eta_squared() and co.:
 
 
-```{r, eval=eval_lmm}
+```{r, eval=.eval_if_requireNamespace("lmerTest", "lme4")}
 eta_squared(fit_lmm)
 epsilon_squared(fit_lmm)
 omega_squared(fit_lmm)
@@ -277,14 +278,9 @@ model!** So it is vital to [validate the
 PPD](https://mc-stan.org/docs/2_23/stan-users-guide/meta-models-part.html#meta-models.part/)
 before using it to estimate explained variance measures.
 
-```{r, echo = FALSE, eval=TRUE}
-bayes_pkgs <- c("rstanarm", "bayestestR", "car")
-eval_bayes <- all(sapply(bayes_pkgs, requireNamespace, quietly = TRUE))
-```
-
 Let's fit our model:
 
-```{r, eval = eval_bayes}
+```{r, eval = .eval_if_requireNamespace("rstanarm", "bayestestR", "car")}
 library(rstanarm)
 
 m_bayes <- stan_glm(value ~ gender + phase + treatment,
@@ -297,7 +293,7 @@ We can use `eta_squared_posterior()` to get the posterior distribution of
 $eta^2$ or $eta^2_p$ for each effect. Like an ANOVA table, we must make sure to
 use the right effects-coding and *SS*-type:
 
-```{r, eval = eval_bayes}
+```{r, eval = .eval_if_requireNamespace("rstanarm", "bayestestR", "car")}
 pes_posterior <- eta_squared_posterior(m_bayes,
   draws = 500, # how many samples from the PPD?
   partial = TRUE, # partial eta squared
@@ -315,7 +311,7 @@ bayestestR::describe_posterior(pes_posterior,
 
 Compare to:
 
-```{r, eval = eval_bayes}
+```{r, eval = .eval_if_requireNamespace("rstanarm", "bayestestR", "car")}
 m_ML <- lm(value ~ gender + phase + treatment, data = obk.long)
 
 eta_squared(car::Anova(m_ML, type = 3))

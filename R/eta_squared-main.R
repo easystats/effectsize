@@ -87,6 +87,7 @@
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @seealso [F_to_eta2()]
 #' @family effect sizes for ANOVAs
@@ -203,7 +204,7 @@ eta_squared <- function(model,
                         partial = TRUE, generalized = FALSE,
                         ci = 0.95, alternative = "greater",
                         verbose = TRUE, ...) {
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
   out <- .anova_es(
     model,
     type = "eta",
@@ -225,7 +226,7 @@ omega_squared <- function(model,
                           partial = TRUE,
                           ci = 0.95, alternative = "greater",
                           verbose = TRUE, ...) {
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
   out <- .anova_es(model, type = "omega", partial = partial, ci = ci, alternative = alternative, verbose = verbose, ...)
   class(out) <- unique(c("effectsize_anova", "effectsize_table", "see_effectsize_table", class(out)))
   if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
@@ -239,7 +240,7 @@ epsilon_squared <- function(model,
                             partial = TRUE,
                             ci = 0.95, alternative = "greater",
                             verbose = TRUE, ...) {
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
   out <- .anova_es(model, type = "epsilon", partial = partial, ci = ci, alternative = alternative, verbose = verbose, ...)
   class(out) <- unique(c("effectsize_anova", "effectsize_table", "see_effectsize_table", class(out)))
   if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
@@ -256,7 +257,7 @@ cohens_f <- function(model,
                      partial = TRUE, squared = FALSE, model2 = NULL,
                      ci = 0.95, alternative = "greater",
                      verbose = TRUE, ...) {
-  alternative <- .match.alt(alternative)
+  alternative <- .match.alt(alternative, FALSE)
   if (!is.null(model2)) {
     return(.cohens_f_delta(model, model2,
       squared = squared,
@@ -315,7 +316,6 @@ cohens_f_squared <- function(model,
 
 
 #' @keywords internal
-#' @importFrom insight model_info
 .cohens_f_delta <- function(model, model2,
                             squared = FALSE,
                             ci = 0.95, alternative = "greater",
@@ -329,7 +329,7 @@ cohens_f_squared <- function(model,
   }
 
   # Anova
-  ANOVA <- anova(model, model2)
+  ANOVA <- stats::anova(model, model2)
   out <- F_to_f(ANOVA[2, "F"], abs(ANOVA[2, "Df"]), min(ANOVA["Res.Df"]),
     ci = ci, alternative = alternative,
     squared = squared

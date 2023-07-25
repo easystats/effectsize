@@ -22,6 +22,12 @@ knitr::opts_chunk$set(comment = ">")
 options(digits = 3)
 
 set.seed(7)
+
+.eval_if_requireNamespace <- function(...) {
+  pkgs <- c(...)
+  knitr::opts_chunk$get("eval") &&
+    all(vapply(pkgs, requireNamespace, TRUE, quietly = TRUE))
+}
 ```
 
 This vignette provides a review of effect sizes for 1- and 2-D contingency
@@ -71,7 +77,7 @@ product it is.
 ```{r}
 cramers_v(food_class, adjust = FALSE)
 
-tschuprows_t(food_class)
+tschuprows_t(food_class, adjust = FALSE)
 ```
 
 
@@ -104,7 +110,7 @@ cohens_w(Music_preferences2) # > 1
 A Bayesian estimate of these effect sizes can also be provided based on
 `BayesFactor`'s version of a $\chi^2$-test via the `effectsize()` function:
 
-```{r, eval = requireNamespace("BayesFactor", quietly = TRUE), message=FALSE}
+```{r, eval = .eval_if_requireNamespace("BayesFactor"), message=FALSE}
 library(BayesFactor)
 BFX <- contingencyTableBF(MPG_Gear, sampleType = "jointMulti")
 
@@ -147,7 +153,7 @@ For these reasons, we recommend the $פ$ (Fei) coefficient, which is a measure o
 fei(O, p = E)
 
 # Observed perfectly matches Expected
-(O1 <- c(E * 286))
+(O1 <- E * 286)
 
 fei(O1, p = E)
 
@@ -175,10 +181,14 @@ oddsratio(RCT_table)
 ```
 
 We can also compute the Risk-ratio (RR), which is the ratio between the
-proportions of the two groups - a measure which some claim is more intuitive.
+proportions of the two groups, and the Absolute Risk Reduction (ARR), which is
+the *difference* between the proportions of the two groups - both are measures
+which some claim to be more intuitive.
 
 ```{r}
 riskratio(RCT_table)
+
+arr(RCT_table)
 ```
 
 Additionally, Cohen's *h* can also be computed, which uses the *arcsin*
@@ -194,7 +204,7 @@ cohens_h(RCT_table)
 A Bayesian estimate of these effect sizes can also be provided based on
 `BayesFactor`'s version of a $\chi^2$-test via the `effectsize()` function:
 
-```{r, eval = requireNamespace("BayesFactor", quietly = TRUE)}
+```{r, eval = .eval_if_requireNamespace("BayesFactor")}
 BFX <- contingencyTableBF(RCT_table, sampleType = "jointMulti")
 
 effectsize(BFX, type = "or")

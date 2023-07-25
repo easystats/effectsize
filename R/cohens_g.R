@@ -22,6 +22,7 @@
 #' a good close approximation.
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @return A data frame with the effect size (`Cohens_g`, `Risk_ratio`
 #'   (possibly with the prefix `log_`), `Cohens_h`) and its CIs (`CI_low` and
@@ -52,7 +53,6 @@
 #' # Test 2 gives a negative result more than test 1!
 #'
 #' @export
-#' @importFrom stats complete.cases prop.test
 cohens_g <- function(x, y = NULL,
                      ci = 0.95, alternative = "two.sided",
                      ...) {

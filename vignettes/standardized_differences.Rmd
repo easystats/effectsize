@@ -22,6 +22,11 @@ knitr::opts_chunk$set(comment = ">")
 options(digits = 3)
 
 set.seed(7)
+
+.eval_if_requireNamespace <- function(...) {
+  pkgs <- c(...)
+  knitr::opts_chunk$get("eval") && all(sapply(pkgs, requireNamespace, quietly = TRUE))
+}
 ```
 
 This vignette provides a review of effect sizes for comparisons of groups, which
@@ -51,7 +56,7 @@ t.test(mpg ~ am, data = mtcars, var.equal = TRUE)
 cohens_d(mpg ~ am, data = mtcars)
 ```
 
-Hedges' *g* provides a bias correction for small sample sizes ($N < 20$).
+Hedges' *g* provides a small-sample bias correction (for small sample sizes, $N < 20$).
 
 ```{r}
 hedges_g(mpg ~ am, data = mtcars)
@@ -115,7 +120,7 @@ hedges_g(extra ~ group, data = sleep, paired = TRUE)
 A Bayesian estimate of Cohen's *d* can also be provided based on `BayesFactor`'s
 version of a *t*-test via the `effectsize()` function:
 
-```{r, eval = requireNamespace("BayesFactor", quietly = TRUE), message=FALSE}
+```{r, eval = .eval_if_requireNamespace("BayesFactor"), message=FALSE}
 library(BayesFactor)
 BFt <- ttestBF(formula = mpg ~ am, data = mtcars)
 
@@ -159,7 +164,7 @@ the signed-rank test (both available in `wilcox.test()`).
 A <- c(48, 48, 77, 86, 85, 85)
 B <- c(14, 34, 34, 77)
 
-wilcox.test(A, B) # aka Mann–Whitney U test
+wilcox.test(A, B, exact = FALSE) # aka Mann–Whitney U test
 
 rank_biserial(A, B)
 ```
@@ -310,7 +315,7 @@ A Bayesian estimate of (the parametric version of) these effect sizes can also
 be provided based on `BayesFactor`'s version of a *t*-test via the
 `effectsize()` function:
 
-```{r, eval = requireNamespace("BayesFactor", quietly = TRUE)}
+```{r, eval = .eval_if_requireNamespace("BayesFactor")}
 effectsize(BFt, type = "p_superiority")
 
 effectsize(BFt, type = "u1")

@@ -224,6 +224,11 @@ never cross (and often will never cover) the null. Therefore, these CIs
 should not be used for statistical inference.
 }
 
+\section{Plotting with \code{see}}{
+
+The \code{see} package contains relevant plotting functions. See the \href{https://easystats.github.io/see/articles/effectsize.html}{plotting vignette in the \code{see} package}.
+}
+
 \examples{
 cohens_u2(mpg ~ am, data = mtcars)
 

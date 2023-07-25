@@ -42,6 +42,7 @@
 #' are estimated using the normal approximation (via Fisher's transformation).
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
+#' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @return A data frame with the effect size `r_rank_biserial` and its CI
 #'   (`CI_low` and `CI_high`).
@@ -174,7 +175,7 @@ rank_biserial <- function(x, y = NULL, data = NULL,
       rfSE <- sqrt((n1 + n2 + 1) / (3 * n1 * n2))
     }
 
-    confint <- tanh(rf + c(-1, 1) * qnorm(1 - alpha / 2) * rfSE)
+    confint <- tanh(rf + c(-1, 1) * stats::qnorm(1 - alpha / 2) * rfSE)
     out$CI_low <- confint[1]
     out$CI_high <- confint[2]
     ci_method <- list(method = "normal")
@@ -221,7 +222,6 @@ cliffs_delta <- function(x, y = NULL, data = NULL,
 # Utils -------------------------------------------------------------------
 
 #' @keywords internal
-#' @importFrom stats na.omit
 .r_rbs <- function(x, y, mu, paired, verbose = FALSE) {
   if (paired) {
     Ry <- .safe_ranktransform((x - y) - mu, sign = TRUE, verbose = verbose)
