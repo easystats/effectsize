@@ -53,7 +53,9 @@ cohens_f(
 cohens_f_squared(
   model,
   partial = TRUE,
+  generalized = FALSE,
   squared = TRUE,
+  method = c("eta", "omega", "epsilon"),
   model2 = NULL,
   ci = 0.95,
   alternative = "greater",
