@@ -59,7 +59,7 @@
 #' `afex` package.
 #' \cr\cr
 #' For type 3 sum of squares, it is generally recommended to fit models with
-#' *orthoginal factor weights* (e.g., `contr.sum`) and *centered covariates*,
+#' *orthogonal factor weights* (e.g., `contr.sum`) and *centered covariates*,
 #' for sensible results. See examples and the `afex` package.
 #'
 #' ## Un-Biased Estimate of Eta

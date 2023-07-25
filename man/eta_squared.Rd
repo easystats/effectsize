@@ -164,7 +164,7 @@ to \code{eta_squared()}. See examples below for use of \code{car::Anova()} and t
 \code{afex} package.
 \cr\cr
 For type 3 sum of squares, it is generally recommended to fit models with
-\emph{orthoginal factor weights} (e.g., \code{contr.sum}) and \emph{centered covariates},
+\emph{orthogonal factor weights} (e.g., \code{contr.sum}) and \emph{centered covariates},
 for sensible results. See examples and the \code{afex} package.
 }
 
