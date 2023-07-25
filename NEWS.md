@@ -2,6 +2,7 @@
 
 ## New features
 
+- `cohens_f()` added option to return unbiased estimators (based on Omega- or Epsilon-squared).
 - `tschuprows_t()` now returns an effect size corrected for small-sample bias. Set `adjust = FALSE` to preserve old behavior.
 - `w_to_v()` and others for converting between effect sizes of Chi-square tests.
 - `arr()` and `nnt()` for Absolute Risk Reduction or Number Needed to Treat.

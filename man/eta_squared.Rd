@@ -40,7 +40,9 @@ epsilon_squared(
 cohens_f(
   model,
   partial = TRUE,
+  generalized = FALSE,
   squared = FALSE,
+  method = c("eta", "omega", "epsilon"),
   model2 = NULL,
   ci = 0.95,
   alternative = "greater",
@@ -100,6 +102,8 @@ is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided 
 }}
 
 \item{squared}{Return Cohen's \emph{f} or Cohen's \emph{f}-squared?}
+
+\item{method}{What effect size should be used as the basis for Cohen's \emph{f}?}
 
 \item{model2}{Optional second model for Cohen's f (/squared). If specified,
 returns the effect size for R-squared-change between the two models.}

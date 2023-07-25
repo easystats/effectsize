@@ -257,11 +257,15 @@ epsilon_squared <- function(model,
 
 #' @rdname eta_squared
 #' @inheritParams F_to_f
+#' @param method What effect size should be used as the basis for Cohen's *f*?
 #' @param model2 Optional second model for Cohen's f (/squared). If specified,
 #'   returns the effect size for R-squared-change between the two models.
 #' @export
 cohens_f <- function(model,
-                     partial = TRUE, squared = FALSE, model2 = NULL,
+                     partial = TRUE, generalized = FALSE,
+                     squared = FALSE,
+                     method = c("eta", "omega", "epsilon"),
+                     model2 = NULL,
                      ci = 0.95, alternative = "greater",
                      verbose = TRUE, ...) {
   alternative <- .match.alt(alternative, FALSE)
@@ -273,19 +277,26 @@ cohens_f <- function(model,
     ))
   }
 
-  res <- eta_squared(model,
+  method <- match.arg(method)
+  f <- switch (method,
+               eta = eta_squared, generalized = generalized,
+               omega = omega_squared,
+               epsilon = epsilon_squared
+  )
+
+  res <- f(model,
     partial = partial,
     ci = ci, alternative = alternative,
     verbose = verbose,
     ...
   )
 
-  if ("Eta2_partial" %in% colnames(res)) {
-    res$Eta2_partial <- res$Eta2_partial / (1 - res$Eta2_partial)
-    colnames(res)[colnames(res) == "Eta2_partial"] <- "Cohens_f2_partial"
+  es_name <- get_effectsize_name(colnames(res))
+  res[[es_name]] <- res[[es_name]] / (1 - res[[es_name]])
+  if (grepl("_partial", es_name)) {
+    colnames(res)[colnames(res) == es_name] <- "Cohens_f2_partial"
   } else {
-    res$Eta2 <- res$Eta2 / (1 - res$Eta2)
-    colnames(res)[colnames(res) == "Eta2"] <- "Cohens_f2"
+    colnames(res)[colnames(res) == es_name] <- "Cohens_f2"
   }
 
   if (!is.null(ci)) {
@@ -304,6 +315,7 @@ cohens_f <- function(model,
   if ("CI" %in% colnames(res)) attr(res, "ci_method") <- list(method = "ncp", distribution = "F")
   class(res) <- unique(c("effectsize_anova", "effectsize_table", "see_effectsize_table", class(res)))
   attr(res, "approximate") <- isTRUE(attr(res, "approximate", exact = TRUE))
+  attr(res, "table_footer") <- if(method != "eta") sprintf("Based on %s squared.", paste0(toupper(substring(methed, 1, 1)), substring(methed, 2)))
   res
 }
 
