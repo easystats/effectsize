@@ -278,10 +278,11 @@ cohens_f <- function(model,
   }
 
   method <- match.arg(method)
-  f <- switch (method,
-               eta = eta_squared, generalized = generalized,
-               omega = omega_squared,
-               epsilon = epsilon_squared
+  f <- switch(method,
+    eta = eta_squared,
+    generalized = generalized,
+    omega = omega_squared,
+    epsilon = epsilon_squared
   )
 
   res <- f(model,
@@ -315,7 +316,7 @@ cohens_f <- function(model,
   if ("CI" %in% colnames(res)) attr(res, "ci_method") <- list(method = "ncp", distribution = "F")
   class(res) <- unique(c("effectsize_anova", "effectsize_table", "see_effectsize_table", class(res)))
   attr(res, "approximate") <- isTRUE(attr(res, "approximate", exact = TRUE))
-  attr(res, "table_footer") <- if(method != "eta") sprintf("Based on %s squared.", paste0(toupper(substring(methed, 1, 1)), substring(methed, 2)))
+  attr(res, "table_footer") <- if (method != "eta") sprintf("Based on %s squared.", paste0(toupper(substring(methed, 1, 1)), substring(methed, 2)))
   res
 }
 
