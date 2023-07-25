@@ -514,10 +514,10 @@ test_that("afex | mixed()", {
   )
 
   # Intercept
-  skip_if_not_installed("MEMSS")
-  data("Machines", package = "MEMSS")
-  suppressMessages(m1 <- afex::mixed(score ~ Machine + (Machine | Worker), data = Machines, method = "KR"))
-  suppressMessages(m2 <- afex::mixed(score ~ Machine + (Machine | Worker), data = Machines, test_intercept = TRUE, method = "KR"))
+  data("stroop", package = "afex")
+  stroop <- subset(stroop, study == 1 & acc == 1 & trialnum < 20)
+  suppressMessages(m1 <- afex::mixed(rt ~ condition + (condition | pno), data = stroop, method = "KR"))
+  suppressMessages(m2 <- afex::mixed(rt ~ condition + (condition | pno), data = stroop, test_intercept = TRUE, method = "KR"))
 
   expect_warning(a1a <- eta_squared(m1, include_intercept = TRUE), regexp = "Intercept")
   expect_warning(a1b <- eta_squared(m1, include_intercept = FALSE), regexp = NA)
