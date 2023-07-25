@@ -78,7 +78,6 @@
       # .anova_es.manova
       aov_tab <- parameters::model_parameters(model)
       aov_tab$df <- aov_tab$df_num
-      aov_tab$df_num <- NULL
       out <- .anova_es(aov_tab,
         type = type,
         partial = partial, generalized = generalized,
@@ -158,14 +157,13 @@
 
 #' @keywords internal
 .anova_es.manova <- function(model, ...) {
-  # pars <- parameters::model_parameters(model)
-  # pars$df_error <- pars[pars$Parameter == "Residuals", "df"]
-  # pars <- pars[pars$Parameter != "Residuals", ]
-  # out <- .anova_es(pars, ...)
-  # attr(out, "anova_type") <- attr(pars, "anova_type")
-  # attr(out, "approximate") <- TRUE
-  # return(out)
-  stop("Should return the same as Anova.mlm")
+  pars <- parameters::model_parameters(model)
+  pars$df <- pars$df_num
+  pars <- pars[pars$Parameter != "Residuals", ]
+  out <- .anova_es(pars, ...)
+  attr(out, "anova_type") <- attr(pars, "anova_type")
+  attr(out, "approximate") <- TRUE
+  return(out)
 }
 
 

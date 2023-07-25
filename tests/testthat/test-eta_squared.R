@@ -508,6 +508,7 @@ test_that("afex | mixed()", {
   )
 
   # Intercept
+  skip_if_not_installed("MEMSS")
   data("Machines", package = "MEMSS")
   suppressMessages(m1 <- afex::mixed(score ~ Machine + (Machine | Worker), data = Machines, method = "KR"))
   suppressMessages(m2 <- afex::mixed(score ~ Machine + (Machine | Worker), data = Machines, test_intercept = TRUE, method = "KR"))
@@ -539,27 +540,11 @@ test_that("car MVM", {
     id = 1:8
   )
 
-  ds_long <- data.frame(
-    id = c(
-      1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L,
-      1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L,
-      1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L,
-      1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L
-    ),
-    ind_var = c(
-      "I", "I", "I", "I", "I", "I", "I", "I",
-      "II", "II", "II", "II", "II", "II", "II", "II",
-      "III", "III", "III", "III", "III", "III", "III", "III",
-      "IV", "IV", "IV", "IV", "IV", "IV", "IV", "IV"
-    ),
-    score = c(
-      116, 96, 120, 110, 116, 126, 86, 80,
-      76, 93, 112, 113, 75, 120, 90, 105,
-      85, 63, 89, 60, 115, 101, 129, 67,
-      50, 87, 100, 60, 79, 70, 65, 65
-    )
-  )
-
+  ds_long <-
+    datawizard::reshape_longer(ds,
+                               select = 1:4,
+                               names_to = "ind_var",
+                               values_to = "score")
 
 
   fit <- lm(cbind(I, II, III, IV) ~ 1, data = ds)
@@ -594,12 +579,13 @@ test_that("Anova.mlm Manova", {
   skip_if_not_installed("car")
 
   data("mtcars")
+  mtcars <- mtcars[c(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 18L, 29L, 31L),]
   mtcars$am_f <- factor(mtcars$am)
   mtcars$cyl_f <- factor(mtcars$cyl)
 
   mod <- lm(cbind(mpg, qsec, disp) ~ am_f * cyl_f, data = mtcars)
 
-  Manova <- car::Manova(mod)
+  Manova <- car::Manova(mod, type = 2)
 
   expect_true(is.null(summary(Manova, univariate = TRUE)[["univariate.tests"]]))
   expect_error(eta_squared(Manova), regexp = NA)
@@ -609,7 +595,7 @@ test_that("Anova.mlm Manova", {
   )
 
   Anova <- car::Anova(mod, idesign = ~g, idata = data.frame(g = factor(1:3)))
-  mtcars$id <- factor(1:32)
+  mtcars$id <- factor(seq(nrow(mtcars)))
   mtcars_long <- datawizard::reshape_longer(mtcars,
     select = c("mpg", "qsec", "disp"), names_to = "g"
   )

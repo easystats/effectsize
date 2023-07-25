@@ -8,7 +8,7 @@
 
 ## Bug fixes
 
-- ANOVA effect sizes for `afex::mixed()` now returneffect sizes for the Intercept where applicable.
+- ANOVA effect sizes for `afex::mixed()` now return effect sizes for the Intercept where applicable.
 - Fixed error in `cohens_w()` for 2-by-X tables.  
 - Solved integer overflow errors in `rank_biserial()` ( #476 )
 
