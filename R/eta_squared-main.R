@@ -10,14 +10,16 @@
 #' obtained from `anova(model)` which might not always be appropriate. See
 #' details.
 #'
-#' @param model A model, ANOVA object, or the result of `parameters::model_parameters`.
+#' @param model An ANOVA table (or an ANOVA-like table, e.g., outputs from
+#'   `parameters::model_parameters`), or a statistical model for which such a
+#'   table can be extracted. See details.
 #' @param partial If `TRUE`, return partial indices.
-#' @param generalized If TRUE, returns generalized Eta Squared, assuming all
-#'   variables are manipulated. Can also be a character vector of observed
-#'   (non-manipulated) variables, in which case generalized Eta Squared is
-#'   calculated taking these observed variables into account. For `afex_aov`
-#'   model, when `generalized = TRUE`, the observed variables are extracted
-#'   automatically from the fitted model, if they were provided then.
+#' @param generalized A character vector of observed (non-manipulated) variables
+#'   to be used in the estimation of a generalized Eta Squared. Can also be
+#'   `TRUE`, in which case generalized Eta Squared is estimated assuming *none*
+#'   of the variables are observed (all are manipulated). (For `afex_aov`
+#'   models, when `TRUE`, the observed variables are extracted automatically
+#'   from the fitted model, if they were provided during fitting.
 #' @param verbose Toggle warnings and messages on or off.
 #' @inheritParams chisq_to_phi
 #' @param ... Arguments passed to or from other methods.
@@ -35,25 +37,30 @@
 #'
 #' @details
 #'
-#' For `aov`, `aovlist` and `afex_aov` models, and for `anova` objects that
-#' provide Sums-of-Squares, the effect sizes are computed directly using
-#' Sums-of-Squares (for `mlm` / `maov` models, effect sizes are computed for
-#' each response separately). For all other model, effect sizes are approximated
-#' via test statistic conversion of the omnibus *F* statistic provided by the
-#' appropriate `anova()` method (see [`F_to_eta2()`] for more details.)
+#' For `aov` (or `lm`), `aovlist` and `afex_aov` models, and for `anova` objects
+#' that provide Sums-of-Squares, the effect sizes are computed directly using
+#' Sums-of-Squares. (For `maov` (or `mlm`) models, effect sizes are computed for
+#' each response separately.)
+#' \cr\cr
+#' For other ANOVA tables and models (converted to ANOVA-like tables via
+#' `anova()` methods), effect sizes are approximated via test statistic
+#' conversion of the omnibus *F* statistic provided by the (see [`F_to_eta2()`]
+#' for more details.)
 #'
 #' ## Type of Sums of Squares
-#' The sums of squares (or *F* statistics) used for the computation of the
-#' effect sizes is based on those returned by `anova(model)` (whatever those may
-#' be - for `aov` and `aovlist` these are *type-1* sums of squares; for
-#' `lmerMod` (and `lmerModLmerTest`) these are *type-3* sums of squares). Make
-#' sure these are the sums of squares you are interested in; You might want to
-#' pass the result of `car::Anova(mode, type = 2)` or `type = 3` instead of the
-#' model itself, or use the `afex` package to fit ANOVA models.
+#' When `model` is a statistical model, the sums of squares (or *F* statistics)
+#' used for the computation of the effect sizes are based on those returned by
+#' `anova(model)`. Different models have different default output type. For
+#' example, for `aov` and `aovlist` these are *type-1* sums of squares, but for
+#' `lmerMod` (and `lmerModLmerTest`) these are *type-3* sums of squares. Make
+#' sure these are the sums of squares you are interested in. You might want to
+#' convert your model to an ANOVA(-like) table yourself and then pass the result
+#' to `eta_squared()`. See examples below for use of `car::Anova()` and the
+#' `afex` package.
 #' \cr\cr
 #' For type 3 sum of squares, it is generally recommended to fit models with
-#' *`contr.sum` factor weights* and *centered covariates*, for sensible results.
-#' See examples and the `afex` package.
+#' *orthoginal factor weights* (e.g., `contr.sum`) and *centered covariates*,
+#' for sensible results. See examples and the `afex` package.
 #'
 #' ## Un-Biased Estimate of Eta
 #' Both ***Omega*** and ***Epsilon*** are unbiased estimators of the
@@ -250,11 +257,15 @@ epsilon_squared <- function(model,
 
 #' @rdname eta_squared
 #' @inheritParams F_to_f
+#' @param method What effect size should be used as the basis for Cohen's *f*?
 #' @param model2 Optional second model for Cohen's f (/squared). If specified,
 #'   returns the effect size for R-squared-change between the two models.
 #' @export
 cohens_f <- function(model,
-                     partial = TRUE, squared = FALSE, model2 = NULL,
+                     partial = TRUE, generalized = FALSE,
+                     squared = FALSE,
+                     method = c("eta", "omega", "epsilon"),
+                     model2 = NULL,
                      ci = 0.95, alternative = "greater",
                      verbose = TRUE, ...) {
   alternative <- .match.alt(alternative, FALSE)
@@ -266,19 +277,27 @@ cohens_f <- function(model,
     ))
   }
 
-  res <- eta_squared(model,
+  method <- match.arg(method)
+  f <- switch(method,
+    eta = eta_squared,
+    generalized = generalized,
+    omega = omega_squared,
+    epsilon = epsilon_squared
+  )
+
+  res <- f(model,
     partial = partial,
     ci = ci, alternative = alternative,
     verbose = verbose,
     ...
   )
 
-  if ("Eta2_partial" %in% colnames(res)) {
-    res$Eta2_partial <- res$Eta2_partial / (1 - res$Eta2_partial)
-    colnames(res)[colnames(res) == "Eta2_partial"] <- "Cohens_f2_partial"
+  es_name <- get_effectsize_name(colnames(res))
+  res[[es_name]] <- res[[es_name]] / (1 - res[[es_name]])
+  if (grepl("_partial", es_name)) {
+    colnames(res)[colnames(res) == es_name] <- "Cohens_f2_partial"
   } else {
-    res$Eta2 <- res$Eta2 / (1 - res$Eta2)
-    colnames(res)[colnames(res) == "Eta2"] <- "Cohens_f2"
+    colnames(res)[colnames(res) == es_name] <- "Cohens_f2"
   }
 
   if (!is.null(ci)) {
@@ -297,6 +316,7 @@ cohens_f <- function(model,
   if ("CI" %in% colnames(res)) attr(res, "ci_method") <- list(method = "ncp", distribution = "F")
   class(res) <- unique(c("effectsize_anova", "effectsize_table", "see_effectsize_table", class(res)))
   attr(res, "approximate") <- isTRUE(attr(res, "approximate", exact = TRUE))
+  attr(res, "table_footer") <- if (method != "eta") sprintf("Based on %s squared.", paste0(toupper(substring(methed, 1, 1)), substring(methed, 2)))
   res
 }
 
