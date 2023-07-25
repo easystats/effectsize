@@ -548,9 +548,10 @@ test_that("car MVM", {
 
   ds_long <-
     datawizard::reshape_longer(ds,
-                               select = 1:4,
-                               names_to = "ind_var",
-                               values_to = "score")
+      select = 1:4,
+      names_to = "ind_var",
+      values_to = "score"
+    )
 
 
   fit <- lm(cbind(I, II, III, IV) ~ 1, data = ds)
@@ -585,7 +586,7 @@ test_that("Anova.mlm Manova", {
   skip_if_not_installed("car")
 
   data("mtcars")
-  mtcars <- mtcars[c(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 18L, 29L, 31L),]
+  mtcars <- mtcars[c(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 18L, 29L, 31L), ]
   mtcars$am_f <- factor(mtcars$am)
   mtcars$cyl_f <- factor(mtcars$cyl)
 
