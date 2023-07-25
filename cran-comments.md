@@ -6,7 +6,7 @@
 
 ## Test environments
 
-* local installation: R 4.2.2 on Windows
+* local installation: R 4.3.1 on Windows
 * GitHub Actions
     - Windows:        release
     - macOS:          release
