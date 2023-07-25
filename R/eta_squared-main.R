@@ -756,26 +756,88 @@ cohens_f_squared <- function(model,
     UseMethod(".anova_es")
   }
 
+
 #' @keywords internal
-.anova_es.default <- function(model,
-                              type = c("eta", "omega", "epsilon"),
-                              partial = TRUE,
-                              generalized = FALSE,
-                              ci = 0.95, alternative = "greater",
-                              verbose = TRUE,
-                              ...) {
-  .anova_es.anova(
-    stats::anova(model),
-    type = type,
-    partial = partial,
-    generalized = generalized,
-    ci = ci,
-    alternative = alternative,
-    verbose = verbose
-  )
+#' @importFrom stats anova
+.anova_es.default <- function(model, ...) {
+  .anova_es.anova(stats::anova(model), ...)
 }
 
 #' @keywords internal
+.anova_es.anova <- function(model,
+                            type = c("eta", "omega", "epsilon"),
+                            partial = TRUE,
+                            generalized = FALSE,
+                            ci = 0.95, alternative = "greater",
+                            verbose = TRUE,
+                            include_intercept = FALSE,
+                            ...) {
+  F.nm <- c("F value", "approx F", "F-value", "F")
+  df.nm <- c("NumDF", "num Df", "numDF", "npar", "Df")
+  df_error.nm <- c("DenDF", "den Df", "denDF", "df_error", "Df.res")
+
+  # If there is no df_error *or* if there IS a residuals row...
+  if (!any(df_error.nm %in% colnames(model))) {
+    # Pass to AOV method
+    res <- .anova_es.aov(model,
+      partial = partial,
+      type = type,
+      generalized = generalized,
+      ci = ci, alternative = alternative,
+      verbose = verbose,
+      include_intercept = include_intercept,
+      ...
+    )
+    return(res)
+  }
+
+  if (!any(F.nm %in% colnames(model)) || !any(df.nm %in% colnames(model))) {
+    insight::format_error(
+      "ANOVA table does not have F values or degrees of freedom,",
+      "cannot compute effect size."
+    )
+  }
+
+  Fi <- F.nm[F.nm %in% colnames(model)]
+  dfi <- df.nm[df.nm %in% colnames(model)]
+  df_errori <- df_error.nm[df_error.nm %in% colnames(model)]
+
+  if (length(dfi) > 1L) {
+    dfi <- dfi[1] # For MANOVA this should not use the MV-df
+  }
+
+  # Clean up table ---
+  par_table <- data.frame(
+    Parameter = rownames(model),
+    F = model[, Fi],
+    df = model[, dfi],
+    df_error = model[, df_errori],
+    stringsAsFactors = FALSE
+  )
+  par_table <- par_table[!par_table[["Parameter"]] %in% "Residuals", ]
+
+  out <-
+    .es_aov_table(
+      par_table,
+      type = type,
+      partial = partial,
+      generalized = generalized,
+      ci = ci,
+      alternative = alternative,
+      verbose = verbose,
+      include_intercept = include_intercept
+    )
+
+  attr(out, "anova_type") <- tryCatch(attr(parameters::model_parameters(model, verbose = FALSE, effects = "fixed"), "anova_type"),
+    error = function(...) 1
+  )
+  attr(out, "approximate") <- TRUE
+  out
+}
+
+#' @keywords internal
+#' @importFrom parameters model_parameters
+#' @importFrom stats anova
 .anova_es.aov <- function(model,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,
@@ -783,33 +845,42 @@ cohens_f_squared <- function(model,
                           ci = 0.95, alternative = "greater",
                           verbose = TRUE,
                           ...) {
-  if (!inherits(model, c("Gam", "anova"))) {
-    # Pass to ANOVA table method
-    res <- .anova_es.anova(
-      stats::anova(model),
-      type = type,
-      partial = partial,
-      generalized = generalized,
-      ci = ci, alternative = alternative,
-      verbose = verbose,
-      ...
-    )
-    return(res)
-  }
+  # if (!inherits(model, c("Gam", "anova"))) {
+  #   # Pass to ANOVA table method
+  #   res <- .anova_es.anova(
+  #     stats::anova(model),
+  #     type = type,
+  #     partial = partial,
+  #     generalized = generalized,
+  #     ci = ci, alternative = alternative,
+  #     verbose = verbose,
+  #     ...
+  #   )
+  #   return(res)
+  # }
 
+  # TODO this should be in .anova_es.anvoa
+  # TODO the aoc method should convert to an anova table, then pass to anova
   params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed")
-  out <- .es_aov_simple(as.data.frame(params), type, partial, generalized, ci, alternative, verbose = verbose, ...)
+  out <- .es_aov_simple(as.data.frame(params),
+    type = type,
+    partial = partial, generalized = generalized,
+    ci = ci, alternative = alternative, verbose = verbose, ...
+  )
   if (is.null(attr(out, "anova_type"))) attr(out, "anova_type") <- attr(params, "anova_type")
   out
 }
 
-.anova_es.lm <- .anova_es.aov
+#' @keywords internal
+.anova_es.lm <- function(model, ...) {
+  .anova_es.aov(stats::aov(model), ...)
+}
 
-.anova_es.glm <- .anova_es.aov
-
-.anova_es.manova <- .anova_es.aov
+.anova_es.glm <- .anova_es.lm
 
 #' @keywords internal
+#' @importFrom parameters model_parameters
+#' @importFrom insight find_predictors
 .anova_es.aovlist <- function(model,
                               type = c("eta", "omega", "epsilon"),
                               partial = TRUE,
@@ -838,76 +909,6 @@ cohens_f_squared <- function(model,
   attr(out, "anova_type") <- anova_type
   out
 }
-
-#' @keywords internal
-.anova_es.anova <- function(model,
-                            type = c("eta", "omega", "epsilon"),
-                            partial = TRUE,
-                            generalized = FALSE,
-                            ci = 0.95, alternative = "greater",
-                            verbose = TRUE,
-                            include_intercept = FALSE,
-                            ...) {
-  F.nm <- c("F value", "approx F", "F-value", "F")
-  df.nm <- c("NumDF", "num Df", "numDF", "npar", "Df")
-  df_error.nm <- c("DenDF", "den Df", "denDF", "df_error", "Df.res")
-
-  # If there is no df_error *or* is there IS a residuals row...
-  if (!any(df_error.nm %in% colnames(model))) {
-    # Pass to AOV method
-    res <- .anova_es.aov(model,
-      partial = partial,
-      type = type,
-      generalized = generalized,
-      ci = ci, alternative = alternative,
-      verbose = verbose,
-      include_intercept = include_intercept,
-      ...
-    )
-    return(res)
-  }
-
-  if (!any(F.nm %in% colnames(model)) || !any(df.nm %in% colnames(model))) {
-    insight::format_error("ANOVA table does not have F values or degrees of freedom - cannot compute effect size.")
-  }
-
-  Fi <- F.nm[F.nm %in% colnames(model)]
-  dfi <- df.nm[df.nm %in% colnames(model)]
-  df_errori <- df_error.nm[df_error.nm %in% colnames(model)]
-
-  if (length(dfi) > 1L) {
-    dfi <- dfi[1] # For MANOVA this should not use the MV-df
-  }
-
-  # Clean up table ---
-  par_table <- data.frame(
-    Parameter = rownames(model),
-    F = model[, Fi],
-    df = model[, dfi],
-    df_error = model[, df_errori]
-  )
-  par_table <- par_table[!par_table[["Parameter"]] %in% "Residuals", ]
-
-  out <-
-    .es_aov_table(
-      par_table,
-      type = type,
-      partial = partial,
-      generalized = generalized,
-      ci = ci,
-      alternative = alternative,
-      verbose = verbose,
-      include_intercept = include_intercept
-    )
-
-  attr(out, "anova_type") <- tryCatch(attr(parameters::model_parameters(model, verbose = FALSE, effects = "fixed"), "anova_type"),
-    error = function(...) 1
-  )
-  attr(out, "approximate") <- TRUE
-  out
-}
-
-
 
 
 # Utils -------------------------------------------------------------------
