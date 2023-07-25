@@ -70,16 +70,18 @@ eta_squared_posterior(
 )
 }
 \arguments{
-\item{model}{A model, ANOVA object, or the result of \code{parameters::model_parameters}.}
+\item{model}{An ANOVA table (or an ANOVA-like table, e.g., outputs from
+\code{parameters::model_parameters}), or a statistical model for which such a
+table can be extracted. See details.}
 
 \item{partial}{If \code{TRUE}, return partial indices.}
 
-\item{generalized}{If TRUE, returns generalized Eta Squared, assuming all
-variables are manipulated. Can also be a character vector of observed
-(non-manipulated) variables, in which case generalized Eta Squared is
-calculated taking these observed variables into account. For \code{afex_aov}
-model, when \code{generalized = TRUE}, the observed variables are extracted
-automatically from the fitted model, if they were provided then.}
+\item{generalized}{A character vector of observed (non-manipulated) variables
+to be used in the estimation of a generalized Eta Squared. Can also be
+\code{TRUE}, in which case generalized Eta Squared is estimated assuming \emph{none}
+of the variables are observed (all are manipulated). (For \code{afex_aov}
+models, when \code{TRUE}, the observed variables are extracted automatically
+from the fitted model, if they were provided during fitting.}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -134,25 +136,30 @@ obtained from \code{anova(model)} which might not always be appropriate. See
 details.
 }
 \details{
-For \code{aov}, \code{aovlist} and \code{afex_aov} models, and for \code{anova} objects that
-provide Sums-of-Squares, the effect sizes are computed directly using
-Sums-of-Squares (for \code{mlm} / \code{maov} models, effect sizes are computed for
-each response separately). For all other model, effect sizes are approximated
-via test statistic conversion of the omnibus \emph{F} statistic provided by the
-appropriate \code{anova()} method (see \code{\link[=F_to_eta2]{F_to_eta2()}} for more details.)
+For \code{aov} (or \code{lm}), \code{aovlist} and \code{afex_aov} models, and for \code{anova} objects
+that provide Sums-of-Squares, the effect sizes are computed directly using
+Sums-of-Squares. (For \code{maov} (or \code{mlm}) models, effect sizes are computed for
+each response separately.)
+\cr\cr
+For other ANOVA tables and models (converted to ANOVA-like tables via
+\code{anova()} methods), effect sizes are approximated via test statistic
+conversion of the omnibus \emph{F} statistic provided by the (see \code{\link[=F_to_eta2]{F_to_eta2()}}
+for more details.)
 \subsection{Type of Sums of Squares}{
 
-The sums of squares (or \emph{F} statistics) used for the computation of the
-effect sizes is based on those returned by \code{anova(model)} (whatever those may
-be - for \code{aov} and \code{aovlist} these are \emph{type-1} sums of squares; for
-\code{lmerMod} (and \code{lmerModLmerTest}) these are \emph{type-3} sums of squares). Make
-sure these are the sums of squares you are interested in; You might want to
-pass the result of \code{car::Anova(mode, type = 2)} or \code{type = 3} instead of the
-model itself, or use the \code{afex} package to fit ANOVA models.
+When \code{model} is a statistical model, the sums of squares (or \emph{F} statistics)
+used for the computation of the effect sizes are based on those returned by
+\code{anova(model)}. Different models have different default output type. For
+example, for \code{aov} and \code{aovlist} these are \emph{type-1} sums of squares, but for
+\code{lmerMod} (and \code{lmerModLmerTest}) these are \emph{type-3} sums of squares. Make
+sure these are the sums of squares you are interested in. You might want to
+convert your model to an ANOVA(-like) table yourself and then pass the result
+to \code{eta_squared()}. See examples below for use of \code{car::Anova()} and the
+\code{afex} package.
 \cr\cr
 For type 3 sum of squares, it is generally recommended to fit models with
-\emph{\code{contr.sum} factor weights} and \emph{centered covariates}, for sensible results.
-See examples and the \code{afex} package.
+\emph{orthoginal factor weights} (e.g., \code{contr.sum}) and \emph{centered covariates},
+for sensible results. See examples and the \code{afex} package.
 }
 
 \subsection{Un-Biased Estimate of Eta}{
