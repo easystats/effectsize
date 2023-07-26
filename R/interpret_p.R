@@ -27,7 +27,7 @@ interpret_p <- function(p, rules = "default") {
   rules <- .match.rules(
     rules,
     list(
-      default = rules(c(0.05), c("significant", "not significant"),
+      default = rules(0.05, c("significant", "not significant"),
         name = "default", right = FALSE
       ),
       rss = rules(c(0.005, 0.05), c("significant", "suggestive", "not significant"),
