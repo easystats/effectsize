@@ -162,7 +162,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-8-3">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-8-3"></a></h3>
-<ul><li>Fixed error in <code><a href="../reference/phi.html">cohens_w()</a></code> for 2-by-X tables.<br></li>
+<ul><li>ANOVA effect sizes for <code><a href="https://rdrr.io/pkg/afex/man/mixed.html" class="external-link">afex::mixed()</a></code> now return effect sizes for the Intercept where applicable.</li>
+<li>Fixed error in <code><a href="../reference/phi.html">cohens_w()</a></code> for 2-by-X tables.<br></li>
 <li>Solved integer overflow errors in <code><a href="../reference/rank_biserial.html">rank_biserial()</a></code> ( <a href="https://github.com/easystats/effectsize/issues/476" class="external-link">#476</a> )</li>
 <li>Fixed issue in <code><a href="../reference/effectsize.html">effectsize()</a></code> for t-tests when input vectors has unequal amount of missing values.</li>
 </ul></div>
@@ -494,7 +495,7 @@
 <ul><li><p><code><a href="../reference/effectsize.html">effectsize()</a></code> gains <code>type =</code> argument for specifying which effect size to return.</p></li>
 <li><p><code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> can return a generalized Eta squared.</p></li>
 <li><p><code><a href="../reference/oddsratio.html">oddsratio()</a></code> and <code><a href="../reference/oddsratio.html">riskratio()</a></code> functions for 2-by-2 contingency tables.</p></li>
-<li><p><code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> gains support for <code><a href="https://rdrr.io/pkg/mediation/man/mediate.html" class="external-link">mediation::mediate()</a></code> models.</p></li>
+<li><p><code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> gains support for <code>mediation::mediate()</code> models.</p></li>
 <li><p><code><a href="../reference/eta_squared.html">eta_squared()</a></code> family available for <code>manova</code> objects.</p></li>
 </ul></div>
 <div class="section level3">
