@@ -31,7 +31,7 @@ interpret_ifi(x, rules = "default")
 
 interpret_pnfi(x, rules = "default")
 
-interpret_rmsea(x, rules = "awang2012")
+interpret_rmsea(x, rules = "byrne1994")
 
 interpret_srmr(x, rules = "byrne1994")
 
