@@ -6,34 +6,34 @@
 \alias{interpret_nfi}
 \alias{interpret_nnfi}
 \alias{interpret_cfi}
-\alias{interpret_rmsea}
-\alias{interpret_srmr}
 \alias{interpret_rfi}
 \alias{interpret_ifi}
 \alias{interpret_pnfi}
+\alias{interpret_rmsea}
+\alias{interpret_srmr}
 \alias{interpret.lavaan}
 \alias{interpret.performance_lavaan}
 \title{Interpret of CFA / SEM Indices of Goodness of Fit}
 \usage{
-interpret_gfi(x, rules = "default")
+interpret_gfi(x, rules = "byrne1994")
 
-interpret_agfi(x, rules = "default")
+interpret_agfi(x, rules = "byrne1994")
 
 interpret_nfi(x, rules = "byrne1994")
 
 interpret_nnfi(x, rules = "byrne1994")
 
-interpret_cfi(x, rules = "default")
-
-interpret_rmsea(x, rules = "default")
-
-interpret_srmr(x, rules = "default")
+interpret_cfi(x, rules = "byrne1994")
 
 interpret_rfi(x, rules = "default")
 
 interpret_ifi(x, rules = "default")
 
 interpret_pnfi(x, rules = "default")
+
+interpret_rmsea(x, rules = "awang2012")
+
+interpret_srmr(x, rules = "byrne1994")
 
 \method{interpret}{lavaan}(x, ...)
 
@@ -42,7 +42,8 @@ interpret_pnfi(x, rules = "default")
 \arguments{
 \item{x}{vector of values, or an object of class \code{lavaan}.}
 
-\item{rules}{Can be \code{"default"} or custom set of \code{\link[=rules]{rules()}}.}
+\item{rules}{Can be the name of a set of rules (see below) or custom set of
+\code{\link[=rules]{rules()}}.}
 
 \item{...}{Currently not used.}
 }
@@ -59,25 +60,17 @@ between the sample and fitted covariance matrices. Its p-value should be >
 is quite sensitive to sample size.
 \item \strong{GFI/AGFI}: The (Adjusted) Goodness of Fit is the proportion of variance
 accounted for by the estimated population covariance. Analogous to R2. The
-GFI and the AGFI should be > .95 and > .90, respectively.
+GFI and the AGFI should be > .95 and > .90, respectively (Byrne, 1994;
+\code{"byrne1994"}).
 \item \strong{NFI/NNFI/TLI}: The (Non) Normed Fit Index. An NFI of 0.95, indicates the
 model of interest improves the fit by 95\\% relative to the null model. The
 NNFI (also called the Tucker Lewis index; TLI) is preferable for smaller
-samples. They should be > .90 (Byrne, 1994) or > .95 (Schumacker & Lomax,
-2004).
+samples. They should be > .90 (Byrne, 1994; \code{"byrne1994"}) or > .95
+(Schumacker & Lomax, 2004; \code{"schumacker2004"}).
 \item \strong{CFI}: The Comparative Fit Index is a revised form of NFI. Not very
 sensitive to sample size (Fan, Thompson, & Wang, 1999). Compares the fit of a
-target model to the fit of an independent, or null, model. It should be >
-.90.
-\item \strong{RMSEA}: The Root Mean Square Error of Approximation is a
-parsimony-adjusted index. Values closer to 0 represent a good fit. It should
-be < .08 or < .05. The p-value printed with it tests the hypothesis that
-RMSEA is less than or equal to .05 (a cutoff sometimes used for good fit),
-and thus should be not significant.
-\item \strong{RMR/SRMR}: the (Standardized) Root Mean Square Residual represents the
-square-root of the difference between the residuals of the sample covariance
-matrix and the hypothesized model. As the RMR can be sometimes hard to
-interpret, better to use SRMR. Should be < .08.
+target model to the fit of an independent, or null, model. It should be > .96
+(Hu & Bentler, 1999; \code{"hu&bentler1999"}) or .90 (Byrne, 1994; \code{"byrne1994"}).
 \item \strong{RFI}: the Relative Fit Index, also known as RHO1, is not guaranteed to
 vary from 0 to 1. However, RFI close to 1 indicates a good fit.
 \item \strong{IFI}: the Incremental Fit Index (IFI) adjusts the Normed Fit Index (NFI)
@@ -86,6 +79,16 @@ fit, but the index can exceed 1.
 \item \strong{PNFI}: the Parsimony-Adjusted Measures Index. There is no commonly
 agreed-upon cutoff value for an acceptable model for this index. Should be >
 0.50.
+\item \strong{RMSEA}: The Root Mean Square Error of Approximation is a
+parsimony-adjusted index. Values closer to 0 represent a good fit. It should
+be < .08 (Awang, 2012; \code{"awang2012"}) or < .05 (Byrne, 1994; \code{"byrne1994"}).
+The p-value printed with it tests the hypothesis that RMSEA is less than or
+equal to .05 (a cutoff sometimes used for good fit), and thus should be not
+significant.
+\item \strong{RMR/SRMR}: the (Standardized) Root Mean Square Residual represents the
+square-root of the difference between the residuals of the sample covariance
+matrix and the hypothesized model. As the RMR can be sometimes hard to
+interpret, better to use SRMR. Should be < .08 (Byrne, 1994; \code{"byrne1994"}).
 }
 
 See the documentation for \code{\link[lavaan:fitmeasures]{fitmeasures()}}.
@@ -130,15 +133,20 @@ interpret(model)
 \item Awang, Z. (2012). A handbook on SEM. Structural equation modeling.
 \item Byrne, B. M. (1994). Structural equation modeling with EQS and EQS/Windows.
 Thousand Oaks, CA: Sage Publications.
-\item Tucker, L. R., and Lewis, C. (1973). The reliability coefficient for maximum
-likelihood factor analysis. Psychometrika, 38, 1-10.
-\item Schumacker, R. E., and Lomax, R. G. (2004). A beginner's guide to structural
-equation modeling, Second edition. Mahwah, NJ: Lawrence Erlbaum Associates.
-\item Fan, X., B. Thompson, and L. Wang (1999). Effects of sample size, estimation
-method, and model specification on structural equation modeling fit indexes.
-Structural Equation Modeling, 6, 56-83.
+\item Fan, X., B. Thompson, and L. Wang (1999). Effects of sample size,
+estimation method, and model specification on structural equation modeling
+fit indexes. Structural Equation Modeling, 6, 56-83.
+\item Hu, L. T., & Bentler, P. M. (1999). Cutoff criteria for fit indexes in
+covariance structure analysis: Conventional criteria versus new
+alternatives. Structural equation modeling: a multidisciplinary journal,
+6(1), 1-55.
 \item Kline, R. B. (2015). Principles and practice of structural equation
 modeling. Guilford publications.
+\item Schumacker, R. E., and Lomax, R. G. (2004). A beginner's guide to
+structural equation modeling, Second edition. Mahwah, NJ: Lawrence Erlbaum
+Associates.
+\item Tucker, L. R., and Lewis, C. (1973). The reliability coefficient for
+maximum likelihood factor analysis. Psychometrika, 38, 1-10.
 }
 }
 \keyword{interpreters}
