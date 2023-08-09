@@ -59,7 +59,7 @@
 #' `afex` package.
 #' \cr\cr
 #' For type 3 sum of squares, it is generally recommended to fit models with
-#' *orthoginal factor weights* (e.g., `contr.sum`) and *centered covariates*,
+#' *orthogonal factor weights* (e.g., `contr.sum`) and *centered covariates*,
 #' for sensible results. See examples and the `afex` package.
 #'
 #' ## Un-Biased Estimate of Eta
@@ -316,19 +316,25 @@ cohens_f <- function(model,
   if ("CI" %in% colnames(res)) attr(res, "ci_method") <- list(method = "ncp", distribution = "F")
   class(res) <- unique(c("effectsize_anova", "effectsize_table", "see_effectsize_table", class(res)))
   attr(res, "approximate") <- isTRUE(attr(res, "approximate", exact = TRUE))
-  attr(res, "table_footer") <- if (method != "eta") sprintf("Based on %s squared.", paste0(toupper(substring(methed, 1, 1)), substring(methed, 2)))
+  attr(res, "table_footer") <- if (method != "eta") sprintf("Based on %s squared.", paste0(toupper(substring(method, 1, 1)), substring(method, 2)))
   res
 }
 
 #' @rdname eta_squared
 #' @export
 cohens_f_squared <- function(model,
-                             partial = TRUE, squared = TRUE, model2 = NULL,
+                             partial = TRUE, generalized = FALSE,
+                             squared = TRUE,
+                             method = c("eta", "omega", "epsilon"),
+                             model2 = NULL,
                              ci = 0.95, alternative = "greater",
                              verbose = TRUE, ...) {
   cohens_f(
     model,
-    partial = partial, squared = squared, model2 = model2,
+    partial = partial, generalized = generalized,
+    squared = squared,
+    method = method,
+    model2 = model2,
     ci = ci, alternative = alternative,
     verbose = verbose, ...
   )

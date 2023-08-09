@@ -33,6 +33,9 @@
 
 #' @keywords internal
 .anova_es.mixed <- function(model,
+                            type = c("eta", "omega", "epsilon"),
+                            partial = TRUE, generalized = FALSE,
+                            ci = 0.95, alternative = "greater",
                             verbose = TRUE,
                             include_intercept = FALSE,
                             ...) {
@@ -52,7 +55,12 @@
   aov_tab$df_error <- aov_tab[["den Df"]]
   aov_tab <- aov_tab[, c("Parameter", "df", "df_error", "F")]
 
-  out <- .es_aov_table(aov_tab, verbose = verbose, include_intercept = include_intercept, ...)
+  out <- .es_aov_table(aov_tab, type = type,
+    partial = partial, generalized = generalized,
+    ci = ci, alternative = alternative,
+    verbose = verbose,
+    include_intercept = include_intercept, ...
+  )
 
   attr(out, "anova_type") <- attr(model, "type")
   attr(out, "approximate") <- TRUE

@@ -4,7 +4,8 @@
 #' equation modelling, such as RMSEA, CFI, NFI, IFI, etc.
 #'
 #' @param x vector of values, or an object of class `lavaan`.
-#' @param rules Can be `"default"` or custom set of [rules()].
+#' @param rules Can be the name of a set of rules (see below) or custom set of
+#'   [rules()].
 #' @inheritParams interpret
 #'
 #' @inherit performance::model_performance.lavaan details
@@ -19,29 +20,19 @@
 #'
 #' - **GFI/AGFI**: The (Adjusted) Goodness of Fit is the proportion of variance
 #' accounted for by the estimated population covariance. Analogous to R2. The
-#' GFI and the AGFI should be > .95 and > .90, respectively.
+#' GFI and the AGFI should be > .95 and > .90, respectively (Byrne, 1994;
+#' `"byrne1994"`).
 #'
 #' - **NFI/NNFI/TLI**: The (Non) Normed Fit Index. An NFI of 0.95, indicates the
 #' model of interest improves the fit by 95\% relative to the null model. The
 #' NNFI (also called the Tucker Lewis index; TLI) is preferable for smaller
-#' samples. They should be > .90 (Byrne, 1994) or > .95 (Schumacker & Lomax,
-#' 2004).
+#' samples. They should be > .90 (Byrne, 1994; `"byrne1994"`) or > .95
+#' (Schumacker & Lomax, 2004; `"schumacker2004"`).
 #'
 #' - **CFI**: The Comparative Fit Index is a revised form of NFI. Not very
 #' sensitive to sample size (Fan, Thompson, & Wang, 1999). Compares the fit of a
-#' target model to the fit of an independent, or null, model. It should be >
-#' .90.
-#'
-#' - **RMSEA**: The Root Mean Square Error of Approximation is a
-#' parsimony-adjusted index. Values closer to 0 represent a good fit. It should
-#' be < .08 or < .05. The p-value printed with it tests the hypothesis that
-#' RMSEA is less than or equal to .05 (a cutoff sometimes used for good fit),
-#' and thus should be not significant.
-#'
-#' - **RMR/SRMR**: the (Standardized) Root Mean Square Residual represents the
-#' square-root of the difference between the residuals of the sample covariance
-#' matrix and the hypothesized model. As the RMR can be sometimes hard to
-#' interpret, better to use SRMR. Should be < .08.
+#' target model to the fit of an independent, or null, model. It should be > .96
+#' (Hu & Bentler, 1999; `"hu&bentler1999"`) or .90 (Byrne, 1994; `"byrne1994"`).
 #'
 #' - **RFI**: the Relative Fit Index, also known as RHO1, is not guaranteed to
 #' vary from 0 to 1. However, RFI close to 1 indicates a good fit.
@@ -53,6 +44,18 @@
 #' - **PNFI**: the Parsimony-Adjusted Measures Index. There is no commonly
 #' agreed-upon cutoff value for an acceptable model for this index. Should be >
 #' 0.50.
+#'
+#' - **RMSEA**: The Root Mean Square Error of Approximation is a
+#' parsimony-adjusted index. Values closer to 0 represent a good fit. It should
+#' be < .08 (Awang, 2012; `"awang2012"`) or < .05 (Byrne, 1994; `"byrne1994"`).
+#' The p-value printed with it tests the hypothesis that RMSEA is less than or
+#' equal to .05 (a cutoff sometimes used for good fit), and thus should be not
+#' significant.
+#'
+#' - **RMR/SRMR**: the (Standardized) Root Mean Square Residual represents the
+#' square-root of the difference between the residuals of the sample covariance
+#' matrix and the hypothesized model. As the RMR can be sometimes hard to
+#' interpret, better to use SRMR. Should be < .08 (Byrne, 1994; `"byrne1994"`).
 #'
 #' See the documentation for \code{\link[lavaan:fitmeasures]{fitmeasures()}}.
 #'
@@ -92,29 +95,35 @@
 #' - Awang, Z. (2012). A handbook on SEM. Structural equation modeling.
 #'
 #' - Byrne, B. M. (1994). Structural equation modeling with EQS and EQS/Windows.
-#' Thousand Oaks, CA: Sage Publications.
+#'   Thousand Oaks, CA: Sage Publications.
 #'
-#' - Tucker, L. R., and Lewis, C. (1973). The reliability coefficient for maximum
-#' likelihood factor analysis. Psychometrika, 38, 1-10.
+#' - Fan, X., B. Thompson, and L. Wang (1999). Effects of sample size,
+#'   estimation method, and model specification on structural equation modeling
+#'   fit indexes. Structural Equation Modeling, 6, 56-83.
 #'
-#' - Schumacker, R. E., and Lomax, R. G. (2004). A beginner's guide to structural
-#' equation modeling, Second edition. Mahwah, NJ: Lawrence Erlbaum Associates.
-#'
-#' - Fan, X., B. Thompson, and L. Wang (1999). Effects of sample size, estimation
-#' method, and model specification on structural equation modeling fit indexes.
-#' Structural Equation Modeling, 6, 56-83.
+#' - Hu, L. T., & Bentler, P. M. (1999). Cutoff criteria for fit indexes in
+#'   covariance structure analysis: Conventional criteria versus new
+#'   alternatives. Structural equation modeling: a multidisciplinary journal,
+#'   6(1), 1-55.
 #'
 #' - Kline, R. B. (2015). Principles and practice of structural equation
-#' modeling. Guilford publications.
+#'   modeling. Guilford publications.
+#'
+#' - Schumacker, R. E., and Lomax, R. G. (2004). A beginner's guide to
+#'   structural equation modeling, Second edition. Mahwah, NJ: Lawrence Erlbaum
+#'   Associates.
+#'
+#' - Tucker, L. R., and Lewis, C. (1973). The reliability coefficient for
+#'   maximum likelihood factor analysis. Psychometrika, 38, 1-10.
 #'
 #'
 #' @keywords interpreters
 #' @export
-interpret_gfi <- function(x, rules = "default") {
+interpret_gfi <- function(x, rules = "byrne1994") {
   rules <- .match.rules(
     rules,
     list(
-      default = rules(c(0.95), c("poor", "satisfactory"), name = "default", right = FALSE)
+      byrne1994 = rules(c(0.95), c("poor", "satisfactory"), name = "byrne1994", right = FALSE)
     )
   )
 
@@ -124,11 +133,11 @@ interpret_gfi <- function(x, rules = "default") {
 
 #' @rdname interpret_gfi
 #' @export
-interpret_agfi <- function(x, rules = "default") {
+interpret_agfi <- function(x, rules = "byrne1994") {
   rules <- .match.rules(
     rules,
     list(
-      default = rules(c(0.90), c("poor", "satisfactory"), name = "default", right = FALSE)
+      byrne1994 = rules(c(0.90), c("poor", "satisfactory"), name = "byrne1994", right = FALSE)
     )
   )
 
@@ -157,42 +166,12 @@ interpret_nnfi <- interpret_nfi
 
 #' @rdname interpret_gfi
 #' @export
-interpret_cfi <- function(x, rules = "default") {
+interpret_cfi <- function(x, rules = "byrne1994") {
   rules <- .match.rules(
     rules,
     list(
-      default = rules(c(0.90), c("poor", "satisfactory"), name = "default", right = FALSE)
-    )
-  )
-
-  interpret(x, rules)
-}
-
-
-
-
-#' @rdname interpret_gfi
-#' @export
-interpret_rmsea <- function(x, rules = "default") {
-  rules <- .match.rules(
-    rules,
-    list(
-      default = rules(c(0.05), c("satisfactory", "poor"), name = "default"),
-      awang2012 = rules(c(0.05, 0.08), c("good", "satisfactory", "poor"), name = "awang2012")
-    )
-  )
-
-  interpret(x, rules)
-}
-
-
-#' @rdname interpret_gfi
-#' @export
-interpret_srmr <- function(x, rules = "default") {
-  rules <- .match.rules(
-    rules,
-    list(
-      default = rules(c(0.08), c("satisfactory", "poor"), name = "default")
+      "hu&bentler1999" = rules(c(0.96), c("poor", "satisfactory"), name = "hu&bentler1999", right = FALSE),
+      "byrne1994" = rules(c(0.90), c("poor", "satisfactory"), name = "byrne1994", right = FALSE)
     )
   )
 
@@ -238,6 +217,33 @@ interpret_pnfi <- function(x, rules = "default") {
   interpret(x, rules)
 }
 
+#' @rdname interpret_gfi
+#' @export
+interpret_rmsea <- function(x, rules = "byrne1994") {
+  rules <- .match.rules(
+    rules,
+    list(
+      byrne1994 = rules(c(0.05), c("satisfactory", "poor"), name = "byrne1994"),
+      awang2012 = rules(c(0.05, 0.08), c("good", "satisfactory", "poor"), name = "awang2012")
+    )
+  )
+
+  interpret(x, rules)
+}
+
+
+#' @rdname interpret_gfi
+#' @export
+interpret_srmr <- function(x, rules = "byrne1994") {
+  rules <- .match.rules(
+    rules,
+    list(
+      byrne1994 = rules(c(0.08), c("satisfactory", "poor"), name = "byrne1994")
+    )
+  )
+
+  interpret(x, rules)
+}
 
 # lavaan ------------------------------------------------------------------
 
