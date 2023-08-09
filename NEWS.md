@@ -1,4 +1,4 @@
-# effectsize (development version)
+# effectsize 0.8.5
 
 ## New features
 
