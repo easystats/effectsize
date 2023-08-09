@@ -12,7 +12,7 @@ equation modelling, such as RMSEA, CFI, NFI, IFI, etc."><meta property="og:image
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.11</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -116,25 +116,25 @@ equation modelling, such as RMSEA, CFI, NFI, IFI, etc.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">interpret_gfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">interpret_gfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"byrne1994"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">interpret_agfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
+<span><span class="fu">interpret_agfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"byrne1994"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">interpret_nfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"byrne1994"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">interpret_nnfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"byrne1994"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">interpret_cfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">interpret_rmsea</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">interpret_srmr</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
+<span><span class="fu">interpret_cfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"byrne1994"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">interpret_rfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">interpret_ifi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">interpret_pnfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">interpret_rmsea</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"byrne1994"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">interpret_srmr</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"byrne1994"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for lavaan</span></span>
 <span><span class="fu"><a href="interpret.html">interpret</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -150,7 +150,8 @@ equation modelling, such as RMSEA, CFI, NFI, IFI, etc.</p>
 
 
 <dt>rules</dt>
-<dd><p>Can be <code>"default"</code> or custom set of <code><a href="rules.html">rules()</a></code>.</p></dd>
+<dd><p>Can be the name of a set of rules (see below) or custom set of
+<code><a href="rules.html">rules()</a></code>.</p></dd>
 
 
 <dt>...</dt>
@@ -169,25 +170,17 @@ between the sample and fitted covariance matrices. Its p-value should be &gt;
 is quite sensitive to sample size.</p></li>
 <li><p><strong>GFI/AGFI</strong>: The (Adjusted) Goodness of Fit is the proportion of variance
 accounted for by the estimated population covariance. Analogous to R2. The
-GFI and the AGFI should be &gt; .95 and &gt; .90, respectively.</p></li>
+GFI and the AGFI should be &gt; .95 and &gt; .90, respectively (Byrne, 1994;
+<code>"byrne1994"</code>).</p></li>
 <li><p><strong>NFI/NNFI/TLI</strong>: The (Non) Normed Fit Index. An NFI of 0.95, indicates the
 model of interest improves the fit by 95\<!-- % relative to the null model. The -->
 NNFI (also called the Tucker Lewis index; TLI) is preferable for smaller
-samples. They should be &gt; .90 (Byrne, 1994) or &gt; .95 (Schumacker &amp; Lomax,
-2004).</p></li>
+samples. They should be &gt; .90 (Byrne, 1994; <code>"byrne1994"</code>) or &gt; .95
+(Schumacker &amp; Lomax, 2004; <code>"schumacker2004"</code>).</p></li>
 <li><p><strong>CFI</strong>: The Comparative Fit Index is a revised form of NFI. Not very
 sensitive to sample size (Fan, Thompson, &amp; Wang, 1999). Compares the fit of a
-target model to the fit of an independent, or null, model. It should be &gt;
-.90.</p></li>
-<li><p><strong>RMSEA</strong>: The Root Mean Square Error of Approximation is a
-parsimony-adjusted index. Values closer to 0 represent a good fit. It should
-be &lt; .08 or &lt; .05. The p-value printed with it tests the hypothesis that
-RMSEA is less than or equal to .05 (a cutoff sometimes used for good fit),
-and thus should be not significant.</p></li>
-<li><p><strong>RMR/SRMR</strong>: the (Standardized) Root Mean Square Residual represents the
-square-root of the difference between the residuals of the sample covariance
-matrix and the hypothesized model. As the RMR can be sometimes hard to
-interpret, better to use SRMR. Should be &lt; .08.</p></li>
+target model to the fit of an independent, or null, model. It should be &gt; .96
+(Hu &amp; Bentler, 1999; <code>"hu&amp;bentler1999"</code>) or .90 (Byrne, 1994; <code>"byrne1994"</code>).</p></li>
 <li><p><strong>RFI</strong>: the Relative Fit Index, also known as RHO1, is not guaranteed to
 vary from 0 to 1. However, RFI close to 1 indicates a good fit.</p></li>
 <li><p><strong>IFI</strong>: the Incremental Fit Index (IFI) adjusts the Normed Fit Index (NFI)
@@ -196,6 +189,16 @@ fit, but the index can exceed 1.</p></li>
 <li><p><strong>PNFI</strong>: the Parsimony-Adjusted Measures Index. There is no commonly
 agreed-upon cutoff value for an acceptable model for this index. Should be &gt;
 0.50.</p></li>
+<li><p><strong>RMSEA</strong>: The Root Mean Square Error of Approximation is a
+parsimony-adjusted index. Values closer to 0 represent a good fit. It should
+be &lt; .08 (Awang, 2012; <code>"awang2012"</code>) or &lt; .05 (Byrne, 1994; <code>"byrne1994"</code>).
+The p-value printed with it tests the hypothesis that RMSEA is less than or
+equal to .05 (a cutoff sometimes used for good fit), and thus should be not
+significant.</p></li>
+<li><p><strong>RMR/SRMR</strong>: the (Standardized) Root Mean Square Residual represents the
+square-root of the difference between the residuals of the sample covariance
+matrix and the hypothesized model. As the RMR can be sometimes hard to
+interpret, better to use SRMR. Should be &lt; .08 (Byrne, 1994; <code>"byrne1994"</code>).</p></li>
 </ul><p>See the documentation for <code><a href="https://rdrr.io/pkg/lavaan/man/fitMeasures.html" class="external-link">fitmeasures()</a></code>.</p>
 </div>
 
@@ -220,26 +223,31 @@ indices. See https://dynamicfit.app/cfa/.</p>
 <ul><li><p>Awang, Z. (2012). A handbook on SEM. Structural equation modeling.</p></li>
 <li><p>Byrne, B. M. (1994). Structural equation modeling with EQS and EQS/Windows.
 Thousand Oaks, CA: Sage Publications.</p></li>
-<li><p>Tucker, L. R., and Lewis, C. (1973). The reliability coefficient for maximum
-likelihood factor analysis. Psychometrika, 38, 1-10.</p></li>
-<li><p>Schumacker, R. E., and Lomax, R. G. (2004). A beginner's guide to structural
-equation modeling, Second edition. Mahwah, NJ: Lawrence Erlbaum Associates.</p></li>
-<li><p>Fan, X., B. Thompson, and L. Wang (1999). Effects of sample size, estimation
-method, and model specification on structural equation modeling fit indexes.
-Structural Equation Modeling, 6, 56-83.</p></li>
+<li><p>Fan, X., B. Thompson, and L. Wang (1999). Effects of sample size,
+estimation method, and model specification on structural equation modeling
+fit indexes. Structural Equation Modeling, 6, 56-83.</p></li>
+<li><p>Hu, L. T., &amp; Bentler, P. M. (1999). Cutoff criteria for fit indexes in
+covariance structure analysis: Conventional criteria versus new
+alternatives. Structural equation modeling: a multidisciplinary journal,
+6(1), 1-55.</p></li>
 <li><p>Kline, R. B. (2015). Principles and practice of structural equation
 modeling. Guilford publications.</p></li>
+<li><p>Schumacker, R. E., and Lomax, R. G. (2004). A beginner's guide to
+structural equation modeling, Second edition. Mahwah, NJ: Lawrence Erlbaum
+Associates.</p></li>
+<li><p>Tucker, L. R., and Lewis, C. (1973). The reliability coefficient for
+maximum likelihood factor analysis. Psychometrika, 38, 1-10.</p></li>
 </ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">interpret_gfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: byrne1994)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">interpret_agfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: byrne1994)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">interpret_nfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
@@ -251,15 +259,15 @@ modeling. Guilford publications.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">interpret_cfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: byrne1994)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">interpret_rmsea</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.07</span>, <span class="fl">.04</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: byrne1994)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">interpret_srmr</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor" "poor"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: default)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: byrne1994)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">interpret_rfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "poor"         "satisfactory"</span>

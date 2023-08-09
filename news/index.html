@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.11</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -111,6 +111,8 @@
 <div class="section level3">
 <h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
 <ul><li>
+<code><a href="../reference/interpret_gfi.html">interpret_cfi()</a></code> gains a new rule option: <code>"hu&amp;bentler1999"</code> ( <a href="https://github.com/easystats/effectsize/issues/538" class="external-link">#538</a> ).</li>
+<li>
 <code><a href="../reference/eta_squared.html">cohens_f()</a></code> added option to return unbiased estimators (based on Omega- or Epsilon-squared).</li>
 <li>
 <code><a href="../reference/phi.html">tschuprows_t()</a></code> now returns an effect size corrected for small-sample bias. Set <code>adjust = FALSE</code> to preserve old behavior.</li>
@@ -135,6 +137,8 @@
 <h3 id="breaking-changes-development-version">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
 <ul><li>
 <code>*_to_riskratio()</code> and <code>riskratio_to_*()</code> argument <code>log</code> not longer converts RR to/from log(RR).</li>
+<li>
+<code><a href="../reference/interpret_gfi.html">interpret_gfi()</a></code> and friends: some previously named <code>"default"</code> rules have been re-labelled as <code>"byrne1994"</code>.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>

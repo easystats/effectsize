@@ -26,7 +26,7 @@ details."><meta property="og:image" content="https://easystats.github.io/effects
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.11</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -181,7 +181,9 @@ details.</p>
 <span><span class="fu">cohens_f_squared</span><span class="op">(</span></span>
 <span>  <span class="va">model</span>,</span>
 <span>  partial <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  generalized <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  squared <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"eta"</span>, <span class="st">"omega"</span>, <span class="st">"epsilon"</span><span class="op">)</span>,</span>
 <span>  model2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  ci <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
@@ -311,7 +313,7 @@ to <code>eta_squared()</code>. See examples below for use of <code><a href="http
 <code>afex</code> package.
 <br><br>
 For type 3 sum of squares, it is generally recommended to fit models with
-<em>orthoginal factor weights</em> (e.g., <code>contr.sum</code>) and <em>centered covariates</em>,
+<em>orthogonal factor weights</em> (e.g., <code>contr.sum</code>) and <em>centered covariates</em>,
 for sensible results. See examples and the <code>afex</code> package.</p>
 </div>
 
