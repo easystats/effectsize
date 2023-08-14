@@ -67,7 +67,7 @@ Depends:
     R (>= 3.6)
 Imports:
     bayestestR (>= 0.13.0),
-    insight (>= 0.19.1),
+    insight (>= 0.19.3.2),
     parameters (>= 0.20.2),
     performance (>= 0.10.2),
     datawizard (>= 0.6.5),
@@ -107,3 +107,4 @@ Config/Needs/website:
     rstudio/bslib,
     r-lib/pkgdown,
     easystats/easystatstemplate
+Remotes: easystats/insight
