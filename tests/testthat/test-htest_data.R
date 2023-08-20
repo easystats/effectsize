@@ -1,5 +1,5 @@
 test_that("basic examples", {
-  if (getRversion() < 4.1.3) {
+  if (getRversion() < "4.1.3") {
     skip_on_os("linux")
   }
 
@@ -96,6 +96,10 @@ test_that("edge cases", {
 })
 
 test_that("subset and na.action", {
+  if (getRversion() < "4.1.3") {
+    skip_on_os("linux")
+  }
+
   # t.test
   some_data <- mtcars
   some_data$mpg[1] <- NA
