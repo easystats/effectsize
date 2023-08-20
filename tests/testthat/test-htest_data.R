@@ -1,4 +1,8 @@
 test_that("basic examples", {
+  if (getRversion() < 4.0) {
+    skip_on_os("linux")
+  }
+
   # t.test
   x <- t.test(mpg ~ vs, data = mtcars)
   expect_warning(effectsize(x), "Unable to retrieve data")
@@ -270,7 +274,8 @@ test_that("subset and na.action", {
   after <- c(392.9, 393.2, 345.1, 393, 434, 427.9, 422, 383.9, NA, 999)
   my_data <- data.frame(
     group = rep(c("before", "after"), each = 10),
-    weight = c(before, after)
+    weight = c(before, after),
+    stringsAsFactors = FALSE
   )
 
   res <- t.test(weight ~ group,
