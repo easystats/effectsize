@@ -90,4 +90,73 @@ test_that("edge cases", {
 
   x <- t.test(Pair(mpg, hp) ~ 1, data = mtcars)
   expect_no_warning(effectsize(x, data = mtcars))
+
+  # Testing subset and na.action
+  some_data <- mtcars
+  some_data$mpg[1] <- NA
+
+  tt <- t.test(mpg ~ am,
+    data = some_data,
+    alternative = "less",
+    mu = 1,
+    var.equal = TRUE,
+    subset = cyl == 4,
+    na.action = na.omit
+  )
+
+  d1 <- effectsize(tt,
+    data = some_data,
+    alternative = "less",
+    mu = 1,
+    var.equal = TRUE,
+    subset = cyl == 4,
+    na.action = na.omit
+  )
+
+  d2 <- cohens_d(mpg ~ am,
+    data = some_data,
+    alternative = "less",
+    mu = 1,
+    pooled_sd = TRUE,
+    subset = cyl == 4,
+    na.action = na.omit
+  )
+
+  all.equal(d1, d2)
+
+  # Paired t.test with formula
+  sleep2 <- reshape(sleep, direction = "wide",
+                    idvar = "ID", timevar = "group")
+  sleep2$ID <- as.numeric(sleep2$ID)
+
+  tt_paired <- t.test(
+    Pair(extra.1, extra.2) ~ 1,
+    data = sleep2,
+    alternative = "less",
+    var.equal = TRUE,
+    subset = ID > 3,
+    na.action = na.omit
+  )
+
+  d1_paired <- effectsize(
+    tt_paired,
+    data = sleep2,
+    alternative = "less",
+    var.equal = TRUE,
+    subset = ID > 3,
+    na.action = na.omit
+    )
+
+  d2_paired <- cohens_d(
+    tt_paired,
+    data = sleep2,
+    alternative = "less",
+    paired = TRUE,
+    var.equal = TRUE,
+    subset = ID > 3,
+    na.action = na.omit
+  )
+
+  all.equal(d1_paired, d2_paired)
+
 })

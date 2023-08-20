@@ -31,75 +31,67 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 }
 
 #' @keywords internal
-.data_from_formula <- function(data, dots, model, verbose = TRUE) {
-  if (is.null(data) && !is.null(dots$data)) {
+.data_from_formula <- function(model_data, model, verbose = TRUE, ...) {
+  if (is.null(model_data) && "data" %in% names(match.call())) {
     vars <- insight::get_parameters(model)$Parameter
     vars_split <- unlist(strsplit(vars, " by | and "))
-    other_args <- names(dots) %in% c("na.action", "subset")
+    data_ellipsis <- eval.parent(match.call()[["data"]])
     if (!grepl("\\$|\\[", vars) && length(vars_split) > 1) {
       if (grepl("by|and", vars)) {
         vars <- sub("by|and", "~", vars, perl = TRUE)
         vars <- sub("and", "|", vars, fixed = TRUE)
         if (!grepl("|", vars, fixed = TRUE)) {
+          form <- stats::as.formula(vars)
+          data_out <- .resolve_formula(form, ...)
+          data_out[[2]] <- factor(data_out[[2]])
+        } else if (all(vars_split %in% names(data_ellipsis))) {
+          # We need a special case for the Friedman test
           # because "In Ops.factor(w, t) : ‘|’ not meaningful for factors"
           # When used with the | operator within the formula
-          form <- stats::as.formula(vars)
-          data <- stats::model.frame(form,
-            data = dots$data,
-            na.action = dots$na.action,
-            subset = dots$subset
-          )
-          data[[2]] <- factor(data[[2]])
-        } else if (all(vars_split %in% names(dots$data))) {
-          if (any(other_args)) {
-            args <- paste(names(dots)[other_args], collapse = "' and '")
-            warning("Arguments '", args, "' are ignored for this method.")
-          }
-          data <- dots$data[, vars_split]
+          data_out <- data_ellipsis[, vars_split]
         }
       }
     } else if (grepl("$", vars, fixed = TRUE)) {
-      vars_cols <- gsub("(\\b\\w+\\$)", paste0(deparse(substitute(dots$data)), "$"), vars)
+      vars_cols <- gsub("(\\b\\w+\\$)", paste0(match.call()[["data"]], "$"), vars)
       columns <- unlist(strsplit(vars_cols, " and ", fixed = TRUE))
       x <- eval(parse(text = columns[1]))
       y <- eval(parse(text = columns[2]))
-      data <- list(x, y)
+      data_out <- list(x, y)
     } else if (grepl("\\$|\\[", vars)) {
       if (length(vars_split) == 1) {
-        data <- dots$data
+        data_out <- data_ellipsis
       } else {
         obj <- gsub(".*?\\[([^\\[\\]]+)\\].*", "\\1", vars, perl = TRUE)
         message("Is object '", obj, "' still available in your workspace?")
       }
     } else if (length(vars_split) == 1) {
       form <- stats::as.formula(paste0(vars, "~1"))
-      data <- stats::model.frame(form,
-        data = dots$data,
-        na.action = dots$na.action,
-        subset = dots$subset
-      )
+      data_out <- .resolve_formula(form, ...)
     } else {
       if (verbose) {
         message("To use the `data` argument, consider using modifiers outside the formula.")
       }
     }
+  } else {
+    data_out <- model_data
   }
-  data
+  data_out
 }
 
 #' @keywords internal
 .effectsize_t.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
-  data <- insight::get_data(model)
-
-  dots <- list(...)
-
-  data <- .data_from_formula(data, dots, model, verbose = verbose)
+  model_data <- insight::get_data(model)
+  data <- .data_from_formula(model_data, model, verbose, ...)
 
   approx <- is.null(data)
 
   if (is.null(type) || tolower(type) == "cohens_d") type <- "d"
   if (tolower(type) == "hedges_g") type <- "g"
+
+  cl <- match.call()
+  cl <- cl[-which(names(cl) == "subset")]
+  dots <- list(eval(cl, parent.frame()))
 
   dots$alternative <- model$alternative
   dots$ci <- attr(model$conf.int, "conf.level")
@@ -172,10 +164,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 #' @keywords internal
 .effectsize_chisq.test_dep <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
-  data <- insight::get_data(model)
-  approx <- is.null(data)
-
+  model_data <- insight::get_data(model)
+  data <- .data_from_formula(model_data, model, verbose, ...)
   dots <- list(...)
+
+  approx <- is.null(data)
 
   Obs <- model$observed
   Exp <- model$expected
@@ -294,10 +287,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 #' @keywords internal
 .effectsize_chisq.test_gof <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
-  data <- insight::get_data(model)
-  approx <- is.null(data)
-
+  model_data <- insight::get_data(model)
+  data <- .data_from_formula(model_data, model, verbose, ...)
   dots <- list(...)
+
+  approx <- is.null(data)
 
   Obs <- model$observed
   Exp <- model$expected
@@ -332,10 +326,10 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 #' @keywords internal
 .effectsize_oneway.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
-  data <- insight::get_data(model)
-  approx <- is.null(data)
+  model_data <- insight::get_data(model)
+  data <- .data_from_formula(model_data, model, verbose, ...)
 
-  dots <- list(...)
+  approx <- is.null(data)
 
   if ((approx <- grepl("not assuming", model$method, fixed = TRUE)) && verbose) {
     insight::format_alert("`var.equal = FALSE` - effect size is an {.b approximation.}")
@@ -375,10 +369,10 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 #' @keywords internal
 .effectsize_mcnemar.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
-  data <- insight::get_data(model)
-  approx <- is.null(data)
+  model_data <- insight::get_data(model)
+  data <- .data_from_formula(model_data, model, verbose, ...)
 
-  dots <- list(...)
+  approx <- is.null(data)
 
   .fail_if_approx(approx, "cohens_g")
 
@@ -393,15 +387,16 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 #' @keywords internal
 .effectsize_wilcox.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
-  data <- insight::get_data(model)
-
-  dots <- list(...)
-
-  data <- .data_from_formula(data, dots, model, verbose = verbose)
+  model_data <- insight::get_data(model)
+  data <- .data_from_formula(model_data, model, verbose, ...)
 
   approx <- is.null(data)
 
   if (is.null(type) || tolower(type) == "rank_biserial") type <- "rb"
+
+  cl <- match.call()
+  cl <- cl[-which(names(cl) == "subset")]
+  dots <- list(eval(cl, parent.frame()))
 
   dots$alternative <- model$alternative
   dots$ci <- attr(model$conf.int, "conf.level")
@@ -446,11 +441,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 #' @keywords internal
 .effectsize_kruskal.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
-  data <- insight::get_data(model)
-
-  dots <- list(...)
-
-  data <- .data_from_formula(data, dots, model, verbose = verbose)
+  model_data <- insight::get_data(model)
+  data <- .data_from_formula(model_data, model, verbose, ...)
 
   approx <- is.null(data)
 
@@ -475,11 +467,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 #' @keywords internal
 .effectsize_friedman.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
-  data <- insight::get_data(model)
-
-  dots <- list(...)
-
-  data <- .data_from_formula(data, dots, model, verbose = verbose)
+  model_data <- insight::get_data(model)
+  data <- .data_from_formula(model_data, model, verbose, ...)
 
   approx <- is.null(data)
 
