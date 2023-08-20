@@ -161,7 +161,7 @@ test_that("subset and na.action", {
     na.action = na.omit
   )
 
-  expect_equal(d1_paired, d2_paired)
+  expect_identical(d1_paired, d2_paired)
 
   # wilcox.test
   x <- wilcox.test(
@@ -201,7 +201,7 @@ test_that("subset and na.action", {
   wb <- aggregate(warpbreaks$breaks, by = list(
     w = warpbreaks$wool, t = warpbreaks$tension
   ), FUN = mean)
-  new_row <- data.frame(w = "B", t = "H", x = 99)
+  new_row <- data.frame(w = "B", t = "H", x = 99, stringsAsFactors = FALSE)
   wb <- rbind(wb, wb[6, ], new_row)
   wb$x[7] <- NA
 
@@ -264,7 +264,4 @@ test_that("subset and na.action", {
   # using the S3 method instead of the formula interface because no other
   # dataframe is provided on which to do the subsetting. So no test is
   # necessary here.
-
 })
-
-
