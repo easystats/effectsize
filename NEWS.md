@@ -1,7 +1,9 @@
-# effectsize (development version)
+# effectsize 0.8.5
 
 ## New features
 
+- `interpret_cfi()` gains a new rule option: `"hu&bentler1999"` ( #538 ).
+- `cohens_f()` added option to return unbiased estimators (based on Omega- or Epsilon-squared).
 - `tschuprows_t()` now returns an effect size corrected for small-sample bias. Set `adjust = FALSE` to preserve old behavior.
 - `w_to_v()` and others for converting between effect sizes of Chi-square tests.
 - `arr()` and `nnt()` for Absolute Risk Reduction or Number Needed to Treat.
@@ -17,6 +19,7 @@
 ## Breaking Changes
 
 - `*_to_riskratio()` and `riskratio_to_*()` argument `log` not longer converts RR to/from log(RR).
+- `interpret_gfi()` and friends: some previously named `"default"` rules have been re-labelled as `"byrne1994"`.
 
 ## Bug fixes
 
@@ -37,6 +40,7 @@
 
 ## Bug fixes
 
+- ANOVA effect sizes for `afex::mixed()` now return effect sizes for the Intercept where applicable.
 - Fixed error in `cohens_w()` for 2-by-X tables.  
 - Solved integer overflow errors in `rank_biserial()` ( #476 )
 - Fixed issue in `effectsize()` for t-tests when input vectors has unequal amount of missing values.

@@ -1,4 +1,4 @@
-#' Convert Between *d*, *r*, and Odds Ratio
+#' Convert Between Effect Sizes for Contingency Tables Correlations
 #'
 #' Enables a conversion between different indices of effect size, such as
 #' Cohen's *w* to \ifelse{latex}{\eqn{Fei}}{פ (Fei)}, and Cramer's *V* to

@@ -11,7 +11,7 @@
 \alias{c_to_w}
 \alias{v_to_t}
 \alias{t_to_v}
-\title{Convert Between \emph{d}, \emph{r}, and Odds Ratio}
+\title{Convert Between Effect Sizes for Contingency Tables Correlations}
 \usage{
 w_to_fei(w, p)
 

@@ -188,7 +188,8 @@ format.effectsize_difference <- function(x, digits = 2, ...) {
 
 #' @export
 format.effectsize_anova <- function(x, digits = 2, ...) {
-  footer <- caption <- subtitle <- NULL
+  footer <- attr(x, "table_footer")
+  caption <- subtitle <- NULL
 
   ## Title (caption)
   anova_type <- attr(x, "anova_type", exact = TRUE)
