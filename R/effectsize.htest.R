@@ -48,18 +48,24 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
           # We need a special case for the Friedman test
           # because "In Ops.factor(w, t) : ‘|’ not meaningful for factors"
           # When used with the | operator within the formula
-          data_out <- data_ellipsis[, vars_split]
+          data_out <- stats::model.frame(...)[, vars_split]
         }
       }
     } else if (grepl("$", vars, fixed = TRUE)) {
+      # Special case for square bracket subsetting
+      # E.g., x = dat$mpg[dat$am == 1], y = dat$mpg[dat$am == 0]
       vars_cols <- gsub("(\\b\\w+\\$)", paste0(match.call()[["data"]], "$"), vars)
       columns <- unlist(strsplit(vars_cols, " and ", fixed = TRUE))
       x <- eval(parse(text = columns[1]))
       y <- eval(parse(text = columns[2]))
       data_out <- list(x, y)
+      # Not necessary to subset/na.omit here because not formula interface
     } else if (grepl("\\$|\\[", vars)) {
+      # Special case for single-sample square bracket subsetting
+      # E.g., x = mtcars[[col_y]]
       if (length(vars_split) == 1) {
         data_out <- data_ellipsis
+        # Not necessary to subset/na.omit here because not formula interface
       } else {
         obj <- gsub(".*?\\[([^\\[\\]]+)\\].*", "\\1", vars, perl = TRUE)
         message("Is object '", obj, "' still available in your workspace?")

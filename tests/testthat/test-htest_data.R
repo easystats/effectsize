@@ -23,7 +23,6 @@ test_that("basic examples", {
   expect_no_warning(effectsize(x, data = wb))
 
   # kruskal.test
-  # Cannot get it to work
   airquality2 <- airquality
   airquality2$Month <- as.factor(airquality2$Month)
   airquality2$Ozone <- ifelse(is.na(airquality2$Ozone), 10, airquality2$Ozone)
@@ -90,8 +89,10 @@ test_that("edge cases", {
 
   x <- t.test(Pair(mpg, hp) ~ 1, data = mtcars)
   expect_no_warning(effectsize(x, data = mtcars))
+})
 
-  # Testing subset and na.action
+test_that("subset and na.action", {
+  # t.test
   some_data <- mtcars
   some_data$mpg[1] <- NA
 
@@ -122,12 +123,15 @@ test_that("edge cases", {
     na.action = na.omit
   )
 
-  all.equal(d1, d2)
+  expect_equal(d1, d2, ignore_attr = TRUE)
 
   # Paired t.test with formula
-  sleep2 <- reshape(sleep, direction = "wide",
-                    idvar = "ID", timevar = "group")
+  sleep2 <- reshape(sleep,
+    direction = "wide",
+    idvar = "ID", timevar = "group"
+  )
   sleep2$ID <- as.numeric(sleep2$ID)
+  sleep2$extra.2[1] <- NA
 
   tt_paired <- t.test(
     Pair(extra.1, extra.2) ~ 1,
@@ -145,7 +149,7 @@ test_that("edge cases", {
     var.equal = TRUE,
     subset = ID > 3,
     na.action = na.omit
-    )
+  )
 
   d2_paired <- cohens_d(
     tt_paired,
@@ -157,6 +161,110 @@ test_that("edge cases", {
     na.action = na.omit
   )
 
-  all.equal(d1_paired, d2_paired)
+  expect_equal(d1_paired, d2_paired)
+
+  # wilcox.test
+  x <- wilcox.test(
+    mpg ~ vs,
+    data = some_data,
+    alternative = "less",
+    mu = 1,
+    var.equal = TRUE,
+    subset = cyl == 4,
+    na.action = na.omit,
+    exact = FALSE
+  )
+
+  d1 <- effectsize(
+    x,
+    data = some_data,
+    alternative = "less",
+    mu = 1,
+    var.equal = TRUE,
+    subset = cyl == 4,
+    na.action = na.omit
+  )
+
+  d2 <- rank_biserial(
+    mpg ~ vs,
+    data = some_data,
+    alternative = "less",
+    mu = 1,
+    pooled_sd = TRUE,
+    subset = cyl == 4,
+    na.action = na.omit
+  )
+
+  expect_equal(d1, d2, ignore_attr = TRUE)
+
+  # friedman.test
+  wb <- aggregate(warpbreaks$breaks, by = list(
+    w = warpbreaks$wool, t = warpbreaks$tension
+  ), FUN = mean)
+  new_row <- data.frame(w = "B", t = "H", x = 99)
+  wb <- rbind(wb, wb[6, ], new_row)
+  wb$x[7] <- NA
+
+  x <- friedman.test(
+    x ~ w | t,
+    data = wb,
+    subset = x < 99,
+    na.action = na.omit
+  )
+
+  d1 <- effectsize(
+    x,
+    data = wb,
+    subset = x < 99,
+    na.action = na.omit
+  )
+
+  d2 <- kendalls_w(
+    x ~ w | t,
+    data = wb,
+    subset = x < 99,
+    na.action = na.omit
+  )
+
+  expect_equal(d1, d2, ignore_attr = FALSE)
+
+  # kruskal.test
+  airquality2 <- airquality
+  airquality2$Month <- as.factor(airquality2$Month)
+  airquality2$Ozone <- ifelse(is.na(airquality2$Ozone), 10, airquality2$Ozone)
+
+  x <- kruskal.test(
+    Ozone ~ Month,
+    data = airquality2,
+    subset = Month != 5,
+    na.action = na.omit
+  )
+
+  set.seed(42)
+  d1 <- effectsize(
+    x,
+    data = airquality2,
+    alternative = "less",
+    subset = Month != 5,
+    na.action = na.omit
+  )
+
+  set.seed(42)
+  d2 <- rank_epsilon_squared(
+    Ozone ~ Month,
+    data = airquality2,
+    alternative = "less",
+    subset = Month != 5,
+    na.action = na.omit
+  )
+
+  expect_equal(d1, d2, ignore_attr = TRUE)
+
+  # subset and na.omit arguments do not apply to square bracket subsetting
+  # using the S3 method instead of the formula interface because no other
+  # dataframe is provided on which to do the subsetting. So no test is
+  # necessary here.
 
 })
+
+
