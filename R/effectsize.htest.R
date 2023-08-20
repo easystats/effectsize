@@ -48,7 +48,12 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
           # We need a special case for the Friedman test
           # because "In Ops.factor(w, t) : ‘|’ not meaningful for factors"
           # When used with the | operator within the formula
-          data_out <- stats::model.frame(...)[, vars_split]
+          data_out <- stats::model.frame(...)
+          if (all(vars_split %in% names(data_out))) {
+            data_out <- data_out[vars_split]
+          } else {
+            data_out <- NULL
+          }
         }
       }
     } else if (grepl("$", vars, fixed = TRUE)) {
