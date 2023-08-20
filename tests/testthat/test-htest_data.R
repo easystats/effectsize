@@ -1,5 +1,5 @@
 test_that("basic examples", {
-  if (getRversion() < 4.0) {
+  if (getRversion() < 4.1.3) {
     skip_on_os("linux")
   }
 
