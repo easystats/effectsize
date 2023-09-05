@@ -116,19 +116,19 @@ library(emmeans)
 joint_tests(aov_fit, by = "noise")
 
 F_to_eta2(
-  f = c(5, 79),
+  f = c(8, 51),
   df = 2,
-  df_error = 29
+  df_error = 9
 )
 ```
 
 We can also use `t_to_eta2()` for contrast analysis:
 
 ```{r, eval = .eval_if_requireNamespace("afex", "emmeans")}
-pairs(emmeans(aov_fit, ~angle))
+pairs(emmeans(aov_fit, ~ angle))
 
 t_to_eta2(
-  t = c(-6.2, -8.2, -3.3),
+  t = c(-6.2, -8.2, -3.2),
   df_error = 9
 )
 ```
@@ -142,7 +142,7 @@ fit_lmm <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
 
 anova(fit_lmm)
 
-F_to_eta2(45.8, 1, 17)
+F_to_eta2(45.9, 1, 17)
 ```
 
 We can also use `t_to_eta2()` for the slope of `Days` (which in this case gives
@@ -161,9 +161,9 @@ $\epsilon^2_p$ (Epsilon; sometimes called $\text{Adj. }\eta^2_p$, which is
 equivalent to $R^2_{adj}$; @albers2018power, @mordkoff2019simple).
 
 ```{r}
-F_to_eta2(45.8, 1, 17)
-F_to_epsilon2(45.8, 1, 17)
-F_to_omega2(45.8, 1, 17)
+F_to_eta2(45.9, 1, 17)
+F_to_epsilon2(45.9, 1, 17)
+F_to_omega2(45.9, 1, 17)
 ```
 
 ## Measure of Association
@@ -212,11 +212,11 @@ This measure is also sometimes used in contrast analysis, where it is called the
 point bi-serial correlation - $r_{pb}$ [@cohen1965some; @rosnow2000contrasts]:
 
 ```{r, eval = .eval_if_requireNamespace("afex", "emmeans")}
-pairs(emmeans(aov_fit, ~angle))
+pairs(emmeans(aov_fit, ~ angle))
 
 t_to_r(
-  t = c(-5.7, -8.9, -3.2),
-  df_error = 18
+  t = c(-6.2, -8.2, -3.2),
+  df_error = 9
 )
 ```
 
@@ -254,11 +254,11 @@ eff_size(em_tension, sigma = sigma(m), edf = df.residual(m))
 ### Within-Subject Contrasts
 
 ```{r, eval = .eval_if_requireNamespace("afex", "emmeans")}
-pairs(emmeans(aov_fit, ~angle))
+pairs(emmeans(aov_fit, ~ angle))
 
 t_to_d(
-  t = c(-5.7, -5.9, -3.2),
-  df_error = 18,
+  t = c(-6.2, -8.2, -3.3),
+  df_error = 9,
   paired = TRUE
 )
 ```
