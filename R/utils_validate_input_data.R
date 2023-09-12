@@ -3,11 +3,18 @@
                                 paired = FALSE, allow_ordered = FALSE,
                                 verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
+    if (isTRUE(paired)) {
+      # This is to be consistent with R>=4.4.0
+      insight::format_error("cannot use 'paired = TRUE' in formula method.")
+    }
+
     # Validate:
     if (length(x) != 3L) {
       insight::format_error(
         "Formula must have one of the following forms:",
-        "\n\ty ~ group,\n\ty ~ 1,\n\tPair(x,y) ~ 1"
+        "          y ~ group   (independant samples)",
+        "          y ~ 1       (one sample)",
+        "  Pair(x,y) ~ 1       (paired samples)"
       )
     }
 

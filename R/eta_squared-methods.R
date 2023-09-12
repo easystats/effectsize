@@ -354,13 +354,16 @@
   model <- stats::anova(model)
 
   p.table <- as.data.frame(model$pTerms.table)
+  p.table$Component <- "conditional"
   s.table <- as.data.frame(model$s.table)
+  s.table$Component <- "smooth_terms"
+  colnames(s.table)[colnames(s.table) == "Ref.df"] <- "df"
   s.table[setdiff(colnames(p.table), colnames(s.table))] <- NA
   p.table[setdiff(colnames(s.table), colnames(p.table))] <- NA
   tab <- rbind(p.table, s.table)
-  colnames(tab)[colnames(tab) == "F"] <- "F-value"
   colnames(tab)[colnames(tab) == "df"] <- "npar"
   tab$df_error <- model$residual.df
+  # tab$df_error <- Inf
 
   out <-
     .anova_es.anova(
@@ -371,6 +374,8 @@
       ci = ci, alternative = alternative,
       verbose = verbose
     )
+  out$Component <- tab$Component
+  out <- datawizard::data_relocate(out, select = "Component", before = 1)
 
   attr(out, "anova_type") <- 3
   attr(out, "approximate") <- TRUE
