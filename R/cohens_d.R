@@ -206,6 +206,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
   out <- .get_data_2_samples(x, y, data, paired = paired, verbose = verbose, ...)
   x <- out[["x"]]
   y <- out[["y"]]
+  paired <- out[["paired"]]
 
   if (is.null(y)) {
     if (type == "delta") {

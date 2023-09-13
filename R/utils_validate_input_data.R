@@ -56,6 +56,7 @@
   } else if (inherits(x, "Pair")) {
     x <- x[, 1] - x[, 2]
     y <- NULL
+    paired <- TRUE
   }
 
 
@@ -97,7 +98,7 @@
   }
 
 
-  list(x = x, y = y)
+  list(x = x, y = y, paired = paired)
 }
 
 

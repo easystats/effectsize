@@ -28,6 +28,9 @@ sd_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
   data <- .get_data_2_samples(x, y, data, verbose = verbose, ...)
   x <- data[["x"]]
   y <- data[["y"]]
+  if (is.null(y) || isTRUE(match.call()$paired)) {
+    insight::format_error("This effect size is only applicable for two independent samples.")
+  }
 
   V <- cov_pooled(
     data.frame(x = x),
@@ -46,6 +49,9 @@ mad_pooled <- function(x, y = NULL, data = NULL,
   data <- .get_data_2_samples(x, y, data, verbose = verbose, ...)
   x <- data[["x"]]
   y <- data[["y"]]
+  if (is.null(y) || isTRUE(match.call()$paired)) {
+    insight::format_error("This effect size is only applicable for two independent samples.")
+  }
 
   n1 <- length(x)
   n2 <- length(y)
