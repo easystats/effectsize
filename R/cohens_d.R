@@ -218,6 +218,10 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
   # Compute index
   if (paired) {
+    if (type == "delta") {
+      insight::format_error("This effect size is only applicable for two independent samples.")
+    }
+
     d <- mean(x - y)
     n <- length(x)
     s <- stats::sd(x - y)

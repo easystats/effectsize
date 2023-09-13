@@ -28,7 +28,7 @@ sd_pooled <- function(x, y = NULL, data = NULL, verbose = TRUE, ...) {
   data <- .get_data_2_samples(x, y, data, verbose = verbose, ...)
   x <- data[["x"]]
   y <- data[["y"]]
-  if (is.null(y) || isTRUE(match.call()$paired)) {
+  if (is.null(y) || isTRUE(match.call()$paired) || isTRUE(data[["paired"]])) {
     insight::format_error("This effect size is only applicable for two independent samples.")
   }
 
@@ -49,7 +49,7 @@ mad_pooled <- function(x, y = NULL, data = NULL,
   data <- .get_data_2_samples(x, y, data, verbose = verbose, ...)
   x <- data[["x"]]
   y <- data[["y"]]
-  if (is.null(y) || isTRUE(match.call()$paired)) {
+  if (is.null(y) || isTRUE(match.call()$paired) || isTRUE(data[["paired"]])) {
     insight::format_error("This effect size is only applicable for two independent samples.")
   }
 

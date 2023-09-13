@@ -215,7 +215,7 @@ cliffs_delta <- function(x, y = NULL, data = NULL,
   )
   x <- data$x
   y <- data$y
-  if (is.null(y) || isTRUE(eval.parent(cl$paired))) {
+  if (is.null(y) || isTRUE(match.call()$paired) || isTRUE(data[["paired"]])) {
     insight::format_error("This effect size is only applicable for two independent samples.")
   }
 
