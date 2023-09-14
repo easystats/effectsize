@@ -1,3 +1,16 @@
+# effectsize 0.8.6
+
+This is a minor update to bring `effectsize` in-line with the formula methods 
+in `t.test()` and `wilcox.test()` in `R>=4.4.0`.
+
+## Breaking Changes
+
+- `cohens_d()`, `hedges_g()`, `p_superiority()`, `wmw_odds()`, `means_ratio()` and `rank_biserial()` no longer support setting `paired = TRUE` when using the formula method.
+
+## Bug fixes
+
+- `eta_squared(<gam>)` returns (approximate) effect sizes for smooths.
+
 # effectsize 0.8.5
 
 ## New features
