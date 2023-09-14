@@ -660,6 +660,7 @@ test_that("ets_squared | gam", {
   b <- mgcv::gam(y ~ x0 + s(x1) + s(x2) + t2(x1, x2) + s(x3), data = dat)
 
   expect_error(out <- eta_squared(b), regexp = NA)
+  expect_warning(eta_squared(b), regexp = NA)
   expect_output(print(out), "Type III")
 })
 
