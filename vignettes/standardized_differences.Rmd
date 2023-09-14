@@ -47,8 +47,8 @@ is larger (and vice versa).
 ## Two Independent Samples
 
 For two independent samples, the difference between the means is standardized
-based on the pooled standard deviation of both samples (assumed to be equal in
-the population):
+based on the pooled standard deviation of both samples, which are assumed to be equal in
+the population:
 
 ```{r}
 t.test(mpg ~ am, data = mtcars, var.equal = TRUE)
@@ -222,7 +222,7 @@ cohens_u1(mpg ~ am, data = mtcars)
 p_overlap(mpg ~ am, data = mtcars)
 ```
 
-Note the by default, these functions return the parametric versions of these effect sizes: these assume equal normal variance in both populations. When these assumptions are not met, the values produced will be biased in unknown ways. In such cases, we should use the non-parametric versions ($U_1$ is not defined):
+Note that by default these functions return the parametric versions of these effect sizes: these assume equal normal variance in both populations. When these assumptions are not met, the values produced will be biased in unknown ways. In such cases, we should use the non-parametric versions ($U_1$ is not defined):
 
 ```{r}
 p_overlap(mpg ~ am, data = mtcars, parametric = FALSE)
