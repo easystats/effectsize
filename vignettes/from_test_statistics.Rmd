@@ -125,7 +125,7 @@ F_to_eta2(
 We can also use `t_to_eta2()` for contrast analysis:
 
 ```{r, eval = .eval_if_requireNamespace("afex", "emmeans")}
-pairs(emmeans(aov_fit, ~ angle))
+pairs(emmeans(aov_fit, ~angle))
 
 t_to_eta2(
   t = c(-6.2, -8.2, -3.2),
@@ -212,7 +212,7 @@ This measure is also sometimes used in contrast analysis, where it is called the
 point bi-serial correlation - $r_{pb}$ [@cohen1965some; @rosnow2000contrasts]:
 
 ```{r, eval = .eval_if_requireNamespace("afex", "emmeans")}
-pairs(emmeans(aov_fit, ~ angle))
+pairs(emmeans(aov_fit, ~angle))
 
 t_to_r(
   t = c(-6.2, -8.2, -3.2),
@@ -254,7 +254,7 @@ eff_size(em_tension, sigma = sigma(m), edf = df.residual(m))
 ### Within-Subject Contrasts
 
 ```{r, eval = .eval_if_requireNamespace("afex", "emmeans")}
-pairs(emmeans(aov_fit, ~ angle))
+pairs(emmeans(aov_fit, ~angle))
 
 t_to_d(
   t = c(-6.2, -8.2, -3.3),
