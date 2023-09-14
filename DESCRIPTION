@@ -53,7 +53,12 @@ Authors@R:
              family = "Karreth",
              role = "rev",
              email = "jkarreth@ursinus.edu",
-             comment = c(ORCID = "0000-0003-4586-7153")))
+             comment = c(ORCID = "0000-0003-4586-7153")),
+      person(given = "Philip",
+             family = "Waggoner",
+             role = c("aut", "ctb"),
+             email = "philip.waggoner@gmail.com",
+             comment = c(ORCID = "0000-0002-7825-7573")))
 Maintainer: Mattan S. Ben-Shachar <mattansb@msbstats.info>
 Description: Provide utilities to work with indices of effect size for a wide 
     variety of models and hypothesis tests (see list of supported models using 
