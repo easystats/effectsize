@@ -260,7 +260,7 @@ using estimates based on test statistic offers a good approximation.</p>
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <p>We can also use <code><a href="../reference/F_to_eta2.html">t_to_eta2()</a></code> for contrast analysis:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span> <span class="va">angle</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span><span class="va">angle</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt;  contrast estimate   SE df t.ratio p.value
 &gt;  X0 - X4      -108 17.4  9  -6.200  0.0004
 &gt;  X0 - X8      -168 20.6  9  -8.200  0.0001
@@ -432,7 +432,7 @@ number, which looks better).</p>
 called the point bi-serial correlation - <span class="math inline">\(r_{pb}\)</span> <span class="citation">(Cohen et
 al. 1965; Rosnow, Rosenthal, and Rubin 2000)</span>:</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span> <span class="va">angle</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span><span class="va">angle</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt;  contrast estimate   SE df t.ratio p.value
 &gt;  X0 - X4      -108 17.4  9  -6.200  0.0004
 &gt;  X0 - X8      -168 20.6  9  -8.200  0.0001
@@ -503,7 +503,7 @@ whenever possible. For example, here with
 <h4 id="within-subject-contrasts">Within-Subject Contrasts<a class="anchor" aria-label="anchor" href="#within-subject-contrasts"></a>
 </h4>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span> <span class="va">angle</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span><span class="va">angle</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt;  contrast estimate   SE df t.ratio p.value
 &gt;  X0 - X4      -108 17.4  9  -6.200  0.0004
 &gt;  X0 - X8      -168 20.6  9  -8.200  0.0001
