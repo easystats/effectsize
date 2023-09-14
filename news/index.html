@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.5</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -106,6 +106,20 @@
       <small>Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.8.6" id="effectsize-086">effectsize 0.8.6<a class="anchor" aria-label="anchor" href="#effectsize-086"></a></h2><p class="text-muted">CRAN release: 2023-09-14</p>
+<p>This is a minor update to bring <code>effectsize</code> in-line with the formula methods in <code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test()</a></code> and <code><a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">wilcox.test()</a></code> in <code>R&gt;=4.4.0</code>.</p>
+<div class="section level3">
+<h3 id="breaking-changes-0-8-6">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-8-6"></a></h3>
+<ul><li>
+<code><a href="../reference/cohens_d.html">cohens_d()</a></code>, <code><a href="../reference/cohens_d.html">hedges_g()</a></code>, <code><a href="../reference/p_superiority.html">p_superiority()</a></code>, <code><a href="../reference/p_superiority.html">wmw_odds()</a></code>, <code><a href="../reference/means_ratio.html">means_ratio()</a></code> and <code><a href="../reference/rank_biserial.html">rank_biserial()</a></code> no longer support setting <code>paired = TRUE</code> when using the formula method.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-0-8-6">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-8-6"></a></h3>
+<ul><li>
+<code>eta_squared(&lt;gam&gt;)</code> returns (approximate) effect sizes for smooths.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.5" id="effectsize-085">effectsize 0.8.5<a class="anchor" aria-label="anchor" href="#effectsize-085"></a></h2><p class="text-muted">CRAN release: 2023-08-09</p>
 <div class="section level3">
@@ -499,7 +513,7 @@
 <ul><li><p><code><a href="../reference/effectsize.html">effectsize()</a></code> gains <code>type =</code> argument for specifying which effect size to return.</p></li>
 <li><p><code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> can return a generalized Eta squared.</p></li>
 <li><p><code><a href="../reference/oddsratio.html">oddsratio()</a></code> and <code><a href="../reference/oddsratio.html">riskratio()</a></code> functions for 2-by-2 contingency tables.</p></li>
-<li><p><code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> gains support for <code><a href="https://rdrr.io/pkg/mediation/man/mediate.html" class="external-link">mediation::mediate()</a></code> models.</p></li>
+<li><p><code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> gains support for <code>mediation::mediate()</code> models.</p></li>
 <li><p><code><a href="../reference/eta_squared.html">eta_squared()</a></code> family available for <code>manova</code> objects.</p></li>
 </ul></div>
 <div class="section level3">

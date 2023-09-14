@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.5</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -301,11 +301,18 @@ in the differences. This effect size, known as Cohen’s <span class="math inlin
 of its homogeneity (a small but stable difference will have a large
 <span class="math inline">\(d_z\)</span>).</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">sleep</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">sleep_wide</span> <span class="op">&lt;-</span> <span class="fu">datawizard</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/datawizard/reference/data_to_wide.html" class="external-link">data_to_wide</a></span><span class="op">(</span><span class="va">sleep</span>,</span>
+<span>  id_cols <span class="op">=</span> <span class="st">"ID"</span>,</span>
+<span>  values_from <span class="op">=</span> <span class="st">"extra"</span>,</span>
+<span>  names_from <span class="op">=</span> <span class="st">"group"</span>,</span>
+<span>  names_prefix <span class="op">=</span> <span class="st">"extra_"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">sleep_wide</span><span class="op">[[</span><span class="st">"extra_1"</span><span class="op">]</span><span class="op">]</span>, <span class="va">sleep_wide</span><span class="op">[[</span><span class="st">"extra_2"</span><span class="op">]</span><span class="op">]</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; 
 &gt;   Paired t-test
 &gt; 
-&gt; data:  extra by group
+&gt; data:  sleep_wide[["extra_1"]] and sleep_wide[["extra_2"]]
 &gt; t = -4, df = 9, p-value = 0.003
 &gt; alternative hypothesis: true mean difference is not equal to 0
 &gt; 95 percent confidence interval:
@@ -314,12 +321,12 @@ of its homogeneity (a small but stable difference will have a large
 &gt; mean difference 
 &gt;           -1.58</code></pre>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">sleep</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">sleep_wide</span><span class="op">[[</span><span class="st">"extra_1"</span><span class="op">]</span><span class="op">]</span>, <span class="va">sleep_wide</span><span class="op">[[</span><span class="st">"extra_2"</span><span class="op">]</span><span class="op">]</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's d |         95% CI
 &gt; --------------------------
 &gt; -1.28     | [-2.12, -0.41]</code></pre>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/cohens_d.html">hedges_g</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">sleep</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/cohens_d.html">hedges_g</a></span><span class="op">(</span><span class="va">sleep_wide</span><span class="op">[[</span><span class="st">"extra_1"</span><span class="op">]</span><span class="op">]</span>, <span class="va">sleep_wide</span><span class="op">[[</span><span class="st">"extra_2"</span><span class="op">]</span><span class="op">]</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Hedges' g |         95% CI
 &gt; --------------------------
 &gt; -1.17     | [-1.94, -0.38]</code></pre>
@@ -608,16 +615,14 @@ larger than <span class="math inline">\(\mu\)</span>.</p>
 probability that, when sampling an observation at random, its
 <em>difference</em> will be larger than <span class="math inline">\(\mu\)</span>.</p>
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">p_superiority</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>,</span>
-<span>  data <span class="op">=</span> <span class="va">sleep</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">p_superiority</a></span><span class="op">(</span><span class="va">sleep_wide</span><span class="op">[[</span><span class="st">"extra_1"</span><span class="op">]</span><span class="op">]</span>, <span class="va">sleep_wide</span><span class="op">[[</span><span class="st">"extra_2"</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>  paired <span class="op">=</span> <span class="cn">TRUE</span>, mu <span class="op">=</span> <span class="op">-</span><span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Pr(superiority) |       95% CI
 &gt; ------------------------------
 &gt; 0.37            | [0.22, 0.56]</code></pre>
 <div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">p_superiority</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>,</span>
-<span>  data <span class="op">=</span> <span class="va">sleep</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">p_superiority</a></span><span class="op">(</span><span class="va">sleep_wide</span><span class="op">[[</span><span class="st">"extra_1"</span><span class="op">]</span><span class="op">]</span>, <span class="va">sleep_wide</span><span class="op">[[</span><span class="st">"extra_2"</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>  paired <span class="op">=</span> <span class="cn">TRUE</span>, mu <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
 <span>  parametric <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
