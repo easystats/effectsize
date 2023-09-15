@@ -16,10 +16,13 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, include=FALSE}
-library(knitr)
-options(knitr.kable.NA = "")
-knitr::opts_chunk$set(comment = ">")
-options(digits = 4)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = requireNamespace("pwr", quietly = TRUE)
+)
+
+options(digits = 4L, knitr.kable.NA = "")
 
 set.seed(123)
 ```
@@ -65,7 +68,7 @@ So this is where we focus in this vignette, and pay special attention to the eas
 
 In addition to relying on the easystats `effectsize` package for effect size calculation, we will also leverage the simple, but excellent `pwr` package for the following implementation of power analysis [@champley2017]. 
 
-```{r message = FALSE}
+```{r, message = FALSE}
 library(pwr)
 library(effectsize)
 ```
@@ -78,7 +81,7 @@ t <- t.test(mpg ~ am, data = mtcars)
 
 There are many power tests supported by `pwr` for different contexts, and we encourage you to take a look and select the appropriate one for your application. For present purposes of calculating statistical power for our t-test, we will rely on the `pwr.t.test()` function. Here's the basic anatomy:
 
-```{r eval = FALSE}
+```{r, eval = FALSE}
 pwr.t.test(
   d = ...,
   n = ...,
@@ -106,7 +109,7 @@ Given the simplicity of this example and the prevalence of Cohen's $d$, we will 
 
 The first approach is the simplest. As previously hinted at, there is a vast literature on different effect size calculations for different applications. So, if you don't want to track down a specific one, or are unaware of options, you can simply pass the statistical test object to `effectsize()`, and either select the `type`, or leave it blank for "cohens_d", which is the default option. 
 
-```{r warning = FALSE}
+```{r, warning = FALSE}
 effectsize(t, type = "cohens_d")
 ```
 
@@ -116,7 +119,7 @@ effectsize(t, type = "cohens_d")
 
 Alternatively, if you knew the index one you wanted to use, you could simply call the associated function directly. For present purposes, we picked Cohen's $d$, so we would call `cohens_d()`. But there are many other indices supported by `effectsize`. For example, see [here](https://easystats.github.io/effectsize/reference/index.html#standardized-differences) for options for standardized differences. Or see [here](https://easystats.github.io/effectsize/reference/index.html#for-contingency-tables) for options for contingency tables. Or see [here](https://easystats.github.io/effectsize/reference/index.html#comparing-multiple-groups) for options for comparing multiple groups, and so on. 
 
-```{r warning = FALSE}
+```{r, warning = FALSE}
 cohens_d(t)
 ```
 
