@@ -66,7 +66,6 @@ So this is where we focus in this vignette, and pay special attention to the eas
 In addition to relying on the easystats `effectsize` package for effect size calculation, we will also leverage the simple, but excellent `pwr` package for the following implementation of power analysis [@champley2017]. 
 
 ```{r message = FALSE}
-install.packages("pwr")
 library(pwr)
 library(effectsize)
 ```
@@ -80,11 +79,13 @@ t <- t.test(mpg ~ am, data = mtcars)
 There are many power tests supported by `pwr` for different contexts, and we encourage you to take a look and select the appropriate one for your application. For present purposes of calculating statistical power for our t-test, we will rely on the `pwr.t.test()` function. Here's the basic anatomy:
 
 ```{r eval = FALSE}
-pwr.t.test(d = ..., 
-           n = ..., 
-           sig.level = ..., 
-           type = ...,  
-           alternative = ...)
+pwr.t.test(
+  d = ...,
+  n = ...,
+  sig.level = ...,
+  type = ...,
+  alternative = ...
+)
 ```
 
 But, before we can get to the power part, we need to collect a few ingredients first, as we can see above. The ingredients we need include:
@@ -130,8 +131,10 @@ In these cases, the default behavior of `effectsize` is to make a back-up call t
 So, for the third and final approach, and to double check that the conversion was correct, let's directly pass our t-test results to `t_to_d()`.
 
 ```{r}
-t_to_d(t = t$statistic, 
-       df_error = t$parameter)
+t_to_d(
+  t = t$statistic,
+  df_error = t$parameter
+)
 ```
 
 *Note*, this approach will drop the warning as it is now explicit that we are converting from a t-test to Cohen's $d$. 
@@ -143,11 +146,13 @@ Now we are ready to calculate the statistical power of our t-test given that we 
 For the present application, the effect size obtained from `t_to_d()` (or any of the three approaches previously described) can be passed to the first argument, `d`. This value can either be from a previously-stored effect size, or can be called directly as shown below. 
 
 ```{r}
-pwr.t.test(d = t_to_d(t = t$statistic, df_error = t$parameter)$d, 
-           n = table(mtcars$am), 
-           sig.level = 0.05, 
-           type = "two.sample",  
-           alternative = "two.sided")
+pwr.t.test(
+  d = t_to_d(t = t$statistic, df_error = t$parameter)$d,
+  n = table(mtcars$am),
+  sig.level = 0.05,
+  type = "two.sample",
+  alternative = "two.sided"
+)
 ```
 
 The results tell us that we are sufficiently powered, with a very high power for each group, `0.999` and `0.990`.
