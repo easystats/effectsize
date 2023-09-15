@@ -115,17 +115,17 @@ effectsize(t, type = "cohens_d")
 
 Alternatively, if you knew the index one you wanted to use, you could simply call the associated function directly. For present purposes, we picked Cohen's $d$, so we would call `cohens_d()`. But there are many other indices supported by `effectsize`. For example, see [here](https://easystats.github.io/effectsize/reference/index.html#standardized-differences) for options for standardized differences. Or see [here](https://easystats.github.io/effectsize/reference/index.html#for-contingency-tables) for options for contingency tables. Or see [here](https://easystats.github.io/effectsize/reference/index.html#comparing-multiple-groups) for options for comparing multiple groups, and so on. 
 
-```{r}
+```{r warning = FALSE}
 cohens_d(t)
 ```
 
 ### Approach 3: `t_to_d()`
 
-You may have noticed this part of the warning message from the previous approach: 
+When/if the test object's class is unclear, you may get a warning message like: 
 
 > *Warning: ... Returning an approximate effect size using t_to_d()*
 
-When/if the test object's class is unclear, the default behavior of `effectsize` is to make a back-up call to `t_to_d()` (or which ever conversion function is appropriate based on the input). This step makes the calculation from the t-test to Cohen's $d$. Given the prevalence of calculating effect sizes for different applications and the many effect size indices available for different contexts, we have anticipated this and baked in this conversion "fail safe" in the architecture of `effectsize` by detecting the input and making the appropriate conversion. There are many conversions available in the package. Take a look [here](https://easystats.github.io/effectsize/reference/index.html#effect-size-conversion).
+In these cases, the default behavior of `effectsize` is to make a back-up call to `t_to_d()` (or which ever conversion function is appropriate based on the input). This step makes the calculation from the t-test to Cohen's $d$. Given the prevalence of calculating effect sizes for different applications and the many effect size indices available for different contexts, we have anticipated this and baked in this conversion "fail safe" in the architecture of `effectsize` by detecting the input and making the appropriate conversion. There are many conversions available in the package. Take a look [here](https://easystats.github.io/effectsize/reference/index.html#effect-size-conversion).
 
 So, for the third and final approach, and to double check that the conversion was correct, let's directly pass our t-test results to `t_to_d()`.
 
@@ -134,7 +134,7 @@ t_to_d(t = t$statistic,
        df_error = t$parameter)
 ```
 
-*Note*, the warning went away as it was explicit that we were attempting to convert from a t-test to Cohen's $d$. 
+*Note*, this approach will drop the warning as it is now explicit that we are converting from a t-test to Cohen's $d$. 
 
 ## Statistical Power
 
