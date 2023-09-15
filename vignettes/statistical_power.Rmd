@@ -35,7 +35,7 @@ In this vignette, we focus on statistical power and the role of the `effectsize`
 
 ## What is statistical power and power analysis? 
 
-Statistical power allows for the ability to check whether an effect observed from a statistical test actually exists, or that the null hypothesis really can be rejected (or not). Power involves many related concepts including, but not limited to, sample size, significance threshold, and of course, the *effect size*. 
+Statistical power allows for the ability to check whether an effect observed from a statistical test actually exists, or that the null hypothesis really can be rejected (or not). Power involves many related concepts including, but not limited to, sample size estimation, significance threshold evaluation, and of course, the *effect size*. 
 
 ## What is `effectsize`? 
 
