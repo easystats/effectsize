@@ -21,12 +21,7 @@ options(knitr.kable.NA = "")
 knitr::opts_chunk$set(comment = ">")
 options(digits = 4)
 
-set.seed(7)
-
-.eval_if_requireNamespace <- function(...) {
-  pkgs <- c(...)
-  knitr::opts_chunk$get("eval") && all(sapply(pkgs, requireNamespace, quietly = TRUE))
-}
+set.seed(123)
 ```
 
 # Overview
@@ -70,9 +65,10 @@ So this is where we focus in this vignette, and pay special attention to the eas
 
 In addition to relying on the easystats `effectsize` package for effect size calculation, we will also leverage the simple, but excellent `pwr` package for the following implementation of power analysis [@champley2017]. 
 
-```{r}
-library(effectsize)
+```{r message = FALSE}
+install.packages("pwr")
 library(pwr)
+library(effectsize)
 ```
 
 First, let's fit a simple two sample t-test using the mtcars data to explore mean MPG for both transmission groups (`AM`).
@@ -125,11 +121,11 @@ cohens_d(t)
 
 ### Approach 3: `t_to_d()`
 
-You may have noticed the warning message from the previous approach: 
+You may have noticed this part of the warning message from the previous approach: 
 
-> *Warning: Unable to retrieve data from htest object. Returning an approximate effect size using t_to_d()*
+> *Warning: ... Returning an approximate effect size using t_to_d()*
 
-When/if the test object's class is unclear, the default behavior of `effectsize` is to make a back-up call to `t_to_d()` (or which ever conversion function is appropriate based on the input). This step makes the calculation from the t-test to Cohen's $d$. Given the prevalence of calculating effect sizes for different applications and the many effect size indices available for different contexts, we have anticipated this and baked in this conversion "fail safe" in the architecture of `effectsize` by natively detecting the input and making the appropriate conversion. There are many conversions available in the package. Take a look [here](https://easystats.github.io/effectsize/reference/index.html#effect-size-conversion).
+When/if the test object's class is unclear, the default behavior of `effectsize` is to make a back-up call to `t_to_d()` (or which ever conversion function is appropriate based on the input). This step makes the calculation from the t-test to Cohen's $d$. Given the prevalence of calculating effect sizes for different applications and the many effect size indices available for different contexts, we have anticipated this and baked in this conversion "fail safe" in the architecture of `effectsize` by detecting the input and making the appropriate conversion. There are many conversions available in the package. Take a look [here](https://easystats.github.io/effectsize/reference/index.html#effect-size-conversion).
 
 So, for the third and final approach, and to double check that the conversion was correct, let's directly pass our t-test results to `t_to_d()`.
 
