@@ -112,10 +112,7 @@ Given the simplicity of this example and the prevalence of Cohen's $d$, we will 
 The first approach is the simplest. As previously hinted at, there is a vast literature on different effect size calculations for different applications. So, if you don't want to track down a specific one, or are unaware of options, you can simply pass the statistical test object to `effectsize()`, and either select the `type`, or leave it blank for "cohens_d", which is the default option. 
 
 ```{r warning = FALSE}
-effectsize(
-  t, 
-  type = "cohens_d"
-)
+effectsize(t, type = "cohens_d")
 ```
 
 *Note*, users can easily store the value and/or CIs as you'd like via, e.g., `cohens_d <- effectsize(t, type = "cohens_d")[1]`. 
