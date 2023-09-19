@@ -121,7 +121,7 @@ effectsize(t, type = "cohens_d")
 
 Alternatively, if you knew the index one you wanted to use, you could simply call the associated function directly. For present purposes, we picked Cohen's $d$, so we would call `cohens_d()`. But there are many other indices supported by `effectsize`. For example, see [here](https://easystats.github.io/effectsize/reference/index.html#standardized-differences) for options for standardized differences. Or see [here](https://easystats.github.io/effectsize/reference/index.html#for-contingency-tables) for options for contingency tables. Or see [here](https://easystats.github.io/effectsize/reference/index.html#comparing-multiple-groups) for options for comparing multiple groups, and so on. 
 
-```{r}
+```{r eval = FALSE}
 cohens_d(t)
 ```
 
