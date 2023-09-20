@@ -48,7 +48,8 @@
 #'
 #' \deqn{\textrm{Pearson's } C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
 #'
-#' For versions adjusted for small-sample bias of \eqn{\phi}, \eqn{V}, and \eqn{T}, see [Bergsma, 2013](https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_V#Bias_correction).
+#' For versions adjusted for small-sample bias of \eqn{\phi}, \eqn{V}, and \eqn{T},
+#' see [Bergsma, 2013](https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_V#Bias_correction).
 #'
 #' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
 #' @inheritSection effectsize_CIs CIs and Significance Tests
