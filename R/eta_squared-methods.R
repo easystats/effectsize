@@ -110,7 +110,7 @@
     within <- names(model$idata)
     within <- lapply(within, function(x) c(NA, x))
     within <- do.call(expand.grid, within)
-    within <- apply(within, 1, na.omit)
+    within <- apply(within, 1, stats::na.omit)
     ns <- sapply(within, length)
     within <- sapply(within, paste, collapse = ":")
     within <- within[order(ns)]
