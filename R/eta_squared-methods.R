@@ -110,7 +110,7 @@
     within <- names(model$idata)
     within <- lapply(within, function(x) c(NA, x))
     within <- do.call(expand.grid, within)
-    within <- apply(within, 1, na.omit)
+    within <- apply(within, 1, stats::na.omit)
     ns <- sapply(within, length)
     within <- sapply(within, paste, collapse = ":")
     within <- within[order(ns)]
@@ -179,7 +179,6 @@
 #' @keywords internal
 .anova_es.anova.lme <- .anova_es.anova
 
-#' @importFrom stats na.omit
 #' @keywords internal
 .anova_es.parameters_model <- function(model,
                                        type = c("eta", "omega", "epsilon"),
@@ -249,8 +248,6 @@
 # Specific models ---------------------------------------------------------
 
 #' @keywords internal
-#' @importFrom stats aov
-#' @importFrom utils packageVersion
 .anova_es.maov <- function(model,
                            type = c("eta", "omega", "epsilon"),
                            partial = TRUE,

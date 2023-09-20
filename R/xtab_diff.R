@@ -295,7 +295,7 @@ arr <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
 nnt <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   alternative <- .match.alt(alternative)
 
-  flip_alt <- c("less" = "greater", "greater" = "less", "two.sided" = "two.sided")
+  flip_alt <- c(less = "greater", greater = "less", two.sided = "two.sided")
   alternative2 <- unname(flip_alt[alternative])
 
   if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {

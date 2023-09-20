@@ -252,14 +252,56 @@ test_that("htest | rank", {
 })
 
 test_that("htest | Get args from htest", {
-  tt <- t.test(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3, conf.level = 0.8, var.equal = TRUE)
-  expect_equal(cohens_d(tt), cohens_d(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3, ci = 0.8), ignore_attr = TRUE)
+  tt <- t.test(
+    mtcars$hp,
+    mtcars$mpg,
+    alternative = "l",
+    mu = -3,
+    conf.level = 0.8,
+    var.equal = TRUE
+  )
+  expect_equal(
+    cohens_d(tt),
+    cohens_d(
+      mtcars$hp,
+      mtcars$mpg,
+      alternative = "l",
+      mu = -3,
+      ci = 0.8
+    ),
+    ignore_attr = TRUE
+  )
 
-  suppressWarnings(ww1 <- wilcox.test(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3))
-  expect_equal(rank_biserial(ww1), rank_biserial(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3), ignore_attr = TRUE)
+  suppressWarnings({
+    ww1 <- wilcox.test(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3)
+  })
+  expect_equal(
+    rank_biserial(ww1),
+    rank_biserial(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3),
+    ignore_attr = TRUE
+  )
 
-  suppressWarnings(ww2 <- wilcox.test(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3, conf.int = TRUE, conf.level = 0.8))
-  expect_equal(rank_biserial(ww2), rank_biserial(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3, ci = 0.8), ignore_attr = TRUE)
+  suppressWarnings({
+    ww2 <- wilcox.test(
+      mtcars$hp,
+      mtcars$mpg,
+      alternative = "l",
+      mu = -3,
+      conf.int = TRUE,
+      conf.level = 0.8
+    )
+  })
+  expect_equal(
+    rank_biserial(ww2),
+    rank_biserial(
+      mtcars$hp,
+      mtcars$mpg,
+      alternative = "l",
+      mu = -3,
+      ci = 0.8
+    ),
+    ignore_attr = TRUE
+  )
 })
 
 

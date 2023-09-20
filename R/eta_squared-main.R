@@ -764,7 +764,6 @@ cohens_f_squared <- function(model,
 
 
 #' @keywords internal
-#' @importFrom stats anova
 .anova_es.default <- function(model, ...) {
   .anova_es.anova(stats::anova(model), ...)
 }
@@ -842,8 +841,6 @@ cohens_f_squared <- function(model,
 }
 
 #' @keywords internal
-#' @importFrom parameters model_parameters
-#' @importFrom stats anova
 .anova_es.aov <- function(model,
                           type = c("eta", "omega", "epsilon"),
                           partial = TRUE,
@@ -885,8 +882,6 @@ cohens_f_squared <- function(model,
 .anova_es.glm <- .anova_es.lm
 
 #' @keywords internal
-#' @importFrom parameters model_parameters
-#' @importFrom insight find_predictors
 .anova_es.aovlist <- function(model,
                               type = c("eta", "omega", "epsilon"),
                               partial = TRUE,
