@@ -109,3 +109,7 @@ interpret_cramers_v <- interpret_r
 #' @export
 #' @rdname interpret_r
 interpret_rank_biserial <- interpret_r
+
+#' @export
+#' @rdname interpret_r
+interpret_fei <- interpret_r
