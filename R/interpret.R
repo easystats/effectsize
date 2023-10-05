@@ -36,7 +36,7 @@ rules <- function(values, labels = NULL, name = NULL, right = TRUE) {
     }
   }
 
-  # Sanity checks
+  # validation checks
   if (length(labels) < length(values)) {
     insight::format_error("There cannot be less labels than reference values!")
   } else if (length(labels) > length(values) + 1) {
