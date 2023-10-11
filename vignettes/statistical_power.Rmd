@@ -38,6 +38,8 @@ In this vignette, we focus on statistical power and the role of the `effectsize`
   3. Highlighting the ease of calculating and understanding of statistical power via the easystats ecosystem, and the `effectsize` package specifically
   4. Encouraging wider adoption of power analysis in applied research
 
+*Disclaimer:* This vignette is an initial look at power analysis via Easystats. There's much more we could do, so please give us a feedback about what features would you like to see in Easystats to make power analysis easier.
+
 ## What is statistical power and power analysis? 
 
 Statistical power allows for the ability to check whether an effect observed from a statistical test actually exists, or that the null hypothesis really can be rejected (or not). Power involves many related concepts including, but not limited to, sample size estimation, significance threshold evaluation, and of course, the *effect size*. 
