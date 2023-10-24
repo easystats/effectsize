@@ -1,3 +1,7 @@
+# effectsize 0.8.7.xxx
+
+- This release changes the licensing model of `{effectsize}` to an MIT license.
+
 # effectsize 0.8.7
 
 ## New features

@@ -60,7 +60,7 @@ Description: Provide utilities to work with indices of effect size for a wide
     the function 'insight::supported_models()'), allowing computation of and 
     conversion between indices such as Cohen's d, r, odds, etc.
     References: Ben-Shachar et al. (2020) <doi:10.21105/joss.02815>.
-License: GPL-3
+License: MIT + file LICENSE
 URL: https://easystats.github.io/effectsize/
 BugReports: https://github.com/easystats/effectsize/issues/
 Depends:
