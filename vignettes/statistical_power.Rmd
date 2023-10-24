@@ -113,8 +113,12 @@ Given the simplicity of this example and the prevalence of Cohen's $d$, we will 
 
 The first approach is the simplest. As previously hinted at, there is a vast literature on different effect size calculations for different applications. So, if you don't want to track down a specific one, or are unaware of options, you can simply pass the statistical test object to `effectsize()`, and either select the `type`, or leave it blank for "cohens_d", which is the default option. 
 
+*Note*, when using the formula interface to `t.test()`, this method (currently) only gives an approximate effect size. So for this first simple approach, we update our test (`t_alt`) and then make a call to `effectsize()`.
+
 ```{r eval = FALSE}
-effectsize(t, type = "cohens_d")
+t_alt <- t.test(mtcars$mpg[mtcars$am == 0], mtcars$mpg[mtcars$am == 1])
+
+effectsize(t_alt, type = "cohens_d")
 ```
 
 *Note*, users can easily store the value and/or CIs as you'd like via, e.g., `cohens_d <- effectsize(t, type = "cohens_d")[1]`. 
@@ -123,8 +127,10 @@ effectsize(t, type = "cohens_d")
 
 Alternatively, if you knew the index one you wanted to use, you could simply call the associated function directly. For present purposes, we picked Cohen's $d$, so we would call `cohens_d()`. But there are many other indices supported by `effectsize`. For example, see [here](https://easystats.github.io/effectsize/reference/index.html#standardized-differences) for options for standardized differences. Or see [here](https://easystats.github.io/effectsize/reference/index.html#for-contingency-tables) for options for contingency tables. Or see [here](https://easystats.github.io/effectsize/reference/index.html#comparing-multiple-groups) for options for comparing multiple groups, and so on. 
 
+In our simple case here with a t-test, users are encouraged to use `effectsize()` when working with htest objects to ensure proper estimation. Therefore, with this second approach of using the "named" function, `cohens_d`, users should pass the data directly to the function instead of the htest object (e.g., `cohens_d(t)`). 
+
 ```{r eval = FALSE}
-cohens_d(t)
+cohens_d(mpg ~ am, data = mtcars)
 ```
 
 ### Approach 3: `t_to_d()`
@@ -151,6 +157,8 @@ t_to_d(
 Now we are ready to calculate the statistical power of our t-test given that we have collected the essential ingredients. 
 
 For the present application, the effect size obtained from `t_to_d()` (or any of the three approaches previously described) can be passed to the first argument, `d`. This value can either be from a previously-stored effect size, or can be called directly as shown below. 
+
+In line with prior caveats, since `t_to_d()` is only an approximate effect size, best practice would be to properly compute Cohen's d as suggested previously in approach 2 when the raw data are available.
 
 ```{r}
 pwr.t.test(
