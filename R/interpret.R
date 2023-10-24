@@ -36,7 +36,7 @@ rules <- function(values, labels = NULL, name = NULL, right = TRUE) {
     }
   }
 
-  # Sanity checks
+  # validation checks
   if (length(labels) < length(values)) {
     insight::format_error("There cannot be less labels than reference values!")
   } else if (length(labels) > length(values) + 1) {
@@ -178,7 +178,7 @@ interpret.effectsize_table <- function(x, rules, ...) {
     Cohens_w = ,
     Tschuprows_t = ,
     Tschuprows_t_adjusted = ,
-    fei = interpret_cramers_v(value, rules = rules),
+    Fei = interpret_fei(value, rules = rules),
 
     ## xtab 2x2
     Cohens_h = interpret_cohens_d(value, rules = rules),

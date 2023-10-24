@@ -266,7 +266,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
   }
 
   out <- data.frame(d = (d - mu) / s)
-  types <- c("d" = "Cohens_d", "g" = "Hedges_g", "delta" = "Glass_delta")
+  types <- c(d = "Cohens_d", g = "Hedges_g", delta = "Glass_delta")
   colnames(out) <- types[type]
 
   if (.test_ci(ci)) {

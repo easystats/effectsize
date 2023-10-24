@@ -22,7 +22,7 @@ effectsize(model, ...)
 \item{type}{The effect size of interest. See details.}
 
 \item{ci}{Value or vector of probability of the CI (between 0 and 1)
-to be estimated. Default to \code{0.95} (\verb{95\%}).}
+to be estimated. Default to \code{.95} (\verb{95\%}).}
 
 \item{test}{The indices of effect existence to compute. Character (vector) or
 list with one or more of these options: \code{"p_direction"} (or \code{"pd"}),

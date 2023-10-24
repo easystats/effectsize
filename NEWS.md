@@ -1,3 +1,13 @@
+# effectsize 0.8.7.xxx
+
+- This release changes the licensing model of `{effectsize}` to an MIT license.
+
+# effectsize 0.8.7
+
+## New features
+
+- New function: `interpret_fei()`
+
 # effectsize 0.8.6
 
 This is a minor update to bring `effectsize` in-line with the formula methods 
