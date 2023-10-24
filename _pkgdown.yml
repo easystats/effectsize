@@ -126,6 +126,8 @@ navbar:
           href: https://easystats.github.io/correlation/articles/index.html
         - text: "Confidence Intervals"
           href: reference/effectsize_CIs.html
+        - text: "Statistical Power"
+          href: articles/statistical_power.html
         - text: -------
         - text: "Plotting Functions"
           href: https://easystats.github.io/see/articles/effectsize.html
