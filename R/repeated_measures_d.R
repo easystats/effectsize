@@ -61,7 +61,8 @@
 #'
 #' # Confidence (Compatibility) Intervals (CIs)
 #' Confidence intervals are estimated using the standard normal parametric
-#' method (see TODO; Becker, 1988; Hedges & Olkin, 1985; Pustejovsky et al., 2014).
+#' method (see TODO; Becker, 1988; Cooper et al., 2009; Hedges & Olkin, 1985;
+#' Pustejovsky et al., 2014).
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #' @inheritSection print.effectsize_table Plotting with `see`
@@ -82,6 +83,8 @@
 #' British Journal of Mathematical and Statistical Psychology, 41(2), 257-278.
 #' - Cohen, J. (1988). Statistical power analysis for the behavioral
 #' sciences (2nd Ed.). New York: Routledge.
+#' - Cooper, H., Hedges, L., & Valentine, J. (2009). Handbook of research
+#' synthesis and meta-analysis. Russell Sage Foundation, New York.
 #' - Cumming, G. (2013). Understanding the new statistics: Effect sizes,
 #' confidence intervals, and meta-analysis. Routledge.
 #' - Hedges, L. V. & Olkin, I. (1985). Statistical methods for
@@ -221,7 +224,7 @@ rm_d <- repeated_measures_d
     s <- stats::sd(x - y) / sqrt(f)
     d <- (m - mu) / s
 
-    # TODO fix? validate?
+    # Cooper et al., 2009, eq 12.21
     se <- sqrt(((1 / n) + (d ^ 2) / (2 * n)) * f)
   } else if (type == "av") {
     s <- sqrt((stats::var(x) + stats::var(y)) / 2)
