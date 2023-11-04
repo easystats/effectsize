@@ -9,6 +9,7 @@
 # add proper names
 # news
 # tests
+# effectsize::effectsize()???
 
 #' Standardized Mean Differences for Repeated Measures
 #'
@@ -45,8 +46,9 @@
 #' computing a one-sample Cohen's _d_ (Cohen, 1988, pp. 48; see examples).
 #' - **Control Variance: \eqn{d_{b}} (aka Becker's _d_)** (_Requires paired
 #' data_) - Standardized by the variance of the control condition (or in a pre-
-#' post-treatment setting, the pre-treatment condition; Becker, 1988). Note that
-#' this is taken here as the _second_ condition (`y`).
+#' post-treatment setting, the pre-treatment condition). This is akin to
+#' [Glass' _delta_][glass_delta()] (Becker, 1988). Note that this is taken here as the
+#' _second_ condition (`y`).
 #' - **All Variance: \eqn{d_{d}}** - This is the same as computing a standard
 #' independent-groups Cohen's _d_ (Cohen, 1988). Note that CIs _do_ account for
 #' the dependence, and so are typically more narrow (see examples).
@@ -59,7 +61,7 @@
 #'
 #' # Confidence (Compatibility) Intervals (CIs)
 #' Confidence intervals are estimated using the standard normal parametric
-#' method (see TODO).
+#' method (see TODO; Becker, 1988; Hedges & Olkin, 1985; Pustejovsky et al., 2014).
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #' @inheritSection print.effectsize_table Plotting with `see`
@@ -82,6 +84,12 @@
 #' sciences (2nd Ed.). New York: Routledge.
 #' - Cumming, G. (2013). Understanding the new statistics: Effect sizes,
 #' confidence intervals, and meta-analysis. Routledge.
+#' - Hedges, L. V. & Olkin, I. (1985). Statistical methods for
+#' meta-analysis. Orlando, FL: Academic Press.
+#' - Pustejovsky, J. E., Hedges, L. V., & Shadish, W. R. (2014).
+#' Design-comparable effect sizes in multiple baseline designs: A general
+#' modeling framework. Journal of Educational and Behavioral Statistics, 39(5),
+#' 368-393.
 #' - Rouder, J. N., Morey, R. D., Speckman, P. L., & Province, J. M. (2012).
 #' Default Bayes factors for ANOVA designs. Journal of mathematical psychology,
 #' 56(5), 356-374.
@@ -213,21 +221,25 @@ rm_d <- repeated_measures_d
     s <- stats::sd(x - y) / sqrt(f)
     d <- (m - mu) / s
 
+    # TODO fix? validate?
     se <- sqrt(((1 / n) + (d ^ 2) / (2 * n)) * f)
   } else if (type == "av") {
     s <- sqrt((stats::var(x) + stats::var(y)) / 2)
     d <- (m - mu) / s
 
+    # TODO fix? validate?
     se <- sqrt((2 / n) + (d ^ 2) / (4 * n))
   } else if (type == "z") {
     s <- stats::sd(x - y)
     d <- (m - mu) / s
 
+    # Hedges and Olkin, 1985, page 86, eq 14
     se <- sqrt((1 / n) + (d ^ 2) / (2 * n))
   } else if (type == "b") {
     s <- stats::sd(y)
     d <- (m - mu) / s
 
+    # Becker 1988, eq. 6
     se <- sqrt((2 * (1 - r) / n) + (d ^ 2) / (2 * n))
   }
 
@@ -261,7 +273,10 @@ rm_d <- repeated_measures_d
   df <- sum(e[["df"]])
 
   d <- (m - mu) / s
-  se <- sqrt((df / (df - 2)) * (m_V / (s^2)) + (d ^ 2) * (8 * df ^2 - df + 2) / (16*(df-2)*((df-1)^2)))
+  se <- sqrt(
+    (df / (df - 2)) * (m_V / (s ^ 2)) +
+      (d ^ 2) * (8 * df ^ 2 - df + 2) / (16 * (df - 2) * ((df - 1) ^ 2))
+  )
 
   .nlist(d, se, df)
 }

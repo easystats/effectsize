@@ -90,8 +90,9 @@ is akin to computing difference scores for each individual and then
 computing a one-sample Cohen's \emph{d} (Cohen, 1988, pp. 48; see examples).
 \item \strong{Control Variance: \eqn{d_{b}} (aka Becker's \emph{d})} (\emph{Requires paired
 data}) - Standardized by the variance of the control condition (or in a pre-
-post-treatment setting, the pre-treatment condition; Becker, 1988). Note that
-this is taken here as the \emph{second} condition (\code{y}).
+post-treatment setting, the pre-treatment condition). This is akin to
+ (Becker, 1988). Note that this is taken here as the
+\emph{second} condition (\code{y}).
 \item \strong{All Variance: \eqn{d_{d}}} - This is the same as computing a standard
 independent-groups Cohen's \emph{d} (Cohen, 1988). Note that CIs \emph{do} account for
 the dependence, and so are typically more narrow (see examples).
@@ -106,7 +107,7 @@ response, this is equivalent to classical Cohen’s d. Priors in the
 
 \section{Confidence (Compatibility) Intervals (CIs)}{
 Confidence intervals are estimated using the standard normal parametric
-method (see TODO).
+method (see TODO; Becker, 1988; Pustejovsky et al., 2014).
 }
 
 \section{CIs and Significance Tests}{
@@ -192,6 +193,10 @@ British Journal of Mathematical and Statistical Psychology, 41(2), 257-278.
 sciences (2nd Ed.). New York: Routledge.
 \item Cumming, G. (2013). Understanding the new statistics: Effect sizes,
 confidence intervals, and meta-analysis. Routledge.
+\item Pustejovsky, J. E., Hedges, L. V., & Shadish, W. R. (2014).
+Design-comparable effect sizes in multiple baseline designs: A general
+modeling framework. Journal of Educational and Behavioral Statistics, 39(5),
+368-393.
 \item Rouder, J. N., Morey, R. D., Speckman, P. L., & Province, J. M. (2012).
 Default Bayes factors for ANOVA designs. Journal of mathematical psychology,
 56(5), 356-374.
