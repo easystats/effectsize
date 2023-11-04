@@ -32,7 +32,8 @@ Other effect size datasets:
 \code{\link{RCT_table}},
 \code{\link{Smoking_FASD}},
 \code{\link{food_class}},
-\code{\link{hardlyworking}}
+\code{\link{hardlyworking}},
+\code{\link{rouder2016}}
 }
 \concept{effect size datasets}
 \keyword{data}

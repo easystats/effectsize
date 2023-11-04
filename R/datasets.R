@@ -28,6 +28,35 @@
 #'
 NULL
 
+#' Jeff Rouder's Example Dataset for Repeated Measures
+#'
+#' A dataset "with 25 people each observing 50 trials in 2 conditions",
+#' published as `effectSizePuzzler.txt` by Jeff Rouder on March 24, 2016.
+#' \cr\cr
+#' The data is used in examples and tests of [rm_d()].
+#'
+#' @docType data
+#'
+#' @name rouder2016
+#'
+#' @keywords data
+#'
+#' @format A data frame with 2500 rows and 3 variables:
+#' \describe{
+#'   \item{id}{participant: 1...25}
+#'   \item{cond}{condition: 1,2}
+#'   \item{rt}{response time in seconds}
+#' }
+#'
+#' ```{r}
+#' data("rouder2016")
+#' head(rouder2016, n = 5)
+#' ```
+#' @family effect size datasets
+#'
+NULL
+
+
 #' Results from 2 Screening Tests
 #'
 #' A sample (simulated) dataset, used in tests and some examples.
