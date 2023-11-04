@@ -1,6 +1,7 @@
 # TODO
 # document
 # - references in comments for ses.
+# - rm, av and b are approx to d assuming equal var
 # Fix cohens d
 # - to give warning with paired?
 # - link back here
@@ -204,27 +205,27 @@ rm_d <- repeated_measures_d
   m <- mean(x - y)
   n <- length(x)
   df <- n - 1
-  r <- cor(x, y)
+  r <- stats::cor(x, y)
 
   if (type == "rm") {
     f <- 2 * (1 - r)
 
-    s <- sd(x - y) / sqrt(f)
+    s <- stats::sd(x - y) / sqrt(f)
     d <- (m - mu) / s
 
     se <- sqrt(((1 / n) + (d ^ 2) / (2 * n)) * f)
   } else if (type == "av") {
-    s <- sqrt((var(x) + var(y)) / 2)
+    s <- sqrt((stats::var(x) + stats::var(y)) / 2)
     d <- (m - mu) / s
 
     se <- sqrt((2 / n) + (d ^ 2) / (4 * n))
   } else if (type == "z") {
-    s <- sd(x - y)
+    s <- stats::sd(x - y)
     d <- (m - mu) / s
 
     se <- sqrt((1 / n) + (d ^ 2) / (2 * n))
   } else if (type == "b") {
-    s <- sd(y)
+    s <- stats::sd(y)
     d <- (m - mu) / s
 
     se <- sqrt((2 * (1 - r) / n) + (d ^ 2) / (2 * n))
