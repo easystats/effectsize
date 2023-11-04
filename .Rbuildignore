@@ -28,7 +28,6 @@ publication/*
 ^\.httr-oauth$
 ^CRAN-RELEASE$
 tests\^spelling
-^LICENSE
 ^\.lintr$
 ^\.circleci$
 ^tests/manual$
@@ -53,3 +52,4 @@ hextools
 # Flip these two to no build vignettes:
 # ^vignettes/(?!additional).*
 ^vignettes/additional
+^LICENSE\.md$
