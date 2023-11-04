@@ -2,7 +2,6 @@
 # document
 # - references for types in docs + references in comments for ses.
 # - link to `lmeInfo::g_mlm()` and `emmeans::effsize()`
-# - examples
 # Fix cohens d
 # - to give warning with paired?
 # - link back here
@@ -13,27 +12,87 @@
 
 #' Standardized Mean Differences for Repeated Measures
 #'
-#' Short description... Pair with any reported `stats::t.test(paired = TRUE)`.
+#' Short description... TODO. Pair with any reported `stats::t.test(paired = TRUE)`.
 #'
-#' @param x,y paired numeric vectors. `x` can also be a formula:
+#' @param x,y Paired numeric vectors, or names of ones in `data`. `x` can also
+#'   be a formula:
 #' - `Pair(x,y) ~ 1` for wide data.
 #' - `y ~ condition | id` for long data, possibly with repetitions.
 #' @param type Type of repeated measures standardized differences. See details.
 #' @param adjust Apply Hedges' small-sample bias correction?
 #' @inheritParams cohens_d
 #'
-#' @inheritSection effectsize_CIs Confidence (Compatibility) Intervals (CIs)
+#' @details
+#'
+#' # Types of TODO
+#'
+#' TODO
+#'
+#' # Confidence (Compatibility) Intervals (CIs)
+#' Confidence intervals are estimated using the standard normal parametric
+#' method (see TODO).
+#'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #' @inheritSection print.effectsize_table Plotting with `see`
 #'
 #' @note
 #' `rm_d()` is an alias for `repeated_measures_d()`.
 #'
-#' @return A data frame with the effect size ( `Cohens_d`, `Hedges_g`,
-#'   `Glass_delta`) and their CIs (`CI_low` and `CI_high`).
+#' @return A data frame with the effect size and their CIs (`CI_low` and
+#'   `CI_high`).
 #'
 #' @family standardized differences
 #' @seealso [cohens_d()]
+#'
+#' @references
+#'
+#' TODO
+#'
+#' @examples
+#' # Paired data -------
+#'
+#' data("sleep")
+#' sleep2 <- reshape(sleep, direction = "wide",
+#'                   idvar = "ID", timevar = "group")
+#'
+#' repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2)
+#'
+#' # Same as:
+#' # repeated_measures_d(sleep$extra[sleep$group==1],
+#' #                     sleep$extra[sleep$group==2])
+#' # repeated_measures_d(extra ~ group | ID, data = sleep)
+#'
+#'
+#' # More options:
+#' repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, mu = -1)
+#' repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, alternative = "less")
+#'
+#' # Other types
+#' repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, type = "av")
+#' repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, type = "b")
+#' repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, type = "d")
+#' repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, type = "z", adjust = FALSE)
+#'
+#' # d_z is the same as Cohen's d for one sample (of individual difference):
+#' cohens_d(extra.1 - extra.2 ~ 1, data = sleep2)
+#'
+#'
+#'
+#' # Repetition data -----------
+#'
+#' data("rouder2016")
+#'
+#' # For types rm, ad, z, b, data is aggragated
+#' repeated_measures_d(rt ~ cond | id, data = rouder2016)
+#'
+#' # same as:
+#' rouder2016_wide <- tapply(rouder2016[["rt"]], rouder2016[1:2], mean)
+#' repeated_measures_d(rouder2016_wide[, 1], rouder2016_wide[, 2])
+#'
+#' # For types d and r, data is not aggragated:
+#' repeated_measures_d(rt ~ cond | id, data = rouder2016, type = "d")
+#' repeated_measures_d(rt ~ cond | id, data = rouder2016, type = "r")
+#'
 #'
 #'
 #' @export
@@ -144,9 +203,10 @@ rm_d <- repeated_measures_d
     all(cell_ns > 1L)
   }
 
-  mod <- stats::aov(y ~ condition + Error(id / condition), data = data,
-                    contrasts = list(condition = contr.treatment))
-
+  mod <- suppressWarnings(
+    stats::aov(y ~ condition + Error(id / condition), data = data,
+               contrasts = list(condition = contr.treatment))
+  )
   m <- -unname(coef(mod[["id:condition"]]))
   m_V <- unname(vcov(mod[["id:condition"]])[1])
 
@@ -167,34 +227,8 @@ rm_d <- repeated_measures_d
   .nlist(d, se, df)
 }
 
-# # examples ----------------------------------------
-#
-# # Paired data
-# data(sleep)
-#
-# repeated_measures_d(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, type = "rm")
-# #> d_rm  |         95% CI
-# #> ----------------------
-# #> -0.75 | [-1.17, -0.33]
-# repeated_measures_d(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, type = "av")
-# #> d_av  |        95% CI
-# #> ---------------------
-# #> -0.76 | [-1.60, 0.07]
-# repeated_measures_d(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, type = "z")
-# #> d_z   |         95% CI
-# #> ----------------------
-# #> -1.17 | [-1.94, -0.41]
-# repeated_measures_d(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, type = "b")
-# #> d_b   |         95% CI
-# #> ----------------------
-# #> -0.81 | [-1.31, -0.30]
-#
-# repeated_measures_d(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, type = "d")
-# #> d_d   |         95% CI
-# #> ----------------------
-# #> -0.80 | [-1.30, -0.30]
-#
-#
+# Tests ----------------------------------------
+
 # dat <- read.table("effectSizePuzzler.txt", header = TRUE)
 #
 # repeated_measures_d(rt ~ cond | id, data = dat, type = "rm")
@@ -223,3 +257,5 @@ rm_d <- repeated_measures_d
 # #> d_r   |         95% CI
 # #> ----------------------
 # #> -0.26 | [-0.33, -0.18]
+
+# compare CIs to lmeInfo::g_mlm

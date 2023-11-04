@@ -24,7 +24,8 @@ head(rouder2016, n = 5)
 }
 \description{
 A dataset "with 25 people each observing 50 trials in 2 conditions",
-published as \code{effectSizePuzzler.txt} by Jeff Rouder on March 24, 2016.
+published as \code{effectSizePuzzler.txt} by Jeff Rouder on March 24, 2016
+(\emph{http://jeffrouder.blogspot.com/2016/03/the-effect-size-puzzler.html}).
 \cr\cr
 The data is used in examples and tests of \code{\link[=rm_d]{rm_d()}}.
 }

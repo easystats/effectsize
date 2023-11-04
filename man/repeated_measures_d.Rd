@@ -32,7 +32,8 @@ rm_d(
 )
 }
 \arguments{
-\item{x, y}{paired numeric vectors. \code{x} can also be a formula:
+\item{x, y}{Paired numeric vectors, or names of ones in \code{data}. \code{x} can also
+be a formula:
 \itemize{
 \item \code{Pair(x,y) ~ 1} for wide data.
 \item \code{y ~ condition | id} for long data, possibly with repetitions.
@@ -60,29 +61,22 @@ Controls the type of CI returned: \code{"two.sided"} (default, two-sided CI),
 these can be \code{subset} and \code{na.action}.}
 }
 \value{
-A data frame with the effect size ( \code{Cohens_d}, \code{Hedges_g},
-\code{Glass_delta}) and their CIs (\code{CI_low} and \code{CI_high}).
+A data frame with the effect size and their CIs (\code{CI_low} and
+\code{CI_high}).
 }
 \description{
-Short description... Pair with any reported \code{stats::t.test(paired = TRUE)}.
+Short description... TODO. Pair with any reported \code{stats::t.test(paired = TRUE)}.
 }
 \note{
 \code{rm_d()} is an alias for \code{repeated_measures_d()}.
 }
+\section{Types of TODO}{
+TODO
+}
+
 \section{Confidence (Compatibility) Intervals (CIs)}{
-Unless stated otherwise, confidence (compatibility) intervals (CIs) are
-estimated using the noncentrality parameter method (also called the "pivot
-method"). This method finds the noncentrality parameter ("\emph{ncp}") of a
-noncentral \emph{t}, \emph{F}, or \eqn{\chi^2} distribution that places the observed
-\emph{t}, \emph{F}, or \eqn{\chi^2} test statistic at the desired probability point of
-the distribution. For example, if the observed \emph{t} statistic is 2.0, with 50
-degrees of freedom, for which cumulative noncentral \emph{t} distribution is \emph{t} =
-2.0 the .025 quantile (answer: the noncentral \emph{t} distribution with \emph{ncp} =
-.04)? After estimating these confidence bounds on the \emph{ncp}, they are
-converted into the effect size metric to obtain a confidence interval for the
-effect size (Steiger, 2004).
-\cr\cr
-For additional details on estimation and troubleshooting, see \link{effectsize_CIs}.
+Confidence intervals are estimated using the standard normal parametric
+method (see TODO).
 }
 
 \section{CIs and Significance Tests}{
@@ -111,6 +105,57 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer & Kiesser,
 The \code{see} package contains relevant plotting functions. See the \href{https://easystats.github.io/see/articles/effectsize.html}{plotting vignette in the \code{see} package}.
 }
 
+\examples{
+# Paired data -------
+
+data("sleep")
+sleep2 <- reshape(sleep, direction = "wide",
+                  idvar = "ID", timevar = "group")
+
+repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2)
+
+# Same as:
+# repeated_measures_d(sleep$extra[sleep$group==1],
+#                     sleep$extra[sleep$group==2])
+# repeated_measures_d(extra ~ group | ID, data = sleep)
+
+
+# More options:
+repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, mu = -1)
+repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, alternative = "less")
+
+# Other types
+repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, type = "av")
+repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, type = "b")
+repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, type = "d")
+repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, type = "z", adjust = FALSE)
+
+# d_z is the same as Cohen's d for one sample (of individual difference):
+cohens_d(extra.1 - extra.2 ~ 1, data = sleep2)
+
+
+
+# Repetition data -----------
+
+data("rouder2016")
+
+# For types rm, ad, z, b, data is aggragated
+repeated_measures_d(rt ~ cond | id, data = rouder2016)
+
+# same as:
+rouder2016_wide <- tapply(rouder2016[["rt"]], rouder2016[1:2], mean)
+repeated_measures_d(rouder2016_wide[, 1], rouder2016_wide[, 2])
+
+# For types d and r, data is not aggragated:
+repeated_measures_d(rt ~ cond | id, data = rouder2016, type = "d")
+repeated_measures_d(rt ~ cond | id, data = rouder2016, type = "r")
+
+
+
+}
+\references{
+TODO
+}
 \seealso{
 \code{\link[=cohens_d]{cohens_d()}}
 

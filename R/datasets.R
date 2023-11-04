@@ -31,7 +31,8 @@ NULL
 #' Jeff Rouder's Example Dataset for Repeated Measures
 #'
 #' A dataset "with 25 people each observing 50 trials in 2 conditions",
-#' published as `effectSizePuzzler.txt` by Jeff Rouder on March 24, 2016.
+#' published as `effectSizePuzzler.txt` by Jeff Rouder on March 24, 2016
+#' (_http://jeffrouder.blogspot.com/2016/03/the-effect-size-puzzler.html_).
 #' \cr\cr
 #' The data is used in examples and tests of [rm_d()].
 #'
