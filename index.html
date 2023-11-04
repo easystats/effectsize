@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.6.1</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.6.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -189,6 +189,9 @@
 <li><a href="https://easystats.github.io/effectsize/articles/from_test_statistics.html"><strong>Effect Size from Test Statistics</strong></a></li>
 </ul>
 </li>
+<li>
+<a href="https://easystats.github.io/see/articles/effectsize.html" class="external-link"><strong>Plotting Functions for the ‘effectsize’ Package</strong></a><br>
+</li>
 <li><a href="https://easystats.github.io/effectsize/articles/interpret.html"><strong>Automated Interpretation of Indices of Effect Size</strong></a></li>
 </ul>
 </div>
@@ -237,7 +240,7 @@
 <h3 id="contingency-tables">Contingency Tables<a class="anchor" aria-label="anchor" href="#contingency-tables"></a>
 </h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Dependence </span></span>
+<code class="sourceCode R"><span><span class="co"># Dependence</span></span>
 <span><span class="fu"><a href="reference/phi.html">phi</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span>, <span class="va">mtcars</span><span class="op">$</span><span class="va">vs</span><span class="op">)</span></span>
 <span><span class="co">## ϕ (adj.) |       95% CI</span></span>
 <span><span class="co">## -----------------------</span></span>
@@ -258,7 +261,7 @@
 <span><span class="co">## -------------------</span></span>
 <span><span class="co">## 0.27 | [0.17, 1.00]</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## - Adjusted for non-uniform expected probabilities.</span></span>
+<span><span class="co">## - Adjusted for uniform expected probabilities.</span></span>
 <span><span class="co">## - One-sided CIs: upper bound fixed at [1.00].</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -394,9 +397,8 @@
 <div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li>
-<a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
-</li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
 
