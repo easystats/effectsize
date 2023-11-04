@@ -1,7 +1,6 @@
 # TODO
 # document
-# - references for types in docs + references in comments for ses.
-# - link to `lmeInfo::g_mlm()` and `emmeans::effsize()`
+# - references in comments for ses.
 # Fix cohens d
 # - to give warning with paired?
 # - link back here
@@ -24,9 +23,38 @@
 #'
 #' @details
 #'
-#' # Types of TODO
+#' # Standardized Mean Differences for Repeated Measures
 #'
-#' TODO
+#' Unlike [Cohen's d][cohens_d()] for independent groups, where standardization
+#' naturally is done by the (pooled) population standard deviation (cf. Glass’s
+#' \eqn{\Delta}), when measured across two conditions are dependent, there are
+#' many more options for what error term to standardize by. Additionally, some
+#' options allow for data to be replicated (many measurements per condition per
+#' individual), others require a single observation per condition per individual
+#' (aka, paired data; so replications are aggregated).
+#'
+#' (It should be noted that all of these have awful and confusing notations.)
+#'
+#' Standardize by...
+#'
+#' - **Within-Subject Variance: \eqn{d_{rm}}** (_Requires paired data_) - TODO (Cohen, 1988, pp. 48).
+#' - **Average Variance: \eqn{d_{av}}** (_Requires paired data_) - TODO (Cumming, 2013).
+#' - **Difference Score Variance: \eqn{d_{z}}** (_Requires paired data_) - This
+#' is akin to computing difference scores for each individual and then
+#' computing a one-sample Cohen's _d_ (Cohen, 1988, pp. 48; see examples).
+#' - **Control Variance: \eqn{d_{b}} (aka Becker's _d_)** (_Requires paired
+#' data_) - Standardized by the variance of the control condition (or in a pre-
+#' post-treatment setting, the pre-treatment condition; Becker, 1988). Note that
+#' this is taken here as the _second_ condition (`y`).
+#' - **All Variance: \eqn{d_{d}}** - This is the same as computing a standard
+#' independent-groups Cohen's _d_ (Cohen, 1988). Note that CIs _do_ account for
+#' the dependence, and so are typically more narrow (see examples).
+#' - **Residual Variance: \eqn{d_{r}}** (_Requires data with replications_) -
+#' Divide by the pooled variance after all individual differences have been
+#' partialled out (i.e., the residual/level-1 variance in an ANOVA or MLM
+#' setting). In between-subjects designs where each subject contributes a single
+#' response, this is equivalent to classical Cohen’s d. Priors in the
+#' `BayesFactor` package are defined on this scale (Rouder et al., 2012).
 #'
 #' # Confidence (Compatibility) Intervals (CIs)
 #' Confidence intervals are estimated using the standard normal parametric
@@ -42,11 +70,20 @@
 #'   `CI_high`).
 #'
 #' @family standardized differences
-#' @seealso [cohens_d()]
+#' @seealso [cohens_d()], and `lmeInfo::g_mlm()` and `emmeans::effsize()` for
+#'   more flexible methods.
 #'
 #' @references
 #'
-#' TODO
+#' - Becker, B. J. (1988). Synthesizing standardized mean‐change measures.
+#' British Journal of Mathematical and Statistical Psychology, 41(2), 257-278.
+#' - Cohen, J. (1988). Statistical power analysis for the behavioral
+#' sciences (2nd Ed.). New York: Routledge.
+#' - Cumming, G. (2013). Understanding the new statistics: Effect sizes,
+#' confidence intervals, and meta-analysis. Routledge.
+#' - Rouder, J. N., Morey, R. D., Speckman, P. L., & Province, J. M. (2012).
+#' Default Bayes factors for ANOVA designs. Journal of mathematical psychology,
+#' 56(5), 356-374.
 #'
 #' @examples
 #' # Paired data -------
@@ -93,7 +130,8 @@
 #' repeated_measures_d(rt ~ cond | id, data = rouder2016, type = "d")
 #' repeated_measures_d(rt ~ cond | id, data = rouder2016, type = "r")
 #'
-#'
+#' # d is the same as Cohen's d for two independent groups:
+#' cohens_d(rt ~ cond, data = rouder2016)
 #'
 #' @export
 repeated_measures_d <- function(x, y,
@@ -186,7 +224,7 @@ rm_d <- repeated_measures_d
 
     se <- sqrt((1 / n) + (d ^ 2) / (2 * n))
   } else if (type == "b") {
-    s <- sd(x)
+    s <- sd(y)
     d <- (m - mu) / s
 
     se <- sqrt((2 * (1 - r) / n) + (d ^ 2) / (2 * n))
