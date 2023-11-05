@@ -195,7 +195,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
                                     verbose = TRUE, ...) {
   if (type != "delta") {
     if (.is_htest_of_type(x, "t-test")) {
-      return(effectsize(x, type = type, verbose = verbose, ...))
+      return(effectsize(x, type = type, verbose = verbose, data = data, ...))
     } else if (.is_BF_of_type(x, c("BFoneSample", "BFindepSample"), "t-squared")) {
       return(effectsize(x, ci = ci, verbose = verbose, ...))
     }
@@ -272,10 +272,10 @@ glass_delta <- function(x, y = NULL, data = NULL,
   if (.test_ci(ci)) {
     # Add cis
     out$CI <- ci
-    ci.level <- .adjust_ci(ci, alternative)
+    ci_level <- .adjust_ci(ci, alternative)
 
     t <- (d - mu) / se
-    ts <- .get_ncp_t(t, df, ci.level)
+    ts <- .get_ncp_t(t, df, ci_level)
 
     out$CI_low <- ts[1] * sqrt(hn)
     out$CI_high <- ts[2] * sqrt(hn)
@@ -287,10 +287,10 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
 
   if (type == "g") {
-    J <- exp(lgamma(df / 2) - log(sqrt(df / 2)) - lgamma((df - 1) / 2)) # exact method
+    j <- exp(lgamma(df / 2) - log(sqrt(df / 2)) - lgamma((df - 1) / 2)) # exact method
 
     out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] <-
-      out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] * J
+      out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] * j
   }
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
