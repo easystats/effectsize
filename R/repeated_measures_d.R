@@ -274,11 +274,11 @@ rm_d <- repeated_measures_d
   mod <- suppressWarnings(
     stats::aov(y ~ condition + Error(id / condition),
       data = data,
-      contrasts = list(condition = contr.treatment)
+      contrasts = list(condition = stats::contr.treatment)
     )
   )
-  m <- -unname(coef(mod[["id:condition"]]))
-  m_V <- unname(vcov(mod[["id:condition"]])[1])
+  m <- -unname(stats::coef(mod[["id:condition"]]))
+  m_V <- unname(stats::vcov(mod[["id:condition"]])[1])
 
   pars <- parameters::model_parameters(mod)
 
