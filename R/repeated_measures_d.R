@@ -1,5 +1,4 @@
 # TODO
-# add to vignette
 # effectsize::effectsize()???
 
 #' Standardized Mean Differences for Repeated Measures

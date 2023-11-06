@@ -105,7 +105,9 @@ hedges_g(mtcars$wt, mu = 2.7)
 
 ## Paired Samples
 
-For paired-samples, the difference is standardized by the variation in the differences. This effect size, known as Cohen's $d_z$, represents the difference in terms of its homogeneity (a small but stable difference will have a large $d_z$).
+In a repeated-measures design, the same subjects are measured in multiple conditions or time points. Unlike the case of independent groups, there are multiple sources of variation that can be used to standardized the differences between the means of the conditions / times, and each provides a unique standardized mean difference.
+
+The most basic option is compute from the paired samples difference scores and compute a one-sample effect size. This effect size, known as Cohen's $d_z$, represents the difference in terms of its homogeneity (a small but stable difference will have a large $d_z$).
 
 ```{r}
 sleep_wide <- datawizard::data_to_wide(sleep,
@@ -117,9 +119,35 @@ sleep_wide <- datawizard::data_to_wide(sleep,
 
 t.test(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], paired = TRUE)
 
-cohens_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], paired = TRUE)
+repeated_measures_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], method = "z")
 
-hedges_g(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], paired = TRUE)
+# same as:
+hedges_g(sleep_wide[["extra_1"]] - sleep_wide[["extra_2"]])
+```
+
+Other options try to get close to the value that would have been reached if the samples were independant (see more info in the documentation of `repeated_measures_d()`):
+
+```{r}
+repeated_measures_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]])
+
+repeated_measures_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], method = "av")
+
+repeated_measures_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], method = "b")
+
+repeated_measures_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], method = "d")
+
+# all closer to:
+cohens_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], ci = NULL)
+```
+
+For data containing repetition in each condition/subject, another effect size (residual _d_) is also available:
+
+```{r}
+data("rouder2016")
+
+head(rouder2016)
+
+repeated_measures_d(rt ~ cond | id, data = rouder2016, method = "r")
 ```
 
 ## For a Bayesian *t*-test
