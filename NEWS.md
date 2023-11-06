@@ -5,6 +5,7 @@
 ## New features
 
 - `repeated_measures_d()` to compute standardized mean differences (SMD) for repeated measures data.
+  - Also supported in `effectsize(<t.test(paired = TRUE)>)`
 
 # effectsize 0.8.7
 

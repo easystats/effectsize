@@ -14,6 +14,7 @@
 #'
 #' - For an object of class `htest`, data is extracted via [insight::get_data()], and passed to the relevant function according to:
 #'   - A **t-test** depending on `type`: `"cohens_d"` (default), `"hedges_g"`, or one of `"p_superiority"`, `"u1"`, `"u2"`, `"u3"`, `"overlap"`.
+#'     - For a **Paired t-test**: depending on `type`: `"rm"`, `"av"`, `"b"`, `"d"`, `"z"`.
 #'   - A **Chi-squared tests of independence** or **Fisher's Exact Test**, depending on `type`: `"cramers_v"` (default), `"tschuprows_t"`, `"phi"`, `"cohens_w"`, `"pearsons_c"`, `"cohens_h"`, `"oddsratio"`, `"riskratio"`, `"arr"`, or `"nnt"`.
 #'   - A **Chi-squared tests of goodness-of-fit**, depending on `type`: `"fei"` (default) `"cohens_w"`, `"pearsons_c"`
 #'   - A **One-way ANOVA test**, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.
@@ -49,6 +50,11 @@
 #'
 #' Tt <- t.test(1:10, y = c(7:20), alternative = "less")
 #' effectsize(Tt)
+#'
+#' sleep2 <- reshape(sleep, direction = "wide",
+#'                   idvar = "ID", timevar = "group")
+#' Tt <- t.test(sleep2$extra.1, sleep2$extra.2, paired = TRUE)
+#' effectsize(Tt, type = "rm_b")
 #'
 #' Aov <- oneway.test(extra ~ group, data = sleep, var.equal = TRUE)
 #' effectsize(Aov)

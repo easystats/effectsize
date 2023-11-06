@@ -1,6 +1,3 @@
-# TODO
-# effectsize::effectsize()???
-
 #' Standardized Mean Differences for Repeated Measures
 #'
 #' Compute effect size indices for standardized mean differences in repeated
@@ -158,9 +155,12 @@ repeated_measures_d <- function(x, y,
                                 adjust = TRUE,
                                 ci = 0.95, alternative = "two.sided",
                                 verbose = TRUE, ...) {
+  method <- match.arg(method)
+  if (.is_htest_of_type(x, "t-test")) {
+    return(effectsize(x, type = paste0("rm_", method), verbose = verbose, adjust = adjust, ...))
+  }
 
   alternative <- .match.alt(alternative)
-  method <- match.arg(method)
   data <- .get_data_paired(x, y, data = data, method = method, verbose = verbose, ...)
 
   if (method %in% c("d", "r")) {
