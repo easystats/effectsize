@@ -125,6 +125,14 @@
         return(stats::na.omit(mf))
       }
 
+      if (verbose) {
+        insight::format_alert(
+          paste0("The ", type, " standardized difference requires paired data,"),
+          "but data contains more than one observation per design cell.",
+          "Aggregating data using `mean()`."
+        )
+      }
+
       mf <- tapply(mf[[1]], mf[3:2], mean, na.rm = TRUE)
       x <- mf[,1]
       y <- mf[,2]
