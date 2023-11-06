@@ -10,7 +10,7 @@ repeated_measures_d(
   y,
   data = NULL,
   mu = 0,
-  type = c("rm", "av", "z", "b", "d", "r"),
+  method = c("rm", "av", "z", "b", "d", "r"),
   adjust = TRUE,
   ci = 0.95,
   alternative = "two.sided",
@@ -23,7 +23,7 @@ rm_d(
   y,
   data = NULL,
   mu = 0,
-  type = c("rm", "av", "z", "b", "d", "r"),
+  method = c("rm", "av", "z", "b", "d", "r"),
   adjust = TRUE,
   ci = 0.95,
   alternative = "two.sided",
@@ -44,7 +44,7 @@ be a formula:
 \item{mu}{a number indicating the true value of the mean (or
     difference in means if you are performing a two sample test).}
 
-\item{type}{Type of repeated measures standardized differences. See details.}
+\item{method}{Method of repeated measures standardized differences. See details.}
 
 \item{adjust}{Apply Hedges' small-sample bias correction?}
 
@@ -65,7 +65,13 @@ A data frame with the effect size and their CIs (\code{CI_low} and
 \code{CI_high}).
 }
 \description{
-Short description... TODO. Pair with any reported \code{stats::t.test(paired = TRUE)}.
+Compute effect size indices for standardized mean differences in repeated
+measures data. Pair with any reported \code{stats::t.test(paired = TRUE)}.
+\cr\cr
+In a repeated-measures design, the same subjects are measured in multiple
+conditions or time points. Unlike the case of independent groups, there are
+multiple sources of variation that can be used to standardized the
+differences between the means of the conditions / times.
 }
 \note{
 \code{rm_d()} is an alias for \code{repeated_measures_d()}.
@@ -83,16 +89,22 @@ individual), others require a single observation per condition per individual
 
 Standardize by...
 \itemize{
-\item \strong{Within-Subject Variance: \eqn{d_{rm}}} (\emph{Requires paired data}) - TODO (Cohen, 1988, pp. 48).
-\item \strong{Average Variance: \eqn{d_{av}}} (\emph{Requires paired data}) - TODO (Cumming, 2013).
 \item \strong{Difference Score Variance: \eqn{d_{z}}} (\emph{Requires paired data}) - This
 is akin to computing difference scores for each individual and then
 computing a one-sample Cohen's \emph{d} (Cohen, 1988, pp. 48; see examples).
+\item \strong{Within-Subject Variance: \eqn{d_{rm}}} (\emph{Requires paired data}) - Cohen
+suggested adjusting \eqn{d_{z}} to estimate the "standard" between-subjects
+\emph{d} by a factor of \eqn{\sqrt{2(1-r)}}, where \emph{r} is the Pearson correlation
+between the paired measures (Cohen, 1988, pp. 48).
 \item \strong{Control Variance: \eqn{d_{b}} (aka Becker's \emph{d})} (\emph{Requires paired
 data}) - Standardized by the variance of the control condition (or in a pre-
-post-treatment setting, the pre-treatment condition). This is akin to
- (Becker, 1988). Note that this is taken here as the
+post-treatment setting, the pre-treatment condition). This is akin to Glass'
+\emph{delta} (\code{\link[=glass_delta]{glass_delta()}}) (Becker, 1988). Note that this is taken here as the
 \emph{second} condition (\code{y}).
+\item \strong{Average Variance: \eqn{d_{av}}} (\emph{Requires paired data}) - Instead of
+standardizing by the variance in the of the control (or pre) condition,
+Cumming suggests standardizing by the average variance of the two paired
+conditions (Cumming, 2013, pp. 291).
 \item \strong{All Variance: \eqn{d_{d}}} - This is the same as computing a standard
 independent-groups Cohen's \emph{d} (Cohen, 1988). Note that CIs \emph{do} account for
 the dependence, and so are typically more narrow (see examples).
@@ -103,11 +115,16 @@ setting). In between-subjects designs where each subject contributes a single
 response, this is equivalent to classical Cohen’s d. Priors in the
 \code{BayesFactor} package are defined on this scale (Rouder et al., 2012).
 }
+
+\cr\cr
+Note that for paired data, when the two conditions have equal variance,
+\eqn{d_{rm}}, \eqn{d_{av}}, \eqn{d_{b}} are equal to \eqn{d}.
 }
 
 \section{Confidence (Compatibility) Intervals (CIs)}{
 Confidence intervals are estimated using the standard normal parametric
-method (see TODO; Becker, 1988; Pustejovsky et al., 2014).
+method (see TODO; Becker, 1988; Cooper et al., 2009; Hedges & Olkin, 1985;
+Pustejovsky et al., 2014).
 }
 
 \section{CIs and Significance Tests}{
@@ -155,11 +172,11 @@ repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2)
 repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, mu = -1)
 repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, alternative = "less")
 
-# Other types
-repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, type = "av")
-repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, type = "b")
-repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, type = "d")
-repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, type = "z", adjust = FALSE)
+# Other methods
+repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, method = "av")
+repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, method = "b")
+repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, method = "d")
+repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, method = "z", adjust = FALSE)
 
 # d_z is the same as Cohen's d for one sample (of individual difference):
 cohens_d(extra.1 - extra.2 ~ 1, data = sleep2)
@@ -170,19 +187,19 @@ cohens_d(extra.1 - extra.2 ~ 1, data = sleep2)
 
 data("rouder2016")
 
-# For types rm, ad, z, b, data is aggragated
+# For rm, ad, z, b, data is aggregated
 repeated_measures_d(rt ~ cond | id, data = rouder2016)
 
 # same as:
 rouder2016_wide <- tapply(rouder2016[["rt"]], rouder2016[1:2], mean)
 repeated_measures_d(rouder2016_wide[, 1], rouder2016_wide[, 2])
 
-# For types d and r, data is not aggragated:
-repeated_measures_d(rt ~ cond | id, data = rouder2016, type = "d")
-repeated_measures_d(rt ~ cond | id, data = rouder2016, type = "r")
+# For r or d, data is not aggragated:
+repeated_measures_d(rt ~ cond | id, data = rouder2016, method = "r")
+repeated_measures_d(rt ~ cond | id, data = rouder2016, method = "d", adjust = FALSE)
 
 # d is the same as Cohen's d for two independent groups:
-cohens_d(rt ~ cond, data = rouder2016)
+cohens_d(rt ~ cond, data = rouder2016, ci = NULL)
 
 }
 \references{
@@ -191,8 +208,12 @@ cohens_d(rt ~ cond, data = rouder2016)
 British Journal of Mathematical and Statistical Psychology, 41(2), 257-278.
 \item Cohen, J. (1988). Statistical power analysis for the behavioral
 sciences (2nd Ed.). New York: Routledge.
+\item Cooper, H., Hedges, L., & Valentine, J. (2009). Handbook of research
+synthesis and meta-analysis. Russell Sage Foundation, New York.
 \item Cumming, G. (2013). Understanding the new statistics: Effect sizes,
 confidence intervals, and meta-analysis. Routledge.
+\item Hedges, L. V. & Olkin, I. (1985). Statistical methods for
+meta-analysis. Orlando, FL: Academic Press.
 \item Pustejovsky, J. E., Hedges, L. V., & Shadish, W. R. (2014).
 Design-comparable effect sizes in multiple baseline designs: A general
 modeling framework. Journal of Educational and Behavioral Statistics, 39(5),

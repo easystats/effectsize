@@ -1,25 +1,28 @@
 # TODO
 # document
 # - references in comments for ses.
-# - rm, av and b are approx to d assuming equal var
 # Fix cohens d
 # - to give warning with paired?
 # - link back here
 # add to vignette
-# add proper names
-# news
 # tests
 # effectsize::effectsize()???
 
 #' Standardized Mean Differences for Repeated Measures
 #'
-#' Short description... TODO. Pair with any reported `stats::t.test(paired = TRUE)`.
+#' Compute effect size indices for standardized mean differences in repeated
+#' measures data. Pair with any reported `stats::t.test(paired = TRUE)`.
+#' \cr\cr
+#' In a repeated-measures design, the same subjects are measured in multiple
+#' conditions or time points. Unlike the case of independent groups, there are
+#' multiple sources of variation that can be used to standardized the
+#' differences between the means of the conditions / times.
 #'
 #' @param x,y Paired numeric vectors, or names of ones in `data`. `x` can also
 #'   be a formula:
 #' - `Pair(x,y) ~ 1` for wide data.
 #' - `y ~ condition | id` for long data, possibly with repetitions.
-#' @param type Type of repeated measures standardized differences. See details.
+#' @param method Method of repeated measures standardized differences. See details.
 #' @param adjust Apply Hedges' small-sample bias correction?
 #' @inheritParams cohens_d
 #'
@@ -38,17 +41,23 @@
 #' (It should be noted that all of these have awful and confusing notations.)
 #'
 #' Standardize by...
-#'
-#' - **Within-Subject Variance: \eqn{d_{rm}}** (_Requires paired data_) - TODO (Cohen, 1988, pp. 48).
-#' - **Average Variance: \eqn{d_{av}}** (_Requires paired data_) - TODO (Cumming, 2013).
+
 #' - **Difference Score Variance: \eqn{d_{z}}** (_Requires paired data_) - This
 #' is akin to computing difference scores for each individual and then
 #' computing a one-sample Cohen's _d_ (Cohen, 1988, pp. 48; see examples).
+#' - **Within-Subject Variance: \eqn{d_{rm}}** (_Requires paired data_) - Cohen
+#' suggested adjusting \eqn{d_{z}} to estimate the "standard" between-subjects
+#' _d_ by a factor of \eqn{\sqrt{2(1-r)}}, where _r_ is the Pearson correlation
+#' between the paired measures (Cohen, 1988, pp. 48).
 #' - **Control Variance: \eqn{d_{b}} (aka Becker's _d_)** (_Requires paired
 #' data_) - Standardized by the variance of the control condition (or in a pre-
-#' post-treatment setting, the pre-treatment condition). This is akin to
-#' [Glass' _delta_][glass_delta()] (Becker, 1988). Note that this is taken here as the
+#' post-treatment setting, the pre-treatment condition). This is akin to Glass'
+#' _delta_ ([glass_delta()]) (Becker, 1988). Note that this is taken here as the
 #' _second_ condition (`y`).
+#' - **Average Variance: \eqn{d_{av}}** (_Requires paired data_) - Instead of
+#' standardizing by the variance in the of the control (or pre) condition,
+#' Cumming suggests standardizing by the average variance of the two paired
+#' conditions (Cumming, 2013, pp. 291).
 #' - **All Variance: \eqn{d_{d}}** - This is the same as computing a standard
 #' independent-groups Cohen's _d_ (Cohen, 1988). Note that CIs _do_ account for
 #' the dependence, and so are typically more narrow (see examples).
@@ -58,6 +67,10 @@
 #' setting). In between-subjects designs where each subject contributes a single
 #' response, this is equivalent to classical Cohen’s d. Priors in the
 #' `BayesFactor` package are defined on this scale (Rouder et al., 2012).
+#'
+#' \cr\cr
+#' Note that for paired data, when the two conditions have equal variance,
+#' \eqn{d_{rm}}, \eqn{d_{av}}, \eqn{d_{b}} are equal to \eqn{d}.
 #'
 #' # Confidence (Compatibility) Intervals (CIs)
 #' Confidence intervals are estimated using the standard normal parametric
@@ -116,11 +129,11 @@
 #' repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, mu = -1)
 #' repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, alternative = "less")
 #'
-#' # Other types
-#' repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, type = "av")
-#' repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, type = "b")
-#' repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, type = "d")
-#' repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, type = "z", adjust = FALSE)
+#' # Other methods
+#' repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, method = "av")
+#' repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, method = "b")
+#' repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, method = "d")
+#' repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, method = "z", adjust = FALSE)
 #'
 #' # d_z is the same as Cohen's d for one sample (of individual difference):
 #' cohens_d(extra.1 - extra.2 ~ 1, data = sleep2)
@@ -131,36 +144,36 @@
 #'
 #' data("rouder2016")
 #'
-#' # For types rm, ad, z, b, data is aggragated
+#' # For rm, ad, z, b, data is aggregated
 #' repeated_measures_d(rt ~ cond | id, data = rouder2016)
 #'
 #' # same as:
 #' rouder2016_wide <- tapply(rouder2016[["rt"]], rouder2016[1:2], mean)
 #' repeated_measures_d(rouder2016_wide[, 1], rouder2016_wide[, 2])
 #'
-#' # For types d and r, data is not aggragated:
-#' repeated_measures_d(rt ~ cond | id, data = rouder2016, type = "d")
-#' repeated_measures_d(rt ~ cond | id, data = rouder2016, type = "r")
+#' # For r or d, data is not aggragated:
+#' repeated_measures_d(rt ~ cond | id, data = rouder2016, method = "r")
+#' repeated_measures_d(rt ~ cond | id, data = rouder2016, method = "d", adjust = FALSE)
 #'
 #' # d is the same as Cohen's d for two independent groups:
-#' cohens_d(rt ~ cond, data = rouder2016)
+#' cohens_d(rt ~ cond, data = rouder2016, ci = NULL)
 #'
 #' @export
 repeated_measures_d <- function(x, y,
                                 data = NULL,
-                                mu = 0, type = c("rm", "av", "z", "b", "d", "r"),
+                                mu = 0, method = c("rm", "av", "z", "b", "d", "r"),
                                 adjust = TRUE,
                                 ci = 0.95, alternative = "two.sided",
                                 verbose = TRUE, ...) {
 
   alternative <- .match.alt(alternative)
-  type <- match.arg(type)
-  data <- .get_data_paired(x, y, data = data, type = type, verbose = verbose, ...)
+  method <- match.arg(method)
+  data <- .get_data_paired(x, y, data = data, method = method, verbose = verbose, ...)
 
-  if (type %in% c("d", "r")) {
-    values <- .replication_d(data, mu = mu, type = type)
+  if (method %in% c("d", "r")) {
+    values <- .replication_d(data, mu = mu, method = method)
   } else {
-    values <- .paired_d(data, mu = mu, type = type)
+    values <- .paired_d(data, mu = mu, method = method)
   }
 
   out <- data.frame(d = values[["d"]])
@@ -191,10 +204,15 @@ repeated_measures_d <- function(x, y,
 
     out[, colnames(out) %in% c("d", "CI_low", "CI_high")] <-
       out[, colnames(out) %in% c("d", "CI_low", "CI_high")] * J
+
+    attr(out, "table_footer") <- "Adjusted for small sample bias."
   }
 
-  # rename column to type
-  colnames(out)[1] <- paste0("d_", type)
+  # rename column to method
+  colnames(out)[1] <- switch(method,
+                             d = "Cohens_d",
+                             b = "Beckers_d",
+                             paste0("d_", method))
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
   .someattributes(out) <- .nlist(
@@ -209,7 +227,7 @@ repeated_measures_d <- function(x, y,
 rm_d <- repeated_measures_d
 
 #' @keywords internal
-.paired_d <- function(data, mu, type) {
+.paired_d <- function(data, mu, method) {
   x <- data[["x"]]
   y <- data[["y"]]
 
@@ -218,7 +236,7 @@ rm_d <- repeated_measures_d
   df <- n - 1
   r <- stats::cor(x, y)
 
-  if (type == "rm") {
+  if (method == "rm") {
     f <- 2 * (1 - r)
 
     s <- stats::sd(x - y) / sqrt(f)
@@ -226,19 +244,19 @@ rm_d <- repeated_measures_d
 
     # Cooper et al., 2009, eq 12.21
     se <- sqrt(((1 / n) + (d ^ 2) / (2 * n)) * f)
-  } else if (type == "av") {
+  } else if (method == "av") {
     s <- sqrt((stats::var(x) + stats::var(y)) / 2)
     d <- (m - mu) / s
 
     # TODO fix? validate?
     se <- sqrt((2 / n) + (d ^ 2) / (4 * n))
-  } else if (type == "z") {
+  } else if (method == "z") {
     s <- stats::sd(x - y)
     d <- (m - mu) / s
 
     # Hedges and Olkin, 1985, page 86, eq 14
     se <- sqrt((1 / n) + (d ^ 2) / (2 * n))
-  } else if (type == "b") {
+  } else if (method == "b") {
     s <- stats::sd(y)
     d <- (m - mu) / s
 
@@ -250,8 +268,8 @@ rm_d <- repeated_measures_d
 }
 
 #' @keywords internal
-.replication_d <- function(data, mu, type) {
-  if (type == "r") {
+.replication_d <- function(data, mu, method) {
+  if (method == "r") {
     # for r - need to make sure there are replications!
     cell_ns <- tapply(data[[1]], data[3:2], function(v) length(stats::na.omit(v)))
     all(cell_ns > 1L)
@@ -266,9 +284,9 @@ rm_d <- repeated_measures_d
 
   pars <- parameters::model_parameters(mod)
 
-  if (type == "d") {
+  if (method == "d") {
     e <- as.data.frame(pars[pars$Parameter == "Residuals",])
-  } else if (type == "r") {
+  } else if (method == "r") {
     e <- as.data.frame(pars[pars$Group == "Within",])
   }
 
@@ -288,29 +306,29 @@ rm_d <- repeated_measures_d
 
 # dat <- read.table("effectSizePuzzler.txt", header = TRUE)
 #
-# repeated_measures_d(rt ~ cond | id, data = dat, type = "rm")
+# repeated_measures_d(rt ~ cond | id, data = dat, method = "rm")
 # #> d_rm  |         95% CI
 # #> ----------------------
 # #> -0.80 | [-1.06, -0.53]
-# repeated_measures_d(rt ~ cond | id, data = dat, type = "av", adjust = FALSE) # jakewestfall.org/blog: 0.84
+# repeated_measures_d(rt ~ cond | id, data = dat, method = "av", adjust = FALSE) # jakewestfall.org/blog: 0.84
 # #> d_av  |         95% CI
 # #> ----------------------
 # #> -0.84 | [-1.41, -0.26]
-# repeated_measures_d(rt ~ cond | id, data = dat, type = "z", adjust = FALSE) # jakewestfall.org/blog: 1.35
+# repeated_measures_d(rt ~ cond | id, data = dat, method = "z", adjust = FALSE) # jakewestfall.org/blog: 1.35
 # #> d_z   |         95% CI
 # #> ----------------------
 # #> -1.35 | [-1.90, -0.81]
-# repeated_measures_d(rt ~ cond | id, data = dat, type = "b")
+# repeated_measures_d(rt ~ cond | id, data = dat, method = "b")
 # #> d_b   |         95% CI
 # #> ----------------------
 # #> -0.86 | [-1.19, -0.53]
 #
-# repeated_measures_d(rt ~ cond | id, data = dat, type = "d") # jakewestfall.org/blog: 0.25
+# repeated_measures_d(rt ~ cond | id, data = dat, method = "d") # jakewestfall.org/blog: 0.25
 # #> d_d   |         95% CI
 # #> ----------------------
 # #> -0.25 | [-0.32, -0.18]
 #
-# repeated_measures_d(rt ~ cond | id, data = dat, type = "r") # jakewestfall.org/blog: 0.26
+# repeated_measures_d(rt ~ cond | id, data = dat, method = "r") # jakewestfall.org/blog: 0.26
 # #> d_r   |         95% CI
 # #> ----------------------
 # #> -0.26 | [-0.33, -0.18]
