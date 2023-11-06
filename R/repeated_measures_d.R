@@ -5,7 +5,6 @@
 # - to give warning with paired?
 # - link back here
 # add to vignette
-# tests
 # effectsize::effectsize()???
 
 #' Standardized Mean Differences for Repeated Measures
@@ -301,36 +300,3 @@ rm_d <- repeated_measures_d
 
   .nlist(d, se, df)
 }
-
-# Tests ----------------------------------------
-
-# dat <- read.table("effectSizePuzzler.txt", header = TRUE)
-#
-# repeated_measures_d(rt ~ cond | id, data = dat, method = "rm")
-# #> d_rm  |         95% CI
-# #> ----------------------
-# #> -0.80 | [-1.06, -0.53]
-# repeated_measures_d(rt ~ cond | id, data = dat, method = "av", adjust = FALSE) # jakewestfall.org/blog: 0.84
-# #> d_av  |         95% CI
-# #> ----------------------
-# #> -0.84 | [-1.41, -0.26]
-# repeated_measures_d(rt ~ cond | id, data = dat, method = "z", adjust = FALSE) # jakewestfall.org/blog: 1.35
-# #> d_z   |         95% CI
-# #> ----------------------
-# #> -1.35 | [-1.90, -0.81]
-# repeated_measures_d(rt ~ cond | id, data = dat, method = "b")
-# #> d_b   |         95% CI
-# #> ----------------------
-# #> -0.86 | [-1.19, -0.53]
-#
-# repeated_measures_d(rt ~ cond | id, data = dat, method = "d") # jakewestfall.org/blog: 0.25
-# #> d_d   |         95% CI
-# #> ----------------------
-# #> -0.25 | [-0.32, -0.18]
-#
-# repeated_measures_d(rt ~ cond | id, data = dat, method = "r") # jakewestfall.org/blog: 0.26
-# #> d_r   |         95% CI
-# #> ----------------------
-# #> -0.26 | [-0.33, -0.18]
-
-# compare CIs to lmeInfo::g_mlm
