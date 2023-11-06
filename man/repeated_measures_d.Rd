@@ -123,8 +123,8 @@ Note that for paired data, when the two conditions have equal variance,
 
 \section{Confidence (Compatibility) Intervals (CIs)}{
 Confidence intervals are estimated using the standard normal parametric
-method (see Becker, 1988; Cooper et al., 2009; Hedges & Olkin, 1985;
-Pustejovsky et al., 2014).
+method (see Algina & Keselman, 2003; Becker, 1988; Cooper et al., 2009;
+Hedges & Olkin, 1985; Pustejovsky et al., 2014).
 }
 
 \section{CIs and Significance Tests}{
@@ -204,6 +204,8 @@ cohens_d(rt ~ cond, data = rouder2016, ci = NULL)
 }
 \references{
 \itemize{
+\item Algina, J., & Keselman, H. J. (2003). Approximate confidence intervals for
+effect sizes. Educational and Psychological Measurement, 63(4), 537-553.
 \item Becker, B. J. (1988). Synthesizing standardized mean‐change measures.
 British Journal of Mathematical and Statistical Psychology, 41(2), 257-278.
 \item Cohen, J. (1988). Statistical power analysis for the behavioral

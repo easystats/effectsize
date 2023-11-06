@@ -64,8 +64,8 @@
 #'
 #' # Confidence (Compatibility) Intervals (CIs)
 #' Confidence intervals are estimated using the standard normal parametric
-#' method (see Becker, 1988; Cooper et al., 2009; Hedges & Olkin, 1985;
-#' Pustejovsky et al., 2014).
+#' method (see Algina & Keselman, 2003; Becker, 1988; Cooper et al., 2009;
+#' Hedges & Olkin, 1985; Pustejovsky et al., 2014).
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #' @inheritSection print.effectsize_table Plotting with `see`
@@ -82,6 +82,8 @@
 #'
 #' @references
 #'
+#' - Algina, J., & Keselman, H. J. (2003). Approximate confidence intervals for
+#' effect sizes. Educational and Psychological Measurement, 63(4), 537-553.
 #' - Becker, B. J. (1988). Synthesizing standardized mean‐change measures.
 #' British Journal of Mathematical and Statistical Psychology, 41(2), 257-278.
 #' - Cohen, J. (1988). Statistical power analysis for the behavioral
@@ -240,8 +242,8 @@ rm_d <- repeated_measures_d
     s <- sqrt((stats::var(x) + stats::var(y)) / 2)
     d <- (m - mu) / s
 
-    # TODO fix? validate?
-    se <- sqrt((2 / n) + (d ^ 2) / (4 * n))
+    # Algina & Keselman, 2003, eq 4 (from Bird 2002?)
+    se <- sqrt(stats::var(x - y) / (s^2 * n))
   } else if (method == "z") {
     s <- stats::sd(x - y)
     d <- (m - mu) / s
