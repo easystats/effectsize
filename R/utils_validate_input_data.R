@@ -54,8 +54,8 @@
   if (!is.numeric(x)) {
     insight::format_error("Cannot compute effect size for a non-numeric vector.")
   } else if (inherits(x, "Pair")) {
-    x <- x[, 1] - x[, 2]
-    y <- NULL
+    y <- x[, 2]
+    x <- x[, 1]
     paired <- TRUE
   }
 

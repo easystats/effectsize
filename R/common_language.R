@@ -7,6 +7,9 @@
 #' any reported [`stats::t.test()`] or [`stats::wilcox.test()`].
 #'
 #' @inheritParams cohens_d
+#' @param paired If `TRUE`, the values of `x` and `y` are considered as paired.
+#'   This produces an effect size that is equivalent to the one-sample effect
+#'   size on `x - y`.
 #' @param parametric Use parametric estimation (see [cohens_d()]) or
 #'   non-parametric estimation (see [rank_biserial()]). See details.
 #' @param iterations The number of bootstrap replicates for computing confidence
@@ -126,6 +129,10 @@ p_superiority <- function(x, y = NULL, data = NULL,
   paired <- data[["paired"]]
 
   if (parametric) {
+    if (paired) {
+      x <- x - y
+      y <- NULL
+    }
     d <- cohens_d(
       x = x,
       y = y,

@@ -1,9 +1,4 @@
 # TODO
-# document
-# - references in comments for ses.
-# Fix cohens d
-# - to give warning with paired?
-# - link back here
 # add to vignette
 # effectsize::effectsize()???
 
@@ -73,7 +68,7 @@
 #'
 #' # Confidence (Compatibility) Intervals (CIs)
 #' Confidence intervals are estimated using the standard normal parametric
-#' method (see TODO; Becker, 1988; Cooper et al., 2009; Hedges & Olkin, 1985;
+#' method (see Becker, 1988; Cooper et al., 2009; Hedges & Olkin, 1985;
 #' Pustejovsky et al., 2014).
 #'
 #' @inheritSection effectsize_CIs CIs and Significance Tests
@@ -198,8 +193,7 @@ repeated_measures_d <- function(x, y,
 
 
   if (adjust) {
-    df <- values[["df"]]
-    J <- exp(lgamma(df / 2) - log(sqrt(df / 2)) - lgamma((df - 1) / 2)) # exact method
+    J <- .J(values[["df"]])
 
     out[, colnames(out) %in% c("d", "CI_low", "CI_high")] <-
       out[, colnames(out) %in% c("d", "CI_low", "CI_high")] * J

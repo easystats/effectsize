@@ -23,6 +23,28 @@ test_that("rm_d | paired data", {
     rm_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, method = "r"),
     regexp = "replications"
   )
+
+
+  # equal with equal variance:
+  dat <- data.frame(
+    V1 = c(-0.32150435528124, -4.02978032779713, 0.159645811226589,
+           1.95179927058772, 0.168527299289471, 3.4499229496418,
+           -1.87888939495506, 0.431333839911973, -0.26004200470096,
+           0.328986912076835),
+    V2 = c(2.50107579495566, -0.32926747002329, 4.01118960037018,
+           1.44969284040984, -1.46241877172319, 1.25068499614667,
+           0.028928469929524, 3.05532100575796, -1.67014771817319,
+           3.16494125234984)
+  )
+
+  d_rm <- rm_d("V1", "V2", data = dat, adjust = FALSE)
+  d_av <- rm_d("V1", "V2", data = dat, adjust = FALSE, method = "av")
+  d_b <- rm_d("V1", "V2", data = dat, adjust = FALSE, method = "b")
+  d_d <- rm_d("V1", "V2", data = dat, adjust = FALSE, method = "d")
+
+  expect_equal(d_rm[[1]], d_d[[1]])
+  expect_equal(d_av[[1]], d_d[[1]])
+  expect_equal(d_b[[1]], d_d[[1]])
 })
 
 test_that("rm_d | replication data", {

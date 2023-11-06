@@ -123,7 +123,7 @@ Note that for paired data, when the two conditions have equal variance,
 
 \section{Confidence (Compatibility) Intervals (CIs)}{
 Confidence intervals are estimated using the standard normal parametric
-method (see TODO; Becker, 1988; Cooper et al., 2009; Hedges & Olkin, 1985;
+method (see Becker, 1988; Cooper et al., 2009; Hedges & Olkin, 1985;
 Pustejovsky et al., 2014).
 }
 
