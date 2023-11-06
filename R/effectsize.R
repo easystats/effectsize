@@ -51,8 +51,10 @@
 #' Tt <- t.test(1:10, y = c(7:20), alternative = "less")
 #' effectsize(Tt)
 #'
-#' sleep2 <- reshape(sleep, direction = "wide",
-#'                   idvar = "ID", timevar = "group")
+#' sleep2 <- reshape(sleep,
+#'   direction = "wide",
+#'   idvar = "ID", timevar = "group"
+#' )
 #' Tt <- t.test(sleep2$extra.1, sleep2$extra.2, paired = TRUE)
 #' effectsize(Tt, type = "rm_b")
 #'

@@ -135,8 +135,8 @@
       }
 
       mf <- tapply(mf[[1]], mf[3:2], mean, na.rm = TRUE)
-      x <- mf[,1]
-      y <- mf[,2]
+      x <- mf[, 1]
+      y <- mf[, 2]
     } else if (x[[2]][[1]] == as.name("Pair")) {
       # is Pair (wide)
       mf <- .resolve_formula(x, data, ...)

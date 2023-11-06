@@ -106,8 +106,10 @@
 #' # Paired data -------
 #'
 #' data("sleep")
-#' sleep2 <- reshape(sleep, direction = "wide",
-#'                   idvar = "ID", timevar = "group")
+#' sleep2 <- reshape(sleep,
+#'   direction = "wide",
+#'   idvar = "ID", timevar = "group"
+#' )
 #'
 #' repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2)
 #'
@@ -204,9 +206,10 @@ repeated_measures_d <- function(x, y,
 
   # rename column to method
   colnames(out)[1] <- switch(method,
-                             d = "Cohens_d",
-                             b = "Beckers_d",
-                             paste0("d_", method))
+    d = "Cohens_d",
+    b = "Beckers_d",
+    paste0("d_", method)
+  )
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
   .someattributes(out) <- .nlist(
@@ -237,7 +240,7 @@ rm_d <- repeated_measures_d
     d <- (m - mu) / s
 
     # Cooper et al., 2009, eq 12.21
-    se <- sqrt(((1 / n) + (d ^ 2) / (2 * n)) * f)
+    se <- sqrt(((1 / n) + (d^2) / (2 * n)) * f)
   } else if (method == "av") {
     s <- sqrt((stats::var(x) + stats::var(y)) / 2)
     d <- (m - mu) / s
@@ -249,13 +252,13 @@ rm_d <- repeated_measures_d
     d <- (m - mu) / s
 
     # Hedges and Olkin, 1985, page 86, eq 14
-    se <- sqrt((1 / n) + (d ^ 2) / (2 * n))
+    se <- sqrt((1 / n) + (d^2) / (2 * n))
   } else if (method == "b") {
     s <- stats::sd(y)
     d <- (m - mu) / s
 
     # Becker 1988, eq. 6
-    se <- sqrt((2 * (1 - r) / n) + (d ^ 2) / (2 * n))
+    se <- sqrt((2 * (1 - r) / n) + (d^2) / (2 * n))
   }
 
   .nlist(d, se, df)
@@ -270,8 +273,10 @@ rm_d <- repeated_measures_d
   }
 
   mod <- suppressWarnings(
-    stats::aov(y ~ condition + Error(id / condition), data = data,
-               contrasts = list(condition = contr.treatment))
+    stats::aov(y ~ condition + Error(id / condition),
+      data = data,
+      contrasts = list(condition = contr.treatment)
+    )
   )
   m <- -unname(coef(mod[["id:condition"]]))
   m_V <- unname(vcov(mod[["id:condition"]])[1])
@@ -279,9 +284,9 @@ rm_d <- repeated_measures_d
   pars <- parameters::model_parameters(mod)
 
   if (method == "d") {
-    e <- as.data.frame(pars[pars$Parameter == "Residuals",])
+    e <- as.data.frame(pars[pars$Parameter == "Residuals", ])
   } else if (method == "r") {
-    e <- as.data.frame(pars[pars$Group == "Within",])
+    e <- as.data.frame(pars[pars$Group == "Within", ])
   }
 
   s <- sqrt(sum(e[["Sum_Squares"]]) / sum(e[["df"]]))
@@ -289,8 +294,8 @@ rm_d <- repeated_measures_d
 
   d <- (m - mu) / s
   se <- sqrt(
-    (df / (df - 2)) * (m_V / (s ^ 2)) +
-      (d ^ 2) * (8 * df ^ 2 - df + 2) / (16 * (df - 2) * ((df - 1) ^ 2))
+    (df / (df - 2)) * (m_V / (s^2)) +
+      (d^2) * (8 * df^2 - df + 2) / (16 * (df - 2) * ((df - 1)^2))
   )
 
   .nlist(d, se, df)

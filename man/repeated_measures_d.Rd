@@ -157,8 +157,10 @@ The \code{see} package contains relevant plotting functions. See the \href{https
 # Paired data -------
 
 data("sleep")
-sleep2 <- reshape(sleep, direction = "wide",
-                  idvar = "ID", timevar = "group")
+sleep2 <- reshape(sleep,
+  direction = "wide",
+  idvar = "ID", timevar = "group"
+)
 
 repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2)
 

@@ -251,7 +251,8 @@ save(hardlyworking, file = "data/hardlyworking.rdata")
 # rouder2016 --------------------------------------------------------------
 
 rouder2016 <- read.table("data-raw/effectSizePuzzler.txt",
-                         header = TRUE, stringsAsFactors = FALSE)
+  header = TRUE, stringsAsFactors = FALSE
+)
 rouder2016[["id"]] <- factor(rouder2016[["id"]])
 rouder2016[["cond"]] <- factor(rouder2016[["cond"]])
 

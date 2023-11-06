@@ -45,8 +45,10 @@ test_that("t-test", {
   model <- t.test(x, y, paired = TRUE)
   expect_equal(effectsize(model, verbose = FALSE), cohens_d(x, y, paired = TRUE, verbose = FALSE), ignore_attr = TRUE)
 
-  sleep2 <<- reshape(sleep, direction = "wide",
-                     idvar = "ID", timevar = "group")
+  sleep2 <<- reshape(sleep,
+    direction = "wide",
+    idvar = "ID", timevar = "group"
+  )
   tt <- t.test(sleep2$extra.1, sleep2$extra.2, paired = TRUE)
 
   es1 <- effectsize(tt, type = "rm_b")
