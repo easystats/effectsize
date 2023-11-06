@@ -102,7 +102,7 @@
 }
 
 #' @keywords internal
-.get_data_paired <- function(x, y = NULL, data = NULL, type,
+.get_data_paired <- function(x, y = NULL, data = NULL, method,
                              verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
     formula_error <-
@@ -117,17 +117,18 @@
       # is long
       x[[3L]][[1L]] <- as.name("+")
       mf <- .resolve_formula(x, data, ...)
+      mf <- stats::na.omit(mf)
 
-      if (type %in% c("d", "r")) {
+      if (method %in% c("d", "r")) {
         mf[[2]] <- as.factor(mf[[2]])
         mf[[3]] <- as.factor(mf[[3]])
         colnames(mf) <- c("y", "condition", "id")
-        return(stats::na.omit(mf))
+        return(mf)
       }
 
-      if (verbose) {
+      if (verbose && any(tapply(mf[[1]], mf[3:2], length) > 1L)) {
         insight::format_alert(
-          paste0("The ", type, " standardized difference requires paired data,"),
+          paste0("The ", method, " standardized difference requires paired data,"),
           "but data contains more than one observation per design cell.",
           "Aggregating data using `mean()`."
         )
@@ -166,9 +167,9 @@
   x <- x[o]
   y <- y[o]
 
-  if (type == "r") {
+  if (method == "r") {
     insight::format_error("d{r} requires replications.")
-  } else if (type == "d") {
+  } else if (method == "d") {
     n <- length(x)
     data <- data.frame(
       y = c(x, y),
