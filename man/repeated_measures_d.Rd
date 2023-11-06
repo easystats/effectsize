@@ -114,11 +114,10 @@ partialled out (i.e., the residual/level-1 variance in an ANOVA or MLM
 setting). In between-subjects designs where each subject contributes a single
 response, this is equivalent to classical Cohen’s d. Priors in the
 \code{BayesFactor} package are defined on this scale (Rouder et al., 2012).
-}
-
 \cr\cr
 Note that for paired data, when the two conditions have equal variance,
 \eqn{d_{rm}}, \eqn{d_{av}}, \eqn{d_{b}} are equal to \eqn{d}.
+}
 }
 
 \section{Confidence (Compatibility) Intervals (CIs)}{

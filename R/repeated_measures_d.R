@@ -57,7 +57,6 @@
 #' setting). In between-subjects designs where each subject contributes a single
 #' response, this is equivalent to classical Cohen’s d. Priors in the
 #' `BayesFactor` package are defined on this scale (Rouder et al., 2012).
-#'
 #' \cr\cr
 #' Note that for paired data, when the two conditions have equal variance,
 #' \eqn{d_{rm}}, \eqn{d_{av}}, \eqn{d_{b}} are equal to \eqn{d}.
