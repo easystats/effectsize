@@ -14,7 +14,7 @@
 #'
 #' - For an object of class `htest`, data is extracted via [insight::get_data()], and passed to the relevant function according to:
 #'   - A **t-test** depending on `type`: `"cohens_d"` (default), `"hedges_g"`, or one of `"p_superiority"`, `"u1"`, `"u2"`, `"u3"`, `"overlap"`.
-#'     - For a **Paired t-test**: depending on `type`: `"rm"`, `"av"`, `"b"`, `"d"`, `"z"`.
+#'     - For a **Paired t-test**: depending on `type`: `"rm_rm"`, `"rm_av"`, `"rm_b"`, `"rm_d"`, `"rm_z"`.
 #'   - A **Chi-squared tests of independence** or **Fisher's Exact Test**, depending on `type`: `"cramers_v"` (default), `"tschuprows_t"`, `"phi"`, `"cohens_w"`, `"pearsons_c"`, `"cohens_h"`, `"oddsratio"`, `"riskratio"`, `"arr"`, or `"nnt"`.
 #'   - A **Chi-squared tests of goodness-of-fit**, depending on `type`: `"fei"` (default) `"cohens_w"`, `"pearsons_c"`
 #'   - A **One-way ANOVA test**, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.

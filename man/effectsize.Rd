@@ -50,7 +50,7 @@ input model. See details.
 \itemize{
 \item A \strong{t-test} depending on \code{type}: \code{"cohens_d"} (default), \code{"hedges_g"}, or one of \code{"p_superiority"}, \code{"u1"}, \code{"u2"}, \code{"u3"}, \code{"overlap"}.
 \itemize{
-\item For a \strong{Paired t-test}: depending on \code{type}: \code{"rm"}, \code{"av"}, \code{"b"}, \code{"d"}, \code{"z"}.
+\item For a \strong{Paired t-test}: depending on \code{type}: \code{"rm_rm"}, \code{"rm_av"}, \code{"rm_b"}, \code{"rm_d"}, \code{"rm_z"}.
 }
 \item A \strong{Chi-squared tests of independence} or \strong{Fisher's Exact Test}, depending on \code{type}: \code{"cramers_v"} (default), \code{"tschuprows_t"}, \code{"phi"}, \code{"cohens_w"}, \code{"pearsons_c"}, \code{"cohens_h"}, \code{"oddsratio"}, \code{"riskratio"}, \code{"arr"}, or \code{"nnt"}.
 \item A \strong{Chi-squared tests of goodness-of-fit}, depending on \code{type}: \code{"fei"} (default) \code{"cohens_w"}, \code{"pearsons_c"}
