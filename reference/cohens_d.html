@@ -207,7 +207,7 @@ variance). Else the mean SD from both groups is used instead.</p></dd>
 <dt>paired</dt>
 <dd><p>If <code>TRUE</code>, the values of <code>x</code> and <code>y</code> are considered as paired.
 This produces an effect size that is equivalent to the one-sample effect
-size on <code>x - y</code>.</p></dd>
+size on <code>x - y</code>. See also <code><a href="repeated_measures_d.html">repeated_measures_d()</a></code> for more options.</p></dd>
 
 
 <dt>ci</dt>
@@ -309,12 +309,13 @@ Correcting error and bias in research findings. Sage.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="sd_pooled.html">sd_pooled()</a></code>, <code><a href="t_to_r.html">t_to_d()</a></code>, <code><a href="d_to_r.html">r_to_d()</a></code></p>
+    <div class="dont-index"><p><code><a href="repeated_measures_d.html">rm_d()</a></code>, <code><a href="sd_pooled.html">sd_pooled()</a></code>, <code><a href="t_to_r.html">t_to_d()</a></code>, <code><a href="d_to_r.html">r_to_d()</a></code></p>
 <p>Other standardized differences: 
 <code><a href="mahalanobis_d.html">mahalanobis_d</a>()</code>,
 <code><a href="means_ratio.html">means_ratio</a>()</code>,
 <code><a href="p_superiority.html">p_superiority</a>()</code>,
-<code><a href="rank_biserial.html">rank_biserial</a>()</code></p></div>
+<code><a href="rank_biserial.html">rank_biserial</a>()</code>,
+<code><a href="repeated_measures_d.html">repeated_measures_d</a>()</code></p></div>
     </div>
 
     <div class="section level2">
@@ -399,21 +400,24 @@ Correcting error and bias in research findings. Sage.</p></li>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sleep</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">cohens_d</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">sleep</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> For paired samples, 'repeated_measures_d()' provides more options.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's d |         95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -1.28     | [-2.12, -0.41]</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># same as:</span></span></span>
 <span class="r-in"><span><span class="co"># cohens_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], paired = TRUE)</span></span></span>
+<span class="r-in"><span><span class="co"># cohens_d(sleep$extra[sleep$group == 1] - sleep$extra[sleep$group == 2])</span></span></span>
+<span class="r-in"><span><span class="co"># rm_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], method = "z", adjust = FALSE)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># More options:</span></span></span>
-<span class="r-in"><span><span class="fu">cohens_d</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">sleep</span>, mu <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">cohens_d</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">sleep</span>, mu <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's d |        95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -0.47     | [-1.12, 0.20]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Deviation from a difference of -1.</span></span>
-<span class="r-in"><span><span class="fu">hedges_g</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">sleep</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">hedges_g</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">extra</span><span class="op">[</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">sleep</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Hedges' g |         95% CI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -1.17     | [-1.94, -0.38]</span>
