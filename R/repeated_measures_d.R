@@ -49,7 +49,7 @@
 #' standardizing by the variance in the of the control (or pre) condition,
 #' Cumming suggests standardizing by the average variance of the two paired
 #' conditions (Cumming, 2013, pp. 291).
-#' - **All Variance: \eqn{d_{d}}** - This is the same as computing a standard
+#' - **All Variance: Just \eqn{d}** - This is the same as computing a standard
 #' independent-groups Cohen's _d_ (Cohen, 1988). Note that CIs _do_ account for
 #' the dependence, and so are typically more narrow (see examples).
 #' - **Residual Variance: \eqn{d_{r}}** (_Requires data with replications_) -

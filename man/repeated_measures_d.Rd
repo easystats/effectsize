@@ -106,7 +106,7 @@ post-treatment setting, the pre-treatment condition). This is akin to Glass'
 standardizing by the variance in the of the control (or pre) condition,
 Cumming suggests standardizing by the average variance of the two paired
 conditions (Cumming, 2013, pp. 291).
-\item \strong{All Variance: \eqn{d_{d}}} - This is the same as computing a standard
+\item \strong{All Variance: Just \eqn{d}} - This is the same as computing a standard
 independent-groups Cohen's \emph{d} (Cohen, 1988). Note that CIs \emph{do} account for
 the dependence, and so are typically more narrow (see examples).
 \item \strong{Residual Variance: \eqn{d_{r}}} (\emph{Requires data with replications}) -
