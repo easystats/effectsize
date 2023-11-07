@@ -176,6 +176,7 @@ repeated_measures_d <- function(x, y,
   out <- data.frame(d = values[["d"]])
 
   if (.test_ci(ci)) {
+    # TODO use ncp
     # Add cis
     out$CI <- ci
     ci.level <- .adjust_ci(ci, alternative)
