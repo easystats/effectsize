@@ -6,6 +6,7 @@
 #' to the [Common Language Effect Sizes][cohens_u3]. Pair with any reported
 #' [`stats::wilcox.test()`].
 #'
+#' @inheritParams p_superiority
 #' @inheritParams cohens_d
 #' @param x,y A numeric or ordered vector, or a character name of one in `data`.
 #'   Any missing values (`NA`s) are dropped from the resulting vector. `x` can

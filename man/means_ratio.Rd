@@ -129,6 +129,7 @@ Other standardized differences:
 \code{\link{cohens_d}()},
 \code{\link{mahalanobis_d}()},
 \code{\link{p_superiority}()},
-\code{\link{rank_biserial}()}
+\code{\link{rank_biserial}()},
+\code{\link{repeated_measures_d}()}
 }
 \concept{standardized differences}

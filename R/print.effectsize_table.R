@@ -161,7 +161,8 @@ print.effectsize_difference <- function(x, digits = 2, append_CLES = NULL, ...) 
 
 #' @export
 format.effectsize_difference <- function(x, digits = 2, ...) {
-  caption <- subtitle <- footer <- NULL
+  caption <- subtitle <- NULL
+  footer <- attr(x, "table_footer")
 
   ## Add footer
   mu <- attr(x, "mu")

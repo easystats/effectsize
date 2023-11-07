@@ -49,6 +49,9 @@ input model. See details.
 \item For an object of class \code{htest}, data is extracted via \code{\link[insight:get_data]{insight::get_data()}}, and passed to the relevant function according to:
 \itemize{
 \item A \strong{t-test} depending on \code{type}: \code{"cohens_d"} (default), \code{"hedges_g"}, or one of \code{"p_superiority"}, \code{"u1"}, \code{"u2"}, \code{"u3"}, \code{"overlap"}.
+\itemize{
+\item For a \strong{Paired t-test}: depending on \code{type}: \code{"rm"}, \code{"av"}, \code{"b"}, \code{"d"}, \code{"z"}.
+}
 \item A \strong{Chi-squared tests of independence} or \strong{Fisher's Exact Test}, depending on \code{type}: \code{"cramers_v"} (default), \code{"tschuprows_t"}, \code{"phi"}, \code{"cohens_w"}, \code{"pearsons_c"}, \code{"cohens_h"}, \code{"oddsratio"}, \code{"riskratio"}, \code{"arr"}, or \code{"nnt"}.
 \item A \strong{Chi-squared tests of goodness-of-fit}, depending on \code{type}: \code{"fei"} (default) \code{"cohens_w"}, \code{"pearsons_c"}
 \item A \strong{One-way ANOVA test}, depending on \code{type}: \code{"eta"} (default), \code{"omega"} or \code{"epsilon"} -squared, \code{"f"}, or \code{"f2"}.
@@ -88,6 +91,13 @@ effectsize(Xsq, type = "cohens_w")
 
 Tt <- t.test(1:10, y = c(7:20), alternative = "less")
 effectsize(Tt)
+
+Tt <- t.test(
+  x = c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30),
+  y = c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29),
+  paired = TRUE
+)
+effectsize(Tt, type = "rm_b")
 
 Aov <- oneway.test(extra ~ group, data = sleep, var.equal = TRUE)
 effectsize(Aov)

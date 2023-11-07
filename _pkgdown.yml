@@ -14,6 +14,7 @@ reference:
       Effect sizes for comparing two groups
     contents:
       - cohens_d
+      - repeated_measures_d
       - mahalanobis_d
       - rank_biserial
       - p_superiority
@@ -88,6 +89,7 @@ reference:
   - subtitle: "Datasets"
     contents:
       - hardlyworking
+      - rouder2016
       - screening_test
       - RCT_table
       - Music_preferences
