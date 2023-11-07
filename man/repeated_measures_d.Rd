@@ -44,9 +44,10 @@ be a formula:
 \item{mu}{a number indicating the true value of the mean (or
     difference in means if you are performing a two sample test).}
 
-\item{method}{Method of repeated measures standardized differences. See details.}
+\item{method}{Method of repeated measures standardized differences. See
+details.}
 
-\item{adjust}{Apply Hedges' small-sample bias correction?}
+\item{adjust}{Apply Hedges' small-sample bias correction? See \code{\link[=hedges_g]{hedges_g()}}.}
 
 \item{ci}{Confidence Interval (CI) level}
 

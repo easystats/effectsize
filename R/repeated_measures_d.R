@@ -12,8 +12,9 @@
 #'   be a formula:
 #' - `Pair(x,y) ~ 1` for wide data.
 #' - `y ~ condition | id` for long data, possibly with repetitions.
-#' @param method Method of repeated measures standardized differences. See details.
-#' @param adjust Apply Hedges' small-sample bias correction?
+#' @param method Method of repeated measures standardized differences. See
+#'   details.
+#' @param adjust Apply Hedges' small-sample bias correction? See [hedges_g()].
 #' @inheritParams cohens_d
 #'
 #' @details
@@ -231,21 +232,20 @@ rm_d <- repeated_measures_d
   n <- length(x)
   df <- n - 1
   r <- stats::cor(x, y)
+  f <- 2 * (1 - r)
 
   if (method == "rm") {
-    f <- 2 * (1 - r)
-
     s <- stats::sd(x - y) / sqrt(f)
     d <- (m - mu) / s
 
     # Cooper et al., 2009, eq 12.21
-    se <- sqrt(((1 / n) + (d^2) / (2 * n)) * f)
+    se <- sqrt((1 / n + (d^2) / (2 * n)) * f)
   } else if (method == "av") {
     s <- sqrt((stats::var(x) + stats::var(y)) / 2)
     d <- (m - mu) / s
 
     # Algina & Keselman, 2003, eq 4 (from Bird 2002?)
-    se <- sqrt(stats::var(x - y) / (s^2 * n))
+    se <- sqrt(stats::var(x - y) / n) / s
   } else if (method == "z") {
     s <- stats::sd(x - y)
     d <- (m - mu) / s
@@ -257,7 +257,7 @@ rm_d <- repeated_measures_d
     d <- (m - mu) / s
 
     # Becker 1988, eq. 6
-    se <- sqrt((2 * (1 - r) / n) + (d^2) / (2 * n))
+    se <- sqrt(f / n + (d^2) / (2 * n))
   }
 
   .nlist(d, se, df)
@@ -298,7 +298,7 @@ rm_d <- repeated_measures_d
   g <- d * J
   k <- sqrt(m_V) / s
   se <- sqrt(
-    (v * k ^ 2) / (v - 2) + g^2 * (v / (v-2) - 1 / .J(v) ^ 2)
+    (v * k^2) / (v - 2) + g^2 * (v / (v - 2) - 1 / J^2)
   )
 
   .nlist(d, se, df = v)
