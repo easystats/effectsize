@@ -289,13 +289,17 @@ rm_d <- repeated_measures_d
   }
 
   s <- sqrt(sum(e[["Sum_Squares"]]) / sum(e[["df"]]))
-  df <- sum(e[["df"]])
+  v <- sum(e[["df"]])
 
   d <- (m - mu) / s
+
+  # Pustejovsky et al 2014 eq 15
+  J <- .J(v)
+  g <- d * J
+  k <- sqrt(m_V) / s
   se <- sqrt(
-    (df / (df - 2)) * (m_V / (s^2)) +
-      (d^2) * (8 * df^2 - df + 2) / (16 * (df - 2) * ((df - 1)^2))
+    (v * k ^ 2) / (v - 2) + g^2 * (v / (v-2) - 1 / .J(v) ^ 2)
   )
 
-  .nlist(d, se, df)
+  .nlist(d, se, df = v)
 }
