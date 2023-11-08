@@ -304,7 +304,7 @@ nnt <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
     return(effectsize(x, type = "nnt", ci = ci, ...))
   }
 
-  out <- arr(x, y = t, ci = ci, alternative = alternative2, ...)
+  out <- arr(x, y = y, ci = ci, alternative = alternative2, ...)
   out[[1]] <- 1 / out[[1]]
   colnames(out)[1] <- "NNT"
 
