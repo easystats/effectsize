@@ -49,9 +49,10 @@ A data frame with the effect size (\code{Vars_ratio}) and its CIs
 }
 \description{
 Computes the ratio of two variances of independent or paired samples. For
-paired data, this can also be though of the ratio of marginal (squared)
+paired data, this can also be thought of as the ratio of marginal (squared)
 scales of a bivariate normal distribution. For independent samples, this is a
-convenient wrapper around \code{\link[stats:var.test]{stats::var.test()}}.
+convenient wrapper around \code{\link[stats:var.test]{stats::var.test()}} (for a paired version of this
+test - the Pitman-Morgan test, see \code{PairedData::Var.test()}).
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
 For independent samples, confidence intervals are estimated using
@@ -104,10 +105,11 @@ variance_ratio(x * 3, y * 3)
 
 # Paired Samples ----------
 
-sleep2 <- reshape(sleep, direction = "wide",
-                  idvar = "ID", timevar = "group")
+sleep2 <- reshape(sleep,
+  direction = "wide",
+  idvar = "ID", timevar = "group"
+)
 variance_ratio(Pair(extra.1, extra.2) ~ 1, data = sleep2)
-
 
 }
 \references{
@@ -119,5 +121,6 @@ the two variances in a sample from a normal bivariate population. Biometrika,
 }
 }
 \seealso{
-\code{\link[=means_ratio]{means_ratio()}}, \code{\link[stats:var.test]{stats::var.test()}} and the \emph{Pitman-Morgan Test}.
+\code{\link[=means_ratio]{means_ratio()}}, \code{\link[stats:var.test]{stats::var.test()}} and \code{PairedData::Var.test()}
+for the \emph{Pitman-Morgan Test} for paired samples.
 }

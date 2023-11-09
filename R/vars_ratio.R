@@ -1,9 +1,10 @@
 #' Ratio of Variances
 #'
 #' Computes the ratio of two variances of independent or paired samples. For
-#' paired data, this can also be though of the ratio of marginal (squared)
+#' paired data, this can also be thought of as the ratio of marginal (squared)
 #' scales of a bivariate normal distribution. For independent samples, this is a
-#' convenient wrapper around [stats::var.test()].
+#' convenient wrapper around [stats::var.test()] (for a paired version of this
+#' test - the Pitman-Morgan test, see `PairedData::Var.test()`).
 #'
 #' @inheritParams cohens_d
 #' @inheritParams means_ratio
@@ -21,7 +22,8 @@
 #' @return A data frame with the effect size (`Vars_ratio`) and its CIs
 #'   (`CI_low` and `CI_high`).
 #'
-#' @seealso [means_ratio()], [stats::var.test()] and the _Pitman-Morgan Test_.
+#' @seealso [means_ratio()], [stats::var.test()] and `PairedData::Var.test()`
+#'   for the _Pitman-Morgan Test_ for paired samples.
 #'
 #' @references
 #' - Morgan, W. A. (1939). A test for the significance of the difference between
@@ -48,10 +50,11 @@
 #'
 #' # Paired Samples ----------
 #'
-#' sleep2 <- reshape(sleep, direction = "wide",
-#'                   idvar = "ID", timevar = "group")
+#' sleep2 <- reshape(sleep,
+#'   direction = "wide",
+#'   idvar = "ID", timevar = "group"
+#' )
 #' variance_ratio(Pair(extra.1, extra.2) ~ 1, data = sleep2)
-#'
 #'
 #' @export
 variance_ratio <- function(x, y = NULL, data = NULL,
@@ -108,7 +111,7 @@ variance_ratio <- function(x, y = NULL, data = NULL,
 .var_ratio_dep <- function(x, y, ci, alternative) {
   v1 <- stats::var(x)
   v2 <- stats::var(y)
-  w <- v1/v2
+  w <- v1 / v2
   out <- data.frame(Vars_ratio = w)
 
   if (.test_ci(ci)) {
@@ -117,12 +120,12 @@ variance_ratio <- function(x, y = NULL, data = NULL,
     ci.level <- .adjust_ci(ci, alternative)
     alpha <- 1 - ci.level
 
-    # Or use https://www.jstor.org/stable/3701276?seq=3 ?
+    # Pitman 1939, pp 11
     n <- length(x)
     df <- n - 2
     r <- stats::cor(x, y)
     qs <- qt(alpha / 2, df = n - 2)
-    K <- 1 + (2 * (1 - r ^ 2) * qs ^ 2) / (n - 2)
+    K <- 1 + (2 * (1 - r^2) * qs^2) / (n - 2)
     CONF <- w * (K + c(-1, 1) * sqrt(K^2 - 1))
 
     out$CI_low <- CONF[1]
@@ -141,7 +144,3 @@ variance_ratio <- function(x, y = NULL, data = NULL,
   )
   return(out)
 }
-
-
-
-

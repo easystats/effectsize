@@ -5,9 +5,9 @@ test_that("variance_ratio | independent", {
   rov1 <- variance_ratio(x, y)
   rov2 <- variance_ratio(y, x)
 
-  expect_equal(1/rov2[[1]], rov1[[1]])
-  expect_equal(1/rov2$CI_low, rov1$CI_high)
-  expect_equal(1/rov2$CI_high, rov1$CI_low)
+  expect_equal(1 / rov2[[1]], rov1[[1]])
+  expect_equal(1 / rov2$CI_low, rov1$CI_high)
+  expect_equal(1 / rov2$CI_high, rov1$CI_low)
 
   lrov1 <- variance_ratio(x, y, log = TRUE)
   lrov2 <- variance_ratio(y, x, log = TRUE)
@@ -21,15 +21,17 @@ test_that("variance_ratio | independent", {
 
 
 test_that("variance_ratio | paired", {
-  sleep2 <- reshape(sleep, direction = "wide",
-                    idvar = "ID", timevar = "group")
+  sleep2 <- reshape(sleep,
+    direction = "wide",
+    idvar = "ID", timevar = "group"
+  )
   pdat1 <- Pair(sleep2$extra.1, sleep2$extra.2)
   pdat2 <- Pair(sleep2$extra.2, sleep2$extra.1)
 
   rov1 <- variance_ratio(pdat1)
   rov2 <- variance_ratio(pdat2)
 
-  expect_equal(1/rov2[[1]], rov1[[1]])
-  expect_equal(1/rov2$CI_low, rov1$CI_high)
-  expect_equal(1/rov2$CI_high, rov1$CI_low)
+  expect_equal(1 / rov2[[1]], rov1[[1]])
+  expect_equal(1 / rov2$CI_low, rov1$CI_high)
+  expect_equal(1 / rov2$CI_high, rov1$CI_low)
 })
