@@ -12,8 +12,10 @@ es_info <- tibble::tribble(
   "Mahalanobis_D", "Mahalanobis' D", NA, "onetail", 0, Inf, 0,
   "Means_ratio", "Means Ratio", NA, "twotail", 0, Inf, 1,
   "Means_ratio_adjusted", "Means Ratio (adj.)", NA, "twotail", 0, Inf, 1,
-  "log_Means_ratio", "log(Means Ratio)", NA, "twotail", 0, Inf, 1,
-  "log_Means_ratio_adjusted", "log(Means Ratio, adj.)", NA, "twotail", 0, Inf, 1,
+  "log_Means_ratio", "log(Means Ratio)", NA, "twotail", -Inf, Inf, 0,
+  "log_Means_ratio_adjusted", "log(Means Ratio, adj.)", NA, "twotail", -Inf, Inf, 0,
+  "Vars_ratio", "Variance Ratio", NA, "twotail", 0, Inf, 1,
+  "log_Vars_ratio", "log(Variance Ratio)", NA, "twotail", -Inf, Inf, 0,
 
   ## xtab cor
   "Cohens_w", "Cohen's w", NA, "onetail", 0, Inf, 0,
