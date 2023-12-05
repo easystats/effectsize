@@ -126,7 +126,7 @@
         return(mf)
       }
 
-      if (verbose && any(tapply(mf[[1]], mf[3:2], length) > 1L, na.rm = TRUE)) {
+      if (verbose && any(tapply(mf[[1]], mf[3:2], length) > 1L)) {
         insight::format_alert(
           paste0("The ", method, " standardized difference requires paired data,"),
           "but data contains more than one observation per design cell.",
