@@ -27,6 +27,13 @@ test_that("rm_d | paired data", {
     regexp = "replications"
   )
 
+  sleep[1, "extra"] <- NA
+  sleep2[1, "extra.1"] <- NA
+
+  expect_no_error(d1NA <- rm_d(extra ~ group | ID, data = sleep))
+  expect_no_error(d2NA <- rm_d(Pair(extra.1, extra.2) ~ 1, data = sleep2))
+  expect_equal(d1NA, d2NA)
+
 
   # equal with equal variance:
   dat <- data.frame(
