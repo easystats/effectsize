@@ -124,6 +124,7 @@ navbar:
           href: https://easystats.github.io/parameters/articles/standardize_parameters_effsize.html
         - text: "Correlation Vignettes"
           href: https://easystats.github.io/correlation/articles/index.html
+        - text: -------
         - text: "Confidence Intervals"
           href: reference/effectsize_CIs.html
         - text: "Statistical Power"
