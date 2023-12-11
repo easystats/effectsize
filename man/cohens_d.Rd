@@ -59,7 +59,7 @@ variance). Else the mean SD from both groups is used instead.}
 
 \item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
 This produces an effect size that is equivalent to the one-sample effect
-size on \code{x - y}.}
+size on \code{x - y}. See also \code{\link[=repeated_measures_d]{repeated_measures_d()}} for more options.}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -182,10 +182,12 @@ cohens_d(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep)
 
 # same as:
 # cohens_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], paired = TRUE)
+# cohens_d(sleep$extra[sleep$group == 1] - sleep$extra[sleep$group == 2])
+# rm_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], method = "z", adjust = FALSE)
 
 # More options:
-cohens_d(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, mu = -1)
-hedges_g(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep)
+cohens_d(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, mu = -1, verbose = FALSE)
+hedges_g(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, verbose = FALSE)
 
 
 # Interpretation -----------------------
@@ -219,12 +221,13 @@ Correcting error and bias in research findings. Sage.
 }
 }
 \seealso{
-\code{\link[=sd_pooled]{sd_pooled()}}, \code{\link[=t_to_d]{t_to_d()}}, \code{\link[=r_to_d]{r_to_d()}}
+\code{\link[=rm_d]{rm_d()}}, \code{\link[=sd_pooled]{sd_pooled()}}, \code{\link[=t_to_d]{t_to_d()}}, \code{\link[=r_to_d]{r_to_d()}}
 
 Other standardized differences: 
 \code{\link{mahalanobis_d}()},
 \code{\link{means_ratio}()},
 \code{\link{p_superiority}()},
-\code{\link{rank_biserial}()}
+\code{\link{rank_biserial}()},
+\code{\link{repeated_measures_d}()}
 }
 \concept{standardized differences}

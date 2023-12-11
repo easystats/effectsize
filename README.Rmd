@@ -109,7 +109,7 @@ hedges_g(mpg ~ am, data = mtcars)
 glass_delta(mpg ~ am, data = mtcars)
 ```
 
-`effectsize` also provides effect sizes for *rank tests*, *common language effect sizes* and more...
+`effectsize` also provides effect sizes for *paired standardized differences*, *rank tests*, *common language effect sizes* and more...
 
 ### Contingency Tables
 

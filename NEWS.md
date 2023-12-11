@@ -2,6 +2,15 @@
 
 - This release changes the licensing model of `{effectsize}` to an MIT license.
 
+## New features
+
+- `repeated_measures_d()` to compute standardized mean differences (SMD) for repeated measures data.
+  - Also supported in `effectsize(<t.test(paired = TRUE)>)`
+  
+## Bug fixes
+
+- `nnt()` now properly accepts the `y` argument.
+
 # effectsize 0.8.7
 
 ## New features

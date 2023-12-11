@@ -200,6 +200,14 @@ test_that("oddsratio & riskratio", {
   expect_equal(ARR[[1]], -0.4891775, tolerance = 0.001)
   expect_equal(ARR$CI_low, -0.8092576, tolerance = 0.001)
   expect_equal(ARR$CI_high, -0.1690974, tolerance = 0.001)
+
+  # fix
+  set.seed(111)
+  x <- rbinom(10, 1, 0.5)
+  y <- rbinom(10, 1, 0.5)
+
+  expect_no_error(NNT <- nnt(x, y))
+  expect_equal(NNT[[1]], arr_to_nnt(arr(x, y)[[1]]))
 })
 
 

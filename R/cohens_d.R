@@ -25,7 +25,7 @@
 #'   variance). Else the mean SD from both groups is used instead.
 #' @param paired If `TRUE`, the values of `x` and `y` are considered as paired.
 #'   This produces an effect size that is equivalent to the one-sample effect
-#'   size on `x - y`.
+#'   size on `x - y`. See also [repeated_measures_d()] for more options.
 #' @param ... Arguments passed to or from other methods. When `x` is a formula,
 #'   these can be `subset` and `na.action`.
 #' @inheritParams chisq_to_phi
@@ -48,7 +48,7 @@
 #'   `Glass_delta`) and their CIs (`CI_low` and `CI_high`).
 #'
 #' @family standardized differences
-#' @seealso [sd_pooled()], [t_to_d()], [r_to_d()]
+#' @seealso [rm_d()], [sd_pooled()], [t_to_d()], [r_to_d()]
 #'
 #' @examples
 #' \donttest{
@@ -91,10 +91,12 @@
 #'
 #' # same as:
 #' # cohens_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], paired = TRUE)
+#' # cohens_d(sleep$extra[sleep$group == 1] - sleep$extra[sleep$group == 2])
+#' # rm_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], method = "z", adjust = FALSE)
 #'
 #' # More options:
-#' cohens_d(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, mu = -1)
-#' hedges_g(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep)
+#' cohens_d(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, mu = -1, verbose = FALSE)
+#' hedges_g(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, verbose = FALSE)
 #'
 #'
 #' # Interpretation -----------------------
@@ -208,6 +210,12 @@ glass_delta <- function(x, y = NULL, data = NULL,
   y <- out[["y"]]
   paired <- out[["paired"]]
 
+  if (verbose && paired && !is.null(y)) {
+    insight::format_alert(
+      "For paired samples, 'repeated_measures_d()' provides more options."
+    )
+  }
+
   if (is.null(y)) {
     if (type == "delta") {
       insight::format_error("For Glass' Delta, please provide data from two samples.")
@@ -287,7 +295,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
 
   if (type == "g") {
-    J <- exp(lgamma(df / 2) - log(sqrt(df / 2)) - lgamma((df - 1) / 2)) # exact method
+    J <- .J(df)
 
     out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] <-
       out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] * J
@@ -299,4 +307,9 @@ glass_delta <- function(x, y = NULL, data = NULL,
     approximate = FALSE
   )
   return(out)
+}
+
+#' @keywords internal
+.J <- function(df) {
+  exp(lgamma(df / 2) - log(sqrt(df / 2)) - lgamma((df - 1) / 2)) # exact method
 }

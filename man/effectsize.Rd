@@ -22,7 +22,7 @@ effectsize(model, ...)
 \item{type}{The effect size of interest. See details.}
 
 \item{ci}{Value or vector of probability of the CI (between 0 and 1)
-to be estimated. Default to \code{.95} (\verb{95\%}).}
+to be estimated. Default to \code{0.95} (\verb{95\%}).}
 
 \item{test}{The indices of effect existence to compute. Character (vector) or
 list with one or more of these options: \code{"p_direction"} (or \code{"pd"}),
@@ -32,7 +32,7 @@ For each "test", the corresponding \pkg{bayestestR} function is called
 (e.g. \code{\link[bayestestR:rope]{rope()}} or \code{\link[bayestestR:p_direction]{p_direction()}}) and its results
 included in the summary output.}
 
-\item{verbose}{Toggle warnings and messages on or off.}
+\item{verbose}{Toggle off warnings.}
 
 \item{...}{Arguments passed to or from other methods. See details.}
 }
@@ -49,6 +49,9 @@ input model. See details.
 \item For an object of class \code{htest}, data is extracted via \code{\link[insight:get_data]{insight::get_data()}}, and passed to the relevant function according to:
 \itemize{
 \item A \strong{t-test} depending on \code{type}: \code{"cohens_d"} (default), \code{"hedges_g"}, or one of \code{"p_superiority"}, \code{"u1"}, \code{"u2"}, \code{"u3"}, \code{"overlap"}.
+\itemize{
+\item For a \strong{Paired t-test}: depending on \code{type}: \code{"rm_rm"}, \code{"rm_av"}, \code{"rm_b"}, \code{"rm_d"}, \code{"rm_z"}.
+}
 \item A \strong{Chi-squared tests of independence} or \strong{Fisher's Exact Test}, depending on \code{type}: \code{"cramers_v"} (default), \code{"tschuprows_t"}, \code{"phi"}, \code{"cohens_w"}, \code{"pearsons_c"}, \code{"cohens_h"}, \code{"oddsratio"}, \code{"riskratio"}, \code{"arr"}, or \code{"nnt"}.
 \item A \strong{Chi-squared tests of goodness-of-fit}, depending on \code{type}: \code{"fei"} (default) \code{"cohens_w"}, \code{"pearsons_c"}
 \item A \strong{One-way ANOVA test}, depending on \code{type}: \code{"eta"} (default), \code{"omega"} or \code{"epsilon"} -squared, \code{"f"}, or \code{"f2"}.
@@ -88,6 +91,13 @@ effectsize(Xsq, type = "cohens_w")
 
 Tt <- t.test(1:10, y = c(7:20), alternative = "less")
 effectsize(Tt)
+
+Tt <- t.test(
+  x = c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30),
+  y = c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29),
+  paired = TRUE
+)
+effectsize(Tt, type = "rm_b")
 
 Aov <- oneway.test(extra ~ group, data = sleep, var.equal = TRUE)
 effectsize(Aov)
