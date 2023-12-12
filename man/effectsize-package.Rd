@@ -47,6 +47,7 @@ Authors:
   \item Indrajeet Patil \email{patilindrajeet.science@gmail.com} (\href{https://orcid.org/0000-0003-1995-6531}{ORCID}) (@patilindrajeets)
   \item Brenton M. Wiernik \email{brenton@wiernik.org} (\href{https://orcid.org/0000-0001-9560-6336}{ORCID}) (@bmwiernik)
   \item Rémi Thériault \email{remi.theriault@mail.mcgill.ca} (\href{https://orcid.org/0000-0003-4315-6788}{ORCID}) (@rempsyc)
+  \item Philip Waggoner \email{philip.waggoner@gmail.com} (\href{https://orcid.org/0000-0002-7825-7573}{ORCID}) [contributor]
 }
 
 Other contributors:

@@ -12,14 +12,51 @@ print.rules <- function(x, digits = "signif2", ...) {
 
 
 #' @export
-print_md.rules <- function(x, digits = "signif2", ...) {
-  x_fmt <- format(x, digits = digits, output = "markdown", ...)
+print_md.rules <- function(x, value = "x", title = "`{.rn}`:", ...) {
 
-  if (length(x$values) == length(x$labels)) {
-    insight::export_table(x_fmt, align = "rl", format = "markdown", ...)
+  rule_name <- attr(x, "rule_name")
+  title <- gsub("\\{\\.rn\\}", rule_name, title)
+
+  values <- insight::format_value(x$values, digits = "signif2", protect_integers = TRUE)
+  labels <- insight::format_capitalize(x$labels)
+
+  if (length(labels) > length(values)) {
+    right <- attr(x, "right")
+
+    k <- length(labels)
+
+    if (right) {
+      l <- "<"
+      r <- "<="
+    } else {
+      l <- "<="
+      r <- "<"
+    }
+
+    first <- sprintf("\n- **%s %s %s** - %s", value, r, values[1], labels[1])
+    last <- sprintf("\n- **%s %s %s** - %s", values[k-1], l, value, labels[k])
+
+    nth <- ""
+    if (k > 2L) {
+      nth <- sprintf("\n- **%s %s %s %s %s** - %s",
+                     values[1:(k-2)], l, value, r, values[2:(k-1)],
+                     labels[2:(k-1)])
+      nth <- paste0(nth, collapse = "")
+    }
+
+    fmt_rules <- paste0(c(first, nth, last), collapse = "")
   } else {
-    insight::export_table(x_fmt, align = "rcl", format = "markdown", ...)
+    fmt_rules <- sprintf("\n- **%s =~ %s** - %s",
+                         value, values, labels)
+    fmt_rules <- paste0(fmt_rules, collapse = "")
   }
+
+  cat("\n")
+  cat(title)
+  cat(fmt_rules)
+  cat("\n")
+
+  invisible(x)
 }
 
 

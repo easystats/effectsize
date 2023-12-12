@@ -13,20 +13,11 @@
 #'
 #' Rules apply to BF as ratios, so BF of 10 is as extreme as a BF of 0.1 (1/10).
 #'
-#' - Jeffreys (1961) (`"jeffreys1961"`; default)
-#'   - **BF = 1** - No evidence
-#'   - **1 < BF <= 3** - Anecdotal
-#'   - **3 < BF <= 10** - Moderate
-#'   - **10 < BF <= 30** - Strong
-#'   - **30 < BF <= 100** - Very strong
-#'   - **BF > 100** - Extreme.
-#' - Raftery (1995) (`"raftery1995"`)
-#'   - **BF = 1** - No evidence
-#'   - **1 < BF <= 3** - Weak
-#'   - **3 < BF <= 20** - Positive
-#'   - **20 < BF <= 150** - Strong
-#'   - **BF > 150** - Very strong
+#' ```{r, echo = FALSE, results = "asis"}
+#' insight::print_md(.i_bf_jeffreys1961, "BF", "Jeffreys(1961) (`{.rn}`; default):\n- **BF = 1** - No evidence")
 #'
+#' insight::print_md(.i_bf_raftery1995, "BF", "Raftery (1995) (`{.rn}`):\n- **BF = 1** - No evidence")
+#' ```
 #'
 #' @examples
 #' interpret_bf(1)
@@ -68,12 +59,8 @@ interpret_bf <- function(bf,
   rules <- .match.rules(
     rules,
     list(
-      jeffreys1961 = rules(c(3, 10, 30, 100), c("anecdotal", "moderate", "strong", "very strong", "extreme"),
-        name = "jeffreys1961"
-      ),
-      raftery1995 = rules(c(3, 20, 150), c("weak", "positive", "strong", "very strong"),
-        name = "raftery1995"
-      )
+      jeffreys1961 = .i_bf_jeffreys1961,
+      raftery1995 = .i_bf_raftery1995
     )
   )
 
@@ -101,3 +88,16 @@ interpret_bf <- function(bf,
 
   interpretation
 }
+
+
+# rules -------------------------------------------------------------------
+
+#' @keywords internal
+.i_bf_jeffreys1961 <- rules(c(3, 10, 30, 100),
+                            c("anecdotal", "moderate", "strong", "very strong", "extreme"),
+                            name = "jeffreys1961")
+
+#' @keywords internal
+.i_bf_raftery1995 <- rules(c(3, 20, 150),
+                           c("weak", "positive", "strong", "very strong"),
+                           name = "raftery1995")
