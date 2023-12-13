@@ -19,20 +19,20 @@ Interpret Probability of Direction (pd)
 }
 \section{Rules}{
 
+
+Default (i.e., equivalent to p-values):
 \itemize{
-\item Default (i.e., equivalent to p-values)
-\itemize{
-\item \strong{pd <= 0.975} - not significant
-\item \strong{pd > 0.975} - significant
+\item \strong{pd <= 0.975} - Not significant
+\item \strong{0.975 < pd} - Significant
 }
-\item Makowski et al. (2019) (\code{"makowski2019"})
+
+Makowski et al. (2019) (\code{makowski2019}):
 \itemize{
-\item \strong{pd <= 0.95} - uncertain
-\item \strong{pd > 0.95} - possibly existing
-\item \strong{pd > 0.97} - likely existing
-\item \strong{pd > 0.99} - probably existing
-\item \strong{pd > 0.999} - certainly existing
-}
+\item \strong{pd <= 0.95} - Uncertain
+\item \strong{0.95 < pd <= 0.97} - Possibly existing
+\item \strong{0.97 < pd <= 0.99} - Likely existing
+\item \strong{0.99 < pd <= 0.999} - Probably existing
+\item \strong{0.999 < pd} - Certainly existing
 }
 }
 

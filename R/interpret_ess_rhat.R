@@ -9,17 +9,18 @@
 #' @section Rules:
 #'
 #' ## ESS
-#' - Bürkner, P. C. (2017) (`"burkner2017"`; default)
-#'   - **ESS < 1000** - Insufficient
-#'   - **ESS >= 1000** - Sufficient
+#'
+#' ```{r, echo = FALSE, results = "asis"}
+#' insight::print_md(.ess_rules, "ESS", "Bürkner, P. C. (2017) (`{.rn}`; default):")
+#' ```
 #'
 #' ## Rhat
-#' - Vehtari et al. (2019) (`"vehtari2019"`; default)
-#'   - **Rhat < 1.01** - Converged
-#'   - **Rhat >= 1.01** - Failed
-#' - Gelman & Rubin (1992) (`"gelman1992"`)
-#'   - **Rhat < 1.1** - Converged
-#'   - **Rhat >= 1.1** - Failed
+#' ```{r, echo = FALSE, results = "asis"}
+#' titles <- c("Vehtari et al. (2019) (`{.rn}`; default):",
+#'             "Gelman & Rubin (1992) (``):")
+#'
+#' insight::print_md(.rhat_rules, "Rhat", titles)
+#' ```
 #'
 #'
 #' @examples
@@ -42,14 +43,9 @@
 #' @keywords interpreters
 #' @export
 interpret_ess <- function(ess, rules = "burkner2017") {
-  rules <- .match.rules(
-    rules,
-    list(
-      burkner2017 = rules(c(1000), c("insufficient", "sufficient"), name = "burkner2017", right = FALSE)
-    )
-  )
+  rules <- .match.rules(rules,.ess_rules)
 
-  interpret(abs(ess), rules)
+  interpret(ess, rules)
 }
 
 
@@ -57,13 +53,21 @@ interpret_ess <- function(ess, rules = "burkner2017") {
 #' @rdname interpret_ess
 #' @export
 interpret_rhat <- function(rhat, rules = "vehtari2019") {
-  rules <- .match.rules(
-    rules,
-    list(
-      vehtari2019 = rules(c(1.01), c("converged", "failed"), name = "vehtari2019"),
-      gelman1992 = rules(c(1.1), c("converged", "failed"), name = "gelman1992")
-    )
-  )
+  rules <- .match.rules(rules,.rhat_rules)
 
-  interpret(abs(rhat), rules)
+  interpret(rhat, rules)
 }
+
+
+# rules -------------------------------------------------------------------
+
+#' @keywords internal
+.ess_rules <- c(
+  rules(c(1000), c("insufficient", "sufficient"), name = "burkner2017", right = FALSE)
+)
+
+#' @keywords internal
+.rhat_rules <- c(
+  rules(c(1.01), c("converged", "failed"), name = "vehtari2019", right = FALSE),
+  rules(c(1.1), c("converged", "failed"), name = "gelman1992", right = FALSE)
+)

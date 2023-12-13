@@ -59,10 +59,10 @@ Lovakov & Agadullina (2021) (\code{lovakov2021}):
 
 Gignac & Szodorai (2016) (\code{gignac2016}, based on the \code{\link[=d_to_r]{d_to_r()}} conversion, see \code{\link[=interpret_r]{interpret_r()}}):
 \itemize{
-\item \strong{d < 0.2} - Very small
-\item \strong{0.2 <= d < 0.41} - Small
-\item \strong{0.41 <= d < 0.63} - Moderate
-\item \strong{0.63 <= d} - Large
+\item \strong{d < 0.201} - Very small
+\item \strong{0.201 <= d < 0.408} - Small
+\item \strong{0.408 <= d < 0.629} - Moderate
+\item \strong{0.629 <= d} - Large
 }
 }
 

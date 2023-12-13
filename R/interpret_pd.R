@@ -7,16 +7,11 @@
 #'
 #' @section Rules:
 #'
-#' - Default (i.e., equivalent to p-values)
-#'   - **pd <= 0.975** - not significant
-#'   - **pd > 0.975** - significant
-#'
-#' - Makowski et al. (2019) (`"makowski2019"`)
-#'   - **pd <= 0.95** - uncertain
-#'   - **pd > 0.95** - possibly existing
-#'   - **pd > 0.97** - likely existing
-#'   - **pd > 0.99** - probably existing
-#'   - **pd > 0.999** - certainly existing
+#' ```{r, echo = FALSE, results = "asis"}
+#' titles <- c("Default (i.e., equivalent to p-values):",
+#'             "Makowski et al. (2019) (`{.rn}`):")
+#' insight::print_md(.pd_rules, "pd", titles)
+#' ```
 #'
 #' @examples
 #' interpret_pd(.98)
@@ -27,17 +22,21 @@
 #' @keywords interpreters
 #' @export
 interpret_pd <- function(pd, rules = "default", ...) {
-  rules <- .match.rules(
-    rules,
-    list(
-      default = rules(c(0.975), c("not significant", "significant"),
-        name = "default", right = TRUE
-      ),
-      makowski2019 = rules(c(0.95, 0.97, 0.99, 0.999), c("uncertain", "possibly existing", "likely existing", "probably existing", "certainly existing"),
-        name = "makowski2019", right = TRUE
-      )
-    )
-  )
+  rules <- .match.rules(rules, .pd_rules)
 
   interpret(pd, rules)
 }
+
+
+
+# rules -------------------------------------------------------------------
+
+#' @keywords internal
+.pd_rules <- c(
+  rules(c(0.975), c("not significant", "significant"),
+        name = "default", right = TRUE
+  ),
+  rules(c(0.95, 0.97, 0.99, 0.999), c("uncertain", "possibly existing", "likely existing", "probably existing", "certainly existing"),
+        name = "makowski2019", right = TRUE
+  )
+)

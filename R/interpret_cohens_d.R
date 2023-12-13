@@ -15,14 +15,12 @@
 #' absolute values).
 #'
 #' ```{r, echo = FALSE, results = "asis"}
-#' insight::print_md(.i_d_cohen1988, "d", "Cohen (1988) (`{.rn}`; default):")
+#' titles <- c("Cohen (1988) (`{.rn}`; default):",
+#'             "Sawilowsky (2009) (`{.rn}`):",
+#'             "Lovakov & Agadullina (2021) (`{.rn}`):",
+#'             "Gignac & Szodorai (2016) (`{.rn}`, based on the [d_to_r()] conversion, see [interpret_r()]):")
 #'
-#' insight::print_md(.i_d_sawilowsky2009, "d", "Sawilowsky (2009) (`{.rn}`):")
-#'
-#' insight::print_md(.i_d_lovakov2021, "d", "Lovakov & Agadullina (2021) (`{.rn}`):")
-#'
-#' tit <- "Gignac & Szodorai (2016) (`{.rn}`, based on the [d_to_r()] conversion, see [interpret_r()]):"
-#' insight::print_md(i_d_gignac2016, "d", tit)
+#' insight::print_md(.cohens_d_rules, "d", titles)
 #' ```
 #'
 #' @examples
@@ -46,15 +44,7 @@
 #' @keywords interpreters
 #' @export
 interpret_cohens_d <- function(d, rules = "cohen1988", ...) {
-  rules <- .match.rules(
-    rules,
-    list(
-      cohen1988 = .i_d_cohen1988,
-      sawilowsky2009 =.i_d_sawilowsky2009,
-      lovakov2021 = .i_d_lovakov2021,
-      gignac2016 = i_d_gignac2016
-    )
-  )
+  rules <- .match.rules(rules, .cohens_d_rules)
 
   interpret(abs(d), rules)
 }
@@ -75,20 +65,16 @@ interpret_glass_delta <- function(delta, rules = "cohen1988") {
 # rules -------------------------------------------------------------------
 
 #' @keywords internal
-.i_d_cohen1988 <- rules(c(0.2, 0.5, 0.8), c("very small", "small", "medium", "large"),
-                        name = "cohen1988", right = FALSE)
-
-#' @keywords internal
-.i_d_sawilowsky2009 <- rules(c(0.1, 0.2, 0.5, 0.8, 1.2, 2),
-                             c("tiny", "very small", "small", "medium", "large", "very large", "huge"),
-                             name = "sawilowsky2009", right = FALSE)
-
-#' @keywords internal
-.i_d_lovakov2021 <- rules(c(0.15, 0.36, 0.65),
-                          c("very small", "small", "medium", "large"),
-                          name = "lovakov2021", right = FALSE)
-
-#' @keywords internal
-i_d_gignac2016 <- rules(r_to_d(c(0.1, 0.2, 0.3)),
-                        c("very small", "small", "moderate", "large"),
-                        name = "gignac2016", right = FALSE)
+.cohens_d_rules <- c(
+  rules(c(0.2, 0.5, 0.8), c("very small", "small", "medium", "large"),
+        name = "cohen1988", right = FALSE),
+  rules(c(0.1, 0.2, 0.5, 0.8, 1.2, 2),
+        c("tiny", "very small", "small", "medium", "large", "very large", "huge"),
+        name = "sawilowsky2009", right = FALSE),
+  rules(c(0.15, 0.36, 0.65),
+        c("very small", "small", "medium", "large"),
+        name = "lovakov2021", right = FALSE),
+  rules(r_to_d(c(0.1, 0.2, 0.3)),
+        c("very small", "small", "moderate", "large"),
+        name = "gignac2016", right = FALSE)
+)

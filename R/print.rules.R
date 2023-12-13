@@ -17,7 +17,7 @@ print_md.rules <- function(x, value = "x", title = "`{.rn}`:", ...) {
   rule_name <- attr(x, "rule_name")
   title <- gsub("\\{\\.rn\\}", rule_name, title)
 
-  values <- insight::format_value(x$values, digits = "signif2", protect_integers = TRUE)
+  values <- insight::format_value(x$values, digits = "signif3", protect_integers = TRUE)
   labels <- insight::format_capitalize(x$labels)
 
   if (length(labels) > length(values)) {
@@ -59,6 +59,11 @@ print_md.rules <- function(x, value = "x", title = "`{.rn}`:", ...) {
   invisible(x)
 }
 
+#' @export
+print_md.rules_list <- function(x, value = "x", title = "`{.rn}`:", ...) {
+  .mapply(print_md, list(x = x, title = title), MoreArgs = list(value = value))
+  invisible(x)
+}
 
 #' @export
 print_html.rules <- function(x, digits = "signif2", ...) {
@@ -74,10 +79,10 @@ print_html.rules <- function(x, digits = "signif2", ...) {
 
 
 #' @export
-format.rules <- function(x, digits = "signif2", output = "text", ...) {
+format.rules <- function(x, digits = "signif3", output = "text", ...) {
   name <- attr(x, "rule_name")
 
-  V <- insight::format_value(x$values, digits = digits, ...)
+  V <- insight::format_value(x$values, digits = digits, protect_integers = TRUE, ...)
   V <- insight::format_value(V, width = max(nchar(V)), ...)
   L <- x$labels
 

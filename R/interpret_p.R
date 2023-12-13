@@ -6,13 +6,12 @@
 #'
 #' @section Rules:
 #'
-#' - Default
-#'   - **p >= 0.05** - Not significant
-#'   - **p < 0.05** - Significant
-#' - Benjamin et al. (2018) (`"rss"`)
-#'   - **p >= 0.05** - Not significant
-#'   - **0.005 <= p < 0.05** - Suggestive
-#'   - **p < 0.005** - Significant
+#'
+#' ```{r, echo = FALSE, results = "asis"}
+#' titles <- c("Default (`{.rn}`):",
+#'             "RSS (`{.rn}`):")
+#' insight::print_md(.p_rules, "p", titles)
+#' ```
 #'
 #' @references
 #' - Benjamin, D. J., Berger, J. O., Johannesson, M., Nosek, B. A., Wagenmakers, E. J., Berk, R., ... & Cesarini, D. (2018). Redefine statistical significance. Nature Human Behaviour, 2(1), 6-10.
@@ -24,17 +23,20 @@
 #' @keywords interpreters
 #' @export
 interpret_p <- function(p, rules = "default") {
-  rules <- .match.rules(
-    rules,
-    list(
-      default = rules(0.05, c("significant", "not significant"),
-        name = "default", right = FALSE
-      ),
-      rss = rules(c(0.005, 0.05), c("significant", "suggestive", "not significant"),
-        name = "rss", right = FALSE
-      )
-    )
-  )
+  rules <- .match.rules(rules, .p_rules)
 
   interpret(p, rules)
 }
+
+
+# rules -------------------------------------------------------------------
+
+#' @keywords internal
+.p_rules <- c(
+  rules(0.05, c("significant", "not significant"),
+        name = "default", right = FALSE
+  ),
+  rules(c(0.005, 0.05), c("significant", "suggestive", "not significant"),
+        name = "rss", right = FALSE
+  )
+)

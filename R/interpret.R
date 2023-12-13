@@ -76,8 +76,20 @@ rules <- function(values, labels = NULL, name = NULL, right = TRUE) {
 #' @export
 is.rules <- function(x) inherits(x, "rules")
 
+#' @export
+c.rules <- function(...) {
+  rl <- list(...)
 
+  nms <- sapply(rl, attr, "rule_name")
+  if (is.null(names(rl))) {
+    names(rl) <- nms
+  } else if (any(missing_names <- !nzchar(names(rl)))) {
+    names(rl)[missing_names] <- nms[missing_names]
+  }
 
+  class(rl) <- c("rules_list", class(rl))
+  rl
+}
 
 # Interpret ---------------------------------------------------------------
 

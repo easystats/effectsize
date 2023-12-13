@@ -24,21 +24,21 @@ Interpret Odds Ratio
 
 
 Rules apply to OR as ratios, so OR of 10 is as extreme as a OR of 0.1 (1/10).
-\itemize{
-\item Chen et al. (2010) (\code{"chen2010"}; default)
+
+Chen et al. (2010) (\code{chen2010}; default):
 \itemize{
 \item \strong{OR < 1.68} - Very small
 \item \strong{1.68 <= OR < 3.47} - Small
 \item \strong{3.47 <= OR < 6.71} - Medium
-\item **OR >= 6.71 ** - Large
+\item \strong{6.71 <= OR} - Large
 }
-\item Cohen (1988) (\code{"cohen1988"}, based on the \code{\link[=oddsratio_to_d]{oddsratio_to_d()}} conversion, see \code{\link[=interpret_cohens_d]{interpret_cohens_d()}})
+
+Cohen (1988) (\code{cohen1988}, based on the \code{\link[=oddsratio_to_d]{oddsratio_to_d()}} conversion, see \code{\link[=interpret_cohens_d]{interpret_cohens_d()}}):
 \itemize{
 \item \strong{OR < 1.44} - Very small
 \item \strong{1.44 <= OR < 2.48} - Small
 \item \strong{2.48 <= OR < 4.27} - Medium
-\item **OR >= 4.27 ** - Large
-}
+\item \strong{4.27 <= OR} - Large
 }
 }
 

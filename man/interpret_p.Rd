@@ -17,18 +17,18 @@ Interpret \emph{p}-Values
 }
 \section{Rules}{
 
+
+Default (\code{default}):
 \itemize{
-\item Default
-\itemize{
-\item \strong{p >= 0.05} - Not significant
 \item \strong{p < 0.05} - Significant
+\item \strong{0.05 <= p} - Not significant
 }
-\item Benjamin et al. (2018) (\code{"rss"})
+
+RSS (\code{rss}):
 \itemize{
-\item \strong{p >= 0.05} - Not significant
-\item \strong{0.005 <= p < 0.05} - Suggestive
 \item \strong{p < 0.005} - Significant
-}
+\item \strong{0.005 <= p < 0.05} - Suggestive
+\item \strong{0.05 <= p} - Not significant
 }
 }
 

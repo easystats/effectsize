@@ -10,11 +10,9 @@
 #' Rules apply to equally to positive and negative *g* (i.e., they are given as
 #' absolute values).
 #'
-#' - Cohen (1988) (`"cohen1988"`; default)
-#'   - **d < 0.05** - Very small
-#'   - **0.05 <= d < 0.15** - Small
-#'   - **0.15 <= d < 0.25** - Medium
-#'   - **d >= 0.25** - Large
+#' ```{r, echo = FALSE, results = "asis"}
+#' insight::print_md(.cohen_g_rules, "g", "Cohen (1988) (`{.rn}`; default):")
+#' ```
 #'
 #' @note "*Since **g** is so transparently clear a unit, it is expected that
 #'   workers in any given substantive area of the behavioral sciences will very
@@ -33,14 +31,17 @@
 #' @keywords interpreters
 #' @export
 interpret_cohens_g <- function(g, rules = "cohen1988", ...) {
-  rules <- .match.rules(
-    rules,
-    list(
-      cohen1988 = rules(c(0.05, 0.15, 0.25), c("very small", "small", "medium", "large"),
-        name = "cohen1988", right = FALSE
-      )
-    )
-  )
+  rules <- .match.rules(rules, .cohen_g_rules)
 
   interpret(abs(g), rules)
 }
+
+
+
+# Rules -------------------------------------------------------------------
+
+#' @keywords internal
+.cohen_g_rules <- c(
+  rules(c(0.05, 0.15, 0.25), c("very small", "small", "medium", "large"),
+        name = "cohen1988", right = FALSE)
+)

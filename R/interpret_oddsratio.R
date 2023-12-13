@@ -11,16 +11,12 @@
 #'
 #' Rules apply to OR as ratios, so OR of 10 is as extreme as a OR of 0.1 (1/10).
 #'
-#' - Chen et al. (2010) (`"chen2010"`; default)
-#'   - **OR < 1.68** - Very small
-#'   - **1.68 <= OR < 3.47** - Small
-#'   - **3.47 <= OR < 6.71** - Medium
-#'   - **OR >= 6.71 ** - Large
-#' - Cohen (1988) (`"cohen1988"`, based on the [oddsratio_to_d()] conversion, see [interpret_cohens_d()])
-#'   - **OR < 1.44** - Very small
-#'   - **1.44 <= OR < 2.48** - Small
-#'   - **2.48 <= OR < 4.27** - Medium
-#'   - **OR >= 4.27 ** - Large
+#' ```{r, echo = FALSE, results = "asis"}
+#' titles <- c("Chen et al. (2010) (`{.rn}`; default):",
+#'             "Cohen (1988) (`{.rn}`, based on the [oddsratio_to_d()] conversion, see [interpret_cohens_d()]):")
+#'
+#' insight::print_md(.oddsratio_rules, "OR", titles)
+#' ```
 #'
 #' @examples
 #' interpret_oddsratio(1)
@@ -47,21 +43,20 @@ interpret_oddsratio <- function(OR, rules = "chen2010", log = FALSE, ...) {
     OR <- exp(abs(log(OR)))
   }
 
-
-  if (is.character(rules) && rules == "cohen1988") {
-    d <- oddsratio_to_d(OR, log = FALSE)
-    return(interpret_cohens_d(abs(d), rules = rules))
-  }
-
-  rules <- .match.rules(
-    rules,
-    list(
-      chen2010 = rules(c(1.68, 3.47, 6.71), c("very small", "small", "medium", "large"),
-        name = "chen2010", right = FALSE
-      ),
-      cohen1988 = NA # for correct error msg
-    )
-  )
+  rules <- .match.rules(rules, .oddsratio_rules)
 
   interpret(OR, rules)
 }
+
+
+
+# rules -------------------------------------------------------------------
+
+#' @keywords internal
+.oddsratio_rules <- c(
+  rules(c(1.68, 3.47, 6.71), c("very small", "small", "medium", "large"),
+        name = "chen2010", right = FALSE
+  ),
+  rules(d_to_oddsratio(c(0.2, 0.5, 0.8)), c("very small", "small", "medium", "large"),
+        name = "cohen1988", right = FALSE)
+)
