@@ -82,8 +82,8 @@ Defaults to \code{TRUE}; Advisable for small samples and large tables.}
 
 \item{alternative}{a character string specifying the alternative hypothesis;
 Controls the type of CI returned: \code{"greater"} (default) or \code{"less"}
-(one-sided CI), or \code{"two.sided"} (default, two-sided CI). Partial matching
-is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in
+(one-sided CI), or \code{"two.sided"} (two-sided CI). Partial matching is
+allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in
 \link{effectsize_CIs}.}
 
 \item{...}{Arguments passed to or from other methods.}

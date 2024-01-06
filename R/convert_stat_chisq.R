@@ -14,8 +14,8 @@
 #' @param ci Confidence Interval (CI) level
 #' @param alternative a character string specifying the alternative hypothesis;
 #'   Controls the type of CI returned: `"greater"` (default) or `"less"`
-#'   (one-sided CI), or `"two.sided"` (default, two-sided CI). Partial matching
-#'   is allowed (e.g., `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in
+#'   (one-sided CI), or `"two.sided"` (two-sided CI). Partial matching is
+#'   allowed (e.g., `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in
 #'   [effectsize_CIs].
 #' @param adjust Should the effect size be corrected for small-sample bias?
 #'   Defaults to `TRUE`; Advisable for small samples and large tables.

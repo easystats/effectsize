@@ -16,10 +16,9 @@ cohens_g(x, y = NULL, ci = 0.95, alternative = "two.sided", ...)
 \item{ci}{Confidence Interval (CI) level}
 
 \item{alternative}{a character string specifying the alternative hypothesis;
-Controls the type of CI returned: \code{"two.sided"} (two-sided CI; default),
-\code{"greater"} (one-sided CI) or \code{"less"} (one-sided CI). Partial matching is
-allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in
-\link{effectsize_CIs}.}
+Controls the type of CI returned: \code{"two.sided"} (default, two-sided CI),
+\code{"greater"} or \code{"less"} (one-sided CI). Partial matching is allowed (e.g.,
+\code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in \link{effectsize_CIs}.}
 
 \item{...}{Ignored}
 }

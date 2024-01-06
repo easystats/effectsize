@@ -14,10 +14,9 @@
 #' @inheritParams oddsratio_to_d
 #' @inheritParams phi
 #' @param alternative a character string specifying the alternative hypothesis;
-#'   Controls the type of CI returned: `"two.sided"` (two-sided CI; default),
-#'   `"greater"` (one-sided CI) or `"less"` (one-sided CI). Partial matching is
-#'   allowed (e.g., `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in
-#'   [effectsize_CIs].
+#'   Controls the type of CI returned: `"two.sided"` (default, two-sided CI),
+#'   `"greater"` or `"less"` (one-sided CI). Partial matching is allowed (e.g.,
+#'   `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in [effectsize_CIs].
 #' @param ... Ignored
 #'
 #' @details
