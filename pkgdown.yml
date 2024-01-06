@@ -1,6 +1,6 @@
-pandoc: 3.1.9
+pandoc: 3.1.11
 pkgdown: 2.0.7.9000
-pkgdown_sha: 13d8d621105a3a527a05e46c6c805a6564c39791
+pkgdown_sha: 548a9493b72ff93d3ed8392d4ad30b77d8b15fa5
 articles:
   additional: additional.html
   anovaES: anovaES.html
@@ -13,7 +13,7 @@ articles:
   standardized_differences: standardized_differences.html
   statistical_power: statistical_power.html
   xtabs: xtabs.html
-last_built: 2023-12-12T19:54Z
+last_built: 2024-01-06T20:01Z
 urls:
   reference: https://easystats.github.io/effectsize/reference
   article: https://easystats.github.io/effectsize/articles
