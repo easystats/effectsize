@@ -6,7 +6,7 @@
 
 - `repeated_measures_d()` to compute standardized mean differences (SMD) for repeated measures data.
   - Also supported in `effectsize(<t.test(paired = TRUE)>)`
-  
+- `variance_ratio()` to compute variance ratios for independent or paired samples.
 ## Bug fixes
 
 - `nnt()` now properly accepts the `y` argument.

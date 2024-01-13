@@ -19,6 +19,7 @@ reference:
       - rank_biserial
       - p_superiority
       - means_ratio
+      - variance_ratio
 
   - subtitle: "For contingency tables"
     desc: >
