@@ -13,6 +13,7 @@ cohens_d(
   pooled_sd = TRUE,
   mu = 0,
   paired = FALSE,
+  adjust = FALSE,
   ci = 0.95,
   alternative = "two.sided",
   verbose = TRUE,
@@ -37,6 +38,7 @@ glass_delta(
   y = NULL,
   data = NULL,
   mu = 0,
+  adjust = FALSE,
   ci = 0.95,
   alternative = "two.sided",
   verbose = TRUE,
@@ -60,6 +62,10 @@ variance). Else the mean SD from both groups is used instead.}
 \item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
 This produces an effect size that is equivalent to the one-sample effect
 size on \code{x - y}. See also \code{\link[=repeated_measures_d]{repeated_measures_d()}} for more options.}
+
+\item{adjust}{Should the effect size be adjusted for small-sample bias using
+Hedges' method? Note that \code{hedges_g()} is an alias for
+\code{cohens_d(adjust = TRUE)}.}
 
 \item{ci}{Confidence Interval (CI) level}
 

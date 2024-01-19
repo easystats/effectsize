@@ -4,6 +4,7 @@ es_info <- tibble::tribble(
   "Cohens_d", "Cohen's d", NA, "twotail", -Inf, Inf, 0,
   "Hedges_g", "Hedges' g", NA, "twotail", -Inf, Inf, 0,
   "Glass_delta", "Glass' delta", "Glass' \u0394", "twotail", -Inf, Inf, 0,
+  "Glass_delta_adjusted", "Glass' delta (adj.)", "Glass' \u0394 (adj.)", "twotail", -Inf, Inf, 0,
   "d_rm", "d (rm)", "d\u1D63\u2098", "twotail", -Inf, Inf, 0,
   "d_av", "d (av)", "d\u2090\u1D65", "twotail", -Inf, Inf, 0,
   "d_z", "d (z)", NA, "twotail", -Inf, Inf, 0,

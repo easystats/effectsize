@@ -54,6 +54,9 @@ test_that("hedges_g (and other bias correction things", {
   expect_equal(x[[1]], 1.844, tolerance = 0.001)
   expect_equal(x$CI_low, 1.004, tolerance = 0.001)
   expect_equal(x$CI_high, 2.664, tolerance = 0.001)
+
+  x2 <- cohens_d(wt ~ am, data = mtcars, adjust = TRUE)
+  expect_equal(x2, x)
 })
 
 test_that("glass_delta", {
@@ -66,6 +69,12 @@ test_that("glass_delta", {
   expect_equal(x[[1]], 2.200, tolerance = 0.001)
   expect_equal(x$CI_low, 1.008664, tolerance = 0.001)
   expect_equal(x$CI_high, 3.352597, tolerance = 0.001)
+
+  x2 <- glass_delta(wt ~ am, data = mtcars, adjust = TRUE)
+  expect_equal(colnames(x2)[1], "Glass_delta_adjusted")
+  expect_lt(x2[[1]], x[[1]])
+  expect_lt(x2$CI_low, x$CI_low)
+  expect_lt(x2$CI_high, x$CI_high)
 })
 
 
