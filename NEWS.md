@@ -4,6 +4,8 @@
 
 ## New features
 
+- `cohens_d()` and `glass_delta()` gain an `adjust` argument for applying Hedges' small-sample bias correction (`hedges_g()` is now an alias for `cohens_d(adjust = TRUE)`).
+
 - `repeated_measures_d()` to compute standardized mean differences (SMD) for repeated measures data.
   - Also supported in `effectsize(<t.test(paired = TRUE)>)`
   
