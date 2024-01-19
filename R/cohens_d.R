@@ -168,7 +168,7 @@ hedges_g <- function(x, y = NULL, data = NULL,
 #' @rdname cohens_d
 #' @export
 glass_delta <- function(x, y = NULL, data = NULL,
-                        mu = 0, adjust = FALSE,
+                        mu = 0, adjust = TRUE,
                         ci = 0.95, alternative = "two.sided",
                         verbose = TRUE, ...) {
   .effect_size_difference(

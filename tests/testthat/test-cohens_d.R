@@ -64,13 +64,13 @@ test_that("glass_delta", {
   expect_error(glass_delta(1:10), "two")
   expect_error(glass_delta("wt", data = mtcars), "two")
 
-  x <- glass_delta(wt ~ am, data = mtcars)
+  x <- glass_delta(wt ~ am, data = mtcars, adjust = FALSE)
   expect_equal(colnames(x)[1], "Glass_delta")
   expect_equal(x[[1]], 2.200, tolerance = 0.001)
   expect_equal(x$CI_low, 1.008664, tolerance = 0.001)
   expect_equal(x$CI_high, 3.352597, tolerance = 0.001)
 
-  x2 <- glass_delta(wt ~ am, data = mtcars, adjust = TRUE)
+  x2 <- glass_delta(wt ~ am, data = mtcars)
   expect_equal(colnames(x2)[1], "Glass_delta_adjusted")
   expect_lt(x2[[1]], x[[1]])
   expect_lt(x2$CI_low, x$CI_low)
