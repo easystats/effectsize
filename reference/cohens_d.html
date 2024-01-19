@@ -30,7 +30,7 @@ standard deviation."><meta property="og:image" content="https://easystats.github
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.6.4</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.6.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -152,6 +152,7 @@ standard deviation.</p>
 <span>  pooled_sd <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  mu <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  paired <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  adjust <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  ci <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -176,6 +177,7 @@ standard deviation.</p>
 <span>  y <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  mu <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  adjust <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  ci <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -210,6 +212,12 @@ variance). Else the mean SD from both groups is used instead.</p></dd>
 <dd><p>If <code>TRUE</code>, the values of <code>x</code> and <code>y</code> are considered as paired.
 This produces an effect size that is equivalent to the one-sample effect
 size on <code>x - y</code>. See also <code><a href="repeated_measures_d.html">repeated_measures_d()</a></code> for more options.</p></dd>
+
+
+<dt>adjust</dt>
+<dd><p>Should the effect size be adjusted for small-sample bias using
+Hedges' method? Note that <code>hedges_g()</code> is an alias for
+<code>cohens_d(adjust = TRUE)</code>.</p></dd>
 
 
 <dt>ci</dt>
