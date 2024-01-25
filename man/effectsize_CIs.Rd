@@ -155,16 +155,8 @@ For very large sample sizes or effect sizes, the width of the CI can be
 smaller than the tolerance of the optimizer, resulting in CIs of width 0.
 This can also result in the estimated CIs excluding the point estimate.
 
-For example:
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{t_to_d(80, df_error = 4555555)
-#> d    |       95\% CI
-#> -------------------
-#> 0.07 | [0.08, 0.08]
-}\if{html}{\out{</div>}}
-
-In these cases, consider an alternative optimizer, or an alternative method
-for computing CIs, such as the bootstrap.
+In these cases, consider an alternative method for computing CIs, such as the
+bootstrap.
 }
 
 \references{
