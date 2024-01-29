@@ -38,7 +38,7 @@ glass_delta(
   y = NULL,
   data = NULL,
   mu = 0,
-  adjust = FALSE,
+  adjust = TRUE,
   ci = 0.95,
   alternative = "two.sided",
   verbose = TRUE,

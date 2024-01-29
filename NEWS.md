@@ -11,6 +11,7 @@
   
 ## Bug fixes
 
+- Minor stability fix to ncp-based CI methods ( #628 )
 - `nnt()` now properly accepts the `y` argument.
 
 # effectsize 0.8.7
