@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size
-Version: 0.8.6.6
+Version: 0.8.7
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
@@ -72,9 +72,9 @@ Depends:
     R (>= 3.6)
 Imports:
     bayestestR (>= 0.13.2),
-    insight (>= 0.19.8),
-    parameters (>= 0.21.5),
-    performance (>= 0.10.9),
+    insight (>= 0.19.9),
+    parameters (>= 0.21.6),
+    performance (>= 0.11.0),
     datawizard (>= 0.9.1),
     stats,
     utils
@@ -105,7 +105,7 @@ VignetteBuilder:
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3.9000
+RoxygenNote: 7.3.1
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Config/Needs/website:
