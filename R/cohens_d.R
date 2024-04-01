@@ -25,7 +25,10 @@
 #'   variance). Else the mean SD from both groups is used instead.
 #' @param paired If `TRUE`, the values of `x` and `y` are considered as paired.
 #'   This produces an effect size that is equivalent to the one-sample effect
-#'   size on `x - y`.
+#'   size on `x - y`. See also [repeated_measures_d()] for more options.
+#' @param adjust Should the effect size be adjusted for small-sample bias using
+#'   Hedges' method? Note that `hedges_g()` is an alias for
+#'   `cohens_d(adjust = TRUE)`.
 #' @param ... Arguments passed to or from other methods. When `x` is a formula,
 #'   these can be `subset` and `na.action`.
 #' @inheritParams chisq_to_phi
@@ -48,7 +51,7 @@
 #'   `Glass_delta`) and their CIs (`CI_low` and `CI_high`).
 #'
 #' @family standardized differences
-#' @seealso [sd_pooled()], [t_to_d()], [r_to_d()]
+#' @seealso [rm_d()], [sd_pooled()], [t_to_d()], [r_to_d()]
 #'
 #' @examples
 #' \donttest{
@@ -91,10 +94,12 @@
 #'
 #' # same as:
 #' # cohens_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], paired = TRUE)
+#' # cohens_d(sleep$extra[sleep$group == 1] - sleep$extra[sleep$group == 2])
+#' # rm_d(sleep$extra[sleep$group == 1], sleep$extra[sleep$group == 2], method = "z", adjust = FALSE)
 #'
 #' # More options:
-#' cohens_d(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, mu = -1)
-#' hedges_g(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep)
+#' cohens_d(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, mu = -1, verbose = FALSE)
+#' hedges_g(Pair(extra[group == 1], extra[group == 2]) ~ 1, data = sleep, verbose = FALSE)
 #'
 #'
 #' # Interpretation -----------------------
@@ -131,6 +136,7 @@
 #' @export
 cohens_d <- function(x, y = NULL, data = NULL,
                      pooled_sd = TRUE, mu = 0, paired = FALSE,
+                     adjust = FALSE,
                      ci = 0.95, alternative = "two.sided",
                      verbose = TRUE, ...) {
   var.equal <- eval.parent(match.call()[["var.equal"]])
@@ -139,7 +145,7 @@ cohens_d <- function(x, y = NULL, data = NULL,
   .effect_size_difference(
     x,
     y = y, data = data,
-    type = "d",
+    type = "d", adjust = adjust,
     pooled_sd = pooled_sd, mu = mu, paired = paired,
     ci = ci, alternative = alternative,
     verbose = verbose,
@@ -153,31 +159,23 @@ hedges_g <- function(x, y = NULL, data = NULL,
                      pooled_sd = TRUE, mu = 0, paired = FALSE,
                      ci = 0.95, alternative = "two.sided",
                      verbose = TRUE, ...) {
-  var.equal <- eval.parent(match.call()[["var.equal"]])
-  if (!is.null(var.equal)) pooled_sd <- var.equal
-
-  .effect_size_difference(
-    x,
-    y = y, data = data,
-    type = "g",
-    pooled_sd = pooled_sd, mu = mu, paired = paired,
-    ci = ci, alternative = alternative,
-    verbose = verbose,
-    ...
-  )
+  cl <- match.call()
+  cl[[1]] <- quote(cohens_d)
+  cl$adjust <- TRUE
+  eval.parent(cl)
 }
 
 #' @rdname cohens_d
 #' @export
 glass_delta <- function(x, y = NULL, data = NULL,
-                        mu = 0,
+                        mu = 0, adjust = TRUE,
                         ci = 0.95, alternative = "two.sided",
                         verbose = TRUE, ...) {
   .effect_size_difference(
     x,
     y = y, data = data,
     type = "delta",
-    mu = mu,
+    mu = mu, adjust = adjust,
     ci = ci, alternative = alternative,
     verbose = verbose,
     pooled_sd = NULL, paired = FALSE,
@@ -189,10 +187,12 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
 #' @keywords internal
 .effect_size_difference <- function(x, y = NULL, data = NULL,
-                                    type = "d",
+                                    type = "d", adjust = FALSE,
                                     mu = 0, pooled_sd = TRUE, paired = FALSE,
                                     ci = 0.95, alternative = "two.sided",
                                     verbose = TRUE, ...) {
+  if (type == "d" && adjust) type <- "g"
+
   if (type != "delta") {
     if (.is_htest_of_type(x, "t-test")) {
       return(effectsize(x, type = type, verbose = verbose, data = data, ...))
@@ -206,6 +206,13 @@ glass_delta <- function(x, y = NULL, data = NULL,
   out <- .get_data_2_samples(x, y, data, paired = paired, verbose = verbose, ...)
   x <- out[["x"]]
   y <- out[["y"]]
+  paired <- out[["paired"]]
+
+  if (verbose && paired && !is.null(y)) {
+    insight::format_alert(
+      "For paired samples, 'repeated_measures_d()' provides more options."
+    )
+  }
 
   if (is.null(y)) {
     if (type == "delta") {
@@ -217,6 +224,10 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
   # Compute index
   if (paired) {
+    if (type == "delta") {
+      insight::format_error("This effect size is only applicable for two independent samples.")
+    }
+
     d <- mean(x - y)
     n <- length(x)
     s <- stats::sd(x - y)
@@ -280,18 +291,25 @@ glass_delta <- function(x, y = NULL, data = NULL,
     ci_method <- alternative <- NULL
   }
 
+  if (adjust) {
+    J <- .J(df)
+    col_to_adjust <- intersect(colnames(out), c(types[type], "CI_low", "CI_high"))
+    out[, col_to_adjust] <- out[, col_to_adjust] * J
 
-  if (type == "g") {
-    j <- exp(lgamma(df / 2) - log(sqrt(df / 2)) - lgamma((df - 1) / 2)) # exact method
-
-    out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] <-
-      out[, colnames(out) %in% c("Hedges_g", "CI_low", "CI_high")] * j
+    if (type == "delta") {
+      colnames(out)[1] <- "Glass_delta_adjusted"
+    }
   }
 
   class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
   .someattributes(out) <- .nlist(
-    paired, pooled_sd, mu, ci, ci_method, alternative,
+    paired, pooled_sd, mu, ci, ci_method, alternative, adjust,
     approximate = FALSE
   )
   return(out)
+}
+
+#' @keywords internal
+.J <- function(df) {
+  exp(lgamma(df / 2) - log(sqrt(df / 2)) - lgamma((df - 1) / 2)) # exact method
 }

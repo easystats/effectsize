@@ -1,3 +1,32 @@
+# effectsize 0.8.7
+
+- This release changes the licensing model of `{effectsize}` to an MIT license.
+
+## New features
+
+- `cohens_d()` and `glass_delta()` gain an `adjust` argument for applying Hedges' small-sample bias correction (`hedges_g()` is now an alias for `cohens_d(adjust = TRUE)`).  
+- `repeated_measures_d()` to compute standardized mean differences (SMD) for repeated measures data.
+  - Also supported in `effectsize(<t.test(paired = TRUE)>)`  
+- New function: `interpret_fei()`
+  
+## Bug fixes
+
+- Minor stability fix to ncp-based CI methods ( #628 )
+- `nnt()` now properly accepts the `y` argument.
+
+# effectsize 0.8.6
+
+This is a minor update to bring `effectsize` in-line with the formula methods 
+in `t.test()` and `wilcox.test()` in `R>=4.4.0`.
+
+## Breaking Changes
+
+- `cohens_d()`, `hedges_g()`, `p_superiority()`, `wmw_odds()`, `means_ratio()` and `rank_biserial()` no longer support setting `paired = TRUE` when using the formula method.
+
+## Bug fixes
+
+- `eta_squared(<gam>)` returns (approximate) effect sizes for smooths.
+
 # effectsize 0.8.5
 
 ## New features

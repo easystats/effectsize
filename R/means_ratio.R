@@ -76,6 +76,7 @@ means_ratio <- function(x, y = NULL, data = NULL,
   )
   x <- out[["x"]]
   y <- out[["y"]]
+  paired <- out[["paired"]]
 
   if (is.null(y)) {
     insight::format_error("Only one sample provided. y or data must be provided.")

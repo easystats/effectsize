@@ -2,9 +2,9 @@
 # effectsize: Indices of Effect Size <img src="man/figures/logo.png" align="right" width="120" />
 
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.02815/status.svg/)](https://doi.org/10.21105/joss.02815)
-[![downloads](https://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize/)
-[![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize)](https://cran.r-project.org/package=effectsize/)
-[![status](https://tinyverse.netlify.com/badge/effectsize/)](https://CRAN.R-project.org/package=effectsize/)
+[![downloads](https://cranlogs.r-pkg.org/badges/effectsize)](https://CRAN.R-project.org/package=effectsize)
+[![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize)](https://CRAN.R-project.org/package=effectsize)
+[![status](https://tinyverse.netlify.com/badge/effectsize/)](https://CRAN.R-project.org/package=effectsize)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
 ***Significant is just not enough!***
@@ -15,7 +15,7 @@ conversion of indices such as Cohen’s *d*, *r*, odds-ratios, etc.
 
 ## Installation
 
-[![CRAN](https://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize/)
+[![CRAN](https://www.r-pkg.org/badges/version/effectsize)](https://CRAN.R-project.org/package=effectsize)
 [![effectsize status
 badge](https://easystats.r-universe.dev/badges/effectsize/)](https://easystats.r-universe.dev/)
 [![R-CMD-check](https://github.com/easystats/effectsize/workflows/R-CMD-check/badge.svg?branch=main)](https://github.com/easystats/effectsize/actions)
@@ -54,22 +54,24 @@ Click on the buttons above to access the package
 [**easystats blog**](https://easystats.github.io/blog/posts/), and
 check-out these vignettes:
 
--   **Effect Sizes**
-    -   [**Standardized
-        Differences**](https://easystats.github.io/effectsize/articles/standardized_differences.html)  
-    -   [**For Contingency
-        Tables**](https://easystats.github.io/effectsize/articles/xtabs.html)  
-    -   [**ANOVA Effect
-        Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
--   **Effect Sizes Conversion**
-    -   [**Between Effect
-        Sizes**](https://easystats.github.io/effectsize/articles/convert_r_d_OR.html)  
-    -   [**Between Probabilities and Odds and Risk
-        Ratios**](https://easystats.github.io/effectsize/articles/convert_p_OR_RR.html)  
-    -   [**Effect Size from Test
-        Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
--   [**Automated Interpretation of Indices of Effect
-    Size**](https://easystats.github.io/effectsize/articles/interpret.html)
+- **Effect Sizes**
+  - [**Standardized
+    Differences**](https://easystats.github.io/effectsize/articles/standardized_differences.html)  
+  - [**For Contingency
+    Tables**](https://easystats.github.io/effectsize/articles/xtabs.html)  
+  - [**ANOVA Effect
+    Sizes**](https://easystats.github.io/effectsize/articles/anovaES.html)
+- **Effect Sizes Conversion**
+  - [**Between Effect
+    Sizes**](https://easystats.github.io/effectsize/articles/convert_r_d_OR.html)  
+  - [**Between Probabilities and Odds and Risk
+    Ratios**](https://easystats.github.io/effectsize/articles/convert_p_OR_RR.html)  
+  - [**Effect Size from Test
+    Statistics**](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
+- [**Plotting Functions for the ‘effectsize’
+  Package**](https://easystats.github.io/see/articles/effectsize.html)  
+- [**Automated Interpretation of Indices of Effect
+  Size**](https://easystats.github.io/effectsize/articles/interpret.html)
 
 # Features
 
@@ -122,7 +124,7 @@ language effect sizes* and more…
 ### Contingency Tables
 
 ``` r
-# Dependence 
+# Dependence
 phi(mtcars$am, mtcars$vs)
 ## ϕ (adj.) |       95% CI
 ## -----------------------
@@ -143,7 +145,7 @@ fei(table(mtcars$cyl), p = c(0.1, 0.3, 0.6))
 ## -------------------
 ## 0.27 | [0.17, 1.00]
 ## 
-## - Adjusted for non-uniform expected probabilities.
+## - Adjusted for uniform expected probabilities.
 ## - One-sided CIs: upper bound fixed at [1.00].
 ```
 
@@ -256,9 +258,9 @@ interpret_cohens_d(d = 0.45, rules = "gignac2016")
 
 In order to cite this package, please use the following citation:
 
--   Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation
-    of Effect Size Indices and Standardized Parameters. *Journal of Open
-    Source Software*, *5*(56), 2815. doi: 10.21105/joss.02815
+- Ben-Shachar M, Lüdecke D, Makowski D (2020). effectsize: Estimation of
+  Effect Size Indices and Standardized Parameters. *Journal of Open
+  Source Software*, *5*(56), 2815. doi: 10.21105/joss.02815
 
 Corresponding BibTeX entry:
 

@@ -3,11 +3,18 @@
                                 paired = FALSE, allow_ordered = FALSE,
                                 verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
+    if (isTRUE(paired)) {
+      # This is to be consistent with R>=4.4.0
+      insight::format_error("cannot use 'paired = TRUE' in formula method.")
+    }
+
     # Validate:
     if (length(x) != 3L) {
       insight::format_error(
         "Formula must have one of the following forms:",
-        "\n\ty ~ group,\n\ty ~ 1,\n\tPair(x,y) ~ 1"
+        "          y ~ group   (independent samples)",
+        "          y ~ 1       (one sample)",
+        "  Pair(x,y) ~ 1       (paired samples)"
       )
     }
 
@@ -47,8 +54,9 @@
   if (!is.numeric(x)) {
     insight::format_error("Cannot compute effect size for a non-numeric vector.")
   } else if (inherits(x, "Pair")) {
-    x <- x[, 1] - x[, 2]
-    y <- NULL
+    y <- x[, 2]
+    x <- x[, 1]
+    paired <- TRUE
   }
 
 
@@ -89,6 +97,87 @@
     y <- stats::na.omit(y)
   }
 
+
+  list(x = x, y = y, paired = paired)
+}
+
+#' @keywords internal
+.get_data_paired <- function(x, y = NULL, data = NULL, method,
+                             verbose = TRUE, ...) {
+  if (inherits(x, "formula")) {
+    formula_error <-
+      "Formula must have one of the following forms:
+              y ~ condition | id
+      Pair(x,y) ~ 1"
+
+    # Validate:
+    if (length(x) != 3L) {
+      insight::format_error(formula_error)
+    } else if (length(x[[3]]) == 3L && x[[3]][[1]] == as.name("|")) {
+      # is long
+      x[[3L]][[1L]] <- as.name("+")
+      mf <- .resolve_formula(x, data, ...)
+      mf <- stats::na.omit(mf)
+
+      if (method %in% c("d", "r")) {
+        mf[[2]] <- as.factor(mf[[2]])
+        mf[[3]] <- as.factor(mf[[3]])
+        colnames(mf) <- c("y", "condition", "id")
+        return(mf)
+      }
+
+      if (verbose && any(tapply(mf[[1]], mf[3:2], length) > 1L, na.rm = TRUE)) {
+        insight::format_alert(
+          paste0("The ", method, " standardized difference requires paired data,"),
+          "but data contains more than one observation per design cell.",
+          "Aggregating data using `mean()`."
+        )
+      }
+
+      mf <- tapply(mf[[1]], mf[3:2], mean, na.rm = TRUE)
+      x <- mf[, 1]
+      y <- mf[, 2]
+    } else if (x[[2]][[1]] == as.name("Pair")) {
+      # is Pair (wide)
+      mf <- .resolve_formula(x, data, ...)
+      if (ncol(mf) != 1L) {
+        insight::format_error(formula_error)
+      }
+      x <- mf[[1]]
+    } else {
+      insight::format_error(formula_error)
+    }
+  } else {
+    # Test if they are they are column names
+    x <- .resolve_char(x, data)
+    y <- .resolve_char(y, data)
+  }
+
+  if (inherits(x, "Pair")) {
+    y <- x[, 2]
+    x <- x[, 1]
+  }
+
+  # x should be a numeric vector or a Pair:
+  if (!is.numeric(x) || !is.numeric(y)) {
+    insight::format_error("Cannot compute effect size for a non-numeric vector.")
+  }
+
+  o <- stats::complete.cases(x, y)
+  x <- x[o]
+  y <- y[o]
+
+  if (method == "r") {
+    insight::format_error("d{r} requires replications.")
+  } else if (method == "d") {
+    n <- length(x)
+    data <- data.frame(
+      y = c(x, y),
+      condition = factor(rep(1:2, each = n)),
+      id = factor(rep(seq(n), times = 2))
+    )
+    return(data)
+  }
 
   list(x = x, y = y)
 }

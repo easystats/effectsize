@@ -5,6 +5,7 @@
 \alias{interpret_phi}
 \alias{interpret_cramers_v}
 \alias{interpret_rank_biserial}
+\alias{interpret_fei}
 \title{Interpret Correlation Coefficient}
 \usage{
 interpret_r(r, rules = "funder2019", ...)
@@ -14,6 +15,8 @@ interpret_phi(r, rules = "funder2019", ...)
 interpret_cramers_v(r, rules = "funder2019", ...)
 
 interpret_rank_biserial(r, rules = "funder2019", ...)
+
+interpret_fei(r, rules = "funder2019", ...)
 }
 \arguments{
 \item{r}{Value or vector of correlation coefficient.}

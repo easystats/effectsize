@@ -6,6 +6,7 @@
 #' to the [Common Language Effect Sizes][cohens_u3]. Pair with any reported
 #' [`stats::wilcox.test()`].
 #'
+#' @inheritParams p_superiority
 #' @inheritParams cohens_d
 #' @param x,y A numeric or ordered vector, or a character name of one in `data`.
 #'   Any missing values (`NA`s) are dropped from the resulting vector. `x` can
@@ -62,6 +63,7 @@
 #' # Same as:
 #' # rank_biserial("mpg", "am", data = mtcars)
 #' # rank_biserial(mtcars$mpg[mtcars$am=="0"], mtcars$mpg[mtcars$am=="1"])
+#' # cliffs_delta(mpg ~ am, data = mtcars)
 #'
 #' # More options:
 #' rank_biserial(mpg ~ am, data = mtcars, mu = -5)
@@ -69,21 +71,26 @@
 #'
 #'
 #' # One Sample ----------
-#' rank_biserial(wt ~ 1, data = mtcars, mu = 3)
+#' # from help("wilcox.test")
+#' x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
+#' y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
+#' depression <- data.frame(first = x, second = y, change = y - x)
+#'
+#' rank_biserial(change ~ 1, data = depression)
+#'
 #' # same as:
-#' # rank_biserial("wt", data = mtcars, mu = 3)
-#' # rank_biserial(mtcars$wt, mu = 3)
+#' # rank_biserial("change", data = depression)
+#' # rank_biserial(mtcars$wt)
+#'
+#' # More options:
+#' rank_biserial(change ~ 1, data = depression, mu = -0.5)
 #'
 #'
 #' # Paired Samples ----------
-#' dat <- data.frame(
-#'   Cond1 = c(1.83, 0.5, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.3),
-#'   Cond2 = c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
-#' )
-#' (rb <- rank_biserial(Pair(Cond1, Cond2) ~ 1, data = dat, paired = TRUE))
+#' (rb <- rank_biserial(Pair(first, second) ~ 1, data = depression))
 #'
 #' # same as:
-#' # rank_biserial(dat$Cond1, dat$Cond2, paired = TRUE)
+#' # rank_biserial(depression$first, depression$second, paired = TRUE)
 #'
 #' interpret_rank_biserial(0.78)
 #' interpret(rb, rules = "funder2019")
@@ -127,8 +134,9 @@ rank_biserial <- function(x, y = NULL, data = NULL,
     allow_ordered = TRUE,
     verbose = verbose, ...
   )
-  x <- out$x
-  y <- out$y
+  x <- out[["x"]]
+  y <- out[["y"]]
+  paired <- out[["paired"]]
 
   if (is.null(y)) {
     y <- 0
@@ -208,7 +216,7 @@ cliffs_delta <- function(x, y = NULL, data = NULL,
   )
   x <- data$x
   y <- data$y
-  if (is.null(y) || isTRUE(eval.parent(cl$paired))) {
+  if (is.null(y) || isTRUE(match.call()$paired) || isTRUE(data[["paired"]])) {
     insight::format_error("This effect size is only applicable for two independent samples.")
   }
 

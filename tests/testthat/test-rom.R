@@ -73,7 +73,14 @@ test_that("means_ratio paired - adjusted", {
   expect_error(means_ratio(extra ~ group, data = sleep), "negative")
 
   sleep$y <- sleep$extra + 4
-  x <- means_ratio(y ~ group,
+  sleep_wide <- datawizard::data_to_wide(sleep,
+    id_cols = "ID",
+    values_from = "y",
+    names_from = "group",
+    names_prefix = "extra_"
+  )
+
+  x <- means_ratio(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]],
     data = sleep,
     adjust = TRUE, paired = TRUE
   )
@@ -86,7 +93,13 @@ test_that("means_ratio paired - adjusted", {
 test_that("means_ratio paired - not adjusted", {
   data(sleep)
   sleep$y <- sleep$extra + 4
-  x <- means_ratio(y ~ group,
+  sleep_wide <- datawizard::data_to_wide(sleep,
+    id_cols = "ID",
+    values_from = "y",
+    names_from = "group",
+    names_prefix = "extra_"
+  )
+  x <- means_ratio(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]],
     data = sleep,
     adjust = FALSE, paired = TRUE
   )

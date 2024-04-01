@@ -1,0 +1,208 @@
+---
+title: "Statistical Power"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    fig_width: 10.08
+    fig_height: 6
+tags: [r, effect size, power analysis, statistical power]
+vignette: >
+  \usepackage[utf8]{inputenc}
+  %\VignetteIndexEntry{Statistical Power}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+bibliography: bibliography.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning = FALSE,
+  message = FALSE,
+  eval = requireNamespace("pwr", quietly = TRUE)
+)
+
+options(digits = 4L, knitr.kable.NA = "")
+
+set.seed(123)
+```
+
+# Overview
+
+In this vignette, we focus on statistical power and the role of the `effectsize` _easystats_ package in power analysis.
+As such, we are interested in accomplishing several things with this vignette: 
+
+  1. Reviewing statistical power and its value in a research task
+  2. Demonstrating the role of the `effectsize` package in the context of exploring statistical power
+  3. Highlighting the ease of calculating and understanding of statistical power via the _easystats_ ecosystem, and the `effectsize` package specifically
+  4. Encouraging wider adoption of power analysis in applied research
+
+*Disclaimer:* This vignette is an initial look at power analysis via _easystats_. 
+There's much more we could do, so please give us a feedback about what features would you like to see in _easystats_ to make power analysis easier.
+
+## What is statistical power and power analysis? 
+
+Statistical power allows for the ability to check whether an effect observed from a statistical test actually exists, or that the null hypothesis really can be rejected (or not). 
+Power involves many related concepts including, but not limited to, sample size, estimation, significance threshold, and of course, the *effect size*. 
+
+## What is `effectsize`? 
+
+The goal of the `effectsize` package is to provide utilities to work with indices of effect size and standardized parameters, allowing computation and conversion of indices such as Cohen’s d, r, odds-ratios, among many others.
+Please explore the breadth of effect size operations included in the package by visiting the [package docs](https://easystats.github.io/effectsize/reference/index.html).
+
+## Putting the Pieces Together: Hypothesis Testing
+
+Let's take a closer looks at the key ingredients involved in statistical power before walking through a simple applied example below. 
+
+  1. *Statistical test*: In research we often start with a statistical test to test expectations or explore data. For example, we might use a t-test to check for differences between two group means. This would help assess whether the difference of means between the groups is likely the same/indistinguishable from zero (null, $H_0$) or not (alternative, $H_A$)
+  
+  2. *Significance threshold*: This is the threshold against which we compare the p-value from our statistical test, which helps determine which hypothesis has the most support (and which we should reject). That is, we need to assess the probability that the result is likely indistinguishable from 0, or whether we have picked up on a likely real difference or result. To this end, if the p-value associated with our test is less than the significance threshold (e.g., $p < 0.05$), then, this tells us that the chance of observing the result we observed due to chance alone is extremely low, and very unlikely. In the case of comparing group mean differences, for example, we would have evidence allowing us to "reject the null hypothesis of no difference," and conclude that there is a greater chance of the group means being significantly different from each other in line with $H_A$.
+  
+  3. *Effect size*: This is the magnitude of difference. A common way to calculate this is via Cohen's $d$, which measures the estimated standardized difference between the means of two populations. There are many other extensions (e.g., correcting for small-sample bias via Hedges' $g$). This is where the `effectsize` package comes in, which allows for easy calculation of many different effect size metrics.
+  
+  4. *Statistical power*: This brings us to statistical power, which can be thought of in many ways, such as the probability that we are *correctly* observing an effect or group difference, or that we are correctly rejecting the null hypothesis, and so on (see, e.g., [@cohen1988], [@greene2000] for more). But regardless of the interpretation, all of these interpretations are all pointing to a common idea: *the ability for us to trust the result we get from the hypothesis test*, regardless of the test. 
+  
+Let's put these pieces together with a simple example. 
+Say we find a "statistically significant" ($p < 0.05$) difference between two group means from a two-sample t-test.
+In this case, we might be tempted to stop and conclude that the signal is sufficiently strong to conclude that the groups are different from each other. 
+But our test could be incorrect for a variety of reasons.
+Recall, that the p-value is a *probability*, meaning in part that we could be erroneously rejecting the null hypothesis, or that an insignificant result is insignificant due to a small sample size, and so on. 
+
+> This is where statistical power comes in.
+
+Statistical power helps us go the next step and more thoroughly assess the probability that the "significant" result we observed is indeed significant, or detect a cause of an insignificant result (e.g., sample size). 
+In general, *before* beginning a broader analysis, it is a good idea to check for statistical power to ensure that you can trust the results you get from your test(s) downstream, and that your inferences are reliable. 
+  
+So this is where we focus in this vignette, and pay special attention to the ease and role of effect size calculation via the `effectsize` package from _easystats_.
+The following section walks through a simple applied example to ensure 1) the concepts surrounding and involved in power are clear and digestible, and 2) that the role and value of the `effectsize` package are likewise clear and digestible.
+Understanding both of these realities will allow for more complex extensions and applications to a wide array of research problems and questions. 
+
+# Example: Comparing Means of Independent Samples
+
+In addition to relying on the _easystats_ `effectsize` package for effect size calculation, we will also leverage the simple, but excellent `pwr` package for the following implementation of power analysis [@champley2017]. 
+
+```{r}
+library(pwr)
+library(effectsize)
+```
+
+First, let's fit a simple two sample t-test using the mtcars data to explore mean MPG for both transmission groups (`AM`).
+
+```{r}
+t <- t.test(mpg ~ am, data = mtcars)
+```
+
+There are many power tests supported by `pwr` for different contexts, and we encourage you to take a look and select the appropriate one for your application.
+For present purposes of calculating statistical power for our t-test, we will rely on the `pwr.t2n.test()` function. 
+Here's the basic anatomy:
+
+```{r, eval = FALSE}
+pwr.t2n.test(
+  n1 = ..., n2 = ...,
+  d = ...,
+  sig.level = ...,
+  power = ...,
+  alternative = ...
+)
+```
+
+But, before we can get to the power part, we need to collect a few ingredients first, as we can see above. 
+The ingredients we need include:
+
+  - `d`: effect size
+  - `n1` and `n2`: sample size (for each sample)
+  - `sig.level`: significance threshold (e.g., `0.05`)
+  - `alternative`: direction of the t-test (e.g., greater, lesser, two.sided)
+
+(By omitting the `power` argument, we are implying that we want the function to estimate that value for us.)
+
+## Calculate Effect Size
+
+Given the simplicity of this example and the prevalence of Cohen's $d$, we will rely on this effect size index here.
+We have three ways of easily calculating Cohen's $d$ via `effectsize`. 
+
+### Approach 1: `effectsize()`
+
+The first approach is the simplest.
+As previously hinted at, there is a vast literature on different effect size calculations for different applications. 
+So, if you don't want to track down a specific one, or are unaware of options, you can simply pass the statistical test object to `effectsize()`, and either select the `type`, or leave it blank for "cohens_d", which is the default option. 
+
+*Note*, when using the formula interface to `t.test()`, this method (currently) only gives an approximate effect size. 
+So for this first simple approach, we update our test (`t_alt`) and then make a call to `effectsize()`.
+
+```{r eval = FALSE}
+t_alt <- t.test(mtcars$mpg[mtcars$am == 0], mtcars$mpg[mtcars$am == 1])
+
+effectsize(t_alt, type = "cohens_d")
+```
+
+*Note*, users can easily store the value and/or CIs as you'd like via, e.g., `cohens_d <- effectsize(t, type = "cohens_d")[[1]]`. 
+
+### Approach 2: `cohens_d()`
+
+Alternatively, if you knew the index one you wanted to use, you could simply call the associated function directly. For present purposes, we picked Cohen's $d$, so we would call `cohens_d()`. 
+But there are many other indices supported by `effectsize`. For example, see [here](https://easystats.github.io/effectsize/reference/index.html#standardized-differences) for options for standardized differences. Or see [here](https://easystats.github.io/effectsize/reference/index.html#for-contingency-tables) for options for contingency tables. Or see [here](https://easystats.github.io/effectsize/reference/index.html#comparing-multiple-groups) for options for comparing multiple groups, and so on. 
+
+In our simple case here with a t-test, users are encouraged to use `effectsize()` when working with `htest` objects to ensure proper estimation. 
+Therefore, with this second approach of using the "named" function, `cohens_d`, users should pass the data directly to the function instead of the `htest` object (e.g., `cohens_d(t)`). 
+
+```{r eval = FALSE}
+cohens_d(mpg ~ am, data = mtcars)
+```
+
+### Approach 3: `t_to_d()`
+
+When the original underlying data is not available, you may get a warning message like: 
+
+> *Warning: ... Returning an approximate effect size using t_to_d()*
+
+In these cases, the default behavior of `effectsize` is to make a back-up call to `t_to_d()` (or which ever conversion function is appropriate based on the input). 
+This step makes the calculation from the t-test to Cohen's $d$. 
+Given the prevalence of calculating effect sizes for different applications and the many effect size indices available for different contexts, we have anticipated this and baked in this conversion "fail safe" in the architecture of `effectsize` by detecting the input and making the appropriate conversion. 
+There are many conversions available in the package. 
+Take a look [here](https://easystats.github.io/effectsize/reference/index.html#effect-size-conversion).
+
+This can also be done directly by the user using the `t_to_d()` function:
+
+```{r}
+t_to_d(
+  t = t$statistic,
+  df_error = t$parameter
+)
+```
+
+## Statistical Power
+
+Now we are ready to calculate the statistical power of our t-test given that we have collected the essential ingredients. 
+
+For the present application, the effect size obtained from `cohens_d()` (or any of the three approaches previously described) can be passed to the `d` argument.
+
+```{r}
+(result <- cohens_d(mpg ~ am, data = mtcars))
+(Ns <- table(mtcars$am))
+
+pwr.t2n.test(
+  n1 = Ns[1], n2 = Ns[2],
+  d = result[["Cohens_d"]],
+  sig.level = 0.05,
+  alternative = "two.sided"
+)
+```
+
+The results tell us that we are sufficiently powered, with a very high power for each group, `0.999` and `0.990`.
+
+Notice, though, if you were to change the group sample sizes to something very small, say `n = c(2, 2)`, then you would get a much lower power, suggesting that your sample size is too small to detect any reliable signal or to be able to trust your results.
+
+# Example: Contingency Table
+
+<!-- TODO -->
+_To be added._
+
+# Example: ANOVA (and Model Comparisons)
+
+<!-- TODO -->
+_To be added._
+
+# References

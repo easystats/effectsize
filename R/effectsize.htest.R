@@ -107,11 +107,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   dots$alternative <- model$alternative
   dots$ci <- attr(model$conf.int, "conf.level")
   dots$mu <- model$null.value
-  dots$paired <- !grepl("Two", model$method, fixed = TRUE)
+  dots$paired <- grepl("Paired", model$method, fixed = TRUE)
   dots$verbose <- verbose
 
   if (!type %in% c("d", "g")) {
-    .fail_if_approx(approx, "cles")
+    .fail_if_approx(approx, if (startsWith(type, "rm")) "rm_d" else "cles")
   }
 
   if (approx) {
@@ -151,6 +151,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
         d = cohens_d,
         g = hedges_g
       )
+    } else if (dots$paired && startsWith(type, "rm")) {
+      args[c("x", "y")] <- split(args$x, args$y)
+      dots$paired <- args$pooled_sd <- NULL
+      args$method <- gsub("^rm\\_", "", type)
+      f <- rm_d
     } else {
       if (!dots$paired && !args$pooled_sd) {
         insight::format_error("Common language effect size only applicable to Cohen's d with pooled SD.")

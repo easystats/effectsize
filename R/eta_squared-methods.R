@@ -110,7 +110,7 @@
     within <- names(model$idata)
     within <- lapply(within, function(x) c(NA, x))
     within <- do.call(expand.grid, within)
-    within <- apply(within, 1, na.omit)
+    within <- apply(within, 1, stats::na.omit)
     ns <- sapply(within, length)
     within <- sapply(within, paste, collapse = ":")
     within <- within[order(ns)]
@@ -179,7 +179,6 @@
 #' @keywords internal
 .anova_es.anova.lme <- .anova_es.anova
 
-#' @importFrom stats na.omit
 #' @keywords internal
 .anova_es.parameters_model <- function(model,
                                        type = c("eta", "omega", "epsilon"),
@@ -249,8 +248,6 @@
 # Specific models ---------------------------------------------------------
 
 #' @keywords internal
-#' @importFrom stats aov
-#' @importFrom utils packageVersion
 .anova_es.maov <- function(model,
                            type = c("eta", "omega", "epsilon"),
                            partial = TRUE,
@@ -354,13 +351,16 @@
   model <- stats::anova(model)
 
   p.table <- as.data.frame(model$pTerms.table)
+  p.table$Component <- "conditional"
   s.table <- as.data.frame(model$s.table)
+  s.table$Component <- "smooth_terms"
+  colnames(s.table)[colnames(s.table) == "Ref.df"] <- "df"
   s.table[setdiff(colnames(p.table), colnames(s.table))] <- NA
   p.table[setdiff(colnames(s.table), colnames(p.table))] <- NA
   tab <- rbind(p.table, s.table)
-  colnames(tab)[colnames(tab) == "F"] <- "F-value"
   colnames(tab)[colnames(tab) == "df"] <- "npar"
   tab$df_error <- model$residual.df
+  # tab$df_error <- Inf
 
   out <-
     .anova_es.anova(
@@ -371,6 +371,8 @@
       ci = ci, alternative = alternative,
       verbose = verbose
     )
+  out$Component <- tab$Component
+  out <- datawizard::data_relocate(out, select = "Component", before = 1)
 
   attr(out, "anova_type") <- 3
   attr(out, "approximate") <- TRUE

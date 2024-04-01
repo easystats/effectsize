@@ -93,4 +93,9 @@ test_that("eta2", {
   expect_equal(resf[[1]]^2, res[[1]] / (1 - res[[1]]), ignore_attr = TRUE)
   expect_equal(F_to_f(4, 3, 123), F_to_f2(4, 3, 123, squared = FALSE))
   expect_equal(F_to_f2(4, 3, 123), F_to_f(4, 3, 123, squared = TRUE))
+
+  res <- F_to_eta2(3.23, 1, 137)
+  expect_equal(res[[1]], 3.23 / (3.23 + 137))
+  expect_equal(res$CI_low, 0)
+  expect_equal(res$CI_high, 1)
 })

@@ -1,5 +1,7 @@
 # NCP -------------------------
 
+# TODO: other packages like lmeInfo, MOTE and others use qt/qf for these.
+
 #' @keywords internal
 .get_ncp_F <- function(f, df, df_error, conf.level = 0.9) {
   if (!is.finite(f) || !is.finite(df) || !is.finite(df_error)) {
@@ -13,10 +15,8 @@
   ncp <- suppressWarnings(stats::optim(
     par = 1.1 * rep(lambda, 2),
     fn = function(x) {
-      p <- stats::pf(q = f, df, df_error, ncp = x)
-
-      abs(max(p) - probs[2]) +
-        abs(min(p) - probs[1])
+      q <- stats::qf(p = probs, df, df_error, ncp = x)
+      sum(abs(q - f))
     },
     control = list(abstol = 1e-09)
   ))
@@ -35,10 +35,9 @@
 
 #' @keywords internal
 .get_ncp_t <- function(t, df_error, conf.level = 0.95) {
-  # # Note: these aren't actually needed - all t related functions would fail earlier
-  # if (!is.finite(t) || !is.finite(df_error)) {
-  #   return(c(NA, NA))
-  # }
+  if (!is.finite(t) || !is.finite(df_error)) {
+    return(c(NA, NA))
+  }
 
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)
@@ -46,45 +45,41 @@
   ncp <- suppressWarnings(stats::optim(
     par = 1.1 * rep(t, 2),
     fn = function(x) {
-      p <- stats::pt(q = t, df = df_error, ncp = x)
-
-      abs(max(p) - probs[2]) +
-        abs(min(p) - probs[1])
+      q <- stats::qt(p = probs, df = df_error, ncp = x)
+      sum(abs(q - t))
     },
     control = list(abstol = 1e-09)
   ))
+
   t_ncp <- unname(sort(ncp$par))
 
   return(t_ncp)
 }
 
 #' @keywords internals
-.get_ncp_chi <- function(chi, df, conf.level = 0.95) {
-  # # Note: these aren't actually needed - all chisq related functions would fail earlier
-  # if (!is.finite(chi) || !is.finite(df)) {
-  #   return(c(NA, NA))
-  # }
+.get_ncp_chi <- function(chisq, df, conf.level = 0.95) {
+  if (!is.finite(chisq) || !is.finite(df)) {
+    return(c(NA, NA))
+  }
 
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)
 
   ncp <- suppressWarnings(stats::optim(
-    par = 1.1 * rep(chi, 2),
+    par = 1.1 * rep(chisq, 2),
     fn = function(x) {
-      p <- stats::pchisq(q = chi, df, ncp = x)
-
-      abs(max(p) - probs[2]) +
-        abs(min(p) - probs[1])
+      q <- stats::qchisq(p = probs, df, ncp = x)
+      sum(abs(q - chisq))
     },
     control = list(abstol = 1e-09)
   ))
   chi_ncp <- sort(ncp$par)
 
-  if (chi <= stats::qchisq(probs[1], df)) {
+  if (chisq <= stats::qchisq(probs[1], df)) {
     chi_ncp[2] <- 0
   }
 
-  if (chi <= stats::qchisq(probs[2], df)) {
+  if (chisq <= stats::qchisq(probs[2], df)) {
     chi_ncp[1] <- 0
   }
 

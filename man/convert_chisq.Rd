@@ -82,8 +82,8 @@ Defaults to \code{TRUE}; Advisable for small samples and large tables.}
 
 \item{alternative}{a character string specifying the alternative hypothesis;
 Controls the type of CI returned: \code{"greater"} (default) or \code{"less"}
-(one-sided CI), or \code{"two.sided"} (default, two-sided CI). Partial matching
-is allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in
+(one-sided CI), or \code{"two.sided"} (two-sided CI). Partial matching is
+allowed (e.g., \code{"g"}, \code{"l"}, \code{"two"}...). See \emph{One-Sided CIs} in
 \link{effectsize_CIs}.}
 
 \item{...}{Arguments passed to or from other methods.}
@@ -127,7 +127,8 @@ Where \eqn{p_E} are the expected probabilities.
 
 \deqn{\textrm{Pearson's } C = \sqrt{\chi^2 / (\chi^2 + n)}}{Pearson's C = sqrt(\chi^2 / (\chi^2 + n))}
 
-For versions adjusted for small-sample bias of \eqn{\phi}, \eqn{V}, and \eqn{T}, see \href{https://en.wikipedia.org/wiki/Cram\%C3\%A9r\%27s_V#Bias_correction}{Bergsma, 2013}.
+For versions adjusted for small-sample bias of \eqn{\phi}, \eqn{V}, and \eqn{T},
+see \href{https://en.wikipedia.org/wiki/Cram\%C3\%A9r\%27s_V#Bias_correction}{Bergsma, 2013}.
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
 Unless stated otherwise, confidence (compatibility) intervals (CIs) are

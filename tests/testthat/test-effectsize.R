@@ -16,9 +16,6 @@ test_that("t-test", {
   model <- t.test(x, y, alternative = "less", conf.level = 0.8)
   expect_equal(effectsize(model), cohens_d(x, y, pooled_sd = FALSE, alternative = "less", ci = 0.8), ignore_attr = TRUE)
 
-  model <- t.test(x, y, paired = TRUE)
-  expect_equal(effectsize(model), cohens_d(x, y, paired = TRUE), ignore_attr = TRUE)
-
   model <- t.test(x, y, var.equal = TRUE)
   expect_equal(effectsize(model), cohens_d(x, y), ignore_attr = TRUE)
 
@@ -36,7 +33,6 @@ test_that("t-test", {
     ignore_attr = TRUE
   )
 
-
   # one sample
   z <<- mtcars$wt
   model <- t.test(z, mu = 3, var.equal = TRUE)
@@ -44,6 +40,23 @@ test_that("t-test", {
     cohens_d(z, mu = 3),
     ignore_attr = TRUE
   )
+
+  ## Paired sample
+  model <- t.test(x, y, paired = TRUE)
+  expect_equal(effectsize(model, verbose = FALSE), cohens_d(x, y, paired = TRUE, verbose = FALSE), ignore_attr = TRUE)
+
+  sleep2 <<- reshape(sleep,
+    direction = "wide",
+    idvar = "ID", timevar = "group"
+  )
+  tt <- t.test(sleep2$extra.1, sleep2$extra.2, paired = TRUE)
+
+  es1 <- effectsize(tt, type = "rm_b")
+  es2 <- rm_d(tt, method = "b")
+  es <- rm_d(sleep2$extra.1, sleep2$extra.2, method = "b")
+  expect_equal(es1, es, ignore_attr = TRUE)
+  expect_equal(es2, es, ignore_attr = TRUE)
+
 
   ## Missing
   y <<- rnorm(12)
@@ -252,14 +265,56 @@ test_that("htest | rank", {
 })
 
 test_that("htest | Get args from htest", {
-  tt <- t.test(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3, conf.level = 0.8, var.equal = TRUE)
-  expect_equal(cohens_d(tt), cohens_d(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3, ci = 0.8), ignore_attr = TRUE)
+  tt <- t.test(
+    mtcars$hp,
+    mtcars$mpg,
+    alternative = "l",
+    mu = -3,
+    conf.level = 0.8,
+    var.equal = TRUE
+  )
+  expect_equal(
+    cohens_d(tt),
+    cohens_d(
+      mtcars$hp,
+      mtcars$mpg,
+      alternative = "l",
+      mu = -3,
+      ci = 0.8
+    ),
+    ignore_attr = TRUE
+  )
 
-  suppressWarnings(ww1 <- wilcox.test(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3))
-  expect_equal(rank_biserial(ww1), rank_biserial(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3), ignore_attr = TRUE)
+  suppressWarnings({
+    ww1 <- wilcox.test(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3)
+  })
+  expect_equal(
+    rank_biserial(ww1),
+    rank_biserial(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3),
+    ignore_attr = TRUE
+  )
 
-  suppressWarnings(ww2 <- wilcox.test(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3, conf.int = TRUE, conf.level = 0.8))
-  expect_equal(rank_biserial(ww2), rank_biserial(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3, ci = 0.8), ignore_attr = TRUE)
+  suppressWarnings({
+    ww2 <- wilcox.test(
+      mtcars$hp,
+      mtcars$mpg,
+      alternative = "l",
+      mu = -3,
+      conf.int = TRUE,
+      conf.level = 0.8
+    )
+  })
+  expect_equal(
+    rank_biserial(ww2),
+    rank_biserial(
+      mtcars$hp,
+      mtcars$mpg,
+      alternative = "l",
+      mu = -3,
+      ci = 0.8
+    ),
+    ignore_attr = TRUE
+  )
 })
 
 

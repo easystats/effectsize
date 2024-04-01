@@ -3,7 +3,6 @@
 \docType{package}
 \name{effectsize-package}
 \alias{effectsize-package}
-\alias{_PACKAGE}
 \title{effectsize: Indices of Effect Size}
 \description{
 In both theoretical and applied research, it is often of interest to assess
@@ -20,8 +19,9 @@ and their confidence intervals (CIs), from a variety of statistical models
 and hypothesis tests, such as \code{\link[=cohens_d]{cohens_d()}}, \code{\link[=phi]{phi()}}, \code{\link[=eta_squared]{eta_squared()}}, and
 many more.
 
-See \href{https://easystats.github.io/effectsize/articles/effectsize.html}{\code{vignette("effectsize", package = "effectsize")}} for more details,
-or \href{https://easystats.github.io/effectsize/articles/}{\code{vignette(package = "effectsize")}} for a full list of vignettes.
+See \href{https://easystats.github.io/effectsize/articles/effectsize.html}{\code{vignette("effectsize", package = "effectsize")}}
+for more details, or \href{https://easystats.github.io/effectsize/articles/}{\code{vignette(package = "effectsize")}}
+for a full list of vignettes.
 
 References: Ben-Shachar et al. (2020) \doi{10.21105/joss.02815}.
 }
@@ -46,6 +46,7 @@ Authors:
   \item Indrajeet Patil \email{patilindrajeet.science@gmail.com} (\href{https://orcid.org/0000-0003-1995-6531}{ORCID}) (@patilindrajeets)
   \item Brenton M. Wiernik \email{brenton@wiernik.org} (\href{https://orcid.org/0000-0001-9560-6336}{ORCID}) (@bmwiernik)
   \item Rémi Thériault \email{remi.theriault@mail.mcgill.ca} (\href{https://orcid.org/0000-0003-4315-6788}{ORCID}) (@rempsyc)
+  \item Philip Waggoner \email{philip.waggoner@gmail.com} (\href{https://orcid.org/0000-0002-7825-7573}{ORCID}) [contributor]
 }
 
 Other contributors:

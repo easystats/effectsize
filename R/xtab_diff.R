@@ -14,10 +14,9 @@
 #' @inheritParams oddsratio_to_d
 #' @inheritParams phi
 #' @param alternative a character string specifying the alternative hypothesis;
-#'   Controls the type of CI returned: `"two.sided"` (two-sided CI; default),
-#'   `"greater"` (one-sided CI) or `"less"` (one-sided CI). Partial matching is
-#'   allowed (e.g., `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in
-#'   [effectsize_CIs].
+#'   Controls the type of CI returned: `"two.sided"` (default, two-sided CI),
+#'   `"greater"` or `"less"` (one-sided CI). Partial matching is allowed (e.g.,
+#'   `"g"`, `"l"`, `"two"`...). See *One-Sided CIs* in [effectsize_CIs].
 #' @param ... Ignored
 #'
 #' @details
@@ -295,7 +294,7 @@ arr <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
 nnt <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   alternative <- .match.alt(alternative)
 
-  flip_alt <- c("less" = "greater", "greater" = "less", "two.sided" = "two.sided")
+  flip_alt <- c(less = "greater", greater = "less", two.sided = "two.sided")
   alternative2 <- unname(flip_alt[alternative])
 
   if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
@@ -304,7 +303,7 @@ nnt <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
     return(effectsize(x, type = "nnt", ci = ci, ...))
   }
 
-  out <- arr(x, y = t, ci = ci, alternative = alternative2, ...)
+  out <- arr(x, y = y, ci = ci, alternative = alternative2, ...)
   out[[1]] <- 1 / out[[1]]
   colnames(out)[1] <- "NNT"
 

@@ -7,6 +7,9 @@
 #' any reported [`stats::t.test()`] or [`stats::wilcox.test()`].
 #'
 #' @inheritParams cohens_d
+#' @param paired If `TRUE`, the values of `x` and `y` are considered as paired.
+#'   This produces an effect size that is equivalent to the one-sample effect
+#'   size on `x - y`.
 #' @param parametric Use parametric estimation (see [cohens_d()]) or
 #'   non-parametric estimation (see [rank_biserial()]). See details.
 #' @param iterations The number of bootstrap replicates for computing confidence
@@ -123,8 +126,13 @@ p_superiority <- function(x, y = NULL, data = NULL,
   )
   x <- data[["x"]]
   y <- data[["y"]]
+  paired <- data[["paired"]]
 
   if (parametric) {
+    if (paired) {
+      x <- x - y
+      y <- NULL
+    }
     d <- cohens_d(
       x = x,
       y = y,
@@ -162,14 +170,15 @@ cohens_u1 <- function(x, y = NULL, data = NULL,
     return(effectsize(x, type = "u1", ci = ci, verbose = verbose, ...))
   }
 
-
   data <- .get_data_2_samples(x, y, data,
     allow_ordered = !parametric,
     verbose = verbose, ...
   )
   x <- data[["x"]]
   y <- data[["y"]]
-  if (is.null(y)) insight::format_error("cohens_u3 only applicable to two sample case.")
+  if (is.null(y) || isTRUE(match.call()$paired) || isTRUE(data[["paired"]])) {
+    insight::format_error("This effect size is only applicable for two independent samples.")
+  }
 
   if (!parametric) {
     insight::format_error("Cohen's U1 only available for parametric estimation.")
@@ -202,14 +211,15 @@ cohens_u2 <- function(x, y = NULL, data = NULL,
     return(effectsize(x, type = "u2", ci = ci, verbose = verbose, ...))
   }
 
-
   data <- .get_data_2_samples(x, y, data,
     allow_ordered = !parametric,
     verbose = verbose, ...
   )
   x <- data[["x"]]
   y <- data[["y"]]
-  if (is.null(y)) insight::format_error("cohens_u3 only applicable to two sample case.")
+  if (is.null(y) || isTRUE(match.call()$paired) || isTRUE(data[["paired"]])) {
+    insight::format_error("This effect size is only applicable for two independent samples.")
+  }
 
   if (parametric) {
     d <- cohens_d(
@@ -253,7 +263,9 @@ cohens_u3 <- function(x, y = NULL, data = NULL,
   )
   x <- data[["x"]]
   y <- data[["y"]]
-  if (is.null(y)) insight::format_error("cohens_u3 only applicable to two sample case.")
+  if (is.null(y) || isTRUE(match.call()$paired) || isTRUE(data[["paired"]])) {
+    insight::format_error("This effect size is only applicable for two independent samples.")
+  }
 
   if (parametric) {
     d <- cohens_d(
@@ -289,14 +301,15 @@ p_overlap <- function(x, y = NULL, data = NULL,
     return(effectsize(x, type = "overlap", ci = ci, verbose = verbose, ...))
   }
 
-
   data <- .get_data_2_samples(x, y, data,
     allow_ordered = !parametric,
     verbose = verbose, ...
   )
   x <- data[["x"]]
   y <- data[["y"]]
-  if (is.null(y)) insight::format_error("Overlap only applicable to two sample case.")
+  if (is.null(y) || isTRUE(match.call()$paired) || isTRUE(data[["paired"]])) {
+    insight::format_error("This effect size is only applicable for two independent samples.")
+  }
 
   if (parametric) {
     d <- cohens_d(

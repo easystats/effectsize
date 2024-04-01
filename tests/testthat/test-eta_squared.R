@@ -516,19 +516,47 @@ test_that("afex | mixed()", {
   # Intercept
   data("stroop", package = "afex")
   stroop <- subset(stroop, study == 1 & acc == 1 & trialnum < 20)
-  suppressMessages(m1 <- afex::mixed(rt ~ condition + (condition | pno), data = stroop, method = "KR"))
-  suppressMessages(m2 <- afex::mixed(rt ~ condition + (condition | pno), data = stroop, test_intercept = TRUE, method = "KR"))
+  suppressMessages({
+    m1 <- afex::mixed(rt ~ condition + (condition | pno), data = stroop, method = "KR")
+  })
+  suppressMessages({
+    m2 <- afex::mixed(rt ~ condition + (condition | pno),
+      data = stroop,
+      test_intercept = TRUE,
+      method = "KR"
+    )
+  })
 
-  expect_warning(a1a <- eta_squared(m1, include_intercept = TRUE), regexp = "Intercept")
-  expect_warning(a1b <- eta_squared(m1, include_intercept = FALSE), regexp = NA)
+  expect_warning(
+    {
+      a1a <- eta_squared(m1, include_intercept = TRUE)
+    },
+    regexp = "Intercept"
+  )
+  expect_warning(
+    {
+      a1b <- eta_squared(m1, include_intercept = FALSE)
+    },
+    regexp = NA
+  )
   expect_equal(a1a, a1b)
   expect_equal(nrow(a1a), 1L)
 
-  expect_warning(a2a <- eta_squared(m2, include_intercept = TRUE), regexp = NA)
-  expect_warning(a2b <- eta_squared(m2, include_intercept = FALSE), regexp = NA)
+  expect_warning(
+    {
+      a2a <- eta_squared(m2, include_intercept = TRUE)
+    },
+    regexp = NA
+  )
+  expect_warning(
+    {
+      a2b <- eta_squared(m2, include_intercept = FALSE)
+    },
+    regexp = NA
+  )
   expect_equal(nrow(a2a), 2L)
   expect_equal(nrow(a2b), 1L)
-  expect_equal(a1a, a2a[2, ], ignore_attr = TRUE)
+  expect_equal(a1a, a2a[2L, ], ignore_attr = TRUE)
 })
 
 
@@ -546,17 +574,18 @@ test_that("car MVM", {
     id = 1:8
   )
 
-  ds_long <-
-    datawizard::reshape_longer(ds,
-      select = 1:4,
-      names_to = "ind_var",
-      values_to = "score"
-    )
+  ds_long <- datawizard::reshape_longer(ds,
+    select = 1:4,
+    names_to = "ind_var",
+    values_to = "score"
+  )
 
 
   fit <- lm(cbind(I, II, III, IV) ~ 1, data = ds)
-  in_rep <- data.frame(ind_var = gl(4, 1))
-  suppressMessages(A_car <- car::Anova(fit, idata = in_rep, idesign = ~ind_var))
+  in_rep <- data.frame(ind_var = gl(4L, 1L))
+  suppressMessages({
+    A_car <- car::Anova(fit, idata = in_rep, idesign = ~ind_var)
+  })
 
   eta_car <- effectsize::eta_squared(A_car, ci = NULL)[[2]]
 
@@ -570,11 +599,13 @@ test_that("car MVM", {
   # Complex ---
   data(obk.long, package = "afex")
 
-  suppressMessages(mod <- afex::aov_ez("id", "value", obk.long,
-    between = c("treatment", "gender"),
-    within = c("phase", "hour"),
-    observed = "gender"
-  ))
+  suppressMessages({
+    mod <- afex::aov_ez("id", "value", obk.long,
+      between = c("treatment", "gender"),
+      within = c("phase", "hour"),
+      observed = "gender"
+    )
+  })
   expect_equal(
     sort(eta_squared(mod$Anova, generalized = "gender")[[2]]),
     sort(mod$anova_table$ges)
@@ -592,7 +623,7 @@ test_that("Anova.mlm Manova", {
 
   mod <- lm(cbind(mpg, qsec, disp) ~ am_f * cyl_f, data = mtcars)
 
-  Manova <- car::Manova(mod, type = 2)
+  Manova <- car::Manova(mod, type = 2L)
 
   expect_true(is.null(summary(Manova, univariate = TRUE)[["univariate.tests"]]))
   expect_error(eta_squared(Manova), regexp = NA)
@@ -622,8 +653,8 @@ test_that("merMod and lmerModLmerTest", {
 
   data("sleepstudy", package = "lme4")
 
-  m <- lme4::lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
-  mtest <- lmerTest::lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
+  m <- lme4::lmer(Reaction ~ Days + (Days | Subject), data = sleepstudy)
+  mtest <- lmerTest::lmer(Reaction ~ Days + (Days | Subject), data = sleepstudy)
 
   expect_equal(
     eta_squared(m),
@@ -660,6 +691,7 @@ test_that("ets_squared | gam", {
   b <- mgcv::gam(y ~ x0 + s(x1) + s(x2) + t2(x1, x2) + s(x3), data = dat)
 
   expect_error(out <- eta_squared(b), regexp = NA)
+  expect_warning(eta_squared(b), regexp = NA)
   expect_output(print(out), "Type III")
 })
 
@@ -675,7 +707,7 @@ test_that("ets_squared | rms", {
 
   skip_if_not_installed("car")
   skip_if_not_installed("base", minimum_version = "3.6.1")
-  b_lm <- car::Anova(lm(mpg ~ cyl + am, data = mtcars), type = 2)
+  b_lm <- car::Anova(lm(mpg ~ cyl + am, data = mtcars), type = 2L)
   out_lm <- eta_squared(b_lm)
   expect_equal(out[1:2, ], out_lm, ignore_attr = TRUE)
 })

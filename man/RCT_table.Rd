@@ -20,11 +20,12 @@ Fictional Results from a Workers' Randomized Control Trial
 }
 \seealso{
 Other effect size datasets: 
-\code{\link{Music_preferences2}},
 \code{\link{Music_preferences}},
+\code{\link{Music_preferences2}},
 \code{\link{Smoking_FASD}},
 \code{\link{food_class}},
 \code{\link{hardlyworking}},
+\code{\link{rouder2016}},
 \code{\link{screening_test}}
 }
 \concept{effect size datasets}

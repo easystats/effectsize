@@ -27,12 +27,13 @@ A sample (simulated) dataset, used in tests and some examples.
 }
 \seealso{
 Other effect size datasets: 
-\code{\link{Music_preferences2}},
 \code{\link{Music_preferences}},
+\code{\link{Music_preferences2}},
 \code{\link{RCT_table}},
 \code{\link{Smoking_FASD}},
 \code{\link{food_class}},
-\code{\link{hardlyworking}}
+\code{\link{hardlyworking}},
+\code{\link{rouder2016}}
 }
 \concept{effect size datasets}
 \keyword{data}

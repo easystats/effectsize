@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size
-Version: 0.8.5
+Version: 0.8.7
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
@@ -53,29 +53,34 @@ Authors@R:
              family = "Karreth",
              role = "rev",
              email = "jkarreth@ursinus.edu",
-             comment = c(ORCID = "0000-0003-4586-7153")))
+             comment = c(ORCID = "0000-0003-4586-7153")),
+      person(given = "Philip",
+             family = "Waggoner",
+             role = c("aut", "ctb"),
+             email = "philip.waggoner@gmail.com",
+             comment = c(ORCID = "0000-0002-7825-7573")))
 Maintainer: Mattan S. Ben-Shachar <mattansb@msbstats.info>
 Description: Provide utilities to work with indices of effect size for a wide 
     variety of models and hypothesis tests (see list of supported models using 
     the function 'insight::supported_models()'), allowing computation of and 
     conversion between indices such as Cohen's d, r, odds, etc.
     References: Ben-Shachar et al. (2020) <doi:10.21105/joss.02815>.
-License: GPL-3
+License: MIT + file LICENSE
 URL: https://easystats.github.io/effectsize/
 BugReports: https://github.com/easystats/effectsize/issues/
 Depends:
     R (>= 3.6)
 Imports:
-    bayestestR (>= 0.13.0),
-    insight (>= 0.19.3.2),
-    parameters (>= 0.20.2),
-    performance (>= 0.10.2),
-    datawizard (>= 0.6.5),
+    bayestestR (>= 0.13.2),
+    insight (>= 0.19.9),
+    parameters (>= 0.21.6),
+    performance (>= 0.11.0),
+    datawizard (>= 0.9.1),
     stats,
     utils
 Suggests:
-    correlation (>= 0.8.3),
-    see (>= 0.7.4),
+    correlation (>= 0.8.4),
+    see (>= 0.8.0),
     afex,
     BayesFactor,
     boot,
@@ -100,11 +105,10 @@ VignetteBuilder:
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3.9000
+RoxygenNote: 7.3.1
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Config/Needs/website:
     rstudio/bslib,
     r-lib/pkgdown,
     easystats/easystatstemplate
-Remotes: easystats/insight

@@ -25,6 +25,7 @@ Other effect size datasets:
 \code{\link{Smoking_FASD}},
 \code{\link{food_class}},
 \code{\link{hardlyworking}},
+\code{\link{rouder2016}},
 \code{\link{screening_test}}
 }
 \concept{effect size datasets}
