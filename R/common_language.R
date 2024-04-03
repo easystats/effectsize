@@ -340,7 +340,7 @@ vd_a <- function(x, y = NULL, data = NULL,
                  ci = 0.95, alternative = "two.sided",
                  verbose = TRUE, ...) {
   cl <- match.call()
-  cl[[1]] <- quote(p_superiority)
+  cl[[1]] <- quote(effectsize::p_superiority)
   cl$parametric <- FALSE
   eval.parent(cl)
 }
@@ -353,11 +353,12 @@ wmw_odds <- function(x, y = NULL, data = NULL,
                      ci = 0.95, alternative = "two.sided",
                      verbose = TRUE, ...) {
   cl <- match.call()
-  cl[[1]] <- quote(rank_biserial)
+  cl[[1]] <- quote(effectsize::rank_biserial)
   out <- eval.parent(cl)
 
   rb_to_wmw_odds(out)
 }
+
 
 
 

@@ -220,7 +220,7 @@ cliffs_delta <- function(x, y = NULL, data = NULL,
     insight::format_error("This effect size is only applicable for two independent samples.")
   }
 
-  cl[[1]] <- quote(rank_biserial)
+  cl[[1]] <- quote(effectsize::rank_biserial)
   cl$x <- x
   cl$y <- y
   eval.parent(cl)

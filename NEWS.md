@@ -1,3 +1,9 @@
+# effectsize 0.8.7.x
+
+## Bug fixes
+
+- `hedges_g()`, `vd_a()`, `wmw_odds()`, and `cliffs_delta()` no longer require `{effectsize}` to be loaded to work ( #636 ).
+
 # effectsize 0.8.7
 
 - This release changes the licensing model of `{effectsize}` to an MIT license.
