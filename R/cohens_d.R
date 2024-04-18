@@ -160,7 +160,7 @@ hedges_g <- function(x, y = NULL, data = NULL,
                      ci = 0.95, alternative = "two.sided",
                      verbose = TRUE, ...) {
   cl <- match.call()
-  cl[[1]] <- quote(cohens_d)
+  cl[[1]] <- quote(effectsize::cohens_d)
   cl$adjust <- TRUE
   eval.parent(cl)
 }
