@@ -3,7 +3,6 @@
 \docType{package}
 \name{effectsize-package}
 \alias{effectsize-package}
-\alias{_PACKAGE}
 \title{effectsize: Indices of Effect Size}
 \description{
 In both theoretical and applied research, it is often of interest to assess

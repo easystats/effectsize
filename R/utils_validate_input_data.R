@@ -12,7 +12,7 @@
     if (length(x) != 3L) {
       insight::format_error(
         "Formula must have one of the following forms:",
-        "          y ~ group   (independant samples)",
+        "          y ~ group   (independent samples)",
         "          y ~ 1       (one sample)",
         "  Pair(x,y) ~ 1       (paired samples)"
       )

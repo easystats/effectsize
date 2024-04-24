@@ -79,7 +79,7 @@ So this is where we focus in this vignette, and pay special attention to the eas
 The following section walks through a simple applied example to ensure 1) the concepts surrounding and involved in power are clear and digestible, and 2) that the role and value of the `effectsize` package are likewise clear and digestible.
 Understanding both of these realities will allow for more complex extensions and applications to a wide array of research problems and questions. 
 
-# Example: Comparing Means of Independant Samples
+# Example: Comparing Means of Independent Samples
 
 In addition to relying on the _easystats_ `effectsize` package for effect size calculation, we will also leverage the simple, but excellent `pwr` package for the following implementation of power analysis [@champley2017]. 
 
@@ -164,7 +164,7 @@ Given the prevalence of calculating effect sizes for different applications and 
 There are many conversions available in the package. 
 Take a look [here](https://easystats.github.io/effectsize/reference/index.html#effect-size-conversion).
 
-This can also be dne directly by the user using the `t_to_d()` function:
+This can also be done directly by the user using the `t_to_d()` function:
 
 ```{r}
 t_to_d(
