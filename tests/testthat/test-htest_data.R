@@ -274,33 +274,35 @@ test_that("subset and na.action", {
   # necessary here.
 
   # paired t-test with formula
-  before <- c(200.1, 190.9, 192.7, 213, 241.4, 196.9, 172.2, 185.5, NA, 999)
-  after <- c(392.9, 393.2, 345.1, 393, 434, 427.9, 422, 383.9, NA, 999)
-  my_data <- data.frame(
-    group = rep(c("before", "after"), each = 10),
-    weight = c(before, after),
-    stringsAsFactors = FALSE
-  )
-
-  res <- t.test(weight ~ group,
-    data = my_data, paired = TRUE,
-    alternative = "less", na.omit = TRUE
-  )
-
-  d1 <- effectsize(
-    res,
-    data = my_data,
-    subset = weight < 999,
-    na.action = na.omit
-  )
-
-  d2 <- cohens_d(weight ~ group,
-    data = my_data,
-    paired = TRUE,
-    alternative = "less",
-    subset = weight < 999,
-    na.action = na.omit
-  )
-
-  expect_equal(d1, d2, ignore_attr = TRUE)
+  # Removing this test because paired t-test with formula isn't supported anymore
+  #
+  # before <- c(200.1, 190.9, 192.7, 213, 241.4, 196.9, 172.2, 185.5, NA, 999)
+  # after <- c(392.9, 393.2, 345.1, 393, 434, 427.9, 422, 383.9, NA, 999)
+  # my_data <- data.frame(
+  #   group = rep(c("before", "after"), each = 10),
+  #   weight = c(before, after),
+  #   stringsAsFactors = FALSE
+  # )
+  #
+  # res <- t.test(weight ~ group,
+  #   data = my_data, paired = TRUE,
+  #   alternative = "less", na.omit = TRUE
+  # )
+  #
+  # d1 <- effectsize(
+  #   res,
+  #   data = my_data,
+  #   subset = weight < 999,
+  #   na.action = na.omit
+  # )
+  #
+  # d2 <- cohens_d(weight ~ group,
+  #   data = my_data,
+  #   paired = TRUE,
+  #   alternative = "less",
+  #   subset = weight < 999,
+  #   na.action = na.omit
+  # )
+  #
+  # expect_equal(d1, d2, ignore_attr = TRUE)
 })
