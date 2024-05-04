@@ -234,7 +234,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
     hn <- 1 / n
     se <- s / sqrt(n)
-    df <- n - 1
+    df1 <- n - 1
 
     pooled_sd <- NULL
   } else {
@@ -252,14 +252,14 @@ glass_delta <- function(x, y = NULL, data = NULL,
         s <- suppressWarnings(sd_pooled(x, y))
         hn <- (1 / n1 + 1 / n2)
         se <- s * sqrt(1 / n1 + 1 / n2)
-        df <- n - 2
+        df1 <- n - 2
       } else {
         s <- sqrt((s1^2 + s2^2) / 2)
         hn <- (2 * (n2 * s1^2 + n1 * s2^2)) / (n1 * n2 * (s1^2 + s2^2))
         se1 <- sqrt(s1^2 / n1)
         se2 <- sqrt(s2^2 / n2)
         se <- sqrt(se1^2 + se2^2)
-        df <- se^4 / (se1^4 / (n1 - 1) + se2^4 / (n2 - 1))
+        df1 <- se^4 / (se1^4 / (n1 - 1) + se2^4 / (n2 - 1))
       }
     } else if (type == "delta") {
       pooled_sd <- NULL
@@ -267,7 +267,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
       s <- s2
       hn <- 1 / n2 + s1^2 / (n1 * s2^2)
       se <- (s2 * sqrt(1 / n2 + s1^2 / (n1 * s2^2)))
-      df <- n2 - 1
+      df1 <- n2 - 1
     }
   }
 
@@ -280,11 +280,11 @@ glass_delta <- function(x, y = NULL, data = NULL,
     out$CI <- ci
     ci_level <- .adjust_ci(ci, alternative)
 
-    t <- (d - mu) / se
-    ts <- .get_ncp_t(t, df, ci_level)
+    t1 <- (d - mu) / se
+    ts1 <- .get_ncp_t(t1, df1, ci_level)
 
-    out$CI_low <- ts[1] * sqrt(hn)
-    out$CI_high <- ts[2] * sqrt(hn)
+    out$CI_low <- ts1[1] * sqrt(hn)
+    out$CI_high <- ts1[2] * sqrt(hn)
     ci_method <- list(method = "ncp", distribution = "t")
     out <- .limit_ci(out, alternative, -Inf, Inf)
   } else {
@@ -292,7 +292,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
   }
 
   if (adjust) {
-    J <- .J(df)
+    J <- .J(df1)
     col_to_adjust <- intersect(colnames(out), c(types[type], "CI_low", "CI_high"))
     out[, col_to_adjust] <- out[, col_to_adjust] * J
 
@@ -310,6 +310,6 @@ glass_delta <- function(x, y = NULL, data = NULL,
 }
 
 #' @keywords internal
-.J <- function(df) {
-  exp(lgamma(df / 2) - log(sqrt(df / 2)) - lgamma((df - 1) / 2)) # exact method
+.J <- function(df1) {
+  exp(lgamma(df1 / 2) - log(sqrt(df1 / 2)) - lgamma((df1 - 1) / 2)) # exact method
 }

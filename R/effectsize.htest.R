@@ -78,10 +78,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     } else if (length(vars_split) == 1) {
       form <- stats::as.formula(paste0(vars, "~1"))
       data_out <- .resolve_formula(form, ...)
-    } else {
-      if (verbose) {
-        message("To use the `data` argument, consider using modifiers outside the formula.")
-      }
+    } else if (verbose) {
+      message("To use the `data` argument, consider using modifiers outside the formula.")
     }
   } else {
     data_out <- model_data
@@ -93,9 +91,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 .effectsize_t.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
   model_data <- insight::get_data(model)
-  data <- .data_from_formula(model_data, model, verbose, ...)
+  data1 <- .data_from_formula(model_data, model, verbose, ...)
 
-  approx <- is.null(data)
+  approx1 <- is.null(data1)
 
   if (is.null(type) || tolower(type) == "cohens_d") type <- "d"
   if (tolower(type) == "hedges_g") type <- "g"
@@ -111,10 +109,10 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   dots$verbose <- verbose
 
   if (!type %in% c("d", "g")) {
-    .fail_if_approx(approx, if (startsWith(type, "rm")) "rm_d" else "cles")
+    .fail_if_approx(approx1, if (startsWith(type, "rm")) "rm_d" else "cles")
   }
 
-  if (approx) {
+  if (approx1) {
     if (verbose) {
       insight::format_warning(
         "Unable to retrieve data from htest object.",
@@ -123,25 +121,25 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     }
 
     f <- t_to_d
-    args <- list(
+    args1 <- list(
       t = unname(model$statistic),
       df_error = unname(model$parameter)
     )
   } else {
-    if (inherits(data, "data.frame") && ncol(data) == 2) {
-      data[[2]] <- factor(data[[2]])
+    if (inherits(data1, "data.frame") && ncol(data1) == 2) {
+      data1[[2]] <- factor(data1[[2]])
     }
-    data <- stats::na.omit(data)
+    data1 <- stats::na.omit(data1)
 
-    if (!inherits(data, "numeric")) {
-      args <- list(
-        x = data[[1]],
-        y = if (length(data) == 2) data[[2]],
+    if (inherits(data1, "numeric")) {
+      args1 <- list(
+        x = data1,
         pooled_sd = !grepl("Welch", model$method, fixed = TRUE)
       )
     } else {
-      args <- list(
-        x = data,
+      args1 <- list(
+        x = data1[[1]],
+        y = if (length(data) == 2) data1[[2]],
         pooled_sd = !grepl("Welch", model$method, fixed = TRUE)
       )
     }
@@ -152,12 +150,12 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
         g = hedges_g
       )
     } else if (dots$paired && startsWith(type, "rm")) {
-      args[c("x", "y")] <- split(args$x, args$y)
-      dots$paired <- args$pooled_sd <- NULL
-      args$method <- gsub("^rm\\_", "", type)
+      args1[c("x", "y")] <- split(args1$x, args1$y)
+      dots$paired <- args1$pooled_sd <- NULL
+      args1$method <- gsub("^rm\\_", "", type)
       f <- rm_d
     } else {
-      if (!dots$paired && !args$pooled_sd) {
+      if (!dots$paired && !args1$pooled_sd) {
         insight::format_error("Common language effect size only applicable to Cohen's d with pooled SD.")
       }
 
@@ -172,8 +170,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     }
   }
 
-  out <- do.call(f, c(args, dots))
-  attr(out, "approximate") <- approx
+  out <- do.call(f, c(args1, dots))
+  attr(out, "approximate") <- approx1
   out
 }
 
@@ -181,10 +179,10 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 .effectsize_chisq.test_dep <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
   model_data <- insight::get_data(model)
-  data <- .data_from_formula(model_data, model, verbose, ...)
+  data1 <- .data_from_formula(model_data, model, verbose, ...)
   dots <- list(...)
 
-  approx <- is.null(data)
+  approx1 <- is.null(data1)
 
   Obs <- model$observed
   Exp <- model$expected
@@ -268,8 +266,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   if (!is.null(model[["conf.int"]])) dots$ci <- attr(model[["conf.int"]], "conf.level")
   if (!is.null(model[["alternative"]])) dots$alternative <- model[["alternative"]]
 
-  data <- insight::get_data(model)
-  .fail_if_approx(is.null(data), type)
+  data1 <- insight::get_data(model)
+  .fail_if_approx(is.null(data1), type)
 
   f <- switch(tolower(type),
     v = ,
@@ -291,23 +289,23 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     nnt = nnt
   )
 
-  if (is.table(data)) {
-    args <- list(x = data)
+  if (is.table(data1)) {
+    args1 <- list(x = data1)
   } else {
-    args <- list(x = data[[1]], y = data[[2]])
+    args1 <- list(x = data1[[1]], y = data1[[2]])
   }
 
-  do.call(f, c(args, dots))
+  do.call(f, c(args1, dots))
 }
 
 #' @keywords internal
 .effectsize_chisq.test_gof <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
   model_data <- insight::get_data(model)
-  data <- .data_from_formula(model_data, model, verbose, ...)
+  data1 <- .data_from_formula(model_data, model, verbose, ...)
   dots <- list(...)
 
-  approx <- is.null(data)
+  approx1 <- is.null(data1)
 
   Obs <- model$observed
   Exp <- model$expected
@@ -343,11 +341,12 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 .effectsize_oneway.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
   model_data <- insight::get_data(model)
-  data <- .data_from_formula(model_data, model, verbose, ...)
+  data1 <- .data_from_formula(model_data, model, verbose, ...)
 
-  approx <- is.null(data)
+  approx1 <- is.null(data1)
 
-  if ((approx <- grepl("not assuming", model$method, fixed = TRUE)) && verbose) {
+  approx1 <- grepl("not assuming", model$method, fixed = TRUE)
+  if (approx1 && verbose) {
     insight::format_alert("`var.equal = FALSE` - effect size is an {.b approximation.}")
   }
 
@@ -378,7 +377,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     ...
   )
   colnames(out)[1] <- sub("_partial", "", colnames(out)[1], fixed = TRUE)
-  attr(out, "approximate") <- approx
+  attr(out, "approximate") <- approx1
   out
 }
 
@@ -386,16 +385,16 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 .effectsize_mcnemar.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
   model_data <- insight::get_data(model)
-  data <- .data_from_formula(model_data, model, verbose, ...)
+  data1 <- .data_from_formula(model_data, model, verbose, ...)
 
-  approx <- is.null(data)
+  approx1 <- is.null(data1)
 
-  .fail_if_approx(approx, "cohens_g")
+  .fail_if_approx(approx1, "cohens_g")
 
-  if (inherits(data, "table")) {
-    out <- cohens_g(data, verbose = verbose, ...)
+  if (inherits(data1, "table")) {
+    out <- cohens_g(data1, verbose = verbose, ...)
   } else {
-    out <- cohens_g(data[[1]], data[[2]], verbose = verbose, ...)
+    out <- cohens_g(data1[[1]], data1[[2]], verbose = verbose, ...)
   }
   out
 }
@@ -404,9 +403,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 .effectsize_wilcox.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
   model_data <- insight::get_data(model)
-  data <- .data_from_formula(model_data, model, verbose, ...)
+  data1 <- .data_from_formula(model_data, model, verbose, ...)
 
-  approx <- is.null(data)
+  approx1 <- is.null(data1)
 
   if (is.null(type) || tolower(type) == "rank_biserial") type <- "rb"
 
@@ -419,12 +418,12 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   dots$mu <- model$null.value
   dots$paired <- grepl("signed rank", model$method, fixed = TRUE)
 
-  .fail_if_approx(approx, type)
+  .fail_if_approx(approx1, type)
 
-  if (ncol(data) == 2) {
-    data[[2]] <- factor(data[[2]])
+  if (ncol(data1) == 2) {
+    data1[[2]] <- factor(data1[[2]])
   }
-  data <- stats::na.omit(data)
+  data1 <- stats::na.omit(data1)
 
   f <- switch(tolower(type),
     rb = rank_biserial,
@@ -437,9 +436,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     wmw_odds = wmw_odds
   )
 
-  args <- list(
-    x = data[[1]],
-    y = if (ncol(data) == 2) data[[2]],
+  args1 <- list(
+    x = data1[[1]],
+    y = if (ncol(data1) == 2) data1[[2]],
     verbose = verbose
   )
 
@@ -447,10 +446,10 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     if (dots$paired) {
       insight::format_error("Common language effect size only applicable to 2-sample rank-biserial correlation.")
     }
-    args$parametric <- FALSE
+    args1$parametric <- FALSE
   }
 
-  out <- do.call(f, c(args, dots))
+  out <- do.call(f, c(args1, dots))
   out
 }
 
@@ -458,24 +457,24 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 .effectsize_kruskal.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
   model_data <- insight::get_data(model)
-  data <- .data_from_formula(model_data, model, verbose, ...)
+  data1 <- .data_from_formula(model_data, model, verbose, ...)
 
-  approx <- is.null(data)
+  approx1 <- is.null(data1)
 
   if (is.null(type)) type <- "epsilon"
 
-  .fail_if_approx(approx, "rank_epsilon_squared")
+  .fail_if_approx(approx1, "rank_epsilon_squared")
 
   f <- switch(type,
     epsilon = rank_epsilon_squared,
     eta = rank_eta_squared
   )
 
-  if (inherits(data, "data.frame")) {
-    out <- f(data[[1]], data[[2]], verbose = verbose, ...)
+  if (inherits(data1, "data.frame")) {
+    out <- f(data1[[1]], data1[[2]], verbose = verbose, ...)
   } else {
     # data frame
-    out <- f(data, verbose = verbose, ...)
+    out <- f(data1, verbose = verbose, ...)
   }
   out
 }
@@ -484,17 +483,17 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 .effectsize_friedman.test <- function(model, type = NULL, verbose = TRUE, ...) {
   # Get data?
   model_data <- insight::get_data(model)
-  data <- .data_from_formula(model_data, model, verbose, ...)
+  data1 <- .data_from_formula(model_data, model, verbose, ...)
 
-  approx <- is.null(data)
+  approx1 <- is.null(data1)
 
-  .fail_if_approx(approx, "kendalls_w")
+  .fail_if_approx(approx1, "kendalls_w")
 
-  if (inherits(data, "table")) {
-    data <- as.data.frame(data)[c("Freq", "Var2", "Var1")]
+  if (inherits(data1, "table")) {
+    data1 <- as.data.frame(data1)[c("Freq", "Var2", "Var1")]
   }
 
-  out <- kendalls_w(data[[1]], data[[2]], data[[3]], verbose = verbose, ...)
+  out <- kendalls_w(data1[[1]], data1[[2]], data1[[3]], verbose = verbose, ...)
   out
 }
 
