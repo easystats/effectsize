@@ -139,7 +139,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     } else {
       args1 <- list(
         x = data1[[1]],
-        y = if (length(data) == 2) data1[[2]],
+        y = if (length(data1) == 2) data1[[2]],
         pooled_sd = !grepl("Welch", model$method, fixed = TRUE)
       )
     }
