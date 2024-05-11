@@ -76,7 +76,7 @@ sum) one-way ANOVAs."><meta property="og:image" content="https://easystats.githu
      
     easystats
   </a>
-  <div class="dropdown-menu" aria-labelledby="dropdown--easystats">
+  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown--easystats">
     <a class="external-link dropdown-item" href="https://easystats.github.io/bayestestR/">bayestestR</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/correlation/">correlation</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/datawizard/">datawizard</a>
@@ -161,7 +161,7 @@ sum) one-way ANOVAs.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>x</dt>
+    <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>Can be one of:</p><ul><li><p>A numeric or ordered vector, or a character name of one in <code>data</code>.</p></li>
 <li><p>A list of vectors (for <code>rank_eta/epsilon_squared()</code>).</p></li>
 <li><p>A matrix of <code>blocks x groups</code> (for <code>kendalls_w()</code>) (or <code>groups x blocks</code>
@@ -174,42 +174,42 @@ terminology used here.</p></li>
 </ul></dd>
 
 
-<dt>groups, blocks</dt>
+<dt id="arg-groups-blocks">groups, blocks<a class="anchor" aria-label="anchor" href="#arg-groups-blocks"></a></dt>
 <dd><p>A factor vector giving the group / block for the
 corresponding elements of <code>x</code>, or a character name of one in <code>data</code>.
 Ignored if <code>x</code> is not a vector.</p></dd>
 
 
-<dt>data</dt>
+<dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>An optional data frame containing the variables.</p></dd>
 
 
-<dt>ci</dt>
+<dt id="arg-ci">ci<a class="anchor" aria-label="anchor" href="#arg-ci"></a></dt>
 <dd><p>Confidence Interval (CI) level</p></dd>
 
 
-<dt>alternative</dt>
+<dt id="arg-alternative">alternative<a class="anchor" aria-label="anchor" href="#arg-alternative"></a></dt>
 <dd><p>a character string specifying the alternative hypothesis;
 Controls the type of CI returned: <code>"two.sided"</code> (default, two-sided CI),
 <code>"greater"</code> or <code>"less"</code> (one-sided CI). Partial matching is allowed (e.g.,
 <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em> in <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
 
 
-<dt>iterations</dt>
+<dt id="arg-iterations">iterations<a class="anchor" aria-label="anchor" href="#arg-iterations"></a></dt>
 <dd><p>The number of bootstrap replicates for computing confidence
 intervals. Only applies when <code>ci</code> is not <code>NULL</code>.</p></dd>
 
 
-<dt>verbose</dt>
+<dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>Toggle warnings and messages on or off.</p></dd>
 
 
-<dt>...</dt>
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments passed to or from other methods. When <code>x</code> is a formula,
 these can be <code>subset</code> and <code>na.action</code>.</p></dd>
 
 
-<dt>blocks_on_rows</dt>
+<dt id="arg-blocks-on-rows">blocks_on_rows<a class="anchor" aria-label="anchor" href="#arg-blocks-on-rows"></a></dt>
 <dd><p>Are blocks on rows (<code>TRUE</code>) or columns (<code>FALSE</code>).</p></dd>
 
 </dl></div>
@@ -268,7 +268,7 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer &amp; Kiesser,
     </div>
     <div class="section level2">
     <h2 id="bootstrapped-cis">Bootstrapped CIs<a class="anchor" aria-label="anchor" href="#bootstrapped-cis"></a></h2>
-    <p>Some effect sizes are directionless--they do have a minimum value that would
+    <p>Some effect sizes are directionless–they do have a minimum value that would
 be interpreted as "no effect", but they cannot cross it. For example, a null
 value of Kendall's W is 0, indicating no difference between
 groups, but it can never have a negative value. Same goes for

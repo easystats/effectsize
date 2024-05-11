@@ -70,7 +70,7 @@
      
     easystats
   </a>
-  <div class="dropdown-menu" aria-labelledby="dropdown--easystats">
+  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown--easystats">
     <a class="external-link dropdown-item" href="https://easystats.github.io/bayestestR/">bayestestR</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/correlation/">correlation</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/datawizard/">datawizard</a>
@@ -153,18 +153,18 @@
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>OR, logOR, RR, ARR, NNT</dt>
+    <dl><dt id="arg-or-logor-rr-arr-nnt">OR, logOR, RR, ARR, NNT<a class="anchor" aria-label="anchor" href="#arg-or-logor-rr-arr-nnt"></a></dt>
 <dd><p>Odds-ratio of <code>odds(p1)/odds(p0)</code>, log-Odds-ratio
 of <code>log(odds(p1)/odds(p0))</code>, Risk ratio of <code>p1/p0</code>, Absolute Risk Reduction
 of <code>p1 - p0</code>, or Number-needed-to-treat of <code>1/(p1 - p0)</code>. <code>OR</code> and <code>logOR</code>
 can also be a logistic regression model.</p></dd>
 
 
-<dt>p0</dt>
+<dt id="arg-p-">p0<a class="anchor" aria-label="anchor" href="#arg-p-"></a></dt>
 <dd><p>Baseline risk</p></dd>
 
 
-<dt>log</dt>
+<dt id="arg-log">log<a class="anchor" aria-label="anchor" href="#arg-log"></a></dt>
 <dd><p>If:</p><ul><li><p><code>TRUE</code>:</p><ul><li><p>In <code>oddsratio_to_*()</code>, <code>OR</code> input is treated as <code>log(OR)</code>.</p></li>
 <li><p>In <code>*_to_oddsratio()</code>, returned value is <code>log(OR)</code>.</p></li>
 </ul></li>
@@ -174,11 +174,11 @@ can also be a logistic regression model.</p></dd>
 </ul></dd>
 
 
-<dt>verbose</dt>
+<dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>Toggle warnings and messages on or off.</p></dd>
 
 
-<dt>...</dt>
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments passed to and from other methods.</p></dd>
 
 </dl></div>

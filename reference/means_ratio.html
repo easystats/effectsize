@@ -74,7 +74,7 @@ stats::t.test().'><meta property="og:image" content="https://easystats.github.io
      
     easystats
   </a>
-  <div class="dropdown-menu" aria-labelledby="dropdown--easystats">
+  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown--easystats">
     <a class="external-link dropdown-item" href="https://easystats.github.io/bayestestR/">bayestestR</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/correlation/">correlation</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/datawizard/">datawizard</a>
@@ -136,48 +136,48 @@ stats::t.test().'><meta property="og:image" content="https://easystats.github.io
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>x, y</dt>
+    <dl><dt id="arg-x-y">x, y<a class="anchor" aria-label="anchor" href="#arg-x-y"></a></dt>
 <dd><p>A numeric vector, or a character name of one in <code>data</code>.
 Any missing values (<code>NA</code>s) are dropped from the resulting vector.
 <code>x</code> can also be a formula (see <code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">stats::t.test()</a></code>), in which case <code>y</code> is
 ignored.</p></dd>
 
 
-<dt>data</dt>
+<dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>An optional data frame containing the variables.</p></dd>
 
 
-<dt>paired</dt>
+<dt id="arg-paired">paired<a class="anchor" aria-label="anchor" href="#arg-paired"></a></dt>
 <dd><p>If <code>TRUE</code>, the values of <code>x</code> and <code>y</code> are considered as paired.
 The correlation between these variables will affect the CIs.</p></dd>
 
 
-<dt>adjust</dt>
+<dt id="arg-adjust">adjust<a class="anchor" aria-label="anchor" href="#arg-adjust"></a></dt>
 <dd><p>Should the effect size be adjusted for small-sample bias?
 Defaults to <code>TRUE</code>; Advisable for small samples.</p></dd>
 
 
-<dt>log</dt>
+<dt id="arg-log">log<a class="anchor" aria-label="anchor" href="#arg-log"></a></dt>
 <dd><p>Should the log-ratio be returned? Defaults to <code>FALSE</code>.
 Normally distributed and useful for meta-analysis.</p></dd>
 
 
-<dt>ci</dt>
+<dt id="arg-ci">ci<a class="anchor" aria-label="anchor" href="#arg-ci"></a></dt>
 <dd><p>Confidence Interval (CI) level</p></dd>
 
 
-<dt>alternative</dt>
+<dt id="arg-alternative">alternative<a class="anchor" aria-label="anchor" href="#arg-alternative"></a></dt>
 <dd><p>a character string specifying the alternative hypothesis;
 Controls the type of CI returned: <code>"two.sided"</code> (default, two-sided CI),
 <code>"greater"</code> or <code>"less"</code> (one-sided CI). Partial matching is allowed (e.g.,
 <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em> in <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
 
 
-<dt>verbose</dt>
+<dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>Toggle warnings and messages on or off.</p></dd>
 
 
-<dt>...</dt>
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments passed to or from other methods. When <code>x</code> is a formula,
 these can be <code>subset</code> and <code>na.action</code>.</p></dd>
 

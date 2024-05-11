@@ -86,7 +86,7 @@ details."><meta property="og:image" content="https://easystats.github.io/effects
      
     easystats
   </a>
-  <div class="dropdown-menu" aria-labelledby="dropdown--easystats">
+  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown--easystats">
     <a class="external-link dropdown-item" href="https://easystats.github.io/bayestestR/">bayestestR</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/correlation/">correlation</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/datawizard/">datawizard</a>
@@ -205,17 +205,17 @@ details.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>model</dt>
+    <dl><dt id="arg-model">model<a class="anchor" aria-label="anchor" href="#arg-model"></a></dt>
 <dd><p>An ANOVA table (or an ANOVA-like table, e.g., outputs from
 <code><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">parameters::model_parameters</a></code>), or a statistical model for which such a
 table can be extracted. See details.</p></dd>
 
 
-<dt>partial</dt>
+<dt id="arg-partial">partial<a class="anchor" aria-label="anchor" href="#arg-partial"></a></dt>
 <dd><p>If <code>TRUE</code>, return partial indices.</p></dd>
 
 
-<dt>generalized</dt>
+<dt id="arg-generalized">generalized<a class="anchor" aria-label="anchor" href="#arg-generalized"></a></dt>
 <dd><p>A character vector of observed (non-manipulated) variables
 to be used in the estimation of a generalized Eta Squared. Can also be
 <code>TRUE</code>, in which case generalized Eta Squared is estimated assuming <em>none</em>
@@ -224,11 +224,11 @@ models, when <code>TRUE</code>, the observed variables are extracted automatical
 from the fitted model, if they were provided during fitting.</p></dd>
 
 
-<dt>ci</dt>
+<dt id="arg-ci">ci<a class="anchor" aria-label="anchor" href="#arg-ci"></a></dt>
 <dd><p>Confidence Interval (CI) level</p></dd>
 
 
-<dt>alternative</dt>
+<dt id="arg-alternative">alternative<a class="anchor" aria-label="anchor" href="#arg-alternative"></a></dt>
 <dd><p>a character string specifying the alternative hypothesis;
 Controls the type of CI returned: <code>"greater"</code> (default) or <code>"less"</code>
 (one-sided CI), or <code>"two.sided"</code> (two-sided CI). Partial matching is
@@ -236,36 +236,36 @@ allowed (e.g., <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <
 <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
 
 
-<dt>verbose</dt>
+<dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>Toggle warnings and messages on or off.</p></dd>
 
 
-<dt>...</dt>
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments passed to or from other methods.</p><ul><li><p>Can be <code>include_intercept = TRUE</code> to include the effect size for the intercept (when it is included in the ANOVA table).</p></li>
 <li><p>For Bayesian models, arguments passed to <code>ss_function</code>.</p></li>
 </ul></dd>
 
 
-<dt>squared</dt>
+<dt id="arg-squared">squared<a class="anchor" aria-label="anchor" href="#arg-squared"></a></dt>
 <dd><p>Return Cohen's <em>f</em> or Cohen's <em>f</em>-squared?</p></dd>
 
 
-<dt>method</dt>
+<dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p>What effect size should be used as the basis for Cohen's <em>f</em>?</p></dd>
 
 
-<dt>model2</dt>
+<dt id="arg-model-">model2<a class="anchor" aria-label="anchor" href="#arg-model-"></a></dt>
 <dd><p>Optional second model for Cohen's f (/squared). If specified,
 returns the effect size for R-squared-change between the two models.</p></dd>
 
 
-<dt>ss_function</dt>
+<dt id="arg-ss-function">ss_function<a class="anchor" aria-label="anchor" href="#arg-ss-function"></a></dt>
 <dd><p>For Bayesian models, the function used to extract
 sum-of-squares. Uses <code><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova()</a></code> by default, but can also be <code><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">car::Anova()</a></code>
 for simple linear models.</p></dd>
 
 
-<dt>draws</dt>
+<dt id="arg-draws">draws<a class="anchor" aria-label="anchor" href="#arg-draws"></a></dt>
 <dd><p>For Bayesian models, an integer indicating the number of draws
 from the posterior predictive distribution to return. Larger numbers take
 longer to run, but provide estimates that are more stable.</p></dd>

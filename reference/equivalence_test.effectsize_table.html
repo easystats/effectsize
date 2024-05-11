@@ -72,7 +72,7 @@ effect size."><meta property="og:image" content="https://easystats.github.io/eff
      
     easystats
   </a>
-  <div class="dropdown-menu" aria-labelledby="dropdown--easystats">
+  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown--easystats">
     <a class="external-link dropdown-item" href="https://easystats.github.io/bayestestR/">bayestestR</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/correlation/">correlation</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/datawizard/">datawizard</a>
@@ -128,23 +128,23 @@ effect size.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>x</dt>
+    <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>An effect size table, such as returned by <code><a href="cohens_d.html">cohens_d()</a></code>,
 <code><a href="eta_squared.html">eta_squared()</a></code>, <code><a href="t_to_r.html">F_to_r()</a></code>, etc.</p></dd>
 
 
-<dt>range</dt>
+<dt id="arg-range">range<a class="anchor" aria-label="anchor" href="#arg-range"></a></dt>
 <dd><p>The range of practical equivalence of an effect. For one-sides
 CIs, a single value can be proved for the lower / upper bound to test
 against (but see more details below). For two-sided CIs, a single value is
 duplicated to <code>c(-range, range)</code>. If <code>"default"</code>, will be set to <code>[-.1, .1]</code>.</p></dd>
 
 
-<dt>rule</dt>
+<dt id="arg-rule">rule<a class="anchor" aria-label="anchor" href="#arg-rule"></a></dt>
 <dd><p>How should acceptance and rejection be decided? See details.</p></dd>
 
 
-<dt>...</dt>
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments passed to or from other methods.</p></dd>
 
 </dl></div>

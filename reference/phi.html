@@ -76,7 +76,7 @@ stats::chisq.test()."><meta property="og:image" content="https://easystats.githu
      
     easystats
   </a>
-  <div class="dropdown-menu" aria-labelledby="dropdown--easystats">
+  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown--easystats">
     <a class="external-link dropdown-item" href="https://easystats.github.io/bayestestR/">bayestestR</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/correlation/">correlation</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/datawizard/">datawizard</a>
@@ -159,26 +159,26 @@ contingency tables or goodness-of-fit. Pair with any reported
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>x</dt>
+    <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>a numeric vector or matrix. <code>x</code> and <code>y</code> can also
     both be factors.</p></dd>
 
 
-<dt>y</dt>
+<dt id="arg-y">y<a class="anchor" aria-label="anchor" href="#arg-y"></a></dt>
 <dd><p>a numeric vector; ignored if <code>x</code> is a matrix.  If
     <code>x</code> is a factor, <code>y</code> should be a factor of the same length.</p></dd>
 
 
-<dt>adjust</dt>
+<dt id="arg-adjust">adjust<a class="anchor" aria-label="anchor" href="#arg-adjust"></a></dt>
 <dd><p>Should the effect size be corrected for small-sample bias?
 Defaults to <code>TRUE</code>; Advisable for small samples and large tables.</p></dd>
 
 
-<dt>ci</dt>
+<dt id="arg-ci">ci<a class="anchor" aria-label="anchor" href="#arg-ci"></a></dt>
 <dd><p>Confidence Interval (CI) level</p></dd>
 
 
-<dt>alternative</dt>
+<dt id="arg-alternative">alternative<a class="anchor" aria-label="anchor" href="#arg-alternative"></a></dt>
 <dd><p>a character string specifying the alternative hypothesis;
 Controls the type of CI returned: <code>"greater"</code> (default) or <code>"less"</code>
 (one-sided CI), or <code>"two.sided"</code> (two-sided CI). Partial matching is
@@ -186,11 +186,11 @@ allowed (e.g., <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <
 <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
 
 
-<dt>...</dt>
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Ignored.</p></dd>
 
 
-<dt>p</dt>
+<dt id="arg-p">p<a class="anchor" aria-label="anchor" href="#arg-p"></a></dt>
 <dd><p>a vector of probabilities of the same length as <code>x</code>.
     An error is given if any entry of <code>p</code> is negative.</p></dd>
 

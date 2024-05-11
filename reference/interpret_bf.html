@@ -70,7 +70,7 @@
      
     easystats
   </a>
-  <div class="dropdown-menu" aria-labelledby="dropdown--easystats">
+  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown--easystats">
     <a class="external-link dropdown-item" href="https://easystats.github.io/bayestestR/">bayestestR</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/correlation/">correlation</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/datawizard/">datawizard</a>
@@ -126,28 +126,28 @@
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>bf</dt>
+    <dl><dt id="arg-bf">bf<a class="anchor" aria-label="anchor" href="#arg-bf"></a></dt>
 <dd><p>Value or vector of Bayes factor (BF) values.</p></dd>
 
 
-<dt>rules</dt>
+<dt id="arg-rules">rules<a class="anchor" aria-label="anchor" href="#arg-rules"></a></dt>
 <dd><p>Can be <code>"jeffreys1961"</code> (default), <code>"raftery1995"</code> or custom set
 of <code><a href="rules.html">rules()</a></code> (for the <em>absolute magnitude</em> of evidence).</p></dd>
 
 
-<dt>log</dt>
+<dt id="arg-log">log<a class="anchor" aria-label="anchor" href="#arg-log"></a></dt>
 <dd><p>Is the <code>bf</code> value <code>log(bf)</code>?</p></dd>
 
 
-<dt>include_value</dt>
+<dt id="arg-include-value">include_value<a class="anchor" aria-label="anchor" href="#arg-include-value"></a></dt>
 <dd><p>Include the value in the output.</p></dd>
 
 
-<dt>protect_ratio</dt>
+<dt id="arg-protect-ratio">protect_ratio<a class="anchor" aria-label="anchor" href="#arg-protect-ratio"></a></dt>
 <dd><p>Should values smaller than 1 be represented as ratios?</p></dd>
 
 
-<dt>exact</dt>
+<dt id="arg-exact">exact<a class="anchor" aria-label="anchor" href="#arg-exact"></a></dt>
 <dd><p>Should very large or very small values be reported with a
 scientific format (e.g., 4.24e5), or as truncated values (as "&gt; 1000" and
 "&lt; 1/1000").</p></dd>

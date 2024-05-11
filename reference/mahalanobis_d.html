@@ -90,7 +90,7 @@ d."><meta property="og:image" content="https://easystats.github.io/effectsize/re
      
     easystats
   </a>
-  <div class="dropdown-menu" aria-labelledby="dropdown--easystats">
+  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown--easystats">
     <a class="external-link dropdown-item" href="https://easystats.github.io/bayestestR/">bayestestR</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/correlation/">correlation</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/datawizard/">datawizard</a>
@@ -159,42 +159,42 @@ variable. When there is only one variate, this formula reduces to Cohen's
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>x, y</dt>
+    <dl><dt id="arg-x-y">x, y<a class="anchor" aria-label="anchor" href="#arg-x-y"></a></dt>
 <dd><p>A data frame or matrix. Any incomplete observations (with <code>NA</code>
 values) are dropped. <code>x</code> can also be a formula (see details) in which case
 <code>y</code> is ignored.</p></dd>
 
 
-<dt>data</dt>
+<dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>An optional data frame containing the variables.</p></dd>
 
 
-<dt>pooled_cov</dt>
+<dt id="arg-pooled-cov">pooled_cov<a class="anchor" aria-label="anchor" href="#arg-pooled-cov"></a></dt>
 <dd><p>Should equal covariance be assumed? Currently only
 <code>pooled_cov = TRUE</code> is supported.</p></dd>
 
 
-<dt>mu</dt>
+<dt id="arg-mu">mu<a class="anchor" aria-label="anchor" href="#arg-mu"></a></dt>
 <dd><p>A named list/vector of the true difference in means for each
 variable. Can also be a vector of length 1, which will be recycled.</p></dd>
 
 
-<dt>ci</dt>
+<dt id="arg-ci">ci<a class="anchor" aria-label="anchor" href="#arg-ci"></a></dt>
 <dd><p>Confidence Interval (CI) level</p></dd>
 
 
-<dt>alternative</dt>
+<dt id="arg-alternative">alternative<a class="anchor" aria-label="anchor" href="#arg-alternative"></a></dt>
 <dd><p>a character string specifying the alternative hypothesis;
 Controls the type of CI returned: <code>"two.sided"</code> (default, two-sided CI),
 <code>"greater"</code> or <code>"less"</code> (one-sided CI). Partial matching is allowed (e.g.,
 <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em> in <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
 
 
-<dt>verbose</dt>
+<dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>Toggle warnings and messages on or off.</p></dd>
 
 
-<dt>...</dt>
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Not used.</p></dd>
 
 </dl></div>

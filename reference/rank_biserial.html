@@ -78,7 +78,7 @@ stats::wilcox.test()."><meta property="og:image" content="https://easystats.gith
      
     easystats
   </a>
-  <div class="dropdown-menu" aria-labelledby="dropdown--easystats">
+  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown--easystats">
     <a class="external-link dropdown-item" href="https://easystats.github.io/bayestestR/">bayestestR</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/correlation/">correlation</a>
     <a class="external-link dropdown-item" href="https://easystats.github.io/datawizard/">datawizard</a>
@@ -152,45 +152,45 @@ to the <a href="p_superiority.html">Common Language Effect Sizes</a>. Pair with 
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>x, y</dt>
+    <dl><dt id="arg-x-y">x, y<a class="anchor" aria-label="anchor" href="#arg-x-y"></a></dt>
 <dd><p>A numeric or ordered vector, or a character name of one in <code>data</code>.
 Any missing values (<code>NA</code>s) are dropped from the resulting vector. <code>x</code> can
 also be a formula (see <code><a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">stats::wilcox.test()</a></code>), in which case <code>y</code> is
 ignored.</p></dd>
 
 
-<dt>data</dt>
+<dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>An optional data frame containing the variables.</p></dd>
 
 
-<dt>mu</dt>
+<dt id="arg-mu">mu<a class="anchor" aria-label="anchor" href="#arg-mu"></a></dt>
 <dd><p>a number indicating the value around which (a-)symmetry (for
 one-sample or paired samples) or shift (for independent samples) is to be
 estimated. See <a href="https://rdrr.io/r/stats/wilcox.test.html" class="external-link">stats::wilcox.test</a>.</p></dd>
 
 
-<dt>paired</dt>
+<dt id="arg-paired">paired<a class="anchor" aria-label="anchor" href="#arg-paired"></a></dt>
 <dd><p>If <code>TRUE</code>, the values of <code>x</code> and <code>y</code> are considered as paired.
 This produces an effect size that is equivalent to the one-sample effect
 size on <code>x - y</code>.</p></dd>
 
 
-<dt>ci</dt>
+<dt id="arg-ci">ci<a class="anchor" aria-label="anchor" href="#arg-ci"></a></dt>
 <dd><p>Confidence Interval (CI) level</p></dd>
 
 
-<dt>alternative</dt>
+<dt id="arg-alternative">alternative<a class="anchor" aria-label="anchor" href="#arg-alternative"></a></dt>
 <dd><p>a character string specifying the alternative hypothesis;
 Controls the type of CI returned: <code>"two.sided"</code> (default, two-sided CI),
 <code>"greater"</code> or <code>"less"</code> (one-sided CI). Partial matching is allowed (e.g.,
 <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em> in <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
 
 
-<dt>verbose</dt>
+<dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>Toggle warnings and messages on or off.</p></dd>
 
 
-<dt>...</dt>
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments passed to or from other methods. When <code>x</code> is a formula,
 these can be <code>subset</code> and <code>na.action</code>.</p></dd>
 
