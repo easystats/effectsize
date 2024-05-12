@@ -1,8 +1,12 @@
-# effectsize 0.8.7.x
+# effectsize 0.8.8
 
 ## Bug fixes
 
 - `hedges_g()`, `vd_a()`, `wmw_odds()`, and `cliffs_delta()` no longer require `{effectsize}` to be loaded to work ( #636 ).
+
+## New features
+
+- `effectsize(<t.test>)` now accepts a `data=` argument for when the `t.test(<formula>)` method was used.
 
 # effectsize 0.8.7
 
