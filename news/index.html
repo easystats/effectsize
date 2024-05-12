@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.7.1</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -108,11 +108,16 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.8.7" id="effectsize-087x">effectsize 0.8.7.x<a class="anchor" aria-label="anchor" href="#effectsize-087x"></a></h2><p class="text-muted">CRAN release: 2024-04-01</p>
+<h2 class="pkg-version" data-toc-text="0.8.8" id="effectsize-088">effectsize 0.8.8<a class="anchor" aria-label="anchor" href="#effectsize-088"></a></h2>
 <div class="section level3">
-<h3 id="bug-fixes-0-8-7">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-8-7"></a></h3>
+<h3 id="bug-fixes-0-8-8">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-8-8"></a></h3>
 <ul><li>
 <code><a href="../reference/cohens_d.html">hedges_g()</a></code>, <code><a href="../reference/p_superiority.html">vd_a()</a></code>, <code><a href="../reference/p_superiority.html">wmw_odds()</a></code>, and <code><a href="../reference/rank_biserial.html">cliffs_delta()</a></code> no longer require <a href="https://easystats.github.io/effectsize/">effectsize</a> to be loaded to work ( <a href="https://github.com/easystats/effectsize/issues/636" class="external-link">#636</a> ).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="new-features-0-8-8">New features<a class="anchor" aria-label="anchor" href="#new-features-0-8-8"></a></h3>
+<ul><li>
+<code>effectsize(&lt;t.test&gt;)</code> now accepts a <code>data=</code> argument for when the <code>t.test(&lt;formula&gt;)</code> method was used.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -130,7 +135,7 @@
 </li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-0-8-7-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-8-7-1"></a></h3>
+<h3 id="bug-fixes-0-8-7">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-8-7"></a></h3>
 <ul><li>Minor stability fix to ncp-based CI methods ( <a href="https://github.com/easystats/effectsize/issues/628" class="external-link">#628</a> )</li>
 <li>
 <code><a href="../reference/oddsratio.html">nnt()</a></code> now properly accepts the <code>y</code> argument.</li>
@@ -543,7 +548,7 @@
 <ul><li><p><code><a href="../reference/effectsize.html">effectsize()</a></code> gains <code>type =</code> argument for specifying which effect size to return.</p></li>
 <li><p><code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> can return a generalized Eta squared.</p></li>
 <li><p><code><a href="../reference/oddsratio.html">oddsratio()</a></code> and <code><a href="../reference/oddsratio.html">riskratio()</a></code> functions for 2-by-2 contingency tables.</p></li>
-<li><p><code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> gains support for <code><a href="https://rdrr.io/pkg/mediation/man/mediate.html" class="external-link">mediation::mediate()</a></code> models.</p></li>
+<li><p><code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> gains support for <code>mediation::mediate()</code> models.</p></li>
 <li><p><code><a href="../reference/eta_squared.html">eta_squared()</a></code> family available for <code>manova</code> objects.</p></li>
 </ul></div>
 <div class="section level3">
