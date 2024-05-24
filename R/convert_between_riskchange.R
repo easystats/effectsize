@@ -69,7 +69,7 @@ oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, verbose = TRUE, 
     insight::format_error("Model must be a binomial model with a logit-link (logistic regression).")
   }
 
-  RR <- parameters::model_parameters(OR, exponentiate = !log, effects = "fixed", ...)
+  RR <- parameters::model_parameters(OR, exponentiate = !log, effectsize_type = "fixed", ...)
   RR$SE <- NULL
   RR$z <- NULL
   RR$df_error <- NULL
