@@ -26,131 +26,91 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@easystats4u">
 <meta name="twitter:site" content="@easystats4u">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
-
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
-    
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
-
     <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8</small>
-
-    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">
-    <span class="fa fa fa fa-file-code"></span>
-     
-    Reference
-  </a>
-</li>
-<li class="active nav-item">
-  <a class="nav-link" href="../articles/effectsize.html">Get Started</a>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html"><span class="fa fa-file-code"></span> Reference</a></li>
+<li class="active nav-item"><a class="nav-link" href="../articles/effectsize.html">Get Started</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-effect-sizes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Effect sizes</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-effect-sizes">
+<li><a class="dropdown-item" href="../articles/standardized_differences.html">Standardized Differences</a></li>
+    <li><a class="dropdown-item" href="../articles/xtabs.html">Contingency Tables</a></li>
+    <li><a class="dropdown-item" href="../articles/anovaES.html">ANOVA Effect Sizes</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/parameters/articles/standardize_parameters_effsize.html">Standardized Parameters</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/correlation/articles/index.html">Correlation Vignettes</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="../reference/effectsize_CIs.html">Confidence Intervals</a></li>
+    <li><a class="dropdown-item" href="../articles/statistical_power.html">Statistical Power</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/see/articles/effectsize.html">Plotting Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/effectsize_API.html">Extending effectsize</a></li>
+  </ul>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-effect-sizes">Effect sizes</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-effect-sizes">
-    <a class="dropdown-item" href="../articles/standardized_differences.html">Standardized Differences</a>
-    <a class="dropdown-item" href="../articles/xtabs.html">Contingency Tables</a>
-    <a class="dropdown-item" href="../articles/anovaES.html">ANOVA Effect Sizes</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/parameters/articles/standardize_parameters_effsize.html">Standardized Parameters</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/correlation/articles/index.html">Correlation Vignettes</a>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="../reference/effectsize_CIs.html">Confidence Intervals</a>
-    <a class="dropdown-item" href="../articles/statistical_power.html">Statistical Power</a>
-    <div class="dropdown-divider"></div>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/see/articles/effectsize.html">Plotting Functions</a>
-    <a class="dropdown-item" href="../articles/effectsize_API.html">Extending effectsize</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-conversion" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Conversion</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-conversion">
+<li><a class="dropdown-item" href="../articles/convert_r_d_OR.html">Between d, r, OR</a></li>
+    <li><a class="dropdown-item" href="../articles/convert_p_OR_RR.html">Between p, OR, RR</a></li>
+    <li><a class="dropdown-item" href="../articles/from_test_statistics.html">From Test Statistics</a></li>
+  </ul>
 </li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-conversion">Conversion</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-conversion">
-    <a class="dropdown-item" href="../articles/convert_r_d_OR.html">Between d, r, OR</a>
-    <a class="dropdown-item" href="../articles/convert_p_OR_RR.html">Between p, OR, RR</a>
-    <a class="dropdown-item" href="../articles/from_test_statistics.html">From Test Statistics</a>
-  </div>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../articles/interpret.html">Interpretation</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">
-    <span class="fa fa fa fa-newspaper"></span>
-     
-    News
-  </a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../articles/interpret.html">Interpretation</a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html"><span class="fa fa-newspaper"></span> News</a></li>
       </ul>
 <ul class="navbar-nav">
-<li><form class="form-inline" role="search">
-<input type="search" class="form-control" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown--easystats" aria-label="easystats">
-    <span class="fab fa fab fa-r-project"></span>
-     
-    easystats
-  </a>
-  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown--easystats">
-    <a class="external-link dropdown-item" href="https://easystats.github.io/bayestestR/">bayestestR</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/correlation/">correlation</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/datawizard/">datawizard</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/easystats/">easystats</a>
-    <a class="dropdown-item" href="https://easystats.github.io/effectsize/">effectsize</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/insight/">insight</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/modelbased/">modelbased</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/performance/">performance</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/parameters/">parameters</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/report/">report</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/see/">see</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-easystats" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="easystats"><span class="fa fab fa-r-project"></span> easystats</button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-easystats">
+<li><a class="external-link dropdown-item" href="https://easystats.github.io/bayestestR/">bayestestR</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/correlation/">correlation</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/datawizard/">datawizard</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/easystats/">easystats</a></li>
+    <li><a class="dropdown-item" href="https://easystats.github.io/effectsize/">effectsize</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/insight/">insight</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/modelbased/">modelbased</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/performance/">performance</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/parameters/">parameters</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/report/">report</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/see/">see</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="external-link nav-link" href="http://twitter.com/easystats4u" aria-label="Twitter">
-    <span class="fa fa-twitter"></span>
-     
-  </a>
-</li>
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/easystats/effectsize/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
+<li class="nav-item"><a class="external-link nav-link" href="http://twitter.com/easystats4u" aria-label="Twitter"><span class="fa fa-twitter"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/easystats/effectsize/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
+<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  </ul>
 </li>
       </ul>
 </div>
-
-    
   </div>
 </nav><div class="container template-article">
-
 
 
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Effect Sizes: Getting Started</h1>
-            
-      
-      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/vignettes/effectsize.Rmd" class="external-link"><code>vignettes/effectsize.Rmd</code></a></small>
+                        <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/vignettes/effectsize.Rmd" class="external-link"><code>vignettes/effectsize.Rmd</code></a></small>
       <div class="d-none name"><code>effectsize.Rmd</code></div>
     </div>
-
-    
-    
-<div class="section level2">
+        <div class="section level2">
 <h2 id="aims-of-the-package">Aims of the Package<a class="anchor" aria-label="anchor" href="#aims-of-the-package"></a>
 </h2>
 <p>In both theoretical and applied research, it is often of interest to
@@ -283,8 +243,9 @@ models, see the <em>insight</em> package; <span class="citation">Lüdecke, Waggo
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Coefficients:</span></span>
 <span><span class="co">#&gt; (Intercept)          cyl           am       cyl:am  </span></span>
-<span><span class="co">#&gt;     -0.0977      -0.7426       0.1739      -0.1930</span></span>
-<span></span>
+<span><span class="co">#&gt;     -0.0977      -0.7426       0.1739      -0.1930</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html" class="external-link">standardize_parameters</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # Standardization method: refit</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -296,7 +257,7 @@ models, see the <em>insight</em> package; <span class="citation">Lüdecke, Waggo
 <span><span class="co">#&gt; cyl:am      |      -0.19 | [-0.41,  0.02]</span></span></code></pre></div>
 <p>Standardized parameters can also be produced for generalized linear
 models (GLMs; where only the predictors are standardized):</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">am</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">+</span> <span class="va">hp</span>,</span>
 <span>  family <span class="op">=</span> <span class="st">"binomial"</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">mtcars</span></span>
@@ -330,7 +291,7 @@ each term can be represented by one or more parameters.
 Eta-squared (<span class="math inline">\(\eta^2\)</span>), its partial
 version (<span class="math inline">\(\eta^2_p\)</span>), as well as the
 generalized <span class="math inline">\(\eta^2_G\)</span> <span class="citation">(Cohen 1988; Olejnik and Algina 2003)</span>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>contrasts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"contr.sum"</span>, <span class="st">"contr.poly"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ChickWeight"</span><span class="op">)</span></span>
@@ -351,8 +312,9 @@ generalized <span class="math inline">\(\eta^2_G\)</span> <span class="citation"
 <span><span class="co">#&gt; Chick:Time |      Time |         0.87 | [0.85, 1.00]</span></span>
 <span><span class="co">#&gt; Chick:Time | Diet:Time |         0.22 | [0.11, 1.00]</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></span>
-<span></span>
+<span><span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">model</span>, generalized <span class="op">=</span> <span class="st">"Time"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # Effect Size for ANOVA (Type I)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -387,7 +349,7 @@ conversions are based on the idea that test statistics are a function of
 effect size and sample size (or more often of degrees of freedom). Thus
 it is possible to reverse-engineer indices of effect size from test
 statistics (<em>F</em>, <em>t</em>, <span class="math inline">\(\chi^2\)</span>, and <em>z</em>).</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span></span>
 <span>  f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">40.72</span>, <span class="fl">33.77</span><span class="op">)</span>,</span>
 <span>  df <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, df_error <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">9</span><span class="op">)</span></span>
@@ -397,13 +359,15 @@ statistics (<em>F</em>, <em>t</em>, <span class="math inline">\(\chi^2\)</span>,
 <span><span class="co">#&gt; 0.82         | [0.66, 1.00]</span></span>
 <span><span class="co">#&gt; 0.79         | [0.49, 1.00]</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></span>
-<span></span>
+<span><span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/t_to_r.html">t_to_d</a></span><span class="op">(</span>t <span class="op">=</span> <span class="op">-</span><span class="fl">5.14</span>, df_error <span class="op">=</span> <span class="fl">22</span><span class="op">)</span></span>
 <span><span class="co">#&gt; d     |         95% CI</span></span>
 <span><span class="co">#&gt; ----------------------</span></span>
-<span><span class="co">#&gt; -2.19 | [-3.23, -1.12]</span></span>
-<span></span>
+<span><span class="co">#&gt; -2.19 | [-3.23, -1.12]</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/t_to_r.html">t_to_r</a></span><span class="op">(</span>t <span class="op">=</span> <span class="op">-</span><span class="fl">5.14</span>, df_error <span class="op">=</span> <span class="fl">22</span><span class="op">)</span></span>
 <span><span class="co">#&gt; r     |         95% CI</span></span>
 <span><span class="co">#&gt; ----------------------</span></span>
@@ -411,7 +375,7 @@ statistics (<em>F</em>, <em>t</em>, <span class="math inline">\(\chi^2\)</span>,
 <p>These functions also power the <code><a href="../reference/effectsize.html">effectsize()</a></code> convenience
 function for estimating effect sizes from R’s <code>htest</code>-type
 objects. For example:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">hardlyworking</span>, package <span class="op">=</span> <span class="st">"effectsize"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">aov1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/oneway.test.html" class="external-link">oneway.test</a></span><span class="op">(</span><span class="va">salary</span> <span class="op">~</span> <span class="va">n_comps</span>,</span>
@@ -422,8 +386,9 @@ objects. For example:</p>
 <span><span class="co">#&gt; -------------------</span></span>
 <span><span class="co">#&gt; 0.20 | [0.14, 1.00]</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></span>
-<span></span>
+<span><span class="co">#&gt; - One-sided CIs: upper bound fixed at [1.00].</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="va">xtab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">762</span>, <span class="fl">327</span>, <span class="fl">468</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>, <span class="fl">239</span>, <span class="fl">477</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">484</span>, <span class="fl">239</span>, <span class="fl">477</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">Xsq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html" class="external-link">chisq.test</a></span><span class="op">(</span><span class="va">xtab</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">Xsq</span><span class="op">)</span></span>
@@ -441,16 +406,19 @@ Statistics</em> shiny app (<a href="https://easystats4u.shinyapps.io/statistic2e
 <p>For comparisons between different types of designs and analyses, it
 is useful to be able to convert between different types of effect sizes
 [<em>d</em>, <em>r</em>, Odds ratios and Risk ratios; <span class="citation">Borenstein et al. (2009)</span>; <span class="citation">Grant (2014)</span>].</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/d_to_r.html">r_to_d</a></span><span class="op">(</span><span class="fl">0.7</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 1.960392</span></span>
-<span></span>
+<span><span class="co">#&gt; [1] 1.960392</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/d_to_r.html">d_to_oddsratio</a></span><span class="op">(</span><span class="fl">1.96</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 34.98946</span></span>
-<span></span>
+<span><span class="co">#&gt; [1] 34.98946</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/oddsratio_to_riskratio.html">oddsratio_to_riskratio</a></span><span class="op">(</span><span class="fl">34.99</span>, p0 <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 2.397232</span></span>
-<span></span>
+<span><span class="co">#&gt; [1] 2.397232</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/d_to_r.html">oddsratio_to_r</a></span><span class="op">(</span><span class="fl">34.99</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.6999301</span></span></code></pre></div>
 </div>
@@ -466,7 +434,7 @@ functions to allow users and developers to explore and hopefully gain a
 deeper understanding of the relationship between data values and their
 interpretation. More information is available in the <a href="https://easystats.github.io/effectsize/articles/interpret.html"><em>Automated
 Interpretation of Indices of Effect Size</em> vignette</a>.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/interpret_cohens_d.html">interpret_cohens_d</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.02</span>, <span class="fl">0.52</span>, <span class="fl">0.86</span><span class="op">)</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "very small" "medium"     "large"     </span></span>
 <span><span class="co">#&gt; (Rules: cohen1988)</span></span></code></pre></div>
@@ -589,26 +557,16 @@ Variance and Contrast Analysis.”</span> <em>Psychological Methods</em> 9
 </div>
 </div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
-
-
-
     <footer><div class="pkgdown-footer-left">
   <p>Developed by <a href="https://home.msbstats.info/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>, <a href="https://sites.google.com/site/indrajeetspatilmorality/" class="external-link">Indrajeet Patil</a>, <a href="https://wiernik.org/" class="external-link">Brenton M. Wiernik</a>, <a href="https://remi-theriault.com/" class="external-link">Rémi Thériault</a>, Philip Waggoner.</p>
 </div>
-
 <div class="pkgdown-footer-right">
   <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
 </div>
-
     </footer>
 </div>
-
-  
-
-  
-
   </body>
 </html>

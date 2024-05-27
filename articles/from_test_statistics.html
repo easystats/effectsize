@@ -26,131 +26,91 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@easystats4u">
 <meta name="twitter:site" content="@easystats4u">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
-
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
-    
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
-
     <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8</small>
-
-    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">
-    <span class="fa fa fa fa-file-code"></span>
-     
-    Reference
-  </a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../articles/effectsize.html">Get Started</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html"><span class="fa fa-file-code"></span> Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../articles/effectsize.html">Get Started</a></li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-effect-sizes">Effect sizes</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-effect-sizes">
-    <a class="dropdown-item" href="../articles/standardized_differences.html">Standardized Differences</a>
-    <a class="dropdown-item" href="../articles/xtabs.html">Contingency Tables</a>
-    <a class="dropdown-item" href="../articles/anovaES.html">ANOVA Effect Sizes</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/parameters/articles/standardize_parameters_effsize.html">Standardized Parameters</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/correlation/articles/index.html">Correlation Vignettes</a>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="../reference/effectsize_CIs.html">Confidence Intervals</a>
-    <a class="dropdown-item" href="../articles/statistical_power.html">Statistical Power</a>
-    <div class="dropdown-divider"></div>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/see/articles/effectsize.html">Plotting Functions</a>
-    <a class="dropdown-item" href="../articles/effectsize_API.html">Extending effectsize</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-effect-sizes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Effect sizes</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-effect-sizes">
+<li><a class="dropdown-item" href="../articles/standardized_differences.html">Standardized Differences</a></li>
+    <li><a class="dropdown-item" href="../articles/xtabs.html">Contingency Tables</a></li>
+    <li><a class="dropdown-item" href="../articles/anovaES.html">ANOVA Effect Sizes</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/parameters/articles/standardize_parameters_effsize.html">Standardized Parameters</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/correlation/articles/index.html">Correlation Vignettes</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="../reference/effectsize_CIs.html">Confidence Intervals</a></li>
+    <li><a class="dropdown-item" href="../articles/statistical_power.html">Statistical Power</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/see/articles/effectsize.html">Plotting Functions</a></li>
+    <li><a class="dropdown-item" href="../articles/effectsize_API.html">Extending effectsize</a></li>
+  </ul>
 </li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-conversion">Conversion</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-conversion">
-    <a class="dropdown-item" href="../articles/convert_r_d_OR.html">Between d, r, OR</a>
-    <a class="dropdown-item" href="../articles/convert_p_OR_RR.html">Between p, OR, RR</a>
-    <a class="dropdown-item" href="../articles/from_test_statistics.html">From Test Statistics</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-conversion" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Conversion</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-conversion">
+<li><a class="dropdown-item" href="../articles/convert_r_d_OR.html">Between d, r, OR</a></li>
+    <li><a class="dropdown-item" href="../articles/convert_p_OR_RR.html">Between p, OR, RR</a></li>
+    <li><a class="dropdown-item" href="../articles/from_test_statistics.html">From Test Statistics</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../articles/interpret.html">Interpretation</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">
-    <span class="fa fa fa fa-newspaper"></span>
-     
-    News
-  </a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../articles/interpret.html">Interpretation</a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html"><span class="fa fa-newspaper"></span> News</a></li>
       </ul>
 <ul class="navbar-nav">
-<li><form class="form-inline" role="search">
-<input type="search" class="form-control" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown--easystats" aria-label="easystats">
-    <span class="fab fa fab fa-r-project"></span>
-     
-    easystats
-  </a>
-  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown--easystats">
-    <a class="external-link dropdown-item" href="https://easystats.github.io/bayestestR/">bayestestR</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/correlation/">correlation</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/datawizard/">datawizard</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/easystats/">easystats</a>
-    <a class="dropdown-item" href="https://easystats.github.io/effectsize/">effectsize</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/insight/">insight</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/modelbased/">modelbased</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/performance/">performance</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/parameters/">parameters</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/report/">report</a>
-    <a class="external-link dropdown-item" href="https://easystats.github.io/see/">see</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-easystats" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="easystats"><span class="fa fab fa-r-project"></span> easystats</button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-easystats">
+<li><a class="external-link dropdown-item" href="https://easystats.github.io/bayestestR/">bayestestR</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/correlation/">correlation</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/datawizard/">datawizard</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/easystats/">easystats</a></li>
+    <li><a class="dropdown-item" href="https://easystats.github.io/effectsize/">effectsize</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/insight/">insight</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/modelbased/">modelbased</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/performance/">performance</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/parameters/">parameters</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/report/">report</a></li>
+    <li><a class="external-link dropdown-item" href="https://easystats.github.io/see/">see</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="external-link nav-link" href="http://twitter.com/easystats4u" aria-label="Twitter">
-    <span class="fa fa-twitter"></span>
-     
-  </a>
-</li>
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/easystats/effectsize/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
+<li class="nav-item"><a class="external-link nav-link" href="http://twitter.com/easystats4u" aria-label="Twitter"><span class="fa fa-twitter"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/easystats/effectsize/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
+<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  </ul>
 </li>
       </ul>
 </div>
-
-    
   </div>
 </nav><div class="container template-article">
-
 
 
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Effect Size from Test Statistics</h1>
-            
-      
-      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/vignettes/from_test_statistics.Rmd" class="external-link"><code>vignettes/from_test_statistics.Rmd</code></a></small>
+                        <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/vignettes/from_test_statistics.Rmd" class="external-link"><code>vignettes/from_test_statistics.Rmd</code></a></small>
       <div class="d-none name"><code>from_test_statistics.Rmd</code></div>
     </div>
-
-    
-    
-<div class="section level2">
+        <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <p>In many real world applications there are no straightforward ways of
@@ -237,9 +197,12 @@ using estimates based on test statistic offers a good approximation.</p>
 <h4 id="in-simple-effect-and-contrast-analysis">In Simple Effect and Contrast Analysis<a class="anchor" aria-label="anchor" href="#in-simple-effect-and-contrast-analysis"></a>
 </h4>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rvlenth/emmeans" class="external-link">emmeans</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/joint_tests.html" class="external-link">joint_tests</a></span><span class="op">(</span><span class="va">aov_fit</span>, by <span class="op">=</span> <span class="st">"noise"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rvlenth.github.io/emmeans/" class="external-link">emmeans</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; Welcome to emmeans.
+&gt; Caution: You lose important information if you filter this package's results.
+&gt; See '? untidy'</code></pre>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rvlenth.github.io/emmeans/reference/joint_tests.html" class="external-link">joint_tests</a></span><span class="op">(</span><span class="va">aov_fit</span>, by <span class="op">=</span> <span class="st">"noise"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; noise = absent:
 &gt;  model term df1 df2 F.ratio p.value
 &gt;  angle        2   9   8.000  0.0096
@@ -247,7 +210,7 @@ using estimates based on test statistic offers a good approximation.</p>
 &gt; noise = present:
 &gt;  model term df1 df2 F.ratio p.value
 &gt;  angle        2   9  51.000  &lt;.0001</code></pre>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span></span>
 <span>  f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">51</span><span class="op">)</span>,</span>
 <span>  df <span class="op">=</span> <span class="fl">2</span>,</span>
@@ -260,8 +223,8 @@ using estimates based on test statistic offers a good approximation.</p>
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <p>We can also use <code><a href="../reference/F_to_eta2.html">t_to_eta2()</a></code> for contrast analysis:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span><span class="va">angle</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rvlenth.github.io/emmeans/reference/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span><span class="va">angle</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt;  contrast estimate   SE df t.ratio p.value
 &gt;  X0 - X4      -108 17.4  9  -6.200  0.0004
 &gt;  X0 - X8      -168 20.6  9  -8.200  0.0001
@@ -269,7 +232,7 @@ using estimates based on test statistic offers a good approximation.</p>
 &gt; 
 &gt; Results are averaged over the levels of: noise 
 &gt; P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/F_to_eta2.html">t_to_eta2</a></span><span class="op">(</span></span>
 <span>  t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">6.2</span>, <span class="op">-</span><span class="fl">8.2</span>, <span class="op">-</span><span class="fl">3.2</span><span class="op">)</span>,</span>
 <span>  df_error <span class="op">=</span> <span class="fl">9</span></span>
@@ -285,7 +248,7 @@ using estimates based on test statistic offers a good approximation.</p>
 <div class="section level4">
 <h4 id="in-linear-mixed-models">In Linear Mixed Models<a class="anchor" aria-label="anchor" href="#in-linear-mixed-models"></a>
 </h4>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/runehaubo/lmerTestR" class="external-link">lmerTest</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fit_lmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lmerTest/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">Reaction</span> <span class="op">~</span> <span class="va">Days</span> <span class="op">+</span> <span class="op">(</span><span class="va">Days</span> <span class="op">|</span> <span class="va">Subject</span><span class="op">)</span>, <span class="va">sleepstudy</span><span class="op">)</span></span>
@@ -296,7 +259,7 @@ using estimates based on test statistic offers a good approximation.</p>
 &gt; Days  30031   30031     1    17    45.9 3.3e-06 ***
 &gt; ---
 &gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span><span class="fl">45.9</span>, <span class="fl">1</span>, <span class="fl">17</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; η² (partial) |       95% CI
 &gt; ---------------------------
@@ -305,7 +268,7 @@ using estimates based on test statistic offers a good approximation.</p>
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <p>We can also use <code><a href="../reference/F_to_eta2.html">t_to_eta2()</a></code> for the slope of
 <code>Days</code> (which in this case gives the same result).</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="va">fit_lmm</span>, effects <span class="op">=</span> <span class="st">"fixed"</span>, ci_method <span class="op">=</span> <span class="st">"satterthwaite"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Fixed Effects
 &gt; 
@@ -316,7 +279,7 @@ using estimates based on test statistic offers a good approximation.</p>
 <pre><code>&gt; 
 &gt; Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed
 &gt;   using a Wald t-distribution with Satterthwaite approximation.</code></pre>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/F_to_eta2.html">t_to_eta2</a></span><span class="op">(</span><span class="fl">6.77</span>, df_error <span class="op">=</span> <span class="fl">17</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; η² (partial) |       95% CI
 &gt; ---------------------------
@@ -334,21 +297,21 @@ sometimes called <span class="math inline">\(\text{Adj.
 }\eta^2_p\)</span>, which is equivalent to <span class="math inline">\(R^2_{adj}\)</span>; <span class="citation">Albers
 and Lakens (2018)</span>, <span class="citation">Mordkoff
 (2019)</span>).</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/F_to_eta2.html">F_to_eta2</a></span><span class="op">(</span><span class="fl">45.9</span>, <span class="fl">1</span>, <span class="fl">17</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; η² (partial) |       95% CI
 &gt; ---------------------------
 &gt; 0.73         | [0.51, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/F_to_eta2.html">F_to_epsilon2</a></span><span class="op">(</span><span class="fl">45.9</span>, <span class="fl">1</span>, <span class="fl">17</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; ε² (partial) |       95% CI
 &gt; ---------------------------
 &gt; 0.71         | [0.48, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/F_to_eta2.html">F_to_omega2</a></span><span class="op">(</span><span class="fl">45.9</span>, <span class="fl">1</span>, <span class="fl">17</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; ω² (partial) |       95% CI
 &gt; ---------------------------
@@ -370,7 +333,7 @@ number, which looks better).</p>
 <div class="section level4">
 <h4 id="for-slopes">For Slopes<a class="anchor" aria-label="anchor" href="#for-slopes"></a>
 </h4>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="va">fit_lmm</span>, effects <span class="op">=</span> <span class="st">"fixed"</span>, ci_method <span class="op">=</span> <span class="st">"satterthwaite"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Fixed Effects
 &gt; 
@@ -381,14 +344,14 @@ number, which looks better).</p>
 <pre><code>&gt; 
 &gt; Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed
 &gt;   using a Wald t-distribution with Satterthwaite approximation.</code></pre>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/t_to_r.html">t_to_r</a></span><span class="op">(</span><span class="fl">6.77</span>, df_error <span class="op">=</span> <span class="fl">17</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; r    |       95% CI
 &gt; -------------------
 &gt; 0.85 | [0.67, 0.92]</code></pre>
 <p>In a fixed-effect linear model, this returns the
 <strong>partial</strong> correlation. Compare:</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit_lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">rating</span> <span class="op">~</span> <span class="va">complaints</span> <span class="op">+</span> <span class="va">critical</span>, data <span class="op">=</span> <span class="va">attitude</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">parameters</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">model_parameters</a></span><span class="op">(</span><span class="va">fit_lm</span><span class="op">)</span></span></code></pre></div>
@@ -400,7 +363,7 @@ number, which looks better).</p>
 <pre><code>&gt; 
 &gt; Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed
 &gt;   using a Wald t-distribution approximation.</code></pre>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/t_to_r.html">t_to_r</a></span><span class="op">(</span></span>
 <span>  t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7.46</span>, <span class="fl">0.01</span><span class="op">)</span>,</span>
 <span>  df_error <span class="op">=</span> <span class="fl">27</span></span>
@@ -410,7 +373,7 @@ number, which looks better).</p>
 &gt; 0.82     | [ 0.67, 0.89]
 &gt; 1.92e-03 | [-0.35, 0.35]</code></pre>
 <p>to:</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html" class="external-link">correlation</a></span><span class="op">(</span><span class="va">attitude</span>,</span>
 <span>  select <span class="op">=</span> <span class="st">"rating"</span>,</span>
 <span>  select2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"complaints"</span>, <span class="st">"critical"</span><span class="op">)</span>,</span>
@@ -432,8 +395,8 @@ number, which looks better).</p>
 <p>This measure is also sometimes used in contrast analysis, where it is
 called the point bi-serial correlation - <span class="math inline">\(r_{pb}\)</span> <span class="citation">(Cohen et
 al. 1965; Rosnow, Rosenthal, and Rubin 2000)</span>:</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span><span class="va">angle</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rvlenth.github.io/emmeans/reference/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span><span class="va">angle</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt;  contrast estimate   SE df t.ratio p.value
 &gt;  X0 - X4      -108 17.4  9  -6.200  0.0004
 &gt;  X0 - X8      -168 20.6  9  -8.200  0.0001
@@ -441,7 +404,7 @@ al. 1965; Rosnow, Rosenthal, and Rubin 2000)</span>:</p>
 &gt; 
 &gt; Results are averaged over the levels of: noise 
 &gt; P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/t_to_r.html">t_to_r</a></span><span class="op">(</span></span>
 <span>  t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">6.2</span>, <span class="op">-</span><span class="fl">8.2</span>, <span class="op">-</span><span class="fl">3.2</span><span class="op">)</span>,</span>
 <span>  df_error <span class="op">=</span> <span class="fl">9</span></span>
@@ -465,10 +428,10 @@ when comparing two groups of equal size <span class="citation">(Wolf
 <div class="section level4">
 <h4 id="between-subject-contrasts">Between-Subject Contrasts<a class="anchor" aria-label="anchor" href="#between-subject-contrasts"></a>
 </h4>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">breaks</span> <span class="op">~</span> <span class="va">tension</span>, data <span class="op">=</span> <span class="va">warpbreaks</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">em_tension</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">m</span>, <span class="op">~</span><span class="va">tension</span><span class="op">)</span></span>
+<span><span class="va">em_tension</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rvlenth.github.io/emmeans/reference/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">m</span>, <span class="op">~</span><span class="va">tension</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="va">em_tension</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt;  contrast estimate SE df t.ratio p.value
 &gt;  L - M        10.0  4 51   2.500  0.0400
@@ -476,7 +439,7 @@ when comparing two groups of equal size <span class="citation">(Wolf
 &gt;  M - H         4.7  4 51   1.200  0.4600
 &gt; 
 &gt; P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/t_to_r.html">t_to_d</a></span><span class="op">(</span></span>
 <span>  t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.53</span>, <span class="fl">3.72</span>, <span class="fl">1.20</span><span class="op">)</span>,</span>
 <span>  df_error <span class="op">=</span> <span class="fl">51</span></span>
@@ -489,9 +452,9 @@ when comparing two groups of equal size <span class="citation">(Wolf
 <p>However, these are merely approximations of a <em>true</em> Cohen’s
 <em>d</em>. It is advised to directly estimate Cohen’s <em>d</em>,
 whenever possible. For example, here with
-<code><a href="https://rdrr.io/pkg/emmeans/man/eff_size.html" class="external-link">emmeans::eff_size()</a></code>:</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/eff_size.html" class="external-link">eff_size</a></span><span class="op">(</span><span class="va">em_tension</span>, sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sigma.html" class="external-link">sigma</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>, edf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/df.residual.html" class="external-link">df.residual</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code><a href="https://rvlenth.github.io/emmeans/reference/eff_size.html" class="external-link">emmeans::eff_size()</a></code>:</p>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rvlenth.github.io/emmeans/reference/eff_size.html" class="external-link">eff_size</a></span><span class="op">(</span><span class="va">em_tension</span>, sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sigma.html" class="external-link">sigma</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>, edf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/df.residual.html" class="external-link">df.residual</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt;  contrast effect.size   SE df lower.CL upper.CL
 &gt;  L - M           0.84 0.34 51     0.15     1.53
 &gt;  L - H           1.24 0.36 51     0.53     1.95
@@ -503,8 +466,8 @@ whenever possible. For example, here with
 <div class="section level4">
 <h4 id="within-subject-contrasts">Within-Subject Contrasts<a class="anchor" aria-label="anchor" href="#within-subject-contrasts"></a>
 </h4>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span><span class="va">angle</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rvlenth.github.io/emmeans/reference/emmeans.html" class="external-link">emmeans</a></span><span class="op">(</span><span class="va">aov_fit</span>, <span class="op">~</span><span class="va">angle</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt;  contrast estimate   SE df t.ratio p.value
 &gt;  X0 - X4      -108 17.4  9  -6.200  0.0004
 &gt;  X0 - X8      -168 20.6  9  -8.200  0.0001
@@ -512,7 +475,7 @@ whenever possible. For example, here with
 &gt; 
 &gt; Results are averaged over the levels of: noise 
 &gt; P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/t_to_r.html">t_to_d</a></span><span class="op">(</span></span>
 <span>  t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">6.2</span>, <span class="op">-</span><span class="fl">8.2</span>, <span class="op">-</span><span class="fl">3.3</span><span class="op">)</span>,</span>
 <span>  df_error <span class="op">=</span> <span class="fl">9</span>,</span>
@@ -570,26 +533,16 @@ Research Synthesis</em>. Vol. 59. Sage.
 </div>
 </div>
 
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
-
-
-
     <footer><div class="pkgdown-footer-left">
   <p>Developed by <a href="https://home.msbstats.info/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>, <a href="https://sites.google.com/site/indrajeetspatilmorality/" class="external-link">Indrajeet Patil</a>, <a href="https://wiernik.org/" class="external-link">Brenton M. Wiernik</a>, <a href="https://remi-theriault.com/" class="external-link">Rémi Thériault</a>, Philip Waggoner.</p>
 </div>
-
 <div class="pkgdown-footer-right">
   <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
 </div>
-
     </footer>
 </div>
-
-  
-
-  
-
   </body>
 </html>
