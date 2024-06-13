@@ -5,7 +5,7 @@ test_that("rank_biserial", {
   rRB1 <- rank_biserial(x, y, paired = TRUE)
   rRB2 <- rank_biserial(x - y)
 
-  expect_equal(rRB1, rRB2)
+  expect_equal(rRB1, rRB2, ignore_attr = TRUE)
   expect_equal(rRB1[[1]], 0.777, tolerance = 0.01)
   expect_equal(rRB1$CI_low, 0.2953631, tolerance = 0.01)
   expect_equal(rRB1$CI_high, 0.9441559, tolerance = 0.01)

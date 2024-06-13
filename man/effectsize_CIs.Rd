@@ -121,7 +121,9 @@ eta_squared(fit) # default, ci = 0.95, alternative = "greater"
 #> n_comps   | 0.19 | [0.14, 1.00]
 #> 
 #> - One-sided CIs: upper bound fixed at [1.00].
-eta_squared(fit, alternative = "less") # Test is eta is smaller than some value
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{eta_squared(fit, alternative = "less") # Test is eta is smaller than some value
 #> For one-way between subjects designs, partial eta squared is equivalent
 #>   to eta squared. Returning eta squared.
 #> # Effect Size for ANOVA
@@ -131,7 +133,9 @@ eta_squared(fit, alternative = "less") # Test is eta is smaller than some value
 #> n_comps   | 0.19 | [0.00, 0.24]
 #> 
 #> - One-sided CIs: lower bound fixed at [0.00].
-eta_squared(fit, alternative = "two.sided") # 2-sided bounds for alpha = .05
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{eta_squared(fit, alternative = "two.sided") # 2-sided bounds for alpha = .05
 #> For one-way between subjects designs, partial eta squared is equivalent
 #>   to eta squared. Returning eta squared.
 #> # Effect Size for ANOVA
@@ -139,7 +143,9 @@ eta_squared(fit, alternative = "two.sided") # 2-sided bounds for alpha = .05
 #> Parameter | Eta2 |       95\% CI
 #> -------------------------------
 #> n_comps   | 0.19 | [0.14, 0.25]
-eta_squared(fit, ci = 0.9, alternative = "two.sided") # both 1-sided bounds for alpha = .05
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{eta_squared(fit, ci = 0.9, alternative = "two.sided") # both 1-sided bounds for alpha = .05
 #> For one-way between subjects designs, partial eta squared is equivalent
 #>   to eta squared. Returning eta squared.
 #> # Effect Size for ANOVA

@@ -257,14 +257,24 @@ d_to_overlap.effectsize_difference <- function(d) {
 
 #' @keywords internal
 .is_cles_applicable <- function(d, allow_paired = FALSE) {
-  !any(colnames(d) %in% c("Cohens_d", "Hedges_g")) ||
-    (isTRUE(attr(d, "paired")) && !allow_paired) ||
-    (!isTRUE(attr(d, "paired")) && !isTRUE(attr(d, "pooled_sd")))
+  paired <- attr(d, "paired")
+  pooled_sd <- attr(d, "pooled_sd")
+
+  # Effect size is d or g
+  any(colnames(d) %in% c("Cohens_d", "Hedges_g")) &&
+    (
+      # Is paired when allowed
+      (isTRUE(paired) && allow_paired) ||
+        # Is one sample when allowed
+        (!isTRUE(paired) && is.null(pooled_sd) && allow_paired) ||
+        # Is independent with pooled sd
+        (!isTRUE(paired) && isTRUE(pooled_sd))
+    )
 }
 
 #' @keywords internal
 .cohens_d_to_cles <- function(d, converter, allow_paired = FALSE) {
-  if (.is_cles_applicable(d, allow_paired)) {
+  if (!.is_cles_applicable(d, allow_paired)) {
     insight::format_error("Common language effect size only applicable to 2-sample Cohen's d with pooled SD.")
   }
 

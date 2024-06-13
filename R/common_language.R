@@ -129,10 +129,6 @@ p_superiority <- function(x, y = NULL, data = NULL,
   paired <- data[["paired"]]
 
   if (parametric) {
-    if (paired) {
-      x <- x - y
-      y <- NULL
-    }
     d <- cohens_d(
       x = x,
       y = y,

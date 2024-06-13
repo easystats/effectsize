@@ -214,13 +214,14 @@ glass_delta <- function(x, y = NULL, data = NULL,
     )
   }
 
-  is_paired_or_onesample <- paired
   if (is.null(y)) {
     if (type == "delta") {
       insight::format_error("For Glass' Delta, please provide data from two samples.")
     }
     y <- 0
     is_paired_or_onesample <- TRUE
+  } else {
+    is_paired_or_onesample <- paired
   }
 
   # Compute index
