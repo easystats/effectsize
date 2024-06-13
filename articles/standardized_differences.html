@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="effectsize">
 <title>Standardized Differences • effectsize</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -13,26 +12,20 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/JetBrains_Mono-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/Roboto_Slab-0.4.9/font.css" rel="stylesheet">
-<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Standardized Differences">
-<meta property="og:description" content="effectsize">
-<meta property="og:image" content="https://easystats.github.io/effectsize/reference/figures/card.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:creator" content="@easystats4u">
-<meta name="twitter:site" content="@easystats4u">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
+<link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Standardized Differences">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.1</small>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -40,7 +33,7 @@
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="../reference/index.html"><span class="fa fa-file-code"></span> Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/effectsize.html">Get Started</a></li>
-<li class="active nav-item dropdown">
+<li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-effect-sizes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Effect sizes</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-effect-sizes">
 <li><a class="dropdown-item" href="../articles/standardized_differences.html">Standardized Differences</a></li>
@@ -107,7 +100,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Standardized Differences</h1>
-                        <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/vignettes/standardized_differences.Rmd" class="external-link"><code>vignettes/standardized_differences.Rmd</code></a></small>
+                        <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/main/vignettes/standardized_differences.Rmd" class="external-link"><code>vignettes/standardized_differences.Rmd</code></a></small>
       <div class="d-none name"><code>standardized_differences.Rmd</code></div>
     </div>
         <p>This vignette provides a review of effect sizes for
@@ -121,8 +114,12 @@ comparisons of groups, which are typically achieved with the
 </h2>
 <p>For <em>t</em>-tests, it is common to report an effect size
 representing a standardized difference between the two compared samples’
-means. These measures range from <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(+\infty\)</span>, with negative values indicating
-the second group’s mean is larger (and vice versa).</p>
+means. These measures range from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi>∞</mi></mrow><annotation encoding="application/x-tex">-\infty</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>+</mi><mi>∞</mi></mrow><annotation encoding="application/x-tex">+\infty</annotation></semantics></math>,
+with negative values indicating the second group’s mean is larger (and
+vice versa).</p>
 <div class="section level3">
 <h3 id="two-independent-samples">Two Independent Samples<a class="anchor" aria-label="anchor" href="#two-independent-samples"></a>
 </h3>
@@ -150,7 +147,8 @@ standardized based on the pooled standard deviation of both samples
 &gt; 
 &gt; - Estimated using pooled SD.</code></pre>
 <p>Hedges’ <em>g</em> provides a small-sample bias correction (for small
-sample sizes, <span class="math inline">\(N &lt; 20\)</span>).</p>
+sample sizes,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>&lt;</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">N &lt; 20</annotation></semantics></math>).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/cohens_d.html">hedges_g</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Hedges' g |         95% CI
@@ -190,8 +188,10 @@ estimates that are not based on the pooled standard deviation:</p>
 <p>In cases where the differences between the variances are substantial,
 it is also common to standardize the difference based only on the
 standard deviation of one of the groups (usually the “control” group);
-this effect size is known as Glass’ <span class="math inline">\(\Delta\)</span> (delta) (Note that the standard
-deviation is taken from the <em>second</em> sample).</p>
+this effect size is known as Glass’
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Δ</mi><annotation encoding="application/x-tex">\Delta</annotation></semantics></math>
+(delta) (Note that the standard deviation is taken from the
+<em>second</em> sample).</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/cohens_d.html">glass_delta</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Glass' Δ (adj.) |         95% CI
@@ -264,9 +264,11 @@ standardized the differences between the means of the conditions /
 times, and each provides a unique standardized mean difference.</p>
 <p>The most basic option is compute from the paired samples difference
 scores and compute a one-sample effect size. This effect size, known as
-Cohen’s <span class="math inline">\(d_z\)</span>, represents the
-difference in terms of its homogeneity (a small but stable difference
-will have a large <span class="math inline">\(d_z\)</span>).</p>
+Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>z</mi></msub><annotation encoding="application/x-tex">d_z</annotation></semantics></math>,
+represents the difference in terms of its homogeneity (a small but
+stable difference will have a large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>z</mi></msub><annotation encoding="application/x-tex">d_z</annotation></semantics></math>).</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sleep_wide</span> <span class="op">&lt;-</span> <span class="fu">datawizard</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/datawizard/reference/data_to_wide.html" class="external-link">data_to_wide</a></span><span class="op">(</span><span class="va">sleep</span>,</span>
 <span>  id_cols <span class="op">=</span> <span class="st">"ID"</span>,</span>
@@ -380,13 +382,15 @@ on <code>BayesFactor</code>’s version of a <em>t</em>-test via the
 <div class="section level3">
 <h3 id="multivariate-standardized-distances">(Multivariate) Standardized Distances<a class="anchor" aria-label="anchor" href="#multivariate-standardized-distances"></a>
 </h3>
-<p>When examining multivariate differences (e.g., with Hotelling’s <span class="math inline">\(T^2\)</span> test), Mahalanobis’ <em>D</em> can be
-used as the multivariate equivalent for Cohen’s <em>d</em>. Unlike
-Cohen’s <em>d</em> which is a measure of standardized
-<em>differences</em>, Mahalanobis’ <em>D</em> is a measure of
-standardized <em>distances</em>. As such, it cannot be negative, and
-ranges from 0 (no distance between the multivariate distributions) to
-<span class="math inline">\(+\infty\)</span>.</p>
+<p>When examining multivariate differences (e.g., with Hotelling’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>T</mi><mn>2</mn></msup><annotation encoding="application/x-tex">T^2</annotation></semantics></math>
+test), Mahalanobis’ <em>D</em> can be used as the multivariate
+equivalent for Cohen’s <em>d</em>. Unlike Cohen’s <em>d</em> which is a
+measure of standardized <em>differences</em>, Mahalanobis’ <em>D</em> is
+a measure of standardized <em>distances</em>. As such, it cannot be
+negative, and ranges from 0 (no distance between the multivariate
+distributions) to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>+</mi><mi>∞</mi></mrow><annotation encoding="application/x-tex">+\infty</annotation></semantics></math>.</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/mahalanobis_d.html">mahalanobis_d</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">+</span> <span class="va">hp</span> <span class="op">+</span> <span class="va">cyl</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Mahalanobis' D |      95% CI
@@ -408,20 +412,27 @@ zero).</p>
 <pre><code>&gt; Means Ratio (adj.) |       95% CI
 &gt; ---------------------------------
 &gt; 0.70               | [0.59, 0.83]</code></pre>
-<p>Values range between <span class="math inline">\(0\)</span> and <span class="math inline">\(\infty\)</span>, with values smaller than 1
-indicating that the second mean is larger than the first, values larger
-than 1 indicating that the second mean is smaller than the first, and
-values of 1 indicating that the means are equal.</p>
+<p>Values range between
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>∞</mi><annotation encoding="application/x-tex">\infty</annotation></semantics></math>,
+with values smaller than 1 indicating that the second mean is larger
+than the first, values larger than 1 indicating that the second mean is
+smaller than the first, and values of 1 indicating that the means are
+equal.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="dominance-effect-sizes">Dominance Effect Sizes<a class="anchor" aria-label="anchor" href="#dominance-effect-sizes"></a>
 </h2>
-<p>The rank-biserial correlation (<span class="math inline">\(r_{rb}\)</span>) is a measure of dominance: larger
-values indicate that more of <em>X</em> is larger than more of
-<em>Y</em>, with a value of <span class="math inline">\((-1)\)</span>
+<p>The rank-biserial correlation
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mrow><mi>r</mi><mi>b</mi></mrow></msub><annotation encoding="application/x-tex">r_{rb}</annotation></semantics></math>)
+is a measure of dominance: larger values indicate that more of
+<em>X</em> is larger than more of <em>Y</em>, with a value of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mi>−</mi><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(-1)</annotation></semantics></math>
 indicates that <em>all</em> observations in the second group are larger
-than the first, and a value of <span class="math inline">\((+1)\)</span>
+than the first, and a value of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mi>+</mi><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(+1)</annotation></semantics></math>
 indicates that <em>all</em> observations in the first group are larger
 than the second.</p>
 <p>These effect sizes should be reported with the Wilcoxon
@@ -450,11 +461,18 @@ than the second.</p>
 <div class="section level3">
 <h3 id="one-sample-1">One Sample<a class="anchor" aria-label="anchor" href="#one-sample-1"></a>
 </h3>
-<p>For one sample, <span class="math inline">\(r_{rb}\)</span> measures
-the symmetry around <span class="math inline">\(\mu\)</span> (mu; the
-null value), with 0 indicating perfect symmetry, <span class="math inline">\((-1)\)</span> indicates that all observations fall
-below <span class="math inline">\(\mu\)</span>, and <span class="math inline">\((+1)\)</span> indicates that all observations fall
-above <span class="math inline">\(\mu\)</span>.</p>
+<p>For one sample,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mrow><mi>r</mi><mi>b</mi></mrow></msub><annotation encoding="application/x-tex">r_{rb}</annotation></semantics></math>
+measures the symmetry around
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>
+(mu; the null value), with 0 indicating perfect symmetry,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mi>−</mi><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(-1)</annotation></semantics></math>
+indicates that all observations fall below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mi>+</mi><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(+1)</annotation></semantics></math>
+indicates that all observations fall above
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>.</p>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.15</span>, <span class="fl">0.88</span>, <span class="fl">0.90</span>, <span class="fl">0.74</span>, <span class="fl">1.21</span>, <span class="fl">1.36</span>, <span class="fl">0.89</span><span class="op">)</span></span>
 <span></span>
@@ -476,8 +494,11 @@ above <span class="math inline">\(\mu\)</span>.</p>
 <div class="section level3">
 <h3 id="paired-samples-1">Paired Samples<a class="anchor" aria-label="anchor" href="#paired-samples-1"></a>
 </h3>
-<p>For paired samples, <span class="math inline">\(r_{rb}\)</span>
-measures the symmetry of the (paired) <em>differences</em> around <span class="math inline">\(\mu\)</span> as for the one sample case.</p>
+<p>For paired samples,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mrow><mi>r</mi><mi>b</mi></mrow></msub><annotation encoding="application/x-tex">r_{rb}</annotation></semantics></math>
+measures the symmetry of the (paired) <em>differences</em> around
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>
+as for the one sample case.</p>
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.83</span>, <span class="fl">0.50</span>, <span class="fl">1.62</span>, <span class="fl">2.48</span>, <span class="fl">1.68</span>, <span class="fl">1.88</span>, <span class="fl">1.55</span>, <span class="fl">3.06</span>, <span class="fl">1.30</span><span class="op">)</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.88</span>, <span class="fl">0.65</span>, <span class="fl">0.60</span>, <span class="fl">2.05</span>, <span class="fl">1.06</span>, <span class="fl">1.29</span>, <span class="fl">1.06</span>, <span class="fl">3.14</span>, <span class="fl">1.29</span><span class="op">)</span></span>
@@ -509,10 +530,11 @@ probability.</p>
 <h4 id="measures-of-nonoverlap">Measures of (Non)Overlap<a class="anchor" aria-label="anchor" href="#measures-of-nonoverlap"></a>
 </h4>
 <p>These measures indicate the degree two independent distributions
-overlap: Cohen’s <span class="math inline">\(U_1\)</span> is the
-proportion of the total of both distributions that does not overlap,
-while <em>Overlap (OVL)</em> is the proportional overlap between the
-distributions.</p>
+overlap: Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>U</mi><mn>1</mn></msub><annotation encoding="application/x-tex">U_1</annotation></semantics></math>
+is the proportion of the total of both distributions that does not
+overlap, while <em>Overlap (OVL)</em> is the proportional overlap
+between the distributions.</p>
 <div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">cohens_u1</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's U1 |       95% CI
@@ -527,8 +549,9 @@ distributions.</p>
 of these effect sizes: these assume equal normal variance in both
 populations. When these assumptions are not met, the values produced
 will be biased in unknown ways. In such cases, we should use the
-non-parametric versions (<span class="math inline">\(U_1\)</span> is not
-defined):</p>
+non-parametric versions
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>U</mi><mn>1</mn></msub><annotation encoding="application/x-tex">U_1</annotation></semantics></math>
+is not defined):</p>
 <div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">p_overlap</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span>, parametric <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Overlap |       95% CI
@@ -552,11 +575,13 @@ the first group.</p>
 <p>Here, this indicates that if we were to randomly draw a sample from
 <code>am==0</code> and from <code>am==1</code>, 15% of the time, the
 first will have a larger <code>mpg</code> values than the second.</p>
-<p>Cohen’s <span class="math inline">\(U_2\)</span> is the proportion of
-one of the groups that exceeds the same proportion in the other group,
-and Cohen’s <span class="math inline">\(U_3\)</span> is the proportion
-of the second group that is smaller than the median of the first
-group.</p>
+<p>Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>U</mi><mn>2</mn></msub><annotation encoding="application/x-tex">U_2</annotation></semantics></math>
+is the proportion of one of the groups that exceeds the same proportion
+in the other group, and Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>U</mi><mn>3</mn></msub><annotation encoding="application/x-tex">U_3</annotation></semantics></math>
+is the proportion of the second group that is smaller than the median of
+the first group.</p>
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">cohens_u2</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's U2 |       95% CI
@@ -627,7 +652,8 @@ equal variance of normal populations:</p>
 </h3>
 <p>For one sample, <em>probability of superiority</em> is the
 probability that, when sampling an observation at random, it will be
-larger than <span class="math inline">\(\mu\)</span>.</p>
+larger than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>.</p>
 <div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">p_superiority</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">wt</span>, mu <span class="op">=</span> <span class="fl">2.75</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Pr(superiority) |       95% CI
@@ -642,15 +668,17 @@ larger than <span class="math inline">\(\mu\)</span>.</p>
 &gt; - Non-parametric CLES</code></pre>
 <p>For paired samples, <em>probability of superiority</em> is the
 probability that, when sampling an observation at random, its
-<em>difference</em> will be larger than <span class="math inline">\(\mu\)</span>.</p>
+<em>difference</em> will be larger than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>.</p>
 <div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">p_superiority</a></span><span class="op">(</span><span class="va">sleep_wide</span><span class="op">[[</span><span class="st">"extra_1"</span><span class="op">]</span><span class="op">]</span>, <span class="va">sleep_wide</span><span class="op">[[</span><span class="st">"extra_2"</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>  paired <span class="op">=</span> <span class="cn">TRUE</span>, mu <span class="op">=</span> <span class="op">-</span><span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; For paired samples, 'repeated_measures_d()' provides more options.</code></pre>
 <pre><code>&gt; Pr(superiority) |       95% CI
 &gt; ------------------------------
 &gt; 0.37            | [0.22, 0.56]</code></pre>
-<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/p_superiority.html">p_superiority</a></span><span class="op">(</span><span class="va">sleep_wide</span><span class="op">[[</span><span class="st">"extra_1"</span><span class="op">]</span><span class="op">]</span>, <span class="va">sleep_wide</span><span class="op">[[</span><span class="st">"extra_2"</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>  paired <span class="op">=</span> <span class="cn">TRUE</span>, mu <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
 <span>  parametric <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -667,27 +695,27 @@ probability that, when sampling an observation at random, its
 <p>A Bayesian estimate of (the parametric version of) these effect sizes
 can also be provided based on <code>BayesFactor</code>’s version of a
 <em>t</em>-test via the <code><a href="../reference/effectsize.html">effectsize()</a></code> function:</p>
-<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFt</span>, type <span class="op">=</span> <span class="st">"p_superiority"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Pr(superiority) |       95% CI
 &gt; ------------------------------
 &gt; 0.18            | [0.07, 0.36]</code></pre>
-<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFt</span>, type <span class="op">=</span> <span class="st">"u1"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's U1 |       95% CI
 &gt; -------------------------
 &gt; 0.65       | [0.32, 0.83]</code></pre>
-<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFt</span>, type <span class="op">=</span> <span class="st">"u2"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's U2 |       95% CI
 &gt; -------------------------
 &gt; 0.74       | [0.60, 0.85]</code></pre>
-<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFt</span>, type <span class="op">=</span> <span class="st">"u3"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Cohen's U3 |       95% CI
 &gt; -------------------------
 &gt; 0.10       | [0.02, 0.31]</code></pre>
-<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/effectsize.html">effectsize</a></span><span class="op">(</span><span class="va">BFt</span>, type <span class="op">=</span> <span class="st">"overlap"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Overlap |       95% CI
 &gt; ----------------------

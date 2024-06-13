@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="effectsize">
 <title>Effect Sizes for ANOVAs • effectsize</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -13,26 +12,20 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/JetBrains_Mono-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/Roboto_Slab-0.4.9/font.css" rel="stylesheet">
-<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Effect Sizes for ANOVAs">
-<meta property="og:description" content="effectsize">
-<meta property="og:image" content="https://easystats.github.io/effectsize/reference/figures/card.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:creator" content="@easystats4u">
-<meta name="twitter:site" content="@easystats4u">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
+<link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Effect Sizes for ANOVAs">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.1</small>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -40,7 +33,7 @@
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="../reference/index.html"><span class="fa fa-file-code"></span> Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/effectsize.html">Get Started</a></li>
-<li class="active nav-item dropdown">
+<li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-effect-sizes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Effect sizes</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-effect-sizes">
 <li><a class="dropdown-item" href="../articles/standardized_differences.html">Standardized Differences</a></li>
@@ -107,7 +100,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Effect Sizes for ANOVAs</h1>
-                        <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/vignettes/anovaES.Rmd" class="external-link"><code>vignettes/anovaES.Rmd</code></a></small>
+                        <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/main/vignettes/anovaES.Rmd" class="external-link"><code>vignettes/anovaES.Rmd</code></a></small>
       <div class="d-none name"><code>anovaES.Rmd</code></div>
     </div>
         <div class="section level3">
@@ -160,11 +153,11 @@ pieces:</p>
 </ul>
 <p>We can now ask what is the percent of the total variance in
 <code>value</code> that is associated with <code>treatment</code>. This
-measure is called Eta-squared (written as <span class="math inline">\(\eta^2\)</span>):</p>
-<p><span class="math display">\[
-\eta^2 = \frac{SS_{effect}}{SS_{total}} = \frac{72.23}{72.23 + 250.96} =
-0.22
-\]</span></p>
+measure is called Eta-squared (written as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>η</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\eta^2</annotation></semantics></math>):</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>η</mi><mn>2</mn></msup><mo>=</mo><mfrac><mrow><mi>S</mi><msub><mi>S</mi><mrow><mi>e</mi><mi>f</mi><mi>f</mi><mi>e</mi><mi>c</mi><mi>t</mi></mrow></msub></mrow><mrow><mi>S</mi><msub><mi>S</mi><mrow><mi>t</mi><mi>o</mi><mi>t</mi><mi>a</mi><mi>l</mi></mrow></msub></mrow></mfrac><mo>=</mo><mfrac><mn>72.23</mn><mrow><mn>72.23</mn><mo>+</mo><mn>250.96</mn></mrow></mfrac><mo>=</mo><mn>0.22</mn></mrow><annotation encoding="application/x-tex">
+\eta^2 = \frac{SS_{effect}}{SS_{total}} = \frac{72.23}{72.23 + 250.96} = 0.22
+</annotation></semantics></math></p>
 <p>and can be accessed via the <code><a href="../reference/eta_squared.html">eta_squared()</a></code> function:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/">effectsize</a></span><span class="op">)</span></span>
@@ -187,13 +180,14 @@ questions about the percent of variance explained by a predictor - how
 much variance is accounted by the predictor in <em>total</em>, and how
 much is accounted when <em>controlling</em> for any other predictors.
 The latter questions is answered by the <em>partial</em>-Eta squared
-(<span class="math inline">\(\eta^2_p\)</span>), which is the percent of
-the <strong>partial</strong> variance (after accounting for other
-predictors in the model) associated with a term:</p>
-<p><span class="math display">\[
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>η</mi><mi>p</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">\eta^2_p</annotation></semantics></math>),
+which is the percent of the <strong>partial</strong> variance (after
+accounting for other predictors in the model) associated with a
+term:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>η</mi><mi>p</mi><mn>2</mn></msubsup><mo>=</mo><mfrac><mrow><mi>S</mi><msub><mi>S</mi><mrow><mi>e</mi><mi>f</mi><mi>f</mi><mi>e</mi><mi>c</mi><mi>t</mi></mrow></msub></mrow><mrow><mi>S</mi><msub><mi>S</mi><mrow><mi>e</mi><mi>f</mi><mi>f</mi><mi>e</mi><mi>c</mi><mi>t</mi></mrow></msub><mo>+</mo><mi>S</mi><msub><mi>S</mi><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mi>o</mi><mi>r</mi></mrow></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">
 \eta^2_p = \frac{SS_{effect}}{SS_{effect} + SS_{error}}
-\]</span> which can also be accessed via the <code><a href="../reference/eta_squared.html">eta_squared()</a></code>
-function:</p>
+</annotation></semantics></math> which can also be accessed via the
+<code><a href="../reference/eta_squared.html">eta_squared()</a></code> function:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">phase</span> <span class="op">+</span> <span class="va">treatment</span>, data <span class="op">=</span> <span class="va">obk.long</span><span class="op">)</span></span>
 <span></span>
@@ -253,17 +247,21 @@ can be done with <code>car::Anova(type = ...)</code>:</p>
 &gt; treatment |         0.26 | [0.12, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<p><span class="math inline">\(\eta^2_p\)</span> will always be larger
-than <span class="math inline">\(\eta^2\)</span>. The idea is to
-simulate the effect size in a design where only the term of interest was
-manipulated. This terminology assumes some causal relationship between
-the predictor and the outcome, which reflects the experimental world
-from which these analyses and measures hail; However, <span class="math inline">\(\eta^2_p\)</span> can also simply be seen as a
-<strong>signal-to-noise- ratio</strong>, as it only uses the term’s
-<em>SS</em> and the error-term’s <em>SS</em>.[^in repeated-measure
-designs the term-specific residual-<em>SS</em> is used for the
-computation of the effect size].</p>
-<p>(Note that in a one-way fixed-effect designs <span class="math inline">\(\eta^2 = \eta^2_p\)</span>.)</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>η</mi><mi>p</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">\eta^2_p</annotation></semantics></math>
+will always be larger than
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>η</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\eta^2</annotation></semantics></math>.
+The idea is to simulate the effect size in a design where only the term
+of interest was manipulated. This terminology assumes some causal
+relationship between the predictor and the outcome, which reflects the
+experimental world from which these analyses and measures hail; However,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>η</mi><mi>p</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">\eta^2_p</annotation></semantics></math>
+can also simply be seen as a <strong>signal-to-noise- ratio</strong>, as
+it only uses the term’s <em>SS</em> and the error-term’s
+<em>SS</em>.[^in repeated-measure designs the term-specific
+residual-<em>SS</em> is used for the computation of the effect
+size].</p>
+<p>(Note that in a one-way fixed-effect designs
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>η</mi><mn>2</mn></msup><mo>=</mo><msubsup><mi>η</mi><mi>p</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">\eta^2 = \eta^2_p</annotation></semantics></math>.)</p>
 </div>
 <div class="section level4">
 <h4 id="adding-interactions">Adding Interactions<a class="anchor" aria-label="anchor" href="#adding-interactions"></a>
@@ -370,13 +368,16 @@ behind the scenes:</p>
 <div class="section level4">
 <h4 id="unbiased-effect-sizes">Unbiased Effect Sizes<a class="anchor" aria-label="anchor" href="#unbiased-effect-sizes"></a>
 </h4>
-<p>These effect sizes are unbiased estimators of the population’s <span class="math inline">\(\eta^2\)</span>:</p>
+<p>These effect sizes are unbiased estimators of the population’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>η</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\eta^2</annotation></semantics></math>:</p>
 <ul>
 <li>
-<strong>Omega Squared</strong> (<span class="math inline">\(\omega^2\)</span>)</li>
+<strong>Omega Squared</strong>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ω</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\omega^2</annotation></semantics></math>)</li>
 <li>
-<strong>Epsilon Squared</strong> (<span class="math inline">\(\epsilon^2\)</span>), also referred to as
-<em>Adjusted Eta Squared</em>.</li>
+<strong>Epsilon Squared</strong>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ϵ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\epsilon^2</annotation></semantics></math>),
+also referred to as <em>Adjusted Eta Squared</em>.</li>
 </ul>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">omega_squared</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></span></code></pre></div>
@@ -400,12 +401,27 @@ behind the scenes:</p>
 &gt; treatment:gender |         0.18 | [0.06, 1.00]
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<p>Both <span class="math inline">\(\omega^2\)</span> and <span class="math inline">\(\epsilon^2\)</span> (and their partial
-counterparts, <span class="math inline">\(\omega^2_p\)</span> &amp;
-<span class="math inline">\(\epsilon^2_p\)</span>) are unbiased
-estimators of the population’s <span class="math inline">\(\eta^2\)</span> (or <span class="math inline">\(\eta^2_p\)</span>, respectively), which is
-especially important is small samples. Though <span class="math inline">\(\omega^2\)</span> is the more popular choice <span class="citation">(Albers and Lakens 2018)</span>, <span class="math inline">\(\epsilon^2\)</span> is analogous to adjusted-<span class="math inline">\(R^2\)</span> <span class="citation">(Allen 2017,
-382)</span>, and has been found to be less biased <span class="citation">(Carroll and Nordholm 1975)</span>.</p>
+<p>Both
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ω</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\omega^2</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ϵ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\epsilon^2</annotation></semantics></math>
+(and their partial counterparts,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>ω</mi><mi>p</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">\omega^2_p</annotation></semantics></math>
+&amp;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>ϵ</mi><mi>p</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">\epsilon^2_p</annotation></semantics></math>)
+are unbiased estimators of the population’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>η</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\eta^2</annotation></semantics></math>
+(or
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>η</mi><mi>p</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">\eta^2_p</annotation></semantics></math>,
+respectively), which is especially important is small samples. Though
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ω</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\omega^2</annotation></semantics></math>
+is the more popular choice <span class="citation">(Albers and Lakens
+2018)</span>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>ϵ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\epsilon^2</annotation></semantics></math>
+is analogous to
+adjusted-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math><span class="citation">(Allen 2017, 382)</span>, and has been found to
+be less biased <span class="citation">(Carroll and Nordholm
+1975)</span>.</p>
 </div>
 <div class="section level4">
 <h4 id="generalized-eta2">Generalized Eta<sup>2</sup><a class="anchor" aria-label="anchor" href="#generalized-eta2"></a>
@@ -414,10 +430,14 @@ especially important is small samples. Though <span class="math inline">\(\omega
 design where only the term of interest was manipulated, assuming all
 other terms are have also manipulated. However, not all predictors are
 always manipulated - some can only be observed. For such cases, we can
-use <em>generalized</em> Eta squared (<span class="math inline">\(\eta^2_G\)</span>), which like <span class="math inline">\(\eta^2_p\)</span> estimating the effect size in a
-design where only the term of interest was manipulated, accounting for
-the fact that some terms cannot be manipulated (and so their variance
-would be present in such a design).</p>
+use <em>generalized</em> Eta squared
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>η</mi><mi>G</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">\eta^2_G</annotation></semantics></math>),
+which like
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>η</mi><mi>p</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">\eta^2_p</annotation></semantics></math>
+estimating the effect size in a design where only the term of interest
+was manipulated, accounting for the fact that some terms cannot be
+manipulated (and so their variance would be present in such a
+design).</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m_afex</span>, generalized <span class="op">=</span> <span class="st">"gender"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
@@ -430,22 +450,28 @@ would be present in such a design).</p>
 &gt; 
 &gt; - Observed variables: gender
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<p><span class="math inline">\(\eta^2_G\)</span> is useful in
-repeated-measures designs, as it can estimate what a
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>η</mi><mi>G</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">\eta^2_G</annotation></semantics></math>
+is useful in repeated-measures designs, as it can estimate what a
 <em>within-subject</em> effect size would have been had that predictor
 been manipulated <em>between-subjects</em> <span class="citation">(Olejnik and Algina 2003)</span>.</p>
 </div>
 <div class="section level4">
 <h4 id="cohens-f">Cohen’s <em>f</em><a class="anchor" aria-label="anchor" href="#cohens-f"></a>
 </h4>
-<p>Finally, we have the forgotten child - Cohen’s <span class="math inline">\(f\)</span>. Cohen’s <span class="math inline">\(f\)</span> is a transformation of <span class="math inline">\(\eta^2_p\)</span>, and is the ratio between the
-term-<em>SS</em> and the error-<em>SS</em>.</p>
-<p><span class="math display">\[\text{Cohen's} f_p =
-\sqrt{\frac{\eta^2_p}{1-\eta^2_p}} =
-\sqrt{\frac{SS_{effect}}{SS_{error}}}\]</span></p>
+<p>Finally, we have the forgotten child - Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>.
+Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
+is a transformation of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>η</mi><mi>p</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">\eta^2_p</annotation></semantics></math>,
+and is the ratio between the term-<em>SS</em> and the
+error-<em>SS</em>.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Cohen’s</mtext><msub><mi>f</mi><mi>p</mi></msub><mo>=</mo><msqrt><mfrac><msubsup><mi>η</mi><mi>p</mi><mn>2</mn></msubsup><mrow><mn>1</mn><mo>−</mo><msubsup><mi>η</mi><mi>p</mi><mn>2</mn></msubsup></mrow></mfrac></msqrt><mo>=</mo><msqrt><mfrac><mrow><mi>S</mi><msub><mi>S</mi><mrow><mi>e</mi><mi>f</mi><mi>f</mi><mi>e</mi><mi>c</mi><mi>t</mi></mrow></msub></mrow><mrow><mi>S</mi><msub><mi>S</mi><mrow><mi>e</mi><mi>r</mi><mi>r</mi><mi>o</mi><mi>r</mi></mrow></msub></mrow></mfrac></msqrt></mrow><annotation encoding="application/x-tex">\text{Cohen's} f_p = \sqrt{\frac{\eta^2_p}{1-\eta^2_p}} = \sqrt{\frac{SS_{effect}}{SS_{error}}}</annotation></semantics></math></p>
 <p>It can take on values between zero, when the population means are all
 equal, and an indefinitely large number as the means are further and
-further apart. It is analogous to Cohen’s <span class="math inline">\(d\)</span> when there are only two groups.</p>
+further apart. It is analogous to Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+when there are only two groups.</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/eta_squared.html">cohens_f</a></span><span class="op">(</span><span class="va">m_afex</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; # Effect Size for ANOVA (Type III)
@@ -562,9 +588,12 @@ the PPD</a> before using it to estimate explained variance measures.</p>
 <span>  refresh <span class="op">=</span> <span class="fl">0</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>We can use <code><a href="../reference/eta_squared.html">eta_squared_posterior()</a></code> to get the posterior
-distribution of <span class="math inline">\(eta^2\)</span> or <span class="math inline">\(eta^2_p\)</span> for each effect. Like an ANOVA
-table, we must make sure to use the right effects-coding and
-<em>SS</em>-type:</p>
+distribution of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>t</mi><msup><mi>a</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">eta^2</annotation></semantics></math>
+or
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>t</mi><msubsup><mi>a</mi><mi>p</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">eta^2_p</annotation></semantics></math>
+for each effect. Like an ANOVA table, we must make sure to use the right
+effects-coding and <em>SS</em>-type:</p>
 <div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pes_posterior</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eta_squared.html">eta_squared_posterior</a></span><span class="op">(</span><span class="va">m_bayes</span>,</span>
 <span>  draws <span class="op">=</span> <span class="fl">500</span>, <span class="co"># how many samples from the PPD?</span></span>
@@ -619,10 +648,14 @@ ill suited for such outcomes. Instead, we must use effect sizes for
 <em>ordinal</em> one way ANOVAs: <code><a href="https://rdrr.io/r/stats/kruskal.test.html" class="external-link">kruskal.test()</a></code> for
 differences between independent groups, and <code><a href="https://rdrr.io/r/stats/friedman.test.html" class="external-link">friedman.test()</a></code>
 for differences between dependent groups.</p>
-<p>For the one-way ordinal ANOVA, the Rank-Epsilon-Squared (<span class="math inline">\(E^2_R\)</span>) and Rank-Eta-Squared (<span class="math inline">\(\eta^2_H\)</span>) are measures of association
-similar to their non-rank counterparts: values range between 0 (no
-relative superiority between any of the groups) to 1 (complete
-separation - with no overlap in ranks between the groups).</p>
+<p>For the one-way ordinal ANOVA, the Rank-Epsilon-Squared
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>E</mi><mi>R</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">E^2_R</annotation></semantics></math>)
+and Rank-Eta-Squared
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>η</mi><mi>H</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">\eta^2_H</annotation></semantics></math>)
+are measures of association similar to their non-rank counterparts:
+values range between 0 (no relative superiority between any of the
+groups) to 1 (complete separation - with no overlap in ranks between the
+groups).</p>
 <div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">group_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  g1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.9</span>, <span class="fl">3.0</span>, <span class="fl">2.5</span>, <span class="fl">2.6</span>, <span class="fl">3.2</span><span class="op">)</span>, <span class="co"># normal subjects</span></span>

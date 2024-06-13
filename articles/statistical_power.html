@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="effectsize">
 <title>Statistical Power • effectsize</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -13,26 +12,20 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/JetBrains_Mono-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/Roboto_Slab-0.4.9/font.css" rel="stylesheet">
-<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Statistical Power">
-<meta property="og:description" content="effectsize">
-<meta property="og:image" content="https://easystats.github.io/effectsize/reference/figures/card.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:creator" content="@easystats4u">
-<meta name="twitter:site" content="@easystats4u">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
+<link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Statistical Power">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.1</small>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -40,7 +33,7 @@
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="../reference/index.html"><span class="fa fa-file-code"></span> Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/effectsize.html">Get Started</a></li>
-<li class="active nav-item dropdown">
+<li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-effect-sizes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Effect sizes</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-effect-sizes">
 <li><a class="dropdown-item" href="../articles/standardized_differences.html">Standardized Differences</a></li>
@@ -107,7 +100,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Statistical Power</h1>
-                        <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/HEAD/vignettes/statistical_power.Rmd" class="external-link"><code>vignettes/statistical_power.Rmd</code></a></small>
+                        <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/main/vignettes/statistical_power.Rmd" class="external-link"><code>vignettes/statistical_power.Rmd</code></a></small>
       <div class="d-none name"><code>statistical_power.Rmd</code></div>
     </div>
         <div class="section level2">
@@ -161,27 +154,34 @@ below.</p>
 statistical test to test expectations or explore data. For example, we
 might use a t-test to check for differences between two group means.
 This would help assess whether the difference of means between the
-groups is likely the same/indistinguishable from zero (null, <span class="math inline">\(H_0\)</span>) or not (alternative, <span class="math inline">\(H_A\)</span>)</p></li>
+groups is likely the same/indistinguishable from zero (null,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math>)
+or not (alternative,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>A</mi></msub><annotation encoding="application/x-tex">H_A</annotation></semantics></math>)</p></li>
 <li><p><em>Significance threshold</em>: This is the threshold against
 which we compare the p-value from our statistical test, which helps
 determine which hypothesis has the most support (and which we should
 reject). That is, we need to assess the probability that the result is
 likely indistinguishable from 0, or whether we have picked up on a
 likely real difference or result. To this end, if the p-value associated
-with our test is less than the significance threshold (e.g., <span class="math inline">\(p &lt; 0.05\)</span>), then, this tells us that
-the chance of observing the result we observed due to chance alone is
-extremely low, and very unlikely. In the case of comparing group mean
-differences, for example, we would have evidence allowing us to “reject
-the null hypothesis of no difference,” and conclude that there is a
-greater chance of the group means being significantly different from
-each other in line with <span class="math inline">\(H_A\)</span>.</p></li>
+with our test is less than the significance threshold (e.g.,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&lt;</mo><mn>0.05</mn></mrow><annotation encoding="application/x-tex">p &lt; 0.05</annotation></semantics></math>),
+then, this tells us that the chance of observing the result we observed
+due to chance alone is extremely low, and very unlikely. In the case of
+comparing group mean differences, for example, we would have evidence
+allowing us to “reject the null hypothesis of no difference,” and
+conclude that there is a greater chance of the group means being
+significantly different from each other in line with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mi>A</mi></msub><annotation encoding="application/x-tex">H_A</annotation></semantics></math>.</p></li>
 <li><p><em>Effect size</em>: This is the magnitude of difference. A
-common way to calculate this is via Cohen’s <span class="math inline">\(d\)</span>, which measures the estimated
-standardized difference between the means of two populations. There are
-many other extensions (e.g., correcting for small-sample bias via
-Hedges’ <span class="math inline">\(g\)</span>). This is where the
-<code>effectsize</code> package comes in, which allows for easy
-calculation of many different effect size metrics.</p></li>
+common way to calculate this is via Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>,
+which measures the estimated standardized difference between the means
+of two populations. There are many other extensions (e.g., correcting
+for small-sample bias via Hedges’
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>).
+This is where the <code>effectsize</code> package comes in, which allows
+for easy calculation of many different effect size metrics.</p></li>
 <li><p><em>Statistical power</em>: This brings us to statistical power,
 which can be thought of in many ways, such as the probability that we
 are <em>correctly</em> observing an effect or group difference, or that
@@ -192,15 +192,16 @@ common idea: <em>the ability for us to trust the result we get from the
 hypothesis test</em>, regardless of the test.</p></li>
 </ol>
 <p>Let’s put these pieces together with a simple example. Say we find a
-“statistically significant” (<span class="math inline">\(p &lt;
-0.05\)</span>) difference between two group means from a two-sample
-t-test. In this case, we might be tempted to stop and conclude that the
-signal is sufficiently strong to conclude that the groups are different
-from each other. But our test could be incorrect for a variety of
-reasons. Recall, that the p-value is a <em>probability</em>, meaning in
-part that we could be erroneously rejecting the null hypothesis, or that
-an insignificant result is insignificant due to a small sample size, and
-so on.</p>
+“statistically significant”
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&lt;</mo><mn>0.05</mn></mrow><annotation encoding="application/x-tex">p &lt; 0.05</annotation></semantics></math>)
+difference between two group means from a two-sample t-test. In this
+case, we might be tempted to stop and conclude that the signal is
+sufficiently strong to conclude that the groups are different from each
+other. But our test could be incorrect for a variety of reasons. Recall,
+that the p-value is a <em>probability</em>, meaning in part that we
+could be erroneously rejecting the null hypothesis, or that an
+insignificant result is insignificant due to a small sample size, and so
+on.</p>
 <blockquote>
 <p>This is where statistical power comes in.</p>
 </blockquote>
@@ -271,8 +272,11 @@ want the function to estimate that value for us.)</p>
 <h3 id="calculate-effect-size">Calculate Effect Size<a class="anchor" aria-label="anchor" href="#calculate-effect-size"></a>
 </h3>
 <p>Given the simplicity of this example and the prevalence of Cohen’s
-<span class="math inline">\(d\)</span>, we will rely on this effect size
-index here. We have three ways of easily calculating Cohen’s <span class="math inline">\(d\)</span> via <code>effectsize</code>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>,
+we will rely on this effect size index here. We have three ways of
+easily calculating Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+via <code>effectsize</code>.</p>
 <div class="section level4">
 <h4 id="approach-1-effectsize">Approach 1: <code>effectsize()</code><a class="anchor" aria-label="anchor" href="#approach-1-effectsize"></a>
 </h4>
@@ -300,9 +304,10 @@ like via, e.g.,
 </h4>
 <p>Alternatively, if you knew the index one you wanted to use, you could
 simply call the associated function directly. For present purposes, we
-picked Cohen’s <span class="math inline">\(d\)</span>, so we would call
-<code><a href="../reference/cohens_d.html">cohens_d()</a></code>. But there are many other indices supported by
-<code>effectsize</code>. For example, see <a href="https://easystats.github.io/effectsize/reference/index.html#standardized-differences">here</a>
+picked Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>,
+so we would call <code><a href="../reference/cohens_d.html">cohens_d()</a></code>. But there are many other
+indices supported by <code>effectsize</code>. For example, see <a href="https://easystats.github.io/effectsize/reference/index.html#standardized-differences">here</a>
 for options for standardized differences. Or see <a href="https://easystats.github.io/effectsize/reference/index.html#for-contingency-tables">here</a>
 for options for contingency tables. Or see <a href="https://easystats.github.io/effectsize/reference/index.html#comparing-multiple-groups">here</a>
 for options for comparing multiple groups, and so on.</p>
@@ -327,13 +332,14 @@ t_to_d()</em></p>
 <p>In these cases, the default behavior of <code>effectsize</code> is to
 make a back-up call to <code><a href="../reference/t_to_r.html">t_to_d()</a></code> (or which ever conversion
 function is appropriate based on the input). This step makes the
-calculation from the t-test to Cohen’s <span class="math inline">\(d\)</span>. Given the prevalence of calculating
-effect sizes for different applications and the many effect size indices
-available for different contexts, we have anticipated this and baked in
-this conversion “fail safe” in the architecture of
-<code>effectsize</code> by detecting the input and making the
-appropriate conversion. There are many conversions available in the
-package. Take a look <a href="https://easystats.github.io/effectsize/reference/index.html#effect-size-conversion">here</a>.</p>
+calculation from the t-test to Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>.
+Given the prevalence of calculating effect sizes for different
+applications and the many effect size indices available for different
+contexts, we have anticipated this and baked in this conversion “fail
+safe” in the architecture of <code>effectsize</code> by detecting the
+input and making the appropriate conversion. There are many conversions
+available in the package. Take a look <a href="https://easystats.github.io/effectsize/reference/index.html#effect-size-conversion">here</a>.</p>
 <p>This can also be done directly by the user using the
 <code><a href="../reference/t_to_r.html">t_to_d()</a></code> function:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
