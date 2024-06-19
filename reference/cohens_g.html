@@ -7,12 +7,19 @@ dependent (paired) contingency tables ranging between 0 (perfect symmetry)
 and 0.5 (perfect asymmetry) (see stats::mcnemar.test()). (Note this is not
 not a measure of (dis)agreement between the pairs, but of (a)symmetry.)"><meta property="og:image" content="https://easystats.github.io/effectsize/reference/figures/card.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:creator" content="@easystats4u"><meta name="twitter:site" content="@easystats4u"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+
+
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.1</small>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.2</small>
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html"><span class="fa fa-file-code"></span> Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/effectsize.html">Get Started</a></li>
@@ -63,6 +70,8 @@ not a measure of (dis)agreement between the pairs, but of (a)symmetry.)"><meta p
     <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
   </ul></li>
       </ul></div>
+
+
   </div>
 </nav><div class="container template-reference-topic">
 <div class="row">
@@ -71,33 +80,47 @@ not a measure of (dis)agreement between the pairs, but of (a)symmetry.)"><meta p
       <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/main/R/cohens_g.R" class="external-link"><code>R/cohens_g.R</code></a></small>
       <div class="d-none name"><code>cohens_g.Rd</code></div>
     </div>
+
     <div class="ref-description section level2">
     <p>Cohen's <em>g</em> is an effect size of asymmetry (or marginal heterogeneity) for
 dependent (paired) contingency tables ranging between 0 (perfect symmetry)
 and 0.5 (perfect asymmetry) (see <code><a href="https://rdrr.io/r/stats/mcnemar.test.html" class="external-link">stats::mcnemar.test()</a></code>). (Note this is not
 <em>not</em> a measure of (dis)agreement between the pairs, but of (a)symmetry.)</p>
     </div>
+
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">cohens_g</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"two.sided"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
+
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+
+
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>a numeric vector or matrix. <code>x</code> and <code>y</code> can also
     both be factors.</p></dd>
+
+
 <dt id="arg-y">y<a class="anchor" aria-label="anchor" href="#arg-y"></a></dt>
 <dd><p>a numeric vector; ignored if <code>x</code> is a matrix.  If
     <code>x</code> is a factor, <code>y</code> should be a factor of the same length.</p></dd>
+
+
 <dt id="arg-ci">ci<a class="anchor" aria-label="anchor" href="#arg-ci"></a></dt>
 <dd><p>Confidence Interval (CI) level</p></dd>
+
+
 <dt id="arg-alternative">alternative<a class="anchor" aria-label="anchor" href="#arg-alternative"></a></dt>
 <dd><p>a character string specifying the alternative hypothesis;
 Controls the type of CI returned: <code>"two.sided"</code> (default, two-sided CI),
 <code>"greater"</code> or <code>"less"</code> (one-sided CI). Partial matching is allowed (e.g.,
 <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em> in <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Ignored</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -134,10 +157,13 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer &amp; Kiesser,
     </div>
     <div class="section level2">
     <h2 id="plotting-with-see">Plotting with <code>see</code><a class="anchor" aria-label="anchor" href="#plotting-with-see"></a></h2>
+
+
 <p>The <code>see</code> package contains relevant plotting functions. See the <a href="https://easystats.github.io/see/articles/effectsize.html" class="external-link">plotting vignette in the <code>see</code> package</a>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+
 <ul><li><p>Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.</p></li>
 </ul></div>
     <div class="section level2">
@@ -146,6 +172,7 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer &amp; Kiesser,
 <code><a href="oddsratio.html">oddsratio</a>()</code>,
 <code><a href="phi.html">phi</a>()</code></p></div>
     </div>
+
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
@@ -192,12 +219,21 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer &amp; Kiesser,
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
+
+
     <footer><div class="pkgdown-footer-left">
   <p>Developed by <a href="https://home.msbstats.info/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>, <a href="https://sites.google.com/site/indrajeetspatilmorality/" class="external-link">Indrajeet Patil</a>, <a href="https://wiernik.org/" class="external-link">Brenton M. Wiernik</a>, <a href="https://remi-theriault.com/" class="external-link">Rémi Thériault</a>, Philip Waggoner.</p>
 </div>
+
 <div class="pkgdown-footer-right">
   <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
 </div>
+
     </footer></div>
+
+
+
+
+
   </body></html>
 

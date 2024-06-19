@@ -3,12 +3,19 @@
 effect size."><meta property="og:description" content="Perform a Test for Practical Equivalence for indices of
 effect size."><meta property="og:image" content="https://easystats.github.io/effectsize/reference/figures/card.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:creator" content="@easystats4u"><meta name="twitter:site" content="@easystats4u"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+
+
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.1</small>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.2</small>
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html"><span class="fa fa-file-code"></span> Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/effectsize.html">Get Started</a></li>
@@ -59,6 +66,8 @@ effect size."><meta property="og:image" content="https://easystats.github.io/eff
     <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
   </ul></li>
       </ul></div>
+
+
   </div>
 </nav><div class="container template-reference-topic">
 <div class="row">
@@ -67,10 +76,12 @@ effect size."><meta property="og:image" content="https://easystats.github.io/eff
       <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/main/R/equivalence_test.R" class="external-link"><code>R/equivalence_test.R</code></a></small>
       <div class="d-none name"><code>equivalence_test.effectsize_table.Rd</code></div>
     </div>
+
     <div class="ref-description section level2">
     <p>Perform a <strong>Test for Practical Equivalence</strong> for indices of
 effect size.</p>
     </div>
+
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'effectsize_table'</span></span>
@@ -81,20 +92,30 @@ effect size.</p>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
+
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+
+
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>An effect size table, such as returned by <code><a href="cohens_d.html">cohens_d()</a></code>,
 <code><a href="eta_squared.html">eta_squared()</a></code>, <code><a href="t_to_r.html">F_to_r()</a></code>, etc.</p></dd>
+
+
 <dt id="arg-range">range<a class="anchor" aria-label="anchor" href="#arg-range"></a></dt>
 <dd><p>The range of practical equivalence of an effect. For one-sides
 CIs, a single value can be proved for the lower / upper bound to test
 against (but see more details below). For two-sided CIs, a single value is
 duplicated to <code>c(-range, range)</code>. If <code>"default"</code>, will be set to <code>[-.1, .1]</code>.</p></dd>
+
+
 <dt id="arg-rule">rule<a class="anchor" aria-label="anchor" href="#arg-rule"></a></dt>
 <dd><p>How should acceptance and rejection be decided? See details.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments passed to or from other methods.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -108,6 +129,7 @@ TOST approach (e.g., Lakens, 2017), appropriate CIs should be extracted using
 the function used to make the effect size table (<code>cohens_d</code>, <code>eta_squared</code>,
 <code>F_to_r</code>, etc), with <code>alternative = "two.sided"</code>. See examples.</p><div class="section">
 <h3 id="the-different-rules">The Different Rules<a class="anchor" aria-label="anchor" href="#the-different-rules"></a></h3>
+
 <ul><li><p><code>"classic"</code> - <strong>the classic method</strong>:</p><ul><li><p>If the CI is completely within the ROPE - <em>Accept H0</em></p></li>
 <li><p>Else, if the CI does not contain 0 - <em>Reject H0</em></p></li>
 <li><p>Else - <em>Undecided</em></p></li>
@@ -121,13 +143,17 @@ the function used to make the effect size table (<code>cohens_d</code>, <code>et
 <li><p>Else - <em>Undecided</em></p></li>
 </ul></li>
 </ul></div>
+
     </div>
     <div class="section level2">
     <h2 id="plotting-with-see">Plotting with <code>see</code><a class="anchor" aria-label="anchor" href="#plotting-with-see"></a></h2>
+
+
 <p>The <code>see</code> package contains relevant plotting functions. See the <a href="https://easystats.github.io/see/articles/effectsize.html" class="external-link">plotting vignette in the <code>see</code> package</a>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+
 <ul><li><p>Campbell, H., &amp; Gustafson, P. (2018). Conditional equivalence testing: An
 alternative remedy for publication bias. PLOS ONE, 13(4), e0195145.
 <a href="https://doi.org/10.1371/journal.pone.0195145" class="external-link">doi:10.1371/journal.pone.0195145</a></p></li>
@@ -144,6 +170,7 @@ Science, 8(4), 355–362. <a href="https://doi.org/10.1177/1948550617697177" cla
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>For more details, see <code><a href="https://easystats.github.io/bayestestR/reference/equivalence_test.html" class="external-link">bayestestR::equivalence_test()</a></code>.</p></div>
     </div>
+
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
@@ -191,12 +218,21 @@ Science, 8(4), 355–362. <a href="https://doi.org/10.1177/1948550617697177" cla
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
+
+
     <footer><div class="pkgdown-footer-left">
   <p>Developed by <a href="https://home.msbstats.info/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>, <a href="https://sites.google.com/site/indrajeetspatilmorality/" class="external-link">Indrajeet Patil</a>, <a href="https://wiernik.org/" class="external-link">Brenton M. Wiernik</a>, <a href="https://remi-theriault.com/" class="external-link">Rémi Thériault</a>, Philip Waggoner.</p>
 </div>
+
 <div class="pkgdown-footer-right">
   <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
 </div>
+
     </footer></div>
+
+
+
+
+
   </body></html>
 

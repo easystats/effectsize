@@ -7,12 +7,19 @@ sum) one-way ANOVAs."><meta property="og:description" content="Compute rank epsi
 (to accompany stats::friedman.test()) effect sizes for non-parametric (rank
 sum) one-way ANOVAs."><meta property="og:image" content="https://easystats.github.io/effectsize/reference/figures/card.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:creator" content="@easystats4u"><meta name="twitter:site" content="@easystats4u"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+
+
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.1</small>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.2</small>
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html"><span class="fa fa-file-code"></span> Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/effectsize.html">Get Started</a></li>
@@ -63,6 +70,8 @@ sum) one-way ANOVAs."><meta property="og:image" content="https://easystats.githu
     <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
   </ul></li>
       </ul></div>
+
+
   </div>
 </nav><div class="container template-reference-topic">
 <div class="row">
@@ -71,12 +80,14 @@ sum) one-way ANOVAs."><meta property="og:image" content="https://easystats.githu
       <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/main/R/rank_ANOVA.R" class="external-link"><code>R/rank_ANOVA.R</code></a></small>
       <div class="d-none name"><code>rank_epsilon_squared.Rd</code></div>
     </div>
+
     <div class="ref-description section level2">
     <p>Compute rank epsilon squared (\(E^2_R\)) or rank eta squared
 (\(\eta^2_H\)) (to accompany <code><a href="https://rdrr.io/r/stats/kruskal.test.html" class="external-link">stats::kruskal.test()</a></code>), and Kendall's <em>W</em>
 (to accompany <code><a href="https://rdrr.io/r/stats/friedman.test.html" class="external-link">stats::friedman.test()</a></code>) effect sizes for non-parametric (rank
 sum) one-way ANOVAs.</p>
     </div>
+
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rank_epsilon_squared</span><span class="op">(</span></span>
@@ -114,8 +125,11 @@ sum) one-way ANOVAs.</p>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
+
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+
+
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>Can be one of:</p><ul><li><p>A numeric or ordered vector, or a character name of one in <code>data</code>.</p></li>
 <li><p>A list of vectors (for <code>rank_eta/epsilon_squared()</code>).</p></li>
@@ -127,29 +141,46 @@ terminology used here.</p></li>
 <code>blocks</code> and <code>groups</code> terminology used here).</p></li>
 </ul></li>
 </ul></dd>
+
+
 <dt id="arg-groups-blocks">groups, blocks<a class="anchor" aria-label="anchor" href="#arg-groups-blocks"></a></dt>
 <dd><p>A factor vector giving the group / block for the
 corresponding elements of <code>x</code>, or a character name of one in <code>data</code>.
 Ignored if <code>x</code> is not a vector.</p></dd>
+
+
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>An optional data frame containing the variables.</p></dd>
+
+
 <dt id="arg-ci">ci<a class="anchor" aria-label="anchor" href="#arg-ci"></a></dt>
 <dd><p>Confidence Interval (CI) level</p></dd>
+
+
 <dt id="arg-alternative">alternative<a class="anchor" aria-label="anchor" href="#arg-alternative"></a></dt>
 <dd><p>a character string specifying the alternative hypothesis;
 Controls the type of CI returned: <code>"two.sided"</code> (default, two-sided CI),
 <code>"greater"</code> or <code>"less"</code> (one-sided CI). Partial matching is allowed (e.g.,
 <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em> in <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
+
+
 <dt id="arg-iterations">iterations<a class="anchor" aria-label="anchor" href="#arg-iterations"></a></dt>
 <dd><p>The number of bootstrap replicates for computing confidence
 intervals. Only applies when <code>ci</code> is not <code>NULL</code>.</p></dd>
+
+
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>Toggle warnings and messages on or off.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments passed to or from other methods. When <code>x</code> is a formula,
 these can be <code>subset</code> and <code>na.action</code>.</p></dd>
+
+
 <dt id="arg-blocks-on-rows">blocks_on_rows<a class="anchor" aria-label="anchor" href="#arg-blocks-on-rows"></a></dt>
 <dd><p>Are blocks on rows (<code>TRUE</code>) or columns (<code>FALSE</code>).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -218,10 +249,13 @@ should not be used for statistical inference.</p>
     </div>
     <div class="section level2">
     <h2 id="plotting-with-see">Plotting with <code>see</code><a class="anchor" aria-label="anchor" href="#plotting-with-see"></a></h2>
+
+
 <p>The <code>see</code> package contains relevant plotting functions. See the <a href="https://easystats.github.io/see/articles/effectsize.html" class="external-link">plotting vignette in the <code>see</code> package</a>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+
 <ul><li><p>Kendall, M.G. (1948) Rank correlation methods. London: Griffin.</p></li>
 <li><p>Tomczak, M., &amp; Tomczak, E. (2014). The need to report effect size estimates
 revisited. An overview of some recommended measures of effect size. Trends in
@@ -235,6 +269,7 @@ sport sciences, 1(21), 19-25.</p></li>
 <p>Other effect sizes for ANOVAs:
 <code><a href="eta_squared.html">eta_squared</a>()</code></p></div>
     </div>
+
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
@@ -288,12 +323,21 @@ sport sciences, 1(21), 19-25.</p></li>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
+
+
     <footer><div class="pkgdown-footer-left">
   <p>Developed by <a href="https://home.msbstats.info/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>, <a href="https://sites.google.com/site/indrajeetspatilmorality/" class="external-link">Indrajeet Patil</a>, <a href="https://wiernik.org/" class="external-link">Brenton M. Wiernik</a>, <a href="https://remi-theriault.com/" class="external-link">Rémi Thériault</a>, Philip Waggoner.</p>
 </div>
+
 <div class="pkgdown-footer-right">
   <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
 </div>
+
     </footer></div>
+
+
+
+
+
   </body></html>
 

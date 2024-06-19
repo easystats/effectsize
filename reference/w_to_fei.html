@@ -5,12 +5,19 @@ Tschuprow's T."><meta property="og:description" content="Enables a conversion be
 Cohen's w to פ (Fei), and Cramer's V to
 Tschuprow's T."><meta property="og:image" content="https://easystats.github.io/effectsize/reference/figures/card.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:creator" content="@easystats4u"><meta name="twitter:site" content="@easystats4u"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+
+
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.1</small>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.2</small>
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html"><span class="fa fa-file-code"></span> Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/effectsize.html">Get Started</a></li>
@@ -61,6 +68,8 @@ Tschuprow's T."><meta property="og:image" content="https://easystats.github.io/e
     <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
   </ul></li>
       </ul></div>
+
+
   </div>
 </nav><div class="container template-reference-topic">
 <div class="row">
@@ -69,11 +78,13 @@ Tschuprow's T."><meta property="og:image" content="https://easystats.github.io/e
       <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/main/R/convert_between_xtabcorr.R" class="external-link"><code>R/convert_between_xtabcorr.R</code></a></small>
       <div class="d-none name"><code>w_to_fei.Rd</code></div>
     </div>
+
     <div class="ref-description section level2">
     <p>Enables a conversion between different indices of effect size, such as
 Cohen's <em>w</em> to פ (Fei), and Cramer's <em>V</em> to
 Tschuprow's <em>T</em>.</p>
     </div>
+
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">w_to_fei</span><span class="op">(</span><span class="va">w</span>, <span class="va">p</span><span class="op">)</span></span>
@@ -96,17 +107,26 @@ Tschuprow's <em>T</em>.</p>
 <span></span>
 <span><span class="fu">t_to_v</span><span class="op">(</span><span class="va">t</span>, <span class="va">nrow</span>, <span class="va">ncol</span><span class="op">)</span></span></code></pre></div>
     </div>
+
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+
+
 <dl><dt id="arg-w-c-v-t-fei">w, c, v, t, fei<a class="anchor" aria-label="anchor" href="#arg-w-c-v-t-fei"></a></dt>
 <dd><p>Effect size to be converted</p></dd>
+
+
 <dt id="arg-p">p<a class="anchor" aria-label="anchor" href="#arg-p"></a></dt>
 <dd><p>Vector of expected values. See <code><a href="https://rdrr.io/r/stats/chisq.test.html" class="external-link">stats::chisq.test()</a></code>.</p></dd>
+
+
 <dt id="arg-nrow-ncol">nrow, ncol<a class="anchor" aria-label="anchor" href="#arg-nrow-ncol"></a></dt>
 <dd><p>The number of rows/columns in the contingency table.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+
 <ul><li><p>Ben-Shachar, M.S., Patil, I., Thériault, R., Wiernik, B.M., Lüdecke, D.
 (2023). Phi, Fei, Fo, Fum: Effect Sizes for Categorical Data That Use the
 Chi‑Squared Statistic. Mathematics, 11, 1982. <a href="https://doi.org/10.3390/math11091982" class="external-link">doi:10.3390/math11091982</a></p></li>
@@ -122,6 +142,7 @@ Chi‑Squared Statistic. Mathematics, 11, 1982. <a href="https://doi.org/10.3390
 <code><a href="odds_to_probs.html">odds_to_probs</a>()</code>,
 <code><a href="oddsratio_to_riskratio.html">oddsratio_to_riskratio</a>()</code></p></div>
     </div>
+
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/">effectsize</a></span><span class="op">)</span></span></span>
@@ -207,12 +228,21 @@ Chi‑Squared Statistic. Mathematics, 11, 1982. <a href="https://doi.org/10.3390
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
+
+
     <footer><div class="pkgdown-footer-left">
   <p>Developed by <a href="https://home.msbstats.info/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>, <a href="https://sites.google.com/site/indrajeetspatilmorality/" class="external-link">Indrajeet Patil</a>, <a href="https://wiernik.org/" class="external-link">Brenton M. Wiernik</a>, <a href="https://remi-theriault.com/" class="external-link">Rémi Thériault</a>, Philip Waggoner.</p>
 </div>
+
 <div class="pkgdown-footer-right">
   <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
 </div>
+
     </footer></div>
+
+
+
+
+
   </body></html>
 

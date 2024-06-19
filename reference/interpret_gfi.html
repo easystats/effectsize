@@ -3,12 +3,19 @@
 equation modelling, such as RMSEA, CFI, NFI, IFI, etc."><meta property="og:description" content="Interpretation of indices of fit found in confirmatory analysis or structural
 equation modelling, such as RMSEA, CFI, NFI, IFI, etc."><meta property="og:image" content="https://easystats.github.io/effectsize/reference/figures/card.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:creator" content="@easystats4u"><meta name="twitter:site" content="@easystats4u"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+
+
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.1</small>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.2</small>
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html"><span class="fa fa-file-code"></span> Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/effectsize.html">Get Started</a></li>
@@ -59,6 +66,8 @@ equation modelling, such as RMSEA, CFI, NFI, IFI, etc."><meta property="og:image
     <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
   </ul></li>
       </ul></div>
+
+
   </div>
 </nav><div class="container template-reference-topic">
 <div class="row">
@@ -67,10 +76,12 @@ equation modelling, such as RMSEA, CFI, NFI, IFI, etc."><meta property="og:image
       <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/main/R/interpret_cfa_fit.R" class="external-link"><code>R/interpret_cfa_fit.R</code></a></small>
       <div class="d-none name"><code>interpret_gfi.Rd</code></div>
     </div>
+
     <div class="ref-description section level2">
     <p>Interpretation of indices of fit found in confirmatory analysis or structural
 equation modelling, such as RMSEA, CFI, NFI, IFI, etc.</p>
     </div>
+
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">interpret_gfi</span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"byrne1994"</span><span class="op">)</span></span>
@@ -99,20 +110,30 @@ equation modelling, such as RMSEA, CFI, NFI, IFI, etc.</p>
 <span><span class="co"># S3 method for class 'performance_lavaan'</span></span>
 <span><span class="fu"><a href="interpret.html">interpret</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
+
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+
+
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>vector of values, or an object of class <code>lavaan</code>.</p></dd>
+
+
 <dt id="arg-rules">rules<a class="anchor" aria-label="anchor" href="#arg-rules"></a></dt>
 <dd><p>Can be the name of a set of rules (see below) or custom set of
 <code><a href="rules.html">rules()</a></code>.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Currently not used.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+
 <div class="section">
 <h3 id="indices-of-fit">Indices of fit<a class="anchor" aria-label="anchor" href="#indices-of-fit"></a></h3>
+
 <ul><li><p><strong>Chisq</strong>: The model Chi-squared assesses overall fit and the discrepancy
 between the sample and fitted covariance matrices. Its p-value should be &gt;
 .05 (i.e., the hypothesis of a perfect fit cannot be rejected). However, it
@@ -150,12 +171,16 @@ matrix and the hypothesized model. As the RMR can be sometimes hard to
 interpret, better to use SRMR. Should be &lt; .08 (Byrne, 1994; <code>"byrne1994"</code>).</p></li>
 </ul><p>See the documentation for <code><a href="https://rdrr.io/pkg/lavaan/man/fitMeasures.html" class="external-link">fitmeasures()</a></code>.</p>
 </div>
+
 <div class="section">
 <h3 id="what-to-report">What to report<a class="anchor" aria-label="anchor" href="#what-to-report"></a></h3>
+
+
 <p>For structural equation models (SEM), Kline (2015) suggests that at a minimum
 the following indices should be reported: The model <strong>chi-square</strong>, the
 <strong>RMSEA</strong>, the <strong>CFI</strong> and the <strong>SRMR</strong>.</p>
 </div>
+
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
@@ -164,6 +189,7 @@ indices. See https://dynamicfit.app/cfa/.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+
 <ul><li><p>Awang, Z. (2012). A handbook on SEM. Structural equation modeling.</p></li>
 <li><p>Byrne, B. M. (1994). Structural equation modeling with EQS and EQS/Windows.
 Thousand Oaks, CA: Sage Publications.</p></li>
@@ -182,6 +208,7 @@ Associates.</p></li>
 <li><p>Tucker, L. R., and Lewis, C. (1973). The reliability coefficient for
 maximum likelihood factor analysis. Psychometrika, 38, 1-10.</p></li>
 </ul></div>
+
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">interpret_gfi</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.99</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -239,12 +266,21 @@ maximum likelihood factor analysis. Psychometrika, 38, 1-10.</p></li>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
+
+
     <footer><div class="pkgdown-footer-left">
   <p>Developed by <a href="https://home.msbstats.info/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>, <a href="https://sites.google.com/site/indrajeetspatilmorality/" class="external-link">Indrajeet Patil</a>, <a href="https://wiernik.org/" class="external-link">Brenton M. Wiernik</a>, <a href="https://remi-theriault.com/" class="external-link">Rémi Thériault</a>, Philip Waggoner.</p>
 </div>
+
 <div class="pkgdown-footer-right">
   <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
 </div>
+
     </footer></div>
+
+
+
+
+
   </body></html>
 

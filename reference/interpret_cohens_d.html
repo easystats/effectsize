@@ -3,12 +3,19 @@
 thumb."><meta property="og:description" content="Interpretation of standardized differences using different sets of rules of
 thumb."><meta property="og:image" content="https://easystats.github.io/effectsize/reference/figures/card.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:creator" content="@easystats4u"><meta name="twitter:site" content="@easystats4u"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+
+
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.1</small>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.2</small>
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html"><span class="fa fa-file-code"></span> Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/effectsize.html">Get Started</a></li>
@@ -59,6 +66,8 @@ thumb."><meta property="og:image" content="https://easystats.github.io/effectsiz
     <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
   </ul></li>
       </ul></div>
+
+
   </div>
 </nav><div class="container template-reference-topic">
 <div class="row">
@@ -67,10 +76,12 @@ thumb."><meta property="og:image" content="https://easystats.github.io/effectsiz
       <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/main/R/interpret_cohens_d.R" class="external-link"><code>R/interpret_cohens_d.R</code></a></small>
       <div class="d-none name"><code>interpret_cohens_d.Rd</code></div>
     </div>
+
     <div class="ref-description section level2">
     <p>Interpretation of standardized differences using different sets of rules of
 thumb.</p>
     </div>
+
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">interpret_cohens_d</span><span class="op">(</span><span class="va">d</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -79,18 +90,29 @@ thumb.</p>
 <span></span>
 <span><span class="fu">interpret_glass_delta</span><span class="op">(</span><span class="va">delta</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></span></code></pre></div>
     </div>
+
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+
+
 <dl><dt id="arg-d-g-delta">d, g, delta<a class="anchor" aria-label="anchor" href="#arg-d-g-delta"></a></dt>
 <dd><p>Value or vector of effect size values.</p></dd>
+
+
 <dt id="arg-rules">rules<a class="anchor" aria-label="anchor" href="#arg-rules"></a></dt>
 <dd><p>Can be <code>"cohen1988"</code> (default), <code>"gignac2016"</code>,
 <code>"sawilowsky2009"</code>, <code>"lovakov2021"</code> or a custom set of <code><a href="rules.html">rules()</a></code>.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Not directly used.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="rules">Rules<a class="anchor" aria-label="anchor" href="#rules"></a></h2>
+
+
+
 <p>Rules apply to equally to positive and negative <em>d</em> (i.e., they are given as
 absolute values).</p><ul><li><p>Cohen (1988) (<code>"cohen1988"</code>; default)</p><ul><li><p><strong>d &lt; 0.2</strong> - Very small</p></li>
 <li><p><strong>0.2 &lt;= d &lt; 0.5</strong> - Small</p></li>
@@ -118,6 +140,7 @@ absolute values).</p><ul><li><p>Cohen (1988) (<code>"cohen1988"</code>; default)
 </ul></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+
 <ul><li><p>Lovakov, A., &amp; Agadullina, E. R. (2021). Empirically Derived Guidelines for
 Effect Size Interpretation in Social Psychology. European Journal of Social
 Psychology.</p></li>
@@ -128,6 +151,7 @@ individual differences researchers. Personality and individual differences,
 (2nd Ed.). New York: Routledge.</p></li>
 <li><p>Sawilowsky, S. S. (2009). New effect size rules of thumb.</p></li>
 </ul></div>
+
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">interpret_cohens_d</span><span class="op">(</span><span class="fl">.02</span><span class="op">)</span></span></span>
@@ -146,12 +170,21 @@ individual differences researchers. Personality and individual differences,
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
+
+
     <footer><div class="pkgdown-footer-left">
   <p>Developed by <a href="https://home.msbstats.info/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>, <a href="https://sites.google.com/site/indrajeetspatilmorality/" class="external-link">Indrajeet Patil</a>, <a href="https://wiernik.org/" class="external-link">Brenton M. Wiernik</a>, <a href="https://remi-theriault.com/" class="external-link">Rémi Thériault</a>, Philip Waggoner.</p>
 </div>
+
 <div class="pkgdown-footer-right">
   <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
 </div>
+
     </footer></div>
+
+
+
+
+
   </body></html>
 

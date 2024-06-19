@@ -4,6 +4,7 @@
 and Cohen's f (or their partialled versions) for ANOVA tables. These indices
 represent an estimate of how much variance in the response variables is
 accounted for by the explanatory variable(s).
+
 When passing models, effect sizes are computed using the sums of squares
 obtained from anova(model) which might not always be appropriate. See
 details."><meta property="og:description" content="Functions to compute effect size measures for ANOVAs, such as Eta-
@@ -11,16 +12,24 @@ details."><meta property="og:description" content="Functions to compute effect s
 and Cohen's f (or their partialled versions) for ANOVA tables. These indices
 represent an estimate of how much variance in the response variables is
 accounted for by the explanatory variable(s).
+
 When passing models, effect sizes are computed using the sums of squares
 obtained from anova(model) which might not always be appropriate. See
 details."><meta property="og:image" content="https://easystats.github.io/effectsize/reference/figures/card.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:creator" content="@easystats4u"><meta name="twitter:site" content="@easystats4u"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+
+
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.1</small>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.2</small>
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html"><span class="fa fa-file-code"></span> Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/effectsize.html">Get Started</a></li>
@@ -71,6 +80,8 @@ details."><meta property="og:image" content="https://easystats.github.io/effects
     <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
   </ul></li>
       </ul></div>
+
+
   </div>
 </nav><div class="container template-reference-topic">
 <div class="row">
@@ -79,6 +90,7 @@ details."><meta property="og:image" content="https://easystats.github.io/effects
       <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/main/R/eta_squared-main.R" class="external-link"><code>R/eta_squared-main.R</code></a>, <a href="https://github.com/easystats/effectsize/blob/main/R/eta_squared_posterior.R" class="external-link"><code>R/eta_squared_posterior.R</code></a></small>
       <div class="d-none name"><code>eta_squared.Rd</code></div>
     </div>
+
     <div class="ref-description section level2">
     <p>Functions to compute effect size measures for ANOVAs, such as Eta-
 (\(\eta\)), Omega- (\(\omega\)) and Epsilon- (\(\epsilon\)) squared,
@@ -90,6 +102,7 @@ When passing models, effect sizes are computed using the sums of squares
 obtained from <code>anova(model)</code> which might not always be appropriate. See
 details.</p>
     </div>
+
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">eta_squared</span><span class="op">(</span></span>
@@ -156,14 +169,21 @@ details.</p>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
+
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+
+
 <dl><dt id="arg-model">model<a class="anchor" aria-label="anchor" href="#arg-model"></a></dt>
 <dd><p>An ANOVA table (or an ANOVA-like table, e.g., outputs from
 <code><a href="https://easystats.github.io/parameters/reference/model_parameters.html" class="external-link">parameters::model_parameters</a></code>), or a statistical model for which such a
 table can be extracted. See details.</p></dd>
+
+
 <dt id="arg-partial">partial<a class="anchor" aria-label="anchor" href="#arg-partial"></a></dt>
 <dd><p>If <code>TRUE</code>, return partial indices.</p></dd>
+
+
 <dt id="arg-generalized">generalized<a class="anchor" aria-label="anchor" href="#arg-generalized"></a></dt>
 <dd><p>A character vector of observed (non-manipulated) variables
 to be used in the estimation of a generalized Eta Squared. Can also be
@@ -171,35 +191,54 @@ to be used in the estimation of a generalized Eta Squared. Can also be
 of the variables are observed (all are manipulated). (For <code>afex_aov</code>
 models, when <code>TRUE</code>, the observed variables are extracted automatically
 from the fitted model, if they were provided during fitting.</p></dd>
+
+
 <dt id="arg-ci">ci<a class="anchor" aria-label="anchor" href="#arg-ci"></a></dt>
 <dd><p>Confidence Interval (CI) level</p></dd>
+
+
 <dt id="arg-alternative">alternative<a class="anchor" aria-label="anchor" href="#arg-alternative"></a></dt>
 <dd><p>a character string specifying the alternative hypothesis;
 Controls the type of CI returned: <code>"greater"</code> (default) or <code>"less"</code>
 (one-sided CI), or <code>"two.sided"</code> (two-sided CI). Partial matching is
 allowed (e.g., <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em> in
 <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
+
+
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>Toggle warnings and messages on or off.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments passed to or from other methods.</p><ul><li><p>Can be <code>include_intercept = TRUE</code> to include the effect size for the intercept (when it is included in the ANOVA table).</p></li>
 <li><p>For Bayesian models, arguments passed to <code>ss_function</code>.</p></li>
 </ul></dd>
+
+
 <dt id="arg-squared">squared<a class="anchor" aria-label="anchor" href="#arg-squared"></a></dt>
 <dd><p>Return Cohen's <em>f</em> or Cohen's <em>f</em>-squared?</p></dd>
+
+
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p>What effect size should be used as the basis for Cohen's <em>f</em>?</p></dd>
+
+
 <dt id="arg-model-">model2<a class="anchor" aria-label="anchor" href="#arg-model-"></a></dt>
 <dd><p>Optional second model for Cohen's f (/squared). If specified,
 returns the effect size for R-squared-change between the two models.</p></dd>
+
+
 <dt id="arg-ss-function">ss_function<a class="anchor" aria-label="anchor" href="#arg-ss-function"></a></dt>
 <dd><p>For Bayesian models, the function used to extract
 sum-of-squares. Uses <code><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova()</a></code> by default, but can also be <code><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">car::Anova()</a></code>
 for simple linear models.</p></dd>
+
+
 <dt id="arg-draws">draws<a class="anchor" aria-label="anchor" href="#arg-draws"></a></dt>
 <dd><p>For Bayesian models, an integer indicating the number of draws
 from the posterior predictive distribution to return. Larger numbers take
 longer to run, but provide estimates that are more stable.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -225,6 +264,8 @@ For other ANOVA tables and models (converted to ANOVA-like tables via
 conversion of the omnibus <em>F</em> statistic provided by the (see <code><a href="F_to_eta2.html">F_to_eta2()</a></code>
 for more details.)</p><div class="section">
 <h3 id="type-of-sums-of-squares">Type of Sums of Squares<a class="anchor" aria-label="anchor" href="#type-of-sums-of-squares"></a></h3>
+
+
 <p>When <code>model</code> is a statistical model, the sums of squares (or <em>F</em> statistics)
 used for the computation of the effect sizes are based on those returned by
 <code>anova(model)</code>. Different models have different default output type. For
@@ -239,8 +280,11 @@ For type 3 sum of squares, it is generally recommended to fit models with
 <em>orthogonal factor weights</em> (e.g., <code>contr.sum</code>) and <em>centered covariates</em>,
 for sensible results. See examples and the <code>afex</code> package.</p>
 </div>
+
 <div class="section">
 <h3 id="un-biased-estimate-of-eta">Un-Biased Estimate of Eta<a class="anchor" aria-label="anchor" href="#un-biased-estimate-of-eta"></a></h3>
+
+
 <p>Both <em><strong>Omega</strong></em> and <em><strong>Epsilon</strong></em> are unbiased estimators of the
 population's <em><strong>Eta</strong></em>, which is especially important is small samples. But
 which to choose?
@@ -249,8 +293,11 @@ Though Omega is the more popular choice (Albers and Lakens, 2018), Epsilon is
 analogous to adjusted R2 (Allen, 2017, p. 382), and has been found to be less
 biased (Carroll &amp; Nordholm, 1975).</p>
 </div>
+
 <div class="section">
 <h3 id="cohen-s-f">Cohen's f<a class="anchor" aria-label="anchor" href="#cohen-s-f"></a></h3>
+
+
 <p>Cohen's f can take on values between zero, when the population means are all
 equal, and an indefinitely large number as standard deviation of means
 increases relative to the average standard deviation within each group.
@@ -262,8 +309,11 @@ and the percent of unexplained variance.
 Cohen has suggested that the values of 0.10, 0.25, and 0.40 represent small,
 medium, and large effect sizes, respectively.</p>
 </div>
+
 <div class="section">
 <h3 id="eta-squared-from-posterior-predictive-distribution">Eta Squared from Posterior Predictive Distribution<a class="anchor" aria-label="anchor" href="#eta-squared-from-posterior-predictive-distribution"></a></h3>
+
+
 <p>For Bayesian models (fit with <code>brms</code> or <code>rstanarm</code>),
 <code>eta_squared_posterior()</code> simulates data from the posterior predictive
 distribution (ppd) and for each simulation the Eta Squared is computed for
@@ -272,6 +322,7 @@ population level effect size as implied by the posterior model (and not the
 effect size in the sample data). See <code><a href="https://mc-stan.org/rstantools/reference/posterior_predict.html" class="external-link">rstantools::posterior_predict()</a></code> for
 more info.</p>
 </div>
+
     </div>
     <div class="section level2">
     <h2 id="confidence-compatibility-intervals-cis-">Confidence (Compatibility) Intervals (CIs)<a class="anchor" aria-label="anchor" href="#confidence-compatibility-intervals-cis-"></a></h2>
@@ -312,10 +363,13 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer &amp; Kiesser,
     </div>
     <div class="section level2">
     <h2 id="plotting-with-see">Plotting with <code>see</code><a class="anchor" aria-label="anchor" href="#plotting-with-see"></a></h2>
+
+
 <p>The <code>see</code> package contains relevant plotting functions. See the <a href="https://easystats.github.io/see/articles/effectsize.html" class="external-link">plotting vignette in the <code>see</code> package</a>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+
 <ul><li><p>Albers, C., and Lakens, D. (2018). When power analyses based on pilot data
 are biased: Inaccurate effect size estimators and follow-up bias. Journal of
 experimental social psychology, 74, 187-195.</p></li>
@@ -339,6 +393,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <p>Other effect sizes for ANOVAs:
 <code><a href="rank_epsilon_squared.html">rank_epsilon_squared</a>()</code></p></div>
     </div>
+
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></span></span>
@@ -541,12 +596,21 @@ Psychological Methods, 9, 164-182.</p></li>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
+
+
     <footer><div class="pkgdown-footer-left">
   <p>Developed by <a href="https://home.msbstats.info/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>, <a href="https://sites.google.com/site/indrajeetspatilmorality/" class="external-link">Indrajeet Patil</a>, <a href="https://wiernik.org/" class="external-link">Brenton M. Wiernik</a>, <a href="https://remi-theriault.com/" class="external-link">Rémi Thériault</a>, Philip Waggoner.</p>
 </div>
+
 <div class="pkgdown-footer-right">
   <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
 </div>
+
     </footer></div>
+
+
+
+
+
   </body></html>
 

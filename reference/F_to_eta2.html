@@ -7,6 +7,7 @@ Squares are not easily available or their computation is not straightforward
 (e.g., in liner mixed models, contrasts, etc.). For test statistics derived
 from lm and aov models, these functions give exact results. For all other
 cases, they return close approximations.
+
 See Effect Size from Test Statistics vignette."><meta property="og:description" content="These functions are convenience functions to convert F and t test statistics
 to partial Eta- (\(\eta\)), Omega- (\(\omega\)) Epsilon-
 (\(\epsilon\)) squared (an alias for the adjusted Eta squared) and Cohen's
@@ -15,14 +16,22 @@ Squares are not easily available or their computation is not straightforward
 (e.g., in liner mixed models, contrasts, etc.). For test statistics derived
 from lm and aov models, these functions give exact results. For all other
 cases, they return close approximations.
+
 See Effect Size from Test Statistics vignette."><meta property="og:image" content="https://easystats.github.io/effectsize/reference/figures/card.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:creator" content="@easystats4u"><meta name="twitter:site" content="@easystats4u"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+
+
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.1</small>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.2</small>
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html"><span class="fa fa-file-code"></span> Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/effectsize.html">Get Started</a></li>
@@ -73,6 +82,8 @@ See Effect Size from Test Statistics vignette."><meta property="og:image" conten
     <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
   </ul></li>
       </ul></div>
+
+
   </div>
 </nav><div class="container template-reference-topic">
 <div class="row">
@@ -81,6 +92,7 @@ See Effect Size from Test Statistics vignette."><meta property="og:image" conten
       <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/main/R/convert_stat_to_anova.R" class="external-link"><code>R/convert_stat_to_anova.R</code></a></small>
       <div class="d-none name"><code>F_to_eta2.Rd</code></div>
     </div>
+
     <div class="ref-description section level2">
     <p>These functions are convenience functions to convert F and t test statistics
 to <strong>partial</strong> Eta- (\(\eta\)), Omega- (\(\omega\)) Epsilon-
@@ -93,6 +105,7 @@ cases, they return close approximations.
 <br>
 See <a href="https://easystats.github.io/effectsize/articles/from_test_statistics.html">Effect Size from Test Statistics vignette.</a></p>
     </div>
+
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">F_to_eta2</span><span class="op">(</span><span class="va">f</span>, <span class="va">df</span>, <span class="va">df_error</span>, ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"greater"</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -135,25 +148,39 @@ See <a href="https://easystats.github.io/effectsize/articles/from_test_statistic
 <span></span>
 <span><span class="fu">t_to_f2</span><span class="op">(</span><span class="va">t</span>, <span class="va">df_error</span>, squared <span class="op">=</span> <span class="cn">TRUE</span>, ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"greater"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
+
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+
+
 <dl><dt id="arg-df-df-error">df, df_error<a class="anchor" aria-label="anchor" href="#arg-df-df-error"></a></dt>
 <dd><p>Degrees of freedom of numerator or of the error estimate
 (i.e., the residuals).</p></dd>
+
+
 <dt id="arg-ci">ci<a class="anchor" aria-label="anchor" href="#arg-ci"></a></dt>
 <dd><p>Confidence Interval (CI) level</p></dd>
+
+
 <dt id="arg-alternative">alternative<a class="anchor" aria-label="anchor" href="#arg-alternative"></a></dt>
 <dd><p>a character string specifying the alternative hypothesis;
 Controls the type of CI returned: <code>"greater"</code> (default) or <code>"less"</code>
 (one-sided CI), or <code>"two.sided"</code> (two-sided CI). Partial matching is
 allowed (e.g., <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em> in
 <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments passed to or from other methods.</p></dd>
+
+
 <dt id="arg-t-f">t, f<a class="anchor" aria-label="anchor" href="#arg-t-f"></a></dt>
 <dd><p>The t or the F statistics.</p></dd>
+
+
 <dt id="arg-squared">squared<a class="anchor" aria-label="anchor" href="#arg-squared"></a></dt>
 <dd><p>Return Cohen's <em>f</em> or Cohen's <em>f</em>-squared?</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -175,12 +202,15 @@ $$f_p = \sqrt{\frac{\eta_p^2}{1-\eta_p^2}}$$
 <br><br>
 For <em>t</em>, the conversion is based on the equality of \(t^2 = F\) when \(df_{num}=1\).</p><div class="section">
 <h3 id="choosing-an-un-biased-estimate">Choosing an Un-Biased Estimate<a class="anchor" aria-label="anchor" href="#choosing-an-un-biased-estimate"></a></h3>
+
+
 <p>Both Omega and Epsilon are unbiased estimators of the population Eta. But
 which to choose? Though Omega is the more popular choice, it should be noted
 that:</p><ol><li><p>The formula given above for Omega is only an approximation for complex
 designs.</p></li>
 <li><p>Epsilon has been found to be less biased (Carroll &amp; Nordholm, 1975).</p></li>
 </ol></div>
+
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
@@ -225,10 +255,13 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer &amp; Kiesser,
     </div>
     <div class="section level2">
     <h2 id="plotting-with-see">Plotting with <code>see</code><a class="anchor" aria-label="anchor" href="#plotting-with-see"></a></h2>
+
+
 <p>The <code>see</code> package contains relevant plotting functions. See the <a href="https://easystats.github.io/see/articles/effectsize.html" class="external-link">plotting vignette in the <code>see</code> package</a>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+
 <ul><li><p>Albers, C., &amp; Lakens, D. (2018). When power analyses based on pilot data
 are biased: Inaccurate effect size estimators and follow-up bias. Journal of
 experimental social psychology, 74, 187-195. <a href="https://doi.org/10.31234/osf.io/b7z4q" class="external-link">doi:10.31234/osf.io/b7z4q</a></p></li>
@@ -259,6 +292,7 @@ Psychological Methods, 9, 164-182.</p></li>
 <code><a href="convert_chisq.html">chisq_to_phi</a>()</code>,
 <code><a href="t_to_r.html">t_to_d</a>()</code></p></div>
     </div>
+
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">am</span><span class="op">)</span>, <span class="va">mtcars</span><span class="op">)</span></span></span>
@@ -332,12 +366,21 @@ Psychological Methods, 9, 164-182.</p></li>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
+
+
     <footer><div class="pkgdown-footer-left">
   <p>Developed by <a href="https://home.msbstats.info/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>, <a href="https://sites.google.com/site/indrajeetspatilmorality/" class="external-link">Indrajeet Patil</a>, <a href="https://wiernik.org/" class="external-link">Brenton M. Wiernik</a>, <a href="https://remi-theriault.com/" class="external-link">Rémi Thériault</a>, Philip Waggoner.</p>
 </div>
+
 <div class="pkgdown-footer-right">
   <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
 </div>
+
     </footer></div>
+
+
+
+
+
   </body></html>
 

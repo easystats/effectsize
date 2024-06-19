@@ -7,12 +7,19 @@ tables or goodness of fit."><meta property="og:description" content="Convert bet
 פ (Fei) and Pearson's \(C\) for contingency
 tables or goodness of fit."><meta property="og:image" content="https://easystats.github.io/effectsize/reference/figures/card.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:creator" content="@easystats4u"><meta name="twitter:site" content="@easystats4u"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+
+
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.1</small>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.2</small>
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html"><span class="fa fa-file-code"></span> Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/effectsize.html">Get Started</a></li>
@@ -63,6 +70,8 @@ tables or goodness of fit."><meta property="og:image" content="https://easystats
     <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
   </ul></li>
       </ul></div>
+
+
   </div>
 </nav><div class="container template-reference-topic">
 <div class="row">
@@ -71,12 +80,14 @@ tables or goodness of fit."><meta property="og:image" content="https://easystats
       <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/main/R/convert_stat_chisq.R" class="external-link"><code>R/convert_stat_chisq.R</code></a></small>
       <div class="d-none name"><code>convert_chisq.Rd</code></div>
     </div>
+
     <div class="ref-description section level2">
     <p>Convert between \(\chi^2\) (chi-square), \(\phi\) (phi), Cramer's
 \(V\), Tschuprow's \(T\), Cohen's \(w\),
 פ (Fei) and Pearson's \(C\) for contingency
 tables or goodness of fit.</p>
     </div>
+
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">chisq_to_phi</span><span class="op">(</span></span>
@@ -137,31 +148,51 @@ tables or goodness of fit.</p>
 <span></span>
 <span><span class="fu">phi_to_chisq</span><span class="op">(</span><span class="va">phi</span>, <span class="va">n</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
+
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+
+
 <dl><dt id="arg-chisq">chisq<a class="anchor" aria-label="anchor" href="#arg-chisq"></a></dt>
 <dd><p>The \(\chi^2\) (chi-square) statistic.</p></dd>
+
+
 <dt id="arg-n">n<a class="anchor" aria-label="anchor" href="#arg-n"></a></dt>
 <dd><p>Total sample size.</p></dd>
+
+
 <dt id="arg-nrow-ncol">nrow, ncol<a class="anchor" aria-label="anchor" href="#arg-nrow-ncol"></a></dt>
 <dd><p>The number of rows/columns in the contingency table.</p></dd>
+
+
 <dt id="arg-adjust">adjust<a class="anchor" aria-label="anchor" href="#arg-adjust"></a></dt>
 <dd><p>Should the effect size be corrected for small-sample bias?
 Defaults to <code>TRUE</code>; Advisable for small samples and large tables.</p></dd>
+
+
 <dt id="arg-ci">ci<a class="anchor" aria-label="anchor" href="#arg-ci"></a></dt>
 <dd><p>Confidence Interval (CI) level</p></dd>
+
+
 <dt id="arg-alternative">alternative<a class="anchor" aria-label="anchor" href="#arg-alternative"></a></dt>
 <dd><p>a character string specifying the alternative hypothesis;
 Controls the type of CI returned: <code>"greater"</code> (default) or <code>"less"</code>
 (one-sided CI), or <code>"two.sided"</code> (two-sided CI). Partial matching is
 allowed (e.g., <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em> in
 <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments passed to or from other methods.</p></dd>
+
+
 <dt id="arg-p">p<a class="anchor" aria-label="anchor" href="#arg-p"></a></dt>
 <dd><p>Vector of expected values. See <code><a href="https://rdrr.io/r/stats/chisq.test.html" class="external-link">stats::chisq.test()</a></code>.</p></dd>
+
+
 <dt id="arg-phi">phi<a class="anchor" aria-label="anchor" href="#arg-phi"></a></dt>
 <dd><p>The \(\phi\) (phi) statistic.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -172,9 +203,11 @@ allowed (e.g., <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>These functions use the following formulas:</p>
 <p>$$\phi = w = \sqrt{\chi^2 / n}$$
+
 $$\textrm{Cramer's } V = \phi / \sqrt{\min(\textit{nrow}, \textit{ncol}) - 1}$$</p>
 <p>$$\textrm{Tschuprow's } T = \phi / \sqrt[4]{(\textit{nrow} - 1) \times (\textit{ncol} - 1)}$$</p>
 <p>$$פ = \phi / \sqrt{[1 / \min(p_E)] - 1}$$
+
 Where \(p_E\) are the expected probabilities.</p>
 <p>$$\textrm{Pearson's } C = \sqrt{\chi^2 / (\chi^2 + n)}$$</p>
 <p>For versions adjusted for small-sample bias of \(\phi\), \(V\), and \(T\),
@@ -219,10 +252,13 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer &amp; Kiesser,
     </div>
     <div class="section level2">
     <h2 id="plotting-with-see">Plotting with <code>see</code><a class="anchor" aria-label="anchor" href="#plotting-with-see"></a></h2>
+
+
 <p>The <code>see</code> package contains relevant plotting functions. See the <a href="https://easystats.github.io/see/articles/effectsize.html" class="external-link">plotting vignette in the <code>see</code> package</a>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+
 <ul><li><p>Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd Ed.). New York: Routledge.</p></li>
 <li><p>Cumming, G., &amp; Finch, S. (2001). A primer on the understanding, use, and
 calculation of confidence intervals that are based on central and noncentral
@@ -245,6 +281,7 @@ tests to effect sizes for meta-analysis. PloS one, 5(4), e10059.</p></li>
 <code><a href="F_to_eta2.html">F_to_eta2</a>()</code>,
 <code><a href="t_to_r.html">t_to_d</a>()</code></p></div>
     </div>
+
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
@@ -299,12 +336,21 @@ tests to effect sizes for meta-analysis. PloS one, 5(4), e10059.</p></li>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
+
+
     <footer><div class="pkgdown-footer-left">
   <p>Developed by <a href="https://home.msbstats.info/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>, <a href="https://sites.google.com/site/indrajeetspatilmorality/" class="external-link">Indrajeet Patil</a>, <a href="https://wiernik.org/" class="external-link">Brenton M. Wiernik</a>, <a href="https://remi-theriault.com/" class="external-link">Rémi Thériault</a>, Philip Waggoner.</p>
 </div>
+
 <div class="pkgdown-footer-right">
   <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
 </div>
+
     </footer></div>
+
+
+
+
+
   </body></html>
 

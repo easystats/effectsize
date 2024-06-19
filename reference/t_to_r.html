@@ -4,19 +4,28 @@ statistics to Cohen's d and partial r. These are useful in cases where
 the data required to compute these are not easily available or their
 computation is not straightforward (e.g., in liner mixed models, contrasts,
 etc.).
+
 See Effect Size from Test Statistics vignette."><meta property="og:description" content="These functions are convenience functions to convert t, z and F test
 statistics to Cohen's d and partial r. These are useful in cases where
 the data required to compute these are not easily available or their
 computation is not straightforward (e.g., in liner mixed models, contrasts,
 etc.).
+
 See Effect Size from Test Statistics vignette."><meta property="og:image" content="https://easystats.github.io/effectsize/reference/figures/card.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:creator" content="@easystats4u"><meta name="twitter:site" content="@easystats4u"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+
+
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.1</small>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.2</small>
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html"><span class="fa fa-file-code"></span> Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/effectsize.html">Get Started</a></li>
@@ -67,6 +76,8 @@ See Effect Size from Test Statistics vignette."><meta property="og:image" conten
     <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
   </ul></li>
       </ul></div>
+
+
   </div>
 </nav><div class="container template-reference-topic">
 <div class="row">
@@ -75,6 +86,7 @@ See Effect Size from Test Statistics vignette."><meta property="og:image" conten
       <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/main/R/convert_stat_to_d.R" class="external-link"><code>R/convert_stat_to_d.R</code></a>, <a href="https://github.com/easystats/effectsize/blob/main/R/convert_stat_to_r.R" class="external-link"><code>R/convert_stat_to_r.R</code></a></small>
       <div class="d-none name"><code>t_to_r.Rd</code></div>
     </div>
+
     <div class="ref-description section level2">
     <p>These functions are convenience functions to convert t, z and F test
 statistics to Cohen's d and <strong>partial</strong> r. These are useful in cases where
@@ -84,6 +96,7 @@ etc.).
 <br>
 See <a href="https://easystats.github.io/effectsize/articles/from_test_statistics.html">Effect Size from Test Statistics vignette.</a></p>
     </div>
+
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">t_to_d</span><span class="op">(</span><span class="va">t</span>, <span class="va">df_error</span>, paired <span class="op">=</span> <span class="cn">FALSE</span>, ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"two.sided"</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -106,27 +119,43 @@ See <a href="https://easystats.github.io/effectsize/articles/from_test_statistic
 <span></span>
 <span><span class="fu">F_to_r</span><span class="op">(</span><span class="va">f</span>, <span class="va">df</span>, <span class="va">df_error</span>, ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"two.sided"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
+
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+
+
 <dl><dt id="arg-t-f-z">t, f, z<a class="anchor" aria-label="anchor" href="#arg-t-f-z"></a></dt>
 <dd><p>The t, the F or the z statistics.</p></dd>
+
+
 <dt id="arg-paired">paired<a class="anchor" aria-label="anchor" href="#arg-paired"></a></dt>
 <dd><p>Should the estimate account for the t-value being testing the
 difference between dependent means?</p></dd>
+
+
 <dt id="arg-ci">ci<a class="anchor" aria-label="anchor" href="#arg-ci"></a></dt>
 <dd><p>Confidence Interval (CI) level</p></dd>
+
+
 <dt id="arg-alternative">alternative<a class="anchor" aria-label="anchor" href="#arg-alternative"></a></dt>
 <dd><p>a character string specifying the alternative hypothesis;
 Controls the type of CI returned: <code>"two.sided"</code> (default, two-sided CI),
 <code>"greater"</code> or <code>"less"</code> (one-sided CI). Partial matching is allowed (e.g.,
 <code>"g"</code>, <code>"l"</code>, <code>"two"</code>...). See <em>One-Sided CIs</em> in <a href="effectsize_CIs.html">effectsize_CIs</a>.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments passed to or from other methods.</p></dd>
+
+
 <dt id="arg-n">n<a class="anchor" aria-label="anchor" href="#arg-n"></a></dt>
 <dd><p>The number of observations (the sample size).</p></dd>
+
+
 <dt id="arg-df-df-error">df, df_error<a class="anchor" aria-label="anchor" href="#arg-df-df-error"></a></dt>
 <dd><p>Degrees of freedom of numerator or of the error estimate
 (i.e., the residuals).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -190,10 +219,13 @@ to 0 to be negligible are needed ("equivalence testing"; Bauer &amp; Kiesser,
     </div>
     <div class="section level2">
     <h2 id="plotting-with-see">Plotting with <code>see</code><a class="anchor" aria-label="anchor" href="#plotting-with-see"></a></h2>
+
+
 <p>The <code>see</code> package contains relevant plotting functions. See the <a href="https://easystats.github.io/see/articles/effectsize.html" class="external-link">plotting vignette in the <code>see</code> package</a>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+
 <ul><li><p>Friedman, H. (1982). Simplified determinations of statistical power,
 magnitude of effect and research sample sizes. Educational and Psychological
 Measurement, 42(2), 521-526. <a href="https://doi.org/10.1177/001316448204200214" class="external-link">doi:10.1177/001316448204200214</a></p></li>
@@ -216,6 +248,7 @@ distributions. Educational and Psychological Measurement, 61(4), 532-574.</p></l
 <code><a href="F_to_eta2.html">F_to_eta2</a>()</code>,
 <code><a href="convert_chisq.html">chisq_to_phi</a>()</code></p></div>
     </div>
+
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## t Tests</span></span></span>
@@ -288,12 +321,21 @@ distributions. Educational and Psychological Measurement, 61(4), 532-574.</p></l
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
+
+
     <footer><div class="pkgdown-footer-left">
   <p>Developed by <a href="https://home.msbstats.info/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>, <a href="https://sites.google.com/site/indrajeetspatilmorality/" class="external-link">Indrajeet Patil</a>, <a href="https://wiernik.org/" class="external-link">Brenton M. Wiernik</a>, <a href="https://remi-theriault.com/" class="external-link">Rémi Thériault</a>, Philip Waggoner.</p>
 </div>
+
 <div class="pkgdown-footer-right">
   <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
 </div>
+
     </footer></div>
+
+
+
+
+
   </body></html>
 

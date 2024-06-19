@@ -3,12 +3,19 @@
 input model. See details."><meta property="og:description" content="This function tries to return the best effect-size measure for the provided
 input model. See details."><meta property="og:image" content="https://easystats.github.io/effectsize/reference/figures/card.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:creator" content="@easystats4u"><meta name="twitter:site" content="@easystats4u"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+
+
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.1</small>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.2</small>
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html"><span class="fa fa-file-code"></span> Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/effectsize.html">Get Started</a></li>
@@ -59,6 +66,8 @@ input model. See details."><meta property="og:image" content="https://easystats.
     <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
   </ul></li>
       </ul></div>
+
+
   </div>
 </nav><div class="container template-reference-topic">
 <div class="row">
@@ -67,10 +76,12 @@ input model. See details."><meta property="og:image" content="https://easystats.
       <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/main/R/effectsize.BFBayesFactor.R" class="external-link"><code>R/effectsize.BFBayesFactor.R</code></a>, <a href="https://github.com/easystats/effectsize/blob/main/R/effectsize.R" class="external-link"><code>R/effectsize.R</code></a>, <a href="https://github.com/easystats/effectsize/blob/main/R/effectsize.htest.R" class="external-link"><code>R/effectsize.htest.R</code></a></small>
       <div class="d-none name"><code>effectsize.Rd</code></div>
     </div>
+
     <div class="ref-description section level2">
     <p>This function tries to return the best effect-size measure for the provided
 input model. See details.</p>
     </div>
+
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'BFBayesFactor'</span></span>
@@ -84,15 +95,24 @@ input model. See details.</p>
 <span><span class="co"># S3 method for class 'htest'</span></span>
 <span><span class="fu">effectsize</span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="cn">NULL</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
+
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+
+
 <dl><dt id="arg-model">model<a class="anchor" aria-label="anchor" href="#arg-model"></a></dt>
 <dd><p>An object of class <code>htest</code>, or a statistical model. See details.</p></dd>
+
+
 <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
 <dd><p>The effect size of interest. See details.</p></dd>
+
+
 <dt id="arg-ci">ci<a class="anchor" aria-label="anchor" href="#arg-ci"></a></dt>
 <dd><p>Value or vector of probability of the CI (between 0 and 1)
 to be estimated. Default to <code>0.95</code> (<code>95%</code>).</p></dd>
+
+
 <dt id="arg-test">test<a class="anchor" aria-label="anchor" href="#arg-test"></a></dt>
 <dd><p>The indices of effect existence to compute. Character (vector) or
 list with one or more of these options: <code>"p_direction"</code> (or <code>"pd"</code>),
@@ -101,10 +121,15 @@ list with one or more of these options: <code>"p_direction"</code> (or <code>"pd
 For each "test", the corresponding <span class="pkg">bayestestR</span> function is called
 (e.g. <code><a href="https://easystats.github.io/bayestestR/reference/rope.html" class="external-link">rope()</a></code> or <code><a href="https://easystats.github.io/bayestestR/reference/p_direction.html" class="external-link">p_direction()</a></code>) and its results
 included in the summary output.</p></dd>
+
+
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>Toggle off warnings.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments passed to or from other methods. See details.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -113,6 +138,7 @@ CIs (<code>CI_low</code> and <code>CI_high</code>).</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+
 <ul><li><p>For an object of class <code>htest</code>, data is extracted via <code><a href="https://easystats.github.io/insight/reference/get_data.html" class="external-link">insight::get_data()</a></code>, and passed to the relevant function according to:</p><ul><li><p>A <strong>t-test</strong> depending on <code>type</code>: <code>"cohens_d"</code> (default), <code>"hedges_g"</code>, or one of <code>"p_superiority"</code>, <code>"u1"</code>, <code>"u2"</code>, <code>"u3"</code>, <code>"overlap"</code>.</p><ul><li><p>For a <strong>Paired t-test</strong>: depending on <code>type</code>: <code>"rm_rm"</code>, <code>"rm_av"</code>, <code>"rm_b"</code>, <code>"rm_d"</code>, <code>"rm_z"</code>.</p></li>
 </ul></li>
 <li><p>A <strong>Chi-squared tests of independence</strong> or <strong>Fisher's Exact Test</strong>, depending on <code>type</code>: <code>"cramers_v"</code> (default), <code>"tschuprows_t"</code>, <code>"phi"</code>, <code>"cohens_w"</code>, <code>"pearsons_c"</code>, <code>"cohens_h"</code>, <code>"oddsratio"</code>, <code>"riskratio"</code>, <code>"arr"</code>, or <code>"nnt"</code>.</p></li>
@@ -136,12 +162,15 @@ functions, for the full range of options they provide.</strong></p>
     </div>
     <div class="section level2">
     <h2 id="plotting-with-see">Plotting with <code>see</code><a class="anchor" aria-label="anchor" href="#plotting-with-see"></a></h2>
+
+
 <p>The <code>see</code> package contains relevant plotting functions. See the <a href="https://easystats.github.io/see/articles/effectsize.html" class="external-link">plotting vignette in the <code>see</code> package</a>.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code>vignette(package = "effectsize")</code></p></div>
     </div>
+
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
@@ -277,12 +306,21 @@ functions, for the full range of options they provide.</strong></p>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
+
+
     <footer><div class="pkgdown-footer-left">
   <p>Developed by <a href="https://home.msbstats.info/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>, <a href="https://sites.google.com/site/indrajeetspatilmorality/" class="external-link">Indrajeet Patil</a>, <a href="https://wiernik.org/" class="external-link">Brenton M. Wiernik</a>, <a href="https://remi-theriault.com/" class="external-link">Rémi Thériault</a>, Philip Waggoner.</p>
 </div>
+
 <div class="pkgdown-footer-right">
   <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
 </div>
+
     </footer></div>
+
+
+
+
+
   </body></html>
 
