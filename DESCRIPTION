@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size
-Version: 0.8.8.1
+Version: 0.8.8.2
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
@@ -73,7 +73,7 @@ Depends:
 Imports:
     bayestestR (>= 0.13.2),
     insight (>= 0.19.10),
-    parameters (>= 0.21.6),
+    parameters (>= 0.21.7),
     performance (>= 0.11.0),
     datawizard (>= 0.10.0),
     stats,
