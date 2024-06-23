@@ -30,10 +30,10 @@ interpret_fei(r, rules = "funder2019", ...)
 Interpret Correlation Coefficient
 }
 \details{
-Since Cohen's \emph{w} does not have an upper bound, for all by the most simple of
-cases (2-by-2 or 1-by-2 tables), interpreting Cohen's \emph{w} as a correlation
-coefficient is inappropriate (Ben-Shachar, et al., 2024; Cohen, 1988, p.
-222). Please us \code{\link[=cramers_v]{cramers_v()}} of the like instead.
+Since Cohen's \emph{w} does not have a fixed upper bound, for all by the most
+simple of cases (2-by-2 or 1-by-2 tables), interpreting Cohen's \emph{w} as a
+correlation coefficient is inappropriate (Ben-Shachar, et al., 2024; Cohen,
+1988, p. 222). Please us \code{\link[=cramers_v]{cramers_v()}} of the like instead.
 }
 \note{
 As \eqn{\phi}{\phi} can be larger than 1 - it is recommended to compute

@@ -6,10 +6,10 @@
 #' @param ... Not directly used.
 #'
 #' @details
-#' Since Cohen's _w_ does not have an upper bound, for all by the most simple of
-#' cases (2-by-2 or 1-by-2 tables), interpreting Cohen's _w_ as a correlation
-#' coefficient is inappropriate (Ben-Shachar, et al., 2024; Cohen, 1988, p.
-#' 222). Please us [cramers_v()] of the like instead.
+#' Since Cohen's _w_ does not have a fixed upper bound, for all by the most
+#' simple of cases (2-by-2 or 1-by-2 tables), interpreting Cohen's _w_ as a
+#' correlation coefficient is inappropriate (Ben-Shachar, et al., 2024; Cohen,
+#' 1988, p. 222). Please us [cramers_v()] of the like instead.
 #'
 #'
 #' @note As \eqn{\phi}{\phi} can be larger than 1 - it is recommended to compute
