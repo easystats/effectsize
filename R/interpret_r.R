@@ -5,12 +5,19 @@
 #'   `"evans1996"`, `"lovakov2021"` or a custom set of [rules()].
 #' @param ... Not directly used.
 #'
+#' @details
+#' Since Cohen's _w_ does not have an upper bound, for all by the most simple of
+#' cases (2-by-2 or 1-by-2 tables), interpreting Cohen's _w_ as a correlation
+#' coefficient is inappropriate (Ben-Shachar, et al., 2024; Cohen, 1988, p.
+#' 222). Please us [cramers_v()] of the like instead.
+#'
+#'
 #' @note As \eqn{\phi}{\phi} can be larger than 1 - it is recommended to compute
 #'   and interpret Cramer's *V* instead.
 #'
 #' @section Rules:
 #'
-#' Rules apply positive and negative *r* alike.
+#' Rules apply to positive and negative *r* alike.
 #'
 #' - Funder & Ozer (2019) (`"funder2019"`; default)
 #'   - **r < 0.05** - Tiny
@@ -65,6 +72,10 @@
 #'
 #' - Evans, J. D. (1996). Straightforward statistics for the behavioral
 #' sciences. Thomson Brooks/Cole Publishing Co.
+#'
+#' - Ben-Shachar, M.S., Patil, I., Thériault, R., Wiernik, B.M., Lüdecke, D.
+#' (2023). Phi, Fei, Fo, Fum: Effect Sizes for Categorical Data That Use the
+#' Chi‑Squared Statistic. Mathematics, 11, 1982. \doi{10.3390/math11091982}
 #'
 #' @keywords interpreters
 #' @export

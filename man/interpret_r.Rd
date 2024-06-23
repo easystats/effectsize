@@ -29,6 +29,12 @@ interpret_fei(r, rules = "funder2019", ...)
 \description{
 Interpret Correlation Coefficient
 }
+\details{
+Since Cohen's \emph{w} does not have an upper bound, for all by the most simple of
+cases (2-by-2 or 1-by-2 tables), interpreting Cohen's \emph{w} as a correlation
+coefficient is inappropriate (Ben-Shachar, et al., 2024; Cohen, 1988, p.
+222). Please us \code{\link[=cramers_v]{cramers_v()}} of the like instead.
+}
 \note{
 As \eqn{\phi}{\phi} can be larger than 1 - it is recommended to compute
 and interpret Cramer's \emph{V} instead.
@@ -36,7 +42,7 @@ and interpret Cramer's \emph{V} instead.
 \section{Rules}{
 
 
-Rules apply positive and negative \emph{r} alike.
+Rules apply to positive and negative \emph{r} alike.
 \itemize{
 \item Funder & Ozer (2019) (\code{"funder2019"}; default)
 \itemize{
@@ -99,6 +105,9 @@ individual differences researchers. Personality and individual differences,
 (2nd Ed.). New York: Routledge.
 \item Evans, J. D. (1996). Straightforward statistics for the behavioral
 sciences. Thomson Brooks/Cole Publishing Co.
+\item Ben-Shachar, M.S., Patil, I., Thériault, R., Wiernik, B.M., Lüdecke, D.
+(2023). Phi, Fei, Fo, Fum: Effect Sizes for Categorical Data That Use the
+Chi‑Squared Statistic. Mathematics, 11, 1982. \doi{10.3390/math11091982}
 }
 }
 \seealso{
