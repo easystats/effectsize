@@ -78,10 +78,10 @@ probs_to_odds.data.frame <- function(probs, log = FALSE, select = NULL, exclude 
 #' @keywords internal
 .odds_to_probs_df <- function(odds = NULL, probs = NULL, log = FALSE, select = NULL, exclude = NULL, ...) {
   # If vector
-  if (!is.null(odds)) {
-    df <- odds
+  if (is.null(odds)) {
+    mydata <- probs
   } else {
-    df <- probs
+    mydata <- odds
   }
 
   # check for formula notation, convert to character vector
@@ -93,55 +93,55 @@ probs_to_odds.data.frame <- function(probs, log = FALSE, select = NULL, exclude 
   }
 
   # Variable order
-  var_order <- names(df)
+  var_order <- names(mydata)
 
   # Keep subset
-  if (!is.null(select) && select %in% names(df)) {
+  if (!is.null(select) && select %in% names(mydata)) {
     select <- as.vector(select)
-    to_keep <- as.data.frame(df[!names(df) %in% select])
-    df <- df[names(df) %in% select]
+    to_keep <- as.data.frame(mydata[!names(mydata) %in% select])
+    mydata <- mydata[names(mydata) %in% select]
   } else {
     to_keep <- NULL
   }
 
   # Remove exceptions
-  if (!is.null(exclude) && exclude %in% names(df)) {
+  if (!is.null(exclude) && exclude %in% names(mydata)) {
     exclude <- as.vector(exclude)
     if (is.null(to_keep)) {
-      to_keep <- as.data.frame(df[exclude])
+      to_keep <- as.data.frame(mydata[exclude])
     } else {
-      to_keep <- cbind(to_keep, as.data.frame(df[exclude]))
+      to_keep <- cbind(to_keep, as.data.frame(mydata[exclude]))
     }
 
-    df <- df[!names(df) %in% exclude]
+    mydata <- mydata[!names(mydata) %in% exclude]
   }
 
   # Remove non-numerics
-  is_num <- vapply(df, is.numeric, logical(1))
-  dfother <- df[!is_num]
-  dfnum <- df[is_num]
+  is_num <- vapply(mydata, is.numeric, logical(1))
+  dfother <- mydata[!is_num]
+  dfnum <- mydata[is_num]
 
   # Tranform
-  if (!is.null(odds)) {
-    dfnum <- data.frame(lapply(dfnum, odds_to_probs.numeric, log = log))
-  } else {
+  if (is.null(odds)) {
     dfnum <- data.frame(lapply(dfnum, probs_to_odds.numeric, log = log))
+  } else {
+    dfnum <- data.frame(lapply(dfnum, odds_to_probs.numeric, log = log))
   }
 
   # Add non-numerics
   if (is.null(ncol(dfother))) {
-    df <- dfnum
+    mydata <- dfnum
   } else {
-    df <- cbind(dfother, dfnum)
+    mydata <- cbind(dfother, dfnum)
   }
 
   # Add exceptions
   if (!is.null(select) || !is.null(exclude) && exists("to_keep")) {
-    df <- cbind(df, to_keep)
+    mydata <- cbind(mydata, to_keep)
   }
 
   # Reorder
-  df <- df[var_order]
+  mydata <- mydata[var_order]
 
-  return(df)
+  mydata
 }
