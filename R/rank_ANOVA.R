@@ -226,7 +226,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
 .reta <- function(data) {
   model <- suppressWarnings(stats::kruskal.test(data$x, data$groups))
 
-  k <- length(levels(data$groups))
+  k <- nlevels(data$groups)
   n <- nrow(data)
   E <- model$statistic
 
@@ -244,7 +244,10 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
   R <- colSums(rankings)
 
   no_ties <- apply(rankings, 1, function(x) length(x) == insight::n_unique(x))
-  if (!all(no_ties)) {
+  if (all(no_ties)) {
+    S <- stats::var(R) * (n - 1)
+    W <- (12 * S) / (m^2 * (n^3 - n))
+  } else {
     if (verbose) {
       insight::format_warning(
         sprintf(
@@ -264,10 +267,6 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
 
     W <- (12 * sum(R^2) - 3 * (m^2) * n * ((n + 1)^2)) /
       (m^2 * (n^3 - n) - m * Tj)
-  } else {
-    S <- stats::var(R) * (n - 1)
-    W <- (12 * S) /
-      (m^2 * (n^3 - n))
   }
   W
 }
