@@ -78,7 +78,9 @@
            verbose = TRUE,
            include_intercept = FALSE,
            ...) {
-    suppressWarnings(aov_tab <- summary(model)$univariate.tests)
+    suppressWarnings({
+      aov_tab <- summary(model)$univariate.tests
+    })
 
     # if there are univariate.tests, will return a global effect size
     if (is.null(aov_tab)) {
@@ -107,17 +109,17 @@
     aov_tab <- aov_tab[c("Parameter", "Sum_Squares", "Error SS", "df", "den Df")]
 
     id <- "Subject"
-    within <- names(model$idata)
-    within <- lapply(within, function(x) c(NA, x))
-    within <- do.call(expand.grid, within)
-    within <- apply(within, 1, stats::na.omit)
-    ns <- sapply(within, length)
-    within <- sapply(within, paste, collapse = ":")
-    within <- within[order(ns)]
-    within <- Filter(function(x) nchar(x) > 0, within)
-    l <- sapply(within, grepl, x = aov_tab$Parameter, simplify = TRUE)
-    l <- apply(l, 1, function(x) if (!any(x)) 0 else max(which(x)))
-    l <- c(NA, within)[l + 1]
+    within_subj <- names(model$idata)
+    within_subj <- lapply(within_subj, function(x) c(NA, x))
+    within_subj <- do.call(expand.grid, within_subj)
+    within_subj <- apply(within_subj, 1, stats::na.omit)
+    ns <- lengths(within_subj)
+    within_subj <- sapply(within_subj, paste, collapse = ":")
+    within_subj <- within_subj[order(ns)]
+    within_subj <- Filter(function(x) nzchar(x, keepNA = TRUE), within_subj)
+    l <- sapply(within_subj, grepl, x = aov_tab$Parameter, simplify = TRUE)
+    l <- apply(l, 1, function(x) if (any(x)) max(which(x)) else 0)
+    l <- c(NA, within_subj)[l + 1]
     l <- sapply(l, function(x) paste0(stats::na.omit(c(id, x)), collapse = ":"))
     aov_tab$Group <- l
 
@@ -132,10 +134,10 @@
     aov_tab <- do.call(rbind, aov_tab)
     aov_tab[["Error SS"]] <- NULL
     aov_tab[["den Df"]] <- NULL
-    aov_tab$`F` <- ifelse(aov_tab$Parameter == "Residuals", NA, 1)
+    aov_tab[["F"]] <- ifelse(aov_tab$Parameter == "Residuals", NA, 1)
     aov_tab$Mean_Square <- aov_tab$Sum_Squares / aov_tab$df
 
-    DV_names <- c(id, setdiff(unlist(strsplit(model$terms, ":")), "(Intercept)"))
+    DV_names <- c(id, setdiff(unlist(strsplit(model$terms, ":", fixed = TRUE)), "(Intercept)"))
 
     out <-
       .es_aov_strata(
@@ -172,7 +174,7 @@
   out <- .anova_es(pars, ...)
   attr(out, "anova_type") <- attr(pars, "anova_type")
   attr(out, "approximate") <- TRUE
-  return(out)
+  out
 }
 
 
