@@ -261,7 +261,7 @@ rm_d <- repeated_measures_d
     se <- sqrt(f / n + (d^2) / (2 * n))
   }
 
-  .nlist(d, se, dof)
+  .nlist(d, se, df = dof)
 }
 
 #' @keywords internal
