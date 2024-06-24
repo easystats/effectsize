@@ -254,8 +254,7 @@
                                     wide = TRUE, allow_ordered = FALSE,
                                     verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
-    if (length(x) != 3L ||
-      x[[3L]][[1L]] != as.name("|")) {
+    if (length(x) != 3L || x[[3L]][[1L]] != as.name("|")) {
       insight::format_error("Formula must have the 'x ~ groups | blocks'.")
     }
 
@@ -323,7 +322,7 @@
                                    verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
     if (length(x) != 3L || length(x[[3]]) != 1L) {
-      insight::format_error("Formula must have the form of 'DV1 + ... + DVk ~ group', with exactly one term on the RHS.")
+      insight::format_error("Formula must have the form of 'DV1 + ... + DVk ~ group', with exactly one term on the RHS.") # nolint
     }
 
     data <- .resolve_formula(stats::reformulate(as.character(x)[3:2]), data, ...)
