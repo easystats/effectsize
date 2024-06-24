@@ -257,7 +257,7 @@
                            ci = 0.95, alternative = "greater",
                            verbose = TRUE,
                            ...) {
-  params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed", es_type = NULL)
+  params <- parameters::model_parameters(model, verbose = verbose, es_type = NULL)
   anova_type <- attr(params, "anova_type")
 
   params <- split(params, factor(params$Response, levels = unique(params$Response))) # make sure row order is not changed

@@ -832,7 +832,7 @@ cohens_f_squared <- function(model,
       include_intercept = include_intercept
     )
 
-  attr(out, "anova_type") <- tryCatch(attr(parameters::model_parameters(model, verbose = FALSE, effects = "fixed", es_type = NULL), "anova_type"),
+  attr(out, "anova_type") <- tryCatch(attr(parameters::model_parameters(model, verbose = FALSE, es_type = NULL), "anova_type"),
     error = function(...) 1
   )
   attr(out, "approximate") <- TRUE
@@ -863,7 +863,7 @@ cohens_f_squared <- function(model,
 
   # TODO this should be in .anova_es.anvoa
   # TODO the aoc method should convert to an anova table, then pass to anova
-  params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed", es_type = NULL)
+  params <- parameters::model_parameters(model, verbose = verbose, es_type = NULL)
   out <- .es_aov_simple(as.data.frame(params),
     type = type,
     partial = partial, generalized = generalized,
@@ -889,7 +889,7 @@ cohens_f_squared <- function(model,
                               verbose = TRUE,
                               include_intercept = FALSE,
                               ...) {
-  params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed", es_type = NULL)
+  params <- parameters::model_parameters(model, verbose = verbose, es_type = NULL)
   anova_type <- attr(params, "anova_type")
   params <- as.data.frame(params)
 
