@@ -61,10 +61,10 @@ interpret_bf <- function(bf,
     rules,
     list(
       jeffreys1961 = rules(c(3, 10, 30, 100), c("anecdotal", "moderate", "strong", "very strong", "extreme"),
-                           name = "jeffreys1961"
+        name = "jeffreys1961"
       ),
       raftery1995 = rules(c(3, 20, 150), c("weak", "positive", "strong", "very strong"),
-                          name = "raftery1995"
+        name = "raftery1995"
       )
     )
   )

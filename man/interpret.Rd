@@ -45,6 +45,10 @@ interpret(c(0.01, 0.005, 0.08), rules_grid)
 interpret(c(0.35, 0.15), c("small" = 0.2, "large" = 0.4), name = "Cohen's Rules")
 interpret(c(0.35, 0.15), rules(c(0.2, 0.4), c("small", "medium", "large")))
 
+bigness <- rules(c(1, 10), c("small", "medium", "big"))
+interpret(abs(-5), bigness)
+interpret(-5, bigness, transform = abs)
+
 # ----------
 d <- cohens_d(mpg ~ am, data = mtcars)
 interpret(d, rules = "cohen1988")

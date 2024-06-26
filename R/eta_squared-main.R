@@ -891,8 +891,8 @@ cohens_f_squared <- function(model,
                               verbose = TRUE,
                               include_intercept = FALSE,
                               ...) {
- ## TODO: add back `effects = "fixed"` once the deprecation warning in parameters is removed
- params <- parameters::model_parameters(model, verbose = verbose, es_type = NULL)
+  ## TODO: add back `effects = "fixed"` once the deprecation warning in parameters is removed
+  params <- parameters::model_parameters(model, verbose = verbose, es_type = NULL)
   anova_type <- attr(params, "anova_type")
   params <- as.data.frame(params)
 
