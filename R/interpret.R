@@ -91,6 +91,8 @@ is.rules <- function(x) inherits(x, "rules")
 #'   frame of class `effectsize_table`.
 #' @param rules Set of [rules()]. When `x` is a data frame, can be a name of an
 #'   established set of rules.
+#' @param transform a function (or name of a function) to apply to `x` before
+#'   interpreting. See examples.
 #' @param ... Currently not used.
 #' @inheritParams rules
 #'
@@ -133,7 +135,12 @@ interpret <- function(x, ...) {
 
 #' @rdname interpret
 #' @export
-interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
+interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"),
+                              transform = NULL, ...) {
+  if (is.null(transform)) transform <- identity
+  transform <- match.fun(transform)
+  x_tran <- transform(x)
+
   if (!inherits(rules, "rules")) {
     rules <- rules(rules)
   }
@@ -141,13 +148,13 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
   if (is.null(name)) name <- "Custom rules"
   attr(rules, "rule_name") <- name
 
-  if (length(x) > 1) {
-    out <- vapply(x, .interpret, rules = rules, FUN.VALUE = character(1L))
+  if (length(x_tran) > 1) {
+    out <- vapply(x_tran, .interpret, rules = rules, FUN.VALUE = character(1L))
   } else {
-    out <- .interpret(x, rules = rules)
+    out <- .interpret(x_tran, rules = rules)
   }
 
-  names(out) <- names(x)
+  names(out) <- names(x_tran)
 
   class(out) <- c("effectsize_interpret", class(out))
   attr(out, "rules") <- rules
@@ -156,11 +163,14 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"), ...) {
 
 #' @rdname interpret
 #' @export
-interpret.effectsize_table <- function(x, rules, ...) {
+interpret.effectsize_table <- function(x, rules, transform = NULL, ...) {
   if (missing(rules)) insight::format_error("You {.b must} specify the rules of interpretation!")
 
+  if (is.null(transform)) transform <- identity
+  transform <- match.fun(transform)
+
   es_name <- colnames(x)[is_effectsize_name(colnames(x))]
-  value <- x[[es_name]]
+  value <- transform(x[[es_name]])
 
   x$Interpretation <- switch(es_name,
     ## std diff

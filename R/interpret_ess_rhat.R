@@ -49,7 +49,7 @@ interpret_ess <- function(ess, rules = "burkner2017") {
     )
   )
 
-  interpret(abs(ess), rules)
+  interpret(ess, rules)
 }
 
 
@@ -65,5 +65,5 @@ interpret_rhat <- function(rhat, rules = "vehtari2019") {
     )
   )
 
-  interpret(abs(rhat), rules)
+  interpret(rhat, rules)
 }

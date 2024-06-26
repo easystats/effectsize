@@ -8,9 +8,9 @@
 \usage{
 interpret(x, ...)
 
-\method{interpret}{numeric}(x, rules, name = attr(rules, "rule_name"), ...)
+\method{interpret}{numeric}(x, rules, name = attr(rules, "rule_name"), transform = NULL, ...)
 
-\method{interpret}{effectsize_table}(x, rules, ...)
+\method{interpret}{effectsize_table}(x, rules, transform = NULL, ...)
 }
 \arguments{
 \item{x}{Vector of value break points (edges defining categories), or a data
@@ -22,6 +22,9 @@ frame of class \code{effectsize_table}.}
 established set of rules.}
 
 \item{name}{Name of the set of rules (will be printed).}
+
+\item{transform}{a function (or name of a function) to apply to \code{x} before
+interpreting. See examples.}
 }
 \value{
 \itemize{

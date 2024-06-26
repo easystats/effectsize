@@ -42,15 +42,15 @@
 #' @export
 interpret_oddsratio <- function(OR, rules = "chen2010", log = FALSE, ...) {
   if (log) {
-    OR <- exp(abs(OR))
+    f_transform <- function(.x) exp(abs(.x))
   } else {
-    OR <- exp(abs(log(OR)))
+    f_transform <- function(.x) exp(abs(log(.x)))
   }
 
 
   if (is.character(rules) && rules == "cohen1988") {
-    d <- oddsratio_to_d(OR, log = FALSE)
-    return(interpret_cohens_d(abs(d), rules = rules))
+    d <- oddsratio_to_d(OR, log = log)
+    return(interpret_cohens_d(d, rules = rules))
   }
 
   rules <- .match.rules(
@@ -63,5 +63,5 @@ interpret_oddsratio <- function(OR, rules = "chen2010", log = FALSE, ...) {
     )
   )
 
-  interpret(OR, rules)
+  interpret(OR, rules, transform = f_transform)
 }
