@@ -45,7 +45,7 @@ interpret_ess <- function(ess, rules = "burkner2017") {
   rules <- .match.rules(
     rules,
     list(
-      burkner2017 = rules(c(1000), c("insufficient", "sufficient"), name = "burkner2017", right = FALSE)
+      burkner2017 = rules(1000, c("insufficient", "sufficient"), name = "burkner2017", right = FALSE)
     )
   )
 
@@ -60,8 +60,8 @@ interpret_rhat <- function(rhat, rules = "vehtari2019") {
   rules <- .match.rules(
     rules,
     list(
-      vehtari2019 = rules(c(1.01), c("converged", "failed"), name = "vehtari2019"),
-      gelman1992 = rules(c(1.1), c("converged", "failed"), name = "gelman1992")
+      vehtari2019 = rules(1.01, c("converged", "failed"), name = "vehtari2019"),
+      gelman1992 = rules(1.1, c("converged", "failed"), name = "gelman1992")
     )
   )
 
