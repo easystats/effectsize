@@ -1,7 +1,5 @@
 # NCP -------------------------
 
-# TODO: other packages like lmeInfo, MOTE and others use qt/qf for these.
-
 #' @keywords internal
 .get_ncp_F <- function(f, df, df_error, conf.level = 0.9) {
   if (!is.finite(f) || !is.finite(df) || !is.finite(df_error)) {

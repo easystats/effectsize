@@ -1,3 +1,9 @@
+# effectsize 0.8.9
+
+## Bug fixes
+
+- `interpret(<effectsize_table>)` no longer returns transformed effect sizes ( #640 )
+
 # effectsize 0.8.8
 
 ## Bug fixes
