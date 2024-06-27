@@ -141,8 +141,13 @@ interpret <- function(x, ...) {
 #' @export
 interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"),
                               transform = NULL, ...) {
-  if (is.null(transform)) transform <- identity
-  transform <- match.fun(transform)
+  # This is meant to circumvent https://github.com/easystats/report/issues/442
+  if (is.character(transform)) {
+    transform <- match.fun(transform)
+  } else if (!is.function(transform)) {
+    transform <- identity
+  }
+
   x_tran <- transform(x)
 
   if (!inherits(rules, "rules")) {
@@ -170,8 +175,12 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"),
 interpret.effectsize_table <- function(x, rules, transform = NULL, ...) {
   if (missing(rules)) insight::format_error("You {.b must} specify the rules of interpretation!")
 
-  if (is.null(transform)) transform <- identity
-  transform <- match.fun(transform)
+  # This is meant to circumvent https://github.com/easystats/report/issues/442
+  if (is.character(transform)) {
+    transform <- match.fun(transform)
+  } else if (!is.function(transform)) {
+    transform <- identity
+  }
 
   es_name <- colnames(x)[is_effectsize_name(colnames(x))]
   value <- transform(x[[es_name]])
