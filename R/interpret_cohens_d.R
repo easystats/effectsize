@@ -81,7 +81,7 @@ interpret_cohens_d <- function(d, rules = "cohen1988", ...) {
     )
   )
 
-  interpret(abs(d), rules)
+  interpret(d, rules, transform = abs)
 }
 
 #' @rdname interpret_cohens_d

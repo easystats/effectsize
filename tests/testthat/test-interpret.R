@@ -92,7 +92,7 @@ test_that("interpret_r2", {
 
 
 test_that("interpret_bf", {
-  expect_warning(interpret_bf(-2), "Negative")
+  expect_error(interpret_bf(-2), "Negative")
   expect_equal(interpret_bf(1)[1], "no evidence against or in favour of")
   expect_equal(
     interpret_bf(c(0.8, 3.5), "jeffreys1961")[1:2],
@@ -252,4 +252,13 @@ test_that("interpret effectsize_table", {
   expect_output(print(V_), "Interpretation rule: funder2019")
 
   expect_error(interpret(d), "must specify")
+
+  d1 <- cohens_d(mtcars$wt, mu = 4)
+  d2 <- cohens_d(-mtcars$wt, mu = -4)
+  d1_ <- interpret(d1, rules = "cohen1988")
+  d2_ <- interpret(d2, rules = "cohen1988")
+
+  expect_equal(d1_$Interpretation, d2_$Interpretation)
+  expect_equal(d1_[[1]], d1[[1]])
+  expect_equal(d2_[[1]], d2[[1]])
 })

@@ -156,7 +156,7 @@ rank_biserial <- function(x, y = NULL, data = NULL,
 
     alpha <- 1 - ci.level
 
-    rf <- atanh(r_rbs)
+    rank_f <- atanh(r_rbs)
     if (is_paired_or_onesample) {
       nd <- sum((x - mu) != 0)
       maxw <- (nd^2 + nd) / 2
@@ -185,9 +185,9 @@ rank_biserial <- function(x, y = NULL, data = NULL,
       rfSE <- sqrt((n1 + n2 + 1) / (3 * n1 * n2))
     }
 
-    confint <- tanh(rf + c(-1, 1) * stats::qnorm(1 - alpha / 2) * rfSE)
-    out$CI_low <- confint[1]
-    out$CI_high <- confint[2]
+    conf_int <- tanh(rank_f + c(-1, 1) * stats::qnorm(1 - alpha / 2) * rfSE)
+    out$CI_low <- conf_int[1]
+    out$CI_high <- conf_int[2]
     ci_method <- list(method = "normal")
     out <- .limit_ci(out, alternative, -1, 1)
   } else {

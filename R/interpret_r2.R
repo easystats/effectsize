@@ -55,7 +55,7 @@ interpret_r2 <- function(r2, rules = "cohen1988") {
       cohen1988 = rules(c(0.02, 0.13, 0.26), c("very weak", "weak", "moderate", "substantial"),
         name = "cohen1988", right = FALSE
       ),
-      falk1992 = rules(c(0.10), c("negligible", "adequate"),
+      falk1992 = rules(0.10, c("negligible", "adequate"),
         name = "falk1992", right = FALSE
       ),
       chin1998 = rules(c(0.19, 0.33, 0.67), c("very weak", "weak", "moderate", "substantial"),

@@ -16,7 +16,7 @@ screening_test <- data.frame(
   Test1 = rep(screening_test[[1]], times = screening_test$Freq),
   Test2 = rep(screening_test[[2]], times = screening_test$Freq)
 )
-i <- sample(1600, size = 800)
+i <- sample.int(1600, size = 800)
 screening_test$Diagnosis[i] <- screening_test$Test1[i]
 screening_test$Diagnosis[-i] <- screening_test$Test2[-i]
 screening_test$Diagnosis <- factor(screening_test$Diagnosis, labels = c("Neg", "Pos"))

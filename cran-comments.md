@@ -8,9 +8,9 @@
 
 * local installation: R 4.3.2 on Windows
 * GitHub Actions
-    - Windows:        release
+    - Windows:        release, oldrel
     - macOS:          release
-    - ubuntu-18.04:   release, oldrel, 4.0, 3.6
+    - ubuntu-18.04:   release, oldrel, 4.3
 * win-builder:        release
 
 
@@ -21,7 +21,7 @@
 
 ## revdepcheck results
 
-We checked 20 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 23 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
  * We saw 0 new problems
  * We failed to check 0 packages

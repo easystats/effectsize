@@ -185,9 +185,9 @@ repeated_measures_d <- function(x, y,
     probs <- c(alpha / 2, 1 - alpha / 2)
     qs <- stats::qnorm(probs)
 
-    confint <- out[["d"]] + qs * values[["se"]]
-    out$CI_low <- confint[1]
-    out$CI_high <- confint[2]
+    conf_int <- out[["d"]] + qs * values[["se"]]
+    out$CI_low <- conf_int[1]
+    out$CI_high <- conf_int[2]
 
     ci_method <- list(method = "normal")
     out <- .limit_ci(out, alternative, -Inf, Inf)
@@ -231,11 +231,11 @@ rm_d <- repeated_measures_d
 
   m <- mean(x - y)
   n <- length(x)
-  df <- n - 1
+  dof <- n - 1
   r <- stats::cor(x, y)
   f <- 2 * (1 - r)
 
-  if (method == "rm") {
+  if (method == "rm") { # nolint
     s <- stats::sd(x - y) / sqrt(f)
     d <- (m - mu) / s
 
@@ -261,7 +261,7 @@ rm_d <- repeated_measures_d
     se <- sqrt(f / n + (d^2) / (2 * n))
   }
 
-  .nlist(d, se, df)
+  .nlist(d, se, df = dof)
 }
 
 #' @keywords internal

@@ -8,9 +8,9 @@
 \usage{
 interpret(x, ...)
 
-\method{interpret}{numeric}(x, rules, name = attr(rules, "rule_name"), ...)
+\method{interpret}{numeric}(x, rules, name = attr(rules, "rule_name"), transform = NULL, ...)
 
-\method{interpret}{effectsize_table}(x, rules, ...)
+\method{interpret}{effectsize_table}(x, rules, transform = NULL, ...)
 }
 \arguments{
 \item{x}{Vector of value break points (edges defining categories), or a data
@@ -22,6 +22,9 @@ frame of class \code{effectsize_table}.}
 established set of rules.}
 
 \item{name}{Name of the set of rules (will be printed).}
+
+\item{transform}{a function (or name of a function) to apply to \code{x} before
+interpreting. See examples.}
 }
 \value{
 \itemize{
@@ -41,6 +44,10 @@ interpret(c(0.01, 0.005, 0.08), rules_grid)
 
 interpret(c(0.35, 0.15), c("small" = 0.2, "large" = 0.4), name = "Cohen's Rules")
 interpret(c(0.35, 0.15), rules(c(0.2, 0.4), c("small", "medium", "large")))
+
+bigness <- rules(c(1, 10), c("small", "medium", "big"))
+interpret(abs(-5), bigness)
+interpret(-5, bigness, transform = abs)
 
 # ----------
 d <- cohens_d(mpg ~ am, data = mtcars)
