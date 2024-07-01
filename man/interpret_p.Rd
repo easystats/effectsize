@@ -36,6 +36,11 @@ Interpret \emph{p}-Values
 interpret_p(c(.5, .02, 0.001))
 interpret_p(c(.5, .02, 0.001), rules = "rss")
 
+stars <- rules(c(0.001, 0.01, 0.05, 0.1), c("***", "**", "*", "+", ""),
+  right = FALSE, name = "stars"
+)
+interpret_p(c(.5, .02, 0.001), rules = stars)
+
 }
 \references{
 \itemize{
