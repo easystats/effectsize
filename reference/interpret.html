@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,10 +84,10 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">interpret</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'numeric'</span></span>
-<span><span class="fu">interpret</span><span class="op">(</span><span class="va">x</span>, <span class="va">rules</span>, name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">rules</span>, <span class="st">"rule_name"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">interpret</span><span class="op">(</span><span class="va">x</span>, <span class="va">rules</span>, name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">rules</span>, <span class="st">"rule_name"</span><span class="op">)</span>, transform <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'effectsize_table'</span></span>
-<span><span class="fu">interpret</span><span class="op">(</span><span class="va">x</span>, <span class="va">rules</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">interpret</span><span class="op">(</span><span class="va">x</span>, <span class="va">rules</span>, transform <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -110,6 +110,11 @@ established set of rules.</p></dd>
 
 <dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
 <dd><p>Name of the set of rules (will be printed).</p></dd>
+
+
+<dt id="arg-transform">transform<a class="anchor" aria-label="anchor" href="#arg-transform"></a></dt>
+<dd><p>a function (or name of a function) to apply to <code>x</code> before
+interpreting. See examples.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -152,6 +157,16 @@ established set of rules.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: Custom rules)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">bigness</span> <span class="op">&lt;-</span> <span class="fu"><a href="rules.html">rules</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"big"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">interpret</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span><span class="op">)</span>, <span class="va">bigness</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "medium"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: Custom rules)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="fu">interpret</span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>, <span class="va">bigness</span>, transform <span class="op">=</span> <span class="va">abs</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "medium"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic;">(Rules: Custom rules)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># ----------</span></span></span>
 <span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">am</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">interpret</span><span class="op">(</span><span class="va">d</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></span></span>
@@ -175,8 +190,6 @@ established set of rules.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">wt</span> <span class="op">~</span> <span class="va">am</span> <span class="op">*</span> <span class="va">cyl</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">eta2</span> <span class="op">&lt;-</span> <span class="fu"><a href="eta_squared.html">eta_squared</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Argument `effectsize_type` is deprecated. Use `es_type` instead.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   FALSE</span>
 <span class="r-in"><span><span class="fu">interpret</span><span class="op">(</span><span class="va">eta2</span>, rules <span class="op">=</span> <span class="st">"field2013"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;"># Effect Size for ANOVA (Type I)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
