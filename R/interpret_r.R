@@ -106,7 +106,7 @@ interpret_r <- function(r, rules = "funder2019", ...) {
     )
   )
 
-  interpret(abs(r), rules)
+  interpret(r, rules, transform = abs)
 }
 
 #' @export

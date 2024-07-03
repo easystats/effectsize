@@ -76,17 +76,15 @@ cohens_g <- function(x, y = NULL,
       insight::format_error("'x' and 'y' must have the same number of levels (minimum 2)")
     }
     x <- table(x, y)
-  } else {
-    if ((nrow(x) < 2) || (ncol(x) != nrow(x))) {
-      insight::format_error("'x' must be square with at least two rows and columns")
-    }
+  } else if ((nrow(x) < 2) || (ncol(x) != nrow(x))) {
+    insight::format_error("'x' must be square with at least two rows and columns")
   }
 
 
-  b <- x[upper.tri(x)]
-  c <- t(x)[upper.tri(x)]
+  a <- x[upper.tri(x)]
+  b <- t(x)[upper.tri(x)]
 
-  P <- sum(pmax(b, c)) / (sum(b) + sum(c))
+  P <- sum(pmax(a, b)) / (sum(a) + sum(b))
   g <- P - 0.5
 
   out <- data.frame(Cohens_g = g)
@@ -94,7 +92,7 @@ cohens_g <- function(x, y = NULL,
   if (.test_ci(ci)) {
     out$CI <- ci
 
-    n <- sum(b) + sum(c)
+    n <- sum(a) + sum(b)
     k <- P * n
 
     res <- stats::prop.test(k, n,

@@ -42,5 +42,5 @@ interpret_cohens_g <- function(g, rules = "cohen1988", ...) {
     )
   )
 
-  interpret(abs(g), rules)
+  interpret(g, rules, transform = abs)
 }

@@ -100,7 +100,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   cl <- match.call()
   cl <- cl[-which(names(cl) == "subset")]
-  dots <- list(eval(cl, parent.frame()))
+  dots <- insight::compact_list(list(eval(cl, parent.frame())))
 
   dots$alternative <- model$alternative
   dots$ci <- attr(model$conf.int, "conf.level")

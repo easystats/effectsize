@@ -1,7 +1,5 @@
 # NCP -------------------------
 
-# TODO: other packages like lmeInfo, MOTE and others use qt/qf for these.
-
 #' @keywords internal
 .get_ncp_F <- function(f, df, df_error, conf.level = 0.9) {
   if (!is.finite(f) || !is.finite(df) || !is.finite(df_error)) {
@@ -15,8 +13,8 @@
   ncp <- suppressWarnings(stats::optim(
     par = 1.1 * rep(lambda, 2),
     fn = function(x) {
-      q <- stats::qf(p = probs, df, df_error, ncp = x)
-      sum(abs(q - f))
+      quan <- stats::qf(p = probs, df, df_error, ncp = x)
+      sum(abs(quan - f))
     },
     control = list(abstol = 1e-09)
   ))
@@ -45,8 +43,8 @@
   ncp <- suppressWarnings(stats::optim(
     par = 1.1 * rep(t, 2),
     fn = function(x) {
-      q <- stats::qt(p = probs, df = df_error, ncp = x)
-      sum(abs(q - t))
+      quan <- stats::qt(p = probs, df = df_error, ncp = x)
+      sum(abs(quan - t))
     },
     control = list(abstol = 1e-09)
   ))
@@ -68,8 +66,8 @@
   ncp <- suppressWarnings(stats::optim(
     par = 1.1 * rep(chisq, 2),
     fn = function(x) {
-      q <- stats::qchisq(p = probs, df, ncp = x)
-      sum(abs(q - chisq))
+      quan <- stats::qchisq(p = probs, df, ncp = x)
+      sum(abs(quan - chisq))
     },
     control = list(abstol = 1e-09)
   ))
@@ -100,7 +98,7 @@
     ci > 1) {
     insight::format_error("ci must be a single numeric value between (0, 1)")
   }
-  return(TRUE)
+  TRUE
 }
 
 #' @keywords internal

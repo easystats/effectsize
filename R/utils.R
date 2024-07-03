@@ -1,5 +1,5 @@
 #' @keywords internal
-".someattributes<-" <- function(x, value) {
+`.someattributes<-` <- function(x, value) {
   for (a in names(value)) {
     attr(x, a) <- value[[a]]
   }

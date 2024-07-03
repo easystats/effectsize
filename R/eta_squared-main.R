@@ -294,7 +294,7 @@ cohens_f <- function(model,
 
   es_name <- get_effectsize_name(colnames(res))
   res[[es_name]] <- res[[es_name]] / (1 - res[[es_name]])
-  if (grepl("_partial", es_name)) {
+  if (grepl("_partial", es_name, fixed = TRUE)) {
     colnames(res)[colnames(res) == es_name] <- "Cohens_f2_partial"
   } else {
     colnames(res)[colnames(res) == es_name] <- "Cohens_f2"
@@ -430,7 +430,7 @@ cohens_f_squared <- function(model,
 
 
   # Estimate effect size ---
-  if (type == "eta") {
+  if (type == "eta") { # nolint
     if (isTRUE(generalized) || is.character(generalized)) {
       ## copied from afex
       obs <- logical(nrow(aov_table))
@@ -448,37 +448,36 @@ cohens_f_squared <- function(model,
 
       aov_table$Eta2_generalized <- aov_table$Sum_Squares /
         (aov_table$Sum_Squares + values$Sum_Squares_residuals + obs_SSn1 - obs_SSn2)
-    } else if (!isTRUE(partial)) {
-      aov_table$Eta2 <- aov_table$Sum_Squares /
-        values$Sum_Squares_total
-    } else {
+    } else if (isTRUE(partial)) {
       aov_table$Eta2_partial <-
         aov_table$Sum_Squares /
           (aov_table$Sum_Squares + values$Sum_Squares_residuals)
+    } else {
+      aov_table$Eta2 <- aov_table$Sum_Squares / values$Sum_Squares_total
     }
   } else if (type == "omega") {
-    if (!isTRUE(partial)) {
-      aov_table$Omega2 <-
-        (aov_table$Sum_Squares - aov_table$df * values$Mean_Square_residuals) /
-          (values$Sum_Squares_total + values$Mean_Square_residuals)
-      aov_table$Omega2 <- pmax(0, aov_table$Omega2)
-    } else {
+    if (isTRUE(partial)) {
       aov_table$Omega2_partial <-
         (aov_table$Sum_Squares - aov_table$df * values$Mean_Square_residuals) /
           (aov_table$Sum_Squares + (values$n - aov_table$df) * values$Mean_Square_residuals)
       aov_table$Omega2_partial <- pmax(0, aov_table$Omega2_partial)
+    } else {
+      aov_table$Omega2 <-
+        (aov_table$Sum_Squares - aov_table$df * values$Mean_Square_residuals) /
+          (values$Sum_Squares_total + values$Mean_Square_residuals)
+      aov_table$Omega2 <- pmax(0, aov_table$Omega2)
     }
   } else if (type == "epsilon") {
-    if (!isTRUE(partial)) {
-      aov_table$Epsilon2 <-
-        (aov_table$Sum_Squares - aov_table$df * values$Mean_Square_residuals) /
-          values$Sum_Squares_total
-      aov_table$Epsilon2 <- pmax(0, aov_table$Epsilon2)
-    } else {
+    if (isTRUE(partial)) {
       aov_table$Epsilon2_partial <-
         (aov_table$Sum_Squares - aov_table$df * values$Mean_Square_residuals) /
           (aov_table$Sum_Squares + values$Sum_Squares_residuals)
       aov_table$Epsilon2_partial <- pmax(0, aov_table$Epsilon2_partial)
+    } else {
+      aov_table$Epsilon2 <-
+        (aov_table$Sum_Squares - aov_table$df * values$Mean_Square_residuals) /
+          values$Sum_Squares_total
+      aov_table$Epsilon2 <- pmax(0, aov_table$Epsilon2)
     }
   }
 
@@ -570,7 +569,7 @@ cohens_f_squared <- function(model,
 
 
   # Estimate effect size ---
-  if (type == "eta") {
+  if (type == "eta") { # nolint
     if (isTRUE(generalized) || is.character(generalized)) {
       ## copied from afex
       obs <- logical(nrow(aov_table))
@@ -589,12 +588,12 @@ cohens_f_squared <- function(model,
       aov_table$Eta2_generalized <- aov_table$Sum_Squares /
         (aov_table$Sum_Squares + sum(sapply(values, "[[", "Sum_Squares_residuals")) +
           obs_SSn1 - obs_SSn2)
-    } else if (!isTRUE(partial)) {
-      aov_table$Eta2 <- aov_table$Sum_Squares / Sum_Squares_total
-    } else {
+    } else if (isTRUE(partial)) {
       aov_table$Eta2_partial <-
         aov_table$Sum_Squares /
           (aov_table$Sum_Squares + Sum_Squares_residuals)
+    } else {
+      aov_table$Eta2 <- aov_table$Sum_Squares / Sum_Squares_total
     }
   } else if (type == "omega") {
     SSS_values <- values[[which(names(values) %in% DV_names)]]
@@ -603,29 +602,29 @@ cohens_f_squared <- function(model,
     Mean_Squares_Subjects <- SSS_values$Mean_Square_residuals
 
     # implemented from https://www.jasonfinley.com/tools/OmegaSquaredQuickRef_JRF_3-31-13.pdf/
-    if (!isTRUE(partial)) {
-      aov_table$Omega2 <-
-        (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /
-          (Sum_Squares_total + Mean_Squares_Subjects)
-      aov_table$Omega2 <- pmax(0, aov_table$Omega2)
-    } else {
+    if (isTRUE(partial)) {
       aov_table$Omega2_partial <-
         (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /
           (aov_table$Sum_Squares + is_within * Sum_Squares_residuals +
             Sum_Squares_Subjects + Mean_Squares_Subjects)
       aov_table$Omega2_partial <- pmax(0, aov_table$Omega2_partial)
+    } else {
+      aov_table$Omega2 <-
+        (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /
+          (Sum_Squares_total + Mean_Squares_Subjects)
+      aov_table$Omega2 <- pmax(0, aov_table$Omega2)
     }
   } else if (type == "epsilon") {
-    if (!isTRUE(partial)) {
-      aov_table$Epsilon2 <-
-        (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /
-          Sum_Squares_total
-      aov_table$Epsilon2 <- pmax(0, aov_table$Epsilon2)
-    } else {
+    if (isTRUE(partial)) {
       aov_table$Epsilon2_partial <-
         (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /
           (aov_table$Sum_Squares + Sum_Squares_residuals)
       aov_table$Epsilon2_partial <- pmax(0, aov_table$Epsilon2_partial)
+    } else {
+      aov_table$Epsilon2 <-
+        (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /
+          Sum_Squares_total
+      aov_table$Epsilon2 <- pmax(0, aov_table$Epsilon2)
     }
   }
 
@@ -819,7 +818,7 @@ cohens_f_squared <- function(model,
     df_error = model[, df_errori],
     stringsAsFactors = FALSE
   )
-  par_table <- par_table[!par_table[["Parameter"]] %in% "Residuals", ]
+  par_table <- par_table[par_table[["Parameter"]] != "Residuals", ]
 
   out <-
     .es_aov_table(
@@ -833,7 +832,8 @@ cohens_f_squared <- function(model,
       include_intercept = include_intercept
     )
 
-  attr(out, "anova_type") <- tryCatch(attr(parameters::model_parameters(model, verbose = FALSE, effects = "fixed", es_type = NULL), "anova_type"),
+  ## TODO: add back `effects = "fixed"` once the deprecation warning in parameters is removed
+  attr(out, "anova_type") <- tryCatch(attr(parameters::model_parameters(model, verbose = FALSE, es_type = NULL), "anova_type"),
     error = function(...) 1
   )
   attr(out, "approximate") <- TRUE
@@ -864,7 +864,8 @@ cohens_f_squared <- function(model,
 
   # TODO this should be in .anova_es.anvoa
   # TODO the aoc method should convert to an anova table, then pass to anova
-  params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed", es_type = NULL)
+  ## TODO: add back `effects = "fixed"` once the deprecation warning in parameters is removed
+  params <- parameters::model_parameters(model, verbose = verbose, es_type = NULL)
   out <- .es_aov_simple(as.data.frame(params),
     type = type,
     partial = partial, generalized = generalized,
@@ -890,7 +891,8 @@ cohens_f_squared <- function(model,
                               verbose = TRUE,
                               include_intercept = FALSE,
                               ...) {
-  params <- parameters::model_parameters(model, verbose = verbose, effects = "fixed", es_type = NULL)
+  ## TODO: add back `effects = "fixed"` once the deprecation warning in parameters is removed
+  params <- parameters::model_parameters(model, verbose = verbose, es_type = NULL)
   anova_type <- attr(params, "anova_type")
   params <- as.data.frame(params)
 
@@ -944,11 +946,11 @@ cohens_f_squared <- function(model,
   df_residuals <- sum(params[iResid, "df"])
 
   list(
-    "Mean_Square_residuals" = Mean_Square_residuals,
-    "Sum_Squares_residuals" = Sum_Squares_residuals,
-    "Sum_Squares_total" = Sum_Squares_total,
-    "n_terms" = N_terms,
-    "n" = N,
-    "df_residuals" = df_residuals
+    Mean_Square_residuals = Mean_Square_residuals,
+    Sum_Squares_residuals = Sum_Squares_residuals,
+    Sum_Squares_total = Sum_Squares_total,
+    n_terms = N_terms,
+    n = N,
+    df_residuals = df_residuals
   )
 }

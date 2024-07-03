@@ -30,7 +30,7 @@
 #'
 #' @examples
 #' interpret_bf(1)
-#' interpret_bf(c(5, 2))
+#' interpret_bf(c(5, 2, 0.01))
 #'
 #' @references
 #' - Jeffreys, H. (1961), Theory of Probability, 3rd ed., Oxford University
@@ -50,21 +50,13 @@ interpret_bf <- function(bf,
                          include_value = FALSE,
                          protect_ratio = TRUE,
                          exact = TRUE) {
-  if (log) bf <- exp(bf)
-
-  if (any(bf < 0, na.rm = TRUE)) {
-    insight::format_warning("Negative BFs detected. These are not possible, and are {.i ignored}.")
-    bf[bf < 0] <- NA
+  if (!log && any(bf < 0, na.rm = TRUE)) {
+    insight::format_error("Negative BFs detected. These are not possible, and are {.i ignored}.")
   }
 
-  orig_bf <- bf
+  if (!log) bf <- log(bf)
 
-  dir <- rep("against or in favour of", length.out = length(bf))
-  dir <- replace(dir, is.na(bf), NA_character_)
-  dir <- replace(dir, bf < 1, "against")
-  dir <- replace(dir, bf > 1, "in favour of")
-  bf <- exp(abs(log(bf)))
-
+  # interpret strength
   rules <- .match.rules(
     rules,
     list(
@@ -77,27 +69,23 @@ interpret_bf <- function(bf,
     )
   )
 
-  interpretation <- interpret(bf, rules)
+  interpretation <- interpret(bf, rules, transform = function(.x) exp(abs(.x)))
+  interpretation[bf == 0] <- "no"
+
+  # interpret direction
+  dir <- interpret(bf, rules(0, c("against", "in favour of")))
+  dir[bf == 0] <- "against or in favour of"
 
   # Format text
-  interpretation[] <- paste0(interpretation, " evidence")
-  interpretation[orig_bf == 1] <- "no evidence"
-
-  # Add value if asked for
   if (include_value) {
-    interpretation[] <-
-      paste0(
-        interpretation,
-        " (",
-        insight::format_bf(orig_bf, protect_ratio = protect_ratio, exact = exact),
-        ")"
-      )
+    bf_fmt <- insight::format_bf(exp(bf), protect_ratio = protect_ratio, exact = exact)
+    interpretation[] <- sprintf("%s evidence (%s) %s", interpretation, bf_fmt, dir)
+  } else {
+    interpretation[] <- paste0(interpretation, " evidence ", dir)
   }
 
-  # Add direction
-  interpretation[] <- paste(interpretation[], dir)
-
-  interpretation[is.na(orig_bf)] <- ""
+  interpretation[is.na(bf)] <- ""
+  interpretation[] <- trimws(interpretation, "right")
 
   interpretation
 }

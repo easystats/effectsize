@@ -15,5 +15,5 @@
     )
   }
 
-  return(choices[[rule]])
+  choices[[rule]]
 }
