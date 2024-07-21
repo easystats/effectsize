@@ -12,14 +12,15 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../lightswitch.js"></script><script src="../katex-auto.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/JetBrains_Mono-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/Roboto_Slab-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Converting Between Probabilities, Odds (Ratios), and Risk Ratios">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><link href="../deps/KaTex-0.16.10/katex.min.css" rel="stylesheet">
+<script src="../deps/KaTex-0.16.10/katex.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Converting Between Probabilities, Odds (Ratios), and Risk Ratios">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -56,7 +57,7 @@
     <li><a class="dropdown-item" href="../articles/effectsize_API.html">Extending effectsize</a></li>
   </ul>
 </li>
-<li class="nav-item dropdown">
+<li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-conversion" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Conversion</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-conversion">
 <li><a class="dropdown-item" href="../articles/convert_r_d_OR.html">Between d, r, OR</a></li>
@@ -125,20 +126,16 @@ any comparison between different types of statistical analyses.</p>
 <h2 id="converting-between-p-and-odds">Converting Between <em>p</em> and Odds<a class="anchor" aria-label="anchor" href="#converting-between-p-and-odds"></a>
 </h2>
 <p>Odds are the ratio between a probability and its complement:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mi>d</mi><mi>d</mi><mi>s</mi><mo>=</mo><mfrac><mi>p</mi><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+<p><span class="math display">
 Odds = \frac{p}{1-p}
-</annotation></semantics></math></p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mfrac><mrow><mi>O</mi><mi>d</mi><mi>d</mi><mi>s</mi></mrow><mrow><mi>O</mi><mi>d</mi><mi>d</mi><mi>s</mi><mo>+</mo><mn>1</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+</span></p>
+<p><span class="math display">
 p = \frac{Odds}{Odds + 1}
-</annotation></semantics></math> Say your bookies gives you the odds of
-Doutelle to win the horse race at 13:4, what is the probability
-Doutelle’s will win?</p>
-<p>Manually, we can compute
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>13</mn><mrow><mn>13</mn><mo>+</mo><mn>4</mn></mrow></mfrac><mo>=</mo><mn>0.765</mn></mrow><annotation encoding="application/x-tex">\frac{13}{13+4}=0.765</annotation></semantics></math>.
-Or we can</p>
-<p>Odds of 13:4 can be expressed as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>13</mn><mi>/</mi><mn>4</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>:</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>4</mn><mi>/</mi><mn>4</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>3.25</mn><mo>:</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(13/4):(4/4)=3.25:1</annotation></semantics></math>,
-which we can convert:</p>
+</span> Say your bookies gives you the odds of Doutelle to win the horse
+race at 13:4, what is the probability Doutelle’s will win?</p>
+<p>Manually, we can compute <span class="math inline">\frac{13}{13+4}=0.765</span>. Or we can</p>
+<p>Odds of 13:4 can be expressed as <span class="math inline">(13/4):(4/4)=3.25:1</span>, which we can
+convert:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/effectsize/">effectsize</a></span><span class="op">)</span></span>
 <span></span>
@@ -158,10 +155,10 @@ which we can convert:</p>
 </h3>
 <p>Note that in logistic regression, the non-intercept coefficients
 represent the (log) odds ratios, not the odds.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mi>R</mi><mo>=</mo><mfrac><mrow><mi>O</mi><mi>d</mi><mi>d</mi><msub><mi>s</mi><mn>1</mn></msub></mrow><mrow><mi>O</mi><mi>d</mi><mi>d</mi><msub><mi>s</mi><mn>2</mn></msub></mrow></mfrac><mo>=</mo><mfrac><mfrac><msub><mi>p</mi><mn>1</mn></msub><mrow><mn>1</mn><mo>−</mo><msub><mi>p</mi><mn>1</mn></msub></mrow></mfrac><mfrac><msub><mi>p</mi><mn>2</mn></msub><mrow><mn>1</mn><mo>−</mo><msub><mi>p</mi><mn>2</mn></msub></mrow></mfrac></mfrac></mrow><annotation encoding="application/x-tex">
+<p><span class="math display">
 OR = \frac{Odds_1}{Odds_2} = \frac{\frac{p_1}{1-p_1}}{\frac{p_2}{1-p_2}}
-</annotation></semantics></math> The intercept, however, <em>does</em>
-represent the (log) odds, when all other variables are fixed at 0.</p>
+</span> The intercept, however, <em>does</em> represent the (log) odds,
+when all other variables are fixed at 0.</p>
 </div>
 </div>
 <div class="section level2">
@@ -177,22 +174,20 @@ risk</em>, either as a <em>risk ratio</em> (<em>RR</em>), or a(n
 <em>absolute) risk reduction</em> (ARR).</p>
 <p>For example, if we find that for individual suffering from a
 migraine, for every bowl of brussels sprouts they eat, their odds of
-reducing the migraine increase by an
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mi>R</mi><mo>=</mo><mn>3.5</mn></mrow><annotation encoding="application/x-tex">OR = 3.5</annotation></semantics></math>
-over a period of an hour. So, should people eat brussels sprouts to
-effectively reduce pain? Well, hard to say… Maybe if we look at
-<em>RR</em> we’ll get a clue.</p>
+reducing the migraine increase by an <span class="math inline">OR =
+3.5</span> over a period of an hour. So, should people eat brussels
+sprouts to effectively reduce pain? Well, hard to say… Maybe if we look
+at <em>RR</em> we’ll get a clue.</p>
 <p>We can convert between <em>OR</em> and <em>RR</em> for the following
 formula <span class="citation">(Grant 2014)</span>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mi>R</mi><mo>=</mo><mfrac><mrow><mi>O</mi><mi>R</mi></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mn>0</mn><mo>+</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>p</mi><mn>0</mn><mo>×</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+<p><span class="math display">
 RR = \frac{OR}{(1 - p0 + (p0 \times OR))}  
-</annotation></semantics></math></p>
-<p>Where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mn>0</mn></mrow><annotation encoding="application/x-tex">p0</annotation></semantics></math>
-is the base-rate risk - the probability of the event without the
-intervention (e.g., what is the probability of the migraine subsiding
-within an hour without eating any brussels sprouts). If it the base-rate
-risk is, say, 85%, we get a <em>RR</em> of:</p>
+</span></p>
+<p>Where <span class="math inline">p0</span> is the base-rate risk - the
+probability of the event without the intervention (e.g., what is the
+probability of the migraine subsiding within an hour without eating any
+brussels sprouts). If it the base-rate risk is, say, 85%, we get a
+<em>RR</em> of:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">OR</span> <span class="op">&lt;-</span> <span class="fl">3.5</span></span>
 <span><span class="va">baserate</span> <span class="op">&lt;-</span> <span class="fl">0.85</span></span>
@@ -203,9 +198,9 @@ risk is, say, 85%, we get a <em>RR</em> of:</p>
 of reducing the migraine by a mere 12%! Is if worth it? Depends on you
 affinity to brussels sprouts…</p>
 <p>Similarly, we can look at ARR, which can be converted via</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>R</mi><mi>R</mi><mo>=</mo><mi>R</mi><mi>R</mi><mo>×</mo><mi>p</mi><mn>0</mn><mo>−</mo><mi>p</mi><mn>0</mn></mrow><annotation encoding="application/x-tex">
+<p><span class="math display">
 ARR = RR \times p0 - p0
-</annotation></semantics></math></p>
+</span></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/oddsratio_to_riskratio.html">riskratio_to_arr</a></span><span class="op">(</span><span class="va">RR</span>, <span class="va">baserate</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; [1] 0.102</code></pre>
@@ -244,7 +239,7 @@ Findings.”</span> <em>Bmj</em> 348: f7450.
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.9000.</p>
 </div>
 
     </footer>

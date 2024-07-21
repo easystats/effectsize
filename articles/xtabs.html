@@ -12,14 +12,15 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../lightswitch.js"></script><script src="../katex-auto.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/JetBrains_Mono-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/Roboto_Slab-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Effect Sizes for Contingency Tables">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><link href="../deps/KaTex-0.16.10/katex.min.css" rel="stylesheet">
+<script src="../deps/KaTex-0.16.10/katex.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Effect Sizes for Contingency Tables">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -40,7 +41,7 @@
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="../reference/index.html"><span class="fa fa-file-code"></span> Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/effectsize.html">Get Started</a></li>
-<li class="nav-item dropdown">
+<li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-effect-sizes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Effect sizes</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-effect-sizes">
 <li><a class="dropdown-item" href="../articles/standardized_differences.html">Standardized Differences</a></li>
@@ -130,8 +131,7 @@ contingency tables, which are typically analysed with
 <div class="section level3">
 <h3 id="by-2-tables">2-by-2 Tables<a class="anchor" aria-label="anchor" href="#by-2-tables"></a>
 </h3>
-<p>For 2-by-2 contingency tables,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>
+<p>For 2-by-2 contingency tables, <span class="math inline">\phi</span>
 (Phi) is homologous (though directionless) to the biserial correlation
 between two dichotomous variables, with 0 representing no association,
 and 1 representing a perfect association.</p>
@@ -154,8 +154,8 @@ and 1 representing a perfect association.</p>
 <pre><code>&gt; [1] -0.619</code></pre>
 <p>A “cousin” effect size is Pearson’s contingency coefficient, however
 it is not a true measure of correlation, but rather a type of normalized
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>χ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\chi^2</annotation></semantics></math>
-(see <code><a href="../reference/convert_chisq.html">chisq_to_pearsons_c()</a></code>):</p>
+<span class="math inline">\chi^2</span> (see
+<code><a href="../reference/convert_chisq.html">chisq_to_pearsons_c()</a></code>):</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">pearsons_c</a></span><span class="op">(</span><span class="va">MPG_Gear</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; Pearson's C |       95% CI
@@ -174,13 +174,12 @@ used.</p>
 of correlation: they range from 0 to 1, with 0 indicating complete
 independence between the nominal variables, and 1 indicating complete
 dependence. For square tables, they are equal, however for non-square
-tables
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>&lt;</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">T &lt; V</annotation></semantics></math>;
-While Cramér’s <em>V</em> defines complete dependence as “it is possible
-to know exactly the value of the columns from the rows <em>or</em> know
-exactly the value of the rows from the columns”, Tschuprow’s <em>T</em>
-required both to be true to achieve complete dependence - something that
-is not possible for non-square tables. For example:</p>
+tables <span class="math inline">T &lt; V</span>; While Cramér’s
+<em>V</em> defines complete dependence as “it is possible to know
+exactly the value of the columns from the rows <em>or</em> know exactly
+the value of the rows from the columns”, Tschuprow’s <em>T</em> required
+both to be true to achieve complete dependence - something that is not
+possible for non-square tables. For example:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"food_class"</span><span class="op">)</span></span>
 <span><span class="va">food_class</span></span></code></pre></div>
@@ -205,11 +204,9 @@ know what food product it is.</p>
 &gt; 
 &gt; - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <p>Cohen’s <em>w</em> and Pearson’s <em>C</em> are not true measures of
-correlation, but are two types of normalized
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>χ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\chi^2</annotation></semantics></math>
-values. While Pearson’s <em>C</em> is capped at 1, Cohen’s <em>w</em>
-can be larger than 1 (for both, 0 indicates no association between the
-variables).</p>
+correlation, but are two types of normalized <span class="math inline">\chi^2</span> values. While Pearson’s <em>C</em> is
+capped at 1, Cohen’s <em>w</em> can be larger than 1 (for both, 0
+indicates no association between the variables).</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"Music_preferences2"</span><span class="op">)</span></span>
 <span><span class="va">Music_preferences2</span></span></code></pre></div>
@@ -254,16 +251,14 @@ variables).</p>
 &gt; - One-sided CIs: upper bound fixed at [1.41~].</code></pre>
 <p>(Cramer’s <em>V</em>, Tschuprow’s <em>T</em>, and Cohen’s <em>w</em>
 can also be used for 2-by-2 tables, but there they are equivalent to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>.)</p>
+<span class="math inline">\phi</span>.)</p>
 </div>
 <div class="section level3">
-<h3 id="for-a-bayesian-chi2-test">For a Bayesian
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>χ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\chi^2</annotation></semantics></math>-test<a class="anchor" aria-label="anchor" href="#for-a-bayesian-chi2-test"></a>
+<h3 id="for-a-bayesian-chi2-test">For a Bayesian <span class="math inline">\chi^2</span>-test<a class="anchor" aria-label="anchor" href="#for-a-bayesian-chi2-test"></a>
 </h3>
 <p>A Bayesian estimate of these effect sizes can also be provided based
-on <code>BayesFactor</code>’s version of a
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>χ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\chi^2</annotation></semantics></math>-test
-via the <code><a href="../reference/effectsize.html">effectsize()</a></code> function:</p>
+on <code>BayesFactor</code>’s version of a <span class="math inline">\chi^2</span>-test via the <code><a href="../reference/effectsize.html">effectsize()</a></code>
+function:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://richarddmorey.github.io/BayesFactor/" class="external-link">BayesFactor</a></span><span class="op">)</span></span>
 <span><span class="va">BFX</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/contingencyTableBF.html" class="external-link">contingencyTableBF</a></span><span class="op">(</span><span class="va">MPG_Gear</span>, sampleType <span class="op">=</span> <span class="st">"jointMulti"</span><span class="op">)</span></span>
@@ -330,12 +325,11 @@ from the hypothetical probabilities, with 0 reflecting no deviation.</p>
 properly adjust for the “shape” of the expected multinational
 distribution, making them inflated (additionally, Cohen’s <em>w</em> can
 be larger than 1, making it harder to interpret).</p>
-<p>For these reasons, we recommend the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>פ</mi><annotation encoding="application/x-tex">פ</annotation></semantics></math>
-(Fei) coefficient, which is a measure of anti-correlation between the
-observed and the expected distributions, ranging from 0 (observed
-distribution matches the expected distribution perfectly) and 1 (the
-observed distribution is maximally different than the expected one).</p>
+<p>For these reasons, we recommend the <span class="math inline">פ</span> (Fei) coefficient, which is a measure of
+anti-correlation between the observed and the expected distributions,
+ranging from 0 (observed distribution matches the expected distribution
+perfectly) and 1 (the observed distribution is maximally different than
+the expected one).</p>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/phi.html">fei</a></span><span class="op">(</span><span class="va">O</span>, p <span class="op">=</span> <span class="va">E</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; פ‎    |       95% CI
@@ -420,13 +414,11 @@ proportion in the first group (and vice versa).</p>
 &gt; ------------------------
 &gt; 0.74      | [0.50, 0.99]</code></pre>
 <div class="section level3">
-<h3 id="for-a-bayesian-chi2-test-1">For a Bayesian
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>χ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\chi^2</annotation></semantics></math>-test<a class="anchor" aria-label="anchor" href="#for-a-bayesian-chi2-test-1"></a>
+<h3 id="for-a-bayesian-chi2-test-1">For a Bayesian <span class="math inline">\chi^2</span>-test<a class="anchor" aria-label="anchor" href="#for-a-bayesian-chi2-test-1"></a>
 </h3>
 <p>A Bayesian estimate of these effect sizes can also be provided based
-on <code>BayesFactor</code>’s version of a
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>χ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\chi^2</annotation></semantics></math>-test
-via the <code><a href="../reference/effectsize.html">effectsize()</a></code> function:</p>
+on <code>BayesFactor</code>’s version of a <span class="math inline">\chi^2</span>-test via the <code><a href="../reference/effectsize.html">effectsize()</a></code>
+function:</p>
 <div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">BFX</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/contingencyTableBF.html" class="external-link">contingencyTableBF</a></span><span class="op">(</span><span class="va">RCT_table</span>, sampleType <span class="op">=</span> <span class="st">"jointMulti"</span><span class="op">)</span></span>
 <span></span>
@@ -508,7 +500,7 @@ results?</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.9000.</p>
 </div>
 
     </footer>

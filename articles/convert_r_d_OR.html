@@ -12,14 +12,15 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../lightswitch.js"></script><script src="../katex-auto.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/JetBrains_Mono-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/Roboto_Slab-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Converting Between r, d, and Odds Ratios">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><link href="../deps/KaTex-0.16.10/katex.min.css" rel="stylesheet">
+<script src="../deps/KaTex-0.16.10/katex.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Converting Between r, d, and Odds Ratios">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -56,7 +57,7 @@
     <li><a class="dropdown-item" href="../articles/effectsize_API.html">Extending effectsize</a></li>
   </ul>
 </li>
-<li class="nav-item dropdown">
+<li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-conversion" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Conversion</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-conversion">
 <li><a class="dropdown-item" href="../articles/convert_r_d_OR.html">Between d, r, OR</a></li>
@@ -158,14 +159,14 @@ variable as a numeric binary variable:</p>
 &gt; salary     |  is_senior | 0.34 | [0.26, 0.41] |   7.95 | &lt; .001***
 &gt; 
 &gt; Observations: 500</code></pre>
-<p>But what if we only have summary statistics? Say, we only have
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mi>−</mi><mn>0.72</mn></mrow><annotation encoding="application/x-tex">d=-0.72</annotation></semantics></math>
-and we want to know what the <em>r</em> would have been? We can
-approximate <em>r</em> using the following formula <span class="citation">(Borenstein et al. 2009)</span>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>≈</mo><mfrac><mi>d</mi><msqrt><mrow><msup><mi>d</mi><mn>2</mn></msup><mo>+</mo><mn>4</mn></mrow></msqrt></mfrac></mrow><annotation encoding="application/x-tex">
+<p>But what if we only have summary statistics? Say, we only have <span class="math inline">d=-0.72</span> and we want to know what the
+<em>r</em> would have been? We can approximate <em>r</em> using the
+following formula <span class="citation">(Borenstein et al.
+2009)</span>:</p>
+<p><span class="math display">
 r \approx \frac{d}{\sqrt{d^2 + 4}}
-</annotation></semantics></math> And indeed, if we use
-<code><a href="../reference/d_to_r.html">d_to_r()</a></code>, we get a pretty decent approximation:</p>
+</span> And indeed, if we use <code><a href="../reference/d_to_r.html">d_to_r()</a></code>, we get a pretty
+decent approximation:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/d_to_r.html">d_to_r</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.72</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; [1] -0.339</code></pre>
@@ -242,9 +243,9 @@ present OR. So the question can be asked: given such a OR, what would
 Cohen’s <em>d</em> have been?</p>
 <p>Fortunately, there is a formula to approximate this <span class="citation">(Sánchez-Meca, Marı́n-Martı́nez, and Chacón-Moscoso
 2003)</span>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mi>l</mi><mi>o</mi><mi>g</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>O</mi><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><mfrac><msqrt><mn>3</mn></msqrt><mi>π</mi></mfrac></mrow><annotation encoding="application/x-tex">
+<p><span class="math display">
 d = log(OR) \times \frac{\sqrt{3}}{\pi}
-</annotation></semantics></math></p>
+</span></p>
 <p>which is implemented in the <code><a href="../reference/d_to_r.html">oddsratio_to_d()</a></code>
 function.</p>
 <p>Let’s give it a try:</p>
@@ -305,7 +306,7 @@ Outcomes in Meta-Analysis.”</span> <em>Psychological Methods</em> 8 (4):
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.9000.</p>
 </div>
 
     </footer>
