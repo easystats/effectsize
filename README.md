@@ -2,10 +2,8 @@
 # effectsize: Indices of Effect Size <img src="man/figures/logo.png" align="right" width="120" />
 
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.02815/status.svg/)](https://doi.org/10.21105/joss.02815)
-[![downloads](https://cranlogs.r-pkg.org/badges/effectsize)](https://CRAN.R-project.org/package=effectsize)
-[![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize)](https://CRAN.R-project.org/package=effectsize)
-[![status](https://tinyverse.netlify.com/badge/effectsize/)](https://CRAN.R-project.org/package=effectsize)
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![downloads](https://cranlogs.r-pkg.org/badges/effectsize)](https://cran.r-project.org/package=effectsize/)
+[![total](https://cranlogs.r-pkg.org/badges/grand-total/effectsize)](https://cran.r-project.org/package=effectsize/)
 
 ***Significant is just not enough!***
 
@@ -15,7 +13,7 @@ conversion of indices such as Cohen’s *d*, *r*, odds-ratios, etc.
 
 ## Installation
 
-[![CRAN](https://www.r-pkg.org/badges/version/effectsize)](https://CRAN.R-project.org/package=effectsize)
+[![CRAN](https://www.r-pkg.org/badges/version/effectsize)](https://cran.r-project.org/package=effectsize/)
 [![effectsize status
 badge](https://easystats.r-universe.dev/badges/effectsize/)](https://easystats.r-universe.dev/)
 [![R-CMD-check](https://github.com/easystats/effectsize/workflows/R-CMD-check/badge.svg?branch=main)](https://github.com/easystats/effectsize/actions)
@@ -113,13 +111,13 @@ hedges_g(mpg ~ am, data = mtcars)
 ## - Estimated using pooled SD.
 
 glass_delta(mpg ~ am, data = mtcars)
-## Glass' Δ |         95% CI
-## -------------------------
-## -1.17    | [-1.93, -0.39]
+## Glass' Δ (adj.) |         95% CI
+## --------------------------------
+## -1.10           | [-1.80, -0.37]
 ```
 
-`effectsize` also provides effect sizes for *rank tests*, *common
-language effect sizes* and more…
+`effectsize` also provides effect sizes for *paired standardized
+differences*, *rank tests*, *common language effect sizes* and more…
 
 ### Contingency Tables
 
