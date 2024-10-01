@@ -3,6 +3,8 @@ test_that("basic examples", {
     skip_on_os("linux")
   }
 
+  skip_if_not_installed("boot")
+
   # t.test
   x <- t.test(mpg ~ vs, data = mtcars)
   expect_warning(effectsize(x), "Unable to retrieve data")
@@ -36,6 +38,8 @@ test_that("basic examples", {
 })
 
 test_that("edge cases", {
+  skip_if_not_installed("boot")
+
   # Example 1
   tt1 <- t.test(mpg ~ I(am + cyl == 4), data = mtcars)
   dd1 <- cohens_d(mpg ~ I(am + cyl == 4), data = mtcars, pooled_sd = FALSE)
