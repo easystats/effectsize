@@ -5,6 +5,21 @@ test_that("oddsratio_to_d", {
   expect_equal(d_to_oddsratio(-0.7994, log = TRUE), -1.45, tolerance = 0.01)
 })
 
+test_that("exact OR to d", {
+  d <- c(0, 0.2, 0.5, 0.8)
+  p0 <- pnorm(0, lower.tail = FALSE)
+  p1 <- pnorm(0, mean = d, lower.tail = FALSE)
+  OR <- probs_to_odds(p1) / probs_to_odds(p0)
+
+  expect_equal(cor(oddsratio_to_d(OR), d), 1, tolerance = 0.0001)
+  expect_equal(oddsratio_to_d(1), 0, tolerance = 0.0001)
+  expect_equal(oddsratio_to_d(OR, p0), d)
+
+  expect_equal(cor(oddsratio_to_r(OR), d_to_r(d)), 1, tolerance = 0.0002)
+  expect_equal(oddsratio_to_r(1), 0, tolerance = 0.0001)
+  expect_equal(oddsratio_to_r(OR, p0), d_to_r(d))
+})
+
 
 test_that("d_to_r", {
   expect_equal(d_to_r(1.1547), 0.5, tolerance = 0.01)

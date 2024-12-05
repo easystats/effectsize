@@ -6,6 +6,7 @@
 #' @param d,r,OR,logOR Standardized difference value (Cohen's d), correlation
 #'   coefficient (r), Odds ratio, or logged Odds ratio.
 #' @param n1,n2 Group sample sizes. If either is missing, groups are assumed to be of equal size.
+#' @param p0 Baseline risk. If not specified, the _d_ to _OR_ conversion uses am approximation (see details).
 #' @param log Take in or output the log of the ratio (such as in logistic models),
 #'   e.g. when the desired input or output are log odds ratios instead odds ratios.
 #' @param ... Arguments passed to or from other methods.
@@ -70,20 +71,32 @@ r_to_d <- function(r, n1, n2, ...) {
 
 #' @rdname d_to_r
 #' @export
-oddsratio_to_d <- function(OR, log = FALSE, ...) {
-  if (log) {
-    log_OR <- OR
-  } else {
-    log_OR <- log(OR)
+oddsratio_to_d <- function(OR, p0, log = FALSE, ...) {
+  if (missing(p0)) {
+    # Use approximation
+    if (log) {
+      log_OR <- OR
+    } else {
+      log_OR <- log(OR)
+    }
+
+    return(log_OR * (sqrt(3) / pi))
   }
 
-  log_OR * (sqrt(3) / pi)
+
+  if (log) {
+    OR <- exp(OR)
+  }
+
+  odds1 <- OR * probs_to_odds(p0)
+  p1 <- odds_to_probs(odds1)
+  qnorm(p1) - qnorm(p0)
 }
 
 #' @rdname d_to_r
 #' @export
-logoddsratio_to_d <- function(logOR, log = TRUE, ...) {
-  oddsratio_to_d(logOR, log = log, ...)
+logoddsratio_to_d <- function(logOR, p0, log = TRUE, ...) {
+  oddsratio_to_d(logOR, p0, log = log, ...)
 }
 
 #' @rdname d_to_r
@@ -111,14 +124,14 @@ d_to_logoddsratio <- function(d, log = TRUE, ...) {
 
 #' @rdname d_to_r
 #' @export
-oddsratio_to_r <- function(OR, n1, n2, log = FALSE, ...) {
-  d_to_r(oddsratio_to_d(OR, log = log), n1, n2)
+oddsratio_to_r <- function(OR, p0, n1, n2, log = FALSE, ...) {
+  d_to_r(oddsratio_to_d(OR, p0, log = log), n1, n2)
 }
 
 #' @rdname d_to_r
 #' @export
-logoddsratio_to_r <- function(logOR, log = TRUE, ...) {
-  oddsratio_to_r(logOR, log = log, ...)
+logoddsratio_to_r <- function(logOR, p0, n1, n2, log = TRUE, ...) {
+  oddsratio_to_r(logOR, p0, n1, n2, log = log, ...)
 }
 
 
@@ -140,13 +153,11 @@ r_to_logoddsratio <- function(r, n1, n2, log = TRUE, ...) {
 #' @keywords internal
 .get_rd_h <- function(n1, n2) {
   if (missing(n1) && missing(n2)) {
-    h <- 4
-  } else {
-    if (missing(n1)) n1 <- n2
-    if (missing(n2)) n2 <- n1
-    m <- n1 + n2 - 2
-    h <- m / n1 + m / n2
+    return(4)
   }
 
-  h
+  if (missing(n1)) n1 <- n2
+  if (missing(n2)) n2 <- n1
+  m <- n1 + n2 - 2
+  m / n1 + m / n2
 }

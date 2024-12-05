@@ -1,3 +1,9 @@
+# effectsize 0.8.9.xxx
+
+## New features
+
+- `oddsratio_to_d()` and related functions gain a `p0` argument for exact conversion between odds ratios and Cohen's _d_.
+
 # effectsize 0.8.9
 
 ## Bug fixes

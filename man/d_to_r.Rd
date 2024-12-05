@@ -17,17 +17,17 @@ d_to_r(d, n1, n2, ...)
 
 r_to_d(r, n1, n2, ...)
 
-oddsratio_to_d(OR, log = FALSE, ...)
+oddsratio_to_d(OR, p0, log = FALSE, ...)
 
-logoddsratio_to_d(logOR, log = TRUE, ...)
+logoddsratio_to_d(logOR, p0, log = TRUE, ...)
 
 d_to_oddsratio(d, log = FALSE, ...)
 
 d_to_logoddsratio(d, log = TRUE, ...)
 
-oddsratio_to_r(OR, n1, n2, log = FALSE, ...)
+oddsratio_to_r(OR, p0, n1, n2, log = FALSE, ...)
 
-logoddsratio_to_r(logOR, log = TRUE, ...)
+logoddsratio_to_r(logOR, p0, n1, n2, log = TRUE, ...)
 
 r_to_oddsratio(r, n1, n2, log = FALSE, ...)
 
@@ -40,6 +40,8 @@ coefficient (r), Odds ratio, or logged Odds ratio.}
 \item{n1, n2}{Group sample sizes. If either is missing, groups are assumed to be of equal size.}
 
 \item{...}{Arguments passed to or from other methods.}
+
+\item{p0}{Baseline risk. If not specified, the \emph{d} to \emph{OR} conversion uses am approximation (see details).}
 
 \item{log}{Take in or output the log of the ratio (such as in logistic models),
 e.g. when the desired input or output are log odds ratios instead odds ratios.}
