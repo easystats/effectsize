@@ -90,7 +90,7 @@ oddsratio_to_d <- function(OR, p0, log = FALSE, ...) {
 
   odds1 <- OR * probs_to_odds(p0)
   p1 <- odds_to_probs(odds1)
-  qnorm(p1) - qnorm(p0)
+  stats::qnorm(p1) - stats::qnorm(p0)
 }
 
 #' @rdname d_to_r
