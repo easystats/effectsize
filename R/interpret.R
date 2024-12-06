@@ -159,6 +159,9 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"),
 
   if (length(x_tran) > 1) {
     out <- vapply(x_tran, .interpret, rules = rules, FUN.VALUE = character(1L))
+    if (is.matrix(x_tran) || is.array(x_tran)) {
+      out <- structure(out, dim = dim(x_tran), dimnames = dimnames(x_tran))
+    }
   } else {
     out <- .interpret(x_tran, rules = rules)
   }
