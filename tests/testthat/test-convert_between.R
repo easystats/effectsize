@@ -18,6 +18,30 @@ test_that("exact OR to d", {
   expect_equal(cor(oddsratio_to_r(OR), d_to_r(d)), 1, tolerance = 0.0002)
   expect_equal(oddsratio_to_r(1), 0, tolerance = 0.0001)
   expect_equal(oddsratio_to_r(OR, p0), d_to_r(d))
+
+
+  # From Chen et al 2010
+  chen_tab_1 <- as.matrix(
+    read.table(
+      text = "p0    OR_1    OR_2    OR_3
+        0.0100  1.6814  3.4739  6.7128
+        0.0200  1.6146  3.1332  5.7486
+        0.0300  1.5733  2.9535  5.2592
+        0.0400  1.5455  2.8306  4.9471
+        0.0500  1.5228  2.7416  4.7233
+        0.0600  1.5060  2.6741  4.5536
+        0.0700  1.4926  2.6177  4.4191
+        0.0800  1.4811  2.5707  4.3097
+        0.0900  1.4709  2.5309  4.2167
+        0.1000  1.4615  2.4972  4.1387",
+      header = TRUE
+    )
+  )
+
+  for (i in seq_len(nrow(chen_tab_1))) {
+    d_recovered <- oddsratio_to_d(chen_tab_1[i, 2:4], p0 = chen_tab_1[i, 1])
+    expect_equal(d_recovered, c(0.2, 0.5, 0.8), tolerance = 0.01, ignore_attr = TRUE)
+  }
 })
 
 

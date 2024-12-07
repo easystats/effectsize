@@ -19,6 +19,29 @@ test_that("interpret generic", {
   expect_equal(interpret(c(0, 1), r2)[], c("few", "many"), ignore_attr = TRUE)
 })
 
+
+test_that("interpret matrix / array", {
+  # Matrix
+  r <- cor(mtcars[, 8:11])
+  out <- interpret_r(r)
+
+  expect_equal(dim(out), dim(r))
+  expect_equal(dimnames(out), dimnames(r))
+
+  out2 <- interpret_r(as.vector(r))
+  expect_equal(out2, as.vector(out), ignore_attr = TRUE)
+
+  # Array
+  set.seed(111)
+  p <- array(runif(3 * 2 * 4, max = 0.1), dim = c(3, 2, 4))
+  out <- interpret_p(p, rules = "rss")
+
+  expect_equal(dim(out), dim(p))
+
+  out2 <- interpret_p(as.vector(p), rules = "rss")
+  expect_equal(out2, as.vector(out), ignore_attr = TRUE)
+})
+
 # interpret types ----
 test_that("interpret_r", {
   expect_equal(interpret_r(0.21)[1], "medium")
