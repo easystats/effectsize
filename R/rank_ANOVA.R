@@ -280,9 +280,12 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
 
   boot_fun <- function(.data, .i) {
     split(.data$x, .data$groups) <-
-      lapply(split(.data$x, .data$groups),
+      lapply(
+        split(.data$x, .data$groups),
         function(v) {
-          if (length(v) < 2L) return(v)
+          if (length(v) < 2L) {
+            return(v)
+          }
           sample(v, size = length(v), replace = TRUE)
         }
       )

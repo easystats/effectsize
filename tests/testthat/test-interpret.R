@@ -100,13 +100,15 @@ test_that("interpret_rope", {
 
 test_that("interpret_oddsratio", {
   # Chen 2010, table 1 row 6
-  OR <- c(1.4,  2.5,  4.4, 7.5)
+  OR <- c(1.4, 2.5, 4.4, 7.5)
   p0 <- 0.06
   expect_equal(interpret_oddsratio(OR, p0 = p0), c("very small", "small", "medium", "large"), ignore_attr = TRUE)
   expect_equal(interpret_oddsratio(OR), c("very small", "medium", "large", "large"), ignore_attr = TRUE)
 
-  expect_equal(interpret_oddsratio(c(0.1, 0.5, 2, 10),
-                                   rules(3, c("A", "B"))), c("B", "A", "A", "B"), ignore_attr = TRUE)
+  expect_equal(interpret_oddsratio(
+    c(0.1, 0.5, 2, 10),
+    rules(3, c("A", "B"))
+  ), c("B", "A", "A", "B"), ignore_attr = TRUE)
 })
 
 

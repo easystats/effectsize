@@ -47,5 +47,5 @@ interpret_oddsratio <- function(OR, rules = "cohen1988", p0, log = FALSE, ...) {
     OR <- exp(OR)
   }
 
-  interpret(OR, rules, transform = function(.x) ifelse(.x < 1, 1/.x, .x))
+  interpret(OR, rules, transform = function(.x) ifelse(.x < 1, 1 / .x, .x))
 }
