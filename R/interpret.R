@@ -43,6 +43,10 @@ rules <- function(values, labels = NULL, name = NULL, right = TRUE) {
     insight::format_error("Too many labels for the number of reference values!")
   }
 
+  if (!is.numeric(values)) {
+    insight::format_error("Reference values must be numeric.")
+  }
+
   if (length(values) == length(labels) - 1) {
     if (is.unsorted(values)) {
       insight::format_error("Reference values must be sorted.")

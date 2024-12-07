@@ -11,6 +11,9 @@ test_that("interpret generic", {
   expect_error(rules(c(0.5), c("A", "B", "C")), "Too many")
   expect_error(rules(c(0.5, 0.2, 0.7), c("A", "B", "C", "D")), "sorted")
 
+  expect_error(rules(1), NA)
+  expect_error(rules("a"), "must be numeric")
+
 
   r1 <- rules(c(0, 1), labels = c("some", "few", "many"))
   r2 <- rules(c(0, 1), labels = c("some", "few", "many"), right = FALSE)
@@ -96,11 +99,14 @@ test_that("interpret_rope", {
 
 
 test_that("interpret_oddsratio", {
-  expect_equal(interpret_oddsratio(2)[1], "small")
-  expect_equal(interpret_oddsratio(c(1, 3))[1:2], c("very small", "small"))
-  expect_equal(interpret_oddsratio(c(1, 3), "cohen1988")[1:2], c("very small", "medium"))
-  expect_equal(interpret_oddsratio(0.6, rules(c(0.5), c("A", "B")))[1], "B")
-  expect_error(interpret_oddsratio(0.6, "DUPA"), "must be")
+  # Chen 2010, table 1 row 6
+  OR <- c(1.4,  2.5,  4.4, 7.5)
+  p0 <- 0.06
+  expect_equal(interpret_oddsratio(OR, p0 = p0), c("very small", "small", "medium", "large"), ignore_attr = TRUE)
+  expect_equal(interpret_oddsratio(OR), c("very small", "medium", "large", "large"), ignore_attr = TRUE)
+
+  expect_equal(interpret_oddsratio(c(0.1, 0.5, 2, 10),
+                                   rules(3, c("A", "B"))), c("B", "A", "A", "B"), ignore_attr = TRUE)
 })
 
 
