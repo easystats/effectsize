@@ -4,7 +4,7 @@
 #' @param rules If `"cohen1988"` (default), `OR` is transformed to a
 #'   standardized difference (via [oddsratio_to_d()]) and interpreted according
 #'   to Cohen's rules (see [interpret_cohens_d()]; see Chen et al., 2010). If a
-#'   custom set of [rules()] is used, OR is interperted as is.
+#'   custom set of [rules()] is used, OR is interpreted as is.
 #' @param log Are the provided values log odds ratio.
 #' @inheritParams interpret
 #' @inheritParams oddsratio_to_d
@@ -37,7 +37,7 @@
 #'
 #' @keywords interpreters
 #' @export
-interpret_oddsratio <- function(OR, rules = "cohen1988", p0, log = FALSE, ...) {
+interpret_oddsratio <- function(OR, rules = "cohen1988", p0 = NULL, log = FALSE, ...) {
   if (is.character(rules) && rules == "cohen1988") {
     d <- oddsratio_to_d(OR, p0, log = log)
     return(interpret_cohens_d(d, rules = rules))

@@ -72,7 +72,7 @@ r_to_d <- function(r, n1, n2, ...) {
 #' @rdname d_to_r
 #' @export
 oddsratio_to_d <- function(OR, p0, log = FALSE, ...) {
-  if (missing(p0)) {
+  if (missing(p0) || !is.numeric(p0)) {
     # Use approximation
     if (log) {
       log_OR <- OR

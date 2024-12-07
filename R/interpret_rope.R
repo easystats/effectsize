@@ -29,7 +29,7 @@
 #'
 #' @keywords interpreters
 #' @export
-interpret_rope <- function(rope, ci = 0.9, rules = "default") {
+interpret_rope <- function(rope, rules = "default", ci = 0.9) {
   if (ci < 1) {
     e <- .Machine$double.eps
 

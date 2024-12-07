@@ -73,15 +73,15 @@ interpret_bf <- function(bf,
   interpretation[bf == 0] <- "no"
 
   # interpret direction
-  dir <- interpret(bf, rules(0, c("against", "in favour of")))
-  dir[bf == 0] <- "against or in favour of"
+  direction <- interpret(bf, rules(0, c("against", "in favour of")))
+  direction[bf == 0] <- "against or in favour of"
 
   # Format text
   if (include_value) {
     bf_fmt <- insight::format_bf(exp(bf), protect_ratio = protect_ratio, exact = exact)
-    interpretation[] <- sprintf("%s evidence (%s) %s", interpretation, bf_fmt, dir)
+    interpretation[] <- sprintf("%s evidence (%s) %s", interpretation, bf_fmt, direction)
   } else {
-    interpretation[] <- paste0(interpretation, " evidence ", dir)
+    interpretation[] <- paste0(interpretation, " evidence ", direction)
   }
 
   interpretation[is.na(bf)] <- ""

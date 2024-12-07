@@ -4,14 +4,14 @@
 \alias{interpret_rope}
 \title{Interpret Bayesian Posterior Percentage in ROPE.}
 \usage{
-interpret_rope(rope, ci = 0.9, rules = "default")
+interpret_rope(rope, rules = "default", ci = 0.9)
 }
 \arguments{
 \item{rope}{Value or vector of percentages in ROPE.}
 
-\item{ci}{The Credible Interval (CI) probability, corresponding to the proportion of HDI, that was used. Can be \code{1} in the case of "full ROPE".}
-
 \item{rules}{A character string (see details) or a custom set of \code{\link[=rules]{rules()}}.}
+
+\item{ci}{The Credible Interval (CI) probability, corresponding to the proportion of HDI, that was used. Can be \code{1} in the case of "full ROPE".}
 }
 \description{
 Interpretation of

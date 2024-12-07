@@ -4,7 +4,7 @@
 \alias{interpret_oddsratio}
 \title{Interpret Odds Ratio}
 \usage{
-interpret_oddsratio(OR, rules = "cohen1988", p0, log = FALSE, ...)
+interpret_oddsratio(OR, rules = "cohen1988", p0 = NULL, log = FALSE, ...)
 }
 \arguments{
 \item{OR}{Value or vector of (log) odds ratio values.}
@@ -12,7 +12,7 @@ interpret_oddsratio(OR, rules = "cohen1988", p0, log = FALSE, ...)
 \item{rules}{If \code{"cohen1988"} (default), \code{OR} is transformed to a
 standardized difference (via \code{\link[=oddsratio_to_d]{oddsratio_to_d()}}) and interpreted according
 to Cohen's rules (see \code{\link[=interpret_cohens_d]{interpret_cohens_d()}}; see Chen et al., 2010). If a
-custom set of \code{\link[=rules]{rules()}} is used, OR is interperted as is.}
+custom set of \code{\link[=rules]{rules()}} is used, OR is interpreted as is.}
 
 \item{p0}{Baseline risk. If not specified, the \emph{d} to \emph{OR} conversion uses am approximation (see details).}
 
