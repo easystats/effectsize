@@ -69,7 +69,7 @@ interpret_bf <- function(bf,
     )
   )
 
-  interpretation <- interpret(bf, rules, transform = function(.x) exp(abs(.x)))
+  interpretation <- interpret(bf, rules, transform = function(.x) exp(ifelse(.x < 0, -.x, .x)))
   interpretation[bf == 0] <- "no"
 
   # interpret direction

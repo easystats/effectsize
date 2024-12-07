@@ -1,26 +1,23 @@
 #' Interpret Odds Ratio
 #'
 #' @param OR Value or vector of (log) odds ratio values.
-#' @param rules Can be "`chen2010"` (default), `"cohen1988"` (through
-#'   transformation to standardized difference, see [oddsratio_to_d()]) or custom set
-#'   of [rules()].
+#' @param rules If `"cohen1988"` (default), `OR` is transformed to a
+#'   standardized difference (via [oddsratio_to_d()]) and interpreted according
+#'   to Cohen's rules (see [interpret_cohens_d()]; see Chen et al., 2010). If a
+#'   custom set of [rules()] is used, OR is interperted as is.
 #' @param log Are the provided values log odds ratio.
 #' @inheritParams interpret
+#' @inheritParams oddsratio_to_d
 #'
 #' @section Rules:
 #'
 #' Rules apply to OR as ratios, so OR of 10 is as extreme as a OR of 0.1 (1/10).
 #'
-#' - Chen et al. (2010) (`"chen2010"`; default)
-#'   - **OR < 1.68** - Very small
-#'   - **1.68 <= OR < 3.47** - Small
-#'   - **3.47 <= OR < 6.71** - Medium
-#'   - **OR >= 6.71 ** - Large
 #' - Cohen (1988) (`"cohen1988"`, based on the [oddsratio_to_d()] conversion, see [interpret_cohens_d()])
 #'   - **OR < 1.44** - Very small
 #'   - **1.44 <= OR < 2.48** - Small
 #'   - **2.48 <= OR < 4.27** - Medium
-#'   - **OR >= 4.27 ** - Large
+#'   - **OR >= 4.27** - Large
 #'
 #' @examples
 #' interpret_oddsratio(1)
@@ -40,28 +37,15 @@
 #'
 #' @keywords interpreters
 #' @export
-interpret_oddsratio <- function(OR, rules = "chen2010", log = FALSE, ...) {
-  if (log) {
-    f_transform <- function(.x) exp(abs(.x))
-  } else {
-    f_transform <- function(.x) exp(abs(log(.x)))
-  }
-
-
+interpret_oddsratio <- function(OR, rules = "cohen1988", p0, log = FALSE, ...) {
   if (is.character(rules) && rules == "cohen1988") {
-    d <- oddsratio_to_d(OR, log = log)
+    d <- oddsratio_to_d(OR, p0, log = log)
     return(interpret_cohens_d(d, rules = rules))
   }
 
-  rules <- .match.rules(
-    rules,
-    list(
-      chen2010 = rules(c(1.68, 3.47, 6.71), c("very small", "small", "medium", "large"),
-        name = "chen2010", right = FALSE
-      ),
-      cohen1988 = NA # for correct error msg
-    )
-  )
+  if (log) {
+    OR <- exp(OR)
+  }
 
-  interpret(OR, rules, transform = f_transform)
+  interpret(OR, rules, transform = function(.x) ifelse(.x < 1, 1/.x, .x))
 }
