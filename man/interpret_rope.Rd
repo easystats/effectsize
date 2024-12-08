@@ -11,7 +11,8 @@ interpret_rope(rope, rules = "default", ci = 0.9)
 
 \item{rules}{A character string (see details) or a custom set of \code{\link[=rules]{rules()}}.}
 
-\item{ci}{The Credible Interval (CI) probability, corresponding to the proportion of HDI, that was used. Can be \code{1} in the case of "full ROPE".}
+\item{ci}{The Credible Interval (CI) probability, corresponding to the
+proportion of HDI, that was used. Can be \code{1} in the case of "full ROPE".}
 }
 \description{
 Interpretation of

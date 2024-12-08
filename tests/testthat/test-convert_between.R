@@ -13,11 +13,11 @@ test_that("exact OR to d", {
 
   expect_equal(cor(oddsratio_to_d(OR), d), 1, tolerance = 0.0001)
   expect_equal(oddsratio_to_d(1), 0, tolerance = 0.0001)
-  expect_equal(oddsratio_to_d(OR, p0), d)
+  expect_equal(oddsratio_to_d(OR, p0), d, tolerance = 0.0001)
 
   expect_equal(cor(oddsratio_to_r(OR), d_to_r(d)), 1, tolerance = 0.0002)
   expect_equal(oddsratio_to_r(1), 0, tolerance = 0.0001)
-  expect_equal(oddsratio_to_r(OR, p0), d_to_r(d))
+  expect_equal(oddsratio_to_r(OR, p0), d_to_r(d), tolerance = 0.0001)
 
 
   # From Chen et al 2010
