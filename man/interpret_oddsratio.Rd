@@ -4,14 +4,17 @@
 \alias{interpret_oddsratio}
 \title{Interpret Odds Ratio}
 \usage{
-interpret_oddsratio(OR, rules = "chen2010", log = FALSE, ...)
+interpret_oddsratio(OR, rules = "cohen1988", p0 = NULL, log = FALSE, ...)
 }
 \arguments{
 \item{OR}{Value or vector of (log) odds ratio values.}
 
-\item{rules}{Can be "\verb{chen2010"} (default), \code{"cohen1988"} (through
-transformation to standardized difference, see \code{\link[=oddsratio_to_d]{oddsratio_to_d()}}) or custom set
-of \code{\link[=rules]{rules()}}.}
+\item{rules}{If \code{"cohen1988"} (default), \code{OR} is transformed to a
+standardized difference (via \code{\link[=oddsratio_to_d]{oddsratio_to_d()}}) and interpreted according
+to Cohen's rules (see \code{\link[=interpret_cohens_d]{interpret_cohens_d()}}; see Chen et al., 2010). If a
+custom set of \code{\link[=rules]{rules()}} is used, OR is interpreted as is.}
+
+\item{p0}{Baseline risk. If not specified, the \emph{d} to \emph{OR} conversion uses am approximation (see details).}
 
 \item{log}{Are the provided values log odds ratio.}
 
@@ -25,19 +28,12 @@ Interpret Odds Ratio
 
 Rules apply to OR as ratios, so OR of 10 is as extreme as a OR of 0.1 (1/10).
 \itemize{
-\item Chen et al. (2010) (\code{"chen2010"}; default)
-\itemize{
-\item \strong{OR < 1.68} - Very small
-\item \strong{1.68 <= OR < 3.47} - Small
-\item \strong{3.47 <= OR < 6.71} - Medium
-\item **OR >= 6.71 ** - Large
-}
 \item Cohen (1988) (\code{"cohen1988"}, based on the \code{\link[=oddsratio_to_d]{oddsratio_to_d()}} conversion, see \code{\link[=interpret_cohens_d]{interpret_cohens_d()}})
 \itemize{
 \item \strong{OR < 1.44} - Very small
 \item \strong{1.44 <= OR < 2.48} - Small
 \item \strong{2.48 <= OR < 4.27} - Medium
-\item **OR >= 4.27 ** - Large
+\item \strong{OR >= 4.27} - Large
 }
 }
 }

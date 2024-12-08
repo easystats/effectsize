@@ -3,6 +3,11 @@
 ## New features
 
 - `oddsratio_to_d()` and related functions gain a `p0` argument for exact conversion between odds ratios and Cohen's _d_ (thanks @KohlRaphael for the suggestion).
+- `interpret*()` now accept (and return) matrices and arrays.
+
+## Breaking Changes
+
+- `interpret_oddsratio()` drops the default `"chen2010"` as it was used incorrectly (thanks to @KohlRaphael).
 
 # effectsize 0.8.9
 

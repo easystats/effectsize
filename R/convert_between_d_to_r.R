@@ -72,7 +72,7 @@ r_to_d <- function(r, n1, n2, ...) {
 #' @rdname d_to_r
 #' @export
 oddsratio_to_d <- function(OR, p0, log = FALSE, ...) {
-  if (missing(p0)) {
+  if (missing(p0) || !is.numeric(p0)) {
     # Use approximation
     if (log) {
       log_OR <- OR
@@ -90,7 +90,7 @@ oddsratio_to_d <- function(OR, p0, log = FALSE, ...) {
 
   odds1 <- OR * probs_to_odds(p0)
   p1 <- odds_to_probs(odds1)
-  qnorm(p1) - qnorm(p0)
+  stats::qnorm(p1) - stats::qnorm(p0)
 }
 
 #' @rdname d_to_r

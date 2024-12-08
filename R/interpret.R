@@ -43,6 +43,10 @@ rules <- function(values, labels = NULL, name = NULL, right = TRUE) {
     insight::format_error("Too many labels for the number of reference values!")
   }
 
+  if (!is.numeric(values)) {
+    insight::format_error("Reference values must be numeric.")
+  }
+
   if (length(values) == length(labels) - 1) {
     if (is.unsorted(values)) {
       insight::format_error("Reference values must be sorted.")
@@ -129,8 +133,8 @@ is.rules <- function(x) inherits(x, "rules")
 #' interpret(eta2, rules = "field2013")
 #'
 #' X <- chisq.test(mtcars$am, mtcars$cyl == 8)
-#' interpret(oddsratio(X), rules = "chen2010")
-#' interpret(cramers_v(X), "lovakov2021")
+#' interpret(oddsratio(X), rules = "cohen1988")
+#' interpret(cramers_v(X), rules = "lovakov2021")
 #' @export
 interpret <- function(x, ...) {
   UseMethod("interpret")
@@ -159,6 +163,9 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"),
 
   if (length(x_tran) > 1) {
     out <- vapply(x_tran, .interpret, rules = rules, FUN.VALUE = character(1L))
+    if (is.matrix(x_tran) || is.array(x_tran)) {
+      out <- structure(out, dim = dim(x_tran), dimnames = dimnames(x_tran))
+    }
   } else {
     out <- .interpret(x_tran, rules = rules)
   }
