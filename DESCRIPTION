@@ -1,7 +1,7 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size
-Version: 0.8.9.1
+Version: 1.0.0
 Authors@R: 
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
