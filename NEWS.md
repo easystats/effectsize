@@ -1,4 +1,6 @@
-# effectsize 0.8.9.xxx
+# effectsize 1.0.0
+
+***First stable release of `{effectsize}`!***
 
 ## New features
 
@@ -8,6 +10,7 @@
 ## Breaking Changes
 
 - `interpret_oddsratio()` drops the default `"chen2010"` as it was used incorrectly (thanks to @KohlRaphael).
+- Functions that have been deprecated since _September 2022_ have been removed.
 
 # effectsize 0.8.9
 

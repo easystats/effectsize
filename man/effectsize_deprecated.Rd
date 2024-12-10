@@ -10,17 +10,6 @@
 \alias{convert_d_to_oddsratio}
 \alias{convert_oddsratio_to_r}
 \alias{convert_r_to_oddsratio}
-\alias{interpret_d}
-\alias{interpret_g}
-\alias{interpret_delta}
-\alias{interpret_parameters}
-\alias{normalized_chi}
-\alias{chisq_to_normalized}
-\alias{convert_d_to_common_language}
-\alias{d_to_common_language}
-\alias{convert_rb_to_common_language}
-\alias{rb_to_common_language}
-\alias{common_language}
 \title{Deprecated / Defunct Functions}
 \usage{
 convert_odds_to_probs(...)
@@ -38,28 +27,6 @@ convert_d_to_oddsratio(...)
 convert_oddsratio_to_r(...)
 
 convert_r_to_oddsratio(...)
-
-interpret_d(...)
-
-interpret_g(...)
-
-interpret_delta(...)
-
-interpret_parameters(...)
-
-normalized_chi(...)
-
-chisq_to_normalized(...)
-
-convert_d_to_common_language(...)
-
-d_to_common_language(...)
-
-convert_rb_to_common_language(...)
-
-rb_to_common_language(...)
-
-common_language(...)
 }
 \arguments{
 \item{...}{Arguments to the deprecated function.}
